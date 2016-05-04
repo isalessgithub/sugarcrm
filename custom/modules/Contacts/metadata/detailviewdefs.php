@@ -155,6 +155,11 @@ array (
               ),
             ),
           ),
+          1 => 
+          array (
+            'name' => 'appointment_count_c',
+            'label' => 'LBL_APPOINTMENT_COUNT',
+          ),
         ),
         5 => 
         array (
@@ -211,15 +216,6 @@ array (
             'comment' => 'Full text of the note',
             'label' => 'LBL_DESCRIPTION',
           ),
-        ),
-        9 => 
-        array (
-          0 => 
-          array (
-            'name' => 'appointment_count_c',
-            'label' => 'LBL_APPOINTMENT_COUNT',
-          ),
-          1 => '',
         ),
       ),
       'LBL_PANEL_ADVANCED' => 

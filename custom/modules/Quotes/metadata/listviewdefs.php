@@ -22,6 +22,15 @@ array (
     'link' => false,
     'default' => true,
   ),
+  'TOTAL_USDOLLAR' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_LIST_AMOUNT_USDOLLAR',
+    'link' => false,
+    'default' => true,
+    'currency_format' => true,
+    'align' => 'right',
+  ),
   'ATC_CLIENTS_QUOTES_1_NAME' => 
   array (
     'type' => 'relate',
@@ -39,15 +48,6 @@ array (
     'id' => 'ATC_CLIENTS_QUOTES_2ATC_CLIENTS_IDA',
     'width' => '10%',
     'default' => true,
-  ),
-  'TOTAL_USDOLLAR' => 
-  array (
-    'width' => '10%',
-    'label' => 'LBL_LIST_AMOUNT_USDOLLAR',
-    'link' => false,
-    'default' => true,
-    'currency_format' => true,
-    'align' => 'right',
   ),
   'DATE_QUOTE_EXPECTED_CLOSED' => 
   array (

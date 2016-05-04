@@ -5,6 +5,13 @@ array (
   array (
     'templateMeta' => 
     array (
+ 	'includes' => 
+	array(
+		0 => 
+		array(
+		     'file'=>'custom/modules/Quotes/clients_address.js',
+		),
+	),
       'maxColumns' => '2',
       'widths' => 
       array (
@@ -21,7 +28,7 @@ array (
       ),
       'form' => 
       array (
-        'footerTpl' => 'modules/Quotes/tpls/EditViewFooter.tpl',
+        'footerTpl' => 'custom/modules/Quotes/tpls/EditViewFooter.tpl',
       ),
       'tabDefs' => 
       array (
@@ -93,10 +100,18 @@ array (
           0 => 
           array (
             'name' => 'atc_clients_quotes_1_name',
+	    'displayParams' => array (
+          	'call_back_function' => 'setClientAddress()',
+		//'field' => array('onChange' => 'setClientAddress();',),
+            ),
           ),
           1 => 
           array (
             'name' => 'atc_clients_quotes_2_name',
+	     'displayParams' => array (
+          	'call_back_function' => 'setClientAddress()',
+		//'field' => array('onChange' => 'setClientAddress();',),
+            ),
           ),
         ),
       ),
