@@ -45,7 +45,13 @@ array (
           'newTab' => false,
           'panelDefault' => 'expanded',
         ),
+        'LBL_QUICKBOOKS_PLUGIN' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
       ),
+      'useTabs' => false,
     ),
     'panels' => 
     array (
@@ -79,13 +85,6 @@ array (
           0 => 'payment_terms',
           1 => 'original_po_date',
         ),
-        4 => 
-        array (
-          0 => 
-          array (
-            'name' => 'atc_clients_quotes_1_name',
-          ),
-        ),
       ),
       'lbl_bill_to' => 
       array (
@@ -93,61 +92,11 @@ array (
         array (
           0 => 
           array (
-            'name' => 'billing_account_name',
-            'displayParams' => 
-            array (
-              'key' => 
-              array (
-                0 => 'billing',
-                1 => 'shipping',
-              ),
-              'copy' => 
-              array (
-                0 => 'billing',
-                1 => 'shipping',
-              ),
-              'billingKey' => 'billing',
-              'shippingKey' => 'shipping',
-              'copyPhone' => false,
-              'call_back_function' => 'set_billing_return',
-            ),
+            'name' => 'atc_clients_quotes_1_name',
           ),
           1 => 
           array (
-            'name' => 'shipping_account_name',
-            'displayParams' => 
-            array (
-              'key' => 
-              array (
-                0 => 'shipping',
-              ),
-              'copy' => 
-              array (
-                0 => 'shipping',
-              ),
-              'shippingKey' => 'shipping',
-              'copyPhone' => false,
-              'call_back_function' => 'set_shipping_return',
-            ),
-          ),
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
-            'name' => 'billing_contact_name',
-            'displayParams' => 
-            array (
-              'initial_filter' => '&account_id_advanced="+this.form.{$fields.billing_account_name.id_name}.value+"&account_name_advanced="+this.form.{$fields.billing_account_name.name}.value+"',
-            ),
-          ),
-          1 => 
-          array (
-            'name' => 'shipping_contact_name',
-            'displayParams' => 
-            array (
-              'initial_filter' => '&account_id_advanced="+this.form.{$fields.shipping_account_name.id_name}.value+"&account_name_advanced="+this.form.{$fields.shipping_account_name.name}.value+"',
-            ),
+            'name' => 'atc_clients_quotes_2_name',
           ),
         ),
       ),

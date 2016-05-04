@@ -54,7 +54,13 @@ array (
           'newTab' => false,
           'panelDefault' => 'expanded',
         ),
+        'LBL_QUICKBOOKS_PLUGIN' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
       ),
+      'useTabs' => false,
     ),
     'panels' => 
     array (
@@ -93,15 +99,16 @@ array (
         ),
         4 => 
         array (
-          0 => 'billing_account_name',
-          1 => 'shipping_account_name',
+          0 => 
+          array (
+            'name' => 'atc_clients_quotes_1_name',
+          ),
+          1 => 
+          array (
+            'name' => 'atc_clients_quotes_2_name',
+          ),
         ),
         5 => 
-        array (
-          0 => 'billing_contact_name',
-          1 => 'shipping_contact_name',
-        ),
-        6 => 
         array (
           0 => 
           array (
@@ -124,13 +131,9 @@ array (
             ),
           ),
         ),
-        7 => 
+        6 => 
         array (
           0 => 'description',
-          1 => 
-          array (
-            'name' => 'atc_clients_quotes_1_name',
-          ),
         ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
