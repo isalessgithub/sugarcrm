@@ -41,26 +41,6 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'atc_clients_quotes_1_name' => 
-      array (
-        'type' => 'relate',
-        'link' => true,
-        'label' => 'LBL_ATC_CLIENTS_QUOTES_1_FROM_ATC_CLIENTS_TITLE',
-        'id' => 'ATC_CLIENTS_QUOTES_1ATC_CLIENTS_IDA',
-        'width' => '10%',
-        'default' => true,
-        'name' => 'atc_clients_quotes_1_name',
-      ),
-      'atc_clients_quotes_2_name' => 
-      array (
-        'type' => 'relate',
-        'link' => true,
-        'label' => 'LBL_ATC_CLIENTS_QUOTES_2_FROM_ATC_CLIENTS_TITLE',
-        'id' => 'ATC_CLIENTS_QUOTES_2ATC_CLIENTS_IDA',
-        'width' => '10%',
-        'default' => true,
-        'name' => 'atc_clients_quotes_2_name',
-      ),
       'total_usdollar' => 
       array (
         'name' => 'total_usdollar',
@@ -81,6 +61,26 @@ array (
         'name' => 'date_quote_expected_closed',
         'default' => true,
         'width' => '10%',
+      ),
+      'atc_clients_quotes_1_name' => 
+      array (
+        'type' => 'relate',
+        'link' => true,
+        'label' => 'LBL_ATC_CLIENTS_QUOTES_1_FROM_ATC_CLIENTS_TITLE',
+        'id' => 'ATC_CLIENTS_QUOTES_1ATC_CLIENTS_IDA',
+        'width' => '10%',
+        'default' => true,
+        'name' => 'atc_clients_quotes_1_name',
+      ),
+      'atc_clients_quotes_2_name' => 
+      array (
+        'type' => 'relate',
+        'link' => true,
+        'label' => 'LBL_ATC_CLIENTS_QUOTES_2_FROM_ATC_CLIENTS_TITLE',
+        'id' => 'ATC_CLIENTS_QUOTES_2ATC_CLIENTS_IDA',
+        'width' => '10%',
+        'default' => true,
+        'name' => 'atc_clients_quotes_2_name',
       ),
       'assigned_user_id' => 
       array (
