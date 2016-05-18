@@ -8,6 +8,7 @@ $hook_array['before_save'] = Array();
 $hook_array['before_save'][] = Array(99, 'Create call based on Outcome', 'custom/modules/Contacts/createCallFromContactQuickCreate.php','createCallFromContactQuickCreateC', 'createCallFromContactQuickCreateBeforeSave'); 
 $hook_array['before_save'][] = Array(1, 'workflow', 'include/workflow/WorkFlowHandler.php','WorkFlowHandler', 'WorkFlowHandler'); 
 $hook_array['before_save'][] = Array(2, 'Delete Contact', 'custom/modules/Contacts/logic_hooks/CustomContactsLogic.php','CustomContactsLogic', 'delete_contact_left_company'); 
+$hook_array['before_save'][] = Array(3, 'Update account contact count', 'custom/modules/Contacts/logic_hooks/CustomContactsLogic.php','CustomContactsLogic', 'update_contactcount'); 
 $hook_array['before_save'][] = Array(1, 'Contacts push feed', 'modules/Contacts/SugarFeeds/ContactFeed.php','ContactFeed', 'pushFeed'); 
 $hook_array['after_ui_frame'] = Array(); 
 $hook_array['after_ui_frame'][] = Array(1, 'Contacts InsideView frame', 'modules/Connectors/connectors/sources/ext/rest/insideview/InsideViewLogicHook.php','InsideViewLogicHook', 'showFrame'); 
