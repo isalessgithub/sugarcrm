@@ -3,7 +3,7 @@
  * @author: Miloš Mirić aka eitrix
  */
 
-$GLOBALS['log']->fatal(' start hook ');
+//$GLOBALS['log']->fatal(' start hook ');
 
 $hook_version = 1;
 $hook_array = array();
@@ -19,7 +19,7 @@ $hook_array['after_save'][] = array(1, "Update name", "custom/modules/ATC_Appoin
     $hook_array['after_relationship_delete']=Array();
     $hook_array['after_relationship_delete'][]=Array(1,'Increment or Decrement Appointment count on contact', 'custom/modules/ATC_Appointments/logic_hooks/upd_contact_appointments.php','ContactAppointment','ContactAppointmentCount');
 
-$GLOBALS['log']->fatal(' end  hook ');
+//$GLOBALS['log']->fatal(' end  hook ');
 
 
 ?>
