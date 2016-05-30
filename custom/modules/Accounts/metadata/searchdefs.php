@@ -62,6 +62,15 @@ array (
         'width' => '10%',
         'name' => 'revenue_range_c',
       ),
+      'add_to_target_list_c' => 
+      array (
+        'type' => 'enum',
+        'default' => true,
+        'studio' => 'visible',
+        'label' => 'LBL_ADD_TO_TARGET_LIST',
+        'width' => '10%',
+        'name' => 'add_to_target_list_c',
+      ),
       'website' => 
       array (
         'name' => 'website',
@@ -75,6 +84,15 @@ array (
         'type' => 'name',
         'default' => true,
         'width' => '10%',
+      ),
+      'employees_range_c' => 
+      array (
+        'type' => 'enum',
+        'default' => true,
+        'studio' => 'visible',
+        'label' => 'LBL_EMPLOYEES_RANGE',
+        'width' => '10%',
+        'name' => 'employees_range_c',
       ),
       'email' => 
       array (

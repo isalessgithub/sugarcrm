@@ -31,8 +31,8 @@ $GLOBALS['log']->fatal("Inside foreach");
                 */
          // check if the related module is accounts
         if ($arguments['related_module'] == 'Accounts') {
-           // create an account object
-           $account = BeanFactory::getBean('Accounts', $arguments['related_id']);
+          // create an account object
+          $account = BeanFactory::getBean('Accounts', $arguments['related_id']);
           // load the contacts relationship
           //$account->load_relationship('contacts');
           $contacts = $account->get_linked_beans('contacts','Contact');
@@ -40,9 +40,11 @@ $GLOBALS['log']->fatal("Inside foreach");
           $targetlist= BeanFactory::getBean('ProspectLists', $arguments['id']);
           $GLOBALS['log']->fatal(var_dump($account->contacts));
           foreach($contacts as $contact){
-$GLOBALS['log']->fatal("Inside foreach");
+	     if($contact->id != ''){
+	     $GLOBALS['log']->fatal("Inside foreach");
              $targetlist->load_relationship('contacts');
-             $targetlist->contacts->delete($contact->id);
+             $targetlist->contacts->delete($targetlist->id, $contact->id);
+	     }
           }
         }
       }

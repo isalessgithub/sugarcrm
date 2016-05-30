@@ -27,7 +27,7 @@ function renderLogCall($moduleName = '', $record = '', $logcall_options = array(
   while (($rows = $db->fetchByAssoc($result)) != null) {
     // replace special characters because newline for example is not allowed in JSON
     foreach ($rows as $k => $v) {
-      $rows[$k] = trim(preg_replace('/(\r\n)|\n|\t|\r/', '', $v));
+      $rows[$k] = trim(preg_replace('/(\r\n)|\n|\t|\r|\\\\/', '', $v));
     }
     $history[] = $rows;
 
