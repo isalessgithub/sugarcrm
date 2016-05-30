@@ -101,7 +101,7 @@ array (
           array (
             'name' => 'atc_clients_quotes_1_name',
 	    'displayParams' => array (
-          	'call_back_function' => 'setClientAddress()',
+          	'call_back_function' => 'setClientAddress',
 		//'field' => array('onChange' => 'setClientAddress();',),
             ),
           ),
@@ -109,7 +109,7 @@ array (
           array (
             'name' => 'atc_clients_quotes_2_name',
 	     'displayParams' => array (
-          	'call_back_function' => 'setClientAddress()',
+          	'call_back_function' => 'setClientAddress',
 		//'field' => array('onChange' => 'setClientAddress();',),
             ),
           ),
