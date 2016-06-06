@@ -49,11 +49,13 @@ array (
     'width' => '10%',
     'default' => true,
   ),
-  'DATE_QUOTE_EXPECTED_CLOSED' => 
+  'ATC_ISSCAMPAIGNS_QUOTES_1_NAME' => 
   array (
-    'width' => '15%',
-    'label' => 'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED',
-    'link' => false,
+    'type' => 'relate',
+    'link' => true,
+    'label' => 'LBL_ATC_ISSCAMPAIGNS_QUOTES_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
+    'id' => 'ATC_ISSCAMPAIGNS_QUOTES_1ATC_ISSCAMPAIGNS_IDA',
+    'width' => '10%',
     'default' => true,
   ),
   'ASSIGNED_USER_NAME' => 

@@ -133,7 +133,11 @@ array (
         ),
         6 => 
         array (
-          0 => 'description',
+          0 => 
+          array (
+            'name' => 'atc_isscampaigns_quotes_1_name',
+          ),
+          1 => 'description',
         ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 

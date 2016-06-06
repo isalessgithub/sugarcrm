@@ -143,6 +143,7 @@ $GLOBALS['app_list_strings']['positive_appointment_list']=array (
   'C._Positive_because_the_contact_directed_us_to_another_decision_maker.' => 'C.    Positive because the contact directed us to another decision maker.',
   'D_Negative_Not_worth_my_time.' => 'D.    Negative, Not worth my time.',
 );
+
 $GLOBALS['app_list_strings']['industry_dom']=array (
   'Banking' => 'Banku pakalpojumi',
   'Chemicals' => 'Ķīmiskā rūpniecība',
@@ -161,7 +162,6 @@ $GLOBALS['app_list_strings']['industry_dom']=array (
   'FinancialServices' => 'Financial Services',
   'FoodandBeverage' => 'Food & Beverage ',
   'HealthcarePharmaceuticalsandBiotech' => 'Healthcare, Pharmaceuticals, & Biotech ',
-  'LeisureSportsandRecreation' => 'Leisure, Sports & Recreation ',
   'MediaandEntertainment' => 'Media & Entertainment ',
   'NetworkingEquipmentandSystems' => 'Networking Equipment and Systems ',
   'Other' => 'Other ',
@@ -171,7 +171,6 @@ $GLOBALS['app_list_strings']['industry_dom']=array (
   'Telecommunications' => 'Telecommunications ',
   'TransportationandStorage' => 'Transportation & Storage ',
   'WholesaleandDistribution' => 'Wholesale & Distribution ',
-  'Electronics' => 'Electronics',
   'TravelRecreationandLeisure' => 'Travel, Recreation and Leisure',
   'Client_or_Reseller' => 'Client or Reseller',
   'Quickbooks_Client' => 'Quickbooks Client',

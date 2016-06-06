@@ -45,6 +45,23 @@ array (
         'default' => true,
         'width' => '10%',
       ),
+      'add_to_target_list_c' => 
+      array (
+        'type' => 'enum',
+        'default' => true,
+        'studio' => 'visible',
+        'label' => 'LBL_ADD_TO_TARGET_LIST',
+        'width' => '10%',
+        'name' => 'add_to_target_list_c',
+      ),
+      'phone' => 
+      array (
+        'name' => 'phone',
+        'label' => 'LBL_ANY_PHONE',
+        'type' => 'name',
+        'default' => true,
+        'width' => '10%',
+      ),
       'annual_revenue' => 
       array (
         'type' => 'varchar',
@@ -62,26 +79,9 @@ array (
         'width' => '10%',
         'name' => 'revenue_range_c',
       ),
-      'add_to_target_list_c' => 
-      array (
-        'type' => 'enum',
-        'default' => true,
-        'studio' => 'visible',
-        'label' => 'LBL_ADD_TO_TARGET_LIST',
-        'width' => '10%',
-        'name' => 'add_to_target_list_c',
-      ),
       'website' => 
       array (
         'name' => 'website',
-        'default' => true,
-        'width' => '10%',
-      ),
-      'phone' => 
-      array (
-        'name' => 'phone',
-        'label' => 'LBL_ANY_PHONE',
-        'type' => 'name',
         'default' => true,
         'width' => '10%',
       ),
@@ -152,22 +152,6 @@ array (
       'industry' => 
       array (
         'name' => 'industry',
-        'default' => true,
-        'width' => '10%',
-      ),
-      'assigned_user_id' => 
-      array (
-        'name' => 'assigned_user_id',
-        'type' => 'enum',
-        'label' => 'LBL_ASSIGNED_TO',
-        'function' => 
-        array (
-          'name' => 'get_user_array',
-          'params' => 
-          array (
-            0 => false,
-          ),
-        ),
         'default' => true,
         'width' => '10%',
       ),

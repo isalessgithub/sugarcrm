@@ -8,22 +8,28 @@ array (
     'link' => true,
     'default' => true,
   ),
+  'PHONE_OFFICE' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_LIST_PHONE',
+    'default' => true,
+  ),
+  'WEBSITE' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_WEBSITE',
+    'default' => true,
+  ),
   'BILLING_ADDRESS_CITY' => 
   array (
     'width' => '10%',
     'label' => 'LBL_LIST_CITY',
     'default' => true,
   ),
-  'BILLING_ADDRESS_COUNTRY' => 
+  'BILLING_ADDRESS_STATE' => 
   array (
-    'width' => '10%',
-    'label' => 'LBL_BILLING_ADDRESS_COUNTRY',
-    'default' => true,
-  ),
-  'ANNUAL_REVENUE' => 
-  array (
-    'width' => '10%',
-    'label' => 'LBL_ANNUAL_REVENUE',
+    'width' => '5%',
+    'label' => 'LBL_BILLING_ADDRESS_STATE',
     'default' => true,
   ),
   'REVENUE_RANGE_C' => 
@@ -40,12 +46,6 @@ array (
     'label' => 'LBL_EMPLOYEES',
     'default' => true,
   ),
-  'PHONE_OFFICE' => 
-  array (
-    'width' => '10%',
-    'label' => 'LBL_LIST_PHONE',
-    'default' => true,
-  ),
   'DATE_ENTERED' => 
   array (
     'width' => '5%',
@@ -57,7 +57,7 @@ array (
     'type' => 'int',
     'default' => true,
     'label' => 'LBL_CONTACT_COUNT',
-    'width' => '10%',
+    'width' => '7%',
   ),
   'LOG_CALL_C' => 
   array (
@@ -73,8 +73,17 @@ array (
       'wireless_basic_search' => false,
     ),
     'label' => 'LBL_LOG_CALL',
-    'width' => '10%',
+    'width' => '5%',
     'default' => true,
+  ),
+  'PARENT_NAME' => 
+  array (
+    'type' => 'relate',
+    'link' => true,
+    'label' => 'LBL_MEMBER_OF',
+    'id' => 'PARENT_ID',
+    'width' => '10%',
+    'default' => false,
   ),
   'TEAM_NAME' => 
   array (
@@ -106,10 +115,16 @@ array (
     'label' => 'LBL_BILLING_ADDRESS_STREET',
     'default' => false,
   ),
-  'BILLING_ADDRESS_STATE' => 
+  'ANNUAL_REVENUE' => 
   array (
-    'width' => '7%',
-    'label' => 'LBL_BILLING_ADDRESS_STATE',
+    'width' => '10%',
+    'label' => 'LBL_ANNUAL_REVENUE',
+    'default' => false,
+  ),
+  'BILLING_ADDRESS_COUNTRY' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_BILLING_ADDRESS_COUNTRY',
     'default' => false,
   ),
   'BILLING_ADDRESS_POSTALCODE' => 
@@ -175,12 +190,6 @@ array (
   array (
     'width' => '10%',
     'label' => 'LBL_OTHER_PHONE',
-    'default' => false,
-  ),
-  'WEBSITE' => 
-  array (
-    'width' => '10%',
-    'label' => 'LBL_WEBSITE',
     'default' => false,
   ),
   'OWNERSHIP' => 

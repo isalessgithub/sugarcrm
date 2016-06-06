@@ -59,6 +59,11 @@ array (
           'newTab' => false,
           'panelDefault' => 'expanded',
         ),
+        'LBL_QUICKBOOKS_PLUGIN' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
       ),
     ),
     'panels' => 
@@ -94,13 +99,8 @@ array (
         array (
           0 => 
           array (
-            'name' => 'website',
-            'type' => 'link',
-            'label' => 'LBL_WEBSITE',
-            'displayParams' => 
-            array (
-              'link_target' => '_blank',
-            ),
+            'name' => 'parent_name',
+            'label' => 'LBL_MEMBER_OF',
           ),
           1 => 
           array (
@@ -136,9 +136,13 @@ array (
         array (
           0 => 
           array (
-            'name' => 'email1',
-            'studio' => 'false',
-            'label' => 'LBL_EMAIL',
+            'name' => 'website',
+            'type' => 'link',
+            'label' => 'LBL_WEBSITE',
+            'displayParams' => 
+            array (
+              'link_target' => '_blank',
+            ),
           ),
           1 => 
           array (
@@ -163,20 +167,6 @@ array (
         array (
           0 => 
           array (
-            'name' => 'account_type',
-            'comment' => 'The Company is of this type',
-            'label' => 'LBL_TYPE',
-          ),
-          1 => 
-          array (
-            'name' => 'contact_count_c',
-            'label' => 'LBL_CONTACT_COUNT',
-          ),
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
             'name' => 'industry',
             'comment' => 'The company belongs in this industry',
             'label' => 'LBL_INDUSTRY',
@@ -188,7 +178,7 @@ array (
             'label' => 'LBL_SUB_INDUSTRY_1',
           ),
         ),
-        2 => 
+        1 => 
         array (
           0 => 
           array (
@@ -203,7 +193,7 @@ array (
             'label' => 'LBL_SUB_INDUSTRY_2',
           ),
         ),
-        3 => 
+        2 => 
         array (
           0 => 
           array (
@@ -218,43 +208,43 @@ array (
             'label' => 'LBL_ANNUAL_REVENUE',
           ),
         ),
-        4 => 
+        3 => 
         array (
           0 => 
           array (
-            'name' => 'sic_code',
-            'comment' => 'SIC code of the account',
-            'label' => 'LBL_SIC_CODE',
+            'name' => 'employees_range_c',
+            'studio' => 'visible',
+            'label' => 'LBL_EMPLOYEES_RANGE',
           ),
           1 => 
           array (
-            'name' => 'ticker_symbol',
-            'comment' => 'The stock trading (ticker) symbol for the company',
-            'label' => 'LBL_TICKER_SYMBOL',
+            'name' => 'employees',
+            'comment' => 'Number of employees, varchar to accomodate for both number (100) or range (50-100)',
+            'label' => 'LBL_EMPLOYEES',
+          ),
+        ),
+        4 => 
+        array (
+          0 => 'campaign_name',
+          1 => 
+          array (
+            'name' => 'contact_count_c',
+            'label' => 'LBL_CONTACT_COUNT',
           ),
         ),
         5 => 
         array (
           0 => 
           array (
-            'name' => 'parent_name',
-            'label' => 'LBL_MEMBER_OF',
+            'name' => 'email1',
+            'studio' => 'false',
+            'label' => 'LBL_EMAIL',
           ),
           1 => 
           array (
             'name' => 'ownership',
             'comment' => '',
             'label' => 'LBL_OWNERSHIP',
-          ),
-        ),
-        6 => 
-        array (
-          0 => 'campaign_name',
-          1 => 
-          array (
-            'name' => 'rating',
-            'comment' => 'An arbitrary rating for this company for use in comparisons with others',
-            'label' => 'LBL_RATING',
           ),
         ),
       ),

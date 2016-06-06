@@ -5,13 +5,13 @@ array (
   array (
     'templateMeta' => 
     array (
- 	'includes' => 
-	array(
-		0 => 
-		array(
-		     'file'=>'custom/modules/Quotes/clients_address.js',
-		),
-	),
+      'includes' => 
+      array (
+        0 => 
+        array (
+          'file' => 'custom/modules/Quotes/clients_address.js',
+        ),
+      ),
       'maxColumns' => '2',
       'widths' => 
       array (
@@ -100,18 +100,25 @@ array (
           0 => 
           array (
             'name' => 'atc_clients_quotes_1_name',
-	    'displayParams' => array (
-          	'call_back_function' => 'setClientAddress()',
-		//'field' => array('onChange' => 'setClientAddress();',),
+            'displayParams' => 
+            array (
+              'call_back_function' => 'setClientAddress()',
             ),
           ),
           1 => 
           array (
             'name' => 'atc_clients_quotes_2_name',
-	     'displayParams' => array (
-          	'call_back_function' => 'setClientAddress()',
-		//'field' => array('onChange' => 'setClientAddress();',),
+            'displayParams' => 
+            array (
+              'call_back_function' => 'setClientAddress()',
             ),
+          ),
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            'name' => 'atc_isscampaigns_quotes_1_name',
           ),
         ),
       ),
