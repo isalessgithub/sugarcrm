@@ -9,6 +9,8 @@ $hook_version = 1;
 $hook_array = array();
 $hook_array['before_save'] = array();
 $hook_array['before_save'][] = array(1, "Update direct_phone", "custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php", "CustomAppointmentsLH", "update_direct_phone");
+$hook_array['before_save'][] = Array(2, "update last appointment date","custom/modules/ATC_Appointments/logic_hooks/updateLastAppointmentDate.php","updateLastAppointmentDate","updateAppointmentDate");
+
 $hook_array['after_save'] = array();
 $hook_array['after_save'][] = array(1, "Update name", "custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php", "CustomAppointmentsLH", "update_name");
 
@@ -18,7 +20,6 @@ $hook_array['after_save'][] = array(1, "Update name", "custom/modules/ATC_Appoin
 
     $hook_array['after_relationship_delete']=Array();
     $hook_array['after_relationship_delete'][]=Array(1,'Increment or Decrement Appointment count on contact', 'custom/modules/ATC_Appointments/logic_hooks/upd_contact_appointments.php','ContactAppointment','ContactAppointmentCount');
-
 //$GLOBALS['log']->fatal(' end  hook ');
 
 

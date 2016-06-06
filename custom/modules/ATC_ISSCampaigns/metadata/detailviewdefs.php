@@ -174,6 +174,15 @@ array (
             'label' => 'LBL_DATE_MODIFIED',
           ),
         ),
+        11 => 
+        array (
+          0 => 
+          array (
+            'name' => 'last_appointment_date_c',
+            'label' => 'LBL_LAST_APPOINTMENT_DATE',
+          ),
+          1 => '',
+        ),
       ),
       'lbl_editview_panel1' => 
       array (

@@ -176,3 +176,9 @@ $GLOBALS['app_list_strings']['industry_dom']=array (
   'Client_or_Reseller' => 'Client or Reseller',
   'Quickbooks_Client' => 'Quickbooks Client',
 );
+$GLOBALS['app_list_strings']['payment_terms']=array (
+  '' => '',
+  'Net 15' => '15 dies',
+  'Net 30' => '30 dies',
+  'Net_60' => 'Net 60',
+);

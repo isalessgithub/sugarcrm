@@ -1,5 +1,5 @@
 <?php
-// created: 2015-04-28 10:52:46
+// created: 2016-06-06 11:25:26
 $mod_strings = array (
   'LBL_ASSIGNED_TO_NAME' => 'Account Manager',
   'LBL_APPOINTMENT_TARGET_MONTHLY' => 'Appointment Target (Monthly)',
@@ -30,4 +30,6 @@ $mod_strings = array (
   'LBL_REPORTING' => 'Final Report Sent',
   'LBL_CAMPAIGN_STATUS' => 'Campaign Status',
   'LBL_POTENTIAL_START_MONTH' => 'Potential Start Month',
+  'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_APPOINTMENTS_TITLE' => 'Appointments',
+  'LBL_ATC_ISSCAMPAIGNS_QUOTES_1_FROM_QUOTES_TITLE' => 'Quotes',
 );
