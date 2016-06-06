@@ -10,9 +10,13 @@ class ContactAppointment
               if($arguments['related_module'] == "Contacts")
               {
                 $contact = BeanFactory::getBean('Contacts',$arguments['related_id']);
-		$contact->load_relationship('atc_appointments_contacts');
+		//$contact->load_relationship('atc_appointments_contacts');
+
+		$GLOBALS['log']->fatal($contact->id);
 		$apps = $contact->atc_appointments_contacts->getBeans();
+		$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->appointment_count_c = count($apps);
+		$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->save(FALSE);
               }
               if($arguments['related_module'] == "ATC_ISSCampaigns")
