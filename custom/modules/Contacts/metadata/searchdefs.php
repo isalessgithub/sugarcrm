@@ -111,6 +111,16 @@ array (
         'width' => '10%',
         'name' => 'call_outcome_c',
       ),
+      'report_to_name' => 
+      array (
+        'type' => 'relate',
+        'link' => true,
+        'label' => 'LBL_REPORTS_TO',
+        'id' => 'REPORTS_TO_ID',
+        'width' => '10%',
+        'default' => true,
+        'name' => 'report_to_name',
+      ),
       'account_name' => 
       array (
         'name' => 'account_name',
