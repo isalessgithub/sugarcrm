@@ -1,8 +1,9 @@
-function setClientAddress(){
+function setClientAddress(popup_reply_data){
 	//src_form = document.getElementById('EditView');
 	var client = $('#atc_clients_quotes_1atc_clients_ida').val();
 	var partner_client = $('#atc_clients_quotes_2atc_clients_ida').val();
 	var copy_add = 0;
+console.log(popup_reply_data);
 	if($('#shipping_checkbox').is(':checked')){copy_add = 1;}
 
 

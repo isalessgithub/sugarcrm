@@ -1,5 +1,4 @@
 <?php
- // created: 2016-06-06 12:06:50
 $layout_defs["ATC_ISSCampaigns"]["subpanel_setup"]['atc_isscampaigns_quotes_1'] = array (
   'order' => 100,
   'module' => 'Quotes',
