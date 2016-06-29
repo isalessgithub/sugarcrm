@@ -5,6 +5,7 @@ class beforeSaveRelationship
   {
     if($bean->atc_clients_quotes_1atc_clients_ida != null)
     {
+	if($bean->client_email_address_c == ""){
       $client = new ATC_Clients();
       $email_addresses = new SugarEmailAddress;
       $client->retrieve($bean->atc_clients_quotes_1atc_clients_ida);
@@ -29,6 +30,7 @@ class beforeSaveRelationship
 	}
       }
     }
+	}
     else
     {
       $bean->client_email_address_c = "";
