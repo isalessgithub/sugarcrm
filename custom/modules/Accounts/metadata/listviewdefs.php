@@ -28,7 +28,7 @@ array (
   ),
   'BILLING_ADDRESS_STATE' => 
   array (
-    'width' => '5%',
+    'width' => '8%',
     'label' => 'LBL_BILLING_ADDRESS_STATE',
     'default' => true,
   ),
@@ -40,17 +40,13 @@ array (
     'label' => 'LBL_REVENUE_RANGE',
     'width' => '10%',
   ),
-  'EMPLOYEES' => 
+  'EMPLOYEES_RANGE_C' => 
   array (
+    'type' => 'enum',
+    'default' => true,
+    'studio' => 'visible',
+    'label' => 'LBL_EMPLOYEES_RANGE',
     'width' => '10%',
-    'label' => 'LBL_EMPLOYEES',
-    'default' => true,
-  ),
-  'DATE_ENTERED' => 
-  array (
-    'width' => '5%',
-    'label' => 'LBL_DATE_ENTERED',
-    'default' => true,
   ),
   'CONTACT_COUNT_C' => 
   array (
@@ -58,6 +54,12 @@ array (
     'default' => true,
     'label' => 'LBL_CONTACT_COUNT',
     'width' => '7%',
+  ),
+  'DATE_ENTERED' => 
+  array (
+    'width' => '7%',
+    'label' => 'LBL_DATE_ENTERED',
+    'default' => true,
   ),
   'LOG_CALL_C' => 
   array (
@@ -121,6 +123,12 @@ array (
     'label' => 'LBL_ANNUAL_REVENUE',
     'default' => false,
   ),
+  'EMPLOYEES' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_EMPLOYEES',
+    'default' => false,
+  ),
   'BILLING_ADDRESS_COUNTRY' => 
   array (
     'width' => '10%',
@@ -131,12 +139,6 @@ array (
   array (
     'width' => '10%',
     'label' => 'LBL_BILLING_ADDRESS_POSTALCODE',
-    'default' => false,
-  ),
-  'SHIPPING_ADDRESS_STREET' => 
-  array (
-    'width' => '15%',
-    'label' => 'LBL_SHIPPING_ADDRESS_STREET',
     'default' => false,
   ),
   'EMAIL1' => 

@@ -52,6 +52,11 @@ array (
           'newTab' => true,
           'panelDefault' => 'expanded',
         ),
+        'LBL_QUICKBOOKS_PLUGIN' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
       ),
     ),
     'panels' => 
@@ -147,24 +152,44 @@ array (
       array (
         0 => 
         array (
-          0 => 
-          array (
-            'name' => 'contact_count_c',
-            'label' => 'LBL_CONTACT_COUNT',
-          ),
-          1 => 'employees',
+          0 => 'parent_name',
+          1 => 'industry',
         ),
         1 => 
         array (
-          0 => 'industry',
-          1 => 
+          0 => 
           array (
             'name' => 'sub_industry_1_c',
             'studio' => 'visible',
             'label' => 'LBL_SUB_INDUSTRY_1',
           ),
+          1 => 'employees',
         ),
         2 => 
+        array (
+          0 => 
+          array (
+            'name' => 'employees_range_c',
+            'studio' => 'visible',
+            'label' => 'LBL_EMPLOYEES_RANGE',
+          ),
+          1 => 'annual_revenue',
+        ),
+        3 => 
+        array (
+          0 => 
+          array (
+            'name' => 'revenue_range_c',
+            'studio' => 'visible',
+            'label' => 'LBL_REVENUE_RANGE',
+          ),
+          1 => 
+          array (
+            'name' => 'contact_count_c',
+            'label' => 'LBL_CONTACT_COUNT',
+          ),
+        ),
+        4 => 
         array (
           0 => 
           array (
@@ -179,24 +204,9 @@ array (
             'label' => 'LBL_SUB_INDUSTRY_2',
           ),
         ),
-        3 => 
-        array (
-          0 => 
-          array (
-            'name' => 'revenue_range_c',
-            'studio' => 'visible',
-            'label' => 'LBL_REVENUE_RANGE',
-          ),
-          1 => 'annual_revenue',
-        ),
-        4 => 
-        array (
-          0 => 'sic_code',
-          1 => 'ticker_symbol',
-        ),
         5 => 
         array (
-          0 => 'parent_name',
+          0 => 'ticker_symbol',
           1 => 'ownership',
         ),
         6 => 

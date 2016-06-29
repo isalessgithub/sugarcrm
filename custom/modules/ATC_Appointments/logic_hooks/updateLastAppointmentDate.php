@@ -37,7 +37,6 @@
             $campaign->save(false);
           // compare the two dates
           }else if(  strtotime($bean->fetched_row['date_entered'])  > strtotime( $campaign->last_appointment_date_c) ){;
-    	    $GLOBALS['log']->fatal("date higher");
             $campaign->last_appointment_date_c=$appointment_date;
             $campaign->save(false);
           }

@@ -155,6 +155,14 @@ array (
         'default' => true,
         'width' => '10%',
       ),
+      'date_entered' => 
+      array (
+        'type' => 'datetime',
+        'label' => 'LBL_DATE_ENTERED',
+        'width' => '10%',
+        'default' => true,
+        'name' => 'date_entered',
+      ),
       'favorites_only' => 
       array (
         'name' => 'favorites_only',

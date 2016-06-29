@@ -52,6 +52,7 @@ function toggle_domain_name(list_type)  {ldelim}
           'panelDefault' => 'expanded',
         ),
       ),
+      'useTabs' => false,
     ),
     'panels' => 
     array (
@@ -94,7 +95,9 @@ function toggle_domain_name(list_type)  {ldelim}
         array (
           0 => 
           array (
-            'name' => 'accounts_prospectlists_1_name',
+            'name' => 'clients_c',
+            'studio' => 'visible',
+            'label' => 'LBL_CLIENTS',
           ),
           1 => 
           array (
