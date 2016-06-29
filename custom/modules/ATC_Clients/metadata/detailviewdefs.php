@@ -148,6 +148,13 @@ array (
             'name' => 'users_atc_clients_1_name',
           ),
         ),
+        12 => 
+        array (
+          0 => 
+          array (
+            'name' => 'prospectlists_atc_clients_1_name',
+          ),
+        ),
       ),
       'lbl_detailview_panel1' => 
       array (

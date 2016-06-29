@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_QUICKCREATE_PANEL2' => 'New Panel 2',
   'LBL_INVOICED' => 'Invoice_details',
   'LBL_APPOINTMENTS_SET' => 'Appointments Set',
+  'LBL_LAST_APPOINTMENT_DATE' => 'Last Appointment Date',
   'LBL_RECALCULATE' => 'Recalculate',
   'LBL_REPORTING' => 'Final Report Sent',
   'LBL_CAMPAIGN_STATUS' => 'Campaign Status',

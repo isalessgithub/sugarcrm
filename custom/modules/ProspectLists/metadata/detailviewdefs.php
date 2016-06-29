@@ -75,7 +75,9 @@ array (
           0 => 'description',
           1 => 
           array (
-            'name' => 'accounts_prospectlists_1_name',
+            'name' => 'clients_c',
+            'studio' => 'visible',
+            'label' => 'LBL_CLIENTS',
           ),
         ),
         3 => 
