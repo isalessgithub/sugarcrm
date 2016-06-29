@@ -787,7 +787,6 @@ class SugarEmailAddress extends SugarBean {
                 AND ear.deleted = 0
                 ORDER BY ear.reply_to_address, ear.primary_address DESC";
         $r = $this->db->query($q);
-
         while($a = $this->db->fetchByAssoc($r, FALSE)) {
             $return[] = $a;
         }

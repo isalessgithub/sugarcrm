@@ -30,9 +30,9 @@
           // store the campaign and appointment dates
           $appointment_date=date('Y-m-d', strtotime($bean->fetched_row['date_entered']));
           $campaign_date=$campaign->last_appointment_date_c;
-
           // check for an empty field
           if ($campaign_date==""){
+	    $GLOBALS['log']->fatal("empty date");
             $campaign->last_appointment_date_c=$appointment_date;
             $campaign->save(false);
           // compare the two dates

@@ -112,6 +112,15 @@ array (
         array (
           0 => 
           array (
+            'name' => 'client_email_address_c',
+            'label' => 'LBL_CLIENT_EMAIL_ADDRESS',
+          ),
+          1 => '',
+        ),
+        6 => 
+        array (
+          0 => 
+          array (
             'name' => 'billing_address_street',
             'label' => 'LBL_BILL_TO',
             'type' => 'address',
@@ -131,7 +140,7 @@ array (
             ),
           ),
         ),
-        6 => 
+        7 => 
         array (
           0 => 
           array (
