@@ -1,5 +1,5 @@
 <?php
-// created: 2016-02-05 09:20:22
+// created: 2016-07-13 13:35:49
 $mod_strings = array (
   'LBL_APPOINTMENT_STATUS' => 'Appointment Status',
   'LBL_SALES_REP_FEEDBACK' => 'Sales Rep Feedback',
@@ -28,4 +28,5 @@ $mod_strings = array (
   'LBL_POSITIVE_APPOINTMENT' => 'Positive Appointment',
   'LBL_SECOND_APPOINTMENT' => 'Second Appointment',
   'LBL_ACTSAS' => 'LBL_ACTSAS',
+  'LBL_CONTACT_EMAIL' => 'Contact Email',
 );
