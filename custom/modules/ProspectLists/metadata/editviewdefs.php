@@ -62,6 +62,15 @@ function toggle_domain_name(list_type)  {ldelim}
         array (
           0 => 
           array (
+            'name' => 'client_edit_disabled_c',
+            'label' => 'LBL_CLIENT_EDIT_DISABLED',
+          ),
+          1 => '',
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
             'name' => 'name',
             'displayParams' => 
             array (
@@ -78,7 +87,7 @@ function toggle_domain_name(list_type)  {ldelim}
             ),
           ),
         ),
-        1 => 
+        2 => 
         array (
           0 => 
           array (
@@ -91,7 +100,7 @@ function toggle_domain_name(list_type)  {ldelim}
             'customCode' => '<div {if $fields.list_type.value != "exempt_domain"} style=\'display:none\'{/if} id=\'domain_name_div\'><input name="domain_name" id="domain_name" maxlength="255" type="text" value="{$fields.domain_name.value}"></div>',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (

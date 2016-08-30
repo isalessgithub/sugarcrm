@@ -58,6 +58,15 @@ array (
       array (
         0 => 
         array (
+          0 => 
+          array (
+            'name' => 'client_edit_disabled_c',
+            'label' => 'LBL_CLIENT_EDIT_DISABLED',
+          ),
+          1 => '',
+        ),
+        1 => 
+        array (
           0 => 'name',
           1 => 
           array (
@@ -65,12 +74,12 @@ array (
             'label' => 'LBL_ENTRIES',
           ),
         ),
-        1 => 
+        2 => 
         array (
           0 => 'list_type',
           1 => 'domain_name',
         ),
-        2 => 
+        3 => 
         array (
           0 => 'description',
           1 => 
@@ -80,7 +89,7 @@ array (
             'label' => 'LBL_CLIENTS',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (

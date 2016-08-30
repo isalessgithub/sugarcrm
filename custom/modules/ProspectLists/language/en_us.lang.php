@@ -4,4 +4,5 @@ $mod_strings = array (
   'LBL_NAME' => 'Name',
   'LBL_TYPE' => 'Type',
   'LBL_CLIENTS' => 'Clients',
+  'LBL_CLIENT_EDIT_DISABLED' => 'Client Edit Disabled',
 );
