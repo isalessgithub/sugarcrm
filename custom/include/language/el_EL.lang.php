@@ -54,15 +54,6 @@ $GLOBALS['app_list_strings']['opportunity_amount_list']=array (
   400 => '400 - 1m',
   '1m' => '1m +',
 );
-
-$GLOBALS['app_list_strings']['appointment_status']=array (
-  '' => '',
-  'Attended' => 'Attended',
-  'Canceled' => 'Canceled',
-  'Accepted' => 'Accepted',
-  'Reschedule' => 'Reschedule',
-  'Attended_Policy' => 'Attended by Policy',
-);
 $GLOBALS['app_list_strings']['appointment_status_list']=array (
   'Confirmed' => 'Confirmed',
   'Accepted' => 'Accepted',
@@ -165,4 +156,14 @@ $GLOBALS['app_list_strings']['payment_terms']=array (
   'Net 15' => 'Net 15',
   'Net 30' => 'Net 30',
   'Net_60' => 'Net 60',
+);
+
+$GLOBALS['app_list_strings']['appointment_status']=array (
+  '' => '',
+  'Attended' => 'Attended',
+  'Canceled' => 'Canceled',
+  'Accepted' => 'Accepted',
+  'Reschedule' => 'Reschedule',
+  'Attended_Policy' => 'Attended by Policy',
+  'Nurture' => 'Nurture',
 );
