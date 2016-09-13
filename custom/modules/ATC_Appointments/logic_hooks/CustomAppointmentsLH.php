@@ -421,7 +421,14 @@ $bean->description = $string;
       /** @var Contact $contact */
       $contact = BeanFactory::getBean("Contacts", $bean->atc_appointments_contactscontacts_ida);
       $bean->direct_phone = $contact->phone_other;
-      $bean->contact_email = $contact->email1;
+      if($bean->email1 == ''){
+      	$bean->contact_email = $contact->email1;
+      }
+
+      if($contact->email1 == ''){
+	$contact->email1 = $bean->contact_email;
+	$contact->save(false);
+      }
     }
   }
 
