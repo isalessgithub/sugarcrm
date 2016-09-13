@@ -480,7 +480,7 @@ function ScheduleCall(module, parent_record) {
 var manageAppointmentsConfigureDlg = [];
 var workingAppointmentContactId;
 var combo_appointment_date;
-function ManageAppointments(module, parent_record, contact_name, account_name) {
+function ManageAppointments(module, parent_record, email_address, contact_name, account_name) {
 
   if (typeof(manageAppointmentsConfigureDlg[parent_record]) == 'undefined') {
     workingAppointmentContactId = parent_record;
@@ -550,11 +550,12 @@ function ManageAppointments(module, parent_record, contact_name, account_name) {
       '<input type="hidden" class="DateTimeCombo" id="appointment_date" name="appointment_date" value="">' +
       '</td>' +
       '</tr>' +
-      /*'<tr>' +
-      '<td>Appointment Date Original:</td>' +
-      '<td><input type="text" name="appointment_date_original"></td>' +
+      '<tr>' +
+      '<td>Contact Email Address:</td>' +
+      '<td><input type="text" id="contact_email" name="contact_email" value="'+ email_address +
+      '"></td>' +
       '<td></td>' +
-      '</tr>' +*/
+      '</tr>' +
       '<tr>' +
       '<td>Appointment Duration:</td>' +
       '<td style="display: none;"><select name="appointment_duration_hours"> ' +
@@ -807,6 +808,8 @@ var createAppointment = function () {
   /*postData += '&appointment_name=' + $("#ScheduleAppointmentForm").find("input[name=appointment_name]").val();*/
   postData += '&appointment_status=' + $("#ScheduleAppointmentForm").find("select[name=appointment_status] option:selected").val();
   postData += '&appointment_place=' + $("#ScheduleAppointmentForm").find("select[name=appointment_place] option:selected").val();
+  postData += '&contact_email=' + $("#ScheduleAppointmentForm").find("input[name=contact_email]").val();
+window.alert($("#ScheduleAppointmentForm").find("input[name=contact_email]").val());
   postData += '&appointment_duration_hours=' + $("#ScheduleAppointmentForm").find("select[name=appointment_duration_hours] option:selected").val();
   postData += '&appointment_duration_minutes=' + $("#ScheduleAppointmentForm").find("select[name=appointment_duration_minutes] option:selected").val();
   postData += '&appointment_date=' + $("#ScheduleAppointmentForm").find("input[name=appointment_date]").val();

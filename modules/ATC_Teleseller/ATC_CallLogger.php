@@ -59,6 +59,8 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
   //we're going to get account name now.
   $accountname = 'No Account';
 
+
+
   if(!empty($contact->account_id)){
   	require_once('modules/Accounts/Account.php');
   	$account = new Account();
@@ -68,6 +70,8 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
   	$accountname = htmlspecialchars($account->name);
   }
 
+  //$email_address = "notanaddress@isaless.com";
+  $email_address = $contact->email1;
 
   if (is_object($moduleName)) {
     $moduleName = $moduleName->module_dir;
@@ -94,7 +98,7 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
           'align="absmiddle" alt="' . $html_tupple[0] . '" border="0"');
 
       if ($config_name == "log_call") {
-        $retStr .= "<a id =\"$record\" data-json=\"$json_history\" href=\"javascript:LogCall('$moduleName', '$record', '$json_history','$contact->phone_other','$contactname','$accountname');\"" .
+        $retStr .= "<a id =\"$record\" data-json=\"$json_history\" href=\"javascript:LogCall('$moduleName', '$record', '$json_history','$contact->phone_other', '$contactname','$accountname');\"" .
             ' class="listViewTdToolsS1" title="' . $html_tupple[0] . '"' .
             " style='vertical-align:top'>$icon_log_call_html</a>";
       }
@@ -115,7 +119,7 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
             " style='vertical-align:top'>$icon_log_call_html</a>";
       }
       if ($config_name == "appointment") {
-        $retStr .= "<a href=\"javascript:ManageAppointments('$moduleName', '$record', '$contactname', '$accountname');\"" .
+        $retStr .= "<a href=\"javascript:ManageAppointments('$moduleName', '$record', '$email_address','$contactname', '$accountname');\"" .
             ' class="listViewTdToolsS1" title="' . $html_tupple[0] . '"' .
             " style='vertical-align:top'>$icon_log_call_html</a>";
       }
