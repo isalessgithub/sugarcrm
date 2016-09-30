@@ -119,8 +119,8 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
             " style='vertical-align:top'>$icon_log_call_html</a>";
       }
       if ($config_name == "appointment") {
-        $retStr .= "<a href=\"javascript:ManageAppointments('$moduleName', '$record', '$contactname', '$accountname');\"" .
-        ////$retStr .= "<a href=\"javascript:ManageAppointments('$moduleName', '$record', '$email_address','$contactname', '$accountname');\"" .
+        ////$retStr .= "<a href=\"javascript:ManageAppointments('$moduleName', '$record', '$contactname', '$accountname');\"" .
+        $retStr .= "<a href=\"javascript:ManageAppointments('$moduleName', '$record', '$email_address','$contactname', '$accountname');\"" .
             ' class="listViewTdToolsS1" title="' . $html_tupple[0] . '"' .
             " style='vertical-align:top'>$icon_log_call_html</a>";
       }
