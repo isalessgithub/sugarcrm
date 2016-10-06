@@ -18,19 +18,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_ID' => 'ID',
+  'LBL_CREATED' => 'Vytvořeno',
+  'LBL_CREATED_ID' => 'Vytvořeno (ID)',
+  'LBL_CREATED_USER' => 'Vytvořeno uživatelem',
   'LBL_DATE_ENTERED' => 'Datum vytvoření',
   'LBL_DATE_MODIFIED' => 'Datum změny',
+  'LBL_DELETED' => 'Smazáno',
+  'LBL_DESCRIPTION' => 'Popis',
+  'LBL_EDIT_BUTTON' => 'Upravit',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Jméno',
   'LBL_MODIFIED' => 'Změnil',
   'LBL_MODIFIED_ID' => 'Změněno podle ID',
   'LBL_MODIFIED_NAME' => 'Změněno kým:',
-  'LBL_CREATED' => 'Vytvořeno',
-  'LBL_CREATED_ID' => 'Vytvořeno (ID)',
-  'LBL_DESCRIPTION' => 'Popis',
-  'LBL_DELETED' => 'Smazáno',
-  'LBL_NAME' => 'Jméno',
-  'LBL_CREATED_USER' => 'Vytvořeno uživatelem',
   'LBL_MODIFIED_USER' => 'Změněno uživatelem',
-  'LBL_LIST_NAME' => 'Jméno',
+  'LBL_NAME' => 'Jméno',
+  'LBL_REMOVE' => 'Odstranit',
 );
 

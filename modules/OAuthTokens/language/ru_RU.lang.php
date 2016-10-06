@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ASSIGNED_TO_NAME' => 'Пользователь',
   'LBL_CONSUMER' => 'Потребитель',
+  'LBL_CONTACTS' => 'Имя контакта',
   'LBL_ID' => 'ID',
   'LBL_LIST_DELETE' => 'Удалить метку',
   'LBL_OAUTH_AUTHORIZE' => 'Авторизовать метку',

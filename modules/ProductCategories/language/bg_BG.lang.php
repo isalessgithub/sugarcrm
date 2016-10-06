@@ -19,6 +19,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Трябва да определите номер на записа, за да изтриете този тип на продукта.',
+  'LBL_ASSIGNED_TO_NAME' => 'Отговорник',
+  'LBL_ASSIGNED_USER_NAME' => 'Отговорник',
   'LBL_CATEGORIES' => 'Категории',
   'LBL_CREATED_ID' => 'Създадено от',
   'LBL_DESCRIPTION' => 'Описание:',
@@ -35,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Поредност:',
   'LBL_MODIFIED_ID' => 'Модифицирано от',
   'LBL_MODULE_NAME' => 'Продуктови категории',
+  'LBL_MODULE_NAME_SINGULAR' => 'Продуктова категория',
   'LBL_MODULE_TITLE' => 'Категории продукти',
   'LBL_NAME' => 'Категория',
   'LBL_PARENT_CATEGORY' => 'Подкатегория на',

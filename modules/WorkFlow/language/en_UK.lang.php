@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'up',
   'LBL_MODULE_ID' => 'WorkFlow',
   'LBL_MODULE_NAME' => 'Workflow Definitions',
+  'LBL_MODULE_NAME_SINGULAR' => 'Workflow Definition',
   'LBL_MODULE_TITLE' => 'Workflow: Home',
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'Create Workflow Definition',

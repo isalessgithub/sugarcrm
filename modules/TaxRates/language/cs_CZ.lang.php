@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Procentní',
   'LBL_MODIFIED_ID' => 'Upraveno podle ID',
   'LBL_MODULE_NAME' => 'Daňové sazby',
+  'LBL_MODULE_NAME_SINGULAR' => 'Daň%',
   'LBL_MODULE_TITLE' => 'Daňové sazby: Hlavní stránka',
   'LBL_NAME' => 'Jméno daňové sazby:',
   'LBL_NEW_FORM_TITLE' => 'Nová daňová sazba',

@@ -25,4 +25,4 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['ChartsDashlet'] = array('LBL_TITLE'            => 'Wykresy',
                                          'LBL_DESCRIPTION'      => 'Dashlet wyświetlający wykresy',
                                          'LBL_CONFIGURE_TITLE'  => 'Tytuł', );
-?> 
+ 

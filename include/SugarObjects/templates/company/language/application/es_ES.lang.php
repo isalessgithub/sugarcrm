@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,42 +15,19 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
-
- $app_list_strings = array (
-
-  strtolower($object_name).'_type_dom' =>
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_type_dom' => 
   array (
     '' => '',
-    'Analyst' => 'Analista',
-    'Competitor' => 'Competidor',
-    'Customer' => 'Cliente',
-    'Integrator' => 'Integrador',
     'Investor' => 'Inversor',
+    'Other' => 'Otro',
     'Partner' => 'Partner',
     'Press' => 'Prensa',
     'Prospect' => 'Prospecto',
     'Reseller' => 'Revendedor',
-    'Other' => 'Otro',
   ),
+);
 
-  );
-?>

@@ -33,6 +33,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => '修改人ID',
   'LBL_MODIFIED_USER' => '修改人',
   'LBL_MODULE_NAME' => '文章标签',
+  'LBL_MODULE_NAME_SINGULAR' => '文章标签',
   'LBL_MODULE_TITLE' => '文章标签',
   'LBL_NO_MATHING_TAG_FOUND' => '无匹配的标签发现',
   'LBL_PARENT_TAG_ID' => '父类标签标号:',

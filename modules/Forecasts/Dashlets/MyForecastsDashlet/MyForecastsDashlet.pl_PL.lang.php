@@ -27,4 +27,4 @@ $dashletStrings['MyForecastsDashlet'] = array('LBL_TITLE'            => 'Moje pr
                                               'LBL_SAVED'            => 'Zapisano',
 											  'LBL_CONFIGURE_TITLE'  => 'Tytuł',
                                               'LBL_DESCRIPTION'      => 'Wyświetla prognozy');
-?> 
+ 

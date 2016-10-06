@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['OpportunitiesByLeadSourceDashlet'] = array('LBL_TITLE'       => 'Totes les Oportunitats per Presa de Contacte',
                                                        'LBL_DESCRIPTION' => 'Gràfic de Pastís d´Oportunitats per Presa de Contacte',
                                                        'LBL_REFRESH'     => 'Actualitzar Gràfic');
-?> 
-

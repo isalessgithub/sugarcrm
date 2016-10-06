@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,43 +15,25 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
+	
 
 $mod_strings = array (
-	'LBL_ROLE'												=> 'Rôle: ',
-	'LBL_LANGUAGE'											=> 'Langue: ',
-	'LBL_MODULE_NAME'										=> 'Rôles',
-	'LBL_MODULE_TITLE'										=> 'Rôles',
-	'LBL_SEARCH_FORM_TITLE'									=> 'Rechercher un Rôle',
-	'LBL_LIST_FORM_TITLE'									=> 'Liste des rôles',
-	'LNK_NEW_ROLE'											=> 'Créer un Rôle',
-	'LNK_ROLES'												=> 'Rôles',
-	'LBL_NAME'												=> 'Nom: ',
-	'LBL_DESCRIPTION'										=> 'Description: ',
-	'LBL_ALLOWED_MODULES'									=> 'Modules Autorisés: ',
-	'LBL_DISALLOWED_MODULES'								=> 'Modules Interdits: ',
-	'LBL_ASSIGN_MODULES'									=> 'Editer Module: ',
-	'LBL_DEFAULT_SUBPANEL_TITLE'							=> 'Rôles',
-	'LBL_USERS'												=> 'Utilisateurs',
-	'LBL_USERS_SUBPANEL_TITLE'								=> 'Utilisateurs'
+  'LBL_ALLOWED_MODULES' => 'Modules Autorisés:',
+  'LBL_ASSIGN_MODULES' => 'Editer Module:',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Rôles',
+  'LBL_DESCRIPTION' => 'Description:',
+  'LBL_DISALLOWED_MODULES' => 'Modules Interdits:',
+  'LBL_LANGUAGE' => 'Langue:',
+  'LBL_LIST_FORM_TITLE' => 'Liste des rôles',
+  'LBL_MODULE_NAME' => 'Rôles',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rôle',
+  'LBL_MODULE_TITLE' => 'Rôles',
+  'LBL_NAME' => 'Nom:',
+  'LBL_ROLE' => 'Rôle:',
+  'LBL_SEARCH_FORM_TITLE' => 'Rechercher un Rôle',
+  'LBL_USERS' => 'Utilisateurs',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Utilisateurs',
+  'LNK_NEW_ROLE' => 'Créer un Rôle',
+  'LNK_ROLES' => 'Rôles',
 );
 
-?>

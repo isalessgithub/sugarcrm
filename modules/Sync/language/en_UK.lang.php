@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_GO_ONLINE' => 'Go Online',
   'LBL_INITIAL_SYNC_MESSAGE' => 'You have just installed the Offline Client.  Please click the button below in order to begin the sync process.',
   'LBL_MODULE_NAME' => 'Sync',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sync',
   'LBL_MODULE_TITLE' => 'Sync: Home',
   'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM',
   'LBL_PROMPT' => 'Prompt',

@@ -20,7 +20,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ENABLE' => 'Aktivizēts',
   'LBL_MODULE_NAME' => 'Sekotājs',
-  'LBL_MODULE_NAME_TITLE' => 'Sekotājs',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sekotājs',
+  'LBL_MODULE_NAME_TITLE' => 'Sekotāji',
   'LBL_TRACKER_DESC' => 'Sekotāja darbības',
   'LBL_TRACKER_HELP' => 'Seko lietotāju atvērtajām lapām (moduļiem un ierakstiem, kam piekļūts) ierakstu izmaiņām',
   'LBL_TRACKER_PERF_DESC' => 'Sekotāja veiktspēja',

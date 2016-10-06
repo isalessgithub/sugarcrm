@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,41 +15,28 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Férias',
-  'LBL_MODULE_TITLE' => 'Férias: Tela Principal',
+  'LBL_CONTACT' => 'Contato',
+  'LBL_DESCRIPTION' => 'Descrição',
   'LBL_HOLIDAY' => 'Dia de Férias:',
   'LBL_HOLIDAY_DATE' => 'Data do Dia de Férias:',
-  'LBL_NAME' => 'Data do Dia de Férias:',
-  'LBL_DESCRIPTION' => 'Descrição',
-  'LBL_RESOURCE_NAME' => 'Nome do Recurso',
-  'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Férias',
   'LBL_LIST_FORM_TITLE' => 'Lista de Férias',
-  'LNK_NEW_HOLIDAY' => 'Adicionar Dia de Férias',
-  'LNK_HOLIDAYS' => 'Férias',
-  'LBL_USERS_SUBPANEL_TITLE' => 'Usuários',
-  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Férias do Usuário',
-  'LBL_RESOURCE' => 'Recurso:',
+  'LBL_MODULE_NAME' => 'Férias',
+  'LBL_MODULE_NAME_SINGULAR' => 'Feriado',
+  'LBL_MODULE_TITLE' => 'Férias: Tela Principal',
+  'LBL_NAME' => 'Data do Dia de Férias:',
   'LBL_PERSON_TYPE' => 'Tipo de pessoa',
   'LBL_RELATED_MODULE' => 'Módulo Relacionado:',
+  'LBL_RESOURCE' => 'Recurso:',
+  'LBL_RESOURCE_NAME' => 'Nome do Recurso',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Férias',
   'LBL_SELECT_RESOURCE_TYPE' => 'Selecionar Tipo de Recurso...',
   'LBL_USER' => 'Usuário',
-  'LBL_CONTACT' => 'Contato',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Usuários',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Férias do Usuário',
+  'LNK_HOLIDAYS' => 'Férias',
+  'LNK_NEW_HOLIDAY' => 'Adicionar Dia de Férias',
 );
 

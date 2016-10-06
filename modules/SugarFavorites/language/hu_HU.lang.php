@@ -39,6 +39,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Módosító felhasználó',
   'LBL_MODULE' => 'modul',
   'LBL_MODULE_NAME' => 'Kedvencek',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kedvenc',
   'LBL_MODULE_TITLE' => 'Kedvencek',
   'LBL_NAME' => 'Név',
   'LBL_NEW_FORM_TITLE' => 'Új kedvenc',

@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Země:',
   'LBL_CREATED_BY' => 'Vytvořeno',
   'LBL_CURRENCY' => 'Měna:',
+  'LBL_CURRENCY_RATE' => 'Kurz',
   'LBL_DATE_QUOTE_CLOSED' => 'Aktuální datum uzavření:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Platné do:',
   'LBL_DEAL_TOT' => 'Celková sleva',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Daňová třída',
   'LBL_MODIFIED_BY' => 'Upraveno',
   'LBL_MODULE_NAME' => 'Nabídky',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nabídka',
   'LBL_MODULE_TITLE' => 'Nabídky: Domů',
   'LBL_NAME' => 'Jméno nabídky',
   'LBL_NEW_FORM_TITLE' => 'Vytvořit nabídku',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Jste si jisti, že chcete odstranit tuto skupinu z nabídky?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Jste si jisti, že chcete odstranit tuto položku z nabídky?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Jste si jisti, že chcete odstranit tento kontakt z nabídky?',
-  'PDF_FORMAT' => 'PDF forát:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Jste si jisti, že chcete odstranit tuto nabídku z projektu?',
 );
 

@@ -1,88 +1,92 @@
 <?php
-// created: 2013-04-03 01:08:01
-$viewdefs['Opportunities']['QuickCreate'] = array (
-  'templateMeta' => 
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*********************************************************************************
+ * By installing or using this file, you are confirming on behalf of the entity
+ * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
+ * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
+ * http://www.sugarcrm.com/master-subscription-agreement
+ *
+ * If Company is not bound by the MSA, then by installing or using this file
+ * you are agreeing unconditionally that Company will be bound by the MSA and
+ * certifying that you have authority to bind Company accordingly.
+ *
+ * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
+ ********************************************************************************/
+
+/*********************************************************************************
+
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+
+$viewdefs = array (
+  'Opportunities' => 
   array (
-    'maxColumns' => '2',
-    'widths' => 
+    'QuickCreate' => 
     array (
-      0 => 
+      'templateMeta' => 
       array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'javascript' => '{$PROBABILITY_SCRIPT}',
-    'tabDefs' => 
-    array (
-      'DEFAULT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'DEFAULT' => 
-    array (
-      0 => 
-      array (
-        0 => 
+        'maxColumns' => '2',
+        'widths' => 
         array (
-          'name' => 'name',
-          'displayParams' => 
+          0 => 
           array (
-            'required' => true,
+            'label' => '10',
+            'field' => '30',
+          ),
+          1 => 
+          array (
+            'label' => '10',
+            'field' => '30',
           ),
         ),
-        1 => 
+        'javascript' => '{$PROBABILITY_SCRIPT}',
+      ),
+      'panels' => 
+      array (
+        'DEFAULT' => 
         array (
-          'name' => 'account_name',
+          array (
+            array (
+              'name' => 'name',
+              'displayParams'=>array('required'=>true),
+            ),
+            array (
+              'name' => 'account_name',
+            ),
+          ),
+          array (
+            array (
+              'name' => 'currency_id',
+            ),
+            array (
+              'name' => 'opportunity_type',
+            ),            
+          ),
+          array (
+            'amount',
+            'date_closed'          
+          ),
+          array (
+             'next_step',
+             'sales_stage',
+          ),
+          array (
+             'lead_source',
+             'probability',
+          ),
+        array (
+            array (
+              'name' => 'assigned_user_name',
+            ),
+            array (
+              'name' => 'team_name',
+            ),
         ),
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'currency_id',
-        ),
-        1 => 
-        array (
-          'name' => 'opportunity_type',
-        ),
-      ),
-      2 => 
-      array (
-        0 => 'amount',
-        1 => 'date_closed',
-      ),
-      3 => 
-      array (
-        0 => 'next_step',
-        1 => 'sales_stage',
-      ),
-      4 => 
-      array (
-        0 => 'lead_source',
-        1 => 'probability',
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-        ),
-        1 => 
-        array (
-          'name' => 'team_name',
         ),
       ),
     ),
   ),
 );
+?>

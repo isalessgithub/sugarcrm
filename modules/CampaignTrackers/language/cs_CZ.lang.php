@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_MODIFIED_USER_ID' => 'Upraveno uživatelem ID',
   'LBL_MODULE_NAME' => 'Sledování kampaně',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sledování kampaně:',
   'LBL_OPTOUT' => 'Opt-Out',
   'LBL_SUBPANEL_TRACKER_KEY' => 'Klíč',
   'LBL_SUBPANEL_TRACKER_NAME' => 'Název',

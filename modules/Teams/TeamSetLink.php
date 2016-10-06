@@ -161,8 +161,15 @@ class TeamSetLink extends Link {
 	        	$runUpdate = (!empty($this->_bean->id) && empty($this->_bean->new_with_id) && !empty($this->_bean->save_from_post));
 	        }
 
-	        if($runUpdate) {
-	           $GLOBALS['db']->query("UPDATE {$this->_bean->table_name} SET team_set_id = '{$this->_bean->team_set_id}' WHERE id = '{$this->_bean->id}'");
+            $db = DBManagerFactory::getInstance();
+            if ($runUpdate) {
+                $sql = sprintf(
+                    'UPDATE %s SET team_set_id = %s WHERE id = %s',
+                    $this->_bean->table_name,
+                    $db->quoted($this->_bean->team_set_id),
+                    $db->quoted($this->_bean->id)
+                );
+                $db->query($sql);
 	        }
 	        //keep track of what we put into the database so we can clean things up later
 	        TeamSetManager::saveTeamSetModule($this->_bean->team_set_id, $this->_bean->table_name);

@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tipas',
   'LBL_MODIFIED' => 'Redagavo:',
   'LBL_MODULE_NAME' => 'Kampanijos istorija',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampanijos istorija',
   'LBL_MORE_INFO' => 'Daugiau informacijos',
   'LBL_NAME' => 'Vardas:',
   'LBL_RELATED' => 'Susijęs',

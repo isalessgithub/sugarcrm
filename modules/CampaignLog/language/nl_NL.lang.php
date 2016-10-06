@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Type',
   'LBL_MODIFIED' => 'Gewijzigd door:',
   'LBL_MODULE_NAME' => 'Campagne Logboek',
+  'LBL_MODULE_NAME_SINGULAR' => 'Campagne Logboek',
   'LBL_MORE_INFO' => 'Meer Informatie',
   'LBL_NAME' => 'Naam:',
   'LBL_RELATED' => 'Gerelateerd',

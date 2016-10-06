@@ -18,20 +18,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Kompanije',
-  'LBL_MODULE_TITLE' => 'Kompanije: Početna strana',
-  'LBL_SEARCH_FORM_TITLE' => 'Pretraga kompanije',
+  'ERR_DELETE_RECORD' => 'Broj zapisa mora biti naveden pri brisanju kompanije.',
   'LBL_LIST_FORM_TITLE' => 'Lista kompanija',
+  'LBL_MODULE_NAME' => 'Kompanije',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nalog',
+  'LBL_MODULE_TITLE' => 'Kompanije: Početna strana',
   'LBL_NEW_FORM_TITLE' => 'Kreiraj kompaniju',
-  'LNK_NEW_CONTACT' => 'Kreiraj kontakt',
+  'LBL_SEARCH_FORM_TITLE' => 'Pretraga kompanije',
   'LNK_NEW_ACCOUNT' => 'Kreiraj kompaniju',
-  'LNK_NEW_OPPORTUNITY' => 'Kreiraj prodajnu priliku',
-  'LNK_NEW_CASE' => 'Kreiraj slučaj',
-  'LNK_NEW_NOTE' => 'Kreiraj belešku ili prilog',
   'LNK_NEW_CALL' => 'Evidentiraj poziv',
+  'LNK_NEW_CASE' => 'Kreiraj slučaj',
+  'LNK_NEW_CONTACT' => 'Kreiraj kontakt',
   'LNK_NEW_EMAIL' => 'Arhiviraj Email',
   'LNK_NEW_MEETING' => 'Zakaži sastanak',
+  'LNK_NEW_NOTE' => 'Kreiraj belešku ili prilog',
+  'LNK_NEW_OPPORTUNITY' => 'Kreiraj prodajnu priliku',
   'LNK_NEW_TASK' => 'Kreiraj zadatak',
-  'ERR_DELETE_RECORD' => 'Broj zapisa mora biti naveden pri brisanju kompanije.',
 );
 

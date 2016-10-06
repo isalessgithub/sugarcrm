@@ -189,7 +189,8 @@ class Elastica_Client
 		foreach($docs as $doc) {
 			
 			$indexInfo = array(
-				'_index' => $doc->getIndex(),
+                // @sugarcrm - do not add index on the documents
+				//'_index' => $doc->getIndex(),
 				'_type' => $doc->getType(),
 				'_id' => $doc->getId()
 			);
@@ -207,7 +208,9 @@ class Elastica_Client
 			$params[] = array('index' => $indexInfo);
 			$params[] = $doc->getData();
 		}
-		return $this->bulk($params);
+
+        // @sugarcrm - pass indexName
+		return $this->bulk($params, $doc->getIndex());
 	}
 
 	/**
@@ -295,12 +298,18 @@ class Elastica_Client
 	 * @todo Test
 	 * @link http://www.elasticsearch.com/docs/elasticsearch/rest_api/bulk/
 	 */
-	public function bulk(array $params) {
+    // @sugarcrm - added $indexName
+	public function bulk(array $params, $indexName = null) {
 		if (empty($params)) {
 			throw new Elastica_Exception_Invalid('Array has to consist of at least one param');
 		}
 
-		$path = '_bulk';
+        // @sugarcrm - add indexName to path
+        if ($indexName) {
+            $path = $indexName . '/_bulk';
+        } else {
+		    $path = '_bulk';
+        }
 
 		$queryString = '';
 		foreach($params as $index => $baseArray) {

@@ -28,6 +28,6 @@ $connector_strings = array (
   'LBL_TOS0' => 'Ik ga akkoord met InsideView&#39;s',
   'LBL_TOS1' => 'gebruiksvoorwaarden',
   'LBL_TOS3' => 'privacy beleid',
-  'iv_description0' => 'Bekijk relevante organisatie informatie, contacten, nieuws en social media inzichten.',
+  'iv_description0' => 'Bekijk relevante organisatie informatie, personen, nieuws en social media inzichten.',
 );
 

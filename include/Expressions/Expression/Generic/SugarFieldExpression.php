@@ -110,7 +110,15 @@ class SugarFieldExpression extends GenericExpression
         if (isset($this->context->$fieldName->beans))
             return $this->context->$fieldName->beans;
 
-        $beans = $this->context->$fieldName->getBeans();
+        $beans = '';
+        //call get beans method if this object has the method defined
+        if(method_exists($this->context->$fieldName, 'getBeans'))
+        {
+            $beans = $this->context->$fieldName->getBeans();
+        }else if(is_string($this->context->$fieldName))
+        {   //if this is a string then copy the value over
+            $beans = $this->context->$fieldName;
+        }
 
         return $beans;
     }

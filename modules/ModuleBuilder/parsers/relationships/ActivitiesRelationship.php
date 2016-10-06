@@ -85,12 +85,30 @@ class ActivitiesRelationship extends OneToManyRelationship
                     );
                 }
             }
-            
-            $labelDefinitions [] = array ( 
-            	'module' => $this->lhs_module , 
-            	'system_label' => 'LBL_' . strtoupper ( $this->relationship_name . '_FROM_' . $this->getRightModuleSystemLabel() ) . '_TITLE' , 
-            	'display_label' => $this->lhs_label ? $this->lhs_label : ucfirst($this->lhs_module)
-            ) ;
+
+            $rhs_display_label = '';
+            if (!empty($this->rhs_label)) {
+                $rhs_display_label .= $this->rhs_label . ':';
+            }
+            $rhs_display_label .= translate($this->rhs_module);
+
+            $lhs_display_label = '';
+            if (!empty($this->rhs_label)) {
+                $lhs_display_label .= $this->rhs_label . ':';
+            }
+            $lhs_display_label .= translate($this->lhs_module);
+
+            $labelDefinitions[] = array (
+                'module' => $this->lhs_module ,
+                'system_label' => 'LBL_' . strtoupper($this->relationship_name . '_FROM_' . $this->getRightModuleSystemLabel()) . '_TITLE',
+                'display_label' => $rhs_display_label
+            );
+            $labelDefinitions[] = array(
+                'module' => $this->rhs_module,
+                'system_label' => 'LBL_' . strtoupper($this->relationship_name . '_FROM_' . $this->getLeftModuleSystemLabel()) . '_TITLE',
+                'display_label' => $lhs_display_label
+            );
+
             ActivitiesRelationship::$labelsAdded[$this->lhs_module] = true;
         }
         return $labelDefinitions ;
@@ -118,6 +136,8 @@ class ActivitiesRelationship extends OneToManyRelationship
         $vardef [ 'type' ] = 'link' ;
         $vardef [ 'relationship' ] = $relationshipName ;
         $vardef [ 'source' ] = 'non-db' ;
+        $vardef [ 'module' ] = $sourceModule ;
+        $vardef [ 'bean_name' ] = BeanFactory::getObjectName($sourceModule) ;
         $vardef [ 'vname' ] = strtoupper("LBL_{$relationshipName}_FROM_{$sourceModule}_TITLE");
         return $vardef ;
     }
@@ -245,4 +265,3 @@ class ActivitiesRelationship extends OneToManyRelationship
                         'get_subpanel_data' => $relationshipName. '_emails' ) ) )  ;
     }
 }
-?>

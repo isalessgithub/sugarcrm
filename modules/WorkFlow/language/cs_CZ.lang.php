@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'nahoru',
   'LBL_MODULE_ID' => 'WorkFlow',
   'LBL_MODULE_NAME' => 'Definice Workflow',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nastavení WorkFlow',
   'LBL_MODULE_TITLE' => 'Workflow: Hlavní stránka',
   'LBL_NAME' => 'Jméno:',
   'LBL_NEW_FORM_TITLE' => 'Vytvoř Workflow Definici',

@@ -25,6 +25,7 @@ class FormulaHelper
      */
     public static function cleanFields($fieldDef, $includeLinks = true, $forRelatedField = false, $returnKeys = false)
     {
+
         $fieldArray = array();
         foreach ($fieldDef as $fieldName => $def) {
             if (!is_array($def) || $fieldName == 'deleted' || $fieldName == 'email1' || empty($def['type']))
@@ -67,6 +68,11 @@ class FormulaHelper
                     break;
                 case "radioenum":
                     $fieldArray[$fieldName] = array($fieldName, 'string');
+                    break;
+                case "relate":
+                    if ($forRelatedField){
+                        $fieldArray[$fieldName] = array($fieldName, 'relate');
+                    }
                     break;
                 default:
                     //Do Nothing

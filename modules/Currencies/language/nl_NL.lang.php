@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Toevoegen',
+  'LBL_ADMIN_ONLY' => 'Alleen Administrators',
   'LBL_BELOW_MIN' => 'Koers moet boven de 0 zijn.',
   'LBL_CREATED_BY' => 'Aangemaakt door',
   'LBL_CURRENCY' => 'Valuta',
@@ -35,12 +36,13 @@ $mod_strings = array (
   'LBL_MERGE' => 'Samenvoegen',
   'LBL_MERGE_TXT' => 'Vink de valuta aan die u naar de geselecteerde valuta wilt omzetten. Alle aangevinkte valuta worden verwijderd en waarden die aan deze valuta zijn gekoppeld worden gekoppeld aan de geselecteerde valuta.',
   'LBL_MODULE_NAME' => 'Valuta',
+  'LBL_MODULE_NAME_SINGULAR' => 'Valuta',
   'LBL_UPDATE' => 'Bijwerken',
   'LBL_US_DOLLAR' => 'U.S. Dollar',
   'LNK_NEW_ACCOUNT' => 'Nieuwe Organisatie',
   'LNK_NEW_CALL' => 'Nieuw Telefoongesprek',
   'LNK_NEW_CASE' => 'Nieuwe Case',
-  'LNK_NEW_CONTACT' => 'Nieuwe Contactpersoon',
+  'LNK_NEW_CONTACT' => 'Nieuw Contactpersoon',
   'LNK_NEW_EMAIL' => 'Nieuwe E-mail',
   'LNK_NEW_MEETING' => 'Nieuwe Afspraak',
   'LNK_NEW_NOTE' => 'Nieuwe Notitie of Bijlage',

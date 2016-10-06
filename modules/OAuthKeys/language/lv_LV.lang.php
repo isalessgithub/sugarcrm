@@ -38,6 +38,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Modificēja',
   'LBL_MODIFIED_USER' => 'Modificēja',
   'LBL_MODULE_NAME' => 'OAuth atslēgas',
+  'LBL_MODULE_NAME_SINGULAR' => 'OAuth atslēga',
   'LBL_MODULE_TITLE' => 'OAuth atslēgas',
   'LBL_NAME' => 'Patērētāja atslēgas nosaukums',
   'LBL_OAUTH_TYPE' => 'OAuth versija',

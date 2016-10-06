@@ -799,7 +799,7 @@ $app_list_strings = array (
   ),
   'moduleList' => 
   array (
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bugs',
     'Cases' => 'Saker',
     'FAQ' => 'FAQ',
     'Home' => 'Hjem',
@@ -872,7 +872,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Bedrifter',
     'Activities' => 'Aktiviteter',
-    'Bug Tracker' => 'Bug Tracker',
+    'Bugs' => 'Bugs',
     'Calendar' => 'Kalender',
     'Calls' => 'Oppringninger',
     'Campaigns' => 'Kampanjer',

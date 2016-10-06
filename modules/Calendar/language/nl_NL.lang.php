@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: niet gedefinieerd voor deze weergave',
+  'ERR_YEAR_BETWEEN' => 'Helaas, de kalender kan uw verzoek niet verwerken<br>Het gekozen jaar moet liggen tussen 1970 en 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Toepassen',
   'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Bezig met laden ......',
   'LBL_MINS_ABBREV' => 'min',
   'LBL_MODULE_NAME' => 'Agenda',
+  'LBL_MODULE_NAME_SINGULAR' => 'Agenda',
   'LBL_MODULE_TITLE' => 'Agenda',
   'LBL_MONTH' => 'Maand',
   'LBL_NEXT_DAY' => 'Volgende Dag',
@@ -71,6 +74,7 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => 'Vorige',
   'LBL_PREVIOUS_WEEK' => 'Vorige Week',
   'LBL_PREVIOUS_YEAR' => 'Vorig Jaar',
+  'LBL_RECURRING_LIMIT_ERROR' => 'Deze herhaalde $moduleTitle kan niet opgeslagen worden, omdat het maximale toegestane aantal ($limit) herhaalde afspraken overschreven wordt.',
   'LBL_REFRESH' => 'Ververs',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Verwijder alle Herhalingen',
   'LBL_REPEAT_COUNT' => 'Aantal Herhalingen',
@@ -79,7 +83,6 @@ $mod_strings = array (
   'LBL_REPEAT_END_AFTER' => 'Na',
   'LBL_REPEAT_END_BY' => 'Door',
   'LBL_REPEAT_INTERVAL' => 'Elke',
-  'LBL_REPEAT_LIMIT_ERROR' => 'Uw verzoek zou meer dan nieuwe $limit meetings maken.',
   'LBL_REPEAT_OCCURRENCES' => 'Herhahlingen',
   'LBL_REPEAT_TAB' => 'Herhaling',
   'LBL_REPEAT_TYPE' => 'Herhalen',
@@ -87,18 +90,19 @@ $mod_strings = array (
   'LBL_SAVE_BUTTON' => 'Opslaan',
   'LBL_SAVING' => 'Opslaan ...',
   'LBL_SCHEDULED' => 'Gepland',
-  'LBL_SELECT_USERS' => 'Selecteer Gebruikers voor Kalender',
+  'LBL_SELECT_USERS' => 'Selecteer Gebruikers voor Agenda',
   'LBL_SENDING_INVITES' => 'Opslaan & Versturen Uitnodigingen',
   'LBL_SEND_INVITES' => 'Verstuur Uitnodigingen',
   'LBL_SETTINGS' => 'Instellingen',
   'LBL_SETTINGS_CALLS_SHOW' => 'Toon Telefoongesprekken:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Toon voltooide afspraken, telefoongesprekken en taken:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Toon tijd in Dag en Week views:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Toon Taken:',
   'LBL_SETTINGS_TIME_ENDS' => 'Eindtijd:',
   'LBL_SETTINGS_TIME_STARTS' => 'Starttijd:',
   'LBL_SETTINGS_TITLE' => 'Instellingen',
   'LBL_SHARED' => 'Gedeeld',
-  'LBL_SHARED_CAL_TITLE' => 'Gedeelde Kalender',
+  'LBL_SHARED_CAL_TITLE' => 'Gedeelde Agenda',
   'LBL_STATUS' => 'Status',
   'LBL_STYLE_ADVANCED' => 'Geavanceerd',
   'LBL_STYLE_BASIC' => 'Normaal',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mrt',
@@ -140,6 +145,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Januari',
     2 => 'Februari',
     3 => 'Maart',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Zon',
     1 => 'Ma',
     2 => 'Di',
     3 => 'Wo',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Zondag',
     1 => 'Maandag',
     2 => 'Dinsdag',
     3 => 'Woensdag',

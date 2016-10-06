@@ -66,5 +66,5 @@ $mod_strings = array (
     'LBL_TYPE_TAG_NAME_TO_SEARCH' => 'הזן שם תגית לחיפושה',
     'LBL_UNTAGGED_ARTICLES_NODE' => 'מאמר ללא תגיות',
 );
-?>
+
 

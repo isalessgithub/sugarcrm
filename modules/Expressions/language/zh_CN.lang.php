@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => '触发器名称:',
   'LBL_LIST_TYPE' => '类型:',
   'LBL_MODULE_NAME' => '公式',
+  'LBL_MODULE_NAME_SINGULAR' => '表达式',
   'LBL_MODULE_TITLE' => '工作流程出发器:首页',
   'LBL_NAME' => '触发器名称:',
   'LBL_NEW_FORM_TITLE' => '新增触发器',

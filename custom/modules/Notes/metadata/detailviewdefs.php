@@ -1,5 +1,5 @@
 <?php
-// created: 2013-01-31 00:16:48
+// created: 2016-10-06 15:20:01
 $viewdefs['Notes']['DetailView'] = array (
   'templateMeta' => 
   array (

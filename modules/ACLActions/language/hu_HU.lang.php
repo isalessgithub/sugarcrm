@@ -30,6 +30,7 @@ $mod_strings = array (
   'LBL_ACCESS_OWNER' => 'Tulajdonos',
   'LBL_ACTION_ACCESS' => 'Hozzáférés',
   'LBL_ACTION_ADMIN' => 'Hozzáférés típusa',
+  'LBL_ACTION_CREATE' => 'Létrehozás',
   'LBL_ACTION_DELETE' => 'Töröl',
   'LBL_ACTION_EDIT' => 'Szerkeszt',
   'LBL_ACTION_EXPORT' => 'Exportálás',

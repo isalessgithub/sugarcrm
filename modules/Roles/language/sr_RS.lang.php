@@ -18,21 +18,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_ROLE' => 'Uloga:',
-  'LBL_LANGUAGE' => 'Jezik:',
-  'LBL_MODULE_NAME' => 'Uloge',
-  'LBL_MODULE_TITLE' => 'Uloge: Početna strana',
-  'LBL_SEARCH_FORM_TITLE' => 'Pretraga uloga',
-  'LBL_LIST_FORM_TITLE' => 'Lista uloga',
-  'LNK_NEW_ROLE' => 'Kreiraj ulogu',
-  'LNK_ROLES' => 'Uloge',
-  'LBL_NAME' => 'Ime:',
-  'LBL_DESCRIPTION' => 'Opis:',
   'LBL_ALLOWED_MODULES' => 'Dozvoljeni moduli:',
-  'LBL_DISALLOWED_MODULES' => 'Nedozvoljeni moduli:',
   'LBL_ASSIGN_MODULES' => 'Izmeni module:',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Uloge',
+  'LBL_DESCRIPTION' => 'Opis:',
+  'LBL_DISALLOWED_MODULES' => 'Nedozvoljeni moduli:',
+  'LBL_LANGUAGE' => 'Jezik:',
+  'LBL_LIST_FORM_TITLE' => 'Lista uloga',
+  'LBL_MODULE_NAME' => 'Uloge',
+  'LBL_MODULE_NAME_SINGULAR' => 'Uloga',
+  'LBL_MODULE_TITLE' => 'Uloge: Početna strana',
+  'LBL_NAME' => 'Ime:',
+  'LBL_ROLE' => 'Uloga:',
+  'LBL_SEARCH_FORM_TITLE' => 'Pretraga uloga',
   'LBL_USERS' => 'Korisnici',
   'LBL_USERS_SUBPANEL_TITLE' => 'Korisnici',
+  'LNK_NEW_ROLE' => 'Kreiraj ulogu',
+  'LNK_ROLES' => 'Uloge',
 );
 

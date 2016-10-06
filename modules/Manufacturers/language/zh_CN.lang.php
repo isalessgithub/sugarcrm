@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => '修改人',
   'LBL_MODIFIED_ID' => '修改ID',
   'LBL_MODULE_NAME' => '制造商',
+  'LBL_MODULE_NAME_SINGULAR' => '制造商',
   'LBL_MODULE_TITLE' => '制造商:首页',
   'LBL_NAME' => '制造商:',
   'LBL_NEW_FORM_TITLE' => '新增制造商',

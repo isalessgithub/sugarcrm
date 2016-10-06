@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nu este definit pentru acest punct de vedere',
+  'ERR_YEAR_BETWEEN' => 'Ne pare rău, calendarulnu se poate ocupa de anul  solicitat<br />Anul trebuie să fie între 1970 și 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Aplica',
   'LBL_ASSIGNED_TO_NAME' => 'Atrbuit lui',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Incarcare...Va rugam asteptati',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Calendar',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendar',
   'LBL_MODULE_TITLE' => 'Calendar',
   'LBL_MONTH' => 'Luna',
   'LBL_NEXT_DAY' => 'Ziua urmatoare',
@@ -71,6 +74,7 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => 'anterior',
   'LBL_PREVIOUS_WEEK' => 'saptamana anterioara',
   'LBL_PREVIOUS_YEAR' => 'anul anterior',
+  'LBL_RECURRING_LIMIT_ERROR' => 'Această recurentă $ titlu modul nu poate fi programat, deoarece depășește reapariția maximă permisă de $ limită.',
   'LBL_REFRESH' => 'Improspatare',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Sterge toate repetarile',
   'LBL_REPEAT_COUNT' => 'numarul de repetari',
@@ -79,7 +83,6 @@ $mod_strings = array (
   'LBL_REPEAT_END_AFTER' => 'Dupa',
   'LBL_REPEAT_END_BY' => 'de',
   'LBL_REPEAT_INTERVAL' => 'interval',
-  'LBL_REPEAT_LIMIT_ERROR' => 'Cererea dvs. este pe cale sa creeze mai mult intalniri limita',
   'LBL_REPEAT_OCCURRENCES' => 'Repetari',
   'LBL_REPEAT_TAB' => 'Repetare',
   'LBL_REPEAT_TYPE' => 'Repeta',
@@ -90,13 +93,14 @@ $mod_strings = array (
   'LBL_SELECT_USERS' => 'Selecteaza utilizatori pentru afisaj calendar',
   'LBL_SENDING_INVITES' => 'Salveaza & Trimitere Invitati',
   'LBL_SEND_INVITES' => 'Trimite invitatii',
-  'LBL_SETTINGS' => 'Setari ( defined in ./include/language/ro_RO.lang.php )',
+  'LBL_SETTINGS' => 'Setari',
   'LBL_SETTINGS_CALLS_SHOW' => 'Arata apeluri',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Arata Întâlniri finalizate, apelurile și sarcini:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Afisare sloturi de timp i zile si saptamanai',
   'LBL_SETTINGS_TASKS_SHOW' => 'Arata Sarcini',
   'LBL_SETTINGS_TIME_ENDS' => 'Ora de terminare',
   'LBL_SETTINGS_TIME_STARTS' => 'Ora de incepere:',
-  'LBL_SETTINGS_TITLE' => 'Setari ( defined in ./include/language/ro_RO.lang.php )',
+  'LBL_SETTINGS_TITLE' => 'Setari',
   'LBL_SHARED' => 'Partajate',
   'LBL_SHARED_CAL_TITLE' => 'Calendarul Partajat',
   'LBL_STATUS' => 'Statut',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '0',
     1 => 'Ianuarie',
     2 => 'Februarie',
     3 => 'Martie',
@@ -140,6 +145,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '0',
     1 => 'Ianuarie',
     2 => 'Februarie',
     3 => 'Martie',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Sambata',
     1 => 'Luni',
     2 => 'Marti',
     3 => 'Miercuri',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Sambata',
     1 => 'Luni',
     2 => 'Marti',
     3 => 'Miercuri',

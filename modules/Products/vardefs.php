@@ -209,7 +209,7 @@ $dictionary['Product'] = array('table' => 'products','audited'=>true,
     'len' => '26,6',
     'group'=>'deal_calc',
     'comment' => 'deal_calc',
-    'customCode' => '{$fields.currency_symbol.value}{$fields.deal_calc.value}&nbsp;',
+    'customCode' => '{$fields.currency_symbol.value}{sugar_number_format var=$fields.deal_calc.value}&nbsp;',
   ),
     'deal_calc_usdollar' =>
   array (

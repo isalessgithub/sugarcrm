@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Mérföldkő:',
   'LBL_MODIFIED_USER_ID' => 'Módosított felhasználói azonosító:',
   'LBL_MODULE_NAME' => 'Projektfeladatok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projektfeladat',
   'LBL_MODULE_TITLE' => 'Projektfeladatok: Főoldal',
   'LBL_NAME' => 'Név:',
   'LBL_NEW_FORM_TITLE' => 'Új projektfeladat',

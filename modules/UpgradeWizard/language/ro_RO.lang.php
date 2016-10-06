@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Versiune',
   'LBL_MODULELOADER' => 'Incarcator modul',
   'LBL_MODULE_NAME' => 'Upgradeaza  Wizard',
+  'LBL_MODULE_NAME_SINGULAR' => 'Upgradeaza  Wizard',
   'LBL_PATCHUPGRADES' => 'Patch Upgrades',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Preflight Check in curs de desfasurare',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Copiere fisier in curs de desfasurare',

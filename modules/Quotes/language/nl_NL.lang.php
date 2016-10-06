@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Land:',
   'LBL_CREATED_BY' => 'Gemaakt door',
   'LBL_CURRENCY' => 'Valuta:',
+  'LBL_CURRENCY_RATE' => 'Valutakoers',
   'LBL_DATE_QUOTE_CLOSED' => 'Opdrachtdatum:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Verwachte opdrachtdatum:',
   'LBL_DEAL_TOT' => 'Korting totaal',
@@ -101,7 +102,8 @@ $mod_strings = array (
   'LBL_LIST_QUOTE_STAGE' => 'Stadium',
   'LBL_LIST_TAXCLASS' => 'BTW %',
   'LBL_MODIFIED_BY' => 'Gewijzigd door',
-  'LBL_MODULE_NAME' => 'Offerte',
+  'LBL_MODULE_NAME' => 'Offertes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Offerte',
   'LBL_MODULE_TITLE' => 'Offertes: Start',
   'LBL_NAME' => 'Offertenaam',
   'LBL_NEW_FORM_TITLE' => 'Nieuwe Offerte',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Weet u zeker dat u deze groep wilt verwijderen van de offerte?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Weet u het zeker dat u deze offerteregel wilt verwijderen?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Weet u het zeker dat u deze persoon wilt verwijderen bij deze offerte??',
-  'PDF_FORMAT' => 'PDF Formaat:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Weet u het zeker dat u deze offerte wilt verwijderen bij dit project?',
 );
 

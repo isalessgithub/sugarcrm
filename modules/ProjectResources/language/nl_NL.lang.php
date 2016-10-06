@@ -35,6 +35,6 @@ $mod_strings = array (
 );
 
 
-?>
+
 
 

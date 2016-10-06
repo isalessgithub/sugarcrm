@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,30 +15,17 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'FAQ',
-  'LBL_MODULE_TITLE' => 'FAQ: Acasa',
-  'LBL_BACK_TO_TOP' => 'Inapoi la inceput',
-  'LBL_SUCCESSFUL_QUERY' => 'Succes',
-  'LBL_ERROR_QUERY' => 'Eroare',
   'ERR_FAQ_LIST_RETRIEVE' => 'Eroare: Nu se poate prelua continutul FAQ in acest moment',
   'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'Se reincearca cererea SOAP...',
+  'LBL_BACK_TO_TOP' => 'Inapoi la inceput',
+  'LBL_ERROR_QUERY' => 'Eroare',
   'LBL_FAQ_EMPTY' => 'In prezent nu sunt articole notate ca fiind FAQ in Baza de Cunostinte.',
+  'LBL_MODULE_NAME' => 'FAQ',
+  'LBL_MODULE_NAME_SINGULAR' => 'Intrebari puse cel mai frecvent',
+  'LBL_MODULE_TITLE' => 'FAQ: Acasa',
+  'LBL_SUCCESSFUL_QUERY' => 'Succes',
 );
 

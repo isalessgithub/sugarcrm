@@ -39,6 +39,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Módosító felhasználó neve',
   'LBL_MODIFIED_USER' => 'Módosító felhasználó',
   'LBL_MODULE_NAME' => 'Értesítések',
+  'LBL_MODULE_NAME_SINGULAR' => 'Riasztás',
   'LBL_MODULE_TITLE' => 'Értesítések',
   'LBL_NAME' => 'Név',
   'LBL_NEW_FORM_TITLE' => 'Új értesítések',

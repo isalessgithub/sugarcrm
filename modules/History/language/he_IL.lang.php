@@ -102,5 +102,5 @@ $mod_strings = array (
 	'LBL_DEFAULT_SUBPANEL_TITLE' => 'הסטוריה',
 );
 
-?>
+
 

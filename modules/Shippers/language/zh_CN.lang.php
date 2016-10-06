@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => '排序:',
   'LBL_LIST_STATUS' => '状态',
   'LBL_MODULE_NAME' => '托运人',
+  'LBL_MODULE_NAME_SINGULAR' => '运输商',
   'LBL_MODULE_TITLE' => '运输供应商:首页',
   'LBL_NAME' => '运输供应商:',
   'LBL_NEW_FORM_TITLE' => '新增运输供应商',

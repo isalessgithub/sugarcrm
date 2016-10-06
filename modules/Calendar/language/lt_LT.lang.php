@@ -17,6 +17,61 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '0',
+    1 => 'Sau',
+    2 => 'Vas',
+    3 => 'Kov',
+    4 => 'Bal',
+    5 => 'Geg',
+    6 => 'Bir',
+    7 => 'Lie',
+    8 => 'Rgp',
+    9 => 'Rgs',
+    10 => 'Spa',
+    11 => 'Lap',
+    12 => 'Gru',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '0',
+    1 => 'Sausis',
+    2 => 'Vasaris',
+    3 => 'Kovas',
+    4 => 'Balandis',
+    5 => 'Gegužė',
+    6 => 'Birželis',
+    7 => 'Liepa',
+    8 => 'Rugpjūtis',
+    9 => 'Rugsėjis',
+    10 => 'Spalis',
+    11 => 'Lapkritis',
+    12 => 'Gruodis',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => 'Pir',
+    1 => 'Pir',
+    2 => 'Ant',
+    3 => 'Tre',
+    4 => 'Ket',
+    5 => 'Pen',
+    6 => 'Šeš',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => 'Sekmadienis',
+    1 => 'Pirmadienis',
+    2 => 'Antradienis',
+    3 => 'Trečiadienis',
+    4 => 'Ketvirtadienis',
+    5 => 'Penktadienis',
+    6 => 'Šeštadienis',
+  ),
+);
+
 $mod_strings = array (
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Pritaikyti',
@@ -52,9 +107,10 @@ $mod_strings = array (
   'LBL_INFO_RELATED_TO' => 'Susijęs su',
   'LBL_INFO_START_DT' => 'Pradžios data:',
   'LBL_INFO_TITLE' => 'Papildomos detalės',
-  'LBL_LOADING' => 'Kraunama ... ( defined in ./portal/include/language/lt_LT.lang.php )',
+  'LBL_LOADING' => 'Kraunama ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalendorius',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalendorius',
   'LBL_MODULE_TITLE' => 'Kalendorius',
   'LBL_MONTH' => 'Mėnesis',
   'LBL_NEXT_DAY' => 'Kita diena',
@@ -71,6 +127,7 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => 'Atgal',
   'LBL_PREVIOUS_WEEK' => 'Ankstesnė savaitė',
   'LBL_PREVIOUS_YEAR' => 'Ankstesni metai',
+  'LBL_RECURRING_LIMIT_ERROR' => 'Šis pasikartojantis$moduleTitle nebegali būti daug suplanuotas, kadangi jis viršija leistina pasikartojimų $limit skaičių.',
   'LBL_REFRESH' => 'Atnaujinti',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Ištrinti visus pasikartojimus',
   'LBL_REPEAT_COUNT' => 'Įvykių skaičius',
@@ -79,7 +136,6 @@ $mod_strings = array (
   'LBL_REPEAT_END_AFTER' => 'Po',
   'LBL_REPEAT_END_BY' => 'Pagal',
   'LBL_REPEAT_INTERVAL' => 'Intervalas',
-  'LBL_REPEAT_LIMIT_ERROR' => 'Jūsų prašymas buvo sukurti daugiau nei $limit susitikimus.',
   'LBL_REPEAT_OCCURRENCES' => 'Įvykiai',
   'LBL_REPEAT_TAB' => 'Pasikartojimai',
   'LBL_REPEAT_TYPE' => 'Pasikartojimo tipas',
@@ -90,13 +146,13 @@ $mod_strings = array (
   'LBL_SELECT_USERS' => 'Pasirinkti vartotojus, kuriuos rodyti kalendoriuje',
   'LBL_SENDING_INVITES' => 'Siunčiami pakvietimai...',
   'LBL_SEND_INVITES' => 'Siųsti pakvietimus',
-  'LBL_SETTINGS' => 'Nustatymai ( defined in ./include/language/lt_LT.lang.php )',
+  'LBL_SETTINGS' => 'Nustatymai',
   'LBL_SETTINGS_CALLS_SHOW' => 'Rodyti skambučius',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Atvaizduoti laiką dienų ir savaičių vaizdais:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Rodyti užduotis:',
   'LBL_SETTINGS_TIME_ENDS' => 'Pabaigos laikas:',
   'LBL_SETTINGS_TIME_STARTS' => 'Pradžios laikas:',
-  'LBL_SETTINGS_TITLE' => 'Nustatymai ( defined in ./include/language/lt_LT.lang.php )',
+  'LBL_SETTINGS_TITLE' => 'Nustatymai',
   'LBL_SHARED' => 'Bendras',
   'LBL_SHARED_CAL_TITLE' => 'Bendras kalendorius',
   'LBL_STATUS' => 'Statusas',
@@ -120,56 +176,5 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Užduotys',
   'LNK_VIEW_CALENDAR' => 'Šiandien',
   'NOTICE_DURATION_TIME' => 'Trukmės periodas turi būti daugiau už 0',
-);
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Sau',
-    2 => 'Vas',
-    3 => 'Kov',
-    4 => 'Bal',
-    5 => 'Geg',
-    6 => 'Bir',
-    7 => 'Lie',
-    8 => 'Rgp',
-    9 => 'Rgs',
-    10 => 'Spa',
-    11 => 'Lap',
-    12 => 'Gru',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Sausis',
-    2 => 'Vasaris',
-    3 => 'Kovas',
-    4 => 'Balandis',
-    5 => 'Gegužė',
-    6 => 'Birželis',
-    7 => 'Liepa',
-    8 => 'Rugpjūtis',
-    9 => 'Rugsėjis',
-    10 => 'Spalis',
-    11 => 'Lapkritis',
-    12 => 'Gruodis',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Pir',
-    2 => 'Ant',
-    3 => 'Tre',
-    4 => 'Ket',
-    5 => 'Pen',
-    6 => 'Šeš',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Pirmadienis',
-    2 => 'Antradienis',
-    3 => 'Trečiadienis',
-    4 => 'Ketvirtadienis',
-    5 => 'Penktadienis',
-    6 => 'Šeštadienis',
-  ),
 );
 

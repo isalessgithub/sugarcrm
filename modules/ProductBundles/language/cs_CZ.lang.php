@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,27 +15,20 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-
-
-
-
-
-
-
-
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
-   'LBL_YOURS' => 'Yours',
-   'LBL_IN_DATABASE' => 'In Database',
-   'LBL_CONFLICT_EXISTS' => 'A Conflict Exists For - ',
-   'LBL_ACCEPT_DATABASE' => 'Accept Database',
-   'LBL_ACCEPT_YOURS' => 'Accept Yours',
-   'LBL_RECORDS_MATCH' => 'Records Match',
-   'LBL_NO_LOCKED_OBJECTS' => 'No Locked Objects',
+  'LBL_BUNDLE_STAGE' => 'Stav skupiny:',
+  'LBL_DEAL_TOT' => 'Celková sleva',
+  'LBL_DEAL_TOT_USDOLLAR' => 'Celková sleva (US Dollar)',
+  'LBL_NEW_SUB' => 'Mezisoučet slev:',
+  'LBL_SHIPPING' => 'Dodání:',
+  'LBL_SHIPPING_USDOLLAR' => 'Cena dodání (US Dollar)',
+  'LBL_SUBTOTAL' => 'Mezisoučet:',
+  'LBL_SUBTOTAL_USDOLLAR' => 'Mezisoučet (US Dollar)',
+  'LBL_TAX' => 'Daň',
+  'LBL_TAX_USDOLLAR' => 'Daň (US Dollar)',
+  'LBL_TOTAL' => 'Celkem',
+  'LBL_TOTAL_USDOLLAR' => 'Celkem(US Dollar)',
 );
-?>
+

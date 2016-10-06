@@ -18,7 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Numer rekordu musi być określony, aby usunąć kontrahenta.',
+  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć kontrahenta.',
   'ERR_REMOVING_ATTACHMENT' => 'Nie można usunąć załącznika...',
   'LBL_ACCOUNT_ID' => 'ID kontrahenta:',
   'LBL_ACTIVITIES_REPORTS' => 'Raport aktywności',

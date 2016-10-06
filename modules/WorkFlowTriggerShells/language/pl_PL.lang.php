@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_DELETE_EMPTY' => 'Rekord został już usunięty lub nie istnieje.',
+  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć szansę.',
   'LBL_ALERT_TEMPLATES' => 'Szablony powiadomień',
   'LBL_APOSTROPHE_S' => ' ',
   'LBL_COMPARE_ANY_TIME_PART2' => 'nie zmienia się od',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Wartość',
   'LBL_MODULE' => 'moduł',
   'LBL_MODULE_NAME' => 'Warunki',
+  'LBL_MODULE_NAME_SINGULAR' => 'Stan',
   'LBL_MODULE_SECTION_TITLE' => 'Jeżeli warunki są spełnione',
   'LBL_MODULE_TITLE' => 'Warunki Workflow: Strona główna',
   'LBL_MUST_SELECT_VALUE' => 'Musisz wybrać wartość dla tego pola',
@@ -92,5 +95,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Warunki Workflow',
   'LNK_WORKFLOW' => 'Workflow',
   'NTC_REMOVE_TRIGGER' => 'Czy na pewno chcesz usunąć ten warunek?',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Usunięcie podstawowego warunku spowoduje usunięcie wszystkich warunków.',
 );
 

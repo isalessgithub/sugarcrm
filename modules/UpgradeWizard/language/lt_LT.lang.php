@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Versija',
   'LBL_MODULELOADER' => 'Modulių įdiegėjas',
   'LBL_MODULE_NAME' => 'Atnaujinimo vedlys',
+  'LBL_MODULE_NAME_SINGULAR' => 'Atnaujinimo vedlys',
   'LBL_PATCHUPGRADES' => 'Atnaujinimai',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Prie paleidžiamieji patikrinimai vykdomi',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Atliekamas failų kopijavimas',

@@ -28,5 +28,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['OpportunitiesByLeadSourceDashlet'] = array('LBL_TITLE'       => 'כל ההזדמנויות ממוינות לפי מקור הליד',
                                                        'LBL_DESCRIPTION' => 'טבלת פאי הזדמנויות לפי מקור הליד',
                                                        'LBL_REFRESH'     => 'רענן נתונים');
-?>
-

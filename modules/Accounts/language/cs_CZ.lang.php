@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Změněno uživatelem ID',
   'LBL_MODULE_ID' => 'Společnosti',
   'LBL_MODULE_NAME' => 'Společnosti',
+  'LBL_MODULE_NAME_SINGULAR' => 'Společnost',
   'LBL_MODULE_TITLE' => 'Společnosti',
   'LBL_NAME' => 'Název:',
   'LBL_NEW_FORM_TITLE' => 'Přidat účet',

@@ -181,6 +181,6 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'נוצר על ידי ID',
   'LBL_EXPORT_EMAIL2'=>'כצתובת דואר אלקטרוני אחרת',
 );
-?>
+
 
 

@@ -1,6 +1,16 @@
 <?php
-$searchdefs ['Quotes'] = 
-array (
+// created: 2016-10-06 15:20:01
+$searchdefs['Quotes'] = array (
+  'templateMeta' => 
+  array (
+    'maxColumns' => '3',
+    'maxColumnsBasic' => '4',
+    'widths' => 
+    array (
+      'label' => '10',
+      'field' => '30',
+    ),
+  ),
   'layout' => 
   array (
     'basic_search' => 
@@ -29,26 +39,26 @@ array (
     ),
     'advanced_search' => 
     array (
-      'name' => 
+      0 => 
       array (
         'name' => 'name',
         'default' => true,
         'width' => '10%',
       ),
-      'quote_num' => 
+      1 => 
       array (
         'name' => 'quote_num',
         'default' => true,
         'width' => '10%',
       ),
-      'total_usdollar' => 
+      2 => 
       array (
         'name' => 'total_usdollar',
         'label' => 'LBL_LIST_AMOUNT',
         'default' => true,
         'width' => '10%',
       ),
-      'quote_type' => 
+      3 => 
       array (
         'name' => 'quote_type',
         'type' => 'enum',
@@ -56,13 +66,13 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'date_quote_expected_closed' => 
+      4 => 
       array (
         'name' => 'date_quote_expected_closed',
         'default' => true,
         'width' => '10%',
       ),
-      'atc_clients_quotes_1_name' => 
+      5 => 
       array (
         'type' => 'relate',
         'link' => true,
@@ -72,7 +82,7 @@ array (
         'default' => true,
         'name' => 'atc_clients_quotes_1_name',
       ),
-      'atc_clients_quotes_2_name' => 
+      6 => 
       array (
         'type' => 'relate',
         'link' => true,
@@ -82,7 +92,7 @@ array (
         'default' => true,
         'name' => 'atc_clients_quotes_2_name',
       ),
-      'assigned_user_id' => 
+      7 => 
       array (
         'name' => 'assigned_user_id',
         'type' => 'enum',
@@ -98,13 +108,13 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'quote_stage' => 
+      8 => 
       array (
         'name' => 'quote_stage',
         'default' => true,
         'width' => '10%',
       ),
-      'favorites_only' => 
+      9 => 
       array (
         'name' => 'favorites_only',
         'label' => 'LBL_FAVORITES_FILTER',
@@ -114,15 +124,4 @@ array (
       ),
     ),
   ),
-  'templateMeta' => 
-  array (
-    'maxColumns' => '3',
-    'maxColumnsBasic' => '4',
-    'widths' => 
-    array (
-      'label' => '10',
-      'field' => '30',
-    ),
-  ),
 );
-?>

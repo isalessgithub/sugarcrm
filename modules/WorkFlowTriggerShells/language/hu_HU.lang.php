@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_DELETE_EMPTY' => 'Ez a rekord vagy nem létezik, vagy már törölte a rendszer.',
+  'ERR_DELETE_RECORD' => 'Ki kell jelölni egy rekordot a lehetőség törléséhez.',
   'LBL_ALERT_TEMPLATES' => 'Riasztási sablonok',
   'LBL_APOSTROPHE_S' => ' ',
   'LBL_COMPARE_ANY_TIME_PART2' => 'nem változik',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Érték:',
   'LBL_MODULE' => 'modul',
   'LBL_MODULE_NAME' => 'Feltételek',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kondíció',
   'LBL_MODULE_SECTION_TITLE' => 'Amikor ezek a feltételek teljesülnek',
   'LBL_MODULE_TITLE' => 'Munkafolyamat indító: Főoldal',
   'LBL_MUST_SELECT_VALUE' => 'Válasszon értéket ennek a mezőnek',
@@ -92,5 +95,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Munkafolyamat indítók',
   'LNK_WORKFLOW' => 'Munkafolyamat tárgyai',
   'NTC_REMOVE_TRIGGER' => 'Biztosan el akarja távolítani ezt az indítót?',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Elsődleges indító eltávolításával el fogja távolítani az összes indítót.',
 );
 

@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Pokud chcete pokračovat se zvoleným souborem, klikněte na OK. K nahrání nového souboru, klikněte na Zkusit znovu.',
   'LBL_MISSING_HEADER_ROW' => 'Žádná hlavička dokumentu nenalezena',
   'LBL_MODULE_NAME' => 'Import',
+  'LBL_MODULE_NAME_SINGULAR' => 'Import',
   'LBL_MY_PUBLISHED_HELP' => 'A published mapping specifies a previously used combination of a specific data source and a set of database fields to map to the fields in the import file.',
   'LBL_MY_SAVED' => 'Moje uložené zdroje:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Použijte tuto možnost k nastavení přednastavených vlastností importu, jakou je namapování a nastavení kontroly duplicit.<br><br>Klikněte na <b>Publikovat</b>, aby bylo namapováníviditelná pro ostatní uživatele.<br>Klikněte na<b>Od-publikovat</b>aby nebylo namapovánídostupné pro ostatní uživatele.<br>Klikněte na<b>Vymazat</b> k vymazání namapování pro všechny uživatele.',

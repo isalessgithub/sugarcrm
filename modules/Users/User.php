@@ -488,7 +488,15 @@ class User extends Person {
             // End Express License Enforcement Check
 
 
-		// wp: do not save user_preferences in this table, see user_preferences module
+        // is_group & portal should be set to 0 by default
+        if (!isset($this->is_group)) {
+            $this->is_group = 0;
+        }
+        if (!isset($this->portal_only)) {
+            $this->portal_only = 0;
+        }
+
+        // wp: do not save user_preferences in this table, see user_preferences module
 		$this->user_preferences = '';
 
 		// if this is an admin user, do not allow is_group or portal_only flag to be set.
@@ -862,7 +870,8 @@ EOQ;
 		    return false;
 		}
 
-		if (!$current_user->isAdminForModule('Users')) {
+		//check old password current user is not an admin or current user is an admin editing themselves
+		if (!$current_user->isAdminForModule('Users')  || ($current_user->isAdminForModule('Users') && ($current_user->id == $this->id))) {
 			//check old password first
 			$row = self::findUserPassword($this->user_name, md5($user_password));
             if (empty($row)) {
@@ -1053,11 +1062,10 @@ EOQ;
 
 	function get_list_view_data() {
 
-		global $current_user, $mod_strings;
-        // Bug #48555 Not User Name Format of User's locale.
-        $this->_create_proper_name_field();
+		global $mod_strings;
 
-		$user_fields = $this->get_list_view_array();
+		$user_fields = parent::get_list_view_data();
+
 		if ($this->is_admin)
 			$user_fields['IS_ADMIN_IMAGE'] = SugarThemeRegistry::current()->getImage('check_inline', '',null,null,'.gif',$mod_strings['LBL_CHECKMARK']);
 		elseif (!$this->is_admin) $user_fields['IS_ADMIN'] = '';
@@ -1093,7 +1101,6 @@ EOQ;
 				$user_fields['UPLINE'] = translate('LBL_TEAM_UPLINE_EXPLICIT','Users');
 			}
 		}
-		$user_fields['EMAIL1'] = $this->emailAddress->getPrimaryAddress($this);
 
 		return $user_fields;
 	}
@@ -2127,6 +2134,21 @@ EOQ;
             $result = ob_get_clean();
             $_POST = $backUpPost;
             return $result == true;
+        }
+    }
+
+    /**
+     * Checks if the passed email is primary.
+     * 
+     * @param string $email
+     * @return bool Returns TRUE if the passed email is primary.
+     */
+    public function isPrimaryEmail($email)
+    {
+        if (!empty($this->email1) && !empty($email) && strcasecmp($this->email1, $email) == 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

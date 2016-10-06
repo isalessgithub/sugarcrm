@@ -18,8 +18,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Címke szerkesztő',
   'LBL_KEY' => 'Kulcs:',
+  'LBL_MODULE_NAME' => 'Címke szerkesztő',
+  'LBL_MODULE_NAME_SINGULAR' => 'Címke szerkesztő',
   'LBL_VALUE' => 'Érték:',
 );
 

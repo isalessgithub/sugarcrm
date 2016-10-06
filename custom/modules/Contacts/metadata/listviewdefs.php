@@ -1,6 +1,6 @@
 <?php
-$listViewDefs ['Contacts'] = 
-array (
+// created: 2016-10-06 15:20:01
+$listViewDefs['Contacts'] = array (
   'NAME' => 
   array (
     'width' => '20%',
@@ -70,8 +70,8 @@ array (
   ),
   'CONTACT_COUNT_C' => 
   array (
-    'type' => 'int',
     'default' => true,
+    'type' => 'int',
     'label' => 'LBL_CONTACT_COUNT',
     'width' => '10%',
   ),
@@ -246,4 +246,3 @@ array (
     'sortable' => false,
   ),
 );
-?>

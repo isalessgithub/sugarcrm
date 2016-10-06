@@ -25,8 +25,9 @@
 	                    <a id="{$gcl_submenu_key}_link" href="{$GCL_SUBMENU.URL}"{if !empty($GCL_SUBMENU.ONCLICK)} onclick="{$GCL_SUBMENU.ONCLICK}"{/if}>{$GCL_SUBMENU.LABEL}</a>
 	                {/foreach}
                 {/foreach}
-
-                <li><a id="logout_link" href='{$LOGOUT_LINK}' class='utilsLink'>{$LOGOUT_LABEL}</a> </li>
+                {if !empty($LOGOUT_LINK) && !empty($LOGOUT_LABEL)}
+                    <li><a id="logout_link" href='{$LOGOUT_LINK}' class='utilsLink'>{$LOGOUT_LABEL}</a> </li>
+                {/if}
             </ul>
             <span> 
         	    <div id="dcmenuUserIcon" {$NOTIFCLASS}>

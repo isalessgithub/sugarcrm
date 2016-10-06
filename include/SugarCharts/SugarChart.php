@@ -32,6 +32,7 @@ class SugarChart {
 	var $colors_list = array();
 	var $base_url = array();
 	var $url_params = array();
+	var $display_labels = array();
 
 	var $currency_symbol;
 	var $thousands_symbol;
@@ -438,12 +439,21 @@ class SugarChart {
 
 	function xmlDataForGroupByChart(){
 		$data = '';
+		$idcounter = 0;
 		foreach ($this->data_set as $key => $value){
 			$amount = $this->is_currency ? $this->convertCurrency($this->calculateGroupByTotal($value)) : $this->calculateGroupByTotal($value);
             $label = $this->is_currency ? ($this->currency_symbol . $this->formatNumber($amount)) : $amount;
 
 			$data .= $this->tab('<group>',2);
-			$data .= $this->tabValue('title',$key,3);
+			if (!empty($this->display_labels[$key]))
+			{
+				$data .= $this->tabValue('title', $this->display_labels[$key],3);
+				$data .= $this->tabValue('id', ++$idcounter,3);
+			}
+			else
+			{
+				$data .= $this->tabValue('title', $key,3);
+			}
 			$data .= $this->tabValue('value',$amount,3);
 			$data .= $this->tabValue('label',$label,3);
 			$data .= $this->tab('<link></link>',3);
@@ -651,20 +661,11 @@ class SugarChart {
      *
      * @param string $file_id - unique id to make part of the file name
      */
-    public static function getXMLFileName(
-         $file_id
-         )
+    public static function getXMLFileName($file_id)
     {
-        global $sugar_config, $current_user;
+        create_cache_directory("xml/".$GLOBALS['current_user']->getUserPrivGuid() . "_{$file_id}.xml");
 
-        $filename = sugar_cached("xml/"). $current_user->id . '_' . $file_id . '.xml';
-
-        $filename_temp = "xml/". $current_user->id . '_' . $file_id . '.xml';
-        if ( !is_dir(dirname($filename)) ) {
-            create_cache_directory($filename_temp);
-        }
-
-        return $filename;
+        return sugar_cached("xml/"). $GLOBALS['current_user']->getUserPrivGuid() . "_" . $file_id . ".xml";
     }
 
     public function processXmlData(){
@@ -729,7 +730,7 @@ class SugarChart {
         {
             sugar_mkdir($dir, null, true);
         }
-        
+
 		// open file
 		if (!$fh = sugar_fopen($xmlFilename, 'w')) {
 			$GLOBALS['log']->debug("Cannot open file ($xmlFilename)");

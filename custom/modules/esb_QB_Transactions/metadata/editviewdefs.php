@@ -1,49 +1,52 @@
 <?php
-$module_name = 'esb_QB_Transactions';
-$viewdefs [$module_name] = 
-array (
-  'EditView' => 
+// created: 2016-10-06 15:20:10
+$viewdefs['esb_QB_Transactions']['EditView'] = array (
+  'templateMeta' => 
   array (
-    'templateMeta' => 
+    'maxColumns' => '2',
+    'widths' => 
     array (
-      'maxColumns' => '2',
-      'widths' => 
+      0 => 
       array (
-        0 => 
-        array (
-          'label' => '10',
-          'field' => '30',
-        ),
-        1 => 
-        array (
-          'label' => '10',
-          'field' => '30',
-        ),
+        'label' => '10',
+        'field' => '30',
       ),
-      'useTabs' => false,
+      1 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
     ),
-    'panels' => 
+    'useTabs' => false,
+    'tabDefs' => 
     array (
-      'default' => 
+      'DEFAULT' => 
+      array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
+    ),
+  ),
+  'panels' => 
+  array (
+    'default' => 
+    array (
+      0 => 
+      array (
+        0 => 'name',
+        1 => 'description',
+      ),
+      1 => 
       array (
         0 => 
         array (
-          0 => 'name',
-          1 => 'description',
+          'name' => 'esb_qb_transactions_quotes_name',
         ),
         1 => 
         array (
-          0 => 
-          array (
-            'name' => 'esb_qb_transactions_quotes_name',
-          ),
-          1 => 
-          array (
-            'name' => 'atc_clients_esb_qb_transactions_1_name',
-          ),
+          'name' => 'atc_clients_esb_qb_transactions_1_name',
         ),
       ),
     ),
   ),
 );
-?>

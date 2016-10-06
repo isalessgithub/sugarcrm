@@ -357,7 +357,7 @@ var DCMenu = YUI({debug:false,combine: true, timeout: 10000, base:"include/javas
         if (!DCMenu.qePanel)
         {
             DCMenu.qePanel = new YAHOO.widget.Panel('quickEditWindow', {
-                width: "1050px",
+                width: "100%",
                 draggable: true,
                 close: true,
                 constraintoviewport: true,
@@ -604,12 +604,6 @@ var DCMenu = YUI({debug:false,combine: true, timeout: 10000, base:"include/javas
 		var dcmenuSugarCubeWidth = dcmenuSugarCube.get('offsetWidth');
 		var dcboxbodyWidth = dcboxbody.get('offsetWidth');
 		overlay.set('x',(dcmenuSugarCubeX + dcmenuSugarCubeWidth) - dcboxbodyWidth);
-		
-		
-		if(isRTL) {
-			overlay.set('x',(dcmenuSugarCubeX + dcmenuSugarCubeWidth) - dcboxbodyWidth);
-		}
-
 	}
 	DCMenu.viewMiniNotification = function(id) {
 	    quickRequest('notifications', 'index.php?to_pdf=1&module=Notifications&action=quickView&record='+id, notificationDisplay );

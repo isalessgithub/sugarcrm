@@ -18,12 +18,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_DEFAULT' => 'По подразбиране',
-  'LBL_READ_WRITE' => 'Четене/Модифициране',
-  'LBL_READ_OWNER_WRITE' => 'Четене/Собственик може да модифицира',
-  'LBL_READ_ONLY' => 'Само за четене',
-  'LBL_OWNER_READ_WRITE' => 'Собственик може да чете и модифицира',
   'LBL_ALLOW_NONE' => 'Без права',
+  'LBL_DEFAULT' => 'Не е дефинирано',
   'LBL_FIELDS' => 'Права на достъп',
+  'LBL_NOT_DEFINED' => 'Не е дефинирано',
+  'LBL_OWNER_READ_WRITE' => 'Собственик може да чете и модифицира',
+  'LBL_READ_ONLY' => 'Само за четене',
+  'LBL_READ_OWNER_WRITE' => 'Четене/Собственик може да модифицира',
+  'LBL_READ_WRITE' => 'Четене/Модифициране',
 );
 

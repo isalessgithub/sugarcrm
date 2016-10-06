@@ -21,17 +21,17 @@ $object_name = strtolower($object_name);
 $app_list_strings = array (
   $object_name.'_type_dom' => 
   array (
-    '' => '',
+    '' => '[-joks-]',
     'Analyst' => 'Analitikas',
     'Competitor' => 'Konkurentas',
     'Customer' => 'Pirkėjas',
     'Integrator' => 'Integruotojas',
     'Investor' => 'Investuotojas',
+    'Other' => 'Kita',
     'Partner' => 'Partneris',
     'Press' => 'Spauda',
     'Prospect' => 'Kandidatas',
     'Reseller' => 'Perpardavėjas',
-    'Other' => 'Kita',
   ),
 );
 

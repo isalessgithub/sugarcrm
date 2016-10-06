@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,39 +15,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-/*********************************************************************************
- * pl_pl.lang.php for SugarCRM 6.5.0
- * Translator: eVolpe
- * All Rights Reserved.
- * Any bugs report welcome: support@evolpe.pl
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
 $mod_strings = array (
-'LBL_NAME' => 'Nazwa zadania',
-'LBL_EXECUTE_TIME'			=> 'Czas wykonania',
-'LBL_SCHEDULER_ID' 	=> 'Harmonogram',
-'LBL_STATUS' 	=> 'Status zadania',
-'LBL_RESOLUTION' 	=> 'Wynik',
-'LBL_MESSAGE' 	=> 'Wiadomoœci',
-'LBL_DATA' 	=> 'Dane zadania',
-'LBL_REQUEUE' 	=> 'Spróbuj ponownie w przypadku niepowodzenia',
-'LBL_RETRY_COUNT' 	=> 'Maksymalna liczba prób',
-'LBL_FAIL_COUNT' 	=> 'Niepowodzenia',
-'LBL_INTERVAL' 	=> 'Minimalny interwa³ pomiêdzy próbami',
-'LBL_CLIENT' 	=> 'ID klienta',
-'LBL_PERCENT'	=> 'Procent ukoñczenia',
-// Errors
-'ERR_CALL' => "Nie mo¿na wywo³aæ funkcji: %s",
-'ERR_CURL' => "Brak CURL - nie mo¿na uruchomiæ URL zadañ",
-'ERR_FAILED' => "Niepowodzenie, sprawdŸ logi PHP oraz sugarcrm.log",
-'ERR_PHP' => "%s [%d]: %s w %s w linii %d",
-'ERR_NOUSER' => "Nie okreœlono ID u¿ytkownika dla zadania",
-'ERR_NOSUCHUSER' => "Nie odnaleziono ID u¿ytkownika %s",
-'ERR_JOBTYPE' 	=> "Nieznany typ zadania: %s",
-'ERR_TIMEOUT' => "Niepowodzenie z powodu przekroczenia limitu czasowego",
-'ERR_JOB_FAILED_VERBOSE' => 'Zadanie %1$s (%2$s) zakoñczy³o siê niepowodzeniem',
+  'ERR_CALL' => 'Nie moÅ¼na wywoÅ‚aÄ‡ funkcji: %s',
+  'ERR_CURL' => 'Brak CURL - nie moÅ¼na uruchomiÄ‡ URL zadaÅ„',
+  'ERR_FAILED' => 'Niepowodzenie, sprawdÅº logi PHP oraz sugarcrm.log',
+  'ERR_JOBTYPE' => 'Nieznany typ zadania: %s',
+  'ERR_JOB_FAILED_VERBOSE' => 'Zadanie %1$s (%2$s) zakoÅ„czyÅ‚o siÄ™ niepowodzeniem',
+  'ERR_NOSUCHUSER' => 'Nie odnaleziono ID uÅ¼ytkownika %s',
+  'ERR_NOUSER' => 'Nie okreÅ›lono ID uÅ¼ytkownika dla zadania',
+  'ERR_PHP' => '%s [%d]: %s w %s w linii %d',
+  'ERR_TIMEOUT' => 'Niepowodzenie z powodu przekroczenia limitu czasowego',
+  'LBL_CLIENT' => 'ID klienta',
+  'LBL_DATA' => 'Dane zadania',
+  'LBL_EXECUTE_TIME' => 'Czas wykonania',
+  'LBL_FAIL_COUNT' => 'Niepowodzenia',
+  'LBL_INTERVAL' => 'Minimalny interwaÅ‚ pomiÄ™dzy prÃ³bami',
+  'LBL_JOB_GROUP' => 'Grupa zadania',
+  'LBL_MESSAGE' => 'WiadomoÅ›ci',
+  'LBL_NAME' => 'Nazwa zadania',
+  'LBL_PERCENT' => 'Procent ukoÅ„czenia',
+  'LBL_REQUEUE' => 'SprÃ³buj ponownie w przypadku niepowodzenia',
+  'LBL_RESOLUTION' => 'Wynik',
+  'LBL_RETRY_COUNT' => 'Maksymalna liczba prÃ³b',
+  'LBL_SCHEDULER_ID' => 'Harmonogram',
+  'LBL_STATUS' => 'Status zadania',
 );
 
-?>

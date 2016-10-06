@@ -18,13 +18,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Česta pitanja',
-  'LBL_MODULE_TITLE' => 'Česta pitanja: Početna strana',
-  'LBL_BACK_TO_TOP' => 'Nazad na vrh',
-  'LBL_SUCCESSFUL_QUERY' => 'Uspešno',
-  'LBL_ERROR_QUERY' => 'Greška',
   'ERR_FAQ_LIST_RETRIEVE' => 'Greška: Ne možete da preuzimate sadržaj Čestih pitanja u ovom trenutku.',
   'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'Pokušaj ponovo SOAP poziv ...',
+  'LBL_BACK_TO_TOP' => 'Nazad na vrh',
+  'LBL_ERROR_QUERY' => 'Greška',
   'LBL_FAQ_EMPTY' => 'Trenutno nema pronađenih označenih artikala Čestih pitanja u repozitorijumu Baze Znanja.',
+  'LBL_MODULE_NAME' => 'Česta pitanja',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pitanja',
+  'LBL_MODULE_TITLE' => 'Česta pitanja: Početna strana',
+  'LBL_SUCCESSFUL_QUERY' => 'Uspešno',
 );
 

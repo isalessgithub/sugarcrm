@@ -18,9 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_PREVIOUS' => 'Indietro',
-  'LBL_NEXT' => 'Avanti',
   'LBL_EXPAND' => 'Espandi',
   'LBL_MODULE_NAME' => 'Motore di Espressioni',
+  'LBL_MODULE_NAME_SINGULAR' => 'Motore di Espressioni',
+  'LBL_NEXT' => 'Avanti',
+  'LBL_PREVIOUS' => 'Indietro',
 );
 

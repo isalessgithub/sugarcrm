@@ -57,6 +57,3 @@ $connector_strings = array (
 	'hoovers_wsdl' => 'WSDL כתובת אינשט',
 	'hoovers_api_key' => 'API מפתח',
 );
-
-?>
-

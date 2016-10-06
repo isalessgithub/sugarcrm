@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Označi kao etapu projekta',
   'LBL_MODIFIED_USER_ID' => 'ID broj korisnika koji je izvršio izmene:',
   'LBL_MODULE_NAME' => 'Projekat',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projekat',
   'LBL_MODULE_TITLE' => 'Projekti: Početna strana',
   'LBL_MONTH_BUTTON' => 'Mesec',
   'LBL_MORE' => 'Više...',

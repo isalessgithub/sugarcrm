@@ -26,5 +26,5 @@ $mod_strings = array(
 'LBL_VALUE'=>'ערך:',
 );
 
-?>
+
 

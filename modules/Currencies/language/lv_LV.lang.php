@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Pievienot',
+  'LBL_ADMIN_ONLY' => 'Tikai administratoriem',
   'LBL_BELOW_MIN' => 'Valūtas kursam jābūt lielākam par 0',
   'LBL_CREATED_BY' => 'Izveidoja',
   'LBL_CURRENCY' => 'Valūta',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Sapludināt',
   'LBL_MERGE_TXT' => 'Lūdzu, pārbaudiet valūtas, kuras jūs vēlaties attiecināt uz izvēlēto valūtu. Šī darbība dzēsīs visas atzīmētās valūtas un piešķirs jebkuras ar tām saistītās vērtības izvēlētajai valūtai.',
   'LBL_MODULE_NAME' => 'Valūtas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Valūta',
   'LBL_UPDATE' => 'Atjaunināt',
   'LBL_US_DOLLAR' => 'ASV dolārs',
   'LNK_NEW_ACCOUNT' => 'Jauns klients',

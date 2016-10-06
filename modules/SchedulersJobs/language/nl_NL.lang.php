@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_EXECUTE_TIME' => 'Uitvoeringstijd',
   'LBL_FAIL_COUNT' => 'Fouten',
   'LBL_INTERVAL' => 'Minimale interval tussen de pogingen',
+  'LBL_JOB_GROUP' => 'Job groep',
   'LBL_MESSAGE' => 'Messages',
   'LBL_NAME' => 'Job Name',
   'LBL_PERCENT' => 'Percentage compleet',

@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Oznacz jako kamień milowy',
   'LBL_MODIFIED_USER_ID' => 'Id użytkownika modyfikującego:',
   'LBL_MODULE_NAME' => 'Projekty',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projekt',
   'LBL_MODULE_TITLE' => 'Projekty: Strona główna',
   'LBL_MONTH_BUTTON' => 'Miesiąc',
   'LBL_MORE' => 'Więcej...',

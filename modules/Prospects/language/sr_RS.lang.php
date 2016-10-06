@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Promenio',
   'LBL_MODULE_ID' => 'Ciljevi',
   'LBL_MODULE_NAME' => 'Ciljevi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Cilj',
   'LBL_MODULE_TITLE' => 'Ciljevi: Početna strana',
   'LBL_MORE_INFORMATION' => 'Više informacija',
   'LBL_NAME' => 'Ime:',

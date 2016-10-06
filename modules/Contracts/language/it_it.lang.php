@@ -18,6 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_ACCOUNT_ID' => 'ID Azienda',
   'LBL_ACCOUNT_NAME' => 'Nome Azienda:',
   'LBL_ASSIGNED_TO' => 'Assegnato a:',
   'LBL_ASSIGNED_TO_NAME' => 'Assegnato a:',
@@ -55,6 +56,7 @@ $mod_strings = array (
   'LBL_NONE' => 'Nessuno',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_OPPORTUNITY' => 'Nome Opportunità:',
+  'LBL_OPPORTUNITY_NAME' => 'Nome Opportunità',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Prodotti',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Offerte',
   'LBL_REFERENCE_CODE' => 'Codice di Referimento:',
@@ -75,6 +77,7 @@ $mod_strings = array (
   'LBL_TYPE' => 'Tipo',
   'LBL_UNDEFINED' => 'Indefinito',
   'LNK_CONTRACT_LIST' => 'Visualizza Contratti',
+  'LNK_IMPORT_CONTRACTS' => 'Importa Contratti',
   'LNK_NEW_CONTRACT' => 'Nuovo Contratto',
 );
 

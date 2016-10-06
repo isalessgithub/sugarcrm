@@ -237,7 +237,7 @@ function draw_chart(& $reporter, $chart_type, $is_dashlet=false, $id='', $report
     $stack = false;
 
     foreach($chart_rows as $element){
-    	if (count($element) > 1){
+    	if (count($element) > 1 && count($reporter->report_def['group_defs']) > 1){
     		$stack = true;
 			break;
     	}
@@ -319,9 +319,9 @@ function get_cache_file_name($reporter) {
 
     $xml_cache_dir = sugar_cached("xml/");
     if ($reporter->is_saved_report == true) {
-        $filename = $xml_cache_dir . $reporter->saved_report_id . '_saved_chart.xml';
+        $filename = $xml_cache_dir . $current_user->getUserPrivGuid(). '_' . $reporter->saved_report_id . '_saved_chart.xml';
     } else {
-        $filename = $xml_cache_dir . $current_user->id . '_' . time() . '_curr_user_chart.xml';
+        $filename = $xml_cache_dir . $current_user->getUserPrivGuid() . '_' . time() . '_curr_user_chart.xml';
     }
 
     if ( !is_dir(dirname($filename)) ) {

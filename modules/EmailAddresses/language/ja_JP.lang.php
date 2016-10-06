@@ -18,13 +18,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_EMAIL_ADDRESS_ID' => 'ID',
-  'LBL_EMAIL_ADDRESS' => '電子メールアドレス',
-  'LBL_EMAIL_ADDRESS_CAPS' => '電子メールアドレス(大文字)',
-  'LBL_INVALID_EMAIL' => '無効な電子メール',
-  'LBL_OPT_OUT' => 'メール送信除外',
   'LBL_DATE_CREATE' => '作成日',
   'LBL_DATE_MODIFIED' => '更新日',
   'LBL_DELETED' => '削除',
+  'LBL_EMAIL_ADDRESS' => 'Eメールアドレス',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Eメールアドレス(大文字)',
+  'LBL_EMAIL_ADDRESS_ID' => 'ID',
+  'LBL_INVALID_EMAIL' => '無効なEメール',
+  'LBL_OPT_OUT' => 'メール送信除外',
 );
 

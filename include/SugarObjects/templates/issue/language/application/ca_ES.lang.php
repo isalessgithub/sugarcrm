@@ -1,4 +1,4 @@
- <?php
+<?php
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -56,5 +56,4 @@ $object_name = strtolower($object_name);
     'Invalid' => 'No Vàlid',
   ),
   );
-?>
 

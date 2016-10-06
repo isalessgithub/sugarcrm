@@ -57,7 +57,7 @@ $app_list_strings = array (
     'TeamNotices' => 'Team Notices',
     'Manufacturers' => 'Manufacturers',
     'Activities' => 'Activities',
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bugs',
     'Feeds' => 'RSS',
     'iFrames'=>'My Sites',
     'TimePeriods'=>'Time Periods',
@@ -128,7 +128,8 @@ $app_list_strings = array (
     'Quotas' => 'Quota',
     'Teams' => 'Team',
     'Activities' => 'Activity',
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bug',
+    'KBDocuments' => 'KBDocument',
     'Feeds' => 'RSS',
     'iFrames'=>'My Sites',
     'TimePeriods'=>'Time Period',
@@ -542,7 +543,7 @@ $app_list_strings = array (
 
     'Quotes' => 'Quote',
 
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bug',
     'Cases' => 'Case',
     'Leads' => 'Lead',
 
@@ -722,7 +723,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Accounts',
     'Activities' => 'Activities',
-    'Bug Tracker' => 'Bug Tracker',
+    'Bugs' => 'Bugs',
     'Calendar' => 'Calendar',
     'Calls' => 'Calls',
     'Campaigns' => 'Campaigns',
@@ -1992,6 +1993,7 @@ $app_strings = array (
     'ERR_NO_DB' => 'Could not connect to the database. Please refer to sugarcrm.log for details.',
     'ERR_DB_FAIL' => 'Database failure. Please refer to sugarcrm.log for details.',
     'ERR_EXTERNAL_API_403' => 'Permission Denied. File type is not supported.',
+    'ERR_EXTERNAL_API_NO_OAUTH_TOKEN' => 'OAuth Access Token is missing.',
     'ERR_DB_VERSION' => 'Sugar CRM {0} Files May Only Be Used With A Sugar CRM {1} Database.',
 
     //Lotus Live specific error messages
@@ -2092,6 +2094,8 @@ $app_strings = array (
     'LBL_VCARD' => 'vCard',
     'LBL_EMPTY_VCARD' => 'Please select a vCard file',
     'LBL_EMPTY_REQUIRED_VCARD' => 'vCard does not have all the required fields for this module. Please refer to sugarcrm.log for details.',
+    'LBL_VCARD_ERROR_FILESIZE' => 'The uploaded file exceeds the 30000 bytes size limit which was specified in the HTML form.',
+    'LBL_VCARD_ERROR_DEFAULT' => 'There was an error uploading the vCard file. Please refer to sugarcrm.log for details.',
     'LBL_IMPORT_VCARD' => 'Import vCard:',
     'LBL_IMPORT_VCARD_BUTTON_KEY' => 'I',
     'LBL_IMPORT_VCARD_BUTTON_LABEL' => 'Import vCard',
@@ -2438,10 +2442,10 @@ $app_strings = array (
     'NTC_WELCOME' => 'Welcome',
     'NTC_YEAR_FORMAT' => '(yyyy)',
     'LOGIN_LOGO_ERROR'=> 'Please replace the SugarCRM logos.',
-    'ERROR_FULLY_EXPIRED'=> "Your company's license for SugarCRM has expired for more than 7 days and needs to be brought up to date. Only admins may login.",
+    'ERROR_LICENSE_FULLY_EXPIRED'=> "Your Company's Subscription to the SugarCRM Product has expired and needs to be renewed. Only admins may login when a Subscription has expired. If you have any questions, please contact your administrator.",
     'ERROR_LICENSE_EXPIRED'=> "Your company's license for SugarCRM needs to be updated. Only admins may login",
     'ERROR_LICENSE_VALIDATION'=> "Your company's license for SugarCRM needs to be validated. Only admins may login",
-    'WARN_BROWSER_VERSION_WARNING' => "<b>Warning:</b> Your browser version is no longer supported or you are using an unsupported browser.<p></p>The following browser versions are recommended:<p></p><ul><li>Internet Explorer 8 (compatibility view not supported)<li>Firefox 17<li>Safari 5.1<li>Chrome 24</ul>",
+    'WARN_BROWSER_VERSION_WARNING' => "<b>Warning:</b> Your browser version is no longer supported or you are using an unsupported browser.<p></p>The following browser versions are recommended:<p></p><ul><li>Internet Explorer 10 (compatibility view not supported)<li>Firefox 39.0<li>Safari 6.0<li>Chrome 43</ul>",
     'WARN_BROWSER_IE_COMPATIBILITY_MODE_WARNING' => "<b>Warning:</b> Your browser is in IE compatibility view which is not supported.",
     'WARN_LICENSE_SEATS'=>  "Warning: The number of active users is already the maximum number of licenses allowed.",
     'WARN_LICENSE_SEATS_MAXED'=>  "Warning: The number of active users exceeds the maximum number of licenses allowed.",
@@ -2492,6 +2496,8 @@ $app_strings = array (
     'MSG_JS_ALERT_MTG_REMINDER_TIME' => 'Time: ',
     'MSG_JS_ALERT_MTG_REMINDER_LOC' => 'Location: ',
     'MSG_JS_ALERT_MTG_REMINDER_DESC' => 'Description: ',
+    'MSG_JS_ALERT_MTG_REMINDER_STATUS' => 'Status: ',
+    'MSG_JS_ALERT_MTG_REMINDER_RELATED_TO' => 'Related To: ',
     'MSG_JS_ALERT_MTG_REMINDER_CALL_MSG' => "\nClick OK to view this call or click Cancel to dismiss this message.",
   	'MSG_JS_ALERT_MTG_REMINDER_MEETING_MSG' => "\nClick OK to view this meeting or click Cancel to dismiss this message.",
  	'MSG_LIST_VIEW_NO_RESULTS_BASIC' => "No results found.",
@@ -2681,6 +2687,8 @@ $app_strings = array (
     'LBL_MASSUPDATE_DATE' => 'Select Date',
 
     'LBL_VALIDATE_RANGE' => 'is not within the valid range',
+    'LBL_CHOOSE_START_AND_END_DATES' => 'Please choose both a starting and ending date range',
+    'LBL_CHOOSE_START_AND_END_ENTRIES' => 'Please choose both starting and ending range entries',
 
     //jchi #  20776
     'LBL_DROPDOWN_LIST_ALL' => 'All',
@@ -3616,10 +3624,10 @@ $app_list_strings['kbdocument_status_dom'] = array (
     'Twitter'=>'Twitter',
   );
   $app_list_strings['eapm_list_import']= array(
-  	'Google' => 'Google Contacts',
+    'Google' => 'Google Contacts',
   );
-$app_list_strings['eapm_list_documents']= array(
-  	'Google' => 'Google Docs',
+  $app_list_strings['eapm_list_documents']= array(
+    'Google' => 'Google Drive',
   );
 	$app_list_strings['token_status'] = array(
         1 => 'Request',

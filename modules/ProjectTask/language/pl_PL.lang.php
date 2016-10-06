@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Kamień milowy:',
   'LBL_MODIFIED_USER_ID' => 'ID użytkownika modyfikującego:',
   'LBL_MODULE_NAME' => 'Zadania projektowe',
+  'LBL_MODULE_NAME_SINGULAR' => 'Zadanie projektowe',
   'LBL_MODULE_TITLE' => 'Zadania projektowe: Strona główna',
   'LBL_NAME' => 'Nazwa:',
   'LBL_NEW_FORM_TITLE' => 'Dodaj zadanie projektowe',

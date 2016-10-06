@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,29 +15,15 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $object_name = strtolower($object_name);
 $app_list_strings = array (
   $object_name.'_type_dom' => 
   array (
     '' => ' ',
-    'Existing Business' => 'Bestaande business',
-    'New Business' => 'Nieuwe business',
+    'Existing Business' => 'Bestaande handel',
+    'New Business' => 'Nieuwe handel',
   ),
 );
 

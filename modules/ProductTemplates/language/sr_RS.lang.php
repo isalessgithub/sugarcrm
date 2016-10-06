@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MFT_PART_NUM' => 'Broj dela proizvođača:',
   'LBL_MODULE_ID' => 'Šabloni proizvoda',
   'LBL_MODULE_NAME' => 'Katalog proizvoda',
+  'LBL_MODULE_NAME_SINGULAR' => 'Katalog proizvoda:',
   'LBL_MODULE_TITLE' => 'Katalog proizvoda: Početna strana',
   'LBL_NAME' => 'Naziv proizvoda:',
   'LBL_NEW_FORM_TITLE' => 'Kreiraj atikal',

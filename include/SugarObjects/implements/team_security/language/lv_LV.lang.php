@@ -18,8 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Noklusētā primārā darba grupa',
   'LBL_TEAM' => 'Darba grupa',
   'LBL_TEAMS' => 'Darba grupas',
   'LBL_TEAM_ID' => 'Darba grupas ID',
+  'LBL_TEAM_SET' => 'Darba grupu kopa',
 );
 

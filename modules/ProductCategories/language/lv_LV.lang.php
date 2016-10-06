@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Jānorāda ieraksta numurs, lai dzēstu produkta veidu.',
+  'LBL_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',
   'LBL_CATEGORIES' => 'Kategorijas',
   'LBL_CREATED_ID' => 'Izveidoja ID',
   'LBL_DESCRIPTION' => 'Apraksts:',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Secība:',
   'LBL_MODIFIED_ID' => 'Modificēja ID',
   'LBL_MODULE_NAME' => 'Produktu kategorijas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Produktu kategorija',
   'LBL_MODULE_TITLE' => 'Produktu kategorijas',
   'LBL_NAME' => 'Produkta kategorija:',
   'LBL_PARENT_CATEGORY' => 'Vecākkategorija:',

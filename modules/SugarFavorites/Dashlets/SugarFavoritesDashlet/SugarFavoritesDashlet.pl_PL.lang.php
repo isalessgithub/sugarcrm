@@ -28,4 +28,4 @@ $dashletStrings['SugarFavoritesDashlet'] = array(
                                             'LBL_HOMEPAGE_TITLE'      => 'Ulubione Sugar',
 											'LBL_CONFIGURE_TITLE'  => 'Tytuł',
                                          );
-?> 
+ 

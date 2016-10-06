@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,28 +15,14 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $dashletStrings = array (
   'MyOpportunitiesGaugeDashlet' => 
   array (
-    'LBL_TITLE' => 'Mijn Gewonnen Opportunities',
-    'LBL_DESCRIPTION' => 'Metergrafiek van Opportunities',
+    'LBL_DESCRIPTION' => 'Meterdiagram van Opportunities',
     'LBL_REFRESH' => 'Ververs',
+    'LBL_TITLE' => 'Mijn Gewonnen Opportunities',
   ),
 );
 

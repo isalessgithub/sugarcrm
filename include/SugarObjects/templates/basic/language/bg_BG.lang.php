@@ -25,6 +25,7 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Модифицирано на',
   'LBL_DELETED' => 'Изтрити',
   'LBL_DESCRIPTION' => 'Описание',
+  'LBL_EDIT_BUTTON' => 'Редактирай',
   'LBL_ID' => 'Идентификатор',
   'LBL_LIST_NAME' => 'Име',
   'LBL_MODIFIED' => 'Модифицирано от',
@@ -32,5 +33,6 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Модифицирано от',
   'LBL_MODIFIED_USER' => 'Модифицирано от потребител',
   'LBL_NAME' => 'Име',
+  'LBL_REMOVE' => 'Премахни',
 );
 

@@ -48,6 +48,9 @@ while (( $row = $reporter->get_summary_next_row()) != 0 ) {
 	$got_row = 1;                                                                                   
 	$startTable = true;
 	$indexOfGroupByStart = whereToStartGroupByRow($reporter, $count, $header_row, $previousRow, $row);
+    if ($indexOfGroupByStart == -1) {
+        $indexOfGroupByStart = 0;
+    }
 	if ($indexOfGroupByStart != 0) {
 		$startTable = false;
 	} // if

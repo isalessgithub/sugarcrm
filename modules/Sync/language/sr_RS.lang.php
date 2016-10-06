@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_GO_ONLINE' => 'Idi na mrežu',
   'LBL_INITIAL_SYNC_MESSAGE' => 'Upravo ste instalirali Offline klijenta. Molim, kliknite na dugme ispod da bi počeo proces sinhronizacije.',
   'LBL_MODULE_NAME' => 'Sinhronizacija',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sinhronizacija',
   'LBL_MODULE_TITLE' => 'Sinhronizacija: Početna strana',
   'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM',
   'LBL_PROMPT' => 'Poruka korisniku',

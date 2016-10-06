@@ -49,10 +49,12 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'E-mailsjabloon Lijst',
   'LBL_LIST_NAME' => 'Naam',
   'LBL_MODULE_NAME' => 'E-mailsjabloon',
+  'LBL_MODULE_NAME_SINGULAR' => 'E-mail Sjabloon',
+  'LBL_MODULE_NAME_SINGULAR_WORKFLOW' => 'Workflow E-mail Sjabloon',
   'LBL_MODULE_NAME_WORKFLOW' => 'Workflow e-mail templates',
   'LBL_MODULE_TITLE' => 'E-mailsjablonen: Start',
   'LBL_NAME' => 'Naam:',
-  'LBL_NEW' => 'Nieuw',
+  'LBL_NEW' => 'Nieuw(e)',
   'LBL_NEW_FORM_TITLE' => 'Ontwerp E-mailsjabloon',
   'LBL_PLAIN_TEXT' => 'Tekstebestanden',
   'LBL_PUBLISH' => 'Publiceer:',
@@ -87,6 +89,6 @@ $mod_strings = array (
   'LNK_NEW_SEND_EMAIL' => 'E-mail opstellen',
   'LNK_SENT_EMAIL_LIST' => 'Verzonden E-mails',
   'LNK_VIEW_CALENDAR' => 'Vandaag',
-  'LNK_VIEW_MY_INBOX' => 'Toon mijn Email',
+  'LNK_VIEW_MY_INBOX' => 'Toon mijn E-mail',
 );
 

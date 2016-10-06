@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Ime korisnika koji je promenio',
   'LBL_MODIFIED_USER' => 'Promenio korisnik',
   'LBL_MODULE_NAME' => 'Tok aktivnosti',
+  'LBL_MODULE_NAME_SINGULAR' => 'Spisak nedavnih aktivnosti',
   'LBL_MODULE_TITLE' => 'Tok aktivnosti',
   'LBL_MY_FAVORITES_ONLY' => 'Samo moji omiljeni',
   'LBL_NAME' => 'Naziv',

@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Процент',
   'LBL_MODIFIED_ID' => 'Модифицирано от',
   'LBL_MODULE_NAME' => 'Мита, акцизи и такси',
+  'LBL_MODULE_NAME_SINGULAR' => 'Мита, акцизи и такси',
   'LBL_MODULE_TITLE' => 'Мита, акцизи и такси',
   'LBL_NAME' => 'Име:',
   'LBL_NEW_FORM_TITLE' => 'Нова ставка',

@@ -27,6 +27,11 @@ class SugarPlugins
      */
     const SUGAR_PLUGIN_SERVER = 'http://www.sugarcrm.com/crm/plugin_service.php?wsdl';
 
+    /*
+     * @var object Proxy allowing for direct calling of methods from WSDL
+     */
+    private $proxy;
+
     /**
      * Constructor
      *
@@ -34,10 +39,8 @@ class SugarPlugins
      */
 	public function __construct()
 	{
-		$this->server = new nusoapclient(self::SUGAR_PLUGIN_SERVER, TRUE);
-        $this->proxy = $this->server->getProxy();
-		if ($this->server->getError())
-			$this->server=false;
+        $server = new nusoapclient(self::SUGAR_PLUGIN_SERVER, TRUE);
+        $this->proxy = $server->getProxy();
 	}
 
 	/**
@@ -48,7 +51,10 @@ class SugarPlugins
 	public function getPluginList()
 	{
 		$plugins = array();
-		if(!$this->server)return $plugins;
+        if (empty($this->proxy))
+        {
+            return $plugins;
+        }
 		$result = $this->proxy->get_plugin_list($GLOBALS['license']->settings['license_key'], $GLOBALS['sugar_version']);
 		if(!empty($result[0]['item'])){
 			$plugins = $result[0]['item'];
@@ -67,7 +73,10 @@ class SugarPlugins
 	    )
 	{
 		$plugins = array();
-		if(!$this->server)return $plugins;
+        if (empty($this->proxy))
+        {
+            return $plugins;
+        }
 		$result = $this->proxy->get_plugin_token($GLOBALS['license']->settings['license_key'], $GLOBALS['current_user']->id, $plugin_id);
 		return $result['token'];
 	}

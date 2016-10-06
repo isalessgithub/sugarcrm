@@ -47,6 +47,7 @@ $mod_strings = array (
   'LBL_LOCATION' => 'Novietojums:',
   'LBL_MEETING' => 'Tikšanās:',
   'LBL_MODULE_NAME' => 'Vēsture',
+  'LBL_MODULE_NAME_SINGULAR' => 'Vēsture',
   'LBL_MODULE_TITLE' => 'Vēsture',
   'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
   'LBL_NEW_NOTE_BUTTON_LABEL' => 'Izveidot piezīmi vai pielikumu',

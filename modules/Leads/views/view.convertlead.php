@@ -424,7 +424,6 @@ class ViewConvertLead extends SugarView
 	            	$beans[$module] = new $bean();
 
             	$this->populateNewBean($module, $beans[$module], $beans['Contacts'], $lead);
-
                 // when creating a new contact, create the id for linking with other modules
                 // and do not populate it with lead's old account_id
                 if ($module == 'Contacts')
@@ -499,7 +498,7 @@ class ViewConvertLead extends SugarView
         {
             if (!empty($lead))
             {
-                if(empty($bean->team_name))
+                if(empty($bean->team_id))
                {
                    $bean->team_id = $lead->team_id;
                    $bean->team_set_id = $lead->team_set_id;
@@ -830,8 +829,6 @@ class ViewConvertLead extends SugarView
 	    $lead
 	    )
 	{
-		populateFromPost($module, $bean, true);
-
 		//Copy data from the contact to new bean
 		foreach($bean->field_defs as $field => $def)
 		{
@@ -841,6 +838,7 @@ class ViewConvertLead extends SugarView
 				if($field == 'date_entered') $bean->$field = gmdate($GLOBALS['timedate']->get_db_date_time_format()); //bug 41030
 			}
 		}
+        populateFromPost($module, $bean, true);
 		//Try to link to the new contact
 		$contactRel = "";
 		if (!empty($vdef['ConvertLead']['select']))

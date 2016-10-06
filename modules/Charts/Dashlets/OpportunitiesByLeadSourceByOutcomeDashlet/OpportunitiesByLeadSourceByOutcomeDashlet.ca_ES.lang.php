@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['OpportunitiesByLeadSourceByOutcomeDashlet'] = array('LBL_TITLE'       => 'Totes les Oportunitats Per Presa de Contacte Per Resultat',
                                                  'LBL_DESCRIPTION' => 'Gràfic apilat horitzontal de les Oportunitats per Presa de Contacte Per Resultat',
                                                  'LBL_REFRESH'     => 'Actualitzar Gràfic');
-?> 
-

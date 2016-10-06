@@ -18,8 +18,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_KEY' => 'Key:',
+  'LBL_KEY' => '键:',
   'LBL_MODULE_NAME' => '编辑标签器',
+  'LBL_MODULE_NAME_SINGULAR' => '编辑标签器',
   'LBL_VALUE' => '值:',
 );
 

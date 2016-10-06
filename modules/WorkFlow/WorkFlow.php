@@ -56,6 +56,8 @@ class WorkFlow extends SugarBean {
 
 	//used for the writing of triggers
 	var $secondary_count = 0;
+    // Used for schedule update for time elapsed workflows
+    private $secondary_triggers;
 
 	var $table_name = "workflow";
 	var $module_dir = "WorkFlow";
@@ -720,33 +722,26 @@ $alert_file_contents = "";
 
 
 			if($row['type']=='Time'){
-
-
-
 				$trigger_object = new WorkFlowTriggerShell();
 
 				$time_interval_array = $trigger_object->get_time_int($row['triggershell_id']);
 
+                // Set-up the $time_array for Time type triggers
+                $timeArray = '';
+                if ($row['trigger_type']=="compare_any_time") {
+                    $timeArray .= "\t \$time_array['time_int'] = '" . $row['parameters'] . "';\n";
+                    $timeArray .= "\t \$time_array['parameters'] = \$focus->" . $row['target_field'] . ";\n";
+                    $timeArray .= "\t \$time_array['time_int_type'] = 'normal';\n";
+                    $timeArray .= "\t \$time_array['target_field'] = 'none';\n";
+                } else {
+                    $timeArray .= "\t \$trigger_time_count = '" . $trigger_time_count . "';\n ";
+                    $timeArray .= "\t \$time_array['time_int'] = '" . $time_interval_array['time_int'] . "';\n";
+                    $timeArray .= "\t \$time_array['time_int_type'] = '" . $time_interval_array['time_int_type'] . "';\n";
+                    $timeArray .= "\t \$time_array['target_field'] = '" . $time_interval_array['target_field'] . "';\n";
+                }
+                $eval_dump .= $timeArray;
+                $eval_dump .= "\t \$workflow_id = '" . $row['id'] . "'; \n\n";
 
-
-
-				//check the triggershell type
-				if($row['trigger_type']=="compare_any_time"){
-				$eval_dump .= "\t \$time_array['time_int'] = '".$row['parameters']."'; \n\n";
-				$eval_dump .= "\t \$time_array['parameters'] = \$focus->".$row['target_field']."; \n\n";
-				$eval_dump .= "\t \$time_array['time_int_type'] = 'normal'; \n\n";
-				$eval_dump .= "\t \$time_array['target_field'] = 'none'; \n\n";
-				//end if compare_any_time is the trigger type
-				} else {
-					$eval_dump .= "\t \$trigger_time_count = '".$trigger_time_count."'; \n\n ";
-					$eval_dump .= "\t \$time_array['time_int'] = '".$time_interval_array['time_int']."'; \n\n";
-					$eval_dump .= "\t \$time_array['time_int_type'] = '".$time_interval_array['time_int_type']."'; \n\n";
-					$eval_dump .= "\t \$time_array['target_field'] = '".$time_interval_array['target_field']."'; \n\n";
-				}
-
-
-
-				$eval_dump .= "\t \$workflow_id = '".$row['id']."'; \n\n";
 				$eval_dump .= 'if(!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" &&
 				!empty($_SESSION["workflow_id_cron"]) && $_SESSION["workflow_id_cron"]==$workflow_id){
 				';
@@ -787,14 +782,10 @@ $alert_file_contents = "";
 			//END infinit loop catch
 			$eval_dump.= "\t}\n";
 
-			if($row['type']=='Time'){
-				$eval_dump .= "}\n\n";
-				++ $trigger_time_count;
-				$eval_dump .= "else{\n";
-				$eval_dump .= get_time_contents($row['id']);
-				$eval_dump .= "}\n\n";
-			//end if type is time
-			}
+            // Close braces
+            if ($row['type'] == 'Time') {
+                $eval_dump .= "}\n\n";
+            }
 
 			$eval_dump .= " \n\n";
 
@@ -808,7 +799,6 @@ $alert_file_contents = "";
 			$eval_dump .= " //End if trigger is true \n";
 			$eval_dump .= " } \n\n";
 
-
 			///END check to see if this is new, update, or all
 			if($record_type_needed===true){
 				$eval_dump .= "\t\t //End if new, update, or all record";
@@ -817,6 +807,34 @@ $alert_file_contents = "";
 
 			++$trigger_count;
 
+            // Update date_expired in case it's a new row, or any of the fields got updated
+            if ($row['type'] == 'Time') {
+                ++ $trigger_time_count;
+                $eval_dump .= "\$checkFields = array(";
+                $secondaryEval = '';
+                foreach ($this->secondary_triggers as $secondaryTrigger) {
+                    $eval_dump .= "'" . $secondaryTrigger['field'] . "', ";
+
+                    if ($secondaryTrigger['type'] != 'compare_any_time' && !empty($secondaryTrigger['eval'])) {
+                        $secondaryEval .= " && {$secondaryTrigger['eval']}";
+                    }
+                }
+                $eval_dump .= "'" . $row['target_field'] . "');\n";
+                $eval_dump .= "\$dataChanged = \$GLOBALS['db']->getDataChanges(\$focus, \$checkFields);\n";
+                $eval_dump .= "if ((empty(\$focus->fetched_row) || !empty(\$dataChanged)) ";
+                if ($row['trigger_type'] != 'compare_any_time') {
+                    $eval_dump .= " && ({$eval})";
+                }
+                if (!empty($secondaryEval)) {
+                    $eval_dump .= $secondaryEval;
+                }
+                $eval_dump .= ") {\n";
+                // Need to add the $timeArray and $workflow_id here for check_for_schedule() call
+                $eval_dump .= $timeArray;
+                $eval_dump .= "\$workflow_id = '" . $row['id'] . "'; \n\n";
+                $eval_dump .= get_time_contents($row['id']);
+                $eval_dump .= "}\n";
+            }
 		//end while
 		}
 
@@ -865,6 +883,7 @@ function get_front_triggers_secondary($workflow_id, & $trigger_count){
 		$result = $this->db->query($query,true," Error getting trigger contents for trigger write: ");
 
 		$secondary_count = 0;
+        $secondary_triggers = array();
 			$eval .= "\t //Secondary Triggers \n";
 		// Get the id and the name.
 		while($row = $this->db->fetchByAssoc($result, false)){
@@ -880,6 +899,7 @@ function get_front_triggers_secondary($workflow_id, & $trigger_count){
 			if($row['type']=="filter_field"){
 				$eval .= "\t if(";
 				$eval .= html_entity_decode($row['eval'], ENT_QUOTES);
+                $secondaryTriggersEval = html_entity_decode($row['eval'], ENT_QUOTES);
 				$eval .= "\t ){ \n";
 				$eval_reached = true;
 			}
@@ -913,6 +933,7 @@ function get_front_triggers_secondary($workflow_id, & $trigger_count){
 
 						$eval .= "\t if(";
 						$eval .= $eval_array['eval'];
+                        $secondaryTriggersEval = $eval_array['eval'];
 						$eval .= "\t ){ \n";
 						$eval_reached=true;
 
@@ -927,17 +948,24 @@ function get_front_triggers_secondary($workflow_id, & $trigger_count){
 			if($eval_reached == false){
 				$eval .= "\t if(";
 				$eval .= html_entity_decode($row['eval'], ENT_QUOTES);
+                $secondaryTriggersEval = html_entity_decode($row['eval'], ENT_QUOTES);
 				$eval .= "\t ){ \n";
 			}
 
 			$eval .= "\t \n\n";
 
 
+            $secondary_triggers[$secondary_count] = array(
+                'field' => $row['field'],
+                'type' => $row['type'],
+                'eval' => !empty($secondaryTriggersEval) ? $secondaryTriggersEval : '',
+            );
 			++$secondary_count;
 
 		//end while
 		}
 
+        $this->secondary_triggers = $secondary_triggers;
 		$this->secondary_count = $secondary_count;
 		return $eval;
 
@@ -1424,15 +1452,8 @@ function repair_workflow(){
              $controller->delete_adjust_order($this->base_module);
          }
 
-        $query =  "     SELECT id FROM workflow_schedules WHERE workflow_schedules.workflow_id = '".$id."'";
-        $result = $this->db->query($query,true," Error getting workflow_schedules for workflow_id: ".$id);
-
-        // Remove each workflow schedule by id
-        $w_schedule = new WorkFlowSchedule();
-        while($row = $this->db->fetchByAssoc($result))
-        {
-            $w_schedule->remove_expired($row['id']);
-        }
+        // Delete the schedules
+        $this->deleteSchedules();
 
         //mark deleted the workflow object if delete_workflow_on_cascade is set to true
         if($this->delete_workflow_on_cascade)
@@ -1452,6 +1473,99 @@ function getActiveWorkFlowCount() {
     $activeCount = $row['active_count'];
     return $activeCount;
 }
+
+    /**
+     * Delete all schedules for the workflow
+     *
+     * @return void
+     */
+    public function deleteSchedules()
+    {
+        $query =  "SELECT id FROM workflow_schedules WHERE workflow_schedules.workflow_id = '" . $this->db->quote($this->id) . "'";
+        $result = $this->db->query($query, true, "Error getting workflow_schedules for workflow_id: " . $this->id);
+
+        // Remove each workflow schedule by id
+        $workflowSchedule = new WorkFlowSchedule();
+        while ($row = $this->db->fetchByAssoc($result)) {
+            $workflowSchedule->remove_expired($row['id']);
+        }
+    }
+
+    /**
+     * Delete all workflow triggers
+     *
+     * @return void
+     */
+    public function deleteTriggers()
+    {
+        $trigger_object_list = $this->get_linked_beans('triggers', 'WorkFlowTriggerShell');
+
+        foreach ($trigger_object_list as $trigger_object) {
+            //mark delete trigger components and sub expression components
+            mark_delete_components($trigger_object->get_linked_beans('future_triggers', 'Expression'));
+            mark_delete_components($trigger_object->get_linked_beans('past_triggers', 'Expression'));
+            $trigger_object->mark_deleted($trigger_object->id);
+        }
+    }
+
+    /**
+     * Deletes all trigger filters from the workflow
+     *
+     * @return void
+     */
+    public function deleteTriggerFilters()
+    {
+        $trigger_object_list = $this->get_linked_beans('trigger_filters', 'WorkFlowTriggerShell');
+
+        foreach ($trigger_object_list as $trigger_object) {
+            //mark delete trigger filter components and sub expression components
+            mark_delete_components($trigger_object->get_linked_beans('expressions', 'Expression'));
+            $trigger_object->mark_deleted($trigger_object->id);
+        }
+    }
+
+    /**
+     * Deletes all alerts for the workflow
+     *
+     * @return void
+     */
+    public function deleteAlerts()
+    {
+        $alert_object_list = $this->get_linked_beans('alerts', 'WorkFlowAlertShell');
+
+        foreach ($alert_object_list as $alert_object) {
+            $alert_object_list2 = $alert_object->get_linked_beans('alert_components', 'WorkFlowAlert');
+            foreach ($alert_object_list2 as $alert_object2) {
+                mark_delete_components($alert_object2->get_linked_beans('expressions', 'Expression'));
+                mark_delete_components($alert_object2->get_linked_beans('rel1_alert_fil', 'Expression'));
+                mark_delete_components($alert_object2->get_linked_beans('rel2_alert_fil', 'Expression'));
+                $alert_object2->mark_deleted($alert_object2->id);
+            }
+
+            $alert_object->mark_deleted($alert_object->id);
+        }
+    }
+
+    /**
+     * Deletes all actions for the workflow
+     *
+     * @return void
+     */
+    public function deleteActions()
+    {
+        $action_shell_list = $this->get_linked_beans('actions', 'WorkFlowActionShell');
+
+        foreach ($action_shell_list as $action_shell_object) {
+            //check for bridged child (invites for meetings/calls
+            $action_shell_object->check_for_child_bridge(true);
+
+            //mark delete actionshell sub components and actionshell
+            mark_delete_components($action_shell_object->get_linked_beans('actions', 'WorkFlowAction'));
+            mark_delete_components($action_shell_object->get_linked_beans('rel1_action_fil', 'Expression'));
+            $action_shell_object->mark_deleted($action_shell_object->id);
+        }
+    }
+
 //end class
 }
 

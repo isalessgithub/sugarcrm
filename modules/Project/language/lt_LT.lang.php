@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Pažymėti, kaip esminį įvykį:',
   'LBL_MODIFIED_USER_ID' => 'Redaguotojo Id:',
   'LBL_MODULE_NAME' => 'Projektas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projektas',
   'LBL_MODULE_TITLE' => 'Projektai: Pradžia',
   'LBL_MONTH_BUTTON' => 'Mėnuo',
   'LBL_MORE' => 'Daugiau...',

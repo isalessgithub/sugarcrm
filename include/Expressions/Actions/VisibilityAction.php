@@ -68,7 +68,11 @@ class VisibilityAction extends AbstractAction{
                     var Dom = YAHOO.util.Dom;
                     var exp = this.evalExpression(this.expr, context);
 					var hide =  exp == 'none' || exp == 'hidden';
-					var target = SUGAR.forms.AssignmentHandler.getElement(this.target);
+
+                    // Get the target element, and pass the form name for which it is called
+                    // Otherwise, it will return the first element with name = this.target from DOM
+                    var target = SUGAR.forms.AssignmentHandler.getElement(this.target, context.formName);
+
 					if (target != null) {
 					    var inv_class = 'vis_action_hidden';
 						var inputTD = Dom.getAncestorByTagName(target, 'TD');

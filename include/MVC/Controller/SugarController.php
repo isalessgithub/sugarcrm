@@ -350,11 +350,14 @@ class SugarController{
 			$this->loadBean();
 
 			$processed = false;
-			foreach($this->process_tasks as $process){
-				$this->$process();
-				if($this->_processed)
-					break;
-			}
+            if (!$this->_processed) {
+                foreach ($this->process_tasks as $process) {
+                    $this->$process();
+                    if ($this->_processed) {
+                        break;
+                    }
+                }
+            }
 
 			$this->redirect();
 		}else{
@@ -578,16 +581,20 @@ class SugarController{
 	 * Specify what happens after the deletion has occurred.
 	 */
 	protected function post_delete(){
-		$return_module = isset($_REQUEST['return_module']) ?
-			$_REQUEST['return_module'] :
-			$GLOBALS['sugar_config']['default_module'];
-		$return_action = isset($_REQUEST['return_action']) ?
-			$_REQUEST['return_action'] :
-			$GLOBALS['sugar_config']['default_action'];
-		$return_id = isset($_REQUEST['return_id']) ?
-			$_REQUEST['return_id'] :
-			'';
-		$url = "index.php?module=".$return_module."&action=".$return_action."&record=".$return_id;
+        if (empty($_REQUEST['return_url'])) {
+            $return_module = isset($_REQUEST['return_module']) ?
+                $_REQUEST['return_module'] :
+                $GLOBALS['sugar_config']['default_module'];
+            $return_action = isset($_REQUEST['return_action']) ?
+                $_REQUEST['return_action'] :
+                $GLOBALS['sugar_config']['default_action'];
+            $return_id = isset($_REQUEST['return_id']) ?
+                $_REQUEST['return_id'] :
+                '';
+            $url = "index.php?module=".$return_module."&action=".$return_action."&record=".$return_id;
+        } else {
+            $url = $_REQUEST['return_url'];
+        }
 
 		//eggsurplus Bug 23816: maintain VCR after an edit/save. If it is a duplicate then don't worry about it. The offset is now worthless.
 		if(isset($_REQUEST['offset']) && empty($_REQUEST['duplicateSave'])) {
@@ -627,7 +634,7 @@ class SugarController{
                 }
             }
             $_REQUEST = array();
-            $_REQUEST = unserialize(base64_decode($temp_req['current_query_by_page']));
+            $_REQUEST = sugar_unserialize(base64_decode($temp_req['current_query_by_page']));
             unset($_REQUEST[$seed->module_dir.'2_'.strtoupper($seed->object_name).'_offset']);//after massupdate, the page should redirect to no offset page
             $storeQuery->saveFromRequest($_REQUEST['module']);
             $_REQUEST = array('return_module' => $temp_req['return_module'], 'return_action' => $temp_req['return_action']);//for post_massupdate, to go back to original page.
@@ -738,12 +745,19 @@ class SugarController{
         $this->view = 'edit';
         $GLOBALS['view'] = $this->view;
         ob_clean();
-        if(method_exists($this->bean, 'deleteAttachment')) {
-            echo $this->bean->deleteAttachment($_REQUEST['isDuplicate']) ? 'true' : 'false';
-        } else {
-            echo 'false';
-        }
+        $retval = false;
 
+        if(method_exists($this->bean, 'deleteAttachment')) {
+            $duplicate = "false";
+            if (isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == "true") {
+                $duplicate = "true";
+            }
+            if (isset($_REQUEST['duplicateSave']) && $_REQUEST['duplicateSave'] == "true") {
+                $duplicate = "true";
+            }
+            $retval = $this->bean->deleteAttachment($duplicate);
+        }
+        echo json_encode($retval);
         sugar_cleanup(true);
     }
 

@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_MODIFY_SEARCH_TITLE' => 'Konektoru meklēšanas pārvaldība',
   'LBL_MODULE_FIELDS' => 'Moduļu lauki',
   'LBL_MODULE_NAME' => 'Konektori',
+  'LBL_MODULE_NAME_SINGULAR' => 'Konektors',
   'LBL_NO_PROPERTIES' => 'Konektoram nav konfigurējamu parametru.',
   'LBL_PARENT_DUNS' => 'Priekšteča DUNS',
   'LBL_PREVIOUS' => '< Atpakaļ',

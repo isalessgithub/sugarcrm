@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_MODIFIED_USER_ID' => 'Modificare Utilizator ID',
   'LBL_MODULE_NAME' => 'Urmaritori campanii',
+  'LBL_MODULE_NAME_SINGULAR' => 'Campanie Tracker',
   'LBL_OPTOUT' => 'Optate pentru a fi date afara',
   'LBL_SUBPANEL_TRACKER_KEY' => 'Cheie:',
   'LBL_SUBPANEL_TRACKER_NAME' => 'Nume',

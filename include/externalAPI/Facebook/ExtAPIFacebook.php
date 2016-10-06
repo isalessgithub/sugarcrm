@@ -50,28 +50,27 @@ class ExtAPIFacebook extends ExternalAPIBase implements WebFeed {
         if ( empty($this->eapmBean->oauth_secret) ) {
             // We must be saving, try re-authing
             $GLOBALS['log']->debug('We must be saving.');
-            if ( !empty($_REQUEST['session']) ) {
-                $_REQUEST['session'] = str_replace('&quot;','"',$_REQUEST['session']);
-                $GLOBALS['log']->debug('Have a session from facebook: '.$_REQUEST['session']);
+            $fbToken = $this->fb->getAccessToken();
+            if ( $this->fb->getUser() != 0 ) {
+                $GLOBALS['log']->debug('Have a session from facebook: '.$fbToken);
 
-                $fbSession = $this->fb->getSession();
-                if ( !empty($fbSession) ) {
-                    $GLOBALS['log']->debug('Have a VALID session from facebook:'.print_r($fbSession,true));
+                if ( !empty($fbToken) ) {
+                    $GLOBALS['log']->debug('Have a VALID session from facebook:'.print_r($fbToken,true));
                     // Put a string in here so we can tell when it resets it.
                     $this->eapmBean->oauth_secret = 'SECRET';
-                    $this->eapmBean->api_data = base64_encode(json_encode(array('fbSession'=>$fbSession)));
+                    $this->eapmBean->api_data = json_encode(array('fbToken'=>$fbToken));
                     $this->eapmBean->validated = 1;
                     $this->eapmBean->save();
                     return array('success'=>true);
                 } else {
                     // FIXME: Translate
-                    $GLOBALS['log']->error('Have an INVALID session from facebook:'.print_r($fbSession,true));
+                    $GLOBALS['log']->error('Have an INVALID session from facebook:'.print_r($fbToken,true));
                     return array('success'=>false,'errorMessage'=>'No authentication.');
                 }
             } else {
                 $callback_url = $GLOBALS['sugar_config']['site_url'].'/index.php?module=EAPM&action=oauth&record='.$this->eapmBean->id;
 	            $callback_url = $this->formatCallbackURL($callback_url);
-                $loginUrl = $this->fb->getLoginUrl(array('next'=>$callback_url,'cancel'=>$callback_url, 'req_perms' => 'read_stream,offline_access'));
+                $loginUrl = $this->fb->getLoginUrl(array('next'=>$callback_url,'cancel'=>$callback_url, 'scope' => 'read_stream,offline_access'));
                 SugarApplication::redirect($loginUrl);
                 return array('success'=>false);
             }
@@ -85,9 +84,9 @@ class ExtAPIFacebook extends ExternalAPIBase implements WebFeed {
         parent::loadEAPM($eapmBean);
 
         if ( !empty($eapmBean->api_data) ) {
-            $api_data = json_decode(base64_decode($eapmBean->api_data),true);
-            if ( isset($api_data['fbSession']) ) {
-                $this->fbSession = $api_data['fbSession'];
+            $api_data = json_decode(html_entity_decode($eapmBean->api_data),true);
+            if ( isset($api_data['fbToken']) ) {
+                $this->fbToken = $api_data['fbToken'];
             }
         }
     }
@@ -102,26 +101,37 @@ class ExtAPIFacebook extends ExternalAPIBase implements WebFeed {
                 // FIXME: Translate
                 return array('success'=>FALSE,'errorMessage'=>'Facebook does not have the required libraries.');
             }
-            $fbMessages = $this->fb->api('/me/home?limit='.$maxEntries);
+            $fbMessages = $this->fb->api('/me/home?limit='.$maxEntries, 'GET');
         }
         catch (FacebookApiException $e)
         {
+            $msg = $e->getMessage();
+            if (!empty($msg))
+            {
+                $msg = ' (' . $msg . ')';
+            }
+
             // We should ask user about second login to facebook because our access_token is dead.
             if ($e->getType() == 'OAuthException' && !empty($this->eapmBean->id))
             {
+                unset($_SESSION['fb_'.$this->fb->getAppId().'_code']);
+                unset($_SESSION['fb_'.$this->fb->getAppId().'_access_token']);
+                unset($_SESSION['fb_'.$this->fb->getAppId().'_user_id']);
+
                 return array(
                     'success' => true,
                     'messages' => array(
                         array(
                             'ID' => create_guid(),
                             'sort_key' => time(),
-                            'NAME' => translate('LBL_ERR_OAUTH_FACEBOOK_1', 'EAPM') . ' <a href="#" onclick="window.open(\'index.php?module=EAPM&amp;refreshParentWindow=1&amp;closeWhenDone=1&amp;action=QuickSave&amp;application=Facebook\',\'EAPM\');">' . translate('LBL_ERR_OAUTH_FACEBOOK_2', 'EAPM') . '</a>.'
+                            'NAME' => translate('LBL_ERR_OAUTH_FACEBOOK_1', 'EAPM') . ' <a href="#" onclick="window.open(\'index.php?module=EAPM&amp;refreshParentWindow=1&amp;closeWhenDone=1&amp;action=QuickSave&amp;application=Facebook\',\'EAPM\');">' . translate('LBL_ERR_OAUTH_FACEBOOK_2', 'EAPM') . '</a>'.$msg.'.'
                         )
                     )
                 );
             }
+
             $GLOBALS['log']->error('Facebook Error: '.$e->getMessage());
-            return array('success'=>FALSE,'errorMessage'=>translate('LBL_ERR_FACEBOOK', 'EAPM'));
+            return array('success'=>FALSE,'errorMessage'=>translate('LBL_ERR_FACEBOOK', 'EAPM') . $msg);
         }
 
         if ( !isset($fbMessages['data'][0]) ) {
@@ -161,21 +171,21 @@ class ExtAPIFacebook extends ExternalAPIBase implements WebFeed {
     {
         try {
             // This will throw exceptions if either the curl or json libraries aren't available.
-            require_once('include/externalAPI/Facebook/FacebookLib.php');
+            require_once('include/externalAPI/Facebook/facebook.php');
 
         } catch ( Exception $e ) { return false; }
 
         if(empty($this->oauthParams['consumerKey']) || empty($this->oauthParams['consumerSecret'])){
            $this->loadConnectorProperties();
         }
-        $this->fb = new FacebookLib(array(
+        $this->fb = new Facebook(array(
                                         'appId' => $this->oauthParams['consumerKey'],
                                         'secret' => $this->oauthParams['consumerSecret'],
                                         'cookie' => false,
                                         ));
         try {
-            if ( isset($this->fbSession) ) {
-                $this->fb->setSession($this->fbSession,false);
+            if ( isset($this->fbToken) ) {
+                $this->fb->setAccessToken($this->fbToken);
             }
         } catch ( Exception $e ) {}
         return true;

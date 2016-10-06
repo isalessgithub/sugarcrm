@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => '标记为里程碑',
   'LBL_MODIFIED_USER_ID' => '更改人编号:',
   'LBL_MODULE_NAME' => '项目管理',
+  'LBL_MODULE_NAME_SINGULAR' => '项目',
   'LBL_MODULE_TITLE' => '项目管理: 主页',
   'LBL_MONTH_BUTTON' => '月',
   'LBL_MORE' => '更多...',

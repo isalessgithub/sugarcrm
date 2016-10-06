@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_KEY' => 'Atslēga:',
   'LBL_MODULE_NAME' => 'Iezīmju redaktors',
+  'LBL_MODULE_NAME_SINGULAR' => 'Iezīmju redaktors',
   'LBL_VALUE' => 'Vērtība:',
 );
 

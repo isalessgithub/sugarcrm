@@ -1,17 +1,27 @@
 <?php
-$searchdefs ['Accounts'] = 
-array (
+// created: 2016-10-06 15:20:01
+$searchdefs['Accounts'] = array (
+  'templateMeta' => 
+  array (
+    'maxColumns' => '3',
+    'maxColumnsBasic' => '4',
+    'widths' => 
+    array (
+      'label' => '10',
+      'field' => '30',
+    ),
+  ),
   'layout' => 
   array (
     'basic_search' => 
     array (
-      'name' => 
+      0 => 
       array (
         'name' => 'name',
         'default' => true,
         'width' => '10%',
       ),
-      'current_user_only' => 
+      1 => 
       array (
         'name' => 'current_user_only',
         'label' => 'LBL_CURRENT_USER_FILTER',
@@ -19,7 +29,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'favorites_only' => 
+      2 => 
       array (
         'name' => 'favorites_only',
         'label' => 'LBL_FAVORITES_FILTER',
@@ -27,7 +37,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'add_to_target_list_c' => 
+      3 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -39,13 +49,13 @@ array (
     ),
     'advanced_search' => 
     array (
-      'name' => 
+      0 => 
       array (
         'name' => 'name',
         'default' => true,
         'width' => '10%',
       ),
-      'add_to_target_list_c' => 
+      1 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -54,7 +64,7 @@ array (
         'width' => '10%',
         'name' => 'add_to_target_list_c',
       ),
-      'phone' => 
+      2 => 
       array (
         'name' => 'phone',
         'label' => 'LBL_ANY_PHONE',
@@ -62,7 +72,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'annual_revenue' => 
+      3 => 
       array (
         'type' => 'varchar',
         'label' => 'LBL_ANNUAL_REVENUE',
@@ -70,7 +80,7 @@ array (
         'default' => true,
         'name' => 'annual_revenue',
       ),
-      'revenue_range_c' => 
+      4 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -79,13 +89,13 @@ array (
         'width' => '10%',
         'name' => 'revenue_range_c',
       ),
-      'website' => 
+      5 => 
       array (
         'name' => 'website',
         'default' => true,
         'width' => '10%',
       ),
-      'employees_range_c' => 
+      6 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -94,7 +104,7 @@ array (
         'width' => '10%',
         'name' => 'employees_range_c',
       ),
-      'email' => 
+      7 => 
       array (
         'name' => 'email',
         'label' => 'LBL_ANY_EMAIL',
@@ -102,7 +112,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'address_street' => 
+      8 => 
       array (
         'name' => 'address_street',
         'label' => 'LBL_ANY_ADDRESS',
@@ -110,7 +120,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'address_city' => 
+      9 => 
       array (
         'name' => 'address_city',
         'label' => 'LBL_CITY',
@@ -118,7 +128,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'address_state' => 
+      10 => 
       array (
         'name' => 'address_state',
         'label' => 'LBL_STATE',
@@ -126,7 +136,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'address_postalcode' => 
+      11 => 
       array (
         'name' => 'address_postalcode',
         'label' => 'LBL_POSTAL_CODE',
@@ -134,7 +144,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'billing_address_country' => 
+      12 => 
       array (
         'name' => 'billing_address_country',
         'label' => 'LBL_COUNTRY',
@@ -143,19 +153,19 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'account_type' => 
+      13 => 
       array (
         'name' => 'account_type',
         'default' => true,
         'width' => '10%',
       ),
-      'industry' => 
+      14 => 
       array (
         'name' => 'industry',
         'default' => true,
         'width' => '10%',
       ),
-      'date_entered' => 
+      15 => 
       array (
         'type' => 'datetime',
         'label' => 'LBL_DATE_ENTERED',
@@ -163,7 +173,7 @@ array (
         'default' => true,
         'name' => 'date_entered',
       ),
-      'favorites_only' => 
+      16 => 
       array (
         'name' => 'favorites_only',
         'label' => 'LBL_FAVORITES_FILTER',
@@ -173,15 +183,4 @@ array (
       ),
     ),
   ),
-  'templateMeta' => 
-  array (
-    'maxColumns' => '3',
-    'maxColumnsBasic' => '4',
-    'widths' => 
-    array (
-      'label' => '10',
-      'field' => '30',
-    ),
-  ),
 );
-?>

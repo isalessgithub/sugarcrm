@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_EXECUTE_TIME' => 'Vreme izvršavanja',
   'LBL_FAIL_COUNT' => 'Greške',
   'LBL_INTERVAL' => 'Najmanji interval između linija',
+  'LBL_JOB_GROUP' => 'Grupa posla',
   'LBL_MESSAGE' => 'Poruke',
   'LBL_NAME' => 'Naziv posla',
   'LBL_PERCENT' => 'Procentualno završeno',

@@ -126,9 +126,8 @@ Calendar.setup ({literal} { {/literal}
 <script type="text/javascript" src="{sugar_getjspath file='modules/Quotes/EditView.js'}"></script>
 <script type="text/javascript">
 {literal}
-quotesManager = new QuotesEditManager(YUI().use('node', function(Y){
-    return Y;
-}));
+YUI().use('node', function(Y){
+quotesManager = new QuotesEditManager(Y);
 if(!document.getElementById('calc_grand_total').checked){
 	document.getElementById('grand_tally').style.display = 'none';
 }
@@ -170,10 +169,13 @@ quotesManager.deleteCommentValue = "{$MOD.LBL_REMOVE_COMMENT}";
 quotesManager.deleteCommentConfirm = "{$MOD.NTC_REMOVE_COMMENT_CONFIRMATION}";
 
 {$ADD_ROWS}
-</script>
 
-<script type="text/javascript" language="Javascript">
 {$SETUP_SCRIPT}
+
+{$CALCULATE_FUNCTION}
+
+{$SAVED_SEARCH_SELECTS}
+});
 {literal}
 YAHOO.util.Event.onDOMReady(function()
 {
@@ -181,9 +183,5 @@ YAHOO.util.Event.onDOMReady(function()
 });
 {/literal}
 </script>
-
-{$CALCULATE_FUNCTION}
-
-{$SAVED_SEARCH_SELECTS}
 
 {{include file='include/EditView/footer.tpl'}}

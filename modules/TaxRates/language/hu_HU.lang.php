@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Százalék',
   'LBL_MODIFIED_ID' => 'Módosító azonosítója',
   'LBL_MODULE_NAME' => 'Adókulcsok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Adókulcs',
   'LBL_MODULE_TITLE' => 'Adókulcsok: Főoldal',
   'LBL_NAME' => 'Adókulcs neve:',
   'LBL_NEW_FORM_TITLE' => 'Új adókulcs',

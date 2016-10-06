@@ -30,6 +30,7 @@ $mod_strings = array (
   'LBL_ACCESS_OWNER' => 'Tylko moje',
   'LBL_ACTION_ACCESS' => 'Dostęp',
   'LBL_ACTION_ADMIN' => 'Typ dostępu',
+  'LBL_ACTION_CREATE' => 'Utwórz',
   'LBL_ACTION_DELETE' => 'Usuwanie',
   'LBL_ACTION_EDIT' => 'Edytuj',
   'LBL_ACTION_EXPORT' => 'Eksport',

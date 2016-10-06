@@ -30,6 +30,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Product Type',
   'LBL_LIST_ORDER' => 'Order:',
   'LBL_MODULE_NAME' => 'Product Types',
+  'LBL_MODULE_NAME_SINGULAR' => 'Product Type',
   'LBL_MODULE_TITLE' => 'Product Types: Home',
   'LBL_NAME' => 'Product Type:',
   'LBL_PRODUCTTYPE' => 'Product Type:',

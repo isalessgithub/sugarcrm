@@ -38,8 +38,13 @@ class ExternalAPIFactory
                      if(isset($data['authMethod']) && $data['authMethod'] == 'oauth'){
                         $connector = SourceFactory::getSource($data['connector'], false);
                         if(!empty($connector) && $connector->propertyExists('oauth_consumer_key')
-                            && $connector->propertyExists('oauth_consumer_secret')) {
+                            && $connector->isRequiredConfigFieldsSet()) {
                                 $filteredList[$name] = $data;
+                        }
+                     } elseif (isset($data['authMethod']) && $data['authMethod'] == 'oauth2') {
+                        $connector = SourceFactory::getSource($data['connector'], false);
+                        if (!empty($connector) && $connector->isRequiredConfigFieldsSet()) {
+                            $filteredList[$name] = $data;
                         }
                      }else{
                         $filteredList[$name] = $data;

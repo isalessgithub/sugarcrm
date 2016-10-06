@@ -119,21 +119,6 @@ class Importer
         $this->importSource->resetRowErrorCounter();
         $do_save = true;
 
-// custom Milos
-/*
-      $query = "SELECT * FROM {$focus->table_name} WHERE name='".$focus->db->quote($row[0])."'";
-      $result = $focus->db->query($query)
-      or sugar_die("Error selecting sugarbean: ");
-
-      $dbrow = $focus->db->fetchByAssoc($result);
-
-      if (isset ($dbrow['id']) && $dbrow['id'] != -1)
-      {
-        $focus->id = $dbrow['id'];
-      }
-*/
-// END
-
         for ( $fieldNum = 0; $fieldNum < $_REQUEST['columncount']; $fieldNum++ )
         {
             // loop if this column isn't set
@@ -229,6 +214,19 @@ class Importer
                 }
             }
 
+            // Handle email field, if it's a semi-colon separated export
+            if ($field == 'email_addresses_non_primary' && !empty($rowValue))
+            {
+                if (strpos($rowValue, ';') !== false)
+                {
+                    $rowValue = explode(';', $rowValue);
+                }
+                else
+                {
+                    $rowValue = array($rowValue);
+                }
+            }
+
             // Handle email1 and email2 fields ( these don't have the type of email )
             if ( $field == 'email1' || $field == 'email2' )
             {
@@ -271,9 +269,27 @@ class Importer
             // If the field is empty then there is no need to check the data
             if( !empty($rowValue) )
             {
-                //Start
-                $rowValue = $this->sanitizeFieldValueByType($rowValue, $fieldDef, $defaultRowValue, $focus, $fieldTranslated);
-                if ($rowValue === FALSE) {
+                // If it's an array of non-primary e-mails, check each mail
+                if ($field == "email_addresses_non_primary" && is_array($rowValue))
+                {
+                    foreach ($rowValue as $tempRow)
+                    {
+                        $tempRow = $this->sanitizeFieldValueByType($tempRow, $fieldDef, $defaultRowValue, $focus, $fieldTranslated);
+                        if ($tempRow === FALSE)
+                        {
+                            $rowValue = false;
+                            $do_save = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    $rowValue = $this->sanitizeFieldValueByType($rowValue, $fieldDef, $defaultRowValue, $focus, $fieldTranslated);
+                }
+
+                if ($rowValue === false)
+                {
 					/* BUG 51213 - jeff @ neposystems.com */
                     $do_save = false;
                     continue;
@@ -591,7 +607,7 @@ class Importer
     {
         global $current_user;
 
-        $firstrow    = unserialize(base64_decode($_REQUEST['firstrow']));
+        $firstrow    = sugar_unserialize(base64_decode($_REQUEST['firstrow']));
         $mappingValsArr = $this->importColumns;
         $mapping_file = new ImportMap();
         if ( isset($_REQUEST['has_header']) && $_REQUEST['has_header'] == 'on')
@@ -613,7 +629,7 @@ class Importer
         //merge with mappingVals array
         if(!empty($advMapping) && is_array($advMapping))
         {
-            $mappingValsArr = array_merge($mappingValsArr,$advMapping);
+            $mappingValsArr = $advMapping + $mappingValsArr;
         }
 
         //set mapping

@@ -83,6 +83,7 @@ $mod_strings = array (
   'LBL_DISPLAYING_LOG' => 'Displaying Log',
   'LBL_ENABLE_ACTION_MENU' => 'Mostra le azioni all´interno del menù',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Seleziona per visualizzare la Vista Dettaglio e le azioni sui sottopannelli all´interno di un menù a tendina. Se non selezionato, le azioni saranno visualizzate come pulsanti separati.',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Mostra le emails relazionate ai contatti nel sottopannello Cronologia',
   'LBL_ENABLE_MAILMERGE' => 'Abilitare Stampa Unione?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Cambia Password:',
@@ -95,30 +96,8 @@ $mod_strings = array (
   'LBL_FONT_BOLDITALIC' => 'Grassetto/Corsivo',
   'LBL_FONT_ITALIC' => 'Corsivo',
   'LBL_FONT_LIST_CIDINFO' => 'Informazioni CID',
-  'LBL_FONT_LIST_CIDINFO_INFO' => "Examples :".
-"<ul><li>".
-"Chinese Traditional :<br>".
-"<pre>\$enc=\'UniCNS-UTF16-H\';<br>".
-"\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'CNS1\',\'Supplement\'=>0);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_ac15.php\');</pre>".
-"</li><li>".
-"Chinese Simplified :<br>".
-"<pre>\$enc=\'UniGB-UTF16-H\';<br>".
-"\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'GB1\',\'Supplement\'=>2);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_ag15.php\');</pre>".
-"</li><li>".
-"Korean :<br>".
-"<pre>\$enc=\'UniKS-UTF16-H\';<br>".
-"\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'Korea1\',\'Supplement\'=>0);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_ak12.php\');</pre>".
-"</li><li>".
-"Japanese :<br>".
-"<pre>\$enc=\'UniJIS-UTF16-H\';<br>".
-"\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'Japan1\',\'Supplement\'=>5);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_aj16.php\');</pre>".
-"</li></ul>".
-"More help : www.tcpdf.org",
-  'LBL_FONT_LIST_EMBEDDED' => 'Inserito',
+  'LBL_FONT_LIST_CIDINFO_INFO' => 'Esempi :<ul><li>Chinese Traditional :<br><pre>$enc=\\´UniCNS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´CNS1\\´,\\´Supplement\\´=>0);<br>include(\\´include/tcpdf/fonts/uni2cid_ac15.php\\´);</pre></li><li>Chinese Simplified :<br><pre>$enc=\\´UniGB-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´GB1\\´,\\´Supplement\\´=>2);<br>include(\\´include/tcpdf/fonts/uni2cid_ag15.php\\´);</pre></li><li>Korean :<br><pre>$enc=\\´UniKS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´Korea1\\´,\\´Supplement\\´=>0);<br>include(\\´include/tcpdf/fonts/uni2cid_ak12.php\\´);</pre></li><li>Japanese :<br><pre>$enc=\\´UniJIS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´Japan1\\´,\\´Supplement\\´=>5);<br>include(\\´include/tcpdf/fonts/uni2cid_aj16.php\\´);</pre></li></ul>More help : www.tcpdf.org',
+  'LBL_FONT_LIST_EMBEDDED' => 'Incorporato',
   'LBL_FONT_LIST_EMBEDDED_INFO' => 'Controlla di inserire il carattere nel file PDF',
   'LBL_FONT_LIST_ENC' => 'Codifica',
   'LBL_FONT_LIST_FILENAME' => 'Nome File',
@@ -202,12 +181,14 @@ $mod_strings = array (
   'LBL_MARKING_WHERE_START_LOGGING' => 'Marking Where To Start Logging From',
   'LBL_MARK_POINT' => 'Mark Point',
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Intervallo minimo Aggiornamento Automatico Dashlet',
-  'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Questo è il valore minimo che si può scegliere per l´aggiornamento automatico delle dashlets. Impostando \'Mai\' si disattiva completamente l´aggiornamento automatico delle dashlets.',
+  'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Questo è il valore minimo che si può scegliere per l´aggiornamento automatico delle dashlets. Impostando ´Mai´ si disattiva completamente l´aggiornamento automatico delle dashlets.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* Il modulo Reports è disponibile solamente per il client iPhone Sugar Mobile .',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '*Il modulo Report non è disponibile in modalità mobile via browser.',
   'LBL_MODULE_FAVICON' => 'Mostra l´icona del modulo come favicon',
   'LBL_MODULE_FAVICON_HELP' => 'Se sei in un modulo con icona, usa l´icona del modulo come favicon, invece della favicon del tema, nella barra del browser.',
   'LBL_MODULE_ID' => 'Configuratore',
   'LBL_MODULE_NAME' => 'Impostazioni Sistema',
+  'LBL_MODULE_NAME_SINGULAR' => 'Impostazioni Sistema',
   'LBL_MODULE_TITLE' => 'Interfaccia Utente',
   'LBL_NEXT_' => 'Prossimo>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Indirizzo Mittente:',
@@ -223,7 +204,7 @@ $mod_strings = array (
   'LBL_PDF_METRIC_FILE' => 'Metric File',
   'LBL_PDF_METRIC_FILE_INFO' => '.afm o .ufm file',
   'LBL_PDF_PATCH' => 'Patch',
-  'LBL_PDF_PATCH_INFO' => 'Modifica personalizzata della codifica. Scrivi un array PHP .<br>Esempio :<br>ISO-8859-1 non contiene il simbolo dell´euro. Per aggiungerlo alla posizione 164, scrivi "array(164=>\\\'Euro\\\')".',
+  'LBL_PDF_PATCH_INFO' => 'Modifica personalizzata della codifica. Scrivi un array PHP .<br>Esempio :<br>ISO-8859-1 non contiene il simbolo dell´euro. Per aggiungerlo alla posizione 164, scrivi "array(164=>\\´Euro\\´)".',
   'LBL_PORTAL_ON' => 'Abilitare l´integrazione con il portale self-service?',
   'LBL_PORTAL_ON_DESC' => 'Abilita l´accesso a Reclami, Note e altri dati dall´esterno attraverso il portale self-service.',
   'LBL_PORTAL_TITLE' => 'Portale Self-Service per i Clienti',
@@ -240,6 +221,7 @@ $mod_strings = array (
   'LBL_REMOVE' => 'Rimuovi',
   'LBL_RESTORE_BUTTON_LABEL' => 'Ripristina',
   'LBL_SEARCH' => 'Cerca:',
+  'LBL_SESSION_TIMEOUT_TOOLTIP' => 'Il Timeout della Sessionde del Portale è disponibile per versioni del Portale di SugarCRM dalla 6.5 in poi.',
   'LBL_SKYPEOUT_ON' => 'Abilitare l´integrazione con SkypeOut®?',
   'LBL_SKYPEOUT_ON_DESC' => 'Permetti agli utenti di cliccare sui numeri di telefono per chiamare con SkypeOut®. I numeri devono essere formattati correttamente. Ovvero deve esserci "+" "il codice nazione" "il numero", ad es. +1 (555) 555-1234. Per ulteriori informazioni consultare le FAQ di Skype FAQ all´indirizzo <a href=http://www.skype.com/help/faq/skypeout.html#calling target=skype>skype® faq</a>',
   'LBL_SKYPEOUT_TITLE' => 'SkypeOut®',
@@ -354,4 +336,3 @@ $mod_strings = array (
   'VERIFY_CLIENT_IP' => 'Convalida l´indirizzo IP degli utenti',
   'vCAL_HELP' => 'Usa questa impostazione per stabilire il numero di mesi antecedenti la data corrente per i quali l´informazione Libero/Occupato per chiamate e riunioni è pubblicato.</BR>Per disattivare la pubblicazione dello stato Libero/Occupato, impostare "0".  Il minimo è 1 mese; il massimo 12 mesi.',
 );
-

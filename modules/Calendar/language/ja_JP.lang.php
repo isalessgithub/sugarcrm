@@ -17,58 +17,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => '1月',
-    2 => '2月',
-    3 => '3月',
-    4 => '4月',
-    5 => '5月',
-    6 => '6月',
-    7 => '7月',
-    8 => '8月',
-    9 => '9月',
-    10 => '10月',
-    11 => '11月',
-    12 => '12月',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => '1月',
-    2 => '2月',
-    3 => '3月',
-    4 => '4月',
-    5 => '5月',
-    6 => '6月',
-    7 => '7月',
-    8 => '8月',
-    9 => '9月',
-    10 => '10月',
-    11 => '11月',
-    12 => '12月',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => '月',
-    2 => '火',
-    3 => '水',
-    4 => '木',
-    5 => '金',
-    6 => '土',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => '月曜日',
-    2 => '火曜日',
-    3 => '水曜日',
-    4 => '木曜日',
-    5 => '金曜日',
-    6 => '土曜日',
-  ),
-);
-
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: このビューでは定義されていません',
+  'ERR_YEAR_BETWEEN' => 'カレンダーはあなたのリクエストした年を入力できません。<br />年は1970から2037である必要があります',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => '適用',
   'LBL_ASSIGNED_TO_NAME' => 'アサイン先',
@@ -106,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => '読み込み中.....',
   'LBL_MINS_ABBREV' => '分',
   'LBL_MODULE_NAME' => 'カレンダー',
+  'LBL_MODULE_NAME_SINGULAR' => 'カレンダー',
   'LBL_MODULE_TITLE' => 'カレンダー',
   'LBL_MONTH' => '月',
   'LBL_NEXT_DAY' => '翌日',
@@ -122,15 +74,15 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => '前週',
   'LBL_PREVIOUS_WEEK' => '前週',
   'LBL_PREVIOUS_YEAR' => '前年',
+  'LBL_RECURRING_LIMIT_ERROR' => '重複できる上限$limit を超えたため、重複の$moduleTitle をスケジュールすることはできません。　',
   'LBL_REFRESH' => '更新',
   'LBL_REMOVE_ALL_RECURRENCES' => '定期的な予定をすべて削除',
   'LBL_REPEAT_COUNT' => '定期的な予定の数',
   'LBL_REPEAT_DOW' => '開催曜日',
   'LBL_REPEAT_END' => '作成する予定',
-  'LBL_REPEAT_END_AFTER' => '以下の回数まで: ',
-  'LBL_REPEAT_END_BY' => '以下の日まで: ',
+  'LBL_REPEAT_END_AFTER' => '以下の回数まで:',
+  'LBL_REPEAT_END_BY' => '以下の日まで:',
   'LBL_REPEAT_INTERVAL' => '間隔',
-  'LBL_REPEAT_LIMIT_ERROR' => '$limit 以上の会議の作成がリクエストされました',
   'LBL_REPEAT_OCCURRENCES' => '回',
   'LBL_REPEAT_TAB' => '定期的な予定',
   'LBL_REPEAT_TYPE' => '周期',
@@ -143,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => '保存＆招待送信',
   'LBL_SETTINGS' => '設定',
   'LBL_SETTINGS_CALLS_SHOW' => '電話を表示',
+  'LBL_SETTINGS_COMPLETED_SHOW' => '完了したミーティング、コールとタスクを表示する',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => '日、週ビューにタイムスロットを表示',
   'LBL_SETTINGS_TASKS_SHOW' => 'タスクを表示',
   'LBL_SETTINGS_TIME_ENDS' => '終了時:',
@@ -172,3 +125,59 @@ $mod_strings = array (
   'LNK_VIEW_CALENDAR' => '今日',
   'NOTICE_DURATION_TIME' => '時間は0以上である必要があります',
 );
+
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => '1月',
+    2 => '2月',
+    3 => '3月',
+    4 => '4月',
+    5 => '5月',
+    6 => '6月',
+    7 => '7月',
+    8 => '8月',
+    9 => '9月',
+    10 => '10月',
+    11 => '11月',
+    12 => '12月',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => '1月',
+    2 => '2月',
+    3 => '3月',
+    4 => '4月',
+    5 => '5月',
+    6 => '6月',
+    7 => '7月',
+    8 => '8月',
+    9 => '9月',
+    10 => '10月',
+    11 => '11月',
+    12 => '12月',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => '日',
+    1 => '月',
+    2 => '火',
+    3 => '水',
+    4 => '木',
+    5 => '金',
+    6 => '土',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => '日曜日',
+    1 => '月曜日',
+    2 => '火曜日',
+    3 => '水曜日',
+    4 => '木曜日',
+    5 => '金曜日',
+    6 => '土曜日',
+  ),
+);
+

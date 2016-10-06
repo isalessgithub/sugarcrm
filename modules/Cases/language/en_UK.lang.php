@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'File Attachment',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'History',
   'LBL_INVITEE' => 'Contacts',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
   'LBL_LIST_ACCOUNT_NAME' => 'Account Name',
   'LBL_LIST_ASSIGNED' => 'Assigned To',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Assigned User',

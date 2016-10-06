@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Rapporteert aan',
   'LBL_LIST_TITLE' => 'Titel',
   'LBL_MODULE_NAME' => 'Teams',
+  'LBL_MODULE_NAME_SINGULAR' => 'Team',
   'LBL_MODULE_TITLE' => 'Teams: Start',
   'LBL_NAME' => 'Teamnaam:',
   'LBL_NAME_2' => 'Teamnaam (2):',

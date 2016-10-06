@@ -113,6 +113,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'Modificēja',
   'LBL_MODIFIED_USER' => 'Modificēja',
   'LBL_MODULE_NAME' => 'Dokumenti',
+  'LBL_MODULE_NAME_SINGULAR' => 'Dokuments',
   'LBL_MODULE_TITLE' => 'Dokumenti: Sākums',
   'LBL_NAME' => 'Dokumenta nosaukums',
   'LBL_NEW_FORM_TITLE' => 'Jauns dokuments',

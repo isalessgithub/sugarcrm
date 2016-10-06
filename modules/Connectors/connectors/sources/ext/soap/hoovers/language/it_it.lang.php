@@ -28,7 +28,7 @@ $connector_strings = array (
   'LBL_SYNOPSIS' => 'Synopsis',
   'hoovers_endpoint' => 'Endpoint URL',
   'hoovers_wsdl' => 'WSDL URL',
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><image src="modules/Connectors/connectors/sources/ext/soap/hoovers/images/hooversLogo.gif" border="0"></td><td width="65%" valign="top" class="dataLabel">Hoovers&#169; fornisce gratuitamente, agli utenti di SugarCRM, aggiornamenti su tutte le informazioni relative ad aziende. Per ottenere informazioni più dettagliate vai al sito <a href="http://www.hoovers.com" target="_blank">http://www.hoovers.com</a>.</td></tr></table>',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><image src="modules/Connectors/connectors/sources/ext/soap/hoovers/images/hooversLogo.gif" border="0"></td><td width="65%" valign="top" class="dataLabel">Hoovers´ fornisce gratuitamente, agli utenti di SugarCRM, aggiornamenti su tutte le informazioni relative ad aziende. Per ottenere informazioni più dettagliate vai al sito <a href="http://www.hoovers.com" target="_blank">http://www.hoovers.com</a>.</td></tr></table>',
   'LBL_NAME' => 'Nome Azienda',
   'LBL_STREET' => 'Indirizzo',
   'LBL_ADDRESS_STREET1' => 'Indirizzo 1',
@@ -48,4 +48,3 @@ $connector_strings = array (
   'ERROR_MISSING_SOAP_LIBRARIES' => 'Errore: Impossibile caricare le librerie SOAP (SoapClient, SoapHeader).',
   'hoovers_api_key' => 'Chiave API',
 );
-

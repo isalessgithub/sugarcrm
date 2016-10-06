@@ -17,6 +17,936 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
+$app_list_strings = array (
+  'account_type_dom' => 
+  array (
+    '' => '',
+    'Analyst' => 'Analista',
+    'Competitor' => 'Competitor',
+    'Customer' => 'Cliente',
+    'Integrator' => 'Integrator',
+    'Investor' => 'Investitore',
+    'Other' => 'Altro',
+    'Partner' => 'Partner',
+    'Press' => 'Stampa',
+    'Prospect' => 'Prospect',
+    'Reseller' => 'Rivenditore',
+  ),
+  'activity_dom' => 
+  array (
+    'Call' => 'Chiamata:',
+    'Email' => 'Email',
+    'Meeting' => 'Riunione:',
+    'Note' => 'Nota',
+    'Task' => 'Compito',
+  ),
+  'bopselect_type_dom' => 
+  array (
+    'Equals' => 'Uguali',
+  ),
+  'bselect_type_dom' => 
+  array (
+    'bool_false' => 'No',
+    'bool_true' => 'Si',
+  ),
+  'bug_priority_dom' => 
+  array (
+    'High' => 'Alta',
+    'Low' => 'Bassa',
+    'Medium' => 'Media',
+    'Urgent' => 'Urgente',
+  ),
+  'bug_resolution_dom' => 
+  array (
+    '' => '',
+    'Accepted' => 'Accettata',
+    'Duplicate' => 'Duplicato',
+    'Fixed' => 'Corretta',
+    'Invalid' => 'Non valida',
+    'Later' => 'Posticipata',
+    'Out of Date' => 'Scaduta',
+  ),
+  'bug_status_dom' => 
+  array (
+    'Assigned' => 'Assegnato',
+    'Closed' => 'Chiuso',
+    'New' => 'Nuovo',
+    'Pending' => 'In sospeso',
+    'Rejected' => 'Respinto',
+  ),
+  'bug_type_dom' => 
+  array (
+    'Defect' => 'Difetto',
+    'Feature' => 'Funzionalità',
+  ),
+  'call_direction_dom' => 
+  array (
+    'Inbound' => 'In entrata',
+    'Outbound' => 'In uscita',
+  ),
+  'call_status_dom' => 
+  array (
+    'Held' => 'Effettuata',
+    'Not Held' => 'Non Effettuata',
+    'Planned' => 'Pianificata',
+  ),
+  'campaign_status_dom' => 
+  array (
+    '' => '',
+    'Active' => 'Attivo',
+    'Complete' => 'Completato',
+    'In Queue' => 'In Coda',
+    'Inactive' => 'Non attivo',
+    'Planning' => 'Pianificazione',
+    'Sending' => 'In Uscita',
+  ),
+  'campaign_type_dom' => 
+  array (
+    '' => '',
+    'Email' => 'Email',
+    'Mail' => 'Posta',
+    'Print' => 'Stampa',
+    'Radio' => 'Radio',
+    'Telesales' => 'Televendite',
+    'Television' => 'Televisione',
+    'Web' => 'Web',
+  ),
+  'campainglog_activity_type_dom' => 
+  array (
+    '' => '',
+    'contact' => 'Contatti Creati',
+    'invalid email' => 'Messaggi non consegnati, Indirizzo non valido',
+    'lead' => 'Leads Creati',
+    'link' => 'Click-thru Link',
+    'removed' => 'Disiscritto',
+    'send error' => 'Messaggi non consegnati, Altro',
+    'targeted' => 'Messaggio Inviato/Tentato',
+    'viewed' => 'Messaggio Letto',
+  ),
+  'campainglog_target_type_dom' => 
+  array (
+    'Contacts' => 'Contatti',
+    'Leads' => 'Leads',
+    'Prospects' => 'Obiettivi',
+    'Users' => 'Utenti',
+  ),
+  'case_priority_dom' => 
+  array (
+    'P1' => 'Alta',
+    'P2' => 'Media',
+    'P3' => 'Bassa',
+  ),
+  'case_relationship_type_dom' => 
+  array (
+    '' => '',
+    'Alternate Contact' => 'Contato Alternativo',
+    'Primary Contact' => 'Contatto Primario',
+  ),
+  'case_status_dom' => 
+  array (
+    'Assigned' => 'Assegnato',
+    'Closed' => 'Chiuso',
+    'Duplicate' => 'Duplicato',
+    'New' => 'Nuovo',
+    'Pending Input' => 'In attesa di azione',
+    'Rejected' => 'Respinto',
+  ),
+  'checkbox_dom' => 
+  array (
+    '' => '',
+    1 => 'Si',
+    2 => 'No',
+  ),
+  'contract_expiration_notice_dom' => 
+  array (
+    1 => '1 Giorno',
+    3 => '3 Giorni',
+    5 => '5 Giorni',
+    7 => '1 Settimana',
+    14 => '2 Settimane',
+    21 => '3 Settimane',
+    31 => '1 Mese',
+  ),
+  'contract_payment_frequency_dom' => 
+  array (
+    'halfyearly' => 'Metà Anno',
+    'monthly' => 'Mensile',
+    'quarterly' => 'Trimestrale',
+    'yearly' => 'Annuale',
+  ),
+  'contract_status_dom' => 
+  array (
+    'inprogress' => 'In Corso',
+    'notstarted' => 'Non iniziato',
+    'signed' => 'Firmato',
+  ),
+  'cselect_type_dom' => 
+  array (
+    'Does not Equal' => 'Non è uguale a',
+    'Equals' => 'Uguali',
+  ),
+  'document_category_dom' => 
+  array (
+    '' => '',
+    'Knowledege Base' => 'Knowledge Base',
+    'Marketing' => 'Marketing',
+    'Sales' => 'Vendite',
+  ),
+  'document_status_dom' => 
+  array (
+    'Active' => 'Attivo',
+    'Draft' => 'Bozza',
+    'Expired' => 'Scaduto',
+    'FAQ' => 'FAQ',
+    'Pending' => 'In attesa',
+    'Under Review' => 'In Revisione',
+  ),
+  'document_subcategory_dom' => 
+  array (
+    '' => '',
+    'FAQ' => 'FAQ',
+    'Marketing Collateral' => 'Collegato al Marketing',
+    'Product Brochures' => 'Brochure Prodotto',
+  ),
+  'document_template_type_dom' => 
+  array (
+    '' => '',
+    'eula' => 'EULA',
+    'license' => 'Licenza',
+    'mailmerge' => 'Stampa Unione',
+    'nda' => 'NDA',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Gennaio',
+    2 => 'Febbraio',
+    3 => 'Marzo',
+    4 => 'Aprile',
+    5 => 'Maggio',
+    6 => 'Giugno',
+    7 => 'Luglio',
+    8 => 'Agosto',
+    9 => 'Settembre',
+    10 => 'Ottobre',
+    11 => 'Novembre',
+    12 => 'Dicembre',
+  ),
+  'dom_email_bool' => 
+  array (
+    'bool_false' => 'No',
+    'bool_true' => 'Si',
+  ),
+  'dom_email_distribution' => 
+  array (
+    '' => '--Nessuno--',
+    'direct' => 'Assegnazione Diretta',
+    'leastBusy' => 'Least-Busy',
+    'roundRobin' => 'Round-Robin',
+  ),
+  'dom_email_editor_option' => 
+  array (
+    '' => 'Formato Email predefinito',
+    'html' => 'HTML Email',
+    'plain' => 'Plain Text Email',
+  ),
+  'dom_email_errors' => 
+  array (
+    1 => 'Selezionare solo un utente per le voci di Assegnazione diretta.',
+    2 => 'Devi assegnare solamente gli Elementi Selezionati  per i record di Assegnazione Diretta',
+  ),
+  'dom_email_link_type' => 
+  array (
+    '' => 'Client di posta predefinito per il sistema',
+    'mailto' => 'Client di posta esterno',
+    'sugar' => 'Client di posta di SugarCRM',
+  ),
+  'dom_email_server_type' => 
+  array (
+    '' => '--Nessuno--',
+    'imap' => 'IMAP',
+    'pop3' => 'POP3',
+  ),
+  'dom_email_status' => 
+  array (
+    'archived' => 'Archiviato',
+    'closed' => 'Chiuso',
+    'draft' => 'Bozza',
+    'read' => 'Letto',
+    'replied' => 'Risposto',
+    'send_error' => 'Errore di Invio',
+    'sent' => 'Inviato',
+    'unread' => 'Non letto',
+  ),
+  'dom_email_types' => 
+  array (
+    'archived' => 'Archiviato',
+    'draft' => 'Bozza',
+    'inbound' => 'In entrata',
+    'out' => 'Inviato',
+  ),
+  'dom_int_bool' => 
+  array (
+    0 => 'No',
+    1 => 'Si',
+  ),
+  'dom_mailbox_type' => 
+  array (
+    'bounce' => 'Bounce Handling',
+    'bug' => 'Segnala bug',
+    'contact' => 'Nuovo contatto',
+    'pick' => 'Crea [Qualsiasi]',
+    'sales' => 'Nuovo Lead',
+    'support' => 'Nuovo Reclamo',
+    'task' => 'Nuovo Compito',
+  ),
+  'dom_meeting_accept_options' => 
+  array (
+    'accept' => 'Accetta',
+    'decline' => 'Rifiuta',
+    'tentative' => 'Accetta provvisoriamente',
+  ),
+  'dom_meeting_accept_status' => 
+  array (
+    'accept' => 'Accettato',
+    'decline' => 'Rifiutato',
+    'none' => 'Nessuno',
+    'tentative' => 'Accettato provvisoriamente',
+  ),
+  'dom_report_types' => 
+  array (
+    'detailed_summary' => 'Raggruppamento con dettagli',
+    'summary' => 'Raggruppamento',
+    'tabular' => 'Righe e Colonne',
+  ),
+  'dom_switch_bool' => 
+  array (
+    '' => 'No',
+    'off' => 'No',
+    'on' => 'Si',
+  ),
+  'dom_timezones' => 
+  array (
+    -12 => '-12',
+    -11 => '-11',
+    -10 => '-10',
+    -9 => '-9',
+    -8 => '-8',
+    -7 => '-7',
+    -6 => '-6',
+    -5 => '-5',
+    -4 => '-4',
+    -3 => '-3',
+    -2 => '-2',
+    -1 => '-1',
+    0 => '(GMT)',
+    1 => '(GMT + 1) Madrid',
+    2 => '(GMT + 2) Athens',
+    3 => '(GMT + 3) Moscow',
+    4 => '(GMT + 4) Kabul',
+    5 => '(GMT + 5) Ekaterinburg',
+    6 => '(GMT + 6) Astana',
+    7 => '(GMT + 7) Bangkok',
+    8 => '(GMT + 8) Perth',
+    9 => '(GMT + 9) Seol',
+    10 => '(GMT + 10) Brisbane',
+    11 => '(GMT + 11) Solomone Is.',
+    12 => '(GMT + 12) Auckland',
+  ),
+  'dom_timezones_extra' => 
+  array (
+    -12 => '(GMT-12) International Date Line West',
+    -11 => '(GMT-11) Midway Island, Samoa',
+    -10 => '(GMT-10) Hawaii',
+    -9 => '(GMT-9) Alaska',
+    -8 => '(GMT-8) (PST)',
+    -7 => '(GMT-7) (MST)',
+    -6 => '(GMT-6) (CST)',
+    -5 => '(GMT-5) (EST)',
+    -4 => '(GMT-4) Santiago',
+    -3 => '(GMT-3) Buenos Aires',
+    -2 => '(GMT-2) Mid-Atlantic',
+    -1 => '(GMT-1) Azores',
+    0 => '(GMT)',
+    1 => '(GMT+1) Madrid',
+    2 => '(GMT+2) Athens',
+    3 => '(GMT+3) Moscow',
+    4 => '(GMT+4) Kabul',
+    5 => '(GMT+5) Ekaterinburg',
+    6 => '(GMT+6) Astana',
+    7 => '(GMT+7) Bangkok',
+    8 => '(GMT+8) Perth',
+    9 => '(GMT+9) Seol',
+    10 => '(GMT+10) Brisbane',
+    11 => '(GMT+11) Solomone Is.',
+    12 => '(GMT+12) Auckland',
+  ),
+  'dselect_type_dom' => 
+  array (
+    'Does not Equal' => 'Non è uguale a',
+    'Equals' => 'Uguali',
+    'Less Than' => 'è meno di',
+    'More Than' => 'è più di',
+  ),
+  'dtselect_type_dom' => 
+  array (
+    'Less Than' => 'è meno di',
+    'More Than' => 'era più di',
+  ),
+  'duration_intervals' => 
+  array (
+    0 => '00',
+    15 => '15',
+    30 => '30',
+    45 => '45',
+  ),
+  'email_marketing_status_dom' => 
+  array (
+    '' => '',
+    'active' => 'Attivo',
+    'inactive' => 'Non attivo',
+  ),
+  'employee_status_dom' => 
+  array (
+    'Active' => 'Attivo',
+    'Leave of Absence' => 'In aspettativa',
+    'Terminated' => 'Licenziato',
+  ),
+  'forecast_schedule_status_dom' => 
+  array (
+    'Active' => 'Attivo',
+    'Inactive' => 'Non attivo',
+  ),
+  'forecast_type_dom' => 
+  array (
+    'Direct' => 'Diretta',
+    'Rollup' => 'Rollup',
+  ),
+  'industry_dom' => 
+  array (
+    '' => '',
+    'Apparel' => 'Tessile',
+    'Banking' => 'Banca',
+    'Biotechnology' => 'Biotecnologie',
+    'Chemicals' => 'Industria Chimica',
+    'Communications' => 'Comunicazioni',
+    'Construction' => 'Costruzioni',
+    'Consulting' => 'Consulenza',
+    'Education' => 'Istruzione',
+    'Electronics' => 'Informatica - Elettronica',
+    'Energy' => 'Energia',
+    'Engineering' => 'Ingegneria',
+    'Entertainment' => 'Cultura-Stampa',
+    'Environmental' => 'Ambiente',
+    'Finance' => 'Finanza',
+    'Government' => 'Pubblica Amministratione',
+    'Healthcare' => 'Sanità',
+    'Hospitality' => 'Alberghiero',
+    'Insurance' => 'Assicurazione',
+    'Machinery' => 'Industria Meccanica',
+    'Manufacturing' => 'Industria Manifatturiera',
+    'Media' => 'Media',
+    'Not For Profit' => 'No Profit',
+    'Other' => 'Altro',
+    'Recreation' => 'Ricreazione',
+    'Retail' => 'Commercio Retail',
+    'Shipping' => 'Trasporti e Logistica:',
+    'Technology' => 'Tecnologico',
+    'Telecommunications' => 'Telecomunicazioni',
+    'Transportation' => 'Viaggi e turismo',
+    'Utilities' => 'Servizi e utility',
+  ),
+  'language_pack_name' => 'IT Italiano',
+  'layouts_dom' => 
+  array (
+    'Invoice' => 'Fattura',
+    'Standard' => 'Proposta',
+    'Terms' => 'Termini di Pagamento',
+  ),
+  'lead_source_dom' => 
+  array (
+    '' => '',
+    'Cold Call' => 'Chiamata a Freddo',
+    'Conference' => 'Conferenza',
+    'Direct Mail' => 'Direct Mail',
+    'Email' => 'Email',
+    'Employee' => 'Dipendente',
+    'Existing Customer' => 'Cliente Esistente',
+    'Other' => 'Altro',
+    'Partner' => 'Partner',
+    'Public Relations' => 'Pubbliche Relazioni',
+    'Self Generated' => 'Autogenerato',
+    'Trade Show' => 'Fiera',
+    'Web Site' => 'Sito web',
+    'Word of mouth' => 'Passaparola',
+  ),
+  'lead_status_dom' => 
+  array (
+    '' => '',
+    'Assigned' => 'Assegnato',
+    'Converted' => 'Convertito',
+    'Dead' => 'Perso',
+    'In Process' => 'In Esecuzione',
+    'New' => 'Nuovo',
+    'Recycled' => 'Recuperato',
+  ),
+  'lead_status_noblank_dom' => 
+  array (
+    'Assigned' => 'Assegnato',
+    'Converted' => 'Convertito',
+    'Dead' => 'Perso',
+    'In Process' => 'In Esecuzione',
+    'New' => 'Nuovo',
+    'Recycled' => 'Recuperato',
+  ),
+  'meeting_status_dom' => 
+  array (
+    'Held' => 'Effettuata',
+    'Not Held' => 'Non Effettuata',
+    'Planned' => 'Pianificata',
+  ),
+  'messenger_type_dom' => 
+  array (
+    '' => '',
+    'AOL' => 'AOL',
+    'MSN' => 'MSN',
+    'Yahoo!' => 'Yahoo!',
+  ),
+  'moduleList' => 
+  array (
+    'Bugs' => 'Bugs',
+    'Cases' => 'Reclami',
+    'FAQ' => 'FAQ',
+    'Home' => 'Home',
+    'KBDocuments' => 'Knowledge Base',
+    'Newsletters' => 'Newsletters',
+    'Notes' => 'Note',
+    'Teams' => 'Gruppi',
+    'Users' => 'Utenti',
+  ),
+  'moduleListSingular' => 
+  array (
+    'Bugs' => 'Bug',
+    'Cases' => 'Reclami',
+    'Home' => 'Home',
+    'Notes' => 'Note',
+    'Teams' => 'Team',
+    'Users' => 'Utente',
+  ),
+  'mselect_type_dom' => 
+  array (
+    'Equals' => 'é',
+    'in' => 'è uno dei',
+  ),
+  'notifymail_sendtype' => 
+  array (
+    'SMTP' => 'SMTP',
+  ),
+  'opportunity_relationship_type_dom' => 
+  array (
+    '' => '',
+    'Business Decision Maker' => 'Business Decision Maker',
+    'Business Evaluator' => 'Valutatore Business',
+    'Executive Sponsor' => 'Sponsor Esecutivo',
+    'Influencer' => 'Influencer',
+    'Other' => 'Altro',
+    'Primary Decision Maker' => 'Decision maker principale',
+    'Technical Decision Maker' => 'Decision Maker Tecnico',
+    'Technical Evaluator' => 'Valutatore Tecnico',
+  ),
+  'opportunity_type_dom' => 
+  array (
+    '' => '',
+    'Existing Business' => 'Business esistente',
+    'New Business' => 'Nuovo affare',
+  ),
+  'order_stage_dom' => 
+  array (
+    'Cancelled' => 'Annullato',
+    'Confirmed' => 'Confermato',
+    'On Hold' => 'In Attesa',
+    'Pending' => 'In sospeso',
+    'Shipped' => 'Inviato',
+  ),
+  'payment_terms' => 
+  array (
+    '' => '',
+    'Net 15' => '15 gg',
+    'Net 30' => '30 gg',
+  ),
+  'pricing_formula_dom' => 
+  array (
+    'Fixed' => 'Prezzo fisso',
+    'IsList' => 'Come listino',
+    'PercentageDiscount' => 'Sconto da listino',
+    'PercentageMarkup' => 'Margine di profitto sul costo',
+    'ProfitMargin' => 'Margine di profitto',
+  ),
+  'product_category_dom' => 
+  array (
+    '' => '',
+    'Accounts' => 'Aziende',
+    'Activities' => 'Attività',
+    'Bugs' => 'Bugs',
+    'Calendar' => 'Calendario',
+    'Calls' => 'Chiamate',
+    'Campaigns' => 'Campagne',
+    'Cases' => 'Reclami',
+    'Contacts' => 'Contatti',
+    'Currencies' => 'Valute',
+    'Dashboard' => 'Grafici',
+    'Documents' => 'Documenti',
+    'Emails' => 'Email',
+    'Feeds' => 'Feeds',
+    'Forecasts' => 'Previsioni',
+    'Help' => 'Help',
+    'Home' => 'Home',
+    'Leads' => 'Leads',
+    'Meetings' => 'Riunioni',
+    'Notes' => 'Note',
+    'Opportunities' => 'Opportunità',
+    'Outlook Plugin' => 'Plugin Outlook',
+    'Product Catalog' => 'Catalogo Prodotti',
+    'Products' => 'Prodotti',
+    'Projects' => 'Progetti',
+    'Quotes' => 'Offerte',
+    'RSS' => 'RSS',
+    'Releases' => 'Releases',
+    'Studio' => 'Studio',
+    'Upgrade' => 'Aggiornamento',
+    'Users' => 'Utenti',
+  ),
+  'product_status_dom' => 
+  array (
+    'Orders' => 'Ordinato',
+    'Quotes' => 'Quotato',
+    'Ship' => 'Inviato',
+  ),
+  'product_status_quote_key' => 'Offerte',
+  'product_template_status_dom' => 
+  array (
+    'Available' => 'Disponibile',
+    'Unavailable' => 'Non disponibile',
+  ),
+  'project_task_priority_options' => 
+  array (
+    'High' => 'Alta',
+    'Low' => 'Bassa',
+    'Medium' => 'Media',
+  ),
+  'project_task_status_options' => 
+  array (
+    'Completed' => 'Completato',
+    'Deferred' => 'Rimandato',
+    'In Progress' => 'In Corso',
+    'Not Started' => 'Non iniziato',
+    'Pending Input' => 'In attesa di azione',
+  ),
+  'project_task_utilization_options' => 
+  array (
+    0 => 'nessuno',
+    25 => '25',
+    50 => '50',
+    75 => '75',
+    100 => '100',
+  ),
+  'prospect_list_type_dom' => 
+  array (
+    'default' => 'Predefinito',
+    'exempt' => 'Suppression List - Per Id',
+    'exempt_address' => 'Suppression List - Per Indirizzo Email',
+    'exempt_domain' => 'Suppression List - Per Dominio',
+    'seed' => 'Seed',
+    'test' => 'Test',
+  ),
+  'query_calc_oper_dom' => 
+  array (
+    '*' => '(X) Moltiplicato per',
+    '+' => '(+) Più',
+    '-' => '(-) Meno',
+    '/' => '(/) Diviso per',
+  ),
+  'quote_relationship_type_dom' => 
+  array (
+    '' => '',
+    'Business Decision Maker' => 'Business Decision Maker',
+    'Business Evaluator' => 'Valutatore Business',
+    'Executive Sponsor' => 'Sponsor Esecutivo',
+    'Influencer' => 'Influencer',
+    'Other' => 'Altro',
+    'Primary Decision Maker' => 'Decision maker principale',
+    'Technical Decision Maker' => 'Decision Maker Tecnico',
+    'Technical Evaluator' => 'Valutatore Tecnico',
+  ),
+  'quote_stage_dom' => 
+  array (
+    'Closed Accepted' => 'Chiuso Accettato',
+    'Closed Dead' => 'Chiuso Morto',
+    'Closed Lost' => 'Chiuso Perso',
+    'Confirmed' => 'Confermato',
+    'Delivered' => 'Consegnato',
+    'Draft' => 'Bozza',
+    'Negotiation' => 'Negoziazione',
+    'On Hold' => 'In Attesa',
+  ),
+  'quote_type_dom' => 
+  array (
+    'Orders' => 'Ordine',
+    'Quotes' => 'Offerta',
+  ),
+  'record_type_display' => 
+  array (
+    'Accounts' => 'Azienda',
+    'Bugs' => 'Bug',
+    'Cases' => 'Reclamo',
+    'Contacts' => 'Contatti',
+    'Leads' => 'Lead',
+    'Opportunities' => 'Opportunità',
+    'ProductTemplates' => 'Prodotto',
+    'Project' => 'Progetto',
+    'ProjectTask' => 'Compito di Progetto',
+    'Quotes' => 'Offerta',
+    'Tasks' => 'Compito',
+  ),
+  'record_type_display_notes' => 
+  array (
+    'Accounts' => 'Azienda',
+    'Bugs' => 'Bug',
+    'Calls' => 'Chiamata',
+    'Cases' => 'Reclamo',
+    'Contacts' => 'Contatto',
+    'Contracts' => 'Contratto',
+    'Emails' => 'Email',
+    'Leads' => 'Lead',
+    'Meetings' => 'Riunione',
+    'Opportunities' => 'Opportunità',
+    'ProductTemplates' => 'Prodotto',
+    'Products' => 'Prodotto',
+    'Project' => 'Progetto',
+    'ProjectTask' => 'Compito di Progetto',
+    'Quotes' => 'Offerta',
+  ),
+  'reminder_max_time' => '3600',
+  'reminder_time_options' => 
+  array (
+    60 => '1 minuto prima',
+    300 => '5 minuti prima',
+    600 => '10 minuti prima',
+    900 => '15 minuti prima',
+    1800 => '30 minuti prima',
+    3600 => '1 ora prima',
+  ),
+  'sales_probability_dom' => 
+  array (
+    'Closed Lost' => '',
+    'Closed Won' => '100',
+    'Id. Decision Makers' => '40',
+    'Needs Analysis' => '25',
+    'Negotiation/Review' => '80',
+    'Perception Analysis' => '50',
+    'Proposal/Price Quote' => '65',
+    'Prospecting' => '10',
+    'Qualification' => '20',
+    'Value Proposition' => '30',
+  ),
+  'sales_stage_dom' => 
+  array (
+    'Closed Lost' => 'Chiuso Perso',
+    'Closed Won' => 'Chiuso vinto',
+    'Id. Decision Makers' => 'Id. Decision Makers',
+    'Needs Analysis' => 'Analisi dei bisogni',
+    'Negotiation/Review' => 'Negoazione/Review',
+    'Perception Analysis' => 'Percezione Analisi',
+    'Proposal/Price Quote' => 'Proposta economica',
+    'Prospecting' => 'Prospettiva',
+    'Qualification' => 'Qualificazione',
+    'Value Proposition' => 'Proposta di valore',
+  ),
+  'salutation_dom' => 
+  array (
+    '' => '',
+    'Dr.' => 'Dr.',
+    'Mr.' => 'Sig.',
+    'Mrs.' => 'Sig.na',
+    'Ms.' => 'Sig.ra',
+    'Prof.' => 'Prof.',
+  ),
+  'schedulers_times_dom' => 
+  array (
+    'completed' => 'Completato',
+    'failed' => 'Fallito',
+    'in progress' => 'In Corso',
+    'no curl' => 'Non eseguito: nessun cURL disponibile',
+    'not run' => 'Tempo di esecuzione passato, Non Eseguito',
+    'ready' => 'Pronto',
+  ),
+  'source_dom' => 
+  array (
+    '' => '',
+    'Forum' => 'Forum',
+    'InboundEmail' => 'Email',
+    'Internal' => 'Interno',
+    'Web' => 'Web',
+  ),
+  'support_term_dom' => 
+  array (
+    '+1 year' => 'Un anno',
+    '+2 years' => 'Due anni',
+    '+6 months' => 'Sei mesi',
+  ),
+  'task_priority_dom' => 
+  array (
+    'High' => 'Alta',
+    'Low' => 'Bassa',
+    'Medium' => 'Media',
+  ),
+  'task_status_dom' => 
+  array (
+    'Completed' => 'Completato',
+    'Deferred' => 'Rimandato',
+    'In Progress' => 'In Corso',
+    'Not Started' => 'Non iniziato',
+    'Pending Input' => 'In attesa di azione',
+  ),
+  'tax_class_dom' => 
+  array (
+    'Non-Taxable' => 'Non Imponibile',
+    'Taxable' => 'Imponibile',
+  ),
+  'tselect_type_dom' => 
+  array (
+    0 => '0 ore',
+    14440 => '4 ore',
+    28800 => '8 ore',
+    43200 => '12 ore',
+    86400 => '1 giorno',
+    172800 => '2 giorni',
+    259200 => '3 giorni',
+    345600 => '4 giorni',
+    432000 => '5 giorni',
+    604800 => '1 settimana',
+    1209600 => '2 settimane',
+    1814400 => '3 settimane',
+    2592000 => '30 giorni',
+    5184000 => '60 giorni',
+    7776000 => '90 giorni',
+    10368000 => '120 giorni',
+    12960000 => '150 giorni',
+    15552000 => '180 giorni',
+  ),
+  'user_status_dom' => 
+  array (
+    'Active' => 'Attivo',
+    'Inactive' => 'Inattivo',
+  ),
+  'wflow_action_datetime_type_dom' => 
+  array (
+    'Existing Value' => 'Valore attuale',
+    'Triggered Date' => 'Data calcolata',
+  ),
+  'wflow_action_type_dom' => 
+  array (
+    'new' => 'Nuovo record',
+    'update' => 'Aggiorna record',
+    'update_rel' => 'Aggiorna record collegato',
+  ),
+  'wflow_address_type_dom' => 
+  array (
+    'bcc' => 'BCC:',
+    'cc' => 'CC:',
+    'to' => 'A:',
+  ),
+  'wflow_address_type_invite_dom' => 
+  array (
+    'bcc' => 'BCC:',
+    'cc' => 'CC:',
+    'invite_only' => '(Solo invito)',
+    'to' => 'A:',
+  ),
+  'wflow_address_type_to_only_dom' => 
+  array (
+    'to' => 'A:',
+  ),
+  'wflow_adv_enum_type_dom' => 
+  array (
+    'advance' => 'Sposta il dropdown avanti di',
+    'retreat' => 'Sposta il dropdown indietro di',
+  ),
+  'wflow_adv_team_type_dom' => 
+  array (
+    'current_team' => 'Team di utenti connessi',
+    'team_id' => 'Team attuale di Record calcolati',
+  ),
+  'wflow_adv_user_type_dom' => 
+  array (
+    'assigned_user_id' => 'Utente assegnato al record calcolato',
+    'created_by' => 'Utente che ha creato il record calcolato',
+    'current_user' => 'Utente connesso',
+    'modified_user_id' => 'Ultimo utente che ha modificato il record calcolato',
+  ),
+  'wflow_alert_type_dom' => 
+  array (
+    'Email' => 'Email',
+    'Invite' => 'Invito',
+  ),
+  'wflow_array_type_dom' => 
+  array (
+    'future' => 'Nuovo Valore',
+    'past' => 'Vecchio Valore',
+  ),
+  'wflow_fire_order_dom' => 
+  array (
+    'actions_alerts' => 'Azioni poi Avvisi',
+    'alerts_actions' => 'Avvisi poi Azioni',
+  ),
+  'wflow_record_type_dom' => 
+  array (
+    'All' => 'Record nuovi ed esistenti',
+    'New' => 'Solo nuovi records',
+    'Update' => 'Solo records esistenti',
+  ),
+  'wflow_rel_type_dom' => 
+  array (
+    'all' => 'Tutti quelli collegati',
+    'filter' => 'Filtro collegato',
+  ),
+  'wflow_relate_type_dom' => 
+  array (
+    'Manager' => 'Manager dell´Utente',
+    'Self' => 'Utente',
+  ),
+  'wflow_relfilter_type_dom' => 
+  array (
+    'all' => 'Tutti quelli collegati',
+    'any' => 'Qualsiasi collegato',
+  ),
+  'wflow_set_type_dom' => 
+  array (
+    'Advanced' => 'Opzioni Avanzate',
+    'Basic' => 'Opzioni Base',
+  ),
+  'wflow_source_type_dom' => 
+  array (
+    'Custom Template' => 'Modello personalizzato',
+    'Normal Message' => 'Messaggio normale',
+    'System Default' => 'Predefinito da sistema',
+  ),
+  'wflow_type_dom' => 
+  array (
+    'Normal' => 'Quando il record viene salvato',
+    'Time' => 'Quando il tempo è scaduto',
+  ),
+  'wflow_user_type_dom' => 
+  array (
+    'current_user' => 'Utenti Attuali',
+    'rel_user' => 'Utenti Collegati',
+    'rel_user_custom' => 'Utente Personalizzato Collegato',
+    'specific_role' => 'Ruolo Specifico',
+    'specific_team' => 'Team Specifico',
+    'specific_user' => 'Utente Specifico',
+  ),
+);
+
 $app_strings = array (
   'ERROR_FULLY_EXPIRED' => 'La licenza di SugarCRM è scaduta da più di 30 giorni e deve essere rinnovata. Solo l´amministratore del sistema può accedere.',
   'ERROR_LICENSE_EXPIRED' => 'La licenza di SugarCRM deve essere aggiornata. Solo l´amministratore del sistema può accedere.',
@@ -306,928 +1236,3 @@ $app_strings = array (
   'NTC_WELCOME' => 'Benvenuto',
   'NTC_YEAR_FORMAT' => '(aaaa)',
 );
-
-$app_list_strings = array (
-  'account_type_dom' => 
-  array (
-    '' => '',
-    'Analyst' => 'Analista',
-    'Competitor' => 'Competitor',
-    'Customer' => 'Cliente',
-    'Integrator' => 'Integrator',
-    'Investor' => 'Investitore',
-    'Other' => 'Altro',
-    'Partner' => 'Partner',
-    'Press' => 'Stampa',
-    'Prospect' => 'Prospect',
-    'Reseller' => 'Rivenditore',
-  ),
-  'activity_dom' => 
-  array (
-    'Call' => 'Chiamata:',
-    'Email' => 'Email',
-    'Meeting' => 'Riunione:',
-    'Note' => 'Nota',
-    'Task' => 'Compito',
-  ),
-  'bopselect_type_dom' => 
-  array (
-    'Equals' => 'Uguali',
-  ),
-  'bselect_type_dom' => 
-  array (
-    'bool_false' => 'No',
-    'bool_true' => 'Si',
-  ),
-  'bug_priority_dom' => 
-  array (
-    'High' => 'Alta',
-    'Low' => 'Bassa',
-    'Medium' => 'Media',
-    'Urgent' => 'Urgente',
-  ),
-  'bug_resolution_dom' => 
-  array (
-    '' => '',
-    'Accepted' => 'Accettata',
-    'Duplicate' => 'Duplicato',
-    'Fixed' => 'Corretta',
-    'Invalid' => 'Non valida',
-    'Later' => 'Posticipata',
-    'Out of Date' => 'Scaduta',
-  ),
-  'bug_status_dom' => 
-  array (
-    'Assigned' => 'Assegnato',
-    'Closed' => 'Chiuso',
-    'New' => 'Nuovo',
-    'Pending' => 'In sospeso',
-    'Rejected' => 'Respinto',
-  ),
-  'bug_type_dom' => 
-  array (
-    'Defect' => 'Difetto',
-    'Feature' => 'Funzionalità',
-  ),
-  'call_direction_dom' => 
-  array (
-    'Inbound' => 'In entrata',
-    'Outbound' => 'In uscita',
-  ),
-  'call_status_dom' => 
-  array (
-    'Held' => 'Effettuata',
-    'Not Held' => 'Non Effettuata',
-    'Planned' => 'Pianificata',
-  ),
-  'campaign_status_dom' => 
-  array (
-    '' => '',
-    'Active' => 'Attivo',
-    'Complete' => 'Completato',
-    'In Queue' => 'In Coda',
-    'Inactive' => 'Non attivo',
-    'Planning' => 'Pianificazione',
-    'Sending' => 'In Uscita',
-  ),
-  'campaign_type_dom' => 
-  array (
-    '' => '',
-    'Email' => 'Email',
-    'Mail' => 'Posta',
-    'Print' => 'Stampa',
-    'Radio' => 'Radio',
-    'Telesales' => 'Televendite',
-    'Television' => 'Televisione',
-    'Web' => 'Web',
-  ),
-  'campainglog_activity_type_dom' => 
-  array (
-    '' => '',
-    'contact' => 'Contatti Creati',
-    'invalid email' => 'Messaggi non consegnati, Indirizzo non valido',
-    'lead' => 'Leads Creati',
-    'link' => 'Click-thru Link',
-    'removed' => 'Disiscritto',
-    'send error' => 'Messaggi non consegnati, Altro',
-    'targeted' => 'Messaggio Inviato/Tentato',
-    'viewed' => 'Messaggio Letto',
-  ),
-  'campainglog_target_type_dom' => 
-  array (
-    'Contacts' => 'Contatti',
-    'Leads' => 'Leads',
-    'Prospects' => 'Obiettivi',
-    'Users' => 'Utenti',
-  ),
-  'case_priority_dom' => 
-  array (
-    'P1' => 'Alta',
-    'P2' => 'Media',
-    'P3' => 'Bassa',
-  ),
-  'case_relationship_type_dom' => 
-  array (
-    '' => '',
-    'Alternate Contact' => 'Contato Alternativo',
-    'Primary Contact' => 'Contatto Primario',
-  ),
-  'case_status_dom' => 
-  array (
-    'Assigned' => 'Assegnato',
-    'Closed' => 'Chiuso',
-    'Duplicate' => 'Duplicato',
-    'New' => 'Nuovo',
-    'Pending Input' => 'In attesa di azione',
-    'Rejected' => 'Respinto',
-  ),
-  'checkbox_dom' => 
-  array (
-    '' => '',
-    1 => 'Si',
-    2 => 'No',
-  ),
-  'contract_expiration_notice_dom' => 
-  array (
-    1 => '1 Giorno',
-    3 => '3 Giorni',
-    5 => '5 Giorni',
-    7 => '1 Settimana',
-    14 => '2 Settimane',
-    21 => '3 Settimane',
-    31 => '1 Mese',
-  ),
-  'contract_payment_frequency_dom' => 
-  array (
-    'halfyearly' => 'Metà Anno',
-    'monthly' => 'Mensile',
-    'quarterly' => 'Trimestrale',
-    'yearly' => 'Annuale',
-  ),
-  'contract_status_dom' => 
-  array (
-    'inprogress' => 'In Corso',
-    'notstarted' => 'Non iniziato',
-    'signed' => 'Firmato',
-  ),
-  'cselect_type_dom' => 
-  array (
-    'Does not Equal' => 'Non è uguale a',
-    'Equals' => 'Uguali',
-  ),
-  'document_category_dom' => 
-  array (
-    '' => '',
-    'Knowledege Base' => 'Knowledge Base',
-    'Marketing' => 'Marketing',
-    'Sales' => 'Vendite',
-  ),
-  'document_status_dom' => 
-  array (
-    'Active' => 'Attivo',
-    'Draft' => 'Bozza',
-    'Expired' => 'Scaduto',
-    'FAQ' => 'FAQ',
-    'Pending' => 'In attesa',
-    'Under Review' => 'In Revisione',
-  ),
-  'document_subcategory_dom' => 
-  array (
-    '' => '',
-    'FAQ' => 'FAQ',
-    'Marketing Collateral' => 'Collegato al Marketing',
-    'Product Brochures' => 'Brochure Prodotto',
-  ),
-  'document_template_type_dom' => 
-  array (
-    '' => '',
-    'eula' => 'EULA',
-    'license' => 'Licenza',
-    'mailmerge' => 'Stampa Unione',
-    'nda' => 'NDA',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    0 => '',
-    1 => 'Gennaio',
-    2 => 'Febbraio',
-    3 => 'Marzo',
-    4 => 'Aprile',
-    5 => 'Maggio',
-    6 => 'Giugno',
-    7 => 'Luglio',
-    8 => 'Agosto',
-    9 => 'Settembre',
-    10 => 'Ottobre',
-    11 => 'Novembre',
-    12 => 'Dicembre',
-  ),
-  'dom_email_bool' => 
-  array (
-    'bool_false' => 'No',
-    'bool_true' => 'Si',
-  ),
-  'dom_email_distribution' => 
-  array (
-    '' => '--Nessuno--',
-    'direct' => 'Assegnazione Diretta',
-    'leastBusy' => 'Least-Busy',
-    'roundRobin' => 'Round-Robin',
-  ),
-  'dom_email_editor_option' => 
-  array (
-    '' => 'Formato Email predefinito',
-    'html' => 'HTML Email',
-    'plain' => 'Plain Text Email',
-  ),
-  'dom_email_errors' => 
-  array (
-    1 => 'Selezionare solo un utente per le voci di Assegnazione diretta.',
-    2 => 'Devi assegnare solamente gli Elementi Selezionati  per i record di Assegnazione Diretta',
-  ),
-  'dom_email_link_type' => 
-  array (
-    '' => 'Client di posta predefinito per il sistema',
-    'mailto' => 'Client di posta esterno',
-    'sugar' => 'Client di posta di SugarCRM',
-  ),
-  'dom_email_server_type' => 
-  array (
-    '' => '--Nessuno--',
-    'imap' => 'IMAP',
-    'pop3' => 'POP3',
-  ),
-  'dom_email_status' => 
-  array (
-    'archived' => 'Archiviato',
-    'closed' => 'Chiuso',
-    'draft' => 'Bozza',
-    'read' => 'Letto',
-    'replied' => 'Risposto',
-    'send_error' => 'Errore di Invio',
-    'sent' => 'Inviato',
-    'unread' => 'Non letto',
-  ),
-  'dom_email_types' => 
-  array (
-    'archived' => 'Archiviato',
-    'draft' => 'Bozza',
-    'inbound' => 'In entrata',
-    'out' => 'Inviato',
-  ),
-  'dom_int_bool' => 
-  array (
-    1 => 'Si',
-  ),
-  'dom_mailbox_type' => 
-  array (
-    'bounce' => 'Bounce Handling',
-    'bug' => 'Segnala bug',
-    'contact' => 'Nuovo contatto',
-    'pick' => 'Crea [Qualsiasi]',
-    'sales' => 'Nuovo Lead',
-    'support' => 'Nuovo Reclamo',
-    'task' => 'Nuovo Compito',
-  ),
-  'dom_meeting_accept_options' => 
-  array (
-    'accept' => 'Accetta',
-    'decline' => 'Rifiuta',
-    'tentative' => 'Accetta provvisoriamente',
-  ),
-  'dom_meeting_accept_status' => 
-  array (
-    'accept' => 'Accettato',
-    'decline' => 'Rifiutato',
-    'none' => 'Nessuno',
-    'tentative' => 'Accettato provvisoriamente',
-  ),
-  'dom_report_types' => 
-  array (
-    'detailed_summary' => 'Raggruppamento con dettagli',
-    'summary' => 'Raggruppamento',
-    'tabular' => 'Righe e Colonne',
-  ),
-  'dom_switch_bool' => 
-  array (
-    '' => 'No',
-    'off' => 'No',
-    'on' => 'Si',
-  ),
-  'dom_timezones' => 
-  array (
-    -12 => '-12',
-    -11 => '-11',
-    -10 => '-10',
-    -9 => '-9',
-    -8 => '-8',
-    -7 => '-7',
-    -6 => '-6',
-    -5 => '-5',
-    -4 => '-4',
-    -3 => '-3',
-    -2 => '-2',
-    -1 => '-1',
-    1 => '(GMT + 1) Madrid',
-    2 => '(GMT + 2) Athens',
-    3 => '(GMT + 3) Moscow',
-    4 => '(GMT + 4) Kabul',
-    5 => '(GMT + 5) Ekaterinburg',
-    6 => '(GMT + 6) Astana',
-    7 => '(GMT + 7) Bangkok',
-    8 => '(GMT + 8) Perth',
-    9 => '(GMT + 9) Seol',
-    10 => '(GMT + 10) Brisbane',
-    11 => '(GMT + 11) Solomone Is.',
-    12 => '(GMT + 12) Auckland',
-  ),
-  'dom_timezones_extra' => 
-  array (
-    -12 => '(GMT-12) International Date Line West',
-    -11 => '(GMT-11) Midway Island, Samoa',
-    -10 => '(GMT-10) Hawaii',
-    -9 => '(GMT-9) Alaska',
-    -8 => '(GMT-8) (PST)',
-    -7 => '(GMT-7) (MST)',
-    -6 => '(GMT-6) (CST)',
-    -5 => '(GMT-5) (EST)',
-    -4 => '(GMT-4) Santiago',
-    -3 => '(GMT-3) Buenos Aires',
-    -2 => '(GMT-2) Mid-Atlantic',
-    -1 => '(GMT-1) Azores',
-    1 => '(GMT+1) Madrid',
-    2 => '(GMT+2) Athens',
-    3 => '(GMT+3) Moscow',
-    4 => '(GMT+4) Kabul',
-    5 => '(GMT+5) Ekaterinburg',
-    6 => '(GMT+6) Astana',
-    7 => '(GMT+7) Bangkok',
-    8 => '(GMT+8) Perth',
-    9 => '(GMT+9) Seol',
-    10 => '(GMT+10) Brisbane',
-    11 => '(GMT+11) Solomone Is.',
-    12 => '(GMT+12) Auckland',
-  ),
-  'dselect_type_dom' => 
-  array (
-    'Does not Equal' => 'Non è uguale a',
-    'Equals' => 'Uguali',
-    'Less Than' => 'è meno di',
-    'More Than' => 'è più di',
-  ),
-  'dtselect_type_dom' => 
-  array (
-    'Less Than' => 'è meno di',
-    'More Than' => 'era più di',
-  ),
-  'duration_intervals' => 
-  array (
-    15 => '15',
-    30 => '30',
-    45 => '45',
-  ),
-  'email_marketing_status_dom' => 
-  array (
-    '' => '',
-    'active' => 'Attivo',
-    'inactive' => 'Non attivo',
-  ),
-  'employee_status_dom' => 
-  array (
-    'Active' => 'Attivo',
-    'Leave of Absence' => 'In aspettativa',
-    'Terminated' => 'Licenziato',
-  ),
-  'forecast_schedule_status_dom' => 
-  array (
-    'Active' => 'Attivo',
-    'Inactive' => 'Non attivo',
-  ),
-  'forecast_type_dom' => 
-  array (
-    'Direct' => 'Diretta',
-    'Rollup' => 'Rollup',
-  ),
-  'industry_dom' => 
-  array (
-    '' => '',
-    'Apparel' => 'Tessile',
-    'Banking' => 'Banca',
-    'Biotechnology' => 'Biotecnologie',
-    'Chemicals' => 'Industria Chimica',
-    'Communications' => 'Comunicazioni',
-    'Construction' => 'Costruzioni',
-    'Consulting' => 'Consulenza',
-    'Education' => 'Istruzione',
-    'Electronics' => 'Informatica - Elettronica',
-    'Energy' => 'Energia',
-    'Engineering' => 'Ingegneria',
-    'Entertainment' => 'Cultura-Stampa',
-    'Environmental' => 'Ambiente',
-    'Finance' => 'Finanza',
-    'Government' => 'Pubblica Amministratione',
-    'Healthcare' => 'Sanità',
-    'Hospitality' => 'Alberghiero',
-    'Insurance' => 'Assicurazione',
-    'Machinery' => 'Industria Meccanica',
-    'Manufacturing' => 'Industria Manifatturiera',
-    'Media' => 'Media',
-    'Not For Profit' => 'No Profit',
-    'Other' => 'Altro',
-    'Recreation' => 'Ricreazione',
-    'Retail' => 'Commercio Retail',
-    'Shipping' => 'Trasporti e Logistica:',
-    'Technology' => 'Tecnologico',
-    'Telecommunications' => 'Telecomunicazioni',
-    'Transportation' => 'Viaggi e turismo',
-    'Utilities' => 'Servizi e utility',
-  ),
-  'language_pack_name' => 'IT Italiano',
-  'layouts_dom' => 
-  array (
-    'Invoice' => 'Fattura',
-    'Standard' => 'Proposta',
-    'Terms' => 'Termini di Pagamento',
-  ),
-  'lead_source_dom' => 
-  array (
-    '' => '',
-    'Cold Call' => 'Chiamata a Freddo',
-    'Conference' => 'Conferenza',
-    'Direct Mail' => 'Direct Mail',
-    'Email' => 'Email',
-    'Employee' => 'Dipendente',
-    'Existing Customer' => 'Cliente Esistente',
-    'Other' => 'Altro',
-    'Partner' => 'Partner',
-    'Public Relations' => 'Pubbliche Relazioni',
-    'Self Generated' => 'Autogenerato',
-    'Trade Show' => 'Fiera',
-    'Web Site' => 'Sito web',
-    'Word of mouth' => 'Passaparola',
-  ),
-  'lead_status_dom' => 
-  array (
-    '' => '',
-    'Assigned' => 'Assegnato',
-    'Converted' => 'Convertito',
-    'Dead' => 'Perso',
-    'In Process' => 'In Esecuzione',
-    'New' => 'Nuovo',
-    'Recycled' => 'Recuperato',
-  ),
-  'lead_status_noblank_dom' => 
-  array (
-    'Assigned' => 'Assegnato',
-    'Converted' => 'Convertito',
-    'Dead' => 'Perso',
-    'In Process' => 'In Esecuzione',
-    'New' => 'Nuovo',
-    'Recycled' => 'Recuperato',
-  ),
-  'meeting_status_dom' => 
-  array (
-    'Held' => 'Effettuata',
-    'Not Held' => 'Non Effettuata',
-    'Planned' => 'Pianificata',
-  ),
-  'messenger_type_dom' => 
-  array (
-    '' => '',
-    'AOL' => 'AOL',
-    'MSN' => 'MSN',
-    'Yahoo!' => 'Yahoo!',
-  ),
-  'moduleList' => 
-  array (
-    'Bugs' => 'Bug Tracker',
-    'Cases' => 'Reclami',
-    'FAQ' => 'FAQ',
-    'Home' => 'Home',
-    'KBDocuments' => 'Knowledge Base',
-    'Newsletters' => 'Newsletters',
-    'Notes' => 'Note',
-    'Teams' => 'Gruppi',
-    'Users' => 'Utenti',
-  ),
-  'moduleListSingular' => 
-  array (
-    'Bugs' => 'Bug',
-    'Cases' => 'Reclami',
-    'Home' => 'Home',
-    'Notes' => 'Note',
-    'Teams' => 'Team',
-    'Users' => 'Utente',
-  ),
-  'mselect_type_dom' => 
-  array (
-    'Equals' => 'é',
-    'in' => 'è uno dei',
-  ),
-  'notifymail_sendtype' => 
-  array (
-    'SMTP' => 'SMTP',
-  ),
-  'opportunity_relationship_type_dom' => 
-  array (
-    '' => '',
-    'Business Decision Maker' => 'Business Decision Maker',
-    'Business Evaluator' => 'Valutatore Business',
-    'Executive Sponsor' => 'Sponsor Esecutivo',
-    'Influencer' => 'Influencer',
-    'Other' => 'Altro',
-    'Primary Decision Maker' => 'Decision maker principale',
-    'Technical Decision Maker' => 'Decision Maker Tecnico',
-    'Technical Evaluator' => 'Valutatore Tecnico',
-  ),
-  'opportunity_type_dom' => 
-  array (
-    '' => '',
-    'Existing Business' => 'Business esistente',
-    'New Business' => 'Nuovo affare',
-  ),
-  'order_stage_dom' => 
-  array (
-    'Cancelled' => 'Annullato',
-    'Confirmed' => 'Confermato',
-    'On Hold' => 'In Attesa',
-    'Pending' => 'In sospeso',
-    'Shipped' => 'Inviato',
-  ),
-  'payment_terms' => 
-  array (
-    '' => '',
-    'Net 15' => '15 gg',
-    'Net 30' => '30 gg',
-  ),
-  'pricing_formula_dom' => 
-  array (
-    'Fixed' => 'Prezzo fisso',
-    'IsList' => 'Come listino',
-    'PercentageDiscount' => 'Sconto da listino',
-    'PercentageMarkup' => 'Margine di profitto sul costo',
-    'ProfitMargin' => 'Margine di profitto',
-  ),
-  'product_category_dom' => 
-  array (
-    '' => '',
-    'Accounts' => 'Aziende',
-    'Activities' => 'Attività',
-    'Bug Tracker' => 'Bug Tracker',
-    'Calendar' => 'Calendario',
-    'Calls' => 'Chiamate',
-    'Campaigns' => 'Campagne',
-    'Cases' => 'Reclami',
-    'Contacts' => 'Contatti',
-    'Currencies' => 'Valute',
-    'Dashboard' => 'Grafici',
-    'Documents' => 'Documenti',
-    'Emails' => 'Email',
-    'Feeds' => 'Feeds',
-    'Forecasts' => 'Previsioni',
-    'Help' => 'Help',
-    'Home' => 'Home',
-    'Leads' => 'Leads',
-    'Meetings' => 'Riunioni',
-    'Notes' => 'Note',
-    'Opportunities' => 'Opportunità',
-    'Outlook Plugin' => 'Plugin Outlook',
-    'Product Catalog' => 'Catalogo Prodotti',
-    'Products' => 'Prodotti',
-    'Projects' => 'Progetti',
-    'Quotes' => 'Offerte',
-    'RSS' => 'RSS',
-    'Releases' => 'Releases',
-    'Studio' => 'Studio',
-    'Upgrade' => 'Aggiornamento',
-    'Users' => 'Utenti',
-  ),
-  'product_status_dom' => 
-  array (
-    'Orders' => 'Ordinato',
-    'Quotes' => 'Quotato',
-    'Ship' => 'Inviato',
-  ),
-  'product_status_quote_key' => 'Offerte',
-  'product_template_status_dom' => 
-  array (
-    'Available' => 'Disponibile',
-    'Unavailable' => 'Non disponibile',
-  ),
-  'project_task_priority_options' => 
-  array (
-    'High' => 'Alta',
-    'Low' => 'Bassa',
-    'Medium' => 'Media',
-  ),
-  'project_task_status_options' => 
-  array (
-    'Completed' => 'Completato',
-    'Deferred' => 'Rimandato',
-    'In Progress' => 'In Corso',
-    'Not Started' => 'Non iniziato',
-    'Pending Input' => 'In attesa di azione',
-  ),
-  'project_task_utilization_options' => 
-  array (
-    25 => '25',
-    50 => '50',
-    75 => '75',
-    100 => '100',
-  ),
-  'prospect_list_type_dom' => 
-  array (
-    'default' => 'Predefinito',
-    'exempt' => 'Suppression List - Per Id',
-    'exempt_address' => 'Suppression List - Per Indirizzo Email',
-    'exempt_domain' => 'Suppression List - Per Dominio',
-    'seed' => 'Seed',
-    'test' => 'Test',
-  ),
-  'query_calc_oper_dom' => 
-  array (
-    '*' => '(X) Moltiplicato per',
-    '+' => '(+) Più',
-    '-' => '(-) Meno',
-    '/' => '(/) Diviso per',
-  ),
-  'quote_relationship_type_dom' => 
-  array (
-    '' => '',
-    'Business Decision Maker' => 'Business Decision Maker',
-    'Business Evaluator' => 'Valutatore Business',
-    'Executive Sponsor' => 'Sponsor Esecutivo',
-    'Influencer' => 'Influencer',
-    'Other' => 'Altro',
-    'Primary Decision Maker' => 'Decision maker principale',
-    'Technical Decision Maker' => 'Decision Maker Tecnico',
-    'Technical Evaluator' => 'Valutatore Tecnico',
-  ),
-  'quote_stage_dom' => 
-  array (
-    'Closed Accepted' => 'Chiuso Accettato',
-    'Closed Dead' => 'Chiuso Morto',
-    'Closed Lost' => 'Chiuso Perso',
-    'Confirmed' => 'Confermato',
-    'Delivered' => 'Consegnato',
-    'Draft' => 'Bozza',
-    'Negotiation' => 'Negoziazione',
-    'On Hold' => 'In Attesa',
-  ),
-  'quote_type_dom' => 
-  array (
-    'Orders' => 'Ordine',
-    'Quotes' => 'Offerta',
-  ),
-  'record_type_display' => 
-  array (
-    'Accounts' => 'Azienda',
-    'Bugs' => 'Bug',
-    'Cases' => 'Reclamo',
-    'Contacts' => 'Contatti',
-    'Leads' => 'Lead',
-    'Opportunities' => 'Opportunità',
-    'ProductTemplates' => 'Prodotto',
-    'Project' => 'Progetto',
-    'ProjectTask' => 'Compito di Progetto',
-    'Quotes' => 'Offerta',
-    'Tasks' => 'Compito',
-  ),
-  'record_type_display_notes' => 
-  array (
-    'Accounts' => 'Azienda',
-    'Bugs' => 'Bug',
-    'Calls' => 'Chiamata',
-    'Cases' => 'Reclamo',
-    'Contacts' => 'Contatto',
-    'Contracts' => 'Contratto',
-    'Emails' => 'Email',
-    'Leads' => 'Lead',
-    'Meetings' => 'Riunione',
-    'Opportunities' => 'Opportunità',
-    'ProductTemplates' => 'Prodotto',
-    'Products' => 'Prodotto',
-    'Project' => 'Progetto',
-    'ProjectTask' => 'Compito di Progetto',
-    'Quotes' => 'Offerta',
-  ),
-  'reminder_max_time' => '3600',
-  'reminder_time_options' => 
-  array (
-    60 => '1 minuto prima',
-    300 => '5 minuti prima',
-    600 => '10 minuti prima',
-    900 => '15 minuti prima',
-    1800 => '30 minuti prima',
-    3600 => '1 ora prima',
-  ),
-  'sales_probability_dom' => 
-  array (
-    'Closed Lost' => '',
-    'Closed Won' => '100',
-    'Id. Decision Makers' => '40',
-    'Needs Analysis' => '25',
-    'Negotiation/Review' => '80',
-    'Perception Analysis' => '50',
-    'Proposal/Price Quote' => '65',
-    'Prospecting' => '10',
-    'Qualification' => '20',
-    'Value Proposition' => '30',
-  ),
-  'sales_stage_dom' => 
-  array (
-    'Closed Lost' => 'Chiuso Perso',
-    'Closed Won' => 'Chiuso vinto',
-    'Id. Decision Makers' => 'Id. Decision Makers',
-    'Needs Analysis' => 'Analisi dei bisogni',
-    'Negotiation/Review' => 'Negoazione/Review',
-    'Perception Analysis' => 'Percezione Analisi',
-    'Proposal/Price Quote' => 'Proposta economica',
-    'Prospecting' => 'Prospettiva',
-    'Qualification' => 'Qualificazione',
-    'Value Proposition' => 'Proposta di valore',
-  ),
-  'salutation_dom' => 
-  array (
-    '' => '',
-    'Dr.' => 'Dr.',
-    'Mr.' => 'Sig.',
-    'Mrs.' => 'Sig.na',
-    'Ms.' => 'Sig.ra',
-    'Prof.' => 'Prof.',
-  ),
-  'schedulers_times_dom' => 
-  array (
-    'completed' => 'Completato',
-    'failed' => 'Fallito',
-    'in progress' => 'In Corso',
-    'no curl' => 'Non eseguito: nessun cURL disponibile',
-    'not run' => 'Tempo di esecuzione passato, Non Eseguito',
-    'ready' => 'Pronto',
-  ),
-  'source_dom' => 
-  array (
-    '' => '',
-    'Forum' => 'Forum',
-    'InboundEmail' => 'Email',
-    'Internal' => 'Interno',
-    'Web' => 'Web',
-  ),
-  'support_term_dom' => 
-  array (
-    '+1 year' => 'Un anno',
-    '+2 years' => 'Due anni',
-    '+6 months' => 'Sei mesi',
-  ),
-  'task_priority_dom' => 
-  array (
-    'High' => 'Alta',
-    'Low' => 'Bassa',
-    'Medium' => 'Media',
-  ),
-  'task_status_dom' => 
-  array (
-    'Completed' => 'Completato',
-    'Deferred' => 'Rimandato',
-    'In Progress' => 'In Corso',
-    'Not Started' => 'Non iniziato',
-    'Pending Input' => 'In attesa di azione',
-  ),
-  'tax_class_dom' => 
-  array (
-    'Non-Taxable' => 'Non Imponibile',
-    'Taxable' => 'Imponibile',
-  ),
-  'tselect_type_dom' => 
-  array (
-    14440 => '4 ore',
-    28800 => '8 ore',
-    43200 => '12 ore',
-    86400 => '1 giorno',
-    172800 => '2 giorni',
-    259200 => '3 giorni',
-    345600 => '4 giorni',
-    432000 => '5 giorni',
-    604800 => '1 settimana',
-    1209600 => '2 settimane',
-    1814400 => '3 settimane',
-    2592000 => '30 giorni',
-    5184000 => '60 giorni',
-    7776000 => '90 giorni',
-    10368000 => '120 giorni',
-    12960000 => '150 giorni',
-    15552000 => '180 giorni',
-  ),
-  'user_status_dom' => 
-  array (
-    'Active' => 'Attivo',
-    'Inactive' => 'Inattivo',
-  ),
-  'wflow_action_datetime_type_dom' => 
-  array (
-    'Existing Value' => 'Valore attuale',
-    'Triggered Date' => 'Data calcolata',
-  ),
-  'wflow_action_type_dom' => 
-  array (
-    'new' => 'Nuovo record',
-    'update' => 'Aggiorna record',
-    'update_rel' => 'Aggiorna record collegato',
-  ),
-  'wflow_address_type_dom' => 
-  array (
-    'bcc' => 'BCC:',
-    'cc' => 'CC:',
-    'to' => 'A:',
-  ),
-  'wflow_address_type_invite_dom' => 
-  array (
-    'bcc' => 'BCC:',
-    'cc' => 'CC:',
-    'invite_only' => '(Solo invito)',
-    'to' => 'A:',
-  ),
-  'wflow_address_type_to_only_dom' => 
-  array (
-    'to' => 'A:',
-  ),
-  'wflow_adv_enum_type_dom' => 
-  array (
-    'advance' => 'Sposta il dropdown avanti di',
-    'retreat' => 'Sposta il dropdown indietro di',
-  ),
-  'wflow_adv_team_type_dom' => 
-  array (
-    'current_team' => 'Team di utenti connessi',
-    'team_id' => 'Team attuale di Record calcolati',
-  ),
-  'wflow_adv_user_type_dom' => 
-  array (
-    'assigned_user_id' => 'Utente assegnato al record calcolato',
-    'created_by' => 'Utente che ha creato il record calcolato',
-    'current_user' => 'Utente connesso',
-    'modified_user_id' => 'Ultimo utente che ha modificato il record calcolato',
-  ),
-  'wflow_alert_type_dom' => 
-  array (
-    'Email' => 'Email',
-    'Invite' => 'Invito',
-  ),
-  'wflow_array_type_dom' => 
-  array (
-    'future' => 'Nuovo Valore',
-    'past' => 'Vecchio Valore',
-  ),
-  'wflow_fire_order_dom' => 
-  array (
-    'actions_alerts' => 'Azioni poi Avvisi',
-    'alerts_actions' => 'Avvisi poi Azioni',
-  ),
-  'wflow_record_type_dom' => 
-  array (
-    'All' => 'Record nuovi ed esistenti',
-    'New' => 'Solo nuovi records',
-    'Update' => 'Solo records esistenti',
-  ),
-  'wflow_rel_type_dom' => 
-  array (
-    'all' => 'Tutti quelli collegati',
-    'filter' => 'Filtro collegato',
-  ),
-  'wflow_relate_type_dom' => 
-  array (
-    'Manager' => 'Manager dell´Utente',
-    'Self' => 'Utente',
-  ),
-  'wflow_relfilter_type_dom' => 
-  array (
-    'all' => 'Tutti quelli collegati',
-    'any' => 'Qualsiasi collegato',
-  ),
-  'wflow_set_type_dom' => 
-  array (
-    'Advanced' => 'Opzioni Avanzate',
-    'Basic' => 'Opzioni Base',
-  ),
-  'wflow_source_type_dom' => 
-  array (
-    'Custom Template' => 'Modello personalizzato',
-    'Normal Message' => 'Messaggio normale',
-    'System Default' => 'Predefinito da sistema',
-  ),
-  'wflow_type_dom' => 
-  array (
-    'Normal' => 'Quando il record viene salvato',
-    'Time' => 'Quando il tempo è scaduto',
-  ),
-  'wflow_user_type_dom' => 
-  array (
-    'current_user' => 'Utenti Attuali',
-    'rel_user' => 'Utenti Collegati',
-    'rel_user_custom' => 'Utente Personalizzato Collegato',
-    'specific_role' => 'Ruolo Specifico',
-    'specific_team' => 'Team Specifico',
-    'specific_user' => 'Utente Specifico',
-  ),
-);
-

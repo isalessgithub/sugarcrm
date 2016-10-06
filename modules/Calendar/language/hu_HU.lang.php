@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nincs definiálva a nézethez',
+  'ERR_YEAR_BETWEEN' => 'A naptár nem ismeri a megadott dátumot. <br />A kiválasztott évnek 1970 és 2037 közé kell esnie.',
   'LBL_AM' => 'de.',
   'LBL_APPLY_BUTTON' => 'Alkalmaz',
   'LBL_ASSIGNED_TO_NAME' => 'Felelős:',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Betöltés...',
   'LBL_MINS_ABBREV' => 'perc',
   'LBL_MODULE_NAME' => 'Naptár',
+  'LBL_MODULE_NAME_SINGULAR' => 'Naptár',
   'LBL_MODULE_TITLE' => 'Naptár',
   'LBL_MONTH' => 'Hónap',
   'LBL_NEXT_DAY' => 'Következő nap',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Mentés és meghívók küldése',
   'LBL_SETTINGS' => 'Beállítások',
   'LBL_SETTINGS_CALLS_SHOW' => 'Hívások megjelenítése:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Befejezett találkozók, hívások és feladatok mutatása:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Idősávok megjelenítése napi és heti bontásban:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Feladatok megjelenítése:',
   'LBL_SETTINGS_TIME_ENDS' => 'Befejezés időpontja:',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Márc',
@@ -140,6 +145,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Január',
     2 => 'Február',
     3 => 'Március',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Vas',
     1 => 'H',
     2 => 'K',
     3 => 'Szer',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Vasárnap',
     1 => 'Hétfő',
     2 => 'Kedd',
     3 => 'Szerda',

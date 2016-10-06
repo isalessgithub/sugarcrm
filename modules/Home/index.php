@@ -88,7 +88,7 @@ if(!$hasUserPreferences){
                                          'forceColumn' => 1,
                                          'fileLocation' => $dashletsFiles['iFrameDashlet']['file'],
                                          'options' => array('titleLabel' => 'LBL_DASHLET_SUGAR_NEWS',
-                                                            'url' => 'http://www.sugarcrm.com/crm/product/news',
+                                                            'url' => 'https://www.sugarcrm.com/crm/product/news',
                                                             'height' => 315,
                                              ));
 

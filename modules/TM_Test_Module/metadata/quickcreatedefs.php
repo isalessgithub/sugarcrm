@@ -1,42 +1,52 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$module_name = 'TM_Test_Module';
-$viewdefs[$module_name]['QuickCreate'] = array(
-    'templateMeta' => array('maxColumns' => '2', 
-                            'widths' => array(
-                                            array('label' => '10', 'field' => '30'), 
-                                            array('label' => '10', 'field' => '30')
-                                            ),                                                                                                                                    
-                                            ),
-                                            
-                                            
- 'panels' =>array (
-  'default' => 
+// created: 2016-10-06 15:20:10
+$viewdefs['TM_Test_Module']['QuickCreate'] = array (
+  'templateMeta' => 
   array (
-    
+    'maxColumns' => '2',
+    'widths' => 
     array (
-      'name',
-      'assigned_user_name',
+      0 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
+      1 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
     ),
+    'tabDefs' => 
     array (
-	  'description',
-      array('name'=>'team_name', 'displayParams'=>array('display'=>true)),
+      'DEFAULT' => 
+      array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
     ),
   ),
-                                                    
-),
-                        
+  'panels' => 
+  array (
+    'default' => 
+    array (
+      0 => 
+      array (
+        0 => 'name',
+        1 => 'assigned_user_name',
+      ),
+      1 => 
+      array (
+        0 => 'description',
+        1 => 
+        array (
+          'name' => 'team_name',
+          'displayParams' => 
+          array (
+            'display' => true,
+          ),
+        ),
+      ),
+    ),
+  ),
 );
-?>

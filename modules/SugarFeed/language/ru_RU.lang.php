@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Изменено (по имени)',
   'LBL_MODIFIED_USER' => 'Изменено пользователем',
   'LBL_MODULE_NAME' => 'Лента событий',
+  'LBL_MODULE_NAME_SINGULAR' => 'Новости',
   'LBL_MODULE_TITLE' => 'Лента событий',
   'LBL_MY_FAVORITES_ONLY' => 'Только избранное',
   'LBL_NAME' => 'Название',

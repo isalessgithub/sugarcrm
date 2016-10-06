@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -12,14 +15,13 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-/*********************************************************************************
- * Description:  Defines the Catalan language pack for the base application. 
+	
 
- * Source: SugarCRM 5.2.0
- * Contributor(s): RamÛn Feliu (ramon@slay.es).
- ********************************************************************************/
-$mod_strings = array(
-'LBL_TEAM'=>'Equip',
-'LBL_TEAMS'=>'Equips',
-'LBL_TEAM_ID'=>'Id Equip',
+$mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Equip principal per defecte',
+  'LBL_TEAM' => 'Equip',
+  'LBL_TEAMS' => 'Equips',
+  'LBL_TEAM_ID' => 'Id Equip',
+  'LBL_TEAM_SET' => 'Selecci√≥ d&#39;equip',
 );
+

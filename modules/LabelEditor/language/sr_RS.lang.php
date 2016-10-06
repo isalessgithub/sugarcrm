@@ -18,8 +18,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Editor Labela',
   'LBL_KEY' => 'Ključ:',
+  'LBL_MODULE_NAME' => 'Editor Labela',
+  'LBL_MODULE_NAME_SINGULAR' => 'Editor Labela',
   'LBL_VALUE' => 'Vrednost:',
 );
 

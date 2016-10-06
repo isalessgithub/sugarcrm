@@ -21,6 +21,7 @@ $config = array (
     'only' => true,
   ),
   'order' => 13,
-  'properties' => array (
-  ),
+    'properties' => array(
+        'oauth_consumer_key' => '',
+    ),
 );

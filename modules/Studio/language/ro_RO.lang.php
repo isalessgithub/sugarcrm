@@ -90,6 +90,7 @@ $mod_strings = array (
   'LBL_MINIMIZE' => 'Minimalizeaza',
   'LBL_MODULES' => 'Module',
   'LBL_MODULE_NAME' => 'Administrare',
+  'LBL_MODULE_NAME_SINGULAR' => 'Administrare',
   'LBL_MODULE_TITLE' => 'Studio',
   'LBL_NAME' => 'Nume',
   'LBL_NEW_GROUP' => 'Grup nou',

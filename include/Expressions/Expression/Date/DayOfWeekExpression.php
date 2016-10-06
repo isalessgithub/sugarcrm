@@ -39,7 +39,11 @@ class DayOfWeekExpression extends NumericExpression
 	static function getJSEvaluate() {
 		return <<<EOQ
 			var time = this.getParameters().evaluate();
-			return new Date(time).getDay();
+			var date = getDateObject(time);
+			if (date) {
+			    return date.getDay();
+			}
+			return "";
 EOQ;
 	}
 

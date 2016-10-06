@@ -45,6 +45,7 @@ $mod_strings = array (
   'LBL_LIST_TRIGGER_TYPE' => 'Tipo:',
   'LBL_MODIFY_FIELD' => 'Modificar el campo:',
   'LBL_MODULE_NAME' => 'Disparadores',
+  'LBL_MODULE_NAME_SINGULAR' => 'Disparador',
   'LBL_MODULE_TITLE' => 'Disparadores de Workflow: Inicio',
   'LBL_NAME' => 'Nombre del Disparador:',
   'LBL_NEW_BUTTON_KEY' => 'N',

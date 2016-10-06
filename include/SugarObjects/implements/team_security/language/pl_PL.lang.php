@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -12,17 +15,13 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-/*********************************************************************************
- * pl_pl.lang.php for SugarCRM 6.5.0
- * Translator: eVolpe
- * All Rights Reserved.
- * Any bugs report welcome: support@evolpe.pl
- * Contributor(s): ______________________________________..
- ********************************************************************************/ 
-
-$mod_strings = array(
-'LBL_TEAM'=>'Zespoły',
-'LBL_TEAMS'=>'Zespoły',
-'LBL_TEAM_ID'=>'ID zespołu',
+$mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Domyślny zespół podstawowy',
+  'LBL_TEAM' => 'Zespoły',
+  'LBL_TEAMS' => 'Zespoły',
+  'LBL_TEAM_ID' => 'ID zespołu',
+  'LBL_TEAM_SET' => 'Ustawiono zespół',
 );
+

@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tip',
   'LBL_MODIFIED' => 'Modificat de',
   'LBL_MODULE_NAME' => 'Log Campanii',
+  'LBL_MODULE_NAME_SINGULAR' => 'Log Campanii',
   'LBL_MORE_INFO' => 'Mai multe infomratii',
   'LBL_NAME' => 'Nume:',
   'LBL_RELATED' => 'Asociat',

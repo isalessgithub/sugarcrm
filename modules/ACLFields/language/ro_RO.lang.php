@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,30 +15,16 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 $mod_strings = array (
-  'LBL_DEFAULT' => 'Nu este pregatit',
-  'LBL_READ_WRITE' => 'Citeste/Scrie',
-  'LBL_READ_OWNER_WRITE' => 'Citeste/Scrie Proprietar',
-  'LBL_READ_ONLY' => 'Citeste doar',
-  'LBL_OWNER_READ_WRITE' => 'Proprietarul Citeste/Proprietarul Scrie',
   'LBL_ALLOW_NONE' => 'Niciunul',
+  'LBL_DEFAULT' => 'Nu este pregatit',
   'LBL_FIELDS' => 'Permisiuni Campuri',
+  'LBL_NOT_DEFINED' => 'Nu este definit',
+  'LBL_OWNER_READ_WRITE' => 'Proprietarul Citeste/Proprietarul Scrie',
+  'LBL_READ_ONLY' => 'Citeste doar',
+  'LBL_READ_OWNER_WRITE' => 'Citeste/Scrie Proprietar',
+  'LBL_READ_WRITE' => 'Citeste/Scrie',
 );
 

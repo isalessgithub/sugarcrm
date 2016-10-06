@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MFT_PART_NUM' => 'Raž. detaļas numurs:',
   'LBL_MODULE_ID' => 'Produkta veidnes',
   'LBL_MODULE_NAME' => 'Produktu katalogs',
+  'LBL_MODULE_NAME_SINGULAR' => 'Produktu katalogs',
   'LBL_MODULE_TITLE' => 'Produktu katalogs',
   'LBL_NAME' => 'Produkta nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Izveidot vienību',

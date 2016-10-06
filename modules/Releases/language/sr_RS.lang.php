@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Redosled:',
   'LBL_LIST_STATUS' => 'Status',
   'LBL_MODULE_NAME' => 'Izdanja',
+  'LBL_MODULE_NAME_SINGULAR' => 'Puštanje',
   'LBL_MODULE_TITLE' => 'Izdanja: Početna strana',
   'LBL_NAME' => 'Verzija izdanja:',
   'LBL_NEW_FORM_TITLE' => 'Novo izdanje',

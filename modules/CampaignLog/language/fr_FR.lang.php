@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Type',
   'LBL_MODIFIED' => 'Modifié par:',
   'LBL_MODULE_NAME' => 'Logs des Campagnes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Log des Campagnes',
   'LBL_MORE_INFO' => 'Plus d&#39;informations',
   'LBL_NAME' => 'Nom:',
   'LBL_RELATED' => 'Lié à',

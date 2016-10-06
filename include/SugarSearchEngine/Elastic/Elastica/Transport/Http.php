@@ -102,6 +102,15 @@ class Elastica_Transport_Http extends Elastica_Transport_Abstract {
 	 * @param resource $connection Curl connection
 	 */
 	protected function _setupCurl($connection) {
+        // @sugarcrm - add ability for additional curl parameters
+        $opts = $this->getRequest()->getConfig('curl');
+
+        // if curl config has not been set, the config is returned *sigh*
+        if (!isset($opts['host'])) {
+            foreach ($opts as $key => $param) {
+                curl_setopt($connection, $key, $param);
+            }
+        }
 	}
 
 	/**

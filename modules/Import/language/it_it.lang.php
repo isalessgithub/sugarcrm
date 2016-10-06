@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Per procedere con l´importazione del file selezionato, clicca OK. Per caricare il nuovo file, clicca Riprova',
   'LBL_MISSING_HEADER_ROW' => 'Nessuna riga di intestazione trovata',
   'LBL_MODULE_NAME' => 'Importa',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importazione',
   'LBL_MY_PUBLISHED_HELP' => 'A published mapping specifies a previously used combination of a specific data source and a set of database fields to map to the fields in the import file.',
   'LBL_MY_SAVED' => 'Le mie Risorse:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Utilizza questa opzione per applicare a questa importazione le impostazioni predefinite di importazione, comprese le proprietà di importazione, mappatura e controllo dei duplicati.<br /><br />Clicca Pubblica per rendere la mappatura disponibile ad altri utenti.<br />Clicca Non pubblicare per non rendere la mappatura disponibile ad altri utenti.<br />Clicca Elimina per eliminare la mappatura per tutti gli utenti.',

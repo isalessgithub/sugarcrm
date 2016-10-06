@@ -19,7 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $connector_strings = array (
   'LBL_ENGAGE' => 'Entra in contatto con i clienti',
-  'LBL_ENGAGE_SUB' => 'with conversation starters',
+  'LBL_ENGAGE_SUB' => 'con spunti di conversazione',
   'LBL_GET_STARTED' => 'Inizia!',
   'LBL_OPP' => 'Trova Opportunità',
   'LBL_OPP_SUB' => 'per raggiungere i clienti',
@@ -28,6 +28,5 @@ $connector_strings = array (
   'LBL_TOS0' => 'Accetto InsideView',
   'LBL_TOS1' => 'termini di utilizzo',
   'LBL_TOS3' => 'Informativa sulla privacy',
-  'iv_description0' => 'Cliccando su "Inizia" consenti l&#39;uso di InsideView',
+  'iv_description0' => 'Cliccando su "Inizia" consenti l´uso di InsideView',
 );
-

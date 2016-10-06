@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Šalis:',
   'LBL_CREATED_BY' => 'Sukūrė',
   'LBL_CURRENCY' => 'Valiuta:',
+  'LBL_CURRENCY_RATE' => 'Valiutos kursas',
   'LBL_DATE_QUOTE_CLOSED' => 'Faktinė užbaigimo data',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Galioja iki:',
   'LBL_DEAL_TOT' => 'viso nuolaida',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Mokesčių klasė',
   'LBL_MODIFIED_BY' => 'Redagavo',
   'LBL_MODULE_NAME' => 'Pasiūlymai',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pasiūlymas',
   'LBL_MODULE_TITLE' => 'Pasiūlymai: Pradžia',
   'LBL_NAME' => 'Pasiūlymo pavadinimas',
   'LBL_NEW_FORM_TITLE' => 'Sukurti pasiūlymą',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Ar Jūs tikrai norite išimti šią grupę iš pasiūlymo?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Ar Jūs tikrai norite išimti šią prekės eilutę iš pasiūlymo?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Ar Jūs tikrai norite išimti šį kontaktą iš pasiūlymo?',
-  'PDF_FORMAT' => 'PDF formatas:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Ar Jūs tikrai norite išimti šį pasiūlymą iš projekto?',
 );
 

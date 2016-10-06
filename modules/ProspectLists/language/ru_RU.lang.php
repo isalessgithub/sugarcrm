@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Автор изменений',
   'LBL_MODULE_ID' => 'Целевые списки',
   'LBL_MODULE_NAME' => 'Целевые списки',
+  'LBL_MODULE_NAME_SINGULAR' => 'Целевой список',
   'LBL_MODULE_TITLE' => 'Целевые списки: Главная',
   'LBL_MORE_DETAIL' => 'Детальнее',
   'LBL_NAME' => 'Название',

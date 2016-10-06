@@ -1,5 +1,5 @@
 <?php
-// created: 2013-04-03 01:08:01
+// created: 2016-10-06 15:20:10
 $viewdefs['Tasks']['QuickCreate'] = array (
   'templateMeta' => 
   array (
@@ -8,6 +8,7 @@ $viewdefs['Tasks']['QuickCreate'] = array (
       'hidden' => 
       array (
         0 => '<input type="hidden" name="isSaveAndNew" value="false">',
+        1 => '<input type="hidden" name="is_ajax_call" value="1">',
       ),
       'buttons' => 
       array (

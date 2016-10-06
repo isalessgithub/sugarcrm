@@ -1,5 +1,7 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,24 +15,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-/*********************************************************************************
- * Description:  Defines the Catalan language pack for the base application. 
-
- * Source: SugarCRM 5.2.0
- * Contributor(s): Ramón Feliu (ramon@slay.es).
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' 					=> 'Grups',
-  'LBL_GROUP_NAME' 						=> 'Nom del Grup:',
-  'LBL_DESCRIPTION' 					=> 'Descripció:',
-  'LBL_TEAM' 							=> 'Equip:',
-	// ListView
-  'LBL_LIST_TITLE' 						=> 'Grups',
-	// Links
-  'LNK_ALL_GROUPS' 						=> 'Tots els Grups',
-  'LNK_NEW_GROUP' 						=> 'Nou Grup',
-  'LNK_CONVERT_USER' 					=> 'Convertir Usuari en Grup',
+  'LBL_DESCRIPTION' => 'Descripció:',
+  'LBL_GROUP_NAME' => 'Nom del Grup:',
+  'LBL_LIST_TITLE' => 'Grups',
+  'LBL_MODULE_NAME' => 'Grups',
+  'LBL_MODULE_NAME_SINGULAR' => 'Grup',
+  'LBL_TEAM' => 'Equip:',
+  'LNK_ALL_GROUPS' => 'Tots els Grups',
+  'LNK_CONVERT_USER' => 'Convertir Usuari en Grup',
+  'LNK_NEW_GROUP' => 'Nou Grup',
 );
 
-?>

@@ -90,6 +90,7 @@ $mod_strings = array (
   'LBL_MINIMIZE' => 'Mažinti',
   'LBL_MODULES' => 'Moduliai',
   'LBL_MODULE_NAME' => 'Administratorius',
+  'LBL_MODULE_NAME_SINGULAR' => 'Administravimas',
   'LBL_MODULE_TITLE' => 'Studija',
   'LBL_NAME' => 'Pavadinimas',
   'LBL_NEW_GROUP' => 'Nauja grupė',

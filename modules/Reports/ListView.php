@@ -53,7 +53,7 @@ if(isset($_REQUEST['Reports2_SAVEDREPORT_offset'])) {//if you click the paginati
         	$blockVariables[] = 'lvso';
         }
 
-        $current_query_by_page = unserialize(base64_decode($_REQUEST['current_query_by_page']));
+        $current_query_by_page = sugar_unserialize(base64_decode($_REQUEST['current_query_by_page']));
         foreach($current_query_by_page as $search_key=>$search_value) {
             if($search_key != 'Reports2_SAVEDREPORT_offset' && !in_array($search_key, $blockVariables)) {
                 //bug 48620
@@ -106,6 +106,15 @@ $searchForm->tabs = array(array('title'  => $app_strings['LNK_BASIC_SEARCH'],
                           'link'   => $thisMod . '|advanced_search',
                           'key'    => $thisMod . '|advanced_search')
                     );
+
+// Backwards compatibility support for menu links from other modules
+if (!empty($_REQUEST['view']))
+{
+    // Overwrite the modules we are searching on
+    $_REQUEST['report_module'] = array(
+        0 => ucfirst($_REQUEST['view'])
+    );
+}
 
 $searchForm->populateFromRequest();
 $searchForm->searchFields['module'] = $searchForm->searchFields['report_module'];
@@ -161,9 +170,7 @@ if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only']) { // 
     }
     return;
 }
-if(!empty($_REQUEST['view'])) { // backwards compatibility support for menu links from other modules
-    array_push($where_clauses, 'saved_reports.module = \'' . ucwords(clean_string($_REQUEST['view'])) . '\'');
-}
+
 if(!empty($_REQUEST['favorite'])) { // handle favorite requests
     foreach($where_clauses as $p_where => $single_where) {
         if(strpos($single_where, "saved_reports.favorite ") !==false) {

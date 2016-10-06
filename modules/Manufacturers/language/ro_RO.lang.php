@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modificata de',
   'LBL_MODIFIED_ID' => 'Modificata de ID',
   'LBL_MODULE_NAME' => 'Producatori',
+  'LBL_MODULE_NAME_SINGULAR' => 'Producator',
   'LBL_MODULE_TITLE' => 'Producatori: Acasă',
   'LBL_NAME' => 'Nume',
   'LBL_NEW_FORM_TITLE' => 'Producator Nou',

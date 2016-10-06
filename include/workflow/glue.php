@@ -103,7 +103,10 @@ class WorkFlowGlue {
                 }
             }
         }
-        $sep = $is_equal ? '==' : '!=';
+
+        // Use identical instead of equal
+        $sep = $is_equal ? '===' : '!==';
+
         // Remove check if old value is set. This should trigger when old value was empty, and new value is entered
         return " ( isset(\$focus->".$shell_object->field.") && ( empty(\$focus->fetched_row) || array_key_exists('".$shell_object->field."', \$focus->fetched_row) ) && \$focus->fetched_row['".$shell_object->field."'] " . $sep . " \$focus->".$shell_object->field.") ";
     }

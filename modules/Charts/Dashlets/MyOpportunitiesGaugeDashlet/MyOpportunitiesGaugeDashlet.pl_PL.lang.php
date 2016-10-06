@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['MyOpportunitiesGaugeDashlet'] = array('LBL_TITLE'       => 'Moje zrealizowane szanse',
                                                        'LBL_DESCRIPTION' => 'Wskaźnik szans',
                                                        'LBL_REFRESH'     => 'Odswież wykres');
-?> 
-

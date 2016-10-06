@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_HOLIDAY_DATE' => '假期日期:',
   'LBL_LIST_FORM_TITLE' => '日期列表',
   'LBL_MODULE_NAME' => '假期',
+  'LBL_MODULE_NAME_SINGULAR' => '假期',
   'LBL_MODULE_TITLE' => '假期: 主页',
   'LBL_NAME' => '假期日期:',
   'LBL_PERSON_TYPE' => '人员类型',

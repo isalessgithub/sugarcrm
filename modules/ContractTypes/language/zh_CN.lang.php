@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => '列表顺序:',
   'LBL_MODIFIED_USER_ID' => '修改人ID',
   'LBL_MODULE_NAME' => '合同类型',
+  'LBL_MODULE_NAME_SINGULAR' => '合同类型',
   'LBL_MODULE_TITLE' => '合同类型',
   'LBL_NAME' => '名称:',
   'LBL_SEARCH_FORM_TITLE' => '查找联系人类型',

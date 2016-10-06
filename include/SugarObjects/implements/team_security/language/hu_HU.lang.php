@@ -18,8 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Alapértelmezett elsődleges csoport',
   'LBL_TEAM' => 'Csoportok',
   'LBL_TEAMS' => 'Csoportok',
   'LBL_TEAM_ID' => 'Csoport azonosító',
+  'LBL_TEAM_SET' => 'Csoport készlet',
 );
 

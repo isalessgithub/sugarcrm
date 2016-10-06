@@ -75,6 +75,3 @@ $connector_strings = array (
 	//Other labels
 	'ERROR_LBL_CONNECTION_PROBLEM' => 'Error: Unable to connect to the server for Zoominfo - Person connector.',
 );
-
-?>
-

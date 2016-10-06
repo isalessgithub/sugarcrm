@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: not defined for this view',
+  'ERR_YEAR_BETWEEN' => 'Sorry, calendar cannot handle the year you requested<br>Year must be between 1970 and 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Apply',
   'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Loading ......',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Calendar',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendar',
   'LBL_MODULE_TITLE' => 'Calendar',
   'LBL_MONTH' => 'Month',
   'LBL_NEXT_DAY' => 'Next Day',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Save & Send Invites',
   'LBL_SETTINGS' => 'Settings',
   'LBL_SETTINGS_CALLS_SHOW' => 'Show Calls:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Show Completed Meetings, Calls and Tasks:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Display time slots in Day and Week views:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Show Tasks:',
   'LBL_SETTINGS_TIME_ENDS' => 'End time:',

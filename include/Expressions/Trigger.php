@@ -35,12 +35,6 @@ class Trigger
 	}
 
 	function evaluate($target) {
-		foreach($this->triggerFields as $field){
-			if (!isset($target->$field))
-			{
-				return Trigger::$ValueNotSetError;
-			}
-		}
 		$result = Parser::evaluate($this->conditionFunction, $target)->evaluate();
 		if ($result == AbstractExpression::$TRUE){
 			return true;

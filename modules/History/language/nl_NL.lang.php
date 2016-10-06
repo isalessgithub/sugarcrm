@@ -47,6 +47,7 @@ $mod_strings = array (
   'LBL_LOCATION' => 'Lokatie:',
   'LBL_MEETING' => 'Afspraak:',
   'LBL_MODULE_NAME' => 'Historie',
+  'LBL_MODULE_NAME_SINGULAR' => 'Historie',
   'LBL_MODULE_TITLE' => 'Historie: Start',
   'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
   'LBL_NEW_NOTE_BUTTON_LABEL' => 'Nieuwe Notitie of Bijlage',

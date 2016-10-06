@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_MODIFY_SEARCH_TITLE' => 'Dirijeaza cautare conector',
   'LBL_MODULE_FIELDS' => 'Campurile modulului',
   'LBL_MODULE_NAME' => 'Conectori',
+  'LBL_MODULE_NAME_SINGULAR' => 'Conector',
   'LBL_NO_PROPERTIES' => 'Nu sunt proprietati configurabile pentru acest conector',
   'LBL_PARENT_DUNS' => 'DUNS parinte',
   'LBL_PREVIOUS' => '<Innapoi',

@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MFT_PART_NUM' => 'Numarul parte al producatorului:',
   'LBL_MODULE_ID' => 'Sabloane produse',
   'LBL_MODULE_NAME' => 'Catalog de produse',
+  'LBL_MODULE_NAME_SINGULAR' => 'Catalog de produse',
   'LBL_MODULE_TITLE' => 'Catalog Produse: Acasa',
   'LBL_NAME' => 'Nume produs:',
   'LBL_NEW_FORM_TITLE' => 'Creeaza item',

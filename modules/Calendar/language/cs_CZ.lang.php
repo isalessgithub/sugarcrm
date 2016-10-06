@@ -17,7 +17,64 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => 'Led',
+    2 => 'Úno',
+    3 => 'Bře',
+    4 => 'Dub',
+    5 => 'Kvě',
+    6 => 'Čer',
+    7 => 'Črv',
+    8 => 'Srp',
+    9 => 'Zář',
+    10 => 'Říj',
+    11 => 'Lis',
+    12 => 'Pro',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Leden',
+    2 => 'Únor',
+    3 => 'Březen',
+    4 => 'Duben',
+    5 => 'Květen',
+    6 => 'Červen',
+    7 => 'Červenec',
+    8 => 'Srpen',
+    9 => 'Září',
+    10 => 'Říjen',
+    11 => 'Listopad',
+    12 => 'Prosinec',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => 'Ne',
+    1 => 'Po',
+    2 => 'Út',
+    3 => 'St',
+    4 => 'Čt',
+    5 => 'Pá',
+    6 => 'So',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => 'Neděle',
+    1 => 'Pondělí',
+    2 => 'Úterý',
+    3 => 'Středa',
+    4 => 'Čtvrtek',
+    5 => 'Pátek',
+    6 => 'Sobota',
+  ),
+);
+
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nedefinováno v tomto pohledu',
+  'ERR_YEAR_BETWEEN' => 'Omlouváme se, ale kalendář nemůže zobrazit rok, který požadujete.<br>Rok musí být mezi 1970 a 2037',
   'LBL_AM' => 'dopoledne',
   'LBL_APPLY_BUTTON' => 'Použít',
   'LBL_ASSIGNED_TO_NAME' => 'Přiřazeno komu',
@@ -55,6 +112,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Nahrávání ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalendář',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalendář',
   'LBL_MODULE_TITLE' => 'Kalendář',
   'LBL_MONTH' => 'Měsíc',
   'LBL_NEXT_DAY' => 'Následující den',
@@ -71,6 +129,7 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => 'Předchozí',
   'LBL_PREVIOUS_WEEK' => 'Předchozí týden',
   'LBL_PREVIOUS_YEAR' => 'Předchozí rok',
+  'LBL_RECURRING_LIMIT_ERROR' => 'Tento opakující se $moduleTitle nemůže být naplánován protože překročil maximální limit pro opakování $limit.',
   'LBL_REFRESH' => 'Obnovit',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Odstranit všechny recidivy',
   'LBL_REPEAT_COUNT' => 'Čislo recidivy',
@@ -79,7 +138,6 @@ $mod_strings = array (
   'LBL_REPEAT_END_AFTER' => 'Po',
   'LBL_REPEAT_END_BY' => 'dle',
   'LBL_REPEAT_INTERVAL' => 'Každý',
-  'LBL_REPEAT_LIMIT_ERROR' => 'Váš požadavek hodlá vytvořit více než $limit schůzek',
   'LBL_REPEAT_OCCURRENCES' => 'recidivy',
   'LBL_REPEAT_TAB' => 'Recidiva',
   'LBL_REPEAT_TYPE' => 'Opakovat',
@@ -92,6 +150,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Uložit &amp; odeslat pozvánky',
   'LBL_SETTINGS' => 'Nastavení',
   'LBL_SETTINGS_CALLS_SHOW' => 'Přehled hovorů:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Zobrazit uskutečněné schůzky, hovory a úkoly:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Zobrazení časových intervalů v zobrazení dne a týdne:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Přehled úkolů:',
   'LBL_SETTINGS_TIME_ENDS' => 'Konečný čas',
@@ -120,56 +179,5 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Úkoly',
   'LNK_VIEW_CALENDAR' => 'Dnes',
   'NOTICE_DURATION_TIME' => 'Doba trvání musí být větší než 0',
-);
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Led',
-    2 => 'Úno',
-    3 => 'Bře',
-    4 => 'Dub',
-    5 => 'Kvě',
-    6 => 'Čer',
-    7 => 'Črv',
-    8 => 'Srp',
-    9 => 'Zář',
-    10 => 'Říj',
-    11 => 'Lis',
-    12 => 'Pro',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Leden',
-    2 => 'Únor',
-    3 => 'Březen',
-    4 => 'Duben',
-    5 => 'Květen',
-    6 => 'Červen',
-    7 => 'Červenec',
-    8 => 'Srpen',
-    9 => 'Září',
-    10 => 'Říjen',
-    11 => 'Listopad',
-    12 => 'Prosinec',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Po',
-    2 => 'Út',
-    3 => 'St',
-    4 => 'Čt',
-    5 => 'Pá',
-    6 => 'So',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Pondělí',
-    2 => 'Úterý',
-    3 => 'Středa',
-    4 => 'Čtvrtek',
-    5 => 'Pátek',
-    6 => 'Sobota',
-  ),
 );
 

@@ -71,9 +71,9 @@ class UsersController extends SugarController
             $u = new User();
             $u->retrieve($_REQUEST['record']);
             $u->status = 'Inactive';
-            $u->deleted = 1;
             $u->employee_status = 'Terminated';
             $u->save();
+            $u->mark_deleted($u->id);
             $GLOBALS['log']->info("User id: {$GLOBALS['current_user']->id} deleted user record: {$_REQUEST['record']}");
 
             $eapm = loadBean('EAPM');
@@ -136,5 +136,14 @@ class UsersController extends SugarController
         $this->view = 'fts';
         $GLOBALS['current_user']->setPreference('fts_disabled_modules', $_REQUEST['disabled_modules']);
     }
+
+    /**
+     * action "save" (with a lower case S that is for OSX users ;-)
+     * @see SugarController::action_save()
+     */
+    public function action_save()
+    {
+        require 'modules/Users/Save.php';
+    }
 }	
-?>
+

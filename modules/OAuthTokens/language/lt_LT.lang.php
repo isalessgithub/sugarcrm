@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ASSIGNED_TO_NAME' => 'Atsakingas',
   'LBL_CONSUMER' => 'Vartotojo vardas',
+  'LBL_CONTACTS' => 'Kontakto vardas',
   'LBL_ID' => 'ID',
   'LBL_LIST_DELETE' => 'Ištrinti token',
   'LBL_OAUTH_AUTHORIZE' => 'Įgalioti token',

@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Kako biste nastavili sa uvozom postojeće datoteke, klikinte na "U redu". Da biste postavili novu datoteku, kliknite na "Pokušaj ponovo"',
   'LBL_MISSING_HEADER_ROW' => 'Nije pronađen red sa zaglavljem',
   'LBL_MODULE_NAME' => 'Uvoz',
+  'LBL_MODULE_NAME_SINGULAR' => 'Uvoz',
   'LBL_MY_PUBLISHED_HELP' => 'Objavljena mapiranja određuju ranije korišćene kombinacije specifičnih izvora podataka i skup polja baze za mapiranje u polja u uvoznom fajlu.',
   'LBL_MY_SAVED' => 'Moja sačuvana mapiranja:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Iskoristite ovu opciju da primenite prethodno određena podešavanja, uključujući svojstva uvoza, mapiranja i podešavanja provere duplikata, na ovaj uvoz.<br><br><br /><br />Kliknite na <b>Objavi</b> kako bi mapiranja bila dostupna drugim korisnicima<br><br />Kliknite na <b>Povuci</b> kako bi mapiranja prestala da budu dostupna drugim korisnicima<br><br />Kliknite na <b>Obriši</b> kako bi mapiranja bila obrisana za sve korisnike',

@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,21 +15,17 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
 	
+
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Nejšatější dotazy',
-  'LBL_MODULE_TITLE' => 'Nejšatější dotazy (FAQ): Hlavní stránka',
-  'LBL_BACK_TO_TOP' => 'Zpět na začátek',
-  'LBL_SUCCESSFUL_QUERY' => 'Dokončeno',
-  'LBL_ERROR_QUERY' => 'Chyba',
   'ERR_FAQ_LIST_RETRIEVE' => 'Chyba: Nepodařilo se zůskat obsah FAQ v tomto okamžiku.',
   'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'Pokus o obnovení SOAP volání',
+  'LBL_BACK_TO_TOP' => 'Zpět na začátek',
+  'LBL_ERROR_QUERY' => 'Chyba',
   'LBL_FAQ_EMPTY' => 'Momentálně nejsou nalezené žádné články označené jako FAQ v znalostní bázi.',
+  'LBL_MODULE_NAME' => 'Nejšatější dotazy',
+  'LBL_MODULE_NAME_SINGULAR' => 'FAQ',
+  'LBL_MODULE_TITLE' => 'Nejšatější dotazy (FAQ): Hlavní stránka',
+  'LBL_SUCCESSFUL_QUERY' => 'Dokončeno',
 );
 

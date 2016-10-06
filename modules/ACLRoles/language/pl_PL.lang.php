@@ -1,5 +1,7 @@
-<?PHP
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,33 +15,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-/*********************************************************************************
- * pl_pl.lang.php for SugarCRM 6.5.0
- * Translator: eVolpe
- * All Rights Reserved.
- * Any bugs report welcome: support@evolpe.pl
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-'LBL_MODULE_NAME' => 'Role',
-'LBL_MODULE_TITLE' => 'Role: Strona główna',
-'LBL_ROLE'=>'Rola',
-'LBL_NAME'=>'Nazwa',
-'LBL_DESCRIPTION'=>'Opis',
-'LIST_ROLES'=>'Lista ról',
-'LBL_USERS_SUBPANEL_TITLE'=>'Użytkownicy',
-'LIST_ROLES_BY_USER'=>'Lista ról użytkowników',
-'LBL_LIST_FORM_TITLE' => 'Role',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Role użytkowników',
-'LBL_SEARCH_FORM_TITLE'=>'Wyszukiwanie',
-'LBL_CREATE_ROLE'=>'Utwórz rolę',
-'LBL_EDIT_VIEW_DIRECTIONS'=>'Aby zmienić wartość kliknij dwukrotnie na komórkę.',
-'LBL_ACCESS_DEFAULT'=>'Nie ustawiono',
-'LBL_ACTION_ADMIN'=>'Typ dostępu',
-'LBL_ALL'=>'Wszystko',
-'LBL_DUPLICATE_OF'=>'Duplikat ',
-'LBL_USER_NAME_FOR_ROLE'=>'Użytkownicy/Zespoły/Role',
-)
-?>
+  'LBL_ACCESS_DEFAULT' => 'Nie ustawiono',
+  'LBL_ACTION_ADMIN' => 'Typ dostępu',
+  'LBL_ALL' => 'Wszystko',
+  'LBL_COULD_NOT_CONNECT' => 'Nie udało się nawiązać połączenia',
+  'LBL_CREATE_ROLE' => 'Utwórz rolę',
+  'LBL_DESCRIPTION' => 'Opis',
+  'LBL_DONE' => 'Wykonano',
+  'LBL_DUPLICATE_OF' => 'Duplikat',
+  'LBL_EDIT_VIEW_DIRECTIONS' => 'Aby zmienić wartość kliknij dwukrotnie na komórkę.',
+  'LBL_LIST_FORM_TITLE' => 'Role',
+  'LBL_MODULE_NAME' => 'Role',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rola',
+  'LBL_MODULE_TITLE' => 'Role: Strona główna',
+  'LBL_NAME' => 'Nazwa',
+  'LBL_NO_MODULES_AVAILABLE' => 'Brak dostępnych modułów',
+  'LBL_NO_ROLES' => 'Brak ról',
+  'LBL_ROLE' => 'Rola',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Role użytkowników',
+  'LBL_SEARCH_FORM_TITLE' => 'Wyszukiwanie',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Użytkownicy',
+  'LBL_USER_NAME_FOR_ROLE' => 'Użytkownicy/Zespoły/Role',
+  'LIST_ROLES' => 'Lista ról',
+  'LIST_ROLES_BY_USER' => 'Lista ról użytkowników',
+);
+

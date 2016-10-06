@@ -91,21 +91,18 @@ $parent_id = $focus->id;
 	$total_field_count = $_REQUEST['total_field_count'];
 
 for ($i = 0; $i <= $total_field_count; $i++) {
-   
-	$temp_set_type = 'set_type_'.$i;
-	
-	if(!empty($_REQUEST[$temp_set_type]) && $_REQUEST[$temp_set_type]!=""){
+    if (!empty($_REQUEST['set_type'][$i])) {
 	//this attribute is set, so lets store or update	
 		
 		$action_object = new WorkFlowAction();
-		if(!empty($_REQUEST['action_id_'.$i]) && $_REQUEST['action_id_'.$i]!=''){
-			$action_object->retrieve($_REQUEST['action_id_'.$i]);
+        if (!empty($_REQUEST['action_id'][$i])) {
+            $action_object->retrieve($_REQUEST['action_id'][$i]);
 			
 		//end if action id is already present
 		}
 		
 		foreach($action_object->column_fields as $field){
-			$action_object->populate_from_save($field, $i, $temp_set_type);
+            $action_object->populate_from_save($field, $i);
 		}	
 					
 		$action_object->parent_id = $focus->id;
@@ -113,12 +110,12 @@ for ($i = 0; $i <= $total_field_count; $i++) {
 		
 	} else {
 	//possibility exists that this attribute is being removed	
-		if(!empty($_REQUEST['action_id_'.$i]) && $_REQUEST['action_id_'.$i]!=''){
+        if (!empty($_REQUEST['action_id'][$i])) {
 			
 			
 			//delete attribute
 			$action_object = new WorkFlowAction();
-			$action_object->mark_deleted($_REQUEST['action_id_'.$i]);
+            $action_object->mark_deleted($_REQUEST['action_id'][$i]);
 			
 		//end if to remove attribute	
 		}	

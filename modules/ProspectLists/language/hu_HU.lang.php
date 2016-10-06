@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Módosította',
   'LBL_MODULE_ID' => 'Cél listák',
   'LBL_MODULE_NAME' => 'Cél listák',
+  'LBL_MODULE_NAME_SINGULAR' => 'Cél lista',
   'LBL_MODULE_TITLE' => 'Cél listák: Főoldal',
   'LBL_MORE_DETAIL' => 'Részletek',
   'LBL_NAME' => 'Név',

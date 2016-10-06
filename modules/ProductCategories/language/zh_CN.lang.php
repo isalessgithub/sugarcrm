@@ -19,6 +19,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '必须指定记录编号才能删除产品类型。',
+  'LBL_ASSIGNED_TO_NAME' => '被指派的用户',
+  'LBL_ASSIGNED_USER_NAME' => '被指派的用户',
   'LBL_CATEGORIES' => '分类',
   'LBL_CREATED_ID' => '创建ID',
   'LBL_DESCRIPTION' => '说明:',
@@ -35,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => '排序:',
   'LBL_MODIFIED_ID' => '修改ID',
   'LBL_MODULE_NAME' => '产品类别',
+  'LBL_MODULE_NAME_SINGULAR' => '产品分类',
   'LBL_MODULE_TITLE' => '产品分类:首页',
   'LBL_NAME' => '产品分类:',
   'LBL_PARENT_CATEGORY' => '父级分类',

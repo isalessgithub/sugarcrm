@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Označit jako mezník',
   'LBL_MODIFIED_USER_ID' => 'Upravil uživatel:',
   'LBL_MODULE_NAME' => 'Projekt',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projekt:',
   'LBL_MODULE_TITLE' => 'Projekty: Hlavní stránka',
   'LBL_MONTH_BUTTON' => 'Měsíc',
   'LBL_MORE' => 'Více...',

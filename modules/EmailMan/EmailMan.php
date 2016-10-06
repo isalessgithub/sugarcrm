@@ -91,13 +91,13 @@ class EmailMan extends SugarBean{
 			$query['where'] = "WHERE ".$where_auto;
 
     	if(isset($params['group_by'])) {
-			$query['order_by'] .= " GROUP BY {$params['group_by']}";
+            $query['group_by'] .= " GROUP BY {$params['group_by']}";
 		}
 
-		if($order_by != "")
-		{
-			$query['order_by'] = ' ORDER BY ' . $this->process_order_by($order_by, null);
-		}
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $query['order_by'] = ' ORDER BY ' . $order_by;
+        }
 
 		if ($return_array) {
 			return $query;
@@ -150,11 +150,10 @@ class EmailMan extends SugarBean{
 		else
 			$query .= "WHERE ".$where_auto;
 
-
-		if($order_by != "")
-		{
-			$query .= ' ORDER BY ' . $this->process_order_by($order_by, null);
-		}
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $query .= ' ORDER BY ' . $order_by;
+        }
 
 		return $query;
 
@@ -190,10 +189,11 @@ class EmailMan extends SugarBean{
 		else
 			$query .= "where ".$where_auto;
 
-		if($order_by != "")
-		{
-			$query .= ' ORDER BY ' . $this->process_order_by($order_by, null);
-		}
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $query .= ' ORDER BY ' . $order_by;
+        }
+
 		return $query;
 	}
 
@@ -334,10 +334,8 @@ class EmailMan extends SugarBean{
                     $this->ref_email->parent_type = '';
                     $this->ref_email->parent_id =  '';
                 }
-               	
-       			// Bug 59726 - Campaigns' Emails are sometime freezed
-				$this->ref_email->date_start = $timedate->nowDbDate();
-				$this->ref_email->time_start = $timedate->asDbTime($timedate->getNow());
+                $this->ref_email->date_start = $timedate->nowDate();
+                $this->ref_email->time_start = $timedate->asUserTime($timedate->getNow(true));
 
                 $this->ref_email->status='sent';
                 $retId = $this->ref_email->save();
@@ -575,7 +573,10 @@ class EmailMan extends SugarBean{
 
 		}
 
-		$module = new $class();
+        //prepare variables for 'set_as_sent' function
+        $this->target_tracker_key = create_guid();
+
+        $module = new $class();
 		$module->retrieve($this->related_id);
 		$module->emailAddress->handleLegacyRetrieve($module);
 
@@ -632,7 +633,6 @@ class EmailMan extends SugarBean{
 				return true;
 			}
 
-			$this->target_tracker_key=create_guid();
 
 			//fetch email marketing.
 			if (empty($this->current_emailmarketing) or !isset($this->current_emailmarketing)) {
@@ -721,14 +721,16 @@ class EmailMan extends SugarBean{
 			$mail->ClearReplyTos();
 			$mail->Sender	= $this->mailbox_from_addr;
 			$mail->From     = $this->mailbox_from_addr;
-			$mail->FromName = $this->current_emailmarketing->from_name;
+			$mail->FromName = $locale->translateCharsetMIME(trim($this->current_emailmarketing->from_name), 'UTF-8', $OBCharset);
 			$mail->ClearCustomHeaders();
             $mail->AddCustomHeader('X-CampTrackID:'.$this->target_tracker_key);
             //CL - Bug 25256 Check if we have a reply_to_name/reply_to_addr value from the email marketing table.  If so use email marketing entry; otherwise current mailbox (inbound email) entry
 			$replyToName = empty($this->current_emailmarketing->reply_to_name) ? $this->current_mailbox->get_stored_options('reply_to_name',$mail->FromName,null) : $this->current_emailmarketing->reply_to_name;
 			$replyToAddr = empty($this->current_emailmarketing->reply_to_addr) ? $this->current_mailbox->get_stored_options('reply_to_addr',$mail->From,null) : $this->current_emailmarketing->reply_to_addr;
 
-			$mail->AddReplyTo($replyToAddr,$locale->translateCharsetMIME(trim($replyToName), 'UTF-8', $OBCharset));
+            if (!empty($replyToAddr)) {
+                $mail->AddReplyTo($replyToAddr,$locale->translateCharsetMIME(trim($replyToName), 'UTF-8', $OBCharset));
+            }
 
 			//parse and replace bean variables.
             $macro_nv=array();
@@ -940,9 +942,9 @@ class EmailMan extends SugarBean{
         else
             $query .= "where ".$where_auto;
 
-        if(!empty($order_by))
-        {
-            $query .=  ' ORDER BY '. $this->process_order_by($order_by, null);
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $query .= ' ORDER BY ' . $order_by;
         }
 
         return $query;

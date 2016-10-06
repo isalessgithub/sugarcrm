@@ -279,10 +279,12 @@ class Call extends SugarBean {
 		else
 			$query .= "where ".$where_auto;
 
-		if($order_by != "")
-		$query .=  " ORDER BY ". $this->process_order_by($order_by, null);
-		else
-			$query .= " ORDER BY calls.name";
+        $order_by = $this->process_order_by($order_by);
+        if (empty($order_by)) {
+            $order_by = 'calls.name';
+        }
+        $query .= ' ORDER BY ' . $order_by;
+
 		return $query;
 	}
 
@@ -321,10 +323,11 @@ class Call extends SugarBean {
             else
                     $query .= "where ".$where_auto;
 
-            if($order_by != "")
-                    $query .=  " ORDER BY ". $this->process_order_by($order_by, null);
-            else
-                    $query .= " ORDER BY calls.name";
+        $order_by = $this->process_order_by($order_by);
+        if (empty($order_by)) {
+            $order_by = 'calls.name';
+        }
+        $query .= ' ORDER BY ' . $order_by;
 
             return $query;
         }
@@ -627,6 +630,12 @@ class Call extends SugarBean {
 			$notify_user->new_assigned_user_name = $notify_user->full_name;
 			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
 			$list[$notify_user->id] = $notify_user;
+		}
+		global $sugar_config;
+		if(isset($sugar_config['disable_notify_current_user']) && $sugar_config['disable_notify_current_user']) {
+			global $current_user;
+			if(isset($list[$current_user->id]))
+				unset($list[$current_user->id]);
 		}
 //		$GLOBALS['log']->debug('Call.php->get_notification_recipients():'.print_r($list,true));
 		return $list;

@@ -227,10 +227,11 @@ class Account extends Company {
 	}
 
 	function get_list_view_data(){
-		global $system_config,$current_user;
-		$temp_array = $this->get_list_view_array();
-		$temp_array["ENCODED_NAME"]=$this->name;
-//		$temp_array["ENCODED_NAME"]=htmlspecialchars($this->name, ENT_QUOTES);
+
+		$temp_array = parent::get_list_view_data();
+
+		$temp_array["ENCODED_NAME"] = $this->name;
+
 		if(!empty($this->billing_address_state))
 		{
 			$temp_array["CITY"] = $this->billing_address_city . ', '. $this->billing_address_state;
@@ -242,9 +243,6 @@ class Account extends Company {
 		$temp_array["BILLING_ADDRESS_STREET"]  = $this->billing_address_street;
 		$temp_array["SHIPPING_ADDRESS_STREET"] = $this->shipping_address_street;
     	
-    		$temp_array["EMAIL1"] = $this->emailAddress->getPrimaryAddress($this);
-		$this->email1 = $temp_array['EMAIL1'];
-		$temp_array["EMAIL1_LINK"] = $current_user->getEmailLink('email1', $this, '', '', 'ListView');
 		return $temp_array;
 	}
 	/**
@@ -277,8 +275,10 @@ class Account extends Company {
             $custom_join = $this->getCustomJoin(true, true, $where);
             $custom_join['join'] .= $relate_link_join;
                          $query = "SELECT
-                                accounts.*,email_addresses.email_address email_address,
-                                accounts.name as account_name,
+                                accounts.*,
+                                email_addresses.email_address email_address,
+                                '' email_addresses_non_primary, " . // email_addresses_non_primary needed for get_field_order_mapping()
+                                "accounts.name as account_name,
                                 users.user_name as assigned_user_name ";
 						 $query .= ", teams.name AS team_name ";
             $query .= $custom_join['select'];
@@ -302,8 +302,10 @@ class Account extends Company {
                 else
                         $query .= "where ".$where_auto;
 
-                if(!empty($order_by))
-                        $query .=  " ORDER BY ". $this->process_order_by($order_by, null);
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $query .= ' ORDER BY ' . $order_by;
+        }
 
                 return $query;
         }

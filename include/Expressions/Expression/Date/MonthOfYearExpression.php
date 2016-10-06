@@ -38,7 +38,11 @@ class MonthOfYearExpression extends NumericExpression
 	static function getJSEvaluate() {
 		return <<<EOQ
 			var time = this.getParameters().evaluate();
-			return new Date(time).getMonth() + 1;
+			var date = getDateObject(time);
+			if (date){
+				return date.getMonth() + 1;
+			}
+			return "";
 EOQ;
 	}
 

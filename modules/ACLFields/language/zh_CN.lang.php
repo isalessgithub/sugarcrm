@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,35 +15,16 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+	
 
 $mod_strings = array (
-'LBL_DEFAULT'=>'未设置',
-'LBL_READ_WRITE'=>'读/写',
-'LBL_READ_OWNER_WRITE'=>'读/写负责人',
-'LBL_READ_ONLY'=>'只读',
-'LBL_OWNER_READ_WRITE'=>'读负责人/写负责人',
-'LBL_ALLOW_NONE'=>'无',
-'LBL_FIELDS'=>'字段权限',
+  'LBL_ALLOW_NONE' => '无',
+  'LBL_DEFAULT' => '未设置',
+  'LBL_FIELDS' => '字段权限',
+  'LBL_NOT_DEFINED' => '未定义',
+  'LBL_OWNER_READ_WRITE' => '读负责人/写负责人',
+  'LBL_READ_ONLY' => '只读',
+  'LBL_READ_OWNER_WRITE' => '读/写负责人',
+  'LBL_READ_WRITE' => '读/写',
+);
 
-
-
-)
-?>

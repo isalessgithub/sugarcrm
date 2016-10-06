@@ -113,6 +113,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'ID broj korisnika koji je promenio',
   'LBL_MODIFIED_USER' => 'Promenio',
   'LBL_MODULE_NAME' => 'Dokumenta',
+  'LBL_MODULE_NAME_SINGULAR' => 'Dokument',
   'LBL_MODULE_TITLE' => 'Dokumenta: Početna strana',
   'LBL_NAME' => 'Naziv dokumenta',
   'LBL_NEW_FORM_TITLE' => 'Novi dokument',

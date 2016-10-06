@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Add',
+  'LBL_ADMIN_ONLY' => 'Administrators Only',
   'LBL_BELOW_MIN' => 'Conversion rate has to be above 0',
   'LBL_CREATED_BY' => 'Created By',
   'LBL_CURRENCY' => 'Currency',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Merge',
   'LBL_MERGE_TXT' => 'Please select the currencies you would like to map to the selected currency. This will delete all the currencies with a checkmark and reassign any value associated with them to the selected currency.',
   'LBL_MODULE_NAME' => 'Currencies',
+  'LBL_MODULE_NAME_SINGULAR' => 'Currency',
   'LBL_UPDATE' => 'Update',
   'LBL_US_DOLLAR' => 'U.S. Dollar',
   'LNK_NEW_ACCOUNT' => 'New Account',

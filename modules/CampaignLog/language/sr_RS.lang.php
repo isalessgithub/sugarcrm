@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tip',
   'LBL_MODIFIED' => 'Promenio:',
   'LBL_MODULE_NAME' => 'Log kampanje',
+  'LBL_MODULE_NAME_SINGULAR' => 'Log kampanje',
   'LBL_MORE_INFO' => 'Više informacija',
   'LBL_NAME' => 'Ime:',
   'LBL_RELATED' => 'Povezan',

@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,15 +15,12 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
 	
+
 $mod_strings = array (
+  'LBL_EXPAND' => 'Expandera',
   'LBL_MODULE_NAME' => 'Uttrycksmotor',
+  'LBL_NEXT' => 'Nästa',
+  'LBL_PREVIOUS' => 'Föregående',
 );
 

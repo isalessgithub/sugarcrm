@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,25 +15,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-/*********************************************************************************
- * pl_pl.lang.php for SugarCRM 6.5.0
- * Translator: eVolpe
- * All Rights Reserved.
- * Any bugs report welcome: support@evolpe.pl
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-$mod_strings = array ( 
-	'LBL_MODULE_NAME'			=> 'Grupy',
-	'LBL_GROUP_NAME'			=> 'Nazwa grupy:',
-	'LBL_DESCRIPTION'			=> 'Opis:',
-	'LBL_TEAM'					=> 'Zespół:',
-	// ListView
-	'LBL_LIST_TITLE'			=> 'Grupy',
-	// Links
-	'LNK_ALL_GROUPS'			=> 'Wszystkie grupy',
-	'LNK_NEW_GROUP'				=> 'Utwórz grupę',
-	'LNK_CONVERT_USER'			=> 'Konwertuj użytkownika na grupę', 
+$mod_strings = array (
+  'LBL_DESCRIPTION' => 'Opis:',
+  'LBL_GROUP_NAME' => 'Nazwa grupy:',
+  'LBL_LIST_TITLE' => 'Grupy',
+  'LBL_MODULE_NAME' => 'Grupy',
+  'LBL_MODULE_NAME_SINGULAR' => 'Grupa',
+  'LBL_TEAM' => 'Zespół:',
+  'LNK_ALL_GROUPS' => 'Wszystkie grupy',
+  'LNK_CONVERT_USER' => 'Przekształć użytkownika w grupę',
+  'LNK_NEW_GROUP' => 'Utwórz grupę',
 );
-?>
+

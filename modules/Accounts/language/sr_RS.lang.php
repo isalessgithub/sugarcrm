@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'ID broj korisnika koji je izmenio',
   'LBL_MODULE_ID' => 'Kompanije',
   'LBL_MODULE_NAME' => 'Kompanije',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nalog',
   'LBL_MODULE_TITLE' => 'Kompanije: Početna strana',
   'LBL_NAME' => 'Naziv:',
   'LBL_NEW_FORM_TITLE' => 'Nova kompanija',

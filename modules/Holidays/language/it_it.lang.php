@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_HOLIDAY_DATE' => 'Data Ferie:',
   'LBL_LIST_FORM_TITLE' => 'Elenco Festività',
   'LBL_MODULE_NAME' => 'Festività',
+  'LBL_MODULE_NAME_SINGULAR' => 'Festività',
   'LBL_MODULE_TITLE' => 'Festività: Home',
   'LBL_NAME' => 'Data Ferie:',
   'LBL_PERSON_TYPE' => 'Tipo Persona',

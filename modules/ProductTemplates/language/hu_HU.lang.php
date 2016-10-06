@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MFT_PART_NUM' => 'Gyártó cikkszáma:',
   'LBL_MODULE_ID' => 'Terméksablon',
   'LBL_MODULE_NAME' => 'Termékkatalógus',
+  'LBL_MODULE_NAME_SINGULAR' => 'Termékkatalógus',
   'LBL_MODULE_TITLE' => 'Termékkatalógus: Főoldal',
   'LBL_NAME' => 'Termék neve:',
   'LBL_NEW_FORM_TITLE' => 'Termék létrehozása',

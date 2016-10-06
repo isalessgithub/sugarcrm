@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Módosító azonosítója',
   'LBL_MODULE_ID' => 'Kliensek',
   'LBL_MODULE_NAME' => 'Kliensek',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kliens',
   'LBL_MODULE_TITLE' => 'Kliensek: Főoldal',
   'LBL_NAME' => 'Név:',
   'LBL_NEW_FORM_TITLE' => 'Új kliens',

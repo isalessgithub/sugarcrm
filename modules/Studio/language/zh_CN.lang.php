@@ -90,6 +90,7 @@ $mod_strings = array (
   'LBL_MINIMIZE' => '最小化',
   'LBL_MODULES' => '模块',
   'LBL_MODULE_NAME' => '管理员',
+  'LBL_MODULE_NAME_SINGULAR' => '管理员',
   'LBL_MODULE_TITLE' => '工作室',
   'LBL_NAME' => '名称',
   'LBL_NEW_GROUP' => '新建分组',

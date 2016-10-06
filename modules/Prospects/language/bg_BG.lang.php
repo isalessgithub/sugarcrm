@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Модифициран потребител',
   'LBL_MODULE_ID' => 'Целеви клиенти',
   'LBL_MODULE_NAME' => 'Целеви клиенти',
+  'LBL_MODULE_NAME_SINGULAR' => 'Целеви клиент',
   'LBL_MODULE_TITLE' => 'Целеви клиенти:',
   'LBL_MORE_INFORMATION' => 'Допълнителна информация',
   'LBL_NAME' => 'Име:',

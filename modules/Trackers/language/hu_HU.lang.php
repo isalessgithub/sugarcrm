@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ENABLE' => 'Engedélyezett',
   'LBL_MODULE_NAME' => 'Követők',
+  'LBL_MODULE_NAME_SINGULAR' => 'Követő',
   'LBL_MODULE_NAME_TITLE' => 'Követők',
   'LBL_TRACKER_DESC' => 'Követési feladatok',
   'LBL_TRACKER_HELP' => 'Felhasználók által látogatott oldalak (modul és rekord hozzáférések) továbbá rekord mentések követése',

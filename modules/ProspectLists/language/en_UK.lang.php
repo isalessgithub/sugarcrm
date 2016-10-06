@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modified by',
   'LBL_MODULE_ID' => 'Target Lists',
   'LBL_MODULE_NAME' => 'Target Lists',
+  'LBL_MODULE_NAME_SINGULAR' => 'Target List',
   'LBL_MODULE_TITLE' => 'Target Lists: Home',
   'LBL_MORE_DETAIL' => 'More Detail',
   'LBL_NAME' => 'Name',

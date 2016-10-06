@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_MODIFY_SEARCH_TITLE' => 'Zarządzaj wyszukiwaniem w konektorach',
   'LBL_MODULE_FIELDS' => 'Pola modułu',
   'LBL_MODULE_NAME' => 'Konektory',
+  'LBL_MODULE_NAME_SINGULAR' => 'Konektor',
   'LBL_NO_PROPERTIES' => 'Nie ma konfigurowalnych właściwości dla tego konektora.',
   'LBL_PARENT_DUNS' => 'Nadrzędne DUNS',
   'LBL_PREVIOUS' => '< Wstecz',

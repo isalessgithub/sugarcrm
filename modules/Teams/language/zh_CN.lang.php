@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => '汇报人',
   'LBL_LIST_TITLE' => '职位',
   'LBL_MODULE_NAME' => '团队',
+  'LBL_MODULE_NAME_SINGULAR' => '团队',
   'LBL_MODULE_TITLE' => '团队:首页',
   'LBL_NAME' => '团队名称:',
   'LBL_NAME_2' => '团队名称(2):',

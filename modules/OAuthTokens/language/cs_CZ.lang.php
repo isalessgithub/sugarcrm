@@ -18,17 +18,18 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_OAUTH_REQUEST' => 'Request Token',
-  'LBL_OAUTH_AUTHORIZE' => 'Authorize Token',
-  'LBL_OAUTH_CONSUMERREQ' => 'Authorize token from consumer <b>%s</b>?',
-  'LBL_OAUTH_ROLE' => 'Token role',
-  'LBL_OAUTH_VALIDATION' => 'Verification code',
   'LBL_ASSIGNED_TO_NAME' => 'Uživatel',
+  'LBL_CONSUMER' => 'Konzument',
+  'LBL_CONTACTS' => 'Název kontaktu',
   'LBL_ID' => 'ID',
+  'LBL_LIST_DELETE' => 'Token na smazání',
+  'LBL_OAUTH_AUTHORIZE' => 'Autorizační token',
+  'LBL_OAUTH_CONSUMERREQ' => 'Autorizační token od zákazníka <b>%s</b>?',
+  'LBL_OAUTH_DISABLED' => 'OAuth PHP rozšíření neni zapnuto. Kontaktujte administrátora aplikace.',
+  'LBL_OAUTH_REQUEST' => 'Token požadavku',
+  'LBL_OAUTH_ROLE' => 'Role tokenu',
+  'LBL_OAUTH_VALIDATION' => 'Kontrolní kód',
   'LBL_STATUS' => 'Stav',
   'LBL_TS' => 'Časová známka',
-  'LBL_LIST_DELETE' => 'Delete Token',
-  'LBL_CONSUMER' => 'Consumer Name',
-  'LBL_OAUTH_DISABLED' => 'OAuth PHP rozšíření neni zapnuto. Kontaktujte administrátora aplikace.',
 );
 

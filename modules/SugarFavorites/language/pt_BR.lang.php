@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,41 +15,39 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
 	
+
 $mod_strings = array (
-  'LBL_ID' => 'ID',
-  'LBL_TAG' => 'Tag',
+  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Atividades',
   'LBL_ASSIGNED_TO_ID' => 'Atribuído a',
   'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
+  'LBL_CREATED' => 'Criado Por',
+  'LBL_CREATED_ID' => 'Criado Por Id',
+  'LBL_CREATED_USER' => 'Criado pelo Usuário',
   'LBL_DATE_ENTERED' => 'Data de Criação',
   'LBL_DATE_MODIFIED' => 'Data de Modificação',
+  'LBL_DELETED' => 'Eliminado',
+  'LBL_DESCRIPTION' => 'Descrição',
+  'LBL_HISTORY_SUBPANEL_TITLE' => 'Ver Histórico',
+  'LBL_HOMEPAGE_TITLE' => 'Os meus Favoritos',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Favoritos',
+  'LBL_LIST_MODULE' => 'Nome do Módulo',
   'LBL_MODIFIED' => 'Modificado Por',
   'LBL_MODIFIED_ID' => 'Modificado Por Id',
   'LBL_MODIFIED_NAME' => 'Modificado Por Nome',
-  'LBL_CREATED' => 'Criado Por',
-  'LBL_CREATED_ID' => 'Criado Por Id',
-  'LBL_DESCRIPTION' => 'Descrição',
-  'LBL_DELETED' => 'Eliminado',
-  'LBL_NAME' => 'Nome',
-  'LBL_CREATED_USER' => 'Criado pelo Usuário',
   'LBL_MODIFIED_USER' => 'Modificado pelo Usuário',
-  'LBL_LIST_FORM_TITLE' => 'Lista de Favoritos',
-  'LBL_MODULE_NAME' => 'Favoritos',
-  'LBL_MODULE_TITLE' => 'Favoritos',
-  'LBL_HOMEPAGE_TITLE' => 'Os meus Favoritos',
-  'LNK_NEW_RECORD' => 'Criar Favorito',
-  'LNK_LIST' => 'Favoritos',
-  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Favoritos',
-  'LBL_HISTORY_SUBPANEL_TITLE' => 'Ver Histórico',
-  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Atividades',
-  'LBL_SUGAR_FAVORITES_SUBPANEL_TITLE' => 'Favoritos',
-  'LBL_NEW_FORM_TITLE' => 'Novo Favorito',
   'LBL_MODULE' => 'módulo',
+  'LBL_MODULE_NAME' => 'Favoritos',
+  'LBL_MODULE_NAME_SINGULAR' => 'Favorito',
+  'LBL_MODULE_TITLE' => 'Favoritos',
+  'LBL_NAME' => 'Nome',
+  'LBL_NEW_FORM_TITLE' => 'Novo Favorito',
   'LBL_RECORD_ID' => 'id do registro',
-  'LBL_LIST_MODULE' => 'Nome do Módulo',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Favoritos',
+  'LBL_SUGAR_FAVORITES_SUBPANEL_TITLE' => 'Favoritos',
+  'LBL_TAG' => 'Tag',
+  'LNK_LIST' => 'Favoritos',
+  'LNK_NEW_RECORD' => 'Criar Favorito',
 );
 

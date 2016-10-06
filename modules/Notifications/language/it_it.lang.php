@@ -39,6 +39,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Modificato dal Nome',
   'LBL_MODIFIED_USER' => 'Modificato dall´Utente',
   'LBL_MODULE_NAME' => 'Notifiche',
+  'LBL_MODULE_NAME_SINGULAR' => 'Notifica',
   'LBL_MODULE_TITLE' => 'Notifiche',
   'LBL_NAME' => 'Nome',
   'LBL_NEW_FORM_TITLE' => 'Nuove Notifiche',

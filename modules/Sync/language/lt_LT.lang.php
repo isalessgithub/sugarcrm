@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_GO_ONLINE' => 'Jungtis prie tinklo',
   'LBL_INITIAL_SYNC_MESSAGE' => 'Jūs ką tik įsidiegėte klientinę versiją. Prašome pradėti sinchronizacijos procesą.',
   'LBL_MODULE_NAME' => 'Sinchronizacija',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sinchronizacija',
   'LBL_MODULE_TITLE' => 'Sinchronizacija: Pradžia',
   'LBL_POWERED_BY_SUGAR' => 'Sukurta SugarCRM',
   'LBL_PROMPT' => 'Užklausimas',

@@ -27,7 +27,7 @@ require_once('modules/Reports/templates/templates_export.php');
 require_once('modules/Reports/templates/templates_chart.php');
 
 require_once('modules/Reports/config.php');
-global $current_language, $report_modules, $modules_report, $current_user;
+global $current_language, $report_modules, $modules_report, $current_user, $app_strings;
 
 require_once('modules/Reports/Report.php');
 
@@ -35,8 +35,12 @@ $args = array();
 $jsonObj = getJSONobj();
 if (isset($_REQUEST['id']) && !isset($_REQUEST['record'])) {
 	$saved_report_seed = new SavedReport();
-	$saved_report_seed->disable_row_level_security = true;
 	$saved_report_seed->retrieve($_REQUEST['id'], false);
+
+    if (empty($saved_report_seed->id)) {
+        sugar_die($app_strings['ERROR_NO_RECORD']);
+    }
+
 	// do this to go through the transformation
 	$reportObj = new Report($saved_report_seed->content);
 	$saved_report_seed->content = $reportObj->report_def_str;
@@ -87,8 +91,12 @@ if (isset($_REQUEST['id']) && !isset($_REQUEST['record'])) {
 }
 else if (isset($_REQUEST['record'])){
     $saved_report_seed = new SavedReport();
-    $saved_report_seed->disable_row_level_security = true;
     $saved_report_seed->retrieve($_REQUEST['record'], false);
+
+    if (empty($saved_report_seed->id)) {
+        sugar_die($app_strings['ERROR_NO_RECORD']);
+    }
+
     // do this to go through the transformation
     $reportObj = new Report($saved_report_seed->content);
     $saved_report_seed->content = $reportObj->report_def_str;

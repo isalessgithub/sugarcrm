@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'File Allegato',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Cronologia',
   'LBL_INVITEE' => 'Contatti',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome Azienda',
   'LBL_LIST_ASSIGNED' => 'Assegnato A',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Utente Assegnato:',

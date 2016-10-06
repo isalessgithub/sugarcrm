@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Lai veiktu importēšanu klikšķini, Labi. Lai augšupielādētu jaunu failu, klikšķini Mēģināt vēlreiz.',
   'LBL_MISSING_HEADER_ROW' => 'Nav atrasts galvenes ieraksts',
   'LBL_MODULE_NAME' => 'Importēšana',
+  'LBL_MODULE_NAME_SINGULAR' => 'Imports',
   'LBL_MY_PUBLISHED_HELP' => 'Izmanto šo iespēju, lai piemērotu iepriekš uzstādītus importēšanas iestatījumus, tādus kā īpašības, kartēšanas un dublikātu pārbaudi.',
   'LBL_MY_SAVED' => 'Saglabātie avoti:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Izmanto šo iespēju, lai piemērotu iepriekš uzstādītus importēšanas iestatījumus, tādus kā īpašības, kartēšanas un dublikātu pārbaudi.<br><br>Klikšķini <b>Publicēt</b>, lai kartēšanas būtu pieejamas citiem lietotājiem.<br>Klikšķini <b>Nepublicēt</b>, lai šīs kartēšanas nebūtu pieejams citiem lietotājiem.<br>Klikšķini<b>Dzēst</b>lai dzēstu kartējumus visiem lietotājiem.',

@@ -241,11 +241,13 @@ class Contact extends Person {
 
 
 		$ret_array['where'] = $where_query;
-		$orderby_query = '';
-		if(!empty($order_by)){
-		    $orderby_query =  " ORDER BY ". $this->process_order_by($order_by, null);
-		}
-		$ret_array['order_by'] = $orderby_query ;
+        $ret_array['order_by'] = '';
+
+        //process order by and add if it's not empty
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $ret_array['order_by'] = ' ORDER BY ' . $order_by;
+        }
 
 		if($return_array)
     	{
@@ -264,8 +266,10 @@ class Contact extends Person {
             $custom_join = $this->getCustomJoin(true, true, $where);
             $custom_join['join'] .= $relate_link_join;
                          $query = "SELECT
-                                contacts.*,email_addresses.email_address email_address,
-                                accounts.name as account_name,
+                                contacts.*,
+                                email_addresses.email_address email_address,
+                                '' email_addresses_non_primary, " . // email_addresses_non_primary needed for get_field_order_mapping()
+                                "accounts.name as account_name,
                                 users.user_name as assigned_user_name ";
 						 $query .= ", teams.name AS team_name ";
             $query .= $custom_join['select'];
@@ -294,8 +298,10 @@ class Contact extends Person {
                 else
                         $query .= "where ".$where_auto;
 
-                if(!empty($order_by))
-                        $query .=  " ORDER BY ". $this->process_order_by($order_by, null);
+        $order_by = $this->process_order_by($order_by);
+        if (!empty($order_by)) {
+            $query .= ' ORDER BY ' . $order_by;
+        }
 
                 return $query;
         }
@@ -395,22 +401,16 @@ class Contact extends Person {
 	}
 
 	function get_list_view_data($filter_fields = array()) {
-		global $system_config;
-		global $current_user;
 
-		$this->_create_proper_name_field();
-		$temp_array = $this->get_list_view_array();
-		$temp_array['NAME'] = $this->name;
-		$temp_array['ENCODED_NAME'] = $this->name;
+        $temp_array = parent::get_list_view_data();
 
 		if($filter_fields && !empty($filter_fields['sync_contact'])){
 			$this->load_contacts_users_relationship();
 			$temp_array['SYNC_CONTACT'] = !empty($this->contacts_users_id) ? 1 : 0;
 		}
-		$temp_array['EMAIL1'] = $this->emailAddress->getPrimaryAddress($this);
-		$this->email1 = $temp_array['EMAIL1'];
-		$temp_array['EMAIL1_LINK'] = $current_user->getEmailLink('email1', $this, '', '', 'ListView');
-		$temp_array['EMAIL_AND_NAME1'] = "{$this->full_name} &lt;".$temp_array['EMAIL1']."&gt;";
+
+        $temp_array['EMAIL_AND_NAME1'] = "{$this->full_name} &lt;".$temp_array['EMAIL1']."&gt;";
+
 		return $temp_array;
 	}
 

@@ -25,6 +25,7 @@ class ReportsSugarpdfReports extends Sugarpdf
      */
     protected $options = array(
         "evencolor"=>"#DCDCDC",
+        "oddcolor" => "#FFFFFF",
         "header"=>array("fill"=>"#4B4B4B", "fontStyle"=>"B", "textColor"=>"#FFFFFF"),
     );
     

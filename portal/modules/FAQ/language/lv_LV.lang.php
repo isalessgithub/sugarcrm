@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_ERROR_QUERY' => 'Kļūda',
   'LBL_FAQ_EMPTY' => 'Patreiz, Zināšanu bāzē nav atrasti BUJ raksti.',
   'LBL_MODULE_NAME' => 'BUJ',
+  'LBL_MODULE_NAME_SINGULAR' => 'BUJ',
   'LBL_MODULE_TITLE' => 'BUJ: Sākums',
   'LBL_SUCCESSFUL_QUERY' => 'Veiksmīgs',
 );

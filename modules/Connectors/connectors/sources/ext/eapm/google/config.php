@@ -22,5 +22,7 @@ $config = array (
   ),
   'order' => 12,
   'properties' => array (
+    'oauth2_client_id' => '',
+    'oauth2_client_secret' => '',
   ),
 );

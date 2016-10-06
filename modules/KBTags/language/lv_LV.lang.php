@@ -33,6 +33,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'Modificēja ID',
   'LBL_MODIFIED_USER' => 'Modificēja',
   'LBL_MODULE_NAME' => 'E-raksta zīmotnes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Raksta zīmotne',
   'LBL_MODULE_TITLE' => 'E-raksta zīmotnes',
   'LBL_NO_MATHING_TAG_FOUND' => 'Atbilstoša zīmotne nav atrasta',
   'LBL_PARENT_TAG_ID' => 'Vecāku Id:',

@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_EXECUTE_TIME' => 'Izpildes laiks',
   'LBL_FAIL_COUNT' => 'Neizdošanās',
   'LBL_INTERVAL' => 'Minimālais intervāls starp mēģinājumiem',
+  'LBL_JOB_GROUP' => 'Uzdevuma grupa',
   'LBL_MESSAGE' => 'Ziņojumi',
   'LBL_NAME' => 'Uzdevuma nosaukums',
   'LBL_PERCENT' => 'Pabeigtības procents',

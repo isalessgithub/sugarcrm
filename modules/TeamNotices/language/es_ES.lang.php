@@ -28,6 +28,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Título',
   'LBL_LIST_ORDER' => 'Orden',
   'LBL_MODULE_NAME' => 'Noticias de Equipo',
+  'LBL_MODULE_NAME_SINGULAR' => 'Notificación del Equipo',
   'LBL_MODULE_TITLE' => 'Noticias de Equipo: Inicio',
   'LBL_MORE_DETAIL' => 'Más Detalles',
   'LBL_NAME' => 'Título',

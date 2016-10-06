@@ -74,5 +74,5 @@ $mod_strings = array (
 		  'LBL_TRACKER_PRUNE_INTERVAL' => 'Number of days of Tracker data to store when Scheduler prunes the tables',
 		  'LBL_TRACKER_PRUNE_RANGE' => 'מספר ימים',
 );
-?>
+
 

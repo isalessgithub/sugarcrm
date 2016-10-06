@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ENABLE' => '已启用',
   'LBL_MODULE_NAME' => '追踪器',
+  'LBL_MODULE_NAME_SINGULAR' => '追踪',
   'LBL_MODULE_NAME_TITLE' => '追踪器',
   'LBL_TRACKER_DESC' => '追踪器行为',
   'LBL_TRACKER_HELP' => '追踪用户的页面访问量 (访问的模块及记录) 和保存的记录',

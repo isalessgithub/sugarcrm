@@ -58,6 +58,6 @@ $mod_strings = array (
 	'LBL_USER' => 'משתמש',
 	'LBL_CONTACT' => 'איש קשר',
 );
-?>
+
 
 

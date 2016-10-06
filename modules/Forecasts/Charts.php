@@ -70,22 +70,23 @@ class forecast_charts extends SugarView {
             $quota_label = $current_module_strings['LBL_GRAPH_QUOTA_LEGEND'];
 			$forecast_label = $current_module_strings['LBL_GRAPH_COMMIT_LEGEND'];
 			$closed_label = $current_module_strings['LBL_GRAPH_OPPS_LEGEND'];
+			$sugarChart->display_labels[$row['id']] = $row['name'];
 
             //get quota
             $q_result=$forecast->db->query($quota_query);
             $quota=$forecast->db->fetchByAssoc($q_result);
             if (!empty($quota['amount_base_currency'])) {
                 //add quota to the array.
-                $data[$row['name']][$quota_label]= $currency->convertFromDollar($quota['amount_base_currency'],0);
+                $data[$row['id']][$quota_label]= $currency->convertFromDollar($quota['amount_base_currency'],0);
             } else  {
-				$data[$row['name']][$quota_label]=0;
+				$data[$row['id']][$quota_label]=0;
             }
             //compare for max value.
-            if ($data[$row['name']][$quota_label] > $max) {
-                $max=$data[$row['name']][$quota_label];
+            if ($data[$row['id']][$quota_label] > $max) {
+                $max=$data[$row['id']][$quota_label];
             }
-            if ($min==-1 or $data[$row['name']][$quota_label] < $min) {
-                $min=$data[$row['name']][$quota_label];
+            if ($min==-1 or $data[$row['id']][$quota_label] < $min) {
+                $min=$data[$row['id']][$quota_label];
             }
 
             $labels[$row['id'].'quota']=sprintf($current_module_strings['LBL_GRAPH_QUOTA_ALTTEXT'],$row['name']);
@@ -106,15 +107,15 @@ class forecast_charts extends SugarView {
             $fcst=$forecast->db->fetchByAssoc($q_result);
             if (!empty($fcst['likely_case'])) {
                 //add quota to the array.
-                $data[$row['name']][$forecast_label]= $currency->convertFromDollar($fcst['likely_case'],0);
+                $data[$row['id']][$forecast_label]= $currency->convertFromDollar($fcst['likely_case'],0);
             } else {
-                $data[$row['name']][$forecast_label]=0;
+                $data[$row['id']][$forecast_label]=0;
             }
-            if ($data[$row['name']][$forecast_label] > $max) {
-                $max=$data[$row['name']][$forecast_label];
+            if ($data[$row['id']][$forecast_label] > $max) {
+                $max=$data[$row['id']][$forecast_label];
             }
-            if ($min==-1 or $data[$row['name']][$forecast_label] < $min) {
-                $min=$data[$row['name']][$forecast_label];
+            if ($min==-1 or $data[$row['id']][$forecast_label] < $min) {
+                $min=$data[$row['id']][$forecast_label];
             }
 
             $labels[$row['id'].'forecast']=sprintf($current_module_strings['LBL_GRAPH_COMMIT_ALTTEXT'],$row['name']);
@@ -129,25 +130,27 @@ class forecast_charts extends SugarView {
             $common->retrieve_downline($user_id);
             $my_downline = implode('\',\'', $common->my_downline);
 
-            $opp_query  = "select sum(" . db_convert("amount_usdollar","IFNULL",array(0))." * (" .db_convert("probability","IFNULL",array(0)). "/100)) total_value";
+            $opp_query  = "select sum(" . $forecast->db->convert("amount_usdollar", "IFNULL", array(0));
+            $opp_query .= " * (" .$forecast->db->convert("probability", "IFNULL", array(0)). "/100)) total_value";
             $opp_query .= " from opportunities";
             $opp_query .= " where assigned_user_id IN ('$user_id', '$my_downline')";
             $opp_query .= " and sales_stage='Closed Won'";
             $opp_query .= " and deleted=0";
-            $opp_query .= " and date_closed >= ". db_convert("'".$row['start_date']."'","datetime")." and date_closed <= ". db_convert( "'".$row['end_date']."'","datetime");
+            $opp_query .= " and date_closed >= ". $forecast->db->convert("'".$row['start_date']."'", "date");
+            $opp_query .= " and date_closed <= ". $forecast->db->convert("'".$row['end_date']."'", "date");
 
             $opp_result=$forecast->db->query($opp_query);
             $opp_data=$forecast->db->fetchByAssoc($opp_result);
             if (!empty($opp_data['total_value'])) {
-                $data[$row['name']][$closed_label]= $currency->convertFromDollar($opp_data['total_value'],0);
+                $data[$row['id']][$closed_label]= $currency->convertFromDollar($opp_data['total_value'],0);
             } else {
-                $data[$row['name']][$closed_label]=0;
+                $data[$row['id']][$closed_label]=0;
             }
-            if ($data[$row['name']][$closed_label] > $max) {
-                $max=$data[$row['name']][$closed_label];
+            if ($data[$row['id']][$closed_label] > $max) {
+                $max=$data[$row['id']][$closed_label];
             }
-            if ($min==-1 or $data[$row['name']][$closed_label] < $min) {
-                $min=$data[$row['name']][$closed_label];
+            if ($min==-1 or $data[$row['id']][$closed_label] < $min) {
+                $min=$data[$row['id']][$closed_label];
             }
 
             $labels[$row['id'].'closed']=sprintf($current_module_strings['LBL_GRAPH_OPPS_ALTTEXT'],$row['name']);
@@ -186,6 +189,7 @@ class forecast_charts extends SugarView {
 			$sugarChart->saveXMLFile($xmlFile, $sugarChart->generateXML());
 			$return .= $sugarChart->display($dashlet_id, $xmlFile, $width, '480');
 		}
+		$sugarChart->display_labels = array();
 		$return .= '</div>';
 		$return .= '</div>';
 
@@ -207,7 +211,7 @@ class forecast_charts extends SugarView {
 	            $oddRow = !$oddRow;
 
 	            $table_rows.="<tr height=20>";
-	            $table_rows.="<td valign=TOP class='{$ROW_COLOR}S1' bgcolor='{$BG_COLOR}'>" . $timeperiod . "</td>";
+	            $table_rows.="<td valign=TOP class='{$ROW_COLOR}S1' bgcolor='{$BG_COLOR}'>" . $labels[$timeperiod] . "</td>";
 	            $table_rows.="<td valign=TOP class='{$ROW_COLOR}S1' bgcolor='{$BG_COLOR}'>" . $currency->symbol . $values[$quota_label]. "</td>";
 	            $table_rows.="<td valign=TOP class='{$ROW_COLOR}S1' bgcolor='{$BG_COLOR}'>" . $currency->symbol . $values[$forecast_label]. "</td>";
 	            $table_rows.="<td valign=TOP class='{$ROW_COLOR}S1' bgcolor='{$BG_COLOR}'>" . $currency->symbol . $values[$closed_label]. "</td>";

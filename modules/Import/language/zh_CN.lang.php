@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => '处理导入选择的文件,点击 OK. 上传新文件，点击 Try Again',
   'LBL_MISSING_HEADER_ROW' => '没有发现标题行',
   'LBL_MODULE_NAME' => '导入',
+  'LBL_MODULE_NAME_SINGULAR' => '导入',
   'LBL_MY_PUBLISHED_HELP' => '一个已发布的映射在导入文件中指定了一个过去使用的过的数据源到数据库的映射组合.',
   'LBL_MY_SAVED' => '我已保存的来源:',
   'LBL_MY_SAVED_ADMIN_HELP' => '使用该选项应用您预先设置的导入设置，包括导入属性，绘图，和其它重复的检查设置.<br><br>Click <b>Publish</b> 使绘图对于其他用户有效.<br>Click <b>Un-Publish</b> 使绘图对于其他用户无效.<br>Click <b>Delete</b> 为所有用户删除绘图.',

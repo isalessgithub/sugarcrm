@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Modificata de ID',
   'LBL_MODULE_ID' => 'Conturi',
   'LBL_MODULE_NAME' => 'Conturi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Cont:',
   'LBL_MODULE_TITLE' => 'Conturi: Acasa',
   'LBL_NAME' => 'Nume:',
   'LBL_NEW_FORM_TITLE' => 'Cont Nou',

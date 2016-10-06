@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Redagavo:',
   'LBL_MODULE_ID' => 'Adresatų sąrašai',
   'LBL_MODULE_NAME' => 'Adresatų sąrašai',
+  'LBL_MODULE_NAME_SINGULAR' => 'Adresatų sąrašas',
   'LBL_MODULE_TITLE' => 'Adresatų sąrašai: Pradžia',
   'LBL_MORE_DETAIL' => 'Daugiau informacijos',
   'LBL_NAME' => 'Pavadinimas:',

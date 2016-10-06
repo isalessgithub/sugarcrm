@@ -18,11 +18,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $connector_strings = array (
+  'LBL_ID' => 'Nom Twitter (ID)',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Les "OAuth Consumer Key" et "OAuth Consumer Secret" sont les paramètres que vous obtenez depuis Twitter&#169; lorsque vous créez une nouvelle application. Pour commencer, allez sur : <a href=&#39;http://dev.twitter.com/apps/new&#39;>http://dev.twitter.com/apps/new</a>.<br><ol><li>Saisir le nom de votre appplication, il s&#39;agit du nom que l&#39;utilisateur verra apparaitre lorsqu&#39;il s&#39;authentifira depuis SugarCRM</li><li>Saisir une description (au moins 10 mots)</li><li>Saisir l&#39;URL de votre société</li><li>Valider le type d&#39;application : "Browser"</li><li>Sauvegarder</li></ol></td></tr></table>',
+  'LBL_NAME' => 'Nom Twitter',
+  'LBL_TWITTER_ID' => 'Compte Twitter',
   'company_url' => 'URL',
+  'data_widget_id' => 'Widget Id',
   'oauth_consumer_key' => 'OAuth Consumer Key',
   'oauth_consumer_secret' => 'OAuth Consumer Secret',
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Les "OAuth Consumer Key" et "OAuth Consumer Secret" sont les paramètres que vous obtenez depuis Twitter&#169; lorsque vous créez une nouvelle application. Pour commencer, allez sur : <a href=\'http://dev.twitter.com/apps/new\'>http://dev.twitter.com/apps/new</a>.<br><ol><li>Saisir le nom de votre appplication, il s&#39;agit du nom que l&#39;utilisateur verra apparaitre lorsqu&#39;il s&#39;authentifira depuis SugarCRM</li><li>Saisir une description (au moins 10 mots)</li><li>Saisir l&#39;URL de votre société</li><li>Valider le type d\'application : "Browser"</li><li>Sauvegarder</li></ol></td></tr></table>',
-  'LBL_NAME' => 'Nom Twitter',
-  'LBL_ID' => 'Nom Twitter (ID)',
 );
 

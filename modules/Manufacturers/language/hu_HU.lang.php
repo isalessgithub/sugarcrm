@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Módosította',
   'LBL_MODIFIED_ID' => 'Módosító azonosítója',
   'LBL_MODULE_NAME' => 'Gyártók',
+  'LBL_MODULE_NAME_SINGULAR' => 'Gyártó',
   'LBL_MODULE_TITLE' => 'Gyártók: Főoldal',
   'LBL_NAME' => 'Gyártó:',
   'LBL_NEW_FORM_TITLE' => 'Új gyártó',

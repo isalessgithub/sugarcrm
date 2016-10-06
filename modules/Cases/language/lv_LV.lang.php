@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'Pielikums',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_INVITEE' => 'Ielūgtie',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Zināšanu bāze',
   'LBL_LIST_ACCOUNT_NAME' => 'Uzņēmuma nosaukums',
   'LBL_LIST_ASSIGNED' => 'Piešķirts lietotājam',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',

@@ -18,9 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'エクスプレッションエンジン',
-  'LBL_PREVIOUS' => '前へ',
-  'LBL_NEXT' => '次へ',
   'LBL_EXPAND' => '拡張',
+  'LBL_MODULE_NAME' => 'エクスプレッションエンジン',
+  'LBL_MODULE_NAME_SINGULAR' => 'エクスプレッションエンジン',
+  'LBL_NEXT' => '次へ',
+  'LBL_PREVIOUS' => '前へ',
 );
 

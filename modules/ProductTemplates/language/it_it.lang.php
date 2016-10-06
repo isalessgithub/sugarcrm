@@ -18,7 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Per eliminare il prodotto deve essere specificato il numero del record',
+  'ERR_DELETE_RECORD' => 'Per eliminare il prodotto deve essere specificato il numero del record.',
   'LBL_ACCOUNT_NAME' => 'Nome azienda:',
   'LBL_ASSIGNED_TO' => 'Assegnato a:',
   'LBL_ASSIGNED_TO_ID' => 'Assegnato a ID:',
@@ -60,11 +60,13 @@ $mod_strings = array (
   'LBL_LIST_TYPE_ID' => 'ID tipo:',
   'LBL_LIST_USDOLLAR' => 'Lista USD:',
   'LBL_MANUFACTURER' => 'Produttore:',
+  'LBL_MANUFACTURERS' => 'Produttori',
   'LBL_MANUFACTURER_ID' => 'ID Produttore',
   'LBL_MANUFACTURER_NAME' => 'Nome Produttore:',
   'LBL_MFT_PART_NUM' => 'Codice articolo:',
   'LBL_MODULE_ID' => 'Modelli Prodotti',
   'LBL_MODULE_NAME' => 'Catalogo Prodotti',
+  'LBL_MODULE_NAME_SINGULAR' => 'Catalogo Prodotto',
   'LBL_MODULE_TITLE' => 'Catalogo Prodotti: Home',
   'LBL_NAME' => 'Nome Prodotto:',
   'LBL_NEW_FORM_TITLE' => 'Nuovo Oggetto',
@@ -73,7 +75,9 @@ $mod_strings = array (
   'LBL_PRICING_FACTOR' => 'Fattore Pricing:',
   'LBL_PRICING_FORMULA' => 'Formula Pricing Predefinita:',
   'LBL_PRODUCT' => 'Prodotto:',
+  'LBL_PRODUCT_CATEGORIES' => 'Categorie Prodotto',
   'LBL_PRODUCT_ID' => 'ID Prodotto:',
+  'LBL_PRODUCT_TYPES' => 'Tipi Prodotto',
   'LBL_QTY_IN_STOCK' => 'Quantità disponibile',
   'LBL_QUANTITY' => 'Quantità in stock:',
   'LBL_RELATED_PRODUCTS' => 'Prodotto Correlato',

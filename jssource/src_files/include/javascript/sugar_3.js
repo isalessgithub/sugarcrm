@@ -131,7 +131,7 @@ function isSupportedIE() {
 
 	// IE Check supports ActiveX controls
 	if (userAgent.indexOf("msie") != -1 && userAgent.indexOf("mac") == -1 && userAgent.indexOf("opera") == -1) {
-		var version = navigator.appVersion.match(/MSIE (.\..)/)[1] ;
+		var version = navigator.appVersion.match(/MSIE (\d+\.\d+)/)[1] ;
 		if(version >= 5.5 && version < 10) {
 			return true;
 		} else {
@@ -162,10 +162,10 @@ function checkMaxSupported(c, s) {
 
 SUGAR.isSupportedBrowser = function(){
     var supportedBrowsers = {
-        msie : {min:8, max:10}, // IE 8, 9, 10
-        safari : {min:534}, // Safari 5.1
-        mozilla : {min:17}, // Firefox 17
-        chrome : {min:537.13} // Chrome 24
+        msie : {min:9, max:10}, // IE 9, 10
+        safari : {min:536}, // Safari 6.0
+        mozilla : {min:38.0}, // Firefox 38, 39
+        chrome : {min:43} // Chrome 43
     };
     var current = String($.browser.version);
     var supported;
@@ -178,6 +178,7 @@ SUGAR.isSupportedBrowser = function(){
     else {
         $.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
         if($.browser.chrome){ // Chrome
+            current = navigator.userAgent.match(/Chrome\/(.*?) /)[1];
             supported = supportedBrowsers['chrome'];
         }
         else if($.browser.safari){ // Safari
@@ -531,20 +532,23 @@ function getDateObject(dtStr) {
 	var mh = dt[date_reg_positions['m']];
 	var dy = dt[date_reg_positions['d']];
     var dtar = dtStr.split(' ');
+    var date1;
     if(typeof(dtar[1])!='undefined' && isTime(dtar[1])) {//if it is a timedate, we should make date1 to have time value
         var t1 = dtar[1].replace(/am/i,' AM');
         var t1 = t1.replace(/pm/i,' PM');
         //bug #37977: where time format 23.00 causes java script error
         t1=t1.replace(/\./, ':');
-        date1 = new Date(Date.parse(mh+'/'+dy+ '/'+yr+' '+t1));
+        date1 = new Date(mh+'/'+dy+'/'+yr+' '+t1);
     }
     else
     {
-        var date1 = new Date();
-        date1.setFullYear(yr); // xxxx 4 char year
-        date1.setMonth(mh-1); // 0-11 Bug 4048: javascript Date obj months are 0-index
-        date1.setDate(dy); // 1-31
+        date1 = new Date(mh+'/'+dy+'/'+yr);
     }
+
+    if (isNaN(date1.valueOf())) {
+        return null;
+    }
+
 	return date1;
 }
 
@@ -871,8 +875,8 @@ function isFieldHidden(field, type)
     var Dom = YAHOO.util.Dom;
 	var td = Dom.getAncestorByTagName(field, 'TD');
 
-    // For 'date' field type html representation differ from others ( td.vis_action_hidden > table > td > input[name])
-    if (type == 'date') {
+    // For 'datetime' field type html representation differ from others ( td.vis_action_hidden > table > td > input[name])
+    if (type == 'date' && !Dom.hasClass(td, 'vis_action_hidden')) {
         td = Dom.getAncestorByTagName(td, 'TD');
     }
 
@@ -910,6 +914,13 @@ function validate_form(formname, startsWith){
 				if(typeof form[validate[formname][i][nameIndex]]  != 'undefined' && typeof form[validate[formname][i][nameIndex]].value != 'undefined'){
 					var bail = false;
 
+					//If a field is hidden, skip validation.
+					var field = form[validate[formname][i][nameIndex]];
+					if ((isFieldHidden(field, validate[formname][i][typeIndex]) && validate[formname][i][typeIndex] != 'teamset') || field.disabled)
+					{
+						continue;
+					}
+
                     //If a field is not required and it is blank or is binarydependant, skip validation.
                     //Example of binary dependant fields would be the hour/min/meridian dropdowns in a date time combo widget, which require further processing than a blank check
                     if(!validate[formname][i][requiredIndex] && trim(form[validate[formname][i][nameIndex]].value) == '' && (typeof(validate[formname][i][jstypeIndex]) != 'undefined' && validate[formname][i][jstypeIndex]  != 'binarydep'))
@@ -919,7 +930,6 @@ function validate_form(formname, startsWith){
 
 					if(validate[formname][i][requiredIndex]
 						&& !isFieldTypeExceptFromEmptyCheck(validate[formname][i][typeIndex])
-						&& !isFieldHidden(form[validate[formname][i][nameIndex]], validate[formname][i][typeIndex])
 					){
 						if(typeof form[validate[formname][i][nameIndex]] == 'undefined' || trim(form[validate[formname][i][nameIndex]].value) == ""){
 							add_error_style(formname, validate[formname][i][nameIndex], requiredTxt +' ' + validate[formname][i][msgIndex]);
@@ -1427,7 +1437,7 @@ function getXMLHTTPinstance() {
 
 	// IE Check supports ActiveX controls
 	if (userAgent.indexOf("msie") != -1 && userAgent.indexOf("mac") == -1 && userAgent.indexOf("opera") == -1) {
-		var version = navigator.appVersion.match(/MSIE (.\..)/)[1] ;
+		var version = navigator.appVersion.match(/MSIE (\d+\.\d+)/)[1] ;
 		if(version >= 5.5 ) {
 			try {
 				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
@@ -3142,7 +3152,7 @@ SUGAR.util = function () {
 					try {
 						if (typeof appendMode != 'undefined' && appendMode)
 						{
-							theDiv.innerHTML += data.responseText;
+							theDiv.insertAdjacentHTML('beforeend', data.responseText);
 						}
 						else
 						{
@@ -3666,8 +3676,17 @@ SUGAR.savedViews = function() {
 			SUGAR.tabChooser.movementCallback(document.getElementById('display_tabs_td').getElementsByTagName('select')[0]);
 
 			// This check is needed for the Activities module (Calls/Meetings/Tasks).
-			if (document.search_form.orderBy)
-				document.search_form.orderBy.options.value = SUGAR.savedViews.selectedOrderBy;
+            if (document.search_form.orderBy)
+            {
+                if (document.search_form.orderBy.length > 1 && document.search_form.orderBy[1].type == 'select-one')
+                {
+                    document.search_form.orderBy[1].options.value = SUGAR.savedViews.selectedOrderBy;
+                }
+                else
+                {
+                    document.search_form.orderBy.options.value = SUGAR.savedViews.selectedOrderBy;
+                }
+            }
 
 			// handle direction
 			if(SUGAR.savedViews.selectedSortOrder == 'DESC') document.getElementById('sort_order_desc_radio').checked = true;
@@ -3738,6 +3757,11 @@ SUGAR.searchForm = function() {
                          }
                      }
                  }
+                // Remove the previously selected div, so that only data from current div to be sent as form data to the server-side
+                if (document.getElementById(module + thepreviousView + '_search' + 'SearchForm'))
+                {
+                    document.getElementById(module + thepreviousView + '_search' + 'SearchForm').innerHTML = '';
+                }
 			}
 
 			// if tab is not cached
@@ -3808,15 +3832,21 @@ SUGAR.searchForm = function() {
 
                 if ( elemType == 'text' || elemType == 'textarea' || elemType == 'password' ) {
                     elem.value = '';
-                }
-                else if ( elemType == 'select' || elemType == 'select-one' || elemType == 'select-multiple' ) {
+                } else if (elemType == 'select-one') {
                     // We have, what I hope, is a select box, time to unselect all options
-                    var optionList = elem.options;
-
-                    if (optionList.length > 0) {
-                    	optionList[0].selected = "selected";
+                    var optionList = elem.options,
+                        selectedIndex = 0;
+                    for (var ii = 0; ii < optionList.length; ii++) {
+                        if (optionList[ii].value == '') {
+                            selectedIndex = ii;
+                            break;
+                        }
                     }
-
+                    if (optionList.length > 0) {
+                        optionList[selectedIndex].selected = "selected";
+                    }
+                } else if (elemType == 'select-multiple') {
+                    var optionList = elem.options;
                     for ( var ii = 0 ; ii < optionList.length ; ii++ ) {
                         optionList[ii].selected = false;
                     }
@@ -3851,8 +3881,21 @@ SUGAR.searchForm = function() {
                 }
             }
 
+            SUGAR.searchForm.clearBasicSearchOrderToDefault(form);
 			SUGAR.savedViews.clearColumns = true;
-		}
+		},
+        // This function sets sorting to default Sugar values after BasicSearch Clear button is pressed
+        clearBasicSearchOrderToDefault: function(form)
+        {
+            if(form.elements['searchFormTab']){
+                var formType = form.elements['searchFormTab'].value;
+                if (formType == 'basic_search')
+                {
+                    form.elements['orderBy'].value = 'DATE_ENTERED';
+                    form.elements['sortOrder'].value = 'DESC';
+                }
+            }
+        }
 	};
 }();
 // Code for the column/tab chooser used on homepage and in admin section
@@ -4860,11 +4903,13 @@ setEmailPasswordDisplay: function(id, exists, formName) {
 	pwd = document.getElementById(id);
 	if(!pwd || !link) return;
 	if(exists) {
+            pwd.disabled = true;
     	pwd.style.display = 'none';
     	link.style.display = '';
         if(typeof(formName) != 'undefined')
             removeFromValidate(formName, id);
 	} else {
+            pwd.disabled = false;
     	pwd.style.display = '';
     	link.style.display = 'none';
 	}
@@ -4874,6 +4919,7 @@ setEmailPasswordEdit: function(id) {
 	link = document.getElementById(id+'_link');
 	pwd = document.getElementById(id);
 	if(!pwd || !link) return;
+        pwd.disabled = false;
 	pwd.style.display = '';
 	link.style.display = 'none';
 },
@@ -4979,4 +5025,26 @@ SUGAR.MultiEnumAutoComplete.getMultiSelectValuesFromKeys = function(options_inde
         }
     }
     return final_arr;
+}
+
+function convertReportDateTimeToDB(dateValue, timeValue)
+{
+    var date_match = dateValue.match(date_reg_format);
+    var time_match = timeValue.match(/([0-9]{1,2})\:([0-9]{1,2})([ap]m)/);
+    if ( date_match != null && time_match != null) {
+        time_match[1] = parseInt(time_match[1]);
+        if (time_match[3] == 'pm') {
+            time_match[1] = time_match[1] + 12;
+            if (time_match[1] >= 24) {
+                time_match[1] = time_match[1] - 24;
+            }
+        } else if (time_match[3] == 'am' && time_match[1] == 12) {
+            time_match[1] = 0;
+        }
+        if (time_match[1] < 10) {
+            time_match[1] = '0' + time_match[1];
+        }
+        return date_match[date_reg_positions['Y']] + "-"+date_match[date_reg_positions['m']] + "-"+date_match[date_reg_positions['d']] + ' '+ time_match[1] + ':' + time_match[2] + ':00';
+    }
+    return '';
 }

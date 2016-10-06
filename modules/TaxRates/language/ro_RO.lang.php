@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Procentaj',
   'LBL_MODIFIED_ID' => 'Modificata de ID',
   'LBL_MODULE_NAME' => 'Ritmul taxelor',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rata Taxa',
   'LBL_MODULE_TITLE' => 'Ritmul taxelor: Acasa',
   'LBL_NAME' => 'Numele ratei de taxe:',
   'LBL_NEW_FORM_TITLE' => 'Niul ritm al taxelor',

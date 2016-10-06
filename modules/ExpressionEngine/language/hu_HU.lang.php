@@ -18,9 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_PREVIOUS' => 'Előző',
-  'LBL_NEXT' => 'Következő',
   'LBL_EXPAND' => 'Kibővít',
   'LBL_MODULE_NAME' => 'Kifejezés motor',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kifejezés motor',
+  'LBL_NEXT' => 'Következő',
+  'LBL_PREVIOUS' => 'Előző',
 );
 

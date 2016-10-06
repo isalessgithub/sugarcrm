@@ -218,6 +218,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Január',
     2 => 'Február',
     3 => 'Március',
@@ -286,6 +287,7 @@ $app_list_strings = array (
   ),
   'dom_int_bool' => 
   array (
+    0 => 'Nem',
     1 => 'Igen',
   ),
   'dom_mailbox_type' => 
@@ -337,6 +339,7 @@ $app_list_strings = array (
     -3 => '(GMT - 3) Buenos Aires',
     -2 => '(GMT - 2) Közép-atlanti',
     -1 => '(GMT - 1) Azori-szigetek',
+    0 => '(GMT)',
     1 => '(GMT + 1) Madrid',
     2 => '(GMT + 2) Athén',
     3 => '(GMT + 3) Moszkva',
@@ -364,6 +367,7 @@ $app_list_strings = array (
     -3 => '(GMT-3) Buenos Aires',
     -2 => '(GMT-2) Közép-atlanti',
     -1 => '(GMT-1) Azori-szigetek',
+    0 => '(GMT)',
     1 => '(GMT+1) Madrid',
     2 => '(GMT+2) Athén',
     3 => '(GMT+3) Moszkva',
@@ -391,6 +395,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0 => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -582,7 +587,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Kliensek',
     'Activities' => 'Tevékenységek',
-    'Bug Tracker' => 'Hibakövető',
+    'Bugs' => 'Hibák',
     'Calendar' => 'Naptár',
     'Calls' => 'Hívások',
     'Campaigns' => 'Kampányok',
@@ -639,6 +644,7 @@ $app_list_strings = array (
   ),
   'project_task_utilization_options' => 
   array (
+    0 => 'nincs',
     25 => '25',
     50 => '50',
     75 => '75',
@@ -809,6 +815,7 @@ $app_list_strings = array (
   ),
   'tselect_type_dom' => 
   array (
+    0 => '0 óra',
     14440 => '4 óra',
     28800 => '8 óra',
     43200 => '12 óra',

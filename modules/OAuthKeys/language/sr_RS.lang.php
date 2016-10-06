@@ -38,6 +38,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Ime korisnika koji je promenio',
   'LBL_MODIFIED_USER' => 'Promenio korisnik',
   'LBL_MODULE_NAME' => 'OAuth ključevi',
+  'LBL_MODULE_NAME_SINGULAR' => 'OAuth Ključ',
   'LBL_MODULE_TITLE' => 'OAuth ključevi',
   'LBL_NAME' => 'Ime potrošačkog ključa',
   'LBL_OAUTH_TYPE' => 'OAuth verzija',

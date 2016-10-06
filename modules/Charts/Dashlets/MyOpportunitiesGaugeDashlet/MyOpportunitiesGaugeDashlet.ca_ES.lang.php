@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -24,5 +24,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['MyOpportunitiesGaugeDashlet'] = array('LBL_TITLE'       => 'Les Meves Oportunitats Tancades',
                                                        'LBL_DESCRIPTION' => 'Gràfic d´Indicador d´Oportunitats',
                                                        'LBL_REFRESH'     => 'Actualitzar Gràfic');
-?> 
-

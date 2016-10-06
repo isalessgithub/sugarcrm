@@ -377,7 +377,17 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
             $list_field['linked_field_set']=$linked_field_set;
 
             $usage = empty($list_field['usage']) ? '' : $list_field['usage'];
-            if($usage != 'query_only')
+            if($usage == 'query_only' && !empty($list_field['force_query_only_display'])){
+                //if you are here you have column that is query only but needs to be displayed as blank.  This is helpful
+                //for collections such as Activities where you have a field in only one object and wish to show it in the subpanel list
+                $count++;
+                $widget_contents = '&nbsp;';
+                $this->xTemplate->assign('CLASS', "");
+                $this->xTemplate->assign('CELL_COUNT', $count);
+                $this->xTemplate->assign('CELL', $widget_contents);
+                $this->xTemplate->parse($xtemplateSection.".row.cell");
+
+            }else if($usage != 'query_only')
             {
                 $list_field['name']=$field_name;
 
@@ -461,6 +471,10 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
                             $button_contents[] = $_content;
                             unset($_content);
                         }
+                        else
+                        {
+                            $button_contents[] = '';
+                        }
                 	} else {
                			$count++;
                			$this->xTemplate->assign('CLASS', "");
@@ -478,23 +492,32 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
 
         // Make sure we have at least one button before rendering a column for
         // the action buttons in a list view. Relevant bugs: #51647 and #51640.
-        if(isset($button_contents[0])) {
+        if(!empty($button_contents))
+        {
+            $button_contents = array_filter($button_contents);
+            if (!empty($button_contents))
+            {
             // this is for inline buttons on listviews
             // bug#51275: smarty widget to help provide the action menu functionality as it is currently sprinkled throughout the app with html
-            require_once('include/Smarty/plugins/function.sugar_action_menu.php');
-            $tempid = create_guid();
-            $button_contents[0] = "<div style='display: inline' id='$tempid'>".$button_contents[0]."</div>";
-            $action_button = smarty_function_sugar_action_menu(array(
-                'id' => $tempid,
-                'buttons' => $button_contents,
-                'class' => 'clickMenu subpanel records fancymenu button',
-                'flat' => false //assign flat value as false to display dropdown menu at any other preferences.
-            ), $this->xTemplate);
+                require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+                $tempid = create_guid();
+                array_unshift($button_contents, "<div style='display: inline' id='$tempid'>" . array_shift($button_contents) . "</div>");
+                $action_button = smarty_function_sugar_action_menu(array(
+                    'id' => $tempid,
+                    'buttons' => $button_contents,
+                    'class' => 'clickMenu subpanel records fancymenu button',
+                    'flat' => false //assign flat value as false to display dropdown menu at any other preferences.
+                ), $this->xTemplate);
+            }
+            else
+            {
+                $action_button = '';
+            }
             $this->xTemplate->assign('CLASS', "inlineButtons");
             $this->xTemplate->assign('CELL_COUNT', ++$count);
             //Bug#51275 for beta3 pre_script is not required any more
             $this->xTemplate->assign('CELL', $action_button);
-            $this->xTemplate->parse($xtemplateSection.".row.cell");
+            $this->xTemplate->parse($xtemplateSection . ".row.cell");
         }
 
 
@@ -1042,7 +1065,7 @@ function getUserVariable($localVarName, $varName) {
             $response =& $this->response;
             echo 'cached';
         }else{
-            $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1,-1,$this->query_limit,$subpanel_def);
+            $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1, $this->records_per_page,$this->query_limit,$subpanel_def);
             $this->response =& $response;
         }
         $list = $response['list'];
@@ -1396,7 +1419,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
                     if(!empty($this->response)){
                         $response =& $this->response;
                     }else{
-                        $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1,-1,$this->query_limit,$subpanel_def);
+                        $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1, $this->records_per_page,$this->query_limit,$subpanel_def);
                         $this->response = $response;
                     }
                     //if query is present, then pass it in as parameter
@@ -1701,7 +1724,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
         foreach($subpanel_def->get_list_fields() as $column_name=>$widget_args)
         {
             $usage = empty($widget_args['usage']) ? '' : $widget_args['usage'];
-            if($usage != 'query_only')
+            if($usage != 'query_only' || !empty($widget_args['force_query_only_display']))
             {
                 $imgArrow = '';
 

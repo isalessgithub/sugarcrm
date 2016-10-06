@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Modificat Per Id:',
   'LBL_MODULE_ID' => 'Comptes',
   'LBL_MODULE_NAME' => 'Comptes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Compte',
   'LBL_MODULE_TITLE' => 'Comptes: Inici',
   'LBL_NAME' => 'Nom:',
   'LBL_NEW_FORM_TITLE' => 'Nou Compte',

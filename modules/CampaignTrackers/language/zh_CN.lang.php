@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => '编号',
   'LBL_MODIFIED_USER_ID' => '修改人编号',
   'LBL_MODULE_NAME' => '市场活动追踪',
+  'LBL_MODULE_NAME_SINGULAR' => '活动跟踪',
   'LBL_OPTOUT' => '退出',
   'LBL_SUBPANEL_TRACKER_KEY' => '索引',
   'LBL_SUBPANEL_TRACKER_NAME' => '名称',

@@ -78,6 +78,8 @@ class SugarApplication
 		$server_unique_key = (isset($sugar_config['unique_key'])) ? $sugar_config['unique_key'] : '';
 		$allowed_actions = (!empty($this->controller->allowed_actions)) ? $this->controller->allowed_actions : $allowed_actions = array('Authenticate', 'Login', 'LoggedOut');
 
+        $authController = new AuthenticationController();
+        
 		if(($user_unique_key != $server_unique_key) && (!in_array($this->controller->action, $allowed_actions)) &&
 		   (!isset($_SESSION['login_error'])))
 		   {
@@ -96,13 +98,16 @@ class SugarApplication
 			        $this->controller->action = 'index';
 			    elseif($this->isModifyAction())
 			        $this->controller->action = 'index';
+                elseif ($this->controller->action == $this->default_action 
+                    && $this->controller->module == $this->default_module) {
+                    $this->controller->action = '';
+                    $this->controller->module = '';
+                }
 			}
 
-			header('Location: index.php?action=Login&module=Users'.$this->createLoginVars());
-			exit ();
+            $authController->authController->redirectToLogin($this);
 		}
 
-		$authController = new AuthenticationController((!empty($GLOBALS['sugar_config']['authenticationClass'])? $GLOBALS['sugar_config']['authenticationClass'] : 'SugarAuthenticate'));
 		$GLOBALS['current_user'] = new User();
 		if(isset($_SESSION['authenticated_user_id'])){
 			// set in modules/Users/Authenticate.php
@@ -502,7 +507,7 @@ class SugarApplication
      * The list of the actions excepted from referer checks by default
      * @var array
      */
-	protected $whiteListActions = array('index', 'ListView', 'DetailView', 'EditView', 'oauth', 'authorize', 'Authenticate', 'Login', 'SupportPortal');
+	protected $whiteListActions = array('index', 'ListView', 'DetailView', 'EditView', 'oauth', 'authorize', 'Authenticate', 'Login', 'SupportPortal', 'GoogleOauth2Redirect');
 
 	/**
 	 *
@@ -583,8 +588,13 @@ class SugarApplication
 			}
 		}
 
+        //set the default module to either Home or specified default
+        $default_module = !empty($GLOBALS['sugar_config']['default_module'])?  $GLOBALS['sugar_config']['default_module'] : 'Home';
+
+        //set session expired message if login module and action are set to a non login default
+        //AND session id in cookie is set but super global session array is empty
 		if ( isset($_REQUEST['login_module']) && isset($_REQUEST['login_action'])
-		        && !($_REQUEST['login_module'] == 'Home' && $_REQUEST['login_action'] == 'index') ) {
+		        && !($_REQUEST['login_module'] == $default_module && $_REQUEST['login_action'] == 'index') ) {
             if ( !is_null($sessionIdCookie) && empty($_SESSION) ) {
                 self::setCookie('loginErrorMessage', 'LBL_SESSION_EXPIRED', time()+30, '/');
             }

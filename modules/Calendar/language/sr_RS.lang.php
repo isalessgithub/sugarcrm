@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nije definisan za ovaj pogled',
+  'ERR_YEAR_BETWEEN' => 'Izvinjavamo se, kalendar ne može da obradi vaš zahtev<br>Godina mora biti između 1970 i 2037',
   'LBL_AM' => 'Pre podne',
   'LBL_APPLY_BUTTON' => 'Primeni',
   'LBL_ASSIGNED_TO_NAME' => 'Dodeljeno',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Učitavanje ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalendar',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalendar',
   'LBL_MODULE_TITLE' => 'Kalendar',
   'LBL_MONTH' => 'Mesec',
   'LBL_NEXT_DAY' => 'Sledeći dan',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Pošalji pozvanima',
   'LBL_SETTINGS' => 'Podešavanja',
   'LBL_SETTINGS_CALLS_SHOW' => 'Prikaži pozive:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Prikaži završene sastanke, pozive i zadatke',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Prikaži vremenske slotove u pogledima dana i nedelje:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Prikaži zadatke:',
   'LBL_SETTINGS_TIME_ENDS' => 'Vreme završetka:',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mar',
@@ -140,6 +145,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Januar',
     2 => 'Februar',
     3 => 'Mart',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Ned',
     1 => 'Pon',
     2 => 'Uto',
     3 => 'Sre',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Nedelja',
     1 => 'Ponedeljak',
     2 => 'Utorak',
     3 => 'Sreda',

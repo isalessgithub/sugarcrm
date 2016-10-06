@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Pentru a continua cu importul pe fişierul selectat, faceţi clic pe OK. Pentru a încărca un fişier nou, faceţi clic pe Încercaţi din nou',
   'LBL_MISSING_HEADER_ROW' => 'Randul Antet nu a fost gasit',
   'LBL_MODULE_NAME' => 'Importa',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importa',
   'LBL_MY_PUBLISHED_HELP' => 'O cartografiere a publicat o combinaţie specifică utilizată anterior de o sursă de date specifice şi un set de câmpuri de baze de date pentru a mapa câmpurile din fişierul de import.',
   'LBL_MY_SAVED' => 'Trecerile mele pe harta salvate',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Utilizaţi această opţiune pentru a aplica  setările de import prestabilite, inclusiv proprietăţi de import, mapările, precum şi orice setări duplicat de verificare, la acest import.<br /><br />Faceţi clic pe Publicare pentru a face de cartografiere la dispoziţia altor utilizatori.<br />Faceţi clic pe Un-Publicare pentru a face de cartografiere disponibile pentru alţi utilizatori.<br />Faceţi clic pe Ştergere pentru a şterge o mapare pentru toţi utilizatorii.',

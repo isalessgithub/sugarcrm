@@ -113,6 +113,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'Módosító azonosítója',
   'LBL_MODIFIED_USER' => 'Módosította',
   'LBL_MODULE_NAME' => 'Dokumentumok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Dokumentum',
   'LBL_MODULE_TITLE' => 'Dokumentumok: Főoldal',
   'LBL_NAME' => 'Dokumentum neve',
   'LBL_NEW_FORM_TITLE' => 'Új dokumentum',

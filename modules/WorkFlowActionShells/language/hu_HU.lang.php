@@ -45,6 +45,7 @@ $mod_strings = array (
   'LBL_LIST_STATEMENT' => 'Esemény leírása:',
   'LBL_LIST_TYPE' => 'Típus:',
   'LBL_MODULE_NAME' => 'Feladatok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Művelet',
   'LBL_MODULE_TITLE' => 'Munkafolyamat indítás: Főoldal',
   'LBL_NAME' => 'Indító neve:',
   'LBL_NEW_FORM_TITLE' => 'Új indító létrehozása',

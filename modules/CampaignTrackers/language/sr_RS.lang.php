@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_MODIFIED_USER_ID' => 'ID broj korisnika koji je izvršio izmene:',
   'LBL_MODULE_NAME' => 'Sistem za praćenje kampanje',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pratilac Kampanje',
   'LBL_OPTOUT' => 'Odjava',
   'LBL_SUBPANEL_TRACKER_KEY' => 'Ključ',
   'LBL_SUBPANEL_TRACKER_NAME' => 'Naziv',

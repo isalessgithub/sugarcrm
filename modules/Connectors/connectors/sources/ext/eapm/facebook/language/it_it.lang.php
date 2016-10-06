@@ -23,4 +23,3 @@ $connector_strings = array (
   'oauth_consumer_secret' => 'App Secret',
 );
 
-

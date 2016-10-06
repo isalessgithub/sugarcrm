@@ -1,5 +1,7 @@
-<?PHP
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,19 +15,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-/*********************************************************************************
- * pl_pl.lang.php for SugarCRM 6.5.0
- * Translator: eVolpe
- * All Rights Reserved.
- * Any bugs report welcome: support@evolpe.pl
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-$mod_strings = array(
-'LBL_MODULE_NAME'=>'Edytor etykiet',
-'LBL_KEY'=>'Klucz:',
-'LBL_VALUE'=>'Wartość:',
+$mod_strings = array (
+  'LBL_KEY' => 'Klucz:',
+  'LBL_MODULE_NAME' => 'Edytor etykiet',
+  'LBL_MODULE_NAME_SINGULAR' => 'Edytor etykiet',
+  'LBL_VALUE' => 'Wartość:',
 );
 
-?>

@@ -1,113 +1,81 @@
 <?php
-// created: 2013-04-03 01:08:01
-$viewdefs['Opportunities']['DetailView'] = array (
-  'templateMeta' => 
-  array (
-    'form' => 
-    array (
-      'buttons' => 
-      array (
-        0 => 'EDIT',
-        1 => 'DUPLICATE',
-        2 => 'DELETE',
-        3 => 'FIND_DUPLICATES',
-      ),
-    ),
-    'maxColumns' => '2',
-    'widths' => 
-    array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      'DEFAULT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      'LBL_PANEL_ASSIGNMENT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'default' => 
-    array (
-      0 => 
-      array (
-        0 => 'name',
-        1 => 'account_name',
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'amount',
-          'label' => '{$MOD.LBL_AMOUNT} ({$CURRENCY})',
+/*********************************************************************************
+ * By installing or using this file, you are confirming on behalf of the entity
+ * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
+ * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
+ * http://www.sugarcrm.com/master-subscription-agreement
+ *
+ * If Company is not bound by the MSA, then by installing or using this file
+ * you are agreeing unconditionally that Company will be bound by the MSA and
+ * certifying that you have authority to bind Company accordingly.
+ *
+ * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
+ ********************************************************************************/
+
+$viewdefs['Opportunities']['DetailView'] = array(
+    'templateMeta' => array('form' => array('buttons'=>array('EDIT', 'DUPLICATE', 'DELETE', 'FIND_DUPLICATES',)),
+       						'maxColumns' => '2', 
+                            'widths' => array(
+                                            array('label' => '10', 'field' => '30'), 
+                                            array('label' => '10', 'field' => '30')
+                                            ),
+                           ),
+    'panels' => array(                           
+        'default' => array (
+	        array('name',
+	              'account_name', 
+	        ),
+	        
+	        array(
+	        	array('name'=>'amount','label' => '{$MOD.LBL_AMOUNT} ({$CURRENCY})'),
+	        	'date_closed',
+	        ),
+	         
+	        array (
+	        	'sales_stage',
+	        	'opportunity_type'
+	        ),
+	        
+	        array(
+	        	'probability',
+	        	'lead_source',
+	            
+	            
+	        ),  
+	        
+	        array (
+	        	'next_step',
+	            'campaign_name'
+	        ),
+	        array(
+	            array(
+	               'name'=>'description',
+	               'nl2br'=>true
+	            )
+	        )
         ),
-        1 => 'date_closed',
-      ),
-      2 => 
-      array (
-        0 => 'sales_stage',
-        1 => 'opportunity_type',
-      ),
-      3 => 
-      array (
-        0 => 'probability',
-        1 => 'lead_source',
-      ),
-      4 => 
-      array (
-        0 => 'next_step',
-        1 => 'campaign_name',
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'nl2br' => true,
+        
+        'LBL_PANEL_ASSIGNMENT' => array(
+	        array (
+	          array (
+	            'name' => 'assigned_user_name',
+	            'label' => 'LBL_ASSIGNED_TO',
+	          ),
+	          array (
+	            'name' => 'date_modified',
+	            'label' => 'LBL_DATE_MODIFIED',
+	            'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
+	          ),
+	        ),
+	        array (
+			  'team_name', 
+	          array (
+	            'name' => 'date_entered',
+	            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
+	          ),
+	        ),	     
         ),
-      ),
-    ),
-    'LBL_PANEL_ASSIGNMENT' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-          'label' => 'LBL_ASSIGNED_TO',
-        ),
-        1 => 
-        array (
-          'name' => 'date_modified',
-          'label' => 'LBL_DATE_MODIFIED',
-          'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
-        ),
-      ),
-      1 => 
-      array (
-        0 => 'team_name',
-        1 => 
-        array (
-          'name' => 'date_entered',
-          'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
-        ),
-      ),
-    ),
-  ),
+
+    )
 );
+?>

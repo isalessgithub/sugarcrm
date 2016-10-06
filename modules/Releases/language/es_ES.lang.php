@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Orden:',
   'LBL_LIST_STATUS' => 'Estado',
   'LBL_MODULE_NAME' => 'Publicaciones',
+  'LBL_MODULE_NAME_SINGULAR' => 'Publicación',
   'LBL_MODULE_TITLE' => 'Publicaciones: Inicio',
   'LBL_NAME' => 'Versión de la Publicación:',
   'LBL_NEW_FORM_TITLE' => 'Nueva Publicación',

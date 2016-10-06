@@ -148,7 +148,6 @@ class vCard
         $start = false;
 
         $bean = BeanFactory::getBean($module);
-        $bean->title = 'imported';
         $bean->assigned_user_id = $current_user->id;
         $email_suffix = 1;
 
@@ -158,7 +157,15 @@ class vCard
 
             // check the encoding and change it if needed
             $locale = new Localization();
-            $encoding = $locale->detectCharset($line);
+            $encoding = false;
+            //detect charset
+            if (preg_match("/CHARSET=([A-Z]+([A-Z0-9]-?)*):/", $line, $matches)) {
+                //found charset hint in vcard
+                $encoding = $matches[1];
+            } else {
+                //use locale to detect charset automatically
+                $encoding = $locale->detectCharset($line);
+            }
             if ( $encoding != $GLOBALS['sugar_config']['default_charset'] )
             {
                 $line = $locale->translateCharset($line, $encoding);
@@ -382,9 +389,9 @@ class vCard
 
         foreach ($bean->get_import_required_fields() as $key => $value)
         {
-            $GLOBALS['log']->error("Cannot import vCard, required field is not set: $key");
             if (empty($bean->$key))
             {
+                $GLOBALS['log']->error("Cannot import vCard, required field is not set: $key");
                 return;
             }
         }

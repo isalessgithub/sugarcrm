@@ -18,13 +18,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'FAQ',
-  'LBL_MODULE_TITLE' => 'FAQ: ホーム',
-  'LBL_BACK_TO_TOP' => 'トップに戻る',
-  'LBL_SUCCESSFUL_QUERY' => '成功',
-  'LBL_ERROR_QUERY' => 'エラー',
   'ERR_FAQ_LIST_RETRIEVE' => 'エラー: FAQコンテンツを検索できません。',
   'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'SOAPを再接続中...',
+  'LBL_BACK_TO_TOP' => 'トップに戻る',
+  'LBL_ERROR_QUERY' => 'エラー',
   'LBL_FAQ_EMPTY' => 'ナレッジベースにFAQタグが付けられた記事がありません。',
+  'LBL_MODULE_NAME' => 'FAQ',
+  'LBL_MODULE_NAME_SINGULAR' => 'FAQ',
+  'LBL_MODULE_TITLE' => 'FAQ: ホーム',
+  'LBL_SUCCESSFUL_QUERY' => '成功',
 );
 

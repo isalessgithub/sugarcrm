@@ -33,8 +33,9 @@ EOQ;
 			$this->addAlert($app_strings['ERROR_JS_ALERT_SYSTEM_CLASS'], $app_strings['ERROR_JS_ALERT_TIMEOUT_TITLE'],'', $app_strings['ERROR_JS_ALERT_TIMEOUT_MSG_2'], (session_cache_expire()) * 60 , 'index.php');
 		}
 	}
-	function addAlert($type, $name, $subtitle, $description, $countdown, $redirect=''){
-		$this->script .= 'addAlert("' . addslashes($type) .'", "' . addslashes($name). '","' . addslashes($subtitle). '", "'. addslashes(str_replace(array("\r", "\n"), array('','<br>'),$description)) . '",' . $countdown . ',"'.addslashes($redirect).'")' . "\n";
+	function addAlert($type, $name, $subtitle, $description, $countdown, $redirect='')
+    {
+        $this->script .= 'addAlert(' . json_encode($type) .',' . json_encode($name). ',' . json_encode($subtitle). ','. json_encode(str_replace(array("\r", "\n"), array('','<br>'),$description)) . ',' . $countdown . ','.json_encode($redirect).')' . "\n";
 	}
 
     function getScript()
@@ -42,7 +43,23 @@ EOQ;
         return "<script>secondsSinceLoad = 0; alertList = [];" . $this->script . "</script>";
     }
 
-	function addActivities(){
+    /*
+     * To return the name of parent bean.
+     * @param $parentType string parent type
+     * @param $parentId string parent id
+     */
+    function getRelatedName($parentType, $parentId)
+    {
+        if (!empty($parentType) && !empty($parentId)) {
+            $parentBean = BeanFactory::getBean($parentType, $parentId);
+            if (($parentBean instanceof SugarBean) && isset($parentBean->name)) {
+                return $parentBean->name;
+            }
+        }
+        return '';
+    }
+
+    function addActivities(){
 		global $app_list_strings, $timedate, $current_user, $app_strings;
 		global $sugar_config;
 
@@ -66,7 +83,7 @@ EOQ;
 		}
 
 		// Prep Meetings Query
-    	$selectMeetings = "SELECT meetings.id, name,reminder_time, $desc,location, date_start, assigned_user_id
+        $selectMeetings = "SELECT meetings.id, name,reminder_time, $desc,location, status, parent_type, parent_id, date_start, assigned_user_id
 			FROM meetings LEFT JOIN meetings_users ON meetings.id = meetings_users.meeting_id
 			WHERE meetings_users.user_id ='".$current_user->id."'
 				AND meetings_users.accept_status != 'decline'
@@ -107,29 +124,20 @@ EOQ;
 			////	END MEETING INTEGRATION
 			///////////////////////////////////////////////////////////////////
 
-			// sanitize topic
-			$meetingName = '';
-			if(!empty($row['name'])) {
-				$meetingName = from_html($row['name']);
-				// addAlert() uses double-quotes to pass to popup - escape double-quotes
-				//$meetingName = str_replace('"', '\"', $meetingName);
-			}
+			$meetingName = from_html($row['name']);
+			$desc1 = from_html($row['description']);
+			$location = from_html($row['location']);
 
-			// sanitize agenda
-			$desc1 = '';
-			if(!empty($row['description'])) {
-				$desc1 = from_html($row['description']);
-				// addAlert() uses double-quotes to pass to popup - escape double-quotes
-				//$desc = str_replace('"', '\"', $desc);
-			}
+            $relatedToMeeting = $this->getRelatedName($row['parent_type'], $row['parent_id']);
 
 			$description = empty($desc1) ? '' : $app_strings['MSG_JS_ALERT_MTG_REMINDER_AGENDA'].$desc1."\n";
+            $description = $description  ."\n" .$app_strings['MSG_JS_ALERT_MTG_REMINDER_STATUS'] . $row['status'] ."\n". $app_strings['MSG_JS_ALERT_MTG_REMINDER_RELATED_TO']. $relatedToMeeting;
 
 
 			// standard functionality
 			$this->addAlert($app_strings['MSG_JS_ALERT_MTG_REMINDER_MEETING'], $meetingName,
 				$app_strings['MSG_JS_ALERT_MTG_REMINDER_TIME'].$timedate->to_display_date_time($db->fromConvert($row['date_start'], 'datetime')),
-				$app_strings['MSG_JS_ALERT_MTG_REMINDER_LOC'].$row['location'].
+				$app_strings['MSG_JS_ALERT_MTG_REMINDER_LOC'].$location.
 				$description.
 				$instructions,
 				$timeStart - strtotime($alertDateTimeNow),
@@ -139,7 +147,7 @@ EOQ;
 
 		// Prep Calls Query
 		$selectCalls = "
-				SELECT calls.id, name, reminder_time, $desc, date_start
+				SELECT calls.id, name, reminder_time, $desc, date_start, status, parent_type, parent_id
 				FROM calls LEFT JOIN calls_users ON calls.id = calls_users.call_id
 				WHERE calls_users.user_id ='".$current_user->id."'
 				    AND calls_users.accept_status != 'decline'
@@ -158,26 +166,12 @@ EOQ;
 			$timeStart -= $timeRemind;
 			$row['description'] = (isset($row['description'])) ? $row['description'] : '';
 
+            $relatedToCall = $this->getRelatedName($row['parent_type'], $row['parent_id']);
 
-			$this->addAlert($app_strings['MSG_JS_ALERT_MTG_REMINDER_CALL'], $row['name'], $app_strings['MSG_JS_ALERT_MTG_REMINDER_TIME'].$timedate->to_display_date_time($db->fromConvert($row['date_start'], 'datetime')) , $app_strings['MSG_JS_ALERT_MTG_REMINDER_DESC'].$row['description']. $app_strings['MSG_JS_ALERT_MTG_REMINDER_CALL_MSG'] , $timeStart - strtotime($alertDateTimeNow), 'index.php?action=DetailView&module=Calls&record=' . $row['id']);
-		}
-		// Prep Appointments Query
-		$selectAppointments = "
-				SELECT atc_appointments.id, name, reminder_time, $desc, appointment_date
-				FROM atc_appointments
-				WHERE appointment_date >= $dateTimeNow AND atc_appointments.reminder_time != -1";
-
-		$result = $db->query($selectAppointments);
-
-		while($row = $db->fetchByAssoc($result)){
-			// need to concatenate since GMT times can bridge two local days
-			$timeStart = strtotime($db->fromConvert($row['appointment_date'], 'appointment_date'));
-			$timeRemind = $row['reminder_time'];
-			$timeStart -= $timeRemind;
-			$row['description'] = (isset($row['description'])) ? $row['description'] : '';
+            $callDescription = $row['description'] ."\n" .$app_strings['MSG_JS_ALERT_MTG_REMINDER_STATUS'] . $row['status'] ."\n". $app_strings['MSG_JS_ALERT_MTG_REMINDER_RELATED_TO']. $relatedToCall;
 
 
-			$this->addAlert($app_strings['MSG_JS_ALERT_MTG_REMINDER_APPOINTMENT'], $row['name'], $app_strings['MSG_JS_ALERT_MTG_REMINDER_TIME'].$timedate->to_display_date_time($db->fromConvert($row['appointment_date'], 'datetime')) , $app_strings['MSG_JS_ALERT_MTG_REMINDER_DESC'].$row['description']. $app_strings['MSG_JS_ALERT_MTG_REMINDER_APPOINTMENT_MSG'] , $timeStart - strtotime($alertDateTimeNow), 'index.php?action=DetailView&module=ATC_Appointments&record=' . $row['id']);
+            $this->addAlert($app_strings['MSG_JS_ALERT_MTG_REMINDER_CALL'], $row['name'], $app_strings['MSG_JS_ALERT_MTG_REMINDER_TIME'].$timedate->to_display_date_time($db->fromConvert($row['date_start'], 'datetime')) , $app_strings['MSG_JS_ALERT_MTG_REMINDER_DESC'].$callDescription. $app_strings['MSG_JS_ALERT_MTG_REMINDER_CALL_MSG'] , $timeStart - strtotime($alertDateTimeNow), 'index.php?action=DetailView&module=Calls&record=' . $row['id']);
 		}
 	}
 

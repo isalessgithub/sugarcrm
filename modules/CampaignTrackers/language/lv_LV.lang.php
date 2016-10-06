@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => 'Id',
   'LBL_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_MODULE_NAME' => 'Kampaņas sekotāji',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampaņas sekotājs',
   'LBL_OPTOUT' => 'Neobligāta āreja saite',
   'LBL_SUBPANEL_TRACKER_KEY' => 'Atslēga',
   'LBL_SUBPANEL_TRACKER_NAME' => 'Nosaukums',

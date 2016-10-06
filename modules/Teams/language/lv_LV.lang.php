@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Vadītājs',
   'LBL_LIST_TITLE' => 'Amats',
   'LBL_MODULE_NAME' => 'Darba grupas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Darba grupa',
   'LBL_MODULE_TITLE' => 'Darba grupas',
   'LBL_NAME' => 'Darba grupas nosaukums:',
   'LBL_NAME_2' => 'Darba grupas nosaukums(2):',

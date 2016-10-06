@@ -47,6 +47,6 @@ $mod_strings = array (
   'LBL_DELETED' => 'נמחק',
 );
   
-?>
+
 
 

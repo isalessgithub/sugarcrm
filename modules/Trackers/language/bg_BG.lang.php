@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ENABLE' => 'Разрешен',
   'LBL_MODULE_NAME' => 'Маркери',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tracker',
   'LBL_MODULE_NAME_TITLE' => 'Маркери',
   'LBL_TRACKER_DESC' => 'Потребителска активност',
   'LBL_TRACKER_HELP' => 'Проследява активността на потребителите за достъпнати обекти и съхранени записи',

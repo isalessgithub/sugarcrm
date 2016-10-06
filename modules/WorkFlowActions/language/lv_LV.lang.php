@@ -45,6 +45,7 @@ $mod_strings = array (
   'LBL_LIST_TRIGGER_TYPE' => 'Veids:',
   'LBL_MODIFY_FIELD' => 'Modificēt lauku:',
   'LBL_MODULE_NAME' => 'Trigeri',
+  'LBL_MODULE_NAME_SINGULAR' => 'Trigeris',
   'LBL_MODULE_TITLE' => 'Darbplūsmu Trigeri: Sākums',
   'LBL_NAME' => 'Trigera nosaukums:',
   'LBL_NEW_BUTTON_KEY' => 'N',

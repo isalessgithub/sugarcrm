@@ -300,9 +300,6 @@ function process_action_new_rel($focus, $action_array){
 					$target_module->bridge_object = & $focus;
 				}
 			//END BRIDGING FOR MEETINGS/CALLS
-            if($focus->object_name == $target_module->object_name){
-			     $target_module->processed = true;
-            }
 
 			$target_module->in_workflow = true;
 			$target_module->not_use_rel_in_req = true;
@@ -433,10 +430,12 @@ function get_expiry_date($stamp_type, $time_interval, $user_format = false, $is_
 	    $date = $timedate->getNow();
 
 	}
-	if(empty($date)) {
-	    $GLOBALS['log']->fatal("Invalid date [$value] for type $stamp_type");
-	    return '';
-	}
+
+    if (empty($date)) {
+        $GLOBALS['log']->warn("Invalid date [$value] for type $stamp_type");
+        return '';
+    }
+
 	$date->modify("+$time_interval seconds");
     return $timedate->asDbType($date, $stamp_type);
 	//end function get_expiry_date

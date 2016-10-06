@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,28 +15,24 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
 	
+
 $mod_strings = array (
-  'LBL_LIST_NAME' => 'Namn',
-  'LBL_ID' => 'ID',
+  'LBL_CREATED' => 'Skapat Av',
+  'LBL_CREATED_ID' => 'Skapat Av',
+  'LBL_CREATED_USER' => 'Skapat Av Användare',
   'LBL_DATE_ENTERED' => 'Skapat Datum',
   'LBL_DATE_MODIFIED' => 'Modifierat Datum',
+  'LBL_DELETED' => 'Raderad',
+  'LBL_DESCRIPTION' => 'Beskrivning',
+  'LBL_EDIT_BUTTON' => 'Redigera',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Namn',
   'LBL_MODIFIED' => 'Modifierat Av',
   'LBL_MODIFIED_ID' => 'Modifierat Av Id',
   'LBL_MODIFIED_NAME' => 'Modifierat Av Namn',
-  'LBL_CREATED' => 'Skapat Av',
-  'LBL_CREATED_ID' => 'Skapat Av',
-  'LBL_DESCRIPTION' => 'Beskrivning',
-  'LBL_DELETED' => 'Raderad',
-  'LBL_NAME' => 'Namn',
-  'LBL_CREATED_USER' => 'Skapat Av Användare',
   'LBL_MODIFIED_USER' => 'Modifierat Av Användare',
+  'LBL_NAME' => 'Namn',
+  'LBL_REMOVE' => 'Ta bort',
 );
 

@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Version',
   'LBL_MODULELOADER' => 'Module verwalten',
   'LBL_MODULE_NAME' => 'Upgrade Werkzeug',
+  'LBL_MODULE_NAME_SINGULAR' => 'Upgrade Werkzeug',
   'LBL_PATCHUPGRADES' => 'Ptach Upgrades',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Preflight Check im Gang',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Die Dateien werden kopiert',

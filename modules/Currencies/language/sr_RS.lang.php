@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Dodaj',
+  'LBL_ADMIN_ONLY' => 'Samo za administratore',
   'LBL_BELOW_MIN' => 'Stopa konverzije mora da bude iznad 0',
   'LBL_CREATED_BY' => 'Autor',
   'LBL_CURRENCY' => 'Valuta',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Spoji',
   'LBL_MERGE_TXT' => 'Molim, izaberite valute koje želite da mapirate u izabranu valutu. Ovo će obrisati sve valute koje su označene i ponovo primeniti za svaku vrednost povezanu sa njima izabranu valutu.',
   'LBL_MODULE_NAME' => 'Valute',
+  'LBL_MODULE_NAME_SINGULAR' => 'Valuta',
   'LBL_UPDATE' => 'Ažuriraj',
   'LBL_US_DOLLAR' => 'Američki dolar',
   'LNK_NEW_ACCOUNT' => 'Nova kompanija',

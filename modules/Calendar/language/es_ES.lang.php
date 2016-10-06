@@ -17,7 +17,64 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => 'Ene',
+    2 => 'Feb',
+    3 => 'Mar',
+    4 => 'Abr',
+    5 => 'May',
+    6 => 'Jun',
+    7 => 'Jul',
+    8 => 'Ago',
+    9 => 'Sep',
+    10 => 'Oct',
+    11 => 'Nov',
+    12 => 'Dic',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Enero',
+    2 => 'Febrero',
+    3 => 'Marzo',
+    4 => 'Abril',
+    5 => 'Mayo',
+    6 => 'Junio',
+    7 => 'Julio',
+    8 => 'Agosto',
+    9 => 'Septiembre',
+    10 => 'Octubre',
+    11 => 'Noviembre',
+    12 => 'Diciembre',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => 'Dom',
+    1 => 'Lun',
+    2 => 'Mar',
+    3 => 'Mie',
+    4 => 'Jue',
+    5 => 'Vie',
+    6 => 'Sab',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => 'Domingo',
+    1 => 'Lunes',
+    2 => 'Martes',
+    3 => 'Miércoles',
+    4 => 'Jueves',
+    5 => 'Viernes',
+    6 => 'Sábado',
+  ),
+);
+
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: no definido para esta vista',
+  'ERR_YEAR_BETWEEN' => 'Lo siento, el calendario no dispone del año solicitado<br />Es necesario que el año sea entre 1970 y 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Aplicar',
   'LBL_ASSIGNED_TO_NAME' => 'Asignado a',
@@ -55,6 +112,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Cargando ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Calendario',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendario',
   'LBL_MODULE_TITLE' => 'Calendario',
   'LBL_MONTH' => 'Mes',
   'LBL_NEXT_DAY' => 'Día Siguiente',
@@ -64,7 +122,7 @@ $mod_strings = array (
   'LBL_NEXT_YEAR' => 'Año Siguiente',
   'LBL_NO' => 'No',
   'LBL_NO_USER' => 'Ningún resultado para el campo: Asignado a',
-  'LBL_PARTICIPANTS_TAB' => 'Invitados',
+  'LBL_PARTICIPANTS_TAB' => 'Asistentes',
   'LBL_PM' => 'PM',
   'LBL_PREVIOUS_DAY' => 'Día Anterior',
   'LBL_PREVIOUS_MONTH' => 'Mes Anterior',
@@ -88,10 +146,11 @@ $mod_strings = array (
   'LBL_SAVING' => 'Guardando...',
   'LBL_SCHEDULED' => 'Planificado',
   'LBL_SELECT_USERS' => 'Seleccione usuarios para la visualización de calendario',
-  'LBL_SENDING_INVITES' => 'Enviando invitaciones .....',
-  'LBL_SEND_INVITES' => 'Enviar Invitaciones',
+  'LBL_SENDING_INVITES' => 'Guardando y Enviando invitaciones .....',
+  'LBL_SEND_INVITES' => 'Guardar y Enviar Invitaciones',
   'LBL_SETTINGS' => 'Configuración',
   'LBL_SETTINGS_CALLS_SHOW' => 'Ver llamadas:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Mostrar Reuniones, Llamadas y Tareas Hechas:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Mostrar espacios de tiempo en vistas de día y semana:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Ver tareas:',
   'LBL_SETTINGS_TIME_ENDS' => 'Hora fin:',
@@ -120,56 +179,5 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Ver Tareas',
   'LNK_VIEW_CALENDAR' => 'Hoy',
   'NOTICE_DURATION_TIME' => 'El tiempo de duración debe ser mayor que 0',
-);
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Ene',
-    2 => 'Feb',
-    3 => 'Mar',
-    4 => 'Abr',
-    5 => 'May',
-    6 => 'Jun',
-    7 => 'Jul',
-    8 => 'Ago',
-    9 => 'Sep',
-    10 => 'Oct',
-    11 => 'Nov',
-    12 => 'Dic',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Enero',
-    2 => 'Febrero',
-    3 => 'Marzo',
-    4 => 'Abril',
-    5 => 'Mayo',
-    6 => 'Junio',
-    7 => 'Julio',
-    8 => 'Agosto',
-    9 => 'Septiembre',
-    10 => 'Octubre',
-    11 => 'Noviembre',
-    12 => 'Diciembre',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Lun',
-    2 => 'Mar',
-    3 => 'Mie',
-    4 => 'Jue',
-    5 => 'Vie',
-    6 => 'Sab',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Lunes',
-    2 => 'Martes',
-    3 => 'Miércoles',
-    4 => 'Jueves',
-    5 => 'Viernes',
-    6 => 'Sábado',
-  ),
 );
 

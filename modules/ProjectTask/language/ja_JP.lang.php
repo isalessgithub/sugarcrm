@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'マイルストーン:',
   'LBL_MODIFIED_USER_ID' => '更新者ID:',
   'LBL_MODULE_NAME' => 'プロジェクトタスク',
+  'LBL_MODULE_NAME_SINGULAR' => 'プロジェクトタスク',
   'LBL_MODULE_TITLE' => 'プロジェクトタスク: ホーム',
   'LBL_NAME' => '名前:',
   'LBL_NEW_FORM_TITLE' => 'プロジェクトタスク作成',

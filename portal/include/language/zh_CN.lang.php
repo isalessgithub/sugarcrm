@@ -218,6 +218,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => '一月',
     2 => '二月',
     3 => '三月',
@@ -286,6 +287,7 @@ $app_list_strings = array (
   ),
   'dom_int_bool' => 
   array (
+    0 => '无',
     1 => '是',
   ),
   'dom_mailbox_type' => 
@@ -337,6 +339,7 @@ $app_list_strings = array (
     -3 => '(GMT–3) 布宜诺斯艾利斯',
     -2 => '(GMT-2) 中大西洋',
     -1 => '(GMT-1) 亚述尔群岛',
+    0 => '（格林威治标准时间）',
     1 => '(GMT+1) 马德里',
     2 => '(GMT+2) 雅典',
     3 => '(GMT+3) 莫斯科',
@@ -364,6 +367,7 @@ $app_list_strings = array (
     -3 => '(GMT-3) 布宜诺斯艾利斯',
     -2 => '(GMT-2) 中大西洋',
     -1 => '(GMT-1) 亚述尔群岛',
+    0 => '（格林威治标准时间）',
     1 => '(GMT+1) 马德里',
     2 => '(GMT+2) 雅典',
     3 => '(GMT+3)莫斯科',
@@ -391,6 +395,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0 => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -582,7 +587,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => '客户',
     'Activities' => '活动',
-    'Bug Tracker' => '缺陷追踪',
+    'Bugs' => '缺陷追踪',
     'Calendar' => '日程安排',
     'Calls' => '电话',
     'Campaigns' => '市场活动',
@@ -639,6 +644,7 @@ $app_list_strings = array (
   ),
   'project_task_utilization_options' => 
   array (
+    0 => '无',
     25 => '25',
     50 => '50',
     75 => '75',
@@ -809,6 +815,7 @@ $app_list_strings = array (
   ),
   'tselect_type_dom' => 
   array (
+    0 => '0 小时',
     14440 => '4小时',
     28800 => '8小时',
     43200 => '12小时',

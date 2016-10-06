@@ -25,6 +25,7 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Modificēts',
   'LBL_DELETED' => 'Dzēsts',
   'LBL_DESCRIPTION' => 'Apraksts',
+  'LBL_EDIT_BUTTON' => 'Rediģēt',
   'LBL_ID' => 'ID',
   'LBL_LIST_NAME' => 'Nosaukums',
   'LBL_MODIFIED' => 'Modificēja',
@@ -32,5 +33,6 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Modificēja',
   'LBL_MODIFIED_USER' => 'Modificēja lietotājs',
   'LBL_NAME' => 'Nosaukums',
+  'LBL_REMOVE' => 'Noņemt',
 );
 

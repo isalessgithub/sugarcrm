@@ -21,12 +21,12 @@ $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'アップロードされたファイルはこのSugarのエディション (Community Edition、Professional Edition、またはEnterprise Edition) と互換性がありません。',
   'ERROR_LICENSE_EXPIRED' => 'エラー: ライセンスは',
-  'ERROR_LICENSE_EXPIRED2' => "日前に切れています。管理メニューの<a href='index.php?action=LicenseSettings&module=Administration'>ライセンス管理</a>に進み、新しいライセンスキーを入力してください。ライセンスが切れてから30日以内に新たなライセンスキーを入力しない場合、アプリケーションにログインできなくなります。",
+  'ERROR_LICENSE_EXPIRED2' => '日前に切れています。管理メニューの<a href=&#39;index.php?action=LicenseSettings&module=Administration&#39;>ライセンス管理</a>に進み、新しいライセンスキーを入力してください。ライセンスが切れてから30日以内に新たなライセンスキーを入力しない場合、アプリケーションにログインできなくなります。',
   'ERROR_MANIFEST_TYPE' => 'マニフェストファイルはパッケージタイプを指定する必要があります。',
   'ERROR_PACKAGE_TYPE' => 'マニフェストファイルは不明のパッケージタイプを指定しています。',
   'ERROR_SPRITE_SUPPORT' => '現在GDライブラリが見つかりませんため、CSSスプライト機能を利用することはできません。',
   'ERROR_VALIDATION_EXPIRED' => 'エラー: 認証キーは',
-  'ERROR_VALIDATION_EXPIRED2' => "日前に切れています。管理メニューの<a href='index.php?action=LicenseSettings&module=Administration'>ライセンス管理</a>に進み、新しい認証キーを入力してください。認証が切れてから30日以内に新たな認証キーを入力しない場合、アプリケーションにログインできなくなります。",
+  'ERROR_VALIDATION_EXPIRED2' => '日前に切れています。管理メニューの<a href=&#39;index.php?action=LicenseSettings&module=Administration&#39;>ライセンス管理</a>に進み、新しい認証キーを入力してください。認証が切れてから30日以内に新たな認証キーを入力しない場合、アプリケーションにログインできなくなります。',
   'ERROR_VERSION_INCOMPATIBLE' => 'アップロードされたファイルはこのSugarのバージョンと互換性がありません。',
   'ERR_ADMIN_PASS_BLANK' => 'SugarCRM管理者のパスワードを入力してください。',
   'ERR_ADMIN_USER_NAME_BLANK' => 'SugarCRM管理者のユーザIDを入力してください。',
@@ -50,6 +50,8 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => '正しいディレクトリではありません',
   'ERR_CHECKSYS_NOT_WRITABLE' => '警告: 書き込み不可',
   'ERR_CHECKSYS_NO_SESSIONS' => 'セッション変数の読み込みと書き込みに失敗しました。インストールを続けることができません。',
+  'ERR_CHECKSYS_PCRE' => 'PCREライブラリが見つかりません:SugerCRMは正規表現パターンマッチングのPerlスタイルを処理するためにPCREライブラリが必要です。',
+  'ERR_CHECKSYS_PCRE_VER' => 'PCREライブラリバージョン:SugerCRMは正規表現パターンマッチングのPerlスタイルを処理するためにPCREライブラリ7.0以上が必要です。',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'このPHPのバージョンはサポートされません。SugarCRMがサポートするバージョンをインストールしてください。リリースノートなどのサポートプラットフォーム一覧を参照ください。このPHPのバージョンは',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'このPHPのバージョンはサポート外です:  ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Safe ModeがOnになっています（php.iniでOffに設定することができます）',
@@ -74,7 +76,7 @@ $mod_strings = array (
   'ERR_DB_LOGIN_FAILURE_MSSQL' => '入力されたデータベースのユーザ名もしくはパスワードが不正なため、データベースへの接続が確立できませんでした。正しいユーザ名とパスワードを入力してください。',
   'ERR_DB_LOGIN_FAILURE_MYSQL' => '入力されたデータベースのユーザ名もしくはパスワードが不正なため、データベースへの接続が確立できませんでした。正しいユーザ名とパスワードを入力してください。',
   'ERR_DB_LOGIN_FAILURE_OCI8' => '入力されたデータベースのユーザ名もしくはパスワードが不正なため、データベースへの接続が確立できませんでした。正しいユーザ名とパスワードを入力してください。',
-  'ERR_DB_MSSQL_DB_NAME_INVALID' => '「\'」、「"」、「*」、「/」、「\\」、「?」、「:」、「<」、「>」、「-」を含むデータベース名を使用することはできません。',
+  'ERR_DB_MSSQL_DB_NAME_INVALID' => '「&#39;」、「"」、「*」、「/」、「\\」、「?」、「:」、「<」、「>」、「-」を含むデータベース名を使用することはできません。',
   'ERR_DB_MYSQL_DB_NAME_INVALID' => '「\\」、「/」、「.」を含むデータベース名を使用することはできません。',
   'ERR_DB_MYSQL_VERSION' => 'このMySQLのバージョン(%s) はSugarではサポートしていません。Sugarアプリケーションと適合するバージョンをインストールする必要があります。サポートされているMySQLのバージョンを確認するにはリリースノートのサポートプラットフォームを参照してください。',
   'ERR_DB_NAME' => 'データベース名は空欄にできません。',
@@ -154,6 +156,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQLバージョン',
   'LBL_CHECKSYS_NOT_AVAILABLE' => '問題あり',
   'LBL_CHECKSYS_OK' => 'OK',
+  'LBL_CHECKSYS_PCRE' => 'PCREライブラリ',
   'LBL_CHECKSYS_PHPVER' => 'PHPバージョン',
   'LBL_CHECKSYS_PHP_INI' => '<b>備考: </b> PHP設定ファイル (php.ini) は以下の場所にあります:',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -174,7 +177,7 @@ $mod_strings = array (
   'LBL_COLLATION' => 'コレーション設定',
   'LBL_CONFIRM_BE_CREATED' => '作成',
   'LBL_CONFIRM_DB_TYPE' => 'データベースタイプ',
-  'LBL_CONFIRM_DIRECTIONS' => '以下の設定を確認してください。設定を変更したい場合は「戻る」をクリックしてください。「次へ」をクリックしますとインストールが開始されます。',
+  'LBL_CONFIRM_DIRECTIONS' => '以下の設定を確認してください。設定を変更したい場合は「戻る」をクリックしてください。「次へ」をクリックすることでインストールが開始されます。',
   'LBL_CONFIRM_LICENSE_TITLE' => 'ライセンス情報',
   'LBL_CONFIRM_NOT' => '未',
   'LBL_CONFIRM_TITLE' => '設定の確認',
@@ -291,7 +294,7 @@ $mod_strings = array (
   'LBL_LOCALE_CURR_SYMBOL' => '通貨シンボル',
   'LBL_LOCALE_DATEF' => '日付フォーマット',
   'LBL_LOCALE_DESC' => '指定されたロケールの設定はSugarインスタンス全般に反映されます。',
-  'LBL_LOCALE_EXPORT' => 'インポート/エクスポートのキャラクタセット<br> <i>（電子メール、csv、vCard、PDF、インポート、エクスポート）</i>',
+  'LBL_LOCALE_EXPORT' => 'インポート/エクスポートのキャラクタセット<br> <i>（Eメール、csv、vCard、PDF、インポート、エクスポート）</i>',
   'LBL_LOCALE_EXPORT_DELIMITER' => 'CSV用区切り記号',
   'LBL_LOCALE_EXPORT_TITLE' => 'インポート/エクスポート設定',
   'LBL_LOCALE_LANG' => '言語',
@@ -336,8 +339,10 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'ジョブキューの削除',
   'LBL_OOTB_IE' => 'インバウンドメール受信箱の確認',
   'LBL_OOTB_PRUNE' => '月初め（1日）に不要なデータベースのデータを削除',
+  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'ファイルシステムからドキュメントの削除',
   'LBL_OOTB_REPORTS' => 'レポート生成の時間指定タスクを実行',
-  'LBL_OOTB_SEND_EMAIL_REMINDERS' => '電子メールリマインダ通知を送信',
+  'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Eメールリマインダ通知を送信',
+  'LBL_OOTB_SUGARFEEDS' => 'SugarFeedテーブルを選定する',
   'LBL_OOTB_TRACKER' => '月始め（1日）に不要なトラッカーテーブルを削除',
   'LBL_OOTB_WORKFLOW' => 'ワークフロータスク実行',
   'LBL_OPP' => '商談データセット',
@@ -396,7 +401,7 @@ $mod_strings = array (
   'LBL_REG_TITLE' => '登録',
   'LBL_REQUIRED' => '* 必須項目',
   'LBL_REQUIRED_SYSTEM_NAME' => 'Sugarインスタンスのシステム名を入力してください。',
-  'LBL_SESSION_ERR_DESCRIPTION' => "SugarCRMは重要情報を格納するためにWebサーバに接続中にPHPセッションを利用しています。ご利用のPHPではセッション情報が正しく設定されていません。<br><br>最も一般的な設定の問題は、<b>「session.save_path」</b>が正しいディレクトリを指していないことです。<br><br>以下のphp.iniで<a target=_new href='http://us2.php.net/manual/en/ref.session.php'>PHP configuration</a>を見直してください。",
+  'LBL_SESSION_ERR_DESCRIPTION' => 'SugarCRMは重要情報を格納するためにWebサーバに接続中にPHPセッションを利用しています。ご利用のPHPではセッション情報が正しく設定されていません。<br><br>最も一般的な設定の問題は、<b>「session.save_path」</b>が正しいディレクトリを指していないことです。<br><br>以下のphp.iniで<a target=_new href=&#39;http://us2.php.net/manual/en/ref.session.php&#39;>PHP configuration</a>を見直してください。',
   'LBL_SESSION_ERR_TITLE' => 'PHPセッション設定エラー',
   'LBL_SHOW_PASS' => 'パスワードの表示',
   'LBL_SITECFG_ADMIN_Name' => 'SugarCRM管理者のユーザ名',
@@ -460,39 +465,26 @@ $mod_strings = array (
   'LBL_YES_MULTI' => 'はい - マルチバイトデータあり',
   'LBL_YOUR_PHP_VERSION' => '(ご利用システムのPHPのバージョンは',
   'REQUIRED_INSTALLTYPE' => '通常またはカスタムインストール',
-  'REQUIRED_INSTALLTYPE_MSG' => 'システムチェックの完了後、通常またはカスタムインストールのどちらかを選択できます。<br><br><br /><b>通常</b>および<b>カスタム</b>インストールのどちらにおいても下記が必要になります:<br><br /><ul><li> <b>Sugarデータを保持するデータベースのタイプ</b> <ul><li>サポートされるデータベースタイプ: MySQL、MS SQL Server、Oracle、DB2<br><br></li></ul></li><li> <b>データベースが動作するサーバのマシン（ホスト）名</b><br /><ul><li>データベースがWebサーバと同じローカルコンピュータにある場合はこの値は<i>localhost</i>となります。<br><br></li></ul></li><li><b>Sugarデータを保持するデータベース名</b><br /><ul><li> 既にデータベースが存在する場合、それと同じ名前を入力すると、インストール中にデータベースは削除されます。</li><li> 既存のデータベースが存在しない場合、インストール処理中にこの名前で新たなデータベースが作成されます。<br><br></li><br /></ul></li><li><b>データベース管理者のユーザ名とパスワード</b> <ul><li>データベース管理者はテーブルやユーザを作成し、データベースへの書き込みができる必要があります。</li><li>データベースがローカルコンピュータになく、あなたがデータベースで管理者でない場合は、データベース管理者に連絡してください。<br><br></li></ul></li><li> <b>Sugarデータベースのみに使われるデータベースユーザ</b><ul><li> ユーザはデータベース管理者でも構いませんし、既存のデータベースの管理者ユーザでも構いません。</li><li> 新しいユーザを作成する場合は、新しいユーザ名とパスワードを入力してください。インストール処理中に作成されます。</li><br /></ul></ul><p><br /><b>カスタム</b>セットアップの場合、追加で下記が必要になります:<br><br /> <ul><br /> <li> <b>インストール後にSugarインスタンスにアクセスするためのURL </b>このURLはWebサーバのマシン名もしくはIPアドレスになります。<br><br></li><li> [オプション] <b>セッションディレクトリのパス</b>共有サーバなどでセッション情報を脆弱性から守るため、セッション情報を特別なディレクトリに格納する場合に指定します。<br><br></li><li> [オプション] <b>カスタムログディレクトリのパス</b>デフォルトのログディレクトリを上書きする場合に指定します。<br><br></li><li> [オプション] <b>アプリケーションID</b>自動生成されるアプリケーションIDを上書きしたい場合に指定します。このIDは当インスタンスを他と区別するために用いられます。<br><br></li><li>このロケールで一般的に用いられる<b>キャラクタセット</b><br><br></li></ul>より詳細な情報についてはインストールガイドをご覧ください。',
+  'REQUIRED_INSTALLTYPE_MSG' => 'システムチェックの完了後、通常またはカスタムインストールのどちらかを選択できます。<br><br><br /><b>通常</b>および<b>カスタム</b>インストールのどちらにおいても以下が必要になります:<br><br /><ul><li> <b>Sugarデータを保持するデータベースのタイプ</b> <ul><li>サポートされるデータベースタイプ: MySQL、MS SQL Server、Oracle、DB2<br><br></li></ul></li><li> <b>データベースが動作するサーバのマシン（ホスト）名</b><br /><ul><li>データベースがWebサーバと同じローカルコンピュータにある場合はこの値は<i>localhost</i>となります。<br><br></li></ul></li><li><b>Sugarデータを保持するデータベース名</b><br /><ul><li> 既にデータベースが存在する場合、それと同じ名前を入力すると、インストール中にデータベースは削除されます。</li><li> 既存のデータベースが存在しない場合、インストール処理中にこの名前で新たなデータベースが作成されます。<br><br></li><br /></ul></li><li><b>データベース管理者のユーザ名とパスワード</b> <ul><li>データベース管理者はテーブルやユーザを作成し、データベースへの書き込みができる必要があります。</li><li>データベースがローカルコンピュータになく、あなたがデータベースで管理者でない場合は、データベース管理者に連絡してください。<br><br></li></ul></li><li> <b>Sugarデータベースのみに使われるデータベースユーザ</b><ul><li> ユーザはデータベース管理者でも構いませんし、既存のデータベースの管理者ユーザでも構いません。</li><li> 新しいユーザを作成する場合は、新しいユーザ名とパスワードを入力してください。インストール処理中に作成されます。</li><br /></ul></ul><p><br /><b>カスタム</b>セットアップの場合、追加で以下が必要になります:<br><br /> <ul><br /> <li> <b>インストール後にSugarインスタンスにアクセスするためのURL </b>このURLはWebサーバのマシン名もしくはIPアドレスになります。<br><br></li><li> [オプション] <b>セッションディレクトリのパス</b>共有サーバなどでセッション情報を脆弱性から守るため、セッション情報を特別なディレクトリに格納する場合に指定します。<br><br></li><li> [オプション] <b>カスタムログディレクトリのパス</b>デフォルトのログディレクトリを上書きする場合に指定します。<br><br></li><li> [オプション] <b>アプリケーションID</b>自動生成されるアプリケーションIDを上書きしたい場合に指定します。このIDは当インスタンスを他と区別するために用いられます。<br><br></li><li>このロケールで一般的に用いられる<b>キャラクタセット</b><br><br></li></ul>より詳細な情報についてはインストールガイドをご覧ください。',
   'REQUIRED_SYS_CHK' => '初期のシステムチェック',
   'REQUIRED_SYS_CHK_MSG' => 'インストールを開始すると、システムはSugarCRMファイルが存在するWebサーバ上でチェックを開始し、システムが適切に構成され必要なコンポーネントがインストールされていることを確認します。<br><br><br />システムは以下をチェックします:<br><ul><li><b>PHPバージョン</b> - アプリケーションがサポートするPHPバージョンが必要です。</li><li><b>セッション変数</b> - 正常に動作する必要があります。</li><li> <b>MB Strings</b> - エクステンションがインストールされている必要があります。</li><li> <b>データベースサポート</b> - MySQL、SQL Server、Oracle、DB2のいずれかが必要です。</li><li> <b>Config.php</b> - このファイルが存在し、書き込みが可能である必要があります。</li><li>以下のディレクトリまたはファイルが書き込み可である必要があります。:<b><ul><li>/custom</li><li>/cache</li><li>/modules</li><li>/upload</b></li></ul></li></ul>チェックでエラーが表示された場合、次には進めず、チェックが完了しなかったというエラーメッセージが表示されます。必要な修復をした後、再度チェックをすることで次に進むことができます。<br><br><br />システムチェックのエラーについてはインストールガイドを参照ください。<br>',
   'REQUIRED_SYS_COMP' => '必要なシステムコンポーネント',
-  'REQUIRED_SYS_COMP_MSG' => '開始する前に下記の必要なコンポーネントについて正しいバージョンがインストールされているか確認してください:<br><ul><li> データベース/データベース管理システム（例: MySQL、SQL Server、Oracle、DB2）</li><li> Webサーバ（例: Apache、IIS）</li></ul>サポート対象のバージョンについてはリリースノートのサポートプラットフォーム一覧を参照ください。<br>',
+  'REQUIRED_SYS_COMP_MSG' => '開始する前に以下の必要なコンポーネントについて正しいバージョンがインストールされているか確認してください:<br><ul><li> データベース/データベース管理システム（例: MySQL、SQL Server、Oracle、DB2）</li><li> Webサーバ（例: Apache、IIS）</li></ul>サポート対象のバージョンについてはリリースノートのサポートプラットフォーム一覧を参照ください。<br>',
   'advanced_password_forgot_password_email' => 
   array (
-    'body' => '<div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width="550" align=\"\&quot;\&quot;center\&quot;\&quot;\"><tbody><tr><td colspan=\"2\"><p>あなたは、$contact_user_pwd_last_changed にパスワードのリセットを依頼しました。</p><p>下記のリンクをクリックしてパスワードをリセットしてください:</p><p> $contact_user_link_guid </p>  </td>         </tr><tr><td colspan=\"2\"></td>         </tr> </tbody></table> </div>',
+    'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>あなたは、$contact_user_pwd_last_changed にパスワードのリセットを依頼しました。</p><p>以下のリンクをクリックしてパスワードをリセットしてください:</p><p> $contact_user_link_guid </p>  </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
     'description' => 'このテンプレートは、ユーザのアカウントパスワードをリセットするためのリンクを送信する際に用います。',
     'name' => 'パスワードのリセットのお知らせ',
     'subject' => 'アカウントパスワードのリセット',
-    'txt_body' => 
-'
-あなたは、$contact_user_pwd_last_changed にパスワードのリセットを依頼しました。
-
-下記のリンクをクリックしてパスワードをリセットしてください:
-
-$contact_user_link_guid',
+    'txt_body' => 'あなたは、$contact_user_pwd_last_changed にパスワードのリセットを依頼しました。<br /><br />以下のリンクをクリックしてパスワードをリセットしてください:<br /><br />$contact_user_link_guid',
   ),
   'advanced_password_new_account_email' => 
   array (
-    'body' => '<div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width="550" align=\"\&quot;\&quot;center\&quot;\&quot;\"><tbody><tr><td colspan=\"2\"><p>アカウント名と一時パスワードは次の通りです:</p><p>ユーザ名 : $contact_user_user_name </p><p>パスワード : $contact_user_user_hash </p><br><p>$config_site_url</p><br><p>上記のパスワードを用いてログインした後、任意のパスワードに変更してください。</p></td></tr><tr><td colspan=\"2\"></td></tr> </tbody></table> </div>',
+    'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>アカウント名と一時パスワードは次の通りです:</p><p>ユーザ名 : $contact_user_user_name </p><p>パスワード : $contact_user_user_hash </p><br><p>$config_site_url</p><br><p>上記のパスワードを用いてログインした後、任意のパスワードに変更してください。</p></td></tr><tr><td colspan=\\"2\\"></td></tr> </tbody></table> </div>',
     'description' => 'このテンプレートはシステム管理者がユーザに新しいパスワードを送付する際に使用されます。',
     'name' => '自動生成したパスワードのお知らせ',
     'subject' => 'アカウント情報',
-    'txt_body' => 
-'
-アカウント名と一時パスワードは次の通りです:
-ユーザ名 : $contact_user_user_name
-パスワード : $contact_user_user_hash
-
-$config_site_url
-
-上記のパスワードを用いてログインした後、任意のパスワードに変更してください。',
+    'txt_body' => 'アカウント名と一時パスワードは次の通りです:<br />ユーザ名 : $contact_user_user_name<br />パスワード : $contact_user_user_hash<br /><br />$config_site_url<br /><br />上記のパスワードを用いてログインした後、任意のパスワードに変更してください。',
   ),
 );
+

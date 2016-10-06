@@ -90,6 +90,7 @@ $mod_strings = array (
   'LBL_MINIMIZE' => 'Minimumra csökkent',
   'LBL_MODULES' => 'Modulok',
   'LBL_MODULE_NAME' => 'Adminisztráció',
+  'LBL_MODULE_NAME_SINGULAR' => 'Adminisztráció',
   'LBL_MODULE_TITLE' => 'Stúdió',
   'LBL_NAME' => 'Név',
   'LBL_NEW_GROUP' => 'Új csoport',

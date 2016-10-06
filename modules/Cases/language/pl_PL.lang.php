@@ -18,7 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Musi być podany numer rekordu, aby usunąć to konto.',
+  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć to kontrahenta.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kontrahenci',
   'LBL_ACCOUNT_ID' => 'ID kontrahenta',
   'LBL_ACCOUNT_NAME' => 'Nazwa kontrahenta:',
@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'Plik załącznika',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historia',
   'LBL_INVITEE' => 'Kontakty',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Baza wiedzy',
   'LBL_LIST_ACCOUNT_NAME' => 'Nazwa kontrahenta',
   'LBL_LIST_ASSIGNED' => 'Przydzielono do',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielono do',
@@ -103,6 +104,6 @@ $mod_strings = array (
   'LNK_IMPORT_CASES' => 'Importuj zgłoszenia',
   'LNK_NEW_CASE' => 'Utwórz zgłoszenie',
   'NTC_REMOVE_FROM_BUG_CONFIRMATION' => 'Czy na pewno chcesz usunąć to zgłoszenie z błędu?',
-  'NTC_REMOVE_INVITEE' => 'Czy na pewno chcesz usunąć tę wizytówkę ze zgłoszenia?',
+  'NTC_REMOVE_INVITEE' => 'Czy na pewno chcesz usunąć ten kontakt ze zgłoszenia?',
 );
 

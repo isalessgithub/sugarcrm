@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ENABLE' => 'Tak',
   'LBL_MODULE_NAME' => 'Śledzenie',
+  'LBL_MODULE_NAME_SINGULAR' => 'Śledzenie',
   'LBL_MODULE_NAME_TITLE' => 'Śledzenie',
   'LBL_TRACKER_DESC' => 'Śledzenie akcji',
   'LBL_TRACKER_HELP' => 'Strona widoku śledzenia dla użytkownika(ów) (modułów i dostępu do plików) i zachowanych rekordów',

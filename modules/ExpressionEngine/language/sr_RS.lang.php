@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_EXPAND' => 'Proširi',
   'LBL_MODULE_NAME' => 'Mehanizam za izraze',
+  'LBL_MODULE_NAME_SINGULAR' => 'Mehanizam za izraze',
   'LBL_NEXT' => 'Sledeći',
   'LBL_PREVIOUS' => 'Prethodni',
 );

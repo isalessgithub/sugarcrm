@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 {
+    protected static $moduleSavePermissions = array();
 
     function SugarWidgetFieldName(&$layout_manager) {
         parent::SugarWidgetFieldVarchar($layout_manager);
@@ -53,17 +54,18 @@ class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 		$str = "<a target='_blank' href=\"index.php?action=DetailView&module=$module&record=$record\">";
 		$str .= $this->displayListPlain($layout_def);
 		$str .= "</a>";
-       global $beanList;
-       $tempBean = new $beanList[$module]();
-        //only present edit link if user has save access
-       if($tempBean->ACLAccess('Save')){
-            //if the module is employee or users, make an additional check to make sure current user is an admin
-            if(!(($module == 'Users' || $module == 'Employees') && !is_admin($current_user))){
-               $str .= " <a href=\"#\" data-record=$record data-module=$module class=\"quickEdit\"' ><img border=\"0\" src=\"themes/Sugar/images/edit_inline.png\"></a>";
+        // if the module is employee or users, make an additional check to make sure current user is an admin
+        if (($module != 'Users' && $module != 'Employees') || !is_admin($current_user)) {
+            if (!isset(self::$moduleSavePermissions[$module])) {
+                $tempBean = BeanFactory::getBean($module);
+                self::$moduleSavePermissions[$module] = $tempBean->ACLAccess('Save');
+            }
 
-             }
-       }
-
+            // only present edit link if user has save access
+            if (self::$moduleSavePermissions[$module]) {
+                $str .= " <a href=\"#\" data-record=$record data-module=$module class=\"quickEdit\"><img border=\"0\" src=\"themes/Sugar/images/edit_inline.png\"></a>";
+            }
+        }
 
 
         global $sugar_config;

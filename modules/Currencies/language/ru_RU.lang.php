@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Добавить',
+  'LBL_ADMIN_ONLY' => 'Только администраторы',
   'LBL_BELOW_MIN' => 'Курс обмена должен быть больше 0',
   'LBL_CREATED_BY' => 'Создано пользователем',
   'LBL_CURRENCY' => 'Валюта',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Объединить',
   'LBL_MERGE_TXT' => 'Пожалуйста, выберите валюты, которые Вы хотите отображать как текущие. В результате будут удалены все оставшиеся валюты, а все значения будут ассоциированы с выбранной валютой.',
   'LBL_MODULE_NAME' => 'Типы валют',
+  'LBL_MODULE_NAME_SINGULAR' => 'Валюта',
   'LBL_UPDATE' => 'Обновить',
   'LBL_US_DOLLAR' => 'Доллары США',
   'LNK_NEW_ACCOUNT' => 'Создать контрагента',

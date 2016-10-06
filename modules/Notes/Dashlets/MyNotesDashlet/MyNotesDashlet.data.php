@@ -61,14 +61,7 @@ $dashletData['MyNotesDashlet']['columns'] = array (
 											      0 => 'parent_id',
 											      1 => 'parent_type',
 											    ),
-											  ),  
-											  'doc_type' =>
-											  array(
-												'width' => '5%', 
-											  	'label' => 'LBL_DOC_TYPE',
-											    'link' => false,
-											 	'default' => true,
-											  ), 
+											  ),
 											  'filename' => 
 											  array (
 											    'width' => '20%',

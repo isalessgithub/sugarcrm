@@ -191,13 +191,18 @@ class DashletGeneric extends Dashlet {
                 $name = strtolower($name);
                 $currentSearchFields[$name] = array();
                 $widgetDef = $this->seedBean->field_defs[$name];
-                if($widgetDef['type'] == 'enum') $widgetDef['remove_blank'] = true; // remove the blank option for the dropdown
                 if($widgetDef['name'] == 'assigned_user_name') $widgetDef['name'] = 'assigned_user_id';
                 //bug 39170 - begin
                 if($widgetDef['name'] == 'created_by_name') $name = $widgetDef['name'] = 'created_by';
                 if($widgetDef['name'] == 'modified_by_name') $name = $widgetDef['name'] = 'modified_user_id';
                 //bug 39170 - end
-                $widgetDef['input_name0'] = empty($this->filters[$name]) ? '' : $this->filters[$name];
+                if($widgetDef['type']=='enum'){
+                   $filterNotSelected = array(); // we need to have some value otherwise '' or null values make -none- to be selected by default
+                }else{
+                   $filterNotSelected = '';
+                }
+                $widgetDef['input_name0'] = empty($this->filters[$name]) ? $filterNotSelected : $this->filters[$name];
+
                 $currentSearchFields[$name]['label'] = !empty($params['label']) ? translate($params['label'], $this->seedBean->module_dir) : translate($widgetDef['vname'], $this->seedBean->module_dir);
                 $currentSearchFields[$name]['input'] = $this->layoutManager->widgetDisplayInput($widgetDef, true, (empty($this->filters[$name]) ? '' : $this->filters[$name]));
             }
@@ -268,7 +273,7 @@ class DashletGeneric extends Dashlet {
                 $widgetClass = $this->layoutManager->getClassFromWidgetDef($widgetDef, true);
                 $widgetDef['table'] = $this->seedBean->table_name;
                 $widgetDef['table_alias'] = $this->seedBean->table_name;
-				if(!empty($widgetDef['source']) && $widgetDef['source'] == 'custom_fields'){
+                if(!empty($widgetDef['source']) && $widgetDef['source'] == 'custom_fields') {
                     $widgetDef['table'] = $this->seedBean->table_name."_cstm";
                     $widgetDef['table_alias'] = $widgetDef['table'];
                 }
@@ -292,6 +297,12 @@ class DashletGeneric extends Dashlet {
                             $widgetDef['column_key'] = $name;
                         }
                         // No break here, we want to run through the default handler
+                    case 'relate':
+                        if (isset($widgetDef['link']) && $this->seedBean->load_relationship($widgetDef['link'])) {
+                            $widgetDef['module'] = $this->seedBean->$widgetDef['link']->focus->module_name;
+                            $widgetDef['link'] = $this->seedBean->$widgetDef['link']->getRelationshipObject()->name;
+                        }
+                        // No break - run through the default handler
                     default:
                         $widgetDef['input_name0'] = $params;
                         if(is_array($params) && !empty($params)) { // handle array query

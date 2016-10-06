@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Para prosseguir com a importação do arquivo selecionado, clique em OK. Para carregar um novo arquivo, clique em Try Again',
   'LBL_MISSING_HEADER_ROW' => 'nenhuma linha de cabeçalho encontrada',
   'LBL_MODULE_NAME' => 'Importar',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importar',
   'LBL_MY_PUBLISHED_HELP' => 'Um mapeamento publicado especifica uma combinação anteriormente utilizada de uma fonte de dados específica e um conjunto de dados para mapear para os campos no Arquivo de importação.',
   'LBL_MY_SAVED' => 'As Minhas Fontes Gravadas:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Use esta opção para aplicar as configurações pré-definidas de importação, incluindo propriedades de importação, mapeamentos, e as configurações de verificação duplicadas, para esta importação.<br /><br />Clique em Publicar para fazer os mapeamentos disponíveis para outros usuários.<br />Clique Un-Publish para fazer o mapeamento indisponível para outros usuários.<br />Clique em Excluir para excluir um mapeamento de todos os usuários.',

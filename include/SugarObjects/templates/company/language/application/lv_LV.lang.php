@@ -22,10 +22,6 @@ $app_list_strings = array (
   $object_name.'_type_dom' => 
   array (
     '' => '',
-    'Analyst' => 'Konsultants',
-    'Competitor' => 'Konkurents',
-    'Customer' => 'Klients',
-    'Integrator' => 'Integrators',
     'Investor' => 'Investors',
     'Other' => 'Cits',
     'Partner' => 'Partneris',

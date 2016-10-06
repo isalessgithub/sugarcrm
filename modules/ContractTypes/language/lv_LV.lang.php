@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Secība sarakstā:',
   'LBL_MODIFIED_USER_ID' => 'Modificēja ID',
   'LBL_MODULE_NAME' => 'Līguma veids',
+  'LBL_MODULE_NAME_SINGULAR' => 'Līguma veids',
   'LBL_MODULE_TITLE' => 'Līgumu veidi',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_SEARCH_FORM_TITLE' => 'Līguma veida meklēšana',

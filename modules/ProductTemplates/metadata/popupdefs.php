@@ -20,7 +20,7 @@ $popupMeta = array (
     'orderBy' => 'product_templates.name',
     'whereClauses' => array (
         'name' => 'product_templates.name',
-        'category_name' => 'producttemplates.category_name',
+        'category_name' => 'product_templates.category_name',
     ),
     'searchInputs' => array (
         'name',

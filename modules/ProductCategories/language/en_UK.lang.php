@@ -19,6 +19,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the product type.',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned User',
+  'LBL_ASSIGNED_USER_NAME' => 'Assigned User',
   'LBL_CATEGORIES' => 'Categories',
   'LBL_CREATED_ID' => 'Created By Id',
   'LBL_DESCRIPTION' => 'Description:',
@@ -35,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Order:',
   'LBL_MODIFIED_ID' => 'Modified By Id',
   'LBL_MODULE_NAME' => 'Product Categories',
+  'LBL_MODULE_NAME_SINGULAR' => 'Product Category',
   'LBL_MODULE_TITLE' => 'Product Categories: Home',
   'LBL_NAME' => 'Product Category:',
   'LBL_PARENT_CATEGORY' => 'Parent Category',

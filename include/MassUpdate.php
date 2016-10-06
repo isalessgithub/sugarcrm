@@ -294,7 +294,7 @@ eoq;
 						}
 
 						//Call include/formbase.php, but do not call retrieve again
-						populateFromPost('', $newbean, true);
+                        populateFromPost('', $newbean, true, true);
 						$newbean->save_from_post = false;
 
 						if (!isset($_POST['parent_id'])) {
@@ -391,8 +391,12 @@ eoq;
 
 		foreach($this->sugarbean->field_defs as $field)
 		{
-			   if(ACLField::hasAccess($field['name'], $this->sugarbean->module_dir, $GLOBALS['current_user']->id, false)  < 2)
-			   {
+            if (ACLField::hasAccess(
+                $field['name'],
+                $this->sugarbean->module_dir,
+                $GLOBALS['current_user']->id,
+                true
+            ) < 2) {
 			   	  continue;
 			   }
 			 if(!isset($banned[$field['name']]) && (!isset($field['massupdate']) || !empty($field['massupdate'])))
@@ -1012,7 +1016,12 @@ EOQ;
 			   }
 			   $options = $new_options;
 			}
-			$options = get_select_options_with_id_separate_key($options, $options, '', true);;
+            $options = get_select_options_with_id_separate_key(
+                $options,
+                $options,
+                '__SugarMassUpdateClearField__',
+                true
+            );
 			$html .= '<select id="mass_'.$varname.'" name="'.$varname.'">'.$options.'</select>';
 		}else{
 			$html .= $options;
@@ -1267,7 +1276,7 @@ EOQ;
         }
 	/* bug 31271: using false to not add all bean fields since some beans - like SavedReports
 	   can have fields named 'module' etc. which may break the query */
-        $query = unserialize(base64_decode($query));
+        $query = sugar_unserialize(base64_decode($query));
         $searchForm->populateFromArray($query, null, true);
         $this->searchFields = $searchForm->searchFields;
         $where_clauses = $searchForm->generateSearchWhere(true, $module);
@@ -1324,7 +1333,14 @@ EOQ;
     {
         static $banned = array('date_modified'=>1, 'date_entered'=>1, 'created_by'=>1, 'modified_user_id'=>1, 'deleted'=>1,'modified_by_name'=>1,);
         foreach($this->sugarbean->field_defs as $field) {
-            if(ACLField::hasAccess($field['name'], $this->sugarbean->module_dir, $GLOBALS['current_user']->id, false)  < 2)continue;
+            if (ACLField::hasAccess(
+                $field['name'],
+                $this->sugarbean->module_dir,
+                $GLOBALS['current_user']->id,
+                true
+            ) < 2) {
+                continue;
+            }
             if(!isset($banned[$field['name']]) && (!isset($field['massupdate']) || !empty($field['massupdate']))){
                 if(isset($field['type']) && $field['type'] == 'relate' && isset($field['id_name']) && $field['id_name'] == 'assigned_user_id')
                     $field['type'] = 'assigned_user_name';

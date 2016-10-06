@@ -30,7 +30,6 @@ else {
     $app_strings = return_application_language($GLOBALS['current_language']);
     $mod_strings = return_module_language($GLOBALS['current_language'], 'ACL');
 	$file_type = strtolower($_REQUEST['type']);
-    $check_image = false;
     if(!isset($_REQUEST['isTempFile'])) {
 	    //Custom modules may have capitalizations anywhere in their names. We should check the passed in format first.
 		require('include/modules.php');
@@ -118,12 +117,11 @@ else {
             }
             $query .= "WHERE document_revisions.id = '" . $db->quote($_REQUEST['id']) ."'";
 		}  elseif($file_type == 'notes') {
-			$query = "SELECT filename name FROM notes ";
+            $query = "SELECT filename name, file_mime_type FROM notes ";
             if(!$focus->disable_row_level_security){
                 $focus->add_team_security_where_clause($query);
             }
 			$query .= "WHERE notes.id = '" . $db->quote($_REQUEST['id']) ."'";
-            $check_image = true;
 		} elseif( !isset($_REQUEST['isTempFile']) && !isset($_REQUEST['tempName'] ) && isset($_REQUEST['type']) && $file_type!='temp' ){ //make sure not email temp file.
 			$query = "SELECT filename name FROM ". $file_type ." ";
             if(!$focus->disable_row_level_security){
@@ -134,6 +132,7 @@ else {
 			$doQuery = false;
 		}
 
+        $mime_type = 'application/octet-stream';
 		if($doQuery && isset($query)) {
             $rs = $GLOBALS['db']->query($query);
 			$row = $GLOBALS['db']->fetchByAssoc($rs);
@@ -142,6 +141,12 @@ else {
 				die($app_strings['ERROR_NO_RECORD']);
 			}
 			$name = $row['name'];
+
+            // expose original mime type only for images, otherwise the content of arbitrary type
+            // may be interpreted/executed by browser
+            if (isset($row['file_mime_type']) && strpos($row['file_mime_type'], 'image/') === 0) {
+                $mime_type = $row['file_mime_type'];
+            }
 			$download_location = "upload://{$_REQUEST['id']}";
 		} else if(isset(  $_REQUEST['tempName'] ) && isset($_REQUEST['isTempFile']) ){
 			// downloading a temp file (email 2.0)
@@ -168,15 +173,7 @@ else {
 		        header("Content-Type: image/png");
 		    }
 		} else {
-
-            if ($check_image && ($mime = getimagesize($download_location)) !== false)
-            {
-                header("Content-Type: " . $mime['mime']);
-            }
-            else
-            {
-                header("Content-type: application/octet-stream");
-            }
+            header('Content-type: ' . $mime_type);
                header("Content-Disposition: attachment; filename=\"".$name."\";");
             
 		}
@@ -186,11 +183,10 @@ else {
 		header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 2592000));
 		set_time_limit(0);
 
-		@ob_end_clean();
-		ob_start();
+        // When output_buffering = On, ob_get_level() may return 1 even if ob_end_clean() returns false 
+        // This happens on some QA stacks. See Bug#64860
+        while (ob_get_level() && @ob_end_clean());
 
 	        readfile($download_location);
-		@ob_flush();
 	}
 }
-?>

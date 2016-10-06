@@ -150,6 +150,7 @@ class SugarSearchEngineFullIndexer extends SugarSearchEngineIndexerBase
         $job->data = $module;
         $job->name = "FTSConsumer {$module}";
         $job->target = "class::SugarSearchEngineFullIndexer";
+        $job->assigned_user_id = $GLOBALS['current_user']->id;
         $queue = new SugarJobQueue();
         $queue->submitJob($job);
 
@@ -279,9 +280,11 @@ class SugarSearchEngineFullIndexer extends SugarSearchEngineIndexerBase
      */
     public function run($module)
     {
-        if (SugarSearchEngineAbstractBase::isSearchEngineDown())
-        {
-            $GLOBALS['log']->fatal('FTS Server is down, postponing the job for full index.');
+        // Update server status for full indexer
+        $serverOK = $this->SSEngine->updateFTSServerStatus();
+
+        if (!$serverOK) {
+            $GLOBALS['log']->fatal('FTS Server is down, postponing the FullIndexer job.');
             $this->schedulerJob->postponeJob('FTS down', self::POSTPONE_JOB_TIME);
             return true;
         }

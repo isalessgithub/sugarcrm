@@ -279,6 +279,9 @@ else {
 $count = count($projectTasks);
 $id_map = array(); // $id_map[<old_task_id>] = <new_task_id>
 
+// convert associative array to indexed
+$projectTasks = array_values($projectTasks);
+
 // first loop, construct the id_map and assign new project_task_id
 for ($i = 0; $i < $count; $i++) {
     $id_map[$projectTasks[$i]->project_task_id] = $i + 1;

@@ -58,6 +58,7 @@ class SugarSearchEngineSyncIndexer extends SugarSearchEngineIndexerBase
         $job->requeue = 1;
         $job->name = "FTSSyncConsumer";
         $job->target = "class::SugarSearchEngineSyncIndexer";
+        $job->assigned_user_id = $GLOBALS['current_user']->id;
         $queue = new SugarJobQueue();
         $queue->submitJob($job);
 
@@ -131,52 +132,6 @@ class SugarSearchEngineSyncIndexer extends SugarSearchEngineIndexerBase
         return $count;
     }
 
-
-    /**
-     * Check FTS server status and update cache file and notification.
-     *
-     * @return boolean
-     */
-    protected function updateFTSServerStatus()
-    {
-        $GLOBALS['log']->debug('Going to check and update FTS Server status.');
-        // check FTS server status
-        $result = $this->SSEngine->getServerStatus();
-        if ($result['valid'])
-        {
-            $GLOBALS['log']->debug('FTS Server is OK.');
-            // server is ok
-            if (SugarSearchEngineAbstractBase::isSearchEngineDown())
-            {
-                $GLOBALS['log']->debug('Restoring FTS Server status.');
-
-                // mark fts server as up
-                SugarSearchEngineAbstractBase::markSearchEngineStatus(false);
-
-                // remove notification
-                $cfg = new Configurator();
-                $cfg->config['fts_disable_notification'] = false;
-                $cfg->handleOverride();
-            }
-
-            return true;
-        }
-        else
-        {
-            $GLOBALS['log']->info('FTS Server is down?');
-            // server is down
-            if (!SugarSearchEngineAbstractBase::isSearchEngineDown())
-            {
-                $GLOBALS['log']->fatal('Marking FTS Server as down.');
-                // fts is not marked as down, so mark it as down
-                SugarSearchEngineAbstractBase::markSearchEngineStatus(true);
-                $this->createJobQueueConsumer();
-            }
-
-            return false;
-        }
-    }
-
     /**
      * Main function that handles the indexing of a bean and is called by the job queue system.
      *
@@ -184,11 +139,11 @@ class SugarSearchEngineSyncIndexer extends SugarSearchEngineIndexerBase
      */
     public function run($data)
     {
-        $serverOK = $this->updateFTSServerStatus();
-        if (!$serverOK)
-        {
-            // server is down, postpone the job
-            $GLOBALS['log']->fatal('FTS Server is down, postponing the job.');
+        // Update server status for sync indexer
+        $serverOK = $this->SSEngine->updateFTSServerStatus();
+
+        if (!$serverOK) {
+            $GLOBALS['log']->fatal('FTS Server is down, postponing the SyncIndexer job.');
             $this->schedulerJob->postponeJob('FTS down', self::POSTPONE_JOB_TIME);
             return true;
         }

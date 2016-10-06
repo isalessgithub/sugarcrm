@@ -45,6 +45,7 @@ $mod_strings = array (
   'LBL_LIST_TRIGGER_TYPE' => 'Típus:',
   'LBL_MODIFY_FIELD' => 'Mező módosítása:',
   'LBL_MODULE_NAME' => 'Indítók',
+  'LBL_MODULE_NAME_SINGULAR' => 'Indító',
   'LBL_MODULE_TITLE' => 'Munkafolyamat indítók: Főoldal',
   'LBL_NAME' => 'Indító neve:',
   'LBL_NEW_BUTTON_KEY' => 'N',

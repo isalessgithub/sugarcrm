@@ -29,10 +29,15 @@ class RelatedFieldExpression extends GenericExpression
         $linkField = $params[0]->evaluate();
         $relfield = $params[1]->evaluate();
 
-        if (empty($linkField)) {
+        //return blank if the field is empty or a non-array type with the exception of string type
+        if ((empty($linkField)||!is_array($linkField)) && !is_string($linkField)) {
             return "";
         }
-        
+        //if LinkedField value is a string, then return the string value
+        if (is_string($linkField)) {
+            return $linkField;
+        }
+
         foreach($linkField as $id => $bean)
         {
             if (!empty($bean->field_defs[$relfield]) && isset($bean->$relfield))
@@ -45,7 +50,10 @@ class RelatedFieldExpression extends GenericExpression
                         $ret = $timedate->fromDbDate($bean->$relfield);
                         if (!$ret)
                             $ret = $timedate->fromUserDate($bean->$relfield);
-                        $ret->isDate = true;
+                        if($ret)
+                        {
+                            $ret->isDate = true;
+                        }
                         return $ret;
                     }
                     if ($bean->field_defs[$relfield]['type'] == "datetime")

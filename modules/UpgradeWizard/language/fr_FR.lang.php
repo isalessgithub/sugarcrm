@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Version',
   'LBL_MODULELOADER' => 'Chargeur de modules',
   'LBL_MODULE_NAME' => 'Assistant de mise à jour',
+  'LBL_MODULE_NAME_SINGULAR' => 'Assistant de mise à jour',
   'LBL_PATCHUPGRADES' => 'Patch de mise à jour',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Tests préliminaires en cours',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Copie de fichier en cours.',
@@ -139,6 +140,7 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'Paramètre PHP : Memory Limit',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Version minimale de MySQL',
+  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'Version PCRE',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Chemin du fichier php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Version minimale de PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Paramètre PHP : Safe Mode',
@@ -256,3 +258,4 @@ $mod_strings = array (
   'LBL_UW_UNINSTALL' => 'Désinstaller',
   'LBL_WORKFLOW' => 'WorkFlow',
 );
+

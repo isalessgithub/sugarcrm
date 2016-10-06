@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'веерх',
   'LBL_MODULE_ID' => 'Бизнес-процесс',
   'LBL_MODULE_NAME' => 'Определения бизнес-процессов',
+  'LBL_MODULE_NAME_SINGULAR' => 'Определение бизнес-процесса',
   'LBL_MODULE_TITLE' => 'Бизнес-процесс: Главная',
   'LBL_NAME' => 'Название:',
   'LBL_NEW_FORM_TITLE' => 'Создать определение бизнес-процесса',

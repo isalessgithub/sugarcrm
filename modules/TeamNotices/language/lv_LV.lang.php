@@ -28,6 +28,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Virsraksts',
   'LBL_LIST_ORDER' => 'Secība',
   'LBL_MODULE_NAME' => 'Darba grupas ziņojumi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Darba grupas ziņojums',
   'LBL_MODULE_TITLE' => 'Darba grupas ziņojumi',
   'LBL_MORE_DETAIL' => 'Sīkāk',
   'LBL_NAME' => 'Virsraksts',

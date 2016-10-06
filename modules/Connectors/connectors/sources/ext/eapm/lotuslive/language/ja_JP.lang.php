@@ -18,8 +18,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $connector_strings = array (
-  'oauth_consumer_key' => 'OAuth Consumer Key',
-  'oauth_consumer_secret' => 'OAuth Consumer Secret',
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">LotusLive&copy;でSugarインスタンスを新規アプリケーションとして登録し、Consumer KeyとConsumer Secretを取得してください。<br><br />&nbsp;<br><br />登録方法は下記の通りです。<br><br />&nbsp;<br><br /><ol><br /><li>LotusLiveアカウント（LotusLive管理者である必要があります）で<a href="https://www.lotuslive.com/" target="_new">https://www.lotuslive.com/</a>にログインします。</li><br /><li>画面上部のナビゲーションバーの管理をクリックします</li><br /><li>企業アプリケーションの管理をクリックします。Click Manage Company Apps.</li><br /><li>アプリの登録をクリックします。</li><br /><li>アプリケーションの名前と詳細を入力します。これらは後ほどアプリケーションの隣のメニューをクリックして編集プロパティをクリックすることで変更することができます。</li><br /><li>登録時にOAuthキーとシークレットが与えられます。登録されたアプリケーションはカスタムアプリの管理に表示されます。認証の取得をクリックすることでキーとシークレットを閲覧することができます。アプリケーションのメニューをクリックして認証情報の取得を選択してください。 </li><br /></ol><br /></td></tr></table>',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">IBM SmartCloud&copy;でSugarインスタンスを新規アプリケーションとして登録することで、コンシューマキーとコンシューマシークレットを取得してください。本登録は、2011年5月8日に開始されます。<br>
+&nbsp;<br>
+登録方法は以下の通りです。<br>
+&nbsp;<br>
+<ol>
+<li>IBM SmartCloudにログインしてください（管理者である必要があります）。</li>
+<li>管理 -> 組織の管理 を開いてください。</li>
+<li>サイドバーの「統合サードパーティアプリ」リンクをクリックしてSugarCRMのすべてのユーザが利用できるようにしてください。</li>
+<li>サイドバーの「内部アプリ」で「アプリの登録」をクリックしてください。</li>
+<li>このアプリの名称を入力してください（例：SugarCRM Production）。このとき、ポップアップ画面の下部に表示されるOAuth 2.xチェックボックスをオンにしないでください。</li>
+<li>アプリを作成後、アプリの名称の右に表示されている三角のアイコンをクリックして、ドロップダウンメニューから「認証情報の表示」を選択します。</li>
+<li>以下の認証情報を複製してください。</li>
+</ol>
+</td></tr></table>',
+  'oauth_consumer_key' => 'OAuthコンシューマキー',
+  'oauth_consumer_secret' => 'OAuthコンシューマシークレット',
 );
 

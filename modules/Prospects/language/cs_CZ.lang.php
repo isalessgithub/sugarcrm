@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Změnit uživatele',
   'LBL_MODULE_ID' => 'Seznam adresátů',
   'LBL_MODULE_NAME' => 'Seznam adresátů',
+  'LBL_MODULE_NAME_SINGULAR' => 'Cíl',
   'LBL_MODULE_TITLE' => 'Adresáti: Hlavní stránka',
   'LBL_MORE_INFORMATION' => 'Více informací',
   'LBL_NAME' => 'Název:',

@@ -20,7 +20,7 @@
 {/if}
 {capture name=idname assign=idname}{{sugarvar key='name'}}{/capture}
 {{if !empty($displayParams.idName)}}
-    {assign var=idname value=$displayParams.idName}
+    {assign var=idname value='{{$displayParams.idName}}'}
 {{/if}}
 
 {if isset({{sugarvar key='value' string=true}}) && {{sugarvar key='value' string=true}} != ''}

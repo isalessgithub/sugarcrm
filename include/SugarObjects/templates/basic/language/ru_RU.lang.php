@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,37 +15,24 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 $mod_strings = array (
-  'LBL_LIST_NAME' => 'Название',
-  'LBL_ID' => 'ID',
+  'LBL_CREATED' => 'Создано',
+  'LBL_CREATED_ID' => 'Создано (Id)',
+  'LBL_CREATED_USER' => 'Создано',
   'LBL_DATE_ENTERED' => 'Дата создания',
   'LBL_DATE_MODIFIED' => 'Дата изменения',
+  'LBL_DELETED' => 'Удалено',
+  'LBL_DESCRIPTION' => 'Описание',
+  'LBL_EDIT_BUTTON' => 'Правка',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Название',
   'LBL_MODIFIED' => 'Изменено',
   'LBL_MODIFIED_ID' => 'Изменено (Id)',
   'LBL_MODIFIED_NAME' => 'Изменено',
-  'LBL_CREATED' => 'Создано',
-  'LBL_CREATED_ID' => 'Создано (Id)',
-  'LBL_DESCRIPTION' => 'Описание',
-  'LBL_DELETED' => 'Удалено',
-  'LBL_NAME' => 'Название',
-  'LBL_CREATED_USER' => 'Создано',
   'LBL_MODIFIED_USER' => 'Изменено',
+  'LBL_NAME' => 'Название',
+  'LBL_REMOVE' => 'Удалить',
 );
 

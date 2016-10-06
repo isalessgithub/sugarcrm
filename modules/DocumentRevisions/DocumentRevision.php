@@ -250,7 +250,7 @@ class DocumentRevision extends SugarBean {
 		if (empty($doc_revision_id)) return null;
 		
 		$db = DBManagerFactory::getInstance();				
-		$query="select revision from document_revisions where id='$doc_revision_id'";
+		$query="select revision from document_revisions where id='$doc_revision_id' AND deleted=0";
 		$result=$db->query($query);
 		if (!empty($result)) {
 			$row=$db->fetchByAssoc($result);
@@ -276,6 +276,13 @@ class DocumentRevision extends SugarBean {
 		}
 		return $return_array;
 	}	
+
+    public function bean_implements($interface) {
+        switch($interface) {
+            case 'FILE' : return true;
+        }
+        return parent::bean_implements($interface);
+    }
 }
 
 require_once('modules/Documents/DocumentExternalApiDropDown.php');

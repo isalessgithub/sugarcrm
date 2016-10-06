@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_MODIFY_SEARCH_TITLE' => 'Manage Connector Search',
   'LBL_MODULE_FIELDS' => 'Module Fields',
   'LBL_MODULE_NAME' => 'Connectors',
+  'LBL_MODULE_NAME_SINGULAR' => 'Connector',
   'LBL_NO_PROPERTIES' => 'There are no configurable properties for this connector.',
   'LBL_PARENT_DUNS' => 'Parent DUNS',
   'LBL_PREVIOUS' => '< Back',

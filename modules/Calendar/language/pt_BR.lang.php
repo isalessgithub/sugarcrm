@@ -17,7 +17,64 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => 'Jan',
+    2 => 'Fev',
+    3 => 'Mar',
+    4 => 'Abr',
+    5 => 'Mai',
+    6 => 'Jun',
+    7 => 'Jul',
+    8 => 'Ago',
+    9 => 'Set',
+    10 => 'Out',
+    11 => 'Nov',
+    12 => 'Dez',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Janeiro',
+    2 => 'Fevereiro',
+    3 => 'Março',
+    4 => 'Abril',
+    5 => 'Maio',
+    6 => 'Junho',
+    7 => 'Julho',
+    8 => 'Agosto',
+    9 => 'Setembro',
+    10 => 'Outubro',
+    11 => 'Novembro',
+    12 => 'Dezembro',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => 'Dom',
+    1 => 'Seg',
+    2 => 'Ter',
+    3 => 'Qua',
+    4 => 'Qui',
+    5 => 'Sex',
+    6 => 'Sab',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => 'Domingo',
+    1 => 'Segunda-feira',
+    2 => 'Terça-Feira',
+    3 => 'Quarta-Feira',
+    4 => 'Quinta-Feira',
+    5 => 'Sexta-Feira',
+    6 => 'Sábado',
+  ),
+);
+
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: não definido nesta visualização',
+  'ERR_YEAR_BETWEEN' => 'Desculpe, Calendário não pode apontar ano requerido.<br />Ano deve ser entre 1970 e 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Aplicar',
   'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
@@ -55,6 +112,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Carregando ...',
   'LBL_MINS_ABBREV' => 'Mnts',
   'LBL_MODULE_NAME' => 'Calendário',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendário',
   'LBL_MODULE_TITLE' => 'Calendário',
   'LBL_MONTH' => 'Mês',
   'LBL_NEXT_DAY' => 'Próximo Dia',
@@ -71,7 +129,7 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => 'Anterior',
   'LBL_PREVIOUS_WEEK' => 'Semana Anterior',
   'LBL_PREVIOUS_YEAR' => 'Ano Anterior',
-  'LBL_RECURRING_LIMIT_ERROR' => 'Este "moduleTitle $" recorrente não pode ser programado porque excede o limite máximo permitido a recorrência.',
+  'LBL_RECURRING_LIMIT_ERROR' => 'Este $moduleTitle recorrente não pode ser programado porque excede o limite máximo permitido a recorrência.',
   'LBL_REFRESH' => 'Atualizar',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Remover todas Ocorrências',
   'LBL_REPEAT_COUNT' => 'Número de Ocorrências',
@@ -92,6 +150,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Enviar convites',
   'LBL_SETTINGS' => 'Configurações',
   'LBL_SETTINGS_CALLS_SHOW' => 'Mostrar Ligações',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Mostrar reuniões, ligações e tarefas',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Mostrar horários nas visualizações de Dia e Semana',
   'LBL_SETTINGS_TASKS_SHOW' => 'Mostrar Tarefas',
   'LBL_SETTINGS_TIME_ENDS' => 'Data de término',
@@ -120,56 +179,5 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Tarefas',
   'LNK_VIEW_CALENDAR' => 'Hoje',
   'NOTICE_DURATION_TIME' => 'Tempo de duração deve ser maior que 0',
-);
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Jan',
-    2 => 'Fev',
-    3 => 'Mar',
-    4 => 'Abr',
-    5 => 'Mai',
-    6 => 'Jun',
-    7 => 'Jul',
-    8 => 'Ago',
-    9 => 'Set',
-    10 => 'Out',
-    11 => 'Nov',
-    12 => 'Dez',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Janeiro',
-    2 => 'Fevereiro',
-    3 => 'Março',
-    4 => 'Abril',
-    5 => 'Maio',
-    6 => 'Junho',
-    7 => 'Julho',
-    8 => 'Agosto',
-    9 => 'Setembro',
-    10 => 'Outubro',
-    11 => 'Novembro',
-    12 => 'Dezembro',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Seg',
-    2 => 'Ter',
-    3 => 'Qua',
-    4 => 'Qui',
-    5 => 'Sex',
-    6 => 'Sab',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Segunda-feira',
-    2 => 'Terça-Feira',
-    3 => 'Quarta-Feira',
-    4 => 'Quinta-Feira',
-    5 => 'Sexta-Feira',
-    6 => 'Sábado',
-  ),
 );
 

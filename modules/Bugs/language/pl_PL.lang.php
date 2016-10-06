@@ -18,7 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Proszę podać numer rekordu, z którego ma zostać usunięty błąd.',
+  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć ten błąd.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kontrahenci',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Wydarzenia',
   'LBL_ASSIGNED_TO_NAME' => 'Przydzielono do',
@@ -48,7 +48,7 @@ $mod_strings = array (
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historia',
   'LBL_INVITEE' => 'Kontakty',
   'LBL_LIST_ACCOUNT_NAME' => 'Nazwa kontrahenta',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielony użytkownik',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielono do',
   'LBL_LIST_CONTACT_NAME' => 'Nazwa kontaktu',
   'LBL_LIST_EMAIL_ADDRESS' => 'Adres e-mail',
   'LBL_LIST_FIXED_IN_RELEASE' => 'Naprawione w wydaniu',

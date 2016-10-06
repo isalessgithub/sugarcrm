@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'cima',
   'LBL_MODULE_ID' => 'Workflow',
   'LBL_MODULE_NAME' => 'Definições de Workflow:',
+  'LBL_MODULE_NAME_SINGULAR' => 'Definição de workflow',
   'LBL_MODULE_TITLE' => 'Workflow: Tela Principal',
   'LBL_NAME' => 'Nome:',
   'LBL_NEW_FORM_TITLE' => 'Criar uma definição de Workflow',

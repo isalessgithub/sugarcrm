@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'aukštyn',
   'LBL_MODULE_ID' => 'Darbo sekos',
   'LBL_MODULE_NAME' => 'Darbo sekų apibrėžimai',
+  'LBL_MODULE_NAME_SINGULAR' => 'Darbo sekos apibrėžimas',
   'LBL_MODULE_TITLE' => 'Darbo sekos: Pradžia',
   'LBL_NAME' => 'Pavadinimas',
   'LBL_NEW_FORM_TITLE' => 'Sukurti darbo sekos apibrėžimą',

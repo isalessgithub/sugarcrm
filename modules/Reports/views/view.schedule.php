@@ -63,6 +63,7 @@ class ViewSchedule extends SugarView
             	$smarty->assign('SCHEDULE_TYPE',$_REQUEST['schedule_type']);
         }
 
+        $smarty->assign('REPORT_SCHEDULER_ACTIVE', $rs->isReportSchedulerActive());
 
         $smarty->assign('CURRENT_LANGUAGE', $GLOBALS['current_language']);
         $smarty->assign('JS_VERSION',  $GLOBALS['js_version_key']);

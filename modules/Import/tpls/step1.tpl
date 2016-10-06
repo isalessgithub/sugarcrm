@@ -34,6 +34,9 @@
 {/if}
 {$INSTRUCTION}
 
+<script>
+    var externalApis = {$EXTERNAL_APIS|@json};
+</script>
 <form enctype="multipart/form-data" name="importstep1" method="post" action="index.php" id="importstep1">
 <input type="hidden" name="module" value="Import">
 <input type="hidden" name="action" value="Step2">
@@ -70,7 +73,7 @@
                                 </td>
                             </tr>
                             <tr id="ext_source_tr">
-                                <td colspan="3" scope="row"><span><input class="radio" type="radio" name="source" value="external" id="ext_source" />
+                                <td colspan="3" scope="row"><span><input {if !$EXTERNAL_SOURCES} disabled {/if} class="radio" type="radio" name="source" value="external" id="ext_source" /> 
                   &nbsp;<label for="source">{$MOD.LBL_EXTERNAL_SOURCE}</label>&nbsp;</span>{sugar_help text=$MOD.LBL_EXTERNAL_SOURCE_HELP}
                                 </td>
                             </tr>
@@ -91,6 +94,7 @@
                                 </td>
                                 <td  style="padding-top: 10px;">
                                     <input id="ext_source_sign_in_bttn" type="button" value="{$MOD.LBL_EXT_SOURCE_SIGN_IN}" style="display:none;vertical-align:top; !important">
+                                    <input id="ext_source_sign_out_bttn" type="button" value="{$MOD.LBL_EXT_SOURCE_SIGN_OUT}" style="display:none;vertical-align:top; !important">
                                 </td>
                             </tr>
                             </table>

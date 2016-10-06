@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,31 +15,17 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 $mod_strings = array (
-  'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'Повторная попытка запроса SOAP...',
-  'LBL_MODULE_NAME' => 'Часто задаваемые вопросы',
-  'LBL_MODULE_TITLE' => 'Часто задаваемые вопросы: Главная',
-  'LBL_BACK_TO_TOP' => 'Вернуться наверх',
-  'LBL_SUCCESSFUL_QUERY' => 'Успешно',
-  'LBL_ERROR_QUERY' => 'Ошибка',
   'ERR_FAQ_LIST_RETRIEVE' => 'Ошибка: Невозможно отобразить содержание Часто Задаваемых Вопросов в данный момент',
+  'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'Повторная попытка запроса SOAP...',
+  'LBL_BACK_TO_TOP' => 'Вернуться наверх',
+  'LBL_ERROR_QUERY' => 'Ошибка',
   'LBL_FAQ_EMPTY' => 'На данный момент в архиве Базы Знаний нет статей с меткой "Часто задаваемые вопросы"',
+  'LBL_MODULE_NAME' => 'Часто задаваемые вопросы',
+  'LBL_MODULE_NAME_SINGULAR' => 'Часто задаваемые вопросы',
+  'LBL_MODULE_TITLE' => 'Часто задаваемые вопросы: Главная',
+  'LBL_SUCCESSFUL_QUERY' => 'Успешно',
 );
 

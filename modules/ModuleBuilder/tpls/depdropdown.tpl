@@ -137,6 +137,9 @@
     <div class="dd_help" style="width:600px">
         {sugar_translate label="LBL_DEPENDENT_DROPDOWN_HELP" module="ModuleBuilder"}
     </div>
+    <div class="dd_help" style="width:600px">
+            {sugar_translate label="LBL_DEPENDENT_DROPDOWN_HELP_NOTICE" module="ModuleBuilder"}
+    </div>
 <table ><tr>
     {foreach from=$parent_list_options key=val item=label name=parentloop}
         {if $smarty.foreach.parentloop.index % 4 == 0 && !$smarty.foreach.parentloop.first}

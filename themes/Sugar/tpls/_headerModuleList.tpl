@@ -16,8 +16,8 @@
 {assign var='underscore' value='_'}
 
 <script type="text/javascript">
-sugar_theme_gm_current = '{$currentGroupTab}';
-Set_Cookie('sugar_theme_gm_current','{$currentGroupTab}',30,'/','','');
+sugar_theme_gm_current = '{$currentGroupTab|replace:" ":"_"}';
+Set_Cookie('sugar_theme_gm_current','{$currentGroupTab|replace:" ":"_"}',30,'/','','');
 </script>
 
 

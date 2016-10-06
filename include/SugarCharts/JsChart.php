@@ -112,7 +112,7 @@ class JsChart extends SugarChart {
 		global $sugar_config, $current_user, $current_language;
 		$this->id = $id;
 		$this->chartId = $id;
-		$this->xmlFile = (!$xmlFile) ? sugar_cached("xml/{$current_user->id}_{$this->id}.xml") : $xmlFile;
+		$this->xmlFile = (!$xmlFile) ? sugar_cached("xml/".$current_user->getUserPrivGuid()."_{$this->id}.xml") : $xmlFile;
 
 
 		$style = array();
@@ -128,7 +128,7 @@ class JsChart extends SugarChart {
 		foreach($this->getChartConfigParams($xmlStr) as $key => $value) {
 			$chartConfig[$key] = $value;
 		}
-		
+
 		$chartConfig['imageExportType'] = $this->image_export_type;
 		$this->ss->assign("config", $chartConfig);
 
@@ -276,6 +276,10 @@ class JsChart extends SugarChart {
 			$groupcontent .= $this->tab("\"label\": \"".$this->processSpecialChars($group->title)."\",\n",2);
 			$groupcontent .= $this->tab("\"gvalue\": \"{$group->value}\",\n",2);
 			$groupcontent .= $this->tab("\"gvaluelabel\": \"{$group->label}\",\n",2);
+			if (!empty($group->id))
+			{
+				$groupcontent .= $this->tab("\"id\": \"{$group->id}\",\n",2);
+			}
 			$subgroupValues = array();
 			$subgroupValueLabels = array();
 			$subgroupLinks = array();
@@ -311,6 +315,10 @@ class JsChart extends SugarChart {
 			$groupcontent .= $this->tab("\"label\": \"".$this->processSpecialChars($group->title)."\",\n",2);
 			$groupcontent .= $this->tab("\"gvalue\": \"{$group->value}\",\n",2);
 			$groupcontent .= $this->tab("\"gvaluelabel\": \"{$group->label}\",\n",2);
+			if (!empty($group->id))
+			{
+				$groupcontent .= $this->tab("\"id\": \"{$group->id}\",\n",2);
+			}
 			$subgroupValues = array();
 			$subgroupValueLabels = array();
 			$subgroupLinks = array();
@@ -357,6 +365,10 @@ class JsChart extends SugarChart {
 		$groupcontent .= $this->tab("\"values\": [\n",2);
 		$groupcontent .= $this->tab(($group->value == "NULL") ? 0 : $group->value."\n",3);
 		$groupcontent .= $this->tab("],\n",2);
+		if (!empty($group->id))
+		{
+			$groupcontent .= $this->tab("\"id\": \"{$group->id}\",\n",2);
+		}
 		if($group->label) {
 			$groupcontent .= $this->tab("\"valuelabels\": [\n",2);
 			$groupcontent .= $this->tab("\"{$group->label}\"\n",3);
@@ -663,11 +675,11 @@ class JsChart extends SugarChart {
 		}
 		return $props;
 	}
-	
+
 	function processSpecialChars($str) {
 		return addslashes(html_entity_decode($str,ENT_QUOTES));
 	}
-	
+
 	function processXML($xmlFile) {
 
 		if(!file_exists($xmlFile)) {

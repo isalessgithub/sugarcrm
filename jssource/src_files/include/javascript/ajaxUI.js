@@ -57,12 +57,7 @@ SUGAR.ajaxUI = {
 
             if (r.menu)
             {
-				if(Get_Cookie("sugar_theme_menu_load") == 'true') {
-					SUGAR.themes.setModuleTabs(r.moduleList);
-					Set_Cookie('sugar_theme_menu_load','false',30,'/','','');
-				} else {
-	               SUGAR.themes.setCurrentTab(r.menu);
-				}
+                SUGAR.themes.setCurrentTab(r.menu);
             }
             if (r.record)
             {
@@ -106,6 +101,7 @@ SUGAR.ajaxUI = {
             SUGAR.ajaxUI.hideLoadingPanel();
             SUGAR.ajaxUI.showErrorMessage(o.responseText);
         }
+        SUGAR_callsInProgress--;
     },
     showErrorMessage : function(errorMessage)
     {
@@ -237,10 +233,12 @@ SUGAR.ajaxUI = {
                 }
             }
             else {
+                SUGAR_callsInProgress++;
                 SUGAR.ajaxUI.showLoadingPanel();
                 ui.lastCall = YAHOO.util.Connect.asyncRequest('GET', url + '&ajax_load=1' + loadLanguageJS, {
                     success: SUGAR.ajaxUI.callback,
                     failure: function(){
+                        SUGAR_callsInProgress--;
                         SUGAR.ajaxUI.hideLoadingPanel();
                         SUGAR.ajaxUI.showErrorMessage(SUGAR.language.get('app_strings','ERR_AJAX_LOAD_FAILURE'));
                     }

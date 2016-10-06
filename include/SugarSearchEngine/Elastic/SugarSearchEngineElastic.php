@@ -317,14 +317,18 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
         try
         {
             $this->_client->setConfigValue('timeout', 2);
-            $results = $this->_client->getStatus()->getServerStatus();
-            if(!empty($results['ok']) )
-            {
-                $isValid = TRUE;
-                $displayText = $GLOBALS['app_strings']['LBL_EMAIL_SUCCESS'];
-            }
-            else
+            $results = $this->_client->request('', Elastica_Request::GET)->getData();
+            if (!empty($results['status']) && $results['status'] === 200) {
+                $isValid = true;
+                if (!empty($GLOBALS['app_strings'])) {
+                    $displayText = $GLOBALS['app_strings']['LBL_EMAIL_SUCCESS'];
+                } else {
+                    //Fix a notice error during install when we verify the Elastic Search settings
+                    $displayText = 'Success';
+                }
+            } else {
                 $displayText = $results;
+            }
         }
         catch(Exception $e)
         {

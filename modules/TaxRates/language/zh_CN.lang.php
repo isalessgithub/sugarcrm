@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => '百分比',
   'LBL_MODIFIED_ID' => '有Id修改',
   'LBL_MODULE_NAME' => '税率',
+  'LBL_MODULE_NAME_SINGULAR' => '税率',
   'LBL_MODULE_TITLE' => '税率:首页',
   'LBL_NAME' => '税率名称:',
   'LBL_NEW_FORM_TITLE' => '新增税率',

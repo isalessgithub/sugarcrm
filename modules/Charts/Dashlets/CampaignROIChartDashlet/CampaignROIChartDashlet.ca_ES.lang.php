@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -23,5 +23,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['CampaignROIChartDashlet'] = array('LBL_TITLE'         => 'ROI de la Campanya',
                                                      'LBL_DESCRIPTION' => 'Gràfic de ROI',
                                                      'LBL_REFRESH'     => 'Actuatlizar Gràfic');
-?> 
-

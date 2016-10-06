@@ -26,6 +26,6 @@ $mod_strings = array (
 );
 
 
-?>
+
 
 

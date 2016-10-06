@@ -22,6 +22,7 @@ $mod_strings = array (
   'LBL_GROUP_NAME' => 'Grupas nosaukums:',
   'LBL_LIST_TITLE' => 'Grupas',
   'LBL_MODULE_NAME' => 'Grupas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Grupa',
   'LBL_TEAM' => 'Darba grupa:',
   'LNK_ALL_GROUPS' => 'Visas grupas',
   'LNK_CONVERT_USER' => 'Konvertēt lietotāju par grupu',

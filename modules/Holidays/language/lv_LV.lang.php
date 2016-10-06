@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_HOLIDAY_DATE' => 'Brīvdienas datums:',
   'LBL_LIST_FORM_TITLE' => 'Brīvdienu saraksts',
   'LBL_MODULE_NAME' => 'Brīvdienas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Brīvdiena',
   'LBL_MODULE_TITLE' => 'Brīvdienas: Sākums',
   'LBL_NAME' => 'Brīvdienas datums:',
   'LBL_PERSON_TYPE' => 'Personas veids',

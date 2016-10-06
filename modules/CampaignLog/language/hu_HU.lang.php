@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Típus',
   'LBL_MODIFIED' => 'Módosította:',
   'LBL_MODULE_NAME' => 'Kampánynapló',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampánynapló',
   'LBL_MORE_INFO' => 'További információk',
   'LBL_NAME' => 'Név',
   'LBL_RELATED' => 'Kapcsolódó',

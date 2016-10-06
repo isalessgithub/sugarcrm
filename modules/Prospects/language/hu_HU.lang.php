@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Módosított felhasználó',
   'LBL_MODULE_ID' => 'Célok',
   'LBL_MODULE_NAME' => 'Célok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Cél',
   'LBL_MODULE_TITLE' => 'Célok: Főoldal',
   'LBL_MORE_INFORMATION' => 'További információk',
   'LBL_NAME' => 'Név:',

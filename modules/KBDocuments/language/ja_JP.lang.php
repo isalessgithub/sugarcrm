@@ -35,13 +35,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => '作成者:',
   'LBL_ARTICLE_AUTHOR_LIST' => '作成者',
   'LBL_ARTICLE_BODY' => '記事本文:',
+  'LBL_ARTICLE_EXISTS' => '記事は既に存在しています',
   'LBL_ARTICLE_IN_TREE_HOVER' => '記事',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'プレビューは利用できません。ドキュメントは存在しますが、内容が作成されていません。',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'プレビューは利用できません。ドキュメントレコードが見つかりません。',
   'LBL_ARTICLE_TITLE' => 'タイトル:',
   'LBL_ATTACHMENTS' => '添付:',
+  'LBL_CASE' => 'ケース:',
   'LBL_CASES' => 'ケース',
   'LBL_CASES_SUBPANEL_TITLE' => '関連ケース',
+  'LBL_CASE_ID' => 'ケースID',
   'LBL_CATEGORY' => 'カテゴリ',
   'LBL_CATEGORY_VALUE' => 'カテゴリ:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => '未指定',
@@ -62,6 +65,7 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => '作成日',
   'LBL_DATE_MODIFIED' => '更新日',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'ドロップダウンリストからアクションを選択',
+  'LBL_DEFAULT_LINK_TEXT' => 'デフォルトリンクテキスト',
   'LBL_DELETE' => '削除',
   'LBL_DELETED' => '削除済み',
   'LBL_DELETE_TAG' => 'タグの削除',
@@ -80,7 +84,7 @@ $mod_strings = array (
   'LBL_DOC_VERSION' => '版:',
   'LBL_DOWNNLOAD_FILE' => '添付:',
   'LBL_EDIT_INLINE' => '編集',
-  'LBL_EMAILS' => '電子メール',
+  'LBL_EMAILS' => 'Eメール',
   'LBL_EMAILS_SUBPANEL_TITLE' => '関連メール',
   'LBL_EMBEDED_IMAGES' => '埋め込み画像:',
   'LBL_ERROR_NOT_A_FILE_INPUT_ELEMENT' => 'エラー: ファイル入力の要素ではありません。',
@@ -120,6 +124,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION_NAME' => '最新版の名前',
   'LBL_LAUNCHING_TAG_BROWSING' => 'タグブラウザを起動中...',
   'LBL_LIST_ACTIVE_DATE' => '発行日',
+  'LBL_LIST_APPROVED_BY' => '承認者',
   'LBL_LIST_ARTICLES' => '記事一覧',
   'LBL_LIST_CATEGORY' => 'カテゴリ',
   'LBL_LIST_DOCUMENT' => 'ドキュメント',
@@ -148,6 +153,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => '更新者ID',
   'LBL_MODIFIED_USER' => '更新者',
   'LBL_MODULE_NAME' => 'ナレッジベース',
+  'LBL_MODULE_NAME_SINGULAR' => 'ナレッジベース',
   'LBL_MODULE_TITLE' => 'ナレッジベース記事',
   'LBL_MOVE' => '移動',
   'LBL_MOVING_ARTICLES_TO_TAG' => '記事をタグに移動中...',
@@ -180,6 +186,7 @@ $mod_strings = array (
   'LBL_SELECT_ARTICLES_TO_DELETE' => '最初に記事を選択してください',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'タグを新規作成',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'ツリーからタグを選択してください',
+  'LBL_SELECT_NODE' => 'ノードを選択してください',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'ツリーから親のタグを選択',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'ツリーから親タグを選択してください',
   'LBL_SELECT_TAG' => 'タグの選択',
@@ -188,13 +195,14 @@ $mod_strings = array (
   'LBL_SELECT_TAG_BUTTON_TITLE' => '選択',
   'LBL_SELECT_TAG_TO_BE_DELETED_FROM_TREE' => '削除するタグをツリーから選択',
   'LBL_SELECT_TAG_TO_BE_RENAMED_FROM_TREE' => '名前を変えるタグをツリーから選択',
-  'LBL_SEND_EMAIL' => '電子メール送信',
+  'LBL_SEND_EMAIL' => 'Eメール送信',
   'LBL_SF_ACTIVE_DATE' => '発行日:',
   'LBL_SF_CATEGORY' => 'カテゴリ:',
   'LBL_SF_DOCUMENT' => 'ドキュメント名:',
   'LBL_SF_EXP_DATE' => '有効期限:',
   'LBL_SF_SUBCATEGORY' => 'サブカテゴリ:',
   'LBL_SHOW_ARTICLE_DETAILS' => '詳細をさらに表示',
+  'LBL_SHOW_MORE' => 'さらに表示',
   'LBL_SHOW_OPTIONS' => 'オプションをさらに表示',
   'LBL_SHOW_SYNTAX_HELP' => '文法に関するヘルプを表示',
   'LBL_SHOW_TAGS' => 'タグをさらに表示',
@@ -202,24 +210,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'ステータス',
   'LBL_SUBCATEGORY' => 'サブカテゴリ',
   'LBL_SUBCATEGORY_VALUE' => 'サブカテゴリ:',
-  'LBL_SYNTAX_CHEAT_SHEET' =>
-       '<B>クエリ文法のヘルプ:</b><P>
-       <ol>
-<li>プラス（+）でこの語句が必ず含まれる検索結果が表示されます。</li>
-<li>マイナス（-）でこの語句を省いた検索結果が表示されます。除外する単語フィールドに入力する場合は、マイナス（-）は必要ありません。</li>
-<li>ダブルクォーテーションマーク（"）で囲まれた複数の単語("example1 example2")は１つの検索項目として扱われます。語句の最初と最後にクォーテーションマークがない場合は検索は実行されません。<br>クォーテーションマークを検索する場合は、バックスラッシュクォート（\\"）を使用してください。</li>
-<li>シングルクォーテーションマーク（\'）はそれ自身として検索され、グループとして検索されません。</li></ol>
-       
-       </p>
-       
-       <p><b>例: </b><br><br><br />
-       「Sugar」たは「CRM」を含み、「Knowledge Base」と「cool」を必ず含む一方で「demo」や「past tense」を含まない記事を検索する場合は次のように入力します:<br>&nbsp;&nbsp;&nbsp;&nbsp;Sugar CRM +"Knowledge Base" +cool -demo -"Past Tense"</p><br>
-       
-       <p><b>注: </b><br>
-<ol><li>大文字小文字は区別されません。</li>
-<li>スペースとカンマは区切り文字として利用できます。</li>
-<li>プラス（+）もしくはマイナス（-）とその対象の単語の間にはスペースを入れないでください。</li></ol>
-</p>',
+  'LBL_SYNTAX_CHEAT_SHEET' => '<B>クエリ文法のヘルプ:</b><P><br />       <ol><br /><li>プラス（+）でこの語句が必ず含まれる検索結果が表示されます。</li><br /><li>マイナス（-）でこの語句を省いた検索結果が表示されます。除外する単語フィールドに入力する場合は、マイナス（-）は必要ありません。</li><br /><li>ダブルクォーテーションマーク（"）で囲まれた複数の単語("example1 example2")は１つの検索項目として扱われます。語句の最初と最後にクォーテーションマークがない場合は検索は実行されません。<br>クォーテーションマークを検索する場合は、バックスラッシュクォート（\\"）を使用してください。</li><br /><li>シングルクォーテーションマーク（&#39;）はそれ自身として検索され、グループとして検索されません。</li></ol><br />       <br />       </p><br />       <br />       <p><b>例: </b><br><br><br /><br />       「Sugar」たは「CRM」を含み、「Knowledge Base」と「cool」を必ず含む一方で「demo」や「past tense」を含まない記事を検索する場合は次のように入力します:<br>&nbsp;&nbsp;&nbsp;&nbsp;Sugar CRM +"Knowledge Base" +cool -demo -"Past Tense"</p><br><br />       <br />       <p><b>注: </b><br><br /><ol><li>大文字小文字は区別されません。</li><br /><li>スペースとカンマは区切り文字として利用できます。</li><br /><li>プラス（+）もしくはマイナス（-）とその対象の単語の間にはスペースを入れないでください。</li></ol><br /></p>',
   'LBL_TAB_ADVANCED' => '詳細検索',
   'LBL_TAB_BROWSE' => '表示',
   'LBL_TAB_SEARCH' => '検索',
@@ -246,3 +237,4 @@ $mod_strings = array (
   'LNK_NEW_ARTICLE' => '記事作成',
   'LNK_NEW_MAIL_MERGE' => 'メールマージ',
 );
+

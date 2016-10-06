@@ -18,8 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_DELETE_EMPTY' => 'Record già eliminato o inesistente.',
+  'ERR_DELETE_RECORD' => 'Per eliminare questa opportunità deve essere specificato un numero del record.',
   'LBL_ALERT_TEMPLATES' => 'Modelli Avvisi',
-  'LBL_APOSTROPHE_S' => '&#39;s',
+  'LBL_APOSTROPHE_S' => '´',
   'LBL_COMPARE_ANY_TIME_PART2' => 'non cambia per',
   'LBL_COMPARE_ANY_TIME_PART3' => 'tempo specificato',
   'LBL_COMPARE_ANY_TIME_TITLE' => 'il campo non cambia per un tempo specifico',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Valore:',
   'LBL_MODULE' => 'module',
   'LBL_MODULE_NAME' => 'Condizioni',
+  'LBL_MODULE_NAME_SINGULAR' => 'Condizione',
   'LBL_MODULE_SECTION_TITLE' => 'Quando queste condizioni sono verificate',
   'LBL_MODULE_TITLE' => 'Workflow Trigger : Home',
   'LBL_MUST_SELECT_VALUE' => 'Devi specificare un valore per questo campo',
@@ -67,7 +70,7 @@ $mod_strings = array (
   'LBL_NEW_TRIGGER_BUTTON_LABEL' => 'Crea Trigger',
   'LBL_NEW_TRIGGER_BUTTON_TITLE' => 'Crea Trigger [Alt+T]',
   'LBL_PAST_TRIGGER' => 'Specify old',
-  'LBL_RECORD' => 'module&#39;s',
+  'LBL_RECORD' => 'module´s',
   'LBL_SEARCH_FORM_TITLE' => 'Ricerca Trigger Workflow',
   'LBL_SELECT_1ST_FILTER' => 'Devi specificare un primo filtro valido per il campo',
   'LBL_SELECT_2ND_FILTER' => 'Devi specificare un secondo filtro per il campo valido',
@@ -77,7 +80,7 @@ $mod_strings = array (
   'LBL_SELECT_TARGET_MOD' => 'Si prega di selezionare un modulo riferito all´obiettivo.',
   'LBL_SHOW' => 'Mostra',
   'LBL_SHOW_PAST' => 'Modifica valore precedente:',
-  'LBL_SPECIFIC_FIELD' => '&#39;s specific field',
+  'LBL_SPECIFIC_FIELD' => '´s specific field',
   'LBL_SPECIFIC_FIELD_LNK' => 'specific field',
   'LBL_TRIGGER' => 'When',
   'LBL_TRIGGER_FILTER_TITLE' => 'Filtra Trigger',
@@ -92,5 +95,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Workflow Trigger',
   'LNK_WORKFLOW' => 'Oggetto Workflow',
   'NTC_REMOVE_TRIGGER' => 'Sicuro di voler rimuovere questo Trigger?',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Rimuovendo un trigger primario saranno rimossi tutti i triggers.',
 );
 

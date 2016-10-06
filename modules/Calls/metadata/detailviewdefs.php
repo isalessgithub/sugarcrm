@@ -1,175 +1,164 @@
 <?php
-// created: 2013-04-03 01:08:00
-$viewdefs['Calls']['DetailView'] = array (
-  'templateMeta' => 
+/*********************************************************************************
+ * By installing or using this file, you are confirming on behalf of the entity
+ * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
+ * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
+ * http://www.sugarcrm.com/master-subscription-agreement
+ *
+ * If Company is not bound by the MSA, then by installing or using this file
+ * you are agreeing unconditionally that Company will be bound by the MSA and
+ * certifying that you have authority to bind Company accordingly.
+ *
+ * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
+ ********************************************************************************/
+
+ 
+$viewdefs ['Calls'] = 
+array (
+  'DetailView' => 
   array (
-    'form' => 
+    'templateMeta' => 
     array (
-      'buttons' => 
-      array (
-        0 => 'EDIT',
-        1 => 'DUPLICATE',
-        2 => 'DELETE',
-        3 => 
+      'form' => array (
+        'buttons' => 
         array (
-          'customCode' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")} <input type="hidden" name="isSaveAndNew" value="false">  <input type="hidden" name="status" value="">  <input type="hidden" name="isSaveFromDetailView" value="true">  <input title="{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}"   class="button"  onclick="this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isDuplicate.value=true;this.form.isSaveAndNew.value=true;this.form.return_action.value=\'EditView\'; this.form.return_id.value=\'{$fields.id.value}\'" id="close_create_button" name="button"  value="{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}"  type="submit">{/if}',
-          'sugar_html' => 
+          0 => 'EDIT',
+          1 => 'DUPLICATE',
+          2 => 'DELETE',
+          3 => 
           array (
-            'type' => 'submit',
-            'value' => '{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}',
-            'htmlOptions' => 
-            array (
-              'title' => '{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}',
-              'class' => 'button',
-              'onclick' => 'this.form.isSaveFromDetailView.value=true; this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isDuplicate.value=true;this.form.isSaveAndNew.value=true;this.form.return_action.value=\'EditView\'; this.form.return_id.value=\'{$fields.id.value}\'',
-              'name' => 'button',
-              'id' => 'close_create_button',
-            ),
-            'template' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")}[CONTENT]{/if}',
+            'customCode' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")} <input type="hidden" name="isSaveAndNew" value="false">  <input type="hidden" name="status" value="">  <input type="hidden" name="isSaveFromDetailView" value="true">  <input title="{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}"   class="button"  onclick="this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isDuplicate.value=true;this.form.isSaveAndNew.value=true;this.form.return_action.value=\'EditView\'; this.form.return_id.value=\'{$fields.id.value}\'" id="close_create_button" name="button"  value="{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}"  type="submit">{/if}',
+              //Bug#51778: The custom code will be replaced with sugar_html. customCode will be deplicated.
+              'sugar_html' => array(
+                  'type' => 'submit',
+                  'value' => '{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}',
+                  'htmlOptions' => array(
+                      'title' => '{$APP.LBL_CLOSE_AND_CREATE_BUTTON_TITLE}',
+                      'class' => 'button',
+                      'onclick' => 'this.form.isSaveFromDetailView.value=true; this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isDuplicate.value=true;this.form.isSaveAndNew.value=true;this.form.return_action.value=\'EditView\'; this.form.return_id.value=\'{$fields.id.value}\'',
+                      'name' => 'button',
+                      'id' => 'close_create_button',
+                  ),
+                  'template' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")}[CONTENT]{/if}',
+              ),
+
+          ),
+          4 => 
+          array (
+            'customCode' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")} <input type="hidden" name="isSave" value="false">  <input title="{$APP.LBL_CLOSE_BUTTON_TITLE}"  accesskey="{$APP.LBL_CLOSE_BUTTON_KEY}"  class="button"  onclick="this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isSave.value=true;this.form.return_action.value=\'DetailView\'; this.form.return_id.value=\'{$fields.id.value}\'" id="close_button" name="button1"  value="{$APP.LBL_CLOSE_BUTTON_TITLE}"  type="submit">{/if}',
+              //Bug#51778: The custom code will be replaced with sugar_html. customCode will be deplicated.
+              'sugar_html' => array(
+                  'type' => 'submit',
+                  'value' => '{$APP.LBL_CLOSE_BUTTON_TITLE}',
+                  'htmlOptions' => array(
+                      'title' => '{$APP.LBL_CLOSE_BUTTON_TITLE}',
+                      'accesskey' => '{$APP.LBL_CLOSE_BUTTON_KEY}',
+                      'class' => 'button',
+                      'onclick' => 'this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isSave.value=true;this.form.return_action.value=\'DetailView\'; this.form.return_id.value=\'{$fields.id.value}\';this.form.isSaveFromDetailView.value=true',
+                      'name' => 'button1',
+                      'id' => 'close_button',
+                  ),
+                  'template' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")}[CONTENT]{/if}'
+              ),
+
           ),
         ),
-        4 => 
+        'hidden' => array(
+            '<input type="hidden" name="isSaveAndNew">',
+            '<input type="hidden" name="status">',
+            '<input type="hidden" name="isSaveFromDetailView">',
+            '<input type="hidden" name="isSave">'
+
+        ),
+        'headerTpl' => 'modules/Calls/tpls/detailHeader.tpl',
+      ),
+      'maxColumns' => '2',
+      'widths' => 
+      array (
+        0 => 
         array (
-          'customCode' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")} <input type="hidden" name="isSave" value="false">  <input title="{$APP.LBL_CLOSE_BUTTON_TITLE}"  accesskey="{$APP.LBL_CLOSE_BUTTON_KEY}"  class="button"  onclick="this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isSave.value=true;this.form.return_action.value=\'DetailView\'; this.form.return_id.value=\'{$fields.id.value}\'" id="close_button" name="button1"  value="{$APP.LBL_CLOSE_BUTTON_TITLE}"  type="submit">{/if}',
-          'sugar_html' => 
-          array (
-            'type' => 'submit',
-            'value' => '{$APP.LBL_CLOSE_BUTTON_TITLE}',
-            'htmlOptions' => 
-            array (
-              'title' => '{$APP.LBL_CLOSE_BUTTON_TITLE}',
-              'accesskey' => '{$APP.LBL_CLOSE_BUTTON_KEY}',
-              'class' => 'button',
-              'onclick' => 'this.form.status.value=\'Held\'; this.form.action.value=\'Save\';this.form.return_module.value=\'Calls\';this.form.isSave.value=true;this.form.return_action.value=\'DetailView\'; this.form.return_id.value=\'{$fields.id.value}\';this.form.isSaveFromDetailView.value=true',
-              'name' => 'button1',
-              'id' => 'close_button',
-            ),
-            'template' => '{if $fields.status.value != "Held" && $bean->aclAccess("edit")}[CONTENT]{/if}',
-          ),
+          'label' => '10',
+          'field' => '30',
+        ),
+        1 => 
+        array (
+          'label' => '10',
+          'field' => '30',
         ),
       ),
-      'hidden' => 
-      array (
-        0 => '<input type="hidden" name="isSaveAndNew">',
-        1 => '<input type="hidden" name="status">',
-        2 => '<input type="hidden" name="isSaveFromDetailView">',
-        3 => '<input type="hidden" name="isSave">',
-      ),
-      'headerTpl' => 'modules/Calls/tpls/detailHeader.tpl',
+      'useTabs' => false,
     ),
-    'maxColumns' => '2',
-    'widths' => 
+    'panels' => 
     array (
-      0 => 
+      'lbl_call_information' => 
       array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'useTabs' => false,
-    'tabDefs' => 
-    array (
-      'LBL_CALL_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
+        array (
+          array (
+            'name' => 'name',
+            'label' => 'LBL_SUBJECT',
+          ),
+          1 => 
+          array (
+            'name' => 'direction',
+            'customCode' => '{$fields.direction.options[$fields.direction.value]} {$fields.status.options[$fields.status.value]}',
+            'label' => 'LBL_STATUS',
+          ),
+        ), 
+        array (
+          array (
+            'name' => 'date_start',
+            'customCode' => '{$fields.date_start.value} {$fields.time_start.value}&nbsp;',
+            'label' => 'LBL_DATE_TIME',
+          ),
+          array (
+            'name' => 'parent_name',
+            'customLabel' => '{sugar_translate label=\'LBL_MODULE_NAME\' module=$fields.parent_type.value}',
+          ),
+        ),
+        array (
+          array (
+            'name' => 'duration_hours',
+            'customCode' => '{$fields.duration_hours.value}{$MOD.LBL_HOURS_ABBREV} {$fields.duration_minutes.value}{$MOD.LBL_MINSS_ABBREV}&nbsp;',
+            'label' => 'LBL_DURATION',
+          ),
+          array(
+            'name' => 'reminder_time',
+            'customCode' => '{include file="modules/Meetings/tpls/reminders.tpl"}',
+            'label' => 'LBL_REMINDER',
+          ),
+        ),
+        array (
+          array (
+            'name' => 'description',
+            'comment' => 'Full text of the note',
+            'label' => 'LBL_DESCRIPTION',
+          ),
+        ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
       array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'lbl_call_information' => 
-    array (
-      0 => 
-      array (
-        0 => 
         array (
-          'name' => 'name',
-          'label' => 'LBL_SUBJECT',
+          array (
+            'name' => 'assigned_user_name',
+            'customCode' => '{$fields.assigned_user_name.value}',
+            'label' => 'LBL_ASSIGNED_TO',
+          ),
+	      'team_name',
         ),
-        1 => 
         array (
-          'name' => 'direction',
-          'customCode' => '{$fields.direction.options[$fields.direction.value]} {$fields.status.options[$fields.status.value]}',
-          'label' => 'LBL_STATUS',
-        ),
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'date_start',
-          'customCode' => '{$fields.date_start.value} {$fields.time_start.value}&nbsp;',
-          'label' => 'LBL_DATE_TIME',
-        ),
-        1 => 
-        array (
-          'name' => 'parent_name',
-          'customLabel' => '{sugar_translate label=\'LBL_MODULE_NAME\' module=$fields.parent_type.value}',
-        ),
-      ),
-      2 => 
-      array (
-        0 => 
-        array (
-          'name' => 'duration_hours',
-          'customCode' => '{$fields.duration_hours.value}{$MOD.LBL_HOURS_ABBREV} {$fields.duration_minutes.value}{$MOD.LBL_MINSS_ABBREV}&nbsp;',
-          'label' => 'LBL_DURATION',
-        ),
-        1 => 
-        array (
-          'name' => 'reminder_time',
-          'customCode' => '{include file="modules/Meetings/tpls/reminders.tpl"}',
-          'label' => 'LBL_REMINDER',
-        ),
-      ),
-      3 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'comment' => 'Full text of the note',
-          'label' => 'LBL_DESCRIPTION',
-        ),
-      ),
-    ),
-    'LBL_PANEL_ASSIGNMENT' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-          'customCode' => '{$fields.assigned_user_name.value}',
-          'label' => 'LBL_ASSIGNED_TO',
-        ),
-        1 => 'team_name',
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'date_modified',
-          'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}&nbsp;',
-          'label' => 'LBL_DATE_MODIFIED',
-        ),
-        1 => 
-        array (
-          'name' => 'date_entered',
-          'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}&nbsp;',
-          'label' => 'LBL_DATE_ENTERED',
+          array (
+            'name' => 'date_modified',
+            'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}&nbsp;',
+            'label' => 'LBL_DATE_MODIFIED',
+          ),
+          array (
+            'name' => 'date_entered',
+            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}&nbsp;',
+            'label' => 'LBL_DATE_ENTERED',
+          ),
         ),
       ),
     ),
   ),
 );
+?>

@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Вид',
   'LBL_MODIFIED' => 'Изменено пользователем:',
   'LBL_MODULE_NAME' => 'Журнал маркет. кампании',
+  'LBL_MODULE_NAME_SINGULAR' => 'Журнал маркет. кампании',
   'LBL_MORE_INFO' => 'Подробная информация',
   'LBL_NAME' => 'Название:',
   'LBL_RELATED' => 'Относится к',

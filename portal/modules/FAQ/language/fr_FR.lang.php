@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,31 +15,17 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'FAQ',
-  'LBL_MODULE_TITLE' => 'FAQ',
-  'LBL_BACK_TO_TOP' => 'Retour en Haut',
-  'LBL_SUCCESSFUL_QUERY' => 'Succès',
-  'LBL_ERROR_QUERY' => 'Erreur',
   'ERR_FAQ_LIST_RETRIEVE' => 'Erreur: Impossible de trouver le contenu de la FAQ.',
   'ERR_FAQ_LIST_RETRIEVE_RETRY' => 'Tentative appel SOAP...',
+  'LBL_BACK_TO_TOP' => 'Retour en Haut',
+  'LBL_ERROR_QUERY' => 'Erreur',
   'LBL_FAQ_EMPTY' => 'Aucun article taggué dans les FAQs de la Base de connaissances.',
+  'LBL_MODULE_NAME' => 'FAQ',
+  'LBL_MODULE_NAME_SINGULAR' => 'FAQ',
+  'LBL_MODULE_TITLE' => 'FAQ',
+  'LBL_SUCCESSFUL_QUERY' => 'Succès',
 );
 

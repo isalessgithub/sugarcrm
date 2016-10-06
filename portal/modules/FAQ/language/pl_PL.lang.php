@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_ERROR_QUERY' => 'Błąd',
   'LBL_FAQ_EMPTY' => 'Aktualnie nie ma żadnych artykułów w repozytorium Bazy Wiedzy otagowanych "FAQ".',
   'LBL_MODULE_NAME' => 'FAQ',
+  'LBL_MODULE_NAME_SINGULAR' => 'FAQ',
   'LBL_MODULE_TITLE' => 'FAQ: Strona główna',
   'LBL_SUCCESSFUL_QUERY' => 'Sukces',
 );

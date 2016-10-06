@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LANGUAGE' => 'Valoda:',
   'LBL_LIST_FORM_TITLE' => 'Lomu saraksts',
   'LBL_MODULE_NAME' => 'Lomas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Loma',
   'LBL_MODULE_TITLE' => 'Lomas',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_ROLE' => 'Loma:',

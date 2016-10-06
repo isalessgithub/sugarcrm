@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_EXECUTE_TIME' => '执行时间',
   'LBL_FAIL_COUNT' => '失败',
   'LBL_INTERVAL' => '重试最短间隔',
+  'LBL_JOB_GROUP' => '工作组',
   'LBL_MESSAGE' => '信息',
   'LBL_NAME' => '任务名称',
   'LBL_PERCENT' => '完成百分比',

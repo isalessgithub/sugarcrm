@@ -1,130 +1,106 @@
 <?php
-// created: 2013-04-03 01:08:01
-$viewdefs['Documents']['DetailView'] = array (
-  'templateMeta' => 
-  array (
-    'maxColumns' => '2',
-    'form' => 
+/*********************************************************************************
+ * By installing or using this file, you are confirming on behalf of the entity
+ * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
+ * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
+ * http://www.sugarcrm.com/master-subscription-agreement
+ *
+ * If Company is not bound by the MSA, then by installing or using this file
+ * you are agreeing unconditionally that Company will be bound by the MSA and
+ * certifying that you have authority to bind Company accordingly.
+ *
+ * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
+ ********************************************************************************/
+
+$viewdefs['Documents']['DetailView'] = array(
+'templateMeta' => array('maxColumns' => '2',
+                        'form' => array('hidden'=>array('<input type="hidden" name="old_id" value="{$fields.document_revision_id.value}">')), 
+                        'widths' => array(
+                                        array('label' => '10', 'field' => '30'), 
+                                        array('label' => '10', 'field' => '30')
+                                        ),
+                        ),
+'panels' => 
     array (
-      'hidden' => 
+      'lbl_document_information' => 
       array (
-        0 => '<input type="hidden" name="old_id" value="{$fields.document_revision_id.value}">',
-      ),
-    ),
-    'widths' => 
-    array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      'LBL_DOCUMENT_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
+        array (
+          array (
+            'name' => 'filename',
+            'displayParams' => 
+            array (
+              'link' => 'filename',
+              'id' => 'document_revision_id',
+            ),
+          ),
+          'status',
+        ),
+
+        array (
+          array (
+            'name' => 'document_name',
+            'label' => 'LBL_DOC_NAME',
+          ),
+          array (
+            'name' => 'revision',
+            'label' => 'LBL_DOC_VERSION',
+          ),
+        ),
+
+        array (
+          array (
+            'name' => 'template_type',
+            'label' => 'LBL_DET_TEMPLATE_TYPE',
+          ),
+          array (
+            'name' => 'is_template',
+            'label' => 'LBL_DET_IS_TEMPLATE',
+          ),
+        ),
+
+        array (
+          'active_date',
+          'category_id',
+        ),
+ 
+        array (
+          'exp_date',
+          'subcategory_id',
+        ),
+
+        array (
+          array (
+            'name' => 'description',
+            'label' => 'LBL_DOC_DESCRIPTION',
+          ),
+        ),
+	    
+	    array (
+	       'related_doc_name',
+	       'related_doc_rev_number',
+	    ),
+
+       array (
+        array (
+            'name' => 'assigned_user_name',
+            'label' => 'LBL_ASSIGNED_TO_NAME',
+            ),
+
+        array (
+	      'name' => 'team_name',
+          'label' => 'LBL_TEAM',
+	    ),
+        ),
       ),
       'LBL_REVISIONS_PANEL' => 
       array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'lbl_document_information' => 
-    array (
-      0 => 
-      array (
-        0 => 
         array (
-          'name' => 'filename',
-          'displayParams' => 
-          array (
-            'link' => 'filename',
-            'id' => 'document_revision_id',
-          ),
-        ),
-        1 => 'status',
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'document_name',
-          'label' => 'LBL_DOC_NAME',
-        ),
-        1 => 
-        array (
-          'name' => 'revision',
-          'label' => 'LBL_DOC_VERSION',
+          0 => 'last_rev_created_name',
+          1 => 'last_rev_create_date',
         ),
       ),
-      2 => 
-      array (
-        0 => 
-        array (
-          'name' => 'template_type',
-          'label' => 'LBL_DET_TEMPLATE_TYPE',
-        ),
-        1 => 
-        array (
-          'name' => 'is_template',
-          'label' => 'LBL_DET_IS_TEMPLATE',
-        ),
-      ),
-      3 => 
-      array (
-        0 => 'active_date',
-        1 => 'category_id',
-      ),
-      4 => 
-      array (
-        0 => 'exp_date',
-        1 => 'subcategory_id',
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'label' => 'LBL_DOC_DESCRIPTION',
-        ),
-      ),
-      6 => 
-      array (
-        0 => 'related_doc_name',
-        1 => 'related_doc_rev_number',
-      ),
-      7 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-          'label' => 'LBL_ASSIGNED_TO_NAME',
-        ),
-        1 => 
-        array (
-          'name' => 'team_name',
-          'label' => 'LBL_TEAM',
-        ),
-      ),
-    ),
-    'LBL_REVISIONS_PANEL' => 
-    array (
-      0 => 
-      array (
-        0 => 'last_rev_created_name',
-        1 => 'last_rev_create_date',
-      ),
-    ),
-  ),
+    )
+   
 );
+
+?>

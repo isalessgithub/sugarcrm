@@ -42,9 +42,7 @@ $(document).ready(function(){
 });
 
 SUGAR.themes = SUGAR.namespace("themes");
-if(Get_Cookie("sugar_theme_menu_load") == null) {
-	Set_Cookie('sugar_theme_menu_load','false',30,'/','','');
-}
+
 SUGAR.append(SUGAR.themes, {
     setRightMenuTab: function(el, params) {
 
@@ -348,7 +346,7 @@ SUGAR.append(SUGAR.themes, {
 	    var maxMenuWidth = $("#dcmenu").width() - 100 //100px: spacing for submegamenu, padding and border lines
             - $("#quickCreate").width() - $("#globalLinksModule").width() - $("#dcmenuSugarCube").width() - $("#dcmenuSearchDiv").width();
 		var currentModuleList = $("#themeTabGroupMenu_" + sugar_theme_gm_current),
-            menuItemsWidth = SUGAR.themes.menuItemsWidth || $("#moduleList").width(),
+            menuItemsWidth = $("#moduleList").width(),
             _ie_adjustment = 10,
             menuItems = currentModuleList.children("li"),
             menuLength = menuItems.length;

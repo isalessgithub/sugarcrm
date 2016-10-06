@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Hozzáadás',
+  'LBL_ADMIN_ONLY' => 'Kizárólag adminisztrátorok',
   'LBL_BELOW_MIN' => 'Váltószámnak 0-nál nagyobbnak kell lennie',
   'LBL_CREATED_BY' => 'Létrehozva',
   'LBL_CURRENCY' => 'Pénznem',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Összefűzés',
   'LBL_MERGE_TXT' => 'Válassza ki azokat a pénznemeket, amiket szeretne átváltani a kiválasztott pénznembe. Ez a lépés a pipával rendelkező pénznemeket törölni fogja és a hozzájuk társított értékeket a kiválasztott pénznemhez rendeli hozzá.',
   'LBL_MODULE_NAME' => 'Pénznemek',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pénznem',
   'LBL_UPDATE' => 'Frissítés',
   'LBL_US_DOLLAR' => 'Amerikai dollár',
   'LNK_NEW_ACCOUNT' => 'Új kliens',

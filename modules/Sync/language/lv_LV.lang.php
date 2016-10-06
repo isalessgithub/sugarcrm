@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_GO_ONLINE' => 'Iet tiešsaistē',
   'LBL_INITIAL_SYNC_MESSAGE' => 'Jūs tikko esat uzstādījis bezsaistes klientu. Spiediet zemāk redzamo pogu, lai sāktu sinhronizācijas procesu.',
   'LBL_MODULE_NAME' => 'Sinhronizācija',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sinhronizācija',
   'LBL_MODULE_TITLE' => 'Sinhronizācija',
   'LBL_POWERED_BY_SUGAR' => 'Šo nodrošina SugarCRM',
   'LBL_PROMPT' => 'Pieprasīt',

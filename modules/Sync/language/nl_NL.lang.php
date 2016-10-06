@@ -18,21 +18,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_ACCEPT_CLIENT' => 'Client wint',
+  'LBL_ACCEPT_SERVER' => 'Server wint',
+  'LBL_CHECKING_SYNC_AVAILABLE' => 'Controleer beschikbaarheid server...',
+  'LBL_CLEAN_ALERT' => 'Het uitvoeren van een Clean sync zal alle records verwijderen op deze client-machine',
+  'LBL_CLEAN_SYNC' => 'Clean sync:',
+  'LBL_GO_ONLINE' => 'Ga online',
+  'LBL_INITIAL_SYNC_MESSAGE' => 'De offline client is zojuist geïnstalleerd. Klik op onderstaande knop om de synchronisatie te starten.',
+  'LBL_MODULE_NAME' => 'Synchronisatie',
+  'LBL_MODULE_NAME_SINGULAR' => 'Synchronisatie',
+  'LBL_MODULE_TITLE' => 'Synchronisatie: Start',
   'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM',
   'LBL_PROMPT' => 'Prompt',
-  'LBL_MODULE_NAME' => 'Synchronisatie',
-  'LBL_MODULE_TITLE' => 'Synchronisatie: Start',
-  'LBL_GO_ONLINE' => 'Ga online',
-  'LBL_SYNC_AVAILABLE' => 'Controleer beschikbaarheid server',
-  'LBL_CHECKING_SYNC_AVAILABLE' => 'Controleer beschikbaarheid server...',
   'LBL_SERVER_AVAILABLE' => 'Server beschikbaar',
   'LBL_SERVER_UNAVAILABLE' => 'Server niet beschikbaar - Controleer of u verbonden bent met het internet.',
   'LBL_START_SYNC' => 'Start synchronisatie',
+  'LBL_SYNC_AVAILABLE' => 'Controleer beschikbaarheid server',
   'LBL_SYNC_SETUP' => 'Synchronisatie setup',
-  'LBL_ACCEPT_SERVER' => 'Server wint',
-  'LBL_ACCEPT_CLIENT' => 'Client wint',
-  'LBL_CLEAN_SYNC' => 'Clean sync:',
-  'LBL_CLEAN_ALERT' => 'Het uitvoeren van een Clean sync zal alle records verwijderen op deze client-machine',
-  'LBL_INITIAL_SYNC_MESSAGE' => 'De offline client is zojuist geïnstalleerd. Klik op onderstaande knop om de synchronisatie te starten.',
 );
 

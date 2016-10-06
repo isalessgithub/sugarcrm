@@ -32,7 +32,7 @@ class SugarFieldInt extends SugarFieldBase
 
     public function unformatField($formattedField, $vardef){
         if ( $formattedField === '' || $formattedField === NULL ) {
-            return '';
+            return null;
         }
         return (int)unformat_number($formattedField);
     }

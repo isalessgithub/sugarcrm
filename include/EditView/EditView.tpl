@@ -194,7 +194,7 @@ class="yui-navset"
 			    {{foreach from=$colData.field.fields item=subField}}
 			        {{if $fields[$subField.name]}}
 			        	{counter name="panelFieldCount"}
-			            {{sugar_field parentFieldArray='fields'  accesskey=$ACCKEY tabindex=$tabindex vardef=$fields[$subField.name] displayType='EditView' displayParams=$subField.displayParams formName=$form_name}}&nbsp;
+			            {{sugar_field parentFieldArray='fields'  accesskey=$ACCKEY tabindex=$tabindex vardef=$fields[$subField.name] displayType='EditView' displayParams=$subField.displayParams formName=$form_name module=$module}}&nbsp;
 			        {{/if}}
 			    {{/foreach}}
 			{{elseif !empty($colData.field.customCode) && empty($colData.field.customCodeRenderField)}}
@@ -203,7 +203,7 @@ class="yui-navset"
 			{{elseif $fields[$colData.field.name]}}
 				{counter name="panelFieldCount"}
 			    {{$colData.displayParams}}
-				{{sugar_field parentFieldArray='fields'  accesskey=$ACCKEY tabindex=$tabindex vardef=$fields[$colData.field.name] displayType='EditView' displayParams=$colData.field.displayParams typeOverride=$colData.field.type formName=$form_name}}
+				{{sugar_field parentFieldArray='fields'  accesskey=$ACCKEY tabindex=$tabindex vardef=$fields[$colData.field.name] displayType='EditView' displayParams=$colData.field.displayParams typeOverride=$colData.field.type formName=$form_name module=$module}}
 			{{/if}}
 		{{if !empty($colData.field.name)}}
 		{{if $showDetailData }}
@@ -212,7 +212,7 @@ class="yui-navset"
 			    {{foreach from=$colData.field.fields item=subField}}
 			        {{if $fields[$subField.name]}}
 
-			            {{sugar_field parentFieldArray='fields' tabindex=$tabindex vardef=$fields[$subField.name] displayType='DetailView' displayParams=$subField.displayParams formName=$form_name}}&nbsp;
+			            {{sugar_field parentFieldArray='fields' tabindex=$tabindex vardef=$fields[$subField.name] displayType='DetailView' displayParams=$subField.displayParams formName=$form_name module=$module}}&nbsp;
 			        {{/if}}
 			    {{/foreach}}
 			{{elseif !empty($colData.field.customCode)}}
@@ -224,7 +224,7 @@ class="yui-navset"
 			{{elseif $fields[$colData.field.name]}}
 			    {{$colData.displayParams}}
 			    {counter name="panelFieldCount"}
-				{{sugar_field parentFieldArray='fields' tabindex=$tabindex vardef=$fields[$colData.field.name] displayType='DetailView' displayParams=$colData.field.displayParams typeOverride=$colData.field.type formName=$form_name}}
+				{{sugar_field parentFieldArray='fields' tabindex=$tabindex vardef=$fields[$colData.field.name] displayType='DetailView' displayParams=$colData.field.displayParams typeOverride=$colData.field.type formName=$form_name module=$module}}
 			{{/if}}
 	    {{$colData.field.suffix}}
 		{{if !empty($colData.field.customCode)}}</td>{{/if}}

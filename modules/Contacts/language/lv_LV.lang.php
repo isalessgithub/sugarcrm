@@ -124,6 +124,7 @@ $mod_strings = array (
   'LBL_MOBILE_PHONE' => 'Mobilais tālrunis:',
   'LBL_MODIFIED' => 'Modificēja:',
   'LBL_MODULE_NAME' => 'Kontaktpersonas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kontaktpersona',
   'LBL_MODULE_TITLE' => 'Kontaktpersonas: Sākums',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Jauna kontaktpersona',

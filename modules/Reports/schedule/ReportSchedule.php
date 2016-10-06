@@ -224,5 +224,26 @@ function mark_deleted($id){
     $query = "UPDATE {$this->table_name} SET deleted = '1' WHERE id = '{$id}'";
     $GLOBALS['db']->query($query);
 }
+
+    /**
+     * Checks if Scheduler "Run Report Generation Scheduled Tasks"
+     * is active
+     *
+     * @return boolean true if the scheduler is active, false otherwise
+     */
+    public function isReportSchedulerActive()
+    {
+        // Look for the Scheduler by 'job', since name is localized
+        $fields = array(
+            'job' => 'function::processQueue',
+            'status' => 'Active',
+        );
+
+        $scheduler = new Scheduler();
+        $scheduler = $scheduler->retrieve_by_string_fields($fields);
+
+        return !empty($scheduler);
+    }
+
 }
 ?>

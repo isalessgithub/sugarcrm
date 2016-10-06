@@ -88,6 +88,7 @@ $mod_strings = array (
   'LNK_BUG_LIST' => 'Bugs',
   'LNK_BUG_REPORTS' => 'Rapports de Bugs',
   'LNK_CREATE' => 'Signaler Bug',
+  'LNK_CREATE_WHEN_EMPTY' => 'Signaler un Bug maintenant.',
   'LNK_IMPORT_BUGS' => 'Import Bugs',
   'LNK_NEW_BUG' => 'Signaler Bug',
   'NTC_DELETE_CONFIRMATION' => 'Etes-vous sûr(e) de vouloir supprimer ce Contact du Bug ?',

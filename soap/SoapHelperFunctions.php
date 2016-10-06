@@ -68,7 +68,7 @@ function get_field_list($value, $translate=true){
 		} //foreach
 	} //if
 
-	if($value->module_dir == 'Bugs'){
+    if (isset($value->module_dir) && $value->module_dir == 'Bugs') {
 
 		$seedRelease = new Release();
 		$options = $seedRelease->get_releases(TRUE, "Active");
@@ -89,7 +89,7 @@ function get_field_list($value, $translate=true){
 			$list['release_name']['options'] = $options_ret;
 		}
 	}
-    if($value->module_dir == 'Emails'){
+    if (isset($value->module_dir) && $value->module_dir == 'Emails') {
         $fields = array('from_addr_name', 'reply_to_addr', 'to_addrs_names', 'cc_addrs_names', 'bcc_addrs_names');
         foreach($fields as $field){
             $var = $value->field_defs[$field];
@@ -364,6 +364,10 @@ function get_name_value_list($value, $returnDomValue = false){
 					$val = substr($val, 0, 10);
 				}elseif(strcmp($type, 'enum') == 0 && !empty($var['options']) && $returnDomValue){
 					$val = $app_list_strings[$var['options']][$val];
+				}
+				elseif(strcmp($type, 'currency') == 0){
+					$params = array( 'currency_symbol' => false );
+					$val = currency_format_number($val, $params);
 				}
 
 				$list[$var['name']] = get_name_value($var['name'], $val);
@@ -785,24 +789,23 @@ function get_report_value($seed){
  	$report->plain_text_output = true;
 
     $column_types = 'display_columns';
+    $headerType = 'header';
 
     // If it's a summary report (detailed or normal)
- 	if(strpos($report->report_type, 'summary') !== false)
-    {
- 		$report->run_summary_combo_query(true);
+    if (strpos($report->report_type, 'summary') !== false) {
+        $report->run_summary_combo_query(true);
  		$header = $report->get_summary_header_row();
+        $headerType = 'groupheader';
  		$next_row_fn = 'get_summary_next_row';
         $column_types = 'summary_columns';
- 	}
-    else
-    {
+    } else {
 		$report->run_query();
  		$header = $report->get_header_row();
  	}
 
 	foreach($header as $key=>$value){
 		$field_list[$key] = array('name'=>$value,
-			'type'=>'header',
+            'type' => $headerType,
 			'label'=> $value,
 			'required'=>'0',
 			'options'=> array()
@@ -810,14 +813,12 @@ function get_report_value($seed){
 	}
 
     // Summary detail header columns
-    if($report->report_type == 'detailed_summary')
-    {
+    if ($report->report_type == 'detailed_summary') {
         $header_details = $report->get_header_row();
-        foreach ($header_details as $key => $value)
-        {
+        foreach ($header_details as $key => $value) {
             $field_list_details[$key] = array(
                 'name' => $value,
-                'type' => 'details',
+                'type' => 'header',
                 'label' => $value,
                 'required' => '0',
                 'options' => array()
@@ -827,6 +828,7 @@ function get_report_value($seed){
     }
 
     $index = 0;
+
 	while (( $row = $report->$next_row_fn('result', $column_types) ) != 0 ){
 		$row_list = array('id' => $index,
 			'module_name' => 'Reports',
@@ -838,33 +840,37 @@ function get_report_value($seed){
 													'value' => $value
 												 );
 		}
+		$output_list[$index] = $row_list;
 
-        // Summary Detail columns
-        if($report->report_type == 'detailed_summary')
-        {
-            if ($row['count'] > 0)
-            {
-                for ($i = 0; $i < $row['count']; $i++)
-                {
+        // Summary Detail rows
+        if ($report->report_type == 'detailed_summary') {
+            if ($row['count'] > 0) {
+                for ($i = 0; $i < $row['count']; $i++) {
+                    $newIndex = $index . '.' . $i;
+                    $row_list = array(
+                        'id' => $newIndex,
+                        'module_name' => 'Reports',
+                        'name_value_list' => array()
+                    );
+
                     $row_details = $report->get_next_row('result', 'display_columns');
-                    foreach ($row_details['cells'] as $key => $value){
-                        $row_list['details'][$key] = array(
+                    foreach ($row_details['cells'] as $key => $value) {
+                        $row_list['name_value_list'][$key] = array(
                             'name' => $key,
                             'value' => $value
                         );
                     }
 
+                    $output_list[$newIndex] = $row_list;
                 }
             }
         }
 
-		$output_list[$index] = $row_list;
-		$index++;
-		$output_list[] = $row;
-	}
+        $index++;
+    }
+
 	$result['output_list'] = $output_list;
 	$result['field_list'] = $field_list;
-
 	return $result;
 }
 
@@ -993,31 +999,33 @@ function add_create_account($seed)
 			return;
 		}
 
-	    $arr = array();
+        // attempt to find by id first
+        $ret = $focus->retrieve($account_id, true, false);
 
-	    $query = "select {$focus->table_name}.id, {$focus->table_name}.deleted from {$focus->table_name} ";
-	    $focus->add_team_security_where_clause($query);
-	    $query .= " WHERE name='".$seed->db->quote($account_name)."'";
-	    $query .=" ORDER BY deleted ASC";
-	    $result = $seed->db->query($query, true);
+        // if it doesn't exist by id, attempt to find by name (non-deleted)
+        if (empty($ret))
+        {
+            $query = "select {$focus->table_name}.id, {$focus->table_name}.deleted from {$focus->table_name} ";
+            $focus->add_team_security_where_clause($query);
+            $query .= " WHERE name='".$seed->db->quote($account_name)."'";
+            $query .=" ORDER BY deleted ASC";
+            $result = $seed->db->query($query, true);
 
-	    $row = $seed->db->fetchByAssoc($result, false);
+            $row = $seed->db->fetchByAssoc($result, false);
 
-		// we found a row with that id
-	    if (!empty($row['id']))
-	    {
-	    	// if it exists but was deleted, just remove it entirely
-	        if ( !empty($row['deleted']))
-	        {
-	            $query2 = "delete from {$focus->table_name} WHERE id='". $seed->db->quote($row['id'])."'";
-	            $result2 = $seed->db->query($query2, true);
-			}
-			// else just use this id to link the contact to the account
-	        else
-	        {
-	        	$focus->id = $row['id'];
-	        }
-	    }
+            if (!empty($row['id']))
+            {
+                $focus->retrieve($row['id']);
+            }
+        }
+        // if it exists by id but was deleted, just remove it entirely
+        else if ($focus->deleted)
+        {
+            $query2 = "delete from {$focus->table_name} WHERE id='". $seed->db->quote($focus->id) ."'";
+            $seed->db->query($query2, true);
+            // it was deleted, create new
+            $focus = BeanFactory::newBean('Accounts');
+        }
 
 		// if we didnt find the account, so create it
 	    if (empty($focus->id))

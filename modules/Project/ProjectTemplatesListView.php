@@ -110,48 +110,9 @@ if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only']) { // 
 
 // use the stored query if there is one
 if (!isset($where)) $where = "";
-require_once('modules/MySettings/StoreQuery.php');
-$storeQuery = new StoreQuery();
-if(!isset($_REQUEST['query'])){
-    $storeQuery->loadQuery($currentModule);
-    $storeQuery->populateRequest();
-}else{
-    $storeQuery->saveFromGet($currentModule);   
-}
-if(isset($_REQUEST['query']))
-{
-    // we have a query
-    // first save columns 
-    $current_user->setPreference('ListViewDisplayColumns', $displayColumns, 0, $currentModule); 
-    $searchForm->populateFromRequest(); // gathers search field inputs from $_REQUEST
-    $where_clauses = $searchForm->generateSearchWhere(true, "Project"); // builds the where clause from search field inputs
-
-    //if (count($where_clauses) > 0 )$where = implode(' and ', $where_clauses);
-    $GLOBALS['log']->info("Here is the where clause for the list view: $where");
-}
 
 // list only the Project Templates
 $where .= 'is_template = 1 ';
-
-// start display
-// which tab of search form to display
-/*if(!isset($_REQUEST['search_form']) || $_REQUEST['search_form'] != 'false') {
-
-    $searchForm->setup();
-
-	if(isset($_REQUEST['searchFormTab']) && $_REQUEST['searchFormTab'] == 'advanced_search') {
-        $searchForm->displayAdvanced();
-    }
-    elseif(isset($_REQUEST['searchFormTab']) && $_REQUEST['searchFormTab'] == 'saved_views'){
-        $searchForm->displaySavedViews($listViewDefs, $lv);
-    }
-    else {
-        $searchForm->displayBasic();
-    }
-}
-*/
-
-//_pp($mod_strings);
 
 // awu: Bug 11452 - removing export for non-admin users without a mass update form
 if (!is_admin($current_user)){

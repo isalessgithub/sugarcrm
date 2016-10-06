@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Upraveno',
   'LBL_MODIFIED_ID' => 'Upraveno podle ID',
   'LBL_MODULE_NAME' => 'Výrobci',
+  'LBL_MODULE_NAME_SINGULAR' => 'Výrobce',
   'LBL_MODULE_TITLE' => 'Výrobci: Domů',
   'LBL_NAME' => 'Výrobce:',
   'LBL_NEW_FORM_TITLE' => 'Nový výrobce',

@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'Arxivar Adjunt',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Històrial',
   'LBL_INVITEE' => 'Contactes',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Base de coneixement',
   'LBL_LIST_ACCOUNT_NAME' => 'Compte',
   'LBL_LIST_ASSIGNED' => 'Assignat a',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Usuari Assignat',

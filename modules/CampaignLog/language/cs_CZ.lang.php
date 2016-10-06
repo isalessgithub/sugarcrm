@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Typ',
   'LBL_MODIFIED' => 'Upravil:',
   'LBL_MODULE_NAME' => 'Log kampaně',
+  'LBL_MODULE_NAME_SINGULAR' => 'Log kampaně',
   'LBL_MORE_INFO' => 'Více informací',
   'LBL_NAME' => 'Název:',
   'LBL_RELATED' => 'Související',

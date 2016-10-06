@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => '修改人',
   'LBL_MODULE_ID' => '目标列表',
   'LBL_MODULE_NAME' => '目标列表',
+  'LBL_MODULE_NAME_SINGULAR' => '目标列表',
   'LBL_MODULE_TITLE' => '目标列表:首页',
   'LBL_MORE_DETAIL' => '更多细节',
   'LBL_NAME' => '名称',

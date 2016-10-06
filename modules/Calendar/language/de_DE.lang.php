@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: in dieser Ansicht nicht definiert',
+  'ERR_YEAR_BETWEEN' => 'Leider kann der Kalender das angegebene Jahr nicht bearbeiten.<br />Jahre müssen zwischen 1970 und 2037 liegen',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Filter anwenden',
   'LBL_ASSIGNED_TO_NAME' => 'Zugewiesen an',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Laden. Bitte warten...',
   'LBL_MINS_ABBREV' => 'min',
   'LBL_MODULE_NAME' => 'Kalender',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalender',
   'LBL_MODULE_TITLE' => 'Kalender',
   'LBL_MONTH' => 'Monat',
   'LBL_NEXT_DAY' => 'Nächster Tag',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Einladungen senden',
   'LBL_SETTINGS' => 'Einstellungen',
   'LBL_SETTINGS_CALLS_SHOW' => 'Anrufe anzeigen',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Abgeschlossene Meetings, Calls und Aufgaben anzeigen:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Zeiteinteilung in Tag- und Wochenansichten anzeigen',
   'LBL_SETTINGS_TASKS_SHOW' => 'Aufgaben zeigen',
   'LBL_SETTINGS_TIME_ENDS' => 'Endzeit',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => ' ',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mär',
@@ -140,7 +145,8 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
-    1 => 'Jänner',
+    0 => ' ',
+    1 => 'Januar',
     2 => 'Februar',
     3 => 'März',
     4 => 'April',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Son',
     1 => 'Mo',
     2 => 'Di',
     3 => 'Mi',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Sonntag',
     1 => 'Montag',
     2 => 'Dienstag',
     3 => 'Mittwoch',

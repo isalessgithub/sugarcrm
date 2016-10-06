@@ -123,7 +123,19 @@ class RSSDashlet extends Dashlet
     {
         // suppress XML errors
         libxml_use_internal_errors(true);
-        $rssdoc = simplexml_load_file($url);
+        $data = file_get_contents($url);
+        $urlparse = parse_url($url);
+        if (empty($urlparse['scheme']) || empty($urlparse['host'])) {
+            return $this->dashletStrings['ERR_LOADING_FEED'];
+        }
+        if ($urlparse['scheme'] != 'http' && $urlparse['scheme'] != 'https') {
+            return $this->dashletStrings['ERR_LOADING_FEED'];
+        }
+        if(!$data) {
+            return $this->dashletStrings['ERR_LOADING_FEED'];
+        }
+        libxml_disable_entity_loader(true);
+        $rssdoc = simplexml_load_string($data);
         // return back the error message if the loading wasn't successful
         if (!$rssdoc)
             return $this->dashletStrings['ERR_LOADING_FEED'];
@@ -133,11 +145,14 @@ class RSSDashlet extends Dashlet
             foreach ( $rssdoc->channel as $channel ) {
                 if ( isset($channel->item ) ) {
                     foreach ( $channel->item as $item ) {
+                        $link = htmlspecialchars($item->link, ENT_QUOTES, 'UTF-8');
+                        $title = htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8');
+                        $description = htmlspecialchars($item->description, ENT_QUOTES, 'UTF-8');
                         $output .= <<<EOHTML
 <tr>
 <td>
-    <h3><a href="{$item->link}" target="_child">{$item->title}</a></h3>
-    {$item->description}
+    <h3><a href="{$link}" target="_child">{$title}</a></h3>
+    {$description}
 </td>
 </tr>
 EOHTML;
@@ -151,11 +166,14 @@ EOHTML;
                 if ( empty($link) ) {
                     $link = $entry->link[0]['href'];
                 }
+                $link = htmlspecialchars($link, ENT_QUOTES, 'UTF-8');
+                $title = htmlspecialchars($entry->title, ENT_QUOTES, 'UTF-8');
+                $summary = htmlspecialchars($entry->summary, ENT_QUOTES, 'UTF-8');
                 $output .= <<<EOHTML
 <tr>
 <td>
-    <h3><a href="{$link}" target="_child">{$entry->title}</a></h3>
-    {$entry->summary}
+    <h3><a href="{$link}" target="_child">{$title}</a></h3>
+    {$summary}
 </td>
 </tr>
 EOHTML;

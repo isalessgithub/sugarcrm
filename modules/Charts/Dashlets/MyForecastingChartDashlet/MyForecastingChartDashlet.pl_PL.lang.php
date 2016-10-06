@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['MyForecastingChartDashlet'] = array('LBL_TITLE'       => 'Moje prognozy',
                                                      'LBL_DESCRIPTION' => 'Udział założony/rzeczywisty',
                                                      'LBL_REFRESH'     => 'Odśwież wykres');
-?> 
-

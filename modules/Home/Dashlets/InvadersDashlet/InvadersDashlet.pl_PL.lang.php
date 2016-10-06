@@ -30,4 +30,4 @@ $dashletStrings['InvadersDashlet'] = array(
 'LBL_GAME_OVER'     => 'Koniec<br>(Kliknij, aby zagrać jeszcze raz)',
 
 );
-?> 
+ 

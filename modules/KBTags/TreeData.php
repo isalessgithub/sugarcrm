@@ -428,7 +428,7 @@ function get_browse_documents($params){
 global $odd_bg, $even_bg, $hilite_bg,$current_user,$app_strings;
     $mod_strings = get_kbtag_strings();
     $colorclass = '';$bgColor=$even_bg;
-        
+        $GLOBALS['displayListView'] = true;
      //query for documents under this node
      //get id of node selected
         $depth = $params['TREE']['depth'];

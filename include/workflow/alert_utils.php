@@ -82,7 +82,21 @@ function get_user_alert_details(& $focus, $user_meta_array, & $address_array){
 		if($user_meta_array['array_type'] == 'past'){
 			$target_user_id = $focus->fetched_row[$user_meta_array['field_value']];
 		} else {
-			$target_user_id = $focus->$user_meta_array['field_value'];
+            if (empty($focus->$user_meta_array['field_value'])) {
+                // This field may not be populated in $focus if the current user does not
+                // have write permission to this field during save.
+                // Check if the current user at least has the read permission to this field.
+                // If so, populate $target_user_id here so alert can be sent.
+                $canRead = $focus->ACLAccess('field', array('field'=>$user_meta_array['field_value'], 'action'=>'read'));
+                if ($canRead) {
+                    $beanClass = get_class($focus);
+                    $tmpBean = new $beanClass();
+                    $tmpBean->retrieve($focus->id);
+                    $target_user_id = $tmpBean->$user_meta_array['field_value'];
+                }
+            } else {
+                $target_user_id = $focus->$user_meta_array['field_value'];
+            }
 		}
 	//END Bug Fix
 		//Get user's manager id?

@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_EXPAND' => 'Uitklappen',
   'LBL_MODULE_NAME' => 'Expression Engine',
+  'LBL_MODULE_NAME_SINGULAR' => 'Expression Engine',
   'LBL_NEXT' => 'Volgende',
   'LBL_PREVIOUS' => 'Vorige',
 );

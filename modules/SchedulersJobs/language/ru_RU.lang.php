@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_EXECUTE_TIME' => 'Время выполнения',
   'LBL_FAIL_COUNT' => 'Ошибки',
   'LBL_INTERVAL' => 'Минимальный интервал между попытками',
+  'LBL_JOB_GROUP' => 'Рабочая группа',
   'LBL_MESSAGE' => 'Сообщения',
   'LBL_NAME' => 'Задание',
   'LBL_PERCENT' => 'Процентов выполнено',

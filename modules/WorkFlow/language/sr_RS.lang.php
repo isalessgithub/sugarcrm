@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'gore',
   'LBL_MODULE_ID' => 'Radni tok',
   'LBL_MODULE_NAME' => 'Definicije radnog toka',
+  'LBL_MODULE_NAME_SINGULAR' => 'Definicija Radnog Toka',
   'LBL_MODULE_TITLE' => 'Radni tok: Početna strana',
   'LBL_NAME' => 'Naziv:',
   'LBL_NEW_FORM_TITLE' => 'Kreiraj definiciju radnog toka',

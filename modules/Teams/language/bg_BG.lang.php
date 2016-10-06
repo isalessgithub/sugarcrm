@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Докладва на',
   'LBL_LIST_TITLE' => 'Заглавие',
   'LBL_MODULE_NAME' => 'Екипи',
+  'LBL_MODULE_NAME_SINGULAR' => 'Екип',
   'LBL_MODULE_TITLE' => 'Екипи',
   'LBL_NAME' => 'Екип:',
   'LBL_NAME_2' => 'Екип(2):',

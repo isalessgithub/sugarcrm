@@ -79,6 +79,7 @@ $mod_strings = array (
   'LBL_MARKETING_ID' => 'Marketingo id',
   'LBL_MODULE_ID' => 'EmailMan',
   'LBL_MODULE_NAME' => 'Pašto nustatymai',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pašto nustatymai',
   'LBL_MODULE_TITLE' => 'Laiškų paruoštų išsiuntimui eilės valdymas',
   'LBL_NO' => 'Ne',
   'LBL_NOTIFICATION_ON_DESC' => 'Siųsti elektroninius perspėjamus vartotojams, kai jiems yra priskiriami nauji įrašai.',

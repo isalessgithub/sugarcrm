@@ -29,7 +29,7 @@ $app_list_strings = array (
   'moduleList' =>
   array (
     'Home' => 'Home',
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bugs',
     'Cases' => 'Cases',
     'Notes' => 'Notes',
     'Newsletters' => 'Newsletters',
@@ -499,7 +499,7 @@ $app_list_strings = array (
 	'' => '',
   	'Accounts' => 'Accounts',
   	'Activities' => 'Activities',
-  	'Bug Tracker' => 'Bug Tracker',
+  	'Bugs' => 'Bugs',
   	'Calendar' => 'Calendar',
   	'Calls' => 'Calls',
   	'Campaigns' => 'Campaigns',  	

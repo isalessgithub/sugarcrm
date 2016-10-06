@@ -56,7 +56,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
         //rrs
         $system_config = new Administration();
         $system_config->retrieveSettings('system');
-        $authController = new AuthenticationController((!empty($sugar_config['authenticationClass'])? $sugar_config['authenticationClass'] : 'SugarAuthenticate'));
+        $authController = new AuthenticationController();
         //rrs
         $isLoginSuccess = $authController->login($user_auth['user_name'], $user_auth['password'], array('passwordEncrypted' => true));
         $usr_id=$user->retrieve_user_id($user_auth['user_name']);
@@ -349,7 +349,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
 
     /**
      * Given a list of modules to search and a search string, return the id, module_name, along with the fields
-     * We will support Accounts, Bug Tracker, Cases, Contacts, Leads, Opportunities, Project, ProjectTask, Quotes
+     * We will support Accounts, Bugs, Cases, Contacts, Leads, Opportunities, Project, ProjectTask, Quotes
      *
      * @param string $session			- Session ID returned by a previous call to login.
      * @param string $search_string 	- string to search

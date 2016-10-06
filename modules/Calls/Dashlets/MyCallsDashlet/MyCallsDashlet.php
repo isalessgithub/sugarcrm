@@ -42,7 +42,6 @@ class MyCallsDashlet extends DashletGeneric {
                                               'related_fields' => array('status'),
                                               'default' => 'true');*/
         $this->seedBean = new Call();
-        $this->seedBean->disable_row_level_security = true;
     }
     
     

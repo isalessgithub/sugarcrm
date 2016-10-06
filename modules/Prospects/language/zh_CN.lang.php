@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => '更改人',
   'LBL_MODULE_ID' => '目标',
   'LBL_MODULE_NAME' => '目标',
+  'LBL_MODULE_NAME_SINGULAR' => '目标',
   'LBL_MODULE_TITLE' => '目标: 主页',
   'LBL_MORE_INFORMATION' => '更多信息',
   'LBL_NAME' => '名称:',

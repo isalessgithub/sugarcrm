@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Přidat',
+  'LBL_ADMIN_ONLY' => 'Pouze administrátoři',
   'LBL_BELOW_MIN' => 'Koeficient musí být větší než 0.',
   'LBL_CREATED_BY' => 'Vytvořeno',
   'LBL_CURRENCY' => 'Měna',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Sloučit měny',
   'LBL_MERGE_TXT' => 'Prosím zkontrolujte měny, které chcete zobrazit do označené měny. Všechny měny budou smazány  se zatrženými položkami a znovu přidány včechny hodnoty přiřazené k označené měně.',
   'LBL_MODULE_NAME' => 'Měny',
+  'LBL_MODULE_NAME_SINGULAR' => 'Měna',
   'LBL_UPDATE' => 'Aktualizovat',
   'LBL_US_DOLLAR' => 'USD',
   'LNK_NEW_ACCOUNT' => 'Přidat účet',

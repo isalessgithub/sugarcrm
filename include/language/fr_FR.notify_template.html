@@ -91,7 +91,6 @@ SugarCRM Réunions - {MEETING_SUBJECT}
 {ASSIGNER} vous a convié à une Réunion.
 
 Sujet: {MEETING_SUBJECT}
-Statut: {MEETING_STATUS}
 Date de début: {MEETING_STARTDATE}
 Durée: {MEETING_HOURS}h, {MEETING_MINUTES}m
 <!-- BEGIN: Meeting_External_API -->
@@ -100,13 +99,13 @@ URL de la Réunion : {MEETING_URL}
 Description: {MEETING_DESCRIPTION}
 
 Vous acceptez de participer:
-<{ACCEPT_URL}&amp;accept_status=accept>
+<{ACCEPT_URL}&accept_status=accept>
 
 Vous tenterez de vous libérer pour y participer:
-<{ACCEPT_URL}&amp;accept_status=tentative>
+<{ACCEPT_URL}&accept_status=tentative>
 
 Vous déclinez cette invitation:
-<{ACCEPT_URL}&amp;accept_status=decline>
+<{ACCEPT_URL}&accept_status=decline>
 
 <!-- END: Meeting -->
 
@@ -154,7 +153,7 @@ SugarCRM Contact - {CONTACT_NAME}
 Nom: {CONTACT_NAME}
 Description: {CONTACT_DESCRIPTION}
 
-Vous pouvez consulter ce Contact ici:
+Vous pouvez consulter la fiche de ce Contact ici:
 <{URL}>
 <!-- END: Contact -->
 
@@ -170,7 +169,7 @@ Origine principale: {LEAD_SOURCE}
 Statut: {LEAD_STATUS}
 Description: {LEAD_DESCRIPTION}
 
-Vous pouvez consulter ce Lead ici:
+Vous pouvez consulter la fiche de ce Lead ici:
 <{URL}>
 <!-- END: Lead -->
 
@@ -219,7 +218,7 @@ SugarCRM - {OBJECT} Assigné
 <!-- BEGIN: Default -->
 {ASSIGNER} a assigné un(e) {OBJECT} à {ASSIGNED_USER}.
 
-Vous pouvez consulter votre {OBJECT} ici:
+Vous pouvez consulter la fiche de ce(tte) ici:
 <{URL}>
 <!-- END: Default -->
 
@@ -228,7 +227,7 @@ SugarCRM Appel - {CALL_SUBJECT}
 <!-- END: Call_Subject -->
 <!-- BEGIN: Call -->
 {CALL_TO},
-{ASSIGNER} vous a convié à un Rendez-Vous Téléphonique.
+{ASSIGNER} vous a convié à un rendez-vous téléphonique.
 Sujet: {CALL_SUBJECT}
 Statut: {CALL_STATUS}
 Date de début: {CALL_STARTDATE}
@@ -236,13 +235,13 @@ Durée: {CALL_HOURS}h, {CALL_MINUTES}m
 Description: {CALL_DESCRIPTION}
 
 Vous acceptez de participer:
-<{ACCEPT_URL}&amp;accept_status=accept>
+<{ACCEPT_URL}&accept_status=accept>
 
 Vous tenterez de vous libérer pour y participer:
-<{ACCEPT_URL}&amp;accept_status=tentative>
+<{ACCEPT_URL}&accept_status=tentative>
 
 Vous déclinez cette invitation:
-<{ACCEPT_URL}&amp;accept_status=decline>
+<{ACCEPT_URL}&accept_status=decline>
 
 <!-- END: Call -->
 
@@ -330,4 +329,23 @@ Vous pouvez visualiser ce Contrat ici:
 <{URL}>
 <!-- END:ContractSpecial-->
 
+<!-- BEGIN: MeetingReminder_Subject -->
+Rappel de réunion - {MEETING_SUBJECT}
+<!-- END: MeetingSpecial_Subject -->
+<!-- BEGIN: MeetingReminder -->
+Sujet: {MEETING_SUBJECT}
+Date de début: {MEETING_STARTDATE}
+Lieu: {MEETING_LOCATION}
+Créé par: {MEETING_CREATED_BY}
+Description: {MEETING_DESCRIPTION}
+<!-- END: MeetingReminder -->
 
+<!-- BEGIN: CallReminder_Subject -->
+Rappel de rendez-vous téléphonique - {CALL_SUBJECT}
+<!-- END: CallReminder_Subject -->
+<!-- BEGIN: CallReminder -->
+Sujet: {CALL_SUBJECT}
+Date de début: {CALL_STARTDATE}
+Créé par: {CALL_CREATED_BY}
+Description: {CALL_DESCRIPTION}
+<!-- END: CallReminder -->

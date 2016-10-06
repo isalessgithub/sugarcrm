@@ -27,11 +27,11 @@ $app_list_strings = array (
     'Customer' => 'Korisnik',
     'Integrator' => 'Integrator',
     'Investor' => 'Investitor',
+    'Other' => 'Ostalo',
     'Partner' => 'Partner',
     'Press' => 'Novinar',
     'Prospect' => 'Verovatni Kupac',
     'Reseller' => 'Preprodavac',
-    'Other' => 'Ostalo',
   ),
 );
 

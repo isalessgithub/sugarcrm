@@ -18,12 +18,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'CLOSED_CASE' => '<b>ZAMKNĄŁ(A)</b> zgłoszenie',
-  'CONVERTED_LEAD' => '<b>PRZEKSZTAŁCIŁ(A)</b> namiar',
-  'CREATED_CASE' => 'utworzył(a)  <b>NOWE</b> zgłoszenie',
-  'CREATED_CONTACT' => 'utworzył(a)  <b>NOWY</b> kontakt',
-  'CREATED_LEAD' => 'utworzył(a)  <b>NOWY</b> namiar',
-  'CREATED_OPPORTUNITY' => 'utworzył(a)  <b>NOWĄ</b> szansę',
+  'CLOSED_CASE' => '<b>zamknął(a)</b> zgłoszenie',
+  'CONVERTED_LEAD' => '<b>przekształcił(a)</b> namiar',
+  'CREATED_CASE' => 'utworzył(a)  <b>nowe</b> zgłoszenie',
+  'CREATED_CONTACT' => 'utworzył(a)  <b>nowy</b> kontakt',
+  'CREATED_LEAD' => 'utworzył(a)  <b>nowy</b> namiar',
+  'CREATED_OPPORTUNITY' => 'utworzył(a)  <b>nową</b> szansę',
   'FOR' => 'za',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktywności',
   'LBL_ADMIN_SETTINGS' => 'Ustawienia Aktywności',
@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Zmodyfikowane przez',
   'LBL_MODIFIED_USER' => 'Zmodyfikowane przez',
   'LBL_MODULE_NAME' => 'Aktywności',
+  'LBL_MODULE_NAME_SINGULAR' => 'Aktywność',
   'LBL_MODULE_TITLE' => 'Aktywności',
   'LBL_MY_FAVORITES_ONLY' => 'Tylko Moje ulubione',
   'LBL_NAME' => 'Nazwa',
@@ -102,6 +103,6 @@ $mod_strings = array (
   'LNK_LIST' => 'Powiadomienia',
   'LNK_NEW_RECORD' => 'Utwórz powiadomienie',
   'WITH' => 'z',
-  'WON_OPPORTUNITY' => '<b>ZAKOŃCZYŁ(A) WYGRANĄ</b> szansę',
+  'WON_OPPORTUNITY' => '<b>zakończył(a) SUKCESEM</b> szansę',
 );
 

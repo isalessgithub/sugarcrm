@@ -90,6 +90,7 @@ $mod_strings = array (
   'LBL_MINIMIZE' => 'Minimizēt',
   'LBL_MODULES' => 'Moduļi',
   'LBL_MODULE_NAME' => 'Administrēšana',
+  'LBL_MODULE_NAME_SINGULAR' => 'Administrēšana',
   'LBL_MODULE_TITLE' => 'Studio',
   'LBL_NAME' => 'Nosaukums',
   'LBL_NEW_GROUP' => 'Jauna grupa',

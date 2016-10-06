@@ -20,7 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $connector_strings = array (
   'LBL_ID' => 'ID',
   'hoovers_wsdl' => 'WSDL URL',
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><image src="' . getWebPath('modules/Connectors/connectors/sources/ext/soap/hoovers/images/hooversLogo.gif') . '" border="0"></td><td width="65%" valign="top" class="dataLabel">' . 'Hoovers&amp;amp;#169;はSugarCRMのユーザーに企業の最新情報を無料でお届けします。各企業、業界、経営者に関してのより包括的な情報や報告をご覧になりたい場合<a href="http://www.hoovers.com" target="_blank">http://www.hoovers.com</a>（英語）を参照してください。</td></tr></table>',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><image src="' . getWebPath('modules/Connectors/connectors/sources/ext/soap/hoovers/images/hooversLogo.gif') . '" border="0"></td><td width="65%" valign="top" class="dataLabel">' . 'Hoovers&#169;はSugarCRMのユーザーに企業の最新情報を無料でお届けします。各企業、業界、経営者に関してのより包括的な情報や報告をご覧になりたい場合<a href="http://www.hoovers.com" target="_blank">http://www.hoovers.com</a>（英語）を参照してください。</td></tr></table>',
   'LBL_NAME' => '会社名',
   'LBL_DUNS' => 'DUNS(企業識別コード)',
   'LBL_PARENT_DUNS' => '親DUNS(企業識別コード)',

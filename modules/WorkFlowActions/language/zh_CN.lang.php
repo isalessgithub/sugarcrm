@@ -45,6 +45,7 @@ $mod_strings = array (
   'LBL_LIST_TRIGGER_TYPE' => '类型:',
   'LBL_MODIFY_FIELD' => '修改字段:',
   'LBL_MODULE_NAME' => '触发器',
+  'LBL_MODULE_NAME_SINGULAR' => '触发器',
   'LBL_MODULE_TITLE' => '工作流程触发器:首页',
   'LBL_NAME' => '触发器名称:',
   'LBL_NEW_BUTTON_KEY' => 'N',

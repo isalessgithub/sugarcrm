@@ -47,6 +47,7 @@ $mod_strings = array (
   'LBL_LOCATION' => 'Luogo:',
   'LBL_MEETING' => 'Riunione:',
   'LBL_MODULE_NAME' => 'Cronologia',
+  'LBL_MODULE_NAME_SINGULAR' => 'Cronologia',
   'LBL_MODULE_TITLE' => 'Cronologia: Home',
   'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
   'LBL_NEW_NOTE_BUTTON_LABEL' => 'Nuova Nota o Allegato',

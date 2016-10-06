@@ -76,6 +76,13 @@
 
 </form>
 
+{if !$REPORT_SCHEDULER_ACTIVE}
+<br/>
+<div>
+    <div class="error">{$MOD.REPORT_SCHEDULER_ACTIVE_ERROR}</div>
+</div>
+{/if}
+
 <script type="text/javascript">
 
 var combo_date_start = new Datetimecombo("{$DATE_START}", "date_start", "{$TIME_FORMAT}", "", '', '', true);

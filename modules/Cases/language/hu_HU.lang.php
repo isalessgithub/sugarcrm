@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'Melléklet',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_INVITEE' => 'Kapcsolatok',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Tudásbázis',
   'LBL_LIST_ACCOUNT_NAME' => 'Kliens neve',
   'LBL_LIST_ASSIGNED' => 'Felelős',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Felelős felhasználó',

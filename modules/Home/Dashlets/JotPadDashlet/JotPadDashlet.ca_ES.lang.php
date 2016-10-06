@@ -42,4 +42,4 @@ $dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
                                          'LBL_DBLCLICK_HELP'    => 'Faci doble clic abaix per Editar.',
                                          'LBL_DEFAULT_TEXT'     => $defaultText, 
 );
-?> 
+ 

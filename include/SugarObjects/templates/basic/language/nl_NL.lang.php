@@ -25,6 +25,7 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Laatste wijziging',
   'LBL_DELETED' => 'Verwijderd',
   'LBL_DESCRIPTION' => 'Beschrijving',
+  'LBL_EDIT_BUTTON' => 'Wijzig',
   'LBL_ID' => 'ID',
   'LBL_LIST_NAME' => 'Naam',
   'LBL_MODIFIED' => 'Gewijzigd door',
@@ -32,5 +33,6 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Gewijzigd door Naam',
   'LBL_MODIFIED_USER' => 'Gewijzigd door Gebruiker',
   'LBL_NAME' => 'Naam',
+  'LBL_REMOVE' => 'Verwijder',
 );
 

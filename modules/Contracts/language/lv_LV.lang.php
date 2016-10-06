@@ -18,6 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_ACCOUNT_ID' => 'Uzņēmuma ID:',
   'LBL_ACCOUNT_NAME' => 'Uzņēmuma nosaukums:',
   'LBL_ASSIGNED_TO' => 'Piešķirts lietotājam:',
   'LBL_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam:',
@@ -55,6 +56,7 @@ $mod_strings = array (
   'LBL_NONE' => 'Nav',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_OPPORTUNITY' => 'Iespēja',
+  'LBL_OPPORTUNITY_NAME' => 'Iespējas nosaukums:',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkti',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Piedāvājumi',
   'LBL_REFERENCE_CODE' => 'Atsauces kods:',
@@ -75,6 +77,7 @@ $mod_strings = array (
   'LBL_TYPE' => 'Tips',
   'LBL_UNDEFINED' => 'Nav noteikts',
   'LNK_CONTRACT_LIST' => 'Aplūkot līgumus',
+  'LNK_IMPORT_CONTRACTS' => 'Līgumu imports',
   'LNK_NEW_CONTRACT' => 'Izveidot līgumu',
 );
 

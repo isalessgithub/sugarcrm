@@ -602,6 +602,7 @@ $app_list_strings = array (
   ),
   'dom_cal_day_long' => 
   array (
+    0 => '',
     1 => 'ראשון',
     2 => 'שני',
     3 => 'שלישי',
@@ -612,6 +613,7 @@ $app_list_strings = array (
   ),
   'dom_cal_day_short' => 
   array (
+    0 => '',
     1 => 'א',
     2 => 'ב',
     3 => 'ג',
@@ -622,6 +624,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'ינואר',
     2 => 'פברואר',
     3 => 'מרץ',
@@ -637,6 +640,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_short' => 
   array (
+    0 => '',
     1 => 'ינו',
     2 => 'פבר',
     3 => 'מרס',
@@ -787,6 +791,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0  => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -1344,7 +1349,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'חשבונות',
     'Activities' => 'פעילויות',
-    'Bug Tracker' => 'מעקב אחר באגים',
+    'Bugs' => 'מעקב אחר באגים',
     'Calendar' => 'לוח שנה',
     'Calls' => 'שיחות טלפון',
     'Campaigns' => 'קמפיינים',

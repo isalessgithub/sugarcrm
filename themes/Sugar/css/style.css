@@ -356,6 +356,10 @@ cursor:pointer;
 	visibility: hidden;
 }
 
+div#main
+{
+    min-width: 950px; /* Bug 61126 */
+}
 
 div#content
 {
@@ -726,7 +730,7 @@ box-shadow: #ccc 0px 0px 10px;
 -moz-border-radius: 6px;
 border-radius: 6px;
 -webkit-border-radius: 6px;
-
+min-width: 950px;
 }
 
 .listViewBody .list
@@ -1178,6 +1182,7 @@ div.indent_right {
     overflow: visible;
 	text-align: left;
 	margin-bottom: 0;
+    min-width: 950px;
 }
 
 .search_form .view
@@ -1189,6 +1194,11 @@ div.indent_right {
     padding-top:10px !important;
     padding-bottom:10px !important;
 	background-image: -moz-linear-gradient(center top, 
+	#ffffff 0%,
+	#eeeeee 1px,
+	#dadada 100%
+	);
+	background-image: -ms-linear-gradient(top, 
 	#ffffff 0%,
 	#eeeeee 1px,
 	#dadada 100%
@@ -1407,9 +1417,6 @@ background-image:url(../../../../index.php?entryPoint=getImage&imageName=form-bu
 #footer #boxnet-hover {
     margin-left:-7px;
 }
-#footer #linkedin-hover {
-    margin-left:32px;
-}
 
 #footer img.logo {
     margin: 7px 10px;
@@ -1443,6 +1450,7 @@ background-image:url(../../../../index.php?entryPoint=getImage&imageName=form-bu
     float: left;
     height: 24px;
     margin: 5px 4px 4px 0px;
+    border: 0px;
 }
 
 #footer #help a span.title {
@@ -2648,6 +2656,11 @@ embed
 		#eeeeee 2%,
 		#dfdfdf 100%
 		);
+		background-image: -ms-linear-gradient(top, 
+		#ffffff 0%,
+		#eeeeee 2%,
+		#dfdfdf 100%
+		);
 		background-image: -webkit-gradient(
 	    linear,
 	    left top,
@@ -2972,6 +2985,12 @@ embed
 		height: 38px;
 		padding: 0 15px;
 		
+    background: -ms-linear-gradient(top,
+        rgba(111,137,161,.9) 0%,
+        rgba(71,105,135,1) 50%,
+        rgba(48,86,120,1) 50%,
+        rgba(48,86,120,.8) 100%
+        );
 	background-image: -moz-linear-gradient(center top, 
 		rgba(111,137,161,.9) 0%,
 		rgba(71,105,135,1) 50%,
@@ -3663,6 +3682,11 @@ button, input[type=submit], input[type=reset], input[type=button], .button, .but
 		#f1f1f1 10%,
 		#efefef 100%
 		);
+		background-image: -ms-linear-gradient(top, 
+		#ffffff 0%,
+		#f1f1f1 10%,
+		#efefef 100%
+		);
 		background-image: -webkit-gradient(
 	    linear,
 	    left top,
@@ -3686,6 +3710,11 @@ button, input[type=submit], input[type=reset], input[type=button], .button, .but
 		#255e90 2%,
 		#3d74a5 100%
 		);
+		background-image: -ms-linear-gradient(top, 
+	    #ffffff 0%,
+	    #255e90 2%,
+	    #3d74a5 100%
+	   );	
 		background-image: -webkit-gradient(
 	    linear,
 	    left top,
@@ -3709,6 +3738,11 @@ button[selected], input[type=submit][selected], input[type=reset][selected], inp
 		#255e90 2%,
 		#3d74a5 100%
 		);
+		background-image: -ms-linear-gradient(top, 
+	    #ffffff 0%,
+	    #255e90 2%,
+	    #3d74a5 100%
+	   ); 
 		background-image: -webkit-gradient(
 	    linear,
 	    left top,
@@ -4971,6 +5005,12 @@ top: 4px;
 	#F0F0F0 50%,
 	#ffffff 100%
 	);
+	background-image: -ms-linear-gradient(top, 
+	#e6e6e6 0%,
+	#f6f6f6 50%,
+	#F0F0F0 50%,
+	#ffffff 100%
+	);
 	background-image: -webkit-gradient(
     linear,
     left top,
@@ -4991,6 +5031,12 @@ border-bottom-color: #fff;
 background-color: none;
 background-image: none;
 background-image: -moz-linear-gradient(center top, 
+	#e6e6e6 0%,
+	#f6f6f6 50%,
+	#F0F0F0 50%,
+	#ffffff 100%
+	);
+background-image: -ms-linear-gradient(top, 
 	#e6e6e6 0%,
 	#f6f6f6 50%,
 	#F0F0F0 50%,
@@ -5151,6 +5197,7 @@ text-align: right;
 #addPage {
 height: 30px;
 margin-top: 2px;
+border-bottom: 2px solid #ccc;
 }
 
 #addPage a{
@@ -5358,6 +5405,11 @@ padding: 2px 10px;
 	    color-stop(0, #eeeeee),
 	    color-stop(1, #cccccc)
     );	
+    background-image: -ms-linear-gradient(
+        top,
+        #eeeeee 0%,
+        #cccccc 100%
+    );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc');	
 	border-bottom: 1px solid #999999;
 	border-top: 1px solid #ffffff;
@@ -5838,6 +5890,8 @@ min-width: 950px;
 	height: 55px;	
 	background: -moz-linear-gradient(center top,
 	rgba(32,81,124,.9) 0%, rgba(13,58,98,.9) 78%, rgba(0,0,0,.3) 78%, rgba(0,0,0,0) 100%); 
+	background: -ms-linear-gradient(top,
+	rgba(32,81,124,.9) 0%, rgba(13,58,98,.9) 78%, rgba(0,0,0,.3) 78%, rgba(0,0,0,0) 100%); 
 	background-color: transparent;
 background-image: -webkit-gradient(
     linear,
@@ -5850,6 +5904,9 @@ background-image: -webkit-gradient(
     );
 
 height: 43px\9;
+}
+_::-ms-reveal, .dcmenu {
+    height:55px;
 }
 #ie8GradientFix{
 	position: absolute;
@@ -5876,14 +5933,16 @@ padding:0px 10px 0px;
 #dcboxbody{
 height:110%;
 font-size:6px !important;
-min-width: 750px\9; /* ie hack, width must be defined or else it goes off the screen */
-*width: 750px;
+min-width:750px;
 }
 
-#dcboxbody.sugar_spot_search{
-min-width:320px\9;
-width: 320px\9; /* ie hack, width must be defined or else it goes off the screen */
+#dcboxbody.sugar_spot_search {
+    min-width:320px;
+}
 
+#dcboxbody.dcmenuSugarCube {
+    min-width:480px;
+    width:480px;
 }
 
 #dcboxbody div.buttons {

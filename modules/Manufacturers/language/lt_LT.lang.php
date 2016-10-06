@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Redagavo',
   'LBL_MODIFIED_ID' => 'Redaguotojo Id',
   'LBL_MODULE_NAME' => 'Gamintojai',
+  'LBL_MODULE_NAME_SINGULAR' => 'Gamintojas',
   'LBL_MODULE_TITLE' => 'Gamintojai: Pradžia',
   'LBL_NAME' => 'Gamintojas:',
   'LBL_NEW_FORM_TITLE' => 'Naujas gamintojas',

@@ -109,6 +109,7 @@ $mod_strings = array (
   'LBL_SCHEDULE_EMAIL'=>'Schedule Report',
   'LBL_NEXT_RUN'=>'Next Email',
   'LBL_UPDATE_SCHEDULE'=>'Update Schedule',
+    'REPORT_SCHEDULER_ACTIVE_ERROR' => 'The Process Report Generation Task Scheduler is currently Inactive and Reports cannot be Scheduled. Please request that an Administrator User sets this Scheduler to Active and try again.',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'You have no saved reports.',
   'LBL_MY_REPORTS' => 'My Reports',
   'LBL_ACCOUNT_REPORTS' => 'Account Reports',

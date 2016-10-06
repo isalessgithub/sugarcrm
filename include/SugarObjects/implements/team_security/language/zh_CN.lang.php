@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -12,9 +15,13 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-$mod_strings = array(
-'LBL_TEAM'=>'团队',
-'LBL_TEAMS'=>'团队',
-'LBL_TEAM_ID'=>'团队编号',
+$mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => '默认主要团队',
+  'LBL_TEAM' => '团队',
+  'LBL_TEAMS' => '团队',
+  'LBL_TEAM_ID' => '团队编号',
+  'LBL_TEAM_SET' => '团队列表',
 );
+

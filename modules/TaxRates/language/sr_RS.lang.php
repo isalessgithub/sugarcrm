@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Procenat',
   'LBL_MODIFIED_ID' => 'ID broj korisnika koji je promenio',
   'LBL_MODULE_NAME' => 'Poreske stope',
+  'LBL_MODULE_NAME_SINGULAR' => 'Poreska stopa:',
   'LBL_MODULE_TITLE' => 'Poreske stope: Početna strana',
   'LBL_NAME' => 'Naziv poreske stope:',
   'LBL_NEW_FORM_TITLE' => 'Nova poreska stopa',

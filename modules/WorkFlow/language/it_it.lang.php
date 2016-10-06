@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'su',
   'LBL_MODULE_ID' => 'Workflow',
   'LBL_MODULE_NAME' => 'Workflow:',
+  'LBL_MODULE_NAME_SINGULAR' => 'Workflow',
   'LBL_MODULE_TITLE' => 'Workflow: Home',
   'LBL_NAME' => 'Nome:',
   'LBL_NEW_FORM_TITLE' => 'Nuovo Workflow',
@@ -82,11 +83,10 @@ $mod_strings = array (
   'LBL_TRIGGER_ERRORS' => 'Nota: uno o più triggers qui sotto contengono errori',
   'LBL_TYPE' => 'L´esecuzione avviene:',
   'LBL_UP' => 'Su',
-  'LBL__S' => '&#39;s',
+  'LBL__S' => '´s',
   'LNK_ALERT_TEMPLATES' => 'Avvisi Modelli Email',
   'LNK_NEW_WORKFLOW' => 'Nuovo Workflow',
   'LNK_PROCESS_VIEW' => 'Sequenza Workflow',
   'LNK_WORKFLOW' => 'Visualizza Workflow',
   'NTC_REMOVE_ALERT' => 'Sei sicuro di voler rimuovere questo Workflow?',
 );
-

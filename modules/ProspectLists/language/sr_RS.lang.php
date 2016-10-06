@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Promenio',
   'LBL_MODULE_ID' => 'Liste ciljeva',
   'LBL_MODULE_NAME' => 'Liste ciljeva',
+  'LBL_MODULE_NAME_SINGULAR' => 'Lista ciljeva',
   'LBL_MODULE_TITLE' => 'Liste ciljeva: Početna strana',
   'LBL_MORE_DETAIL' => 'Više detalja',
   'LBL_NAME' => 'Naziv',

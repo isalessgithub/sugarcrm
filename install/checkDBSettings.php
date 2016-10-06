@@ -19,8 +19,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 function checkFTSSettings()
 {
     installLog("Begining to check FTS Settings.");
-    require_once('include/SugarSearchEngine/SugarSearchEngineFactory.php');
-    $searchEngine = SugarSearchEngineFactory::getInstance($_SESSION['fts_type'], array('host' => $_SESSION['fts_host'], 'port' => $_SESSION['fts_port']));
+    require_once 'include/SugarSearchEngine/SugarSearchEngineFactory.php';
+
+    $searchEngine = SugarSearchEngineFactory::getInstance(
+        $_SESSION['setup_fts_type'],
+        getFtsSettings()
+    );
+
     $status = $searchEngine->getServerStatus();
     installLog("FTS connection results: " . var_export($status, TRUE));
 
@@ -143,10 +148,10 @@ function checkDBSettings($silent=false) {
                 } else {
                     if($db_selected) {
                         installLog("DB Selected, will reuse {$_SESSION['setup_db_database_name']}");
-                        if($db->tableExists('config') && !$_SESSION['setup_db_drop_tables']) {
+                        if($db->tableExists('config')) {
                            include('sugar_version.php');
                            $versions = $db->getOne("SELECT COUNT(*) FROM config WHERE category='info' AND name='sugar_version' AND VALUE LIKE '$sugar_db_version'");
-                           if($versions != 1 && $silent==false) {
+                           if($versions > 0 && $silent==false) {
                                $errors['ERR_DB_EXISTS_WITH_CONFIG'] = $mod_strings['ERR_DB_EXISTS_WITH_CONFIG'];
                                installLog("ERROR:: {$errors['ERR_DB_EXISTS_WITH_CONFIG']}");
                            }
@@ -178,11 +183,11 @@ function checkDBSettings($silent=false) {
         }
 
         //Test FTS Settings
-        if(!empty($_SESSION['fts_type']))
+        if(!empty($_SESSION['setup_fts_type']))
         {
             if(! checkFTSSettings() )
             {
-                installLog("ERROR:: Unable to connect to FTS." . $_REQUEST['fts_type']);
+                installLog("ERROR:: Unable to connect to FTS." . $_SESSION['setup_fts_type']);
                 $errors['ERR_FTS'] =  $mod_strings['LBL_FTS_ERROR'];
             }
         }
@@ -239,9 +244,15 @@ function copyInputsIntoSession(){
             if(isset($_REQUEST['setup_db_host_name'])){$_SESSION['setup_db_host_name']              = $_REQUEST['setup_db_host_name'];}
 
             //FTS Support
-            $_SESSION['fts_type'] = isset($_REQUEST['fts_type']) ? $_REQUEST['fts_type'] : "";
-            if(isset($_REQUEST['fts_host'])){$_SESSION['fts_host']              = $_REQUEST['fts_host'];}
-            if(isset($_REQUEST['fts_port'])){$_SESSION['fts_port']              = $_REQUEST['fts_port'];}
+            if (isset($_REQUEST['setup_fts_type'])) {
+                $_SESSION['setup_fts_type'] = $_REQUEST['setup_fts_type'];
+            }
+            if (isset($_REQUEST['setup_fts_host'])) {
+                $_SESSION['setup_fts_host'] = $_REQUEST['setup_fts_host'];
+            }
+            if (isset($_REQUEST['setup_fts_port'])) {
+                $_SESSION['setup_fts_port'] = $_REQUEST['setup_fts_port'];
+            }
 
             if(isset($_SESSION['setup_db_type']) && (!isset($_SESSION['setup_db_manager']) || isset($_REQUEST['setup_db_type']))) {
                 $_SESSION['setup_db_manager'] = DBManagerFactory::getManagerByType($_SESSION['setup_db_type']);

@@ -28,5 +28,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['OutcomeByMonthDashlet'] = array('LBL_TITLE'       => 'Wyniki na miesiąc',
                                                  'LBL_DESCRIPTION' => 'Wykres miesięcznych wyników',
                                                  'LBL_REFRESH'     => 'Odśwież wykres');
-?> 
-

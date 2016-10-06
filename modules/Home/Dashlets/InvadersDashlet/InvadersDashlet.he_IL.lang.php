@@ -41,7 +41,7 @@ $dashletStrings['InvadersDashlet'] = array(
     'LBL_GAME_OVER'     => 'המשחק נגמר<br>(Click to play again)',
 
 );
-?> 
+ 
 
 
 

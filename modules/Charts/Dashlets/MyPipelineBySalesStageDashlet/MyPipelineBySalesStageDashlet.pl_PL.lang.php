@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['MyPipelineBySalesStageDashlet'] = array('LBL_TITLE'       => 'Moje szanse przez źródło pozyskania i etap sprzedaży',
                                                          'LBL_DESCRIPTION' => 'Wykres kolumnowy moich Szans przez źródło pozyskania i etap sprzedaży',
                                                          'LBL_REFRESH'     => 'Odśwież wykres');
-?> 
-

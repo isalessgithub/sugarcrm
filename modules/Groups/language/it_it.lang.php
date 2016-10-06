@@ -22,6 +22,7 @@ $mod_strings = array (
   'LBL_GROUP_NAME' => 'Nome Gruppo:',
   'LBL_LIST_TITLE' => 'Gruppi',
   'LBL_MODULE_NAME' => 'Gruppi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Gruppo',
   'LBL_TEAM' => 'Gruppo:',
   'LNK_ALL_GROUPS' => 'Tutti i Gruppi',
   'LNK_CONVERT_USER' => 'Converti Utente in Gruppo',

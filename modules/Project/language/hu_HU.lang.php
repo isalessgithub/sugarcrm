@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Megjelölés mérföldkőként',
   'LBL_MODIFIED_USER_ID' => 'Módosító felhasználó azonosítója:',
   'LBL_MODULE_NAME' => 'Projekt',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projekt',
   'LBL_MODULE_TITLE' => 'Projekt: Főoldal',
   'LBL_MONTH_BUTTON' => 'Hónap',
   'LBL_MORE' => 'Még több ...',

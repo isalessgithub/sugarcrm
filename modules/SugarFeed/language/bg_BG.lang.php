@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Модифицирано от',
   'LBL_MODIFIED_USER' => 'Модифицирано от потребител',
   'LBL_MODULE_NAME' => 'Sugar новини',
+  'LBL_MODULE_NAME_SINGULAR' => 'Активност',
   'LBL_MODULE_TITLE' => 'Sugar новини',
   'LBL_MY_FAVORITES_ONLY' => 'Само предпочитаните от мен',
   'LBL_NAME' => 'Име',

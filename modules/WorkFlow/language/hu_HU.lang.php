@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'fel',
   'LBL_MODULE_ID' => 'Munkafolyamat',
   'LBL_MODULE_NAME' => 'Munkafolyamat meghatározások',
+  'LBL_MODULE_NAME_SINGULAR' => 'Munkafolyamat meghatározása',
   'LBL_MODULE_TITLE' => 'Munkafolyamatok: Főoldal',
   'LBL_NAME' => 'Név:',
   'LBL_NEW_FORM_TITLE' => 'Munkafolyamat szabály létrehozása',

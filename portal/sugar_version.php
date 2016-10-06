@@ -16,8 +16,8 @@
 
 
 
-$sugar_version      = '6.5.11';
-$sugar_db_version   = '6.5.11';
+$sugar_version      = '6.5.24';
+$sugar_db_version   = '6.5.24';
 $sugar_flavor       = 'PRO';
 
 ?>

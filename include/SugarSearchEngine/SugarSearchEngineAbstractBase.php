@@ -146,14 +146,40 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
     static public function markSearchEngineStatus($isDown = true)
     {
         $admin = new Administration();
-        $admin->saveSetting('info', 'fts_down', $isDown? 1: 0);
+        $admin->saveSetting('info', 'fts_down', $isDown? 1 : 0);
+    }
+
+    /**
+     * Check for current FTS server status, update config (fts_down)
+     * and return the status
+     *
+     * @return boolean - server status
+     */
+    public function updateFTSServerStatus()
+    {
+        $GLOBALS['log']->debug('Going to check and update FTS Server status.');
+
+        // Check FTS Server Status
+        $result = $this->getServerStatus();
+
+        // Update the server state
+        SugarSearchEngineAbstractBase::markSearchEngineStatus(!$result['valid']);
+
+        // Update notification flag
+        $cfg = new Configurator();
+        $cfg->config['fts_disable_notification'] = !$result['valid'];
+        $cfg->handleOverride();
+
+        $GLOBALS['log']->debug('FTS Server status set to ' . $result['status'] . '.');
+
+        return $result['valid'];
     }
 
     protected function reportException($message, $e)
     {
         $this->logger->fatal("$message: ".get_class($e));
-    	if($this->logger->wouldLog('debug')) {
-    	    $this->logger->debug($e->getMessage());
-    	}
+        if($this->logger->wouldLog('error')) {
+            $this->logger->error($e->getMessage());
+        }
     }
 }

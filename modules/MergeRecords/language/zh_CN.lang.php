@@ -29,6 +29,7 @@ $mod_strings = array (
   'LBL_MERGE_RECORDS_WITH' => '合并记录',
   'LBL_MERGE_VALUE_OVER' => '合并值为',
   'LBL_MODULE_NAME' => '合并记录',
+  'LBL_MODULE_NAME_SINGULAR' => '合并记录',
   'LBL_MODULE_TITLE' => '合并记录：首页',
   'LBL_NEXT_STEP_BUTTON_KEY' => 'N',
   'LBL_NEXT_STEP_BUTTON_LABEL' => '下一步>',

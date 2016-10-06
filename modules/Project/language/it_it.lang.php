@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Segna come Compito Fondamentale',
   'LBL_MODIFIED_USER_ID' => 'ID Utente Modificato:',
   'LBL_MODULE_NAME' => 'Progetto',
+  'LBL_MODULE_NAME_SINGULAR' => 'Progetto',
   'LBL_MODULE_TITLE' => 'Progetti: Home',
   'LBL_MONTH_BUTTON' => 'Mese',
   'LBL_MORE' => 'Per saperne di più...',

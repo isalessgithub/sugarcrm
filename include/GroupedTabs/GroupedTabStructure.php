@@ -14,10 +14,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 
-
-
-require_once('include/tabConfig.php');
-
 class GroupedTabStructure
 {
 	/** 
@@ -41,7 +37,9 @@ class GroupedTabStructure
         {
         	$modList =& $modListHeader;
         }
-        
+
+        require 'include/tabConfig.php';
+
         /* Apply patch, use a reference if we can */
         if($patch)
         {

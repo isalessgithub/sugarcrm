@@ -29,6 +29,7 @@ $mod_strings = array (
   'LBL_MERGE_RECORDS_WITH' => 'Sapludināt ierakstus ar',
   'LBL_MERGE_VALUE_OVER' => 'Sapludināt, pārrakstot vērtību',
   'LBL_MODULE_NAME' => 'Sapludināt ierakstus',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sapludināt ierakstu',
   'LBL_MODULE_TITLE' => 'Ierakstu sapludināšana',
   'LBL_NEXT_STEP_BUTTON_KEY' => 'N',
   'LBL_NEXT_STEP_BUTTON_LABEL' => 'Nākamais solis >',

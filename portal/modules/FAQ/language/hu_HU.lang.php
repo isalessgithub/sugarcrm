@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_ERROR_QUERY' => 'Hiba',
   'LBL_FAQ_EMPTY' => 'Jelenleg nem található GYIK-bejegyzés a tudásbázisban.',
   'LBL_MODULE_NAME' => 'GYIK',
+  'LBL_MODULE_NAME_SINGULAR' => 'GYIK',
   'LBL_MODULE_TITLE' => 'GYIK: Főoldal',
   'LBL_SUCCESSFUL_QUERY' => 'Siker',
 );

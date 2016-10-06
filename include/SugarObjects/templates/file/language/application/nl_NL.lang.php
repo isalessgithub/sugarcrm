@@ -22,25 +22,25 @@ $app_list_strings = array (
   $object_name.'_category_dom' => 
   array (
     '' => '',
-    'Marketing' => 'Marketing',
     'Knowledege Base' => 'Knowledge Base',
+    'Marketing' => 'Marketing',
     'Sales' => 'Verkoop',
+  ),
+  $object_name.'_status_dom' => 
+  array (
+    'Active' => 'Actief',
+    'Draft' => 'Concept',
+    'Expired' => 'Verlopen',
+    'FAQ' => 'FAQ',
+    'Pending' => 'In behandeling',
+    'Under Review' => 'Onder revisie',
   ),
   $object_name.'_subcategory_dom' => 
   array (
     '' => '',
+    'FAQ' => 'FAQ',
+    'Marketing Collateral' => 'Marketingmateriaal',
     'Product Brochures' => 'Product Brochures',
-    'FAQ' => 'FAQ',
-    'Marketing Collateral' => 'Marketing Organisatie',
-  ),
-  $object_name.'_status_dom' => 
-  array (
-    'FAQ' => 'FAQ',
-    'Active' => 'Actief',
-    'Draft' => 'Concept',
-    'Expired' => 'Verlopen',
-    'Under Review' => 'Ter Controle',
-    'Pending' => 'In behandeling',
   ),
 );
 

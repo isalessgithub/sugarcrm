@@ -70,6 +70,3 @@ $connector_strings = array (
 	'hoovers_wsdl' => 'URL de la WSDL',
 	'hoovers_api_key' => 'Clé API',
 );
-
-?>
-

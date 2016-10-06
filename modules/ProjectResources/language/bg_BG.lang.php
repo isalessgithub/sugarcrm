@@ -38,6 +38,6 @@ $mod_strings = array (
 );
 
 
-?>
+
 
 

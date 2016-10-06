@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,22 +15,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-/*********************************************************************************
- * Description:  Defines the Catalan language pack for the base application. 
+	
 
- * Source: SugarCRM 5.2.0
- * Contributor(s): Ramón Feliu (ramon@slay.es).
- ********************************************************************************/
 $mod_strings = array (
-'LBL_DEFAULT'					=>'No Establert',
-'LBL_READ_WRITE'				=>'Lectura/Escriptura',
-'LBL_READ_OWNER_WRITE'			=>'Lectura/Escriptura de Propietari',
-'LBL_READ_ONLY'					=>'Només Lectura',
-'LBL_OWNER_READ_WRITE'			=>'Lectura de Propietari/Escriptura de Propietari',
-'LBL_ALLOW_NONE'				=>'Cap',
-'LBL_FIELDS'					=>'Permisos de Camps',
+  'LBL_ALLOW_NONE' => 'Cap',
+  'LBL_DEFAULT' => 'No Establert',
+  'LBL_FIELDS' => 'Permisos de Camps',
+  'LBL_NOT_DEFINED' => 'No està definit',
+  'LBL_OWNER_READ_WRITE' => 'Lectura de Propietari/Escriptura de Propietari',
+  'LBL_READ_ONLY' => 'Només Lectura',
+  'LBL_READ_OWNER_WRITE' => 'Lectura/Escriptura de Propietari',
+  'LBL_READ_WRITE' => 'Lectura/Escriptura',
+);
 
-
-
-)
-?>

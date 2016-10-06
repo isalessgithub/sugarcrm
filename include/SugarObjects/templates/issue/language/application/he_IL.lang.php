@@ -59,5 +59,4 @@ $object_name = strtolower($object_name);
     'Invalid' => 'לא חוקי',
   ),
   );
-?>
 

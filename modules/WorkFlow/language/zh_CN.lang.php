@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => '上移',
   'LBL_MODULE_ID' => '工作流程',
   'LBL_MODULE_NAME' => '工作流程定义:',
+  'LBL_MODULE_NAME_SINGULAR' => '定义工作流',
   'LBL_MODULE_TITLE' => '工作流程:首页',
   'LBL_NAME' => '名称:',
   'LBL_NEW_FORM_TITLE' => '新增工作流程定义',

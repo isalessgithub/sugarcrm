@@ -1,21 +1,23 @@
 <?php
-$searchdefs ['Calls'] = 
-array (
+// created: 2016-10-06 15:20:01
+$searchdefs['Calls'] = array (
   'layout' => 
   array (
     'basic_search' => 
     array (
-      'name' => 
+      0 => 
       array (
         'name' => 'name',
         'default' => true,
         'width' => '10%',
       ),
-      'assigned_user_id' => 
+      1 => 
       array (
-        'name' => 'assigned_user_id',
         'type' => 'enum',
         'label' => 'LBL_ASSIGNED_TO',
+        'id' => 'ASSIGNED_USER_ID',
+        'link' => true,
+        'name' => 'assigned_user_id',
         'function' => 
         array (
           'name' => 'get_user_array',
@@ -27,7 +29,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'pro_list' => 
+      2 => 
       array (
         'type' => 'relate',
         'link' => true,
@@ -37,7 +39,7 @@ array (
         'default' => true,
         'name' => 'pro_list',
       ),
-      'call_outcome_c' => 
+      3 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -46,7 +48,7 @@ array (
         'width' => '10%',
         'name' => 'call_outcome_c',
       ),
-      'open_only' => 
+      4 => 
       array (
         'name' => 'open_only',
         'label' => 'LBL_OPEN_ITEMS',
@@ -57,13 +59,13 @@ array (
     ),
     'advanced_search' => 
     array (
-      'name' => 
+      0 => 
       array (
         'name' => 'name',
         'default' => true,
         'width' => '10%',
       ),
-      'call_outcome_c' => 
+      1 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -72,7 +74,7 @@ array (
         'width' => '10%',
         'name' => 'call_outcome_c',
       ),
-      'date_start' => 
+      2 => 
       array (
         'type' => 'datetimecombo',
         'label' => 'LBL_DATE',
@@ -80,17 +82,17 @@ array (
         'default' => true,
         'name' => 'date_start',
       ),
-      'pro_list' => 
+      3 => 
       array (
         'type' => 'relate',
         'link' => true,
         'label' => 'LBL_PROSPECTLISTS_CALLS_1_FROM_PROSPECTLISTS_TITLE',
+        'id' => 'PROSPECTLISTS_CALLS_1PROSPECTLISTS_IDA',
         'width' => '10%',
         'default' => true,
-        'id' => 'PROSPECTLISTS_CALLS_1PROSPECTLISTS_IDA',
         'name' => 'pro_list',
       ),
-      'parent_name' => 
+      4 => 
       array (
         'type' => 'parent',
         'label' => 'LBL_LIST_RELATED_TO',
@@ -98,7 +100,7 @@ array (
         'default' => true,
         'name' => 'parent_name',
       ),
-      'current_user_only' => 
+      5 => 
       array (
         'name' => 'current_user_only',
         'label' => 'LBL_CURRENT_USER_FILTER',
@@ -106,7 +108,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'direction' => 
+      6 => 
       array (
         'type' => 'enum',
         'label' => 'LBL_DIRECTION',
@@ -114,13 +116,13 @@ array (
         'default' => true,
         'name' => 'direction',
       ),
-      'status' => 
+      7 => 
       array (
         'name' => 'status',
         'default' => true,
         'width' => '10%',
       ),
-      'assigned_user_id' => 
+      8 => 
       array (
         'name' => 'assigned_user_id',
         'type' => 'enum',
@@ -136,7 +138,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'favorites_only' => 
+      9 => 
       array (
         'name' => 'favorites_only',
         'label' => 'LBL_FAVORITES_FILTER',
@@ -157,4 +159,3 @@ array (
     ),
   ),
 );
-?>

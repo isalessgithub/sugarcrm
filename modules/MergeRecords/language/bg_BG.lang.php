@@ -29,6 +29,7 @@ $mod_strings = array (
   'LBL_MERGE_RECORDS_WITH' => 'Сливане на записи с',
   'LBL_MERGE_VALUE_OVER' => 'Записване със стойност',
   'LBL_MODULE_NAME' => 'Сливане на записи',
+  'LBL_MODULE_NAME_SINGULAR' => 'Сливане на запис',
   'LBL_MODULE_TITLE' => 'Сливане на записи:',
   'LBL_NEXT_STEP_BUTTON_KEY' => 'N',
   'LBL_NEXT_STEP_BUTTON_LABEL' => 'Следваща стъпка >',

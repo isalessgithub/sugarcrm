@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'タイプ',
   'LBL_MODIFIED' => '更新者:',
   'LBL_MODULE_NAME' => 'キャンペーンログ',
+  'LBL_MODULE_NAME_SINGULAR' => 'キャンペーンログ',
   'LBL_MORE_INFO' => '詳細情報',
   'LBL_NAME' => '名前:',
   'LBL_RELATED' => '関連',

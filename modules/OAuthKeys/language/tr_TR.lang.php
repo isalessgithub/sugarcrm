@@ -38,6 +38,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Değiştiren Kişinin İsmi',
   'LBL_MODIFIED_USER' => 'Değiştiren Kullanıcı',
   'LBL_MODULE_NAME' => 'OAuth Anahtarları',
+  'LBL_MODULE_NAME_SINGULAR' => 'OAuth Anahtarı',
   'LBL_MODULE_TITLE' => 'OAuth Anahtarları',
   'LBL_NAME' => 'Müşteri Anahtar İsmi',
   'LBL_OAUTH_TYPE' => 'OAuth Versiyonu',

@@ -28,6 +28,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => '职位',
   'LBL_LIST_ORDER' => '排序',
   'LBL_MODULE_NAME' => '团队通知',
+  'LBL_MODULE_NAME_SINGULAR' => '团队通知',
   'LBL_MODULE_TITLE' => '团队通知:首页',
   'LBL_MORE_DETAIL' => '更多细节',
   'LBL_NAME' => '职位',

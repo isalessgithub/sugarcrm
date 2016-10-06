@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Veids',
   'LBL_MODIFIED' => 'Modificēja:',
   'LBL_MODULE_NAME' => 'Kampaņas žurnāls',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampaņas žurnāls',
   'LBL_MORE_INFO' => 'Vairāk informācijas',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_RELATED' => 'Saistīts ar',

@@ -18,8 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Podrazumevani primarni tim',
   'LBL_TEAM' => 'Timovi',
   'LBL_TEAMS' => 'Timovi',
   'LBL_TEAM_ID' => 'ID broj tima',
+  'LBL_TEAM_SET' => 'Postavljeni tim',
 );
 

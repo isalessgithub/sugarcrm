@@ -302,6 +302,7 @@ $modInvisList = array('Administration', 'Currencies', 'CustomFields', 'Connector
     'DocumentRevisions',
     'ContractTypes', 'ForecastSchedule', 'Worksheet','ACLFields', 'ProjectResources', 'Holidays', 'SNIP',
     'ProjectTask',
+    'ModuleBuilder',
     );
 $adminOnlyList = array(
                     //module => list of actions  (all says all actions are admin only)

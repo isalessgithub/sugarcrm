@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Modified By Name',
   'LBL_MODIFIED_USER' => 'Modified by User',
   'LBL_MODULE_NAME' => 'Sugar Feed',
+  'LBL_MODULE_NAME_SINGULAR' => 'Activity Stream',
   'LBL_MODULE_TITLE' => 'Sugar Feed',
   'LBL_MY_FAVORITES_ONLY' => 'Only My Favorites',
   'LBL_NAME' => 'Name',

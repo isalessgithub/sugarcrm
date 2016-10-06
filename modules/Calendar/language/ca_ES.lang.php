@@ -17,7 +17,64 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 	
 
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => 'Gen',
+    2 => 'Feb',
+    3 => 'Mar',
+    4 => 'Abr',
+    5 => 'Mai',
+    6 => 'Jun',
+    7 => 'Jul',
+    8 => 'Ago',
+    9 => 'Set',
+    10 => 'Oct',
+    11 => 'Nov',
+    12 => 'Des',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Gener',
+    2 => 'Febrer',
+    3 => 'Març',
+    4 => 'Abril',
+    5 => 'Maig',
+    6 => 'Juny',
+    7 => 'Juliol',
+    8 => 'Agost',
+    9 => 'Setembre',
+    10 => 'Octubre',
+    11 => 'Novembre',
+    12 => 'Desembre',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => 'Dg',
+    1 => 'Dil',
+    2 => 'Dim',
+    3 => 'Dix',
+    4 => 'Dij',
+    5 => 'Div',
+    6 => 'Dis',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => 'Diumenge',
+    1 => 'Dilluns',
+    2 => 'Dimarts',
+    3 => 'Dimecres',
+    4 => 'Dijous',
+    5 => 'Divendres',
+    6 => 'Dissabte',
+  ),
+);
+
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: no definit per a aquesta vista',
+  'ERR_YEAR_BETWEEN' => 'Ho sentim, el calendari no pot gestionar l&#39;any que va sol·licitar<br>L&#39;any ha d&#39;estar entre 1970 i 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Aplicar',
   'LBL_ASSIGNED_TO_NAME' => 'Assignat a',
@@ -55,6 +112,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Carregant ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Calendari',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendari',
   'LBL_MODULE_TITLE' => 'Calendari',
   'LBL_MONTH' => 'Mes',
   'LBL_NEXT_DAY' => 'Dia Següent',
@@ -92,6 +150,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Enviar Invitacions',
   'LBL_SETTINGS' => 'Configuració',
   'LBL_SETTINGS_CALLS_SHOW' => 'Mostra les trucades:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Mostra Reunions, trucades i tasques completades:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Mostra espais de temps en el dia i vistes de setmana:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Mostra tasques:',
   'LBL_SETTINGS_TIME_ENDS' => 'Hora de finalització:',
@@ -120,56 +179,5 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Tasques',
   'LNK_VIEW_CALENDAR' => 'Avui',
   'NOTICE_DURATION_TIME' => 'El temps de durada te que ser major que 0',
-);
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Gen',
-    2 => 'Feb',
-    3 => 'Mar',
-    4 => 'Abr',
-    5 => 'Mai',
-    6 => 'Jun',
-    7 => 'Jul',
-    8 => 'Ago',
-    9 => 'Set',
-    10 => 'Oct',
-    11 => 'Nov',
-    12 => 'Des',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Gener',
-    2 => 'Febrer',
-    3 => 'Març',
-    4 => 'Abril',
-    5 => 'Maig',
-    6 => 'Juny',
-    7 => 'Juliol',
-    8 => 'Agost',
-    9 => 'Setembre',
-    10 => 'Octubre',
-    11 => 'Novembre',
-    12 => 'Desembre',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Dil',
-    2 => 'Dim',
-    3 => 'Dix',
-    4 => 'Dij',
-    5 => 'Div',
-    6 => 'Dis',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Dilluns',
-    2 => 'Dimarts',
-    3 => 'Dimecres',
-    4 => 'Dijous',
-    5 => 'Divendres',
-    6 => 'Dissabte',
-  ),
 );
 

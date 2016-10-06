@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Procenti',
   'LBL_MODIFIED_ID' => 'Modificētāja ID',
   'LBL_MODULE_NAME' => 'Nodokļa likmes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nodokļa likme',
   'LBL_MODULE_TITLE' => 'Nodokļu likmes: Sākums',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Jauna nodokļa likme',

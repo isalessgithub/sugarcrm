@@ -18,8 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $connector_strings = array (
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Facebook&amp;#169;（<a href=\'http://www.facebook.com/developers/createapp.php\' target=\'_blank\'>http://www.facebook.com/developers/createapp.php</a>）でSugarインスタンスを新しいアプリケーションとして登録し、APIキーとAppシークレットを取得します。<br/><br>登録方法は下記の通りです。<br/><br/><ol><li>Facebook&amp;#169; to create the application: <a href=</li><li>アプリケーションを生成するアカウントでFacebook&amp;#169;にサインインしてください。</li><li>アプリケーションの生成ページでアプリケーションの名前を入力してください。これは、Sugar内部でFacebook&amp;#169;アカウントを認証する際にユーザが認識する名前です。.</li><li>Facebook&amp;#169;利用規約に同意してください。</li><li>アプリの生成をクリックしてください。</li><li>セキュリティチェックに渡すセキュリティワードを入力してください。</li><li>登録ページでWebサイトに進み、SugarインスタンスのURLを入力してください。</li><li>更新を保存してください。</li><li>左側メニューのFacebookインテグレーションのページに進み、APIキーとシークレットを確認してください。アプリケーションIDとシークレットを下記に入力してください。</li></ol></td></tr></table>',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Facebook&#169;でSugarインスタンス用のアプリを作成するためにAPIキーとAppシークレットを取得します。<br/><br/>取得方法は以下の通りです。<br/><br/><ol><li>アプリケーションを作成するためにFacebook&#169;の以下のページにアクセスしてください。: <a href=&\'http://www.facebook.com/developers/createapp.php\' target=\'_blank\'>http://www.facebook.com/developers/createapp.php</a></li><li>アプリを生成するアカウントでFacebook&#169;にサインインしてください。</li><li>アプリの生成ページでアプリの名称を入力してください。これは、Sugar内部でFacebook&#169;アカウントを認証する際にユーザが使用する名前です。</li><li>Facebook&#169;利用規約に同意してください。</li><li>「アプリの生成」をクリックしてください。</li><li>セキュリティチェックに使用するセキュリティワードを入力してください。</li><li>登録ページで「ウェブサイト」（左側のメニュー）に進み、「サイトURL」にローカルURLまたはSugarインスタンスのURLを入力してください。</li><li>「変更を保存」をクリックしてください。</li><li>「Facebookインテグレーション」（左側のメニュー）に進み、APIキーとシークレットを確認してください。アプリケーションIDとシークレットを以下に入力してください。</li></ol></td></tr></table>',
   'oauth_consumer_key' => 'APIキー',
-  'oauth_consumer_secret' => 'アプリシークレット',
+  'oauth_consumer_secret' => 'Appシークレット',
 );
 

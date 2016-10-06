@@ -19,6 +19,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Morate navesti broj zapisa da bi obrisali tip proizvoda.',
+  'LBL_ASSIGNED_TO_NAME' => 'Dodeljeni korisnik',
+  'LBL_ASSIGNED_USER_NAME' => 'Dodeljeni korisnik',
   'LBL_CATEGORIES' => 'Kategorije',
   'LBL_CREATED_ID' => 'ID broj korisnika koji je kreirao',
   'LBL_DESCRIPTION' => 'Opis:',
@@ -35,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Redosled:',
   'LBL_MODIFIED_ID' => 'ID broj korisnika koji je promenio',
   'LBL_MODULE_NAME' => 'Kategorije proizvoda',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kategorija Proizvoda',
   'LBL_MODULE_TITLE' => 'Kategorije proizvoda: Početna strana',
   'LBL_NAME' => 'Kategorija proizvoda:',
   'LBL_PARENT_CATEGORY' => 'Nadkategorija:',

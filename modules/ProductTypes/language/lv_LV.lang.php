@@ -30,6 +30,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Produkta veids',
   'LBL_LIST_ORDER' => 'Secība:',
   'LBL_MODULE_NAME' => 'Produktu veidi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Produkta veids',
   'LBL_MODULE_TITLE' => 'Produktu veidi',
   'LBL_NAME' => 'Produkta veids:',
   'LBL_PRODUCTTYPE' => 'Produkta veids:',

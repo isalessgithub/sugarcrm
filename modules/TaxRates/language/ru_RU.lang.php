@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Ставка',
   'LBL_MODIFIED_ID' => 'Изменено (Id)',
   'LBL_MODULE_NAME' => 'Налоговые ставки',
+  'LBL_MODULE_NAME_SINGULAR' => 'Налоговая ставка',
   'LBL_MODULE_TITLE' => 'Налоговые ставки: Главная',
   'LBL_NAME' => 'Налоговая ставка:',
   'LBL_NEW_FORM_TITLE' => 'Создать налоговую ставку',

@@ -39,7 +39,17 @@ function checkRequired($prefix, $required)
 	return true;
 }
 
-function populateFromPost($prefix, &$focus, $skipRetrieve=false) {
+/**
+ * Populating bean from $_POST
+ *
+ * @param string $prefix of name of fields
+ * @param SugarBean $focus bean
+ * @param bool $skipRetrieve do not retrieve data of bean
+ * @param bool $checkACL do not update fields if they are forbidden for current user
+ * @return SugarBean
+ */
+function populateFromPost($prefix, &$focus, $skipRetrieve = false, $checkACL = false)
+{
 	global $current_user;
 
 	if(!empty($_REQUEST[$prefix.'record']) && !$skipRetrieve)
@@ -53,11 +63,37 @@ function populateFromPost($prefix, &$focus, $skipRetrieve=false) {
     require_once('include/SugarFields/SugarFieldHandler.php');
     $sfh = new SugarFieldHandler();
    
+    $isOwner = $focus->isOwner($current_user->id);
+    $relatedFields = array();
+    foreach ($focus->field_defs as $field => $def) {
+        if (empty($def['type']) || $def['type'] != 'relate') {
+            continue;
+        }
+        if (empty($def['source']) || $def['source'] != 'non-db') {
+            continue;
+        }
+        if (empty($def['id_name']) || $def['id_name'] == $field) {
+            continue;
+        }
+        $relatedFields[$def['id_name']] = $field;
+    }
+
 	foreach($focus->field_defs as $field=>$def) {
         if ( $field == 'id' && !empty($focus->id) ) {
             // Don't try and overwrite the ID
             continue;
         }
+
+        if ($checkACL == true
+            && ACLField::hasAccess($def['name'], $focus->module_dir, $current_user->id, $isOwner) < 2) {
+            continue;
+        }
+        if ($checkACL == true
+           && isset($relatedFields[$def['name']])
+           && ACLField::hasAccess($relatedFields[$def['name']], $focus->module_dir, $current_user->id, $isOwner) < 2) {
+            continue;
+        }
+
 	    $type = !empty($def['custom_type']) ? $def['custom_type'] : $def['type'];
 		$sf = $sfh->getSugarField($type);
         if($sf != null){
@@ -522,10 +558,8 @@ function save_from_report($report_id,$parent_id, $module_name, $relationship_att
     $GLOBALS['log']->debug("Save2:Module Name=".$module_name);
     $GLOBALS['log']->debug("Save2:Relationship Attribute Name=".$relationship_attr_name);
 
-    $bean_name = $beanList[$module_name];
-    $GLOBALS['log']->debug("Save2:Bean Name=".$bean_name);
-    require_once($beanFiles[$bean_name]);
-    $focus = new $bean_name();
+    $GLOBALS['log']->debug("Save2:Bean Name=" . $module_name);
+    $focus = BeanFactory::newBean($module_name);
 
     $focus->retrieve($parent_id);
     $focus->load_relationship($relationship_attr_name);
@@ -548,9 +582,12 @@ function save_from_report($report_id,$parent_id, $module_name, $relationship_att
     $sql = $report->query_list[0];
     $GLOBALS['log']->debug("Save2:Report Query=".$sql);
     $result = $report->db->query($sql);
+
+    $reportBean = BeanFactory::newBean($saved->module);
     while($row = $report->db->fetchByAssoc($result))
     {
-        $focus->$relationship_attr_name->add($row['primaryid']);
+        $reportBean->id = $row['primaryid'];
+        $focus->$relationship_attr_name->add($reportBean);
     }
 }
 

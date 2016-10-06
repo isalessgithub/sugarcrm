@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Atzīmēt kā atskaites punktu',
   'LBL_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_MODULE_NAME' => 'Projekts',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projekts',
   'LBL_MODULE_TITLE' => 'Projekti: Sākums',
   'LBL_MONTH_BUTTON' => 'Mēnesis',
   'LBL_MORE' => 'Vairāk...',

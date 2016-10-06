@@ -218,6 +218,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Janvāris',
     2 => 'Februāris',
     3 => 'Marts',
@@ -286,6 +287,7 @@ $app_list_strings = array (
   ),
   'dom_int_bool' => 
   array (
+    0 => 'Nē',
     1 => 'Jā',
   ),
   'dom_mailbox_type' => 
@@ -337,6 +339,7 @@ $app_list_strings = array (
     -3 => '(GMT - 3) Buenos Aires',
     -2 => '(GMT - 2) Mid-Atlantic',
     -1 => '(GMT - 1) Azores',
+    0 => '(GMT)',
     1 => '(GMT + 1) Madrid',
     2 => '(GMT + 2) Athens',
     3 => '(GMT + 3) Moscow',
@@ -364,6 +367,7 @@ $app_list_strings = array (
     -3 => '(GMT-3) Buenos Aires',
     -2 => '(GMT-2) Mid-Atlantic',
     -1 => '(GMT-1) Azores',
+    0 => '(GMT)',
     1 => '(GMT+1) Madrid',
     2 => '(GMT+2) Athens',
     3 => '(GMT+3) Moscow',
@@ -391,6 +395,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0 => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -582,7 +587,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Uzņēmumi',
     'Activities' => 'Darbības',
-    'Bug Tracker' => 'Kļūdas',
+    'Bugs' => 'Kļūdas',
     'Calendar' => 'Kalendārs',
     'Calls' => 'Zvani',
     'Campaigns' => 'Kampaņas',
@@ -639,6 +644,7 @@ $app_list_strings = array (
   ),
   'project_task_utilization_options' => 
   array (
+    0 => 'neviens',
     25 => '25',
     50 => '50',
     75 => '75',
@@ -809,6 +815,7 @@ $app_list_strings = array (
   ),
   'tselect_type_dom' => 
   array (
+    0 => '0 stundas',
     14440 => '4 stundas',
     28800 => '8 stundas',
     43200 => '12 stundas',

@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Percentage',
   'LBL_MODIFIED_ID' => 'Gewijzigd door ID',
   'LBL_MODULE_NAME' => 'BTW-tarief',
+  'LBL_MODULE_NAME_SINGULAR' => 'BTW percentage:',
   'LBL_MODULE_TITLE' => 'BTW-tarief: Start',
   'LBL_NAME' => 'BTW-tarief Naam:',
   'LBL_NEW_FORM_TITLE' => 'Nieuw BTW-tarief',

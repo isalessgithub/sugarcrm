@@ -18,9 +18,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Izteiksmju dzinis',
-  'LBL_PREVIOUS' => 'Iepriekšējais',
-  'LBL_NEXT' => 'Nākamais',
   'LBL_EXPAND' => 'Izvērst',
+  'LBL_MODULE_NAME' => 'Izteiksmju dzinis',
+  'LBL_MODULE_NAME_SINGULAR' => 'Izteiksmju dzinis',
+  'LBL_NEXT' => 'Nākamais',
+  'LBL_PREVIOUS' => 'Iepriekšējais',
 );
 

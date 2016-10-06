@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_ERROR_QUERY' => '主页',
   'LBL_FAQ_EMPTY' => '知识库中无当前FAQ标签文章.',
   'LBL_MODULE_NAME' => 'FAQ',
+  'LBL_MODULE_NAME_SINGULAR' => '常见问题',
   'LBL_MODULE_TITLE' => 'FAQ: 主页',
   'LBL_SUCCESSFUL_QUERY' => '成功',
 );

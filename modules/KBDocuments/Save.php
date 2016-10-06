@@ -46,6 +46,11 @@ $KBDocument = populateFromPost('', $KBDocument);
 //set check_notify flag
 $check_notify = false;
 
+if (!empty($KBDocument->case_id)) {
+    $KBDocument->parent_id = $KBDocument->case_id;
+    $KBDocument->parent_type = "Cases";
+}
+
 
 if (isset($KBDocument->id)) {
     //retrieve the existing document before saving the current

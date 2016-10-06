@@ -47,6 +47,10 @@ class MySugar{
     }
 
 	function addDashlet(){
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            return;
+        }
+
 		if(!is_file(sugar_cached('dashlets/dashlets.php'))) {
             require_once('include/Dashlets/DashletCacheBuilder.php');
 
@@ -64,16 +68,14 @@ class MySugar{
 
 		    $guid = create_guid();
 			$options = array();
-		    if (isset($_REQUEST['type']) && $_REQUEST['type'] == 'web') {
+            if (isset($_POST['type'], $_POST['type_module']) && $_POST['type'] == 'web') {
 				$dashlet_module = 'Home';
 				require_once('include/Dashlets/DashletRssFeedTitle.php');
-				$options['url'] = $_REQUEST['type_module'];
+                $options['url'] = $_POST['type_module'];
 				$webDashlet = new DashletRssFeedTitle($options['url']);
 				$options['title'] = $webDashlet->generateTitle();
-				unset($webDashlet);
-		    }
-			elseif (!empty($_REQUEST['type_module'])) {
-				$dashlet_module = $_REQUEST['type_module'];
+            } elseif (!empty($_POST['type_module'])) {
+                $dashlet_module = $_POST['type_module'];
 			}
 			elseif (isset($dashletsFiles[$_REQUEST['id']]['module'])) {
 				$dashlet_module = $dashletsFiles[$_REQUEST['id']]['module'];
@@ -447,10 +449,14 @@ EOJS;
 	function saveLayout(){
 		global $current_user;
 
-		if(!empty($_REQUEST['layout'])) {
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            return;
+        }
+
+        if (!empty($_POST['layout'])) {
 		    $newColumns = array();
 
-		    $newLayout = explode('|', $_REQUEST['layout']);
+            $newLayout = explode('|', $_POST['layout']);
 
 			$pages = $current_user->getPreference('pages', $this->type);
 
@@ -524,8 +530,7 @@ EOJS;
 		$newPage = array();
 		$newPage['columns'] = $columns;
 
-		$json = getJSONobj();
-		$newPageName = $json->decode(html_entity_decode($_REQUEST['pageName']));
+        $newPageName = $_REQUEST['pageName'];
 
         $newPageName = SugarCleaner::stripTags(from_html($newPageName), false);
 
@@ -674,7 +679,7 @@ EOJS;
 
 							$chartsArray[$id] = array();
 							$chartsArray[$id]['id'] = $id;
-							$chartsArray[$id]['xmlFile'] = sugar_cached("xml/") . $dashlets[$id]['reportId'] . '_saved_chart.xml';
+							$chartsArray[$id]['xmlFile'] = sugar_cached("xml/") . $GLOBALS['current_user']->getUserPrivGuid() . '_' . $dashlets[$id]['reportId'] . '_saved_chart.xml';
 							$chartsArray[$id]['width'] = '100%';
 							$chartsArray[$id]['height'] = '480';
 							$chartsArray[$id]['styleSheet'] = $chartStyleCSS;
@@ -907,8 +912,7 @@ EOJS;
 
 		$pages = $current_user->getPreference('pages', $this->type);
 
-		$json = getJSONobj();
-		$newPageName = $json->decode(html_entity_decode($_REQUEST['newPageTitle']));
+        $newPageName = $_REQUEST['newPageTitle'];
 
 		$pages[$_REQUEST['pageId']]['pageTitle'] = SugarCleaner::stripTags(from_html($newPageName), false);
 		$current_user->setPreference('pages', $pages, 0, $this->type);

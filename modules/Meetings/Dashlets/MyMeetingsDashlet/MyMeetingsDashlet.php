@@ -47,7 +47,6 @@ class MyMeetingsDashlet extends DashletGeneric {
         $this->hasScript = true;  // dashlet has javascript attached to it                
 
         $this->seedBean = new Meeting();
-        $this->seedBean->disable_row_level_security = true;
     }
 
     function process($lvsParams = array()) {

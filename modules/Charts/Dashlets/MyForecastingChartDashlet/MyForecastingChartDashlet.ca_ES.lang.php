@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['MyForecastingChartDashlet'] = array('LBL_TITLE'       => 'Les Meves Previsions',
                                                      'LBL_DESCRIPTION' => 'Quota vs. Realitzat vs. Actual',
                                                      'LBL_REFRESH'     => 'Actualitzar Gràfic');
-?> 
-

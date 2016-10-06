@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Kilometre taşı:',
   'LBL_MODIFIED_USER_ID' => 'Değiştiren Kullanıcı ID:',
   'LBL_MODULE_NAME' => 'Proje Görevleri',
+  'LBL_MODULE_NAME_SINGULAR' => 'Proje Görevi',
   'LBL_MODULE_TITLE' => 'Proje Görevi: Ana Sayfa',
   'LBL_NAME' => 'İsim:',
   'LBL_NEW_FORM_TITLE' => 'Yeni Proje Görevi',

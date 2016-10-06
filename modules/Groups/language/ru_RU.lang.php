@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,30 +15,17 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Группы',
-  'LBL_GROUP_NAME' => 'Группа:',
   'LBL_DESCRIPTION' => 'Описание:',
-  'LBL_TEAM' => 'Команда:',
+  'LBL_GROUP_NAME' => 'Группа:',
   'LBL_LIST_TITLE' => 'Группы',
+  'LBL_MODULE_NAME' => 'Группы',
+  'LBL_MODULE_NAME_SINGULAR' => 'Группа',
+  'LBL_TEAM' => 'Команда:',
   'LNK_ALL_GROUPS' => 'Все группы',
-  'LNK_NEW_GROUP' => 'Новая группа',
   'LNK_CONVERT_USER' => 'Преобразовать пользователя в группу',
+  'LNK_NEW_GROUP' => 'Новая группа',
 );
 

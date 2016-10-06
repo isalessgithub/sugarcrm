@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Руководитель',
   'LBL_LIST_TITLE' => 'Должность',
   'LBL_MODULE_NAME' => 'Команды',
+  'LBL_MODULE_NAME_SINGULAR' => 'Команда',
   'LBL_MODULE_TITLE' => 'Команды: Главная',
   'LBL_NAME' => 'Название команды:',
   'LBL_NAME_2' => 'Название команды(2):',

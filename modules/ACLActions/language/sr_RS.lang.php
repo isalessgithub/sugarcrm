@@ -30,6 +30,7 @@ $mod_strings = array (
   'LBL_ACCESS_OWNER' => 'Vlasnik',
   'LBL_ACTION_ACCESS' => 'Pristup',
   'LBL_ACTION_ADMIN' => 'Tip pristupa',
+  'LBL_ACTION_CREATE' => 'Kreiraj',
   'LBL_ACTION_DELETE' => 'Obriši',
   'LBL_ACTION_EDIT' => 'Izmeni',
   'LBL_ACTION_EXPORT' => 'Izvoz',

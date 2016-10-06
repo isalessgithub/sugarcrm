@@ -14,7 +14,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 
-
+if (!is_admin($GLOBALS['current_user'])) {
+    sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
+}
 
 require_once('include/utils/db_utils.php');
 require_once('include/utils/zip_utils.php');
@@ -55,12 +57,14 @@ $script_files = array(
 );
 
 
+
 function extractFile( $zip_file, $file_in_zip ){
     global $base_tmp_upgrade_dir;
 	if(empty($base_tmp_upgrade_dir)){
     	$base_tmp_upgrade_dir   = sugar_cached("upgrades/temp");
     }
     $my_zip_dir = mk_temp_dir( $base_tmp_upgrade_dir );
+    register_shutdown_function('rmdir_recursive', $my_zip_dir);
     unzip_file( $zip_file, $file_in_zip, $my_zip_dir );
     return( "$my_zip_dir/$file_in_zip" );
 }
@@ -220,5 +224,3 @@ function getDiffFiles($unzip_dir, $install_file, $is_install = true, $previous_v
 	}//fi
 	return $modified_files;
 }
-
-?>

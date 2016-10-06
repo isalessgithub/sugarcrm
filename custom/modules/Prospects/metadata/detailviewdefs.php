@@ -1,5 +1,5 @@
 <?php
-// created: 2013-01-31 05:12:37
+// created: 2016-10-06 15:32:28
 $viewdefs = array (
   'Prospects' => 
   array (
@@ -128,8 +128,7 @@ $viewdefs = array (
                 'module' => 'Prospects',
                 'connectors' => 
                 array (
-                  0 => 'ext_rest_linkedin',
-                  1 => 'ext_rest_twitter',
+                  0 => 'ext_rest_twitter',
                 ),
               ),
             ),
@@ -182,7 +181,7 @@ $viewdefs = array (
             0 => 'assigned_user_name',
             1 => 
             array (
-              'name' => 'modified_by_name',
+              'name' => 'date_modified',
               'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}&nbsp;',
               'label' => 'LBL_DATE_MODIFIED',
             ),
@@ -192,7 +191,7 @@ $viewdefs = array (
             0 => 'team_name',
             1 => 
             array (
-              'name' => 'created_by_name',
+              'name' => 'date_entered',
               'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}&nbsp;',
               'label' => 'LBL_DATE_ENTERED',
             ),

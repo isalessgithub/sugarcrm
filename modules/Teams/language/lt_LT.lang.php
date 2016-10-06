@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Kam pavaldus',
   'LBL_LIST_TITLE' => 'Pareigos',
   'LBL_MODULE_NAME' => 'Komandos',
+  'LBL_MODULE_NAME_SINGULAR' => 'Komanda',
   'LBL_MODULE_TITLE' => 'Komandos: Pradžia',
   'LBL_NAME' => 'Komandos pavadinimas:',
   'LBL_NAME_2' => 'Komandos pavadinimas(2):',

@@ -52,7 +52,7 @@ if (!empty($_REQUEST['product_template_id']) && $_REQUEST['product_template_id']
 }
 
 if ($_REQUEST['discount_select']) {
-    $focus->deal_calc= $_REQUEST['discount_amount']/100*$_REQUEST['discount_price'];
+    $focus->deal_calc= (float)unformat_number($_REQUEST['discount_amount'])/100*(float)unformat_number($_REQUEST['discount_price']);
 }
 else {
     $focus->deal_calc= $_REQUEST['discount_amount'];

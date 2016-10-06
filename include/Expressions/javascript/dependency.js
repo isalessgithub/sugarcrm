@@ -119,17 +119,21 @@ AH.setRelatedFields=function(fields){for(var link in fields)
 {for(var type in fields[link])
 {AH.cacheRelatedField(link,type,fields[link][type]);}}}
 AH.getRelatedFieldValues=function(fields,module,record)
-{if(fields.length>0){module=module||SUGAR.forms.AssignmentHandler.getValue("module")||DCMenu.module;record=record||SUGAR.forms.AssignmentHandler.getValue("record")||DCMenu.record;for(var i=0;i<fields.length;i++)
+{if(fields.length>0){var ret={};var emptyFields={};module=module||SUGAR.forms.AssignmentHandler.getValue("module")||DCMenu.module;record=record||SUGAR.forms.AssignmentHandler.getValue("record")||DCMenu.record;for(var i=fields.length-1;i>=0;i--)
 {if(fields[i].type=="related")
 {var linkDef=SUGAR.forms.AssignmentHandler.getLink(fields[i].link);if(linkDef&&linkDef.id_name&&linkDef.module){var idField=document.getElementById(linkDef.id_name);if(idField&&(idField.tagName=="INPUT"||idField.hasAttribute("data-id-value")))
-{fields[i].relId=SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name,false,true);fields[i].relModule=linkDef.module;}}}}
-var r=http_fetch_sync("index.php",SUGAR.util.paramsToUrl({module:"ExpressionEngine",action:"getRelatedValues",record_id:record,tmodule:module,fields:YAHOO.lang.JSON.stringify(fields),to_pdf:1}));try{var ret=YAHOO.lang.JSON.parse(r.responseText);AH.setRelatedFields(ret);return ret;}catch(e){}}
+{fields[i].relModule=linkDef.module;fields[i].relId=SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name,false,true);if(fields[i].relId.length==0)
+{emptyFields[fields[i].link]={'related':{}};emptyFields[fields[i].link]['related'][fields[i].relate]='';fields.splice(i,1);}}}}}
+if(fields.length>0)
+{var r=http_fetch_sync("index.php",SUGAR.util.paramsToUrl({module:"ExpressionEngine",action:"getRelatedValues",record_id:record,tmodule:module,fields:YAHOO.lang.JSON.stringify(fields),to_pdf:1}));try{ret=YAHOO.lang.JSON.parse(r.responseText);}catch(e){}}
+ret=$.extend({},emptyFields,ret);AH.setRelatedFields(ret);return ret;}
 return null;}
 AH.getRelatedField=function(link,ftype,field,view){if(!view)
 view=AH.lastView;else
 AH.lastView=view;if(!AH.LINKS[view][link])
 return null;var linkDef=SUGAR.forms.AssignmentHandler.getLink(link);var currId;if(linkDef.id_name)
 {currId=SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name,false,true);}
+if((linkDef.relId||currId)&&linkDef.relId!=currId){AH.clearRelatedFieldCache(link,view);}
 if(typeof(linkDef[ftype])=="undefined"||(field&&typeof(linkDef[ftype][field])=="undefined")||(ftype=="related"&&(linkDef.relId||currId)&&linkDef.relId!=currId)){var params={link:link,type:ftype};if(field)
 params.relate=field;AH.getRelatedFieldValues([params]);linkDef=SUGAR.forms.AssignmentHandler.getLink(link);}
 if(typeof(linkDef[ftype])=="undefined")

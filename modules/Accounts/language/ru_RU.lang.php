@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Изменено пользователем',
   'LBL_MODULE_ID' => 'Контрагенты',
   'LBL_MODULE_NAME' => 'Контрагенты',
+  'LBL_MODULE_NAME_SINGULAR' => 'Контрагент',
   'LBL_MODULE_TITLE' => 'Контрагенты - Главная',
   'LBL_NAME' => 'Название:',
   'LBL_NEW_FORM_TITLE' => 'Новый контрагент',

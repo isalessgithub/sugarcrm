@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,39 +15,10 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $object_name = strtolower($object_name);
 $app_list_strings = array (
-  $object_name.'_type_dom' => 
-  array (
-    'Administration' => 'Beheer',
-    'Product' => 'Product',
-    'User' => 'Gebruiker',
-  ),
-  $object_name.'_status_dom' => 
-  array (
-    'New' => 'Nieuw',
-    'Assigned' => 'Toegewezen',
-    'Closed' => 'Gesloten',
-    'Pending Input' => 'Wacht op input',
-    'Rejected' => 'Afgewezen',
-    'Duplicate' => 'Kopie',
-  ),
   $object_name.'_priority_dom' => 
   array (
     'P1' => 'Hoog',
@@ -56,10 +29,25 @@ $app_list_strings = array (
   array (
     '' => ' ',
     'Accepted' => 'Geaccepteerd',
-    'Duplicate' => 'Kopie',
     'Closed' => 'Gesloten',
-    'Out of Date' => 'Verlopen',
+    'Duplicate' => 'Kopie',
     'Invalid' => 'Ongeldig',
+    'Out of Date' => 'Verlopen',
+  ),
+  $object_name.'_status_dom' => 
+  array (
+    'Assigned' => 'Toegewezen',
+    'Closed' => 'Gesloten',
+    'Duplicate' => 'Kopie',
+    'New' => 'Nieuw',
+    'Pending Input' => 'Wacht op input',
+    'Rejected' => 'Afgewezen',
+  ),
+  $object_name.'_type_dom' => 
+  array (
+    'Administration' => 'Beheer',
+    'Product' => 'Product',
+    'User' => 'Gebruiker',
   ),
 );
 

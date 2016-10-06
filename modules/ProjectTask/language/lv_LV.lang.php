@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Atskaites punkts:',
   'LBL_MODIFIED_USER_ID' => 'Modificēja:',
   'LBL_MODULE_NAME' => 'Projekta uzdevumi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projekta uzdevums',
   'LBL_MODULE_TITLE' => 'Projekta uzdevumi: Sākums',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Jauns projekta uzdevums',

@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_ASSIGNED_TO_NAME' => '用户',
   'LBL_CONSUMER' => '用户名称',
+  'LBL_CONTACTS' => '联系人姓名',
   'LBL_ID' => 'ID',
   'LBL_LIST_DELETE' => '删除标识',
   'LBL_OAUTH_AUTHORIZE' => '授权标识',

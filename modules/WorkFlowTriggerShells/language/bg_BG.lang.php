@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_DELETE_EMPTY' => 'Записът е вече изтрит или не съществува.',
+  'ERR_DELETE_RECORD' => 'Трябва да посочите номер на записа, за да бъде изтрита възможността.',
   'LBL_ALERT_TEMPLATES' => 'Шаблони на известявания',
   'LBL_APOSTROPHE_S' => ' ',
   'LBL_COMPARE_ANY_TIME_PART2' => 'няма промяна за',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Стойност:',
   'LBL_MODULE' => 'модул',
   'LBL_MODULE_NAME' => 'Условия',
+  'LBL_MODULE_NAME_SINGULAR' => 'Условие',
   'LBL_MODULE_SECTION_TITLE' => 'При наличие на следните условия',
   'LBL_MODULE_TITLE' => 'Тригери:',
   'LBL_MUST_SELECT_VALUE' => 'Необходимо е да изберете стойност за тези полета',
@@ -92,5 +95,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Тригери',
   'LNK_WORKFLOW' => 'Workflow Objects',
   'NTC_REMOVE_TRIGGER' => 'Сигурни ли сте че искате да премахнете този тригер?',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Всички тригери ще бъдат премахнати, в случай че премахнете основния тригер.',
 );
 

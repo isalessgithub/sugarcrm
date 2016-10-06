@@ -47,6 +47,7 @@ $mod_strings = array (
   'LBL_LOCATION' => 'Място:',
   'LBL_MEETING' => 'Среща:',
   'LBL_MODULE_NAME' => 'История',
+  'LBL_MODULE_NAME_SINGULAR' => 'История',
   'LBL_MODULE_TITLE' => 'История',
   'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
   'LBL_NEW_NOTE_BUTTON_LABEL' => 'Добавяне на бележка или приложение',

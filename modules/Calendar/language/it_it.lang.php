@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: non definito per questa vista',
+  'ERR_YEAR_BETWEEN' => 'Spiacente, il calendario non può gestire l´anno inserito<br />L´anno deve essere compreso tra 1970 e 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Applica',
   'LBL_ASSIGNED_TO_NAME' => 'Assegnato a:',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Caricamento...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Calendario',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendario',
   'LBL_MODULE_TITLE' => 'Calendario',
   'LBL_MONTH' => 'Mese',
   'LBL_NEXT_DAY' => 'Giorno Successivo',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Invia Inviti',
   'LBL_SETTINGS' => 'Impostazioni',
   'LBL_SETTINGS_CALLS_SHOW' => 'Mostra Chiamate:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Visualizza Riunioni, Chiamate e Compiti Completati:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Visualizza le fasce orarie nelle viste giornaliere e settimanali:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Mostra Compiti:',
   'LBL_SETTINGS_TIME_ENDS' => 'Ora fine:',
@@ -157,7 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
-    0 => '',
+    0 => 'Dom',
     1 => 'Lun',
     2 => 'Mar',
     3 => 'Mer',
@@ -167,7 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
-    0 => '',
+    0 => 'Domenica',
     1 => 'Lunedì',
     2 => 'Martedì',
     3 => 'Mercoledì',

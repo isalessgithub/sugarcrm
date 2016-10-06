@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Vērtība:',
   'LBL_MODULE' => 'modulis',
   'LBL_MODULE_NAME' => 'Nosacījumi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nosacījums',
   'LBL_MODULE_SECTION_TITLE' => 'Kad šie nosacījumi izpildās',
   'LBL_MODULE_TITLE' => 'Darbplūsmu trigeri: Sākums',
   'LBL_MUST_SELECT_VALUE' => 'Šim laukam jānorāda vērtība',

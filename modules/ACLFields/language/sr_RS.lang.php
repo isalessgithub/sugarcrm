@@ -18,12 +18,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_DEFAULT' => 'Nije postavljeno',
-  'LBL_READ_WRITE' => 'Čitanje/Upisivanje',
-  'LBL_READ_OWNER_WRITE' => 'Čitanje/Upisivanje (vlasnik)',
-  'LBL_READ_ONLY' => 'Samo za čitanje',
-  'LBL_OWNER_READ_WRITE' => 'Čitanje (vlasnik)/Upisivanje (vlasnik)',
   'LBL_ALLOW_NONE' => 'Nijedna',
+  'LBL_DEFAULT' => 'Nije postavljeno',
   'LBL_FIELDS' => 'Dozvole nad poljem',
+  'LBL_NOT_DEFINED' => 'Nije definisano',
+  'LBL_OWNER_READ_WRITE' => 'Čitanje (vlasnik)/Upisivanje (vlasnik)',
+  'LBL_READ_ONLY' => 'Samo za čitanje',
+  'LBL_READ_OWNER_WRITE' => 'Čitanje/Upisivanje (vlasnik)',
+  'LBL_READ_WRITE' => 'Čitanje/Upisivanje',
 );
 

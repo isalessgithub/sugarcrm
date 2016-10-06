@@ -33,4 +33,4 @@ $dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
                                                                    "* Dodawaj nowe dashlety, klikając na \"Dodaj dashlet\" w lewym górnym rogu ekranu.\n" .
                                                                    "* Dostosuj każdy z dashletów, klikając na ikonkę konfiguracji w prawym górnym rogu każdego z dashletów\n" .
                                                                    "* Usuń dashlet klikając na znak X");
-?> 
+ 

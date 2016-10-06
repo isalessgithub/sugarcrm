@@ -40,5 +40,5 @@ $mod_strings = array (
 	'LNK_NEW_GROUP'				=> 'צור קבוצה',
 	'LNK_CONVERT_USER'			=> 'המר משתמש לקבוצה', 
 );
-?>
+
 

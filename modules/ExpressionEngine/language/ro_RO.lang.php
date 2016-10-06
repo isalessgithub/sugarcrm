@@ -20,7 +20,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_EXPAND' => 'Expand',
   'LBL_MODULE_NAME' => 'Motorul Expresiilor',
+  'LBL_MODULE_NAME_SINGULAR' => 'Motorul de exprimare',
   'LBL_NEXT' => 'Urmatorul>',
-  'LBL_PREVIOUS' => 'Anterior ( defined in ./include/language/ro_RO.lang.php )',
+  'LBL_PREVIOUS' => 'Anterior',
 );
 

@@ -1,5 +1,7 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
  * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
@@ -13,30 +15,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-/*********************************************************************************
- * Description:  Defines the Catalan language pack for the base application. 
+	
 
- * Source: SugarCRM 5.2.0
- * Contributor(s): Ramón Feliu (ramon@slay.es).
- ********************************************************************************/
 $mod_strings = array (
-  'LBL_ROLE' 						=> 'Rol: ',
-  'LBL_LANGUAGE' 					=> 'Llenguatge: ',
-  'LBL_MODULE_NAME' 				=> 'Rols',
-  'LBL_MODULE_TITLE' 				=> 'Rols: d´Inici',
-  'LBL_SEARCH_FORM_TITLE' 			=> 'Recerca de Rols',
-  'LBL_LIST_FORM_TITLE' 			=> 'Llista de Rols',
-  'LNK_NEW_ROLE' 					=> 'Crear Rol',
-  'LNK_ROLES' 						=> 'Rols',
-  'LBL_NAME' 						=> 'Nom: ',
-  'LBL_DESCRIPTION' 				=> 'Descripció: ',
-  'LBL_ALLOWED_MODULES' 			=> 'Mòduls Permesos: ',
-  'LBL_DISALLOWED_MODULES' 			=> 'Mòduls No Permesos: ',
-  'LBL_ASSIGN_MODULES' 				=> 'Editar Mòduls: ',
-  'LBL_DEFAULT_SUBPANEL_TITLE' 		=> 'Rols',
-  'LBL_USERS' 						=> 'Usuaris',
-  'LBL_USERS_SUBPANEL_TITLE' 		=> 'Usuaris',
+  'LBL_ALLOWED_MODULES' => 'Mòduls Permesos:',
+  'LBL_ASSIGN_MODULES' => 'Editar Mòduls:',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Rols',
+  'LBL_DESCRIPTION' => 'Descripció:',
+  'LBL_DISALLOWED_MODULES' => 'Mòduls No Permesos:',
+  'LBL_LANGUAGE' => 'Llenguatge:',
+  'LBL_LIST_FORM_TITLE' => 'Llista de Rols',
+  'LBL_MODULE_NAME' => 'Rols',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rol',
+  'LBL_MODULE_TITLE' => 'Rols: d´Inici',
+  'LBL_NAME' => 'Nom:',
+  'LBL_ROLE' => 'Rol:',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Rols',
+  'LBL_USERS' => 'Usuaris',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Usuaris',
+  'LNK_NEW_ROLE' => 'Crear Rol',
+  'LNK_ROLES' => 'Rols',
 );
 
-
-?>

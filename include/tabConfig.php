@@ -87,6 +87,5 @@ $GLOBALS['tabStructure'] = array(
 );
 
 if(file_exists('custom/include/tabConfig.php')){
-	require_once('custom/include/tabConfig.php');
+    require 'custom/include/tabConfig.php';
 }
-?>

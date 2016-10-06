@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modificēja',
   'LBL_MODULE_ID' => 'Mērķu saraksts',
   'LBL_MODULE_NAME' => 'Mērķu saraksts',
+  'LBL_MODULE_NAME_SINGULAR' => 'Mērķu saraksts',
   'LBL_MODULE_TITLE' => 'Mērķu saraksts',
   'LBL_MORE_DETAIL' => 'Vairāk informācijas',
   'LBL_NAME' => 'Nosaukums',

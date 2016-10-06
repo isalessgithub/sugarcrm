@@ -26,5 +26,3 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['CampaignROIChartDashlet'] = array('LBL_TITLE'       => 'Kampanie - Zwrot z Inwestycji',
                                                      'LBL_DESCRIPTION' => 'Wykres Zwrotu z Inwestycji',
                                                      'LBL_REFRESH'     => 'Odśwież wykres');
-?> 
-

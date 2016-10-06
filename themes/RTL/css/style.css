@@ -357,12 +357,7 @@ border-radius: 6px 0px 0px 0px;
 }
 
 #dcboxbody{
-width: 1050px;
 direction: rtl;
-}
-
-#dcboxbody.sugar_spot_search, #dcboxbody.dcmenuSugarCube{
-width: 320px;
 }
 
 #dcboxbody  .hd span {

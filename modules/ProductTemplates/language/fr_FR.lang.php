@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MFT_PART_NUM' => 'Référence Fabricant:',
   'LBL_MODULE_ID' => 'Catalogue Produits (ID)',
   'LBL_MODULE_NAME' => 'Catalogue Produits',
+  'LBL_MODULE_NAME_SINGULAR' => 'Catalogue Produits',
   'LBL_MODULE_TITLE' => 'Catalogue de Produits',
   'LBL_NAME' => 'Nom du Produit:',
   'LBL_NEW_FORM_TITLE' => 'Nouvel élément',

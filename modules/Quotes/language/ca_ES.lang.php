@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'País:',
   'LBL_CREATED_BY' => 'Creat Per',
   'LBL_CURRENCY' => 'Moneda:',
+  'LBL_CURRENCY_RATE' => 'Divisa',
   'LBL_DATE_QUOTE_CLOSED' => 'Data de Tancament Real:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Vàlid Fins:',
   'LBL_DEAL_TOT' => 'descompte total',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Tipus d´Impost',
   'LBL_MODIFIED_BY' => 'Modificat Per',
   'LBL_MODULE_NAME' => 'Pressuposts',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pressupost',
   'LBL_MODULE_TITLE' => 'Pressuposts: Inici',
   'LBL_NAME' => 'Nom del Pressupost',
   'LBL_NEW_FORM_TITLE' => 'Crear Pressupost',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Està segur que desitja treure aquest grup del pressupost?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Està segur que desitja eliminar aquesta línia de detall del pressupost?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Està segur que desitja treure aquest contacte del pressupost?',
-  'PDF_FORMAT' => 'Format PDF:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Està segur que desitja treure aquest pressupost del projecte?',
 );
 

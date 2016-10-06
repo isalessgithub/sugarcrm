@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Country:',
   'LBL_CREATED_BY' => 'Created By',
   'LBL_CURRENCY' => 'Currency:',
+  'LBL_CURRENCY_RATE' => 'Currency Rate',
   'LBL_DATE_QUOTE_CLOSED' => 'Actual Close Date:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Valid Until:',
   'LBL_DEAL_TOT' => 'discount total',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'VAT Class',
   'LBL_MODIFIED_BY' => 'Modified By',
   'LBL_MODULE_NAME' => 'Quotes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Quote',
   'LBL_MODULE_TITLE' => 'Quotes: Home',
   'LBL_NAME' => 'Quote Name',
   'LBL_NEW_FORM_TITLE' => 'Create Quote',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Are you sure you want to remove this group from the quote?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Are you sure you want to remove this line item from the quote?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Are you sure you want to remove this contact from the quote?',
-  'PDF_FORMAT' => 'PDF Format:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Are you sure you want to remove this quote from the project?',
 );
 

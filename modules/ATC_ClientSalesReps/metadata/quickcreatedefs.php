@@ -1,63 +1,90 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$module_name = 'ATC_ClientSalesReps';
-$viewdefs[$module_name]['QuickCreate'] = array(
-    'templateMeta' => array('maxColumns' => '2', 
-                            'widths' => array(
-                                            array('label' => '10', 'field' => '30'), 
-                                            array('label' => '10', 'field' => '30'),
-                                        ),
-),
- 'panels' =>array (
-  'lbl_contact_information' => 
+// created: 2016-10-06 15:20:10
+$viewdefs['ATC_ClientSalesReps']['QuickCreate'] = array (
+  'templateMeta' => 
   array (
-    
+    'maxColumns' => '2',
+    'widths' => 
     array (
+      0 => 
       array (
-        'name' => 'first_name',
-        'customCode' => '{html_options name="salutation" options=$fields.salutation.options selected=$fields.salutation.value}&nbsp;<input name="first_name" size="25" maxlength="25" type="text" value="{$fields.first_name.value}">',
+        'label' => '10',
+        'field' => '30',
       ),
-  	'assigned_user_name',
+      1 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
     ),
-    
+    'tabDefs' => 
     array (
-      array('name'=>'last_name', 'displayParams'=>array('required'=>true)),
-      array('name'=>'team_name', 'displayParams'=>array('display'=>true)),
+      'LBL_CONTACT_INFORMATION' => 
+      array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
+      'LBL_EMAIL_ADDRESSES' => 
+      array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
     ),
-    
-    array (
-		'title',
-		 'phone_work',
-    ),
-    
-    array (
-		'department',
-		 'phone_mobile',
-    ),
-    
-    array (
-      	'phone_fax',
-		'',
-    ),    
   ),
-  'lbl_email_addresses'=>array(
-  	array('email1')
+  'panels' => 
+  array (
+    'lbl_contact_information' => 
+    array (
+      0 => 
+      array (
+        0 => 
+        array (
+          'name' => 'first_name',
+          'customCode' => '{html_options name="salutation" options=$fields.salutation.options selected=$fields.salutation.value}&nbsp;<input name="first_name" size="25" maxlength="25" type="text" value="{$fields.first_name.value}">',
+        ),
+        1 => 'assigned_user_name',
+      ),
+      1 => 
+      array (
+        0 => 
+        array (
+          'name' => 'last_name',
+          'displayParams' => 
+          array (
+            'required' => true,
+          ),
+        ),
+        1 => 
+        array (
+          'name' => 'team_name',
+          'displayParams' => 
+          array (
+            'display' => true,
+          ),
+        ),
+      ),
+      2 => 
+      array (
+        0 => 'title',
+        1 => 'phone_work',
+      ),
+      3 => 
+      array (
+        0 => 'department',
+        1 => 'phone_mobile',
+      ),
+      4 => 
+      array (
+        0 => 'phone_fax',
+        1 => '',
+      ),
+    ),
+    'lbl_email_addresses' => 
+    array (
+      0 => 
+      array (
+        0 => 'email1',
+      ),
+    ),
   ),
-
-)
-
-
 );
-?>

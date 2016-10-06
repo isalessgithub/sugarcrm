@@ -1,53 +1,104 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*
- * Created on Aug 2, 2007
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
-$module_name = 'ATC_Clients';
-$_object_name = 'atc_clients';
-$viewdefs[$module_name]['QuickCreate'] = array(
-    'templateMeta' => array(
-                            'form' => array('buttons'=>array('SAVE', 'CANCEL')),
-                            'maxColumns' => '2',
-                            'widths' => array(
-                                            array('label' => '10', 'field' => '30'),
-                                            array('label' => '10', 'field' => '30'),
-                                            ),
-                            'includes'=> array(
-                                            array('file'=>'modules/Accounts/Account.js'),
-                                         ),
-                           ),
-
-    'panels' => array(
-	   'lbl_account_information'=>array(
-		        array(array('name'=>'name', 'displayParams'=>array('required'=>true)), 'assigned_user_name'),
-			    array('website',
-			      array('name'=>'team_name', 'displayParams'=>array('display'=>true)),
-			    ),
-		        array('industry', array('name'=>'phone_office')),
-		        array($_object_name . '_type',  'phone_fax'), 
-		         array('annual_revenue', ''),
-	   ),
-  	   'lbl_email_addresses'=>array(
-  				array('email1')
-  	   ),
-    )
+// created: 2016-10-06 15:20:10
+$viewdefs['ATC_Clients']['QuickCreate'] = array (
+  'templateMeta' => 
+  array (
+    'form' => 
+    array (
+      'buttons' => 
+      array (
+        0 => 'SAVE',
+        1 => 'CANCEL',
+      ),
+    ),
+    'maxColumns' => '2',
+    'widths' => 
+    array (
+      0 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
+      1 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
+    ),
+    'includes' => 
+    array (
+      0 => 
+      array (
+        'file' => 'modules/Accounts/Account.js',
+      ),
+    ),
+    'tabDefs' => 
+    array (
+      'LBL_ACCOUNT_INFORMATION' => 
+      array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
+      'LBL_EMAIL_ADDRESSES' => 
+      array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
+    ),
+  ),
+  'panels' => 
+  array (
+    'lbl_account_information' => 
+    array (
+      0 => 
+      array (
+        0 => 
+        array (
+          'name' => 'name',
+          'displayParams' => 
+          array (
+            'required' => true,
+          ),
+        ),
+        1 => 'assigned_user_name',
+      ),
+      1 => 
+      array (
+        0 => 'website',
+        1 => 
+        array (
+          'name' => 'team_name',
+          'displayParams' => 
+          array (
+            'display' => true,
+          ),
+        ),
+      ),
+      2 => 
+      array (
+        0 => 'industry',
+        1 => 
+        array (
+          'name' => 'phone_office',
+        ),
+      ),
+      3 => 
+      array (
+        0 => 'atc_clients_type',
+        1 => 'phone_fax',
+      ),
+      4 => 
+      array (
+        0 => 'annual_revenue',
+        1 => '',
+      ),
+    ),
+    'lbl_email_addresses' => 
+    array (
+      0 => 
+      array (
+        0 => 'email1',
+      ),
+    ),
+  ),
 );
-?>
-

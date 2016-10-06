@@ -602,6 +602,8 @@ class MysqlManager extends DBManager
                 $getUserUTCOffset = $GLOBALS['timedate']->getUserUTCOffset();
                 $operation = $getUserUTCOffset < 0 ? '-' : '+';
                 return $string . ' ' . $operation . ' INTERVAL ' . abs($getUserUTCOffset) . ' MINUTE';
+            case 'avg':
+                return "avg($string)";
 		}
 
 		return $string;
@@ -1025,7 +1027,7 @@ class MysqlManager extends DBManager
 			}
 		}
 		if (!empty($sql)) {
-			$sql = "ALTER TABLE $tablename ".join(",", $sql);
+            $sql = "ALTER TABLE $tablename " . join(",", $sql) . ";";
 			if($execute)
 				$this->query($sql);
 		} else {

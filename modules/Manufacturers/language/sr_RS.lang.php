@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Promenio',
   'LBL_MODIFIED_ID' => 'ID broj korisnika koji je promenio',
   'LBL_MODULE_NAME' => 'Proizvođači',
+  'LBL_MODULE_NAME_SINGULAR' => 'Proizvodjač',
   'LBL_MODULE_TITLE' => 'Proizvođači: Početna strana',
   'LBL_NAME' => 'Proizvođač:',
   'LBL_NEW_FORM_TITLE' => 'Novi proizvođač',

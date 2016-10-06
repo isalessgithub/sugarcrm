@@ -26,4 +26,4 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $dashletStrings['TeamNoticesDashlet'] = array('LBL_TITLE'            => 'Powiadomienia zespołów',
                                               'LBL_DESCRIPTION'      => 'Wyświetla powiadomienia zespołów w postaci panelu');
-?> 
+ 

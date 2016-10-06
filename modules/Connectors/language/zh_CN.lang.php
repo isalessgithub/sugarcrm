@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_MODIFY_SEARCH_TITLE' => '管理连接器查询',
   'LBL_MODULE_FIELDS' => '模块字段',
   'LBL_MODULE_NAME' => '连接器',
+  'LBL_MODULE_NAME_SINGULAR' => '连接器',
   'LBL_NO_PROPERTIES' => '这个连接器没有配置属性。',
   'LBL_PARENT_DUNS' => '父商业实体标识符（DUNS）',
   'LBL_PREVIOUS' => '< 上一步',

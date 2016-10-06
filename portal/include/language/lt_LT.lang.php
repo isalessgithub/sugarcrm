@@ -218,6 +218,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Sausis',
     2 => 'Vasaris',
     3 => 'Kovas',
@@ -286,6 +287,7 @@ $app_list_strings = array (
   ),
   'dom_int_bool' => 
   array (
+    0 => 'Ne',
     1 => 'Taip',
   ),
   'dom_mailbox_type' => 
@@ -337,6 +339,7 @@ $app_list_strings = array (
     -3 => '(GMT - 3) Buenos Airės',
     -2 => '(GMT - 2) Mid-Atlantic',
     -1 => '(GMT - 1) Azorų',
+    0 => '(GMT)',
     1 => '(GMT + 1) Madridas',
     2 => '(GMT + 2) Atėnai',
     3 => '(GMT + 3) Maskva',
@@ -364,6 +367,7 @@ $app_list_strings = array (
     -3 => '(GMT-3) Buenos Airės',
     -2 => '(GMT-2) Mid-Atlantic',
     -1 => '(GMT-1) Azorų',
+    0 => '(GMT)',
     1 => '(GMT+1) Madridas',
     2 => '(GMT+2) Atėnai',
     3 => '(GMT+3) Maskva',
@@ -391,6 +395,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0 => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -582,7 +587,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Klientai',
     'Activities' => 'Priminimai',
-    'Bug Tracker' => 'Klaidos',
+    'Bugs' => 'Klaidos',
     'Calendar' => 'Kalendorius',
     'Calls' => 'Skambučiai',
     'Campaigns' => 'Kampanijos',
@@ -639,6 +644,7 @@ $app_list_strings = array (
   ),
   'project_task_utilization_options' => 
   array (
+    0 => 'joks',
     25 => '25',
     50 => '50',
     75 => '75',
@@ -809,6 +815,7 @@ $app_list_strings = array (
   ),
   'tselect_type_dom' => 
   array (
+    0 => '0 valandų',
     14440 => '4 valandos',
     28800 => '8 valandos',
     43200 => '12 valandų',

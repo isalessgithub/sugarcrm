@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => '国家:',
   'LBL_CREATED_BY' => '创建人:',
   'LBL_CURRENCY' => '货币:',
+  'LBL_CURRENCY_RATE' => '汇率',
   'LBL_DATE_QUOTE_CLOSED' => '实际关闭日期:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => '有效期至:',
   'LBL_DEAL_TOT' => '折扣合计',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => '赋税类别',
   'LBL_MODIFIED_BY' => '修改人',
   'LBL_MODULE_NAME' => '报价',
+  'LBL_MODULE_NAME_SINGULAR' => '报价',
   'LBL_MODULE_TITLE' => '报价:首页',
   'LBL_NAME' => '报价名称',
   'LBL_NEW_FORM_TITLE' => '新增报价',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => '您确定要从这个报价中删除这一组吗？',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => '您确定要从这个报价中移除行数吗?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => '您确定要从这个报价中移除联系人吗?',
-  'PDF_FORMAT' => 'PDF格式:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => '您确定要从这个项目中移除报价吗?',
 );
 

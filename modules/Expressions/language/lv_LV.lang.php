@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Trigera nosaukums:',
   'LBL_LIST_TYPE' => 'Tips:',
   'LBL_MODULE_NAME' => 'Izteiksmes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Izteiksme',
   'LBL_MODULE_TITLE' => 'Darbplūsmas trigeri',
   'LBL_NAME' => 'Trigera nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Izveidot trigeri',

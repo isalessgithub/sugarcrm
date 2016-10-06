@@ -511,7 +511,7 @@ public function login($user_auth, $application, $name_value_list){
 	//rrs
 		$system_config = new Administration();
 	$system_config->retrieveSettings('system');
-	$authController = new AuthenticationController((!empty($sugar_config['authenticationClass'])? $sugar_config['authenticationClass'] : 'SugarAuthenticate'));
+	$authController = new AuthenticationController();
 	//rrs
 	$isLoginSuccess = $authController->login($user_auth['user_name'], $user_auth['password'], array('passwordEncrypted' => true));
 	$usr_id=$user->retrieve_user_id($user_auth['user_name']);
@@ -851,7 +851,7 @@ function get_document_revision($session, $id) {
 
 /**
  * Given a list of modules to search and a search string, return the id, module_name, along with the fields
- * We will support Accounts, Bug Tracker, Cases, Contacts, Leads, Opportunities, Project, ProjectTask, Quotes
+ * We will support Accounts, Bugs, Cases, Contacts, Leads, Opportunities, Project, ProjectTask, Quotes
  *
  * @param string $session			- Session ID returned by a previous call to login.
  * @param string $search_string 	- string to search
@@ -1065,6 +1065,27 @@ function get_user_team_id($session){
 	return $current_user->default_team;
 } // fn
 
+
+/**
+ * Return the Team Set ID for the user that is logged into the current session.
+ *
+ * @param String $session -- Session ID returned by a previous call to login.
+ * @return String -- the Team Set ID of the current user
+ * @exception 'SoapFault' -- The SOAP error, if any
+ */
+function get_user_team_set_id($session){
+    $GLOBALS['log']->info('Begin: SugarWebServiceImpl->get_user_team_set_id');
+
+    $error = new SoapError();
+    if (!self::$helperObject->checkSessionAndModuleAccess($session, 'invalid_session', '', '', '', $error)) {
+        $error->set_error('invalid_login');
+        $GLOBALS['log']->info('End: SugarWebServiceImpl->get_user_team_set_id');
+        return;
+    }
+    global $current_user;
+    $GLOBALS['log']->info('End: SugarWebServiceImpl->get_user_team_set_id');
+    return $current_user->team_set_id;
+}
 
 
 /**

@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modificēja',
   'LBL_MODIFIED_ID' => 'Modificētāja ID',
   'LBL_MODULE_NAME' => 'Ražotāji',
+  'LBL_MODULE_NAME_SINGULAR' => 'Ražotājs',
   'LBL_MODULE_TITLE' => 'Ražotāji: Sākums',
   'LBL_NAME' => 'Ražotājs:',
   'LBL_NEW_FORM_TITLE' => 'Jauns ražotājs',

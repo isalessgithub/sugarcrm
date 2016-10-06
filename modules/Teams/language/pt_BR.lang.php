@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Reporta a',
   'LBL_LIST_TITLE' => 'Título',
   'LBL_MODULE_NAME' => 'Equipes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Equipe',
   'LBL_MODULE_TITLE' => 'Equipes: Tela Principal',
   'LBL_NAME' => 'Nome da Equipe:',
   'LBL_NAME_2' => 'Nome da Equipe(2):',

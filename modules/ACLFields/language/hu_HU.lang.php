@@ -18,12 +18,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_DEFAULT' => 'Nincs beállítva',
-  'LBL_READ_WRITE' => 'Írható / olvasható',
-  'LBL_READ_OWNER_WRITE' => 'Olvasható / Tulajdonos számára írható',
-  'LBL_READ_ONLY' => 'Csak olvasható',
-  'LBL_OWNER_READ_WRITE' => 'Tulajdonos számára olvasható / Tulajdonos számára írható',
   'LBL_ALLOW_NONE' => 'Egyik sem',
+  'LBL_DEFAULT' => 'Nincs beállítva',
   'LBL_FIELDS' => 'Mezőkre vonatkozó engedélyek',
+  'LBL_NOT_DEFINED' => 'Nincs definiálva',
+  'LBL_OWNER_READ_WRITE' => 'Tulajdonos számára olvasható / Tulajdonos számára írható',
+  'LBL_READ_ONLY' => 'Csak olvasható',
+  'LBL_READ_OWNER_WRITE' => 'Olvasható / Tulajdonos számára írható',
+  'LBL_READ_WRITE' => 'Írható / olvasható',
 );
 

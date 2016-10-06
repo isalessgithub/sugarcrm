@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'augšup',
   'LBL_MODULE_ID' => 'Darbplūsma',
   'LBL_MODULE_NAME' => 'Darbplūsmu definīcijas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Darbplūsmas definīcija',
   'LBL_MODULE_TITLE' => 'Darbplūsma: Sākums',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Izveidot darbplūsmu definīciju',

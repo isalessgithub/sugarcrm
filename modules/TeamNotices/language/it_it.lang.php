@@ -28,6 +28,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Funzione',
   'LBL_LIST_ORDER' => 'Ordine',
   'LBL_MODULE_NAME' => 'Avvisi del Gruppo',
+  'LBL_MODULE_NAME_SINGULAR' => 'Avviso del Gruppo',
   'LBL_MODULE_TITLE' => 'Avvisi del Gruppo: Home',
   'LBL_MORE_DETAIL' => 'Più dettagli',
   'LBL_NAME' => 'Funzione',

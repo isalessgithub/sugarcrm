@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Etapa projekta:',
   'LBL_MODIFIED_USER_ID' => 'ID broj korisnika koji je izvršio izmene:',
   'LBL_MODULE_NAME' => 'Projektni zadaci',
+  'LBL_MODULE_NAME_SINGULAR' => 'Projektni Zadatak',
   'LBL_MODULE_TITLE' => 'Projektni zadatak: Početna strana',
   'LBL_NAME' => 'Ime:',
   'LBL_NEW_FORM_TITLE' => 'Novi Projektni zadatak',

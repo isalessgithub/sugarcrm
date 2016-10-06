@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'Приложение',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_INVITEE' => 'Контакти',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'База от знания',
   'LBL_LIST_ACCOUNT_NAME' => 'Oрганизация',
   'LBL_LIST_ASSIGNED' => 'Отговорник:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Отговорник',

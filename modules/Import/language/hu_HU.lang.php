@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Ha folytatni kívánja a kiválasztott fájl importálását, kattintson az OK gombra! Új fájl feltöltéséhez kattintson az ismételt próbálkozás opcióra!',
   'LBL_MISSING_HEADER_ROW' => 'Fejléc nem található',
   'LBL_MODULE_NAME' => 'Importálás',
+  'LBL_MODULE_NAME_SINGULAR' => 'Import',
   'LBL_MY_PUBLISHED_HELP' => 'Használja ezt az opciót a korábban megadott importálási beállítások érvényesítéséhez, beleértve az importálást, a leképezést és az ismétlődések keresését érintő folyamatokra vonatkozó beállításokat!',
   'LBL_MY_SAVED' => 'A korábban mentett importálási beállítások használatához válasszon az alábbi listáról:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Használja ezt az opciót a korábban megadott importálási beállítások érvényesítéséhez, beleértve az importálást, a leképezést és az ismétlődések keresését érintő folyamatokra vonatkozó beállításokat.<br /><br />Kattintson a Közzététel gombra a leképzés elérhetővé tételéhez az összes felhasználó számára.<br />Kattintson a Közzététel visszavonása gombra, amennyiben a leképzést nem kívánja elérhetővé tenni a többi felhasználó számára.<br />Kattintson a Törlés gombra a leképzés törléséhez.',

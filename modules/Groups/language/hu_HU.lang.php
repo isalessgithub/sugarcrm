@@ -22,6 +22,7 @@ $mod_strings = array (
   'LBL_GROUP_NAME' => 'Csoport neve:',
   'LBL_LIST_TITLE' => 'Csoportok:',
   'LBL_MODULE_NAME' => 'Csoportok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Csoport',
   'LBL_TEAM' => 'Csoport:',
   'LNK_ALL_GROUPS' => 'Minden csoport',
   'LNK_CONVERT_USER' => 'Felhasználó csoporttá konvertálása',

@@ -38,6 +38,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Modificado Por Nome',
   'LBL_MODIFIED_USER' => 'Modificado pelo Usuário',
   'LBL_MODULE_NAME' => 'OAuth Keys',
+  'LBL_MODULE_NAME_SINGULAR' => 'OAuth Key',
   'LBL_MODULE_TITLE' => 'OAuth Keys',
   'LBL_NAME' => 'Chave do Consumidor',
   'LBL_OAUTH_TYPE' => 'Versão OAuth',

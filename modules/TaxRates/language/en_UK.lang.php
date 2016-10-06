@@ -31,6 +31,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => 'Percentage',
   'LBL_MODIFIED_ID' => 'Modified By Id',
   'LBL_MODULE_NAME' => 'VAT Rates',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tax Rate',
   'LBL_MODULE_TITLE' => 'VAT Rate: Home',
   'LBL_NAME' => 'VAT Rate Name:',
   'LBL_NEW_FORM_TITLE' => 'New VAT Rate',

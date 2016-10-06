@@ -45,6 +45,7 @@ $mod_strings = array (
   'LBL_LIST_STATEMENT' => 'Descrizione Evento:',
   'LBL_LIST_TYPE' => 'Tipo:',
   'LBL_MODULE_NAME' => 'Azioni',
+  'LBL_MODULE_NAME_SINGULAR' => 'Azione',
   'LBL_MODULE_TITLE' => 'Workflow Triggers: Home',
   'LBL_NAME' => 'Nome Trigger:',
   'LBL_NEW_FORM_TITLE' => 'Crea Trigger',

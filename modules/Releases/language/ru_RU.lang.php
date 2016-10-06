@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Порядок:',
   'LBL_LIST_STATUS' => 'Статус',
   'LBL_MODULE_NAME' => 'Версии',
+  'LBL_MODULE_NAME_SINGULAR' => 'Версия',
   'LBL_MODULE_TITLE' => 'Версии: Главная',
   'LBL_NAME' => 'Название версии:',
   'LBL_NEW_FORM_TITLE' => 'Создать версию',

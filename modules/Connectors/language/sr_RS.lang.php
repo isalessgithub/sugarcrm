@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_MODIFY_SEARCH_TITLE' => 'Upravljanje pretragom konektora',
   'LBL_MODULE_FIELDS' => 'Polja modula',
   'LBL_MODULE_NAME' => 'Konektori',
+  'LBL_MODULE_NAME_SINGULAR' => 'Konektor',
   'LBL_NO_PROPERTIES' => 'Ne postoje promenljive vrednosti za ovaj konektor.',
   'LBL_PARENT_DUNS' => 'Matični DUNS',
   'LBL_PREVIOUS' => '< Nazad',

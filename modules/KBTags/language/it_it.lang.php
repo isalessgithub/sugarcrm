@@ -33,6 +33,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'Modificato Da Id',
   'LBL_MODIFIED_USER' => 'Modificato da',
   'LBL_MODULE_NAME' => 'Tag Articolo',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tag Articolo',
   'LBL_MODULE_TITLE' => 'Tag Articolo',
   'LBL_NO_MATHING_TAG_FOUND' => 'Nessuna corrispondenza dei tag trovata',
   'LBL_PARENT_TAG_ID' => 'Id Padre:',

@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_DELETE_EMPTY' => '这条记录已被删除或不存在',
+  'ERR_DELETE_RECORD' => '必须指定记录编号才能删除商业机会。',
   'LBL_ALERT_TEMPLATES' => '警告模板',
   'LBL_APOSTROPHE_S' => '的',
   'LBL_COMPARE_ANY_TIME_PART2' => '未更改为',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LIST_VALUE' => '值:',
   'LBL_MODULE' => '模块',
   'LBL_MODULE_NAME' => '条件',
+  'LBL_MODULE_NAME_SINGULAR' => '条件',
   'LBL_MODULE_SECTION_TITLE' => '当这些条件符合',
   'LBL_MODULE_TITLE' => '工作流程触发器:首页',
   'LBL_MUST_SELECT_VALUE' => '您必须为字段选择一个值',
@@ -92,5 +95,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => '工作流程触发器',
   'LNK_WORKFLOW' => '工作流程对象',
   'NTC_REMOVE_TRIGGER' => '您确定要移除这个触发器吗?',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => '删除主触发器将删除所有管理触发器',
 );
 

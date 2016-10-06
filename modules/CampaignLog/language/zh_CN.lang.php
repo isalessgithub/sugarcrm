@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => '类型',
   'LBL_MODIFIED' => '更改人:',
   'LBL_MODULE_NAME' => '营销活动日志',
+  'LBL_MODULE_NAME_SINGULAR' => '市场活动日志',
   'LBL_MORE_INFO' => '更多信息',
   'LBL_NAME' => '名称:',
   'LBL_RELATED' => '关联',

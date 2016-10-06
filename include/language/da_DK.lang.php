@@ -1957,6 +1957,7 @@ $app_list_strings = array (
   ),
   'dom_cal_day_long' => 
   array (
+    0 => '',
     1 => 'Søndag',
     2 => 'Mandag',
     3 => 'Tirsdag',
@@ -1967,6 +1968,7 @@ $app_list_strings = array (
   ),
   'dom_cal_day_short' => 
   array (
+    0 => '',
     1 => 'Søn',
     2 => 'Man',
     3 => 'Tirs',
@@ -1977,6 +1979,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Januar',
     2 => 'Februar',
     3 => 'Marts',
@@ -1992,6 +1995,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_short' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mar',
@@ -2142,6 +2146,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0  => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -2722,7 +2727,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Virksomheder',
     'Activities' => 'Aktiviteter',
-    'Bug Tracker' => 'Fejlsporing',
+    'Bugs' => 'Fejlsporing',
     'Calendar' => 'Kalender',
     'Calls' => 'Opkald',
     'Campaigns' => 'Kampagner',

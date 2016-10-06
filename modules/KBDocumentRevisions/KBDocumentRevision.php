@@ -301,5 +301,11 @@ class KBDocumentRevision extends SugarBean {
 		}
 		return $return_array;
 	}	
+
+    public function bean_implements($interface) {
+        switch($interface) {
+            case 'FILE' : return true;
+        }
+        return parent::bean_implements($interface);
+    }
 }
-?>

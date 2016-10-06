@@ -31,7 +31,7 @@ if(ACLController::checkAccess('Opportunities','list',true)){
 }
 if(empty($sugar_config['disc_client'])){
 	if(ACLController::checkAccess('Opportunities','view',true)){
-		$module_menu[]=	Array("index.php?module=Reports&action=index&view=opportunities", $mod_strings['LNK_OPPORTUNITY_REPORTS'],"OpportunityReports", 'Opportunities');
+		$module_menu[]=	Array("index.php?module=Reports&action=index&query=true&report_module=Opportunities", $mod_strings['LNK_OPPORTUNITY_REPORTS'],"OpportunityReports", 'Opportunities');
 	}
 }
 if(ACLController::checkAccess('Opportunities','import',true)){

@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Ország:',
   'LBL_CREATED_BY' => 'Létrehozta',
   'LBL_CURRENCY' => 'Pénznem:',
+  'LBL_CURRENCY_RATE' => 'Árfolyam',
   'LBL_DATE_QUOTE_CLOSED' => 'Aktuális zárási dátum:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Érvényesség tartama:',
   'LBL_DEAL_TOT' => 'teljes kedvezmény',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Adó osztály',
   'LBL_MODIFIED_BY' => 'Módosította',
   'LBL_MODULE_NAME' => 'Árajánlatok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Árajánlat',
   'LBL_MODULE_TITLE' => 'Árajánlatok: Főoldal',
   'LBL_NAME' => 'Árajánlat neve',
   'LBL_NEW_FORM_TITLE' => 'Árajánlat létrehozása',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Biztosan el akarja távolítani ezt a csoportot az árajánlatból?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Biztosan el akarja távolítani ezt a sort az árajánlatból?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Biztosan el akarja távolítani ezt a kapcsolatot az árajánlatból?',
-  'PDF_FORMAT' => 'PDF formátum:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Biztosan el akarja távolítani ezt az árajánlatot a projektből?',
 );
 

@@ -21,6 +21,7 @@ $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Lai dzēstu uzņēmumu, jābūt norādītam ieraksta numuram.',
   'LBL_LIST_FORM_TITLE' => 'Uzņēmumu saraksts',
   'LBL_MODULE_NAME' => 'Uzņēmumi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Uzņēmums',
   'LBL_MODULE_TITLE' => 'Uzņēmumi: Sākums',
   'LBL_NEW_FORM_TITLE' => 'Izveidot uzņēmumu',
   'LBL_SEARCH_FORM_TITLE' => 'Uzņēmumu meklēšana',

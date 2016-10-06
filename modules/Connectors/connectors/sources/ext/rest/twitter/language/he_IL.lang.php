@@ -37,6 +37,3 @@ $connector_strings = array (
     'oauth_consumer_key' => 'מפתח לקוח',
     'oauth_consumer_secret' => 'סיסמא של הצרכן',
 );
-
-?>
-

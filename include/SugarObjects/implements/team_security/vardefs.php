@@ -67,7 +67,7 @@ $vardefs = array(
 		array (
 			'name' => 'team_name',
 			'db_concat_fields'=> array(0=>'name', 1=>'name_2'),
-		    'sort_on' => 'tj.name',
+		    'sort_on' => 'team_name',
 		    'join_name' => 'tj',
 			'rname' => 'name',
 			'id_name' => 'team_id',
@@ -89,7 +89,7 @@ $vardefs = array(
 	      'name' => 'team_link',
 	      'type' => 'link',
 	      'relationship' => strtolower($module). '_team',
-	      'vname' => 'LBL_TEAMS_LINK',
+	      'vname' => 'LBL_DEFAULT_PRIMARY_TEAM',
 	      'link_type' => 'one',
 	      'module' => 'Teams',
 	      'bean_name' => 'Team',
@@ -124,6 +124,13 @@ $vardefs = array(
 		'studio' => 'false',
 		'reportable'=>false,
 	),
+    'team_sets' => array(
+        'name' => 'team_sets',
+        'type' => 'link',
+        'relationship' => strtolower($module) . '_team_sets',
+        'source' => 'non-db',
+        'vname' => 'LBL_TEAM_SET',
+    ),
 ), 
 
 'relationships'=>array(
@@ -154,6 +161,19 @@ $vardefs = array(
    array('lhs_module'=> 'Teams', 'lhs_table'=> 'teams', 'lhs_key' => 'id',
     'rhs_module'=> $module, 'rhs_table'=> $table_name, 'rhs_key' => 'team_id',
    'relationship_type'=>'one-to-many'),
+
+    strtolower($module) . '_team_sets' => array (
+        'lhs_module'        => 'Teams',
+        'lhs_table'         => 'teams',
+        'lhs_key'           => 'id',
+        'rhs_module'        => $module,
+        'rhs_table'         => $table_name,
+        'rhs_key'           => 'team_set_id',
+        'relationship_type' => 'many-to-many',
+        'join_table'        => 'team_sets_teams',
+        'join_key_lhs'      => 'team_id',
+        'join_key_rhs'      => 'team_set_id',
+    ),
 ),
 'indices' => array(
 		array(

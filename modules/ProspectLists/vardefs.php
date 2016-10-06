@@ -24,7 +24,7 @@ $dictionary['ProspectList'] = array (
 			'vname' => 'LBL_ID',
 			'type' => 'id',
 			'required' => true,
-			'reportable'=> false,
+			'reportable'=>false,
 		),
 		'name' => array (
 			'name' => 'name',

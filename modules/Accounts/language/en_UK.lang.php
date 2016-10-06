@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Modified By Id',
   'LBL_MODULE_ID' => 'Accounts',
   'LBL_MODULE_NAME' => 'Accounts',
+  'LBL_MODULE_NAME_SINGULAR' => 'Account',
   'LBL_MODULE_TITLE' => 'Accounts: Home',
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'New Account',

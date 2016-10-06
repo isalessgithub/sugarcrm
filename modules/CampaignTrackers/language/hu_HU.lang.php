@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => 'Azonosító',
   'LBL_MODIFIED_USER_ID' => 'Módosított felhasználói azonosító',
   'LBL_MODULE_NAME' => 'Kampánykövetők',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampánykövető',
   'LBL_OPTOUT' => 'Leiratkozás',
   'LBL_SUBPANEL_TRACKER_KEY' => 'Kulcs',
   'LBL_SUBPANEL_TRACKER_NAME' => 'Név',

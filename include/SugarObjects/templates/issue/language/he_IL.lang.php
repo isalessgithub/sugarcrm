@@ -52,6 +52,5 @@ $mod_strings = array (
   'LBL_SUBJECT' => 'נושא:',
   
   );
-?>
 
 

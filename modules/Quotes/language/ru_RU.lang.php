@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Страна:',
   'LBL_CREATED_BY' => 'Создан пользователем',
   'LBL_CURRENCY' => 'Валюта:',
+  'LBL_CURRENCY_RATE' => 'Валютный курс',
   'LBL_DATE_QUOTE_CLOSED' => 'Дата закрытия:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Действительно до:',
   'LBL_DEAL_TOT' => 'скидка итого',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Облагается налогом',
   'LBL_MODIFIED_BY' => 'Изменено пользователем',
   'LBL_MODULE_NAME' => 'Коммерческие предложения',
+  'LBL_MODULE_NAME_SINGULAR' => 'Коммерческое предложение',
   'LBL_MODULE_TITLE' => 'Коммерческие предложения: Главная',
   'LBL_NAME' => 'Название:',
   'LBL_NEW_FORM_TITLE' => 'Создать коммерческое предложение',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Вы уверены, что хотите удалить эту группу из коммерческого предложения?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Вы действительно хотите удалить эту позицию из коммерческого предложения?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Вы уверены, что хотите удалить этот контакт из коммерческого предложения?',
-  'PDF_FORMAT' => 'Формат PDF',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Вы уверены, что хотите удалить это коммерческое предложение из проекта?',
 );
 

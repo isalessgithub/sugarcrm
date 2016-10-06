@@ -16,10 +16,10 @@
 
 
 
-$sugar_version      = '6.5.11';
-$sugar_db_version   = '6.5.11';
+$sugar_version      = '6.5.24';
+$sugar_db_version   = '6.5.24';
 $sugar_flavor       = 'PRO';
-$sugar_build		= '8754';
-$sugar_timestamp    = '2013-02-27 02:07pm';
+$sugar_build		= '509';
+$sugar_timestamp    = '2016-07-14 06:11AM';
 
 ?>

@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Dipende Da',
   'LBL_LIST_TITLE' => 'Funzione',
   'LBL_MODULE_NAME' => 'Gruppi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Gruppo',
   'LBL_MODULE_TITLE' => 'Gruppi: Home',
   'LBL_NAME' => 'Gruppo:',
   'LBL_NAME_2' => 'Nome Gruppo (2):',

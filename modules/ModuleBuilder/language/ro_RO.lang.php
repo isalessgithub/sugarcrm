@@ -205,7 +205,7 @@ $mod_strings = array (
   'LBL_LISTVIEW_DESCRIPTION' => 'Sunt trei columne afisate mai jos. Coloana Implicita contine campauri care sunt afisate in mod  implicit intr-o vizualizare tip lista. Coloanele Aditionale contin campuri pe care utilizatorul le poate folosi pentru a crea o vizualizare particularizata. Coloanele Disponibile afiseaza campuri disponibile pentru dumneavoastra in calitate de administrator',
   'LBL_LISTVIEW_EDIT' => 'Editor Vizualizare tip Lista',
   'LBL_LIST_VIEW' => 'Vizualizare tip Lista',
-  'LBL_LOADING' => 'Incarcare...Va rugam asteptati ( defined in ./modules/Administration/language/ro_RO.lang.php )',
+  'LBL_LOADING' => 'Incarcare...Va rugam asteptati',
   'LBL_LOGOUT' => 'Delogare',
   'LBL_LOW' => 'Scazut',
   'LBL_MANYTOMANY' => 'Mai Multe la Mai Multe',
@@ -223,6 +223,7 @@ $mod_strings = array (
   'LBL_MODULES' => 'Module',
   'LBL_MODULE_DEPLOYED' => 'Modulul a fost desfasurat.',
   'LBL_MODULE_NAME' => 'Nume Modul:',
+  'LBL_MODULE_NAME_SINGULAR' => 'Modul singular Nume:',
   'LBL_MODULE_TITLE' => 'Studio',
   'LBL_MSUB' => 'Acesta este subpanoul pe care modulul dumneavoastra il asigura modulului inrudit pentru afisare',
   'LBL_MY_ACCOUNT' => 'Contul Meu',
@@ -266,6 +267,7 @@ $mod_strings = array (
   'LBL_PORTALSITE' => 'URL-ul portalului Sugar',
   'LBL_PORTAL_APP_NAME' => 'Application Name',
   'LBL_PORTAL_CONFIGURE' => 'Configurare Portal',
+  'LBL_PORTAL_DEFAULT_ASSIGN_USER' => 'Implicit alocat pentru noile înmatriculări portal',
   'LBL_PORTAL_DETAIL_NUMBER' => 'Numărul de câmpuri pentru a afișate pe Detail View',
   'LBL_PORTAL_DISABLED_MODULES' => 'Urmatoarele module sunt dezactivate',
   'LBL_PORTAL_ENABLE' => 'Activeaza',
@@ -275,6 +277,7 @@ $mod_strings = array (
   'LBL_PORTAL_LIST_NUMBER' => 'Numarul de inregistrari afisate pe lista',
   'LBL_PORTAL_LOGO_URL' => 'Logo URL',
   'LBL_PORTAL_ROLE_DESC' => 'Nu șterge acest rol. Clienți Self-Service Rolul Portal este un rol de sistem generat ,creat în timpul procesului de activare Sugar Portal. Utilizați controale de acces în acest rol, pentru a permite și / sau dezactiva Bugs, carcase sau module bazei de cunoștințe în Portal de zahăr. Să nu modifice orice alte controale de acces pentru acest rol, pentru a evita comportamentul sistemului necunoscute și imprevizibile. În caz de ștergerea accidentală a acestui rol, recreate dezactivarea și activarea Sugar Portal',
+  'LBL_PORTAL_SEARCH_RESULT_NUMBER' => 'Numărul de rezultate pentru a afișa pe Căutare globală',
   'LBL_PORTAL_SITE_URL' => 'Portalul este disponibil la adresa:',
   'LBL_PORTAL_THEME' => 'Tema Portal',
   'LBL_POWERED_BY_SUGAR' => 'Creat de SugarCRM',
@@ -509,15 +512,25 @@ $mod_strings = array (
     ),
     'module' => 
     array (
+      'acl' => 'Verificarea acestei casete va permite efectuarea de controale de acces la acest modul, inclusiv securitate la nivel de câmp.',
+      'assignable' => 'Verificarea acestei casete va permite o înregistrare în acest modul pentru a fi atribuite la un utilizator selectat.',
+      'audit' => 'Verificarea această casetă va permite Audit pentru acest modul. Modificările aduse anumite domenii vor fi înregistrate astfel încât administratorii pot revizui istoria schimbărilor.',
       'create' => 'Furnizaţi un Nume pentru pachetul. Numele pe care îl introduceţi trebuie să fie alfanumeric şi nu conţina spaţii. (Exemplu: HR_Management)<br /><br />Puteţi furniza informaţii Autor şi Descriere pentru pachet.<br /><br />Faceţi clic pe Salvare pentru a crea pachet.',
       'deletebtn' => 'Clic Sterge pt a sterge acest modul',
       'duplicatebtn' => 'duplicatebtn<br /><br />Faceţi clic pe Duplicare pentru a copia conţinutul pachetului într-un pachet nou şi pentru a afişa noul pachet.<br /><br />Pentru noul pachet, un nou nume va fi generate automat prin adăugarea unui număr la sfârşitul numelui de pachetul folosit pentru a crea unul nou. Aveţi posibilitatea să redenumiţi noul pachet prin introducerea unui nume nou şi faceţi clic pe Salvare.',
+      'has_tab' => 'Verificarea Tab de navigare va oferi o filă de navigare pentru modul',
       'importable' => 'Verificati caseta de selectare, Importable va permite importul pentru acest modul.<br /><br />Un link către Expertul Import va apărea în panoul Comenzi rapide în modul. Expertul Import facilitează importul de date din surse externe în modul personalizat.',
+      'label' => 'Aceasta este eticheta care va apărea în fila de navigare pentru modulul.',
       'modify' => 'Proprietăţile şi acţiunile posibile pentru pachet apar aici.<br /><br />Puteţi modifica Numele, Autorul  şi Descrierea pachetului, precum şi  vizualiza şi personaliza toate modulele conţinute în pachet.<br /><br />Faceţi clic pe New Modulul pentru a crea un modul pentru acest pachet.<br /><br />Dacă pachetul conţine cel puţin un modul, aveţi posibilitatea să publicaţi şi Implementaţi pachet, precum şi Exporta personalizările făcute în pachet.',
       'name' => 'Specifica Nume',
       'reportable' => 'Verificarea acestei casete va permite acest modul de a avea rapoarte  împotriva ei.',
       'savebtn' => 'Faceţi clic pe Salvare pentru a salva toate datele introduse în legătură cu pachetul.',
+      'studio' => 'Verificarea acestei casete va permite administratorilor să personalizeze acest modul în cadrul Studio.',
       'team_security' => 'Verificati Team Security, caseta de selectare va permite echipei de securitate acest modul<br />În cazul în care echipa de securitate este activată, câmpul de selecţie Echipa va apărea în înregistrările din modul.',
+      'type_basic' => 'Tipul de șablon de bază prevede domenii de bază, cum ar fi Nume, atribuite, pe echipe, data crearii si campuri Descriere.',
+      'viewfieldsbtn' => 'Faceți clic pe Vizualizare Domenii pentru a vedea câmpurile asociate cu modulul și pentru a crea și edita câmpuri personalizate.',
+      'viewlayoutsbtn' => 'Faceți clic pe Vizualizare Layouts pentru a vedea aspectele de modul și de a personaliza dispunerea domeniului în aspecte',
+      'viewrelsbtn' => 'Faceți clic pe Vizualizare Relații pentru a vedea relațiile asociate cu acest modul și pentru a crea noi relatii.',
     ),
     'package' => 
     array (
@@ -566,6 +579,10 @@ $mod_strings = array (
       'Hidden' => 'Ascuns',
       'modify' => 'Proprietăţile şi acţiunile posibile pentru pachet apar aici.<br /><br />Puteţi modifica Numele, Autorul  şi Descrierea pachetului, precum şi  vizualiza şi personaliza toate modulele conţinute în pachet.<br /><br />Faceţi clic pe New Modulul pentru a crea un modul pentru acest pachet.<br /><br />Dacă pachetul conţine cel puţin un modul, aveţi posibilitatea să publicaţi şi Implementaţi pachet, precum şi Exporta personalizările făcute în pachet.',
       'savebtn' => 'Faceţi clic pe Salvare pentru a salva toate datele introduse în legătură cu pachetul.',
+    ),
+    'studioWizard' => 
+    array (
+      'backBtn' => 'Intoarcete la pasul anterior',
     ),
     'subPanelEditor' => 
     array (

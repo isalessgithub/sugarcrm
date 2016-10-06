@@ -113,6 +113,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'Modified by ID',
   'LBL_MODIFIED_USER' => 'Modified by',
   'LBL_MODULE_NAME' => 'Documents',
+  'LBL_MODULE_NAME_SINGULAR' => 'Document',
   'LBL_MODULE_TITLE' => 'Documents: Home',
   'LBL_NAME' => 'Document Name',
   'LBL_NEW_FORM_TITLE' => 'New Document',

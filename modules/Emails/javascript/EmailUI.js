@@ -444,7 +444,7 @@ SE.accounts = {
 
         switch (smtptype) {
         case "yahoomail":
-            document.getElementById("mail_smtpserver").value = 'plus.smtp.mail.yahoo.com';
+            document.getElementById("mail_smtpserver").value = 'smtp.mail.yahoo.com';
             document.getElementById("mail_smtpport").value = '465';
             document.getElementById("mail_smtpauth_req").checked = true;
             var ssl = document.getElementById("mail_smtpssl");
@@ -461,7 +461,7 @@ SE.accounts = {
             document.getElementById("mail_smtpuser_label").innerHTML = mod_strings.LBL_YAHOOMAIL_SMTPUSER;
             break;
         case "gmail":
-            if(document.getElementById("mail_smtpserver").value == "" || document.getElementById("mail_smtpserver").value == 'plus.smtp.mail.yahoo.com') {
+            if(document.getElementById("mail_smtpserver").value == "" || document.getElementById("mail_smtpserver").value == 'smtp.mail.yahoo.com') {
                 document.getElementById("mail_smtpserver").value = 'smtp.gmail.com';
                 document.getElementById("mail_smtpport").value = '587';
                 document.getElementById("mail_smtpauth_req").checked = true;
@@ -479,7 +479,7 @@ SE.accounts = {
             document.getElementById("mail_smtpuser_label").innerHTML = mod_strings.LBL_GMAIL_SMTPUSER;
             break;
         case "exchange":
-            if ( document.getElementById("mail_smtpserver").value == 'plus.smtp.mail.yahoo.com'
+            if ( document.getElementById("mail_smtpserver").value == 'smtp.mail.yahoo.com'
                     || document.getElementById("mail_smtpserver").value == 'smtp.gmail.com' ) {
                 document.getElementById("mail_smtpserver").value = '';
             }
@@ -2866,12 +2866,13 @@ SE.listView = {
     /**
      * Like populateListFrame(), but specifically for SugarFolders since the API is radically different
      */
-    populateListFrameSugarFolder : function(node, folderId, forceRefresh) {
+    populateListFrameSugarFolder : function(node, folderId, forceRefresh, getUnread) {
         SE.innerLayout.selectTab(0);
         Dom.get('_blank').innerHTML = "";
         SE.grid.params['emailUIAction'] = 'getMessageListSugarFolders';
         SE.grid.params['ieId'] = node.data.id;
         SE.grid.params['mbox'] = node.data.origText ? node.data.origText : node.data.text;
+        SE.grid.params['getUnread'] = getUnread;
         SE.listView.refreshGrid();
     },
 

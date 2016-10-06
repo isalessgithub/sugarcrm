@@ -28,6 +28,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Tytuł',
   'LBL_LIST_ORDER' => 'Zamówienie',
   'LBL_MODULE_NAME' => 'Powiadomienia zespołów',
+  'LBL_MODULE_NAME_SINGULAR' => 'Powiadomienie zespołu',
   'LBL_MODULE_TITLE' => 'Powiadomienia zespołów: Strona główna',
   'LBL_MORE_DETAIL' => 'Więcej szczegółów',
   'LBL_NAME' => 'Tytuł',
@@ -52,7 +53,7 @@ $mod_strings = array (
   'LNK_NEW_TEAM' => 'Utwórz zespół',
   'LNK_NEW_TEAM_NOTICE' => 'Utwórz powiadomienie zespołu',
   'LNK_PRODUCT_LIST' => 'Lista cen produktów',
-  'NTC_DELETE_CONFIRMATION' => 'Czy napewno chcesz usunąć ten rekord?',
+  'NTC_DELETE_CONFIRMATION' => 'Czy na pewno chcesz usunąć ten rekord?',
   'NTC_LIST_ORDER' => 'Ustaw kolejność, w jakiej ten typ będzie się wyświetlał na listach rozwijalnych typów produktów',
   'dom_status' => 
   array (

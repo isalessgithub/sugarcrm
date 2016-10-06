@@ -66,6 +66,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => '修改人名称',
   'LBL_MODIFIED_USER' => '用户修改',
   'LBL_MODULE_NAME' => '活动名称',
+  'LBL_MODULE_NAME_SINGULAR' => '活动流',
   'LBL_MODULE_TITLE' => '活动流',
   'LBL_MY_FAVORITES_ONLY' => '仅我的收藏',
   'LBL_NAME' => '名称',

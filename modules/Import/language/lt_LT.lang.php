@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'Jei norite toliau tęsti su failo importavimu, spauskite Gerai. Jei norite užkrauti naują failą, spauskite Bandyti vėl.',
   'LBL_MISSING_HEADER_ROW' => 'Nerasta stulpelių pavadinimų',
   'LBL_MODULE_NAME' => 'Importuoti',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importas',
   'LBL_MY_PUBLISHED_HELP' => 'Paskelbtas nurodo anksčiau naudota kombinaciją specifinių duomenų šaltinių ir rinkinį duomenų bazės laukų susietų su laukais importavimo faile.',
   'LBL_MY_SAVED' => 'Mano išsaugoti susiejimai:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Naudokite šį metodą, jei norite pasinaudoti tais pačiais importavimo nustatymais, kaip kad importavote anksčiau. <br /><br />Spauskite Paskelbti susiejimus prieinamus kitiems vartotojams.<br />Spauskite Paslėpti susiejimus nematomus kitiems vartotojams.<br />Spauskite Trinti ir susiejimai bus ištrinti visiems vartotojams.',

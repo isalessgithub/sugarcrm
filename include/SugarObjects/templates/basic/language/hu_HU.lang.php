@@ -25,6 +25,7 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Módosítás dátuma',
   'LBL_DELETED' => 'Törölve',
   'LBL_DESCRIPTION' => 'Leírás',
+  'LBL_EDIT_BUTTON' => 'Szerkesztés',
   'LBL_ID' => 'Azonosító',
   'LBL_LIST_NAME' => 'Név',
   'LBL_MODIFIED' => 'Módosította',
@@ -32,5 +33,6 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Módosította (név szerint)',
   'LBL_MODIFIED_USER' => 'Felhasználó által módosítva',
   'LBL_NAME' => 'Név',
+  'LBL_REMOVE' => 'Eltávolítás',
 );
 

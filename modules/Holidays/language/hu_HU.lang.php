@@ -24,6 +24,7 @@ $mod_strings = array (
   'LBL_HOLIDAY_DATE' => 'Szabadság ideje:',
   'LBL_LIST_FORM_TITLE' => 'Szabadságlista',
   'LBL_MODULE_NAME' => 'Szabadság',
+  'LBL_MODULE_NAME_SINGULAR' => 'Szabadság',
   'LBL_MODULE_TITLE' => 'Szabadság: Főoldal',
   'LBL_NAME' => 'Szabadság ideje:',
   'LBL_PERSON_TYPE' => 'Személy típusa:',

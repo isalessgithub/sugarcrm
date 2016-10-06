@@ -644,9 +644,12 @@ AH.setRelatedFields = function(fields){
 AH.getRelatedFieldValues = function(fields, module, record)
 {
     if (fields.length > 0){
+        var ret = {};
+        var emptyFields = {};
         module = module || SUGAR.forms.AssignmentHandler.getValue("module") || DCMenu.module;
         record = record || SUGAR.forms.AssignmentHandler.getValue("record") || DCMenu.record;
-        for (var i = 0; i < fields.length; i++)
+        // Go from the back, because of the possible deletion of related type fields
+        for (var i = fields.length - 1; i >= 0; i--)
         {
             //Related fields require a current related id
             if (fields[i].type == "related")
@@ -656,26 +659,42 @@ AH.getRelatedFieldValues = function(fields, module, record)
                     var idField = document.getElementById(linkDef.id_name);
                     if (idField && (idField.tagName == "INPUT" || idField.hasAttribute("data-id-value")))
                     {
-                        fields[i].relId = SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name, false, true);
                         fields[i].relModule = linkDef.module;
+                        fields[i].relId = SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name, false, true);
+                        // If there is no relId, there is no point in querying for this field
+                        if (fields[i].relId.length == 0)
+                        {
+                            // Set default value
+                            emptyFields[fields[i].link] = {'related' : {}};
+                            emptyFields[fields[i].link]['related'][fields[i].relate] = ''; // Server would return an empty string}
+                            // Then we remove it
+                            fields.splice(i, 1);
+                        }
                     }
                 }
             }
         }
-        var r = http_fetch_sync("index.php", SUGAR.util.paramsToUrl({
-            module:"ExpressionEngine",
-            action:"getRelatedValues",
-            record_id: record,
-            tmodule: module,
-            fields: YAHOO.lang.JSON.stringify(fields),
-            to_pdf: 1
-        }));
-        try {
-            var ret = YAHOO.lang.JSON.parse(r.responseText);
-            AH.setRelatedFields(ret);
-            return ret;
-        } catch(e){}
+
+        // If we removed all fields (related) no point in sending a request
+        if (fields.length > 0)
+        {
+            var r = http_fetch_sync("index.php", SUGAR.util.paramsToUrl({
+                module:"ExpressionEngine",
+                action:"getRelatedValues",
+                record_id: record,
+                tmodule: module,
+                fields: YAHOO.lang.JSON.stringify(fields),
+                to_pdf: 1
+            }));
+            try {
+                ret = YAHOO.lang.JSON.parse(r.responseText);
+            } catch(e){}
+        }
+        ret = $.extend({}, emptyFields, ret);
+        AH.setRelatedFields(ret);
+        return ret;
     }
+
     return null;
 }
 
@@ -702,6 +721,11 @@ AH.getRelatedField = function(link, ftype, field, view){
      {
          currId = SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name, false, true);
      }
+
+    // Clear the Link cache when the old and new relIds are different
+    if ((linkDef.relId || currId) && linkDef.relId != currId) {
+        AH.clearRelatedFieldCache(link, view);
+    }
 
     if (typeof(linkDef[ftype]) == "undefined"
         || (field && typeof(linkDef[ftype][field]) == "undefined")

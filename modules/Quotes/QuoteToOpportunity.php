@@ -116,10 +116,23 @@ else
 	$opp->date_closed = $_REQUEST["valid_until"];
 	$opp->name = $_REQUEST["opportunity_subject"];
 	$opp->assigned_user_name = $_REQUEST["user_name"];
-	$opp->lead_source = isset($app_list_strings['lead_source_dom']['Self Generated']) ? 'Self Generated': null;//'Self Generated';
-	$opp->sales_stage = isset($app_list_strings['sales_stage_dom']['Proposal/Price Quote']) ? 'Proposal/Price Quote': null;//'Proposal/Price Quote';
-	$opp->probability = isset($app_list_strings['sales_probability_dom']['Proposal/Price Quote']) ? $app_list_strings['sales_probability_dom']['Proposal/Price Quote']: null;//'Proposal/Price Quote';
-	$opp->opportunity_type = isset($app_list_strings['opportunity_type_dom']['New Business']) ? $app_list_strings['opportunity_type_dom']['New Business']: null;//'New Business';
+	if (!empty($dictionary['Opportunity']['fields']['sales_stage']['default'])) {
+	    $opp->sales_stage = $dictionary['Opportunity']['fields']['sales_stage']['default'];
+	}
+	else {
+	    $opp->sales_stage = isset($app_list_strings['sales_stage_dom']['Prospecting']) ? 'Prospecting': null;
+	}
+	if (!empty($dictionary['Opportunity']['fields']['probability']['default'])) {
+	    $opp->probability = $dictionary['Opportunity']['fields']['probability']['default'];
+	}
+	else {
+        if (!empty($opp->sales_stage)) {
+            $opp->probability = isset($app_list_strings['sales_probability_dom'][$opp->sales_stage]) ? $app_list_strings['sales_probability_dom'][$opp->sales_stage]: null;
+        }
+        else {
+	        $opp->probability = isset($app_list_strings['sales_probability_dom']['Prospecting']) ? $app_list_strings['sales_probability_dom']['Prospecting']: null;
+        }
+	}
 	$opp->team_id = $_REQUEST["team_id"];
 	if(empty($_REQUEST["amount"])) {
 		$amount = (float)0;

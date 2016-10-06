@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modificado por:',
   'LBL_MODULE_ID' => 'Lista de Targets',
   'LBL_MODULE_NAME' => 'Lista de Targets',
+  'LBL_MODULE_NAME_SINGULAR' => 'Lista de Targets:',
   'LBL_MODULE_TITLE' => 'Lista de Targets: Tela Principal',
   'LBL_MORE_DETAIL' => 'Mais detalhes',
   'LBL_NAME' => 'Nome:',

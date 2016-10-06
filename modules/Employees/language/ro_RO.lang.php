@@ -93,6 +93,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modificata de',
   'LBL_MODIFIED_BY_ID' => 'Modificata de ID',
   'LBL_MODULE_NAME' => 'Angajati',
+  'LBL_MODULE_NAME_SINGULAR' => 'Angajat',
   'LBL_MODULE_TITLE' => 'Angajati: Acasa',
   'LBL_MY_TEAMS' => 'Echiplele mele',
   'LBL_NAME' => 'Nume',

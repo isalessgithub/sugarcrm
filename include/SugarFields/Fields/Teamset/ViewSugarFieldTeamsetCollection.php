@@ -191,6 +191,8 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
         $sf = $sfh->getSugarField('Teamset', true);
         $teams = $sf->getTeamsFromRequest($this->name);
 		$full_form_values = array();
+        // Don't prefill the search form with default teams
+        $this->bean->{$this->value_name} = array('role_field' => 'team_name');
         if(!empty($teams)) {
             //If a primary team is selected, adjust the appropriate settings; otherwise use the first
         	//team from the $_REQUEST

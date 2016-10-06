@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Marco',
   'LBL_MODIFIED_USER_ID' => 'ID Modificado por',
   'LBL_MODULE_NAME' => 'Tarefas de Projeto',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tarefa de Projeto',
   'LBL_MODULE_TITLE' => 'Tarefas de Projeto: Tela Principal',
   'LBL_NAME' => 'Nome',
   'LBL_NEW_FORM_TITLE' => 'Nova Tarefa de Projeto',

@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,25 +15,13 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $mod_strings = array (
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Equipo Principal por Defecto',
   'LBL_TEAM' => 'Equipos',
   'LBL_TEAMS' => 'Equipos',
   'LBL_TEAM_ID' => 'Id Equipo',
+  'LBL_TEAM_SET' => 'Conjunto de Equipo',
 );
 

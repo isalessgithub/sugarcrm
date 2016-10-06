@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -25,4 +25,4 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $dashletStrings['ChartsDashlet'] = array('LBL_TITLE'            => 'Gràfics',
                                          'LBL_DESCRIPTION'      => 'Un dashlet per mostrar gràfics',
                                          'LBL_CONFIGURE_TITLE'  => 'Títol', );
-?> 
+ 

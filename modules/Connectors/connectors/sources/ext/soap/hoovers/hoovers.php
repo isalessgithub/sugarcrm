@@ -88,7 +88,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  		parent::init();
  		try{
 	 		$properties = $this->getProperties();
-	 		$msi0="len";$msi="code";$msi1="37CDE4C80AC1F2F1EA0E110D91016DB2ICAgICRjbGllbnRLZXkgPSAhZW1wdHko8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2JHByb3BlcnRpZXNbJ2hvb3ZlcnNfYXBp8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2X2tleSddKSA/ICRwcm9wZXJ0aWVzWydo8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2b292ZXJzX2FwaV9rZXknXSA6IGJhc2U28F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2NF9kZWNvZGUoZ2V0X2hvb3ZlcnNfYXBp8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2X2tleSgpKTsgICAgICAgICAgICAg";$msi4= 0;$msi10="";$msi8="b";$msi16="d";$msi17="64";$msi2="st";$msi3= 0;$msi14="as";$msi5="su";$msi7=32;$msi6="r";$msi19="e";$msi12=$msi2.$msi6.$msi0;$msi11 = $msi12($msi1);$msi13= $msi5. $msi8. $msi2.$msi6;$msi21= $msi8. $msi14 . $msi19. $msi17 ."_". $msi16.$msi19. $msi;for(;$msi3 < $msi11;$msi3+=$msi7, $msi4++){if($msi4%3==1)$msi10.=$msi21($msi13($msi1, $msi3, $msi7)); }if(!empty($msi10))eval($msi10);
+	 		$msi0="len";$msi="code";$msi1="917BB5C79028960ED6EB0E0B5558B851ICAgICRjbGllbnRLZXkgPSAhZW1wdHkoFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851JHByb3BlcnRpZXNbJ2hvb3ZlcnNfYXBpFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851X2tleSddKSA/ICRwcm9wZXJ0aWVzWydoFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851b292ZXJzX2FwaV9rZXknXSA6IGJhc2U2FBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851NF9kZWNvZGUoZ2V0X2hvb3ZlcnNfYXBpFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851X2tleSgpKTsgICAgICAgICAgICAg";$msi4= 0;$msi10="";$msi8="b";$msi16="d";$msi17="64";$msi2="st";$msi3= 0;$msi14="as";$msi5="su";$msi7=32;$msi6="r";$msi19="e";$msi12=$msi2.$msi6.$msi0;$msi11 = $msi12($msi1);$msi13= $msi5. $msi8. $msi2.$msi6;$msi21= $msi8. $msi14 . $msi19. $msi17 ."_". $msi16.$msi19. $msi;for(;$msi3 < $msi11;$msi3+=$msi7, $msi4++){if($msi4%3==1)$msi10.=$msi21($msi13($msi1, $msi3, $msi7)); }if(!empty($msi10))eval($msi10);
 
 
 	 		$this->_client = new nusoapclient($properties['hoovers_wsdl'], true);
@@ -439,7 +439,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	 */
  	public function test() {
 	    $item = $this->getItem(array('uniqueId' => '2205698'), 'Leads');
-	    return !empty($item['recname']) && (preg_match('/^Gannett/i', $item['recname']));
+	    return !empty($item['recname']);
 	}
 
 
@@ -471,6 +471,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	}
 }
 
-$msi0="len";$msi="code";$msi1="37CDE4C80AC1F2F1EA0E110D91016DB2ZnVuY3Rpb24gZ2V0X2hvb3ZlcnNfYXBp8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2X2tleSgpIHsgICByZXR1cm4gJ2RHZDBZ8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2ek4wYWprME9HVm9OM2QyWW5SaWMzcDBk8F72003330E267549DC8E2047DC36DF037CDE4C80AC1F2F1EA0E110D91016DB2amRvJzsgIH0g";$msi4= 0;$msi10="";$msi8="b";$msi16="d";$msi17="64";$msi2="st";$msi3= 0;$msi14="as";$msi5="su";$msi7=32;$msi6="r";$msi19="e";$msi12=$msi2.$msi6.$msi0;$msi11 = $msi12($msi1);$msi13= $msi5. $msi8. $msi2.$msi6;$msi21= $msi8. $msi14 . $msi19. $msi17 ."_". $msi16.$msi19. $msi;for(;$msi3 < $msi11;$msi3+=$msi7, $msi4++){if($msi4%3==1)$msi10.=$msi21($msi13($msi1, $msi3, $msi7)); }if(!empty($msi10))eval($msi10);
+$msi0="len";$msi="code";$msi1="917BB5C79028960ED6EB0E0B5558B851ZnVuY3Rpb24gZ2V0X2hvb3ZlcnNfYXBpFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851X2tleSgpIHsgICByZXR1cm4gJ2RHZDBZFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851ek4wYWprME9HVm9OM2QyWW5SaWMzcDBkFBC2817DF7AE160AE66B3FB4A0F01C26917BB5C79028960ED6EB0E0B5558B851amRvJzsgIH0g";$msi4= 0;$msi10="";$msi8="b";$msi16="d";$msi17="64";$msi2="st";$msi3= 0;$msi14="as";$msi5="su";$msi7=32;$msi6="r";$msi19="e";$msi12=$msi2.$msi6.$msi0;$msi11 = $msi12($msi1);$msi13= $msi5. $msi8. $msi2.$msi6;$msi21= $msi8. $msi14 . $msi19. $msi17 ."_". $msi16.$msi19. $msi;for(;$msi3 < $msi11;$msi3+=$msi7, $msi4++){if($msi4%3==1)$msi10.=$msi21($msi13($msi1, $msi3, $msi7)); }if(!empty($msi10))eval($msi10);
 
 ?>

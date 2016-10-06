@@ -19,6 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_ADD' => 'Dodaj',
+  'LBL_ADMIN_ONLY' => 'Tylko dla Administratorów',
   'LBL_BELOW_MIN' => 'Kurs wymiany musi być wyższy od 0',
   'LBL_CREATED_BY' => 'Utworzony przez',
   'LBL_CURRENCY' => 'Waluta',
@@ -35,6 +36,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'Scal',
   'LBL_MERGE_TXT' => 'Zaznacz waluty, które chcesz zmapować do wybranej waluty. Usunie to wszystkie waluty i przepisze wartości z nimi powiązane do obecnej waluty..',
   'LBL_MODULE_NAME' => 'Waluty',
+  'LBL_MODULE_NAME_SINGULAR' => 'Waluta',
   'LBL_UPDATE' => 'Aktualizuj',
   'LBL_US_DOLLAR' => 'PLN',
   'LNK_NEW_ACCOUNT' => 'Utwórz kontrahenta',

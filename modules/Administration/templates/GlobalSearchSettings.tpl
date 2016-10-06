@@ -245,6 +245,10 @@
         }
         if(justRequestedAScheduledIndex)
             alert(SUGAR.language.get('Administration','LBL_FTS_CONN_SUCCESS_SHORT'));
+
+        $('#fts_host, #fts_port').on('input', function() {
+            $('.schedFullSystemIndex').hide();
+        });
     });
 
     SUGAR.FTS = {
@@ -278,6 +282,7 @@
             alert(SUGAR.language.get('Administration','LBL_FTS_CONN_SUCCESS_SHORT'));
             SUGAR.FTS.selectFTSModulesDialog.cancel();
 
+            SUGAR.saveGlobalSearchSettings();
         },
         schedFullSystemIndex : function()
         {

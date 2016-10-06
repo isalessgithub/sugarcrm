@@ -59,6 +59,7 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tipo',
   'LBL_MODIFIED' => 'Alterado por:',
   'LBL_MODULE_NAME' => 'Registo de Campanha',
+  'LBL_MODULE_NAME_SINGULAR' => 'Registo de Campanha',
   'LBL_MORE_INFO' => 'Mais Informações',
   'LBL_NAME' => 'Nome:',
   'LBL_RELATED' => 'Relacionado',

@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Modified User',
   'LBL_MODULE_ID' => 'Targets',
   'LBL_MODULE_NAME' => 'Targets',
+  'LBL_MODULE_NAME_SINGULAR' => 'Target',
   'LBL_MODULE_TITLE' => 'Targets: Home',
   'LBL_MORE_INFORMATION' => 'More Information',
   'LBL_NAME' => 'Name:',

@@ -28,6 +28,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Naslov',
   'LBL_LIST_ORDER' => 'Redosled',
   'LBL_MODULE_NAME' => 'Timska obaveštenja',
+  'LBL_MODULE_NAME_SINGULAR' => 'Timsko obaveštenje',
   'LBL_MODULE_TITLE' => 'Timska obaveštenja: Početna strana',
   'LBL_MORE_DETAIL' => 'Više detalja',
   'LBL_NAME' => 'Naslov',

@@ -18,34 +18,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $app_list_strings = array (
-  'product_status_quote_key' => 'Quotes',
-  'moduleList' => 
-  array (
-    'FAQ' => 'FAQ',
-    'Home' => 'ホーム',
-    'Bugs' => 'バグトラッカー',
-    'Cases' => 'ケース',
-    'Notes' => 'メモ',
-    'Newsletters' => 'ニュースレター',
-    'Teams' => 'チーム',
-    'Users' => 'ユーザ',
-    'KBDocuments' => 'ナレッジベース',
-  ),
-  'moduleListSingular' => 
-  array (
-    'Home' => 'Home',
-    'Bugs' => 'Bug',
-    'Cases' => 'Case',
-    'Notes' => 'Note',
-    'Teams' => 'Team',
-    'Users' => 'User',
-  ),
-  'checkbox_dom' => 
-  array (
-    '' => '',
-    1 => 'はい',
-    2 => 'いいえ',
-  ),
   'account_type_dom' => 
   array (
     '' => '',
@@ -54,11 +26,401 @@ $app_list_strings = array (
     'Customer' => '顧客',
     'Integrator' => 'インテグレータ',
     'Investor' => '投資家',
+    'Other' => 'その他',
     'Partner' => 'パートナー',
     'Press' => '報道関係者',
     'Prospect' => '見込顧客',
     'Reseller' => 'リセラー',
-    'Other' => 'その他',
+  ),
+  'activity_dom' => 
+  array (
+    'Call' => '電話',
+    'Email' => 'Eメール',
+    'Meeting' => '会議',
+    'Note' => 'メモ',
+    'Task' => 'タスク',
+  ),
+  'bopselect_type_dom' => 
+  array (
+    'Equals' => '等しい',
+  ),
+  'bselect_type_dom' => 
+  array (
+    'bool_false' => 'いいえ',
+    'bool_true' => 'はい',
+  ),
+  'bug_priority_dom' => 
+  array (
+    'High' => '高',
+    'Low' => '低',
+    'Medium' => '中',
+    'Urgent' => '緊急',
+  ),
+  'bug_resolution_dom' => 
+  array (
+    '' => '',
+    'Accepted' => '承諾',
+    'Duplicate' => '重複',
+    'Fixed' => '修正済み',
+    'Invalid' => '無効',
+    'Later' => '後回し',
+    'Out of Date' => '期限切れ',
+  ),
+  'bug_status_dom' => 
+  array (
+    'Assigned' => 'アサイン済み',
+    'Closed' => '完了',
+    'New' => '新規',
+    'Pending' => '保留',
+    'Rejected' => '拒否',
+  ),
+  'bug_type_dom' => 
+  array (
+    'Defect' => '不具合',
+    'Feature' => '仕様',
+  ),
+  'call_direction_dom' => 
+  array (
+    'Inbound' => '受信',
+    'Outbound' => '送信',
+  ),
+  'call_status_dom' => 
+  array (
+    'Held' => '完了',
+    'Not Held' => '未実施',
+    'Planned' => '計画済み',
+  ),
+  'campaign_status_dom' => 
+  array (
+    '' => '',
+    'Active' => 'アクティブ',
+    'Complete' => '完了',
+    'In Queue' => 'キュー待ち',
+    'Inactive' => '非アクティブ',
+    'Planning' => '計画中',
+    'Sending' => '送信中',
+  ),
+  'campaign_type_dom' => 
+  array (
+    '' => '',
+    'Email' => 'Eメール',
+    'Mail' => 'ダイレクトメール',
+    'Print' => '印刷',
+    'Radio' => 'ラジオ',
+    'Telesales' => '電話営業',
+    'Television' => 'テレビ',
+    'Web' => 'Web',
+  ),
+  'campainglog_activity_type_dom' => 
+  array (
+    '' => '',
+    'contact' => '取引先担当者作成済み',
+    'invalid email' => '送信エラー: 不正アドレス',
+    'lead' => 'リード作成済み',
+    'link' => 'リンクからクリック',
+    'removed' => '脱退済み',
+    'send error' => '送信エラー: 他',
+    'targeted' => '送信実行済み',
+    'viewed' => '閲覧済み',
+  ),
+  'campainglog_target_type_dom' => 
+  array (
+    'Contacts' => '取引先担当者',
+    'Leads' => 'リード',
+    'Prospects' => 'ターゲット',
+    'Users' => 'ユーザ',
+  ),
+  'case_priority_dom' => 
+  array (
+    'P1' => '高',
+    'P2' => '中',
+    'P3' => '低',
+  ),
+  'case_relationship_type_dom' => 
+  array (
+    '' => '',
+    'Alternate Contact' => '取引先担当者',
+    'Primary Contact' => '取引先責任者',
+  ),
+  'case_status_dom' => 
+  array (
+    'Assigned' => 'アサイン済み',
+    'Closed' => '完了',
+    'Duplicate' => '重複',
+    'New' => '新規',
+    'Pending Input' => '保留',
+    'Rejected' => '拒否',
+  ),
+  'checkbox_dom' => 
+  array (
+    '' => '',
+    1 => 'はい',
+    2 => 'いいえ',
+  ),
+  'contract_expiration_notice_dom' => 
+  array (
+    1 => '1日',
+    3 => '3日',
+    5 => '5日',
+    7 => '1週間',
+    14 => '2週間',
+    21 => '3週間',
+    31 => '1カ月',
+  ),
+  'contract_payment_frequency_dom' => 
+  array (
+    'halfyearly' => '毎半期',
+    'monthly' => '毎月',
+    'quarterly' => '毎四半期',
+    'yearly' => '毎年',
+  ),
+  'contract_status_dom' => 
+  array (
+    'inprogress' => '進行中',
+    'notstarted' => '未開始',
+    'signed' => 'サイン済み',
+  ),
+  'cselect_type_dom' => 
+  array (
+    'Does not Equal' => '等しくない',
+    'Equals' => '等しい',
+  ),
+  'document_category_dom' => 
+  array (
+    '' => '',
+    'Knowledege Base' => 'ナレッジベース',
+    'Marketing' => 'マーケティング',
+    'Sales' => '営業',
+  ),
+  'document_status_dom' => 
+  array (
+    'Active' => 'アクティブ',
+    'Draft' => 'ドラフト',
+    'Expired' => '期限切れ',
+    'FAQ' => 'FAQ',
+    'Pending' => '待機',
+    'Under Review' => 'レビュー中',
+  ),
+  'document_subcategory_dom' => 
+  array (
+    '' => '',
+    'FAQ' => 'FAQ',
+    'Marketing Collateral' => 'マーケティング資料',
+    'Product Brochures' => '製品パンフレット',
+  ),
+  'document_template_type_dom' => 
+  array (
+    '' => '',
+    'eula' => 'EULA',
+    'license' => 'ライセンス契約',
+    'mailmerge' => 'メールマージ',
+    'nda' => 'NDA',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => ' ',
+    1 => '1月',
+    2 => '2月',
+    3 => '3月',
+    4 => '4月',
+    5 => '5月',
+    6 => '6月',
+    7 => '7月',
+    8 => '8月',
+    9 => '9月',
+    10 => '10月',
+    11 => '11月',
+    12 => '12月',
+  ),
+  'dom_email_bool' => 
+  array (
+    'bool_false' => 'いいえ',
+    'bool_true' => 'はい',
+  ),
+  'dom_email_distribution' => 
+  array (
+    '' => '--なし--',
+    'direct' => 'ユーザを直接アサイン',
+    'leastBusy' => '稼働の低いユーザにアサイン',
+    'roundRobin' => 'ユーザを均等にアサイン',
+  ),
+  'dom_email_editor_option' => 
+  array (
+    '' => 'デフォルトメールフォーマット',
+    'html' => 'HTMLメール',
+    'plain' => 'プレーンテキストメール',
+  ),
+  'dom_email_errors' => 
+  array (
+    1 => '直接アサインの場合はユーザは1人のみ選択',
+    2 => '直接アサインの場合はチェックされたアイテムのみアサイン',
+  ),
+  'dom_email_link_type' => 
+  array (
+    '' => 'システムデフォルトのメールクライアント',
+    'mailto' => '外部メールクライアント',
+    'sugar' => 'SugarCRMメールクライアント',
+  ),
+  'dom_email_server_type' => 
+  array (
+    '' => '--なし--',
+    'imap' => 'IMAP',
+    'pop3' => 'POP3',
+  ),
+  'dom_email_status' => 
+  array (
+    'archived' => '保存済み',
+    'closed' => '完了',
+    'draft' => 'ドラフト',
+    'read' => '既読',
+    'replied' => '返信済み',
+    'send_error' => '送信エラー',
+    'sent' => '送信済み',
+    'unread' => '未読',
+  ),
+  'dom_email_types' => 
+  array (
+    'archived' => '保存済み',
+    'draft' => 'ドラフト',
+    'inbound' => 'インバウンド',
+    'out' => '送信済み',
+  ),
+  'dom_int_bool' => 
+  array (
+    0 => 'なし',
+    1 => 'はい',
+  ),
+  'dom_mailbox_type' => 
+  array (
+    'bounce' => 'バウンス処理',
+    'bug' => 'バグ作成',
+    'contact' => '取引先担当者作成',
+    'pick' => '作成[任意]',
+    'sales' => 'リード作成',
+    'support' => 'ケース作成',
+    'task' => 'タスク作成',
+  ),
+  'dom_meeting_accept_options' => 
+  array (
+    'accept' => '承諾',
+    'decline' => '不参加',
+    'tentative' => '保留',
+  ),
+  'dom_meeting_accept_status' => 
+  array (
+    'accept' => '承諾',
+    'decline' => '不参加',
+    'none' => 'なし',
+    'tentative' => '保留',
+  ),
+  'dom_report_types' => 
+  array (
+    'detailed_summary' => '詳細集計レポート',
+    'summary' => '集計レポート',
+    'tabular' => '表形式レポート',
+  ),
+  'dom_switch_bool' => 
+  array (
+    '' => 'いいえ',
+    'off' => 'いいえ',
+    'on' => 'はい',
+  ),
+  'dom_timezones' => 
+  array (
+    -12 => '(GMT - 12) 日付変更線西側',
+    -11 => '(GMT - 11) サモア ミッドウェー島',
+    -10 => '(GMT - 10) ハワイ',
+    -9 => '(GMT - 9) アラスカ',
+    -8 => '(GMT - 8) サンフランシスコ',
+    -7 => '(GMT - 7) フェニックス',
+    -6 => '(GMT - 6) サスカチェワン',
+    -5 => '(GMT - 5) ニューヨーク',
+    -4 => '(GMT - 4) サンチャゴ',
+    -3 => '(GMT - 3) ブエノスアイレス',
+    -2 => '(GMT - 2) 中央大西洋',
+    -1 => '(GMT - 1) アゾレス諸島',
+    0 => 'なし',
+    1 => '(GMT + 1) マドリッド',
+    2 => '(GMT + 2) アテネ',
+    3 => '(GMT + 3) モスクワ',
+    4 => '(GMT + 4) カブール',
+    5 => '(GMT + 5) エカチェリンブルグ',
+    6 => '(GMT + 6) アスタナ',
+    7 => '(GMT + 7) バンコク',
+    8 => '(GMT + 8) パース',
+    9 => '(GMT + 9) 日本',
+    10 => '(GMT + 10) ブリスベン',
+    11 => '(GMT + 11) ソロモン諸島',
+    12 => '(GMT + 12) オークランド',
+  ),
+  'dom_timezones_extra' => 
+  array (
+    -12 => '(GMT-12) 日付変更線西側',
+    -11 => '(GMT-11) サモア ミッドウェー島',
+    -10 => '(GMT-10) ハワイ',
+    -9 => '(GMT-9) アラスカ',
+    -8 => '(GMT-8) (PST)',
+    -7 => '(GMT-7) (MST)',
+    -6 => '(GMT-6) (CST)',
+    -5 => '(GMT-5) (EST)',
+    -4 => '(GMT-4) サンチャゴ',
+    -3 => '(GMT-3) ブエノスアイレス',
+    -2 => '(GMT-2) 中央大西洋',
+    -1 => '(GMT-1) アゾレス諸島',
+    0 => '(GMT)',
+    1 => '(GMT+1) マドリッド',
+    2 => '(GMT+2) アテネ',
+    3 => '(GMT+3) モスクワ',
+    4 => '(GMT+4) カブール',
+    5 => '(GMT+5) エカチェリンブルグ',
+    6 => '(GMT+6) アスタナ',
+    7 => '(GMT+7) バンコク',
+    8 => '(GMT+8) パース',
+    9 => '(GMT+9) 日本',
+    10 => '(GMT+10) ブリスベン',
+    11 => '(GMT+11) ソロモン諸島',
+    12 => '(GMT+12) オークランド',
+  ),
+  'dselect_type_dom' => 
+  array (
+    'Does not Equal' => '等しくない',
+    'Equals' => '等しい',
+    'Less Than' => '未満',
+    'More Than' => '以上',
+  ),
+  'dtselect_type_dom' => 
+  array (
+    'Less Than' => '未満',
+    'More Than' => '以上',
+  ),
+  'duration_intervals' => 
+  array (
+    0 => '00',
+    15 => '15',
+    30 => '30',
+    45 => '45',
+  ),
+  'email_marketing_status_dom' => 
+  array (
+    '' => '',
+    'active' => 'アクティブ',
+    'inactive' => '非アクティブ',
+  ),
+  'employee_status_dom' => 
+  array (
+    'Active' => 'アクティブ',
+    'Leave of Absence' => '休職',
+    'Terminated' => '退職',
+  ),
+  'forecast_schedule_status_dom' => 
+  array (
+    'Active' => 'アクティブ',
+    'Inactive' => '非アクティブ',
+  ),
+  'forecast_type_dom' => 
+  array (
+    'Direct' => 'ダイレクト',
+    'Rollup' => 'ロールアップ',
   ),
   'industry_dom' => 
   array (
@@ -85,6 +447,7 @@ $app_list_strings = array (
     'Manufacturing' => '製造',
     'Media' => 'メディア',
     'Not For Profit' => '非営利',
+    'Other' => 'その他',
     'Recreation' => 'レジャー',
     'Retail' => '小売',
     'Shipping' => '配送',
@@ -92,24 +455,104 @@ $app_list_strings = array (
     'Telecommunications' => '電話',
     'Transportation' => '輸送',
     'Utilities' => '公共',
-    'Other' => 'その他',
+  ),
+  'language_pack_name' => 'Japanese',
+  'layouts_dom' => 
+  array (
+    'Invoice' => '請求書',
+    'Standard' => '見積書',
+    'Terms' => '支払条件',
   ),
   'lead_source_dom' => 
   array (
     '' => '',
     'Cold Call' => '勧誘電話',
-    'Existing Customer' => '既存顧客',
-    'Self Generated' => '自動発生',
+    'Conference' => 'カンファレンス',
+    'Direct Mail' => 'ダイレクトメール',
+    'Email' => 'Eメール',
     'Employee' => '社員',
+    'Existing Customer' => '既存顧客',
+    'Other' => 'その他',
     'Partner' => 'パートナー',
     'Public Relations' => '広報活動',
-    'Direct Mail' => 'ダイレクトメール',
-    'Conference' => 'カンファレンス',
+    'Self Generated' => '自動発生',
     'Trade Show' => '展示会',
     'Web Site' => 'Webサイト',
     'Word of mouth' => '口コミ',
-    'Email' => '電子メール',
+  ),
+  'lead_status_dom' => 
+  array (
+    '' => '',
+    'Assigned' => 'アサイン済み',
+    'Converted' => 'コンバート済み',
+    'Dead' => 'デッド',
+    'In Process' => '進行中',
+    'New' => '新規',
+    'Recycled' => '戻し',
+  ),
+  'lead_status_noblank_dom' => 
+  array (
+    'Assigned' => 'アサイン済み',
+    'Converted' => 'コンバート済',
+    'Dead' => 'デッド',
+    'In Process' => '進行中',
+    'New' => '新規',
+    'Recycled' => '戻し',
+  ),
+  'meeting_status_dom' => 
+  array (
+    'Held' => '完了',
+    'Not Held' => '未実施',
+    'Planned' => '計画済み',
+  ),
+  'messenger_type_dom' => 
+  array (
+    '' => '',
+    'AOL' => 'AOL',
+    'MSN' => 'MSN',
+    'Yahoo!' => 'Yahoo!',
+  ),
+  'moduleList' => 
+  array (
+    'Bugs' => 'バグトラッカー',
+    'Cases' => 'ケース',
+    'FAQ' => 'FAQ',
+    'Home' => 'ホーム',
+    'KBDocuments' => 'ナレッジベース',
+    'Newsletters' => 'ニュースレター',
+    'Notes' => 'メモ',
+    'Teams' => 'チーム',
+    'Users' => 'ユーザ',
+  ),
+  'moduleListSingular' => 
+  array (
+    'Bugs' => 'Bug',
+    'Cases' => 'Case',
+    'Home' => 'Home',
+    'Notes' => 'Note',
+    'Teams' => 'Team',
+    'Users' => 'User',
+  ),
+  'mselect_type_dom' => 
+  array (
+    'Equals' => '同じ',
+    'in' => '含まれる',
+  ),
+  'notifymail_sendtype' => 
+  array (
+    'SMTP' => 'SMTP',
+  ),
+  'opportunity_relationship_type_dom' => 
+  array (
+    '' => '',
+    'Business Decision Maker' => '事業意思決定者',
+    'Business Evaluator' => '事業評価担当者',
+    'Executive Sponsor' => '役員',
+    'Influencer' => '影響力あり',
     'Other' => 'その他',
+    'Primary Decision Maker' => '主要意思決定者',
+    'Technical Decision Maker' => '技術職意思決定者',
+    'Technical Evaluator' => '技術評価担当者',
   ),
   'opportunity_type_dom' => 
   array (
@@ -117,23 +560,13 @@ $app_list_strings = array (
     'Existing Business' => '既存ビジネス',
     'New Business' => '新規ビジネス',
   ),
-  'opportunity_relationship_type_dom' => 
+  'order_stage_dom' => 
   array (
-    '' => '',
-    'Primary Decision Maker' => '主要意思決定者',
-    'Business Decision Maker' => '事業意思決定者',
-    'Business Evaluator' => '事業評価担当者',
-    'Technical Decision Maker' => '技術職意思決定者',
-    'Technical Evaluator' => '技術評価担当者',
-    'Executive Sponsor' => '役員',
-    'Influencer' => '影響力あり',
-    'Other' => 'その他',
-  ),
-  'case_relationship_type_dom' => 
-  array (
-    '' => '',
-    'Primary Contact' => '取引先責任者',
-    'Alternate Contact' => '取引先担当者',
+    'Cancelled' => 'キャンセル',
+    'Confirmed' => '確認済み',
+    'On Hold' => '保留中',
+    'Pending' => '処理中',
+    'Shipped' => '出荷済み',
   ),
   'payment_terms' => 
   array (
@@ -141,88 +574,20 @@ $app_list_strings = array (
     'Net 15' => '15日以内',
     'Net 30' => '30日以内',
   ),
-  'sales_probability_dom' => 
+  'pricing_formula_dom' => 
   array (
-    'Prospecting' => '10',
-    'Qualification' => '20',
-    'Needs Analysis' => '25',
-    'Value Proposition' => '30',
-    'Id. Decision Makers' => '40',
-    'Perception Analysis' => '50',
-    'Proposal/Price Quote' => '65',
-    'Negotiation/Review' => '80',
-    'Closed Won' => '100',
-    'Closed Lost' => '',
-  ),
-  'salutation_dom' => 
-  array (
-    '' => '',
-    'Mr.' => '様',
-    'Ms.' => 'Ms.',
-    'Mrs.' => 'Mrs.',
-    'Dr.' => '先生',
-    'Prof.' => '教授',
-  ),
-  'lead_status_dom' => 
-  array (
-    '' => '',
-    'New' => '新規',
-    'Assigned' => 'アサイン済み',
-    'In Process' => '進行中',
-    'Converted' => 'コンバート済み',
-    'Recycled' => '戻し',
-    'Dead' => 'デッド',
-  ),
-  'messenger_type_dom' => 
-  array (
-    '' => '',
-    'MSN' => 'MSN',
-    'Yahoo!' => 'Yahoo!',
-    'AOL' => 'AOL',
-  ),
-  'project_task_utilization_options' => 
-  array (
-    25 => '25',
-    50 => '50',
-    75 => '75',
-    100 => '100',
-  ),
-  'quote_relationship_type_dom' => 
-  array (
-    '' => '',
-    'Primary Decision Maker' => '主要意思決定者',
-    'Business Decision Maker' => '事業意思決定者',
-    'Business Evaluator' => '事業評価担当者',
-    'Technical Decision Maker' => '技術職意思決定者',
-    'Technical Evaluator' => '技術評価担当者',
-    'Executive Sponsor' => '役員',
-    'Influencer' => 'インフルエンサ',
-    'Other' => 'その他',
-  ),
-  'bug_resolution_dom' => 
-  array (
-    '' => '',
-    'Accepted' => '承諾',
-    'Duplicate' => '重複',
-    'Fixed' => '修正済み',
-    'Out of Date' => '期限切れ',
-    'Invalid' => '無効',
-    'Later' => '後回し',
-  ),
-  'source_dom' => 
-  array (
-    '' => '',
-    'Web' => 'Web',
-    'Internal' => '内部',
-    'Forum' => 'フォーラム',
-    'InboundEmail' => '電子メール',
+    'Fixed' => '固定価格',
+    'IsList' => '表示価格と同じ',
+    'PercentageDiscount' => '値下げ率',
+    'PercentageMarkup' => '積み上げ率',
+    'ProfitMargin' => '利益率',
   ),
   'product_category_dom' => 
   array (
     '' => '',
     'Accounts' => '取引先',
     'Activities' => '活動',
-    'Bug Tracker' => 'バグトラッカー',
+    'Bugs' => 'バグ',
     'Calendar' => 'カレンダー',
     'Calls' => '電話',
     'Campaigns' => 'キャンペーン',
@@ -231,7 +596,7 @@ $app_list_strings = array (
     'Currencies' => '通貨',
     'Dashboard' => 'ダッシュボード',
     'Documents' => 'ドキュメント',
-    'Emails' => '電子メール',
+    'Emails' => 'Eメール',
     'Feeds' => 'RSSフィード',
     'Forecasts' => '予算',
     'Help' => 'ヘルプ',
@@ -245,165 +610,123 @@ $app_list_strings = array (
     'Products' => '商品',
     'Projects' => 'プロジェクト',
     'Quotes' => '見積',
-    'Releases' => 'リリース',
     'RSS' => 'RSSフィード',
+    'Releases' => 'リリース',
     'Studio' => 'スタジオ',
     'Upgrade' => 'アップグレード',
     'Users' => 'ユーザ',
   ),
-  'campaign_status_dom' => 
+  'product_status_dom' => 
+  array (
+    'Orders' => '注文完了',
+    'Quotes' => '見積完了',
+    'Ship' => '出荷完了',
+  ),
+  'product_status_quote_key' => 'Quotes',
+  'product_template_status_dom' => 
+  array (
+    'Available' => '在庫あり',
+    'Unavailable' => '在庫切れ',
+  ),
+  'project_task_priority_options' => 
+  array (
+    'High' => '高',
+    'Low' => '低',
+    'Medium' => '中',
+  ),
+  'project_task_status_options' => 
+  array (
+    'Completed' => '完了',
+    'Deferred' => '延期',
+    'In Progress' => '進行中',
+    'Not Started' => '未開始',
+    'Pending Input' => '保留',
+  ),
+  'project_task_utilization_options' => 
+  array (
+    0 => 'なし',
+    25 => '25',
+    50 => '50',
+    75 => '75',
+    100 => '100',
+  ),
+  'prospect_list_type_dom' => 
+  array (
+    'default' => 'デフォルト',
+    'exempt' => '禁止リスト - ID順',
+    'exempt_address' => '禁止リスト - Eメールアドレス順',
+    'exempt_domain' => '禁止リスト - ドメイン順',
+    'seed' => 'シード',
+    'test' => 'テスト',
+  ),
+  'query_calc_oper_dom' => 
+  array (
+    '*' => '(X) 掛ける',
+    '+' => '(+) 足す',
+    '-' => '(-) 引く',
+    '/' => '(/) 割る',
+  ),
+  'quote_relationship_type_dom' => 
   array (
     '' => '',
-    'Planning' => '計画中',
-    'Active' => 'アクティブ',
-    'Inactive' => '非アクティブ',
-    'Complete' => '完了',
-    'In Queue' => 'キュー待ち',
-    'Sending' => '送信中',
+    'Business Decision Maker' => '事業意思決定者',
+    'Business Evaluator' => '事業評価担当者',
+    'Executive Sponsor' => '役員',
+    'Influencer' => 'インフルエンサ',
+    'Other' => 'その他',
+    'Primary Decision Maker' => '主要意思決定者',
+    'Technical Decision Maker' => '技術職意思決定者',
+    'Technical Evaluator' => '技術評価担当者',
   ),
-  'campaign_type_dom' => 
+  'quote_stage_dom' => 
   array (
-    '' => '',
-    'Web' => 'Web',
-    'Telesales' => '電話営業',
-    'Mail' => 'ダイレクトメール',
-    'Email' => '電子メール',
-    'Print' => '印刷',
-    'Radio' => 'ラジオ',
-    'Television' => 'テレビ',
-  ),
-  'notifymail_sendtype' => 
-  array (
-    'SMTP' => 'SMTP',
-  ),
-  'dom_email_server_type' => 
-  array (
-    'imap' => 'IMAP',
-    'pop3' => 'POP3',
-    '' => '--なし--',
-  ),
-  'document_category_dom' => 
-  array (
-    '' => '',
-    'Marketing' => 'マーケティング',
-    'Knowledege Base' => 'ナレッジベース',
-    'Sales' => '営業',
-  ),
-  'document_subcategory_dom' => 
-  array (
-    '' => '',
-    'FAQ' => 'FAQ',
-    'Marketing Collateral' => 'マーケティング資料',
-    'Product Brochures' => '製品パンフレット',
-  ),
-  'document_status_dom' => 
-  array (
-    'FAQ' => 'FAQ',
-    'Active' => 'アクティブ',
-    'Draft' => 'ドラフト',
-    'Expired' => '期限切れ',
-    'Under Review' => 'レビュー中',
-    'Pending' => '待機',
-  ),
-  'document_template_type_dom' => 
-  array (
-    '' => '',
-    'eula' => 'EULA',
-    'nda' => 'NDA',
-    'mailmerge' => 'メールマージ',
-    'license' => 'ライセンス契約',
-  ),
-  'wflow_address_type_dom' => 
-  array (
-    'to' => 'To:',
-    'cc' => 'CC:',
-    'bcc' => 'BCC:',
-  ),
-  'wflow_address_type_invite_dom' => 
-  array (
-    'to' => 'To:',
-    'cc' => 'CC:',
-    'bcc' => 'BCC:',
-    'invite_only' => '(招待のみ)',
-  ),
-  'wflow_address_type_to_only_dom' => 
-  array (
-    'to' => 'To:',
-  ),
-  'dom_timezones_extra' => 
-  array (
-    -8 => '(GMT-8) (PST)',
-    -7 => '(GMT-7) (MST)',
-    -6 => '(GMT-6) (CST)',
-    -5 => '(GMT-5) (EST)',
-    -12 => '(GMT-12) 日付変更線西側',
-    -11 => '(GMT-11) サモア ミッドウェー島',
-    -10 => '(GMT-10) ハワイ',
-    -9 => '(GMT-9) アラスカ',
-    -4 => '(GMT-4) サンチャゴ',
-    -3 => '(GMT-3) ブエノスアイレス',
-    -2 => '(GMT-2) 中央大西洋',
-    -1 => '(GMT-1) アゾレス諸島',
-    1 => '(GMT+1) マドリッド',
-    2 => '(GMT+2) アテネ',
-    3 => '(GMT+3) モスクワ',
-    4 => '(GMT+4) カブール',
-    5 => '(GMT+5) エカチェリンブルグ',
-    6 => '(GMT+6) アスタナ',
-    7 => '(GMT+7) バンコク',
-    8 => '(GMT+8) パース',
-    9 => '(GMT+9) 日本',
-    10 => '(GMT+10) ブリスベン',
-    11 => '(GMT+11) ソロモン諸島',
-    12 => '(GMT+12) オークランド',
-  ),
-  'duration_intervals' => 
-  array (
-    15 => '15',
-    30 => '30',
-    45 => '45',
-  ),
-  'email_marketing_status_dom' => 
-  array (
-    '' => '',
-    'active' => 'アクティブ',
-    'inactive' => '非アクティブ',
-  ),
-  'campainglog_activity_type_dom' => 
-  array (
-    '' => '',
-    'targeted' => '送信実行済み',
-    'send error' => '送信エラー: 他',
-    'invalid email' => '送信エラー: 不正アドレス',
-    'link' => 'リンクからクリック',
-    'viewed' => '閲覧済み',
-    'removed' => '脱退済み',
-    'lead' => 'リード作成済み',
-    'contact' => '取引先担当者作成済み',
-  ),
-  'language_pack_name' => 'Japanese',
-  'reminder_max_time' => '3600',
-  'sales_stage_dom' => 
-  array (
-    'Prospecting' => '引き合い',
-    'Qualification' => '見込み',
-    'Needs Analysis' => 'ニーズ分析',
-    'Value Proposition' => '提案中',
-    'Id. Decision Makers' => '意思決定者確認中',
-    'Perception Analysis' => '顧客評価中',
-    'Proposal/Price Quote' => '最終提案/見積中',
-    'Negotiation/Review' => '交渉/確認中',
-    'Closed Won' => '受注',
+    'Closed Accepted' => '完了',
+    'Closed Dead' => '非商談',
     'Closed Lost' => '失注',
+    'Confirmed' => '確認済み',
+    'Delivered' => '出荷済み',
+    'Draft' => 'ドラフト',
+    'Negotiation' => '交渉中',
+    'On Hold' => '保留中',
   ),
-  'activity_dom' => 
+  'quote_type_dom' => 
   array (
-    'Call' => '電話',
-    'Meeting' => '会議',
-    'Task' => 'タスク',
-    'Email' => '電子メール',
-    'Note' => 'メモ',
+    'Orders' => '注文',
+    'Quotes' => '見積',
   ),
+  'record_type_display' => 
+  array (
+    'Accounts' => '取引先',
+    'Bugs' => 'バグトラッカー',
+    'Cases' => 'ケース',
+    'Contacts' => '取引先担当者',
+    'Leads' => 'リード',
+    'Opportunities' => '商談',
+    'ProductTemplates' => '商品',
+    'Project' => 'プロジェクト',
+    'ProjectTask' => 'プロジェクトタスク',
+    'Quotes' => '見積',
+    'Tasks' => 'タスク',
+  ),
+  'record_type_display_notes' => 
+  array (
+    'Accounts' => '取引先',
+    'Bugs' => 'バグトラッカー',
+    'Calls' => '電話',
+    'Cases' => 'ケース',
+    'Contacts' => '取引先担当者',
+    'Contracts' => '契約',
+    'Emails' => 'Eメール',
+    'Leads' => 'リード',
+    'Meetings' => '会議',
+    'Opportunities' => '商談',
+    'ProductTemplates' => '商品',
+    'Products' => '商品',
+    'Project' => 'プロジェクト',
+    'ProjectTask' => 'プロジェクトタスク',
+    'Quotes' => '見積',
+  ),
+  'reminder_max_time' => '3600',
   'reminder_time_options' => 
   array (
     60 => '1分前',
@@ -413,385 +736,86 @@ $app_list_strings = array (
     1800 => '30分前',
     3600 => '1時間前',
   ),
-  'task_priority_dom' => 
+  'sales_probability_dom' => 
   array (
-    'High' => '高',
-    'Medium' => '中',
-    'Low' => '低',
+    'Closed Lost' => '',
+    'Closed Won' => '100',
+    'Id. Decision Makers' => '40',
+    'Needs Analysis' => '25',
+    'Negotiation/Review' => '80',
+    'Perception Analysis' => '50',
+    'Proposal/Price Quote' => '65',
+    'Prospecting' => '10',
+    'Qualification' => '20',
+    'Value Proposition' => '30',
   ),
-  'task_status_dom' => 
+  'sales_stage_dom' => 
   array (
-    'Not Started' => '未開始',
-    'In Progress' => '進行中',
-    'Completed' => '完了',
-    'Pending Input' => '保留',
-    'Deferred' => '延期',
-  ),
-  'meeting_status_dom' => 
-  array (
-    'Planned' => '計画済み',
-    'Held' => '完了',
-    'Not Held' => '未実施',
-  ),
-  'call_status_dom' => 
-  array (
-    'Planned' => '計画済み',
-    'Held' => '完了',
-    'Not Held' => '未実施',
-  ),
-  'call_direction_dom' => 
-  array (
-    'Inbound' => '受信',
-    'Outbound' => '送信',
-  ),
-  'lead_status_noblank_dom' => 
-  array (
-    'New' => '新規',
-    'Assigned' => 'アサイン済み',
-    'In Process' => '進行中',
-    'Converted' => 'コンバート済',
-    'Recycled' => '戻し',
-    'Dead' => 'デッド',
-  ),
-  'case_status_dom' => 
-  array (
-    'New' => '新規',
-    'Assigned' => 'アサイン済み',
-    'Closed' => '完了',
-    'Pending Input' => '保留',
-    'Rejected' => '拒否',
-    'Duplicate' => '重複',
-  ),
-  'case_priority_dom' => 
-  array (
-    'P1' => '高',
-    'P2' => '中',
-    'P3' => '低',
-  ),
-  'user_status_dom' => 
-  array (
-    'Active' => 'アクティブ',
-    'Inactive' => '非アクティブ',
-  ),
-  'employee_status_dom' => 
-  array (
-    'Active' => 'アクティブ',
-    'Terminated' => '退職',
-    'Leave of Absence' => '休職',
-  ),
-  'project_task_priority_options' => 
-  array (
-    'High' => '高',
-    'Medium' => '中',
-    'Low' => '低',
-  ),
-  'project_task_status_options' => 
-  array (
-    'Not Started' => '未開始',
-    'In Progress' => '進行中',
-    'Completed' => '完了',
-    'Pending Input' => '保留',
-    'Deferred' => '延期',
-  ),
-  'record_type_display' => 
-  array (
-    'Accounts' => '取引先',
-    'Opportunities' => '商談',
-    'Cases' => 'ケース',
-    'Leads' => 'リード',
-    'Contacts' => '取引先担当者',
-    'ProductTemplates' => '商品',
-    'Quotes' => '見積',
-    'Bugs' => 'バグトラッカー',
-    'Project' => 'プロジェクト',
-    'ProjectTask' => 'プロジェクトタスク',
-    'Tasks' => 'タスク',
-  ),
-  'record_type_display_notes' => 
-  array (
-    'Accounts' => '取引先',
-    'Contacts' => '取引先担当者',
-    'Opportunities' => '商談',
-    'Cases' => 'ケース',
-    'Leads' => 'リード',
-    'ProductTemplates' => '商品',
-    'Quotes' => '見積',
-    'Products' => '商品',
-    'Contracts' => '契約',
-    'Bugs' => 'バグトラッカー',
-    'Emails' => '電子メール',
-    'Project' => 'プロジェクト',
-    'ProjectTask' => 'プロジェクトタスク',
-    'Meetings' => '会議',
-    'Calls' => '電話',
-  ),
-  'product_status_dom' => 
-  array (
-    'Quotes' => '見積完了',
-    'Orders' => '注文完了',
-    'Ship' => '出荷完了',
-  ),
-  'pricing_formula_dom' => 
-  array (
-    'Fixed' => '固定価格',
-    'ProfitMargin' => '利益率',
-    'PercentageMarkup' => '積み上げ率',
-    'PercentageDiscount' => '値下げ率',
-    'IsList' => '表示価格と同じ',
-  ),
-  'product_template_status_dom' => 
-  array (
-    'Available' => '在庫あり',
-    'Unavailable' => '在庫切れ',
-  ),
-  'tax_class_dom' => 
-  array (
-    'Taxable' => '課税',
-    'Non-Taxable' => '非課税',
-  ),
-  'support_term_dom' => 
-  array (
-    '+6 months' => '6カ月',
-    '+1 year' => '1年',
-    '+2 years' => '2年',
-  ),
-  'quote_type_dom' => 
-  array (
-    'Quotes' => '見積',
-    'Orders' => '注文',
-  ),
-  'quote_stage_dom' => 
-  array (
-    'Draft' => 'ドラフト',
-    'Negotiation' => '交渉中',
-    'Delivered' => '出荷済み',
-    'On Hold' => '保留中',
-    'Confirmed' => '確認済み',
-    'Closed Accepted' => '完了',
     'Closed Lost' => '失注',
-    'Closed Dead' => '非商談',
+    'Closed Won' => '受注',
+    'Id. Decision Makers' => '意思決定者確認中',
+    'Needs Analysis' => 'ニーズ分析',
+    'Negotiation/Review' => '交渉/確認中',
+    'Perception Analysis' => '顧客評価中',
+    'Proposal/Price Quote' => '最終提案/見積中',
+    'Prospecting' => '引き合い',
+    'Qualification' => '見込み',
+    'Value Proposition' => '提案中',
   ),
-  'order_stage_dom' => 
+  'salutation_dom' => 
   array (
-    'Pending' => '処理中',
-    'Confirmed' => '確認済み',
-    'On Hold' => '保留中',
-    'Shipped' => '出荷済み',
-    'Cancelled' => 'キャンセル',
-  ),
-  'layouts_dom' => 
-  array (
-    'Standard' => '見積書',
-    'Invoice' => '請求書',
-    'Terms' => '支払条件',
-  ),
-  'bug_priority_dom' => 
-  array (
-    'Urgent' => '緊急',
-    'High' => '高',
-    'Medium' => '中',
-    'Low' => '低',
-  ),
-  'bug_status_dom' => 
-  array (
-    'New' => '新規',
-    'Assigned' => 'アサイン済み',
-    'Closed' => '完了',
-    'Pending' => '保留',
-    'Rejected' => '拒否',
-  ),
-  'bug_type_dom' => 
-  array (
-    'Defect' => '不具合',
-    'Feature' => '仕様',
-  ),
-  'dom_timezones' => 
-  array (
-    -12 => '(GMT - 12) 日付変更線西側',
-    -11 => '(GMT - 11) サモア ミッドウェー島',
-    -10 => '(GMT - 10) ハワイ',
-    -9 => '(GMT - 9) アラスカ',
-    -8 => '(GMT - 8) サンフランシスコ',
-    -7 => '(GMT - 7) フェニックス',
-    -6 => '(GMT - 6) サスカチェワン',
-    -5 => '(GMT - 5) ニューヨーク',
-    -4 => '(GMT - 4) サンチャゴ',
-    -3 => '(GMT - 3) ブエノスアイレス',
-    -2 => '(GMT - 2) 中央大西洋',
-    -1 => '(GMT - 1) アゾレス諸島',
-    1 => '(GMT + 1) マドリッド',
-    2 => '(GMT + 2) アテネ',
-    3 => '(GMT + 3) モスクワ',
-    4 => '(GMT + 4) カブール',
-    5 => '(GMT + 5) エカチェリンブルグ',
-    6 => '(GMT + 6) アスタナ',
-    7 => '(GMT + 7) バンコク',
-    8 => '(GMT + 8) パース',
-    9 => '(GMT + 9) 日本',
-    10 => '(GMT + 10) ブリスベン',
-    11 => '(GMT + 11) ソロモン諸島',
-    12 => '(GMT + 12) オークランド',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => '1月',
-    2 => '2月',
-    3 => '3月',
-    4 => '4月',
-    5 => '5月',
-    6 => '6月',
-    7 => '7月',
-    8 => '8月',
-    9 => '9月',
-    10 => '10月',
-    11 => '11月',
-    12 => '12月',
-  ),
-  'dom_report_types' => 
-  array (
-    'tabular' => '表形式レポート',
-    'summary' => '集計レポート',
-    'detailed_summary' => '詳細集計レポート',
-  ),
-  'dom_email_types' => 
-  array (
-    'out' => '送信済み',
-    'archived' => '保存済み',
-    'draft' => 'ドラフト',
-    'inbound' => 'インバウンド',
-  ),
-  'dom_email_status' => 
-  array (
-    'archived' => '保存済み',
-    'closed' => '完了',
-    'draft' => 'ドラフト',
-    'read' => '既読',
-    'replied' => '返信済み',
-    'sent' => '送信済み',
-    'send_error' => '送信エラー',
-    'unread' => '未読',
-  ),
-  'dom_mailbox_type' => 
-  array (
-    'pick' => '作成[任意]',
-    'bug' => 'バグ作成',
-    'support' => 'ケース作成',
-    'contact' => '取引先担当者作成',
-    'sales' => 'リード作成',
-    'task' => 'タスク作成',
-    'bounce' => 'バウンス処理',
-  ),
-  'dom_email_distribution' => 
-  array (
-    '' => '--なし--',
-    'direct' => 'ユーザを直接アサイン',
-    'roundRobin' => 'ユーザを均等にアサイン',
-    'leastBusy' => '稼働率の低いユーザにアサイン',
-  ),
-  'dom_email_errors' => 
-  array (
-    1 => '直接アサインの場合はユーザは1人のみ選択',
-    2 => '直接アサインの場合はチェックされたアイテムのみアサイン',
-  ),
-  'dom_email_bool' => 
-  array (
-    'bool_true' => 'はい',
-    'bool_false' => 'いいえ',
-  ),
-  'dom_int_bool' => 
-  array (
-    1 => 'はい',
-  ),
-  'dom_switch_bool' => 
-  array (
-    'on' => 'はい',
-    'off' => 'いいえ',
-    '' => 'いいえ',
-  ),
-  'dom_email_link_type' => 
-  array (
-    '' => 'システムデフォルトのメールクライアント',
-    'sugar' => 'SugarCRMメールクライアント',
-    'mailto' => '外部メールクライアント',
-  ),
-  'dom_email_editor_option' => 
-  array (
-    '' => 'デフォルトメールフォーマット',
-    'html' => 'HTMLメール',
-    'plain' => 'プレーンテキストメール',
+    '' => '',
+    'Dr.' => '先生',
+    'Mr.' => '様',
+    'Mrs.' => 'Mrs.',
+    'Ms.' => 'Ms.',
+    'Prof.' => '教授',
   ),
   'schedulers_times_dom' => 
   array (
+    'completed' => '完了',
+    'failed' => '失敗',
+    'in progress' => '処理中',
+    'no curl' => '実行不可: cURLライブラリがありません',
     'not run' => '実行時間を経過、未実施',
     'ready' => '準備完了',
-    'in progress' => '処理中',
-    'failed' => '失敗',
-    'completed' => '完了',
-    'no curl' => '実行不可: cURLライブラリがありません',
   ),
-  'forecast_schedule_status_dom' => 
+  'source_dom' => 
   array (
-    'Active' => 'アクティブ',
-    'Inactive' => '非アクティブ',
+    '' => '',
+    'Forum' => 'フォーラム',
+    'InboundEmail' => 'Eメール',
+    'Internal' => '内部',
+    'Web' => 'Web',
   ),
-  'forecast_type_dom' => 
+  'support_term_dom' => 
   array (
-    'Direct' => 'ダイレクト',
-    'Rollup' => 'ロールアップ',
+    '+1 year' => '1年',
+    '+2 years' => '2年',
+    '+6 months' => '6カ月',
   ),
-  'dom_meeting_accept_options' => 
+  'task_priority_dom' => 
   array (
-    'accept' => '承諾',
-    'decline' => '不参加',
-    'tentative' => '保留',
+    'High' => '高',
+    'Low' => '低',
+    'Medium' => '中',
   ),
-  'dom_meeting_accept_status' => 
+  'task_status_dom' => 
   array (
-    'accept' => '承諾',
-    'decline' => '不参加',
-    'tentative' => '保留',
-    'none' => 'なし',
+    'Completed' => '完了',
+    'Deferred' => '延期',
+    'In Progress' => '進行中',
+    'Not Started' => '未開始',
+    'Pending Input' => '保留',
   ),
-  'query_calc_oper_dom' => 
+  'tax_class_dom' => 
   array (
-    '+' => '(+) 足す',
-    '-' => '(-) 引く',
-    '*' => '(X) 掛ける',
-    '/' => '(/) 割る',
-  ),
-  'wflow_type_dom' => 
-  array (
-    'Normal' => 'レコード保存時',
-    'Time' => '時間経過後',
-  ),
-  'mselect_type_dom' => 
-  array (
-    'Equals' => '同じ',
-    'in' => '含まれる',
-  ),
-  'cselect_type_dom' => 
-  array (
-    'Equals' => '等しい',
-    'Does not Equal' => '等しくない',
-  ),
-  'dselect_type_dom' => 
-  array (
-    'Equals' => '等しい',
-    'Less Than' => '未満',
-    'More Than' => '以上',
-    'Does not Equal' => '等しくない',
-  ),
-  'bselect_type_dom' => 
-  array (
-    'bool_true' => 'はい',
-    'bool_false' => 'いいえ',
-  ),
-  'bopselect_type_dom' => 
-  array (
-    'Equals' => '等しい',
+    'Non-Taxable' => '非課税',
+    'Taxable' => '課税',
   ),
   'tselect_type_dom' => 
   array (
+    0 => '0時間',
     14440 => '4時間',
     28800 => '8時間',
     43200 => '12時間',
@@ -810,73 +834,70 @@ $app_list_strings = array (
     12960000 => '150日',
     15552000 => '180日',
   ),
-  'dtselect_type_dom' => 
+  'user_status_dom' => 
   array (
-    'More Than' => '以上',
-    'Less Than' => '未満',
+    'Active' => 'アクティブ',
+    'Inactive' => '非アクティブ',
+  ),
+  'wflow_action_datetime_type_dom' => 
+  array (
+    'Existing Value' => '既存値',
+    'Triggered Date' => 'トリガー日',
+  ),
+  'wflow_action_type_dom' => 
+  array (
+    'new' => '新規レコード',
+    'update' => 'レコードをアップデート',
+    'update_rel' => '関連レコードをアップデート',
+  ),
+  'wflow_address_type_dom' => 
+  array (
+    'bcc' => 'BCC:',
+    'cc' => 'CC:',
+    'to' => 'To:',
+  ),
+  'wflow_address_type_invite_dom' => 
+  array (
+    'bcc' => 'BCC:',
+    'cc' => 'CC:',
+    'invite_only' => '(招待のみ)',
+    'to' => 'To:',
+  ),
+  'wflow_address_type_to_only_dom' => 
+  array (
+    'to' => 'To:',
+  ),
+  'wflow_adv_enum_type_dom' => 
+  array (
+    'advance' => '前に移動',
+    'retreat' => '後に移動',
+  ),
+  'wflow_adv_team_type_dom' => 
+  array (
+    'current_team' => 'ログインユーザのチーム',
+    'team_id' => 'トリガーレコードの現在のチーム',
+  ),
+  'wflow_adv_user_type_dom' => 
+  array (
+    'assigned_user_id' => 'トリガーレコードにアサインされたユーザ',
+    'created_by' => 'トリガーレコードを作成したユーザ',
+    'current_user' => 'ログインユーザ',
+    'modified_user_id' => 'トリガーレコードを最後に編集したユーザ',
   ),
   'wflow_alert_type_dom' => 
   array (
-    'Email' => '電子メール',
+    'Email' => 'Eメール',
     'Invite' => '招待',
-  ),
-  'wflow_source_type_dom' => 
-  array (
-    'Normal Message' => '通常メッセージ',
-    'Custom Template' => 'カスタムテンプレート',
-    'System Default' => 'システムデフォルト',
-  ),
-  'wflow_user_type_dom' => 
-  array (
-    'current_user' => '現在のユーザ',
-    'rel_user' => '関連ユーザ',
-    'rel_user_custom' => '関連カスタムユーザ',
-    'specific_team' => '特定チーム',
-    'specific_role' => '特定役割',
-    'specific_user' => '特定ユーザ',
   ),
   'wflow_array_type_dom' => 
   array (
     'future' => '新しい値',
     'past' => '以前の値',
   ),
-  'wflow_relate_type_dom' => 
+  'wflow_fire_order_dom' => 
   array (
-    'Self' => 'アサイン先',
-    'Manager' => 'ユーザの上司',
-  ),
-  'wflow_action_type_dom' => 
-  array (
-    'update' => 'レコードをアップデート',
-    'update_rel' => '関連レコードをアップデート',
-    'new' => '新規レコード',
-  ),
-  'wflow_action_datetime_type_dom' => 
-  array (
-    'Triggered Date' => 'トリガー日',
-    'Existing Value' => '既存値',
-  ),
-  'wflow_set_type_dom' => 
-  array (
-    'Basic' => '基本オプション',
-    'Advanced' => '拡張オプション',
-  ),
-  'wflow_adv_user_type_dom' => 
-  array (
-    'assigned_user_id' => 'トリガーレコードにアサインされたユーザ',
-    'modified_user_id' => 'トリガーレコードを最後に編集したユーザ',
-    'created_by' => 'トリガーレコードを作成したユーザ',
-    'current_user' => 'ログインユーザ',
-  ),
-  'wflow_adv_team_type_dom' => 
-  array (
-    'team_id' => 'トリガーレコードの現在のチーム',
-    'current_team' => 'ログインユーザのチーム',
-  ),
-  'wflow_adv_enum_type_dom' => 
-  array (
-    'retreat' => '後に移動',
-    'advance' => '前に移動',
+    'actions_alerts' => '実行後通知',
+    'alerts_actions' => '通知後実行',
   ),
   'wflow_record_type_dom' => 
   array (
@@ -889,303 +910,302 @@ $app_list_strings = array (
     'all' => '関連すべて',
     'filter' => 'フィルタに関連',
   ),
+  'wflow_relate_type_dom' => 
+  array (
+    'Manager' => 'ユーザの上司',
+    'Self' => 'アサイン先',
+  ),
   'wflow_relfilter_type_dom' => 
   array (
     'all' => 'すべてに関連',
     'any' => 'どれかに関連',
   ),
-  'wflow_fire_order_dom' => 
+  'wflow_set_type_dom' => 
   array (
-    'alerts_actions' => '通知後実行',
-    'actions_alerts' => '実行後通知',
+    'Advanced' => '拡張オプション',
+    'Basic' => '基本オプション',
   ),
-  'prospect_list_type_dom' => 
+  'wflow_source_type_dom' => 
   array (
-    'default' => 'デフォルト',
-    'seed' => 'シード',
-    'exempt_domain' => '禁止リスト - ドメイン順',
-    'exempt_address' => '禁止リスト - 電子メールアドレス順',
-    'exempt' => '禁止リスト - ID順',
-    'test' => 'テスト',
+    'Custom Template' => 'カスタムテンプレート',
+    'Normal Message' => '通常メッセージ',
+    'System Default' => 'システムデフォルト',
   ),
-  'campainglog_target_type_dom' => 
+  'wflow_type_dom' => 
   array (
-    'Contacts' => '取引先担当者',
-    'Users' => 'ユーザ',
-    'Prospects' => 'ターゲット',
-    'Leads' => 'リード',
+    'Normal' => 'レコード保存時',
+    'Time' => '時間経過後',
   ),
-  'contract_status_dom' => 
+  'wflow_user_type_dom' => 
   array (
-    'notstarted' => '未開始',
-    'inprogress' => '進行中',
-    'signed' => 'サイン済み',
-  ),
-  'contract_payment_frequency_dom' => 
-  array (
-    'monthly' => '毎月',
-    'quarterly' => '毎四半期',
-    'halfyearly' => '毎半期',
-    'yearly' => '毎年',
-  ),
-  'contract_expiration_notice_dom' => 
-  array (
-    1 => '1日',
-    3 => '3日',
-    5 => '5日',
-    7 => '1週間',
-    14 => '2週間',
-    21 => '3週間',
-    31 => '1カ月',
+    'current_user' => '現在のユーザ',
+    'rel_user' => '関連ユーザ',
+    'rel_user_custom' => '関連カスタムユーザ',
+    'specific_role' => '特定役割',
+    'specific_team' => '特定チーム',
+    'specific_user' => '特定ユーザ',
   ),
 );
 
 $app_strings = array (
-  'LBL_ACCUMULATED_HISTORY_BUTTON_KEY' => 'H',
-  'LBL_ADD_BUTTON_KEY' => 'A',
-  'LBL_ADD_TO_PROSPECT_LIST_BUTTON_KEY' => 'L',
-  'LBL_BY' => 'by',
-  'LBL_CANCEL_BUTTON_KEY' => 'X',
-  'LBL_CHANGE_BUTTON_KEY' => 'G',
-  'LBL_CHARSET' => 'UTF-8',
-  'LBL_CLEAR_BUTTON_KEY' => 'C',
-  'LBL_CLOSEALL_BUTTON_KEY' => 'Q',
-  'LBL_COMPOSE_EMAIL_BUTTON_KEY' => 'L',
-  'LBL_DELETE_BUTTON_KEY' => 'D',
-  'LBL_DONE_BUTTON_KEY' => 'X',
-  'LBL_DUPLICATE_BUTTON_KEY' => 'U',
-  'LBL_EDIT_BUTTON_KEY' => 'E',
-  'LBL_VIEW_BUTTON_KEY' => 'V',
-  'LBL_EMAIL_PDF_BUTTON_KEY' => 'M',
-  'LBL_ID' => 'ID',
-  'LBL_MAILMERGE_KEY' => 'M',
-  'LBL_NEW_BUTTON_KEY' => 'N',
-  'LBL_OPENALL_BUTTON_KEY' => 'O',
-  'LBL_OPENTO_BUTTON_KEY' => 'T',
-  'LBL_PERCENTAGE_SYMBOL' => '%',
-  'LBL_QUOTE_TO_OPPORTUNITY_KEY' => 'O',
-  'LBL_REQUIRED_SYMBOL' => '*',
-  'LBL_SAVE_BUTTON_KEY' => 'S',
-  'LBL_FULL_FORM_BUTTON_KEY' => 'F',
-  'LBL_SAVE_NEW_BUTTON_KEY' => 'V',
-  'LBL_SEARCH_BUTTON_KEY' => 'Q',
-  'LBL_SELECT_BUTTON_KEY' => 'T',
-  'LBL_SELECT_CONTACT_BUTTON_KEY' => 'T',
-  'LBL_SELECT_USER_BUTTON_KEY' => 'U',
-  'LBL_SQS_INDICATOR' => '',
-  'LBL_THOUSANDS_SYMBOL' => 'K',
-  'LBL_TRACK_EMAIL_BUTTON_KEY' => 'K',
-  'LBL_VIEW_PDF_BUTTON_KEY' => 'P',
-  'NTC_DATE_FORMAT' => '(yyyy-mm-dd)',
-  'NTC_DATE_TIME_FORMAT' => '(yyyy-mm-dd 24:00)',
-  'NTC_TIME_FORMAT' => '(24:00)',
-  'NTC_YEAR_FORMAT' => '(yyyy)',
-  'LBL_LIST_TEAM' => 'チーム',
-  'LBL_TEAM' => 'チーム:',
-  'LBL_TEAM_ID' => 'チームID:',
+  'ERROR_FULLY_EXPIRED' => 'SugarCRMのライセンス期限が切れてから30日以上を経過しています。ライセンスを更新してください。管理者のみがログインできます。',
+  'ERROR_LICENSE_EXPIRED' => 'SugarCRMのライセンスを更新する必要があります。管理者のみがログインできます。',
+  'ERROR_NO_RECORD' => 'レコードの検索中にエラー。このレコードは削除されているか、閲覧する権限がありません。',
   'ERR_CREATING_FIELDS' => '詳細情報フィールドに入力する際にエラーがありました:',
   'ERR_CREATING_TABLE' => 'テーブルを作成する際にエラーがありました:',
   'ERR_DELETE_RECORD' => '取引先担当者を削除するにはレコード番号を指定する必要があります。',
   'ERR_EXPORT_DISABLED' => 'エクスポートを無効',
   'ERR_EXPORT_TYPE' => 'エクスポート中にエラー',
-  'ERR_INVALID_AMOUNT' => '有効な数字を入れてください',
-  'ERR_INVALID_DATE_FORMAT' => '有効日付フォーマット:',
+  'ERR_INVALID_AMOUNT' => '有効な数字を入力してください。',
   'ERR_INVALID_DATE' => '有効な日を入力してください。',
+  'ERR_INVALID_DATE_FORMAT' => '有効日付フォーマット:',
   'ERR_INVALID_DAY' => '有効な曜日を入力してください。',
-  'ERR_INVALID_EMAIL_ADDRESS' => '無効な電子メールアドレスです。',
+  'ERR_INVALID_EMAIL_ADDRESS' => '無効なEメールアドレスです。',
   'ERR_INVALID_HOUR' => '有効な時間を入力してください。',
   'ERR_INVALID_MONTH' => '有効な月を入力してください。',
-  'ERR_INVALID_TIME' => '有効な日時を入力してください。',
-  'ERR_INVALID_YEAR' => '有効な年を4桁で入力してください。',
-  'ERR_NEED_ACTIVE_SESSION' => 'コンテンツのエクスポートにはアクティブなセッションが必要です。',
-  'ERR_MISSING_REQUIRED_FIELDS' => '必要なフィールドが見つかりません:',
   'ERR_INVALID_REQUIRED_FIELDS' => '必須フィールドが不正です:',
+  'ERR_INVALID_TIME' => '有効な日時を入力してください。',
   'ERR_INVALID_VALUE' => '不正な値:',
+  'ERR_INVALID_YEAR' => '有効な年を4桁で入力してください。',
+  'ERR_MISSING_REQUIRED_FIELDS' => '必要なフィールドが見つかりません:',
+  'ERR_NEED_ACTIVE_SESSION' => 'コンテンツのエクスポートにはアクティブなセッションが必要です。',
   'ERR_NOTHING_SELECTED' => '実行する前に選択してください。',
   'ERR_OPPORTUNITY_NAME_DUPE' => '%s の名前の商談は既に存在します。別の名前を使用してください。',
   'ERR_OPPORTUNITY_NAME_MISSING' => '商談名が入力されていません。商談名を入力してください。',
-  'ERR_SELF_REPORTING' => '自分自身にレポートできません。',
-  'ERR_SQS_NO_MATCH_FIELD' => 'フィールドにマッチしません:',
-  'ERR_SQS_NO_MATCH' => 'マッチしません',
   'ERR_PORTAL_LOGIN_FAILED' => 'ポータルログインセッションの作成に失敗しました。管理者にお問い合わせください。',
   'ERR_RESOURCE_MANAGEMENT_INFO' => '<a href="index.php">ホーム</a>に戻る',
+  'ERR_SELF_REPORTING' => '自分自身にレポートできません。',
+  'ERR_SQS_NO_MATCH' => 'マッチしません',
+  'ERR_SQS_NO_MATCH_FIELD' => 'フィールドにマッチしません:',
   'LBL_ACCOUNT' => '取引先',
   'LBL_ACCOUNTS' => '取引先',
+  'LBL_ACCUMULATED_HISTORY_BUTTON_KEY' => 'H',
   'LBL_ACCUMULATED_HISTORY_BUTTON_LABEL' => '概要の表示',
   'LBL_ACCUMULATED_HISTORY_BUTTON_TITLE' => '概要の表示 [Alt+H]',
-  'LBL_ADD_BUTTON_TITLE' => '追加 [Alt+A]',
+  'LBL_ADDITIONAL_DETAILS' => '詳細情報',
+  'LBL_ADDITIONAL_DETAILS_CLOSE' => '完了',
+  'LBL_ADDITIONAL_DETAILS_CLOSE_TITLE' => 'クリックして閉じる',
   'LBL_ADD_BUTTON' => '追加',
+  'LBL_ADD_BUTTON_KEY' => 'A',
+  'LBL_ADD_BUTTON_TITLE' => '追加 [Alt+A]',
   'LBL_ADD_DOCUMENT' => 'ドキュメント追加',
+  'LBL_ADD_TO_PROSPECT_LIST_BUTTON_KEY' => 'L',
   'LBL_ADD_TO_PROSPECT_LIST_BUTTON_LABEL' => 'ターゲットリストに追加',
   'LBL_ADD_TO_PROSPECT_LIST_BUTTON_TITLE' => 'ターゲットリストに追加',
-  'LBL_ADDITIONAL_DETAILS_CLOSE_TITLE' => 'クリックして閉じる',
-  'LBL_ADDITIONAL_DETAILS_CLOSE' => '完了',
-  'LBL_ADDITIONAL_DETAILS' => '詳細情報',
   'LBL_ADMIN' => '管理',
   'LBL_ALT_HOT_KEY' => 'Alt+',
   'LBL_ARCHIVE' => '保存',
-  'LBL_ASSIGNED_TO_USER' => 'アサイン先',
   'LBL_ASSIGNED_TO' => 'アサイン先:',
+  'LBL_ASSIGNED_TO_USER' => 'アサイン先',
   'LBL_BACK' => '戻る',
   'LBL_BILL_TO_ACCOUNT' => '取引先に請求',
   'LBL_BILL_TO_CONTACT' => '取引先担当者に請求',
   'LBL_BROWSER_TITLE' => 'SugarCRM - オープンソースCRM',
   'LBL_BUGS' => 'バグトラッカー',
+  'LBL_BY' => 'by',
   'LBL_CALLS' => '電話',
   'LBL_CAMPAIGNS_SEND_QUEUED' => 'キューに従ってキャンペーンメールを送信',
+  'LBL_CANCEL_BUTTON_KEY' => 'X',
   'LBL_CANCEL_BUTTON_LABEL' => 'キャンセル',
   'LBL_CANCEL_BUTTON_TITLE' => 'キャンセル [Alt+X]',
   'LBL_CASE' => 'ケース',
   'LBL_CASES' => 'ケース',
+  'LBL_CHANGE_BUTTON_KEY' => 'G',
   'LBL_CHANGE_BUTTON_LABEL' => '変更',
   'LBL_CHANGE_BUTTON_TITLE' => '変更 [Alt+G]',
+  'LBL_CHANGE_PASSWORD' => 'パスワード変更',
+  'LBL_CHARSET' => 'UTF-8',
   'LBL_CHECKALL' => 'すべてチェック',
+  'LBL_CLEARALL' => 'すべてクリア',
+  'LBL_CLEAR_BUTTON_KEY' => 'C',
   'LBL_CLEAR_BUTTON_LABEL' => 'クリア',
   'LBL_CLEAR_BUTTON_TITLE' => 'クリア [Alt+C]',
-  'LBL_CLEARALL' => 'すべてクリア',
-  'LBL_CLOSE_WINDOW' => 'ウィンドウを閉じる',
+  'LBL_CLOSEALL_BUTTON_KEY' => 'Q',
   'LBL_CLOSEALL_BUTTON_LABEL' => 'すべて閉じる',
   'LBL_CLOSEALL_BUTTON_TITLE' => 'すべて閉じる [Alt+I]',
-  'LBL_COMPOSE_EMAIL_BUTTON_LABEL' => '電子メール作成',
-  'LBL_COMPOSE_EMAIL_BUTTON_TITLE' => '電子メール作成 [Alt+L]',
-  'LBL_CONTACT_LIST' => '取引先担当者一覧',
+  'LBL_CLOSE_WINDOW' => 'ウィンドウを閉じる',
+  'LBL_COMPOSE_EMAIL_BUTTON_KEY' => 'L',
+  'LBL_COMPOSE_EMAIL_BUTTON_LABEL' => 'Eメール作成',
+  'LBL_COMPOSE_EMAIL_BUTTON_TITLE' => 'Eメール作成 [Alt+L]',
   'LBL_CONTACT' => '取引先担当者',
   'LBL_CONTACTS' => '取引先担当者',
-  'LBL_CREATE_BUTTON_LABEL' => '作成',
-  'LBL_CREATED_BY_USER' => '作成者',
+  'LBL_CONTACT_LIST' => '取引先担当者一覧',
   'LBL_CREATED' => '作成者',
+  'LBL_CREATED_BY_USER' => '作成者',
+  'LBL_CREATE_BUTTON_LABEL' => '作成',
   'LBL_CURRENT_USER_FILTER' => '自分のアイテム:',
   'LBL_DATE_ENTERED' => '作成日:',
   'LBL_DATE_MODIFIED' => '最終更新日:',
-  'LBL_DELETE_BUTTON_LABEL' => '削除',
-  'LBL_DELETE_BUTTON_TITLE' => '削除 [Alt+D]',
-  'LBL_DELETE_BUTTON' => '削除',
   'LBL_DELETE' => '削除',
   'LBL_DELETED' => '削除済み',
+  'LBL_DELETE_BUTTON' => '削除',
+  'LBL_DELETE_BUTTON_KEY' => 'D',
+  'LBL_DELETE_BUTTON_LABEL' => '削除',
+  'LBL_DELETE_BUTTON_TITLE' => '削除 [Alt+D]',
   'LBL_DIRECT_REPORTS' => '直属の部下',
+  'LBL_DISPLAY_COLUMNS' => '表示カラム',
+  'LBL_DONE_BUTTON_KEY' => 'X',
   'LBL_DONE_BUTTON_LABEL' => '完了',
   'LBL_DONE_BUTTON_TITLE' => '完了 [Alt+X]',
   'LBL_DST_NEEDS_FIXIN' => 'アプリケーションは夏時間の設定を必要としています。 管理画面の<a href="index.php?module=Administration&action=DstFix">リペア</a>を選択し、夏時間の設定を行ってください。',
+  'LBL_DUPLICATE_BUTTON' => '複製',
+  'LBL_DUPLICATE_BUTTON_KEY' => 'U',
   'LBL_DUPLICATE_BUTTON_LABEL' => '複製',
   'LBL_DUPLICATE_BUTTON_TITLE' => '複製 [Alt+U]',
-  'LBL_DUPLICATE_BUTTON' => '複製',
+  'LBL_DUP_MERGE' => '重複を検出',
+  'LBL_EDIT_BUTTON' => '編集',
+  'LBL_EDIT_BUTTON_KEY' => 'E',
   'LBL_EDIT_BUTTON_LABEL' => '編集',
   'LBL_EDIT_BUTTON_TITLE' => '編集 [Alt+E]',
-  'LBL_EDIT_BUTTON' => '編集',
-  'LBL_VIEW_BUTTON_LABEL' => '閲覧',
-  'LBL_VIEW_BUTTON_TITLE' => '閲覧[Alt+V]',
-  'LBL_VIEW_BUTTON' => '閲覧',
+  'LBL_EMAILS' => 'Eメール',
+  'LBL_EMAIL_PDF_BUTTON_KEY' => 'M',
   'LBL_EMAIL_PDF_BUTTON_LABEL' => 'PDFをメール送信',
   'LBL_EMAIL_PDF_BUTTON_TITLE' => 'PDFをメール送信 [Alt+M]',
-  'LBL_EMAILS' => '電子メール',
   'LBL_EMPLOYEES' => '従業員',
   'LBL_ENTER_DATE' => '作成日',
-  'LBL_EXPORT_ALL' => 'すべてエクスポート',
   'LBL_EXPORT' => 'エクスポート',
+  'LBL_EXPORT_ALL' => 'すべてエクスポート',
+  'LBL_FULL_FORM_BUTTON_KEY' => 'F',
+  'LBL_FULL_FORM_BUTTON_LABEL' => 'フルフォーム',
+  'LBL_FULL_FORM_BUTTON_TITLE' => 'フルフォーム[Alt+F]',
   'LBL_HIDE' => '非表示',
-  'LBL_IMPORT_PROSPECTS' => 'ターゲットのインポート',
+  'LBL_HIDE_COLUMNS' => '非表示カラム',
+  'LBL_ID' => 'ID',
   'LBL_IMPORT' => 'インポート',
+  'LBL_IMPORT_PROSPECTS' => 'ターゲットのインポート',
   'LBL_LAST_VIEWED' => '最終閲覧',
   'LBL_LEADS' => 'リード',
-  'LBL_LIST_ACCOUNT_NAME' => '取引先',
-  'LBL_LIST_ASSIGNED_USER' => 'アサイン先',
-  'LBL_LIST_CONTACT_NAME' => '取引先担当者',
-  'LBL_LIST_CONTACT_ROLE' => '取引先担当者役割',
-  'LBL_LIST_EMAIL' => '電子メール',
-  'LBL_LIST_NAME' => '名前',
-  'LBL_LIST_OF' => 'の',
-  'LBL_LIST_PHONE' => '電話',
-  'LBL_LIST_USER_NAME' => 'ユーザ名',
   'LBL_LISTVIEW_MASS_UPDATE_CONFIRM' => '本当にすべてのリストを更新してよいですか？',
   'LBL_LISTVIEW_NO_SELECTED' => '少なくとも１つのレコードを選択してください。',
   'LBL_LISTVIEW_OPTION_CURRENT' => 'このページ',
   'LBL_LISTVIEW_OPTION_ENTIRE' => 'すべてのレコード',
   'LBL_LISTVIEW_OPTION_SELECTED' => '選択済みレコード',
   'LBL_LISTVIEW_SELECTED_OBJECTS' => '選択済み:',
+  'LBL_LIST_ACCOUNT_NAME' => '取引先',
+  'LBL_LIST_ASSIGNED_USER' => 'アサイン先',
+  'LBL_LIST_CONTACT_NAME' => '取引先担当者',
+  'LBL_LIST_CONTACT_ROLE' => '取引先担当者役割',
+  'LBL_LIST_EMAIL' => 'Eメール',
+  'LBL_LIST_NAME' => '名前',
+  'LBL_LIST_OF' => 'の',
+  'LBL_LIST_PHONE' => '電話',
+  'LBL_LIST_TEAM' => 'チーム',
+  'LBL_LIST_USER_NAME' => 'ユーザ名',
+  'LBL_LOADING' => '読み込み中...',
   'LBL_LOCALE_NAME_EXAMPLE_FIRST' => '名',
   'LBL_LOCALE_NAME_EXAMPLE_LAST' => '姓',
   'LBL_LOCALE_NAME_EXAMPLE_SALUTATION' => '様',
+  'LBL_LOGIN_SESSION_EXCEEDED' => 'サーバがビジー状態です。 しばらく待って、後でもう一度アクセスしてください。',
+  'LBL_LOGIN_TO_ACCESS' => 'このエリアにアクセスするにはサインインしてください。',
   'LBL_LOGOUT' => 'ログアウト',
   'LBL_MAILMERGE' => 'メールマージ',
+  'LBL_MAILMERGE_KEY' => 'M',
   'LBL_MASS_UPDATE' => '一括更新',
   'LBL_MEETINGS' => '会議',
   'LBL_MEMBERS' => 'メンバー',
-  'LBL_MODIFIED_BY_USER' => '更新者',
   'LBL_MODIFIED' => '更新者',
+  'LBL_MODIFIED_BY_USER' => '更新者',
   'LBL_MY_ACCOUNT' => 'ユーザ設定',
   'LBL_NAME' => '名前',
+  'LBL_NEW_BUTTON_KEY' => 'N',
   'LBL_NEW_BUTTON_LABEL' => '作成',
   'LBL_NEW_BUTTON_TITLE' => '新規 [Alt+N]',
   'LBL_NEXT_BUTTON_LABEL' => '次へ',
   'LBL_NONE' => '--なし--',
   'LBL_NOTES' => 'メモ',
+  'LBL_NO_RECORDS_FOUND' => '- レコードが見つかりません -',
+  'LBL_OPENALL_BUTTON_KEY' => 'O',
   'LBL_OPENALL_BUTTON_LABEL' => 'すべて開く',
   'LBL_OPENALL_BUTTON_TITLE' => 'すべて開く [Alt+O]',
+  'LBL_OPENTO_BUTTON_KEY' => 'T',
   'LBL_OPENTO_BUTTON_LABEL' => '開く先:',
   'LBL_OPENTO_BUTTON_TITLE' => '開く先: [Alt+T]',
   'LBL_OPPORTUNITIES' => '商談',
-  'LBL_OPPORTUNITY_NAME' => '商談名',
   'LBL_OPPORTUNITY' => '商談',
+  'LBL_OPPORTUNITY_NAME' => '商談名',
   'LBL_OR' => 'または',
-  'LBL_PRODUCT_BUNDLES' => '商品バンドル',
+  'LBL_PERCENTAGE_SYMBOL' => '%',
   'LBL_PRODUCTS' => '商品',
-  'LBL_PROJECT_TASKS' => 'プロジェクトタスク',
+  'LBL_PRODUCT_BUNDLES' => '商品バンドル',
   'LBL_PROJECTS' => 'プロジェクト',
+  'LBL_PROJECT_TASKS' => 'プロジェクトタスク',
+  'LBL_QUOTES' => '見積',
+  'LBL_QUOTES_SHIP_TO' => '見積の出荷先',
+  'LBL_QUOTE_TO_OPPORTUNITY_KEY' => 'O',
   'LBL_QUOTE_TO_OPPORTUNITY_LABEL' => '見積から商談を作成',
   'LBL_QUOTE_TO_OPPORTUNITY_TITLE' => '見積から商談を作成 [Alt+O]',
-  'LBL_QUOTES_SHIP_TO' => '見積の出荷先',
-  'LBL_QUOTES' => '見積',
   'LBL_RELATED_RECORDS' => '関連レコード',
   'LBL_REMOVE' => 'はずす',
+  'LBL_REQUIRED_SYMBOL' => '*',
+  'LBL_SAVED' => '保存済み',
+  'LBL_SAVED_LAYOUT' => 'レイアウトが保存されました。',
+  'LBL_SAVED_VIEWS' => 'レイアウトオプション',
+  'LBL_SAVE_BUTTON_KEY' => 'S',
   'LBL_SAVE_BUTTON_LABEL' => '保存',
   'LBL_SAVE_BUTTON_TITLE' => '保存 [Alt+S]',
-  'LBL_FULL_FORM_BUTTON_LABEL' => 'フルフォーム',
-  'LBL_FULL_FORM_BUTTON_TITLE' => 'フルフォーム[Alt+F]',
+  'LBL_SAVE_NEW_BUTTON_KEY' => 'V',
   'LBL_SAVE_NEW_BUTTON_LABEL' => '保存して新規作成',
   'LBL_SAVE_NEW_BUTTON_TITLE' => '保存して新規作成 [Alt+V]',
+  'LBL_SAVING' => '保存中',
+  'LBL_SAVING_LAYOUT' => 'レイアウトを保存中...',
+  'LBL_SEARCH' => '検索',
+  'LBL_SEARCH_BUTTON_KEY' => 'Q',
   'LBL_SEARCH_BUTTON_LABEL' => '検索',
   'LBL_SEARCH_BUTTON_TITLE' => '検索 [Alt+Q]',
-  'LBL_SEARCH' => '検索',
+  'LBL_SEARCH_CRITERIA' => '検索条件',
+  'LBL_SELECT_BUTTON_KEY' => 'T',
   'LBL_SELECT_BUTTON_LABEL' => '選択',
   'LBL_SELECT_BUTTON_TITLE' => '選択 [Alt+T]',
+  'LBL_SELECT_CONTACT_BUTTON_KEY' => 'T',
   'LBL_SELECT_CONTACT_BUTTON_LABEL' => '取引先担当者選択',
   'LBL_SELECT_CONTACT_BUTTON_TITLE' => '取引先担当者選択 [Alt+T]',
   'LBL_SELECT_REPORTS_BUTTON_LABEL' => 'レポートから選択',
   'LBL_SELECT_REPORTS_BUTTON_TITLE' => 'レポート選択',
+  'LBL_SELECT_USER_BUTTON_KEY' => 'U',
   'LBL_SELECT_USER_BUTTON_LABEL' => 'ユーザ選択',
   'LBL_SELECT_USER_BUTTON_TITLE' => 'ユーザ選択 [Alt+U]',
   'LBL_SERVER_RESPONSE_RESOURCES' => 'このページを構成するリソース (クエリ、ファイル)',
-  'LBL_SERVER_RESPONSE_TIME_SECONDS' => '秒',
   'LBL_SERVER_RESPONSE_TIME' => 'サーバ応答時間:',
+  'LBL_SERVER_RESPONSE_TIME_SECONDS' => '秒',
   'LBL_SHIP_TO_ACCOUNT' => '取引先に出荷',
   'LBL_SHIP_TO_CONTACT' => '取引先担当者に出荷',
   'LBL_SHORTCUTS' => 'ショートカット',
   'LBL_SHOW' => '表示',
-  'LBL_STATUS_UPDATED' => '当イベントのステータスが更新されました!',
+  'LBL_SQS_INDICATOR' => '',
   'LBL_STATUS' => 'ステータス:',
+  'LBL_STATUS_UPDATED' => '当イベントのステータスが更新されました。',
   'LBL_SUBJECT' => '件名',
   'LBL_SYNC' => '同期',
   'LBL_TASKS' => 'タスク',
+  'LBL_TEAM' => 'チーム:',
   'LBL_TEAMS_LINK' => 'チーム',
-  'LBL_TRACK_EMAIL_BUTTON_LABEL' => '電子メールアーカイブ',
-  'LBL_TRACK_EMAIL_BUTTON_TITLE' => '電子メールアーカイブ [Alt+K]',
-  'LBL_UNAUTH_ADMIN' => '管理者機能へアクセスする権限がありません',
+  'LBL_TEAM_ID' => 'チームID:',
+  'LBL_THOUSANDS_SYMBOL' => 'K',
+  'LBL_TRACK_EMAIL_BUTTON_KEY' => 'K',
+  'LBL_TRACK_EMAIL_BUTTON_LABEL' => 'メールアーカイブ',
+  'LBL_TRACK_EMAIL_BUTTON_TITLE' => 'メールアーカイブ [Alt+K]',
+  'LBL_UNAUTH_ADMIN' => '管理者機能へアクセスする権限がありません。',
+  'LBL_UNDELETE' => '削除取消',
+  'LBL_UNDELETE_BUTTON' => '削除取消',
   'LBL_UNDELETE_BUTTON_LABEL' => '削除取消',
   'LBL_UNDELETE_BUTTON_TITLE' => '削除取消 [Alt+D]',
-  'LBL_UNDELETE_BUTTON' => '削除取消',
-  'LBL_UNDELETE' => '削除取消',
   'LBL_UNSYNC' => '同期取消',
   'LBL_UPDATE' => '更新',
-  'LBL_USER_LIST' => 'ユーザ一覧',
-  'LBL_USERS_SYNC' => 'ユーザの同期',
   'LBL_USERS' => 'ユーザ',
+  'LBL_USERS_SYNC' => 'ユーザの同期',
+  'LBL_USER_LIST' => 'ユーザ一覧',
+  'LBL_VIEW_BUTTON' => '閲覧',
+  'LBL_VIEW_BUTTON_KEY' => 'V',
+  'LBL_VIEW_BUTTON_LABEL' => '閲覧',
+  'LBL_VIEW_BUTTON_TITLE' => '閲覧[Alt+V]',
+  'LBL_VIEW_PDF_BUTTON_KEY' => 'P',
   'LBL_VIEW_PDF_BUTTON_LABEL' => 'PDFを作成',
   'LBL_VIEW_PDF_BUTTON_TITLE' => 'PDFを作成 [Alt+P]',
   'LNK_ABOUT' => '製品について',
   'LNK_ADVANCED_SEARCH' => '詳細検索',
   'LNK_BASIC_SEARCH' => '基本検索',
-  'LNK_DELETE_ALL' => 'すべて削除',
   'LNK_DELETE' => '削除',
+  'LNK_DELETE_ALL' => 'すべて削除',
   'LNK_EDIT' => '編集',
   'LNK_GET_LATEST' => '最新を取得',
   'LNK_GET_LATEST_TOOLTIP' => '最新と入れ替え',
@@ -1201,31 +1221,19 @@ $app_strings = array (
   'LNK_REMOVE' => 'はずす',
   'LNK_RESUME' => '戻す',
   'LNK_VIEW_CHANGE_LOG' => '更新履歴',
-  'NTC_CLICK_BACK' => 'エラーを修正するにはブラウザの戻るボタンをクリックしてください',
-  'NTC_DELETE_CONFIRMATION_MULTIPLE' => '本当にこのレコードを削除してよいですか?',
+  'LOGIN_LOGO_ERROR' => 'SugarCRMロゴを入れ替えてください。',
+  'NTC_CLICK_BACK' => 'エラーを修正するにはブラウザの戻るボタンをクリックしてください。',
+  'NTC_DATE_FORMAT' => '(yyyy-mm-dd)',
+  'NTC_DATE_TIME_FORMAT' => '(yyyy-mm-dd 24:00)',
   'NTC_DELETE_CONFIRMATION' => '本当にこのレコードを削除してよいですか?',
+  'NTC_DELETE_CONFIRMATION_MULTIPLE' => '本当にこのレコードを削除してよいですか?',
   'NTC_LOGIN_MESSAGE' => 'ユーザ名とパスワードを入力してください。:',
   'NTC_NO_ITEMS_DISPLAY' => 'なし',
   'NTC_REMOVE_CONFIRMATION' => '本当にこのリレーションをはずしてよいですか？',
   'NTC_REQUIRED' => '必須項目',
   'NTC_SUPPORT_SUGARCRM' => 'SugarCRMのオープンソースプロジェクトをPayPalを通じサポートしてください。-　速くて、無料で安心です！',
+  'NTC_TIME_FORMAT' => '(24:00)',
   'NTC_WELCOME' => 'ようこそ',
-  'LOGIN_LOGO_ERROR' => 'SugarCRMロゴを入れ替えてください。',
-  'ERROR_FULLY_EXPIRED' => 'SugarCRMのライセンス期限が切れてから30日以上を経過しています。ライセンスを更新してください。管理者のみがログインできます。',
-  'ERROR_LICENSE_EXPIRED' => 'SugarCRMのライセンスを更新する必要があります。管理者のみがログインできます。',
-  'ERROR_NO_RECORD' => 'レコードの検索中にエラー。このレコードは削除されているか、閲覧する権限がありません。',
-  'LBL_DUP_MERGE' => '重複を検出',
-  'LBL_LOADING' => '読み込み中...',
-  'LBL_SAVING_LAYOUT' => 'レイアウトを保存中...',
-  'LBL_SAVED_LAYOUT' => 'レイアウトが保存されました。',
-  'LBL_SAVED' => '保存済み',
-  'LBL_SAVING' => '保存中',
-  'LBL_DISPLAY_COLUMNS' => '表示カラム',
-  'LBL_HIDE_COLUMNS' => '非表示カラム',
-  'LBL_SEARCH_CRITERIA' => '検索条件',
-  'LBL_SAVED_VIEWS' => 'レイアウトオプション',
-  'LBL_NO_RECORDS_FOUND' => '- レコードが見つかりません -',
-  'LBL_LOGIN_SESSION_EXCEEDED' => 'サーバがビジー状態です。 しばらく待って、後でもう一度アクセスしてください。',
-  'LBL_CHANGE_PASSWORD' => 'パスワード変更',
-  'LBL_LOGIN_TO_ACCESS' => 'このエリアにアクセスするにはサインインしてください。',
+  'NTC_YEAR_FORMAT' => '(yyyy)',
 );
+

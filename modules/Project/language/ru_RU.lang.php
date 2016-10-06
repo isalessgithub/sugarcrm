@@ -108,6 +108,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Обозначить как промежуточный этап разработки',
   'LBL_MODIFIED_USER_ID' => 'Изменено пользователем (ID):',
   'LBL_MODULE_NAME' => 'Проект',
+  'LBL_MODULE_NAME_SINGULAR' => 'Проект',
   'LBL_MODULE_TITLE' => 'Проекты: Главная',
   'LBL_MONTH_BUTTON' => 'Месяц',
   'LBL_MORE' => 'Больше...',

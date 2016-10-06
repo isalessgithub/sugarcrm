@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,31 +15,13 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 $mod_strings = array (
+  'LBL_EXPAND' => '展开',
   'LBL_MODULE_NAME' => '表达式引擎',
-'func_descriptions' => array (
-
-),
-'LBL_PREVIOUS' => '前一页' /*for 508 compliance fix*/,
-'LBL_NEXT' => '下一页' /*for 508 compliance fix*/,
-'LBL_EXPAND' => '展开' /*for 508 compliance fix*/,
+  'LBL_MODULE_NAME_SINGULAR' => '表达式引擎',
+  'LBL_NEXT' => '下一页',
+  'LBL_PREVIOUS' => '前一页',
 );
 

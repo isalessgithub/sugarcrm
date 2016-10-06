@@ -35,7 +35,8 @@ class PanelVisibilityAction extends AbstractAction{
  */
 SUGAR.forms.PanelVisibilityAction = function(target, expr)
 {
-    this.target = target;
+    var targetElement = YAHOO.util.Dom.getAncestorByTagName(target, "div");
+    this.target = YAHOO.util.Dom.getAttribute(targetElement, "id");
     this.expr   = 'cond(' + expr + ', "", "none")';
 }
 

@@ -34,6 +34,7 @@ $mod_strings = array (
   'LBL_ID' => 'Id',
   'LBL_MODIFIED_USER_ID' => 'Gewijzigde Gebruikers ID',
   'LBL_MODULE_NAME' => 'Campagne Trackers',
+  'LBL_MODULE_NAME_SINGULAR' => 'Campagne Tracker',
   'LBL_OPTOUT' => 'Opt-out',
   'LBL_SUBPANEL_TRACKER_KEY' => 'Sleutel',
   'LBL_SUBPANEL_TRACKER_NAME' => 'Naam',

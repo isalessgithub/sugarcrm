@@ -33,11 +33,6 @@ ARGS:
 //$_REQUEST['return_type']; : when set the results of a report will be linked with the parent.
 */
 
-// MILOS NON-UPGRADE SAFE CHANGE
-if($_REQUEST['module'] == "ProspectLists" && $_REQUEST['subpanel_module_name'] == "contacts"){
-  $_SESSION['disable_workflow'] = "Yes";
-}
-// MILOS END
 
 require_once('include/formbase.php');
 
@@ -103,7 +98,7 @@ else {
  	if(!empty($_REQUEST['select_entire_list']) &&  $_REQUEST['select_entire_list'] != 'undefined' && isset($_REQUEST['current_query_by_page'])){
 		$order_by = '';
 		$current_query_by_page = $_REQUEST['current_query_by_page'];
- 		$current_query_by_page_array = unserialize(base64_decode($current_query_by_page));
+ 		$current_query_by_page_array = sugar_unserialize(base64_decode($current_query_by_page));
 
         $module = $current_query_by_page_array['module'];
         $seed = BeanFactory::getBean($module);
@@ -181,12 +176,6 @@ else {
         $focus->save();
  	}
 }
-
-// MILOS NON-UPGRADE SAFE CHANGE
-if($_REQUEST['module'] == "ProspectLists" && $_REQUEST['subpanel_module_name'] == "contacts"){
-  unset($_SESSION['disable_workflow']);
-}
-// MILOS END
 
 if ($refreshsubpanel) {
 	//refresh contents of the sub-panel.

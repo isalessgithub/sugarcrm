@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,25 +15,12 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
+
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Редактор меток',
   'LBL_KEY' => 'Ключ:',
+  'LBL_MODULE_NAME' => 'Редактор меток',
+  'LBL_MODULE_NAME_SINGULAR' => 'Редактор меток',
   'LBL_VALUE' => 'Значение:',
 );
 

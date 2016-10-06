@@ -210,6 +210,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'To proceed with importing the selected file, click OK. To upload a new file, click Try Again',
   'LBL_MISSING_HEADER_ROW' => 'No Header Row Found',
   'LBL_MODULE_NAME' => 'Import',
+  'LBL_MODULE_NAME_SINGULAR' => 'Import',
   'LBL_MY_PUBLISHED_HELP' => 'Use this option to apply pre-set import settings, including import properties, mappings, and any duplicate check settings, to this import.',
   'LBL_MY_SAVED' => 'To use your saved import settings, select from below:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Use this option to apply your pre-set import settings, including import properties, mappings, and any duplicate check settings, to this import.<br><br>Click <b>Publish</b> to make the mapping available to other users.<br>Click <b>Un-Publish</b> to make the mapping unavailable to other users.<br>Click <b>Delete</b> to delete a mapping for all users.',

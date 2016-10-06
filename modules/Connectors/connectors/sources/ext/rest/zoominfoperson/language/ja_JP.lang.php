@@ -19,7 +19,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $connector_strings = array (
   'LBL_ID' => 'ID',
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><image src="' . getWebPath('modules/Connectors/connectors/sources/ext/rest/zoominfoperson/images/zoominfo.gif') . '" border="0"></td><td width="65%" valign="top" class="dataLabel">' . 'ZoomInfo&amp;amp;amp;#169; は500万以上の会社の4,500万人以上のビジネスパーソンについての詳細情報をご提供します。詳しくは<a target="_blank" href="http://www.zoominfo.com/about">http://www.zoominfo.com/about</a>（英語）を参照してください。</td></tr></table>',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><image src="' . getWebPath('modules/Connectors/connectors/sources/ext/rest/zoominfoperson/images/zoominfo.gif') . '" border="0"></td><td width="65%" valign="top" class="dataLabel">' . 'ZoomInfo&#169; は500万以上の会社の4,500万人以上のビジネスパーソンについての詳細情報をご提供します。詳しくは<a target="_blank" href="http://www.zoominfo.com/about">http://www.zoominfo.com/about</a>（英語）を参照してください。</td></tr></table>',
   'LBL_SEARCH_FIELDS_INFO' => 'API: 姓・名とメールアドレスのフィールドはZoominfo© パーソンによってサポートされています。',
   'LBL_EMAIL' => 'メールアドレス',
   'LBL_FIRST_NAME' => '名',

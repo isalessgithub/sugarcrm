@@ -212,9 +212,10 @@ class QuotesViewEdit extends ViewEdit
 				}
                 ksort($ordered_bundle_list);
 				foreach ($ordered_bundle_list as $product_bundle) {
+					$escaped_name = js_escape($product_bundle->name);
 					$product_list = $product_bundle->get_products();
 					$bundle_list = $product_bundle->get_product_bundle_line_items();
-					$add_row[] = "quotesManager.addTable('$product_bundle->id','$product_bundle->bundle_stage', '$product_bundle->name', '".format_money($product_bundle->shipping,FALSE)."' );\n";
+					$add_row[] = "quotesManager.addTable('$product_bundle->id','$product_bundle->bundle_stage', '$escaped_name', '".format_money($product_bundle->shipping,FALSE)."' );\n";
 
 					if (is_array($bundle_list)) {
 						while (list($key, $line_item) = each ($bundle_list)) {
@@ -229,11 +230,11 @@ class QuotesViewEdit extends ViewEdit
 											. ", '".format_number($line_item->cost_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) . "'"
 											. ", '".format_number($line_item->list_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) ."'"
 											. ", '".format_number($line_item->discount_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) . "'"
-											. ", '', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name', '$line_item->mft_part_num', '$product_bundle->id', '$product_bundle->bundle_stage', '$product_bundle->name', '"
+											. ", '', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name', '$line_item->mft_part_num', '$product_bundle->id', '$product_bundle->bundle_stage', '$escaped_name', '"
 											. format_number($product_bundle->shipping)."', '".js_escape(br2nl($line_item->description))."', '". $line_item->type_id."'"
 											. ", '".format_number($line_item->discount_amount_usdollar, $significantDigits, $significantDigits, array('convert' => !$line_item->discount_select, 'currency_id' => $curid))."'"
 		                                    . ", ".($line_item->discount_select?1:0)
-		                                    . ", ".($line_item->deal_calc?1:0)
+		                                    . ", ".($line_item->deal_calc?$line_item->deal_calc:0)
 		                                    . ", '".$line_item->status."');\n";
 							}
 							else if ($line_item->object_name == "ProductBundleNote") {
@@ -263,39 +264,32 @@ class QuotesViewEdit extends ViewEdit
                 ksort($ordered_bundle_list);
 
 				foreach ($ordered_bundle_list as $product_bundle) {
+					$escaped_name = js_escape($product_bundle->name);
+					$product_list = $product_bundle->get_product_bundle_line_items();
+                    $add_row[] = "quotesManager.addTable('group_$product_bundle->id','$product_bundle->bundle_stage', '$escaped_name' , ' ".format_money($product_bundle->shipping,FALSE)."');\n";
 
-					$product_list = $product_bundle->get_products();
 					if (is_array($product_list)) {
 						foreach ($product_list as $line_item) {
-                            $tax_class_name = isset($line_item->tax_class) ? $line_item->tax_class : "";
+                            if ($line_item->object_name == "Product") {
+                                $tax_class_name = isset($line_item->tax_class) ? $line_item->tax_class : "";
 
-							$add_row[] = "quotesManager.addRow('','$line_item->quantity','$line_item->product_template_id','$line_item->name'"
-											. ", '".format_number($line_item->cost_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) . "'"
-											. ", '".format_number($line_item->list_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) ."'"
-											. ", '".format_number($line_item->discount_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) . "'"
-							    .", '', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name',
-								'$line_item->mft_part_num', 'group_$product_bundle->id', '$product_bundle->bundle_stage', '$product_bundle->name', '".format_money($product_bundle->shipping,FALSE)
-							    ."', '".js_escape(br2nl($line_item->description))."', '"
-							    . $line_item->type_id ."','"
-							    . format_number($line_item->discount_amount_usdollar, $significantDigits, $significantDigits, array('convert' => !$line_item->discount_select, 'currency_id' => $curid))."',"
-                                .($line_item->discount_select?1:0)
-							    . ",0, '". $line_item->status."');\n";
+                                $add_row[] = "quotesManager.addRow('','$line_item->quantity','$line_item->product_template_id','$line_item->name'"
+                                                . ", '".format_number($line_item->cost_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) . "'"
+                                                . ", '".format_number($line_item->list_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) ."'"
+                                                . ", '".format_number($line_item->discount_usdollar, $significantDigits, $significantDigits, array('convert' => true, 'currency_id' => $curid)) . "'"
+                                    .", '', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name',
+                                    '$line_item->mft_part_num', 'group_$product_bundle->id', '$product_bundle->bundle_stage', '$escaped_name', '".format_money($product_bundle->shipping,FALSE)
+                                    ."', '".js_escape(br2nl($line_item->description))."', '"
+                                    . $line_item->type_id ."','"
+                                    . format_number($line_item->discount_amount_usdollar, $significantDigits, $significantDigits, array('convert' => !$line_item->discount_select, 'currency_id' => $curid))."',"
+                                    .($line_item->discount_select?1:0)
+                                    . ",0, '". $line_item->status."');\n";
 
-						} //foreach
-						if(empty($product_list)){
-								$add_row[] = "quotesManager.addTable('group_$product_bundle->id','$product_bundle->bundle_stage', '$product_bundle->name' , ' ".format_money($product_bundle->shipping,FALSE)."');\n";
-						} //if
-                        //bug 39573 - Comments are not duplicated in quotes
-                        $bundle_list = $product_bundle->get_product_bundle_line_items();
-                        if (is_array($bundle_list)){
-                            while (list($key, $line_item) = each ($bundle_list)){
-                                if ($line_item->object_name == "ProductBundleNote"){
-                                    $encoded_description = js_escape(br2nl($line_item->description));
-                                    $add_row[] = "quotesManager.addCommentRow('$line_item->id', 'group_$product_bundle->id', '$encoded_description');\n";
-
-                                }
+                            }else if ($line_item->object_name == "ProductBundleNote"){
+                                $encoded_description = js_escape(br2nl($line_item->description));
+                                $add_row[] = "quotesManager.addCommentRow('$line_item->id', 'group_$product_bundle->id', '$encoded_description');\n";
                             }
-                        } //end bug 39573
+						} //foreach
 					} //if
 				}
 			}
@@ -351,13 +345,11 @@ class QuotesViewEdit extends ViewEdit
 		$this->ss->assign("SETUP_SCRIPT", $setup_script);
 
 		$this->ss->assign('TAXRATE_JAVASCRIPT', $taxrate->get_taxrate_js());
-		$this->ss->assign('CALCULATE_FUNCTION', '<script type="text/javascript">YAHOO.util.Event.onDOMReady(function(){quotesManager.calculate(document);});</script>');
+        $this->ss->assign('CALCULATE_FUNCTION', 'quotesManager.calculate(document);');
 
 		$this->ss->assign('NO_MATCH_VARIABLE', '<script type="text/javascript">sqs_no_match_text = "' . $app_strings['ERR_SQS_NO_MATCH'] . '";</script>');
 
-		$str = "<script language=\"javascript\">
-		YAHOO.util.Event.addListener(window, 'load', add_rows_on_load);
-		</script>";
+        $str = "add_rows_on_load();";
 		$this->ss->assign('SAVED_SEARCH_SELECTS', $str);
 
  		parent::display();

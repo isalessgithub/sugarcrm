@@ -1074,6 +1074,14 @@ class Report
                 Report::filtersIterate($current_filter, $where_clause);
             }
             else {
+                if (!empty($current_filter['type']) && ($current_filter['type'] == 'datetimecombo' || $current_filter['type'] == 'datetime')) {
+                    if (!empty($current_filter['input_name0'])) {
+                        $current_filter['input_name0'] = $GLOBALS['timedate']->asDbType(new DateTime($current_filter['input_name0']), $current_filter['type']);
+                    }
+                    if (!empty($current_filter['input_name2'])) {
+                        $current_filter['input_name2'] = $GLOBALS['timedate']->asDbType(new DateTime($current_filter['input_name2']), $current_filter['type']);
+                    }
+                }
                 $this->register_field_for_query($current_filter);
                 $select_piece = "(" . $this->layout_manager->widgetQuery($current_filter) . ")";
                 //$where_arr[count($where_arr)] = $select_piece;
@@ -1356,16 +1364,6 @@ return str_replace(' > ','_',
                 }
                 $select_piece = $this->layout_manager->widgetQuery($display_column);
             }
-            // Bug 40573: addon field for "day" "select" field
-            if(isset($display_column['column_function']) && $display_column['column_function'] == 'day')
-            {
-                $addon_dispay_column = $display_column;
-                $addon_dispay_column['column_function'] = 'dayreal';
-                $addon_select_piece = $this->layout_manager->widgetQuery($addon_dispay_column);
-                if (!$this->select_already_defined($addon_select_piece, $field_list_name)) {
-                    array_push($this->$field_list_name, $addon_select_piece);
-                }
-            }
             if (!$this->select_already_defined($select_piece, $field_list_name)) {
                 array_push($this->$field_list_name, $select_piece);
             }
@@ -1519,6 +1517,27 @@ return str_replace(' > ','_',
         }
     }
 
+    protected function getOuterJoinedLinks($filter)
+    {
+        $links = array();
+
+        if (isset($filter['operator']))
+        {
+            for ($i = 0; isset($filter[$i]); $i ++)
+            {
+                $f = $filter[$i];
+
+                if ($filter['operator'] == "OR" && isset($f['table_key']) && isset($this->full_table_list[$f['table_key']]['link_def']['name']))
+                {
+                    $links[$f['table_key']] = $this->full_table_list[$f['table_key']]['link_def']['name'];
+                }
+                $links += $this->getOuterJoinedLinks($f);
+            }
+        }
+
+        return $links;
+    }
+
     protected function create_from($key = null)
     {
         global $beanFiles;
@@ -1552,6 +1571,7 @@ return str_replace(' > ','_',
         //rrs remove this and move to the WHERE
         //$this->focus->add_team_security_where_clause($this->from,'','INNER');
         $this->jtcount = 0;
+        $outerJoinedLinks = $this->getOuterJoinedLinks($this->report_def['filters_def']['Filter_1']);
         foreach ($this->full_table_list as $table_key => $table_def)
         {
 
@@ -1609,40 +1629,70 @@ return str_replace(' > ','_',
                     if (isset($this->full_bean_list[$table_def['parent']]->$link_name)) {
                         if (!$this->full_bean_list[$table_def['parent']]->$link_name->loadedSuccesfully())
                             sugar_die("Unable to load link: $link_name for bean {$table_def['parent']}");
-                        // Start ACL check
-                        global $current_user, $mod_strings;
-                        $linkModName = $this->full_bean_list[$table_def['parent']]->$link_name->getRelatedModuleName();
-                        $list_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'list', $type = 'module');
-                        $view_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'view', $type = 'module');
 
-                        if ($list_action == ACL_ALLOW_NONE || $view_action == ACL_ALLOW_NONE) {
-                            if ((isset($_REQUEST['DynamicAction']) && $_REQUEST['DynamicAction'] == 'retrievePage') || (isset($_REQUEST['module']) && $_REQUEST['module'] == 'Home')) {
-                                throw new Exception($mod_strings['LBL_NO_ACCESS'] . "----" . $linkModName);
-                            } else {
-                                sugar_die($mod_strings['LBL_NO_ACCESS'] . "----" . $linkModName);
-                            }
+                        if (in_array($link_name, $outerJoinedLinks))
+                        {
+                            $params['join_type'] = 'LEFT OUTER JOIN';
                         }
 
+                        //build from statement, we'll add acl check if needed below
                         $this->from .= $this->full_bean_list[$table_def['parent']]->$link_name->getJoin($params);
-                        if ($list_action == ACL_ALLOW_OWNER || $view_action == ACL_ALLOW_OWNER)
-                            $this->from .= " AND " . $params['join_table_alias'] . ".assigned_user_id='" . $current_user->id . "' ";
+
+                        // Start ACL check
+                        global $current_user, $mod_strings;
+
+                        //no need to proceed if user is admin
+                        if (!is_admin($current_user))
+                        {
+                            $linkModName = $this->full_bean_list[$table_def['parent']]->$link_name->getRelatedModuleName();
+                            $list_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'list', $type = 'module');
+                            $view_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'view', $type = 'module');
+
+
+                            if ($list_action == ACL_ALLOW_NONE || $view_action == ACL_ALLOW_NONE)
+                            {
+                                if ((isset($_REQUEST['DynamicAction']) && $_REQUEST['DynamicAction'] == 'retrievePage') || (isset($_REQUEST['module']) && $_REQUEST['module'] == 'Home')) {
+                                    throw new Exception($mod_strings['LBL_NO_ACCESS'] . "----" . $linkModName);
+                                } else {
+                                    sugar_die($mod_strings['LBL_NO_ACCESS'] . "----" . $linkModName);
+                                }
+                            }
+
+
+                            if ($list_action == ACL_ALLOW_OWNER || $view_action == ACL_ALLOW_OWNER)
+                            {
+                                $this->from .= " AND " . $params['join_table_alias'] . ".assigned_user_id='" . $current_user->id . "' ";
+                            }
+                        }
                         // End ACL check
                     }
                     else {
+                        //build from statement, we'll add acl check if needed below
+                        $this->from .= $this->full_bean_list[$table_def['parent']]->$rel_name->getJoin($params);
+
                         // Start ACL check
                         global $current_user, $mod_strings;
-                        $linkModName = $this->full_bean_list[$table_def['parent']]->$rel_name->getRelatedModuleName();
-                        $list_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'list', $type = 'module');
-                        $view_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'view', $type = 'module');
 
-                        if (!$this->full_bean_list[$table_def['parent']]->$rel_name->loadedSuccesfully()) {
-                            sugar_die("Unable to load link: $rel_name");
+                        //no need to proceed if user is admin
+                        if (!is_admin($current_user))
+                        {
+                            $linkModName = $this->full_bean_list[$table_def['parent']]->$rel_name->getRelatedModuleName();
+                            $list_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'list', $type = 'module');
+                            $view_action = ACLAction::getUserAccessLevel($current_user->id, $linkModName, 'view', $type = 'module');
+
+                            if (!$this->full_bean_list[$table_def['parent']]->$rel_name->loadedSuccesfully()) {
+                                sugar_die("Unable to load link: $rel_name");
+                            }
+                            if ($list_action == ACL_ALLOW_NONE || $view_action == ACL_ALLOW_NONE)
+                            {
+                                sugar_die($mod_strings['LBL_NO_ACCESS'] . "----" . $linkModName);
+                            }
+
+                            if ($list_action == ACL_ALLOW_OWNER || $view_action == ACL_ALLOW_OWNER)
+                            {
+                                $this->from .= " AND " . $params['join_table_alias'] . ".assigned_user_id='" . $current_user->id . "' ";
+                            }
                         }
-                        if ($list_action == ACL_ALLOW_NONE || $view_action == ACL_ALLOW_NONE)
-                            sugar_die($mod_strings['LBL_NO_ACCESS'] . "----" . $linkModName);
-                        $this->from .= $this->full_bean_list[$table_def['parent']]->$rel_name->getJoin($params);
-                        if ($list_action == ACL_ALLOW_OWNER || $view_action == ACL_ALLOW_OWNER)
-                            $this->from .= " AND " . $params['join_table_alias'] . ".assigned_user_id='" . $current_user->id . "' ";
                         // End ACL check
                     }
                     //echo("<br>Join for $link_name (parent: ".$table_def['parent']."):<br>".$this->from."<pre>".print_r($params,true)."</pre>");
@@ -1713,7 +1763,8 @@ return str_replace(' > ','_',
                 return $field;
             }
             $field_type = $this->focus->field_name_map[$field_data[1]]['type'];
-            if ($field_type != 'currency' && $field_type != 'float' && $field_type != 'decimal' && $field_type != 'int' && $field_type != 'date') {
+            if ($field_type != 'currency' && $field_type != 'float' && $field_type != 'decimal' && $field_type != 'int' && $field_type != 'date' && $field_type != 'datetime')
+            {
                 // add IFNULL to the field and then re-add alias back
                 return $this->db->convert($field_name, "IFNULL", array("''")) . " " . substr($field, $has_space + 1) . "\n";
             }
@@ -1745,14 +1796,21 @@ return str_replace(' > ','_',
         $where_auto = " " . $this->focus->table_name . ".deleted=0 \n";
         // Start ACL check
         global $current_user, $mod_strings;
-        $list_action = ACLAction::getUserAccessLevel($current_user->id, $this->focus->module_dir, 'list', $type = 'module');
-        $view_action = ACLAction::getUserAccessLevel($current_user->id, $this->focus->module_dir, 'view', $type = 'module');
+        if (!is_admin($current_user))
+        {
+            $list_action = ACLAction::getUserAccessLevel($current_user->id, $this->focus->module_dir, 'list', $type = 'module');
+            $view_action = ACLAction::getUserAccessLevel($current_user->id, $this->focus->module_dir, 'view', $type = 'module');
 
-        if ($list_action == ACL_ALLOW_NONE || $view_action == ACL_ALLOW_NONE)
-            sugar_die($mod_strings['LBL_NO_ACCESS']);
-        if ($list_action == ACL_ALLOW_OWNER || $view_action == ACL_ALLOW_OWNER)
-            $where_auto .= " AND " . $this->focus->table_name . ".assigned_user_id='" . $current_user->id . "' \n";
+            if ($list_action == ACL_ALLOW_NONE || $view_action == ACL_ALLOW_NONE)
+            {
+                sugar_die($mod_strings['LBL_NO_ACCESS']);
+            }
 
+            if ($list_action == ACL_ALLOW_OWNER || $view_action == ACL_ALLOW_OWNER)
+            {
+                $where_auto .= " AND " . $this->focus->table_name . ".assigned_user_id='" . $current_user->id . "' \n";
+            }
+        }
         // End ACL check
 
         if (!empty($this->where)) {
@@ -1761,7 +1819,9 @@ return str_replace(' > ','_',
             $query .= " WHERE " . $where_auto;
         }
 
-        if (!empty($this->group_order_by_arr) && is_array($this->group_order_by_arr) && $query_name != 'summary_query' && empty($this->order_by_arr)) {
+        if (!empty($this->group_order_by_arr)
+            && is_array($this->group_order_by_arr)
+            && $query_name != 'summary_query') {
             foreach ($this->group_order_by_arr as $group_order_by) {
                 array_unshift($this->order_by_arr, $group_order_by);
             }
@@ -1851,68 +1911,87 @@ return str_replace(' > ','_',
                 continue;
             }
 
+            // we should disable group by fields for soring because it breaks result if group by has more than one field
             $group_by_key = '';
-            if (!empty($this->report_def['group_defs'][0])) {
-                $group_by_key = $this->report_def['group_defs'][0]['table_key'] . ":" . $this->report_def['group_defs'][0]['name'];
-            }
-            if (!empty($this->report_def['order_by'][0])) {
-                $order_by_key = $this->report_def['order_by'][0]['table_key'] . ":" . $this->report_def['order_by'][0]['name'];
-                $column_key = $this->_get_full_key($display_column);
-
-                if (!empty($display_column['group_function'])) {
-                    $column_key .= ':' . $display_column['group_function'];
-                }
-                elseif (!empty($display_column['column_function'])) {
-                    $column_key .= ':' . $display_column['column_function'];
-                }
-
-                if ($group_by_key == $column_key) {
-                    $display_column['no_sort'] = 1;
-                }
-
-                if ($order_by_key == $column_key) {
-                    if (empty($this->report_def['order_by'][0]['sort_dir']) || $this->report_def['order_by'][0]['sort_dir'] == 'a') {
-                        $display_column['sort'] = '_down';
+            if (!empty($this->report_def['group_defs'])) {
+                foreach ($this->report_def['group_defs'] as $v) {
+                    if ($v['table_key'] != $display_column['table_key'] || $v['name'] != $display_column['name']) {
+                        continue;
                     }
-                    else {
-                        $display_column['sort'] = '_up';
-                    }
+                    $group_by_key = $v['table_key'] . ":" . $v['name'];
+                    break;
                 }
             }
 
+            // we should detect field & direction for sorting for summation report with details
             $column_key = $this->_get_full_key($display_column);
-
-            if (!empty($display_column['group_function']) && $display_column['group_function'] != 'count') {
-                $column_key .= ":" . $display_column['group_function'];
+            if (!empty($display_column['group_function'])) {
+                $column_key .= ':' . $display_column['group_function'];
+            } elseif (!empty($display_column['column_function'])) {
+                $column_key .= ':' . $display_column['column_function'];
             }
-            elseif (!empty($display_column['column_function']) && $display_column['column_function'] != 'count') {
-                $column_key .= ":" . $display_column['column_function'];
+            if ($group_by_key == $column_key) {
+                $display_column['no_sort'] = 1;
             }
-
-            if (!empty($this->report_def['summary_order_by'][0])) {
-                if (!empty($this->report_def['summary_order_by'][0]['group_function']) && $this->report_def['summary_order_by'][0]['group_function'] == 'count') {
-                    $order_by_key = $this->report_def['summary_order_by'][0]['table_key'] . ":" . 'count';
+            $order_by_key = '';
+            $order_by_def = array();
+            if (!empty($this->report_def['order_by'])) {
+                foreach ($this->report_def['order_by'] as $v) {
+                    if ($v['table_key'] != $display_column['table_key'] || $v['name'] != $display_column['name']) {
+                        continue;
+                    }
+                    $order_by_key = $v['table_key'] . ":" . $v['name'];
+                    $order_by_def = $v;
+                    break;
+                }
+            }
+            if ($order_by_key == $column_key) {
+                if (empty($order_by_def['sort_dir']) || $order_by_def['sort_dir'] == 'a') {
+                    $display_column['sort'] = '_down';
                 }
                 else {
-                    $order_by_key = $this->report_def['summary_order_by'][0]['table_key'] . ":" . $this->report_def['summary_order_by'][0]['name'];
-
-                    if (!empty($this->report_def['summary_order_by'][0]['group_function'])) {
-                        $order_by_key .= ":" . $this->report_def['summary_order_by'][0]['group_function'];
-                    }
-                    elseif (!empty($this->report_def['summary_order_by'][0]['column_function'])) {
-                        $order_by_key .= ":" . $this->report_def['summary_order_by'][0]['column_function'];
-                    }
-                }
-
-                if ($order_by_key == $column_key) {
-                    if (empty($this->report_def['summary_order_by'][0]['sort_dir']) || $this->report_def['summary_order_by'][0]['sort_dir'] == 'a') {
-                        $display_column['sort'] = '_down';
-                    }
-                    else {
-                        $display_column['sort'] = '_up';
-                    }
+                    $display_column['sort'] = '_up';
                 }
             }
+
+            // we should detect field & direction for sorting for summation report
+            $column_key = $this->_get_full_key($display_column);
+            if (!empty($display_column['group_function']) && $display_column['group_function'] != 'count') {
+                $column_key .= ":" . $display_column['group_function'];
+            } elseif (!empty($display_column['column_function']) && $display_column['column_function'] != 'count') {
+                $column_key .= ":" . $display_column['column_function'];
+            }
+            $order_by_key = '';
+            $order_by_def = array();
+            if (!empty($this->report_def['summary_order_by'])) {
+                foreach ($this->report_def['summary_order_by'] as $v) {
+                    $order_by_def = $v;
+                    if (!empty($v['group_function']) && $v['group_function'] == 'count') {
+                        $order_by_key = $v['table_key'] . ":" . 'count';
+                        break;
+                    }
+                    if ($v['table_key'] != $display_column['table_key'] || $v['name'] != $display_column['name']) {
+                        continue;
+                    }
+                    $order_by_key = $v['table_key'] . ":" . $v['name'];
+                    if (!empty($v['group_function'])) {
+                        $order_by_key .= ":" . $v['group_function'];
+                    }
+                    elseif (!empty($v['column_function'])) {
+                        $order_by_key .= ":" . $v['column_function'];
+                    }
+                    break;
+                }
+            }
+            if ($order_by_key == $column_key) {
+                if (empty($order_by_def['sort_dir']) || $order_by_def['sort_dir'] == 'a') {
+                    $display_column['sort'] = '_down';
+                }
+                else {
+                    $display_column['sort'] = '_up';
+                }
+            }
+
             $display = $this->layout_manager->widgetDisplay($display_column);
 
             if ($column_field_name == 'summary_columns' && !empty($display_column['is_group_by'])) {
@@ -2144,10 +2223,10 @@ return str_replace(' > ','_',
                     }
                     $display_column['fields'][$field_name] = $display;
                 } else {
-                        if (!empty($field_name) && isset($display_column['fields'][$field_name])) {
-                            $display_column['fields'][$field_name] = $this->db->fromConvert($display_column['fields'][$field_name], $display_column['type']);
-                        }
-                        $display = $this->layout_manager->widgetDisplay($display_column);
+                    if (!empty($field_name) && isset($display_column['fields'][$field_name])) {
+                        $display_column['fields'][$field_name] = $this->db->fromConvert($display_column['fields'][$field_name], $display_column['type']);
+                    }
+                    $display = $this->layout_manager->widgetDisplay($display_column);
                 }
 
             } else {
@@ -2168,9 +2247,9 @@ return str_replace(' > ','_',
 
                 global $locale;
                 $params = array();
-                $params['currency_id'] = -99;
+                $params['currency_id'] = $locale->getPrecedentPreference('currency');
                 $params['convert'] = true;
-                $params['currency_symbol'] = $this->currency_obj->getDefaultCurrencySymbol();
+                $params['currency_symbol'] = $locale->getPrecedentPreference('default_currency_symbol');
 
                 // Pre-process the value to be converted if it is in different currency than US Dollar (-99)
                 // Because conversion_rates change and the amount_usdollar column isn't updated accordingly
@@ -2206,7 +2285,18 @@ return str_replace(' > ','_',
                 $alias = $this->alias_lookup[$display_column['table_key']];
                 $array_key = strtoupper($alias . '__count');
 
+                $key_exists = false;
                 if (array_key_exists($array_key, $display_column['fields'])) {
+                    $key_exists = true;
+                }
+                else {
+                    $array_key = $this->getTruncatedColumnAlias(strtoupper($display_column['table_alias']) . "_" . strtoupper($display_column['name']));
+
+                    if (array_key_exists($array_key, $display_column['fields'])) {
+                        $key_exists = true;
+                    }
+                }
+                if ($key_exists) {
                     $displayData = $display_column['fields'][$array_key];
                     if (empty($displayData) && $display_column['type'] != 'bool' && ($display_column['type'] != 'enum' || $display_column['type'] == 'enum' && $displayData != '0')) {
                         $display = "";

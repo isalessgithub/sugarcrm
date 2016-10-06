@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Modificato da Id',
   'LBL_MODULE_ID' => 'Aziende',
   'LBL_MODULE_NAME' => 'Aziende',
+  'LBL_MODULE_NAME_SINGULAR' => 'Azienda',
   'LBL_MODULE_TITLE' => 'Aziende: Home',
   'LBL_NAME' => 'Nome:',
   'LBL_NEW_FORM_TITLE' => 'Nuova Azienda',

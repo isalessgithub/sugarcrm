@@ -30,6 +30,7 @@ $mod_strings = array (
   'LBL_LIST_NAME' => 'Tip proizvoda',
   'LBL_LIST_ORDER' => 'Redosled:',
   'LBL_MODULE_NAME' => 'Tipovi proizvoda',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tip proizvoda',
   'LBL_MODULE_TITLE' => 'Tipovi proizvoda: Početna strana',
   'LBL_NAME' => 'Tip proizvoda:',
   'LBL_PRODUCTTYPE' => 'Tip proizvoda:',

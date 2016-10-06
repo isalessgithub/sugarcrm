@@ -49,6 +49,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Modificat de',
   'LBL_MODULE_ID' => 'Liste tinte',
   'LBL_MODULE_NAME' => 'Liste tinte',
+  'LBL_MODULE_NAME_SINGULAR' => 'Lista tinte',
   'LBL_MODULE_TITLE' => 'Liste tinte: Acasa',
   'LBL_MORE_DETAIL' => 'Mai multe detalii',
   'LBL_NAME' => 'Nume',

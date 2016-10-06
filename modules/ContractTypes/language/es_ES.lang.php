@@ -32,6 +32,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Orden de Listado:',
   'LBL_MODIFIED_USER_ID' => 'Modificado por Usuario',
   'LBL_MODULE_NAME' => 'Tipo de Contrato',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tipo de Contrato',
   'LBL_MODULE_TITLE' => 'Tipos de Contrato',
   'LBL_NAME' => 'Nombre:',
   'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Tipos de Contrato',

@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Hito:',
   'LBL_MODIFIED_USER_ID' => 'Modificat per:',
   'LBL_MODULE_NAME' => 'Tasques de Projecte',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tasca de Projecte',
   'LBL_MODULE_TITLE' => 'Tasques de Projecte: Inici',
   'LBL_NAME' => 'Nom:',
   'LBL_NEW_FORM_TITLE' => 'Nova Tasca de Projecte',

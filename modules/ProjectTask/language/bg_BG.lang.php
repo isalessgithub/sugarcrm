@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'Критична точка:',
   'LBL_MODIFIED_USER_ID' => 'Модифицирано от:',
   'LBL_MODULE_NAME' => 'Задачи по проекта',
+  'LBL_MODULE_NAME_SINGULAR' => 'Задача по проект',
   'LBL_MODULE_TITLE' => 'Задачи по проекти',
   'LBL_NAME' => 'Име:',
   'LBL_NEW_FORM_TITLE' => 'Нова задача по проекта',

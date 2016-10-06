@@ -491,6 +491,18 @@ class Quote extends SugarBean {
 		return parent::save($check_notify);
 	}
 
+	function updateCalculatedFields() {
+
+	    parent::updateCalculatedFields();
+
+	    $currency = new Currency();
+	    $currency->retrieve($this->currency_id);
+
+	    $this->calculate_total();
+	    $this->total_usdollar = $currency->convertToDollar($this->total);
+
+	}
+
 	function set_notification_body($xtpl, $quote) {
 		$xtpl->assign("QUOTE_SUBJECT", $quote->name);
 		$xtpl->assign("QUOTE_STATUS", $quote->quote_stage);

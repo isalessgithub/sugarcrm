@@ -94,6 +94,7 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => '修改人ID',
   'LBL_MODULE_ID' => '客户',
   'LBL_MODULE_NAME' => '客户',
+  'LBL_MODULE_NAME_SINGULAR' => '客户',
   'LBL_MODULE_TITLE' => '客户：主页',
   'LBL_NAME' => '名称：',
   'LBL_NEW_FORM_TITLE' => '新账户',

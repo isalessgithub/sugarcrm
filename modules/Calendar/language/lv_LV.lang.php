@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nav definēts šim skatījumam',
+  'ERR_YEAR_BETWEEN' => 'Atvainojiet, kalendārs nevar apstrādāt, Jūsu, pieprasīto gada skaitli<br>Gada skaitlim jābūt starp 1970 un 2037',
   'LBL_AM' => 'Rīts',
   'LBL_APPLY_BUTTON' => 'Apstiprināt',
   'LBL_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Notiek ielāde ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalendārs',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalendārs',
   'LBL_MODULE_TITLE' => 'Kalendārs',
   'LBL_MONTH' => 'Mēnesis',
   'LBL_NEXT_DAY' => 'Nākamā diena',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Sūtīt uzaicinājumus',
   'LBL_SETTINGS' => 'Uzstādījumi',
   'LBL_SETTINGS_CALLS_SHOW' => 'Rādīt zvanus:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Parādīt veiktās tikšanās, Zvanus un uzdevumus:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Attēlot laika spraugas dienas un nedēļas skatos:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Rādīt uzdevumus:',
   'LBL_SETTINGS_TIME_ENDS' => 'Beigu laiks:',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mar',
@@ -140,6 +145,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Janvāris',
     2 => 'Februāris',
     3 => 'Marts',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Sv.',
     1 => 'P',
     2 => 'O',
     3 => 'T',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Svētdiena',
     1 => 'Pirmdiena',
     2 => 'Otrdiena',
     3 => 'Trešdiena',

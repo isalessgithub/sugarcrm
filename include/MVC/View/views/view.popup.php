@@ -29,13 +29,17 @@ class ViewPopup extends SugarView{
 
 		if(isset($_REQUEST['metadata']) && strpos($_REQUEST['metadata'], "..") !== false)
 			die("Directory navigation attack denied.");
-		if(!empty($_REQUEST['metadata']) && $_REQUEST['metadata'] != 'undefined'
-			&& file_exists('modules/' . $this->module . '/metadata/' . $_REQUEST['metadata'] . '.php')) // if custom metadata is requested
-			require_once('modules/' . $this->module . '/metadata/' . $_REQUEST['metadata'] . '.php');
-		elseif(file_exists('custom/modules/' . $this->module . '/metadata/popupdefs.php'))
-	    	require_once('custom/modules/' . $this->module . '/metadata/popupdefs.php');
-	    elseif(file_exists('modules/' . $this->module . '/metadata/popupdefs.php'))
-	    	require_once('modules/' . $this->module . '/metadata/popupdefs.php');
+        if (!empty($_REQUEST['metadata']) && $_REQUEST['metadata'] != 'undefined'
+            && file_exists('custom/modules/' . $this->module . '/metadata/' . $_REQUEST['metadata'] . '.php')) {
+            require 'custom/modules/' . $this->module . '/metadata/' . $_REQUEST['metadata'] . '.php';
+        } elseif (!empty($_REQUEST['metadata']) && $_REQUEST['metadata'] != 'undefined'
+            && file_exists('modules/' . $this->module . '/metadata/' . $_REQUEST['metadata'] . '.php')) {
+            require 'modules/' . $this->module . '/metadata/' . $_REQUEST['metadata'] . '.php';
+        } elseif (file_exists('custom/modules/' . $this->module . '/metadata/popupdefs.php')) {
+            require 'custom/modules/' . $this->module . '/metadata/popupdefs.php';
+        } elseif (file_exists('modules/' . $this->module . '/metadata/popupdefs.php')) {
+            require 'modules/' . $this->module . '/metadata/popupdefs.php';
+        }
 
 	    if(!empty($popupMeta) && !empty($popupMeta['listviewdefs'])){
 	    	if(is_array($popupMeta['listviewdefs'])){
@@ -73,16 +77,16 @@ class ViewPopup extends SugarView{
             if(!empty($_REQUEST['current_query_by_page'])) {
                 $blockVariables = array('mass', 'uid', 'massupdate', 'delete', 'merge', 'selectCount',
                     'sortOrder', 'orderBy', 'request_data', 'current_query_by_page');
-                $current_query_by_page = unserialize(base64_decode($_REQUEST['current_query_by_page']));
+                $current_query_by_page = sugar_unserialize(base64_decode($_REQUEST['current_query_by_page']));
                 foreach($current_query_by_page as $search_key=>$search_value) {
                     if($search_key != $this->module.'2_'.strtoupper($this->bean->object_name).'_offset'
                     	&& !in_array($search_key, $blockVariables)) {
                         if (!is_array($search_value)) {
-                            $_REQUEST[$search_key] = $GLOBALS['db']->quote($search_value);
+                            $_REQUEST[$search_key] = securexss($search_value);
                         }
                         else {
                             foreach ($search_value as $key=>&$val) {
-                                $val = $GLOBALS['db']->quote($val);
+                                $val = securexss($val);
                             }
                             $_REQUEST[$search_key] = $search_value;
                         }

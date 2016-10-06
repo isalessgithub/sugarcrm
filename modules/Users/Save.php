@@ -13,13 +13,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 require_once('include/SugarFields/SugarFieldHandler.php');
 require_once('modules/MySettings/TabController.php');
@@ -65,16 +58,15 @@ if(empty($focus->user_name))
 
 
 if(!$current_user->is_admin && !$GLOBALS['current_user']->isAdminForModule('Users')
-    && $current_user->id != $focus->id) {
-	$GLOBALS['log']->fatal("SECURITY:Non-Admin ". $current_user->id . " attempted to change settings for user:". $focus->id);
-	header("Location: index.php?module=Users&action=Logout");
-	exit;
-}
-if(!$current_user->is_admin  && !$GLOBALS['current_user']->isAdminForModule('Users')
-    && !empty($_POST['is_admin'])) {
-	$GLOBALS['log']->fatal("SECURITY:Non-Admin ". $current_user->id . " attempted to change is_admin settings for user:". $focus->id);
-	header("Location: index.php?module=Users&action=Logout");
-	exit;
+) {
+    if($current_user->id != $focus->id
+    || !empty($_POST['is_admin'])
+    || (!empty($_POST['UserType']) && $_POST['UserType'] == 'Administrator')
+    ) {
+        $GLOBALS['log']->fatal("SECURITY:Non-Admin ". $current_user->id . " attempted to change settings for user:". $focus->id);
+        header("Location: index.php?module=Users&action=Logout");
+        exit;
+    }
 }
 
 

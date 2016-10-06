@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Secība:',
   'LBL_LIST_STATUS' => 'Statuss',
   'LBL_MODULE_NAME' => 'Laidieni',
+  'LBL_MODULE_NAME_SINGULAR' => 'Laidiens',
   'LBL_MODULE_TITLE' => 'Laidieni',
   'LBL_NAME' => 'Laidiena versija:',
   'LBL_NEW_FORM_TITLE' => 'Jauns laidiens',

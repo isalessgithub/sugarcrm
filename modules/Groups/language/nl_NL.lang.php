@@ -18,13 +18,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
-  'LBL_TEAM' => 'Team:',
-  'LBL_MODULE_NAME' => 'Groep',
-  'LBL_GROUP_NAME' => 'Groepsnaam:',
   'LBL_DESCRIPTION' => 'Beschrijving:',
+  'LBL_GROUP_NAME' => 'Groepsnaam:',
   'LBL_LIST_TITLE' => 'Groepen',
+  'LBL_MODULE_NAME' => 'Groep',
+  'LBL_MODULE_NAME_SINGULAR' => 'Groep',
+  'LBL_TEAM' => 'Team:',
   'LNK_ALL_GROUPS' => 'Alle Groepen',
-  'LNK_NEW_GROUP' => 'Nieuwe Groep',
   'LNK_CONVERT_USER' => 'Converteer Gebruiker naar Groep',
+  'LNK_NEW_GROUP' => 'Nieuwe Groep',
 );
 

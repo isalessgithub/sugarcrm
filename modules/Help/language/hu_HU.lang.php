@@ -21,6 +21,7 @@ $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót a kliens törléséhez!',
   'LBL_LIST_FORM_TITLE' => 'Kliens lista',
   'LBL_MODULE_NAME' => 'Kliensek',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kliens',
   'LBL_MODULE_TITLE' => 'Kliensek: Főoldal',
   'LBL_NEW_FORM_TITLE' => 'Kliens létrehozása',
   'LBL_SEARCH_FORM_TITLE' => 'Kliens keresése',

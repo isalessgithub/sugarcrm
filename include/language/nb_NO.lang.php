@@ -1996,6 +1996,7 @@ $app_list_strings = array (
   ),
   'dom_cal_day_long' => 
   array (
+    0 => '',
     1 => 'Søndag',
     2 => 'mandag',
     3 => 'tirsdag',
@@ -2006,6 +2007,7 @@ $app_list_strings = array (
   ),
   'dom_cal_day_short' => 
   array (
+    0 => '',
     1 => 'søn',
     2 => 'man',
     3 => 'tirs',
@@ -2016,6 +2018,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Januar',
     2 => 'Februar',
     3 => 'Mars',
@@ -2031,6 +2034,7 @@ $app_list_strings = array (
   ),
   'dom_cal_month_short' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mar',
@@ -2181,6 +2185,7 @@ $app_list_strings = array (
   ),
   'duration_intervals' => 
   array (
+    0  => '00',
     15 => '15',
     30 => '30',
     45 => '45',
@@ -2515,7 +2520,7 @@ $app_list_strings = array (
     'Accounts' => 'Bedrifter',
     'Activities' => 'Aktiviteter',
     'Administration' => 'Administrasjon',
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bugs',
     'Calendar' => 'Kalender',
     'Calls' => 'Oppringninger',
     'CampaignLog' => 'Kampanje- log',
@@ -2596,7 +2601,7 @@ $app_list_strings = array (
   array (
     'Accounts' => 'Kunde',
     'Activities' => 'Aktiviteter',
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bug',
     'Calendar' => 'Kalender',
     'Calls' => 'Oppringning',
     'Campaigns' => 'Kampanjer',
@@ -2720,7 +2725,7 @@ $app_list_strings = array (
   'parent_type_display' => 
   array (
     'Accounts' => 'Kunde',
-    'Bugs' => 'Bug Tracker',
+    'Bugs' => 'Bug',
     'Cases' => 'Sak',
     'Contacts' => 'Kontakt',
     'Leads' => 'Lead',
@@ -2761,7 +2766,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Bedrifter',
     'Activities' => 'Aktiviteter',
-    'Bug Tracker' => 'Feilsøker',
+    'Bugs' => 'Feilsøker',
     'Calendar' => 'Kalender',
     'Calls' => 'Oppringninger',
     'Campaigns' => 'Kampanjer',

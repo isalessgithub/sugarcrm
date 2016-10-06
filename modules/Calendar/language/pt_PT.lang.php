@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: não definido para esta view',
+  'ERR_YEAR_BETWEEN' => 'Pedimos desculpa, o calendário não consegue mostrar o ano pedido<br>O Ano terá que ser entre 1970 e 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Aplica',
   'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
@@ -55,6 +57,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'A carregar ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Calendário',
+  'LBL_MODULE_NAME_SINGULAR' => 'Calendário',
   'LBL_MODULE_TITLE' => 'Calendário',
   'LBL_MONTH' => 'Mês',
   'LBL_NEXT_DAY' => 'Próximo Dia',
@@ -92,6 +95,7 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Enviar convites',
   'LBL_SETTINGS' => 'Configurações',
   'LBL_SETTINGS_CALLS_SHOW' => 'Mostrar Chamadas:',
+  'LBL_SETTINGS_COMPLETED_SHOW' => 'Mostrar Reuniões, Chamadas e Tarefas concluídas:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Mostrar faixas de tempo nas vistas de Dia e Semana:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Mostrar Tarefas:',
   'LBL_SETTINGS_TIME_ENDS' => 'Hora de Fim:',
@@ -125,6 +129,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Fev',
     3 => 'Mar',
@@ -140,6 +145,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Janeiro',
     2 => 'Fevereiro',
     3 => 'Março',
@@ -155,6 +161,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Dom',
     1 => '2ª',
     2 => '3ª',
     3 => '4ª',
@@ -164,6 +171,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Domingo',
     1 => 'Segunda-feira',
     2 => 'Terça-feira',
     3 => 'Quarta-feira',

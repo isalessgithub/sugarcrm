@@ -39,6 +39,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Модифицирано от потребител',
   'LBL_MODULE' => 'модул',
   'LBL_MODULE_NAME' => 'Предпочитани записи',
+  'LBL_MODULE_NAME_SINGULAR' => 'Предпочитани записи',
   'LBL_MODULE_TITLE' => 'Предпочитани записи',
   'LBL_NAME' => 'Име',
   'LBL_NEW_FORM_TITLE' => 'Нови предпочитани',

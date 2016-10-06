@@ -1,4 +1,6 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 
 /*********************************************************************************
  * By installing or using this file, you are confirming on behalf of the entity
@@ -13,27 +15,16 @@
  * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
  ********************************************************************************/
 
+	
 
-
-
-
-
-
-
-
-
-
-
-
-
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
-   'LBL_DEFAULT' => 'Nenastaveno',
-   'LBL_READ_WRITE' => 'Číst/Zapisovat',
-   'LBL_READ_OWNER_WRITE' => 'Číst/Zapisovat svoje',
-   'LBL_READ_ONLY' => 'Pouze pro čtení',
-   'LBL_OWNER_READ_WRITE' => 'Číst svoje/Zapisovat svoje',
-   'LBL_ALLOW_NONE' => 'Zákaz',
-   'LBL_FIELDS' => 'Oprávnění na položky',
+  'LBL_ALLOW_NONE' => 'Zákaz',
+  'LBL_DEFAULT' => 'Nenastaveno',
+  'LBL_FIELDS' => 'Oprávnění na položky',
+  'LBL_NOT_DEFINED' => 'Nedefinováno',
+  'LBL_OWNER_READ_WRITE' => 'Číst svoje/Zapisovat svoje',
+  'LBL_READ_ONLY' => 'Pouze pro čtení',
+  'LBL_READ_OWNER_WRITE' => 'Číst/Zapisovat svoje',
+  'LBL_READ_WRITE' => 'Číst/Zapisovat',
 );
-?>
+

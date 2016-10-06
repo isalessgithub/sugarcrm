@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Secība:',
   'LBL_LIST_STATUS' => 'Statuss',
   'LBL_MODULE_NAME' => 'Piegādātāji',
+  'LBL_MODULE_NAME_SINGULAR' => 'Piegādātājs',
   'LBL_MODULE_TITLE' => 'Piegādātāji',
   'LBL_NAME' => 'Piegādātājs:',
   'LBL_NEW_FORM_TITLE' => 'Jauns piegādātājs',

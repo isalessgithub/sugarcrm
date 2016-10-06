@@ -20,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
   'LBL_EXPAND' => 'Išplėsti',
   'LBL_MODULE_NAME' => 'Kriterijų variklis',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kriterijų variklis',
   'LBL_NEXT' => 'Toliau',
   'LBL_PREVIOUS' => 'Atgal',
 );

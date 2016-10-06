@@ -18,6 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	
 
 $mod_strings = array (
+  'LBL_ACCOUNT_ID' => 'Kliens azonosító',
   'LBL_ACCOUNT_NAME' => 'Kliens neve:',
   'LBL_ASSIGNED_TO' => 'Felelős:',
   'LBL_ASSIGNED_TO_NAME' => 'Felelős neve:',
@@ -55,6 +56,7 @@ $mod_strings = array (
   'LBL_NONE' => 'Egyik sem',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Jegyzetek',
   'LBL_OPPORTUNITY' => 'Lehetőség',
+  'LBL_OPPORTUNITY_NAME' => 'Lehetőség neve',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Termékek',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Árajánlatok',
   'LBL_REFERENCE_CODE' => 'Hivatkozási kód:',
@@ -75,6 +77,7 @@ $mod_strings = array (
   'LBL_TYPE' => 'Típus',
   'LBL_UNDEFINED' => 'Nem definiált',
   'LNK_CONTRACT_LIST' => 'Szerződések megtekintése',
+  'LNK_IMPORT_CONTRACTS' => 'Szerződések importálása',
   'LNK_NEW_CONTRACT' => 'Új szerződés létrehozása',
 );
 

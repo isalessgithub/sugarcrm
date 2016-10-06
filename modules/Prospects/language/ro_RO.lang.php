@@ -98,6 +98,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Utilizator Modificat',
   'LBL_MODULE_ID' => 'Tinte',
   'LBL_MODULE_NAME' => 'Tinte',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tinta:',
   'LBL_MODULE_TITLE' => 'Tinte: Acasa',
   'LBL_MORE_INFORMATION' => 'Mai multe Informatii',
   'LBL_NAME' => 'Nume:',

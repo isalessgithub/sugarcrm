@@ -26,6 +26,7 @@ $mod_strings = array (
   'LBL_LIST_ORDER' => 'Redosled:',
   'LBL_LIST_STATUS' => 'Status',
   'LBL_MODULE_NAME' => 'Dostavljači',
+  'LBL_MODULE_NAME_SINGULAR' => 'Pošiljalac',
   'LBL_MODULE_TITLE' => 'Dostavljači: Početna strana',
   'LBL_NAME' => 'Dostavljač:',
   'LBL_NEW_FORM_TITLE' => 'Novi dostavljač',

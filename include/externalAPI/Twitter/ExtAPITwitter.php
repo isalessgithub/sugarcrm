@@ -37,7 +37,7 @@ class ExtAPITwitter extends OAuthPluginBase implements WebFeed {
     {
         $td = $GLOBALS['timedate'];
 
-        $twitter_json_url = 'http://api.twitter.com/1/statuses/friends_timeline.json';
+        $twitter_json_url = 'https://api.twitter.com/1.1/statuses/home_timeline.json';
         $reply = $this->makeRequest('GET', $twitter_json_url,array('count'=>$maxEntries));
 
         if ( !$reply['success'] ) {

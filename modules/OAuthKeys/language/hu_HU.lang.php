@@ -38,6 +38,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Módosító neve',
   'LBL_MODIFIED_USER' => 'Felhasználó által módosítva',
   'LBL_MODULE_NAME' => 'Szerzői kulcsok',
+  'LBL_MODULE_NAME_SINGULAR' => 'OAuth kulcs',
   'LBL_MODULE_TITLE' => 'Szerzői kulcsok',
   'LBL_NAME' => 'Kulcs neve',
   'LBL_OAUTH_TYPE' => 'OAuth verzió',

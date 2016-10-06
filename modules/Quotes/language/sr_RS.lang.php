@@ -58,6 +58,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Država:',
   'LBL_CREATED_BY' => 'Autor',
   'LBL_CURRENCY' => 'Valuta:',
+  'LBL_CURRENCY_RATE' => 'Kursna Lista',
   'LBL_DATE_QUOTE_CLOSED' => 'Stvarni datum zatvaranja:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Važi do:',
   'LBL_DEAL_TOT' => 'ukupan popust',
@@ -102,6 +103,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Poreska stopa',
   'LBL_MODIFIED_BY' => 'Promenio',
   'LBL_MODULE_NAME' => 'Ponude',
+  'LBL_MODULE_NAME_SINGULAR' => 'Navod',
   'LBL_MODULE_TITLE' => 'Ponude: Početna strana',
   'LBL_NAME' => 'Naziv ponude',
   'LBL_NEW_FORM_TITLE' => 'Kreiraj ponudu',
@@ -197,7 +199,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Da li ste sigurni da želite da uklonite ovu grupu iz ponude?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Da li ste sigurni da želite da uklonite ovau liniju iz ponude?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Da li ste sigurni da želite da uklonite ovog kontakta iz ponude?',
-  'PDF_FORMAT' => 'PDF Format:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Da li ste sigurni da želite da uklonite ovu ponudu iz projekta?',
 );
 

@@ -37,6 +37,7 @@ $mod_strings = array (
   'LBL_LIST_REPORTS_TO' => 'Nadređeni',
   'LBL_LIST_TITLE' => 'Titula',
   'LBL_MODULE_NAME' => 'Timovi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tim',
   'LBL_MODULE_TITLE' => 'Timovi: Početna strana',
   'LBL_NAME' => 'Ime tima:',
   'LBL_NAME_2' => 'Ime Tima(2):',

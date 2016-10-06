@@ -452,7 +452,7 @@ class SugarFieldTeamset extends SugarFieldBase {
 	 * @return array		array of team ids
 	 */
 	 public function getTeamsFromRequest($field, $vars = array()){
-		if(empty($vars)){
+		if(empty($vars) && isset($_REQUEST)){
 			$vars = $_REQUEST;
 		}
 		$team_ids = array();
@@ -501,13 +501,13 @@ class SugarFieldTeamset extends SugarFieldBase {
 	 */
    public function save(&$bean, $params, $field, $properties, $prefix = ''){
     	$save = false;
-        $value_name = $field . "_values";
+        $value_name = $prefix.$field . "_values";
         
         $team_ids = array();
-        $teams = $this->getTeamsFromRequest($field, $params);
+        $teams = $this->getTeamsFromRequest($prefix.$field, $params);
 		$team_ids = array_keys($teams);
 
-	    $primaryTeamId = $this->getPrimaryTeamIdFromRequest($field, $params);
+	    $primaryTeamId = $this->getPrimaryTeamIdFromRequest($prefix.$field, $params);
 	    //if the team id here is blank then let's not set it as the team_id on the bean
 	    if(!empty($primaryTeamId)){
         	$bean->team_id = $primaryTeamId;

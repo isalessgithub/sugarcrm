@@ -79,7 +79,15 @@ class ViewValidateRelatedField extends ViewAjax
         //Otherwise, send it to the formula builder to evaluate further
         else
         {
-            echo json_encode($field_defs[$this->related]);
+            $available_fields = FormulaHelper::cleanFields($field_defs, false, true, true);
+            if (isset($available_fields[$this->related]))
+            {
+                echo json_encode($field_defs[$this->related]);
+            }
+            else
+            {
+                echo(json_encode("$this->related field cannot be used in expressions"));
+            }
         }
     }
 }

@@ -14,4 +14,4 @@
 
 
 *}
-Campaign '{$campaignName}' has status 'Inactive'. You have to set campaign status to 'Active'. 
+{$campaignInactive}

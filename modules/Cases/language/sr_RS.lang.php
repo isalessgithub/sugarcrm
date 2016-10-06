@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_FILENANE_ATTACHMENT' => 'Prilog fajl',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istorija',
   'LBL_INVITEE' => 'Kontakti',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Baza znanja',
   'LBL_LIST_ACCOUNT_NAME' => 'Naziv kompanije',
   'LBL_LIST_ASSIGNED' => 'Dodeljeno',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Dodeljeni korisnik',
