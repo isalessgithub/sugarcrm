@@ -15,8 +15,8 @@ $dictionary['Contact']['fields']['log_call_c']['studio'] = array(
     'wirelesslistview'=>false,
     'wireless_basic_search'=>false
 );
-$dictionary['Contact']['fields']['log_call_c']['function'] =  array(
-    'name' => 'renderLogCall',
-    'returns' => 'html',
-    'include' => 'modules/ATC_Teleseller/ATC_CallLogger.php',
-);
+//$dictionary['Contact']['fields']['log_call_c']['function'] =  array(
+//    'name' => 'renderLogCall',
+//    'returns' => 'html',
+//    'include' => 'modules/ATC_Teleseller/ATC_CallLogger.php',
+//);
