@@ -176,7 +176,10 @@ abstract class UpgradeDriver
 
             // If we're running on a case-insensitive file-system, delete
             // the file first to ensure we pick up filename case changes.
-            if ($this->context['case_insensitive_fs']) {
+            if ($this->context['case_insensitive_fs']
+                && pathinfo(realpath($file), PATHINFO_BASENAME) !== $file
+            ) {
+                $this->log("Warning: delete file: {$file} before copy it in the case insensitive fs");
                 $this->unlink($target_dir . '/' . $file);
             }
 
@@ -342,6 +345,9 @@ abstract class UpgradeDriver
             ) . "-restore";
         if (isset($this->context['script_mask'])) {
             $this->script_mask &= $this->context['script_mask'];
+        }
+        if (isset($this->state['extract_dir'])) {
+            $this->context['extract_dir'] = $this->state['extract_dir'];
         }
         if (empty($this->context['health_check_path'])) {
             $this->context['health_check_path'] =
@@ -520,19 +526,64 @@ abstract class UpgradeDriver
     }
 
     /**
-     * Load version file from path
+     * Returns version and flavor which the upgrade is being done from
+     *
      * @return array
      */
-    protected function loadVersion($dir = "")
+    protected function getFromVersion()
+    {
+        $version = $this->loadFromVersion();
+        $this->log('The from version is detected as ' . implode(' ', $version));
+        return $version;
+    }
+
+    /**
+     * Returns version and flavor which the upgrade is being done to
+     *
+     * @return array
+     */
+    protected function getToVersion()
+    {
+        $version = $this->loadToVersion();
+        $this->log('The to version is detected as ' . implode(' ', $version));
+        return $version;
+    }
+
+    /**
+     * Loads version and flavor which the upgrade is being done from
+     *
+     * @return array
+     */
+    protected function loadFromVersion()
+    {
+        return $this->loadVersion($this->context['source_dir']);
+    }
+
+    /**
+     * Loads version and flavor which the upgrade is being done to
+     *
+     * @return array
+     */
+    protected function loadToVersion()
+    {
+        return $this->loadVersion($this->context['new_source_dir']);
+    }
+
+    /**
+     * Load version file from path
+     *
+     * @param string $dir Data source path
+     *
+     * @return array
+     */
+    protected function loadVersion($dir)
     {
         if (!defined('sugarEntry')) {
             define('sugarEntry', true);
         }
-        if ($dir) {
-            include "$dir/sugar_version.php";
-        } else {
-            include "sugar_version.php";
-        }
+
+        $sugar_version = $sugar_flavor = null;
+        include "$dir/sugar_version.php";
         $sugar_flavor = strtolower($sugar_flavor);
         return array($sugar_version, $sugar_flavor);
     }
@@ -893,11 +944,13 @@ abstract class UpgradeDriver
         }
 
         // validate manifest
-        list($this->from_version, $this->from_flavor) = $this->loadVersion();
+        list($this->from_version, $this->from_flavor) = $this->getFromVersion();
         $db = DBManagerFactory::getInstance();
-        if (version_compare($this->from_version, 7, '<') && !$db instanceof MysqlManager) {
-            return $this->error("Can't upgrade version 6.x on non-Mysql database", true);
-        }
+        
+        // if (version_compare($this->from_version, 7, '<') && !$db instanceof MysqlManager) {
+        //    return $this->error("Can't upgrade version 6.x on non-Mysql database", true);
+        // }
+        
         $res = $this->validateManifest();
         if ($res !== true) {
             if ($this->clean_on_fail) {
@@ -1140,7 +1193,21 @@ abstract class UpgradeDriver
      */
     protected function getUser()
     {
+        //Set globals installing to true to prevent bean_implements check for some modules
+        if (isset($GLOBALS['installing'])) {
+            $installing = $GLOBALS['installing'];
+        }
+
+        $GLOBALS['installing'] = true;
+
         $user = BeanFactory::getBean('Users');
+
+        if (isset($installing)) {
+            $GLOBALS['installing'] = $installing;
+        } else {
+            unset($GLOBALS['installing']);
+        }
+
         $user_id = $this->db->getOne(
             "select id from users where deleted=0 AND user_name = " . $this->db->quoted($this->context['admin']),
             false
@@ -1173,6 +1240,26 @@ abstract class UpgradeDriver
                $sugar_version, $sugar_flavor, $sugar_build, $sugar_db_version, $sugar_timestamp, $db, $locale,
                $installing, $bwcModules, $app_list_strings, $modules_exempt_from_availability_check;
         $installing = true;
+
+        // CRYS-741 On windows $_SERVER['PHP_SELF'] is 'C:\i.....'; in console, not url like for web request.
+        // Because of that it's not valid for security check for SAFED_GET mask
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && file_exists('include/utils.php')) {
+            list($from_version, $from_flavor) = $this->loadFromVersion();
+            if (version_compare($from_version, '7.2.0', '<')) {
+                $utils_fix = file_get_contents('include/utils.php');
+                if (preg_match('/(clean_special_arguments)(.+)(if\(isset\(\$_SERVER\[\'PHP_SELF\'\]\)\))/is', $utils_fix, $match_array)
+                    && isset($match_array[3]) && $match_array[3] == 'if(isset($_SERVER[\'PHP_SELF\']))'
+                ) {
+                    $utils_fix = preg_replace(
+                        '/(clean_special_arguments)(.+)(if\(isset\(\$_SERVER\[\'PHP_SELF\'\]\)\))/is',
+                        '$1$2if (isset($_SERVER[\'PHP_SELF\']) && \'cli\' !== PHP_SAPI)',
+                        $utils_fix
+                    );
+                    file_put_contents('include/utils.php', $utils_fix);
+                }
+            }
+        }
+
         include('include/entryPoint.php');
         $installing = false;
         $GLOBALS['current_language'] = $this->config['default_language'];
@@ -1185,6 +1272,12 @@ abstract class UpgradeDriver
         if ($this->current_stage == 'post') {
             $this->cleanCaches();
         }
+
+        // reset the sugar cache so that the language files won't be loaded from the cache in upgrade wizard
+        // otherwise when building $app_strings by using Utils.php::return_application_language(),
+        // sugar_cache_retrieve() will return the cached value from the old upgraded-from version.
+        sugar_cache_reset();
+
         SugarApplication::preLoadLanguages();
         $timedate = TimeDate::getInstance();
         if (empty($locale)) {
@@ -1436,7 +1529,7 @@ abstract class UpgradeDriver
      * Get package manifest
      * @return array
      */
-    protected function getManifest()
+    public function getManifest()
     {
         return $this->dataInclude("{$this->context['extract_dir']}/manifest.php", 'manifest');
     }
@@ -1499,7 +1592,7 @@ abstract class UpgradeDriver
             $this->to_flavor = strtolower($this->manifest['flavor']);
         } else {
             if (!empty($this->context['new_source_dir'])) {
-                list($to_version, $to_flavor) = $this->loadVersion($this->context['new_source_dir']);
+                list(, $to_flavor) = $this->getToVersion();
                 $this->to_flavor = $to_flavor;
             } else {
                 $this->to_flavor = $this->from_flavor;
@@ -1621,6 +1714,8 @@ abstract class UpgradeDriver
      */
     public function saveConfig()
     {
+        global $sugar_version;
+
         //read the existing configs from the file config.php & config_override.php
         list($oldConfig, $overrideConfig) = $this->readConfigFiles();
 
@@ -1629,7 +1724,7 @@ abstract class UpgradeDriver
 
         //write to the file "config.php"
         ksort($configs);
-        return write_array_to_file("sugar_config", $configs, $this->context['source_dir'] . "/config.php");
+        return rebuildConfigFile($configs, $sugar_version);
     }
 
     protected $stages = array('unpack', 'healthcheck', 'pre', 'commit', 'post', 'cleanup');
@@ -1707,17 +1802,17 @@ abstract class UpgradeDriver
                     break;
                 case "unpack":
                     // Verify package
+                    unset($this->state['extract_dir']);
                     if (!$this->verify($this->context['zip'], $this->context['extract_dir'])) {
                         $this->error("Package verificaition failed");
                         return false;
                     }
+                    $this->state['extract_dir'] = $this->context['extract_dir'];
                     break;
                 case "pre":
                     // Run pre-upgrade
-                    // TODO: pre-script are currently taken from old envt.
-                    // We need to consider how to take them from new envt instead.
                     $this->initSugar();
-                    list($this->from_version, $this->from_flavor) = $this->loadVersion();
+                    list($this->from_version, $this->from_flavor) = $this->getFromVersion();
                     $this->state['old_version'] = array($this->from_version, $this->from_flavor);
                     $this->saveState();
                     if (!$this->runScripts("pre")) {
@@ -1842,7 +1937,7 @@ abstract class UpgradeDriver
      */
     public function healthcheck()
     {
-        list($version,) = $this->loadVersion($this->context['source_dir']);
+        list($version,) = $this->getFromVersion();
         return $this->doHealthcheck();
     }
 
