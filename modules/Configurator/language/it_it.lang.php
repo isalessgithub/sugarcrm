@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Impostazioni Avanzate',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Mostra i tempi di risposta del server',
   'ERR_ALERT_FILE_UPLOAD' => 'Errore durante il caricamento dell´immagine.',
   'ERR_DELETE_CORE_FILE' => 'ERRORE: Non è possibile eliminare un carattere core.',
+  'ERR_EMPTY_SAML_CERT' => 'Certificato SAML non può essere vuoto',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL non può essere vuoto',
   'ERR_EZPDF_DISABLE' => 'Avviso : La classe EZPDF è disattivata dalla tabella di configurazione ed è impostata come classe PDF. Si prega di "Salvare" questo form per impostare TCPDF come Classe PDF e ritornare in uno stato stabile.',
   'ERR_FONT_ALREADY_EXIST' => 'ERRORE : Questo carattere esiste già. Torna indietro...',
   'ERR_FONT_EMPTYFILE' => 'ERRORE: Nome file vuoto!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERRORE: Nessun percorso del font personalizzato disponibile!',
   'ERR_NO_FONT_PATH' => 'ERRORE: Nessun percorso del font disponibile!',
   'ERR_PDF_NO_UPLOAD' => 'Errore durante il caricamento del carattere o del metric file.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL non è valido',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL non è valido',
   'HEAD_MAGNIFICATION' => 'Ingrandimento Intestazione',
   'HEAD_MAGNIFICATION_INFO' => 'Fattore ingrandimento per titoli.',
   'IMAGES' => 'Loghi',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Indietro',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Scegli il provider della tua email:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Impostazioni del Sistema',
-  'LBL_CONFIG_AJAX' => 'Configura Interfaccia Utente AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Abilita o disabilita l´uso di AJAX per moduli specifici.',
   'LBL_DELETE' => 'Cancella',
   'LBL_DISALBE_CONVERT_LEAD' => 'Disabilitare l´azione di conversione lead per i lead convertiti',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Se un lead è già stato convertito, l´attivazione di questa opzione rimuoverà l´azione di conversione lead.',
   'LBL_DISPLAYING_LOG' => 'Displaying Log',
   'LBL_ENABLE_ACTION_MENU' => 'Mostra le azioni all´interno del menù',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Seleziona per visualizzare la Vista Dettaglio e le azioni sui sottopannelli all´interno di un menù a tendina. Se non selezionato, le azioni saranno visualizzate come pulsanti separati.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Mostra le emails relazionate ai contatti nel sottopannello Cronologia',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Abilita/Disabilita la visibilità delle Email archiviate dei contatti relazionati nel Sottopannello Email.',
   'LBL_ENABLE_MAILMERGE' => 'Abilitare Stampa Unione?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Cambia Password:',
@@ -96,8 +95,8 @@ $mod_strings = array (
   'LBL_FONT_BOLDITALIC' => 'Grassetto/Corsivo',
   'LBL_FONT_ITALIC' => 'Corsivo',
   'LBL_FONT_LIST_CIDINFO' => 'Informazioni CID',
-  'LBL_FONT_LIST_CIDINFO_INFO' => 'Esempi :<ul><li>Chinese Traditional :<br><pre>$enc=\\´UniCNS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´CNS1\\´,\\´Supplement\\´=>0);<br>include(\\´include/tcpdf/fonts/uni2cid_ac15.php\\´);</pre></li><li>Chinese Simplified :<br><pre>$enc=\\´UniGB-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´GB1\\´,\\´Supplement\\´=>2);<br>include(\\´include/tcpdf/fonts/uni2cid_ag15.php\\´);</pre></li><li>Korean :<br><pre>$enc=\\´UniKS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´Korea1\\´,\\´Supplement\\´=>0);<br>include(\\´include/tcpdf/fonts/uni2cid_ak12.php\\´);</pre></li><li>Japanese :<br><pre>$enc=\\´UniJIS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´Japan1\\´,\\´Supplement\\´=>5);<br>include(\\´include/tcpdf/fonts/uni2cid_aj16.php\\´);</pre></li></ul>More help : www.tcpdf.org',
-  'LBL_FONT_LIST_EMBEDDED' => 'Incorporato',
+  'LBL_FONT_LIST_CIDINFO_INFO' => 'Examples :<ul><li>Chinese Traditional :<br><pre>$enc=\\´UniCNS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´CNS1\\´,\\´Supplement\\´=>0);<br>include(\\´include/tcpdf/fonts/uni2cid_ac15.php\\´);</pre></li><li>Chinese Simplified :<br><pre>$enc=\\´UniGB-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´GB1\\´,\\´Supplement\\´=>2);<br>include(\\´include/tcpdf/fonts/uni2cid_ag15.php\\´);</pre></li><li>Korean :<br><pre>$enc=\\´UniKS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´Korea1\\´,\\´Supplement\\´=>0);<br>include(\\´include/tcpdf/fonts/uni2cid_ak12.php\\´);</pre></li><li>Japanese :<br><pre>$enc=\\´UniJIS-UTF16-H\\´;<br>$cidinfo=array(\\´Registry\\´=>\\´Adobe\\´, \\´Ordering\\´=>\\´Japan1\\´,\\´Supplement\\´=>5);<br>include(\\´include/tcpdf/fonts/uni2cid_aj16.php\\´);</pre></li></ul>More help : www.tcpdf.org',
+  'LBL_FONT_LIST_EMBEDDED' => 'Inserito',
   'LBL_FONT_LIST_EMBEDDED_INFO' => 'Controlla di inserire il carattere nel file PDF',
   'LBL_FONT_LIST_ENC' => 'Codifica',
   'LBL_FONT_LIST_FILENAME' => 'Nome File',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Ulteriori paremetri di filtro da applicare all´autenticazione degli utenti e.g.<em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Opzioni Conversione Lead',
   'LBL_LOADING' => 'Caricamento...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Questa impostazione si applica a moduli relazionati.',
   'LBL_LOGGER' => 'Impostazioni Accesso',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Formato Data Default',
   'LBL_LOGGER_FILENAME' => 'Nome File Log',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Prossimo>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Indirizzo Mittente:',
   'LBL_NOTIFY_SUBJECT' => 'Oggetto Email:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Impedisci agli utenti di cambiare nome per aggiornare il nome del loro Team Privato.',
   'LBL_OC_STATUS' => 'Stato di default del client offline',
   'LBL_OC_STATUS_DESC' => 'Cerca qui se vuoi che qualsiasi utente abbia accesso al Client Offline. Oppure puoi configurare l´accesso al livello utente.',
   'LBL_PDFMODULE_NAME' => 'PDF Settings',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'ERRORE : Il carattere non è stato aggiunto. Guarda il log sotto.',
   'LBL_STATUS_FONT_SUCCESS' => 'Operazione avvenuta con successo : Il carattere è stato aggiunto a SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Impostazioni del sistema',
+  'LBL_TWEETTOCASE_ON' => 'AbilitaTweet&reg; all´integrazione con i reclami',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Abilita gli utenti a creare reclami da Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; to case',
   'LBL_USE_REAL_NAMES' => 'Mostra Nome Completo (non il Login)',
   'LBL_USE_REAL_NAMES_DESC' => 'Visualizza i nomi completi degli utenti anzichè i loro Nomi Utenti nei campi di assegnazione.',
   'LBL_VCAL_PERIOD' => 'vCal Aggiornamenti periodici:',
@@ -255,7 +259,7 @@ $mod_strings = array (
   'LBL_YAHOOMAIL_SMTPUSER' => 'ID di Mail Yahoo!:',
   'LBL_YAHOO_MAIL' => 'Yahoo Mail',
   'LBL_YOUR_IP_ADDRESS' => 'Indirizzo IP è',
-  'LBL_YOUR_PROCESS_ID' => 'ID Processo',
+  'LBL_YOUR_PROCESS_ID' => 'ID tuo Flusso',
   'LDAP_ENC_KEY_NO_FUNC_DESC' => 'Estensione php_mcrypt deve essere abilitata nel file php.ini.',
   'LEAD_CONV_OPT_HELP' => '<b>Copia</b> - Crea e collega le attività dei Lead ai nuovi record che sono stati selezionati dall´utente durante la conversione. Le copie sono create per ogni record selezionato.<br><br><b>Sposta</b> - Sposta tutte le attività dei Lead ai nuovi record che sono stati selezionati dall´utente durante la conversione. <br><br><b>Niente</b> - Fare niente con le attività dei Lead durante la conversione. Le attività rimangono collegate solamente al Lead.',
   'LIST_ENTRIES_PER_LISTVIEW' => 'Voci per pagina della maschera elenco',
@@ -332,7 +336,10 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nome del Sistema',
   'SYSTEM_NAME_HELP' => 'Questo è il nome che appare nella barra titolo del tuo browser.',
   'SYSTEM_NAME_WIZARD' => 'Nome:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'L´impostazione raccomandata è inferiore a {{listEntriesNum}} per raggiungere livelli di performance accettabili. Dato che sono stati aggiunti altri campi nella listview, questo numero dovrebbe essere al di sotto delle impostazioni raccomandate.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'L´impostazione raccomandata è inferiore a {{subpanelEntriesNum}} per raggiungere livelli di performance accettabili. Dato che sono stati aggiunti altri campi nella listview, questo numero dovrebbe essere al di sotto delle impostazioni raccomandate.',
   'UPLOAD_MAX_SIZE' => 'Dimensione massima upload',
   'VERIFY_CLIENT_IP' => 'Convalida l´indirizzo IP degli utenti',
   'vCAL_HELP' => 'Usa questa impostazione per stabilire il numero di mesi antecedenti la data corrente per i quali l´informazione Libero/Occupato per chiamate e riunioni è pubblicato.</BR>Per disattivare la pubblicazione dello stato Libero/Occupato, impostare "0".  Il minimo è 1 mese; il massimo 12 mesi.',
 );
+

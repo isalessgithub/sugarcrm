@@ -1,17 +1,15 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Outbuound email management
@@ -54,6 +52,11 @@ class OutboundEmail {
 	var $mail_smtpssl; // bool
 	var $mail_smtpdisplay; // calculated value, not in DB
 	var $new_with_id = FALSE;
+
+    /**
+     * @var null|OutboundEmail
+     */
+    protected static $sysMailerCache = null;
 
 	/**
 	 * Sole constructor
@@ -122,7 +125,7 @@ class OutboundEmail {
 	       return $userCredentialsReq;
 
 	    $userOverideAccount = $this->getUsersMailerForSystemOverride($user_id);
-	    if( $userOverideAccount == null || empty($userOverideAccount->mail_smtpuser) || empty($userOverideAccount->mail_smtpuser) )
+	    if( $userOverideAccount == null || empty($userOverideAccount->mail_smtpuser) || empty($userOverideAccount->mail_smtppass) )
 	       $userCredentialsReq = TRUE;
 
         return $userCredentialsReq;
@@ -321,8 +324,7 @@ class OutboundEmail {
 		$a = $this->db->fetchByAssoc($r);
 		if (!empty($a)) {
 		    // next see if the admin preference for using the system outbound is set
-            $admin = new Administration();
-            $admin->retrieveSettings('',TRUE);
+            $admin = Administration::getSettings('',TRUE);
             if (isset($admin->settings['notify_allow_default_outbound'])
                 &&  $admin->settings['notify_allow_default_outbound'] == 2 )
                 $allowAccess = TRUE;
@@ -334,33 +336,42 @@ class OutboundEmail {
 	/**
 	 * Retrieves the system's Outbound options
 	 */
-	function getSystemMailerSettings() {
-		$q = "SELECT id FROM outbound_email WHERE type = 'system'";
-		$r = $this->db->query($q);
-		$a = $this->db->fetchByAssoc($r);
+    function getSystemMailerSettings() {
+        if (is_null(static::$sysMailerCache)) {
+            // result puts in static cache to avoid per-request repeating calls
+            $q = "SELECT id FROM outbound_email WHERE type = 'system'";
+            $r = $this->db->query($q);
+            $a = $this->db->fetchByAssoc($r);
 
-		if(empty($a)) {
-			$this->id = "";
-			$this->name = 'system';
-			$this->type = 'system';
-			$this->user_id = '1';
-			$this->mail_sendtype = 'SMTP';
-			$this->mail_smtptype = 'other';
-			$this->mail_smtpserver = '';
-			$this->mail_smtpport = 25;
-			$this->mail_smtpuser = '';
-			$this->mail_smtppass = '';
-			$this->mail_smtpauth_req = 1;
-			$this->mail_smtpssl = 0;
-			$this->mail_smtpdisplay = $this->_getOutboundServerDisplay($this->mail_smtptype,$this->mail_smtpserver);
-			$this->save();
-			$ret = $this;
-		} else {
-			$ret = $this->retrieve($a['id']);
-		}
+            if(empty($a)) {
+                $this->id = "";
+                $this->name = 'system';
+                $this->type = 'system';
+                $this->user_id = '1';
+                $this->mail_sendtype = 'SMTP';
+                $this->mail_smtptype = 'other';
+                $this->mail_smtpserver = '';
+                $this->mail_smtpport = 25;
+                $this->mail_smtpuser = '';
+                $this->mail_smtppass = '';
+                $this->mail_smtpauth_req = 1;
+                $this->mail_smtpssl = 0;
+                $this->mail_smtpdisplay = $this->_getOutboundServerDisplay($this->mail_smtptype,$this->mail_smtpserver);
+                $this->save();
+                static::$sysMailerCache = $this;
+            } else {
+                static::$sysMailerCache = $this->retrieve($a['id']);
+            }
+        }
 
-		return $ret;
-	}
+        if (is_object(static::$sysMailerCache)) {
+            foreach(static::$sysMailerCache as $k => $v) {
+                $this->$k = $v;
+            }
+        }
+
+        return static::$sysMailerCache;
+    }
 
 	/**
 	 * Populates this instance
@@ -453,6 +464,7 @@ class OutboundEmail {
 		}
 
 		$this->db->query($q, true);
+        $this->resetSystemMailerCache();
 		return $this;
 	}
 
@@ -474,25 +486,51 @@ class OutboundEmail {
 		$this->user_id = '1';
 		$this->save();
 
-		$this->updateUserSystemOverrideAccounts();
+        // If there is no system-override record for the System User - Create One using the System Mailer Configuration
+        // If there already is one, update the smtpuser and smtppass
+        //      If User Access To System Default Outbound is enabled
+        //   Or If SMTP Auth is required And Either the smtpuser or smtppass is empty
+        $oe_system = $this->getSystemMailerSettings();
+        $oe_override = $this->getUsersMailerForSystemOverride($this->user_id);
+        if ($oe_override == null) {
+            $this->createUserSystemOverrideAccount($this->user_id, $oe_system->mail_smtpuser, $oe_system->mail_smtppass);
+        }
+        else if ($this->doesUserOverrideAccountRequireCredentials($this->user_id) ||
+                 $this->isAllowUserAccessToSystemDefaultOutbound() ||
+                   ( $oe_override->mail_smtpauth_req &&
+                     $oe_override->mail_smtpserver == $oe_system->mail_smtpserver &&
+                     ( empty($oe_override->mail_smtpuser) || ($oe_system->mail_smtpuser==$oe_override->mail_smtpuser) || empty($oe_override->mail_smtppass))) ) {
+            $this->updateAdminSystemOverrideAccount();
+        }
 
+        $this->updateUserSystemOverrideAccounts();
+        $this->resetSystemMailerCache();
 	}
 
-	/**
+    /**
+     * Update the Admin's user system override account with the system information if anything has changed.
+     */
+    function updateAdminSystemOverrideAccount()
+    {
+        $updateFields = array('mail_smtptype','mail_sendtype','mail_smtpserver', 'mail_smtpport','mail_smtpauth_req','mail_smtpssl','mail_smtpuser','mail_smtppass');
+
+        $values = $this->getValues($updateFields);
+        $updvalues = array();
+        foreach($values as $k => $val) {
+            $updvalues[] = "{$updateFields[$k]} = $val";
+        }
+        $query = "UPDATE outbound_email set ".implode(', ', $updvalues)." WHERE user_id='1' AND type='system-override'";
+        $this->db->query($query);
+    }
+
+    /**
 	 * Update the user system override accounts with the system information if anything has changed.
-	 *
 	 */
 	function updateUserSystemOverrideAccounts()
 	{
 		require_once('include/utils/encryption_utils.php');
 	    $updateFields = array('mail_smtptype','mail_sendtype','mail_smtpserver', 'mail_smtpport','mail_smtpauth_req','mail_smtpssl');
 
-	    //Update the username ans password for the override accounts if alloweed access.
-	    if( $this->isAllowUserAccessToSystemDefaultOutbound() )
-	    {
-	        $updateFields[] = 'mail_smtpuser';
-	        $updateFields[] = 'mail_smtppass';
-	    }
         $values = $this->getValues($updateFields);
         $updvalues = array();
 		foreach($values as $k => $val) {
@@ -502,15 +540,7 @@ class OutboundEmail {
 
 	    $this->db->query($query);
 	}
-	/**
-	 * Remove all of the user override accounts.
-	 *
-	 */
-	function removeUserOverrideAccounts()
-	{
-	    $query = "DELETE FROM outbound_email WHERE type = 'system-override'";
-		return $this->db->query($query);
-	}
+
 	/**
 	 * Deletes an instance
 	 */
@@ -566,4 +596,12 @@ class OutboundEmail {
         }
 	    return $this->retrieve($a['id']);
 	}
+
+    /**
+     * Reset system mailer settings cache
+     */
+    public function resetSystemMailerCache()
+    {
+        static::$sysMailerCache = null;
+    }
 }

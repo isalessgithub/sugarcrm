@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_ARCHIVE_EMAIL' => 'Error: Select emails to archive.',
@@ -56,8 +53,10 @@ $mod_strings = array (
   'LBL_ASSIGN_WARN' => 'Ensure that all 2 options are selected.',
   'LBL_ATTACHMENT' => 'Attachment',
   'LBL_ATTACHMENTS' => 'Attachments:',
+  'LBL_ATTACH_SUGAR_DOC' => 'Attach Sugar Doc',
   'LBL_BACK_TO_GROUP' => 'Back to Group Inbox',
   'LBL_BCC' => 'Bcc:',
+  'LBL_BCC_BUTTON' => 'Bcc',
   'LBL_BODY' => 'Body:',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
   'LBL_BUTTON_CHECK' => 'Check Mail',
@@ -84,6 +83,7 @@ $mod_strings = array (
   'LBL_BUTTON_REPLY_TITLE' => 'Reply [Alt+R]',
   'LBL_CASES_SUBPANEL_TITLE' => 'Cases',
   'LBL_CC' => 'Cc:',
+  'LBL_CC_BUTTON' => 'Cc',
   'LBL_CHECKEMAIL' => 'Check Email',
   'LBL_CHECKING_ACCOUNT' => 'Checking Account',
   'LBL_CHECK_ATTACHMENTS' => 'Please Check Attachments!',
@@ -92,6 +92,7 @@ $mod_strings = array (
   'LBL_CLOSE' => 'Close',
   'LBL_COLON' => ':',
   'LBL_COMPOSEEMAIL' => 'Compose Email',
+  'LBL_COMPOSE_ADDRESSBOOK' => 'Address Book',
   'LBL_COMPOSE_MODULE_NAME' => 'Compose Email',
   'LBL_COMPOSE_MODULE_NAME_SINGULAR' => 'Compose Email',
   'LBL_CONFIRM_DELETE' => 'Are you sure you want to delete this folder?',
@@ -116,10 +117,13 @@ $mod_strings = array (
   'LBL_DATE_CREATED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
   'LBL_DATE_SENT' => 'Date Sent:',
+  'LBL_DEFAULT_SIGNATURE_TITLE' => 'Default Signature',
   'LBL_DELETE_FROM_SERVER' => 'Delete message from server',
   'LBL_DELETE_INLINE' => 'Delete',
   'LBL_DESCRIPTION' => 'Description',
   'LBL_DIST_TITLE' => 'Assignment',
+  'LBL_DRAFT_SAVED' => 'Draft saved.',
+  'LBL_DRAFT_SAVING' => 'Saving draft',
   'LBL_EDIT_ALT_TEXT' => 'Edit Plain Text',
   'LBL_EDIT_LAYOUT' => 'Edit Layout',
   'LBL_EDIT_MY_SETTINGS' => 'Edit My Settings',
@@ -134,10 +138,12 @@ $mod_strings = array (
   'LBL_EMAILS_NOTES_REL' => 'Emails:Notes',
   'LBL_EMAILS_NO_PRIMARY_TEAM_SPECIFIED' => 'No Primary Team specified',
   'LBL_EMAILS_OPPORTUNITIES_REL' => 'Emails:Opportunities',
+  'LBL_EMAILS_PRODUCTS_REL' => 'Emails:Products',
   'LBL_EMAILS_PROJECT_REL' => 'Emails:Project',
   'LBL_EMAILS_PROJECT_TASK_REL' => 'Emails:ProjectTask',
   'LBL_EMAILS_PROSPECT_REL' => 'Emails:Prospect',
   'LBL_EMAILS_QUOTES_REL' => 'Emails:Quotes',
+  'LBL_EMAILS_REVENUELINEITEMS_REL' => 'Emails:Revenue Line Items',
   'LBL_EMAILS_TASKS_REL' => 'Emails:Tasks',
   'LBL_EMAILS_USERS_REL' => 'Emails:Users',
   'LBL_EMAILTEMPLATE_MESSAGE_CLEAR_MSG' => 'Selecting "--None--" will clear any data already entered within the email body. Do you wish to continue?',
@@ -146,6 +152,7 @@ $mod_strings = array (
   'LBL_EMAILTEMPLATE_MESSAGE_SHOW_TITLE' => 'Please check!',
   'LBL_EMAILTEMPLATE_MESSAGE_WARNING_TITLE' => 'Warning',
   'LBL_EMAIL_ACCOUNTS_INBOUND' => 'Mail Account Properties',
+  'LBL_EMAIL_ARCHIVING' => 'Archiving email',
   'LBL_EMAIL_ATTACHMENT' => 'Email Attachment',
   'LBL_EMAIL_DEFAULT_DESCRIPTION' => 'Here is the quote you requested (You can change this text)',
   'LBL_EMAIL_DETAIL_VIEW_MORE' => 'more',
@@ -153,11 +160,15 @@ $mod_strings = array (
   'LBL_EMAIL_EDITOR_OPTION' => 'Send HTML Email',
   'LBL_EMAIL_FLAGGED' => 'Flagged:',
   'LBL_EMAIL_INBOUND_TYPE_HELP' => '<b>Personal</b>: Email account accessible by you. Only you can manage and import emails from this account.<br><b>Group</b>: Email account accessible by members of specified teams. Team members can manage and import emails from this account.<br><b>Group - auto-import</b>: Email account accessible by members of specified teams. Emails are automatically imported as records.',
+  'LBL_EMAIL_INVALID_SYSTEM_CONFIGURATION' => 'The default system SMTP server is not configured.  Please contact your system administrator for further assistance.',
+  'LBL_EMAIL_INVALID_USER_CONFIGURATION' => 'Your email settings are not correctly configured to send email. An SMTP server must be configured in <a href="#bwc/index.php?module=Users">User Profile Email Settings</a>.',
   'LBL_EMAIL_QUOTE_FOR' => 'Quote for:',
   'LBL_EMAIL_RELATE' => 'Related To',
   'LBL_EMAIL_REPLY_TO_STATUS' => 'Reply To Status:',
   'LBL_EMAIL_SELECTOR_CLEAR' => 'Clear',
   'LBL_EMAIL_SELECTOR_SELECT' => 'Select',
+  'LBL_EMAIL_SENDING' => 'Sending email',
+  'LBL_EMAIL_SENT' => 'Email sent.',
   'LBL_EMAIL_SETTINGS_INBOUND' => 'Incoming Email',
   'LBL_EMAIL_SETTINGS_INBOUND_ACCOUNTS' => 'Mail Accounts',
   'LBL_EMAIL_SETTINGS_OUTBOUND' => 'Outgoing Email',
@@ -177,6 +188,7 @@ $mod_strings = array (
   'LBL_EXCHANGE_SMTPPORT' => 'Exchange Server Port:',
   'LBL_EXCHANGE_SMTPSERVER' => 'Exchange Server:',
   'LBL_EXCHANGE_SMTPUSER' => 'Exchange Username:',
+  'LBL_FAILED_TO_CONNECT' => 'Could not connect to the email server. Please make sure that email configuration has been setup correctly.',
   'LBL_FILTER_BY_RELATED_BEAN' => 'Only show recipients related to',
   'LBL_FORWARD_HEADER' => 'Begin forwarded message:',
   'LBL_FROM' => 'From:',
@@ -188,11 +200,21 @@ $mod_strings = array (
   'LBL_HAS_ATTACHMENT' => 'Has Attachment?:',
   'LBL_HAS_ATTACHMENTS' => 'This email already has attachment(s). Would you like to keep the attachment(s)?',
   'LBL_HELP' => 'Help',
+  'LBL_HELP_COMPOSE' => 'Compose an email by providing a subject and email body. Click "Send" to send the email or choose "Save draft" from the actions menu to save the email for later editing from your drafts folder within the Emails module.
+
+You may apply a predefined template using the Template button or include one of your signatures using the Signature button. Use the Upload New button to add an attachment to the email.',
+  'LBL_HELP_COMPOSE_TITLE' => 'Compose an Email',
   'LBL_HTML_BODY' => 'HTML Body',
   'LBL_ID_MISMATCH' => 'NOOP: ID mismatch',
   'LBL_IMPORT_STATUS_TITLE' => 'Status',
   'LBL_INBOUND_TITLE' => 'Inbound Email',
   'LBL_INTENT' => 'Intent',
+  'LBL_INTERNAL_ERROR' => 'There was an internal server error. Please try again.',
+  'LBL_INVALID_ATTACHMENT' => 'Could not attach the file provided. Please try again.',
+  'LBL_INVALID_CONFIGURATION' => 'Email has not been setup correctly. Please provide the correct configuration.',
+  'LBL_INVALID_EMAIL' => 'Please provide correct email addresses.',
+  'LBL_INVALID_HEADER' => 'Please provide all required information.',
+  'LBL_INVALID_MAILAPI_STATUS' => 'Invalid email status was sent on the request. Please provide a valid status.',
   'LBL_INVALID_OPS' => 'Invalid Operation',
   'LBL_INVALID_TYPE' => 'NOOP: invalid type',
   'LBL_INVITEE' => 'Recipients',
@@ -212,7 +234,6 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'Email List',
   'LBL_LIST_FROM_ADDR' => 'From',
   'LBL_LIST_LEAD' => 'Leads',
-  'LBL_LIST_RELATED_TO' => 'Recipient Type',
   'LBL_LIST_STATUS' => 'Status',
   'LBL_LIST_SUBJECT' => 'Subject',
   'LBL_LIST_TASK' => 'Tasks',
@@ -226,6 +247,10 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Type',
   'LBL_LOCK_FAIL_DESC' => 'The chosen item is unavailable currently.',
   'LBL_LOCK_FAIL_USER' => 'has taken ownership.',
+  'LBL_MAILAPI_INVALID_ARGUMENT_FIELD' => '{0} argument - invalid or missing field: {1}',
+  'LBL_MAILAPI_INVALID_ARGUMENT_FORMAT' => '{0} argument - invalid format',
+  'LBL_MAILAPI_INVALID_ARGUMENT_VALUE' => '{0} argument - invalid or missing',
+  'LBL_MAILAPI_NO_RECIPIENTS' => 'no recipients specified',
   'LBL_MAILBOX_TYPE_GROUP' => 'Group',
   'LBL_MAILBOX_TYPE_GROUP_FOLDER' => 'Group - Auto-Import',
   'LBL_MAILBOX_TYPE_PERSONAL' => 'Personal',
@@ -241,6 +266,7 @@ $mod_strings = array (
   'LBL_MESSAGE_ID' => 'Message ID',
   'LBL_MESSAGE_SENT' => 'Message Sent',
   'LBL_MESSAGE_UID' => 'Message UID',
+  'LBL_MISSING_CONFIGURATION' => 'Email configuration was not specified. Please provide a valid email configuration.',
   'LBL_MISSING_DEFAULT_OUTBOUND_SMTP_SETTINGS' => 'The administator has not yet configured the default outbound account.  Unable to send test email.',
   'LBL_MODIFIED_BY' => 'Modified By',
   'LBL_MODULE_NAME' => 'All Emails',
@@ -249,7 +275,6 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR_NEW' => 'Archive Email',
   'LBL_MODULE_TITLE' => 'Emails:',
   'LBL_MORE_OPTIONS' => 'More',
-  'LBL_MOVE_TO_BCC' => 'Move To Bcc',
   'LBL_MY_EMAILS' => 'My Emails',
   'LBL_NEW' => 'New',
   'LBL_NEW_FORM_TITLE' => 'Archive Email',
@@ -259,10 +284,12 @@ $mod_strings = array (
   'LBL_NOTE_SEMICOLON' => 'Note: Use commas or semi-colons as separators for multiple email addresses.',
   'LBL_NOT_SENT' => 'Send Error',
   'LBL_NOT_SUGAR_FOLDER' => 'NOOP - not a Sugar Folder',
+  'LBL_NO_BODY_SEND_ANYWAYS' => 'This email has no body.  Send/save anyway?',
   'LBL_NO_FOLDER_TYPE' => 'NOOP: no folderType defined',
   'LBL_NO_GRAB_DESC' => 'There were no items available.  Try again in a moment.',
   'LBL_NO_SEARCH_CRITERIA' => 'NOOP: no search criteria found',
   'LBL_NO_SUBJECT' => '(no subject)',
+  'LBL_NO_SUBJECT_NO_BODY_SEND_ANYWAYS' => 'This email has no subject and no body.  Send/save anyway?',
   'LBL_OF' => 'of',
   'LBL_OPPORTUNITY_SUBPANEL_TITLE' => 'Opportunities',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projects',
@@ -289,8 +316,12 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_DRAFTS_TITLE' => 'Search Drafts',
   'LBL_SEARCH_FORM_SENT_TITLE' => 'Search Sent Emails',
   'LBL_SEARCH_FORM_TITLE' => 'Email Search',
+  'LBL_SEARCH_IMPORTED_EMAIL' => 'Search Imported Email',
   'LBL_SEE_LOG' => 'NOOP: error see log',
   'LBL_SELECTED_ADDR' => 'Selected',
+  'LBL_SELECTED_RECIPIENTS' => 'Selected Recipients',
+  'LBL_SELECT_FROM_SENDER' => 'Choose From Email Account',
+  'LBL_SELECT_SIGNATURE_TITLE' => 'Choose Signature',
   'LBL_SELECT_TEAM' => 'Select Teams',
   'LBL_SEND' => 'SEND',
   'LBL_SEND_ANYWAYS' => 'This email has no subject.  Send/save anyway?',
@@ -302,6 +333,8 @@ $mod_strings = array (
   'LBL_SENT_MODULE_NAME' => 'Sent Emails',
   'LBL_SENT_MODULE_NAME_SINGULAR' => 'Sent Email',
   'LBL_SHOW_ALT_TEXT' => 'Show Plain Text',
+  'LBL_SHOW_MORE_RECIPIENTS' => 'More Recipients...',
+  'LBL_SHOW_MORE_SIGNATURES' => 'More Signatures...',
   'LBL_SIGNATURE' => 'Signature',
   'LBL_SIGNATURE_PREPEND' => 'Signature above reply',
   'LBL_SMTP_SERVER_HELP' => 'This SMTP Mail Server can be used for outgoing mail. Provide a username and password for your email account in order to use the mail server.',
@@ -321,6 +354,7 @@ $mod_strings = array (
   'LBL_UNKNOWN' => 'Unknown',
   'LBL_UNREAD' => 'Unread',
   'LBL_UNREAD_HOME' => 'Unread Emails',
+  'LBL_UPLOAD_ATTACHMENT' => 'Upload New',
   'LBL_USE' => 'Assign:',
   'LBL_USERS' => 'Users',
   'LBL_USERS_SUBPANEL_TITLE' => 'Users',

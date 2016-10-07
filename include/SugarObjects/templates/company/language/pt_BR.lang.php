@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Tem a certeza que pretende remover esta entidade deste projecto?',
@@ -23,7 +20,7 @@ $mod_strings = array (
   'LBL_ACCOUNT' => 'Empresa:',
   'LBL_ACCOUNT_INFORMATION' => 'Informação da Empresa',
   'LBL_ACCOUNT_NAME' => 'Nome da Empresa:',
-  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Actividades',
+  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Atividades',
   'LBL_ADDRESS_INFORMATION' => 'Informação de Endereço',
   'LBL_ANNUAL_REVENUE' => 'Rendimento Anual:',
   'LBL_ANY_ADDRESS' => 'Qualquer Endereço:',
@@ -33,17 +30,17 @@ $mod_strings = array (
   'LBL_ASSIGNED_TO_ID' => 'Atribuído a:',
   'LBL_ASSIGNED_TO_NAME' => 'Atribuído a:',
   'LBL_ASSIGNED_USER' => 'Atribuído a:',
-  'LBL_BILLING_ADDRESS' => 'Endereço de Facturação:',
-  'LBL_BILLING_ADDRESS_CITY' => 'Cidade de Facturação:',
-  'LBL_BILLING_ADDRESS_COUNTRY' => 'País de Facturação:',
-  'LBL_BILLING_ADDRESS_POSTALCODE' => 'Código Postal de Facturação:',
-  'LBL_BILLING_ADDRESS_STATE' => 'Estado de Facturação:',
-  'LBL_BILLING_ADDRESS_STREET' => 'Rua de Facturação:',
-  'LBL_BILLING_ADDRESS_STREET_2' => 'Rua de Facturação 2',
-  'LBL_BILLING_ADDRESS_STREET_3' => 'Rua de Facturação 3',
-  'LBL_BILLING_ADDRESS_STREET_4' => 'Rua de Facturação 4',
+  'LBL_BILLING_ADDRESS' => 'Endereço de Faturação:',
+  'LBL_BILLING_ADDRESS_CITY' => 'Cidade de Faturação:',
+  'LBL_BILLING_ADDRESS_COUNTRY' => 'País de Faturação:',
+  'LBL_BILLING_ADDRESS_POSTALCODE' => 'Código Postal de Faturação:',
+  'LBL_BILLING_ADDRESS_STATE' => 'Estado de Faturação:',
+  'LBL_BILLING_ADDRESS_STREET' => 'Rua de Faturação:',
+  'LBL_BILLING_ADDRESS_STREET_2' => 'Rua de Faturação 2',
+  'LBL_BILLING_ADDRESS_STREET_3' => 'Rua de Faturação 3',
+  'LBL_BILLING_ADDRESS_STREET_4' => 'Rua de Faturação 4',
   'LBL_CITY' => 'Cidade:',
-  'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contactos',
+  'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatos',
   'LBL_COUNTRY' => 'País:',
   'LBL_DATE_ENTERED' => 'Data de Introdução:',
   'LBL_DATE_MODIFIED' => 'Data de Modificação:',
@@ -55,10 +52,12 @@ $mod_strings = array (
   'LBL_EMAIL' => 'E-mail:',
   'LBL_EMAIL_ADDRESS' => 'Endereço(s) de E-mail',
   'LBL_EMAIL_ADDRESSES' => 'Endereço(s) de E-mail',
-  'LBL_EMAIL_NON_PRIMARY' => 'Não contém E-mails primários',
   'LBL_EMPLOYEES' => 'Empregados:',
+  'LBL_FACEBOOK' => 'Conta Facebook',
   'LBL_FAX' => 'Fax:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_INDUSTRY' => 'Indústria:',
+  'LBL_LINKEDIN' => 'Conta Linkedin ID',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome da Entidade',
   'LBL_LIST_CITY' => 'Cidade',
   'LBL_LIST_EMAIL_ADDRESS' => 'Endereço de E-mail',
@@ -93,9 +92,9 @@ $mod_strings = array (
   'LBL_SHIPPING_ADDRESS_STREET_3' => 'Rua de Endereço de Envio 3',
   'LBL_SHIPPING_ADDRESS_STREET_4' => 'Rua de Endereço de Envio 4',
   'LBL_STATE' => 'Estado:',
-  'LBL_TEAMS_LINK' => 'Equipas',
+  'LBL_TEAMS_LINK' => 'Equipes',
   'LBL_TICKER_SYMBOL' => 'Símbolo de Bolsa',
-  'LBL_TWITTER_ID' => 'Nome de Usuário Twitter',
+  'LBL_TWITTER' => 'Conta Twitter',
   'LBL_TYPE' => 'Tipo:',
   'LBL_USERS_ASSIGNED_LINK' => 'Utilizadores',
   'LBL_USERS_CREATED_LINK' => 'Criado por Utilizadores',
@@ -106,10 +105,10 @@ $mod_strings = array (
   'LNK_NEW_ACCOUNT' => 'Criar Entidade',
   'MSG_DUPLICATE' => 'A criação desta entidade poderá gerar potencialmente uma entidade duplicada. Você pode seleccionar uma entidade na lista abaixo ou clicar em Gravar para continuar a criar uma nova entidade com os dados previamente introduzidos.',
   'MSG_SHOW_DUPLICATES' => 'A criação desta entidade poderá gerar potencialmente uma entidade duplicada. Você pode clicar em Gravar para continuar a criar esta nova entidade com os dados previamente introduzidos ou pode clicar em Cancelar.',
-  'NTC_COPY_BILLING_ADDRESS' => 'Copiar endereço de facturação para endereço de envio',
+  'NTC_COPY_BILLING_ADDRESS' => 'Copiar endereço de faturação para endereço de envio',
   'NTC_COPY_BILLING_ADDRESS2' => 'Copiar para envio',
-  'NTC_COPY_SHIPPING_ADDRESS' => 'Copiar endereço de envio para endereço de facturação',
-  'NTC_COPY_SHIPPING_ADDRESS2' => 'Copiar para facturação',
+  'NTC_COPY_SHIPPING_ADDRESS' => 'Copiar endereço de envio para endereço de faturação',
+  'NTC_COPY_SHIPPING_ADDRESS2' => 'Copiar para faturação',
   'NTC_DELETE_CONFIRMATION' => 'Tem a certeza que pretende eliminar este registo?',
   'NTC_REMOVE_ACCOUNT_CONFIRMATION' => 'Tem a certeza que pretende remover este registo?',
   'NTC_REMOVE_MEMBER_ORG_CONFIRMATION' => 'Tem a certeza que pretende remover este registo como organização membro?',

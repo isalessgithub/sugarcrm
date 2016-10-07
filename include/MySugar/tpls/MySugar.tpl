@@ -1,21 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 {literal}
 <style>
@@ -124,6 +117,8 @@ mySugarLoader.addModule({
 	requires: []
 });
 mySugarLoader.insert();
+var app = window.parent.SUGAR.App;
+app.user.lastState.set('Home:last-visit:Home.', '#bwc/index.php?module=Home&action=bwc_dashboard');
 {/literal}
 </script>
 
@@ -153,8 +148,10 @@ mySugarLoader.insert();
 			</span>
 			<span id="pageNum_{$pageNum}_link_span" class="tabText">
 			<span id="pageNum_{$pageNum}_title_text" {if !$lock_homepage}ondblclick="SUGAR.mySugar.renamePage('{$pageNum}');"{/if}>{$pageData.pageTitle}</span></span>
+            {if !$lock_homepage}
 			{capture assign=attr}align="absmiddle" border="0" class="deletePageImg" id="pageNum_{$pageNum}_delete_page_img" style="display: none;" onclick="return SUGAR.mySugar.deletePage()"  alt="{$app.LBL_DELETE_PAGE}"{/capture}
 			{sugar_getimage name="info-del.png" attr=$attr}
+            {/if}
 		   </a>
 	   </li>
 	   {/foreach}
@@ -162,13 +159,14 @@ mySugarLoader.insert();
 	</div>
 
 </div>
+{if !$lock_homepage}
 	<div id="addPage">
 		{capture assign=attr}id="add_page" onclick="return SUGAR.mySugar.showAddPageDialog();"{/capture}
 		{capture assign=img_attr}align="absmiddle" border="0" alt="{$app.LBL_ADD_PAGE}"{/capture}
 		{sugar_getlink url="javascript:void(0)" title="Add page" attr=$attr img_name="info-add-page.png" img_attr=$img_attr}
 	</div>
+{/if}
 </td>
-
 {if !$lock_homepage}
 <td nowrap id="dashletCtrlsTD">
 	<div id="dashletCtrls">
@@ -299,13 +297,3 @@ mySugarLoader.insert();
 				
 	
 </div>
-
-{if $view_tour}
-<link rel="stylesheet" type="text/css" href="themes/default/css/bootstrap.css" id="bootstrapCss"/>
-<link rel="stylesheet" type="text/css" href="modules/Home/tour.css" id="tourCss"/>
-<script src="include/javascript/jquery/bootstrap.min.js" type="text/javascript" id="bootstrapJs"></script>
-<script src="include/javascript/jquery/jquery.popoverext.js" type="text/javascript" id="popoverext"></script>
-<script src="include/javascript/jquery/jquery.effects.custombounce.js" type="text/javascript" id="bounce"></script>
-<script src="include/javascript/tour.js" type="text/javascript" id="tourJs"></script>
-<script src="modules/Home/tour.js" type="text/javascript" id="whatsNewsJs"></script>
-{/if}

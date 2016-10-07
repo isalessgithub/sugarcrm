@@ -1,20 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['User'] = array(
     'table' => 'users',
+    'favorites' => false,
     'fields' => array(
         'id' => array(
             'name' => 'id',
@@ -25,7 +23,7 @@ $dictionary['User'] = array(
         'user_name' => array(
             'name' => 'user_name',
             'vname' => 'LBL_USER_NAME',
-            'type' => 'user_name',
+            'type' => 'username',
             'dbType' => 'varchar',
             'len' => '60',
             'importable' => 'required',
@@ -48,7 +46,8 @@ $dictionary['User'] = array(
         'user_hash' => array(
             'name' => 'user_hash',
             'vname' => 'LBL_USER_HASH',
-            'type' => 'varchar',
+            'type' => 'password',
+            'dbType' => 'varchar',
             'len' => '255',
             'reportable' => false,
             'importable' => 'false',
@@ -121,8 +120,8 @@ $dictionary['User'] = array(
             'type' => 'image',
             'dbType' => 'varchar',
             'len' => '255',
-            'width' => '',
-            'height' => '',
+            'width' => '42',
+            'height' => '42',
             'border' => '',
         ) ,
         'first_name' => array(
@@ -143,13 +142,9 @@ $dictionary['User'] = array(
         ) ,
         'full_name' => array(
             'name' => 'full_name',
-            'rname' => 'full_name',
             'vname' => 'LBL_NAME',
-            'type' => 'name',
-            'fields' => array(
-                'first_name',
-                'last_name'
-            ) ,
+            'type' => 'fullname',
+            'fields' => array('first_name', 'last_name'),
             'source' => 'non-db',
             'sort_on' => 'last_name',
             'sort_on2' => 'first_name',
@@ -162,17 +157,19 @@ $dictionary['User'] = array(
         ) ,
         'name' => array(
             'name' => 'name',
-            'rname' => 'name',
             'vname' => 'LBL_NAME',
-            'type' => 'varchar',
+            'type' => 'fullname',
+            'fields' => array('first_name', 'last_name'),
             'source' => 'non-db',
-            'len' => '510',
+            'sort_on' => 'last_name',
+            'sort_on2' => 'first_name',
             'db_concat_fields' => array(
                 0 => 'first_name',
                 1 => 'last_name'
             ) ,
-            'importable' => 'false',
-        ) ,
+            'len' => '510',
+            'studio' => array('formula' => false),
+        ),
         'is_admin' => array(
             'name' => 'is_admin',
             'vname' => 'LBL_IS_ADMIN',
@@ -212,6 +209,7 @@ $dictionary['User'] = array(
                 'quickcreate' => false,
                 'wirelesseditview' => false,
             ),
+            'readonly' => true,
         ) ,
         'date_modified' => array(
             'name' => 'date_modified',
@@ -223,6 +221,15 @@ $dictionary['User'] = array(
                 'quickcreate' => false,
                 'wirelesseditview' => false,
             ),
+            'readonly' => true,
+        ),
+        'last_login' => array(
+            'name' => 'last_login',
+            'vname' => 'LBL_LAST_LOGIN',
+            'type' => 'datetime',
+            'required' => false,
+            'readonly' => true,
+            'massupdate' => false,
         ),
         'modified_user_id' => array(
             'name' => 'modified_user_id',
@@ -233,6 +240,7 @@ $dictionary['User'] = array(
             'table' => 'users',
             'isnull' => 'false',
             'dbType' => 'id',
+            'readonly' => true,
         ) ,
         'modified_by_name' => array(
             'name' => 'modified_by_name',
@@ -240,6 +248,7 @@ $dictionary['User'] = array(
             'type' => 'varchar',
             'source' => 'non-db',
             'studio' => false,
+            'readonly' => true,
         ) ,
         'created_by' => array(
             'name' => 'created_by',
@@ -251,6 +260,7 @@ $dictionary['User'] = array(
             'isnull' => 'false',
             'dbType' => 'id',
             'studio' => false,
+            'readonly' => true,
         ) ,
         'created_by_name' => array(
             'name' => 'created_by_name',
@@ -263,6 +273,7 @@ $dictionary['User'] = array(
                 'formula' => false,
                 'rollup' => false,
             ),
+            'readonly' => true,
         ) ,
         'title' => array(
             'name' => 'title',
@@ -323,32 +334,38 @@ $dictionary['User'] = array(
         'address_street' => array(
             'name' => 'address_street',
             'vname' => 'LBL_ADDRESS_STREET',
-            'type' => 'varchar',
+            'type' => 'text',
+            'dbType' => 'varchar',
             'len' => '150',
+            'group' => 'address',
         ) ,
         'address_city' => array(
             'name' => 'address_city',
             'vname' => 'LBL_ADDRESS_CITY',
             'type' => 'varchar',
             'len' => '100',
+            'group' => 'address',
         ) ,
         'address_state' => array(
             'name' => 'address_state',
             'vname' => 'LBL_ADDRESS_STATE',
             'type' => 'varchar',
             'len' => '100',
+            'group' => 'address',
         ) ,
         'address_country' => array(
             'name' => 'address_country',
             'vname' => 'LBL_ADDRESS_COUNTRY',
             'type' => 'varchar',
             'len' => 100,
+            'group' => 'address',
         ) ,
         'address_postalcode' => array(
             'name' => 'address_postalcode',
             'vname' => 'LBL_ADDRESS_POSTALCODE',
             'type' => 'varchar',
             'len' => '20',
+            'group' => 'address',
         ) ,
         // This is a fake field for the edit view
         'UserType' => array(
@@ -366,16 +383,23 @@ $dictionary['User'] = array(
             'name' => 'default_team',
             'vname' => 'LBL_DEFAULT_TEAM',
             'reportable' => false,
-            'type' => 'varchar',
+            'type' => 'id',
             'len' => '36',
-            'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
+            'studio' => array(
+                'listview' => false,
+                'searchview'=>false,
+                'formula' => false,
+                'wirelesslistview' => false,
+                'wirelessdetailview' => false,
+                'wirelesseditview' => false,
+            ),
         ) ,
         'team_id' => array(
             'name' => 'team_id',
             'vname' => 'LBL_DEFAULT_TEAM',
             'reportable' => false,
         	'source' => 'non-db',
-            'type' => 'varchar',
+            'type' => 'id',
             'len' => '36',
             'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
         ) ,
@@ -434,8 +458,11 @@ $dictionary['User'] = array(
                     'searchview'  =>false,
                     'editview'    =>false,
                     'quickcreate' =>false,
+                    'wirelesslistview' => false,
+                    'wirelessdetailview' => false,
                     'wirelesseditview' => false,
                 ),
+                'exportable'=> true,
 			),
 			'team_link' =>
 		    array (
@@ -540,12 +567,8 @@ $dictionary['User'] = array(
         'employee_status' => array(
             'name' => 'employee_status',
             'vname' => 'LBL_EMPLOYEE_STATUS',
-            'type' => 'varchar',
-            'function' => array(
-                'name' => 'getEmployeeStatusOptions',
-                'returns' => 'html',
-                'include' => 'modules/Employees/EmployeeStatus.php'
-            ) ,
+            'type' => 'enum',
+            'options' => 'employee_status_dom',
             'len' => 100,
         ) ,
         'messenger_id' => array(
@@ -591,7 +614,7 @@ $dictionary['User'] = array(
         ) ,
         'reports_to_name' => array(
             'name' => 'reports_to_name',
-            'rname' => 'last_name',
+            'rname' => 'name',
             'id_name' => 'reports_to_id',
             'vname' => 'LBL_REPORTS_TO_NAME',
             'type' => 'relate',
@@ -623,19 +646,45 @@ $dictionary['User'] = array(
             'vname' => 'LBL_REPORTS_TO',
             'reportable' => false,
         ) ,
-        'email1' => array(
-            'name' => 'email1',
-            'vname' => 'LBL_EMAIL',
-            'type' => 'varchar',
-            'function' => array(
-                'name' => 'getEmailAddressWidget',
-                'returns' => 'html'
-            ) ,
-            'source' => 'non-db',
-            'group' => 'email1',
-            'merge_filter' => 'enabled',
+       'email1' =>
+        array(
+            'name'      => 'email1',
+            'vname'     => 'LBL_EMAIL_ADDRESS',
+            'type'      => 'varchar',
+            'function'  => array(
+                'name'      => 'getEmailAddressWidget',
+                'returns'   => 'html'),
+            'source'    => 'non-db',
+            'group'=>'email1',
             'required' => true,
-        ) ,
+            'merge_filter' => 'enabled',
+            'studio' => false,
+            'full_text_search' => array('enabled' => true, 'boost' => 3, 'index' => 'not_analyzed'), //bug 54567
+            'exportable'=>true,
+        ),
+        'email'=> array(
+            'name' => 'email',
+            'type' => 'email',
+            'function'  => array(
+                'name'      => 'getEmailAddressWidget',
+                'returns'   => 'html',
+            ),
+            'query_type' => 'default',
+            'source' => 'non-db',
+            'operator' => 'subquery',
+            'subquery' => 'SELECT eabr.bean_id FROM email_addr_bean_rel eabr JOIN email_addresses ea ON (ea.id = eabr.email_address_id) WHERE eabr.deleted=0 AND ea.email_address LIKE',
+            'db_field' => array(
+                'id',
+            ),
+            'vname' =>'LBL_ANY_EMAIL',
+            'studio' => array(
+                'visible' => false,
+                'searchview' => true,
+                'editview' => true,
+                'editField' => true,
+            ),
+            'sort_on' => 'email_addresses',
+        ),
         'email_addresses' => array(
             'name' => 'email_addresses',
             'type' => 'link',
@@ -646,6 +695,8 @@ $dictionary['User'] = array(
             'vname' => 'LBL_EMAIL_ADDRESSES',
             'reportable' => false,
             'required' => true,
+            'link' => 'email_addresses_primary',
+            'rname' => 'email_address',
         ) ,
         'email_addresses_primary' => array(
             'name' => 'email_addresses_primary',
@@ -684,6 +735,7 @@ $dictionary['User'] = array(
             'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
         ) ,
         /* to support Meetings SubPanels */
+        // Deprecated: Use rname_link instead
         'c_accept_status_fields' => array(
             'name' => 'c_accept_status_fields',
             'rname' => 'id',
@@ -699,6 +751,7 @@ $dictionary['User'] = array(
             'importable' => 'false',
             'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
         ) ,
+        // Deprecated: Use rname_link instead
         'm_accept_status_fields' => array(
             'name' => 'm_accept_status_fields',
             'rname' => 'id',
@@ -714,6 +767,7 @@ $dictionary['User'] = array(
             'importable' => 'false',
             'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
         ) ,
+        // Deprecated: Use rname_link instead
         'accept_status_id' => array(
             'name' => 'accept_status_id',
             'type' => 'varchar',
@@ -722,6 +776,7 @@ $dictionary['User'] = array(
             'importable' => 'false',
         	'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
         ) ,
+        // Deprecated: Use rname_link instead
         'accept_status_name' => array(
             'name' => 'accept_status_name',
             'type' => 'enum',
@@ -731,6 +786,30 @@ $dictionary['User'] = array(
             'massupdate' => false,
             'studio' => array('listview' => false, 'searchview'=>false, 'formula' => false),
         ) ,
+        'accept_status_calls' => array(
+            'massupdate' => false,
+            'name' => 'accept_status_calls',
+            'type' => 'enum',
+            'studio' => 'false',
+            'source' => 'non-db',
+            'vname' => 'LBL_LIST_ACCEPT_STATUS',
+            'options' => 'dom_meeting_accept_status',
+            'importable' => 'false',
+            'link' => 'calls',
+            'rname_link' => 'accept_status',
+        ),
+        'accept_status_meetings' => array(
+            'massupdate' => false,
+            'name' => 'accept_status_meetings',
+            'type' => 'enum',
+            'studio' => 'false',
+            'source' => 'non-db',
+            'vname' => 'LBL_LIST_ACCEPT_STATUS',
+            'options' => 'dom_meeting_accept_status',
+            'importable' => 'false',
+            'link' => 'meetings',
+            'rname_link' => 'accept_status',
+        ),
         'prospect_lists' => array(
             'name' => 'prospect_lists',
             'type' => 'link',
@@ -755,6 +834,7 @@ $dictionary['User'] = array(
             'side' => 'right',
             'vname' => 'LBL_HOLIDAYS',
         ) ,
+
        'eapm' =>
 		  array (
 		    'name' => 'eapm',
@@ -783,7 +863,61 @@ $dictionary['User'] = array(
 			'source' => 'non-db',
 			'vname' => 'LBL_PROJECTS',
 		),
+        'quotas' =>
+        array (
+            'name' => 'quotas',
+            'type' => 'link',
+            'relationship' => 'users_quotas',
+            'source'=>'non-db',
+            'link_type'=>'one',
+            'vname'=>'LBL_QUOTAS',
+        ),
+        'forecasts' =>
+        array (
+            'name' => 'forecasts',
+            'type' => 'link',
+            'relationship' => 'users_forecasts',
+            'source'=>'non-db',
+            'link_type'=>'one',
+            'vname'=>'LBL_FORECASTS',
+        ),
+
+    'preferred_language' =>
+      array(
+         'name' => 'preferred_language',
+         'type' => 'enum',
+         'vname' => 'LBL_PREFERRED_LANGUAGE',
+         'options' => 'available_language_dom',
+      ),
+
+
+        'activities' => array (
+            'name' => 'activities',
+            'type' => 'link',
+            'relationship' => 'activities_users',
+            'link_type' => 'many',
+            'module' => 'Activities',
+            'bean_name' => 'Activity',
+            'source' => 'non-db',
+        ),
+        'acl_role_set_id' => array (
+            'name' => 'acl_role_set_id',
+            'type' => 'id',
+            'link' => 'acl_role_sets',
+            'reportable' => false,
+        ),
+        'acl_role_sets' => array (
+            'name' => 'acl_role_sets',
+            'type' => 'link',
+            'relationship' => 'users_acl_role_sets',
+            'source' => 'non-db',
+        ),
     ) ,
+    'name_format_map' => array(
+        'f' => 'first_name',
+        'l' => 'last_name',
+        't' => 'title',
+    ),
     'indices' => array(
         array(
             'name' => 'userspk',
@@ -804,11 +938,23 @@ $dictionary['User'] = array(
                 'id'
             )
         ) ,
+        array(
+			'name' => 'idx_users_reports_to_id',
+			'type' => 'index',
+			'fields' => array('reports_to_id', 'id')
+		),
+        array(
+            'name' => 'idx_last_login',
+            'type' => 'index',
+            'fields' => array('last_login')
+        ),
 		array(
 			'name' => 'idx_users_tmst_id',
 			'type' => 'index',
 			'fields' => array('team_set_id')
 		),
+        array('name' => 'idx_user_title', 'type' => 'index', 'fields' => array('title')),
+        array('name' => 'idx_user_department', 'type' => 'index', 'fields' => array('department')),
     ) ,
 	'relationships' => array (
   		'user_direct_reports' => array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id', 'rhs_module'=> 'Users', 'rhs_table'=> 'users', 'rhs_key' => 'reports_to_id', 'relationship_type'=>'one-to-many'),
@@ -817,7 +963,7 @@ $dictionary['User'] = array(
   		       'lhs_module'=> 'Users',
   		       'lhs_table'=> 'users',
   		       'lhs_key' => 'id',
-  		       'rhs_module'=> 'UserSignature',
+  		       'rhs_module'=> 'UserSignatures',
   		       'rhs_table'=> 'users_signatures',
   		       'rhs_key' => 'user_id',
   		       'relationship_type'=>'one-to-many'
@@ -836,8 +982,7 @@ $dictionary['User'] = array(
 		        'rhs_module'=> 'EmailAddresses', 'rhs_table'=> 'email_addresses', 'rhs_key' => 'id',
 		        'relationship_type'=>'many-to-many',
 		        'join_table'=> 'email_addr_bean_rel', 'join_key_lhs'=>'bean_id', 'join_key_rhs'=>'email_address_id',
-		        'relationship_role_column'=>'primary_address',
-		        'relationship_role_column_value'=>'1'
+		        'relationship_role_columns'=>array('primary_address' => '1', 'bean_module' => 'Users'),
 		    ),
 		'users_team_count_relationship' =>
 			 array(
@@ -862,6 +1007,30 @@ $dictionary['User'] = array(
 	            'join_key_lhs'      => 'team_set_id',
 	            'join_key_rhs'      => 'team_id',
 			),
+        'users_forecasts' => array(
+            'rhs_module'		=> 'Forecasts',
+            'rhs_table'			=> 'forecasts',
+            'rhs_key'			=> 'user_id',
+            'lhs_module'		=> 'Users',
+            'lhs_table'			=> 'users',
+            'lhs_key'			=> 'id',
+            'relationship_type'	=> 'one-to-many',
+            'relationship_role_column'=>'forecast_type',
+            'relationship_role_column_value'=>'Rollup'
+        ),
+
+        'users_quotas' => array(
+            'rhs_module'		=> 'Quotas',
+            'rhs_table'			=> 'quotas',
+            'rhs_key'			=> 'user_id',
+            'lhs_module'		=> 'Users',
+            'lhs_table'			=> 'users',
+            'lhs_key'			=> 'id',
+            'relationship_type'	=> 'one-to-many',
+            'relationship_role_column'=>'quota_type',
+            'relationship_role_column_value'=>'Direct'
+        ),
+
         'users_team_sets' => array (
             'lhs_module'        => 'Teams',
             'lhs_table'         => 'teams',
@@ -883,8 +1052,16 @@ $dictionary['User'] = array(
             'rhs_key' => 'default_team',
             'relationship_type'=>'one-to-many'
         ),
+        'users_acl_role_sets' => array(
+            'lhs_module' => 'ACLRoleSets',
+            'lhs_table'=> 'acl_role_sets',
+            'lhs_key' => 'id',
+            'rhs_module'=> 'Users',
+            'rhs_table'=> 'users',
+            'rhs_key' => 'acl_role_set_id',
+            'relationship_type' => 'one-to-many'
+        ),
     ),
 
-
-
+    'acls' => array('SugarACLUsers' => true, 'SugarACLStatic' => true),
 );

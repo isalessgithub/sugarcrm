@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Kontağı silmek için bir kayıt numarası belirtiniz.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adres Bilgisi',
   'LBL_ADD_BUSINESSCARD' => 'Kartvizit Gir',
   'LBL_ALTERNATE_ADDRESS' => 'Diğer Adres:',
-  'LBL_ALT_ADDRESS' => 'Diğer Adres:',
   'LBL_ALT_ADDRESS_CITY' => 'Alternatif Adres Şehir:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Alternatif Adres Ülke:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Alternatif Adres Posta Kodu:',
@@ -77,11 +73,16 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Tanım:',
   'LBL_DESCRIPTION_INFORMATION' => 'Tanım Bilgisi',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Doğrudan Raporlar',
+  'LBL_DNB_BAL_PREVIEW' => 'Kontak Önizleme',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Kontaklar',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Kontak Bilgileri',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Asıl Id',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokümanlar',
   'LBL_DO_NOT_CALL' => 'Tel. İle Aramayın:',
   'LBL_DUPLICATE' => 'Muhtemelen Tekrar Eden Kontaklar',
   'LBL_EMAIL_ADDRESS' => 'E-Posta Adresi:',
   'LBL_EMAIL_OPT_OUT' => 'Liste Dışı E-Posta:',
+  'LBL_EMPTY_VCARD' => 'Lütfen bir vCard dosyası seçin',
   'LBL_EXISTING_ACCOUNT' => 'Var olan müşteri kullanıldı',
   'LBL_EXISTING_CONTACT' => 'Var olan kontak kullanıldı',
   'LBL_EXISTING_OPPORTUNITY' => 'Var olan fırsat Kullanıldı',
@@ -91,21 +92,44 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Değiştiren ID',
   'LBL_EXPORT_PHONE_HOME' => 'Ev Telefonu',
   'LBL_EXPORT_PHONE_MOBILE' => 'Cep Telefonu',
+  'LBL_FACEBOOK' => 'Facebook Hesabı',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILENAME' => 'Ek',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Kontak Raporları',
   'LBL_FIRST_NAME' => 'İsim:',
   'LBL_FULL_NAME' => 'Tam İsmi:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modülü, organizasyonunuzun ilişkide bulunduğu kontaklardan oluşmaktadır.
+
+{{module_name}} kaydı oluşturmak için:
+1. Alanlar için istenen şekilde değerler girin.
+- "Zorunlu" alanlar, kayıt öncesinde doldurulmalıdır.
+- Gerektiğinde, "Daha Fazlası" seçeneği ile ek alanları gösteriniz.
+2. "Kaydet" tuşuna basarak yeni kaydınızı tamamlayın ve önceki sayfaya dönün.
+- Yeni {{module_name}} kaydını görüntüleme modunda açmak için Kaydet ve Görüntüle seçeneğini kullanın.
+- "Kaydet ve yenisini oluştur" seçeneği ile, kayıt sonrasında, hemen yeni bir {{module_name}} kaydı oluşturun.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü, organizasyonunuzun ilişkide bulunduğu kontaklardan oluşmaktadır.
+
+- Kaydın alanlarını, herhangi bir alana veya "Değiştir" tuşuna tıklayarak değiştirin.
+- Alt solda yer alan paneli "Kayıt Görünümü" olarak değiştirerek, diğer kayıtlar ile olan bağlantıları görün veya değiştirin.
+- Kaydın isminin sağındaki ikonlara tıklayarak kaydı izleyiniz veya favori olarak işaretleyiniz.
+- Alt solda yer alan paneli "Aktivite Akışı" olarak değiştirerek, kullanıcı yorumları görün, oluşturun ve  {{activitystream_singular_module}}  kayıtındaki değişiklik tarihçesini görün.
+- Daha fazla aksiyon, Değiştir tuşunun sağındaki Aksiyonlar seçimli menüde yer almaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü organizasyonunuzun ilişkide olduğu bireylerden oluşur.  {{module_name}} kayıtları tipik olarak bir  {{accounts_singular_module}} kaydı ile ilişkilidir, ve birden fazla {{plural_module_name}} kaydı tek bir {{accounts_singular_module}} ile ilişkili olabilir. Sugar içinde {{plural_module_name}} kaydı oluşturmak için farklı yöntemler bulunmaktadır, örneğin {{plural_module_name}} modülü ile, aynı kayıttan oluşturarak, {{plural_module_name}} kayıtlarını içeri yükleyerek, {{leads_module}} modülünü {{plural_module_name}} kaydına dönüştürerek, vb. {{module_name}} kaydı oluşturulduktan sonra, {{plural_module_name}} kayıt görüntüleme ekranını kullanarak {{module_name}} kaydındaki eksiklikleri ekleyebilirsiniz. Her {{module_name}} kaydı bu işlem sonrasında diğer Sugar kayıtları ile (örneğin {{meetings_module}}, {{cases_module}}, {{opportunities_module}} ve diğerleri) ilişkilendirilebilir.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Tarihçe',
   'LBL_HOMEPAGE_TITLE' => 'Kontaklarım',
-  'LBL_HOME_PHONE' => 'Ev Telefonu:',
+  'LBL_HOME_PHONE' => 'Ana Sayfa:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'vCard Verisini Yükle',
   'LBL_IMPORT_VCARDTEXT' => 'Dosya sisteminizden vCard verisi yükleyerek otomatik olarak yeni kontak oluştur.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'VCard bilgisinden Kontak başarıyla oluşturuldu',
   'LBL_INVALID_EMAIL' => 'Geçersiz E-Posta:',
   'LBL_INVITEE' => 'Doğrudan Raporlar',
   'LBL_LANG_PREF_TOOLTIP' => 'Destek Portalı kullanıcı arayüzü burada seçilen dilde ayarlandı',
   'LBL_LAST_NAME' => 'Soyisim:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potansiyeller',
   'LBL_LEAD_SOURCE' => 'Potansiyel Kaynağı:',
+  'LBL_LINKEDIN' => 'Linkedin Hesabı',
   'LBL_LIST_ACCEPT_STATUS' => 'Kabul Durumu',
   'LBL_LIST_ACCOUNT_NAME' => 'Müşteri İsmi',
   'LBL_LIST_CITY' => 'Şehir',
@@ -120,6 +144,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Ofis Telefonu',
   'LBL_LIST_STATE' => 'Eyalet',
   'LBL_LIST_TITLE' => 'Başlık',
+  'LBL_MKTO_ID' => 'Marketo Potansyel ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Potansiyel Skoru',
+  'LBL_MKTO_SYNC' => 'Marketo&reg; ile senkronize et',
   'LBL_MOBILE_PHONE' => 'Cep Telefonu:',
   'LBL_MODIFIED' => 'Değiştiren Kişi:',
   'LBL_MODULE_NAME' => 'Kontaklar',
@@ -128,6 +155,7 @@ $mod_strings = array (
   'LBL_NAME' => 'İsim:',
   'LBL_NEW_FORM_TITLE' => 'Yeni Kontak',
   'LBL_NEW_PORTAL_PASSWORD' => 'Yeni Portal Şifresi:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notlar',
   'LBL_NOTE_SUBJECT' => 'Not Konusu',
   'LBL_OFFICE_PHONE' => 'Ofis Telefonu:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Eski Portal Şifresi',
@@ -152,6 +180,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Portal İsmi:',
   'LBL_PORTAL_PASSWORD' => 'Portal Şifresi',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Portal Şifresi Belirtildi:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Profilinizi düzenlemek için tıklayın.',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'Profil, iletişim bilgilerinizi, parola ve dil tercihlerinizi yönetebileceğiniz yerdir.',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Siz buradan tercih ettiğiniz dili ayarlayabilirsiniz. Bu Sugar Portal tarafından kullanılan dili değişecektir.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Kullanıcı menüsünü kullanarak istediğiniz zaman Profilinize dönebilirsiniz.',
   'LBL_POSTAL_CODE' => 'Posta Kodu:',
   'LBL_PRIMARY_ADDRESS' => 'Asıl Adres:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Asıl Adres Şehir:',
@@ -161,7 +193,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET' => 'Asıl Adres Sokak:',
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Asıl Adres Sokak 2 :',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Asıl Adres Sokak 3:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Ürünler',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Teklif Kalemleri',
   'LBL_PRODUCTS_TITLE' => 'Ürünler',
   'LBL_PROJECTS_RESOURCES' => 'Proje Kaynakları',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projeler',
@@ -170,10 +202,12 @@ $mod_strings = array (
   'LBL_QUOTES_BILL_TO' => 'Teklifler (Faturalanacak)',
   'LBL_QUOTES_SHIP_TO' => 'Teklifler (Gönderim)',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Teklifler',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Başarılı şekilde {{moduleSingularLower}} oluşturdunuz: <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'İlişkili Kontaklar',
   'LBL_REPORTS_TO' => 'Rapor Edilen Kişi:',
   'LBL_REPORTS_TO_ID' => 'Rapor Edilen ID:',
   'LBL_RESOURCE_NAME' => 'Kaynak Adı',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Gelir Kalemleri',
   'LBL_SALUTATION' => 'Hitap:',
   'LBL_SAVE_CONTACT' => 'Kontak Kaydet',
   'LBL_SEARCH_FORM_TITLE' => 'Kontak Arama',
@@ -185,12 +219,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Kampanyalar (Hedeflenen) :',
   'LBL_TEAM_ID' => 'Takım ID:',
   'LBL_TITLE' => 'Unvan:',
+  'LBL_TWITTER' => 'Twitter ID',
   'LBL_USER_PASSWORD' => 'Şifre:',
   'LBL_USER_SYNC' => 'Kullanıcı Senkronizasyonu',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Kontak Görünümü',
   'LNK_CONTACT_LIST' => 'Kontakları Görüntüle',
   'LNK_CONTACT_REPORTS' => 'Kontak Raporlarını Görüntüle',
+  'LNK_CREATE' => 'Kişi Oluştur',
   'LNK_IMPORT_CONTACTS' => 'Kontak Verilerini Yükle',
   'LNK_IMPORT_VCARD' => 'vCard dan Kontak Oluştur',
   'LNK_NEW_ACCOUNT' => 'Müşteri Oluştur',
@@ -212,6 +248,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Fırsat oluşturulması için müşteri kaydının olması gerekir.\\n Lütfen yeni bir müşteri oluşturun veya var olan müşterilerden birini seçin.',
   'NTC_REMOVE_CONFIRMATION' => 'Talepten bu kontağı silmek istediğinizden emin misiniz?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Doğrudan raporlanan kişi olarak bu kaydı silmek istediğinizden emin misiniz?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

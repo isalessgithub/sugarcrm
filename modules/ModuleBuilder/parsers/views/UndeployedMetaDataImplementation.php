@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/MB/ModuleBuilder.php' ;
 require_once 'modules/ModuleBuilder/parsers/views/AbstractMetaDataImplementation.php' ;
@@ -26,14 +23,16 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
 
     private $_packageName ;
 
-   /*
+    /**
      * Constructor
      * @param string $view
      * @param string $moduleName
+     * @param string $packageName
+     * @param string $client The client making the request for this implementation
      * @throws Exception Thrown if the provided view doesn't exist for this module
      */
 
-    function __construct ($view , $moduleName , $packageName)
+    function __construct ($view , $moduleName , $packageName, $client = '')
     {
 
     	// BEGIN ASSERTIONS
@@ -44,6 +43,7 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
         // END ASSERTIONS
 
         $this->_view = strtolower ( $view ) ;
+        $this->setViewClient($client);
         $this->_moduleName = $moduleName ;
         $this->_packageName = $packageName ;
 
@@ -61,7 +61,11 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
         if(isset($GLOBALS['current_language']) &&!empty($GLOBALS['current_language'])) {
             $selected_lang = $GLOBALS['current_language'];
         }
-        $GLOBALS [ 'mod_strings' ] = array_merge ( $GLOBALS [ 'mod_strings' ], $module->getModStrings ($selected_lang) ) ;
+
+        // Set up global mod strings so that if they are not set up yet - like in
+        // upgrades - calling on the global var will not throw warnings
+        $globalModStrings = empty($GLOBALS['mod_strings']) ? array() : $GLOBALS['mod_strings'];
+        $GLOBALS['mod_strings'] = array_merge($globalModStrings, $module->getModStrings($selected_lang));
 
         //Load relationshhip based fields and labels
         $moduleRels = $pak->getRelationshipsForModule($moduleName);
@@ -82,7 +86,7 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
         }
 
         $loaded = null ;
-        foreach ( array ( MB_BASEMETADATALOCATION , MB_HISTORYMETADATALOCATION ) as $type )
+        foreach ( array ( MB_WORKINGMETADATALOCATION , MB_HISTORYMETADATALOCATION ) as $type )
     	{
 			$this->_sourceFilename = $this->getFileName ( $view, $moduleName, $packageName , $type ) ;
 			if($view == MB_POPUPSEARCH || $view == MB_POPUPLIST){
@@ -92,6 +96,12 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
 			}
 			if ( null !== $layout  )
 			{
+                if (MB_WORKINGMETADATALOCATION == $type) {
+                    $this->_useWorkingFile = true;
+                } elseif (MB_HISTORYMETADATALOCATION == $type && $this->_useWorkingFile) {
+                    $this->_useWorkingFile = false;
+                }
+
 				// merge in the fielddefs from this layout
 				$this->_mergeFielddefs ( $fielddefs , $layout ) ;
 				$loaded = $layout ;
@@ -104,7 +114,7 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
         }
 
         $this->_viewdefs = $loaded ;
-        $sourceFilename = $this->getFileName ( $view, $moduleName, $packageName, MB_BASEMETADATALOCATION );
+        $sourceFilename = $this->getFileName ( $view, $moduleName, $packageName, MB_WORKINGMETADATALOCATION );
         if($view == MB_POPUPSEARCH || $view == MB_POPUPLIST){
 			$layout = $this->_loadFromPopupFile ( $sourceFilename , null, $view);
 		}else{
@@ -112,6 +122,16 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
 		}
 		$this->_originalViewdefs = $layout ;
 		$this->_fielddefs = $fielddefs ;
+        
+        // Bug 56675 - Panel defs needed for undeployed modules as well
+        // Set the panel defs (the old field defs)
+        $this->setPanelDefsFromViewDefs();
+
+        // Make sure the paneldefs are proper if there are any
+        if (is_array($this->_paneldefs) && !is_numeric(key($this->_paneldefs))) {
+            $this->_paneldefs = array($this->_paneldefs);
+        }
+                
         $this->_history = new History ( $this->getFileName ( $view, $moduleName, $packageName, MB_HISTORYMETADATALOCATION ) ) ;
     }
 
@@ -128,63 +148,29 @@ class UndeployedMetaDataImplementation extends AbstractMetaDataImplementation im
     {
         //If we are pulling from the History Location, that means we did a restore, and we need to save the history for the previous file.
     	if ($this->_sourceFilename == $this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_HISTORYMETADATALOCATION )
-    	&& file_exists($this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_BASEMETADATALOCATION ))) {
-        	$this->_history->append ( $this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_BASEMETADATALOCATION )) ;
+    	&& file_exists($this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_WORKINGMETADATALOCATION ))) {
+        	$this->_history->append ( $this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_WORKINGMETADATALOCATION )) ;
         } else {
     		$this->_history->append ( $this->_sourceFilename ) ;
         }
-        $filename = $this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_BASEMETADATALOCATION ) ;
+        $filename = $this->getFileName ( $this->_view, $this->_moduleName, $this->_packageName, MB_WORKINGMETADATALOCATION ) ;
         $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . "->deploy(): writing to " . $filename ) ;
         $this->_saveToFile ( $filename, $defs ) ;
     }
 
     /*
      * Construct a full pathname for the requested metadata
-     * @param string view           The view type, that is, EditView, DetailView etc
-     * @param string modulename     The name of the module that will use this layout
-     * @param string type
+     * @param string $view           The view type, that is, EditView, DetailView etc
+     * @param string $modulename     The name of the module that will use this layout
+     * @param string $type           The location of the file
+     * @param string $client         The client to get the filename for
      */
-    public static function getFileName ($view , $moduleName , $packageName , $type = MB_BASEMETADATALOCATION)
+    public function getFileName ($view , $moduleName , $packageName , $type = MB_BASEMETADATALOCATION, $client = null)
     {
-
-        $type = strtolower ( $type ) ;
-
-        // BEGIN ASSERTIONS
-        if ($type != MB_BASEMETADATALOCATION && $type != MB_HISTORYMETADATALOCATION)
-        {
-            // just warn rather than die
-            $GLOBALS [ 'log' ]->warning ( "UndeployedMetaDataImplementation->getFileName(): view type $type is not recognized" ) ;
+        if ($client === null) {
+            $client = $this->_viewClient;
         }
-        // END ASSERTIONS
-
-        $filenames = array (  	MB_DASHLETSEARCH => 'dashletviewdefs',
-        						MB_DASHLET => 'dashletviewdefs',
-        						MB_LISTVIEW => 'listviewdefs' ,
-        						MB_BASICSEARCH => 'searchdefs' ,
-        						MB_ADVANCEDSEARCH => 'searchdefs' ,
-        						MB_EDITVIEW => 'editviewdefs' ,
-        						MB_DETAILVIEW => 'detailviewdefs' ,
-        						MB_QUICKCREATE => 'quickcreatedefs',
-					        	MB_POPUPSEARCH => 'popupdefs',
-					        	MB_POPUPLIST => 'popupdefs',
-        						MB_WIRELESSEDITVIEW => 'wireless.editviewdefs' ,
-        						MB_WIRELESSDETAILVIEW => 'wireless.detailviewdefs' ,
-        						MB_WIRELESSLISTVIEW => 'wireless.listviewdefs' ,
-        						MB_WIRELESSBASICSEARCH => 'wireless.searchdefs' ,
-        						MB_WIRELESSADVANCEDSEARCH => 'wireless.searchdefs' ,
-        						) ;
-
-        switch ( $type)
-        {
-            case MB_HISTORYMETADATALOCATION :
-                return 'custom/history/modulebuilder/packages/' . $packageName . '/modules/' . $moduleName . '/metadata/' . $filenames [ $view ] . '.php' ;
-            default :
-                // get the module again, all so we can call this method statically without relying on the module stored in the class variables
-                $mb = new ModuleBuilder ( ) ;
-                $module = & $mb->getPackageModule ( $packageName, $moduleName ) ;
-                return $module->getModuleDir () . '/metadata/' . $filenames [ $view ] . '.php' ;
-        }
-
+        return MetaDataFiles::getUndeployedFileName($view, $moduleName, $packageName, $type, $client);
     }
     
     public function getModuleDir(){

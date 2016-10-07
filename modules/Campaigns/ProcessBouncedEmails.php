@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ProcessBouncedEmails.php 56797 2010-06-02 23:48:33Z asandberg $
  * Description:
  ********************************************************************************/
 //find all mailboxes of type bounce.
@@ -47,7 +44,7 @@ function retrieveErrorReportAttachment($email)
 function createBouncedCampaignLogEntry($row,$email, $email_description)
 {
     $GLOBALS['log']->debug("Creating bounced email campaign log");
-    $bounce = new CampaignLog();
+    $bounce = BeanFactory::getBean('CampaignLog');
     $bounce->campaign_id=$row['campaign_id'];
     $bounce->target_tracker_key=$row['target_tracker_key'];
     $bounce->target_id= $row['target_id'];
@@ -59,11 +56,11 @@ function createBouncedCampaignLogEntry($row,$email, $email_description)
     $bounce->related_type='Emails';
     $bounce->related_id= $email->id;
 
-    //do we have the phrase permanent error in the email body.
-    if (preg_match('/permanent[ ]*error/',$email_description))
+    // Do we have the phrase permanent error|failure in the email body.
+    if (preg_match('/permanent[ ]*(error|failure)/', $email_description))
     {
         $bounce->activity_type='invalid email';
-        markEmailAddressInvalid($email);
+        markEmailAddressInvalid($row['more_information']);
     }
     else 
         $bounce->activity_type='send error';
@@ -81,7 +78,7 @@ function markEmailAddressInvalid($email_address)
 {
     if(empty($email_address))
         return;
-    $sea = new SugarEmailAddress();
+    $sea = BeanFactory::getBean('EmailAddresses');
     $rs = $sea->retrieve_by_string_fields( array('email_address_caps' => trim(strtoupper($email_address))) );
     if($rs != null)
     {
@@ -98,7 +95,7 @@ function markEmailAddressInvalid($email_address)
 function getExistingCampaignLogEntry($identifier)
 {
     $row = FALSE;
-    $targeted = new CampaignLog();
+    $targeted = BeanFactory::getBean('CampaignLog');
     $where="campaign_log.activity_type='targeted' and campaign_log.target_tracker_key='{$identifier}'";
     $query=$targeted->create_new_list_query('',$where);
     $result=$targeted->db->query($query);
@@ -174,7 +171,7 @@ function campaign_process_bounced_emails(&$email, &$email_header)
 					//invalid email or send error entry for this tracker key.
 					$query_log = "select * from campaign_log where target_tracker_key='{$row['target_tracker_key']}'"; 
 					$query_log .=" and (activity_type='invalid email' or activity_type='send error')";
-                    $targeted = new CampaignLog();
+                    $targeted = BeanFactory::getBean('CampaignLog');
 					$result_log=$targeted->db->query($query_log);
 					$row_log=$targeted->db->fetchByAssoc($result_log);
 

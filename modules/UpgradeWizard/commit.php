@@ -1,25 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry)
 	die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- * Portions created by SugarCRM are Copyright(C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- * *******************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+sugar_die($app_strings['ERR_UW_RETIRED']);
 require_once('include/SugarLogger/SugarLogger.php');
 
 $trackerManager = TrackerManager::getInstance();
@@ -251,7 +243,7 @@ eoq;
 
 		//Also add the three-way merge here. The idea is after the 451 html files have
 		//been converted run the 3-way merge. If 500 then just run the 3-way merge
-        $ce_to_pro_ent = isset($manifest['name']) && ($manifest['name'] == 'SugarCE to SugarPro' || $manifest['name'] == 'SugarCE to SugarEnt' || $manifest['name'] == 'SugarCE to SugarCorp' || $manifest['name'] == 'SugarCE to SugarUlt');
+        $ce_to_pro_ent = isset($manifest['name']) && preg_match('/^SugarCE.*?(Pro|Ent|Corp|Ult)$/', $manifest['name']);
 
 		if(file_exists('modules/UpgradeWizard/SugarMerge/SugarMerge.php')){
 		    require_once('modules/UpgradeWizard/SugarMerge/SugarMerge.php');
@@ -278,6 +270,46 @@ eoq;
 				set_upgrade_progress('commit','in_progress','commitCopyNewFiles','done');
          }
 		 //END COPY NEW FILES INTO TARGET INSTANCE
+
+        logThis('Checking for mobile/portal metadata upgrade...');
+        // 6.6 metadata enhancements for portal and wireless, should only be
+        // handled for upgrades FROM pre-6.6 to a version POST 6.6 and MUST be
+        // handled AFTER inclusion of the upgrade package files
+        if (!didThisStepRunBefore('commit','upgradePortalMobileMetadata')) {
+            if (version_compare($sugar_version, '6.6.0') == -1) {
+                if (file_exists('modules/UpgradeWizard/SidecarUpdate/SidecarMetaDataUpgrader.php')) {
+                    set_upgrade_progress('commit','in_progress','upgradePortalMobileMetadata','in_progress');
+                    logThis('Sidecar Upgrade: Preparing to upgrade metadata to 6.6.0 compatibility through the silent upgrader ...');
+                    require_once 'modules/UpgradeWizard/SidecarUpdate/SidecarMetaDataUpgrader.php';
+
+                    // Get the sidecar metadata upgrader
+                    logThis('Sidecar Upgrade: Instantiating the mobile/portal metadata upgrader ...');
+                    $smdUpgrader = new SidecarMetaDataUpgrader();
+
+                    // Run the upgrader
+                    logThis('Sidecar Upgrade: Beginning the mobile/portal metadata upgrade ...');
+                    $smdUpgrader->upgrade();
+                    logThis('Sidecar Upgrade: Mobile/portal metadata upgrade complete');
+
+                    // Log status and failures if any
+                    logThis('Mobile and portal view metadata file upgrade is complete.');
+                    $failures = $smdUpgrader->getFailures();
+                    if (!empty($failures)) {
+                        logThis('Sidecar Upgrade: ' . count($failures) . ' metadata files failed to upgrade through the silent upgrader:');
+                        logThis(print_r($failures, true));
+                    } else {
+                        logThis('Sidecar Upgrade: Mobile/portal metadata upgrade ran with no failures:');
+                        logThis($smdUpgrader->getCountOfFilesForUpgrade() . ' files were upgraded.');
+                    }
+
+                    // Reset the progress
+                    set_upgrade_progress('commit','in_progress','upgradePortalMobileMetadata','done');
+                }
+            }
+        }
+        // END sidecar metadata updates
+        logThis('Mobile/portal metadata upgrade check complete');
+
     ///////////////////////////////////////////////////////////////////////////////
 	////	HANDLE POSTINSTALL SCRIPTS
 	logThis('Starting post_install()...');
@@ -399,9 +431,6 @@ $from_dir = remove_file_extension($install_file) . "-restore";
 logThis('call addNewSystemTabsFromUpgrade(' . $from_dir . ')');
 addNewSystemTabsFromUpgrade($from_dir);
 logThis('finished addNewSystemTabsFromUpgrade');
-
-//run fix on dropdown lists that may have been incorrectly named
-//fix_dropdown_list();
 
 	///////////////////////////////////////////////////////////////////////////////
 	////	REGISTER UPGRADE
@@ -534,13 +563,6 @@ if(empty($mod_strings['LBL_UPGRADE_TAKES_TIME_HAVE_PATIENCE'])){
 		$mod_strings['LBL_UPGRADE_TAKES_TIME_HAVE_PATIENCE'] = 'Upgrade may take some time';
 }
 
-///////////////////////////////////////////////////////////////////////////////
-////	HANDLE REMINDERS
-commitHandleReminders($skippedFiles);
-////	HANDLE REMINDERS
-///////////////////////////////////////////////////////////////////////////////
-
-
 logThis("Resetting error_reporting() to system level.");
 error_reporting($standardErrorLevel);
 
@@ -643,11 +665,17 @@ $stepRecheck = $_REQUEST['step'];
 
 $_SESSION['step'][$steps['files'][$_REQUEST['step']]] =($stop) ? 'failed' : 'success';
 
+//Unlink files that have been removed
+if(function_exists('unlinkUpgradeFiles'))
+{
+	unlinkUpgradeFiles($_SESSION['current_db_version']);
+}
+
 // clear out the theme cache
 if(!class_exists('SugarThemeRegistry')){
     require_once('include/SugarTheme/SugarTheme.php');
 }
-
+SugarAutoLoader::buildCache();
 $themeObject = SugarThemeRegistry::current();
 
 $styleJSFilePath = sugar_cached($themeObject->getJSPath() . DIRECTORY_SEPARATOR .  'style-min.js');
@@ -677,7 +705,7 @@ $_REQUEST['root_directory'] = getcwd();
 $_REQUEST['js_rebuild_concat'] = 'rebuild';
 require_once('jssource/minify.php');
 
-//The buld registry call above will reload the default theme for what was written to the config file during flav conversions
+//The build registry call above will reload the default theme for what was written to the config file during flavor conversions
 //which we don't want to happen until after this request as we have already started rendering with a specific theme.
 $themeName = (string) $themeObject;
 if($themeName != $GLOBALS['sugar_config']['default_theme'])

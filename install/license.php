@@ -1,20 +1,17 @@
 <?php
 //if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: license.php 54512 2010-02-12 19:13:35Z jmertic $
 global $sugar_version, $js_custom_version;
 if( !isset( $install_script ) || !$install_script ){
     die('Unable to process script directly.');
@@ -28,8 +25,9 @@ if(!isset($_SESSION['license_submitted']) || !$_SESSION['license_submitted']){
 $checked = (isset($_SESSION['setup_license_accept']) && !empty($_SESSION['setup_license_accept'])) ? 'checked="on"' : '';
 
 require_once("install/install_utils.php");
-$license_file = getLicenseContents("LICENSE.txt");
+$license_file = getLicenseContents("LICENSE");
 $langHeader = get_language_header();
+$versionToken = getVersionedPath(null);
 $out =<<<EOQ
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html {$langHeader}>
@@ -39,7 +37,7 @@ $out =<<<EOQ
    <title>{$mod_strings['LBL_WIZARD_TITLE']} {$mod_strings['LBL_LICENSE_ACCEPTANCE']}</title>
    <link REL="SHORTCUT ICON" HREF="include/images/sugar_icon.ico">
    <link rel="stylesheet" href="install/install.css" type="text/css">
-   <script src="cache/include/javascript/sugar_grp1_yui.js?s={$sugar_version}&c={$js_custom_version}"></script>
+   <script src="cache/include/javascript/sugar_grp1_yui.js?v={$versionToken}"></script>
    <script type="text/javascript">
     <!--
     if ( YAHOO.env.ua )
@@ -68,7 +66,7 @@ $out =<<<EOQ
     </tr>
     <tr>
       <td colspan="2">
-        <textarea cols="80" rows="20" readonly>{$license_file}</textarea>
+        <textarea cols="80" rows="7" readonly>{$license_file}</textarea>
       </td>
     </tr>
 
@@ -90,6 +88,8 @@ $out =<<<EOQ
           <tr>
             <td>
                 <input class="acceptButton" type="button" name="goto" value="{$mod_strings['LBL_BACK']}"  id="button_back_license" onclick="document.getElementById('form').submit();" />
+            </td>
+            <td>     
                 <input class="acceptButton" type="button" name="goto" value="{$mod_strings['LBL_NEXT']}" id="button_next" disabled="disabled" onclick="callSysCheck();"/>
                 <input type="hidden" name="goto" id='hidden_goto' value="{$mod_strings['LBL_BACK']}" />
             </td>

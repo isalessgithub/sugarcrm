@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: WorkFlowTriggerShell.php 56786 2010-06-02 18:29:56Z jenny $
  * Description:
  ********************************************************************************/
 
@@ -102,8 +99,19 @@ class WorkFlowTriggerShell extends SugarBean {
 	// This is the list of fields that are required
 	var $required_fields =  array();
 
-	function WorkFlowTriggerShell() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function WorkFlowTriggerShell()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 
 		$this->disable_row_level_security =true;
 
@@ -115,23 +123,6 @@ class WorkFlowTriggerShell extends SugarBean {
 	{
 		return "$this->name";
 	}
-
-
-
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-
-
-    function create_export_query(&$order_by, &$where)
-    {
-
-    }
-
-
 
 	function save_relationship_changes($is_update)
     {
@@ -178,8 +169,7 @@ class WorkFlowTriggerShell extends SugarBean {
         $deleteConfirm = $current_module_strings['NTC_REMOVE_TRIGGER'];
 
         if ($this->frame_type == "Primary") {
-			$statement1 = $current_module_strings['LBL_LIST_STATEMEMT'];
-
+            $statement1 = $current_module_strings['LBL_LIST_STATEMEMT'];
             // Add a notice that deleting the primary deletes all triggers
             $deleteConfirm .= ' ' . $current_module_strings['NTC_REMOVE_TRIGGER_PRIMARY'];
 		} else {
@@ -355,8 +345,7 @@ class WorkFlowTriggerShell extends SugarBean {
 	
 	function get_workflow_type(){
 		
-		$workflow_object = new WorkFlow();
-		$workflow_object->retrieve($this->parent_id);
+		$workflow_object = BeanFactory::getBean('WorkFlow', $this->parent_id);
 		return $workflow_object;	
 	
 	//end function get_workflow_type	

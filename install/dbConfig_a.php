@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 global $sugar_version, $js_custom_version;
@@ -47,6 +44,7 @@ $db = getInstallDbInstance();
 ////	BEGIN PAGE OUTPUT
 
 $langHeader = get_language_header();
+$versionToken = getVersionedPath(null);
 
 $out =<<<EOQ
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -60,8 +58,8 @@ $out =<<<EOQ
     <script type="text/javascript" src="install/installCommon.js"></script>
     <script type="text/javascript" src="install/dbConfig.js"></script>
     <link REL="SHORTCUT ICON" HREF="include/images/sugar_icon.ico">
-    <script src="cache/include/javascript/sugar_grp1_yui.js?s={$sugar_version}&c={$js_custom_version}"></script>
-    <script src="cache/include/javascript/sugar_grp1_jquery.js?s={$sugar_version}&c={$js_custom_version}"></script>
+    <script src="cache/include/javascript/sugar_grp1_yui.js?v={$versionToken}"></script>
+    <script src="cache/include/javascript/sugar_grp1_jquery.js?v={$versionToken}"></script>
     <script type="text/javascript">
     <!--
     if ( YAHOO.env.ua )
@@ -235,21 +233,21 @@ $outFTS =<<<EOQ3
 <tr><th colspan="3" align="left">{$mod_strings['LBL_FTS_TABLE_TITLE']}</th></tr>
 <tr><td colspan='3'>{$mod_strings['LBL_FTS_HELP']}</td></tr>
 <tr>
-        <td width='1%'></td>
+        <td width='1%'><span class="required">*</span></td>
         <td nowrap width='60%'><b>{$mod_strings['LBL_FTS_TYPE']}</b></td>
         <td  width='35%'nowrap align="left">
             $ftsTypeDropdown
         </td>
 </tr>
-<tr id='fts_host_row' style='display:none;'>
-        <td width='1%'></td>
+<tr id='fts_host_row'>
+        <td width='1%'><span class="required">*</span></td>
         <td nowrap width='60%'><b>{$mod_strings['LBL_FTS_HOST']}</b></td>
         <td  width='35%'nowrap align="left">
          <input type="text" name="setup_fts_host" id="setup_fts_host" value="localhost" />
         </td>
 </tr>
-<tr id='fts_port_row' style='display:none;'>
-<td width='1%'></td>
+<tr id='fts_port_row'>
+        <td width='1%'><span class="required">*</span></td>
         <td nowrap width='60%'><b>{$mod_strings['LBL_FTS_PORT']}</b></td>
         <td  width='35%'nowrap align="left">
          <input type="text" name="setup_fts_port" id="setup_fts_port" maxlength="10" value="9200" />
@@ -283,25 +281,6 @@ $out4 =<<<EOQ4
 <br>
 
 <script>
-
-$('#setup_fts_type').change(function(){
-    if($(this).val() == '')
-        hideFTSSettings();
-    else
-        showFTSSettings();
-});
-
-function showFTSSettings()
-{
-    $('#fts_port_row').show();
-    $('#fts_host_row').show();
-}
-
-function hideFTSSettings()
-{
-    $('#fts_port_row').hide();
-    $('#fts_host_row').hide();
-}
 
 function toggleDBUser(){
      if(typeof(document.getElementById('dbUSRData')) !='undefined'
@@ -415,13 +394,9 @@ function callDBCheck(){
 EOQ4;
 
 $out4 .= <<<FTSTEST
-var ftsType = $('#setup_fts_type').val();
-if(ftsType != "")
-{
-    postData += "&setup_fts_type=" + ftsType;
+    postData += "&setup_fts_type=" + $('#setup_fts_type').val();
     postData += "&setup_fts_host=" + $('#setup_fts_host').val();
     postData += "&setup_fts_port=" + $('#setup_fts_port').val();
-}
 FTSTEST;
 
 $out_dd = 'postData += "&demoData="+document.setConfig.demoData.value;';

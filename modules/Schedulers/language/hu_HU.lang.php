@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Érvénytelen cron szintaxis',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Minden nap',
   'LBL_ALWAYS' => 'Mindig',
   'LBL_AND' => 'és',
+  'LBL_ASYNCMASSUPDATE' => 'Aszinkron tömeges frissítések végrehajtása',
   'LBL_AT' => 'ekkor',
   'LBL_AT_THE' => 'Ekkor',
   'LBL_BASIC_OPTIONS' => 'Alapbeállítások',
   'LBL_CATCH_UP' => 'Végrehajtás, ha nem talált',
   'LBL_CATCH_UP_WARNING' => 'Törölje, ha ennek a munkának a futtatása több időt vehet igénybe!',
   'LBL_CLEANJOBQUEUE' => 'Munkalista törlése',
+  'LBL_CLEANOLDRECORDLISTS' => 'Régi rekord listák törlése',
   'LBL_CRONTAB_EXAMPLES' => 'A fentiek szabványos crontab jelölést használnak.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Kérem, adja meg pontosan a kivitelezés idejét!',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'A cron specifikációk a szerver időzónája szerint futnak (',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Éjszakai email-kampány indítása',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Munkalista törlése',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Időperiódusok létrehozása',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Ellenőrizze a bejövő postaládákat',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Folyamat Szerző Ütemezett Munkája',
   'LBL_OOTB_PRUNE' => 'Adatbázis vágása a hónap első napján',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Dokumentumok eltávolítása a fájlrendszerből',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Régi rekord listák metszése',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Diagnosztikai eszközfájlok eltávolítása',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Ideiglenes PDF fájlok eltávolítása',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Ideiglenes fájlok eltávolítása',
   'LBL_OOTB_REPORTS' => 'Jelentéskészítő ütemezett feladatok futtatása',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Email emlékeztető figyelmeztetések futtatása',
-  'LBL_OOTB_SUGARFEEDS' => 'SugarFeed táblák metszése',
   'LBL_OOTB_TRACKER' => 'Követő táblázatok vágása',
   'LBL_OOTB_WORKFLOW' => 'Munkafolyamat feladatainak végrehajtása',
   'LBL_PERENNIAL' => 'folyamatos',
   'LBL_PERFORMFULLFTSINDEX' => 'Rendszerindexálás szöveges kereséshez',
+  'LBL_PMSEENGINECRON' => 'Szerző-tervező feldolgozása',
   'LBL_POLLMONITOREDINBOXES' => 'Ellenőrizze a beérkező leveleit',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Email-kampány visszapattanóinak éjszakai feldolgozásának indítása',
   'LBL_PROCESSQUEUE' => 'Jelentéskészítő ütemezett feladatok futtatása',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Adatbázis vágása a hónap első napján',
   'LBL_RANGE' => 'Eddig',
   'LBL_REFRESHJOBS' => 'Munkák frissítése',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Dokumentumok eltávolítása a fájlrendszerből',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Tömeges kampány emailek éjszakai kiküldése',
   'LBL_SAT' => 'Szombat',
   'LBL_SCHEDULER' => 'Ütemező:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Email emlékeztető figyelmeztetések küldése',
   'LBL_STATUS' => 'Állapot',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Időperiódusok létrehozása',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Vasárnap',
   'LBL_THU' => 'Csütörtök',
   'LBL_TIME_FROM' => 'Aktív ettől',
   'LBL_TIME_TO' => 'Aktív eddig',
   'LBL_TOGGLE_ADV' => 'Speciális beállítások megjelenítése',
   'LBL_TOGGLE_BASIC' => 'Alapbeállítások megjelenítése',
-  'LBL_TRIMSUGARFEEDS' => 'SugarFeed táblák metszése',
   'LBL_TRIMTRACKER' => 'Követő táblák vágása',
   'LBL_TUE' => 'Kedd',
   'LBL_UPDATETRACKERSESSIONS' => 'Követő folyamattáblák frissítése',

@@ -23,8 +23,8 @@ include_once("include/workflow/custom_utils.php");
 	 //Secondary Triggers 
 
 	global $triggeredWorkflows;
-	if (!isset($triggeredWorkflows['3e490530_c8be_b92e_d6f5_57f64ff6b1a6'])){
-		$triggeredWorkflows['3e490530_c8be_b92e_d6f5_57f64ff6b1a6'] = true;
+	if (!isset($triggeredWorkflows['799dd2d8_7cd9_040e_7779_57f75566b19f'])){
+		$triggeredWorkflows['799dd2d8_7cd9_040e_7779_57f75566b19f'] = true;
 		 unset($alertshell_array); 
 		 process_workflow_actions($focus, $action_meta_array['Calls0_action0']); 
  	}

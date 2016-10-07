@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /**
  * Log management
  * @api
@@ -164,22 +161,15 @@ class LoggerManager
  	 */
  	protected function _findAvailableLoggers()
  	{
- 	    $locations = array('include/SugarLogger','custom/include/SugarLogger');
+ 	    $locations = SugarAutoLoader::getFilesCustom('include/SugarLogger');
  	    foreach ( $locations as $location ) {
-            if (sugar_is_dir($location) && $dir = opendir($location)) {
-                while (($file = readdir($dir)) !== false) {
-                    if ($file == ".."
-                            || $file == "."
-                            || $file == "LoggerTemplate.php"
-                            || $file == "LoggerManager.php"
-                            || !is_file("$location/$file")
-                            )
-                        continue;
-                    require_once("$location/$file");
-                    $loggerClass = basename($file, ".php");
-                    if ( class_exists($loggerClass) && class_implements($loggerClass,'LoggerTemplate') )
-                        self::$_loggers[$loggerClass] = new $loggerClass();
-                }
+ 	        $loggerClass = basename($location, ".php");
+            if($loggerClass == "LoggerTemplate" || $loggerClass == "LoggerManager") {
+                continue;
+            }
+            require_once $location;
+            if ( class_exists($loggerClass) && class_implements($loggerClass,'LoggerTemplate') ) {
+                self::$_loggers[$loggerClass] = new $loggerClass();
             }
         }
  	}

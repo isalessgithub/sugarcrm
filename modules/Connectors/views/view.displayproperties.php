@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/MVC/View/views/view.list.php');
 require_once('include/connectors/sources/SourceFactory.php');
@@ -60,17 +57,18 @@ class ViewDisplayProperties extends ViewList
     	$count = 0;
    		global $current_user;
 		$access = $current_user->getDeveloperModules();
-	    $d = dir('modules');
-		while($e = $d->read()){
-			if(substr($e, 0, 1) == '.' || !is_dir('modules/' . $e))continue;
-			if(empty($enabled_modules[$e]) && file_exists('modules/' . $e . '/metadata/studio.php') && file_exists('modules/' . $e . '/metadata/detailviewdefs.php') && isset($GLOBALS [ 'beanList' ][$e]) && (in_array($e, $access) || is_admin($current_user))) // installed modules must also exist in the beanList
-			{
-				$disabled_modules[$e] = isset($GLOBALS['app_list_strings']['moduleList'][$e]) ? $GLOBALS['app_list_strings']['moduleList'][$e] : $e;
-			}
+		foreach(SugarAutoLoader::getDirFiles("modules", true) as $e) {
+            //Strip the 'modules/' portion out from beginning of $e
+            $e = substr($e, 8);
+		    if(empty($enabled_modules[$e]) && SugarAutoLoader::existingCustomOne("modules/{$e}/metadata/studio.php")
+		        && SugarAutoLoader::fileExists('modules/' . $e . '/metadata/detailviewdefs.php')
+		        && isset($GLOBALS['beanList'][$e]) && (in_array($e, $access) || is_admin($current_user))) // installed modules must also exist in the beanList
+		    {
+		    	$disabled_modules[$e] = isset($GLOBALS['app_list_strings']['moduleList'][$e]) ? $GLOBALS['app_list_strings']['moduleList'][$e] : $e;
+		    }
 		}
-
         $s = SourceFactory::getSource($source);
-        
+
         // Not all sources can be connected to all modules
         $enabled_modules = $s->filterAllowedModules($enabled_modules);
         $disabled_modules = $s->filterAllowedModules($disabled_modules);

@@ -1,19 +1,16 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
-<link rel="stylesheet" type="text/css" href="modules/ModuleBuilder/tpls/MB.css" />
+<link rel="stylesheet" type="text/css" href="{sugar_getjspath file='modules/ModuleBuilder/tpls/MB.css'}" />
 <form name='CreateModule'>
 <input type='hidden' name='module' value='ModuleBuilder'>
 <input type='hidden' name='action' value='SaveModule'>
@@ -28,14 +25,16 @@
 			<input type='button' name='viewfieldsbtn' value='{$mod_strings.LBL_BTN_VIEW_FIELDS}' class='button' onclick="ModuleBuilder.handleSave('CreateModule', ModuleBuilder.moduleViewFields);">
 			<input type='button' name='viewrelsbtn' value='{$mod_strings.LBL_BTN_VIEW_RELATIONSHIPS}' class='button' onclick="ModuleBuilder.handleSave('CreateModule', ModuleBuilder.moduleViewRelationships);">
 			<input type='button' name='viewlayoutsbtn' value='{$mod_strings.LBL_BTN_VIEW_LAYOUTS}' class='button' onclick="ModuleBuilder.handleSave('CreateModule', ModuleBuilder.moduleViewLayouts);">
-			&nbsp;<input type='button' name='deletebtn' value='{$mod_strings.LBL_BTN_DELETE}' class='button' onclick="ModuleBuilder.moduleDelete('{$package->name}', '{$module->name}');">{/if}</td></tr>
+			<input type='button' name='viewmobilelayoutsbtn' value='{$mod_strings.LBL_BTN_VIEW_MOBILE_LAYOUTS}' class='button' onclick="ModuleBuilder.handleSave('CreateModule', ModuleBuilder.moduleViewMobileLayouts);">
+			<input type='button' name='deletebtn' value='{$mod_strings.LBL_BTN_DELETE}' class='button' onclick="ModuleBuilder.moduleDelete('{$package->name}', '{$module->name}');">{/if}</td></tr>
 	<tr>
 		<td height='100%'>&nbsp;</td><td>&nbsp;</td>
 	</tr>
 	<tr>
 	<tr><td class='mbLBL'><b>{$mod_strings.LBL_PACKAGE}</b></td><td colspan='5'>{$package->name}</td></tr>
-	<tr><td class='mbLBL'><font color="#ff0000"> * </font><b>{$mod_strings.LBL_MODULE_NAME}</b></td><td colspan='5'><input type='text' name='name' value='{$module->name}' size='36' maxlength='36'></td></tr>
+	<tr><td class='mbLBL'><font color="#ff0000"> * </font><b>{$mod_strings.LBL_MODULE_NAME}</b></td><td colspan='5'><input type='text' name='name' value='{$module->name}' size='36' maxlength='24'></td></tr>
 	<tr><td class='mbLBL'><font color="#ff0000"> * </font><b>{$mod_strings.LBL_LABEL}</b></td><td colspan='5'><input type='text' name='label' value='{$module->config.label}' size='36' maxlength='36'></td></tr>
+	<tr><td class='mbLBL'><font color="#ff0000"> * </font><b>{$mod_strings.LBL_SINGULAR_LABEL}</b></td><td colspan='5'><input type='text' name='label_singular' value='{$module->config.label_singular}' size='36' maxlength='36'></td></tr>
 	<tr>
 	<tr>
 	   <td class='mbLBL' width='5%' nowrap>{sugar_translate label='LBL_MB_IMPORTABLE' module='ModuleBuilder'}:</td>
@@ -95,6 +94,7 @@
 addForm('CreateModule');
 addToValidate('CreateModule', 'name', 'DBName', true, '{/literal}{$mod_strings.LBL_JS_VALIDATE_NAME}{literal}');
 addToValidate('CreateModule', 'label', 'varchar', true, '{/literal}{$mod_strings.LBL_JS_VALIDATE_LABEL}{literal}');
+addToValidate('CreateModule', 'label_singular', 'varchar', true, '{/literal}{$mod_strings.LBL_JS_VALIDATE_LABEL}{literal}');
 addToValidate('CreateModule', 'type', 'varchar', true, '{/literal}{$mod_strings.LBL_JS_VALIDATE_TYPE}{literal}');
 ModuleBuilder.helpRegister('CreateModule');
 if(document.getElementById('factory_modules'))

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avancerat',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Visa serverns svarstid',
   'ERR_ALERT_FILE_UPLOAD' => 'Error under uppladdning av bild.',
   'ERR_DELETE_CORE_FILE' => 'FEL: Det går inte att ta bort en system font.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML-certifikatet kan inte vara tomt',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login-URL:en kan inte vara tom',
   'ERR_EZPDF_DISABLE' => 'Varning: EZPDF klassen är inaktiverad i konfigurationstabellen men är satt som PDF klass. Var god spara detta formulär för att sätta TCPDF som PDF klassen och återgå till stabil miljö.',
   'ERR_FONT_ALREADY_EXIST' => 'FEL: Denna font existerar redan. Återställer...',
   'ERR_FONT_EMPTYFILE' => 'FEL: Tomt filnamn!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'FEL: Ingen skräddarsydd font sökväg tillgänglig!',
   'ERR_NO_FONT_PATH' => 'FEL: Ingen font sökväg tillgänglig!',
   'ERR_PDF_NO_UPLOAD' => 'Fel vid uppladdning av font eller metrisk fil.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login-URL:en är inte giltil',
+  'ERR_SAML_SLO_URL' => 'SAML SLO-URL:en är inte giltig',
   'HEAD_MAGNIFICATION' => 'Huvudförstoring',
   'HEAD_MAGNIFICATION_INFO' => 'Förstoringsfaktor för titlar',
   'IMAGES' => 'Loggor',
@@ -75,14 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Tillbaka',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Välj din Epost leverantör',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Systeminställningar',
-  'LBL_CONFIG_AJAX' => 'Konfigurerar AJAX Användargränssnitt',
-  'LBL_CONFIG_AJAX_DESC' => 'Aktiverar eller avaktiverar användandet av AJAX UI för specificerade användare.',
   'LBL_DELETE' => 'Radera',
   'LBL_DISALBE_CONVERT_LEAD' => 'Avaktivera funktionen konvertera lead för konverterade leads',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Om en lead redan blivit konverterad, att aktivera det här alternativet kommer ta bort konvertera lead funktionen.',
   'LBL_DISPLAYING_LOG' => 'Visa Logg',
   'LBL_ENABLE_ACTION_MENU' => 'Visa funktioner inom menyer',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Markera för att visa DetailView och underpanel funktioner inom en dropdown meny. Om avmarkerad, kommer funktionerna visas som separata knappar.',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Aktivera/avaktivera e-post från närstående (eller länkade) kontakter för att visa i e-post panelundermeny.',
   'LBL_ENABLE_MAILMERGE' => 'Möjliggör epost merge',
   'LBL_EXCHANGE_LOGO' => 'Utbyte',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange Lösenord',
@@ -157,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Eventuella ytterligare filter parametrar vid behörighetskontroll av användare t.ex is_sugar_user=1 eller (is_sugar_user=1)(is_sales=1)',
   'LBL_LEAD_CONV_OPTION' => 'Lead Konversation Alternativ',
   'LBL_LOADING' => 'Laddar...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Denna inställning gäller moduler i legacy-läge.',
   'LBL_LOGGER' => 'Logger-inställningar',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Standard datumformat',
   'LBL_LOGGER_FILENAME' => 'Logfil namn',
@@ -182,14 +183,17 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Minsta Intervall Mellan Dashlet Auto-Refresh',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Det här är det minsta värdet som kan väljas för dashlet auto-refresh. Sätt som &#39;Never&#39; avaktiverar auto-refresh för dashlets helt.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* Rapportmodulen är endast tillgänglig i Sugar Mobile iPhone klienten.',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Rapport modulen är inte tillgänglig för den webbläsarbaserade mobil vy.',
   'LBL_MODULE_FAVICON' => 'Visa modul ikonen som favicon',
   'LBL_MODULE_FAVICON_HELP' => 'Om du är i en modul med en ikon, använd modulens ikon som favicon, istället för temats favicon i browser fliken.',
   'LBL_MODULE_ID' => 'Konfigurator',
   'LBL_MODULE_NAME' => 'Systeminställningar',
+  'LBL_MODULE_NAME_SINGULAR' => 'Systeminställningar',
   'LBL_MODULE_TITLE' => 'Användargränssnitt',
   'LBL_NEXT_' => 'Nästa>>',
   'LBL_NOTIFY_FROMADDRESS' => '"Avsändar" adress:',
   'LBL_NOTIFY_SUBJECT' => 'E-post ämne:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Prevent name changes by users to update their Private Team Name',
   'LBL_OC_STATUS' => 'Standardstatus för Offline klient',
   'LBL_OC_STATUS_DESC' => 'Klicka här om du vill att alla användare ska ha tillgång till offline klienten. I annat fall kan du konfigurera detta på användarnivå.',
   'LBL_PDFMODULE_NAME' => 'PDF Inställningar',
@@ -225,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'FEL: Fonten har inte lagts till. Kontrollera loggen nedan.',
   'LBL_STATUS_FONT_SUCCESS' => 'GODKÄNT: Fonten har lagts till i SugarCRM',
   'LBL_SYSTEM_SETTINGS' => 'Systeminställningar',
+  'LBL_TWEETTOCASE_ON' => 'Aktivera Tweet® till ärende integration',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Tillåter användare att skapa ärenden från Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; till case ärende',
   'LBL_USE_REAL_NAMES' => 'Visa hela namnet (ej inloggning)',
   'LBL_USE_REAL_NAMES_DESC' => 'Visa användarens hela namn istället för användarnamnet i uppdragsfälten.',
   'LBL_VCAL_PERIOD' => 'vCal uppdaterings period:',
@@ -329,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Systemnamn',
   'SYSTEM_NAME_HELP' => 'Detta namn visas som titel i din browser.',
   'SYSTEM_NAME_WIZARD' => 'Namn:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Rekommenderad inställning är under {{listEntriesNum}} för acceptabla prestanda. Som ytterligare fält läggs till listvy bör detta antal vara vid den nedre änden av den rekommenderade inställningen.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Rekommenderad inställning är under {{subpanelEntriesNum}} för acceptabla prestanda. Som ytterligare fält läggs till listvy bör detta antal vara vid den nedre änden av den rekommenderade inställningen.',
   'UPLOAD_MAX_SIZE' => 'Maximal uppladdningsstorlek',
   'VERIFY_CLIENT_IP' => 'Validera användarens IP-adress',
   'vCAL_HELP' => 'Använd den här inställningen för att bestämma antalet månader före aktuellt datum för lediga/ upptagna för samtal och möten som ska publiceras. För att stänga av lediga/upptagna publiceringar, skriv "0". Minimum är 1 månad och max 12 månader.',

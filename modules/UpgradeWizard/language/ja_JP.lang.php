@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => '以下のモジュールがインストール済みです:',
   'DESC_MODULES_QUEUED' => '以下のモジュールがインストール待ちです:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'アップロードされたファイルはこのSugarのエディション (Community Edition、Professional Edition、またはEnterprise Edition) と互換性がありません。',
+  'ERROR_HT_NO_WRITE' => 'ファイルに書き込むことができません: %s',
+  'ERROR_MANIFEST_TYPE' => 'マニフェストファイルはパッケージタイプを指定する必要があります。',
+  'ERROR_PACKAGE_TYPE' => 'マニフェストファイルは不明のパッケージタイプを指定しています: %s',
+  'ERROR_UW_CONFIG_DB' => 'エラー　config varをDBに　%保存(キー %, 値 %).',
   'ERROR_VERSION_INCOMPATIBLE' => 'アップロードされたファイルはこのSugarのバージョンと互換性がありません。',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Sugarは、ご利用のPHPのバージョンをサポートしていません。Sugarアプリケーションに準拠したバージョンをインストールする必要があります。リリースメモの互換性マトリックスでサポートするPHPのバージョンをご確認ください。ご利用のバージョン',
+  'ERR_NOT_ADMIN' => '管理エリアへのアクセスが認められていません。',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'このページにアクセスする許可がありません。',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'グループが特定できません',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'オーナーが特定できません',
   'ERR_UW_CONFIG' => 'config.phpを書き込み可能にしてページを再読み込みしてください。',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => '再開',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'アップグレードの確定中です',
   'LBL_CURRENT_PHP_VERSION' => '（現在のPHPバージョンは',
+  'LBL_GLOBAL_TEAM_DESC' => 'グローバル表示',
   'LBL_HOME_PAGE_4_NAME' => 'トラッカー',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'PHPのバージョンは5以上である必要があります。',
   'LBL_LANGPACKS' => '言語ファイル',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP設定: メモリリミット',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'Microsoft SQL ServerとPHPのMagic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => '必要なMySQLバージョン',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCREバージョン',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'php.iniの場所',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => '必要なPHPバージョン',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP設定: セーフモード',

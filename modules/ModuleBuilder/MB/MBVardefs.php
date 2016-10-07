@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 class MBVardefs{
 	var $templates = array();
 	var $iTemplates = array();
@@ -49,6 +46,21 @@ class MBVardefs{
                         $this->vardefs['relationships']= array_merge($this->vardefs['relationships'], $vardefs['relationships']);
                     }
                 }
+
+                // Handle vardefs that use other implementation vardefs
+                if (isset($vardefs['uses'])) {
+                    // This *should* be the case all the time
+                    if (is_array($vardefs['uses'])) {
+                        foreach ($vardefs['uses'] as $use) {
+                            $useFile = MB_IMPLEMENTS . '/' . $use . '/vardefs.php';
+                            $this->loadTemplate($by_group, $use, $useFile);
+                        }
+                    } else {
+                        // Uses should never really be a string, but you never know
+                        $useFile = MB_IMPLEMENTS . '/' . $vardefs['uses'] . '/vardefs.php';
+                        $this->loadTemplate($by_group, $vardefs['uses'], $useFile);
+                    }
+                }
             }
 		}
         //Bug40450 - Extra 'Name' field in a File type module in module builder
@@ -60,31 +72,56 @@ class MBVardefs{
 
 	}
 
-	function mergeVardefs($by_group=false){
-		$this->vardefs = array(
-					'fields'=>array(),
-					'relationships'=>array(),
-		);
-//		$object_name = $this->key_name;
-//		$_object_name = strtolower($this->name);
-		$module_name = $this->name;
-		$this->loadTemplate($by_group,'basic',  MB_TEMPLATES . '/basic/vardefs.php');
-		foreach($this->iTemplates as $template=>$val){
-			$file = MB_IMPLEMENTS . '/' . $template . '/vardefs.php';
-			$this->loadTemplate($by_group,$template, $file);
-		}
-		foreach($this->templates as $template=>$val){
-			if($template == 'basic')continue;
-			$file = MB_TEMPLATES . '/' . $template . '/vardefs.php';
-			$this->loadTemplate($by_group,$template, $file);
-		}
+    /**
+     * Merges various vardefs from implementation and template types
+     * 
+     * @param boolean $by_group Whether to group the defs
+     */
+    function mergeVardefs($by_group = false) {
+        $this->vardefs = array(
+            'fields' => array(),
+            'relationships' => array(),
+        );
 
-		if($by_group){
-			$this->vardefs['fields'][$this->name] = $this->vardef['fields'];
-		}else{
-			$this->vardefs['fields'] = array_merge($this->vardefs['fields'], $this->vardef['fields']);
-		}
-	}
+        $module_name = $this->name;
+
+        // Handle implementations (assignable, team_security, etc)
+        foreach ($this->iTemplates as $template => $val) {
+            $file = MB_IMPLEMENTS . '/' . $template . '/vardefs.php';
+            $this->loadTemplate($by_group,$template, $file);
+        }
+
+        // Always make sure that basic is added in, even if it's not, and that it's
+        // the first type in the list
+        $templates = $this->templates;
+        if (!isset($templates['basic'])) {
+            array_unshift($templates, array('basic' => 1));
+        }
+
+        // Handle the template types
+        $objType = 'basic';
+        foreach ($templates as $template => $val) {
+            $file = MB_TEMPLATES . '/' . $template . '/vardefs.php';
+            $this->loadTemplate($by_group,$template, $file);
+
+            // Keep track of the template type so we have it for later
+            $objType = $template;
+        }
+
+        if ($by_group) {
+            // If the name of the module is the same as the object type, this wipes out its fields
+            if ($this->name != $objType) {
+                $this->vardefs['fields'][$this->name] = $this->vardef['fields'];
+            } else {
+                // If the module name IS the same as the type, and vardef is not empty, merge it
+                if (!empty($this->vardef['fields'])) {
+                    $this->vardefs['fields'][$this->name] = array_merge($this->vardefs['fields'][$this->name], $this->vardef['fields']);
+                }
+            }
+        } else {
+           $this->vardefs['fields'] = array_merge($this->vardefs['fields'], $this->vardef['fields']);
+        }
+    }
 
 	function updateVardefs($by_group=false){
 		$this->mergeVardefs($by_group);
@@ -98,13 +135,29 @@ class MBVardefs{
 	function getVardef(){
 		return $this->vardef;
 	}
-		
+
+	/**
+	 * Ensure the vardef name is OK for database
+	 * @param string $name
+	 * @return string
+	 */
+	protected function validateVardefName($name)
+	{
+	    $name = $GLOBALS['db']->getValidDBName($name, true, 'column');
+	    if($GLOBALS['db']->isReservedWord($name)) {
+	        $name = $name."_field";
+	    }
+	    return $GLOBALS['db']->getValidDBName($name, true, 'column');
+	}
 
     function addFieldVardef($vardef)
     {
-        if(!isset($vardef['default']) || strlen($vardef['default']) == 0)
-        {
+        if (!isset($vardef['default'])) {
             unset($vardef['default']);
+        }
+        if(empty($this->vardef['fields'][$vardef['name']])) {
+            // clean up names for new fields
+            $vardef['name'] = $this->validateVardefName($vardef['name']);
         }
         $this->vardef['fields'][$vardef['name']] = $vardef;
     }
@@ -129,10 +182,4 @@ class MBVardefs{
 			$this->vardef = $vardefs;
 		}
 	}
-
-
-
-
-
 }
-?>

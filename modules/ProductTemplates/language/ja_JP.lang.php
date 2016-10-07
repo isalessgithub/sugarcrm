@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '商品を削除するにはレコード番号を指定する必要があります。',
@@ -72,15 +69,16 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'アイテム作成',
   'LBL_PERCENTAGE' => 'パーセント（%）',
   'LBL_POINTS' => 'ポイント',
+  'LBL_POINTS_ABBR' => 'Pts.',
   'LBL_PRICING_FACTOR' => '価格設定要素:',
   'LBL_PRICING_FORMULA' => 'デフォルト価格計算式:',
-  'LBL_PRODUCT' => '商品:',
+  'LBL_PRODUCT' => '商品',
   'LBL_PRODUCT_CATEGORIES' => '商品カテゴリ',
   'LBL_PRODUCT_ID' => '商品ID:',
   'LBL_PRODUCT_TYPES' => '商品タイプ',
   'LBL_QTY_IN_STOCK' => '在庫数量',
   'LBL_QUANTITY' => '在庫数量:',
-  'LBL_RELATED_PRODUCTS' => '関連商品',
+  'LBL_RELATED_PRODUCTS' => '関連見積り済商品',
   'LBL_SEARCH_FORM_TITLE' => '商品カタログ検索',
   'LBL_STATUS' => '在庫:',
   'LBL_SUPPORT_CONTACT' => 'サポート問合せ先:',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Webサイト',
   'LBL_WEIGHT' => '重量:',
   'LNK_IMPORT_PRODUCTS' => '商品のインポート',
+  'LNK_IMPORT_PRODUCT_CATALOG' => '製品カタログエントリーをインポートする',
   'LNK_NEW_MANUFACTURER' => '製造元',
   'LNK_NEW_PRODUCT' => 'カタログ用の商品を作成',
   'LNK_NEW_PRODUCT_CATEGORY' => '商品カテゴリ',

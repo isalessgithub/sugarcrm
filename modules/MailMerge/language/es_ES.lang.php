@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,14 +20,14 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponible',
   'LBL_BACK' => '< Anterior',
   'LBL_BROWSER_NOTICE' => 'Debe utilizar IE 6.0 o superior para realizar la combinación actual.',
-  'LBL_BROWSER_REQUIREMENT' => 'Para Windows se necesita IE 6.0 o superior',
+  'LBL_BROWSER_REQUIREMENT' => 'Se requiere IE 6.0 o superior para Windows.',
   'LBL_CONTAINS_CONTACT_INFO' => 'La plantilla seleccionada contiene la siguiente información relacionada',
   'LBL_DOC_DESCRIPTION' => 'Descripción:',
   'LBL_DOC_NAME' => 'Nombre de Documento:',
   'LBL_DOC_VERSION' => 'Revisión:',
   'LBL_FILENAME' => 'Nombre de Archivo:',
   'LBL_FINISH' => 'Iniciar Combinación',
-  'LBL_FORM_SELECT_TEMPLATE' => 'Seleccione una plantilla por favor.',
+  'LBL_FORM_SELECT_TEMPLATE' => 'Selecciona una plantilla, por favor.',
   'LBL_LIST_NAME' => 'Nombre',
   'LBL_LIST_RELATIONSHIP' => 'Establecer Relación de Contactos',
   'LBL_MAILMERGE_MODULE' => 'Seleccione Módulo:',
@@ -39,13 +36,13 @@ $mod_strings = array (
   'LBL_MAILMERGE_TEMPLATES' => 'Seleccione plantilla:',
   'LBL_MERGED_FILE' => 'Archivo Combinado:',
   'LBL_NEXT' => 'Siguiente >',
-  'LBL_RELATED_INFO_SELECTION' => 'Utilice las selecciones a continuación para identificar la información relacionada que quiere que aparezca en su documento. Salte este paso si su plantilla contiene información no relacionada.',
+  'LBL_RELATED_INFO_SELECTION' => 'Utilice las siguientes opciones para identificar la información relacionada que le gustaría mostrar en su documento unificado. Salte este paso si el documento de plantilla no contiene información relacionada.',
   'LBL_REMOVE' => 'Quitar registro(s)',
   'LBL_SELECTED' => 'Seleccionado',
   'LBL_SELECTED_ITEMS' => 'Elementos Seleccionados:',
   'LBL_SELECTED_MODULE' => 'Módulo Seleccionado:',
   'LBL_SELECTED_TEMPLATE' => 'Plantilla Seleccionada:',
-  'LBL_SELECT_ONE' => 'Por favor, seleccione al menos una opción.',
+  'LBL_SELECT_ONE' => 'Selecciones al menos una opción, por favor.',
   'LBL_START' => 'Haga Clic Aquí para Continuar',
   'LBL_STEP_1' => 'Paso 1: Seleccione módulo y plantilla',
   'LBL_STEP_2' => 'Paso 2: Seleccione objetos a combinar',

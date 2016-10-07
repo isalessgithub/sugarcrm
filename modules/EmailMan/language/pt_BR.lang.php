@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -54,7 +51,7 @@ $mod_strings = array (
   'LBL_GMAIL_SMTPUSER' => 'Endereço de e-mail Gmail',
   'LBL_HELP' => 'Ajuda',
   'LBL_ID' => 'Id',
-  'LBL_INVALID_ENTRY_POINT' => 'Ponto de entrada não válido',
+  'LBL_INVALID_ENTRY_POINT' => 'Não é um ponto de entrada válido',
   'LBL_IN_QUEUE' => 'Em Processamento',
   'LBL_IN_QUEUE_DATE' => 'Data de Fila',
   'LBL_LIST_CAMPAIGN' => 'Campanha',
@@ -119,7 +116,7 @@ $mod_strings = array (
   'LBL_SECURITY_XMP' => 'etiqueta Xmp',
   'LBL_SEND_ATTEMPTS' => 'Tentativas de Envio',
   'LBL_SEND_DATE_TIME' => 'Data de Envio',
-  'LBL_UNAUTH_ACCESS' => 'Acesso não autorizado para área de administração.',
+  'LBL_UNAUTH_ACCESS' => 'Acesso não autorizado para administração.',
   'LBL_VIEW_PROCESSED_EMAILS' => 'Exibir E-mails Processados',
   'LBL_VIEW_QUEUED_EMAILS' => 'Exibir E-mails em Fila de Espera',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Senha Yahoo! Mail',

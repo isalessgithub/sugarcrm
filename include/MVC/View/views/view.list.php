@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/MVC/View/SugarView.php');
 
@@ -45,14 +44,13 @@ class ViewList extends SugarView{
 
         $metadataFile = $this->getMetaDataFile();
 
-        if( !file_exists($metadataFile) )
+        if( empty($metadataFile) )
             sugar_die($GLOBALS['app_strings']['LBL_NO_ACTION'] );
 
         require($metadataFile);
 
         $this->listViewDefs = $listViewDefs;
-        if($this->bean->bean_implements('ACL'))
-        ACLField::listFilter($this->listViewDefs[$module],$module, $GLOBALS['current_user']->id ,true);
+        $this->bean->ACLFilterFieldList($this->listViewDefs[$module], array("owner_override" => true));
 
         if(!empty($this->bean->object_name) && isset($_REQUEST[$module.'2_'.strtoupper($this->bean->object_name).'_offset'])) {//if you click the pagination button, it will populate the search criteria here
             if(!empty($_REQUEST['current_query_by_page'])) {//The code support multi browser tabs pagination
@@ -60,7 +58,7 @@ class ViewList extends SugarView{
                 if(isset($_REQUEST['lvso'])){
                     $blockVariables[] = 'lvso';
                 }
-                $current_query_by_page = sugar_unserialize(base64_decode($_REQUEST['current_query_by_page']));
+                $current_query_by_page = unserialize(base64_decode($_REQUEST['current_query_by_page']));
                 foreach($current_query_by_page as $search_key=>$search_value) {
                     if($search_key != $module.'2_'.strtoupper($this->bean->object_name).'_offset' && !in_array($search_key, $blockVariables)) {
                         if (!is_array($search_value)) {
@@ -91,7 +89,7 @@ class ViewList extends SugarView{
                 }
             }
             else if(empty($_REQUEST['button']) && (empty($_REQUEST['clear_query']) || $_REQUEST['clear_query']!='true')) {
-                $this->saved_search = loadBean('SavedSearch');
+                $this->saved_search = BeanFactory::getBean('SavedSearch');
                 $this->saved_search->retrieveSavedSearch($_REQUEST['saved_search_select']);
                 $this->saved_search->populateRequest();
             }
@@ -178,18 +176,14 @@ class ViewList extends SugarView{
                 $view = 'basic_search';
             }
         }
+        $this->view = $view;
 
         $this->use_old_search = true;
-        if ((file_exists('modules/' . $this->module . '/SearchForm.html')
-                && !file_exists('modules/' . $this->module . '/metadata/searchdefs.php'))
-            || (file_exists('custom/modules/' . $this->module . '/SearchForm.html')
-                && !file_exists('custom/modules/' . $this->module . '/metadata/searchdefs.php')))
-        {
+        if (SugarAutoLoader::existingCustom('modules/' . $this->module . '/SearchForm.html') &&
+            !SugarAutoLoader::existingCustom('modules/' . $this->module . '/metadata/searchdefs.php')) {
             require_once('include/SearchForm/SearchForm.php');
             $this->searchForm = new SearchForm($this->module, $this->seed);
-        }
-        else
-        {
+        }  else {
             $this->use_old_search = false;
             require_once('include/SearchForm/SearchForm2.php');
 
@@ -201,7 +195,8 @@ class ViewList extends SugarView{
         }
     }
 
-    function processSearchForm(){
+    function processSearchForm()
+    {
         if(isset($_REQUEST['query']))
         {
             // we have a query
@@ -218,7 +213,7 @@ class ViewList extends SugarView{
             $GLOBALS['log']->info("List View Where Clause: $this->where");
         }
         if($this->use_old_search){
-            switch($view) {
+            switch($this->view) {
                 case 'basic_search':
                     $this->searchForm->setup();
                     $this->searchForm->displayBasic($this->headers);
@@ -258,4 +253,3 @@ class ViewList extends SugarView{
         return new SearchForm($seed, $module, $action);
     }
 }
-?>

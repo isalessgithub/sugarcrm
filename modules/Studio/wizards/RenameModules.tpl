@@ -1,21 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 
@@ -92,19 +85,19 @@
 {foreach from=$dropdown item="value" key="key"}
 <tr>
     <td>
-        <span id='slot{$rowCounter}b' >
-            <span onclick='prepChangeDropDownValue({$rowCounter}, document.getElementById("slot{$rowCounter}_value"));'>{$editImage}</span>
+        <span id='slot{$rowCounter}b' class="{$value.module}">
+            <span class="{$value.module}-edit rename-slot-button" onclick='prepChangeDropDownValue({$rowCounter}, document.getElementById("slot{$rowCounter}_value"));'>{$editImage}</span>
             &nbsp;
-            <span id ='slot{$rowCounter}_value' onclick='prepChangeDropDownValue({$rowCounter}, this);'>{$value.lang}</span>
+            <span class="{$value.module}-title rename-slot-title" id ='slot{$rowCounter}_value' onclick='prepChangeDropDownValue({$rowCounter}, this);'>{$value.lang}</span>
             <span id='slot{$rowCounter}_textspan' style='display:none;'>{$value.user_lang}
                 <table style="margin-left:15px;">
                     <tr>
                         <td align="right">{$MOD.LBL_SINGULAR}</td>
-                        <td align="left"><input id='slot{$rowCounter}_stext' value='{$value.singular}' onchange='setSingularDropDownValue({$rowCounter});' type='text'></td>
+                        <td align="left"><input class="{$value.module}-singular rename-label-singular" id='slot{$rowCounter}_stext' value='{$value.singular}' onchange='setSingularDropDownValue({$rowCounter});' type='text'></td>
                     </tr>
                     <tr>
                         <td align="right">{$MOD.LBL_PLURAL}</td>
-                        <td align="left"><input id='slot{$rowCounter}_text' value='{$value.lang}' type='text'  onchange='setDropDownValue({$rowCounter}, this.value, true)' ></td>
+                        <td align="left"><input class="{$value.module}-plural rename-label-plural" id='slot{$rowCounter}_text' value='{$value.lang}' type='text'  onchange='setDropDownValue({$rowCounter}, this.value, true)' ></td>
                     </tr>
                 </table>
                 <input name='slot_{$rowCounter}' id='slot_{$rowCounter}' value='{$rowCounter}' type = 'hidden'>
@@ -123,9 +116,15 @@
 </table>
 </table>
 
-{sugar_getscript file="include/javascript/yui/dragdrop.js"}
 {literal}
 <script>
+    // Ping app in parent frame to check for metadata updates
+    // this will cause module renames to be reflected on save
+    // in the parent frames header menu etc
+    // Get the parent api object
+    var api = parent.SUGAR.App.api;
+    // Call the ping api
+    api.call('read', api.buildURL('ping'));
 
     var lastField = '';
     var lastRowCount = -1;

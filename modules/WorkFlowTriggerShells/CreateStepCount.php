@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: CreateStepCount.php 45763 2009-04-01 19:16:18Z majed $
  * Description:
  ********************************************************************************/
 
@@ -37,7 +34,7 @@ global $urlPrefix;
 global $currentModule;
 
 
-$workflow_object = new WorkFlow();
+$workflow_object = BeanFactory::getBean('WorkFlow');
 if(isset($_REQUEST['workflow_id']) && isset($_REQUEST['workflow_id'])) {
     $workflow_object->retrieve($_REQUEST['workflow_id']);
 } else {
@@ -46,7 +43,7 @@ if(isset($_REQUEST['workflow_id']) && isset($_REQUEST['workflow_id'])) {
 
 
 
-$focus = new WorkFlowTriggerShell();
+$focus = BeanFactory::getBean('WorkFlowTriggerShells');
 
 if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
@@ -136,7 +133,7 @@ $form->out("embeded");
 ////////////////////Base expression object///////////////////////////////
 //store lhs_type, lhs_module (rel_module), operator, rhs_value (count_quantity)
 
-	$base_object = new Expression();
+	$base_object = BeanFactory::getBean('Expressions');
 		$base_list = $focus->get_linked_beans('expressions','Expression');
 		if(isset($base_list[0]) && $base_list[0]!='') {
 			$base_id = $base_list[0]->id;
@@ -172,7 +169,7 @@ $form->out("embeded");
 
 //////////////////BEGIN 1st Filter Object	/////////////////////////////////
 
-		$filter1_object = new Expression();
+		$filter1_object = BeanFactory::getBean('Expressions');
 		//only try to retrieve if there is a base object set
 		if(isset($base_id) && $base_id!="") {
 			$filter_list = $base_object->get_linked_beans('members','Expression');
@@ -208,7 +205,7 @@ $form->out("embeded");
 
 //////////////////BEGIN 2nd Filter Object	/////////////////////////////////
 
-		$filter2_object = new Expression();
+		$filter2_object = BeanFactory::getBean('Expressions');
 		//only try to retrieve if there is a base object set
 		if(isset($base_id) && $base_id!="") {
 			if(isset($filter_list[1]) && $filter_list[1]!='') {

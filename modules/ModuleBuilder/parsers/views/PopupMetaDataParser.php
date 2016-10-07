@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
  require_once ('modules/ModuleBuilder/parsers/views/ListLayoutMetaDataParser.php') ;
  require_once ('modules/ModuleBuilder/parsers/views/SearchViewMetaDataParser.php') ;
@@ -23,9 +20,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
  	// Columns is used by the view to construct the listview - each column is built by calling the named function
  	public $columns = array ( 'LBL_DEFAULT' => 'getDefaultFields' , 'LBL_AVAILABLE' => 'getAdditionalFields' , 'LBL_HIDDEN' => 'getAvailableFields' ) ;
- 	
+
  	public static $reserveProperties = array('moduleMain', 'varName' , 'orderBy', 'whereClauses', 'searchInputs', 'create','addToReserve');
- 	
+
  	public static $defsMap = array(MB_POPUPSEARCH => 'searchdefs' , MB_POPUPLIST => 'listviewdefs');
 
  	/*
@@ -43,7 +40,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  	 	$this->_packageName = $packageName;
  	 	$this->_view = $view ;
  	 	$this->columns = array ( 'LBL_DEFAULT' => 'getDefaultFields' , 'LBL_HIDDEN' => 'getAvailableFields' ) ;
- 	 	
+
 		if ($this->search)
  	 	{
  	 		$this->columns = array ( 'LBL_DEFAULT' => 'getSearchFields' , 'LBL_HIDDEN' => 'getAvailableFields' ) ;
@@ -52,7 +49,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  	 	{
  	 		parent::__construct ( MB_POPUPLIST, $moduleName, $packageName ) ;
  	 	}
- 	 	
+
  	 	$this->_viewdefs = $this->mergeFieldDefinitions($this->_viewdefs, $this->_fielddefs);
  	 }
 
@@ -64,7 +61,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 		$viewdefs = $this->_viewdefs = $this->convertSearchToListDefs($viewdefs);
     	return $viewdefs;
     }
-	
+
     function convertSearchToListDefs($defs) {
     	$temp = array();
     	foreach($defs as $key=>$value) {
@@ -82,12 +79,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     	}
     	return $temp;
     }
-	
+
 	function getOriginalViewDefs(){
 		$defs = parent::getOriginalViewDefs();
 		return $this->convertSearchToListDefs($defs);
 	}
-	
+
 	public function getSearchFields()
 	{
 		$searchFields = array ( ) ;
@@ -137,7 +134,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     	if (!isset($popupMeta)) {
     		sugar_die ("unable to load Module Popup Definition");
     	}
-    	
+
     	if ($this->_view == MB_POPUPSEARCH)
     	{
     		foreach($this->_viewdefs as $k => $v){
@@ -159,7 +156,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
            $totalReserveProps =  array_merge(self::$reserveProperties,$popupMeta['addToReserve']);
         }
     	$allProperties = array_merge($totalReserveProps , array('searchdefs', 'listviewdefs'));
-    	
+
     	$out .= "\$popupMeta = array (\n";
     	foreach( $allProperties as $p){
     		if(isset($popupMeta[$p])){
@@ -168,18 +165,18 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     	}
     	$out .= ");\n";
     	file_put_contents($writeFile, $out);
-    	
+    	SugarAutoLoader::addToMap($writeFile);
     	//return back mod strings
     	$GLOBALS['mod_strings'] = $oldModStrings;
     }
-    
+
     public function addNewSearchDef($searchDefs, &$popupMeta){
     	if(!empty($searchDefs)){
 			$this->__diffAndUpdate( $searchDefs , $popupMeta['whereClauses'] , true);
 			$this->__diffAndUpdate( $searchDefs , $popupMeta['searchInputs'] );
     	}
     }
-    
+
     private function __diffAndUpdate($newDefs , &$targetDefs , $forWhere = false){
     	if(!is_array($targetDefs)){
     		$targetDefs = array();
@@ -191,28 +188,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 				array_push($targetDefs , $key);
     		}
     	}
-    	
+
     	if($forWhere){
     		foreach(array_diff(  array_keys($targetDefs) , array_keys($newDefs) ) as $key ){
 	    		unset($targetDefs[$key]);
 	    	}
     	}else{
     		foreach($targetDefs as $key =>$value){
-    			if(!isset($newDefs[$value])) 
+    			if(!isset($newDefs[$value]))
 	    			unset($targetDefs[$key]);
 	    	}
     	}
-    	
+
     }
-    
+
     private function __getTargetModuleName($def){
     	$dir = strtolower($this->implementation->getModuleDir());
     	if(isset($this->_fielddefs[$def['name']]) && isset($this->_fielddefs[$def['name']]['source']) && $this->_fielddefs[$def['name']]['source'] == 'custom_fields'){
     		return $dir.'_cstm';
     	}
-    	
+
     	return $dir;
     }
-    
+
  }
  ?>

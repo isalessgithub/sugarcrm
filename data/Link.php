@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
 * Description:  Defines the base class for new data type, Relationship, methods in the class will
@@ -66,13 +63,11 @@ class Link {
 
         $this->_relationship_name=$_rel_name;
 		$this->relationship_fields = (!empty($fieldDef['rel_fields']))?$fieldDef['rel_fields']: array();
-		$this->_bean=&$_bean;
-		$this->_relationship=new Relationship();
-		//$this->_relationship->retrieve_by_string_fields(array('relationship_name'=>$this->_relationship_name));
+		$this->_bean = $_bean;
+		$this->_relationship = BeanFactory::getBean("Relationships");
 		$this->_relationship->retrieve_by_name($this->_relationship_name);
 
 		$this->_db = DBManagerFactory::getInstance();
-
 
 		//Following behavior is tied to a property(ignore_role) value in the vardef. It alters the values of 2 properties, ignore_role_filter and add_distinct.
 		//the property values can be altered again before any requests are made.
@@ -616,8 +611,8 @@ class Link {
 	function _add_many_to_one_bean_based($key) {
 
 		//make a copy of this bean to avoid recursion.
-		$bean=new $this->_bean->object_name;
-		$bean->retrieve($this->_bean->id);
+		$bean = clone $this->_bean;
+		// BeanFactory::getBean($this->_bean->module_dir, $this->_bean->id);
 
 	   	$bean->{$this->_relationship->lhs_key}=$key;
 
@@ -1028,44 +1023,32 @@ class Link {
 
 	/*
 	 */
-	function _get_link_table_definition($table_name,$def_name) {
+	function _get_link_table_definition($table_name,$def_name)
+	{
 	    global $dictionary;
 
 		include_once('modules/TableDictionary.php');
 	    // first check to see if already loaded - assumes hasn't changed in the meantime
-        if (isset($dictionary[$table_name][$def_name]))
-        {
+        if (isset($dictionary[$table_name][$def_name])) {
             return $dictionary[$table_name][$def_name];
         }
-        else {
- 			if (isset($dictionary[$this->_relationship_name][$def_name])) {
- 				return ($dictionary[$this->_relationship_name][$def_name]);
- 			}
-            // custom metadata is found in custom/metadata (naturally) and the naming follows the convention $relationship_name_c, and $relationship_name = $table_name$locations = array( 'metadata/' , 'custom/metadata/' ) ;
-            $relationshipName = preg_replace( '/_c$/' , '' , $table_name ) ;
 
-            $locations = array ( 'metadata/' , 'custom/metadata/' ) ;
+		if (isset($dictionary[$this->_relationship_name][$def_name])) {
+			return ($dictionary[$this->_relationship_name][$def_name]);
+		}
+        // custom metadata is found in custom/metadata (naturally) and the naming follows the convention $relationship_name_c, and $relationship_name = $table_name
+        $relationshipName = preg_replace( '/_c$/' , '' , $table_name ) ;
 
-            foreach ( $locations as $basepath )
-            {
-                $path = $basepath . $relationshipName . 'MetaData.php' ;
-
-                if (file_exists($path))
-                {
-                    include($path);
-                    if (isset($dictionary[$relationshipName][$def_name])) {
-                        return $dictionary[$relationshipName][$def_name];
-                    }
-                }
-            }
-            // couldn't find the metadata for the table in either the standard or custom locations
-            $GLOBALS['log']->debug('Error fetching field defs for join table '.$table_name);
-
-            return null;
+        foreach(SugarAutoLoader::existingCustom("metadata/{$relationshipName}MetaData.php") as $file) {
+            include $file;
         }
+        if (isset($dictionary[$relationshipName][$def_name])) {
+            return $dictionary[$relationshipName][$def_name];
+        }
+        // couldn't find the metadata for the table in either the standard or custom locations
+        $GLOBALS['log']->debug('Error fetching field defs for join table '.$table_name);
 
-
-
+        return null;
 	}
     /*
      * Return the name of the role field for the passed many to many table.

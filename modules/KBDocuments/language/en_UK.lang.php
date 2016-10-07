@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Document Created',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Document Name',
   'ERR_DOC_VERSION' => 'Document Version',
   'ERR_FILENAME' => 'File name',
+  'ERR_FILESIZE' => 'File is too big. Max filesize:',
   'LBL_ACTIVE_DATE' => 'Publish Date',
   'LBL_AND' => 'and',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Applying tags on articles ...',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Contracts',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Related Contracts',
   'LBL_CONTRACT_NAME' => 'Contract Name:',
+  'LBL_CONTRACT_STATUS' => 'Contract Status',
   'LBL_CREATED' => 'Created by',
   'LBL_CREATED_BY' => 'Created by',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Document Id',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDocument Revision Number',
   'LBL_KBDOC_APPROVED_BY' => 'Approved By:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Approver Name',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Download Attachments:',
   'LBL_KBDOC_BODY' => 'Body:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Latest Revision Id',
   'LBL_LATEST_REVISION_NAME' => 'Latest Revision Name',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Launching Tag Browsing ...',
+  'LBL_LINKED_ID' => 'Linked Id',
   'LBL_LIST_ACTIVE_DATE' => 'Publish Date',
   'LBL_LIST_APPROVED_BY' => 'Approved By',
   'LBL_LIST_ARTICLES' => 'View Articles',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Not a valid file',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Parent Type',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'You can filter down the list of articles by providing a search term.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'For example, you might use this to find an article on a particular topic of interest.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'The Knowledge Base module is for working with published articles.  Use the arrows below to go through a quick tour.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'This page shows the list of published articles.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Clicking here will return you to the Knowledge Base at any time.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Previous Saved Searches:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Edit or Delete an existing Saved Search.',
   'LBL_PUBLISHED' => 'Published:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Document Search',
   'LBL_SEARCH_TAG' => 'Search',
   'LBL_SEARCH_WITHIN' => 'Search within:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Selected Revision File Name',
+  'LBL_SELECTED_REVISION_ID' => 'Selected Revision Id',
   'LBL_SELECTED_REVISION_NAME' => 'Selected Revision Name',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Select Articles To Apply Tags',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Select Articles First',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Using This Tag:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Untagged Articles',
   'LBL_UPDATE' => 'Update',
+  'LBL_VIEWS_NUMBER' => 'Views Number',
   'LNK_KBDOCUMENT_LIST' => 'View Documents',
   'LNK_NEW_ARTICLE' => 'Create Article',
   'LNK_NEW_MAIL_MERGE' => 'Mail Merge',

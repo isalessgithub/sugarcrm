@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,13 +20,8 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Kliento ID',
   'LBL_ACCOUNT_NAME' => 'Kliento vardas:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Priminimai',
-  'LBL_AMOUNT' => 'Suma:',
-  'LBL_AMOUNT_USDOLLAR' => 'Suma:',
   'LBL_ASSIGNED_TO_ID' => 'Atsakingas:',
   'LBL_ASSIGNED_TO_NAME' => 'Atsakingas:',
-  'LBL_BEST_CASE' => 'Geriausias atvejis',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'Geriausio scenarijaus valiuta',
-  'LBL_BEST_CASE_WORKSHEET' => 'Geriausias atvejis (koreguotas)',
   'LBL_CAMPAIGN' => 'Kampanija:',
   'LBL_CAMPAIGN_LINK' => 'Kampanijos nuoroda',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampanijos',
@@ -66,9 +58,6 @@ $mod_strings = array (
   'LBL_INVITEE' => 'Kontaktai',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potencialus kontaktas',
   'LBL_LEAD_SOURCE' => 'Pritraukimo metodas:',
-  'LBL_LIKELY_CASE' => 'Greičiausias atvejis',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Tikėtino atvejo valiuta',
-  'LBL_LIKELY_CASE_WORKSHEET' => 'Tikėtinas atvejis (koreguotas)',
   'LBL_LIST_ACCOUNT_NAME' => 'Kliento vardas',
   'LBL_LIST_AMOUNT' => 'Suma',
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Suma',
@@ -93,7 +82,6 @@ $mod_strings = array (
   'LBL_PRIMARY_QUOTE_ID' => 'Pagrindinis pasiūlymas',
   'LBL_PROBABILITY' => 'Tikimybė (%):',
   'LBL_PRODUCTS' => 'Prekės',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => 'Prekių eilutės įrašai',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projektai',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projektai',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Pasiūlymai',
@@ -108,8 +96,6 @@ $mod_strings = array (
   'LBL_TYPE' => 'Tipas:',
   'LBL_VIEW_FORM_TITLE' => 'Pardavimų vaizdas',
   'LBL_WORKSHEET' => 'Lentelė',
-  'LBL_WORST_CASE' => 'Blogiausias atvejis',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'Blogiausio atvejo valiuta',
   'LNK_IMPORT_OPPORTUNITIES' => 'Importuoti pardavimus',
   'LNK_NEW_OPPORTUNITY' => 'Sukurti pardavimą',
   'LNK_OPPORTUNITY_LIST' => 'Pardavimai',

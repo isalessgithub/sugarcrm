@@ -1,26 +1,22 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: SugarWidgetFieldname.php 56668 2010-05-25 17:10:55Z jenny $
 
 
 
 class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 {
-    protected static $moduleSavePermissions = array();
 
     function SugarWidgetFieldName(&$layout_manager) {
         parent::SugarWidgetFieldVarchar($layout_manager);
@@ -54,18 +50,6 @@ class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 		$str = "<a target='_blank' href=\"index.php?action=DetailView&module=$module&record=$record\">";
 		$str .= $this->displayListPlain($layout_def);
 		$str .= "</a>";
-        // if the module is employee or users, make an additional check to make sure current user is an admin
-        if (($module != 'Users' && $module != 'Employees') || !is_admin($current_user)) {
-            if (!isset(self::$moduleSavePermissions[$module])) {
-                $tempBean = BeanFactory::getBean($module);
-                self::$moduleSavePermissions[$module] = $tempBean->ACLAccess('Save');
-            }
-
-            // only present edit link if user has save access
-            if (self::$moduleSavePermissions[$module]) {
-                $str .= " <a href=\"#\" data-record=$record data-module=$module class=\"quickEdit\"><img border=\"0\" src=\"themes/Sugar/images/edit_inline.png\"></a>";
-            }
-        }
 
 
         global $sugar_config;
@@ -157,15 +141,11 @@ class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 
 	function queryFilterIs($layout_def)
 	{
-
 		$layout_def['name'] = 'id';
 		$layout_def['type'] = 'id';
-		$input_name0 = $layout_def['input_name0'];
 
-		if ( is_array($layout_def['input_name0']))
-		{
-			$input_name0 = $layout_def['input_name0'][0];
-		}
+        $input_name0 = $this->getInputValue($layout_def);
+
 		if ($input_name0 == 'Current User') {
 			global $current_user;
 			$input_name0 = $current_user->id;
@@ -180,12 +160,7 @@ class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 
 		$layout_def['name'] = 'id';
 		$layout_def['type'] = 'id';
-		$input_name0 = $layout_def['input_name0'];
-
-		if ( is_array($layout_def['input_name0']))
-		{
-			$input_name0 = $layout_def['input_name0'][0];
-		}
+        $input_name0 = $this->getInputValue($layout_def);
 		if ($input_name0 == 'Current User') {
 			global $current_user;
 			$input_name0 = $current_user->id;
@@ -243,6 +218,28 @@ class SugarWidgetFieldName extends SugarWidgetFieldVarchar
 
 		return SugarWidgetFieldid::_get_column_select($layout_def)." NOT IN (".$str.")\n";
 	}
+
+    /**
+     * queryFilterreports_to
+     *
+     * @param $layout_def
+     * @param bool $rename_columns
+     * @return string
+     */
+    function queryFilterreports_to($layout_def, $rename_columns = true)
+   	{
+        $layout_def['name'] = 'id';
+        $layout_def['type'] = 'id';
+        $input_name0 = $this->getInputValue($layout_def);
+
+        if ($input_name0 == 'Current User')
+        {
+            global $current_user;
+            $input_name0 = $current_user->id;
+        }
+
+        return SugarWidgetFieldid::_get_column_select($layout_def)." IN (SELECT id FROM users WHERE reports_to_id = ". $this->reporter->db->quoted($input_name0). " AND status = 'Active' AND deleted=0)\n";
+   	}
 
 	function &queryGroupBy($layout_def)
 	{

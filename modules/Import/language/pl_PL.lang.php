@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Nie możesz importować użytkownika, który jest administratorem systemu',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Wybierz plik do importu:',
   'LBL_NO_DATECHECK' => 'Przeskocz sprawdzanie dat (szybsze, lecz nie powiedzie się jeśli którakolwiek z dat jest błędna)',
   'LBL_NO_EMAILS' => 'Nie wysyłaj powiadomień e-mail podczas tego importu',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Próba poradzenia sobie z adresem e-mail w obiekcie, który go nie wspiera.',
   'LBL_NO_ID' => 'Wymagane ID',
   'LBL_NO_IMPORT_TO_UNDO' => 'Nie można cofnąć operacji importu.',
   'LBL_NO_LINES' => 'Twój plik importu jest pusty. Upewniej się, że nie ma w nim pustych linii i spróbuj ponownie.',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Poprawnie zaimportowano dane',
   'LBL_SUCCESSFULLY_IMPORTED' => '- liczba utworzonych rekordów',
   'LBL_SUMMARY' => 'Podsumowanie',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Znaczące cyfry systemu',
   'LBL_TAB' => 'Plik z wartościami oddzielonymi tabulatorem',
   'LBL_TAB_NUM_1' => 'Uruchom aplikację i otwórz plik z danymi',
   'LBL_TAB_NUM_2' => 'Wybierz <b>Zapisz jako...</b> lub <b>Eksportuj...</b> z opcji menu',

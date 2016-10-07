@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: WorkFlowAction.php 45763 2009-04-01 19:16:18Z majed $
  * Description:
  ********************************************************************************/
 
@@ -93,8 +90,19 @@ class WorkFlowAction extends SugarBean {
 	// This is the list of fields that are required
 	var $required_fields =  array();
 
-	function WorkFlowAction() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function WorkflowAction()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 
 		$this->disable_row_level_security =true;
 
@@ -106,22 +114,6 @@ class WorkFlowAction extends SugarBean {
 	{
 		return "$this->name";
 	}
-
-
-
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-
-    function create_export_query(&$order_by, &$where)
-    {
-
-    }
-
-
 
 	function save_relationship_changes($is_update)
     {
@@ -181,7 +173,7 @@ class WorkFlowAction extends SugarBean {
 
 	function build_field_selector($field_num, $base_module, $workflow_type="", $action_type=""){
 		////Begin - New Code call to workflow_utils
-		$temp_module = get_module_info($base_module);
+		$temp_module = BeanFactory::getBean($base_module);
 		//Build Selector Array
 		$selector_array = array(
 							'value' => $this->value,

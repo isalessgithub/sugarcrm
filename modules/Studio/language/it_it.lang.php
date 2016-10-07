@@ -1,21 +1,15 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-	
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Errore: Il campo esiste già',
@@ -81,20 +75,20 @@ $mod_strings = array (
   'LBL_LISTVIEW_DESCRIPTION' => 'Ci sono tre colonne di seguito. Le colonne di default contengono i campi che sono visibili nella lista di Default, le colonne aggiuntive contengono campi che gli utenti possono scegliere per modificare la visualizzazione, e le colonne utente e di amministrazione possono essere modificate dalla parte di amministrazione ma attualmente non sono utilizzate.',
   'LBL_LISTVIEW_EDIT' => 'Editor Vista Elenco',
   'LBL_MASS_UPDATE' => 'Aggiornamento di massa',
-  'LBL_MAXIMIZE' => 'Massimizza',
+  'LBL_MAXIMIZE' => 'Espandi',
   'LBL_MB_COMPARE' => 'Confronta',
   'LBL_MB_DELETE' => 'Elimina',
   'LBL_MB_PREVIEW' => 'Anteprima',
   'LBL_MB_RESTORE' => 'Ripristina',
   'LBL_MB_WELCOME' => '<h2>Cronologia</h2><br>La cronologia ti permette di visualizzare le precedenti versioni del file. Puoi confrontare e reinstallare le versioni precedenti.  Devi pubblicare prima di rendere visibile.<br> Cosa vuoi fare oggi?<br><b> Seleziona tra le opzioni.</b>',
-  'LBL_MINIMIZE' => 'Minimizza',
+  'LBL_MINIMIZE' => 'Riduci',
   'LBL_MODULES' => 'Moduli',
   'LBL_MODULE_NAME' => 'Amministrazione',
   'LBL_MODULE_NAME_SINGULAR' => 'Amministrazione',
   'LBL_MODULE_TITLE' => 'Studio',
   'LBL_NAME' => 'Nome',
   'LBL_NEW_GROUP' => 'Nuovo Gruppo',
-  'LBL_PLURAL' => 'Etichetta plurale',
+  'LBL_PLURAL' => 'Etichetta al plurale',
   'LBL_PUBLISH' => 'Pubblica',
   'LBL_PUBLISHED' => 'In pubblicazione',
   'LBL_PUBLISHING' => 'In pubblicazione ...',
@@ -108,7 +102,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Seleziona un Sotto-pannello',
   'LBL_SELECT_FILE' => 'Seleziona File',
   'LBL_SELECT_SUBPANEL' => 'Seleziona Sotto-pannello',
-  'LBL_SINGULAR' => 'Etichetta singola',
+  'LBL_SINGULAR' => 'Etichetta al singolare',
   'LBL_SMA_EDIT_CUSTOMFIELDS' => 'Modifica campi utente',
   'LBL_SMA_EDIT_LABELS' => 'Modifica Etichette',
   'LBL_SMA_EDIT_LAYOUT' => 'Modifica Layout',
@@ -126,7 +120,6 @@ $mod_strings = array (
   'LBL_SUGAR_BIN_STAGE' => 'Sugar Bin (Seleziona gli elementi da aggiungere in Staging Area)',
   'LBL_SUGAR_FIELDS_STAGE' => 'Campi Sugar (Seleziona gli elementi da aggiungere in Staging Area)',
   'LBL_SW_EDIT_DROPDOWNS' => 'Modifica DropDown',
-  'LBL_SW_EDIT_GROUPTABS' => 'Configura Gruppo Schede',
   'LBL_SW_EDIT_MODULE' => 'Modifica il Modulo',
   'LBL_SW_EDIT_PORTAL' => 'Modifica Portale',
   'LBL_SW_EDIT_TABS' => 'Configura Schede',
@@ -145,3 +138,4 @@ $mod_strings = array (
   'LBL_VIEW_SUGAR_BIN' => 'Vista Sugar Bin',
   'LBL_VIEW_SUGAR_FIELDS' => 'Vista Campi Sugar',
 );
+

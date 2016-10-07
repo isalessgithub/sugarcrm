@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Musíte zadat číslo záznamu pro smazání výrobce.',
@@ -36,9 +33,11 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Výrobci: Domů',
   'LBL_NAME' => 'Výrobce:',
   'LBL_NEW_FORM_TITLE' => 'Nový výrobce',
+  'LBL_REVENUELINEITEMS' => 'Položky obchodní příležitosti',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat výrobce',
   'LBL_STATUS' => 'Stav:',
   'LNK_IMPORT_MANUFACTURERS' => 'Importovat výrobce',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Importovat kategorie produktů',
   'LNK_NEW_MANUFACTURER' => 'Výrobci',
   'LNK_NEW_PRODUCT' => 'Vytvořit produkt pro katalog',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Kategorie produktů',

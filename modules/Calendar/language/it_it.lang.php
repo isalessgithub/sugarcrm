@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: non definito per questa vista',
-  'ERR_YEAR_BETWEEN' => 'Spiacente, il calendario non può gestire l´anno inserito<br />L´anno deve essere compreso tra 1970 e 2037',
+  'ERR_YEAR_BETWEEN' => 'Spiacente, il calendario non può gestire l´anno che hai inserito<br />L´anno dev´essere compreso tra 1970 e 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Applica',
   'LBL_ASSIGNED_TO_NAME' => 'Assegnato a:',
   'LBL_BUSY' => 'Occupato',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Il Conteggio evento {0} ricorrente ha superato il limite',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} non è una ricorrenza madre',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} non è un evento ricorrente',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} non è riconosciuto come modulo evento ricorrente',
   'LBL_CANCEL_BUTTON' => 'Annulla',
   'LBL_CLOSE_BUTTON' => 'Chiudi',
   'LBL_CONFIRM_REMOVE' => 'Sei sicuro di voler eliminare il record?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Conflitto',
   'LBL_CREATE_CALL' => 'Nuova Chiamata',
   'LBL_CREATE_MEETING' => 'Pianifica Riunione',
+  'LBL_CREATE_NEW_CALL' => 'Nuova Chiamata',
   'LBL_CREATE_NEW_RECORD' => 'Nuova Attività',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Stai creando una nuova riunione. Volevi <a href="javascript:void(0);" data-action="create-task">Creare un task</a> o <a href="javascript:void(0);" data-action="schedule-call">pianificare una chiamata</a>',
   'LBL_DATE' => 'Data e Ora di inizio',
   'LBL_DATE_END_ERROR' => 'Data fine precede la data inizio',
   'LBL_DATE_TIME' => 'Data e Ora',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Elimina',
   'LBL_DURATION' => 'Durata',
   'LBL_EDIT_ALL_RECURRENCES' => 'Modifica tutte le ricorrenze',
+  'LBL_EDIT_CALL' => 'Modifica Chiamata',
   'LBL_EDIT_RECORD' => 'Modifica Attività',
   'LBL_EDIT_USERLIST' => 'Elenco Utenti',
   'LBL_ERROR_LOADING' => 'Errore durante il caricamento',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Settimana Successiva',
   'LBL_NEXT_YEAR' => 'Anno Successivo',
   'LBL_NO' => 'No',
+  'LBL_NO_ACCESS' => 'Accesso negato',
   'LBL_NO_USER' => 'Nessuna corrispondenza per il campo: Assegnato a',
   'LBL_PARTICIPANTS_TAB' => 'Invitati',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Invia Inviti',
   'LBL_SETTINGS' => 'Impostazioni',
   'LBL_SETTINGS_CALLS_SHOW' => 'Mostra Chiamate:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Visualizza Riunioni, Chiamate e Compiti Completati:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Visualizza le fasce orarie nelle viste giornaliere e settimanali:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Mostra Compiti:',
   'LBL_SETTINGS_TIME_ENDS' => 'Ora fine:',

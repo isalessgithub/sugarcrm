@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 SUGAR.expressions.initFormulaBuilder = function() {
 	var Dom = YAHOO.util.Dom,
 		Connect = YAHOO.util.Connect,
@@ -64,6 +61,7 @@ SUGAR.expressions.getDisplayFunctionList = function() {
         case "charAt":
         case "formatName":
         case "sugarField":
+        case "currencyRate":
             continue;
             break;
         }
@@ -113,6 +111,15 @@ SUGAR.expressions.setReturnTypes = function(t, vMap)
 				break;
 			}
 		}
+
+		// For the conditional function, if both argument return types are same, set the conditional type
+		if (t.name == "ifElse") {
+			var args = t.args;
+			if (args[1].returnType == args[2].returnType) {
+				t.returnType = args[1].returnType;
+			}
+		}
+
 		if(!t.returnType)
 			throw (t.name + ": No known return type!");
 	}
@@ -203,10 +210,6 @@ SUGAR.expressions.validateRelateFunctions = function(t)
         if (typeof(def) == "string"){
             throw(t.name + ": " + def);
         }
-        if (def.calculated && (typeof(def.calculated) != "string"  || def.calculated.toLowerCase() !== "false"))
-        {
-            throw (t.name + ": Cannot use calculated field " + t.args[1].value)
-        }
         if (t.name != "related" && def.type && SU.arrayIndexOf(["decimal", "int", "float", "currency"], def.type) == -1)
         {
             throw (t.name + ": related field  " + t.args[1].value + " must be a number ");
@@ -234,9 +237,9 @@ SUGAR.expressions.validateCurrExpression = function(silent, matchType)
 		SUGAR.expressions.setReturnTypes(tokens, varTypeMap);
 		SUGAR.expressions.validateReturnTypes(tokens);
         SUGAR.expressions.validateRelateFunctions(tokens);
-		if (matchType && matchType != tokens.returnType)
-		{
+		if (matchType && matchType != tokens.returnType) {
 			Msg.show({
+                type: "alert",
                 title: SUGAR.language.get("ModuleBuilder", "LBL_FORMULA_INVALID"),
                 msg: SUGAR.language.get("ModuleBuilder", "LBL_FORMULA_TYPE") + matchType
             });
@@ -249,6 +252,7 @@ SUGAR.expressions.validateCurrExpression = function(silent, matchType)
 		return true;
 	} catch (e) {
 			Msg.show({
+                type: "alert",
                 title: SUGAR.language.get("ModuleBuilder", "LBL_FORMULA_INVALID"),
                 msg: YAHOO.lang.escapeHTML(e.message ? e.message : e)
             });

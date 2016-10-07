@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ir jānorāda ieraksta numurus, lai dzēstu interesentu.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adreses informācija',
   'LBL_ADD_BUSINESSCARD' => 'Pievienot vizītkarti',
   'LBL_ALTERNATE_ADDRESS' => 'Cita adrese:',
-  'LBL_ALT_ADDRESS' => 'Cita adrese:',
   'LBL_ALT_ADDRESS_CITY' => 'Cita adrese - pilsēta',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Cita adrese - valsts',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Cita adrese - pasta indekss',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Konvertētā iespēja:',
   'LBL_CONVERTLEAD' => 'Konvertēt interesentu',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Nevar konvertēt interesentu',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'jūs veiksmīgi konvertējāt Interesentu {{leadName}}, bet ir problēma augšupielādējot pielikumus vienā vai vairākos ierakstos',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Jūs veiksmīgi konvertējāt interesentu {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Konvertēt interesentu',
   'LBL_CONVERTLEAD_WARNING' => 'Brīdinājums: Jūs vēlaties konvertēt Interesentu, kura statuss ir "Konvertēts". Kontaktpersonas un/vai Uzņēmuma ieraksti šim interesentam, iespējams, jau ir izveidoti. Ja vēlies konvertēt interesentu, spied Saglabāt. Ja nevēlies konvertēt Interesentu spied Atcelt.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Iespējama kontaktpersona:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Jūs esat zaudējis piekļuvi moduļiem, kuri ir nepieciešami interesenta konvertēšanai: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Pievienot moduli',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Piesaistīts {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Piesaistīt {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Atpakaļ pie dublikātiem',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Konvertēt',
   'LBL_CONVERT_COPY' => 'Kopēt datus',
+  'LBL_CONVERT_CREATE_NEW' => 'Jauns {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Dzēst',
+  'LBL_CONVERT_DUPLICATES_FOUND' => 'Atrasti {{duplicateCount}} dublikāti',
   'LBL_CONVERT_EDIT' => 'Rediģēt',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Rediģēt konvertēšanas izkārtojumu',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Meklē dublikātus...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignorēt un veidot jaunu',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} piesaistīts',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Jūs piesaistījāt {{moduleNameLower}} {{recordName}}, bet tas netiks izveidots kamēr nepabeigsiet un nesaglabāsiet izmaiņas.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Jūs piesaistījāt {{moduleNameLower}} {{recordName}}, bet tas netiks pievienots kamēr nepabeigsiet un  nesaglabāsiet izmaiņas.',
   'LBL_CONVERT_MODULE_NAME' => 'Modulis',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Modulis',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(neobligāts)',
   'LBL_CONVERT_REQUIRED' => 'Obligāts',
+  'LBL_CONVERT_RESET_PANEL' => 'Atiestatīt',
   'LBL_CONVERT_SELECT' => 'Atļaut izvēli',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Izveidot jaunu',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Meklēt',
   'LBL_COPY_TIP' => 'Ja atzīmēts, lauki no interesenta tiks kopēti uz laukiem ar tādu pašu nosaukumu jaunizveidotajos ierakstos.',
   'LBL_COUNTRY' => 'Valsts:',
   'LBL_CREATE' => 'Izveidot',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departaments:',
   'LBL_DESCRIPTION' => 'Apraksts:',
   'LBL_DESCRIPTION_INFORMATION' => 'Apraksta informācija',
+  'LBL_DNB_BAL_PREVIEW' => 'Uzņēmuma apskate',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Interesenti',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: interesenta informācija',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => 'Nezvanīt:',
   'LBL_DUPLICATE' => 'Līdzīgi interesenti',
   'LBL_EDITLAYOUT' => 'Rediģēt izkārtojumu',
@@ -115,12 +134,39 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobilais tālrunis',
   'LBL_FAX_PHONE' => 'Fakss:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Interesentu atskaites',
   'LBL_FIRST_NAME' => 'Vārds:',
   'LBL_FULL_NAME' => 'Pilns vārds:',
+  'LBL_HELP_CONVERT' => 'Sugar ļauj jums konvertēt interesentus par {{contacts_module}}, {{accounts_module}}, un citos moduļos tiklīdz {{module_name}} sasniedz jūsu kvalifikācijas kritērijus.
+
+Ejiet cauro katram modulim modificējot laukus un tad apstipriniet jaunos ierakstu vērtības spiežot katru saistīto pogu.
+
+Ja Sugar pamana ka tāds ieraksts jau ir sistēmā jums ir iespēja izvēlēties no dublikāta un izvēli apstiprināt ar komandu Asociēt vai spiežot "Ignorēt un veidot jaunu" turpināt kā parasti.
+
+Pēc katras prasītās moduļa apstiprināšanas spiediet "Saglabāt un Konvertēt" pogu lai pabeigtu konvertāciju.',
+  'LBL_HELP_CONVERT_TITLE' => 'Konvertēt {{module_name}}',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulis satur individuālus interesentus kas var būt ieinteresēti jūsu uzņēmuma piedāvātājos produktos vai pakalpojumos. Kad {{module_name}} ir kvalificēts kā pārdošanas {{opportunities_singular_module}}, to var konvertēt uz {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}},  vai kādu citu ierakstu.
+
+Lai izveidotu interesentu :
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+ - Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+ - Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+ - Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+ - Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulis satur individuālus interesentus kas var būt ieinteresēti jūsu uzņēmuma piedāvātājos produktos vai pakalpojumos.
+
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulis satur individuālus interesentus, kas var būt ieinteresēti jūsu uzņēmuma piedāvātājos produktos vai pakalpojumos. Kad {{module_name}} ir kvalificēts  par pārdošanas {{opportunities_singular_module}}, {{plural_module_name}} var tikt konvertēti par {{contacts_module}}, {{opportunities_module}}, un {{accounts_module}}. Ir vairāki veidi kā Sugar izveidot interesentu caur moduli {{plural_module_name}}, dublējot, inportējot, u.c. Kad ieraksts ir izveidot, jūs variet to apskatīt un rediģēt saistīto informāciju ieraksta kartiņā.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_HOME_PHONE' => 'Mājas tālrunis:',
   'LBL_IMPORT_VCARD' => 'Importēt vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automātiski izveidot jaunu interesentu importējot vCard no failu sistēmas.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Interesents no vCard veiksmīgi izveidots',
   'LBL_INVALID_EMAIL' => 'Nederīgs e-pasts:',
   'LBL_INVITEE' => 'Tiešie ziņotāji',
   'LBL_LAST_NAME' => 'Uzvārds:',
@@ -146,6 +192,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Virsraksts',
   'LBL_LOADING' => 'Notiek ielāde ...',
   'LBL_MESSAGE' => 'Ievadiet savu informāciju. Informācija un/vai konts tiks jums izveidots pēc apstiprināšanas',
+  'LBL_MKTO_ID' => 'Marketo interesenta ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Interesenta vērtējums',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Mobilais tālrunis:',
   'LBL_MODIFIED' => 'Modificēja',
   'LBL_MODIFIED_ID' => 'Modificētāja ID',
@@ -157,8 +206,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Jauns interesents',
   'LBL_NEW_PORTAL_PASSWORD' => 'Jauna portāla parole:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Paziņojums: Patreizējais Interesentu konvertēšanas ekrāns satur pielāgotos laukus. Kad tu pielāgo  Interesentu konvertēšanas ekrānu pirmoreiz, tev nepieciešams pievienot pielāgotos laukus izkārtojumam. Pielāgotie lauki automātiski neparādīsies izkārtojumā kā iepriekš.',
   'LBL_OFFICE_PHONE' => 'Darba tālrunis:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Iespējas',
   'LBL_OPPORTUNITY_AMOUNT' => 'Iespējas summa:',
   'LBL_OPPORTUNITY_ID' => 'Iespējas ID:',
   'LBL_OPPORTUNITY_NAME' => 'Iespējas nosaukums:',
@@ -186,6 +237,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Primārā adrese - iela 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Primārā adrese - iela 3',
   'LBL_PROSPECT_LIST' => 'Mērķu saraksts',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Jūs veiksmīgi izveidojāt {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Ieteica:',
   'LBL_REGISTRATION' => 'Reģistrācija',
   'LBL_REPORTS_FROM' => 'Atskaites no:',
@@ -194,6 +246,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Pirms Interesents var tikt konvertēts jābūt izveidotam vai atlasītam modulim.',
   'LBL_SALUTATION' => 'Sveiciens',
   'LBL_SAVED' => 'Paldies par reģistrēšanos. Jūsu konts tiks izveidots un tuvākajā laikā kāds ar jums sazināsies.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Saglabāt un konvertēt',
   'LBL_SEARCH_FORM_TITLE' => 'Interesentu meklēšana',
   'LBL_SELECT' => '<b>VAI</b> Izvēlēties',
   'LBL_SELECTION_TIP' => 'Moduļi ar saistīto lauku Kontaktpersonu modulī var tikt atlasīti nevis izveidoti interesentu konvertēšanas procesā.',
@@ -210,6 +263,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Veiksmīga kampaņa:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Paldies par Jūsu iesniegumu.',
   'LBL_TITLE' => 'Amats:',
+  'LBL_UNCONVERTED' => 'Nenokonvertēts',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Interesentu skatījums',
   'LBL_WEBSITE' => 'Vietne',
@@ -235,6 +289,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Lai izveidotu iespēju, nepieciešams uzņēmums.<br /> Izveidojiet jaunu uzņēmumu vai izvēlieties no esošiem.',
   'NTC_REMOVE_CONFIRMATION' => 'Vai tiešām vēlaties izņemt šo  interesentu no pieteikuma?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Are you sure you want to remove this record as a direct report?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

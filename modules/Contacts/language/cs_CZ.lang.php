@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Pro smazání kontaktu musí být zadáno číslo záznamu.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adresa',
   'LBL_ADD_BUSINESSCARD' => 'Přidat vizitku',
   'LBL_ALTERNATE_ADDRESS' => 'Další adresa:',
-  'LBL_ALT_ADDRESS' => 'Další adresa:',
   'LBL_ALT_ADDRESS_CITY' => 'Město:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Země:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'PSČ:',
@@ -77,11 +73,16 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Popis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Popis',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Přímé Reporty',
+  'LBL_DNB_BAL_PREVIEW' => 'Náhled smlouvy',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Kontakty',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Kontaktní informace',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B hlavní Id',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenty',
   'LBL_DO_NOT_CALL' => 'Nevolat:',
   'LBL_DUPLICATE' => 'Možnost duplikovat kontakty',
   'LBL_EMAIL_ADDRESS' => 'Email:',
   'LBL_EMAIL_OPT_OUT' => 'Nechce dostávat emaily:',
+  'LBL_EMPTY_VCARD' => 'Vyberte vCard soubor',
   'LBL_EXISTING_ACCOUNT' => 'Použít existující účet',
   'LBL_EXISTING_CONTACT' => 'Použít existující kontakt',
   'LBL_EXISTING_OPPORTUNITY' => 'Použít existující obchod',
@@ -91,21 +92,30 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Upraveno podle ID',
   'LBL_EXPORT_PHONE_HOME' => 'Telefon domů',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobilní telefon',
+  'LBL_FACEBOOK' => 'Účet na Facebooku',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILENAME' => 'Příloha',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Reporty kontaktů',
   'LBL_FIRST_NAME' => 'Křestní jméno:',
   'LBL_FULL_NAME' => 'Plné jméno:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
+  'LBL_HELP_CREATE' => 'Modul Kontakty se skládá z jednotlivých lidí, se kterými má Vaše organizace vztah. Chcete-li vytvořit Kontakt: 1. Vyplňte hodnoty polí dle potřeby. - Pole oznařená “Povinné” musejí být vyplněné před uložením. - Pokud bude potřeba, klikněte na “Zobrazit více” pro zobrazení dalších polí. 2. Klikněte na tlačítko “Uložit” pro dokončení nového záznamu a navrácení na předchozí stránku. - Zvolte “Uložit a zobrazit” pro otevření přehledu nově vytvořeného Kontakty. - Zvolte “Uložit a vytvořit nový” v případě, že chcete pokračovat vytvářením dalšího Kontaktu.',
+  'LBL_HELP_RECORD' => 'Modul Kontakty se skládá z jednotlivých lidí, se kterými má Vaše organizace vztah. Upravte pole tohoto záznamu klepnutím na jednotlivé pole nebo na tlačítko Upravit. - Zobrazte nebo upravte odkazy na jiné záznamy v subpanelech, včetně příjemců Kampaně, přepnutím spodního levého podokna na “Zobrazení dat” - Vytvořte a zobrazte uživatelské komentáře a historii změn v modulu Aktivity přepnutím spodního levého podokna na “Aktivity”. - Sledujte záznam nebo si ho přidejte do oblíbených pomocí tlačítek vpravo od názvu záznamu. - Další akce jsou k dispozici v rozbalovací nabídce vpravo od tlačítka Upravit.',
+  'LBL_HELP_RECORDS' => 'Modul Kontakty se skládá z jednotlivých lidí, se kterými má Vaše organizace vztah. Záznamy modulu Kontakty jsou většinou navázány na záznam z modulu Společnosti a více Kontaktů může být navázáno na jednu Společnost. Jsou různé způsoby, jak můžete v Sugar vytvořit Kontakt, např. pomocí modulu Kontakty, importem Kontaktů, konvertováním Příležitosti na Kontakt atd. Po vytvoření Kontaktu můžete informace o něm zobrazovat a měnit z přehledu záznamu. Každý záznam v modulu Kontakty pak může být navázán na další záznamy v Sugar, jako jsou Schůzky, Případy, Obchody a mnoho dalších, což z modulu Kontakty dělá informační centrum pro prohlížení a pokračování v interakci s jednotlivcem.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_HOMEPAGE_TITLE' => 'Kontakty',
   'LBL_HOME_PHONE' => 'Domácí telefon:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'Importovat vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automaticky přidat nový kontakt importováním vCard z vašeho souborového systému.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Kontakt byl z vCard úspěšně vytvořen',
   'LBL_INVALID_EMAIL' => 'Neplatný email:',
   'LBL_INVITEE' => 'Přímé Reporty',
   'LBL_LANG_PREF_TOOLTIP' => 'Portál podpory uživatelské rozhraní je vykreslen v jazyce zvoleném zde',
   'LBL_LAST_NAME' => 'Příjmení:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Přiležitosti',
   'LBL_LEAD_SOURCE' => 'Zdroj příležitosti:',
+  'LBL_LINKEDIN' => 'Účet LinkedIn',
   'LBL_LIST_ACCEPT_STATUS' => 'Přijato ?',
   'LBL_LIST_ACCOUNT_NAME' => 'Název společnosti',
   'LBL_LIST_CITY' => 'Město',
@@ -120,6 +130,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Telefon do práce:',
   'LBL_LIST_STATE' => 'Stát',
   'LBL_LIST_TITLE' => 'Titul',
+  'LBL_MKTO_ID' => 'Marketo ID leada',
+  'LBL_MKTO_LEAD_SCORE' => 'Skóre leada',
+  'LBL_MKTO_SYNC' => 'Synchronizovat do Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_MODIFIED' => 'Upraveno uživatelem ID:',
   'LBL_MODULE_NAME' => 'Kontakty',
@@ -128,6 +141,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Název:',
   'LBL_NEW_FORM_TITLE' => 'Přidat kontakt',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nové vstupní heslo:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Poznámky',
   'LBL_NOTE_SUBJECT' => 'Předmět poznámky',
   'LBL_OFFICE_PHONE' => 'Telefon do práce:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Staré portalové heslo',
@@ -138,7 +152,7 @@ $mod_strings = array (
   'LBL_OPP_NAME' => 'Název obchodu:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Další email:',
   'LBL_OTHER_PHONE' => 'Další telefon:',
-  'LBL_PARENT_ID' => 'Rodičovské ID',
+  'LBL_PARENT_ID' => 'Rodičovské ID:',
   'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Změna hesla',
   'LBL_PHONE' => 'Telefon',
   'LBL_PHONE_FAX' => 'Fax',
@@ -152,6 +166,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Vstupní jméno:',
   'LBL_PORTAL_PASSWORD' => 'Portalové heslo',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Vloženo vstupní heslo:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Klikněte zde k úpravě svého profilu',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'V Profilu můžete spravovat vaše kontaktní informace, heslo a jazykové předvolby',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Zde můžete nastavit svůj preferovaný jazyk. Změní se tím jazyk použitý na Sugar portálu.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Na svůj profil se můžete kdykoliv vrátit použitím nabídky Uživatel.',
   'LBL_POSTAL_CODE' => 'PSČ:',
   'LBL_PRIMARY_ADDRESS' => 'Hlavní adresa:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Město:',
@@ -165,15 +183,17 @@ $mod_strings = array (
   'LBL_PRODUCTS_TITLE' => 'Produkty',
   'LBL_PROJECTS_RESOURCES' => 'Zdroje projektů',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekty',
-  'LBL_PROJECT_SUBPANEL_TITLE' => 'Projecty',
+  'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekty',
   'LBL_PROSPECT_LIST' => 'Seznam prospektů',
   'LBL_QUOTES_BILL_TO' => 'Nabídky (Fakturovat na)',
   'LBL_QUOTES_SHIP_TO' => 'Nabídky (Dodat na)',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Nabídky',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Úspěšně jste vytvořili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Spřízněné kontakty',
   'LBL_REPORTS_TO' => 'Reporty pro:',
   'LBL_REPORTS_TO_ID' => 'Nadřízený:',
   'LBL_RESOURCE_NAME' => 'Název zdroje',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Řádky tržeb',
   'LBL_SALUTATION' => 'Oslovení',
   'LBL_SAVE_CONTACT' => 'Uložit kontakt',
   'LBL_SEARCH_FORM_TITLE' => 'Vzhledávání kontaktů',
@@ -185,12 +205,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Kampaně (Cíle):',
   'LBL_TEAM_ID' => 'Tým ID:',
   'LBL_TITLE' => 'Titul:',
+  'LBL_TWITTER' => 'Účet na Twitteru',
   'LBL_USER_PASSWORD' => 'Heslo:',
   'LBL_USER_SYNC' => 'Uživatelská synchronizace',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Pohled kontakty',
   'LNK_CONTACT_LIST' => 'Kontakty',
   'LNK_CONTACT_REPORTS' => 'Přehled reportů kontaktů',
+  'LNK_CREATE' => 'Vytvo5it osobu',
   'LNK_IMPORT_CONTACTS' => 'Import kontaktů',
   'LNK_IMPORT_VCARD' => 'Importovat vCard',
   'LNK_NEW_ACCOUNT' => 'Přidat společnost',
@@ -212,6 +234,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Pro vytvoření nového obchodu je třeba zadat účet. Prosím zvolte existující nebo přidejte nový.',
   'NTC_REMOVE_CONFIRMATION' => 'Opravdu chcete kontakt vyjmout z případu?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Opravdu chcete odstranit tento záznam z Přímých reportů?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Документ создан',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Название документа',
   'ERR_DOC_VERSION' => 'Ревизия документа',
   'ERR_FILENAME' => 'Имя файла',
+  'ERR_FILESIZE' => 'Файл слишком большой. Max размер файла:',
   'LBL_ACTIVE_DATE' => 'Дата публикации',
   'LBL_AND' => 'и',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Применение меток к статьям...',
@@ -44,7 +42,7 @@ $mod_strings = array (
   'LBL_CASE' => 'Обращение:',
   'LBL_CASES' => 'Обращения',
   'LBL_CASES_SUBPANEL_TITLE' => 'Соотнесённые обращения',
-  'LBL_CASE_ID' => 'ID обращения:',
+  'LBL_CASE_ID' => 'ID Обращения',
   'LBL_CATEGORY' => 'Категория',
   'LBL_CATEGORY_VALUE' => 'Категория:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Неопределенный',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Контракты',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Связанные контракты',
   'LBL_CONTRACT_NAME' => 'Название контракта:',
+  'LBL_CONTRACT_STATUS' => 'Статус контракта',
   'LBL_CREATED' => 'Создано',
   'LBL_CREATED_BY' => 'Создано',
   'LBL_CREATED_BY_NAME' => 'Создано (Имя)',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Id документа',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Номер ревизии документа базы знаний',
   'LBL_KBDOC_APPROVED_BY' => 'Утверждено:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Утверждено',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Загрузить вложения:',
   'LBL_KBDOC_BODY' => 'Текст статьи:',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Последняя ревизия',
   'LBL_LATEST_REVISION_NAME' => 'Название последней ревизии',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Запуск просмотра меток...',
+  'LBL_LINKED_ID' => 'Связанный Id',
   'LBL_LIST_ACTIVE_DATE' => 'Дата публикации',
-  'LBL_LIST_APPROVED_BY' => 'Утверждено:',
+  'LBL_LIST_APPROVED_BY' => 'Утверждено',
   'LBL_LIST_ARTICLES' => 'Обзор статей',
   'LBL_LIST_CATEGORY' => 'Категория',
   'LBL_LIST_DOCUMENT' => 'Документ',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Недействительный файл',
   'LBL_NUMBER' => 'Номер',
   'LBL_PARENT_TYPE' => 'Тип изначальной записи:',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Вы можете отфильтровать список статей по поисковому запросу.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'К примеру, вы можете воспользоваться этим для поиска статьи по интересующей вас теме',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Модуль Базы Знаний служит для работы с опубликованными статьями. Используйте стрелки прокрутки для быстрого ознакомления с модулем.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Эта страница выводит список опубликованных статей.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Для возврата в Базу Знаний в любое время нажмите здесь.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Сохраненные ранее условия поиска:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Удаление или редактирование существующих условий поиска.',
   'LBL_PUBLISHED' => 'Опубликовано:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Найти документ',
   'LBL_SEARCH_TAG' => 'Поиск',
   'LBL_SEARCH_WITHIN' => 'Искать в:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Имя файла последнего исправления',
+  'LBL_SELECTED_REVISION_ID' => 'Id последнего исправления',
   'LBL_SELECTED_REVISION_NAME' => 'Название выбранной ревизии',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Выберите статьи для применения меток',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Сначала выберите статьи',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Помечено тегом:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Статьи без меток',
   'LBL_UPDATE' => 'Обновить',
+  'LBL_VIEWS_NUMBER' => 'Количество просмотров',
   'LNK_KBDOCUMENT_LIST' => 'Обзор документов',
   'LNK_NEW_ARTICLE' => 'Создать статью',
   'LNK_NEW_MAIL_MERGE' => 'Объединение почты',

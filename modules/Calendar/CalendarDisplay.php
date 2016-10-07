@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -36,12 +33,23 @@ class CalendarDisplay {
 		),
 	);
 
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function CalendarDisplay(Calendar $cal, $dashlet_id = "")
+    {
+        self::__construct($cal, $dashlet_id);
+    }
+
 	/**
 	 * constructor
 	 * @param Calendar $cal
 	 * @param string $dashlet_id for dashlet mode
 	 */
-	function __construct(Calendar $cal,$dashlet_id = ""){
+	public function __construct(Calendar $cal,$dashlet_id = ""){
 		$this->cal = $cal;
 		$this->dashlet_id = $dashlet_id;
 	}
@@ -73,7 +81,7 @@ class CalendarDisplay {
 
 		$ss->assign('dashlet',$cal->dashlet);
 		$ss->assign('grid_start_ts',intval($cal->grid_start_ts));
-		
+
 		$ss->assign('year', $cal->date_time->format('Y'));
 		$ss->assign('month', $cal->date_time->format('m'));
 		$ss->assign('day', $cal->date_time->format('d'));
@@ -97,7 +105,7 @@ class CalendarDisplay {
 			$height = 20;
 		}
 		$ss->assign('basic_min_height',$height);
-		
+
 		$ss->assign('isPrint', $this->cal->isPrint() ? 'true': 'false');
 
 
@@ -128,26 +136,13 @@ class CalendarDisplay {
 
 		if($_REQUEST['module'] == "Calendar"){
 			$this->load_settings_template($ss);
-			$settings = "custom/modules/Calendar/tpls/settings.tpl";
-			if(!file_exists($settings))
-				$settings = "modules/Calendar/tpls/settings.tpl";
-			$ss->assign("settings",$settings);
+			$ss->assign("settings",SugarAutoLoader::existingCustomOne("modules/Calendar/tpls/settings.tpl"));
 		}
 
-		$main = "custom/modules/Calendar/tpls/main.tpl";
-		if(!file_exists($main))
-			$main = "modules/Calendar/tpls/main.tpl";
-
-		$form_tpl = "custom/modules/Calendar/tpls/form.tpl";
-		if(!file_exists($form_tpl))
-			$form_tpl = "modules/Calendar/tpls/form.tpl";
-		$ss->assign("form",$form_tpl);
+		$ss->assign("form",SugarAutoLoader::existingCustomOne("modules/Calendar/tpls/form.tpl"));
 
 		if($this->cal->enable_repeat){
-			$repeat_tpl = "custom/modules/Calendar/tpls/repeat.tpl";
-			if(!file_exists($repeat_tpl))
-				$repeat_tpl = "modules/Calendar/tpls/repeat.tpl";
-			$ss->assign("repeat",$repeat_tpl);
+			$ss->assign("repeat", SugarAutoLoader::existingCustomOne("modules/Calendar/tpls/repeat.tpl"));
 
 			$repeat_intervals = array();
 			for($i = 1; $i <= 30; $i++)
@@ -165,9 +160,7 @@ class CalendarDisplay {
 
 		}
 
-
-
-		echo $ss->fetch($main);
+		echo $ss->fetch(SugarAutoLoader::existingCustomOne("modules/Calendar/tpls/main.tpl"));
 
 		// grid
 		$grid = new CalendarGrid($cal);
@@ -178,12 +171,11 @@ class CalendarDisplay {
 	/**
 	 * load settings popup template
 	 */
-	protected function load_settings_template(&$ss){
-
+	protected function load_settings_template($ss)
+	{
 		list($d_start_hour,$d_start_min) =  explode(":",$this->cal->day_start_time);
 		list($d_end_hour,$d_end_min) =  explode(":",$this->cal->day_end_time);
 
-		require_once("include/utils.php");
 		global $app_strings,$app_list_strings,$beanList;
 		global $timedate;
 
@@ -264,7 +256,6 @@ class CalendarDisplay {
 		$ss->assign('display_timeslots', $displayTimeslots);
 		$ss->assign('show_calls',$this->cal->show_calls);
 		$ss->assign('show_tasks',$this->cal->show_tasks);
-		$ss->assign('show_completed', $this->cal->show_completed);
 		$ss->assign('TIME_START_HOUR_OPTIONS',$TIME_START_HOUR_OPTIONS);
 		$ss->assign('TIME_START_MINUTES_OPTIONS',$TIME_START_MINUTES_OPTIONS);
 		$ss->assign('TIME_START_MERIDIEM',$TIME_START_MERIDIEM);
@@ -424,10 +415,7 @@ class CalendarDisplay {
 
 		$ss->assign('date_info',$this->get_date_info($this->cal->view,$this->cal->date_time));
 
-		$header = "custom/modules/Calendar/tpls/header.tpl";
-		if(!file_exists($header))
-			$header = "modules/Calendar/tpls/header.tpl";
-		echo $ss->fetch($header);
+		echo $ss->fetch(SugarAutoLoader::existingCustomOne("modules/Calendar/tpls/header.tpl"));
 	}
 
 	/**
@@ -443,10 +431,7 @@ class CalendarDisplay {
 		$ss->assign('previous',$this->get_previous_calendar());
 		$ss->assign('next',$this->get_next_calendar());
 
-		$footer = "custom/modules/Calendar/tpls/footer.tpl";
-		if(!file_exists($footer))
-			$footer = "modules/Calendar/tpls/footer.tpl";
-		echo $ss->fetch($footer);
+		echo $ss->fetch(SugarAutoLoader::existingCustomOne("modules/Calendar/tpls/footer.tpl"));
 	}
 
 	/**
@@ -455,7 +440,7 @@ class CalendarDisplay {
 	public function display_title(){
 		global $mod_strings;
 		//Hack to make this 6.5 compatible until this module is converted to MVC
-        echo "<div class='moduleTitle'><h2>". $mod_strings['LBL_MODULE_TITLE'] ."</h2></div>"; 
+        echo "<div class='moduleTitle'><h2>". $mod_strings['LBL_MODULE_TITLE'] ."</h2></div>";
 	}
 
 	/**
@@ -479,8 +464,7 @@ class CalendarDisplay {
 			$ss->assign("teams_options",get_select_options_with_id($teams, $this->cal->shared_team_id));
 
 			if(!empty($this->cal->shared_team_id)){
-				$team = new Team();
-				$team->retrieve($this->cal->shared_team_id);
+				$team = BeanFactory::getBean('Teams', $this->cal->shared_team_id);
                			$users = $team->get_team_members(true);
 				$user_ids = array();
 

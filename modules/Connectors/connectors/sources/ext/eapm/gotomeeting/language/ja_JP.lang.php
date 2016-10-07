@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $connector_strings = array (
-  'LBL_LICENSING_INFO' => 'Citrix Online GoToMeetingの新しいアプリケーションに登録してAPIキーを入手してください。<br /><br />登録方法は下記の通りです:<br /><br />Citrix Onlineディベロッパーアカウントにログインします :https://developer.citrixonline.com/<br />ディベロッパーキーの申し込みをクリックします。<br />製品APIがGoToMeetingを選択し、申し込みURLにあなたのURLを入力します。<br />申し込みの下にAPIキーという欄が出てきます。<br />それをコピーします。',
+  'LBL_LICENSING_INFO' => 'Citrix Online GoToMeetingにて新しいアプリケーションを登録することによりAPIキーを取得してください。<br /> <br />登録方法は下記の通りです:<br /> <br />1: Citrix Onlineのディベロッパーアカウントにログインしてください:　https://developer.citrixonline.com/<br />2: ディベロッパーキーを申請するをクリックしてください<br />3: 製品はGoToMeetingを選択し、アプリケーションURLの中のインスタンスURLを入力してください。<br />4: APIキーの欄が申請の下にあるのを確認します。<br />5: コピーしてください。',
   'oauth_consumer_key' => 'APIキー',
 );
 

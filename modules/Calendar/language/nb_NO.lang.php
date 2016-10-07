@@ -2,26 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: ikke definert for denne visningen',
+  'ERR_YEAR_BETWEEN' => 'Beklager, kalenderen kan ikke håndtere det året du har bedt om <br />Året må være mellom 1970 og 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Bruk',
   'LBL_ASSIGNED_TO_NAME' => 'Tilordnet',
   'LBL_BUSY' => 'Opptatt',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Gjentakende { 0 } event teller som overskredet grensen',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '0 } er ikke en gjentakelse',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => 'er ikke en regelmessig hendelse',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{ 0 } er ikke anerkjent som en regelmessig hendelse modul',
   'LBL_CANCEL_BUTTON' => 'Avbryt',
   'LBL_CLOSE_BUTTON' => 'Steng',
   'LBL_CONFIRM_REMOVE' => 'Er du sikker på at du ønsker å fjerne oppføringen?',
@@ -29,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Konflikt',
   'LBL_CREATE_CALL' => 'Loggfør oppringningen',
   'LBL_CREATE_MEETING' => 'Planlegg møte',
+  'LBL_CREATE_NEW_CALL' => 'Opprett Alle',
   'LBL_CREATE_NEW_RECORD' => 'Opprett Aktivitet',
+  'LBL_CREATING_NEW_ACTIVITY' => 'You are creating a new meeting. Did you want to <a href="javascript:void(0);" data-action="create-task">Create a task</a> or <a href="javascript:void(0);" data-action="schedule-call">Schedule a call</a>',
   'LBL_DATE' => 'start dato & tid',
   'LBL_DATE_END_ERROR' => 'Sluttdato er før startdato',
   'LBL_DATE_TIME' => 'Dato og Tid',
@@ -37,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Slett',
   'LBL_DURATION' => 'Varighet',
   'LBL_EDIT_ALL_RECURRENCES' => 'Endre Alle Gjentakelser',
+  'LBL_EDIT_CALL' => 'Rediger Samtale',
   'LBL_EDIT_RECORD' => 'Redigér Aktivitet',
   'LBL_EDIT_USERLIST' => 'Brukerliste',
   'LBL_ERROR_LOADING' => 'Feil under lasting',
@@ -55,6 +61,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Laster ......',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalender',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalender',
   'LBL_MODULE_TITLE' => 'Kalender',
   'LBL_MONTH' => 'Måned',
   'LBL_NEXT_DAY' => 'Neste dag',
@@ -63,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Neste uke',
   'LBL_NEXT_YEAR' => 'Neste år',
   'LBL_NO' => 'Nei',
+  'LBL_NO_ACCESS' => 'Du har ikke tilgang',
   'LBL_NO_USER' => 'Ingen treff på feltet: Tildelt',
   'LBL_PARTICIPANTS_TAB' => 'Inviterte',
   'LBL_PM' => 'PM',
@@ -125,6 +133,7 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
+    0 => '',
     1 => 'Jan',
     2 => 'Feb',
     3 => 'Mar',
@@ -140,6 +149,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
+    0 => '',
     1 => 'Januar',
     2 => 'Februar',
     3 => 'Mars',
@@ -155,6 +165,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays' => 
   array (
+    0 => 'Søn',
     1 => 'Man',
     2 => 'Tir',
     3 => 'Ons',
@@ -164,6 +175,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_weekdays_long' => 
   array (
+    0 => 'Søndag',
     1 => 'Mandag',
     2 => 'Tirsdag',
     3 => 'Onsdag',

@@ -1,33 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description:  Base Form For Notes
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-class EmailTemplateFormBase {
-
-    function __construct()
-    {
-
-    }
+class EmailTemplateFormBase
+{
 
 	function getFormBody($prefix, $mod='',$formname='', $size='30') {
 
@@ -70,7 +55,7 @@ EOF;
 
 	$javascript = new javascript();
 	$javascript->setFormName($formname);
-	$javascript->setSugarBean(new EmailTemplate());
+	$javascript->setSugarBean(BeanFactory::getBean('EmailTemplates'));
 	$javascript->addRequiredFields($prefix);
 	$form .=$javascript->getScript();
 	$mod_strings = $temp_strings;
@@ -120,7 +105,7 @@ EOQ;
 		global $mod_strings;
 		global $sugar_config;
 
-		$focus = new EmailTemplate();
+		$focus = BeanFactory::getBean('EmailTemplates');
 		if($useRequired && !checkRequired($prefix, array_keys($focus->required_fields))) {
 			return null;
 		}
@@ -183,7 +168,7 @@ EOQ;
 		$max_files_upload = count($_FILES);
 
 		if(!empty($focus->id)) {
-			$note = new Note();
+			$note = BeanFactory::getBean('Notes');
 			$where = "notes.parent_id='{$focus->id}'";
 			if(!empty($_REQUEST['old_id'])) { // to support duplication of email templates
 				$where .= " OR notes.parent_id='".$_REQUEST['old_id']."'";
@@ -206,7 +191,7 @@ EOQ;
 
 		foreach ($_FILES as $key => $file)
 		{
-			$note = new Note();
+			$note = BeanFactory::getBean('Notes');
 
 			//Images are presaved above so we need to prevent duplicate files from being created.
 			if( isset($preProcessedImages[$file['name']]) )
@@ -249,8 +234,7 @@ EOQ;
 				{
 					// we're duplicating a template with attachments
 					// dupe the file, create a new note, assign the note to the new template
-					$newNote = new Note();
-					$newNote->retrieve($note->id);
+					$newNote = BeanFactory::getBean('Notes', $note->id);
 					$newNote->id = create_guid();
 					$newNote->parent_id = $focus->id;
 					$newNote->new_with_id = true;
@@ -280,24 +264,19 @@ EOQ;
 
 	///////////////////////////////////////////////////////////////////////////
 	////	ATTACHMENTS FROM DOCUMENTS
-	$count='';
-	//_pp($_REQUEST);
-	//_ppd(count($_REQUEST['document']));
 	if(!empty($_REQUEST['document'])){
       $count = count($_REQUEST['document']);
-    }
-    else{
+    } else {
     	$count=10;
     }
 
 	for($i=0; $i<$count; $i++) {
 		if(isset($_REQUEST['documentId'.$i]) && !empty($_REQUEST['documentId'.$i])) {
-			$doc = new Document();
-			$docRev = new DocumentRevision();
-			$docNote = new Note();
-
-			$doc->retrieve($_REQUEST['documentId'.$i]);
-			$docRev->retrieve($doc->document_revision_id);
+			$doc = BeanFactory::retrieveBean('Documents', $_REQUEST['documentId'.$i]);
+			if(empty($doc)) continue;
+			$docRev = BeanFactory::retrieveBean('DocumentRevisions', $doc->document_revision_id);
+			if(empty($docRev)) continue;
+			$docNote = BeanFactory::getBean('Notes');
 
 			array_push($focus->saved_attachments, $docRev);
 

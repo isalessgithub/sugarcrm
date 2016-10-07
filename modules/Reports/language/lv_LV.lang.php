@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => '2 nedēļās',
     2419200 => '4 nedēļās',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Plānotā atskaite "{0}" ir deaktivizēta',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Plānotā atskaite ir deaktivizēta',
   'ERR_REPORT_INVALID' => 'Atskaites "{0}" definīcija satur nederīgus laukus: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Atskaite ir nederīga',
   'ERR_SELECT_COLUMN' => 'Vispirms norādiet attēlojamo kolonnu',
@@ -122,8 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Pirms',
   'LBL_BUG_REPORTS' => 'Kļūdu atskaites',
   'LBL_BY_DAY' => 'Pēc dienām',
-  'LBL_BY_FISCAL_QUARTER' => 'Pēc Finanšu ceturkšņa',
-  'LBL_BY_FISCAL_YEAR' => 'Pēc Finanšu gada',
+  'LBL_BY_FISCAL_QUARTER' => 'Pēc fiskālā ceturkšņa',
+  'LBL_BY_FISCAL_YEAR' => 'Pēc fiskālā gada',
   'LBL_BY_MONTH' => 'Pēc mēneša',
   'LBL_BY_QUARTER' => 'Pēc ceturkšņa',
   'LBL_BY_YEAR' => 'Pēc gada',
@@ -154,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Atskaišu vednis',
   'LBL_CREATE_REPORT' => 'Izveidot atskaiti',
   'LBL_CSV_TIMESTAMP' => 'Y_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Šis Finanšu ceturksnis',
-  'LBL_CURRENT_FISCAL_YEAR' => 'Šis Finanšu gads',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'tekošais fiskālais ceturksnis',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Tekošais fiskālais gads',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Ceturkšņa darījumi',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Ceturkšņa pārdošanas prognoze',
   'LBL_CURRENT_USER' => 'Esošais lietotājs',
@@ -205,12 +204,13 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'no sekojošiem filtriem.',
   'LBL_FILTERS_HELP_DESC' => '<b>Soļi filtru definēšanai:</b><br/><br/>1) Nospiediet uz filtra definēšanai nepieciešamā moduļa <b>Saistītie moduļi</b> tabā. Pēc noklusējuma primārais modulis (augšējā virsotne koka skatā) ir izvēlēta. <br/><br/><br />	Jūs variet izvēlēties saistīto moduli (pēcteča virsotne koka skatā), nospiežot uz moduļa. Izvērsiet virsotni, lai apskatītu sasaistītos moduļus. Izvēlētais modulis nosaka, kuri atskaišu lauki parādās <b>Pieejamie lauki</b> rūtī.<br/><br/><br />	2) Nospiediet uz lauka <b>Pieejamie lauki</b> rūtī, lai tos pievienotu filtram. Jūs variet meklēt laukus pēc tipa teksta ieliktnē.<br/><br/><br />	Kad modulim ir izvēlēti lauki <b>Saistītie moduļi</b> rūtī, variet izvēlēties citu moduli, no kura iespējams papildināt izvēlēto lauku sarakstu izmantošanai filtros.<br/><br/><br />	3) Izvēlieties <b>UN</b> vai <b>VAI</b>, lai noteiktu lauku vērtību pielietojuma veidu filtrā. <br/><br/><br />	4) [Neobligāti] Nospiediet uz <b>Pievienot filtra grupu</b> lai izveidotu filtru grupas. Jūs variet sagatavot filtru grupas jebkādā skaitā un katrā no tām iekļaut jebkuru daudzumu filtra nosacījumu.<br/><br/><br />	5) [Neobligāti] Izvēlieties izpildes laika opciju filtram, lai atļautu lietotājam uzstādīt papildus fitrēšanas nosacījumus atskaite apskates gaitā.',
   'LBL_FILTER_AND' => 'AND',
+  'LBL_FILTER_BY_MODULE' => 'Pēc moduļa',
   'LBL_FILTER_CONDITIONS' => 'Izvēlēties operatoru.',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Līdz',
   'LBL_FILTER_DATE_RANGE_START' => 'No',
   'LBL_FILTER_OR' => 'OR',
-  'LBL_FISCAL_QUARTER' => 'Finanšu ceturksnis',
-  'LBL_FISCAL_YEAR' => 'Finanšu gads',
+  'LBL_FISCAL_QUARTER' => 'Fiskālais ceturksnis',
+  'LBL_FISCAL_YEAR' => 'Fiskālais gads',
   'LBL_FORECAST_REPORTS' => 'Prognožu atskaites',
   'LBL_FUNNEL' => 'Piltuve',
   'LBL_GRAND_TOTAL' => 'Kopsumma',
@@ -235,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Pēdējās 30 dienās',
   'LBL_LAST_7_DAYS' => 'Pēdējās 7 dienās',
   'LBL_LAST_MONTH' => 'Pēdējā mēnesī',
+  'LBL_LAST_N_DAYS' => 'Pēdējās # dienas',
   'LBL_LAST_QUARTER' => 'Pēdējā ceturksnī',
   'LBL_LAST_WEEK' => 'Pēdējā nedēļā',
   'LBL_LAST_YEAR' => 'Pēdējā gadā',
@@ -303,9 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'Tālāk >',
   'LBL_NEXT_30_DAYS' => 'Nākošās 30 dienās',
   'LBL_NEXT_7_DAYS' => 'Nākošās 7 dienās',
-  'LBL_NEXT_FISCAL_QUARTER' => 'Nākamais finanšu ceturksnis',
-  'LBL_NEXT_FISCAL_YEAR' => 'Nākamais Finanšu gads',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Nākošais fiskālais ceturksnis',
+  'LBL_NEXT_FISCAL_YEAR' => 'Nākošais fiskālais gads',
   'LBL_NEXT_MONTH' => 'Nākošā mēnesī',
+  'LBL_NEXT_N_DAYS' => 'Nākamās # dienas',
   'LBL_NEXT_QUARTER' => 'Nākošais kvartāls',
   'LBL_NEXT_RUN' => 'Nākamais e-pasts',
   'LBL_NEXT_WEEK' => 'Nākošā nedēļā',
@@ -338,8 +340,8 @@ $mod_strings = array (
   'LBL_PIE' => 'Sektoru',
   'LBL_PREVIEW_REPORT' => 'Apskate',
   'LBL_PREVIOUS' => '< Atpakaļ',
-  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Iepriekšējais Finanšu ceturksnis',
-  'LBL_PREVIOUS_FISCAL_YEAR' => 'Iepriekšējais Finanšu gads',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Iepriekšējais fiskālais ceturksnis',
+  'LBL_PREVIOUS_FISCAL_YEAR' => 'Iepriekšējais fiskālais gads',
   'LBL_PROJECT_TASK_REPORTS' => 'Projektu uzdevumu atskaites',
   'LBL_PROSPECT_REPORTS' => 'Mērķa atskaites',
   'LBL_PUBLISH' => 'publicēt',
@@ -479,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'ar vidējo vērtību',
   'LBL_WITH_A_TOTAL' => 'ar summu',
   'LBL_WITH_DETAILS' => 'Ar detaļām',
-  'LBL_WORKSHEET' => 'Darblapa',
   'LBL_YEAR' => 'Gads',
   'LBL_YESTERDAY' => 'Vakar',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Jums nav saglabātu atskaišu.',
+  'LNK_ADVANCED_REPORTING' => 'Uzlaboto atskaišu parvaldība',
   'LNK_NEW_ACCOUNT' => 'Jauns uzņēmums',
   'LNK_NEW_CALL' => 'Reģistrēt zvanu',
   'LNK_NEW_CASE' => 'Jauns pieteikums',
@@ -495,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Jums nav tiesības rediģēt šo atskaiti',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Nav iespējams publicēt. Ar tādu nosaukumu jau ir publicēta cita atskaite.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Nav iespējams atcelt cita lietotāja atskaites publikāciju. Jūsu atskaitei ir tāds pats nosaukums.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'Process Report Generation Task Scheduler pašlaik nav aktīvs un atskaišu palaišanu nevar ieplānot. Prasiet lai lietotājs ar administratora tiesībām aktivizē šo procesu un mēģiniet vēlreiz.',
 );
 

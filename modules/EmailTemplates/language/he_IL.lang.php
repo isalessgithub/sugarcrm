@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT' => 'חשבון',
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_EDIT_ALT_TEXT' => 'ערוך כטקסט פשוט',
   'LBL_EDIT_LAYOUT' => 'ערוך תצורה',
   'LBL_EMAIL_ATTACHMENT' => 'צרופת דואר אלקטרוני',
+  'LBL_FILTER_EMAIL_TYPE_TEMPLATES' => 'תבניות לדואר אלקטרוני',
   'LBL_FROM_ADDRESS' => 'מאת כתובות',
   'LBL_FROM_NAME' => 'מאת שם',
   'LBL_HIDE_ALT_TEXT' => 'Hide Plain Text',
@@ -49,6 +47,8 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'רשימת תבניות דואר אלקטרוני',
   'LBL_LIST_NAME' => 'שם',
   'LBL_MODULE_NAME' => 'תבניות דואר אלקטרוני',
+  'LBL_MODULE_NAME_SINGULAR' => 'תבנית דואר אלקטרוני',
+  'LBL_MODULE_NAME_SINGULAR_WORKFLOW' => 'תבנית דואר אלקטרוני  זרימת עבודה',
   'LBL_MODULE_NAME_WORKFLOW' => 'תבנית דואר אלקטרוני למהלכי עבודה',
   'LBL_MODULE_TITLE' => 'תבניות דואר אלקטרוני: דף ראשי',
   'LBL_NAME' => 'שם:',
@@ -64,6 +64,7 @@ $mod_strings = array (
   'LBL_SHOW_ALT_TEXT' => 'הצג כטקסט פשוט',
   'LBL_SUBJECT' => 'נושא:',
   'LBL_SUGAR_DOCUMENT' => 'מסמך',
+  'LBL_TEAM' => 'צוותים',
   'LBL_TEAMS' => 'צוותים:',
   'LBL_TEAMS_LINK' => 'צוותים',
   'LBL_TEXT_BODY' => 'גוף ההודעה',

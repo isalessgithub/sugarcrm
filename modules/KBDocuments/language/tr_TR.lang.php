@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Doküman Oluşturuldu',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Doküman İsmi',
   'ERR_DOC_VERSION' => 'Doküman Sürümü',
   'ERR_FILENAME' => 'Dosya ismi',
+  'ERR_FILESIZE' => 'Dosya çok büyük. Max dosya boyutu:',
   'LBL_ACTIVE_DATE' => 'Yayın Tarihi',
   'LBL_AND' => 've',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Etiketleri Makalelere uyguluyor ...',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Kontratlar',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'İlişkili Kontratlar',
   'LBL_CONTRACT_NAME' => 'Kontrat İsmi:',
+  'LBL_CONTRACT_STATUS' => 'Kontrat durumu:',
   'LBL_CREATED' => 'Oluşturan',
   'LBL_CREATED_BY' => 'Oluşturan',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Doküman Id',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDoküman Revizyon No',
   'LBL_KBDOC_APPROVED_BY' => 'Onaylayan Kişi:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Onaylayanın İsmi',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_eki',
   'LBL_KBDOC_ATTS_TITLE' => 'Ekleri indir:',
   'LBL_KBDOC_BODY' => 'Gövde:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'En son Revizyon Id',
   'LBL_LATEST_REVISION_NAME' => 'En son Revizyon İsmi',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Etiket Tarayıcı Yükleniyor ...',
+  'LBL_LINKED_ID' => 'Bağlantı ID',
   'LBL_LIST_ACTIVE_DATE' => 'Yayın Tarihi',
   'LBL_LIST_APPROVED_BY' => 'Onaylayan Kişi',
   'LBL_LIST_ARTICLES' => 'Makaleleri Göster',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Geçerli bir dosya değil',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Üst Kayıt Tipi',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Bir arama terimi sağlayarak makale listesini filtreleyebilirsiniz.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Örneğin, İlgi çekici belirli bir konu ile ilgili makale bulmak için bunu kullanabilirsiniz.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Bilgi Bankası modülü yayınlanmış makaleler ile çalışmak içindir. Hızlı bir tur atmak için aşağıdaki okları kullanın.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Bu sayfa yayınlanan makalelerin listesini gösterir.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Buraya tıklayarak herhangi bir anda Bilgi Bankasına geri dönebilirsiniz.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Önceden Kaydedilmiş Aramalar:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Var olan Kaydedilmiş Aramayı Değiştir veya Sil.',
   'LBL_PUBLISHED' => 'Yayınlandı:',
@@ -180,13 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Doküman Arama',
   'LBL_SEARCH_TAG' => 'Ara',
   'LBL_SEARCH_WITHIN' => 'İçinde ara:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Seçilen Revizyon Dosya İsmi',
+  'LBL_SELECTED_REVISION_ID' => 'Seçili Revizyon Id',
   'LBL_SELECTED_REVISION_NAME' => 'Seçili Revizyon İsmi',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Etiketlerin Uygulanacağı Makaleleri Seç',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'İlk Makaleleri Seç',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'İlk Makaleleri Seç',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Yeni Etiket Oluştur',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Ağaçtan Bir Etiket Seç',
-  'LBL_SELECT_NODE' => 'Bir düğüm seçin',
+  'LBL_SELECT_NODE' => 'Bir nod seçin',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Ağaçtan Üst Etiketi seçin',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Ağaçtan üst etiketi seçin',
   'LBL_SELECT_TAG' => 'Etiket Seç',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Bu Etiketi Kullanan:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Etiketsiz Makaleler',
   'LBL_UPDATE' => 'Güncelle',
+  'LBL_VIEWS_NUMBER' => 'Görüntüleme Numarası',
   'LNK_KBDOCUMENT_LIST' => 'Doküman Listesi',
   'LNK_NEW_ARTICLE' => 'Makale Oluştur',
   'LNK_NEW_MAIL_MERGE' => 'Posta Birleştir',

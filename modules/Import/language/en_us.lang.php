@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:    Defines the English language pack for the base application.
@@ -23,7 +20,7 @@ global $timedate;
  
 $mod_strings = array (
     'LBL_GOOD_FILE' => 'Import File Read Successfully',
-    'LBL_RECORDS_SKIPPED_DUE_TO_ERROR' => 'rows were not imported due to error',
+    'LBL_RECORDS_SKIPPED_DUE_TO_ERROR' => 'number of errors were found.  View error tab for rows that were not imported due to error',
     'LBL_UPDATE_SUCCESSFULLY' => 'records updated successfully',
     'LBL_SUCCESSFULLY_IMPORTED' => 'records were created',
     'LBL_STEP_4_TITLE' => 'Step {0}: Import File',
@@ -37,18 +34,15 @@ $mod_strings = array (
     'LBL_UPDATE_BUTTON' => 'Create new records and update existing records',
     'LBL_CREATE_BUTTON_HELP' => 'Use this option to create new records. Note: Rows in the import file containing values that match the IDs of existing records will not be imported if the values are mapped to the ID field.',
     'LBL_UPDATE_BUTTON_HELP' => 'Use this option to update existing records. The data in the import file will be matched to existing records based on the record ID in the import file.',
-    'LBL_ERROR_INVALID_BOOL'=>'Invalid boolean value',
     'LBL_NO_ID' => 'ID Required',
     'LBL_PRE_CHECK_SKIPPED' => 'Pre-Check skipped',
-    'LBL_IMPORT_ERROR' => 'Import errors:',
-    'LBL_ERROR' => 'Error',
     'LBL_NOLOCALE_NEEDED' => 'No locale conversion needed',
     'LBL_FIELD_NAME' => 'Field Name',
     'LBL_VALUE' => 'Value',
     'LBL_ROW_NUMBER' => 'Row Number',
     'LBL_NONE' => 'None',
     'LBL_REQUIRED_VALUE' => 'Required value missing',
-    'LBL_ERROR_SYNC_USERS' => 'Invalid value to sync to Outlook: ',
+    'LBL_ERROR_SYNC_USERS' => 'Invalid value to sync to Mail Client: ',
     'LBL_ID_EXISTS_ALREADY' => 'ID already exists in this table',
     'LBL_ASSIGNED_USER' => 'If the user does not exist use the current user',
     'LBL_SHOW_HIDDEN' => 'Show fields that are not normally importable',
@@ -72,10 +66,8 @@ $mod_strings = array (
     'LBL_ERROR_INVALID_PHONE' => 'Invalid phone number',
     'LBL_ERROR_INVALID_NAME' => 'String too long to fit in the field',
     'LBL_ERROR_INVALID_VARCHAR' => 'String too long to fit in the field',
-    'LBL_ERROR_INVALID_DATE' => 'Invalid date',
     'LBL_ERROR_INVALID_DATETIME' => 'Invalid datetime',
     'LBL_ERROR_INVALID_DATETIMECOMBO' => 'Invalid datetime',
-    'LBL_ERROR_INVALID_TIME' => 'Invalid time',
     'LBL_ERROR_INVALID_INT' => 'Invalid integer value',
     'LBL_ERROR_INVALID_NUM' => 'Invalid numeric value',
     'LBL_ERROR_INVALID_TIME' => 'Invalid time',
@@ -100,6 +92,7 @@ $mod_strings = array (
     'LBL_IMPORT_MODULE_ERROR_LARGE_FILE' => 'File is too large. Max:',
     'LBL_IMPORT_MODULE_ERROR_LARGE_FILE_END' => 'Bytes. Change $sugar_config[\'upload_maxsize\'] in config.php',
     'LBL_MODULE_NAME' => 'Import',
+    'LBL_MODULE_NAME_SINGULAR' => 'Import',
     'LBL_TRY_AGAIN' => 'Try Again',
     'LBL_START_OVER' => 'Start Over',
     'LBL_ERROR' => 'Error:',
@@ -282,8 +275,7 @@ $mod_strings = array (
     'LBL_IMPORT_RECORDS_OF' => 'of',
     'LBL_IMPORT_RECORDS_TO' => 'to',
     'LBL_CURRENCY' => 'Currency:',
-	'LBL_CURRENCY_SIG_DIGITS' => 'Currency Significant Digits',
-	'LBL_LOCALE_EXAMPLE_NAME_FORMAT' => 'Example',
+    'LBL_SYSTEM_SIG_DIGITS' => 'System Significant Digits',
     'LBL_NUMBER_GROUPING_SEP' => '1000s separator:',
     'LBL_DECIMAL_SEP' => 'Decimal symbol:',
     'LBL_LOCALE_DEFAULT_NAME_FORMAT' => 'Name Display Format',
@@ -303,7 +295,6 @@ $mod_strings = array (
     'LBL_ROW_HELP' => 'This column displays the data in the first non-header row of the import file. If the header row labels are appearing in this column, click Back to specify the header row in the Import File Properties.',
     'LBL_SAVE_MAPPING_HELP' => 'Enter a name to save the import settings, including the field mappings and indexes used for the duplicate check. Saved import settings can be used for future imports.',
     'LBL_IMPORT_FILE_SETTINGS_HELP' => 'During the upload of your import file, some file properties might have been automatically detected. View and manage these properties, as<br> necessary. Note: The settings provided here pertain to this import<br> and will not override your overall User Settings.',
-	'LBL_IMPORT_FILE_SETTINGS' => 'Import File Settings',
     'LBL_VERIFY_DUPLCATES_HELP' => 'Find existing records in the system that could be considered duplicates of the records about to be imported  by performing a duplicate check for matching data.  Fields dragged into the "Check Data" column will be used for the duplicate check.  The rows in your import file containing matching data will be listed within the next page, and you will be able to select which rows to import',
     'LBL_IMPORT_STARTED' => 'Import Started:',
     'LBL_IMPORT_FILE_SETTINGS' => 'Import File Settings',
@@ -331,10 +322,9 @@ $mod_strings = array (
     'LBL_SELECT_DS_INSTRUCTION' => 'Ready to start importing? Select the source of the data that you would like to import.',
     'LBL_SELECT_UPLOAD_INSTRUCTION' => 'Select a file on your computer that contains the data that you would like to import, or download the template to get a head start on creating the import file.',
     'LBL_SELECT_PROPERTY_INSTRUCTION' => 'Here is how the the first several rows of the import file appear with the detected file properties. If a header row was detected, it is displayed in the top row of the table. View the import file properties to make changes to the detected properties and to set additional properties. Updating the settings will update the data appearing in the table.',
-    'LBL_SELECT_MAPPING_INSTRUCTION' => 'The table below contains all of the fields in the module that can be mapped to the data in the import file. If the file contains a header row, the columns in the file have been mapped to matching fields. Check the mappings to make sure that they are what you expect, and make changes, as necessary. To help you check the mappings, Row 1 displays the data in the file. Be sure to map to all of the required fields (noted by an asterisk).',
+    'LBL_SELECT_MAPPING_INSTRUCTION' => 'The table below contains all of the fields in the module that can be mapped to the data in the import file. If the file contains a header row, the columns in the file have been mapped to matching fields. If the import data contain dates, the year must be in YYYY format. Check the mappings to make sure that they are what you expect, and make changes, as necessary. To help you check the mappings, Row 1 displays the data in the file. Be sure to map to all of the required fields (noted by an asterisk).',
     'LBL_SELECT_DUPLICATE_INSTRUCTION' => 'To avoid creating duplicate records, select which of the mapped fields you would like to use to perform a duplicate check while data is being imported. Values within existing records in the selected fields will be checked against the data in the import file. If matching data is found, the rows in the import file containing the data will be displayed along with the import results (next page). You will then be able to select which of these rows to continue importing.',
     'LBL_EXT_SOURCE_SIGN_IN' => 'Sign In',
-    'LBL_EXT_SOURCE_SIGN_OUT' => 'Sign Out',
     'LBL_DUP_HELP' => 'Here are the rows in the import file that were not imported because they contain data that matches values in existing records based on the duplicate check. The data that matches is highlighted. To re-import these rows, download the list, make changes and click <b>Import Again</b>.',
     'LBL_DESELECT' => 'deselect',
     'LBL_SUMMARY' => 'Summary',
@@ -348,6 +338,6 @@ $mod_strings = array (
     'LBL_EXTERNAL_DEFAULT_TOOPLTIP' => 'Indicate a value to use for the field in the created record if the field in the external source contains no data.',
     'LBL_EXTERNAL_ASSIGNED_TOOLTIP' => 'To assign the new records to a user other than yourself, use the Default Value column to select a different user.',
     'LBL_EXTERNAL_TEAM_TOOLTIP' => 'To assign the new records to teams other than your default team(s), use the Default Value column to select different teams.',
-    'LBL_SIGN_IN_HELP' => 'To enable this service, please sign in under the External Accounts tab within your user settings page.'
+    'LBL_SIGN_IN_HELP' => 'To enable this service, please sign in under the External Accounts tab within your user settings page.',
+    'LBL_NO_EMAIL_DEFS_IN_MODULE' => "Trying to handle email addresses in a Bean that doesn't support it.",
 );
-?>

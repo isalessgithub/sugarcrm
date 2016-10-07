@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -39,11 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Ne zovi',
   'LBL_EDIT_BUTTON' => 'Izmeni',
   'LBL_EMAIL_ADDRESS' => 'Email adresa(e)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Ostali E-mailovi',
+  'LBL_FACEBOOK' => 'Facebook nalog',
   'LBL_FAX_PHONE' => 'Faks',
   'LBL_FIRST_NAME' => 'Ime',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_HOME_PHONE' => 'Kućni telefon',
+  'LBL_IMPORT_VCARDTEXT' => 'Automatski kreiraj novi kontakt uvoženjem digitalne vizit karte sa vašeg sistema.',
   'LBL_LAST_NAME' => 'Prezime',
+  'LBL_LINKEDIN' => 'Linkedin nalog',
   'LBL_MOBILE_PHONE' => 'Mob. telefon',
   'LBL_NAME' => 'Ime',
   'LBL_OFFICE_PHONE' => 'Poslovni telefon',
@@ -66,8 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Opština',
   'LBL_STREET' => 'Druga adresa',
   'LBL_TITLE' => 'Titula',
-  'LBL_TWITTER_ID' => 'Twitter korisničko ime',
+  'LBL_TWITTER' => 'Twitter nalog',
   'LBL_WORK_PHONE' => 'Poslovni telefon',
   'LNK_IMPORT_VCARD' => 'Kreiraj iz digitalne vizit karte',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Kopiraj alternativnu adresu u primarnu adresu',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Kopiraj primarnu u alternativnu adresu',
 );
 

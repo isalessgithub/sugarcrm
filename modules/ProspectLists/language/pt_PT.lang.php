@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Entidades',
   'LBL_ASSIGNED_TO' => 'Atribuído a:',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campanhas',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contactos',
   'LBL_COPY_PREFIX' => 'Cópia de',
   'LBL_CREATED' => 'Criado por:',
@@ -32,6 +30,24 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Não enviar para este Domínio:',
   'LBL_DOMAIN_NAME' => 'Nome do Domínio',
   'LBL_ENTRIES' => 'Total de Entradas:',
+  'LBL_HELP_CREATE' => 'O módulo de {{plural_module_name}} consiste em uma colecção de indivíduos ou organizações que quer incluir ou excluir numa {{campaigns_singular_module}} de marketing em massa. 
+
+Para criar uma {{module_name}}:
+1. Fornecer valores para os campos como desejado.
+ - Campos marcados como "Obrigatórios" deverão ser preenchidos antes de gravar.
+ - Carregar "Mostrar mais" para mostrar campos adicionais se necessário.
+
+2. Carregar em "Gravar" para finalizar o novo registo e retornar à página anterior.
+ - Escolher "Gravar e ver" para abrir a nova {{module_name}} na visualização do registo.
+ - Escolher "Gravar e criar novo" para criar imediatamente outra nova {{module_name}}.',
+  'LBL_HELP_RECORD' => 'O módulo de {{plural_module_name}} consiste em uma colecção de indivíduos ou organizações que quer incluir ou excluir numa {{campaigns_singular_module}} de marketing em massa. 
+
+Edite os campos deste registo carregando em um campo individualmente ou no botão Editar.
+- Visualize ou modifique ligações para outros registos nos sub-paineis alterando o painel esquerdo do fundo para "Visualização de Dados".
+- Crie e visualize comentários de utilizador e grande alterações do histórico no {{activitystream_singular_module}}  alterando o painel esquerdo do fundo para "Fluxo de Actividade".
+- Siga ou torne favorito este registo utilizando os ícones à direita do nome do registo.
+- Acções adicionais estão disponíveis no menu de selecção Acções à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O módulo de {{plural_module_name}} consiste em uma colecção de indivíduos ou organizações que quer incluir ou excluir numa {{campaigns_singular_module}} de marketing em massa. {{plural_module_name}} podem conter qualquer número ou combinação de Objectivos, {{contacts_module}}, {{leads_module}}, Utilizadores e {{accounts_module}}. Objectivos podem ser agrupados em {{module_name}} segundo um conjunto de critérios pré-determinados como grupo de idade, localização geográfica ou hábitos de consumo. {{plural_module_name}} são usadas em envios de emails em massa de {{campaigns_module}} de marketing que podem ser configuradas no módulo de {{campaigns_module}}.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_DESCRIPTION' => 'Descrição',
   'LBL_LIST_END_DATE' => 'Data Final',

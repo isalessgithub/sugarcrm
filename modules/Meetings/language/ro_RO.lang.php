@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge intalnirea',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Memento email trimis',
   'LBL_EMAIL_REMINDER_TIME' => 'Memento Email',
   'LBL_EMPTY_SEARCH_RESULT' => 'Ne pare rau, nu au fost găsite rezultate. Vă rugăm să creaţi un invitat de mai jos.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'S-a produs o eroare la lansarea acestei întâlniri. Vă rugăm să contactaţi Administratorul.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Alocat utilizatorului ID',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Alocat utilizatorului',
   'LBL_EXPORT_CREATED_BY' => 'Creat de ID',
@@ -80,6 +78,12 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Nu esti in masura sa participi la aceasta Conferinta, pt ca nu esti invitat',
   'LBL_EXTNOT_RECORD_LINK' => 'Vezi Conferinta',
   'LBL_FIRST_NAME' => 'Nume:',
+  'LBL_HELP_CREATE' => 'Modulul {{plural_module_name}} este format din înregistrări {{meetings_singular_module}} introduse de utilizatorii din organizaţia dvs. {{plural_module_name}} poate fi în starea "Programat", "În aşteptare" sau "Anulat". Utilizatorii Sugar, precum şi {{contacts_module}} şi {{leads_module}} pot fi adăugaţi ca invitaţi.
+Pentru a crea {{meetings_singular_module}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Adaugă invitaţi la  {{meetings_singular_module}}. - Apasă "Selectează un participant" pentru a adăuga un utilizator, contact sau responsabil existent la {{meetings_singular_module}}. - Apasă pictograma plus din dreapta "Selectează un participant" pentru a crea un participant {{meetings_singular_module}} ca înregistrare Sugar nouă. 3. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noua întâlnire în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{meetings_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} este format din înregistrări {{meetings_singular_module}} introduse de utilizatorii din organizaţia dvs. {{plural_module_name}} poate fi în starea "Programat", "În aşteptare" sau "Anulat". Utilizatorii Sugar, precum şi {{contacts_module}} şi {{leads_module}} pot fi adăugaţi ca invitaţi. - Editează câmpurile acestei înregistrări apăsând pe fiecare câmp individual sau pe butonul Editare. - Vizualizează sau modifică linkuri către alte înregistrări in panourile secundare, trecând fereastra din stânga jos în stadiul "Vizualizare Date". - Creează şi vizualizează comentariile altor utilizatori şi istoricul modificărilor în {{activitystream_singular_module}} trecând fereastra din stânga jos în stadiul "Flux de activitate". - Urmăreşte sau marchează ca favorit această înregistrare folosind pictogramele din dreapta numelui înregistrării. - Sunt disponibile acţiuni suplimentare în meniul cu listă derulantă Acţiuni din dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} este format din înregistrări de întâlniri care pot avea starea "Programat", "În aşteptare" sau "Anulat". Întâlnirile viitoare programate în următoarele 24 de ore au data de începere subliniată cu albastru. Întâlnirile restante au data de începere subliniată cu roşu.
+Din această fereastră de vizualizare a listelor {{plural_module_name}}, puteţi vizualiza şi edita în linie informaţiile despre întâlniri. Sunt disponibile acţiuni suplimentare în meniu, la capătul fiecărui rând de întâlniri. Puteţi selecta "Închidere" din meniul de pe oricare rând de întâlniri programate pentru a-l marca în aşteptare.
+Utilizatorii, contactele şi responsabilii Sugar pot fi adăugaţi ca invitaţi la întâlnire. {{plural_module_name}} poate fi creat prin modulul {{plural_module_name}}, modulul Calendar, importare, precum şi prin panoul secundar Activităţi (pentru modulele Legacy) sau componenta Activităţi planificate (pentru modulele Sidecar) în înregistrări de module relaţionate (de ex. Contacte, Conturi etc.), ceea ce creează imediat o relaţie între ambele înregistrări.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Note',
   'LBL_HOST_EXT_MEETING' => 'Inceperea Conferintei',
   'LBL_HOST_URL' => 'Host URL',
@@ -87,6 +91,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => 'ore/minute',
   'LBL_INVITEE' => 'Invitat',
   'LBL_JOIN_EXT_MEETING' => 'Alăturaţi-vă de conferinţei',
+  'LBL_JOIN_MEETING' => 'Participă la {{meetingType}}',
   'LBL_LAST_NAME' => 'Prenume',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Antete',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Utilizator Atribuit',
@@ -105,6 +110,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Timp Inceput',
   'LBL_LOCATION' => 'Locatia:',
   'LBL_MEETING' => 'Intalnire:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Întâlnire încheiată cu succes.',
   'LBL_MEETING_INFORMATION' => 'Trecere in revista a intalnirii',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Modificat de',
@@ -112,6 +118,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Intalniri',
   'LBL_MODULE_NAME_SINGULAR' => 'Intalnire:',
   'LBL_MODULE_TITLE' => 'Intalniri : Acasa',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Întâlnirile mele programate',
   'LBL_NAME' => 'Nume',
   'LBL_NEW_FORM_TITLE' => 'Creeaza Intalnire',
   'LBL_NO_ACCESS' => 'Nu poti accesa acest raport din cauza restrictiilor de permisiune.',
@@ -120,6 +127,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Tip Parinte',
   'LBL_PASSWORD' => 'Parola:',
   'LBL_PHONE' => 'Telefon',
+  'LBL_POPUP_REMINDER' => 'Memento în pop-up',
+  'LBL_POPUP_REMINDER_TIME' => 'Fereastră pop-up memento',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Ai programat {{moduleSingularLower}} pentru {{formatDate date_start}}, dar nu ai permisiunea de acces.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ai programat {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> pentru {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Repetare',
   'LBL_RECURRING_LIMIT_ERROR' => 'Această recurentă $ titlu modul nu poate fi programat, deoarece depășește reapariția maximă permisă de $ limită.',
   'LBL_RECURRING_SOURCE' => 'Sursa periodica',
@@ -130,6 +141,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Trimite email tuturor invitatilor',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Timpul Mementoului',
+  'LBL_REMINDER_TITLE' => 'Intalnire',
   'LBL_REMOVE' => 'Sterge',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Sterge toate repetarile',
   'LBL_REPEAT_COUNT' => 'numarul de repetari',
@@ -142,6 +154,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Repeat Parent ID',
   'LBL_REPEAT_TYPE' => 'Repeta',
   'LBL_REPEAT_UNTIL' => 'Repeta inainte',
+  'LBL_REVENUELINEITEMS' => 'Elemente venit',
   'LBL_SCHEDULING_FORM_TITLE' => 'Programare',
   'LBL_SEARCH_BUTTON' => 'Cauta',
   'LBL_SEARCH_FORM_TITLE' => 'Cautare intalinre',
@@ -150,6 +163,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Trimite Invitatii[Alt+I]',
   'LBL_SEND_INVITES' => 'Trimite invitatii',
   'LBL_SEQUENCE' => 'Actualizare Reuniune',
+  'LBL_START_MEETING' => 'Începe {{meetingType}}',
   'LBL_STATUS' => 'Statut',
   'LBL_SUBJECT' => 'Subiect',
   'LBL_SYNCED_RECURRING_MSG' => 'Acest apel are originea într-un alt sistem şi a fost sincronizate cu Sugar. Pentru a efectua modificări, du-te la apelul iniţial în alt sistem. Modificările efectuate în alt sistem poate fi sincronizat la acest record.',

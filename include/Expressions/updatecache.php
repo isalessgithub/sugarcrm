@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry'))define('sugarEntry', true);
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Traverses the Arithmetic directory and builds the cache of
@@ -85,7 +82,6 @@ function recursiveParse($dir, $silent = false)
 		$op_name     = call_user_func(array($entry, "getOperationName"));
 		$types 		 = call_user_func(array($entry, "getParameterTypes"));
 
-
 		if ( empty($op_name) )	{
 			if ($silent === false) {
 				echo "<i>EMPTY OPERATION NAME $entry</i><br>";
@@ -98,14 +94,19 @@ function recursiveParse($dir, $silent = false)
 		$parent_class = get_parent_class($entry);
 		$parent_types = call_user_func(array($parent_class, "getParameterTypes"));
 
+        //This is a workaround for out-of-order filesystem loading.  On some systems, things that extend base
+        //expressions load before what they extend have loaded.
+        if ($js_code !== false) {
+
 		$js_contents .= <<<EOQ
 /**
  * Construct a new $entry.
  */
-SUGAR.$entry = function(params) {
+SUGAR.expressions.$entry = function(params, context) {
+	this.context = context;
 	this.init(params);
 }
-SUGAR.util.extend(SUGAR.$entry, SUGAR.$parent_class, {
+SUGAR.util.extend(SUGAR.expressions.$entry, SUGAR.expressions.$parent_class, {
     className: "$entry",
 	evaluate: function() {
 $js_code
@@ -157,7 +158,7 @@ EOQ;
 
 
 $js_contents .= "});\n\n";
-
+}
 		foreach ($op_name as $alias)
 		{
 	        //echo the entry
@@ -207,10 +208,7 @@ create_cache_directory("Expressions/functionmap.php");
 
 $fmap = sugar_cached("Expressions/functionmap.php");
 // now write the new contents to functionmap.php
-$fh = fopen($fmap, 'w');
-fwrite($fh, $new_contents);
-fclose($fh);
-
+sugar_file_put_contents($fmap, $new_contents);
 
 // write the functions cache file
 $cache_contents = $contents["javascript"];
@@ -228,7 +226,7 @@ EOQ;
 if ( isset($FUNCTION_MAP) && is_array($FUNCTION_MAP) ) {
     foreach ( $FUNCTION_MAP as $key=>$value ) {
         $entry = $FUNCTION_MAP[$key]['class'];
-        $cache_contents .= "\t'$key'\t:\tSUGAR.$entry,";
+        $cache_contents .= "\t'$key'\t:\tSUGAR.expressions.$entry,";
     }
 }
 $cache_contents = substr($cache_contents, 0, -1);
@@ -252,10 +250,11 @@ $cache_contents = substr($cache_contents, 0, -1);
 $cache_contents .= "};\n";
 
 create_cache_directory("Expressions/functions_cache_debug.js");
-file_put_contents(sugar_cached("Expressions/functions_cache_debug.js"), $cache_contents);
+sugar_file_put_contents(sugar_cached("Expressions/functions_cache_debug.js"), $cache_contents);
 
 
 require_once("jssource/minify_utils.php");
-CompressFiles(sugar_cached('Expressions/functions_cache_debug.js'), sugar_cached('Expressions/functions_cache.js'));
+$minifyUtils = new SugarMinifyUtils();
+$minifyUtils->CompressFiles(sugar_cached('Expressions/functions_cache_debug.js'), sugar_cached('Expressions/functions_cache.js'));
 if (!$silent) echo "complete.";
 ?>

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,6 +46,23 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modifié par (ID)',
   'LBL_EXPORT_PARENT_ID' => 'Relatif à (ID)',
   'LBL_EXPORT_PARENT_TYPE' => 'Relatif à',
+  'LBL_HELP_CREATE' => 'Le module {{plural_module_name}} permet de gérer des actions, des listes de tâches, ou tout autres type d&#39;activité qui requière un achèvement.
+
+Pour créer une {{module_name}}:
+1. Remplir les champs désirés.
+ - Les champs identifiés comme "Obligatoire" doivent être remplis avant de sauvegarder.
+ - Cliquer sur "Voir plus" pour afficher plus de champs de qualification.
+2. Cliquer sur "Sauvegarder" pour finaliser l&#39;enregistrement et retourner sur la page précédente.
+ - Cliquer sur "Sauvegarder et Afficher" Pour ouvrer la nouvelle {{module_name}}.
+ - Cliquer sur "Sauvegarder et Créer" pour créer immédiatement une autre {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Le module {{plural_module_name}} permet de gérer des actions, des listes de tâches, ou tout autres type d&#39;activité qui requière un achèvement.
+
+- Editer chaque champs en cliquant directement sur le champ concerné ou en cliquant sur le bouton Editer.
+- Voir ou modifier les liaisons avec les autres enregistrements via les sous-pannels.
+- Voir et participer aux commentaire et au flux d&#39;activité via le module {{activitystream_singular_module}} en cliquant sur le bouton "Flux d’activité".
+- Suivre ou mettre en favoris l&#39;enregistrement en utilisant les icônes prévues à cet effet à droite du nom de l&#39;enregistrement.
+- Des actions complémentaires sont disponibles dans la listes déroulantes des actions à droite du bouton Editer.',
+  'LBL_HELP_RECORDS' => 'Le module {{plural_module_name}} permet de gérer des actions, des listes de tâches, ou tout autres type d&#39;activité qui requière un achèvement. Les {{module_name}} peuvent être relié à un enregistrement principal de la majorité des module via le champ "Relatif à" et peut être relié aussi à un {{contacts_singular_module}} principale. Il y a plusieurs manière de créer des {{plural_module_name}} dans Sugar via le module {{plural_module_name}}, dupliquer ou importer des {{plural_module_name}}, etc. Une fois la {{module_name}} créé, vous pouvez voir et éditer les informations du la {{module_name}} via la vue Enregistrement du module {{plural_module_name}}. En fonction des informations sur la {{module_name}}, vous pouvez afficher et éditer la {{module_name}} via le module Calendrier. Chaque enregistrement de {{module_name}} peuvent être liés à d&#39;autre enregistrements comme des {{accounts_module}}, {{contacts_module}} ou {{opportunities_module}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notes',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Assigné à',
   'LBL_LIST_CLOSE' => 'Fermer',
@@ -75,11 +89,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Planifier une Tâche',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'Indéfini',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_PARENT_ID' => 'ID Parent :',
   'LBL_PARENT_NAME' => 'Type de Parent :',
   'LBL_PHONE' => 'Téléphone:',
   'LBL_PRIORITY' => 'Priorité:',
-  'LBL_RELATED_TO' => 'Relatif à :',
+  'LBL_REVENUELINEITEMS' => 'Lignes de revenu',
   'LBL_SEARCH_FORM_TITLE' => 'Recherche de Tâche',
   'LBL_START_DATE' => 'Date de début:',
   'LBL_START_DATE_AND_TIME' => 'Date et Heure début:',
@@ -87,6 +102,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'Statut:',
   'LBL_SUBJECT' => 'Sujet:',
   'LBL_TASK' => 'Tâches:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Tâche clôturée avec succès.',
   'LBL_TASK_INFORMATION' => 'Informations Tâches',
   'LNK_IMPORT_TASKS' => 'Import Tâche',
   'LNK_NEW_TASK' => 'Créer Tâche',

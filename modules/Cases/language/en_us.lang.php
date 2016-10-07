@@ -1,29 +1,17 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
-	'ERR_DELETE_RECORD'					=> 'You must specify a record number to delete the account.',
-
+	'ERR_DELETE_RECORD'					=> 'You must specify a record number to delete the Account.',
 	'LBL_ACCOUNT_ID'					=> 'Account ID',
 	'LBL_ACCOUNT_NAME'					=> 'Account Name:',
 	'LBL_ACCOUNTS_SUBPANEL_TITLE'		=> 'Accounts',
@@ -43,7 +31,8 @@ $mod_strings = array (
 	'LBL_HISTORY_SUBPANEL_TITLE'		=> 'History',
 	'LBL_INVITEE'						=> 'Contacts',
 	'LBL_MEMBER_OF'						=> 'Account',
-	'LBL_MODULE_NAME'					=> 'Cases',
+    'LBL_MODULE_NAME'					=> 'Cases',
+    'LBL_MODULE_NAME_SINGULAR'			=> 'Case',
 	'LBL_MODULE_TITLE'					=> 'Cases: Home',
 	'LBL_NEW_FORM_TITLE'				=> 'New Case',
 	'LBL_NUMBER'						=> 'Number:',
@@ -53,9 +42,10 @@ $mod_strings = array (
 	'LBL_RESOLUTION'					=> 'Resolution:',
 	'LBL_SEARCH_FORM_TITLE'				=> 'Case Search',
 	'LBL_STATUS'						=> 'Status:',
+    'LBL_SOURCE' => 'Source:',
 	'LBL_SUBJECT'						=> 'Subject:',
 	'LBL_SYSTEM_ID'						=> 'System ID',
-	'LBL_LIST_ASSIGNED_TO_NAME' 		=> 'Assigned User',
+    'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
 	'LBL_LIST_ACCOUNT_NAME'				=> 'Account Name',
 	'LBL_LIST_ASSIGNED'					=> 'Assigned To',
 	'LBL_LIST_CLOSE'					=> 'Close',
@@ -67,16 +57,18 @@ $mod_strings = array (
 	'LBL_LIST_STATUS'					=> 'Status',
 	'LBL_LIST_SUBJECT'					=> 'Subject',
 	'LBL_LIST_ASSIGNED_TO_NAME'   		=> 'Assigned User',
-    'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
-
+	'LBL_SHOW_MORE'				        => 'Show More Cases',
 	'LNK_CASE_LIST'						=> 'View Cases',
-	'LNK_NEW_CASE'						=> 'Create Case',
-	'NTC_REMOVE_FROM_BUG_CONFIRMATION'	=> 'Are you sure you want to remove this case from the bug?',
-	'NTC_REMOVE_INVITEE'				=> 'Are you sure you want to remove this contact from the case?',
+    'LNK_NEW_CASE'						=> 'Create Case',
+    'LBL_CASE_FROM_TWITTER_TITLE'		=> 'Tweet',
+    'LNK_CREATE'                        => 'Create Case',
+    'LNK_CREATE_WHEN_EMPTY'             => 'Create a Case now.',
+	'NTC_REMOVE_FROM_BUG_CONFIRMATION'	=> 'Are you sure you want to remove this Case from the Bug?',
+	'NTC_REMOVE_INVITEE'				=> 'Are you sure you want to remove this Contact from the Case?',
 	'LBL_LIST_DATE_CREATED'			=> 'Date Created',
 	'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-	'LBL_TYPE'=>'Type',
-	'LBL_WORK_LOG'=>'Work Log',
+	'LBL_TYPE' => 'Type',
+	'LBL_WORK_LOG' => 'Work Log',
 	'LNK_IMPORT_CASES' => 'Import Cases',
 	'LNK_CASE_REPORTS' => 'View Case Reports',
 	'LBL_SHOW_IN_PORTAL' => 'Show in Portal',
@@ -113,6 +105,31 @@ $mod_strings = array (
 
     // SNIP
 	'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Related Contacts\' Emails',
-);
 
-?>
+
+    'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
+
+    // Help Text
+    // List View Help Text
+    'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers. {{plural_module_name}} are typically related to an {{accounts_singular_module}} record, and multiple {{plural_module_name}} may be associated to a single {{accounts_singular_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, or converted from email. Once the {{module_name}} is created, you can view and edit information pertaining to the {{module_name}} via the {{module_name}}\'s record view. Each {{module_name}} record may then relate to other Sugar records such as {{calls_module}}, {{contacts_module}}, {{bugs_module}}, and many others.',
+
+    // Record View Help Text
+    'LBL_HELP_RECORD' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers.
+
+- Edit this record\'s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+
+    // Create View Help Text
+    'LBL_HELP_CREATE' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+);

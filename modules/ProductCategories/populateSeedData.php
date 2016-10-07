@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 ///include some fake products and categories as arrays
 ///for now we will just use the account and contact name info
@@ -85,9 +82,11 @@ function create_category($parent_id){
 	$last_name_array = $sugar_demodata['last_name_array'];
 	$last_name_count = count($sugar_demodata['last_name_array']) - 1;
 	$last_name_max = $last_name_count - 1;
-	$category = new ProductCategory();
+	$category = BeanFactory::getBean('ProductCategories');
 	$category->name = $last_name_array[mt_rand(0,$last_name_max)] ." Widgets";
 	$category->parent_id = $parent_id;
+    $key = array_rand($sugar_demodata['users']);
+    $category->assigned_user_id = $sugar_demodata['users'][$key]['id'];
 	$category->save();
 	$cat_id = $category->id;
 	unset($category);
@@ -107,7 +106,7 @@ global $dollar_id;
 global $tekkyware_id;
 $first_name_max = $first_name_count - 1;
 
-	$template = new ProductTemplate();
+	$template = BeanFactory::getBean('ProductTemplates');
 	$template->name = $first_name_array[mt_rand(0,$first_name_max)] ." Gadget";
 	$template->tax_class = "Taxable";
 	$template->manufacturer_id = $tekkyware_id;

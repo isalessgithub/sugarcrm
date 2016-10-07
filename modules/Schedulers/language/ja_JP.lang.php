@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => '不正なcron文法',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => '毎日',
   'LBL_ALWAYS' => '常に',
   'LBL_AND' => 'と',
+  'LBL_ASYNCMASSUPDATE' => '非同期一括アップデートを実行',
   'LBL_AT' => 'at',
   'LBL_AT_THE' => 'At the',
   'LBL_BASIC_OPTIONS' => '基本オプション',
   'LBL_CATCH_UP' => '実行していなければ実行',
   'LBL_CATCH_UP_WARNING' => 'このジョブの実行に時間がかかる場合はチェックをはずしてください。',
   'LBL_CLEANJOBQUEUE' => 'ジョブキューのクリーンアップ',
+  'LBL_CLEANOLDRECORDLISTS' => '古いレコードリストをクリーンアップする',
   'LBL_CRONTAB_EXAMPLES' => '上記は標準のcrontab表記を用いています。',
   'LBL_CRONTAB_SERVER_TIME_POST' => '）に応じて実行されます。スケジューラーの実行時間もそれに沿って設定してください。',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'crontabはサーバのタイムゾーン（',
@@ -82,16 +81,20 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'キャンペーンメールの送信を夜間に実行',
   'LBL_OOTB_CLEANUP_QUEUE' => 'ジョブキューの削除',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => '将来の期間を作成',
+  'LBL_OOTB_HEARTBEAT' => 'Sugarハートビート',
   'LBL_OOTB_IE' => 'インバウンドメール受信箱を確認',
   'LBL_OOTB_PRUNE' => '月初め（１日）に不要なデータベースのデータを削除',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'ファイルシステムからドキュメントの削除',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => '古いレコードリストを取り除く',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => '診断ツールのファイルを削除',
+  'LBL_OOTB_REMOVE_PDF_FILES' => '一時PDFファイルを削除',
+  'LBL_OOTB_REMOVE_TMP_FILES' => '一時ファイルを削除',
   'LBL_OOTB_REPORTS' => 'レポート生成タスクを実行',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Eメールリマインダ通知を送信',
-  'LBL_OOTB_SUGARFEEDS' => 'SugarFeedテーブルを選定する',
   'LBL_OOTB_TRACKER' => '月初め（１日）に不要なトラッカーテーブルを削除',
   'LBL_OOTB_WORKFLOW' => 'ワークフロータスクを実行',
   'LBL_PERENNIAL' => '無期限',
   'LBL_PERFORMFULLFTSINDEX' => 'フルテキスト検索インデックスシステム',
+  'LBL_PMSEENGINECRON' => 'プロセス作成者スケジューラー',
   'LBL_POLLMONITOREDINBOXES' => 'インバウンドメールのアカウントを確認',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => '夜間にキャンペーンのバウンスメールを処理',
   'LBL_PROCESSQUEUE' => 'スケジュ－ルされたレポートを作成',
@@ -99,7 +102,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => '月初め（１日）に不要なデータベースのデータを削除',
   'LBL_RANGE' => '終了',
   'LBL_REFRESHJOBS' => 'ジョブを更新',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'ファイルシステムからドキュメントの削除',
   'LBL_RUNMASSEMAILCAMPAIGN' => '夜間にキャンペーンの一括メール送信を実行',
   'LBL_SAT' => '土曜日',
   'LBL_SCHEDULER' => 'スケジューラー:',
@@ -107,13 +109,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Eメールリマインダの送信を実行',
   'LBL_STATUS' => 'ステータス',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => '将来の期間を作成',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugarハートビート',
   'LBL_SUN' => '日曜日',
   'LBL_THU' => '木曜日',
   'LBL_TIME_FROM' => '開始時間',
   'LBL_TIME_TO' => '終了時間',
   'LBL_TOGGLE_ADV' => '拡張オプション',
   'LBL_TOGGLE_BASIC' => '基本オプション',
-  'LBL_TRIMSUGARFEEDS' => 'SugarFeedテーブルを選定する',
   'LBL_TRIMTRACKER' => '不要なトラッカーテーブルを削除',
   'LBL_TUE' => '火曜日',
   'LBL_UPDATETRACKERSESSIONS' => 'トラッカーセッションテーブルを更新',

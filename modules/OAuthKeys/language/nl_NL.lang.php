@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Toegewezen Gebruikers ID',
-  'LBL_ASSIGNED_TO_NAME' => 'Gebruiker',
+  'LBL_ASSIGNED_TO_ID' => 'Toegewezen aan ID',
+  'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan',
   'LBL_CLIENT_TYPE' => 'Client Type',
   'LBL_CONSKEY' => 'Consumer Key',
   'LBL_CONSSECRET' => 'Consumer Secret',
@@ -27,16 +24,16 @@ $mod_strings = array (
   'LBL_CREATED_ID' => 'Gemaakt Door ID',
   'LBL_CREATED_USER' => 'Aangemaakt Door Gebruiker',
   'LBL_DATE_ENTERED' => 'Datum Aangemaakt',
-  'LBL_DATE_MODIFIED' => 'Datum Gewijzigd',
+  'LBL_DATE_MODIFIED' => 'Datum gewijzigd',
   'LBL_DELETED' => 'Verwijderd',
   'LBL_DESCRIPTION' => 'Omschrijving',
   'LBL_ID' => 'ID',
   'LBL_LIST_FORM_TITLE' => 'OAuth Keys',
   'LBL_LIST_NAME' => 'Key Name',
-  'LBL_MODIFIED' => 'Gewijzigd Door',
-  'LBL_MODIFIED_ID' => 'Gewijzigd Door ID',
-  'LBL_MODIFIED_NAME' => 'Gewijzigd Door Naam',
-  'LBL_MODIFIED_USER' => 'Gewijzigd Door Gebruiker',
+  'LBL_MODIFIED' => 'Gewijzigd door',
+  'LBL_MODIFIED_ID' => 'Gewijzigd door ID',
+  'LBL_MODIFIED_NAME' => 'Gewijzigd door Naam',
+  'LBL_MODIFIED_USER' => 'Gewijzigd door Gebruiker',
   'LBL_MODULE_NAME' => 'OAuth Keys',
   'LBL_MODULE_NAME_SINGULAR' => 'OAuth Key',
   'LBL_MODULE_TITLE' => 'OAuth Keys',

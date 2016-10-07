@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -62,6 +59,8 @@ $mod_strings = array (
   'LBL_ADDRESS_POSTALCODE' => 'Postnummer',
   'LBL_ADDRESS_STATE' => 'Stat',
   'LBL_ADDRESS_STREET' => 'Adresse, gade',
+  'LBL_ADDRESS_STREET_2' => 'Gade adresse 2',
+  'LBL_ADDRESS_STREET_3' => 'Gade adresse 3',
   'LBL_ADMIN' => 'Systemadministrator',
   'LBL_ADMIN_DESC' => 'Brugeren har adgang til alle poster på siden Administration uanset teamsikkerhed.',
   'LBL_ADMIN_USER' => 'Systemadministratorbruger',
@@ -98,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Oprettet af',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_EXAMPLE' => 'Eksempel på valutavisning',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Vis foretrukne valuta',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Konverter basisvaluta til brugernes foretrukne, i liste og rapport visning',
   'LBL_CURRENCY_SIG_DIGITS' => 'Valutabetydende cifre',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Antal decimaler, der skal vises for valuta',
   'LBL_CURRENCY_TEXT' => 'Vælg standardvalutaen',
@@ -127,6 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Rediger faner',
   'LBL_EMAIL' => 'E-mail-adresse',
   'LBL_EMAILS' => 'E-mails',
+  'LBL_EMAIL_ADDRESS' => 'E-mail-adresse',
   'LBL_EMAIL_CHARSET' => 'Udgående tegnsæt',
   'LBL_EMAIL_EDITOR_OPTION' => 'Opret format',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Angiv Gmail som standard',
@@ -159,12 +161,15 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Første ugedag',
   'LBL_FDOW_TEXT' => 'Første dag vist i uge, måned og år visning',
+  'LBL_FILTER_USERS_REPORTS' => 'Brugernes rapporter',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Finder optimale forbindelsesvariabler.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Find den optimale konfiguration',
   'LBL_FIRST_NAME' => 'Fornavn',
   'LBL_FORCE' => 'Gennemtving negativ',
   'LBL_FORCE_DESC' => 'Nogle IMAP/POP3-servere kræver særlige parametre. Kontrollér for at gennemtvinge en negativ parameter ved tilslutning "dvs. /notls"',
+  'LBL_FORECASTS' => 'Prognoser',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Denne valuta er i øjeblikket ikke aktiveret. Kontakt din administrator.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Optimale indstillinger blev fundet. Tryk på knappen nedenfor for at anvende dem til din postkasse.',
   'LBL_GENERATE_PASSWORD' => 'Nulstil adgangskode',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -267,11 +272,11 @@ $mod_strings = array (
   'LBL_MODIFIED_BY_ID' => 'Ændret af id',
   'LBL_MODIFIED_USER_ID' => 'Ændret af',
   'LBL_MODULE_NAME' => 'Brugere',
+  'LBL_MODULE_NAME_SINGULAR' => 'Bruger',
   'LBL_MODULE_TITLE' => 'Brugere: Startside',
   'LBL_MY_TEAMS' => 'Mine team',
   'LBL_NAME' => 'Hele navnet',
   'LBL_NAVIGATION_PARADIGM' => 'Navigation',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Vis moduler grupperet under fanekategorier, eller vis moduler efter bestemte faner for hvert modul.',
   'LBL_NEW_FORM_TITLE' => 'Ny bruger',
   'LBL_NEW_PASSWORD' => 'Ny adgangskode',
   'LBL_NEW_PASSWORD1' => 'Adgangskode',
@@ -284,6 +289,7 @@ $mod_strings = array (
   'LBL_NEW_USER_PASSWORD_3' => 'Adgangskoden blev oprettet.',
   'LBL_NORMAL_LOGIN' => 'Skift til normal visning',
   'LBL_NOTES' => 'Noter',
+  'LBL_NO_KEY' => 'Nøgle er ikke indstillet. Indstil for at aktivere udgivelse.',
   'LBL_NUMBER_GROUPING_SEP' => 'Tusindtalsseparator',
   'LBL_NUMBER_GROUPING_SEP_TEXT' => 'Tegn, der skal bruges til at adskille tusinder',
   'LBL_OAUTH_TOKENS' => 'OAuth Tokens',
@@ -357,6 +363,7 @@ $mod_strings = array (
   'LBL_PROVIDE_USERNAME_AND_EMAIL' => 'Angiv både et brugernavn og en e-mail-adresse.',
   'LBL_PSW_MODIFIED' => 'adgangskoden er sidst ændret',
   'LBL_PUBLISH_KEY' => 'Udgiv nøgle',
+  'LBL_QUOTAS' => 'Kvoter',
   'LBL_REASS_ASSESSING' => 'Vurderer',
   'LBL_REASS_BUTTON_CLEAR' => 'Ryd',
   'LBL_REASS_BUTTON_CONTINUE' => 'Fortsæt',
@@ -430,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Rapporterer til',
   'LBL_REQUEST_SUBMIT' => 'Din anmodning er indsendt.',
   'LBL_RESET_DASHBOARD' => 'Dashboard',
-  'LBL_RESET_HOMEPAGE' => 'Nulstil Startside',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Er du sikker på at du vil nulstille din startside?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Er du sikker på, at du vil nulstille hjemmesiden for denne bruger?',
   'LBL_RESET_PREFERENCES' => 'Nulstil Brugerindstillinger',
   'LBL_RESET_PREFERENCES_WARNING' => 'Er du sikker på, at du vil nulstille alle dine brugerindstillinger? Advarsel! Dette vil også logge dig af programmet.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Er du sikker på, at du vil nulstille alle indstillinger for denne bruger?',
@@ -467,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Underpanellinks',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Vis en række med genvejslinks i underpanelet i detaljevisning.',
-  'LBL_SUBPANEL_TABS' => 'Faner i underpanel',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Gruppér underpaneler i faner i detaljevisning, og vis én fane ad gangen.',
   'LBL_SUGAR_LOGIN' => 'Er Sugar-bruger',
   'LBL_SUPPORTED_THEME_ONLY' => 'Påvirker kun temaer, der understøtter denne indstilling.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Viser panelet Senest vist i siden, hvis det er markeret. Ellers vises det øverst.',
@@ -554,6 +556,7 @@ $mod_strings = array (
   'LBL_WIZARD_WELCOME_NOSMTP' => 'Klik på "næste" for at konfigurere et par grundlæggende indstillinger for brugen af Sugar.',
   'LBL_WIZARD_WELCOME_TAB' => 'Velkommen',
   'LBL_WIZARD_WELCOME_TITLE' => 'Velkommen til Sugar!',
+  'LBL_WORKSHEETS' => 'Regneark',
   'LBL_WORK_PHONE' => 'Telefon "arbejde"',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail adgangskode:',
   'LBL_YAHOOMAIL_SMTPUSER' => 'Yahoo! Mail id:',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Bu kontağı Projeden silmek istediğinizden emin misiniz?',
@@ -135,7 +132,7 @@ $mod_strings = array (
   'LBL_PREDECESSORS' => 'Öncesindekiler',
   'LBL_PREDECESSORS_WIDGET' => 'öncekiler_',
   'LBL_PRIORITY' => 'Öncelik:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Ürünler',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Teklif Kalemleri',
   'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Proje Kaynakları',
   'LBL_PROJECTTASK_SUBPANEL_TITLE' => 'Proje Görevi',
   'LBL_PROJECT_HOLIDAYS' => 'Tatil',
@@ -160,6 +157,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => 'kaynak',
   'LBL_RESOURCE_REPORT' => 'Kaynak Raporu',
   'LBL_RESOURCE_TYPE' => 'Tipi',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Gelir Kalemleri',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Yeni Proje olarak Kaydet',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Yeni Şablon olarak kaydet',
   'LBL_SAVE_AS_PROJECT' => 'Proje olarak kaydet',

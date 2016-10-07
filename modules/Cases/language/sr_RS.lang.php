@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Morate navesti broj zapisa da bi obrisali kompaniju.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Dodaj belešku',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Defekti',
   'LBL_CASE' => 'Slučaj:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Pregled slučajeva',
   'LBL_CASE_NUMBER' => 'Broj slučaja:',
   'LBL_CASE_SUBJECT' => 'Naslov slučaja:',
@@ -53,6 +51,9 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'ID korisnika koji je promenio',
   'LBL_EXPORT_TEAM_COUNT' => 'Veličina tima',
   'LBL_FILENANE_ATTACHMENT' => 'Prilog fajl',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}  se koristi za praćenje i upravljanje problema vezanih za proizvode ili usluge koji su prijavljeni vašoj organizaciji od strane kupaca. . Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '•	{{plural_module_name}}  modul se koristi za praćenje i upravljanje problema vezanih za proizvod ili usluge prijavljenih od strane vaših klijenata. –Izmena polja ovog zapisa klikom na pojedinačno polje ili na dugme Izmeni. - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "To Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}  modul se koristi za praćenje i upravljanje problema vezanih za proizvod ili usluge prijavljenih od strane vaših klijenata. {{plural_module_name}} je tipično povezan sa {{accounts_singular_module}} zapisom, i višestruki {{plural_module_name}} može biti povezan sa jednim {{accounts_singular_module}}. Postoji više načina kako možemo kreirati {{plural_module_name}}  u Sugar-u kao što su {{plural_module_name}} modul, uvoz {{plural_module_name}}, Ili konverzijom sa e-maila. Jednom kada je {{module_name}} kreiran, moguće je pregledati i izmeniti informacije koji se tiču {{module_name}} kroz {{module_name}}-og pregleda zapisa. Svaki {{module_name}} zapis može biti uvezan sa drugim Sugar-ovim zapisima kao što su {{calls_module}}, {{contacts_module}}, {{bugs_module}}, i mnogi drugi.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istorija',
   'LBL_INVITEE' => 'Kontakti',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Baza znanja',
@@ -79,7 +80,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Slučaj:',
   'LBL_MODULE_TITLE' => 'Slučajevi: Početna strana',
   'LBL_NEW_FORM_TITLE' => 'Novi slučaj',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Beleške',
   'LBL_NUMBER' => 'Broj:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Ukoliko želite da prijavite podršci novi slučaj, to možete učiniti klikom ovde.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Možete filtrirati listu slučajeva ukucavanjem pojma za pretragu.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Na primer, možete ovo iskorisiti da pronađete problem koji je ranije prijavljen.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modul Slučajevi služi za upravljanje problemima povezanim sa vašim nalogom. Koristite strelice ispod za brzi obilazak.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Ova strana prikazuje listu postojećih slučajeva povezanih sa vašim nalogom.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Klikom ovde u bilo koje vreme se vraćate na ovaj pogled.',
   'LBL_PORTAL_VIEWABLE' => 'Portal se može pregledati',
   'LBL_PRIORITY' => 'Prioritet:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekti',
@@ -88,6 +96,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga slučajeva',
   'LBL_SHOW_IN_PORTAL' => 'Prikaži u portalu',
   'LBL_SHOW_MORE' => 'Prikaži više',
+  'LBL_SOURCE' => 'Izvor:',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Naslov:',
   'LBL_SYSTEM_ID' => 'ID broj sistema',

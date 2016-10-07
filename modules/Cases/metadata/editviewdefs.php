@@ -1,103 +1,78 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Cases']['EditView'] = array (
-  'templateMeta' => 
-  array (
-    'maxColumns' => '2',
-    'widths' => 
-    array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      'LBL_CASE_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      'LBL_PANEL_ASSIGNMENT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'lbl_case_information' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'case_number',
-          'type' => 'readonly',
-        ),
-      ),
-      1 => 
-      array (
-        0 => 'priority',
-      ),
-      2 => 
-      array (
-        0 => 'status',
-        1 => 'account_name',
-      ),
-      3 => 
-      array (
-        0 => 'type',
-      ),
-      4 => 
-      array (
-        0 => 
-        array (
-          'name' => 'name',
-          'displayParams' => 
-          array (
-            'size' => 75,
-          ),
-        ),
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'nl2br' => true,
-        ),
-      ),
-      6 => 
-      array (
-        0 => 
-        array (
-          'name' => 'resolution',
-          'nl2br' => true,
-        ),
-      ),
-    ),
-    'LBL_PANEL_ASSIGNMENT' => 
-    array (
-      0 => 
-      array (
-        0 => 'assigned_user_name',
-        1 => 
-        array (
-          'name' => 'team_name',
-          'displayParams' => 
-          array (
-            'required' => true,
-          ),
-        ),
-      ),
-    ),
-  ),
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+
+$viewdefs['Cases']['EditView'] = array(
+    'templateMeta' => array('maxColumns' => '2',
+                            'widths' => array(
+                                            array('label' => '10', 'field' => '30'),
+                                            array('label' => '10', 'field' => '30')
+                                            ),
+                           ),
+    'panels' => array (
+
+  'lbl_case_information' =>
+  array(
+	  array (
+	    array('name'=>'case_number', 'type'=>'readonly') ,
+	  ),
+
+	  array (
+	    'priority',
+	  ),
+
+	  array (
+	    'status',
+	    'account_name',
+	  ),
+
+	  array (
+	      'type',
+	      'source',
+	  ),
+	  array (
+	    array (
+	      'name' => 'name',
+	      'displayParams' => array ('size'=>75)
+	    ),
+	  ),
+
+	  array (
+
+	    array (
+	      'name' => 'description',
+	      'nl2br' => true,
+	    ),
+	  ),
+
+	  array (
+
+	    array (
+	      'name' => 'resolution',
+	      'nl2br' => true,
+	    ),
+	  ),
+
+	),
+
+	'LBL_PANEL_ASSIGNMENT' =>
+	array(
+	   array (
+		    'assigned_user_name',
+		    array('name'=>'team_name', 'displayParams'=>array('required'=>true)),
+	   ),
+	),
+),
+
+
 );
+?>

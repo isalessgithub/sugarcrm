@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Kontağı silmek için bir kayıt no&#39;su belirtilmesi zorunludur.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departman:',
   'LBL_DESCRIPTION' => 'Tanım:',
   'LBL_DESCRIPTION_INFORMATION' => 'Tanım Bilgisi',
+  'LBL_DNB_BAL_PREVIEW' => 'Hedef Ön izlemesi',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Hedefler',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Hedef Bilgisi',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Asıl Id',
   'LBL_DO_NOT_CALL' => 'Tel. İle Aramayın:',
   'LBL_DUPLICATE' => 'Muhtemelen Tekrar Eden Hedefler',
   'LBL_EDIT_ACCOUNT_NAME' => 'Müşteri İsmi:',
@@ -74,15 +75,29 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Diğer E-Posta Adresi',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Değiştiren ID',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Hedef Raporları',
   'LBL_FIRST_NAME' => 'İsim:',
   'LBL_FULL_NAME' => 'İsim',
+  'LBL_HELP_CREATE' => '{{module_name}} modülü, hakkında biraz bilgi sahibi olduğunuz, henuz  {{leads_singular_module}} olarak seçmediğiniz bireylerden oluşur.
+
+{{module_name}} kaydı oluşturmak için:
+1. İstenen şekilde alanlara değer giriniz.
+ - "Zorunlu" olarak işaretlenmiş alanların kayıt öncesinde girilmesi gerekmektedir.
+- Gerektiğinde, "Daha Fazlası" seçeneği ile ek alanları gösteriniz.
+2. "Kaydet" tuşuna basarak yeni kaydınızı tamamlayın ve önceki sayfaya dönün.
+- Yeni {{module_name}} kaydını görüntüleme modunda açmak için Kaydet ve Görüntüle seçeneğini kullanın.
+- "Kaydet ve yenisini oluştur" seçeneği ile, kayıt sonrasında, hemen yeni bir {{module_name}} kaydı oluşturun.',
+  'LBL_HELP_RECORD' => '{{module_name}} modülü, henüz bir miktar bilgiye sahip olduğunuz ve  ayıklama sürecinden geçerek {{leads_singular_module}} olarak belirlenmemiş birey potansiyelleri içerir. - Bu kayıtın alanlarını herbir alana tıklayarak veya Değiştir seçeneği ile değiştirebilirsiniz. - Alt sol paneli "Veri Görüntüleme" moduna getirerek, diğer modüller ile ilişkisini görüntüleyebilir veya değiştirebilirsiniz. - Sol alt paneli "Aktivite Akışı" moduna getirerek, kullanıcı yorumlarını ve değişiklik tarihçesini görebilir veya ekleyebilirsiniz. - Kayıtın sağındaki ikonlara tıklayarak izlemeye alabilir veya favori olarak işaretleyebilirsiniz. - Değiştir tuşunun sağındaki Aksiyonlar menüsü ile ek aksiyonlar mümkün olmaktadır.',
+  'LBL_HELP_RECORDS' => '{{module_name}} modülü, henüz bir miktar bilgiye sahip olduğunuz ve  ayıklama sürecinden geçerek {{leads_singular_module}} olarak belirlenmemiş birey potansiyelleri içerir.  {{plural_module_name}} kaydı ile ilgili bilgiler (örneğin  isim, e-posta adresi) normalde fuarlarda, konferanslarda aldığınız iş kartı üzerindeki bilgilerden oluşturulmakta olup, {{contacts_module}}, {{leads_module}}, {{accounts_module}}, veya {{opportunities_module}} ile henüz ilişkisi bulunmayan kayıtlardır.  {{plural_module_name}} kayıdı oluşturmak için Sugar içinde farklı yöntemler bulunmaktadır, örneğin {{plural_module_name}} modülü ile, {{quotes_module}} modülünde, aynı kayıttan oluşturarak, dışarıdan {{plural_module_name}} içeri yükleyerek, vb. {{module_name}} kaydı oluşturulduğunda, {{module_name}} modülündeki eksik bilgileri {{plural_module_name}} kayıt izleme ekranından görebilir ve düzeltebilirsiniz.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Tarihçe',
-  'LBL_HOME_PHONE' => 'Ev Telefonu:',
+  'LBL_HOME_PHONE' => 'Ana Sayfa:',
   'LBL_IMPORT_VCARD' => 'vCard Verisini Yükle',
   'LBL_IMPORT_VCARDTEXT' => 'Dosya sisteminizden vCard verisi yükleyerek otomatik olarak yeni kontak oluştur.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'VCard bilgisinden Hedef başarıyla oluşturuldu',
   'LBL_INVALID_EMAIL' => 'Geçersiz E-Posta:',
   'LBL_INVITEE' => 'Doğrudan Raporlar',
   'LBL_LAST_NAME' => 'Soyisim:',
+  'LBL_LEAD' => 'Potansiyel',
   'LBL_LEAD_ID' => 'Potansiyel ID',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-Posta',
   'LBL_LIST_FIRST_NAME' => 'İsim',
@@ -125,12 +140,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Aday Müşteri Listesi',
   'LBL_PROSPECT_NAME' => 'Hedef İsmi:',
   'LBL_PROSPECT_ROLE' => 'Rol:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Başarılı şekilde {{moduleSingularLower}} oluşturdunuz: <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Hitap',
   'LBL_SAVE_PROSPECT' => 'Hedef kaydet',
   'LBL_SEARCH_FORM_TITLE' => 'Hedef Arama',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'İşaretli Hedefleri Seç',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'İşaretli Hedefleri Seç',
   'LBL_STATE' => 'Eyalet:',
+  'LBL_STREET' => 'Sokak',
   'LBL_TITLE' => 'Unvan:',
   'LBL_TRACKER_KEY' => 'Takip Edici Anahtarı',
   'LNK_CAMPAIGN_LIST' => 'Kampanyalar',
@@ -161,6 +178,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Fırsat oluşturulması için müşteri kaydının olması gerekir.\\n Lütfen yeni bir müşteri oluşturun veya var olan müşterilerden birini seçin.',
   'NTC_REMOVE_CONFIRMATION' => 'Talepten bu kontağı silmek istediğinizden emin misiniz?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Doğrudan raporlanan kişi olarak bu kaydı silmek istediğinizden emin misiniz?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

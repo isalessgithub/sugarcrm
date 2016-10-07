@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: LogView.php 56427 2010-05-13 00:38:18Z smalyshev $
 global $mod_strings;
 if(!is_admin($current_user)){
 	sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
@@ -41,7 +38,7 @@ echo <<<EOQ
 <input type='button' onclick='document.logview.doaction.value="mark";document.logview.submit()' name='mark' value='{$mod_strings['LBL_MARK_POINT']}'>
 <input type='submit' name='display' value='{$mod_strings['LBL_REFRESH_FROM_MARK']}'>
 <input type='button' onclick='document.logview.doaction.value="next";document.logview.submit()' name='next' value='{$mod_strings['LBL_NEXT_']}'>
-<br>
+<br><br>
 {$mod_strings['LBL_SEARCH']} <input type='text' name='filter' value='$filter'>&nbsp;{$mod_strings['LBL_REG_EXP']} <input type='checkbox' name='reg_ex' $reg_ex>
 <br>
 {$mod_strings['LBL_IGNORE_SELF']} <input type='checkbox' name='ignore_self' $ignore_self>
@@ -113,7 +110,7 @@ if (!empty ($_REQUEST['display'])) {
 		$pos = $_SESSION['log_file_size'] - $cur_size;
 	}
 	if($_SESSION['log_file_size'] == $cur_size){
-		echo $mod_strings['LBL_LOG_NOT_CHANGED'].'<br>';
+		echo '<br>'.$mod_strings['LBL_LOG_NOT_CHANGED'].'<br>';
 	}else{
 		$fp = sugar_fopen($logFile, 'r');
 		fseek($fp, $pos , SEEK_END);

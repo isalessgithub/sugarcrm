@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -64,7 +61,6 @@ $mod_strings = array (
 	'COLUMN_TITLE_AUTOINC_NEXT' => 'Auto Increment Next Value',
     'COLUMN_DISABLE_NUMBER_FORMAT' => 'Disable Format',
     'COLUMN_TITLE_ENABLE_RANGE_SEARCH' => 'Enable Range Search',
-    'COLUMN_TITLE_GLOBAL_SEARCH'=>'Global Search',	
 	'LBL_DROP_DOWN_LIST' => 'Drop Down List',
 	'LBL_RADIO_FIELDS'=> 'Radio Fields',
 	'LBL_MULTI_SELECT_LIST'=> 'Multi Select List',
@@ -86,6 +82,8 @@ $mod_strings = array (
     'ERR_RESERVED_FIELD_NAME' => "Reserved Keyword",
 	'ERR_SELECT_FIELD_TYPE' => 'Please Select a Field Type',
 	'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Field Name already exists',
+    'ERR_FIELD_NAME_NON_DB_CHARS' => 'Field name should contain only the following characters: a-zA-Z_',
+    'ERR_NO_MODULE_INCLUDED' => 'No Module Included Could Not Save',
     'LBL_BTN_ADD' => 'Add',
     'LBL_BTN_EDIT' => 'Edit',
     'LBL_GENERATE_URL' => 'Generate URL',
@@ -108,6 +106,14 @@ $mod_strings = array (
     'LBL_HAS_PARENT' => 'Has Parent',
     'LBL_PARENT_DROPDOWN' => 'Parent Dropdown',
     'LBL_EDIT_VIS' => 'Edit Visibility',
+    'LBL_SIMULATION_MODE' => 'SIMULATION MODE - NO CHANGES WILL BE MADE EXCEPT CLEARING CACHE',
+    'LBL_SCAN_MODULE' => 'Scanning',
+    'LBL_DROPPING_COLUMN' => 'Dropping Column {0} from {1} for module',
+    'LBL_FIX_COLUMN_TYPE' => 'Fixing Column Type for {0} changing {1} to',
+    'LBL_FIELD_MISSING' => ' field(s) missing from',
+    'LBL_ADDING_COLUMN' => 'Adding Column {0} to',
+    'LBL_DONE' => 'Done',
+    'LBL_EXE_NON_SIM_MODE' => 'Execute non-simulation mode',
 );
 
 

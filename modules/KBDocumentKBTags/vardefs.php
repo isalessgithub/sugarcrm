@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $dictionary['KBDocumentKBTag'] = array('table' => 'kbdocuments_kbtags'
                                ,'fields' => array (
@@ -20,7 +17,7 @@ $dictionary['KBDocumentKBTag'] = array('table' => 'kbdocuments_kbtags'
   array (
     'name' => 'id',
     'vname' => 'LBL_KBDOCUMENTS_KBTAGS_ID',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
     'required'=>true,
     'reportable'=>false,
@@ -29,7 +26,7 @@ $dictionary['KBDocumentKBTag'] = array('table' => 'kbdocuments_kbtags'
   array (
     'name' => 'kbdocument_id',
     'vname' => 'LBL_KBDOCUMENT_ID',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
     'required'=>false,
     'reportable'=>false,
@@ -38,7 +35,7 @@ $dictionary['KBDocumentKBTag'] = array('table' => 'kbdocuments_kbtags'
   array (
     'name' => 'kbtag_id',
     'vname' => 'LBL_TAG_ID',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
     'required'=>false,
     'reportable'=>false,
@@ -97,8 +94,7 @@ $dictionary['KBDocumentKBTag'] = array('table' => 'kbdocuments_kbtags'
 'created_by_name' =>
   array (
     'name' => 'created_by_name',
-    'rname' => 'user_name',
-    'db_concat_fields'=> array(0=>'first_name', 1=>'last_name'),
+    'rname' => 'full_name',
     'id_name' => 'created_by',
     'vname' => 'LBL_CREATED_BY_NAME',
     'type' => 'relate',

@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['EAPM'] = array(
 	'table'=>'eapm',
 	'audited'=>false,
@@ -79,7 +76,7 @@ $dictionary['EAPM'] = array(
     'dbType' => 'varchar',
     'len' => '255',
     'unified_search' => true,
-    'full_text_search' => array('boost' => 3),
+    'full_text_search' => array('enabled' => true, 'boost' => 3),
     'importable' => 'required',
     'massupdate' => 0,
     'comments' => '',
@@ -171,8 +168,10 @@ $dictionary['EAPM'] = array(
                 'type' => 'index',
                 'fields'=> array('assigned_user_id', 'application', 'validated'),
         ),
+        array('name' => 'idx_eapm_name', 'type' => 'index', 'fields' => array('name')),
 ),
 	'optimistic_locking'=>true,
+    'visibility' => array('OwnerOrAdminVisibility' => true),
 );
 if (!class_exists('VardefManager')){
         require_once('include/SugarObjects/VardefManager.php');

@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Следующие модули установлены:',
   'DESC_MODULES_QUEUED' => 'Готовы к установке следующие модули:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Загруженный файл не совместим с установленной версией Sugar (Community Edition, Professional, или Enterprise):',
+  'ERROR_HT_NO_WRITE' => 'Невозможно записать  файл: %ов',
+  'ERROR_MANIFEST_TYPE' => 'В Manifest-файле должен быть указан тип пакета',
+  'ERROR_PACKAGE_TYPE' => 'В Manifest-файле указан неизвестный тип пакета: %ов',
+  'ERROR_UW_CONFIG_DB' => 'Ошибка сохранения конфигурационной переменной %s в БД (ключ %s, значение %s)',
   'ERROR_VERSION_INCOMPATIBLE' => 'Загружаемый файл не совместим с установленной версией Sugar :',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Ваша версия PHP не поддерживается в Sugar. Вам необходимо будет установить версию, которая поддерживается приложением Sugar. Пожалуйста, обратитесь к Матрице Совместимости в заметках к Версии, чтобы узнать, какие версии PHP поддерживаются. Ваша текущая версия:',
+  'ERR_NOT_ADMIN' => 'У Вас нет доступа к администрированию.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'У Вас нет прав для доступа к этой странице.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Невозможно определить группу',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Невозможно определить владельца',
   'ERR_UW_CONFIG' => 'Сделайте файл config.php доступным для записи и перезагрузите эту страницу.',
@@ -51,7 +54,7 @@ $mod_strings = array (
     1 => 'Загруженный файл больше, чем указано в upload_max_filesize в php.ini.',
     2 => 'Загруженный файл больше, чем указано в MAX_FILE_SIZE в HTML форме.',
     3 => 'Загружаемый файл был только частично загружен.',
-    4 => 'Файл не был заружен.',
+    4 => 'Файл не был загружен.',
     5 => 'Неизвестная ошибка.',
     6 => 'Временная папка не была создана.',
     7 => 'Не удалось записать файл на диск.',
@@ -73,11 +76,12 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Начать заново',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Выполняется основной этап обновления',
   'LBL_CURRENT_PHP_VERSION' => '(Текущая версия php',
+  'LBL_GLOBAL_TEAM_DESC' => 'Общая видимость',
   'LBL_HOME_PAGE_4_NAME' => 'Трекер',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Требуется PHP версии 5 или выше.',
   'LBL_LANGPACKS' => 'Языковые пакеты',
   'LBL_LAYOUT_MERGE_DESC' => 'Доступны новые поля, которые были добавлены во время обновления и могут быть автоматически применены к существующему внешнему виду ваших модулей. Больше о новых полях можно узнать в Release Notes версии, до которой Вы обновляете систему.<br /><br />Если Вы не хотите добавлять новые поля, уберите отметку с модуля и Ваши пользовательские настройки останутся без изменений. Поля будут доступны в Студии после завершения обновления.',
-  'LBL_LAYOUT_MERGE_TITLE' => 'Нажмите "продолжить", чтобы подтвердитьи изменения и закончить обновление.',
+  'LBL_LAYOUT_MERGE_TITLE' => 'Нажмите "продолжить", чтобы подтвердить изменения и закончить обновление.',
   'LBL_LAYOUT_MERGE_TITLE2' => 'Нажмите "продолжить", чтобы закончить обновление.',
   'LBL_LAYOUT_MODULE_TITLE' => 'Макеты',
   'LBL_LICENSE_CHECK_IN_PROGRESS' => 'Выполняется проверка лицензии',
@@ -113,7 +117,7 @@ $mod_strings = array (
   'LBL_UPGRADE_TIME_ELAPSED' => 'Затраченное время',
   'LBL_UPLOADE_UPGRADE_IN_PROGRESS' => 'Выполняется проверка загруженного пакета обновления',
   'LBL_UPLOADING_UPGRADE_PACKAGE' => 'Выполняется загрузка пакета обновления',
-  'LBL_UPLOAD_FILE_NOT_FOUND' => 'Фвйл загрузки не найден',
+  'LBL_UPLOAD_FILE_NOT_FOUND' => 'Файл загрузки не найден',
   'LBL_UPLOAD_SUCCESS' => 'Обновление успешно загружено. Нажмите "Продолжить" для окончательной проверки.',
   'LBL_UPLOAD_UPGRADE' => 'Загрузка пакета обновления',
   'LBL_UW_ACCEPT_THE_LICENSE' => 'Принять лицензию',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'Настройки PHP: Максимальный размер используемой памяти',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Минимальная версия MySQL',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE версия',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Расположение php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Минимальная версия PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Настройки PHP: безопасный режим',
@@ -156,7 +159,7 @@ $mod_strings = array (
   'LBL_UW_CONVERT_THE_LICENSE' => 'Конвертировать лицензию',
   'LBL_UW_COPIED_FILES_TITLE' => 'Успешно скопированные файлы',
   'LBL_UW_CUSTOMIZED_OR_UPGRADED_MODULES' => 'Обновленные/измененные модули',
-  'LBL_UW_CUSTOM_TABLE_SCHEMA_CHANGE' => 'Custom Table Schema Changes',
+  'LBL_UW_CUSTOM_TABLE_SCHEMA_CHANGE' => 'Таблица изменений на схеме пользователя',
   'LBL_UW_DB_CHOICE1' => 'Выполнение SQL-запроса мастером обновления',
   'LBL_UW_DB_CHOICE2' => 'Выполнение SQL-запроса вручную',
   'LBL_UW_DB_INSERT_FAILED' => 'ВСТАВКА не выполнена - результаты сравнения различаются',
@@ -181,7 +184,7 @@ $mod_strings = array (
   'LBL_UW_FILES_REMOVED' => 'Следующие файлы будут удалены из системы:<br>',
   'LBL_UW_FILE_DELETED' => 'был удален.',
   'LBL_UW_FILE_GROUP' => 'Группа',
-  'LBL_UW_FILE_ISSUES' => 'Версии файла',
+  'LBL_UW_FILE_ISSUES' => 'Проблеми с файлом',
   'LBL_UW_FILE_ISSUES_PERMS' => 'Права доступа к файлам:',
   'LBL_UW_FILE_NEEDS_DIFF' => 'Для данного файла необходимо сравнение версий вручную',
   'LBL_UW_FILE_NO_ERRORS' => 'Все файлы доступны для записи',
@@ -219,7 +222,7 @@ $mod_strings = array (
   'LBL_UW_PREFLIGHT_PRESERVE_FILES' => 'Файлы, оставленные без изменений:',
   'LBL_UW_PREFLIGHT_TESTS_PASSED' => 'Предварительная проверка пройдена успешно.',
   'LBL_UW_PREFLIGHT_TESTS_PASSED2' => 'Нажмите кнопку "Далее" для применения изменений.',
-  'LBL_UW_PREFLIGHT_TESTS_PASSED3' => 'Пожалуйста, обратите внимание, что оставшийся процесс обновления является обязательным, и нажав на кнопку "Продолжить" вы должны будете завершить процесс. Если Вы не хотите продожлать. нажмите кнопку отмены.',
+  'LBL_UW_PREFLIGHT_TESTS_PASSED3' => 'Пожалуйста, обратите внимание, что оставшийся процесс обновления является обязательным, и нажав на кнопку "Продолжить" вы должны будете завершить процесс. Если Вы не хотите продолжать. нажмите кнопку отмены.',
   'LBL_UW_PREFLIGHT_TOGGLE_ALL' => 'Перезаписать все файлы',
   'LBL_UW_REBUILD_TITLE' => 'Результаты обновления',
   'LBL_UW_REPAIR_INDEX' => 'Для увеличения быстродействия базы данных, пожалуйста, выполните скрипт <a href="index.php?module=Administration&action=RepairIndex" target="_blank">восстановление индексов</a>.',
@@ -249,7 +252,7 @@ $mod_strings = array (
   'LBL_UW_TITLE' => 'Мастер обновления',
   'LBL_UW_TITLE_CANCEL' => 'Отмена',
   'LBL_UW_TITLE_COMMIT' => 'Выполнение обновления',
-  'LBL_UW_TITLE_END' => 'Последние штрихи',
+  'LBL_UW_TITLE_END' => 'подведение итогов',
   'LBL_UW_TITLE_LAYOUTS' => 'Утвердить макеты',
   'LBL_UW_TITLE_PREFLIGHT' => 'Предварительная проверка',
   'LBL_UW_TITLE_START' => 'Добро пожаловать',

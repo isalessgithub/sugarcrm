@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '取引先を削除するためにはレコード番号を指定する必要があります。',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'メモの添付',
   'LBL_BUGS_SUBPANEL_TITLE' => 'バグトラッカー',
   'LBL_CASE' => 'ケース:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'ツイート',
   'LBL_CASE_INFORMATION' => 'ケースの概要',
   'LBL_CASE_NUMBER' => 'ケース番号:',
   'LBL_CASE_SUBJECT' => 'ケース件名:',
@@ -53,6 +51,9 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
   'LBL_EXPORT_TEAM_COUNT' => 'チーム数',
   'LBL_FILENANE_ATTACHMENT' => '添付ファイル',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、顧客が組織に報告した製品またはサービスに関連した問題を追跡し、管理するために使用されます。 {{module_name}}作成するには：1。必要に応じてフィールドの値を指定します。 - フィールドが「必須」と記された前の保存に完了しなければなりません。 - 必要に応じて、追加のフィールドを展開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 選択し"保存して表示し、「レコードビューに{{module_name}}を開きます。 - すぐに別の新規作成をするには{{module_name}}、「保存して、新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、顧客が組織に報告した製品またはサービスに関連した問題を追跡し、管理するために使用されます。 - 個々のフィールドまたは[編集]ボタンをクリックして、このレコードのフィールドを編集します。 - 左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示または変更してください。 - ユーザーコメントを作成もしくは表示し、左下ペインの「アクティブストリーム」をトグルして{{activitystream_singular_module}}内のレコードを変更してください。-レコード名の右のアイコンを使用してこのレコードをフォローするかお気に入りにしてください。- 追加のアクションは、[編集]ボタンの右にあるドロップダウンの操作メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、顧客が組織に報告した製品またはサービスに関連した問題を追跡し、管理するために使用されます。 {{plural_module_name}}は通常ひとつの{{accounts_singular_module}}に関連し、複数の{{plural_module_nameが}}  {{accounts_singular_module}}に関連しているでしょう。Sugarで{{plural_module_name}}を作成する方法はたくさんありますが、例えば{{plural_module_name}}モジュール経由で、{{quotes_module}}モジュール、{{plural_module_name}}などをインポートして、またはEメールをコンバートしてなどがあります。{{module_name}} レコードが作成されたなら、{{plural_module_name}}レコードの表示を経由して{{module_name}}に関連する情報を表示したり、編集することができます。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_INVITEE' => '取引先担当者',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'ナレッジベース',
@@ -79,7 +80,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'ケース',
   'LBL_MODULE_TITLE' => 'ケース: ホーム',
   'LBL_NEW_FORM_TITLE' => 'ケース作成',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_NUMBER' => '番号:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => '提出したい新しいサポートケースがあるのであれば、ここをクリックすることにより新しいケースを提出できます。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => '検索条件を提示することにより、ケースのリストをフィルタすることができます。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => '例えば、以前に提出された問題を見つけるためにこれを使う事ができます。',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'ケースモジュールはあなたのアカウントに影響を与えるサポート問題を管理するためのものです。クイックツアーを見るためには下の矢印を使用してください。',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'このページはあなたのアカウントに関係した、存在するケースのリストを表示します。',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'ここをクリックすることによりいつでもこのビューに戻ることができます。',
   'LBL_PORTAL_VIEWABLE' => 'ポータルで表示',
   'LBL_PRIORITY' => '優先度:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'プロジェクト',
@@ -88,6 +96,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'ケース検索',
   'LBL_SHOW_IN_PORTAL' => 'ポータルで表示',
   'LBL_SHOW_MORE' => 'さらに表示',
+  'LBL_SOURCE' => 'ソース:',
   'LBL_STATUS' => 'ステータス:',
   'LBL_SUBJECT' => '件名:',
   'LBL_SYSTEM_ID' => 'システムID',

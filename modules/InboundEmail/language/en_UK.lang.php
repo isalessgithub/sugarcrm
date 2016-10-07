@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Login or Password Incorrect',
   'ERR_BODY_TOO_LONG' => '\\rBody text too long to capture FULL email.  Trimmed.',
+  'ERR_DELETE_FOLDER' => 'Could not delete folder.',
   'ERR_INI_ZLIB' => 'Could not turn off Zlib compression temporarily.  "Test Settings" may fail.',
   'ERR_MAILBOX_FAIL' => 'Could not retrieve any mail accounts.',
   'ERR_NO_IMAP' => 'No IMAP libraries found.  Please resolve this before continuing with Inbound Email',
   'ERR_NO_OPTS_SAVED' => 'No optimums were saved with your Inbound Email account.  Please review the settings',
   'ERR_TEST_MAILBOX' => 'Please check your settings and try again.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Could not unsubscribe from folder before deletion.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Allow users to send emails using the "From" Name and Address as the reply to address',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'When this option is selected, the From Name and From Email Address associated with this group mail account will appear as an option for the From field when composing emails for users that have access to the group mail account.',
   'LBL_APPLY_OPTIMUMS' => 'Apply Optimums',
@@ -100,7 +99,7 @@ $mod_strings = array (
   'LBL_MAX_AUTO_REPLIES' => 'Number of Auto-responses',
   'LBL_MAX_AUTO_REPLIES_DESC' => 'Set the maximum number of auto-responses to send to a unique email address during a period of 24 hours.',
   'LBL_MODULE_NAME' => 'Group Mail Account',
-  'LBL_MODULE_NAME_SINGULAR' => 'Group Mail Account',
+  'LBL_MODULE_NAME_SINGULAR' => 'Inbound Email',
   'LBL_MODULE_TITLE' => 'Inbound Email',
   'LBL_NAME' => 'Name',
   'LBL_NONE' => 'None',

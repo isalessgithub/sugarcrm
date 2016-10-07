@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Pro vymazání zaměstnance musíte specifikovat číslo záznamu.',
@@ -39,7 +36,7 @@ $mod_strings = array (
   'LBL_CREATE_CONTACT' => 'Vytvořit kontakt',
   'LBL_CREATE_INVITEE' => 'Vytvořit pozvánku',
   'LBL_CREATE_LEAD' => 'Vytvořit příležitost',
-  'LBL_CREATE_MODULE' => 'Zápis hovoru',
+  'LBL_CREATE_MODULE' => 'Záznam hovoru',
   'LBL_DATE' => 'Počáteční datum:',
   'LBL_DATE_END' => 'Konec',
   'LBL_DATE_END_ERROR' => 'Konečný datum je menší než počáteční datum',
@@ -65,6 +62,9 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Týkající se modulu',
   'LBL_EXPORT_REMINDER_TIME' => 'Čas upozornění (v minutách)',
   'LBL_FIRST_NAME' => 'Jméno',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modul obsahuje {{calls_singular_module}}  záznamy zalogované uživateli ve vaší společnosti. {{plural_module_name}} může být ve statusu “Naplánované”, “Uskutečněné” nebo “Zrušené”. Uživatel Sugaru, stejně jako kontaky a leady mohou být přizváni k hovorům. Pro vytvoření {{calls_singular_module}}: 1. Zadejte hodnoty dle vašeho přání. - Pole označené jako “required” musí být vyplněny před uložením. - Klikněte na “Show More” (Ukaž Více) pro zobrazení dalších záznamů, v případě potřeby. Přizvěte pozvané na {{calls_singular_module}}.- Klikněte na “Select Atendee” (vyberte účastníka) pro přizvání existujícího uživatele, kontaktu nebo leadu do {{calls_singular_module}}. - Klikněte na plusovou ikonu napravo od “Select an Attendee” pro vytvoření {{calls_singular_module}} jako nový záznam v Sugaru. 3. Klikněte “Uložit” pro finalizaci nového záznamu a vrácení se na předchozí stránku. - Vyberte “Choose and review” pto otevření nového {{calls_singular_module}} v náhledu záznamů. - Vyberte “Uložit a vytvořit nový” pro okamžité vytvoření nového {{calls_singular_module}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modul obsahuje {{calls_singular_module}} záznamy zalogované uživateli ve vaší společnosti. {{plural_module_name}} mohou být ve statusu “Naplánované”, “Uskutečněné” nebo “Zrušené”. Uživatelé Sugaru, stejně jako {{contacts_module}} a {{leads_module}}  mohou být k hovorům přizváni. - Pole záznamů můžete upravovat kliknutím na individuální pole nebo tlačítko Upravit. - Prohlížejte nebo upravujte linky na jiné záznamy v subpanelech kliknutím na "Data View”. - Komentujte nebo prohlížejte komenty uživatelů v historii v aktivity streamu kliknutím na aktivity stream. - Další aktivity jsou možné v dropdown akčním menu na pravo od Upravit tlačítka.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modul obsahuje záznamy o hovorech, které mohou mít status “Naplánované”, “Uskutečněny” nebo “Zrušené”. Hovory naplánované v rámci dalších 24 hodin mají datum začátku zvýrazněné modře. Hovory po termínu mají datum zvýrazněné červeně. Z tohot modulu můžete prohlížet a editovat hovory. Další možnosti jsou k dispozici v menu na konci každého řádku hovoru. Můžete vybrat “Uzavřít” v menu na jakýchkoliv naplánovaných hovorů pro označení hovorů jako Uskutečněné. Uživatelé Sugaru, kontakty a leadi mohou být pozváni do hovorů. {{plural_module_name}} je možné vytvořit via {{plural_module_name}} modul, kalendářní modul, import, stejně jako via subpanel aktivit nebo naplánovaných aktivit, který automaticky vytvoří vztah mezi dvěma záznamy.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Poznámky',
   'LBL_HOURS_ABBREV' => 'h',
   'LBL_HOURS_MINUTES' => '(hodiny/minuty)',
@@ -89,12 +89,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Hovory',
   'LBL_MODULE_NAME_SINGULAR' => 'Hovor',
   'LBL_MODULE_TITLE' => 'Hovory',
+  'LBL_MY_SCHEDULED_CALLS' => 'Moje naplánované hovory',
   'LBL_NAME' => 'Název',
   'LBL_NEW_FORM_TITLE' => 'Naplánovat událost',
   'LBL_NO_ACCESS' => 'Nemáte právo k vytvoření $module',
   'LBL_OUTLOOK_ID' => 'ID Outlooku',
   'LBL_PARENT_ID' => 'Zdrojové ID',
   'LBL_PHONE' => 'Telefon',
+  'LBL_POPUP_REMINDER_TIME' => 'Popup připomínkový čas',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Úspěšně jste naplánoval {{moduleSingularLower}} pro {{formatDate date_start}}, ale nemáte povolení přístupu.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Úspěšně jste vytvořil {{moduleSingularLower}} {{name}} pro {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'opakování',
   'LBL_RECURRING_LIMIT_ERROR' => 'Tento opakující se $moduleTitle nemůže být naplánován protože překročil maximální limit pro opakování $limit.',
   'LBL_RECURRING_SOURCE' => 'Zdroj opakování',
@@ -105,6 +109,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Obeslat všechny pozvané',
   'LBL_REMINDER_POPUP' => 'Vyskakovací okno',
   'LBL_REMINDER_TIME' => 'Čas připomínky',
+  'LBL_REMINDER_TITLE' => 'Hovor:',
   'LBL_REMOVE' => 'odstranit',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Odstranit všechny opakování',
   'LBL_REPEAT_COUNT' => 'Opakovat počet',
@@ -117,6 +122,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Opakovat zdrojové ID',
   'LBL_REPEAT_TYPE' => 'Typ opakování',
   'LBL_REPEAT_UNTIL' => 'Opakovat dokud',
+  'LBL_REVENUELINEITEMS' => 'Řádky tržeb',
   'LBL_SCHEDULING_FORM_TITLE' => 'Plánování',
   'LBL_SEARCH_BUTTON' => 'Hledat',
   'LBL_SEARCH_FORM_TITLE' => 'Hledat hovor',
@@ -141,5 +147,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Zvolit účet',
   'NOTICE_DURATION_TIME' => 'Doba trvání musí  být větší než 0',
   'NTC_REMOVE_INVITEE' => 'Opravdu chcete odstranit tuto pozvánku z hovoru?',
+  'TPL_CALL_STATUS_CHANGED' => 'Hovory označené jako {{status}}.',
 );
 

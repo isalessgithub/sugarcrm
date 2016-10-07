@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: niet gedefinieerd voor deze weergave',
-  'ERR_YEAR_BETWEEN' => 'Helaas, de kalender kan uw verzoek niet verwerken<br>Het gekozen jaar moet liggen tussen 1970 en 2037',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: not defined for this view',
+  'ERR_YEAR_BETWEEN' => 'Het door uw gekozen jaar kan niet in de kalender gekozen worden.<br />Het jaar moet tussen 1970 en 2037 liggen.',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Toepassen',
   'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan',
   'LBL_BUSY' => 'Bezet',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Recurring {0} event count has exceeded the limit',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} is not a parent recurrence',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} is not a recurring event',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} is not recognized as a recurring event module',
   'LBL_CANCEL_BUTTON' => 'Annuleren',
   'LBL_CLOSE_BUTTON' => 'Sluiten',
   'LBL_CONFIRM_REMOVE' => 'Weet u het zeker dat u dit record wilt verwijderen?',
@@ -31,14 +32,17 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Conflict',
   'LBL_CREATE_CALL' => 'Nieuw Telefoongesprek',
   'LBL_CREATE_MEETING' => 'Afspraak maken',
+  'LBL_CREATE_NEW_CALL' => 'Nieuw Telefoongesprek',
   'LBL_CREATE_NEW_RECORD' => 'Nieuwe Activiteit',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Je maakt een nieuwe afspraak. Wilde je een <a href="javascript:void(0);" data-action="create-task">nieuwe Taak</a> of een <a href="javascript:void(0);" data-action="schedule-call">Nieuw Telefoongesprek</a> aanmaken',
   'LBL_DATE' => 'Startdatum en -tijd',
   'LBL_DATE_END_ERROR' => 'Einddatum ligt voor de Startdatum',
-  'LBL_DATE_TIME' => 'Datum en Tijd',
+  'LBL_DATE_TIME' => 'Datum en tijd',
   'LBL_DAY' => 'Dag',
   'LBL_DELETE_BUTTON' => 'Verwijder',
   'LBL_DURATION' => 'Duur',
   'LBL_EDIT_ALL_RECURRENCES' => 'Wijzig alle Herhalingen',
+  'LBL_EDIT_CALL' => 'Wijzig Telefoongesprek',
   'LBL_EDIT_RECORD' => 'Wijzig Activiteit',
   'LBL_EDIT_USERLIST' => 'Gebruikerslijst',
   'LBL_ERROR_LOADING' => 'Fout tijdens laden',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Volgende Week',
   'LBL_NEXT_YEAR' => 'Volgend Jaar',
   'LBL_NO' => 'Nee',
+  'LBL_NO_ACCESS' => 'U heeft geen toegang',
   'LBL_NO_USER' => 'Geen overeenkomst gevonden voor veld: Toegewezen aan',
   'LBL_PARTICIPANTS_TAB' => 'Genodigden',
   'LBL_PM' => 'PM',
@@ -88,14 +93,13 @@ $mod_strings = array (
   'LBL_REPEAT_TYPE' => 'Herhalen',
   'LBL_REPEAT_UNTIL' => 'Herhalen tot',
   'LBL_SAVE_BUTTON' => 'Opslaan',
-  'LBL_SAVING' => 'Opslaan ...',
+  'LBL_SAVING' => 'Opslaan ......',
   'LBL_SCHEDULED' => 'Gepland',
   'LBL_SELECT_USERS' => 'Selecteer Gebruikers voor Agenda',
-  'LBL_SENDING_INVITES' => 'Opslaan & Versturen Uitnodigingen',
+  'LBL_SENDING_INVITES' => 'Opslaan & versturen uitnodigingen .....',
   'LBL_SEND_INVITES' => 'Verstuur Uitnodigingen',
   'LBL_SETTINGS' => 'Instellingen',
   'LBL_SETTINGS_CALLS_SHOW' => 'Toon Telefoongesprekken:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Toon voltooide afspraken, telefoongesprekken en taken:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Toon tijd in Dag en Week views:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Toon Taken:',
   'LBL_SETTINGS_TIME_ENDS' => 'Eindtijd:',

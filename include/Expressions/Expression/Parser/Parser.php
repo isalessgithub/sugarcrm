@@ -1,27 +1,23 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /**
  * Expression parser
  * @api
  */
 class Parser {
     static $NUMERIC_CONSTANTS =  array(
-        'pi' 	=> 3.141592653589793,
-        'e'		=> 2.718281828459045,
+    	'pi' 	=> 3.141592653589793,
+    	'e'		=> 2.718281828459045,
     );
-
 	/**
 	 * Evaluates an expression.
 	 *
@@ -194,7 +190,7 @@ class Parser {
         }
 
 		// require and return the appropriate expression object
-        $expObject = new $FUNCTION_MAP[$func]['class']($args);
+		$expObject = new $FUNCTION_MAP[$func]['class']($args);
         if ($context) {
             $expObject->context = $context;
         }
@@ -213,7 +209,7 @@ class Parser {
 		}
 
 		// a pre defined numeric constant
-		if (isset(self::$NUMERIC_CONSTANTS[$expr]))
+        if (isset(self::$NUMERIC_CONSTANTS[$expr]))
 		{
 			return new ConstantExpression(self::$NUMERIC_CONSTANTS[$expr]);
 		}
@@ -221,6 +217,7 @@ class Parser {
 		// a constant string literal
 		if ( preg_match('/^".*"$/', $expr) ) {
 			$expr = substr($expr, 1, -1);		// remove start/end quotes
+
 			return new StringLiteralExpression( $expr );
 		}
 

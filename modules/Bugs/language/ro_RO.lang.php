@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge problema.',
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Rezolvate in lansare:',
   'LBL_FOUND_IN_RELEASE' => 'Gasite in lansare:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Gasite in nume eliberate',
+  'LBL_HELP_CREATE' => 'Modulul {{plural_module_name}} este utilizat pentru a monitoriza şi gestiona problemele legate de produse, denumite în principiu {{plural_module_name}} sau defecte, depistate fie intern, fie raportate de către clienţi. Pentru a crea {{module_name}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noul (noua) {{module_name}} în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} este utilizat pentru a monitoriza şi gestiona problemele legate de produse, denumite în principiu {{plural_module_name}} sau defecte, depistate fie intern, fie raportate de către clienţi. - Editează câmpurile acestei înregistrări apăsând pe fiecare câmp individual sau pe butonul Editare. - Vizualizează sau modifică linkuri către alte înregistrări in panourile secundare, trecând fereastra din stânga jos în stadiul "Vizualizare Date". - Creează şi vizualizează comentariile altor utilizatori şi istoricul modificărilor în {{activitystream_singular_module}} trecând fereastra din stânga jos în stadiul "Flux de activitate". - Urmăreşte sau marchează ca favorit această înregistrare folosind pictogramele din dreapta numelui înregistrării. - Sunt disponibile acţiuni suplimentare în meniul cu listă derulantă Acţiuni din dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} este utilizat pentru a monitoriza şi gestiona problemele legate de produse, denumite în principiu {{plural_module_name}} sau defecte, depistate fie intern, fie raportate de către clienţi. {{plural_module_name}} poate fi sortat ulterior prin monitorizarea defectelor depistate şi reparate. Modulul {{plural_module_name}} oferă utilizatorilor o modalitate de revizuire rapidă a tuturor detaliilor despre {{module_name}} şi despre procesul utilizat pentru remediere. După crearea sau transmiterea {{module_name}}, puteţi vizualiza şi edita informaţiile asociate cu {{module_name}} prin fereastra de vizualizare a înregistrării {{module_name}}. Fiecare înregistrare {{module_name}} poate fi apoi relaţionată cu alte înregistrări Sugar, cum ar fi {{calls_module}}, {{contacts_module}}, {{cases_module}} şi multe altele.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istoric',
   'LBL_INVITEE' => 'Contacte',
   'LBL_LIST_ACCOUNT_NAME' => 'Numele Contului',
@@ -69,7 +69,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Problema:',
   'LBL_MODULE_TITLE' => 'Urmaritor probleme: Acasa',
   'LBL_NEW_FORM_TITLE' => 'Problema noua',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_NUMBER' => 'Numar',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Dacă aveţi o nouă Eroare pe care doriţi să o raportaţi, puteţi face clic aici pentru a raporta o nouă Eroare.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Puteţi filtra prin lista de Erori, introducând un termen de căutare.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'De exemplu, puteţi utiliza asta pentru a găsi o eroare care a mai fost raportată anterior.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modulul Bugs (Erori) este pentru vizualizarea şi raportarea erorilor. Utilizaţi săgeţile de mai jos pentru a face un tur scurt.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Această pagină afişează lista Erorilor publicate existente.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Făcând clic aici veţi reveni la această fereastră de vizualizare în orice moment.',
   'LBL_PORTAL_VIEWABLE' => 'Portal vizibil',
   'LBL_PRIORITY' => 'Prioritate',
   'LBL_PRODUCT_CATEGORY' => 'Categorie:',

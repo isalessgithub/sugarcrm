@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,6 +46,9 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
   'LBL_EXPORT_PARENT_ID' => 'IDに関連',
   'LBL_EXPORT_PARENT_TYPE' => 'モジュールに関連',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは柔軟なアクションや、to-doアイテムやその他の完了を必要とする活動のタイプにより構成されております。{{module_name}}を作成するには：　1.必要に応じてフィールドの値を指定します。 - 「必須」フィールドは保存前に入力完了してください。 - 必要に応じて、追加のフィールドを展開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 「保存して表示」を選択し、「レコードビューに{{module_name}}を開きます。 - すぐに別の新しい{{module_name}}を作成するには「保存して新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => 'このレコードビューは、個々のレコードだけでなく、それにリンクされたレコードのいくつかの詳細についての十分な情報を提供しています。 - 個々のフィールドまたは「編集」ボタンをクリックして、このレコードのフィールドを編集します。 - 左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示または変更してください。 - 左下のペインに「アクティビティストリーム」をトグルすることによってレコードの変更履歴を表示したりユーザーコメントを作成してください。 - レコード名の右にあるアイコンを使用して、このレコードをフォローするかお気に入りにしてください。 - 追加のアクションは、「編集」ボタンの右にあるドロップダウンの「操作」メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは柔軟なアクションや、to-doアイテムやその他の完了を必要とする活動のタイプにより構成されております。 {{module_name}}レコードはフレックス関連フィールドを通してほとんどのモジュールと関連付けすることができますし、単一の{{contacts_singular_module}}に関連付けすることもできます。Sugarで{{plural_module_name}}を作成するには様々な方法があり、{{plural_module_name}}モジュール経由にて, 複製により, または{{plural_module_name}}をインポートすることによりそうできます。 {{module_name}}レコードが作成されたら、{{plural_module_name}}レコードの表示を経由して {{module_name}}に関連する情報を表示したり、編集することができます。  {{module_name}}の詳細に応じて、またカレンダーモジュールを介して {{module_name}}の情報を表示したり、編集することができます。各 {{module_name}}レコードは、そのような{{accounts_module}}、{{contacts_module}}、{{opportunities_module}}、およびその他多くの他のSugarのレコードに関連付けできます。',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'メモ',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'アサイン先',
   'LBL_LIST_CLOSE' => '完了',
@@ -75,11 +75,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'タスク作成',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'なし',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_PARENT_ID' => '親ID:',
   'LBL_PARENT_NAME' => '親タイプ:',
   'LBL_PHONE' => '電話:',
   'LBL_PRIORITY' => '優先度:',
-  'LBL_RELATED_TO' => '関係先:',
+  'LBL_REVENUELINEITEMS' => '高収益商品',
   'LBL_SEARCH_FORM_TITLE' => 'タスク検索',
   'LBL_START_DATE' => '開始日:',
   'LBL_START_DATE_AND_TIME' => '開始日時:',
@@ -87,6 +88,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'ステータス:',
   'LBL_SUBJECT' => '件名:',
   'LBL_TASK' => 'タスク:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'タスクのクローズに成功しました。',
   'LBL_TASK_INFORMATION' => 'タスクの概要',
   'LNK_IMPORT_TASKS' => 'タスクのインポート',
   'LNK_NEW_TASK' => 'タスク作成',

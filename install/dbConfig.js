@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 function togglePasswordRetypeRequired(){var theForm=document.forms[0];var elem=document.getElementById('password_retype_required');if(theForm.setup_db_create_sugarsales_user.checked){elem.style.display='';theForm.setup_db_username_is_privileged.checked="";theForm.setup_db_username_is_privileged.disabled="disabled";toggleUsernameIsPrivileged();}
 else{elem.style.display='none';theForm.setup_db_username_is_privileged.disabled="";}}
 function toggleDropTables(){var theForm=document.forms[0];if(theForm.setup_db_create_database.checked){theForm.setup_db_drop_tables.checked='';theForm.setup_db_drop_tables.disabled="disabled";}

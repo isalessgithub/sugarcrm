@@ -1,29 +1,36 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class DropDownBrowser
 {
     // Restrict the full dropdown list to remove some options that shouldn't be edited by the end users
+    //TODO: this list needs to be kept in sync with $restrictedDropdowns in UpgradeDropdownsHelper::getDropdowns
     public static $restrictedDropdowns = array(
         'eapm_list',
         'eapm_list_documents',
         'eapm_list_import',
         'extapi_meeting_password',
         'Elastic_boost_options',
-        // 'moduleList', // We may want to put this in at a later date
-        // 'moduleListSingular', // Same with this
+        'commit_stage_dom',
+        'commit_stage_custom_dom',
+        'commit_stage_binary_dom',
+        'forecasts_config_ranges_options_dom',
+        'forecasts_timeperiod_types_dom',
+        'forecasts_chart_options_group',
+        'forecasts_config_worksheet_layout_forecast_by_options_dom',
+        'forecasts_timeperiod_options_dom',
+        'generic_timeperiod_options',
+         'moduleList', // We may want to put this in at a later date
+         'moduleListSingular', // Same with this
     );
 
     function getNodes()
@@ -35,7 +42,7 @@ class DropDownBrowser
         
         $my_list_strings = $app_list_strings;
         foreach($my_list_strings as $key=>$value){
-        	if(!is_array($value)){
+            if (!is_array($value) || array_filter($value, 'is_array')) {
         		unset($my_list_strings[$key]);
         	}
         }

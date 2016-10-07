@@ -2,30 +2,42 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
+  'LBL_ENABLE' => 'Aktiveret',
+  'LBL_MODULE_NAME' => 'Sporinger',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sporing',
+  'LBL_MODULE_NAME_TITLE' => 'Sporinger',
+  'LBL_TRACKER_DESC' => 'Sporingshandlinger',
+  'LBL_TRACKER_HELP' => 'Spor brugeres sidevisninger "åbnede moduler og poster" og lagring af poster',
+  'LBL_TRACKER_PERF_DESC' => 'Sporingsperformance',
+  'LBL_TRACKER_PERF_HELP' => 'Spor database tur-retur, åbnede filer og hukommelsesbrug',
+  'LBL_TRACKER_PRUNE_INTERVAL' => 'Antal dage, som sporingsdata skal gemmes i, når planlæggeren beskærer tabellerne',
+  'LBL_TRACKER_PRUNE_RANGE' => 'Antal dage',
+  'LBL_TRACKER_QUERIES_DESC' => 'Sporingsforespørgsler',
+  'LBL_TRACKER_QUERIES_HELP' => '"Spor SQL-sætninger, når ""Logfør langsomme forespørgsler"" er aktiveret, og forespørgselsudførelsestiden overstiger værdien ""Tidsgrænse for langsomme forespørgsler """',
+  'LBL_TRACKER_SESSIONS_DESC' => 'Sporingssessioner',
+  'LBL_TRACKER_SESSIONS_HELP' => 'Spor aktive brugere og brugeres sessionsoplysninger',
+  'LBL_TRACKER_SETTINGS' => 'Sporingsindstillinger',
   'ShowActiveUsers' => 'Vis aktive brugere',
   'ShowLastModifiedRecords' => 'Sidste 10 ændrede poster',
-  'ShowTopUser' => 'Hyppigste bruger',
+  'ShowLoggedInUserCount' => 'Antal aktive brugere',
+  'ShowMyCumulativeLoggedInTime' => 'Min akkumulerede tid logged på "denne uge"',
   'ShowMyModuleUsage' => 'Min modulbrug',
   'ShowMyWeeklyActivities' => 'Min ugentlige aktivitet',
   'ShowTop3ModulesUsed' => 'Mine tre mest brugte moduler',
-  'ShowLoggedInUserCount' => 'Antal aktive brugere',
-  'ShowMyCumulativeLoggedInTime' => 'Min akkumulerede tid logged på "denne uge"',
+  'ShowTopUser' => 'Hyppigste bruger',
   'ShowUsersCumulativeLoggedInTime' => 'Brugeres akkumulerede tid logged på "denne uge"',
   'action' => 'Handling',
   'active_users' => 'Antal aktive brugere',
@@ -43,19 +55,5 @@ $mod_strings = array (
   'total_login_time' => 'Klokkeslæt "tt:mm:ss"',
   'user_name' => 'Brugernavn',
   'users' => 'Brugere',
-  'LBL_ENABLE' => 'Aktiveret',
-  'LBL_MODULE_NAME_TITLE' => 'Sporinger',
-  'LBL_MODULE_NAME' => 'Sporinger',
-  'LBL_TRACKER_SETTINGS' => 'Sporingsindstillinger',
-  'LBL_TRACKER_QUERIES_DESC' => 'Sporingsforespørgsler',
-  'LBL_TRACKER_QUERIES_HELP' => '"Spor SQL-sætninger, når ""Logfør langsomme forespørgsler"" er aktiveret, og forespørgselsudførelsestiden overstiger værdien ""Tidsgrænse for langsomme forespørgsler """',
-  'LBL_TRACKER_PERF_DESC' => 'Sporingsperformance',
-  'LBL_TRACKER_PERF_HELP' => 'Spor database tur-retur, åbnede filer og hukommelsesbrug',
-  'LBL_TRACKER_SESSIONS_DESC' => 'Sporingssessioner',
-  'LBL_TRACKER_SESSIONS_HELP' => 'Spor aktive brugere og brugeres sessionsoplysninger',
-  'LBL_TRACKER_DESC' => 'Sporingshandlinger',
-  'LBL_TRACKER_HELP' => 'Spor brugeres sidevisninger "åbnede moduler og poster" og lagring af poster',
-  'LBL_TRACKER_PRUNE_INTERVAL' => 'Antal dage, som sporingsdata skal gemmes i, når planlæggeren beskærer tabellerne',
-  'LBL_TRACKER_PRUNE_RANGE' => 'Antal dage',
 );
 

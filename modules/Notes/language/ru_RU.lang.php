@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вам следует указать номер записи перед удалением контрагента.',
@@ -43,6 +40,21 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Тип MIME',
   'LBL_FILE_URL' => 'Адрес файла',
   'LBL_FIRST_NAME' => 'Имя',
+  'LBL_HELP_CREATE' => 'Чтобы создать {{module_name}}:
+1. Укажите значения полей.
+ - Поля с пометкой "Обязательно" должны быть заполнены перед сохранением.
+ - Нажмите "Показать больше", чтобы отобразить дополнительные поля при необходимости.
+2. Нажмите "Сохранить" для сохранения новой записи и возвращения на предыдущую страницу.
+ - Выберите "Сохранить и просмотреть", чтобы открыть новый {{module_name}} в режиме просмотра записи. 
+- Выберите "Сохранить и создать", чтобы сразу создать новый {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} модуль включает контакты {{plural_module_name}}, которые содержат текст или вложение, относящееся к связанной записи.
+
+- Чтобы редактировать поля данной записи, нажмите на самом поле или кликните по кнопке Редактировать.
+- Чтобы просмотреть или изменить ссылки, ведущие к другим записям, на субпанеле, переключите левую нижнюю панель на "Просмотр данных".
+- Чтобы оставлять и просматривать пользовательские комментарии, а также изменять историю в рамках одной записи в {{activitystream_singular_module}}, переключите левую нижнюю панель на "Лента активностей".
+- Чтобы подписаться или добавить в Избранное данную запись, используйте иконки справа от записи.
+- Дополнительные действия доступны в выпадающем меню Действий справа от кнопки Редактировать.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} модуль содержит контакты {{plural_module_name}}, которые включают текст или вложение, которое привязывается к конкретной записи. {{module_name}} записи могут быть связаны с одной записью во многих модулях через поле "flex relate field" и с единичным  {{contacts_singular_module}}. {{plural_module_name}} может содержать общий текст о записи или даже вложение, относящееся к записи. Существуют различные способы создания {{plural_module_name}} в Sugar как через {{plural_module_name}} модуль, импорт {{plural_module_name}}, через субпанели История, и т.п. Как только {{module_name}} запись создана, вы можете просмотреть и редактировать информацию, относящуюся к {{module_name}} в {{plural_module_name}} режиме просмотра записи. Каждая {{module_name}} запись может быть связана с другими записями Sugar, такими как {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, и многими другими.',
   'LBL_LAST_NAME' => 'Фамилия',
   'LBL_LEAD_ID' => 'Предварительный контакт:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Ответственный (-ая)',
@@ -79,6 +91,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'Коммерческое предложение:',
   'LBL_RELATED_TO' => 'Относится к:',
   'LBL_REMOVING_ATTACHMENT' => 'Удаление вложения...',
+  'LBL_REVENUELINEITEMS' => 'Позиции продаж',
   'LBL_SEARCH_FORM_TITLE' => 'Найти заметку',
   'LBL_SEND_ANYWAYS' => 'У этого e-mail-сообщения нет темы. Отправить/сохранить все равно?',
   'LBL_STATUS' => 'Статус',

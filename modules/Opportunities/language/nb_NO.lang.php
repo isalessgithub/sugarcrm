@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Et registernummer må oppgis for å slette denne Opportunity.',
@@ -23,14 +20,15 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Bedrift-ID',
   'LBL_ACCOUNT_NAME' => 'Bedriftnavn:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Handlinger',
-  'LBL_AMOUNT' => 'Opportunity beløp:',
-  'LBL_AMOUNT_USDOLLAR' => 'Beløp USD:',
   'LBL_ASSIGNED_TO_ID' => 'Tildelt ID',
   'LBL_ASSIGNED_TO_NAME' => 'Tildelt:',
   'LBL_CAMPAIGN' => 'Kampanje:',
   'LBL_CAMPAIGN_LINK' => 'Kampanje-link',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampanjer',
-  'LBL_CLOSED_WON_OPPORTUNITIES' => 'Lukkede vunne Opportunities',
+  'LBL_CLOSED_RLIS' => '# av Lukket Omsetningsposter',
+  'LBL_CLOSED_WON_OPPORTUNITIES' => 'Lukkede Vunnet Salgsmuligheter',
+  'LBL_COMMITTED' => 'Forpliktet',
+  'LBL_COMMIT_STAGE' => 'Forpliktet stadie',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontaker',
   'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Relaterte Kontakters Eposter',
   'LBL_CONTRACTS' => 'Kontrakter',
@@ -41,19 +39,29 @@ $mod_strings = array (
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'Valuta-ID',
   'LBL_CURRENCY_NAME' => 'Valuta-navn',
+  'LBL_CURRENCY_RATE' => 'Valutakurs',
   'LBL_CURRENCY_SYMBOL' => 'Valuta-symbol',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Topp 10 Salgsmuligheter',
   'LBL_DATE_CLOSED' => 'Forventet avslutningsdato:',
+  'LBL_DATE_CLOSED_TIMESTAMP' => 'Forventet lukkedato Tidsstempel',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Opportunities',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenter',
   'LBL_DUPLICATE' => 'Mulig dobbeltOpportunity',
-  'LBL_EDITLAYOUT' => 'Redigér Oppsett',
+  'LBL_EDITLAYOUT' => 'Redigér oppsett',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Tildelt Bruker-ID',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Tildelt Brukernavn',
   'LBL_EXPORT_CAMPAIGN_ID' => 'Kampanje-ID',
   'LBL_EXPORT_CREATED_BY' => 'Opprettet Av ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Endret av ID',
   'LBL_EXPORT_NAME' => 'Navn',
+  'LBL_FILENAME' => 'Vedlegg',
+  'LBL_FORECAST' => 'Inkluder i prognose',
+  'LBL_HELP_CONFIG_OPPS' => 'Etter du starte denne endringen , vil Revenue Line Item summering notater bli bygget i bakgrunnen. Når notene er fullstendige og tilgjengelig, vil en melding bli sendt til e-postadressen på din brukerprofil. Hvis forekomsten er satt opp for { { forecasts_module } } , sukker vil også sende deg en melding når {{ module_name }} poster synkroniseres til { { forecasts_module } } modul og tilgjengelig for ny { { forecasts_module } } . Vær oppmerksom på at forekomsten må konfigureres til å sende e-post via Admin > E-postinnstillinger for at meldingene skal sendes',
+  'LBL_HELP_CONFIG_RLIS' => 'Etter du starte denne endringen , vil Revenue linjeelement poster opprettes for hver eksisterende { { module_name } } i bakgrunnen . Når Revenue Linjeelementer er komplett og tilgjengelig, vil en melding bli sendt til e-postadressen på din brukerprofil. Vær oppmerksom på at forekomsten må konfigureres til å sende e-post via Admin > E-postinnstillinger for at varsling skal sendes.',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modulen kan du spore individuelle salg og linjeelementene som tilhører disse salgene fra start til slutt. Hver {{module_name}} registrering representerer en header for en gruppe av {{revenuelineitems_module}} samt andre viktige poster som {{quotes_module}}, {{contacts_module}}, osv. For å lage en {{module_name} }: 1. Gi verdier til feltene som ønsket. - Felt som er merket "kreves" må fullføres før du lagrer. - Klikk "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Klikk "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne den nye {{module_name}} i postvisning. - Velg "Lagre og skape nye" for umiddelbart å opprette en ny {{module_name}}. 3. Etter lagring, bruk {{revenuelineitems_module}} underpanelet for å legge til linjeelementer til {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modulen kan du spore individuelle salg og linjeelementene som tilhører disse salgene fra start til slutt. Hver {{module_name}} registrering representerer en header for en gruppe av {{revenuelineitems_module}} samt andre viktige poster som {{quotes_module}}, {{contacts_module}}, etc. - Rediger dette registreringsfelt ved å klikke et enkelt felt eller rediger-knappen. - Vis eller endre lenker til andre poster i underpaneler, inkludert {{revenuelineitems_module}}, ved å veksle nedre venstre rute til "Data View". - Lag og vis brukerkommentarer og postendring historie i {{activitystream_singular_module}} ved å veksle nedre venstre ruten til "Activity Stream". - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for registrering navn. - Ytterligere tiltak er tilgjengelig i dropdown menyen Handlinger til høyre på Rediger-knappen.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modulen kan du spore individuelle salg og linjeelementer som tilhører disse salgene fra start til slutt. Hver {{module_name}} registrering representerer en header for en gruppe av {{revenuelineitems_module}} samt andre viktige poster som {{quotes_module}}, {{contacts_module}}, etc. Hver {{revenuelineitems_singular_module}} er det potensielle salg av et bestemt produkt, og inkluderer relevante salg data. Hver {{revenuelineitems_singular_module}} vil typisk gå gjennom flere salgstrinn inntil den er merket enten "Lukket Vunnet" eller "Lukket Mistet". Den {{module_name}} post reflekterer mengden og forventet lukkedato for {{revenuelineitems_module}}. {{plural_module_name}} og {{revenuelineitems_module}} kan utnyttes ytterligere ved hjelp av Sugers {{forecasts_singular_module}} ing modul for å forstå og forutsi salgstrender samt fokus arbeid for å oppnå salg kvoter.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_INVITEE' => 'Kontakter',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
@@ -66,37 +74,70 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'Opportunity liste',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Navn',
   'LBL_LIST_SALES_STAGE' => 'Salgsnivå',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MODIFIED_ID' => 'Endret av ID',
   'LBL_MODIFIED_NAME' => 'Endret av brukernavn',
   'LBL_MODIFIED_USER' => 'Endret bruker',
   'LBL_MODULE_NAME' => 'Opportunities',
+  'LBL_MODULE_NAME_SINGULAR' => 'Salgsmulighet',
   'LBL_MODULE_TITLE' => 'Opportunities: Hjem',
-  'LBL_MY_CLOSED_OPPORTUNITIES' => 'Mine lukkede Opportunities',
+  'LBL_MY_CLOSED_OPPORTUNITIES' => 'Mine lukkede salgsmuligheter',
   'LBL_NAME' => 'Opportunity navn',
   'LBL_NEW_FORM_TITLE' => 'Opprett Opportunity',
   'LBL_NEXT_STEP' => 'Neste skritt:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notater',
   'LBL_OPPORTUNITY' => 'Opportunity:',
-  'LBL_OPPORTUNITY_NAME' => 'Opportunity navn:',
-  'LBL_OPPORTUNITY_TYPE' => 'Opportunity-type',
+  'LBL_OPPORTUNITY_NAME' => 'Salgsmulighet navn:',
+  'LBL_OPPORTUNITY_ROLE' => 'Salgsmulighetens rolle',
+  'LBL_OPPORTUNITY_TYPE' => 'Salgsmulighets-type',
+  'LBL_OPPS_CONFIG_ALERT' => 'Ved å klikke på Bekreft , vil du bli slettet alle prognoser data og endre Salgsmuliheter. Hvis dette er ikke hva du mente , trykk Avbryt for å gå tilbake til tidligere innstillinger .',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Hvis alle Revenue Linjeelementer er lukker og minst en er satt til Vunnet',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'Salgsmuligheten er satt til Vunnet',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Hvis alle Revenue Linjeelementer er satt til Tapt i Salgsmulighet Status',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'Salgsmulighet status er satt til "Tapt"',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Hvis noen Revenue Line Items fortsatt er åpne',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'Salgsmuligheten vil bli markert med seneste Salgsmulighet status',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Still Forventet Lukk Dato feltet på de resulterende Salgsmuligheter poster for å være de tidligste eller seneste nære datoene for de eksisterende Revenue Linjeelementer',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Salgsmuligheter Hiraki',
+  'LBL_PIPELINE_TOTAL_IS' => 'Totale Pipeline er',
+  'LBL_PRIMARY_QUOTE_ID' => 'Primært tilbud',
   'LBL_PROBABILITY' => 'Sannsynlighet (%):',
+  'LBL_PRODUCTS' => 'Tilbuds linjeelementer',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Prosjekter',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Prosjekter',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Tilbud',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Tilbud',
   'LBL_RAW_AMOUNT' => 'Råmengde',
+  'LBL_RLI' => 'Omsetning linjeelementer',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Omsetninsposter',
   'LBL_SALES_STAGE' => 'Salgssteg:',
-  'LBL_SEARCH_FORM_TITLE' => 'Opportunity søk',
+  'LBL_SALES_STATUS' => 'Status',
+  'LBL_SEARCH_FORM_TITLE' => 'Salgsmulighet søk',
   'LBL_TEAM_ID' => 'Gruppe-ID',
-  'LBL_TOP_OPPORTUNITIES' => 'Mine topp ti Opportunities',
-  'LBL_TOTAL_OPPORTUNITIES' => 'Totalt antall Opportunities',
+  'LBL_TIMEPERIODS' => 'Tidsperioder',
+  'LBL_TIMEPERIOD_ID' => 'Tidsperiode-ID',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Viser Topp 10 Salgsmuligheter i et boblediagram.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Mine Salgsmuligheterr',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Mitt teams TOP 10 Salgsmuligheter',
+  'LBL_TOP_OPPORTUNITIES' => 'Mine topp ti salgsmuligheter',
+  'LBL_TOTAL_OPPORTUNITIES' => 'Totalt antall salgsmuligheter',
+  'LBL_TOTAL_RLIS' => '# av Totalt omsetningsposter',
   'LBL_TYPE' => 'Type:',
   'LBL_VIEW_FORM_TITLE' => 'Opportunity visning',
-  'LNK_IMPORT_OPPORTUNITIES' => 'Importer Opportunities',
+  'LBL_WORKSHEET' => 'Regneark',
+  'LNK_CREATE' => 'Opprett avtale',
+  'LNK_IMPORT_OPPORTUNITIES' => 'Importer salgsmuligheter',
   'LNK_NEW_OPPORTUNITY' => 'Opprett Opportunity',
   'LNK_OPPORTUNITY_LIST' => 'Vis Opportunities',
   'LNK_OPPORTUNITY_REPORTS' => 'Vis Opportunity rapporter',
   'MSG_DUPLICATE' => 'Denne Opportunity oppføringen som du er iferd med å opprette kan være en kopi av en Opportunity som allerede finnes. Opportunity oppføringer med lignende navn listes nedenfor.<br>Klikk på lagre for å fortsette med opprettelsen av denne Opportunity, eller klikk på Avbryt for å gå tilbake uten å opprette en ny Opportunity.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Du kan ikke slette Muligheter som inneholder lukkede Omsetning poster',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Er du sikker på at du vil fjerne denne Kontakten fra den valgte Opportunity?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på at du vil fjerne denne Opportunity fra det valgte prosjektet?',
+  'TPL_RLI_CREATE' => 'En salgsmulighet må ha en tilknyttet omsetningspost.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Opprett en omsetningspost',
   'UPDATE' => 'Opportunity - valutaoppdatering',
   'UPDATE_BUGFOUND_COUNT' => 'Bug funnet:',
   'UPDATE_BUG_COUNT' => 'Bug ble funnet og prøvd løst:',
@@ -122,5 +163,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Nytt beløp:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Ny valuta:',
   'UPDATE_VERIFY_TXT' => 'Bekrefter att verdien i Opportunities er gyldige desimaltall som kun inneholder numeriske tegn (0-9) og desimaler (.)',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'En eller flere av de valgte postene inneholder avsluttet omsetningsposter og kan ikke slettes.',
 );
 

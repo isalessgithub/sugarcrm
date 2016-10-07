@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('service/core/SoapHelperWebService.php');
 class SugarWebServiceUtilv3 extends SoapHelperWebServices {
 
@@ -43,7 +40,8 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
                 if( isset($var['source'])
                     && ($var['source'] != 'db' && $var['source'] != 'custom_fields' && $var['source'] != 'non-db')
                     && $var['name'] != 'email1' && $var['name'] != 'email2'
-                    && (!isset($var['type'])|| $var['type'] != 'relate')) {
+                    && (!isset($var['type'])|| $var['type'] != 'relate')
+                    && (!isset($var['type'])|| $var['type'] == 'id' && !isset($var['link']))) {
 
                     if( $value->module_dir == 'Emails'
                         && (($var['name'] == 'description') || ($var['name'] == 'description_html') || ($var['name'] == 'from_addr_name')
@@ -185,7 +183,7 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
 
 		if($value->module_dir == 'Bugs'){
 			require_once('modules/Releases/Release.php');
-			$seedRelease = new Release();
+			$seedRelease = BeanFactory::getBean('Releases');
 			$options = $seedRelease->get_releases(TRUE, "Active");
 			$options_ret = array();
 			foreach($options as $name=>$value){
@@ -233,28 +231,35 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
 	    switch ($type)
 	    {
 	        case 'wireless':
-	            if (file_exists('custom/modules/'.$module.'/metadata/wireless.subpaneldefs.php'))
-	                 require_once('custom/modules/'.$module.'/metadata/wireless.subpaneldefs.php');
-	            else if (file_exists('modules/'.$module.'/metadata/wireless.subpaneldefs.php'))
-	                 require_once('modules/'.$module.'/metadata/wireless.subpaneldefs.php');
+	            $defs = SugarAutoLoader::existingCustomOne('modules/'.$module.'/metadata/wireless.subpaneldefs.php');
+	            if($defs) {
+	                require $defs;
+	            }
+                //If an Ext/WirelessLayoutdefs/wireless.subpaneldefs.ext.php file exists, then also load it as well
+                $defs = SugarAutoLoader::loadExtension("wireless_subpanels", $module);
+                if($defs) {
+                    require $defs;
+                }
 	            break;
 
 	        case 'default':
 	        default:
-	            if (file_exists ('modules/'.$module.'/metadata/subpaneldefs.php' ))
-	                require ('modules/'.$module.'/metadata/subpaneldefs.php');
-	            if ( file_exists('custom/modules/'.$module.'/Ext/Layoutdefs/layoutdefs.ext.php' ))
-	                require ('custom/modules/'.$module.'/Ext/Layoutdefs/layoutdefs.ext.php');
+	            $defs = SugarAutoLoader::loadWithMetafiles($module, 'subpaneldefs');
+	            if($defs) {
+	            	require $defs;
+	            }
+	            $defs = SugarAutoLoader::loadExtension('layoutdefs', $module);
+	            if($defs) {
+	            	require $defs;
+	            }
 	    }
 
 	    //Filter results for permissions
 	    foreach ($layout_defs[$module]['subpanel_setup'] as $subpanel => $subpaneldefs)
 	    {
 	        $moduleToCheck = $subpaneldefs['module'];
-	        if(!isset($beanList[$moduleToCheck]))
-	           continue;
-	        $class_name = $beanList[$moduleToCheck];
-	        $bean = new $class_name();
+	        $bean = BeanFactory::getBean($moduleToCheck);
+	        if(empty($bean)) continue;
 	        if($bean->ACLAccess('list'))
 	            $results[$subpanel] = $subpaneldefs;
 	    }
@@ -266,48 +271,22 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
     function get_module_view_defs($module_name, $type, $view){
         require_once('include/MVC/View/SugarView.php');
         $metadataFile = null;
-        $results = array();
         $view = strtolower($view);
-        switch (strtolower($type)){
-            case 'wireless':
-                if( $view == 'list'){
-                    require_once('include/SugarWireless/SugarWirelessListView.php');
-                    $GLOBALS['module'] = $module_name; //WirelessView keys off global variable not instance variable...
-                    $v = new SugarWirelessListView();
-                    $results = $v->getMetaDataFile();
-                }
-                elseif ($view == 'subpanel')
-                    $results = $this->get_subpanel_defs($module_name, $type);
-                else{
-                    require_once('include/SugarWireless/SugarWirelessView.php');
-                    $v = new SugarWirelessView();
-                    $v->module = $module_name;
-                    $fullView = ucfirst($view) . 'View';
-                    $meta = $v->getMetaDataFile('Wireless' . $fullView);
-                    $metadataFile = $meta['filename'];
-                    require_once($metadataFile);
-                    //Wireless detail metadata may actually be just edit metadata.
-                    $results = isset($viewdefs[$meta['module_name']][$fullView] ) ? $viewdefs[$meta['module_name']][$fullView] : $viewdefs[$meta['module_name']]['EditView'];
-                }
+        if ($view == 'subpanel') {
+            return $this->get_subpanel_defs($module_name, $type);
+        }
 
-                break;
-            case 'default':
-            default:
-                if ($view == 'subpanel')
-                    $results = $this->get_subpanel_defs($module_name, $type);
-                else
-                {
-                    $v = new SugarView(null,array());
-                    $v->module = $module_name;
-                    $v->type = $view;
-                    $fullView = ucfirst($view) . 'View';
-                    $metadataFile = $v->getMetaDataFile();
-                    require_once($metadataFile);
-                    if($view == 'list')
-                        $results = $listViewDefs[$module_name];
-                    else
-                        $results = $viewdefs[$module_name][$fullView];
-                }
+        $v = new SugarView(null,array());
+        $v->module = $module_name;
+        $v->type = $view;
+        $fullView = ucfirst($view) . 'View';
+        $metadataFile = $v->getMetaDataFile();
+        require_once $metadataFile;
+        $results = array();
+        if ($view == 'list') {
+            $results = $listViewDefs[$module_name];
+        } else {
+            $results = $viewdefs[$module_name][$fullView];
         }
 
         return $results;
@@ -322,10 +301,8 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
     function get_visible_mobile_modules($availModules){
         $enabled_modules = array();
         $availModulesKey = array_flip($availModules);
-        foreach ( array ( '','custom/') as $prefix)
-        {
-        	if(file_exists($prefix.'include/MVC/Controller/wireless_module_registry.php'))
-        		require $prefix.'include/MVC/Controller/wireless_module_registry.php' ;
+        foreach(SugarAutoLoader::existingCustom('include/MVC/Controller/wireless_module_registry.php') as $file) {
+            require $file;
         }
 
         foreach ( $wireless_module_registry as $e => $def )
@@ -365,7 +342,6 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
      */
     function get_upcoming_activities()
     {
-        global $beanList;
         $maxCount = 10;
 
         $activityModules = array('Meetings' => array('date_field' => 'date_start','status' => 'Planned','status_field' => 'status', 'status_opp' => '='),
@@ -381,8 +357,7 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
                 continue;
             }
 
-            $class_name = $beanList[$module];
-	        $seed = new $class_name();
+	        $seed = BeanFactory::getBean($module);
             $query = $this->generateUpcomingActivitiesWhereClause($seed, $meta);
 
             $response = $seed->get_list(/* Order by date field */"{$meta['date_field']} ASC",  /*Where clause */$query, /* No Offset */ 0,

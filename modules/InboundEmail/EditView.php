@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $_REQUEST['edit']='true';
 
 require_once('include/SugarFolders/SugarFolders.php');
@@ -24,10 +21,14 @@ global $app_strings;
 global $app_list_strings;
 global $current_user;
 
-$focus = new InboundEmail();
+if (!$current_user->isAdminForModule("InboundEmail")) {
+    sugar_die(translate('ERR_NOT_ADMIN'));
+}
+
+$focus = BeanFactory::getBean('InboundEmail');
 $focus->checkImap();
 $javascript = new Javascript();
-$email = new Email();
+$email = BeanFactory::getBean('Emails');
 /* Start standard EditView setup logic */
 
 $domMailBoxType = $app_list_strings['dom_mailbox_type'];
@@ -388,7 +389,7 @@ $xtpl->assign("TEAM_SET_FIELD", $code);
 //$javascript = get_set_focus_js(). $javascript->getScript() . $quicksearch_js;
 $xtpl->assign('JAVASCRIPT', get_set_focus_js(). $javascript->getScript() . $quicksearch_js);
 
-require_once('include/Smarty/plugins/function.sugar_help.php');
+require_once('include/SugarSmarty/plugins/function.sugar_help.php');
 $tipsStrings = array(
     'LBL_SSL_DESC',
     'LBL_ASSIGN_TO_TEAM_DESC',

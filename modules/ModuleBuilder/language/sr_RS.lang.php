@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Greška: Polje već postoji',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Otkaži',
   'LBL_BTN_CLONE' => 'Kloniraj',
   'LBL_BTN_CLOSE' => 'Zatvori',
+  'LBL_BTN_COPY' => 'Kopiraj',
+  'LBL_BTN_COPY_FROM' => 'Kopiraj iz...',
   'LBL_BTN_DELETE' => 'Obriši',
   'LBL_BTN_DEPLOY' => 'Rasporedi',
   'LBL_BTN_DONT_SAVE' => 'Odbaci promene',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Poništi',
   'LBL_BTN_VIEW_FIELDS' => 'Pregled polja',
   'LBL_BTN_VIEW_LAYOUTS' => 'Pregled rasporeda',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Prikazati mobilni raspored',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Pregled veza',
   'LBL_BUG_TRACKER' => 'Praćenje defekata',
   'LBL_CALCULATED' => 'Izračunata vrednost',
   'LBL_CASES' => 'Slučajevi',
   'LBL_CLEAR_EXTENSIONS' => 'Obriši ekstenzije',
   'LBL_CLEAR_RELATIONSHIPS' => 'Obriši veze',
+  'LBL_COMBO_FIELD_CONTAINS' => 'sadrži:',
   'LBL_COMPANY' => 'Kompanija',
   'LBL_CONFIG_PORTAL_URL' => 'URL do sopstvene slike za logo. Preporučene dimenzije za logo su 163 x 18 piksela.',
   'LBL_CONFIRM_DONT_SAVE' => 'Da li želite da sačuvate promene koje su nastale nakon poslednjeg čuvanja?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Da li ste sigurni da želite da obrišete ovu vezu?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Ova veza će postati trajna. Da li ste sigurni da želite da rasporedite ovu vezu?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Izabrali ste da uklonite ovu stavku sa padajuće liste. Sva padajuća polja koja koriste listu sa vrednostima ove stavke više neće prikazati vrednost, a vrednost više neće moći da se izabere iz padajućih polja. Da li ste sigurni da želite da nastavite?',
+  'LBL_COPY_FROM' => 'Kopiraj vrednost iz',
   'LBL_COPY_FROM_EDITVIEW' => 'Kopiraj iz Pregleda za izmenu',
   'LBL_CREATE' => 'Kreiraj',
   'LBL_CREATE_NEW' => 'Kreiraj novi',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENT_LAYOUT' => 'Raspored',
   'LBL_CUSTOM' => 'Prilagođen',
-  'LBL_CUSTOMIZE_THEME' => 'Konfiguracija teme',
   'LBL_CUSTOM_FIELDS' => '* polje kreirano u Studiju',
   'LBL_CUSTOM_MODULE' => 'Modul',
   'LBL_CUSTOM_RELATIONSHIPS' => '* veza kreirana u Studo-u',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Zavisno',
   'LBL_DEPENDENCY' => 'Zavisnost',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Prevucite opcije iz leve liste dostupnih opcija u listu sa desne strane kako bi ove opcije bile dostupne kad se odabere opcija roditelj. Ako opcija roditelj nema podopcija, kada je odabran, neće biti prikazan padajući meni sa podopcijama.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Napomena: Biće potrebno da korisnici osveže prikaz zapisa kako bi izmene bile vidljive',
   'LBL_DEPLOYE_COMPLETE' => 'Raspoređivanje završeno',
   'LBL_DEPLOY_FAILED' => 'Desila se greška tokom procesa raspoređivanja, Vaš paket se možda nije instalirao ispravno.',
   'LBL_DEPLOY_IN_PROGRESS' => 'Raspoređivanje paketa',
@@ -139,12 +139,15 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEM_NAME' => 'Naziv elementa',
   'LBL_DROPDOWN_KEY_EXISTS' => 'Ključ već postoji u listi',
   'LBL_DROPDOWN_LANGUAGE' => 'Jezik',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Lista mora sadržati maka jednu dostupnu stavku',
   'LBL_DROPDOWN_TITLE_NAME' => 'Naziv',
   'LBL_DROP_HERE' => '[Spusti ovde]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Zavisno',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Molim, izaberite modul.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'prilagođeni padajući meni',
   'LBL_EC_CUSTOMFIELD' => 'prilagođeno(a) polje(a)',
+  'LBL_EC_CUSTOMLABEL' => 'prilagođene etikete',
   'LBL_EC_CUSTOMLAYOUT' => 'prilagođani raspored(i)',
   'LBL_EC_DESCRIPTION' => 'Opis:',
   'LBL_EC_EMPTYCUSTOM' => 'ima prazna prilagođavanja.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Polja',
   'LBL_FILE' => 'Fajl',
   'LBL_FILLER' => '(prazno)',
+  'LBL_FILTER_SEARCH' => 'Pretraga',
   'LBL_FORMULA' => 'Formula',
   'LBL_FORMULA_BUILDER' => 'Kreator formule',
   'LBL_FORMULA_INVALID' => 'Nevažeća formula',
   'LBL_FORMULA_TYPE' => 'Formula mora biti tipa',
   'LBL_HCUSTOM' => 'PRILAGOĐEN',
   'LBL_HDEFAULT' => 'PODRAZUMEVAN',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Kopirati iz rasporeda',
   'LBL_HIDDEN' => 'Sakriven',
   'LBL_HIDEOPTIONS' => 'Sakrij Opcije',
   'LBL_HIGH' => 'Visok',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Moja',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Editor padajućih listi',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Padajući ključ ne može da sadrži navodnike.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Obeležava kombinovano polje. Kombinovano polje je sastavljeno od pojedinačnih polja. Na primer, "Adresa" je kombinovano polje koje sadrži polja "Ulica", "Grad", "Poštanski kod" i "Republika" i "Država".<br><br>Kliknite dva puta na kombinovano polje da vidite od kojih polja se sastoji.',
   'LBL_ISSUE' => 'Problem',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Da li ste sigurni da želite da obrišete ovu potrebnu stavku padajuće liste? Ovo može imati uticaja na funkcionalnost vaše aplkacije.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Da li ste sigurni da želite da izbrišete zatvorenu izgubljenu fazu prodaje? Zbog brisanja ove faze vaš modul za prognozu neće funkcionisati kako treba.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Da li ste sigurni da želite da izbrišete zatvorenu dobijenu fazu prodaje? Zbog brisanja ove faze vaš modul za prognozu neće funkcionisati kako treba.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Da li ste sigurni da želite da obrišete status prodaje U toku? Brisanjem ovog statusa radni tok stavki prihoda modula prodajne prilike neće fnkcionisati',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Da li ste sigurni da želite da obrišete status prodaje Novo? Brisanjem ovog statusa radni tok stavki prihoda modula prodajne prilike neće fnkcionisati',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Da li ste sigurni da želite da obrišete ovu stavku padajuće liste? Brisanje zatvorenih dobijeni i zatvorenih izgubljenih faza može izazvati da modul za prognozu ne funkcioniše kako treba.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Sva prilagođavanja koja ste napravili u Studio-u će biti zamenjena kada se ovaj modul ponovo rasporedi. Da li ste sigurni da želite da nastavite?',
   'LBL_JS_REMOVE_MODULE' => 'Da li ste sigurni da želite da izbrišete ovaj modul? Ovo će trajno izbrisati sve fajlove koji su povezani sa ovim modulom.',
   'LBL_JS_REMOVE_PACKAGE' => 'Da li ste sigurni da želite da uklonite ovaj paket? Ovo će trajno obrisati sve fajlove koji su povezani sa ovim paketom.',
   'LBL_JS_VALIDATE_KEY' => 'Ključ - Mora biti alfanumerički, bez razmaka i mora da počinje slovom.',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Ključ - Mora biti alfanumerički i počinjati slovom.',
   'LBL_JS_VALIDATE_LABEL' => 'Molim, unesite labelu koja će biti korišćena kao Ime za prikaz za ovaj modul',
   'LBL_JS_VALIDATE_NAME' => 'Ime - Mora biti alfanumeričko, bez razmaka i mora da počinje slovom.',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Naziv paketa već postoji',
@@ -305,8 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Odaberite raspored Sugar portala koji želite da izmenite.',
   'LBL_QUICKCREATE' => 'Brzo kreiraj',
   'LBL_READ_ONLY' => 'Samo za čitanje',
+  'LBL_RECORDVIEW' => 'Pregled zapisa',
   'LBL_RELATED_FIELD' => 'Srodno polje',
-  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (povezano sa {1} ID)',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (povezan {1} ID)',
   'LBL_RELATE_TO' => 'Poveži sa',
   'LBL_RELATIONSHIPS' => 'Veze',
   'LBL_RELATIONSHIP_EDIT' => 'Izmeni vezu',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Resetuj modul',
   'LBL_RESTORE_DEFAULT' => 'Vrati podrazumevano',
   'LBL_RHS_MODULE' => 'Povezani modul',
+  'LBL_ROLE' => 'Uloga',
   'LBL_ROLLUP' => 'Udružen',
   'LBL_RSUB' => 'Ovo je podpanel koji će biti prikazan u Vašem modulu',
   'LBL_SALE' => 'Prodaja',
-  'LBL_SAVE' => 'Sačuvaj',
   'LBL_SAVE_LAYOUT' => 'Sačuvaj raspored',
   'LBL_SEARCH' => 'Pretraga',
   'LBL_SEARCH_FIELDS' => 'Pretraga polja...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Izaberite podpanel',
   'LBL_SELECT_FILE' => 'Izaberite fajl',
   'LBL_SELECT_SUBPANEL' => 'Izaberite podpanel',
+  'LBL_SINGULAR_LABEL' => 'Jednina',
   'LBL_SP_PREVIEW' => 'Ovo je prikaz kako će Sugar portal izgledati koristeći stil.',
   'LBL_SP_UPLOADED' => 'Uveženo',
   'LBL_SP_UPLOADSTYLE' => 'Izaberite stil koji želite da uvezete sa Vašeg računara.<br>Stil će biti implementiran u Sugar portalu kada sledeći put uradite sinhronizaciju.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => 'Područje <b>Raspored</b> sadrži polja koja su trenutno prikazana u okviru <b>Pregleda za izmenu</b>.<br><br><b>Set alata</b> sadrži <b>Korpu za otpatke</b> i polja i raspored elemenata koji se mogu dodati na raspored.<br><br>Napravite promene u rasporedu prevlačenjem i spuštanjem elemenata i polja između <b>Seta alata</b> i <b>Rasporeda </b> i unutar samog rasporeda.<br><br>Da bi ste uklonili polje iz rasporeda, prevucite polje u <b>Korpu za otpatke</b>. Polje će potom biti dostupno u Setu alata za dodavanje na raspored.<br><br> <img src="themes/default/images/SugarLogic/icon_dependent.png"/> Ukazuje na Zavisno polje koje može ili možda neće biti vidljivo na osnovu vrednosti formule <br><br><img src="themes/default/images/SugarLogic/icon_calculated.png"/> Ukazuje na izračunato polje čija će vrednost biti automatski određena na osnovu formule.',
       'defaultdetailview' => 'Područje <b>Raspored</b> sadrži polja koja su trenutno prikazana u okviru <b>Detaljnog pregleda</b>.<br/><br/><b>Set alata</b> sadrži <b>Korpu za otpatke</b> i polja i raspored elemenata koji se mogu dodati u raspored.<br><br/>Napravite promene u rasporedu prevlačenjem i spuštanjem elemenata i polja između <b>Seta alata</b> i <b>Rasporeda </b> i unutar samog rasporeda.<br><br>Da biste uklonili polje iz rasporeda, prevucite polje u <b>Korpu za otpatke</b>.Polje će potom biti dostupno u Setu alata da bi ga dodali na raspored <br/><br/> <img src="themes/default/images/SugarLogic/icon_dependent.png"/> Ukazuje na Zavisno polje koje može ili možda neće biti vidljivo na osnovu vrednosti formule <br/> <br><img src="themes/default/images/SugarLogic/icon_calculated.png"/> Ukazuje na izračunato polje čija će vrednost biti automatski određena na osnovu formule.',
       'defaultquickcreate' => 'Područje <b>Raspored</b> sadrži polja koja su trenutno prikazana u okviru forme <b>Brzo kreiraj</b>.<br/><br/>Froma brzo kreiraj se prikazuje u podpanelima za module kada se klikne na dugme Kreiraj.<br><br><b>Set alata</b> sadrži <b>Korpu za otpatke</b> i polja i raspored elemenata koji se mogu dodati u raspored.<br><br/>Napravite promene u rasporedu prevlačenjem i spuštanjem elemenata i polja između <b>Seta alata</b> i <b>Rasporeda </b> i unutar samog rasporeda.<br><br> Da bi ste uklonili polje iz rasporeda, prevucite polje u <b>Korpu za otpatke</b>. Polje će potom biti dostupno u Setu alata za dodavanje na raspored <br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/> Ukazuje na Zavisno polje koje može ili možda neće biti vidljivo na osnovu vrednosti formule <br/><br><img src="themes/default/images/SugarLogic/icon_calculated.png"/> Ukazuje na izračunato polje čija će vrednost biti automatski određena na osnovu formule.',
+      'defaultrecordview' => 'Područje <b>Raspored</b> sadrži polja koja su trenutno prikazana u okviru <b>Pregled Zapisa</b>.<br/><br/><b>Set alata</b> sadrži <b>Korpu za otpatke</b> i polja i raspored elemenata koji se mogu dodati u raspored.<br><br/>Napravite promene u rasporedu prevlačenjem i spuštanjem elemenata i polja između <b>Seta alata</b> i <b>Rasporeda </b> i unutar samog rasporeda.<br><br>Da biste uklonili polje iz rasporeda, prevucite polje u <b>Korpu za otpatke</b>.Polje će potom biti dostupno u Setu alata da bi ga dodali na raspored <br/><br/> <img src="themes/default/images/SugarLogic/icon_dependent.png"/> Ukazuje na Zavisno polje koje može ili možda neće biti vidljivo na osnovu vrednosti formule <br/> <br><img src="themes/default/images/SugarLogic/icon_calculated.png"/> Ukazuje na izračunato polje čija će vrednost biti automatski određena na osnovu formule.',
       'delete' => 'Prevucite i spustite bilo koji elemenat ovde da ga uklonite iz rasporeda',
       'historyBtn' => 'Kliknite <b>Pogled Istorije</b> da vidite i vratite prethodno sačuvani raspored iz istorije.',
       'historyDefault' => 'Kliknite <b>Vrati podrazumevano</b> da vratite pogled na svoj prvobitni raspored.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => 'Šablon tipa <b>Prodaja</b> pruža mogućnost određenih polja, kao što su Izvor Potencijalnog klijenta, Faza, Iznos i Verovatnoća. <br><br>Koristite ovaj šablon da bi ste napravili module koji su slični standardnom modulu Prodajne prilike.',
       'viewfieldsbtn' => 'Kliknite na <b>Pregledaj polja</b> da bi ste videli polja u vezi sa modulom i da kreirajte i uređujute prilagođena polja.',
       'viewlayoutsbtn' => 'Kliknite <b>Pogledaj Rasporede</b> da biste videli rasporede za modul i da prilagodite raspored polja u okviru modula.',
+      'viewmobilelayoutsbtn' => 'Klikom na Prikazati mobilni raspored se prikazuje raspored modula i mogućnost prilagođavanja polja u okviru modula prema sopstvenim potrebama.',
       'viewrelsbtn' => 'Kliknite na <b>Pogledaj Veze</b> da vidite odnose u vezi sa ovim modulom i da stvorite nove odnose.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Sve <b>Relacije</b> koje postoje između modula i drugih raspoređenih modula se pojavljuju ovde.<br><br><b>Ime</b> veze je sistemski generisano ime za vezu.<br><br><b>Osnovni Modul</b> je modul koji poseduje relaciju. Na primer, sva svojstva veze za koje je modul Kompanije primarni modul se čuvaju u tabeli Kompanije u bazi podataka.<br><br><b>Tip</b> je vrsta veze koja postoji između Primarnog modula i <b>Povezanog modula.</b><br><br>Kliknite na naslov kolone da bi ste sortirali po koloni.<br><br>Kliknite na red u vezanoj tabeli da bi ste prikazali svojstva u vezi sa relacijom.<br><br>Kliknite <b>Dodaj vezu</b> da kreirate novu vezu.<br><br>Veze mogu biti kreirane između bilo koja dva raspoređena modula.',
       'searchBtn' => 'Prilagodite raspored <b>Pretrage</b>.<br><br>Odredite koja polja mogu da se koriste da bi se filtrirali zapisi koji se prikazuju u pregledu u vidu liste.',
       'searchHelp' => 'Forme <b>Pretraga</b> ovde mogu da se prilagode.<br><br>Forme pretraga sadrže polja za filtriranje zapisa.<br><br>Kliknite na ikonicu da odaberete raspored pretrage za izmenu.',
+      'studioBCHelp' => 'označava da je modul kompatibilan sa prethodnim izdanjima.',
       'studioBtn' => 'Koristite <b>Studio</b> da prilagodite raspoređene module.',
       'studioHelp' => 'Koristite <b>Studio</b> da odredite koje informacije i kako će se prikazati u modulima.',
       'subpanelBtn' => 'Odredite koja polja se prikazuju u <b>Podpanelima</b> u modulu.',

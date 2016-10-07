@@ -1,36 +1,26 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
-
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/workflow/workflow_utils.php');
 require_once('include/workflow/time_utils.php');
 require_once('include/workflow/alert_utils.php');
 require_once('include/workflow/glue.php');
 
 
-// WorkFlow is used to store the workflow objects.
-class WorkFlow extends SugarBean {
+/**
+ *  WorkFlow is used to store the workflow objects.
+ */
+class WorkFlow extends SugarBean
+{
 	var $field_name_map;
 	// Stored fields
 	var $id;
@@ -122,51 +112,29 @@ class WorkFlow extends SugarBean {
     // Flag whether
     var $check_controller = true;
 
-	function WorkFlow() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Workflow()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 
 		$this->disable_row_level_security =false;
-
 	}
 
 
 
 	function get_summary_text()
 	{
-		return "$this->name";
+		return $this->name;
 	}
-
-
-
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-
-
-        function create_export_query(&$order_by, &$where)
-        {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-		$query = "SELECT $this->table_name.* ";
-        $query .= $custom_join['select'];
- 		$query .= " FROM $this->table_name ";
-        $query .= $custom_join['join'];
-		$where_auto = "$this->table_name.deleted=0";
-
-                if($where != "")
-                        $query .= "where ($where) AND ".$where_auto;
-                else
-                        $query .= "where ".$where_auto;
-
-                if(!empty($order_by))
-                        $query .= " ORDER BY $order_by";
-
-                return $query;
-        }
-
-
 
 	function save_relationship_changes($is_update)
     {
@@ -222,6 +190,8 @@ class WorkFlow extends SugarBean {
 
         $ret['from'] = " FROM ".$this->table_name." ";
         $ret['from'] .= $custom_join['join'];
+        $this->addVisibilityFrom($ret['from'], array('where_condition' => true));
+        $this->addVisibilityWhere($where, array('where_condition' => true));
 
         $where_auto = "deleted=0 AND ( parent_id IS NULL OR parent_id = '' )";
 
@@ -359,43 +329,23 @@ function filter_base_modules(){
 					 where $this->rel_dataset.report_id='$this->id'
 					 AND $this->rel_dataset.deleted=0 ".$orderBy;
 
-		return $this->build_related_list($query, new DataSet());
+		return $this->build_related_list($query, BeanFactory::getBean('DataSets'));
 	}
 
 
-	function get_column_select($drop_down_module=""){
+	function get_column_select($drop_down_module="")
+	{
+    	$this->column_options = array();
+    	if(!empty($drop_down_module)){
+    		$column_module = $drop_down_module;
+    	} else {
+    		$column_module = $this->base_module;
+    	}
 
-	global $beanList;
-	$this->column_options = array();
-	if(!empty($drop_down_module)){
-		$column_module = $drop_down_module;
-	} else {
-		$column_module = $this->base_module;
-	}
-
-	//Get dictionary data for base bean and all connected beans
-
-	//Get dictionary and focus data for base bean
-		$vardef_name = $beanList[$column_module];
-
-		if(!file_exists('modules/'. $column_module . '/vardefs.php')){
-			return;
-		}
-
-		include_once('modules/'. $column_module . '/'.$vardef_name.'.php');
-		$temp_focus = new $vardef_name();
-		$this->add_to_column_select($temp_focus, $column_module);
-
-
-	//Loop through existing columns for connecting beans
-
-
-
-	//end loop
-
-	return $this->column_options;
-
-	//end function get_column_select
+    	//Get dictionary data for base bean and all connected beans
+    	$temp_focus = BeanFactory::newBean($column_module);
+    	$this->add_to_column_select($temp_focus, $column_module);
+    	return $this->column_options;
 	}
 
 
@@ -446,28 +396,15 @@ function filter_base_modules(){
 
 		//expand this function to return other types of module information based on the name
 
-		global $beanList;
-		global $dictionary;
-
 		//Get dictionary and focus data for module
-		$vardef_name = $beanList[$module_name];
+		return BeanFactory::getBean($module_name);
 
-		if(!file_exists('modules/'. $module_name . '/'.$vardef_name.'.php')){
-			return;
-		}
-
-		include_once('modules/'. $module_name . '/'.$vardef_name.'.php');
-
-		$module_bean = new $vardef_name();
-
-		return $module_bean;
-
-	//end function get_module_table
+	//end function get_module_info
 	}
 
 	function get_field_table($module, $field){
 
-		$seed_object = $this->get_module_info($module);
+		$seed_object = BeanFactory::getBean($module);
 		$field_table = $this->determine_field_type($seed_object, $field);
 
 	return $field_table;
@@ -502,7 +439,7 @@ function filter_base_modules(){
 
 		global $dictionary;
 
-		if(!file_exists('modules/'. $focus->module_dir . '/'.$focus->object_name.'.php')){
+		if(!SugarAutoLoader::fileExists('modules/'. $focus->module_dir . '/'.$focus->object_name.'.php')){
 			return $field;
 		}
 
@@ -722,7 +659,7 @@ $alert_file_contents = "";
 
 
 			if($row['type']=='Time'){
-				$trigger_object = new WorkFlowTriggerShell();
+				$trigger_object = BeanFactory::getBean('WorkFlowTriggerShells');
 
 				$time_interval_array = $trigger_object->get_time_int($row['triggershell_id']);
 
@@ -743,7 +680,7 @@ $alert_file_contents = "";
                 $eval_dump .= "\t \$workflow_id = '" . $row['id'] . "'; \n\n";
 
 				$eval_dump .= 'if(!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" &&
-				!empty($_SESSION["workflow_id_cron"]) && $_SESSION["workflow_id_cron"]==$workflow_id){
+				!empty($_SESSION["workflow_id_cron"]) && in_array($workflow_id, $_SESSION["workflow_id_cron"])){
 				';
 			//end if type is time
 			}
@@ -809,30 +746,66 @@ $alert_file_contents = "";
 
             // Update date_expired in case it's a new row, or any of the fields got updated
             if ($row['type'] == 'Time') {
+                $eval_dump .= "// Hack for skipping the check if field has changed, just check values\n";
+                $eval_dump .= "if (!empty(\$_SESSION['workflow_cron'])) {\n";
+                $eval_dump .= "\t\$saveWorkflowCron = \$_SESSION['workflow_cron'];\n";
+                $eval_dump .= "}\n";
+
+                $eval_dump .= "\$_SESSION['workflow_cron'] = 'Yes';\n";
                 ++ $trigger_time_count;
-                $eval_dump .= "\$checkFields = array(";
-                $secondaryEval = '';
-                foreach ($this->secondary_triggers as $secondaryTrigger) {
+                $eval_dump .= "\$secondary_array = array();";
+                $eval_dump .= "\$checkFields = array('for' => 'activity', 'excludeType' => array(), ";
+                $eval_dump .= "'field_filter' => array(";
+                $additionalEval = array();
+                $additionalEvalRelated = array();
+                $relatedTriggers = '';
+                $bean = BeanFactory::getBean($this->base_module);
+                $dateTypeFields = array('date', 'datetime', 'datetimecombo');
+                if ($row['trigger_type'] != 'compare_any_time'
+                	&& !($row['trigger_type'] == 'compare_specific'
+                	&& isset($bean->field_defs[$row['target_field']]['type'])
+                	&& in_array($bean->field_defs[$row['target_field']]['type'], $dateTypeFields))
+                ) {
+                    $additionalEval[] = "({$eval})";
+                }
+                foreach ($this->secondary_triggers as $key => $secondaryTrigger) {
                     $eval_dump .= "'" . $secondaryTrigger['field'] . "', ";
 
-                    if ($secondaryTrigger['type'] != 'compare_any_time' && !empty($secondaryTrigger['eval'])) {
-                        $secondaryEval .= " && {$secondaryTrigger['eval']}";
+                    if ($secondaryTrigger['type'] == 'filter_rel_field') {
+                        $relatedTriggers .= "\$filter{$key} = " . $secondaryTrigger['eval'] . "; \n";
+                        $additionalEval[] = $additionalEvalRelated[] = "\$filter{$key}['results'] === true";
+                    } else if (!empty($secondaryTrigger['eval'])
+                    	&& $secondaryTrigger['type'] != 'compare_any_time'
+                    	&& !($secondaryTrigger['type'] == 'compare_specific'
+                    	&& in_array($bean->field_defs[$secondaryTrigger['field']]['type'], $dateTypeFields))
+                    ) {
+                        $additionalEval[] = $secondaryTrigger['eval'];
                     }
                 }
-                $eval_dump .= "'" . $row['target_field'] . "');\n";
+                $eval_dump .= "'" . $row['target_field'] . "'));\n";
+                $eval_dump .= $relatedTriggers;
                 $eval_dump .= "\$dataChanged = \$GLOBALS['db']->getDataChanges(\$focus, \$checkFields);\n";
-                $eval_dump .= "if ((empty(\$focus->fetched_row) || !empty(\$dataChanged)) ";
-                if ($row['trigger_type'] != 'compare_any_time') {
-                    $eval_dump .= " && ({$eval})";
+                $eval_dump .= "if ((empty(\$focus->fetched_row) ";
+                $related = '';
+                if (!empty($additionalEvalRelated)) {
+                    $related .= "|| (" . implode(' && ', $additionalEvalRelated) . ")";
                 }
-                if (!empty($secondaryEval)) {
-                    $eval_dump .= $secondaryEval;
+                $eval_dump .= "|| !empty(\$dataChanged) $related)";
+                if (!empty($additionalEval)) {
+                    $eval_dump .= ' && (' . implode(' && ', $additionalEval) . ')';
                 }
                 $eval_dump .= ") {\n";
                 // Need to add the $timeArray and $workflow_id here for check_for_schedule() call
                 $eval_dump .= $timeArray;
                 $eval_dump .= "\$workflow_id = '" . $row['id'] . "'; \n\n";
                 $eval_dump .= get_time_contents($row['id']);
+                $eval_dump .= "}\n";
+
+                $eval_dump .= "// Revert to original value\n";
+                $eval_dump .= "if (!empty(\$saveWorkflowCron)) {\n";
+                $eval_dump .= "\t\$_SESSION['workflow_cron'] = \$saveWorkflowCron;\n";
+                $eval_dump .= "} else {\n";
+                $eval_dump .= "\tunset(\$_SESSION['workflow_cron']);\n";
                 $eval_dump .= "}\n";
             }
 		//end while
@@ -905,7 +878,8 @@ function get_front_triggers_secondary($workflow_id, & $trigger_count){
 			}
 			if($row['type']=="filter_rel_field"){
 				$this->glue_object->build_trigger_triggers("trigger_".$trigger_count."_secondary_".$secondary_count, $row['id']);
-				$eval .= "\t \$secondary_array = check_rel_filter(\$focus, \$secondary_array, '".$row['rel_module']."', \$trigger_meta_array['trigger_".$trigger_count."_secondary_".$secondary_count."'], '".$row['rel_module_type']."'); \n";
+				$secondaryTriggersEval = "check_rel_filter(\$focus, \$secondary_array, '".$row['rel_module']."', \$trigger_meta_array['trigger_".$trigger_count."_secondary_".$secondary_count."'], '".$row['rel_module_type']."')";
+				$eval .= "\t \$secondary_array = " . $secondaryTriggersEval . "; \n";
 				$eval .= "\t if(";
 				$eval .= "(\$secondary_array['results']==true)";
 				$eval .= "\t ){ \n";
@@ -1154,7 +1128,7 @@ function get_action_contents($workflow_id, $trigger_count, $action_module_name){
 			if($row['action_type']=="new" && ($row['action_module']=="Calls" || $row['action_module']=="Meetings" || $row['action_module']=="calls" || $row['action_module']=="meetings")){
 
 
-				$actionshell_object = new WorkFlowActionShell();
+				$actionshell_object = BeanFactory::getBean('WorkFlowActionShells');
 				$process = $actionshell_object->check_for_child_invitee($row['id']);
 
 
@@ -1282,7 +1256,7 @@ function get_rel_module($var_rel_name, $get_rel_name = false){
 
 	//get the vardef fields relationship name
 	//get the base_module bean
-	$module_bean = get_module_info($this->base_module);
+	$module_bean = BeanFactory::getBean($this->base_module);
 	require_once('data/Link.php');
 	$rel_name = Relationship::retrieve_by_modules($var_rel_name, $this->base_module, $GLOBALS['db']);
 	if(!empty($module_bean->field_defs[$rel_name])){
@@ -1315,29 +1289,67 @@ check_logic_hook_file($module_name, $event, $action_array);
 }
 
 
-//////////Repair function for repairing or cleaning up cached (Custom Folder) files
+    /**
+     * Repair and rebuild all Workflows
+     * @param bool $skipDeactivated optional Skip repairing deactivated workflow or not
+     */
+    public function repair_workflow($skipDeactivated = false)
+    {
+        $skipWhere = '';
+        if ($skipDeactivated) {
+            $skipWhere = ' and status = 1';
+        }
+        $query = "SELECT DISTINCT base_module, id FROM $this->table_name WHERE deleted = 0" . $skipWhere;
 
-function repair_workflow(){
+        $result = $this->db->query($query, true, " Error repairing workflow: ");
 
-	$query = "SELECT DISTINCT base_module, id FROM $this->table_name WHERE deleted = 0";
+        // Get the id and the name.
+        while ($row = $this->db->fetchByAssoc($result)) {
+            $this->retrieve($row['id']);
+            $this->rebuildTriggers();
+            $this->check_logic_hook_file();
+            $this->write_workflow();
+        }
+    }
 
-	$result = $this->db->query($query,true," Error repairing workflow: ");
+    /**
+     * Rebuild workflow triggers
+     */
+    public function rebuildTriggers()
+    {
+        $triggerList = $this->get_linked_beans('triggers', 'WorkFlowTriggerShell');
+        if (!empty($triggerList)) {
+            foreach ($triggerList as $trigger) {
+                $futureTrigger = BeanFactory::getBean('Expressions');
+                $futureTriggers = $trigger->get_linked_beans('future_triggers', 'Expression');
+                if (!empty($futureTriggers)) {
+                    $futureTrigger = $futureTriggers[0];
+                }
 
-		// Get the id and the name.
-		while($row = $this->db->fetchByAssoc($result)){
+                $pastTrigger = BeanFactory::getBean('Expressions');
+                $pastTriggers = $trigger->get_linked_beans('past_triggers', 'Expression');
+                if (!empty($pastTriggers)) {
+                    $pastTrigger = $pastTriggers[0];
+                }
 
-			//Instantiate the workflow object and run the write
-			//$temp_workflow = new WorkFlow();
-			$this->retrieve($row['id']);
-			$this->check_logic_hook_file();
-			$this->write_workflow();
-		//end while loop of workflow items
-		}
+                $trigger->glue_triggers($pastTrigger, $futureTrigger);
+                $trigger->save();
+            }
+        }
 
+        $triggerFilterList = $this->get_linked_beans('trigger_filters', 'WorkFlowTriggerShell');
+        if (!empty($triggerFilterList)) {
+            foreach ($triggerFilterList as $triggerFilter) {
+                $triggerExpressions = $triggerFilter->get_linked_beans('expressions', 'Expression');
+                if (!empty($triggerExpressions)) {
+                    $triggerExpression = $triggerExpressions[0];
 
-
-//end function repair_workflow
-}
+                    $triggerFilter->glue_trigger_filters($triggerExpression);
+                    $triggerFilter->save();
+                }
+            }
+        }
+    }
 
 	function get_parent_object(){
 
@@ -1346,10 +1358,8 @@ function repair_workflow(){
 
 		if($this->parent_id!=""){
 
-			$action_shell_object = new WorkFlowActionShell();
-			$action_shell_object->retrieve($this->parent_id);
-			$workflow_object = new WorkFlow();
-			$workflow_object->retrieve($action_shell_object->parent_id);
+			$action_shell_object = BeanFactory::getBean('WorkFlowActionShells', $this->parent_id);
+			$workflow_object = BeanFactory::getBean('WorkFlow', $action_shell_object->parent_id);
 			return $workflow_object;
 		}
 			//parent does not exist so return self
@@ -1485,10 +1495,12 @@ function getActiveWorkFlowCount() {
         $result = $this->db->query($query, true, "Error getting workflow_schedules for workflow_id: " . $this->id);
 
         // Remove each workflow schedule by id
+        $removeExpired = array();
         $workflowSchedule = new WorkFlowSchedule();
         while ($row = $this->db->fetchByAssoc($result)) {
-            $workflowSchedule->remove_expired($row['id']);
+            $removeExpired[] = $row['id'];
         }
+        $workflowSchedule->remove_expired($removeExpired);
     }
 
     /**
@@ -1568,5 +1580,3 @@ function getActiveWorkFlowCount() {
 
 //end class
 }
-
-?>

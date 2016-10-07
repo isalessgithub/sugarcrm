@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -24,16 +21,15 @@ unset($_SESSION['rebuild_relationships']);
 unset($_SESSION['rebuild_extensions']);
 // process commands
 if(empty($_REQUEST['install_file'])){
-    die( "File to install not specified." );
+    die( $mod_strings['LBL_UPGRADE_WIZARD_FILE_NOT_SPEC'] );
 }
 if( !isset($_REQUEST['mode']) || ($_REQUEST['mode'] == "") ){
-    die( "No mode specified." );
+    die( $mod_strings['LBL_UPGRADE_WIZARD_NO_MODE_SPEC'] );
 }
 
 if(!file_exists($base_tmp_upgrade_dir)) {
     mkdir($base_tmp_upgrade_dir, 0755, true);
 }
-
 $unzip_dir      = mk_temp_dir( $base_tmp_upgrade_dir );
 $install_file   = hashToFile($_REQUEST['install_file']);
 $hidden_fields = "";
@@ -53,7 +49,7 @@ $show_files     = true;
 $zip_from_dir   = ".";
 $zip_to_dir     = ".";
 $zip_force_copy = array();
-$license_file = $unzip_dir.'/LICENSE.txt';
+$license_file = $unzip_dir.'/LICENSE';
 $readme_file  = $unzip_dir.'/README.txt';
 $require_license = false;
 $found_readme = false;
@@ -64,11 +60,23 @@ $is_uninstallable = true;
 $id_name = '';
 $dependencies = array();
 $remove_tables = 'true';
+$roles = array();
 
 unzip( $install_file, $unzip_dir );
-if($install_type == 'module' && $mode != 'Uninstall'){
-   if(file_exists($license_file)){
+if($install_type == 'module' && $mode != 'Uninstall' && $mode != 'Disable'){
+
+    //if LICENSE file not found, try LICENSE.txt
+    if (!file_exists($license_file)) {
+        $license_file = $unzip_dir.'/LICENSE.txt';
+    }
+    
+   if(file_exists($license_file)) {
+        // Add this to the autoloader so that it gets picked up when needed
+        SugarAutoLoader::addToMap($license_file, true);
         $require_license = true;
+   }
+   else {
+        $GLOBALS['log']->error("License File $license_file does not exist");
    }
 }
 
@@ -199,11 +207,23 @@ $hidden_fields .= "<input type=hidden name=\"version\" value=\"$version\"/>";
 $serial_manifest = array();
 $serial_manifest['manifest'] = (isset($manifest) ? $manifest : '');
 $serial_manifest['installdefs'] = (isset($installdefs) ? $installdefs : '');
+if (isset($installdefs['roles']) && $mode === 'Install' && $install_type === 'module') {
+    $roles = $installdefs['roles'];
+}
 $serial_manifest['upgrade_manifest'] = (isset($upgrade_manifest) ? $upgrade_manifest : '');
 $hidden_fields .= "<input type=hidden name=\"s_manifest\" value='".base64_encode(serialize($serial_manifest))."'>";
 // present list to user
+
+if (count($roles) == 0) {
+    $action = '_commit';
+    $buttonLabel = 'LBL_ML_COMMIT';
+} else {
+    $action = '_map_roles';
+    $buttonLabel = 'LBL_ML_NEXT';
+}
+ 
 ?>
-<form action="<?php print( $form_action . "_commit" ); ?>" name="files" method="post"  onSubmit="return validateForm(<?php print($require_license); ?>);">
+<form action="<?php print( $form_action . $action ); ?>" name="files" method="post" onsubmit="return validateForm(<?php print($require_license); ?>);">
 <?php
 if(empty($new_studio_mod_files)) {
 	if(!empty($mode) && $mode == 'Uninstall')
@@ -225,7 +245,7 @@ if(empty($new_studio_mod_files)) {
 }
 echo '<br>';
 if($require_license){
-    $contents = sugar_file_get_contents($license_file);
+    $contents = file_get_contents($license_file);
 	$readme_contents = '';
 	if($found_readme){
 		if(file_exists($readme_file) && filesize($readme_file) > 0){
@@ -323,7 +343,7 @@ switch( $mode ){
 
 
 ?>
-<input type=submit value="<?php echo $mod_strings['LBL_ML_COMMIT'];?>" class="button" id="submit_button" />
+<input type=submit value="<?php echo $mod_strings[$buttonLabel];?>" class="button" id="submit_button" />
 <input type=button value="<?php echo $mod_strings['LBL_ML_CANCEL'];?>" class="button" onClick="location.href='index.php?module=Administration&action=UpgradeWizard&view=module';"/>
 
 <?php
@@ -363,7 +383,6 @@ if( $show_files == true ){
 
 
 
-	global $theme;
 
 	echo '<br/><br/>';
 

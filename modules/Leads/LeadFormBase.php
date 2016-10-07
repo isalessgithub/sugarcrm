@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarObjects/forms/PersonFormBase.php');
 
 class LeadFormBase extends PersonFormBase {
@@ -32,7 +29,7 @@ var $objectName = 'Lead';
  */
 public function getDuplicateQuery($focus, $prefix='')
 {
-	$query = "SELECT id, first_name, last_name, account_name, title FROM leads ";
+	$query = "SELECT leads.id, leads.first_name, leads.last_name, leads.account_name, leads.title FROM leads ";
 
     // Bug #46427 : Records from other Teams shown on Potential Duplicate Contacts screen during Lead Conversion
     // add team security
@@ -41,13 +38,13 @@ public function getDuplicateQuery($focus, $prefix='')
         $focus->add_team_security_where_clause($query);
     }
 
-    $query .= " WHERE deleted != 1 AND (status <> 'Converted' OR status IS NULL) AND ";
+    $query .= " WHERE leads.deleted != 1 AND (leads.status <> 'Converted' OR leads.status IS NULL) AND ";
 
     //Use the first and last name from the $_POST to filter.  If only last name supplied use that
 	if(isset($_POST[$prefix.'first_name']) && strlen($_POST[$prefix.'first_name']) != 0 && isset($_POST[$prefix.'last_name']) && strlen($_POST[$prefix.'last_name']) != 0) {
-		$query .= " (first_name='". $_POST[$prefix.'first_name'] . "' AND last_name = '". $_POST[$prefix.'last_name'] ."')";
+		$query .= " (leads.first_name='". $_POST[$prefix.'first_name'] . "' AND leads.last_name = '". $_POST[$prefix.'last_name'] ."')";
 	} else {
-		$query .= " last_name = '". $_POST[$prefix.'last_name'] ."'";
+		$query .= " leads.last_name = '". $_POST[$prefix.'last_name'] ."'";
 	}
     return $query;
 }
@@ -95,7 +92,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Lead());
+$javascript->setSugarBean(BeanFactory::getBean('Leads'));
 $javascript->addField('email1','false',$prefix);
 $javascript->addField('email2','false',$prefix);
 $javascript->addRequiredFields($prefix);
@@ -141,7 +138,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Lead());
+$javascript->setSugarBean(BeanFactory::getBean('Leads'));
 $javascript->addField('email1','false',$prefix);
 $javascript->addField('email2','false',$prefix);
 $javascript->addRequiredFields($prefix);
@@ -186,179 +183,170 @@ return $the_form;
 
 }
 
-
-function handleSave($prefix,$redirect=true, $useRequired=false, $do_save=true, $exist_lead=null){
-
-    require_once('modules/Campaigns/utils.php');
-	require_once('include/formbase.php');
-
-	if(empty($exist_lead)) {
-        $focus = new Lead();
-    }
-    else {
-        $focus = $exist_lead;
-    }
-
-	if($useRequired &&  !checkRequired($prefix, array_keys($focus->required_fields))){
-		return null;
-	}
-	$focus = populateFromPost($prefix, $focus);
-	if(!$focus->ACLAccess('Save')){
-		ACLController::displayNoAccess(true);
-		sugar_cleanup(true);
-	}
-
-    //Check for duplicate Leads
-    if (empty($_POST['record']) && empty($_POST['dup_checked']))
+    /**
+     *
+     */
+    function handleSave($prefix,$redirect=true, $useRequired=false, $do_save=true, $exist_lead=null)
     {
-		$duplicateLeads = $this->checkForDuplicates($prefix);
+        require_once('modules/Campaigns/utils.php');
+        require_once('include/formbase.php');
 
-        if(isset($duplicateLeads))
-        {
-            //Set the redirect location to call the ShowDuplicates action.  This will map to view.showduplicates.php
-			$location='module=Leads&action=ShowDuplicates';
+        if(empty($exist_lead)) {
+            $focus = BeanFactory::getBean('Leads');
+        }
+        else {
+            $focus = $exist_lead;
+        }
 
-			$get = '';
-
-			if(isset($_POST['inbound_email_id']) && !empty($_POST['inbound_email_id'])) {
-				$get .= '&inbound_email_id='.$_POST['inbound_email_id'];
-			}
-
-			if(isset($_POST['relate_to']) && !empty($_POST['relate_to'])) {
-				$get .= '&Leadsrelate_to='.$_POST['relate_to'];
-			}
-			if(isset($_POST['relate_id']) && !empty($_POST['relate_id'])) {
-				$get .= '&Leadsrelate_id='.$_POST['relate_id'];
-			}
-
-			//add all of the post fields to redirect get string
-			foreach ($focus->column_fields as $field)
-			{
-				if (!empty($focus->$field) && !is_object($focus->$field))
-				{
-					$get .= "&Leads$field=".urlencode($focus->$field);
-				}
-			}
-
-			foreach ($focus->additional_column_fields as $field)
-			{
-				if (!empty($focus->$field))
-				{
-					$get .= "&Leads$field=".urlencode($focus->$field);
-				}
-			}
-
-			if($focus->hasCustomFields()) {
-				foreach($focus->field_defs as $name=>$field) {
-					if (!empty($field['source']) && $field['source'] == 'custom_fields')
-					{
-						$get .= "&Leads$name=". (!empty($focus->$name) ? urlencode($focus->$name) : '');
-					}
-				}
-			}
-
-
-			$emailAddress = new SugarEmailAddress();
-			$get .= $emailAddress->getFormBaseURL($focus);
-
-			$get .= get_teams_url('Leads');
-
-			//create list of suspected duplicate lead ids in redirect get string
-			$i=0;
-			foreach ($duplicateLeads as $lead)
-			{
-				$get .= "&duplicate[$i]=".$lead['id'];
-				$i++;
-			}
-
-			//add return_module, return_action, and return_id to redirect get string
-			$get .= "&return_module=";
-			if(!empty($_POST['return_module']))
-            {
-                $get .= $_POST['return_module'];
-            } else {
-			    $get .= "Leads";
-            }
-
-            //add return_module, return_action, and return_id to redirect get string
-			$urlData = array('return_module' => 'Leads', 'return_action' => '');
-			foreach (array('return_module', 'return_action', 'return_id', 'popup', 'create', 'start') as $var) {
-			    if (!empty($_POST[$var])) {
-			        $urlData[$var] = $_POST[$var];
-			    }
-			}
-			$get .= "&".http_build_query($urlData);
-			$_SESSION['SHOW_DUPLICATES'] = $get;
-
-            if (!empty($_POST['is_ajax_call']) && $_POST['is_ajax_call'] == '1')
-            {
-                ob_clean();
-                $json = getJSONobj();
-                echo $json->encode(array('status' => 'dupe', 'get' => $location));
-            } else if(!empty($_REQUEST['ajax_load'])) {
-                echo "<script>SUGAR.ajaxUI.loadContent('index.php?$location');</script>";
-            } else {
-                if(!empty($_POST['to_pdf']))
-                {
-                    $location .= '&to_pdf='.urlencode($_POST['to_pdf']);
-                }
-                header("Location: index.php?$location");
-            }
+        if($useRequired &&  !checkRequired($prefix, array_keys($focus->required_fields))){
             return null;
-		}
-    }
+        }
+        $focus = populateFromPost($prefix, $focus);
+        if(!$focus->ACLAccess('Save')){
+            ACLController::displayNoAccess(true);
+            sugar_cleanup(true);
+        }
 
-	if (!isset($_POST[$prefix.'email_opt_out'])) $focus->email_opt_out = 0;
-	if (!isset($_POST[$prefix.'do_not_call'])) $focus->do_not_call = 0;
+        //Check for duplicate Leads
+        if (empty($_POST['record']) && empty($_POST['dup_checked']))
+        {
+            $duplicateLeads = $this->checkForDuplicates($prefix);
 
-    if($do_save) {
-    	if(!empty($GLOBALS['check_notify'])) {
-    		$focus->save($GLOBALS['check_notify']);
-    	}
-    	else {
-    		$focus->save(FALSE);
-    	}
-    }
+            if(isset($duplicateLeads))
+            {
+                //Set the redirect location to call the ShowDuplicates action.  This will map to view.showduplicates.php
+                $location='module=Leads&action=ShowDuplicates';
 
-    $return_id = $focus->id;
+                $get = '';
 
-	if (isset($_POST[$prefix.'prospect_id']) &&  !empty($_POST[$prefix.'prospect_id'])) {
-		$prospect=new Prospect();
-		$prospect->retrieve($_POST[$prefix.'prospect_id']);
-		$prospect->lead_id=$focus->id;
-		// Set to keep email in target
-		$prospect->in_workflow = true;
-		$prospect->save();
+                if(isset($_POST['inbound_email_id']) && !empty($_POST['inbound_email_id'])) {
+                    $get .= '&inbound_email_id='.$_POST['inbound_email_id'];
+                }
 
-        //if prospect id exists, make sure we are coming from prospect detail
-        if(strtolower($_POST['return_module']) =='prospects' && strtolower($_POST['return_action']) == 'detailview'){
-            //create campaing_log entry
+                if(isset($_POST['relate_to']) && !empty($_POST['relate_to'])) {
+                    $get .= '&Leadsrelate_to='.$_POST['relate_to'];
+                }
+                if(isset($_POST['relate_id']) && !empty($_POST['relate_id'])) {
+                    $get .= '&Leadsrelate_id='.$_POST['relate_id'];
+                }
 
-            if(isset($focus->campaign_id) && $focus->campaign_id != null){
-                campaign_log_lead_entry($focus->campaign_id,$prospect, $focus,'lead');
+                //add all of the post fields to redirect get string
+                foreach ($focus->column_fields as $field)
+                {
+                    if (!empty($focus->$field) && !is_object($focus->$field))
+                    {
+                        $get .= "&Leads$field=".urlencode($focus->$field);
+                    }
+                }
+
+                foreach ($focus->additional_column_fields as $field)
+                {
+                    if (!empty($focus->$field))
+                    {
+                        $get .= "&Leads$field=".urlencode($focus->$field);
+                    }
+                }
+
+                if($focus->hasCustomFields()) {
+                    foreach($focus->field_defs as $name=>$field) {
+                        if (!empty($field['source']) && $field['source'] == 'custom_fields')
+                        {
+                            $get .= "&Leads$name=".urlencode($focus->$name);
+                        }
+                    }
+                }
+
+
+                $emailAddress = BeanFactory::getBean('EmailAddresses');
+                $get .= $emailAddress->getFormBaseURL($focus);
+
+                $get .= get_teams_url('Leads');
+
+                //create list of suspected duplicate lead ids in redirect get string
+                $i=0;
+                foreach ($duplicateLeads as $lead)
+                {
+                    $get .= "&duplicate[$i]=".$lead['id'];
+                    $i++;
+                }
+
+                //add return_module, return_action, and return_id to redirect get string
+    			$urlData = array('return_module' => 'Leads', 'return_action' => '');
+    			foreach (array('return_module', 'return_action', 'return_id', 'popup', 'create', 'start') as $var) {
+    			    if (!empty($_POST[$var])) {
+    			        $urlData[$var] = $_POST[$var];
+    			    }
+    			}
+    			$get .= "&".http_build_query($urlData);
+    			$_SESSION['SHOW_DUPLICATES'] = $get;
+
+                if (!empty($_POST['is_ajax_call']) && $_POST['is_ajax_call'] == '1')
+                {
+                    ob_clean();
+                    $json = getJSONobj();
+                    echo $json->encode(array('status' => 'dupe', 'get' => $location));
+                } else if(!empty($_REQUEST['ajax_load'])) {
+                    echo "<script>SUGAR.ajaxUI.loadContent('index.php?$location');</script>";
+                } else {
+                    if(!empty($_POST['to_pdf']))
+                    {
+                        $location .= '&to_pdf='.urlencode($_POST['to_pdf']);
+                    }
+                    header("Location: index.php?$location");
+                }
+                return null;
             }
         }
-	}
 
-	///////////////////////////////////////////////////////////////////////////////
-	////	INBOUND EMAIL HANDLING
-	///////////////////////////////////////////////////////////////////////////////
-	if(isset($_REQUEST['inbound_email_id']) && !empty($_REQUEST['inbound_email_id'])) {
-		if(!isset($current_user)) {
-			global $current_user;
-		}
+        if (!isset($_POST[$prefix.'email_opt_out'])) $focus->email_opt_out = 0;
+        if (!isset($_POST[$prefix.'do_not_call'])) $focus->do_not_call = 0;
 
-		// fake this case like it's already saved.
+        if($do_save) {
+            if(!empty($GLOBALS['check_notify'])) {
+                $focus->save($GLOBALS['check_notify']);
+            }
+            else {
+                $focus->save(false);
+            }
+        }
 
-		$email = new Email();
-		$email->retrieve($_REQUEST['inbound_email_id']);
-		$email->parent_type = 'Leads';
-		$email->parent_id = $focus->id;
-		$email->assigned_user_id = $current_user->id;
-		$email->status = 'read';
-		$email->save();
-		$email->load_relationship('leads');
-		$email->leads->add($focus->id);
+        $return_id = $focus->id;
+
+        if (isset($_POST[$prefix.'prospect_id']) &&  !empty($_POST[$prefix.'prospect_id'])) {
+            $prospect = BeanFactory::getBean('Prospects', $_POST[$prefix.'prospect_id']);
+            $prospect->lead_id=$focus->id;
+            // Set to keep email in target
+            $prospect->in_workflow = true;
+            $prospect->save();
+
+            //if prospect id exists, make sure we are coming from prospect detail
+            if(strtolower($_POST['return_module']) =='prospects' && strtolower($_POST['return_action']) == 'detailview'){
+                //create campaing_log entry
+
+                if(isset($focus->campaign_id) && $focus->campaign_id != null){
+                    campaign_log_lead_entry($focus->campaign_id,$prospect, $focus,'lead');
+                }
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////
+        ////	INBOUND EMAIL HANDLING
+        ///////////////////////////////////////////////////////////////////////////////
+        if(isset($_REQUEST['inbound_email_id']) && !empty($_REQUEST['inbound_email_id'])) {
+            if(!isset($current_user)) {
+                global $current_user;
+            }
+
+            // fake this case like it's already saved.
+
+            $email = BeanFactory::getBean('Emails', $_REQUEST['inbound_email_id']);
+            $email->parent_type = 'Leads';
+            $email->parent_id = $focus->id;
+            $email->assigned_user_id = $current_user->id;
+            $email->status = 'read';
+            $email->save();
+            $email->load_relationship('leads');
+            $email->leads->add($focus->id);
 
             header("Location: index.php?&module=Emails&action=EditView&type=out&inbound_email_id=".urlencode($_REQUEST['inbound_email_id'])."&parent_id=".$email->parent_id."&parent_type=".$email->parent_type.'&start='.urlencode($_REQUEST['start']));
             exit();
@@ -366,17 +354,13 @@ function handleSave($prefix,$redirect=true, $useRequired=false, $do_save=true, $
         ////	END INBOUND EMAIL HANDLING
         ///////////////////////////////////////////////////////////////////////////////
 
-	$GLOBALS['log']->debug("Saved record with id of ".$return_id);
-	if($redirect){
-		handleRedirect($return_id, 'Leads');
-	}else{
-		return $focus;
-	}
-}
-
-
+        $GLOBALS['log']->debug("Saved record with id of ".$return_id);
+        if($redirect){
+            handleRedirect($return_id, 'Leads');
+        }else{
+            return $focus;
+        }
+    }
 
 }
-
-
 ?>

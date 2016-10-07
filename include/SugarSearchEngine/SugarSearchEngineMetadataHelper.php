@@ -1,18 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
+require_once('modules/Home/UnifiedSearchAdvanced.php');
 
 /**
  * Class dealing with searchable modules
@@ -26,10 +25,11 @@ class SugarSearchEngineMetadataHelper
     const ENABLE_MODULE_CACHE_KEY = 'ftsEnabledModules';
 
     /**
-     * Cache key for disabled modules
+     *
+     * Cache key prefix for FTS enabled fields per module
+     * @var string
      */
-    const DISABLED_MODULE_CACHE_KEY = 'ftsDisabledModules';
-
+    const FTS_FIELDS_CACHE_KEY_PREFIX = 'fts_fields_';
 
     /**
      * Retrieve all FTS fields for all FTS enabled modules.
@@ -47,7 +47,6 @@ class SugarSearchEngineMetadataHelper
 
         $results = array();
 
-        require_once('modules/Home/UnifiedSearchAdvanced.php');
         $usa = new UnifiedSearchAdvanced();
         $modules = $usa->retrieveEnabledAndDisabledModules();
 
@@ -69,7 +68,6 @@ class SugarSearchEngineMetadataHelper
      */
     public static function getSystemEnabledFTSModules()
     {
-        require_once('modules/Home/UnifiedSearchAdvanced.php');
         $usa = new UnifiedSearchAdvanced();
         $modules = $usa->retrieveEnabledAndDisabledModules();
         $enabledModules = array();
@@ -105,20 +103,20 @@ class SugarSearchEngineMetadataHelper
             return $results;
         }
 
-        if (empty($obj->table_name))
-        {
+        if (empty($obj->module_name)) {
             return $results;
         }
 
-        $cacheKey = "fts_fields_{$obj->table_name}";
+        $cacheKey = self::FTS_FIELDS_CACHE_KEY_PREFIX . $obj->module_name;
         $cacheResults = sugar_cache_retrieve($cacheKey);
         if(!empty($cacheResults))
             return $cacheResults;
 
         foreach($obj->field_defs as $field => $def)
         {
-            if( isset($def['full_text_search']) && is_array($def['full_text_search']) && !empty($def['full_text_search']['boost']) )
+            if (isset($def['full_text_search']) && is_array($def['full_text_search']) && !empty($def['full_text_search']['enabled'])) {
                 $results[$field] = $def;
+            }
         }
 
         sugar_cache_put($cacheKey, $results);
@@ -170,5 +168,23 @@ class SugarSearchEngineMetadataHelper
         return in_array($module, $enabledModules);
     }
 
+    /**
+     *
+     * Clear FTS metadata cache
+     */
+    public static function clearCache()
+    {
+        // clear possible cache entries per module
+        $usa = new UnifiedSearchAdvanced();
+        $list = $usa->retrieveEnabledAndDisabledModules();
+        foreach ($list as $modules) {
+            foreach ($modules as $module) {
+                $cacheKey = self::FTS_FIELDS_CACHE_KEY_PREFIX . $module['module'];
+                sugar_cache_clear($cacheKey);
+            }
+        }
 
+        // clear master list of enabled modules
+        sugar_cache_clear(self::ENABLE_MODULE_CACHE_KEY);
+    }
 }

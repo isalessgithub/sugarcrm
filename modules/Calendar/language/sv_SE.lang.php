@@ -2,77 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Jan',
-    2 => 'Feb',
-    3 => 'Mar',
-    4 => 'Apr',
-    5 => 'Maj',
-    6 => 'Jun',
-    7 => 'Jul',
-    8 => 'Aug',
-    9 => 'Sep',
-    10 => 'Okt',
-    11 => 'Nov',
-    12 => 'Dec',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Januari',
-    2 => 'Februari',
-    3 => 'Mars',
-    4 => 'April',
-    5 => 'Maj',
-    6 => 'Juni',
-    7 => 'Juli',
-    8 => 'Augusti',
-    9 => 'September',
-    10 => 'Oktober',
-    11 => 'November',
-    12 => 'December',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Mån',
-    2 => 'Tis',
-    3 => 'Ons',
-    4 => 'Tor',
-    5 => 'Fre',
-    6 => 'Lör',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Måndag',
-    2 => 'Tisdag',
-    3 => 'Onsdag',
-    4 => 'Torsdag',
-    5 => 'Fredag',
-    6 => 'Lördag',
-  ),
-);
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'få_granne_datum_str: har inte angetts för den här vyn',
+  'ERR_YEAR_BETWEEN' => 'Tyvärr, kalender kan inte hantera det år du begärde<br />År måste vara mellan 1970 och 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Lägg till',
   'LBL_ASSIGNED_TO_NAME' => 'Tilldelad till',
   'LBL_BUSY' => 'Upptagen',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Recurring {0} event count has exceeded the limit',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} is not a parent recurrence',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} är inte ett återkommande event',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} is not recognized as a recurring event module',
   'LBL_CANCEL_BUTTON' => 'Avbryt',
   'LBL_CLOSE_BUTTON' => 'Stäng',
   'LBL_CONFIRM_REMOVE' => 'Är du säker på att du vill radera protokollet?',
@@ -80,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Konflikt',
   'LBL_CREATE_CALL' => 'Schemalägg telefonsamtal',
   'LBL_CREATE_MEETING' => 'Schemalägg möte',
+  'LBL_CREATE_NEW_CALL' => 'Skapa samtal',
   'LBL_CREATE_NEW_RECORD' => 'Skapa aktivitet',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Du skapar ett nytt möte. Ville du <a href="javascript:void(0);" data-action="create-task">Skapa en Uppgift</a> eller <a href="javascript:void(0);" data-action="schedule-call">Schemalägga samtal</a>',
   'LBL_DATE' => 'Startdatum & tid',
   'LBL_DATE_END_ERROR' => 'Slutdatum är före startdatum',
   'LBL_DATE_TIME' => 'Startdatum & tid',
@@ -88,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Radera',
   'LBL_DURATION' => 'Varaktighet',
   'LBL_EDIT_ALL_RECURRENCES' => 'Redigera Alla Upprepningar',
+  'LBL_EDIT_CALL' => 'Redigera Samtal',
   'LBL_EDIT_RECORD' => 'Redigera Aktivitet',
   'LBL_EDIT_USERLIST' => 'Användarlista',
   'LBL_ERROR_LOADING' => 'Fel under laddning',
@@ -106,6 +61,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Laddar...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalender',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalender',
   'LBL_MODULE_TITLE' => 'Kalender',
   'LBL_MONTH' => 'Månad',
   'LBL_NEXT_DAY' => 'Nästa dag',
@@ -114,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Nästa vecka',
   'LBL_NEXT_YEAR' => 'Nästa år',
   'LBL_NO' => 'Nej',
+  'LBL_NO_ACCESS' => 'Du har inte tillgång',
   'LBL_NO_USER' => 'Ingen träff för fält: Tilldelad till',
   'LBL_PARTICIPANTS_TAB' => 'Inbjudna',
   'LBL_PM' => 'PM',
@@ -171,5 +128,60 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Uppgifter',
   'LNK_VIEW_CALENDAR' => 'Idag',
   'NOTICE_DURATION_TIME' => 'Varaktighetstiden måste vara större än 0',
+);
+
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => 'Jan',
+    2 => 'Feb',
+    3 => 'Mar',
+    4 => 'Apr',
+    5 => 'Maj',
+    6 => 'Jun',
+    7 => 'Jul',
+    8 => 'Aug',
+    9 => 'Sep',
+    10 => 'Okt',
+    11 => 'Nov',
+    12 => 'Dec',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Januari',
+    2 => 'Februari',
+    3 => 'Mars',
+    4 => 'April',
+    5 => 'Maj',
+    6 => 'Juni',
+    7 => 'Juli',
+    8 => 'Augusti',
+    9 => 'September',
+    10 => 'Oktober',
+    11 => 'November',
+    12 => 'December',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => 'Sön',
+    1 => 'Mån',
+    2 => 'Tis',
+    3 => 'Ons',
+    4 => 'Tor',
+    5 => 'Fre',
+    6 => 'Lör',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => 'Söndag',
+    1 => 'Måndag',
+    2 => 'Tisdag',
+    3 => 'Onsdag',
+    4 => 'Torsdag',
+    5 => 'Fredag',
+    6 => 'Lördag',
+  ),
 );
 

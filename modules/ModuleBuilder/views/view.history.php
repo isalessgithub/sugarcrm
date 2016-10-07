@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once ('modules/ModuleBuilder/MB/AjaxCompose.php') ;
 require_once ('modules/ModuleBuilder/parsers/views/History.php') ;
@@ -20,6 +17,16 @@ require_once ('modules/ModuleBuilder/parsers/ParserFactory.php') ;
 class ViewHistory extends SugarView
 {
     var $pageSize = 10 ;
+
+    /**
+     * @var History
+     */
+    protected $history;
+
+    /**
+     * @var AbstractMetaDataParser
+     */
+    protected $parser;
 
     /**
 	 * @see SugarView::_getModuleTitleParams()
@@ -47,8 +54,16 @@ class ViewHistory extends SugarView
         
         $packageName = (isset ( $_REQUEST [ 'view_package' ] ) && (strtolower ( $_REQUEST [ 'view_package' ] ) != 'studio')) ? $_REQUEST [ 'view_package' ] : null ;
         $this->module = $_REQUEST [ 'view_module' ] ;
-        
-        $this->parser = ParserFactory::getParser ( $this->layout, $this->module, $packageName, $subpanelName ) ;
+
+        $params = array();
+        $this->parser = ParserFactory::getParser(
+            $this->layout,
+            $this->module,
+            $packageName,
+            $subpanelName,
+            null,
+            $params
+        );
         $this->history = $this->parser->getHistory () ;
         $action = ! empty ( $_REQUEST [ 'histAction' ] ) ? $_REQUEST [ 'histAction' ] : 'browse' ;
         $GLOBALS['log']->debug( get_class($this)."->display(): performing History action {$action}" ) ;
@@ -76,11 +91,18 @@ class ViewHistory extends SugarView
         $snapshots = array ( ) ;
         for ( $i = 0 ; $i <= $this->pageSize && $ts > 0 ; $i ++ )
         {
-            $dbDate = $timedate->fromTimestamp($ts)->asDb();
-            $displayTS = $timedate->to_display_date_time ( $dbDate ) ;
-            if ($page * $this->pageSize + $i + 1 == $count)
-                $displayTS = translate("LBL_MB_DEFAULT_LAYOUT");
-            $snapshots [ $ts ] = $displayTS ;
+            if ($page * $this->pageSize + $i + 1 == $count) {
+                $label = translate('LBL_MB_DEFAULT_LAYOUT');
+                $isDefault = true;
+            } else {
+                $dbDate = $timedate->fromTimestamp($ts)->asDb();
+                $label = $timedate->to_display_date_time($dbDate);
+                $isDefault = false;
+            }
+            $snapshots[$ts] = array(
+                'label' => $label,
+                'isDefault' => $isDefault,
+            );
             $ts = $this->history->getNext () ;
         }
         if (count ( $snapshots ) > $this->pageSize)
@@ -108,12 +130,14 @@ class ViewHistory extends SugarView
         {
             $subpanel = ',"' . $_REQUEST [ 'subpanel' ] . '"' ;
         }
+
+        $isDefault = $sid == $this->history->getLast();
         echo "<input type='button' name='close$sid' value='". translate ( 'LBL_BTN_CLOSE' )."' " . 
                 "class='button' onclick='ModuleBuilder.tabPanel.removeTab(ModuleBuilder.tabPanel.get(\"activeTab\"));' style='margin:5px;'>" . 
              "<input type='button' name='restore$sid' value='" . translate ( 'LBL_MB_RESTORE' ) . "' " .  
-                "class='button' onclick='ModuleBuilder.history.revert(\"$this->module\",\"{$this->layout}\",\"$sid\"$subpanel);' style='margin:5px;'>" ;
+                "class='button' onclick='ModuleBuilder.history.revert(\"$this->module\",\"{$this->layout}\",\"$sid\",\"$subpanel\",\"$isDefault\");' style='margin:5px;'>" ;
         $this->history->restoreByTimestamp ( $sid ) ;
-        $view ;
+
         if ($this->layout == 'listview')
         {
             require_once ("modules/ModuleBuilder/views/view.listview.php") ;
@@ -126,7 +150,7 @@ class ViewHistory extends SugarView
         {
         	require_once ("modules/ModuleBuilder/views/view.dashlet.php") ;
         	$view = new ViewDashlet ( ) ;
-        }  else if ($this->layout == 'popuplist' || $this->layout == 'popupsearch')
+        }  else if ($this->layout == 'popuplist' || $this->layout == 'popupsearch' || $this->layout == 'selection-list')
         {
         	require_once ("modules/ModuleBuilder/views/view.popupview.php") ;
         	$view = new ViewPopupview ( ) ;
@@ -149,6 +173,7 @@ class ViewHistory extends SugarView
         $sid = $_REQUEST [ 'sid' ] ;
         $this->history->restoreByTimestamp ( $sid ) ;
     }
+
 
 	/**
  	 * Restores a layout to its current customized state. 

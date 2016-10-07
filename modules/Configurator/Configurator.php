@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -20,14 +17,27 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 class Configurator {
 	var $config = '';
 	var $override = '';
-	var $allow_undefined = array ('stack_trace_errors', 'export_delimiter', 'use_real_names', 'developerMode', 'default_module_favicon', 'authenticationClass', 'SAML_loginurl', 'SAML_X509Cert', 'dashlet_auto_refresh_min', 'show_download_tab', 'enable_action_menu');
+    public $allow_undefined = array (
+        'stack_trace_errors', 'export_delimiter', 'use_real_names', 'developerMode', 'default_module_favicon',
+        'authenticationClass', 'SAML_loginurl', 'SAML_X509Cert', 'SAML_SLO', 'dashlet_auto_refresh_min',
+        'show_download_tab', 'enable_action_menu', 'offlineEnabled', 'noPrivateTeamUpdate');
 	var $errors = array ('main' => '');
 	var $logger = NULL;
 	var $previous_sugar_override_config_array = array();
 	var $useAuthenticationClass = false;
-    protected $error = null;
 
-	function Configurator() {
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Configurator()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
 		$this->loadConfig();
 	}
 
@@ -40,6 +50,7 @@ class Configurator {
 	function populateFromPost() {
 		$sugarConfig = SugarConfig::getInstance();
 		foreach ($_POST as $key => $value) {
+
 			if ($key == "logger_file_ext") {
 			    $trim_value = preg_replace('/.*\.([^\.]+)$/', '\1', $value);
 			    if(in_array($trim_value, $this->config['upload_badext'])) {
@@ -65,21 +76,18 @@ class Configurator {
 
 	}
 
-	function handleOverride($fromParseLoggerSettings=false) {
+	function handleOverride()
+	{
 		global $sugar_config, $sugar_version;
 		$sc = SugarConfig::getInstance();
-		$overrideArray = $this->readOverride();
+		list($oldConfig, $overrideArray) = $this->readOverride();
 		$this->previous_sugar_override_config_array = $overrideArray;
 		$diffArray = deepArrayDiff($this->config, $sugar_config);
 		$overrideArray = sugarArrayMergeRecursive($overrideArray, $diffArray);
 
-		// To remember checkbox state
-      if (!$this->useAuthenticationClass && !$fromParseLoggerSettings) {
-         if (isset($overrideArray['authenticationClass']) &&
-            $overrideArray['authenticationClass'] == 'SAMLAuthenticate') {
-      	  unset($overrideArray['authenticationClass']);
-      	}
-      }
+		if(isset($overrideArray['authenticationClass']) && empty($overrideArray['authenticationClass'])) {
+		    unset($overrideArray['authenticationClass']);
+		}
 
 		$overideString = "<?php\n/***CONFIGURATOR***/\n";
 
@@ -109,7 +117,7 @@ class Configurator {
 					$this->config[$key] = false;
 				}
 			}
-			$overideString .= override_value_to_string_recursive2('sugar_config', $key, $val);
+			$overideString .= override_value_to_string_recursive2('sugar_config', $key, $val, true, $oldConfig);
 		}
 		$overideString .= '/***CONFIGURATOR***/';
 
@@ -117,36 +125,44 @@ class Configurator {
 		if(isset($this->config['logger']['level']) && $this->logger) $this->logger->setLevel($this->config['logger']['level']);
 	}
 
-	//bug #27947 , if previous $sugar_config['stack_trace_errors'] is true and now we disable it , we should clear all the cache.
-	function clearCache(){
-		global $sugar_config, $sugar_version;
-		$currentConfigArray = $this->readOverride();
-		foreach($currentConfigArray as $key => $val) {
-			if (in_array($key, $this->allow_undefined) || isset ($sugar_config[$key])) {
-				if (empty($val) ) {
-					if(!empty($this->previous_sugar_override_config_array['stack_trace_errors']) && $key == 'stack_trace_errors'){
-						require_once('include/TemplateHandler/TemplateHandler.php');
-						TemplateHandler::clearAll();
-						return;
-					}
-				}
-			}
-		}
-	}
+    //bug #27947 , if previous $sugar_config['stack_trace_errors'] is true and now we disable it , we should clear all the cache.
+    function clearCache()
+    {
+        global $sugar_config, $sugar_version;
+        list($oldConfig, $currentConfigArray) = $this->readOverride();
+        foreach($currentConfigArray as $key => $val) {
+            if (in_array($key, $this->allow_undefined) || isset ($sugar_config[$key])) {
+                if (empty($val) ) {
+                    if(!empty($this->previous_sugar_override_config_array['stack_trace_errors']) && $key == 'stack_trace_errors'){
+                        require_once('include/TemplateHandler/TemplateHandler.php');
+                        TemplateHandler::clearAll();
+                        return;
+                    }
+                }
+            }
+        }
+        // Clear metadata config section only
+        MetaDataManager::refreshSectionCache(array(MetaDataManager::MM_CONFIG));
+        MetaDataManager::refreshSectionCache(array(MetaDataManager::MM_SERVERINFO));
+    }
 
 	function saveConfig() {
-        if($this->saveImages() === false)
-        {
-            return false;
-        }
-
+		$this->saveImages();
 		$this->populateFromPost();
 		$this->handleOverride();
 		$this->clearCache();
 	}
 
-	function readOverride() {
+	/**
+	 * Read config & config override, and return old config and their difference
+	 * @return array[old config, difference in configs]
+	 */
+	protected function readOverride() {
 		$sugar_config = array();
+		if(is_readable('config.php')) {
+		    include 'config.php';
+		}
+		$old_config = $sugar_config;
 		if (file_exists('config_override.php')) {
 		    if ( !is_readable('config_override.php') ) {
 		        $GLOBALS['log']->fatal("Unable to read the config_override.php file. Check the file permissions");
@@ -155,7 +171,7 @@ class Configurator {
 	            include('config_override.php');
 	        }
 		}
-		return $sugar_config;
+		return array($old_config, deepArrayDiff($sugar_config, $old_config));
 	}
 	function saveOverride($override) {
         require_once('install/install_utils.php');
@@ -198,37 +214,22 @@ class Configurator {
 
 	function saveImages() {
 		if (!empty ($_POST['company_logo'])) {
-            if($this->saveCompanyLogo("upload://".$_POST['company_logo']) === false)
-            {
-                return false;
-            }
+			$this->saveCompanyLogo("upload://".$_POST['company_logo']);
 		}
 		if (!empty ($_POST['quotes_logo'])) {
-            if($this->saveCompanyQuoteLogo("upload://".$_POST['quotes_logo']) === false)
-            {
-                return false;
-            }
+			$this->saveCompanyQuoteLogo("upload://".$_POST['quotes_logo']);
 			rmdir_recursive(sugar_cached('smarty/templates_c'));
 		}
 	}
 
 	function checkTempImage($path)
 	{
-        if(!verify_uploaded_image($path)) {
-            $error = translate('LBL_ALERT_TYPE_IMAGE');
+	    if(!verify_uploaded_image($path)) {
         	$GLOBALS['log']->fatal("A user ({$GLOBALS['current_user']->id}) attempted to use an invalid file for the logo - {$path}");
-            $this->error = $error;
-            return false;
+        	sugar_die('Invalid File Type');
 		}
 		return $path;
 	}
-
-    public function getError()
-    {
-        $e = $this->error;
-        $this->error = null;
-        return $e;
-    }
     /**
      * Saves the company logo to the custom directory for the default theme, so all themes can use it
      *
@@ -237,15 +238,13 @@ class Configurator {
 	function saveCompanyLogo($path)
     {
     	$path = $this->checkTempImage($path);
-        if($path === false)
-        {
-            return false;
-        }
-
-        mkdir_recursive('custom/'.SugarThemeRegistry::current()->getDefaultImagePath(), true);
-        copy($path,'custom/'. SugarThemeRegistry::current()->getDefaultImagePath(). '/company_logo.png');
+    	$logo = create_custom_directory(SugarThemeRegistry::current()->getDefaultImagePath(). '/company_logo.png');
+        copy($path, $logo);
+        SugarAutoLoader::addToMap($logo);
         sugar_cache_clear('company_logo_attributes');
         SugarThemeRegistry::clearAllCaches();
+        SugarThemeRegistry::current()->clearImageCache('company_logo.png');
+        MetaDataManager::refreshSectionCache(array(MetaDataManager::MM_LOGOURL));
 	}
 	/**
 	 * @params : none
@@ -309,22 +308,23 @@ class Configurator {
 				'suffix' => ''), // bug51583, change default suffix to blank for backwards comptability
 			'level' => 'fatal');
 		}
-		$this->handleOverride(true);
+		$this->handleOverride();
 
 
 	}
-
 
 	function saveCompanyQuoteLogo($path) {
 		$path = $this->checkTempImage($path);
-        if($path === false)
-        {
-            return false;
-        }
-
 		copy($path, 'modules/Quotes/layouts/company.jpg');
 	}
 
+	/**
+	 * Add error message
+	 * @param string errstr Error message
+	 */
+	public function addError($errstr)
+	{
+	    $this->errors['main'] .= $errstr."<br>";
+	}
 
 }
-?>

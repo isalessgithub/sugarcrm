@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вы должны указать номер записи перед удалением контрагента.',
@@ -31,7 +28,7 @@ $mod_strings = array (
   'ERR_INVALID_PASSWORD' => 'Вы должны указать правильные логин и пароль.',
   'ERR_LAST_ADMIN_1' => 'Имя пользователя "',
   'ERR_LAST_ADMIN_2' => '" - последний сотрудник с доступом администратора. Хотя бы один пользователь должен быть администратором.',
-  'ERR_NO_LOGIN_MOBILE' => 'Перед тем как использовать мобильную версию, вы должныв  первый раз войти в систему, используя обычный веб-браузер или же воспользоваться обычным режимом. Пожалуйста, используйте полноценный веб-браузер или нажмите на ссылку ниже для перехода в обычный режим. Приносим свои извинения за доставленные неудобства.',
+  'ERR_NO_LOGIN_MOBILE' => 'Перед тем как использовать мобильную версию, вы должны в первый раз войти в систему, используя обычный веб-браузер или же воспользоваться обычным режимом. Пожалуйста, используйте полноценный веб-браузер или нажмите на ссылку ниже для перехода в обычный режим. Приносим свои извинения за доставленные неудобства.',
   'ERR_PASSWORD_CHANGE_FAILED_1' => 'Изменение пароля пользователя прошло неудачно для',
   'ERR_PASSWORD_CHANGE_FAILED_2' => 'неудачно.  Должен быть установлен новый пароль.',
   'ERR_PASSWORD_CHANGE_FAILED_3' => '. Новый пароль - недействителен.',
@@ -100,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Создано',
   'LBL_CURRENCY' => 'Валюта',
   'LBL_CURRENCY_EXAMPLE' => 'Пример отображения валюты',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Показать желаемую валюту',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Конвертировать базовую валюту в установленную пользователем и отобразить в списочном представлении и на карточке просмотра записи',
   'LBL_CURRENCY_SIG_DIGITS' => 'Количество десятичных разрядов',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Количество символов после запятой',
   'LBL_CURRENCY_TEXT' => 'Выберите валюту, которая будет отображаться по умолчанию во всех создаваемых записях. Эта же валюта будет указана в колонке <b>Сумма</b> при просмотре списка сделок.',
@@ -129,7 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Править вкладки',
   'LBL_EMAIL' => 'E-mail-адрес',
   'LBL_EMAILS' => 'E-mail',
-  'LBL_EMAIL_ADDRESS' => 'E-mail-адрес',
+  'LBL_EMAIL_ADDRESS' => 'E-mail адрес',
   'LBL_EMAIL_CHARSET' => 'Кодировка исходящего письма',
   'LBL_EMAIL_EDITOR_OPTION' => 'Формат',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Использовать настройки Gmail™',
@@ -162,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Факс',
   'LBL_FDOW' => 'Первый день недели',
   'LBL_FDOW_TEXT' => 'Первый день, отображаемый в при обзоре недели, месяца, года',
+  'LBL_FILTER_USERS_REPORTS' => 'Отчеты пользователей',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => 'Поиск оптимальных настроек соединения.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Найти оптимальную конфигурацию',
@@ -169,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Принудительное использование отрицательных ключей',
   'LBL_FORCE_DESC' => 'Некоторые IMAP/POP3 серверы требуют специальные ключи. Проверьте принудительное использование негативных ключей во время соединения (например, /notls)',
   'LBL_FORECASTS' => 'Прогнозы',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Эта функция в данный момент недоступна. Пожалуйста, обратитесь к администратору.',
   'LBL_FOUND_OPTIMUM_MSG' => 'Найдены оптимальные настройки. Нажмите кнопку ниже для того, чтобы применить их к Вашему почтовому ящику.',
   'LBL_GENERATE_PASSWORD' => 'Сброс пароля',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -262,7 +263,7 @@ $mod_strings = array (
   'LBL_MAX_SUBTAB' => 'Количество субпанелей',
   'LBL_MAX_SUBTAB_DESCRIPTION' => 'Количество субпанелей, отображаемых на каждой вкладке.',
   'LBL_MAX_TAB' => 'Количество отображаемых вкладок',
-  'LBL_MAX_TAB_DESCRIPTION' => 'Количество вкладок, отображаемых в верхней части окна.',
+  'LBL_MAX_TAB_DESCRIPTION' => 'Выберите максимальное количество модулей, которые могут быть отображены в панели навигации.Количество модулей, которые будут отображаться в зависимости от ширины окна браузера. Модули, которые не отображаются появится в меню Дополнительно.',
   'LBL_MESSENGER_ID' => 'Имя в IM',
   'LBL_MESSENGER_TYPE' => 'IM-служба',
   'LBL_MISSING_DEFAULT_OUTBOUND_SMTP_SETTINGS' => 'Администратор еще не настроил исходящую учетную запись по умолчанию. Сообщение не отправлено.',
@@ -276,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Мои команды',
   'LBL_NAME' => 'Полное имя',
   'LBL_NAVIGATION_PARADIGM' => 'Навигация',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Группировать модули во вкладки по категориям или просматривать в отдельных вкладках для каждого модуля.',
   'LBL_NEW_FORM_TITLE' => 'Новый пользователь',
   'LBL_NEW_PASSWORD' => 'Новый пароль',
   'LBL_NEW_PASSWORD1' => 'Пароль',
@@ -437,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Руководитель',
   'LBL_REQUEST_SUBMIT' => 'Ваш запрос был отправлен.',
   'LBL_RESET_DASHBOARD' => 'Сбросить настройки диаграмм',
-  'LBL_RESET_HOMEPAGE' => 'Сбросить настройки вкладки "Главная"',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Вы действительно хотите сбросить настройки вкладки `Главная`?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Вы действительно хотите сбросить настройки вкладки `Главная` для данного пользователя?',
   'LBL_RESET_PREFERENCES' => 'Сбросить до стандартных настроек',
   'LBL_RESET_PREFERENCES_WARNING' => 'Вы действительно хотите сбросить все ваши настройки? Внимание: при данном действии Вы также выйдете из системы.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Вы действительно хотите сбросить все настройки данного пользователя?',
@@ -474,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Статус',
   'LBL_SUBPANEL_LINKS' => 'Субпанели',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Отображать субпанели в форме просмотра.',
-  'LBL_SUBPANEL_TABS' => 'Дополнительные панели на вкладках',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'В форме просмотра показывать дополнительные панели на вкладках, вместо последовательного списка.',
   'LBL_SUGAR_LOGIN' => 'Является пользователем Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'Только для тем, которые поддерживают этот параметр.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Отображать последние просмотры сбоку, а не сверху.',
@@ -483,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Отображать ярлыки просмотра сверху, а не сбоку.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Ярлыки сверху',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Пароль, сгенерированный системой',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Значащие цифры системы',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Количество знаков после запятой указывает на десятичные знаки и числа с плавающей точкой по всей системе, такие как числа валюты и средняя величина в Отчетах.',
   'LBL_TAB_TITLE_EMAIL' => 'Настройка E-mail',
   'LBL_TAB_TITLE_USER' => 'Пользовательские настройки',
   'LBL_TEAMS' => 'Команды',

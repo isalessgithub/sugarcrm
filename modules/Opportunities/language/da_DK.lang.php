@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Der skal angives et postnummer for at slette salgsmuligheden.',
@@ -23,14 +20,15 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Virksomheds-id',
   'LBL_ACCOUNT_NAME' => 'Virksomhedsnavn:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteter',
-  'LBL_AMOUNT' => 'Beløb:',
-  'LBL_AMOUNT_USDOLLAR' => 'Beløb i USD:',
   'LBL_ASSIGNED_TO_ID' => 'Tildelt til id',
   'LBL_ASSIGNED_TO_NAME' => 'Tildelt til:',
   'LBL_CAMPAIGN' => 'Kampagne:',
   'LBL_CAMPAIGN_LINK' => 'Kampagne link',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampagner',
+  'LBL_CLOSED_RLIS' => '# Lukket Revenue poster',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Lukkede vundne salgsmuligheder',
+  'LBL_COMMITTED' => 'Forpligted',
+  'LBL_COMMIT_STAGE' => 'Forpligtet fase',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakter',
   'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Relaterede kontakters e-mail-adresser',
   'LBL_CONTRACTS' => 'Kontrakter',
@@ -41,8 +39,10 @@ $mod_strings = array (
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'Valuta-id',
   'LBL_CURRENCY_NAME' => 'Valutanavn',
+  'LBL_CURRENCY_RATE' => 'Valuta kurs',
   'LBL_CURRENCY_SYMBOL' => 'Valutasymbol',
   'LBL_DATE_CLOSED' => 'Forventet lukkedato:',
+  'LBL_DATE_CLOSED_TIMESTAMP' => 'Forventet Close Date Tidsstempel',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Salgsmuligheder',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenter',
@@ -54,6 +54,11 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Oprettet af id',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ændret af id',
   'LBL_EXPORT_NAME' => 'Navn',
+  'LBL_FILENAME' => 'Vedhæftet fil',
+  'LBL_FORECAST' => 'Inkluder i prognose',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modul giver dig mulighed for at spore individuelle salg og linjeposterne tilhører disse salg fra start til slut. Hver {{MODULE_NAME}} post repræsenterer en overskrift for en gruppe af {{revenuelineitems_module}} samt vedrørende andre vigtige poster såsom {{quotes_module}}, {{contacts_module}} osv. For at skabe en {{MODULE_NAME} }:. 1. Give værdier for de felter som ønsket. - Felter mærket "Påkrævet" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og vis" for at åbne den nye {{MODULE_NAME}} listevisning. - Vælg "Gem og skabe nye" til straks at oprette et nyt {{MODULE_NAME}}. 3.. Efter lagring, skal du bruge {{revenuelineitems_module}} undertavle at føje poster til {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul giver dig mulighed for at spore individuelle salg og linjeposterne tilhører disse salg fra start til slut. Hver {{MODULE_NAME}} post repræsenterer en overskrift for en gruppe af {{revenuelineitems_module}} samt vedrørende andre vigtige poster såsom {{quotes_module}}, {{contacts_module}} osv. - Rediger denne posts felter ved at klikke et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler, herunder {{revenuelineitems_module}}, ved at skifte det nederste venstre rude til"Data View". - Foretag og vis brugernes kommentarer og post ændringshistorie i {{activitystream_singular_module}} ved at skifte det nederste venstre rude til "Activity Stream". - Følg eller favourite denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul giver dig mulighed for at spore individuelle salg og linjeposterne tilhører disse salg fra start til slut. Hver {{MODULE_NAME}} post repræsenterer en overskrift for en gruppe af {{revenuelineitems_module}} samt vedrørende andre vigtige poster såsom {{quotes_module}}, {{contacts_module}}, osv. Hver {{revenuelineitems_singular_module}} vil typisk avancere i flere salgsfaser indtil det er mærket enten "Closed Won" eller "Closed Lost". Den {{MODULE_NAME}} post afspejler mængden og forventet Close dato for dens {{revenuelineitems_module}}. {{plural_module_name}} og {{revenuelineitems_module}} kan udnyttes yderligere ved at bruge Sugars {{forecasts_singular_module}} ing modul til at forstå og forudsige salgstendenser samt fokus arbejde for at opnå salgskvoter.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_INVITEE' => 'Kontakter',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Kundeemner',
@@ -66,37 +71,58 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'Salgsmulighedsliste',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Navn',
   'LBL_LIST_SALES_STAGE' => 'Salgsfase',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Synkroniser til Marketo ®',
   'LBL_MODIFIED_ID' => 'Ændret af id',
   'LBL_MODIFIED_NAME' => 'Ændret af brugernavn',
   'LBL_MODIFIED_USER' => 'Ændret bruger',
   'LBL_MODULE_NAME' => 'Salgsmuligheder',
+  'LBL_MODULE_NAME_SINGULAR' => 'Salgsmulighed',
   'LBL_MODULE_TITLE' => 'Salgsmuligheder: Startside',
   'LBL_MY_CLOSED_OPPORTUNITIES' => 'Mine lukkede salgsmuligheder',
   'LBL_NAME' => 'Salgsmulighedsnavn',
   'LBL_NEW_FORM_TITLE' => 'Opret salgsmulighed',
   'LBL_NEXT_STEP' => 'Næste trin:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Noter',
   'LBL_OPPORTUNITY' => 'Salgsmulighed:',
   'LBL_OPPORTUNITY_NAME' => 'Salgsmulighedsnavn:',
+  'LBL_OPPORTUNITY_ROLE' => 'Salgsmuligheds rolle:',
   'LBL_OPPORTUNITY_TYPE' => 'Salgsmulighedstype',
+  'LBL_PIPELINE_TOTAL_IS' => 'Pipeline Total er',
+  'LBL_PRIMARY_QUOTE_ID' => 'Primært tilbud',
   'LBL_PROBABILITY' => 'Sandsynlighed "%":',
+  'LBL_PRODUCTS' => 'Relaterede produkter',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekter',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekter',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Tilbud',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Tilbud',
   'LBL_RAW_AMOUNT' => 'Bruttobeløb',
+  'LBL_RLI' => 'Revenue Line Items',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Revenue Line Items',
   'LBL_SALES_STAGE' => 'Salgsfase:',
+  'LBL_SALES_STATUS' => 'Status',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter salgsmulighed',
   'LBL_TEAM_ID' => 'Team-id',
+  'LBL_TIMEPERIODS' => 'Tidsperioder',
+  'LBL_TIMEPERIOD_ID' => 'Tidsperiode-id',
   'LBL_TOP_OPPORTUNITIES' => 'Mine bedste åbne salgsmuligheder',
   'LBL_TOTAL_OPPORTUNITIES' => 'Samlede salgsmuligheder',
+  'LBL_TOTAL_RLIS' => '# Av Total Revenue poster',
   'LBL_TYPE' => 'Type:',
   'LBL_VIEW_FORM_TITLE' => 'Vis salgsmulighed',
+  'LBL_WORKSHEET' => 'Regneark',
+  'LNK_CREATE' => 'Opret sag',
   'LNK_IMPORT_OPPORTUNITIES' => 'Importér salgsmuligheder',
   'LNK_NEW_OPPORTUNITY' => 'Opret salgsmulighed',
   'LNK_OPPORTUNITY_LIST' => 'Salgsmuligheder',
   'LNK_OPPORTUNITY_REPORTS' => 'Salgsmulighedsrapporter',
   'MSG_DUPLICATE' => 'Den salgsmulighedspost, du er ved at oprette, kan være en dublet af en salgsmulighedspost, der allerede findes. Salgsmulighedsposter, der indeholder lignende navne, er angivet nedenfor.<br>Klik på Gem for at fortsætte med at oprette denne nye salgsmulighed, eller klik på Annuller for at vende tilbage til modulet uden at oprette salgsmuligheden.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Du kan ikke slette Opportunities som inneholder lukkede Revenue poster',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Er du sikker på, at du vil fjerne denne kontakt fra salgsmuligheden?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på, at du vil fjerne denne salgsmulighed fra projektet?',
+  'TPL_RLI_CREATE' => 'En salgs mulighed, skal have en tilknyttet Revenue Line Item.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Skabe en Revenue Line Item.',
   'UPDATE' => 'Salgsmulighed - valutaopdatering',
   'UPDATE_BUGFOUND_COUNT' => 'Der blev fundet fejl:',
   'UPDATE_BUG_COUNT' => 'Der blev fundet fejl og gjort forsøg på at løse dem:',
@@ -122,5 +148,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Nyt beløb:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Ny valuta:',
   'UPDATE_VERIFY_TXT' => 'Kontrollerer, at beløbsværdierne i salgsmuligheder er gyldige decimaltal med kun numeriske tegn "0-9" og decimaler "."',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'En eller flere av de valgte postene inneholder lukkede Revenue poster og kan ikke slettes.',
 );
 

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Não pode importar um utilizador administrador do sistema',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Agora escolha o ficheiro a importar:',
   'LBL_NO_DATECHECK' => 'Ignorar verificação da data (mais rápida mas irá falhar se alguma data estiver errada)',
   'LBL_NO_EMAILS' => 'Não enviar notificações de E-mail durante esta importação',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'A tentar utilizar endereços de e-mail num Bean que não fornece suporte.',
   'LBL_NO_ID' => 'ID Necessário',
   'LBL_NO_IMPORT_TO_UNDO' => 'Não há importação para desfazer.',
   'LBL_NO_LINES' => 'Não há linhas (registos) no seu ficheiro de importação',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Importados com Sucesso',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Registos criados com sucesso',
   'LBL_SUMMARY' => 'Resumo',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Digitos Significativos do Sistema',
   'LBL_TAB' => 'Ficheiro Delimitado por TAB',
   'LBL_TAB_NUM_1' => 'Execute a aplicação e abra o ficheiro de dados',
   'LBL_TAB_NUM_2' => 'Seleccione a opção do menu <b>Gravar Como...</b> ou <b>Exportar...</b>',

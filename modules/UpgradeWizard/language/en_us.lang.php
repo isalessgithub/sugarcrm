@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- * *******************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $mod_strings = array(
 	'DESC_MODULES_INSTALLED'					=> 'The following modules have been installed:',
 	'DESC_MODULES_QUEUED'						=> 'The following modules are ready to be installed:',
@@ -36,7 +26,7 @@ $mod_strings = array(
 	'ERR_UW_FLAVOR_2'							=> 'Upgrade Flavor: ',
 	'ERR_UW_FLAVOR'								=> 'SugarCRM System Flavor: ',
 	'ERR_UW_LOG_FILE_UNWRITABLE'				=> './upgradeWizard.log could not be created/written to.  Please fix permissions on your SugarCRM directory.',
-	'ERR_UW_MBSTRING_FUNC_OVERLOAD'				=> 'mbstring.func_overload set to a value higher than 1.  Please change this in your php.ini and restart the web server.',
+    'ERR_UW_MBSTRING_FUNC_OVERLOAD'				=> 'mbstring.func_overload set to a value higher than 1.<br/>Please change this in your php.ini and restart the web server.',
 	'ERR_UW_MYSQL_VERSION'						=> 'SugarCRM requires MySQL version 4.1.2 or newer.  Found: ',
 	'ERR_UW_OCI8_VERSION'				        => 'Your version of Oracle is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported Oracle Versions. Current version: ',
 	'ERR_UW_NO_FILE_UPLOADED'					=> 'Please specify a file and try again!',
@@ -47,10 +37,10 @@ $mod_strings = array(
 	'ERR_UW_NOT_VALID_UPLOAD'					=> 'Not valid upload.',
 	'ERR_UW_NO_CREATE_TMP_DIR'					=> 'Could not create the temp directory. Check file permissions.',
 	'ERR_UW_ONLY_PATCHES'						=> 'You can only upload patches on this page.',
-	'ERR_UW_PREFLIGHT_ERRORS'					=> 'Errors Found During Preflight Check',
+    'ERR_UW_PREFLIGHT_ERRORS'					=> 'Errors Found During Preflight Check',
 	'ERR_UW_UPLOAD_ERR'							=> 'There was an error uploading the file, please try again!<br>\n',
 	'ERR_UW_VERSION'							=> 'SugarCRM System Version: ',
-	'ERR_UW_WRONG_TYPE'							=> 'This page is not for running ',
+    'ERR_UW_WRONG_TYPE'							=> 'This page is not for running ',
 	'ERR_UW_PHP_FILE_ERRORS'					=> array(
 													1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
 													2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
@@ -61,7 +51,18 @@ $mod_strings = array(
 													7 => 'Failed to write file to disk.',
 													8 => 'File upload stopped by extension.',
 ),
-	'LBL_BUTTON_BACK'							=> '< Back',
+
+    'ERROR_HT_NO_WRITE'                         => 'Cannot write to the file: %s',
+    'ERROR_MANIFEST_TYPE'                       => 'Manifest file must specify the package type.',
+    'ERROR_PACKAGE_TYPE'                        => 'Manifest file specifies an unrecognized package type: %s',
+    'ERROR_VERSION_INCOMPATIBLE'                => 'The upgrade package is not compatible with this version of Sugar: %s',
+    'ERROR_FLAVOR_INCOMPATIBLE'                 => 'The uploaded file is not compatible with this flavor (Community Edition, Professional, or Enterprise) of Sugar: %s',
+
+    'ERROR_UW_CONFIG_DB'                        => 'Error saving %s config var to the db (key %s, value %s).',
+    'ERR_NOT_ADMIN'                             => "Unauthorized access to administration.",
+    'ERR_NO_VIEW_ACCESS_REASON'                 => 'You do not have permission to access this page.',
+
+    'LBL_BUTTON_BACK'							=> '< Back',
 	'LBL_BUTTON_CANCEL'							=> 'Cancel',
 	'LBL_BUTTON_DELETE'							=> 'Delete Package',
 	'LBL_BUTTON_DONE'							=> 'Done',
@@ -103,8 +104,7 @@ $mod_strings = array(
 	'LBL_UW_COMPLIANCE_TITLE'					=> 'Server Settings Check',
 	'LBL_UW_COMPLIANCE_TITLE2'					=> 'Detected Settings',
 	'LBL_UW_COMPLIANCE_XML'						=> 'XML Parsing',
-	'LBL_UW_COMPLIANCE_ZIPARCHIVE'				=> 'Zip Support',
-	'LBL_UW_COMPLIANCE_PCRE_VERSION'			=> 'PCRE Version',
+    'LBL_UW_COMPLIANCE_ZIPARCHIVE'				=> 'Zip Support',
 
 	'LBL_UW_COPIED_FILES_TITLE'					=> 'Files Copied Successfully',
 	'LBL_UW_CUSTOM_TABLE_SCHEMA_CHANGE'			=> 'Custom Table Schema Changes',
@@ -262,8 +262,9 @@ $mod_strings = array(
 	//adding the string used in tracker. copying from homepage
 	'LBL_HOME_PAGE_4_NAME' => 'Tracker',
 	'LBL_CURRENT_PHP_VERSION' => '(Your current php version is ',
-	'LBL_RECOMMENDED_PHP_VERSION' => '. Recommended php version is 5.2.2 or above)',
+	'LBL_RECOMMENDED_PHP_VERSION' => '. Recommended php version is 5.2.1 or above)',
 	'LBL_MODULE_NAME' => 'UpgradeWizard',
+	'LBL_MODULE_NAME_SINGULAR' => 'UpgradeWizard',
 	'LBL_UPLOAD_SUCCESS' => 'Upgrade package successfully uploaded. Click Next to perform a final check.',
 	'LBL_UW_TITLE_LAYOUTS' => 'Confirm Layouts',
 	'LBL_LAYOUT_MODULE_TITLE' => 'Layouts',
@@ -274,8 +275,6 @@ $mod_strings = array(
     'LBL_UW_CONFIRM_LAYOUT_RESULTS' => 'Confirm Layout Results',
     'LBL_UW_CONFIRM_LAYOUT_RESULTS_DESC' => 'The following layouts were merged successfully:',
 	'LBL_SELECT_FILE' => 'Select File:',
-    'ERROR_VERSION_INCOMPATIBLE' => 'The uploaded file is not compatible with this version of Sugar: ',
-    'ERROR_FLAVOR_INCOMPATIBLE'  => 'The uploaded file is not compatible with this flavor (Community Edition, Professional, or Enterprise) of Sugar: ',
 	'LBL_LANGPACKS' => 'Language Packs' /*for 508 compliance fix*/,
 	'LBL_MODULELOADER' => 'Module Loader' /*for 508 compliance fix*/,
 	'LBL_PATCHUPGRADES' => 'Patch Upgrades' /*for 508 compliance fix*/,
@@ -283,4 +282,5 @@ $mod_strings = array(
 	'LBL_WORKFLOW' => 'Workflow' /*for 508 compliance fix*/,
 	'LBL_UPGRADE' => 'Upgrade' /*for 508 compliance fix*/,
 	'LBL_PROCESSING' => 'Processing' /*for 508 compliance fix*/,
+    'LBL_GLOBAL_TEAM_DESC'                      => 'Globally Visible',
 );

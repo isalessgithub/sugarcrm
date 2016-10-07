@@ -1,28 +1,33 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
- 
 require_once('modules/DynamicFields/templates/Fields/TemplateField.php');
 require_once 'modules/ModuleBuilder/parsers/parser.label.php';
 require_once 'modules/ModuleBuilder/MB/ModuleBuilder.php';
 
 class TemplateRelatedTextField extends TemplateText{
     var $type = 'relate';
-    //ext1 is the name field
-    //ext2 is the related module
-    
+
+    public function __construct()
+    {
+        // ext2 is the related module
+        // Adding the match for this (module => ext2) has unexpected consequences
+        // in module builder, since 'module' in module builder is 'ModuleBuilder'.
+        // There is code down below that handles the mapping of module to ext2.
+        // This mapping will set $this->module = $_REQUEST['ext2'].
+        $this->vardef_map['ext2'] = 'module';
+    }
+
     function get_html_edit(){
         $this->prepare();
         $name = $this->name .'_name';
@@ -37,17 +42,17 @@ class TemplateRelatedTextField extends TemplateText{
         $value_name = strtoupper('{'.$name.'}');
         $id = $this->name ;
         $value_id = strtoupper('{'.$id .'}');
-        
-        return "<a href='index.php?module=$this->ext2&action=DetailView&record={$value_id}'>{$value_name}</a>" ;    
+
+        return "<a href='index.php?module=$this->ext2&action=DetailView&record={$value_id}'>{$value_name}</a>" ;
     }
-    
+
     function get_html_list(){
         if(isset($this->bean)){
             $name = $this->bean->object_name . '.'. $this->ext1;
         }else{
-            $name = $this->ext1;    
+            $name = $this->ext1;
         }
-        return '{'. strtoupper($name) . '}';    
+        return '{'. strtoupper($name) . '}';
     }
 
     function get_html_search(){
@@ -56,11 +61,11 @@ class TemplateRelatedTextField extends TemplateText{
         $searchable = array('team_id');
         if(!empty($def['id_name']) && in_array($def['id_name'], $searchable)){
             $name = $def['id_name'];
-            return "<select size='3' name='{$name}[]' tabindex='1' multiple='multiple'>{".strtoupper($name). "_FILTER}</select>";   
+            return "<select size='3' name='{$name}[]' tabindex='1' multiple='multiple'>{".strtoupper($name). "_FILTER}</select>";
         }
         //return 'NOT AVAILABLE';
         return $this->get_html_edit();
-    }   
+    }
 
     function get_xtpl_search(){
         $searchable=array();
@@ -72,7 +77,7 @@ class TemplateRelatedTextField extends TemplateText{
             $team_list = '';
             foreach(get_team_array() as $id=>$team){
                 $selected = '';
-                
+
                 if(!empty($_REQUEST[$name]) && is_array($_REQUEST[$name]) && in_array($id, $_REQUEST[$name])){
                     $selected = 'selected';
                 }
@@ -91,7 +96,7 @@ class TemplateRelatedTextField extends TemplateText{
                                         $this->ext1 => $name,
                                     ),
             );
-        
+
             $json = getJSONobj();
             $encoded_popup_request_data = $json->encode($popup_request_data);
             $returnXTPL['ENCODED_'.strtoupper($id).'_POPUP_REQUEST_DATA'] = $encoded_popup_request_data;
@@ -104,13 +109,13 @@ class TemplateRelatedTextField extends TemplateText{
                $returnXTPL[strtoupper($id)] =  $_REQUEST[$id];
             }
         }
-        return $returnXTPL; 
+        return $returnXTPL;
     }
 
 
     function get_xtpl_edit(){
     global $beanList;
-        
+
         $name = $this->name .'_name';
         $id = $this->name;
         $module = $this->ext2;
@@ -123,30 +128,24 @@ class TemplateRelatedTextField extends TemplateText{
             $this->ext1 => $name,
         ),
         );
-        
+
         //$GLOBALS['log']->fatal($this->bean);
-      
+
         $json = getJSONobj();
         $encoded_contact_popup_request_data = $json->encode($popup_request_data);
         $returnXTPL['ENCODED_'.strtoupper($id).'_POPUP_REQUEST_DATA'] = $encoded_contact_popup_request_data;
         $returnXTPL[strtoupper($id).'_MODULE'] = $module;
 
-        if(isset($beanList[$module]) && isset($this->bean->$id)){
+        if(isset($this->bean->$id)){
             if(!isset($this->bean->$name)){
                 $mod_field = $this->ext1;
-                global $beanFiles;
-                
-                $class = $beanList[$module];
-            
-                require_once($beanFiles[$class]);
-                $mod = new $class();
-                $mod->retrieve($this->bean->$id);
+                $mod = BeanFactory::getBean($module, $this->bean->$id);
                 if(isset($mod->$mod_field)){
-                    $this->bean->$name = $mod->$mod_field;  
-                }   
+                    $this->bean->$name = $mod->$mod_field;
+                }
             }
-            
-            
+
+
             $returnXTPL[strtoupper($id)] = $this->bean->$id;
         }
         if(isset($this->bean->$name)){
@@ -155,24 +154,50 @@ class TemplateRelatedTextField extends TemplateText{
         if(isset($this->bean->$id)) {
             $returnXTPL[strtoupper($id)] = $this->bean->$id;
         }
-        
-        
-        return $returnXTPL; 
+
+
+        return $returnXTPL;
     }
-    
+
     function get_xtpl_detail(){
         return $this->get_xtpl_edit();
     }
-    
+
     function get_related_info(){
-            
+
     }
-    
+
      function get_field_def(){
         $def = parent::get_field_def();
         $def['id_name'] = $this->ext3;
-        $def['ext2'] = $this->ext2;
-        $def['module'] = $def['ext2'];
+
+        // This should pretty much always eval to true, but better safe than sorry
+        if (empty($def['ext2'])) {
+            // In most cases $this->ext2 will have already been set by either the
+            // request or the vardef row from module builder
+            $def['ext2'] = empty($this->ext2) ? '' : $this->ext2;
+        }
+
+        // Handle setting the related module. In most cases this will be driven
+        // by $this->ext2
+        if (empty($def['module'])) {
+            if (!empty($this->module)) {
+                $def['module'] = $this->module;
+            } else {
+                if (empty($def['ext2']) && !empty($this->ext2)) {
+                    $def['ext2'] = $this->ext2;
+                }
+                
+                $def['module'] = $def['ext2'];
+            }
+        } else {
+            if (empty($def['ext2'])) {
+                $def['ext2'] = $def['module'];
+            }
+            
+            $this->ext2 = $def['ext2'];
+        }
+
         //Special case for documents, which use a document_name rather than name
         if ($def['module'] == "Documents") {
         	$def['rname'] = 'document_name';
@@ -182,8 +207,10 @@ class TemplateRelatedTextField extends TemplateText{
         $def['quicksearch'] = 'enabled';
         $def['studio'] = 'visible';
         $def['source'] = 'non-db';
-        return $def;    
+        return $def;
     }
+
+
     
     /**
      * Delete field
@@ -192,6 +219,7 @@ class TemplateRelatedTextField extends TemplateText{
      */
     public function delete($df)
     {
+        $fieldId = null;
         if ($df instanceof DynamicField) {
             $fieldId = $df->getFieldWidget($df->module, $this->id_name);
         } elseif ($df instanceof MBModule) {
@@ -200,8 +228,12 @@ class TemplateRelatedTextField extends TemplateText{
             $GLOBALS['log']->fatal('Unsupported DynamicField type');
         }
 
-        $this->deleteIdLabel($fieldId, $df);
-        $fieldId->delete($df);
+        // the field may have already been deleted
+        if ($fieldId) {
+            $this->deleteIdLabel($fieldId, $df);
+            $fieldId->delete($df);
+        }
+
         parent::delete($df);
     }
         
@@ -231,6 +263,7 @@ class TemplateRelatedTextField extends TemplateText{
         }
     }
 
+
     function save($df){
         // create the new ID field associated with this relate field - this will hold the id of the related record
         // this field must have a unique name as the name is used when constructing quicksearches and when saving the field
@@ -246,20 +279,20 @@ class TemplateRelatedTextField extends TemplateText{
 	        $count = 0;
 	        $basename = strtolower(get_singular_bean_name($this->ext2)).'_id' ;
 	        $idName = $basename.'_c' ;
-	        
+
 	        while ( $df->fieldExists($idName, 'id') )
 	        {
 	            $idName = $basename.++$count.'_c' ;
 	        }
 	        $id->name = $idName ;
-			$id->reportable = false;				
+			$id->reportable = false;
 	        $id->save($df);
-	        
+
 	        // record the id field's name, and save
 	        $this->ext3 = $id->name;
             $this->id_name = $id->name;
         }
-        
+
         parent::save($df);
     }
 
@@ -304,16 +337,72 @@ class TemplateRelatedTextField extends TemplateText{
     function get_db_add_alter_table($table){
     	return "";
     }
-    
+
     function get_db_delete_alter_table($table) {
     	return "";
     }
-    
+
     function get_db_modify_alter_table($table){
     	return "";
     }
-    
+
+    function populateFromRow($row=array()) 
+    {
+        parent::populateFromRow($row);
+        // In some cases, MB Controller sets $this->module to a bean or mbmodule
+        // object. If that's the case get the string module value from what we know.
+        $this->module = $this->getModuleNameFromModule($this->module);
+        if (!empty($this->module) && empty($this->ext2)) {
+            $this->ext2 = $this->module;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @return array
+     */
+    public function getFieldMetaDataMapping()
+    {
+        $fmdMap = parent::getFieldMetaDataMapping();
+        $fmdMap['module'] = 'ext2';
+        return $fmdMap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function applyVardefRules()
+    {
+        parent::applyVardefRules();
+        if (!empty($this->ext2) && !empty($this->module) && $this->ext2 !== $this->module) {
+            $this->module = $this->ext2;
+        }
+    }
+
+    /**
+     * Gets the module name from the existing module property that was set in 
+     * the controller
+     * 
+     * @param mixed $module A string value, or a SugarBean or an MBModule object
+     * @return string
+     */
+    protected function getModuleNameFromModule($module)
+    {
+        if (is_string($module)) {
+            return $module;
+        }
+
+        if ($module instanceof SugarBean) {
+            return $module->module_dir;
+        }
+
+        if ($module instanceof MBModule && !empty($module->key_name)) {
+            return $module->key_name;
+        }
+
+        return '';
+    }
 }
 
 
-?>

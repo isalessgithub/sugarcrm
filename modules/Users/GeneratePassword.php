@@ -1,37 +1,24 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+require_once('modules/Users/language/en_us.lang.php');
+global $app_strings;
+global $sugar_config;
+global $new_pwd;
+global $current_user;
 
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-    require_once('include/entryPoint.php');
-
-    require_once('modules/Users/language/en_us.lang.php');
-    global $app_strings;
-    global $sugar_config;
-    global $new_pwd;
-    global $current_user;
-
-  	$mod_strings=return_module_language('','Users');
-  	$res=$GLOBALS['sugar_config']['passwordsetting'];
-	$regexmail = "/^\w+(['\.\-\+]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+\$/";
+$mod_strings=return_module_language('','Users');
+$res=$GLOBALS['sugar_config']['passwordsetting'];
+$regexmail = "/^\w+(['\.\-\+]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+\$/";
 
 ///////////////////////////////////////////////////
 ///////  Retrieve user
@@ -55,7 +42,7 @@ if(isset( $_POST['Users0emailAddress0'])){
         if ($username != '' && $useremail != ''){
             $usr_id=$usr->retrieve_user_id($username);
             $usr->retrieve($usr_id);
-            if (!$usr->isPrimaryEmail($useremail)) {
+            if ($usr->email1 !=  $useremail){
                 echo $mod_strings['LBL_PROVIDE_USERNAME_AND_EMAIL'];
                 return;
             }
@@ -164,5 +151,3 @@ if ($isLink){
     		echo $mod_strings['LBL_EMAIL_NOT_SENT'];
     }
     return;
-
-?>

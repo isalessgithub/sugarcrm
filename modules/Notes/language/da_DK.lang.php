@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,9 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Mime-type',
   'LBL_FILE_URL' => 'Fil-URL',
   'LBL_FIRST_NAME' => 'Fornavn',
+  'LBL_HELP_CREATE' => 'For at oprette en {{MODULE_NAME}}:. 1. Give værdier for felterne som ønsket. - Felter mærket "Required" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og se" for at åbne den nye {{MODULE_NAME}} i liste visning. - Vælg "Gem og skabe nye" til straks at oprette et nyt {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består af individuel {{plural_module_name}}, der indeholder tekst eller en vedhæftet fil relevant til den relaterede post. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler ved at skifte det nederste venstre rude til "Data View". - Foretag og vis brugernes kommentarer og post ændring historie i {{activitystream_singular_module}} ved at skifte det nederste venstre rude til "Activity Stream". - Følg eller favorisere denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består af individuel {{plural_module_name}}, der indeholder tekst eller en vedhæftet fil relevant til den relaterede post. {{MODULE_NAME}} poster kan relateres til én post i de fleste moduler via flex relatere område og kan også være relateret til et enkelt {{contacts_singular_module}}. {{plural_module_name}} kan holde generisk tekst om en post eller endda en vedhæftet fil relateret til posten. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar såsom via {{plural_module_name}} modul, importerer {{plural_module_name}} via Historik underpaneler osv. Når den {{MODULE_NAME}} post er oprettet, du kan se og redigere oplysninger om den {{MODULE_NAME}} via {{plural_module_name}} post liste. Hver {{MODULE_NAME}} post kan så forholde sig til andre Sugar poster, såsom {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, og mange andre.',
   'LBL_LAST_NAME' => 'Efternavn',
   'LBL_LEAD_ID' => 'Kundeemne-id:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Tildelt bruger',
@@ -79,6 +79,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'Tilbuds-id:',
   'LBL_RELATED_TO' => 'Relateret til:',
   'LBL_REMOVING_ATTACHMENT' => 'Fjerner vedhæftet fil...',
+  'LBL_REVENUELINEITEMS' => 'Omsætningsposter',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter note',
   'LBL_SEND_ANYWAYS' => 'Denne e-mail har intet emne. Vil du sende/gemme alligevel?',
   'LBL_STATUS' => 'Status',

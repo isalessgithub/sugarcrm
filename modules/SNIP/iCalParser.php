@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Stub class for the future of SugarEvents
@@ -500,13 +497,27 @@ class iCalendar {
 	function createSugarEvents($parent = NULL)
 	{
 		require_once('modules/Meetings/Meeting.php');
+
+                // if email description contains a meeting id that exists, don't create new meeting
+                if (isset($parent) && !empty($parent->description)) {
+                    preg_match('/record=(.*)&gt/', $parent->description, $match);
+                    if (!empty($match[1])) {
+                        $meeting = new Meeting();
+                        $meeting->disable_row_level_security = true;
+                        $prev_meeting = $meeting->retrieve_by_string_fields(array("id" => $match[1]));
+                        if (isset($prev_meeting)) {
+                            return;
+                        }
+                    }
+                }
+
 		foreach ($this->data['calendar'] as $calendar_key=>$calendar_val) {
 			foreach ($calendar_val->stack as $key=>$val) {
 				if(!$val instanceof vEvent) {
 					continue;
 				}
 
-				$meeting = new Meeting();
+				$meeting = BeanFactory::getBean('Meetings');
 				// Hack - we don't care about this bean's permissions
 				$meeting->disable_row_level_security = true;
 				$prev_seq = 0;

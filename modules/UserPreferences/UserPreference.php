@@ -1,25 +1,24 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: UserPreference.php 55583 2010-03-25 14:19:39Z jmertic $
  * Description: Handles the User Preferences and stores them in a separate table.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
+
+require_once('include/SugarQuery/SugarQuery.php');
 
 class UserPreference extends SugarBean
 {
@@ -48,12 +47,23 @@ class UserPreference extends SugarBean
 
     protected $_userFocus;
 
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function UserPreference(User $user = null)
+    {
+        self::__construct($user);
+    }
+
     // Do not actually declare, use the functions statically
     public function __construct(
         User $user = null
         )
     {
-        parent::SugarBean();
+        parent::__construct();
 
         $this->_userFocus = $user;
         $this->tracker_visibility = false;
@@ -110,6 +120,11 @@ class UserPreference extends SugarBean
         if ( $category != 'global' )
             return null;
 
+        if ( $name == 'datef' ) // Use default date format from Admin panel (Bug57252)
+            return $sugar_config['default_date_format'];
+        if ( $name == 'timef' )  // Use default time format from Admin panel (Bug57252)
+            return $sugar_config['default_time_format'];
+
         // First check for name matching $sugar_config variable
         if ( isset($sugar_config[$name]) )
             return $sugar_config[$name];
@@ -117,12 +132,19 @@ class UserPreference extends SugarBean
         // Next, check to see if it's one of the common problem ones
         if ( isset($sugar_config['default_'.$name]) )
             return $sugar_config['default_'.$name];
-        if ( $name == 'datef' )
-            return $sugar_config['default_date_format'];
-        if ( $name == 'timef' )
-            return $sugar_config['default_time_format'];
+
         if ( $name == 'email_link_type' )
             return $sugar_config['email_default_client'];
+
+    }
+
+    public function removePreference($name, $category='global') {
+        $user = $this->_userFocus;
+        if(isset($_SESSION[$user->user_name . '_PREFERENCES'][$category][$name])) {
+            unset($_SESSION[$user->user_name . '_PREFERENCES'][$category][$name]);
+        }
+
+        $this->savePreferencesToDB(true);
     }
 
     /**
@@ -340,7 +362,6 @@ class UserPreference extends SugarBean
             $query .= " AND category = '" . $category . "'";
         $this->db->query($query);
 
-
         if($category) {
             unset($_SESSION[$user->user_name."_PREFERENCES"][$category]);
         }
@@ -349,7 +370,8 @@ class UserPreference extends SugarBean
                 setcookie('sugar_user_theme', '', time() - 3600); // expire the sugar_user_theme cookie
             }
             unset($_SESSION[$user->user_name."_PREFERENCES"]);
-            if($user->id == $GLOBALS['current_user']->id) {
+            // only call session_destroy() when we have a valid session_id
+            if($user->id == $GLOBALS['current_user']->id && session_id() != "") {
                 session_destroy();
             }
             $this->setPreference('remove_tabs', $remove_tabs);
@@ -358,6 +380,7 @@ class UserPreference extends SugarBean
             $this->setPreference('dashlets', $home_dashlets, 'home');
             $this->setPreference('ut', $ut);
             $this->setPreference('timezone', $timezone);
+            $this->setPreference('reminder_time', 1800);
             $this->savePreferencesToDB();
         }
     }

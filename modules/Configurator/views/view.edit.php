@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Configurator/Forms.php');
 require_once('modules/Administration/Forms.php');
 require_once('modules/Configurator/Configurator.php');
@@ -29,65 +19,45 @@ require_once('modules/Leads/Lead.php');
 class ConfiguratorViewEdit extends ViewEdit
 {
     /**
-     * @var Configurator
-     */
-    protected $configurator;
-
-    /**
 	 * @see SugarView::preDisplay()
 	 */
 	public function preDisplay()
     {
         if(!is_admin($GLOBALS['current_user']))
-            sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']); 
+            sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
     }
-    
+
     /**
 	 * @see SugarView::_getModuleTitleParams()
 	 */
 	protected function _getModuleTitleParams($browserTitle = false)
 	{
 	    global $mod_strings;
-	    
+
     	return array(
     	   "<a href='index.php?module=Administration&action=index'>".translate('LBL_MODULE_NAME','Administration')."</a>",
     	   $mod_strings['LBL_SYSTEM_SETTINGS']
     	   );
     }
 
-    public function __construct()
-    {
-        $this->configurator = new Configurator;
-    }
-
-    public function process()
-    {   
-        if (isset($this->errors['company_logo']))
-        {
-            $this->configurator->errors['company_logo'] = $this->errors['company_logo'];
-            unset($this->errors['company_logo']);
-        }
-
-        return parent::process();
-    }
-    
 	/**
 	 * @see SugarView::display()
 	 */
 	public function display()
 	{
 	    global $current_user, $mod_strings, $app_strings, $app_list_strings, $sugar_config, $locale;
-	    
-	    $configurator = $this->configurator;
+
+	    $configurator = new Configurator();
         $sugarConfig = SugarConfig::getInstance();
-        $focus = new Administration();
         $configurator->parseLoggerSettings();
-        
-        $focus->retrieveSettings();
+        $focus = Administration::getSettings();
+
+        /*
         if(!empty($_POST['restore'])){
             $configurator->restoreConfig();
         }
-        
+        */
+
         $this->ss->assign('MOD', $mod_strings);
         $this->ss->assign('APP', $app_strings);
         $this->ss->assign('APP_LIST', $app_list_strings);
@@ -96,7 +66,7 @@ class ConfiguratorViewEdit extends ViewEdit
         $this->ss->assign("AUTO_REFRESH_INTERVAL_OPTIONS", get_select_options_with_id($app_list_strings['dashlet_auto_refresh_options_admin'], isset($configurator->config['dashlet_auto_refresh_min']) ? $configurator->config['dashlet_auto_refresh_min'] : 30));
         $this->ss->assign('LANGUAGES', get_languages());
         $this->ss->assign("JAVASCRIPT",get_set_focus_js(). get_configsettings_js());
-        $this->ss->assign('company_logo', SugarThemeRegistry::current()->getImageURL('company_logo.png'));
+        $this->ss->assign('company_logo', SugarThemeRegistry::current()->getImageURL('company_logo.png', true, true));
         $this->ss->assign("settings", $focus->settings);
         $this->ss->assign("mail_sendtype_options", get_select_options_with_id($app_list_strings['notifymail_sendtype'], $focus->settings['mail_sendtype']));
         if(!empty($focus->settings['proxy_on'])){
@@ -136,11 +106,17 @@ class ConfiguratorViewEdit extends ViewEdit
         else {
             $this->ss->assign('logger_visible', true);
         }
+        $this->ss->assign('list_entries_per_listview_help', str_replace(
+            '{{listEntriesNum}}', '50', $mod_strings['TPL_LIST_ENTRIES_PER_LISTVIEW_HELP']
+        ));
+        $this->ss->assign('list_entries_per_subpanel_help', str_replace(
+            '{{subpanelEntriesNum}}', '25', $mod_strings['TPL_LIST_ENTRIES_PER_SUBPANEL_HELP']
+        ));
 
         echo $this->getModuleTitle(false);
-        
+
         $this->ss->display('modules/Configurator/tpls/EditView.tpl');
-        
+
         $javascript = new javascript();
         $javascript->setFormName("ConfigureSettings");
         $javascript->addFieldGeneric("notify_fromaddress", "email", $mod_strings['LBL_NOTIFY_FROMADDRESS'], TRUE, "");

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_ADD_RECORD' => 'Для добавления пользователя в эту команду необходимо выбрать номер записи.',
@@ -49,8 +46,8 @@ $mod_strings = array (
   'LBL_REASSIGN_TEAM_BUTTON_KEY' => 'R',
   'LBL_REASSIGN_TEAM_BUTTON_LABEL' => 'Переназначить',
   'LBL_REASSIGN_TEAM_BUTTON_TITLE' => 'Переназначить [Alt+R]',
-  'LBL_REASSIGN_TEAM_COMPLETED' => 'Операция была успешно заевршена.',
-  'LBL_REASSIGN_TEAM_TITLE' => 'Существуют записи, назначенные данной (-ым) команде (-ам): {0}<br />Для удаления команды необходимо сначала переназначить эти записи новой команде. Выберите команду, которая для замены.',
+  'LBL_REASSIGN_TEAM_COMPLETED' => 'Операция была успешно завершена.',
+  'LBL_REASSIGN_TEAM_TITLE' => 'Существуют записи, назначенные данной (-ым) команде (-ам): {0}<br />Для удаления команды необходимо сначала переназначить эти записи новой команде. Выберите команду для замены.',
   'LBL_SEARCH_FORM_TITLE' => 'Найти команду',
   'LBL_TEAM' => 'Команды:',
   'LBL_TEAM_MEMBERS' => 'Члены команды',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LNK_LIST_TEAM' => 'Команды',
   'LNK_LIST_TEAMNOTICE' => 'Уведомления для команд',
   'LNK_NEW_TEAM' => 'Новая Команда',
+  'LNK_NEW_TEAM_NOTICE' => 'Создать командное уведомление',
   'NTC_DELETE_CONFIRMATION' => 'Вы действительно хотите удалить эту запись?',
   'NTC_REMOVE_TEAM_MEMBER_CONFIRMATION' => 'Вы уверены, что хотите удалить этого сотрудника из команды?',
 );

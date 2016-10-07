@@ -1,62 +1,79 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('modules/DynamicFields/templates/Fields/TemplateCurrencyId.php');
+require_once('modules/DynamicFields/templates/Fields/TemplateCurrencyBaseRate.php');
 require_once('modules/DynamicFields/templates/Fields/TemplateRange.php');
 
 class TemplateCurrency extends TemplateRange
 {
-    var $max_size = 25;
-    var $len = 26 ;
-    var $precision = 6;
-    var $type='currency';
+    public $max_size = 25;
+    public $len = 26;
+    public $precision = 6;
+    public $default = 0;
+    public $type = 'currency';
 
-    function delete($df){
-    	parent::delete($df);
-    	//currency id
-    	$currency_id = new TemplateCurrencyId();
-    	$currency_id->name = 'currency_id';
-    	$currency_id->delete($df);
+    public function delete($df)
+    {
+        parent::delete($df);
+        //currency id
+        $currency_id = new TemplateCurrencyId();
+        $currency_id->name = 'currency_id';
+        $currency_id->delete($df);
+
+        //base_rate
+        $base_rate = new TemplateCurrencyBaseRate();
+        $base_rate->name = 'base_rate';
+        $base_rate->delete($df);
     }
 
-    function save($df){
-    	//the currency field
-		$this->default = unformat_number($this->default);
-		$this->default_value = $this->default;
-    	parent::save($df);
+    public function save($df)
+    {
+        //the currency field
+        $this->default = unformat_number($this->default);
+        $this->default_value = $this->default;
+        $this->related_fields = array(
+            'currency_id',
+            'base_rate'
+        );
+        parent::save($df);
 
-    	//currency id
-    	$currency_id = new TemplateCurrencyId();
-    	$currency_id->name = 'currency_id';
-    	$currency_id->vname = 'LBL_CURRENCY';
-    	$currency_id->label = $currency_id->vname;
-    	$currency_id->save($df);
-    	//$df->addLabel($currency_id->vname);
+        $df->addLabel('LBL_CURRENCY');
+
+        //currency id
+        $currency_id = new TemplateCurrencyId();
+        $currency_id->name = 'currency_id';
+        $currency_id->save($df);
+
+        //base_rate
+        $base_rate = new TemplateCurrencyBaseRate();
+        $base_rate->name = 'base_rate';
+        $base_rate->label = 'LBL_CURRENCY_RATE';
+        $base_rate->save($df);
+
     }
 
-    function get_field_def(){
-    	$def = parent::get_field_def();
-		$def['precision'] = (!empty($this->precision)) ? $this->precision : 6;
-    	return $def;
+    public function get_field_def()
+    {
+        $def = parent::get_field_def();
+        $def['precision'] = (!empty($this->precision)) ? $this->precision : 6;
+        $def['related_fields'] = array('currency_id', 'base_rate');
+        return $def;
     }
 
-	function get_db_type()
-	{
-		$precision = (!empty($this->precision)) ? $this->precision : 6;
-		$len = (!empty($this->len)) ? $this->len:26;
-		return " ".sprintf($GLOBALS['db']->getColumnType("decimal_tpl"), $len, $precision); 
-	}
+    function get_db_type()
+    {
+        $precision = (!empty($this->precision)) ? $this->precision : 6;
+        $len = (!empty($this->len)) ? $this->len : 26;
+        return " " . sprintf($GLOBALS['db']->getColumnType("decimal_tpl"), $len, $precision);
+    }
 }

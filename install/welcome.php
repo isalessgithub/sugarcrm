@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: welcome.php 56115 2010-04-26 17:08:09Z kjing $
 
 if( !isset( $install_script ) || !$install_script ){
     die($mod_strings['ERR_NO_DIRECT_SCRIPT']);
@@ -71,9 +68,10 @@ $out = <<<EOQ
           <tr>
                 <td>
 						    <input type="hidden" name="current_step" value="{$next_step}">
+						    <input type="hidden" name="instance_url" value="">
 						</td>
 					    <td>
-					        <input class="button" type="submit" name="goto" value="{$mod_strings['LBL_NEXT']}" id="button_next2" />
+					        <input class="button" type="submit" name="goto" value="{$mod_strings['LBL_NEXT']}" id="button_next2" onFocus="this.form.instance_url.value = window.location;" />
 			            </td>
           </tr>
         </table>
@@ -99,9 +97,9 @@ $out = <<<EOQ
 </body>
 </html>
 EOQ;
-if (version_compare(phpversion(),'5.2.2') < 0) {
+if (version_compare(phpversion(),'5.2.0') < 0) {
 	if(empty($mod_strings['LBL_MINIMUM_PHP_VERSION'])){
-		$mod_strings['LBL_MINIMUM_PHP_VERSION'] = 'Minimum Php version required is 5.2.2.';
+		$mod_strings['LBL_MINIMUM_PHP_VERSION'] = 'Minimum Php version required is 5.2.1.';
 	}
 
 $php_verison_warning =<<<eoq

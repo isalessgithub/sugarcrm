@@ -1,20 +1,15 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
-
 {$chartResources}
 <div id='progress_div' ></div>
 <script>
@@ -22,8 +17,11 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 </script>
 
 
-<script type="text/javascript" src="cache/modules/modules_def_{$LANG}_{$USER_ID_MD5}.js?{$ENTROPY}"></script>
-<link rel="stylesheet" type="text/css" href="{sugar_getjspath file='include/ytree/TreeView/css/folders/tree.css'}" />
+<script type="text/javascript" src="cache/modules/modules_def_{$LANG}_{$USER_ID_MD5}.js?v=_{$ENTROPY}"></script>
+{if !empty($fiscalStartDate)}
+<script type="text/javascript" src="cache/modules/modules_def_fiscal_{$LANG}_{$USER_ID_MD5}.js?v=_{$ENTROPY}"></script>
+{/if}
+<link rel="stylesheet" type="text/css" href="{sugar_getjspath file='vendor/ytree/TreeView/css/folders/tree.css'}" />
 <link rel="stylesheet" type="text/css" href="{sugar_getjspath file='modules/Reports/tpls/reports.css'}" />
 <script type="text/javascript" src="{sugar_getjspath file='include/javascript/reports.js'}"></script>
 <script type="text/javascript" src="{sugar_getjspath file='cache/include/javascript/sugar_grp_yui_widgets.js'}"></script>
@@ -179,7 +177,7 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 					onClick='SUGAR.reports.previewReport();' id="previewBtn">{/if}{if $record}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_SAVE_RUN}" class="button" name="{$MOD.LBL_SAVE_RUN}" value="{$MOD.LBL_SAVE_RUN}"
 					onClick='SUGAR.reports.runReport();' id="saveAndRunBtn">{/if}{if $record && ($IS_ADMIN == 1|| $IS_OWNER == 1)}&nbsp;&nbsp;<input type='button' title="{$APP.LBL_DELETE_BUTTON_LABEL}" class="button" name="{$APP.LBL_DELETE_BUTTON_LABEL}" value="{$APP.LBL_DELETE_BUTTON_LABEL}"
 					onClick='SUGAR.reports.deleteReport();' id="deleteBtn">{/if}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_CANCEL}" class="button" name="{$MOD.LBL_CANCEL}" value="{$MOD.LBL_CANCEL}"
-					onClick='document.location.href = "index.php?module=Reports&action=index&query=true&clear_query=true"' id="cancelBtn"></td>
+					onClick='SUGAR.reports.cancelReport();' id="cancelBtn"></td>
 			</tr>
 		</table>	
 		</br>
@@ -230,7 +228,7 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 					onClick='SUGAR.reports.previewReport();' id="previewButton">{/if}{if $record}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_SAVE_RUN}" class="button" name="{$MOD.LBL_SAVE_RUN}" value="{$MOD.LBL_SAVE_RUN}"
 					onClick='SUGAR.reports.runReport();' id="saveAndRunButton">{/if}{if $record && ($IS_ADMIN == 1|| $IS_OWNER == 1)}&nbsp;&nbsp;<input type='button' title="{$APP.LBL_DELETE_BUTTON_LABEL}" class="button" name="{$APP.LBL_DELETE_BUTTON_LABEL}" value="{$APP.LBL_DELETE_BUTTON_LABEL}"
 					onClick='SUGAR.reports.deleteReport();' id="deleteButton">{/if}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_CANCEL}" class="button" name="{$MOD.LBL_CANCEL}" value="{$MOD.LBL_CANCEL}"
-					onClick='document.location.href = "index.php?module=Reports&action=index&query=true&clear_query=true"' id="cancelButton"></td>
+					onClick='SUGAR.reports.cancelReport();' id="cancelButton"></td>
 			</tr>
 		</table>	
 	</div>
@@ -244,7 +242,7 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 					onClick='SUGAR.reports.previewReport();' id="previewButton">{/if}{if $record}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_SAVE_RUN}" class="button" name="{$MOD.LBL_SAVE_RUN}" value="{$MOD.LBL_SAVE_RUN}"
 					onClick='SUGAR.reports.runReport();' id="saveAndRunButton">{/if}{if $record && ($IS_ADMIN == 1|| $IS_OWNER == 1)}&nbsp;&nbsp;<input type='button' title="{$APP.LBL_DELETE_BUTTON_LABEL}" class="button" name="{$APP.LBL_DELETE_BUTTON_LABEL}" value="{$APP.LBL_DELETE_BUTTON_LABEL}"
 					onClick='SUGAR.reports.deleteReport();' id="deleteButton">{/if}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_CANCEL}" class="button" name="{$MOD.LBL_CANCEL}" value="{$MOD.LBL_CANCEL}"
-					onClick='document.location.href = "index.php?module=Reports&action=index&query=true&clear_query=true"' id="cancelButton"></td>
+					onClick='SUGAR.reports.cancelReport();' id="cancelButton"></td>
 			</tr>
 		</table>	
 		</br>
@@ -295,7 +293,7 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 					onClick='SUGAR.reports.previewReport();' id="previewButton">{/if}{if $record}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_SAVE_RUN}" class="button" name="{$MOD.LBL_SAVE_RUN}" value="{$MOD.LBL_SAVE_RUN}"
 					onClick='SUGAR.reports.runReport();' id="saveAndRunButton">{/if}{if $record && ($IS_ADMIN == 1|| $IS_OWNER == 1)}&nbsp;&nbsp;<input type='button' title="{$APP.LBL_DELETE_BUTTON_LABEL}" class="button" name="{$APP.LBL_DELETE_BUTTON_LABEL}" value="{$APP.LBL_DELETE_BUTTON_LABEL}"
 					onClick='SUGAR.reports.deleteReport();' id="deleteButton">{/if}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_CANCEL}" class="button" name="{$MOD.LBL_CANCEL}" value="{$MOD.LBL_CANCEL}"
-					onClick='document.location.href = "index.php?module=Reports&action=index&query=true&clear_query=true"' id="cancelButton"></td>
+					onClick='SUGAR.reports.cancelReport();' id="cancelButton"></td>
 			</tr>
 		</table>	
 	</div>	
@@ -308,7 +306,7 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 					onClick='SUGAR.reports.previewReport();' id="previewButton">&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_SAVE_RUN}" class="button" name="{$MOD.LBL_SAVE_RUN}" value="{$MOD.LBL_SAVE_RUN}"
 					onClick='SUGAR.reports.runReport();' id="saveAndRunButton">{if $record && ($IS_ADMIN == 1|| $IS_OWNER == 1)}&nbsp;&nbsp;<input type='button' title="{$APP.LBL_DELETE_BUTTON_LABEL}" class="button" name="{$APP.LBL_DELETE_BUTTON_LABEL}" value="{$APP.LBL_DELETE_BUTTON_LABEL}"
 					onClick='SUGAR.reports.deleteReport();' id="deleteButton">{/if}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_CANCEL}" class="button" name="{$MOD.LBL_CANCEL}" value="{$MOD.LBL_CANCEL}"
-					onClick='document.location.href = "index.php?module=Reports&action=index&query=true&clear_query=true"' id="cancelButton"></td>
+					onClick='SUGAR.reports.cancelReport();' id="cancelButton"></td>
 							
 			</tr>
 		</table>
@@ -357,7 +355,7 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 					onClick='SUGAR.reports.previewReport();' id="previewButton">&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_SAVE_RUN}" class="button" name="{$MOD.LBL_SAVE_RUN}" value="{$MOD.LBL_SAVE_RUN}"
 					onClick='SUGAR.reports.runReport();' id="saveAndRunButton">{if $record && ($IS_ADMIN == 1|| $IS_OWNER == 1)}&nbsp;&nbsp;<input type='button' title="{$APP.LBL_DELETE_BUTTON_LABEL}" class="button" name="{$APP.LBL_DELETE_BUTTON_LABEL}" value="{$APP.LBL_DELETE_BUTTON_LABEL}"
 					onClick='SUGAR.reports.deleteReport();' id="deleteButton">{/if}&nbsp;&nbsp;<input type='button' title="{$MOD.LBL_CANCEL}" class="button" name="{$MOD.LBL_CANCEL}" value="{$MOD.LBL_CANCEL}"
-					onClick='document.location.href = "index.php?module=Reports&action=index&query=true&clear_query=true"' id="cancelButton"></td>
+					onClick='SUGAR.reports.cancelReport();' id="cancelButton"></td>
 							
 			</tr>
 		</table>	
@@ -427,7 +425,9 @@ var reportLoader = new YAHOO.util.YUILoader({
 reportLoader.addModule({ 
     name: "sugarwidgets",
     type: "js", 
-    fullpath: "include/javascript/sugarwidgets/SugarYUIWidgets.js", 
+{/literal}
+    fullpath: "{sugar_getjspath file='include/javascript/sugarwidgets/SugarYUIWidgets.js'}",
+{literal}
     varName: "YAHOO.SUGAR",
     requires: ["datatable", "dragdrop", "treeview", "tabview", "button", "autocomplete", "container"]
 });

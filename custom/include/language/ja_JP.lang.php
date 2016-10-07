@@ -182,3 +182,42 @@ $GLOBALS['app_list_strings']['appointment_status']=array (
   'Attended_Policy' => 'Attended by Policy',
   'Nurture' => 'Nurture',
 );
+
+$app_list_strings['industry_dom']=array (
+  'Banking' => '銀行',
+  'Chemicals' => '化学',
+  'Education' => '教育',
+  'Government' => '政府機関',
+  'Insurance' => '保険',
+  'Manufacturing' => '製造',
+  'Not For Profit' => '非営利',
+  'AgricultureandMining' => 'Agriculture & Mining',
+  'ArchitectureandEngineeringServices' => 'Architecture and Engineering Services',
+  'BusinessServices' => 'Business Services',
+  'ComputersandElectronics' => 'Computers & Electronics ',
+  'ConsumerProducts' => 'Consumer Products ',
+  'ConsumerServices' => 'Consumer Services ',
+  'EnergyandUtilities' => 'Energy & Utilities ',
+  'FinancialServices' => 'Financial Services',
+  'FoodandBeverage' => 'Food & Beverage ',
+  'HealthcarePharmaceuticalsandBiotech' => 'Healthcare, Pharmaceuticals, & Biotech ',
+  'MediaandEntertainment' => 'Media & Entertainment ',
+  'NetworkingEquipmentandSystems' => 'Networking Equipment and Systems ',
+  'Other' => 'Other ',
+  'RealEstateandConstruction' => 'Real Estate & Construction ',
+  'Retail' => 'Retail',
+  'SoftwareandInternet' => 'Software & Internet ',
+  'Telecommunications' => 'Telecommunications ',
+  'TransportationandStorage' => 'Transportation & Storage ',
+  'WholesaleandDistribution' => 'Wholesale & Distribution ',
+  'TravelRecreationandLeisure' => 'Travel, Recreation and Leisure',
+  'Client_or_Reseller' => 'Client or Reseller',
+  'Quickbooks_Client' => 'Quickbooks Client',
+);
+
+$app_list_strings['payment_terms']=array (
+  '' => '',
+  'Net 15' => '15日支払い',
+  'Net 30' => '30日支払い',
+  'Net_60' => 'Net 60',
+);

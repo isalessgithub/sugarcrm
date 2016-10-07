@@ -1,19 +1,16 @@
 <?php
 if (! defined ( 'sugarEntry' ) || ! sugarEntry)
 	die ( 'Not A Valid Entry Point' ) ;
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -54,7 +51,7 @@ class aSubPanel
 	var $bean_name ;
 	var $template_instance ;
 
-	function aSubPanel ( $name , $instance_properties , $parent_bean , $reload = false , $original_only = false )
+	function aSubPanel ( $name , $instance_properties , $parent_bean , $reload = false , $original_only = false, $forApi = false )
 	{
 
 		$this->_instance_properties = $instance_properties ;
@@ -74,36 +71,32 @@ class aSubPanel
 			$this->canDisplay = $this->load_sub_subpanels () ; //load sub-panel definition.
 		} else
 		{
-			if (!is_dir('modules/' . $this->_instance_properties [ 'module' ])){
-				_pstack_trace();
+			if (!SugarAutoLoader::existing('modules/' . $this->_instance_properties [ 'module' ])){
+			    $GLOBALS['log']->fatal("Directory for {$this->_instance_properties [ 'module' ]} does not exist!");
 			}
-			$def_path = 'modules/' . $this->_instance_properties [ 'module' ] . '/metadata/subpanels/' . $this->_instance_properties [ 'subpanel_name' ] . '.php' ;
+			$def_path = array('modules/' . $this->_instance_properties [ 'module' ] . '/metadata/subpanels/' . $this->_instance_properties [ 'subpanel_name' ] . '.php');
 
-			$orig_exists = is_file($def_path);
-			$loaded = false;
-			if ($orig_exists)
-			{
-				require ($def_path);
-				$loaded = true;
-			}
-			if (is_file("custom/$def_path") && (!$original_only  || !$orig_exists))
-			{
-				require ("custom/$def_path");
-				$loaded = true;
-			}
-
-			if (! $original_only && isset ( $this->_instance_properties [ 'override_subpanel_name' ] ) && file_exists ( 'custom/modules/' . $this->_instance_properties [ 'module' ] . '/metadata/subpanels/' . $this->_instance_properties [ 'override_subpanel_name' ] . '.php' ))
-			{
-				$cust_def_path = 'custom/modules/' . $this->_instance_properties [ 'module' ] . '/metadata/subpanels/' . $this->_instance_properties [ 'override_subpanel_name' ] . '.php' ;
-				require ($cust_def_path) ;
-				$loaded = true;
+            if(!$original_only) {
+                $def_path[] = 'custom/'.$def_path[0];
+                if(isset ($this->_instance_properties['override_subpanel_name'])) {
+                    $def_path[] = 'custom/modules/' . $this->_instance_properties [ 'module' ] . '/metadata/subpanels/' . $this->_instance_properties [ 'override_subpanel_name' ] . '.php';
+                }
+            }
+            $loaded = false;
+            foreach(SugarAutoLoader::existing($def_path) as $file) {
+                require $file;
+                $loaded = true;
 			}
 
-			if (!$loaded)
-			{
-				$GLOBALS['log']->fatal("Failed to load original or custom subpanel data for $name in $def_path");
-                $this->canDisplay = false;
-			}
+            if (!$loaded) {
+                $defaultSubpanelFile = "modules/{$this->_instance_properties['module']}/metadata/subpanels/default.php";
+                if (!file_exists($defaultSubpanelFile)) {
+                    $GLOBALS['log']->fatal("Failed to load original or custom subpanel data for $name in ".join(DIRECTORY_SEPARATOR, $def_path));
+                    $this->canDisplay = false;
+                } else {
+                    require $defaultSubpanelFile;
+                }
+            }
 
             // load module info from the module's bean file
             $this->load_module_info();
@@ -114,7 +107,13 @@ class aSubPanel
             if (isset($subpanel_layout) && is_array($subpanel_layout)) {
                 $this->set_panel_definition($subpanel_layout);
 
-				ACLField::listFilter ( $this->panel_definition [ 'list_fields' ], $this->_instance_properties [ 'module' ], $GLOBALS [ 'current_user' ]->id, true ) ;
+                if (!$forApi) {
+                    SugarACL::listFilter(
+                        $this->_instance_properties['module'],
+                        $this->panel_definition['list_fields'],
+                        array("owner_override" => true)
+                    );
+                }
 			}
 		}
 
@@ -157,7 +156,8 @@ class aSubPanel
 	//return the definition of buttons. looks for buttons in 2 locations.
 	function get_buttons ()
 	{
-		$buttons = array ( ) ;
+		global $sugar_config;
+
 		if (isset ( $this->_instance_properties [ 'top_buttons' ] ))
 		{
 			//this will happen only in the case of sub-panels with multiple sources(activities).
@@ -175,7 +175,16 @@ class aSubPanel
 		{
 			global $modListHeader ;
 			global $modules_exempt_from_availability_check ;
-			if (isset ( $modListHeader ) && (! (array_key_exists ( 'Emails', $modListHeader ) or array_key_exists ( 'Emails', $modules_exempt_from_availability_check ))))
+
+            // Bug 58087 - Compose Email in activities sub panel for offline client
+            // Need to add logic to check for offline client since the Compose Email
+            // action was looking at the module list and Emails are in the exempt list.
+			if (
+                (isset($modListHeader) && (!(array_key_exists('Emails', $modListHeader) || array_key_exists('Emails', $modules_exempt_from_availability_check))))
+                ||
+                // Checks for offline client
+                (!empty($sugar_config['disc_client']) && !empty($sugar_config['oc_converted']))
+            )
 			{
 				foreach ( $buttons as $key => $button )
 				{
@@ -200,25 +209,18 @@ class aSubPanel
      *
      * call this function for sub-panels that have unions.
      *
+     * @todo Decide whether to make all activities modules exempt from visibility
+     *       checking or not. As of 6.4.5, Notes was no longer exempt but the
+     *       other activities modules were which is causing causing rendering of
+     *       subpanels for these modules even when these modules should not be shown.
+     *
      * @return bool         True by default if the subpanel was loaded.  Will return false if none in the collection are
      *                      allowed by the current user.
      */
 	function load_sub_subpanels ()
 	{
-
-		global $modListHeader ;
-		// added a check for security of tabs to see if an user has access to them
-		// this prevents passing an "unseen" tab to the query string and pulling up its contents
-		if (! isset ( $modListHeader ))
-		{
-			global $current_user ;
-			if (isset ( $current_user ))
-			{
-				$modListHeader = query_module_access_list ( $current_user ) ;
-			}
-		}
-
-        //by default all the activities modules are exempt, so hiding them won't affect their appearance unless the 'activity' subpanel itself is hidden.
+        //by default all the activities modules are exempt, so hiding them won't
+        //affect their appearance unless the 'activity' subpanel itself is hidden.
         //add email to the list temporarily so it is not affected in activities subpanel
         global $modules_exempt_from_availability_check ;
         $modules_exempt_from_availability_check['Emails'] = 'Emails';
@@ -227,14 +229,29 @@ class aSubPanel
 
 		if (empty ( $this->sub_subpanels ))
 		{
+            // Bug 57699 - Notes subpanel missing from Calls module after upgrade
+            // Originally caused by the fix for Bug 49439
+            // Get the shown subpanel module list
+            $subPanelDefinitions = new SubPanelDefinitions($this->parent_bean);
+
+            // Bug 58089 - History sub panel doesn't show any record.
+            // Rather than check ALL subpanels, we only need to really check to
+            // see if the module(s) we are checking are not hidden.
+            $hiddenSubPanels = $subPanelDefinitions->get_hidden_subpanels();
+
 			$panels = $this->get_inst_prop_value ( 'collection_list' ) ;
 			foreach ( $panels as $panel => $properties )
 			{
-				if (array_key_exists ( $properties [ 'module' ], $modListHeader ) or array_key_exists ( $properties [ 'module' ], $modules_exempt_from_availability_check ))
+                // Lowercase the collection module to check against the subpanel list
+                $lcModule = strtolower($properties['module']);
+
+                // Add a check for module subpanel visibility. If hidden, but exempt, pass it
+                if ((is_array($hiddenSubPanels) && !in_array($lcModule, $hiddenSubPanels)) || isset($modules_exempt_from_availability_check[$properties['module']]))
 				{
 					$this->sub_subpanels [ $panel ] = new aSubPanel ( $panel, $properties, $this->parent_bean ) ;
 				}
 			}
+
             // if it's empty just dump out as there is nothing to process.
             if(empty($this->sub_subpanels)) return false;
 			//Sync displayed list fields across the subpanels
@@ -470,16 +487,13 @@ class aSubPanel
 		$module_name = $this->get_module_name () ;
 		if (! empty ( $module_name ))
 		{
-
-			$bean_name = $beanList [ $this->get_module_name () ] ;
-
-			$this->bean_name = $bean_name ;
-
-			include_once ($beanFiles [ $bean_name ]) ;
-			$this->template_instance = new $bean_name ( ) ;
+		    $this->template_instance = BeanFactory::getBean($module_name);
+		    if(empty($this->template_instance)) {
+		        $GLOBALS['log']->fatal("Bad module name for subpanel: $module_name");
+		        return null;
+		    }
 			$this->template_instance->force_load_details = true ;
 			$this->table_name = $this->template_instance->table_name ;
-			//$this->db_fields=$this->template_instance->column_fields;
 		}
 	}
 	//this function is to be used only with sub-panels that are based
@@ -493,17 +507,6 @@ class aSubPanel
 				return $this->sub_subpanels [ $this->_instance_properties [ 'header_definition_from_subpanel' ] ] ;
 			} else
 			{
-				$display_fields = array();
-				//If we are not pulling from a specific subpanel, create a list of all list fields and use that.
-				foreach($this->sub_subpanels as $subpanel)
-				{
-					$list_fields = $subpanel->get_list_fields();
-					foreach($list_fields as $field => $def)
-					{
-
-					}
-				}
-
 				reset ( $this->sub_subpanels ) ;
 				return current ( $this->sub_subpanels ) ;
 			}
@@ -527,8 +530,17 @@ class aSubPanel
      */
     protected function set_panel_definition(array $definition)
     {
-        if (isset($definition['list_fields'])
-            && is_array($definition['list_fields'])) {
+        // Check if there is a list_field defs, done in two line to make lines
+        // more readable
+        $hasListFields = isset($definition['list_fields'])
+                         && is_array($definition['list_fields']);
+
+        // Check if there is a bean, also done in two lines for readability
+        $hasBean = isset($this->template_instance)
+                   && $this->template_instance instanceof SugarBean;
+
+        // Now call expand_list_fields if we have what we need
+        if ($hasListFields && $hasBean) {
             $definition['list_fields'] = $this->expand_list_fields(
                 $this->template_instance,
                 $definition['list_fields']
@@ -562,6 +574,12 @@ class aSubPanel
                 // is calculated after the data is retrieved from database
                 $fields[$name]['sortable'] = false;
             }
+
+            // get currency symbol if this is a currency field
+            if (isset($bean->field_defs[$name]['type']) && $bean->field_defs[$name]['type'] == 'currency' && !empty($bean->field_defs['currency_id'])) {
+                $expanded['currency_id'] = $bean->field_defs['currency_id'];
+                $fields[$name]['sortable'] = false;
+            }
         }
 
         // ignore dependencies that already present in the list
@@ -586,6 +604,8 @@ class SubPanelDefinitions
 	var $_visible_tabs_array ;
 	var $panels ;
 	var $layout_defs ;
+	var $platform ;
+    static $refreshHiddenSubpanels = false;
 
 	/**
 	 * Enter description here...
@@ -595,9 +615,10 @@ class SubPanelDefinitions
 	 * @param ARRAY $layout_def_override - if you wish to override the default loaded layout defs you pass them in here.
 	 * @return SubPanelDefinitions
 	 */
-	function SubPanelDefinitions ( $focus , $layout_def_key = '' , $layout_def_override = '' )
+	function SubPanelDefinitions ( $focus , $layout_def_key = '' , $layout_def_override = '' , $platform = null)
 	{
 		$this->_focus = $focus ;
+		$this->platform = $platform;
 		if (! empty ( $layout_def_override ))
 		{
 			$this->layout_defs = $layout_def_override ;
@@ -619,69 +640,72 @@ class SubPanelDefinitions
 	 * @param boolean 	Optional - include the subpanel title label in the return array (false)
 	 * @return array	All tabs that pass an ACL check
 	 */
-	function get_available_tabs ($FromGetModuleSubpanels=false)
-	{
-		global $modListHeader ;
-		global $modules_exempt_from_availability_check ;
+    function get_available_tabs($FromGetModuleSubpanels = false)
+    {
+        global $modListHeader;
+        global $modules_exempt_from_availability_check;
 
-		if (isset ( $this->_visible_tabs_array ))
-			return $this->_visible_tabs_array ;
+        if (isset($this->_visible_tabs_array)) {
+            return $this->_visible_tabs_array;
+        }
 
-		if (empty($modListHeader))
-		    $modListHeader = query_module_access_list($GLOBALS['current_user']);
+        if (empty($modListHeader)) {
+            $modListHeader = query_module_access_list($GLOBALS['current_user']);
+        }
 
-		$this->_visible_tabs_array = array ( ) ; // bug 16820 - make sure this is an array for the later ksort
+        $this->_visible_tabs_array = array(); // bug 16820 - make sure this is an array for the later ksort
+        if (isset ($this->layout_defs ['subpanel_setup'])) { // bug 17434 - belts-and-braces - check that we have some subpanels first
+            //retrieve list of hidden subpanels
+            $hidden_panels = $this->get_hidden_subpanels();
 
-		if (isset ( $this->layout_defs [ 'subpanel_setup' ] )) // bug 17434 - belts-and-braces - check that we have some subpanels first
-		{
-			//retrieve list of hidden subpanels
-			$hidden_panels = $this->get_hidden_subpanels();
+            //activities is a special use case in that if it is hidden,
+            //then the history tab should be hidden too.
+            if (!empty($hidden_panels) && is_array($hidden_panels) && in_array('activities', $hidden_panels)) {
+                //add history to list hidden_panels
+                $hidden_panels['history'] = 'history';
+            }
 
-			//activities is a special use case in that if it is hidden,
-			//then the history tab should be hidden too.
-			if(!empty($hidden_panels) && is_array($hidden_panels) && in_array('activities',$hidden_panels)){
-				//add history to list hidden_panels
-				$hidden_panels['history'] = 'history';
-			}
-
-			foreach ( $this->layout_defs [ 'subpanel_setup' ] as $key => $values_array )
-			{
-				//exclude if this subpanel is hidden from admin screens
+            foreach ($this->layout_defs ['subpanel_setup'] as $key => $values_array) {
+                if (empty($values_array['module'])) {
+                    continue;
+                }
+                //exclude if this subpanel is hidden from admin screens
                 $module = $key;
-                if ( isset($values_array['module']) )
+                if (isset($values_array['module'])) {
                     $module = strtolower($values_array['module']);
-				 if ($hidden_panels && is_array($hidden_panels) && (in_array($module, $hidden_panels) || array_key_exists($module, $hidden_panels)) ){
-				 	//this panel is hidden, skip it
-				 	continue;
-				 }
+                }
+                if ($hidden_panels && is_array($hidden_panels) && (in_array($module, $hidden_panels) || array_key_exists($module, $hidden_panels))) {
+                    //this panel is hidden, skip it
+                    continue;
+                }
 
-				// make sure the module attribute is set, else none of this works...
-				if ( !isset($values_array [ 'module' ])) {
-					$GLOBALS['log']->debug("SubPanelDefinitions->get_available_tabs(): no module defined in subpaneldefs for '$key' =>" . var_export($values_array,true) . " - ingoring subpanel defintion") ;
-					continue;
-				}
+                // make sure the module attribute is set, else none of this works...
+                if (!isset($values_array ['module'])) {
+                    $GLOBALS['log']->debug("SubPanelDefinitions->get_available_tabs(): no module defined in subpaneldefs for '$key' =>"
+                                         . var_export($values_array, true) . " - ingoring subpanel defintion");
+                    continue;
+                }
 
-				//check permissions.
-				$exempt = array_key_exists ( $values_array [ 'module' ], $modules_exempt_from_availability_check ) ;
-				$ok = $exempt || ( (! ACLController::moduleSupportsACL ( $values_array [ 'module' ] ) || ACLController::checkAccess ( $values_array [ 'module' ], 'list', true ) ) ) ;
+                //check permissions.
+                $exempt = array_key_exists($values_array ['module'], $modules_exempt_from_availability_check);
+                $ok = $exempt || ((!ACLController::moduleSupportsACL($values_array ['module']) || ACLController::checkAccess($values_array ['module'], 'list', true)));
 
-				$GLOBALS [ 'log' ]->debug ( "SubPanelDefinitions->get_available_tabs(): " . $key . "= " . ( $exempt ? "exempt " : "not exempt " .( $ok ? " ACL OK" : "" ) ) ) ;
+                $GLOBALS ['log']->debug("SubPanelDefinitions->get_available_tabs(): " . $key . "= " . ($exempt ? "exempt " : "not exempt " . ($ok ? " ACL OK" : "")));
 
-				if ( $ok )
-				{
-					while ( ! empty ( $this->_visible_tabs_array [ $values_array [ 'order' ] ] ) )
-					{
-						$values_array [ 'order' ] ++ ;
-					}
+                if ($ok) {
+                    while (!empty ($this->_visible_tabs_array [$values_array ['order']])) {
+                        $values_array ['order']++;
+                    }
 
-					$this->_visible_tabs_array [ $values_array ['order'] ] = ($FromGetModuleSubpanels) ? array($key=>$values_array['title_key']) : $key ;
-				}
-			}
-		}
+                    $this->_visible_tabs_array [$values_array ['order']] = ($FromGetModuleSubpanels) ? array($key => $values_array['title_key']) : $key;
+                }
+            }
+        }
 
-		ksort ( $this->_visible_tabs_array ) ;
-		return $this->_visible_tabs_array ;
-	}
+        ksort($this->_visible_tabs_array);
+
+        return $this->_visible_tabs_array;
+    }
 
 	/**
 	 * Load the definition of the a sub-panel.
@@ -694,12 +718,16 @@ class SubPanelDefinitions
      * @return boolean|aSubPanel        Returns aSubPanel object or boolean false if one is not found or it can't be
      *      displayed due to ACL reasons.
 	 */
-	function load_subpanel ( $name , $reload = false , $original_only = false )
+	function load_subpanel ( $name , $reload = false , $original_only = false, $forApi = false )
 	{
+        // mobile doesn't have subpanel def
+        if ($this->platform == 'mobile') {
+            return false;
+        }
 		if (!is_dir('modules/' . $this->layout_defs [ 'subpanel_setup' ][ strtolower ( $name ) ] [ 'module' ]))
 		  return false;
 
-        $subpanel = new aSubPanel ( $name, $this->layout_defs [ 'subpanel_setup' ] [ strtolower ( $name ) ], $this->_focus, $reload, $original_only ) ;
+        $subpanel = new aSubPanel($name, $this->layout_defs['subpanel_setup'][strtolower($name)], $this->_focus, $reload, $original_only, $forApi);
 
         // only return the subpanel object if we can display it.
         if($subpanel->canDisplay == true) {
@@ -710,30 +738,45 @@ class SubPanelDefinitions
         return false;
 	}
 
-	/**
-	 * Load the layout def file and associate the definition with a variable in the file.
-	 */
-	function open_layout_defs ( $reload = false , $layout_def_key = '' , $original_only = false )
-	{
-		$layout_defs [ $this->_focus->module_dir ] = array ( ) ;
-		$layout_defs [ $layout_def_key ] = array ( ) ;
+    /**
+     * Load the layout def file and associate the definition with a variable in the file.
+     */
+    function open_layout_defs($reload = false, $layout_def_key = '', $original_only = false)
+    {
+        require_once 'include/MetaDataManager/MetaDataManager.php';
 
-		if (empty ( $this->layout_defs ) || $reload || (! empty ( $layout_def_key ) && ! isset ( $layout_defs [ $layout_def_key ] )))
-		{
-			if (file_exists ( 'modules/' . $this->_focus->module_dir . '/metadata/subpaneldefs.php' ))
-				require ('modules/' . $this->_focus->module_dir . '/metadata/subpaneldefs.php') ;
+        $mm = MetaDataManager::getManager();
 
-			if (! $original_only && file_exists ( 'custom/modules/' . $this->_focus->module_dir . '/Ext/Layoutdefs/layoutdefs.ext.php' ))
-				require ('custom/modules/' . $this->_focus->module_dir . '/Ext/Layoutdefs/layoutdefs.ext.php') ;
+        $layout_defs [$this->_focus->module_dir] = array();
+        $layout_defs [$layout_def_key] = array();
+        $def_path = array();
+        if (empty ($this->layout_defs) || $reload || (!empty ($layout_def_key) && !isset ($layout_defs [$layout_def_key]))) {
+            if (!$original_only) {
+                if (isModuleBWC($this->_focus->module_dir)) {
+                    $def_path = array('modules/' . $this->_focus->module_dir . '/metadata/'.($this->platform == 'mobile' ? 'wireless.' : '').'subpaneldefs.php');
+                    $def_path[] = SugarAutoLoader::loadExtension($this->platform == 'mobile' ? 'wireless_subpanels' : 'layoutdefs', $this->_focus->module_dir);
+                    foreach (SugarAutoLoader::existing($def_path) as $file) {
+                        require $file;
+                    }
+                } else {
+                    $viewdefs = $mm->getModuleLayouts($this->_focus->module_dir);
+                    $viewdefs = !empty($viewdefs['subpanels']['meta']['components']) ? $viewdefs['subpanels']['meta']['components'] : array();
+                }
+            }
 
-			if (! empty ( $layout_def_key ))
-				$this->layout_defs = $layout_defs [ $layout_def_key ] ;
-			else
-				$this->layout_defs = $layout_defs [ $this->_focus->module_dir ] ;
 
-		}
+            $layoutDefsKey = !empty($layout_def_key) ? $layout_def_key : $this->_focus->module_dir;
+            // convert sidecar subpanels to the array the SubpanelDefinitions are looking for
+            if ($this->_focus instanceof SugarBean && !isModuleBWC($this->_focus->module_dir) && isset($viewdefs)) {
+                require_once('include/MetaDataManager/MetaDataConverter.php');
+                $metaDataConverter = new MetaDataConverter();
+                $layout_defs[$layoutDefsKey] = $metaDataConverter->toLegacySubpanelLayoutDefs($viewdefs, $this->_focus);
+            }
 
-	}
+            $this->layout_defs = $layout_defs[$layoutDefsKey];
+        }
+
+    }
 
 	/**
 	 * Removes a tab from the list of loaded tabs.
@@ -778,22 +821,16 @@ class SubPanelDefinitions
         // Append on the CampaignLog module, because that is where the subpanels point, not directly to Campaigns
         $modules_to_check['campaignlog'] = "CampaignLog";
 
+        // Get hidden subpanels to make sure they are not included
+        $hidden = self::get_hidden_subpanels();
 
-		$spd = '';
+        $spd = '';
 		$spd_arr = array();
 		//iterate through modules and build subpanel array
 		foreach($modules_to_check as $mod_name){
 
-			//skip if module name is not in bean list, otherwise get the bean class name
-			if(!isset($beanList[$mod_name])) continue;
-			$class = $beanList[$mod_name];
-
-			//skip if class name is not in file list, otherwise require the bean file and create new class
-			if(!isset($beanFiles[$class]) || !file_exists($beanFiles[$class])) continue;
-
-			//retrieve subpanels for this bean
-			require_once($beanFiles[$class]);
-			$bean_class = new $class();
+		    $bean_class = BeanFactory::getBean($mod_name);
+            if(empty($bean_class)) continue;
 
 			//create new subpanel definition instance and get list of tabs
 			$spd = new SubPanelDefinitions($bean_class) ;
@@ -823,27 +860,29 @@ class SubPanelDefinitions
 	 * save array of hidden panels to mysettings category in config table
 	 */
 	function set_hidden_subpanels($panels){
-		$administration = new Administration();
+		$administration = BeanFactory::getBean('Administration');
 		$serialized = base64_encode(serialize($panels));
 		$administration->saveSetting('MySettings', 'hide_subpanels', $serialized);
+        // Allow the hidden subpanel cache to refresh
+        self::$refreshHiddenSubpanels = true;
 	}
 
 	/*
 	 * retrieve hidden subpanels
 	 */
 	function get_hidden_subpanels(){
-		global $moduleList;
-
 		//create variable as static to minimize queries
 		static $hidden_subpanels = null;
 
-		// if the static value is not already cached, then retrieve it.
-		if(empty($hidden_subpanels))
+		// if the static value is not already cached, or explicitly directed to, then retrieve it.
+		if($hidden_subpanels === null || self::$refreshHiddenSubpanels)
 		{
+            // Set hidden subpanels to an array. This allows an empty hidden
+            // subpanel list to pass checks later. - rgonzalez
+            $hidden_subpanels = array();
 
 			//create Administration object and retrieve any settings for panels
-			$administration = new Administration();
-			$administration->retrieveSettings('MySettings');
+			$administration = Administration::getSettings('MySettings');
 
 			if(isset($administration->settings) && isset($administration->settings['MySettings_hide_subpanels'])){
 				$hidden_subpanels = $administration->settings['MySettings_hide_subpanels'];
@@ -863,7 +902,7 @@ class SubPanelDefinitions
 						$hidden_subpanels[] = $pref_hidden_panel;
 					}
 
-
+                    self::$refreshHiddenSubpanels = false;
 				}else{
 					//no settings found, return empty
 					return $hidden_subpanels;
@@ -878,6 +917,12 @@ class SubPanelDefinitions
 		return $hidden_subpanels;
 	}
 
-
+    /**
+     * Allows refresh of the hidden subpanels list from outside of this class
+     *
+     * @param $bool
+     */
+    public static function setRefreshHiddenSubpanels($bool) {
+        self::$refreshHiddenSubpanels = (bool) $bool;
+    }
 }
-?>

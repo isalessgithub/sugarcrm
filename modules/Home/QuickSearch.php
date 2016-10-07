@@ -1,17 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarObjects/templates/person/Person.php');
 require_once('include/MVC/SugarModule.php');
@@ -197,19 +195,19 @@ class quicksearchQuery
                         if (strpos($nameFormat,'l') > strpos($nameFormat,'f')) {
                             array_push(
                                 $conditionArray,
-                                $db->concat($table, array('first_name','last_name')) . " like '$like'"
+                                $db->getLikeSQL($db->concat($table, array('first_name','last_name')), $like)
                             );
                         } else {
                             array_push(
                                 $conditionArray,
-                                $db->concat($table, array('last_name','first_name')) . " like '$like'"
+                                $db->getLikeSQL($db->concat($table, array('last_name','first_name')), $like)
                             );
                         }
                     }
                     elseif ($focus instanceof Team) {
                         array_push(
                             $conditionArray,
-                            '(' . $table_prefix . $db->getValidDBName($condition['name']) . sprintf(" like '%s%%'", $db->quote($condition['value'])) . ' or ' . $table_prefix . 'name_2' . sprintf(" like '%s%%'", $db->quote($condition['value'])) . ')'
+                            '(' . $db->getLikeSQL($table_prefix . $db->getValidDBName($condition['name']), sprintf("%s%%", $db->quote($condition['value']))) . ' or ' . $db->getLikeSQL($table_prefix . 'name_2', sprintf("%s%%", $db->quote($condition['value']))) . ')'
                         );
 
                         $condition['exclude_private_teams'] = true;
@@ -217,7 +215,7 @@ class quicksearchQuery
                     else {
                         array_push(
                             $conditionArray,
-                            $table_prefix . $db->getValidDBName($condition['name']) . sprintf(" like '%s'", $like)
+                            $db->getLikeSQL($table_prefix . $db->getValidDBName($condition['name']), $like)
                         );
                     }
                     break;
@@ -234,7 +232,7 @@ class quicksearchQuery
                 default:
                     array_push(
                         $conditionArray,
-                        $table_prefix.$db->getValidDBName($condition['name']) . sprintf(" like '%s%%'", $db->quote($condition['value']))
+                        $db->getLikeSQL($table_prefix.$db->getValidDBName($condition['name']), sprintf("%s%%", $db->quote($condition['value'])))
                     );
             }
         }
@@ -281,9 +279,6 @@ class quicksearchQuery
             $listData = $results[$i]->get_list_view_data();
 
             foreach ($args['field_list'] as $field) {
-                if ($field == "user_hash") {
-                    continue;
-                }
                 // handle enums
                 if ((isset($results[$i]->field_name_map[$field]['type']) && $results[$i]->field_name_map[$field]['type'] == 'enum')
                     || (isset($results[$i]->field_name_map[$field]['custom_type']) && $results[$i]->field_name_map[$field]['custom_type'] == 'enum')) {
@@ -377,7 +372,7 @@ class quicksearchQuery
         $data    = array();
 
         foreach ($args['modules'] as $module) {
-            $focus = SugarModule::get($module)->loadBean();
+            $focus = BeanFactory::getBean($module);
 
             $orderBy = $focus->db->getValidDBName(($args['order_by_name'] && $focus instanceof Person && $args['order'] == 'name') ? 'last_name' : $orderBy);
 
@@ -388,8 +383,7 @@ class quicksearchQuery
         }
 
         // Run ACL Fields Filtering for each bean
-        foreach ($data as $bean)
-        {
+        foreach ($data as $bean) {
             $bean->ACLFilterFields();
         }
 
@@ -477,11 +471,7 @@ class quicksearchQuery
     {
         global $locale;
 
-        $result[$args['field_list'][0]] = $locale->getLocaleFormattedName(
-            $result['first_name'],
-            $result['last_name'],
-            $result['salutation']
-        );
+        $result[$args['field_list'][0]] = $locale->formatName('Contacts', $result);
 
         return $result;
     }
@@ -596,6 +586,7 @@ class quicksearchQuery
                             );
                             unset($args['conditions'][$i]);
                             $teams_filtered = true;
+                            break;
                     }
                 }
             }

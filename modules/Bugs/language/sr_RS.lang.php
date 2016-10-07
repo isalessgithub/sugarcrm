@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Popravljen u izdanju:',
   'LBL_FOUND_IN_RELEASE' => 'Nađen u izdanju:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Pronađeno u izdanju',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}  modul se koristi za praćenje i upravljanje problema vezanih za proizvod, uobičajeno označen kao {{plural_module_name}} ili oštećenje, bilo pronađen interno ili prijavljen od strane kupca. Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '•	{{plural_module_name}}  modul se koristi za praćenje i upravljanje problema vezanih za proizvod, često ukazujući ka {{plural_module_name}} ili oštećenima, pronađenih interno ili prijavljenih od strane vaših klijenata. - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}  modul se koristi za praćenje i upravljanje problema vezanih za proizvod, često ukazujući ka {{plural_module_name}} ili oštećenima, pronađenih interno ili prijavljenih od strane vaših klijenata. {{plural_module_name}} se mogu dalje pokrenuti praćenjem pronađenog i ispravkom u isporuci.  {{plural_module_name}} modul daje korisnicima mogućnost brzog pregleda svih detalja {{module_name}} i proces se koristi da ga ispravi. Jednom kada je {{module_name}} kreiran, moguće je pregledati i izmeniti informacije koji se tiču {{module_name}} kroz {{module_name}}-og pregleda zapisa. Svaki {{module_name}} zapis može biti uvezan sa drugim Sugar-ovim zapisima kao što su {{calls_module}}, {{contacts_module}}, {{bugs_module}}, i mnogi drugi.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istorija',
   'LBL_INVITEE' => 'Kontakti',
   'LBL_LIST_ACCOUNT_NAME' => 'Naziv kompanije',
@@ -69,7 +69,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Defekt:',
   'LBL_MODULE_TITLE' => 'Praćenje defekata: Početna strana',
   'LBL_NEW_FORM_TITLE' => 'Novi defekt',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Beleške',
   'LBL_NUMBER' => 'Broj:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Ukoliko ste pronašli novi defekt koji želite da prijavite, to možete učiniti klikom ovde.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Možete filtrirati listu defekata ukucavanjem pojma za pretragu.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Na primer, možete ovo iskorisiti da pronađete defekt koji je ranije prijavljen.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modul defekti služi za pregled i prijavljivanje defekata. Koristite strelice ispod za brzi obilazak.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Ova strana prikazuje listu trenutno objavljenih defekata.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Klikom ovde u bilo koje vreme se vraćate na ovaj pogled.',
   'LBL_PORTAL_VIEWABLE' => 'Portal se može pregledati',
   'LBL_PRIORITY' => 'Prioritet:',
   'LBL_PRODUCT_CATEGORY' => 'Kategorija:',

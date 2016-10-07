@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
  
 $dictionary['ACLRole'] = array('table' => 'acl_roles', 'comment' => 'ACL Role definition'
@@ -109,14 +106,47 @@ $dictionary['ACLRole'] = array('table' => 'acl_roles', 'comment' => 'ACL Role de
     'source'=>'non-db',
 	'vname'=>'LBL_USERS',
   ),
-)
-, 'indices' => array (
+        'acl_role_sets' => array(
+            'name' => 'acl_role_sets',
+            'type' => 'link',
+            'source' => 'non-db',
+            'relationship' => 'acl_role_sets_acl_roles',
+        ),
+),
+'acls' => array('SugarACLDeveloperOrAdmin' => array('aclModule' => 'Users')),
+'indices' => array (
        array('name' =>'aclrolespk', 'type' =>'primary', 'fields'=>array('id')),
        array('name' =>'idx_aclrole_id_del', 'type' =>'index', 'fields'=>array('id', 'deleted')),
+       array('name' => 'idx_aclrole_name', 'type' => 'index', 'fields' => array('name'))
+
                                                    )
 
                             );
 
- 
+$dictionary['ACLRoleSet'] = array(
+    'table' => 'acl_role_sets',
+    'fields' => array(
+        'hash' => array(
+            'name' => 'hash',
+            'type' => 'varchar',
+            'len' => 32,
+            'isnull' => false,
+        ),
+        'acl_roles' => array(
+            'name' => 'acl_roles',
+            'type' => 'link',
+            'source' => 'non-db',
+            'relationship' => 'acl_role_sets_acl_roles',
+            'duplicate_merge' => 'disabled',
+        ),
+    ),
+    'indices' => array(
+        array(
+            'name' => 'idx_acl_role_sets_hash',
+            'type' => 'unique',
+            'fields' => array('hash'),
+        ),
+    ),
+);
 
-?>
+VardefManager::createVardef('ACLRoleSets', 'ACLRoleSet');

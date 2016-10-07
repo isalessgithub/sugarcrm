@@ -1,24 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- * *******************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 logThis('[At end.php]');
 global $unzip_dir;
 global $path;
@@ -43,7 +34,9 @@ if (!isset(\$hook_array) || !is_array(\$hook_array)) {
 if (!isset(\$hook_array['after_save']) || !is_array(\$hook_array['after_save'])) {
     \$hook_array['after_save'] = array();
 }
-\$hook_array['after_save'][] = array(1, 'fts', 'include/SugarSearchEngine/SugarSearchEngineQueueManager.php', 'SugarSearchEngineQueueManager', 'populateIndexQueue');
+\$managerClassPath = SugarAutoLoader::requireWithCustom('include/SugarSearchEngine/SugarSearchEngineQueueManager.php');
+\$managerClassName = SugarAutoLoader::customClass('SugarSearchEngineQueueManager');
+\$hook_array['after_save'][] = array(1, 'fts', \$managerClassPath, \$managerClassName, 'populateIndexQueue');
 CIA;
 
     fwrite($fp,$contents);
@@ -74,16 +67,18 @@ if(method_exists($rac, 'clearExternalAPICache'))
 
 $repairedTables = array();
 
+$db = DBManagerFactory::getInstance();
+
 foreach ($beanFiles as $bean => $file) {
 	if(file_exists($file)){
 		require_once ($file);
 		unset($GLOBALS['dictionary'][$bean]);
-		$focus = new $bean ();
+		$focus = BeanFactory::newBeanByName($bean);
 		if (($focus instanceOf SugarBean))
 		{
 			if(!isset($repairedTables[$focus->table_name]))
 			{
-				$sql = $GLOBALS['db']->repairTable($focus, true);
+				$sql = $db->repairTable($focus, true);
                 if(trim($sql) != '')
                 {
 				    logThis('Running sql:' . $sql, $path);
@@ -109,7 +104,7 @@ foreach ($dictionary as $meta) {
 	if (isset($repairedTables[$tablename])) continue;
 	$fielddefs = $meta['fields'];
 	$indices = $meta['indices'];
-	$sql = $GLOBALS['db']->repairTableParams($tablename, $fielddefs, $indices, true);
+	$sql = $db->repairTableParams($tablename, $fielddefs, $indices, true);
     if(trim($sql) != '')
     {
 	    logThis('Running sql:' . $sql, $path);
@@ -121,7 +116,14 @@ foreach ($dictionary as $meta) {
 
 logThis('database repaired', $path);
 
-$ce_to_pro_ent = isset($_SESSION['upgrade_from_flavor']) && ($_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarPro' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarEnt' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarCorp' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarUlt');
+
+//Make sure to call preInstall on database instance to setup additional tables for hierarchies if needed
+if($db->supports('recursive_query')) {
+    $db->preInstall();
+}
+
+
+$ce_to_pro_ent = isset($_SESSION['upgrade_from_flavor']) && preg_match('/^SugarCE.*?(Pro|Ent|Corp|Ult)$/', $_SESSION['upgrade_from_flavor']);
 
 // Run this code if we are upgrading from pre-550 version or if we are doing a CE to PRO/ENT conversion
 if($ce_to_pro_ent)
@@ -145,9 +147,15 @@ if($ce_to_pro_ent)
     logThis("Finished rebuilding team_set_id for folders table", $path);
 
     if(check_FTS()) {
-    	$GLOBALS['db']->full_text_indexing_setup();
+    	$db->full_text_indexing_setup();
     }
 }
+
+// we need to add templates when either conversion from CE to Pro+, or upgrade of Pro+ flavors
+// this needs to be outside of if($ce_to_pro_ent) because it does not cover second case where $ce_to_pro_ent is 'SugarPro'
+logThis("Starting to add pdf template", $path);
+addPdfManagerTemplate();
+logThis("Finished adding pdf template", $path);
 
 logThis(" Start Rebuilding the config file again", $path);
 
@@ -204,12 +212,12 @@ if(isset($_SESSION['current_db_version']) && isset($_SESSION['target_db_version'
 	    $_REQUEST['upgradeWizard'] = true;
 	    ob_start();
 			include('modules/ACL/install_actions.php');
-			include_once('include/Smarty/internals/core.write_file.php');
+			include_once('vendor/Smarty/internals/core.write_file.php');
 		ob_end_clean();
 	 	$db =& DBManagerFactory::getInstance();
 		if($ce_to_pro_ent){
 	        //Also set license information
-			$admin = new Administration();
+			$admin = BeanFactory::getBean('Administration');
 			$category = 'license';
 			$value = '0';
 			$admin->saveSetting($category, 'users', $value);
@@ -223,7 +231,7 @@ if(isset($_SESSION['current_db_version']) && isset($_SESSION['target_db_version'
 }
 
 // Mark the instance as having gone thru the admin wizard
-$admin = new Administration();
+$admin = BeanFactory::getBean('Administration');
 $admin->saveSetting('system','adminwizard',1);
 
  /////////////////////////Old Logger settings///////////////////////////////////////
@@ -262,22 +270,6 @@ logThis('Begin upgrade_connectors', $path);
 upgrade_connectors();
 logThis('End upgrade_connectors', $path);
 
-if (version_compare($_SESSION['current_db_version'], '6.5.0', '<'))
-{
-    // Bug 53650 - Workflow Type Templates not saving Type upon upgrade to 6.5.0, usable as Email Templates
-    $db->query("UPDATE email_templates SET type = 'workflow' WHERE
-        coalesce(" . $db->convert("base_module", "length") . ",0) > 0
-        AND
-        coalesce(" . $db->convert("type", "length") . ",0) = 0
-    ");
-}
-
-//Unlink files that have been removed
-if(function_exists('unlinkUpgradeFiles'))
-{
-	unlinkUpgradeFiles($_SESSION['current_db_version']);
-}
-
 if(function_exists('rebuildSprites') && function_exists('imagecreatetruecolor'))
 {
     rebuildSprites(true);
@@ -291,8 +283,24 @@ if (version_compare($_SESSION['current_db_version'], '6.5.0', '<') && function_e
 
 require_once('modules/Administration/upgrade_custom_relationships.php');
 upgrade_custom_relationships();
+$rac->clearVardefs();
+$rac->rebuildExtensions();
 
 require_once('modules/UpgradeWizard/uw_utils.php');
+
+//Patch for bug57431 : Module name isn't updated in portal layout editor
+updateRenamedModulesLabels();
+
+//setup forecast defualt settings
+if(version_compare($_SESSION['current_db_version'], '6.7.0', '<'))
+{
+    require_once('modules/Forecasts/ForecastsDefaults.php');
+    ForecastsDefaults::setupForecastSettings(true,$_SESSION['current_db_version'],$_SESSION['target_db_version']);
+    ForecastsDefaults::upgradeColumns();
+
+    // do the config update to add the 'support' platform to any config with the category of 'portal'
+    updatePortalConfigToContainPlatform();
+}
 
 //Update the license
 logThis('Start Updating the license ', $path);
@@ -308,6 +316,7 @@ logThis('Cleaning up the session.  Goodbye.');
 unlinkUWTempFiles();
 logThis('Cleaning up the session.  Goodbye.');
 resetUwSession();
+SugarAutoLoader::buildCache();
 // flag to say upgrade has completed
 $_SESSION['upgrade_complete'] = true;
 

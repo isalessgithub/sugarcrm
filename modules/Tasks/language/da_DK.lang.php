@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,6 +20,7 @@ $mod_strings = array (
   'ERR_INVALID_HOUR' => 'Angiv et tidspunkt mellem 0 og 24',
   'LBL_ACTIVITIES_REPORTS' => 'Aktivitetsrapport',
   'LBL_ASSIGNED_TO_NAME' => 'Tildelt til:',
+  'LBL_ASSIGNED_USER' => 'Tildelt til',
   'LBL_COLON' => ':',
   'LBL_CONTACT' => 'Kontakt:',
   'LBL_CONTACT_FIRST_NAME' => 'Kontaktens fornavn',
@@ -48,6 +46,9 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ændret af id',
   'LBL_EXPORT_PARENT_ID' => 'Relateret til id',
   'LBL_EXPORT_PARENT_TYPE' => 'Relateret til modul',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modul består af fleksible tiltag, to-do elementer eller anden form for aktivitet, som kræver afslutning. For at oprette en {{MODULE_NAME}}:. 1. Give værdier for felterne som ønsket. - Felter mærket "Påkrævet" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og vis" for at åbne den nye {{MODULE_NAME}} i listevisning. - Vælg "Gem og skabe nye" for straks at oprette et nyt {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består af fleksible tiltag, to-do elementer eller anden form for aktivitet, som kræver afslutning. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler ved at skifte nederste venstre rude til "Data View". - Foretag og vis brugernes kommentarer og post ændringshistorie i {{activitystream_singular_module}} ved at skifte det nederste venstre rude til "Activity Stream". - Følg eller favourite denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består af fleksible tiltag, to-do elementer eller anden form for aktivitet, som kræver afslutning. {{MODULE_NAME}} optegnelser kan relateres til én post i de fleste moduler via flex relatere område og kan også være relateret til et enkelt {{contacts_singular_module}}. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar såsom via {{plural_module_name}} modul, duplikering, import {{plural_module_name}} osv. Når den {{MODULE_NAME}} post er oprettet, kan du få vist og redigere oplysninger om den {{MODULE_NAME}} via {{plural_module_name}} post visning. Afhængigt af detaljer om {{MODULE_NAME}}, kan du også være i stand til at se og redigere den {{MODULE_NAME}} informationer via kalender-modulet. Hver {{MODULE_NAME}} post kan så forholde sig til andre Sugar optegnelser, såsom {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, og mange andre.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Noter',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Tildelt bruger',
   'LBL_LIST_CLOSE' => 'Luk',
@@ -65,6 +66,7 @@ $mod_strings = array (
   'LBL_LIST_STATUS' => 'Status',
   'LBL_LIST_SUBJECT' => 'Emne',
   'LBL_MODULE_NAME' => 'Opgaver',
+  'LBL_MODULE_NAME_SINGULAR' => 'Opgave',
   'LBL_MODULE_TITLE' => 'Opgaver: Startside',
   'LBL_NAME' => 'Navn:',
   'LBL_NEW_FORM_DUE_DATE' => 'Forfaldsdato:',
@@ -73,10 +75,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Opret opgave',
   'LBL_NEW_TIME_FORMAT' => '"24:00"',
   'LBL_NONE' => 'Ingen',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Noter',
   'LBL_PARENT_ID' => 'Overordnet id:',
   'LBL_PARENT_NAME' => 'Overordnet type:',
   'LBL_PHONE' => 'Telefon:',
   'LBL_PRIORITY' => 'Prioritet:',
+  'LBL_REVENUELINEITEMS' => 'Omsætningsposter',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter opgave',
   'LBL_START_DATE' => 'Startdato:',
   'LBL_START_DATE_AND_TIME' => 'Startdato og -klokkeslæt:',
@@ -84,6 +88,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Emne:',
   'LBL_TASK' => 'Opgaver:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Opgave afsluttet med succes.',
   'LBL_TASK_INFORMATION' => 'Opgave oversigt',
   'LNK_IMPORT_TASKS' => 'Importér opgaver',
   'LNK_NEW_TASK' => 'Opret opgave',

@@ -1,24 +1,23 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 (function(){if(typeof(SUGAR.forms)=='undefined')SUGAR.forms={};if(typeof(SUGAR.forms.animation)=='undefined')SUGAR.forms.animation={};var Dom=YAHOO.util.Dom;var AH=SUGAR.forms.AssignmentHandler=function(){}
-AH.ANIMATE=true;AH.VARIABLE_MAP={};AH.LISTENERS={};AH.LINKS={};AH.LOCKS={};AH.QUEUEDDEPS=[];AH.register=function(variable,view){if(!view)view=AH.lastView;if(typeof(AH.VARIABLE_MAP[view])=="undefined")
+AH.ANIMATE=true;AH.COLLECTIONS_MAP={};AH.AFTER_LOAD_COMPLETE=new YAHOO.util.CustomEvent("AFTER_LOAD_COMPLETE");AH.VARIABLE_MAP={};AH.LISTENERS={};AH.LINKS={};AH.LOCKS={};AH.QUEUEDDEPS=[];AH.register=function(variable,view){if(!view)view=AH.lastView;if(typeof(AH.VARIABLE_MAP[view])=="undefined")
 AH.VARIABLE_MAP[view]={};if(variable instanceof Array){for(var i=0;i<variable.length;i++){AH.VARIABLE_MAP[view][variable[i]]=document.getElementById(variable[i]);}}else{AH.VARIABLE_MAP[view][variable]=document.getElementById(variable);}}
 AH.registerFields=function(flds){if(typeof(flds)!='object')return;var form=document.forms[flds.form];var names=flds.fields;if(typeof(AH.VARIABLE_MAP[flds.form])=="undefined")
 AH.VARIABLE_MAP[flds.form]={};if(typeof(form)=='undefined')return;for(var i=0;i<names.length;i++){var el=form[names[i]];if(el!=null){AH.VARIABLE_MAP[flds.form][el.id]=el;AH.updateListeners(el.id,flds.form,el);}}}
 AH.registerForm=function(f,formEl){var form=formEl||document.forms[f];if(typeof(AH.VARIABLE_MAP[f])=="undefined")
-AH.VARIABLE_MAP[f]={};if(typeof(form)=='undefined')return;for(var i=0;i<form.length;i++){var el=form[i];if(el!=null&&el.value!=null&&el.id!=null&&el.id!="")
+AH.VARIABLE_MAP[f]={};AH.COLLECTIONS_MAP[f]={};if(typeof(form)=='undefined')return;for(var i=0;i<form.length;i++){var el=form[i];if(el!=null&&el.value!=null&&el.id!=null&&el.id!="")
 {if(el.type&&el.type=="text"&&Dom.getAncestorByClassName(el,"emailaddresses"))
-{var span=Dom.getAncestorByTagName(el,"span");sId=span.id;fieldName=sId.substring(0,sId.length-5);if(!AH.VARIABLE_MAP[f][fieldName]||!Dom.isAncestor(span,AH.VARIABLE_MAP[f][fieldName])){AH.VARIABLE_MAP[f][fieldName]=el;AH.updateListeners(fieldName,f,el);}}
+{var span=Dom.getAncestorByTagName(el,"span");sId=span.id;fieldName=sId.substring(0,sId.length-5);if(!AH.VARIABLE_MAP[f][fieldName]||!Dom.isAncestor(span,AH.VARIABLE_MAP[f][fieldName])){AH.VARIABLE_MAP[f][fieldName]=el;AH.updateListeners(fieldName,f,el);}}else if(el.type&&el.type=="radio"){if(!AH.COLLECTIONS_MAP[f][el.name]){AH.COLLECTIONS_MAP[f][el.name]=[];}
+AH.COLLECTIONS_MAP[f][el.name].push(el);}
 AH.VARIABLE_MAP[f][el.id]=el;AH.updateListeners(el.id,f,el);}
 else if(el!=null&&el.value&&el.type=="hidden"){AH.VARIABLE_MAP[f][el.name]=el;AH.updateListeners(el.name,f,el);}}}
 AH.registerView=function(view,startEl){var Dom=YAHOO.util.Dom;AH.lastView=view;if(typeof(AH.VARIABLE_MAP[view])=="undefined")
@@ -54,13 +53,16 @@ AH.LINKS[view][link][ftype]=value;return true;}
 AH.getCachedRelatedField=function(link,ftype,view)
 {if(!view)view=AH.lastView;if(!AH.LINKS[view][link]||AH.LINKS[view][link][ftype])
 return null;return AH.LINKS[view][link][ftype];}
+AH.getCollection=function(variable,view){if(!view)view=AH.lastView;var field=(AH.COLLECTIONS_MAP[view]&&AH.COLLECTIONS_MAP[view][variable])?AH.COLLECTIONS_MAP[view][variable]:null;return field;}
 AH.getElement=function(variable,view){if(!view)view=AH.lastView;var field=AH.VARIABLE_MAP[view][variable];if(field==null)
 field=YAHOO.util.Dom.get(variable);return field;}
 AH.assign=function(variable,value,flash)
 {var Dom=YAHOO.util.Dom;if(typeof flash=="undefined")
 flash=true;var field=AH.getElement(variable);if(field==null)
 return null;if(AH.LOCKS[variable]!=null){throw("Circular Reference Detected");}
-if(Dom.hasClass(field,"imageUploader"))
+if(document.DetailView)
+{field.innerHTML='';field.appendChild(document.createTextNode(value));}
+else if(Dom.hasClass(field,"imageUploader"))
 {var img=Dom.get("img_"+field.id);img.src=value;img.style.visibility="";}
 else if(field.type=="checkbox"){field.checked=value==SUGAR.expressions.Expression.TRUE||value===true;}
 else if(field.type=="radio"){var radioButtons=field.form[field.id];for(var rbi=0;rbi<radiobuttons.length;rbi++){var button=radioButtons[rbi];if(button.value==value){button.checked=true;}else{button.checked=false;}}}
@@ -70,7 +72,7 @@ field.value=SUGAR.util.DateUtils.formatDate(value);else{if(Dom.hasClass(field,"D
 AH.setDateTimeField(field,value);field.value=SUGAR.util.DateUtils.formatDate(value,true);}}
 else{var fieldForm=field.form.attributes.name.value;var fieldType='text';if(typeof(validate[fieldForm])=="object"){for(var idx in validate[fieldForm]){if(validate[fieldForm][idx][0]==field.name){fieldType=validate[fieldForm][idx][1];break;}}}
 if(fieldType=='decimal'||fieldType=='currency'||fieldType=='int'){var localPrecision=2;if(fieldType=='int'){localPrecision=0;}else{if(typeof(precision)!='undefined'){localPrecision=precision;}}
-if(value!=''){value=formatNumber(value,num_grp_sep,dec_sep,localPrecision,localPrecision);}}
+if(value!=''){value=formatNumber(value,num_grp_sep,dec_sep,localPrecision,localPrecision);}}else if(typeof(value)=='object'&&value.length>0&&fieldType!='multienum'){value=value.join(', ');}
 field.value=value;}
 if(AH.ANIMATE&&flash){try{SUGAR.forms.FlashField(field);}catch(e){}}
 AH.LOCKS[variable]=true;SUGAR.util.callOnChangeListers(field);AH.LOCKS[variable]=null;}
@@ -114,19 +116,19 @@ AH.loadComplete=function()
 {var fields=[];for(var i=0;i<AH.QUEUEDDEPS.length;i++)
 {fields=$.merge(fields,AH.QUEUEDDEPS[i].getRelatedFields());}
 AH.getRelatedFieldValues(fields);for(var i=0;i<AH.QUEUEDDEPS.length;i++)
-{SUGAR.forms.Trigger.fire.call(AH.QUEUEDDEPS[i].trigger);}}
+{SUGAR.forms.Trigger.fire.call(AH.QUEUEDDEPS[i].trigger);}
+AH.AFTER_LOAD_COMPLETE.fire();}
 AH.setRelatedFields=function(fields){for(var link in fields)
 {for(var type in fields[link])
 {AH.cacheRelatedField(link,type,fields[link][type]);}}}
 AH.getRelatedFieldValues=function(fields,module,record)
-{if(fields.length>0){var ret={};var emptyFields={};module=module||SUGAR.forms.AssignmentHandler.getValue("module")||DCMenu.module;record=record||SUGAR.forms.AssignmentHandler.getValue("record")||DCMenu.record;for(var i=fields.length-1;i>=0;i--)
+{if(fields.length>0){module=module||SUGAR.forms.AssignmentHandler.getValue("module")||DCMenu.module;record=record||SUGAR.forms.AssignmentHandler.getValue("record")||DCMenu.record;for(var i=fields.length-1;i>=0;i--)
 {if(fields[i].type=="related")
 {var linkDef=SUGAR.forms.AssignmentHandler.getLink(fields[i].link);if(linkDef&&linkDef.id_name&&linkDef.module){var idField=document.getElementById(linkDef.id_name);if(idField&&(idField.tagName=="INPUT"||idField.hasAttribute("data-id-value")))
 {fields[i].relModule=linkDef.module;fields[i].relId=SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name,false,true);if(fields[i].relId.length==0)
-{emptyFields[fields[i].link]={'related':{}};emptyFields[fields[i].link]['related'][fields[i].relate]='';fields.splice(i,1);}}}}}
+{fields.splice(i,1);}}}}}
 if(fields.length>0)
-{var r=http_fetch_sync("index.php",SUGAR.util.paramsToUrl({module:"ExpressionEngine",action:"getRelatedValues",record_id:record,tmodule:module,fields:YAHOO.lang.JSON.stringify(fields),to_pdf:1}));try{ret=YAHOO.lang.JSON.parse(r.responseText);}catch(e){}}
-ret=$.extend({},emptyFields,ret);AH.setRelatedFields(ret);return ret;}
+{var r=http_fetch_sync("index.php",SUGAR.util.paramsToUrl({module:"ExpressionEngine",action:"getRelatedValues",record_id:record,tmodule:module,fields:YAHOO.lang.JSON.stringify(fields),to_pdf:1}));try{var ret=YAHOO.lang.JSON.parse(r.responseText);AH.setRelatedFields(ret);return ret;}catch(e){}}}
 return null;}
 AH.getRelatedField=function(link,ftype,field,view){if(!view)
 view=AH.lastView;else
@@ -134,7 +136,7 @@ AH.lastView=view;if(!AH.LINKS[view][link])
 return null;var linkDef=SUGAR.forms.AssignmentHandler.getLink(link);var currId;if(linkDef.id_name)
 {currId=SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name,false,true);}
 if((linkDef.relId||currId)&&linkDef.relId!=currId){AH.clearRelatedFieldCache(link,view);}
-if(typeof(linkDef[ftype])=="undefined"||(field&&typeof(linkDef[ftype][field])=="undefined")||(ftype=="related"&&(linkDef.relId||currId)&&linkDef.relId!=currId)){var params={link:link,type:ftype};if(field)
+if(typeof(linkDef[ftype])=="undefined"||(field&&typeof(linkDef[ftype][field])=="undefined")||(ftype=="related"&&(linkDef.relId||!_.isUndefined(currId))&&linkDef.relId!=currId)){var params={link:link,type:ftype};if(field)
 params.relate=field;AH.getRelatedFieldValues([params]);linkDef=SUGAR.forms.AssignmentHandler.getLink(link);}
 if(typeof(linkDef[ftype])=="undefined")
 return null;if(field){if(typeof(linkDef[ftype][field])=="undefined")
@@ -155,15 +157,21 @@ value=varname;else
 value=AH.getValue(varname,this.formName);if(typeof(value)=='number')
 {return toConst(value);}
 else if(typeof(value)=="string")
-{value=value.replace(/\n/g,"");if((/^(\s*)$/).exec(value)!=null||value==="")
+{if((/^(\s*)$/).exec(value)!=null||value==="")
 {return toConst('""')}
 else if(SE.isNumeric(value)){return toConst(SE.unFormatNumber(value));}
-else{return toConst('"'+value+'"');}}else if(typeof(value)=="object"&&value!=null&&value.getTime){var d=new SUGAR.DateExpression("");d.evaluate=function(){return this.value};d.value=value;return d;}
+else{return toConst('"'+value+'"');}}else if(typeof(value)=="object"&&value!=null&&value.getTime){var d=new SE.DateExpression("");d.evaluate=function(){return this.value};d.value=value;return d;}
 return toConst('""');},setValue:function(varname,value)
 {AH.assign(varname,value,true);},getLink:function(varname)
 {if(AH.LINKS[this.formName][varname])
 return AH.LINKS[this.formName][varname];return false;},addListener:function(varname,callback,scope)
-{AH.addListener(varname,callback,scope,this.formName);}});SUGAR.forms.DefaultExpressionParser=new SUGAR.expressions.ExpressionParser();SUGAR.forms.evalVariableExpression=function(expression,varmap,view)
+{AH.addListener(varname,callback,scope,this.formName);},getRelatedField:function(link,ftype,field){if(ftype=='related')
+{var module=AH.getValue("module");var record=AH.getValue("record");var linkDef=AH.getLink(link);var linkId=false,url="index.php?";if(linkDef&&linkDef.id_name&&linkDef.module){var idField=document.getElementById(linkDef.id_name);if(idField&&idField.tagName=="INPUT")
+{linkId=AH.getValue(linkDef.id_name,false,true);module=linkDef.module;}
+if(linkDef.relId&&linkDef.relId!=linkId)
+AH.clearRelatedFieldCache(link);}}
+return AH.getRelatedField(link,ftype,field);},getAppListStrings:function(list){return SUGAR.language.get('app_list_strings',list);},parseDate:function(date,type){return SUGAR.util.DateUtils.parse(date,type);},getElement:function(variable){return AH.getElement(variable,this.formName);},_math:function(operator,n1,n2,decimals,fixed){decimals=(_.isFinite(decimals)&&decimals>=0)?parseInt(decimals):6;fixed=fixed||false;var result;var divisor=Math.pow(10,decimals);var r1=parseFloat(n1)*divisor;var r2=!_.isUndefined(n2)?(parseFloat(n2)*divisor):undefined;switch(operator){case'round':result=Math.round(r1)/ divisor;break;case'add':result=(r1+r2)/ divisor;break;case'sub':result=(r1-r2)/ divisor;break;case'mul':result=this.round(r1*r2 / divisor / divisor,decimals,fixed);break;case'div':result=this.round(r1 / r2,decimals,fixed);break;default:return n1;break;}
+return(fixed&&!_.isString(result))?result.toFixed(decimals):result;},add:function(start,add){return this._math('add',start,add,6,true);},subtract:function(start,subtract){return this._math('sub',start,subtract,6,true);},multiply:function(start,multiply){return this._math('mul',start,multiply,6,true);},divide:function(start,divide){return this._math('div',start,divide,6,true);},round:function(start,precision){return this._math('round',start,precision,true);}});SUGAR.forms.DefaultExpressionParser=new SUGAR.expressions.ExpressionParser();SUGAR.forms.evalVariableExpression=function(expression,varmap,view)
 {return SUGAR.forms.DefaultExpressionParser.evaluate(expression,new SUGAR.forms.FormExpressionContext(view));if(!view)view=AH.lastView;var SE=SUGAR.expressions;expression=SUGAR.forms._performRangeReplace(expression);var handler=AH;if(typeof(varmap)=='undefined')
 {varmap=new Array();for(v in AH.VARIABLE_MAP[view]){if(v!=""){varmap[varmap.length]=v;}}}
 if(expression==SE.Expression.TRUE||expression==SE.Expression.FALSE)
@@ -212,7 +220,8 @@ SUGAR.forms.AbstractAction.prototype.setContext=function(context){this.context=c
 SUGAR.forms.AbstractAction.prototype.evalExpression=function(exp,context){return SUGAR.forms.DefaultExpressionParser.evaluate(exp,context).evaluate();}
 SUGAR.forms.Trigger=function(variables,condition){this.variables=variables;this.condition=condition;this.dependency={};this._attachListeners();}
 SUGAR.forms.Trigger.prototype._attachListeners=function(){var handler=AH;if(!(this.variables instanceof Array)){this.variables=[this.variables];}
-for(var i=0;i<this.variables.length;i++){var el=handler.getElement(this.variables[i]);if(!el)continue;if(el.type&&el.type.toUpperCase()=="CHECKBOX"){YAHOO.util.Event.addListener(el,"click",SUGAR.forms.Trigger.fire,this,true);}else{YAHOO.util.Event.addListener(el,"change",SUGAR.forms.Trigger.fire,this,true);}}}
+for(var i=0;i<this.variables.length;i++){var el=handler.getCollection(this.variables[i]);if(!el){var el=handler.getElement(this.variables[i]);}
+if(!el)continue;if(el.type&&el.type.toUpperCase()=="CHECKBOX"){YAHOO.util.Event.addListener(el,"click",SUGAR.forms.Trigger.fire,this,true);}else{YAHOO.util.Event.addListener(el,"change",SUGAR.forms.Trigger.fire,this,true);}}}
 SUGAR.forms.Trigger.prototype.setDependency=function(dep){this.dependency=dep;}
 SUGAR.forms.Trigger.prototype.setContext=function(context){this.context=context;}
 SUGAR.forms.Trigger.fire=function(){var eval;var val;try{eval=SUGAR.forms.DefaultExpressionParser.evaluate(this.condition,this.context);}catch(e){if(!SUGAR.isIE&&console&&console.log){console.log('ERROR:'+e+"; in Condition: "+this.condition);}}

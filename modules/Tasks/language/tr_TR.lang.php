@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DATE_FORMAT' => '(yıl-ay-gün)',
@@ -49,6 +46,23 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Değiştiren ID',
   'LBL_EXPORT_PARENT_ID' => 'İlişkili Olduğu ID',
   'LBL_EXPORT_PARENT_TYPE' => 'İlişkili Olduğu Modül',
+  'LBL_HELP_CREATE' => '{{module_name}} modülü, hakkında biraz bilgi sahibi olduğunuz, henuz  {{leads_singular_module}} olarak seçmediğiniz bireylerden oluşur.
+
+{{module_name}} kaydı oluşturmak için:
+1. İstenen şekilde alanlara değer giriniz.
+ - "Zorunlu" olarak işaretlenmiş alanların kayıt öncesinde girilmesi gerekmektedir.
+- Gerektiğinde, "Daha Fazlası" seçeneği ile ek alanları gösteriniz.
+2. "Kaydet" tuşuna basarak yeni kaydınızı tamamlayın ve önceki sayfaya dönün.
+- Yeni {{module_name}} kaydını görüntüleme modunda açmak için Kaydet ve Görüntüle seçeneğini kullanın.
+- "Kaydet ve yenisini oluştur" seçeneği ile, kayıt sonrasında, hemen yeni bir {{module_name}} kaydı oluşturun.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü, esnek aksiyonlar, yapılacak işler veya tamamlanması gereken diğer türdeki aktivitelerden oluşur.
+
+- Kaydın alanlarını, herhangi bir alana veya "Değiştir" tuşuna tıklayarak değiştirin.
+- Alt solda yer alan paneli "Kayıt Görünümü" olarak değiştirerek, diğer kayıtlar ile olan bağlantıları görün veya değiştirin.
+- Kaydın isminin sağındaki ikonlara tıklayarak kaydı izleyiniz veya favori olarak işaretleyiniz.
+- Alt solda yer alan paneli "Aktivite Akışı" olarak değiştirerek, kullanıcı yorumları görün, oluşturun ve  {{activitystream_singular_module}}  kayıtındaki değişiklik tarihçesini görün.
+- Daha fazla aksiyon, Değiştir tuşunun sağındaki Aksiyonlar seçimli menüde yer almaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü, tamamlanması gereken esnek aksiyonlar, yapılacak işler, veya diğer türlü aktivitelerden oluşur. {{module_name}} kayıtları pek çok modül ile, esnek ilişki alanları ile bağlantılı olup, tek bir {{contacts_singular_module}} kayıtı ile ilişkili olabilir. {{plural_module_name}} kayıdı oluşturmak için Sugar içinde farklı yöntemler bulunmaktadır, örneğin {{plural_module_name}} modülü ile, aynı kayıttan oluşturarak, dışarıdan {{plural_module_name}} içeri yükleyerek, vb. {{module_name}} kaydı oluşturulduğunda, {{module_name}} modülündeki eksik bilgileri {{plural_module_name}} kayıt izleme ekranından görebilir ve düzeltebilirsiniz. {{module_name}} üzerindeki detaylara göre, {{module_name}} bilgisini Takvim modülünde görebilir ve değiştirebilirsiniz. Her {{module_name}} kaydı diğer {{accounts_module}}, {{contacts_module}}, {{opportunities_module}} ve benzeri Sugar kayıtları ile ilişkilendirilebilir.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notlar',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Atanan Kullanıcı',
   'LBL_LIST_CLOSE' => 'Kapat',
@@ -75,11 +89,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Görev Oluştur',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'Yok',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notlar',
   'LBL_PARENT_ID' => 'Üst Kayıt ID:',
   'LBL_PARENT_NAME' => 'Üst Tipi:',
   'LBL_PHONE' => 'Telefon:',
   'LBL_PRIORITY' => 'Öncelik:',
-  'LBL_RELATED_TO' => 'İlişkili:',
+  'LBL_REVENUELINEITEMS' => 'Gelir Kalemleri',
   'LBL_SEARCH_FORM_TITLE' => 'Görev Arama',
   'LBL_START_DATE' => 'Başlangıç Tarihi:',
   'LBL_START_DATE_AND_TIME' => 'Başlangıç Tarih & Saati:',
@@ -87,6 +102,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'Durum:',
   'LBL_SUBJECT' => 'Konusu:',
   'LBL_TASK' => 'Görevler:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Görev başarıyla kapatıldı.',
   'LBL_TASK_INFORMATION' => 'Genel Bilgi',
   'LNK_IMPORT_TASKS' => 'Görev Verilerini Yükle',
   'LNK_NEW_TASK' => 'Görev Oluştur',

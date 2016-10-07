@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarObjects/templates/person/Person.php');
 
@@ -84,8 +74,19 @@ class Prospect extends Person {
 	var $additional_column_fields = Array('assigned_user_name');
 
 
-	function Prospect() {
-		parent::Person();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Prospect()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		global $current_user;
 		if(!empty($current_user)) {
 			$this->team_id = $current_user->default_team;	//default_team is a team id
@@ -191,9 +192,7 @@ class Prospect extends Person {
         }
 
         $module_name = ucfirst($module_name);
-        $class_name = $beanList[$module_name];
-        require_once($beanFiles[$class_name]);
-        $seed = new $class_name();
+        $seed = BeanFactory::getBean($module_name);
         if(empty($sel_fields)){
             $sel_fields = $seed->table_name.'.*';
         }
@@ -220,12 +219,7 @@ class Prospect extends Person {
         $query = "SELECT related_id, related_type FROM prospect_lists_prospects WHERE id = '".$this->db->quote($id)."'";
         $result = $this->db->query($query);
         if(($row = $this->db->fetchByAssoc($result))){
-             global  $beanList, $beanFiles;
-             $module_name = $row['related_type'];
-             $class_name = $beanList[$module_name];
-             require_once($beanFiles[$class_name]);
-             $seed = new $class_name();
-             return $seed->retrieve($row['related_id']);
+             return BeanFactory::retrieveBean($row['related_type'], $row['related_id']);
         }else{
             return null;
         }

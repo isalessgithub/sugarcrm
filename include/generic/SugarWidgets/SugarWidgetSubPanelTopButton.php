@@ -1,31 +1,36 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: SugarWidgetSubPanelTopButton.php 51841 2009-10-26 20:33:15Z jmertic $
 
 
 
 class SugarWidgetSubPanelTopButton extends SugarWidget
 {
-    var $module;
-	var $title;
-	var $access_key;
-	var $form_value;
-	var $additional_form_fields;
-	var $acl;
+    public $module;
+    public $title;
+    public $access_key;
+    public $form_value;
+    public $additional_form_fields;
+    public $acl;
+    public $enableActionMenu;
+    
+    /**
+     * Flag that determines if the requested subpanel should open a sidecar quick
+     * create form or a BWC one. This is set in {@see _get_form_sidecar()}.
+     * @var boolean
+     */
+    public $sidecar;
 
 //TODO rename defines to layout defs and make it a member variable instead of passing it multiple layers with extra copying.
 
@@ -67,15 +72,112 @@ class SugarWidgetSubPanelTopButton extends SugarWidget
 			if(!empty($form_value))
 				$this->form_value = translate($form_value, $module);
 		}
+
+        if (isset($GLOBALS['sugar_config']['enable_action_menu']) && $GLOBALS['sugar_config']['enable_action_menu']===false) {
+            $this->enableActionMenu = false;
+        } else {
+            $this->enableActionMenu = true;
+        }
 	}
 
     public function getWidgetId($buttonSuffix = true)
     {
-    	$widgetID = parent::getWidgetId() . '_'.preg_replace('[ ]', '', strtolower($this->form_value));
+        $isUTF8 = mb_detect_encoding($this->form_value) == 'UTF-8';
+        $formValue = $isUTF8 ? mb_strtolower($this->form_value, 'UTF-8') : strtolower($this->form_value);
+    	$widgetID = parent::getWidgetId() . '_'.preg_replace('[ ]', '', $formValue);
     	if($buttonSuffix){
     		$widgetID .= '_button';
     	}
         return $widgetID;
+    }
+
+    /**
+     * This is a shim for while we're still in bwc when the current module is a
+     * sidecar (not bwc) module. See SP-1630: Clicking Create from BWC subpanels
+     * for sidecar should open sidecar create view.
+     * @param $defines
+     * @return a sidecar compatable button or falsy
+     */
+    function _get_form_sidecar($defines) {
+        global $app_strings;
+        global $subpanel_item_count;
+        global $current_language;
+
+        $sidecarReadySubPanelCreates = array(
+            "SubPanelTopCreateButton",
+            "SubPanelTopButtonQuickCreate",
+            "SubPanelTopCreateAccountNameButton",
+            "SubPanelTopCreateLeadNameButton",
+            "SubPanelTopCreateNoteButton",
+            "SubPanelTopScheduleMeetingButton",
+            "SubPanelTopScheduleCallButton",
+            "SubPanelTopCreateTaskButton"
+        );
+
+        $module = $defines['module'];
+        $label = $app_strings['LBL_CREATE_BUTTON_LABEL'];
+
+        //Sometimes module is 'History' but the child module is Notes. For the
+        //purposes of determining whether to redirect to sidecar create or not,
+        //treat History (a bwc) as a Note (a sidecar).
+        if ($defines['widget_class'] == 'SubPanelTopCreateNoteButton' && $defines['child_module_name'] == 'Notes') {
+            $module = 'Notes';
+            $modStringsNotes = return_module_language($current_language, 'Notes');
+            $label = $modStringsNotes['LNK_NEW_NOTE'];
+        }
+
+        //Not bwc and in our white-listed subpanel create button widgets
+        if (!isModuleBWC($module) && in_array($defines['widget_class'], $sidecarReadySubPanelCreates)) {
+            $wid = $this->getWidgetId();
+            $id = $wid."_create_".$subpanel_item_count;//bug 51512
+            $parentId = $defines['focus']->id;
+            $relationship_name = $this->get_subpanel_relationship_name($defines);
+            $form = 'form' . $relationship_name;
+            $panelDefs = $defines['subpanel_definition'];
+            $link = '';
+
+            //Normalize Activities which should result in child module creates
+            if ($module == "Activities" &&  $defines['child_module_name'] == 'Tasks') {
+                $module = "Tasks";
+                $label = $app_strings['LBL_CREATE_TASK'];
+            } elseif ($module == "Activities" &&  $defines['child_module_name'] == 'Meetings') {
+                $module = "Meetings";
+                $label = $app_strings['LBL_SCHEDULE_MEETING_BUTTON_LABEL'];
+            } elseif ($module == "Activities" &&  $defines['child_module_name'] == 'Calls') {
+                $module = "Calls";
+                $label = $app_strings['LBL_SCHEDULE_CALL'];
+            }
+
+            if ($panelDefs->isCollection()) {
+                foreach ($panelDefs->sub_subpanels as $panel) {
+                    if ($panel->get_module_name() == $module) {
+                        $link = $panel->get_data_source_name();
+                        break;
+                    }
+                }
+            } else {
+                $link = $panelDefs->get_data_source_name();
+            }
+
+            if ($this->enableActionMenu) {
+                $button = '<form data-legacy-subpanel-create="1" action="index.php" method="post" name="form" id="' . $form . "\">\n".
+                    "<a href='#' onClick=\"javascript:subp_nav_sidecar(
+                        '" . $module . "','" . $parentId . "','c', '" . $link . "'
+                    );\"".
+                    " class='create_from_bwc_to_sidecar' id=\"$id\">". $label .'</a>';
+            } else {
+                $button = '<form data-legacy-subpanel-create="1" action="index.php" method="post" name="form" id="' . $form . "\">\n".
+                    "<input type='button' onClick=\"javascript:subp_nav_sidecar(
+                        '" . $module . "','" . $parentId . "','c', '" . $link . "'
+                    );\"".
+                    " class='create_from_bwc_to_sidecar' id=\"$id\" value=\"$label\">";
+            }
+
+            // Set the sidecar flag so that calling codes knows what to do
+            $this->sidecar = true;
+            return $button;
+        }
+        return false;
     }
 
     function &_get_form($defines, $additionalFormFields = null, $asUrl = false)
@@ -222,9 +324,15 @@ class SugarWidgetSubPanelTopButton extends SugarWidget
 
             return $returnLink;
         } else {
+            //SP-1630: Clicking Create from BWC subpanels for sidecar should open sidecar create view
+            $sidecarButton = $this->_get_form_sidecar($defines);
+            if ($sidecarButton) {
+                return $sidecarButton;
+            }
 
             $form = 'form' . $relationship_name;
             $button = '<form action="index.php" method="post" name="form" id="' . $form . "\">\n";
+
             foreach($formValues as $key => $value) {
                 $button .= "<input type='hidden' name='" . $key . "' value='" . $value . "' />\n";
             }
@@ -236,8 +344,7 @@ class SugarWidgetSubPanelTopButton extends SugarWidget
                 }
             }
 
-
-        return $button;
+            return $button;
         }
     }
 
@@ -251,6 +358,14 @@ class SugarWidgetSubPanelTopButton extends SugarWidget
 			return $temp;
 		}
 
+        /**
+         * if module is hidden or subpanel for the module is hidden - doesn't show quick create button
+         */
+        if ( SugarWidget::isModuleHidden( !empty($this->module) ? $this->module : $defines['module'] ) )
+        {
+            return '';
+        }
+
 		global $app_strings;
 
         if ( isset($_REQUEST['layout_def_key']) && $_REQUEST['layout_def_key'] == 'UserEAPM' ) {
@@ -259,7 +374,12 @@ class SugarWidgetSubPanelTopButton extends SugarWidget
             $button = "<input title='$this->title' accesskey='$this->access_key' class='button' type='submit' name='$inputID' id='$inputID' value='$this->form_value' onclick='javascript:document.location=\"index.php?".$megaLink."\"; return false;'/>";
         } else {
             $button = $this->_get_form($defines, $additionalFormFields);
-            $button .= "<input title='$this->title' accesskey='$this->access_key' class='button' type='submit' name='$inputID' id='$inputID' value='$this->form_value' />\n</form>";
+
+            // $this->sidecar is set in _get_form_sidecar()
+            if ($this->sidecar !== true) {
+                $button .= "<input title='$this->title' accesskey='$this->access_key' class='button' type='submit' name='$inputID' id='$inputID' value='$this->form_value' />\n";
+            }
+            $button .= "</form>";
         }
 
         if ($nonbutton) {

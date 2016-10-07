@@ -1,19 +1,16 @@
 <?php
 //
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -112,7 +109,7 @@ class ScanTeams{
 
 
 
-$user= new User();
+$user = BeanFactory::getBean('Users');
 $pgt=false;
 $ppt=false;
 $pit=false;
@@ -144,7 +141,7 @@ if (isset($_REQUEST['silent']) and $_REQUEST['silent']==0) {
 function render_rebuild_options($global_team_id=1) {
 
     global $current_language;
-    $user=new User();
+    $user = BeanFactory::getBean('Users');
     static $mod_strings = null;
     if(empty($mod_strings))$mod_strings = return_module_language($current_language, 'Administration');
 
@@ -256,7 +253,7 @@ EOF;
 }
 
 function no_global_team() {
-    $user=new User();
+    $user = BeanFactory::getBean('Users');
     //log for default global team id
     $query="select id from teams where deleted=0 and id='1'";
     $result=$user->db->query($query);
@@ -270,13 +267,8 @@ function no_global_team() {
 function process_team_access($process_global_teams=false, $process_private_teams=false,$process_implict_teams=false, $global_team_id='1', $process_team_access=false) {
     set_time_limit(3600);
     global $mod_strings;
-
-    if(!isset($GLOBALS['log']))
-    {
-        $GLOBALS['log'] = LoggerManager::getLogger('SugarCRM');
-    }
-
-    $user = new User();
+    $GLOBALS['log'] = LoggerManager :: getLogger('SugarCRM');
+    $user = BeanFactory::getBean('Users');
 
     $do_nothing=true;
 
@@ -305,7 +297,7 @@ function process_team_access($process_global_teams=false, $process_private_teams
     }
     //run thru all the users.
     if (!$do_nothing) {
-        $team = new Team();
+        $team = BeanFactory::getBean('Teams');
         $query="select id, reports_to_id from users where deleted=0";
         $result=$user->db->query($query);
         $reporting=array();
@@ -318,8 +310,7 @@ function process_team_access($process_global_teams=false, $process_private_teams
             if (isset($_REQUEST['silent']) and $_REQUEST['silent']==0) {
                 echo $mod_strings['LBL_REPAIR_TEAMS_PROCESS_USER'] . $user_id . $mod_strings['LBL_REPAIR_TEAMS_REPORT'] . $reports_to_id;
             }
-            $user = new User();
-            $user->retrieve($user_id);
+            $user = BeanFactory::getBean('Users', $user_id);
 
             $user->global_team=$global_team_id;  //set global team id
             if (empty($user->id)) {
@@ -349,7 +340,7 @@ function clean_up_team_sets() {
 
 //delete membership in global team
 function clear_global_team_access($global_team_id=1) {
-    $user=new User();
+    $user = BeanFactory::getBean('Users');
 
     //delete all records for membership into global team.
     $query="delete from team_memberships where team_id='{$global_team_id}'" ;
@@ -358,7 +349,7 @@ function clear_global_team_access($global_team_id=1) {
 
 function clear_implicit_access($private_teams_only, $global_team_id=1) {
     global $current_user;
-    $user=new User();
+    $user = BeanFactory::getBean('Users');
 
     if ($private_teams_only) {
         $tf = "  team_id in (select id from teams where private=1)";
@@ -396,7 +387,7 @@ function process_all_team_access($user,$add_to_global_team=false,$private_team=f
     global $current_language;
 
     $mod_strings = return_module_language($current_language, 'Users');
-    $team = new Team();
+    $team = BeanFactory::getBean('Teams');
 
     // add the user to the global team.
     if ($add_to_global_team) {
@@ -437,7 +428,7 @@ function process_all_team_access($user,$add_to_global_team=false,$private_team=f
     if ($process_implict_teams) {
         $GLOBALS['log']->debug("RepairTeams:Processing Implicit team access for $user->user_name");
 
-        $team = new Team();
+        $team = BeanFactory::getBean('Teams');
         $query = "select distinct team_id from team_memberships where deleted=0 and user_id='{$user->id}' and explicit_assign=1 and team_id not in (select id from teams where private=1 and deleted=0) and team_id != '{$user->global_team}'";
         $result = $user->db->query($query,true,"Error finding the full membership list for a user: ");
         while (($row=$user->db->fetchByAssoc($result))!=null)
@@ -449,8 +440,7 @@ function process_all_team_access($user,$add_to_global_team=false,$private_team=f
             $user->db->query($d_query);
 
             //re-add the membership so it cascades.
-            $team = new Team();
-            $team->retrieve($row['team_id']);
+            $team = BeanFactory::getBean('Teams', $row['team_id']);
          	// Make sure the team is valid
             if(!empty($team->id))
             {

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'COLUMN_DISABLE_NUMBER_FORMAT' => 'Inaktivera format',
@@ -53,8 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Standard URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S. Format',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Fältnamn existerar redan',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Fältnamn ska endast innehålla följande tecken: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Ingen modul inkluderat kunde inte spara',
   'ERR_RESERVED_FIELD_NAME' => 'Reserverat nyckelord',
   'ERR_SELECT_FIELD_TYPE' => 'Vänligen välj fält typ',
+  'LBL_ADDING_COLUMN' => 'Lägga till kolumn {0} till',
   'LBL_ADD_FIELD' => 'Lägg till fält',
   'LBL_AUDITED' => 'Granskad',
   'LBL_BTN_ADD' => 'Lägg till',
@@ -66,10 +66,15 @@ $mod_strings = array (
   'LBL_DEPENDENT' => 'Beroende',
   'LBL_DEPENDENT_CHECKBOX' => 'Beroende',
   'LBL_DEPENDENT_TRIGGER' => 'Trigger',
+  'LBL_DONE' => 'Klar',
+  'LBL_DROPPING_COLUMN' => 'Släppa kolumn {0} från {1} för modul',
   'LBL_DROP_DOWN_LIST' => 'Rullgardinsmeny',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Beroende',
   'LBL_EDIT_VIS' => 'Ändra synlighet',
   'LBL_ENFORCED' => 'Verkställas',
+  'LBL_EXE_NON_SIM_MODE' => 'Utför icke-simuleringsläge',
+  'LBL_FIELD_MISSING' => 'fält(er) saknas',
+  'LBL_FIX_COLUMN_TYPE' => 'Fixing kolumn typ till {0} ändra {1} till',
   'LBL_FORMULA' => 'Formel',
   'LBL_GENERATE_URL' => 'Generera URL',
   'LBL_HAS_PARENT' => 'Har Förälder',
@@ -85,7 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Förälder Dropdown',
   'LBL_RADIO_FIELDS' => 'Envalsknapp',
   'LBL_REPORTABLE' => 'Rapporteringsbar',
+  'LBL_SCAN_MODULE' => 'Skanning',
   'LBL_SEARCH_FORM_TITLE' => 'Sök moduler',
+  'LBL_SIMULATION_MODE' => 'Simuleringsläge - INGA ändringar kommer att göras FÖRUTOM rensa cacheminnet',
   'LBL_VISIBLE_IF' => 'Synlig om',
   'LNK_CALL_LIST' => 'Telefonsamtal',
   'LNK_EMAIL_LIST' => 'Epost',

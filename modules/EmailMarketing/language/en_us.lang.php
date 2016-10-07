@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 48695 2009-06-17 16:28:51Z eddy $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -26,6 +23,7 @@ $mod_strings = array (
   'LBL_REPLY_NAME' => '"Reply-to" Name: ',
 
   'LBL_MODULE_NAME' => 'Email Marketing',
+  'LBL_MODULE_NAME_SINGULAR' => 'Email Marketing',
   'LBL_MODULE_TITLE' => 'Email Marketing: Home',
   'LBL_LIST_FORM_TITLE' => 'Email Marketing Campaigns',
   'LBL_NAME' => 'Name: ',
@@ -79,7 +77,7 @@ $mod_strings = array (
   'LBL_SCHEDULE_BUTTON_TITLE'=>'Send',
   'LBL_SCHEDULE_BUTTON_LABEL'=>'Send',
   'LBL_SCHEDULE_BUTTON_KEY'=>'T',
-
+  'LBL_SPECIFY_RECORD_NUM'=>'A record number must be specified to delete the marketing campaign.',
 
 
 );

@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Sugar DateTime container
@@ -637,18 +634,34 @@ class SugarDateTime extends DateTime
      */
     public function modify($modify)
     {
-        // We can't user PHP_VERSION_ID here because problem with yesterday and tomorrow appears in defferent versions
-        // In that case we just set time to midnight for yesterday & tomorrow
-        // To leave time as it is we can use -+1 day instead of yesterday & tomorrow
-        if (strpos($modify, 'yesterday') !== false || strpos($modify, 'tomorrow') !== false) {
-            $this->setTime(0, 0);
+        //PHP 5.2 does not understand the " of " format
+        if(PHP_VERSION_ID < 50300)
+        {
+            //Special case for first day of next month used in code base
+            switch ( strtolower($modify) )
+            {
+                case 'first day of this month' :
+                    $this->setDate($this->year, $this->month, 1);
+                    return $this;
+                    break;
+                case 'first day of next month' :
+                    $this->setDate($this->year, $this->month+1, 1);
+                    return $this;
+                    break;
+                case 'last day of this month' :
+                    $this->setDate($this->year, $this->month, $this->days_in_month);
+                    return $this;
+                    break;
+                case 'last day of next month' :
+                    $this->setDate($this->year, $this->month+1, 1);
+                    $this->setDate($this->year, $this->month, $this->days_in_month);
+                    return $this;
+                    break;
+            }
+            //Last ditch effort to resolve this to syntax used for versions below 5.3
+            $modify = str_replace(' of ', ' ', $modify);
         }
-        if(PHP_VERSION_ID >= 50300 || $modify != 'first day of next month') {
-            parent::modify($modify);
-        } else {
-            /* PHP 5.2 does not understand 'first day of' and defaults need it */
-            $this->setDate($this->year, $this->month+1, 1);
-        }
+        parent::modify($modify);
         return $this;
     }
 
@@ -664,4 +677,66 @@ class SugarDateTime extends DateTime
         return $this;
     }
 
+    /**
+     * Takes this date time and shuffles it back by the requested offset.
+     * This is a 5.2 compatibility chunk, strptime()'s handling of the ISO
+     *   is unpredictable enough that this is more reliable
+     * @param string $isoOffset
+     * @return SugarDateTime
+     */
+    public function adjustByIsoOffset($isoOffset)
+    {
+        if ( $isoOffset == 'Z' || $isoOffset == '-0000' || $isoOffset == '+0000' ) {
+            // It's GMT, so that's... 0 seconds from GMT.
+            $calcOffset = 0;
+            return $this;
+        } else {
+            // This will turn into (int)-1 or +1, useful for multiplying out the seconds
+            $plusMinus = (int)(substr($isoOffset,0,1)."1");
+            
+            $calcOffset = $plusMinus*(substr($isoOffset,1,2)*3600)+(substr($isoOffset,3,2)*60);
+            
+        }
+        return $this->modify((-$calcOffset)." seconds");
+    }
+
+    /**
+     * Format SugarDateTime as date, dime or datetime string in any of "db", "iso" or "user" formats
+     * @param string type of the second argument : one of "date", "time", "datetime", "datetimecombo"
+     * @param string output format - one of: "db", "iso" or "user"
+     * @param User - optional  i.e. if type is 'user'
+     * @return string formatted result
+     */
+    public function formatDateTime($type, $toFormat, User $user = null)
+    {
+        global $timedate;
+        $result = '';
+
+        switch($toFormat) {
+            case "db":
+                $result = $timedate->asDbType($this, $type);
+                break;
+            case 'user':
+                $result = $timedate->asUserType($this, $type, $user);
+                break;
+            case 'iso':
+            default:
+                switch($type) {
+                    case "date":
+                        $result = $timedate->asIsoDate($this);
+                        break;
+                    case 'time':
+                        $result = $timedate->asIsoTime($this);
+                        break;
+                    case 'datetime':
+                    case 'datetimecombo':
+                    default:
+                        $result = $timedate->asIso($this);
+                        break;
+                }
+                break;
+        }
+
+        return $result;
+    }
 }

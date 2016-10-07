@@ -1,21 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 <table cellpadding='0' cellspacing='0' width='100%' border='0' class='list view'>
@@ -97,6 +90,7 @@
 			{/if}
 			{counter start=0 name="colCounter" print=false assign="colCounter"}
 			{foreach from=$displayColumns key=col item=params}
+				{assign var='ucol' value=$col|upper}
 				<td scope='row' align='{$params.align|default:'left'}' valign='top'><span sugar="sugar{$colCounter}b">
 					{if $params.link && !$params.customCode}
 						{if $params.contextMenu}
@@ -106,7 +100,7 @@
 							<span id='adspan_{$rowData[$params.id]|default:$rowData.ID}' onmouseout="return document_clearAdditionalDetailsCall('{$rowData[$params.id]|default:$rowData.ID}', 'adspan_{$rowData[$params.id]|default:$rowData.ID}', '{$pageData.offsets.current+$smarty.foreach.rowIteration.iteration}')"
 							onmouseover="return getDocumentDetails('KBDocuments', '{$rowData[$params.id]|default:$rowData.ID}', 'adspan_{$rowData[$params.id]|default:$rowData.ID}', '{$rowData[$params.id]|default:$rowData.KBDOCUMENT_NAME_js}', 'panel_{$rowData[$params.id]|default:$rowData.ID}','{$pageData.offsets.current+$smarty.foreach.rowIteration.iteration}')" onclick="updateKBViewsCount('{$rowData[$params.id]|default:$rowData.ID}')">
 								<{$pageData.tag.$id[$params.ACLTag]|default:$pageData.tag.$id.MAIN} href='#'>
-								{$rowData.$col}
+								{$rowData.$ucol}
 								</{$pageData.tag.$id[$params.ACLTag]|default:$pageData.tag.$id.MAIN}>
 							</span>
 
@@ -121,21 +115,21 @@
 						{sugar_evalcolumn var=$params.customCode rowData=$rowData}1
 					{elseif $params.currency_format}
 						{sugar_currency_format
-							var=$rowData.$col
+							var=$rowData.$ucol
 							round=$params.currency_format.round
 							decimals=$params.currency_format.decimals
 							symbol=$params.currency_format.symbol
 						}
 					{elseif $params.type == 'bool'}
 							<input type='checkbox' disabled=disabled class='checkbox'
-							{if !empty($rowData[$col])}
+							{if !empty($rowData.$ucol)}
 								checked=checked
 							{/if}
 							/>
 					{else}
-						{$rowData.$col}
+						{$rowData.$ucol}
 					{/if}
-                    {if empty($rowData.$col)}&nbsp;{/if}
+                    {if empty($rowData.$ucol)}&nbsp;{/if}
 				</span sugar='sugar{$colCounter}b'></td>
 				{counter name="colCounter"}
 			{/foreach}

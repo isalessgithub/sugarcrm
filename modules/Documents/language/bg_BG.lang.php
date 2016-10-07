@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -118,7 +115,6 @@ $mod_strings = array (
   'LBL_NAME' => 'Име на документа',
   'LBL_NEW_FORM_TITLE' => 'Нов документ',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Възможности',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукти',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Оферти',
   'LBL_RELATED_DOCUMENT_ID' => 'Още документи по темата',
   'LBL_RELATED_DOCUMENT_REVISION_ID' => 'Ревизии на документа по темата',
@@ -127,11 +123,12 @@ $mod_strings = array (
   'LBL_REVISIONS_PANEL' => 'Ревизии на документа',
   'LBL_REVISIONS_SUBPANEL' => 'Ревизии',
   'LBL_REVISION_NAME' => 'Номер на ревизията',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Revenue Line Items',
   'LBL_SEARCH_EXTERNAL_DOCUMENT' => 'Име на документа',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Документи"',
-  'LBL_SELECTED_REVISION_FILENAME' => 'Selected revision filename',
-  'LBL_SELECTED_REVISION_ID' => 'Selected revision id',
-  'LBL_SELECTED_REVISION_NAME' => 'Selected revision name:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Име на файла на избраната ревизия',
+  'LBL_SELECTED_REVISION_ID' => 'Идентификатор на избраната ревизия',
+  'LBL_SELECTED_REVISION_NAME' => 'Име на избраната ревизия:',
   'LBL_SF_ACTIVE_DATE' => 'Публикуван на:',
   'LBL_SF_CATEGORY' => 'Категория:',
   'LBL_SF_DOCUMENT' => 'Име на документа:',

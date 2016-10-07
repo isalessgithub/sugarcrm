@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Syntaxe de l&#39;action planifiée invalide',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Tous les jours',
   'LBL_ALWAYS' => '- toujours -',
   'LBL_AND' => 'et',
+  'LBL_ASYNCMASSUPDATE' => 'Réaliser les mises à jour globale de manière asynchrone',
   'LBL_AT' => 'à',
   'LBL_AT_THE' => 'A le',
   'LBL_BASIC_OPTIONS' => 'Paramétrages Essentiels',
   'LBL_CATCH_UP' => 'Relancer si manqué',
   'LBL_CATCH_UP_WARNING' => 'Décocher si cette action peut prendre du temps à s&#39;exectuer.',
   'LBL_CLEANJOBQUEUE' => 'Nettoyer le job de la file d&#39;attente',
+  'LBL_CLEANOLDRECORDLISTS' => 'Supprime les ancients enregistrements',
   'LBL_CRONTAB_EXAMPLES' => 'Les valeurs ci dessus utilisent les notations standard de la crontab.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Veuillez en tenir compte lorsque vous paramétrez des tâches planifiées.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Les tâches planifiées sont basées sur la timezone du serveur (',
@@ -75,23 +74,28 @@ $mod_strings = array (
   'LBL_NAME' => 'Nom du Job',
   'LBL_NEVER' => '- jamais -',
   'LBL_NEW_FORM_TITLE' => 'Nouvelle action planifiée',
-  'LBL_NO_PHP_CLI' => 'Si votre serveur ne dispose pas du binaire PHP, vous pouvez utiliser wget ou curl pour lancer vos Jobs.<br>pour wget: <b>*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;wget --spider /cron.php</b><br>pour curl: <b>*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;curl --silent /cron.php',
+  'LBL_NO_PHP_CLI' => 'Si votre serveur ne dispose pas du binaire PHP, vous pouvez utiliser wget ou curl pour lancer vos Jobs.<br><br />pour wget: <b>*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;wget --quiet --non-verbose http://url.devotresugar.tld/cron.php > /dev/null 2>&1</b><br><br />pour curl: <b>*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;curl --silent http://url.devotresugar.tld/cron.php > /dev/null 2>&1',
   'LBL_OFTEN' => 'Aussi souvent que possible.',
   'LBL_ON_THE' => 'Toutes les',
   'LBL_OOTB_BOUNCE' => 'Lancer le process nocturne de gestion des bounces des campagnes emails',
   'LBL_OOTB_CAMPAIGN' => 'Lancer le process nocture d&#39;envoi des Campagnes emails',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Nettoyer la file des jobs',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Créer les Périodes futures',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Vérifier les boîtes emails entrants',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Tâche planifié du planificateur de gestionnaire de processus',
   'LBL_OOTB_PRUNE' => 'Purger la BDD le premier de chaque mois',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Suppression des documents du système de fichier',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Nettoyage des ancients enregistrements',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Supprimer les fichiers de diagnostique',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Supprimer les fichiers PDF temporaires',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Supprimer les fichiers temporaires',
   'LBL_OOTB_REPORTS' => 'Lancer les actions planifiées de génération de rapports',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Exécuter les notifications par email',
-  'LBL_OOTB_SUGARFEEDS' => 'Vider les tables liées aux SugarFeeds',
   'LBL_OOTB_TRACKER' => 'Purger les tables des Suivis',
   'LBL_OOTB_WORKFLOW' => 'Actions des Processus de Workflow',
   'LBL_PERENNIAL' => '- jamais -',
   'LBL_PERFORMFULLFTSINDEX' => 'système d&#39;indexation de recherche Full-Text',
+  'LBL_PMSEENGINECRON' => 'Planificateur du gestionnaire de processus',
   'LBL_POLLMONITOREDINBOXES' => 'Vérifier les boîtes emails entrantes',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Lancer le processus de nuit des Campagnes d&#39;Emails de type Bounce',
   'LBL_PROCESSQUEUE' => 'Lancer les actions planifiées de génération de rapports',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Purger la BDD le premier de chaque mois',
   'LBL_RANGE' => 'à',
   'LBL_REFRESHJOBS' => 'Rafraichir les jobs',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Suppression des documents du système de fichier',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Lancer de nuit les Campagnes d&#39;Emailing',
   'LBL_SAT' => 'Le samedi',
   'LBL_SCHEDULER' => 'Planificateur:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Exécuter l&#39;envoi des rappels par email',
   'LBL_STATUS' => 'Statut',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Créer les Périodes futures',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Le dimanche',
   'LBL_THU' => 'Le jeudi',
   'LBL_TIME_FROM' => 'Actif de:',
   'LBL_TIME_TO' => 'Actif jusqu à',
   'LBL_TOGGLE_ADV' => 'Options avancées',
   'LBL_TOGGLE_BASIC' => 'Options de base',
-  'LBL_TRIMSUGARFEEDS' => 'Vider les tables liées aux SugarFeeds',
   'LBL_TRIMTRACKER' => 'Purger les tables des historiques',
   'LBL_TUE' => 'Le mardi',
   'LBL_UPDATETRACKERSESSIONS' => 'Mettre à jour la table tracker_sessions',

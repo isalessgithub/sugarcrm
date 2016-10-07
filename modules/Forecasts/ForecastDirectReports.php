@@ -1,31 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
-
-// User is used to store customer information.
 class ForecastDirectReports extends SugarBean {
 
 	var $user_id;
@@ -70,6 +55,9 @@ class ForecastDirectReports extends SugarBean {
     var $currencysymbol;
     var $currency_id;
 
+    var $pipeline_amount;
+    var $pipeline_opp_count;
+
     var $object_name = 'ForecastDirectReports';
     var $module_dir = 'Forecasts';
     var $disable_custom_fields = true;
@@ -80,19 +68,13 @@ class ForecastDirectReports extends SugarBean {
 
     var $new_schema = true;
 
-    function ForecastDirectReports() {
+    public function __construct() {
         global $current_user, $db;
 
-        parent::SugarBean();
+        parent::__construct();
         $this->disable_row_level_security =true;
 
-
-        $this->currency = new Currency();
-        if (isset($current_user)) {
-            $this->currency->retrieve($current_user->getPreference('currency'));
-        }else{
-            $this->currency->retrieve('-99');
-        }
+        $this->currency = BeanFactory::getBean('Currencies')->getUserCurrency();
         $this->currencysymbol= $this->currency->symbol;
 
     }
@@ -200,7 +182,7 @@ class ForecastDirectReports extends SugarBean {
     function create_forecast_query_for_user($this_user,$type,$cur_user_id, $cur_user_forecast_type) {
     global $current_user;
         $query = "SELECT ";
-        $query .= " forecasts.id, forecasts.opp_count, forecasts.opp_weigh_value, forecasts.best_case,forecasts.likely_case,forecasts.worst_case, forecasts.date_entered, '$type' as forecast_type ";
+        $query .= " forecasts.id, forecasts.opp_count, forecasts.pipeline_opp_count, forecasts.pipeline_amount, forecasts.opp_weigh_value, forecasts.best_case,forecasts.likely_case,forecasts.worst_case, forecasts.date_entered, '$type' as forecast_type ";
         $query .= " ,worksheet.id worksheet_id ,worksheet.best_case wk_best_case, worksheet.likely_case wk_likely_case, worksheet.worst_case wk_worst_case";
         $query .= " FROM forecasts";
 
@@ -233,7 +215,13 @@ class ForecastDirectReports extends SugarBean {
 
         $forecast_fields['FORECAST_TYPE']= $this->forecast_type;
 
-        $forecast_fields['USER_NAME']= $locale->getLocaleFormattedName($forecast_fields['FIRST_NAME'], $forecast_fields['LAST_NAME']);
+        $forecast_fields['USER_NAME']= $locale->formatName(
+            'Users',
+            array(
+                'first_name' => $forecast_fields['FIRST_NAME'],
+                'last_name'  => $forecast_fields['LAST_NAME'],
+            )
+        );
 
         $forecast_fields['BEST_CASE'] =  $this->opp_best_case;
         $forecast_fields['WORST_CASE'] = $this->opp_worst_case;
@@ -284,7 +272,10 @@ class ForecastDirectReports extends SugarBean {
         $ret_array=array();
         $ret_array['select'] = "SELECT id, users.first_name ,users.last_name, users.id as user_id";
         $ret_array['from'] = " FROM users  ";
+        $us = BeanFactory::getBean('Users');
+        $us->addVisibilityFrom($ret_array['from'], array('where_condition' => true));
         $ret_array['where'] = " where $where AND users.status = 'Active'";
+        $us->addVisibilityFrom($ret_array['where'], array('where_condition' => true));
         $ret_array['order_by'] = !empty($order_by) ? ' ORDER BY '. $order_by : '  ORDER BY users.last_name';
         if ( $return_array )
             return $ret_array;
@@ -300,10 +291,12 @@ class ForecastDirectReports extends SugarBean {
         $result = $this->db->query($query,true,"Error fetching forecasts:");
 
         $this->total_opp_count=0;
-        $this->total_weigh_value_number =0;
-        $this->total_likely_case_number=0;
-        $this->total_best_case_number=0;
-        $this->total_worst_case_number=0;
+        $this->total_weigh_value_number = 0;
+        $this->total_likely_case_number = 0;
+        $this->total_best_case_number = 0;
+        $this->total_worst_case_number = 0;
+        $this->pipeline_opp_count = 0;
+        $this->pipeline_amount = 0;
 
         while(($row = $this->db->fetchByAssoc($result)) != null) {
 
@@ -321,20 +314,23 @@ class ForecastDirectReports extends SugarBean {
             $fresult = $this->db->query($fquery,true,"Error fetching forecasts:");
             $frow = $this->db->fetchByAssoc($fresult);
             if ($frow != null) {
-                $this->total_opp_count+=empty($frow['opp_count']) ? 0 : $frow['opp_count'];
-                $this->total_weigh_value_number +=empty($frow['opp_weigh_value']) ? 0 : $frow['opp_weigh_value'] ;
-                $this->total_likely_case_number +=empty($frow['likely_case']) ? 0 : $frow['likely_case'];
-                $this->total_best_case_number +=empty($frow['best_case']) ? 0 : $frow['best_case'];
-                $this->total_worst_case_number +=empty($frow['worst_case']) ? 0 : $frow['worst_case'];
+                $this->total_opp_count+= empty($frow['opp_count']) ? 0 : $frow['opp_count'];
+                $this->total_weigh_value_number += empty($frow['opp_weigh_value']) ? 0 : $frow['opp_weigh_value'] ;
+                $this->total_likely_case_number += empty($frow['likely_case']) ? 0 : $frow['likely_case'];
+                $this->total_best_case_number += empty($frow['best_case']) ? 0 : $frow['best_case'];
+                $this->total_worst_case_number += empty($frow['worst_case']) ? 0 : $frow['worst_case'];
+                $this->pipeline_opp_count += empty($frow['pipeline_opp_count']) ? 0 : $frow['pipeline_opp_count'];
+                $this->pipeline_amount += empty($frow['pipeline_amount']) ? 0 : $frow['pipeline_amount'];
+
 
                 if (empty($frow['worksheet_id'])) {
-                    $this->total_wk_likely_case_number +=empty($frow['likely_case'])? 0 :$frow['likely_case'];
-                    $this->total_wk_best_case_number +=empty($frow['best_case']) ? 0 : $frow['best_case'];
-                    $this->total_wk_worst_case_number +=empty($frow['worst_case'])?0:$frow['worst_case'];
+                    $this->total_wk_likely_case_number += empty($frow['likely_case'])? 0 :$frow['likely_case'];
+                    $this->total_wk_best_case_number += empty($frow['best_case']) ? 0 : $frow['best_case'];
+                    $this->total_wk_worst_case_number += empty($frow['worst_case'])?0:$frow['worst_case'];
                 } else {
-                    $this->total_wk_likely_case_number +=empty($frow['wk_likely_case'])?0:$frow['wk_likely_case'];
-                    $this->total_wk_best_case_number +=empty($frow['wk_best_case'])?0:$frow['wk_best_case'];
-                    $this->total_wk_worst_case_number +=empty($frow['wk_worst_case'])?0:$frow['wk_worst_case'];
+                    $this->total_wk_likely_case_number += empty($frow['wk_likely_case'])?0:$frow['wk_likely_case'];
+                    $this->total_wk_best_case_number += empty($frow['wk_best_case'])?0:$frow['wk_best_case'];
+                    $this->total_wk_worst_case_number += empty($frow['wk_worst_case'])?0:$frow['wk_worst_case'];
                 }
             }
         }
@@ -350,21 +346,21 @@ class ForecastDirectReports extends SugarBean {
 
         if ($currency_format) {
             //convert amounts to preferred currency
-            $this->total_commit_value_number=  $this->currency->convertFromDollar($this->total_commit_value_number);
-            $this->total_weigh_value_number=  $this->currency->convertFromDollar($this->total_weigh_value_number);
-            $this->total_likely_case_number=  $this->currency->convertFromDollar($this->total_likely_case_number);
-            $this->total_best_case_number=  $this->currency->convertFromDollar($this->total_best_case_number);
-            $this->total_worst_case_number=  $this->currency->convertFromDollar($this->total_worst_case_number);
-            $this->total_wk_likely_case_number=  $this->currency->convertFromDollar($this->total_wk_likely_case_number);
-            $this->total_wk_best_case_number=  $this->currency->convertFromDollar($this->total_wk_best_case_number);
-            $this->total_wk_worst_case_number=  $this->currency->convertFromDollar($this->total_wk_worst_case_number);
+            $this->total_commit_value_number =  $this->currency->convertFromDollar($this->total_commit_value_number);
+            $this->total_weigh_value_number =  $this->currency->convertFromDollar($this->total_weigh_value_number);
+            $this->total_likely_case_number =  $this->currency->convertFromDollar($this->total_likely_case_number);
+            $this->total_best_case_number =  $this->currency->convertFromDollar($this->total_best_case_number);
+            $this->total_worst_case_number =  $this->currency->convertFromDollar($this->total_worst_case_number);
+            $this->total_wk_likely_case_number =  $this->currency->convertFromDollar($this->total_wk_likely_case_number);
+            $this->total_wk_best_case_number =  $this->currency->convertFromDollar($this->total_wk_best_case_number);
+            $this->total_wk_worst_case_number =  $this->currency->convertFromDollar($this->total_wk_worst_case_number);
 
             //format number and currency.
-            $this->total_commit_value_number= $this->currency->symbol. format_number($this->total_commit_value_number,0,0);
-            $this->total_weigh_value_number= $this->currency->symbol. format_number($this->total_weigh_value_number,0,0);
-            $this->total_likely_case_number= $this->currency->symbol. format_number($this->total_likely_case_number,0,0);
-            $this->total_best_case_number= $this->currency->symbol. format_number($this->total_best_case_number,0,0);
-            $this->total_worst_case_number= $this->currency->symbol. format_number($this->total_worst_case_number,0,0);
+            $this->total_commit_value_number = $this->currency->symbol. format_number($this->total_commit_value_number,0,0);
+            $this->total_weigh_value_number = $this->currency->symbol. format_number($this->total_weigh_value_number,0,0);
+            $this->total_likely_case_number = $this->currency->symbol. format_number($this->total_likely_case_number,0,0);
+            $this->total_best_case_number = $this->currency->symbol. format_number($this->total_best_case_number,0,0);
+            $this->total_worst_case_number = $this->currency->symbol. format_number($this->total_worst_case_number,0,0);
         }
     }
 

@@ -1,19 +1,20 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
+// $Id: UpgradeWizard.php 56427 2010-05-13 00:38:18Z smalyshev $
+if(!is_admin($GLOBALS['current_user'])){
+	sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
+}
 require_once('modules/Administration/UpgradeWizardCommon.php');
 require_once('ModuleInstall/PackageManager/PackageManagerDisplay.php');
 require_once('ModuleInstall/ModuleScanner.php');
@@ -95,7 +96,7 @@ if( isset( $_REQUEST['run'] ) && ($_REQUEST['run'] != "") ){
                     !$upload->final_move($upload->get_stored_file_name())
                     ) {
     			    unlinkTempFiles();
-                    sugar_die("Invalid Package");
+                    sugar_die($mod_strings['LBL_UPGRADE_WIZARD_INVALID_PKG']);
             	} else {
     			     $tempFile = "upload://".$upload->get_stored_file_name();
                      $perform = true;
@@ -122,7 +123,14 @@ if( isset( $_REQUEST['run'] ) && ($_REQUEST['run'] != "") ){
     				$ms->displayIssues();
     				die();
     			}
-    			validate_manifest( $manifest );
+
+                try {
+                    validate_manifest($manifest);
+                } catch (Exception $e) {
+                    $msg = $e->getMessage();
+                    $GLOBALS['log']->fatal("$msg\n" . $e->getTraceAsString());
+                    die($msg);
+                }
 
 			    $upgrade_zip_type = $manifest['type'];
 
@@ -172,10 +180,10 @@ if( isset( $_REQUEST['run'] ) && ($_REQUEST['run'] != "") ){
 
         if(substr($delete_me, -4) != ".zip" || substr($delete_me, 0, 9) != "upload://" ||
         strpos($checkFile, "..") !== false || !file_exists($checkFile)) {
-            die("<span class='error'>File is not a zipped archive.</span>");
+            die("<span class='error'>".$mod_strings['ERR_UW_NOT_ZIPPED']."</span>");
         }
 		if(unlink($delete_me)) { // successful deletion?
-			echo "Package $delete_me has been removed.<br>";
+			echo string_format($mod_strings['LBL_UPGRADE_WIZARD_PKG_REMOVED'], array($delete_me))."<br>";
 		} else {
 			die("Problem removing package $delete_me.");
 		}
@@ -237,6 +245,14 @@ $form3 =<<<eoq3
 eoq3;
 
 echo $form2.$form3;
+
+if (!empty($_REQUEST['reloadMetadata'])) {
+    echo "
+        <script>
+            var app = window.parent.SUGAR.App;
+            app.api.call('read', app.api.buildURL('ping'));
+        </script>";
+}
 
 // scan for new files (that are not installed)
 /*print( "$descItemsQueued<br>\n");

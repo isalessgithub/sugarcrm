@@ -1,28 +1,18 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'Targets',
+  'LBL_MODULE_NAME_SINGULAR' => 'Target',
   'LBL_MODULE_ID'   => 'Targets',
   'LBL_INVITEE' => 'Direct Reports',
   'LBL_MODULE_TITLE' => 'Targets: Home',
@@ -49,7 +39,6 @@ $mod_strings = array (
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
 //END DON'T CONVERT
-  'LBL_CAMPAIGN_ID' => 'Campaign ID',
   'LBL_EXISTING_PROSPECT' => 'Used an existing contact',
   'LBL_CREATED_PROSPECT' => 'Created a new contact',
   'LBL_EXISTING_ACCOUNT' => 'Used an existing account',
@@ -72,6 +61,7 @@ $mod_strings = array (
   'LBL_HOME_PHONE' => 'Home:',
   'LBL_OTHER_PHONE' => 'Other Phone:',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_STREET' => 'Street',
   'LBL_PRIMARY_ADDRESS_STREET' => 'Primary Address Street:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Primary Address City:',
   'LBL_PRIMARY_ADDRESS_COUNTRY' => 'Primary Address Country:',
@@ -87,7 +77,7 @@ $mod_strings = array (
   'LBL_BIRTHDATE' => 'Birthdate:',
   'LBL_EMAIL_ADDRESS' => 'Email Address:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
-  'LBL_ANY_EMAIL' => 'Any Email:',
+  'LBL_ANY_EMAIL' => 'Email:',
   'LBL_ASSISTANT' => 'Assistant:',
   'LBL_ASSISTANT_PHONE' => 'Assistant Phone:',
   'LBL_DO_NOT_CALL' => 'Do Not Call:',
@@ -105,11 +95,12 @@ $mod_strings = array (
   'LBL_PROSPECT_ROLE' => 'Role:',
   'LBL_OPP_NAME' => 'Opportunity Name:',
   'LBL_IMPORT_VCARD' => 'Import vCard',
-  'LBL_IMPORT_VCARDTEXT' => 'Automatically create a new contact by importing a vCard from your file system.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Target from vCard created succesfully',
+  'LBL_IMPORT_VCARDTEXT' => 'Automatically create a new target by importing a vCard from your file system.',
   'LBL_DUPLICATE' => 'Possible Duplicate Targets',
-  'MSG_SHOW_DUPLICATES' => 'The target record you are about to create might be a duplicate of a target record that already exists. Target records containing similar names and/or email addresses are listed below.<br>Click Create Target to continue creating this new target, or select an existing target listed below.',
-  'MSG_DUPLICATE' => 'The target record you are about to create might be a duplicate of a target record that already exists. Target records containing similar names and/or email addresses are listed below.<br>Click Save to continue creating this new target, or click Cancel to return to the module without creating the target.',
-  'LNK_IMPORT_VCARD' => 'Create From vCard',
+  'MSG_SHOW_DUPLICATES' => 'The Target record you are about to create might be a duplicate of a Target record that already exists. Target records containing similar names and/or email addresses are listed below.<br>Click Create Target to continue creating this new Target, or select an existing target listed below.',
+  'MSG_DUPLICATE' => 'The Target record you are about to create might be a duplicate of a Target record that already exists. Target records containing similar names and/or email addresses are listed below.<br>Click Save to continue creating this new Target, or click Cancel to return to the module without creating the Target.',
+  'LNK_IMPORT_VCARD' => 'Create Target From vCard',
   'LNK_NEW_ACCOUNT' => 'Create Account',
   'LNK_NEW_OPPORTUNITY' => 'Create Opportunity',
   'LNK_NEW_CASE' => 'Create Case',
@@ -154,6 +145,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE'=>'Campaign Log',
   'LBL_TRACKER_KEY'=>'Tracker Key',
   'LBL_LEAD_ID'=>'Lead Id',
+  'LBL_LEAD' => 'Lead',
   'LBL_CONVERTED_LEAD'=>'Converted Lead',
   'LBL_ACCOUNT_NAME'=>'Account Name',
   'LBL_EDIT_ACCOUNT_NAME'=>'Account Name:',
@@ -173,5 +165,39 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modified By ID',
   'LBL_EXPORT_CREATED_BY' => 'Created By ID',
   'LBL_EXPORT_EMAIL2'=>'Other Email Address',
+  'LBL_RECORD_SAVED_SUCCESS' => 'You successfully created the {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
+    //D&B Principal Identification
+    'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
+    'LBL_DNB_BAL_PREVIEW' => 'Targets Preview',
+    'LBL_DNB_BAL_RSLT_CNT' => 'Targets',
+    'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Target Information',
+    //Document title
+    'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+    'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
+
+    // Help Text
+    // List View Help Text
+    'LBL_HELP_RECORDS' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}. Information (e.g. name, email address) regarding these {{plural_module_name}} are normally acquired from business cards you receive while attending various trades shows, conferences, etc. {{plural_module_name}} in Sugar are stand-alone records as they are not related to {{contacts_module}}, {{leads_module}}, {{accounts_module}}, or {{opportunities_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} Record view.',
+
+    // Record View Help Text
+    'LBL_HELP_RECORD' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}.
+
+- Edit this record\'s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+
+    // Create View Help Text
+    'LBL_HELP_CREATE' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+
+    'LBL_FILTER_PROSPECTS_REPORTS' => 'Targets\' reports',
 );
-?>

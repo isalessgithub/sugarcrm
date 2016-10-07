@@ -1,32 +1,30 @@
 <?php
-$viewdefs ['ProspectLists'] = 
-array (
-  'EditView' => 
+// created: 2016-10-06 15:20:01
+$viewdefs['ProspectLists']['EditView'] = array (
+  'templateMeta' => 
   array (
-    'templateMeta' => 
+    'form' => 
     array (
-      'form' => 
+      'hidden' => 
       array (
-        'hidden' => 
-        array (
-          0 => '<input type="hidden" name="campaign_id" value="{$smarty.request.campaign_id}">',
-        ),
+        0 => '<input type="hidden" name="campaign_id" value="{$smarty.request.campaign_id}">',
       ),
-      'maxColumns' => '2',
-      'widths' => 
+    ),
+    'maxColumns' => '2',
+    'widths' => 
+    array (
+      0 => 
       array (
-        0 => 
-        array (
-          'label' => '10',
-          'field' => '30',
-        ),
-        1 => 
-        array (
-          'label' => '10',
-          'field' => '30',
-        ),
+        'label' => '10',
+        'field' => '30',
       ),
-      'javascript' => '<script type="text/javascript">
+      1 => 
+      array (
+        'label' => '10',
+        'field' => '30',
+      ),
+    ),
+    'javascript' => '<script type="text/javascript">
 function toggle_domain_name(list_type)  {ldelim} 
     domain_name = document.getElementById(\'domain_name_div\');
     domain_label = document.getElementById(\'domain_label_div\');
@@ -39,101 +37,99 @@ function toggle_domain_name(list_type)  {ldelim}
      {rdelim} 
  {rdelim} 
 </script>',
-      'tabDefs' => 
-      array (
-        'DEFAULT' => 
-        array (
-          'newTab' => false,
-          'panelDefault' => 'expanded',
-        ),
-        'LBL_PANEL_ASSIGNMENT' => 
-        array (
-          'newTab' => false,
-          'panelDefault' => 'expanded',
-        ),
-      ),
-      'useTabs' => false,
-    ),
-    'panels' => 
+    'tabDefs' => 
     array (
-      'default' => 
+      'DEFAULT' => 
       array (
-        0 => 
-        array (
-          0 => 
-          array (
-            'name' => 'client_edit_disabled_c',
-            'label' => 'LBL_CLIENT_EDIT_DISABLED',
-          ),
-          1 => '',
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
-            'name' => 'name',
-            'displayParams' => 
-            array (
-              'required' => true,
-            ),
-          ),
-          1 => 
-          array (
-            'name' => 'list_type',
-            'displayParams' => 
-            array (
-              'required' => true,
-              'javascript' => 'onchange="toggle_domain_name(this);"',
-            ),
-          ),
-        ),
-        2 => 
-        array (
-          0 => 
-          array (
-            'name' => 'description',
-          ),
-          1 => 
-          array (
-            'name' => 'domain_name',
-            'customLabel' => '<div {if $fields.list_type.value != "exempt_domain"} style=\'display:none\'{/if} id=\'domain_label_div\'>{$MOD.LBL_DOMAIN}</div>',
-            'customCode' => '<div {if $fields.list_type.value != "exempt_domain"} style=\'display:none\'{/if} id=\'domain_name_div\'><input name="domain_name" id="domain_name" maxlength="255" type="text" value="{$fields.domain_name.value}"></div>',
-          ),
-        ),
-        3 => 
-        array (
-          0 => 
-          array (
-            'name' => 'clients_c',
-            'studio' => 'visible',
-            'label' => 'LBL_CLIENTS',
-          ),
-          1 => 
-          array (
-            'name' => 'atc_isscampaigns_prospectlists_1_name',
-          ),
-        ),
+        'newTab' => false,
+        'panelDefault' => 'expanded',
       ),
       'LBL_PANEL_ASSIGNMENT' => 
       array (
+        'newTab' => false,
+        'panelDefault' => 'expanded',
+      ),
+    ),
+    'useTabs' => false,
+  ),
+  'panels' => 
+  array (
+    'default' => 
+    array (
+      0 => 
+      array (
         0 => 
         array (
-          0 => 
+          'name' => 'client_edit_disabled_c',
+          'label' => 'LBL_CLIENT_EDIT_DISABLED',
+        ),
+        1 => '',
+      ),
+      1 => 
+      array (
+        0 => 
+        array (
+          'name' => 'name',
+          'displayParams' => 
           array (
-            'name' => 'assigned_user_name',
-            'label' => 'LBL_ASSIGNED_TO_NAME',
+            'required' => true,
           ),
-          1 => 
+        ),
+        1 => 
+        array (
+          'name' => 'list_type',
+          'displayParams' => 
           array (
-            'name' => 'team_name',
-            'displayParams' => 
-            array (
-              'display' => true,
-            ),
+            'required' => true,
+            'javascript' => 'onchange="toggle_domain_name(this);"',
+          ),
+        ),
+      ),
+      2 => 
+      array (
+        0 => 
+        array (
+          'name' => 'description',
+        ),
+        1 => 
+        array (
+          'name' => 'domain_name',
+          'customLabel' => '<div {if $fields.list_type.value != "exempt_domain"} style=\'display:none\'{/if} id=\'domain_label_div\'>{$MOD.LBL_DOMAIN}</div>',
+          'customCode' => '<div {if $fields.list_type.value != "exempt_domain"} style=\'display:none\'{/if} id=\'domain_name_div\'><input name="domain_name" id="domain_name" maxlength="255" type="text" value="{$fields.domain_name.value}"></div>',
+        ),
+      ),
+      3 => 
+      array (
+        0 => 
+        array (
+          'name' => 'clients_c',
+          'studio' => 'visible',
+          'label' => 'LBL_CLIENTS',
+        ),
+        1 => 
+        array (
+          'name' => 'atc_isscampaigns_prospectlists_1_name',
+        ),
+      ),
+    ),
+    'LBL_PANEL_ASSIGNMENT' => 
+    array (
+      0 => 
+      array (
+        0 => 
+        array (
+          'name' => 'assigned_user_name',
+          'label' => 'LBL_ASSIGNED_TO_NAME',
+        ),
+        1 => 
+        array (
+          'name' => 'team_name',
+          'displayParams' => 
+          array (
+            'display' => true,
           ),
         ),
       ),
     ),
   ),
 );
-?>

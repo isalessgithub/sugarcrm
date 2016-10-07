@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Eroare: Campul Exista Deja',
@@ -51,6 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponibil',
   'LBL_AVAILABLE_OPTIONS' => 'Optiuni Valabile',
   'LBL_AVAILABLE_SUBPANELS' => 'Subpanouri Disponibile',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: document incorect format',
   'LBL_BASIC' => 'Elementar',
   'LBL_BASIC_SEARCH' => 'Cautare Elementara',
   'LBL_BLANK' => '-alb-',
@@ -66,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Anulare',
   'LBL_BTN_CLONE' => 'Cloneaza',
   'LBL_BTN_CLOSE' => 'Inchide',
+  'LBL_BTN_COPY' => 'Copiere',
+  'LBL_BTN_COPY_FROM' => 'Copiere din',
   'LBL_BTN_DELETE' => 'Sterge',
   'LBL_BTN_DEPLOY' => 'Desfasoara',
   'LBL_BTN_DONT_SAVE' => 'Anuleaza Modificarile',
@@ -87,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Anulare',
   'LBL_BTN_VIEW_FIELDS' => 'Vizualizeaza Domenii',
   'LBL_BTN_VIEW_LAYOUTS' => 'Vizualizeaza Structuri',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Vizualizare planuri generale mobile',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Vizualizeaza Relatiile',
   'LBL_BUG_TRACKER' => 'Agent Urmarire Probleme',
   'LBL_CALCULATED' => 'Calculat',
   'LBL_CASES' => 'Cazuri',
   'LBL_CLEAR_EXTENSIONS' => 'Inlatura Extensiile',
   'LBL_CLEAR_RELATIONSHIPS' => 'Inlatura Relatiile',
+  'LBL_COMBO_FIELD_CONTAINS' => 'conţine',
   'LBL_COMPANY' => 'Companie',
   'LBL_CONFIG_PORTAL_URL' => 'URL-ul la imaginea logo personalizata. Dimensiunile recomandate sunt 163 × logo 18 pixeli.',
   'LBL_CONFIRM_DONT_SAVE' => 'S-au facut modificari de cand ati salvat ultima oara, doriti sa salvati?',
@@ -102,6 +104,7 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Sigur stergeti aceasta relatie?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Aceasta va determina ca relatia sa devina permanenta. Sunteti sigur ca doriti sa desfasurati aceasta  relatie?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Ati selectionat acest item pentru a fi inlaturat din lista derulanta. Orice camp derulant care utilizeaza acest item ca pe o valoare, nu va mai afisa valoarea si aceasta nu va mai putea fi selectionata din campurile derulante. Sunteti sigur ca doriti sa continuati?',
+  'LBL_COPY_FROM' => 'Copiere de la',
   'LBL_COPY_FROM_EDITVIEW' => 'Copiati de la EditView',
   'LBL_CREATE' => 'Creeaza',
   'LBL_CREATE_NEW' => 'Creeaza nou',
@@ -134,13 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Listeaza elemente',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Arata Eticheta',
   'LBL_DROPDOWN_ITEM_NAME' => 'Numele elementului',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Cheia există deja în listă',
   'LBL_DROPDOWN_LANGUAGE' => 'Limba',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Lista trebuie să conţină cel puţin un elemente activat',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nume',
   'LBL_DROP_HERE' => '[Lasa sa cada aici]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dependent',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Selectati un modul',
+  'LBL_EC_CUSTOMDROPDOWN' => 'listă/e derulantă/e personalizată/e',
   'LBL_EC_CUSTOMFIELD' => 'domenii personalizate',
+  'LBL_EC_CUSTOMLABEL' => 'etichetă/e personalizată/e',
   'LBL_EC_CUSTOMLAYOUT' => 'schite particularizate',
   'LBL_EC_DESCRIPTION' => 'Descriere:',
   'LBL_EC_EMPTYCUSTOM' => 'are particularizarile goale.',
@@ -164,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Campuri',
   'LBL_FILE' => 'Fisiier',
   'LBL_FILLER' => '(umplere)',
+  'LBL_FILTER_SEARCH' => 'Căutare',
   'LBL_FORMULA' => 'Formula',
   'LBL_FORMULA_BUILDER' => 'Constructor de Formule',
   'LBL_FORMULA_INVALID' => 'Formula Invalida',
   'LBL_FORMULA_TYPE' => 'Formula trebuie să fie  tip',
   'LBL_HCUSTOM' => 'PERSONALIZAT',
   'LBL_HDEFAULT' => 'IMPLICIT',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Copiere din plan general',
   'LBL_HIDDEN' => 'Ascuns',
   'LBL_HIDEOPTIONS' => 'Ascunde optiuni',
   'LBL_HIGH' => 'Ridicat',
@@ -180,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Al meu',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Renunta la editor',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Chie derualanta nu poate contine cote.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indică un câmp mixt. Un câmp mixt reprezintă un ansamblu de câmpuri individuale. De exemplu, "Adresă" este un câmp mixt care conţine "Stradă", "Oraş", "Cod poştal","Stat" şi"Ţară".<br><br>Faceţi dublu clic pe un câmp mixt pentru a vedea ce câmpuri conţine.',
   'LBL_ISSUE' => 'Problema',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Sigur doriţi ştergerea acestui element din lista derulantă? Acest lucru poate afecta funcţionalitatea aplicaţiei.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Sigur doriţi ştergerea etapei de vânzări Closed Lost (Afacere încheiată în pierdere)? Ştergerea acestei etape va duce la funcţionarea necorespunzătoare a modulului Previzionare',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Sigur doriţi ştergerea etapei de vânzări Closed Won (Afacere încheiată cu succes)? Ştergerea acestei etape va duce la funcţionarea necorespunzătoare a modulului Previzionare',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Sigur doriţi să ştergeţi starea Vânzări în desfăşurare? Ştergerea acestei stări va duce la funcţionarea necorespunzătoare a fluxului de lucru Element de venit din modulul Oportunităţi.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Sigur doriţi să ştergeţi starea Vânzări noi? Ştergerea acestei stări va duce la funcţionarea necorespunzătoare a fluxului de lucru Element de venit din modulul Oportunităţi.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Sigur doriţi să ştergeţi acest element din lista derulantă? Ştergerea etapelor Closed Won (Afacere încheiată cu succes) sau Closed Lost (Afacere încheiată în pierdere) va duce la funcţionarea necorespunzătoare a modulului Previzionare',
   'LBL_JS_DEPLOY_PACKAGE' => 'Orice particularizari pe care le-ati efectuat in Studio vor fi suprascrise atunci cand modulul va fi re-desfasurat. Sunteti sigur ca doriti sa continuati?',
   'LBL_JS_REMOVE_MODULE' => 'Sigur doriti sa scoateti acest modul? Aceasta va sterge definitiv toate fisierele asociate cu acest modul.',
   'LBL_JS_REMOVE_PACKAGE' => 'Sigur doriti sa scoateti acest pachet? Aceasta va sterge definitiv toate fisierele asociate cu acest pachet.',
   'LBL_JS_VALIDATE_KEY' => 'Cheie - Trebuie sa fie alfanumerica',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Cheie - Trebuie să fie alfanumerică şi să înceapă cu o literă.',
   'LBL_JS_VALIDATE_LABEL' => 'Introduceti o eticheta care va fi folosita ca Nume Afisat pentru acest modul.',
   'LBL_JS_VALIDATE_NAME' => 'Nume - Trebuie sa fie alfanumeric, fara spatii si incepand cu o litera.',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Numele Pachetului există deja',
@@ -239,6 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Nu s-au gasit campuri',
   'LBL_NO_FUNCS' => 'Nu s-au gasit functii',
   'LBL_NO_RELS' => 'Nu Sunt Relatii',
+  'LBL_NO_SAVE_ACTION' => 'Nu s-a putut găsi acţiunea de salvare pentru această vizualizare.',
   'LBL_NUMBER' => 'Numar',
   'LBL_ONETOMANY' => 'Una la Mai Multe',
   'LBL_ONETOONE' => 'Una la Una',
@@ -300,7 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Selectati o schita de Portal Sugar pentru editare.',
   'LBL_QUICKCREATE' => 'Creare Rapida',
   'LBL_READ_ONLY' => 'Citeste doar',
+  'LBL_RECORDVIEW' => 'Vizualizare înregistrare',
   'LBL_RELATED_FIELD' => 'legate de Câmp',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (relaţionat {1} ID)',
   'LBL_RELATE_TO' => 'Inrudit Cu',
   'LBL_RELATIONSHIPS' => 'Relatii',
   'LBL_RELATIONSHIP_EDIT' => 'Modifica Relatie',
@@ -320,6 +340,7 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Reseteaza Modulul',
   'LBL_RESTORE_DEFAULT' => 'Restaurarea valori Predeterminate',
   'LBL_RHS_MODULE' => 'Modul inrudit',
+  'LBL_ROLE' => 'Rol',
   'LBL_ROLLUP' => 'Ruleaza in sus',
   'LBL_RSUB' => 'Acesta este subpanoul care va fi afisat in modulul dumneavoastra',
   'LBL_SALE' => 'Vanzare',
@@ -347,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Selecteaza un Subpanou',
   'LBL_SELECT_FILE' => 'Selecteaza fisier',
   'LBL_SELECT_SUBPANEL' => 'Selecteaza Subpanou',
+  'LBL_SINGULAR_LABEL' => 'Etichetă singulară',
   'LBL_SP_PREVIEW' => 'Aceasta este o previzualizare a felului in care Portalul Sugar va arata in cazul utilizarii stilului de formular.',
   'LBL_SP_UPLOADED' => 'Incarcat',
   'LBL_SP_UPLOADSTYLE' => 'Selectati un stil de formular pentru a fi incarcat de pe computerul dumneavoastra.<br />Stilul de formular va fi implementat in Portalul Sugar urmatoarea data cand veti executa o sincronizare.',
@@ -419,20 +441,41 @@ $mod_strings = array (
     array (
       'default' => 'Există două coloane afişate la stânga.Coloana din dreapta-mana, etichetate curent Examinare aspect sau aspect, este locul unde vă schimbaţi aspectul modulul.Coloana din stânga, intitulat Toolbox, conţine elemente utile şi instrumente pentru utilizarea la editarea aspect.<br /><br />În cazul în care zona de aspect este intitulat structura actuală, atunci sunt de lucru pe o copie a aspectului utilizat în prezent de modul de afişare.<br /><br />În cazul în care este intitulat Examinare aspect atunci sunt de lucru pe o copie a creat mai devreme de un clic pe butonul Save, care ar fi fost deja schimbat de la versiunea văzut de utilizatorii acestui modul.',
       'panels' => 'Această zonă arată cum va arăta aspect pentru utilizatorii de acest modul atunci când este depolyed.<br /><br />Puteţi repoziţiona elemente, cum ar fi câmpurile, rânduri şi panouri prin glisare şi fixare a acestora; şterge elemente prin glisarea şi fixarea lor pe zona de gunoi din caseta de instrumente, sau adăuga elemente noi, trăgându-le de la set de instrumente şi fixarea acestora pe aspectul înpoziţia dorită.',
+      'publishBtn' => '',
+      'saveBtn' => '',
+      'toolbox' => '',
     ),
     'listViewEditor' => 
     array (
       'Available' => 'In stoc',
       'Default' => 'Initial',
       'Hidden' => 'Ascuns',
+      'modify' => '',
+      'savebtn' => '',
+    ),
+    'main' => 
+    array (
+      'studioWelcome' => '',
+      'welcome' => '',
     ),
     'module' => 
     array (
+      'afterSave' => '',
       'create' => 'Furnizaţi un Nume pentru pachetul. Numele pe care îl introduceţi trebuie să fie alfanumeric şi nu conţina spaţii. (Exemplu: HR_Management)<br /><br />Puteţi furniza informaţii Autor şi Descriere pentru pachet.<br /><br />Faceţi clic pe Salvare pentru a crea pachet.',
+      'editView' => '',
+      'existingModule' => '',
+      'labels' => '',
+      'somemodules' => '',
+      'viewfields' => '',
+      'viewlayouts' => '',
+      'viewrelationships' => '',
     ),
     'package' => 
     array (
+      'afterSave' => '',
       'create' => 'Furnizaţi un Nume pentru pachetul. Numele pe care îl introduceţi trebuie să fie alfanumeric şi nu conţina spaţii. (Exemplu: HR_Management)<br /><br />Puteţi furniza informaţii Autor şi Descriere pentru pachet.<br /><br />Faceţi clic pe Salvare pentru a crea pachet.',
+      'nopackages' => '',
+      'somepackages' => '',
     ),
     'searchViewEditor' => 
     array (
@@ -443,7 +486,24 @@ $mod_strings = array (
     ),
     'studioWizard' => 
     array (
+      'appBtn' => '',
       'backBtn' => 'Intoarcete la pasul anterior',
+      'exportBtn' => '',
+      'fieldsBtn' => '',
+      'labelsBtn' => '',
+      'layoutsBtn' => '',
+      'layoutsHelp' => '',
+      'mainHelp' => '',
+      'mbBtn' => '',
+      'mbHelp' => '',
+      'moduleBtn' => '',
+      'moduleHelp' => '',
+      'newPackage' => '',
+      'searchHelp' => '',
+      'studioBtn' => '',
+      'studioHelp' => '',
+      'subpanelBtn' => '',
+      'subpanelHelp' => '',
     ),
   ),
   'fieldTypes' => 
@@ -474,6 +534,7 @@ $mod_strings = array (
     'dropdowns' => 
     array (
       'default' => 'Initial',
+      'editdropdown' => '',
     ),
     'exportcustom' => 
     array (
@@ -485,7 +546,11 @@ $mod_strings = array (
     ),
     'fieldsEditor' => 
     array (
+      'addField' => '',
       'default' => 'Initial',
+      'editField' => '',
+      'mbDefault' => '',
+      'mbeditField' => '',
     ),
     'fieldsHelp' => 
     array (
@@ -494,19 +559,31 @@ $mod_strings = array (
     'labelsHelp' => 
     array (
       'default' => 'Initial',
+      'publishBtn' => '',
       'saveBtn' => 'Ckic pt a salva toate modificarile',
     ),
     'layoutEditor' => 
     array (
       'default' => 'Initial',
+      'defaultdetailview' => '',
+      'defaultquickcreate' => '',
+      'defaultrecordview' => '',
+      'delete' => '',
+      'historyBtn' => '',
+      'historyDefault' => '',
       'panels' => 'Această zonă arată cum va arăta aspect pentru utilizatorii de acest modul atunci când este depolyed.<br /><br />Puteţi repoziţiona elemente, cum ar fi câmpurile, rânduri şi panouri prin glisare şi fixare a acestora; şterge elemente prin glisarea şi fixarea lor pe zona de gunoi din caseta de instrumente, sau adăuga elemente noi, trăgându-le de la set de instrumente şi fixarea acestora pe aspectul înpoziţia dorită.',
+      'property' => '',
+      'publishBtn' => '',
       'saveBtn' => 'Ckic pt a salva toate modificarile',
+      'toolbox' => '',
     ),
     'listViewEditor' => 
     array (
       'Available' => 'In stoc',
       'Default' => 'Initial',
       'Hidden' => 'Ascuns',
+      'historyBtn' => '',
+      'historyDefault' => '',
       'modify' => 'Proprietăţile şi acţiunile posibile pentru pachet apar aici.<br /><br />Puteţi modifica Numele, Autorul  şi Descrierea pachetului, precum şi  vizualiza şi personaliza toate modulele conţinute în pachet.<br /><br />Faceţi clic pe New Modulul pentru a crea un modul pentru acest pachet.<br /><br />Dacă pachetul conţine cel puţin un modul, aveţi posibilitatea să publicaţi şi Implementaţi pachet, precum şi Exporta personalizările făcute în pachet.',
       'savebtn' => 'Faceţi clic pe Salvare pentru a salva toate datele introduse în legătură cu pachetul.',
     ),
@@ -528,8 +605,14 @@ $mod_strings = array (
       'studio' => 'Verificarea acestei casete va permite administratorilor să personalizeze acest modul în cadrul Studio.',
       'team_security' => 'Verificati Team Security, caseta de selectare va permite echipei de securitate acest modul<br />În cazul în care echipa de securitate este activată, câmpul de selecţie Echipa va apărea în înregistrările din modul.',
       'type_basic' => 'Tipul de șablon de bază prevede domenii de bază, cum ar fi Nume, atribuite, pe echipe, data crearii si campuri Descriere.',
+      'type_company' => '',
+      'type_file' => '',
+      'type_issue' => '',
+      'type_person' => '',
+      'type_sale' => '',
       'viewfieldsbtn' => 'Faceți clic pe Vizualizare Domenii pentru a vedea câmpurile asociate cu modulul și pentru a crea și edita câmpuri personalizate.',
       'viewlayoutsbtn' => 'Faceți clic pe Vizualizare Layouts pentru a vedea aspectele de modul și de a personaliza dispunerea domeniului în aspecte',
+      'viewmobilelayoutsbtn' => '',
       'viewrelsbtn' => 'Faceți clic pe Vizualizare Relații pentru a vedea relațiile asociate cu acest modul și pentru a crea noi relatii.',
     ),
     'package' => 
@@ -554,6 +637,8 @@ $mod_strings = array (
     array (
       'Default' => 'Initial',
       'Hidden' => 'Ascuns',
+      'historyBtn' => '',
+      'historyDefault' => '',
       'modify' => 'Proprietăţile şi acţiunile posibile pentru pachet apar aici.<br /><br />Puteţi modifica Numele, Autorul  şi Descrierea pachetului, precum şi  vizualiza şi personaliza toate modulele conţinute în pachet.<br /><br />Faceţi clic pe New Modulul pentru a crea un modul pentru acest pachet.<br /><br />Dacă pachetul conţine cel puţin un modul, aveţi posibilitatea să publicaţi şi Implementaţi pachet, precum şi Exporta personalizările făcute în pachet.',
       'savebtn' => 'Faceţi clic pe Salvare pentru a salva toate datele introduse în legătură cu pachetul.',
     ),
@@ -571,23 +656,75 @@ $mod_strings = array (
     ),
     'relationshipsHelp' => 
     array (
+      'addRelationship' => '',
+      'addrelbtn' => '',
       'default' => 'Initial',
     ),
     'searchViewEditor' => 
     array (
       'Default' => 'Initial',
       'Hidden' => 'Ascuns',
+      'historyBtn' => '',
+      'historyDefault' => '',
       'modify' => 'Proprietăţile şi acţiunile posibile pentru pachet apar aici.<br /><br />Puteţi modifica Numele, Autorul  şi Descrierea pachetului, precum şi  vizualiza şi personaliza toate modulele conţinute în pachet.<br /><br />Faceţi clic pe New Modulul pentru a crea un modul pentru acest pachet.<br /><br />Dacă pachetul conţine cel puţin un modul, aveţi posibilitatea să publicaţi şi Implementaţi pachet, precum şi Exporta personalizările făcute în pachet.',
       'savebtn' => 'Faceţi clic pe Salvare pentru a salva toate datele introduse în legătură cu pachetul.',
     ),
     'studioWizard' => 
     array (
+      'AdvancedSearchBtn' => '',
+      'BasicSearchBtn' => '',
+      'DashletListViewBtn' => '',
+      'DashletSearchViewBtn' => '',
+      'Layouts' => '',
+      'PopupListViewBtn' => '',
+      'PopupSearchViewBtn' => '',
+      'SPSync' => '',
+      'SPUploadCSS' => '',
+      'addDropDownBtn' => '',
+      'appBtn' => '',
       'backBtn' => 'Intoarcete la pasul anterior',
+      'convertLeadHelp' => '',
+      'dashletHelp' => '',
+      'dropDownEditorBtn' => '',
+      'editDropDownBtn' => '',
+      'exportBtn' => '',
+      'fieldsBtn' => '',
+      'labelsBtn' => '',
+      'layoutsBtn' => '',
+      'layoutsHelp' => '',
+      'mainHelp' => '',
+      'mbBtn' => '',
+      'mbHelp' => '',
+      'moduleBtn' => '',
+      'moduleHelp' => '',
+      'newPackage' => '',
+      'popupHelp' => '',
+      'portalBtn' => '',
+      'portalHelp' => '',
+      'portalLayoutHelp' => '',
+      'relationshipHelp' => '',
+      'relationshipsBtn' => '',
+      'relationshipsHelp' => '',
+      'searchBtn' => '',
+      'searchHelp' => '',
+      'studioBCHelp' => '',
+      'studioBtn' => '',
+      'studioHelp' => '',
+      'subpanelBtn' => '',
+      'subpanelHelp' => '',
+      'sugarPortalBtn' => '',
+      'viewBtnDashlet' => '',
+      'viewBtnDetailView' => '',
+      'viewBtnEditView' => '',
+      'viewBtnListView' => '',
+      'viewBtnQuickCreate' => '',
     ),
     'subPanelEditor' => 
     array (
       'Default' => 'Initial',
       'Hidden' => 'Ascuns',
+      'historyBtn' => '',
+      'historyDefault' => '',
       'modify' => 'Proprietăţile şi acţiunile posibile pentru pachet apar aici.<br /><br />Puteţi modifica Numele, Autorul  şi Descrierea pachetului, precum şi  vizualiza şi personaliza toate modulele conţinute în pachet.<br /><br />Faceţi clic pe New Modulul pentru a crea un modul pentru acest pachet.<br /><br />Dacă pachetul conţine cel puţin un modul, aveţi posibilitatea să publicaţi şi Implementaţi pachet, precum şi Exporta personalizările făcute în pachet.',
       'savebtn' => 'Faceţi clic pe Salvare pentru a salva toate datele introduse în legătură cu pachetul.',
     ),

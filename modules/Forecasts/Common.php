@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Common.php 53409 2010-01-04 03:31:15Z roger $
  * Description: TODO:  To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -30,6 +27,7 @@ class Common {
 	var $all_users=array();  //array of userid's and reports_to_id
 	var $my_managers=array();  //array of users current user reports to. direct and indirect
 	var $my_downline=array();  //array of users reporting to current user. direct and indirect.
+    var $my_direct_downline=array();  //array of users directly reporting to current user
 	var $current_user;  //logged in user's id
 	var $my_direct_reports=array();
 	var $my_timeperiods=array();
@@ -96,13 +94,13 @@ class Common {
 
 				//Add to my direct reports array.
 				if (isset($row['reports_to_id']) && $this->current_user == $row['reports_to_id'] ) {
-					$this->my_direct_reports[$row['id']] = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+                    $this->my_direct_reports[$row['id']] = $locale->formatName('Users', $row);
 				}
 
 				//set name..
                 //jclark - Bug 51212 - Forecasting user rollup shows incorrect user name
 				if ("{$this->current_user}" == "{$row['id']}") {
-					$this->my_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+                    $this->my_name = $locale->formatName('Users', $row);
 				}
 			}
 		}
@@ -149,36 +147,11 @@ class Common {
 	//using the forecast_schedule table find all the timeperiods the
 	//logged in user needs to forecast for.
     //todo add date format for sqlserver.
+    /**
+     * @deprecated
+     */
 	function get_my_timeperiods() {
-
-        $nowdate = $this->db->quoted(TimeDate::getInstance()->nowDbDate());
-        //current system date must fall between forecast start date (forecast schedule) and end date (time period)
-        //not checking systemdate against the time period start date because users may  want to start forecasting before the actual
-        //time period begins.
-        $query = "SELECT a.timeperiod_id, b.name, b.start_date, b.end_date, a.user_id, a.cascade_hierarchy"
-            . " FROM forecast_schedule a, timeperiods b"
-            . " WHERE a.timeperiod_id = b.id"
-            . " AND a.forecast_start_date <= $nowdate "
-            . " AND b.end_date >= $nowdate "
-            . " AND a.deleted = 0"
-            . " AND b.deleted = 0"
-            . " AND a.status = 'Active'"
-            . " ORDER BY b.start_date, b.end_date";
-        //check whether the logged in user needs to forecast for this period or not.
-        //for all the rows returned make sure that user_id is the logged in user
-        //or someone this user report's to.
-        $result = $this->db->query($query,false," Error filling in list of timeperiods to be forecasted: ");
-
-        while (($row = $this->db->fetchByAssoc($result)) != null) {
-
-            if ($row['user_id'] == $this->current_user || ( $row['cascade_hierarchy'] == '1' && in_array($row['user_id'],$this->my_managers)))  {
-
-                if (!(array_key_exists($row['timeperiod_id'],$this->my_timeperiods))) {
-
-                    $this->my_timeperiods[$row['timeperiod_id']]=$row['name'];
-                }
-            }
-        }
+         $this->my_timeperiods = array();
     }
 
 	//returns a list of timeperiods that users has committed forecasts for.
@@ -207,7 +180,7 @@ class Common {
 		$result = $this->db->query($query,true," Error fetching user name: ");
 
 		if (($row  =  $this->db->fetchByAssoc($result)) != null) {
-			return $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+            return $locale->formatName('Users', $row);
 		}
 	}
 
@@ -267,5 +240,37 @@ class Common {
 			$this->retrieve_downline($row['id']);
 		}
 	}
-}
+    function retrieve_direct_downline($user_id)
+    {
+        //find the direct reports_to users
+        $query = "SELECT id FROM users WHERE reports_to_id = '$user_id' AND deleted = 0 AND status = 'Active'";
+        $result = $this->db->query($query,true," Error fetching user's reporting hierarchy: ");
+        while (($row  =  $this->db->fetchByAssoc($result)) != null)
+        {
+            $this->my_direct_downline[]= $row['id'];
+        }
+    }
 
+    /**
+     * Get the passes in users reportee's who have a forecast for the passed in time period
+     *
+     * @param string $user_id           A User Id
+     * @param string $timeperiod_id     The Time period you want to check for
+     * @return array
+     */
+    public function getReporteesWithForecasts($user_id, $timeperiod_id) {
+
+        $return = array();
+        $query = "SELECT distinct users.user_name FROM users, forecasts
+                WHERE forecasts.timeperiod_id = '" . $timeperiod_id . "' AND forecasts.deleted = 0
+                AND users.id = forecasts.user_id AND (users.reports_to_id = '" . $user_id . "')";
+
+        $result = $this->db->query($query,true," Error fetching user's reporting hierarchy: ");
+        while (($row  =  $this->db->fetchByAssoc($result)) != null)
+        {
+            $return[] = $row['user_name'];
+        }
+
+        return $return;
+    }
+}

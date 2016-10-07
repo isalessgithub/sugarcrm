@@ -2,25 +2,33 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_NO_OPPS' => 'Необходимо создать Сделки для просмотра графика Сделок',
   'LBL_ALL_OPPORTUNITIES' => 'Общая сумма всех сделок',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => 'Коэффициент окупаемости инвестиций кампании',
+  'LBL_CHART_ACTION' => 'Действие',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE Действия по типам (текущий месяц)',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Lead Source по выходу',
+  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'Модули, использованные в моих отчётах (за последние 30 дней)',
+  'LBL_CHART_MY_MODULES_USED_30_DAYS' => 'Мои модули (использованные за последние 30 дней)',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Мой график по стадиям продаж',
+  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'Продажи этого квартала',
+  'LBL_CHART_OUTCOME_BY_MONTH' => 'Выход по месяцам',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'График по Lead Source',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'График по стадиям продаж',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'График по стадиям воронки продаж',
   'LBL_CHART_TYPE' => 'Тип диаграммы:',
   'LBL_CLOSE_DATE_END' => 'Ожидаемая дата закрытия - До:',
   'LBL_CLOSE_DATE_START' => 'Ожидаемая дата закрытия - От:',

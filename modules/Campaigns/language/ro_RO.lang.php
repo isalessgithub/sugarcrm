@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Vă rugăm să corectaţi următoarele erori înainte de a continua',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Venituri Estimate:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frecventa:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Impresii',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Campania "{0}" are statut de "inactiv". Trebuie să setați starea campaniei la "Activ".',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Campania &#39;{0}&#39; are starea &#39;Inactivă&#39;. Trebuie să setaţi starea campaniei la &#39;Activă&#39;.',
   'LBL_CAMPAIGN_INFORMATION' => 'Campanie Prezentare generală',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Calauze',
   'LBL_CAMPAIGN_NAME' => 'Nume',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Creat de',
   'LBL_CREATED_BY' => 'Creeat de:',
   'LBL_CREATED_USER' => 'Creeata de Utilizator',
+  'LBL_CREATE_EMAIL' => 'Creare E-mail',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Creaza',
   'LBL_CREATE_MAILBOX' => 'Creaza cont de mail nou',
   'LBL_CREATE_NEWSLETTER' => 'Creaza stiri',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Creaza formular Web catre Conducator',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_ID' => 'Moneda Id',
+  'LBL_CURRENCY_RATE' => 'Curs de schimb',
   'LBL_CUSTOM_LOCATION' => 'Definite de Utilizator',
   'LBL_DATE_CREATED' => 'Data creearii:',
   'LBL_DATE_ENTERED' => 'Data Intrare',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Lansarea de configurare e-mail',
   'LBL_EMAIL_SETUP_WIZARD' => 'Seteaza email',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Email-ul instalare de Campanii',
+  'LBL_EMAIL_TITLE' => 'Campanii: E-mail-uri',
+  'LBL_END_DATE' => 'Dată Sfârşit',
   'LBL_FILTER_CHART_BY' => 'Filtru diagramei prin:',
   'LBL_FINISH' => 'Sfarsit',
   'LBL_FROM_ADDR' => 'De la Adresa Email:',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Utilizati SSL',
   'LBL_SSL_DESC' => 'Daca serverul dumneavoastra de mail suport conexiuni soclu securizate, activarea acestuia va forta conexiunile SSL atunci cand se importa emailuri.',
   'LBL_START' => 'Start',
+  'LBL_START_DATE' => 'Dată Începere',
   'LBL_START_DATE_TIME' => 'Data si Timp Inceput:',
+  'LBL_STATUS' => 'Stare',
   'LBL_STATUS_TEXT' => 'Conditia',
   'LBL_SUBSCRIPTION_LIST' => 'Lista de abonament',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Abonament Lista Nume:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Vezi detalii',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Vezi detalii',
   'LBL_TOP_CAMPAIGNS' => 'Campanii de top',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Top Performing Campaigns by Revenue',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Campanii de top pe venit',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Nume campanie:',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Venituri',
   'LBL_TOTAL_ENTRIES' => 'Intrari',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Această opţiune va şterge intrări jurnal creat de încercare. Continuaţi?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Urmariti sirul',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Vezi ROI',
+  'LBL_TYPE' => 'Tip',
   'LBL_UNSUBSCRIBED_HEADER' => 'Disponibil / Stiri dezabonate lui',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Mutarea la striti şi la stiri disponibile / stiri dezabonate listei, se va adăuga persoana de contact la Lista de dezabonare pentru aceasta stire. Acesta nu va elimina contactul din lista iniţială de abonament sau Lista ţintă.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Lista de dezabonare',

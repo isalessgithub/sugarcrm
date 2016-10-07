@@ -1,24 +1,21 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/DynamicFields/templates/Fields/TemplateDatetimecombo.php');
 
 function get_body(&$ss, $vardef){
 	$defaultTime = '';
 	$hours = "";
-	$minitues = "";
+	$minutes = "";
 	$meridiem = "";
 	$td = new TemplateDatetimecombo();
 	$ss->assign('default_values', array_flip($td->dateStrings));
@@ -39,21 +36,23 @@ function get_body(&$ss, $vardef){
 		$dt = explode("&", $vardef['display_default']); //+1 day&06:00pm
 		$date = $dt[0];
 		$defaultTime = $dt[1];
-		$hours = substr($defaultTime, 0, 2); 
-		$minitues = substr($defaultTime, 3, 2);
-		$meridiem = substr($defaultTime, 5, 2);
+
+        preg_match('/([\d]+):([\d]{2})(am|pm)$/', $defaultTime, $time); //+1 day&06:00pm
+        $hours = $time[1];
+		$minutes = $time[2];
+		$meridiem = $time[3];
 		if(!$show_meridiem) {
-		   preg_match('/(am|pm)$/i', $meridiem, $matches);
-		   if(strtolower($matches[0]) == 'am' && $hours == 12) {
+		   if($meridiem == 'am' && $hours == 12) {
 		   	  $hours = '00';
-		   } else if (strtolower($matches[0]) == 'pm' && $hours != 12) {
+		   } else if ($meridiem == 'pm' && $hours != 12) {
 		   	  $hours += 12;
 		   }
 		}
+        $hours = strlen($hours) === 1 ? '0'.$hours : $hours;
 		$ss->assign('default_date', $date);
 	}
 	$ss->assign('default_hours', $hours);
-	$ss->assign('default_minutes', $minitues);
+	$ss->assign('default_minutes', $minutes);
 	$ss->assign('default_meridiem', $meridiem);
 	$ss->assign('defaultTime', $defaultTime);
 	return $ss->fetch('modules/DynamicFields/templates/Fields/Forms/datetimecombo.tpl');

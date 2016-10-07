@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'ドキュメント作成日',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'ドキュメント名',
   'ERR_DOC_VERSION' => 'ドキュメントのバージョン',
   'ERR_FILENAME' => 'ファイル名',
+  'ERR_FILESIZE' => 'ファイルが大きすぎます。最大ファイルサイズ:',
   'LBL_ACTIVE_DATE' => '発行日',
   'LBL_AND' => 'と',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'タグを記事に適用中...',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => '契約',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => '契約',
   'LBL_CONTRACT_NAME' => '契約名:',
+  'LBL_CONTRACT_STATUS' => '契約ステータス:',
   'LBL_CREATED' => '作成者',
   'LBL_CREATED_BY' => '作成者',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -65,7 +64,7 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => '作成日',
   'LBL_DATE_MODIFIED' => '更新日',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'ドロップダウンリストからアクションを選択',
-  'LBL_DEFAULT_LINK_TEXT' => 'デフォルトリンクテキスト',
+  'LBL_DEFAULT_LINK_TEXT' => 'デフォルトリンクテキスト。',
   'LBL_DELETE' => '削除',
   'LBL_DELETED' => '削除済み',
   'LBL_DELETE_TAG' => 'タグの削除',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'ドキュメントID',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBドキュメント版数',
   'LBL_KBDOC_APPROVED_BY' => '承認者:',
+  'LBL_KBDOC_APPROVER_NAME' => '承認者名',
   'LBL_KBDOC_ATTACHMENT' => '添付ファイル',
   'LBL_KBDOC_ATTS_TITLE' => '添付ファイルのダウンロード:',
   'LBL_KBDOC_BODY' => '本文:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => '最新版ID',
   'LBL_LATEST_REVISION_NAME' => '最新版の名前',
   'LBL_LAUNCHING_TAG_BROWSING' => 'タグブラウザを起動中...',
+  'LBL_LINKED_ID' => 'リンクID',
   'LBL_LIST_ACTIVE_DATE' => '発行日',
   'LBL_LIST_APPROVED_BY' => '承認者',
   'LBL_LIST_ARTICLES' => '記事一覧',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => '不正なファイル',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => '親タイプ',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => '検索条件を提示することにより、公開された記事をフィルタすることができます。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => '例えば、特定の話題や関心事に関する記事を見つけるために使う事ができます。',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'ナレッジベースモジュールは公開された記事と共に動きます。クイックツアーに行くためには下の矢印をクリックしてください。',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'このページは公開された記事のリストを表示します。',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'ここをクリックすることによりいつでもナレッジベースに戻ることができます。',
   'LBL_PREVIOUS_SAVED_SEARCH' => '保存済み検索:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => '保存済み検索を編集または削除',
   'LBL_PUBLISHED' => '公開済み:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'ドキュメント検索',
   'LBL_SEARCH_TAG' => '検索',
   'LBL_SEARCH_WITHIN' => '検索範囲:',
+  'LBL_SELECTED_REVISION_FILENAME' => '選択された版のファイル名',
+  'LBL_SELECTED_REVISION_ID' => '選択された版のID',
   'LBL_SELECTED_REVISION_NAME' => '選択した版の名前',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'タグを適用する記事を選択してください',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => '最初に記事を選択してください',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'タグ:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'タグの無い記事',
   'LBL_UPDATE' => '更新',
+  'LBL_VIEWS_NUMBER' => '閲覧数',
   'LNK_KBDOCUMENT_LIST' => 'ドキュメントを見る',
   'LNK_NEW_ARTICLE' => '記事作成',
   'LNK_NEW_MAIL_MERGE' => 'メールマージ',

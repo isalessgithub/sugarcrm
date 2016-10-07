@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:
@@ -30,6 +27,7 @@ class Campaign extends SugarBean {
 	var $created_by;
 	var $created_by_name;
     var $currency_id;
+    var $base_rate;
 	var $modified_by_name;
 	var $team_id;
 	var $team_name;
@@ -69,6 +67,24 @@ class Campaign extends SugarBean {
 
 	var $new_schema = true;
 
+
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Campaign()
+    {
+        self::__construct();
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
 	function list_view_parse_additional_sections(&$listTmpl) {
 		global $locale;
 
@@ -81,7 +97,7 @@ class Campaign extends SugarBean {
 
 		//_ppd($user);
 		if(!empty($user)) {
-			$fullName = $locale->getLocaleFormattedName($user->first_name, $user->last_name);
+            $fullName = $locale->formatName($user);
 			$listTmpl->assign('ASSIGNED_USER_NAME', $fullName);
 		}
 	}
@@ -91,39 +107,6 @@ class Campaign extends SugarBean {
 	{
 		return $this->name;
 	}
-
-        function create_export_query(&$order_by, &$where, $relate_link_join='')
-        {
-            $custom_join = $this->getCustomJoin(true, true, $where);
-            $custom_join['join'] .= $relate_link_join;
-            $query = "SELECT
-            campaigns.*,
-            users.user_name as assigned_user_name ";
-			$query .= ", teams.name AS team_name ";
-            $query .=  $custom_join['select'];
-	        $query .= " FROM campaigns ";
-			// We need to confirm that the user is a member of the team of the item.
-			$this->add_team_security_where_clause($query);
-			$query .= "LEFT JOIN users
-                      ON campaigns.assigned_user_id=users.id";
-			$query .= getTeamSetNameJoin('campaigns');
-            $query .=  $custom_join['join'];
-
-		$where_auto = " campaigns.deleted=0";
-
-        if($where != "")
-                $query .= " where $where AND ".$where_auto;
-        else
-                $query .= " where ".$where_auto;
-
-        if($order_by != "")
-                $query .= " ORDER BY $order_by";
-        else
-                $query .= " ORDER BY campaigns.name";
-        return $query;
-    }
-
-
 
 	function clear_campaign_prospect_list_relationship($campaign_id, $prospect_list_id='')
 	{
@@ -201,27 +184,18 @@ class Campaign extends SugarBean {
 		return $the_where;
 	}
 
-	function save($check_notify = FALSE) {
+    function save($check_notify = FALSE) {
 
-			//US DOLLAR
-			if(isset($this->amount) && !empty($this->amount)){
+        $this->unformat_all_fields();
 
-				$currency = new Currency();
-				$currency->retrieve($this->currency_id);
-				$this->amount_usdollar = $currency->convertToDollar($this->amount);
+        // Bug53301
+        if($this->campaign_type != 'NewsLetter') {
+            $this->frequency = '';
+        }
 
-			}
+        return parent::save($check_notify);
 
-		$this->unformat_all_fields();
-
-		// Bug53301
-		if($this->campaign_type != 'NewsLetter') {
-		    $this->frequency = '';
-		}
-		
-		return parent::save($check_notify);
-
-	}
+    }
 
 
 	function mark_deleted($id){
@@ -333,7 +307,7 @@ class Campaign extends SugarBean {
         }
 
 		//get select query from email man
-		$man = new EmailMan();
+		$man = BeanFactory::getBean('EmailMan');
 		$listquery= $man->create_queue_items_query('',str_replace(array("WHERE","where"),"",$query_array['where']),null,$query_array);
 		return $listquery;
 

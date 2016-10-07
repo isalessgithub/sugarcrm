@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -22,7 +19,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 $mod_strings = array (
+    'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if name}}{{str name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
+    'TPL_BROWSER_SUGAR7_ABOUT_TITLE' => 'About &raquo; {{appId}}',
   'LBL_MODULE_NAME' => 'Home',
+  'LBL_MODULE_NAME_SINGULAR' => 'Home',
   'LBL_MODULES_TO_SEARCH' => 'Modules to Search',
   'LBL_NEW_FORM_TITLE' => 'New Contact',
   'LBL_FIRST_NAME' => 'First Name:',
@@ -38,6 +38,21 @@ $mod_strings = array (
   'LNK_NEW_ACCOUNT' => 'Create Account',
   'LNK_NEW_OPPORTUNITY' => 'Create Opportunity',
   'LNK_NEW_QUOTE' => 'Create Quote',
+    'LBL_SOURCE_JQUERY' => 'jQuery - jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.',
+    'LBL_SOURCE_PLACEHOLDER' => 'jQuery-Placeholder - A plugin that enables HTML5 placeholder support for legacy browsers.',
+    'LBL_SOURCE_JQUERYUI' => 'jQuery UI - The official jQuery user interface library.',
+    'LBL_SOURCE_LESSPHP' => 'lessphp - A compiler for LESS written in PHP.',
+    'LBL_SOURCE_BACKBONE' => 'Backbone.js - A MVC framework for Javascript-heavy applications.',
+    'LBL_SOURCE_CHOSEN' => 'Chosen - A library for making long, unwieldy select boxes more friendly.',
+    'LBL_SOURCE_HANDLEBARS' => 'Handlebars - A templating engine to build semantic templates effectively.',
+    'LBL_SOURCE_JASMINE' => 'Jasmine - A behavior-driven development framework for testing JavaScript code.',
+    'LBL_SOURCE_JQUERY_IFRAME' => 'jquery.iframe-transport.js - A jQuery Ajax transport plugin that supports file uploads through a hidden iframe.',
+    'LBL_SOURCE_SINON' => 'sinon.js - Standalone test spies, stubs and mocks for JavaScript.',
+    'LBL_SOURCE_STASH' => 'Stash - A library for JavaScript that makes using offline storage easy.',
+    'LBL_SOURCE_BOOTSTRAP' => 'Twitterbootstrap - HTML, CSS, and JS toolkit from Twitter.',
+    'LBL_SOURCE_ASYNC' => 'Async - Async utilities for node and the browser.',
+    'LBL_SOURCE_PHPEXCEL' => 'PHPExcel - A pure PHP library for reading and writing spreadsheet files.', 
+    'LBL_SOURCE_TIMEAGO' => 'jquery timeago - A jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.',
   'LNK_NEW_LEAD' => 'Create Lead',
   'LNK_NEW_CASE' => 'Create Case',
   'LNK_NEW_NOTE' => 'Create Note or Attachment',
@@ -50,7 +65,6 @@ $mod_strings = array (
   'LBL_ADD_BUSINESSCARD' => 'Enter Business Card',
   'ERR_ONE_CHAR' => 'Please enter at least one letter or number for your search ...',
   'LBL_OPEN_TASKS' => 'My Open Tasks',
-  'LBL_SEARCH_RESULTS' => 'Search Results',
   'LBL_SEARCH_RESULTS_IN' => 'in',
   'LNK_NEW_SEND_EMAIL' => 'Compose Email',
   'LBL_NO_ACCESS' => 'You do not have access to this area.  Contact your site administrator to obtain access',
@@ -68,7 +82,6 @@ $mod_strings = array (
   'LBL_CHANGE_LAYOUT' => 'Change Layout',
   'LBL_RENAME_PAGE' => 'Rename Page',
   'LBL_CLOSE_DASHLETS' => 'Close',
-  'LBL_CLOSE_SITEMAP' => 'Close',
   'LBL_OPTIONS' => 'Options',
   // dashlet search fields
   'LBL_TODAY'=>'Today',
@@ -105,6 +118,7 @@ $mod_strings = array (
   'LBL_MAX_DASHLETS_REACHED' => 'You have reached the maximum number of Sugar Dashlets your administrator has set. Please remove a Sugar Dashlet to add a new one.',
   'LBL_ADDING_DASHLET' => 'Adding Sugar Dashlet ...',
   'LBL_ADDED_DASHLET' => 'Sugar Dashlet Added',
+  'LBL_DASHBOARD_LAYOUT_CONFIRM' => 'Dashlets will be re-arranged, are you sure you want to change the column layout?',
   'LBL_REMOVE_DASHLET_CONFIRM' => 'Are you sure you want to remove the Sugar Dashlet?',
   'LBL_REMOVING_DASHLET' => 'Removing Sugar Dashlet ...',
   'LBL_REMOVED_DASHLET' => 'Sugar Dashlet Removed',
@@ -113,16 +127,36 @@ $mod_strings = array (
   'LBL_DASHLET_CONFIGURE_MY_ITEMS_ONLY' => 'Only My Items',
   'LBL_DASHLET_CONFIGURE_TITLE' => 'Title',
   'LBL_DASHLET_CONFIGURE_DISPLAY_ROWS' => 'Display Rows',
+  'LBL_NO_DASHBOARD_CONFIGURED' => 'No dashboard configured.',
+  'LBL_CREATE_DASHBOARD_LINK' => 'Create a dashboard',
 
+  'LBL_DASHLET_WEBPAGE_NAME' => 'Web Page',
+  'LBL_DASHLET_WEBPAGE_DESC' => 'Web Page',
+  'LBL_DASHLET_WEBPAGE_URL' => 'URL',
+  'LBL_DASHLET_WEBPAGE_URL_HELP' => 'Some sites may not load correctly due to insecure content or policies.',
+
+  'LBL_DASHLET_ADD' => 'Add a Sugar Dashlet®',
   'LBL_DASHLET_DELETE' => 'Delete Sugar Dashlet',
   'LBL_DASHLET_REFRESH' => 'Refresh Sugar Dashlet',
   'LBL_DASHLET_EDIT' => 'Edit Sugar Dashlet',
+  'LBL_DASHBOARD_TITLE' => 'Dashboard Title',
+  'LBL_CREATE_DASHBOARD_MENU' => 'Create Dashboard',
+  'LBL_DASHBOARD_EDIT' => 'Edit Dashboard',
+  'LBL_DASHBOARD_ADD_ROW' => 'Add a Row',
+  'LBL_DASHBOARD_ADD_1_COLUMN' => '+ 1 column',
+  'LBL_DASHBOARD_ADD_2_COLUMNS' => '+ 2 columns',
+  'LBL_DASHBOARD_ADD_3_COLUMNS' => '+ 3 columns',
+  'LBL_DASHBOARD_1_COLUMN_LAYOUT' => '1 column layout',
+  'LBL_DASHBOARD_2_COLUMN_LAYOUT' => '2 column layout',
+  'LBL_DASHBOARD_3_COLUMN_LAYOUT' => '3 column layout',
 
   'LBL_TRAINING_TITLE' => 'Training',
-
+  'LBL_SEARCH_DASHLET' => 'Search dashlets',
   'LBL_CREATING_NEW_PAGE' => 'Creating New Page...',
   'LBL_NEW_PAGE_FEEDBACK' => 'You have created a new page. You can add new content with the Add Sugar Dashlets option.',
   'LBL_DELETE_PAGE_CONFIRM' => 'Are you sure you want to delete this page?',
+  'LBL_DELETE_DASHBOARD_CONFIRM' => 'Are you sure you want to delete this dashboard?',
+  'LBL_DELETE_DASHBOARD_SUCCESS' => 'The dashboard "{{name}}" has been deleted.',
   'LBL_SAVING_PAGE_TITLE' => 'Saving Page Title...',
   'LBL_RETRIEVING_PAGE' => 'Retrieving Page...',
 
@@ -150,8 +184,17 @@ $mod_strings = array (
 //ABOUT page
   'LBL_VERSION' => 'Version',
   'LBL_BUILD' => 'Build',
-
-
+    'TPL_ABOUT' => 'About {{product_name}}, Version {{version}} (Build {{build}}{{#if custom_version}} - {{custom_version}}{{/if}})',
+    'LBL_RESOURCES' => 'Resources',
+    'LBL_RESOURCES_DOCUMENTATION' => 'Documentation',
+    'LBL_RESOURCES_DEVELOPERS' => 'Developers',
+    'LBL_RESOURCES_SUGAR_INFO' => 'SugarCRM Company Information',
+    'LBL_LANGUAGE_PACKS' => 'Language Packs',
+    'TPL_LANGUAGE_PACKS_PROVIDED_BY' => 'Provided by {{{link}}}',
+    'LBL_SUGAR_VERSION' => 'version',
+    'LBL_SUGAR_SOURCECODE_DESC' => 'Sales force automation application.',
+    'LBL_THIRD_PARTY_SOFTWARE_TITLE' => 'Third Party Software',
+    'LBL_THIRD_PARTY_SOURCECODE' => 'Information about third party code used in this product, including related license terms, is available at',
   'LBL_SUGAR_COMMUNITY_EDITION' => 'Sugar Community Edition',
   'LBL_SUGAR_PROFESSIONAL' => "Sugar Professional",
   'LBL_SUGAR_ENTERPRISE' => "Sugar Enterprise",
@@ -160,6 +203,7 @@ $mod_strings = array (
   'LBL_TRADEMARKS' => 'trademarks',
   'LBL_OF' => 'of',
   'LBL_FOUNDERS' => 'Founders',
+  'LBL_DEVELOPERS' => 'Developers',
   'LBL_JOIN_SUGAR_COMMUNITY' => 'Join the Sugar Community',
   'LBL_DETAILS_SUGARFORGE' => 'Collaborate and develop Sugar extensions',
   'LBL_DETAILS_SUGAREXCHANGE' => 'Buy and sell certified Sugar extensions',
@@ -209,15 +253,8 @@ $mod_strings = array (
   'LBL_SOURCE_PHPSQL' => 'PHP SQL Parser',
   'LBL_SOURCE_HTMLPURIFIER' => 'HTML Purifier - A standards-compliant HTML filtering library.',
   'LBL_SOURCE_XHPROF' => 'XHProf - A function-level hierarchical profiler for PHP.',
-  'LBL_SOURCE_ELASTICA' => 'Elastica - PHP client for the distributed search engine elasticsearch ',
-  'LBL_SOURCE_FACEBOOKSDK' => 'Facebook PHP SDK',
-  'LBL_SOURCE_JQUERY' => 'jQuery - jQuery is a fast, small, and feature-rich JavaScript library.',
-  'LBL_SOURCE_JQUERY_UI' => 'jQuery UI - jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library.',
-  'LBL_SOURCE_OVERLIB' => 'OverlibMWS - The overlibmws library uses javascript for DHTML popups that serve as informational and navigational aids for websites.',
-
   'LBL_DASHLET_TITLE' => 'My Sites',
   'LBL_DASHLET_OPT_TITLE' => 'Title',
-  'LBL_DASHLET_INCORRECT_URL' => 'Incorrect website location is specified',
   'LBL_DASHLET_OPT_URL' => 'Website Location',
   'LBL_DASHLET_OPT_HEIGHT' => 'Dashlet Height (in pixels)',
   'LBL_DASHLET_SUGAR_NEWS' => 'Sugar News',
@@ -226,38 +263,21 @@ $mod_strings = array (
 	'LBL_MORE_DETAIL' => 'More Detail' /*for 508 compliance fix*/,
 	'LBL_BASIC_SEARCH' => 'Basic Search' /*for 508 compliance fix*/,
 	'LBL_ADVANCED_SEARCH' => 'Advanced Search' /*for 508 compliance fix*/,
-    'LBL_TOUR_HOME' => 'Home Icon',
-    'LBL_TOUR_HOME_DESCRIPTION' => 'Quickly get back to your Home Page dashboard in one click.',
-    'LBL_TOUR_MODULES' => 'Modules',
-    'LBL_TOUR_MODULES_DESCRIPTION' => 'All your important modules are here.',
-    'LBL_TOUR_MORE' => 'More Modules',
-    'LBL_TOUR_MORE_DESCRIPTION' => 'The rest of your modules are here.',
-    'LBL_TOUR_SEARCH' => 'Full Text Search',
-    'LBL_TOUR_SEARCH_DESCRIPTION' => 'Search just got a whole lot better.',
-    'LBL_TOUR_NOTIFICATIONS' => 'Notifications',
-    'LBL_TOUR_NOTIFICATIONS_DESCRIPTION' => 'Sugar application notifications would go here.',
-    'LBL_TOUR_PROFILE' => 'Profile',
-    'LBL_TOUR_PROFILE_DESCRIPTION' => 'Access profile, settings and logout.',
-    'LBL_TOUR_QUICKCREATE' => 'Quick Create',
-    'LBL_TOUR_QUICKCREATE_DESCRIPTION' => 'Quickly create records without losing your place.',
-    'LBL_TOUR_FOOTER' => 'Collapsible Footer',
-    'LBL_TOUR_FOOTER_DESCRIPTION' => 'Easily expand and collapse the footer.',
-    'LBL_TOUR_CUSTOM' => 'Custom Apps',
-    'LBL_TOUR_CUSTOM_DESCRIPTION' => 'Custom integrations would go here.',
-    'LBL_TOUR_BRAND' => 'Your Brand',
-    'LBL_TOUR_BRAND_DESCRIPTION' => 'Your logo goes here. You can mouse over for more info.',
-    'LBL_TOUR_WELCOME' => 'Welcome to Sugar',
-    'LBL_TOUR_WATCH' => 'Watch What\'s New in Sugar',
-    'LBL_TOUR_FEATURES' => '<ul style=""><li class="icon-ok">New simplifed navigation bar</li><li class="icon-ok">New collapsible footer</li><li class="icon-ok">Improved Search</li><li class="icon-ok">Updated actions menu</li></ul><p>and much more!</p>',
-    'LBL_TOUR_VISIT' => 'For more information please visit our application',
-    'LBL_TOUR_DONE' => 'You\'re Done!',
-    'LBL_TOUR_REFERENCE_1' => 'You can always reference our',
-    'LBL_TOUR_REFERENCE_2' => 'through the "Support" link under the profile tab.',
-    'LNK_TOUR_DOCUMENTATION' => 'documentation',
-    'LBL_TOUR_CALENDAR_URL_1' => 'Do you share your SugarCRM calendar with 3rd party applications, such as Microsoft Outlook or Exchange? If so, you have a new URL. This new, more secure URL includes a personal key which will prevent unauthorized publishing of your calendar.',
-    'LBL_TOUR_CALENDAR_URL_2' => 'Retrieve your new shared calendar URL.',
+
+  'LBL_MOST_ACTIVE_COLLEAGUES' => 'Most Active',
+  'LBL_MOST_ACTIVE_COLLEAGUES_DESC' => 'It displays internal users who are most active',
+  'LBL_MOST_CALLS_MADE' => '{{count}} calls made',
+  'LBL_MOST_EMAILS_SENT' => '{{count}} emails sent',
+  'LBL_MOST_EMAILS_RECEIVED' => '{{count}} emails received',
+  'LBL_MOST_MEETING_HELD' => '{{count}} meetings held',
+
+    'LBL_SUGAR_CUBE_ALT' => 'SugarCRM',
+
+
+    // Record View Help Text
+    'LBL_HELP_RECORD_TITLE' => 'Welcome to the Sugar 7 Help Dashboard',
+    'LBL_HELP_RECORD' => 'The Help Dashlet displays specific information about the module you are viewing, provides detailed steps for performing some actions in the module, and directs you where to go for more comprehensive information and support. The Help Dashlet remains open so you can view the steps as you execute the steps in the module.
+
+The Help Dashboard is available for all Sugar 7 modules and can be toggled "open" and "closed" by clicking the Help icon in the application footer.',
 
 );
-
-
-?>

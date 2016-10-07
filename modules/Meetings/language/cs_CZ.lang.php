@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Pro odstranění',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Emailové upozornění odesláno',
   'LBL_EMAIL_REMINDER_TIME' => 'Čas emailového upozornění',
   'LBL_EMPTY_SEARCH_RESULT' => 'Omlouváme se, ale nebyly nalezeny žádné výsledky. Prosíme, vytvořte si hosta níže.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Při spouštění schůzky se naskytla chyba. Prosím, kontaktujte Administrátora.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID přiřazeného uživatele',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Přiřazený uživatel',
   'LBL_EXPORT_CREATED_BY' => 'Vytvořeno dle ID',
@@ -80,6 +78,9 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Nemůžete se přihlásit k této schůzce, protože nejste pozváni.',
   'LBL_EXTNOT_RECORD_LINK' => 'Zobrazit schůzku',
   'LBL_FIRST_NAME' => 'Jméno',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modul se skládá z {{meetings_singular_module}} záznamů zalogovaných uživateli ve Vaší společnosti. {{plural_module_name}} je možné mít ve statusu “Naplánován”, “Proběhlý” nebo “Zrušený”. Uživatelé Sugaru, stejně jako {{contacts_module}} a {{leads_module}} mohou být přidáni jako “Pozváni”. Pro vytvoření {{meetings_singular_module}}: 1. Doplnění hodnoty dle uvážení - Pole označená jako “Povinné” musí být doplněny před uložením. - V případě potřeby klikněte "Show More” pro prohlížení dalších polí. 2. Přizvěte účastníky do {{meetings_singular_module}}. - Klikněte na “Vybrat účastníka”(“Select an atendee) pro přidání k existujícímu uživateli, kontaktu, nebo příležitosti do {{meetings_singular_module}}. Klikněte na plusové tlačítko napravo od “Vybrat účastníka”("Select an atendee”) pro vytvoření {{meetings_singular_module}} účastníka pro nový záznam. 4. Klikněte “Uložit” pro vytvoření nového záznamu and vraťte se na předchozí stránku. - Vyberte “Uložit a prohlížet” ("Choose save and view”) pro otevření Vaší nové schůzky v prohlížení záznamu. - Vyberte {{meetings_singular_module}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modul se skládá z {{meetings_singular_module}} záznamů zalogovaných uživateli ve Vaší společnosti. {{plural_module_name}} je možné mít ve statusu “Naplánován”, “Proběhlý” nebo “Zrušený”. Uživatelé Sugaru, stejně jako {{contacts_module}} a {{leads_module}} mohou být přidáni jako “Pozváni”. - Upravte tyto záznamové políčka kliknutím na individuální políčko nebo Upravit políčko. - Prohlížejte a upravte odkazy na další záznamy v subpanelech přes přepínání levé dolní výplně na "Data View”. - Vytvářejte a prohlížejte komenty uživatelů a záznamů změny historie v aktivity streamu přepnutím levé dolní výplně na "Activity Stream”. - Následujte tento záznam v rozevíracím Akčním menu napravo od tlačítka Upravit.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modul se skládá z {{meetings_singular_module}} záznamů zalogovaných uživateli ve Vaší společnosti. {{plural_module_name}} je možné mít ve statusu “Naplánován”, “Proběhlý” nebo “Zrušený”. Z {{plural_module_name}} list view můžete kliknout na jakoukoliv close action tlačítko na jakýkoliv {{meetings_singular_module}}’s row (sloupec) action, abyste je označeli jako “Proběhlý”. Uživatelé Sugaru, stejně jako {{contacts_module}} a {{leads_module}} mohou být přidáni jako “Pozváni”. V Sugaru je několik způsobů jak vytvořit {{meetings_module}} jako via {{plural_module_name}} modul, {{calendar_module}} modul, importování {{meetings_module}}, atd. Uživatelé mohou také plánovat {{meetings_module}} via aktivní subpanel nebo Naplánované aktivity dashled (pro sidecar moduly), atd.), které automaticky vytváří vztah mezi oba záznamy. Jakmile {{meetings_singular_module}} záznam je vytvořen, můžete prohlížet a měnit informace týkající se {{meetings_singular_module}} via {{module_name}} detailního pohledu.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Poznámky',
   'LBL_HOST_EXT_MEETING' => 'Spustit schůzku',
   'LBL_HOST_URL' => 'Hostující URL',
@@ -87,6 +88,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(hodiny/minuty)',
   'LBL_INVITEE' => 'Pozvánka',
   'LBL_JOIN_EXT_MEETING' => 'Připojit se ke schůzce',
+  'LBL_JOIN_MEETING' => 'Připojit {{meetingType}}',
   'LBL_LAST_NAME' => 'Příjmení',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Příležitosti',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Zodpovědný uživatel',
@@ -105,6 +107,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Počáteční čas',
   'LBL_LOCATION' => 'Umístění:',
   'LBL_MEETING' => 'Schůzka:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Jednání úspěšně uzavřeno.',
   'LBL_MEETING_INFORMATION' => 'Přehled setkání',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Změnil',
@@ -112,6 +115,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Schůzky',
   'LBL_MODULE_NAME_SINGULAR' => 'Schůzka',
   'LBL_MODULE_TITLE' => 'Schůzky',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Moje naplánované schůzky',
   'LBL_NAME' => 'Název',
   'LBL_NEW_FORM_TITLE' => 'Naplánovat událost',
   'LBL_NO_ACCESS' => 'Nemáte právo k vytvoření $module',
@@ -120,6 +124,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Typ zdroje',
   'LBL_PASSWORD' => 'Heslo schůzky',
   'LBL_PHONE' => 'Telefon práce:',
+  'LBL_POPUP_REMINDER' => 'Popup připomínka',
+  'LBL_POPUP_REMINDER_TIME' => 'Popup připomínkový čas',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Úspěšně jste naplánoval {{moduleSingularLower}} pro {{formatDate date_start}}, ale nemáte povolení přístupu.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Úspěšně jste vytvořil {{moduleSingularLower}} {{name}} pro {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'opakování',
   'LBL_RECURRING_LIMIT_ERROR' => 'Tento opakující se $moduleTitle nemůže být naplánován protože překročil maximální limit pro opakování $limit.',
   'LBL_RECURRING_SOURCE' => 'Zdroj opakování',
@@ -130,6 +138,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Obeslat všechny pozvané',
   'LBL_REMINDER_POPUP' => 'Vyskakovací okno',
   'LBL_REMINDER_TIME' => 'Čas připomínky',
+  'LBL_REMINDER_TITLE' => 'Schůzka:',
   'LBL_REMOVE' => 'odstranit',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Odstranit všechny opakování',
   'LBL_REPEAT_COUNT' => 'Opakovat počet',
@@ -142,6 +151,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Opakovat zdrojové ID',
   'LBL_REPEAT_TYPE' => 'Typ opakování',
   'LBL_REPEAT_UNTIL' => 'Opakovat dokud',
+  'LBL_REVENUELINEITEMS' => 'Řádky tržeb',
   'LBL_SCHEDULING_FORM_TITLE' => 'Plánování',
   'LBL_SEARCH_BUTTON' => 'Hledat',
   'LBL_SEARCH_FORM_TITLE' => 'Hledání schůzek',
@@ -150,6 +160,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Odeslat pozvání [Alt+I]',
   'LBL_SEND_INVITES' => 'Odeslat pozvánky',
   'LBL_SEQUENCE' => 'Interval aktualizace schůzek',
+  'LBL_START_MEETING' => 'Začít {{meetingType}}',
   'LBL_STATUS' => 'Stav:',
   'LBL_SUBJECT' => 'Předmět:',
   'LBL_SYNCED_RECURRING_MSG' => 'Tato schůzka vznikla v jiném systému a byla synchronizována se Sugarem. Chcete-li toto změnit, přejděte do původní schůzky v jiném systému. Změny provedené v jiném systému mohou být synchronizovány s tímto záznamem.',

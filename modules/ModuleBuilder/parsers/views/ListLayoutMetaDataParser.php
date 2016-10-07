@@ -1,29 +1,61 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/parsers/views/AbstractMetaDataParser.php' ;
 require_once 'modules/ModuleBuilder/parsers/views/MetaDataParserInterface.php' ;
 
 class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDataParserInterface
 {
-
+    /**
+     * Defines the current view if requested and set. Not all parsers will set 
+     * this, but any that need to use the isValidField method of list need it to
+     * at least exist, even if it is empty.
+     *
+     * Bug 56100 - SubpanelMetadataParser throwing undefined property notices
+     * 
+     * @var string The view being requested
+     */
+    public $view = '';
+    
     // Columns is used by the view to construct the listview - each column is built by calling the named function
     public $columns = array ( 'LBL_DEFAULT' => 'getDefaultFields' , 'LBL_AVAILABLE' => 'getAdditionalFields' , 'LBL_HIDDEN' => 'getAvailableFields' ) ;
     protected $labelIdentifier = 'label' ; // labels in the listviewdefs.php are tagged 'label' =>
     protected $allowParent = false;
+    
+    /**
+     * Listing of field types that are not sortable
+     * 
+     * @var array
+     */
+    protected $nonSortableTypes = array(
+        'html'=>'html',
+        'text'=>'text',
+        'encrypt'=>'encrypt',
+        'iframe' => 'iframe',
+        'image' => 'image',
+        'parent' => 'parent',
+        'email' => 'email',
+    );
+    
+    protected $allowedViews = array(
+        MB_LISTVIEW,
+        MB_DASHLET,
+        MB_DASHLETSEARCH,
+        MB_POPUPLIST,
+        MB_POPUPSEARCH,
+        MB_SIDECARPOPUPVIEW,
+    	MB_WIRELESSLISTVIEW,
+    );
 
     /*
      * Simple function for array_udiff_assoc function call in getAvailableFields()
@@ -43,49 +75,55 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
 
     /*
      * Constructor
-     * @param string view          The view type, that is, editview, searchview etc
-     * @param string moduleName     The name of the module to which this listview belongs
-     * @param string packageName    If not empty, the name of the package to which this listview belongs
+     * @param string $view           The view type, that is, editview, searchview etc
+     * @param string $moduleName     The name of the module to which this listview belongs
+     * @param string $packageName    If not empty, the name of the package to which this listview belongs
+     * @param string $client         The client making the request for this parser
      */
-    function __construct ($view , $moduleName , $packageName = '')
+    function __construct ($view , $moduleName , $packageName = '', $client = '')
     {
         $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . ": __construct()" ) ;
+        
+        // Set the client
+        $this->client = $client;
 
-        // BEGIN ASSERTIONS
-        $views = array ( MB_LISTVIEW, MB_DASHLET, MB_DASHLETSEARCH, MB_POPUPLIST, MB_POPUPSEARCH ) ;
-    	$views [] = MB_WIRELESSLISTVIEW ;
-        if (! in_array ( $view , $views ) )
+        // Simple validation
+        if (!in_array($view, $this->allowedViews))
         {
             sugar_die ( "ListLayoutMetaDataParser: View $view is not supported" ) ;
         }
-        // END ASSERTIONS
-
+        
         if (empty ( $packageName ))
         {
             require_once 'modules/ModuleBuilder/parsers/views/DeployedMetaDataImplementation.php' ;
-            $this->implementation = new DeployedMetaDataImplementation ( $view, $moduleName ) ;
+            $this->implementation = new DeployedMetaDataImplementation ( $view, $moduleName, $client ) ;
         } else
         {
             require_once 'modules/ModuleBuilder/parsers/views/UndeployedMetaDataImplementation.php' ;
-            $this->implementation = new UndeployedMetaDataImplementation ( $view, $moduleName, $packageName ) ;
+            $this->implementation = new UndeployedMetaDataImplementation ( $view, $moduleName, $packageName, $client ) ;
         }
         $this->view = $view;
 
-        $this->_fielddefs = $this->implementation->getFielddefs () ;
+        $this->_fielddefs = $this->implementation->getFielddefs();
+        //$this->_paneldefs = $this->implementation->getPanelDefs();
         $this->_standardizeFieldLabels( $this->_fielddefs );
         $this->_viewdefs = array_change_key_case ( $this->implementation->getViewdefs () ) ; // force to lower case so don't have problems with case mismatches later
-
+        
+        
+        // Set the module name
+        $this->_moduleName = $moduleName;
     }
 
     /*
      * Deploy the layout
      * @param boolean $populate If true (default), then update the layout first with new layout information from the $_REQUEST array
      */
-    function handleSave ($populate = true)
-    {
-        if ($populate)
-            $this->_populateFromRequest () ;
-        $this->implementation->deploy ( array_change_key_case ( $this->_viewdefs, CASE_UPPER ) ) ; // force the field names back to upper case so the list view will work correctly
+    function handleSave($populate = true) {
+        if ($populate) {
+            $this->_populateFromRequest();
+        }
+        $this->implementation->deploy($this->_viewdefs); // force the field names back to upper case so the list view will work correctly
+        $this->_clearCaches();
     }
 
     function getLayout ()
@@ -122,30 +160,30 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
 
     /**
      * Returns additional fields available for users to create fields
-      @return array    List of additional fields as an array, where key = value = <field name>
+     * @return array    List of additional fields as an array, where key = value = <field name>
      */
     function getAdditionalFields ()
     {
         $additionalFields = array ( ) ;
         foreach ( $this->_viewdefs as $key => $def )
         {
-        	//#25322 
-        	if(strtolower ( $key ) == 'email_opt_out'){
-        		continue;
-        	}
-        	
+            //#25322
+            if(strtolower ( $key ) == 'email_opt_out'){
+                continue;
+            }
+
             if (empty ( $def [ 'default' ] ))
             {
                 if (isset($this->_fielddefs [ $key ] ))
-					$additionalFields [ $key ] = self::_trimFieldDefs ( $this->_fielddefs [ $key ] ) ;
-				else
-					$additionalFields [ $key ] = $def;
+                    $additionalFields [ $key ] = self::_trimFieldDefs ( $this->_fielddefs [ $key ] ) ;
+                else
+                    $additionalFields [ $key ] = $def;
             }
         }
         return $additionalFields ;
     }
 
-    /**
+        /**
      * Returns unused fields that are available for use in either default or additional list views
      * @return array    List of available fields as an array, where key = value = <field name>
      */
@@ -161,7 +199,7 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
     	$origDefs = $this->getOriginalViewDefs();
         foreach($origDefs as $key => $def)
         {
-        	if (!isset($this->_viewdefs[$key]) || 
+        	if (!isset($this->_viewdefs[$key]) ||
         		(isset($this->_viewdefs[$key]['enabled']) && $this->_viewdefs[$key]['enabled'] == false))
         	$availableFields [ $key ] = $def;
         }
@@ -169,29 +207,42 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
         return $availableFields;
     }
 
-    public function isValidField($key, $def)
+    public function isValidField($key, array $def)
     {
         if (isset($def['studio']))
         {
             if (is_array($def['studio']))
             {
-                $view = !empty($_REQUEST['view']) ? $_REQUEST['view'] : $this->view;
+                // Bug 54507 - Need to set the view properly for portal
+                // Portal editor requests vary in that the requested view is ListView
+                // but what we really need is portallistview, which is in $this->view
+                // All other instances of ListLayoutMetaDataParser set $this->view
+                // to $_REQUEST['view']
+                $view = $this->view;
                 
-            	// fix for removing email1 field from studio popup searchview - bug 42902
+                // Handle client specific studio setting for a field
+                $clientRules = AbstractMetaDataParser::getClientStudioValidation($def['studio'], $view, $this->client);
+                if ($clientRules !== null) {
+                    return $clientRules;
+                }
+                
+                // fix for removing email1 field from studio popup searchview - bug 42902
                 if($view == 'popupsearch' && $key == 'email1')
                 {	
             		return false;
             	} //end bug 42902
-           
-            	if (!empty($view) && isset($def['studio'][$view]) && ($def['studio'][$view] !== false && (string)$def['studio'][$view] != 'false' && (string)$def['studio'][$view] != 'hidden'))
-                {
-					return true;
-                }
 
-                if (isset($def['studio']['listview']) && ($def['studio']['listview'] !== false && (string)$def['studio']['listview'] != 'false' && (string)$def['studio']['listview'] != 'hidden'))
+                // Bug 54507 Return explicit setting of a fields view setting if there is one
+                if (!empty($view) && isset($def['studio'][$view])) 
                 {
-					return true;
+                    return $def['studio'][$view] !== false && (string)$def['studio'][$view] != 'false' && (string)$def['studio'][$view] != 'hidden';
                 }
+                
+                if (isset($def['studio']['listview']))
+                {
+					return $def['studio']['listview'] !== false && (string)$def['studio']['listview'] != 'false' && (string)$def['studio']['listview'] != 'hidden';
+                }
+                // End Bug 54507
                 
                 if (isset($def ['studio']['visible']))
                 {
@@ -234,8 +285,7 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
         return true;
     }
 
-    protected function _populateFromRequest ()
-    {
+    protected function _populateFromRequest() {
         $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . "->populateFromRequest() - fielddefs = ".print_r($this->_fielddefs, true));
         // Transfer across any reserved fields, that is, any where studio !== true, which are not editable but must be preserved
         $newViewdefs = array ( ) ;
@@ -246,11 +296,11 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
         {
             //If the field is on the layout, but studio disabled, put it back on the layout at the front
         	if (isset ($def['studio']) && (
-        		(is_array($def['studio']) && isset($def['studio']['listview']) && 
-            		($def['studio']['listview'] === false || strtolower($def['studio']['listview']) == 'false' 
+        		(is_array($def['studio']) && isset($def['studio']['listview']) &&
+            		($def['studio']['listview'] === false || strtolower($def['studio']['listview']) == 'false'
             		|| strtolower($def['studio']['listview']) == 'required')
             	)
-         		|| (!is_array($def['studio']) && 
+         		|| (!is_array($def['studio']) &&
          			($def [ 'studio' ] === false || strtolower($def['studio']) == 'false' || strtolower($def['studio']) == 'required'))
          		))
          	{
@@ -282,7 +332,38 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
 					if ( ! isset ( $this->_fielddefs [ $fieldname ] ) )
 						continue ;
 
-                    $newViewdefs[$fieldname] = self::createViewDefsByFieldDefs($this->_fielddefs[$fieldname], get_class($this));
+	                $newViewdefs [ $fieldname ] = $this->_trimFieldDefs($this->_fielddefs [ $fieldname ]) ;
+
+                    // fixing bug #25640: Value of "Relate" custom field is not displayed as a link in list view
+                    // we should set additional params such as 'link' and 'id' to be stored in custom listviewdefs.php
+                    if (isset($this->_fielddefs[$fieldname]['type']) && $this->_fielddefs[$fieldname]['type'] == 'relate')
+                    {
+                        $newViewdefs[$fieldname]['id'] = strtoupper($this->_fielddefs[$fieldname]['id_name']);
+                        $newViewdefs[$fieldname]['link'] = true;
+                    }
+                    // sorting fields of certain types will cause a database engine problems
+	                if ( isset($this->_fielddefs[$fieldname]['type']) &&
+	                		isset ( $this->nonSortableTypes [ $this->_fielddefs [ $fieldname ] [ 'type' ] ] ))
+	                {
+	                    $newViewdefs [ $fieldname ] [ 'sortable' ] = false ;
+	                }
+
+	                // Bug 23728 - Make adding a currency type field default to setting the 'currency_format' to true
+	                if (isset ( $this->_fielddefs [ $fieldname ] [ 'type' ]) && $this->_fielddefs [ $fieldname ] [ 'type' ] == 'currency')
+	                {
+	                    $newViewdefs [ $fieldname ] [ 'currency_format' ] = true;
+	                    $newViewdefs [ $fieldname ] [ 'related_fields' ] = array('currency_id', 'base_rate');
+	                }
+
+                    if ($this->_fielddefs[$fieldname]['type'] == 'parent') {
+                        $newViewdefs[$fieldname]['link'] = true;
+                        $newViewdefs[$fieldname]['sortable'] = false;
+                        $newViewdefs[$fieldname]['ACLTag' ] = 'PARENT';
+                        $newViewdefs[$fieldname]['dynamic_module'] = strtoupper($this->_fielddefs[$fieldname]['type_name']);
+                        $newViewdefs[$fieldname]['id'] = strtoupper($this->_fielddefs[$fieldname]['id_name']);
+                        $newViewdefs[$fieldname]['related_fields'] = array('parent_id', 'parent_type');
+                    }
+
                 }
                 if (isset($newViewdefs [ $fieldname ]['enabled']))
                 		$newViewdefs [ $fieldname ]['enabled'] = true;
@@ -311,54 +392,6 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
             }
         }
         $this->_viewdefs = $newViewdefs ;
-
-    }
-
-    /**
-     * Method returns viewDefs by fieldDefs
-     *
-     * @param array $fieldDefs
-     * @return array
-     */
-    public static function createViewDefsByFieldDefs(array $fieldDefs, $class = __CLASS__)
-    {
-        $rejectTypes = array(
-            'html'=>'html',
-            'text'=>'text',
-            'encrypt'=>'encrypt'
-        );
-        $viewDefs = call_user_func(array(
-                $class,
-                '_trimFieldDefs'
-            ), $fieldDefs);
-
-        // fixing bug #25640: Value of "Relate" custom field is not displayed as a link in list view
-        // we should set additional params such as 'link' and 'id' to be stored in custom listviewdefs.php
-        if (isset($fieldDefs['type']) && $fieldDefs['type'] == 'relate') {
-            $viewDefs['id'] = strtoupper($fieldDefs['id_name']);
-            $viewDefs['link'] = true;
-        }
-
-        // sorting fields of certain types will cause a database engine problems
-        if (isset($fieldDefs['type']) && isset($rejectTypes[$fieldDefs['type']])) {
-            $viewDefs['sortable'] = false;
-        }
-
-        // Bug 23728 - Make adding a currency type field default to setting the 'currency_format' to true
-        if (isset($fieldDefs['type']) && $fieldDefs['type'] == 'currency') {
-            $viewDefs['currency_format'] = true;
-        }
-
-        if ($fieldDefs['type'] == 'parent') {
-            $viewDefs['link'] = true;
-            $viewDefs['sortable'] = false;
-            $viewDefs['ACLTag' ] = 'PARENT';
-            $viewDefs['dynamic_module'] = strtoupper($fieldDefs['type_name']);
-            $viewDefs['id'] = strtoupper($fieldDefs['id_name']);
-            $viewDefs['related_fields'] = array('parent_id', 'parent_type');
-        }
-
-        return $viewDefs;
     }
 
     /*
@@ -387,11 +420,66 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
     	return $out;
     }
 
-   static function _trimFieldDefs ( $def )
-	{
-		if ( isset ( $def [ 'vname' ] ) )
-			$def [ 'label' ] = $def [ 'vname' ] ;
-		return array_intersect_key ( $def , array ( 'type' => true, 'studio' => true , 'label' => true , 'width' => true , 'sortable' => true , 'related_fields' => true , 'default' => true , 'link' => true , 'align' => true , 'orderBy' => true ,'hideLabel' => true, 'customLable' => true , 'currency_format' => true ) ) ;
-	}
+    /**
+     * Checks to see if a field name is in any of the panels
+     * @param string $name
+     * @param array  $src
+     * @return bool
+     */
+    public function panelHasField($name, $src = null) {
+        $field = $this->panelGetField($name, $src);
+        return !empty($field);
+    }
+
+    /**
+     * Scans the panels/fields to see if the panel list already has a field and,
+     * if it does, returns that field with its position in the panels list
+     *
+     * @param $name
+     * @return array
+     */
+    public function panelGetField($name, $src = null) {
+        // If there was a passed source, use that for the panel search
+        $panels = $src !== null && is_array($src) ? $src : $this->_paneldefs;
+        foreach ($panels as $panelix => $def) {
+            if (isset($def['fields'])) {
+                foreach ($def['fields'] as $fieldix => $field) {
+                    if (isset($field['name']) && $field['name'] == $name) {
+                        return array('field' => $field, 'panelix' => $panelix, 'fieldix' => $fieldix);
+                    }
+                }
+            }
+        }
+
+        return array();
+    }
+
+    public static function _trimFieldDefs($def)
+    {
+        if (isset($def['vname'])) {
+            $def['label'] = $def['vname'];
+        }
+        
+        $requiredProps = array(
+            'type' => true, 
+            'studio' => true, 
+            'label' => true, 
+            'width' => true, 
+            'sortable' => true, 
+            'related_fields' => true,
+            'default' => true, 
+            'link' => true, 
+            'align' => true, 
+            'orderBy' => true,
+            'hideLabel' => true, 
+            'customLable' => true, 
+            'currency_format' => true, 
+            'readonly' => true,
+        );
+
+        $return = array_intersect_key($def, $requiredProps);
+        
+        return $return;
+    }
 
 }

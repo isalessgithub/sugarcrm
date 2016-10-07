@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Tem a certeza que quer excluir esta conta deste projeto?',
@@ -43,11 +40,12 @@ $mod_strings = array (
   'LBL_BILLING_ADDRESS_STREET_2' => 'Endereço de Faturamento 2',
   'LBL_BILLING_ADDRESS_STREET_3' => 'Endereço de Faturamento 3',
   'LBL_BILLING_ADDRESS_STREET_4' => 'Endereço de Faturamento 4',
-  'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
+  'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs (erros)',
   'LBL_BUG_FORM_TITLE' => 'Contas',
   'LBL_CALLS_SUBPANEL_TITLE' => 'Chamadas',
   'LBL_CAMPAIGNS' => 'Campanhas',
   'LBL_CAMPAIGN_ID' => 'ID Campanha',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Campanhas',
   'LBL_CASES_SUBPANEL_TITLE' => 'Ocorrências',
   'LBL_CHARTS' => 'Gráficos',
   'LBL_CITY' => 'Cidade:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Contas',
   'LBL_DESCRIPTION' => 'Descrição:',
   'LBL_DESCRIPTION_INFORMATION' => 'Descrição',
+  'LBL_DNB_BAL_PREVIEW' => 'Visualização de Contatos',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Possível Conta Duplicada',
   'LBL_EMAIL' => 'E-mail:',
   'LBL_EMAIL_ADDRESSES' => 'Endereços de E-mail',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Nº de Funcionários:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'nome de usuário atribuído',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Anexo',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Relatórios de Contas',
+  'LBL_HELP_CREATE' => 'O {{}} plural_module_name módulo é composto por empresas com as quais a sua organização tem um relacionamento e é geralmente visto como o centro de gestão e análise de suas interações de negócios &#39;com cada cliente. Para criar uma {{}} module_name: 1. Fornecer valores para os campos conforme desejado. - Os campos marcados "necessária" deve ser preenchido antes de salvar. - Clique em "Ver Mais" para expor campos adicionais, se necessário. 2. Clique em "Salvar" para finalizar o novo álbum e voltar para a página anterior. - Escolha "Salvar e visualizar" para abrir a nova {{}} module_name no modo de registro. - Escolha "Salvar e criar novo" para criar imediatamente um outro novo {{}} module_name.',
+  'LBL_HELP_RECORD' => 'O {{}} plural_module_name módulo é composto por empresas com as quais a sua organização tem um relacionamento e é geralmente visto como o centro de gestão e análise de suas interações de negócios &#39;com cada cliente. - Editar campos deste registo, clicando em um campo individual ou no botão Editar. - Exibir ou modificar as ligações a outros registros nos subpainéis alternando no painel esquerdo inferior para "Ver dados". - Fazer e ver comentários de usuários e histórico de alterações de registro no {{}} activitystream_singular_module alternando no painel esquerdo inferior para "Atividade Stream". - Siga ou favorito este registro usando os ícones à direita do nome do registro. - Estão disponíveis ações adicionais no menu Ações suspensas à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O {{}} plural_module_name módulo é composto por empresas com as quais a sua organização tem um relacionamento e é geralmente visto como o centro de gestão e análise de suas interações de negócios &#39;com cada cliente. Existem várias maneiras que você pode criar {{}} plural_module_name em açúcar, como via a {{}} plural_module_name módulo, duplicação, importação {{}} plural_module_name, etc Uma vez que o {{}} module_name registro é criado, você pode ver e editar as informações referentes ao {{}} module_name via {{}} plural_module_name vista registro. Cada {{}} module_name registro pode então relacionar com outros registros de açúcar, como {{}} contacts_module, {{}} meetings_module, {{}} cases_module, {{}} opportunities_module, e muitos outros como o relacionamento do cliente amadurece.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Histórico',
   'LBL_HOMEPAGE_TITLE' => 'Minhas Contas',
   'LBL_INDUSTRY' => 'Negócio:',
@@ -90,7 +95,7 @@ $mod_strings = array (
   'LBL_MEMBER_OF' => 'Membro de:',
   'LBL_MEMBER_ORG_FORM_TITLE' => 'Organizações Membro',
   'LBL_MEMBER_ORG_SUBPANEL_TITLE' => 'Organizações Membro',
-  'LBL_MISC' => 'Misc',
+  'LBL_MISC' => 'Diversos',
   'LBL_MODIFIED_ID' => 'Modificado Por Id',
   'LBL_MODULE_ID' => 'Contas',
   'LBL_MODULE_NAME' => 'Contas',
@@ -98,6 +103,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Contas: Tela Principal',
   'LBL_NAME' => 'Nome:',
   'LBL_NEW_FORM_TITLE' => 'Nova Conta',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anotaçãoes:',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Oportunidades',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Outro E-mail:',
   'LBL_OTHER_PHONE' => 'Outro Telefone:',
@@ -110,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Fax:',
   'LBL_PHONE_OFFICE' => 'Telefone Comercial:',
   'LBL_POSTAL_CODE' => 'Código Postal:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produtos',
   'LBL_PRODUCTS_TITLE' => 'Produtos',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projetos',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projetos',
@@ -121,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Ordenar Entrega',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotações',
   'LBL_RATING' => 'Avaliação:',
+  'LBL_REVENUELINEITEMS' => 'Receita Itens de Linha',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Receita Itens de Linha',
   'LBL_SAVE_ACCOUNT' => 'Gravar Conta',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Contas',
   'LBL_SHIPPING_ADDRESS' => 'Endereço de Entrega:',
@@ -146,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Website',
   'LNK_ACCOUNT_LIST' => 'Contas',
   'LNK_ACCOUNT_REPORTS' => 'Relatórios sobre Contas',
+  'LNK_CREATE' => 'Criar Empresa',
   'LNK_IMPORT_ACCOUNTS' => 'Importar Contas',
   'LNK_NEW_ACCOUNT' => 'Nova Conta',
   'MSG_DUPLICATE' => 'Ao criar esta conta pode duplicar a mesma, selecione uma conta da lista abaixo ou clique em Nova Conta para continuar a criação com os dados introduzidos previamente.',

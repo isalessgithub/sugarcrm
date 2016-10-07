@@ -2,28 +2,25 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Specificeer een recordnummer om het product te verwijderen.',
+  'ERR_DELETE_RECORD' => 'U dient een record te selecteren om het product te verwijderen.',
   'LBL_ACCOUNT_NAME' => 'Organisatienaam:',
   'LBL_ASSIGNED_TO' => 'Toegewezen aan:',
   'LBL_ASSIGNED_TO_ID' => 'Toegewezen aan ID:',
   'LBL_CATEGORY' => 'Categorie:',
-  'LBL_CATEGORY_ID' => 'Categorie ID:',
+  'LBL_CATEGORY_ID' => 'Categorie ID',
   'LBL_CATEGORY_NAME' => 'Categorienaam:',
   'LBL_CONTACT_NAME' => 'Persoonsnaam:',
   'LBL_COST_PRICE' => 'Kostprijs:',
@@ -36,10 +33,10 @@ $mod_strings = array (
   'LBL_DISCOUNT_PRICE' => 'Netto verkoopprijs:',
   'LBL_DISCOUNT_PRICE_DATE' => 'Datum netto verkoopprijs:',
   'LBL_DISCOUNT_USDOLLAR' => 'Netto verkoopprijs ($):',
-  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Toegewezen gebruikers ID',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Toegewezen aan ID',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Toegewezen gebruikersnaam',
   'LBL_EXPORT_COST_PRICE' => 'Kostprijs',
-  'LBL_EXPORT_CREATED_BY' => 'Aangemaakt door ID:',
+  'LBL_EXPORT_CREATED_BY' => 'Aangemaakt door ID',
   'LBL_EXPORT_CURRENCY' => 'Valuta',
   'LBL_EXPORT_CURRENCY_ID' => 'Valuta ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Gewijzigd door ID',
@@ -61,17 +58,18 @@ $mod_strings = array (
   'LBL_LIST_USDOLLAR' => 'Lijst ($):',
   'LBL_MANUFACTURER' => 'Fabrikant:',
   'LBL_MANUFACTURERS' => 'Fabrikanten',
-  'LBL_MANUFACTURER_ID' => 'Fabrikant ID:',
+  'LBL_MANUFACTURER_ID' => 'Fabrikant ID',
   'LBL_MANUFACTURER_NAME' => 'Fabrikantnaam:',
   'LBL_MFT_PART_NUM' => 'Fab. artikelnummer:',
-  'LBL_MODULE_ID' => 'Producttemplates',
+  'LBL_MODULE_ID' => 'ProductTemplates',
   'LBL_MODULE_NAME' => 'Productcatalogus',
   'LBL_MODULE_NAME_SINGULAR' => 'Productcatalogus',
-  'LBL_MODULE_TITLE' => 'Productcatalogus: Start',
+  'LBL_MODULE_TITLE' => 'Productcatalogus: Home',
   'LBL_NAME' => 'Productnaam:',
-  'LBL_NEW_FORM_TITLE' => 'Creëer item',
+  'LBL_NEW_FORM_TITLE' => 'Maak item aan',
   'LBL_PERCENTAGE' => 'Percentage (%)',
   'LBL_POINTS' => 'Punten',
+  'LBL_POINTS_ABBR' => 'Ptn.',
   'LBL_PRICING_FACTOR' => 'Prijsfactor:',
   'LBL_PRICING_FORMULA' => 'Standaard prijsberekening:',
   'LBL_PRODUCT' => 'Product:',
@@ -80,27 +78,28 @@ $mod_strings = array (
   'LBL_PRODUCT_TYPES' => 'Producttypes',
   'LBL_QTY_IN_STOCK' => 'Voorraadniveau',
   'LBL_QUANTITY' => 'Hoeveelheid op voorraad:',
-  'LBL_RELATED_PRODUCTS' => 'Gerelateerd product',
+  'LBL_RELATED_PRODUCTS' => 'Gerelateerde geoffreerde producten',
   'LBL_SEARCH_FORM_TITLE' => 'Productcatalogus zoeken',
   'LBL_STATUS' => 'Beschikbaarheid:',
-  'LBL_SUPPORT_CONTACT' => 'Support persoon:',
+  'LBL_SUPPORT_CONTACT' => 'Support contact:',
   'LBL_SUPPORT_DESCRIPTION' => 'Support omschr:',
   'LBL_SUPPORT_NAME' => 'Supportnaam:',
   'LBL_SUPPORT_TERM' => 'Support periode:',
-  'LBL_TAX_CLASS' => 'BTW tarief:',
-  'LBL_TYPE' => 'Type:',
+  'LBL_TAX_CLASS' => 'BTW-tarief:',
+  'LBL_TYPE' => 'Type',
   'LBL_TYPE_ID' => 'Type ID',
   'LBL_TYPE_NAME' => 'Typenaam',
   'LBL_URL' => 'Product URL:',
   'LBL_VENDOR_PART_NUM' => 'Leveranciers artikelnummer:',
   'LBL_WEBSITE' => 'Website',
   'LBL_WEIGHT' => 'Gewicht:',
-  'LNK_IMPORT_PRODUCTS' => 'Importeren producten',
+  'LNK_IMPORT_PRODUCTS' => 'Importeer geoffreerde producten',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'Import Product Catalog Entries',
   'LNK_NEW_MANUFACTURER' => 'Fabrikanten',
-  'LNK_NEW_PRODUCT' => 'Creëer product',
+  'LNK_NEW_PRODUCT' => 'Maak Product aan',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Productcategorieën',
   'LNK_NEW_PRODUCT_TYPE' => 'Producttypen',
-  'LNK_NEW_SHIPPER' => 'Vervoerder',
+  'LNK_NEW_SHIPPER' => 'Vervoerders',
   'LNK_PRODUCT_LIST' => 'Productcatalogus',
   'NTC_DELETE_CONFIRMATION' => 'Weet u zeker dat u dit record wilt verwijderen?',
 );

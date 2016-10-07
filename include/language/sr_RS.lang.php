@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $app_list_strings = array (
   'Elastic_boost_options' => 
@@ -46,6 +43,12 @@ $app_list_strings = array (
     'Meeting' => 'Sastanak',
     'Note' => 'Beleška',
     'Task' => 'Zadatak',
+  ),
+  'activity_user_options' => 
+  array (
+    7 => 'Poslednjih 7 dana',
+    30 => 'Poslednjih 30 dana',
+    90 => 'Prethodni kvartal',
   ),
   'bopselect_type_dom' => 
   array (
@@ -86,6 +89,10 @@ $app_list_strings = array (
     'Defect' => 'Defekt',
     'Feature' => 'Funkcija',
   ),
+  'business_rule_type_list' => 
+  array (
+    'single' => 'Jednostrani',
+  ),
   'call_direction_dom' => 
   array (
     'Inbound' => 'Dolazni',
@@ -94,8 +101,8 @@ $app_list_strings = array (
   'call_status_dom' => 
   array (
     'Held' => 'Održan',
-    'Not Held' => 'Nije održan',
-    'Planned' => 'Planiran',
+    'Not Held' => 'Poništen',
+    'Planned' => 'Zakazan',
   ),
   'campaign_status_dom' => 
   array (
@@ -219,6 +226,11 @@ $app_list_strings = array (
     1 => 'Da',
     2 => 'Ne',
   ),
+  'checkbox_massupdate_dom' => 
+  array (
+    0 => 'Ne',
+    1 => 'Da',
+  ),
   'commit_stage_binary_dom' => 
   array (
     'exclude' => 'Isključiti',
@@ -226,15 +238,12 @@ $app_list_strings = array (
   ),
   'commit_stage_custom_dom' => 
   array (
-    'customRange0' => 'Običaj 1',
-    'customRange1' => 'Običaj 2',
-    'customRange2' => 'Običaj 3',
     'exclude' => 'Isključeno',
     'include' => 'Uključeno',
+    'upside' => 'Naopaka',
   ),
   'commit_stage_dom' => 
   array (
-    '' => '-prazno-',
     'exclude' => 'Isključiti',
     'include' => 'Uključeno',
     'upside' => 'Naopaka',
@@ -525,6 +534,25 @@ $app_list_strings = array (
     'Disabled' => 'Onemogućen',
     'Enabled' => 'Omogućen',
   ),
+  'd3_chart_types' => 
+  array (
+    'bar chart' => 'Dijagram sa stupcima',
+    'funnel chart 3D' => 'Levkasti dijagram',
+    'group by chart' => 'Dijagram sa grupisanim stupcima',
+    'horizontal bar chart' => 'Horizontalni dijagram stubaca',
+    'horizontal group by chart' => 'Horizontalni dijagram sa grupisanim stupcima',
+    'line chart' => 'Linijski dijagram',
+    'pie chart' => 'Kružni dijagram',
+  ),
+  'd3_value_placement' => 
+  array (
+    'start' => 'Početak',
+    'top' => 'Vrh',
+    0 => 'Nijedna',
+    'end' => 'Kraj',
+    'middle' => 'Sredina',
+    1 => 'Podrazumevano',
+  ),
   'dashlet_auto_refresh_options' => 
   array (
     -1 => 'Ne osvežavaj automatski',
@@ -542,6 +570,20 @@ $app_list_strings = array (
     180 => 'Svaka 3 minuta',
     300 => 'Svakih 5 minuta',
     600 => 'Svakih 10 minuta',
+  ),
+  'dashlet_limit_options' => 
+  array (
+    5 => '5',
+    10 => '10',
+    15 => '15',
+    20 => '20',
+  ),
+  'dashlet_webpage_limit_options' => 
+  array (
+    1 => '1',
+    3 => '3',
+    5 => '5',
+    10 => '10',
   ),
   'dataset_att_display_type_dom' => 
   array (
@@ -573,6 +615,19 @@ $app_list_strings = array (
     'italic' => 'Ukošen',
     'normal' => 'Normalan',
   ),
+  'date_range_operator_dom' => 
+  array (
+    'last_30_days' => 'Poslednjih 30 dana',
+    'last_7_days' => 'Poslednjih 7 dana',
+    'last_month' => 'Prošli mesec',
+    'last_year' => 'Prošla godina',
+    'next_30_days' => 'Narednih 30 dana',
+    'next_7_days' => 'Narednih 7 dana',
+    'next_month' => 'Sledeći mesec',
+    'next_year' => 'Sledeća godina',
+    'this_month' => 'Ovog meseca',
+    'this_year' => 'Ove godine',
+  ),
   'date_range_search_dom' => 
   array (
     '=' => 'Jednako',
@@ -590,6 +645,4022 @@ $app_list_strings = array (
     'not_equal' => 'Nejednako',
     'this_month' => 'Ovaj mesec',
     'this_year' => 'Ove godine',
+  ),
+  'dnb_bal_after_before_btw' => 
+  array (
+    'btw' => 'Između',
+    'gte' => 'Posle',
+    'lte' => 'Pre',
+  ),
+  'dnb_bal_filing_trading_option' => 
+  array (
+    'filingdate' => 'Datum početka',
+    'tradingdate' => 'Datum trgovine',
+  ),
+  'dnb_bal_gte_lte_btw' => 
+  array (
+    'btw' => 'Između',
+    'gte' => 'Veće od ili jednako',
+    'lte' => 'Manje od ili jednako',
+  ),
+  'dnb_bal_miles_km' => 
+  array (
+    3349 => 'KM',
+    3353 => 'Milja',
+  ),
+  'dnb_bal_prescreen_options' => 
+  array (
+    10925 => 'Nizak',
+    10926 => 'Srednji',
+    10927 => 'Visok',
+  ),
+  'dnb_bal_primary_secondary' => 
+  array (
+    'false' => 'Primarni i Sekundarni',
+    'true' => 'Samo Primarni',
+  ),
+  'dnb_bal_single_all' => 
+  array (
+    'allsites' => 'Svi sajtovi',
+    'singlesite' => 'Jedan sajt',
+  ),
+  'dnb_contact_kw_scope' => 
+  array (
+    'Bio' => 'Biografija',
+    'Both' => 'Oba/oboje',
+    'Title' => 'Naslov',
+  ),
+  'dnb_contact_types' => 
+  array (
+    'Contacts' => 'Kontakti',
+    'Leads' => 'Potencijalni klijenti',
+    'Prospects' => 'Ciljevi',
+  ),
+  'dnb_countries_iso' => 
+  array (
+    'AD' => 'Andora',
+    'AE' => 'Ujedinjeni Arapski Emirati',
+    'AF' => 'Avganistan',
+    'AG' => 'Antigva i Barbuda',
+    'AI' => 'Angvila',
+    'AL' => 'Albanija',
+    'AM' => 'Jermenija',
+    'AN' => 'Holandski Antili',
+    'AO' => 'Angola',
+    'AQ' => 'Antartik',
+    'AR' => 'Argentina',
+    'AS' => 'Američka Samoa',
+    'AT' => 'Austrija',
+    'AU' => 'Australija',
+    'AW' => 'Aruba',
+    'AZ' => 'Azerbejdžan',
+    'BA' => 'Bosna i Hercegovina',
+    'BB' => 'Barbados',
+    'BD' => 'Bangladeš',
+    'BE' => 'Belgija',
+    'BF' => 'Burkina Faso',
+    'BG' => 'Bugarska',
+    'BH' => 'Bahrein',
+    'BI' => 'Burundi',
+    'BJ' => 'Benin',
+    'BM' => 'Bermudska ostrva',
+    'BN' => 'Brunei',
+    'BO' => 'Bolivija',
+    'BR' => 'Brazil',
+    'BS' => 'Bahami',
+    'BT' => 'Butan',
+    'BV' => 'Buve',
+    'BW' => 'Bocvana',
+    'BY' => 'Belorusija',
+    'BZ' => 'Belize',
+    'CA' => 'Kanada',
+    'CC' => 'Kokosova Ostrva',
+    'CD' => 'Demokratska Republika Kongo',
+    'CF' => 'Centralnoafrička Republika',
+    'CG' => 'Kongo',
+    'CH' => 'Švajcarska',
+    'CI' => 'Obala Slonovače',
+    'CK' => 'Kukova Ostrva',
+    'CL' => 'Čile',
+    'CM' => 'Kamerun',
+    'CN' => 'Kina',
+    'CO' => 'Kolumbija',
+    'CR' => 'Kostarika',
+    'CU' => 'Kuba',
+    'CV' => 'Zelenortska Ostrva',
+    'CX' => 'Božićno ostrvo',
+    'CY' => 'Kipar',
+    'CZ' => 'Češka republika',
+    'DE' => 'Nemačka',
+    'DJ' => 'Džibuti',
+    'DK' => 'Danska',
+    'DM' => 'Dominikana',
+    'DO' => 'Dominikanska Republika',
+    'DZ' => 'Alžir',
+    'EC' => 'Ekvador',
+    'EE' => 'Estonija',
+    'EG' => 'Egipat',
+    'EH' => 'Zapadna Sahara',
+    'ER' => 'Eritreja',
+    'ES' => 'Španija',
+    'ET' => 'Etiopija',
+    'FI' => 'Finska',
+    'FJ' => 'Fidži',
+    'FK' => 'Foklandska Ostrva',
+    'FM' => 'Mikronezija',
+    'FO' => 'Farska Ostrva',
+    'FR' => 'Francuska',
+    'FX' => 'Kontinentalna Francuska',
+    'GA' => 'Gabon',
+    'GB' => 'Ujedinjeno Kraljevstvo',
+    'GD' => 'Granada',
+    'GE' => 'Gruzija',
+    'GF' => 'Francuska Gvajana',
+    'GH' => 'Gana',
+    'GI' => 'Gibraltar',
+    'GL' => 'Grenland',
+    'GM' => 'Gambija',
+    'GN' => 'Gvineja',
+    'GP' => 'Gvadelup',
+    'GQ' => 'Ekvatorijalna Gvineja',
+    'GR' => 'Grčka',
+    'GS' => 'Južna Džordžija i Južna Sendvička Ostrva',
+    'GT' => 'Gvatemala',
+    'GU' => 'Gvam',
+    'GW' => 'Gvineja Bisao',
+    'GY' => 'Gvajana',
+    'HK' => 'Hong Kong',
+    'HM' => 'Ostrva Herd I Mekdonald',
+    'HN' => 'Honduras',
+    'HR' => 'Hrvatska',
+    'HT' => 'Haiti',
+    'HU' => 'Mađarska',
+    'ID' => 'Indonezija',
+    'IE' => 'Irska',
+    'IL' => 'Izrael',
+    'IN' => 'Indija',
+    'IO' => 'Britanska teritorija Indijskog okeana',
+    'IQ' => 'Irak',
+    'IR' => 'Iran',
+    'IS' => 'Island',
+    'IT' => 'Italija',
+    'JM' => 'Jamajka',
+    'JO' => 'Jordan',
+    'JP' => 'Japan',
+    'KE' => 'Kenija',
+    'KG' => 'Kirgistan',
+    'KH' => 'Kambodža',
+    'KI' => 'Kiribati',
+    'KM' => 'Komori',
+    'KN' => 'Sent Kits i Nevis',
+    'KP' => 'Severna Koreja',
+    'KR' => 'Južna Koreja',
+    'KW' => 'Kuvajt',
+    'KY' => 'Kajmanska ostrva',
+    'KZ' => 'Kazahstan',
+    'LA' => 'Laos',
+    'LB' => 'Liban',
+    'LC' => 'Sent Vinsent i Grenadini',
+    'LI' => 'Lihenštajn',
+    'LK' => 'Šri Lanka',
+    'LR' => 'Liberija',
+    'LS' => 'Lesoto',
+    'LT' => 'Litvanija',
+    'LU' => 'Luksemburg',
+    'LV' => 'Letonija',
+    'LY' => 'Libija',
+    'MA' => 'Maroko',
+    'MC' => 'Monako',
+    'MD' => 'Moldavija',
+    'ME' => 'Crna Gora',
+    'MG' => 'Madagaskar',
+    'MH' => 'Maršalska Ostrva',
+    'MK' => 'Bivša Jugoslovenska Republika Makedonija',
+    'ML' => 'Mali',
+    'MM' => 'Mjanmar',
+    'MN' => 'Mongolija',
+    'MO' => 'Makao',
+    'MP' => 'Severna Marijanska ostrva',
+    'MQ' => 'Martinik',
+    'MR' => 'Mauritanija',
+    'MS' => 'Montserat',
+    'MT' => 'Malta',
+    'MU' => 'Mauricijus',
+    'MV' => 'Maldivi',
+    'MW' => 'Malavi',
+    'MX' => 'Meksiko',
+    'MY' => 'Malezija',
+    'MZ' => 'Mozambik',
+    'NA' => 'Namibija',
+    'NC' => 'Nova Kaledonija',
+    'NE' => 'Niger',
+    'NF' => 'Ostrvo Norfok',
+    'NG' => 'Nigerija',
+    'NI' => 'Nikaragva',
+    'NL' => 'Holandija',
+    'NO' => 'Norveška',
+    'NP' => 'Nepal',
+    'NR' => 'Nauru',
+    'NU' => 'Nijue',
+    'NZ' => 'Novi Zeland',
+    'OM' => 'Oman',
+    'PA' => 'Panama',
+    'PE' => 'Peru',
+    'PF' => 'Francuska Polinezija',
+    'PG' => 'Papua Nova Gvineja',
+    'PH' => 'Filipini',
+    'PK' => 'Paksitan',
+    'PL' => 'Poljska',
+    'PM' => 'Sen Pjer i Mikelion',
+    'PN' => 'Ostrva Pitkern',
+    'PR' => 'Portoriko',
+    'PS' => 'Palestina',
+    'PT' => 'Portugalija',
+    'PW' => 'Palau',
+    'PY' => 'Paragvaj',
+    'QA' => 'Katar',
+    'RE' => 'Reinion',
+    'RO' => 'Rumunija',
+    'RS' => 'Srbija',
+    'RU' => 'Rusija',
+    'RW' => 'Ruanda',
+    'SA' => 'Saudijska Arabija',
+    'SB' => 'Solomonova Ostrva',
+    'SC' => 'Sejšeli',
+    'SD' => 'Sudan',
+    'SE' => 'Švedska',
+    'SG' => 'Singapur',
+    'SH' => 'Sveta Jelena',
+    'SI' => 'Slovenija',
+    'SJ' => 'Svalbard i Jan Majen',
+    'SK' => 'Slovačka',
+    'SL' => 'Siera Leone',
+    'SM' => 'San Marino',
+    'SN' => 'Senegal',
+    'SO' => 'Somalija',
+    'SR' => 'Surinam',
+    'ST' => 'Sao Tome i Prinsipe',
+    'SV' => 'Salvador',
+    'SY' => 'Sirija',
+    'SZ' => 'Svaziland',
+    'TC' => 'Turks i Kajkos',
+    'TD' => 'Čad',
+    'TF' => 'Francuske južne teritorije',
+    'TG' => 'Togo',
+    'TH' => 'Tajland',
+    'TJ' => 'Tadžikistan',
+    'TK' => 'Tokelau',
+    'TM' => 'Turkmenistan',
+    'TN' => 'Tunis',
+    'TO' => 'Tonga',
+    'TP' => 'Istočni Timor',
+    'TR' => 'Turska',
+    'TT' => 'Trinidad i Tobago',
+    'TV' => 'Tuvalu',
+    'TW' => 'Tajvan',
+    'TZ' => 'Tanzanija',
+    'UA' => 'Ukrajna',
+    'UG' => 'Uganda',
+    'UM' => 'Mala spoljna ostrva Sjedinjenih Država',
+    'US' => 'Sjedinjene Države',
+    'UY' => 'Urugvaj',
+    'UZ' => 'Uzbekistan',
+    'VA' => 'Vatikan',
+    'VC' => 'Sent Vinsent i Grenadini',
+    'VE' => 'Venecuela',
+    'VG' => 'Britanska Devičanska ostrva',
+    'VI' => 'Američka Devičanska Ostrva',
+    'VN' => 'Vijetnam',
+    'VU' => 'Vanuatu',
+    'WF' => 'Valis i Futuna',
+    'WS' => 'Samoa',
+    'YE' => 'Jemen',
+    'YT' => 'Majot',
+    'ZA' => 'Južna Afrika',
+    'ZM' => 'Zambija',
+    'ZW' => 'Zimbabve',
+  ),
+  'dnb_countries_radius_iso' => 
+  array (
+    'CA' => 'Kanada',
+    'US' => 'Sjedinjene Države',
+  ),
+  'dnb_sic_naics_code' => 
+  array (
+    700 => 'NAICS kod',
+    3599 => 'SIC kod',
+  ),
+  'dnb_states_iso' => 
+  array (
+    'AD' => 
+    array (
+      1 => 
+      array (
+        'code' => 'ALV',
+        'name' => 'Andora la Vela',
+      ),
+      2 => 
+      array (
+        'code' => 'CAN',
+        'name' => 'Canillo',
+      ),
+      3 => 
+      array (
+        'code' => 'ENC',
+        'name' => 'Encamp',
+      ),
+      4 => 
+      array (
+        'code' => 'ESE',
+        'name' => 'Escaldes-Engordany',
+      ),
+      5 => 
+      array (
+        'code' => 'LMA',
+        'name' => 'La Massana',
+      ),
+      6 => 
+      array (
+        'code' => 'ORD',
+        'name' => 'Ordino',
+      ),
+      7 => 
+      array (
+        'code' => 'SJL',
+        'name' => 'Sant Julià de Lòria',
+      ),
+    ),
+    'AF' => 
+    array (
+      1 => 
+      array (
+        'code' => 'BAL',
+        'name' => 'Balkh',
+      ),
+      2 => 
+      array (
+        'code' => 'BAM',
+        'name' => 'Bamian',
+      ),
+      3 => 
+      array (
+        'code' => 'BDG',
+        'name' => 'Badghis',
+      ),
+      4 => 
+      array (
+        'code' => 'BDS',
+        'name' => 'Badakšhan',
+      ),
+      5 => 
+      array (
+        'code' => 'EA',
+        'name' => 'Baglan',
+      ),
+      6 => 
+      array (
+        'code' => 'FRA',
+        'name' => 'Farah',
+      ),
+      7 => 
+      array (
+        'code' => 'FYB',
+        'name' => 'Faryab',
+      ),
+      8 => 
+      array (
+        'code' => 'GHA',
+        'name' => 'Ghazni',
+      ),
+      9 => 
+      array (
+        'code' => 'GHO',
+        'name' => 'Ghowr',
+      ),
+      10 => 
+      array (
+        'code' => 'HEL',
+        'name' => 'Helmand',
+      ),
+      11 => 
+      array (
+        'code' => 'HER',
+        'name' => 'Herat',
+      ),
+      12 => 
+      array (
+        'code' => 'JOW',
+        'name' => 'Jowzjan',
+      ),
+      13 => 
+      array (
+        'code' => 'KAB',
+        'name' => 'Kabul',
+      ),
+      14 => 
+      array (
+        'code' => 'KAN',
+        'name' => 'Kandahar',
+      ),
+      15 => 
+      array (
+        'code' => 'KAP',
+        'name' => 'Kapisa',
+      ),
+      16 => 
+      array (
+        'code' => 'KDZ',
+        'name' => 'Kondoz',
+      ),
+      17 => 
+      array (
+        'code' => 'KHO',
+        'name' => 'Khost',
+      ),
+      18 => 
+      array (
+        'code' => 'KNR',
+        'name' => 'Konar',
+      ),
+      19 => 
+      array (
+        'code' => 'LAG',
+        'name' => 'Laghman',
+      ),
+      20 => 
+      array (
+        'code' => 'LOW',
+        'name' => 'Lowgar',
+      ),
+      21 => 
+      array (
+        'code' => 'NAN',
+        'name' => 'Nangrahar',
+      ),
+      22 => 
+      array (
+        'code' => 'NIM',
+        'name' => 'Nimruz',
+      ),
+      23 => 
+      array (
+        'code' => 'NUR',
+        'name' => 'Nurestan',
+      ),
+      24 => 
+      array (
+        'code' => 'ORU',
+        'name' => 'Oruzgan',
+      ),
+      25 => 
+      array (
+        'code' => 'PAR',
+        'name' => 'Parvan',
+      ),
+      26 => 
+      array (
+        'code' => 'PIA',
+        'name' => 'Paktia',
+      ),
+      27 => 
+      array (
+        'code' => 'PKA',
+        'name' => 'Paktika',
+      ),
+      28 => 
+      array (
+        'code' => 'SAM',
+        'name' => 'Samangan',
+      ),
+      29 => 
+      array (
+        'code' => 'SAR',
+        'name' => 'Sar-e Pol',
+      ),
+      30 => 
+      array (
+        'code' => 'TAK',
+        'name' => 'Takhar',
+      ),
+      31 => 
+      array (
+        'code' => 'WAR',
+        'name' => 'Wardak',
+      ),
+      32 => 
+      array (
+        'code' => 'ZAB',
+        'name' => 'Zabol',
+      ),
+    ),
+    'AI' => 
+    array (
+      1 => 
+      array (
+        'code' => 'ANG',
+        'name' => 'Anguillita',
+      ),
+      2 => 
+      array (
+        'code' => 'ANG',
+        'name' => 'Anguila',
+      ),
+      3 => 
+      array (
+        'code' => 'DOG',
+        'name' => 'Dog',
+      ),
+      4 => 
+      array (
+        'code' => 'LIT',
+        'name' => 'Little Scrub',
+      ),
+      5 => 
+      array (
+        'code' => 'PRI',
+        'name' => 'Prickly Pear',
+      ),
+      6 => 
+      array (
+        'code' => 'SAN',
+        'name' => 'Sandy',
+      ),
+      7 => 
+      array (
+        'code' => 'SCR',
+        'name' => 'Scrub',
+      ),
+      8 => 
+      array (
+        'code' => 'SEA',
+        'name' => 'Seal',
+      ),
+      9 => 
+      array (
+        'code' => 'SOM',
+        'name' => 'Sombrero',
+      ),
+    ),
+    'AL' => 
+    array (
+      1 => 
+      array (
+        'code' => 'BR',
+        'name' => 'Berat',
+      ),
+      2 => 
+      array (
+        'code' => 'BU',
+        'name' => 'Bulqize',
+      ),
+      3 => 
+      array (
+        'code' => 'DI',
+        'name' => 'Diber',
+      ),
+      4 => 
+      array (
+        'code' => 'DL',
+        'name' => 'Delvine',
+      ),
+      5 => 
+      array (
+        'code' => 'DR',
+        'name' => 'Durres',
+      ),
+      6 => 
+      array (
+        'code' => 'DV',
+        'name' => 'Devoll',
+      ),
+      7 => 
+      array (
+        'code' => 'EL',
+        'name' => 'Elbasan',
+      ),
+      8 => 
+      array (
+        'code' => 'ER',
+        'name' => 'Kolonje',
+      ),
+      9 => 
+      array (
+        'code' => 'FR',
+        'name' => 'Fier',
+      ),
+      10 => 
+      array (
+        'code' => 'GJ',
+        'name' => 'Gjirokaster',
+      ),
+      11 => 
+      array (
+        'code' => 'GR',
+        'name' => 'Gramsh',
+      ),
+      12 => 
+      array (
+        'code' => 'HA',
+        'name' => 'Has',
+      ),
+      13 => 
+      array (
+        'code' => 'KA',
+        'name' => 'Kavaje',
+      ),
+      14 => 
+      array (
+        'code' => 'KB',
+        'name' => 'Kurbin',
+      ),
+      15 => 
+      array (
+        'code' => 'KC',
+        'name' => 'Kucove',
+      ),
+      16 => 
+      array (
+        'code' => 'KO',
+        'name' => 'Korce',
+      ),
+      17 => 
+      array (
+        'code' => 'KR',
+        'name' => 'Kruje',
+      ),
+      18 => 
+      array (
+        'code' => 'KU',
+        'name' => 'Kukes',
+      ),
+      19 => 
+      array (
+        'code' => 'LB',
+        'name' => 'Librazhd',
+      ),
+      20 => 
+      array (
+        'code' => 'LE',
+        'name' => 'Lezhe',
+      ),
+      21 => 
+      array (
+        'code' => 'LU',
+        'name' => 'Lushnje',
+      ),
+      22 => 
+      array (
+        'code' => 'MK',
+        'name' => 'Mallakaster',
+      ),
+      23 => 
+      array (
+        'code' => 'MM',
+        'name' => 'Malesi e Madhe',
+      ),
+      24 => 
+      array (
+        'code' => 'MR',
+        'name' => 'Mirdite',
+      ),
+      25 => 
+      array (
+        'code' => 'MT',
+        'name' => 'Mat',
+      ),
+      26 => 
+      array (
+        'code' => 'PG',
+        'name' => 'Pogradec',
+      ),
+      27 => 
+      array (
+        'code' => 'PQ',
+        'name' => 'Peqin',
+      ),
+      28 => 
+      array (
+        'code' => 'PR',
+        'name' => 'Permet',
+      ),
+      29 => 
+      array (
+        'code' => 'PU',
+        'name' => 'Puke',
+      ),
+      30 => 
+      array (
+        'code' => 'SH',
+        'name' => 'Shkoder',
+      ),
+      31 => 
+      array (
+        'code' => 'SK',
+        'name' => 'Skrapar',
+      ),
+      32 => 
+      array (
+        'code' => 'SR',
+        'name' => 'Sarande',
+      ),
+      33 => 
+      array (
+        'code' => 'TE',
+        'name' => 'Tepelene',
+      ),
+      34 => 
+      array (
+        'code' => 'TP',
+        'name' => 'Tropoje',
+      ),
+      35 => 
+      array (
+        'code' => 'TR',
+        'name' => 'Tirane',
+      ),
+      36 => 
+      array (
+        'code' => 'VL',
+        'name' => 'Vlore',
+      ),
+    ),
+    'AM' => 
+    array (
+      1 => 
+      array (
+        'code' => 'AGT',
+        'name' => 'Aragatsotn',
+      ),
+      2 => 
+      array (
+        'code' => 'ARR',
+        'name' => 'Ararat',
+      ),
+      3 => 
+      array (
+        'code' => 'ARM',
+        'name' => 'Armavir',
+      ),
+      4 => 
+      array (
+        'code' => 'GEG',
+        'name' => 'Geghark &#39;unik&#39;',
+      ),
+      5 => 
+      array (
+        'code' => 'KOT',
+        'name' => 'Kotayk&#39;',
+      ),
+      6 => 
+      array (
+        'code' => 'LOR',
+        'name' => 'Lorri',
+      ),
+      7 => 
+      array (
+        'code' => 'SHI',
+        'name' => 'Shirak',
+      ),
+      8 => 
+      array (
+        'code' => 'SYU',
+        'name' => 'Syunik&#39;',
+      ),
+      9 => 
+      array (
+        'code' => 'TAV',
+        'name' => 'Tavush',
+      ),
+      10 => 
+      array (
+        'code' => 'VAY',
+        'name' => 'Vayots&#39; Dzor',
+      ),
+      11 => 
+      array (
+        'code' => 'YER',
+        'name' => 'Yerevan',
+      ),
+    ),
+    'AO' => 
+    array (
+      1 => 
+      array (
+        'code' => 'BGO',
+        'name' => 'Bengo',
+      ),
+      2 => 
+      array (
+        'code' => 'BGU',
+        'name' => 'Benguela',
+      ),
+      3 => 
+      array (
+        'code' => 'BIE',
+        'name' => 'Bie',
+      ),
+      4 => 
+      array (
+        'code' => 'CAB',
+        'name' => 'Cabinda',
+      ),
+      5 => 
+      array (
+        'code' => 'CCU',
+        'name' => 'Cuando-Cubango',
+      ),
+      6 => 
+      array (
+        'code' => 'CNO',
+        'name' => 'Cuanza Norte',
+      ),
+      7 => 
+      array (
+        'code' => 'CUS',
+        'name' => 'Cuanza Sul',
+      ),
+      8 => 
+      array (
+        'code' => 'CNN',
+        'name' => 'Cunene',
+      ),
+      9 => 
+      array (
+        'code' => 'HUA',
+        'name' => 'Huambo',
+      ),
+      10 => 
+      array (
+        'code' => 'HUI',
+        'name' => 'Huila',
+      ),
+      11 => 
+      array (
+        'code' => 'LUA',
+        'name' => 'Luanda',
+      ),
+      12 => 
+      array (
+        'code' => 'LNO',
+        'name' => 'Lunda Norte',
+      ),
+      13 => 
+      array (
+        'code' => 'LSU',
+        'name' => 'Lunda Sul',
+      ),
+      14 => 
+      array (
+        'code' => 'MAL',
+        'name' => 'Malange',
+      ),
+      15 => 
+      array (
+        'code' => 'MOX',
+        'name' => 'Moxico',
+      ),
+      16 => 
+      array (
+        'code' => 'NAM',
+        'name' => 'Namibe',
+      ),
+      17 => 
+      array (
+        'code' => 'UIG',
+        'name' => 'Uige',
+      ),
+      18 => 
+      array (
+        'code' => 'ZAI',
+        'name' => 'Zaire',
+      ),
+    ),
+    'AQ' => 
+    array (
+      1 => 
+      array (
+        'code' => 'ASG',
+        'name' => 'Saint George',
+      ),
+      2 => 
+      array (
+        'code' => 'ASH',
+        'name' => 'Saint Philip',
+      ),
+      3 => 
+      array (
+        'code' => 'ASJ',
+        'name' => 'Saint John',
+      ),
+      4 => 
+      array (
+        'code' => 'ASL',
+        'name' => 'Saint Paul',
+      ),
+      5 => 
+      array (
+        'code' => 'ASM',
+        'name' => 'Saint Mary',
+      ),
+      6 => 
+      array (
+        'code' => 'ASR',
+        'name' => 'Saint Peter',
+      ),
+      7 => 
+      array (
+        'code' => 'BAR',
+        'name' => 'Barbuda',
+      ),
+      8 => 
+      array (
+        'code' => 'RED',
+        'name' => 'Redonda',
+      ),
+    ),
+    'AR' => 
+    array (
+      1 => 
+      array (
+        'code' => 'AN',
+        'name' => 'Antartida e Islas del Atlantico',
+      ),
+      2 => 
+      array (
+        'code' => 'BA',
+        'name' => 'Buenos Aires',
+      ),
+      3 => 
+      array (
+        'code' => 'CA',
+        'name' => 'Catamarca',
+      ),
+      4 => 
+      array (
+        'code' => 'CH',
+        'name' => 'Chaco',
+      ),
+      5 => 
+      array (
+        'code' => 'CU',
+        'name' => 'Chubut',
+      ),
+      6 => 
+      array (
+        'code' => 'CO',
+        'name' => 'Cordoba',
+      ),
+      7 => 
+      array (
+        'code' => 'CR',
+        'name' => 'Corrientes',
+      ),
+      8 => 
+      array (
+        'code' => 'CF',
+        'name' => 'Capital Federal',
+      ),
+      9 => 
+      array (
+        'code' => 'ER',
+        'name' => 'Entre Rios',
+      ),
+      10 => 
+      array (
+        'code' => 'FO',
+        'name' => 'Formosa',
+      ),
+      11 => 
+      array (
+        'code' => 'JU',
+        'name' => 'Jujuy',
+      ),
+      12 => 
+      array (
+        'code' => 'LP',
+        'name' => 'La Pampa',
+      ),
+      13 => 
+      array (
+        'code' => 'LR',
+        'name' => 'La Rioja',
+      ),
+      14 => 
+      array (
+        'code' => 'ME',
+        'name' => 'Mendoza',
+      ),
+      15 => 
+      array (
+        'code' => 'MI',
+        'name' => 'Misiones',
+      ),
+      16 => 
+      array (
+        'code' => 'NE',
+        'name' => 'Neuquen',
+      ),
+      17 => 
+      array (
+        'code' => 'RN',
+        'name' => 'Rio Negro',
+      ),
+      18 => 
+      array (
+        'code' => 'SA',
+        'name' => 'Salta',
+      ),
+      19 => 
+      array (
+        'code' => 'SJ',
+        'name' => 'San Juan',
+      ),
+      20 => 
+      array (
+        'code' => 'SL',
+        'name' => 'San Luis',
+      ),
+      21 => 
+      array (
+        'code' => 'SC',
+        'name' => 'Santa Cruz',
+      ),
+      22 => 
+      array (
+        'code' => 'SF',
+        'name' => 'Santa Fe',
+      ),
+      23 => 
+      array (
+        'code' => 'SD',
+        'name' => 'Santiago del Estero',
+      ),
+      24 => 
+      array (
+        'code' => 'TF',
+        'name' => 'Tierra del Fuego',
+      ),
+      25 => 
+      array (
+        'code' => 'TU',
+        'name' => 'Tucuman',
+      ),
+    ),
+    'AS' => 
+    array (
+      1 => 
+      array (
+        'code' => 'E',
+        'name' => 'Istočni',
+      ),
+      2 => 
+      array (
+        'code' => 'M',
+        'name' => 'Manu&#39;a',
+      ),
+      3 => 
+      array (
+        'code' => 'R',
+        'name' => 'Ostrvo Ruža',
+      ),
+      4 => 
+      array (
+        'code' => 'S',
+        'name' => 'Svainska ostrva',
+      ),
+      5 => 
+      array (
+        'code' => 'W',
+        'name' => 'Zapadni',
+      ),
+    ),
+    'AT' => 
+    array (
+      1 => 
+      array (
+        'code' => 'BUR',
+        'name' => 'Burgenland',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'AU' => 
+    array (
+      1 => 
+      array (
+        'code' => 'ACT',
+        'name' => 'Australian Capital Territory',
+      ),
+      2 => 
+      array (
+        'code' => 'NSW',
+        'name' => 'New South Wales',
+      ),
+      3 => 
+      array (
+        'code' => 'NT',
+        'name' => 'Northern Territory',
+      ),
+      4 => 
+      array (
+        'code' => 'QLD',
+        'name' => 'Queensland',
+      ),
+      5 => 
+      array (
+        'code' => 'SA',
+        'name' => 'South Australia',
+      ),
+      6 => 
+      array (
+        'code' => 'TAS',
+        'name' => 'Tasmania',
+      ),
+      7 => 
+      array (
+        'code' => 'VIC',
+        'name' => 'Victoria',
+      ),
+      8 => 
+      array (
+        'code' => 'WA',
+        'name' => 'Western Australia',
+      ),
+    ),
+    'AW' => 
+    array (
+      1 => 
+      array (
+        'code' => 'ARU',
+        'name' => 'Aruba',
+      ),
+      2 => 
+      array (
+        'code' => 'DRU',
+        'name' => 'Druif Beach',
+      ),
+      3 => 
+      array (
+        'code' => 'MAN',
+        'name' => 'Manchebo Beach',
+      ),
+      4 => 
+      array (
+        'code' => 'NOO',
+        'name' => 'Noord',
+      ),
+      5 => 
+      array (
+        'code' => 'ORA',
+        'name' => 'Oranjestad',
+      ),
+      6 => 
+      array (
+        'code' => 'PAL',
+        'name' => 'Palm Beach',
+      ),
+      7 => 
+      array (
+        'code' => 'ROO',
+        'name' => 'Rooi Thomas',
+      ),
+      8 => 
+      array (
+        'code' => 'SIN',
+        'name' => 'Sint Nicolaas',
+      ),
+      9 => 
+      array (
+        'code' => 'SIN',
+        'name' => 'Sint Nicolas',
+      ),
+      10 => 
+      array (
+        'code' => 'WAY',
+        'name' => 'Wayaca',
+      ),
+    ),
+    'AZ' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      21 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      22 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      23 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      24 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      25 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      26 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      27 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      28 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      29 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      30 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      31 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      32 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      33 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      34 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      35 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      36 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      37 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      38 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      39 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      40 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      41 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      42 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      43 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      44 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      45 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      46 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      47 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      48 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      49 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      50 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      51 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      52 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      53 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      54 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      55 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      56 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      57 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      58 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      59 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      60 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      61 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      62 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      63 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      64 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      65 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      66 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      67 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      68 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      69 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      70 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      71 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      72 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      73 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      74 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      75 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      76 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BA' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BB' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BD' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BE' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BF' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      21 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      22 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      23 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      24 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      25 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      26 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      27 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      28 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      29 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      30 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      31 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      32 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      33 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      34 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      35 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      36 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      37 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      38 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      39 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      40 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      41 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      42 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      43 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      44 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      45 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BG' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      21 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      22 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      23 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      24 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      25 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      26 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      27 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BH' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BI' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BJ' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BM' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BN' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BO' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BR' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      21 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      22 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      23 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      24 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      25 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      26 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      27 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BS' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      21 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      22 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      23 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      24 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      25 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      26 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      27 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      28 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      29 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      30 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      31 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BT' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BW' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BY' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'BZ' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'CA' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'CF' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'CL' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'CM' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'CN' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'CV' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'Country' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => 'Države',
+      ),
+    ),
+    'DZ' => 
+    array (
+      1 => 
+      array (
+        'code' => 'ADE',
+        'name' => 'Ain Defla',
+      ),
+      2 => 
+      array (
+        'code' => 'ADR',
+        'name' => 'Adrar',
+      ),
+      3 => 
+      array (
+        'code' => 'ALG',
+        'name' => 'Alger',
+      ),
+      4 => 
+      array (
+        'code' => 'ANN',
+        'name' => 'Annaba',
+      ),
+      5 => 
+      array (
+        'code' => 'ATE',
+        'name' => 'Ain Temouchent',
+      ),
+      6 => 
+      array (
+        'code' => 'BAT',
+        'name' => 'Batna',
+      ),
+      7 => 
+      array (
+        'code' => 'BBA',
+        'name' => 'Bordj Bou Arreridj',
+      ),
+      8 => 
+      array (
+        'code' => 'BEC',
+        'name' => 'Bechar',
+      ),
+      9 => 
+      array (
+        'code' => 'BEJ',
+        'name' => 'Bejaia',
+      ),
+      10 => 
+      array (
+        'code' => 'BIS',
+        'name' => 'Biskra',
+      ),
+      11 => 
+      array (
+        'code' => 'BLI',
+        'name' => 'Blida',
+      ),
+      12 => 
+      array (
+        'code' => 'BMD',
+        'name' => 'Boumerdes',
+      ),
+      13 => 
+      array (
+        'code' => 'BOA',
+        'name' => 'Bouira',
+      ),
+      14 => 
+      array (
+        'code' => 'CHL',
+        'name' => 'Chlef',
+      ),
+      15 => 
+      array (
+        'code' => 'CON',
+        'name' => 'Constantine',
+      ),
+      16 => 
+      array (
+        'code' => 'DJE',
+        'name' => 'Djelfa',
+      ),
+      17 => 
+      array (
+        'code' => 'EBA',
+        'name' => 'El Bayadh',
+      ),
+      18 => 
+      array (
+        'code' => 'EOU',
+        'name' => 'El Oued',
+      ),
+      19 => 
+      array (
+        'code' => 'ETA',
+        'name' => 'El Tarf',
+      ),
+      20 => 
+      array (
+        'code' => 'GHA',
+        'name' => 'Ghardaia',
+      ),
+      21 => 
+      array (
+        'code' => 'GUE',
+        'name' => 'Guelma',
+      ),
+      22 => 
+      array (
+        'code' => 'ILL',
+        'name' => 'Illizi',
+      ),
+      23 => 
+      array (
+        'code' => 'JIJ',
+        'name' => 'Jijel',
+      ),
+      24 => 
+      array (
+        'code' => 'KHE',
+        'name' => 'Khenchela',
+      ),
+      25 => 
+      array (
+        'code' => 'LAG',
+        'name' => 'Laghouat',
+      ),
+      26 => 
+      array (
+        'code' => 'MED',
+        'name' => 'Medea',
+      ),
+      27 => 
+      array (
+        'code' => 'MIL',
+        'name' => 'Mila',
+      ),
+      28 => 
+      array (
+        'code' => 'MOS',
+        'name' => 'Mostaganem',
+      ),
+      29 => 
+      array (
+        'code' => 'MSI',
+        'name' => 'M&#39;Sila',
+      ),
+      30 => 
+      array (
+        'code' => 'MUA',
+        'name' => 'Muaskar',
+      ),
+      31 => 
+      array (
+        'code' => 'NAA',
+        'name' => 'Naama',
+      ),
+      32 => 
+      array (
+        'code' => 'OEB',
+        'name' => 'Oum el-Bouaghi',
+      ),
+      33 => 
+      array (
+        'code' => 'ORA',
+        'name' => 'Oran',
+      ),
+      34 => 
+      array (
+        'code' => 'OUA',
+        'name' => 'Ouargla',
+      ),
+      35 => 
+      array (
+        'code' => 'REL',
+        'name' => 'Relizane',
+      ),
+      36 => 
+      array (
+        'code' => 'SAH',
+        'name' => 'Souk Ahras',
+      ),
+      37 => 
+      array (
+        'code' => '',
+        'name' => 'Saida',
+      ),
+      38 => 
+      array (
+        'code' => 'SBA',
+        'name' => 'Sidi Bel Abbes',
+      ),
+      39 => 
+      array (
+        'code' => 'SET',
+        'name' => 'Setif',
+      ),
+      40 => 
+      array (
+        'code' => 'SKI',
+        'name' => 'Skikda',
+      ),
+      41 => 
+      array (
+        'code' => 'TAM',
+        'name' => 'Tamanghasset',
+      ),
+      42 => 
+      array (
+        'code' => 'TEB',
+        'name' => 'Tebessa',
+      ),
+      43 => 
+      array (
+        'code' => 'TIA',
+        'name' => 'Tiaret',
+      ),
+      44 => 
+      array (
+        'code' => 'TIN',
+        'name' => 'Tindouf',
+      ),
+      45 => 
+      array (
+        'code' => 'TIP',
+        'name' => 'Tipaza',
+      ),
+      46 => 
+      array (
+        'code' => 'TIS',
+        'name' => 'Tissemsilt',
+      ),
+      47 => 
+      array (
+        'code' => 'TLE',
+        'name' => 'Tlemcen',
+      ),
+      48 => 
+      array (
+        'code' => 'TOU',
+        'name' => 'Tizi Ouzou',
+      ),
+    ),
+    'IO' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'KH' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      15 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      16 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      17 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      18 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      19 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      20 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      21 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      22 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      23 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      24 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      25 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'KY' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
+    'TD' => 
+    array (
+      1 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      2 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      3 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      4 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      5 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      6 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      7 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      8 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      9 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      10 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      11 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      12 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      13 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+      14 => 
+      array (
+        'code' => '',
+        'name' => '',
+      ),
+    ),
   ),
   'document_category_dom' => 
   array (
@@ -622,6 +4693,15 @@ $app_list_strings = array (
     'mailmerge' => 'Spajanje Email-ova',
     'nda' => 'NDA',
   ),
+  'documentation' => 
+  array (
+    'COM' => '05_Sugar_Community_Edition',
+    'CORP' => '03_Sugar_Corporate',
+    'ENT' => '02_Sugar_Enterprise',
+    'LBL_DOCS' => 'Dokumentacija',
+    'PRO' => '04_Sugar_Professional',
+    'ULT' => '01_Sugar_Ultimate',
+  ),
   'dom_cal_day_long' => 
   array (
     0 => '',
@@ -632,6 +4712,16 @@ $app_list_strings = array (
     5 => 'Četvrtak',
     6 => 'Petak',
     7 => 'Subota',
+  ),
+  'dom_cal_day_of_week' => 
+  array (
+    0 => 'Ned',
+    1 => 'Pon',
+    2 => 'Uto',
+    3 => 'Sre',
+    4 => 'Čet',
+    5 => 'Pet',
+    6 => 'Sub',
   ),
   'dom_cal_day_short' => 
   array (
@@ -856,6 +4946,14 @@ $app_list_strings = array (
     'campaign' => 'Kampanja:',
     'email' => 'Email',
   ),
+  'email_check_interval_dom' => 
+  array (
+    -1 => 'Ručno',
+    5 => 'Svakih 5 minuta',
+    15 => 'Svakih 15 minuta',
+    30 => 'Svakih 30 minuta',
+    60 => 'Svakih sta vremena',
+  ),
   'email_marketing_status_dom' => 
   array (
     '' => '',
@@ -882,8 +4980,12 @@ $app_list_strings = array (
   ),
   'extapi_meeting_password' => 
   array (
-    'GoToMeeting' => 'GoToMeeting',
     'WebEx' => 'WebEx',
+  ),
+  'filter_checkbox_dom' => 
+  array (
+    0 => 'Netačno',
+    1 => 'tačno',
   ),
   'font_size_dom' => 
   array (
@@ -899,6 +5001,21 @@ $app_list_strings = array (
     4 => 'Veće (+4)',
     5 => 'Veće (+5)',
   ),
+  'forecast_fiscal_year_options' => 
+  array (
+    'current_year' => '{{year}}',
+    'next_year' => '{{year}}',
+  ),
+  'forecast_pareto_visibility_options' => 
+  array (
+    'group' => 'Prognoze mog tima',
+    'user' => 'Moje prognoze',
+  ),
+  'forecast_pipeline_visibility_options' => 
+  array (
+    'group' => 'Prodajni levak moga tima',
+    'user' => 'Moj prodajni levak',
+  ),
   'forecast_schedule_status_dom' => 
   array (
     'Active' => 'Aktivan',
@@ -908,12 +5025,6 @@ $app_list_strings = array (
   array (
     'Direct' => 'Direktan',
     'Rollup' => 'Udružen',
-  ),
-  'forecasts_chart_options_dataset' => 
-  array (
-    'best' => 'Najbolje',
-    'likely' => 'Verovatno',
-    'worst' => 'Najgore',
   ),
   'forecasts_chart_options_group' => 
   array (
@@ -925,6 +5036,18 @@ $app_list_strings = array (
   array (
     'show_binary' => 'Dva opsega',
     'show_buckets' => 'Tri opsega',
+    'show_custom_buckets' => 'Prilagođeni opsezi',
+  ),
+  'forecasts_config_worksheet_layout_forecast_by_options_dom' => 
+  array (
+    'Opportunities' => 'Prodajne prilike',
+    'RevenueLineItems' => 'Stavke prihoda',
+  ),
+  'forecasts_options_dataset' => 
+  array (
+    'best' => 'Najbolje',
+    'likely' => 'Verovatno',
+    'worst' => 'Najgore',
   ),
   'forecasts_timeperiod_options_dom' => 
   array (
@@ -937,13 +5060,36 @@ $app_list_strings = array (
   ),
   'fts_type' => 
   array (
-    '' => 'Nijedan',
     'Elastic' => 'elastična pretraga',
   ),
   'gender_list' => 
   array (
     'female' => 'Žensko',
     'male' => 'Muško',
+  ),
+  'generic_timeperiod_options' => 
+  array (
+    'current' => 'Ovaj kvartal',
+    'next' => 'Sledećeg kvartala',
+    'year' => 'Ove godine',
+  ),
+  'history_filter_options' => 
+  array (
+    7 => 'Poslednjih 7 dana',
+    30 => 'Poslednjih 30 dana',
+    90 => 'Prethodni kvartal',
+  ),
+  'history_limit_options' => 
+  array (
+    5 => '5',
+    10 => '10',
+    15 => '15',
+    20 => '20',
+  ),
+  'history_visibility_options' => 
+  array (
+    'group' => 'Ne',
+    'user' => 'Da',
   ),
   'import_delimeter_options' => 
   array (
@@ -1006,6 +5152,14 @@ $app_list_strings = array (
     'Telecommunications' => 'Telekomunikacije',
     'Transportation' => 'Transport',
     'Utilities' => 'Komunalne usluge',
+  ),
+  'interactions_options' => 
+  array (
+    'custom' => 'Moj prilagođeni filter',
+    'favorites' => 'Omiljeni',
+    7 => 'Poslednjih 7 dana',
+    30 => 'Poslednjih 30 dana',
+    90 => 'Poslednji kvartal',
   ),
   'issue_priority_dom' => 
   array (
@@ -1146,11 +5300,16 @@ $app_list_strings = array (
     '_blank' => 'Novi prozor',
     '_self' => 'Isti prozor',
   ),
+  'list_visibility_options' => 
+  array (
+    0 => 'Ne',
+    1 => 'Da',
+  ),
   'meeting_status_dom' => 
   array (
     'Held' => 'Održan',
-    'Not Held' => 'Nije održan',
-    'Planned' => 'Planiran',
+    'Not Held' => 'Poništen',
+    'Planned' => 'Zakazan',
   ),
   'meeting_type_dom' => 
   array (
@@ -1170,6 +5329,15 @@ $app_list_strings = array (
     'MSN' => 'MSN',
     'Yahoo!' => 'Yahoo!',
   ),
+  'moduleIconList' => 
+  array (
+    'Calls' => 'Po',
+    'Campaigns' => 'Ka',
+    'Cases' => 'Sl',
+    'Notes' => 'Be',
+    'Quotas' => 'Kvota',
+    'Tasks' => 'Za',
+  ),
   'moduleList' => 
   array (
     'ACLRoles' => 'Uloge',
@@ -1180,8 +5348,10 @@ $app_list_strings = array (
     'Calendar' => 'Kalendar',
     'Calls' => 'Pozivi',
     'CampaignLog' => 'Log kampanje',
+    'CampaignTrackers' => 'Sistem za praćenje kampanja',
     'Campaigns' => 'Kampanje',
     'Cases' => 'Slučajevi',
+    'Comments' => 'Komentari',
     'Connectors' => 'Konektori',
     'Contacts' => 'Kontakti',
     'ContractTypes' => 'Tipovi Ugovora',
@@ -1198,7 +5368,9 @@ $app_list_strings = array (
     'Emails' => 'Email poruke',
     'Employees' => 'Zaposleni',
     'FAQ' => 'Česta pitanja',
+    'Feedbacks' => 'Povratna informacija',
     'Feeds' => 'RSS',
+    'Filters' => 'Filteri',
     'ForecastManagerWorksheets' => 'Upravljanje tabelama sa prognozama',
     'ForecastSchedule' => 'Plan prognoze',
     'ForecastWorksheets' => 'Tabela prognoza',
@@ -1222,8 +5394,8 @@ $app_list_strings = array (
     'ProductTemplates' => 'Katalog proizvoda',
     'ProductTypes' => 'Tipovi proizvoda',
     'Products' => 'Proizvodi',
-    'Project' => 'Projekti',
-    'ProjectTask' => 'Projektni Zadaci',
+    'Project' => 'Projekat',
+    'ProjectTask' => 'Projektni Zadatak',
     'ProspectLists' => 'Liste ciljeva',
     'Prospects' => 'Ciljevi',
     'Queues' => 'Redovi',
@@ -1237,10 +5409,13 @@ $app_list_strings = array (
     'SNIP' => 'Arhiviranje Email poruka',
     'SavedSearch' => 'Sačuvane pretrage',
     'Schedulers' => 'Planeri',
+    'Shippers' => 'Dostavljači',
+    'Styleguide' => 'Vodič za stil',
+    'Subscriptions' => 'Pretplate',
     'SugarFavorites' => 'Omiljeni',
-    'SugarFeed' => 'Sugar Feed',
     'Sugar_Favorites' => 'Omiljeni',
     'Sync' => 'Sinhronizacija',
+    'Tags' => 'Oznake',
     'Tasks' => 'Zadaci',
     'TaxRates' => 'Poreske stope',
     'TeamNotices' => 'Timska obaveštenja',
@@ -1251,56 +5426,120 @@ $app_list_strings = array (
     'TrackerSessions' => 'Sesije sistema za praćenje',
     'Trackers' => 'Sistemi za praćenje',
     'UpgradeWizard' => 'Čarobnjak nadgradnje',
+    'UserSignatures' => 'Potpisi korisnika',
     'Users' => 'Korisnici',
+    'WebLogicHooks' => 'Web logički izrazi',
+    'Words' => 'Reči',
     'WorkFlow' => 'Definicije radnog toka',
     'Worksheet' => 'Radna lista',
     'iFrames' => 'Moji sajtovi',
+    'pmse_Business_Rules' => 'Pravila procesnog poslovanja',
+    'pmse_Emails_Templates' => 'Šabloni procesnih Email-ova',
+    'pmse_Inbox' => 'Procesi',
+    'pmse_Project' => 'Definicija procesa',
   ),
   'moduleListSingular' => 
   array (
+    'ACLRoles' => 'Role',
     'Accounts' => 'Kompanija',
     'Activities' => 'Aktivnost',
+    'ActivityStream' => 'Aktivnosti',
+    'Administration' => 'Administration',
     'Bugs' => 'Praćenje defekata',
     'Calendar' => 'Kalendar',
     'Calls' => 'Poziv',
+    'CampaignLog' => 'Campaign Log',
+    'CampaignTrackers' => 'Sistem za praćenje kampanja',
     'Campaigns' => 'Kampanja',
     'Cases' => 'Slučaj',
+    'Comments' => 'Comment',
+    'Connectors' => 'Connector',
     'Contacts' => 'Kontakt',
+    'ContractTypes' => 'Contract Type',
     'Contracts' => 'Ugovor',
+    'Currencies' => 'Valuta',
+    'CustomQueries' => 'Custom Query',
     'Dashboard' => 'Kontrolna tabla',
+    'DataSets' => 'Data Format',
+    'DocumentRevisions' => 'Document Revision',
     'Documents' => 'Dokument',
     'EAPM' => 'Spoljni nalog',
+    'EmailAddresses' => 'Email Address',
+    'EmailMarketing' => 'Email Marketing',
+    'EmailTemplates' => 'Email Template',
     'Emails' => 'Email',
     'Employees' => 'Zaposleni',
+    'FAQ' => 'FAQ',
+    'Feedbacks' => 'Povratna informacija',
     'Feeds' => 'RSS',
+    'Filters' => 'Filter',
     'ForecastManagerWorksheets' => 'Upravljanje tabelama sa prognozama',
     'ForecastSchedule' => 'Plan prognoze',
     'ForecastWorksheets' => 'Tabela prognoza',
     'Forecasts' => 'Prognoza',
     'Home' => 'Početna strana',
+    'InboundEmail' => 'Inbound Email',
     'KBDocuments' => 'Baza Znanja',
     'Leads' => 'Potencijalni klijent',
+    'Library' => 'Library',
+    'Manufacturers' => 'Proizvođač',
     'Meetings' => 'Sastanak',
+    'MergeRecords' => 'Merge Record',
+    'Newsletters' => 'Newsletter',
     'Notes' => 'Beleška',
+    'Notifications' => 'Notification',
+    'OAuthKeys' => 'OAuth Consumer Key',
+    'OAuthTokens' => 'OAuth Token',
     'Opportunities' => 'Prodajna prilika',
     'PdfManager' => 'PDF Menadžer',
-    'Products' => 'Proizvod',
-    'Project' => 'Projekti',
+    'ProductCategories' => 'Kategorija Proizvoda',
+    'ProductTemplates' => 'Šablon proizvoda:',
+    'ProductTypes' => 'Tip proizvoda',
+    'Products' => 'Proizvodi',
+    'Project' => 'Project',
     'ProjectTask' => 'Projektni Zadatak',
+    'ProspectLists' => 'Lista ciljeva',
     'Prospects' => 'Cilj',
+    'Queues' => 'Queue',
     'Quotas' => 'Kvota',
     'Quotes' => 'Ponuda',
+    'Releases' => 'Release',
     'ReportMaker' => 'SweetReport',
     'Reports' => 'Izveštaj',
+    'Reports_1' => 'Saved Report',
+    'RevenueLineItems' => 'Stavka prihoda',
+    'Roles' => 'Role',
+    'SNIP' => 'Email Archiving',
+    'SavedSearch' => 'Saved Search',
+    'Schedulers' => 'Scheduler',
+    'Shippers' => 'Shipping Provider',
+    'Styleguide' => 'Vodič za stil',
+    'Subscriptions' => 'Subscription',
     'SugarFavorites' => 'SugarOmiljeni',
-    'SugarFollowing' => 'SugarFollowing',
+    'Sugar_Favorites' => 'Favorite',
     'Sync' => 'Sinhronizacija',
+    'Tags' => 'Oznaka',
     'Tasks' => 'Zadatak',
+    'TaxRates' => 'Tax Rate',
+    'TeamNotices' => 'Team Notice',
     'Teams' => 'Tim',
     'TimePeriods' => 'Vremenski period',
+    'TrackerPerfs' => 'Tracker Performance',
+    'TrackerQueries' => 'Tracker Query',
+    'TrackerSessions' => 'Tracker Session',
+    'Trackers' => 'Tracker',
+    'UpgradeWizard' => 'Upgrade Wizard',
+    'UserSignatures' => 'User Signature',
     'Users' => 'Korisnik',
+    'WebLogicHooks' => 'Web logički izraz',
+    'Words' => 'Word',
     'WorkFlow' => 'RadniTok',
+    'Worksheet' => 'Worksheet',
     'iFrames' => 'Moji sajtovi',
+    'pmse_Business_Rules' => 'Pravila procesnog poslovanja',
+    'pmse_Emails_Templates' => 'Šablon procesnog Email-a',
+    'pmse_Inbox' => 'Procesi',
+    'pmse_Project' => 'Definicija procesa',
   ),
   'mselect_multi_type_dom' => 
   array (
@@ -1324,6 +5563,19 @@ $app_list_strings = array (
     'Monthly' => 'Mesečno',
     'Quarterly' => 'Kvartalno',
     'Weekly' => 'Nedeljno',
+  ),
+  'notifications_severity_list' => 
+  array (
+    'alert' => 'Uzbuna',
+    'information' => 'Informacije',
+    'other' => 'Ostalo',
+    'success' => 'Uspešno',
+    'warning' => 'Upozorenje',
+  ),
+  'notifications_status_dom' => 
+  array (
+    0 => 'Nepročitano',
+    1 => 'Pročitano',
   ),
   'notifymail_sendtype' => 
   array (
@@ -1355,6 +5607,12 @@ $app_list_strings = array (
     'Active' => 'Aktivan',
     'Inactive' => 'Neaktivan',
   ),
+  'opportunity_metrics_dom' => 
+  array (
+    'active' => 'Aktivan',
+    'lost' => 'Izgubljen',
+    'won' => 'Dobijen',
+  ),
   'opportunity_relationship_type_dom' => 
   array (
     '' => '',
@@ -1373,6 +5631,22 @@ $app_list_strings = array (
     'Existing Business' => 'Postojeći biznis',
     'New Business' => 'Novi biznis',
   ),
+  'opps_config_view_by_closedate_rollup_dom' => 
+  array (
+    'earliest' => 'Najraniji datum završetka',
+    'latest' => 'Najkasniji datum završetka',
+  ),
+  'opps_config_view_by_options_dom' => 
+  array (
+    'Opportunities' => 'Prodajne prilike',
+    'RevenueLineItems' => 'Stavke prihoda',
+  ),
+  'optout_dom' => 
+  array (
+    '' => '-prazno-',
+    'false' => 'Ne',
+    'true' => 'Da',
+  ),
   'order_stage_dom' => 
   array (
     'Cancelled' => 'Otkazano',
@@ -1389,11 +5663,12 @@ $app_list_strings = array (
     'Contacts' => 'Kontakt',
     'Leads' => 'Potencijalni klijent',
     'Opportunities' => 'Prodajna prilika',
-    'Products' => 'Proizvod',
+    'Products' => 'Proizvodi',
     'Project' => 'Projekat',
     'ProjectTask' => 'Projektni Zadatak',
     'Prospects' => 'Cilj',
     'Quotes' => 'Ponuda',
+    'RevenueLineItems' => 'Stavka prihoda',
     'Tasks' => 'Zadatak',
   ),
   'payment_terms' => 
@@ -1412,6 +5687,23 @@ $app_list_strings = array (
     'fun' => 'Levak',
     'hbar' => 'Horizontalini stubac',
   ),
+  'planned_activities_filter_options' => 
+  array (
+    'future' => 'U budućnosti',
+    'today' => 'Danas',
+  ),
+  'planned_activities_limit_options' => 
+  array (
+    5 => '5',
+    10 => '10',
+    15 => '15',
+    20 => '20',
+  ),
+  'planned_activities_visibility_options' => 
+  array (
+    'group' => 'Ne',
+    'user' => 'Da',
+  ),
   'pricing_formula_dom' => 
   array (
     'Fixed' => 'Fiksna cena',
@@ -1425,7 +5717,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Kompanije',
     'Activities' => 'Aktivnosti',
-    'Bugs' => 'Defekti',
+    'Bug Tracker' => 'Praćenje defekata',
     'Calendar' => 'Kalendar',
     'Calls' => 'Pozivi',
     'Campaigns' => 'Kampanje',
@@ -1450,12 +5742,14 @@ $app_list_strings = array (
     'Quotes' => 'Ponude',
     'RSS' => 'RSS',
     'Releases' => 'Izdanja',
+    'RevenueLineItems' => 'Stavke prihoda',
     'Studio' => 'Studio',
     'Upgrade' => 'Nadgradi',
     'Users' => 'Korisnici',
   ),
   'product_status_dom' => 
   array (
+    '' => '',
     'Orders' => 'Naručene',
     'Quotes' => 'Ponuđene',
     'Ship' => 'Dostavljene',
@@ -1491,7 +5785,7 @@ $app_list_strings = array (
   ),
   'project_task_status_options' => 
   array (
-    'Completed' => 'Završen',
+    'Completed' => 'Završeno',
     'Deferred' => 'Odložen',
     'In Progress' => 'U toku',
     'Not Started' => 'Nije započet',
@@ -1513,7 +5807,7 @@ $app_list_strings = array (
   ),
   'projects_status_options' => 
   array (
-    'completed' => 'Završen',
+    'completed' => 'Završeno',
     'inprogress' => 'U toku',
     'notstarted' => 'Nije započet',
   ),
@@ -1606,6 +5900,7 @@ $app_list_strings = array (
   array (
     -24 => '-24',
     -18 => '-18',
+    -12 => '-12',
     -10 => '-10',
     -9 => '-9',
     -8 => '-8',
@@ -1617,7 +5912,6 @@ $app_list_strings = array (
     -2 => '-2',
     -1 => '-1',
     0 => 'Sad',
-    12 => '-12',
   ),
   'query_groupby_type_dom' => 
   array (
@@ -1665,7 +5959,7 @@ $app_list_strings = array (
     'Contacts' => 'Kontakt',
     'Leads' => 'Potencijalni klijent',
     'Opportunities' => 'Prodajna prilika',
-    'ProductTemplates' => 'Proizvod',
+    'Products' => 'Proizvodi',
     'Project' => 'Projekat',
     'ProjectTask' => 'Projektni Zadatak',
     'Prospects' => 'Cilj',
@@ -1685,7 +5979,7 @@ $app_list_strings = array (
     'Meetings' => 'Sastanak',
     'Opportunities' => 'Prodajna prilika',
     'ProductTemplates' => 'Katalog proizvoda:',
-    'Products' => 'Proizvod',
+    'Products' => 'Proizvodi',
     'Project' => 'Projekat',
     'ProjectTask' => 'Projektni Zadatak',
     'Prospects' => 'Cilj',
@@ -1700,16 +5994,50 @@ $app_list_strings = array (
   'reminder_max_time' => '3600',
   'reminder_time_options' => 
   array (
-    60 => 'Minut pre',
-    300 => '5 minuta pre',
-    600 => '10 minuta pre',
-    900 => '15 minuta pre',
-    1800 => '30 minuta pre',
-    3600 => 'Sat vremena pre',
-    7200 => '2 sata pre',
-    10800 => '3 sata pre',
-    18000 => '5 sati pre',
-    86400 => '1 dan pre',
+    -1 => '-1',
+    60 => 'Pre jednog minuta',
+    300 => 'Pre pet minuta',
+    600 => 'Pre 10 minuta',
+    900 => 'Pre 15 minuta',
+    1800 => 'Pre 30 minuta',
+    3600 => 'Pre jednog časa',
+    7200 => 'Pre dva časa',
+    10800 => 'Pre tri časa',
+    18000 => 'Pre pet časova',
+    86400 => 'Pre jednog dana',
+  ),
+  'repeat_interval_number' => 
+  array (
+    1 => '1',
+    2 => '2',
+    3 => '3',
+    4 => '4',
+    5 => '5',
+    6 => '6',
+    7 => '7',
+    8 => '8',
+    9 => '9',
+    10 => '10',
+    11 => '11',
+    12 => '12',
+    13 => '13',
+    14 => '14',
+    15 => '15',
+    16 => '16',
+    17 => '17',
+    18 => '18',
+    19 => '19',
+    20 => '20',
+    21 => '21',
+    22 => '22',
+    23 => '23',
+    24 => '24',
+    25 => '25',
+    26 => '26',
+    27 => '27',
+    28 => '28',
+    29 => '29',
+    30 => '30',
   ),
   'repeat_intervals' => 
   array (
@@ -1784,6 +6112,21 @@ $app_list_strings = array (
     'Qualification' => 'Kvalifikacija',
     'Value Proposition' => 'Preporučena cena',
   ),
+  'sales_status_dom' => 
+  array (
+    'Closed Lost' => 'Zatvoreni izgubljeni',
+    'Closed Won' => 'Završeni osvojeni',
+    'In Progress' => 'U toku',
+    'New' => 'Novo',
+  ),
+  'sales_status_with_quote_dom' => 
+  array (
+    'Closed Lost' => 'Zatvoreni izgubljeni',
+    'Closed Won' => 'Završeni osvojeni',
+    'Converted to Quote' => 'Pretvoreno u ponudu',
+    'In Progress' => 'U toku',
+    'New' => 'Novo',
+  ),
   'salutation_dom' => 
   array (
     '' => '',
@@ -1818,6 +6161,7 @@ $app_list_strings = array (
     'Forum' => 'Forum',
     'InboundEmail' => 'Email',
     'Internal' => 'Interni',
+    'Twitter' => 'Twitter',
     'Web' => 'Web',
   ),
   'state_dom' => 
@@ -1874,6 +6218,24 @@ $app_list_strings = array (
     'WV' => 'West Virginia',
     'WY' => 'Wyoming',
   ),
+  'sugar7_dashlet_auto_refresh_options' => 
+  array (
+    0 => 'Nijedan',
+    1 => 'Svaki minut',
+    5 => 'Svakih 5 minuta',
+    10 => 'Svakih 10 minuta',
+    15 => 'Svakih 15 minuta',
+    30 => 'Svakih 30 minuta',
+  ),
+  'sugar7_dashlet_reports_auto_refresh_options' => 
+  array (
+    0 => 'Nijedan',
+    15 => 'Svakih 15 minuta',
+    30 => 'Svakih 30 minuta',
+    45 => 'Svakih 45 minuta',
+    60 => 'Svaki sat',
+    120 => 'Svakih 2 sata',
+  ),
   'support_term_dom' => 
   array (
     '+1 year' => 'Godinu dana',
@@ -1893,6 +6255,18 @@ $app_list_strings = array (
     'In Progress' => 'U toku',
     'Not Started' => 'Nije započet',
     'Pending Input' => 'Unos na čekanju',
+  ),
+  'tasks_limit_options' => 
+  array (
+    5 => '5',
+    10 => '10',
+    15 => '15',
+    20 => '20',
+  ),
+  'tasks_visibility_options' => 
+  array (
+    'group' => 'Ne',
+    'user' => 'Da',
   ),
   'tax_class_dom' => 
   array (
@@ -2283,6 +6657,17 @@ $app_list_strings = array (
     2 => 'Pristup',
     3 => 'Neispravno',
   ),
+  'top10_opportunities_duration_options' => 
+  array (
+    0 => 'Ovaj kvartal',
+    3 => 'Sledeći kvartal',
+    12 => 'Ove godine',
+  ),
+  'top10_opportunities_visibility_options' => 
+  array (
+    'group' => '',
+    'user' => '',
+  ),
   'tselect_type_dom' => 
   array (
     0 => '0 sati',
@@ -2313,6 +6698,23 @@ $app_list_strings = array (
   array (
     'Administrator' => 'Administrator:',
     'RegularUser' => 'Redovni Korisnik',
+  ),
+  'webLogicHookList' => 
+  array (
+    'after_delete' => 'Posle brisanja',
+    'after_login' => 'Posle prijave',
+    'after_login_failed' => 'Posle neuspele prijave',
+    'after_logout' => 'Posle odjave',
+    'after_relationship_add' => 'Nakon dodavanja veze',
+    'after_relationship_delete' => 'Nakon brisanja veze',
+    'after_save' => 'Posle čuvanja',
+  ),
+  'web_hook_request_method_list' => 
+  array (
+    'DELETE' => 'DELETE',
+    'GET' => 'GET',
+    'POST' => 'POST',
+    'PUT' => 'PUT',
   ),
   'wflow_action_datetime_type_dom' => 
   array (
@@ -2434,19 +6836,25 @@ $app_strings = array (
   'DATA_TYPE_SENT' => 'Poslato:',
   'DATA_TYPE_START' => 'Start:',
   'DEFAULT' => 'Osnovno',
+  'ERROR_ACCESS_MODULE' => 'Nemate pristup ovom modulu.',
+  'ERROR_CONNECTOR_CONFIGURE' => 'Nije moguće preuzimanje podataka. Ovaj servisnije trenutno dostupan ili podešavanja nisu ispravna.',
   'ERROR_DATETIME' => 'Greška: Ovo polje zahteva validan datum',
+  'ERROR_DUPLICATE_EMAIL' => 'Greška. Duplikat email adrese: {{#each this}}{{this}} {{/each}}',
   'ERROR_EMAIL' => 'Greška: Nevalidna email adresa: {{#each this}}{{this}} {{/each}}',
+  'ERROR_EMPTY_LINK_MODULE' => 'Izaberite prvo odnos, molimo vas.',
   'ERROR_EXAMINE_MSG' => 'Molim, pogledajte poruku o grešci ispod:',
+  'ERROR_EXCEEDING_OC_LICENSES' => 'Broj trenutno omogućenih nepovezanih klijenata prevazilazi broj naveden u vašoj licenci.',
   'ERROR_FIELD_REQUIRED' => 'Greška: Ovo je obavezno plje',
-  'ERROR_JS_ALERT_SYSTEM_CLASS' => 'Sistem',
-  'ERROR_JS_ALERT_TIMEOUT_MSG_1' => 'Vaša sesija će isteći za 2 minuta. Molim, sačuvajte svoj rad.',
-  'ERROR_JS_ALERT_TIMEOUT_MSG_2' => 'Vaša sesija je istekla.',
-  'ERROR_JS_ALERT_TIMEOUT_TITLE' => 'Sesija je istekla',
+  'ERROR_FULLY_EXPIRED' => 'Licenca vaše kompanije za SugarCRM je istekla pre više od 30 dana i potrebno je da se ažurira. Samo administratori mogu da se prijave',
+  'ERROR_IS_AFTER' => 'Greška. Datum u ovom polju ne može biti pre datuma u {{this}} polju.',
+  'ERROR_IS_BEFORE' => 'Greška. Datum u ovom polju ne može biti posle datuma u {{this}} polju.',
+  'ERROR_IS_GREATER_THAN' => 'Greška. Vrednost ovog polja mora biti veća od {{ovoga}}',
+  'ERROR_IS_LESS_THAN' => 'Greška. Vrednost ovog polja mora biti manja od {{ovoga}}',
   'ERROR_LICENSE_EXPIRED' => 'Licenca vaše kompanije za SugarCRM mora da se obnovi. Samo administratori mogu da se prijave',
-  'ERROR_LICENSE_FULLY_EXPIRED' => 'Vaša licenca za SugarCRM je istekla i potrebno je obnoviti. Samo administrator sistema se može ulogovati. Za sva pitanja, molimo, kontakirajte Vašeg administratora.',
   'ERROR_LICENSE_VALIDATION' => 'Licenca vaše kompanije za SugarCRM mora da se validira. Samo administratori mogu da se prijave',
   'ERROR_MAXVALUE' => 'Greška: Maksimalna vrednost ovog polja je {{this}}.',
   'ERROR_MAX_FIELD_LENGTH' => 'Greška: Maksimalna dužina ovog polja je: {{this}}.',
+  'ERROR_MAX_FILESIZE_EXCEEDED' => 'Greška. Prikačeni dokument je preveliki.',
   'ERROR_MINVALUE' => 'Greška: Minimalna vrednost ovog polja je {{this}}.',
   'ERROR_MIN_FIELD_LENGTH' => 'Greška: Minimalna dužina ovog polja je: {{this}}.',
   'ERROR_MISSING_COLLECTION_SELECTION' => 'Prazno obavezno polje',
@@ -2454,14 +6862,17 @@ $app_strings = array (
   'ERROR_NO_BEAN' => 'Neuspelo dohvatanje zrna.',
   'ERROR_NO_RECORD' => 'Greška pri preuzimanju zapisa. Ovaj zapis je obrisan ili Vi nemate dozvolu da ga pogledate.',
   'ERROR_NUMBER' => 'Greška. Ovo polje zahteva validni broj.',
+  'ERROR_PRIMARY_EMAIL' => 'Greška. Neophodna je bar jedna primarna adresa.',
   'ERROR_TYPE_NOT_VALID' => 'Greška. Ovaj tip nije validan.',
   'ERROR_UNABLE_TO_RETRIEVE_DATA' => 'Greška: Ne mogu da se preuzmu podaci za {0} Konektor. Postoji mogućnost da je servis trenutno nedostupan ili su konfiguraciona podešavanja možda nevažeća. Poruke greške konektora: ({1}).',
+  'ERROR_UPLOAD_FAILED' => 'Greška. Fajl se nije otpremio.',
   'ERR_ADDRESS_KEY_NOT_SPECIFIED' => 'Molim navedite &#39;key&#39; index u displayParams atributu za definisanje meta-podatka',
   'ERR_AJAX_LOAD' => 'Došlo je do greške:',
   'ERR_AJAX_LOAD_FAILURE' => 'Došlo je do greške u procesiranju Vašeg zahteva, molimo pokušajte kasnije.',
   'ERR_AJAX_LOAD_FOOTER' => 'Ukoliko se greška ponavlja, zamolite Vašeg administratora da onemogući Ajax za ovaj modul.',
   'ERR_BAD_RESPONSE_FROM_SERVER' => 'Pogrešan odgovor od servera',
   'ERR_BLANK_PAGE_NAME' => 'Unesite ime stranice.',
+  'ERR_CALENDAR_CANNOT_UPDATE_FROM_CHILD' => 'Vraćanje promena mora biti izvedeno korišćenjem prvih zapisa iz serije.',
   'ERR_CANNOT_CREATE_METADATA_FILE' => 'Greška: Fajl [[file]] nedostaje. Kreiranje je nemoguće jer odgovarajući HTML fajl nedostaje.',
   'ERR_CANNOT_FIND_MODULE' => 'Greška: Modul [module] na postoji.',
   'ERR_COMPATIBLE_PRECISION_VALUE' => 'Vrednost polja nije kompatibilna sa tačnom vrednošću',
@@ -2477,6 +6888,8 @@ $app_strings = array (
   'ERR_DB_VERSION' => 'Sugar CRM {0} fajlovi mogu biti korišćeni samo sa Sugar CRM {1} bazom podataka.',
   'ERR_DECIMAL_SEP_EQ_THOUSANDS_SEP' => 'Decimalni separator ne može da koristi isti karakter kao i separator hiljad.\\n\\n  Molim vas promenite vrednosti.',
   'ERR_DELETE_RECORD' => 'Morate navesti odgovarajući broj zapisa da bi obrisali kontakt.',
+  'ERR_DNB_BAL_COMPARISON' => 'Greška. Niža granica mora biti manja od više granice',
+  'ERR_ELASTIC_TEST_FAILED' => 'Neuspela konekcija ka Elastic serveru',
   'ERR_ENTER_CONFIRMATION_PASSWORD' => 'Molim, unesite potvrdu svoje lozinke.',
   'ERR_ENTER_NEW_PASSWORD' => 'Molim, unesite svoju novu lozinku.',
   'ERR_ENTER_OLD_PASSWORD' => 'Molim, unesite svoju trenutnu lozinku.',
@@ -2485,19 +6898,23 @@ $app_strings = array (
   'ERR_EXPORT_TYPE' => 'Greška pri izvozu',
   'ERR_EXTERNAL_API_403' => 'Dozvola je odbijena. Tip fajla nije podržan.',
   'ERR_EXTERNAL_API_LOTUS_LIVE_CONFLICT' => 'Datoteka sa istim imenom već postoji u sistemu.',
-  'ERR_EXTERNAL_API_NO_OAUTH_TOKEN' => 'OAuth pristupni token ne postoji.',
+  'ERR_EXTERNAL_API_NO_OAUTH_TOKEN' => 'OAuth pristupni token nedostaje',
   'ERR_EXTERNAL_API_SAVE_FAIL' => 'Došlo je do greške pri pokušaju da sačuvate na spoljni nalog.',
   'ERR_EXTERNAL_API_UPLOAD_FAIL' => 'Došlo je do greške prilikom slanja. Proverite da fajl koji šaljete nije prazan.',
   'ERR_FILE_NOT_FOUND' => 'Greška: Nije moguće učitati fajl {0}. Molimo proverite dozvole sistema i web servera.',
   'ERR_FILE_WRITE' => 'Greška: Nije moguće upisati u fajl {0}. Molimo proverite dozvole sistema i web servera.',
+  'ERR_GENERIC_SERVER_ERROR' => 'Došlo je do greške pri povezivanju na server. Molimo vas probajte ponovo.',
   'ERR_GENERIC_TITLE' => 'Greška',
   'ERR_GOOGLE_API_415' => 'Google Docs ne poržava format fajla koji ste obezbedili.',
+  'ERR_HTTP_404_ACTION' => 'Povratak na prethodnu stranu.',
   'ERR_HTTP_404_TEXT' => 'Žao nam je, ali resurs koji ste tražili ne može biti pronađen.',
   'ERR_HTTP_404_TITLE' => 'HTTP: 404 Nije pronađen',
   'ERR_HTTP_404_TYPE' => '404',
+  'ERR_HTTP_500_ACTION' => 'Molimo kontaktirajte tehničku podršku.',
   'ERR_HTTP_500_TEXT' => 'Došlo je do greške na serveru. Molimo kontaktirajte tehničku podršku.',
   'ERR_HTTP_500_TITLE' => 'HTTP: 500 Interna greška na serveru',
   'ERR_HTTP_500_TYPE' => '500',
+  'ERR_HTTP_DEFAULT_ACTION' => 'Povratak na prethodnu stranu.',
   'ERR_HTTP_DEFAULT_TEXT' => 'Nepoznata greška.',
   'ERR_HTTP_DEFAULT_TITLE' => 'Nepoznata greška',
   'ERR_HTTP_DEFAULT_TYPE' => 'Nepoznato',
@@ -2524,25 +6941,36 @@ $app_strings = array (
   'ERR_MOBILE_BROWSER_NOT_AUTHORIZED' => 'Autentifikacija nije uspela.',
   'ERR_MOBILE_BROWSER_PAGE_NOT_FOUND' => 'Traženi resorsi nisu nadjeni.',
   'ERR_MOBILE_BROWSER_SERVICE_UNAVAILABLE' => 'Servis je nedostupan.',
+  'ERR_MOBILE_CONFLICT' => 'Neko je izmenuio isti zapis na serveru. Potvrdite za automatsko spajanje vaših izmena ili otkažite za odbacivanje promena.',
   'ERR_MOBILE_CONNECTION_FAILED' => 'Nemogu da dostići server.',
   'ERR_MOBILE_CONNECTION_FAILED_LOGIN' => 'Server je nedostupan na datom URL-u.',
   'ERR_MOBILE_EMAIL' => 'Greška. Pogrešna Email Adresa.',
+  'ERR_MOBILE_FILE_ABORTED' => 'Operacija čitanja je otkazana',
+  'ERR_MOBILE_FILE_NOT_FOUND' => 'Fajl nije pronađen',
+  'ERR_MOBILE_FILE_NOT_READABLE' => 'Fajl nije za čitanje',
   'ERR_MOBILE_FILE_NOT_SUPPORTED' => 'Ovaj tip dokumenta se ne podržava.',
-  'ERR_MOBILE_FILE_PROCESSING' => 'Greška pri obradi fajla',
+  'ERR_MOBILE_FILE_PROCESSING' => 'Greška pri procesiranju fajla',
+  'ERR_MOBILE_FILE_READ' => 'Neuspelo čitanje fajla',
+  'ERR_MOBILE_FILE_SECURITY' => 'Fajl je zaključan',
+  'ERR_MOBILE_FILE_SIZE_LIMIT_EXCEEDED' => 'Fajl je previše velik. Maksimalna dozvoljena veličina je {{size}}',
   'ERR_MOBILE_GENERIC_NATIVE_ERROR' => 'Desila se neočekivana graška.',
-  'ERR_MOBILE_INCOMPATIBLE_CLIENT_VERSION' => 'Vaša aplikacija je zastarela i više nije kompatibilna sa {{{brandName}}} instancom na koju se konektujete. Da li želite da preuzmete novu verziju sa App Store?',
+  'ERR_MOBILE_INCOMPATIBLE_CLIENT_VERSION' => 'Vaša aplikacija je zastarela i više nije kompatibilna sa {{{brandName}}} instancom na koju se konektujete. Da li želite da preuzmete novu verziju iz prodavnice aplikacija?',
   'ERR_MOBILE_INTERNAL' => 'Unutrašnja greška ({{{code}}}). Molim vas probajte kasnije.',
   'ERR_MOBILE_INTERNET_UNAVAILABLE' => 'Nedostupna internet konekcija.',
   'ERR_MOBILE_INVALID_CREDS' => 'Pogrešno korisničko ime ili lozinka.',
+  'ERR_MOBILE_METADATA_CHANGED' => 'Konfiguracija servera je promenjena.',
+  'ERR_MOBILE_METADATA_CHANGED_RELOAD' => 'Serverska konfiguracija je promenjena i ponovno učitavanje je neopodno. Nastaviti?',
   'ERR_MOBILE_NOT_AUTHORIZED' => 'Pristup nije autorizovan',
   'ERR_MOBILE_NOT_FOUND' => 'Resorsi nisu nadjeni.',
   'ERR_MOBILE_NOT_FOUND_LOGIN' => 'Server nije nadjen na datom URL-u.',
   'ERR_MOBILE_SESSION_EXPIRED' => 'Vaša sesija je istekla.',
-  'ERR_MOBILE_STORAGE_UNAVAILABLE' => 'Skladište vašeg uređaja nije dostupno',
+  'ERR_MOBILE_SSO_NOT_CONFIGURED' => 'SSO prijavljivanje je nedozvoljeno. Obezbediti instancu na Sugar 7.5 ili i podesiti je za SSO.',
+  'ERR_MOBILE_STORAGE_UNAVAILABLE' => 'Skladište uređaja nije dostupno',
   'ERR_MOBILE_TIMEOUT' => 'Server ne odgovara.',
   'ERR_MOBILE_TIMEOUT_LOGIN' => 'Server ne reaguje na datom URL-u.',
-  'ERR_MOBILE_UPLOAD' => 'Greška tokom slanja fajla',
+  'ERR_MOBILE_UPLOAD' => 'Greška pri otpremanju fajla',
   'ERR_MOBILE_VALIDATION' => 'Rekord je nevažeći',
+  'ERR_MOBILE_VIEW_NOT_SUPPORTED' => 'Verzija za mobilne uređaje ne podržava ovu funkcionalnost. Da li želite da otvorite desktop verziju?',
   'ERR_MONITOR_FILE_MISSING' => 'Greška: Kreiranje monitora nije moguće jer je metadata fajl prazan ili ne postoji.',
   'ERR_MONITOR_NOT_CONFIGURED' => 'Greška: Na postoji monitor koji je konfigurisan za traženi naziv',
   'ERR_MSSQL_DB_CONTEXT' => 'Sadržaj baze je promenjen u',
@@ -2557,18 +6985,34 @@ $app_strings = array (
   'ERR_NO_RECORDS_SELECTED' => 'Niste odabrali ni jedan zapis',
   'ERR_NO_SINGLE_QUOTE' => 'Ne možete koristiti jedan znak navodnika za označavanje',
   'ERR_NO_SUCH_FILE' => 'Fajl ne postoji u sistemu',
+  'ERR_NO_VIEW_ACCESS_ACTION' => 'Kontaktirajte vašeg administratora za prava pristupa.',
   'ERR_NO_VIEW_ACCESS_MSG' => 'Kontaktirajte Vašeg administratora podrške kako biste dobili pristup ovom pogledu za modul {0}',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Nemate prava pristupa ovoj stranici.',
   'ERR_NO_VIEW_ACCESS_TITLE' => 'Pristup odbijen',
+  'ERR_OFFLINE' => 'Offline greška',
+  'ERR_OFFLINE_CLEAN_UP_CONFIRMATION' => 'Ostali ste bez prostora na offline skladištu. Preporučuje se čišćenje skladišta. Da li želite da ga sada izvršite?',
+  'ERR_OFFLINE_DB_CLEANING_ERROR' => 'Čišćenje baze podataka nije uspelo',
+  'ERR_OFFLINE_OUT_OF_SPACE' => 'Ostali ste bez mesta na lokalnom skladištu podataka.',
+  'ERR_OFFLINE_PREFETCH_FAILED' => 'Neuspelo ranije dohvatanje zapisa sa servera',
+  'ERR_OFFLINE_SERVERTIME_UNAVAILABLE' => 'Preuzimanje serverskog vremena nije uspelo',
+  'ERR_OFFLINE_START_FAILED_OUT_OF_SPACE' => 'Nije uspelo pravljenje lokalnog skladišta podataka: nema dovoljno mesta.',
+  'ERR_OFFLINE_STORAGE_CREATE' => 'Nije uspelo pravljenje lokalnog skladišta podataka',
+  'ERR_OFFLINE_STORAGE_UNAVAILABLE' => 'Nije uspelo otvaranje lokalnog skladišta podataka',
+  'ERR_OFFLINE_SYNC_CONFLICT' => 'Konflikt pri sinhronizaciji',
+  'ERR_OFFLINE_SYNC_ERROR' => 'Greška pri sinhronizaciji',
   'ERR_OPPORTUNITY_NAME_DUPE' => 'Prodajna prilika sa imenom %s već postoji.  Molim, unesite drugo ime ispod.',
   'ERR_OPPORTUNITY_NAME_MISSING' => 'Ime za prodajnu priliku nije uneseno. Molim, unesite ime prodajne prilike ispod.',
   'ERR_PASSWORD_MISMATCH' => 'Lozinke nisu iste.',
+  'ERR_PORTAL_NAME_CHECK' => 'Nemogućnost potvrde da je korisničko ime za portal jedinstveno',
   'ERR_POTENTIAL_SEGFAULT' => 'Potencijalna greška: "Apache segmentation fault" je detektovana. Molim, kontaktirajte vašeg administratora sistema kako bi potvrdili ovu grešku i prosledili je SugarCRM-u.',
   'ERR_QUERY_LIMIT' => 'Greška: Granica upita $limit je dostignuta za $module modul.',
+  'ERR_QUOTE_CONVERTED' => 'Ova ponuda je veće konvertovana u poslovnu prliku.',
   'ERR_REENTER_PASSWORDS' => 'Vrednost nove i trenutne lozinke se ne podudaraju.',
   'ERR_RENDER_FAILED_MSG' => 'Neuspešna obrada pogleda',
   'ERR_RENDER_FAILED_TITLE' => 'Neuspešna obrada polja',
   'ERR_RENDER_FIELD_FAILED_MSG' => 'Neuspešna obrada polja {0}.',
   'ERR_RENDER_FIELD_FAILED_TITLE' => 'Neuspešna obrada polja',
+  'ERR_RESOLVE_ERRORS' => 'Molimo vas rešite sve nastale greške pre nastavka.',
   'ERR_RSS_INVALID_INPUT' => 'RSS nije validan input_type',
   'ERR_RSS_INVALID_RESPONSE' => 'RSS nije validan response_type za ovu metodu',
   'ERR_SELF_REPORTING' => 'Korisnik ne može da podnese izveštaj sam sebi.',
@@ -2587,20 +7031,53 @@ $app_strings = array (
   'ERR_TIMEPERIOD_TYPE_DOES_NOT_EXIST' => 'Nije moguće povratiti vremeneske periode tipa: {0}',
   'ERR_TIMEPERIOD_UNDEFINED_FOR_DATE' => 'Greška Timeperiod nije definisan za datum {0}',
   'ERR_UNDEFINED_METRIC' => 'Greška: Nije moguće postaviti vrednost za nedefinisanu meru',
-  'EXCEPTION_CLIENT_OUTDATED' => 'Vaš softver je zastareo, molimo vas ažurirjate klijent pre nego što pokušate ponovno da se povežete.',
+  'ERR_UW_RETIRED' => 'Čarobnjak za nadogradnju nije dostupan u ovoj verziji.',
+  'ERR_VCARD_FILE_MISSING' => 'vcf fajl nedostaje',
+  'ERR_VCARD_FILE_PARSE' => 'Nije uspelo parsiranje vCard formata',
+  'EXCEPTION_ACCESS_MODULE_CONFIG_NOT_AUTHORIZED' => 'Trenutni korisnik nije autorizovan da menja konfiguraciion podešavanja {moduleName}',
+  'EXCEPTION_CHANGE_MODULE_CONFIG_NOT_AUTHORIZED' => 'Trenutni korisnik nije autorizovan da menja konfiguraciion podešavanja {moduleName}',
+  'EXCEPTION_CLIENT_OUTDATED' => 'Vaš softver je zastareo, molimo vas ažurirajte vaš klijent pre ponovnog pokušaja konekcije',
+  'EXCEPTION_CLIENT_OUTDATED_DESC' => 'API koji se koristi je zastareo i mora biti ažuriran pre daljeg korišćenja.',
+  'EXCEPTION_CONNECTOR_RESPONSE' => 'Konektor zahteva za integraciju nije uspešno odgovorio.',
+  'EXCEPTION_CONNECTOR_RESPONSE_DESC' => 'Zahtev pokrenut kroz API ka drugom servisu, krajnjoj tačci ili URI ukazuje da je on propao ili nije mogao biti obrađen od strane servera.',
   'EXCEPTION_CREATE_MODULE_NOT_AUTHORIZED' => 'Niste autorizovani da kreirate {moduleName}. Kontaktirajte Vašeg administratora ako Vam je potreban pristup.',
+  'EXCEPTION_EDIT_CONFLICT' => 'Konflik pri izmeni, molimo vas učitajte ponovo podatke zapisa.',
+  'EXCEPTION_EDIT_CONFLICT_DESC' => 'Ukazuje da možda postoje uporedne izmene zapisa i da trenutni zahtev za izmenu zapisa može da ugrozi prethodne izmene.',
   'EXCEPTION_FATAL_ERROR' => 'Vaš zahtev nije izvršen. Došlo je do fatalne greške. Proverite log za više detalja.',
+  'EXCEPTION_FATAL_ERROR_DESC' => 'Zahtev ne može biti obradjen ili je došlo do greške sa odgovorom. Ovo generalno znači da je došlo do fatalne greške a detalji se mogu videti u logu aplikacije.',
+  'EXCEPTION_FAVORITE_MODULE_NOT_AUTHORIZED' => 'Niste autorizovani da označite kao omiljeni {moduleName}. Kontaktirajte sistem administratora ukoliko Vam je potreban pristup.',
   'EXCEPTION_INACTIVE_PORTAL_USER' => 'Ne možete pristupiti Portalu jer Vam je neaktivan nalog. Molimo Vas kontaktirajte korisničku podršku ako Vam je potreban pristup.',
+  'EXCEPTION_INACTIVE_PORTAL_USER_DESC' => 'Nalog na portalu povezan sa ulogovanim korisnikom nije više aktivan. Neophodna Vam je je podrška od korisničkog servisa',
+  'EXCEPTION_INCORRECT_VERSION_DESC' => 'Verzija API-ja koji koristite nije korektna za trenutni zahtev.',
   'EXCEPTION_INVALID_PARAMETER' => 'Parametar u Vašem zahtevu nije validan.',
+  'EXCEPTION_INVALID_PARAMETER_DESC' => 'Ukazuje da je parametar poslat u zahtevu nevažeći.',
+  'EXCEPTION_INVALID_TOKEN' => 'Token za autentifikaciju je nevažeći',
+  'EXCEPTION_INVALID_TOKEN_DESC' => 'Autentikacioni token prezentovan uz zahtev je nekorektan. Ovo se obično dešava usled isteka tokena ili pak ako je token loše formatian ili netačan.',
+  'EXCEPTION_MAINTENANCE' => 'SugarCRM je u modu za održavanje. Samo administratori mogu da se prijave. Molimo vas kontaktirajte vašeg administratora za dodatne informacije.',
+  'EXCEPTION_MAINTENANCE_DESC' => 'Inastanca SugarCRM koju opslužuje API je u režimu održavanja. Pristup API-ju je dozvoljen samo administratorima.',
+  'EXCEPTION_METADATA_CONFLICT' => 'Konflikt sa meta podacima, molimo vas učitajte ponovno meta podatke',
+  'EXCEPTION_METADATA_OUT_OF_DATE' => 'Vaši meta podaci ili korisnički heš se ne slaže sa serverom. Molimo vas izvršite ponovnu sinhronizaciju vaših meta podataka.',
+  'EXCEPTION_METADATA_OUT_OF_DATE_DESC' => 'Ukazuje da meta podaci na serveru se ne slažu sa meta podacima koje klijent trenutno koristi. Ovo može da se dogodi posle izmene sistemskih podešavanja, izmena modula u Studiju, postavljanja novih modula, kao i sistemskih izmena.',
   'EXCEPTION_MISSING_PARAMTER' => 'Vašem zahtevu fali neophodan parametar.',
+  'EXCEPTION_MISSING_PARAMTER_DESC' => 'Ukazuje da neophodni parametar zahteva nedostaje.',
   'EXCEPTION_NEED_LOGIN' => 'Neophodno je da budete prijavljeni na sistem kako biste izvršili ovu akciju.',
+  'EXCEPTION_NEED_LOGIN_DESC' => 'Ciljani destinacija zahteva autentikaciju ali pošiljalac zahteva nije autentikovan.',
   'EXCEPTION_NOT_AUTHORIZED' => 'Niste autorizovani da izvršite ovu akciju. Kontaktirajte Vašeg administratora ako Vam je potreban pristup.',
+  'EXCEPTION_NOT_AUTHORIZED_DESC' => 'Korisnik nije autorizovan za obavljanje zahtevane operacije.',
   'EXCEPTION_NOT_FOUND' => 'Resurs koji ste tražili nije pronađen. Nije moguće pronaći skriptu za obradu za putanju specificiranu u zahtevu.',
+  'EXCEPTION_NOT_FOUND_DESC' => 'Krajnja tačka ne može da pronađe resurse za poslati zahtev ili ne zna kako da obradi zahtev.',
   'EXCEPTION_NO_METHOD' => 'Vaš zahtev nije podržan. Nije moguće pronaći HTTP metodu Vašeg zahteva za ovu putanju.',
+  'EXCEPTION_NO_METHOD_DESC' => 'Krajnja tačka ne podržava tip poslatog HTTP zahteva. Ovo, na primer, može da se desi kada se šalje POST tip zahteva krajnjoj tački projektovanoj za primanje GET zahteva.',
   'EXCEPTION_PORTAL_NOT_CONFIGURED' => 'Portal nije pravilno konfigurisan. Kontaktirajte Vašeg administratora ako Vam je potrebna pomoć.',
+  'EXCEPTION_PORTAL_NOT_CONFIGURED_DESC' => 'Portal nije korektno konfigurisan i ne može se koristiti.  Neophodna Vam je podrška od administratora portala',
   'EXCEPTION_REQUEST_FAILURE' => 'Vaš zahtev nije izvršen.',
+  'EXCEPTION_REQUEST_FAILURE_DESC' => 'Izvršavanje zahteva nije uspelo.',
   'EXCEPTION_REQUEST_TOO_LARGE' => 'Vaš zahtev je preveliki kako bi bio procesuiran.',
+  'EXCEPTION_REQUEST_TOO_LARGE_DESC' => 'Zahtev je previše veliki da bi ga server obradio.',
+  'EXCEPTION_SUBSCRIBE_MODULE_NOT_AUTHORIZED' => 'Niste autorizovani da se pretplatite na {moduleName}. Kontaktirajte sistem administratora ukoliko Vam je potreban pristup.',
   'EXCEPTION_UNKNOWN_EXCEPTION' => 'Vaš zahtev nije uspeo zbog nepoznate greške.',
+  'EXCEPTION_UNKNOWN_EXCEPTION_DESC' => 'Stanje je uzrokovano uopštenom greškom. Razlozi za ovu grešku mogu biti različiti ali su generalno van opsega preciznih API grešaka.',
+  'FATAL_LICENSE_ALTERED' => 'Vaša licenca je promenjena od trenutka zadnje validacije.',
   'LBL_1_COLUMN' => '1 Kolona',
   'LBL_2_COLUMN' => '2 Kolone',
   'LBL_3_COLUMN' => '3 Kolone',
@@ -2652,9 +7129,45 @@ $app_strings = array (
   'LBL_ACCUMULATED_HISTORY_BUTTON_LABEL' => 'Pogledaj sadržaj',
   'LBL_ACCUMULATED_HISTORY_BUTTON_TITLE' => 'Pogledaj sadržaj [Alt+H]',
   'LBL_ACTION' => 'Akcija',
+  'LBL_ACTION_CREATE' => 'NAPRAVI',
+  'LBL_ACTION_CREATE_EXPLANATION' => 'Napravljen modul {{module}} "{{name}}"',
+  'LBL_ACTION_CREATE_RELATED_EXPLANATION' => 'Napravljeni modul {{module}} "{{name}}" je povezan sa modulom {{relatedModule}} "{{relatedName}}"',
+  'LBL_ACTION_DELETE' => 'OBRIŠI',
+  'LBL_ACTION_DELETE_EXPLANATION' => 'Obrisan modul {{module}} "{{name}}"',
+  'LBL_ACTION_FAVORITE' => 'OMILJENO',
+  'LBL_ACTION_FAVORITE_EXPLANATION' => 'Dodat u omiljene {{module}} "{{name}}"',
+  'LBL_ACTION_FOLLOW' => 'PRATI',
+  'LBL_ACTION_FOLLOW_EXPLANATION' => 'Dodat u praćene {{module}} "{{name}}"',
+  'LBL_ACTION_LINK' => 'POVEŽI',
+  'LBL_ACTION_LINK_EXPLANATION' => 'Povezan modul {{module}} "{{name}}" sa {{relatedModule}} "{{relatedName}}"',
+  'LBL_ACTION_UNFAVORITE_EXPLANATION' => 'Uklonjen iz omiljenih {{module}} "{{name}}"',
+  'LBL_ACTION_UNFOLLOW_EXPLANATION' => 'Uklonjen iz praćenih {{module}} "{{name}}"',
+  'LBL_ACTION_UNLINK' => 'Raskini vezu',
+  'LBL_ACTION_UNLINK_EXPLANATION' => 'Raskinuta veza {{module}} "{{name}}" od {{relatedModule}} "{{relatedName}}"',
+  'LBL_ACTION_UPDATE' => 'AŽURIRAJ',
+  'LBL_ACTION_UPDATE_EXPLANATION' => 'Ažuriran modul {{module}} "{{name}}"',
   'LBL_ACTIVE' => 'Aktivna sesija',
+  'LBL_ACTIVE_TASKS_DASHLET' => 'Aktivni zadaci',
+  'LBL_ACTIVE_TASKS_DASHLET_COMPLETE_TASK' => 'Završeno',
+  'LBL_ACTIVE_TASKS_DASHLET_CONFIRM_CLOSE' => 'Da li ste sigruni da želite da zatovrite {0} kao kompletirano?',
+  'LBL_ACTIVE_TASKS_DASHLET_DESCRIPTION' => 'Dešlet aktivni zadaci prikazuje trenutne, dolazeće i taskove koje trebaju da se urade.',
+  'LBL_ACTIVE_TASKS_DASHLET_DUE_NOW' => 'Prispelo',
+  'LBL_ACTIVE_TASKS_DASHLET_GROUP_BUTTON_LABEL' => 'Timski zadaci',
+  'LBL_ACTIVE_TASKS_DASHLET_TODO' => 'Za uraditi',
+  'LBL_ACTIVE_TASKS_DASHLET_UPCOMING' => 'Nadolazeće',
+  'LBL_ACTIVE_TASKS_DASHLET_USER_BUTTON_LABEL' => 'Moji zadaci',
+  'LBL_ACTIVITIES' => 'Aktivnosti',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktivnosti',
+  'LBL_ACTIVITYSTREAM_COMMENT_PLACEHOLDER' => 'Dodajte vaš komentart&hellip; Ukucajte @ da pomenete korisnika. Ukucajte # da referencirate zapis.',
+  'LBL_ACTIVITYSTREAM_POST_PLACEHOLDER' => 'Ukucajte poruku i prevucite željeni prilog. Ukucajte @ da pomenete korisnika. Ukucajte # da referencirate zapis.',
+  'LBL_ACTIVITYSTREAM_RELATIVETIME_ON' => 'Na',
+  'LBL_ACTIVITY_STREAM' => 'Aktivnosti',
+  'LBL_ACTIVITY_STREAM_DASHLET_DESCRIPTION' => 'Prikazati listu aktivnosti izvedenih na zapisu i kreirati i postaviti komentare',
+  'LBL_ACTIVITY_STREAM_DASHLET_NAME' => 'Moj tok aktivnosti',
+  'LBL_ACTIVITY_STREAM_DISABLED' => 'Pregled aktivnosti nije uključen',
+  'LBL_ACTIVITY_STREAM_DISABLED_MODULE' => 'Tok aktivnosti nije dozvoljen za ovaj modul',
   'LBL_ACTIVITY_VIEW_TOUR' => 'Tura pregleda aktivnosti',
+  'LBL_ACTIVTY_STREAM_SHOW_MORE' => 'Još poruka...',
   'LBL_ADD' => 'Dodaj',
   'LBL_ADDED_DASHLET' => 'Sugar dašlet je dodat',
   'LBL_ADDING_DASHLET' => 'Dodajem Sugar dašlet ...',
@@ -2678,6 +7191,13 @@ $app_strings = array (
   'LBL_ADVANCED_SEARCH' => 'Napredna pretraga',
   'LBL_ADV_SEARCH_LNK_KEY' => '8',
   'LBL_AJAX_FAILURE' => 'Ajax greška',
+  'LBL_ALERT_BROWSER_NOT_SUPPORTED' => 'Verzija vašeg pregledača više nije podržana ili koritite nepodržani pregledač.',
+  'LBL_ALERT_BROWSER_SUPPORT' => 'Preporučene su sledeće verzije pregledača: <ul><li>Internet Explorer 9</li><li>Firefox 22</li><li>Safari 6</li><li>Chrome 27</li></ul>',
+  'LBL_ALERT_TITLE_ERROR' => 'Greška:',
+  'LBL_ALERT_TITLE_LOADING' => 'Učitavanje',
+  'LBL_ALERT_TITLE_NOTICE' => 'Obaveštenje',
+  'LBL_ALERT_TITLE_SUCCESS' => 'Uspeh:',
+  'LBL_ALERT_TITLE_WARNING' => 'Upozorenje:',
   'LBL_ALT_ADDRESS' => 'Druga adresa:',
   'LBL_ALT_ADD_TEAM_ROW' => 'Dodaj novi red tima',
   'LBL_ALT_HIDE_OPTIONS' => 'Sakrij Opcije',
@@ -2693,9 +7213,11 @@ $app_strings = array (
   'LBL_ALT_SORT_ASC' => 'Sortiraj rastuće',
   'LBL_ALT_SORT_DESC' => 'Sortiraj opadajuće',
   'LBL_ALT_SPOT_SEARCH' => 'Spot pretraga',
+  'LBL_AMOUNT_USDOLLAR' => 'Iznos',
   'LBL_AND' => 'i',
   'LBL_ANNUAL_TIMEPERIOD_FORMAT' => 'Godina {0}',
   'LBL_ARCHIVE' => 'Arhiva',
+  'LBL_ARCHIVE_EMAIL' => 'Arhiviraj Email',
   'LBL_ASSIGN' => 'Izaberi {{{this}}}',
   'LBL_ASSIGNED_TO' => 'Dodeljeno',
   'LBL_ASSIGNED_TO_NAME' => 'Dodeljeno',
@@ -2703,15 +7225,22 @@ $app_strings = array (
   'LBL_ASSOC' => 'Saradnik {{{this}}}',
   'LBL_ASSOC_EXISTING' => 'Asocirajte postojeći {{{this}}}',
   'LBL_ASSOC_RELATED_RECORD' => 'Asocirajte postojeći zapis',
+  'LBL_AUTH_FAILED' => 'Autentikacija klijenta nije uspela',
+  'LBL_AUTH_FAILED_TITLE' => 'Pogrešan klijent',
   'LBL_BACK' => 'Nazad',
+  'LBL_BAL' => 'Napraviti listu',
   'LBL_BASE_RATE' => 'Osnovna Stopa',
   'LBL_BASIC' => 'Osnovno',
+  'LBL_BASIC_QUICK_SEARCH' => 'Pretraži...',
   'LBL_BASIC_SEARCH' => 'Pretraga',
   'LBL_BEFORE' => 'Pre',
+  'LBL_BEST' => 'Najbolje',
+  'LBL_BEST_ADJUSTED' => 'Najbolje (prilagođeno)',
   'LBL_BILLING_ADDRESS' => 'Adresa naplate',
   'LBL_BILLING_STREET' => 'Ulica:',
   'LBL_BILL_TO_ACCOUNT' => 'Naplatiti kompaniji',
   'LBL_BILL_TO_CONTACT' => 'Naplatiti kontaktu',
+  'LBL_BLANK_VALUE' => '<empty>',
   'LBL_BREADCRUMBSTACK_CREATED' => 'BreadCrumbStack kreiran za ID korisnika {0}',
   'LBL_BROWSER_TITLE' => 'SugarCRM - Komercijalni CRM Otvorenog Koda',
   'LBL_BROWSE_DOCUMENTS_BUTTON_KEY' => 'B',
@@ -2720,6 +7249,21 @@ $app_strings = array (
   'LBL_BUGS' => 'Defekti',
   'LBL_BY' => 'od',
   'LBL_Blank' => ' ',
+  'LBL_CALENDAR_DURATION' => 'Trajanje',
+  'LBL_CALENDAR_END_DATE' => 'Datum završetka',
+  'LBL_CALENDAR_EVENT_RESPONSE_ACCEPT' => 'Prisustvujem',
+  'LBL_CALENDAR_EVENT_RESPONSE_DECLINE' => 'Odbijen',
+  'LBL_CALENDAR_EVENT_RESPONSE_NONE' => 'Bez odgovora',
+  'LBL_CALENDAR_EVENT_RESPONSE_TENTATIVE' => 'Neodlučen',
+  'LBL_CALENDAR_EVENT_SCHEDULE_UNAVAILABLE' => 'Zakazati nedostupne',
+  'LBL_CALENDAR_RECURRENCE' => 'Ponavljanje',
+  'LBL_CALENDAR_REMINDERS' => 'Podsetnici',
+  'LBL_CALENDAR_REPEAT_COUNT' => 'Ponoviti slučajeve',
+  'LBL_CALENDAR_REPEAT_DOW' => 'Ponoviti sledećim danima u okviru nedelje',
+  'LBL_CALENDAR_REPEAT_INTERVAL' => 'Intervali ponavljanja',
+  'LBL_CALENDAR_REPEAT_TYPE' => 'Tip ponavljanja',
+  'LBL_CALENDAR_REPEAT_UNTIL_DATE' => 'Ponavlja se do',
+  'LBL_CALENDAR_START_DATE' => 'Datum početka',
   'LBL_CALL' => 'Poziv',
   'LBL_CALLS' => 'Pozivi',
   'LBL_CALLS_SUBPANEL_TITLE' => 'Pozivi',
@@ -2732,29 +7276,53 @@ $app_strings = array (
   'LBL_CAMPAIGN_ID' => 'ID kampanje',
   'LBL_CANCEL_BUTTON_KEY' => 'X',
   'LBL_CANCEL_BUTTON_LABEL' => 'Otkaži',
+  'LBL_CANCEL_BUTTON_LABEL_CONT' => 'da ostanete na stranici.',
+  'LBL_CANCEL_BUTTON_LABEL_UNSAVED_CONT' => 'da ostanete na stranici.',
   'LBL_CANCEL_BUTTON_TITLE' => 'Otkaži [Alt+X]',
   'LBL_CANNOT_SEND_PASSWORD' => 'Ne mogu poslati lozinku',
+  'LBL_CAN_NOT_DISABLE_ALL_LANG' => 'Nije moguće isključiti sve jezike.',
   'LBL_CASE' => 'Slučaj',
   'LBL_CASES' => 'Slučajevi',
+  'LBL_CASE_SUMMARY_CHART' => 'Pregled slučaja',
+  'LBL_CASE_SUMMARY_CHART_DESC' => 'Prikazuje pregled povezanih slučajeva',
   'LBL_CHANGE_BUTTON_KEY' => 'G',
   'LBL_CHANGE_BUTTON_LABEL' => 'Promeni',
   'LBL_CHANGE_BUTTON_TITLE' => 'Promeni [Alt+G]',
   'LBL_CHANGE_LAYOUT' => 'Promeni izgled',
   'LBL_CHANGE_PASSWORD' => 'Promena lozinke',
   'LBL_CHARSET' => 'UTF-8',
+  'LBL_CHART' => 'Grafik',
+  'LBL_CHART_CONFIG_ALLOW_SCROLLING' => 'Dozvoliti pomeranje teksta',
+  'LBL_CHART_CONFIG_BAR_CHART_OPTIONS' => 'Opcije za prikazivanje dijagrama s stubićima',
+  'LBL_CHART_CONFIG_CHART_TYPE' => 'Tip grafika',
+  'LBL_CHART_CONFIG_HIDE_EMPTY_GROUPS' => 'Sakriti prazne grupe',
+  'LBL_CHART_CONFIG_SHOW_TITLE' => 'Prikazati naslov',
+  'LBL_CHART_CONFIG_SHOW_XAXIS_LABEL' => 'Prikazati x-axis oznaku',
+  'LBL_CHART_CONFIG_SHOW_YAXIS_LABEL' => 'Prikazati y-axis oznaku',
+  'LBL_CHART_CONFIG_STACK_DATA' => 'Naslagane serije podataka',
+  'LBL_CHART_CONFIG_TICK_DISPLAY' => 'Označiti metodu prikaza',
+  'LBL_CHART_CONFIG_TICK_ROTATE' => 'Rotirati obeleživače',
+  'LBL_CHART_CONFIG_TICK_STAGGER' => 'Uzdrmati obeleživače',
+  'LBL_CHART_CONFIG_TICK_WRAP' => 'Zamotati obeleživače',
+  'LBL_CHART_CONFIG_VALUE_PLACEMENT' => 'Dijagram za prikaz vrednosti',
+  'LBL_CHART_CONTROLS_CLOSE' => 'Sakrij kontrole',
+  'LBL_CHART_CONTROLS_OPEN' => 'Prikaži kontrole',
+  'LBL_CHART_LEGEND_CLOSE' => 'Sakrij legendu',
+  'LBL_CHART_LEGEND_OPEN' => 'Prikaži legendu',
+  'LBL_CHART_NO_DATA' => 'Nisu pronađeni podaci.',
+  'LBL_CHART_UNDEFINED' => 'Nedefinisano',
   'LBL_CHECKALL' => 'Proveri sve',
+  'LBL_CHOOSE_ITEMS' => 'Izaberite stavke',
   'LBL_CHOOSE_LINK' => 'Odaberite tip linka',
   'LBL_CHOOSE_MONTH' => 'Odaberite mesec',
   'LBL_CHOOSE_PARENT_TYPE' => 'Odaberite tip matičnog zapisa',
-  'LBL_CHOOSE_START_AND_END_DATES' => 'Molimo Vas unesite početni i krajnji datum',
-  'LBL_CHOOSE_START_AND_END_ENTRIES' => 'Molimo Vas unesite početnu i krajnju vrednost',
   'LBL_CITY' => 'Grad',
   'LBL_CLEARALL' => 'Obriši sve',
   'LBL_CLEAR_BUTTON_KEY' => 'C',
   'LBL_CLEAR_BUTTON_LABEL' => 'Obriši',
   'LBL_CLEAR_BUTTON_TITLE' => 'Obriši [Alt+C]',
   'LBL_CLICK_HERE' => 'Klikni ovde',
-  'LBL_CLICK_TO_DRILLDOWN' => 'Kliknite za detalje',
+  'LBL_CLICK_TO_DRILLDOWN' => 'kliknuti za rotaciju u dubinu',
   'LBL_CLIENT_IP' => 'IP adresa klijenta',
   'LBL_CLOSEALL_BUTTON_KEY' => 'Q',
   'LBL_CLOSEALL_BUTTON_LABEL' => 'Zatvori sve',
@@ -2770,58 +7338,147 @@ $app_strings = array (
   'LBL_CLOSE_BUTTON_LABEL' => 'Zatvori',
   'LBL_CLOSE_BUTTON_TITLE' => 'Zatvori',
   'LBL_CLOSE_DASHLETS' => 'Zatvori',
+  'LBL_CLOSE_SAVE_BUTTON' => 'Zatvori i sačuvaj zadatak',
   'LBL_CLOSE_WINDOW' => 'Zatvori prozor',
+  'LBL_COFIGURE_PORTAL_THEME' => 'Podesite temu portala',
+  'LBL_COLLAPSE_ALL' => 'Suzi sve',
   'LBL_COLLECTION_EXACT' => 'Tačno',
   'LBL_COLLECTION_NAME' => 'Naziv',
   'LBL_COLLECTION_PRIMARY' => 'Primarno',
   'LBL_COLORS' => 'Boje',
-  'LBL_COLUMNS_CAN_BE_DISPLAYED' => 'kolona može biti prikazano.',
+  'LBL_COLUMNS' => 'Kolona',
+  'LBL_COLUMNS_CAN_BE_DISPLAYED' => 'Kolone mogu biti prikazane',
+  'LBL_COMMENT' => 'Komentar',
   'LBL_COMPANY_LOGO' => 'Logo kompanije',
   'LBL_COMPOSE_EMAIL_BUTTON_KEY' => 'L',
   'LBL_COMPOSE_EMAIL_BUTTON_LABEL' => 'Sastavi Email',
   'LBL_COMPOSE_EMAIL_BUTTON_TITLE' => 'Sastavi Email [Alt+L]',
+  'LBL_CONFIGURE_TWITTER' => 'Kontaktirajte vašeg administratora za konfiguraciju Twitter-a',
+  'LBL_CONFIG_BLOCKED_DESC_CONFIG_ACCESS' => 'Podešavanje baze podataka za {{module}} mora biti definisano',
+  'LBL_CONFIG_BLOCKED_DESC_MODULE_ACCESS' => 'Korisnik ne treba da podesi {{module}}',
+  'LBL_CONFIG_BLOCKED_DESC_NO_CONFIG_METADATA' => '{{module}} nema nikakvo podešavanje',
+  'LBL_CONFIG_BLOCKED_DESC_USER_ACCESS' => 'Korisnik ne treba da pristupi {{module}}',
+  'LBL_CONFIG_BLOCKED_TITLE' => '{{module}} greška u podešavanju',
+  'LBL_CONFIG_MODULE_SETTINGS_SAVED' => '{{module}} podešavanja su sačuvana.',
+  'LBL_CONFIG_TITLE_MODULE_SETTINGS' => '{{module}} Podešavanje',
   'LBL_CONFIRM' => 'Potvrdi',
   'LBL_CONFIRM_BUTTON_LABEL' => 'OK',
+  'LBL_CONFIRM_BUTTON_LABEL_CONT' => 'da napustite stranicu i odbacite promene.',
+  'LBL_CONFIRM_BUTTON_LABEL_UNSAVED_CONT' => 'da napustite stranicu i odbacite promene.',
   'LBL_CONNECTORS_POPUPS' => 'Popupi konektora',
+  'LBL_CONNECT_TEST_FAIL' => 'Greška: Podešavanja konektora nisu dobra. Molimo vas kontaktirajte vašeg administratora.',
+  'LBL_CONNECT_TWITTER' => 'Povežite se sa Twitter-om',
+  'LBL_CONNECT_TWITTER_FOR_ADMIN' => 'Podesite Twitter konektor',
   'LBL_CONTACT' => 'Kontakt',
   'LBL_CONTACTS' => 'Kontakti',
   'LBL_CONTACT_EDIT_PASSWORD_LNK_TEXT' => 'Promena lozinke',
   'LBL_CONTACT_LIST' => 'Lista kontakata',
+  'LBL_CONTEXTUAL_SHORTCUTS' => 'Dodatne prečice',
   'LBL_CONTRACTS' => 'Ugovori',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2013 SugarCRM Inc. Sva prava zadržana.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2014 SugarCRM Inc. Sva prava zadržana.',
   'LBL_COPY_ADDRESS_FROM_LEFT' => 'Kopiraj adresu s leva:',
   'LBL_COUNTRY' => 'Država:',
   'LBL_CREATED' => 'Autor',
   'LBL_CREATED_BY_USER' => 'Kreirao korisnik',
   'LBL_CREATED_ID' => 'ID broj autora',
   'LBL_CREATED_USER' => 'Kreirao korisnik',
+  'LBL_CREATE_ATTACHMENT' => 'Napravite prilog',
   'LBL_CREATE_BUG' => 'Kreiraj defekt',
   'LBL_CREATE_BUTTON_LABEL' => 'Kreiraj',
   'LBL_CREATE_CASE' => 'Kreiraj slučaj',
   'LBL_CREATE_CONTACT' => 'Kreiraj kontakt',
   'LBL_CREATE_KB_DOCUMENT' => 'Kreiraj artikal',
+  'LBL_CREATE_LINK_BUTTON_LABEL' => 'Napravite i povežite zapis',
+  'LBL_CREATE_LINK_RECORD' => 'Napravite i povežite zapis',
   'LBL_CREATE_MODULE' => 'Kreirati {{{this}}}',
+  'LBL_CREATE_NEW_TARGET_LIST' => 'Napravite novu listu ciljeva',
   'LBL_CREATE_NOTE' => 'Kreiraj belešku',
   'LBL_CREATE_OPPORTUNITY' => 'Kreiraj prodajnu priliku',
   'LBL_CREATE_RELATED' => 'Kreirajte povezan {{{this}}}',
   'LBL_CREATE_RELATED_RECORD' => 'Kreirajte povezani zapis',
   'LBL_CREATE_TASK' => 'Kreiraj zadatak',
   'LBL_CREATING_NEW_PAGE' => 'Kreiram novu stranicu...',
+  'LBL_CURRENCIES' => 'Valute',
   'LBL_CURRENCY' => 'Valuta:',
+  'LBL_CURRENCY_ID' => 'ID broj valute',
+  'LBL_CURRENCY_NAME' => 'Ime valute',
+  'LBL_CURRENCY_RATE' => 'Kursna Lista',
+  'LBL_CURRENCY_SYMBOL' => 'Simbol valute',
+  'LBL_CURRENT_PASSWORD' => 'Trenutna lozinka',
   'LBL_CURRENT_TIMEPERIOD' => 'Trenutni Vremenski Period',
   'LBL_CURRENT_USER_FILTER' => 'Samo moje stavke:',
+  'LBL_DASHBOARD_BWC' => 'Moj Lični Dashbord',
+  'LBL_DASHBOARD_NO_RECORDS' => 'Nema sačuvanih tabla sa dašletima',
+  'LBL_DASHBOARD_TOGGLE' => 'Otvori/Zatvori tablu sa dašletima',
+  'LBL_DASHLET' => 'Sugar dašlet',
+  'LBL_DASHLET_ATTACHMENTS_DESCRIPTION' => 'Belečke i prilozi pripadaju zapisu',
+  'LBL_DASHLET_ATTACHMENTS_NAME' => 'Prilozi',
+  'LBL_DASHLET_CASESSUMMARY_CLOSE_CASES' => 'Zatvoreni slučajevi',
+  'LBL_DASHLET_CASESSUMMARY_OPEN_CASES' => 'Otvoreni slučajevi',
+  'LBL_DASHLET_CASESSUMMARY_SUMMARY' => 'Sadržaj',
+  'LBL_DASHLET_CASES_SUMMARY_NAME' => 'Pregled slučaja',
+  'LBL_DASHLET_CLOSE' => 'Zatvori',
+  'LBL_DASHLET_COMPANY_INFO' => 'D&B: Uvezi i Obogati',
+  'LBL_DASHLET_COMPANY_INFO_DESC' => 'Dopunite postojeći nalog koristeći D&B podatke. Potrebna D&B prijava.',
+  'LBL_DASHLET_COMPANY_INFO_LONG_DESC' => 'Održavajte vaše podatke naloga ažurnim pomoću D&B uvoza podataka i obogaćenih Funkcija.',
+  'LBL_DASHLET_CONFIGURE' => 'Podešavanja',
   'LBL_DASHLET_CONFIGURE_AUTOREFRESH' => 'Automatski osveži',
   'LBL_DASHLET_CONFIGURE_DISPLAY_ROWS' => 'Prikaži redove',
   'LBL_DASHLET_CONFIGURE_FILTERS' => 'Filteri',
   'LBL_DASHLET_CONFIGURE_GENERAL' => 'Opšte',
+  'LBL_DASHLET_CONFIGURE_INTELLIGENT' => 'Poveži sa trenutnim zapisom',
+  'LBL_DASHLET_CONFIGURE_LINKED' => 'Povezana polja',
+  'LBL_DASHLET_CONFIGURE_MY_FAVORITES_ONLY' => 'Moji omiljeni',
   'LBL_DASHLET_CONFIGURE_MY_ITEMS_ONLY' => 'Samo moje stavke',
   'LBL_DASHLET_CONFIGURE_TITLE' => 'Naslov',
+  'LBL_DASHLET_CONFIG_EDIT_LABEL' => 'Izmeni',
+  'LBL_DASHLET_COUNTRY_CHART_DESCRIPTION' => 'Prikazuje grafikon prodaje po mapi država',
+  'LBL_DASHLET_COUNTRY_CHART_NAME' => 'Prodaja po državi',
+  'LBL_DASHLET_DROP_HERE' => 'Spustite ovde',
+  'LBL_DASHLET_FORECASTS_CHART_DESC' => 'Prikazuje stubičasti grefikon prodaje za određeni vremenski period',
+  'LBL_DASHLET_FORECASTS_CHART_NAME' => 'Stubičasti grafikon prognoze',
+  'LBL_DASHLET_FORECASTS_DATASET' => 'Set podataka',
+  'LBL_DASHLET_FORECASTS_DETAILS' => 'Detalji prognoze',
+  'LBL_DASHLET_FORECASTS_DETAILS_DESC' => 'Prikazuje detalje trenutne prognoze.',
+  'LBL_DASHLET_FORECASTS_FOR_CHART_NAME' => 'Prognoza za',
+  'LBL_DASHLET_FORECASTS_GROUPBY' => 'Grupiši po',
+  'LBL_DASHLET_FORECAST_NAME' => 'Prognoza',
+  'LBL_DASHLET_FORECAST_PARETO_CHART_NAME' => 'Pareto grafikon prognoze',
+  'LBL_DASHLET_ITERACTIONS_NAME' => 'Interakcije',
+  'LBL_DASHLET_LISTVIEW_DESCRIPTION' => 'Lista zapisa dodeljenih vama',
+  'LBL_DASHLET_LISTVIEW_NAME' => 'Pregled u vidu liste',
+  'LBL_DASHLET_MAXIMIZE' => 'Povećaj',
+  'LBL_DASHLET_MAXIMIZE_ALL' => 'Povećaj sve',
+  'LBL_DASHLET_MINIMIZE' => 'Smanji',
+  'LBL_DASHLET_MINIMIZE_ALL' => 'Smanji sve',
+  'LBL_DASHLET_MODULE_UNAVAILABLE' => 'Podaci nisu dostupni. Nemate dozvolu da pristupite ovom modulu. Molimo ažurirajte ili uklonite ovaj dashlet.',
+  'LBL_DASHLET_MOVE' => 'Pomeri',
+  'LBL_DASHLET_NEWS_DESCRIPTION' => 'Google vesti za povezani nalog',
+  'LBL_DASHLET_NEWS_FEED_NAME' => 'Vesti',
+  'LBL_DASHLET_NEWS_NAME' => 'Vesti',
+  'LBL_DASHLET_NO_RECORDS' => 'Nema pronađenih zapisa u ovom trenutku.',
+  'LBL_DASHLET_OPPORTUNITY_DESCRIPTION' => 'Pokazatelji prilike za prodaju za povezanu kompaniju',
+  'LBL_DASHLET_OPPORTUNITY_NAME' => 'Pokazatelji prilike za prodaju',
+  'LBL_DASHLET_PIPLINE_NAME' => 'Levak prodaje',
+  'LBL_DASHLET_RECENT_TWEETS_SUGARCRM_NAME' => 'Skorašnji Tweet-ovi - @{{twitter}}',
+  'LBL_DASHLET_REFRESH' => 'Osveži',
+  'LBL_DASHLET_REFRESH_LABEL' => 'Osveži',
+  'LBL_DASHLET_REMOVE_LABEL' => 'Ukloni',
+  'LBL_DASHLET_SAVED_REPORTS_CHART' => 'Dešlet sačuvanih grafikona izveštaja',
+  'LBL_DASHLET_SAVED_REPORTS_CHART_DESC' => 'Prikazuje bilo koji grafikon iz sačuvanog izveštaja.',
+  'LBL_DASHLET_TOGGLE' => 'Podesi vidljivost table sa dašletima',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Top 10 mogućnosti prodaje',
+  'LBL_DATA_VIEW' => 'Pregled podataka',
   'LBL_DATE' => 'Datum',
   'LBL_DATE_ENTERED' => 'Datum kreiranja',
   'LBL_DATE_LAST_ACTION' => 'Datum poslednje akcije',
   'LBL_DATE_MODIFIED' => 'Datum izmene:',
   'LBL_DATE_START' => 'Datum početka',
   'LBL_DB_ROUND_TRIPS' => 'DB ciklusi',
+  'LBL_DEFAULT_DASHBOARD_TITLE' => 'Moja tabla sa dašletima',
+  'LBL_DEFAULT_HELP_DASHBOARD_TITLE' => 'Tabla sa dašletima Pomoć',
+  'LBL_DEFAULT_HELP_DASHLET_DESC' => 'Dashlet Help omogućava modul i poseban izgled pomoći.',
+  'LBL_DEFAULT_HELP_DASHLET_TITLE' => 'Dašlet Pomoć',
   'LBL_DEFAULT_LINK_TEXT' => 'Podrazumevani link tekst.',
   'LBL_DELETE' => 'Obriši',
   'LBL_DELETED' => 'Obrisan',
@@ -2829,6 +7486,7 @@ $app_strings = array (
   'LBL_DELETE_BUTTON_KEY' => 'D',
   'LBL_DELETE_BUTTON_LABEL' => 'Obriši',
   'LBL_DELETE_BUTTON_TITLE' => 'Obriši [Alt+D]',
+  'LBL_DELETE_FILTER_CONFIRMATION' => 'Ovaj filter će biti uklonjen iz svih pogleda; ovo može uključivati i konfiguraciju podataka za dašlet. Da li ste sigurni da želite da obrišete ovaj filter?',
   'LBL_DELETE_INLINE' => 'Obriši',
   'LBL_DELETE_PAGE' => 'Obriši stranu',
   'LBL_DELETE_PAGE_CONFIRM' => 'Da li ste sigurni da želite da obrišete ovu stranicu?',
@@ -2839,6 +7497,496 @@ $app_strings = array (
   'LBL_DIRECT_REPORTS' => 'Direktni izveštaj',
   'LBL_DISPLAY_COLUMNS' => 'Prikaži kolone',
   'LBL_DISPLAY_LOG' => 'Dnevnik pregleda',
+  'LBL_DNB_ACC_CRT' => 'D&B pravljenje naloga',
+  'LBL_DNB_ACC_CRT_DESC' => 'Kreirajte nalog koristeći D&B. Potrebna D&B prijava.',
+  'LBL_DNB_ACT_OPER' => 'Aktivnosti i Operacije',
+  'LBL_DNB_ACT_OPER_DESC' => 'Snima opis poslovnih operacija uključujući marketinške informacija kao što su broj mušterija, detalji agencija i uvozno/izvozni detalji',
+  'LBL_DNB_ADDRESS' => 'Adresa',
+  'LBL_DNB_ADDRESS_TENURE_DETAILS' => 'Detalji Adrese Poseda',
+  'LBL_DNB_ADMIN_CONFIG' => 'Podešavanje D&B konektora',
+  'LBL_DNB_AGENT_IND' => 'Agent Indikator',
+  'LBL_DNB_AGENT_INDICATOR' => 'Agent Indikator',
+  'LBL_DNB_AGENT_IND_DESC' => 'Kada je tačno(vrednost podešena na 1) to ukazuje ulogu subjekta kao agenta u promociji dobara i usluga druge organizacije, npr., Agent Prodavac, Agent Nabavke',
+  'LBL_DNB_AIRPRT_DISADV_ENT' => 'Indikator Aerodromskih koncesionih onesposobljenih poslavnih preduzeća',
+  'LBL_DNB_AIRPRT_DISADV_ENT_DESC' => 'Vrednost TAČNO ukazuje da preduzeće posluje kao koncesionar na jednom od nacionalnih aerodroma i zadovoljava vlasniške potrebe propisanie od strane regulatora u 49 CFR Part 23 dokumentu',
+  'LBL_DNB_ALASNAT_IND' => 'Ukazuje da je rođen na Aljasci',
+  'LBL_DNB_ALASNAT_IND_DESC' => 'Vrednost TAČNO ukazuje da je pleme  Alaskan Native Corporation',
+  'LBL_DNB_AND' => 'i',
+  'LBL_DNB_ANNUAL_SALES_US_DOLLAR' => 'Godišnja Prodaja',
+  'LBL_DNB_API_ERR' => 'D&B API greška',
+  'LBL_DNB_ASSESMENT' => 'D&B procena',
+  'LBL_DNB_ASSESMENT_DESC' => 'Zapisi informacija iznutra ili informacije dodate vrednosti o organizacijama, kao što su:- preporuke koliko kredita im možemo dozvoliti, - procena njihove likvidnosti, - precizni proračuni njihovih performansi i ponašanja, - predviđenja rizika poslovonja sa njima. Rezultati predviđanja se obično računaju i dodeljuju od strane D&B, ali takve procene mogu takođe biti snimljene kada du dodeljene od treće strane.',
+  'LBL_DNB_ASSESMENT_TYPE_VALUE' => 'Tip Vrednosti Procene',
+  'LBL_DNB_ASSESMENT_VALUE' => 'Procena vrednosti',
+  'LBL_DNB_ASSESSMENT' => 'Procena',
+  'LBL_DNB_ASSIGNMENT_METHOD_TEXT' => 'Tekst Metoda Dodeljivanja',
+  'LBL_DNB_ASSOCIATE' => 'Saradnik',
+  'LBL_DNB_BACK_TO_IMPORT_ENRICH' => 'Nazad na Uvezi i Obogati',
+  'LBL_DNB_BACK_TO_SRCH' => 'Povratak na D&B rezultate pretrage',
+  'LBL_DNB_BAL' => 'D&B napraviti listu',
+  'LBL_DNB_BAL_ACCT_HEADER' => 'Kompanije',
+  'LBL_DNB_BAL_AFTER' => 'Posle',
+  'LBL_DNB_BAL_ALL_SITE' => 'Svi sajtovi',
+  'LBL_DNB_BAL_AREA_CODE' => 'Sifra regiona',
+  'LBL_DNB_BAL_ASSETS' => 'Aktiva',
+  'LBL_DNB_BAL_BEFORE' => 'Pre',
+  'LBL_DNB_BAL_BIO' => 'Biografija',
+  'LBL_DNB_BAL_BOTH' => 'Oba/oboje',
+  'LBL_DNB_BAL_BTW' => 'Između',
+  'LBL_DNB_BAL_DISTANCE' => 'Rastojanje',
+  'LBL_DNB_BAL_DUNS' => 'DUNS',
+  'LBL_DNB_BAL_FILING_DATE' => 'Datum početka',
+  'LBL_DNB_BAL_FINANCIAL_INFO' => 'Finansijske informacije',
+  'LBL_DNB_BAL_GTE' => 'Veće od ili jednako',
+  'LBL_DNB_BAL_HIGH' => 'Visok',
+  'LBL_DNB_BAL_HINT' => 'Izabrati kriterijum za pravljenje liste',
+  'LBL_DNB_BAL_IMPORT_AS' => 'Uvesti kao:',
+  'LBL_DNB_BAL_INDUSTRY' => 'Industrija',
+  'LBL_DNB_BAL_INDUSTRY_WARN' => 'Promena tipa industrije će obrisati prethodno odabran industrijski kriterijum. Da li želite da promenite tip industrijskog koda?',
+  'LBL_DNB_BAL_IND_CODE_TYPE' => 'Tip industrijskog koda',
+  'LBL_DNB_BAL_IND_CODE_TYPE_PRI_SEC' => 'Uključujući primarni/sekundarni',
+  'LBL_DNB_BAL_IPO_DATA' => 'IPO podaci',
+  'LBL_DNB_BAL_IPO_OFFER_AMT' => 'IPO ponuda iznosa',
+  'LBL_DNB_BAL_IPO_PRICE_RANGE' => 'IPO raspon cene',
+  'LBL_DNB_BAL_JOBCD_PH' => 'Odabrati poslovnu funkciju',
+  'LBL_DNB_BAL_KM' => 'KM',
+  'LBL_DNB_BAL_LIST' => 'Nazad do D&B rezultata pravljenja liste',
+  'LBL_DNB_BAL_LOAD' => 'Pravljenje liste',
+  'LBL_DNB_BAL_LOW' => 'Nizak',
+  'LBL_DNB_BAL_LTE' => 'Manje od ili jednako',
+  'LBL_DNB_BAL_MED' => 'Srednji',
+  'LBL_DNB_BAL_MILES' => 'Milja',
+  'LBL_DNB_BAL_NAICS' => 'NAICS kod',
+  'LBL_DNB_BAL_NET_INCOME' => 'Neto prihod',
+  'LBL_DNB_BAL_NET_INCOME_GROWTH' => 'Rast neto prihoda',
+  'LBL_DNB_BAL_ORG_ID' => 'Identifikacija organizacije #',
+  'LBL_DNB_BAL_ORG_NAME' => 'Naziv kompanije',
+  'LBL_DNB_BAL_PARAM_ANNL_SALES' => 'Godišnja Prodaja',
+  'LBL_DNB_BAL_PARAM_COMP' => 'Lokacija kompanije',
+  'LBL_DNB_BAL_PARAM_COMP_INFORMATION' => 'Podaci o kompaniji',
+  'LBL_DNB_BAL_PARAM_COMP_SZ' => 'Veličina kompanije',
+  'LBL_DNB_BAL_PARAM_EMP_CNT' => 'Broj zaposlenih',
+  'LBL_DNB_BAL_PARAM_EMP_GRWT' => 'Ukupni rast zaposlenih u %',
+  'LBL_DNB_BAL_PARAM_EMP_GRWTH' => 'Ukupni rast zaposlenih u %',
+  'LBL_DNB_BAL_PARAM_JOB_FN' => 'Poslovna funkcija',
+  'LBL_DNB_BAL_PARAM_KEYWORD' => 'Ključna reč',
+  'LBL_DNB_BAL_PARAM_LIMIT_ERR' => 'Maksimalni kriterijum dosegnut. Molim izbrisati prethodno unete parametre',
+  'LBL_DNB_BAL_PARAM_MKT_CAP' => 'Tržišna kapitalizacija',
+  'LBL_DNB_BAL_PARAM_MRKT_CAP' => 'Tržišna kapitalizacija',
+  'LBL_DNB_BAL_PARAM_NUM_EMP' => 'Broj zaposlenih',
+  'LBL_DNB_BAL_PARAM_PEOPLE' => 'Ljudi',
+  'LBL_DNB_BAL_PARAM_STATES' => 'Države',
+  'LBL_DNB_BAL_POSTAL_CODE' => 'Zip/poštanski kod',
+  'LBL_DNB_BAL_PRESCREEN_SCORE' => 'D&B rezultat',
+  'LBL_DNB_BAL_PRIMARY_ONLY' => 'Samo primarni',
+  'LBL_DNB_BAL_PRIMARY_SECONDARY' => 'Primarni i Sekundarni',
+  'LBL_DNB_BAL_RADIUS_SRCH' => 'Pretraga opsega',
+  'LBL_DNB_BAL_RSLT' => 'D&B Napraviti prikaz liste',
+  'LBL_DNB_BAL_SIC' => 'SIC kod',
+  'LBL_DNB_BAL_SIC_NAICS_EXAMPLE' => 'Primer: SIC kodovi : 5734  -> Prodavnice kompjutera i softvera , 3711  -> Proizvodnja automobila',
+  'LBL_DNB_BAL_SINGLE_SITE' => 'Jedan sajt',
+  'LBL_DNB_BAL_TITLE' => 'Naslov',
+  'LBL_DNB_BAL_TRADING_DATE' => 'Datum trgovine',
+  'LBL_DNB_BAL_UK_REG_NO' => 'UK registarski broj',
+  'LBL_DNB_BAL_UK_VAT_NO' => 'UK VAT broj',
+  'LBL_DNB_BAL_YEAR_OF_FOUNDING' => 'Godina osnivanja',
+  'LBL_DNB_BAL_ZIP' => 'ZIP',
+  'LBL_DNB_BASIC_FIN_INF' => 'Osnovne finansijske informacije',
+  'LBL_DNB_BI_API_ERR' => 'Greška prilikom uvoza zapisa.',
+  'LBL_DNB_BI_DUP_MSG' => 'Kompanije su duplirane i nisu dodate',
+  'LBL_DNB_BI_ERR' => 'Nijedan zapis nije uvezen.',
+  'LBL_DNB_BI_LOADING' => 'Uvoz D&B kompanija',
+  'LBL_DNB_BI_NEW_ACCT' => 'nove kompanije.',
+  'LBL_DNB_BI_NO_SLCT' => 'Nijedan zapis nije odabran.',
+  'LBL_DNB_BI_REC_LIMIT' => 'Maksimum možete odabrati 20 zapisa koje ćete uvesti',
+  'LBL_DNB_BI_YOU_ADD' => 'Dodali ste',
+  'LBL_DNB_BONE_ORG_IND' => 'Boneyard Indikator Organizacije',
+  'LBL_DNB_BONE_ORG_IND_DESC' => 'Kada je Uključeno(vrednost postavljena na 1) to ukazauje da se podaci više ne sakupljaju za ovu kompaniju i bili su pokriveni Hoover&#39;s Editorial osobljem pre prikupljanja ili izlaska iz posla',
+  'LBL_DNB_CCS' => 'Pre Screen Rezultat',
+  'LBL_DNB_CCS_DESC' => 'Snimanje najskorijeg rezultata rizika koji je dodeljen organizaciji na zadati datum/vreme korišćenjem modela proračuna koji pomažu u predviđanju verovatnoće da će ta organizacija platiti račune na ozbiljno delikventan način(90+ dana posle datuma dospeća) u narednih 12meseci.',
+  'LBL_DNB_CI_CITY' => 'Grad',
+  'LBL_DNB_CI_CTRY' => 'Država',
+  'LBL_DNB_CI_POSTAL_CD' => 'Poštanski broj',
+  'LBL_DNB_CI_SRCH' => 'D&B: Pretraga kompanija',
+  'LBL_DNB_CI_SRCH_HINT' => 'Unesite ime kompanije za D&B pretragu',
+  'LBL_DNB_CI_STATE' => 'Opština',
+  'LBL_DNB_CI_STREET' => 'Ulica',
+  'LBL_DNB_CLEAR' => 'Obriši',
+  'LBL_DNB_CM_LOADING' => 'Pozivanje D&B čišćenja uparenog ...',
+  'LBL_DNB_CM_MATCH' => 'Uparenost',
+  'LBL_DNB_CNTCT_LOADING' => 'Učitavanje kontakata iz D&B',
+  'LBL_DNB_CNTRL_OWN_DATE' => 'Kontrolni Vlasnički Datum',
+  'LBL_DNB_CNTRL_OWN_DATE_DESC' => 'Datum kada su trenutni vlasnici preuzeli ovaj posao.',
+  'LBL_DNB_CNTRL_TYP_TEXT' => 'Tip Vlasničke Kontrole',
+  'LBL_DNB_CNTRL_TYP_TEXT_DESC' => 'Tekst koji opisuje tip vlasničke kontrole, npr. javno vlasništvo, privatno vlasništvo, državno vlasništvo',
+  'LBL_DNB_COMPANY_INFO_LOADING' => 'Učitavanje kompanijskih informacija iz D&B...',
+  'LBL_DNB_COMPETITORS' => 'D&B: Konkurenti',
+  'LBL_DNB_COMPETITORS_DESC' => 'Informacije konkurenata od D&B. Potrebna D&B prijava.',
+  'LBL_DNB_COMPETITORS_LIST' => 'Povratak na D&B listu konkurenata',
+  'LBL_DNB_COMPETITORS_LOADING' => 'Učitavanje konkurenata iz D&B ...',
+  'LBL_DNB_COMPETITORS_LONG_DESC' => 'Pronađi konkurente tekućeg naloga kako bi poboljšali vaše izglede. Najbolji konkurent je određen preko D&B na osnovu analiziranja kompanije i industrije u kojoj deluje. Javne kompanije često identifikuju najbolje konkurente u njihovim javnim podnescima, koji se takođe uzimaju u razmatranje. Potrebna D&B prijava.',
+  'LBL_DNB_COMPETITORS_TOP' => 'Glavni konkurent',
+  'LBL_DNB_COMPINFO_LONG_DESC' => 'Najefikasniji način za dobijanje osnovnih marketinških informacija o potencijalnom kandidatu kao što su ime, adresa, D&B® D-U-N-S® broj, fax, telefon i žanr trgovine. Uključujući poslovne podatke kao što su izvršna imena i titule, finansije, broj zaposlenih, uvozni ili izlazni kod, indikator filijale, i više. Potrebna D&B prijava.',
+  'LBL_DNB_COMP_INFO' => 'D&B: Informacije o kompaniji',
+  'LBL_DNB_COMP_INFO_LOAD' => 'Povlačenje D&B kompanijskih informacija',
+  'LBL_DNB_COMP_SUMM' => 'Opis kompanije',
+  'LBL_DNB_COMP_SUMM_DESC' => 'Tekst koji beleži kratku izjavu ili račun ove organizacije',
+  'LBL_DNB_CONFIDENCE' => 'Pouzdanost',
+  'LBL_DNB_CONFIG' => 'Kontaktirajte vašeg administratora za podešavanje D&B konektora',
+  'LBL_DNB_CONNECTOR_ERR' => 'D&B konektor nije podešen. Kontaktirati administratora',
+  'LBL_DNB_CONTACT' => 'D&B: Kontakt informacije',
+  'LBL_DNB_CONTACT_BIO' => 'Biografija',
+  'LBL_DNB_CONTACT_COMP_HIST' => 'Istorija naknada',
+  'LBL_DNB_CONTACT_DESC' => 'Prikazivanje D&B kontakata. Zahteva D&B pretplatu.',
+  'LBL_DNB_CONTACT_EMAIL' => 'Email',
+  'LBL_DNB_CONTACT_EMP_PROF' => 'Profil zaposlenog',
+  'LBL_DNB_CONTACT_FNAME' => 'Ime',
+  'LBL_DNB_CONTACT_FROM' => 'Od',
+  'LBL_DNB_CONTACT_JOBTITLE' => 'Pozicija',
+  'LBL_DNB_CONTACT_JOB_HIST' => 'Istorija zaposlenja',
+  'LBL_DNB_CONTACT_LIST' => 'Povratak na D&B kontakt listu',
+  'LBL_DNB_CONTACT_LNAME' => 'Prezime',
+  'LBL_DNB_CONTACT_LOADING' => 'Učitavanje kontakt informacija za',
+  'LBL_DNB_CONTACT_LONG_DESC' => 'D&B kontakti vam daju pristup preko 100 milona kontakata. Pretraga po imenu, prezimenu ili poziciji',
+  'LBL_DNB_CONTACT_NAME' => 'Ime',
+  'LBL_DNB_CONTACT_PHONE' => 'Telefon',
+  'LBL_DNB_CONTACT_RESP' => 'Rukovodstvena odgovornost',
+  'LBL_DNB_CONTACT_SHOW_MORE' => 'Prikaži još D&B kontakata',
+  'LBL_DNB_CONTACT_TO' => 'Do',
+  'LBL_DNB_CONTROL_OWNERSHIP_DATE' => 'Kontrolni Vlasnički Datum',
+  'LBL_DNB_CONTROL_OWNERSHIP_TYPE_TEXT' => 'Kontrolni Vlasnički Tip Teksta',
+  'LBL_DNB_CON_EMP_CNT' => 'Zbirni broj zaposlenih',
+  'LBL_DNB_CON_EMP_CNT_DESC' => 'Snima trenutne podatke zaposlenih koji uključuju zaposlene koji su angažovani u operacijama pravnog lica(uključujući zaposlene u ograncima) kao i zaposlene koji su angažovani u operacijama svakog direktnog potomka u familijarnom stablu(na osnovu kontrolnog intresa) npr., Produžnice',
+  'LBL_DNB_COUNTRY' => 'Država',
+  'LBL_DNB_COUNTRY_GROUP_NAME' => 'Ime Grupe Zemalja',
+  'LBL_DNB_COUNTRY_OFFICIAL_NAME' => 'Zvanično Ime Zemlje',
+  'LBL_DNB_CURRENCY_ISO_ALPHA_CODE' => 'Valuta ISO Alpha Koda',
+  'LBL_DNB_CURRENT_PRINCIPAL_FULL_NAME' => 'Puno Ime Trenutnog Direktora',
+  'LBL_DNB_CURRENT_PRINCIPAL_IDENTIFICATION_NUMBER' => 'Identifikacioni Broj Trenutnog Direktora',
+  'LBL_DNB_CURRENT_PRINCIPAL_JOB_TITLE' => 'Poslovna Pozicija Trenutnog Direktora',
+  'LBL_DNB_DATA_ERR' => 'D&B podaci nisu dostupni',
+  'LBL_DNB_DATA_OVERRIDE_MULTIPLE_FIELDS' => 'Da li želite da izmenite {{fields}} i druga polja ?',
+  'LBL_DNB_DATA_OVERRIDE_SINGLE_FIELD' => 'Da li ste sigurni da želite da prepišete {{fieldName}} sa {{value}} ?',
+  'LBL_DNB_DATA_OVERRIDE_TWO_FIELDS' => 'Da li želite da izmenite {{fields}} ?',
+  'LBL_DNB_DISAB_IND' => 'Ukazuje da je invalid',
+  'LBL_DNB_DISAB_IND_DESC' => 'Vrednost TAČNO ukazuje da je ova organizacija certifikovana kao preduzeće koje je više od 50% u vlasništvu, i čiji menadžment i dnevne poslovne operacije, jedne osobe ili više osoba koje imaju stanje koje sprečava izvršavanje svih psihofizičkih aktivnosti.',
+  'LBL_DNB_DISAB_VET_ENT' => 'Indikator preduzeća onesposobljenog veterana',
+  'LBL_DNB_DISAB_VET_ENT_DESC' => 'Vrednost TAČNO ukazuje da je preduzeće prepoznato od strane države Kalifornija, znači veteran U.S. vojske, mornarice ili vazdhoplovnih snaga, sa službenom invalidnosti od najmanje 10% ili više i koji je žitelj Kalifornije, gde je bar 51% vlasništva vetrana/a sa invaliditetom i sprovodi dnevne poslovne menadžerske i kontrolne aktivnosti. Kuća kancelarija ne može biti ogrnaka ili produžnica strane korporacije, strane firme ili drugog stranog preduzeća.',
+  'LBL_DNB_DISADV_ENT' => 'Indikator preduzeća u nepovoljnom položaju',
+  'LBL_DNB_DISADV_ENT_DESC' => 'Vrednost TAČNO ukazuje da je preduzeće certifikovano od strane državnih ili lokalnih vladinih agencija, koje zadovoljavaju standarde koji garantuju podobnost, ali mogu uključivati žene, manjine, invalide i druge u nepovoljnom položaju kao rezultat ekonomskih nepovoljnosti uz oprez na edukaciji zaposlenosti, prebivalištu ili poslovnoj lokaciji ili socijalne nepovoljnosti i nedostatak poslovne obuke',
+  'LBL_DNB_DISADV_VET_ENT' => 'Indikator veteranskog preduzeća u nepovoljnom položaju',
+  'LBL_DNB_DISADV_VET_ENT_DESC' => 'Vrednost TAŠNO prikazuje da je ovaj posao mali biznis u vlasništvu i kontrolisan od strane veterana, i da ne manje od 51%  je u vlasništvu, kontrolisano i vođeno od strane veterana.',
+  'LBL_DNB_DNB_CODE_VALUE' => 'DNB Code Vrednost',
+  'LBL_DNB_DUNS' => 'DUNS',
+  'LBL_DNB_DUNSSELF_IND' => 'DUNS Indikator Ličnog Zahteva',
+  'LBL_DNB_DUNSSELF_IND_DESC' => 'Vrednost Tačno označava da je D_U_N_S broj za ovog subjekta kreiran na zahtev subjekta',
+  'LBL_DNB_DUPLICATE' => 'Napravi duplikat',
+  'LBL_DNB_EIGHTA_CRT' => 'Osam A certifikovani Indikator',
+  'LBL_DNB_EIGHTA_CRT_DESC' => 'Vrednost Tačno ukazuje na organizaciju certifikovanu od strane US Agencije za Mala Preduzeća kao korisnik 8(a) Razvojnog Poslovnog Programa, razvojni poslovni program je kreiran kao pomoć malim preduzećima u nepovojnom položaju kako bi se takmičili u Američkoj ekonomiji i u pristupu federalnog prodajnog tržišta',
+  'LBL_DNB_EMPLOYEE_QUANTITY_GROWTH' => 'Ras borja zaposlenih',
+  'LBL_DNB_EMPTY_PARAM' => 'Prazan parametar prosleđen D&B Duplicate Check API-ju',
+  'LBL_DNB_EMP_DET' => 'Detalji Senior Zaposlenih',
+  'LBL_DNB_EMP_DET_DESC' => 'Detalji Upravitelja(npr Predsednik, Podpredsednik, direktori) i menadžeri odgovorni za poslovnu strategiju, donošenje odluka i vođenje dnevnih poslova subjekta. Ovo uključuje imena, adrese, i indetifikacione brojeve upravitelja. Dok će u nekim zemljama upravitelji biti individualna lica, u nekim zemljama je legalno da registrovan poslovni entitet bude upravitelj u drugom poslu. Ovo isključuje deoničare i slične vlasnike koji nisu zaduženi za menadžment organizacije ali uključuje vlasnike i partnere, dok su vlasnici, su takođe direktori koji vode posao.',
+  'LBL_DNB_EMP_INF' => 'Informacije o zaposlenom',
+  'LBL_DNB_EMP_INF_DESC' => 'Informacije Zaspolenih u Organizaciji kao što su broj zaposlenih i detalji glavnog menadžmenta',
+  'LBL_DNB_ERROR_CURL_CONNECTION_FAIL' => 'Nije uspelo povezivanje sa host-om ili proksi serverom. Molimo vas proverite proksi podešavanja.',
+  'LBL_DNB_ERROR_CURL_NETWORK_FAIL' => 'Preuizmanje mrežnih podataka nije uspelo.',
+  'LBL_DNB_ERROR_CURL_RESOLVE_HOST' => 'Nije moguć pristup host-u. Navedenom hostu-u nije moguće pristupiti.',
+  'LBL_DNB_ERROR_CURL_RESOLVE_PROXY' => 'Nije moguć pristup proksi serveru. Navedenom proksi serveru nije moguće pristupiti. Molimo vas proverite proksi podešavanja.',
+  'LBL_DNB_ETHN' => 'Etnička pripadnost vlasnika',
+  'LBL_DNB_ETHNICITY_TYPE_TEXT' => 'Etnički Tip Telsta',
+  'LBL_DNB_ETHN_DESC' => 'Jedinstvena identifikacija etničke klasifikacije koja je primenjena na ovu organizaciju na osnovu rase, nacije, plemena, ili kulturološke grupe koja opisuje većinu vlasništva, npr. Asian, Hispanic, Afric American(Black)',
+  'LBL_DNB_EXPORT_DETAILS_INDICATOR' => 'Indikator Izvoznih detalja',
+  'LBL_DNB_EXP_IND' => 'Indikator izvoza',
+  'LBL_DNB_EXP_IND_DESC' => 'Kada je uključeno (namešteno na 1) znači da kompanija izvozi dobra u druge zemlje.',
+  'LBL_DNB_FACSIMILE_NUMBER' => 'Faks broj',
+  'LBL_DNB_FAMILY_TREE' => 'D&B: Porodično stablo',
+  'LBL_DNB_FAMILY_TREE_BACK' => 'Povratak na D&B porodično stablo',
+  'LBL_DNB_FAMILY_TREE_DESC' => 'D&B porodično stablo. Zahteva D&B pretplatu.',
+  'LBL_DNB_FAMILY_TREE_LOADING' => 'Učitavanje D&B porodičnog stabla',
+  'LBL_DNB_FAMILY_TREE_MEMBER_ROLE' => 'Tekst Uloge Člana Familijarnog Stabla',
+  'LBL_DNB_FAMILY_TREE_MEMBER_ROLE_TEXT' => 'Tekst Uloge Člana Familijarnog Stabla',
+  'LBL_DNB_FAX' => 'Faks',
+  'LBL_DNB_FAX_DESC' => 'Fax organizacije',
+  'LBL_DNB_FEM_ENT' => 'Indikator ženskog preduzeća',
+  'LBL_DNB_FEM_ENT_DESC' => 'Vrednost TAČNO prikazuje da je posao sertifikovan od strane federalne, državne ili lokalne vladine agencije da je ispuni sve državne standarde i zahteve.',
+  'LBL_DNB_FEM_IND' => 'Ukazuje da je vlasnik ženska osoba',
+  'LBL_DNB_FEM_IND_DESC' => 'Vrednost TAČNO ukazuje da je ova organizacija certifikovana kao preduzeće u vlasništvu večem od 50<br />5, i čiji menadžment i dnevne poslovne aktivnosti su kontrolisane od strane, jedne ili više osoba ženskog pola',
+  'LBL_DNB_FILLING_ORGANISATION_NAME' => 'Popunjevanje Imena Organizacije',
+  'LBL_DNB_FINANCIAL' => 'D&B: Finansijske informacije',
+  'LBL_DNB_FINANCIALS' => 'Finansije',
+  'LBL_DNB_FINANCIAL_DESC' => 'D&B finansijske informacije. Zahteva D&B pretpaltu.',
+  'LBL_DNB_FINANCIAL_DESCRIPTION' => 'Finasijski opis',
+  'LBL_DNB_FINANCIAL_LOADING' => 'Učitavanje finansijskih informacija iz D&B',
+  'LBL_DNB_FINANCIAL_LONG_DESC' => 'Procenite finansijsko stanje kompanije kros obim prodaje, neto vrednost, aktivu i pasivu. Zahteva D&B pretplatu.',
+  'LBL_DNB_FINANCIAL_PERIOD' => 'Finansijski period',
+  'LBL_DNB_FINANCIAL_RATIO' => 'Finansijski Odnos',
+  'LBL_DNB_FIN_COMP_TYPE' => 'Tip kompanije',
+  'LBL_DNB_FIN_STCK_EXCH' => 'Berza akcija',
+  'LBL_DNB_FIN_STCK_SYM' => 'Zaliha Berzanskih Simbola',
+  'LBL_DNB_FIN_STMT' => 'Godišnja izjava o prihodima',
+  'LBL_DNB_FOUNDATION_YEAR' => 'Datum osnivanja',
+  'LBL_DNB_FRAN_TYP_TEXT' => 'Operativni Tip Franšize',
+  'LBL_DNB_FRAN_TYP_TEXT_DESC' => 'Tekst koji određuje da li su prava franšize upravljana od strana kompanije ili direktno od strane korisnika franšize',
+  'LBL_DNB_FROM' => 'od',
+  'LBL_DNB_GEOGRAPHICAL_NAME' => 'Tekst Geografske Preciznosti',
+  'LBL_DNB_HIGH_CONF' => 'Visoka pouzdanost',
+  'LBL_DNB_HISTORY_RATING_TEXT' => 'Istorija Ocenjivanja',
+  'LBL_DNB_HIST_RAT' => 'Istorija Ocenjivanja',
+  'LBL_DNB_HIST_RAT_DESC' => 'Tekst koji određuje da li D&B ima bilo kakvu informaciju koja može nepovoljno uticati na ovu organizaciju, npe., čisto, nekompletno, menadžment, posao.',
+  'LBL_DNB_HUB_CRT' => 'Indikator certifikovanog čvorišta',
+  'LBL_DNB_HUB_CRT_DESC' => 'Vrednost TAČNO ukazuje da je organizacija certifikovana od strane US administracije za mala preduzeća kao korisnik HUB ZONE programa. Malo preduzeće mora zadovoljiti sledeće kriterijume za kvaliikovanje za HUB Zone program: Mora biti smeštena u &#39;istorijski neprimerenoj poslovnoj zoni&#39;. Mora biti u vlasništvu i kontrolisana jednog ili više U.S građana. Više od 35% zaposlenih mora biti unutar HUBZone. HUBZone(Isortijski neprimerena poslovna zona) je oblast koja se nalazi unutar jednog ili više od sledečih: -a) Kvalifikovanom cenzusnom putu(Kako je definisano u sekciji 42(d)(5)(C)(i)(l) Internal Revenue Koda iz 1986). -b) Kvalifikovani ne-gradski okrug (kako je definisano u sekciji 143(k)(2)(B) Internal Revenue Koda iz 1986) sa prosečnim kućnim prihodima ispod 80% od Državnog proseka ili sa nezaposlenošću ne manjom od 140% od državnog proseka, na osnovu U.S Departmenta za rad. c) Zemlje u okviru granica federalnih rezervata Indijanaca',
+  'LBL_DNB_IMPORT' => 'Uvoz',
+  'LBL_DNB_IMPORT_DETAILS_' => 'Detalji uvoza',
+  'LBL_DNB_IMPORT_DETAILS_INDICATOR' => 'Indikator Uvoznih Detalja',
+  'LBL_DNB_IMP_IND' => 'Indikator uvoza',
+  'LBL_DNB_IMP_IND_DESC' => 'Kada je uključeno (namešteno na 1) znači da kompanija uvozi dobra iz drugih zemalja.',
+  'LBL_DNB_IN' => 'u',
+  'LBL_DNB_INCORPORATION_YEAR' => 'Godina Osnivanja',
+  'LBL_DNB_INDUSTRY_CODE' => 'Industrijski Kod',
+  'LBL_DNB_INDUSTRY_CODE_DESCRIPTION' => 'Opis Industrijskog Koda',
+  'LBL_DNB_INDUSTRY_CODE_DISPLAY_SEQUENCE' => 'Sekvenca za prikaz Industrijskog Koda',
+  'LBL_DNB_INDUSTRY_INFO' => 'D&B: Informacije o industriji',
+  'LBL_DNB_INDUSTRY_INFO_DESC' => 'D&B informacije o industriji. Zahteva D&B pretplatu.',
+  'LBL_DNB_INDUSTRY_INFO_LONG_DESC' => 'Ostanite ažurni sa ključnim trendovima i prilikama između 900 industrijskih segmenata. Svaki industrijski profil sadrži analize, statistike i predviđanja da vam pomogne da nagažujete perspektive, obučite klijente i produbite odnose sa mušterijama.',
+  'LBL_DNB_IND_CD' => 'Industrijski kodovi',
+  'LBL_DNB_IND_CD_DESC' => 'Alfanumerička vrednost identifikuje poslovnu aktivnost na osnovu sheme određenu pomoću tipa teksta. Na primer, 1611 predstavlja autoput i uličnu konstrukciju industrije u U.S SIC(Standardna industrijska klasifikacija) sistemu. Klasifikaciona beleška: Ovo su generalno eksterni kodovi kreirani od strane eksternog ovlašćenog tela, kao U.S Office of Management and Budget (OMB), ali D&B može kreirati dodatke za još preciznije određivanje aktivnosti, kao u slučaju SIC 2+2(poslednje 4 cifre od 8-cifrenog SIC)',
+  'LBL_DNB_IND_CD_HED' => 'Industrijske informacije',
+  'LBL_DNB_IND_CD_HED_DESC' => 'Beleži poslovnu aktivnost u kojoj je organizacija aktivno angažovana koristeći standardne sheme kodiranja kao što su Evropski NACE i U.S Standard Industrz Classifications (SIC). Primeri poslovnih aktivnosti su: komercijalno štampanje, pravne usluge, prodavnica lekova',
+  'LBL_DNB_IND_EMP_CNT' => 'Broj zaposlenih',
+  'LBL_DNB_IND_EMP_CNT_DESC' => 'Snima trenutne podatke zaposlenih svakom individualno. Ako je organizacija klasifikovana od strane D&N kao poslovna',
+  'LBL_DNB_IND_INF_LOAD' => 'Učitavanje D&B informacija o industriji',
+  'LBL_DNB_INF_INF_OVERVIEW' => 'Pregled',
+  'LBL_DNB_INQ_CNT' => 'Ukupan broj upita',
+  'LBL_DNB_INQ_CNT_DESC' => 'Broj registrovanih jedinstvenih pretplatničkih upita za subjekta u poslednjih 12 meseci',
+  'LBL_DNB_INTERNATIONAL_DIALLING_CODE' => 'Međunarodni pozivni broj',
+  'LBL_DNB_INT_DIALLING_CODE' => 'Međunarodni pozivni broj',
+  'LBL_DNB_INVALID_MODULE_NAME' => 'Nevažeće ime modula prodleđeno  D&B Duplicate Check API-ju',
+  'LBL_DNB_IPO_DATE' => 'IPO datum',
+  'LBL_DNB_JOB_TITLE_TEXT' => 'Pozicija',
+  'LBL_DNB_KEYWORD_SEARCH_HINT' => 'Kliknite ovde za pretragu kompanija samo po imenu kompanije',
+  'LBL_DNB_LAST_UPDATE' => 'Poslednje ažuriranje',
+  'LBL_DNB_LAST_UPDATE_DATE' => 'Datum poslednjeg ađuriranja',
+  'LBL_DNB_LAST_UPD_DATE' => 'Datum poslednjeg ažuriranja',
+  'LBL_DNB_LAST_UPD_DATE_DESC' => 'Datum poslednjeg ažuriranja zapisa na D&B sistemu.',
+  'LBL_DNB_LAT' => 'Geografska širina',
+  'LBL_DNB_LATITUDE_MEASUREMENT' => 'Širina Merenja',
+  'LBL_DNB_LAT_DESC' => 'Koordinate gografske širine',
+  'LBL_DNB_LINE_OF_BUSINESS' => 'Oblast poslovanja',
+  'LBL_DNB_LINE_OF_BUSINESS_DESCRIPTION' => 'Opis oblasi poslovanja',
+  'LBL_DNB_LITE_COMPANY_INFO' => 'D&B: Informacije Kompanije - Osnovno',
+  'LBL_DNB_LITE_COMPANY_INFO_DESC' => 'Osnovne informacije od D&B. Potrebna D&B prijava.',
+  'LBL_DNB_LITE_COMPANY_INFO_LOADING' => 'Učitavanje osnovnih podataka kompanije iz D&B..',
+  'LBL_DNB_LOB' => 'Oblast poslovanja',
+  'LBL_DNB_LOB_DESC' => 'Beleži tesktualni opis poslovnih operacija',
+  'LBL_DNB_LOC' => 'Lokacija',
+  'LBL_DNB_LOCATION' => 'Lokacija',
+  'LBL_DNB_LOCATION_TYPE' => 'Tip lokacije',
+  'LBL_DNB_LOCATION_TYPE_DESC' => 'Tekst koji opisuje Subjektovu ulogu kao člana vlasničke strukture familijarnog stabla, npr grana, divizija, roditelj, sedište, ogranak, kranji globalno, krajnji domaći.',
+  'LBL_DNB_LOC_DESC' => 'Beleži detalje adrese od subjekta. Adresa je određivanje mesta gde možemo pronaći subjekta ili gde se može komunicirati sa njim',
+  'LBL_DNB_LONG' => 'Geografska dužina',
+  'LBL_DNB_LONGITUDE_MEASUREMENT' => 'Dužina Merenja',
+  'LBL_DNB_LONG_DESC' => 'Kordinate geografske dužine',
+  'LBL_DNB_LOW_CONF' => 'Niska pouzdanost',
+  'LBL_DNB_LS_IND' => 'Ukazuje da postoji suficit radne snage',
+  'LBL_DNB_LS_IND_DESC' => 'Vrednost Tačno ukazuje na organizaciju certifikovanu kao preduzeće u zoni sa viškom radne snage. Zona viška radne snage je geografski okrug identifikovan od strane Ministarstva za rad, kao zona sa koncentracijom nezaposlenih, nedovoljno zaposlenih ili kao zonu sa viškom radne snage',
+  'LBL_DNB_MAIL_CITY' => 'Poštanski Grad / Mesto',
+  'LBL_DNB_MAIL_CTRY_CD' => 'Poštanski Pozivni Broj',
+  'LBL_DNB_MAIL_STATE_ABBR' => 'Poštanska Teritorija ( skraćeno )',
+  'LBL_DNB_MAIL_STREET' => 'Poštanska Adresa',
+  'LBL_DNB_MAIL_ZIP' => 'Poštanski Poštanski broj',
+  'LBL_DNB_MARKETABILITY_INDICATOR' => 'Indikator marketinške mogućnosti',
+  'LBL_DNB_MARKET_IND' => 'Indikator marketinške mogućnosti',
+  'LBL_DNB_MARKET_IND_DESC' => 'Kada je tačno(vrednost podešena na 1) to znači da zapis zadovoljava D&B marketinška pravila',
+  'LBL_DNB_MATCH_GRADE' => 'Ocena uparenosti',
+  'LBL_DNB_MEASUREMENT_RELIABILITY_TEXT' => 'Tekst Pouzdanosti Merenja',
+  'LBL_DNB_MEASUREMENT_UNIT_TEXT' => 'Tekst Jedenice Merenja',
+  'LBL_DNB_MED_CONF' => 'Srednja pouzdanost',
+  'LBL_DNB_METROPOLITAN_STAT_CODE' => 'Us Cenzus kod Metropolske Statističke zone',
+  'LBL_DNB_MILLION' => 'M',
+  'LBL_DNB_MINORITY_OWNER_INDICATOR' => 'Manjinsko Vlanisštvo',
+  'LBL_DNB_MIN_COLL' => 'Indikator Koledža manje važnosti',
+  'LBL_DNB_MIN_COLL_DESC' => 'Vrednost TAČNO ukazuje da je organizacija ili fakultet gde je profil većine studenata iz etničke manjine. Na primer, ako je maksimalni procenat studenata fakulteta iz crne etničke zajednice, to bi bio "Fakultet manjine" crne etničke zajednice.',
+  'LBL_DNB_MIN_ENT' => 'Indikator Predužeća manje važnosti',
+  'LBL_DNB_MIN_ENT_DESC' => 'Vrednost TAČNO prikazuje da je ovaj posao sertifikovan od strane federalne, državne ili lokalne vladine agencije kroz aplikaciju i/ili posetu lokaciji zbog ispunjavanja svih državnih standarda i zahteva.',
+  'LBL_DNB_MIN_IND' => 'Indikator manjinskog vlasništva',
+  'LBL_DNB_MIN_IND_DESC' => 'Vrednost TAČNO ukazuje da je ova organizacija certifikovana kao posao koji je u vlasništvu većem od 50%, i čiji menadžment i dnevne operacije kontrolišu, jedan ili više manjinskih članova grupe',
+  'LBL_DNB_MORE_SRCH_RES' => 'Prikaži dodatne rezultate pretrage D&B',
+  'LBL_DNB_NAICS' => 'NAICS',
+  'LBL_DNB_NAME' => 'Ime',
+  'LBL_DNB_NEWS' => 'Vesti',
+  'LBL_DNB_NEWS_AND_MEDIA' => 'D&B: Vesti',
+  'LBL_DNB_NEWS_AND_MEDIA_DESC' => 'Dohvatanje vesti sa D&B servisa. Potrebna D&B prijava.',
+  'LBL_DNB_NEWS_AND_MEDIA_LOADING' => 'Učitavanje novosti i socijalnih mreža sa D&B',
+  'LBL_DNB_NEWS_AND_MEDIA_LONG_DESC' => 'Imajte kompletan pregled vašeg klijenta sa D&B Vestima i društvenim aktivnostima! Koristite snagu DUNSright procesa da osigurate da izvlačite iz pravih izvora vesti  i socijalnih zbivanja. Potrebna D&B prijava.',
+  'LBL_DNB_NEWS_AND_MEDIA_MORE' => 'Pročitaj više',
+  'LBL_DNB_NEWS_FACEBOOK' => 'Facebook',
+  'LBL_DNB_NEWS_TWITTER' => 'Twitter',
+  'LBL_DNB_NEWS_WIKI' => 'Wikipedia',
+  'LBL_DNB_NEWS_YOUTUBE' => 'YouTube',
+  'LBL_DNB_NONMARK_REAS_TXT' => 'Tekst razloga marketinške nemogućnosti',
+  'LBL_DNB_NONMARK_REAS_TXT_DESC' => 'Tekst određuje razlog zašto podaci subjekta nisu uzeti u obzir kao marketinški od strane D&B',
+  'LBL_DNB_NON_MARKETABILITY_INDICATOR' => 'Tekst razloga marketinške nemogućnosti',
+  'LBL_DNB_NOT_CONFIGURED' => 'D&B konektor nije podešen. Molimo vas podesite konektor.',
+  'LBL_DNB_NO_DATA' => 'Nema dostupnih podataka',
+  'LBL_DNB_NO_DUNS' => 'Nema identifikacije DUNS&#39;a',
+  'LBL_DNB_NO_DUNS_FIELD' => 'Upozorenje: DUNS polje trenutno nije uključeno u zapis prikazivanja rasporeda. Kontaktirati administratora.',
+  'LBL_DNB_NO_INDUSTRY' => 'Nema veze ka industrijskoj šifri',
+  'LBL_DNB_NO_SIC_FIELD' => 'Upozorenje: SIC polje trenutno nije uključeno u zapis prikazivanja rasporeda. Kontaktirati administratora.',
+  'LBL_DNB_OPERATING_STATUS_TEXT' => 'Tekst Operativnog Stausa',
+  'LBL_DNB_OPERL_STA_TEXT' => 'Operativni Status',
+  'LBL_DNB_OPERL_STA_TEXT_DESC' => 'Tekst koji objašnjava funkcionalno/poslovno stanje ove organizacije, npr. aktivno, van posla, zamrznut',
+  'LBL_DNB_OPER_TEXT' => 'Operacioni tekst',
+  'LBL_DNB_OPER_TEXT_DESC' => 'Tekst koji opisuje detaljne informacije povezane sa poslovanjem',
+  'LBL_DNB_ORGANISATION_IDENTIFICATION_NUMBER' => 'Identifikacion broj organizacije',
+  'LBL_DNB_ORGANISATION_IDENTIFICATION_START_DATE' => 'Identifikacioni Startni Datum Organizacion',
+  'LBL_DNB_ORGANIZATION_DISPLAY_SEQUENCE' => 'Organizaciona sekvenca za prikaz',
+  'LBL_DNB_ORGANIZATION_FILLING_NAME' => 'Popunjavanje Imena Organizacije',
+  'LBL_DNB_ORGANIZATION_IDENTIFICATION_NUMBER' => 'Identifikacioni Broj Organizacije',
+  'LBL_DNB_ORGANIZATION_NAME' => 'Ime organizacije',
+  'LBL_DNB_ORGANIZATION_START_DATE' => 'Startni Datum Organizacije',
+  'LBL_DNB_ORGS_STRT_YEAR' => 'Startna Godina Organizacije',
+  'LBL_DNB_ORGS_STRT_YEAR_DESC' => 'Godina kada su operacije preuzete od strane organizacije',
+  'LBL_DNB_ORG_DET' => 'Detalji organizacije',
+  'LBL_DNB_ORG_DET_DESC' => 'Beleži osnovne informacije o organizaciji koje mogu varirati tokom vremena',
+  'LBL_DNB_ORG_ID' => 'Identifikacioni Broj Organizacije',
+  'LBL_DNB_ORG_ID_DESC' => 'Broj dodeljen spoljnjem telu ili dodeljen od strane D&B jedinstveno definiše identitet organizacije ili pomaže prilikom identifikovanja organizacije. Pronađena organizacija može biti registrovani organ, Vladin odsek, organizacija, privredna komora, VAT brojevi itd.',
+  'LBL_DNB_ORG_NAME' => 'Ime organizacije',
+  'LBL_DNB_ORG_NAME_DESC' => 'Beleži različita imena organizacije po kojima je poznata',
+  'LBL_DNB_OTHER' => 'Ostalo',
+  'LBL_DNB_OTHER_FIELDS' => 'druga polja',
+  'LBL_DNB_OUTOFDATE' => 'Zastarelo',
+  'LBL_DNB_OUTOFDATE_MSG' => 'Kompanijski podaci su zastareli',
+  'LBL_DNB_OVERRIDE_SUCCESS' => 'D&B podaci uspešno uvezeni',
+  'LBL_DNB_OVERVIEW' => 'Pregled',
+  'LBL_DNB_OWNERSHIP_TYPE' => 'Tip vlasništva',
+  'LBL_DNB_PAGESZ' => 'Veličina stranice',
+  'LBL_DNB_PHONE' => 'Telefon',
+  'LBL_DNB_PHONE_DESC' => 'Telefon organizacije',
+  'LBL_DNB_PREMISES_AREA_MEASUREMENT' => 'Prostor Površine Merenja',
+  'LBL_DNB_PREMIUM' => 'Premium',
+  'LBL_DNB_PREMIUM_COMPANY_INFO' => 'D&B: Kompanijske informacije - premium',
+  'LBL_DNB_PREMIUM_COMPANY_INFO_DESC' => 'D&B premium kompanijeks informacije. Zahteva D&B pretplatu.',
+  'LBL_DNB_PREMIUM_COMPANY_INFO_LOADING' => 'Učitavanje premium kompanijskih informacija iz D&B ...',
+  'LBL_DNB_PRIMARY' => 'Primarno',
+  'LBL_DNB_PRIMARY_ADDRESS_POSTAL_CODE' => 'Poštanski broj primarne adrese',
+  'LBL_DNB_PRIMARY_TOWN' => 'Primarni Grad',
+  'LBL_DNB_PRIMARY_TOWN_NAME' => 'Primarno Ime Grada',
+  'LBL_DNB_PRIM_CEN_CD' => 'Kod Cenzusa',
+  'LBL_DNB_PRIM_CEN_CD_DESC' => 'Geografski region sa relativno visokom gustinom populacije u jezgru i sa jakim ekonmskim vezama kroz  oblast',
+  'LBL_DNB_PRIM_CITY' => 'Primarni Grad / Mesto',
+  'LBL_DNB_PRIM_CITY_DESC' => 'Ime grada prepoznato od strane Poštanslih ustanov za dostavu pošte',
+  'LBL_DNB_PRIM_COUNTY_NAME' => 'Država',
+  'LBL_DNB_PRIM_COUNTY_NAME_DESC' => 'Zvanično ime Države, npr Michigan',
+  'LBL_DNB_PRIM_CTRY_CD' => 'Primarni Pozivni Broj',
+  'LBL_DNB_PRIM_CTRY_CD_DESC' => 'Dvo-slovna oznaka države, definisana u ISO 3166-1 šemi objavljenoj od strane Internacionalne Organizacije za Standarde(ISO), identifikujući državu za ovu adresu.',
+  'LBL_DNB_PRIM_CTRY_GRP' => 'Državna Grupa',
+  'LBL_DNB_PRIM_CTRY_GRP_DESC' => 'Identifikator Državne Grupe, kao npr. Severna Amerika',
+  'LBL_DNB_PRIM_NAME' => 'Ime',
+  'LBL_DNB_PRIM_NAME_DESC' => 'Tekstualno beleženje imena ove organizacije',
+  'LBL_DNB_PRIM_STATE' => 'Primarna Teritorija',
+  'LBL_DNB_PRIM_STATE_ABBR' => 'Primarna Teritorija ( skraćeno )',
+  'LBL_DNB_PRIM_STATE_ABBR_DESC' => 'Skraćeno ime lokalno upravne zone koja formira deo centralne nacionalne uprave',
+  'LBL_DNB_PRIM_STATE_DESC' => 'Ime lokalno upravne zone koja formira deo centralne nacionalne uprave',
+  'LBL_DNB_PRIM_STREET' => 'Primarna Adresa',
+  'LBL_DNB_PRIM_STREET_DESC' => 'Tekst koji beleži komponente ulične adrese kako će izgledati na adresnoj traci',
+  'LBL_DNB_PRIM_ZIP' => 'Primarni Poštanski Broj',
+  'LBL_DNB_PRIM_ZIP_DESC' => 'Identifikator korišćen od strane lokalnih Ustanova pošte za identifikaciju određenog geografskog područja',
+  'LBL_DNB_PRINCIPAL_IDENTIFICATION_NUMBER' => 'Identifikacioni Broj Direktora',
+  'LBL_DNB_RATING' => 'Rang:',
+  'LBL_DNB_REC_MARK_ANALYSIS' => 'Skorašnje tržišne analize',
+  'LBL_DNB_REGISTERED_ADDRESS_INDICATOR' => 'Indikator Registrovane Adrese',
+  'LBL_DNB_REGISTRATION_ISSUER_NAME' => 'Ime Problema pri Registraciji',
+  'LBL_DNB_REGISTRATION_LOCATION_POSTAL_CODE' => 'Registracija Lokacija Poštanskog Broja',
+  'LBL_DNB_REG_DET_HED' => 'Registrovani detalji',
+  'LBL_DNB_REG_DET_HED_DESC' => 'Memoriše ustavni status subjekta koji je definisan zakonima zemlje. Npr.: DOO, partnerstvo, državna zadruga, zalihe ili deo zaposlenih u privredi prema zakonu ili pravilima unutar organizacije. Vlasnici zaliha ili akcija su vlasnici poslovanja.',
+  'LBL_DNB_RELIABILITY_TEXT' => 'Tekst Pouzdanosti',
+  'LBL_DNB_RESIDENTIAL_ADDRESS_INDICATOR' => 'Indikator Adrese Prebivališta',
+  'LBL_DNB_RFR' => 'Osveži',
+  'LBL_DNB_RFR_HINT' => 'Osveži sad',
+  'LBL_DNB_RFR_LOADING' => 'D&B provera osvežavanja u toku',
+  'LBL_DNB_RISK_CLASS' => 'Klasa rizika',
+  'LBL_DNB_SALES' => 'Prodaja',
+  'LBL_DNB_SALES_REVENUE' => 'Prihod od prodaje',
+  'LBL_DNB_SALES_REVENUE_AMOUNT' => 'Prihodi od prodaje',
+  'LBL_DNB_SEARCH_LOADING' => 'Pretraga D&B',
+  'LBL_DNB_SELF_REQUEST_INDICATOR' => 'Indikator ličnog zahteva',
+  'LBL_DNB_SENIOR_PRINCIPAL' => 'Stariji Član',
+  'LBL_DNB_SHOW_LESS' => 'Prikaži manje',
+  'LBL_DNB_SHOW_MORE' => 'Prikaži više',
+  'LBL_DNB_SIC' => 'SIC kod:',
+  'LBL_DNB_SLCT_CTRY' => 'Izaberite državu',
+  'LBL_DNB_SLCT_STATE' => 'Izaberite saveznu državu',
+  'LBL_DNB_SMALL_BUSINESS_INDICATOR' => 'Mali biznis',
+  'LBL_DNB_SMBDISADV_IND' => 'Mali Nepovoljni Posao',
+  'LBL_DNB_SMBDISADV_IND_DESC' => 'Vrednost TAČNO ukazuje da je ova organizacija certifikovana kao preduzeće u vlasništvu večem od 50<br />5, i čiji menadžment i dnevne poslovne aktivnosti su kontrolisane od strane osoba sa nepovoljnim položajem socijalno i ekonomski',
+  'LBL_DNB_SMB_CERT' => 'Indikator sertifikovanog malog preduzeća',
+  'LBL_DNB_SMB_CERT_DESC' => 'Vrednost TAČNO ukazuje da je preduzeće malo, certifikovano od strane državne ili lokalne vladine agencije ili organizacije koja zadovoljava sve vladine standarde koji određuju podobnost.',
+  'LBL_DNB_SMB_IND' => 'Indikator malog preduzeća',
+  'LBL_DNB_SMB_IND_DESC' => 'Vrednost TAČNO ukazuje da je ova organizacija certifikovana kao malo preduzeće. Malo preduzeće je entitet koji je obično u privatnom vlasništvu i koji posluje, sa malim brojem zaposlenih i relativno niskim obimom prodaje. Mala preduzeća su normalno u privatnom vlasništvu korporacija, partnerstava ili preduzetnika. Pravna definicija malih" varira od zemlje do zemlje i od industrije',
+  'LBL_DNB_SOCIAL' => 'Socijalne mreže',
+  'LBL_DNB_SOCIO_IND' => 'Društveno-ekonomska identifikacija',
+  'LBL_DNB_SOCIO_INDICATOR' => 'Socio Ekonomski Indikator',
+  'LBL_DNB_SOCIO_IND_DESC' => 'Beleži informacije o subjektovoj kateoriji Socialne, Ekonomske ili Statističke grupe',
+  'LBL_DNB_SRCH' => 'Pretraga',
+  'LBL_DNB_SRCH_LOAD' => 'Pretraži D&B',
+  'LBL_DNB_SRCH_RES' => 'D&B: rezultati pretrage',
+  'LBL_DNB_STAND_ALONE_ORGANIZATION_INDICATOR' => 'Indikator Stand Alone Organizacije',
+  'LBL_DNB_STATE' => 'Država / Provincija / Region',
+  'LBL_DNB_STD_COMPANY_INFO' => 'D&B: Informacije Kompanije - Standardno',
+  'LBL_DNB_STD_COMPANY_INFO_DESC' => 'Standardne informacije od D&B. Potrebna D&B prijava.',
+  'LBL_DNB_STD_COMPANY_INFO_LOADING' => 'Učitavanje standardnih podataka kompanije iz D&B..',
+  'LBL_DNB_STOCK_EXCHANGE_COUNTRY_ISO_ALPHA_CODE' => 'Berza ISO Alpha Kod Zemalja',
+  'LBL_DNB_STOCK_EXCHANGE_ISO_CODE' => 'Berzanski ISO Kod',
+  'LBL_DNB_STOCK_EXCHANGE_NAME' => 'Berzansko Ime',
+  'LBL_DNB_STOCK_EXCHANGE_TICKER_NAME' => 'Berza Simbola Imena',
+  'LBL_DNB_STREET_ADDRESSLINE' => 'Adresna stavka ulice',
+  'LBL_DNB_STREET_ADDRESS_LINE_TEXT' => 'Tekstulna stvaka ulične adrese',
+  'LBL_DNB_SUBAGENT_INDICATOR' => 'Indikator Podagenta',
+  'LBL_DNB_SUBJ_HEADER' => 'Zaglavlje subjekta',
+  'LBL_DNB_SUBJ_HEADER_DESC' => 'Zapisi visokog nivoa informacija o subjektu kao što su primarni jezik subjekta i primarna valuta u kojoj subjekt posluje. Kada je subjekt ogranizacija, ovo takođe može da uključi detalje kao što je DUNS broj',
+  'LBL_DNB_SUMMARY' => 'Sadržaj',
+  'LBL_DNB_SVC_DISAB_VET' => 'Ukazuje da je invalid rata',
+  'LBL_DNB_SVC_DISAB_VET_DESC' => 'Vrednost TAČNO ukazuje da je preduzeće najmanje 51% u vlasništvu jednog ili više veterana sa invaliditetom koji je povezan sa ulugom. Termin "povezan sa uslugom" znači, uz poštovanje invalidnosti ili smrti, takav invaliditet je nastao ili pogoršan tokom aktivne vojne službe.',
+  'LBL_DNB_SVC_ERR' => 'Greška D&B servisa',
+  'LBL_DNB_TELECOMM' => 'Telekomunikacije',
+  'LBL_DNB_TELECOMMUNICATION_NUMBER' => 'Telekomunikacioni broj',
+  'LBL_DNB_TELECOMM_DESC' => 'Beleži informacije o različitim režimima Telekomunikacionih adresa koje su korišćene od strane subjekta u svrhu eksternog kontaktiranja. Režimi komunikacije uključuju telefon, fax, e-mail, web adresu.',
+  'LBL_DNB_TERRITORY_ABBREVATIVE_NAME' => 'Skraćeno ime teritorije',
+  'LBL_DNB_TERRITORY_ABBREVIATED_NAME' => 'Skraćeno ime teritorije',
+  'LBL_DNB_TERRITORY_OFFICIAL_NAME' => 'Puno ime teritorije',
+  'LBL_DNB_TF_DUNS' => 'Prenet DUNS Broj',
+  'LBL_DNB_TOTAL_EMPLOYEE_QUANTITY' => 'Ukupan broj zaposlenih',
+  'LBL_DNB_TOTAL_ENQUIERY_COUNT' => 'Ukupan broj upita',
+  'LBL_DNB_TOTAL_INQUIRY_COUNT' => 'Ukupan broj upita',
+  'LBL_DNB_TPA' => 'Procena neutralne strane',
+  'LBL_DNB_TPA_DESC' => 'Ocene/mišljenja dodeljenje ovom Subjektu od strane druge nego D&B Svetske mreže(WWN)',
+  'LBL_DNB_TRADE_STYLE_NAME' => 'Stil Poslovnog Imena',
+  'LBL_DNB_TRANSFERRED_FROM_DUNS_NUMBER' => 'Prenet od DUNS broja',
+  'LBL_DNB_TRD_NAME' => 'Poslovno ime',
+  'LBL_DNB_TRD_NAME_DESC' => 'Beleženje imena pod kojim organizacija posluje u komercijalne svrhe',
+  'LBL_DNB_TRNS_DUNS' => 'Prenešeni DUNS broj',
+  'LBL_DNB_TRNS_DUNS_DESC' => 'Ovo je D_U_N_S broj subjekta koji je obrisan iz baze podataka domaćina',
+  'LBL_DNB_UNDELIVERABLE_INDICATOR' => 'Indikator Neisporučivosti',
+  'LBL_DNB_UNKNOWN_ERROR' => 'Nepoznata greška. Proverite log za više detalja.',
+  'LBL_DNB_UNREACHABLE_INDICATOR' => 'Indikator Nedostuponosti',
+  'LBL_DNB_UPLOAD' => 'Uvezi',
+  'LBL_DNB_UPTODATE' => 'Ažurno',
+  'LBL_DNB_UPTODATE_MSG' => 'Kompanijski podaci su ažurni',
+  'LBL_DNB_URL' => 'URL',
+  'LBL_DNB_USPAT_SCR' => 'US Patriot Akt Usaglašenosti Rezultat Rizika',
+  'LBL_DNB_USPAT_SCR_DESC' => 'Indeks usklađenosti rizika nastoji da dostavi organizacijama subjekt ka USA Patriot Aktu sa dodatnim alatom u izvršenju usklađenosti rizika zasnovanim na procenama poslovnih partnera. Indeks je numerička vrednost koja predstavlja agregaciju od težinskog indikatora rizika, dodeljenog preko algoritma zasnovanog na vlasničkim pravima.',
+  'LBL_DNB_VET_ENT' => 'Indikator veteranskog preduzeća',
+  'LBL_DNB_VET_ENT_DESC' => 'Vrednost Tačno ukazuje na organizaciju koja potpada pod SBA Smernice za Mala Preduzeća Akt (PL 85-536) kao dodatak stanju: Koncern Malih Prezueća u vlasništvu i kontroli veterana ne manjem od 51% a u slučaju javnog vlasništva preduzeća ne manje od 51% vlasništva deonica od strane jednog ili više veterana',
+  'LBL_DNB_VET_IND' => 'Veteranski indikator',
+  'LBL_DNB_VET_IND_DESC' => 'Vrednost Tačno ukazuje na organizaciju certifikovanu kao preduzeće koje je u vlasništvu većem od 50%, i čiji menadžment i dnevne poslovne aktivnosti, od strane jednog ili više veterana. Veteran je osoba koja je aktivno služila u vojsci, mornarici ili vazduhoplovnim snagama i koji su razduženi ili otpušteni u uslovima različitim od nečasnih',
+  'LBL_DNB_VIET_VET' => 'Ukazuje da je veteran Vijetnamskog rata',
+  'LBL_DNB_VIET_VET_DESC' => 'Vrednost TAČNO ukazuje da je preduzeće najmanje 51% u vlasništvu jednog ili više Vijetnamskih veterana koji su službovali između 1/1/59 i 5/7/75 i koji imaju kontrolu i upravljaju poslom. Kontrola u ovom kontekstu znači potrebna moć za donošenje političkih odluka a upravljanje znači aktivno učestvovanje u dnevnim poslovnim aktivnostima.',
+  'LBL_DNB_VIEW_ACCT' => 'Prikaži kompanije',
+  'LBL_DNB_WEBPAGE' => 'Web stranica',
+  'LBL_DNB_WEBPAGE_ADDRESS' => 'Adresa web stranice',
+  'LBL_DNB_WEBPAGE_DESC' => 'Web strana organizacije',
+  'LBL_DNB_WITH' => 'sa',
   'LBL_DOCUMENTS' => 'Dokumenta',
   'LBL_DONE_BUTTON_KEY' => 'X',
   'LBL_DONE_BUTTON_LABEL' => 'Završeno',
@@ -2846,6 +7994,8 @@ $app_strings = array (
   'LBL_DROPDOWN_LIST_ALL' => 'Svi',
   'LBL_DROP_HERE' => '[Spusti ovde]',
   'LBL_DST_NEEDS_FIXIN' => 'Aplikacija zahteva da se popravi Letnje računanje vremena. Molim idite na <a href="index.php?module=Administration&action=DstFix">Popravka</a> u Admin delu i izvršite popravku Letnjeg računanja vremena.',
+  'LBL_DUPECHECK_FILTER_DEFAULT' => 'Svi duplikati',
+  'LBL_DUPLICATES_FOUND' => '{{duplicateCount}} duplikata je pronađeno.',
   'LBL_DUPLICATE_BUTTON' => 'Napravi duplikat',
   'LBL_DUPLICATE_BUTTON_KEY' => 'U',
   'LBL_DUPLICATE_BUTTON_LABEL' => 'Napravi duplikat',
@@ -2857,6 +8007,7 @@ $app_strings = array (
   'LBL_DURATION_HOURS' => 'sati',
   'LBL_DURATION_MINUTE' => 'minut',
   'LBL_DURATION_MINUTES' => 'minuta',
+  'LBL_DURATION_SECONDS' => 'sekundi',
   'LBL_EDIT' => 'Izmeni {{{this}}}',
   'LBL_EDITINLINE' => 'Izmeni',
   'LBL_EDITVIEW' => 'Pregled za izmenu',
@@ -2868,6 +8019,7 @@ $app_strings = array (
   'LBL_EDIT_BUTTON_TITLE' => 'Izmeni [Alt+E]',
   'LBL_EDIT_INLINE' => 'Izmeni',
   'LBL_EDIT_RELATED' => 'Uredite povezan {{{this}}}',
+  'LBL_EMAIL' => 'Email',
   'LBL_EMAILS' => 'Email-ovi',
   'LBL_EMAILS_SUBPANEL_TITLE' => 'Email-ovi',
   'LBL_EMAIL_ACCOUNTS_EDIT' => 'Izmeni',
@@ -2887,7 +8039,12 @@ $app_strings = array (
   'LBL_EMAIL_ACCOUNTS_SMTPUSER_REQD' => 'Korisnčko ime za SMTP je obavezno',
   'LBL_EMAIL_ACCOUNTS_SUBTITLE' => 'Podešavanje Mail naloga kako bi ste videli dolazne email poruke sa vaših email naloga.',
   'LBL_EMAIL_ACCOUNTS_TITLE' => 'Upravljanje Mail nalogom',
-  'LBL_EMAIL_ADD' => 'Dodaj adresu',
+  'LBL_EMAIL_ACTION_SET_INVALID' => 'Nevažeći',
+  'LBL_EMAIL_ACTION_SET_OPT_IN' => 'Prijava',
+  'LBL_EMAIL_ACTION_SET_OPT_OUT' => 'Odjava',
+  'LBL_EMAIL_ACTION_SET_PRIMARY' => 'Primarno',
+  'LBL_EMAIL_ACTION_SET_VALID' => 'Važeći',
+  'LBL_EMAIL_ADD' => 'Dodajte Email',
   'LBL_EMAIL_ADDRESSES' => 'Email',
   'LBL_EMAIL_ADDRESSES_TITLE' => 'Email adrese',
   'LBL_EMAIL_ADDRESS_BOOK_ADD' => 'Završeno',
@@ -2912,6 +8069,7 @@ $app_strings = array (
   'LBL_EMAIL_ADDRESS_BOOK_TITLE' => 'Adresar',
   'LBL_EMAIL_ADDRESS_PRIMARY' => 'Email adresa',
   'LBL_EMAIL_ADDR_DISPLAY_MSG' => 'Prikaz email adresa {0} - {1} od {2}',
+  'LBL_EMAIL_ARCHIVED' => 'Email arhiviran',
   'LBL_EMAIL_ARCHIVE_TO_SUGAR' => 'uvezi u Sugar',
   'LBL_EMAIL_ASSIGNED_TO_USER' => 'Dodeljeno korisniku',
   'LBL_EMAIL_ASSIGNMENT' => 'Zadatak',
@@ -2923,6 +8081,7 @@ $app_strings = array (
   'LBL_EMAIL_ATTACHMENTS_DOCUMENT' => 'Dokument',
   'LBL_EMAIL_ATTACHMENTS_EMBEDED' => 'Ugrađen',
   'LBL_EMAIL_ATTACHMENTS_FILE' => 'Fajl',
+  'LBL_EMAIL_ATTACHMENT_UPLOAD_FAILED' => 'Prilog nije uspešno otpremljen',
   'LBL_EMAIL_ATTACH_FILE_TO_EMAIL' => 'Dodaj',
   'LBL_EMAIL_BCC' => 'BCC',
   'LBL_EMAIL_BUTTON' => 'Email',
@@ -2932,14 +8091,6 @@ $app_strings = array (
   'LBL_EMAIL_CHECK' => 'Proveri Email',
   'LBL_EMAIL_CHECKING_DESC' => 'Sačekajte trenutak... <br><br>Ako je ovo prva provera za ovaj mail nalog, može potrajati.',
   'LBL_EMAIL_CHECKING_NEW' => 'Provera novih Email poruka',
-  'LBL_EMAIL_CHECK_INTERVAL_DOM' => 
-  array (
-    -1 => 'Ručno',
-    5 => 'Svakih 5 minuta',
-    15 => 'Svakih 15 minuta',
-    30 => 'Svakih 30 minuta',
-    60 => 'Svaki sat',
-  ),
   'LBL_EMAIL_CLEARING_CACHE_FILES' => 'Brisanje keš fajlova',
   'LBL_EMAIL_CLOSE' => 'Zatvori',
   'LBL_EMAIL_COFFEE_BREAK' => 'Provera novih Email poruka<br><br>Veliki mail nalozi mogu da potraju mnogo vremena.',
@@ -3046,6 +8197,7 @@ $app_strings = array (
   'LBL_EMAIL_INVALID_PERSONAL_OUTBOUND' => 'Izabrani server za odlaznu elektronsku poštu za nalog koji koristite je nevažeći. Proverite podešavanja ili izaberite drugi server za elektronsku poštu za nalog koji koristite.',
   'LBL_EMAIL_INVALID_SYSTEM_OUTBOUND' => 'Server za odlaznu elektronsku poštu nije konfigurisan da bi slao email poruke. Molim vas odaberite ili dodajte server za odlaznu elektronsku poštu za nalog koji koristite u Podešavanja >> Mail nalog.',
   'LBL_EMAIL_INV_TITLE' => 'nevalidna email adresa',
+  'LBL_EMAIL_LINK_RECORD' => 'Kliknite',
   'LBL_EMAIL_LIST_RENAME_DESC ' => 'Unesite nov naziv za ovu mailing listu',
   'LBL_EMAIL_LIST_RENAME_TITLE' => 'Promeni naziv Mailing liste',
   'LBL_EMAIL_LOADING' => 'Učitava se...',
@@ -3121,6 +8273,7 @@ $app_strings = array (
   'LBL_EMAIL_QUICK_CREATE' => 'Brzo kreiranje',
   'LBL_EMAIL_REBUILDING_FOLDERS' => 'Obnavljanje foldera',
   'LBL_EMAIL_RECORD' => 'Email zapis',
+  'LBL_EMAIL_RECV' => 'rec',
   'LBL_EMAIL_RELATE_EMAIL' => 'Email se odnosi',
   'LBL_EMAIL_RELATE_TO' => 'Povezivanje',
   'LBL_EMAIL_REMOVE' => 'Ukloni',
@@ -3151,6 +8304,7 @@ $app_strings = array (
   'LBL_EMAIL_SELECT_ONE_RECORD' => 'Molim odaberite samo jedan email zapis',
   'LBL_EMAIL_SEND' => 'Pošalji',
   'LBL_EMAIL_SENDING_EMAIL' => 'Slanje Email-a',
+  'LBL_EMAIL_SENT' => 'poslato',
   'LBL_EMAIL_SETTINGS' => 'Podešavanja',
   'LBL_EMAIL_SETTINGS_2_ROWS' => '2 Reda',
   'LBL_EMAIL_SETTINGS_3_COLS' => '3 Kolone',
@@ -3232,12 +8386,19 @@ $app_strings = array (
   'LBL_EMAIL_YES' => 'Da',
   'LBL_EMPLOYEES' => 'Zaposleni',
   'LBL_EMPTY' => 'Prazno',
-  'LBL_EMPTY_REQUIRED_VCARD' => 'vCard ne sadrži sva potrebna polja za ovaj modul. Za više detalja pogledajte sugarcrm.log.',
+  'LBL_EMPTY_REQUIRED_VCARD' => 'Virtuelni imenik ne sadrži sva potrebna polja za ovaj modul.',
   'LBL_EMPTY_VCARD' => 'Molim odaberite fajl digitalne vizitkarte',
+  'LBL_ENABLE_JAVASCRIPT' => 'SugarCRM zahteva javascript. Molim odobrite javascript kako biste nastavili da koristite SugarCRM.',
   'LBL_ENTER_DATE' => 'Unesi datum',
+  'LBL_ENTER_EMAIL' => 'Ukucajte email pozvane osobe',
   'LBL_ENTER_VALID_YEAR' => 'Molim, unesite validnu godinu',
   'LBL_ENTER_YEAR' => 'Unesite godinu',
+  'LBL_ERROR' => 'Greška',
+  'LBL_ERROR_CANNOT_FIND_TWITTER' => 'Nije moguće naći ispravn vremensku liniju za Twiter ID',
+  'LBL_ERROR_RETRIEVING_FREE_BUSY' => 'Greška prilikom vraćanja rasporeda',
+  'LBL_ERR_LOADING_RSS_FEED' => 'Neuspelno učitavanje RSS-a',
   'LBL_EXISTING' => 'Postojeći',
+  'LBL_EXPAND_ALL' => 'Proširi sve',
   'LBL_EXPORT' => 'Izvoz',
   'LBL_EXPORT_ALL' => 'Izvezi sve',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Dodeljeno',
@@ -3247,37 +8408,93 @@ $app_strings = array (
   'LBL_EXPORT_TEAM_ID' => 'ID broj tima',
   'LBL_EXPORT_TEAM_NAME' => 'Timovi',
   'LBL_EXPORT_TEAM_SET_ID' => 'ID Postavljenog tima',
+  'LBL_EXTERNAL_LOGIN_BUTTON_TITLE' => 'Jedinstveni potpis',
   'LBL_EXTERNAL_SECURITY_LEVEL' => 'Bezbednost',
   'LBL_FAILED' => 'Nije uspelo!',
   'LBL_FASTCGI_LOGGING' => 'Za optimalno iskustvo korišćenja IIS/FastCGI sapi, podesite fastcgi.logging na 0 u php.ini fajlu.',
+  'LBL_FAVORITE' => 'Omiljeni',
   'LBL_FAVORITES' => 'Omiljeni',
   'LBL_FAVORITES_FILTER' => 'Moje Omiljene',
+  'LBL_FEEDBACK' => 'Povratna informacija',
   'LBL_FILES_OPENED' => 'Pristupljeno fajlovima',
   'LBL_FILE_BUTTON' => 'Fajl',
+  'LBL_FILE_DELETED' => 'Fajl je uspešno obrisan',
+  'LBL_FILE_DELETE_CONFIRM' => 'Da li ste sigurni da želite da obrišete ovaj fajl? Ovo ne može biti poništeno.',
+  'LBL_FILE_SIZE_UNITS_B' => 'Bajtova',
+  'LBL_FILE_SIZE_UNITS_KB' => 'kB',
+  'LBL_FILE_SIZE_UNITS_MB' => 'MB',
+  'LBL_FILTER' => 'Filter',
   'LBL_FILTERED' => 'Filtriran',
+  'LBL_FILTER_ALL_RECORDS' => 'Svi zapisi',
+  'LBL_FILTER_BETWEEN_FROM' => 'Od',
+  'LBL_FILTER_BETWEEN_TO' => 'Do',
+  'LBL_FILTER_CREATE_NEW' => 'Kreiraj filter',
+  'LBL_FILTER_DATEBETWEEN_FROM' => 'Početni datum',
+  'LBL_FILTER_DATEBETWEEN_TO' => 'Krajni datum',
   'LBL_FILTER_MENU_BY' => 'Filtriraj meni po',
+  'LBL_FILTER_SELECT_FIELD' => 'Izaberite polje...',
+  'LBL_FILTER_SELECT_OPERATOR' => 'Izaberite operator...',
   'LBL_FINISH_BUTTON_LABEL' => 'Kraj',
   'LBL_FINISH_BUTTON_TITLE' => 'Kraj',
   'LBL_FIRST_DAY_OF_NEXT_MONTH' => 'prvi dan meseca',
   'LBL_FIRST_INPUT_EDIT_VIEW_KEY' => '7',
   'LBL_FIRST_INPUT_SEARCH_KEY' => '9',
   'LBL_FIXED_IN_RELEASE' => 'Popravljen u izdanju',
+  'LBL_FOLLOW' => 'Prati',
+  'LBL_FOLLOWING' => 'Pratim',
+  'LBL_FOLLOW_LINK' => 'Sledi link',
+  'LBL_FONTSIZE_EXTRA_HUGE' => 'Najveće',
+  'LBL_FONTSIZE_HUGE' => 'Veoma veliko',
+  'LBL_FONTSIZE_LARGE' => 'Veliko',
+  'LBL_FONTSIZE_LARGER' => 'Veće',
+  'LBL_FONTSIZE_NORMAL' => 'Normalno (podrazumevano)',
+  'LBL_FONTSIZE_SMALL' => 'Malo',
+  'LBL_FONTSIZE_TINY' => 'Veoma malo',
+  'LBL_FORECAST_WORKSHEET' => 'Tabela prognoze',
+  'LBL_FORECAST_WORKSHEETS' => 'Tabela prognoza',
   'LBL_FOUND_IN_RELEASE' => 'Nađen u izdanju',
   'LBL_FULL_FORM_BUTTON_KEY' => 'F',
   'LBL_FULL_FORM_BUTTON_LABEL' => 'Pun formular',
   'LBL_FULL_FORM_BUTTON_TITLE' => 'Pun formular [Alt+F]',
+  'LBL_GENERATE_QUOTE' => 'Napravi ponudu',
   'LBL_GENERATE_WEB_TO_LEAD_FORM' => 'Generiši Formular',
   'LBL_GETTINGAIR' => 'Dobijanje vazduha',
+  'LBL_GLOBAL_SEARCH' => 'Globalna pretraga',
   'LBL_GLOBAL_SEARCH_LNK_KEY' => '',
+  'LBL_GLOBAL_SEARCH_MODULE_FILTER' => 'Filter globalne pretrage',
+  'LBL_GLOBAL_SEARCH_RUN' => 'Pokrenuti globalnu pretragu',
+  'LBL_GLOBAL_SHORTCUTS' => 'Globalne prečice',
   'LBL_GO_BUTTON_LABEL' => 'Idi',
   'LBL_GRID_SELECTED_FILE' => 'izabrani fajl',
   'LBL_GRID_SELECTED_FILES' => 'izabrani fajlovi',
+  'LBL_GROUP_EMAIL_ACCOUNT_CONFIGURATION' => 'grupni nalog',
   'LBL_GS_HELP' => 'Polja u ovom modulu koja se koriste za pretragu pojavljuju se iznad. Osenčeni tekst poklapa se sa Vašim kriterijumom pretrage.',
   'LBL_HELP' => 'Pomoć',
+  'LBL_HELP_CREATE' => '•	{{plural_module_name}}  modul se sastoji od stavki individualnih linija posla koje su uključene na {{opportunities_singular_module}} zapis i praćen kroz ceo prodajni životni ciklus. {{opportunities_singular_module}} zapis ima ulugo zaglavlja za jedan ili više {{module_name}} zapis. Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_CREATE_TITLE' => '{{module_name}} Pravljenje',
+  'LBL_HELP_DUPLICATE' => 'Sugar je detektovao da zapis koji pokušavate da kreirate već postoji. Za izmenu postojećeg zapisa umesto kreiranja novog, kliknuti na dugme "Odaberi i izmeni" desno od željenog zapisa. Sva prazna polja u postojećem zapisu biće popunjena vrednostima koje ste upravo uneli. Kliknite "Sačuvaj" za snimanje promena na postojećem zapisu. Ako ne želite da koristite vrednosti postojećeg zapisa umesto onih vrednosti koje ste upravo uneli kliknite na "Vrati na orginalno". Vrednosti koje ste uneli će onda biti primenjene na postojeći zapis, i sada možete da uradite dodatne promene i kliknite na "Sačuvaj" za završetak izmene na postojećem zapisu. Za kreiranje novog zapisa vrednostima koje ste upravo uneli kliknite na "Zanemari duplikate i i Sačuvaj" na gornjem desnom uglu ekrana.',
+  'LBL_HELP_DUPLICATE_TITLE' => 'Potencijalni duplikat pronađen',
+  'LBL_HELP_MORE_INFO' => 'Za više informacija pogledajte {{{more_info_url}}} {{plural_module_name}} dokumentaciju.{{{more_info_url_close}}}',
+  'LBL_HELP_NO_HELP' => 'Nema dostupnih podataka',
+  'LBL_HELP_PREVIEW' => 'Pomoćni dashlet pruža specifične informacije koje se tiču modula kojitrenutno pregledate zajedno sa vezom ka odgovorajućom dokumentaciju(npr. dokumentacija Uprave) u Aplikacionom uputstvu za više informacija.',
+  'LBL_HELP_RECORD' => 'Ovaj pregled zapisa pruža temeljne informacije o individualnom zapisu kao i neke detalje o zapisima za koej je vezan - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => 'Pregled liste modula prikazuje sve zapise koji zadovoljavaju trenutne kriterijume pretrage i na koje korisnik ima prava. Možete videti osnovne detalje svakog zapisa u poljima kolone pregleda liste ili klikom na ime zapisa za otvaranje u pregledu zapisa.',
+  'LBL_HELP_RECORDS_TITLE' => 'Pomoć Pregleda Liste',
+  'LBL_HELP_RECORD_TITLE' => 'Pomoć Pregledu Zapisa',
   'LBL_HIDE' => 'Sakrij',
   'LBL_HIDE_COLUMNS' => 'Sakrij kolone',
   'LBL_HIDE_SHOW' => 'Prikaži/Sakrij',
+  'LBL_HISTORICAL_SUMMARY' => 'Istorijski sumarum',
+  'LBL_HISTORICAL_SUMMARY_EMAIL_FROM' => 'E - mejl od',
+  'LBL_HISTORICAL_SUMMARY_EMAIL_TO' => 'E - mejl za',
+  'LBL_HISTORY_DASHLET' => 'Istorija',
+  'LBL_HISTORY_DASHLET_DESCRIPTION' => 'Dešlet Istorija prokazuje održane sastanek, obavljene pozive, primljene email poruke i poslete email poruke.',
+  'LBL_HISTORY_DASHLET_EMAIL_PLURAL' => 'Email-ovi',
+  'LBL_HISTORY_DASHLET_EMAIL_SINGULAR' => 'Email',
+  'LBL_HISTORY_DASHLET_GROUP_BUTTON_LABEL' => 'Timska Istorija',
+  'LBL_HISTORY_DASHLET_USER_BUTTON_LABEL' => 'Moja Istorija',
   'LBL_HOME' => 'Početna',
+  'LBL_HONEYPOT' => 'Ako ste stvarna osoba nemojte popuniti ovo.',
   'LBL_HOURS' => 'Sati',
   'LBL_ICON_COLUMN_1' => 'Kolona',
   'LBL_ICON_COLUMN_2' => '2 kolone',
@@ -3288,6 +8505,9 @@ $app_strings = array (
   'LBL_ID_FF_REMOVE' => 'Ukloni',
   'LBL_ID_FF_SELECT' => 'Izaberi',
   'LBL_ID_FF_VCARD' => 'Digitalna vizitkarta',
+  'LBL_IGNORE_DUPLICATE_AND_SAVE' => 'Ignoriši duplikat i sačuvaj',
+  'LBL_IMAGE' => 'Slika',
+  'LBL_IMAGE_DELETE_CONFIRM' => 'Da li ste sigurni da želite da obrišete ovu sliku?',
   'LBL_IMPORT' => 'Uvoz',
   'LBL_IMPORT_SAMPLE_FILE_TEXT' => '"Ovo je primer datoteke za uvoz koji predstavlja sadržaj datoteke spremne za uvoz." "Datoteka je .csv (vrednosti odvojene zarezom), koja koristi duple znake navoda kao kvalifikator polja." "Red sa zaglavljem je prvi red u datoteci i sadrži labele polja onakve kakve ih vidite u Vašoj aplikaciji." "Ove labele koriste se za mapiranje podataka u datoteci na polja u aplikaciji." "Napomene: Imena baza podataka mogu biti korišćena u redu sa zaglavljem. Ovo je korisno kad koristite phpMyAdmin ili neki drugi alat za rad sa bazama podataka da izvezete listu podataka za uvoz." "Redosled kolona nije bitan dok god proces uvoza može da mapira podatke na odgovarajuće redove na osnovu reda sa zaglavljem." "Da biste koristili ovu datoteku kao šablon, uradite sledeće:" "1. Uklonite primere podataka" "2. Uklonite pomoćni tekst koji upravo čitate" "3. Unesite sopstvene podatke u odgovarajuće redove i kolone" "4. Sačuvajte datoteku na poznatu lokaciju na Vašem sistemu" "5. Kliknite na opciju uvoza iz menija sa akcijama i odaberite datoteku za postavljanje"',
   'LBL_IMPORT_STARTED' => 'Uvoz započet:',
@@ -3295,31 +8515,82 @@ $app_strings = array (
   'LBL_IMPORT_VCARD_BUTTON_KEY' => 'I',
   'LBL_IMPORT_VCARD_BUTTON_LABEL' => 'Uvezi digitalnu vizitkartu',
   'LBL_IMPORT_VCARD_BUTTON_TITLE' => 'Uvezi digitalnu vizitkartu [Alt+I]',
+  'LBL_INACTIVE_TASKS_DASHLET' => 'Neaktivni zadaci',
+  'LBL_INACTIVE_TASKS_DASHLET_COMPLETED' => 'Završeno',
+  'LBL_INACTIVE_TASKS_DASHLET_DEFERRED' => 'Odložen',
+  'LBL_INACTIVE_TASKS_DASHLET_DESCRIPTION' => 'Dašlet Zadaci prikazuje odložene i završene zadatke.',
+  'LBL_INACTIVE_TASKS_DASHLET_GROUP_BUTTON_LABEL' => 'Timski zadaci',
+  'LBL_INACTIVE_TASKS_DASHLET_USER_BUTTON_LABEL' => 'Moji zadaci',
   'LBL_INBOUNDEMAIL_ID' => 'ID dolaznog Email-a',
+  'LBL_INCORRECT_PASSWORD' => 'Greška : Netačna šifra.',
   'LBL_INFOINLINE' => 'Informacije',
+  'LBL_INSTANCES' => 'Instance',
+  'LBL_INSTANCE_ACTIVE' => 'Već koristite ovu instancu',
+  'LBL_INSTANCE_INVITE_SENT' => 'Poziv poslat za',
+  'LBL_INSTANCE_IN_USE' => 'Instanca u upotrebi',
+  'LBL_INSTANCE_SWITCH_FAILED' => 'Promena instance nije uspela',
+  'LBL_INSTANCE_USERS' => 'Korisnici instance',
+  'LBL_INVALID_412_RESPONSE' => 'Zahtev je neuspešan jer čini aplikaciju neupotrebljivom. Molim kontaktirajte tehničku podršku',
+  'LBL_INVALID_CREDS' => 'Kombinacija korisničko ime / lozinka nije dobra, molimo pokušajte ponovo.',
+  'LBL_INVALID_CREDS_TITLE' => 'Pogrešni akreditivi',
   'LBL_INVALID_FILE_EXTENSION' => 'Ekstenzija fajla nije validna',
+  'LBL_INVALID_GRANT' => 'Vaš token nije validan ili je istekao. Molimo prijavite se ponovo.',
+  'LBL_INVALID_GRANT_TITLE' => 'Token je istekao',
+  'LBL_INVALID_REQUEST' => 'Zahtev je nevalidan ili pogrešan. Molimo kontaktirajte tehničku podršku.',
+  'LBL_INVALID_REQUEST_TITLE' => 'Nevalidan zahtev',
   'LBL_INVALID_USA_PHONE_FORMAT' => 'Molim, unesite numerički SAD broj telefona, uključujući i pozivni broj.',
-  'LBL_INVITEES' => 'Gosti',
+  'LBL_INVITE' => 'Pozovi',
+  'LBL_INVITED' => 'Pozvani',
+  'LBL_INVITEES' => 'Pozvani',
   'LBL_IS_EMPTY' => 'Je prazan',
   'LBL_IS_NOT_EMPTY' => 'Nije prazan',
   'LBL_ITEM_ID' => 'ID broj stavke',
   'LBL_ITEM_SUMMARY' => 'Sadržaj stavke',
+  'LBL_JOB_NOTIFICATION_BODY_GENERIC' => 'Zakazani posao se uspešno obavlja',
+  'LBL_JOB_NOTIFICATION_DOC_LINK_TEXT' => 'Dokumentacija podešavanja Prodajnih Prilika.',
+  'LBL_JOB_NOTIFICATION_OPPS_WITH_RLIS_BODY' => 'Linija stavki Prihoda je sada dozvoljena u Vašem Sugar-u, i svi postojeći podaci iz Prodajne Prilike su obrađeni. Vaš Sugar je spreman da bude korišćen sa Linijom stavki Prihoda. Za više informacija o sprovedenim promenama, pogledajte {{doc_url}}. Iskreno, SugarCRM',
+  'LBL_JOB_NOTIFICATION_OPPS_WITH_RLIS_SUBJECT' => 'Linija stavki Prihoda je sada dozvoljena u Vašem Sugar-u',
+  'LBL_JOB_NOTIFICATION_OPP_FORECAST_SYNC_BODY' => 'Modul Prognoze se sada može koristiti zajedno sa prodajnim prilikama. Sve ranije stavke prognoze Linije Prihoda su uklonjene, pa se mogu kreirati nove prognoze i povezati sa prodajnim prilikama. Za više informacija koje se tiču sprvodenih promena, otvoriti {{doc_url}}. Iskreno, vaš SugarCRM',
+  'LBL_JOB_NOTIFICATION_OPP_FORECAST_SYNC_SUBJECT' => 'Modul Prognoza je sada spreman za upotrebu sa Potencijalnim Prodajama u Vašem Sugar-u.',
+  'LBL_JOB_NOTIFICATION_RLI_NOTE_BODY' => 'Stavke Linije Prihoda su onemogućene u okviru Vašeg Sugar - a, a sve postojeće stavke su obrađene. Sada možete Stavke Linije Prihoda koristiti zajedno sa Prodajnim Prilikama. Za više informacija koje se tiču sprovedenih promena, otvoriti {{doc_url}}. Iskreno, Vaš SugarCRM.',
+  'LBL_JOB_NOTIFICATION_RLI_NOTE_SUBJECT' => 'Stavke Linije Prihoda su onemogućene u okviru Vašeg Sugar - a',
+  'LBL_JOB_NOTIFICATION_SUBJECT_GENERIC' => 'Zakazani posao je završen.',
   'LBL_JS_CALENDAR' => 'Kalendar',
   'LBL_KEYBOARD_SHORTCUTS_HELP' => '<p><br /><strong>Funkcionalnost formi - Alt+</strong><br/><br />I = uredi (detaljni prikaz)<br/><br />U = dupliciraj (detaljni prikaz)<br/> <br />D = obriši (detaljni prikaz)<br/><br />A = sačuvaj (prikaz za uređivanje)<br/<br />L = otkaži (prikaz za uređivanje) <br/><br /><br/><br /></p><br /><br /><p><br /><strong>Pretraga i navigacija  - Alt+</strong><br/><br />7 = prvi input na formi za uređivanje<br/><br />8 = link za naprednu pretragu<br/><br />9 = prvi input na formi za pretragu<br/><br />0 = input za unifikovanu pretragu<br><br /></p>',
   'LBL_KEYBOARD_SHORTCUTS_HELP_TITLE' => 'Prečice na tastaturi',
   'LBL_LANGUAGE' => 'Jezik:',
+  'LBL_LAST_COMMIT' => 'Poslednje izvršenje',
+  'LBL_LAST_LOGIN' => 'poslednje prijavljivanje',
+  'LBL_LAST_TOUCHED' => 'Poslednja promena {{relativetime}} na {{date}} u {{time}}',
   'LBL_LAST_VIEWED' => 'Poslednje pregledano',
+  'LBL_LATER' => 'Kasnije',
   'LBL_LEADS' => 'Potencijalni klijenti',
+  'LBL_LEARNING_RESOURCES_COMMUNITY_LINK' => 'Forum',
+  'LBL_LEARNING_RESOURCES_COMMUNITY_TEASER' => 'Pridružite se diskusijama, rešavanju problema kao i razmeni ideja sa drugim korisnicima.',
+  'LBL_LEARNING_RESOURCES_DESC' => 'SugarCRM Resursi za učenje',
+  'LBL_LEARNING_RESOURCES_NAME' => 'Resursi za učenje',
+  'LBL_LEARNING_RESOURCES_SUGAR_UNIVERSITY_LINK' => 'Sugar Univerzitet',
+  'LBL_LEARNING_RESOURCES_SUGAR_UNIVERSITY_TEASER' => 'Postanite Sugar ekspert uz pomoć treninga, video snimaka, časova, internet seminara i sertifikata.',
+  'LBL_LEARNING_RESOURCES_SUPPORT_LINK' => 'Dokumentacija i Podrška',
+  'LBL_LEARNING_RESOURCES_SUPPORT_TEASER' => 'Saznajte detalje o tome kako funkcioniše Sugar i komunicirajte sa podrškom',
+  'LBL_LEARNING_RESOURCES_TITLE' => 'Resursi za učenje',
   'LBL_LEGAL' => 'Legalno',
   'LBL_LESS' => 'manje',
+  'LBL_LIKELY' => 'Verovatno',
+  'LBL_LIKELY_ADJUSTED' => 'Verovatne (prilagođeno)',
   'LBL_LINK_ACTIONS' => 'Akcije',
   'LBL_LINK_ALL' => 'Svi',
+  'LBL_LINK_BUTTON' => 'Link',
+  'LBL_LINK_FROM_REPORT_NO_DATA' => 'Nema zapisa za povezivanje.',
+  'LBL_LINK_FROM_REPORT_SUCCESS' => '{{reportCount}} zapisa je povezano.',
+  'LBL_LINK_FROM_REPORT_WRONG_MODULE' => 'Izabrani izveštaj nije bazirana na korektnom tipu modula.',
   'LBL_LINK_MORE' => 'Više',
   'LBL_LINK_NONE' => 'Nijedna',
   'LBL_LINK_RECORDS' => 'Zapisi',
   'LBL_LINK_SELECT' => 'Izaberi',
   'LBL_LIST' => 'Lista',
   'LBL_LISTVIEW' => 'Pregled u vidu liste',
+  'LBL_LISTVIEW_ACTIONS' => 'Akcije',
   'LBL_LISTVIEW_ALL' => 'Svi',
   'LBL_LISTVIEW_LESS_THAN_TEN_SELECT' => 'Molim, izaberite manje od 10 zapisa da bi nastavili.',
   'LBL_LISTVIEW_MASS_UPDATE_CONFIRM' => 'Da li ste sigurni da želite da ažurirate celu listu?',
@@ -3329,7 +8600,10 @@ $app_strings = array (
   'LBL_LISTVIEW_OPTION_CURRENT' => 'Ova strana',
   'LBL_LISTVIEW_OPTION_ENTIRE' => 'Svi zapisi',
   'LBL_LISTVIEW_OPTION_SELECTED' => 'Izabrani zapisi',
+  'LBL_LISTVIEW_SELECTED_CLEAR' => 'Obriši selektovano.',
   'LBL_LISTVIEW_SELECTED_OBJECTS' => 'Izabrani:',
+  'LBL_LISTVIEW_SELECT_ALL_RECORDS' => 'Izaberite sve zapise',
+  'LBL_LISTVIEW_SELECT_AND_EDIT' => 'Izaberi i izmeni',
   'LBL_LISTVIEW_TWO_REQUIRED' => 'Molim, izaberite bar dva zapisa da bi nastavili.',
   'LBL_LIST_ACCOUNT_NAME' => 'Naziv kompanije',
   'LBL_LIST_ASSIGNED_USER' => 'Korisnik',
@@ -3341,17 +8615,37 @@ $app_strings = array (
   'LBL_LIST_OF' => 'od',
   'LBL_LIST_PHONE' => 'Telefon',
   'LBL_LIST_RELATED_TO' => 'Povezano sa',
+  'LBL_LIST_REMOVE_EMAIL_INFO' => 'Postoji dodatni e - mejl na zapisu koji menjate. On je sada primara i dodat je ispod',
   'LBL_LIST_TEAM' => 'Tim',
   'LBL_LIST_USER_NAME' => 'Korisničko ime',
   'LBL_LOADING' => 'Učitavanje ...',
+  'LBL_LOADING_FILES' => 'Lista dokumenta se i dalje učitava. Molimo vas pokušajte kasnije.',
   'LBL_LOADING_LANGUAGE' => 'Učitavanje jezičkog paketa',
   'LBL_LOADING_PAGE' => 'Stranica se učitava, molim sačekajte...',
+  'LBL_LOADING_PREVIEW' => 'Učitavanje pregleda',
   'LBL_LOCALE_NAME_EXAMPLE_FIRST' => 'Petar',
   'LBL_LOCALE_NAME_EXAMPLE_LAST' => 'Petrović',
   'LBL_LOCALE_NAME_EXAMPLE_SALUTATION' => 'Dr.',
   'LBL_LOCALE_NAME_EXAMPLE_TITLE' => 'junior programer',
+  'LBL_LOGGED_OUT' => 'Izlogovani ste.',
+  'LBL_LOGIN_ADMIN_CALL' => 'Molim Vas kontaktirajte administratora sistema.',
+  'LBL_LOGIN_ATTEMPTS_OVERRUN' => 'Previše neuspešnih pokušaja pristupa sistemu.',
+  'LBL_LOGIN_BUTTON_KEY' => 'L',
   'LBL_LOGIN_BUTTON_LABEL' => 'Prijava',
+  'LBL_LOGIN_BUTTON_TITLE' => 'Prijava',
+  'LBL_LOGIN_FORGOT_PASSWORD' => 'Zaboravili ste lozinku?',
+  'LBL_LOGIN_FORM_LABEL' => 'Prikaži formu za prijavu',
+  'LBL_LOGIN_LOGIN_TIME_ALLOWED' => 'Možete da pokušate da se prijavite za',
+  'LBL_LOGIN_LOGIN_TIME_DAYS' => 'dana.',
+  'LBL_LOGIN_LOGIN_TIME_HOURS' => 'č.',
+  'LBL_LOGIN_LOGIN_TIME_MINUTES' => 'min.',
+  'LBL_LOGIN_LOGIN_TIME_SECONDS' => 'sek.',
+  'LBL_LOGIN_OPTIONS' => 'Opcije',
+  'LBL_LOGIN_PASSWORD' => 'Lozinka',
+  'LBL_LOGIN_SUBMIT' => 'Pošalji',
   'LBL_LOGIN_TO_ACCESS' => 'Da bi pristupili ovoj oblasti molimo Vas da se prijavite.',
+  'LBL_LOGIN_USERNAME' => 'Korisničko ime',
+  'LBL_LOGIN_WELCOME_TO' => 'Dobrodošli u',
   'LBL_LOGOUT' => 'Odjavi se',
   'LBL_LOWER_OR' => 'ili',
   'LBL_MAILMERGE' => 'Spajanje Email-ova',
@@ -3364,7 +8658,13 @@ $app_strings = array (
   'LBL_MASSUPDATE_DELETE_GLOBAL_TEAM' => 'Globalni tim ne može biti obrisan.',
   'LBL_MASSUPDATE_DELETE_USER_EXISTS' => 'Ovaj privatni tim [{0}] ne može biti obrisan dok je [{1}] korisnik obrisan.',
   'LBL_MASS_UPDATE' => 'Masovno ažuriranje',
-  'LBL_MAXIMUM_OF' => 'Maksimum',
+  'LBL_MASS_UPDATE_ADD_FIELD' => 'Dodaj polje',
+  'LBL_MASS_UPDATE_EMPTY_CONFIRM' => 'Postojeće vrednosti će biti izbrisane. Da li želite da nastavite?',
+  'LBL_MASS_UPDATE_EMPTY_VALUES' => 'Sledeći atributi nemaju zadate vrednosti:',
+  'LBL_MASS_UPDATE_JOB_QUEUED' => 'Vaš zahtev za grupnim ažuriranjem je zakazan.',
+  'LBL_MASS_UPDATE_REMOVE_FIELD' => 'Ukloni polje',
+  'LBL_MASS_UPDATE_SUCCESS' => 'Svi zapisi su uspešno ažurirani.',
+  'LBL_MAXIMUM_OF' => 'Maksimum od',
   'LBL_MAX_DASHLETS_REACHED' => 'Broj Vaših Sugar dašleta dostigao je maksimum koji je podesio administrator. Molim, uklonite Sugar dašlet kako bi dodali novi.',
   'LBL_MEETING' => 'Sastanak',
   'LBL_MEETINGS' => 'Sastanci',
@@ -3373,13 +8673,29 @@ $app_strings = array (
   'LBL_MEMBERS' => 'Članovi',
   'LBL_MEMBER_OF' => 'Član',
   'LBL_MEMORY_USAGE' => 'Zauzeće memorije (bajtova)',
+  'LBL_MERGE' => 'Spoji',
   'LBL_MERGE_CONNECTORS' => 'Nabavi podatke',
   'LBL_MERGE_CONNECTORS_BUTTON_KEY' => '[D]',
   'LBL_MERGE_DUPLICATES' => 'Spoji',
+  'LBL_MERGE_DUPLICATES_CONFIRM' => 'Ovo će obrisati sledeće zapis(e):',
+  'LBL_MERGE_DUPLICATES_FAIL_PROCESS' => 'Spajanje povezanih zapisa je nepotpuno. Neki zapisi nisu spojeni. Da li želite da nastavite?',
+  'LBL_MERGE_DUPLICATES_PROCEED' => 'Da li želite da nastavite?',
+  'LBL_MERGE_DUPLICATES_REMOVE' => 'Da li ste sigurni da želite da uklonite ovaj zapis iz spajanja?',
+  'LBL_MERGE_DUPLICATES_REMOVE_TOOLTIP' => 'Ukloniti zapis iz spajanja',
+  'LBL_MERGE_DUPLICATES_TITLE' => 'Spoj povezane zapise',
+  'LBL_MERGE_DUPLICATES_WARNING_CLOSE' => 'Spajanje povezanih zapisa je nepotpuno. Neki zapisi nisu spojeni.',
+  'LBL_MERGE_NO_ACCESS' => 'Nemate pristup za obavljanje ove radnje',
+  'LBL_MERGE_NO_ACCESS_TO_A_FEW_RECORDS' => 'Jedan ili više odabranih zapisa ne može se izbrisati. Ti zapisi su uklonjeni sa liste za spajanje.',
+  'LBL_MERGE_UNSAVED_CHANGES' => 'Izvršićete promenu glavnog zapisa bez čuvanje promena koje ste napravili. Sve promene će biti izgubljene. Da li želite da nastavite?',
   'LBL_MERIDIEM' => 'Podne',
   'LBL_MESSAGE_BOX_TITLE' => 'Uzbuna',
+  'LBL_METHOD_NOT_ALLOWED' => 'HTTP metoda nije dozvoljena za ovaj resurs. Molimo kontaktirajte tehničku podršku.',
+  'LBL_METHOD_NOT_ALLOWED_TITLE' => 'Metod nije dozvoljen',
   'LBL_MINUTES' => 'Minuta',
   'LBL_MISSING_CUSTOM_DELIMITER' => 'Morate navesti prilagođeni graničnik.',
+  'LBL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_LINK_TEXT' => 'Email podešavanja',
+  'LBL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_SUBJECT' => 'Nedostaju SMTPServer podešavanja',
+  'LBL_MOBILE' => 'Mob. telefon:',
   'LBL_MOBILE_APP_VERSION' => 'Verzija aplikacije',
   'LBL_MOBILE_CHOOSE_DOC' => 'Izaberite dokument',
   'LBL_MOBILE_CHOOSE_LOCATION' => 'Izaberite lokaciju',
@@ -3388,34 +8704,45 @@ $app_strings = array (
   'LBL_MOBILE_CHOOSE_URL' => 'Izaberite URL',
   'LBL_MOBILE_DELETE_CONFIRM' => 'Da li ste sigurni da želite da obrišete ovaj zapis?',
   'LBL_MOBILE_DESKTOP' => 'Desktop verzija',
+  'LBL_MOBILE_DETAIL_SHOW_LESS' => '..Manje',
+  'LBL_MOBILE_DETAIL_SHOW_MORE' => 'Više...',
   'LBL_MOBILE_DOC' => 'Dokument',
-  'LBL_MOBILE_DOWNLOAD_COMPLETED' => 'Završeno preuzimanje: {{{this}}}',
-  'LBL_MOBILE_DOWNLOAD_STARTED' => 'Počelo preuzimanje: {{{this}}}',
+  'LBL_MOBILE_DOWNLOAD_COMPLETED' => 'Preuzimanje završeno: {{{this}}}',
+  'LBL_MOBILE_DOWNLOAD_FAILED' => 'Preuzimanje neuspelo\\r\\n{{{this}}}',
+  'LBL_MOBILE_DOWNLOAD_STARTED' => 'Preuzimanje počelo: {{{this}}}',
   'LBL_MOBILE_EDIT_REL' => 'Izmeni vezu',
   'LBL_MOBILE_FEEDBACK' => 'Povratna informacija',
   'LBL_MOBILE_LOGING_OUT' => 'Molim sačekajte dok se ne izlogujete...',
   'LBL_MOBILE_LOG_CALL_CONFIRM' => 'Da li bi ste želili da logujete svoj poslednji poziv?',
   'LBL_MOBILE_META_SYNC_FAILED' => 'Sinhronizacija sa serverom nije moguća. Da pokušam ponovo?',
-  'LBL_MOBILE_META_SYNC_FAILED_RETRY' => 'Nemogućnost sinhronizacije sa serverom. Pokušajte ponovo?',
+  'LBL_MOBILE_META_SYNC_FAILED_RETRY' => 'Nemogućnost sinhronizacije sa serverom. Pokušati ponovo?',
   'LBL_MOBILE_NO_ACTIONS_AVAILABLE' => 'Nema Dostupnih Akcija',
   'LBL_MOBILE_NO_RECORDS' => 'Nema pronađenih zapisa',
   'LBL_MOBILE_PRIVACY_TERMS_CONDITIONS' => 'Privatnost, termini i uslovi',
+  'LBL_MOBILE_PROCESSING_FILE' => 'Pripremam fajl...',
   'LBL_MOBILE_PROCESSING_IMAGE' => 'Priprema slike...',
   'LBL_MOBILE_PTR_PULL' => 'Povucite na dole za osvežavanje ...',
   'LBL_MOBILE_PTR_RELEASE' => 'Otpustite da osvežite ...',
   'LBL_MOBILE_RELOGIN_BUTTON' => 'Ponovno logovanje',
-  'LBL_MOBILE_SEARCH_TEAMS' => 'Pretraga Timova',
+  'LBL_MOBILE_SEARCH_TEAMS' => 'Pretraži timove...',
   'LBL_MOBILE_SELECT_TEAMS' => 'Odaberi timove',
   'LBL_MOBILE_SERVER_URL' => 'URL Servera:',
   'LBL_MOBILE_SERVER_VERSION' => 'Verzija servera',
   'LBL_MOBILE_SHOW_MORE' => 'Pokaži više...',
   'LBL_MOBILE_SHOW_MORE_TOP' => 'Pokaži više...',
   'LBL_MOBILE_SUPPORT' => 'Podrška',
+  'LBL_MOBILE_TUTORIAL_CONTROL_PANEL' => 'Koristiti strelice koje se nalaze ispod za brzi tutorijal kroz ključne komponente ovog menija.',
   'LBL_MOBILE_TUTORIAL_DETAIL_BACK' => 'Vrati se na prethodnu stranicu.',
+  'LBL_MOBILE_TUTORIAL_DETAIL_BACK_TABLET' => 'Nazad.',
   'LBL_MOBILE_TUTORIAL_DETAIL_CARD' => 'Najvažnije informacije o zapisu.',
+  'LBL_MOBILE_TUTORIAL_DETAIL_FOLLOW' => 'Prati/Ne prati zapis.',
   'LBL_MOBILE_TUTORIAL_DETAIL_INTRO' => 'Ovo je stranica sa detaljima.',
+  'LBL_MOBILE_TUTORIAL_DETAIL_INTRO_TEXT' => 'Detaljni prikaz se otvara s desne strane Vašeg ekrana.',
+  'LBL_MOBILE_TUTORIAL_DETAIL_INTRO_TITLE' => 'Detaljni pregled',
   'LBL_MOBILE_TUTORIAL_DETAIL_RECORD_ACTIONS' => 'Dostupne akcije na zapisu.',
+  'LBL_MOBILE_TUTORIAL_DETAIL_RELATE_LINK' => 'Kliknite kako biste otvorili srodni zapis.',
   'LBL_MOBILE_TUTORIAL_DETAIL_RIGHT_ACTION' => 'Pogledajte dodatne informacije ili uredite zapis.',
+  'LBL_MOBILE_TUTORIAL_DETAIL_SHOW_MORE' => 'Kliknuti za vise detaljnih informacija.',
   'LBL_MOBILE_TUTORIAL_HOME_CREATE' => 'Dostupe akcije u pogledu.',
   'LBL_MOBILE_TUTORIAL_HOME_END' => 'Uživajte u svim novim mogućnostima!',
   'LBL_MOBILE_TUTORIAL_HOME_FAVORITES_BTN' => 'Filtrirajte listu kako bi prikazali moje omiljene zapise.',
@@ -3425,10 +8752,13 @@ $app_strings = array (
   'LBL_MOBILE_TUTORIAL_HOME_LOGO' => 'Navigacija u glavnom meniju.',
   'LBL_MOBILE_TUTORIAL_HOME_MENU_DESKTOP' => 'Otvori Sugar u web browseru.',
   'LBL_MOBILE_TUTORIAL_HOME_MENU_INTRO' => 'Ovo je home meni.',
+  'LBL_MOBILE_TUTORIAL_HOME_MENU_INTRO_TEXT' => 'Glavni meni se otvara s leve strane Vašeg ekrana.',
+  'LBL_MOBILE_TUTORIAL_HOME_MENU_INTRO_TITLE' => 'Prikaz glavnog menija.',
   'LBL_MOBILE_TUTORIAL_HOME_MENU_LOGO' => 'Zatvori home meni.',
   'LBL_MOBILE_TUTORIAL_HOME_MENU_MODULES' => 'Pogledaj određeni modul',
   'LBL_MOBILE_TUTORIAL_HOME_MENU_PROFILE' => 'Pogledaj svoj profil.',
   'LBL_MOBILE_TUTORIAL_HOME_MENU_SETTINGS' => 'Kastomizuj aplikaciju',
+  'LBL_MOBILE_TUTORIAL_HOME_MENU_TOUR' => 'Pristupite tutorijalu u bilo kom trenutku.',
   'LBL_MOBILE_TUTORIAL_HOME_MY_ITEMS_BTN' => 'Filtrirajte listu kako bi prikazali zapise dodeljene meni.',
   'LBL_MOBILE_TUTORIAL_HOME_RECENT' => 'Najskorije modifikovani zapisi.',
   'LBL_MOBILE_TUTORIAL_HOME_SEARCH' => 'Globalna pretraga za zapise.',
@@ -3437,8 +8767,8 @@ $app_strings = array (
   'LBL_MOBILE_TUTORIAL_PLUS_MENU_CREATE' => 'Zatvori plus meni.',
   'LBL_MOBILE_TUTORIAL_PLUS_MENU_INTRO' => 'Ovo je plus meni.',
   'LBL_MOBILE_UNLINK_CONFIRM' => 'Da li ste sigurni da želite da otkačite ovaj zapis?',
-  'LBL_MOBILE_UPLOAD_IN_PROGRESS' => 'Slanje fajla...',
-  'LBL_MOBILE_UPLOAD_SUCCESS' => 'Fajl uspešno poslat.',
+  'LBL_MOBILE_UPLOAD_IN_PROGRESS' => 'Otpremanje fajla...',
+  'LBL_MOBILE_UPLOAD_SUCCESS' => 'Fajl uspešno otpremljen',
   'LBL_MOBILE_WAIT' => 'Molim vas sačekajte...',
   'LBL_MODIFIED' => 'Promenio',
   'LBL_MODIFIED_BY_USER' => 'Promenio korisnik',
@@ -3447,22 +8777,30 @@ $app_strings = array (
   'LBL_MODIFIED_USER' => 'Promenio korisnik',
   'LBL_MODIFY_CURRENT_SEARCH' => 'Promeni tekuću pretragu',
   'LBL_MODULE' => 'Modul',
+  'LBL_MODULE_ALL' => 'Svi',
+  'LBL_MODULE_ATTACHMENTS_TITLE' => '{{module}} prilozi',
   'LBL_MODULE_FILTER' => 'Filtriraj po',
   'LBL_MODULE_NAME' => 'Naziv modula',
+  'LBL_MODULE_TYPE' => 'Tip',
   'LBL_MONITOR_ID' => 'ID broj monitora',
-  'LBL_MONTH_TIMEPERIOD_FORMAT' => '{0} - {1}',
+  'LBL_MONTH_TIMEPERIOD_FORMAT' => '{0}',
   'LBL_MORE' => 'više',
   'LBL_MOREDETAIL' => 'Više detalja',
   'LBL_MORE_ACTION' => 'Više akcija',
+  'LBL_MORE_HISTORY' => 'Još istorije...',
+  'LBL_MORE_MODULES' => 'Više modula',
   'LBL_MY_ACCOUNT' => 'Moja podešavanja',
   'LBL_MY_AREA_LINKS' => 'Moji oblasni linkovi',
   'LBL_NAME' => 'Naziv',
+  'LBL_NAVIGATE_TO_REPORTS' => 'Prelazite na modul Izveštaji. Vaše izmene dašleta neće biti sačuvane. Nastaviti dalje?',
   'LBL_NEW_BUTTON_KEY' => 'N',
   'LBL_NEW_BUTTON_LABEL' => 'Kreiraj',
   'LBL_NEW_BUTTON_TITLE' => 'Kreiraj [Alt+N]',
   'LBL_NEW_PAGE_FEEDBACK' => 'Kreirali ste novu stranicu. Novi sadržaj možete dodati opcijom Dodaj Sugar dašlet.',
+  'LBL_NEW_PASSWORD1' => 'Nova lozinka',
+  'LBL_NEW_PASSWORD2' => 'Potvrdite lozinku',
   'LBL_NEW_USER_PASSWORD_1' => 'Lozinka je uspešno promenjena.',
-  'LBL_NEW_WEB_VERSION' => 'Nova verzija SugarCRM Mobile je dostupna. Da li želite da ažurirate svoju verziju??',
+  'LBL_NEW_WEB_VERSION' => 'Nova verzija SugarCRM Mobile je dostupna. Da li želite ažuriranje?',
   'LBL_NEXT_BUTTON_LABEL' => 'Sledeći',
   'LBL_NEXT_FRIDAY' => 'sledeći petak',
   'LBL_NEXT_MONDAY' => 'sledeći ponedeljak',
@@ -3475,18 +8813,65 @@ $app_strings = array (
   'LBL_NOTES' => 'Beleške',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Beleške',
   'LBL_NOTIFICATIONS' => 'Obaveštenja',
+  'LBL_NOT_AUTHORIZED' => 'Niste ovlašćeni da vidite ovaj zapis',
+  'LBL_NOT_AVAILABLE' => 'nije dostupno',
   'LBL_NO_ACCESS' => '(Nemate pristup)',
+  'LBL_NO_ACCESS_LOWER' => 'Korisnik nema pristup ovom zapisu',
   'LBL_NO_ACTION' => 'Ne postoji akcija sa tim imenom.',
   'LBL_NO_DATA' => 'Nema podataka',
+  'LBL_NO_DATA_AVAILABLE' => 'Nema dostupnih podataka.',
+  'LBL_NO_FIELD_ACCESS' => 'Nemate pristup',
   'LBL_NO_FLASH_PLAYER' => 'Ili imate isključen Abobe Flash ili koristite stariju verziju Abobe Flash Player-a. Da bi ste nabavili poslednju verziju Flash Player-a, <a href="http://www.adobe.com/go/getflashplayer/">kliknite ovde</a>.',
   'LBL_NO_IMAGE' => 'Nema slike',
   'LBL_NO_MASS_UPDATE_FIELDS_AVAILABLE' => 'Nije dostupno ni jedno polje za operaciju masovnog ažuriranja',
+  'LBL_NO_PDF_TEMPLATE' => 'Nije pronađen PDF šablon.',
   'LBL_NO_RECORDS_FOUND' => '- 0 zapisa nađeno -',
   'LBL_NUMBER_OF_COLUMNS' => 'Izaberite broj kolona',
   'LBL_OBJECT_IMAGE' => 'slika objekta',
   'LBL_OC_DEFAULT_STATUS' => 'Neaktivan',
   'LBL_OC_STATUS' => 'Status Offline klijenta',
   'LBL_OC_STATUS_TEXT' => 'Označava da li trenutni korisnik ima mogućnost korišćenja Offline klijenta.',
+  'LBL_OFFLINE_CLEAN_UP_PROMPT' => 'Ova akcija će obrisati zapise kojima niste pristupali duže vreme. Nastaviti?',
+  'LBL_OFFLINE_CLEAR_DB' => 'Obriši skladište...',
+  'LBL_OFFLINE_CLEAR_DB_PROMPT' => 'Da li želite da obrišete sve zapise sa lokalnog skladišta?',
+  'LBL_OFFLINE_COMPACT_DB' => 'Kompaktno Skladište...',
+  'LBL_OFFLINE_DB_CLEANING_COMPLETED' => 'Čišćenje završeno',
+  'LBL_OFFLINE_DB_CLEANING_IN_PROGRESS' => 'Brisanje skladišta...',
+  'LBL_OFFLINE_DB_SIZE' => 'Veličina baze podataka',
+  'LBL_OFFLINE_DELETED' => 'Zapis nije pronađen.',
+  'LBL_OFFLINE_DELETED_RELATED' => 'Povezani zapis nije pronađen. Verovatno je obrisan ili je veza raskinuta.',
+  'LBL_OFFLINE_DISABLED' => 'Offline režim isključen',
+  'LBL_OFFLINE_DISABLE_PROMPT' => 'Da li želite da isključite offline podršku? Sve izmene koji čekaju sinhronizaciju će biti izgubljeni.',
+  'LBL_OFFLINE_ENABLED' => 'Offline režim uključen',
+  'LBL_OFFLINE_ENABLE_PROMPT' => 'Da li ste sigurni da hoćete da isključite offline podršku?',
+  'LBL_OFFLINE_LAST_SYNC_TS' => 'Poslednji pokušaj sinhronizacije: {{ts}}',
+  'LBL_OFFLINE_MERGE_DATA_CONFIRM' => 'Neko je izmenuio isti zapis na serveru. Potvrdite za automatsko spajanje vaših izmena ili otkažite za odbacivanje promena.',
+  'LBL_OFFLINE_MODE' => 'Offline Režim',
+  'LBL_OFFLINE_PREFETCHING' => 'Učitavanje zapisa...',
+  'LBL_OFFLINE_PREFETCHING_EST_TIME' => 'Preostalo vreme je oko {{estimatedTime}} sekundi...',
+  'LBL_OFFLINE_PREFETCHING_MODULE' => 'Učitavanje modula {{module}} {{progressValue}}...',
+  'LBL_OFFLINE_PREFETCHING_MODULE_COMPLETE' => 'Učitavanje modula {{module}} završeno',
+  'LBL_OFFLINE_PREFETCH_ACTION' => 'Preuzmi sve zapise...',
+  'LBL_OFFLINE_PREFETCH_ERROR' => 'Greška pri preuzimanju zapisa',
+  'LBL_OFFLINE_PREFETCH_FIRST_PROMPT' => 'Da li želite da vaši dodeljeni, omiljeni i zapisi koje pratite budu preuzeti za offline pristup? Brza konekcija je preporučena jer ova operacija može da potraje neko vreme. Možete kasnije da preuzmete iz Meni > Offline.',
+  'LBL_OFFLINE_PREFETCH_PROMPT' => 'Preuzimanje vaših dodeljenih, omiljenih i zapisa koje pratite za offline pristup mogu potrajati neko vreme za završetak. Brza konekcija je preporučena. Da li želite da nastavite?',
+  'LBL_OFFLINE_PREFETCH_SUCCESS' => 'Zapisi uspešno preuzeti',
+  'LBL_OFFLINE_RECORDS_PER_MODULE' => 'Zapisa po modulu',
+  'LBL_OFFLINE_ROLLBACK_FAILED' => 'Vraćanje izmene neuspelo',
+  'LBL_OFFLINE_ROLLBACK_PROMPT' => 'Da li želite da vratite ovu izmenu',
+  'LBL_OFFLINE_ROLLBACK_SUCCESS' => 'Vraćanje izmene završeno',
+  'LBL_OFFLINE_SERVER_FETCH' => 'Preuzimanje sa servera...',
+  'LBL_OFFLINE_SETTINGS' => 'Podešavanje otklanjanja grešaka',
+  'LBL_OFFLINE_STATS' => 'Statistika skladišta',
+  'LBL_OFFLINE_STATUS_BAD_NETWORK' => 'Pristup serveru nije uspeo.',
+  'LBL_OFFLINE_STATUS_NO_PENDING_TX' => 'Nema izmena koji čekaju sinhronizaciju.',
+  'LBL_OFFLINE_STATUS_OFFLINE' => 'Uređaj nije na mreži.',
+  'LBL_OFFLINE_STATUS_ONLINE' => 'Uređaj je na mreži.',
+  'LBL_OFFLINE_STATUS_PENDING_TX' => 'Izmene čekaju sinhronizaciju.',
+  'LBL_OFFLINE_STATUS_SYNC_FAILED' => 'Posledni pokušaj sinhronizacije nije uspeo. Proverite log transakcija.',
+  'LBL_OFFLINE_SYNC_IN_PROGRESS' => 'Sinhronizacija u toku...',
+  'LBL_OFFLINE_TOTAL_RECORDS_COUNT' => 'Ukupan broj zapisa',
+  'LBL_OFFLINE_TRANSACTION_SYNCED' => 'Transkacija sinhronizovana.',
   'LBL_OK' => 'OK',
   'LBL_OLD_ACCOUNT_LINK' => 'Stara kompanija',
   'LBL_ONLY_IMAGE_ATTACHMENT' => 'Moguće je dodavanje isključivo slika',
@@ -3501,24 +8886,46 @@ $app_strings = array (
   'LBL_OPERATOR_NOT_IN_TEXT' => 'nije jedan od sledećih:',
   'LBL_OPPORTUNITIES' => 'Prodajne prilike',
   'LBL_OPPORTUNITY' => 'Prodajna prilika',
+  'LBL_OPPORTUNITY_METRICS' => 'Pokazatelji prilike za prodaju',
   'LBL_OPPORTUNITY_NAME' => 'Ime prodajne prilike:',
   'LBL_OPTIONAL' => 'Opciono',
   'LBL_OPTIONS' => 'Opcije',
   'LBL_OPT_OUT_FLAG_PRIMARY' => 'Odjavi primarni Email',
   'LBL_OR' => 'ILI',
+  'LBL_ORG_CHART' => 'Organizaciona šema',
+  'LBL_ORG_CHART_DESC' => 'Prikazuje strukturu zaposlenih u vašoj organizaciji.',
+  'LBL_ORG_CHART_TOOLTIP_NODES' => 'Prikaži sve tačke',
+  'LBL_ORG_CHART_TOOLTIP_TOGGLE' => 'Podesite orijanteciju',
+  'LBL_ORG_CHART_TOOLTIP_ZOOM' => 'Uvećati da se uklopi',
   'LBL_OUTBOUND_EMAIL_ADD_SERVER' => 'Dodaj Server...',
+  'LBL_OVERDUE' => 'U kašnjenju',
+  'LBL_OVERWRITE_POPULATED_DATA_FROM' => 'Od:',
+  'LBL_OVERWRITE_POPULATED_DATA_TO' => 'Za:',
   'LBL_PAGE_NAME' => 'Naziv stranice',
   'LBL_PANEL_ADVANCED' => 'Više informacija',
   'LBL_PANEL_ASSIGNMENT' => 'Ostalo',
+  'LBL_PANEL_BODY' => 'Pregled',
   'LBL_PANEL_DEFAULT' => 'Podrazumevano',
   'LBL_PARENT_TYPE' => 'Matični tip',
   'LBL_PASSWORD' => 'Lozinka',
+  'LBL_PASSWORD_REQUEST_ERROR' => 'Došlo je do problema pri preuzimanju kombinacije vašeg korisničkog imena i email-a.',
+  'LBL_PASSWORD_REQUEST_SENT' => 'Vaš zahtev je podnet.',
+  'LBL_PASSWORD_UPDATE_GENERIC_ISSUE' => 'Greška: Došlo je do problema sa izmenom šifre ovog korisnika.',
+  'LBL_PA_PRODEF_HAS_PENDING_PROCESSES' => 'Ne možete izbrisati ovu procesnu definiciju zato što poseduje procese koji čekaju da se pokrenu.',
   'LBL_PDF_EMAIL' => 'Pošalji PDF email-om',
   'LBL_PDF_VIEW' => 'Preuzmi PDF',
   'LBL_PENDING_NOTIFICATIONS' => 'Obaveštenja',
   'LBL_PERCENTAGE_SYMBOL' => '%',
   'LBL_PHASE' => 'Opseg',
   'LBL_PICTURE_FILE' => 'Slika',
+  'LBL_PLANNED_ACTIVITIES_DASHLET' => 'Planirane aktivnosti',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_CONFIRM_CLOSE' => 'Da li ste sigruni da želite da obeležite {0} kao zatvoreno?',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_DESCRIPTION' => 'Dešlet planiranih aktivnosti prikazuje zakazane sastanke i pozive.',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_FUTURE_BUTTON_LABEL' => 'U budućnosti',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_GROUP_BUTTON_LABEL' => 'Timska istorija',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_HELD_ACTIVITY' => 'Održan',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_TODAY_BUTTON_LABEL' => 'Danas',
+  'LBL_PLANNED_ACTIVITIES_DASHLET_USER_BUTTON_LABEL' => 'Moja istorija',
   'LBL_PLEASE_SELECT' => 'Molim, izaberite',
   'LBL_PLUGINS_DESC' => 'Pročitajte o  funkcijama dodataka u <a href="https://www.sugarcrm.com/crm/support/documentation/SugarPlugIns">Plug-Ins Documentation</a>.',
   'LBL_PLUGINS_LOTUS_TITLE' => 'Sugar dodatak za Lotus Notes<sup>TM</sup>',
@@ -3532,6 +8939,26 @@ $app_strings = array (
   'LBL_PLUGIN_WORD_DESC' => 'Automatski popunjava informacije iz SugarCRM-a u oblik slova, direktnan mail  i druge Microsoft dokumente.',
   'LBL_PLUGIN_WORD_NAME' => 'Sugar dodatak za Word',
   'LBL_PLUS_INLINE' => 'Dodaj',
+  'LBL_PMSE_ALL_PROCESSES_LABEL' => 'Svi procesi',
+  'LBL_PMSE_BUSINESS_RULES_DASHLET' => 'Pravila procesnog poslovanja',
+  'LBL_PMSE_BUSINESS_RULES_DASHLET_DESCRIPTION' => 'Dešlet Pravila Procesnog Poslovanja prikazuje šablone koji se mogu koristiti unutar Procesnog Autora.',
+  'LBL_PMSE_CANCELLED_STATUS' => 'Otkazano',
+  'LBL_PMSE_COMPLETED_STATUS' => 'Završeno',
+  'LBL_PMSE_EMAIL_TEMPLATES_DASHLET' => 'Šablon procesnog Email-a',
+  'LBL_PMSE_EMAIL_TEMPLATES_DASHLET_DESCRIPTION' => 'Dešlet Šabloni Procesnog Email-a prikazuju šablone koji se mogu koristiti unutar Procesnog Autora.',
+  'LBL_PMSE_ERROR_STATUS' => 'Greška',
+  'LBL_PMSE_IN_PROGESS_STATUS' => 'U toku',
+  'LBL_PMSE_PROCESSES_DASHLET' => 'Procesi',
+  'LBL_PMSE_PROCESSES_DASHLET_DESCRIPTION' => 'Dešlet Procesi prikazuje šablone koji se mogu koristiti unutar Procesnog Autora.',
+  'LBL_PMSE_PROCESS_DEFINITIONS_DASHLET' => 'Procesne definicije',
+  'LBL_PMSE_PROCESS_DEFINITIONS_DASHLET_DESCRIPTION' => 'Dešlet Procesne Definicije prikazuje šablone koji se mogu koristiti unutar Procesnog Autora.',
+  'LBL_PMSE_PROCESS_STATUS_CHART_DESCRIPTION' => 'Opis statusnih procesa',
+  'LBL_PMSE_PROCESS_STATUS_CHART_NAME' => 'Suma statusnih procesa',
+  'LBL_PMSE_PROCESS_USERS_CHART_DESCRIPTION' => 'Nerešene aktivnosti prema procesima',
+  'LBL_PMSE_PROCESS_USERS_CHART_NAME' => 'Nerešene aktivnosti prema procesima',
+  'LBL_PMSE_PROCESS_USERS_CHART_NAME_RECORD' => 'Nerešene aktivnosti',
+  'LBL_PMSE_SETTINGS' => 'Podešavanja',
+  'LBL_PMSE_TERMINATED_STATUS' => 'Prekinut',
   'LBL_PORTAL_AUTH_FAILED' => 'Autentikacija klijenta nije uspela',
   'LBL_PORTAL_AUTH_FAILED_TITLE' => 'Pogrešan klijent',
   'LBL_PORTAL_ERROR' => 'Greška:',
@@ -3543,7 +8970,6 @@ $app_strings = array (
   'LBL_PORTAL_INVALID_REQUEST_TITLE' => 'Nevalidan zahtev',
   'LBL_PORTAL_LOADING' => 'Učitavanje',
   'LBL_PORTAL_LOGIN_FORGOTPASSWORD' => 'Potrebno je da kontaktirate Vašeg Sugar administratora kako biste resetovali lozinku.',
-  'LBL_PORTAL_LOGIN_FORGOTPASSWORD_TITLE' => 'Zaboravili ste Vašu lozinku?',
   'LBL_PORTAL_LOGIN_PASSWORD' => 'Lozinka:',
   'LBL_PORTAL_LOGIN_USERNAME' => 'Korisničko ime',
   'LBL_PORTAL_METHOD_NOT_ALLOWED' => 'HTTP metoda nije dozvoljena za ovaj resurs. Molimo kontaktirajte tehničku podršku.',
@@ -3573,31 +8999,27 @@ $app_strings = array (
   'LBL_PORTAL_SIGNUP_PROCESS' => 'Registrovanje',
   'LBL_PORTAL_SIGNUP_STATE' => 'Opština:',
   'LBL_PORTAL_SIGNUP_TITLE' => 'Hvala na prijavi!',
-  'LBL_PORTAL_TOUR_BACK_LNK' => 'Nazad',
-  'LBL_PORTAL_TOUR_DONE_LNK' => 'Završeno',
-  'LBL_PORTAL_TOUR_NEXT_LNK' => 'Sledeći',
-  'LBL_PORTAL_TOUR_SCREEN1_BODY' => '<ul class="features"><li class="icon-ok">Brži i interaktivni korisnički interfejs</li><li class="icon-ok">Internacionalizacija</li><li class="icon-ok">Pregled na glavnom ekranu za praćenje novih i ažuriranih bagova, slučajeva i novih članaka u bazi znanja</li><li class="icon-ok">Globalna pretraga</li><li class="icon-ok">Mogućnost promene lozinke</li></ul><p class="small">I još mnogo toga!</p><p class="small">Pun spisak naći ćete ovde: <a href="javascript:void window.open(&#39;http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/&#39;)">Šta je novo na portalu</a>. </p>',
-  'LBL_PORTAL_TOUR_SCREEN1_TITLE' => 'Dobrodošli na Obilazak portala',
-  'LBL_PORTAL_TOUR_SCREEN2_BODY' => 'Kontrolna tabla je Vaša početna strana. Prikazuje kratak sinopsis slučajeva, članaka u bazi znanja i bagova Vaše kompanije. Kliknite na ikonicu Sugar kockice u levom gornjem uglu bilo koje strane portala kako biste se vratili na Kontrolnu tablu. Svaka kontrolna tabla prikazuje poslednjih pet izmenjenih unosa po modulu. Da biste videli dodatne unose, kliknite na link modula.',
-  'LBL_PORTAL_TOUR_SCREEN2_TITLE' => 'Kontrolna tabla',
-  'LBL_PORTAL_TOUR_SCREEN3_BODY' => '<p>Vaš Futer se može upotrebiti za sledeće: <ul class="features"><li class="icon-ok">Obilazak: Upoznajte se sa novim karakteristikama Sugar Portala.</li><li class="icon-ok">Štampa:Odštampajte primer stranice Sugar Portala za Vašu ličnu arhivu.</li> <li class="icon-ok">Vrh: Pozicionirajte se na vrh strane Sugar Portala, na kojoj se trenutno nalazite.</li></ul></p>',
-  'LBL_PORTAL_TOUR_SCREEN3_TITLE' => 'Futer',
-  'LBL_PORTAL_TOUR_SCREEN4_BODY' => '<p>Postoje dva načina pretrage:</p><ul class="features"><li class="icon-ok">Globalna Pretraga – nalazi se u navigacionom meniju. Ovde možrete tražiti Slučajeve, Bagove, Dokumente u Bazi Znanja po njihovim imenima i brojevima.</li> <li class="icon-ok">Pretraga specifičnog Modula – nalazi se na vrhu pregleda unosa svakog modula. <br><img src="../themes/default/images/ppt-search.png" height="200" width="530" style="margin-top: 10px;"><i class="icon-arrow-left icon-lg" style="float: right; position: relative; right: 311px; top: -147px;"></i></li></ul>',
-  'LBL_PORTAL_TOUR_SCREEN4_TITLE' => 'Pretraga',
-  'LBL_PORTAL_TOUR_SCREEN5_BODY' => '<p>Sa stranice profila ćete, na primer, moći da promenite lozinku, ažurirate email adresu, i promenite željeni jezik. </p>',
-  'LBL_PORTAL_TOUR_SCREEN5_TITLE' => 'Profil',
-  'LBL_PORTAL_TOUR_SCREEN6_BODY' => 'Uvek možete ponoviti obilazak ili pročitati <a href="javascript:void window.open(&#39;http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/&#39;)">dokumentaciju</a> za dodatne informacije.',
-  'LBL_PORTAL_TOUR_SCREEN6_TITLE' => 'Gotovi ste!',
-  'LBL_PORTAL_TOUR_SKIP_LNK' => 'Preskoči',
-  'LBL_PORTAL_TOUR_TAKE_TOUR_LNK' => 'Pođi na obilazak',
+  'LBL_PORTAL_THEME' => 'Portal sa temama',
+  'LBL_PORTAL_TOUR_RECORD_ADD_NOTE' => 'Kliknite ovde da dodate belešku na ovaj zapis.',
+  'LBL_PORTAL_TOUR_RECORD_DETAILS' => 'Prikaz zapisa vam omogućava da vidite detalje o tom zapisu.',
+  'LBL_PORTAL_TOUR_RECORD_NOTES' => 'Poruke vam omogućavaju saradnju sa drugim korisnicima portala kao i sa predstavnicima podrške',
+  'LBL_PORTAL_TOUR_RECORD_VIEW_NOTE' => 'Kliknite na ove ikonice za prikaz detalja o priloženim beleškama',
   'LBL_PORTAL_UNAUTHORIZED' => 'Žao nam je, ali izgleda da niste autorizovani da pristupite ovom resursu.',
   'LBL_PORTAL_UNAUTHORIZED_TITLE' => 'HTTP Greška: 401 Niste autorizovani',
   'LBL_PORTAL_WELCOME_INFO' => 'Sugar portal je okvir koji omogućava korisnicima da u realnom vremenu pogledaju slučajeve, defekte & biltene, itd. Ovo je spoljni interfejs Sugar-a koji može da se rasporedi u okviru bilo koje internet prezentacije. Ostanite u toku za više uslužnih korisničkih funkcionalnosti kao što je Upravljanje projektima i Forumima u našim budućim izdanjima.',
   'LBL_PORTAL_WELCOME_TITLE' => 'Dobrodošli u  Sugar portal 5.1.0',
   'LBL_POSTAL_CODE' => 'Poštanski broj:',
   'LBL_POWERED_BY_SUGARCRM' => 'Pokreće SugarCRM',
+  'LBL_PRECONDITION_MISSING' => 'Greška u obradi zahteva ili nedostaju / nevalidni su neki parametri. Molimo kontaktirajte tehničku podršku',
+  'LBL_PRECONDITION_MISSING_TITLE' => 'Greška:',
   'LBL_PREFERRED_LANGUAGE' => 'Preferirani jezik',
   'LBL_PREVIEW' => 'Pregled',
+  'LBL_PREVIEW_BWC_TOOLTIP' => 'Nasledni moduli se ne mogu prikazati',
+  'LBL_PREVIEW_DISABLED_ATTACHMENT' => 'Pregled je isključen: Nema dostupnih podataka.',
+  'LBL_PREVIEW_DISABLED_DELETED_OR_NO_ACCESS' => 'Pregled je onemogućen: Zapis je obrisan ili nedostaje pristup zapisu',
+  'LBL_PREVIEW_DISABLED_NO_ACCESS' => 'Pregled je onemogućen: Nedostaje pristup podacima',
+  'LBL_PREVIEW_DISABLED_NO_RECORD' => 'Pregled je isključen: Nema dostupnih podataka.',
+  'LBL_PREVIEW_DISABLED_SAME_RECORD' => 'Pregled nije moguć: Zapis se trenutno prikazuje',
   'LBL_PREVIOUS_CURRENT_NEXT_TIMEPERIODS' => 'Prethodni, Sadašnji, Budući',
   'LBL_PREVIOUS_TIMEPERIOD' => 'Prethodni Vremenski Period',
   'LBL_PRIMARY_ADDRESS' => 'Primarna adresa:',
@@ -3611,19 +9033,28 @@ $app_strings = array (
   'LBL_PRINT' => 'Štampanje',
   'LBL_PROCESSING_REQUEST' => 'Obrada..',
   'LBL_PRODUCTS' => 'Proizvodi',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Proizvodi',
   'LBL_PRODUCT_BUNDLES' => 'Kompleti proizvoda',
+  'LBL_PRODUCT_TEMPLATES' => 'Šabloni proizvoda',
   'LBL_PROFILE' => 'Profil',
   'LBL_PROJECTS' => 'Projekti',
   'LBL_PROJECT_MINUS' => 'Ukloni',
   'LBL_PROJECT_PLUS' => 'Dodaj',
   'LBL_PROJECT_TASKS' => 'Projektni zadaci',
-  'LBL_QUARTER_TIMEPERIOD_FORMAT' => 'Q{0} ({1} - {2})',
+  'LBL_PROSPECTS' => 'Ciljevi',
+  'LBL_PRO_DELETE_CONFIRMATION' => 'Da li ste sigurni da želite da obrišete ovaj zapis?',
+  'LBL_PRO_DISABLE' => 'Ažuriranje',
+  'LBL_PRO_DISABLE_CONFIRMATION' => 'Da li ste sigurni da želite da onesposobite ovaj zapis?',
+  'LBL_PRO_ENABLE' => 'Ažuriranje',
+  'LBL_PRO_ENABLE_CONFIRMATION' => 'Da li ste sigurni da želite da dozvolite ovaj zapis?',
+  'LBL_QUARTER_TIMEPERIOD_FORMAT' => '{1} Q{0}',
   'LBL_QUERY_CHILD' => 'Važeći pod-upit',
   'LBL_QUERY_ERROR' => 'Greška!',
   'LBL_QUERY_HASH' => 'SQL Hash',
   'LBL_QUERY_VALID' => 'Važeći',
   'LBL_QUESTION_MARK' => '?',
   'LBL_QUICKEDIT_NODEFS_NAVIGATION' => 'Navigacija u toku...',
+  'LBL_QUICK_CREATE_MENU' => 'Brzo kreiranje menija',
   'LBL_QUICK_CREATE_TITLE' => 'Brzo kreiranje',
   'LBL_QUOTES' => 'Ponude',
   'LBL_QUOTES_SHIP_TO' => 'Ponude dostaviti',
@@ -3631,37 +9062,71 @@ $app_strings = array (
   'LBL_QUOTE_TO_OPPORTUNITY_LABEL' => 'Kreiraj prodajnu priliku iz ponude',
   'LBL_QUOTE_TO_OPPORTUNITY_TITLE' => 'Kreiraj prodajnu priliku iz ponude [Alt+O]',
   'LBL_RECENTLY_UPDATED' => 'Skoro ažurirano',
+  'LBL_RECENTS' => 'Skorašnji',
+  'LBL_RECOMMENDED_INVITES' => 'Predloženi pozivi',
+  'LBL_RECORD_BODY' => 'Vizit karta',
+  'LBL_RECORD_DELETED' => '(Zapis obrisan)',
+  'LBL_RECORD_HEADER' => 'Naslov zapisa',
+  'LBL_RECORD_NOT_FOUND' => 'Zapis nije pronađen.',
+  'LBL_RECORD_SAVED' => 'Zapis sačuvan.',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Uspešno ste napravili zapis, ali nemate dovoljna ovlašćenja da pristupite zapisu.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Uspešno ste napravili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a>.',
+  'LBL_RECORD_SHARE_BUTTON' => 'Podeli',
+  'LBL_RECORD_SHOWMORE' => 'Prikaži više',
   'LBL_REDIRECT_URL' => 'URL za preusmeravanje',
   'LBL_REFINE_LIST' => 'Refinisati listu',
   'LBL_RELATED' => 'Povezan',
   'LBL_RELATED_CAMPAIGN' => 'Povezane kampanje',
+  'LBL_RELATED_CONTACT' => 'Povezani kontakti',
   'LBL_RELATED_INFORMATION' => 'Povezana informacija',
   'LBL_RELATED_MODULE' => 'Povezani {{{this}}}',
   'LBL_RELATED_MODULE_PLURAL' => 'Povezani {{{this}}}',
   'LBL_RELATED_RECORDS' => 'Povezani zapisi',
+  'LBL_RELATED_RECORD_NOT_FOUND' => 'Srodni zapis nije pronađen',
+  'LBL_RELATIONSHIP' => 'Veza',
   'LBL_RELOAD_PAGE' => 'Molim <a href=\\"javascript: window.location.reload()\\">otvorite ponovo prozor</a> da bi koristili ovaj Sugar dašlet.',
+  'LBL_REMINDERS' => 'Podsetnici',
+  'LBL_REMINDERS_FINISHED' => 'Gotovo!',
+  'LBL_REMINDERS_NONE_FOUND' => 'Nisu pronađeni podsetnici.',
+  'LBL_REMINDERS_OVERDUE' => 'U kašnjenju',
+  'LBL_REMINDERS_UPCOMING' => 'Nadolazeće',
+  'LBL_REMINDER_TITLE' => 'Podsetnik',
   'LBL_REMOVE' => 'Ukloni',
   'LBL_REMOVED_DASHLET' => 'Sugar dašlet je uklonjen',
   'LBL_REMOVE_ALL_LEAD_FIELDS' => 'Ukloni sva polja',
   'LBL_REMOVE_DASHLET_CONFIRM' => 'Da li ste sigurni da želite da uklonite Sugar dašlet?',
+  'LBL_REMOVE_DASHLET_ROW_CONFIRM' => 'Da li ste sigurni da želite da uklonite red?',
   'LBL_REMOVE_FROM_FAVORITES' => 'Ukloni iz Moje omiljene',
   'LBL_REMOVE_MODULE_ENTRY' => 'Da li ste sigurni da hoćete da onemogućite integraciju konektora za ovaj modul?',
   'LBL_REMOVE_PRIMARY_TEAM_ERROR' => 'Greška prilikom pokušaja uklanjanja osnovnog tima id [{0}] za [{1}] modul sa id [{2}]',
+  'LBL_REMOVING_ATTACHMENT' => 'Uklanjam prilog...',
   'LBL_REMOVING_DASHLET' => 'Uklanjam Sugar dašlet...',
   'LBL_RENAME_PAGE' => 'Preimenuj stranu',
   'LBL_REPLACE_BUTTON' => 'Zameni',
   'LBL_REPORTS_TO' => 'Nadređeni',
+  'LBL_REPORT_AUTO_REFRESH' => 'Automatsko ažuriranje',
+  'LBL_REPORT_EDIT' => 'Izmena izabranog izveštaja',
   'LBL_REPORT_NEWREPORT_COLUMNS_TAB_COUNT' => 'Broj',
+  'LBL_REPORT_SELECT' => 'Izaberite izveštaj',
+  'LBL_REQUEST_PASSWORD' => 'Traži šifru',
   'LBL_REQUEST_PROCESSED' => 'Završeno',
+  'LBL_REQUEST_TIMEOUT' => 'Zahtevu je isteklo vreme',
+  'LBL_REQUEST_TIMEOUT_TITLE' => 'Vreme zahteva',
+  'LBL_REQUIRED_FIELD' => 'Obavezno',
   'LBL_REQUIRED_SYMBOL' => '*',
   'LBL_REQUIRED_TITLE' => 'Označava obavezno polje',
   'LBL_RESET' => 'Resetuj',
+  'LBL_RESET_DEFAULT_VIEW' => 'Resetovati podrazumevani prikaz',
+  'LBL_RESET_DEFAULT_WIDTHS' => 'Resetovati podrazumevanu širinu',
   'LBL_RESET_THEME_LNK' => 'Povrati podrazumevanu temu',
-  'LBL_RESET_THEME_MODAL_CONFIRM' => 'Da li želiš da nastaviš?',
   'LBL_RESET_THEME_MODAL_INFO' => 'Da li ste sigurni da želite da obrišete vašu prilagođenu temu sa podrazumevanom temom.',
-  'LBL_RESET_THEME_MODAL_TITLE' => 'Resetuj podrazumevanu temu',
   'LBL_RESET_THEME_PROCESS' => 'Vraćanje podrazumevane teme...',
+  'LBL_RESOLVE_CONFLICT' => 'Rešite konflikt za {{name}}',
+  'LBL_RESOURCE_UNAVAILABLE' => 'Resurs nije dostupan.',
+  'LBL_RESOURCE_UNAVAILABLE_TITLE' => 'Pristup je zabranjen',
+  'LBL_RESTORE' => 'Vrati na original',
   'LBL_RETRIEVING_PAGE' => 'Učitavam stranicu...',
+  'LBL_ROLLBACK_BUTTON' => 'Vraćanje promena',
   'LBL_ROUNDTRIPS' => 'Broj akcije',
   'LBL_ROUTING_ACTIONS_COPY_MAIL' => 'Kopiraj mail',
   'LBL_ROUTING_ACTIONS_DELETE_BEAN' => 'Obriši Sugar objekat',
@@ -3710,6 +9175,11 @@ $app_strings = array (
   'LBL_ROUTING_TO_ADDRESS' => 'na adresu',
   'LBL_ROUTING_WITH_TEMPLATE' => 'sa šablonom',
   'LBL_RSS_FEED' => 'RSS Feed',
+  'LBL_RSS_FEED_AUTHOR' => 'Autor:',
+  'LBL_RSS_FEED_DASHLET' => 'RSS vesti',
+  'LBL_RSS_FEED_DASHLET_DESCRIPTION' => 'Zadržati postojeće kroz dodavanje spoljnih RSS vesti ili vesti s bloga.',
+  'LBL_RSS_FEED_ENTRIES_COUNT' => 'Prikazati broj unosa',
+  'LBL_RSS_FEED_URL' => 'URL vesti',
   'LBL_RSS_RECORDS_FOUND' => 'zapis(a) nađeno',
   'LBL_RUN_COUNT' => 'Broj upita',
   'LBL_SAVED' => 'Sačuvano',
@@ -3718,7 +9188,10 @@ $app_strings = array (
   'LBL_SAVED_SEARCH_SHORTCUT' => 'Sačuvane pretrage',
   'LBL_SAVED_VIEWS' => 'Sačuvani Pregledi',
   'LBL_SAVE_AND_CONTINUE' => 'Sačuvaj i nastavi',
+  'LBL_SAVE_AND_CREATE_ANOTHER' => 'Sačuvaj i napravi novi',
   'LBL_SAVE_AND_DEPLOY_BTN' => 'Sačuvaj i Razvij',
+  'LBL_SAVE_AND_SEND_INVITES_BUTTON' => 'Sačuvati i poslati pozivnice',
+  'LBL_SAVE_AND_VIEW' => 'Sačuvaj i pogledaj',
   'LBL_SAVE_AS_BUTTON_KEY' => 'A',
   'LBL_SAVE_AS_BUTTON_LABEL' => 'Sačuvaj kao',
   'LBL_SAVE_AS_BUTTON_TITLE' => 'Sačuvaj kao [Alt+A]',
@@ -3736,11 +9209,16 @@ $app_strings = array (
   'LBL_SAVING_PAGE_TITLE' => 'Čuvam naslov stranice...',
   'LBL_SCHEDULE_CALL' => 'Evidentiraj poziv',
   'LBL_SCHEDULE_MEETING' => 'Zakaži sastanak',
+  'LBL_SCHEDULE_MEETING_BUTTON_KEY' => 'M',
+  'LBL_SCHEDULE_MEETING_BUTTON_LABEL' => 'Zakaži sastanak',
+  'LBL_SCHEDULE_MEETING_BUTTON_TITLE' => 'Zakaži sastanak',
   'LBL_SEARCH' => 'Pretraga',
   'LBL_SEARCHFORM' => 'Forma pretrage',
   'LBL_SEARCHING' => 'Pretraga ...',
-  'LBL_SEARCH_ALL' => 'Pretražite svaki {{{this}}}',
-  'LBL_SEARCH_ALL_RECORDS' => 'Pretražite sve zapise',
+  'LBL_SEARCH_ALL' => 'Pretraži sve {{{this}}}...',
+  'LBL_SEARCH_ALL_MODULES' => 'Pretražite sve',
+  'LBL_SEARCH_ALL_RECORDS' => 'Pretraži sve zapise...',
+  'LBL_SEARCH_AND_SELECT' => 'Pronađi i izaberi {{module}}',
   'LBL_SEARCH_BUTTON_KEY' => 'Q',
   'LBL_SEARCH_BUTTON_LABEL' => 'Pretraga',
   'LBL_SEARCH_BUTTON_TITLE' => 'Pretraga [Alt+Q]',
@@ -3750,16 +9228,23 @@ $app_strings = array (
   'LBL_SEARCH_DROPDOWN_NO' => 'Ne',
   'LBL_SEARCH_DROPDOWN_YES' => 'Da',
   'LBL_SEARCH_EXTERNAL_API' => 'Fajl na spoljnim izvoru',
+  'LBL_SEARCH_FOR' => 'Traži za',
+  'LBL_SEARCH_FOR_MORE' => 'Traži još...',
   'LBL_SEARCH_HELP_CLOSE_TOOLTIP' => 'Zatvori',
   'LBL_SEARCH_HELP_TEXT' => '<p><br /><strong>Kontrole višestrukog odabira</strong></p><ul><li>Kliknite na vrednosti da označite atribut.</li><li>Ctrl-Klik&nbsp;da&nbsp;označite više atributa. Mac korisnici koriste CMD-klik.</li><li>Da označite sve vrednosti između 2 atributa,&nbsp;kliknite prvu vrednost&nbsp;a zatim shift-kliknite poslednju vrednost.</li></ul><p><strong>Opcije naprednog pretraživanja & prikaza</strong><br><br>Korišćenjem opcije <b>Sačuvana pretraga & prikaz</b>, možete sačuvati skup parametara pretrage i/ili prilagođenog prikaza liste rezultata kako biste ubuduće mogli brzo dobiti tražene rezultate pretrage. Broj različitih parametara pretrage i prikaza koje možete snimiti nije ograničen. Sve sačuvane pretrage prikazane su svojim nazivom u listi "Sačuvane pretrage", pri čemu se na vrhu nalazi poslednja učitana sačuvana pretraga.<br><br>Za prilagođavanje prikaza liste rezultata možete koristiti opcije "Sakrij kolone" i "Prikaži kolone" da označite koje polje će biti prikazano u rezultatima pretrage. Na primer, možete sakriti ili prikazati podatke kao što su naziv zapisa, dodeljeni korisnik ili dodeljeni tim. Da dodate kolonu u listu, označite polje iz liste "Sakrij kolone" i koristeći strelicu levo prebacite ga u listu "Prikaži kolone". Da izbacite kolonu iz liste, označite polje iz liste "Prikaži kolone" i koristeći strelicu desno prebacite ga u listu "Sakrij kolone".<br><br>Ukoliko sačuvate parametre prikaza, moći ćete da ih kasnije u bilo kom trenutku učitate da biste prikazali rezultate pretrage u željenom obliku.<br><br>Da sačuvate ili promenite parametre pretrage i/ili prikaza:<ol><li>Unesite naziv za trenutnu postavku parametara pretgrage i/ili prikaza u polje <b>Sačuvajte ovu pretragu kao</b> i kliknite <b>Sačuvaj</b>. Naziv će biti dodat u listu "Sačuvane pretrage" odmah do dugmeta <b>Izbriši</b>.</li><li>Da pokrenete sačuvanu pretragu, izaberite je iz liste "Sačuvane pretrage". Rezultati pretrage biće prikazani u formi liste.</li><li>Da izmenite parametre sačuvane pretrage, označite je u listi, izmenite parametre pretrage ili prikaza u sekciji "Napredna pretraga", i kliknite <b>Sačuvaj izmene</b> pored <b>Izmeni parametre trenutne pretrage</b>.</li><li>Da obrišete sačuvanu pretragu, označite je u listi, kliknite <b>Obriši</b> pored <b>Izmeni parametre trenutne pretrage</b>, a zatim klikinte <b>OK</b> da potvrdite brisanje.</li></ol><p><strong>Saveti</strong><br><br>Koristeći % kao džoker operator imate mogućnost da učinite širu pretragu. Na primer, umesto da samo traže rezultate koji jednake "jabuke" možete promeniti pretragu u "jabuke%" koja će prikazati sve rezultate koji počinju sa reči jabuke ali isto tako mogu da sadrže i druge karaktere.</p>',
   'LBL_SEARCH_HELP_TITLE' => 'Saveti za pretragu',
+  'LBL_SEARCH_LOAD_MORE' => 'UČITAJ JOŠ',
   'LBL_SEARCH_MODULES' => 'Moduli',
   'LBL_SEARCH_MORE' => 'više',
+  'LBL_SEARCH_NO_RESULTS' => 'Nema razultata za',
+  'LBL_SEARCH_PARENT_RELATED_ITEM' => 'Pretraživanje...',
   'LBL_SEARCH_POPULATE_ONLY' => 'Obavite pretragu koristeći formu pretraživanja iznad',
   'LBL_SEARCH_REPORT_CHARTS' => 'Dijagrami izveštaja',
   'LBL_SEARCH_RESULTS' => 'Rezultati pretrage',
   'LBL_SEARCH_RESULTS_FOUND' => 'Pronađeni rezultati pretrage',
   'LBL_SEARCH_RESULTS_TIME' => 'ms.',
+  'LBL_SEARCH_SELECT' => 'Izaberi...',
+  'LBL_SEARCH_SELECT_MODULE' => 'Izaberi {{module}}...',
   'LBL_SEARCH_TIPS' => 'Nastavite da kucate kako biste uradili džoker pretragu. Pritisnite Enter/Return ili kliknite na ikonicu za pretragu kako biste uradili konkretnu pretragu.<br><br />Primer:<br><br />Kucanje reči "pacifik" vratiće i "pacifik" i "pacifica"<br><br />Kucanje "pacifik" i pritisak na Enter vratiće samo "pacific"',
   'LBL_SEARCH_TIPS_2' => 'Pritisnite dugme za pretragu ili kliknite enter da dobijete tačno poklapanje za',
   'LBL_SEARCH_TOOLS' => 'Alati',
@@ -3770,6 +9255,8 @@ $app_strings = array (
   'LBL_SEE_ALL' => 'Vidi sve',
   'LBL_SELECT_ACTION_LABEL' => 'Izaberite akciju',
   'LBL_SELECT_ALL_TITLE' => 'Odaberi sve',
+  'LBL_SELECT_APPEND_TEAMS' => 'Dodaj tim(ove)',
+  'LBL_SELECT_APPEND_VALUES' => 'Dodaj vrednost(i)',
   'LBL_SELECT_BUTTON_KEY' => 'T',
   'LBL_SELECT_BUTTON_LABEL' => 'Izaberi',
   'LBL_SELECT_BUTTON_TITLE' => 'Izaberi [Alt+T]',
@@ -3777,6 +9264,7 @@ $app_strings = array (
   'LBL_SELECT_CONTACT_BUTTON_LABEL' => 'Izaberi kontakt',
   'LBL_SELECT_CONTACT_BUTTON_TITLE' => 'Izaberi kontakt [Alt+T]',
   'LBL_SELECT_MODULE' => 'Izaberite modul:',
+  'LBL_SELECT_PHOTO' => 'Izaberite sliku',
   'LBL_SELECT_REPORTS_BUTTON_LABEL' => 'Izaberi iz izveštaja',
   'LBL_SELECT_REPORTS_BUTTON_TITLE' => 'Izaberi izveštaje',
   'LBL_SELECT_TEAMS_KEY' => 'Z',
@@ -3795,6 +9283,15 @@ $app_strings = array (
   'LBL_SERVER_RESPONSE_TIME' => 'Odziv servera:',
   'LBL_SERVER_RESPONSE_TIME_SECONDS' => 'sekundi.',
   'LBL_SESSION_ID' => 'ID broj sesije',
+  'LBL_SETUP_COMPLETE_INFO' => 'Počnite da koristite Sugar!',
+  'LBL_SETUP_PROGRESS' => 'Napredak podešavanja',
+  'LBL_SETUP_USER_INFO' => 'Podesite vaše korisničke podatke',
+  'LBL_SETUP_USER_LOCALE_INFO' => 'Podesite vašu vremenski zonu, datum i formate imena',
+  'LBL_SET_FONTSIZE' => 'Veličina teksta',
+  'LBL_SET_NEW_PASSWORD' => 'Unesite lozinku',
+  'LBL_SHARE_BUTTON_KEY' => 'r',
+  'LBL_SHARE_BUTTON_LABEL' => 'Podeli',
+  'LBL_SHARE_BUTTON_TITLE' => 'Podeli',
   'LBL_SHARE_COMPANY' => 'Kompanija',
   'LBL_SHARE_LINKABLE' => 'Povezivo',
   'LBL_SHARE_PRIVATE' => 'Privatni',
@@ -3804,11 +9301,60 @@ $app_strings = array (
   'LBL_SHIP_TO_ACCOUNT' => 'Dostaviti kompaniji',
   'LBL_SHIP_TO_CONTACT' => 'Dostaviti kontaktu',
   'LBL_SHORTCUTS' => 'Prečice',
+  'LBL_SHORTCUT_ALERT_CANCEL' => 'Otkaži',
+  'LBL_SHORTCUT_ALERT_CONFIRM' => 'Potvrdi',
+  'LBL_SHORTCUT_CANCEL_INLINE_EDIT' => 'Napustiti mod izmena bez čuvanja',
+  'LBL_SHORTCUT_CLOSE_DRAWER' => 'Zatvori fionku',
+  'LBL_SHORTCUT_COPY_RECORD' => 'Kopirati trenutni zapis',
+  'LBL_SHORTCUT_CREATE_RECORD' => 'Kreirati novi zapis',
+  'LBL_SHORTCUT_EDIT_SELECTED' => 'Izmeni odabrani zapis iz liste',
+  'LBL_SHORTCUT_FAVORITE_RECORD' => 'Označiti zapis kao omiljeni',
+  'LBL_SHORTCUT_FILTER_ADD' => 'Dodati dodatni kriterijum filteru',
+  'LBL_SHORTCUT_FILTER_CLOSE' => 'Zatvoriti filter',
+  'LBL_SHORTCUT_FILTER_CREATE' => 'Kreirati novu listu filtera',
+  'LBL_SHORTCUT_FILTER_DELETE' => 'Izbrisati filter',
+  'LBL_SHORTCUT_FILTER_EDIT' => 'Izmeniti postojeću listu filtera',
+  'LBL_SHORTCUT_FILTER_REMOVE' => 'Obrisati poslenji kriterijum iz filtera',
+  'LBL_SHORTCUT_FILTER_RESET' => 'Ponovo pokrenuti filter',
+  'LBL_SHORTCUT_FILTER_SAVE' => 'Sačuvati filter',
+  'LBL_SHORTCUT_FILTER_SEARCH' => 'Fokus na polje liste filtera',
+  'LBL_SHORTCUT_FILTER_SHOW' => 'Otvoriti meni liste filtera',
+  'LBL_SHORTCUT_FOLLOW_RECORD' => 'Prati zapis',
+  'LBL_SHORTCUT_FUNCTION' => 'Funkcija',
+  'LBL_SHORTCUT_HELP' => 'Prikazati pomoć u vezi prečica',
+  'LBL_SHORTCUT_KEYS_HELP_ABOUT' => 'SugarCRM dozvoljava korisnicima da na brz način obave određene zadatke uz pomoću prečica na tastaturi koje uvećavaju produktivnost. Tabela',
+  'LBL_SHORTCUT_KEY_KEY' => 'Ključ',
+  'LBL_SHORTCUT_MARK_SELECTED' => 'Označi zapis kao odabran',
+  'LBL_SHORTCUT_MASS_UPDATE_ADD' => 'Dodati red',
+  'LBL_SHORTCUT_MASS_UPDATE_CANCEL' => 'Zatvoriti masovno ažuriranje',
+  'LBL_SHORTCUT_MASS_UPDATE_REMOVE' => 'Ukloniti red',
+  'LBL_SHORTCUT_MASS_UPDATE_SAVE' => 'Ažurirati zapise',
+  'LBL_SHORTCUT_NAVIGATE_DOWN' => 'Odaberi sledeći zapis iz liste',
+  'LBL_SHORTCUT_NAVIGATE_UP' => 'Odaberi prethodni zapis iz liste',
+  'LBL_SHORTCUT_OPEN' => 'Otvori odabrani zapis iz liste',
+  'LBL_SHORTCUT_OPEN_MASS_ACTION' => 'Otvoriti padajuću listu sa mnoštvom akcija',
+  'LBL_SHORTCUT_OPEN_MORE_ACTION' => 'Otvoriti padajući meni primarnih akcija',
+  'LBL_SHORTCUT_PREVIEW_SELECTED' => 'Prikazati zapis',
+  'LBL_SHORTCUT_QUICK_CREATE' => 'Postaviti meni brzog kreiranja',
+  'LBL_SHORTCUT_RECORD_CANCEL' => 'Izbrisati bilo koju promenu zapisa',
+  'LBL_SHORTCUT_RECORD_DELETE' => 'Izbrisati zapis',
+  'LBL_SHORTCUT_RECORD_EDIT' => 'Izmeniti zapis',
+  'LBL_SHORTCUT_RECORD_NEXT' => 'Otvoriti sledeći zapis',
+  'LBL_SHORTCUT_RECORD_PREVIOUS' => 'Otvoriti prethodni zapis',
+  'LBL_SHORTCUT_RECORD_SAVE' => 'Sačuvati zapis',
+  'LBL_SHORTCUT_SCROLL_LEFT' => 'Pomeri listu levo',
+  'LBL_SHORTCUT_SCROLL_RIGHT' => 'Pomeri listu desno',
+  'LBL_SHORTCUT_SEARCH' => 'Fokus na polje globalne pretrage',
+  'LBL_SHORTCUT_SELECT_ALL' => 'Odaberi sve',
+  'LBL_SHORTCUT_SIDEBAR_TOGGLE' => 'Postaviti klizač',
   'LBL_SHOW' => 'Prikaži',
   'LBL_SHOW_LESS' => 'Prikaži manje',
+  'LBL_SHOW_LESS_RECENTS' => 'Manje skorašnjih...',
   'LBL_SHOW_MORE' => 'Prikaži više',
+  'LBL_SHOW_MORE_GENERIC' => 'Još {{name}}...',
+  'LBL_SHOW_MORE_MODULE' => 'Još {{module}}...',
+  'LBL_SHOW_MORE_RECENTS' => 'Još skorašnjih...',
   'LBL_SIGNUP_BUTTON_LABEL' => 'Prijava',
-  'LBL_SITEMAP' => 'Mapa sistema',
   'LBL_SIXMONTHS' => 'šest meseci',
   'LBL_SMS_BUTTON' => 'Poruka',
   'LBL_SMTPTYPE_EXCHANGE' => 'Microsoft Exchange',
@@ -3818,6 +9364,10 @@ $app_strings = array (
   'LBL_SORT' => 'Sortiraj',
   'LBL_SQL_TEXT' => 'SQL tekst',
   'LBL_SQS_INDICATOR' => '',
+  'LBL_START_AND_END_DATE' => '{{start}} - {{end}} ({{duration}})',
+  'LBL_START_AND_END_DATE_DETAIL_VIEW' => 'Datum početka i završetka',
+  'LBL_START_AND_END_DATE_SAME_DAY' => '{{date}} {{start}} - {{end}} ({{duration}})',
+  'LBL_START_AND_END_DATE_TO' => 'za',
   'LBL_START_BUTTON_LABEL' => 'Početak',
   'LBL_START_BUTTON_TITLE' => 'Početak',
   'LBL_STATE' => 'Opština:',
@@ -3828,39 +9378,42 @@ $app_strings = array (
   'LBL_SUBJECT' => 'Naslov',
   'LBL_SUBMIT_BUTTON_LABEL' => 'Prosledi',
   'LBL_SUBSCRIBE' => 'Pretplati',
-  'LBL_SUGAR_COPYRIGHT' => '&copy; 2004-2011 SugarCRM Inc. Program je obezbeđen KAO TAKAV, bez garancije. Licenciran pod <a href="LICENSE.txt" target="_blank" class="copyRightLink">AGPLv3</a>.<br />SugarCRM je zaštitni znak kompanije SugarCRM, Inc. Svi drugi nazivi kompanija i proizvoda mogu biti zaštitni znaci odgovarajućih kompanija sa kojima su povezani.',
+  'LBL_SUCCESS' => 'Uspešno',
+  'LBL_SUGAR7_COPYRIGHT' => '&copy; 2004-2013 <a href="http://www.sugarcrm.com" target="_blank">SugarCRM Inc.</a>',
   'LBL_SUGAR_COPYRIGHT_NAME_AND_RIGHTS' => 'SugarCRM Inc. Sva prava zadržana.',
-  'LBL_SUGAR_COPYRIGHT_SUB' => '&copy; 2004-2011 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> Sva prava zadržana.<br />SugarCRM je zaštitni znak kompanije SugarCRM, Inc. Svi drugi nazivi kompanija i proizvoda mogu biti zaštitni znaci odgovarajućih kompanija sa kojima su povezani.',
+  'LBL_SUGAR_COPYRIGHT_SUB' => '&copy; 2004-2014 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> Sva prava zadržana.<br />SugarCRM je zaštitni znak kompanije SugarCRM, Inc. Svi drugi nazivi kompanija i proizvoda mogu biti zaštitni znaci odgovarajućih kompanija sa kojima su povezani.',
+  'LBL_SUPPORT' => 'Podrška',
+  'LBL_SWITCH_INSTANCE' => 'Prelazak na ovu instancu',
   'LBL_SYNC' => 'Sinhronizuj',
   'LBL_SYNCED_RECURRING_MSG' => 'Ne možete izmeniti ovaj zapis zato što je sinhronizovan u Sugar iz eksternog sistema.',
-  'LBL_TABGROUP_ACTIVITIES' => 'Aktivnosti',
-  'LBL_TABGROUP_ALL' => 'Svi',
-  'LBL_TABGROUP_COLLABORATION' => 'Saradnja',
+  'LBL_SYSTEM_DEFAULT_OUTBOUND_EMAIL_CONFIGURATION' => 'Podrazumevana vrednost sistema',
   'LBL_TABGROUP_HOME' => 'Početna strana',
-  'LBL_TABGROUP_MARKETING' => 'Marketing',
-  'LBL_TABGROUP_MY_PORTALS' => 'Moji sajtovi',
-  'LBL_TABGROUP_OTHER' => 'Ostalo',
-  'LBL_TABGROUP_REPORTS' => 'Izveštaji',
-  'LBL_TABGROUP_SALES' => 'Prodaja',
-  'LBL_TABGROUP_SUPPORT' => 'Podrška',
-  'LBL_TABGROUP_TOOLS' => 'Alati',
+  'LBL_TAG_FETCH_ERROR' => 'Greška se pojavila prilikom povratka oznaka.',
+  'LBL_TAG_NEW_TAG' => '(New Tag)',
   'LBL_TASKS' => 'Zadaci',
   'LBL_TASKS_SUBPANEL_TITLE' => 'Zadaci',
   'LBL_TEAM' => 'Tim:',
   'LBL_TEAMS' => 'Timovi',
   'LBL_TEAMS_LINK' => 'Timovi',
+  'LBL_TEAM_ADD' => 'Dodajte tim',
   'LBL_TEAM_ID' => 'ID broj tima',
+  'LBL_TEAM_PRIMARY' => 'Postavite kao glavni tim',
+  'LBL_TEAM_REMOVE' => 'Uklonite tim',
   'LBL_TEAM_SELECTED_TITLE' => 'Odabrani tim',
   'LBL_TEAM_SELECT_AS_PRIM_TITLE' => 'Odaberi da bi postavio ovaj tim kao primaran',
   'LBL_TEAM_SET' => 'Postavljeni tim',
   'LBL_TEAM_SET_ID' => 'ID Postavljenog tima',
+  'LBL_TEXTAREA_LESS' => 'manje',
+  'LBL_TEXTAREA_MORE' => 'više',
   'LBL_THEME' => 'Tema:',
   'LBL_THEME_COLOR' => 'Boja',
   'LBL_THEME_FONT' => 'Font',
   'LBL_THEME_PICKER' => 'Stil stranice',
   'LBL_THEME_PICKER_IE6COMPAT_CHECK' => 'Upozorenje: Odabrana tema ne podržava Internet Explorer 6. Kliknite na OK da je izaberete ili na Odustani da izaberete drugu temu.',
+  'LBL_THEME_PREVIEW' => 'Pregled teme',
   'LBL_THOUSANDS_SYMBOL' => 'K',
   'LBL_THREE_MONTHS' => 'tri meseca',
+  'LBL_TIMEZONE_DIFFERENT_LINK' => 'Prilagodite vašu vremensku zonu.',
   'LBL_TIME_AGO_DAY' => 'juče',
   'LBL_TIME_AGO_DAYS' => 'pre {{this}} dan(a)',
   'LBL_TIME_AGO_HOUR' => 'pre oko 1 sat',
@@ -3871,54 +9424,134 @@ $app_strings = array (
   'LBL_TIME_AGO_SECONDS' => 'pre manje od jednog minuta',
   'LBL_TIME_AGO_YEAR' => 'pre više od godinu dana',
   'LBL_TIME_RELATIVE' => 'Poslato: {{relativetime}} dana {{date}} u {{time}}',
+  'LBL_TIME_RELATIVE_ACTIVITIES' => '{{relativetime}} na {{date}} u {{time}}',
+  'LBL_TIME_UNTIL_DAY' => 'sutra',
+  'LBL_TIME_UNTIL_DAYS' => 'za {{this}} dana',
+  'LBL_TIME_UNTIL_HOUR' => 'za oko sat vremena',
+  'LBL_TIME_UNTIL_HOURS' => 'za {{this}} sati',
+  'LBL_TIME_UNTIL_MINUTE' => 'oko jednog minuta',
+  'LBL_TIME_UNTIL_MINUTES' => 'kroz {{this}} minuta',
+  'LBL_TIME_UNTIL_SECONDS' => 'manje od jednog minuta',
+  'LBL_TIME_UNTIL_YEAR' => 'za više od godinu dana',
   'LBL_TODAY' => 'danas',
   'LBL_TODAYS_ACTIVITIES' => 'Današnje aktivnosti',
+  'LBL_TOGGLE_DRAWER' => 'Uključi ladicu',
+  'LBL_TOGGLE_VISIBILITY' => 'Izmeni vidljivost',
   'LBL_TOMORROW' => 'sutra',
-  'LBL_TOP' => 'Vrh',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Prikazuje deset najboljih prodajnih prilika kružnim grafikonom.',
+  'LBL_TOP10_OPPORTUNITIES_DEFAULT_DATASET' => 'Podrazumevani set podataka',
+  'LBL_TOP10_OPPORTUNITIES_FILTER_DURATIONS' => 'Podrazumevani filter za datum',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Moje prodajne prilike',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Prodajne prilike moga tima',
   'LBL_TOUR' => 'Tura pogleda aktivnosti',
+  'LBL_TOUR_ADD' => 'Napravite zapis odavde',
+  'LBL_TOUR_AVATAR' => 'Pogledajte još podataka o aplikaciji ili se odjavite',
   'LBL_TOUR_BACK' => 'Nazad',
   'LBL_TOUR_BTN_DONE' => 'Završeno',
   'LBL_TOUR_CALENDAR_URL_1' => 'Da li delite Vaš SugarCRM kalendar sa aplikacijama trećih lica, kao što su Microsoft Outlook ili Exchange? Ako da, imate novi URL. Ovaj novi, sigurniji URL uključuje lični ključ koji će sprečiti neautorizovanu objavljivanje Vašeg kalendara.',
   'LBL_TOUR_CALENDAR_URL_2' => 'Dohvatite novi dodeljeni URL Vašeg kalendara.',
   'LBL_TOUR_CLOSE' => 'Zatvori',
+  'LBL_TOUR_CUBE' => 'Pristupite tabli sa dašletima i pregledu aktivnosti',
   'LBL_TOUR_DONE' => 'Gotovi ste!',
-  'LBL_TOUR_FEATURES_670' => '<ul style=""><li class="icon-ok">Unapređen izgled i osećaj – sada sa novom modernom temom.</li><li class="icon-ok">Poboljšan modul za prognozu – sada sa intuitivnim korisničkim interfejsom i i novom vizuelizacijom podataka</li></ul>',
+  'LBL_TOUR_END_TOUR' => 'Kraj obilaska',
+  'LBL_TOUR_FEATURES_670' => '<ul style=""><li class="icon-ok">Unapređen izgled i osećaj - sada sa novim modernim temama.</li><li class="icon-ok">Unapređen modul za prognozu - sada sa intuitivnim korisničkim interfejsom i novim načinom prikaza podataka</li></ul>',
+  'LBL_TOUR_FORECASTS_CHART' => 'Pogledajte raspodelu prognoza',
+  'LBL_TOUR_FORECASTS_COMMITS' => 'Kliknite za pregled prethodnih prihvaćaja',
+  'LBL_TOUR_FORECASTS_INLINEEDIT' => 'Kliknite za brzu izmenu podataka',
+  'LBL_TOUR_FORECASTS_PROGRESS' => 'Pogledajte udaljenost od kvote',
+  'LBL_TOUR_FORECASTS_TIMEPERIODS' => 'Izaberite vremenski period za pregled odgovarajuće prognoze',
+  'LBL_TOUR_FORECAST_INTRO' => 'Upravljajte levkom prodaje i prognozom.',
+  'LBL_TOUR_FULL_TOUR' => 'Celokupan obilazak',
+  'LBL_TOUR_INTRO' => '<h4>Welcome to Sugar</h4> We&#39;d like to walk you through some of the features.  Use the < and > arrows on the bottom of the screen to take a tour.<ul class="resource-list"><li class="resource"><a href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/" target="_blank"><span class="label label-module label-module-md pull-left blue"><i class="fa fa-2x fa-magic"></i></span></a><div class="resource-info"><a href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/" target="_blank">What&#39;s New</a><p class="details">Find out the key changes between releases.</p></div></li><li class="resource"><a href="http://university.sugarcrm.com/" target="_blank"><span class="label label-module label-module-md pull-left green"><i class="fa fa-2x fa-book"></i></span></a><div class="resource-info"><a href="http://university.sugarcrm.com/" target="_blank">Find out more about Sugar</a><p class="details">A robust library of eLearning, live and virtual classroom training, webinars and video tutorials.</p></div></li><li class="resource"><a href="http://support.sugarcrm.com/" target="_blank"><span class="label label-module label-module-md pull-left red"><i class="fa fa-2x fa-question-circle"></i></span></a><div class="resource-info"><a href="http://support.sugarcrm.com/" target="_blank">Get Support</a><p class="details">Need help, have a issue or want to suggest how to make Sugar better?</p></div></li></ul>',
+  'LBL_TOUR_LIST_ACTIVTYSTREAMLIST_TOGGLE' => 'Pogledajte aktivnosti ili listu zapisa',
+  'LBL_TOUR_LIST_FILTER1' => 'Filter traka omogućava pretragu ovog modula',
+  'LBL_TOUR_LIST_FILTER2' => 'Izaberite predefinisani filter ili napravite novi',
+  'LBL_TOUR_LIST_FILTER_PREVIEW' => 'Izmenite red ili pogledajte detalje',
+  'LBL_TOUR_LIST_FILTER_SEARCH' => 'Kucajte ovde za pretragu po imenu',
+  'LBL_TOUR_LIST_INTRO' => 'Pogledajte listu zapisa i radite sa njima',
+  'LBL_TOUR_LIST_INT_TOGGLE' => 'Kliknite za otvaranje ili zatvaranje panela sa obaveštenjima',
+  'LBL_TOUR_MODULE' => 'Obilazak ove strane',
+  'LBL_TOUR_NAV_BAR' => 'Pristupite i radite sa svim modulima preko navigacionog menija',
   'LBL_TOUR_NEXT' => 'Sledeći',
+  'LBL_TOUR_NOTIFICATIONS' => 'Kliknite za pregled obaveštenja',
+  'LBL_TOUR_OVERVIEW' => 'Pregled stranice',
+  'LBL_TOUR_RECORD_ACTIONS' => 'Radite sa zapisom',
+  'LBL_TOUR_RECORD_DASHBOARDACTIONS' => 'Napravite nove grupe dašleta',
+  'LBL_TOUR_RECORD_DASHBOARDNAME' => 'Dajte ime grupi dašleta',
+  'LBL_TOUR_RECORD_DASHLETCOG' => 'Izaberite da uklonite dašlet ili da promenite podešavanja',
+  'LBL_TOUR_RECORD_INLINEEDIT' => 'Ime zapisa može biti izmenjeno na mestu',
+  'LBL_TOUR_RECORD_INLINEEDITRECORD' => 'Kliknite za brzu izmenu svakog polja',
+  'LBL_TOUR_RECORD_INTRO' => 'Pogledajte detalje ovog zapisa kao i sve podatke povezane sa njim.',
+  'LBL_TOUR_RECORD_SHOWMORE' => 'Kliknite ovde za više podataka o zapisu',
+  'LBL_TOUR_RECORD_STATUS' => 'Ovde možete naći status na nivou zapisa',
+  'LBL_TOUR_RECORD_TOGGLEACTIVITIES' => 'Pogledajte aktivnosti ili povezane zapise',
   'LBL_TOUR_REFERENCE_1' => 'Možete se uvek pozvati na naš',
   'LBL_TOUR_REFERENCE_2' => 'putem "Podrške" linka koji se nalazi u profil meniju.',
-  'LBL_TOUR_SCREEN_1_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Podesite vaše parametre prognoze</li><li class="icon-ok">Lako praćenje projektovane prodaje i levka prodaje</li><li class="icon-ok">Prognoza bazirana na projektovanoj prodaji vašeg prodajnog tima</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen1-thumb.png" width="220" id="thumbnail_1" class="thumb"></div></div><div class="clear"></div>',
-  'LBL_TOUR_SCREEN_1_TITLE_670' => 'Poboljšana fukcionalnost prognoze u Sugar-u',
-  'LBL_TOUR_SCREEN_2_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Izaberite početni datum fiskalne godine</li><li class="icon-ok">Podesite da vremenski periodi budu godišnji ili kvartalni</li><li class="icon-ok">Odlučite koliko prošlih i budućih vremenski perioda treba da bude vidljivo</li><li class="icon-ok">Izaberite opsege prognoze da označite prilike kao Uključene, Isključene i Naopake</li><li class="icon-ok">Izaberite scenarije prognoze da identifikujete Verovatne, Najbolje i Najgore prognoze</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen2-thumb.png" width="220" id="thumbnail_2" class="thumb"></div></div><div class="clear"></div>',
-  'LBL_TOUR_SCREEN_2_TITLE_670' => 'Izaberite svoje parametre prognoze',
+  'LBL_TOUR_REVISIT' => 'Click here to show the tour at any time.<br />Kliknite ovde da biste prikazali turu bilo kada.',
+  'LBL_TOUR_SCREEN_1_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Podesite vaše parametre za prognozu</li><li class="icon-ok">Lako ispratite projektovane prodaje i levak prodaje</li><li class="icon-ok">Prognoza je bazirana na projektovanim prodajama vašeg prodajnog tima</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen1-thumb.png" width="220" id="thumbnail_1" class="thumb"></div></div><div class="clear"></div>',
+  'LBL_TOUR_SCREEN_1_TITLE_670' => 'Unapređena funkcionalnost prognoziranja u Sugar-u',
+  'LBL_TOUR_SCREEN_2_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Odaberite početni datum fiskalne godine</li><li class="icon-ok">Odaberite godišnji ili kvartalni vremenski period</li><li class="icon-ok">Odlučite koliko prošlih i budućih vremenskih perioda je potrebno da bude vidljivo u tabeli</li><li class="icon-ok">Izaberite opsege prognoze da bi ste označili poslovne prilike kao uključene, isključene ili naopake</li><li class="icon-ok">Izaberite scenarije prognoze za identifikaciju verovatne, najbolje i najgore prognoze</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen2-thumb.png" width="220" id="thumbnail_2" class="thumb"></div></div><div class="clear"></div>',
+  'LBL_TOUR_SCREEN_2_TITLE_670' => 'Podesite parametre vaše prognoze',
   'LBL_TOUR_SCREEN_3_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Izaberite vremenski period za pregled prognoze</li><li class="icon-ok">Pogledajte radne listove članova vašeg prodajnog tima i prilagodite prognozu</li><li class="icon-ok">Kada član prodajnog tima predloži novu prognozu vidi se upozorenje na radnom listu</li><li class="icon-ok">Sačuvajte nacrt vaše prognoze ili je prosledite vašem menadžeru</li><li class="icon-ok">Pogledajte prethodne komentare</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen3-thumb.png" width="220" id="thumbnail_3" class="thumb"></div></div><div class="clear"></div>',
   'LBL_TOUR_SCREEN_3_TITLE_670' => 'Upravljajte projektovanim prodajama vašeg prodajnog tima',
   'LBL_TOUR_SCREEN_4_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Uz pomoć Pareto grafikona analizirajte prognoze vašeg celokupnog prodajnog tima</li><li class="icon-ok">Izaberite prikaz Verovatne, Najbolje ili Najgore prognoze</li><li class="icon-ok">Pogledajte planirane prodaje i koliko ste blizu timske kvote</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen4-thumb.png" width="220" id="thumbnail_4" class="thumb"></div></div><div class="clear"></div>',
   'LBL_TOUR_SCREEN_4_TITLE_670' => 'Upravljajte projektovanim prodajama vašeg prodajnog tima',
   'LBL_TOUR_SCREEN_5_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Izaberite vremenski period za vašu prognozu</li><li class="icon-ok">Pregledajte i lako izmenite količine i verovatnoću uspeha za brzu "šta-ako" analizu</li><li class="icon-ok">Sačuvajte nacrt vaše prognoze ili je pošaljite vašem menadžeru</li><li class="icon-ok">Pogledajte ranije poslate prognoze</li><li class="icon-ok">Pošaljite prognozu vašem menadžeru i pogledajte ranije poslate prognoze</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen5-thumb.png" width="220" id="thumbnail_5" class="thumb"></div></div><div class="clear"></div>',
-  'LBL_TOUR_SCREEN_5_TITLE_670' => 'Upravljajte ličnim projektovanim prodajama',
-  'LBL_TOUR_SCREEN_6_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Pogledajte Pareto grafikon za vremensku analizu vaših šansi</li><li class="icon-ok">Odaberite prikaz po fazi prodaje ili verovatnoći uspeha</li><li class="icon-ok">Pogledajte planirane prodaje i koliko ste blizu ispunjavanju vaše kvote</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen6-thumb.png" width="220" id="thumbnail_6" class="thumb"></div></div><div class="clear"></div>',
-  'LBL_TOUR_SCREEN_6_TITLE_670' => 'Upravljajte ličnim projektovanim prodajama',
+  'LBL_TOUR_SCREEN_5_TITLE_670' => 'Upravljajte sopstvenim projektovanim prodajama',
+  'LBL_TOUR_SCREEN_6_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="icon-ok">Izaberite vremenski period za vašu prognozu</li><li class="icon-ok">Pregledajte i lako izmenite količine i verovatnoću uspeha za brzu "šta-ako" analizu</li><li class="icon-ok">Sačuvajte nacrt vaše prognoze ili je pošaljite vašem menadžeru</li><li class="icon-ok">Pogledajte ranije poslate prognoze</li><li class="icon-ok">Pošaljite prognozu vašem menadžeru i pogledajte ranije poslate prognoze</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen5-thumb.png" width="220" id="thumbnail_5" class="thumb"></div></div><div class="clear"></div>',
+  'LBL_TOUR_SCREEN_6_TITLE_670' => 'Upravljajte sopstvenim projektovanim prodajama',
+  'LBL_TOUR_SEARCH' => 'Izaberite jedan ili više modula i pretražite',
   'LBL_TOUR_SKIP' => 'Preskoči',
   'LBL_TOUR_TAKE_TOUR' => 'Pođi na obilazak',
+  'LBL_TOUR_TOUR' => 'Pristupni Pregled u bilo koje vreme',
   'LBL_TOUR_VISIT' => 'Za dodatne informacije molimo Vas posetite našu aplikaciju',
   'LBL_TOUR_WATCH' => 'Pogledaj štaj novo u Sugar-u',
   'LBL_TOUR_WELCOME' => 'Dobrodošli u Sugar',
   'LBL_TRACK_EMAIL_BUTTON_KEY' => 'K',
   'LBL_TRACK_EMAIL_BUTTON_LABEL' => 'Arhiviraj Email',
   'LBL_TRACK_EMAIL_BUTTON_TITLE' => 'Arhiviraj Email [Alt+K]',
-  'LBL_TRADEMARK' => 'SugarCRM je zaštitni znak SugarCRM, Inc. Sve druge kompanije i imena proizvoda mogu biti zaštitni znak kompanija u čijem su vlasništvu.',
-  'LBL_TRADEMARK2' => 'SugarCRM ®, Sugar Enterprise™ and Sugar™ su zaštitni znak SugarCRM Inc.',
+  'LBL_TRADEMARK' => 'SugarCRM je zaštitni znak SugarCRM, Inc. Sva ostala imena kompanija i proizvoda mogu biti zaštitni znakovi kompanija sa kojima su povezani.',
+  'LBL_TRADEMARK2' => 'SugarCRM ®, Sugar Enterprise™ i Sugar™ su zaštitni znak SugarCRM Inc.',
   'LBL_TRAINING' => 'Podrška',
+  'LBL_TT_DNB_BAL_AREA_CODE' => 'Američki i kanadski telefonski kodovi. Primer: 512 ili 723 ili973',
+  'LBL_TT_DNB_BAL_CODE_TYPE' => 'Odabrati tip industrijskog koda: SIC ili NAICS',
+  'LBL_TT_DNB_BAL_DUNS' => 'Uneti devetocifreni DUNS® broj. Primer:  060704780, 047897855',
+  'LBL_TT_DNB_BAL_IND_CODE' => '2 do 8 cifara SIC koda su podržane ili 2 do 6 cifara NAICS koda su podržane. Odvajati višestruke kodove zarezima.',
+  'LBL_TT_DNB_BAL_IPO_PRICE_RANGE' => 'U $. Primer: IPO raspon cena 2.00 do 2.50',
+  'LBL_TT_DNB_BAL_MILLIONS' => 'U milionima $',
+  'LBL_TT_DNB_BAL_MILLIONS_EX' => 'U milionima $. Primer: 100 ili 4.3',
+  'LBL_TT_DNB_BAL_NET_INCOME_GROWTH' => 'Procenat (%)',
+  'LBL_TT_DNB_BAL_ORGID' => 'Registracija #. Primer 130871985, 160468020',
+  'LBL_TT_DNB_BAL_ORG_NAME' => 'Uneti naziv kompanije',
+  'LBL_TT_DNB_BAL_POSTAL_CODE' => 'Američki raspon ZIP kodova su podržani. Primeri: 78701 ili SW1P 1JA ili SWW1, ili 78701-78752',
+  'LBL_TT_DNB_BAL_PRESCREEN_SCORE' => 'Odabrati nivo rizika: visok, srednji, nizak',
+  'LBL_TT_DNB_BAL_RADIUS_SRCH' => 'Pretraga rezultata unutar datih granica jednog ZIP/poštanskog koda',
+  'LBL_TT_DNB_BAL_STATES' => 'Država/Pokrajina/Region',
+  'LBL_TT_DNB_BAL_YEAR_OF_FOUNDING' => 'Primer: 1964 ili 2009. Samo jedna godina osnivanja može biti dodata',
   'LBL_TWITTER_DATA_EMPTY' => 'Nema dostupnih podataka sa Twitter-a',
   'LBL_TWITTER_DATA_LOADING' => 'Učitavanje Twitter Konektora...',
-  'LBL_TWITTER_ID_EMPTY' => 'Twitter korisničko ime nije uneto za ovaj zapis. Pokušajte @',
-  'LBL_TWITTER_TWEETS_BY' => 'Tvitovao',
+  'LBL_TWITTER_DESCRIPTION' => 'Pogledajte biografiju tweeter korisnika kao i tweet-ove, ponovljenje tweet-ove i odgovore na tweet-ove',
+  'LBL_TWITTER_DISPLAY_ROWS' => 'Prikaži redove',
+  'LBL_TWITTER_FAVORITE' => 'Omiljeni',
+  'LBL_TWITTER_FOLLOW' => 'Prati',
+  'LBL_TWITTER_ID' => 'Twitter ID',
+  'LBL_TWITTER_MY_ACCOUNT' => 'Moj nalog',
+  'LBL_TWITTER_NAME' => 'Twitter',
+  'LBL_TWITTER_REPLY' => 'Odgovori',
+  'LBL_TWITTER_RETWEET' => 'Prosledi tweet',
+  'LBL_TWITTER_SOURCE' => 'Izvor objave',
   'LBL_TWO_WEEKS' => 'dve nedelje',
+  'LBL_TX_LOG' => 'Dnevnik transakcija',
+  'LBL_TX_LOG_DETAIL' => 'Detalji transakcije',
+  'LBL_UNASSIGNED' => 'Nije dodeljeno',
+  'LBL_UNAUTHORIZED' => 'Žao nam je, ali izgleda da niste autorizovani da pristupite ovom resursu.',
+  'LBL_UNAUTHORIZED_TITLE' => 'Niste autorizovani',
   'LBL_UNAUTH_ADMIN' => 'Neautorizovan pristup administraciji',
   'LBL_UNDELETE' => 'Poništi brisanje',
   'LBL_UNDELETE_BUTTON' => 'Poništi brisanje',
   'LBL_UNDELETE_BUTTON_LABEL' => 'Poništi brisanje',
   'LBL_UNDELETE_BUTTON_TITLE' => 'Poništi brisanje [Alt+D]',
+  'LBL_UNFOLLOW' => 'Prestani da pratiš',
   'LBL_UNLINKED' => 'Nepovezano',
   'LBL_UNLINKING' => 'Manje verovatno...',
   'LBL_UNLINK_BUTTON' => 'Ukloni',
@@ -3926,18 +9559,26 @@ $app_strings = array (
   'LBL_UNSYNC' => 'Poništi sinhronizovanje',
   'LBL_UPCOMING' => 'Moji nadolazeći sastanci',
   'LBL_UPDATE' => 'Ažuriraj',
+  'LBL_UPDATE_CALC_FIELDS' => 'Preračunaj vrednosti',
   'LBL_UPLOADING' => 'Postavljanje',
   'LBL_UPLOAD_FROM_COMPUTER' => 'Dodaj sa svog računara',
   'LBL_UPLOAD_IMAGE_FILE_INVALID' => 'Nevažeći format fajla, samo fajl slike se može poslati.',
+  'LBL_UPLOAD_IMAGE_FILE_NOT_SUPPORTED' => 'Format slike {0} više nije podržan.',
   'LBL_URL_BUTTON' => 'Web',
   'LBL_USERS' => 'Korisnici',
   'LBL_USERS_SYNC' => 'Sinh. korisnika',
+  'LBL_USER_DEFAULT_OUTBOUND_EMAIL_CONFIGURATION' => 'Podrazumevana vrednost korinika',
   'LBL_USER_ID' => 'ID broj korisnika',
   'LBL_USER_LIST' => 'Lista korisnika',
+  'LBL_USER_MENU' => 'Korisnički meni',
+  'LBL_USER_OUTBOUND_EMAIL_ACCOUNT_CONFIGURATION' => 'korisnički nalog',
+  'LBL_USE_HTTPS' => 'Korišćenje bezbedne konekcije',
   'LBL_VALIDATE_RANGE' => 'nije u važećem dometu',
+  'LBL_VALIDATING' => 'Validacija...',
   'LBL_VCARD' => 'Digitalna vizitkarta',
-  'LBL_VCARD_ERROR_DEFAULT' => 'Došlo je do greške prilikom slanja vCard dokumenta. Molimo, pogledajte sugarcrm.log za detalje.',
-  'LBL_VCARD_ERROR_FILESIZE' => 'Veličina dokumenta premašuje ograničenje od 30000 bajtova specificirano u HTML formi.',
+  'LBL_VCARD_DOWNLOAD' => 'Preuzmite .vcf',
+  'LBL_VCARD_ERROR_DEFAULT' => 'Došlo je do greške pri otpremanju virtuelnog imenika.',
+  'LBL_VCARD_ERROR_FILESIZE' => 'Fajl za otpremanje je veći od 30000 bajtova, što je limit za HTML.',
   'LBL_VERIFY_EMAIL_ADDRESS' => 'Proveravanje za postojeći Email unos...',
   'LBL_VERIFY_PORTAL_NAME' => 'Proveravanje za postojeći naziv portala...',
   'LBL_VIEWINLINE' => 'Pregled',
@@ -3952,9 +9593,35 @@ $app_strings = array (
   'LBL_VIEW_PDF_BUTTON_TITLE' => 'Štampaj kao PDF [Alt+P]',
   'LBL_VISIBLE' => 'Vidljiv zapis',
   'LBL_WARNING' => 'Upozorenje',
+  'LBL_WARN_UNSAVED_CHANGES' => 'Imate nesačuvane izmene. Da li ste sigurni da želite da napustite stranicu i odbacite promene?',
   'LBL_WELCOMEBAR' => 'Dobrodošli',
+  'LBL_WIZ_APPLICATION_SETTINGS' => 'Pregledaj i upravljaj podešavanjima aplikacije',
+  'LBL_WIZ_COMPLETE_TITLE' => 'Podešavanje je završeno',
+  'LBL_WIZ_CONFIGURE_APPLICATION' => 'Podesi aplikaciju',
+  'LBL_WIZ_CREATE_USERS' => 'Napravi korisnike',
+  'LBL_WIZ_DATE_FORMAT' => 'Format datuma',
+  'LBL_WIZ_DOCUMENTATION' => 'Dokumentacija',
+  'LBL_WIZ_EMAIL' => 'Email',
+  'LBL_WIZ_EMAIL_SETTINGS' => 'Email podešavanja',
+  'LBL_WIZ_FIRST_NAME' => 'Ime',
+  'LBL_WIZ_FORUMS' => 'Forumi',
+  'LBL_WIZ_IMPORT_DATA' => 'Uvezi podatke',
+  'LBL_WIZ_KNOWLEDGE_BASE' => 'Baza znanja',
+  'LBL_WIZ_LAST_NAME' => 'Prezime',
+  'LBL_WIZ_NAME_FORMAT' => 'Format za prikaz imena',
+  'LBL_WIZ_START_SUGAR' => 'Pokreni Sugar',
+  'LBL_WIZ_SUGAR_TRAINING' => 'Sugar trening',
+  'LBL_WIZ_SYSTEM_LOCALE_SETTINGS' => 'Lokalna podešavanja sistema',
+  'LBL_WIZ_TIMEFORMAT' => 'Format vremena',
+  'LBL_WIZ_TIMEZONE' => 'Vremenska zona',
+  'LBL_WIZ_USER_LOCALE_TITLE' => 'Lokalna podešavanja korisnika',
+  'LBL_WIZ_USER_PROFILE_TITLE' => 'Profil korisnika',
+  'LBL_WORST' => 'Najgore',
+  'LBL_WORST_ADJUSTED' => 'Najgore (prilagođeno)',
   'LBL_YES' => 'Da',
   'LBL_YESTERDAY' => 'juče',
+  'LBL_YOU' => 'Vi',
+  'LBL_YOUR_INSTANCES' => 'Vaše instance',
   'LNK_ABOUT' => 'O nama',
   'LNK_ADVANCED_SEARCH' => 'Napredna pretraga',
   'LNK_BACKTOTOP' => 'Nazad na vrh',
@@ -3975,8 +9642,17 @@ $app_strings = array (
   'LNK_LIST_START' => 'Početak',
   'LNK_LOAD_SIGNED' => 'Potpis',
   'LNK_LOAD_SIGNED_TOOLTIP' => 'Zameni potpisanim dokumentom',
+  'LNK_MOBILE' => 'Mob. telefon',
+  'LNK_OFFLINE_SETTINGS' => 'Offline',
+  'LNK_PMSE_BUSINESS_RULES_IMPORT_RECORD' => 'Uvesti Pravila Procesnog Poslovanja',
+  'LNK_PMSE_BUSINESS_RULES_NEW_RECORD' => 'Kreirati Pravila Procesnog Poslovanja',
+  'LNK_PMSE_EMAIL_TEMPLATES_IMPORT_RECORD' => 'Uvesti Šablon Procesnog Email-a',
+  'LNK_PMSE_EMAIL_TEMPLATES_NEW_RECORD' => 'Kreirati Šablon Procesnog Email-a',
+  'LNK_PMSE_PROCESS_DEFINITIONS_IMPORT_RECORD' => 'Uvesti Procesne Definicije',
+  'LNK_PMSE_PROCESS_DEFINITIONS_NEW_RECORD' => 'Kreirati Procesne Definicije',
   'LNK_PORTAL_LOGIN_FORGOTPASSWORD' => 'Zaboravili ste lozinku?',
   'LNK_PRINT' => 'Štampanje',
+  'LNK_PRIVACY_POLICY' => 'Politika privatnosti',
   'LNK_REMOVE' => 'Ukloni',
   'LNK_RESUME' => 'Nastavi',
   'LNK_SAVED_VIEWS' => 'Opcije za Izgled',
@@ -3984,40 +9660,44 @@ $app_strings = array (
   'LNK_SEARCH_NONFTS_VIEW_ALL' => 'Prikaži sve',
   'LNK_SEARCH_NO_RESULTS' => 'Nije pronađen ni jedan rezultat.',
   'LNK_SETTINGS' => 'Podešavanja',
+  'LNK_TERMS_OF_USE' => 'Uslovi korišćenja',
+  'LNK_THIRD_PARTY_SOFTWARE' => 'Treća strana softvera',
   'LNK_TOUR' => 'Tura',
   'LNK_TOUR_DOCUMENTATION' => 'dokumentacija',
+  'LNK_VIEW' => 'pregled',
   'LNK_VIEW_CHANGE_LOG' => 'Pogledaj dnevnik promena',
   'LOGIN_LOGO_ERROR' => 'Molim, promenite SugarCRM logoe.',
   'MSG_DUPLICATE' => 'Zapis {0} koji pokušavate da kreirate može biti duplikat {0} zapisa koji već postoji. {1} zapisi koji imaju slična imena izlistani su ispod.<br /><br><br />Kliknite na "Napravi {1}" da biste nastavili kreiranje ovog novog {0}, ili odaberite postojeći {0} iz liste ispod.',
+  'MSG_EMPTY_LIST_VIEW_GO_TO_PARENT' => 'Možete kreirati iz . list.',
   'MSG_EMPTY_LIST_VIEW_NO_RESULTS' => 'Trenutno nemate ni jedan sačuvan zapis.',
-  'MSG_EMPTY_LIST_VIEW_NO_RESULTS_SUBMSG' => 'da biste naučili više o modulu. Da biste pristupili više informacija, koristite padajući korisnički meni u glavnoj navigaciji i pristupite odeljku za pomoć.',
+  'MSG_EMPTY_LIST_VIEW_NO_RESULTS_NO_IMPORT' => 'Trenutno nemate sačuvanih zapisa. sada jedan.',
   'MSG_IS_LESS_THAN' => 'je manje od',
   'MSG_IS_MORE_THAN' => 'je više od',
   'MSG_IS_NOT_BEFORE' => 'nije pre',
-  'MSG_JS_ALERT_MTG_REMINDER_AGENDA' => 'Dnevni red:',
-  'MSG_JS_ALERT_MTG_REMINDER_CALL' => 'Poziv',
   'MSG_JS_ALERT_MTG_REMINDER_CALL_MSG' => 'Kliknite OK da bi videli ovaj poziv ili kliknite Otkaži da odbacite ovu poruku.',
   'MSG_JS_ALERT_MTG_REMINDER_DESC' => 'Opis:',
   'MSG_JS_ALERT_MTG_REMINDER_LOC' => 'Lokacija:',
-  'MSG_JS_ALERT_MTG_REMINDER_MEETING' => 'Sastanak',
   'MSG_JS_ALERT_MTG_REMINDER_MEETING_MSG' => 'Kliknite OK da bi videli ovaj sastanak ili kliknite Otkaži da odbacite ovu poruku.',
-  'MSG_JS_ALERT_MTG_REMINDER_RELATED_TO' => 'Povezano sa:',
-  'MSG_JS_ALERT_MTG_REMINDER_STATUS' => 'Status:',
-  'MSG_JS_ALERT_MTG_REMINDER_TIME' => 'Vreme:',
+  'MSG_JS_ALERT_MTG_REMINDER_START' => 'počinje',
   'MSG_LIST_VIEW_NO_RESULTS' => 'Nisu pronađeni rezultati za',
   'MSG_LIST_VIEW_NO_RESULTS_BASIC' => 'Nije pronađen ni jedan rezultat.',
   'MSG_LIST_VIEW_NO_RESULTS_SUBMSG' => 'Napravi kao novi',
   'MSG_OR_GREATER' => 'ili veće',
   'MSG_SHOULD_BE' => 'treba da bude',
   'MSG_SHOW_DUPLICATES' => 'Zapis {0} koji pokušavate da kreirate može biti duplikat {0} zapisa koji već postoji. {1} zapisi koji imaju slična imena izlistani su ispod.<br /><br><br />Kliknite na "Sačuvaj {1}" da biste nastavili kreiranje ovog novog {0}, ili kliknite na "Poništi" da biste se vratili na modul bez kreiranja {0}',
+  'NOTICE_NO_DELETE_CLOSED' => 'Ne možete da izbrišete zapise koji imaju zatvoren status prodaje.',
+  'NOTICE_NO_DELETE_CLOSED_STAGE' => 'Ne možete obrisati zapise koji su u fazi zatvaranja prodaje.',
+  'NOTICE_NO_DELETE_CLOSED_STATUS' => 'Ne možete obrisati zapise koji imaju status zatvorene prodaje.',
   'NO_QUERY_SELECTED' => 'Format podatka koji ste izabrali ne sadrži upit. Molim, izaberite sopstveni upit za ovaj format podatka.',
   'NTC_CLICK_BACK' => 'Molim, kliknite na svom internet pretraživaču dugme za nazad da bi ispravili grešku.',
   'NTC_DATE_FORMAT' => '(yyyy-mm-dd)',
   'NTC_DATE_TIME_FORMAT' => '(yyyy-mm-dd 24:00)',
   'NTC_DELETE_CONFIRMATION' => 'Da li ste sigurni da želite da obrišete ovaj zapis?',
+  'NTC_DELETE_CONFIRMATION_FORMATTED' => 'Da li ste sigurni da želite da obrišete {0}?',
   'NTC_DELETE_CONFIRMATION_MULTIPLE' => 'Da li ste sigurni da želite da obrišete izabrane zapise?',
   'NTC_DELETE_CONFIRMATION_NUM' => 'Da li ste sigurni da želite da obrišete',
   'NTC_DELETE_SELECTED_RECORDS' => 'izabrani zapis(i)?',
+  'NTC_DELETE_SUCCESS' => 'Izbrisali ste',
   'NTC_LOGIN_MESSAGE' => 'Molim, unesite svoje korisničko ime i lozinku.',
   'NTC_NO_ITEMS_DISPLAY' => 'nijedan',
   'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'Ovaj zapis trenutno sadrži vrednosti u poljima Poslovni telefon i Adresa. Da bi prepisali sve vrednosti sa sledećim Poslovnim telefonom i Adresom Kompanije koju ste izabrali, kliknite "OK". Da bi sačuvali trenutne vrednosti , kliknite na "Otkaži" .',
@@ -4027,31 +9707,91 @@ $app_strings = array (
   'NTC_TEMPLATES_IS_USED' => 'Sledeći šabloni su korišćeni u makar jednom email marketing zapisu. Da li ste sigurni da hoćete da ih obrišete?',
   'NTC_TEMPLATE_IS_USED' => 'Šablon je korišćen u makar jednom email marketing zapisu. Da li ste sigurni da hoćete da ga obrišete?',
   'NTC_TIME_FORMAT' => '(24:00)',
+  'NTC_UNLINK_CONFIRMATION' => 'Da li ste sigurni da želite da otkačite ovaj zapis?',
+  'NTC_UNLINK_CONFIRMATION_FORMATTED' => 'Da li si siguran da želiš da raskineš vezu {0}?',
+  'NTC_UNLINK_SUCCESS' => 'Raskinuli ste vezu',
   'NTC_UPDATE_CONFIRMATION_NUM' => 'Da li ste sigurni da želite da ažurirate',
   'NTC_WELCOME' => 'Dobrodošli',
   'NTC_YEAR_FORMAT' => '(yyyy)',
   'NavigationBar' => 'Navigacioni bar',
   'PrimaryButton' => 'Primarno dugme',
   'SUGAR_API_EXCEPTION_NOT_AUTHORIZED' => 'Nije dozvoljeno promeniti polje {0} u modulu: {1}',
+  'SUGAR_API_EXCEPTION_RECORD_NOT_AUTHORIZED' => 'Nije dozvoljeno izvršavanje akcije "{0}" na ovom zapisu',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if name}}{{name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
+  'TPL_DASHLET_MY_MODULE' => 'Moje {{module}}',
+  'TPL_DELETE_FILTER_SUCCESS' => 'Izbrisali ste filter {{name}}.',
+  'TPL_FILTER_SAVE' => 'Uspešno ste napravili filter {{name}}.',
+  'TPL_HISTORICAL_SUMMARY' => 'Istorijski prikaz za {{name}}',
+  'TPL_IMPORT_VCARD_FAILURE' => 'Pravljenje modula {{module}} iz virtuelnog imenika nije uspelo',
+  'TPL_INACTIVE_TASKS_DASHLET_TIME_RELATIVE' => 'poslednja izmena {{relativetime}} ne {{date}} u {{time}}',
+  'TPL_LISTVIEW_SELECTED_ALL' => 'Izabrali ste svih {{num}} zapisa iz skupa rezultata.',
+  'TPL_LISTVIEW_SELECTED_FIRST_OFFSET' => 'Postoji više od {{num}} zapisa u grupi rezultata. Izabrali ste prvih {{num}} zapisa.',
+  'TPL_LISTVIEW_SELECT_ALL_RECORDS' => 'Izabrali ste svih {{num}} zapisa u ovom pogledu. {{link}} u skupu rezultata.',
+  'TPL_MASSADDTOLIST_DURATION_FORMAT' => '(oko {{time}} {{unit}} preostalo)',
+  'TPL_MASSADDTOLIST_FAIL_TO_ATTEMPT' => 'Grupno dodavanj na listu ciljeva nije uspelo. Iniciram novi pokušaj ({{num}} of {{total}}).',
+  'TPL_MASSADDTOLIST_PROGRESS_STATUS' => 'Dodavanje {{num}} od {{total}}.',
+  'TPL_MASSADDTOLIST_SUCCESS' => '{{num}} zapisa je uspešno dodato.',
+  'TPL_MASSADDTOLIST_TITLE' => '{{module}} Grupno dodavanje na listu ciljeva',
+  'TPL_MASSADDTOLIST_WARNING_CLOSE' => 'Grupno dodavanje na listu ciljeva je nepotpuno. {{num}} zapisa nije dodato.',
+  'TPL_MASSADDTOLIST_WARNING_INCOMPLETE' => 'Grupno dodavanje na listu ciljeva je nepotpuno. {{num}} zapisa nije dodato.',
+  'TPL_MASSDELETE_DURATION_FORMAT' => '(oko {{time}} {{unit}} preostalo)',
+  'TPL_MASSDELETE_FAIL_TO_ATTEMPT' => 'Grupno brisanje nije uspelo. Pokušavam ponovo ({{num}} of {{total}}).',
+  'TPL_MASSDELETE_PROGRESS_STATUS' => 'Briše se {{num}} od {{total}}.',
+  'TPL_MASSDELETE_SUCCESS' => '{{num}} zapisa je uspešno obrisano.',
+  'TPL_MASSDELETE_TITLE' => '{{module}} Grupno prosanje',
+  'TPL_MASSDELETE_WARNING_CLOSE' => 'Grupno brisanje nije završeno. {{num}} zapisa je preostalo.',
+  'TPL_MASSDELETE_WARNING_INCOMPLETE' => 'Grupno brisanje nije završeno. {{num}} zapisa je preostalo.',
+  'TPL_MASSLINK_DURATION_FORMAT' => '(oko {{time}} {{unit}} preostalo)',
+  'TPL_MASSLINK_FAIL_TO_ATTEMPT' => 'Grupno povezivanje nije uspelo.  Novi pokušaj ({{num}} of {{total}}).',
+  'TPL_MASSLINK_PROGRESS_STATUS' => 'Povezivanje {{num}} od {{total}}.',
+  'TPL_MASSLINK_SUCCESS' => '{{num}} zapisa je uspešno povezano.',
+  'TPL_MASSLINK_TITLE' => '{{module}} Grupno Povezivanje',
+  'TPL_MASSLINK_WARNING_CLOSE' => 'Grupno povezivanje nije završeno. {{num}} zapisa nije dodato.',
+  'TPL_MASSLINK_WARNING_INCOMPLETE' => 'Grupno povezivanje nije završeno. {{num}} zapisa nije dodato.',
+  'TPL_MASSUPDATE_DURATION_FORMAT' => '(oko {{time}} {{unit}} preostalo)',
+  'TPL_MASSUPDATE_FAIL_TO_ATTEMPT' => 'Grupno ažuriranje nije uspelo. Pokušavam ponovo ({{num}} of {{total}}).',
+  'TPL_MASSUPDATE_PROGRESS_STATUS' => 'Ažurira se {{num}} od {{total}}.',
+  'TPL_MASSUPDATE_SUCCESS' => '{{num}} zapisa je uspešno ažurirano.',
+  'TPL_MASSUPDATE_TITLE' => '{{module}} Grupno ažuriranje',
+  'TPL_MASSUPDATE_WARNING_CLOSE' => 'Grupno ažuriranje nije potpuno. {{num}} zapisa je ostalo nepromenjeno.',
+  'TPL_MASSUPDATE_WARNING_INCOMPLETE' => 'Grupno ažuriranje nije potpuno. {{num}} zapisa je ostalo nepromenjeno.',
+  'TPL_MASSUPDATE_WARNING_PERMISSION' => '{{remain}} zapis(a) je ignorisno zbog permisija.',
+  'TPL_MASS_ADD_TO_LIST_QUEUED' => 'Vaš zahtev za dodavanje izabranih zapisa na <a href="{{listUrl}}">{{listName}}</a> listu ciljeva je zakazan.',
+  'TPL_MASS_ADD_TO_LIST_SUCCESS' => 'Izabrani zapisi su dodati na  <a href="{{listUrl}}">{{listName}}</a> listu ciljeva.',
+  'TPL_MERGE_DUPLICATES_FAIL' => 'Spajanje povezanih {{objectName}} nije uspelo.',
+  'TPL_MERGE_DUPLICATES_FAIL_TO_ATTEMPT' => 'Spajanje povezanih {{objectName}} nije uspelo. Iniciram novi pokušaj ({{num}} of {{total}}).',
+  'TPL_MERGE_DUPLICATES_IDENTICAL' => 'Svi povezani zapisi će biti prebačeni u primarni zapis',
+  'TPL_MERGE_DUPLICATES_PROGRESS_STATUS' => 'Spojeno: {{percent}}%.',
+  'TPL_MERGE_DUPLICATES_STAT' => '{{#with stat}}{{records}} zapisa je uspešno spojeno. {{total}} povezanih zapisa je dodato.{{/with}}',
+  'TPL_MERGE_INVALID_NUMBER_RECORDS' => 'Prosleđen je neispravan broj zapisa. Ispravan opseg je između 2 i {{maxRecords}} zapisa.',
+  'TPL_MERGING_RECORDS' => 'Spajanje {{mergeCount}} zapisa',
+  'TPL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_DESCRIPTION' => 'Za slanje notifikacije dodeljivanja zapisa, SMTP sever mora biti konfigurisan u {{emailSettingsUrl}}.',
+  'TPL_OVERWRITE_POPULATED_DATA_CONFIRM' => 'Izabrani zapis sadrži sledeće povezane vrednosti: {{{values}}}. Kliknite "Potvrđujem" za kopiranje ovih vrednosti u ovaj zapis. Kliknite "Otkazujem" da zadržite trenutne vrednosti.',
+  'TPL_OVERWRITE_POPULATED_DATA_CONFIRM_WITH_MODULE_SINGULAR' => 'Izabrani modul {{moduleSingularLower}} ima povezane vrednosti: {{values}}. Otkažite promenu da zadržite postojeće vrednosti. Potvrdite promenu da upišete nove vrednosti.',
+  'TPL_RECORD_SHARE_BODY' => 'Pogledaj {{module}} {{name}} od {{appId}}',
+  'TPL_RECORD_SHARE_SUBJECT' => 'Podeljen je {{module}} {{name}} od {{appId}}',
+  'TPL_SHOW_MORE_MODULE' => 'Još {{module}}...',
+  'TPL_STATUS_CHANGE_SUCCESS' => '{{moduleSingular}} označen kao {{status}}.',
+  'TPL_TABBED_DASHLET_GROUP_BUTTON_LABEL' => 'Timska istorija',
+  'TPL_TABBED_DASHLET_USER_BUTTON_LABEL' => 'Moja istorija',
+  'TPL_TIMEZONE_DIFFERENT' => 'Vremenska zona vašeg pregledača se ne podudara sa vašom sačuvanom vremenskom zonom {{link}}',
   'UPLOAD_ERROR_HOME_TEXT' => 'Greška: Došlo je do greške za vreme postavljanja, molimo kontaktirajte administratora za pomoć.',
   'UPLOAD_ERROR_TEXT' => 'Greška: Došlo je do greške za vreme postavljanja datoteke. Šifra greške: {0} - {1}',
   'UPLOAD_ERROR_TEXT_SIZEINFO' => 'Greška: Došlo je do greške za vreme postavljanja datoteke. Šifra greške: {0} - {1}. Maksimalna veličina datoteke za postavljanje je {2}',
   'UPLOAD_MAXIMUM_EXCEEDED' => 'Veličina datoteke za postavljanje ({0} bytes) prekoračila je dozvoljeni maksimum od {1} bajtova',
   'UPLOAD_REQUEST_ERROR' => 'Desila se greška. Molim osvežite vašu stranicu i probajte ponovo.',
+  'WARNING_NO_DELETE_CLOSED_SELECTED_STATUS' => 'Jedan ili više odabranih zapisa imaju RLI sa statusom Zatvoreni Dobitak ili Zatvoreni Gubitak i ne može biti izbrisan.',
+  'WARNING_NO_DELETE_SELECTED' => 'Jedan ili više izabranih zapisa ima status zatvoren i dobijen ili zatvoren i izgubljen i ne mogu biti obrisani.',
+  'WARNING_NO_DELETE_SELECTED_STAGE' => 'Jedan ili više odabranih zapisa se nalaze u fazi Zatvorenog Dobitka ili Zatvorenog Gubitna i ne mogu biti obrisani.',
+  'WARNING_NO_DELETE_SELECTED_STATUS' => 'Jedan ili više odabranih zapisa su u statusu Zatvorenog Dobitka ili Zatvorenog Gubitna i ne mogu biti obrisani.',
   'WARN_BROWSER_IE_COMPATIBILITY_MODE_WARNING' => '<b>Upozorenje:</b> Vaš pregledač je u IE modu kompatibilnosti što nije podržano.',
   'WARN_BROWSER_VERSION_WARNING' => '<b>Upozorenje</b>: Verzija Vašeg web pregledača više nije podržana ili koristite pregledač koji nije podržan.',
+  'WARN_LICENSE_EXPIRED' => 'Vaša kompanijska licenca za SugarCRM uskoro ističe.',
   'WARN_LICENSE_SEATS' => 'Upozorenje: Broj aktivnih korisnika je već maksimalni broj dozvoljenih licenci.',
   'WARN_LICENSE_SEATS_MAXED' => 'Upozorenje: Broj aktivnih korisnika prelazi maksimalni broj dozvoljenih licenci.',
+  'WARN_LICENSE_VALIDATION' => 'Potrebna je validacija vaše kompanijske licence za SugarCRM.',
   'WARN_ONLY_ADMINS' => 'Samo administratori mogu da se prijave.',
   'WARN_UNSAVED_CHANGES' => 'Napuštate ovaj zapis bez da ste sačuvali izvršene izmene koje ste napravili. Da li ste sigurni da želite da napustite ovaj zapia?',
-  'documentation' => 
-  array (
-    'COM' => '05_Sugar_Community_Edition',
-    'CORP' => '03_Sugar_Corporate',
-    'ENT' => '02_Sugar_Enterprise',
-    'LBL_DOCS' => 'Dokumentacija',
-    'PRO' => '04_Sugar_Professional',
-    'ULT' => '02_Sugar_Ultimate',
-  ),
 );
 

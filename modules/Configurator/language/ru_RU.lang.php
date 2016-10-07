@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Расширенные',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Отображать время ответа сервера',
   'ERR_ALERT_FILE_UPLOAD' => 'Произошла ошибка в процессе загрузки изображения.',
   'ERR_DELETE_CORE_FILE' => 'ОШИБКА: Невозможно удалить базовый шрифт.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML сертификат не может быть пустым',
+  'ERR_EMPTY_SAML_LOGIN' => 'URL-адрес входа SAML не может быть пустым',
   'ERR_EZPDF_DISABLE' => 'Внимание: класс EZPDF исключён из конфигурации таблицы и вместо него установлен класс PDF. Сохраните эту форму, чтобы установить TCPDF в качестве класса PDF и вернуться к стабильному состоянию.',
   'ERR_FONT_ALREADY_EXIST' => 'ОШИБКА: Этот шрифт уже существует. Возврат...',
   'ERR_FONT_EMPTYFILE' => 'ОШИБКА: Имя файла не может быть пустым!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ОШИБКА: Путь к индивидуальному шрифту недоступен!',
   'ERR_NO_FONT_PATH' => 'ОШИБКА: Путь к шрифту недоступен!',
   'ERR_PDF_NO_UPLOAD' => 'Произошла ошибка при загрузке шрифта в файл измерений.',
+  'ERR_SAML_LOGIN_URL' => 'Недопустимый URL-адрес входа SAML',
+  'ERR_SAML_SLO_URL' => 'Недопустимый URL-адрес SLO SAML',
   'HEAD_MAGNIFICATION' => 'Увеличение заголовка',
   'HEAD_MAGNIFICATION_INFO' => 'Фактор увеличения для названий.',
   'IMAGES' => 'Логотипы',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Назад',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Выберите почтовую службу:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Настройка конфигурации',
-  'LBL_CONFIG_AJAX' => 'Настроить пользовательский интерфейс AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Включить или выключить пользовательский интерфейс AJAX для выбранных модулей.',
   'LBL_DELETE' => 'Удалить',
   'LBL_DISALBE_CONVERT_LEAD' => 'Отключить опцию конвертации предварительного контакта для уже конвертированных предварительных контактов',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Если предварительный контакт уже конвертирован, то подключение этой опции деактивирует опцию конвертации предварительного контакта.',
   'LBL_DISPLAYING_LOG' => 'Результат логирования:',
-  'LBL_ENABLE_ACTION_MENU' => 'Выключить действия в меню',
+  'LBL_ENABLE_ACTION_MENU' => 'Отображать действия в меню',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Выберите для отображения DetailView и действий субпанелей в выпадающем меню. Если опция не выбрана, действия будут отображены в виде отдельных кнопок.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Укажите связанные e-mail адреса контактов на субпанеле История для модулей',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Разрешить/Запретить отображение электронных писем от связанных контактов на субпанели Email.',
   'LBL_ENABLE_MAILMERGE' => 'Включить объединение почты?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange - пароль:',
@@ -100,7 +99,7 @@ $mod_strings = array (
   'LBL_FONT_LIST_EMBEDDED' => 'Встроенный',
   'LBL_FONT_LIST_EMBEDDED_INFO' => 'Отметьте, чтобы включить этот шрифт в файл PDF',
   'LBL_FONT_LIST_ENC' => 'Кодировка',
-  'LBL_FONT_LIST_FILENAME' => 'Имя файла',
+  'LBL_FONT_LIST_FILENAME' => 'Название файла',
   'LBL_FONT_LIST_FILESIZE' => 'Размер шрифта',
   'LBL_FONT_LIST_NAME' => 'Название',
   'LBL_FONT_LIST_STYLE' => 'Стиль',
@@ -141,7 +140,7 @@ $mod_strings = array (
   'LBL_LDAP_GROUP_DN_DESC' => 'Пример: <em>ou=groups,dc=example,dc=com</em>',
   'LBL_LDAP_GROUP_MEMBERSHIP' => 'Роль в группе:',
   'LBL_LDAP_GROUP_MEMBERSHIP_DESC' => 'Пользователь должен быть членом определенной группы',
-  'LBL_LDAP_GROUP_NAME' => 'Ггруппа:',
+  'LBL_LDAP_GROUP_NAME' => 'Группа:',
   'LBL_LDAP_GROUP_NAME_DESC' => 'Пример: <em>cn=sugarcrm</em>',
   'LBL_LDAP_GROUP_USER_ATTR' => 'Атрибут пользователя:',
   'LBL_LDAP_GROUP_USER_ATTR_DESC' => 'Уникальный идентификатор пользователя, используемый для проверки принадлежности пользователя к определенной группе, например: <em>uid</em>',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Любые дополнительные параметры, применяемые в процессе авторизации пользователей, например: <em>is_sugar_user=1 или (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Опции конверсии предварительных контактов',
   'LBL_LOADING' => 'Загрузка...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Эти настройки применяются к модулям предыдущей модели (не sidecar)',
   'LBL_LOGGER' => 'Параметры журнала',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Формат даты по умолчанию',
   'LBL_LOGGER_FILENAME' => 'Имя файла журнала:',
@@ -183,7 +183,7 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Минимальное время автоматического обновления раздела',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Это минимальное значение времени автоматического обновления раздела. Выберите "Никогда" чтобы полностью запретить автоматическое обновление разделов.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* Модуль Отчеты доступен только для мобильного клиента Sugar iPhone.',
-  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Модуль Отчетов не доступен для просмотра через браузер в мобильном клиенте',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Модуль отчетов недоступен для просмотра при входе в браузер с мобильного телефона',
   'LBL_MODULE_FAVICON' => 'Отображать иконку модуля в качестве иконки сайта',
   'LBL_MODULE_FAVICON_HELP' => 'Если вы находитесь в модуле, содержащем иконку, то эта иконка будет использоваться в качестве иконки сайта, вместо иконки сайта, содержащейся в текущей теме.',
   'LBL_MODULE_ID' => 'Конфигуратор',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Далее>>',
   'LBL_NOTIFY_FROMADDRESS' => '"От" Адрес:',
   'LBL_NOTIFY_SUBJECT' => 'Тема E-mail-сообщения:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Предотвратить изменения названий пользователями для обновления Названий приватных команд',
   'LBL_OC_STATUS' => 'Статус оффлайн клиента по умолчанию',
   'LBL_OC_STATUS_DESC' => 'Нажмите здесь, если хотите, чтоб у всех пользователей был доступ к Оффлайн клиенту. Вы также можете настроить доступ на уровне пользователя.',
   'LBL_PDFMODULE_NAME' => 'Настройки PDF',
@@ -222,12 +223,15 @@ $mod_strings = array (
   'LBL_RESTORE_BUTTON_LABEL' => 'Восстановить',
   'LBL_SEARCH' => 'Поиск:',
   'LBL_SESSION_TIMEOUT_TOOLTIP' => 'Время ожидания сессии портала установлено для действующих версий портала Sugar, доступных для Sugar 6.5 и выше.',
-  'LBL_SKYPEOUT_ON' => 'Включить интеграцию со SkypeOut®',
+  'LBL_SKYPEOUT_ON' => 'Включить SkypeOut&reg; интеграцию',
   'LBL_SKYPEOUT_ON_DESC' => 'Разрешать пользователям кликать на телефонных номерах с целью дозвона, используя SkypeOut®. Для использования этой функции номера должны быть правильно отформатированы: + (код страны) (телефонный номер), например: +1 (555) 555-1234. За дополнительной информацией обращайтесь к Skype FAQ: https://support.skype.com/#calling',
   'LBL_SKYPEOUT_TITLE' => 'SkypeOut®',
   'LBL_STATUS_FONT_ERROR' => 'ОШИБКА: Шрифт не был добавлен. Просмотрите журнал ошибок.',
   'LBL_STATUS_FONT_SUCCESS' => 'УСПЕШНО: Шрифт был добавлен в SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Настройка конфигурации',
+  'LBL_TWEETTOCASE_ON' => 'Включить Tweet&reg; к интеграции обращений',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Позволяет пользователям создавать обращения из Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; к обращению',
   'LBL_USE_REAL_NAMES' => 'Отображать полные имена',
   'LBL_USE_REAL_NAMES_DESC' => 'Отображать полные имена пользователей вместо логина в полях назначения записей.',
   'LBL_VCAL_PERIOD' => 'Параметры доступности vCal:',
@@ -282,7 +286,7 @@ $mod_strings = array (
   'PDF_FILENAME' => 'Имя файла по умолчанию',
   'PDF_FILENAME_INFO' => 'Название по умолчанию для сгенерированных PDF-файлов',
   'PDF_GD_WARNING' => 'У вас не установлена библиотека GD для PHP. Без библиотеки GD, в файлах PDF могут отображаться только логотипы в формате JPEG.',
-  'PDF_HEADER_LOGO' => 'Для коммерческих предложений',
+  'PDF_HEADER_LOGO' => 'Для PDF-документов коммерческих предложений',
   'PDF_HEADER_LOGO_INFO' => 'Этот логотип отображается в заголовке PDF-документов коммерческих предложений по умолчанию.',
   'PDF_HEADER_LOGO_WIDTH' => 'Ширина логотипа заголовка коммерческих предложений',
   'PDF_HEADER_LOGO_WIDTH_INFO' => 'Изменить масштаб загруженного логотипа для отображения в PDF коммерческих предложений. (Только TCPDF)',
@@ -292,7 +296,7 @@ $mod_strings = array (
   'PDF_HEADER_TITLE_INFO' => 'Строка для печати как заголовок документа',
   'PDF_IMAGE_SCALE_RATIO' => 'Отношение масштаба логотипа',
   'PDF_IMAGE_SCALE_RATIO_INFO' => 'Отношение, используемое для масштабирования логотипов',
-  'PDF_INSTRUCTIONS_ADD_FONT' => 'Шрифты, поддерживаемые SugarPDF :<br /><br />    * TrueTypeUnicode (UTF-8 Unicode)<br />    * OpenTypeUnicode<br />    * TrueType<br />    * OpenType<br />    * Type1<br />    * CID-0<br /><br />Если Вы выберете не включать ваш шрифт в PDF, созданный PDF получится меньшего объема, но для отсутствующих шрифтов будет производиться замена.<br /><br />Добавление шрифта PDF в SugarCRM требует прохождения шагов 1 и 2, описанных документации о шрифтах TCPDF, доступной в разделе "DOCS" на сайте TCPDF. (http://www.tecnick.com/public/code/cp_dpage.php?aiocp_dp=tcpdf)<br /><br />Утилиты pfm2afm и ttf2ufm доступны в разделе fonts/utils пакета TCPDF. Сам пакет находится в разделе "DOWNLOAD" сайта TCPDF (http://www.tecnick.com/public/code/cp_dpage.php?aiocp_dp=tcpdf).',
+  'PDF_INSTRUCTIONS_ADD_FONT' => 'Шрифты, поддерживаемые SugarPDF :<br /><br />    * TrueTypeUnicode (UTF-8 Unicode)<br />    * OpenTypeUnicode<br />    * TrueType<br />    * OpenType<br />    * Type1<br />    * CID-0<br /><br />Если Вы выберете не включать ваш шрифт в PDF, созданный PDF получится меньшего объема, но для отсутствующих шрифтов будет производиться замена.<br /><br />Добавление шрифта PDF в SugarCRM требует прохождения шагов 1 и 2, описанных документации о шрифтах TCPDF, доступной в разделе "DOCS" на сайте TCPDF. (http://www.tcpdf.org)<br /><br />Утилиты pfm2afm и ttf2ufm доступны в разделе fonts/utils пакета TCPDF. Сам пакет находится в разделе "DOWNLOAD" сайта TCPDF (http://www.tcpdf.org).',
   'PDF_JPEG_QUALITY' => 'Качество JPEG (1-100)',
   'PDF_JPEG_QUALITY_INFO' => 'Настроить с качеством сжатия JPEG по умолчанию (1-100)',
   'PDF_KEYWORDS' => 'Ключевое слово (слова)',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Имя системы:',
   'SYSTEM_NAME_HELP' => 'Данное название отображается в заголовке браузера.',
   'SYSTEM_NAME_WIZARD' => 'Название:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Рекомендуемая настройка для допустимого уровня производительности представлена ниже {{listEntriesNum}}. С каждым добавлением полей в списочное представление, этот номер должен быть в конце рекомендуемых настроек.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Рекомендуемая настройка для допустимого уровня производительности представлена ниже {{subpanelEntriesNum}}. С каждым добавлением полей в списочное представление, этот номер должен быть в конце рекомендуемых настроек.',
   'UPLOAD_MAX_SIZE' => 'Максимальный размер загружаемого файла',
   'VERIFY_CLIENT_IP' => 'Проверка IP-адреса пользователя',
   'vCAL_HELP' => 'Используйте этот параметр для указания количества месяцев, в течение которых возможна публикация данных о занятости (звонки и встречи) из календаря. <br />При включенной публикации допустимы значения от 1 до 12 месяцев. Для выключения возможности публикации введите "0".',

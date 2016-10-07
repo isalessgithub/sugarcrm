@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '取引先担当者を削除するにはレコード番号を指定する必要があります。',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => '住所情報',
   'LBL_ADD_BUSINESSCARD' => '名刺から作成',
   'LBL_ALTERNATE_ADDRESS' => '別の住所:',
-  'LBL_ALT_ADDRESS' => '別の住所:',
   'LBL_ALT_ADDRESS_CITY' => '別の市区町村:',
   'LBL_ALT_ADDRESS_COUNTRY' => '別の国:',
   'LBL_ALT_ADDRESS_POSTALCODE' => '別の郵便番号:',
@@ -77,11 +73,16 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => '詳細:',
   'LBL_DESCRIPTION_INFORMATION' => '詳細情報',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => '直属の部下',
+  'LBL_DNB_BAL_PREVIEW' => '取引先担当者プレビュー',
+  'LBL_DNB_BAL_RSLT_CNT' => '取引先担当者',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B:担当者情報',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B プリンシパルID',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'ドキュメント',
   'LBL_DO_NOT_CALL' => '電話不可:',
   'LBL_DUPLICATE' => '重複の可能性がある取引先担当者',
   'LBL_EMAIL_ADDRESS' => 'Eメール:',
   'LBL_EMAIL_OPT_OUT' => 'メール送信除外:',
+  'LBL_EMPTY_VCARD' => 'vCardファイルを選択してください',
   'LBL_EXISTING_ACCOUNT' => '既存の取引先を使用',
   'LBL_EXISTING_CONTACT' => '既存の取引先担当者を使用',
   'LBL_EXISTING_OPPORTUNITY' => '既存の商談を使用',
@@ -91,21 +92,30 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
   'LBL_EXPORT_PHONE_HOME' => '自宅電話',
   'LBL_EXPORT_PHONE_MOBILE' => '携帯電話',
+  'LBL_FACEBOOK' => 'Facebookアカウント',
   'LBL_FAX_PHONE' => 'ファックス:',
+  'LBL_FILENAME' => '添付ファイル',
+  'LBL_FILTER_CONTACTS_REPORTS' => '取引先担当者のレポート',
   'LBL_FIRST_NAME' => '名:',
   'LBL_FULL_NAME' => 'フルネーム:',
+  'LBL_GOOGLEPLUS' => 'Google+ID',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、あなたの組織が関係を持っている人と、個々の人々で構成されています。{{module_name}}作成するには：1.必要に応じてフィールドの値を指定します。 - 「必須」フィールドは保存前に入力完了してください。 - 必要に応じて、追加のフィールドを展開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 「保存して表示」を選択し、「レコードビューに{{module_name}}を開きます。 - すぐに別の新しい{{module_name}}を作成するには、「保存して新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、あなたの組織が関係を持っている人と、個々の人々で構成されています。 - 個々のフィールドまたは「編集」ボタンをクリックして、このレコードのフィールドを編集します。 -左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示したり変更してください。左下ペインのアクティビティストリームをトグルすることにより、{{activitystream_singular_module}} 内のユーザーコメントやレコード変更履歴を作成したり閲覧してください。レコード名の右のアイコンを使用してこのレコードをフォローするかお気に入りに入れてください。追加のアクションは、編集ボタンの右にあるドロップダウンの操作メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、あなたの組織が関係を持っている人と、個々の人々で構成されています。 {{module_name}}レコードは通常、{{accounts_singular_module}} に関連していて、複数の{{plural_module_name}}は単一の{{accounts_singular_module}}に関係があります。Sugarに{{plural_module_name}}を作成するには様々な方法がありますが、例えば{{plural_module_name}} モジュール経由で, {{plural_module_name}}をインポートすることにより、または{{leads_module}}を{{plural_module_name}}にコンバートすることによりそうできます。{{module_name}}レコードが作成されたら、{{plural_module_name}}レコードの表示を経由して{{module_name}}に関連する情報を表示したり、編集することができます。 各{{module_name}}レコードは他のSugarレコード例えば {{meetings_module}}、 {{cases_module}}、 {{opportunities_module}}や他のたくさんのものと関連付けることができます。{{module_name}}レコードを、各個人との交流を続けたり見たりするハブとして利用することによりそうできます。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_HOMEPAGE_TITLE' => '私の取引先担当者',
   'LBL_HOME_PHONE' => '自宅電話:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'vCardのインポート',
   'LBL_IMPORT_VCARDTEXT' => 'vCardをインポートすることによって新規取引先担当者を作成します。',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'vCardから取引先担当者の作成に成功しました',
   'LBL_INVALID_EMAIL' => '無効なEメール:',
   'LBL_INVITEE' => '直属の部下',
   'LBL_LANG_PREF_TOOLTIP' => 'サポートポータルは選択した言語で表示されます。',
   'LBL_LAST_NAME' => '姓:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'リード',
   'LBL_LEAD_SOURCE' => 'リードソース:',
+  'LBL_LINKEDIN' => 'Linkedinメンバーアカウント',
   'LBL_LIST_ACCEPT_STATUS' => '出欠確認',
   'LBL_LIST_ACCOUNT_NAME' => '取引先',
   'LBL_LIST_CITY' => '市区町村',
@@ -120,6 +130,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => '電話',
   'LBL_LIST_STATE' => '都道府県',
   'LBL_LIST_TITLE' => '職位',
+  'LBL_MKTO_ID' => 'Marketoリード ID',
+  'LBL_MKTO_LEAD_SCORE' => 'リードソース',
+  'LBL_MKTO_SYNC' => 'Marketo®に同期する',
   'LBL_MOBILE_PHONE' => '携帯電話:',
   'LBL_MODIFIED' => '更新者:',
   'LBL_MODULE_NAME' => '取引先担当者',
@@ -128,6 +141,7 @@ $mod_strings = array (
   'LBL_NAME' => '名前:',
   'LBL_NEW_FORM_TITLE' => '取引先担当者作成',
   'LBL_NEW_PORTAL_PASSWORD' => '新しいポータルパスワード:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_NOTE_SUBJECT' => '件名',
   'LBL_OFFICE_PHONE' => '会社電話:',
   'LBL_OLD_PORTAL_PASSWORD' => '急ポータルパスワード',
@@ -152,6 +166,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'ポータルユーザ名:',
   'LBL_PORTAL_PASSWORD' => 'ポータルパスワード',
   'LBL_PORTAL_PASSWORD_ISSET' => 'ポータルパスワード設定:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'プロフィールを編集するにはここをクリック。',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'このプロフィールで連絡先情報、パスワードと言語選択を管理する事ができます。',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => '言語を指定することができます。Sugar ポータルで利用する言語が変更されます。',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'ユーザメニューを使用していつでもプロフィールに戻ることができます。',
   'LBL_POSTAL_CODE' => '郵便番号:',
   'LBL_PRIMARY_ADDRESS' => '主となる住所:',
   'LBL_PRIMARY_ADDRESS_CITY' => '主となる市区町村:',
@@ -161,7 +179,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET' => '主となる番地その他:',
   'LBL_PRIMARY_ADDRESS_STREET_2' => '主となる住所 2:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => '主となる住所 3:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => '商品',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => '見積済商品',
   'LBL_PRODUCTS_TITLE' => '商品',
   'LBL_PROJECTS_RESOURCES' => 'プロジェクトリソース',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'プロジェクト',
@@ -170,10 +188,12 @@ $mod_strings = array (
   'LBL_QUOTES_BILL_TO' => '見積（請求先）',
   'LBL_QUOTES_SHIP_TO' => '見積（出荷先）',
   'LBL_QUOTES_SUBPANEL_TITLE' => '見積',
+  'LBL_RECORD_SAVED_SUCCESS' => '作成に成功しました {{moduleSingularLower}} {{full_name}}.',
   'LBL_RELATED_CONTACTS_TITLE' => '関連担当者',
   'LBL_REPORTS_TO' => '上司:',
   'LBL_REPORTS_TO_ID' => '上司ID:',
   'LBL_RESOURCE_NAME' => 'リソース名',
+  'LBL_REVENUELINEITEMS_TITLE' => '商談品目',
   'LBL_SALUTATION' => '敬称:',
   'LBL_SAVE_CONTACT' => '取引先担当者保存',
   'LBL_SEARCH_FORM_TITLE' => '取引先担当者検索',
@@ -181,16 +201,18 @@ $mod_strings = array (
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'チェックした取引先担当者を選択',
   'LBL_STATE' => '都道府県:',
   'LBL_STREET' => '番地',
-  'LBL_SYNC_CONTACT' => 'Outlook&reg;と同期:',
+  'LBL_SYNC_CONTACT' => 'メールソフトと同期:',
   'LBL_TARGET_OF_CAMPAIGNS' => 'キャンペーン（ターゲット先）:',
   'LBL_TEAM_ID' => 'チーム:',
   'LBL_TITLE' => '職位:',
+  'LBL_TWITTER' => 'Twitter ID',
   'LBL_USER_PASSWORD' => 'パスワード:',
   'LBL_USER_SYNC' => 'ユーザ同期',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => '取引先担当者一覧',
   'LNK_CONTACT_LIST' => '取引先担当者一覧',
   'LNK_CONTACT_REPORTS' => '取引先担当者レポート',
+  'LNK_CREATE' => '担当者作成',
   'LNK_IMPORT_CONTACTS' => '取引先担当者のインポート',
   'LNK_IMPORT_VCARD' => 'vCardから作成',
   'LNK_NEW_ACCOUNT' => '取引先作成',
@@ -212,6 +234,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => '商談の作成には取引先が必要です。\\n 取引先を新しく作るか、既存の取引先を選択してください。',
   'NTC_REMOVE_CONFIRMATION' => '本当にこの取引先担当者をケースからはずしてよいですか？',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => '本当にこの報告先をはずしてよいですか？',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if name}}{{name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

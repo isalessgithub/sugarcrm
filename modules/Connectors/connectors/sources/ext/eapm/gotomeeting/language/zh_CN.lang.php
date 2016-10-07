@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $connector_strings = array (
-  'LBL_LICENSING_INFO' => 'Obtain API Key from Citrix Online GoToMeeting by registering a new application.<br /> <br />Steps to register your instance:<br /> <br />Log in to your Citrix Online developer account: https://developer.citrixonline.com/<br />Click on Apply for Developer Key<br />In Product API select GoToMeeting, and enter your instance URL in Application URL<br />You will see a column called API Key under Your Applications<br />Copy it below.',
-  'oauth_consumer_key' => 'API键值',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />通过注册一个新应用程序从Citrix Online GoToMeeting获取API密匙。<br><br />&nbsp;<br><br />注册您的实例的步骤：<br><br />&nbsp;<br><br /><ol><br /><li>登录您的Citrix Online开发帐号：https://developer.citrixonline.com/</li><br /><li>单击“申请开发密匙</li><br /><li>在产品API下选择“GoToMeeting”并在“应用程序URL"输入您的事件URL</li><br /><li>您可以在您的应用程序下看到API密匙的列</li><br /><li>复制到下方。</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API密钥',
 );
 

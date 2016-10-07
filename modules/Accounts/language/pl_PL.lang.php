@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Czy na pewno chcesz usunąć kontrahenta z tego projektu?',
-  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć kontrahenta.',
+  'ERR_DELETE_RECORD' => 'Musisz wskazać numer rekordu, aby usunąć kontrahenta.',
   'LBL_ACCOUNT' => 'Kontrahent:',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kontrahenci',
   'LBL_ACCOUNT_INFORMATION' => 'Informacje o kontrahencie',
@@ -28,29 +25,30 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Wydarzenia',
   'LBL_ADDRESS_INFORMATION' => 'Informacje adresowe',
   'LBL_ANNUAL_REVENUE' => 'Roczne przychody:',
-  'LBL_ANY_ADDRESS' => 'Dowolny adres:',
-  'LBL_ANY_EMAIL' => 'Dowolny e-mail:',
-  'LBL_ANY_PHONE' => 'Dowolny numer telefonu:',
+  'LBL_ANY_ADDRESS' => 'Adres:',
+  'LBL_ANY_EMAIL' => 'E-mail:',
+  'LBL_ANY_PHONE' => 'Nr telefonu:',
   'LBL_ASSIGNED_TO_ID' => 'Przydzielono do:',
   'LBL_ASSIGNED_TO_NAME' => 'Przydzielono do:',
   'LBL_ASSIGNED_USER_NAME' => 'Przydzielono do:',
   'LBL_BILLING_ADDRESS' => 'Adres fakturowania',
-  'LBL_BILLING_ADDRESS_CITY' => 'Miasto',
-  'LBL_BILLING_ADDRESS_COUNTRY' => 'Kraj',
-  'LBL_BILLING_ADDRESS_POSTALCODE' => 'Kod pocztowy',
-  'LBL_BILLING_ADDRESS_STATE' => 'Województwo',
-  'LBL_BILLING_ADDRESS_STREET' => 'Ulica',
-  'LBL_BILLING_ADDRESS_STREET_2' => 'Ulica (2)',
-  'LBL_BILLING_ADDRESS_STREET_3' => 'Ulica (3)',
-  'LBL_BILLING_ADDRESS_STREET_4' => 'Ulica (4)',
+  'LBL_BILLING_ADDRESS_CITY' => 'Miasto fakturowania',
+  'LBL_BILLING_ADDRESS_COUNTRY' => 'Kraj fakturowania',
+  'LBL_BILLING_ADDRESS_POSTALCODE' => 'Kod pocztowy fakturowania',
+  'LBL_BILLING_ADDRESS_STATE' => 'Województwo fakturowania',
+  'LBL_BILLING_ADDRESS_STREET' => 'Ulica fakturowania',
+  'LBL_BILLING_ADDRESS_STREET_2' => 'Ulica fakturowania (2)',
+  'LBL_BILLING_ADDRESS_STREET_3' => 'Ulica fakturowania (3)',
+  'LBL_BILLING_ADDRESS_STREET_4' => 'Ulica fakturowania (4)',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Błędy',
   'LBL_BUG_FORM_TITLE' => 'Kontrahenci',
   'LBL_CALLS_SUBPANEL_TITLE' => 'Rozmowy tel.',
   'LBL_CAMPAIGNS' => 'Kampanie',
   'LBL_CAMPAIGN_ID' => 'ID Kampanii',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampanie',
   'LBL_CASES_SUBPANEL_TITLE' => 'Zgłoszenia',
   'LBL_CHARTS' => 'Wykresy',
-  'LBL_CITY' => 'Miejscowość:',
+  'LBL_CITY' => 'Miasto:',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakty',
   'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Powiązane kontakty e-mail',
   'LBL_CONTRACTS' => 'Umowy',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Kontrahenci',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Dodatkowe informacje',
+  'LBL_DNB_BAL_PREVIEW' => 'Podgląd kontrahentów',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenty',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Rekord prawdopodobnie już istnieje',
   'LBL_EMAIL' => 'E-mail:',
   'LBL_EMAIL_ADDRESSES' => 'Adresy e-mail',
@@ -72,6 +72,25 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Liczba zatrudnionych:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Przydzielono do',
   'LBL_FAX' => 'Faks:',
+  'LBL_FILENAME' => 'Załącznik',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Raporty Kontrahentów',
+  'LBL_HELP_CREATE' => 'Moduł {{plural_module_name}} składa się z firm, z którymi Twoje przedsiębiorstwo nawiązało relację. Jest on postrzegany jako centrum zarządzania i analizy interakcji z każdym klientem.
+
+Aby utworzyć Kontrahenta:
+1. Wprowadź odpowiednie wartości do pól.
+- Pola oznaczone jako "Wymagane" muszą zostać uzupełnione.
+- Kliknij "Pokaż więcej", aby wyświetlić więcej pól.
+2. Kliknij "Zapisz", aby zapisać nowy rekord i powrócić do poprzedniej strony.
+- Wybierz "Zapisz i pokaż", aby otworzyć rekord widoku Kontrahenta w nowym oknie.
+- Wybierz "Zapisz i utwórz nowy", aby bez zwłoki utworzyć nowego Kontrahenta.',
+  'LBL_HELP_RECORD' => 'Moduł {{plural_module_name}} składa się z firm, z którymi Twoje przedsiębiorstwo nawiązało relację. Jest on postrzegany jako centrum zarządzania i analizy interakcji z każdym klientem.
+
+- Edytuj pola tego rekordu poprze kliknięcie na odpowiednie pole lub na przycisk Edytuj.
+- Przeglądaj lub modyfikuj powiązania z innymi rekordami w subpanelach poprzez przełączenie widoku dolnego lewego panelu na “Widok danych”.
+- Dodawaj i przeglądaj komentarze użytkowników i historię zmian rekordu w Panelu aktywności poprzez przełączenie widoku dolnego lewego panelu na „Panel aktywności”.
+- Obserwuj lub dodaj do ulubionych ten rekord za pomocą ikon znajdujących się z prawej strony nazwy rekordu.
+- Dodatkowe działania dostępne są w liście rozwijalnej menu Działania po prawej stronie przycisku Edytuj.',
+  'LBL_HELP_RECORDS' => 'Moduł {{plural_module_name}} składa się z firm, z którymi Twoje przedsiębiorstwo nawiązało relację. Jest on postrzegany jako centrum zarządzania i analizy interakcji z każdym klientem. Jest kilka sposobów na utworzenie Kontrahenta w Sugar, np. poprzez moduł {{plural_module_name}}, duplikowanie lub importowanie Kontaktów itp. Po utworzeniu rekordu Kontrahenta, możesz przeglądać i edytować informacje dotyczące Kontrahenta poprzez widok rekordu Kontrahenta. Każdy {{module_name}} może zostać powiązany z innymi rekordami Sugar, np. z Kontaktem, Spotkaniem, Szansą, Zgłoszeniem oraz wieloma innymi.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historia',
   'LBL_HOMEPAGE_TITLE' => 'Moi kontrahenci',
   'LBL_INDUSTRY' => 'Branża:',
@@ -79,7 +98,7 @@ $mod_strings = array (
   'LBL_INVITEE' => 'Kontakty',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Namiary',
   'LBL_LIST_ACCOUNT_NAME' => 'Nazwa kontrahenta',
-  'LBL_LIST_CITY' => 'Miejscowość',
+  'LBL_LIST_CITY' => 'Miasto',
   'LBL_LIST_CONTACT_NAME' => 'Nazwisko kontaktu',
   'LBL_LIST_EMAIL_ADDRESS' => 'Adres e-mail',
   'LBL_LIST_FORM_TITLE' => 'Lista kontrahentów',
@@ -98,6 +117,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Kontrahenci: Strona główna',
   'LBL_NAME' => 'Nazwa:',
   'LBL_NEW_FORM_TITLE' => 'Utwórz kontrahenta',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notatki',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Szanse',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Dodatkowy adres e-mail:',
   'LBL_OTHER_PHONE' => 'Dodatkowy nr tel.:',
@@ -110,17 +130,18 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Faks:',
   'LBL_PHONE_OFFICE' => 'Telefon do biura:',
   'LBL_POSTAL_CODE' => 'Kod pocztowy:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkty',
   'LBL_PRODUCTS_TITLE' => 'Produkty',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekty',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekty',
-  'LBL_PROSPECT_LIST' => 'Lista prospektów',
+  'LBL_PROSPECT_LIST' => 'Lista odbiorców',
   'LBL_PUSH_BILLING' => 'Zafakturuj',
   'LBL_PUSH_CONTACTS_BUTTON_LABEL' => 'Kopiuj do kontaktów',
   'LBL_PUSH_CONTACTS_BUTTON_TITLE' => 'Kopiuj...',
   'LBL_PUSH_SHIPPING' => 'Organizuj transport',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Oferty',
   'LBL_RATING' => 'KRS:',
+  'LBL_REVENUELINEITEMS' => 'Pozycje szansy',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Pozycje szansy',
   'LBL_SAVE_ACCOUNT' => 'Zapisz kontrahenta',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukiwanie kontrahenta',
   'LBL_SHIPPING_ADDRESS' => 'Adres dostawy',
@@ -145,7 +166,8 @@ $mod_strings = array (
   'LBL_VIEW_FORM_TITLE' => 'Widok kontrahentów',
   'LBL_WEBSITE' => 'Strona internetowa:',
   'LNK_ACCOUNT_LIST' => 'Kontrahenci',
-  'LNK_ACCOUNT_REPORTS' => 'Raporty kontrahenta',
+  'LNK_ACCOUNT_REPORTS' => 'Raporty Kontrahenta',
+  'LNK_CREATE' => 'Utwórz firmę',
   'LNK_IMPORT_ACCOUNTS' => 'Importuj kontrahentów',
   'LNK_NEW_ACCOUNT' => 'Utwórz kontrahenta',
   'MSG_DUPLICATE' => 'Rekord, który zamierzasz utworzyć może być duplikatem kontrahenta, który już istnieje. Rekordy zawierające podobne nazwy są wyświetlane poniżej.<br>Kliknij Utwórz Kontrahenta, aby kontynuować tworzenie nowego albo wybierz istniejący z listy poniżej.',

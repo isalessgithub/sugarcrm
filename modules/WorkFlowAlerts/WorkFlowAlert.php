@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: WorkFlowAlert.php 45763 2009-04-01 19:16:18Z majed $
  * Description:
  ********************************************************************************/
 
@@ -101,26 +98,23 @@ class WorkFlowAlert extends SugarBean {
 	// This is the list of fields that are required
 	var $required_fields =  array('user_type'=>1);
 
-	function WorkFlowAlert() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function WorkFlowAlert()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 
 		$this->disable_row_level_security =true;
 
 	}
-
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-
-        function create_export_query(&$order_by, &$where)
-        {
-
-        }
-
-
 
 	function save_relationship_changes($is_update)
     {
@@ -245,7 +239,7 @@ function get_rel_module($base_module, $var_rel_name){
 	
 	//get the vardef fields relationship name
 	//get the base_module bean
-	$module_bean = get_module_info($base_module);
+	$module_bean = BeanFactory::getBean($base_module);
 	require_once('data/Link.php');
 	$rel_name = Relationship::retrieve_by_modules($var_rel_name, $this->base_module, $GLOBALS['db']);
 	if(!empty($module_bean->field_defs[$rel_name])){
@@ -262,8 +256,7 @@ function get_rel_module($base_module, $var_rel_name){
 
 	function get_workflow_object(){
 
-		$workflow_alertshell = new WorkFlowAlertShell();
-		$workflow_alertshell->retrieve($this->parent_id);
+		$workflow_alertshell = BeanFactory::getBean('WorkFlowAlertShells', $this->parent_id);
 		$workflow_object = $workflow_alertshell->get_workflow_object();
 		return $workflow_object;	
 	
@@ -285,7 +278,7 @@ function handleFilterSave($prefix, $target_vardef_field, $target_rel_type){
 	} else {
 		$rel_filter_id = "";
 	}
-	$rel_object = new Expression();
+	$rel_object = BeanFactory::getBean('Expressions');
 
 	//Checked if there is an advanced filter
 	if($this->$target_rel_type!="filter"){
@@ -311,8 +304,7 @@ function handleFilterSave($prefix, $target_vardef_field, $target_rel_type){
 
 	function get_address_type_dom(){
 
-		$workflow_alertshell = new WorkFlowAlertShell();
-		$workflow_alertshell->retrieve($this->parent_id);
+		$workflow_alertshell = BeanFactory::getBean('WorkFlowAlertShells', $this->parent_id);
 
 		if($workflow_alertshell->alert_type=="Invite"){
 			

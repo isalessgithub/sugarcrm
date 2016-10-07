@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -96,6 +93,10 @@ if(strpos($server_software,'Microsoft-IIS') === false) {
     <td> <?php echo $mod_strings['LBL_REBUILD_JS_FILES_DESC_SHORT'] ; ?> </td>
 </tr>
 <tr>
+    <td scope="row"><?php echo SugarThemeRegistry::current()->getImage('Rebuild','align="absmiddle" border="0"', null,null,'.gif',$mod_strings['LBL_REBUILD_SIDECAR_FILES_TITLE']); ?>&nbsp;<a href="./index.php?module=Administration&action=RepairJSFile&type=sidecar"   onclick="return confirm('<?php echo $mod_strings['WARN_POSSIBLE_JS_OVERWRITE']; ?>');"><?php echo $mod_strings['LBL_REBUILD_SIDECAR_FILES_TITLE']; ?></a></td>
+    <td> <?php echo $mod_strings['LBL_REBUILD_SIDECAR_FILES_DESC_SHORT'] ; ?> </td>
+</tr>
+<tr>
     <td scope="row"><?php echo SugarThemeRegistry::current()->getImage('Rebuild','align="absmiddle" border="0"', null,null,'.gif',$mod_strings['LBL_REBUILD_CONCAT_JS_FILES_TITLE']); ?>&nbsp;<a href="./index.php?module=Administration&action=RepairJSFile&type=concat" ><?php echo $mod_strings['LBL_REBUILD_CONCAT_JS_FILES_TITLE']; ?></a></td>
     <td> <?php echo $mod_strings['LBL_REBUILD_CONCAT_JS_FILES_DESC_SHORT'] ; ?> </td>
 </tr>
@@ -142,7 +143,7 @@ if(strpos($server_software,'Microsoft-IIS') === false) {
     <td> <?php echo $mod_strings['LBL_REPAIR_SEED_USERS_DESC'] ; ?> </td>
 </tr>
 <tr>
-    <td scope="row"><?php echo SugarThemeRegistry::current()->getImage('Repair','align="absmiddle" border="0"', null,null,'.gif',$mod_strings['LBL_REPAIR_UPLOAD_FOLDER']); ?>&nbsp;<a href="./index.php?module=Administration&action=RepairUploadFolder"><?php echo $mod_strings['LBL_REPAIR_UPLOAD_FOLDER']; ?></a></td>
-    <td> <?php echo $mod_strings['LBL_REPAIR_UPLOAD_FOLDER_DESC'] ; ?> </td>
+    <td scope="row"><?php echo SugarThemeRegistry::current()->getImage('Repair','align="absmiddle" border="0"', null,null,'.gif',$mod_strings['LBL_CLEAR_ADDITIONAL_CACHE_TITLE']); ?>&nbsp;<a href="./index.php?module=Administration&action=ClearAdditionalCache"><?php echo $mod_strings['LBL_CLEAR_ADDITIONAL_CACHE_TITLE']; ?></a></td>
+    <td> <?php echo $mod_strings['LBL_CLEAR_ADDITIONAL_CACHE_DESC'] ; ?> </td>
 </tr>
 </table></p>

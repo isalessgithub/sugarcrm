@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Ne možete da uvezete korisnika tipa sistemskog administratora',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Sada odaberite fajl za uvoz:',
   'LBL_NO_DATECHECK' => 'Preskoči proveru datuma (brži način ali neće proći ako je neki datum pogrešan)',
   'LBL_NO_EMAILS' => 'Ne šalji Email obaveštenja za vreme ovog uvoza',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Pokušaj obrade email adrese u BEAN-u koji to ne podržava.',
   'LBL_NO_ID' => 'ID broj je obavezan',
   'LBL_NO_IMPORT_TO_UNDO' => 'Nije bilo uvoza za poništavanje.',
   'LBL_NO_LINES' => 'U Vašem fajlu za uvoz nema redova',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Uspešno uveženo',
   'LBL_SUCCESSFULLY_IMPORTED' => 'zapisi su uspešno kreirani',
   'LBL_SUMMARY' => 'Sadržaj',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Značajne sistemske cifre',
   'LBL_TAB' => 'Fajl razdvojen tabulatorima',
   'LBL_TAB_NUM_1' => 'Pokrenite aplikaciju i otvorite fajl sa podacima',
   'LBL_TAB_NUM_2' => 'Označite <b>Sačuvaj kao...</b> ili <b>Izvezi...</b>opciju',

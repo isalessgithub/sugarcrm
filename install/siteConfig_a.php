@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: siteConfig.php 18732 2006-12-15 23:50:49 +0000 (Fri, 15 Dec 2006) majed $
 
 if( !isset( $install_script ) || !$install_script ){
     die($mod_strings['ERR_NO_DIRECT_SCRIPT']);
@@ -24,9 +21,6 @@ if( is_file("config.php") ){
 	if(!empty($sugar_config['default_theme']))
       $_SESSION['site_default_theme'] = $sugar_config['default_theme'];
 
-	if(!empty($sugar_config['disable_persistent_connections']))
-		$_SESSION['disable_persistent_connections'] =
-		$sugar_config['disable_persistent_connections'];
 	if(!empty($sugar_config['default_language']))
 		$_SESSION['default_language'] = $sugar_config['default_language'];
 	if(!empty($sugar_config['translation_string_prefix']))
@@ -166,10 +160,10 @@ $out .=<<<EOQ
     <tr><td><span class="required">*</span></td>
        <td><b>{$mod_strings['LBL_SITECFG_ADMIN_PASS']}</b><br>
        </td>
-       <td align="left"><input type="password" name="setup_site_admin_password" value="{$_SESSION['setup_site_admin_password']}" size="20" /></td></tr>
+       <td align="left"><input type="password" name="setup_site_admin_password" value="{$_SESSION['setup_site_admin_password']}" autocomplete="off" size="20" /></td></tr>
     <tr><td><span class="required">*</span></td>
        <td><b>{$mod_strings['LBL_SITECFG_ADMIN_PASS_2']}</td>
-       <td align="left"><input type="password" name="setup_site_admin_password_retype" value="{$_SESSION['setup_site_admin_password_retype']}" size="20" /></td></tr>
+       <td align="left"><input type="password" name="setup_site_admin_password_retype" value="{$_SESSION['setup_site_admin_password_retype']}" autocomplete="off" size="20" /></td></tr>
 
 EOQ;
 

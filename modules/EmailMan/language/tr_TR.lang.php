@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -54,7 +51,7 @@ $mod_strings = array (
   'LBL_GMAIL_SMTPUSER' => 'Gmail E-Posta Adresi',
   'LBL_HELP' => 'Yardım',
   'LBL_ID' => 'Id',
-  'LBL_INVALID_ENTRY_POINT' => 'Geçerli giriş noktası değil',
+  'LBL_INVALID_ENTRY_POINT' => 'Geçerli Bir Giriş Noktası Değil',
   'LBL_IN_QUEUE' => 'İşleniyor',
   'LBL_IN_QUEUE_DATE' => 'Kuyruk Tarihi',
   'LBL_LIST_CAMPAIGN' => 'Kampanya',
@@ -119,7 +116,7 @@ $mod_strings = array (
   'LBL_SECURITY_XMP' => 'Xmp etiketi',
   'LBL_SEND_ATTEMPTS' => 'Gönderi Denemeleri',
   'LBL_SEND_DATE_TIME' => 'Gönderim Tarihi',
-  'LBL_UNAUTH_ACCESS' => 'Yönetime yetkisiz erişim.',
+  'LBL_UNAUTH_ACCESS' => 'Sistem Yönetimi Fonksiyonlarına izin verilmemiş erişim.',
   'LBL_VIEW_PROCESSED_EMAILS' => 'İşlenmiş E-Postaları Görüntüle',
   'LBL_VIEW_QUEUED_EMAILS' => 'Kuyruktaki E-Postaları Görüntüle',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! E-Posta Şifresi',

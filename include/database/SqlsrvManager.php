@@ -1,20 +1,17 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
-/*********************************************************************************
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
+/**
 * Description: This file handles the Data base functionality for the application.
 * It acts as the DB abstraction layer for the application. It depends on helper classes
 * which generate the necessary SQL. This sql is then passed to PEAR DB classes.
@@ -59,14 +56,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 *			the first field definition is assume to be the primary key.
 *			Default value for this field is ?FALSE?.
 * default	This field sets the default value for the field definition.
-*
-*
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
-* All Rights Reserved.
-* Contributor(s): ______________________________________..
-********************************************************************************/
+*/
 
 include_once('include/database/MssqlManager.php');
+require_once 'include/database/SqlsrvPreparedStatement.php';
 
 /**
  * SQL Server (sqlsrv) manager
@@ -84,7 +77,11 @@ class SqlsrvManager extends MssqlManager
         'limit_subquery' => true,
         'create_user' => true,
         "create_db" => true,
+        "recursive_query" => true,
+        "prepared_statements" => true,
     );
+
+    public $preparedStatementClass = 'SqlsrvPreparedStatement';
 
     protected $type_map = array(
             'int'      => 'int',
@@ -245,13 +242,7 @@ class SqlsrvManager extends MssqlManager
         }
 
         foreach($row as $key => $column) {
-            // MSSQL returns a space " " when a varchar column is empty ("") and not null.
-            // We need to strip empty spaces
-            // notice we only strip if one space is returned.  we do not want to strip
-            // strings with intentional spaces (" foo ")
-            if (!empty($column) && $column == " ") {
-                $row[$key] = '';
-            }
+            $row[$key] = is_string($column) ? trim($column) : $column;
         }
 
         return $row;
@@ -274,18 +265,19 @@ class SqlsrvManager extends MssqlManager
      * for example emails_beans.  In 554 the field email_id was nvarchar but in 6.0 since it id dbType = 'id' we would want to alter
      * it to varchar. This code will prevent it.
      *
-     * @param  array  $fielddef1
-     * @param  array  $fielddef2
+     * @param  array  $fielddef1 This is from the database
+     * @param  array  $fielddef2 This is from the vardef
+     * @param bool $ignoreName Ignore name-only differences?
      * @return bool   true if they match, false if they don't
      */
-    public function compareVarDefs($fielddef1,$fielddef2)
+    public function compareVarDefs($fielddef1, $fielddef2, $ignoreName = false)
     {
         if((isset($fielddef2['dbType']) && $fielddef2['dbType'] == 'id') || preg_match('/(_id$|^id$)/', $fielddef2['name'])){
             if(isset($fielddef1['type']) && isset($fielddef2['type'])){
                 $fielddef2['type'] = $fielddef1['type'];
             }
         }
-        return parent::compareVarDefs($fielddef1, $fielddef2);
+        return parent::compareVarDefs($fielddef1, $fielddef2, $ignoreName);
     }
 
     /**
@@ -320,6 +312,9 @@ class SqlsrvManager extends MssqlManager
      */
     public function getConstraintSql($indices, $table)
     {
+        if (!$this->isFieldArray($indices)) {
+            $indices = array($indices);
+        }
         if ( $this->doesTableHaveAClusteredIndexDefined($table) ) {
             return parent::getConstraintSql($indices, $table);
         }
@@ -456,15 +451,6 @@ EOSQL;
         return $sql;
     }
 
-    /**
-     * Truncate table
-     * @param  $name
-     * @return string
-     */
-    public function truncateTableSQL($name)
-    {
-        return "TRUNCATE TABLE $name";
-    }
 
 	/**
 	 * (non-PHPdoc)
@@ -512,7 +498,7 @@ EOSQL;
      */
     public function getDbInfo()
     {
-        $info = array_merge(sqlsrv_client_info(), sqlsrv_server_info());
+        $info = array_merge(sqlsrv_client_info($this->database), sqlsrv_server_info($this->database));
         return $info;
     }
 

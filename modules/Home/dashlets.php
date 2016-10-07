@@ -1,31 +1,25 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- *********************************************************************************/
 $defaultDashlets = array(
-						'MyCallsDashlet'=>'Calls', 
+						'MyCallsDashlet'=>'Calls',
 						'MyMeetingsDashlet'=>'Meetings',
 						'MyOpportunitiesDashlet'=>'Opportunities',
-						'MyAccountsDashlet'=>'Accounts', 
+						'MyAccountsDashlet'=>'Accounts',
 						'MyLeadsDashlet'=>'Leads',
 						 );
-						 
+
 $defaultSalesChartDashlets = array( translate('DEFAULT_REPORT_TITLE_6', 'Reports') => 'Opportunities',
 	                     );    
 
@@ -63,8 +57,4 @@ $defaultTrackingDashlets = array('TrackerDashlet'=>'Trackers',
 $defaultTrackingReportDashlets =  array(translate('DEFAULT_REPORT_TITLE_27', 'Reports')=>'Trackers');
 
 
-											
-
-
-if (is_file('custom/modules/Home/dashlets.php')) include_once('custom/modules/Home/dashlets.php');
-?>
+if (SugarAutoLoader::fileExists('custom/modules/Home/dashlets.php')) include_once('custom/modules/Home/dashlets.php');

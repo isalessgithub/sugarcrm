@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'システム管理者ユーザはインポートできません。',
@@ -190,8 +187,8 @@ $mod_strings = array (
   'LBL_IMPORT_MORE' => 'さらにインポート',
   'LBL_IMPORT_NOW' => 'インポート',
   'LBL_IMPORT_OUTLOOK_TITLE' => 'Microsoft Outlook 98、2000 はSugar Suiteにインポート可能な<b>CSVテキストファイル</b>（CSVファイル）をエクスポートできます。<br>Outlookからデータをエクスポートするには、以下の手順に従ってください。',
-  'LBL_IMPORT_RECORDS' => '件をインポート中',
-  'LBL_IMPORT_RECORDS_OF' => '件中',
+  'LBL_IMPORT_RECORDS' => 'インポート中...',
+  'LBL_IMPORT_RECORDS_OF' => '/',
   'LBL_IMPORT_RECORDS_TO' => '-',
   'LBL_IMPORT_SF_TITLE' => 'Salesforce.com はSugar Suiteにインポート可能な<b>CSVテキストファイル</b>（CSVファイル）をエクスポートできます。<br>Salesforce.comからデータをエクスポートするには、以下の手順に従ってください。',
   'LBL_IMPORT_STARTED' => 'インポート開始:',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'インポートするファイルを選択してください:',
   'LBL_NO_DATECHECK' => 'データチェックをスキップする(処理は早くなりますが、不正なデータが含まれていた場合処理に失敗します)',
   'LBL_NO_EMAILS' => 'インポート中はメールによる通知全般を実行しないでくだい',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Bean内のサポートしないEメールアドレスを処理しようとしています',
   'LBL_NO_ID' => 'IDは必須です',
   'LBL_NO_IMPORT_TO_UNDO' => '元に戻すインポートはありません',
   'LBL_NO_LINES' => 'インポートファイルにデータがありません',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'インポートが完了しました。',
   'LBL_SUCCESSFULLY_IMPORTED' => 'レコードが作成されました',
   'LBL_SUMMARY' => 'インポートの概要',
+  'LBL_SYSTEM_SIG_DIGITS' => 'システムの重要な数字',
   'LBL_TAB' => 'タブ区切りファイル',
   'LBL_TAB_NUM_1' => 'アプリケーションを起動しエクスポートしたいファイルを開きます。',
   'LBL_TAB_NUM_2' => '<b>名前を付けて保存する</b>や<b>エクスポート</b>といったメニューを選択します。',

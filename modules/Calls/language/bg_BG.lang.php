@@ -2,25 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Трябва да определите номер, за да изтриете този запис.',
-  'LBL_ACCEPT_LINK' => 'Accept Link',
-  'LBL_ACCEPT_STATUS' => 'Accept Status',
+  'LBL_ACCEPT_LINK' => 'Връзка към приемане',
+  'LBL_ACCEPT_STATUS' => 'Статус на приемане',
   'LBL_ACCOUNT_NAME' => 'Организация',
   'LBL_ACTIVITIES_REPORTS' => 'Отчет за справката',
   'LBL_ADD_BUTTON' => 'Добави',
@@ -39,7 +36,7 @@ $mod_strings = array (
   'LBL_CREATE_CONTACT' => 'Като Контакт',
   'LBL_CREATE_INVITEE' => 'Create an invitee',
   'LBL_CREATE_LEAD' => 'Като потенциален клиент',
-  'LBL_CREATE_MODULE' => 'Log Call',
+  'LBL_CREATE_MODULE' => 'Създай запис за обаждането',
   'LBL_DATE' => 'Начална дата:',
   'LBL_DATE_END' => 'Крайна дата',
   'LBL_DATE_END_ERROR' => 'Въведенета крайна дата е преди началната',
@@ -56,15 +53,18 @@ $mod_strings = array (
   'LBL_EMAIL' => 'Електронна поща',
   'LBL_EMAIL_REMINDER' => 'Електронна поща',
   'LBL_EMAIL_REMINDER_SENT' => 'Изпратено напомняне по е-мейл',
-  'LBL_EMAIL_REMINDER_TIME' => 'Email Reminder Time',
+  'LBL_EMAIL_REMINDER_TIME' => 'Напомняне по електронна поща',
   'LBL_EMPTY_SEARCH_RESULT' => 'Няма намерени резултати. Please create an invitee below.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Идентификатор на отговорника',
   'LBL_EXPORT_CREATED_BY' => 'Идентификатор на създателя',
   'LBL_EXPORT_DATE_START' => 'Начална дата и време',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Идентификатор на модифициращия',
   'LBL_EXPORT_PARENT_TYPE' => 'Свързан с модул',
-  'LBL_EXPORT_REMINDER_TIME' => 'Reminder Time (in minutes)',
+  'LBL_EXPORT_REMINDER_TIME' => 'Време за напомняне (в минути)',
   'LBL_FIRST_NAME' => 'Име',
+  'LBL_HELP_CREATE' => 'Модулът {{plural_module_name}} се състои от {{plural_module_name}} проведени от служители на вашата организация. {{plural_module_name}}та могат да бъдат със статус "Планирано", "Проведено" или "Несъстояло се". Потребители на Sugar, както и {{contacts_module}} и {leads_module}}могат да бъдат канени като участници. За да създадете {{calls_singular_module}}: 1. Задайте желаните от вас стойности на полетата. - Полетата маркирани като "Задължителни" трябва да бъдат попълнени преди да запазите записа. - Натиснете "Покажи повече", за да визуализирате допълнителни полета ако е необходимо. 2. Добавете участници в {{calls_singular_module}}то. - Натиснете "Изберете участник", за да добавите съществуващ потребител, контакт или потенциален клиент към {{calls_singular_module}}то. - Натиснете бутона „плюс“ в дясно от „Изберете участник“, за да създадете участник в {{calls_singular_module}}то като нов запис в  Sugar. 3. Натиснете "Съхрани", за да запазите новия запис и да се върнете на предишната страница. - Изберете "Съхрани и разгледай", за да отворите новото {{calls_singular_module}}. - Изберете "Съхрани и създай нов запис", за да създадете веднага още едно допълнително {{calls_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Модулът {{plural_module_name}} се състои от {{calls_singular_module}} проведени от служители на вашата организация. {{plural_module_name}}та могат да бъдат със статус "Планирано", "Проведено" или "Несъстояло се". Потребители на Sugar, както и {{contacts_module}} и {leads_module}}могат да бъдат канени като участници. - Редактирайте полетата на този запис като маркирате с мишката конкретно поле или като използвате бутона Редактирай. - Можете да разгледате или да модифицирате връзки към други записи през панелите със свързани записи, като превключите долната лява секция на екрана в режим „Свързани записи“. - Можете да разгледате историята на промените по записа и коментарите на потребителите, както и вие да направите такива като превключите долната лява секция на екрана в режим „Хронология“. - Следвайте или маркирайте този запис като любим чрез иконите в дясно от името на записа. - Допълнителни действия  са възможни през падащото меню в дясно от бутона Редактирай.',
+  'LBL_HELP_RECORDS' => 'Модулът {{plural_module_name}} съдържа записи за обаждания, които могат да бъдат със статус "Планирано", "Проведено" или "Несъстояло се". Предстоящите е следващите 24 часа обаждания са оцветени в синьо. Просрочените обаждания  са оцветени в червено. От списъка със записи на модул {{plural_module_name}}можете да разглеждате и редактирате информация за отделните обаждания. Допълнителни действия могат да бъдат предприемани през менюто в края на всеки от редовете. За да маркирате обаждане като "Проведено" можете да използвате опцията „Затвори“ за всяко от планираните обаждания. Потребители, контакти и потенциални клиенти могат да бъдат канени като участници в отделните обаждания. {{plural_module_name}} могат да бъдат създавани през модул {{plural_module_name}}, Календара на системата или да бъдат импортирани. За създаване може да се използва и панелът Дейности (за конвенционални модули ) или панелът Планирани дейности (за Sidecar модули) на свързани модули (например Контакти, Организации и др.), при което ще бъде създадена и  връзка между двата записа.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Бележки',
   'LBL_HOURS_ABBREV' => 'час.',
   'LBL_HOURS_MINUTES' => '(час./мин.)',
@@ -89,15 +89,19 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Обаждания',
   'LBL_MODULE_NAME_SINGULAR' => 'Обаждане',
   'LBL_MODULE_TITLE' => 'Обаждания',
+  'LBL_MY_SCHEDULED_CALLS' => 'Моите насрочени обаждания',
   'LBL_NAME' => 'Име',
   'LBL_NEW_FORM_TITLE' => 'Създаване на ангажимент',
   'LBL_NO_ACCESS' => 'Нямате права да зъдадете $module',
-  'LBL_OUTLOOK_ID' => 'Outlook ID',
-  'LBL_PARENT_ID' => 'Parent ID',
+  'LBL_OUTLOOK_ID' => 'Идентификатор на Outlook',
+  'LBL_PARENT_ID' => 'Идентификатор на родителския запис',
   'LBL_PHONE' => 'Телефон',
+  'LBL_POPUP_REMINDER_TIME' => 'Напомняне',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Вие насрочихте {{moduleSingularLower}} за {{formatDate date_start}}, но не разполагате с права да я достъпите.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Вие насрочихте {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> за {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Регулярност',
   'LBL_RECURRING_LIMIT_ERROR' => 'Повтарящото се обаждане не може да бъде насрочено от системата, защото превишава максималния брой от $limit разрешени повторения.',
-  'LBL_RECURRING_SOURCE' => 'Recurring Source',
+  'LBL_RECURRING_SOURCE' => 'Източник на повторение',
   'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Обаждане на {{{this}}}',
   'LBL_RELATED_TO' => 'Свързано с:',
   'LBL_REMINDER' => 'Напомняне:',
@@ -105,6 +109,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Изпращане на поща до всички поканени',
   'LBL_REMINDER_POPUP' => 'Изскачащ прозорец',
   'LBL_REMINDER_TIME' => 'Напомняне през',
+  'LBL_REMINDER_TITLE' => 'Среща:',
   'LBL_REMOVE' => 'изтрий',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Изтрий всички повторения',
   'LBL_REPEAT_COUNT' => 'Брой повторения',
@@ -114,14 +119,15 @@ $mod_strings = array (
   'LBL_REPEAT_END_BY' => 'До',
   'LBL_REPEAT_INTERVAL' => 'Интервал на повторение',
   'LBL_REPEAT_OCCURRENCES' => 'повторения',
-  'LBL_REPEAT_PARENT_ID' => 'Repeat Parent ID',
+  'LBL_REPEAT_PARENT_ID' => 'Родителски идентификатор',
   'LBL_REPEAT_TYPE' => 'Тип на повторение',
-  'LBL_REPEAT_UNTIL' => 'Repeat Until',
+  'LBL_REPEAT_UNTIL' => 'Повторение до',
+  'LBL_REVENUELINEITEMS' => 'Приходни позиции',
   'LBL_SCHEDULING_FORM_TITLE' => 'График на дейностите',
   'LBL_SEARCH_BUTTON' => 'Търси',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Обаждания"',
   'LBL_SELECT_FROM_DROPDOWN' => 'Трябва да изберете стойност от падащото меню "Свързано със", преди да продължите.',
-  'LBL_SEND_BUTTON_KEY' => 'I',
+  'LBL_SEND_BUTTON_KEY' => 'И',
   'LBL_SEND_BUTTON_LABEL' => 'Изпращане на покани',
   'LBL_SEND_BUTTON_TITLE' => 'Изпращане на покани [Alt+I]',
   'LBL_SEND_INVITES' => 'Изпращане на покани',
@@ -141,5 +147,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Избери организация',
   'NOTICE_DURATION_TIME' => 'Продължителността на разговора трябва да надхвърля 0',
   'NTC_REMOVE_INVITEE' => 'Сигурни ли сте, че искате да премахнете поканения потребител от обаждането?',
+  'TPL_CALL_STATUS_CHANGED' => 'Обаждането е маркирано като {{status}}.',
 );
 

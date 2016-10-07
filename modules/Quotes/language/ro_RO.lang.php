@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numar de inregistrare trebuie specificat pentru a sterge cota.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Ofertă deja transformată în oportunitate',
   'LBL_ACCOUNT_ID' => 'Identitate Cont',
   'LBL_ACCOUNT_NAME' => 'Numele Contului',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activitati',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Cost',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Cost Real',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Valid pana la',
-  'LBL_LIST_DEAL_TOT' => 'Reducere',
+  'LBL_LIST_DEAL_TOT' => 'Reducere totală',
   'LBL_LIST_DISCOUNT_PRICE' => 'Pret Unitar',
   'LBL_LIST_FORM_TITLE' => 'Lista Cote',
   'LBL_LIST_GRAND_TOTAL' => 'Total General',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Citatele mele',
   'LBL_LIST_PRICING_FACTOR' => 'Fcator',
   'LBL_LIST_PRICING_FORMULA' => 'Formula de Pret',
-  'LBL_LIST_PRODUCT_NAME' => 'Produs',
+  'LBL_LIST_PRODUCT_NAME' => 'Element din ofertă',
   'LBL_LIST_QUANTITY' => 'Cantitate',
   'LBL_LIST_QUOTE_NAME' => 'Subiect',
   'LBL_LIST_QUOTE_NUM' => 'Numar',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Reducere',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Pret Extins',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Liste de Preturi',
-  'LBL_PDF_ITEM_PRODUCT' => 'Produs',
+  'LBL_PDF_ITEM_PRODUCT' => 'Element din ofertă',
   'LBL_PDF_ITEM_QUANTITY' => 'Cantitate',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => 'LBL_PDF_ITEM_SELECT_DISCOUNT',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Pret Unitar',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Inlatura Comentariu',
   'LBL_REMOVE_ROW' => 'Inlatura Linie',
   'LBL_RENAME_ERROR' => 'EROARE: nu pot muta_pdf la $destinatie. Incearca sa creezi directorul astfel inacat sa poate fi scris de catre serverul de web',
+  'LBL_REVENUELINEITEMS' => 'Elemente venit',
   'LBL_SALES_STAGE' => 'Sadiul Cote:',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta Cote',
   'LBL_SHIPPING' => 'Transport:',

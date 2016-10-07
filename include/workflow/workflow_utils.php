@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
@@ -45,29 +42,12 @@ function get_column_select($base_module, $drop_down_module="", $exclusion_array=
 		$column_module = $base_module;
 	}
 
-	//Get dictionary data for base bean and all connected beans
-
-	//Get dictionary and focus data for base bean
-		$vardef_name = $beanList[$column_module];
-
-		if(!file_exists('modules/'. $column_module . '/vardefs.php')){
-			return;
-		}
-
-		if($vardef_name=="aCase"){
-			$class_name = "Case";
-		} else {
-			$class_name = $vardef_name;
-		}
-
-		include_once('modules/'. $column_module . '/'.$class_name.'.php');
-		$temp_focus = new $vardef_name();
-		add_to_column_select($column_options, $temp_focus, $column_module, $exclusion_array, $inclusion_array, $include_none);
-
+	$temp_focus = BeanFactory::getBean($column_module);
+	add_to_column_select($column_options, $temp_focus, $column_module, $exclusion_array, $inclusion_array, $include_none);
 	return $column_options;
 
 	//end function get_column_select
-	}
+}
 
 function compare_type($value_array, $exclusion_array, $inclusion_array){
 
@@ -171,7 +151,7 @@ function compare_type($value_array, $exclusion_array, $inclusion_array){
 function translate_label_from_module($target_module, $target_element){
 		global $current_language;
 
-		$temp_module = get_module_info($target_module);
+		$temp_module = BeanFactory::getBean($target_module);
 		$temp_module_strings = return_module_language($current_language, $temp_module->module_dir);
 		$target_element_label = $temp_module->field_defs[$target_element]['vname'];
 		return get_label($target_element_label, $temp_module_strings);
@@ -181,14 +161,23 @@ function translate_label_from_module($target_module, $target_element){
 
 function translate_option_name_from_bean(& $target_bean, $target_element, $target_value){
 	global $app_list_strings;
-    $dom_name = array();
     # Bug #37487 We should use 'function' from var_def if it is specified.
     if (
         isset($target_bean->field_defs[$target_element]['function'])
         && $target_bean->field_defs[$target_element]['function'] != ''
     )
     {
-        $return = $target_bean->field_defs[$target_element]['function']();
+
+        $function = $target_bean->field_defs[$target_element]['function'];
+
+        // If we have function_bean defined, use it
+        if (!empty($target_bean->field_defs[$target_element]['function_bean'])) {
+            $functionBean = BeanFactory::getBean($target_bean->field_defs[$target_element]['function_bean']);
+            $return = $functionBean->$function();
+        } else {
+            $return = $function();
+        }
+        
         if (isset($return[$target_value]))
         {
             return $return[$target_value];
@@ -260,27 +249,19 @@ include_once("include/workflow/custom_utils.php");
 
 		fwrite($fp, "\n?>");
 		fclose($fp);
-
+        SugarAutoLoader::addToMap($file);
 //end function write_triggers
 }
 
 function process_workflow(& $focus, $logic_hook){
 	//Now just include the modules workflow from this bean
 
-		if($logic_hook=="BeforeSave"){
-
-			$workflow_path = "custom/modules/".$focus->module_dir."/workflow/workflow.php";
-			if(file_exists($workflow_path)){
+		if($logic_hook=="BeforeSave") {
+			foreach(SugarAutoLoader::existing("custom/modules/".$focus->module_dir."/workflow/workflow.php") as $workflow_path) {
 				include_once($workflow_path);
-
 				process_wflow_triggers($focus);
-
-			//if file exists
 			}
-		//end if logic hook is beforesave
 		}
-
-//end function process_workflow
 }
 
 function get_field_type($field_array)
@@ -303,7 +284,7 @@ function get_rel_module_name($base_module, $relationship_name, & $db){
 	global $beanList;
 	global $dictionary;
 
-		$rel_bean = new Relationship();
+		$rel_bean = BeanFactory::getBean('Relationships');
 		$rel_module = $rel_bean->get_other_module($relationship_name, $base_module, $db);
 		return $rel_module;
 
@@ -342,7 +323,7 @@ function build_source_array($type, $field_value, $var_symbol=true){
             $condition = "empty(\$focus->fetched_row['id'])";
             if (isset($row['id']) && $row['id'] != false)
             {
-                $condition .= ' || (!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" && !empty($_SESSION["workflow_id_cron"]) && $_SESSION["workflow_id_cron"]=="' . $row['id'] . '")';
+                $condition .= ' || (!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" && !empty($_SESSION["workflow_id_cron"]) && in_array("' . $row['id'] . '", $_SESSION["workflow_id_cron"]))';
             }
             $eval_dump .= "if($condition){ \n ";
             return true;
@@ -353,15 +334,9 @@ function build_source_array($type, $field_value, $var_symbol=true){
 
 //Plugin Function
 
-	function get_plugin($plugin_type, $function_name, & $opt){
-
-
+	function get_plugin($plugin_type, $function_name, & $opt)
+	{
 		//eventually expand this and move the plugin_utils.php to include/plugins
-
-		if(!file_exists('include/workflow/plugin_utils.php')){
-			return;
-		}
-
 		include_once('include/workflow/plugin_utils.php');
 
 		if(!function_exists($function_name)){
@@ -369,6 +344,4 @@ function build_source_array($type, $field_value, $var_symbol=true){
 		}
 
 		return $function_name($opt);
-
-	//end function get_plugin
 	}

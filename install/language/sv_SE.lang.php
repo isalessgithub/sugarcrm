@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Provide the password for the Sugar admin user.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Ange användarnman för Sugar administratörs användaren.',
   'ERR_CHECKSYS' => 'Errors have been detected during compatibility check.  In order for your SugarCRM Installation to function properly, please take the proper steps to address the issues listed below and either press the recheck button, or try installing again.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH stöd som inte hittas: SugarCRM behöver BCMATH stöd för godtycklig precision matte.',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass Reference is On (this should be set to Off in php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'The config file exists but is not writeable.  Please take the necessary steps to make the file writeable.  Depending on your Operating system, this might require you to change the permissions by running chmod 766, or to right click on the filename to access the properties and uncheck the read only option.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Överskridningskonfigurationsfilen existerar men är inte skrivbar. Vänligen se nödvändiga steg för att göra den skrivbar. Beroende på ditt Operativsystem, kan det här kräva att du ändrar behörigheter som kör chmod 766, eller klicka på filnamnet för åtkomst att ändra inställningar och avmarkera &#39;endast läsning&#39; funktionen.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Vi ser att du inte använder FastCGI hanteraren i PHP. Du behöver installera/konfigurera en version som är kompatibel med Sugar applikation. Var god se kompatibilitets matrisen i "Release notes" för de versioner som stöds. Var god se http://www.iis.net/php/ för detaljer.',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'För en optimal upplevelse använd IIS/FastCGI sapi, sätt fastcgi.loggin till 0 i din php.ini fil.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'The files or directories listed below are not writeable or are missing and cannot be created.  Depending on your Operating System, correcting this may require you to change permissions on the files or parent directory (chmod 766), or to right click on the parent directory and uncheck the &#39;read only&#39; option and apply it to all subfolders.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test för .htaccess skrivning misslyckades. Det betyder oftast att du inte har Allowoverride inställd för Sugar directory.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Din version av IIS stöds inte av Sugar. Kontrollera kompatibilitets matrisen i "Release notes" för vilka versioner som stöds.',
   'ERR_CHECKSYS_IMAP' => 'Not found: InboundEmail and Campaigns (Email) require the IMAP libraries. Neither will be functional.',
   'ERR_CHECKSYS_MBSTRING' => 'Functions associated with the Multibyte Strings PHP extension (mbstring) that are needed by the Sugar application were not found. <br/><br/>Generally, the mbstring module is not enabled by default in PHP and must be activated with --enable-mbstring when the PHP binary is built. Please refer to your PHP Manual for more information on how to enable mbstring support.',
@@ -130,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Enkel Typ',
   'LBL_CANCEL' => 'Cancel',
   'LBL_CHECKSYS_1' => 'In order for your SugarCRM installation to function properly, please ensure all of the system check items listed below are green. If any are red, please take the necessary steps to fix them.<BR><BR> For help on these system checks, please visit the <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Godtyckliga Precision Matte Modul',
   'LBL_CHECKSYS_CACHE' => 'Writable Cache Sub-Directories',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference Turned Off',
   'LBL_CHECKSYS_COMPONENT' => 'Component',
@@ -143,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Please fix the following files or directories before proceeding:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Please fix the following module directories and the files under them before proceeding:',
+  'LBL_CHECKSYS_HTACCESS' => 'Allowoverride inrättats för .htaccess',
   'LBL_CHECKSYS_IISVER' => 'IIS Version',
   'LBL_CHECKSYS_IMAP' => 'IMAP Module',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings Module',
@@ -235,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Fulltextsök möjlighet är inte installerad',
   'LBL_FTS_INSTALLED_ERR2' => 'Du kan fortfarande installera men kommer inte kunna använda Fulltextsök möjligheten. Vänligen se din databas server installationsguide hur man gör detta, eller kontakta din Administratör.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elasticsearch krävs.',
   'LBL_FTS_TABLE_TITLE' => 'Tillhandahåll FullTextSök Inställningar',
   'LBL_FTS_TYPE' => 'Sökmotor typ',
   'LBL_HELP' => 'Help',

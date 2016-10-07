@@ -1,29 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-// ProductTemplate is used to store customer information.
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+/**
+ * Data access class for the product_template table
+ */
 class ProductTemplate extends SugarBean {
 	var $field_name_map;
 	// Stored fields
@@ -46,6 +35,7 @@ class ProductTemplate extends SugarBean {
 	var $discount_usdollar;
 	var $cost_usdollar;
 	var $currency_id;
+    var $base_rate;
 	var $mft_part_num;
 	var $status;
 	var $date_available;
@@ -71,7 +61,7 @@ class ProductTemplate extends SugarBean {
 	var $manufacturer_id;
 	var $category_name;
 	var $category_id;
-	
+
 
 	var $parent_node_id;
 	var $node_id;
@@ -99,12 +89,23 @@ class ProductTemplate extends SugarBean {
 		,"type"
 	);
 
-	function ProductTemplate() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function ProductTemplate()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		$this->disable_row_level_security =true;
-		
-		$currency= new Currency();
-		$this->default_currency_symbol = $currency->getDefaultCurrencySymbol();	
+
+		$currency = BeanFactory::getBean('Currencies');
+		$this->default_currency_symbol = $currency->getDefaultCurrencySymbol();
 	}
 
 
@@ -114,36 +115,36 @@ class ProductTemplate extends SugarBean {
 		$this->db->query($query,true,"rror removing leaf: ");
 	//end function clear_leaf
 	}
-		
+
 	function get_node_id($id){
-		
+
 		$query = "SELECT * from $this->category_tree_table where self_id = '$id'";
 		$result =$this->db->query($query,true, "Error- query get_node_id");
 		$row = $this->db->fetchByAssoc($result);
 		return $row['node_id'];
-	
+
 	//end function get_node_id
 	}
-	
+
 	//used for retrieving based on a node id
 	function get_branch_id(){
-	
-		if($this->parent_node_id!="0"){	
+
+		if($this->parent_node_id!="0"){
 			$query = "SELECT $this->category_tree_table.self_id AS self_id, $this->rel_categories.name AS name
 			FROM product_categories LEFT JOIN $this->category_tree_table ON $this->category_tree_table.self_id = $this->rel_categories.id
 			WHERE $this->category_tree_table.node_id = '$this->parent_node_id'";
-			
+
 			$result =$this->db->query($query,true, "Error- query get_branch_id");
 			$row = $this->db->fetchByAssoc($result);
-		
+
 			$this->category_id = $row['self_id'];
 			$this->parent_id = $row['self_id'];
 			if ($row['name'] != '') $this->parent_name = stripslashes($row['name']);
 		}
-	
+
 	//end function get_branch_id
 	}
-	
+
 	//used for retrieving based on a normal id
 	function get_category_tree_info()
 	{
@@ -159,23 +160,23 @@ class ProductTemplate extends SugarBean {
 			{
 				if ($row['parent_node_id'] != '') $this->parent_node_id = stripslashes($row['parent_node_id']);
 				if ($row['node_id'] != '' ) $this->node_id = stripslashes($row['node_id']);
-				if ($row['type'] != '' ) $this->type = stripslashes($row['type']);			
+				if ($row['type'] != '' ) $this->type = stripslashes($row['type']);
 			}
-		
+
 		$this->get_branch_id();
 
 	//end function get_category_tree_info
 	}
-	
+
 	function save_product_leaf($is_update=""){
 	$this->default_tree_type = "Product";
-	
+
 		if($is_update=="Update"){
 		//only update parent_node_id
 		$query = "update $this->category_tree_table set parent_node_id='$this->parent_node_id' where self_id='$this->id'";
-		
+
 		$this->db->query($query,true,"Error updating a product tree leaf: ");
-		
+
 		//end if
 		} else {
 		//create new row
@@ -183,10 +184,10 @@ class ProductTemplate extends SugarBean {
             $query = "insert into $this->category_tree_table set self_id='$this->id', parent_node_id=NULL, type='$this->default_tree_type'";
         else
             $query = "insert into $this->category_tree_table set self_id='$this->id', parent_node_id='$this->parent_node_id', type='$this->default_tree_type'";
-        
+
 		$this->db->query($query,true,"Error creating a product tree leaf: ");
-		
-		
+
+
 		//end else
 		}
 
@@ -199,7 +200,7 @@ class ProductTemplate extends SugarBean {
 	}
 //////////////////////////TREEVIEW/////////
 
-	
+
 
 	function get_summary_text()
 	{
@@ -217,48 +218,7 @@ class ProductTemplate extends SugarBean {
 		// First, get the list of IDs.
 		$query = "SELECT id from notes where parent_id='$this->id' AND deleted=0";
 
-		return $this->build_related_list($query, new Note());
-	}
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-    
-    function create_export_query(&$order_by, &$where, $relate_link_join='')
-    {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-        $custom_join['join'] .= $relate_link_join;
-                $query = "SELECT ";
-                $query .= " $this->table_name.*,
-                                $this->rel_manufacturers.name as manufacturer_name,
-                                $this->rel_categories.name as category_name,
-                                $this->rel_types.name as type_name
-					";
-        $query .= $custom_join['select'];
-                            $query.=   " FROM $this->table_name ";
-
-
-                                $query .= " LEFT JOIN $this->rel_manufacturers
-                                ON $this->table_name.manufacturer_id=$this->rel_manufacturers.id AND $this->rel_manufacturers.deleted=0
-                                LEFT JOIN $this->rel_categories
-                                ON $this->table_name.category_id=$this->rel_categories.id AND $this->rel_categories.deleted=0
-                                LEFT JOIN $this->rel_types
-                                ON $this->table_name.type_id=$this->rel_types.id AND $this->rel_types.deleted=0
-								";
-        $query .= $custom_join['join'];
-				$where_auto = $this->table_name.'.deleted = 0 ';
-				
-                if($where != "")
-                        $query .= "where ($where) AND ".$where_auto;
-                else
-                        $query .= "where ".$where_auto;
-
-                if(!empty($order_by))
-                        $query .= " ORDER BY $order_by";
-
-                return $query;
+		return $this->build_related_list($query, BeanFactory::getBean('Notes'));
 	}
 
 	function clear_note_product_template_relationship($product_template_id)
@@ -281,29 +241,29 @@ class ProductTemplate extends SugarBean {
 		global $app_list_strings;
 		global $locale;
 		global $sugar_config;
-		// this is for quotes quicksearching a product. json_server does not make app_list_strings available 
+		// this is for quotes quicksearching a product. json_server does not make app_list_strings available
 		// by default. If this code were added to json_server it would increase each call all the time
-		if(empty($app_list_strings)) { 
+		if(empty($app_list_strings)) {
 			if(isset($_SESSION['authenticated_user_language']) && $_SESSION['authenticated_user_language'] != '') {
 				$current_language = $_SESSION['authenticated_user_language'];
 			} else {
 				$current_language = $sugar_config['default_language'];
 			}
 			$GLOBALS['log']->debug('current_language is: '.$current_language);
-			
+
 			//set module and application string arrays based upon selected language
 			$app_list_strings = return_app_list_strings_language($current_language);
 		}
-		
-		
-		$currency = new Currency();
-		$currency->retrieve($this->currency_id);
-		if($currency->id != $this->currency_id || $currency->deleted == 1){
-				$this->cost_price = $this->cost_usdollar;
-				$this->discount_price = $this->discount_usdollar;
-				$this->list_price = $this->list_usdollar;
-				$this->currency_id = $currency->id;
-		}
+
+
+        $currency = BeanFactory::getBean('Currencies', $this->currency_id);
+        if($currency->id != $this->currency_id || $currency->deleted == 1) {
+                $this->cost_price = $this->cost_usdollar;
+                $this->discount_price = $this->discount_usdollar;
+                $this->list_price = $this->list_usdollar;
+                $this->currency_id = $currency->id;
+                $this->base_rate = $currency->conversion_rate;
+        }
 
  	    if(isset($this->currency_id) && !empty($this->currency_id)) {
 	       $currency->retrieve($this->currency_id);
@@ -311,20 +271,20 @@ class ProductTemplate extends SugarBean {
 	          $this->currency_symbol = $currency->symbol;
 	       }
 	    }
-	    
-		$this->tax_class_name = (!empty($this->tax_class) && !empty($app_list_strings['tax_class_dom'][$this->tax_class])) ? $app_list_strings['tax_class_dom'][$this->tax_class] : ""; 
+
+		$this->tax_class_name = (!empty($this->tax_class) && !empty($app_list_strings['tax_class_dom'][$this->tax_class])) ? $app_list_strings['tax_class_dom'][$this->tax_class] : "";
 		//$this->get_manufacturer();
 		//$this->get_type();
 		//$this->get_category();
-		
+
 	}
 
     /**
      * This method has been deprecated.
-     * 
-     * 
+     *
+     *
      * @deprecated 6.2.0 - Oct 12, 2010
-     * 
+     *
      */
 	function get_manufacturer(){
 		$query = "SELECT m1.name from $this->rel_manufacturers m1, $this->table_name p1 where m1.id = p1.manufacturer_id and p1.id = '$this->id' and p1.deleted=0 and m1.deleted=0";
@@ -345,7 +305,7 @@ class ProductTemplate extends SugarBean {
 
 	/**
 	 * This method has been deprecated.
-	 * 
+	 *
 	 * @deprecated 6.2.0 - Oct 12, 2010
 	 */
 	function get_type(){
@@ -367,7 +327,7 @@ class ProductTemplate extends SugarBean {
 
 	/**
 	 * This method has been deprecated
-	 * 
+	 *
 	 * @deprecated 6.2.0 - Oct 12, 2010
 	 */
 	function get_category(){
@@ -389,9 +349,8 @@ class ProductTemplate extends SugarBean {
 
 	function update_currency_id($fromid, $toid){
 		$idequals = '';
-		
-		$currency = new Currency();
-		$currency->retrieve($toid);
+
+		$currency = BeanFactory::getBean('Currencies', $toid);
 		foreach($fromid as $f){
 			if(!empty($idequals)){
 				$idequals .=' or ';
@@ -452,48 +411,30 @@ class ProductTemplate extends SugarBean {
 	return $the_where;
 }
 
-	function save($check_notify = FALSE) {		
-		
-		$currency = new Currency();
-		$currency->retrieve($this->currency_id);
-
-        // Bug #52052: Calculated Fields don't get into POST (inputs are disabled)
-        // So if i.e. "discount_price" is Calculated Fields we have find out it's value first
-        $this->updateCalculatedFields();
-		
-		//US DOLLAR
-		if(isset($this->discount_price)){
-			$this->discount_usdollar = $currency->convertToDollar($this->discount_price);
-		}
-		if(isset($this->list_price)){
-			$this->list_usdollar = $currency->convertToDollar($this->list_price);
-		}
-		if(isset($this->cost_price)){
-			$this->cost_usdollar = $currency->convertToDollar($this->cost_price);
-		}		
-		parent::save($check_notify);	
-	}
+    function save($check_notify = FALSE) {
+        parent::save($check_notify);
+    }
 }
 
 function getProductTypes($focus, $field='type_id', $value,$view='DetailView') {
 	if($view == 'EditView' || $view == 'MassUpdate' || $view == 'QuickCreate') {
-		
-		$type = new ProductType();
+
+		$type = BeanFactory::getBean('ProductTypes');
 		$html = "<select id=\"$field\" name=\"$field\">";
 	    $html .= get_select_options_with_id($type->get_product_types(), $focus->type_id);
 	    $html .= '</select>';
 	    return $html;
 	} else if(preg_match('/SearchForm_(basic|advanced)_search/', $view, $matches)) {
 	   $id = $field.'_'.$matches[1];
-	   
-	   $type = new ProductType();
+
+	   $type = BeanFactory::getBean('ProductTypes');
        if(isset($_REQUEST[$id])) {
-       	  return get_select_options_with_id($type->get_product_types(), $_REQUEST[$id]);		
+       	  return get_select_options_with_id($type->get_product_types(), $_REQUEST[$id]);
        }
-	   return get_select_options_with_id($type->get_product_types(), $focus->type_id);		
+	   return get_select_options_with_id($type->get_product_types(), $focus->type_id);
 	}
-	
-	return $focus->type_name;		
+
+	return $focus->type_name;
 }
 
 function getPricingFormula($focus, $field='pricing_formula', $value, $view='DetailView') {
@@ -510,7 +451,7 @@ function getPricingFormula($focus, $field='pricing_formula', $value, $view='Deta
         $html .= "<input type=\"hidden\" name=\"pricing_factor\" id=\"pricing_factor\" value=\"1\">";
 		$formulas = get_formula_details($focus->pricing_factor);
 		$html .= get_edit($formulas, $focus->pricing_formula);
-	    return $html;	
+	    return $html;
 	}
 	return get_detail($focus->pricing_formula, $focus->pricing_factor);
 }
@@ -519,20 +460,20 @@ function getManufacturers($focus, $field='manufacturer_id', $value, $view='Detai
 
 	if($view == 'EditView' || $view == 'MassUpdate' || $view == 'QuickCreate') {
 	   $html = "<select id=\"$field\" name=\"$field\">";
-	   
-	   $manufacturer = new Manufacturer();
-	   $html .= get_select_options_with_id($manufacturer->get_manufacturers(), $focus->manufacturer_id);	
+
+	   $manufacturer = BeanFactory::getBean('Manufacturers');
+	   $html .= get_select_options_with_id($manufacturer->get_manufacturers(), $focus->manufacturer_id);
 	   $html .= "</select>";
 	   return $html;
 	} else if(preg_match('/SearchForm_(basic|advanced)_search/', $view, $matches)) {
 	   $id = $field.'_'.$matches[1];
-	   
-	   $manufacturer = new Manufacturer();
+
+	   $manufacturer = BeanFactory::getBean('Manufacturers');
 
        if(isset($_REQUEST[$id])) {
-       	  return get_select_options_with_id($manufacturer->get_manufacturers(), $_REQUEST[$id]);		
+       	  return get_select_options_with_id($manufacturer->get_manufacturers(), $_REQUEST[$id]);
        }
-	   return get_select_options_with_id($manufacturer->get_manufacturers(), $focus->manufacturer_id);		
+	   return get_select_options_with_id($manufacturer->get_manufacturers(), $focus->manufacturer_id);
 	}
 	return $focus->manufacturer_name;
 }
@@ -540,25 +481,25 @@ function getManufacturers($focus, $field='manufacturer_id', $value, $view='Detai
 function getCategories($focus, $field='category_id', $value,$view='DetailView') {
     if($view == 'EditView' || $view == 'MassUpdate' || $view == 'QuickCreate') {
 	   $html = "<select id=\"$field\" name=\"$field\">";
-	   
-	   $category = new ProductCategory();
+
+	   $category = BeanFactory::getBean('ProductCategories');
 	   $html .= get_select_options_with_id($category->get_product_categories(true), $focus->category_id);
 	   $html .= "</select>";
-	   return $html;       
+	   return $html;
     } else if(preg_match('/SearchForm_(basic|advanced)_search/', $view, $matches)) {
 	   $id = $field.'_'.$matches[1];
-	   
-	   $category = new ProductCategory();
+
+	   $category = BeanFactory::getBean('ProductCategories');
        $cats = $category->get_product_categories(true);
        array_shift($cats);
        if(isset($_REQUEST[$id])) {
-       	  return get_select_options_with_id($cats, $_REQUEST[$id]);		
+       	  return get_select_options_with_id($cats, $_REQUEST[$id]);
        }
-	   return get_select_options_with_id($cats, $focus->category_id);		
+	   return get_select_options_with_id($cats, $focus->category_id);
 	}
-    
-    return $focus->category_name;	
-	
+
+    return $focus->category_name;
+
 }
 
 function getSupportTerms($focus, $field='support_term', $value,$view='DetailView') {
@@ -569,16 +510,16 @@ function getSupportTerms($focus, $field='support_term', $value,$view='DetailView
 	   array_unshift($the_term_dom,'');
 	   $html .= get_select_options_with_id($the_term_dom,$focus->support_term);
 	   $html .= "</select>";
-	   return $html;       
+	   return $html;
     }  else if(preg_match('/SearchForm_(basic|advanced)_search/', $view, $matches)) {
 	   $id = $field.'_'.$matches[1];
 	   global $app_list_strings;
 	   $the_term_dom = $app_list_strings['support_term_dom'];
 
        if(isset($_REQUEST[$id])) {
-       	  return get_select_options_with_id($the_term_dom, $_REQUEST[$id]);		
+       	  return get_select_options_with_id($the_term_dom, $_REQUEST[$id]);
        }
-	   return get_select_options_with_id($the_term_dom, $focus->support_term);		
+	   return get_select_options_with_id($the_term_dom, $focus->support_term);
 	}
     return $focus->support_term;
 }

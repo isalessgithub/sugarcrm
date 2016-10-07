@@ -1,125 +1,68 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Documents']['QuickCreate'] = array (
-  'templateMeta' => 
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$viewdefs['Documents']['QuickCreate'] = array(
+    'templateMeta' => array('form' => array('enctype'=>'multipart/form-data',
+                                            'hidden'=>array('<input type="hidden" name="old_id" value="{$fields.document_revision_id.value}">',
+                                                            '<input type="hidden" name="parent_id" value="{$smarty.request.parent_id}">',
+                                                            '<input type="hidden" name="parent_type" value="{$smarty.request.parent_type}">',)),
+                                            
+                            'maxColumns' => '2', 
+                            'widths' => array(
+                                            array('label' => '10', 'field' => '30'), 
+                                            array('label' => '10', 'field' => '30')
+                                            ),
+                            'includes' => 
+                              array (
+                                array('file' => 'include/javascript/popup_parent_helper.js'),
+                                array('file' => 'cache/include/javascript/sugar_grp_jsolait.js'),
+                                array('file' => 'modules/Documents/documents.js'),
+                              ),
+),
+ 'panels' =>array (
+  'default' => 
   array (
-    'form' => 
+    
     array (
-      'enctype' => 'multipart/form-data',
-      'hidden' => 
-      array (
-        0 => '<input type="hidden" name="old_id" value="{$fields.document_revision_id.value}">',
-        1 => '<input type="hidden" name="parent_id" value="{$smarty.request.parent_id}">',
-        2 => '<input type="hidden" name="parent_type" value="{$smarty.request.parent_type}">',
-      ),
+      'doc_type', 
+      'status_id',
     ),
-    'maxColumns' => '2',
-    'widths' => 
     array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
+      array('name'=>'filename', 
+            'displayParams'=>array('required'=>true, 'onchangeSetFileNameTo' => 'document_name'),
+            ),
     ),
-    'includes' => 
+    
     array (
-      0 => 
-      array (
-        'file' => 'include/javascript/popup_parent_helper.js',
-      ),
-      1 => 
-      array (
-        'file' => 'cache/include/javascript/sugar_grp_jsolait.js',
-      ),
-      2 => 
-      array (
-        'file' => 'modules/Documents/documents.js',
-      ),
+      'document_name',
+       array('name'=>'revision',
+            'customCode' => '<input name="revision" type="text" value="{$fields.revision.value}" {$DISABLED}>'
+           ),
+    ),    
+    
+    array (
+       array('name'=>'active_date','displayParams'=>array('required'=>true)),
+       'category_id',
     ),
-    'tabDefs' => 
+    
     array (
-      'DEFAULT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
+      array('name'=>'assigned_user_name',),
+      array('name'=>'team_name','displayParams'=>array('required'=>true)),
+    ),
+
+    array (
+      array('name'=>'description', 'displayParams'=>array('rows'=>10, 'cols'=>120)),
     ),
   ),
-  'panels' => 
-  array (
-    'default' => 
-    array (
-      0 => 
-      array (
-        0 => 'doc_type',
-        1 => 'status_id',
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'filename',
-          'displayParams' => 
-          array (
-            'required' => true,
-            'onchangeSetFileNameTo' => 'document_name',
-          ),
-        ),
-      ),
-      2 => 
-      array (
-        0 => 'document_name',
-        1 => 
-        array (
-          'name' => 'revision',
-          'customCode' => '<input name="revision" type="text" value="{$fields.revision.value}" {$DISABLED}>',
-        ),
-      ),
-      3 => 
-      array (
-        0 => 
-        array (
-          'name' => 'active_date',
-          'displayParams' => 
-          array (
-            'required' => true,
-          ),
-        ),
-        1 => 'category_id',
-      ),
-      4 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-        ),
-        1 => 
-        array (
-          'name' => 'team_name',
-          'displayParams' => 
-          array (
-            'required' => true,
-          ),
-        ),
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'displayParams' => 
-          array (
-            'rows' => 10,
-            'cols' => 120,
-          ),
-        ),
-      ),
-    ),
-  ),
+)
+
 );
+?>

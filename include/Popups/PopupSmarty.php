@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/ListView/ListViewSmarty.php');
 
 require_once('include/TemplateHandler/TemplateHandler.php');
@@ -61,7 +58,7 @@ class PopupSmarty extends ListViewSmarty{
 
     /**
      * Assign several arrow image attributes to TemplateHandler smarty. Such as width, height, etc.
-     * 
+     *
      * @return void
      */
     function processArrowVars()
@@ -193,18 +190,10 @@ class PopupSmarty extends ListViewSmarty{
 
 
 		$associated_row_data = array();
-		
-		//C.L. - Bug 44324 - Override the NAME entry to not display salutation so that the data returned from the popup can be searched on correctly
-		$searchNameOverride = !empty($this->seed) && $this->seed instanceof Person && (isset($this->data['data'][0]['FIRST_NAME']) && isset($this->data['data'][0]['LAST_NAME'])) ? true : false;
-		
-		global $locale;
+
 		foreach($this->data['data'] as $val)
 		{
 			$associated_row_data[$val['ID']] = $val;
-			if($searchNameOverride)
-			{
-			   $associated_row_data[$val['ID']]['NAME'] = $locale->getLocaleFormattedName($val['FIRST_NAME'], $val['LAST_NAME']);
-			}
 		}
 		$is_show_fullname = showFullName() ? 1 : 0;
 		$json = getJSONobj();
@@ -215,13 +204,12 @@ class PopupSmarty extends ListViewSmarty{
         $this->th->ss->assign('ASSOCIATED_JAVASCRIPT_DATA', 'var associated_javascript_data = '.$json->encode($associated_row_data). '; var is_show_fullname = '.$is_show_fullname.';');
 		$this->th->ss->assign('module', $this->seed->module_dir);
 		$request_data = empty($_REQUEST['request_data']) ? '' : $_REQUEST['request_data'];
-
 		$this->th->ss->assign('request_data', $request_data);
 		$this->th->ss->assign('fields', $this->fieldDefs);
 		$this->th->ss->assign('formData', $this->formData);
 		$this->th->ss->assign('APP', $GLOBALS['app_strings']);
 		$this->th->ss->assign('MOD', $GLOBALS['mod_strings']);
-        if (isset($this->_popupMeta['create']['createButton'])) 
+        if (isset($this->_popupMeta['create']['createButton']))
 		{
            $this->_popupMeta['create']['createButton'] = translate($this->_popupMeta['create']['createButton']);
         }
@@ -270,17 +258,8 @@ class PopupSmarty extends ListViewSmarty{
 			$params['orderBy'] = $this->_popupMeta['orderBy'];
 		}
 
-		if(file_exists('custom/modules/'.$this->module.'/metadata/metafiles.php')){
-			require('custom/modules/'.$this->module.'/metadata/metafiles.php');
-		}elseif(file_exists('modules/'.$this->module.'/metadata/metafiles.php')){
-			require('modules/'.$this->module.'/metadata/metafiles.php');
-		}
+		$searchFields = SugarAutoLoader::loadSearchFields($this->module);
 
-		if(!empty($metafiles[$this->module]['searchfields'])) {
-			require($metafiles[$this->module]['searchfields']);
-		} elseif(file_exists('modules/'.$this->module.'/metadata/SearchFields.php')) {
-			require('modules/'.$this->module.'/metadata/SearchFields.php');
-	    }
         $this->searchdefs[$this->module]['templateMeta']['maxColumns'] = 2;
         $this->searchdefs[$this->module]['templateMeta']['widths']['label'] = 10;
         $this->searchdefs[$this->module]['templateMeta']['widths']['field'] = 30;
@@ -313,7 +292,8 @@ class PopupSmarty extends ListViewSmarty{
         $this->searchForm->lv = $lv;
         $this->searchForm->displaySavedSearch = false;
 
-		ACLField::listFilter($this->searchForm->fieldDefs, $this->module, $GLOBALS['current_user']->id, true, false, 1,false, true, '_advanced');
+		SugarACL::listFilter($this->module, $this->searchForm->fieldDefs, array("owner_override" => true),
+		    array("use_value" => true, "suffix" => '_advanced', "add_acl" => true));
 
         $this->searchForm->populateFromRequest('advanced_search');
         $searchWhere = $this->_get_where_clause();
@@ -365,13 +345,8 @@ class PopupSmarty extends ListViewSmarty{
             }
         }
 
-        if (isset($_REQUEST['request_data'])) {
-            $request_data = json_decode(html_entity_decode($_REQUEST['request_data']), true);
-            $_POST['field_to_name'] = $_REQUEST['field_to_name'] = array_keys($request_data['field_to_name_array']);
-        }
-
         /**
-         * Bug #46842 : The relate field field_to_name_array fails to copy over custom fields 
+         * Bug #46842 : The relate field field_to_name_array fails to copy over custom fields
          * By default bean's create_new_list_query function loads fields displayed on the page or used in the search
          * add fields used to populate forms from _viewdefs :: field_to_name_array to retrive from db
          */
@@ -386,9 +361,25 @@ class PopupSmarty extends ListViewSmarty{
                     $this->filter_fields[$add_field] = true;
                 }
             }
-            
+
         }
 
+        else if ( isset($_REQUEST['request_data']) )
+        {
+            $request_data = get_object_vars( json_decode( htmlspecialchars_decode( $_REQUEST['request_data'] )));
+            $request_data['field_to_name'] = get_object_vars( $request_data['field_to_name_array'] );
+            if (isset($request_data['field_to_name']) && is_array($request_data['field_to_name']))
+            {
+                foreach ( $request_data['field_to_name'] as $add_field )
+                {
+                    $add_field = strtolower($add_field);
+                    if ( $add_field != 'id' && !isset($this->filter_fields[$add_field]) && isset($this->seed->field_defs[$add_field]) )
+                    {
+                        $this->filter_fields[$add_field] = true;
+                    }
+                }
+            }
+        }
         //check for team_set_count
         if(!empty($this->filter_fields['team_name']) && empty($this->filter_fields['team_count'])){
         	$this->filter_fields['team_count'] = true;
@@ -415,6 +406,7 @@ class PopupSmarty extends ListViewSmarty{
 		}
 
         $this->fillDisplayColumnsWithVardefs();
+        $data = $this->setupHTMLFields($data);
 
 		$this->process($file, $data, $this->seed->object_name);
 	}

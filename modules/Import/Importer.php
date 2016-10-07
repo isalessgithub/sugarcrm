@@ -1,29 +1,26 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-require_once('modules/Import/ImportCacheFiles.php');
-require_once('modules/Import/ImportFieldSanitize.php');
-require_once('modules/Import/ImportDuplicateCheck.php');
-
+require_once 'modules/Import/ImportCacheFiles.php';
+require_once 'modules/Import/ImportFieldSanitize.php';
+require_once 'modules/Import/ImportDuplicateCheck.php';
+require_once 'include/SugarFields/SugarFieldHandler.php';
 
 class Importer
 {
     /**
-     * @var ImportFieldSanitizer
+     * @var ImportFieldSanitize
      */
     protected $ifs;
 
@@ -57,6 +54,18 @@ class Importer
      */
     protected $sugarToExternalSourceFieldMap = array();
 
+    /**
+     * Cache the currency symbol so we don't have to create the beans
+     *
+     * @var array
+     */
+    protected $cachedCurrencySymbols = array();
+
+    /**
+     * Where is the currency_id in the import fields
+     * @var bool
+     */
+    protected $currencyFieldPosition = false;
 
     public function __construct($importSource, $bean)
     {
@@ -68,7 +77,7 @@ class Importer
         $this->bean = $bean;
 
         // use our own error handler
-        set_error_handler(array('Importer','handleImportErrors'),E_ALL);
+        set_error_handler(array('Importer','handleImportErrors'), E_ALL & ~E_STRICT & ~E_DEPRECATED);
 
          // Increase the max_execution_time since this step can take awhile
         ini_set("max_execution_time", max($sugar_config['import_max_execution_time'],3600));
@@ -80,8 +89,7 @@ class Importer
         $this->ifs = $this->getFieldSanitizer();
 
         //Get the default user currency
-        $this->defaultUserCurrency = new Currency();
-        $this->defaultUserCurrency->retrieve('-99');
+        $this->defaultUserCurrency = BeanFactory::getBean('Currencies', '-99');
 
         //Get our import column definitions
         $this->importColumns = $this->getImportColumns();
@@ -90,10 +98,29 @@ class Importer
 
     public function import()
     {
+        $aflag = Activity::isEnabled();
+        Activity::disable();
+
+        // do we have a currency_id field
+        $this->currencyFieldPosition = array_search('currency_id', $this->importColumns);
+
+        //catch output including notices and warnings so import process can run to completion
+        $output = '';
+        ob_start();
         foreach($this->importSource as $row)
         {
             $this->importRow($row);
         }
+
+        //if any output was produced, then display it as an error.
+        //first, replace more than one consecutive spaces with a single space.  This is to condense
+        //multiple line/row errors and prevent miscount of rows in list navigation UI
+        $output = ob_get_clean();
+        if(!empty($output)) {
+            $output = preg_replace('/\s+/', ' ', trim($output));
+            $this->importSource->writeError( 'Execution', 'Execution Error', $output);
+        }
+
 
         // save mapping if requested
         if ( isset($_REQUEST['save_map_as']) && $_REQUEST['save_map_as'] != '' )
@@ -102,16 +129,56 @@ class Importer
         }
 
         $this->importSource->writeStatus();
-
+        if($aflag) {
+            Activity::enable();
+        }
         //All done, remove file.
     }
 
+    /**
+     * create array with indexes in correct order
+     *
+     * Get correct order for imported columns e.g. if there are account_name and account_id in imported columns
+     * the field account_id should be processed first to prevent invalid retrieving related account by its name
+     *
+     * @param array $field_defs
+     * @return array of int
+     */
+    protected function getImportColumnsOrder($field_defs)
+    {
+        $processed_fields = array();
+        $fields_order = array();
+        foreach ($this->importColumns as $field_index => $field_name) {
+            if (!empty($processed_fields[$field_name])) {
+                continue;
+            }
+            $field_def = $field_defs[$field_name];
+            // if field is relate and has id_name
+            if (!empty($field_def['type']) && $field_def['type'] == 'relate' && !empty($field_def['id_name'])) {
+                // if id_name is in imported columns & has not been processed
+                $id_name_key = array_search($field_def['id_name'], $this->importColumns);
+                if ($id_name_key !== false) {
+                    $key = $field_def['id_name'];
+                    if (empty($processed_fields[$key]) || !$processed_fields[$key]) {
+                        $fields_order[] = $id_name_key;
+                        $processed_fields[$key] = true;
+                    }
+                }
+            }
+            if (empty($processed_fields[$field_name]) || !$processed_fields[$field_name]) {
+                $fields_order[] = $field_index;
+                $processed_fields[$field_name] = true;
+            }
+        }
+
+        return $fields_order;
+    }
 
     protected function importRow($row)
     {
         global $sugar_config, $mod_strings, $current_user;
 
-        $focus = clone $this->bean;
+        $focus = BeanFactory::getBean($this->bean->module_dir);
         $focus->unPopulateDefaultValues();
         $focus->save_from_post = false;
         $focus->team_id = null;
@@ -119,8 +186,26 @@ class Importer
         $this->importSource->resetRowErrorCounter();
         $do_save = true;
 
-        for ( $fieldNum = 0; $fieldNum < $_REQUEST['columncount']; $fieldNum++ )
-        {
+        // set the currency for the row, if it has a currency_id in the row
+        if ($this->currencyFieldPosition !== false && !empty($row[$this->currencyFieldPosition])) {
+            $currency_id = $row[$this->currencyFieldPosition];
+            if (!isset($this->cachedCurrencySymbols[$currency_id])) {
+                /** @var Currency $currency */
+                $currency = BeanFactory::getBean('Currencies', $currency_id);
+                $this->cachedCurrencySymbols[$currency_id] = $currency->symbol;
+                unset($currency);
+            }
+            $this->ifs->currency_symbol = $this->cachedCurrencySymbols[$currency_id];
+            $this->ifs->currency_id = $currency_id;
+        }
+
+        // Collect email addresses, and add them before save
+        $emailAddresses = array(
+            'non-primary' => array()
+        );
+
+        $fields_order = $this->getImportColumnsOrder($focus->getFieldDefinitions());
+        foreach ($fields_order as $fieldNum) {
             // loop if this column isn't set
             if ( !isset($this->importColumns[$fieldNum]) )
                 continue;
@@ -138,15 +223,15 @@ class Importer
             global $locale;
             if(empty($locale))
             {
-                $locale = new Localization();
+                $locale = Localization::getObject();
             }
             if ( isset($row[$fieldNum]) )
             {
-                $rowValue = $locale->translateCharset(strip_tags(trim($row[$fieldNum])),$this->importSource->importlocale_charset,$sugar_config['default_charset']);
+                $rowValue = strip_tags(trim($row[$fieldNum]));
             }
             else if( isset($this->sugarToExternalSourceFieldMap[$field]) && isset($row[$this->sugarToExternalSourceFieldMap[$field]]) )
             {
-                $rowValue = $locale->translateCharset(strip_tags(trim($row[$this->sugarToExternalSourceFieldMap[$field]])),$this->importSource->importlocale_charset,$sugar_config['default_charset']);
+                $rowValue = strip_tags(trim($row[$this->sugarToExternalSourceFieldMap[$field]]));
             }
             else
             {
@@ -188,7 +273,7 @@ class Importer
                 $do_save = false;
             }
 
-            // Handle the special case "Sync to Outlook"
+            // Handle the special case 'Sync to Mail Client'
             if ( $focus->object_name == "Contact" && $field == 'sync_contact' )
             {
                 /**
@@ -214,19 +299,6 @@ class Importer
                 }
             }
 
-            // Handle email field, if it's a semi-colon separated export
-            if ($field == 'email_addresses_non_primary' && !empty($rowValue))
-            {
-                if (strpos($rowValue, ';') !== false)
-                {
-                    $rowValue = explode(';', $rowValue);
-                }
-                else
-                {
-                    $rowValue = array($rowValue);
-                }
-            }
-
             // Handle email1 and email2 fields ( these don't have the type of email )
             if ( $field == 'email1' || $field == 'email2' )
             {
@@ -242,15 +314,52 @@ class Importer
                 else
                 {
                     $rowValue = $returnValue;
+
+                    $address = array(
+                        'email_address' => $rowValue,
+                        'primary_address' => $field == 'email1',
+                        'invalid_email' => false,
+                        'opt_out' => false,
+                    );
+
                     // check for current opt_out and invalid email settings for this email address
                     // if we find any, set them now
                     $emailres = $focus->db->query( "SELECT opt_out, invalid_email FROM email_addresses WHERE email_address = '".$focus->db->quote($rowValue)."'");
                     if ( $emailrow = $focus->db->fetchByAssoc($emailres) )
                     {
-                        $focus->email_opt_out = $emailrow['opt_out'];
-                        $focus->invalid_email = $emailrow['invalid_email'];
+                        $address = array_merge($address, $emailrow);
+                    }
+
+                    if ($field === 'email1') {
+
+                        //flip the array so we can use it to get the key #
+                        $flippedVals = array_flip($this->importColumns);
+
+                        //if the opt out column is set, then attempt to retrieve the values
+                        if(isset($flippedVals['email_opt_out'])){
+                            //if the string for this value has a length, then use it.
+                            if(isset($row[$flippedVals['email_opt_out']]) && strlen($row[$flippedVals['email_opt_out']])>0){
+                                $address['opt_out'] = $row[$flippedVals['email_opt_out']];
+                            }
+                        }
+
+                        //if the invalid email column is set, then attempt to retrieve the values
+                        if(isset($flippedVals['invalid_email'])){
+                            //if the string for this value has a length, then use it.
+                            if(isset($row[$flippedVals['invalid_email']]) && strlen($row[$flippedVals['invalid_email']])>0){
+                                $address['invalid_email'] = $row[$flippedVals['invalid_email']];
+                            }
+                        }
+                        $emailAddresses['primary'] = $address;
+                    } else {
+                        $emailAddresses['non-primary'][] = $address;
                     }
                 }
+            }
+
+            if ($field == 'email_addresses_non_primary') {
+                $nonPrimaryAddresses = $this->handleNonPrimaryEmails($rowValue, $defaultRowValue, $fieldTranslated);
+                $emailAddresses['non-primary'] = array_merge($emailAddresses['non-primary'], $nonPrimaryAddresses);
             }
 
             // Handle splitting Full Name into First and Last Name parts
@@ -269,27 +378,9 @@ class Importer
             // If the field is empty then there is no need to check the data
             if( !empty($rowValue) )
             {
-                // If it's an array of non-primary e-mails, check each mail
-                if ($field == "email_addresses_non_primary" && is_array($rowValue))
-                {
-                    foreach ($rowValue as $tempRow)
-                    {
-                        $tempRow = $this->sanitizeFieldValueByType($tempRow, $fieldDef, $defaultRowValue, $focus, $fieldTranslated);
-                        if ($tempRow === FALSE)
-                        {
-                            $rowValue = false;
-                            $do_save = false;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    $rowValue = $this->sanitizeFieldValueByType($rowValue, $fieldDef, $defaultRowValue, $focus, $fieldTranslated);
-                }
-
-                if ($rowValue === false)
-                {
+                //Start
+                $rowValue = $this->sanitizeFieldValueByType($rowValue, $fieldDef, $defaultRowValue, $focus, $fieldTranslated);
+                if ($rowValue === FALSE) {
 					/* BUG 51213 - jeff @ neposystems.com */
                     $do_save = false;
                     continue;
@@ -401,6 +492,20 @@ class Importer
             }
         }
 
+        try {
+            // Update e-mails here, because we're calling retrieve, and it overwrites the emailAddress object
+            if ($focus->hasEmails()) {
+                $this->handleEmailUpdate($focus, $emailAddresses);
+            }
+        } catch (Exception $e) {
+            $this->importSource->writeError(
+                $e->getMessage(),
+                $fieldTranslated,
+                $focus->id
+            );
+            $do_save = false;
+        }
+
         if ($do_save)
         {
             $this->saveImportBean($focus, $newRecord);
@@ -413,7 +518,6 @@ class Importer
         unset($defaultRowValue);
 
     }
-
 
     protected function sanitizeFieldValueByType($rowValue, $fieldDef, $defaultRowValue, $focus, $fieldTranslated)
     {
@@ -528,14 +632,14 @@ class Importer
         */
         if ( ( !empty($focus->new_with_id) && !empty($focus->date_modified) ) ||
              ( empty($focus->new_with_id) && $timedate->to_db($focus->date_modified) != $timedate->to_db($timedate->to_display_date_time($focus->fetched_row['date_modified'])) )
-        ) 
+        )
             $focus->update_date_modified = false;
 
         // Bug 53636 - Allow update of "Date Created"
         if (!empty($focus->date_entered)) {
         	$focus->update_date_entered = true;
         }
-            
+
         $focus->optimistic_lock = false;
         if ( $focus->object_name == "Contact" && isset($focus->sync_contact) )
         {
@@ -557,7 +661,7 @@ class Importer
                     $focus->$key = $focus->parent_id;
                 }
             }
-        }					
+        }
         //bug# 40260 setting it true as the module in focus is involved in an import
         $focus->in_import=true;
         // call any logic needed for the module preSave
@@ -566,7 +670,7 @@ class Importer
         // Bug51192: check if there are any changes in the imported data
         $hasDataChanges = false;
         $dataChanges=$focus->db->getAuditDataChanges($focus);
-        
+
         if(!empty($dataChanges)) {
             foreach($dataChanges as $field=>$fieldData) {
                 if($fieldData['data_type'] != 'date' || strtotime($fieldData['before']) != strtotime($fieldData['after'])) {
@@ -575,7 +679,7 @@ class Importer
                 }
             }
         }
-        
+
         // if modified_user_id is set, set the flag to false so SugarBEan will not reset it
         if (isset($focus->modified_user_id) && $focus->modified_user_id && !$hasDataChanges) {
             $focus->update_modified_by = false;
@@ -607,9 +711,12 @@ class Importer
     {
         global $current_user;
 
-        $firstrow    = sugar_unserialize(base64_decode($_REQUEST['firstrow']));
+        $firstrow    = unserialize(base64_decode($_REQUEST['firstrow']));
         $mappingValsArr = $this->importColumns;
-        $mapping_file = new ImportMap();
+        $mapping_file = BeanFactory::getBean('Import_1');
+        $mapping_file->delimiter = $_REQUEST['custom_delimiter'];
+        $mapping_file->enclosure = html_entity_decode($_REQUEST['custom_enclosure'], ENT_QUOTES);
+
         if ( isset($_REQUEST['has_header']) && $_REQUEST['has_header'] == 'on')
         {
             $header_to_field = array ();
@@ -629,7 +736,7 @@ class Importer
         //merge with mappingVals array
         if(!empty($advMapping) && is_array($advMapping))
         {
-            $mappingValsArr = $advMapping + $mappingValsArr;
+            $mappingValsArr = array_merge($mappingValsArr,$advMapping);
         }
 
         //set mapping
@@ -695,6 +802,11 @@ class Importer
     {
         global $timedate, $current_user;
 
+        // If the field we're examining is a relate, don't return a default value.
+        if ($fieldDef['type'] == 'relate') {
+            return '';
+        }
+
         if ( is_array($fieldValue) )
             $defaultRowValue = encodeMultienumValue($fieldValue);
         else
@@ -755,8 +867,7 @@ class Importer
             $ifs->$field = $this->importSource->$fieldKey;
         }
 
-        $currency = new Currency();
-        $currency->retrieve($this->importSource->importlocale_currency);
+        $currency = BeanFactory::getBean('Currencies', $this->importSource->importlocale_currency);
         $ifs->currency_symbol = $currency->symbol;
 
         return $ifs;
@@ -781,7 +892,7 @@ class Importer
      */
     protected function _undoCreatedBeans( array $ids )
     {
-        $focus = new UsersLastImport();
+        $focus = BeanFactory::getBean('Import_2');
         foreach ($ids as $id)
             $focus->undoById($id);
     }
@@ -795,7 +906,7 @@ class Importer
     protected function _convertId($string)
     {
         return preg_replace_callback(
-            '|[^A-Za-z0-9\-\_]|',
+            '|[^A-Za-z0-9\-\_\.]|',
             create_function(
             // single quotes are essential here,
             // or alternative escape all $ as \$
@@ -839,14 +950,11 @@ class Importer
         $importableModules = array();
         foreach ($beanList as $moduleName => $beanName)
         {
-            if( class_exists($beanName) )
+            $tmp = BeanFactory::getBean($moduleName);
+            if( !empty($tmp->importable))
             {
-                $tmp = new $beanName();
-                if( isset($tmp->importable) && $tmp->importable )
-                {
-                    $label = isset($GLOBALS['app_list_strings']['moduleList'][$moduleName]) ? $GLOBALS['app_list_strings']['moduleList'][$moduleName] : $moduleName;
-                    $importableModules[$moduleName] = $label;
-                }
+                $label = isset($GLOBALS['app_list_strings']['moduleList'][$moduleName]) ? $GLOBALS['app_list_strings']['moduleList'][$moduleName] : $moduleName;
+                $importableModules[$moduleName] = $label;
             }
         }
 
@@ -865,6 +973,11 @@ class Importer
      */
     public static function handleImportErrors($errno, $errstr, $errfile, $errline)
     {
+        // Error was suppressed with the @-operator.
+        if (error_reporting() === 0) {
+            return false;
+        }
+
         $GLOBALS['log']->fatal("Caught error: $errstr");
 
         if ( !defined('E_DEPRECATED') )
@@ -966,5 +1079,180 @@ class Importer
         }
     }
 
+    /**
+     * Fill the emailAddress object with e-mails
+     *
+     * @param SugarBean $bean Target bean
+     * @param array $addresses Addresses to be added
+     */
+    protected function handleEmailUpdate(SugarBean $bean, array $addresses)
+    {
+        // Make sure that operating on email addresses is possible
+        if (!isset($bean->emailAddress->addresses) || !is_array($bean->emailAddress->addresses)) {
+            throw new RuntimeException("Trying to handle email addresses in a Bean that doesn't support it.");
+        }
 
+        if (!empty($addresses['primary'])) {
+            foreach ($bean->emailAddress->addresses as $key => $value) {
+                if ($value['primary_address']) {
+                    unset($bean->emailAddress->addresses[$key]);
+                    break;
+                }
+            }
+            $this->importAddress($bean, $addresses['primary']);
+        }
+
+        if (!empty($addresses['non-primary'])) {
+            foreach ($bean->emailAddress->addresses as $key => $value) {
+                if (!$value['primary_address']) {
+                    unset($bean->emailAddress->addresses[$key]);
+                }
+            }
+            foreach ($addresses['non-primary'] as $address) {
+                $this->importAddress($bean, $address);
+            }
+        }
+    }
+
+    /**
+     * Handles non-primary emails string read from CSV file
+     *
+     * @param mixed     $rowValue        Serialized data
+     * @param mixed     $defaultRowValue Default value in case if row value is empty
+     * @param string    $fieldTranslated Name of CSV column
+     *
+     * @return array                     Collection of parsed non-primary e-mails
+     */
+    protected function handleNonPrimaryEmails($rowValue, $defaultRowValue, $fieldTranslated)
+    {
+        $parsed = $this->parseNonPrimaryEmails($rowValue, $fieldTranslated);
+        if (!$parsed && !empty($defaultRowValue)) {
+            $parsed = $this->parseNonPrimaryEmails($defaultRowValue, $fieldTranslated);
+        }
+
+        return $parsed;
+    }
+
+    /**
+     * Imports a single email address into bean
+     *
+     * @param SugarBean $bean    Target bean
+     * @param array     $address Address properties
+     */
+    protected function importAddress(SugarBean $bean, array $address)
+    {
+        // make sure that operating on email addresses is possible
+        if (!isset($bean->emailAddress->addresses) || !is_array($bean->emailAddress->addresses)) {
+            return;
+        }
+
+        // look if bean already has same email address
+        foreach ($bean->emailAddress->addresses as $beanAddress) {
+            if ($beanAddress['email_address'] == $address['email_address']) {
+                // if found, preserve the values of attributes that are not being imported
+                // e.g. previous versions of SugarCRM don't export invalid and opt_out
+                $address = array_merge($beanAddress, $address);
+                break;
+            }
+        }
+
+        // provide default attributes in case they were not inherited from existing address
+        $address = array_merge(array(
+            'reply_to_address' => false,
+            'email_id' => null,
+        ), $address);
+
+        $bean->emailAddress->addAddress(
+            $address['email_address'],
+            $address['primary_address'],
+            $address['reply_to_address'],
+            $address['invalid_email'],
+            $address['opt_out'],
+            $address['email_id']
+        );
+
+        $bean->emailAddress->dontLegacySave = true;
+    }
+
+    /**
+     * Parses serialized data of non-primary email addresses
+     *
+     * @param string $value           Serialized data in the following format:
+     *                                email_address1[,invalid_email1[,opt_out1]][;email_address2...]
+     * @param string $fieldTranslated Name of CSV column
+     *
+     * @return array                  Collection of address properties
+     * @see serializeNonPrimaryEmails()
+     */
+    protected function parseNonPrimaryEmails($value, $fieldTranslated)
+    {
+        global $mod_strings;
+
+        $result = array();
+
+        if (empty($value)) {
+            return $result;
+        }
+
+        // explode serialized value into groups of attributes
+        $emails = explode(';', $value);
+        foreach ($emails as $email) {
+            // explode serialized attributes
+            $attrs = explode(',', $email);
+            if (!$attrs) {
+                continue;
+            }
+
+            $email_address = array_shift($attrs);
+            if (!$this->ifs->email($email_address, array())) {
+                $this->importSource->writeError(
+                    $mod_strings['LBL_ERROR_INVALID_EMAIL'],
+                    $fieldTranslated,
+                    $email_address
+                );
+                continue;
+            }
+
+            $address = array(
+                'email_address' => $email_address,
+                'primary_address' => false,
+                'invalid_email' => false,
+                'opt_out' => false,
+            );
+
+            // check if there are elements in $attrs after $email_address was shifted from there
+            if ($attrs) {
+                $invalid_email = array_shift($attrs);
+                $invalid_email = $this->ifs->bool($invalid_email, array());
+                if ($invalid_email === false) {
+                    $this->importSource->writeError(
+                        $mod_strings['LBL_ERROR_INVALID_BOOL'],
+                        $fieldTranslated,
+                        $invalid_email
+                    );
+                    continue;
+                }
+                $address['invalid_email'] = $invalid_email;
+            }
+
+            // check if there are elements in $attrs after $email_address and $invalid_email were shifted from there
+            if ($attrs) {
+                $opt_out = array_shift($attrs);
+                $opt_out = $this->ifs->bool($opt_out, array());
+                if ($opt_out === false) {
+                    $this->importSource->writeError(
+                        $mod_strings['LBL_ERROR_INVALID_BOOL'],
+                        $fieldTranslated,
+                        $opt_out
+                    );
+                    continue;
+                }
+                $address['opt_out'] = $opt_out;
+            }
+
+            $result[] = $address;
+        }
+
+        return $result;
+    }
 }

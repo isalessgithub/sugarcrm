@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Sunteti sigur ca doriti sa inlaturati acest contact din acest proiect?',
@@ -29,6 +26,7 @@ $mod_strings = array (
   'ERR_PREDECESSOR_CYCLE_FAIL' => 'Predecesorii specificati cauzeaza un ciclu de dependenta.',
   'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => 'Predecesorul specificat este fie o sarcina parinte fie o subsarcina.',
   'ERR_TASK_NAME_FOR_ROW' => 'Nume Sarcina pentru Linie',
+  'ERR_TASK_VIEW_DETAILS' => 'Nu puteţi vizualiza detaliile unei sarcini care nu a fost salvată încă.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Conturi',
   'LBL_ACCOUNT_SUBPANEL_TITLE' => 'Conturi',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activitati',
@@ -135,7 +133,7 @@ $mod_strings = array (
   'LBL_PREDECESSORS' => 'Predecesori:',
   'LBL_PREDECESSORS_WIDGET' => 'predecesori_',
   'LBL_PRIORITY' => 'Prioritate',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produse',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Elemente din ofertă',
   'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Resurse Proiect',
   'LBL_PROJECTTASK_SUBPANEL_TITLE' => 'Sarcina de proiect',
   'LBL_PROJECT_HOLIDAYS' => 'Sarbatoare',
@@ -160,6 +158,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => 'resursa',
   'LBL_RESOURCE_REPORT' => 'Raport de Resursa',
   'LBL_RESOURCE_TYPE' => 'Tip',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Elemente venit',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Salveaza ca si proiect',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Salveaza ca si sablon nou',
   'LBL_SAVE_AS_PROJECT' => 'Salveaza ca si proiect',

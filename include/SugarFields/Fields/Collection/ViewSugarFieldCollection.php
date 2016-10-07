@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarFields/Fields/Collection/SugarFieldCollection.php');
 
 
@@ -58,10 +55,7 @@ class ViewSugarFieldCollection{
      * call retrieve values()
      */
     function setup(){
-        if(!class_exists('Relationship')){
-
-        }
-        $rel = new Relationship();
+        $rel = BeanFactory::getBean('Relationships');
         if(!empty($this->vardef['relationship'])){
         	$rel->retrieve_by_name($this->vardef['relationship']);
         }
@@ -78,21 +72,14 @@ class ViewSugarFieldCollection{
             if($module_dir != $this->module_dir){
                 die('These modules do not match : '. $this->module_dir . ' and ' . $module_dir);
             }
-            if(isset($GLOBALS['beanList'][$this->module_dir])){
-                $class = $GLOBALS['beanList'][$this->module_dir];
-                if(file_exists($GLOBALS['beanFiles'][$class])){
-                    $this->bean = loadBean($this->module_dir);
-                    $this->bean->retrieve($_REQUEST['bean_id']);
-                    if($this->bean->load_relationship($this->vardef['name'])){
-                        $this->retrieve_values();
-                    }else{
-                        die('failed to load the relationship');
-                    }
-                }else{
-                    die('class file do not exist');
-                }
+            $this->bean = BeanFactory::retrieveBean($this->module_dir, $_REQUEST['bean_id']);
+            if(empty($this->bean)) {
+                die('failed to load the bean');
+            }
+            if($this->bean->load_relationship($this->vardef['name'])){
+                $this->retrieve_values();
             }else{
-                die($this->module_dir . ' is not in the beanList.');
+                die('failed to load the relationship');
             }
         }
         else{
@@ -127,12 +114,9 @@ class ViewSugarFieldCollection{
                     $primary_id = $secondary_ids[0]['id'];
                     unset($secondary_ids[0]);
                 }
-                if(isset($GLOBALS['beanList'][ $this->related_module])){
-                    $class = $GLOBALS['beanList'][$this->related_module];
-                    if(file_exists($GLOBALS['beanFiles'][$class])){
-                        $mod = loadBean($this->module_dir);
+                $mod = BeanFactory::getBean($this->module_dir, $primary_id);
+                if(!empty($mod)) {
                         $mod->relDepth = $this->bean->relDepth + 1;
-                        $mod->retrieve($primary_id);
                         if (isset($mod->name)) {
                             $this->bean->{$this->value_name}=array_merge($this->bean->{$this->value_name}, array('primary'=>array('id'=>$primary_id, 'name'=>$mod->name)));
                         }
@@ -154,7 +138,6 @@ class ViewSugarFieldCollection{
                                 }
                             }
                         }
-                    }
                 }
             }
         }
@@ -486,39 +469,33 @@ FRA;
     }
 
 
-
-    function findTemplate($view){
+    function findTemplate($view, $classList = null)
+    {
         static $tplCache = array();
 
         if ( isset($tplCache[$this->type][$view]) ) {
             return $tplCache[$this->type][$view];
         }
 
-        $lastClass = get_class($this);
-        $classList = array($this->type,str_replace('ViewSugarField','',$lastClass));
-        while ( $lastClass = get_parent_class($lastClass) ) {
-            $classList[] = str_replace('ViewSugarField','',$lastClass);
+        if(!is_array($classList)) {
+            $lastClass = get_class($this);
+            $classList = array($this->type,str_replace('ViewSugarField','',$lastClass));
+            while ( $lastClass = get_parent_class($lastClass) ) {
+                $classList[] = str_replace('ViewSugarField','',$lastClass);
+            }
         }
 
         $tplName = '';
         foreach ( $classList as $className ) {
             global $current_language;
             if(isset($current_language)) {
-                $tplName = 'include/SugarFields/Fields/'. $className .'/'. $current_language . '.' . $view .'.tpl';
-                if ( file_exists('custom/'.$tplName) ) {
-                    $tplName = 'custom/'.$tplName;
-                    break;
-                }
-                if ( file_exists($tplName) ) {
+                $tplName = SugarAutoLoader::existingCustomOne('include/SugarFields/Fields/'. $className .'/'. $current_language . '.' . $view .'.tpl');
+                if ( $tplName ) {
                     break;
                 }
             }
-            $tplName = 'include/SugarFields/Fields/'. $className .'/'. $view .'.tpl';
-            if ( file_exists('custom/'.$tplName) ) {
-                $tplName = 'custom/'.$tplName;
-                break;
-            }
-            if ( file_exists($tplName) ) {
+            $tplName = SugarAutoLoader::existingCustomOne('include/SugarFields/Fields/'. $className .'/'. $view .'.tpl');
+            if ($tplName) {
                 break;
             }
         }

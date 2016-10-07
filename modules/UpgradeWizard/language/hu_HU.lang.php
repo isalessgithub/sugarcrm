@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'A következő modulok lettek telepítve:',
   'DESC_MODULES_QUEUED' => 'A következő modulok készen állnak a telepítésre:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'A feltöltött fájl nem kompatibilis a SugarCRM használt verziójával (Community Edition, Professional, vagy Enterprise):',
+  'ERROR_HT_NO_WRITE' => 'Az alábbi fájl nem írható: %s',
+  'ERROR_MANIFEST_TYPE' => 'A manifest fájlnak meg kell határoznia a csomag típusát.',
+  'ERROR_PACKAGE_TYPE' => 'A manifest fájl ismeretlen csomagot határoz meg: %s',
+  'ERROR_UW_CONFIG_DB' => 'Hiba a(z) %s config var mentése során ide: db (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'A feltöltött fájl nem kompatibilis ezzel a Sugar verzióval:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Ön által használt PHP verziót nem támogatja a SugarCRM. Szüksége lesz egy frissebb verzióra, amely kompatibilis a Sugar alkalmazással. Tekintse át a kiadásokra vonatkozó PHP kompatibilitási listát! Az Ön által használt verzió',
+  'ERR_NOT_ADMIN' => 'Nem engedélyezett hozzáférés az adminisztrációs felületen.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Önnek nincs megfelelő jogosultsága az oldal megtekintéséhez.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Nem meghatározható a csoport',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Nem meghatározható a tulajdonos',
   'ERR_UW_CONFIG' => 'Kérem, tegye írhatóvá a config.php fájlt majd frissítse az oldalt!',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Újraindítás',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Frissítés folyamatban',
   'LBL_CURRENT_PHP_VERSION' => '(Az Ön által használt PHP verzió',
+  'LBL_GLOBAL_TEAM_DESC' => 'Mindenhol látható',
   'LBL_HOME_PAGE_4_NAME' => 'Nyomkövető',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'PHP 5-ös verzió vagy újabb szükséges.',
   'LBL_LANGPACKS' => 'Nyelvek',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP beállítás: memórialimit',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Szerver és PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Szükséges MySQL verzió',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE verzió',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'A php.ini helye',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Szükséges PHP Verzió',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP beállítás: biztonságos mód',

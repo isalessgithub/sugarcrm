@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Documento Creado',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Nombre del Documento',
   'ERR_DOC_VERSION' => 'Versión del Documento',
   'ERR_FILENAME' => 'Nombre de Archivo',
+  'ERR_FILESIZE' => 'El archivo es demasiado grande. Tamaño de archivo máximo:',
   'LBL_ACTIVE_DATE' => 'Fecha de Publicación',
   'LBL_AND' => 'y',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Aplicando etiquetas a artículos ...',
@@ -35,16 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Autor:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Autor',
   'LBL_ARTICLE_BODY' => 'Cuerpo de Artículo:',
-  'LBL_ARTICLE_EXISTS' => 'El artículo ya existe',
+  'LBL_ARTICLE_EXISTS' => 'El Artículo ya existe',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artículo',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'La vista preliminar no está disponible, el Documento existe, pero aún no se ha creado ningún contenido.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'La vista preliminar no está disponible, no se ha encontrado el registro del Documento.',
   'LBL_ARTICLE_TITLE' => 'Título:',
   'LBL_ATTACHMENTS' => 'Adjuntos:',
-  'LBL_CASE' => 'Caso',
+  'LBL_CASE' => 'Caso:',
   'LBL_CASES' => 'Casos',
   'LBL_CASES_SUBPANEL_TITLE' => 'Casos Relacionados',
-  'LBL_CASE_ID' => 'ID del Caso',
+  'LBL_CASE_ID' => 'ID de Caso',
   'LBL_CATEGORY' => 'Categoría',
   'LBL_CATEGORY_VALUE' => 'Categoría:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Sin Especificar',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Contratos',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Contratos Relacionados',
   'LBL_CONTRACT_NAME' => 'Nombre de Contrato:',
+  'LBL_CONTRACT_STATUS' => 'Estado del contrato:',
   'LBL_CREATED' => 'Creado por',
   'LBL_CREATED_BY' => 'Creado por',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -65,7 +64,7 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Fecha de Creación',
   'LBL_DATE_MODIFIED' => 'Última Modificación',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'Seleccione una acción de la lista desplegable',
-  'LBL_DEFAULT_LINK_TEXT' => 'Texto del enlace por defecto.',
+  'LBL_DEFAULT_LINK_TEXT' => 'Texto de enlace por defecto.',
   'LBL_DELETE' => 'Eliminar',
   'LBL_DELETED' => 'Eliminado',
   'LBL_DELETE_TAG' => 'Eliminar Etiqueta',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Id de Documento',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Número de Versión KBDocument',
   'LBL_KBDOC_APPROVED_BY' => 'Aprobado Por:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Nombre de Aprobador',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Descargar Adjuntos:',
   'LBL_KBDOC_BODY' => 'Cuerpo:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Id de Última Versión',
   'LBL_LATEST_REVISION_NAME' => 'Nombre de Última Versión',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Lanzando Explorador de Etiquetas ...',
+  'LBL_LINKED_ID' => 'ID Linkedin',
   'LBL_LIST_ACTIVE_DATE' => 'Fecha de Publicación',
   'LBL_LIST_APPROVED_BY' => 'Aprobado Por',
   'LBL_LIST_ARTICLES' => 'Ver Artículos',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'No es un archivo válido',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Tipo de Padre',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Puede filtrar por la lista de artículos introduciendo un término de búsqueda.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Por ejemplo, puede usarlo para encontrar un artículo sobre un tema de interés.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'El módulo Gestión de Conocimiento es para trabajar con artículos publicado. Utilice las flechas abajo para ir a un guía rápida.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Esta página muestra la lista de artículos publicados.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Haga clic aquí para volver al Gestor de Conocimiento en cualquier momento.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Búsquedas Guardadas Anteriores:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editar o Eliminar una Búsqueda Guardada existente.',
   'LBL_PUBLISHED' => 'Publicado:',
@@ -180,13 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Documentos',
   'LBL_SEARCH_TAG' => 'Buscar',
   'LBL_SEARCH_WITHIN' => 'Buscar en:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Nombre de archivo de versión seleccionada',
+  'LBL_SELECTED_REVISION_ID' => 'Id de versión seleccionada',
   'LBL_SELECTED_REVISION_NAME' => 'Nombre de Versión Seleccionada',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Seleccione Artículos a los que Aplicar Etiquetas',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Seleccione Artículos Primero',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Seleccione Artículos Primero',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Crear Nueva Etiqueta',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Seleccione una Etiqueta del Árbol',
-  'LBL_SELECT_NODE' => 'Por favor, seleccione un nódulo.',
+  'LBL_SELECT_NODE' => 'Por favor, seleccione un nodo',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Seleccione la etiqueta padre del árbol',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Seleccione la etiqueta padre, del árbol',
   'LBL_SELECT_TAG' => 'Seleccionar Etiqueta',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Usando Esta Etiqueta:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Artículos sin Etiquetar',
   'LBL_UPDATE' => 'Actualizar',
+  'LBL_VIEWS_NUMBER' => 'Número de visitas',
   'LNK_KBDOCUMENT_LIST' => 'Ver Documentos',
   'LNK_NEW_ARTICLE' => 'Crear Artículo',
   'LNK_NEW_MAIL_MERGE' => 'Combinar Correspondencia',

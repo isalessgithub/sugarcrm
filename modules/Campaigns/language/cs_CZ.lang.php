@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Před pokračováním opravte následujíci chyby.',
@@ -24,10 +21,10 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'V tomto seznamu adresátů nebyl nalezen žádný marketingový email.',
   'ERR_NO_EMAIL_MARKETING' => 'Ke kampani musí být přiřazen nejméně jeden aktivní marketingový email.',
   'ERR_NO_MAILBOX' => 'Se zprávami není asociován žádná marketingová e-mailová schránka. Prosím opravte to před jejím použitím.',
-  'ERR_NO_OPTS_SAVED' => 'Žádná optima nebyla uložena s Vaším příchozím emailem.',
+  'ERR_NO_OPTS_SAVED' => 'Žádné Optimání nebyly uloženy s Vaším příchozím emailem.Prosím zkontrolujte nastavení',
   'ERR_NO_TARGET_LISTS' => 'Musí být asociován alespoň jeden Přehled cílů s kampaní.',
   'ERR_NO_TEST_TARGET_LISTS' => 'Musí být asociován alespoň jeden Přehled cílů s kampaní',
-  'ERR_REVIEW_EMAIL_SETTINGS' => 'Prosím zkontrolujte nastavení příchozí pošty',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'Prosím prověřte nastavení příchozí pošty.',
   'ERR_SENDING_NOW' => 'Zprávy jsou doručovány. Prosím zkuste to později.',
   'LBL_ACCOUNTS' => 'Společnosti',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Společnosti',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Předpokládaný výnos:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Četnost',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Imprese:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Kampaň &#39;{0}&#39; je ve stavu &#39;Neaktivní&#39;. Musíte nastavit stav kampaně na &#39;Active&#39;.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Kampaň &#39;{0}&#39; má status nastaven na "neaktivní". Musíte nastavit kampaň ručně do stavu "aktivní"',
   'LBL_CAMPAIGN_INFORMATION' => 'Přehled kampaní',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Přiležitosti',
   'LBL_CAMPAIGN_NAME' => 'Název:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Vytvořil:',
   'LBL_CREATED_BY' => 'Vytvořil:',
   'LBL_CREATED_USER' => 'Vytvořeno uživatelem',
+  'LBL_CREATE_EMAIL' => 'Vytvořit email',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Přidat',
   'LBL_CREATE_MAILBOX' => 'Vytovřit novou emailovou schárnku.',
   'LBL_CREATE_NEWSLETTER' => 'Vytvořit newsletter',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Vytvořit web-to-lead (příležitost) formulář',
   'LBL_CURRENCY' => 'Měna',
   'LBL_CURRENCY_ID' => 'ID měny',
+  'LBL_CURRENCY_RATE' => 'Kurz měny',
   'LBL_CUSTOM_LOCATION' => 'Umožnit výběr',
   'LBL_DATE_CREATED' => 'Vytvořeno:',
   'LBL_DATE_ENTERED' => 'Zahájeno',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Zahájit nastavení emailu',
   'LBL_EMAIL_SETUP_WIZARD' => 'Nastavení emailu',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Nastavení emailů pro kampaně',
+  'LBL_EMAIL_TITLE' => 'Kampaně: Emaily',
+  'LBL_END_DATE' => 'Datum konce',
   'LBL_FILTER_CHART_BY' => 'Filtrujte graf podle',
   'LBL_FINISH' => 'Dokončit',
   'LBL_FROM_ADDR' => 'Od adresa',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Použít SSL',
   'LBL_SSL_DESC' => 'Jestliže Váš mail server podporuje secure socket připojení,umožní se tímto SSL připojení pro import mailů.',
   'LBL_START' => 'Začátek',
+  'LBL_START_DATE' => 'Dátum začátku',
   'LBL_START_DATE_TIME' => 'Počáteční datum a čas:',
+  'LBL_STATUS' => 'Stav',
   'LBL_STATUS_TEXT' => 'Stav:',
   'LBL_SUBSCRIPTION_LIST' => 'Seznam přihlášených',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Název seznamu pro přihlášené k odběru:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Zobrazit detaily',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Zobrazit detaily',
   'LBL_TOP_CAMPAIGNS' => 'Kampaně',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Nejvýkonnější kampaně dle obratu',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Nejvýkonnější kampaně podle obratu',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Název kampaně',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Výnos',
   'LBL_TOTAL_ENTRIES' => 'Položky',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Tato možnost smaže log položky vytvořené testovacím během. Pokračovat?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Fronta sledování',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Zobratiz ROI',
+  'LBL_TYPE' => 'Typ',
   'LBL_UNSUBSCRIBED_HEADER' => 'Dostupné newslettery',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Přesunutí newsletteru do Newslettru k dispozici/Newsletteru k odhlášení. Kontakt bude odhlášen z odběru tohoto Newsletteru. Nebude však odebrán z původního listu pro odběr nebo z Cílového listu.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Seznam odhlášených',

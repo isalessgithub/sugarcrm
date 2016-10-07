@@ -1,22 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('soap/SoapHelperFunctions.php');
 require_once('modules/MailMerge/MailMerge.php');
-
-global  $beanList, $beanFiles;
 
 $module = $_POST['mailmerge_module'];
 $document_id = $_POST['document_id'];
@@ -25,15 +20,10 @@ $selObjs = urldecode($_POST['selected_objects_def']);
 $item_ids = array();
 parse_str($selObjs,$item_ids);
 
-$class_name = $beanList[$module];
-$includedir = $beanFiles[$class_name];
-require_once($includedir);
-$seed = new $class_name();
-
+$seed = BeanFactory::getBean($module);
 $fields =  get_field_list($seed);
 
-$document = new Document();
-$document->retrieve($document_id);
+$document = BeanFactory::getBean('Documents', $document_id);
 
 $items = array();
 foreach($item_ids as $key=>$value)
@@ -42,7 +32,9 @@ foreach($item_ids as $key=>$value)
 	$items[] = $seed;
 }
 
-ini_set('max_execution_time', 600);
+if (ini_get('max_execution_time') > 0 && ini_get('max_execution_time') < 600) {
+    ini_set('max_execution_time', 600);
+}
 ini_set('error_reporting', 'E_ALL');
 $dataDir = create_cache_directory("MergedDocuments/");
 $fileName = UploadFile::realpath("upload://$document->document_revision_id");

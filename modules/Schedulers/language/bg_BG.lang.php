@@ -2,39 +2,38 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_CRON_SYNTAX' => 'Невалиден Cron синтаксис',
+  'ERR_CRON_SYNTAX' => 'Невалиден синтаксис',
   'ERR_DELETE_RECORD' => 'Трябва да определите номер на записа, за да изтриете тази запланирана дейност.',
   'LBL_ADV_OPTIONS' => 'Допълнителни настройки',
   'LBL_ALL' => 'Ежедневно',
   'LBL_ALWAYS' => 'Винаги',
   'LBL_AND' => 'и',
-  'LBL_AT' => 'at',
+  'LBL_ASYNCMASSUPDATE' => 'Изпъняване на асинхронни масови актуализации',
+  'LBL_AT' => 'в',
   'LBL_AT_THE' => 'At the',
   'LBL_BASIC_OPTIONS' => 'Базови настройки',
   'LBL_CATCH_UP' => 'Изпълни, ако е пропуснато',
   'LBL_CATCH_UP_WARNING' => 'Uncheck if this Job may take more than a moment to run.',
   'LBL_CLEANJOBQUEUE' => 'Изчистване на опашкате от заявки',
-  'LBL_CRONTAB_EXAMPLES' => 'The above uses standard crontab notation.',
-  'LBL_CRONTAB_SERVER_TIME_POST' => '). Please specify the scheduler execution time accordingly.',
-  'LBL_CRONTAB_SERVER_TIME_PRE' => 'The cron specifications run based on the server timezone (',
-  'LBL_CRON_INSTRUCTIONS_LINUX' => 'To Setup Crontab',
-  'LBL_CRON_INSTRUCTIONS_WINDOWS' => 'To Setup Windows Scheduler',
+  'LBL_CLEANOLDRECORDLISTS' => 'Изчистване на списъците със стари записи',
+  'LBL_CRONTAB_EXAMPLES' => 'Използва се стандартната за crontab нотация.',
+  'LBL_CRONTAB_SERVER_TIME_POST' => '). Моля посочете времето за изпълнение на автоматизираната задача, като се съобразите с текущата часова зона.',
+  'LBL_CRONTAB_SERVER_TIME_PRE' => 'Програмата cron се изпълнява в съответствие с часовата зона на сървъра (',
+  'LBL_CRON_INSTRUCTIONS_LINUX' => 'За да конфигурирате Crontab',
+  'LBL_CRON_INSTRUCTIONS_WINDOWS' => 'За да конфигурирате Windows Scheduler',
   'LBL_CRON_LINUX_DESC' => 'Добавете следния ред към настройките за автоматично изпълнение на задачи:',
   'LBL_CRON_WINDOWS_DESC' => 'Създаване на batch файл със следните команди:',
   'LBL_DATE_TIME_END' => 'Крайна дата и час',
@@ -52,13 +51,13 @@ $mod_strings = array (
   'LBL_IN' => 'в',
   'LBL_INTERVAL' => 'Интервал',
   'LBL_JOB' => 'Задача',
-  'LBL_JOBS_SUBPANEL_TITLE' => 'Job Log',
+  'LBL_JOBS_SUBPANEL_TITLE' => 'Хронология на изпълнението',
   'LBL_JOB_URL' => 'URL на задачата',
   'LBL_LAST_RUN' => 'Последно успешно изпълнение',
   'LBL_LIST_EXECUTE_TIME' => 'Ще бъде изпълнена в:',
-  'LBL_LIST_JOB_INTERVAL' => 'Интервал:',
-  'LBL_LIST_LIST_ORDER' => 'Запланирани дейности:',
-  'LBL_LIST_NAME' => 'График на дейностите:',
+  'LBL_LIST_JOB_INTERVAL' => 'Интервал на изпълнение:',
+  'LBL_LIST_LIST_ORDER' => 'Планирани задачи:',
+  'LBL_LIST_NAME' => 'Задача:',
   'LBL_LIST_RANGE' => 'Времеви диапазон:',
   'LBL_LIST_REMOVE' => 'Премахни:',
   'LBL_LIST_STATUS' => 'Статус:',
@@ -82,45 +81,49 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Изпращане на електронни писма от кампании',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Изчистване на опашкате от заявки',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Създаване на бъдещи времеви периоди',
-  'LBL_OOTB_IE' => 'Check Inbound Mailboxes',
-  'LBL_OOTB_PRUNE' => 'Prune на базата на 1-о число всеки месец',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Премахване на документи от файловата система',
-  'LBL_OOTB_REPORTS' => 'Run Report Generation Scheduled Tasks',
-  'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Run Email Reminder Notifications',
-  'LBL_OOTB_SUGARFEEDS' => 'Изчисти таблиците на SugarFeed',
-  'LBL_OOTB_TRACKER' => 'Prune User History Table on 1st of Month',
-  'LBL_OOTB_WORKFLOW' => 'Process Workflow Tasks',
+  'LBL_OOTB_HEARTBEAT' => 'Статистика на Sugar',
+  'LBL_OOTB_IE' => 'Проверка на пощенски кутии за входяща поща',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Насрочена задача за Дизайнер на процеси',
+  'LBL_OOTB_PRUNE' => 'Изчистване на базата на 1-о число всеки месец',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Изтриване на стари списъци със записи',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Премахване на файловете за диагностика',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Премахване на временните PDF файлове',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Премахване на временните файлове',
+  'LBL_OOTB_REPORTS' => 'Изпълняване на задачите за автоматично генериране на справки',
+  'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Изпращане на известия за нопомняне по електронна поща',
+  'LBL_OOTB_TRACKER' => 'Изчистване на таблицата с потребителска активност на 1-во число всеки месец',
+  'LBL_OOTB_WORKFLOW' => 'Изпълнение на задачи в автоматизираните процеси',
   'LBL_PERENNIAL' => 'непрекъснато',
-  'LBL_PERFORMFULLFTSINDEX' => 'Full-text Search Index System',
-  'LBL_POLLMONITOREDINBOXES' => 'Check Inbound Mail Accounts',
+  'LBL_PERFORMFULLFTSINDEX' => 'Индексиране на съдържанието за пълнотекстово търсене',
+  'LBL_PMSEENGINECRON' => 'Автаматизирани задачи за Дизайнер на процеси',
+  'LBL_POLLMONITOREDINBOXES' => 'Проверка на пощенски кутии за входяща поща',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Обработка на върнати електронни писма от кампании',
-  'LBL_PROCESSQUEUE' => 'Run Report Generation Scheduled Tasks',
-  'LBL_PROCESSWORKFLOW' => 'Process Workflow Tasks',
-  'LBL_PRUNEDATABASE' => 'Prune на базата на 1-о число всеки месец',
-  'LBL_RANGE' => 'to',
+  'LBL_PROCESSQUEUE' => 'Изпълняване на задачите за автоматично генериране на справки',
+  'LBL_PROCESSWORKFLOW' => 'Изпълнение на задачи в автоматизираните процеси',
+  'LBL_PRUNEDATABASE' => 'Изчистване на базата на 1-о число всеки месец',
+  'LBL_RANGE' => 'до',
   'LBL_REFRESHJOBS' => 'Опресни задачите',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Премахване на документи от файловата система',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Изпращане на електронни писма от кампании',
   'LBL_SAT' => 'Събота',
   'LBL_SCHEDULER' => 'График на дейностите:',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене на автоматизирани задачи',
-  'LBL_SENDEMAILREMINDERS' => 'Run Email Reminders Sending',
+  'LBL_SENDEMAILREMINDERS' => 'Изпращане на напомняния по електронна поща',
   'LBL_STATUS' => 'Статус',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Създаване на бъдещи времеви периоди',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar статистика',
   'LBL_SUN' => 'Неделя',
   'LBL_THU' => 'Четвъртък',
   'LBL_TIME_FROM' => 'Активна от',
   'LBL_TIME_TO' => 'Активна до',
   'LBL_TOGGLE_ADV' => 'Показване на допълнителни настройки',
   'LBL_TOGGLE_BASIC' => 'Базови настройки',
-  'LBL_TRIMSUGARFEEDS' => 'Изчисти таблиците на SugarFeed',
-  'LBL_TRIMTRACKER' => 'Prune User History Table on 1st of Month',
+  'LBL_TRIMTRACKER' => 'Изчистване на потребителската история на 1-о число всеки месец',
   'LBL_TUE' => 'Вторник',
-  'LBL_UPDATETRACKERSESSIONS' => 'Update Tracker Session Tables',
+  'LBL_UPDATETRACKERSESSIONS' => 'Актуализация на таблиците за проследяване на активностите в системата',
   'LBL_UPDATE_TRACKER_SESSIONS' => 'Update tracker_sessions table',
   'LBL_WARN_CURL' => 'Внимание:',
   'LBL_WARN_CURL_TITLE' => 'cURL предупреждение:',
-  'LBL_WARN_NO_CURL' => 'IMAP бибилиотеките не са компилирaни и разрешени в PHP дистрибуцията (--with-curl=/path/to/curl_library).  Моля, свържете се със системния администратор за разрешаване на проблема.  Without the cURL functionality, the Scheduler cannot thread its jobs.',
+  'LBL_WARN_NO_CURL' => 'cURL бибилиотеките не са компилирaни и разрешени в PHP дистрибуцията (--with-curl=/path/to/curl_library).  Моля, свържете се със системния администратор за разрешаване на проблема.  Без функционалнопстта предоставяна от библиотеките cURL, автоматизираните задачи няма да могат да се изпълняват.',
   'LBL_WED' => 'Сряда',
   'LNK_LIST_SCHEDULED' => 'Запланирани дейности',
   'LNK_LIST_SCHEDULER' => 'Автоматизирани задачи',

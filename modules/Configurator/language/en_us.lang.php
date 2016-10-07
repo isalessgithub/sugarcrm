@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -70,6 +67,7 @@ $mod_strings = array (
 	'LBL_MODULE_FAVICON'               => 'Display module icon as favicon',
     'LBL_MODULE_FAVICON_HELP'   => 'If you are in a module with an icon, use the module\'s icon as the favicon, instead of the theme\'s favicon, in the browser tab.',
 	'LBL_MODULE_NAME'=>'System Settings',
+	'LBL_MODULE_NAME_SINGULAR' => 'System Setting',
     'LBL_MODULE_ID'  => 'Configurator',
 	'LBL_MODULE_TITLE'=>'User Interface',
 	'LBL_NOTIFY_FROMADDRESS' => '"From" Address:',
@@ -90,14 +88,20 @@ $mod_strings = array (
 	'LBL_SKYPEOUT_ON_DESC' => 'Allows users to click on phone numbers to call using SkypeOut&reg;. The numbers must be formatted properly to make use of this feature. That is, it must be "+"  "The Country Code" "The Number", like +1 (555) 555-1234.',
 	'LBL_SKYPEOUT_ON' => 'Enable SkypeOut&reg; integration',
 	'LBL_SKYPEOUT_TITLE' => 'SkypeOut&reg;',
+    'LBL_TWEETTOCASE_ON_DESC' => 'Allows users to create cases from Tweets',
+    'LBL_TWEETTOCASE_ON' => 'Enable Tweet&reg; to case integration',
+    'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; to case',
 	'LBL_USE_REAL_NAMES'	=> 'Show Full Names',
 	'LBL_USE_REAL_NAMES_DESC'			=> 'Display users\' full names instead of their User Names in assignment fields.',
     'LBL_DISALBE_CONVERT_LEAD' => 'Disable convert lead action for converted leads',
     'LBL_DISALBE_CONVERT_LEAD_DESC' => 'If a lead has already been converted, enabling this option will remove the convert lead action.',
     'LBL_ENABLE_ACTION_MENU' => 'Display actions within menus',
-    'LBL_ENABLE_ACTION_MENU_DESC' => 'Select to display DetailView and subpanel actions within a dropdown menu. If un-selected, the actions will display as separate buttons.',
+    'LBL_ENABLE_ACTION_MENU_DESC' => 'Select to display DetailView and subpanel actions within a dropdown menu. If un-selected, the actions will display as separate buttons. This setting applies to modules in legacy mode.',
+    'LBL_LOCK_SUBPANELS_DESC' => 'This setting applies to modules in legacy mode.',
     'LIST_ENTRIES_PER_LISTVIEW'=>'Listview items per page',
+    'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP'=>'Recommended setting is below {{listEntriesNum}} for acceptable performance levels. As additional fields are added to the listview, this number should be at the lower end of the recommended setting.',
 	'LIST_ENTRIES_PER_SUBPANEL'=>'Subpanel items per page',
+    'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP'=>'Recommended setting is below {{subpanelEntriesNum}} for acceptable performance levels. As additional fields are added to the listview, this number should be at the lower end of the recommended setting.',
 	'LBL_WIRELESS_LIST_ENTRIES' => 'Listview items per page',
     'LBL_WIRELESS_SERVER_URL' => 'Sugar Mobile Plus server',
 	'LBL_WIRELESS_SUBPANEL_LIST_ENTRIES' => 'Subpanel items per page',
@@ -107,8 +111,8 @@ $mod_strings = array (
     'CURRENT_LOGO'=>'Current Logo:',
     'CURRENT_LOGO_HELP'=>'This logo is displayed in the left-hand corner of the footer of the Sugar application.',
     'NEW_LOGO'=>'Select Logo:',
-	'NEW_LOGO_HELP'=>'The image file format can be either .png or .jpg. The maximum height is 17px, and the maximum width is 450px. Any image uploaded that is larger in any direction will be scaled to these max dimensions.',
-    'NEW_LOGO_HELP_NO_SPACE'=>'The image file format can be either .png or .jpg. The maximum height is 17px, and the maximum width is 450px. Any image uploaded that is larger in any direction will be scaled to these max dimensions. Image file name must not contain a space character.',
+    'NEW_LOGO_HELP' => 'The image file format can be either .png or .jpg. The maximum height is 24px, and the maximum width is 180px. Any image uploaded that is larger in any direction will be scaled to these max dimensions.',
+    'NEW_LOGO_HELP_NO_SPACE' => 'The image file format can be either .png or .jpg. The maximum height is 24px, and the maximum width is 450px. Any image uploaded that is larger in any direction will be scaled to these max dimensions. Image file name must not contain a space character.',
     'NEW_QUOTE_LOGO'=>'Upload new Quotes logo',
     'NEW_QUOTE_LOGO_HELP'=>'The required image file format is .jpg.<BR>The recommended size is 867x74 px.',
     'QUOTES_CURRENT_LOGO'=>'Quotes logo',
@@ -122,11 +126,13 @@ $mod_strings = array (
 	'SYSTEM_NAME'=>'System Name:',
 	'SYSTEM_NAME_WIZARD'=>'Name:',
 	'SYSTEM_NAME_HELP'=>'This is the name that displays in the title bar of your browser.',
+    'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Enable/Disable emails from related (or linked) contacts to show in Email Subpanel.',
 
     'LBL_OC_STATUS'                     => 'Default Offline Client Status',
     'DEFAULT_OC_STATUS'                 => 'Enable Offline Client by default',
     'LBL_OC_STATUS_DESC' => 'Check here if you would like any user to have access to Offline Client.  Otherwise you can configure access at the user level.',
     'SESSION_TIMEOUT' => 'Portal Session Timeout',
+    'LBL_SESSION_TIMEOUT_TOOLTIP' => 'The Portal Session Timeout is for legacy versions of Sugar Portal available in 6.5 and older.',
     'SESSION_TIMEOUT_UNITS' => 'seconds',
     'LBL_LDAP_TITLE'=>'LDAP Authentication Support',
     'LBL_LDAP_ENABLE'=>'Enable LDAP',
@@ -192,15 +198,14 @@ $mod_strings = array (
 	'LBL_LOGGER_LOG_LEVEL'=>'Log Level',
         'LBL_LEAD_CONV_OPTION' => 'Lead Conversion Options',
         'LEAD_CONV_OPT_HELP' => "<b>Copy</b> - Creates and relates copies of all of the Lead's activities to new records that are selected by the user during conversion. Copies are created for each of the selected records.<br><br><b>Move</b> - Moves all of the Lead's activities to a new record that is selected by the user during conversion.<br><br><b>Do Nothing</b> - Does nothing with the Lead's activities during conversion. The activities remain related to the Lead only.",
-        'LBL_CONFIG_AJAX' => 'Configure AJAX User Interface',
-        'LBL_CONFIG_AJAX_DESC' => 'Enable or disable the use of the AJAX UI for specific modules.',
 	'LBL_LOGGER_MAX_LOGS'=>'Maximum number of logs (before rolling)',
 	'LBL_LOGGER_FILENAME_SUFFIX' =>'Append after filename',
 	'LBL_VCAL_PERIOD' => 'vCal Updates Time Period:',
+    'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Prevent name changes by users to update their Private Team Name',
     'LBL_IMPORT_MAX_RECORDS' => 'Import - Maximum Number of Rows:',
     'LBL_IMPORT_MAX_RECORDS_HELP' => 'Specify how many rows are allowed within import files. If the number of rows <br>in an import file exceeds this number, the user will be alerted. If no number<br> is entered, an unlimited number of rows are allowed.',
 	'vCAL_HELP' => 'Use this setting to determine the number of months in advance of the current date that Free/Busy information for calls and meetings is published.<BR>To turn Free/Busy publishing off, enter "0".  The minimum is 1 month; the maximum is 12 months.',
-    'LBL_PDFMODULE_NAME' => 'PDF Settings',
+    'LBL_PDFMODULE_NAME' => 'Report PDF Template',
     'SUGARPDF_BASIC_SETTINGS' => 'Document Properties',
     'SUGARPDF_ADVANCED_SETTINGS' => 'Advanced Settings',
     'SUGARPDF_LOGO_SETTINGS' => 'Images',
@@ -220,11 +225,11 @@ $mod_strings = array (
     'PDF_HEADER_LOGO_WIDTH' => 'Quotes Image Width',
     'PDF_HEADER_LOGO_WIDTH_INFO' => 'Change the scale of the uploaded image that appears in Quotes PDF Documents. (TCPDF only)',
 
-    'PDF_SMALL_HEADER_LOGO' => 'For Reports PDF Documents',
-    'PDF_SMALL_HEADER_LOGO_INFO' => 'This image appears in the default Header in Reports PDF Documents.<br> This image also appears in the top left-hand corner of the Sugar application.',
+    'PDF_SMALL_HEADER_LOGO' => 'Current Image',
+    'PDF_SMALL_HEADER_LOGO_INFO' => 'This image appears in the Header of the PDF document pages.',
 
-    'PDF_NEW_SMALL_HEADER_LOGO' => 'Select New Image for Reports',
-    'PDF_NEW_SMALL_HEADER_LOGO_INFO' => 'The file format can be either .jpg or .png. (Only .jpg for EZPDF)<BR>The recommended size is 212x40 px.',
+    'PDF_NEW_SMALL_HEADER_LOGO' => 'Select New Image',
+    'PDF_NEW_SMALL_HEADER_LOGO_INFO' => 'Select an image to replace the current image. The file format can be either .jpg or .png. (Only .jpg for EZPDF.) The recommended size is 212x40 px.',
 
     'PDF_SMALL_HEADER_LOGO_WIDTH' => 'Reports Image Width',
     'PDF_SMALL_HEADER_LOGO_WIDTH_INFO' => 'Change the scale of the uploaded image that appears in Reports PDF Documents. (TCPDF only)',
@@ -318,22 +323,22 @@ $mod_strings = array (
 "Chinese Traditional :<br>".
 "<pre>\$enc=\'UniCNS-UTF16-H\';<br>".
 "\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'CNS1\',\'Supplement\'=>0);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_ac15.php\');</pre>".
+"include(\'vendor/tcpdf/fonts/uni2cid_ac15.php\');</pre>".
 "</li><li>".
 "Chinese Simplified :<br>".
 "<pre>\$enc=\'UniGB-UTF16-H\';<br>".
 "\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'GB1\',\'Supplement\'=>2);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_ag15.php\');</pre>".
+"include(\'vendor/tcpdf/fonts/uni2cid_ag15.php\');</pre>".
 "</li><li>".
 "Korean :<br>".
 "<pre>\$enc=\'UniKS-UTF16-H\';<br>".
 "\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'Korea1\',\'Supplement\'=>0);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_ak12.php\');</pre>".
+"include(\'vendor/tcpdf/fonts/uni2cid_ak12.php\');</pre>".
 "</li><li>".
 "Japanese :<br>".
 "<pre>\$enc=\'UniJIS-UTF16-H\';<br>".
 "\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'Japan1\',\'Supplement\'=>5);<br>".
-"include(\'include/tcpdf/fonts/uni2cid_aj16.php\');</pre>".
+"include(\'vendor/tcpdf/fonts/uni2cid_aj16.php\');</pre>".
 "</li></ul>".
 "More help : www.tcpdf.org",
     'LBL_FONT_LIST_FILESIZE' => 'Font Size (KB)',
@@ -410,7 +415,6 @@ To configure additional system settings, click <a href="index.php?module=Adminis
     'LBL_WIZARD_SYSTEM_DESC' => 'Provide your organization\'s name and logo in order to brand your Sugar.',
     'LBL_WIZARD_LOCALE_DESC' => 'Specify how you would like data in Sugar to be displayed, based on your geographical location. The settings you provide here will be the default settings. Users will be able set their own preferences.',
     'LBL_WIZARD_SMTP_DESC' => 'Provide the email account that will be used to send emails, such as the assignment notifications and new user passwords. Users will receive emails from Sugar, as sent from the specified email account.',
-    'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* The Reports module is only available for the Sugar Mobile iPhone client.',
 	'LBL_GMAIL_LOGO' => 'Gmail Logo' /*for 508 compliance fix*/,
 	'LBL_YAHOO_MAIL' => 'Yahoo Mail' /*for 508 compliance fix*/,
 	'LBL_EXCHANGE_LOGO' => 'Exchange' /*for 508 compliance fix*/,
@@ -418,9 +422,14 @@ To configure additional system settings, click <a href="index.php?module=Adminis
 	'LBL_DELETE' => 'Delete' /*for 508 compliance fix*/,
 	'LBL_WELCOME' => 'Welcome' /*for 508 compliance fix*/,
 	'LBL_LOGO' => 'Logo' /*for 508 compliance fix*/,
-    'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* The Reports module is only available for the Sugar Mobile native clients',
-    'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Show related contacts\' emails in History subpanel for modules',
+    'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* The Reports module is only available for the SugarCRM and Sugar Mobile native clients',
+    'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* The Reports module is not available for the browser-based mobile view.',
+
+// Password settings
+    'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL can not be empty',
+    'ERR_EMPTY_SAML_CERT' => 'SAML certificate can not be empty',
+    'ERR_SAML_LOGIN_URL' => 'SAML Login URL is not valid',
+    'ERR_SAML_SLO_URL' => 'SAML SLO URL is not valid',
 );
 
 
-?>

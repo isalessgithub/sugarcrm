@@ -1,28 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- ********************************************************************************/
-
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 // ProductType is used to store customer information.
 class TeamNotice extends SugarBean {
@@ -56,12 +43,23 @@ class TeamNotice extends SugarBean {
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = Array();
 
-	function TeamNotice() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function TeamNotice()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		foreach ($this->field_defs as $field) {
 			$this->field_name_map[$field['name']] = $field;
-		}		
-		
+		}
+
 		$this->team_id = 1; // make the item globally accessible
 	}
 
@@ -84,14 +82,8 @@ class TeamNotice extends SugarBean {
 				$this->url_title = $this->url;
 			}
 		}
-		$this->assigned_name = get_assigned_team_name($this->team_id);
 		$this->status = ( isset($mod_strings['dom_status'][$this->status]) ? $mod_strings['dom_status'][$this->status] : '');
 		$this->fill_in_additional_detail_fields();
-	}
-
-	function fill_in_additional_detail_fields()
-	{
-		$this->assigned_name = get_assigned_team_name($this->team_id);
 	}
 
 	function get_list_view_data(){
@@ -101,7 +93,7 @@ class TeamNotice extends SugarBean {
       $this->load_relationship('teams');
       require_once('modules/Teams/TeamSetManager.php');
       $teams = TeamSetManager::getTeamsFromSet($this->team_set_id);
-      
+
       if(count($teams) > 1) {
       	 $temp_array['TEAM_NAME'] .= "<span id='div_{$this->id}_teams'>
 						<a href=\"#\" onMouseOver=\"javascript:toggleMore('div_{$this->id}_teams','img_{$this->id}_teams', 'Teams', 'DisplayInlineTeams', 'team_set_id={$this->team_set_id}&team_id={$this->team_id}');\"  onFocus=\"javascript:toggleMore('div_{$this->id}_teams','img_{$this->id}_teams', 'Teams', 'DisplayInlineTeams', 'team_set_id={$this->team_set_id}');\" id='more_feather' class=\"utilsLink\">

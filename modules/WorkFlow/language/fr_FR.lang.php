@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTION_ERROR' => 'Cette action ne peut pas être exécutée. Editer cette action afin que chacun des champs et des valeurs de champs soient valides.',
@@ -89,5 +86,6 @@ $mod_strings = array (
   'LNK_PROCESS_VIEW' => 'Ordonnancement des Workflows',
   'LNK_WORKFLOW' => 'Liste des Workflows',
   'NTC_REMOVE_ALERT' => 'Etes-vous sûr(e) de vouloir supprimer ce Workflow?',
+  'WARN_WORKFLOW_DEPRECATED_ERROR' => '<b>Attention :</b> Le module Workflow va bientôt devenir obsolète et sera supprimé. Veuillez reconfigurer vos workfloaw à l&#39;aide du nouveau module de <a href="index.php?module=pmse_Project">Gestion des processus</a>.<span style="width: 1em; display: inline-block;">&nbsp;</span><a target="_blank" href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/01_Sugar_Ultimate/Sugar_Ultimate_7.6/Administration_Guide/135_Process_Author/">Voir la documentation éditeur à propos du gestionnaire de processus</a>.',
 );
 

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Save.php 46993 2009-05-08 19:33:09Z jmertic $
  * Description:  
  ********************************************************************************/
 
@@ -28,7 +25,7 @@ $future_object = "";
 $past_remove = false;
 
 
-$focus = new WorkFlowTriggerShell();
+$focus = BeanFactory::getBean('WorkFlowTriggerShells');
 
 
 if(!empty($_POST['record']) && $_POST['record']!=""){
@@ -81,7 +78,7 @@ if(!empty($_REQUEST['type']) && $_REQUEST['type']=="compare_specific"){
 		$past_id = "";
 	}
 
-	$past_object = new Expression();
+	$past_object = BeanFactory::getBean('Expressions');
 
 	//Is there past to capture
 	if($focus->show_past==1){
@@ -108,7 +105,7 @@ if(!empty($_REQUEST['type']) && $_REQUEST['type']=="compare_specific"){
 		//Do we need to remove the past, if we don't need it anymore
 		if(!empty($past_id) && $past_id!=""){
 			$past_object->mark_deleted($past_id);
-			$past_object = new Expression();
+			$past_object = BeanFactory::getBean('Expressions');
 		}
 
 		//end if else past is on or off
@@ -126,7 +123,7 @@ if(!empty($_REQUEST['type']) && $_REQUEST['type']=="compare_specific"){
 	} else {
 		$future_id = "";
 	}
-	$future_object = new Expression();
+	$future_object = BeanFactory::getBean('Expressions');
 
 	if(!empty($future_id) && $future_id!=""){
 		$future_object->retrieve($future_id);
@@ -186,5 +183,15 @@ if(isset($_POST['return_id']) && $_POST['return_id'] != "") $return_id = $_POST[
 
 $GLOBALS['log']->debug("Saved record with id of ".$return_id);
 //exit;
-header("Location: index.php?action=$return_action&module=$return_module&record=$return_id&workflow_id=$parent_id&parent_id=$parent_id&special_action=refresh");
-?>
+header(
+    'Location: index.php?' . http_build_query(
+        array(
+            'action' => $return_action,
+            'module' => $return_module,
+            'record' => $return_id,
+            'workflow_id' => $workflow_object->id,
+            'parent_id' => $parent_id,
+            'special_action' => 'refresh'
+        )
+    )
+);

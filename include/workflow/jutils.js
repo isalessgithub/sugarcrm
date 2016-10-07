@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 function get_value(id){if(this.document.getElementById(id)!=undefined){if(this.document.getElementById(id).type=='select-one'){if(this.document.getElementById(id).options[0]!=undefined){return this.document.getElementById(id).options[document.getElementById(id).selectedIndex].value;}}else if(this.document.getElementById(id).type=="select-multiple"){return parse_multi_array(this.document.getElementById(id));}else{return this.document.getElementById(id).value;}}else{return null;}
 return null;}
 function get_inner_text(id){if(this.document.getElementById(id)!=undefined){if(this.document.getElementById(id).type=="select-one"){var selected_text=this.document.getElementById(id).options[this.document.getElementById(id).selectedIndex].text;}
@@ -55,6 +53,9 @@ function filter_changehref_text(href_object,selected_text){this.document.getElem
 function hide_target(target){if(this.document.getElementById(target)!=undefined){this.document.getElementById(target).style.display='none';}}
 function show_target(target){if(this.document.getElementById(target)!=undefined){this.document.getElementById(target).style.display='';}}
 function set_value(target_id,target_value){if(this.document.getElementById(target_id)!=undefined){this.document.getElementById(target_id).value=target_value;}}
+function submit_filtered(srcForm)
+{var dstForm=document.createElement("form");dstForm.action=srcForm.getAttribute("action");dstForm.method=srcForm.getAttribute("method");document.body.appendChild(dstForm);var inputs=srcForm.getElementsByTagName("input");inputs=inputs.concat(srcForm.getElementsByTagName("select"));for(var i=0,length=inputs.length,srcInput,dstInput;i<length;i++){srcInput=inputs[i];if(srcInput.value!==""){dstInput=document.createElement("input");dstInput.type="hidden";dstInput.name=srcInput.name;dstInput.value=srcInput.value;dstForm.appendChild(dstInput);}}
+dstForm.submit();}
 function toggle_set_type(field_num,focus_set_type){if(focus_set_type=='Basic'){hide_target('href_set_type_adv');show_target('href_set_type_basic');set_value(field_num+'__set_type','Basic');toggleoptions(field_num,focus_set_type);}else{hide_target('href_set_type_basic');show_target('href_set_type_adv');set_value(field_num+'__set_type','Advanced');toggleoptions(field_num,focus_set_type);}}
 function toggleoptions(field_num,focus_set_type){if(get_value(field_num+'__set_type')=='Basic'){show_target('basic_options');hide_target('adv_options');}else{hide_target('basic_options');show_target('adv_options');}}
 function toggle_hrefs(set_disabled){if(set_disabled=="Yes"){hide_target('set_type_hrefs');}}

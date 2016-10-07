@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Default URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S. Format',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'El nom de camp ja existeix',
-  'ERR_NO_MODULE_INCLUDED' => 'No Inclou mòdul no va poder salvar',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'El nom del camp ha de contindre únicament els següents caràcters: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'No hi ha Mòdul inclòs, no es pot guardar.',
   'ERR_RESERVED_FIELD_NAME' => 'Paraula reservada',
   'ERR_SELECT_FIELD_TYPE' => 'Seleccioneu un tipus de camp',
-  'LBL_ADDING_COLUMN' => 'Addició de la columna {0}',
+  'LBL_ADDING_COLUMN' => 'Afegint columna {0} a',
   'LBL_ADD_FIELD' => 'Afegir camp:',
   'LBL_AUDITED' => 'Auditats',
   'LBL_BTN_ADD' => 'Afegir',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => 'Dependent',
   'LBL_DEPENDENT_TRIGGER' => 'Disparador',
   'LBL_DONE' => 'Fet',
-  'LBL_DROPPING_COLUMN' => 'Eliminant la columna {0} de {1} per al mòdul',
+  'LBL_DROPPING_COLUMN' => 'Treient columna {0} de {1} per mòdul',
   'LBL_DROP_DOWN_LIST' => 'Llista desplegable',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dependent',
   'LBL_EDIT_VIS' => 'Edita visibilitat',
   'LBL_ENFORCED' => 'Forçades',
-  'LBL_EXE_NON_SIM_MODE' => 'Executar en mode no de simulació',
-  'LBL_FIELD_MISSING' => 'camp(s) que manca de',
-  'LBL_FIX_COLUMN_TYPE' => 'Fixació de Tipus de columna per {0} canviant {1} de',
+  'LBL_EXE_NON_SIM_MODE' => 'Executar mode no simulat',
+  'LBL_FIELD_MISSING' => 'camp(s) perduts des de',
+  'LBL_FIX_COLUMN_TYPE' => 'Arreglant tipus de columna per {0} canviant {1} a',
   'LBL_FORMULA' => 'Formula',
   'LBL_GENERATE_URL' => 'Generar URL',
   'LBL_HAS_PARENT' => 'Té pares',
@@ -92,9 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Pares desplegable',
   'LBL_RADIO_FIELDS' => 'Els camps de ràdio',
   'LBL_REPORTABLE' => 'Reportar',
-  'LBL_SCAN_MODULE' => 'Explorant',
+  'LBL_SCAN_MODULE' => 'Scanejant',
   'LBL_SEARCH_FORM_TITLE' => 'Mòdul de recerca',
-  'LBL_SIMULATION_MODE' => 'MODE SIMULACIÓ - SENSE CANVIS ES FAN MENYS Netejant Arxius Temporals',
+  'LBL_SIMULATION_MODE' => 'MODE SILUMACIÓ - NO ES FARAN CANVIS EXCEPTE ELIMINANT LA CACHE',
   'LBL_VISIBLE_IF' => 'Visibles si',
   'LNK_CALL_LIST' => 'Trucades',
   'LNK_EMAIL_LIST' => 'Correus',

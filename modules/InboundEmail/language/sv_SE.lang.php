@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Felaktigt användarnamn eller lösenord',
   'ERR_BODY_TOO_LONG' => '\\rMeddelandetexten för lång för att kunna spara hela meddelandet.  Har trimmats',
+  'ERR_DELETE_FOLDER' => 'Det gick inte att ta bort mappen.',
   'ERR_INI_ZLIB' => 'Kunde inte stänga av Zlib kompressionen temporärt. "Testa inställningar" kan misslyckas.',
   'ERR_MAILBOX_FAIL' => 'Kunde inte hämta något epostkonto.',
   'ERR_NO_IMAP' => 'Inget IMAP bibliotek hittades. Var god lös detta innan ni fortsätter med inkommande epost',
   'ERR_NO_OPTS_SAVED' => 'Inga otimums sparades med ditt inkommande epostkonto. Vänligen gå igenom inställningarna',
   'ERR_TEST_MAILBOX' => 'Var god kontrollera dina inställningar och försök igen.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Det gick inte att avsluta prenumerationen på mappen innan radering.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Tillåt användare att skicka epost genom att använda "Från" namnet och adressen som svara till adress.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'När denna option är vald kommer från namnet och "från epost adress" som är associerad med grupp epost kontot att vara valbar i "Från" fältet när man skapar nya epost meddelanden, (för de användare som har access till grupp epost kontot).',
   'LBL_APPLY_OPTIMUMS' => 'Ange optimums',
@@ -100,6 +99,7 @@ $mod_strings = array (
   'LBL_MAX_AUTO_REPLIES' => 'Antal auto-svar',
   'LBL_MAX_AUTO_REPLIES_DESC' => 'Sätt maximalt antal auto-svar som skickas till en unik adress under en period om 24 timmar.',
   'LBL_MODULE_NAME' => 'Inställningar för inkommande epost',
+  'LBL_MODULE_NAME_SINGULAR' => 'Inkommande epost',
   'LBL_MODULE_TITLE' => 'Inkommande epost',
   'LBL_NAME' => 'Namn',
   'LBL_NONE' => 'Ingen',
@@ -112,6 +112,7 @@ $mod_strings = array (
   'LBL_PASSWORD' => 'Lösenord',
   'LBL_PASSWORD_CHECK' => 'Lösenordskontroll',
   'LBL_PERSONAL_MODULE_NAME' => 'Personligt epost konto',
+  'LBL_PERSONAL_MODULE_NAME_SINGULAR' => 'Personligt epost konto',
   'LBL_POP3_SUCCESS' => 'Lyckat test av POP3 uppkopplingen.',
   'LBL_POPUP_FAILURE' => 'Test av uppkopplingen misslyckades. Felmeddelandet visas nedan.',
   'LBL_POPUP_SUCCESS' => 'Test av uppkopplingen lyckades. Dina inställningar fungerar.',

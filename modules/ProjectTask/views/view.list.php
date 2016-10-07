@@ -1,84 +1,46 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: This file is used to override the default Meta-data EditView behavior
- * to provide customization specific to the Calls module.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/MVC/View/views/view.list.php');
 
-class ProjectTaskViewList extends ViewList{
- 	function ProjectTaskViewList(){
- 		parent::ViewList();
-
- 	}
-
- 	function display(){
+class ProjectTaskViewList extends ViewList
+{
+ 	function display()
+ 	{
  		if(!$this->bean->ACLAccess('list')){
  			ACLController::displayNoAccess();
  			return;
  		}
         $module = $GLOBALS['module'];
- 	    $metadataFile = null;
-        $foundViewDefs = false;
-        if(file_exists('custom/modules/' . $module. '/metadata/listviewdefs.php')){
-            $metadataFile = 'custom/modules/' . $module . '/metadata/listviewdefs.php';
-            $foundViewDefs = true;
-        }else{
-            if(file_exists('custom/modules/'.$module.'/metadata/metafiles.php')){
-                require_once('custom/modules/'.$module.'/metadata/metafiles.php');
-                if(!empty($metafiles[$module]['listviewdefs'])){
-                    $metadataFile = $metafiles[$module]['listviewdefs'];
-                    $foundViewDefs = true;
-                }
-            }elseif(file_exists('modules/'.$module.'/metadata/metafiles.php')){
-                require_once('modules/'.$module.'/metadata/metafiles.php');
-                if(!empty($metafiles[$module]['listviewdefs'])){
-                    $metadataFile = $metafiles[$module]['listviewdefs'];
-                    $foundViewDefs = true;
-                }
-            }
-        }
-        if(!$foundViewDefs && file_exists('modules/'.$module.'/metadata/listviewdefs.php')){
-                $metadataFile = 'modules/'.$module.'/metadata/listviewdefs.php';
-        }
+ 	    $metadataFile = SugarAutoLoader::loadWithMetafiles($module, 'listviewdefs');
         require_once($metadataFile);
 
-		if($this->bean->bean_implements('ACL'))
-		ACLField::listFilter($listViewDefs[$module],$module, $GLOBALS['current_user']->id ,true);
+		$this->bean->ACLFilterFieldList($listViewDefs[$module], array("owner_override" => true));
 		$seed = $this->bean;
         if(!empty($this->bean->object_name) && isset($_REQUEST[$module.'2_'.strtoupper($this->bean->object_name).'_offset'])) {//if you click the pagination button, it will populate the search criteria here
             if(!empty($_REQUEST['current_query_by_page'])) {//The code support multi browser tabs pagination
                 $blockVariables = array('mass', 'uid', 'massupdate', 'delete', 'merge', 'selectCount', 'request_data', 'current_query_by_page', $module.'2_'.strtoupper($this->bean->object_name).'_ORDER_BY');
-		        if(isset($_REQUEST['lvso'])){
+		        if(isset($_REQUEST['lvso'])) {
 		        	$blockVariables[] = 'lvso';
 		        }
 
-                $current_query_by_page = sugar_unserialize(base64_decode($_REQUEST['current_query_by_page']));
+                $current_query_by_page = unserialize(base64_decode($_REQUEST['current_query_by_page']));
                 foreach($current_query_by_page as $search_key=>$search_value) {
                     if($search_key != $module.'2_'.strtoupper($this->bean->object_name).'_offset' && !in_array($search_key, $blockVariables)) {
                         if (!is_array($search_value)) {
                             $_REQUEST[$search_key] = $GLOBALS['db']->quote($search_value);
-                        }
-                        else {
+                        } else {
                             foreach ($search_value as $key=>&$val) {
                                 $val = $GLOBALS['db']->quote($val);
                             }
@@ -91,11 +53,10 @@ class ProjectTaskViewList extends ViewList{
 
         if(!empty($_REQUEST['saved_search_select']) && $_REQUEST['saved_search_select']!='_none') {
             if(empty($_REQUEST['button']) && (empty($_REQUEST['clear_query']) || $_REQUEST['clear_query']!='true')) {
-                $this->saved_search = loadBean('SavedSearch');
+                $this->saved_search = BeanFactory::getBean('SavedSearch');
                 $this->saved_search->retrieveSavedSearch($_REQUEST['saved_search_select']);
                 $this->saved_search->populateRequest();
-            }
-            elseif(!empty($_REQUEST['button'])) { // click the search button, after retrieving from saved_search
+            } elseif(!empty($_REQUEST['button'])) { // click the search button, after retrieving from saved_search
                 $_SESSION['LastSavedView'][$_REQUEST['module']] = '';
                 unset($_REQUEST['saved_search_select']);
                 unset($_REQUEST['saved_search_select_name']);
@@ -109,8 +70,7 @@ class ProjectTaskViewList extends ViewList{
 		        if(!empty($listViewDefs[$module][$col]))
 		            $displayColumns[$col] = $listViewDefs[$module][$col];
 		    }
-		}
-		else {
+		} else {
 		    foreach($listViewDefs[$module] as $col => $params) {
 		        if(!empty($params['default']) && $params['default'])
 		            $displayColumns[$col] = $params;
@@ -131,21 +91,24 @@ class ProjectTaskViewList extends ViewList{
 
 		$searchForm = null;
 	 	$storeQuery = new StoreQuery();
-		if(!isset($_REQUEST['query'])){
+		if(!isset($_REQUEST['query'])) {
 			$storeQuery->loadQuery($this->module);
 			$storeQuery->populateRequest();
-		}else{
+		} else {
 			$storeQuery->saveFromRequest($this->module);
 		}
 
 		//search
 		$view = 'basic_search';
-		if(!empty($_REQUEST['search_form_view']))
+		if(!empty($_REQUEST['search_form_view'])) {
 			$view = $_REQUEST['search_form_view'];
+        }
+
 		$headers = true;
-		if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only'])
+
+        if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only']) {
 			$headers = false;
-		elseif(!isset($_REQUEST['search_form']) || $_REQUEST['search_form'] != 'false') {
+        } elseif(!isset($_REQUEST['search_form']) || $_REQUEST['search_form'] != 'false') {
         	if(isset($_REQUEST['searchFormTab']) && $_REQUEST['searchFormTab'] == 'advanced_search') {
 				$view = 'advanced_search';
 			}else {
@@ -154,34 +117,17 @@ class ProjectTaskViewList extends ViewList{
 		}
 
 		$use_old_search = true;
-		if(file_exists('modules/'.$this->module.'/SearchForm.html')){
+		if(SugarAutoLoader::existing('modules/'.$this->module.'/SearchForm.html')){
 			require_once('include/SearchForm/SearchForm.php');
 			$searchForm = new SearchForm($this->module, $this->seed);
-		}else{
+		} else {
 			$use_old_search = false;
 			require_once('include/SearchForm/SearchForm2.php');
-
-
-			if (file_exists('custom/modules/'.$this->module.'/metadata/searchdefs.php'))
-			{
-			    require_once('custom/modules/'.$this->module.'/metadata/searchdefs.php');
-			}
-			elseif (!empty($metafiles[$this->module]['searchdefs']))
-			{
-				require_once($metafiles[$this->module]['searchdefs']);
-			}
-			elseif (file_exists('modules/'.$this->module.'/metadata/searchdefs.php'))
-			{
-			    require_once('modules/'.$this->module.'/metadata/searchdefs.php');
-			}
-
-
-			if(!empty($metafiles[$this->module]['searchfields']))
-                require($metafiles[$this->module]['searchfields']);
-			elseif(file_exists('modules/'.$this->module.'/metadata/SearchFields.php'))
-                require('modules/'.$this->module.'/metadata/SearchFields.php');
-
-
+            $defs = SugarAutoLoader::loadWithMetafiles($this->module, 'searchdefs');
+            if(!empty($defs)) {
+                require $defs;
+            }
+            $searchFields = SugarAutoLoader::loadSearchFields($this->module);
 			$searchForm = new SearchForm($this->seed, $this->module, $this->action);
 			$searchForm->setup($searchdefs, $searchFields, 'SearchFormGeneric.tpl', $view, $listViewDefs);
 			$searchForm->lv = $lv;
@@ -193,8 +139,8 @@ class ProjectTaskViewList extends ViewList{
 		}
 
 		$where = '';
-		if(isset($_REQUEST['query']))
-		{
+
+		if(isset($_REQUEST['query'])) {
 			// we have a query
 	    	if(!empty($_SERVER['HTTP_REFERER']) && preg_match('/action=EditView/', $_SERVER['HTTP_REFERER'])) { // from EditView cancel
 	       		$searchForm->populateFromArray($storeQuery->query);
@@ -206,7 +152,8 @@ class ProjectTaskViewList extends ViewList{
 			if (count($where_clauses) > 0 )$where = '('. implode(' ) AND ( ', $where_clauses) . ')';
 			$GLOBALS['log']->info("List View Where Clause: $where");
 		}
-		if($use_old_search){
+
+		if($use_old_search) {
 			switch($view) {
 				case 'basic_search':
 			    	$searchForm->setup();
@@ -220,30 +167,46 @@ class ProjectTaskViewList extends ViewList{
 			     	echo $searchForm->displaySavedViews($listViewDefs, $lv, $headers);
 			       break;
 			}
-		}else{
+		} else {
 			echo $searchForm->display($headers);
 		}
-		if(!$headers)
-			return;
-         /*
-         * Bug 50575 - related search columns not inluded in query in a proper way
-         */
-         $lv->searchColumns = $searchForm->searchColumns;
 
-		if(empty($_REQUEST['search_form_only']) || $_REQUEST['search_form_only'] == false){
+		if(!$headers) {
+			return;
+        }
+
+        /*
+        * Bug 50575 - related search columns not inluded in query in a proper way
+        */
+        $lv->searchColumns = $searchForm->searchColumns;
+
+        if (isset($GLOBALS['mod_strings']['LBL_MODULE_NAME_SINGULAR'])) {
+            $seed->module_title = $GLOBALS['mod_strings']['LBL_MODULE_NAME_SINGULAR'];
+        }
+
+        if (isset($GLOBALS['mod_strings']['LBL_LIST_PARENT_NAME'])) {
+            $seed->parent_title = $GLOBALS['mod_strings']['LBL_LIST_PARENT_NAME'];
+            $seed->parent_module_dir = 'Project';
+        }
+
+        $project = BeanFactory::getBean('Project');
+        $project_query = new SugarQuery();
+        $project_query->from($project);
+        $project_list = $project->fetchFromQuery($project_query);
+
+        if (count($project_list)) {
+            $seed->show_link = true;
+        }
+
+        if(empty($_REQUEST['search_form_only']) || $_REQUEST['search_form_only'] == false) {
             //Bug 58841 - mass update form was not displayed for non-admin users that should have access
-            if(ACLController::checkAccess($module, 'massupdate') || ACLController::checkAccess($module, 'export'))
-            {
+            if(ACLController::checkAccess($module, 'massupdate') || ACLController::checkAccess($module, 'export')){
                 $lv->setup($seed, 'include/ListView/ListViewGeneric.tpl', $where, $params);
-            }
-            else
-            {
+            } else {
                 $lv->setup($seed, 'include/ListView/ListViewNoMassUpdate.tpl', $where, $params);
             }
 
-			echo $lv->display();
-		}
- 	}
+            echo $lv->display();
+        }
+    }
 }
-
-?>

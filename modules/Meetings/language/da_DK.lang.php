@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -38,6 +35,7 @@ $mod_strings = array (
   'LBL_CREATE_CONTACT' => 'Opret som kontakt',
   'LBL_CREATE_INVITEE' => 'Opret en deltager',
   'LBL_CREATE_LEAD' => 'Opret som kundeemne',
+  'LBL_CREATE_MODULE' => 'Planlæg møde',
   'LBL_CREATOR' => 'Møde opretter',
   'LBL_DATE' => 'Startdato:',
   'LBL_DATE_END' => 'Slutdato',
@@ -104,11 +102,13 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Starttidspunkt',
   'LBL_LOCATION' => 'Placering:',
   'LBL_MEETING' => 'Møde:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Møde lukket med succes.',
   'LBL_MEETING_INFORMATION' => 'Mødeoversigt',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Ændret af',
   'LBL_MODIFIED_USER' => 'Ændret bruger',
   'LBL_MODULE_NAME' => 'Møder',
+  'LBL_MODULE_NAME_SINGULAR' => 'Møde',
   'LBL_MODULE_TITLE' => 'Møder: Startside',
   'LBL_NAME' => 'Navn',
   'LBL_NEW_FORM_TITLE' => 'Opret aftale',
@@ -121,12 +121,14 @@ $mod_strings = array (
   'LBL_RECURRENCE' => 'Gentagelse',
   'LBL_RECURRING_LIMIT_ERROR' => 'Den gentagede $moduleTitle kan ikke scheduleres fordi den overskrider det maksimum tilladte antal gentagelser på $limit.',
   'LBL_RECURRING_SOURCE' => 'Tilbagevendende kilde',
+  'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Møde med {{{dette}}}',
   'LBL_RELATED_TO' => 'Relateret til:',
   'LBL_REMINDER' => 'Påmindelse:',
   'LBL_REMINDER_EMAIL' => 'E-mail',
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Send mail til alle inviterede',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Påmindelsestidspunkt',
+  'LBL_REMINDER_TITLE' => 'Møde:',
   'LBL_REMOVE' => 'fjern',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Slet alle gentagelser',
   'LBL_REPEAT_COUNT' => 'Antal af gentagelser',
@@ -139,12 +141,14 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Gentag overordnet id',
   'LBL_REPEAT_TYPE' => 'Gentag',
   'LBL_REPEAT_UNTIL' => 'Gentag indtil',
+  'LBL_REVENUELINEITEMS' => 'Revenue Line Items',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planlægning',
   'LBL_SEARCH_BUTTON' => 'Søg',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter møde',
   'LBL_SEND_BUTTON_KEY' => 'I',
   'LBL_SEND_BUTTON_LABEL' => 'Send invitationer',
   'LBL_SEND_BUTTON_TITLE' => 'Send invitationer [Alt+I]',
+  'LBL_SEND_INVITES' => 'Send invitationer',
   'LBL_SEQUENCE' => 'Møde opdateringssekvens',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Emne:',

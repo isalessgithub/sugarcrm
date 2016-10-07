@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: не определено для этого просмотра',
-  'ERR_YEAR_BETWEEN' => 'Приносим свои извинения, календарь не может отобразить затребованный год <br>Год должен быть указан в диапазоне между 1970 и 2037',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: not defined for this view',
+  'ERR_YEAR_BETWEEN' => 'Извините, календарь не охватывает год, который вы запросили<br>Год должен быть указан между 1970 и 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Применить',
   'LBL_ASSIGNED_TO_NAME' => 'Ответственный (-ая)',
   'LBL_BUSY' => 'Занят',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Число {0} повторяющихся событий превысило лимит',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} не основное повторение',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} не является повторяющимся событием',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} не распознано как повторяющееся событие модуля',
   'LBL_CANCEL_BUTTON' => 'Отмена',
   'LBL_CLOSE_BUTTON' => 'Закрыть',
   'LBL_CONFIRM_REMOVE' => 'Вы действительно хотите удалить эту запись?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Конфликт',
   'LBL_CREATE_CALL' => 'Назначить звонок',
   'LBL_CREATE_MEETING' => 'Назначить встречу',
+  'LBL_CREATE_NEW_CALL' => 'Создать звонок',
   'LBL_CREATE_NEW_RECORD' => 'Новое действие',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Вы создаете новую встречу. Вы хотите <a href="javascript:void(0);" data-action="create-task">Создать задачу</a> или <a href="javascript:void(0);" data-action="schedule-call">Назначить звонок</a>',
   'LBL_DATE' => 'Дата и время начала:',
   'LBL_DATE_END_ERROR' => 'Дата окончания должна выбираться из диапазона до даты начала',
   'LBL_DATE_TIME' => 'Дата и время',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Удалить',
   'LBL_DURATION' => 'Продолжительность:',
   'LBL_EDIT_ALL_RECURRENCES' => 'Править все повторения',
+  'LBL_EDIT_CALL' => 'Редактировать звонок',
   'LBL_EDIT_RECORD' => 'Правка действия',
   'LBL_EDIT_USERLIST' => 'Список пользователей',
   'LBL_ERROR_LOADING' => 'Ошибка загрузки',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Следующая неделя',
   'LBL_NEXT_YEAR' => 'Следующий год',
   'LBL_NO' => 'Нет',
+  'LBL_NO_ACCESS' => 'У Вас нет доступа',
   'LBL_NO_USER' => 'Нет соответствия для поля: Ответственный',
   'LBL_PARTICIPANTS_TAB' => 'Приглашенные',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Отправка приглашений',
   'LBL_SETTINGS' => 'Настройки',
   'LBL_SETTINGS_CALLS_SHOW' => 'Показать звонки:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Показать завершенные встречи, звонки, задания:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Отобразить временные промежутки при обзоре дня и недели:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Показать задачи:',
   'LBL_SETTINGS_TIME_ENDS' => 'Время окончания:',
@@ -129,51 +133,55 @@ $mod_strings = array (
 $mod_list_strings = array (
   'dom_cal_month' => 
   array (
-    1 => '1<br />Янв',
-    2 => '2<br />Фев',
-    3 => '3<br />Мар',
-    4 => '4<br />Апр',
-    5 => '5<br />Май',
-    6 => '6<br />Июн',
-    7 => '7<br />Июл',
-    8 => '8<br />Авг',
-    9 => '9<br />Сен',
-    10 => '10<br />Окт',
-    11 => '11<br />Ноя',
-    12 => '12<br />Дек',
+    0 => '0',
+    1 => 'Янв',
+    2 => 'Фев',
+    3 => 'Мар',
+    4 => 'Апр',
+    5 => 'Май',
+    6 => 'Июн',
+    7 => 'Июл',
+    8 => 'Авг',
+    9 => 'Сен',
+    10 => 'Окт',
+    11 => 'Ноя',
+    12 => 'Дек',
   ),
   'dom_cal_month_long' => 
   array (
-    1 => '1<br />Янв',
-    2 => '2<br />Фев',
-    3 => '3<br />Мар',
-    4 => '4<br />Апр',
-    5 => '5<br />Май',
-    6 => '6<br />Июн',
-    7 => '7<br />Июл',
-    8 => '8<br />Авг',
-    9 => '9<br />Сен',
-    10 => '10 <br />Окт',
-    11 => '11<br />Ноя',
-    12 => '12<br />Дек',
+    0 => '0',
+    1 => 'Январь',
+    2 => 'Февраль',
+    3 => 'Март',
+    4 => 'Апрель',
+    5 => 'Май',
+    6 => 'Июнь',
+    7 => 'Июль',
+    8 => 'Август',
+    9 => 'Сентябрь',
+    10 => 'Октябрь',
+    11 => 'Ноябрь',
+    12 => 'Декабрь',
   ),
   'dom_cal_weekdays' => 
   array (
-    1 => '1<br />Пн',
-    2 => '2<br />Вт',
-    3 => '3<br />Ср',
-    4 => '4<br />Чт',
-    5 => '5<br />Пт',
-    6 => '6<br />Сб',
+    0 => 'Вос.',
+    1 => 'Пн',
+    2 => 'Вт',
+    3 => 'Ср',
+    4 => 'Чт',
+    5 => 'Пт',
+    6 => 'Сб',
   ),
   'dom_cal_weekdays_long' => 
   array (
-    1 => '1<br />Пн',
-    2 => '2<br />Вт',
-    3 => '3<br />Ср',
-    4 => '4<br />Чт',
-    5 => '5<br />Пт',
-    6 => '6<br />Сб',
+    0 => 'Воскресенье',
+    1 => 'Понедельник',
+    2 => 'Вторник',
+    3 => 'Среда',
+    4 => 'Четверг',
+    5 => 'Пятница',
+    6 => 'Суббота',
   ),
 );
 

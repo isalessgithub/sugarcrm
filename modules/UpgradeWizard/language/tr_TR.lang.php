@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Yüklenen modüller:',
   'DESC_MODULES_QUEUED' => 'Yüklenmeye hazır olan modüller:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Aktarılan dosya Sugar türü ile uyumlu değil (Community Edition, Professional, veya Enterprise):',
+  'ERROR_HT_NO_WRITE' => 'Dosyaya yazılamıyor: %s',
+  'ERROR_MANIFEST_TYPE' => 'Bildirim dosyası paket türü belirtmelisiniz.',
+  'ERROR_PACKAGE_TYPE' => 'Bildirim dosyası, tanınmayan bir paket türünü belirtiyor: %s',
+  'ERROR_UW_CONFIG_DB' => '%s config değişkeninin veritabanına (anahtar %s, değer %s) kaydı sırasında hata.',
   'ERROR_VERSION_INCOMPATIBLE' => 'Yüklenen dosya Sugar&#39;ın bu sürümü ile uyumlu değildir:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'PHP versiyonunuz Sugar tarafından desteklenmemekte. Sugar uygulaması ile uyumlu bir versiyon indirmeniz gerekiyor. Desteklenen PHP sürümleri için Sürüm Notlarındaki Uyumluluk Matrisini inceleyin',
+  'ERR_NOT_ADMIN' => 'Sistem Yönetimi Fonksiyonlarına izin verilmemiş erişim.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Bu sayfaya erişmek için yetkiniz yok.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Grup belirlenemiyor',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Sahip belirlenemiyor',
   'ERR_UW_CONFIG' => 'Lütfen config.php dosyasını yazılabilir hale getirin ve bu sayfayı tekrar yükleyin.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Yeniden Başlat',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Yükseltmeye Devam Etmek İçin Onaylayın',
   'LBL_CURRENT_PHP_VERSION' => '(Mevcut php versiyonunuz',
+  'LBL_GLOBAL_TEAM_DESC' => 'Global Olarak Görünür',
   'LBL_HOME_PAGE_4_NAME' => 'Takip Edici',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php versiyon 5 veya üstü gerekmekte.',
   'LBL_LANGPACKS' => 'Dil Paketleri',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP Ayarları: Hafıza Limiti',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Sunucusu & PHP Sihirli Tırnaklar GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Minimum MySQL Versiyon',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE Versiyonu',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'php.ini dizini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Minimum PHP Versiyon',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP Ayarlar: Güvenlik Modu',

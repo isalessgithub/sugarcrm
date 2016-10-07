@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adress(er)',
@@ -39,10 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Ring Ej',
   'LBL_EDIT_BUTTON' => 'Redigera',
   'LBL_EMAIL_ADDRESS' => 'Epost Adress(er)',
+  'LBL_FACEBOOK' => 'Facebook-konto',
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FIRST_NAME' => 'Förnamn',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_HOME_PHONE' => 'Hemtelefon',
+  'LBL_IMPORT_VCARDTEXT' => 'Skapa automatiskt en ny post genom att importera ett vCard från filsystemet.',
   'LBL_LAST_NAME' => 'Efternamn',
+  'LBL_LINKEDIN' => 'Linkedin medlemskonto',
   'LBL_MOBILE_PHONE' => 'Mobiltelefon',
   'LBL_NAME' => 'Namn',
   'LBL_OFFICE_PHONE' => 'Jobbtelefon',
@@ -65,7 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Stat',
   'LBL_STREET' => 'Annat land',
   'LBL_TITLE' => 'Titel',
+  'LBL_TWITTER' => 'Twitter konto',
   'LBL_WORK_PHONE' => 'Jobbtelefon',
   'LNK_IMPORT_VCARD' => 'Skapa från vCard',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Kopiera alternativ adress till primär adress',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Kopiera primär adress till alternativ adress',
 );
 

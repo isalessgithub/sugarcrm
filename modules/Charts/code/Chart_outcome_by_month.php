@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  returns HTML for client-side image map.
@@ -229,7 +226,7 @@ echo get_validate_chart_js();
 			$dateStartDisplay = $timedate->asUserDate($timedate->fromString($date_start));
 			$dateEndDisplay = $timedate->asUserDate($timedate->fromString($date_end));
 
-			$opp = new Opportunity();
+			$opp = BeanFactory::getBean('Opportunities');
 			//build the where clause for the query that matches $date_start and $date_end
 			$where .= "AND opportunities.date_closed >= ".db_convert("'".$date_start."'",'date')." AND opportunities.date_closed <= ".db_convert("'".$date_end."'",'date')." AND opportunities.deleted=0";
 			$query = "SELECT sales_stage,".db_convert('opportunities.date_closed','date_format',array("'%Y-%m'"),array("'YYYY-MM'"))." as m, sum(amount_usdollar/1000) as total, count(*) as opp_count FROM opportunities ";
@@ -253,8 +250,7 @@ echo get_validate_chart_js();
 			$salesStages = array("Closed Lost"=>$app_list_strings['sales_stage_dom']["Closed Lost"],"Closed Won"=>$app_list_strings['sales_stage_dom']["Closed Won"],"Other"=>$other);
 			if($current_user->getPreference('currency') ){
 
-				$currency = new Currency();
-				$currency->retrieve($current_user->getPreference('currency'));
+				$currency = BeanFactory::getBean('Currencies', $current_user->getPreference('currency'));
 				$div = $currency->conversion_rate;
 				$symbol = $currency->symbol;
 			}
@@ -267,7 +263,7 @@ echo get_validate_chart_js();
 				} else {
 					$sum = round($row['total']*$div);
 				}
-				if($row['sales_stage'] == 'Closed Won' || $row['sales_stage'] == 'Closed Lost'){
+				if($row['sales_stage'] == Opportunity::STAGE_CLOSED_WON || $row['sales_stage'] == Opportunity::STAGE_CLOSED_LOST){
 					$salesStage = $row['sales_stage'];
 					$salesStageT = $app_list_strings['sales_stage_dom'][$row['sales_stage']];
 				} else {
@@ -420,7 +416,7 @@ echo get_validate_chart_js();
 		$dateStartDisplay = $timedate->asUserDate($timedate->fromString($date_start));
 		$dateEndDisplay = $timedate->asUserDate($timedate->fromString($date_end));
 
-		$opp = new Opportunity();
+		$opp = BeanFactory::getBean('Opportunities');
 		//build the where clause for the query that matches $date_start and $date_end
 		$where .= "AND opportunities.date_closed >= ".db_convert("'".$date_start."'",'date')." AND opportunities.date_closed <= ".db_convert("'".$date_end."'",'date')." AND opportunities.deleted=0";
 		$query = "SELECT sales_stage,".db_convert('opportunities.date_closed','date_format',array("'%Y-%m'"),array("'YYYY-MM'"))." as m, sum(amount_usdollar/1000) as total, count(*) as opp_count FROM opportunities ";

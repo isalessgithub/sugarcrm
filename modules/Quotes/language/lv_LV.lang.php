@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Lai dzēstu piedāvājumu, jānorāda ieraksta numurs.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Piedāvājums jau ir pārveidots par pārdošanas iespēju',
   'LBL_ACCOUNT_ID' => 'Klienta ID',
   'LBL_ACCOUNT_NAME' => 'Klienta nosaukums:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Darbības',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Cena',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Faktiskais beigu datums',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Derīgs līdz',
-  'LBL_LIST_DEAL_TOT' => 'Atlaide',
+  'LBL_LIST_DEAL_TOT' => 'Kopējā atlaide',
   'LBL_LIST_DISCOUNT_PRICE' => 'Vienības cena',
   'LBL_LIST_FORM_TITLE' => 'Piedāvājuma saraksts',
   'LBL_LIST_GRAND_TOTAL' => 'Kopsumma',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Mani piedāvājumi',
   'LBL_LIST_PRICING_FACTOR' => 'Faktors',
   'LBL_LIST_PRICING_FORMULA' => 'Cenas formula',
-  'LBL_LIST_PRODUCT_NAME' => 'Produkts',
+  'LBL_LIST_PRODUCT_NAME' => 'Piedāvājuma rinda',
   'LBL_LIST_QUANTITY' => 'Skaits',
   'LBL_LIST_QUOTE_NAME' => 'Piedāvājuma nosaukums',
   'LBL_LIST_QUOTE_NUM' => 'Numurs',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Atlaide',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Kopējā cena',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Standarta cena',
-  'LBL_PDF_ITEM_PRODUCT' => 'Produkts',
+  'LBL_PDF_ITEM_PRODUCT' => 'Piedāvājuma rinda',
   'LBL_PDF_ITEM_QUANTITY' => 'Daudzums',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Vienības cena',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Noņemt komentāru',
   'LBL_REMOVE_ROW' => 'Noņemt ierakstu',
   'LBL_RENAME_ERROR' => 'Kļūda: Nevar move_pdf  uz  $destination. Jums ir jāpamēģina atļauj serverim rakstīt katalogā.',
+  'LBL_REVENUELINEITEMS' => 'Ieņēmumu posteņi',
   'LBL_SALES_STAGE' => 'Piedāvājuma posms:',
   'LBL_SEARCH_FORM_TITLE' => 'Piedāvājumu meklēšana',
   'LBL_SHIPPING' => 'Piegāde:',

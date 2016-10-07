@@ -1,20 +1,16 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
-<link rel="stylesheet" type="text/css" href="modules/Project/gantt.css" />
+<link rel="stylesheet" type="text/css" href="{sugar_getjspath file='modules/Project/gantt.css'}" />
 
 <script type="text/javascript" src="{sugar_getjspath file='include/javascript/yui/ext/yui-ext.js'}"></script>
 <script type="text/javascript" src="{sugar_getjspath file='include/javascript/popup_parent_helper.js'}"></script>
@@ -31,7 +27,7 @@ function initUI(){
 	else if (view == "gantt_only") {
 		SUGAR.gantt.ganttOnly();
 	}
-	else {	
+	else {
 	    var YSB = YAHOO.ext.SplitBar;
 	    var resizer = new YSB('resizer', 'grid_space', null, YSB.LEFT);
 	    resizer.setAdapter(new YSB.AbsoluteLayoutAdapter("project_container"));
@@ -39,7 +35,7 @@ function initUI(){
 	    resizer.maxSize = 900;
 	    resizer.onMoved.subscribe(adjustGantt);
 	    resizer.setCurrentSize(700);
-	
+
     	YAHOO.util.Dom.setStyle('grid_space', 'width', '700px');
     	YAHOO.util.Dom.setStyle('gantt_area', 'margin-left', '704px');
     	YAHOO.util.Dom.setStyle('gantt_area', 'margin-right', '0px');
@@ -64,7 +60,7 @@ var resources = new Array();
 <tr>
 <td>
 
-<form name="EditView" id="EditView" method="post" action="index.php">
+<form name="EditViewGrid" id="EditViewGrid" method="post" action="index.php" data-disablebwchaschanged="true">
 <input type="hidden" name="module" value="Project" />
 <input type="hidden" name="record" value="{$ID}" />
 <input type="hidden" name="team_id" value="{$TEAM}" />
@@ -101,8 +97,8 @@ var resources = new Array();
 			<a valign="bottom" title="{$MOD.LBL_COLLAPSE_ALL_BUTTON}">{sugar_getimage name="ProjectCollapseAll" ext=".gif" other_attributes='onclick="javascript:SUGAR.grid.collapseAll()" '}</img></a>
 	{/if}
 		<a id="saveGridLink" title="{$MOD.LBL_SAVE_BUTTON}">{sugar_getimage name="ProjectSave" ext=".gif" other_attributes='onclick="javascript:SUGAR.grid.save()" '}</img></a>
-	</span>	
-	
+	</span>
+
 	<span id = "gantt_buttons_span">
         {capture assign="attributes"}onclick="SUGAR.gantt.createTable('week', document.getElementById('gantt_chart_start_date').value, '{$BG_COLOR}');"{/capture}
 		<a title="{$MOD.LBL_WEEK_BUTTON}">{sugar_getimage name="ProjectWeek" ext=".gif" other_attributes="$attributes"}</img></a>
@@ -110,31 +106,31 @@ var resources = new Array();
         <a title="{$MOD.LBL_BIWEEK_BUTTON}">{sugar_getimage name="Project2Weeks" ext=".gif" other_attributes="$attributes"}</img></a>
         {capture assign="attributes"}onclick="SUGAR.gantt.createTable('month', document.getElementById('gantt_chart_start_date').value, '{$BG_COLOR}');"{/capture}
 		<a title="{$MOD.LBL_MONTH_BUTTON}">{sugar_getimage name="ProjectMonth" ext=".gif" other_attributes="$attributes"}</img></a>
-	</span>		
+	</span>
 
 	<input type="hidden" name="selected_view" id="selected_view" value="{$SELECTED_VIEW}" />
 	<select id="gridViewSelect" onChange="SUGAR.grid.changeView()">
 		<option value=0>{$MOD.LBL_FILTER_VIEW}...</option>
-		<option value=1>{$MOD.LBL_FILTER_ALL_TASKS}</option> 
-		<option value=2>{$MOD.LBL_FILTER_COMPLETED_TASKS}</option> 
-		<option value=3>{$MOD.LBL_FILTER_INCOMPLETE_TASKS}</option> 
-		<option value=4>{$MOD.LBL_FILTER_MILESTONES}</option> 
-		<option value=5>{$MOD.LBL_FILTER_RESOURCE}</option> 
-		<option value=6>{$MOD.LBL_FILTER_DATE_RANGE}</option> 
-		<option value=7>{$MOD.LBL_LIST_OVERDUE_TASKS}</option> 
-		<option value=8>{$MOD.LBL_LIST_UPCOMING_TASKS}</option> 
-		<option value=9>{$MOD.LBL_FILTER_MY_TASKS}</option> 
-		<option value=10>{$MOD.LBL_FILTER_MY_OVERDUE_TASKS}</option> 
-		<option value=11>{$MOD.LBL_FILTER_MY_UPCOMING_TASKS}</option> 
+		<option value=1>{$MOD.LBL_FILTER_ALL_TASKS}</option>
+		<option value=2>{$MOD.LBL_FILTER_COMPLETED_TASKS}</option>
+		<option value=3>{$MOD.LBL_FILTER_INCOMPLETE_TASKS}</option>
+		<option value=4>{$MOD.LBL_FILTER_MILESTONES}</option>
+		<option value=5>{$MOD.LBL_FILTER_RESOURCE}</option>
+		<option value=6>{$MOD.LBL_FILTER_DATE_RANGE}</option>
+		<option value=7>{$MOD.LBL_LIST_OVERDUE_TASKS}</option>
+		<option value=8>{$MOD.LBL_LIST_UPCOMING_TASKS}</option>
+		<option value=9>{$MOD.LBL_FILTER_MY_TASKS}</option>
+		<option value=10>{$MOD.LBL_FILTER_MY_OVERDUE_TASKS}</option>
+		<option value=11>{$MOD.LBL_FILTER_MY_UPCOMING_TASKS}</option>
 
 	</select>
-	<input {if $SELECTED_VIEW != 5 }style="display:none" {/if} type="input" {if $SELECTED_VIEW == 5} value="{$VIEW_FILTER_RESOURCE}"{/if} name="view_filter_resource" id="view_filter_resource" value="" />	
-	
+	<input {if $SELECTED_VIEW != 5 }style="display:none" {/if} type="input" {if $SELECTED_VIEW == 5} value="{$VIEW_FILTER_RESOURCE}"{/if} name="view_filter_resource" id="view_filter_resource" value="" />
+
 	<span id="view_filter_6_start_span" {if $SELECTED_VIEW != 6}style="display:none"{/if}>{$MOD.LBL_FILTER_DATE_RANGE_START}:</span>
-	<input name="view_filter_date_start" id="view_filter_date_start" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW != 6 } style="display:none" {/if} type="input" tabindex='2' size='11' maxlength='10' value='{$VIEW_FILTER_DATE_START}' /> 
+	<input name="view_filter_date_start" id="view_filter_date_start" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW != 6 } style="display:none" {/if} type="input" tabindex='2' size='11' maxlength='10' value='{$VIEW_FILTER_DATE_START}' />
 	<span id="view_filter_6_finish_span" {if $SELECTED_VIEW != 6}style="display:none"{/if}>{$MOD.LBL_FILTER_DATE_RANGE_FINISH}: </span>
-	<input name="view_filter_date_finish" id="view_filter_date_finish" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW !=  6 } style="display:none" {/if} type="input" tabindex='2' size='11' maxlength='10' value='{$VIEW_FILTER_DATE_FINISH}'/> 
-	
+	<input name="view_filter_date_finish" id="view_filter_date_finish" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW !=  6 } style="display:none" {/if} type="input" tabindex='2' size='11' maxlength='10' value='{$VIEW_FILTER_DATE_FINISH}'/>
+
 	{if $SELECTED_VIEW == 6}
 		<script type="text/javascript">
 		Calendar.setup ({literal}{{/literal}
@@ -145,11 +141,11 @@ var resources = new Array();
 	{/if}
 	<span id="view_filter_button_span"></span>
 	{if $SELECTED_VIEW == 5 || $SELECTED_VIEW == 6}
-		<input class="button" type=button id="view_filter_button" value="{$MOD.LBL_FILTER_VIEW}" onclick="document.forms['EditView'].action.value='EditGridView';document.forms['EditView'].to_pdf.value	= '0';document.getElementById('EditView').submit();" />
+		<input class="button" type=button id="view_filter_button" value="{$MOD.LBL_FILTER_VIEW}" onclick="document.forms['EditViewGrid'].action.value='EditGridView';document.forms['EditViewGrid'].to_pdf.value	= '0';document.getElementById('EditViewGrid').submit();" />
 	{/if}
 	<span id="exportToPDFSpan">
 		<input class="button" type="button" name="button" value="{$MOD.LBL_EXPORT_TO_PDF}" onclick="SUGAR.grid.exportToPDF();"/>
-	</span>		
+	</span>
 	<input class="button" type="button" name="button" value="{$MOD.LNK_PROJECT_RESOURCE_REPORT}" onclick="window.open('index.php?module=Project&show_js=1&action=ResourceReport&record={$ID}','','width=700,height=700,resizable=1,scrollbars=1')" />
 	<input class="button" type="button" name="button" value="{$MOD.LBL_GRID_ONLY}" onclick="javascript:SUGAR.gantt.gridOnly()" />
 	<input class="button" type="button" name="button" value="{$MOD.LBL_GANTT_ONLY}" onclick="javascript:SUGAR.gantt.ganttOnly()" />
@@ -169,10 +165,10 @@ var resources = new Array();
 					<th width="5%" colspan="2">{$MOD.LBL_DURATION}</th>
 					<th width="5%">{$MOD.LBL_START}</th>
 					<th width="5%">{$MOD.LBL_FINISH}</th>
-					<th width="8%">{$MOD.LBL_PREDECESSORS}</th>	
-					<th width="8%">{$MOD.LBL_RESOURCE_NAMES}</th>		
-					<th id="optional_0" width="4%">{$MOD.LBL_ACTUAL_DURATION}</th>		
-				</tr>	
+					<th width="8%">{$MOD.LBL_PREDECESSORS}</th>
+					<th width="8%">{$MOD.LBL_RESOURCE_NAMES}</th>
+					<th id="optional_0" width="4%">{$MOD.LBL_ACTUAL_DURATION}</th>
+				</tr>
 				{foreach from=$TASKS item="TASK" }
 				<tr id="project_task_row_{$TASK->project_task_id}" height="23">
 					<td style="cursor:default" scope="row" align="center" onClick="SUGAR.grid.clickedRow({$TASK->project_task_id}, event);">
@@ -186,7 +182,7 @@ var resources = new Array();
 					</td>
 					<td>
 						<input  {if $CURRENT_USER != $TASK->resource_id && !$CANEDIT}readonly="readonly"{/if} type=text size=5 style="border:0" name=percent_complete_{$TASK->project_task_id} id=percent_complete_{$TASK->project_task_id} value="{$TASK->percent_complete}"
-							onBlur="if (SUGAR.grid.validatePercentComplete(this)) {literal}{{/literal} 
+							onBlur="if (SUGAR.grid.validatePercentComplete(this)) {literal}{{/literal}
 							SUGAR.grid.updateAncestorsPercentComplete({$TASK->project_task_id})
 							SUGAR.gantt.changeTask({$TASK->project_task_id});
 							{literal}}{/literal} ">
@@ -198,11 +194,11 @@ var resources = new Array();
 							<input type="hidden" name="description_divlink_input_{$TASK->project_task_id}" id="description_divlink_input_{$TASK->project_task_id}" value="{$TASK->name}">
 
 						</div>
-						<div id='description_{$TASK->project_task_id}_divlink' style="display:inline;width:250px">{$TASK->name}</div>			
+						<div id='description_{$TASK->project_task_id}_divlink' style="display:inline;width:250px">{$TASK->name}</div>
 					</td>
 					<td>
-						<input  {if !$CANEDIT}readonly="readonly"{/if} type=text  style="border:0;" size=3 name=duration_{$TASK->project_task_id} id=duration_{$TASK->project_task_id} value="{$TASK->duration}" 
-							onBlur="if (SUGAR.grid.validateDuration(this)) {literal}{{/literal} 
+						<input  {if !$CANEDIT}readonly="readonly"{/if} type=text  style="border:0;" size=3 name=duration_{$TASK->project_task_id} id=duration_{$TASK->project_task_id} value="{$TASK->duration}"
+							onBlur="if (SUGAR.grid.validateDuration(this)) {literal}{{/literal}
 							SUGAR.grid.calculateEndDate(document.getElementById('date_start_{$TASK->project_task_id}').value, this.value, {$TASK->project_task_id});
 							SUGAR.grid.updateAllDependentsAfterDateChanges({$TASK->project_task_id});
 							//SUGAR.grid.updateAncestorsTimeData({$TASK->project_task_id});
@@ -222,14 +218,14 @@ var resources = new Array();
 							{/foreach}
 						</select>
 					</td>
-					<td>					
+					<td>
 						<input {if !$CANEDIT}readonly="readonly"{/if} name=date_start_{$TASK->project_task_id} id=date_start_{$TASK->project_task_id} style="border:0" onchange="parseDate(this, '{$CALENDAR_DATEFORMAT}'); SUGAR.grid.processStartDate(this, '{$TASK->project_task_id}');"
-							 type="text" tabindex='2' size='11' maxlength='10' value="{$TASK->date_start}"> 
-					</td>	
-					<td>					
+							 type="text" tabindex='2' size='11' maxlength='10' value="{$TASK->date_start}">
+					</td>
+					<td>
 						<input {if !$CANEDIT}readonly="readonly"{/if} name=date_finish_{$TASK->project_task_id} id=date_finish_{$TASK->project_task_id} style="border:0" onchange="parseDate(this, '{$CALENDAR_DATEFORMAT}'); SUGAR.grid.processFinishDate(this, '{$TASK->project_task_id}');"
-							type="text" tabindex='2' size='11' maxlength='10' value="{$TASK->date_finish}"> 
-					</td>	
+							type="text" tabindex='2' size='11' maxlength='10' value="{$TASK->date_finish}">
+					</td>
 					<td>
 						<input  {if !$CANEDIT}readonly="readonly"{/if} type=text size=10  style='border:0' name=predecessors_{$TASK->project_task_id} id=predecessors_{$TASK->project_task_id} value="{$TASK->predecessors}"
 						onblur="if (SUGAR.grid.validatePredecessors(this)){literal}{{/literal}
@@ -284,17 +280,17 @@ var resources = new Array();
 			<script type="text/javascript">
 				document.getElementById('gridViewSelect').selectedIndex = document.getElementById('selected_view').value;
 			</script>
-			
+
 		<br /><br />
 	</div>
 	</div>
-	
-	
+
+
 	<div id="gantt_area">
 		<div id="gantt_space"></div>
 	</div>
 		<br /><br />
-	
+
 	<div id="resizer"></div>
 
 </div>
@@ -302,8 +298,6 @@ var resources = new Array();
 <div id="task_detail_area_div" name="task_detail_area_div" width="100%" style="display:none;border:1px">
 {sugar_getimage name="img_loading" ext=".gif" other_attributes='border="0" '}
 </div>
-<iframe id="task_detail_area_iframe" name="task_detail_area_iframe" title="task_detail_area_iframe" width="100%" style="display:none;border:0px">
-</iframe>
 <script type="text/javascript">
 {foreach from=$RESOURCES item="RESOURCE"}
 	var resourceObj = new Object();
@@ -346,8 +340,6 @@ SUGAR.gantt.createTable('biweek', document.getElementById('calendar_start').valu
 for (i = 0; i < 2; i++)
 	SUGAR.grid.insertRow();
 {/if}
-
-
 
 </script>
 {$JAVASCRIPT}

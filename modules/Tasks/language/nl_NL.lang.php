@@ -2,67 +2,81 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DATE_FORMAT' => '(jjjj-mm-dd)',
-  'ERR_DELETE_RECORD' => 'U dient een recordnummer aan te geven om dit record te kunnen verwijderen',
+  'ERR_DELETE_RECORD' => 'U dient een recordnummer op te geven om dit record te kunnen verwijderen',
   'ERR_INVALID_HOUR' => 'Voer hier a.u.b een uur in tussen 0 en 24',
   'LBL_ACTIVITIES_REPORTS' => 'Activiteitenrapport',
   'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan:',
   'LBL_ASSIGNED_USER' => 'Toegewezen aan',
   'LBL_COLON' => ':',
   'LBL_CONTACT' => 'Persoon:',
-  'LBL_CONTACT_FIRST_NAME' => 'Voornaam Persoon',
+  'LBL_CONTACT_FIRST_NAME' => 'Voornaam persoon',
   'LBL_CONTACT_ID' => 'ID Persoon',
-  'LBL_CONTACT_LAST_NAME' => 'Achternaam Persoon',
+  'LBL_CONTACT_LAST_NAME' => 'Achternaam persoon',
   'LBL_CONTACT_NAME' => 'Naam Persoon:',
-  'LBL_CONTACT_PHONE' => 'Telefoonnummer Persoon',
+  'LBL_CONTACT_PHONE' => 'Telefoonnummer persoon',
   'LBL_DATE_DUE' => 'Vervaldatum',
-  'LBL_DATE_DUE_FLAG' => 'Geen Einddatum',
-  'LBL_DATE_START_FLAG' => 'Geen Startdatum',
-  'LBL_DEFAULT_PRIORITY' => 'Medium',
+  'LBL_DATE_DUE_FLAG' => 'Geen einddatum',
+  'LBL_DATE_START_FLAG' => 'Geen aanvangsdatum',
+  'LBL_DEFAULT_PRIORITY' => 'Middel',
   'LBL_DESCRIPTION' => 'Omschrijving:',
   'LBL_DESCRIPTION_INFORMATION' => 'Omschrijving',
   'LBL_DUE_DATE' => 'Einddatum:',
-  'LBL_DUE_DATE_AND_TIME' => 'Einddatum & Tijd:',
+  'LBL_DUE_DATE_AND_TIME' => 'Einddatum & tijd:',
   'LBL_DUE_TIME' => 'Eindtijd:',
-  'LBL_EDITLAYOUT' => 'Wijzig Lay-out',
-  'LBL_EMAIL' => 'E-mail:',
+  'LBL_EDITLAYOUT' => 'Wijzig weergave',
+  'LBL_EMAIL' => 'E-mailadres:',
   'LBL_EMAIL_ADDRESS' => 'E-mailadres',
-  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Toegewezen gebruikers ID',
-  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Toegewezen Gebruikersnaam',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Toegewezen aan ID',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Toegewezen aan',
   'LBL_EXPORT_CREATED_BY' => 'Aangemaakt door ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Gewijzigd door ID',
   'LBL_EXPORT_PARENT_ID' => 'Gerelateerd aan ID',
-  'LBL_EXPORT_PARENT_TYPE' => 'Gerelateerd aan Module',
+  'LBL_EXPORT_PARENT_TYPE' => 'Gerelateerd aan module',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module bestaat uit flexibele acties, to-do items, of andere activiteiten die uitgevoerd moeten worden.
+
+Om een {{module_name}} aan te maken:
+1. Voer de gewenste gegevens in.
+ - Velden die "verplicht" zijn, moeten ingevuld zijn voordat het record opgeslagen kan worden.
+ - Klik op "Toon meer" om extra velden te tonen.
+2. Klik op "Opslaan" om het record op te slaan en terug te keren naar de voorgaande pagina.
+ - Kies "Sla op en bekijk" om de nieuwe {{module_name}} in record view te bekijken.
+ - Kies "Sla op en maak nieuwe aan" om direct een nieuwe {{module_name}} aan te maken.',
+  'LBL_HELP_RECORD' => 'De {{plural_module_name}} module bestaat uit flexibele acties, to-do items, of andere activiteiten die uitgevoerd moeten worden.
+
+- Pas de gegevens aan door op een individueel veld of op de Wijzigen knop te klikken.
+- Bekijk of pas koppelingen met andere records aan in de subpanels door de "Data View" in te schakelen in het paneel linksonder..
+- Maak en bekijk opmerkingen van gebruikers en de wijzigingshistorie door "Activity Stream" in te schakelen in het paneel linksonder.
+- Volg of maak het record favoriet door gebruik te maken van de icoontjes rechts naast de naam van het record.
+- Extra acties zijn beschikbaar via het dropdown actie menu rechts naast de Wijzigen knop.',
+  'LBL_HELP_RECORDS' => 'De {{plural_module_name}} module bestaat uit flexibele acties, to-do items, of andere activiteiten die uitgevoerd moeten worden. {{module_name}} records kunnen gekoppeld worden aan een record in de meeste modules door middel van het flex relate veld en kan ook gekoppeld worden aan een enkel {{contacts_singular_module}}. Er zijn meerdere manieren waarop u een {{plural_module_name}} in Sugar kunt aanmaken, zoals bijvoorbeeld via de {{plural_module_name}} module, door te kopiëren, importeren van {{plural_module_name}}, etc. Zo een {{module_name}} is aangemaakt, kunt u deze bekijken en de gegevens behorende bij de {{module_name}} aanpassen via de {{plural_module_name}} record view. Afhankelijk van de gegevens van de {{module_name}}, kunt u de gegevens van de {{module_name}} ook aanpassen via de Calendar module. Elk {{module_name}} record kan gekoppeld worden aan andere Sugar records zoals bijvoorbeeld {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, en vele anderen.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notities',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Toegewezen Gebruiker',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Toegewezen aan',
   'LBL_LIST_CLOSE' => 'Sluiten',
   'LBL_LIST_COMPLETE' => 'Afgerond:',
   'LBL_LIST_CONTACT' => 'Persoon',
-  'LBL_LIST_DATE_MODIFIED' => 'Datum Gewijzigd',
+  'LBL_LIST_DATE_MODIFIED' => 'Datum gewijzigd',
   'LBL_LIST_DUE_DATE' => 'Einddatum',
   'LBL_LIST_DUE_TIME' => 'Eindtijd',
   'LBL_LIST_FORM_TITLE' => 'Takenlijst',
   'LBL_LIST_MY_TASKS' => 'Mijn Openstaande Taken',
   'LBL_LIST_PRIORITY' => 'Prioriteit',
   'LBL_LIST_RELATED_TO' => 'Gerelateerd aan',
-  'LBL_LIST_START_DATE' => 'Begindatum:',
-  'LBL_LIST_START_TIME' => 'Starttijd:',
+  'LBL_LIST_START_DATE' => 'Aanvangsdatum:',
+  'LBL_LIST_START_TIME' => 'Aanvangstijd:',
   'LBL_LIST_STATUS' => 'Status',
   'LBL_LIST_SUBJECT' => 'Onderwerp',
   'LBL_MODULE_NAME' => 'Taken',
@@ -75,21 +89,23 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Nieuwe Taak',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'Geen',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notities',
   'LBL_PARENT_ID' => 'Bovenliggende ID',
   'LBL_PARENT_NAME' => 'Bovenliggend Type:',
   'LBL_PHONE' => 'Telefoon:',
   'LBL_PRIORITY' => 'Prioriteit:',
-  'LBL_RELATED_TO' => 'Gerelateerd aan:',
+  'LBL_REVENUELINEITEMS' => 'Opportunityregels',
   'LBL_SEARCH_FORM_TITLE' => 'Taken Zoeken',
-  'LBL_START_DATE' => 'Begindatum:',
-  'LBL_START_DATE_AND_TIME' => 'Startdatum & Tijd:',
-  'LBL_START_TIME' => 'Starttijd:',
+  'LBL_START_DATE' => 'Aanvangsdatum:',
+  'LBL_START_DATE_AND_TIME' => 'Aanvangsdatum & tijd:',
+  'LBL_START_TIME' => 'Aanvangstijd:',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Onderwerp:',
   'LBL_TASK' => 'Taken:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Taak succesvol afgesloten.',
   'LBL_TASK_INFORMATION' => 'Overzicht',
-  'LNK_IMPORT_TASKS' => 'Importeer Taken',
+  'LNK_IMPORT_TASKS' => 'Importeer taken',
   'LNK_NEW_TASK' => 'Nieuwe Taak',
-  'LNK_TASK_LIST' => 'Toon Taken',
+  'LNK_TASK_LIST' => 'Bekijk Taken',
 );
 

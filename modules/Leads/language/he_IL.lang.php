@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'יש לספק מספר רשומה על מנת למחוק את הליד.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'מידע על הכתובת',
   'LBL_ADD_BUSINESSCARD' => 'הוסף כרטיס ביקור',
   'LBL_ALTERNATE_ADDRESS' => 'כתובת אחרת:',
-  'LBL_ALT_ADDRESS' => 'כתובת אחרת:',
   'LBL_ALT_ADDRESS_CITY' => 'עיר אלטרנטיבית',
   'LBL_ALT_ADDRESS_COUNTRY' => 'מחוז אלטרנטיבי',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'מיקוד אלטרנטיבי',
@@ -68,17 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'הזדמנויות שהומרו:',
   'LBL_CONVERTLEAD' => 'המר ליד',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'לא ניתן להמיר את הליד',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'המרת בהצלחה את הליד {{leadName}}, אך הייתה בעיה בטעינת קבצים מצורפים ברשומה אחת או יותר',
+  'LBL_CONVERTLEAD_SUCCESS' => 'המרת בהצלחה את הליד {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'המר ליד [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Warning: This status of the Lead you are about to convert is "Converted". Contact and/or Account records may already have been created from the Lead. If you wish to continue with converting the Lead, click Save. To go back to the Lead without converting it, click Cancel.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'איש קשר אפשרי:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'אין לך גישה לאפשרות עריכה של המודולים הדרושים להמרת ליד  {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'הוסף מודול',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => '{{moduleName}} מקושר',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'קשר  {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'חזרה לכפילויות',
+  'LBL_CONVERT_BUTTON_LABEL' => 'המר',
   'LBL_CONVERT_COPY' => 'העתק נתונים',
+  'LBL_CONVERT_CREATE_NEW' => '{{moduleName}} חדש',
   'LBL_CONVERT_DELETE' => 'מחק',
+  'LBL_CONVERT_DUPLICATES_FOUND' => 'נמצאו {{duplicateCount}}  כפילויות',
   'LBL_CONVERT_EDIT' => 'ערוך',
   'LBL_CONVERT_EDIT_LAYOUT' => 'ערוך תוכנית המרה',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'מחפש כפילויות',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'התעלם וצור חדש',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} מקושר',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'קישרת את ה-{{moduleNameLower}} {{recordName}} אבל הוא לא יווצר לפני שתסיים ותשמור.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'קישרת את ה-{{moduleNameLower}} {{recordName}} אבל הוא לא יקושר לפני שתסיים ותשמור.',
   'LBL_CONVERT_MODULE_NAME' => 'מודול',
+  'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'מודול',
+  'LBL_CONVERT_PANEL_OPTIONAL' => 'אופציונאלי',
   'LBL_CONVERT_REQUIRED' => 'נדרש',
+  'LBL_CONVERT_RESET_PANEL' => 'איפוס',
   'LBL_CONVERT_SELECT' => 'אפשר בחירה',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'צור חדש',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'חפש',
   'LBL_COPY_TIP' => 'If checked, fields from the lead will be copied to fields with the same name in the newly created records.',
   'LBL_COUNTRY' => 'מחוז:',
   'LBL_CREATE' => 'צור',
@@ -96,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'מחלקה:',
   'LBL_DESCRIPTION' => 'תיאור:',
   'LBL_DESCRIPTION_INFORMATION' => 'תיאור המידע',
+  'LBL_DNB_BAL_PREVIEW' => 'תצוגה מקדימה לידים',
+  'LBL_DNB_BAL_RSLT_CNT' => 'לידים',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: פרטי יצירת קשר לליד',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Id עיקרי',
   'LBL_DO_NOT_CALL' => 'לא להתקשר:',
   'LBL_DUPLICATE' => 'לידים דומים',
   'LBL_EDITLAYOUT' => 'ערוך תצורה',
@@ -114,12 +134,39 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'שונה על ידי ID',
   'LBL_EXPORT_PHONE_MOBILE' => 'טלפון נייד',
   'LBL_FAX_PHONE' => 'פקס:',
+  'LBL_FILTER_LEADS_REPORTS' => 'דוחות לליד',
   'LBL_FIRST_NAME' => 'שם פרטי:',
   'LBL_FULL_NAME' => 'שם מלא:',
+  'LBL_HELP_CONVERT' => 'Sugar enables you to convert {{plural_module_name}} into {{contacts_module}}, {{accounts_module}}, and other modules once the {{module_name}} meets your qualification criteria.
+
+Step through each module by modifying fields then confirming the new record’s values by clicking each Associate button.
+
+If Sugar detects an existing record that matches your {{module_name}}’s information, you have the option to choose a duplicate and confirm the selection with the Associate button or to click "Ignore and create new" and proceed normally.
+
+After confirming each required and desired module, click the Save and Convert button at the top to finalize the conversion.',
+  'LBL_HELP_CONVERT_TITLE' => 'המר {{module_name}}',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module consists of individual prospects who may be interested in a product or service your organization provides. Once the {{module_name}} is qualified as a sales {{opportunities_singular_module}}, it can be converted into a {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}}, or other record.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of individual prospects who may be interested in a product or service your organization provides.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of individual prospects who may be interested in a product or service your organization provides. Once the {{module_name}} is qualified as a sales {{opportunities_singular_module}}, {{plural_module_name}} can be converted into {{contacts_module}}, {{opportunities_module}}, and {{accounts_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, duplication, importing {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} record view.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'הסטוריה',
   'LBL_HOME_PHONE' => 'טלפון בבית:',
   'LBL_IMPORT_VCARD' => 'ייבוא vCard',
   'LBL_IMPORT_VCARDTEXT' => 'תיצר אוטומטית ליד חדש על ידי ייבוא vCard ממערכת הקבצים.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'ליד מ-vCard נוצר בהצלחה',
   'LBL_INVALID_EMAIL' => 'דואר אלקטרוני לא חוקי:',
   'LBL_INVITEE' => 'דוחות ישירים',
   'LBL_LAST_NAME' => 'שם משפחה:',
@@ -145,18 +192,24 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'תואר',
   'LBL_LOADING' => 'טוען ...',
   'LBL_MESSAGE' => 'אנא הזן למטה את המידע. מידע או חשבון יווצרו לאחר אישור תלוי ועומד עבורך.',
+  'LBL_MKTO_ID' => 'Marketo® ליד ID',
+  'LBL_MKTO_LEAD_SCORE' => 'ציון ליד',
+  'LBL_MKTO_SYNC' => 'סנכרן עם Marketo®',
   'LBL_MOBILE_PHONE' => 'טלפון נייד:',
   'LBL_MODIFIED' => 'שונה על ידי',
   'LBL_MODIFIED_ID' => 'שונה על ידי זהות',
   'LBL_MODIFIED_USER' => 'משתמש ששונה',
   'LBL_MODULE_NAME' => 'לידים',
-  'LBL_MODULE_TIP' => 'The module to create a new record in.',
+  'LBL_MODULE_NAME_SINGULAR' => 'ליד',
+  'LBL_MODULE_TIP' => 'המודול ליצירת רשומה חדשה ב-',
   'LBL_MODULE_TITLE' => 'לידים: דף ראשי',
   'LBL_NAME' => 'שם:',
   'LBL_NEW_FORM_TITLE' => 'ליד חדש',
   'LBL_NEW_PORTAL_PASSWORD' => 'סיסמא חדשה לפורטל:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'פתקים',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Notice: The current Convert Lead screen contains custom fields. When you customize the Convert Lead screen in Studio for the first time, you will need to add custom fields to the layout, as necessary. The custom fields will not automatically appear in the layout, as they did previously.',
   'LBL_OFFICE_PHONE' => 'טלפון במשרד:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'הזדמנויות',
   'LBL_OPPORTUNITY_AMOUNT' => 'ערך ההזדמנות:',
   'LBL_OPPORTUNITY_ID' => 'הזדמנות זהות',
   'LBL_OPPORTUNITY_NAME' => 'שם ההזדמנות:',
@@ -184,6 +237,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'רחוב 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'רחוב 3',
   'LBL_PROSPECT_LIST' => 'רשימת תחזיות',
+  'LBL_RECORD_SAVED_SUCCESS' => 'יצרת בהצלחה את {{moduleSingularLower}} {{full_name}}.',
   'LBL_REFERED_BY' => 'הופנה על ידי:',
   'LBL_REGISTRATION' => 'רישום',
   'LBL_REPORTS_FROM' => 'דוחות מאת:',
@@ -192,6 +246,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Required modules must be created or selected before the lead can be converted.',
   'LBL_SALUTATION' => 'ברכה',
   'LBL_SAVED' => 'תודה על ההרשמה. החשבון שלך יווצר ומשהו מטעמנו יור איתך קשר בהקדם האפשרי.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'שמור והמר',
   'LBL_SEARCH_FORM_TITLE' => 'חיפוש ליד',
   'LBL_SELECT' => '<b>או</b> בחר',
   'LBL_SELECTION_TIP' => 'Modules with a relate field in Contacts can be selected rather than created during the convert lead process.',
@@ -208,6 +263,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'קמפיין מוצלח:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'תודה לך על ההגשה.',
   'LBL_TITLE' => 'תואר:',
+  'LBL_UNCONVERTED' => 'לא מומר',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'צפייה בליד',
   'LBL_WEBSITE' => 'אתר אינטרנט',
@@ -225,14 +281,16 @@ $mod_strings = array (
   'LNK_NEW_NOTE' => 'צור פתק',
   'LNK_NEW_OPPORTUNITY' => 'צור הזדמנות',
   'LNK_NEW_TASK' => 'צור משימה',
-  'LNK_SELECT_ACCOUNT' => '<b>או</b> בחר חשבון',
   'LNK_SELECT_ACCOUNTS' => '<b>או</b> בחר חשבון',
+  'LNK_SELECT_CONTACTS' => '<b>או</b> בחר איש קשר',
   'NTC_COPY_ALTERNATE_ADDRESS' => 'העתק כתובת משנית לכתובת ראשית',
   'NTC_COPY_PRIMARY_ADDRESS' => 'העתק כתובת ראשית לכתובת משנית',
   'NTC_DELETE_CONFIRMATION' => 'אתה בטוח שברצונך למחוק רשומה זו?',
-  'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Creating an opportunity requires an account.\\n Please either create a new one or select an existing one.',
+  'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'יצירת הזדמנות דורשת חשבון.\\n אנא צור חשבון חדש או בחר חשבון קיים.',
   'NTC_REMOVE_CONFIRMATION' => 'אתה בטוח שברצונך להסיר ליד זה מאירוע זה?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'האם אתה בטוח שברצונך להסיר רשומה זו מדוח ישיר?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} » {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} » {{/if}}{{module}} » {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

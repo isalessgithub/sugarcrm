@@ -1,30 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-require_once('include/ytree/Tree.php');
-require_once('include/ytree/Node.php');
+require_once('vendor/ytree/Tree.php');
+require_once('vendor/ytree/Node.php');
 require_once('modules/KBTags/TreeData.php');
 
 require_once('modules/KBDocuments/Forms.php');
@@ -40,7 +28,7 @@ global $mod_strings;
 global $current_user;
 global $sugar_version, $sugar_config;
 
-$focus = new KBDocument();
+$focus = BeanFactory::getBean('KBDocuments');
 $load_signed=false;
 
 if ((isset($_REQUEST['load_signed_id']) and !empty($_REQUEST['load_signed_id']))) {
@@ -74,29 +62,30 @@ if (isset($_REQUEST['acase_id']) && isset($_REQUEST['acase_name'])) {
     $_REQUEST['case_name'] = $_REQUEST['acase_name'];
 }
 
+if (isset($_REQUEST['parent_type']) && $_REQUEST['parent_type'] == "Cases") {
+    $_REQUEST['case_id'] = $_REQUEST['parent_id'];
+}
+
 if(isset($_REQUEST['case_id']) && !empty($_REQUEST['case_id'])){
-	$from_case = new aCase();
-	$from_case->retrieve($_REQUEST['case_id']);
+	$from_case = BeanFactory::getBean('Cases', $_REQUEST['case_id']);
 	$xtpl->assign('PARENT_ID',$_REQUEST['case_id']);
 	$xtpl->assign('PARENT_TYPE','Cases');
     $xtpl->assign("CASE_ID", $from_case->id);
     $xtpl->assign("CASE_NAME", $from_case->name);
-} elseif (isset($focus->case_id) && isset($focus->case_name)) {
-    $xtpl->assign("CASE_ID", $focus->case_id);
+} elseif (!empty($focus->parent_id) && !empty($focus->case_name)) {
+    $xtpl->assign("CASE_ID", $focus->parent_id);
     $xtpl->assign("CASE_NAME", $focus->case_name);
 }
 
 if(isset($_REQUEST['return_module']) && $_REQUEST['return_module'] == 'Cases'){
   if(isset($_REQUEST['record']) && !empty($_REQUEST['record'])){
-	$from_case = new aCase();
-	$from_case->retrieve($_REQUEST['record']);
+	$from_case = BeanFactory::getBean('Cases', $_REQUEST['record']);
 	$xtpl->assign('PARENT_ID',$_REQUEST['record']);
 	$xtpl->assign('PARENT_TYPE','Cases');
   }
 }
 if(isset($_REQUEST['email_id']) && !empty($_REQUEST['email_id'])){
-	$from_email = new Email();
-	$from_email->retrieve($_REQUEST['email_id']);
+	$from_email = BeanFactory::getBean('Emails', $_REQUEST['email_id']);
 	$xtpl->assign('PARENT_ID',$_REQUEST['email_id']);
 	$xtpl->assign('PARENT_TYPE','Emails');
 }
@@ -193,7 +182,7 @@ $quicksearch_js .= '<script type="text/javascript" language="javascript">
 						</script>';
 */
 $javascript = get_set_focus_js().$quicksearch_js;
-$tag = new KBTag();
+$tag = BeanFactory::getBean('KBTags');
 $xtpl->assign("TAG_NAME", $tag->tag_name);
  //tree header.
         $tagstree=new Tree('tagstree');
@@ -270,6 +259,7 @@ $xtpl->assign("REVISION",$focus->kbdocument_revision_number);
 
 $xtpl->assign("THEME", $theme);
 $xtpl->assign("SITE_URL",$sugar_config['site_url']);
+$xtpl->assign("UPLOAD_MAXSIZE",$sugar_config['upload_maxsize']);
 $xtpl->assign("ATTACHMENTS",$mod_strings['LBL_ATTACHMENTS']);
 $xtpl->assign("EMBEDDED_IMAGES",$mod_strings['LBL_EMBEDED_IMAGES']);
 
@@ -315,8 +305,7 @@ if (empty($focus->team_id)) {
 	$xtpl->assign("TEAM_ID", $current_user->default_team);
 }
 else {
-	$focus->assigned_name = get_assigned_team_name($focus->team_id);
-	$xtpl->assign("TEAM_NAME", $focus->assigned_name);
+	$xtpl->assign("TEAM_NAME", $focus->team_name);
 	$xtpl->assign("TEAM_ID", $focus->team_id);
 }
 //save default team name/id for external check/uncheck
@@ -325,8 +314,7 @@ $xtpl->assign("DEFAULT_TEAM_ID", $current_user->default_team);
 
 if (!empty($focus->kbdoc_approver_id)) {
 
-	$user = new User();
-	$user->retrieve($focus->kbdoc_approver_id,true);
+	$user = BeanFactory::getBean('Users', $focus->kbdoc_approver_id);
 	$xtpl->assign("KBDOC_APPROVER_NAME", $user->name);
 	$xtpl->assign("KBDOC_APPROVER_ID", $focus->kbdoc_approver_id);
 }
@@ -335,8 +323,7 @@ if (empty($focus->assigned_user_id) && empty($focus->id))  $focus->assigned_user
 if (empty($focus->assigned_name) && empty($focus->id))  $focus->assigned_user_name = $current_user->user_name;
 
 if (!empty($focus->assigned_user_id)) {
-        $user = new User();
-        $user->retrieve($focus->assigned_user_id, true);
+        $user = BeanFactory::getBean('Users', $focus->assigned_user_id);
         $xtpl->assign("KBARTICLE_AUTHOR_NAME", $user->name);
         $xtpl->assign("KBARTICLE_AUTHOR_ID",$focus->assigned_user_id);
     }
@@ -350,7 +337,7 @@ if(isset($from_email) && !empty($from_email)){
 }
 
 //converting a case into document
-if (empty($focus->id) && isset($from_case) && !empty($from_case)) {
+if (empty($focus->id) && !empty($from_case)) {
 	$xtpl->assign("KBDOCUMENT_NAME",$from_case->name);
 	$xtpl->assign("REVISION",1);
 	$revision = 1;
@@ -423,40 +410,37 @@ $tiny = new SugarTinyMCE();
 $tiny->defaultConfig['cleanup_on_startup']=true;
 $ed = $tiny->getInstance('body_html');
 $xtpl->assign("tiny", $ed);
-if(from_html(KBDocument::get_kbdoc_body_without_incrementing_count($kbId)) != null){
-    $edValue = KBDocument::get_kbdoc_body_without_incrementing_count($kbId);
-}
-else if(isset($from_case) && !empty($from_case)){
-    //set the kb fields from case i.e. kb name
-    if($from_case->case_number != null){
-        $edValue = "Case Number: $from_case->case_number</br>";
-    }
-    if($from_case->name != null){
-        $edValue .= "Subject: $from_case->name</br>";
-    }
-    if($from_case->description != null){
-        $edValue .= "Description: $from_case->description</br>";
-    }
-    if($from_case->resolution != null){
-        $edValue .= "Resolution: $from_case->resolution</br>";
-    }
-     //if bugs are associated to cases then extract the work_log and notes etc...
-     //also extract notes associated to the cases
-}
-else if(isset($from_email) && !empty($from_email)){
-    //set the kb fields from case i.e. kb name
-    if($from_email->description != null){
-        $edValue = "$from_email->description</br>";
-    }
-    if($from_email->description_html != null){
-        $edValue = "$from_email->description_html</br>";
-    }
-     //if bugs are associated to cases then extract the work_log and notes etc...
-     //also extract notes associated to the cases
-}
 
-else{
-    $edValue ='';
+$edValue = '';
+$kbDocBody = from_html(KBDocument::get_kbdoc_body_without_incrementing_count($kbId));
+if (!empty($kbDocBody)) {
+    $edValue = $kbDocBody;
+} else if (!empty($from_case)) {
+    //set the kb fields from case i.e. kb name
+    if (!empty($from_case->case_number)) {
+        $edValue = '<p>Case Number: ' . $from_case->case_number . '</p>';
+    }
+    if (!empty($from_case->name)) {
+        $edValue .= '<p>Subject: ' . $from_case->name . '</p>';
+    }
+    if (!empty($from_case->description)) {
+        $edValue .= '<p>Description: ' . $from_case->description . '</p>';
+    }
+    if (!empty($from_case->resolution)) {
+        $edValue .= '<p>Resolution: ' . $from_case->resolution . '</p>';
+    }
+    //if bugs are associated to cases then extract the work_log and notes etc...
+    //also extract notes associated to the cases
+} else if (!empty($from_email)) {
+    //set the kb fields from case i.e. kb name
+    if (!empty($from_email->description)) {
+        $edValue = $from_email->description . '<br>';
+    }
+    if (!empty($from_email->description_html)) {
+        $edValue = $from_email->description_html . '<br>';
+    }
+    //if bugs are associated to cases then extract the work_log and notes etc...
+    //also extract notes associated to the cases
 }
 $xtpl->assign("HTMLAREA",$edValue);
 $xtpl->parse("main.htmlarea");
@@ -514,7 +498,7 @@ $xtpl->parse("main");
 $xtpl->out("main");
 
 
-$savedSearch = new SavedSearch();
+$savedSearch = BeanFactory::getBean('SavedSearch');
 $json = getJSONobj();
 $savedSearchSelects = $json->encode(array($GLOBALS['app_strings']['LBL_SAVED_SEARCH_SHORTCUT'] . '<br>' . $savedSearch->getSelect('KBDocuments')));
 $str = "<script>

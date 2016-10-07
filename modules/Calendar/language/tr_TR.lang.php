@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: bu görüntü için tanımlı değil',
-  'ERR_YEAR_BETWEEN' => 'Özür dileriz, takvim talep ettiğiniz yılı kapsamıyor<br>Yıl 1970 ve 2037 arasında olmalıdır',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: Bu ​​görünüm için tanımlanmamış',
+  'ERR_YEAR_BETWEEN' => 'Üzgünüm, istediğiniz takvim yılı kabul edilmedi<br>Yıl 1970 ile 2037 arasında olmalıdır',
   'LBL_AM' => 'ÖÖ(AM)',
   'LBL_APPLY_BUTTON' => 'Uygula',
   'LBL_ASSIGNED_TO_NAME' => 'Atanan Kişi',
   'LBL_BUSY' => 'Meşgul',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Tekrarlayan {0} etkinliği limiti aştı',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} üst yenileme değil',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} tekrarlanan olay değil',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0}, tekrarlanan etkinlik modülü olarak görülmemektedir',
   'LBL_CANCEL_BUTTON' => 'İptal',
   'LBL_CLOSE_BUTTON' => 'Kapat',
   'LBL_CONFIRM_REMOVE' => 'Kaydı silmek istediğinizden emin misin?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Çakışma',
   'LBL_CREATE_CALL' => 'Tel. Araması Planla',
   'LBL_CREATE_MEETING' => 'Toplantı Planla',
+  'LBL_CREATE_NEW_CALL' => 'Çağrı Oluştur',
   'LBL_CREATE_NEW_RECORD' => 'Etkinlik Oluştur',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Yeni bir toplantı oluşturun. <a href="javascript:void(0);" data-action="create-task">Görev oluşturmak</a> veya <a href="javascript:void(0);" data-action="schedule-call">Çağrı planlamak</a> istiyor musunuz?',
   'LBL_DATE' => 'Başlangıç Tarih & Saat',
   'LBL_DATE_END_ERROR' => 'Bitiş Tarihi, Başlangıç Tarihinden önce',
   'LBL_DATE_TIME' => 'Tarih ve Saat',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Sil',
   'LBL_DURATION' => 'Süre',
   'LBL_EDIT_ALL_RECURRENCES' => 'Bütün Çift Kayıtları Değiştir',
+  'LBL_EDIT_CALL' => 'Çağrı Düzenle',
   'LBL_EDIT_RECORD' => 'Etkinliği Değiştir',
   'LBL_EDIT_USERLIST' => 'Kullanıcı Listesi',
   'LBL_ERROR_LOADING' => 'Yükleme sırasında Hata',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Önümüzdeki Hafta',
   'LBL_NEXT_YEAR' => 'Gelecek Yıl',
   'LBL_NO' => 'Hayır',
+  'LBL_NO_ACCESS' => 'Erişiminiz yok',
   'LBL_NO_USER' => 'Alan İçin Eşleşme Yok : Atanmış Kişi',
   'LBL_PARTICIPANTS_TAB' => 'Davetliler',
   'LBL_PM' => 'ÖS(PM)',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Kaydet & Davet Gönder',
   'LBL_SETTINGS' => 'Ayarlar',
   'LBL_SETTINGS_CALLS_SHOW' => 'Aramaları Göster:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Tamamlanan Toplantıları, Çağıları ve Görevleri Gösterin:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Gün ve Hafta görünümlerinde zaman dilimlerini göster:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Görevleri Göster:',
   'LBL_SETTINGS_TIME_ENDS' => 'Bitiş zamanı:',

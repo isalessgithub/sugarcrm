@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: UpgradeHistory.php 45763 2009-04-01 19:16:18Z majed $
 
 
 // The history of upgrades on the system
@@ -35,10 +32,12 @@ class UpgradeHistory extends SugarBean
     var $description;
     var $id_name;
     var $manifest;
+    public $patch;
     var $enabled;
     var $tracker_visibility = false;
     var $table_name = "upgrade_history";
     var $object_name = "UpgradeHistory";
+    var $module_name = "UpgradeHistory";
     var $column_fields = Array( "id", "filename", "md5sum", "type", "version", "status", "date_entered" );
     var $disable_custom_fields = true;
 
@@ -47,9 +46,9 @@ class UpgradeHistory extends SugarBean
         $this->db->query( "delete from " . $this->table_name . " where id = " . $this->db->quoted($this->id));
     }
 
-    function UpgradeHistory()
+    public function __construct()
     {
-        parent::SugarBean();
+        parent::__construct();
         $this->disable_row_level_security = true;
     }
 

@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 (function() {
@@ -50,6 +47,19 @@ var AH = SUGAR.forms.AssignmentHandler = function() {
  * This flag determines whether animations are turned on/off.
  */
 AH.ANIMATE = true;
+
+    /**
+  * @STATIC
+ * This array maps form elements to their respective element in DOM.
+ */
+AH.COLLECTIONS_MAP = {};
+
+    /**
+ * @STATIC
+ *  * Event which is fired after loadComplete method is done.
+ * Meaning it that all the onload dependencies were fired.
+ */
+AH.AFTER_LOAD_COMPLETE = new YAHOO.util.CustomEvent("AFTER_LOAD_COMPLETE");
 
 /**
  * @STATIC
@@ -127,6 +137,7 @@ AH.registerForm = function(f, formEl) {
 	var form = formEl || document.forms[f];
 	if (typeof(AH.VARIABLE_MAP[f]) == "undefined")
 		AH.VARIABLE_MAP[f] = {};
+    AH.COLLECTIONS_MAP[f] = {};
 	if ( typeof(form) == 'undefined' ) return;
 	for ( var i = 0; i < form.length; i++ ) {
 		var el = form[i];
@@ -143,6 +154,11 @@ AH.registerForm = function(f, formEl) {
                     AH.VARIABLE_MAP[f][fieldName] = el;
                     AH.updateListeners(fieldName, f, el);
                 }
+                } else if(el.type && el.type == "radio") {
+                    if (!AH.COLLECTIONS_MAP[f][el.name]) {
+                        AH.COLLECTIONS_MAP[f][el.name] = [];
+                    }
+                AH.COLLECTIONS_MAP[f][el.name].push(el);
             }
 			AH.VARIABLE_MAP[f][el.id] = el;
             AH.updateListeners(el.id, f, el);
@@ -312,6 +328,15 @@ AH.getCachedRelatedField = function(link, ftype, view)
     return AH.LINKS[view][link][ftype];
 }
 
+ /**
+  * @STATIC
+ * Retrieve the collection behind a variable.
+ */
+AH.getCollection = function (variable, view) {
+    if (!view)view = AH.lastView;
+        var field = (AH.COLLECTIONS_MAP[view] && AH.COLLECTIONS_MAP[view][variable]) ? AH.COLLECTIONS_MAP[view][variable] : null;
+        return field;
+}
 
 /**
  * @STATIC
@@ -350,7 +375,12 @@ AH.assign = function(variable, value, flash)
 	}
 
 	//Detect field types and add error handling.
-	if (Dom.hasClass(field, "imageUploader"))
+    if (document.DetailView)
+    {
+        field.innerHTML = '';
+        field.appendChild(document.createTextNode(value));
+    }
+    else if (Dom.hasClass(field, "imageUploader"))
 	{
 		var img = Dom.get("img_" + field.id);
 		img.src = value;
@@ -387,6 +417,7 @@ AH.assign = function(variable, value, flash)
         // See if this is a numeric field that needs formatting
         var fieldForm = field.form.attributes.name.value;
         var fieldType = 'text';
+        
         if ( typeof(validate[fieldForm]) == "object" ) {
             for ( var idx in validate[fieldForm] ) {
                 if (validate[fieldForm][idx][0] == field.name) {
@@ -411,6 +442,10 @@ AH.assign = function(variable, value, flash)
             if ( value != '' ) {
                 value = formatNumber(value,num_grp_sep,dec_sep,localPrecision,localPrecision);
             }
+        } else if ( typeof(value) == 'object' 
+                    && value.length > 0 
+                    && fieldType != 'multienum' ) {
+            value = value.join(', ');
         }
 		field.value = value;
 	}
@@ -616,6 +651,7 @@ AH.loadComplete = function()
     {
         SUGAR.forms.Trigger.fire.call(AH.QUEUEDDEPS[i].trigger);
     }
+    AH.AFTER_LOAD_COMPLETE.fire();
 }
 
 /**
@@ -644,10 +680,9 @@ AH.setRelatedFields = function(fields){
 AH.getRelatedFieldValues = function(fields, module, record)
 {
     if (fields.length > 0){
-        var ret = {};
-        var emptyFields = {};
         module = module || SUGAR.forms.AssignmentHandler.getValue("module") || DCMenu.module;
         record = record || SUGAR.forms.AssignmentHandler.getValue("record") || DCMenu.record;
+
         // Go from the back, because of the possible deletion of related type fields
         for (var i = fields.length - 1; i >= 0; i--)
         {
@@ -661,13 +696,11 @@ AH.getRelatedFieldValues = function(fields, module, record)
                     {
                         fields[i].relModule = linkDef.module;
                         fields[i].relId = SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name, false, true);
+
                         // If there is no relId, there is no point in querying for this field
                         if (fields[i].relId.length == 0)
                         {
-                            // Set default value
-                            emptyFields[fields[i].link] = {'related' : {}};
-                            emptyFields[fields[i].link]['related'][fields[i].relate] = ''; // Server would return an empty string}
-                            // Then we remove it
+                            // So we remove it
                             fields.splice(i, 1);
                         }
                     }
@@ -687,12 +720,11 @@ AH.getRelatedFieldValues = function(fields, module, record)
                 to_pdf: 1
             }));
             try {
-                ret = YAHOO.lang.JSON.parse(r.responseText);
+                var ret = YAHOO.lang.JSON.parse(r.responseText);
+                AH.setRelatedFields(ret);
+                return ret;
             } catch(e){}
         }
-        ret = $.extend({}, emptyFields, ret);
-        AH.setRelatedFields(ret);
-        return ret;
     }
 
     return null;
@@ -718,9 +750,9 @@ AH.getRelatedField = function(link, ftype, field, view){
     var linkDef = SUGAR.forms.AssignmentHandler.getLink(link);
     var currId;
     if (linkDef.id_name)
-     {
-         currId = SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name, false, true);
-     }
+    {
+        currId = SUGAR.forms.AssignmentHandler.getValue(linkDef.id_name, false, true);
+    }
 
     // Clear the Link cache when the old and new relIds are different
     if ((linkDef.relId || currId) && linkDef.relId != currId) {
@@ -733,7 +765,7 @@ AH.getRelatedField = function(link, ftype, field, view){
         // make sure that at least one of old and new value of the relate field is not empty.
         // otherwise the cache considered invalid in case when both values are empty but have
         // different types (null, false, undefined or empty string)
-        || (ftype == "related" && (linkDef.relId || currId) && linkDef.relId != currId)
+        || (ftype == "related" && (linkDef.relId || !_.isUndefined(currId)) && linkDef.relId != currId)
     ){
         var params = {link: link, type: ftype};
         if (field)
@@ -827,7 +859,6 @@ SUGAR.util.extend(SUGAR.forms.FormExpressionContext, SUGAR.expressions.Expressio
         }
 		else if (typeof(value) == "string")
 		{
-			value = value.replace(/\n/g, "");
 			if ((/^(\s*)$/).exec(value) != null || value === "")
             {
 				return toConst('""')
@@ -842,7 +873,7 @@ SUGAR.util.extend(SUGAR.forms.FormExpressionContext, SUGAR.expressions.Expressio
 			}
 		} else if (typeof(value) == "object" && value != null && value.getTime) {
 			//This is probably a date object that we must convert to an expression
-			var d = new SUGAR.DateExpression("");
+			var d = new SE.DateExpression("");
 			d.evaluate = function(){return this.value};
 			d.value = value;
 			return d;
@@ -864,6 +895,139 @@ SUGAR.util.extend(SUGAR.forms.FormExpressionContext, SUGAR.expressions.Expressio
     addListener : function(varname, callback, scope)
     {
     	AH.addListener(varname, callback, scope, this.formName);
+    },
+    getRelatedField : function(link, ftype, field){
+        //For 'related' fields, the ID of the related record can be changed on the form so we need to look for it
+        //before we call down to the server
+        if (ftype == 'related')
+        {
+            //We just have a field name, assume its the name of a link field
+            //and the parent module is the current module.
+            //Try and get the current module and record ID
+            var module = AH.getValue("module");
+            var record = AH.getValue("record");
+            var linkDef = AH.getLink(link);
+            var linkId = false, url = "index.php?";
+
+            if (linkDef && linkDef.id_name && linkDef.module) {
+                var idField = document.getElementById(linkDef.id_name);
+                if (idField && idField.tagName == "INPUT")
+                {
+                    linkId = AH.getValue(linkDef.id_name, false, true);
+                    module = linkDef.module;
+                }
+                //Clear the cache for this link if the id has changed
+                if (linkDef.relId && linkDef.relId != linkId)
+                    AH.clearRelatedFieldCache(link);
+            }
+        }
+
+        return AH.getRelatedField(link, ftype, field);
+    },
+    getAppListStrings : function(list) {
+        return SUGAR.language.get('app_list_strings', list);
+    },
+    parseDate: function(date, type) {
+        return SUGAR.util.DateUtils.parse(date, type);
+    },
+    getElement : function(variable) {
+        return AH.getElement(variable, this.formName);
+    },
+
+    /**
+     * Do math calculations in javascript,
+     * sans floating point errors.
+     *
+     * ex. $10.52 is really 1052 cents. Think of currency as
+     * cents and apply math that way (as integers)  and this should
+     * help keep floating point issues out of the picture.
+     *
+     * @param {String} operator
+     * @param {Number} n1
+     * @param {Number|undefined} n2
+     * @param {Number|undefined} (decimals)
+     * @param {boolean|undefined} (fixed) return value as fixed string
+     * @return {Number|String} rounded amount
+     */
+    _math: function(operator, n1, n2, decimals, fixed) {
+        decimals = (_.isFinite(decimals) && decimals >= 0) ? parseInt(decimals) : 6;
+        fixed = fixed || false;
+        var result;
+        var divisor = Math.pow(10, decimals);
+        var r1 = parseFloat(n1) * divisor;
+        var r2 = !_.isUndefined(n2) ? (parseFloat(n2) * divisor) : undefined;
+        switch (operator) {
+            case 'round':
+                result = Math.round(r1) / divisor;
+                break;
+            case 'add':
+                result = (r1 + r2) / divisor;
+                break;
+            case 'sub':
+                result = (r1 - r2) / divisor;
+                break;
+            case 'mul':
+                result = this.round(r1 * r2 / divisor / divisor, decimals, fixed);
+                break;
+            case 'div':
+                result = this.round(r1 / r2, decimals, fixed);
+                break;
+            default:
+                // no valid operator, just return number
+                return n1;
+                break;
+        }
+        return (fixed && !_.isString(result)) ? result.toFixed(decimals) : result;
+    },
+    /**
+     * Used to Add Values
+     *
+     * @param {String|Number} start        What we are starting with
+     * @param {String|Number} add          What we want to add to the value
+     * @return {String}
+     */
+    add: function(start, add) {
+        return this._math('add', start, add, 6, true);
+    },
+    /**
+     * Used to Subtract Values
+     *
+     * @param {String|Number} start        What we are starting with
+     * @param {String|Number} subtract          What we want to subtract from the value
+     * @return {String}
+     */
+    subtract: function(start, subtract) {
+        return this._math('sub', start, subtract, 6, true);
+    },
+    /**
+     * Used to Multiply Values
+     *
+     * @param {String|Number} start        What we are starting with
+     * @param {String|Number} multiply     What we want to multipy by
+     * @return {String}
+     */
+    multiply: function(start, multiply) {
+        return this._math('mul', start, multiply, 6, true);
+    },
+    /**
+     * Used to Divide Values
+     *
+     * @param {String|Number} start        What we are starting with
+     * @param {String|Number} divide       What we want to divide the currency value by
+     * @return {String}
+     */
+    divide: function(start, divide) {
+        return this._math('div', start, divide, 6, true);
+    },
+    /**
+     * Used to Round Values
+     *
+     * @param {String|Number} start        What we are starting with
+     * @param {String|Number} divide       What we want to divide the currency value by
+     * @return {String}
+     */
+    round: function(start, precision) {
+        return this._math('round', start, precision, true);
     }
 });
 
@@ -1163,7 +1327,10 @@ SUGAR.forms.Dependency.prototype.getRelatedFields = function () {
         }
 
         for (var i = 0; i < this.variables.length; i++) {
-            var el = handler.getElement(this.variables[i]);
+            var el = handler.getCollection(this.variables[i]);
+            if(!el) {
+                var el = handler.getElement(this.variables[i]);
+            }
             if (!el) continue;
             if (el.type && el.type.toUpperCase() == "CHECKBOX") {
                 YAHOO.util.Event.addListener(el, "click", SUGAR.forms.Trigger.fire, this, true);

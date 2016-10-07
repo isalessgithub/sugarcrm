@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nie zdefiniowano dla tego widoku',
@@ -24,6 +21,10 @@ $mod_strings = array (
   'LBL_APPLY_BUTTON' => 'Zastosuj',
   'LBL_ASSIGNED_TO_NAME' => 'Przydzielono do',
   'LBL_BUSY' => 'Zajęty',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Wydarzenie cykliczne {0} przekroczyło limit',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} nie jest nadrzędnym wydarzeniem cyklicznym',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} nie jest wydarzeniem cyklicznym',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} nie jest uznawane za moduł z wydarzeniami cyklicznymi',
   'LBL_CANCEL_BUTTON' => 'Anuluj',
   'LBL_CLOSE_BUTTON' => 'Zamknij',
   'LBL_CONFIRM_REMOVE' => 'Na pewno chcesz usunąć ten rekord?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Konflikt',
   'LBL_CREATE_CALL' => 'Zaplanuj rozmowę tel.',
   'LBL_CREATE_MEETING' => 'Zaplanuj spotkanie',
+  'LBL_CREATE_NEW_CALL' => 'Utwórz Rozmowę tel.',
   'LBL_CREATE_NEW_RECORD' => 'Utwórz wydarzenie',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Masz zamiar utworzyć nowe spotkanie. Czy chciałeś(-aś) <a href="javascript:void(0);" data-action="create-task">Utworzyć zadanie</a> lub <a href="javascript:void(0);" data-action="schedule-call">Zaplanować rozmowę tel.</a>?',
   'LBL_DATE' => 'Data i czas rozpoczęcia',
   'LBL_DATE_END_ERROR' => 'Data zakończenia jest wcześniejsza niż data rozpoczęcia',
   'LBL_DATE_TIME' => 'Data i czas',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Usuń',
   'LBL_DURATION' => 'Czas trwania',
   'LBL_EDIT_ALL_RECURRENCES' => 'Edytuj wszystkie cykle',
+  'LBL_EDIT_CALL' => 'Edytuj Rozmowę tel.',
   'LBL_EDIT_RECORD' => 'Edytuj wydarzenia',
   'LBL_EDIT_USERLIST' => 'Lista użytkowników',
   'LBL_ERROR_LOADING' => 'Wystąpił błąd podczas przesyłania',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Następny tydzień',
   'LBL_NEXT_YEAR' => 'Następny rok',
   'LBL_NO' => 'Nie',
+  'LBL_NO_ACCESS' => 'Brak dostępu',
   'LBL_NO_USER' => 'Brak dopasowania do pola: Przydzielono do',
   'LBL_PARTICIPANTS_TAB' => 'Uczestnicy',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Zapisz i wyślij zaproszenia',
   'LBL_SETTINGS' => 'Ustawienia',
   'LBL_SETTINGS_CALLS_SHOW' => 'Pokaż rozmowy tel.:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Pokaż przeprowadzone/ukończone spotkania, rozmowy tel. oraz zadania:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Wyświetl przedziały czasu w widoku dnia oraz tygodnia:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Pokaż zadania:',
   'LBL_SETTINGS_TIME_ENDS' => 'Czas zakończenia:',
@@ -120,7 +124,7 @@ $mod_strings = array (
   'LNK_NEW_APPOINTMENT' => 'Dodaj termin spotkania',
   'LNK_NEW_CALL' => 'Dodaj rozmowę tel.',
   'LNK_NEW_MEETING' => 'Dodaj spotkanie',
-  'LNK_NEW_TASK' => 'Dodaj zadanie',
+  'LNK_NEW_TASK' => 'Dodaj Zadanie',
   'LNK_TASK_LIST' => 'Zadania',
   'LNK_VIEW_CALENDAR' => 'Dziś',
   'NOTICE_DURATION_TIME' => 'Czas trwania musi byc większy niż 0',

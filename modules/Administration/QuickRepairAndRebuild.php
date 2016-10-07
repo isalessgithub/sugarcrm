@@ -1,51 +1,93 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
+//Used in rebuildExtensions
+require_once 'ModuleInstall/ModuleInstaller.php';
 
+// Used in clearExternalAPICache
+require_once 'include/externalAPI/ExternalAPIFactory.php';
+
+// Used in clearPDFFontCache
+require_once 'include/Sugarpdf/FontManager.php';
+
+// Used in clearAdditionalCaches
+require_once 'include/api/ServiceDictionary.php';
+
+//clear out the api metadata cache
+require_once "include/MetaDataManager/MetaDataManager.php";
+
+/**
+ * Class for handling repairing of the sugar installation and rebuilding of caches
+ */
 class RepairAndClear
 {
-    public $module_list;
+    public $module_list = array();
     public $show_output;
     protected $actions;
     public $execute;
     protected $module_list_from_cache;
+    /**
+     * Stack of called methods that should not be repeated
+     * 
+     * @var array
+     */
+    protected $called = array();
 
-    public function repairAndClearAll($selected_actions, $modules, $autoexecute=false, $show_output=true)
+    public function repairAndClearAll($selected_actions, $modules, $autoexecute=false, $show_output=true, $metadata_sections=false)
     {
         global $mod_strings;
         $this->module_list= $modules;
         $this->show_output = $show_output;
-        $this->actions = $selected_actions;
-        $this->actions[] = 'repairDatabase';
+        // Add repairDatabase to the actions stack
+        $actions = array_merge($selected_actions, array('repairDatabase'));
+
+        // Unique the action stack to prevent duplicate processing
+        $this->actions = array_unique($actions);
+
         $this->execute=$autoexecute;
 
-        //clear vardefs always..
+        // Clear vardefs and language cache always. Since this is called here it
+        //  should not be in the actions
         $this->clearVardefs();
-        //first  clear the language cache.
         $this->clearLanguageCache();
+
+        // Enable the metadata manager cache refresh to queue. This allows the
+        // cache refresh processes in metadata manager to be carried out one time
+        // at the end of the rebuild instead of continual processing during the
+        // request. This is set outside of the loop to allow any other cache reset
+        // process to carry itself out as needed without firing off continual
+        // calls to the metadata manager.
+        MetaDataManager::enableCacheRefreshQueue();
         foreach ($this->actions as $current_action)
         switch($current_action)
         {
             case 'repairDatabase':
-                if(in_array($mod_strings['LBL_ALL_MODULES'], $this->module_list))
+                if(in_array($mod_strings['LBL_ALL_MODULES'], $this->module_list)) {
                     $this->repairDatabase();
-                else
+                    // Mark this as called so it doesn't get ran again
+                    $this->called[$current_action] = true;
+                } else {
                     $this->repairDatabaseSelectModules();
+                }
                 break;
             case 'rebuildExtensions':
-                $this->rebuildExtensions();
+                if(in_array($mod_strings['LBL_ALL_MODULES'], $this->module_list)) {
+                    $this->rebuildExtensions();
+                    // Mark this as called so it doesn't get ran again
+                    $this->called[$current_action] = true;
+                } else {
+                    $this->rebuildExtensions($this->module_list);
+                }
                 break;
             case 'clearTpls':
                 $this->clearTpls();
@@ -56,14 +98,8 @@ class RepairAndClear
             case 'clearDashlets':
                 $this->clearDashlets();
                 break;
-            case 'clearSugarFeedCache':
-                $this->clearSugarFeedCache();
-                break;
             case 'clearThemeCache':
                 $this->clearThemeCache();
-                break;
-            case 'clearVardefs':
-                $this->clearVardefs();
                 break;
             case 'clearJsLangFiles':
                 $this->clearJsLangFiles();
@@ -74,28 +110,47 @@ class RepairAndClear
             case 'clearSearchCache':
                 $this->clearSearchCache();
                 break;
+            case 'clearAdditionalCaches':
+                $this->clearAdditionalCaches();
+                break;
+            case 'repairMetadataAPICache':
+                $this->repairMetadataAPICache();
+                break;
             case 'clearPDFFontCache':
                 $this->clearPDFFontCache();
                 break;
+            case 'resetForecasting':
+                $this->resetForecasting();
+                break;
+            case 'repairConfigs':
+                $this->repairBaseConfig();
             case 'clearAll':
                 $this->clearTpls();
                 $this->clearJsFiles();
-                $this->clearVardefs();
                 $this->clearJsLangFiles();
-                $this->clearLanguageCache();
                 $this->clearDashlets();
-                $this->clearSugarFeedCache();
                 $this->clearSmarty();
                 $this->clearThemeCache();
                 $this->clearXMLfiles();
                 $this->clearSearchCache();
                 $this->clearExternalAPICache();
+                $this->clearAdditionalCaches();
                 $this->clearPDFFontCache();
                 $this->rebuildExtensions();
+                $this->rebuildFileMap();
                 $this->rebuildAuditTables();
                 $this->repairDatabase();
+                $this->repairBaseConfig();
+                $this->repairMetadataAPICache($metadata_sections);
                 break;
         }
+
+        // Reset this so that things work properly after this is over
+        $this->called = array();
+
+        // Run the metadata cache refresh queue. This will turn queueing off 
+        // after it is run
+        MetaDataManager::runCacheRefreshQueue();
     }
 
 	/////////////OLD
@@ -103,6 +158,12 @@ class RepairAndClear
 
 	public function repairDatabase()
 	{
+        // Repair database may have already been called and doesn't really need 
+        // to be called a second time
+        if (isset($this->called['repairDatabase'])) {
+            return;
+        }
+
 		global $dictionary, $mod_strings;
 		if(false == $this->show_output)
 			$_REQUEST['repair_silent']='1';
@@ -111,6 +172,16 @@ class RepairAndClear
         $hideModuleMenu = true;
 		include_once('modules/Administration/repairDatabase.php');
 	}
+
+    /**
+     * Rebuilds the base Sidecar configuration file.
+     */
+    public function repairBaseConfig()
+    {
+        require_once 'ModuleInstall/ModuleInstaller.php';
+        ModuleInstaller::handleBaseConfig();
+    }
+
 
 	public function repairDatabaseSelectModules()
 	{
@@ -135,19 +206,15 @@ class RepairAndClear
 				//repair DB
 				$dm = inDeveloperMode();
 				$GLOBALS['sugar_config']['developerMode'] = true;
+				$GLOBALS['reload_vardefs'] = true;
 				foreach($this->module_list as $bean_name)
 				{
-
-					if (isset($beanFiles[$bean_name]) && file_exists($beanFiles[$bean_name]))
+				    $focus = BeanFactory::newBean($bean_name);
+					if (!empty($focus))
 					{
-						require_once($beanFiles[$bean_name]);
-						$GLOBALS['reload_vardefs'] = true;
-						$focus = new $bean_name ();
 						#30273
-						if($focus->disable_vardefs == false) {
+						if(empty($focus->disable_vardefs)) {
 							include('modules/' . $focus->module_dir . '/vardefs.php');
-
-
 							if($this->show_output)
 								print_r("<p>" .$mod_strings['LBL_REPAIR_DB_FOR'].' '. $bean_name . "</p>");
 							$sql .= $db->repairTable($focus, $this->execute);
@@ -187,14 +254,30 @@ class RepairAndClear
 		}
 	}
 
-	public function rebuildExtensions()
+	public function rebuildExtensions($objects = array())
 	{
+        $modules = array();
+        global $beanList;
+        $modBeans = array_flip($beanList);
+        foreach($objects as $obj) {
+            //We expect $objects to be a list of bean classes that we need to map back to modules
+            //But also check if the list is actually modules
+            if (isset($modBeans[$obj])) {
+                $modules[] = $modBeans[$obj];
+            } else if (isset($beanList[$obj])) {
+                $modules[] = $obj;
+            }
+        }
+        // Rebuild extensions may have already been called. Don't do it again.
+        if (isset($this->called['rebuildExtensions'])) {
+            return;
+        }
+
 		global $mod_strings;
 		if($this->show_output) echo $mod_strings['LBL_QR_REBUILDEXT'];
-		global $current_user;
-		require_once('ModuleInstall/ModuleInstaller.php');
+
 		$mi = new ModuleInstaller();
-		$mi->rebuild_all(!$this->show_output);
+		$mi->rebuild_all(!$this->show_output, $modules);
 
 		// Remove the "Rebuild Extensions" red text message on admin logins
 
@@ -220,6 +303,18 @@ class RepairAndClear
         }
 	}
 
+     /**
+     * rebuild mapping file
+     */
+    public function rebuildFileMap()
+    {
+        global $mod_strings;
+        if ($this->show_output) {
+            echo "<h3>{$mod_strings['LBL_QR_REBUILDFILEMAP']}</h3>";
+        }
+        SugarAutoLoader::buildCache();
+    }
+
 	//Cache Clear Methods
 	public function clearSmarty()
 	{
@@ -238,7 +333,7 @@ class RepairAndClear
         global $expect_versions;
 
         if (isset($expect_versions['Chart Data Cache'])) {
-            $version = new Version();
+            $version = BeanFactory::getBean('Versions');
             $version->retrieve_by_string_fields(array('name'=>'Chart Data Cache'));
 
             $version->name = $expect_versions['Chart Data Cache']['name'];
@@ -258,13 +353,9 @@ class RepairAndClear
 		global $mod_strings;
 		if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARTHEMECACHE']}</h3>";
 		SugarThemeRegistry::clearAllCaches();
-	}
-	public function clearSugarFeedCache()
-	{
-		global $mod_strings;
-		if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARSUGARFEEDCACHE']}</h3>";
 
-        SugarFeed::flushBackendCache();
+        //Clear Sidecar Themes CSS files
+        $this->_clearCache(sugar_cached('themes/clients/'), '.css');
 	}
 	public function clearTpls()
 	{
@@ -272,8 +363,9 @@ class RepairAndClear
 		if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARTEMPLATE']}</h3>";
 		if(!in_array( translate('LBL_ALL_MODULES'),$this->module_list) && !empty($this->module_list))
 		{
-			foreach($this->module_list as $module_name_singular )
-				$this->_clearCache(sugar_cached('modules/').$this->_getModuleNamePlural($module_name_singular), '.tpl');
+            foreach ($this->module_list as $module_name) {
+                $this->_clearCache(sugar_cached('modules/' . $module_name), '.tpl');
+            }
 		}
 		else
 			$this->_clearCache(sugar_cached('modules/'), '.tpl');
@@ -284,12 +376,14 @@ class RepairAndClear
 		if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARVADEFS']}</h3>";
 		if(!empty($this->module_list) && is_array($this->module_list) && !in_array( translate('LBL_ALL_MODULES'),$this->module_list))
 		{
-			foreach($this->module_list as $module_name_singular )
-				$this->_clearCache(sugar_cached('modules/').$this->_getModuleNamePlural($module_name_singular), 'vardefs.php');
+            foreach ($this->module_list as $module_name) {
+                $this->_clearCache(sugar_cached('modules/' . $module_name), 'vardefs.php');
+            }
 		}
 		else
 			$this->_clearCache(sugar_cached('modules/'), 'vardefs.php');
 	}
+
 	public function clearJsFiles()
 	{
 		global $mod_strings;
@@ -297,22 +391,25 @@ class RepairAndClear
 
 		if(!in_array( translate('LBL_ALL_MODULES'),$this->module_list) && !empty($this->module_list))
 		{
-			foreach($this->module_list as $module_name_singular )
-				$this->_clearCache(sugar_cached('modules/').$this->_getModuleNamePlural($module_name_singular), '.js');
+            foreach ($this->module_list as $module_name) {
+                $this->_clearCache(sugar_cached('modules/' . $module_name), '.js');
+            }
 		}
-
-		else
-			$this->_clearCache(sugar_cached('modules/'), '.js');
-
+		else {
+            $this->_clearCache(sugar_cached('modules/'), '.js');
+        }
+        $this->_clearCache(sugar_cached('themes/'), '.js');
 	}
+
 	public function clearJsLangFiles()
 	{
 		global $mod_strings;
 		if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARJSLANG']}</h3>";
 		if(!in_array(translate('LBL_ALL_MODULES'),$this->module_list ) && !empty($this->module_list))
 		{
-			foreach($this->module_list as $module_name_singular )
-				$this->_clearCache(sugar_cached('jsLanguage/').$this->_getModuleNamePlural($module_name_singular), '.js');
+            foreach ($this->module_list as $module_name) {
+                $this->_clearCache(sugar_cached('jsLanguage/' . $module_name), '.js');
+            }
 		}
 		else
 			$this->_clearCache(sugar_cached('jsLanguage'), '.js');
@@ -355,27 +452,91 @@ class RepairAndClear
     public function clearSearchCache() {
         global $mod_strings, $sugar_config;
         if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARSEARCH']}</h3>";
-        $search_dir=sugar_cached('');
-        $src_file = $search_dir . 'modules/unified_search_modules.php';
-        if(file_exists($src_file)) {
-            unlink( "$src_file" );
-        }
+        // clear sugar_cache backend for SugarSearchEngine
+        SugarSearchEngineMetadataHelper::clearCache();
+        
+        // Clear the cache file AFTER the cache clear, as it will be rebuilt by
+        // clearCache otherwise
+        UnifiedSearchAdvanced::unlinkUnifiedSearchModulesFile();
     }
     public function clearExternalAPICache()
 	{
         global $mod_strings, $sugar_config;
         if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEAR_EXT_API']}</h3>";
-        require_once('include/externalAPI/ExternalAPIFactory.php');
+        
         ExternalAPIFactory::clearCache();
     }
     public function clearPDFFontCache()
 	{
         global $mod_strings, $sugar_config;
         if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEARPDFFONT']}</h3>";
-        require_once('include/Sugarpdf/FontManager.php');
+        
         $fontManager = new FontManager();
         $fontManager->clearCachedFile();
     }
+
+    /*
+     * Catch all function to clear out any misc. caches we may have
+     */
+
+    public function clearAdditionalCaches() {
+        global $mod_strings, $sugar_config;
+		if($this->show_output) echo "<h3>{$mod_strings['LBL_QR_CLEAR_ADD_CACHE']}</h3>";
+        // clear out the API Cache
+        
+        $sd = new ServiceDictionary();
+        $sd->clearCache();
+        
+        //Remove cached js component files
+        $this->_clearCache(sugar_cached('include/javascript/'), '.js');
+    }
+
+    /**
+     * Clears out the metadata file cache and memory caches. 
+     * 
+     * NOTE: While this is here as part of the collection of methods to be used
+     * for clearing caches, it really should only be used in the most extreme
+     * cases as it will result in long wait times the next time client apps are
+     * called since rebuilding the metadata cache will be done then.
+     * 
+     * Bug 55141 - Clear the metadata API cache
+     */
+    public function clearMetadataAPICache() {
+        // Bug 55141: Metadata Cache is a Smart cache so we can delete everything from the cache dir
+        MetaDataManager::clearAPICache();
+        if (empty($this->module_list)) {
+            return;
+        }
+
+        foreach ($this->module_list as $module_name) {
+            $this->_clearCache(sugar_cached('modules/' . $module_name . '/clients'), '.php');
+        }
+    }
+
+    /**
+     * Cleans out current metadata cache and rebuilds it for
+     * each platform and visibility
+     */
+    public function repairMetadataAPICache($section = '') {
+        // Refresh metadata for selected modules only if there selected modules
+        if (is_array($this->module_list) && !empty($this->module_list) && !in_array(translate('LBL_ALL_MODULES'), $this->module_list)) {
+            MetaDataFiles::clearModuleClientCache($this->module_list);
+            MetaDataManager::refreshModulesCache($this->module_list);
+        } 
+
+        // If there is a section named (like 'fields') refresh that section
+        if (!empty($section)) {
+            MetaDataManager::refreshSectionCache($section);
+        } else {
+            // Otherwise if the section is not a false nuke all caches and rebuild
+            // the base metadata cache
+            if ($section !== false) {
+                MetaDataManager::clearAPICache(true, true);
+                MetaDataManager::setupMetadata();
+            }
+        }
+    }
+
 
 	//////////////////////////////////////////////////////////////
 	/////REPAIR AUDIT TABLES
@@ -387,17 +548,17 @@ class RepairAndClear
 
 		if(!in_array( translate('LBL_ALL_MODULES'), $this->module_list) && !empty($this->module_list))
 		{
-			foreach ($this->module_list as $bean_name){
-				if( isset($beanFiles[$bean_name]) && file_exists($beanFiles[$bean_name])) {
-					require_once($beanFiles[$bean_name]);
-				    $this->_rebuildAuditTablesHelper(new $bean_name());
+            foreach ($this->module_list as $module_name) {
+                $bean = BeanFactory::getBean($module_name);
+				if(!empty($bean)) {
+				    $this->_rebuildAuditTablesHelper($bean);
 				}
 			}
 		} else if(in_array(translate('LBL_ALL_MODULES'), $this->module_list)) {
 			foreach ($beanFiles as $bean => $file){
-				if( file_exists($file)) {
-					require_once($file);
-				    $this->_rebuildAuditTablesHelper(new $bean());
+			    $bean_instance = BeanFactory::newBeanByName($bean);
+				if(!empty($bean_instance)) {
+				    $this->_rebuildAuditTablesHelper($bean_instance);
 				}
 			}
 		}
@@ -448,16 +609,14 @@ class RepairAndClear
             }
         }
 	}
-	/////////////////////////////////////////////////////////////
-	////////
-	private function _getModuleNamePlural($module_name_singular)
-	{
-		global $beanList;
-		while ($curr_module = current($beanList))
-		{
-			if ($curr_module == $module_name_singular)
-				return key($beanList); //name of the module, plural.
-			next($beanList);
-		}
-	}
+
+    /**
+     * This is a private function to allow forecasts config settings to be reset
+     *
+     */
+    private function resetForecasting() {
+        $db = DBManagerFactory::getInstance();
+        $db->query("UPDATE config SET value = 0 WHERE name = 'is_setup'");
+        $db->query("UPDATE config SET value = 0 WHERE name = 'has_commits'");
+    }
 }

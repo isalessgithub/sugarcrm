@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokument oprettet',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Dokumentnavn',
   'ERR_DOC_VERSION' => 'Dokumentversion',
   'ERR_FILENAME' => 'Filnavn',
+  'ERR_FILESIZE' => 'Filen er for stor. Maks filstørrelse:',
   'LBL_ACTIVE_DATE' => 'Udgivelsesdato',
   'LBL_AND' => 'og',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Anvender mærker på artikler ...',
@@ -35,13 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Forfatter:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Forfatter',
   'LBL_ARTICLE_BODY' => 'Artiklens brødtekst:',
+  'LBL_ARTICLE_EXISTS' => 'Artikel eksisterer allerede',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artikel',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Forhåndsvisning er ikke tilgængelig. Dokumentet findes, men der endnu ikke oprettet noget indhold.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Forhåndsvisning er ikke tilgængelig. Dokumentposten blev ikke fundet.',
   'LBL_ARTICLE_TITLE' => 'Titel:',
   'LBL_ATTACHMENTS' => 'Vedhæftede filer:',
+  'LBL_CASE' => 'Sag:',
   'LBL_CASES' => 'Sager',
   'LBL_CASES_SUBPANEL_TITLE' => 'Relaterede sager',
+  'LBL_CASE_ID' => 'Sags-ID',
   'LBL_CATEGORY' => 'Kategori',
   'LBL_CATEGORY_VALUE' => 'Kategori:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Uspecificeret',
@@ -54,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Kontrakter',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Relaterede kontrakter',
   'LBL_CONTRACT_NAME' => 'Kontraknavn:',
+  'LBL_CONTRACT_STATUS' => 'Kontrakt status:',
   'LBL_CREATED' => 'Oprettet af',
   'LBL_CREATED_BY' => 'Oprettet af',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -62,6 +64,7 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Oprettet den',
   'LBL_DATE_MODIFIED' => 'Ændret den',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'Vælg en handling fra rullelisten',
+  'LBL_DEFAULT_LINK_TEXT' => 'Standardtekst til link.',
   'LBL_DELETE' => 'Slet',
   'LBL_DELETED' => 'Slettet',
   'LBL_DELETE_TAG' => 'Slet mærke',
@@ -101,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Dokument-id',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KB-dokumentets revisionsnummer',
   'LBL_KBDOC_APPROVED_BY' => 'Godkendt af:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Godkenders navn',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_vedhæftet fil',
   'LBL_KBDOC_ATTS_TITLE' => 'Download vedhæftede filer:',
   'LBL_KBDOC_BODY' => 'Brødtekst:',
@@ -119,7 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Seneste Revisions-id',
   'LBL_LATEST_REVISION_NAME' => 'Navn på seneste revision',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Starter søgning efter mærke ...',
+  'LBL_LINKED_ID' => 'Linket id',
   'LBL_LIST_ACTIVE_DATE' => 'Udgivelsesdato',
+  'LBL_LIST_APPROVED_BY' => 'Godkendt af:',
   'LBL_LIST_ARTICLES' => 'Artikler',
   'LBL_LIST_CATEGORY' => 'Kategori',
   'LBL_LIST_DOCUMENT' => 'Dokument',
@@ -158,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Ikke en gyldig fil',
   'LBL_NUMBER' => 'LBL_NUMMER',
   'LBL_PARENT_TYPE' => 'Overordnet type',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrere listen over artikler ved at give et nøgleord.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'For eksempel kan du bruge dette til at finde en artikel, om et bestemt emne af interesse.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Knowledge Base modulen bruges til at arbejde med publicerede artikler. Brug pilene nedenfor for at gå gennem en hurtig rundvisning.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denne side viser en liste over offentliggjorte artikler.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Hvis du klikker her, vender du tilbage til  Knowledge Base visning til enhver tid.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Tidligere gemte søgninger:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Rediger eller slet en eksisterende gemt søgning.',
   'LBL_PUBLISHED' => 'Udgivet:',
@@ -175,12 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter dokument',
   'LBL_SEARCH_TAG' => 'Søg',
   'LBL_SEARCH_WITHIN' => 'Søg i:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Valgt revision filnavn',
+  'LBL_SELECTED_REVISION_ID' => 'Valgte Revision Id',
   'LBL_SELECTED_REVISION_NAME' => 'Navn på valgt revision',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Vælg artikler til mærker',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Vælg først artikler',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Vælg først artikler',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Opret nyt mærke',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Vælg et mærke fra træet',
+  'LBL_SELECT_NODE' => 'Vælg en node',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Vælg det overordnede mærke fra træet',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Vælg det overordnede mærke fra træet',
   'LBL_SELECT_TAG' => 'Vælg mærke',
@@ -227,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Brug dette mærke:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Umarkerede artikler',
   'LBL_UPDATE' => 'Opdater',
+  'LBL_VIEWS_NUMBER' => 'Antal visninger',
   'LNK_KBDOCUMENT_LIST' => 'Dokumentliste',
   'LNK_NEW_ARTICLE' => 'Opret artikel',
   'LNK_NEW_MAIL_MERGE' => 'Brevfletning',

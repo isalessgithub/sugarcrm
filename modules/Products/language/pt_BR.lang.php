@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registro tem de ser especificado para eliminar este produto.',
@@ -23,19 +20,25 @@ $mod_strings = array (
   'LBL_ACCOUNT_NAME' => 'Nome da conta',
   'LBL_ASSET_NUMBER' => 'Número do Ativo:',
   'LBL_ASSIGNED_TO_NAME' => 'Atribuído a:',
-  'LBL_ASSIGNED_USER_ID' => 'Usuário atribuído',
-  'LBL_BEST_CASE' => 'Melhor Cenário:',
+  'LBL_ASSIGNED_USER_ID' => 'ID usuário Atribuído',
+  'LBL_ASSOCIATED_QUOTE' => 'Cotação Associada',
   'LBL_BOOK_VALUE' => 'Valor registrado:',
   'LBL_BOOK_VALUE_DATE' => 'Data do Valor registrado:',
   'LBL_BOOK_VALUE_USDOLLAR' => 'Valor registrado (USD)',
+  'LBL_CALCULATED_LINE_ITEM_AMOUNT' => 'Calcular Receita Item de Linha',
+  'LBL_CAMPAIGN_PRODUCT' => 'Campanha Itens de linha Cotados',
   'LBL_CATEGORY' => 'Categoria:',
   'LBL_CATEGORY_NAME' => 'Nome da Categoria:',
   'LBL_COMMIT_STAGE' => 'Fase comprometimento',
+  'LBL_COMMIT_STAGE_FORECAST' => 'Previsão',
   'LBL_CONTACT' => 'Contato',
+  'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatos',
   'LBL_CONTACT_ID' => 'Id do contato',
   'LBL_CONTACT_NAME' => 'Nome do contato:',
   'LBL_CONTRACTS' => 'Contratos',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Contratos',
+  'LBL_CONVERT_TO_QUOTE_ERROR' => 'Erro:',
+  'LBL_CONVERT_TO_QUOTE_ERROR_MESSAGE' => 'Existe um erro ao converter esta receita de item de linha em uma Cotação',
   'LBL_COST_PRICE' => 'Custo:',
   'LBL_COST_USDOLLAR' => 'Custo (em US Dollars)',
   'LBL_CREATED_USER' => 'Usuário Criado',
@@ -52,6 +55,7 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Produtos',
   'LBL_DESCRIPTION' => 'Descrição:',
   'LBL_DISCOUNT_AMOUNT' => 'Valor do Desconto',
+  'LBL_DISCOUNT_AS_PERCENT' => 'Desconto em %',
   'LBL_DISCOUNT_PRICE' => 'Preço unitário',
   'LBL_DISCOUNT_PRICE_DATE' => 'Data do Desconto:',
   'LBL_DISCOUNT_RATE' => 'Taxa de Desconto',
@@ -65,7 +69,11 @@ $mod_strings = array (
   'LBL_EXPORT_CURRENCY_ID' => 'ID Moeda',
   'LBL_EXT_PRICE' => 'Preço Externo',
   'LBL_FORECAST' => 'Incluir na Previsão',
-  'LBL_LIKELY_CASE' => 'Cenário Mais Provável:',
+  'LBL_HELP_CREATE' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. Para criar uma {{}} module_name: 1. Fornecer valores para os campos conforme desejado. - Os campos marcados "necessária" deve ser preenchido antes de salvar. - Clique em "Ver Mais" para expor campos adicionais, se necessário. 2. Clique em "Salvar" para finalizar o novo álbum e voltar para a página anterior. - Escolha "Salvar e visualizar" para abrir a nova {{}} module_name no modo de registro. - Escolha "Salvar e criar novo" para criar imediatamente um outro novo {{}} module_name.',
+  'LBL_HELP_RECORD' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. - Editar campos deste registo, clicando em um campo individual ou no botão Editar. - Exibir ou modificar as ligações a outros registros nos subpainéis alternando no painel esquerdo inferior para "Ver dados". - Fazer e ver comentários de usuários e histórico de alterações de registro no {{}} activitystream_singular_module alternando no painel esquerdo inferior para "Atividade Stream". - Siga ou favorito este registro usando os ícones à direita do nome do registro. - Estão disponíveis ações adicionais no menu Ações suspensas à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. Isto permite uma maior granularidade quando se trabalha {{opportunities_module}} e {{forecasts_singular_module}} ing uma vez que cada item de linha dentro de uma {{opportunities_singular_module}} pode ter sua fase de vendas própria e probabilidade, além de ser incluídos ou excluídos de um usuário {{forecasts_singular_module}} {{ing worksheet_module}} individualmente. Cada {{}} module_name pode estar relacionado a um produto de sua empresa Catálogo de Produtos. Isso fará com que os valores do produto para preencher automaticamente os campos correspondentes no {{}} module_name.',
+  'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
+  'LBL_LEAD_SOURCE' => 'Origem do Lead',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome da conta',
   'LBL_LIST_CONTACT_NAME' => 'Nome do contato',
   'LBL_LIST_COST_PRICE' => 'Custo',
@@ -75,7 +83,7 @@ $mod_strings = array (
   'LBL_LIST_LBL_MFT_PART_NUM' => 'Número do Fabricante',
   'LBL_LIST_LIST_PRICE' => 'Lista',
   'LBL_LIST_MANUFACTURER' => 'Fabricante',
-  'LBL_LIST_NAME' => 'Produto',
+  'LBL_LIST_NAME' => 'Produtos',
   'LBL_LIST_PRICE' => 'Preço:',
   'LBL_LIST_QUANTITY' => 'Quantidade',
   'LBL_LIST_QUOTE_NAME' => 'Nome da Cotação',
@@ -83,36 +91,49 @@ $mod_strings = array (
   'LBL_LIST_SUPPORT_EXPIRES' => 'Expiração',
   'LBL_LIST_USDOLLAR' => 'Preço Lista (em US Dollars)',
   'LBL_MANUFACTURER' => 'Fabricante:',
+  'LBL_MANUFACTURERS' => 'Fabricantes',
+  'LBL_MANUFACTURER_NAME' => 'Nome do Fabricante:',
   'LBL_MEMBER_OF' => 'Membro de:',
   'LBL_MFT_PART_NUM' => 'Número da peça',
   'LBL_MODIFIED_USER' => 'Usuário Modificado',
   'LBL_MODULE_NAME' => 'Produtos',
   'LBL_MODULE_NAME_SINGULAR' => 'Produto',
-  'LBL_MODULE_TITLE' => 'Produtos: Tela Principal',
-  'LBL_NAME' => 'Produto:',
+  'LBL_MODULE_TITLE' => 'Produtos',
+  'LBL_NAME' => 'Nome',
   'LBL_NEW_FORM_TITLE' => 'Novo Produto',
+  'LBL_NEXT_STEP' => 'Próximo Passo',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Notas ou Anexos',
   'LBL_OPPORTUNITY' => 'Oportunidade',
   'LBL_OPPORTUNITY_ID' => 'ID da Oportunidade',
+  'LBL_PIPELINE_TOTAL_IS' => 'O Total do Funil é',
   'LBL_PRICING_FACTOR' => 'Fator Preço',
   'LBL_PRICING_FORMULA' => 'Fórmula do Preço',
   'LBL_PROBABILITY' => 'Probabilidade (%)',
   'LBL_PRODUCT' => 'Produto',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produtos',
   'LBL_PRODUCT_CATEGORIES' => 'Categorias de Produto',
+  'LBL_PRODUCT_TEMPLATE' => 'Tenplate Produto',
   'LBL_PRODUCT_TEMPLATE_ID' => 'ID Modelo do Produto',
   'LBL_PRODUCT_TYPES' => 'Tipos de Produto',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projetos',
   'LBL_QUANTITY' => 'Quantidade:',
   'LBL_QUOTE' => 'Cotação',
+  'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotações',
   'LBL_QUOTE_ID' => 'ID Cotação',
   'LBL_QUOTE_NAME' => 'Nome da Cotação:',
-  'LBL_RELATED_PRODUCTS' => 'Produtos Relacionados',
-  'LBL_RELATED_PRODUCTS_TITLE' => 'Produtos relacionados',
+  'LBL_RELATED_PRODUCTS' => 'Itens Relacionados a linhda de cotação',
+  'LBL_RELATED_PRODUCTS_TITLE' => 'Receita Produtos',
+  'LBL_REVENUELINEITEM' => 'Receita Item de Linha',
+  'LBL_REVENUELINEITEMS' => 'Receita Itens de Linha',
+  'LBL_REVENUELINEITEM_ID' => 'ID da receita de itens de linha',
+  'LBL_REVENUELINEITEM_NAME' => 'Nome da linha de Receita',
+  'LBL_SALES_STAGE' => 'Fases da Venda',
+  'LBL_SALES_STATUS' => 'Status Receita',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Produtos',
   'LBL_SELECT_DISCOUNT' => 'Desconto em %',
   'LBL_SERIAL_NUMBER' => 'Número de Série:',
   'LBL_STATUS' => 'Status:',
+  'LBL_SUBTOTAL' => 'Sub-total',
   'LBL_SUPPORT_CONTACT' => 'Contato do Suporte',
   'LBL_SUPPORT_DESCRIPTION' => 'Descrição do Suporte',
   'LBL_SUPPORT_NAME' => 'Título do Suporte',
@@ -123,7 +144,6 @@ $mod_strings = array (
   'LBL_VENDOR_PART_NUM' => 'Número do Fornecedor',
   'LBL_WEBSITE' => 'Site de Internet',
   'LBL_WEIGHT' => 'Peso:',
-  'LBL_WORST_CASE' => 'Pior Cenário:',
   'LNK_IMPORT_PRODUCTS' => 'Importar Produtos',
   'LNK_NEW_PRODUCT' => 'Novo Produto',
   'LNK_PRODUCT_LIST' => 'Ver Produtos',

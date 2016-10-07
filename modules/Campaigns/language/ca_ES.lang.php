@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Si us plau, corregeixi els següents errors abans de procedir',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Ingressos Esperats:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frecuència:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Impressions:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Campanya &#39;{0}&#39; te l&#39;estat &#39;inactiu&#39;. Cal establir l&#39;estat de la campanya a &#39;Actiu&#39;.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'La campanya &#39;{0}&#39; té l&#39;estat  "Inactiva". Has de establir l&#39;estat de la campanya a "Activa"',
   'LBL_CAMPAIGN_INFORMATION' => 'Visió General',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Clients Potencials',
   'LBL_CAMPAIGN_NAME' => 'Nom:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Creada per:',
   'LBL_CREATED_BY' => 'Creada per:',
   'LBL_CREATED_USER' => 'Usuario Creat',
+  'LBL_CREATE_EMAIL' => 'Crea correu electrònic',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Crear',
   'LBL_CREATE_MAILBOX' => 'Crear Nou Compte de Correu',
   'LBL_CREATE_NEWSLETTER' => 'Nou Butlletí de Notícies',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'CreateWebToLeadForm',
   'LBL_CURRENCY' => 'Moneda:',
   'LBL_CURRENCY_ID' => 'ID Moneda',
+  'LBL_CURRENCY_RATE' => 'Divisa',
   'LBL_CUSTOM_LOCATION' => 'Permetre Selecció',
   'LBL_DATE_CREATED' => 'Data creació:',
   'LBL_DATE_ENTERED' => 'Data Alta',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Llançar Configuració de Correu',
   'LBL_EMAIL_SETUP_WIZARD' => 'Configuració de Correu',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Configuració de Correu per Campanyes',
+  'LBL_EMAIL_TITLE' => 'Campanyes: correus electrònics',
+  'LBL_END_DATE' => 'Data fi',
   'LBL_FILTER_CHART_BY' => 'Filtrar Gràfic Per:',
   'LBL_FINISH' => 'Finalitzar',
   'LBL_FROM_ADDR' => 'Direcció del Remitent',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Usar SSL',
   'LBL_SSL_DESC' => 'Si el seu servidor de correu suporta connexions segures de sockets (SSL), habilitar aquesta opció forçarà connexions SSL en importar el correu.',
   'LBL_START' => 'Iniciar',
+  'LBL_START_DATE' => 'Data d´inici',
   'LBL_START_DATE_TIME' => 'Data i Hora d´Inici:',
+  'LBL_STATUS' => 'Estat',
   'LBL_STATUS_TEXT' => 'Estat:',
   'LBL_SUBSCRIPTION_LIST' => 'Llista de Subscripció',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Nom de Llista de Subscripció:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Veure Detalls',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Veure Detalls',
   'LBL_TOP_CAMPAIGNS' => 'Campanyes Principals',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Top Campanyes Escèniques d&#39;Ingressos',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Els millors acompliments de campanya per ingressos',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Nom de Campanya',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Ingressos',
   'LBL_TOTAL_ENTRIES' => 'Entrades',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Aquesta opció eliminarà les entrades del registre creades pel joc de proves. Desitja continuar?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Cua de Seguiment',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Veure ROI',
+  'LBL_TYPE' => 'Tipus',
   'LBL_UNSUBSCRIBED_HEADER' => 'Butlletins de Notícies Disponibles',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'En moure el butlletí de notícies a la llista de Butlletins de Notícies Disponibles / Sense Subscripció afegirà el contacte a la llista de Sense Subscripció per a aquest butlletí de notícies. El contacte no serà eliminat de la Llista de Subscripció o Llista de Públic Objectiu original.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Llista de No subscripció',

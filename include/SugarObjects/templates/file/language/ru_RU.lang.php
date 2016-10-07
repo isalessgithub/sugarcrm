@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Документ создан',
@@ -35,12 +32,12 @@ $mod_strings = array (
   'LBL_DOCUMENT_ID' => 'ID документа',
   'LBL_DOC_ACTIVE_DATE' => 'Дата публикации:',
   'LBL_DOC_DESCRIPTION' => 'Описание:',
-  'LBL_DOC_EXP_DATE' => 'Срок действия:',
+  'LBL_DOC_EXP_DATE' => 'Дата окончания срока действия:',
   'LBL_DOC_NAME' => 'Название документа:',
   'LBL_DOC_STATUS' => 'Статус:',
   'LBL_DOC_VERSION' => 'Ревизия:',
   'LBL_EDIT_BUTTON' => 'Правка',
-  'LBL_EXPIRATION_DATE' => 'Срок действия',
+  'LBL_EXPIRATION_DATE' => 'Дата окончания срока действия',
   'LBL_FILENAME' => 'Имя файла:',
   'LBL_FILE_EXTENSION' => 'Расширение файла',
   'LBL_FILE_UPLOAD' => 'Файл:',
@@ -50,8 +47,10 @@ $mod_strings = array (
   'LBL_LIST_CATEGORY' => 'Категория',
   'LBL_LIST_DOCUMENT' => 'Документ',
   'LBL_LIST_DOCUMENT_NAME' => 'Название документа',
+  'LBL_LIST_DOC_TYPE' => 'Тип документа',
   'LBL_LIST_DOWNLOAD' => 'Загрузить',
-  'LBL_LIST_EXP_DATE' => 'Срок действия',
+  'LBL_LIST_EXP_DATE' => 'Дата окончания срока действия',
+  'LBL_LIST_FILENAME' => 'Имя файла',
   'LBL_LIST_FORM_TITLE' => 'Список документов',
   'LBL_LIST_LAST_REV_CREATOR' => 'Опубликовано',
   'LBL_LIST_LAST_REV_DATE' => 'Ревизия от',
@@ -59,7 +58,7 @@ $mod_strings = array (
   'LBL_LIST_STATUS' => 'Статус',
   'LBL_LIST_SUBCATEGORY' => 'Подкатегория',
   'LBL_LIST_VIEW_DOCUMENT' => 'Просмотр',
-  'LBL_MIME' => 'Тип MIME',
+  'LBL_MIME' => 'Mime-тип',
   'LBL_MODULE_NAME' => 'Документы',
   'LBL_MODULE_TITLE' => 'Документы: Главная',
   'LBL_NAME' => 'Название документа',
@@ -67,11 +66,11 @@ $mod_strings = array (
   'LBL_REMOVE' => 'Удалить',
   'LBL_REVISION' => 'Ревизия',
   'LBL_REVISION_NAME' => 'Номер ревизии',
-  'LBL_SEARCH_FORM_TITLE' => 'Найти документ',
+  'LBL_SEARCH_FORM_TITLE' => 'Поиск документа',
   'LBL_SF_ACTIVE_DATE' => 'Дата публикации:',
   'LBL_SF_CATEGORY' => 'Категория:',
   'LBL_SF_DOCUMENT' => 'Название документа:',
-  'LBL_SF_EXP_DATE' => 'Срок действия:',
+  'LBL_SF_EXP_DATE' => 'Дата окончания срока действия:',
   'LBL_SF_SUBCATEGORY' => 'Подкатегория:',
   'LBL_STATUS' => 'Статус',
   'LBL_SUBCATEGORY' => 'Подкатегория',

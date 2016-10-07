@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,14 +20,14 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponibile',
   'LBL_BACK' => '< Indietro',
   'LBL_BROWSER_NOTICE' => 'Per effettuare l´unione devi utilizzare Internet Explorer 6.0 o successivi.',
-  'LBL_BROWSER_REQUIREMENT' => 'Questo richiede IE 6.0 o versioni successive per Windows',
+  'LBL_BROWSER_REQUIREMENT' => 'Ciò richiede IE 6.0 o superiore per Windows.',
   'LBL_CONTAINS_CONTACT_INFO' => 'Il modello selezionato contiene informazioni sui Contatti',
   'LBL_DOC_DESCRIPTION' => 'Descrizione:',
   'LBL_DOC_NAME' => 'Nome Documento:',
   'LBL_DOC_VERSION' => 'Revisione:',
   'LBL_FILENAME' => 'Nome File:',
   'LBL_FINISH' => 'Inizia Unione',
-  'LBL_FORM_SELECT_TEMPLATE' => 'Si prega di selezionare un modello.',
+  'LBL_FORM_SELECT_TEMPLATE' => 'Si prega di seleziona un modello.',
   'LBL_LIST_NAME' => 'Nome',
   'LBL_LIST_RELATIONSHIP' => 'Imposta Relazione Contatti',
   'LBL_MAILMERGE_MODULE' => 'Seleziona Modulo:',
@@ -39,7 +36,7 @@ $mod_strings = array (
   'LBL_MAILMERGE_TEMPLATES' => 'Seleziona Modello:',
   'LBL_MERGED_FILE' => 'File Uniti:',
   'LBL_NEXT' => 'Avanti >',
-  'LBL_RELATED_INFO_SELECTION' => 'Utilizzare le selezioni sottostanti per identificare le informazioni relazionate che vuoi visualizzare nel tuo documento unito. Saltare questo step se il modello del tuo documento non contiene informazioni relazionate.',
+  'LBL_RELATED_INFO_SELECTION' => 'Usa la selezione sottostante per identificare le informazioni relazionate che vorresti visualizzare nel documento dopo il merge. Salta questo passo se il tuo template non contiene informazioni relazionate.',
   'LBL_REMOVE' => 'Rimuovi oggetto',
   'LBL_SELECTED' => 'Selezionato',
   'LBL_SELECTED_ITEMS' => 'Oggetti Selezionati:',

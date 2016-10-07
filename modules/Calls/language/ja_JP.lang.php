@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '取引先を削除するにはレコード番号を指定する必要があります。',
@@ -65,6 +62,9 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'モジュールに関連',
   'LBL_EXPORT_REMINDER_TIME' => 'リマインド時（分）',
   'LBL_FIRST_NAME' => '名',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、組織内のユーザーによって記録された{{calls_singular_module}}レコードで構成されます。 {{plural_module_name}}は「スケジュール」、「開催」、または「キャンセル」の状態であってもよいです。Sugarユーザならびに接点とリードは招待として追加してもよい。{{calls_singular_module}}を作成するには：必要に応じて1.フィールドに値を提供します。 - フィールドはマークされた「必須」とは、保存する前に完了する必要があります。 - 「詳細を表示」をクリックし、必要に応じて追加のフィールドを公開する。 2に参加者を追加{{calls_singular_module}}。 - 既存のユーザー、連絡先を追加するには、「参加者の選択」をクリックするか、につながる{{calls_singular_module}}の右側にあるプラスアイコンをクリックして新しいSugarレコードと{{calls_singular_module}}出席者を作成するには、「参加者の選択」。 3.「保存」新しいレコードを確定し前のページに戻ります。 - 選択して「保存して表示"新しい{{calls_singular_module}}レコードのビューを開きます。 - すぐに作成を選択、保存して、別の新しい{{calls_singular_module}}を新しく作成します。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、組織内のユーザーによって記録された{{calls_singular_module}}レコードで構成されます。 {{plural_module_name}}は「スケジュール」、「開催」、または「キャンセル」の状態であってよいです。Sugarユーザならびに{contacts_module}}と{{leads_module}}が招待として追加してもよいです。 - 個々のフィールドまたは[編集]ボタンをクリックして、このレコードのフィールドを編集。 - 表示または左下のペインに「データビュー」を切り替えることで、サブパネル内の他のレコードへのリンクを変更します。 - 作成し、左下のペインに「アクティビティストリーム」を切り替えて、アクティビティストリームのビューのユーザーのコメントやレコードの変更履歴を表示します。 - レコード名の右にあるアイコンを使用してこのレコードにフォローまたはお気に入りにします。 - 追加のアクションは、[編集]ボタンの右にあるドロップダウンの操作メニューで利用できます。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、「スケジュールされた」、「開かれた」、または「キャンセル」の状態であるかもしれないコール記録から構成されています。次の24時間以内にスケジュールされたコールは、開始日が青色で強調されています。期限が過ぎたコールは、開始日が赤で強調されている。この{{plural_module_name}}リストビューから、インライン編集コール情報を表示することができます。追加のアクションは、各コールの行の終わりにメニューでご利用いただけます。開かれたようそれをマークするために、「閉じる」を任意のスケジュールされたコールの行のメニューから選択することができます。Sugarユーザ、取引先担当者、リード、コール招待として添付してもよい。 {{plural_module_name}} {{plural_module_name}}モジュール、カレンダーモジュール、インポートだけでなく、関連モジュールのレコード上の（サイドカーモジュール用）計画された活動ダッシュレット（レガシーモジュール用）の活動サブパネル経由、例えば取引先担当者を介して作成することができ、自動的に両方のレコードとの間の関係を作成します。',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'メモ',
   'LBL_HOURS_ABBREV' => '時間',
   'LBL_HOURS_MINUTES' => '(時/分)',
@@ -89,12 +89,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => '電話',
   'LBL_MODULE_NAME_SINGULAR' => '電話',
   'LBL_MODULE_TITLE' => '電話: ホーム',
+  'LBL_MY_SCHEDULED_CALLS' => '私のスケジュールされた訪問',
   'LBL_NAME' => '名前',
   'LBL_NEW_FORM_TITLE' => 'アポイント作成',
   'LBL_NO_ACCESS' => '$moduleを作成する権限がありません。',
   'LBL_OUTLOOK_ID' => 'Outlook ID',
   'LBL_PARENT_ID' => '親ID',
   'LBL_PHONE' => '電話',
+  'LBL_POPUP_REMINDER_TIME' => 'リマインダ時間をポップアップ',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => '以下をスケジュールしましたが、{{moduleSingularLower}} for {{formatDate date_start}},アクセスする権限はありません。',
+  'LBL_RECORD_SAVED_SUCCESS' => 'スケジュールしました{{moduleSingularLower}} {{name}} for {{formatDate date_start}}.',
   'LBL_RECURRENCE' => '定期的な予定',
   'LBL_RECURRING_LIMIT_ERROR' => '重複できる上限 $limit を超えたため、この電話をスケジュールすることはできません。',
   'LBL_RECURRING_SOURCE' => '循環ソース',
@@ -105,6 +109,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'すべての招待者にメール',
   'LBL_REMINDER_POPUP' => 'ポップアップ',
   'LBL_REMINDER_TIME' => 'リマインダ時間',
+  'LBL_REMINDER_TITLE' => '電話:',
   'LBL_REMOVE' => 'はずす',
   'LBL_REMOVE_ALL_RECURRENCES' => '定期的な予定をすべて削除',
   'LBL_REPEAT_COUNT' => 'リピート数',
@@ -117,6 +122,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => '関連親ID',
   'LBL_REPEAT_TYPE' => 'リピートタイプ',
   'LBL_REPEAT_UNTIL' => '以下まで繰り返し',
+  'LBL_REVENUELINEITEMS' => '商談品目',
   'LBL_SCHEDULING_FORM_TITLE' => 'スケジューリング',
   'LBL_SEARCH_BUTTON' => '検索',
   'LBL_SEARCH_FORM_TITLE' => '電話検索',
@@ -141,5 +147,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => '取引先選択',
   'NOTICE_DURATION_TIME' => '時間は0以上である必要があります。',
   'NTC_REMOVE_INVITEE' => '本当にこの参加者を電話からはずしてよいですか？',
+  'TPL_CALL_STATUS_CHANGED' => 'コールは{{status}}とマークされました。',
 );
 

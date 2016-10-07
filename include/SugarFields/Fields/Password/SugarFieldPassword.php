@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Base/SugarFieldBase.php');
 
@@ -30,5 +29,40 @@ class SugarFieldPassword extends SugarFieldBase
         
         return $value;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
+
+        $data[$fieldName] = true;
+        if(empty($bean->$fieldName)) {
+            $data[$fieldName] = null;
+        }
+    }
+
+    /**
+     * Encrypt and save a password
+     * {@inheritdoc}
+     */
+    public function apiSave(SugarBean $bean, array $params, $fieldName, $properties)
+    {
+        if(!isset($params[$fieldName])) {
+            return;
+        }
+        if(empty($params[$fieldName])) {
+            $bean->$fieldName = null;
+        } elseif($params[$fieldName] !== true) {
+            $bean->$fieldName = User::getPasswordHash($params[$fieldName]);
+        }
+    }
 }
-?>

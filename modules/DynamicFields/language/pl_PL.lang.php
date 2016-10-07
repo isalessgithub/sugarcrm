@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Domyślne łącze URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'Format U.S.A.',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Pole o takiej nazwie już istnieje',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Nazwa pola powinna zawierać tylko następujące znaki: a-z A-Z_',
   'ERR_NO_MODULE_INCLUDED' => 'Nie dodano modułu -  zapisywanie nie powiodło się',
   'ERR_RESERVED_FIELD_NAME' => 'Zarezerwowane słowa kluczowe',
   'ERR_SELECT_FIELD_TYPE' => 'Wybierz typ pola',
-  'LBL_ADDING_COLUMN' => 'Dodaj kolumnę {0} do',
+  'LBL_ADDING_COLUMN' => 'Dodawanie kolumny {0} do',
   'LBL_ADD_FIELD' => 'Dodaj pole:',
   'LBL_AUDITED' => 'Śledzenie zmian',
   'LBL_BTN_ADD' => 'Dodaj',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => 'Pole zależne',
   'LBL_DEPENDENT_TRIGGER' => 'Warunek',
   'LBL_DONE' => 'Wykonano',
-  'LBL_DROPPING_COLUMN' => 'Upuść kolumnę {0} z {1} dla modułu',
+  'LBL_DROPPING_COLUMN' => 'Upuszczanie kolumny {0} z {1} dla modułu',
   'LBL_DROP_DOWN_LIST' => 'Lista rozwijalna',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Pole zależne',
   'LBL_EDIT_VIS' => 'Edytuj widoczność',
   'LBL_ENFORCED' => 'Wymagany',
   'LBL_EXE_NON_SIM_MODE' => 'Uruchom tryb niesymulacyjny',
   'LBL_FIELD_MISSING' => '- liczba brakujących pól z',
-  'LBL_FIX_COLUMN_TYPE' => 'Naprawianie typu kolumny dla {0} zmieniane {1} na',
+  'LBL_FIX_COLUMN_TYPE' => 'Naprawianie typu kolumny dla {0} zmieniającego {1} na',
   'LBL_FORMULA' => 'Formuła',
   'LBL_GENERATE_URL' => 'Generuj URL',
   'LBL_HAS_PARENT' => 'Posiada wartości nadrzędne',

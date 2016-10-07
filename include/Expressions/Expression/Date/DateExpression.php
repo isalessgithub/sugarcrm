@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/Expressions/Expression/AbstractExpression.php');
 require_once('include/TimeDate.php');
 abstract class DateExpression extends AbstractExpression
@@ -43,20 +40,33 @@ abstract class DateExpression extends AbstractExpression
         //String dates must be in User format.
         if (is_string($date)) {
             $timedate = TimeDate::getInstance();
-            $split = $timedate->split_date_time($date);
-            if(!empty($split[1])) {
+            if (static::hastime($date)) {
                 // have time
                 $resdate = $timedate->fromUser($date);
             } else {
                 // just date, no time
                 $resdate = $timedate->fromUserDate($date);
             }
-            if(!$resdate) {
+            if (!$resdate) {
                 throw new Exception("attempt to convert invalid value to date: $date");
             }
             return $resdate;
         }
-        throw new Exception("attempt to convert invalid value to date: $date");
+        throw new Exception("attempt to convert invalid non-string value to date");
+    }
+
+    /**
+     * Do we have a time param with the date param
+     *
+     * @param $date
+     * @return bool
+     */
+    public static function hasTime($date)
+    {
+        $timedate = TimeDate::getInstance();
+        $split = $timedate->split_date_time($date);
+
+        return !empty($split[1]);
     }
 
     /**
@@ -70,26 +80,12 @@ abstract class DateExpression extends AbstractExpression
             return false;
 
         $min = $date->format("i");
-        $offset = 0;
-        if ($min < 16){
-            $offset = 15 - $min;
-        } else if ($min < 31)
-        {
-            $offset = 30 - $min;
-        }
-        else if ($min < 46)
-        {
-            $offset = 45 - $min;
-        }
-        else if ($min < 46)
-        {
-            $offset = 60 - $min;
-        }
-        if($offset != 0) {
+        $remainder = $min % 15;
+        if ($remainder != 0) {
+            $offset = 15 - $remainder;
             $date->modify("+$offset minutes");
         }
 
         return $date;
     }
 }
-?>

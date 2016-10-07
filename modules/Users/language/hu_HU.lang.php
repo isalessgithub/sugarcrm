@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót a kliens törléséhez!',
@@ -101,7 +98,7 @@ $mod_strings = array (
   'LBL_CURRENCY' => 'Pénznem',
   'LBL_CURRENCY_EXAMPLE' => 'Pénznem megjelenítése (példa)',
   'LBL_CURRENCY_SHOW_PREFERRED' => 'Preferált pénznem mutatása',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Konvertálja az alap pénznemet a felhasználó által preferáltra a listákban és a rekord nézetekben',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Alap pénznem konvertálása a preferált pénznemre a lista- és rekordnézetekben',
   'LBL_CURRENCY_SIG_DIGITS' => 'Valuta számjeggyel',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'használt tizedes jegyek száma a valutában',
   'LBL_CURRENCY_TEXT' => 'Válassza ki az alapértelmezett fizetőeszközt új rekord létrehozásánál. Ez a fizetőeszköz fog megjelenni a Lehetőségek listázásában az Összeg oszlopban is.',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'A hét első napja',
   'LBL_FDOW_TEXT' => 'Az első nap, heti, havi és éves nézetben megjelenítve',
+  'LBL_FILTER_USERS_REPORTS' => 'Felhasználók jelentései',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => 'Optimális kapcsolódási paraméterek keresése.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Optimális beállítások keresése.',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Negatív válasz kikényszerítése',
   'LBL_FORCE_DESC' => 'Néhány IMAP/POP szervernek szüksége van speciális csatlakozókra. Ellenőrizze a beállításokat (pl.: /notls)!',
   'LBL_FORECASTS' => 'Előrejelzések',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Ez jelenleg nem engedélyezett. Vegye fel a kapcsolatot rendszergazdájával!',
   'LBL_FOUND_OPTIMUM_MSG' => 'Megtalálta az optimális beállításokat. Nyomja meg a lenti gombot a Postaláda beállításához!',
   'LBL_GENERATE_PASSWORD' => 'Jelszó visszaállítása',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Csoportjaim',
   'LBL_NAME' => 'Teljes név',
   'LBL_NAVIGATION_PARADIGM' => 'Navigáció',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Válassza ki, ha a csoporttagság függvényében engedélyezi a modulok megjelenítését a navigációs sávban. Engedélyezés esetén a Több menüpontban megjelenik a szűrési lehetőség.',
   'LBL_NEW_FORM_TITLE' => 'Új felhasználó',
   'LBL_NEW_PASSWORD' => 'Új jelszó',
   'LBL_NEW_PASSWORD1' => 'Jelszó',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Felettese',
   'LBL_REQUEST_SUBMIT' => 'A kérése továbbítva.',
   'LBL_RESET_DASHBOARD' => 'Műszerfal visszaállítása',
-  'LBL_RESET_HOMEPAGE' => 'Kezdőoldal visszaállítása',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Biztos benne, hogy visszaállítja a Kezdőoldalt?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Biztos benne, hogy visszaállítja a felhasználó Kezdőoldalát?',
   'LBL_RESET_PREFERENCES' => 'Személyes beállítások visszaállítása',
   'LBL_RESET_PREFERENCES_WARNING' => 'Biztos benne, hogy visszaállítja alapállapotba az összes felhasználói beállítást? Figyelem: ezzel ki is fog jelentkezni az alkalmazásból.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Biztos benne, hogy visszaállítja alapállapotba a felhasználó össze beállítását?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Állapot',
   'LBL_SUBPANEL_LINKS' => 'Alpanel linkek',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'A részletes megjelenítésben tüntesse fel az alpanelek linkjeit.',
-  'LBL_SUBPANEL_TABS' => 'Alpanel fülek',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'A részletes megjelenítésben csoportosítsa az alpaneleket és egyszerre csak egy fület jelenítsen meg.',
   'LBL_SUGAR_LOGIN' => 'Sugar felhasználó',
   'LBL_SUPPORTED_THEME_ONLY' => 'Csak azokra a témákra van hatással, amik támogatják ezt az opciót.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Jelölje be az utoljára megtekintett sáv oldalszélen való elhelyezéséhez! Egyéb rendelkezés hiányában felül kerül megjelenítésre.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Jelölje be a parnacsikon sáv oldalszélen való elhelyezéséhez! Egyéb rendelkezés hiányában felül kerül megjelenítésre.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Parancsikonok a tetején',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Rendszer által generált jelszó',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Rendszer Fontossági Számjegyek',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Ábrázolandó tizedes helyek száma, a tizedes jegyű- és lebegőpontos számoknál az egész rendszerben, úgy mint a valutáknál és az átlagoknál a Jelentésekben.',
   'LBL_TAB_TITLE_EMAIL' => 'Email beállítások',
   'LBL_TAB_TITLE_USER' => 'Felhasználói beállítások',
   'LBL_TEAMS' => 'Csoportok',

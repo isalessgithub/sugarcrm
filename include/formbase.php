@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  is a form helper
@@ -39,61 +36,25 @@ function checkRequired($prefix, $required)
 	return true;
 }
 
-/**
- * Populating bean from $_POST
- *
- * @param string $prefix of name of fields
- * @param SugarBean $focus bean
- * @param bool $skipRetrieve do not retrieve data of bean
- * @param bool $checkACL do not update fields if they are forbidden for current user
- * @return SugarBean
- */
-function populateFromPost($prefix, &$focus, $skipRetrieve = false, $checkACL = false)
-{
+function populateFromPost($prefix, &$focus, $skipRetrieve=false) {
 	global $current_user;
 
 	if(!empty($_REQUEST[$prefix.'record']) && !$skipRetrieve)
 		$focus->retrieve($_REQUEST[$prefix.'record']);
 
-	if(!empty($_POST['assigned_user_id']) && 
-	    ($focus->assigned_user_id != $_POST['assigned_user_id']) && 
+	if(!empty($_POST['assigned_user_id']) &&
+	    ($focus->assigned_user_id != $_POST['assigned_user_id']) &&
 	    ($_POST['assigned_user_id'] != $current_user->id)) {
 		$GLOBALS['check_notify'] = true;
 	}
     require_once('include/SugarFields/SugarFieldHandler.php');
     $sfh = new SugarFieldHandler();
-   
-    $isOwner = $focus->isOwner($current_user->id);
-    $relatedFields = array();
-    foreach ($focus->field_defs as $field => $def) {
-        if (empty($def['type']) || $def['type'] != 'relate') {
-            continue;
-        }
-        if (empty($def['source']) || $def['source'] != 'non-db') {
-            continue;
-        }
-        if (empty($def['id_name']) || $def['id_name'] == $field) {
-            continue;
-        }
-        $relatedFields[$def['id_name']] = $field;
-    }
 
 	foreach($focus->field_defs as $field=>$def) {
         if ( $field == 'id' && !empty($focus->id) ) {
             // Don't try and overwrite the ID
             continue;
         }
-
-        if ($checkACL == true
-            && ACLField::hasAccess($def['name'], $focus->module_dir, $current_user->id, $isOwner) < 2) {
-            continue;
-        }
-        if ($checkACL == true
-           && isset($relatedFields[$def['name']])
-           && ACLField::hasAccess($relatedFields[$def['name']], $focus->module_dir, $current_user->id, $isOwner) < 2) {
-            continue;
-        }
-
 	    $type = !empty($def['custom_type']) ? $def['custom_type'] : $def['type'];
 		$sf = $sfh->getSugarField($type);
         if($sf != null){
@@ -108,11 +69,11 @@ function populateFromPost($prefix, &$focus, $skipRetrieve = false, $checkACL = f
 				if($_POST[$prefix.$field][0] === '' && !empty($_POST[$prefix.$field][1]) ) {
 					unset($_POST[$prefix.$field][0]);
 				}
-				$_POST[$prefix.$field] = encodeMultienumValue($_POST[$prefix.$field]);	
+				$_POST[$prefix.$field] = encodeMultienumValue($_POST[$prefix.$field]);
 			}
 
 			$focus->$field = $_POST[$prefix.$field];
-			/* 
+			/*
 			 * overrides the passed value for booleans.
 			 * this will be fully deprecated when the change to binary booleans is complete.
 			 /
@@ -199,7 +160,7 @@ function getPostToForm($ignore='', $isRegularExpression=false)
 			if(!preg_match($ignore, $key)) {
                                 $fields .= add_hidden_elements($key, $value);
 			}
-		}	
+		}
 	} else {
 		foreach ($_POST as $key=>$value){
 			if($key != $ignore) {
@@ -215,6 +176,7 @@ function getGetToForm($ignore='', $usePostAsAuthority = false)
 	$fields = '';
 	foreach ($_GET as $key=>$value)
 	{
+	    if(is_array($value)) continue;
 		if($key != $ignore){
 			if(!$usePostAsAuthority || !isset($_POST[$key])){
 				$fields.= "<input type='hidden' name='$key' value='$value'>";
@@ -232,64 +194,81 @@ function getAnyToForm($ignore='', $usePostAsAuthority = false)
 
 }
 
-function handleRedirect($return_id='', $return_module='', $additionalFlags = false)
+/**
+ * Handles a redirect from a Form SugarCRM based or return_url information.
+ *
+ * This function redirect automatically if $_REQUEST['return_url'] isn't empty.
+ * It also exits the app always.
+ *
+ * @see buildRedirectUrl()
+ * @see SugarApplication::redirect()
+ *
+ * @deprecated since 7.0.0. Use buildRedirectUrl() and SugarApplication::redirect().
+ *
+ * @param string $return_id (optional) The record id to redirect to.
+ * @param string $return_module (optional) The module to redirect to.
+ * @param array $additionalFlags (optional) Additional flags to sent to the URL.
+ */
+function handleRedirect($return_id = '', $return_module = '', array $additionalFlags = array())
 {
-	if(isset($_REQUEST['return_url']) && $_REQUEST['return_url'] != "")
-	{
-		header("Location: ". $_REQUEST['return_url']);
-		exit;
-	}
+    if (!empty($_REQUEST['return_url'])) {
+        $url = $_REQUEST['return_url'];
+    } else {
+        $url = buildRedirectURL($return_id, $return_module, $additionalFlags);
+    }
 
-	$url = buildRedirectURL($return_id, $return_module);
-	header($url);
-	exit;	
+    SugarApplication::redirect($url);
 }
 
-//eggsurplus: abstract to simplify unit testing
-function buildRedirectURL($return_id='', $return_module='') 
+/**
+ * Builds a redirect URL based on a Form SugarCRM.
+ *
+ * @param string $return_id (optional) The record id to redirect to.
+ * @param string $return_module (optional) The module to redirect to.
+ * @param array $additionalFlags (optional) Additional flags to sent to the URL.
+ *
+ * @return string The url built from the current $_REQUEST information.
+ */
+function buildRedirectURL($return_id = '', $return_module = '', array $additionalFlags = array())
 {
     if(isset($_REQUEST['return_module']) && $_REQUEST['return_module'] != "")
 	{
 		$return_module = $_REQUEST['return_module'];
 	}
-	else
-	{
-		$return_module = $return_module;
-	}
 	if(isset($_REQUEST['return_action']) && $_REQUEST['return_action'] != "")
 	{
-	    
+
 	   //if we are doing a "Close and Create New"
         if(isCloseAndCreateNewPressed())
         {
-            $return_action = "EditView";    
-            $isDuplicate = "true";        
+            $return_action = "EditView";
+            $isDuplicate = "true";
             $status = "";
-            
+
             // Meeting Integration
             if(isset($_REQUEST['meetingIntegrationFlag']) && $_REQUEST['meetingIntegrationFlag'] == 1) {
-            	$additionalFlags = array('meetingIntegrationShowForm' => '1');
+                $additionalFlags['meetingIntegrationShowForm'] = '1';
             }
             // END Meeting Integration
-        } 
+        }
 		// if we create a new record "Save", we want to redirect to the DetailView
-		else if(isset($_REQUEST['action']) && $_REQUEST['action'] == "Save" 
+		else if(isset($_REQUEST['action']) && $_REQUEST['action'] == "Save"
 			&& $_REQUEST['return_module'] != 'Activities'
-			&& $_REQUEST['return_module'] != 'WorkFlow'  
-			&& $_REQUEST['return_module'] != 'Home' 
-			&& $_REQUEST['return_module'] != 'Forecasts' 
+			&& $_REQUEST['return_module'] != 'WorkFlow'
+			&& $_REQUEST['return_module'] != 'Home'
+			&& $_REQUEST['return_module'] != 'Forecasts'
 			&& $_REQUEST['return_module'] != 'Calendar'
 			&& $_REQUEST['return_module'] != 'MailMerge'
 			&& $_REQUEST['return_module'] != 'TeamNotices'
-			) 
+			)
 			{
 			    $return_action = 'DetailView';
 			} elseif($_REQUEST['return_module'] == 'Activities' || $_REQUEST['return_module'] == 'Calendar') {
 			$return_module = $_REQUEST['module'];
-			$return_action = $_REQUEST['return_action']; 
+			$return_action = $_REQUEST['return_action'];
 			// wp: return action needs to be set for one-click close in task list
-		} 
-		else 
+		}
+		else
 		{
 			// if we "Cancel", we go back to the list view.
 			$return_action = $_REQUEST['return_action'];
@@ -299,57 +278,26 @@ function buildRedirectURL($return_id='', $return_module='')
 	{
 		$return_action = "DetailView";
 	}
-	
+
 	if(isset($_REQUEST['return_id']) && $_REQUEST['return_id'] != "")
 	{
 		$return_id = $_REQUEST['return_id'];
 	}
 
-    $add = "";
-    if(isset($additionalFlags) && !empty($additionalFlags)) {
-        foreach($additionalFlags as $k => $v) {
-            $add .= "&{$k}={$v}";
-        }
-    }
-    
+    $add = http_build_query($additionalFlags);
+
     if (!isset($isDuplicate) || !$isDuplicate)
     {
         $url="index.php?action=$return_action&module=$return_module&record=$return_id&return_module=$return_module&return_action=$return_action{$add}";
         if(isset($_REQUEST['offset']) && empty($_REQUEST['duplicateSave'])) {
             $url .= "&offset=".$_REQUEST['offset'];
         }
-        if(!empty($_REQUEST['ajax_load']))
-        {
-            $ajax_ret = array(
-                'content' => "<script>SUGAR.ajaxUI.loadContent('$url');</script>\n",
-                'menu' => array(
-                    'module' => $return_module,
-                    'label' => translate($return_module),
-                ),
-            );
-            $json = getJSONobj();
-            echo $json->encode($ajax_ret);
-        } else {
-            return "Location: $url";
-        }
     } else {
     	$standard = "action=$return_action&module=$return_module&record=$return_id&isDuplicate=true&return_module=$return_module&return_action=$return_action&status=$status";
         $url="index.php?{$standard}{$add}";
-        if(!empty($_REQUEST['ajax_load']))
-        {
-            $ajax_ret = array(
-                 'content' => "<script>SUGAR.ajaxUI.loadContent('$url');</script>\n",
-                 'menu' => array(
-                     'module' => $return_module,
-                     'label' => translate($return_module),
-                 ),
-            );
-            $json = getJSONobj();
-            echo $json->encode($ajax_ret);
-        } else {
-            return "Location: $url";
-        }
     }
+
+    return $url;
 }
 
 function getLikeForEachWord($fieldname, $value, $minsize=4)
@@ -374,22 +322,22 @@ function getLikeForEachWord($fieldname, $value, $minsize=4)
 }
 
 function isCloseAndCreateNewPressed() {
-    return isset($_REQUEST['action']) && 
+    return isset($_REQUEST['action']) &&
            $_REQUEST['action'] == "Save" &&
-           isset($_REQUEST['isSaveAndNew']) && 
-           $_REQUEST['isSaveAndNew'] == 'true';	
+           isset($_REQUEST['isSaveAndNew']) &&
+           $_REQUEST['isSaveAndNew'] == 'true';
 }
 
 /**
  * This is a helper function to return the url portion of the teams sent
- * 
+ *
  * @param $module String value of module used for the prefixing
  * @return String URL format of teams sent to the form base code
  */
 function get_teams_url($module='') {
 	require_once('include/SugarFields/SugarFieldHandler.php');
-	$sfh = new SugarFieldHandler();  
-	$sf = $sfh->getSugarField('Teamset', true);      	
+	$sfh = new SugarFieldHandler();
+	$sf = $sfh->getSugarField('Teamset', true);
     $teams = $sf->getTeamsFromRequest('team_name');
     $url = '';
 	if(!empty($teams)) {
@@ -403,7 +351,7 @@ function get_teams_url($module='') {
            $url .= "&{$module}team_name_collection_{$count}=" . urlencode($name);
            $count++;
 	   }
-	   
+
 	   if(isset($_REQUEST['primary_team_name_collection'])) {
 	   	  $primary_index = $_REQUEST['primary_team_name_collection'];
 	   	  $primary_team_id = $_REQUEST["id_team_name_collection_{$primary_index}"];
@@ -418,7 +366,7 @@ function get_teams_url($module='') {
  * get_teams_hidden_inputs
  * This is a helper function to construct a String of the hidden input parameters representing the
  * teams that were sent to the form base code
- * 
+ *
  * @param $module String value of module
  * @return String HTML format of teams sent to the form base code
  */
@@ -427,18 +375,18 @@ function get_teams_hidden_inputs($module='') {
 	if(!empty($module)) {
 		foreach($_REQUEST as $name=>$value) {
 			if(preg_match("/^{$module}(.*?team_name.*?$)/", $name, $matches)) {
-			   $_REQUEST[$matches[1]] = $value;  
+			   $_REQUEST[$matches[1]] = $value;
 			}
 		}
 	}
 
-	
+
 	require_once('include/SugarFields/SugarFieldHandler.php');
-	$sfh = new SugarFieldHandler();  
-	$sf = $sfh->getSugarField('Teamset', true);      	
-    $teams = $sf->getTeamsFromRequest('team_name');	
+	$sfh = new SugarFieldHandler();
+	$sf = $sfh->getSugarField('Teamset', true);
+    $teams = $sf->getTeamsFromRequest('team_name');
     $input = '';
-    
+
 	if(!empty($teams)) {
 	   $count = 0;
 	   foreach($teams as $id=>$name) {
@@ -451,7 +399,7 @@ function get_teams_hidden_inputs($module='') {
 	      $input .= "<input type='hidden' name='primary_team_name_collection' value='" . $_REQUEST['primary_team_name_collection'] . "'>\n";
 	   }
 	}
-	return $input;    
+	return $input;
 }
 
 /**
@@ -558,8 +506,10 @@ function save_from_report($report_id,$parent_id, $module_name, $relationship_att
     $GLOBALS['log']->debug("Save2:Module Name=".$module_name);
     $GLOBALS['log']->debug("Save2:Relationship Attribute Name=".$relationship_attr_name);
 
-    $GLOBALS['log']->debug("Save2:Bean Name=" . $module_name);
-    $focus = BeanFactory::newBean($module_name);
+    $bean_name = $beanList[$module_name];
+    $GLOBALS['log']->debug("Save2:Bean Name=".$bean_name);
+    require_once($beanFiles[$bean_name]);
+    $focus = new $bean_name();
 
     $focus->retrieve($parent_id);
     $focus->load_relationship($relationship_attr_name);
@@ -582,12 +532,9 @@ function save_from_report($report_id,$parent_id, $module_name, $relationship_att
     $sql = $report->query_list[0];
     $GLOBALS['log']->debug("Save2:Report Query=".$sql);
     $result = $report->db->query($sql);
-
-    $reportBean = BeanFactory::newBean($saved->module);
     while($row = $report->db->fetchByAssoc($result))
     {
-        $reportBean->id = $row['primaryid'];
-        $focus->$relationship_attr_name->add($reportBean);
+        $focus->$relationship_attr_name->add($row['primaryid']);
     }
 }
 

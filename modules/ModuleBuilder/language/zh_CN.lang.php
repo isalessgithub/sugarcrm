@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => '错误: 字段已经存在',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => '可用',
   'LBL_AVAILABLE_OPTIONS' => '有效选项',
   'LBL_AVAILABLE_SUBPANELS' => '可用子面板',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: badly formed document',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2：建立位置：形成严重的文件',
   'LBL_BASIC' => '普通',
   'LBL_BASIC_SEARCH' => '普通搜索',
   'LBL_BLANK' => '-空白-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => '取消',
   'LBL_BTN_CLONE' => '复制',
   'LBL_BTN_CLOSE' => '关闭',
+  'LBL_BTN_COPY' => '复制',
+  'LBL_BTN_COPY_FROM' => '复制自…',
   'LBL_BTN_DELETE' => '删除',
   'LBL_BTN_DEPLOY' => '部署',
   'LBL_BTN_DONT_SAVE' => '放弃更改',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => '撤销',
   'LBL_BTN_VIEW_FIELDS' => '查看字段',
   'LBL_BTN_VIEW_LAYOUTS' => '查看布局',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => '查看手机布局',
   'LBL_BTN_VIEW_RELATIONSHIPS' => '查看关系项',
   'LBL_BUG_TRACKER' => '缺陷追踪器',
   'LBL_CALCULATED' => '计算值',
   'LBL_CASES' => '客户反馈',
   'LBL_CLEAR_EXTENSIONS' => '消除扩展',
   'LBL_CLEAR_RELATIONSHIPS' => '消除关系',
+  'LBL_COMBO_FIELD_CONTAINS' => '包括:',
   'LBL_COMPANY' => '公司',
   'LBL_CONFIG_PORTAL_URL' => '自定义Logo图像的URL。推荐的Logo尺寸为163 × 18像素。',
   'LBL_CONFIRM_DONT_SAVE' => '自上次保存已变化,您真要保存吗？',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => '您确定您希望删除此项关系吗?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => '将永久添加该关联，是否部署？',
   'LBL_CONFIRM_SAVE_DROPDOWN' => '你是选择从下拉列表中删除这一项目。任何使用此下拉列表的字段将不再显示该值，该值将不再能够从下拉字段选中。您确定要继续吗？',
+  'LBL_COPY_FROM' => '复制自：',
   'LBL_COPY_FROM_EDITVIEW' => '从编辑视图复制',
   'LBL_CREATE' => '创建',
   'LBL_CREATE_NEW' => '新建',
   'LBL_CURRENCY' => '货币',
   'LBL_CURRENT_LAYOUT' => '当前布局',
   'LBL_CUSTOM' => '自定义',
-  'LBL_CUSTOMIZE_THEME' => '自定义主题',
   'LBL_CUSTOM_FIELDS' => '* 工作室创建的字段',
   'LBL_CUSTOM_MODULE' => '模块',
   'LBL_CUSTOM_RELATIONSHIPS' => '* 工作室创建的关系',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => '依赖',
   'LBL_DEPENDENCY' => '依赖',
   'LBL_DEPENDENT_DROPDOWN_HELP' => '当父选项被选中时，从左边附属下拉表的可选选项中拖动选项到右边以使选项生效.如果当父选项被选中时，其下没有选择，那么附属下拉表就无法显示.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => '请注意：用户需要刷新纪录的编辑视图来使得改变生效',
   'LBL_DEPLOYE_COMPLETE' => '部署完成',
   'LBL_DEPLOY_FAILED' => '部署时发生错误，您部署的包可能没有正确被安装。',
   'LBL_DEPLOY_IN_PROGRESS' => '正部署文件包',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => '列表条目',
   'LBL_DROPDOWN_ITEM_LABEL' => '显示标签',
   'LBL_DROPDOWN_ITEM_NAME' => '条目名称',
-  'LBL_DROPDOWN_KEY_EXISTS' => '值已经存在于列表内',
+  'LBL_DROPDOWN_KEY_EXISTS' => '钥已经存在于列表',
   'LBL_DROPDOWN_LANGUAGE' => '语言',
+  'LBL_DROPDOWN_LIST_EMPTY' => '此列表至少必须包含一个细目',
   'LBL_DROPDOWN_TITLE_NAME' => '名称',
   'LBL_DROP_HERE' => '[拽到这里]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => '依赖的',
   'LBL_EC_AUTHOR' => '作者:',
   'LBL_EC_CHECKERROR' => '前选择一个模块。',
+  'LBL_EC_CUSTOMDROPDOWN' => '定制下拉选项',
   'LBL_EC_CUSTOMFIELD' => '客户化订制字段',
+  'LBL_EC_CUSTOMLABEL' => '自定义标签',
   'LBL_EC_CUSTOMLAYOUT' => '定制界面',
   'LBL_EC_DESCRIPTION' => '描述:',
   'LBL_EC_EMPTYCUSTOM' => '空白客户化订制。',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => '字段',
   'LBL_FILE' => '文件',
   'LBL_FILLER' => '(填充器)',
+  'LBL_FILTER_SEARCH' => '搜索',
   'LBL_FORMULA' => '公式',
   'LBL_FORMULA_BUILDER' => '公式编辑器',
   'LBL_FORMULA_INVALID' => '无效公式',
   'LBL_FORMULA_TYPE' => '公式必须具有类型',
   'LBL_HCUSTOM' => '定制',
   'LBL_HDEFAULT' => '默认',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => '从布局复制',
   'LBL_HIDDEN' => '隐藏',
   'LBL_HIDEOPTIONS' => '隐藏可选项',
   'LBL_HIGH' => '高',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => '我的',
   'LBL_HOME_EDIT_DROPDOWNS' => '下拉列表编辑器',
   'LBL_ILLEGAL_FIELD_VALUE' => '下拉列表的键中不能含有引号。',
+  'LBL_INDICATES_COMBO_FIELD' => '**表示组合字段。组合字段是一种多个字段的集成。例如，“地址”是一个组合字段中包含“地址”，“城市”，“邮编”，“国家”和“国家”。<br /><br />双击打开一个组合字段查看它包含哪些字段。',
   'LBL_ISSUE' => '发行',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => '您确定您要删除此所需的下拉列表项？这可能会影响您的应用程序的功能。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => '删除成功关闭这一阶段，将导致预测模块不能正常工作',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => '您确定您要删除此下拉列表项吗？删除成功关闭这一阶段，将导致预测模块不能正常工作',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => '您是否确认删除正在进行中的销售状态？删除此状态将导致商业机会模块收入线项目工作流不正确。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => '您是否确认删除新的销售状态？删除此状态将导致商业机会模块收入线项目工作流不正确。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => '您确定您要删除此下拉列表项吗？删除成功关闭和失败关闭这两个阶段，将导致预测模块不能正常工作',
   'LBL_JS_DEPLOY_PACKAGE' => '重新部署该模块将覆盖所有你在工作室中针对该模块所做的定制。你确定要继续吗？',
   'LBL_JS_REMOVE_MODULE' => '你确定要删除此模块？这会永久删除这个模块相关的所有文件。',
   'LBL_JS_REMOVE_PACKAGE' => '你确定要删除此模块？这会永久删除这个模块相关的所有文件。',
   'LBL_JS_VALIDATE_KEY' => '关键值 - 必须为字母数字并且以字母开头。',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Key-必须是含有字母数字，而且首位必须是字母。',
   'LBL_JS_VALIDATE_LABEL' => '请输入一条标签作为此模块的显示名称',
   'LBL_JS_VALIDATE_NAME' => '名称 - 必须为字母数字并且以字母开头。',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => '文件包名称已经存在',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => '找不到字段',
   'LBL_NO_FUNCS' => '找不到相关函数',
   'LBL_NO_RELS' => '无关联',
-  'LBL_NO_SAVE_ACTION' => '找不到此视图保存操作。',
+  'LBL_NO_SAVE_ACTION' => '找不到此视图的保存操作',
   'LBL_NUMBER' => '数量:',
   'LBL_ONETOMANY' => '一对多',
   'LBL_ONETOONE' => '一对一',
@@ -277,15 +290,15 @@ $mod_strings = array (
   'LBL_PORTAL_DISABLED_MODULES' => '以下模块已被禁用：',
   'LBL_PORTAL_ENABLE' => '启用',
   'LBL_PORTAL_ENABLE_MODULES' => '如果您希望在门户内启用他们，请在这里启用。',
-  'LBL_PORTAL_GO' => 'Go',
+  'LBL_PORTAL_GO' => '到',
   'LBL_PORTAL_LAYOUTS' => '门户布局',
   'LBL_PORTAL_LIST_NUMBER' => '列表中显示的纪录条数',
-  'LBL_PORTAL_LOGO_URL' => 'Logo URL',
+  'LBL_PORTAL_LOGO_URL' => '图标URL',
   'LBL_PORTAL_ROLE_DESC' => '不要删除此角色。客户自助服务门户网站角色是一个系统生成的角色，在Sugar门户网站激活过程中创建的。用这个角色来访问控制、启用/禁用Sugar门户网站中的错误、案例或知识库模块。请不要修改这个角色的任何其他访问控制，以避免未知的与不可预测的系统行为。在这个角色被意外删除的情况下，通过禁用和启用Sugar门户网站来重新创建它。',
   'LBL_PORTAL_SEARCH_RESULT_NUMBER' => '全局搜索时显示的结果数量',
   'LBL_PORTAL_SITE_URL' => '您的门户站点已可访问：',
   'LBL_PORTAL_THEME' => '门户主题',
-  'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM',
+  'LBL_POWERED_BY_SUGAR' => '由SugarCRM提供',
   'LBL_PRIORITY' => '优先级:',
   'LBL_PUBLISHED' => '已发布',
   'LBL_PUBLISHING' => '发布中 ...',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => '选择一种 Sugar门户界面来编辑.',
   'LBL_QUICKCREATE' => '快速创建',
   'LBL_READ_ONLY' => '只读',
+  'LBL_RECORDVIEW' => '记录视图',
   'LBL_RELATED_FIELD' => '相关字段',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
   'LBL_RELATE_TO' => '相关',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => '复位模块',
   'LBL_RESTORE_DEFAULT' => '恢复默认值',
   'LBL_RHS_MODULE' => '关联模块',
+  'LBL_ROLE' => '角色',
   'LBL_ROLLUP' => '汇总',
   'LBL_RSUB' => '这是将显示在您模块中的子面板',
   'LBL_SALE' => '销售',
-  'LBL_SAVE' => '保存',
   'LBL_SAVE_LAYOUT' => '保存布局',
   'LBL_SEARCH' => '查找',
   'LBL_SEARCH_FIELDS' => '查找字段...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => '选择一个子面板',
   'LBL_SELECT_FILE' => '选择文件',
   'LBL_SELECT_SUBPANEL' => '选择一个子面板',
+  'LBL_SINGULAR_LABEL' => '单数标签',
   'LBL_SP_PREVIEW' => '这是关于Sugar门户网站被喜欢使用的样式表的预演.',
   'LBL_SP_UPLOADED' => '上传',
   'LBL_SP_UPLOADSTYLE' => '选择一种表单类型从您的计算机上进行上传.<br> 表单类型将应用于Sugar门户下次实施同步时.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => '<b>布局</b>区域包含现在显示在 <b>编辑视图</b>中的字段。<br/><br/> <b>工具箱</b> 包含<b>Recycle Bin</b> 和可以被添加到布局中的字段和布局元素。<br><br>通过拖拽在 <b>工具箱</b>和<b>布局</b> 之间的和在布局本身内部的元素和字段来给布局做更改。<br><br>把字段拖到 <b>回收站</b>来从布局中移除一个字段。 然后字段将在工具箱中可用，用以添加布局。<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>在方程式价值的基础上显示可能可见或不可见的独立的字段。<br/>在方程式的基础上自动决定价值的计算字段。',
       'defaultdetailview' => '<b>布局</b> 区域包含现在显示在<b>细节视图</b>中的字段。<br/><br/> <b>工具箱</b> 包含 <b>回收站</b> 和可以添加到布局的字段和布局元素 。<br><br>通过拖拽在 <b>工具箱</b>和<b>布局</b> 之间的和在布局本身内部的元素和字段来给布局做更改。<br><br>把字段拖到 <b>回收站</b>来从布局中移除一个字段。然后字段将在工具箱中可用，用以添加布局。<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>在方程式价值的基础上显示可能可见或不可见的独立的字段。<br/>在方程式的基础上自动决定价值的计算字段。',
       'defaultquickcreate' => '<b>布局</b> 区域包含现在显示在<b>快速新增</b> 表单中的字段。<br><br>快速新增表单出现在子面板中当创建按钮被点击时。<br/><br/> <b>工具箱</b> 包含 <b>回收站</b>和可以被添加到布局中的字段和布局元素。<br><br>通过拖拽在 <b>工具箱</b>和<b>布局</b> 之间的和在布局本身内部的元素和字段来给布局做更改。<br><br>把字段拖到 <b>回收站</b>来从布局中移除一个字段。 然后字段将在工具箱中可用，用以添加布局。<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>在方程式价值的基础上显示可能可见或不可见的独立的字段。<br/>在方程式的基础上自动决定价值的计算字段。',
+      'defaultrecordview' => '布局区域内记录查看当前显示的字段。<br /><br />工具箱包含回收站，并可以添加到布局的领域和布局元素。<br /><br />更改布局，通过拖放元素和领域之间的工具箱布局和布局本身。<br /><br />从布局要删除字段，将该字段拖到“回收站”。然后该字段将可以在工具箱中添加到布局。<br /><br />表示从属字段可能会或可能不会在可见，基于公式的值。<br />表示的计算字段的值会自动根据公式确定。',
       'delete' => '拖拽任何元素来从布局中移除它。',
       'historyBtn' => '点击 <b>查看历史记录</b> 来查看和恢复先前保存的布局从历史记录中。',
       'historyDefault' => '点击 <b>恢复默认</b> 来恢复对原始布局的查看。',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => '<b>销售</b>模板提供指定字段机会，例如 潜在客户资源，阶段，数量和可能性。<br/><br/>使用这个模板来创建与标准机会模板相似的模板。',
       'viewfieldsbtn' => '点击 <b>查看字段</b> 来查看模块相关字段并且创建和编辑自定义字段。',
       'viewlayoutsbtn' => '点击 <b>查看布局</b> 来查看模块的布局和自定义布局内的字段安排。',
+      'viewmobilelayoutsbtn' => '单击<b>查看手机布局</b>查看模块的手机布局并定制布局内的字段排列。',
       'viewrelsbtn' => '点击 <b>查看关系</b>来查看与模块相关的关系并且创建新关系。',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => '所有的存在在模块和其他显示模块之间 <b>关系</b>出现在这。<br><br>关系 <b>名称</b>是系统为关系生成的名称。<br><br> <b>主要模块</b> 使用有关系的模块。 例如，关系的所有属性，账户模块为主要模块，储存在在账户数据库表格中。<br><br><b>类型</b> 存在在主要模块和 <b>相关模块</b>之间的关系类型。<br><br>点击列标题来排序列.<br><br> 点击关系表格中的一行来查看与关系相关的属性。<br><br>点击 <b>添加关系</b> 来创建一个新关系。<br><br>关系可以在两个被部署的模块之间被创建。',
       'searchBtn' => '自定义模块&#39;的 <b>查找</b> 布局。<br><br>决定什么字段可被用来过滤出现在列表视图中的记录。',
       'searchHelp' => '可以被自定义的<b>查找</b> 表格出现在这。<br><br>查找表格包含为过滤记录的字段。<br><br>点击图标来选择查找编辑的布局。',
+      'studioBCHelp' => '指示模块式向后兼容的模块',
       'studioBtn' => '使用 <b>工作室</b> 来自定义显示的模块。',
       'studioHelp' => '使用 <b>工作室</b>来决定什么信息要被显示在模块中。',
       'subpanelBtn' => '决定哪些字段出现在模块的<b>子面板</b> 中。',

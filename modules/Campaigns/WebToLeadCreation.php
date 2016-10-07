@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -21,17 +18,18 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
-
 require_once('include/EditView/EditView2.php');
-
-require_once('modules/Campaigns/utils.php');
-
 
 require_once('modules/Campaigns/utils.php');
 
 global $mod_strings, $app_list_strings, $app_strings, $current_user, $import_bean_map;
 global $import_file_name, $theme;$app_list_strings;
-$lead = new Lead();
+
+if (!empty($_REQUEST['lead_id'])) {
+    $lead = BeanFactory::getBean('Leads',$_REQUEST['lead_id']);
+} else {
+    $lead = BeanFactory::getBean('Leads');
+}
 $fields = array();
 
 $xtpl=new XTemplate ('modules/Campaigns/WebToLeadCreation.html');
@@ -49,7 +47,7 @@ if(isset($_REQUEST['return_id']))
 {
     $xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
 }
-if(isset($_REQUEST['return_id']))
+if(isset($_REQUEST['return_action']))
 {
     $xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
 }
@@ -130,29 +128,38 @@ if(isset($lead->field_defs['webtolead_email1']) && isset($lead->field_defs['emai
 }
 
 $count= 0;
-foreach($lead->field_defs as $field_def)
-{
-	$email_fields = false;
-    if($field_def['name']== 'email1' || $field_def['name']== 'email2')
-    {
-    	$email_fields = true;
-    }
-	  if($field_def['name']!= 'account_name'){
-	    if( ( $field_def['type'] == 'relate' && empty($field_def['custom_type']) )
-	    	|| $field_def['type'] == 'assigned_user_name' || $field_def['type'] =='link'
-	    	|| (isset($field_def['source'])  && $field_def['source']=='non-db' && !$email_fields) || $field_def['type'] == 'id')
-	    {
-	        continue;
-	    }
-	   }
-	    if($field_def['name']== 'deleted' || $field_def['name']=='converted' || $field_def['name']=='date_entered'
-	        || $field_def['name']== 'date_modified' || $field_def['name']=='modified_user_id'
-	        || $field_def['name']=='assigned_user_id' || $field_def['name']=='created_by'
-	        || $field_def['name']=='team_id')
-	    {
-	    	continue;
-	    }
 
+// Used to prevent certain fields from appearing on the select list
+$fieldBlacklist = array(
+    'deleted' => 1,
+    'converted' => 1,
+    'date_entered' => 1,
+    'date_modified' => 1,
+    'modified_user_id' => 1,
+    'assigned_user_id' => 1,
+    'created_by' => 1,
+    'team_id' => 1,
+    'tag_lower' => 1,
+);
+
+foreach ($lead->field_defs as $field_def) {
+    $email_fields = false;
+    if ($field_def['name']== 'email1' || $field_def['name']== 'email2') {
+        $email_fields = true;
+    }
+
+    if ($field_def['name']!= 'account_name') {
+        if ( ( $field_def['type'] == 'relate' && empty($field_def['custom_type']) )
+            || $field_def['type'] == 'assigned_user_name' || $field_def['type'] =='link'
+            || (isset($field_def['source'])  && $field_def['source']=='non-db' && !$email_fields) || $field_def['type'] == 'id')
+        {
+            continue;
+        }
+    }
+
+    if (!empty($fieldBlacklist[$field_def['name']])) {
+        continue;
+    }
 
     $field_def['vname'] = preg_replace('/:$/','',translate($field_def['vname'],'Leads'));
 
@@ -196,31 +203,31 @@ $sqs_objects = array_merge($sqs_objects, $teamSetField->getClassicViewQS());
 $quicksearch_js = '<script type="text/javascript" language="javascript">sqs_objects = ' . $json->encode($sqs_objects) . '</script>';
 $xtpl->assign("JAVASCRIPT", $quicksearch_js);
 
-if (empty($focus->id) && !isset($_REQUEST['isDuplicate'])) {
+if (empty($lead->id) && !isset($_REQUEST['isDuplicate'])) {
 	$xtpl->assign("TEAM_OPTIONS", get_select_options_with_id(get_team_array(), $current_user->default_team));
 	$xtpl->assign("TEAM_NAME", $current_user->default_team_name);
 	$xtpl->assign("TEAM_ID", $current_user->default_team);
 }
 else {
-	$xtpl->assign("TEAM_OPTIONS", get_select_options_with_id(get_team_array(), $focus->team_id));
-	$xtpl->assign("TEAM_NAME", $focus->assigned_name);
-	$xtpl->assign("TEAM_ID", $focus->team_id);
+	$xtpl->assign("TEAM_OPTIONS", get_select_options_with_id(get_team_array(), $lead->team_id));
+	$xtpl->assign("TEAM_NAME", $lead->assigned_name);
+	$xtpl->assign("TEAM_ID", $lead->team_id);
 }
 $code = $teamSetField->getClassicView();
 $xtpl->assign("TEAM_SET_FIELD", $code);
 $xtpl->parse("main.pro");
 
 
-if (empty($focus->assigned_user_id) && empty($focus->id))  $focus->assigned_user_id = $current_user->id;
-if (empty($focus->assigned_name) && empty($focus->id))  $focus->assigned_user_name = $current_user->user_name;
-$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id(get_user_array(TRUE, "Active", $focus->assigned_user_id), $focus->assigned_user_id));
-$xtpl->assign("ASSIGNED_USER_NAME", $focus->assigned_user_name);
-$xtpl->assign("ASSIGNED_USER_ID", $focus->assigned_user_id );
+if (empty($lead->assigned_user_id) && empty($lead->id))  $lead->assigned_user_id = $current_user->id;
+if (empty($lead->assigned_name) && empty($lead->id))  $lead->assigned_user_name = $current_user->user_name;
+$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id(get_user_array(TRUE, "Active", $lead->assigned_user_id), $lead->assigned_user_id));
+$xtpl->assign("ASSIGNED_USER_NAME", $lead->assigned_user_name);
+$xtpl->assign("ASSIGNED_USER_ID", $lead->assigned_user_id );
 
 $xtpl->assign("REDIRECT_URL_DEFAULT",'http://');
 
 //required fields on Webtolead form
-$campaign= new Campaign();
+$campaign = BeanFactory::getBean('Campaigns');
 
 $javascript = new javascript();
 $javascript->setFormName('WebToLeadCreation');

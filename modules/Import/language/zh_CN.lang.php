@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => '不能导入系统管理员',
@@ -41,7 +38,7 @@ $mod_strings = array (
   'LBL_ADD_FIELD_HELP' => '用此选项在所有档案创建和/或更新里增加值到字符. 选择字符然后为默认值纵列的字符进入或选择值 .',
   'LBL_ADD_ROW' => '增加字段',
   'LBL_ARE_YOU_SURE' => '请确认?这将删除这个模块的所有记录.',
-  'LBL_ASSIGNED_USER' => '如果用户不存在,使用当前用户',
+  'LBL_ASSIGNED_USER' => '如果用户不存在，使用当前用户',
   'LBL_AUTO_DETECT_ERROR' => '导入文件中的字段定界符和限定词是不能被删除的. 请核实导入文件属性的设置.',
   'LBL_BACK' => '< 上一步',
   'LBL_CANCEL' => '取消',
@@ -56,7 +53,7 @@ $mod_strings = array (
   'LBL_CONTACTS_NOTE_3' => '如果指定了全名，该字段中的记录会自动被切割成姓与名两个个字段。',
   'LBL_CONTACTS_NOTE_4' => '街道2与街道3字段在导入数据库时会与第一个街道字段合并。',
   'LBL_CREATED_TAB' => '档案创建',
-  'LBL_CREATE_BUTTON_HELP' => '用此选项建立新的档案，注意：导入文件里的行包含与现有档案相符的ID值将不会被导入如果值直接变换到Id字段',
+  'LBL_CREATE_BUTTON_HELP' => '用此选项创建新纪录。注意：如果导入文件里与现有纪录的ID匹配的值已映像到ID字段，含有这些值的行将不导入。',
   'LBL_CSV' => '逗号分隔符文件',
   'LBL_CURRENCY' => '货币',
   'LBL_CURRENCY_SIG_DIGITS' => '货币分隔符',
@@ -64,7 +61,7 @@ $mod_strings = array (
   'LBL_CUSTOM_CSV' => '自定义逗号分隔符文件',
   'LBL_CUSTOM_DELIMITED' => '自定义定界符文件',
   'LBL_CUSTOM_DELIMITER' => '字段定界符:',
-  'LBL_CUSTOM_ENCLOSURE' => '字段有效:',
+  'LBL_CUSTOM_ENCLOSURE' => '字段按审批：',
   'LBL_CUSTOM_NUM_1' => '运行应用程序，打开数据文件',
   'LBL_CUSTOM_NUM_2' => '选择<b>保存为...</b>或者<b>导出...</b>菜单选项',
   'LBL_CUSTOM_NUM_3' => '保存文件到一个<b>CSV</b>或者<b>逗号分隔符</b>的文件',
@@ -90,7 +87,7 @@ $mod_strings = array (
   'LBL_ERROR' => '错误:',
   'LBL_ERROR_DELETING_RECORD' => '删除记录错误:',
   'LBL_ERROR_HELP' => '这里是导入文件中一些行由于错误不能导入. 为了重新导入这下行, 下载列表做修改并点击 <b>重新导入</b>',
-  'LBL_ERROR_IMPORTS_NOT_SET_UP' => '这个类型的模块没有导入设置',
+  'LBL_ERROR_IMPORTS_NOT_SET_UP' => '这个模块类型没有导入设置',
   'LBL_ERROR_IMPORT_CACHE_NOT_WRITABLE' => '导入缓存目录不可写.',
   'LBL_ERROR_INVALID_ACCOUNT' => '无效账户名称或编号',
   'LBL_ERROR_INVALID_BOOL' => '无效的值 (有效范围1 或 0)',
@@ -112,10 +109,10 @@ $mod_strings = array (
   'LBL_ERROR_INVALID_VARCHAR' => '字符串过长',
   'LBL_ERROR_NOT_IN_ENUM' => '值不在下拉列表内. 允许的值是:',
   'LBL_ERROR_SELECTING_RECORD' => '选择记录错误:',
-  'LBL_ERROR_SYNC_USERS' => '同步 Outlook无效值',
+  'LBL_ERROR_SYNC_USERS' => '同步到邮件客户端的值无效',
   'LBL_ERROR_TAB' => '出错',
-  'LBL_ERROR_UNABLE_TO_PUBLISH' => '不能发布. 存在另一个同名的发布导入映射。',
-  'LBL_ERROR_UNABLE_TO_UNPUBLISH' => '不能由另一个用户取消一个发布的映射. 你有一个同名的导入映射。',
+  'LBL_ERROR_UNABLE_TO_PUBLISH' => '不能发布。存在另一个同名的发布导入映像。',
+  'LBL_ERROR_UNABLE_TO_UNPUBLISH' => '不能取消另一个用户拥有的映像。您拥有一个同名的导入映像。',
   'LBL_EXAMPLE_FILE' => '下载导入文件模版',
   'LBL_EXTERNAL_ASSIGNED_TOOLTIP' => '指派新的档案给除你之外的一个用户, 用默认值列选择一个不同用户.',
   'LBL_EXTERNAL_DEFAULT_TOOPLTIP' => '指出一个用于字符的值建立档案如果字符外部资源的字符不含数据.',
@@ -148,9 +145,9 @@ $mod_strings = array (
   'LBL_HIDE_NOTES' => '隐藏说明',
   'LBL_HIDE_PREVIEW_COLUMNS' => '隐藏预览列',
   'LBL_IDS_EXISTED_OR_LONGER' => '记录跳过，因为ID重复或是超过36个字符',
-  'LBL_ID_EXISTS_ALREADY' => '编号已经存在于此表',
+  'LBL_ID_EXISTS_ALREADY' => 'ID已存在于此表',
   'LBL_IMPORT_ACT_TITLE' => 'ACT! 系统可以导入<b>逗号分隔符</b>格式的数据. 要导出数据, 请按照以下步骤:',
-  'LBL_IMPORT_BUTTON' => '创建记录',
+  'LBL_IMPORT_BUTTON' => '只是创建新纪录',
   'LBL_IMPORT_COMPLETE' => '引进模板',
   'LBL_IMPORT_COMPLETED' => '导入完成',
   'LBL_IMPORT_CUSTOM_TITLE' => '大部分应用程序可以导出数据到一个<b>逗号分隔符的文件(.csv)</b>.大部分应用程序都是如此:',
@@ -196,7 +193,7 @@ $mod_strings = array (
   'LBL_IMPORT_SF_TITLE' => 'Salesforce.com可以将记录导出成逗号分隔格式，您可以将这个格式的记录导入本系统。要将Salesforce.com的记录导出，请参考下面步骤:',
   'LBL_IMPORT_STARTED' => '开始导入:',
   'LBL_IMPORT_TAB_TITLE' => '大部分应用程序可以到处数据到一个<b>制表符分隔符的文件(.tsv或者.tab)</b>。大部分应用程序都是如此:',
-  'LBL_IMPORT_TYPE' => '导入行为',
+  'LBL_IMPORT_TYPE' => '您要如何使用导入的数据？',
   'LBL_INDEX_NOT_USED' => '未使用的索引:',
   'LBL_INDEX_USED' => '已使用的索引:',
   'LBL_LAST_IMPORTED' => '上次导入',
@@ -216,7 +213,7 @@ $mod_strings = array (
   'LBL_MY_SAVED_ADMIN_HELP' => '使用该选项应用您预先设置的导入设置，包括导入属性，绘图，和其它重复的检查设置.<br><br>Click <b>Publish</b> 使绘图对于其他用户有效.<br>Click <b>Un-Publish</b> 使绘图对于其他用户无效.<br>Click <b>Delete</b> 为所有用户删除绘图.',
   'LBL_MY_SAVED_HELP' => '一个已保存的映射在导入文件中指定了一个过去使用的过的数据源到数据库的映射组合.<br/>单击发布使映射对其他用户可用.<br/>单击撤销发布是映射对其他用户不可用.',
   'LBL_NEXT' => '下一步 >',
-  'LBL_NOLOCALE_NEEDED' => '无需本地转换',
+  'LBL_NOLOCALE_NEEDED' => '无需区域转换',
   'LBL_NONE' => '无',
   'LBL_NOTES' => '备忘录:',
   'LBL_NOT_MULTIENUM' => '不是多选值',
@@ -226,7 +223,8 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => '现在选择要导入的文件:',
   'LBL_NO_DATECHECK' => '跳过数据检查(快速非容错)',
   'LBL_NO_EMAILS' => '导入时不要发送邮件通知',
-  'LBL_NO_ID' => '需要编号',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => '正在处理Bean中所有不支持的email地址。',
+  'LBL_NO_ID' => '需要ID',
   'LBL_NO_IMPORT_TO_UNDO' => '沒有导入的记录可以还原。',
   'LBL_NO_LINES' => '您导入的文件沒有任何记录',
   'LBL_NO_PRECHECK' => '原格式模式',
@@ -261,7 +259,7 @@ $mod_strings = array (
   'LBL_PUBLISH' => '公布',
   'LBL_PUBLISHED_SOURCES' => '公布的来源:',
   'LBL_RECORDS_SKIPPED' => '记录跳过，因为缺少必填字段',
-  'LBL_RECORDS_SKIPPED_DUE_TO_ERROR' => '由于错误跳过记录。',
+  'LBL_RECORDS_SKIPPED_DUE_TO_ERROR' => '错误被找到。查看由于错误没有导入的行的错误标签。',
   'LBL_RECORD_CANNOT_BE_UPDATED' => '由于权限问题，此记录不能被更新',
   'LBL_RELATED_ACCOUNTS' => '不要创建关联帐号',
   'LBL_REMOVE_ROW' => '移除字段',
@@ -304,8 +302,8 @@ $mod_strings = array (
   'LBL_STEP_1_TITLE' => '第一步:选择来源',
   'LBL_STEP_2_TITLE' => '第二步:上传导出的文件',
   'LBL_STEP_3_TITLE' => '第三步:确认字段与导入',
-  'LBL_STEP_4_TITLE' => 'Step 4: 导入文件',
-  'LBL_STEP_5_TITLE' => 'Step 5: 查看结果',
+  'LBL_STEP_4_TITLE' => '第{0}步：导入文件',
+  'LBL_STEP_5_TITLE' => '第{0}步：查看导入结果',
   'LBL_STEP_DUP_TITLE' => 'Step {0}: 检查有可能的重复',
   'LBL_STEP_MODULE' => '你想把数据导入哪个模块?',
   'LBL_STRICT_CHECKS' => '使用严格规则(同时检查邮件地址和电话)',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => '导入成功',
   'LBL_SUCCESSFULLY_IMPORTED' => '记录创建成功',
   'LBL_SUMMARY' => '总结',
+  'LBL_SYSTEM_SIG_DIGITS' => '系统重要数字',
   'LBL_TAB' => '制表符分隔符文件',
   'LBL_TAB_NUM_1' => '运行应用程序，打开数据文件',
   'LBL_TAB_NUM_2' => '选择<b>保存为...</b>或者<b>导出...</b>菜单选项',
@@ -327,8 +326,8 @@ $mod_strings = array (
   'LBL_UNDO_LAST_IMPORT' => '恢复上次导入',
   'LBL_UNIQUE_INDEX' => '选择索引进行重复比较',
   'LBL_UNPUBLISH' => '不公布',
-  'LBL_UPDATE_BUTTON' => '创建和更新记录',
-  'LBL_UPDATE_BUTTON_HELP' => '用此选项更新现有档案。导入文件里的数据将会在ID档案基础上与现有记录相符',
+  'LBL_UPDATE_BUTTON' => '创建新纪录和更新现有记录',
+  'LBL_UPDATE_BUTTON_HELP' => '用此选项更新现有档案。导入文件里的数据将按导入文件的纪录ID与现有记录匹配。',
   'LBL_UPDATE_RECORDS' => '更新已存在记录而不是导入他们(不能逆操作)',
   'LBL_UPDATE_SUCCESSFULLY' => '记录更新成功',
   'LBL_VALUE' => '值',

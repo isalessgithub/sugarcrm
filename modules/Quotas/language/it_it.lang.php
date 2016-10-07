@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Importo:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Importo Base Valuta',
   'LBL_ASSIGNED_TO_USER' => 'Assegnata all´utente',
   'LBL_COMMIT' => 'Conferma:',
   'LBL_COMMITTED' => 'Confermato',
   'LBL_COMMIT_STATUS' => 'Confermato',
+  'LBL_CREATED_BY' => 'Creato Da',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_RATE' => 'Tasso di Valuta',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Non hai assegnato un budget per questo periodo.',
   'LBL_CURRENT_USER_QUOTA' => 'Il budget assegnato per questo periodo è:',
+  'LBL_DIRECT' => 'Diretta',
   'LBL_DIRECT_REPORT' => 'Dipendenti diretti',
   'LBL_EDITLAYOUT' => 'Modifica Layout',
   'LBL_LAST_MODIFIED' => 'Ultima modifica',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Nessun budget inserito per i dipendenti diretti per questo periodo.',
   'LBL_QUOTA' => 'Budget:',
   'LBL_QUOTA_AMOUNT' => 'Budget Periodo',
+  'LBL_QUOTA_TYPE' => 'Tipo:',
+  'LBL_ROLLUP' => 'Ricalcola',
   'LBL_SELECT_TIME_PERIOD' => 'Selezionare il periodo...',
   'LBL_SELECT_USER' => 'Seleziona utente...',
   'LBL_TIMEPERIOD_ID' => 'Periodo',

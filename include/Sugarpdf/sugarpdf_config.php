@@ -1,25 +1,22 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-require_once('include/Sugarpdf/sugarpdf_default.php');
-if(file_exists('custom/include/Sugarpdf/sugarpdf_default.php')){
-    require_once('custom/include/Sugarpdf/sugarpdf_default.php');
+foreach(SugarAutoLoader::existingCustom('include/Sugarpdf/sugarpdf_default.php') as $file) {
+    require $file;
 }
 // set alternative config file
 if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
-    
+
     /*
      *  Installation path of TCPDF
      */
@@ -47,11 +44,11 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 
     /*
      * Custom path for images (use for loaded logos)
-     */ 
+     */
     define ("K_PATH_CUSTOM_IMAGES", $sugarpdf_default["K_PATH_CUSTOM_IMAGES"]);
     /*
      * Default path for images
-     */ 
+     */
     define ("K_PATH_IMAGES", $sugarpdf_default["K_PATH_IMAGES"]);
     /*
      * Blank image
@@ -62,9 +59,9 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
      * It can be either one of the following values (case insensitive)
      * or a custom format in the form of a two-element array containing
      * the width and the height (expressed in the unit given by unit).
-     * 4A0, 2A0, A0, A1, A2, A3, A4 (default), A5, A6, A7, A8, A9, A10, 
-     * B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, C0, C1, C2, C3, C4, 
-     * C5, C6, C7, C8, C9, C10, RA0, RA1, RA2, RA3, RA4, SRA0, SRA1, 
+     * 4A0, 2A0, A0, A1, A2, A3, A4 (default), A5, A6, A7, A8, A9, A10,
+     * B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, C0, C1, C2, C3, C4,
+     * C5, C6, C7, C8, C9, C10, RA0, RA1, RA2, RA3, RA4, SRA0, SRA1,
      * SRA2, SRA3, SRA4, LETTER, LEGAL, EXECUTIVE, FOLIO.
      */
     defineFromUserPreference ("PDF_PAGE_FORMAT", $sugarpdf_default["PDF_PAGE_FORMAT"]);
@@ -106,47 +103,47 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
      * header logo image width [mm]
      */
     defineFromConfig("PDF_SMALL_HEADER_LOGO_WIDTH", $sugarpdf_default["PDF_SMALL_HEADER_LOGO_WIDTH"]);
-    
+
     /**
      *  document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch]
      */
     defineFromConfig('PDF_UNIT', $sugarpdf_default["PDF_UNIT"]);
-    
+
     /**
      * header margin
      */
     defineFromUserPreference ('PDF_MARGIN_HEADER', $sugarpdf_default["PDF_MARGIN_HEADER"]);
-    
+
     /**
      * footer margin
      */
     defineFromUserPreference ('PDF_MARGIN_FOOTER', $sugarpdf_default["PDF_MARGIN_FOOTER"]);
-    
+
     /**
      * top margin
      */
     defineFromUserPreference ('PDF_MARGIN_TOP', $sugarpdf_default["PDF_MARGIN_TOP"]);
-    
+
     /**
      * bottom margin
      */
     defineFromUserPreference ('PDF_MARGIN_BOTTOM', $sugarpdf_default["PDF_MARGIN_BOTTOM"]);
-    
+
     /**
      * left margin
      */
     defineFromUserPreference ('PDF_MARGIN_LEFT', $sugarpdf_default["PDF_MARGIN_LEFT"]);
-    
+
     /**
      * right margin
      */
     defineFromUserPreference ('PDF_MARGIN_RIGHT', $sugarpdf_default["PDF_MARGIN_RIGHT"]);
-    
+
     /**
      * main font name
      */
     defineFromUserPreference ('PDF_FONT_NAME_MAIN', $sugarpdf_default["PDF_FONT_NAME_MAIN"]);
-    
+
     /**
      * main font size
      */
@@ -155,32 +152,32 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
      * data font name
      */
     defineFromUserPreference ('PDF_FONT_NAME_DATA', $sugarpdf_default["PDF_FONT_NAME_DATA"]);
-    
+
     /**
      * data font size
      */
     defineFromUserPreference ('PDF_FONT_SIZE_DATA', $sugarpdf_default["PDF_FONT_SIZE_DATA"]);
-    
+
     /**
      * Ratio used to scale the images
      */
     defineFromConfig('PDF_IMAGE_SCALE_RATIO', $sugarpdf_default["PDF_IMAGE_SCALE_RATIO"]);
-    
+
     /**
      * magnification factor for titles
      */
     defineFromConfig('HEAD_MAGNIFICATION', $sugarpdf_default["HEAD_MAGNIFICATION"]);
-    
+
     /**
      * height of cell repect font height
      */
     defineFromConfig('K_CELL_HEIGHT_RATIO', $sugarpdf_default["K_CELL_HEIGHT_RATIO"]);
-    
+
     /**
      * title magnification respect main font size
      */
     defineFromConfig('K_TITLE_MAGNIFICATION', $sugarpdf_default["K_TITLE_MAGNIFICATION"]);
-    
+
     /**
      * reduction factor for small font
      */
@@ -232,7 +229,7 @@ defineFromConfig("PDF_JPEG_QUALITY", $sugarpdf_default["PDF_JPEG_QUALITY"]);
 defineFromConfig("PDF_PDF_VERSION", $sugarpdf_default["PDF_PDF_VERSION"]);
 
 /**
- * Set document protection (available are: copy, print, modify, annot-forms. Seperate with a coma) 
+ * Set document protection (available are: copy, print, modify, annot-forms. Seperate with a coma)
  */
 defineFromConfig("PDF_PROTECTION", $sugarpdf_default["PDF_PROTECTION"]);
 
@@ -274,8 +271,7 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 function defineFromConfig($value, $default){
     $lowerValue = strtolower($value);
    require_once("modules/Administration/Administration.php");
-    $focus = new Administration();
-    $focus->retrieveSettings();
+    $focus = Administration::getSettings();
     if(isset($focus->settings["sugarpdf_".$lowerValue])){
         define($value, $focus->settings["sugarpdf_".$lowerValue]);
     }else{
@@ -290,7 +286,7 @@ function defineFromConfig($value, $default){
  * use the default value.
  * SUGARPDF_USE_FOCUS is use to load the preference of the none current user. To use
  * this constant you have to define a global variable $focus_user.
- * 
+ *
  * @param $value    settings to search
  * @param $default  default value
  */
@@ -315,5 +311,5 @@ function defineFromUserPreference($value, $default){
     }else{
         define($value, $default);
     }
-    
+
 }

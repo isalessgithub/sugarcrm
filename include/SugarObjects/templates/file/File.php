@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarObjects/templates/basic/Basic.php');
 require_once('include/upload_file.php');
@@ -23,8 +20,19 @@ class File extends Basic
 	public $file_url;
 	public $file_url_noimage;
 
-    function File(){
-		parent::Basic();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function File()
+    {
+        self::__construct();
+    }
+
+    public function __construct(){
+		parent::__construct();
 	}
 
 	/**
@@ -67,10 +75,26 @@ class File extends Basic
 		}
 		$this->file_url_noimage = $this->id;
 
-		if(!empty($this->status_id)) {
-	       $this->status = $app_list_strings['document_status_dom'][$this->status_id];
-	    }
-	}
+        // Handle getting the status if the source of the status id field has
+        // changed
+        if (!empty($this->status_id)) {
+            // Default value for the DLL source for this field
+            $ddl_source = 'document_status_dom';
+            if (isset($this->field_defs['status_id']['options'])) {
+                $ddl_source = $this->field_defs['status_id']['options'];
+            }
+
+            $this->status = $app_list_strings[$ddl_source][$this->status_id];
+        }
+    }
+
+    /**
+     * @see SugarBean::fill_in_additional_list_fields()
+     */
+    public function fill_in_additional_list_fields()
+    {
+        $this->name = $this->document_name;
+    }
 
 	/**
 	 * @see SugarBean::retrieve()

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
  /*********************************************************************************
 
  ********************************************************************************/
@@ -40,9 +37,12 @@ echo getClassicModuleTitle(
 if($current_user->is_admin){
 require_once('modules/Currencies/ListCurrency.php');
 
-$focus = new Currency();
+$focus = BeanFactory::getBean('Currencies');
 $lc = new ListCurrency();
 $lc->handleAdd();
+
+// Flag that tells the template whether to request a new metadata payload
+$refreshMetadata = !empty($lc->recordSaved);
 
 if(isset($_REQUEST['merge']) && $_REQUEST['merge'] == 'true'){
 	$isMerge = true;
@@ -52,13 +52,13 @@ if(isset($_REQUEST['domerge'])){
 	$currencies = $_REQUEST['mergecur'];
 	
 	
-	$opp = new Opportunity();
+	$opp = BeanFactory::getBean('Opportunities');
 	$opp->update_currency_id($currencies, $_REQUEST['mergeTo'] );
 	
-	$product = new ProductTemplate();
+	$product = BeanFactory::getBean('ProductTemplates');
 	$product->update_currency_id($currencies, $_REQUEST['mergeTo'] );
 
-	$quote = new Quote();
+	$quote = BeanFactory::getBean('Quotes');
 	$quote->update_currency_id($currencies, $_REQUEST['mergeTo'] );
 	foreach($currencies as $cur){
 		if($cur != $_REQUEST['mergeTo'])
@@ -100,8 +100,6 @@ $edit_botton = '<form name="EditView" method="POST" action="index.php" >';
 			$edit_botton .= '<input type="hidden" name="return_module" value="Currencies">';
 			$edit_botton .= '<input type="hidden" name="return_action" value="index">';
 			$edit_botton .= '<input type="hidden" name="return_id" value="">';
-		$edit_botton .= '<input title="'.$app_strings['LBL_SAVE_BUTTON_TITLE'].'" accessKey="'.$app_strings['LBL_SAVE_BUTTON_KEY'].'" class="button" onclick="this.form.edit.value=\'true\';this.form.action.value=\'index\';return check_form(\'EditView\');" type="submit" name="button" value="'.$app_strings['LBL_SAVE_BUTTON_LABEL'].'" > ';
-		$edit_botton .= '<input title="'.$app_strings['LBL_CANCEL_BUTTON_TITLE'].'" accessKey="'.$app_strings['LBL_CANCEL_BUTTON_KEY'].'" class="button" onclick="this.form.edit.value=\'false\';this.form.action.value=\'index\';" type="submit" name="button" value="'.$app_strings['LBL_CANCEL_BUTTON_LABEL'].'" > ';
 $header_text = '';
 if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){	
 		$header_text = "&nbsp;<a href='index.php?action=index&module=DynamicLayout&from_action=ListView&from_module=".$_REQUEST['module'] ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif',$mod_strings['LBL_EDIT_LAYOUT'])."</a>";
@@ -110,7 +108,6 @@ $ListView = new ListView();
 $ListView->initNewXTemplate( 'modules/Currencies/ListView.html',$mod_strings);
 $ListView->xTemplateAssign('PRETABLE', $pretable);
 $ListView->xTemplateAssign('POSTTABLE', '</form>');
-$ListView->xTemplateAssign("DELETE_INLINE_PNG",  SugarThemeRegistry::current()->getImage('delete_inline','align="absmiddle" border="0"', null,null,'.gif',$app_strings['LNK_DELETE']));
 //$ListView->setHeaderTitle($mod_strings['LBL_LIST_FORM_TITLE']. $header_text );
 $ListView->setHeaderText($merge_button);
 
@@ -124,7 +121,7 @@ if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($
 		$header_text = "&nbsp;<a href='index.php?action=index&module=DynamicLayout&from_action=EditView&from_module=".$_REQUEST['module'] ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'", null,null,'.gif',$mod_strings['LBL_EDIT_LAYOUT'])."</a>";
 }
 if ( empty($focus->id) ) {
-    echo get_form_header($app_strings['LBL_CREATE_BUTTON_LABEL'] . $header_text,$edit_botton , false); 
+    echo get_form_header($app_strings['LBL_CREATE_BUTTON_LABEL'] . ' Currency'. $header_text,$edit_botton , false);
 }
 else {
     echo get_form_header($app_strings['LBL_EDIT_BUTTON_LABEL']." &raquo; ".$focus->name . $header_text,$edit_botton , false); 
@@ -158,6 +155,7 @@ $sugar_smarty = new Sugar_Smarty();
 	//if (empty($focus->list_order)) $xtpl->assign('LIST_ORDER', count($focus->get_manufacturers(false,'All'))+1); 
 	//else $xtpl->assign('LIST_ORDER', $focus->list_order);
 	
+	$sugar_smarty->assign('REFRESHMETADATA', $refreshMetadata);
 	$sugar_smarty->display("modules/Currencies/EditView.tpl");
 	
 	$javascript = new javascript();
@@ -166,8 +164,10 @@ $sugar_smarty = new Sugar_Smarty();
 	$javascript->addAllFields('',array('iso4217'=>'iso4217'));
 	echo $javascript->getScript();
     echo("<script type='text/javascript'>addToValidateMoreThan('EditView','conversion_rate','float',true,'".$mod_strings['LBL_BELOW_MIN']."',0.000001);</script>");
-			}else{
-				echo 'Admin\'s Only';	
-			}
+}
+else
+{
+    echo $mod_strings['LBL_ADMIN_ONLY'];
+}
 
 ?>

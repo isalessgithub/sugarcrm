@@ -1,30 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /******** general UI Stuff ***********/
-
-
-
 require_once('modules/Campaigns/utils.php');
 
 
@@ -38,8 +24,8 @@ global $sugar_version, $sugar_config;
 
 /*************** GENERAL SETUP WORK **********/
 
-$focus = new Campaign();
-if(isset($_REQUEST['record'])) {
+$focus = BeanFactory::getBean('Campaigns');
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 }
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
@@ -56,7 +42,7 @@ $GLOBALS['log']->info("Campaign NewsLetter Wizard");
 if( (isset($_REQUEST['wizardtype'])  && $_REQUEST['wizardtype']==1)  ||  ($focus->campaign_type=='NewsLetter')){
     echo getClassicModuleTitle($mod_strings['LBL_MODULE_NAME'], array($mod_strings['LBL_NEWSLETTER WIZARD_TITLE'].$focus->name), true, false);
 }else{
-    echo getClassicModuleTitle($mod_strings['LBL_MODULE_NAME'], array($mod_strings['LBL_CAMPAIGN'].$focus->name), true, false);   
+    echo getClassicModuleTitle($mod_strings['LBL_MODULE_NAME'], array($mod_strings['LBL_CAMPAIGN'].$focus->name), true, false);
 }
 
 
@@ -76,14 +62,14 @@ $ss->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 require_once('include/QuickSearchDefaults.php');
 $qsd = QuickSearchDefaults::getQuickSearchDefaults();
 $qsd->setFormName('wizform');
-$sqs_objects = array('parent_name' => $qsd->getQSParent(), 
+$sqs_objects = array('parent_name' => $qsd->getQSParent(),
                     'assigned_user_name' => $qsd->getQSUser(),
                     //'prospect_list_name' => getProspectListQSObjects(),
                     'test_name' => getProspectListQSObjects('prospect_list_type_test', 'test_name','wiz_step3_test_name_id'),
                     'unsubscription_name' => getProspectListQSObjects('prospect_list_type_exempt', 'unsubscription_name','wiz_step3_unsubscription_name_id'),
                     'subscription_name' => getProspectListQSObjects('prospect_list_type_default', 'subscription_name','wiz_step3_subscription_name_id'),
                     );
-                    
+
 require_once('include/SugarFields/Fields/Teamset/SugarFieldTeamset.php');
 $teamSetField = new SugarFieldTeamset('Teamset');
 $teamSetField->initClassicView($focus->field_defs, 'wizform');
@@ -98,7 +84,7 @@ $ss->assign("JAVASCRIPT", $quicksearch_js);
 $campaign_type = 'newsletter';
 if( (isset($_REQUEST['wizardtype'])  && $_REQUEST['wizardtype']==1)  ||  ($focus->campaign_type=='NewsLetter')){
     $campaign_type = 'newsletter';
-    $ss->assign("CAMPAIGN_DIAGNOSTIC_LINK", diagnose());    
+    $ss->assign("CAMPAIGN_DIAGNOSTIC_LINK", diagnose());
 }elseif( (isset($_REQUEST['wizardtype'])  && $_REQUEST['wizardtype']==2)  || ($focus->campaign_type=='Email') ){
     $campaign_type = 'email';
     $ss->assign("CAMPAIGN_DIAGNOSTIC_LINK", diagnose());
@@ -128,6 +114,19 @@ $popup_request_data = array(
         ),
     );
 $ss->assign('encoded_team_popup_request_data', $json->encode($popup_request_data));
+
+if (!empty($focus->budget)) {
+    $focus->budget = SugarCurrency::formatAmountUserLocale($focus->budget, $focus->currency_id, false);
+}
+if (!empty($focus->actual_cost)) {
+    $focus->actual_cost = SugarCurrency::formatAmountUserLocale($focus->actual_cost, $focus->currency_id, false);
+}
+if (!empty($focus->expected_cost)) {
+    $focus->expected_cost = SugarCurrency::formatAmountUserLocale($focus->expected_cost, $focus->currency_id, false);
+}
+if (!empty($focus->expected_revenue)) {
+    $focus->expected_revenue = SugarCurrency::formatAmountUserLocale($focus->expected_revenue, $focus->currency_id, false);
+}
 
 //set default values
 $ss->assign("CALENDAR_LANG", "en");
@@ -192,7 +191,7 @@ else if($current_user->getPreference('currency') && !isset($focus->id))
 
 }
 global $current_user;
-if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){  
+if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){
     $record = '';
     if(!empty($_REQUEST['record'])){
         $record =   $_REQUEST['record'];
@@ -201,7 +200,7 @@ if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($
 
 }
 
-if (empty($focus->id) && !isset($_REQUEST['isDuplicate'])) {    
+if (empty($focus->id) && !isset($_REQUEST['isDuplicate'])) {
     $ss->assign("TEAM_OPTIONS", get_select_options_with_id(get_team_array(), $current_user->default_team));
     $ss->assign("TEAM_NAME", $current_user->default_team_name);
     $ss->assign("TEAM_ID", $current_user->default_team);
@@ -226,12 +225,12 @@ if($campaign_type == 'general'){
     $OptionsArr = $app_list_strings['campaign_type_dom'];
     foreach($OptionsArr as $key=>$val){
         if($val =='Newsletter' || $val =='Email' || $val =='' ){
-            //do not add   
+            //do not add
         }else{
             $myTypeOptionsArr[$key] = $val;
         }
     }
-    
+
     //now create select option html without the newsletter/email, or blank ('') options
     $type_option_html =' ';
     $selected = false;
@@ -253,16 +252,16 @@ if($campaign_type == 'general'){
                     $type_option_html .="<option value='$optionKey' >$optionName</option>";
                 }
             }else{
-            //since the campaign type is empty, then select first one                
-                $type_option_html .="<option value='$optionKey' selected>$optionName</option>";    
+            //since the campaign type is empty, then select first one
+                $type_option_html .="<option value='$optionKey' selected>$optionName</option>";
                 //mark as selected for next time
                 $selected=true;
             }
-        }    
+        }
     }
     //assign the modified dropdown for general campaign creation
     $ss->assign("CAMPAIGN_TYPE_OPTIONS", $type_option_html);
-    $ss->assign("SHOULD_TYPE_BE_DISABLED", "select");    
+    $ss->assign("SHOULD_TYPE_BE_DISABLED", "select");
 }elseif($campaign_type == 'email'){
     //Assign Email as type of campaign being created an disable the select widget
     $ss->assign("CAMPAIGN_TYPE_OPTIONS", $mod_strings['LBL_EMAIL']);
@@ -283,16 +282,15 @@ if($campaign_type == 'general'){
 $focus->load_relationship('tracked_urls');
 
 $trkr_lists = $focus->tracked_urls->get();
-$trkr_html ='';    
+$trkr_html ='';
 $ss->assign('TRACKER_COUNT',count($trkr_lists));
 if(count($trkr_lists)>0){
 global $odd_bg, $even_bg, $hilite_bg;
-    
+
     $trkr_count = 0;
 //create the html to create tracker table
     foreach($trkr_lists as $trkr_id){
-        $ct_focus = new CampaignTracker();
-        $ct_focus->retrieve($trkr_id);
+        $ct_focus = BeanFactory::getBean('CampaignTrackers', $trkr_id);
       if(isset($ct_focus->tracker_name) && !empty($ct_focus->tracker_name)){
             if($ct_focus->is_optout){$opt = 'checked';}else{$opt = '';}
             $trkr_html .= "<div id='existing_trkr".$trkr_count."'> <table width='100%' border='0' cellspacing='0' cellpadding='0'>" ;
@@ -307,7 +305,7 @@ global $odd_bg, $even_bg, $hilite_bg;
       }
       $trkr_count =$trkr_count+1;
     }
-    
+
     $trkr_html .= "<div id='no_trackers'></div>";
     }else{
         $trkr_html .= "<div id='no_trackers'><table width='100%' border='0' cellspacing='0' cellpadding='0'><tr class='evenListRowS1'><td>".$mod_strings['LBL_NONE']."</td></tr></table></div>";
@@ -325,12 +323,12 @@ global $odd_bg, $even_bg, $hilite_bg;
 /************** SUBSCRIPTION UI DIV Stuff ***************/
 //fill in popups for target list options
     $popup_request_data = array(
-        'call_back_function' => 'set_return', 
+        'call_back_function' => 'set_return',
         'form_name' => 'wizform',
         'field_to_name_array' => array(
             'id' => 'wiz_step3_subscription_name_id',
             'name' => 'wiz_step3_subscription_name',
-            
+
             ),
         );
 
@@ -339,12 +337,12 @@ $encoded_newsletter_popup_request_data = $json->encode($popup_request_data);
 $ss->assign('encoded_subscription_popup_request_data', $encoded_newsletter_popup_request_data);
 
     $popup_request_data = array(
-        'call_back_function' => 'set_return', 
+        'call_back_function' => 'set_return',
         'form_name' => 'wizform',
         'field_to_name_array' => array(
             'id' => 'wiz_step3_unsubscription_name_id',
             'name' => 'unsubscription_name',
-            
+
             ),
         );
 
@@ -358,7 +356,7 @@ $ss->assign('encoded_unsubscription_popup_request_data', $encoded_newsletter_pop
         'field_to_name_array' => array(
             'id' => 'wiz_step3_test_name_id',
             'name' => 'test_name',
-            
+
             ),
         );
 
@@ -368,13 +366,13 @@ $ss->assign('encoded_test_popup_request_data', $encoded_newsletter_popup_request
 
 
     $popup_request_data = array(
-        'call_back_function' => 'set_return_prospect_list', 
+        'call_back_function' => 'set_return_prospect_list',
         'form_name' => 'wizform',
         'field_to_name_array' => array(
             'id' => 'popup_target_list_id',
             'name' => 'popup_target_list_name',
             'list_type' => 'popup_target_list_type',
-            
+
             ),
         );
 
@@ -390,34 +388,33 @@ $focus->load_relationship('prospectlists');
 $prospect_lists = $focus->prospectlists->get();
 
 if((isset($_REQUEST['wizardtype']) && $_REQUEST['wizardtype'] ==1) || ($focus->campaign_type=='NewsLetter')){
- //this is a newsletter type campaign, fill in subscription values   
+ //this is a newsletter type campaign, fill in subscription values
 
 //if prospect lists are returned, then iterate through and populate form values
 if(count($prospect_lists)>0){
-    
+
     foreach($prospect_lists as $pl_id){
     //retrieve prospect list
-     $pl = new ProspectList();   
-     $pl->retrieve($pl_id);
+     $pl = BeanFactory::getBean('ProspectLists', $pl_id);
 
       if(isset($pl->list_type) && !empty($pl->list_type)){
          //assign values based on type
-         if(($pl->list_type == 'default') || ($pl->list_type == 'seed')){            
+         if(($pl->list_type == 'default') || ($pl->list_type == 'seed')){
             $ss->assign('SUBSCRIPTION_ID', $pl->id);
             $ss->assign('SUBSCRIPTION_NAME', $pl->name);
          };
          if($pl->list_type == 'exempt'){
             $ss->assign('UNSUBSCRIPTION_ID', $pl->id);
             $ss->assign('UNSUBSCRIPTION_NAME', $pl->name);
-         
+
          };
          if($pl->list_type == 'test'){
             $ss->assign('TEST_ID', $pl->id);
             $ss->assign('TEST_NAME', $pl->name);
-         
+
          };
       }
-     
+
     }
 }
 
@@ -430,15 +427,14 @@ if(count($prospect_lists)>0){
     foreach($app_list_strings['prospect_list_type_dom'] as $key=>$val){
         $dom_txt .="if(trgt_type_text =='$key'){trgt_type_text='$val';}";
     }
-    $ss->assign("PL_DOM_STMT", $dom_txt); 
+    $ss->assign("PL_DOM_STMT", $dom_txt);
     $trgt_count = 0;
     $trgt_html = ' ';
     if(count($prospect_lists)>0){
-        
+
         foreach($prospect_lists as $pl_id){
         //retrieve prospect list
-             $pl = new ProspectList();   
-             $pl_focus = $pl->retrieve($pl_id);
+             $pl_focus = BeanFactory::getBean('ProspectLists', $pl_id);
              $trgt_html .= "<div id='existing_trgt".$trgt_count."'> <table class='tabDetailViewDL2' width='100%'>" ;
              $trgt_html .= "<td width='25%'> <input id='existing_target_name". $trgt_count ."' type='hidden' type='text' size='60' maxlength='255' name='existing_target_name". $trgt_count ."'  value='". $pl_focus->name."' >". $pl_focus->name."</td>";
              $trgt_html .= "<td width='25%'><input type='hidden' size='60' maxlength='255' name='existing_tracker_list_type". $trgt_count ."'   id='existing_tracker_list_type". $trgt_count ."' value='".$pl_focus->list_type."' >".$app_list_strings['prospect_list_type_dom'][$pl_focus->list_type];
@@ -447,21 +443,21 @@ if(count($prospect_lists)>0){
              $trgt_html .= SugarThemeRegistry::current()->getImage('delete_inline', "border='0' align='absmiddle'", 12, 12, ".gif", $mod_strings['LBL_DELETE'])."</a></td></tr></table></div>";
 
 
-    
-          
+
+
           $trgt_count =$trgt_count +1;
         }
-        
+
         $trgt_html  .= "<div id='no_targets'></div>";
     }else{
         $trgt_html  .= "<div id='no_targets'><table width='100%' border='0' cellspacing='0' cellpadding='0'><tr class='evenListRowS1'><td>".$mod_strings['LBL_NONE']."</td></tr></table></div>";
-        
+
     }
     $ss->assign('EXISTING_TARGETS', $trgt_html );
 
 }
 
-    
+
 /**************************** WIZARD UI DIV Stuff *******************/
 $mrkt_string = $mod_strings['LBL_NAVIGATION_MENU_MARKETING'];
 if(!empty($focus->id)){
@@ -475,8 +471,8 @@ if(!empty($focus->id)){
         $summ_url = "<a  href='index.php?action=WizardHome&module=Campaigns";
         $summ_url .= "&return_id=".$focus->id."&record=".$focus->id;
         $summ_url .= "'> ". $mod_strings['LBL_NAVIGATION_MENU_SUMMARY']."</a>";
-    } 
-   
+    }
+
 
 
 $script_to_call ='';
@@ -485,15 +481,15 @@ $script_to_call ='';
         if(isset($_REQUEST['direct_step']) and !empty($_REQUEST['direct_step'])){
             $script_to_call .='   direct('.$_REQUEST['direct_step'].');';
         }
-    } 
+    }
     $ss->assign("HILITE_ALL", $script_to_call);
 
 
-//  this is the wizard control script that resides in page    
+//  this is the wizard control script that resides in page
  $divScript = <<<EOQ
 
  <script type="text/javascript" language="javascript">
-   
+
     /*
      * this is the custom validation script that will call the right validation for each div
      */
@@ -503,12 +499,12 @@ $script_to_call ='';
             if(!validate_step1()){return false;}
             break;
             case 'step2':
-            if(!validate_step2()){return false;} 
-            break;                  
-            default://no additional validation needed      
+            if(!validate_step2()){return false;}
+            break;
+            default://no additional validation needed
         }
         return true;
-    
+
     }
 
     showfirst('newsletter');
@@ -524,16 +520,16 @@ $sshtml = ' ';
 //Create the html to fill in the wizard steps
 
 if($campaign_type == 'general'){
-    $steps = create_campaign_steps();    
+    $steps = create_campaign_steps();
     $ss->assign('NAV_ITEMS',create_wiz_menu_items($steps,'campaign',$mrkt_string,$summ_url));
     $ss->assign('HIDE_CONTINUE','hidden');
 
 }elseif($campaign_type == 'email'){
-    $steps = create_email_steps();  
+    $steps = create_email_steps();
     $ss->assign('NAV_ITEMS',create_wiz_menu_items($steps,'email',$mrkt_string,$summ_url));
     $ss->assign('HIDE_CONTINUE','submit');
 }else{
-    $steps = create_newsletter_steps();  
+    $steps = create_newsletter_steps();
     $ss->assign('NAV_ITEMS',create_wiz_menu_items($steps,'newsletter',$mrkt_string,$summ_url));
     $ss->assign('HIDE_CONTINUE','submit');
 }
@@ -541,36 +537,39 @@ if($campaign_type == 'general'){
 $ss->assign('TOTAL_STEPS', count($steps));
 $sshtml = create_wiz_step_divs($steps,$ss);
 $ss->assign('STEPS',$sshtml);
-     	   	
+
 
 /**************************** FINAL END OF PAGE UI Stuff *******************/
+$ss->display(SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardNewsletter.tpl'));
 
-$ss->display(file_exists('custom/modules/Campaigns/tpls/WizardNewsletter.tpl') ? 'custom/modules/Campaigns/tpls/WizardNewsletter.tpl' : 'modules/Campaigns/tpls/WizardNewsletter.tpl');
-
+function create_common_wizard_steps()
+{
+    global $mod_strings;
+    $steps = array();
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardCampaignHeader.tpl');
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN2']]          = SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardCampaignBudget.tpl');
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_TRACKERS']]      = SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardCampaignTracker.tpl');
+    return $steps;
+}
 
 function create_newsletter_steps(){
     global $mod_strings;
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN2']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl' : 'modules/Campaigns/tpls/WizardCampaignBudget.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_TRACKERS']]      = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTracker.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTracker.tpl' : 'modules/Campaigns/tpls/WizardCampaignTracker.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_SUBSCRIPTIONS']] = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetList.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetList.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetList.tpl';
+    $steps = create_common_wizard_steps();
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_SUBSCRIPTIONS']] = SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardCampaignTargetList.tpl');
     return  $steps;
 }
 
 function create_campaign_steps(){
     global $mod_strings;
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN2']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl' : 'modules/Campaigns/tpls/WizardCampaignBudget.tpl';
-    $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
+    $steps = create_common_wizard_steps();
+    $steps[$mod_strings['LBL_TARGET_LISTS']]                   = SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl');
     return  $steps;
 }
 
 function create_email_steps(){
     global $mod_strings;
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN2']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl' : 'modules/Campaigns/tpls/WizardCampaignBudget.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_TRACKERS']]      = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTracker.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTracker.tpl' : 'modules/Campaigns/tpls/WizardCampaignTracker.tpl';
-    $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
+    $steps = create_common_wizard_steps();
+    $steps[$mod_strings['LBL_TARGET_LISTS']]                   = SugarAutoLoader::existingCustomOne('modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl');
     return  $steps;
 }
 
@@ -579,9 +578,9 @@ function create_wiz_step_divs($steps,$ss){
 //Assign the Teamset field
 require_once('include/SugarFields/Fields/Teamset/SugarFieldTeamset.php');
 $teamSetField = new SugarFieldTeamset('Teamset');
-$focus = new Campaign();
+$focus = BeanFactory::getBean('Campaigns');
 $code = $teamSetField->getClassicView($focus->field_defs, 'wizform');
-$ss->assign("TEAM_SET_FIELD", $code);   	
+$ss->assign("TEAM_SET_FIELD", $code);
     $step_html = '';
     if(isset($steps)  && !empty($steps)){
         $i=1;
@@ -590,11 +589,11 @@ $ss->assign("TEAM_SET_FIELD", $code);
             $step_html .= $ss->fetch($step);
             $step_html .="</div></p>";
             $i = $i+1;
-        }    
+        }
     }
     return $step_html;
 }
- 
+
 function create_wiz_menu_items($steps,$type,$mrkt_string,$summ_url){
     global $mod_strings;
     $nav_html = '<table border="0" cellspacing="0" cellpadding="0" width="100%" >';
@@ -610,14 +609,14 @@ function create_wiz_menu_items($steps,$type,$mrkt_string,$summ_url){
         $nav_html .= "<tr><td scope='row' nowrap><div id='nav_step'".($i+2).">".$mod_strings['LBL_NAVIGATION_MENU_SEND_EMAIL']."</div></li>";
         $nav_html .= "<tr><td scope='row' nowrap><div id='nav_step'".($i+3).">".$summ_url."</div></td></tr>";
     }else{
-     $nav_html .= "<tr><td scope='row' nowrap><div id='nav_step'".($i+1).">".$summ_url."</div></td></tr>";   
+     $nav_html .= "<tr><td scope='row' nowrap><div id='nav_step'".($i+1).">".$summ_url."</div></td></tr>";
     }
-       
+
     $nav_html .= '</table>';
-  
+
     return $nav_html;
 }
-    
+
 
 
 ?>

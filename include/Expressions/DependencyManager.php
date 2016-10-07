@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Dependency.php");
 require_once("include/Expressions/Trigger.php");
 require_once("include/Expressions/Expression/Parser/Parser.php");
@@ -24,6 +21,15 @@ require_once("include/Expressions/Actions/ActionFactory.php");
 class DependencyManager
 {
     static $default_trigger = "true";
+    static $editable_views = array(
+        "RecordView",
+        "EditView",
+        "CreateView",
+        "RecordlistView",
+        "ListView",
+        "Subpanel-listView",
+        "Create-actionsView",
+    );
 
     /**
      * Returns a new Dependency that will power the provided calculated field.
@@ -55,16 +61,17 @@ class DependencyManager
                     //Check for the string "false"
                     (!is_string($def['enforced']) || strtolower($def['enforced']) !== "false")
                 ) {
-                    $dep->setFireOnLoad(true);
                     if ($includeReadOnly) {
                         $readOnlyDep = new Dependency("readOnly$field");
                         $readOnlyDep->setFireOnLoad(true);
-                        $readOnlyDep->setTrigger(new Trigger('true', array()));
+                        $readOnlyDep->setTrigger(new Trigger('true', $triggerFields));
                         $readOnlyDep->addAction(ActionFactory::getNewAction('ReadOnly',
                             array('target' => $field,
                                 'value' => 'true')));
 
                         $ro_deps[] = $readOnlyDep;
+                    } else {
+                        $dep->setFireOnLoad(true);
                     }
                 }
                 $deps[$field] = $dep;
@@ -198,12 +205,21 @@ class DependencyManager
         global $app_list_strings;
 
         foreach ($fields as $field => $def) {
-            if ($def['type'] == "enum" && !empty ($def ['visibility_grid'])) {
+            if (isset($def['type'])
+                &&  in_array($def['type'], array("enum", "multienum"))
+                && !empty ($def ['visibility_grid'])
+            ) {
                 $grid = $def ['visibility_grid'];
-                if (!isset($grid['values']) || !isset($fields[$grid['trigger']]))
+                if (!isset($grid['values']) || !isset($fields[$grid['trigger']]) || empty($fields[$grid ['trigger']]['options']))
                     continue;
 
                 $trigger_list_id = $fields[$grid ['trigger']]['options'];
+                if (!isset($app_list_strings[$trigger_list_id]) || !is_array($app_list_strings[$trigger_list_id]) ||
+                    !isset($app_list_strings[$def['options']]) || !is_array($app_list_strings[$def['options']])
+                ) {
+                    continue;
+                }
+
                 $trigger_values = $app_list_strings[$trigger_list_id];
 
                 $options = $app_list_strings[$def['options']];
@@ -211,23 +227,18 @@ class DependencyManager
                 foreach ($trigger_values as $label_key => $label) {
                     if (!empty($grid['values'][$label_key])) {
                         $key_list = array();
-                        foreach ($grid['values'][$label_key] as $label_key) {
-                            if (isset($options[$label_key])) {
-                                $key_list[$label_key] = $label_key;
+                        foreach ($grid['values'][$label_key] as $key => $value) {
+                            if (isset($options[$value])) {
+                                $key_list[] = $value;
                             }
                         }
-                        $result_keys[] = 'enum("' . implode('","', $key_list) . '")';
+                        $result_keys[] = 'enum("' . $label_key . '", enum("' . implode('","', $key_list) . '"))';
                     } else {
-                        $result_keys[] = 'enum("")';
+                        $result_keys[] = 'enum("' . $label_key . '", enum(""))';
                     }
                 }
 
-                $keys = 'enum(' . implode(',', $result_keys) . ')';
-                //If the trigger key doesn't appear in the child list, hide the child field.
-                $keys_expression = 'cond(equal(indexOf($' . $grid ['trigger']
-                    . ', getDD("' . $trigger_list_id . '")), -1), enum(""), '
-                    . 'valueAt(indexOf($' . $grid ['trigger']
-                    . ',getDD("' . $trigger_list_id . '")),' . $keys . '))';
+                $keys_expression = 'getListWhere($' . $grid ['trigger'] . ', enum(' . implode(',', $result_keys) . '))';
                 //Have SetOptionsAction pull from the javascript language files.
                 $labels_expression = '"' . $def['options'] . '"';
                 $dep = new Dependency ($field . "DDD");
@@ -278,24 +289,35 @@ class DependencyManager
     {
         global $currentModule;
 
-        if (empty($module))
+        if (empty($module)) {
             $module = $currentModule;
+        }
 
         $deps = array();
         if (isset($viewdef['templateMeta']) && !empty($viewdef['templateMeta']['panelDependencies'])) {
-            foreach (($viewdef['templateMeta']['panelDependencies']) as $id => $expr)
-            {
-                $deps[] = self::getPanelDependency(strtoupper($id), $expr);
+            foreach (($viewdef['templateMeta']['panelDependencies']) as $id => $expr) {
+                $deps[] = static::getPanelDependency(strtoupper($id), $expr);
             }
         }
-        if ($view == "EditView" || strpos($view, "QuickCreate") !== false) {
-            $deps = array_merge($deps, self::getModuleDependenciesForAction($module, 'edit', $view));
+
+        //Sidecar metadata panel dependencies
+        if (isset($viewdef['panels']) && is_array($viewdef['panels'])) {
+            foreach ($viewdef['panels'] as $panelDef) {
+                if (!empty($panelDef['dependency']) && !empty($panelDef['name'])) {
+                    $deps[] = static::getPanelDependency($panelDef['name'], $panelDef['dependency']);
+                }
+            }
         }
-        else
-        {
-            $deps = array_merge($deps, self::getModuleDependenciesForAction($module, 'view', $view));
+
+        $type = 'view';
+
+        if (in_array($view, self::$editable_views)
+            || strpos($view, "Subpanel-for-") !== false     // custom subpanels
+            || strpos($view, "QuickCreate") !== false) {
+            $type = 'edit';
         }
-        return $deps;
+
+        return array_merge($deps, static::getModuleDependenciesForAction($module, $type, $view));
     }
 
     /**
@@ -317,6 +339,10 @@ class DependencyManager
             if (!is_array($hooks))
                 $hooks = array($hooks);
             if (in_array('all', $hooks) || in_array($action, $hooks)) {
+                self::filterActionDefinitionsForView($def, $action);
+                if (empty($def['actions']) && empty($def['notActions'])) {
+                    continue; // Skip if no actions left after filtering
+                }
                 $triggerExp = empty($def['trigger']) ? self::$default_trigger : $def['trigger'];
                 $triggerFields = empty($def['triggerFields']) ?
                     Parser::getFieldsFromExpression($triggerExp) :
@@ -342,6 +368,48 @@ class DependencyManager
         return $deps;
     }
 
+    /**
+     * Update $def with allowed actions/notActions
+     *
+     * @param array $def View definitions
+     * @param String $action name of the action ("edit", "view", "save", ...)
+     */
+    protected static function filterActionDefinitionsForView(&$def, $action)
+    {
+        if (!empty($def['actions']))
+        {
+            $def['actions'] = self::filterActionsForView($def['actions'], $action);
+        }
+        if (!empty($def['notActions']))
+        {
+            $def['notActions'] = self::filterActionsForView($def['notActions'], $action);
+        }
+    }
+
+    /**
+     * Filter Expression Actions for given action
+     *
+     * @param array $expressionActions Array of Expression Actions to be filtered
+     * @param String $action name of the action ("edit", "view", "save", ...)
+     *
+     * @return array Allowed Expression Actions for given action
+     */
+    protected static function filterActionsForView($expressionActions, $action)
+    {
+        $allowedActions = array();
+
+        foreach ($expressionActions as $expressionAction)
+        {
+            $tempAction = ActionFactory::getNewAction($expressionAction['name'], $expressionAction['params']);
+            if (!empty($tempAction) && $tempAction->isActionAllowed($action))
+            {
+                $allowedActions[] = $expressionAction;
+            }
+        }
+
+        return $allowedActions;
+    }
+
     private static function getModuleDependencyMetadata($module)
     {
         /* //Disable caching for now
@@ -354,15 +422,13 @@ class DependencyManager
         else {
         */
         $dependencies = array($module => array());
-        $location = "modules/$module/metadata/dependencydefs.php";
-        foreach (array(
-                     $location,
-                     "custom/{$location}",
-                     "custom/modules/{$module}/Ext/Dependencies/deps.ext.php") as $loc)
+        foreach (SugarAutoLoader::existingCustom("modules/$module/metadata/dependencydefs.php") as $loc)
         {
-            if (is_file($loc)) {
-                include $loc;
-            }
+            require $loc;
+        }
+        $defs = SugarAutoLoader::loadExtension("dependencies", $module);
+        if($defs) {
+            require $defs;
         }
         /*  //More disabled cache code
             $out = "<?php\n // created: " . date('Y-m-d H:i:s') . "\n"
@@ -419,7 +485,7 @@ class DependencyManager
         $links = array();
         foreach ($fields as $name => $def)
         {
-            if ($def['type'] == 'link' && self::validLinkField($def)) {
+            if (isset($def['type']) && $def['type'] == 'link' && self::validLinkField($def)) {
                 $links[$name] = array('relationship' => $def['relationship']);
                 if (!empty($def['module']))
                     $links[$name]['module'] = $def['module'];
@@ -428,7 +494,7 @@ class DependencyManager
         //Now attempt to map the relate field to the link
         foreach ($fields as $name => $def)
         {
-            if ($def['type'] == 'relate' && !empty($def['link']) && isset($links[$def['link']]) && !empty($def['id_name'])) {
+            if (isset($def['type']) && $def['type'] == 'relate' && !empty($def['link']) && isset($links[$def['link']]) && !empty($def['id_name'])) {
                 $links[$def['link']]['id_name'] = $def['id_name'];
                 if (empty($links[$def['link']]['module']) && !empty($def['module']))
                     $links[$def['link']]['module'] = $def['module'];
@@ -464,5 +530,14 @@ class DependencyManager
         //Otherwise this link looks ok
         return true;
     }
+
+    /**
+     * Used to mark a view as editable for the purpose of SugarLogic Dependencies
+     * Should be called before metadata is built. (getDependenciesForView is called)
+     * @param String $view name of view to register as editable when building dependency metadata
+     */
+    public static function registerEditableView(String $view)
+    {
+        self::$editable_views[] = $view;
+    }
 }
-?>

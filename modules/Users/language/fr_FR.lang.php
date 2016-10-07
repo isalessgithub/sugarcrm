@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numéro d&#39;enregistrement doit être spécifié pour toute suppression.',
@@ -100,8 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Créé par',
   'LBL_CURRENCY' => 'Devise par défaut',
   'LBL_CURRENCY_EXAMPLE' => 'Exemple d&#39;affichage de la devise',
-  'LBL_CURRENCY_SHOW_PREFERRED' => 'Préférence d&#39;affichage pour les devises',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Convertie les montants dans la devise de l&#39;utilisateur sur les vues liste et enregistrement',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Préférences de devises',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Convertir les montants dans la devise préférée de l&#39;utilisateur sur les vues liste et enregistrement',
   'LBL_CURRENCY_SIG_DIGITS' => 'Précision des décimaux',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Nombre de décimaux de la devise',
   'LBL_CURRENCY_TEXT' => 'Sélectionnez la devise qui sera affichée par défaut lorsque vous allez créer de nouveaux enregistrements. Cette devise sera également utilisée pour afficher les montants des listes d&#39;Affaires.',
@@ -111,7 +108,7 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Date de modification',
   'LBL_DECIMAL_SEP' => 'Symbole décimal',
   'LBL_DECIMAL_SEP_TEXT' => 'Caractère utilisé pour la partie décimale',
-  'LBL_DEFAULT_PRIMARY_TEAM' => 'Equipe principale par défaut',
+  'LBL_DEFAULT_PRIMARY_TEAM' => 'Equipe principale',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Utilisateurs',
   'LBL_DEFAULT_TEAM' => 'Equipes par défaut',
   'LBL_DEFAULT_TEAM_TEXT' => 'Les équipes définis ici seront associées par défaut sur tous les enregistrement créés',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Premier jour de la semaine',
   'LBL_FDOW_TEXT' => 'Premier jour affiché dans les vues Semaine, Mois et Année',
+  'LBL_FILTER_USERS_REPORTS' => 'Rapports Utilisateurs',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Recherche les variables optimales de connexion.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Rechercher la configuration optimale',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forcer les paramètres négatifs',
   'LBL_FORCE_DESC' => 'Certains serveurs IMAP/POP3 nécessites des paramètres spécifiques. Cochez pour forcer un paramètre négatif lors de la connexion (i.e. /notls)',
   'LBL_FORECASTS' => 'Prévisions',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Le rappel de mot de passe n&#39;est pas activé. Veuillez contacter l&#39;administrateur de votre application.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>paramètres optimaux trouvés. Cliquer sur le bouton suivant pour les appliquer à votre boîte mail.',
   'LBL_GENERATE_PASSWORD' => 'Réinitialiser le Mot de passe',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Equipes',
   'LBL_NAME' => 'Nom complet',
   'LBL_NAVIGATION_PARADIGM' => 'Navigation (N)',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => '"Modules groupés" permet d&#39;utiliser les onglets et sous-onglets dans la Navigation.<br><br>"Module" permet d&#39;utiliser les Modules comme base de Navigation.',
   'LBL_NEW_FORM_TITLE' => 'Nouvel Utilisateur',
   'LBL_NEW_PASSWORD' => 'Nouveau mot de passe',
   'LBL_NEW_PASSWORD1' => 'Mot de Passe',
@@ -430,7 +428,7 @@ $mod_strings = array (
   'LBL_REGULAR_USER' => 'Utilisateur normal',
   'LBL_REMINDER' => 'Rappel par défaut',
   'LBL_REMINDER_EMAIL' => 'Email',
-  'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Envoyer des emails à tout les participants',
+  'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Envoyer rappel emails aux participants',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TEXT' => 'Délai par défaut avant rappel à une personne d&#39;un appel ou d&#39;une réunion approchant',
   'LBL_REMOVED_TABS' => 'Onglet(s) caché(s)',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Rend compte à',
   'LBL_REQUEST_SUBMIT' => 'Votre requête a été transmise.',
   'LBL_RESET_DASHBOARD' => 'Réinitialisation des dashboards',
-  'LBL_RESET_HOMEPAGE' => 'Réinitialisation de la page d&#39;accueil',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Etes-vous sûr(e) de vouloir réinitialiser votre Page d&#39;Accueil ?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Etes-vous sûr(e) de vouloir réinitialiser la Page d&#39;Accueil de cet utilisateur?',
   'LBL_RESET_PREFERENCES' => 'Réinitialisation des préférences',
   'LBL_RESET_PREFERENCES_WARNING' => 'Etes-vous sûr(e) de vouloir réinitialiser toutes vos préférences ?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Etes-vous sûr(e) de vouloir réinitialiser toutes les préférences pour cet utilisateur?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Statut',
   'LBL_SUBPANEL_LINKS' => 'Sous-panels sous forme de liens (L)',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Dans les Vues "Détails", afficher une ligne de raccourcis vers chaque sous-panel.',
-  'LBL_SUBPANEL_TABS' => 'Sous-panels sous forme d&#39;onglets (O)',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Dans les Vues "Détails", regrouper les sous-panels sous forme d&#39;onglets et afficher un onglet à la fois.<br>Option inactive si la case (L) est cochée.',
   'LBL_SUGAR_LOGIN' => 'Utilisateur SugarCRM',
   'LBL_SUPPORTED_THEME_ONLY' => '<br>Effectif seulement sur les thèmes supportant cette option.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Afficher la barre des "Dernières consultations" sur le côté gauche. Si cette case n&#39;est pas cochée la barre des "Dernières consultations" est placée en haut.',
@@ -485,11 +478,13 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Afficher la barre des "Raccourcis" en haut si cochée. Si cette case n&#39;est pas cochée la barre des "Raccourcis" est placée sur le côté.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Raccourcis en haut',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Mot de passe généré par le système',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Nombre de chiffres significatifs',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Nombre de décimales à afficher pour les chiffres dans l&#39;application, comme pour l&#39;affichage des devises ou des calculs dans les rapports.',
   'LBL_TAB_TITLE_EMAIL' => 'Configuration Envois en Masse',
   'LBL_TAB_TITLE_USER' => 'Paramètres Utilisateur',
   'LBL_TEAMS' => 'Equipes',
   'LBL_TEAM_MEMBERSHIP' => 'Membre équipe',
-  'LBL_TEAM_SET' => 'Groupement d$#39;équipes',
+  'LBL_TEAM_SET' => 'Groupement équipes',
   'LBL_TEAM_UPLINE' => 'Membre par relation',
   'LBL_TEAM_UPLINE_EXPLICIT' => 'Membre',
   'LBL_TEST_BUTTON_KEY' => 't',

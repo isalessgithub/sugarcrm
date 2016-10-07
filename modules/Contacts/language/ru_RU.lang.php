@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вы должны указать номер записи перед удалением контакта.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Адресная информация',
   'LBL_ADD_BUSINESSCARD' => 'Добавить визитную карточку',
   'LBL_ALTERNATE_ADDRESS' => 'Дополнительный адрес:',
-  'LBL_ALT_ADDRESS' => 'Дополнительный адрес:',
   'LBL_ALT_ADDRESS_CITY' => 'Альтернативный адрес - город:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Альтернативный адрес - страна:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Альтернативный адрес - индекс:',
@@ -77,6 +73,10 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Описание:',
   'LBL_DESCRIPTION_INFORMATION' => 'Описание',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Подчинённые:',
+  'LBL_DNB_BAL_PREVIEW' => 'Предварительный просмотр контактов',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Контакты',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Контактная информация',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Основной Id',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Документы',
   'LBL_DO_NOT_CALL' => 'Не звонить:',
   'LBL_DUPLICATE' => 'Возможно продублированный контакт',
@@ -92,21 +92,44 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Изменено (ID)',
   'LBL_EXPORT_PHONE_HOME' => 'Домашний тел.',
   'LBL_EXPORT_PHONE_MOBILE' => 'Мобильный тел.',
+  'LBL_FACEBOOK' => 'Аккаунт на Facebook',
   'LBL_FAX_PHONE' => 'Факс:',
+  'LBL_FILENAME' => 'Вложение',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Отчёты по контактам',
   'LBL_FIRST_NAME' => 'Имя',
   'LBL_FULL_NAME' => 'Полное имя:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} модуль содержит контакты, с которыми взаимодействует ваша организация.
+
+Чтобы создать {{module_name}}:
+1. Укажите значения полей.
+ - Поля с пометкой "Обязательно" должны быть заполнены перед сохранением.
+ - Нажмите "Показать больше", чтобы отобразить дополнительные поля при необходимости.
+2. Нажмите "Сохранить" для сохранения новой записи и возвращения на предыдущую страницу.
+ - Выберите "Сохранить и просмотреть", чтобы открыть новый  {{module_name}} в режиме просмотра записи. 
+ - Выберите "Сохранить и создать", чтобы сразу создать новый {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} модуль содержит контакты, с которыми взаимодействует ваша организация.
+
+- Чтобы редактировать поля данной записи, нажмите на самом поле или кликните на кнопку Редактировать.
+- Чтобы просмотреть или изменить ссылки, ведущие к другим записям, на субпанеле переключите левую нижнюю панель на "Просмотр данных".
+- Чтобы оставлять и просматривать пользовательские комментарии, а также изменять историю в рамках одной записи в {{activitystream_singular_module}}, переключите левую нижнюю панель на "Лента активностей". 
+- Чтобы подписаться или добавить в Избранное данную запись, используйте иконки справа от записи.
+- Дополнительные действия доступны в выпадающем меню Действий справа от кнопки Редактировать.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} модуль содержит контакты, с которыми взаимодействует ваша организация. {{module_name}} записи связаны с {{accounts_singular_module}} записью, и множественные {{plural_module_name}} могут быть соотнесены с единичным {{accounts_singular_module}}. Существует множество способов как Вы можете создать {{plural_module_name}} в Sugar, используя {{plural_module_name}} модуль, импорт {{plural_module_name}}, конвертацию {{leads_module}} в {{plural_module_name}}, и т.д. Как только {{module_name}} запись создана, вы можете просмотреть и редактировать информацию, касающуюся {{module_name}} в {{plural_module_name}} режиме просмотра записи. Каждая {{module_name}} запись может быть связана с другими записями Sugar, такими как {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, и многими другими, делая {{module_name}} из записи узел для просмотра и продолжения взаимодействий с контактом.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_HOMEPAGE_TITLE' => 'Мои контакты',
   'LBL_HOME_PHONE' => 'Домашний тел.:',
   'LBL_ID' => 'Код:',
   'LBL_IMPORT_VCARD' => 'Импортирование vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Автоматическое создание нового контакта при импортировании файла vCard.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Контакт из vCard создан успешно',
   'LBL_INVALID_EMAIL' => 'Неверный электронный адрес:',
   'LBL_INVITEE' => 'Подчинённые',
   'LBL_LANG_PREF_TOOLTIP' => 'Пользовательский интерфейс Портала Поддержки отображается на языке, выбранном здесь.',
   'LBL_LAST_NAME' => 'Фамилия:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Предварительные контакты',
   'LBL_LEAD_SOURCE' => 'Источник предварительного контакта:',
+  'LBL_LINKEDIN' => 'Участник аккаунта на Linkedin',
   'LBL_LIST_ACCEPT_STATUS' => 'Подтверждение',
   'LBL_LIST_ACCOUNT_NAME' => 'Контрагент',
   'LBL_LIST_CITY' => 'Город',
@@ -121,6 +144,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Рабочий тел.',
   'LBL_LIST_STATE' => 'Область',
   'LBL_LIST_TITLE' => 'Должность',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Score',
+  'LBL_MKTO_SYNC' => 'Синхронизироваться с Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Мобильный тел.:',
   'LBL_MODIFIED' => 'Изменено:',
   'LBL_MODULE_NAME' => 'Контакты',
@@ -129,6 +155,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Имя:',
   'LBL_NEW_FORM_TITLE' => 'Новый контакт',
   'LBL_NEW_PORTAL_PASSWORD' => 'Новый пароль для портала',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Заметки',
   'LBL_NOTE_SUBJECT' => 'Тема заметки',
   'LBL_OFFICE_PHONE' => 'Рабочий тел.:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Старый пароль к Порталу',
@@ -139,6 +166,7 @@ $mod_strings = array (
   'LBL_OPP_NAME' => 'Сделка:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Дополнительный электронный адрес:',
   'LBL_OTHER_PHONE' => 'Дополнительный тел.:',
+  'LBL_PARENT_ID' => 'ID изначальной записи',
   'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Изменение пароля',
   'LBL_PHONE' => 'Телефон:',
   'LBL_PHONE_FAX' => 'Тел. (факс):',
@@ -152,6 +180,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Название портала:',
   'LBL_PORTAL_PASSWORD' => 'Пароль для портала',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Пароль для портала установлен:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Нажмите здесь для редактирования вашего профиля',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'В профиле вы можете управлять вашей контактной информацией, паролем и языковыми предпочтениями',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Здесь вы можете установить предпочитаемый язык. Изменится язык, используемый Порталом Sugar.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Вы можете вернуться в ваш профиль в любое время, используя меню пользователя',
   'LBL_POSTAL_CODE' => 'Индекс:',
   'LBL_PRIMARY_ADDRESS' => 'Основной адрес:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Основной адрес - город:',
@@ -161,19 +193,21 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET' => 'Основной адрес - улица:',
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Основной адрес - улица 2:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Основной адрес - улица 3:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты',
-  'LBL_PRODUCTS_TITLE' => 'Продукты',
-  'LBL_PROJECTS_RESOURCES' => 'Ресурсы проекта',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты коммерческого предложения',
+  'LBL_PRODUCTS_TITLE' => 'Продукты коммерческого предложения',
+  'LBL_PROJECTS_RESOURCES' => 'Ресурсы Проектов',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Проекты',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Проекты',
   'LBL_PROSPECT_LIST' => 'Список потенциальных клиентов',
   'LBL_QUOTES_BILL_TO' => 'Коммерческие предложения: Юридический адрес',
   'LBL_QUOTES_SHIP_TO' => 'Коммерческие предложения: Фактический адрес',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Коммерческие предложения',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Вы успешно создали {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Связанные контакты',
   'LBL_REPORTS_TO' => 'Руководитель:',
   'LBL_REPORTS_TO_ID' => 'Руководитель:',
   'LBL_RESOURCE_NAME' => 'Название ресурса',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Доход по продуктам',
   'LBL_SALUTATION' => 'Приветствие:',
   'LBL_SAVE_CONTACT' => 'Сохранить контакт',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск контактов',
@@ -185,12 +219,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Адресат маркетинговой кампании:',
   'LBL_TEAM_ID' => 'Команда:',
   'LBL_TITLE' => 'Должность',
+  'LBL_TWITTER' => 'Twitter ID',
   'LBL_USER_PASSWORD' => 'Пароль:',
   'LBL_USER_SYNC' => 'Синхронизация пользователя',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Обзор контакта',
   'LNK_CONTACT_LIST' => 'Просмотр контактов',
   'LNK_CONTACT_REPORTS' => 'Просмотреть отчеты по контакту',
+  'LNK_CREATE' => 'Создать контакт',
   'LNK_IMPORT_CONTACTS' => 'Импорт контактов',
   'LNK_IMPORT_VCARD' => 'Новый контакт из vCard',
   'LNK_NEW_ACCOUNT' => 'Новый контрагент',
@@ -212,6 +248,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Для создания сделки необходим контрагент.\\n Пожалуйста, или создайте новый контрагент или выберите один из уже существующих.',
   'NTC_REMOVE_CONFIRMATION' => 'Вы действительно хотите удалить этот контакт из данного обращения?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Вы уверены, что хотите удалить эту запись из подчинённых?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

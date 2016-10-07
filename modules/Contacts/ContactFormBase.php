@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Base form for contact
@@ -40,6 +37,7 @@ var $objectName = 'Contact';
  */
 public function getDuplicateQuery($focus, $prefix='')
 {
+
 	$query = 'SELECT contacts.id, contacts.first_name, contacts.last_name, contacts.title FROM contacts ';
 
     // Bug #46427 : Records from other Teams shown on Potential Duplicate Contacts screen during Lead Conversion
@@ -50,6 +48,7 @@ public function getDuplicateQuery($focus, $prefix='')
     }
 
     $query .= ' where contacts.deleted = 0 AND ';
+
 	if(isset($_POST[$prefix.'first_name']) && strlen($_POST[$prefix.'first_name']) != 0 && isset($_POST[$prefix.'last_name']) && strlen($_POST[$prefix.'last_name']) != 0){
 		$query .= " contacts.first_name LIKE '". $_POST[$prefix.'first_name'] . "%' AND contacts.last_name = '". $_POST[$prefix.'last_name'] ."'";
 	} else {
@@ -101,7 +100,7 @@ function getWideFormBody($prefix, $mod='',$formname='',  $contact = '', $portal 
 	}
 
 	//Retrieve Email address and set email1, email2
-	$sugarEmailAddress = new SugarEmailAddress();
+	$sugarEmailAddress = BeanFactory::getBean('EmailAddresses');
 	$sugarEmailAddress->handleLegacyRetrieve($contact);
   	if(!isset($contact->email1)){
     	$contact->email1 = '';
@@ -404,11 +403,14 @@ return $the_form;
 
 }
 
-
+/**
+ * @deprecated
+ */
 function handleSave($prefix, $redirect=true, $useRequired=false){
-	global $theme, $current_user;
+    global $log;
+    $log->deprecated('This function handleSave() is no longer supported.');
 
-
+    global $theme, $current_user;
 
 
 	require_once('include/formbase.php');
@@ -427,9 +429,24 @@ function handleSave($prefix, $redirect=true, $useRequired=false){
 	} else {
 
         $focus = populateFromPost($prefix, $focus);
-        if( isset($_POST[$prefix.'old_portal_password']) && !empty($focus->portal_password) && $focus->portal_password != $_POST[$prefix.'old_portal_password']){
-            $focus->portal_password = User::getPasswordHash($focus->portal_password);
+        $oldPassword = null;
+
+        if (isset($focus->id)) {
+            $contact = BeanFactory::getBean('Contacts', $focus->id);
+            $oldPassword = $contact->portal_password;
         }
+
+        // update password
+        if (!empty($focus->portal_password) && $focus->portal_password != $oldPassword && $focus->portal_password != 'value_setvalue_setvalue_set') {
+            $focus->portal_password = User::getPasswordHash($focus->portal_password);
+        // clear password
+        } elseif(empty($focus->portal_password)){
+            $focus->portal_password = null;
+        // keep existing password
+        } else {
+            $focus->portal_password = $oldPassword;
+        }
+
 		if (!isset($_POST[$prefix.'email_opt_out'])) $focus->email_opt_out = 0;
 		if (!isset($_POST[$prefix.'do_not_call'])) $focus->do_not_call = 0;
 
@@ -440,17 +457,8 @@ function handleSave($prefix, $redirect=true, $useRequired=false){
 	}
 	if($_REQUEST['action'] != 'BusinessCard' && $_REQUEST['action'] != 'ConvertLead' && $_REQUEST['action'] != 'ConvertProspect')
 	{
-
-		if (!empty($_POST[$prefix.'sync_contact']) || !empty($focus->sync_contact)){
-			 $focus->contacts_users_id = $current_user->id;
-		}
-		else{
-			if (!isset($focus->users))
-			{
-	      	  	$focus->load_relationship('user_sync');
-			}
-	      	$focus->contacts_users_id = null;
-			$focus->user_sync->delete($focus->id, $current_user->id);
+		if (isset($_POST[$prefix.'sync_contact'])){
+		    $focus->sync_contact = $_POST[$prefix.'sync_contact'];
 		}
 	}
 
@@ -458,7 +466,7 @@ function handleSave($prefix, $redirect=true, $useRequired=false){
 		$check_notify = $GLOBALS['check_notify'];
 	}
 	else {
-		$check_notify = FALSE;
+		$check_notify = false;
 	}
 
 
@@ -507,7 +515,7 @@ function handleSave($prefix, $redirect=true, $useRequired=false){
 			}
 
 
-			$emailAddress = new SugarEmailAddress();
+			$emailAddress = BeanFactory::getBean('EmailAddresses');
 			$get .= $emailAddress->getFormBaseURL($focus);
 
 			$get .= get_teams_url('Contacts');
@@ -549,13 +557,6 @@ function handleSave($prefix, $redirect=true, $useRequired=false){
 		}
 	}
 
-	global $current_user;
-	if(is_admin($current_user)){
-		if (!isset($_POST[$prefix.'portal_active'])) $focus->portal_active = '0';
-		//if no password is set set account to inactive for portal
-		if(empty($_POST[$prefix.'portal_name']))$focus->portal_active = '0';
-
-	}
 
 	///////////////////////////////////////////////////////////////////////////////
 	////	INBOUND EMAIL HANDLING
@@ -564,8 +565,7 @@ function handleSave($prefix, $redirect=true, $useRequired=false){
 		// fake this case like it's already saved.
 		$focus->save($check_notify);
 
-		$email = new Email();
-		$email->retrieve($_REQUEST['inbound_email_id']);
+		$email = BeanFactory::getBean('Emails', $_REQUEST['inbound_email_id']);
 		$email->parent_type = 'Contacts';
 		$email->parent_id = $focus->id;
 		$email->assigned_user_id = $current_user->id;
@@ -680,7 +680,7 @@ function handleRedirect($return_id){
     */
     protected function getContact()
     {
-        return new Contact();
+        return BeanFactory::getBean('Contacts');
     }
 }
 

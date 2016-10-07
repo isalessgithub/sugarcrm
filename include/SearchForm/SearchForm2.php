@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/tabs.php');
 require_once('include/ListView/ListViewSmarty.php');
@@ -87,11 +84,11 @@ require_once('include/EditView/EditView2.php');
  		$this->view = $this->view.'_'.$displayView;
  		$tokens = explode('_', $this->displayView);
  		$this->parsedView = $tokens[0];
-                $this->searchFields = $searchFields[$this->module];
+        $this->searchFields = $searchFields[$this->module];
+
  		if($this->displayView != 'saved_views'){
  			$this->_build_field_defs();
  		}
-
 
         // Setup the tab array.
         $this->tabs = array();
@@ -130,7 +127,8 @@ require_once('include/EditView/EditView2.php');
  		$return_txt = '';
 		$this->th->ss->assign('module', $this->module);
 		$this->th->ss->assign('action', $this->action);
-		ACLField::listFilter($this->fieldDefs, $this->module, $GLOBALS['current_user']->id, true, false, 1,false, true, '_'.$this->parsedView);
+		SugarACL::listFilter($this->module, $this->fieldDefs, array("owner_override" => true),
+		    array("use_value" => true, "suffix" => '_'.$this->parsedView, "add_acl" => true));
 		$this->th->ss->assign('displayView', $this->displayView);
 		$this->th->ss->assign('APP', $GLOBALS['app_strings']);
 		//Show the tabs only if there is more than one
@@ -221,9 +219,9 @@ require_once('include/EditView/EditView2.php');
         $return_txt = $this->th->displayTemplate($this->seed->module_dir, 'SearchForm_'.$this->parsedView, $this->locateFile($this->tpl));
 
         if($header){
-			$this->th->ss->assign('return_txt', $return_txt);
+            $this->th->ss->assign('return_txt', $return_txt);
 			$header_txt = $this->th->displayTemplate($this->seed->module_dir, 'SearchFormHeader', $this->locateFile('header.tpl'));
-            //pass in info to render the select dropdown below the form
+			//pass in info to render the select dropdown below the form
             $footer_txt = $this->th->displayTemplate($this->seed->module_dir, 'SearchFormFooter', $this->locateFile('footer.tpl'));
 			$return_txt = $header_txt.$footer_txt;
 		}
@@ -238,13 +236,10 @@ require_once('include/EditView/EditView2.php');
     public function setOptions($options = null)
     {
         $defaults = array(
-            'locator_class' => 'FileLocator',
             'locator_class_params' => array(
                 array(
-                    'custom/modules/' . $this->module . '/tpls/SearchForm',
                     'modules/' . $this->module . '/tpls/SearchForm',
-                    'custom/include/SearchForm/tpls',
-                    'include/SearchForm/tpls'
+                    'include/SearchForm/tpls',
                 )
             )
         );
@@ -271,25 +266,23 @@ require_once('include/EditView/EditView2.php');
       */
      protected function locateFile($file)
      {
-        $paths = isset($this->options['locator_class_params'])?$this->options['locator_class_params'][0]:array();
-        foreach ($paths as $path) {
-             if (is_file($path . '/' . $file)) {
-                 return $path . '/' . $file;
-             }
-         }
-
-         return false;
+        if(empty($this->options['locator_class_params'][0]) || !is_array($this->options['locator_class_params'][0])) {
+            return false;
+        }
+        return SugarAutoLoader::lookupFile($this->options['locator_class_params'][0], $file);
      }
 
      function displaySavedSearch()
      {
-        $savedSearch = new SavedSearch($this->listViewDefs[$this->module], $this->lv->data['pageData']['ordering']['orderBy'], $this->lv->data['pageData']['ordering']['sortOrder']);
+        $savedSearch = BeanFactory::getBean('SavedSearch');
+        $savedSearch->init($this->listViewDefs[$this->module], $this->lv->data['pageData']['ordering']['orderBy'], $this->lv->data['pageData']['ordering']['sortOrder']);
         return $savedSearch->getForm($this->module, false);
-     }
+    }
 
 
   function displaySavedSearchSelect(){
-        $savedSearch = new SavedSearch($this->listViewDefs[$this->module], $this->lv->data['pageData']['ordering']['orderBy'], $this->lv->data['pageData']['ordering']['sortOrder']);
+        $savedSearch = BeanFactory::getBean('SavedSearch');
+        $savedSearch->init($this->listViewDefs[$this->module], $this->lv->data['pageData']['ordering']['orderBy'], $this->lv->data['pageData']['ordering']['sortOrder']);
         return $savedSearch->getSelect($this->module);
     }
 
@@ -305,7 +298,7 @@ require_once('include/EditView/EditView2.php');
     function _displayTabs($currentKey)
     {
         if(isset($_REQUEST['saved_search_select']) && $_REQUEST['saved_search_select']!='_none') {
-            $saved_search=loadBean('SavedSearch');
+            $saved_search=BeanFactory::getBean('SavedSearch');
             $saved_search->retrieveSavedSearch($_REQUEST['saved_search_select']);
         }
 
@@ -384,10 +377,7 @@ require_once('include/EditView/EditView2.php');
                     //53131 - add blank option for SearchField options with def 'options_add_blank' set to true
                     if ($this->fieldDefs[$fvName]['type'] == "parent_type" || $this->fieldDefs[$fvName]['type'] == "parent" || (isset($this->searchFields[$name]['options_add_blank']) && $this->searchFields[$name]['options_add_blank']) )
                     {
-                        if (!array_key_exists('', $this->fieldDefs[$fvName]['options'])) {
-                            $this->fieldDefs[$fvName]['options'] =
-                                array('' => '') + $this->fieldDefs[$fvName]['options'];
-                        }
+                        $this->fieldDefs[$fvName]['options'] = array_merge(array(""=>""), $this->fieldDefs[$fvName]['options']);
                     }
 	            }
 
@@ -401,7 +391,7 @@ require_once('include/EditView/EditView2.php');
 
 	       	 		$function = $this->fieldDefs[$fvName]['function'];
 
-	       			if(is_array($function) && isset($function['name'])){
+                    if(is_array($function) && isset($function['name'])){
 	       				$function_name = $this->fieldDefs[$fvName]['function']['name'];
 	       			}else{
 	       				$function_name = $this->fieldDefs[$fvName]['function'];
@@ -414,7 +404,15 @@ require_once('include/EditView/EditView2.php');
 						$value = call_user_func($function_name, $this->seed, $name, $value, $this->view);
 						$this->fieldDefs[$fvName]['value'] = $value;
 					}else{
-						if(!isset($function['params']) || !is_array($function['params'])) {
+
+                        if (isset($this->fieldDefs[$fvName]['function_bean'])) {
+                            $funcBean =  BeanFactory::getBean($this->fieldDefs[$fvName]['function_bean']);
+                            if (method_exists($funcBean, $function_name)) {
+                                $function_name = array($funcBean, $function_name);
+                            }
+                        }
+
+					    if(!isset($function['params']) || !is_array($function['params'])) {
 							$this->fieldDefs[$fvName]['options'] = call_user_func($function_name, $this->seed, $name, $value, $this->view);
 						} else {
 							$this->fieldDefs[$fvName]['options'] = call_user_func_array($function_name, $function['params']);
@@ -448,7 +446,7 @@ require_once('include/EditView/EditView2.php');
 
 	}
 
-	    /**
+	/**
      * Populate the searchFields from an array
      *
      * @param array $array array to search through
@@ -539,7 +537,7 @@ require_once('include/EditView/EditView2.php');
                     	{
                     		$long_name = $key.'_'.$SearchName;
 
-	                        if(in_array($key.'_'.$SearchName, $arrayKeys) && !in_array($key, $searchFieldsKeys))
+                    		if(in_array($key.'_'.$SearchName, $arrayKeys) && !in_array($key, $searchFieldsKeys))
 	                    	{
 	                        	$this->searchFields[$key] = array('query_type' => 'default', 'value' => $array[$long_name]);
 
@@ -618,6 +616,21 @@ require_once('include/EditView/EditView2.php');
         return "($db_field >= $start AND $db_field <= $end)";
     }
 
+    /**
+     * Converts column name and value to upper case for case insensitive search if needed.
+     * @param string $subquery eg, 'select * from t where c like'
+     * @param string $value
+     * @return string
+     */
+    protected function getLikeSubquery($subquery, $value, $likechar = '%') {
+        if ($this->seed->db->supports('case_insensitive') && preg_match('/(.*\S)\s+(\S+)\s+like$/i', trim($subquery), $matches)) {
+            return $matches[1]. ' ' . $this->seed->db->getLikeSQL($matches[2], "$value$likechar");
+        }
+        else {
+            return "$subquery ".$this->seed->db->quoted("$value$likechar");
+        }
+    }
+
      /**
       * generateSearchWhere
       *
@@ -679,9 +692,6 @@ require_once('include/EditView/EditView2.php');
 
                          $field = $real_field;
                          unset($this->searchFields[$end_field]['value']);
-                     }else{
-                         //if both start and end ranges have not been defined, skip this filter.
-                        continue;
                      }
                  } else if (preg_match('/^range_(.*?)$/', $field, $match) && isset($this->searchFields[$field]['value'])) {
                      $real_field = $match[1];
@@ -791,7 +801,7 @@ require_once('include/EditView/EditView2.php');
                  if(!isset($parms['db_field'])) {
                      $parms['db_field'] = array($field);
                  }
-
+                $where = '';
                  //This if-else block handles the shortcut checkbox selections for "My Items" and "Closed Only"
                  if(!empty($parms['my_items'])) {
                      if( $parms['value'] == false ) {
@@ -815,7 +825,6 @@ require_once('include/EditView/EditView2.php');
                      }
                  }
 
-                 $where = '';
                  $itr = 0;
 
                  if($field_value != '' || $operator=='isnull') {
@@ -828,7 +837,6 @@ require_once('include/EditView/EditView2.php');
                              if ($type == 'relate' && !empty($this->seed->field_name_map[$field]['link'])
                                  && !empty($this->seed->field_name_map[$field]['rname'])) {
                                      $link = $this->seed->field_name_map[$field]['link'];
-                                     $relname = $link['relationship'];
                                      if (($this->seed->load_relationship($link))){
                                          //Martin fix #27494
                                          $db_field = $this->seed->field_name_map[$field]['name'];
@@ -843,10 +851,8 @@ require_once('include/EditView/EditView2.php');
                                  if (!empty($this->searchFields['parent_type'])) {
                                      $parentType = $this->searchFields['parent_type'];
                                      $rel_module = $parentType['value'];
-                                     global $beanFiles, $beanList;
-                                     if(!empty($beanFiles[$beanList[$rel_module]])) {
-                                         require_once($beanFiles[$beanList[$rel_module]]);
-                                         $rel_seed = new $beanList[$rel_module]();
+                                     $rel_seed = BeanFactory::getBean($rel_module);
+                                     if(!empty($rel_seed)) {
                                          $db_field = 'parent_' . $rel_module . '_' . $rel_seed->table_name . '.name';
                                      }
                                  }
@@ -947,8 +953,7 @@ require_once('include/EditView/EditView2.php');
                                          $currency_id = -99;
                                      }
                                      if ( $currency_id != -99 ) {
-                                         $currency = new Currency();
-                                         $currency->retrieve($currency_id);
+                                         $currency = BeanFactory::getBean('Currencies', $currency_id);
                                          $tmpfield_value = $currency->convertToDollar($tmpfield_value);
                                      }
                                  }
@@ -973,11 +978,6 @@ require_once('include/EditView/EditView2.php');
                              else {
                                  continue 2;
                              }
-                         }
-
-                         if($db->supports("case_sensitive") && isset($parms['query_type']) && $parms['query_type'] == 'case_insensitive') {
-                               $db_field = 'upper(' . $db_field . ")";
-                               $field_value = strtoupper($field_value);
                          }
 
                          $itr++;
@@ -1014,21 +1014,24 @@ require_once('include/EditView/EditView2.php');
                                          if(!$first){
                                              $where .= $and_or;
                                          }
-                                         $where .= " {$db_field} $in ({$q} ".$this->seed->db->quoted($field_value.'%').") ";
+                                         $where .= " {$db_field} $in (".$this->getLikeSubquery($q, $field_value).") ";
                                          $first = false;
                                      }
                                  }elseif(!empty($parms['query_type']) && $parms['query_type'] == 'format'){
+                                     // "stringify" the field value if it or 'subquery' isn't wrapped in quotes already
+                                     if (substr($field_value, 0, 1) != "'" && substr($field_value, -1) != "'" &&
+                                         !empty($parms['subquery']) && !preg_match('/\'\{0\}\'/', $parms['subquery'])) {
+                                         $field_value = $GLOBALS['db']->quoted($field_value);
+                                     }
                                      $stringFormatParams = array(0 => $field_value, 1 => $GLOBALS['current_user']->id);
-                                     $where .= "{$db_field} $in (".string_format($parms['subquery'], $stringFormatParams).")";
-                                 }else{
+                                     $where .= "{$db_field} $in (" . string_format(
+                                             $parms['subquery'],
+                                             $stringFormatParams
+                                         ) . ")";
+                                 } else {
                                      //Bug#37087: Re-write our sub-query to it is executed first and contents stored in a derived table to avoid mysql executing the query
                                      //outside in. Additional details: http://bugs.mysql.com/bug.php?id=9021
-                                     $selectCol = ' * ';
-                                     //use the select column in the subquery if it exists
-                                     if(!empty($parms['subquery'])){
-                                         $selectCol = $this->getSelectCol($parms['subquery']);
-                                     }
-                                    $where .= "{$db_field} $in (select $selectCol from ({$parms['subquery']} ".$this->seed->db->quoted($field_value.'%').") {$field}_derived)";
+                                     $where .= "{$db_field} $in (select $selectCol from (".$this->getLikeSubquery($parms['subquery'] , $field_value).") {$field}_derived)";
                                  }
 
                                  break;
@@ -1046,10 +1049,10 @@ require_once('include/EditView/EditView2.php');
                                      if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'UnifiedSearch'){
                                          $UnifiedSearch = true;
                                      }
-                                     
+
                                      // If it is a unified search and if the search contains more then 1 word (contains space)
                                      // and if it's the last element from db_field (so we do the concat only once, not for every db_field element)
-                                     // we concat the db_field array() (both original, and in reverse order) and search for the whole string in it  
+                                     // we concat the db_field array() (both original, and in reverse order) and search for the whole string in it
                                      if ( $UnifiedSearch && strpos($field_value, ' ') !== false && strpos($db_field, $parms['db_field'][count($parms['db_field']) - 1]) !== false )
                                      {
                                          // Get the table name used for concat
@@ -1057,7 +1060,7 @@ require_once('include/EditView/EditView2.php');
                                          $concat_table = $concat_table[0];
                                          // Get the fields for concatenating
                                          $concat_fields = $parms['db_field'];
-                                         
+
                                          // If db_fields (e.g. contacts.first_name) contain table name, need to remove it
                                          for ($i = 0; $i < count($concat_fields); $i++)
                                          {
@@ -1066,10 +1069,10 @@ require_once('include/EditView/EditView2.php');
                                          		$concat_fields[$i] = substr($concat_fields[$i], strlen($concat_table) + 1);
                                          	}
                                          }
-                                         
+
                                          // Concat the fields and search for the value
-                                         $where .= $this->seed->db->concat($concat_table, $concat_fields) . " LIKE " . $this->seed->db->quoted($field_value . $like_char);
-                                         $where .= ' OR ' . $this->seed->db->concat($concat_table, array_reverse($concat_fields)) . " LIKE " . $this->seed->db->quoted($field_value . $like_char);
+                                         $where .= $this->seed->db->getLikeSQL($this->seed->db->concat($concat_table, $concat_fields), $field_value . $like_char);
+                                         $where .= ' OR ' . $this->seed->db->getLikeSQL($this->seed->db->concat($concat_table, array_reverse($concat_fields)), $field_value . $like_char);
                                      }
                                      else
                                      {
@@ -1094,7 +1097,8 @@ require_once('include/EditView/EditView2.php');
                                          }
 
                                          //field is not last name or this is not from global unified search, so do normal where clause
-                                         $where .=  $db_field . " like ".$this->seed->db->quoted(sql_like_string($field_value, $like_char));
+                                         $like_string = $this->seed->db->sqlLikeString($field_value, $like_char);
+                                         $where .=  $this->seed->db->getLikeSQL($db_field, sql_like_string($field_value, $like_char));
                                      }
                                  }
                                  break;
@@ -1219,79 +1223,14 @@ require_once('include/EditView/EditView2.php');
       */
      public static function retrieveSearchDefs($module)
      {
+         $searchFields = SugarAutoLoader::loadSearchFields($module);
+
          $searchdefs = array();
-         $searchFields = array();
-
-         if(file_exists('custom/modules/'.$module.'/metadata/metafiles.php'))
-         {
-             require('custom/modules/'.$module.'/metadata/metafiles.php');
-         }
-         elseif(file_exists('modules/'.$module.'/metadata/metafiles.php'))
-         {
-             require('modules/'.$module.'/metadata/metafiles.php');
-         }
-
-         if (file_exists('custom/modules/'.$module.'/metadata/searchdefs.php'))
-         {
-             require('custom/modules/'.$module.'/metadata/searchdefs.php');
-         }
-         elseif (!empty($metafiles[$module]['searchdefs']))
-         {
-             require($metafiles[$module]['searchdefs']);
-         }
-         elseif (file_exists('modules/'.$module.'/metadata/searchdefs.php'))
-         {
-             require('modules/'.$module.'/metadata/searchdefs.php');
-         }
-
-
-         if(!empty($metafiles[$module]['searchfields']))
-         {
-             require($metafiles[$module]['searchfields']);
-         }
-         elseif(file_exists('modules/'.$module.'/metadata/SearchFields.php'))
-         {
-             require('modules/'.$module.'/metadata/SearchFields.php');
-         }
-         if(file_exists('custom/modules/'.$module.'/metadata/SearchFields.php'))
-         {
-             require('custom/modules/'.$module.'/metadata/SearchFields.php');
+         $file = SugarAutoLoader::loadWithMetafiles($module, 'searchdefs');
+         if($file) {
+         	require $file;
          }
 
          return array('searchdefs' => $searchdefs, 'searchFields' => $searchFields );
      }
-
-    /**
-      * this function will take the subquery string and return the columns to be used in the select of the derived table
-      *
-      * @param string $subquery the subquery string to parse through
-      * @return string the retrieved column list
-      */
-    protected function getSelectCol($subquery)
-    {
-        $selectCol = '';
-
-        if (empty($subquery)) {
-            return $selectCol;
-        }
-        $subquery = strtolower($subquery);
-        //grab the values between the select and from
-        $select = stripos($subquery, 'select');
-        $from = stripos($subquery, 'from');
-        if ($select !==false && $from!==false && $select+6 < $from) {
-            $selectCol = substr($subquery, $select+6, $from-$select-6);
-        }
-        //remove table names if they exist
-        $columns = explode(',', $selectCol);
-        $i = 0;
-        foreach ($columns as $column) {
-            $dot = strpos($column, '.');
-            if ($dot > 0) {
-                $columns[$i] = substr($column, $dot+1);
-            }
-            $i++;
-        }
-        $selectCol = implode(',', $columns);
-        return $selectCol;
-    }
  }

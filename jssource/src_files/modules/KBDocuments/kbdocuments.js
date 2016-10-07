@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 SUGAR.kb = function() {
 
@@ -532,7 +529,7 @@ SUGAR.kb = function() {
                 tagsTreeModalMoveDocs.setBody(result['body']);
                 tagsTreeModalMoveDocs.setHeader(' Tags');
                 var listeners = new YAHOO.util.KeyListener(document, { keys : 27 }, {fn: function() {
-                    this.hide();
+                    tagsTreeModalMoveDocs.hide();
                 }, scope: tree, correctScope:true});
                 tagsTreeModalMoveDocs.cfg.queueProperty("keylisteners", listeners);
 
@@ -546,6 +543,9 @@ SUGAR.kb = function() {
             }
             postData = 'tagsMode=' + YAHOO.lang.JSON.stringify(moveTags) + '&module=KBTags&action=SelectCreateApplyAndMoveTags&to_pdf=1';
             YAHOO.util.Connect.asyncRequest('POST', 'index.php', {success: fillInTags, failure: fillInTags}, postData);
+            $('#moveDlg').on('click', '.container-close', function(){
+                tagsTreeModalMoveDocs.hide();
+            });
         },
 
         applyTagsModal:function() {
@@ -606,7 +606,7 @@ SUGAR.kb = function() {
                 applyTagsToDocs.setBody(result['body']);
                 applyTagsToDocs.setHeader(SUGAR.kb.getLocalizedLabels('KBDocuments', 'LBL_HEAD_TAGS'));
                 var listeners = new YAHOO.util.KeyListener(document, { keys : 27 }, {fn: function() {
-                    this.hide();
+                    applyTagsToDocs.hide();
                 }, scope: tree, correctScope:true});
                 applyTagsToDocs.cfg.queueProperty("keylisteners", listeners);
 
@@ -622,6 +622,9 @@ SUGAR.kb = function() {
             YAHOO.util.Connect.asyncRequest('POST', 'index.php', {success: fillInTags, failure: fillInTags}, postData);
 
             //myDialog.cfg.queueProperty("buttons", myButtons);
+            $('#applyDlg').on('click', '.container-close', function(){
+                applyTagsToDocs.hide();
+            });
         },
         serachTagAjax:function() {
             var searchTag = document.getElementById('tags_search').value;
@@ -1127,7 +1130,7 @@ SUGAR.kb = function() {
 				
 				// Limits the height of tags tree so that the dialog never
 				// exceeds the window height and centers the dialog
-				YUI().use('node', function (Y) {
+				YUI({comboBase:'index.php?entryPoint=getYUIComboFile&'}).use('node', function (Y) {
 					var viewPortHeight = parseInt(YAHOO.util.Dom.getViewportHeight(), 10);
 					var tree = Y.one('#tagstree');
 					var dialogTitleBar = Y.one('.yui-module .hd');
@@ -1633,7 +1636,9 @@ SUGAR.kb = function() {
         //Uploading multiple files (attachments) which get saved as documents with KBDcoument
         //This process will allows to upload N number of files
 
-        multiAttachments:function(list_target, elmentsName, site_url, theme_name, isAtt) {
+        multiAttachments:function(list_target, elmentsName, site_url, theme_name, isAtt, upload_maxsize) {
+
+            this.upload_maxsize = upload_maxsize;
             // Where to write the list
             this.list_target = list_target;
             //this.list_target = document.getElementById(list_target);
@@ -1662,7 +1667,18 @@ SUGAR.kb = function() {
                     // What to do when a file is selected
 
                     element.onchange = function() {
-
+                        if (typeof element.files == 'object' && element.files.length > 0) {
+                            if (element.multi_selector.upload_maxsize <= element.files[0].size) {
+                                var elementClone = element.cloneNode(false);
+                                elementClone.onchange = element.onchange;
+                                elementClone.multi_selector = element.multi_selector;
+                                element.parentNode.replaceChild(elementClone, element);
+                                element = elementClone;
+                                var error_message = SUGAR.kb.getLocalizedLabels('KBDocuments', 'ERR_FILESIZE') + ' ' + element.multi_selector.upload_maxsize;
+                                alert(error_message);
+                                return;
+                            }
+                        }
                         //AJAX call begins
                         var callback = {
                             upload:function(r) {
@@ -1671,7 +1687,11 @@ SUGAR.kb = function() {
                                 //remove the div if not a file
                                 if (rets['status'] == 'failed') {
                                     thediv.parentNode.removeChild(thediv);
-                                    alert(SUGAR.kb.getLocalizedLabels('KBDocuments', 'LBL_NOT_A_VALID_FILE'));
+                                    var error_message = SUGAR.kb.getLocalizedLabels('KBDocuments', 'LBL_NOT_A_VALID_FILE');
+                                    if (typeof rets['error_message'] != 'undefined' && rets['error_message']) {
+                                        error_message = rets['error_message'];
+                                    }
+                                    alert(error_message);
                                 }
                                 else {
                                     //save the div
@@ -2334,15 +2354,20 @@ SUGAR.kb = function() {
         //when called, this function will make ajax call to refresh list view sort order
         sortBrowseList:function(params, name, query)
         {
-            var params = YAHOO.lang.merge(params, {
-                "KBDocuments2_KBDOCUMENT_ORDER_BY" : name
-            });
+            // if paginating before running a sort, then name will be empty.  Handle this use case
+            if(typeof(name) =='undefined' ){
+                //we will pass in keyword PAGINATE.  This will identify this call as a pagination call
+                name = 'PAGINATE';
+            }
 
             //convert an object params to a string
-            var queryString = SUGAR.util.paramsToUrl(params);
+            var stringURL = SUGAR.util.paramsToUrl(params);
 
-            if (query) {
-                queryString += '&query=' + query;
+            //create data to send across
+            var postData = stringURL + '&sortCol='+name+ '&module=KBDocuments&action=BrowseListView&to_pdf=1';
+            if(query)
+            {
+                postData += '&query=' + query;
             }
 
             var callback =	{
@@ -2355,8 +2380,8 @@ SUGAR.kb = function() {
                 //do nothing on failure
                 failure: function(o) {/*failure handler code*/}
             };
-
-            YAHOO.util.Connect.asyncRequest('GET','index.php?' + queryString, callback);
+            //make ajax call
+            var trobj = YAHOO.util.Connect.asyncRequest('POST','index.php', callback, postData);
         }
     }
 }();

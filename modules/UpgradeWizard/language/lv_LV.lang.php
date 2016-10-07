@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Uzinstalēti sekojoši moduļi:',
   'DESC_MODULES_QUEUED' => 'Sekojoši moduļi ir gatavi instalēšanai:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Augšupielādētais fails nav saderīgs ar šo Sugar( Community Edition, Professional vai Enterprise) versiju.',
+  'ERROR_HT_NO_WRITE' => 'Nevar rakstīt failā : %s',
+  'ERROR_MANIFEST_TYPE' => 'Manifesta failā jābūt norādītam pakotnes veidam.',
+  'ERROR_PACKAGE_TYPE' => 'Manifesta fails norāda uz neatpazītu pakotnes veidu: %s',
+  'ERROR_UW_CONFIG_DB' => 'Error saving %s config var to the db (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Augšupielādētais fails nav saderīgs ar šo Sugar versiju:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Sugar neatbalsta jūsu PHP versiju. Jums ir jāuzstāda Sugar programmai atbilstoša versija. Lūdzu skatīties PHP atbilstības matricu laidiena piezīmēs. Jūsu pašreizējā versija ir',
+  'ERR_NOT_ADMIN' => 'Neautorizēta piekļuve administratora funkcijām.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Jums nav atļauts piekļūt šai lapai.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Nevar identificēt grupu',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Nevar identificēt īpašnieku',
   'ERR_UW_CONFIG' => 'Lūdzu atļaujiet rakstīšanu config.php failā un pārlādējiet šo lapu.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Restartēt',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Notiek atjauninājumu apstiprināšana',
   'LBL_CURRENT_PHP_VERSION' => '(Jūsu pašreizējā php versija ir',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globāli redzams',
   'LBL_HOME_PAGE_4_NAME' => 'Sekotājs',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Ir nepieciešama PHP 5. versija vai jaunāka.',
   'LBL_LANGPACKS' => 'Valodas pakas',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP iestatījums: Atmiņas limits',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Minimālā MySQL versija',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE Version',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'php.ini atrašanās vieta',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Minimālā PHP versija',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP iestatījums: Drošais režīms',

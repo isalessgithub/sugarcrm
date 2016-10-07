@@ -1,26 +1,21 @@
 <?php
 if(!defined('sugarEntry'))define('sugarEntry', true);
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-/**
- * This class is an implemenatation class for all the rest services
+ * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 require_once('service/core/SugarWebServiceImpl.php');
 require_once('SugarWebServiceUtilv3.php');
 
-
+/**
+ * This class is an implemenatation class for all the rest services
+ */
 class SugarWebServiceImplv3 extends SugarWebServiceImpl {
 
     public function __construct()
@@ -45,19 +40,16 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
      */
     public function login($user_auth, $application, $name_value_list){
         $GLOBALS['log']->info('Begin: SugarWebServiceImpl->login');
-        global $sugar_config, $system_config;
+        global $sugar_config;
         $error = new SoapError();
-        $user = new User();
+        $user = BeanFactory::getBean('Users');
         $success = false;
         if(!empty($user_auth['encryption']) && $user_auth['encryption'] === 'PLAIN')
         {
             $user_auth['password'] = md5($user_auth['password']);
         }
-        //rrs
-        $system_config = new Administration();
-        $system_config->retrieveSettings('system');
-        $authController = new AuthenticationController();
-        //rrs
+        $authController = AuthenticationController::getInstance();
+
         $isLoginSuccess = $authController->login($user_auth['user_name'], $user_auth['password'], array('passwordEncrypted' => true));
         $usr_id=$user->retrieve_user_id($user_auth['user_name']);
         if($usr_id)
@@ -93,6 +85,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
         else if(function_exists('mcrypt_cbc'))
         {
             $password = self::$helperObject->decrypt_string($user_auth['password']);
+            $authController->loggedIn = false; // reset login attempt to try again with decrypted password
             if($authController->login($user_auth['user_name'], $password) && isset($_SESSION['authenticated_user_id']))
                 $success = true;
         }
@@ -124,8 +117,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
             $nameValueArray['user_default_team_id'] = self::$helperObject->get_name_value('user_default_team_id', $current_user->default_team );
             $nameValueArray['user_default_dateformat'] = self::$helperObject->get_name_value('user_default_dateformat', $current_user->getPreference('datef') );
             $nameValueArray['user_default_timeformat'] = self::$helperObject->get_name_value('user_default_timeformat', $current_user->getPreference('timef') );
-            $currencyObject = new Currency();
-            $currencyObject->retrieve($cur_id);
+            $currencyObject = BeanFactory::getBean('Currencies', $cur_id);
             $nameValueArray['user_currency_name'] = self::$helperObject->get_name_value('user_currency_name', $currencyObject->name);
             $_SESSION['user_language'] = $current_language;
             return array('id'=>session_id(), 'module_name'=>'Users', 'name_value_list'=>$nameValueArray);
@@ -203,9 +195,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
                 continue;
             }
 
-            $class_name = $beanList[$module_name];
-            require_once($beanFiles[$class_name]);
-            $seed = new $class_name();
+            $seed = BeanFactory::getBean($module_name);
 
             foreach ($a_view as $view)
             {
@@ -312,7 +302,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
             }
 
             if($module == 'Home') $module = '';
-    	    $tracker = new Tracker();
+    	    $tracker = BeanFactory::getBean('Trackers');
             $entryList = $tracker->get_recently_viewed($GLOBALS['current_user']->id, $module);
             foreach ($entryList as $entry)
                 $results[] = $entry;
@@ -349,7 +339,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
 
     /**
      * Given a list of modules to search and a search string, return the id, module_name, along with the fields
-     * We will support Accounts, Bugs, Cases, Contacts, Leads, Opportunities, Project, ProjectTask, Quotes
+     * We will support Accounts, Bug Tracker, Cases, Contacts, Leads, Opportunities, Project, ProjectTask, Quotes
      *
      * @param string $session			- Session ID returned by a previous call to login.
      * @param string $search_string 	- string to search
@@ -409,8 +399,7 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
     				$unifiedSearchFields[$name] [ $field ]['value'] = $search_string;
     			}
 
-    			require_once $beanFiles[$beanName] ;
-    			$seed = new $beanName();
+    			$seed = BeanFactory::getBean($name);
     			require_once 'include/SearchForm/SearchForm2.php' ;
     			if ($beanName == "User"
     			    || $beanName == "ProjectTask"
@@ -447,12 +436,9 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
     				if(count($select_fields) > 0)
     				    $filterFields = $select_fields;
     				else {
-    				    if(file_exists('custom/modules/'.$seed->module_dir.'/metadata/listviewdefs.php'))
-    					   require_once('custom/modules/'.$seed->module_dir.'/metadata/listviewdefs.php');
-        				else
-        					require_once('modules/'.$seed->module_dir.'/metadata/listviewdefs.php');
+    				    require_once SugarAutoLoader::loadWithMetafiles($seed->module_dir, 'listviewdefs');
 
-        				$filterFields = array();
+    				    $filterFields = array();
         				foreach($listViewDefs[$seed->module_dir] as $colName => $param) {
         	                if(!empty($param['default']) && $param['default'] == true)
         	                    $filterFields[] = strtolower($colName);
@@ -555,17 +541,13 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
     */
     function get_relationships($session, $module_name, $module_id, $link_field_name, $related_module_query, $related_fields, $related_module_link_name_to_fields_array, $deleted, $order_by = ''){
         $GLOBALS['log']->info('Begin: SugarWebServiceImpl->get_relationships');
-    	global  $beanList, $beanFiles;
     	$error = new SoapError();
     	if (!self::$helperObject->checkSessionAndModuleAccess($session, 'invalid_session', $module_name, 'read', 'no_access', $error)) {
     		$GLOBALS['log']->info('End: SugarWebServiceImpl->get_relationships');
     		return;
     	} // if
 
-    	$class_name = $beanList[$module_name];
-    	require_once($beanFiles[$class_name]);
-    	$mod = new $class_name();
-    	$mod->retrieve($module_id);
+    	$mod = BeanFactory::getBean($module_name, $module_id);
 
         if (!self::$helperObject->checkQuery($error, $related_module_query, $order_by)) {
     		$GLOBALS['log']->info('End: SugarWebServiceImpl->get_relationships');
@@ -592,12 +574,9 @@ class SugarWebServiceImplv3 extends SugarWebServiceImpl {
     		if (sizeof($list) > 0) {
     			// get the related module name and instantiate a bean for that.
     			$submodulename = $mod->$link_field_name->getRelatedModuleName();
-    			$submoduleclass = $beanList[$submodulename];
-    			require_once($beanFiles[$submoduleclass]);
 
-    			$submoduletemp = new $submoduleclass();
     			foreach($list as $row) {
-    				$submoduleobject = @clone($submoduletemp);
+    				$submoduleobject = BeanFactory::getBean($submodulename);
     				// set all the database data to this object
     				foreach ($filterFields as $field) {
     					$submoduleobject->$field = $row[$field];

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Документ создан',
@@ -109,7 +106,7 @@ $mod_strings = array (
   'LBL_LIST_TEMPLATE_TYPE' => 'Тип документа',
   'LBL_LIST_VIEW_DOCUMENT' => 'Просмотр',
   'LBL_MAIL_MERGE_DOCUMENT' => 'Шаблон объединения почты:',
-  'LBL_MIME' => 'Тип MIME',
+  'LBL_MIME' => 'Mime-тип',
   'LBL_MODIFIED' => 'Изменено (ID)',
   'LBL_MODIFIED_USER' => 'Автор изменений',
   'LBL_MODULE_NAME' => 'Документы',
@@ -118,7 +115,6 @@ $mod_strings = array (
   'LBL_NAME' => 'Название документа',
   'LBL_NEW_FORM_TITLE' => 'Новый документ',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Сделки',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Коммерческие предложения',
   'LBL_RELATED_DOCUMENT_ID' => 'ID связанного документа',
   'LBL_RELATED_DOCUMENT_REVISION_ID' => 'ID версии связанного документа',
@@ -127,6 +123,7 @@ $mod_strings = array (
   'LBL_REVISIONS_PANEL' => 'Детали версии',
   'LBL_REVISIONS_SUBPANEL' => 'Версии',
   'LBL_REVISION_NAME' => 'Номер версии',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Доход по продуктам',
   'LBL_SEARCH_EXTERNAL_DOCUMENT' => 'Название документа',
   'LBL_SEARCH_FORM_TITLE' => 'Найти документ',
   'LBL_SELECTED_REVISION_FILENAME' => 'Имя файла последней версии',

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: Popup_picker.php 45763 2009-04-01 19:16:18Z majed $
 
 global $theme;
 
@@ -33,50 +30,50 @@ require_once('modules/KBDocuments/TreeData.php');
 
 class Popup_Picker
 {
-	
-	
-	/*
-	 * 
-	 */
-	function Popup_Picker()
-	{
-		;
-	}
-	
-	/*
-	 * 
-	 */
-	function _get_where_clause()
-	{
-		$where = '';
-		if(isset($_REQUEST['query']))
-		{
-			$where_clauses = array();
-			append_where_clause($where_clauses, "kbdocument_name", "kbdocuments.kbdocument_name");
-		
-			$where = generate_where_statement($where_clauses);
-		}
-		return $where;
-	}
-	
-	/**
-	 *
-	 */
-	function process_page()
-	{
-		global $theme;
-		global $mod_strings;
-		global $app_strings;
-		global $currentModule;
-		global $sugar_version, $sugar_config;
-		global $app_list_strings;
+    
+    
+    /*
+     * 
+     */
+    function Popup_Picker()
+    {
+        ;
+    }
+    
+    /*
+     * 
+     */
+    function _get_where_clause()
+    {
+        $where = '';
+        if(isset($_REQUEST['query']))
+        {
+            $where_clauses = array();
+            append_where_clause($where_clauses, "kbdocument_name", "kbdocuments.kbdocument_name");
+        
+            $where = generate_where_statement($where_clauses);
+        }
+        return $where;
+    }
+    
+    /**
+     *
+     */
+    function process_page()
+    {
+        global $theme;
+        global $mod_strings;
+        global $app_strings;
+        global $currentModule;
+        global $sugar_version, $sugar_config;
+        global $app_list_strings;
         global $sugar_config;
         
         $b_from_documents=false;
         if (isset($_REQUEST['caller']) && $_REQUEST['caller']=='KBDocuments') {
             $b_from_documents=true;
         }
-    		
+            
         //initalize template
         $form = new XTemplate('modules/KBDocuments/Popup_picker.html');
         $form->assign('MOD', $mod_strings);
@@ -115,71 +112,71 @@ class Popup_Picker
         }
 
         ////////////////////////process full search form and list view.//////////////////////////////
-		$output_html = '';
-		$where = '';
-		$where = $this->_get_where_clause();
-		
-		
-		$name = empty($_REQUEST['name']) ? '' : $_REQUEST['name'];
-		$document_name = empty($_REQUEST['kbdocument_name']) ? '' : $_REQUEST['kbdocument_name'];
+        $output_html = '';
+        $where = '';
+        $where = $this->_get_where_clause();
+        
+        
+        $name = empty($_REQUEST['name']) ? '' : $_REQUEST['name'];
+        $document_name = empty($_REQUEST['kbdocument_name']) ? '' : $_REQUEST['kbdocument_name'];
         $request_data = empty($_REQUEST['request_data']) ? '' : $_REQUEST['request_data'];
 
-		
-		$hide_clear_button = empty($_REQUEST['hide_clear_button']) ? false : true;
-		$button  = "<form action='index.php' method='post' name='form' id='form'>\n";
-		if(!$hide_clear_button)
-		{
-			$button .= "<input type='button' name='button' class='button' onclick=\"send_back('','');\" title='"
-				.$app_strings['LBL_CLEAR_BUTTON_TITLE']."'  value='  "
-				.$app_strings['LBL_CLEAR_BUTTON_LABEL']."  ' />\n";
-		}
-		$button .= "<input type='submit' name='button' class='button' onclick=\"window.close();\" title='"
-			.$app_strings['LBL_CANCEL_BUTTON_TITLE']."' accesskey='"
-			.$app_strings['LBL_CANCEL_BUTTON_KEY']."' value='  "
-			.$app_strings['LBL_CANCEL_BUTTON_LABEL']."  ' />\n";
-		$button .= "</form>\n";
+        
+        $hide_clear_button = empty($_REQUEST['hide_clear_button']) ? false : true;
+        $button  = "<form action='index.php' method='post' name='form' id='form'>\n";
+        if(!$hide_clear_button)
+        {
+            $button .= "<input type='button' name='button' class='button' onclick=\"send_back('','');\" title='"
+                .$app_strings['LBL_CLEAR_BUTTON_TITLE']."'  value='  "
+                .$app_strings['LBL_CLEAR_BUTTON_LABEL']."  ' />\n";
+        }
+        $button .= "<input type='submit' name='button' class='button' onclick=\"window.close();\" title='"
+            .$app_strings['LBL_CANCEL_BUTTON_TITLE']."' accesskey='"
+            .$app_strings['LBL_CANCEL_BUTTON_KEY']."' value='  "
+            .$app_strings['LBL_CANCEL_BUTTON_LABEL']."  ' />\n";
+        $button .= "</form>\n";
 
         $form->assign('NAME', $name);
         $form->assign('KBDOCUMENT_NAME', $document_name);
-		$form->assign('request_data', $request_data);
-		
-		
-		ob_start();
-		insert_popup_header($theme);
-		$output_html .= ob_get_contents();
-		ob_end_clean();
-		
-		$output_html .= get_form_header($mod_strings['LBL_SEARCH_FORM_TITLE'], '', false);
-		
-		$form->parse('main.SearchHeader');
-		$output_html .= $form->text('main.SearchHeader');
-		
-		// Reset the sections that are already in the page so that they do not print again later.
-		$form->reset('main.SearchHeader');
+        $form->assign('request_data', $request_data);
+        
+        
+        ob_start();
+        insert_popup_header($theme);
+        $output_html .= ob_get_contents();
+        ob_end_clean();
+        
+        $output_html .= get_form_header($mod_strings['LBL_SEARCH_FORM_TITLE'], '', false);
+        
+        $form->parse('main.SearchHeader');
+        $output_html .= $form->text('main.SearchHeader');
+        
+        // Reset the sections that are already in the page so that they do not print again later.
+        $form->reset('main.SearchHeader');
 
         //add tree view to output_html.
         $output_html .= $treehtml;
         
-		// create the listview
-		$seed_bean = new KBDocument();
-		$ListView = new ListView();
-		$ListView->show_select_menu = false;
-		$ListView->show_delete_button = false;
-		$ListView->show_export_button = false;
-		$ListView->process_for_popups = true;
-		$ListView->setXTemplate($form);
-		$ListView->setHeaderTitle($mod_strings['LBL_LIST_FORM_TITLE']);
-		$ListView->setHeaderText($button);
-		$ListView->setQuery($where, '', 'kbdocument_name', 'KBDOCUMENT');
-		$ListView->setModStrings($mod_strings);
+        // create the listview
+        $seed_bean = new KBDocument();
+        $ListView = new ListView();
+        $ListView->show_select_menu = false;
+        $ListView->show_delete_button = false;
+        $ListView->show_export_button = false;
+        $ListView->process_for_popups = true;
+        $ListView->setXTemplate($form);
+        $ListView->setHeaderTitle($mod_strings['LBL_LIST_FORM_TITLE']);
+        $ListView->setHeaderText($button);
+        $ListView->setQuery($where, '', 'kbdocument_name', 'KBDOCUMENT');
+        $ListView->setModStrings($mod_strings);
 
-		ob_start();
-		$ListView->processListView($seed_bean, 'main', 'KBDOCUMENT');
-		$output_html .= ob_get_contents();
-		ob_end_clean();
-				
-		$output_html .= insert_popup_footer();
-		return $output_html;
-	}
+        ob_start();
+        $ListView->processListView($seed_bean, 'main', 'KBDOCUMENT');
+        $output_html .= ob_get_contents();
+        ob_end_clean();
+                
+        $output_html .= insert_popup_footer();
+        return $output_html;
+    }
 } // end of class Popup_Picker
 ?>

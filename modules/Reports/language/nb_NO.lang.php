@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -46,15 +43,7 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_3' => 'Bedriftliste for partner',
   'DEFAULT_REPORT_TITLE_31' => 'Mine nylig endrede registreringer (Siste 30 dager)',
   'DEFAULT_REPORT_TITLE_32' => 'Registreringer endret av mine direkte rapporter (Siste 30 dager)',
-  'DEFAULT_REPORT_TITLE_33' => 'Bruk av mal:',
-  'DEFAULT_REPORT_TITLE_34' => 'Maks Sessions per dag (Siste 7 dager)',
-  'DEFAULT_REPORT_TITLE_35' => 'Forespørsler per dag (siste 7 dager)',
-  'DEFAULT_REPORT_TITLE_36' => 'Innlogginger per dag ( Siste 7 dager)',
-  'DEFAULT_REPORT_TITLE_37' => 'Forespørsler per dag (Siste 7 dager)',
-  'DEFAULT_REPORT_TITLE_38' => 'Filer per dag ( siste 7 dager)',
-  'DEFAULT_REPORT_TITLE_39' => 'Brukere per dag ( siste 7 dager)',
   'DEFAULT_REPORT_TITLE_4' => 'Bedriftliste for kunde',
-  'DEFAULT_REPORT_TITLE_40' => 'Minnebruk per dag (siste 7 dager)',
   'DEFAULT_REPORT_TITLE_41' => 'Aktiv bruker Sessions (Siste 7 dager)',
   'DEFAULT_REPORT_TITLE_42' => 'Bruker Sessions oppsummering (Siste 7 dager)',
   'DEFAULT_REPORT_TITLE_43' => 'Kundebedriftskonto eiere',
@@ -69,6 +58,10 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_51' => 'Opportunities vunnet av Bruker',
   'DEFAULT_REPORT_TITLE_52' => 'Alle åpne Opportunities',
   'DEFAULT_REPORT_TITLE_53' => 'Alle lukkete Opportunities',
+  'DEFAULT_REPORT_TITLE_56' => 'Salgsmuligheters produktsdistribusjon for tidligere, nåværende, neste tidsperiode per måned',
+  'DEFAULT_REPORT_TITLE_57' => 'Salgsmuligheters salgstrinn for tidligere, nåværende, neste tidsperiode per måned',
+  'DEFAULT_REPORT_TITLE_58' => 'Siste/Nåværende/Neste kvartal prognose',
+  'DEFAULT_REPORT_TITLE_59' => 'Salgsmuligheter etter salgstrinn for de rapporterende i inneværende periode',
   'DEFAULT_REPORT_TITLE_6' => 'Muligheter av lead-kilde',
   'DEFAULT_REPORT_TITLE_7' => 'Åpne saker av bruker av status',
   'DEFAULT_REPORT_TITLE_8' => 'Åpne saker av måned av bruker',
@@ -83,6 +76,8 @@ $mod_strings = array (
     1209600 => 'Hver andre uke',
     2419200 => 'Hver fjerde uke',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Den planlagte rapporten "{0}" har blitt deaktivert',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Planlagt rapport har blitt deaktivert',
   'ERR_REPORT_INVALID' => 'Definisjonen av rapport "{0}" inneholder ugyldige felter: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Rapporten er ugyldig',
   'ERR_SELECT_COLUMN' => 'Vennligst velg en visningkolonne først.',
@@ -126,6 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Før',
   'LBL_BUG_REPORTS' => 'Bugrapporter',
   'LBL_BY_DAY' => 'Ved dag',
+  'LBL_BY_FISCAL_QUARTER' => 'Ved regnskapskvartalet',
+  'LBL_BY_FISCAL_YEAR' => 'Ved regnskapsåret',
   'LBL_BY_MONTH' => 'Ved måned',
   'LBL_BY_QUARTER' => 'Ved kvartal',
   'LBL_BY_YEAR' => 'Ved år',
@@ -133,6 +130,7 @@ $mod_strings = array (
   'LBL_CALL_REPORTS' => 'Samtalerapporter',
   'LBL_CANCEL' => 'Avbryt',
   'LBL_CANNOT_BE_EMPTY' => 'Kan ikke väre tom.',
+  'LBL_CANNOT_DISPLAY_CHART_MESSAGE' => 'Diagrammet kan ikke fremvises på grunn av dens konfigurasjon.',
   'LBL_CASE_REPORTS' => 'Saksrapporter',
   'LBL_CHANGE' => 'Forandre',
   'LBL_CHART_DATA_HELP' => 'Velg oppsummeringen som vil vises i diagrammet',
@@ -155,6 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Opprett tilpasset rapport',
   'LBL_CREATE_REPORT' => 'Opprett rapport',
   'LBL_CSV_TIMESTAMP' => 'Å_m_d_T_i_s',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Inneværende regnskapskvartal',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Inneværende regnskapsår',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Inneværende kvartals forpliktede avtaler',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Inneværende kvartalsprognose',
   'LBL_CURRENT_USER' => 'Gjeldende bruker',
@@ -162,7 +162,6 @@ $mod_strings = array (
   'LBL_DATE' => 'Startdato',
   'LBL_DATE_BASED_FILTERS' => '<i>Datafiltere er relative til tidssonen hvor rapporten er skapt <b>Tildelt</b> bruker</i>',
   'LBL_DAY' => 'Dag',
-  'LBL_DCE_LICENSING_REPORT' => 'Lisensieringsrapport',
   'LBL_DEFINE_FILTERS' => 'Angi filtere',
   'LBL_DELETE' => 'Slett',
   'LBL_DELETED_FIELD_IN_REPORT1' => 'Følgende felt i denne rapporten er ikke lenger gyldig',
@@ -205,14 +204,18 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'av de følgende filtrene.',
   'LBL_FILTERS_HELP_DESC' => '<b>Fremgangsmåten for å angi filtere</b><br/><br/>1) Klikk på Modulen i <b>Beslektede Moduler</b> panelet som du vil bruke til å angi filtere. Som standard, er den primäre modulen (top node in the tree view) valgt. <br/><br/>Du kan velge en relatert modul(child node in the tree view) ved å klikke på modulen. Utvid noden for å vise tilleggsmoduler relatert til de beslektede modulene. Modulen som du velgert avgjør hvilke rapporteringspliktige felt som vises i panelet <b>Tilgjengelige felt</b>.<br/><br/><br />	2) Klikk på et felt i <b><Tilgjengelige Felt</b> panelet for å legge det til filterene. Du kan også søke etter feltet ved å skrive i tekstboksen i panelet.<br/><br/><br />	Etter å ha valgt ett antall felt i <b>Beslektede moduler</b> panelet, kan du velge en ulik modul der du kan velge et antall felt som skal brukes som filtre.<br/><br/><br />	3) Velg <b>Og</b> eller <b>ELLER</b> for å utpeke om alle filterene eller henholdsvis noen filtere, er brukt for å finne rapportens resultater.<br/><br/><br />	4) [Valgfri Klikk på <b>Legg til filtergruppe/b> for å opprette filtergrupper. Du kan ha ubegrensed antall filtergrupper, og hvilket som helst antall filtere i en gruppe, for å opprette nested filtere.<br/><br/><br />	5) [Valgfril] Velg Kjøretid valg for et Filter for å tillate  brukere å anvende filteret for å  tilpasse rapportens resultat underveis.',
   'LBL_FILTER_AND' => 'ALLE',
+  'LBL_FILTER_BY_MODULE' => 'Etter modul',
   'LBL_FILTER_CONDITIONS' => 'Velg passende registre',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Inntil',
   'LBL_FILTER_DATE_RANGE_START' => 'Fra',
   'LBL_FILTER_OR' => 'VILKÅRLIG',
+  'LBL_FISCAL_QUARTER' => 'Regnskapskvartal',
+  'LBL_FISCAL_YEAR' => 'Regnskapsår',
   'LBL_FORECAST_REPORTS' => 'Forecastrapporter',
   'LBL_FUNNEL' => 'Trakt',
   'LBL_GRAND_TOTAL' => 'Totale',
   'LBL_GREATER_THAN' => 'Større enn',
+  'LBL_GREATER_THAN_EQUAL' => 'Større enn eller lik med',
   'LBL_GROUP_BY' => 'Gruppér ved',
   'LBL_GROUP_BY_HELP_DESC' => '<b> Fremgangsmåten for å angi grupper: </b><br></br>1) Klikk på en modul i panelet <b>Beslektede moduler</b> som du vil bruke til å gruppere poster i din rapport.Som standard, er primärmodulen (top node in the tree view) valgt.<br/><br/> Du kan velge en beslektet modul (child node in the tree view) ved å klikke på modulen.Utvid noden for å vise tilleggsmoduler relatert til de beslektede modulene. Modulen du velgert avgjør hvilke rapporteringspliktige felt som vises i panelet<b>Tilgjengelige felt</b>.<br/><br/> 2) Klikk på feltet i panelet<b><Tilgjengelige felt</b> for å gruppere postene ved feltet i rapporten din.Du kan også søke etter feltet ved å skrive i tekstboksen i panelet.<br/><br/. Etter å ha valgt et antall felt i modulen valgt i panelet <b>Beslektede moduler</b>, kan du velge en ulik modul der du kan velge et hvilket som helst antall felt for å gruppere postene.<br/><br/> Men, rapporten blir mindre lesbar jo flere felt du grupperer med.<br/><br/>  Du kan endre rekkefølgen på feltene ved å dra og slippe dem til ønskede posisjoner. Forandring av rekkefølgen påvirker framvisningen av resultatene. <br/><br/>.For matriserapporter, kan maksimum tre felt brukes for å gruppere postene.',
   'LBL_GROUP_BY_REQUIRED' => 'Det kreves en summeringsrapport og en gruppe med kolonner for å skape et diagram',
@@ -232,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Siste 30 dager',
   'LBL_LAST_7_DAYS' => 'Siste 7 dager',
   'LBL_LAST_MONTH' => 'Siste måned',
+  'LBL_LAST_N_DAYS' => 'Siste # dager',
   'LBL_LAST_QUARTER' => 'Forrige kvartal',
   'LBL_LAST_WEEK' => 'Forrige uke',
   'LBL_LAST_YEAR' => 'Forrige år',
@@ -240,6 +244,7 @@ $mod_strings = array (
   'LBL_LEAD_REPORTS' => 'Lead-rapporter',
   'LBL_LEFT' => 'Venstre',
   'LBL_LESS_THAN' => 'Mindre enn',
+  'LBL_LESS_THAN_EQUAL' => 'Mindre enn eller lik med',
   'LBL_LINE' => 'Linje',
   'LBL_LIST_FORM_TITLE' => 'Rapporter',
   'LBL_LIST_PUBLISHED' => 'Publisert',
@@ -258,6 +263,7 @@ $mod_strings = array (
   'LBL_MODULE_CHANGE_PROMPT' => 'Ved å endre den valgte modulen, vil filtre, display, kolonner etc. gå tapt. Ønsker du fremdeles å fortsette?',
   'LBL_MODULE_NAME' => 'Rapporter',
   'LBL_MODULE_NAME_SAVED' => 'Modulnavn',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rapport',
   'LBL_MODULE_TITLE' => 'Rapporter: Hjem',
   'LBL_MODULE_VIEWER_TITLE' => 'Rapport visning: Hjem',
   'LBL_MONTH' => 'Måned',
@@ -298,7 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'Neste >',
   'LBL_NEXT_30_DAYS' => 'Neste 30 dager',
   'LBL_NEXT_7_DAYS' => 'Neste 7 dager',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Neste regnskapskvartal',
+  'LBL_NEXT_FISCAL_YEAR' => 'Neste regnskapsår',
   'LBL_NEXT_MONTH' => 'Neste måned',
+  'LBL_NEXT_N_DAYS' => 'Neste # dager',
   'LBL_NEXT_QUARTER' => 'Neste kvartal',
   'LBL_NEXT_RUN' => 'Neste e-postmelding',
   'LBL_NEXT_WEEK' => 'Neste uke',
@@ -310,6 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Du har ikke mulighet til å få tilgang til denne rapporten på grunn av restriktive bestemmelser.',
   'LBL_NO_CHART' => 'Intet diagram',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Diagram kan ikke tegnes på grunn av mangelfull data',
+  'LBL_NO_EXPORT_ACCESS' => 'Eksporterer deaktiverte',
   'LBL_NO_FILTERS' => 'Har ikke noe filter',
   'LBL_NO_IMAGE' => 'Inget bilde',
   'LBL_NO_REPORTS' => 'Ingen resultater.',
@@ -330,6 +340,8 @@ $mod_strings = array (
   'LBL_PIE' => 'Trekant',
   'LBL_PREVIEW_REPORT' => 'Forhåndsvisning',
   'LBL_PREVIOUS' => '< Tilbake',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Forrige regnskapskvartal',
+  'LBL_PREVIOUS_FISCAL_YEAR' => 'Forrige regnskapsår',
   'LBL_PROJECT_TASK_REPORTS' => 'Prosjektoppgaverapporter',
   'LBL_PROSPECT_REPORTS' => 'Målrapporter',
   'LBL_PUBLISH' => 'publiser',
@@ -346,6 +358,7 @@ $mod_strings = array (
   'LBL_PUBLISHED_OPPORTUNITY_REPORTS' => 'Publiserte mulighetsrapporter',
   'LBL_PUBLISHED_PROJECT_TASK_REPORTS' => 'Publiserte prosjektoppgaverapporter',
   'LBL_PUBLISHED_PROSPECT_REPORTS' => 'Publiserte målrapporter',
+  'LBL_PUBLISHED_QUOTA_REPORTS' => 'Publiserte budsjett rapporter',
   'LBL_PUBLISHED_QUOTE_REPORTS' => 'Publiserte tilbudsrapporter',
   'LBL_PUBLISHED_TASK_REPORTS' => 'Publiserte oppgaverapporter',
   'LBL_QUARTER' => 'Kvartal',
@@ -361,6 +374,7 @@ $mod_strings = array (
   'LBL_REMOVE_BTN_HELP' => 'Klikk for å fjerne denne filtergruppen',
   'LBL_REMOVE_GROUP' => 'Fjern filter gruppe',
   'LBL_REPORTS' => 'Rapporter',
+  'LBL_REPORTS_TO' => 'Rapporterer til',
   'LBL_REPORT_ATT_MODULES' => 'Moduler',
   'LBL_REPORT_ATT_NAME' => 'Navn',
   'LBL_REPORT_COLLAPSE_ALL' => 'Forminsk alle',
@@ -470,6 +484,7 @@ $mod_strings = array (
   'LBL_YEAR' => 'År',
   'LBL_YESTERDAY' => 'I går',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Du har ingen lagrede rapporter.',
+  'LNK_ADVANCED_REPORTING' => 'Administrer avanserte rapporter',
   'LNK_NEW_ACCOUNT' => 'Opprett bedrift',
   'LNK_NEW_CALL' => 'Planlegg oppringing',
   'LNK_NEW_CASE' => 'Opprett sak',

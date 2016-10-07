@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -36,7 +33,7 @@ global $app_strings;
 global $focus;
 
 // SETTING DEFAULTS
-$focus		= new Email();
+$focus = BeanFactory::getBean('Emails');
 $detailView	= new DetailView();
 $offset		= 0;
 $email_type	= 'archived';
@@ -98,8 +95,7 @@ if (!empty($focus->status)) {
 	// "Read" flag for InboundEmail
 	if($focus->status == 'unread') {
 		// creating a new instance here to avoid data corruption below
-		$e = new Email();
-		$e->retrieve($focus->id);
+		$e = BeanFactory::getBean('Emails', $focus->id);
 		$e->status = 'read';
 		$e->save();
 		$email_type = $e->status;
@@ -331,7 +327,7 @@ if($show_raw) {
 EOD;
 }
 
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $action_button = smarty_function_sugar_action_menu(array(
     'id' => 'detail_header_action_menu',
     'buttons' => $buttons,
@@ -405,7 +401,7 @@ if($show_raw) {
 EOD;
 }
 
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $action_button_sent_email = smarty_function_sugar_action_menu(array(
     'id' => 'detail_header_action_menu',
     'buttons' => $buttons_sent_email,
@@ -420,7 +416,7 @@ $jsVars  = '';
 $jsVars .= "var showRaw = '{$mod_strings['LBL_BUTTON_RAW_LABEL']}';";
 $jsVars .= "var hideRaw = '{$mod_strings['LBL_BUTTON_RAW_LABEL_HIDE']}';";
 $xtpl->assign("JS_VARS", $jsVars);
-
+$xtpl->assign("JS_HREF", "$('#html_div [href^=\"http\"]').attr('target', '_blank');");
 
 // ADMIN EDIT
 if(is_admin($GLOBALS['current_user']) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){
@@ -448,7 +444,7 @@ if ($do_open) {
 ////	NOTES (attachements, etc.)
 ///////////////////////////////////////////////////////////////////////////////
 
-$note = new Note();
+$note = BeanFactory::getBean('Notes');
 $where = "notes.parent_id='{$focus->id}'";
 //take in account if this is from campaign and the template id is stored in the macros.
 

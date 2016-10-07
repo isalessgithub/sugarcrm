@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_TIME_PERIOD_DATE_RANGE' => 'Time period end date should be later than start date.',
@@ -23,7 +20,9 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Date Entered',
   'LBL_DATE_MODIFIED' => 'Date Modified',
   'LBL_DELETED' => 'Deleted',
+  'LBL_DROPDOWN_TOOLTIP' => '{{start}} to {{end}}',
   'LBL_EDITLAYOUT' => 'Edit Layout',
+  'LBL_LEAF_CYCLE' => 'Leaf Cycle',
   'LBL_LIST_FORM_TITLE' => 'Time Periods',
   'LBL_LIST_WARNING' => 'Please note that any changes made in this module might potentially break the functionality of the {0} module. The changes related to {1} should be made through the <a style="text-decoration:none;" href="index.php?module=Forecasts&action=#config">{0} Settings</a>.',
   'LBL_MODULE_NAME' => 'Time Periods',

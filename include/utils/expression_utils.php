@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
@@ -19,36 +16,35 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 //utility functions for use with the expression object
 
 
+function translate_operator($operator, $type = "php")
+{
+    $php_operator_array = array(
+        'Equals' => '==',
+        'Is empty' => '==',
+        "Less Than" => "<",
+        "More Than" => ">",
+        "Does not Equal" => "!=",
+        "Is not empty" => "!=",
+    );
 
-function translate_operator($operator, $type="php"){
-	$php_operator_array = array(
-		"More Than" => ">",
-		"Less Than" => "<",
-		"Equals" => "=",
-		"Does not Equal" => "!=",	
-	);
-	
-	$sql_operator_array = array(
-	"More Than" => ">",
-	"Less Than" => "<",
-	"Equals" => "=",
-	"Does not Equal" => "!=",
-	);
-	
-	//two types.  PHP and SQL
-	
-	if($type=="php"){
-		return $php_operator_array[$operator];
-	}
-	if($type=="sql"){
+    $sql_operator_array = array(
+        'Equals' => '=',
+        'Is empty' => '=',
+        "Less Than" => "<",
+        "More Than" => ">",
+        "Does not Equal" => "!=",
+        "Is not empty" => "!=",
+    );
 
-		return $sql_operator_array[$operator];
-	}		
-	
+    //two types.  PHP and SQL
+    if ($type == "php") {
+        return $php_operator_array[$operator];
+    }
 
-	
-//end function translate_operator
-}	
+    if ($type == "sql") {
+        return $sql_operator_array[$operator];
+    }
+}
 
 function setup_filter_records($target_list, $target_exp_array, $type="php"){
 	
@@ -85,7 +81,7 @@ function compare_values(& $target_object, $lhs_field, $operator, $rhs_value){
 	if($rhs_value=="bool_true" || $rhs_value=="bool_false"){
 		return compare_bool_values($target_object, $lhs_field, $operator, $rhs_value);
 	}
-	if($operator=="="){
+    if ($operator == "==") {
 		if($target_object->$lhs_field == $rhs_value) return true;
 	}
 	if($operator=="!="){

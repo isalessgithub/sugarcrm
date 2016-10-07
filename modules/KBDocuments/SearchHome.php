@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
  //UI test for kb
  ********************************************************************************/
@@ -29,7 +26,7 @@ require_once('modules/KBDocuments/SearchUtils.php');
 global $mod_strings, $app_strings;
 
 
-$focus = new KBDocument();
+$focus = BeanFactory::getBean('KBDocuments');
 
 echo getClassicModuleTitle("KBDocuments", array($app_strings['LBL_SEARCH']), true);
 
@@ -189,7 +186,7 @@ if(isset($_POST['clear_loaded'])){
                     $_REQUEST['sortOrder']='desc';
                     $search_str = perform_advanced_search($focus,true);
 
-                    $results = "<table class='h3Row'  width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td nowrap ><h3>".$mod_strings['LBL_TOP_TEN_LIST_TITLE']."</h3></td></tr></table>";
+                    $results = "<table class='h3Row'  width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td nowrap ><h3>".$mod_strings['LBL_LIST_MOST_VIEWED']."</h3></td></tr></table>";
                     $results .= get_fts_list($search_str);
                 }
             }
@@ -210,10 +207,10 @@ if(isset($_POST['clear_loaded'])){
 
     //print out the needed script tags for tree
 
-    echo"        <link rel='stylesheet' href='include/ytree/TreeView/css/folders/tree.css'>
-    <script language='JavaScript' src='include/ytree/TreeView/TreeView.js'></script>
-    <script language='JavaScript' src='include/ytree/TreeView/TaskNode.js'></script>
-    <script language='JavaScript' src='include/ytree/treeutil.js'></script>";
+    echo"        <link rel='stylesheet' href='vendor/ytree/TreeView/css/folders/tree.css'>
+    <script language='JavaScript' src='vendor/ytree/TreeView/TreeView.js'></script>
+    <script language='JavaScript' src='vendor/ytree/TreeView/TaskNode.js'></script>
+    <script language='JavaScript' src='vendor/ytree/treeutil.js'></script>";
 
     $ss->assign('BROWSETAB', return_browse_tab());
 
@@ -371,8 +368,8 @@ function perform_advanced_search($focus,$default=false){
         $ss_brws->assign("APP", $app_strings);
 
 
-        require_once('include/ytree/Tree.php');
-        require_once('include/ytree/Node.php');
+        require_once('vendor/ytree/Tree.php');
+        require_once('vendor/ytree/Node.php');
         require_once('modules/KBTags/TreeData.php');
 
 
@@ -584,8 +581,7 @@ function perform_advanced_search($focus,$default=false){
 
         if (!empty($focus->kbdoc_approver_id)) {
 
-            $user = new User();
-            $user->retrieve($focus->kbdoc_approver_id,true);
+            $user = BeanFactory::getBean('Users', $focus->kbdoc_approver_id);
             $ss_adv->assign("KBDOC_APPROVER_NAME", $user->name);
             $ss_adv->assign("KBDOC_APPROVER_ID", $focus->kbdoc_approver_id);
         }
@@ -606,7 +602,7 @@ function perform_advanced_search($focus,$default=false){
 
             //create tree for tag selection modal
 
-            $tag = new KBTag();
+            $tag = BeanFactory::getBean('KBTags');
             $ss_adv->assign("TAG_NAME", $tag->tag_name);
 
             //tree header.
@@ -760,7 +756,7 @@ function perform_advanced_search($focus,$default=false){
 
 
         //create new bean instance, and retrieve search if id is provided
-        $search_bean = new SavedSearch();
+        $search_bean = BeanFactory::getBean('SavedSearch');
         if($update && isset($s_id)  && !empty($s_id)){
             $search_bean->retrieve($s_id);
             if($search_bean ==null){
@@ -807,7 +803,7 @@ function perform_advanced_search($focus,$default=false){
      */
     function loadSavedSearch($s_id){
 
-        $search_bean = new SavedSearch();
+        $search_bean = BeanFactory::getBean('SavedSearch');
 
         if(isset($s_id)  && !empty($s_id)){
             //retrieve saved search and unserialize/decode it's contents
@@ -843,7 +839,7 @@ function perform_advanced_search($focus,$default=false){
      global $current_user, $mod_strings, $app_strings;
 
 
-        $search_bean = new SavedSearch();
+        $search_bean = BeanFactory::getBean('SavedSearch');
         if(isset($s_id)  && !empty($s_id)){
             //mark bean as deleted, and set clear_loaded param to true
             $search_bean->mark_deleted($s_id);

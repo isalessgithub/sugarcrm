@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/MVC/View/SugarView.php');
 
@@ -18,7 +17,8 @@ require_once('include/MVC/View/SugarView.php');
  * Main SugarCRM controller
  * @api
  */
-class SugarController{
+class SugarController
+{
 	/**
 	 * remap actions in here
 	 * e.g. make all detail views go to edit views
@@ -138,7 +138,7 @@ class SugarController{
 	 * Constructor. This ie meant tot load up the module, action, record as well
 	 * as the mapping arrays.
 	 */
-	function SugarController(){
+	public function SugarController(){
 	}
 
 	/**
@@ -204,18 +204,16 @@ class SugarController{
 	 */
 	public function loadBean()
 	{
-		if(!empty($GLOBALS['beanList'][$this->module])){
-			$class = $GLOBALS['beanList'][$this->module];
-			if(!empty($GLOBALS['beanFiles'][$class])){
-				require_once($GLOBALS['beanFiles'][$class]);
-				$this->bean = new $class();
-				if(!empty($this->record)){
-					$this->bean->retrieve($this->record);
-					if($this->bean)
-						$GLOBALS['FOCUS'] = $this->bean;
+	    $bean = BeanFactory::newBean($this->module);
+	    if(!empty($bean)) {
+			$this->bean = $bean;
+			if(!empty($this->record)){
+				$this->bean->retrieve($this->record);
+				if(!empty($this->bean->id)) {
+					$GLOBALS['FOCUS'] = $this->bean;
 				}
 			}
-		}
+	    }
 	}
 
 	/**
@@ -229,27 +227,13 @@ class SugarController{
 			}else{
 				$$var = array();
 			}
-			if(file_exists('include/MVC/Controller/'. $var . '.php')){
-				require('include/MVC/Controller/'. $var . '.php');
+			foreach(SugarAutoLoader::existingCustom("include/MVC/Controller/{$var}.php", "modules/{$this->module}/{$var}.php") as $file) {
+			    require $file;
 			}
-			if(file_exists('modules/'.$this->module.'/'. $var . '.php')){
-				require('modules/'.$this->module.'/'. $var . '.php');
-			}
-			if(file_exists('custom/modules/'.$this->module.'/'. $var . '.php')){
-				require('custom/modules/'.$this->module.'/'. $var . '.php');
-			}
-			if(file_exists('custom/include/MVC/Controller/'. $var . '.php')){
-				require('custom/include/MVC/Controller/'. $var . '.php');
-			}
-
-            // entry_point_registry -> EntryPointRegistry
 
 			$varname = str_replace(" ","",ucwords(str_replace("_"," ", $var)));
-            if(file_exists("custom/application/Ext/$varname/$var.ext.php")){
-				require("custom/application/Ext/$varname/$var.ext.php");
-	        }
-			if(file_exists("custom/modules/{$this->module}/Ext/$varname/$var.ext.php")){
-				require("custom/modules/{$this->module}/Ext/$varname/$var.ext.php");
+			foreach(SugarAutoLoader::existing("custom/application/Ext/$varname/$var.ext.php", "custom/modules/{$this->module}/Ext/$varname/$var.ext.php") as $file) {
+			    require $file;
 			}
 
 			sugar_cache_put("CONTROLLER_". $var . "_".$this->module, $$var);
@@ -266,23 +250,21 @@ class SugarController{
         try
         {
             $this->process();
+            $this->postProcess();
             if(!empty($this->view))
             {
                 $this->processView();
             }
             elseif(!empty($this->redirect_url))
             {
-            			$this->redirect();
+                $this->redirect();
             }
         }
         catch (Exception $e)
         {
             $this->handleException($e);
         }
-
-
-
-	}
+    }
 
     /**
       * Handle exception
@@ -290,8 +272,10 @@ class SugarController{
       */
     protected function handleException(Exception $e)
     {
-        $GLOBALS['log']->fatal('Exception in Controller: ' . $e->getMessage());
+        $GLOBALS['log']->fatal('Exception in Controller: ' . $e);
         $logicHook = new LogicHook();
+
+        SugarMetric_Manager::getInstance()->handleException($e);
 
         if (isset($this->bean))
         {
@@ -331,6 +315,13 @@ class SugarController{
 	public function preProcess()
 	{}
 
+    /**
+     * Intended to be defined by child controllers that need functionality after
+     * after the process() method has finished
+     */
+    public function postProcess()
+    {}
+
 	/**
 	 * if we have a function to support the action use it otherwise use the default action
 	 *
@@ -348,8 +339,6 @@ class SugarController{
 			$file = self::getActionFilename($this->do_action);
 
 			$this->loadBean();
-
-			$processed = false;
             if (!$this->_processed) {
                 foreach ($this->process_tasks as $process) {
                     $this->$process();
@@ -483,6 +472,7 @@ class SugarController{
 	 * Do some processing before saving the bean to the database.
 	 */
 	public function pre_save(){
+		// This code is replicated for the API's in SugarApi::updateBean()
 		if(!empty($_POST['assigned_user_id']) && $_POST['assigned_user_id'] != $this->bean->assigned_user_id && $_POST['assigned_user_id'] != $GLOBALS['current_user']->id && empty($GLOBALS['sugar_config']['exclude_notifications'][$this->bean->module_dir])){
 			$this->bean->notify_on_save = true;
 		}
@@ -581,20 +571,16 @@ class SugarController{
 	 * Specify what happens after the deletion has occurred.
 	 */
 	protected function post_delete(){
-        if (empty($_REQUEST['return_url'])) {
-            $return_module = isset($_REQUEST['return_module']) ?
-                $_REQUEST['return_module'] :
-                $GLOBALS['sugar_config']['default_module'];
-            $return_action = isset($_REQUEST['return_action']) ?
-                $_REQUEST['return_action'] :
-                $GLOBALS['sugar_config']['default_action'];
-            $return_id = isset($_REQUEST['return_id']) ?
-                $_REQUEST['return_id'] :
-                '';
-            $url = "index.php?module=".$return_module."&action=".$return_action."&record=".$return_id;
-        } else {
-            $url = $_REQUEST['return_url'];
-        }
+		$return_module = isset($_REQUEST['return_module']) ?
+			$_REQUEST['return_module'] :
+			$GLOBALS['sugar_config']['default_module'];
+		$return_action = isset($_REQUEST['return_action']) ?
+			$_REQUEST['return_action'] :
+			$GLOBALS['sugar_config']['default_action'];
+		$return_id = isset($_REQUEST['return_id']) ?
+			$_REQUEST['return_id'] :
+			'';
+		$url = "index.php?module=".$return_module."&action=".$return_action."&record=".$return_id;
 
 		//eggsurplus Bug 23816: maintain VCR after an edit/save. If it is a duplicate then don't worry about it. The offset is now worthless.
 		if(isset($_REQUEST['offset']) && empty($_REQUEST['duplicateSave'])) {
@@ -607,6 +593,7 @@ class SugarController{
 	 * Perform the actual massupdate.
 	 */
 	protected function action_massupdate(){
+        global $app_strings;
 		if(!empty($_REQUEST['massupdate']) && $_REQUEST['massupdate'] == 'true' && (!empty($_REQUEST['uid']) || !empty($_REQUEST['entire']))){
 			if(!empty($_REQUEST['Delete']) && $_REQUEST['Delete']=='true' && !$this->bean->ACLAccess('delete')
                 || (empty($_REQUEST['Delete']) || $_REQUEST['Delete']!='true') && !$this->bean->ACLAccess('save')){
@@ -617,27 +604,58 @@ class SugarController{
             set_time_limit(0);//I'm wondering if we will set it never goes timeout here.
             // until we have more efficient way of handling MU, we have to disable the limit
             $GLOBALS['db']->setQueryLimit(0);
-            require_once("include/MassUpdate.php");
             require_once('modules/MySettings/StoreQuery.php');
-            $seed = loadBean($_REQUEST['module']);
-            $mass = new MassUpdate();
+            $seed = BeanFactory::getBean($_REQUEST['module']);
+            SugarAutoLoader::requireWithCustom('include/MassUpdate.php');
+            $massUpdateClass = SugarAutoLoader::customClass('MassUpdate');
+            $mass = new $massUpdateClass();
             $mass->setSugarBean($seed);
             if(isset($_REQUEST['entire']) && empty($_POST['mass'])) {
                 $mass->generateSearchWhere($_REQUEST['module'], $_REQUEST['current_query_by_page']);
             }
-            $mass->handleMassUpdate();
+            $arr = $mass->handleMassUpdate();
             $storeQuery = new StoreQuery();//restore the current search. to solve bug 24722 for multi tabs massupdate.
             $temp_req = array('current_query_by_page' => $_REQUEST['current_query_by_page'], 'return_module' => $_REQUEST['return_module'], 'return_action' => $_REQUEST['return_action']);
+            if (!empty($_POST['mass'])) {
+                $total_records = count($_POST['mass']);
+                $failed_update = count($arr);
+                $successful_update = $total_records - $failed_update;
+                if ($successful_update == $total_records) {
+                   //show succesful deletion message if this is a delete update
+                    if(!empty($_REQUEST['Delete'])){
+                        $massupdate_status = $app_strings['TPL_MASSDELETE_SUCCESS'];
+                        $massupdate_status = str_replace("{{num}}", $successful_update, $massupdate_status);
+                    }else{
+                        //show succesful update message if this is not a delete request
+                        $massupdate_status = $app_strings['LBL_MASS_UPDATE_SUCCESS'];
+                    }
+                } else {
+                    if(!empty($_REQUEST['Delete'])){
+                        $massupdate_status = $app_strings['TPL_MASSDELETE_SUCCESS'];
+                    }else{
+                        $massupdate_status = $app_strings['TPL_MASSUPDATE_SUCCESS'];
+                    }
+
+                    $massupdate_status .= " " . $app_strings['TPL_MASSUPDATE_WARNING_PERMISSION'];
+                    $massupdate_status = str_replace("{{num}}", $successful_update, $massupdate_status);
+                    $massupdate_status = str_replace("{{remain}}", $failed_update, $massupdate_status);
+                }
+                $temp_req['updated_records'] = $massupdate_status;
+            }
             if($_REQUEST['return_module'] == 'Emails') {
                 if(!empty($_REQUEST['type']) && !empty($_REQUEST['ie_assigned_user_id'])) {
                     $this->req_for_email = array('type' => $_REQUEST['type'], 'ie_assigned_user_id' => $_REQUEST['ie_assigned_user_id']); // Specifically for My Achieves
                 }
             }
             $_REQUEST = array();
-            $_REQUEST = sugar_unserialize(base64_decode($temp_req['current_query_by_page']));
+            $_REQUEST = unserialize(base64_decode($temp_req['current_query_by_page']));
             unset($_REQUEST[$seed->module_dir.'2_'.strtoupper($seed->object_name).'_offset']);//after massupdate, the page should redirect to no offset page
             $storeQuery->saveFromRequest($_REQUEST['module']);
-            $_REQUEST = array('return_module' => $temp_req['return_module'], 'return_action' => $temp_req['return_action']);//for post_massupdate, to go back to original page.
+            $_REQUEST = array(
+                'return_module' => $temp_req['return_module'],
+                'return_action' => $temp_req['return_action'],
+                'updated_records' => $temp_req['updated_records']
+            ); //for post_massupdate, to go back to original page.
 		}else{
 			sugar_die("You must massupdate at least one record");
 		}
@@ -652,7 +670,10 @@ class SugarController{
 		$return_action = isset($_REQUEST['return_action']) ?
 			$_REQUEST['return_action'] :
 			$GLOBALS['sugar_config']['default_action'];
-		$url = "index.php?module=".$return_module."&action=".$return_action;
+        $url = "index.php?module=".$return_module."&action=".$return_action;
+        if (isset($_REQUEST['updated_records'])) {
+            $url .= "&updated_records=" . $_REQUEST['updated_records'];
+        }
 		if($return_module == 'Emails'){//specificly for My Achieves
 			if(!empty($this->req_for_email['type']) && !empty($this->req_for_email['ie_assigned_user_id'])) {
 				$url = $url . "&type=".$this->req_for_email['type']."&assigned_user_id=".$this->req_for_email['ie_assigned_user_id'];
@@ -745,19 +766,12 @@ class SugarController{
         $this->view = 'edit';
         $GLOBALS['view'] = $this->view;
         ob_clean();
-        $retval = false;
-
         if(method_exists($this->bean, 'deleteAttachment')) {
-            $duplicate = "false";
-            if (isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == "true") {
-                $duplicate = "true";
-            }
-            if (isset($_REQUEST['duplicateSave']) && $_REQUEST['duplicateSave'] == "true") {
-                $duplicate = "true";
-            }
-            $retval = $this->bean->deleteAttachment($duplicate);
+            echo $this->bean->deleteAttachment($_REQUEST['isDuplicate']) ? 'true' : 'false';
+        } else {
+            echo 'false';
         }
-        echo json_encode($retval);
+
         sugar_cleanup(true);
     }
 
@@ -874,11 +888,12 @@ class SugarController{
 	        $action = 'list';
 	    }
 
-		if ((file_exists('modules/' . $this->module . '/'. $file . '.php')
-                && !file_exists('modules/' . $this->module . '/views/view.'. $action . '.php'))
-            || (file_exists('custom/modules/' . $this->module . '/'. $file . '.php')
-                && !file_exists('custom/modules/' . $this->module . '/views/view.'. $action . '.php'))
-            ) {
+	    $action = strtolower($action);
+
+	    if((SugarAutoLoader::existing("modules/{$this->module}/{$file}.php") &&
+    	    !SugarAutoLoader::existing("modules/{$this->module}/views/view.{$action}.php")) ||
+    	    (SugarAutoLoader::existing("custom/modules/{$this->module}/{$file}.php") &&
+    	    !SugarAutoLoader::existing("custom/modules/{$this->module}/views/view.{$action}.php"))) {
 			// A 'classic' module, using the old pre-MVC display files
 			// We should now discard the bean we just obtained for tracking as the pre-MVC module will instantiate its own
 			unset($GLOBALS['FOCUS']);
@@ -945,4 +960,3 @@ class SugarController{
         $this->do_action = $this->action;
     }
 }
-?>

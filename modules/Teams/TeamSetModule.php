@@ -1,23 +1,20 @@
 <?php
 
 
-require_once('include/ytree/Tree.php');
-require_once('include/ytree/Node.php');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+require_once('vendor/ytree/Tree.php');
+require_once('vendor/ytree/Node.php');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: AddUserToTeam.php 13782 2006-06-06 17:58:55Z majed $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -37,6 +34,7 @@ class TeamSetModule extends SugarBean{
 
     var $table_name = "team_sets_modules";
     var $object_name = "TeamSetModule";
+    var $module_name = 'TeamSetModule';
     var $module_dir = 'Teams';
     var $disable_custom_fields = true;
 
@@ -45,18 +43,12 @@ class TeamSetModule extends SugarBean{
     *
     */
     public function __construct(){
-        parent::SugarBean();
+        parent::__construct();
         $this->disable_row_level_security =true;
     }
 
-    public function save($check_notify = false)
-    {
-        $sql = sprintf(
-            'SELECT id FROM %s WHERE team_set_id = %s AND module_table_name = %s',
-            $this->table_name,
-            $this->db->quoted($this->team_set_id),
-            $this->db->quoted($this->module_table_name)
-        );
+    public function save(){
+        $sql = "SELECT id FROM $this->table_name WHERE team_set_id = '$this->team_set_id' AND module_table_name = '$this->module_table_name'";
         $result = $this->db->query($sql);
         $row = $this->db->fetchByAssoc($result);
         if (!$row){
@@ -64,3 +56,4 @@ class TeamSetModule extends SugarBean{
         }
     }
 }
+?>

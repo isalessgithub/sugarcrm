@@ -1,27 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  
- ********************************************************************************/
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/workflow/workflow_utils.php');
 require_once('include/VarDefHandler/VarDefHandler.php');
 global $current_user;
@@ -35,30 +23,25 @@ if (!is_admin($current_user)&& !is_admin_for_any_module($current_user)) {
 global $mod_strings;
 global $app_list_strings;
 global $app_strings;
-// Unimplemented until jscalendar language files are fixed
-// global $current_language;
-// global $default_language;
-// global $cal_codes;
 
-$workflow_object = new WorkFlow();
-if(isset($_REQUEST['workflow_id']) && isset($_REQUEST['workflow_id'])) {
-    $workflow_object->retrieve($_REQUEST['workflow_id']);
-} else {
+if(!empty($_REQUEST['workflow_id'])) {
+    $workflow_object = BeanFactory::retrieveBean('WorkFlow', $_REQUEST['workflow_id']);
+}
+if(empty($workflow_object)) {
 	sugar_die("You shouldn't be here");
 }
 
-$focus = new WorkFlowTriggerShell();
+$focus = BeanFactory::getBean('WorkFlowTriggerShells');
 
-if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 }
-
 
 
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
 	$focus->id = "";
 }
-echo getClassicModuleTitle($mod_strings['LBL_MODULE_NAME'], array($mod_strings['LBL_MODULE_NAME']), true); 
+echo getClassicModuleTitle($mod_strings['LBL_MODULE_NAME'], array($mod_strings['LBL_MODULE_NAME']), true);
 
 $GLOBALS['log']->info("WorkFlow edit view");
 
@@ -75,12 +58,12 @@ if (isset($_REQUEST['return_action'])){
 	$xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
 } else {
 	$xtpl->assign("RETURN_ACTION", "DetailView");
-}	
+}
 if (isset($_REQUEST['return_id'])){
 	$xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
 } else {
 	$xtpl->assign("RETURN_ID", $_REQUEST['workflow_id']);
-}	
+}
 
 $xtpl->assign("PRINT_website", "index.php?".$GLOBALS['request_string']);
 $xtpl->assign("JAVASCRIPT", get_set_focus_js());
@@ -98,14 +81,14 @@ if(empty($focus->parent_id)){
 		$meta_array_type = "normal_trigger";
 	} else {
 		$meta_array_type = "time_trigger";
-	}	
+	}
 
-	$temp_module = get_module_info($workflow_object->base_module);
+	$temp_module = BeanFactory::getBean($workflow_object->base_module);
 	$temp_module->call_vardef_handler($meta_array_type);
-	$field_array = $temp_module->vardef_handler->get_vardef_array();  
+	$field_array = $temp_module->vardef_handler->get_vardef_array();
 
-	
-	
+
+
 $field_select = get_select_options_with_id($field_array, $focus->field);
 $xtpl->assign('FIELD_SELECT', $field_select);
 

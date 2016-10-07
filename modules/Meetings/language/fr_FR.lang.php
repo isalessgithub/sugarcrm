@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numéro d&#39;enregistrement doit être spécifié pour toute suppression.',
@@ -55,10 +52,11 @@ $mod_strings = array (
   'LBL_DURATION_MINUTES' => 'Durée en Minutes:',
   'LBL_EDIT_ALL_RECURRENCES' => 'Editer toutes les occurrences',
   'LBL_EMAIL' => 'Email',
-  'LBL_EMAIL_REMINDER' => 'Notification par email',
+  'LBL_EMAIL_REMINDER' => 'Email de rappel',
   'LBL_EMAIL_REMINDER_SENT' => 'Notification par email envoyée',
-  'LBL_EMAIL_REMINDER_TIME' => 'Horaire notification par email',
+  'LBL_EMAIL_REMINDER_TIME' => 'Email de rappel',
   'LBL_EMPTY_SEARCH_RESULT' => 'Désolé, aucun résultat trouvé. Veuillez créer un invité ci-dessous.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Il y a eu une erreur pour démarrer cette Réunion. Veuillez contacter votre Administrateur.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Utilisateur assigné (ID)',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Utilisateur assigné nom',
   'LBL_EXPORT_CREATED_BY' => 'Créé par (ID)',
@@ -80,6 +78,26 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Vous n&#39;êtes pas autorisé à joindre cette réunion car vous n&#39;êtes pas un des participants de celle-ci.',
   'LBL_EXTNOT_RECORD_LINK' => 'Voir la réunion',
   'LBL_FIRST_NAME' => 'Prénom',
+  'LBL_HELP_CREATE' => 'L&#39;entité {{plural_module_name}} contient des enregistrements {{meetings_singular_module}} créés par les utilisateurs dans votre société. Les {{plural_module_name}} peuvent être en statut "Planifié", "Tenu", ou "Annulé(e)". Les utilisateurs de Sugar ainsi que les {{contacts_module}} et les {{leads_module}} peuvent être ajoutés en tant qu&#39;invités.
+
+Pour créer une {{meetings_singular_module}}:
+1. Renseignez les valeurs pour les champs.
+    - Les champs "Requis" sont obligatoires pour sauvegarder.
+    - Cliquez sur "Voir plus" pour faire afficher les champs secondaires si nécessaire.
+2. Ajoutez des invités à la {{meetings_singular_module}}.
+    - Cliquez sur Sélectionner des invités pour ajouter un utilisateur, contact ou lead à la {{meetings_singular_module}}.
+    - Cliquez sur l&#39;icône plus à droite de la sélection d&#39;invités pour créer un nouvel enregistrement Sugar que vous souhaitez inviter à la {{meetings_singular_module}}.
+3. Cliquez sur "Sauvegarder" pour finaliser la création de l&#39;enregistrement et retourner à la page précédente.
+    - Sélectionner "Sauvegarder et voir" pour ouvrir la nouvelle réunion dans la vue Enregistrement.
+    - Sélectionner "Sauvegarder et créer nouveau" pour créer immédiatement une nouvelle {{meetings_singular_module}}.',
+  'LBL_HELP_RECORD' => 'L&#39;entité {{plural_module_name}} contient des enregistrements {{meetings_singular_module}} créés par les utilisateurs dans votre société. Les {{plural_module_name}} peuvent être en statut "Planifié", "Tenu", ou "Annulé(e)". Les utilisateurs de Sugar ainsi que les {{contacts_module}} et les {{leads_module}} peuvent être ajoutés en tant qu&#39;invités.
+
+- Modifiez cet enregistrement en cliquant sur un champ ou en utilisant le bouton éditer.
+- Voyez ou modifiez les liens vers les autres enregistrements dans les sous panels en cliquant sur le bouton permettant de basculer le panneau en bas à gauche en "Vue des données".
+- Faites des commentaires et visualisez les avec l&#39;historique des modifications dans le Flux d&#39;activités en cliquant sur le bouton permettant de basculer le panneau en bas à gauche en " Flux d&#39;activités".
+- Suivez ou mettez en favori cet enregistrement en utilisant les icônes à droite du nom de l&#39;enregistrement.
+- Des actions supplémentaires sont disponibles dans les listes déroulantes d&#39;actions à droite du bouton éditer.',
+  'LBL_HELP_RECORDS' => 'L&#39;entité {{plural_module_name}} contient des enregistrements {{meetings_singular_module}} créés par les utilisateurs dans votre société. Les {{plural_module_name}} peuvent être en statut "Planifié", "Tenu", ou "Annulé(e)". Depuis la vue liste des {{plural_module_name}}, vous pouvez cliquer sur le bouton fermer de tous les lignes de {{meetings_singular_module}} pour les marquer comme terminé(e). Les utilisateurs de Sugar ainsi que les  {{contacts_module}} et les {{leads_module}} peuvent être ajoutés en tant qu&#39;invités. Il y a plusieurs façon de créer des {{meetings_module}} dans Sugar comme via l&#39;entité {{plural_module_name}}, le {{calendar_module}}, l&#39;import de {{meetings_module}}, etc. Les utilisateurs peuvent aussi créer des {{meetings_module}} via le sous panel des Activités (pour les entités en héritage) ou le dashlet des Activités planifiées (pour les entités au nouveau design) sur les modules liés (e.g. {{contacts_module}}, {{accounts_module}}, {{leads_module}}, etc.), lesquels créeront automatiquement la relation entre les 2 enregistrements. Une fois que l&#39;enregistrement {{meetings_singular_module}} est créé, vous pouvez voir, éditer des informations liées à la  {{meetings_singular_module}} depuis la vue détail de l&#39;entité {{module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notes',
   'LBL_HOST_EXT_MEETING' => 'Démarrer la réunion',
   'LBL_HOST_URL' => 'URL hôte',
@@ -87,6 +105,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(heures/minutes)',
   'LBL_INVITEE' => 'Participants',
   'LBL_JOIN_EXT_MEETING' => 'Joindre la réunion',
+  'LBL_JOIN_MEETING' => 'Joindre {{meetingType}}',
   'LBL_LAST_NAME' => 'Nom',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Assigné à',
@@ -105,6 +124,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Heure début',
   'LBL_LOCATION' => 'Localisation:',
   'LBL_MEETING' => 'Réunion:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Réunion clôturée.',
   'LBL_MEETING_INFORMATION' => 'Informations Réunion',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Modifié par',
@@ -112,6 +132,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Réunions',
   'LBL_MODULE_NAME_SINGULAR' => 'Réunion',
   'LBL_MODULE_TITLE' => 'Réunions',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Mes Réunions planifiées',
   'LBL_NAME' => 'Nom',
   'LBL_NEW_FORM_TITLE' => 'Planifier Réunion',
   'LBL_NO_ACCESS' => 'Vous n&#39;avez aucun accès pour créer $module',
@@ -120,6 +141,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Type de Parent :',
   'LBL_PASSWORD' => 'Mot de passe',
   'LBL_PHONE' => 'Téléphone:',
+  'LBL_POPUP_REMINDER' => 'Popup de rappel',
+  'LBL_POPUP_REMINDER_TIME' => 'Popup de rappel',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Vous avez créé un/une {{moduleSingularLower}} pour {{formatDate date_start}}, mais vous n&#39;avez pas la permission d&#39;y accéder.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Vous avez créé un/une {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> pour {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Récurrence',
   'LBL_RECURRING_LIMIT_ERROR' => 'Cette réunion ne peut être planifiée car elle dépasse le nombre maximum de récurrence autorisé qui est de $limit.',
   'LBL_RECURRING_SOURCE' => 'Source récurrence',
@@ -130,6 +155,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Rapp. email tous',
   'LBL_REMINDER_POPUP' => 'Rappel utilisateurs',
   'LBL_REMINDER_TIME' => 'Heure de la notification',
+  'LBL_REMINDER_TITLE' => 'Réunion :',
   'LBL_REMOVE' => 'Sup',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Supprimer toutes les occurrences',
   'LBL_REPEAT_COUNT' => 'Répétition occurences',
@@ -142,6 +168,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Répétition ID parent',
   'LBL_REPEAT_TYPE' => 'Répétition type',
   'LBL_REPEAT_UNTIL' => 'Répétition jusque',
+  'LBL_REVENUELINEITEMS' => 'Lignes de revenu',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planification',
   'LBL_SEARCH_BUTTON' => 'Rechercher',
   'LBL_SEARCH_FORM_TITLE' => 'Rechercher une Réunion',
@@ -150,6 +177,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Envoyer les invitations [Alt+I]',
   'LBL_SEND_INVITES' => 'Envoyer Invitations',
   'LBL_SEQUENCE' => 'Fréquence de mise à jour de la réunion',
+  'LBL_START_MEETING' => 'Démarrer {{meetingType}}',
   'LBL_STATUS' => 'Statut:',
   'LBL_SUBJECT' => 'Sujet:',
   'LBL_SYNCED_RECURRING_MSG' => 'Cette réunion provient d&#39;une application externe et a été synchronisé avec Sugar. Une fois éditer dans Sugar, cette réunion ne sera plus synchronisée avec cette application externe.',

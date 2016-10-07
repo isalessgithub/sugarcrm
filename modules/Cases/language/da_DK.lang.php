@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Du skal angive et postnummer for at slette virksomheden.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Vedhæft note',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Fejl',
   'LBL_CASE' => 'Sag:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Sagsoversigt',
   'LBL_CASE_NUMBER' => 'Sagsnr.:',
   'LBL_CASE_SUBJECT' => 'Sagsemne:',
@@ -53,8 +51,20 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ændret af id',
   'LBL_EXPORT_TEAM_COUNT' => 'Team Count',
   'LBL_FILENANE_ATTACHMENT' => 'Vedhæftet fil',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+- Fields marked "Required" must be completed prior to saving.
+- Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+- Choose "Save and view" to open the new {{module_name}} in record view.
+- Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består af alle produkter, der allerede er solgt eller er i færd med at blive solgt til kunderne. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler ved at skifte nederste venstre rude til "Data View". - Foretag og vis brugernes kommentarer og ændring i historie {{activitystream_singular_module}} ved at skifte nederste venstre rude til "Activity Stream". - Følg eller faviroser denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul bruges til at spore og administrere produkt eller servicerelaterede problem rapporteret til din organisation fra kunderne. {{plural_module_name}} er typisk relateret til en {{accounts_singular_module}} post, og flere {{plural_module_name}} kan være forbundet til en enkelt {{accounts_singular_module}}. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar som via {{plural_module_name}} modul, importere {{plural_module_name}}, eller konverteret fra e-mail. Når {{MODULE_NAME}} er oprettet, kan du se og redigere oplysninger om den {{MODULE_NAME}} via {{MODULE_NAME}} &#39;s post visning. Hver {{MODULE_NAME}} post kan så forholde sig til andre Sugar visninger, såsom {{calls_module}}, {{contacts_module}}, {{bugs_module}}, og mange andre.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_INVITEE' => 'Kontakter',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
   'LBL_LIST_ACCOUNT_NAME' => 'Virksomhedsnavn',
   'LBL_LIST_ASSIGNED' => 'Tildelt til',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Tildelt bruger',
@@ -78,7 +88,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Sag',
   'LBL_MODULE_TITLE' => 'Sager: Startside',
   'LBL_NEW_FORM_TITLE' => 'Ny sag',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Noter',
   'LBL_NUMBER' => 'Nummer:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Hvis du har en ny support sag, du ønsker at indsende, kan du klikke her for at sende en ny sag.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrere listen over Cases ved at levere et søgeord.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'For eksempel kan du bruge dette til at finde et emne, der tidligere er blevet sendt.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Case modulen er til håndtering af support problemer, der påvirker din konto. Brug pilene nedenfor for at gå gennem en hurtig rundvisning.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denne side viser en liste over eksisterende rapporterede fejl.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Hvis du klikker her, vender du tilbage til denne visning til enhver tid.',
   'LBL_PORTAL_VIEWABLE' => 'Vis portal',
   'LBL_PRIORITY' => 'Prioritet:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekter',
@@ -87,6 +104,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter sag',
   'LBL_SHOW_IN_PORTAL' => 'Vis i portal',
   'LBL_SHOW_MORE' => 'Vis flere sager',
+  'LBL_SOURCE' => 'Kilde:',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Emne:',
   'LBL_SYSTEM_ID' => 'System-id',
@@ -99,6 +117,7 @@ $mod_strings = array (
   'LNK_CASE_LIST' => 'Sager',
   'LNK_CASE_REPORTS' => 'Sagsrapporter',
   'LNK_CREATE' => 'Opret sag',
+  'LNK_CREATE_WHEN_EMPTY' => 'Opret en sag nu.',
   'LNK_IMPORT_CASES' => 'Importér sager',
   'LNK_NEW_CASE' => 'Opret sag',
   'NTC_REMOVE_FROM_BUG_CONFIRMATION' => 'Er du sikker på, at du vil fjerne denne sag fra fejlen?',

@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /*
  Removes Relationships, input is a form POST
@@ -36,15 +26,10 @@ ARGS:
   2) $_REQUEST['return_module']; :
   3) $_REQUEST['return_action']; :
 */
-//_ppd($_REQUEST);
-
 
 require_once('include/formbase.php');
 
- global $beanFiles,$beanList;
- $bean_name = $beanList[$_REQUEST['module']];
- require_once($beanFiles[$bean_name]);
- $focus = new $bean_name();
+ $focus = BeanFactory::getBean($_REQUEST['module']);
  if (  empty($_REQUEST['linked_id']) || empty($_REQUEST['linked_field'])  || empty($_REQUEST['record']))
  {
 	die("need linked_field, linked_id and record fields");
@@ -52,7 +37,7 @@ require_once('include/formbase.php');
  $linked_field = $_REQUEST['linked_field'];
  $record = $_REQUEST['record'];
  $linked_id = $_REQUEST['linked_id'];
- if($bean_name == 'Team')
+ if($focus->object_name == 'Team')
  {
  	$focus->retrieve($record);
  	$focus->remove_user_from_team($linked_id);
@@ -65,7 +50,7 @@ require_once('include/formbase.php');
  		unset($focus->$linked_field->_relationship->relationship_role_column);
  	$focus->$linked_field->delete($record,$linked_id);
  }
- if ($bean_name == 'Campaign' and $linked_field=='prospectlists' ) {
+ if ($focus->object_name == 'Campaign' and $linked_field=='prospectlists' ) {
 
  	$query="SELECT email_marketing_prospect_lists.id from email_marketing_prospect_lists ";
  	$query.=" left join email_marketing on email_marketing.id=email_marketing_prospect_lists.email_marketing_id";
@@ -80,10 +65,9 @@ require_once('include/formbase.php');
 	}
  	$focus->db->query($query);
  }
-if ($bean_name == "Meeting") {
+if ($focus->object_name == "Meeting") {
     $focus->retrieve($record);
-    $user = new User();
-    $user->retrieve($linked_id);
+    $user = BeanFactory::getBean('Users', $linked_id);
     if (!empty($user->id)) {  //make sure that record exists. we may have a contact on our hands.
 
     	if($focus->update_vcal)
@@ -92,17 +76,15 @@ if ($bean_name == "Meeting") {
     	}
     }
 }
-if ($bean_name == "User" && $linked_field == 'eapm') {
-    $eapm = new EAPM();
-    $eapm->mark_deleted($linked_id);
+if ($focus->object_name == "User" && $linked_field == 'eapm') {
+    BeanFactory::deleteBean('EAPM', $linked_id);
 }
-require_once("data/Relationships/SugarRelationship.php");
 SugarRelationship::resaveRelatedBeans();
 
 if(!empty($_REQUEST['return_url'])){
 	$_REQUEST['return_url'] =urldecode($_REQUEST['return_url']);
 }
-$GLOBALS['log']->debug("deleted relationship: bean: $bean_name, linked_field: $linked_field, linked_id:$linked_id" );
+$GLOBALS['log']->debug("deleted relationship: bean: {$focus->object_name}, linked_field: $linked_field, linked_id:$linked_id" );
 if(empty($_REQUEST['refresh_page'])){
 	handleRedirect();
 }

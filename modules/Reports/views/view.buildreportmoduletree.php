@@ -1,22 +1,46 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Reports/config.php');
 
 class ReportsViewBuildreportmoduletree extends SugarView
 {
+    /**
+     * Listing of modules that should not be reported on. This is a simple key
+     * value pair like 'module_name' => true.
+     *
+     * @var array
+     */
+    protected $nonReportableModules = array(
+        'Currencies' => true,
+    );
+
+    protected function isRelationshipReportable($rel)
+    {
+        global $beanList;
+
+        if (empty($rel)) {
+            return false;
+        }
+
+        if (empty($beanList[$rel->lhs_module]) || empty($beanList[$rel->rhs_module])) {
+            return false;
+        }
+
+        // Bug 37311 - Don't allow reporting on relationships to the currencies module
+        return empty($this->nonReportableModules[$rel->lhs_module]) &&
+               empty($this->nonReportableModules[$rel->rhs_module]);
+    }
+
     /**
      * @see SugarView::display()
      */
@@ -26,33 +50,28 @@ class ReportsViewBuildreportmoduletree extends SugarView
         if(empty($beanFiles)) {
             include('include/modules.php');
         }
-        
+
         $ACLAllowedModules = getACLAllowedModules();
         $module_array = array();
-        
-        $module = SugarModule::get($_REQUEST['report_module'])->loadBean();
+
+        $module = BeanFactory::getBean($_REQUEST['report_module']);
         $bean_name = $module->object_name;
         $linked_fields = $module->get_linked_fields();
-        
+
         foreach($linked_fields as $linked_field)
         {
             $module->load_relationship($linked_field['name']);
             $field = $linked_field['name'];
-            if(empty($module->$field) || (isset($linked_field['reportable']) &&
-               $linked_field['reportable'] == false))
+            if(empty($module->$field) || (isset($linked_field['reportable']) && $linked_field['reportable'] == false))
             {
                 continue;
-            }	
+            }
             $relationship = $module->$field->_relationship;
-            if(empty($beanList[$relationship->lhs_module]) || empty($beanList[$relationship->rhs_module]))
-            {
+
+            if ($this->isRelationshipReportable($relationship) === false) {
                 continue;
             }
-            // Bug 37311 - Don't allow reporting on relationships to the currencies module
-            if($relationship->lhs_module == 'Currencies' || $relationship->rhs_module == 'Currencies') {
-                continue;
-            }
-            
+
             $bean_is_lhs = $module->$field->_get_bean_position();
             if($bean_is_lhs == true && isset($beanList[$relationship->rhs_module])) {
                 $link_bean = $beanList[$relationship->rhs_module];
@@ -65,28 +84,26 @@ class ReportsViewBuildreportmoduletree extends SugarView
             if (!isset($ACLAllowedModules[$link_module])) {
                 continue;
             }
-			
-			$custom_label = 'LBL_' . strtoupper ( $relationship->relationship_name . '_FROM_' . $relationship->lhs_module  ) . '_TITLE';
+
+			$custom_label = 'LBL_' . strtoupper ( $relationship->relationship_name . '_FROM_' . $link_module  ) . '_TITLE';
 			$custom_subpanel_label  = 'LBL_' . strtoupper ( $link_module) . '_SUBPANEL_TITLE';
 			//bug 47834
 			$lang = $GLOBALS['current_language'];
-			$file_path= "custom/modules/".$_REQUEST['report_module']."/Ext/Language/".$lang.".lang.ext.php";
-			if(file_exists($file_path))
-			{
-				require 'custom/modules/'.$_REQUEST['report_module'].'/Ext/Language/'.$lang.'.lang.ext.php';
+			foreach(SugarAutoLoader::existing("custom/modules/".$_REQUEST['report_module']."/Ext/Language/".$lang.".lang.ext.php") as $file) {
+			    require $file;
 			}//end 47834
 			// Bug 37308 - Check if the label was changed in studio
 		    //bug 47834 -  added check to see if the new label name is set in custom $lang.lang.ext.php file
-            if (translate($custom_label, $_REQUEST['report_module']) != $custom_label && isset($mod_strings[$custom_label])) 
+            if (translate($custom_label, $_REQUEST['report_module']) != $custom_label && isset($mod_strings[$custom_label]))
 			{
 				$linked_field['label'] = translate($custom_label, $_REQUEST['report_module']);
             }
 			// Bug 37308 - Check if the label was changed in studio
 			//bug 47834 -  added check to see if the new label name is set in custom $lang.lang.ext.php file
-            elseif (translate($custom_subpanel_label, $_REQUEST['report_module']) != $custom_subpanel_label && $link_module != $_REQUEST['report_module'] && isset($mod_strings[$custom_subpanel_label])) 
+            elseif (translate($custom_subpanel_label, $_REQUEST['report_module']) != $custom_subpanel_label && $link_module != $_REQUEST['report_module'] && isset($mod_strings[$custom_subpanel_label]))
 			{
 				$linked_field['label'] = translate($custom_subpanel_label, $_REQUEST['report_module']);
-            }			
+            }
             elseif (! empty($linked_field['vname']))
             {
                 $linked_field['label'] = translate($linked_field['vname'], $_REQUEST['report_module']);
@@ -96,19 +113,23 @@ class ReportsViewBuildreportmoduletree extends SugarView
             $linked_field['label'] = preg_replace('/:$/','',$linked_field['label']);
             $linked_field['label'] = addslashes($linked_field['label']);
 
+	if (isset($app_list_strings['moduleList'][$linked_field['label']])) {
+		$linked_field['label'] = $app_list_strings['moduleList'][$linked_field['label']];
+	}
+
             $module_array[] = $this->_populateNodeItem($bean_name,$link_module,$linked_field);
-        }	
-        
+        }
+
         // Sort alphabetically
-        function compare_text($a, $b) { 
-            return strnatcmp($a['text'], $b['text']); 
-        } 
+        function compare_text($a, $b) {
+            return strnatcmp($a['text'], $b['text']);
+        }
         usort($module_array, 'compare_text');
-        
+
         $json = getJSONobj();
         echo $json->encode($module_array);
     }
-    
+
     protected function _populateNodeItem($bean_name,$link_module,$linked_field)
     {
         $node = array();

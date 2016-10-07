@@ -1,23 +1,23 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 var request_id=0;var current_child_field='';var current_subpanel_url='';var child_field_loaded=new Object();var request_map=new Object();function get_module_name()
 {if(typeof(window.document.forms['DetailView'])=='undefined'){return'';}else{if(typeof(window.document.forms['DetailView'].elements['subpanel_parent_module'])!='undefined'&&window.document.forms['DetailView'].elements['subpanel_parent_module'].value!=''){return window.document.forms['DetailView'].elements['subpanel_parent_module'].value;}
 return window.document.forms['DetailView'].elements['module'].value;}}
-function subp_nav(m,i,a,t,r){if(t.href.search(/#/)<0){return;}
+function subp_nav(m,i,a,t,r){var url,app=window.parent.SUGAR.App;if(app.metadata.getModule(m).isBwcEnabled){if(t.href.search(/#/)<0){return;}
 if(a=='d'){a='DetailView';}else{a='EditView';}
-url="index.php?module="+m+"&action="+a+"&record="+i+"&parent_module="+get_module_name()+"&parent_id="+get_record_id()+"&return_module="+get_module_name()+"&return_id="+get_record_id()+"&return_action=DetailView";if(r)
-{url+="&return_relationship="+r;}
-t.href=url;}
+url="index.php?module="+m+"&action="+a+"&record="+i+"&parent_module="+get_module_name()+"&parent_id="+get_record_id()+"&return_module="+get_module_name()+"&return_id="+get_record_id()+"&return_action=DetailView";if(r){url+="&return_relationship="+r;}
+t.href=url;}}
+function subp_nav_sidecar(m,i,a,link){var app=parent.SUGAR.App,view=app.controller.layout.getComponent('bwc'),url;if(!app.metadata.getModule(m).isBwcEnabled){if(a==='c'){view.createRelatedRecord(m,link);return false;}
+a='';url=view.convertToSidecarUrl('index.php?module='+m+'&action='+a+'&record='+i);app.router.navigate(url,{trigger:true});return false;}}
+function subp_archive_email(){var app=parent.SUGAR.App,view=app.controller.layout.getComponent('bwc');view.openArchiveEmailDrawer();return false;}
 function sub_p_rem(sp,lf,li,rp){return_url="index.php?module="+get_module_name()+"&action=SubPanelViewer&subpanel="+sp+"&record="+get_record_id()+"&sugar_body_only=1&inline=1";remove_url="index.php?module="+get_module_name()
 +"&action=DeleteRelationship"
 +"&record="+get_record_id()
@@ -29,7 +29,7 @@ function sp_rem_conf(){return confirm(SUGAR.language.get('app_strings','NTC_REMO
 function sub_p_del(sp,submod,subrec,rp){return_url="index.php?module="+get_module_name()+"&action=SubPanelViewer&subpanel="+sp+"&record="+get_record_id()+"&sugar_body_only=1&inline=1";remove_url="index.php?module="+submod
 +"&action=delete"
 +"&record="+subrec
-+"&return_url="+escape(return_url)
++"&return_url="+escape(escape(return_url))
 +"&refresh_page="+rp;showSubPanel(sp,remove_url,true);}
 function sp_del_conf(){return confirm(SUGAR.language.get('app_strings','NTC_DELETE_CONFIRMATION'))}
 function get_record_id()
@@ -51,10 +51,10 @@ var refresh_page=escape(passthru_data['refresh_page']);for(prop in passthru_data
 var query_string=query_array.join('&');request_map[request_id]=passthru_data['child_field'];var returnstuff=http_fetch_sync('index.php',query_string);request_id++;if(typeof returnstuff!='undefined'&&typeof returnstuff.responseText!='undefined'&&returnstuff.responseText.length!=0){got_data(returnstuff,true);}
 if(refresh_page==1){document.location.reload(true);}}
 function got_data(args,inline)
-{var list_subpanel=document.getElementById('list_subpanel_'+request_map[args.request_id].toLowerCase());if(list_subpanel!=null){var subpanel=document.getElementById('subpanel_'+request_map[args.request_id].toLowerCase());var child_field=request_map[args.request_id].toLowerCase();if(inline){child_field_loaded[child_field]=2;list_subpanel.innerHTML='';list_subpanel.innerHTML=args.responseText;}else{child_field_loaded[child_field]=1;subpanel.innerHTML='';subpanel.innerHTML=args.responseText;var inlineTable=subpanel.getElementsByTagName('table');inlineTable=inlineTable[1];inlineTable=subpanel.removeChild(inlineTable);var listDiv=document.createElement('div');listDiv.id='list_subpanel_'+request_map[args.request_id].toLowerCase();subpanel.appendChild(listDiv);listDiv.appendChild(inlineTable);}
+{var list_subpanel=document.getElementById('list_subpanel_'+request_map[args.request_id].toLowerCase());if(list_subpanel!=null){var subpanel=document.getElementById('subpanel_'+request_map[args.request_id].toLowerCase());var child_field=request_map[args.request_id].toLowerCase();if(inline){window.parent.SUGAR.App.controller.layout.getComponent('bwc').confirmMemLeak(list_subpanel);$('a',list_subpanel).off('.bwc.sugarcrm');child_field_loaded[child_field]=2;list_subpanel.innerHTML='';list_subpanel.innerHTML=args.responseText;}else{window.parent.SUGAR.App.controller.layout.getComponent('bwc').confirmMemLeak(subpanel);$('a',subpanel).off('.bwc.sugarcrm');child_field_loaded[child_field]=1;subpanel.innerHTML='';subpanel.innerHTML=args.responseText;var inlineTable=subpanel.getElementsByTagName('table');inlineTable=inlineTable[1];inlineTable=subpanel.removeChild(inlineTable);var listDiv=document.createElement('div');listDiv.id='list_subpanel_'+request_map[args.request_id].toLowerCase();subpanel.appendChild(listDiv);listDiv.appendChild(inlineTable);}
 SUGAR.util.evalScript(args.responseText);subpanel.style.display='';set_div_cookie(subpanel.cookie_name,'');if(current_child_field!=''&&child_field!=current_child_field)
 {}
-current_child_field=child_field;$("ul.clickMenu").each(function(index,node){$(node).sugarActionMenu();});}}
+current_child_field=child_field;$("ul.clickMenu").each(function(index,node){$(node).sugarActionMenu();});window.parent.SUGAR.App.controller.layout.getComponent('bwc').rewriteLinks();}}
 function showSubPanel(child_field,url,force_load,layout_def_key)
 {var inline=1;if(typeof(force_load)=='undefined'||force_load==null)
 {force_load=false;}
@@ -81,27 +81,21 @@ SUGAR.subpanelUtils=function(){var originalLayout=null,subpanelContents={},subpa
 if(asString)return subpanelIds.join(',');else return subpanelIds;},onDrag:function(e,id){originalLayout=SUGAR.subpanelUtils.getLayout(true,true);},onDrop:function(e,id){newLayout=SUGAR.subpanelUtils.getLayout(true,true);if(originalLayout!=newLayout){SUGAR.subpanelUtils.saveLayout(newLayout);}},saveLayout:function(order){ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVING_LAYOUT'));if(typeof SUGAR.subpanelUtils.currentSubpanelGroup!='undefined'){var orderList=SUGAR.subpanelUtils.getLayout(false,true);var currentGroup=SUGAR.subpanelUtils.currentSubpanelGroup;}
 var success=function(data){ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVED_LAYOUT'));window.setTimeout('ajaxStatus.hideStatus()',2000);if(typeof SUGAR.subpanelUtils.currentSubpanelGroup!='undefined'){SUGAR.subpanelUtils.reorderSubpanelSubtabs(currentGroup,orderList);}}
 url='index.php?module=Home&action=SaveSubpanelLayout&layout='+order+'&layoutModule='+currentModule;if(typeof SUGAR.subpanelUtils.currentSubpanelGroup!='undefined'){url=url+'&layoutGroup='+encodeURI(SUGAR.subpanelUtils.currentSubpanelGroup);}
-var cObj=YAHOO.util.Connect.asyncRequest('GET',url,{success:success,failure:success});},inlineSave:function(theForm,buttonName){var saveButton=document.getElementsByName(buttonName);for(var i=0;i<saveButton.length;i++){saveButton[i].disabled=true;}
-ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVING'));var success=function(data){var module=get_module_name();var id=get_record_id();var layout_def_key=get_layout_def_key();try{eval('result = '+data.responseText);}catch(err){}
-if(typeof(result)!='undefined'&&result!=null&&result['status']=='dupe'){document.location.href="index.php?"+result['get'].replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/&#039;/gi,'\'').replace(/&quot;/gi,'"').replace(/\r\n/gi,'\n');for(var i=0;i<saveButton.length;i++){saveButton[i].disabled=false;}
-return;}else{SUGAR.subpanelUtils.cancelCreate(buttonName);var parts=theForm.split('_');var savedModule='';var subPanels=[];for(var i=parts.length-1;i>=0;i--){if(parts[i]==''){continue;}
-if(savedModule!=''){savedModule='_'+savedModule;}
-savedModule=parts[i]+savedModule;if(window.ModuleSubPanels&&window.ModuleSubPanels[savedModule]){subPanels=subPanels.concat(window.ModuleSubPanels[savedModule]);}}
-for(var i=0;i<subPanels.length;i++){showSubPanel(subPanels[i],null,true);}
-ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVED'));window.setTimeout('ajaxStatus.hideStatus()',1000);for(var i=0;i<saveButton.length;i++){saveButton[i].disabled=false;}}}
+var cObj=YAHOO.util.Connect.asyncRequest('GET',url,{success:success,failure:success});},inlineSave:function(theForm,buttonName){ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVING'));var success=function(data){var module=get_module_name();var id=get_record_id();var layout_def_key=get_layout_def_key();try{eval('result = '+data.responseText);}catch(err){}
+if(typeof(result)!='undefined'&&result!=null&&result['status']=='dupe'){document.location.href="index.php?"+result['get'].replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/&#039;/gi,'\'').replace(/&quot;/gi,'"').replace(/\r\n/gi,'\n');return;}else{SUGAR.subpanelUtils.cancelCreate(buttonName);var savedModule=theForm.replace(/^([^_]+_){2}/,"");if(window.ModuleSubPanels&&window.ModuleSubPanels[savedModule]){var subPanels=window.ModuleSubPanels[savedModule];for(var i=0;i<subPanels.length;i++){showSubPanel(subPanels[i],null,true);}}
+ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVED'));window.setTimeout('ajaxStatus.hideStatus()',1000);}}
 YAHOO.util.Connect.setForm(theForm,true,true);var cObj=YAHOO.util.Connect.asyncRequest('POST','index.php',{success:success,failure:success,upload:success});return false;},sendAndRetrieve:function(theForm,theDiv,loadingStr){var quickCreateDiv=YAHOO.util.Selector.query("div.quickcreate",null,true);if(quickCreateDiv)
 {var form=YAHOO.util.Selector.query("form",quickCreateDiv,true);if(form)
-{var moduleName=YAHOO.util.Selector.query('input[name=module]',form,true).value;var buttonName=moduleName+"_subpanel_cancel_button";var cancelled=false;SUGAR.subpanelUtils.cancelCreate(buttonName,function()
+{var moduleName=form.id.replace(/.*?_([^_]+)$/,"$1");var buttonName=moduleName+"_subpanel_cancel_button";var cancelled=false;SUGAR.subpanelUtils.cancelCreate(buttonName,function()
 {cancelled=true;});if(cancelled)
 {return false;}}}
 function success(data){var theDivObj=document.getElementById(theDiv),divName=theDiv+'_newDiv',form_el;SUGAR.subpanelUtils.dataToDOMAvail=false;if(typeof currentPanelDiv!='undefined'&&currentPanelDiv!=null){var button_elements=YAHOO.util.Selector.query('td.buttons',currentPanelDiv,false);YAHOO.util.Dom.setStyle(button_elements,'display','');}
 SUGAR.subpanelUtils.removeSubPanel();subpanelContents[theDiv]={};subpanelContents[theDiv]['list']=theDivObj;subpanelContents[theDiv]['newDiv']=document.createElement('div');subpanelContents[theDiv]['newDiv'].innerHTML='<script type="text/javascript">SUGAR.subpanelUtils.dataToDOMAvail=true;</script>'+data.responseText;subpanelContents[theDiv]['newDiv'].id=divName;subpanelContents[theDiv]['newDiv'].className='quickcreate';var button_elements=YAHOO.util.Selector.query('td.buttons',theDiv,false);YAHOO.util.Dom.setStyle(button_elements,'display','none');button_elements=YAHOO.util.Selector.query('ul.SugarActionMenu',theDiv,false);YAHOO.util.Dom.setStyle(button_elements,'display','none');theDivObj.parentNode.insertBefore(subpanelContents[theDiv]['newDiv'],theDivObj);currentPanelDiv=divName;if(!SUGAR.subpanelUtils.dataToDOMAvail){SUGAR.util.evalScript(data.responseText);}
 form_el=YAHOO.util.Selector.query('form',divName,true);YAHOO.util.Dom.setStyle(form_el,'padding-bottom','10px');subpanelLocked[theDiv]=false;setTimeout("enableQS(false)",500);ajaxStatus.hideStatus();}
 if(subpanelLocked[theDiv]===true){return false;}
-subpanelLocked[theDiv]=true;loadingStr=loadingStr||SUGAR.language.get('app_strings','LBL_LOADING');ajaxStatus.showStatus(loadingStr);YAHOO.util.Connect.setForm(theForm);YAHOO.util.Connect.asyncRequest('POST','index.php',{success:success,failure:success});return false;},cancelCreate:function(buttonName,cancelCallback){var element=document.getElementById(buttonName),theForm=element.form,confirmMsg=onUnloadEditView(theForm);do{element=element.parentNode;}while(element.className!='quickcreate'&&element.parentNode);var theDiv=element.id.substr(0,element.id.length-7);if(typeof(subpanelContents[theDiv])=='undefined')
-return false;if(confirmMsg!=null){if(!confirm(confirmMsg)){if("function"===typeof cancelCallback)
+subpanelLocked[theDiv]=true;loadingStr=loadingStr||SUGAR.language.get('app_strings','LBL_LOADING');ajaxStatus.showStatus(loadingStr);YAHOO.util.Connect.setForm(theForm);YAHOO.util.Connect.asyncRequest('POST','index.php',{success:success,failure:success});return false;},cancelCreate:function(buttonName,cancelCallback){var element=document.getElementById(buttonName);do{element=element.parentNode;}while(element.className!='quickcreate'&&element.parentNode);var theDiv=element.id.substr(0,element.id.length-7);if(typeof(subpanelContents[theDiv])=='undefined')
+return false;if("function"===typeof cancelCallback)
 {cancelCallback();}
-return false;}else{disableOnUnloadEditView(theForm);}}
 SUGAR.subpanelUtils.removeSubPanel();var button_elements=YAHOO.util.Selector.query('td.buttons',theDiv,false);YAHOO.util.Dom.setStyle(button_elements,'display','');button_elements=YAHOO.util.Selector.query('ul.SugarActionMenu',theDiv,false);YAHOO.util.Dom.setStyle(button_elements,'display','');return false;},loadSubpanelGroupFromMore:function(group){SUGAR.subpanelUtils.updateSubpanelMoreTab(group);SUGAR.subpanelUtils.loadSubpanelGroup(group);},updateSubpanelMoreTab:function(group){var moreTab=document.getElementById(SUGAR.subpanelUtils.subpanelMoreTab+'_sp_tab');moreTab.id=group+'_sp_tab';moreTab.getElementsByTagName('a')[0].innerHTML=group;moreTab.getElementsByTagName('a')[0].href="javascript:SUGAR.subpanelUtils.loadSubpanelGroup('"+group+"');";var menuLink=document.getElementById(group+'_sp_mm');menuLink.id=SUGAR.subpanelUtils.subpanelMoreTab+'_sp_mm';menuLink.href="javascript:SUGAR.subpanelUtils.loadSubpanelGroupFromMore('"+SUGAR.subpanelUtils.subpanelMoreTab+"');";menuLink.innerHTML=SUGAR.subpanelUtils.subpanelMoreTab;SUGAR.subpanelUtils.subpanelMoreTab=group;},removeSubPanel:function(){var currentPanelEl=null;if(typeof currentPanelDiv!='undefined'&&currentPanelDiv!=null){currentPanelEl=document.getElementById(currentPanelDiv);}
 if(currentPanelEl!=null){currentPanelEl.parentNode.removeChild(currentPanelEl);SUGAR.ajaxUI.cleanGlobals();currentPanelDiv=null;}},loadSubpanelGroup:function(group){if(group==SUGAR.subpanelUtils.currentSubpanelGroup)return;if(SUGAR.subpanelUtils.loadedGroups[group]){SUGAR.subpanelUtils.updateSubpanel(group);}else{SUGAR.subpanelUtils.loadedGroups.push(group);var needed=[];for(group_sp in SUGAR.subpanelUtils.subpanelGroups[group]){if(typeof(SUGAR.subpanelUtils.subpanelGroups[group][group_sp])=='string'&&!document.getElementById('whole_subpanel_'+SUGAR.subpanelUtils.subpanelGroups[group][group_sp])){needed.push(SUGAR.subpanelUtils.subpanelGroups[group][group_sp]);}}
 var success=function(){SUGAR.subpanelUtils.updateSubpanelEventHandlers(needed);SUGAR.subpanelUtils.updateSubpanels(group);};if(needed.length){ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_LOADING'));SUGAR.util.retrieveAndFill(SUGAR.subpanelUtils.requestUrl+needed.join(','),'subpanel_list',null,success,null,true);}else{SUGAR.subpanelUtils.updateSubpanels(group);}}

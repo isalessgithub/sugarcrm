@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -47,14 +44,16 @@ class DashletsDialog {
         asort($dashletsFiles);
 
         foreach($dashletsFiles as $className => $files) {
-            if(!empty($files['meta']) && is_file($files['meta'])) {
+            if(!empty($files['meta']) && SugarAutoLoader::fileExists($files['meta'])) {
                 require_once($files['meta']); // get meta file
 
                 $directory = substr($files['meta'], 0, strrpos($files['meta'], '/') + 1);
-                if(is_file($directory . $files['class'] . '.' . $current_language . '.lang.php'))
-                    require_once($directory . $files['class'] . '.' . $current_language . '.lang.php');
-                elseif(is_file($directory . $files['class'] . '.en_us.lang.php'))
-                    require_once($directory . $files['class'] . '.en_us.lang.php');
+                foreach(SugarAutoLoader::existing(
+                    $directory . $files['class'] . '.' . $current_language . '.lang.php',
+                    $directory . $files['class'] . '.en_us.lang.php'
+                ) as $file) {
+                    require $file;
+                }
 
                 // try to translate the string
                 if(empty($dashletStrings[$files['class']][$dashletMeta[$files['class']]['title']]))
@@ -108,16 +107,13 @@ class DashletsDialog {
 				else{
                 	$displayDashlet = true;
                 	//check ACL ACCESS
-                	if(!empty($dashletMeta[$files['class']]['module']) && ACLController::moduleSupportsACL($dashletMeta[$files['class']]['module'])){
-                		$type = 'module';
-                		if($dashletMeta[$files['class']]['module'] == 'Trackers')
-                			$type = 'Tracker';
-                		if(!ACLController::checkAccess($dashletMeta[$files['class']]['module'], 'view', true, $type)){
-                			$displayDashlet = false;
-                		}
-                		if(!ACLController::checkAccess($dashletMeta[$files['class']]['module'], 'list', true, $type)){
-                			$displayDashlet = false;
-                		}
+                	if(!empty($dashletMeta[$files['class']]['module'])) {
+                	    if(!SugarACL::checkAccess($dashletMeta[$files['class']]['module'], 'view', array('owner_override' => true))) {
+                	        $displayDashlet = false;
+                	    }
+                	    if(!SugarACL::checkAccess($dashletMeta[$files['class']]['module'], 'list', array('owner_override' => true))) {
+                	        $displayDashlet = false;
+                	    }
                 	}
                 }
 
@@ -129,7 +125,7 @@ class DashletsDialog {
                 }
 
                 if ($displayDashlet && isset($dashletMeta[$files['class']]['dynamic_hide']) && $dashletMeta[$files['class']]['dynamic_hide']){
-                    if ( file_exists($files['file']) ) {
+                    if ( SugarAutoLoader::fileExists($files['file']) ) {
                         require_once($files['file']);
                         if ( class_exists($files['class']) ) {
                             $dashletClassName = $files['class'];
@@ -169,51 +165,62 @@ class DashletsDialog {
     function getReportCharts($category){
     	global $current_user;
 
-    	//require_once('modules/Reports/Report.php');
-
     	$chartsList = array();
-    	$focus = new SavedReport();
-    	$focus->disable_row_level_security = false;
+        require_once('modules/Reports/SavedReport.php');
+        $sq = new SugarQuery();
+        $savedReportBean = BeanFactory::getBean('Reports');
+        $sq->from($savedReportBean);
+
+        // Make sure the user isn't seeing reports they don't have access to
+        $modules = array_keys(getACLDisAllowedModules());
+        if(count($modules)) {
+            $sq->where()->notIn('module', $modules);
+        }
+
+        //create the $where statement(s)
+        $sq->where()->notEquals('chart_type', 'none');
     	switch($category){
     		case 'global':
 		    	// build global where string
-		    	$where = "AND saved_reports.team_set_id='1'";
+                $sq->where()->equals('saved_reports.team_set_id', '1');
     	    	break;
 
     		case 'myTeams':
 		    	// build myTeams where string
 		    	$myTeams = $current_user->get_my_teams();
-		    	$where = '';
+		    	$teamWhere = '';
 		    	foreach($myTeams as $team_id=>$team_name){
 		    		if ($team_id != '1' && $team_id != $current_user->getPrivateTeamID()){
-			    		if ($where == ''){
-			    			$where .= 'AND ';
+			    		if ($teamWhere == ''){
+                            $teamWhere .= ' ';
 			    		}
 			    		else{
-			    			$where .= 'OR ';
+                            $teamWhere .= 'OR ';
 			    		}
-		    			$where .= "saved_reports.team_set_id='".$team_id. "' ";
+                        $teamWhere .= "saved_reports.team_set_id='".$team_id. "' ";
 		    		}
 		    	}
+                $sq->whereRaw($teamWhere);
 		    	break;
 
     		case 'mySaved':
 		    	// build mySaved where string
-		    	$where = "AND saved_reports.team_set_id='".$current_user->getPrivateTeamID()."'";
+                $sq->where()->equals('saved_reports.team_set_id',$current_user->getPrivateTeamID());
 		    	break;
 
 		    case 'myFavorites':
                 global $current_user;
-                $sugaFav = new SugarFavorites();
+                $sugaFav = BeanFactory::getBean('SugarFavorites');
                 $current_favorites_beans = $sugaFav->getUserFavoritesByModule('Reports', $current_user);
                 $current_favorites = array();
                 foreach ((array)$current_favorites_beans as $key=>$val) {
                     array_push($current_favorites,$val->record_id);
                 }
-                if(is_array($current_favorites) && !empty($current_favorites))
-                    $where = ' AND saved_reports.id IN (\'' . implode("','", array_values($current_favorites)) . '\')';
-                else
-                    $where = ' AND saved_reports.id IN (\'-1\')';
+                if(is_array($current_favorites) && !empty($current_favorites)) {
+                    $sq->where()->in('saved_reports.id',  array_values($current_favorites));
+                }else{
+                    $sq->where()->in('saved_reports.id',  array('-1'));
+                }
                 break;
 
 
@@ -221,7 +228,8 @@ class DashletsDialog {
     			break;
     	}
 
-    	$savedReports = $focus->get_full_list(""," chart_type != 'none' " . $where);
+        //retrieve array of reports
+        $savedReports = $savedReportBean->fetchFromQuery($sq);
 
 		$chartsList = array();
 		if (!empty($savedReports)){

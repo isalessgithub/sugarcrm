@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: WorkFlowActionShell.php 45763 2009-04-01 19:16:18Z majed $
  * Description:
  ********************************************************************************/
 
@@ -106,8 +103,19 @@ class WorkFlowActionShell extends SugarBean {
 	// This is the list of fields that are required
 	var $required_fields =  array();
 
-	function WorkFlowActionShell() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function WorkFlowActionShell()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 
 		$this->disable_row_level_security =true;
 
@@ -129,7 +137,7 @@ class WorkFlowActionShell extends SugarBean {
         {
             $actions = $this->get_actions($this->id);
             $workflow_object = $this->get_workflow_object();
-            $temp_module = get_module_info($workflow_object->base_module);
+            $temp_module = BeanFactory::getBean($workflow_object->base_module);
             $temp_module->call_vardef_handler("action_filter");
             $field_array = $temp_module->vardef_handler->get_vardef_array();
             foreach($actions as $action)
@@ -145,22 +153,6 @@ class WorkFlowActionShell extends SugarBean {
             }
         }
     }
-
-
-
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-
-    function create_export_query(&$order_by, &$where)
-    {
-
-    }
-
-
 
 	function save_relationship_changes($is_update)
     {
@@ -363,8 +355,7 @@ class WorkFlowActionShell extends SugarBean {
 		// Get the id and the name.
 		$actions = array();
 		while($row = $this->db->fetchByAssoc($result)){
-			$action = new WorkFlowAction();
-			$action->retrieve($row['id']);
+			$action = BeanFactory::getBean('WorkFlowActions', $row['id']);
 			$actions[] = $action;
 		}	
 	return $actions;
@@ -398,8 +389,7 @@ function copy($parent_id){
 	
 	
 	function get_workflow_object(){
-		$workflow_object = new WorkFlow();
-		$workflow_object->retrieve($this->parent_id);
+		$workflow_object = BeanFactory::getBean('WorkFlow', $this->parent_id);
 		return $workflow_object;	
 	
 	//end function get_workflow_type	
@@ -462,7 +452,7 @@ function copy($parent_id){
 				
 				
 			//Build bridging workflow object
-			$bridge_object = new WorkFlow();	
+			$bridge_object = BeanFactory::getBean('WorkFlow');	
 			$bridge_object->parent_id = $this->id;
 			$bridge_object->name = 'Meeting/Call Bridging Object';
 			$bridge_object->status = 'on';
@@ -477,7 +467,7 @@ function copy($parent_id){
 			
 			
 			//Predefine AlertShell Object
-			$alert_shell_object = new WorkFlowAlertShell();
+			$alert_shell_object = BeanFactory::getBean('WorkFlowAlertShells');
 			$alert_shell_object->name = 'Invite People';
 			$alert_shell_object->alert_type = 'Invite';
 			$alert_shell_object->source_type = 'System Default';
@@ -535,8 +525,7 @@ function copy($parent_id){
 		
 			if($delete==true){
 				
-				$workflow_object = new WorkFlow();
-				$workflow_object->retrieve($row['id']);
+				$workflow_object = BeanFactory::getBean('WorkFlow', $row['id']);
 				$workflow_object->check_controller = false;
                 $workflow_object->mark_deleted($row['id']);
 
@@ -563,8 +552,7 @@ function copy($parent_id){
 		
 		if($workflow_id!=""){
 			
-			$child_workflow_object = new WorkFlow();
-			$child_workflow_object->retrieve($workflow_id);
+			$child_workflow_object = BeanFactory::getBean('WorkFlow', $workflow_id);
 			
 				$child_alertshell_list = & $child_workflow_object->get_linked_beans('alerts','WorkFlowAlertShell');	
 			

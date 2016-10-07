@@ -1,18 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Namespace for Sugar Objects
@@ -127,18 +122,28 @@ var oldStartsWith = '';
  *
  */
 function isSupportedIE() {
-	var userAgent = navigator.userAgent.toLowerCase() ;
+    var userAgent = navigator.userAgent.toLowerCase();
 
-	// IE Check supports ActiveX controls
-	if (userAgent.indexOf("msie") != -1 && userAgent.indexOf("mac") == -1 && userAgent.indexOf("opera") == -1) {
-		var version = navigator.appVersion.match(/MSIE (\d+\.\d+)/)[1] ;
-		if(version >= 5.5 && version < 10) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    // IE Check supports ActiveX controls
+    if ($.browser.msie) {
+        var version = $.browser.version;
+        if (version >= 5.5 && version < 15) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
+SUGAR.isUnsupportedIE = function () {
+    var userAgent = navigator.userAgent.toLowerCase();
+    // IE Check supports ActiveX controls
+    if ($.browser.msie) {
+        var version = $.browser.version;
+        return version < 15;
+    }
+    return false;
+};
 
 function checkMinSupported(c, s) {
     var current = c.split(".");
@@ -162,33 +167,32 @@ function checkMaxSupported(c, s) {
 
 SUGAR.isSupportedBrowser = function(){
     var supportedBrowsers = {
-        msie : {min:9, max:10}, // IE 9, 10
-        safari : {min:536}, // Safari 6.0
-        mozilla : {min:38.0}, // Firefox 38, 39
-        chrome : {min:43} // Chrome 43
+        msie : {min:9, max:11}, // IE 9, 10, 11
+        safari : {min:537}, // Safari 7.1
+        mozilla : {min:37}, // Firefox 37
+        chrome : {min:537.36} // Chrome 42
     };
     var current = String($.browser.version);
-    var supported;
-    if ($.browser.msie){ // Internet Explorer
-        supported = supportedBrowsers['msie'];
-    }
-    else if ($.browser.mozilla) { // Firefox
-        supported = supportedBrowsers['mozilla'];
-    }
-    else {
-        $.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
-        if($.browser.chrome){ // Chrome
-            current = navigator.userAgent.match(/Chrome\/(.*?) /)[1];
-            supported = supportedBrowsers['chrome'];
+        var supported;
+        if ($.browser.msie){ // Internet Explorer
+            supported = supportedBrowsers['msie'];
         }
-        else if($.browser.safari){ // Safari
-            supported = supportedBrowsers['safari'];
+        else if ($.browser.mozilla) { // Firefox
+            supported = supportedBrowsers['mozilla'];
         }
-    }
-    if (current && supported)
-        return checkMinSupported(current, String(supported.min)) && (!supported.max || checkMaxSupported(current, String(supported.max)));
-    else
-        return false;
+        else {
+            $.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
+            if($.browser.chrome){ // Chrome
+                supported = supportedBrowsers['chrome'];
+            }
+            else if($.browser.safari){ // Safari
+                supported = supportedBrowsers['safari'];
+            }
+        }
+        if (current && supported)
+            return checkMinSupported(current, String(supported.min)) && (!supported.max || checkMaxSupported(current, String(supported.max)));
+        else
+            return false;
 }
 
 SUGAR.isIECompatibilityMode = function(){
@@ -204,6 +208,251 @@ SUGAR.isIECompatibilityMode = function(){
     }
     return mode;
 }
+
+SUGAR.tour = function() {
+    var tourModal;
+    var screenShotModal;
+    return {
+        init: function(params) {
+            var modals = params.modals;
+
+            tourModal = $('<div id="'+params.id+'" class="modal '+params.className+' tour slides"></div>').modal({backdrop: false}).draggable({handle: ".modal-header"});
+            tourModal.modal("hide");
+
+            screenShotModal = $('<div id="'+params.id+'_screenshot" class="modal '+params.className+' tour screenshot"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>Screen Shot</h3></div><div class="modal-body"></div></div>').modal();
+            screenShotModal.modal("hide");
+
+            var tourIdSel = "#"+params.id;
+            var screenShotIdSel = "#"+params.id+"_screenshot";
+
+            $.ajax({
+                url: params.modalUrl,
+                success: function(data){
+                    $(tourIdSel).html(data);
+                    tourModal.modal("show");
+                    $(tourIdSel+'Start a.btn.btn-primary').on("click",function(e){
+                        $(tourIdSel+'Start').css("display","none");
+                        $(tourIdSel+'End').css("display","block");
+                        tourModal.modal("hide");
+                        modalArray[0].modal('show');
+                        $(modals[0].target).popoverext('show');
+                        centerModal();
+                    });
+                    $(tourIdSel+'Start a.btn').not('.btn-primary').on("click",function(e){
+                        $(tourIdSel+'Start').css("display","none");
+                        $(tourIdSel+'End').css("display","block");
+                        centerModal();
+                    });
+                    $(tourIdSel+'End a.btn.btn-primary').on("click",function(e){
+                        tourModal.modal("hide");
+                        $(tourIdSel+'Start').css("display","block");
+                        $(tourIdSel+'End').css("display","none");
+                        centerModal();
+                        SUGAR.tour.saveUserPref(params.prefUrl);
+                        params.onTourFinish();
+                    });
+                    $(tourIdSel+'End a.btn').not('.btn-primary').on("click",function(e){
+                        tourModal.modal("hide");
+                        var lastModal = modals.length-1;
+                        modalArray[lastModal].modal('show');
+                        $(modals[lastModal].target).popoverext('show');
+                        centerModal();
+                    });
+
+                    $('div.modal.'+params.className+'.tour.slides a.close').live("click",function(e){
+                        closeTour();
+                    });
+
+                    centerModal();
+
+                    $('<div style="position: absolute;" id="tourArrow">arrow</div>');
+                    var modalArray = new Array();
+
+                    for(var i=0; i<modals.length; i++) {
+                        var modalId =  (modals[i].target == undefined)? "tour_"+i+"_modal" : modals[i].target.replace("#","")+"_modal";
+                        modalArray[i] = $('<div id="'+modalId+'" class="modal '+params.className+' tour slides"></div>').modal({backdrop: false}).draggable({handle: ".modal-header"});
+//                        modalArray[i].modal('show');
+                        var modalContent = "<div class=\"modal-header\"><a class=\"close\" data-dismiss=\"modal\">×</a><h3>"+modals[i].title+"</h3></div>";
+
+                        modalContent += "<div class=\"modal-body\">"+modals[i].content+"</div>" ;
+
+                        modalContent += footerTemplate(i,modals);
+                        $('#'+modalId).html(modalContent);
+                        modalArray[i].modal("hide");
+
+
+                        $(modals[i].target).ready(function(){
+
+                            var direction,bounce;
+                            if (modals[i].placement == "top right") {
+                                bounce = "up right";
+                                direction = "down right";
+                            } else if (modals[i].placement == "top left") {
+                                bounce = "up left";
+                                direction = "down left";
+                            } else if(modals[i].placement == "top") {
+                                bounce = "up";
+                                direction = "down";
+                            } else if (modals[i].placement == "bottom right") {
+                                bounce = "down right";
+                                direction = "up right";
+                            } else if (modals[i].placement == "bottom left") {
+                                bounce = "down left";
+                                direction = "up left";
+                            } else {
+                                bounce = "down";
+                                direction = "right";
+                            }
+
+                            screenshot(i);
+                            $(modals[i].target).popoverext({
+                                title: "",
+                                content: "arrow",
+                                footer: "",
+                                placement: modals[i].placement,
+                                id: true,
+                                fixed: true,
+                                trigger: 'manual',
+                                template: '<div class="popover arrow"><div class="pointer ' +direction+'"></div></div>',
+                                onShow:  function(){
+                                    $('.pointer').css('top','0px');
+
+                                    $(".popover .pointer")
+                                        .effect("custombounce", { times:1000, direction: bounce, distance: 50, gravity: false }, 2000,
+                                        function(){
+
+//                                    $('.pointer').attr('style','');
+
+                                        }
+                                    );
+                                },
+                                leftOffset: modals[i].leftOffset ? modals[i].leftOffset : 0,
+                                topOffset: modals[i].topOffset ? modals[i].topOffset : 0,
+                                hideOnBlur: true
+
+                            });
+                        });
+                        //empty popover div and insert arrow
+                        $(modals[i].target+"Popover").empty().html("arrow");
+
+                    }
+
+                    $(window).resize(function() {
+                        centerModal();
+                    });
+
+                    function screenshot(i){
+                        var thumb = i+1;
+                        if(modals[i].screenShotUrl != undefined) {
+                            $('#thumbnail_'+thumb).live("click", function(){
+                                $(screenShotIdSel+ " .modal-header h3").html(modals[i].title);
+                                $(screenShotIdSel+ " .modal-body").html("<img src='"+modals[i].screenShotUrl+"' width='600'>");
+                                screenShotModal.modal("show");
+                                centerModal();
+                            });
+                        }
+
+                    }
+
+                    function centerModal() {
+                        $(".tour").each(function(){
+                            $(this).css("left",$(window).width()/2 - $(this).width()/2);
+                            $(this).css("margin-top",-$(this).height()/2);
+                        });
+
+                    }
+
+                    function closeTour() {
+                        tourModal.modal("hide");
+                        $(tourIdSel+'Start').css("display","block");
+                        $(tourIdSel+'End').css("display","none");
+                        centerModal();
+                        SUGAR.tour.saveUserPref(params.prefUrl);
+                        $('.popover').blur();
+                        params.onTourFinish();
+                    }
+
+                    function nextModal (i) {
+
+
+                        if(modals.length - 1 != i) {
+                            $(modals[i].target).popoverext('hide');
+                            $(modals[i+1].target).popoverext('show');
+                            modalArray[i].modal('hide');
+                            modalArray[i+1].modal('show');
+                            centerModal();
+
+                        } else {
+                            $(modals[i].target).popoverext('hide');
+                            modalArray[i].modal('hide');
+                            tourModal.modal("show");
+                            centerModal();
+                        }
+
+                    }
+
+                    function prevModal (i){
+
+                        $(modals[i].target).popoverext('hide');
+                        $(modals[i-1].target).popoverext('show');
+                        modalArray[i].modal('hide');
+                        modalArray[i-1].modal('show');
+                    }
+
+
+                    function skipTour (i) {
+                        $(modals[i].target).popoverext('hide');
+                        modalArray[i].modal('hide');
+                        $(tourIdSel+'End').css("display","block");
+                        $(tourIdSel+'Start').css("display","none");
+                        tourModal.modal("show");
+                        centerModal();
+                    }
+
+                    function footerTemplate (i,modals) {
+                        var content = $('<div></div>')
+                        var footer = $("<div class=\"modal-footer\"></div>");
+
+                        var skip = $("<a href=\"#\" class=\"btn btn-invisible\" id=\"skipTour\">"+SUGAR.language.get('app_strings', 'LBL_TOUR_SKIP')+"</a>");
+                        var next = $('<a class="btn btn-primary" id="nextModal'+i+'" href="#">'+SUGAR.language.get('app_strings', 'LBL_TOUR_NEXT')+' <i class="icon-play icon-xsm"></i></a>');
+                        content.append(footer);
+                        footer.append(skip).append(next);
+
+                        var back = $('<a class="btn" href="#" id="prevModal'+i+'">'+SUGAR.language.get('app_strings', 'LBL_TOUR_BACK')+'</a>');
+
+
+                        $('#nextModal'+i).live("click", function(){
+                            nextModal(i);
+                        });
+
+                        $('#prevModal'+i).live("click", function(){
+                            prevModal(i);
+                        });
+
+                        $('#skipTour').live("click", function(){
+                            skipTour(i);
+                        });
+
+
+
+                        if(i != 0) {
+                            footer.append(back);
+                        }
+
+                        return content.html();
+                    }
+
+                }
+            });
+        },
+        saveUserPref: function(url) {
+            $.ajax({
+                type: "GET",
+                url: url
+            });
+        }
+    };
+}();
 
 SUGAR.isIE = isSupportedIE();
 var isSafari = (navigator.userAgent.toLowerCase().indexOf('safari')!=-1);
@@ -522,6 +771,9 @@ function getDateObject(dtStr) {
 	if(dtStr.length== 0) {
 		return true;
 	}
+        if (dtStr instanceof Date) {
+            return dtStr;
+        }
 
 	myregexp = new RegExp(date_reg_format)
 
@@ -532,23 +784,20 @@ function getDateObject(dtStr) {
 	var mh = dt[date_reg_positions['m']];
 	var dy = dt[date_reg_positions['d']];
     var dtar = dtStr.split(' ');
-    var date1;
     if(typeof(dtar[1])!='undefined' && isTime(dtar[1])) {//if it is a timedate, we should make date1 to have time value
         var t1 = dtar[1].replace(/am/i,' AM');
         var t1 = t1.replace(/pm/i,' PM');
         //bug #37977: where time format 23.00 causes java script error
         t1=t1.replace(/\./, ':');
-        date1 = new Date(mh+'/'+dy+'/'+yr+' '+t1);
+        date1 = new Date(Date.parse(mh+'/'+dy+ '/'+yr+' '+t1));
     }
     else
     {
-        date1 = new Date(mh+'/'+dy+'/'+yr);
+        var date1 = new Date();
+        date1.setFullYear(yr); // xxxx 4 char year
+        date1.setMonth(mh-1); // 0-11 Bug 4048: javascript Date obj months are 0-index
+        date1.setDate(dy); // 1-31
     }
-
-    if (isNaN(date1.valueOf())) {
-        return null;
-    }
-
 	return date1;
 }
 
@@ -726,13 +975,12 @@ function add_error_style(formname, input, txt, flash) {
     nomatchTxt = SUGAR.language.get('app_strings', 'ERR_SQS_NO_MATCH_FIELD');
     matchTxt = txt.replace(requiredTxt,'').replace(invalidTxt,'').replace(nomatchTxt,'');
 
-    YUI().use('node', function (Y) {
-        Y.one(inputHandle).get('parentNode').get('children').each(function(node, index, nodeList){
-            if(node.hasClass('validation-message') && node.get('text').search(matchTxt)){
+        $(inputHandle).parent().children().each(function() {
+            var $el = $(this);
+            if($el.hasClass('required validation-message') && $el.text().indexOf(matchTxt) > 0) {
                 raiseFlag = true;
             }
         });
-    });
 
     if(!raiseFlag) {
         errorTextNode = document.createElement('div');
@@ -862,7 +1110,7 @@ function fade_error_style(normalStyle, percent) {
 function isFieldTypeExceptFromEmptyCheck(fieldType)
 {
     var results = false;
-    var exemptList = ['bool','file'];
+    var exemptList = ['bool','file','checkboxset'];
     for(var i=0;i<exemptList.length;i++)
     {
         if(fieldType == exemptList[i])
@@ -873,6 +1121,10 @@ function isFieldTypeExceptFromEmptyCheck(fieldType)
 function isFieldHidden(field, type)
 {
     var Dom = YAHOO.util.Dom;
+    if (Dom.getAttribute(field, "type") == "hidden" && type != "datetimecombo") {
+        return true;
+    }
+
 	var td = Dom.getAncestorByTagName(field, 'TD');
 
     // For 'datetime' field type html representation differ from others ( td.vis_action_hidden > table > td > input[name])
@@ -880,7 +1132,7 @@ function isFieldHidden(field, type)
         td = Dom.getAncestorByTagName(td, 'TD');
     }
 
-	return Dom.hasClass(td, 'vis_action_hidden');
+    return Dom.hasClass(td, 'vis_action_hidden');
 }
 function validate_form(formname, startsWith){
     requiredTxt = SUGAR.language.get('app_strings', 'ERR_MISSING_REQUIRED_FIELDS');
@@ -892,7 +1144,7 @@ function validate_form(formname, startsWith){
 	}
 	if ( typeof (validate[formname]) == 'undefined')
 	{
-        disableOnUnloadEditView(document.forms[formname]);
+//        disableOnUnloadEditView(document.forms[formname]);
 		return true;
 	}
 
@@ -916,7 +1168,7 @@ function validate_form(formname, startsWith){
 
 					//If a field is hidden, skip validation.
 					var field = form[validate[formname][i][nameIndex]];
-					if ((isFieldHidden(field, validate[formname][i][typeIndex]) && validate[formname][i][typeIndex] != 'teamset') || field.disabled)
+					if ((isFieldHidden(field, validate[formname][i][typeIndex]) && validate[formname][i][typeIndex] != 'file' && field.id != 'tiny_vals') || field.disabled)
 					{
 						continue;
 					}
@@ -931,7 +1183,7 @@ function validate_form(formname, startsWith){
 					if(validate[formname][i][requiredIndex]
 						&& !isFieldTypeExceptFromEmptyCheck(validate[formname][i][typeIndex])
 					){
-						if(typeof form[validate[formname][i][nameIndex]] == 'undefined' || trim(form[validate[formname][i][nameIndex]].value) == ""){
+						if(typeof form[validate[formname][i][nameIndex]] === 'undefined' || trim(form[validate[formname][i][nameIndex]].value) === ""){
 							add_error_style(formname, validate[formname][i][nameIndex], requiredTxt +' ' + validate[formname][i][msgIndex]);
 							isError = true;
 						}
@@ -1056,6 +1308,23 @@ function validate_form(formname, startsWith){
 								   }
 							   }
 						       break;
+						case 'checkboxset':
+							var validation_passed = false;
+							var input_elements = YAHOO.util.Selector.query('input[name="'+validate[formname][i][nameIndex]+'"]', document.getElementById(formname));
+    
+							for (t in input_elements) {
+							    if (input_elements[t].type && input_elements[t].type == 'checkbox' && input_elements[t].checked == true) {
+							        validation_passed = true;
+							        break;
+							    }
+							}
+
+							if (!validation_passed) {
+							    isError = true;
+							    var elements = $(input_elements).closest('.checkboxset').find('input');
+							    add_error_style(formname, elements[0], requiredTxt + " " + validate[formname][i][msgIndex]);
+							}
+							break;
 					    case 'error':
 							isError = true;
                             add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
@@ -1069,11 +1338,11 @@ function validate_form(formname, startsWith){
                                 case 'callback' :
                                     if (typeof validate[formname][i][callbackIndex] == 'function')
                                     {
-                                        var result = validate[formname][i][callbackIndex](formname, validate[formname][i][nameIndex]);
+                                        var result = validate[formname][i][callbackIndex](formname, validate[formname][i][nameIndex], i);
                                         if (result == false)
                                         {
                                             isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], requiredTxt + " " +	validate[formname][i][msgIndex]);
+                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
                                         }
                                     }
                                     break;
@@ -1301,7 +1570,7 @@ function validate_form(formname, startsWith){
 		return false;
 	}
 
-    disableOnUnloadEditView(form);
+//    disableOnUnloadEditView(form);
 	return true;
 
 }
@@ -1432,31 +1701,31 @@ function goToUrl(selObj, goToLocation) {
 var json_objects = new Object();
 
 function getXMLHTTPinstance() {
-	var xmlhttp = false;
-	var userAgent = navigator.userAgent.toLowerCase() ;
+    var xmlhttp = false;
+    var userAgent = navigator.userAgent.toLowerCase();
 
-	// IE Check supports ActiveX controls
-	if (userAgent.indexOf("msie") != -1 && userAgent.indexOf("mac") == -1 && userAgent.indexOf("opera") == -1) {
-		var version = navigator.appVersion.match(/MSIE (\d+\.\d+)/)[1] ;
-		if(version >= 5.5 ) {
-			try {
-				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-			}
-			catch (e) {
-				try {
-					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				catch (E) {
-					xmlhttp = false;
-				}
-			}
-		}
-	}
+    // IE Check supports ActiveX controls
+    if ($.browser.msie) {
+        var version = $.browser.version;
+        if (version >= 5.5) {
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (E) {
+                    xmlhttp = false;
+                }
+            }
+        }
+    }
 
-	if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
-		xmlhttp = new XMLHttpRequest();
-	}
-	return xmlhttp;
+    if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+        xmlhttp = new XMLHttpRequest();
+    }
+    return xmlhttp;
 }
 
 // NOW LOAD THE OBJECT..
@@ -1776,6 +2045,10 @@ function snapshotForm(theForm) {
             }
         }
         else if ( elemType == 'hidden' ) {
+            if (elem.name=='edit_all_recurrences') {
+                continue;
+            }
+
             snapshotTxt = snapshotTxt + elem.value;
         }
     }
@@ -1783,142 +2056,144 @@ function snapshotForm(theForm) {
     return snapshotTxt;
 }
 
-function initEditView(theForm) {
-    if (SUGAR.util.ajaxCallInProgress()) {
-    	window.setTimeout(function(){initEditView(theForm);}, 100);
-    	return;
-    }
+// TODO remove this and check if there is more code that can be removed
+//function initEditView(theForm) {
+//    if (SUGAR.util.ajaxCallInProgress()) {
+//    	window.setTimeout(function(){initEditView(theForm);}, 100);
+//    	return;
+//    }
+//
+//    if ( theForm == null || theForm.id == null ) {
+//        // Not much we can do here.
+//        return;
+//    }
+//
+//    // we don't need to check if the data is changed in the search popup
+//    if (theForm.id == 'popup_query_form' || theForm.id == 'MassUpdate') {
+//    	return;
+//    }
+//	if ( typeof editViewSnapshots == 'undefined' || editViewSnapshots == null ) {
+//        editViewSnapshots = new Object();
+//    }
+//    if ( typeof SUGAR.loadedForms == 'undefined' || SUGAR.loadedForms == null) {
+//    	SUGAR.loadedForms = new Object();
+//    }
+//
+//    editViewSnapshots[theForm.id] = snapshotForm(theForm);
+//    SUGAR.loadedForms[theForm.id] = true;
+//}
+// TODO remove this and check if there is more code that can be removed
+//function onUnloadEditView(theForm) {
+//
+//	var dataHasChanged = false;
+//    if ( typeof editViewSnapshots == 'undefined' ) {
+//        // No snapshots, move along
+//        return;
+//    }
+//
+//    if ( typeof theForm == 'undefined' ) {
+//        // Need to check all editViewSnapshots
+//        for ( var idx in editViewSnapshots ) {
+//
+//            theForm = document.getElementById(idx);
+//            // console.log('DEBUG: Checking all forms '+theForm.id);
+//            if ( theForm == null
+//                 || typeof editViewSnapshots[theForm.id] == 'undefined'
+//                 || editViewSnapshots[theForm.id] == null
+//                 || !SUGAR.loadedForms[theForm.id]) {
+//                continue;
+//            }
+//
+//            var snap = snapshotForm(theForm);
+//            if ( editViewSnapshots[theForm.id] != snap ) {
+//                dataHasChanged = true;
+//            }
+//        }
+//    } else {
+//        // Just need to check a single form for changes
+//		if ( editViewSnapshots == null  || typeof theForm.id == 'undefined' || typeof editViewSnapshots[theForm.id] == 'undefined' || editViewSnapshots[theForm.id] == null ) {
+//            return;
+//        }
+//
+//        // console.log('DEBUG: Checking one form '+theForm.id);
+//        if ( editViewSnapshots[theForm.id] != snapshotForm(theForm) ) {
+//            // Data has changed.
+//        	dataHasChanged = true;
+//        }
+//    }
+//
+//    if ( dataHasChanged == true ) {
+//    	return SUGAR.language.get('app_strings','WARN_UNSAVED_CHANGES');
+//    } else {
+//        return;
+//    }
+//
+//}
+// TODO remove this and check if there is more code that can be removed
+//function disableOnUnloadEditView(theForm) {
+//    // If you don't pass anything in, it disables all checking
+//    if ( typeof theForm == 'undefined' || typeof editViewSnapshots == 'undefined' || theForm == null || editViewSnapshots == null) {
+//        window.onbeforeunload = null;
+//        editViewSnapshots = null;
+//
+//        // console.log('DEBUG: Disabling all edit view checks');
+//
+//    } else {
+//        // Otherwise, it just disables it for this form
+//        if ( typeof(theForm.id) != 'undefined' && typeof(editViewSnapshots[theForm.id]) != 'undefined' ) {
+//            editViewSnapshots[theForm.id] = null;
+//        }
+//
+//        // console.log('DEBUG : Disabling just checks for '+theForm.id);
+//
+//    }
+//}
 
-    if ( theForm == null || theForm.id == null ) {
-        // Not much we can do here.
-        return;
-    }
-
-    // we don't need to check if the data is changed in the search popup
-    if (theForm.id == 'popup_query_form' || theForm.id == 'MassUpdate') {
-    	return;
-    }
-	if ( typeof editViewSnapshots == 'undefined' || editViewSnapshots == null ) {
-        editViewSnapshots = new Object();
-    }
-    if ( typeof SUGAR.loadedForms == 'undefined' || SUGAR.loadedForms == null) {
-    	SUGAR.loadedForms = new Object();
-    }
-
-    editViewSnapshots[theForm.id] = snapshotForm(theForm);
-    SUGAR.loadedForms[theForm.id] = true;
-}
-
-function onUnloadEditView(theForm) {
-
-	var dataHasChanged = false;
-    if ( typeof editViewSnapshots == 'undefined' ) {
-        // No snapshots, move along
-        return;
-    }
-
-    if ( typeof theForm == 'undefined' ) {
-        // Need to check all editViewSnapshots
-        for ( var idx in editViewSnapshots ) {
-
-            theForm = document.getElementById(idx);
-            // console.log('DEBUG: Checking all forms '+theForm.id);
-            if ( theForm == null
-                 || typeof editViewSnapshots[theForm.id] == 'undefined'
-                 || editViewSnapshots[theForm.id] == null
-                 || !SUGAR.loadedForms[theForm.id]) {
-                continue;
-            }
-
-            var snap = snapshotForm(theForm);
-            if ( editViewSnapshots[theForm.id] != snap ) {
-                dataHasChanged = true;
-            }
-        }
-    } else {
-        // Just need to check a single form for changes
-		if ( editViewSnapshots == null  || typeof theForm.id == 'undefined' || typeof editViewSnapshots[theForm.id] == 'undefined' || editViewSnapshots[theForm.id] == null ) {
-            return;
-        }
-
-        // console.log('DEBUG: Checking one form '+theForm.id);
-        if ( editViewSnapshots[theForm.id] != snapshotForm(theForm) ) {
-            // Data has changed.
-        	dataHasChanged = true;
-        }
-    }
-
-    if ( dataHasChanged == true ) {
-    	return SUGAR.language.get('app_strings','WARN_UNSAVED_CHANGES');
-    } else {
-        return;
-    }
-
-}
-
-function disableOnUnloadEditView(theForm) {
-    // If you don't pass anything in, it disables all checking
-    if ( typeof theForm == 'undefined' || typeof editViewSnapshots == 'undefined' || theForm == null || editViewSnapshots == null) {
-        window.onbeforeunload = null;
-        editViewSnapshots = null;
-
-        // console.log('DEBUG: Disabling all edit view checks');
-
-    } else {
-        // Otherwise, it just disables it for this form
-        if ( typeof(theForm.id) != 'undefined' && typeof(editViewSnapshots[theForm.id]) != 'undefined' ) {
-            editViewSnapshots[theForm.id] = null;
-        }
-
-        // console.log('DEBUG : Disabling just checks for '+theForm.id);
-
-    }
-}
-
+// TODO remove this and check if there is more code that can be removed
 /*
 * save some forms using an ajax call
 * theForms - the ids of all of theh forms to save
 * savingStr - the string to display when saving the form
 * completeStr - the string to display when the form has been saved
 */
-function saveForms( savingStr, completeStr) {
-	index = 0;
-	theForms = ajaxFormArray;
-	function success(data) {
-		var theForm = document.getElementById(ajaxFormArray[0]);
-		document.getElementById('multiedit_'+theForm.id).innerHTML = data.responseText;
-		var saveAllButton = document.getElementById('ajaxsaveall');
-		ajaxFormArray.splice(index, 1);
-		if(saveAllButton && ajaxFormArray.length <= 1){
-    		saveAllButton.style.visibility = 'hidden';
-    	}
-		index++;
-		if(index == theForms.length){
-			ajaxStatus.showStatus(completeStr);
-    		window.setTimeout('ajaxStatus.hideStatus();', 2000);
-    		if(saveAllButton)
-    			saveAllButton.style.visibility = 'hidden';
-    	}
-
-
-	}
-	if(typeof savingStr == 'undefined') SUGAR.language.get('app_strings', 'LBL_LOADING');
-	ajaxStatus.showStatus(savingStr);
-
-	//loop through the forms saving each one
-	for(i = 0; i < theForms.length; i++){
-		var theForm = document.getElementById(theForms[i]);
-		if(check_form(theForm.id)){
-			theForm.action.value='AjaxFormSave';
-			YAHOO.util.Connect.setForm(theForm);
-			var cObj = YAHOO.util.Connect.asyncRequest('POST', 'index.php', {success: success, failure: success});
-		}else{
-			ajaxStatus.hideStatus();
-		}
-		lastSubmitTime = lastSubmitTime-2000;
-	}
-	return false;
-}
+//function saveForms( savingStr, completeStr) {
+//	index = 0;
+//	theForms = ajaxFormArray;
+//	function success(data) {
+//		var theForm = document.getElementById(ajaxFormArray[0]);
+//		document.getElementById('multiedit_'+theForm.id).innerHTML = data.responseText;
+//		var saveAllButton = document.getElementById('ajaxsaveall');
+//		ajaxFormArray.splice(index, 1);
+//		if(saveAllButton && ajaxFormArray.length <= 1){
+//    		saveAllButton.style.visibility = 'hidden';
+//    	}
+//		index++;
+//		if(index == theForms.length){
+//			ajaxStatus.showStatus(completeStr);
+//    		window.setTimeout('ajaxStatus.hideStatus();', 2000);
+//    		if(saveAllButton)
+//    			saveAllButton.style.visibility = 'hidden';
+//    	}
+//
+//
+//	}
+//	if(typeof savingStr == 'undefined') SUGAR.language.get('app_strings', 'LBL_LOADING');
+//	ajaxStatus.showStatus(savingStr);
+//
+//	//loop through the forms saving each one
+//	for(i = 0; i < theForms.length; i++){
+//		var theForm = document.getElementById(theForms[i]);
+//		if(check_form(theForm.id)){
+//			theForm.action.value='AjaxFormSave';
+//			YAHOO.util.Connect.setForm(theForm);
+//			var cObj = YAHOO.util.Connect.asyncRequest('POST', 'index.php', {success: success, failure: success});
+//		}else{
+//			ajaxStatus.hideStatus();
+//		}
+//		lastSubmitTime = lastSubmitTime-2000;
+//	}
+//	return false;
+//}
 
 // -- start sugarListView class
 // js functions used for ListView
@@ -1928,18 +2203,26 @@ function sugarListView() {
 
 sugarListView.prototype.confirm_action = function(del) {
 	if (del == 1) {
-		return confirm( SUGAR.language.get('app_strings', 'NTC_DELETE_CONFIRMATION_NUM') + sugarListView.get_num_selected()  + SUGAR.language.get('app_strings', 'NTC_DELETE_SELECTED_RECORDS'));
+		return confirm( SUGAR.language.get('app_strings', 'NTC_DELETE_CONFIRMATION_NUM') + sugarListView.get_num_selected(true)  + SUGAR.language.get('app_strings', 'NTC_DELETE_SELECTED_RECORDS'));
 	}
 	else {
-		return confirm( SUGAR.language.get('app_strings', 'NTC_UPDATE_CONFIRMATION_NUM') + sugarListView.get_num_selected()  + SUGAR.language.get('app_strings', 'NTC_DELETE_SELECTED_RECORDS'));
+		return confirm( SUGAR.language.get('app_strings', 'NTC_UPDATE_CONFIRMATION_NUM') + sugarListView.get_num_selected(true)  + SUGAR.language.get('app_strings', 'NTC_DELETE_SELECTED_RECORDS'));
 	}
 
 }
-sugarListView.get_num_selected = function () {
+sugarListView.get_num_selected = function (asString) {
+    var result = 0;
     var selectCount = $("input[name='selectCount[]']:first");
-    if(selectCount.length > 0)
-        return parseInt(selectCount.val().replace("+", ""));
-    return 0;
+    if(selectCount.length > 0) {
+        if (asString) {
+                result = selectCount.val();
+        } else {
+            result = parseInt(selectCount.val().replace("+", ""));
+        }
+
+    }
+
+    return result;
 
 }
 sugarListView.update_count = function(count, add) {
@@ -2360,9 +2643,14 @@ sugarListView.prototype.save_checks = function(offset, moduleString) {
 sugarListView.prototype.check_item = function(cb, form) {
 	if(cb.checked) {
 		sugarListView.update_count(1, true);
+        if(sugarListView.get_checks_count() == $(".checkbox").length -2)
+        {
+            $(".massall.checkbox").attr("checked", "checked");
+        }
 
 	}else{
 		sugarListView.update_count(-1, true);
+        $(".massall.checkbox").removeAttr("checked");
 		if(typeof form != 'undefined' && form != null) {
 			sugarListView.prototype.updateUid(cb, form);
 		}
@@ -2570,7 +2858,8 @@ sugarListView.prototype.send_mass_update = function(mode, no_record_txt, del) {
 				alert(no_record_txt);
 				return false;
 			}
-			if(typeof(current_admin_id)!='undefined' && document.MassUpdate.module!= 'undefined' && document.MassUpdate.module.value == 'Users' && (document.MassUpdate.is_admin.value!='' || document.MassUpdate.status.value!='')) {
+			if(typeof(document.MassUpdate.current_admin_id)!='undefined' && document.MassUpdate.module!= 'undefined' && document.MassUpdate.module.value == 'Users' && (document.MassUpdate.UserType.value!='' || document.MassUpdate.status.value!='')) {
+				var current_admin_id = document.MassUpdate.current_admin_id.value;
 				var reg_for_current_admin_id = new RegExp('^'+current_admin_id+'[\s]*,|,[\s]*'+current_admin_id+'[\s]*,|,[\s]*'+current_admin_id+'$|^'+current_admin_id+'$');
 				if(reg_for_current_admin_id.test(document.MassUpdate.uid.value)) {
 					//if current user is admin, we should not allow massupdate the user_type and status of himself
@@ -2586,7 +2875,7 @@ sugarListView.prototype.send_mass_update = function(mode, no_record_txt, del) {
 			entireInput.value = 'index';
 			document.MassUpdate.appendChild(entireInput);
 			//confirm(no_record_txt);
-			if(document.MassUpdate.module!= 'undefined' && document.MassUpdate.module.value == 'Users' && (document.MassUpdate.is_admin.value!='' || document.MassUpdate.status.value!='')) {
+			if(document.MassUpdate.module!= 'undefined' && document.MassUpdate.module.value == 'Users' && (document.MassUpdate.UserType.value!='' || document.MassUpdate.status.value!='')) {
 				alert(SUGAR.language.get('Users','LBL_LAST_ADMIN_NOTICE'));
 				return false;
 			}
@@ -2673,9 +2962,15 @@ function formatNumber(n, num_grp_sep, dec_sep, round, precision) {
   // round
   if(typeof round != 'undefined') {
     if(round > 0 && n.length > 1) { // round to decimal
-      n[1] = parseFloat('0.' + n[1]);
-      n[1] = Math.round(n[1] * Math.pow(10, round)) / Math.pow(10, round);
-      n[1] = n[1].toString().split('.')[1];
+        n[1] = parseFloat('0.' + n[1]);
+        n[1] = Math.round(n[1] * Math.pow(10, round)) / Math.pow(10, round);
+        if (n[1] >= 1) {
+            n[0] = n[0].indexOf('-') < 0 ? parseInt(n[0]) + parseInt(n[1]) : parseInt(n[0]) - parseInt(n[1]);
+            n[0] = n[0].toString();
+            n[1] = '';
+        } else {
+            n[1] = n[1].toString().split('.')[1];
+        }
     }
     if(round <= 0) { // round to whole number
         n[0] = Math.round(parseInt(n[0],10) * Math.pow(10, round)) / Math.pow(10, round);
@@ -2956,96 +3251,84 @@ SUGAR.util = function () {
 			}
 
 	        var objRegex = /<\s*script([^>]*)>((.|\s|\v|\0)*?)<\s*\/script\s*>/igm;
-			var lastIndex = -1;
-			var result =  objRegex.exec(text);
-            while(result && result.index > lastIndex){
-            	lastIndex = result.index
-				try{
-                    // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-                    // Change approach to handle javascripts included to body of ajax response.
-                    // To load & run javascripts and inline javascript in correct order load them as synchronous requests
-                    // JQuery library uses this approach to eval scripts
-                  	if(result[1].indexOf("src=") > -1){
-						var srcRegex = /.*src=['"]([a-zA-Z0-9_\-\&\/\.\?=:-]*)['"].*/igm;
-						var srcResult =  result[1].replace(srcRegex, '$1');
 
-                        // Check is ulr cross domain or not
-                        var r1 = /:\/\//igm;
-                        if ( r1.test(srcResult) && srcResult.indexOf(window.location.hostname) == -1 )
-                        {
-                            // if script is cross domain it cannot be loaded via ajax request
-                            // try load script asynchronous by creating script element in the body
-                            // YUI 3.3 doesn't allow load scrips synchronously
-                            // YUI 3.5 do it
-                            YUI().use('get', function (Y)
+            YUI({comboBase:'index.php?entryPoint=getYUIComboFile&'}).use("io-base", "get", function(Y) {
+                var lastIndex = -1;
+                var result =  objRegex.exec(text);
+                while(result && result.index > lastIndex){
+                    lastIndex = result.index
+                    try{
+                        // Bug #49205 : Subpanels fail to load when selecting subpanel tab
+                        // Change approach to handle javascripts included to body of ajax response.
+                        // To load & run javascripts and inline javascript in correct order load them as synchronous requests
+                        // JQuery library uses this approach to eval scripts
+                        if(result[1].indexOf("src=") > -1){
+                            var srcRegex = /.*src=['"]([a-zA-Z0-9_\-\&\/\.\?=:-]*)['"].*/igm;
+                            var srcResult =  result[1].replace(srcRegex, '$1');
+
+                            // Check is ulr cross domain or not
+                            var r1 = /:\/\//igm;
+                            if ( r1.test(srcResult) && srcResult.indexOf(window.location.hostname) == -1 )
                             {
-                                var url = srcResult;
-                                Y.Get.script(srcResult,
-                                {
+                                // if script is cross domain it cannot be loaded via ajax request
+                                // try load script asynchronous by creating script element in the body
+                                // YUI 3.3 doesn't allow load scrips synchronously
+                                // YUI 3.5 do it
+                                Y.Get.script(srcResult, {
                                     autopurge: false,
                                     onSuccess : function(o) {  },
                                     onFailure: function(o) { },
                                     onTimeout: function(o) { }
                                 });
-                            });
-                            // TODO: for YUI 3.5 - load scripts as script object synchronous
-                            /*
-                            YUI().use('get', function (Y) {
-                                var url = srcResult;
-                                Y.Get.js([{url: url, async: false}], function (err) {});
-                            });
-                            */
-                        }
-                        else
-                        {
-                            // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-                            // Create a YUI instance using the io-base module.
-                            (function (srcResult) {
-                                YUI().use("io-base",function(Y)
-                                {
-                                    var cfg,response;
-                                    cfg={
-                                        method:'GET',
-                                        sync:true,
-                                        on:{
-                                            success:function(transactionid,response,arguments)
-                                            {
-                                                SUGAR.util.globalEval(response.responseText);
-                                            }
-                                        }
-                                    };
-                                    // Call synchronous request to load javascript content
-                                    // restonse will be processed in success function
-                                    response=Y.io(srcResult,cfg);
+                                // TODO: for YUI 3.5 - load scripts as script object synchronous
+                                /*
+                                YUI().use('get', function (Y) {
+                                    var url = srcResult;
+                                    Y.Get.js([{url: url, async: false}], function (err) {});
                                 });
-                            })(srcResult);
+                                */
+                            }
+                            else
+                            {
+                                // Bug #49205 : Subpanels fail to load when selecting subpanel tab
+                                // Create a YUI instance using the io-base module.
+                                Y.io(srcResult, {
+                                    method:'GET',
+                                    sync:true,
+                                    on:{
+                                        success:function(transactionid,response,arguments)
+                                        {
+                                            SUGAR.util.globalEval(response.responseText);
+                                        }
+                                    }
+                                });
+                            }
+                        }else{
+                            // Bug #49205 : Subpanels fail to load when selecting subpanel tab
+                            // execute script in global context
+                            // Bug #57288 : don't eval with html comment-out script; that causes syntax error in IE
+                            var srcRegex = /<!--([\s\S]*?)-->/;
+                            var srcResult = srcRegex.exec(result[2]);
+                            if (srcResult && srcResult.index > -1)
+                            {
+                                SUGAR.util.globalEval(srcResult[1]);
+                            }
+                            else
+                            {
+                                SUGAR.util.globalEval(result[2]);
+                            }
                         }
-                  	}else{
-                        // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-                        // execute script in global context
-                        // Bug #57288 : don't eval with html comment-out script; that causes syntax error in IE
-                        var srcRegex = /<!--([\s\S]*?)-->/;
-                        var srcResult = srcRegex.exec(result[2]);
-                        if (srcResult && srcResult.index > -1)
-                        {
-                            SUGAR.util.globalEval(srcResult[1]);
-                        }
-                        else
-                        {
-                            SUGAR.util.globalEval(result[2]);
-                        }
-                  	}
-	              }
-	              catch(e) {
-                      if(typeof(console) != "undefined" && typeof(console.log) == "function")
-                      {
-                          console.log("error adding script");
-                          console.log(e);
-                          console.log(result);
                       }
-                  }
-                  result =  objRegex.exec(text);
-			}
+                      catch(e) {
+                          if(typeof(console) != "undefined" && typeof(console.log) == "function")
+                          {
+                              console.log("error adding script");
+                              console.log(e);
+                              console.log(result);
+                          }
+                      }
+                      result =  objRegex.exec(text);
+                }});
 	    },
 		/**
 		 * Gets the sidebar object
@@ -3152,7 +3435,7 @@ SUGAR.util = function () {
 					try {
 						if (typeof appendMode != 'undefined' && appendMode)
 						{
-							theDiv.insertAdjacentHTML('beforeend', data.responseText);
+							theDiv.innerHTML += data.responseText;
 						}
 						else
 						{
@@ -3628,6 +3911,7 @@ SUGAR.savedViews = function() {
 				// search and redirect back
 				document.search_form.action.value = 'index';
 			}
+            // TODO check if this is working
 			SUGAR.ajaxUI.submitForm(document.search_form);
 		},
 		shortcut_select: function(selectBox, module) {
@@ -3676,17 +3960,8 @@ SUGAR.savedViews = function() {
 			SUGAR.tabChooser.movementCallback(document.getElementById('display_tabs_td').getElementsByTagName('select')[0]);
 
 			// This check is needed for the Activities module (Calls/Meetings/Tasks).
-            if (document.search_form.orderBy)
-            {
-                if (document.search_form.orderBy.length > 1 && document.search_form.orderBy[1].type == 'select-one')
-                {
-                    document.search_form.orderBy[1].options.value = SUGAR.savedViews.selectedOrderBy;
-                }
-                else
-                {
-                    document.search_form.orderBy.options.value = SUGAR.savedViews.selectedOrderBy;
-                }
-            }
+			if (document.search_form.orderBy)
+				document.search_form.orderBy.options.value = SUGAR.savedViews.selectedOrderBy;
 
 			// handle direction
 			if(SUGAR.savedViews.selectedSortOrder == 'DESC') document.getElementById('sort_order_desc_radio').checked = true;
@@ -3757,11 +4032,6 @@ SUGAR.searchForm = function() {
                          }
                      }
                  }
-                // Remove the previously selected div, so that only data from current div to be sent as form data to the server-side
-                if (document.getElementById(module + thepreviousView + '_search' + 'SearchForm'))
-                {
-                    document.getElementById(module + thepreviousView + '_search' + 'SearchForm').innerHTML = '';
-                }
 			}
 
 			// if tab is not cached
@@ -3832,21 +4102,15 @@ SUGAR.searchForm = function() {
 
                 if ( elemType == 'text' || elemType == 'textarea' || elemType == 'password' ) {
                     elem.value = '';
-                } else if (elemType == 'select-one') {
+                }
+                else if ( elemType == 'select' || elemType == 'select-one' || elemType == 'select-multiple' ) {
                     // We have, what I hope, is a select box, time to unselect all options
-                    var optionList = elem.options,
-                        selectedIndex = 0;
-                    for (var ii = 0; ii < optionList.length; ii++) {
-                        if (optionList[ii].value == '') {
-                            selectedIndex = ii;
-                            break;
-                        }
-                    }
-                    if (optionList.length > 0) {
-                        optionList[selectedIndex].selected = "selected";
-                    }
-                } else if (elemType == 'select-multiple') {
                     var optionList = elem.options;
+
+                    if (optionList.length > 0) {
+                    	optionList[0].selected = "selected";
+                    }
+
                     for ( var ii = 0 ; ii < optionList.length ; ii++ ) {
                         optionList[ii].selected = false;
                     }
@@ -3881,21 +4145,8 @@ SUGAR.searchForm = function() {
                 }
             }
 
-            SUGAR.searchForm.clearBasicSearchOrderToDefault(form);
 			SUGAR.savedViews.clearColumns = true;
-		},
-        // This function sets sorting to default Sugar values after BasicSearch Clear button is pressed
-        clearBasicSearchOrderToDefault: function(form)
-        {
-            if(form.elements['searchFormTab']){
-                var formType = form.elements['searchFormTab'].value;
-                if (formType == 'basic_search')
-                {
-                    form.elements['orderBy'].value = 'DATE_ENTERED';
-                    form.elements['sortOrder'].value = 'DESC';
-                }
-            }
-        }
+		}
 	};
 }();
 // Code for the column/tab chooser used on homepage and in admin section
@@ -4072,7 +4323,7 @@ SUGAR.tabChooser = function () {
 			    }
 
 			    if(max_left != '' && (display_columns_ref.length + selected_right.length) > max_left) {
-			    	alert('Maximum of ' + max_left + ' columns can be displayed.');
+                    alert(SUGAR.language.get('app_strings','LBL_MAXIMUM_OF') + max_left + SUGAR.language.get('app_strings','LBL_COLUMNS_CAN_BE_DISPLAYED')); 
 					return;
 			    }
 
@@ -4794,14 +5045,16 @@ SUGAR.append(SUGAR.util, {
         return false;
     },
 
-    isLoginPage: function(content) {
-	//skip if this is packageManager screen
-	if(SUGAR.util.isPackageManager()) {return false;}
-	var loginPageStart = "<!DOCTYPE";
-	if (content.substr(0, loginPageStart.length) == loginPageStart && content.indexOf("<html>") != -1  && content.indexOf("login_module") != -1) {
-		window.location.href = window.location.protocol + window.location.pathname;
-		return true;
-	}
+    isLoginPage:function (content) {
+        //skip if this is packageManager screen
+        if (SUGAR.util.isPackageManager()) {
+            return false;
+        }
+        var loginPageStart = "<!DOCTYPE";
+        if (content.substr(0, loginPageStart.length) == loginPageStart && content.indexOf("<html") != -1 && content.indexOf("login_module") != -1) {
+            window.location.href = window.location.protocol + window.location.pathname;
+            return true;
+        }
     },
 
 isPackageManager: function(){
@@ -5026,6 +5279,8 @@ SUGAR.MultiEnumAutoComplete.getMultiSelectValuesFromKeys = function(options_inde
     }
     return final_arr;
 }
+
+SUGAR.VERSION_MARK = "";
 
 function convertReportDateTimeToDB(dateValue, timeValue)
 {

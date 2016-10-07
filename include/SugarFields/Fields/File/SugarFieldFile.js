@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 if(typeof(SUGAR.field)=='undefined'){SUGAR.field=new Object();}
 if(typeof(SUGAR.field.file)=='undefined'){SUGAR.field.file={deleteAttachment:function(elemBaseName,docTypeName,elem){ajaxStatus.showStatus(SUGAR.language.get("app_strings","LBL_REMOVING_ATTACHMENT"));elem.form.deleteAttachment.value=1;elem.form.action.value="deleteattachment";var callback=SUGAR.field.file.deleteAttachmentCallbackGen(elemBaseName,docTypeName);var success=function(data){if(data){callback(data.responseText);}}
 YAHOO.util.Connect.setForm(elem.form);var cObj=YAHOO.util.Connect.asyncRequest('POST','index.php',{success:success,failure:success});elem.form.deleteAttachment.value=0;elem.form.action.value="";},deleteAttachmentCallbackGen:function(elemBaseName,docTypeName){return function(text){if(text=='true'){document.getElementById(elemBaseName+'_new').style.display='';ajaxStatus.hideStatus();document.getElementById(elemBaseName+'_old').innerHTML='';if(docTypeName){document.getElementById(docTypeName).disabled=false;}
@@ -22,4 +20,5 @@ document.getElementById(docTypeName).onchange=showHideFunc;document.getElementBy
 return'';else
 return fileName.substr(++lastindex);},isFileExtensionValid:function(fileName){var docType=document.getElementById('doc_type').value;var fileExtension=this.getFileExtension(fileName);if(typeof(SUGAR.eapm[docType])=='undefined'||!SUGAR.eapm[docType].restrictUploadsByExtension){return true;}
 var whiteSuffixlist=SUGAR.eapm[docType]['restrictUploadsByExtension'];if(whiteSuffixlist.constructor==Array){var results=false;for(var i=0;i<whiteSuffixlist.length;i++){if(fileExtension.toLowerCase()==whiteSuffixlist[i].toLowerCase()){return true;}}}
-return results;},checkFileExtension:function(e,obj){var sff=SUGAR.field.file;var fileEl=document.getElementById(obj.fileEl);var fileName=fileEl.value;var isValid=sff.isFileExtensionValid(fileName);if(!isValid&&fileName!=''){var errorPannel=new YAHOO.widget.SimpleDialog('sugarMsgWindow',{width:'240px',visible:true,fixedcenter:true,constraintoviewport:true,draggable:true,type:'alert',modal:true,id:'sugarMsgWindow',close:true});errorPannel.setBody(SUGAR.language.get("app_strings","LBL_INVALID_FILE_EXTENSION"));errorPannel.render(document.body);errorPannel.show();fileEl.value='';document.getElementById(obj.targEl).value='';}}}}
+return results;},checkFileExtension:function(e,obj){var sff=SUGAR.field.file;var fileEl=document.getElementById(obj.fileEl);var fileName=fileEl.value;var isValid=sff.isFileExtensionValid(fileName);var popupExist=$(".container-close").length;if(popupExist){$(".yui-panel-container.yui-dialog.yui-simple-dialog.yui-overlay-hidden").remove();}
+if(!isValid&&fileName!=''){var errorPannel=new YAHOO.widget.SimpleDialog('sugarMsgWindow',{width:'240px',visible:true,fixedcenter:true,constraintoviewport:true,draggable:true,type:'alert',modal:true,id:'sugarMsgWindow',close:true});errorPannel.setBody(SUGAR.language.get("app_strings","LBL_INVALID_FILE_EXTENSION"));errorPannel.render(document.body);errorPannel.show();fileEl.value='';document.getElementById(obj.targEl).value='';}}}}

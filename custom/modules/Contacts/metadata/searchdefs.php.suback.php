@@ -1,6 +1,16 @@
 <?php
-$searchdefs ['Contacts'] = 
-array (
+// created: 2016-10-06 15:20:01
+$searchdefs['Contacts'] = array (
+  'templateMeta' => 
+  array (
+    'maxColumns' => '3',
+    'maxColumnsBasic' => '4',
+    'widths' => 
+    array (
+      'label' => '10',
+      'field' => '30',
+    ),
+  ),
   'layout' => 
   array (
     'basic_search' => 
@@ -26,19 +36,19 @@ array (
     ),
     'advanced_search' => 
     array (
-      'first_name' => 
+      0 => 
       array (
         'name' => 'first_name',
         'default' => true,
         'width' => '10%',
       ),
-      'last_name' => 
+      1 => 
       array (
         'name' => 'last_name',
         'default' => true,
         'width' => '10%',
       ),
-      'created_by' => 
+      2 => 
       array (
         'type' => 'assigned_user_name',
         'label' => 'LBL_CREATED',
@@ -46,7 +56,7 @@ array (
         'default' => true,
         'name' => 'created_by',
       ),
-      'email' => 
+      3 => 
       array (
         'name' => 'email',
         'label' => 'LBL_ANY_EMAIL',
@@ -54,7 +64,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'email_and_name1' => 
+      4 => 
       array (
         'type' => 'varchar',
         'label' => 'LBL_NAME',
@@ -62,7 +72,7 @@ array (
         'default' => true,
         'name' => 'email_and_name1',
       ),
-      'title' => 
+      5 => 
       array (
         'type' => 'varchar',
         'label' => 'LBL_TITLE',
@@ -70,7 +80,7 @@ array (
         'default' => true,
         'name' => 'title',
       ),
-      'phone_other' => 
+      6 => 
       array (
         'type' => 'phone',
         'label' => 'LBL_OTHER_PHONE',
@@ -78,7 +88,7 @@ array (
         'default' => true,
         'name' => 'phone_other',
       ),
-      'phone_work' => 
+      7 => 
       array (
         'type' => 'phone',
         'label' => 'LBL_OFFICE_PHONE',
@@ -86,7 +96,7 @@ array (
         'default' => true,
         'name' => 'phone_work',
       ),
-      'address_street' => 
+      8 => 
       array (
         'name' => 'address_street',
         'label' => 'LBL_ANY_ADDRESS',
@@ -94,7 +104,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'address_city' => 
+      9 => 
       array (
         'name' => 'address_city',
         'label' => 'LBL_CITY',
@@ -102,7 +112,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'call_outcome_c' => 
+      10 => 
       array (
         'type' => 'enum',
         'default' => true,
@@ -111,7 +121,7 @@ array (
         'width' => '10%',
         'name' => 'call_outcome_c',
       ),
-      'report_to_name' => 
+      11 => 
       array (
         'type' => 'relate',
         'link' => true,
@@ -121,13 +131,13 @@ array (
         'default' => true,
         'name' => 'report_to_name',
       ),
-      'account_name' => 
+      12 => 
       array (
         'name' => 'account_name',
         'default' => true,
         'width' => '10%',
       ),
-      'address_state' => 
+      13 => 
       array (
         'name' => 'address_state',
         'label' => 'LBL_STATE',
@@ -135,7 +145,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'address_postalcode' => 
+      14 => 
       array (
         'name' => 'address_postalcode',
         'label' => 'LBL_POSTAL_CODE',
@@ -143,7 +153,7 @@ array (
         'default' => true,
         'width' => '10%',
       ),
-      'primary_address_country' => 
+      15 => 
       array (
         'name' => 'primary_address_country',
         'label' => 'LBL_COUNTRY',
@@ -154,15 +164,4 @@ array (
       ),
     ),
   ),
-  'templateMeta' => 
-  array (
-    'maxColumns' => '3',
-    'maxColumnsBasic' => '4',
-    'widths' => 
-    array (
-      'label' => '10',
-      'field' => '30',
-    ),
-  ),
 );
-?>

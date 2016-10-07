@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att kunna radera affärsmöjligheten.',
@@ -23,14 +20,15 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Organisations ID',
   'LBL_ACCOUNT_NAME' => 'Organisationsnamn:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteter',
-  'LBL_AMOUNT' => 'Summa:',
-  'LBL_AMOUNT_USDOLLAR' => 'Summa USD:',
   'LBL_ASSIGNED_TO_ID' => 'Tilldelad till ID',
   'LBL_ASSIGNED_TO_NAME' => 'Tilldelad till:',
   'LBL_CAMPAIGN' => 'Kampanj:',
   'LBL_CAMPAIGN_LINK' => 'Kampanjlänk',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampanjer',
+  'LBL_CLOSED_RLIS' => '# av stängda intäktsposter',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Stängda vunna affärsmöjligheter',
+  'LBL_COMMITTED' => 'Committed',
+  'LBL_COMMIT_STAGE' => 'Commit fas',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakter',
   'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Relaterad Kontakts Emails',
   'LBL_CONTRACTS' => 'Kontrakt',
@@ -41,8 +39,11 @@ $mod_strings = array (
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'Valuta ID',
   'LBL_CURRENCY_NAME' => 'Valutanamn',
+  'LBL_CURRENCY_RATE' => 'Valutakursen',
   'LBL_CURRENCY_SYMBOL' => 'Valutasymbol',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Topp 10 Affärsmöjligheter',
   'LBL_DATE_CLOSED' => 'Förväntat avslutsdatum:',
+  'LBL_DATE_CLOSED_TIMESTAMP' => 'Förväntad Close Datum Tidsstämpel',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Affärsmöjligheter',
   'LBL_DESCRIPTION' => 'Beskrivning:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokument',
@@ -54,6 +55,17 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Skapad av ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ändrad av ID',
   'LBL_EXPORT_NAME' => 'Namn',
+  'LBL_FILENAME' => 'Bilaga',
+  'LBL_FORECAST' => 'Inkludera i prognos',
+  'LBL_HELP_CONFIG_OPPS' => 'After you initiate this change, the Revenue Line Item summarization notes will be built in the background. When the notes are complete and available, a notification will be sent to the email address on your user profile. If your instance is set up for {{forecasts_module}}, Sugar will also send you a notification when your {{module_name}} records are synced to the {{forecasts_module}} module and available for new {{forecasts_module}}. Please note that your instance must be configured to send email via Admin > Email Settings in order for the notifications to be sent.',
+  'LBL_HELP_CONFIG_RLIS' => 'After you initiate this change, Revenue Line Item records will be created for each existing {{module_name}} in the background. When the Revenue Line Items are complete and available, a notification will be sent to the email address on your user profile. Please note that your instance must be configured to send email via Admin > Email Settings in order for the notification to be sent.',
+  'LBL_HELP_CREATE' => 'Med {plural_module_name}}-modulen kan du spåra individuella försäljningar och de artiklar som hör till denna försäljning från början till slut. För att skapa en {{modul}}: 1 För in värden för fälten som önskat. 
+- Fält markerade ""Required"" måste fyllas i innan du sparar. - Klicka på "Visa mer" för att visa ytterligare fält vid behov. 2 Klicka på "Spara" för att spara och återgå till föregående sidan. - Välj "Spara och visa" för att öppna den nya {{modul}}. - Välj "Spara och skapa ny" för att omedelbart skapa en annan ny {{modul}}.',
+  'LBL_HELP_RECORD' => 'Med {plural_module_name}}-modulen kan du spåra individuella försäljningar och de artiklar som hör till denna försäljning från början till slut.  Redigera denna postens fält genom att klicka ett enskilt fält eller på knappen Redigera. - Visa eller ändra länkar till andra poster i underpaneler, även {{campaigns_singular_module}} mottagare, genom att växla den nedre vänstra rutan till "Data View". 
+- Utför och se användarkommentarer och eller se förändringar i {{activitystream_singular_module}} genom att växla den nedre vänstra rutan på "Activity Stream". - Följ som favorit med hjälp av ikonerna till höger om namnet. - Ytterligare åtgärder finns i dropdown menyn Åtgärder till höger om knappen Redigera.',
+  'LBL_HELP_RECORDS' => 'Med {plural_module_name}}-modulen kan du spåra individuella försäljningar och de artiklar som hör till denna försäljning från början till slut. Varje {{module}}post utgör en rubrik för en grupp av {{revenuelineitems_module}} samt avseende på andra viktiga poster som t.ex. {{quotes_module}}, {{contacts_module}}, etc. Varje {{revenuelineitems_singular_module}} är en blivande försäljning av en viss produkt och innehåller relevanta försäljningsuppgifter. Varje {{revenuelineitems_singular_module}} följer försljningsprocesses tills den är märkt antingen "Closed Won" eller "Closed Lost". 
+{{modul}}vyn återspeglar beloppet och förväntade avslut för dess {{revenuelineitems_module}}. 
+{{plural_module_name}} och {{revenuelineitems_module}} kan utnyttjas ytterligare genom att använda Sugars {{forecasts_singular_module}}modul för att förstå och förutsäga försäljningsutvecklingen samt fokusera arbete för att uppnå försäljningskvoter.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_INVITEE' => 'Kontakter',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
@@ -66,37 +78,70 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'Lista affärsmöjligheter',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Namn',
   'LBL_LIST_SALES_STAGE' => 'Säljnivå',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MODIFIED_ID' => 'Redigerad av ID',
   'LBL_MODIFIED_NAME' => 'Redigerad av användarnamn',
   'LBL_MODIFIED_USER' => 'Ändrad användare',
   'LBL_MODULE_NAME' => 'Affärsmöjligheter',
+  'LBL_MODULE_NAME_SINGULAR' => 'Affärsmöjlighet',
   'LBL_MODULE_TITLE' => 'Affärsmöjligheter: Hem',
   'LBL_MY_CLOSED_OPPORTUNITIES' => 'Mina stängda affärsmöjligheter',
   'LBL_NAME' => 'Namn på affärsmöjlighet:',
   'LBL_NEW_FORM_TITLE' => 'Skapa affärsmöjlighet',
   'LBL_NEXT_STEP' => 'Nästa steg:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anteckningar',
   'LBL_OPPORTUNITY' => 'Affärsmöjlighet:',
   'LBL_OPPORTUNITY_NAME' => 'Namn på affärsmöjlighet:',
+  'LBL_OPPORTUNITY_ROLE' => 'Affärsmöjlighetsroll',
   'LBL_OPPORTUNITY_TYPE' => 'Typ av Affärsmöjlighet',
+  'LBL_OPPS_CONFIG_ALERT' => 'By clicking Confirm, you will be erasing ALL Forecasts data and changing your Opportunities View. If this is not what you intended, click cancel to return to previous settings.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'If all Revenue Line Items are closed and at least one was won,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'Affärsmöjlighetens säljfas är satt till "Stängd vunnen".',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'If all Revenue Line Items are in the "Closed Lost" Sales Stage,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'Affärsmöjlighetens säljfas är satt till "Stängd förlorad"',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'If any Revenue Line Items are still open,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'the Opportunity will be marked with the least-advanced Sales Stage.',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Set the Expected Close Date field on the resulting Opportunity records to be the earliest or latest close dates of the existing Revenue Line Items',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Affärsmöjlighet Hierarki',
+  'LBL_PIPELINE_TOTAL_IS' => 'Pipeline Totalt är',
+  'LBL_PRIMARY_QUOTE_ID' => 'Primär offert',
   'LBL_PROBABILITY' => 'Möjlighet (%):',
+  'LBL_PRODUCTS' => 'Offert poster',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekt',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekt',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Offerter',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Offerter',
   'LBL_RAW_AMOUNT' => 'Belopp',
+  'LBL_RLI' => 'Intäktsposter',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Intäktsposter',
   'LBL_SALES_STAGE' => 'Säljnivå:',
+  'LBL_SALES_STATUS' => 'Status',
   'LBL_SEARCH_FORM_TITLE' => 'Sök affärsmöjligheter',
   'LBL_TEAM_ID' => 'Team ID',
+  'LBL_TIMEPERIODS' => 'Tidsperioder',
+  'LBL_TIMEPERIOD_ID' => 'Tidsperiod ID',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Visar topp tio Affärsmöjligheter i ett bubbeldiagram.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Mina Affärsmöjligheter',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Mitt Teams Affärsmöjligheter',
   'LBL_TOP_OPPORTUNITIES' => 'Mina mest intressanta affärsmöjligheter',
   'LBL_TOTAL_OPPORTUNITIES' => 'Alla affärsmöjligheter',
+  'LBL_TOTAL_RLIS' => '# av totala intäktsposter',
   'LBL_TYPE' => 'Typ:',
   'LBL_VIEW_FORM_TITLE' => 'Visa affärsmöjlighet',
+  'LBL_WORKSHEET' => 'Arbetsark',
+  'LNK_CREATE' => 'Skapa ärende',
   'LNK_IMPORT_OPPORTUNITIES' => 'Importera affärsmöjligheter',
   'LNK_NEW_OPPORTUNITY' => 'Skapa affärsmöjlighet',
   'LNK_OPPORTUNITY_LIST' => 'Affärsmöjligheter',
   'LNK_OPPORTUNITY_REPORTS' => 'Affärsmöjlighet rapporter',
   'MSG_DUPLICATE' => 'Den affärsmöjlighet du försöker skapa kan vara en kopia på en existerande affärsmöjlighet. Affärsmöjligheter med liknande namn listas nedan.<br> Klicka på Spara för att ändå spara den nya affärsmöjligheten eller klicka Avbryt för att återvända till modulen utan att skapa affärsmöjligheten.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Du kan inte ta bort affärsmöjligheter som innehåller stängda Intäktsposter',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Är du säker på att du vill ta bort kontakten från affärsmöjligheten?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Är du säker på att du vill ta bort affärsmöjligheten från projektet?',
+  'TPL_RLI_CREATE' => 'En affärsmöjlighet måste ha en tillhörande intäktspost.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Skapa en intäktspost.',
   'UPDATE' => 'Affärsmöjlighet - Valuta uppdatering',
   'UPDATE_BUGFOUND_COUNT' => 'Hittade buggar:',
   'UPDATE_BUG_COUNT' => 'Buggar hittades och en lösning håller på att tas fram:',
@@ -122,5 +167,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Ny summa:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Ny valuta:',
   'UPDATE_VERIFY_TXT' => 'Verifierar att summans värde i affärsmöjligheterna har giltiga decimalsiffror, endast numeriska tecken (0-9) och decimaler (.)',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'En eller flera av de valda posterna innehåller stängda intäktsposter och kan inte tas bort.',
 );
 

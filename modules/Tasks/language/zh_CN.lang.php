@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,6 +46,23 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => '由ID修改',
   'LBL_EXPORT_PARENT_ID' => '关联到ID',
   'LBL_EXPORT_PARENT_TYPE' => '关联到模块',
+  'LBL_HELP_CREATE' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}. Information (e.g. name, email address) regarding these {{plural_module_name}} are normally acquired from business cards you receive while attending various trades shows, conferences, etc. {{plural_module_name}} in Sugar are stand-alone records as they are not related to {{contacts_module}}, {{leads_module}}, {{accounts_module}}, or {{opportunities_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} Record view.',
   'LBL_HISTORY_SUBPANEL_TITLE' => '记录',
   'LBL_LIST_ASSIGNED_TO_NAME' => '指派的用户',
   'LBL_LIST_CLOSE' => '关闭',
@@ -75,11 +89,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => '新增任务',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => '无',
+  'LBL_NOTES_SUBPANEL_TITLE' => '记录',
   'LBL_PARENT_ID' => '上级编号:',
   'LBL_PARENT_NAME' => '上级类型:',
   'LBL_PHONE' => '电话:',
   'LBL_PRIORITY' => '优先级:',
-  'LBL_RELATED_TO' => '关联到：',
+  'LBL_REVENUELINEITEMS' => '收入线项目',
   'LBL_SEARCH_FORM_TITLE' => '任务搜索',
   'LBL_START_DATE' => '开始日期:',
   'LBL_START_DATE_AND_TIME' => '开始日期& 时间:',
@@ -87,6 +102,7 @@ $mod_strings = array (
   'LBL_STATUS' => '状态:',
   'LBL_SUBJECT' => '主题:',
   'LBL_TASK' => '任务:',
+  'LBL_TASK_CLOSE_SUCCESS' => '任务成功结束',
   'LBL_TASK_INFORMATION' => '任务查看',
   'LNK_IMPORT_TASKS' => '导入任务',
   'LNK_NEW_TASK' => '新增任务',

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,9 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Mimetype',
   'LBL_FILE_URL' => 'Fil-URL',
   'LBL_FIRST_NAME' => 'Fornavn',
+  'LBL_HELP_CREATE' => 'For å opprette en {{module_name}}: 1. Gi verdier til feltene som ønsket. - Felt som er merket "kreves" må fullføres før du lagrer. - Klikk "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Klikk "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne den nye {{module_name}} i postvisning. - Velg "Lagre og skape nye" til umiddelbart å opprette en ny {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modulen består av individuelle {{plural_module_name}} som inneholder tekst eller et vedlegg relevant for den relaterte posten. - Rediger denne registrering felt ved å klikke på en enkelt felt eller Rediger-knappen. - Vis eller endre lenker til andre poster i underpaneler ved å veksle nedre venstre rute til "Data View". - Lag og vis brukerkommentarer og postendringshistorie i {{activitystream_singular_module}} ved å veksle nedre venstre rute til "Activity Stream". - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for registreringsnavnet. - Ytterligere tiltak er tilgjengelig i dropdown menyen Handlinger til høyre på Rediger-knappen.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulen består av individuell {{plural_module_name}} som inneholder tekst eller et vedlegg relevant for den relaterte posten. {{module_name}} poster kan være relatert til en registrering i de fleste moduler via flex-relaterte felt, og kan også være relatert til en enkelt {{contacts_singular_module}}. {{plural_module_name}} kan inneholde generisk tekst om en post eller et vedlegg knyttet til posten. Det finnes ulike måter du kan opprette {{plural_module_name}} i Sugar eksempel via {{plural_module_name}} modul, import {{plural_module_name}}, via Historie underpaneler etc. Når {{module_name}} posten er opprettet, kan du se på og redigere informasjon knyttet til {{module_name}} via {{plural_module_name}} postvisning. Hver {{module_name}} registrering kan da forholde seg til andre Sugar poster som {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, og mange andre.',
   'LBL_LAST_NAME' => 'Etternavn',
   'LBL_LEAD_ID' => 'Lead-ID:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Tildelt bruker',
@@ -79,6 +79,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'Tilbuds-ID:',
   'LBL_RELATED_TO' => 'Beslektet med:',
   'LBL_REMOVING_ATTACHMENT' => 'Fjerner vedlegg...',
+  'LBL_REVENUELINEITEMS' => 'Omsetningsposter',
   'LBL_SEARCH_FORM_TITLE' => 'Notatsøk',
   'LBL_SEND_ANYWAYS' => 'Denne e-postmeldingen har intet emne. Vil du sende/lagre likevel?',
   'LBL_STATUS' => 'Status',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * source is the parent class of any source object.
@@ -84,11 +81,10 @@ abstract class source{
 	public function loadMapping() {
  		$mapping = array();
  		$dir = str_replace('_','/',get_class($this));
-		if(file_exists("custom/modules/Connectors/connectors/sources/{$dir}/mapping.php")) {
-			require("custom/modules/Connectors/connectors/sources/{$dir}/mapping.php");
-		} else if(file_exists("modules/Connectors/connectors/sources/{$dir}/mapping.php")){
-			require("modules/Connectors/connectors/sources/{$dir}/mapping.php");
-		}
+ 		$map = SugarAutoLoader::existingCustomOne("modules/Connectors/connectors/sources/{$dir}/mapping.php");
+ 		if(!empty($map)) {
+ 		    require $map;
+ 		}
 	    $this->_mapping = $mapping;
  	}
 
@@ -101,12 +97,10 @@ abstract class source{
      * Load source's vardef file
      */
  	public function loadVardefs() {
-		$class = get_class($this);
-		$dir = str_replace('_','/',$class);
-		if(file_exists("custom/modules/Connectors/connectors/sources/{$dir}/vardefs.php")) {
-			require("custom/modules/Connectors/connectors/sources/{$dir}/vardefs.php");
-		} else if(file_exists("modules/Connectors/connectors/sources/{$dir}/vardefs.php")){
-			require("modules/Connectors/connectors/sources/{$dir}/vardefs.php");
+		$dir = str_replace('_','/',$class = get_class($this));
+		$defs = SugarAutoLoader::existingCustomOne("modules/Connectors/connectors/sources/{$dir}/vardefs.php");
+		if(!empty($defs)) {
+			require $defs;
 		}
 
 		$this->_field_defs = !empty($dictionary[$class]['fields']) ? $dictionary[$class]['fields'] : array();
@@ -133,12 +127,12 @@ abstract class source{
 		return $fields_with_param;
  	}
 
- 	/**
- 	 * Save source's config to custom directory
- 	 */
-	public function saveConfig()
-	{
-		$config_str = "<?php\n/***CONNECTOR SOURCE***/\n";
+    /**
+     * Save source's config to custom directory
+     */
+    public function saveConfig()
+    {
+        $config_str = "<?php\n/***CONNECTOR SOURCE***/\n";
 
         // Handle encryption
         if(!empty($this->_config['encrypt_properties']) && is_array($this->_config['encrypt_properties']) && !empty($this->_config['properties'])){
@@ -150,19 +144,27 @@ abstract class source{
             }
         }
 
+        foreach($this->_config as $key => $val) {
+            if(!empty($val)){
+                $config_str .= $this->getConfigString($key, $val);
+            }
+        }
+        $dir = str_replace('_', '/', get_class($this));
 
-		foreach($this->_config as $key => $val) {
-			if(!empty($val)){
-				$config_str .= override_value_to_string_recursive2('config', $key, $val, false);
-			}
-		}
-		$dir = str_replace('_', '/', get_class($this));
+        if(!file_exists("custom/modules/Connectors/connectors/sources/{$dir}")) {
+            mkdir_recursive("custom/modules/Connectors/connectors/sources/{$dir}");
+        }
+        SugarAutoLoader::put("custom/modules/Connectors/connectors/sources/{$dir}/config.php", $config_str, true);
+    }
 
-	    if(!file_exists("custom/modules/Connectors/connectors/sources/{$dir}")) {
-	       mkdir_recursive("custom/modules/Connectors/connectors/sources/{$dir}");
-	    }
-	    file_put_contents("custom/modules/Connectors/connectors/sources/{$dir}/config.php", $config_str);
- 	}
+    /**
+     * Get the config values encoded to string format to place into the custom modules directory
+     * @param $key array key
+     * @param $val array value
+     */
+    public function getConfigString($key, $val) {
+        return override_value_to_string_recursive2('config', $key, $val, false);
+    }
 
  	/**
  	 * Initialize config - decrypt encrypted fields
@@ -189,11 +191,8 @@ abstract class source{
 	{
 		$config = array();
 		$dir = str_replace('_','/',get_class($this));
-		if(file_exists("modules/Connectors/connectors/sources/{$dir}/config.php")){
-			require("modules/Connectors/connectors/sources/{$dir}/config.php");
-		}
-		if(file_exists("custom/modules/Connectors/connectors/sources/{$dir}/config.php")) {
-			require("custom/modules/Connectors/connectors/sources/{$dir}/config.php");
+		foreach(SugarAutoLoader::existingCustom("modules/Connectors/connectors/sources/{$dir}/config.php") as $file) {
+		    require $file;
 		}
 		$this->_config = $config;
 
@@ -226,11 +225,9 @@ abstract class source{
 	public function getOriginalMapping() {
  		$mapping = array();
  		$dir = str_replace('_','/',get_class($this));
-		if(file_exists("modules/Connectors/connectors/sources/{$dir}/mapping.php")) {
-			require("modules/Connectors/connectors/sources/{$dir}/mapping.php");
-		} else if(file_exists("custom/modules/Connectors/connectors/sources/{$dir}/mapping.php")){
-			require("custom/modules/Connectors/connectors/sources/{$dir}/mapping.php");
-		}
+        foreach(SugarAutoLoader::existing("modules/Connectors/connectors/sources/{$dir}/mapping.php") as $file) {
+            require $file;
+        }
 		return $mapping;
  	}
 
@@ -326,7 +323,7 @@ abstract class source{
  	 * @return result boolean result of the test function
  	 */
     public function test() {
-    	return false;
+    	return true;
     }
 
 

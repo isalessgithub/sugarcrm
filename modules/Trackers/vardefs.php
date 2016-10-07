@@ -1,18 +1,15 @@
 <?php
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['Tracker'] = array(
     'table' => 'tracker',
     'fields' => array(
@@ -23,6 +20,7 @@ $dictionary['Tracker'] = array(
             'len' => '11',
             'isnull' => 'false',
             'auto_increment' => true,
+            'readonly' => true,
             'reportable'=>true,
         ),
 	    'monitor_id'=>array (
@@ -35,7 +33,7 @@ $dictionary['Tracker'] = array(
         'user_id'=>array(
             'name' => 'user_id',
             'vname' => 'LBL_USER_ID',
-			'type' => 'varchar',
+			'type' => 'id',
             'len' => '36',
             'isnull' => 'false',
         ),
@@ -49,7 +47,7 @@ $dictionary['Tracker'] = array(
         'item_id'=>array(
             'name' => 'item_id',
             'vname' => 'LBL_ITEM_ID',
-            'type' => 'varchar',
+            'type' => 'id',
             'len' => '36',
             'isnull' => 'false',
         ),
@@ -63,7 +61,7 @@ $dictionary['Tracker'] = array(
 		'team_id'=>array(
 			'name' => 'team_id',
 			'vname' => 'LBL_TEAM_ID',
-			'type' => 'varchar',
+			'type' => 'id',
 			'len' => '36',
 		),
         'date_modified'=>array(
@@ -85,9 +83,6 @@ $dictionary['Tracker'] = array(
             'type' => 'varchar',
             'len' => '36',
             'isnull' => 'true',
-            'exportable' => false
-
-
         ),
         'visible'=>array(
             'name' => 'visible',
@@ -187,4 +182,9 @@ $dictionary['Tracker'] = array(
 		   		'relationship_type'=>'one-to-one'
 		   )
    	),
+    'acls' => array('SugarACLStatic' => true),
 );
+require "modules/Trackers/tracker_sessionsMetaData.php";
+require "modules/Trackers/tracker_perfMetaData.php";
+require "modules/Trackers/tracker_queriesMetaData.php";
+require "modules/Trackers/tracker_tracker_queriesMetaData.php";

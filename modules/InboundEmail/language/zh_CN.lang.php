@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => '用户名或者密码错误',
   'ERR_BODY_TOO_LONG' => '电子邮件正文太长。请调整。',
+  'ERR_DELETE_FOLDER' => '无法删除文件夹。',
   'ERR_INI_ZLIB' => '暂时无法关闭Zlib压缩。“测试设置”可能失败。',
   'ERR_MAILBOX_FAIL' => '不能检索任何邮件箱。',
   'ERR_NO_IMAP' => '未发现IMAP类库。请在使用收件箱前解决这个问题。',
   'ERR_NO_OPTS_SAVED' => '没有最佳设置收件箱。请重新查看设置。',
   'ERR_TEST_MAILBOX' => '请检查您的设置，再重试。',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => '从文件夹删除之前，无法退订。',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => '允许用户使用发送电子邮件的“发件人”的名称和地址作为答复地址',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => '当这个选项被选中发件人姓名和电邮地址与本组邮件帐户相关联，对组邮件账户又访问权限的用户在撰写电子邮件时将作为发件人的一个选项显示。',
   'LBL_APPLY_OPTIMUMS' => '提交最佳设置',

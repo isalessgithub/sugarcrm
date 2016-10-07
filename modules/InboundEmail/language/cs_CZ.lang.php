@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Přilášení nebo heslo nesprávné',
   'ERR_BODY_TOO_LONG' => 'Text v body je příliš dlouhý na zachycení CELÉHO emailu. Přebytečný text byl odstraněn.',
+  'ERR_DELETE_FOLDER' => 'Není možné smazat složku',
   'ERR_INI_ZLIB' => 'Nepodařilo se dočasně vypnout Zlib kompresi. \\"Testoací nastavení\\" může selhat.',
   'ERR_MAILBOX_FAIL' => 'Nemohl jsem získat žádné mailboxy.',
   'ERR_NO_IMAP' => 'Nenalezeny žádné IMAP knihovny. Prosím vyřešte to, než budeme pokračovat PříchozímaEmailama',
   'ERR_NO_OPTS_SAVED' => 'Žádné Optimání nebyly uloženy s Vaším příchozím emailem.Prosím zkontrolujte nastavení',
   'ERR_TEST_MAILBOX' => 'Zkontrolujte nastavení a zkuste to znovu.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Není možné odhlásit se ze složky před smazáním.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Umožnit uživatelům odeslat email s použitím jména a adresy (z pole Od) jako odpovědní adresy.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Pokud je tato volba vybrána, bude jméno a adresa (Od) svázáná s tímto skupinovým emailovým účtem vidět jako volba pro pole Od při psaní emailu u uživatelů, kteří mají přístup do tohoto skupinového emailu.',
   'LBL_APPLY_OPTIMUMS' => 'Aplikovat optimální',

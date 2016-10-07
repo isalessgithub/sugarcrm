@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,7 +46,7 @@ $mod_strings = array (
   'LBL_REASSIGN_TEAM_BUTTON_KEY' => 'R',
   'LBL_REASSIGN_TEAM_BUTTON_LABEL' => '重新分配',
   'LBL_REASSIGN_TEAM_BUTTON_TITLE' => '重新分配',
-  'LBL_REASSIGN_TEAM_COMPLETED' => '操作成功完成。',
+  'LBL_REASSIGN_TEAM_COMPLETED' => '操作已成功。',
   'LBL_REASSIGN_TEAM_TITLE' => '纪录已被分配给下列团队: {0}<br />删除纪录前，您必须把这些纪录分配给新的团队。选择一个团队作为替换。',
   'LBL_SEARCH_FORM_TITLE' => '查找团队',
   'LBL_TEAM' => '团队:',
@@ -59,7 +56,8 @@ $mod_strings = array (
   'LNK_LIST_TEAM' => '团队',
   'LNK_LIST_TEAMNOTICE' => '团队通知',
   'LNK_NEW_TEAM' => '新增团队',
-  'NTC_DELETE_CONFIRMATION' => '您确定要删除该记录吗?',
+  'LNK_NEW_TEAM_NOTICE' => '新增团队通知',
+  'NTC_DELETE_CONFIRMATION' => '您确定要删除这条记录？',
   'NTC_REMOVE_TEAM_MEMBER_CONFIRMATION' => '您确定要移除这个用户的成员关系吗?',
 );
 

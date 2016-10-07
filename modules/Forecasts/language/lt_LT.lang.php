@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -22,9 +19,6 @@ $mod_strings = array (
   'LBL_ACTIONS' => 'Veiksmai',
   'LBL_AMOUNT' => 'Suma',
   'LBL_BASE_RATE' => 'Bazinis tarifas',
-  'LBL_BEST_CASE' => 'Geriausias atvejis:',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'Geriausio (koreguoto) valiuta',
-  'LBL_BEST_CASE_VALUE' => 'Geriausia (Koreguotas)',
   'LBL_CANCEL' => 'Atšaukti',
   'LBL_CHANGES_BY' => '',
   'LBL_CHART_ADJUSTED' => '(Koreguotas)',
@@ -37,16 +31,16 @@ $mod_strings = array (
   'LBL_CHART_TITLE' => 'Pardavimų planai - Paskyrimai - Faktiniai',
   'LBL_CHART_TYPE' => 'Tipas',
   'LBL_CLOSED' => 'Užbaigtas',
-  'LBL_COMMITTED_HISTORY_1_SHOWN' => '{0} {1}',
-  'LBL_COMMITTED_HISTORY_2_SHOWN' => '{0} {1}, {2}',
-  'LBL_COMMITTED_HISTORY_3_SHOWN' => '{0} {1}, {2}, ir {3}',
-  'LBL_COMMITTED_HISTORY_BEST_CHANGED' => 'geriausiai {0} {1} į {2}',
+  'LBL_COMMITTED_HISTORY_1_SHOWN' => '{{{intro}}} {{{first}}}',
+  'LBL_COMMITTED_HISTORY_2_SHOWN' => '{{{intro}}} {{{first}}}, {{{second}}}',
+  'LBL_COMMITTED_HISTORY_3_SHOWN' => '{{{intro}}} {{{first}}}, {{{second}}}, ir {{{third}}}',
+  'LBL_COMMITTED_HISTORY_BEST_CHANGED' => 'geriausiai {{{direction}}} {{{from}}} į {{{to}}}',
   'LBL_COMMITTED_HISTORY_BEST_SAME' => '',
-  'LBL_COMMITTED_HISTORY_LIKELY_CHANGED' => 'greičiausiai {0} {1} į {2}',
+  'LBL_COMMITTED_HISTORY_LIKELY_CHANGED' => 'greičiausiai {{{direction}}} {{{from}}} į {{{to}}}',
   'LBL_COMMITTED_HISTORY_LIKELY_SAME' => '',
   'LBL_COMMITTED_HISTORY_SETUP_FORECAST' => '',
   'LBL_COMMITTED_HISTORY_UPDATED_FORECAST' => '',
-  'LBL_COMMITTED_HISTORY_WORST_CHANGED' => 'blogiausiai {0} {1} į {2}',
+  'LBL_COMMITTED_HISTORY_WORST_CHANGED' => 'blogiausiai {{{direction}}} {{{from}}} į {{{to}}}',
   'LBL_COMMITTED_HISTORY_WORST_SAME' => '',
   'LBL_COMMITTED_MONTHS_AGO' => '{0} mėnesius prieš {1}',
   'LBL_COMMITTED_THIS_MONTH' => 'Šį mėnesį {0}',
@@ -116,9 +110,6 @@ $mod_strings = array (
   'LBL_FMT_DIRECT_FORECAST' => '(Asmeninis)',
   'LBL_FMT_ROLLUP_FORECAST' => '(Komandos)',
   'LBL_FORECAST' => 'Prognozė',
-  'LBL_FORECASTS_CONFIG_ADMIN_SPLASH_1' => '',
-  'LBL_FORECASTS_CONFIG_ADMIN_SPLASH_2' => '',
-  'LBL_FORECASTS_CONFIG_ADMIN_SPLASH_3' => '',
   'LBL_FORECASTS_CONFIG_BREADCRUMB_RANGES' => '',
   'LBL_FORECASTS_CONFIG_BREADCRUMB_SCENARIOS' => '',
   'LBL_FORECASTS_CONFIG_BREADCRUMB_TIMEPERIODS' => 'Laiko periodai',
@@ -134,7 +125,6 @@ $mod_strings = array (
   'LBL_FORECASTS_CONFIG_RANGES_SETUP_NOTICE' => '',
   'LBL_FORECASTS_CONFIG_SHOW_BINARY_RANGES_DESCRIPTION' => '',
   'LBL_FORECASTS_CONFIG_SHOW_BUCKETS_RANGES_DESCRIPTION' => '',
-  'LBL_FORECASTS_CONFIG_SHOW_CUSTOM_BUCKETS_RANGES' => '',
   'LBL_FORECASTS_CONFIG_START_DATE' => '',
   'LBL_FORECASTS_CONFIG_TIMEPERIOD' => '',
   'LBL_FORECASTS_CONFIG_TIMEPERIODS_BACKWARD' => '',
@@ -143,7 +133,6 @@ $mod_strings = array (
   'LBL_FORECASTS_CONFIG_TIMEPERIOD_SETUP_NOTICE' => '',
   'LBL_FORECASTS_CONFIG_TIMEPERIOD_TYPE' => '',
   'LBL_FORECASTS_CONFIG_TITLE' => '',
-  'LBL_FORECASTS_CONFIG_USER_SPLASH' => '',
   'LBL_FORECASTS_CONFIG_VARIABLES' => 'Kintamieji',
   'LBL_FORECASTS_CONFIG_VARIABLES_CLOSED_LOST_STAGE' => '',
   'LBL_FORECASTS_CONFIG_VARIABLES_CLOSED_WON_STAGE' => '',
@@ -155,7 +144,6 @@ $mod_strings = array (
   'LBL_FORECASTS_CONFIG_WORKSHEET_SCENARIOS_LIKELY' => 'Greičiausias',
   'LBL_FORECASTS_CONFIG_WORKSHEET_SCENARIOS_WORST' => 'Blogiausias',
   'LBL_FORECASTS_TABBED_CONFIG_SUCCESS_MESSAGE' => '',
-  'LBL_FORECASTS_WIZARD_REFRESH_NOTICE' => '',
   'LBL_FORECASTS_WIZARD_SUCCESS_MESSAGE' => '',
   'LBL_FORECASTS_WIZARD_SUCCESS_TITLE' => '',
   'LBL_FORECAST_FOR' => 'Prognozės lentelė:',
@@ -195,11 +183,7 @@ $mod_strings = array (
   'LBL_GRAPH_QUOTA_LEGEND' => 'Pardavimų planas',
   'LBL_GRAPH_TITLE' => 'Prognozių istorija',
   'LBL_GROUP_BY' => 'Grupuoti pagal',
-  'LBL_INCLUDED_TOTAL' => '',
   'LBL_LESS' => 'Mažiau',
-  'LBL_LIKELY_CASE' => 'Greičiausias atvejis:',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Tikėtino (koreguoto) valiuta',
-  'LBL_LIKELY_CASE_VALUE' => 'Tikėtinas (Koreguotas)',
   'LBL_LIST_FORM_TITLE' => 'Vykdomos prognozės',
   'LBL_LOADING' => 'Kraunama',
   'LBL_LOADING_COMMIT_HISTORY' => 'Kraunama įsipareigojimo istorija...',
@@ -216,7 +200,6 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Prognozės',
   'LBL_MODULE_TITLE' => 'Prognozės',
   'LBL_MORE' => 'Daugiau',
-  'LBL_MY_OPPORTUNITIES' => 'Galimybės ({0})',
   'LBL_NO_ACTIVE_TIMEPERIOD' => 'Nėra prognozei aktyvaus laiko periodo.',
   'LBL_OVERALL_TOTAL' => '',
   'LBL_OW_ACCOUNTNAME' => 'Klientas',
@@ -230,7 +213,6 @@ $mod_strings = array (
   'LBL_OW_WEIGHTED' => 'Pasverta suma',
   'LBL_PIPELINE_OPPORTUNITIES' => '',
   'LBL_PIPELINE_REVENUE' => '',
-  'LBL_PIPELINE_SIZE' => '',
   'LBL_PREVIOUS_COMMIT' => '',
   'LBL_PRODUCT_ID' => 'Produkto ID:',
   'LBL_PROJECTED' => '',
@@ -285,20 +267,13 @@ $mod_strings = array (
   'LBL_WK_REVISION' => 'Revizija',
   'LBL_WK_VERSION' => 'Versija',
   'LBL_WORKSHEET_AMOUNT' => 'Viso apskaičiuota suma',
-  'LBL_WORKSHEET_COMMIT_ALERT' => '',
-  'LBL_WORKSHEET_COMMIT_CONFIRM' => '',
   'LBL_WORKSHEET_EXPORT_CONFIRM' => '',
   'LBL_WORKSHEET_ID' => '',
-  'LBL_WORKSHEET_SAVE_CONFIRM' => '',
   'LBL_WORKSHEET_SAVE_CONFIRM_UNLOAD' => '',
-  'LBL_WORST_CASE' => 'Blogiausias atvejis:',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'Blogiausio (koreguoto) valiuta',
-  'LBL_WORST_CASE_VALUE' => 'Blogiausias (Koreguotas)',
   'LB_FS_BEST_CASE' => 'Geriausiu atveju',
   'LB_FS_KEY' => 'ID',
   'LB_FS_LIKELY_CASE' => 'Greičiausiu atveju',
   'LB_FS_WORST_CASE' => 'Blogiausiu atveju',
-  'LNK_FORECASTS_CONFIG_ADMIN_SPLASH_HERE' => 'čia.',
   'LNK_FORECAST_LIST' => 'Prognozės istorija',
   'LNK_NEW_OPPORTUNITY' => 'Sukurti pardavimą',
   'LNK_NEW_TIMEPERIOD' => 'Sukurti laiko periodą',

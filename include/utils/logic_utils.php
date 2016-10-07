@@ -1,19 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: logic_utils.php 45763 2009-04-01 19:16:18Z majed $
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 function get_hook_array($module_name){
@@ -56,14 +53,14 @@ function replace_or_add_logic_type($hook_array){
 
 
 
-function write_logic_file($module_name, $contents){
-
+function write_logic_file($module_name, $contents)
+{
 		$file = "modules/".$module_name . '/logic_hooks.php';
 		$file = create_custom_directory($file);
 		$fp = sugar_fopen($file, 'wb');
 		fwrite($fp,$contents);
 		fclose($fp);
-
+		SugarAutoLoader::addToMap($file);
 //end function write_logic_file
 }
 
@@ -77,17 +74,15 @@ function build_logic_file($hook_array){
 	$hook_contents .= "\$hook_array = Array(); \n";
 	$hook_contents .= "// position, file, function \n";
 
-	foreach($hook_array as $event_array => $event){
-
-	$hook_contents .= "\$hook_array['".$event_array."'] = Array(); \n";
-
-		foreach($event as $second_key => $elements){
-
-			$hook_contents .= "\$hook_array['".$event_array."'][] = ";
-			$hook_contents .= "Array(".$elements[0].", '".$elements[1]."', '".$elements[2]."','".$elements[3]."', '".$elements[4]."'); \n";
-
-		}
-
+    foreach ($hook_array as $event_array => $event) {
+        $hook_contents .= "\$hook_array['".$event_array."'] = Array(); \n";
+        foreach ($event as $second_key => $elements) {
+            $hook_contents .= "\$hook_array['".$event_array."'][] = Array(";
+            foreach ($elements as $el) {
+                $hook_contents .= var_export($el, true) . ',';
+            }
+            $hook_contents .= ");\n";
+        }
 	//end foreach hook_array as event => action_array
 	}
 

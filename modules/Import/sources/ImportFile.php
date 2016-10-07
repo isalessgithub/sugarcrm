@@ -1,21 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ImportFile.php 31561 2008-02-04 18:41:10Z jmertic $
  * Description: Class to handle processing an import file
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -84,9 +81,17 @@ class ImportFile extends ImportDataSource
      * @param string $delimiter
      * @param string $enclosure
      * @param bool   $deleteFile
+     * @param bool   $checkUploadPath
+     * @param int    $rowsCount
      */
-    public function __construct( $filename, $delimiter  = ',', $enclosure  = '',$deleteFile = true, $checkUploadPath = TRUE )
-    {
+    public function __construct(
+        $filename,
+        $delimiter = ',',
+        $enclosure = '',
+        $deleteFile = true,
+        $checkUploadPath = true,
+        $rowsCount = 0
+    ) {
         if ( !is_file($filename) || !is_readable($filename) ) {
             return false;
         }
@@ -111,6 +116,7 @@ class ImportFile extends ImportDataSource
 
         // Autodetect does setFpAfterBOM()
         $this->_encoding = $this->autoDetectCharacterSet();
+        $this->_rowsCount = $rowsCount;
     }
 
     /**

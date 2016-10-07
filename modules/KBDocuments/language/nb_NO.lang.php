@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokument opprettet',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Dokumentnavn',
   'ERR_DOC_VERSION' => 'Dokumentversjon',
   'ERR_FILENAME' => 'Filnavn',
+  'ERR_FILESIZE' => 'Filen er for stor. Maks filstørrelse:',
   'LBL_ACTIVE_DATE' => 'Publiseringsdato',
   'LBL_AND' => 'og',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Knytter etiketter til artikler...',
@@ -35,13 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Forfatter:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Forfatter',
   'LBL_ARTICLE_BODY' => 'Artikkel-kropp:',
+  'LBL_ARTICLE_EXISTS' => 'Artikkelen finnes allerede',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artikkel',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Forhåndsvisning er ikke tilgjengelig. Dokumentet finnes, men inneholdet er foreløpig tomt.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Forhåndsvisning er ikke tilgjengelig, Dokumentregisteret ble ikke funnet.',
   'LBL_ARTICLE_TITLE' => 'Tittel:',
   'LBL_ATTACHMENTS' => 'Vedlegg:',
+  'LBL_CASE' => 'Sak',
   'LBL_CASES' => 'Saker',
   'LBL_CASES_SUBPANEL_TITLE' => 'Relatere saker',
+  'LBL_CASE_ID' => 'Sak-ID',
   'LBL_CATEGORY' => 'Kategori',
   'LBL_CATEGORY_VALUE' => 'Kategori:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Uspesifisert',
@@ -54,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Kontrakter:',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Relaterte kontrakter',
   'LBL_CONTRACT_NAME' => 'Kontraktsnavn:',
+  'LBL_CONTRACT_STATUS' => 'Kontrakt status',
   'LBL_CREATED' => 'Opprettet av',
   'LBL_CREATED_BY' => 'Opprettet av',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -62,6 +64,7 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Inngangsdato',
   'LBL_DATE_MODIFIED' => 'Endringsdato',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'Velg en handling fra rullelisten',
+  'LBL_DEFAULT_LINK_TEXT' => 'Standard link tekst.',
   'LBL_DELETE' => 'Slett',
   'LBL_DELETED' => 'Slettet',
   'LBL_DELETE_TAG' => 'Slett etikett',
@@ -101,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Dokument-ID:',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KB-dokumentrevisjonsnummer',
   'LBL_KBDOC_APPROVED_BY' => 'Godkjent av:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Godkjennerens navn',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Last ned vedlegg:',
   'LBL_KBDOC_BODY' => 'Kropp:',
@@ -119,7 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Siste revisjons-ID',
   'LBL_LATEST_REVISION_NAME' => 'Siste revisjon navn',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Setter i gang etikett-blafunksjonen...',
+  'LBL_LINKED_ID' => 'Linked ID',
   'LBL_LIST_ACTIVE_DATE' => 'Publiseringsdato',
+  'LBL_LIST_APPROVED_BY' => 'Godkjent av',
   'LBL_LIST_ARTICLES' => 'Artikler',
   'LBL_LIST_CATEGORY' => 'Kategori',
   'LBL_LIST_DOCUMENT' => 'Dokument',
@@ -158,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Ikke en gyldig fil',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Opphavstype',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrere ned listen over artikler ved å gi et søkebegrep.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'For eksempel kan du bruke dette til å finne en artikkel om et bestemt emne av interesse.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Knowledge Base-modulen er til for å arbeide med publiserte artikler. Bruk pilene nedenfor for å gå gjennom en rask tour.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denne siden viser listen over publiserte artikler.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Ved å klikke her kommer du tilbake til Knowledge Base til enhver tid.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Tidligere lagrede søk:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Endre eller Slett søkefilter',
   'LBL_PUBLISHED' => 'Publisert:',
@@ -175,12 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Dokumentsøk:',
   'LBL_SEARCH_TAG' => 'Søk',
   'LBL_SEARCH_WITHIN' => 'Søk innenfor:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Valgt revisjon filnavn',
+  'LBL_SELECTED_REVISION_ID' => 'Valgt revisjon ID',
   'LBL_SELECTED_REVISION_NAME' => 'Valgt revisjon navn',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Velg artikler for å knytte til etiketter',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Velg artikler først',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Velg artikler først',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Opprett en ny etikett',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Velg en etikett fra treet',
+  'LBL_SELECT_NODE' => 'Vennligst velg en node',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Velg opphavsetiketten fra treet',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Velg det overordnede etiketten fra treet',
   'LBL_SELECT_TAG' => 'Velg etikett',
@@ -227,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Bruk denne etiketten:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Ikke-etiketterte artikler',
   'LBL_UPDATE' => 'Oppdatér',
+  'LBL_VIEWS_NUMBER' => 'Visningsnummer',
   'LNK_KBDOCUMENT_LIST' => 'Dokumentliste',
   'LNK_NEW_ARTICLE' => 'Opprett artikkel',
   'LNK_NEW_MAIL_MERGE' => 'E-postfusjon',

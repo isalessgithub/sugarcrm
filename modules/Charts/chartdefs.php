@@ -1,19 +1,15 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point'); 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $chartsStrings = return_module_language($GLOBALS['current_language'], 'Charts');
 
 $chartDefs = array(
@@ -24,7 +20,7 @@ $chartDefs = array(
 				'chartUnits' => $chartsStrings['LBL_OPP_SIZE'] . ' $1' . $chartsStrings['LBL_OPP_THOUSANDS'],
 				'chartType' => 'funnel chart 3D',
 				'groupBy' => array( 'sales_stage', 'user_name', ),
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Opportunities',
 							'action' => 'index',
 							'query' => 'true',
@@ -38,14 +34,14 @@ $chartDefs = array(
 				'label' => $chartsStrings['LBL_CHART_PIPELINE_BY_SALES_STAGE'],
 				'chartUnits' => $chartsStrings['LBL_OPP_SIZE'] . ' $1' . $chartsStrings['LBL_OPP_THOUSANDS'],
 				'chartType' => 'horizontal group by chart',
-				'groupBy' => array( 'sales_stage', 'user_name' ), 
-				'base_url'=> 
+				'groupBy' => array( 'sales_stage', 'user_name' ),
+				'base_url'=>
 					array( 	'module' => 'Opportunities',
 							'action' => 'index',
 							'query' => 'true',
 							'searchFormTab' => 'advanced_search',
 						 ),
-				'url_params' => array( 'assigned_user_id', 'sales_stage', 'date_start', 'date_closed' ),				
+				'url_params' => array( 'assigned_user_id', 'sales_stage', 'date_start', 'date_closed' ),
 			),
 	'lead_source_by_outcome'=>
 		array(	'type' => 'code',
@@ -54,13 +50,13 @@ $chartDefs = array(
 				'chartUnits' => '',
 				'chartType' => 'horizontal group by chart',
 				'groupBy' => array( 'lead_source', 'sales_stage' ),
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Opportunities',
 							'action' => 'index',
 							'query' => 'true',
 							'searchFormTab' => 'advanced_search',
 						 ),
-				'url_params' => array( 'lead_source', 'sales_stage', 'date_start', 'date_closed' ),				
+				'url_params' => array( 'lead_source', 'sales_stage', 'date_start', 'date_closed' ),
 			 ),
 	'outcome_by_month'=>
 		array(	'type' => 'code',
@@ -69,13 +65,13 @@ $chartDefs = array(
 				'chartUnits' => $chartsStrings['LBL_OPP_SIZE'] . ' $1' . $chartsStrings['LBL_OPP_THOUSANDS'],
 				'chartType' => 'stacked group by chart',
 				'groupBy' => array( 'm', 'sales_stage', ),
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Opportunities',
 							'action' => 'index',
 							'query' => 'true',
 							'searchFormTab' => 'advanced_search',
 						 ),
-				'url_params' => array( 'sales_stage', 'date_closed' ),								
+				'url_params' => array( 'sales_stage', 'date_closed' ),
 			 ),
 	'pipeline_by_lead_source'=>
 		array(	'type' => 'code',
@@ -84,7 +80,7 @@ $chartDefs = array(
 				'chartUnits' => $chartsStrings['LBL_OPP_SIZE'] . ' $1' . $chartsStrings['LBL_OPP_THOUSANDS'],
 				'chartType' => 'pie chart',
 				'groupBy' => array( 'lead_source', ),
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Opportunities',
 							'action' => 'index',
 							'query' => 'true',
@@ -92,22 +88,22 @@ $chartDefs = array(
 						 ),
 				'url_params' => array( 'lead_source', ),
 			 ),
-	'opportunities_this_quarter' => 
+	'opportunities_this_quarter' =>
 		array( 	'type' => 'code',
 				'id' => 'opportunities_this_quarter',
 				'label' => $chartsStrings['LBL_CHART_OPPORTUNITIES_THIS_QUARTER'],
 				'chartType' => 'gauge chart',
-				'chartUnits' => 'Number of Opportunities',				
+				'chartUnits' => 'Number of Opportunities',
 				'groupBy' => array( ),
 				'gaugeTarget' => 200,
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Opportunities',
 							'action' => 'index',
 							'query' => 'true',
 							'searchFormTab' => 'advanced_search',
 						 ),
 		),
-	
+
 	'my_modules_used_last_30_days' =>
 		array( 	'type' => 'code',
 				'id' => 'my_modules_used_last_30_days',
@@ -115,13 +111,13 @@ $chartDefs = array(
 				'chartType' => 'horizontal bar chart',
 				'chartUnits' => $chartsStrings['LBL_MY_MODULES_USED_SIZE'],
 				'groupBy' => array( 'module_name'),
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Trackers',
 							'action' => 'index',
 							'query' => 'true',
 							'searchFormTab' => 'advanced_search',
 						 ),
-				
+
 		),
 
 	'my_team_modules_used_last_30_days' =>
@@ -131,7 +127,7 @@ $chartDefs = array(
 				'chartType' => 'horizontal group by chart',
 				'chartUnits' => $chartsStrings['LBL_MY_MODULES_USED_SIZE'],
 				'groupBy' => array('user_name', 'module_name'),
-				'base_url'=> 
+				'base_url'=>
 					array( 	'module' => 'Trackers',
 							'action' => 'index',
 							'query' => 'true',
@@ -140,7 +136,6 @@ $chartDefs = array(
 		),
 );
 
-if(file_exists('custom/Charts/chartDefs.ext.php')){
-	include_once('custom/Charts/chartDefs.ext.php');	
+if(SugarAutoLoader::existing('custom/Charts/chartDefs.ext.php')) {
+	include_once('custom/Charts/chartDefs.ext.php');
 }
-?>

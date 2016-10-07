@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '見積を削除するにはレコード番号を指定する必要があります。',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => '既に商談に変更された見積り',
   'LBL_ACCOUNT_ID' => '取引先ID',
   'LBL_ACCOUNT_NAME' => '取引先:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => '活動',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => '原価',
   'LBL_LIST_DATE_QUOTE_CLOSED' => '完了',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => '有効期限',
-  'LBL_LIST_DEAL_TOT' => '値引',
+  'LBL_LIST_DEAL_TOT' => 'ディスカウント合計',
   'LBL_LIST_DISCOUNT_PRICE' => '単価',
   'LBL_LIST_FORM_TITLE' => '見積一覧',
   'LBL_LIST_GRAND_TOTAL' => '総計',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => '私の見積',
   'LBL_LIST_PRICING_FACTOR' => '価格設定要素',
   'LBL_LIST_PRICING_FORMULA' => '価格計算式',
-  'LBL_LIST_PRODUCT_NAME' => '商品',
+  'LBL_LIST_PRODUCT_NAME' => '見積済商品',
   'LBL_LIST_QUANTITY' => '数量',
   'LBL_LIST_QUOTE_NAME' => '件名',
   'LBL_LIST_QUOTE_NUM' => '番号',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => '値引',
   'LBL_PDF_ITEM_EXT_PRICE' => '価格',
   'LBL_PDF_ITEM_LIST_PRICE' => '定価',
-  'LBL_PDF_ITEM_PRODUCT' => '商品',
+  'LBL_PDF_ITEM_PRODUCT' => '見積済商品',
   'LBL_PDF_ITEM_QUANTITY' => '数量',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
   'LBL_PDF_ITEM_UNIT_PRICE' => '単価',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'コメント削除',
   'LBL_REMOVE_ROW' => '行削除',
   'LBL_RENAME_ERROR' => 'エラー: PDFを $destination に移動できません。ディレクトリに書き込み権限を与えてください。',
+  'LBL_REVENUELINEITEMS' => '商談品目',
   'LBL_SALES_STAGE' => '見積ステージ:',
   'LBL_SEARCH_FORM_TITLE' => '見積検索',
   'LBL_SHIPPING' => '配送料:',

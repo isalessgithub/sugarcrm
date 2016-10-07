@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -35,7 +32,7 @@ global $current_user;
 
 if (!$GLOBALS['current_user']->isAdminForModule('Users')) sugar_die("Unauthorized access to administration.");
 
-$focus = new Team();
+$focus = BeanFactory::getBean('Teams');
 
 $detailView = new DetailView();
 $offset=0;
@@ -75,7 +72,7 @@ EOD
             <input id="delete_button" title="{$app_strings['LBL_DELETE_BUTTON_TITLE']}" accessKey="{$app_strings['LBL_DELETE_BUTTON_KEY']}" class="button" onclick="document.DetailView.return_action.value = 'ListView'; document.DetailView.action.value = 'Delete'; return confirm('{$app_strings['NTC_DELETE_CONFIRMATION']}')" type="submit" name="Delete" value=" {$app_strings['LBL_DELETE_BUTTON_LABEL']} ">
 EOD
 );
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $action_button = smarty_function_sugar_action_menu(array(
     'id' => 'team_action_menu',
     'buttons' => $buttons,
@@ -85,8 +82,8 @@ $action_button = smarty_function_sugar_action_menu(array(
 $xtpl->assign("ACTION_BUTTON", $action_button);
 
 global $current_user;
-if($current_user->isAdminForModule('Users') && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){	
-	
+if($current_user->isAdminForModule('Users') && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){
+
 	$xtpl->assign("ADMIN_EDIT","<a href='index.php?action=index&module=DynamicLayout&from_action=".$_REQUEST['action'] ."&from_module=".$_REQUEST['module'] ."&record=".$_REQUEST['record']. "&mod_lang=Teams'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif',$mod_strings['LBL_EDITLAYOUT'])."</a>");
 }
 
@@ -111,11 +108,10 @@ if(!empty($error_message))
    {
    	  $error_message = $app_strings['LBL_MASSUPDATE_DELETE_GLOBAL_TEAM'];
    } else if($error_message == 'LBL_MASSUPDATE_DELETE_USER_EXISTS') {
-   	  $user = new User();
-	  $user->retrieve($focus->associated_user_id);
+   	  $user = BeanFactory::getBean('Users', $focus->associated_user_id);
 	  $error_message = string_format($app_strings['LBL_MASSUPDATE_DELETE_USER_EXISTS'], array(Team::getDisplayName($focus->name, $focus->name_2), $user->full_name));
    }
-   
+
 echo <<<EOQ
 <script type="text/javascript">
 	popup_window = new YAHOO.widget.SimpleDialog("emptyLayout", {
@@ -135,7 +131,7 @@ echo <<<EOQ
 		}]
 	});
 	popup_window.render(document.body);
-	popup_window.show();   
+	popup_window.show();
 </script>
 EOQ;
 

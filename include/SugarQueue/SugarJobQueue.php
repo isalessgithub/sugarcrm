@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/SchedulersJobs/SchedulersJob.php';
 
@@ -31,7 +28,7 @@ class SugarJobQueue
      * Job running timeout - longer than that, job is failed by force
      * @var int
      */
-    public $timeout = 86400; // 24 hours
+    public $timeout = 3600; // 1 hour
 
     /**
      * Table in the DB that stores jobs
@@ -48,7 +45,7 @@ class SugarJobQueue
     public function __construct()
     {
         $this->db = DBManagerFactory::getInstance();
-        $job = new SchedulersJob();
+        $job = BeanFactory::getBean('SchedulersJobs');
         $this->job_queue_table = $job->table_name;
         if(!empty($GLOBALS['sugar_config']['jobs']['max_retries'])) {
             $this->jobTries = $GLOBALS['sugar_config']['jobs']['max_retries'];
@@ -60,8 +57,10 @@ class SugarJobQueue
 
     /**
      * Submit a new job to the queue
-     * @param SugarJob $job
-     * @param User $user User to run the job under
+     *
+     * @param SchedulersJob $job Job object
+     *
+     * @return string            Job ID
      */
     public function submitJob($job)
     {
@@ -71,6 +70,9 @@ class SugarJobQueue
         $job->resolution = SchedulersJob::JOB_PENDING;
         if(empty($job->execute_time)) {
             $job->execute_time = $GLOBALS['timedate']->nowDb();
+        }
+        if(empty($job->assigned_user_id)) {
+            $job->assigned_user_id = $GLOBALS['current_user']->id;
         }
         $job->save();
 
@@ -84,8 +86,7 @@ class SugarJobQueue
      */
     protected function getJob($jobId)
     {
-        $job = new SchedulersJob();
-        $job->retrieve($jobId);
+        $job = BeanFactory::getBean('SchedulersJobs', $jobId);
         if(empty($job->id)) {
             $GLOBALS['log']->info("Job $jobId not found!");
             return null;
@@ -127,9 +128,7 @@ class SugarJobQueue
      */
     public function deleteJob($jobId)
     {
-        $job = new SchedulersJob();
-        if(empty($job)) return false;
-        return $job->mark_deleted($jobId);
+        return BeanFactory::deleteBean('SchedulersJobs', $jobId);
     }
 
     /**
@@ -171,12 +170,11 @@ class SugarJobQueue
         $try = $this->jobTries;
         while($try--) {
             // TODO: tranaction start?
-            $id = $this->db->getOne("SELECT id FROM {$this->job_queue_table} WHERE execute_time <= $now AND status = '$queued' ORDER BY date_entered ASC");
+            $id = $this->db->getOne("SELECT id FROM {$this->job_queue_table} WHERE execute_time <= $now AND status = '$queued' AND deleted = 0 ORDER BY execute_time ASC");
             if(empty($id)) {
                 return null;
             }
-            $job = new SchedulersJob();
-            $job->retrieve($id);
+            $job = BeanFactory::getBean('SchedulersJobs', $id);
             if(empty($job->id)) {
                 return null;
             }
@@ -204,7 +202,7 @@ class SugarJobQueue
      */
     public function runSchedulers()
     {
-        $sched = new Scheduler();
+        $sched = BeanFactory::getBean('Schedulers');
         $sched->checkPendingJobs($this);
     }
 }

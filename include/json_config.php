@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: json_config.php 52448 2009-11-13 10:21:35Z mitani $
  * Description:  This class is used to include the json server config inline. Previous method
  * of using <script src=json_server.php></script> causes multiple server hits per page load
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -179,7 +176,6 @@ class json_config {
 		$all_fields = $focus->column_fields;
 		// MEETING SPECIFIC
 		$all_fields = array_merge($all_fields,array('required','accept_status','name')); // need name field for contacts and users
-        $all_fields = $this->listFilter($focus->module_dir, $all_fields);
 		//$all_fields = array_merge($focus->column_fields,$focus->additional_column_fields);
 
 		$module_arr = array();
@@ -189,7 +185,7 @@ class json_config {
 		$module_arr['fields'] = array();
 
 		foreach($all_fields as $field) {
-			if(isset($focus->$field) && !is_object($focus->$field)) {
+            if (isset($focus->$field) && is_scalar($focus->$field)) {
 				$focus->$field =  from_html($focus->$field);
 				$focus->$field =  preg_replace("/\r\n/","<BR>",$focus->$field);
 				$focus->$field =  preg_replace("/\n/","<BR>",$focus->$field);
@@ -199,49 +195,5 @@ class json_config {
 			$GLOBALS['log']->debug("JSON_SERVER:populate bean:");
 			return $module_arr;
 		}
-
-    /**
-     * @param string $module
-     * @param array $fields
-     *
-     * @return array
-     */
-    protected function listFilter($module, $fields)
-    {
-        $currentUser = $this->getCurrentUser();
-
-        // admin users can access any field
-        if ($currentUser && $currentUser->isAdminForModule($module)) {
-            return $fields;
-        }
-
-        $noAccessFields = array(
-            'Users' => array(
-                'show_on_employees' => true,
-                'portal_only' => true,
-                'is_group' => true,
-                'system_generated_password' => true,
-                'external_auth_only' => true,
-                'sugar_login' => true,
-                'authenticate_id' => true,
-                'pwd_last_changed' => true,
-                'user_hash' => true,
-                'password' => true,
-                'last_login' => true,
-            ),
-        );
-        if (!empty($noAccessFields[$module])) {
-            $fields = array_diff($fields, array_keys($noAccessFields[$module]));
-        }
-        return $fields;
-    }
-
-    /**
-     * Get current user
-     * @return User|null
-     */
-    protected function getCurrentUser()
-    {
-        return isset($GLOBALS['current_user']) ? $GLOBALS['current_user'] : null;
-    }
-}
+	}
+?>

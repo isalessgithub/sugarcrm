@@ -1,25 +1,22 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/DynamicFields/templates/Fields/TemplateField.php');
 class TemplateBoolean extends TemplateField{
     var $default_value = '0';
     var $default = '0';
 	var $type = 'bool';
 
-	//BEGIN BACKWARDS COMPATABILITY
+	//BEGIN BACKWARDS COMPATIBILITY
 function get_xtpl_edit(){
         $name = $this->name;
         $returnXTPL = array();
@@ -93,13 +90,18 @@ function get_xtpl_edit(){
         return $this->get_xtpl_edit();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function get_field_def()
+    {
+        $def = parent::get_field_def();
 
+        // The default value is stored in database as string,
+        // however from domain standpoint it has to be boolean
+        // @see Data.Validation#requiredValidator()
+        $def['default'] = isTruthy($def['default']);
 
-
-
-
-
+        return $def;
+    }
 }
-
-
-?>

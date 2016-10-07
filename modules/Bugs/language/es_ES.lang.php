@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,23 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Corregido en Lanzamiento:',
   'LBL_FOUND_IN_RELEASE' => 'Encontrado en Lanzamiento:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Encontrado en la versión',
+  'LBL_HELP_CREATE' => 'El módulo {{plural_module_name}} se utiliza para rastrear y administrar los problemas relacionados con productos, comúnmente conocido como {{plural_module_name}} o defectos, ya sean reportados internamente o por el cliente.
+
+Para crear un {{module_name}}:
+1. Proporcione valores para los campos que desee.
+- Los campos marcados como "Obligatorio" se deben completar antes de guardar.
+- Haga clic en "Mostrar más" para ver los campos adicionales si es necesario.
+2. Haga clic en "Guardar" para finalizar el nuevo registro y volver a la página previa.
+- Seleccione la opción "Guardar y ver" para abrir el nuevo {{module_name}} como vista de registro
+- Seleccione la opción "Guardar y crear nuevo" para crear un nuevo {{module_name}} inmediatamente.',
+  'LBL_HELP_RECORD' => 'El módulo {{plural_module_name}} se utiliza para hacer seguimiento y gestionar problemas relacionados con productos y servicios, comúnmente referidos como {{plural_module_name}} or defectuosos, ya sean reportados internamente o por los clientes.
+
+- Edita el registro haciendo clic en el campo individual o el botón Editar. 
+- Ver o modificar enlaces a otros registros en los subpanales yendo a la pestaña "Ver Datos".
+- Comentar o ver otros comentarios de usuarios y ver el historial del registro en {{activitystream_singular_module}} yendo a "Actividades Recientes".
+- Seguir o guardar como favorito el registro utilizando los iconos a la izquierda del nombre del registro. 
+- Acciones adicionales están disponibles en el botón desplegable Acciones.',
+  'LBL_HELP_RECORDS' => 'El módulo {{plural_module_name}} se compone de todos los productos que ya han sido vendidos o están en proceso de venta a los clientes. El listado de los productos vendidos por la empresa se encuentra en Admin > Catálogo de Producto y los administradores tienen la capacidad de añadir productos según sea necesario. Cuando se crean {{plural_module_name}}, tiene la opción de seleccionar productos del catálogo o crear nuevos productos a través del módulo {{plural_module_name}} . Hay varias formas de crear {{plural_module_name}} en Sugar como a través del módulo {{plural_module_name}}, módulo {{quotes_module}}, duplicando, importando {{plural_module_name}}, etc. Una vez el registro {{module_name}} se ha creado, usted podrá ver y editar la información relacionada con el {{module_name}} a través de la vista del registro {{plural_module_name}} .',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historial',
   'LBL_INVITEE' => 'Contactos',
   'LBL_LIST_ACCOUNT_NAME' => 'Cuenta',
@@ -69,7 +83,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Incidencia:',
   'LBL_MODULE_TITLE' => 'Seguimiento de Incidencias: Inicio',
   'LBL_NEW_FORM_TITLE' => 'Nueva Incidencia',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notas',
   'LBL_NUMBER' => 'Número:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Si tiene una nueva Incidencia que le gustaría notificar, puede hacer clic aquí para enviarlo.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Puede filtrar por la lista de incidencias introduciendo un término de búsqueda.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Por ejemplo, puede usarlo para encontrar una incidencia que ha sido notificada anteriormente.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'El módulo de Incidencias es para la gestión y notificación de incidencias. Utiliza las flechas más abajo para una visita rápida.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Esta página muestra la lista de Incidencias publicadas.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Haga clic aquí para volver a esta vista en cualquier momento.',
   'LBL_PORTAL_VIEWABLE' => 'Visible en portal',
   'LBL_PRIORITY' => 'Prioridad:',
   'LBL_PRODUCT_CATEGORY' => 'Categoría:',

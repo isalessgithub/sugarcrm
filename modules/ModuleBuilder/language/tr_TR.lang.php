@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Hata: Alan zaten mevcut',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Mevcut',
   'LBL_AVAILABLE_OPTIONS' => 'Mevcut Seçenekler',
   'LBL_AVAILABLE_SUBPANELS' => 'Mevcut Alt paneller',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: düzgün olmayan şekilde hazırlanmış döküman',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: hatalı oluşturulmuş doküman',
   'LBL_BASIC' => 'Temel',
   'LBL_BASIC_SEARCH' => 'Temel Arama',
   'LBL_BLANK' => 'Boşluk',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'İptal',
   'LBL_BTN_CLONE' => 'Aynı Kayıttan Oluştur',
   'LBL_BTN_CLOSE' => 'Kapat',
+  'LBL_BTN_COPY' => 'Kopyala',
+  'LBL_BTN_COPY_FROM' => 'Kopyala...',
   'LBL_BTN_DELETE' => 'Sil',
   'LBL_BTN_DEPLOY' => 'Uygula',
   'LBL_BTN_DONT_SAVE' => 'Değişiklikleri iptal et',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Geri Al',
   'LBL_BTN_VIEW_FIELDS' => 'Alanları Görüntüle',
   'LBL_BTN_VIEW_LAYOUTS' => 'Yerleşimleri Görüntüle',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Mobil Görünümleri Göster',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'İlişkileri Görüntüle',
   'LBL_BUG_TRACKER' => 'Hata İzleme',
   'LBL_CALCULATED' => 'Hesaplanan Değer',
   'LBL_CASES' => 'Talepler',
   'LBL_CLEAR_EXTENSIONS' => 'Uzantıları Netleştir',
   'LBL_CLEAR_RELATIONSHIPS' => 'İlişkileri Netleştir',
+  'LBL_COMBO_FIELD_CONTAINS' => 'içerir:',
   'LBL_COMPANY' => 'Şirket',
   'LBL_CONFIG_PORTAL_URL' => 'Kişiselleştirilmiş logo resminin URL adresi. Önerilen logo boyutları 163 × 18 pikseldir.',
   'LBL_CONFIRM_DONT_SAVE' => 'En son kayıt işleminizden sonraki değişiklikler yapıldı, ilgili değişiklikleri kaydetmek ister misiniz?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'İlişkiyi silmek istediğinizden emin misiniz?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Bu işlem ilişkiyi sürekli kılacaktır. İlgili ilişkiyi uygulamak istediğinizden emin misiniz?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Bu öğeyi açılır-listeden kaldırılması için seçiyorsunuz. Bu değeri kullanan tüm açılır-liste alanları, bu değeri bir daha göstermeyecek ve değer açılır-listeden seçilemeyecek. Devam etmek istediğinizden emin misiniz?',
+  'LBL_COPY_FROM' => 'Kopyala:',
   'LBL_COPY_FROM_EDITVIEW' => 'DeğişiklikGörünümü Kopyasını Al',
   'LBL_CREATE' => 'Oluştur',
   'LBL_CREATE_NEW' => 'Yeni Oluştur',
   'LBL_CURRENCY' => 'Para Birimi',
   'LBL_CURRENT_LAYOUT' => 'Yerleşim',
   'LBL_CUSTOM' => 'Özel',
-  'LBL_CUSTOMIZE_THEME' => 'Temayı Özelleştir',
   'LBL_CUSTOM_FIELDS' => '* Stüdyo ile oluşturmuş olan alanlar',
   'LBL_CUSTOM_MODULE' => 'Modül',
   'LBL_CUSTOM_RELATIONSHIPS' => 'İlişki Stüdyoda oluşturuldu',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Bağımlı',
   'LBL_DEPENDENCY' => 'Bağımlılık',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Üst değer seçildiğinde gösterilmesi için, soldaki mevcut opsiyonları sağdaki listeye sürükleyerek bırakınız. Eğer üst değer altında bir değer yok ise, bu değer seçildiğinde bağımlı açılır-liste gösterilmeyecek.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Lütfen unutmayın:  Güncellemeleri görebilmek için kullanıcıların modül Değişiklik Görünümünü tekrar yüklemeleri gerekebilir',
   'LBL_DEPLOYE_COMPLETE' => 'Uygulama Tamamlandı',
   'LBL_DEPLOY_FAILED' => 'Uygulama sürecinde bir hata oluştu, paketiniz doğru şekilde indirilememiş olabilir',
   'LBL_DEPLOY_IN_PROGRESS' => 'Paketi uyguluyor',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Liste Öğeleri',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Etiketi Görüntüle',
   'LBL_DROPDOWN_ITEM_NAME' => 'Öğe İsmi',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'Listede anahtar zaten var',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Anahtar listede zaten mevcut',
   'LBL_DROPDOWN_LANGUAGE' => 'Dil',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Liste en az bir tane aktif kalem içermelidir',
   'LBL_DROPDOWN_TITLE_NAME' => 'İsim',
   'LBL_DROP_HERE' => 'Buraya bırak',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Bağımlı',
   'LBL_EC_AUTHOR' => 'Yazar:',
   'LBL_EC_CHECKERROR' => 'Lütfen bir modül seçiniz.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'özelleştirilmiş açılır liste(ler)',
   'LBL_EC_CUSTOMFIELD' => 'Özelleştirilmiş Alanlar',
+  'LBL_EC_CUSTOMLABEL' => 'özelleştirilmiş etiket(ler)',
   'LBL_EC_CUSTOMLAYOUT' => 'Özelleştirilmiş yerleşimler',
   'LBL_EC_DESCRIPTION' => 'Tanım:',
   'LBL_EC_EMPTYCUSTOM' => 'Boş özelleştirmeler mevcut.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Alanlar',
   'LBL_FILE' => 'Dosya adı',
   'LBL_FILLER' => '(doldurucu)',
+  'LBL_FILTER_SEARCH' => 'Ara',
   'LBL_FORMULA' => 'Formül',
   'LBL_FORMULA_BUILDER' => 'Formül Yapılandırıcı',
   'LBL_FORMULA_INVALID' => 'Geçersiz Formül',
   'LBL_FORMULA_TYPE' => 'Formül türü olmalıdır',
   'LBL_HCUSTOM' => 'Özel',
   'LBL_HDEFAULT' => 'Varsayılan',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Yerleşim planından kopyala',
   'LBL_HIDDEN' => 'Gizli',
   'LBL_HIDEOPTIONS' => 'Seçenekleri Gizle',
   'LBL_HIGH' => 'Yüksek',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Benim',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Açılır-Liste Düzenleyici',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Açılan anahtar kota içeremez.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Kombinasyon alanı olduğunu gösterir. Kombinasyon alanı, tekil alanların topluluğudur. Örneğin, "Adres" alanı "Sokak", "Şehir", "Posta Kodu", "Eyalet" ve "Ülke" içeren bir kombinasyon alandır.<br><br>Hangi alanları içerdiğini görmek için kombinasyon alanına çift tıklayın.',
   'LBL_ISSUE' => 'sonuç',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Açılır listesinden bu zorunlu öğeyi silmek istediğinizden emin misiniz? Bu uygulamanızın işlevselliğini etkileyebilir.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Kaybederek Kapanmış satış aşamasını silmek istediğinizden emin misiniz? Bu aşamada silinmesi Tahmin modülünün düzgün çalışmamasına neden olacaktır',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Kazanılarak Kapanmış satış aşamasını silmek istediğinizden emin misiniz? Bu aşamada silinmesi Satış Tahmini modülünün düzgün çalışmamasına neden olacaktır',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => '"Devam Ediyor" durumunu silmek istediğinize emin misiniz? Bu değerin silinmesi, Fırsatlar modülü Gelir Kalemleri iş akışının düzgün çalışmasını engelleyecektir.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => '"Yeni" satış durumunu silmek istediğinize emin misiniz? Bu değerin silinmesi, Fırsatlar modülü Gelir Kalemleri iş akışının düzgün çalışmasını engelleyecektir.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Açılır listeden bu öğeleri silmek istediğinizden emin misiniz? Kazanılarak Kapandı veya Kaybedilerek Kapandı aşamalarının silinmesi, Satış Tahmini modülünün düzgün çalışmamasına neden olacaktır',
   'LBL_JS_DEPLOY_PACKAGE' => 'Bu modül tekrar uygulandığında Stüdyo içinde gerçekleştirdiğiniz tüm özelleştirmeler üzerine yazılıyor olacaktır. İlerlemek istediğinizden emin misiniz?',
   'LBL_JS_REMOVE_MODULE' => 'Bu modülü silmek istediğinizden emin misiniz? Bu modül ile ilişkili tüm dosyalar tümüyle silinecek.',
   'LBL_JS_REMOVE_PACKAGE' => 'Bu paketi silmek istediğinizden emin misiniz? Bu paket ile ilişkili tüm dosyalar tümüyle silinecek.',
   'LBL_JS_VALIDATE_KEY' => 'Anahtar - Alfa numerik olmalı, bir harfle başlamalı ve boşluk içermemelidir.',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Anahtar - Alfanumerik olmalı ve bir harf ile başlamalıdır.',
   'LBL_JS_VALIDATE_LABEL' => 'Bu modül için isim olarak kullanılabilecek bir etiket girin',
   'LBL_JS_VALIDATE_NAME' => 'İsim - Harf ve rakamlardan oluşmalı, boşluk olmamalı ve bir harf ile başlamalıdır.',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Paket İsmi zaten var',
@@ -239,11 +252,11 @@ $mod_strings = array (
   'LBL_NEW_PACKAGE' => 'Yeni Paket',
   'LBL_NEW_PANEL' => 'Yeni Panel',
   'LBL_NEW_ROW' => 'Yeni Satır',
-  'LBL_NONE' => '-Yok-',
+  'LBL_NONE' => 'boş',
   'LBL_NO_FIELDS' => 'Alan bulunamadı',
   'LBL_NO_FUNCS' => 'Fonksiyon bulunamadı',
   'LBL_NO_RELS' => 'İlişki yok',
-  'LBL_NO_SAVE_ACTION' => 'Bu görünüm için kayıt aksiyonu bulunamadı.',
+  'LBL_NO_SAVE_ACTION' => 'Bu görünüm için kaydetme aksiyonu bulunamadı.',
   'LBL_NUMBER' => 'Numara:',
   'LBL_ONETOMANY' => 'Tekten Çoğa',
   'LBL_ONETOONE' => 'Birebir',
@@ -305,8 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Değiştirmek için bir Sugar Portal yerleşimi seçiniz.',
   'LBL_QUICKCREATE' => 'HızlıOluştur',
   'LBL_READ_ONLY' => 'Salt Okunur',
+  'LBL_RECORDVIEW' => 'Kayıt Görüntüle',
   'LBL_RELATED_FIELD' => 'İlişkili Alan',
-  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (ilişkili {1} ID)',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} ({1} ID ilişkili)',
   'LBL_RELATE_TO' => 'İlişkili',
   'LBL_RELATIONSHIPS' => 'İlişkiler',
   'LBL_RELATIONSHIP_EDIT' => 'İlişkileri Değiştir',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Modülü Sıfırla',
   'LBL_RESTORE_DEFAULT' => 'Varsayılanı Geri Yükle',
   'LBL_RHS_MODULE' => 'İlişkili Modül',
+  'LBL_ROLE' => 'Rol',
   'LBL_ROLLUP' => 'Arttırmak',
   'LBL_RSUB' => 'Bu modülünüzde gösterilecek olan alt paneldir',
   'LBL_SALE' => 'Satış',
-  'LBL_SAVE' => 'Kaydet',
   'LBL_SAVE_LAYOUT' => 'Yerleşimi kaydet',
   'LBL_SEARCH' => 'Ara',
   'LBL_SEARCH_FIELDS' => 'Alanları araştır…',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Bir alt panel seç',
   'LBL_SELECT_FILE' => 'Dosya Seçin',
   'LBL_SELECT_SUBPANEL' => 'Alt panel seç',
+  'LBL_SINGULAR_LABEL' => 'Tekil Etiket',
   'LBL_SP_PREVIEW' => 'Sugar Portal&#39;ın style sheet kullanılarak nasıl görüneceğinin bir örneği buradadır.',
   'LBL_SP_UPLOADED' => 'Yüklendi',
   'LBL_SP_UPLOADSTYLE' => 'Bilgisayarınızdan yüklenecek bir style sheet seçiniz.<br>Style sheet bir dahaki senkronizasyon gerçekleştirme işleminde Sugar Portal&#39;da uygulanacaktır.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => '<b>Yerleşim</b> alanı şu anda <b>DeğişiklikGörünümü</b> içinde gösterilen alanları içerir.<br/><br/><b>AraçKutusu</b> <b>Geri Dönüşüm Kutusunu</b>, düzene eklenebilecek elemanları ve alanları içerir.<br><br>Elemanları <b>AraçKutusu</b> ile yerleşim arasında, veya yerleşimin kendi içinde sürükle bırak şeklinde taşıyarak <b>Yerleşimi</b> değiştirebilirsiniz.<br><br>Yerleşimden herhangi bir alanı silmek için, alanı <b>Geri Dönüşüm Kutusuna</b> sürükleyip bırakınız. Bu alan, AraçKutusunda yerleşime eklenebilecek şekilde görünecektir.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Formülün değerine göre görünen veya görünmeyen bağlı bir alan belirtir.<br/>SugarThemeRegistry::current()->getImage("icon_calculated", "", null, null, ".gif", "Calculated Value") Hesaplanan alan değeri, bir formüle göre otomatik olarak belirlenir.',
       'defaultdetailview' => '<b>Yerleşim</b> alanı şu anda <b>DetaylıGörünüm</b>&#39;ün içinde gösterilen alanları içerir.<br/><br/><b>AraçKutusu</b> <b>Geri Dönüşüm Kutusunu</b>, düzene eklenebilecek elemanları ve alanları içerir.<br><br>Elemanları <b>AraçKutusu</b> ile yerleşim arasında, veya yerleşimin kendi içinde sürükle bırak şeklinde taşıyarak <b>Yerleşimi</b> değiştirebilirsiniz.<br><br>Yerleşimden herhangi bir alanı silmek için, alanı <b>Geri Dönüşüm Kutusuna</b> sürükleyip bırakınız. Bu alan, AraçKutusunda yerleşime eklenebilecek şekilde görünecektir.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Formülün değerine göre görünen veya görünmeyen bağlı bir alan belirtir.<br/>SugarThemeRegistry::current()->getImage("icon_calculated", "", null, null, ".gif", "Calculated Value") Hesaplanan alan değeri, bir formüle göre otomatik olarak belirlenir.',
       'defaultquickcreate' => '<b>Yerleşim</b> alanı şu anda <b>HızlıOluştur</b> içinde gösterilen alanları içerir.<br><br>HızlıOluştur, modülün alt panellerinde Oluştur butonuna tıklandığında görünür.<br><br><b>AraçKutusu</b> <b>Geri Dönüşüm Kutusunu</b>, düzene eklenebilecek elemanları ve alanları içerir.<br/><br/>Elemanları <b>AraçKutusu</b> ile yerleşim arasında, veya yerleşimin kendi içinde sürükle bırak şeklinde taşıyarak <b>Yerleşimi</b> değiştirebilirsiniz.<br><br>Yerleşimden herhangi bir alanı silmek için, alanı <b>Geri Dönüşüm Kutusu</b>&#39;na sürükleyip bırakınız. Bu alan, AraçKutusunda yerleşime eklenebilecek şekilde görünecektir.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Formulün değerine göre görünen veya görünmeyen bağlı bir alan belirtir.<br/>SugarThemeRegistry::current()->getImage("icon_calculated", "", null, null, ".gif", "Calculated Value") Hesaplanan alan değeri, bir formüle göre otomatik olarak belirlenir.',
+      'defaultrecordview' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>Record View</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indicates a Dependent field that may or may not be visible based on the value of a formula.<br/>Indicates a Calculated field whose value will be automatically determined based on a formula.',
       'delete' => 'Herhangi bir unsuru yerleşimden çıkarmak için buraya sürükleyip bırakın',
       'historyBtn' => 'Daha önce kaydedilmiş yerleşimleri listelemek ve geri getirmek için <b>Geçmişi Görüntüle</b> butonuna basınız.<br><br> <b>Tarihçe</b> içindeki <b>Geri Yükle</b> önceden kaydedilmiş yerleşimleri geri yükler. Alan etiketlerini değiştirmek için, her alanın yanındaki Değiştir simgesini tıklatın.',
       'historyDefault' => 'Orijinal yerleşimi geri yüklemek için <b>Varsayılan Ayarlar</b> butonuna tıklayın.<br><br> <b>Varsayılan Ayarlar</b> sadece orijinal yerleşim içindeki alan yerleşimini geri yükler. Alan etiketlerini değiştirmek için, her alanın yanındaki düzenle simgesini tıklayın.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => '<b>Satış</b> şablon türü Potansiyel Kaynağı, Aşama, Miktar ve Olasılık gibi fırsata özgü alanları sunar.<br/><br/> Standart Fırsat modülüne benzer modülleri oluşturmak için bu şablonu kullanın.',
       'viewfieldsbtn' => 'Modülle ilişkili alanları görüntülemek, özel alanlar oluşturmak ve değiştirmek için <b>Alanları Görüntüle</b> butonuna tıklayın.',
       'viewlayoutsbtn' => 'Modüldeki yerleşimleri görüntülemek ve alanların ekrandaki yerini  özelleştirmek için <b>Yerleşimleri Görüntüle</b> butonuna tıklayınız.',
+      'viewmobilelayoutsbtn' => '<b>Mobil Yerleşimleri Gör</b> tuşuna basarak, modül için mobil yerleşimleri görün ve bu yerleşim içinde alan düzenlemelerini değiştirin.',
       'viewrelsbtn' => 'Modülle ilgili ilişkileri görüntülemek ve yeni ilişkiler oluşturmak için <b>İlişkileri Görüntüle</b> linkine tıklayın.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Modül ve diğer modüller arasında uygulanmış <b>İlişkiler</b> burada görünür.<br><br> İlişkinin <b>İsmi</b> sistem tarafından otomatik olarak oluşturulmuştur.<br><br>Diğer modüllerle ilişkili olan ilgili modül <b>Asıl Modül</b> olarak adlandırılır. İlişki ile ilgili tüm özellikler asıl modüle ait veritabanı tablolarında tutulur.<br><br><b>Tip</b>, Asıl modül ile <b>İlişkili Modül</b> arasında oluşturulan ilişkinin tipidir.<br><br>Sütuna göre sıralama yapmak için sütun başlığına tıklayınız.<br><br>Herhangi bir satırı tıklayarak o satırdaki ilişkinin özelliklerini görebilir ve değiştirebilirsiniz.<br><br><b>İlişki Ekle</b> butonuna tıklayarak yeni bir ilişki ekleyebilirsiniz.<br><br>Uygulanmış herhangi iki modül arasında ilişki uygulanabilir.',
       'searchBtn' => 'Modülün <b>Arama</b> yerleşimini özelleştir.<br><br>ListeGörünümünde filtre olarak kullanılacak alanları belirle.',
       'searchHelp' => 'Özelleştirilebilir <b>Arama</b> formları burada görünür.<br><br /><br>Arama formları, filtreleme için kullanılan alanları içerir.<br><br><br />Değiştirilecek düzeni için bir simgeye tıklayın.',
+      'studioBCHelp' => 'modülün geriye dönük uyumluluk modülü olduğunu gösterir',
       'studioBtn' => 'Uygulanmış modülleri özelleştirmek için <b>Stüdyo</b> kullanın.',
       'studioHelp' => 'Hangi bilgilerin görüneceğine karar vermek için <b>Stüdyo</b> kullanılabilir.',
       'subpanelBtn' => 'Modülde <b>Alt paneller</b> içinde hangi alanların görüneceğini belirleyin.',

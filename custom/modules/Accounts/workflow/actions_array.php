@@ -12,7 +12,7 @@ array (
 		 'rel_module_type' => 'all', 
 	 'basic' => array ( 
 
-		 'add_to_target_list_c' => '2', 
+		 'add_to_target_list_c' => stripslashes('2'),
 	 ), 
 
 	 'basic_ext' => array ( 

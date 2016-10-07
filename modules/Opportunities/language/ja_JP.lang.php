@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '商談を削除するにはレコード番号を指定する必要があります。',
@@ -23,16 +20,12 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => '取引先ID',
   'LBL_ACCOUNT_NAME' => '取引先:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => '活動',
-  'LBL_AMOUNT' => '商談金額:',
-  'LBL_AMOUNT_USDOLLAR' => '金額:',
   'LBL_ASSIGNED_TO_ID' => 'アサイン先:',
   'LBL_ASSIGNED_TO_NAME' => 'アサイン先:',
-  'LBL_BEST_CASE' => 'ベストケース',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'ベストケース基本通貨',
-  'LBL_BEST_CASE_WORKSHEET' => 'ベストケース（調整済）',
   'LBL_CAMPAIGN' => 'キャンペーン:',
   'LBL_CAMPAIGN_LINK' => 'キャンペーンリンク',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'キャンペーン',
+  'LBL_CLOSED_RLIS' => 'クローズされた商談品目総数',
   'LBL_CLOSED_WON_OPPORTUNITIES' => '受注済み商談',
   'LBL_COMMITTED' => 'コミット済',
   'LBL_COMMIT_STAGE' => 'コミットステージ',
@@ -48,6 +41,7 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => '通貨名',
   'LBL_CURRENCY_RATE' => '通貨レート',
   'LBL_CURRENCY_SYMBOL' => '通貨シンボル',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'TOP10営業商談',
   'LBL_DATE_CLOSED' => '受注予定日:',
   'LBL_DATE_CLOSED_TIMESTAMP' => '予想クローズ日のタイムスタンプ',
   'LBL_DEFAULT_SUBPANEL_TITLE' => '商談',
@@ -61,22 +55,27 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => '作成者ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
   'LBL_EXPORT_NAME' => '名前',
+  'LBL_FILENAME' => '添付ファイル',
   'LBL_FORECAST' => '予算に含む',
+  'LBL_HELP_CONFIG_OPPS' => 'この変更を開始した後、高収益商品の要約ノートはバックグラウンドで構築されます。ノートが完了し利用可能な場合、通知がユーザプロファイルのEメールアドレスに送信されます。あなたのインスタンスが{{forecasts_module}}が設定されている場合は、Sugarは{{module_name}}レコードが{{forecasts_module}}モジュールに同期された時に通知を送り、{{forecasts_module}}が使用可能になります。インスタンスは通知が送信されるために　管理＞Eメール設定　でEメールを送信するように設定する必要がありますのでご注意ください。',
+  'LBL_HELP_CONFIG_RLIS' => 'この変更を開始した後、既存の{{module_name}}の高収益商品のレコードが作成されます。高収益商品が完了し使用可能の場合、通知がユーザプロファイルのEメールアドレスに送信されます。インスタンスは通知が送信されるために　管理＞Eメール設定　でEメールを送信するように設定する必要がありますのでご注意ください。',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールを使用すると、個々の販売と最初から最後まで、これらの売上に属する品目を追跡することができます。各{{{module_name}}レコードは{{revenuelineitems_module}}のグループだけでなく{{quotes_module}}、{{contacts_module}}などのような他の重要な記録に関係するためのヘッダーを表します。{{module_name}}を作成するには1.必要に応じてフィールドの値を指定します。 - 「必須」フィールドは保存前に入力完了してください。 - 必要に応じて、追加のフィールドを公開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 「保存して表示」を選択し、レコードビューに{{module_name}}を開きます。 - すぐに別の新しい{{module_name}}を作成するには「保存して新規作成」を選択してください。3。保存した後に、{{module_name}}に製品を追加するには、{{revenuelineitems_module}}サブパネルを使用してください。',
+  'LBL_HELP_RECORD' => '{{module_name}}モジュールは、いくつかの情報を持っている確定していない見込である個々の人々で構成されていますが、まだ確定した{{leads_singular_module}}ではありません。 - 個々のフィールドまたは[編集]ボタンをクリックして、このレコードのフィールドを編集します。 - 左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示したり変更します。 - 左下ペインに「アクティビティストリーム」を切り替えることにより、{{activitystream_singular_module}}内のレコードのユーザーのコメントしたり表示してください。 - レコード名の右にあるアイコンを使用して、このレコードをフォローするかお気に入りに入れてください。 - 追加のアクションは、[編集]ボタンの右にあるドロップダウンの操作メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールを使用すると、個々の販売と最初から最後まで、これらの売上に属する品目を追跡することができます。各{{module_name}} レコードは{{revenuelineitems_module}}のグループのためのヘッダだけでなく、このような{{quotes_module}}など、他の重要な記録に関係を表し、{{contacts_module}}などそれぞれが{{revenuelineitem_moduleは}}です特定の製品の将来の販売とは、関連する販売データが含まれています。それは「クローズドウォン」または「クローズ失われた」のいずれかをマークされるまで、各{{revenuelineitems_singular_module}}は、通常、複数の販売の段階を経て進行します。 {{module_name}} レコードは量とその{{revenuelineitems_module}}の期待終了日を反映しています。 {{plural_module_name}}と{{revenuelineitems_module}}は販売ノルマを達成するために、販売動向を理解し、予測するためにSugarの{{forecasts_singular_module}} モジュールを使用するだけでなく、フォーカスの作業でさらに活用することができる。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_INVITEE' => '取引先担当者',
   'LBL_LEADS_SUBPANEL_TITLE' => 'リード',
   'LBL_LEAD_SOURCE' => 'リードソース:',
-  'LBL_LIKELY_CASE' => '達成可能ケース',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => '達成可能ケース基本通貨',
-  'LBL_LIKELY_CASE_WORKSHEET' => '達成可能ケース（調整済）',
   'LBL_LIST_ACCOUNT_NAME' => '取引先',
-  'LBL_LIST_AMOUNT' => '商談金額',
-  'LBL_LIST_AMOUNT_USDOLLAR' => '金額',
+  'LBL_LIST_AMOUNT' => '達成可能',
+  'LBL_LIST_AMOUNT_USDOLLAR' => '合計金額',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'アサイン先',
   'LBL_LIST_DATE_CLOSED' => '受注予定日',
   'LBL_LIST_FORM_TITLE' => '商談一覧',
   'LBL_LIST_OPPORTUNITY_NAME' => '名前',
   'LBL_LIST_SALES_STAGE' => '商談ステージ',
+  'LBL_MKTO_ID' => 'Marketoリード ID',
+  'LBL_MKTO_SYNC' => 'Marketo®に同期する',
   'LBL_MODIFIED_ID' => '更新者ID',
   'LBL_MODIFIED_NAME' => '更新者',
   'LBL_MODIFIED_USER' => '更新者',
@@ -87,36 +86,58 @@ $mod_strings = array (
   'LBL_NAME' => '商談名',
   'LBL_NEW_FORM_TITLE' => '商談作成',
   'LBL_NEXT_STEP' => '次のステップ:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_OPPORTUNITY' => '商談名:',
   'LBL_OPPORTUNITY_NAME' => '商談名:',
+  'LBL_OPPORTUNITY_ROLE' => '商談での役割',
   'LBL_OPPORTUNITY_TYPE' => '商談タイプ',
-  'LBL_PRIMARY_QUOTE_ID' => '主要な見積り',
+  'LBL_OPPS_CONFIG_ALERT' => '確認をクリックすると、すべての予算データを消去し、商談ビューを変更します。これが意図したものではない場合は、キャンセルをクリックして以前の設定に戻ります。',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => '全ての高収益商品がクローズされ、少なくとも一つ受注した場合、',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => '商談セールスステージは「クローズされた受注」にセットされます。',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => '全ての高収益商品がクローズされた失注ステージにある場合、',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => '商談セールスステージは「クローズされた失注」にセットされます。',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => '高収益商品がまだオープンの場合、',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => '商談は進捗が少ないセールスステージにマークされます。',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => '既存の高収益商品の最初のもしくは最新のクローズ日に近い日付であるの商談レコードの、予想クローズ日のフィールドを設定します',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => '商談階層',
+  'LBL_PIPELINE_TOTAL_IS' => 'パイプラインの合計は',
+  'LBL_PRIMARY_QUOTE_ID' => '主な見積',
   'LBL_PROBABILITY' => '確度 (%):',
   'LBL_PRODUCTS' => '商品',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => '取扱品目',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => '見積済商品',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'プロジェクト',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'プロジェクト',
   'LBL_QUOTES_SUBPANEL_TITLE' => '見積',
+  'LBL_QUOTE_SUBPANEL_TITLE' => '見積',
   'LBL_RAW_AMOUNT' => '金額',
+  'LBL_RLI' => '商談品目',
+  'LBL_RLI_SUBPANEL_TITLE' => '商談品目',
   'LBL_SALES_STAGE' => '商談ステージ:',
+  'LBL_SALES_STATUS' => 'ステータス',
   'LBL_SEARCH_FORM_TITLE' => '商談検索',
   'LBL_TEAM_ID' => 'チーム:',
   'LBL_TIMEPERIODS' => '期間',
   'LBL_TIMEPERIOD_ID' => '期間ID',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'トップ10の商談をバブルチャートで表示する',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => '私の商談',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'チームの商談',
   'LBL_TOP_OPPORTUNITIES' => '交渉中の私の商談',
   'LBL_TOTAL_OPPORTUNITIES' => '商談総額',
+  'LBL_TOTAL_RLIS' => '商談品目総数',
   'LBL_TYPE' => 'タイプ:',
   'LBL_VIEW_FORM_TITLE' => '商談一覧',
   'LBL_WORKSHEET' => 'ワークシート',
-  'LBL_WORST_CASE' => 'ワーストケース',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'ワーストケース基本通貨',
+  'LNK_CREATE' => '取引作成',
   'LNK_IMPORT_OPPORTUNITIES' => '商談のインポート',
   'LNK_NEW_OPPORTUNITY' => '商談作成',
   'LNK_OPPORTUNITY_LIST' => '商談一覧',
   'LNK_OPPORTUNITY_REPORTS' => '商談レポート',
   'MSG_DUPLICATE' => '作成しようとしている商談は既存の商談と重複する可能性があります。類似の商談は以下に表示されています。保存をクリックして新たに商談を作成するか、キャンセルをクリックして商談を作成せずにモジュールに戻ります。',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'クローズされた商談品目を含む商談を削除することはできません',
   'NTC_REMOVE_OPP_CONFIRMATION' => '本当にこの取引先担当者を商談からはずしてよいですか？',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => '本当にこの商談をプロジェクトからはずしてよいですか？',
+  'TPL_RLI_CREATE' => '商談は商談品目と関係がなければなりません。商談品目を新規作成する。',
+  'TPL_RLI_CREATE_LINK_TEXT' => '商談品目を作成する。',
   'UPDATE' => '商談の通貨更新',
   'UPDATE_BUGFOUND_COUNT' => '不具合が見つかりました:',
   'UPDATE_BUG_COUNT' => '実行時に不具合が見つかりました:',
@@ -142,5 +163,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => '金額作成:',
   'UPDATE_VERIFY_NEWCURRENCY' => '通貨作成:',
   'UPDATE_VERIFY_TXT' => '商談の金額が数字（0-9）と小数点（.）で正しく入力されているかどうかを検証します。',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => '選択されたレコードがクローズされた商談品目を含んでいるため削除できません。',
 );
 

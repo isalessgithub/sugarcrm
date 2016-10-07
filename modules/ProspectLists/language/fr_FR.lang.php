@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Comptes',
   'LBL_ASSIGNED_TO' => 'Assigné à:',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campagnes',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contacts',
   'LBL_COPY_PREFIX' => 'Copie de',
   'LBL_CREATED' => 'Créé par:',
@@ -32,6 +30,23 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Domaine exclu:',
   'LBL_DOMAIN_NAME' => 'Nom du Domaine exclu',
   'LBL_ENTRIES' => 'Nb d&#39;inscriptions:',
+  'LBL_HELP_CREATE' => 'Le module {{module_name}} permet de gérer une collection de personnes ou de sociétés que vous souhaitez inclure ou exclure lors d&#39;une action marketing effectuée via le module {{campaigns_singular_module}}.
+
+Pour créer un enregistrement du module {{module_name}}, les étapes suivantes sont nécessaires :
+1. Remplir les champs désirés.
+ - Les champs identifiés comme "Obligatoire" doivent être remplis avant de sauvegarder.
+ - Cliquer sur "Voir plus" pour afficher plus de champs de qualification.
+2. Cliquer sur "Sauvegarder" pour finaliser l&#39;enregistrement et retourner sur la page précédente.
+ - Cliquer sur "Sauvegarder et Afficher" Pour ouvrer la nouvelle {{module_name}}.
+ - Cliquer sur "Sauvegarder et Créer" pour créer immédiatement un autre enregistrement du module {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Le module {{module_name}} permet de gérer une collection de personnes ou de sociétés que vous souhaitez inclure ou exclure lors d&#39;une action marketing effectuée via le module {{campaigns_singular_module}}.
+
+- Editer chaque champs en cliquant directement sur le champ concerné ou en cliquant sur le bouton Editer.
+- Voir ou modifier les liaisons avec les autres enregistrements via les sous-pannels.
+- Voir et participer aux commentaire et au flux d&#39;activité via le module {{activitystream_singular_module}} en cliquant sur le bouton "Flux d’activité".
+- Suivre ou mettre en favoris l&#39;enregistrement en utilisant les icônes prévues à cet effet à droite du nom de l&#39;enregistrement.
+- Des actions complémentaires sont disponibles dans la listes déroulantes des actions à droite du bouton Editer.',
+  'LBL_HELP_RECORDS' => 'Le module {{module_name}} permet de gérer une collection de personnes ou de sociétés que vous souhaitez inclure ou exclure lors d&#39;une action marketing effectuée via le module {{campaigns_singular_module}}. Les {{plural_module_name}} peuvent contenir une combinaison de Cible, {{contacts_module}}, {{leads_module}}, Utilisateurs, et {{accounts_module}}. Les cibles peuvent être regroupé en {{module_name}} en fonction de critère prédeterminé comme l&#39;age, la situation géographique ou autres. Les {{plural_module_name}} sont utilisées via le module {{campaigns_module}} et peuvent être utilisé via ce même module {{campaigns_module}}.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_DESCRIPTION' => 'Description',
   'LBL_LIST_END_DATE' => 'Date de fin',

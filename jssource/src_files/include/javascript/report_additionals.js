@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 var groups_arr=new Array();
 var chartTypesHolder = []; // storage for removed chart items
@@ -580,6 +577,9 @@ function addFilterInput(cell,filter) {
 	else if (qualifier_name == 'between_dates') {
 		addFilterInputDateBetween(row,filter);
 	}
+    else if (qualifier_name.indexOf("_n_days") != -1) {
+        addFilterInputText(row, filter);
+    }
 	else if (qualifier_name == 'empty' || qualifier_name == 'not_empty') {
 	    addFilterNoInput(row,filter);
  	}
@@ -600,7 +600,7 @@ function addFilterInput(cell,filter) {
 			addFilterInputText(row,filter);
 		}
 	}
-	else if ((field_type == 'user_name')||(field_type == 'assigned_user_name')) {
+	else if (field_type == 'username' || field_type == 'assigned_user_name') {
 		if(users_array=="") {
 			loadXML();
 		}
@@ -611,7 +611,7 @@ function addFilterInput(cell,filter) {
 			addFilterInputSelectSingle(row,users_array,filter);
 		}
 	}
-	else if (field_type == 'enum' || field_type == 'multienum') {
+	else if (field_type == 'enum' || field_type == 'multienum' || field_type == 'timeperiod') {
 		if (qualifier_name == 'one_of') {
 			addFilterInputSelectMultiple(row,field.options,filter);
 		}
@@ -922,7 +922,7 @@ function addFilterInputDateBetween(row,filter) {
 	new_input.size="12";
 	new_input.maxsize="255";
 	new_input.visible="true";
-	new_input.setAttribute('id','jscal_field');
+	new_input.setAttribute('id', 'jscal_field_' + current_filter_id);
 	cell.appendChild(new_input);
 	row.appendChild(cell);
 	filter_row.input_field1 = new_input;
@@ -931,7 +931,7 @@ function addFilterInputDateBetween(row,filter) {
 	cell.setAttribute('valign','middle');
 	var img_element = document.createElement("img");
 	img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif');
-	img_element.setAttribute('id','jscal_trigger');
+	img_element.setAttribute('id', 'jscal_trigger_' + current_filter_id);
 	cell.appendChild(img_element);
 	row.appendChild(cell);
 
@@ -962,7 +962,7 @@ function addFilterInputDateBetween(row,filter) {
 	new_input.size="12";
 	new_input.maxsize="255";
 	new_input.visible="true";
-	new_input.setAttribute('id','jscal_field2');
+	new_input.setAttribute('id', 'jscal_field2_' + current_filter_id);
 	cell.appendChild(new_input);
 	row.appendChild(cell);
 	filter_row.input_field1 = new_input;
@@ -970,7 +970,7 @@ function addFilterInputDateBetween(row,filter) {
 	var cell = document.createElement("td");
 	var img_element = document.createElement("img");
 	img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif');
-	img_element.setAttribute('id','jscal_trigger2');
+	img_element.setAttribute('id', 'jscal_trigger2_' + current_filter_id);
 	cell.appendChild(img_element);
 	row.appendChild(cell);
 	Calendar.setup ({

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,21 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'MIME typ',
   'LBL_FILE_URL' => 'URL souboru',
   'LBL_FIRST_NAME' => 'Jméno:',
+  'LBL_HELP_CREATE' => 'K vytvoření poznámky:
+1. Vyplňte hodnoty do polí dle potřeby.
+ - Pole označená jako "požadovaná" musí být vyplněna před uložením.
+ - Případně klikněte na "Zobrazit více" pro odhalení dalších polí.
+2. Klikněte na "Uložit" k dokončení nového záznamu a návratu na předchozí stránku.
+ - Vyberte "Uložit a zobrazit" k otevření nové poznámky v pohledu na záznam.
+ - Vyberte "Uložit a vytvořit novou" k bezprostřednímu vytvoření další nové poznámky.',
+  'LBL_HELP_RECORD' => 'Modul Poznámky obsahuje jednotlivé poznámky, které obsahují text nebo přílohu vztahující se k souvisejícímu záznamu.
+
+- Upravte pole tohoto záznamu kliknutím na jednotlivá pole nebo na tlačítko Upravit.
+- Zobrazte nebo upravte vazby na ostatní záznamy v subpanelech přepnutím levého spodního panelu na "Datový pohled".
+- Vytvořte a zobrazte uživatelské komentáře a historii změn záznamu v modulu {{activitystream_singular_module}} přepnutím spodního levého panelu na "Tok aktivit" .
+- Sledujte nebo označte záznam jako oblíbený pomocí ikon vpravo od názvu záznamu.
+- Další akce jsou dostupné v rozbalovacím menu Akce vpravo od tlačítka Upravit.',
+  'LBL_HELP_RECORDS' => 'Modul Poznámky obsahuje jednotlivé poznámky, které obsahují text nebo přílohu vztahující se k souvisejícímu záznamu. Záznamy poznámky mohou být navázány na jeden záznam ve většině modulů prostřednictvím pole flexibilní vazby a může být také navázáno na jeden kontakt. Poznámky mohou obsahovat generický text o záznamu nebo dokonce přílohu související se záznamem. Jsou různé způsoby, jak můžete vytvořit poznámky v Sugaru, jako pomocí modulu Poznámky, importem poznámek, prostřednictvím subpanelu Historie atd. Jakmile je záznam vytvořen, můžete zobrazit a upravit informace vztahující se k poznámkám prostřednictvím pohledu Record View. Každý záznam poznámky může poté souviset k dalším záznamům Sugaru jako například společnostem, kontaktům, obchodům a mnoha dalším.',
   'LBL_LAST_NAME' => 'Příjmení:',
   'LBL_LEAD_ID' => 'ID příležitosti:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Zodpovědný uživatel',
@@ -79,6 +91,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'ID nabídky:',
   'LBL_RELATED_TO' => 'Vztahuje se k:',
   'LBL_REMOVING_ATTACHMENT' => 'Odstraňuji přílohu...',
+  'LBL_REVENUELINEITEMS' => 'Řádky tržeb',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat poznámku',
   'LBL_SEND_ANYWAYS' => 'Tento e-mail nemá žádný předmět. Přesto odeslat/uložit?',
   'LBL_STATUS' => 'Stav',

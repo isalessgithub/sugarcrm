@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id$
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -35,6 +32,7 @@ class DatabaseStore implements Store {
        $metrics = $monitor->getMetrics();
        $columns = array();
        $values = array();
+       $db = DBManagerFactory::getInstance();
        foreach($metrics as $name=>$metric) {
        	  if(!empty($monitor->$name)) {
        	  	 $columns[] = $name;
@@ -43,9 +41,9 @@ class DatabaseStore implements Store {
        	  	 } else if($metrics[$name]->_type == 'double') {
                 $values[] = floatval($monitor->$name);
              } else if ($metrics[$name]->_type == 'datetime') {
-             	$values[] = $GLOBALS['db']->convert($GLOBALS['db']->quoted($monitor->$name), "datetime");
+             	$values[] = $db->convert($GLOBALS['db']->quoted($monitor->$name), "datetime");
        	  	 } else {
-                $values[] = $GLOBALS['db']->quoted($monitor->$name);
+                $values[] = $db->quoted($monitor->$name);
              }
        	  }
        } //foreach
@@ -54,14 +52,14 @@ class DatabaseStore implements Store {
        	  return;
        }
 
-       $id = $GLOBALS['db']->getAutoIncrementSQL($monitor->table_name,'id');
+       $id = $db->getAutoIncrementSQL($monitor->table_name,'id');
        if(!empty($id)) {
        	  $columns[] = 'id';
        	  $values[] = $id;
        }
 
        $query = "INSERT INTO $monitor->table_name (" .implode("," , $columns). " ) VALUES ( ". implode("," , $values). ')';
-	   $GLOBALS['db']->query($query);
+	   $db->query($query);
     }
 }
 

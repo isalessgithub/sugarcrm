@@ -1,52 +1,10 @@
 <?php
-// created: 2016-10-06 15:48:16
+// created: 2016-10-07 10:03:34
 $connectors = array (
-  'ext_soap_hoovers' => 
-  array (
-    'id' => 'ext_soap_hoovers',
-    'name' => 'Hoovers&#169;',
-    'enabled' => true,
-    'directory' => 'custom/modules/Connectors/connectors/sources/ext/soap/hoovers',
-    'eapm' => false,
-    'modules' => 
-    array (
-      0 => 'Leads',
-      1 => 'Accounts',
-      2 => 'Contacts',
-    ),
-  ),
-  'ext_rest_zoominfocompany' => 
-  array (
-    'id' => 'ext_rest_zoominfocompany',
-    'name' => 'Zoominfo&#169; - Company',
-    'enabled' => true,
-    'directory' => 'modules/Connectors/connectors/sources/ext/rest/zoominfocompany',
-    'eapm' => false,
-    'modules' => 
-    array (
-      0 => 'Leads',
-      1 => 'Accounts',
-      2 => 'Contacts',
-    ),
-  ),
-  'ext_rest_zoominfoperson' => 
-  array (
-    'id' => 'ext_rest_zoominfoperson',
-    'name' => 'Zoominfo&#169; - Person',
-    'enabled' => true,
-    'directory' => 'modules/Connectors/connectors/sources/ext/rest/zoominfoperson',
-    'eapm' => false,
-    'modules' => 
-    array (
-      0 => 'Leads',
-      1 => 'Accounts',
-      2 => 'Contacts',
-    ),
-  ),
   'ext_rest_twitter' => 
   array (
     'id' => 'ext_rest_twitter',
-    'name' => 'Twitter&#169;',
+    'name' => 'Twitter',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/rest/twitter',
     'eapm' => 
@@ -61,25 +19,10 @@ $connectors = array (
       3 => 'Prospects',
     ),
   ),
-  'ext_eapm_facebook' => 
-  array (
-    'id' => 'ext_eapm_facebook',
-    'name' => 'Facebook&#169;',
-    'enabled' => true,
-    'directory' => 'modules/Connectors/connectors/sources/ext/eapm/facebook',
-    'eapm' => 
-    array (
-      'enabled' => true,
-      'only' => true,
-    ),
-    'modules' => 
-    array (
-    ),
-  ),
   'ext_eapm_google' => 
   array (
     'id' => 'ext_eapm_google',
-    'name' => 'Google&#169;',
+    'name' => 'Google',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/google',
     'eapm' => 
@@ -94,7 +37,7 @@ $connectors = array (
   'ext_eapm_gotomeeting' => 
   array (
     'id' => 'ext_eapm_gotomeeting',
-    'name' => 'GoToMeeting&#169;',
+    'name' => 'GoToMeeting',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/gotomeeting',
     'eapm' => 
@@ -109,7 +52,7 @@ $connectors = array (
   'ext_eapm_ibmsmartcloud' => 
   array (
     'id' => 'ext_eapm_ibmsmartcloud',
-    'name' => 'IBM SmartCloud&#169;',
+    'name' => 'IBM SmartCloud',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/ibmsmartcloud',
     'eapm' => 
@@ -124,7 +67,7 @@ $connectors = array (
   'ext_eapm_webex' => 
   array (
     'id' => 'ext_eapm_webex',
-    'name' => 'WebEx&#169;',
+    'name' => 'WebEx',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/webex',
     'eapm' => 
@@ -139,7 +82,7 @@ $connectors = array (
   'ext_eapm_lotuslive' => 
   array (
     'id' => 'ext_eapm_lotuslive',
-    'name' => 'LotusLive&#169;',
+    'name' => 'LotusLive',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/lotuslive',
     'eapm' => 
@@ -151,19 +94,19 @@ $connectors = array (
     array (
     ),
   ),
-  'ext_rest_insideview' => 
+  'ext_rest_dnb' => 
   array (
-    'id' => 'ext_rest_insideview',
-    'name' => 'InsideView&#169;',
+    'id' => 'ext_rest_dnb',
+    'name' => 'D&B',
     'enabled' => true,
-    'directory' => 'modules/Connectors/connectors/sources/ext/rest/insideview',
-    'eapm' => false,
+    'directory' => 'modules/Connectors/connectors/sources/ext/rest/dnb',
+    'eapm' => 
+    array (
+      'enabled' => true,
+    ),
     'modules' => 
     array (
       0 => 'Accounts',
-      1 => 'Contacts',
-      2 => 'Leads',
-      3 => 'Opportunities',
     ),
   ),
 );

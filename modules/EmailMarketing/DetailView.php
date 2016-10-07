@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: DetailView.php 55201 2010-03-11 06:05:45Z jmertic $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -35,9 +32,9 @@ global $current_user;
 // global $default_language;
 // global $cal_codes;
 
-$focus = new EmailMarketing();
+$focus = BeanFactory::getBean('EmailMarketing');
 
-if(isset($_REQUEST['record'])) {
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 }
 
@@ -57,11 +54,11 @@ if (isset($_REQUEST['return_module'])) {
 } else {
 	$xtpl->assign("RETURN_MODULE", 'Campaigns');
 }
-if (isset($_REQUEST['return_action'])) { 
+if (isset($_REQUEST['return_action'])) {
 	$xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
 } else {
 	$xtpl->assign("RETURN_ACTION", 'DetailView');
-}	
+}
 if (isset($_REQUEST['return_id'])) {
 	$xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
 } else {
@@ -101,9 +98,8 @@ if($focus->template_id) {
 //include campaign utils..
 require_once('modules/Campaigns/utils.php');
 if (empty($_REQUEST['campaign_name'])) {
-	
-	$campaign = new Campaign();
-	$campaign->retrieve($campaign_id);
+
+	$campaign = BeanFactory::getBean('Campaigns', $campaign_id);
 	$campaign_name=$campaign->name;
 } else {
 	$campaign_name=$_REQUEST['campaign_name'];

@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Følgende moduler er installeret:',
   'DESC_MODULES_QUEUED' => 'Følgende moduler er klar til at blive installeret:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Den uploadede fil er ikke kompatibel med denne variant "Community Edition, Professional eller Enterprise" af Sugar:',
+  'ERROR_HT_NO_WRITE' => 'Kan ikke skrive til filen:% s',
+  'ERROR_MANIFEST_TYPE' => 'Manifestfilen skal angive pakketypen.',
+  'ERROR_PACKAGE_TYPE' => 'Manifestfilen angiver en ikke-genkendt pakketype:%s',
+  'ERROR_UW_CONFIG_DB' => 'Fejl ved lagring% s config var til db (nøgle% s, værdi% s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Den uploadede fil er ikke kompatibel med denne version af Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Din version af PHP understøttes ikke af Sugar. Du skal installere en version, der er kompatibel med Sugar-programmet. Se kompatibilitetsmatrixen "Compatibility Matrix" i produktbemærkningerne "Release Notes" for understøttede PHP-versioner. Din version er',
+  'ERR_NOT_ADMIN' => 'Uautoriseret adgang til administration.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Du har ikke adgang til denne side.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Gruppen kan ikke bestemmes',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Ejeren kan ikke bestemmes',
   'ERR_UW_CONFIG' => 'Gør filen config.php skrivbar, og genindlæs denne side.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Genstart',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Forpligt opgradering er startet',
   'LBL_CURRENT_PHP_VERSION' => '"Din aktuelle php-version er',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globalt synlig',
   'LBL_HOME_PAGE_4_NAME' => 'Sporing',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php version 5 eller nyere er påkrævet.',
   'LBL_LANGPACKS' => 'Sprog pakke',
@@ -94,6 +98,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Version',
   'LBL_MODULELOADER' => 'Modulindlæser',
   'LBL_MODULE_NAME' => 'Opgraderingsguide',
+  'LBL_MODULE_NAME_SINGULAR' => 'Opgraderingsguide',
   'LBL_PATCHUPGRADES' => 'Patch opgraderinger',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Preflight-kontrol er startet',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Fil kopiering i gang.',

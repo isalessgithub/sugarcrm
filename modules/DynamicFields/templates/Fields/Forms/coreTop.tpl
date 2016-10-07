@@ -1,21 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 <table width="100%">
@@ -36,13 +29,49 @@
 		document.getElementById('field_name_id').value = document.getElementById('field_name_id').value.toLowerCase();"/>
 		{$vardef.name}
 	{/if}
-		<script>
-		addToValidate('popup_form', 'name', 'DBName', true,'{sugar_translate module="DynamicFields" label="COLUMN_TITLE_NAME"} [a-zA-Z_]' );
-		addToValidateIsInArray('popup_form', 'name', 'in_array', true,'{sugar_translate module="DynamicFields" label="ERR_RESERVED_FIELD_NAME"}', '{$field_name_exceptions}', 'u==');
-		{if $hideLevel == 0}	
-		addToValidateIsInArray('popup_form', 'name', 'in_array', true, '{sugar_translate module="DynamicFields" label="ERR_FIELD_NAME_ALREADY_EXISTS"}', '{$existing_field_names}', 'u==');
-		{/if}	
-		</script>
+        <script>
+            {literal}
+            addToValidateCallback("popup_form", "name", "callback", true, "{/literal}{sugar_translate module="DynamicFields" label="COLUMN_TITLE_NAME"}{literal}", (function(nameExceptions, existingFields) {
+                return function(formName, fieldName, index) {
+                    var el = document.forms[formName].elements[fieldName],
+                        value = el.value, i, arrValue;
+
+                    // will be already validated as required
+                    if (value === "") {
+                        return true;
+                    }
+
+                    if (!isDBName(value)) {
+                        validate[formName][index][msgIndex] = "{/literal}{sugar_translate module="DynamicFields" label="ERR_FIELD_NAME_NON_DB_CHARS"}{literal}";
+                        return false;
+                    }
+
+                    value = value.toUpperCase();
+
+                    // check where field name is in the list of exceptions
+                    for (i = 0; i < nameExceptions.length; i++) {
+                        arrValue = nameExceptions[i];
+                        if (arrValue == value) {
+                            validate[formName][index][msgIndex] = "{/literal}{sugar_translate module="DynamicFields" label="ERR_RESERVED_FIELD_NAME"}{literal}";
+                            return false;
+                        }
+                    }
+
+                    {/literal}{if $hideLevel == 0}{literal}
+                    // check where field name is in the list of existing fields
+                    for (i = 0; i < existingFields.length; i++) {
+                        arrValue = existingFields[i];
+                        if (arrValue == value) {
+                            validate[formName][index][msgIndex] = "{/literal}{sugar_translate module="DynamicFields" label="ERR_FIELD_NAME_ALREADY_EXISTS"}{literal}";
+                            return false;
+                        }
+                    }
+                    {/literal}{/if}{literal}
+
+                    return true;
+                }
+            })({/literal}{$field_name_exceptions}, {$existing_field_names}));
+        </script>
 	</td>
 </tr>
 <tr>

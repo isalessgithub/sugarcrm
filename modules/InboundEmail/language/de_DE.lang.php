@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Login oder Passwort stimmen nicht',
   'ERR_BODY_TOO_LONG' => '\\rTextkörper zu lang um die GANZE E-Mail zu speichern. Abgeschnitten.',
+  'ERR_DELETE_FOLDER' => 'Verzeichnis kann nicht gelöscht werden',
   'ERR_INI_ZLIB' => 'Konnte Zlib Komprimierung nicht temporär ausschalten. "Teste Einstellungen" könnte fehlschlagen.',
   'ERR_MAILBOX_FAIL' => 'Konnte keine E-Mail Konten finden.',
   'ERR_NO_IMAP' => 'Keine IMAP Bibliotheken gefunden. Bitte korrigieren Sie das bevor Sie mit eingehenden E-Mails weiterarbeiten können.',
   'ERR_NO_OPTS_SAVED' => 'Für Ihre eingehende E-Mail Mailbox wurden keine Optimums gespeichert. Bitte überprüfen Sie die Einstellungen.',
   'ERR_TEST_MAILBOX' => 'Überprüfen Sie bitte Ihre Einstellungen und versuchen Sie es erneut.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Kann nicht vor dem Löschen vom Verzeichnis abgemeldet werden.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Erlaubt User E-Mails zu verschicken, wo der "von" Name und Adresse als Antwort gesetzt werden',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Bei dieser Option, wird die "Von" Name und "Von" Adresse mit dem Gruppen E-Mail Konto verknüpft für User mit Zugriff auf diesem Gruppen E-Mail Konto als Option bei der E-Mail Erstellung angezeigt.',
   'LBL_APPLY_OPTIMUMS' => 'Optimums anwenden',
@@ -34,7 +33,7 @@ $mod_strings = array (
   'LBL_ASSIGN_TO_TEAM_DESC' => 'Das ausgewählte Team hat Zugang zu dem E-Mail Konto. Wenn ein Gruppenordner ausgewählt wurde dann überschreibt das dem Gruppenordner zugewiesene Team das ausgewählte.',
   'LBL_ASSIGN_TO_USER' => 'Mit Benutzer verknüpfen',
   'LBL_AUTOREPLY' => 'Auto-Antwort Vorlage',
-  'LBL_AUTOREPLY_HELP' => 'Select an automated response to notify email senders that their response has been received.',
+  'LBL_AUTOREPLY_HELP' => 'Wählen Sie die Vorlage für die automatische Benachrichtigung um dem Sender mitzuteilen, daß seine E-Mail empfangen wurde.',
   'LBL_AUTOREPLY_OPTIONS' => 'Auto-Antwort Optionen',
   'LBL_BASIC' => 'Basis Setup',
   'LBL_BOUNCE_MODULE_NAME' => 'Bounce Handling Mailbox',
@@ -47,7 +46,7 @@ $mod_strings = array (
   'LBL_CREATE_CASE' => 'Erstelle Ticket vom Email',
   'LBL_CREATE_CASE_HELP' => 'Select to automatically create case records in Sugar from incoming emails.',
   'LBL_CREATE_CASE_REPLY_TEMPLATE' => 'Neue Ticket-Antwortvorlage',
-  'LBL_CREATE_CASE_REPLY_TEMPLATE_HELP' => 'Select an automated response to notify email senders that a case has been created. The email contains the case number in the Subject line which adheres to the Case Macro setting.  This response is only sent when the first email is received from the recipient.',
+  'LBL_CREATE_CASE_REPLY_TEMPLATE_HELP' => 'Wählen Sie die Vorlage für die automatische Benachrichtigung um dem E-Mailsender mitzuteilen, daß ein Ticket erstellt wurde. Diese E-Mail enthält die Ticketnummer im Betreff. Mit Hilfe diese Nummer kann das Ticketmarkro verwendet werden. Diese Antwort wird nur versendet, wenn die erste E-Mail empfangen wurde.',
   'LBL_CREATE_NEW_GROUP' => '--Postfach Gruppe beim Speichern erzeugen--',
   'LBL_CREATE_TEMPLATE' => 'Erstellen',
   'LBL_DEFAULT_FROM_ADDR' => 'Standard:',
@@ -100,7 +99,7 @@ $mod_strings = array (
   'LBL_MAX_AUTO_REPLIES' => 'Anzahl Auto-Antworten',
   'LBL_MAX_AUTO_REPLIES_DESC' => 'Setzen Sie die maximale Anzahl von Auto-Antworten für eine eindeutige E-Mail Adresse während 24 Stunden',
   'LBL_MODULE_NAME' => 'Einstellungen eingehende E-Mails',
-  'LBL_MODULE_NAME_SINGULAR' => 'Gruppen-Mail-Account',
+  'LBL_MODULE_NAME_SINGULAR' => 'Eingehende E-Mails',
   'LBL_MODULE_TITLE' => 'Eingehende E-Mails',
   'LBL_NAME' => 'Name',
   'LBL_NONE' => 'Kein(e)',

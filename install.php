@@ -1,18 +1,15 @@
 <?php
  if(!defined('sugarEntry'))define('sugarEntry', true);
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 //session_destroy();
 if (version_compare(phpversion(),'5.2.0') < 0) {
 	$msg = 'Minimum PHP version required is 5.2.0.  You are using PHP version  '. phpversion();
@@ -28,6 +25,7 @@ $GLOBALS['sql_queries'] = 0;
 require_once('include/SugarLogger/LoggerManager.php');
 require_once('sugar_version.php');
 require_once('include/utils.php');
+require_once('include/entryPoint.php');
 require_once('install/install_utils.php');
 require_once('install/install_defaults.php');
 require_once('include/TimeDate.php');
@@ -35,18 +33,18 @@ require_once('include/Localization/Localization.php');
 require_once('include/SugarTheme/SugarTheme.php');
 require_once('include/utils/LogicHook.php');
 require_once('data/SugarBean.php');
-require_once('include/entryPoint.php');
 //check to see if the script files need to be rebuilt, add needed variables to request array
 $_REQUEST['root_directory'] = getcwd();
 $_REQUEST['js_rebuild_concat'] = 'rebuild';
-if(isset($_REQUEST['goto']) && $_REQUEST['goto'] != 'SilentInstall') {
+if (isset($_REQUEST['goto']) && $_REQUEST['goto'] != 'SilentInstall' && empty($_SESSION['js_minified'])) {    
     require_once('jssource/minify.php');
+    $_SESSION['js_minified'] = true;
 }
 
 $timedate = TimeDate::getInstance();
 // cn: set php.ini settings at entry points
 setPhpIniSettings();
-$locale = new Localization();
+$locale = Localization::getObject();
 
 if(get_magic_quotes_gpc() == 1) {
    $_REQUEST = array_map("stripslashes_checkstrings", $_REQUEST);
@@ -66,6 +64,10 @@ $icon = 'include/images/sugar_icon.ico';
 $sugar_md = 'include/images/sugar_md.png';
 $loginImage = 'include/images/sugarcrm_login.png';
 $common = 'install/installCommon.js';
+
+//Make sure the TrackerManager is paused on install
+$trackerManager = TrackerManager::getInstance();
+$trackerManager->pause();
 
 ///////////////////////////////////////////////////////////////////////////////
 ////	INSTALLER LANGUAGE
@@ -131,6 +133,29 @@ if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'licensePrint')
     exit ();
 }
 
+//define web root, which will be used as default for site_url
+if(!empty($_REQUEST['instance_url'])) {
+    $web_root = $_REQUEST['instance_url'];
+} else {
+    if($_SERVER['SERVER_PORT']=='80'){
+        $web_root = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+    }else{
+        $web_root = $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['PHP_SELF'];
+    }
+    $web_root = "http://$web_root";
+}
+$web_root = str_replace("/install.php", "", $web_root);
+
+// set the form's php var to the loaded config's var else default to sane settings
+if(!isset($_SESSION['setup_site_url'])  || empty($_SESSION['setup_site_url']) || !empty($_REQUEST['instance_url'])) {
+    if(isset($sugar_config['site_url']) && !empty($sugar_config['site_url'])) {
+        $_SESSION['setup_site_url']= $sugar_config['site_url'];
+    } else {
+        $_SESSION['setup_site_url']= $web_root;
+    }
+}
+
+
 if(isset($_REQUEST['sugar_body_only']) && $_REQUEST['sugar_body_only'] == "1") {
 //if this is a system check, then just run the check and return,
 //this is an ajax call and there is no need for further processing
@@ -180,15 +205,6 @@ $workflow[] =  'systemOptions.php';
 $workflow[] = 'dbConfig_a.php';
 //$workflow[] = 'dbConfig_b.php';
 
-//define web root, which will be used as default for site_url
-if($_SERVER['SERVER_PORT']=='80'){
-    $web_root = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
-}else{
-    $web_root = $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['PHP_SELF'];
-}
-$web_root = str_replace("/install.php", "", $web_root);
-$web_root = "http://$web_root";
-
 if (!isset($_SESSION['oc_install']) || $_SESSION['oc_install'] == false) {
     $workflow[] = 'siteConfig_a.php';
     if (isset($_SESSION['install_type']) && !empty($_SESSION['install_type']) &&
@@ -223,8 +239,8 @@ if (!isset($_SESSION['setup_site_session_path']) || empty($_SESSION['setup_site_
 if (!isset($_SESSION['setup_site_log_dir']) || empty($_SESSION['setup_site_log_dir'])) {
     $_SESSION['setup_site_log_dir'] = (isset($sugar_config['log_dir'])) ? $sugar_config['log_dir'] : '.';
 }
-if (!isset($_SESSION['setup_site_guid']) || empty($_SESSION['setup_site_guid'])) {
-    $_SESSION['setup_site_guid'] = (isset($sugar_config['unique_key'])) ? $sugar_config['unique_key'] : '';
+if (!isset($sugar_config['unique_key'])) {
+    $sugar_config['unique_key'] = get_unique_key();
 }
 if (!isset($_SESSION['cache_dir']) || empty($_SESSION['cache_dir'])) {
     $_SESSION['cache_dir'] = isset($sugar_config['cache_dir']) ? $sugar_config['cache_dir'] : 'cache/';
@@ -559,7 +575,7 @@ EOQ;
         if (!empty($_SESSION['setup_site_specify_guid']) && !empty($_SESSION['setup_site_guid'])) {
             $sugar_config['unique_key'] = $_SESSION['setup_site_guid'];
         } else {
-            $sugar_config['unique_key'] = md5(create_guid());
+            $sugar_config['unique_key'] = get_unique_key();
         }
 
         $validation_errors = validate_dbConfig('a');
@@ -632,7 +648,13 @@ EOQ;
 	}
 }
 
-
+//On a Silent Install, the step is 9999. When the validation fails, it falls back to the basic installation.
+//However, hitting next adds 1 to the current step (9999) and the script is not able to retrieve the next step.
+if ($next_step === 9999) {
+    //We are going to inverse keys and values, so with the file name we are able to find the next step
+    $steps = array_flip($workflow);
+    $next_step = $steps[$the_file];
+}
 $the_file = clean_string($the_file, 'FILE');
 
 installerHook('pre_installFileRequire', array('the_file' => $the_file));
@@ -641,5 +663,3 @@ installerHook('pre_installFileRequire', array('the_file' => $the_file));
 require('install/' . $the_file);
 
 installerHook('post_installFileRequire', array('the_file' => $the_file));
-
-?>

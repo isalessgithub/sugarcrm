@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -231,9 +228,6 @@ $mod_strings = array (
   'LBL_CONFIGURE_TABS_AND_SUBPANELS' => 'Rodyti modulių korteles ir panelius',
   'LBL_CONFIGURE_TABS_AND_SUBPANELS_DESC' => 'Pasirinkti kurias korteles ir panelius rodyti bendrai.',
   'LBL_CONFIGURE_UPDATER' => 'Konfigūruoti Sugar atnaujinimus',
-  'LBL_CONFIG_AJAX' => 'Konfigūruoti AJAX vartotojo sąsają',
-  'LBL_CONFIG_AJAX_DESC' => 'Sistemos našumo ir puslapio atvaizdavimo greičiai yra patobulinti AJAX vartotojo sąsajos moduliuose. Jei Jūs susiduriate su atvaizdavimo problemomis konkrečiuose moduliuose - AJAX vartotojo sąsaja gali būti išjungta tuose moduliuose.',
-  'LBL_CONFIG_AJAX_HELP' => 'Tempkite modulių pavadinimus žemiau norėdami įjungti ar išjungti AJAX vartotojo sąsają konkrečiuose moduliuose.',
   'LBL_CONFIG_CHECK' => 'Konfigūracijos patikrinimas',
   'LBL_CONFIG_FTS' => 'Konfigūruoti pilno teksto (Full Text) paiešką',
   'LBL_CONFIG_LANGS_DESC' => 'Tempkite ir įmeskite norimas kalbas, kad nustatyti, kurios kalbos bus įjungtos.',
@@ -334,7 +328,6 @@ $mod_strings = array (
   'LBL_ENABLED' => 'Įjungtas',
   'LBL_ENABLED_LANGS' => 'Įjungtos kalbos',
   'LBL_ENABLE_MAILMERGE' => 'Įjungti laiškų apjungimą?',
-  'LBL_ERROR_PROD_BAR_NUM_MODULES' => 'Klaida: Vienu metu Sugar nuorodų bloke gali būti ne daugiau 10 modulių.',
   'LBL_ERROR_VERSION_INFO' => 'Klaida tikrinant versijos informaciją, prašome bandyti vėliau dar kartą .',
   'LBL_EXCEEDING_OC_LICENSES' => 'Klaida: Įjungtų klientinės versijos vartotojų skaičius viršija nurodytą Jūsų licencijoje.  Prašome eiti į <a href="index.php?module=Administration&action=ListViewOfflineClient">"Valdyti klientinę versiją"</a> administracinėje zonoje ir išjungti vartotojus arba atnaujinti licenciją.',
   'LBL_EXECUTE' => 'Vykdyti',
@@ -862,8 +855,6 @@ $mod_strings = array (
   'LBL_STUDIO_DESC' => 'Redaguoti modulių laukus, formų išdėstymus ir ryšius',
   'LBL_STUDIO_TITLE' => 'Kūrėjo įrankiai',
   'LBL_SUGARCRM_HELP' => 'SugarCRM pagalba',
-  'LBL_SUGARFEED_SETTINGS' => 'Sugar naujienos',
-  'LBL_SUGARFEED_SETTINGS_DESC' => 'Įjungti naujienas vartotojams ir pasirinkti modulius apie kuriuos skelbiamos naujienos',
   'LBL_SUGARPDF_SETTINGS' => 'PDF nustatymai',
   'LBL_SUGARPDF_SETTINGS_DESC' => 'Tvarkyti generuojamų PDF failų nustatymus',
   'LBL_SUGARPORTAL' => 'Sugar portalas',

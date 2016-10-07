@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -57,8 +54,15 @@ $db = DBManagerFactory::getInstance();
 $timedate = TimeDate::getInstance();
 // Set the max time to one hour (helps Windows load the seed data)
 ini_set("max_execution_time", "3600");
+
 // ensure we have enough memory
 $memory_needed  = 256;
+// all version below 5.3.0, the memory usage needs to be 1 GIG for demo data
+if(version_compare(PHP_VERSION, '5.3.0', '<'))
+{
+	$memory_needed = 1024;
+}
+
 $memory_limit   = ini_get('memory_limit');
 if( $memory_limit != "" && $memory_limit != "-1" ){ // if memory_limit is set
     rtrim($memory_limit, 'M');
@@ -67,8 +71,7 @@ if( $memory_limit != "" && $memory_limit != "-1" ){ // if memory_limit is set
         ini_set("memory_limit", "$memory_needed" . "M");
     }
 }
-$large_scale_test = empty($sugar_config['large_scale_test']) ?
-	false : $sugar_config['large_scale_test'];
+$large_scale_test = empty($sugar_config['large_scale_test']) ? false : $sugar_config['large_scale_test'];
 
 $seed_user = new User();
 $user_demo_data = new UserDemoData($seed_user, $large_scale_test);
@@ -76,6 +79,7 @@ $user_demo_data->create_demo_data();
 $number_contacts = 200;
 $number_companies = 50;
 $number_leads = 200;
+$number_cases = 5;
 $large_scale_test = empty($sugar_config['large_scale_test']) ? false : $sugar_config['large_scale_test'];
 // If large scale test is set to true, increase the seed data.
 if($large_scale_test) {
@@ -94,7 +98,6 @@ $possible_duration_hours_arr = array( 0, 1, 2, 3);
 $possible_duration_minutes_arr = array('00' => '00','15' => '15', '30' => '30', '45' => '45');
 $account_ids = Array();
 $accounts = Array();
-$opportunity_ids = Array();
 
 // Determine the assigned user for all demo data.  This is the default user if set, or admin
 $assigned_user_name = "admin";
@@ -117,11 +120,31 @@ $replacements[] = '';
 $replacements[] = '';
 $replacements[] = '';
 
+//create timeperiods - pro only
+require_once('modules/Forecasts/ForecastDirectReports.php');
+require_once('modules/Forecasts/Common.php');
+require_once('modules/TimePeriods/TimePeriodsSeedData.php');
+
+$timedate = TimeDate::getInstance();
+$timeperiods = TimePeriodsSeedData::populateSeedData();
+
+echo '.';
+
+
 ///////////////////////////////////////////////////////////////////////////////
 ////	ACCOUNTS
 
+// Make a copy of the company name list we can destroy in
+// the name of de-duplication during account population.
+$accounts_companies_list = $sugar_demodata['company_name_array'];
+
 for($i = 0; $i < $number_companies; $i++) {
-	$account_name = $sugar_demodata['company_name_array'][mt_rand(0,$company_name_count-1)];
+	// De-populate a copy of the company name list
+	// as each name is used to prevent duplication.
+	$account_num = array_rand($accounts_companies_list);
+	$account_name = $accounts_companies_list[$account_num];
+	unset($accounts_companies_list[$account_num], $account_num);
+
 	// Create new accounts.
 	$account = new Account();
 	$account->name = $account_name;
@@ -134,14 +157,14 @@ for($i = 0; $i < $number_companies; $i++) {
 	$account->billing_address_city = $sugar_demodata['city_array'][mt_rand(0,$city_array_count-1)];
 	if($i % 3 == 1)	{
 		$account->billing_address_state = "NY";
-		$assigned_user_id = mt_rand(9,10);
+		$assigned_user_id = mt_rand(9,11);
 		if($assigned_user_id == 9) {
 			$account->assigned_user_name = "seed_will";
-			$account->assigned_user_id = $account->assigned_user_name."_id";
-		} else {
+		} else if($assigned_user_id == 10) {
 			$account->assigned_user_name = "seed_chris";
-			$account->assigned_user_id = $account->assigned_user_name."_id";
-		}
+		} else {
+            $account->assigned_user_name = "seed_jim";
+        }
 
 		$account->assigned_user_id = $account->assigned_user_name."_id";
 	} else {
@@ -194,23 +217,26 @@ for($i = 0; $i < $number_companies; $i++) {
 	$account_ids[] = $account->id;
 	$accounts[] = $account;
 
+    for($c = 0; $c < $number_cases; $c++) {
 	// Create a case for the account
 	$case = new aCase();
 	$case->account_id = $account->id;
 	$case->priority = array_rand($app_list_strings['case_priority_dom']);
 	$case->status = array_rand($app_list_strings['case_status_dom']);
+	$case->type = array_rand($app_list_strings['case_type_dom']);
 	$case->name = $sugar_demodata['case_seed_names'][mt_rand(0,4)];
 	$case->assigned_user_id = $account->assigned_user_id;
 	$case->assigned_user_name = $account->assigned_user_name;
 	$case->team_id = $account->team_id;
 	$case->team_set_id = $account->team_set_id;
 	$case->save();
-
+    }
 	// Create a bug for the account
 	$bug = new Bug();
 	$bug->account_id = $account->id;
 	$bug->priority = array_rand($app_list_strings['bug_priority_dom']);
 	$bug->status = array_rand($app_list_strings['bug_status_dom']);
+	$bug->type = array_rand($app_list_strings['bug_type_dom']);
 	$bug->name = $sugar_demodata['bug_seed_names'][mt_rand(0,4)];
 	$bug->assigned_user_id = $account->assigned_user_id;
 	$bug->assigned_user_name = $account->assigned_user_name;
@@ -241,7 +267,7 @@ for($i = 0; $i < $number_companies; $i++) {
 	$call->duration_hours='0';
 	$call->duration_minutes='30';
 	$call->account_id =$account->id;
-	$call->status='Planned';
+    $call->status = array_rand($app_list_strings['call_status_dom']);
 	$call->team_id = $account->team_id;
 	$call->team_set_id = $account->team_set_id;
 	$call->save();
@@ -250,34 +276,12 @@ for($i = 0; $i < $number_companies; $i++) {
     $seed_user->id = $call->assigned_user_id;
     $call->set_accept_status($seed_user,'accept');
 
-	//Create new opportunities
-	$opp = new Opportunity();
-	$opp->team_id = $account->team_id;
-	$opp->team_set_id = $account->team_set_id;
-	$opp->assigned_user_id = $account->assigned_user_id;
-	$opp->assigned_user_name = $account->assigned_user_name;
-	$opp->name = substr($account_name." - 1000 units", 0, 50);
-	$opp->date_closed = create_date();
-	$opp->lead_source = array_rand($app_list_strings['lead_source_dom']);
-	$opp->sales_stage = array_rand($app_list_strings['sales_stage_dom']);
-	// If the deal is already one, make the date closed occur in the past.
-	if($opp->sales_stage == "Closed Won" || $opp->sales_stage == "Closed Lost")
-	{
-		$opp->date_closed = create_past_date();
-	}
-	$opp->opportunity_type = array_rand($app_list_strings['opportunity_type_dom']);
-	$amount = array("10000", "25000", "50000", "75000");
-	$key = array_rand($amount);
-	$opp->amount = $amount[$key];
-	$probability = array("10", "70", "40", "60");
-	$key = array_rand($probability);
-	$opp->probability = $probability[$key];
-	$opp->save();
-	$opportunity_ids[] = $opp->id;
-	// Create a linking table entry to assign an account to the opportunity.
-	$opp->set_relationship('accounts_opportunities', array('opportunity_id'=>$opp->id ,'account_id'=> $account->id), false);
-
+    if ($i % 10 === 0) {
+        echo '.';
+    }
 }
+
+unset($accounts_companies_list);
 
 $titles = $sugar_demodata['titles'];
 $account_max = count($account_ids) - 1;
@@ -290,6 +294,8 @@ $lead_status_max = count($app_list_strings['lead_status_dom']) - 1;
 $title_max = count($titles) - 1;
 ///////////////////////////////////////////////////////////////////////////////
 ////	DEMO CONTACTS
+
+$contacts = array();
 for($i=0; $i<$number_contacts; $i++) {
 	$contact = new Contact();
 	$contact->first_name = $sugar_demodata['first_name_array'][mt_rand(0,$first_name_max)];
@@ -331,11 +337,9 @@ for($i=0; $i<1000; $i++)
 	$contact->primary_address_postalcode = mt_rand(10000,99999);
 	$contact->primary_address_country = 'USA';
 	$contact->save();
+    $contacts[] = $contact->id;
 	// Create a linking table entry to assign an account to the contact.
-	$contact->set_relationship('accounts_contacts', array('contact_id'=>$contact->id ,'account_id'=> $account_id), false);
-	// This assumes that there will be one opportunity per company in the seed data.
-	$opportunity_key = array_rand($opportunity_ids);
-	$contact->set_relationship('opportunities_contacts', array('contact_id'=>$contact->id ,'opportunity_id'=> $opportunity_ids[$opportunity_key], 'contact_role'=>$app_list_strings['opportunity_relationship_type_default_key']), false);
+	$contact->set_relationship('accounts_contacts', array('contact_id'=>$contact->id ,'account_id'=> $account_id, 'primary_account' => 1), false);
 
 	//Create new tasks
 	$task = new Task();
@@ -403,12 +407,20 @@ for($i=0; $i<1000; $i++)
 	$email->from_addr = $assignedUser->emailAddress->getPrimaryAddress($assignedUser);
 	$email->from_addr_name = $email->from_addr;
 	$email->to_addrs_names = $email->to_addrs;
-	$email->type = 'out';
+    if (key($sugar_demodata['email_seed_data_types']) === null) {
+        reset($sugar_demodata['email_seed_data_types']);
+    }
+    $email->type = current($sugar_demodata['email_seed_data_types']);
+    next($sugar_demodata['email_seed_data_types']);
 	$email->save();
 	$email->load_relationship('contacts');
 	$email->contacts->add($contact);
 	$email->load_relationship('accounts');
 	$email->accounts->add($contacts_account);
+
+    if ($i % 10 === 0) {
+        echo '.';
+    }
 }
 
 for($i=0; $i<$number_leads; $i++)
@@ -430,6 +442,9 @@ for($i=0; $i<$number_leads; $i++)
 	$leads_account = $accounts[$account_number];
 	$lead->primary_address_state = $leads_account->billing_address_state;
 	$lead->status = array_rand($app_list_strings['lead_status_dom']);
+	if ($lead->status === 'Converted') {
+		$lead->converted = true;
+	}
 	$lead->lead_source = array_rand($app_list_strings['lead_source_dom']);
 	if($i % 3 == 1)
 	{
@@ -477,7 +492,9 @@ for($i=0; $i<$number_leads; $i++)
 			$lead->team_id = $assigned_team;
 			$lead->assigned_user_id = $account->assigned_user_id;
 			$lead->assigned_user_name = $assigned_team;
-		} else {
+		}
+        else {
+
 			$teams = $team_demo_data->get_random_teamset();
 			$lead->load_relationship('teams');
 			$lead->teams->add($teams);
@@ -498,152 +515,13 @@ for($i=0; $i<$number_leads; $i++)
 	$lead->primary_address_postalcode = mt_rand(10000,99999);
 	$lead->primary_address_country = $sugar_demodata['primary_address_country'];
 	$lead->save();
+
+    if ($i % 10 === 0) {
+        echo '.';
+    }
 }
 
 
-//create timeperiods - pro only
-require_once('modules/Forecasts/ForecastDirectReports.php');
-require_once('modules/Forecasts/Common.php');
-$timedate = TimeDate::getInstance();
-$now = $timedate->getNow();
-$timedate->tzUser($now); // use local TZ to calculate dates
-$timeperiods=array();
-$arr_today = getdate();
-$timeperiod = new TimePeriod();
-$timeperiod->name = "Year ".$arr_today['year'];
-$timeperiod->start_date = $timedate->asUserDate($now->get_day_begin(1, 1));
-$timeperiod->end_date = $timedate->asUserDate($now->get_day_end(31, 12));
-$timeperiod->is_fiscal_year =1;
-$fiscal_year_id=$timeperiod->save();
-//create a time period record for the first quarter.
-$timeperiod = new TimePeriod();
-$timeperiod->name = "Q1 ".$arr_today['year'];
-$timeperiod->start_date = $timedate->asUserDate($now->get_day_begin(1, 1));
-$timeperiod->end_date =  $timedate->asUserDate($now->get_day_end(31, 3));
-$timeperiod->is_fiscal_year =0;
-$timeperiod->parent_id=$fiscal_year_id;
-$current_timeperiod_id = $timeperiod->save();
-$timeperiods[$current_timeperiod_id]=$timeperiod->start_date;
-//create a timeperiod record for the 2nd quarter.
-$timeperiod = new TimePeriod();
-$timeperiod->name = "Q2 ".$arr_today['year'];
-$timeperiod->start_date = $timedate->asUserDate($now->get_day_begin(1, 4));
-$timeperiod->end_date =  $timedate->asUserDate($now->get_day_end(30, 6));
-$timeperiod->is_fiscal_year =0;
-$timeperiod->parent_id=$fiscal_year_id;
-$current_timeperiod_id = $timeperiod->save();
-$timeperiods[$current_timeperiod_id]=$timeperiod->start_date;
-//create a timeperiod record for the 3rd quarter.
-$timeperiod = new TimePeriod();
-$timeperiod->name = "Q3 ".$arr_today['year'];
-$timeperiod->start_date = $timedate->asUserDate($now->get_day_begin(1, 7));
-$timeperiod->end_date =  $timedate->asUserDate($now->get_day_end(31, 10));
-$timeperiod->is_fiscal_year =0;
-$timeperiod->parent_id=$fiscal_year_id;
-$current_timeperiod_id = $timeperiod->save();
-$timeperiods[$current_timeperiod_id]=$timeperiod->start_date;
-//create a timeperiod record for the 4th quarter.
-$timeperiod = new TimePeriod();
-$timeperiod->name = "Q4 ".$arr_today['year'];
-$timeperiod->start_date = $timedate->asUserDate($now->get_day_begin(1, 10));
-$timeperiod->end_date =  $timedate->asUserDate($now->get_day_end(31, 12));
-$timeperiod->is_fiscal_year =0;
-$timeperiod->parent_id=$fiscal_year_id;
-$current_timeperiod_id = $timeperiod->save();
-$timeperiods[$current_timeperiod_id]=$timeperiod->start_date;
-//build a collection of users
-$query = "SELECT id from users";
-$result = $db->query($query, false,"error fetching users collection:");
-$comm = new Common();
-$commit_order=$comm->get_forecast_commit_order();
-
-foreach ($timeperiods as $timeperiod_id=>$start_date) {
-	foreach($commit_order as $commit_type_array) {
-		//create forecast schedule for this timeperiod record and user.
-		//create forecast schedule using this record becuse there will be one
-		//direct entry per user, and some user will have a Rollup entry too.
-		if ($commit_type_array[1] == 'Direct') {
-			$fcst_schedule = new ForecastSchedule();
-			$fcst_schedule->timeperiod_id=$timeperiod_id;
-			$fcst_schedule->user_id=$commit_type_array[0];
-			$fcst_schedule->cascade_hierarchy=0;
-			$fcst_schedule->forecast_start_date=$start_date;
-			$fcst_schedule->status='Active';
-			$fcst_schedule->save();
-			//commit a direct forecast for this user and timeperiod.
-			$forecastopp = new ForecastOpportunities();
-			$forecastopp->current_timeperiod_id = $timeperiod_id;
-			$forecastopp->current_user_id = $commit_type_array[0];
-			$opp_summary_array= $forecastopp->get_opportunity_summary(false);
-			$forecast = new Forecast();
-			$forecast->timeperiod_id=$timeperiod_id;
-			$forecast->user_id =  $commit_type_array[0];
-			$forecast->opp_count= $opp_summary_array['OPPORTUNITYCOUNT'];
-			$forecast->opp_weigh_value=$opp_summary_array['WEIGHTEDVALUENUMBER'];
-			$forecast->best_case=$opp_summary_array['WEIGHTEDVALUENUMBER'] + 500;
-			$forecast->worst_case=$opp_summary_array['WEIGHTEDVALUENUMBER'] + 500;
-			$forecast->likely_case=$opp_summary_array['WEIGHTEDVALUENUMBER'] + 500;
-			$forecast->forecast_type='Direct';
-			$forecast->date_committed = $timedate->to_display_date_time(date($GLOBALS['timedate']->get_db_date_time_format(), time()), true);
-			$forecast->save();
-			$quota = new Quota();
-			$quota->timeperiod_id=$timeperiod_id;
-			$quota->user_id = $commit_type_array[0];
-			$quota->quota_type='Direct';
-			$quota->currency_id=-99;
-			$quota->amount=500;
-			$quota->amount_base_currency=500;
-			$quota->committed=1;
-			$quota->set_created_by = false;
-			if ($commit_type_array[0] == 'seed_sarah_id' || $commit_type_array[0] == 'seed_will_id' || $commit_type_array[0] == 'seed_jim_id')
-				$quota->created_by = 'seed_jim_id';
-			else if ($commit_type_array[0] == 'seed_sally_id' || $commit_type_array[0] == 'seed_max_id')
-				$quota->created_by = 'seed_sarah_id';
-			else if ($commit_type_array[0] == 'seed_chris_id')
-				$quota->created_by = 'seed_will_id';
-
-			$quota->save();
-		} else {
-			//create where clause....
-			$where  = " users.deleted=0 ";
-			$where .= " AND (users.id = '$commit_type_array[0]'";
-			$where .= " or users.reports_to_id = '$commit_type_array[0]')";
-			//Get the forecasts created by the direct reports.
-			$DirReportsFocus = new ForecastDirectReports();
-			$DirReportsFocus->current_user_id=$commit_type_array[0];
-			$DirReportsFocus->current_timeperiod_id=$timeperiod_id;
-			$DirReportsFocus->compute_rollup_totals('',$where,false);
-
-			$forecast = new Forecast();
-			$forecast->timeperiod_id=$timeperiod_id;
-			$forecast->user_id =  $commit_type_array[0];
-			$forecast->opp_count= $DirReportsFocus->total_opp_count;
-			$forecast->opp_weigh_value=$DirReportsFocus->total_weigh_value_number;
-			$forecast->likely_case=$DirReportsFocus->total_weigh_value_number + 500;
-			$forecast->best_case=$DirReportsFocus->total_weigh_value_number + 500;
-			$forecast->worst_case=$DirReportsFocus->total_weigh_value_number + 500;
-			$forecast->forecast_type='Rollup';
-			$forecast->date_committed = $timedate->to_display_date_time(date($GLOBALS['timedate']->get_db_date_time_format(), time()), true);
-			$forecast->save();
-
-			$quota = new Quota();
-			$quota->timeperiod_id=$timeperiod_id;
-			$quota->user_id = $commit_type_array[0];
-			$quota->quota_type='Rollup';
-			$quota->currency_id=-99;
-			$quota->amount=$quota->getGroupQuota($timeperiod_id, false, $commit_type_array[0]);
-			if (!isset($quota->amount)) $quota->amount = 0;
-			$quota->amount_base_currency=$quota->getGroupQuota($timeperiod_id, false, $commit_type_array[0]);
-			if (!isset($quota->amount_base_currency)) $quota->amount_base_currency = 0;
-			$quota->committed=1;
-
-			$quota->save();
-		}
-
-	}
-
-}
-//end create timeperiods, pro only.
 foreach($sugar_demodata['manufacturer_seed_data_names'] as $v){
 	$manufacturer = new Manufacturer;
 	$manufacturer->name = $v;
@@ -652,6 +530,9 @@ foreach($sugar_demodata['manufacturer_seed_data_names'] as $v){
 	$manufacturer->save();
 	$manufacturer_id_arr[] = $manufacturer->id;
 }
+
+echo '.';
+
 $list_order = 1;
 foreach($sugar_demodata['shipper_seed_data_names'] as $v){
 	$shipper = new Shipper;
@@ -663,13 +544,20 @@ foreach($sugar_demodata['shipper_seed_data_names'] as $v){
 	$ship_id_arr[] = $shipper->id;
 }
 
+echo '.';
+
 foreach($sugar_demodata['productcategory_seed_data_names'] as $v){
 	$category = new ProductCategory;
 	$category->name = $v;
 	$category->list_order = "1";
+    $key = array_rand($sugar_demodata['users']);
+    $category->assigned_user_id = $sugar_demodata['users'][$key]['id'];
 	$category->save();
 	$productcategory_id_arr[] = $category->id;
 }
+
+echo '.';
+
 $list_order = 1;
 foreach($sugar_demodata['producttype_seed_data_names'] as $v){
 	$type = new ProductType;
@@ -679,6 +567,10 @@ foreach($sugar_demodata['producttype_seed_data_names'] as $v){
 	$producttype_id_arr[] = $type->id;
 	$list_order++;
 }
+
+echo '.';
+
+
 foreach($sugar_demodata['taxrate_seed_data'] as $v){
 	$taxrate = new TaxRate;
 	$taxrate->name = $v['name'];
@@ -690,7 +582,7 @@ foreach($sugar_demodata['taxrate_seed_data'] as $v){
 	$taxrate_id_arr[] = $taxrate->id;
 };
 
-
+echo '.';
 
 
 foreach($sugar_demodata['currency_seed_data'] as $v){
@@ -744,6 +636,9 @@ foreach($sugar_demodata['producttemplate_seed_data'] as $v){
 	$template->qty_in_stock = $v['qty_in_stock'];
 	$template->save();
 }
+
+echo '.';
+
 include_once('modules/TeamNotices/DefaultNotices.php');
 ///
 /// SEED DATA FOR CONTRACTS
@@ -751,6 +646,7 @@ include_once('modules/TeamNotices/DefaultNotices.php');
 include_once('modules/Contracts/Contract.php');
 foreach($sugar_demodata['contract_seed_data'] as $v){
 	$contract = new Contract();
+    $contract->currency_id = '-99';
 	$contract->name = $v['name'];
 	$contract->reference_code = $v['reference_code'];
 	$contract->status = 'signed';
@@ -766,6 +662,8 @@ foreach($sugar_demodata['contract_seed_data'] as $v){
 	$contract->save();
 }
 
+echo '.';
+
 ///
 /// SEED DATA FOR KNOWLEDGE BASE
 ///
@@ -777,10 +675,12 @@ foreach($sugar_demodata['kbdocument_seed_data_kbtags'] as $v){
     $kbtags_hash[$id] = $v;
 }
 
+echo '.';
+
 foreach($sugar_demodata['kbdocument_seed_data'] as $v){
 	$kbdoc = new KBDocument();
 	$kbdoc->kbdocument_name = $v['name'];
-	$kbdoc->status_id = array_rand($app_list_strings['kbdocument_status_dom']);
+	$kbdoc->status_id = 'Published';
 	$kbdoc->team_id = 1;
 	$kbdoc->assigned_user_id = 'seed_will_id';
 	$kbdoc->active_date = $v['start_date'];
@@ -820,6 +720,8 @@ foreach($sugar_demodata['kbdocument_seed_data'] as $v){
 	}
 }
 
+echo '.';
+
 
 ///
 /// SEED DATA FOR EMAIL TEMPLATES
@@ -839,45 +741,31 @@ if(!empty($sugar_demodata['emailtemplates_seed_data'])) {
 	    $id =$EmailTemp->save();
 	}
 }
-///
-/// SEED DATA FOR PROJECT AND PROJECT TASK
-///
-include_once('modules/Project/Project.php');
-include_once('modules/ProjectTask/ProjectTask.php');
-// Project: Audit Plan
-$project = new Project();
-$project->name = $sugar_demodata['project_seed_data']['audit']['name'];
-$project->description = $sugar_demodata['project_seed_data']['audit']['description'];
-$project->assigned_user_id = 1;
-$project->estimated_start_date = $sugar_demodata['project_seed_data']['audit']['estimated_start_date'];
-$project->estimated_end_date = $sugar_demodata['project_seed_data']['audit']['estimated_end_date'];
-$project->status = $sugar_demodata['project_seed_data']['audit']['status'];
-$project->priority = $sugar_demodata['project_seed_data']['audit']['priority'];
-$project->team_id = 1;
-$audit_plan_id = $project->save();
 
-$project_task_id_counter = 1;  // all the project task IDs cannot be 1, so using couter
-foreach($sugar_demodata['project_seed_data']['audit']['project_tasks'] as $v){
-	$project_task = new ProjectTask();
-	$project_task->assigned_user_id = 1;
-	$project_task->team_id = 1;
-	$project_task->name = $v['name'];
-	$project_task->date_start = $v['date_start'];
-	$project_task->date_finish = $v['date_finish'];
-	$project_task->project_id = $audit_plan_id;
-	$project_task->project_task_id = $project_task_id_counter;
-	$project_task->description = $v['description'];
-	$project_task->duration = $v['duration'];
-	$project_task->duration_unit = $v['duration_unit'];
-	$project_task->percent_complete = $v['percent_complete'];
-	$communicate_stakeholders_id = $project_task->save();
+echo '.';
 
-    $project_task_id_counter++;
-}
+
     include('install/seed_data/products_SeedData.php');
     include('install/seed_data/quotes_SeedData.php');
-    //This is set to yes at the begininning of this file
-	unset($_SESSION['disable_workflow']);
+
+    require_once('modules/Opportunities/OpportunitiesSeedData.php');
+    $opportunity_ids = OpportunitiesSeedData::populateSeedData($number_companies*3, $app_list_strings, $accounts, $sugar_demodata['users']);
+
+    foreach($contacts as $id)
+    {
+        $contact->retrieve($id);
+        // This assumes that there will be one opportunity per company in the seed data.
+        $opportunity_key = array_rand($opportunity_ids);
+        $contact->set_relationship('opportunities_contacts', array('contact_id'=>$contact->id ,'opportunity_id'=> $opportunity_ids[$opportunity_key], 'contact_role'=>$app_list_strings['opportunity_relationship_type_default_key']), false);
+    }
+
+    echo '.';
+
+    require_once('modules/Forecasts/ForecastsSeedData.php');
+    ForecastsSeedData::populateSeedData($timeperiods);
+
+    echo '.';
 
 
-?>
+//This is set to yes at the begininning of this file
+unset($_SESSION['disable_workflow']);

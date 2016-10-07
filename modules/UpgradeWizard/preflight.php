@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: preflight.php 58178 2010-09-15 00:30:38Z kjing $
  * Description:
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
  * Reserved. Contributor(s): ______________________________________..
@@ -33,10 +30,10 @@ $mod_strings = return_module_language($curr_lang, 'UpgradeWizard',true);
 
 function check_php($sys_php_version = '')
 {
-    $min_considered_php_version = '5.2.2';
+    $min_considered_php_version = '5.2.1';
 
     $supported_php_versions = array (
-    '5.2.2', '5.2.3', '5.2.4', '5.2.5', '5.2.6', '5.2.8', '5.3.0'
+    '5.2.1', '5.2.2', '5.2.3', '5.2.4', '5.2.5', '5.2.6', '5.2.8', '5.3.0'
     );
     //Find out what Database the system is using.
     global $sugar_config;
@@ -118,10 +115,6 @@ if (version_compare(phpversion(),'5.2.0') >=0) {
 	$schema = '';
 	$anyScriptChanges = '';
 	$db =& DBManagerFactory::getInstance();
-
-	//Quickcreatedefs on the basis of editviewdefs
-    updateQuickCreateDefs();
-	upgradeSugarCache($_SESSION['install_file']);
 
 	if((count($errors) == 1)) { // only diffs
 		logThis('file preflight check passed successfully.');
@@ -342,10 +335,10 @@ $diffs ='';
 	logThis('schema preflight done.');
 ////	END SCHEMA SCRIPT HANDLING
 ///////////////////////////////////////////////////////////////////////////////
-//php version suggestion
-    $php_suggested_ver = '';
-	if(version_compare(phpversion(),'5.2.2') < 0){
-		$php_suggested_ver=$mod_strings['LBL_CURRENT_PHP_VERSION'].phpversion().$mod_strings['LBL_RECOMMENDED_PHP_VERSION'];
+//php 521 suggestion
+	$php_521 = '';
+	if(version_compare(phpversion(),'5.2.1') < 0){
+		$php_521=$mod_strings['LBL_CURRENT_PHP_VERSION'].phpversion().$mod_strings['LBL_RECOMMENDED_PHP_VERSION'];
 	}
 	if(empty($mod_strings['LBL_UPGRADE_TAKES_TIME_HAVE_PATIENCE'])){
 		$mod_strings['LBL_UPGRADE_TAKES_TIME_HAVE_PATIENCE'] = 'Upgrade may take some time';
@@ -421,7 +414,7 @@ eoq5;
 else{
 	$stop = true;
 	if(empty($mod_strings['LBL_INCOMPATIBLE_PHP_VERSION'])){
-		$mod_strings['LBL_INCOMPATIBLE_PHP_VERSION'] = 'Php version 5.2.2 or above is required.';
+		$mod_strings['LBL_INCOMPATIBLE_PHP_VERSION'] = 'Php version 5.2.1 or above is required.';
 	}
 
 $php_verison_warning =<<<eoq

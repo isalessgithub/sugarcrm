@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 ////////////////////////////////////////////// 
 // TEMPLATE:
 ////////////////////////////////////////////// 
@@ -444,11 +441,13 @@ qualifiers[qualifiers.length] = {name:'greater',value:'Greater Than'};
 qualifiers[qualifiers.length] = {name:'between',value:'Is Between'};
 qualifiers[qualifiers.length] = {name:'not_equals',value:'Does Not Equal'};
 filter_defs['int'] = qualifiers;
+filter_defs['long'] = qualifiers;
 
 var qualifiers =  new Array();
 qualifiers[qualifiers.length] = {name:'is',value:'Is'};
 qualifiers[qualifiers.length] = {name:'one_of',value:'One Of'};
 filter_defs['enum'] = qualifiers;
+filter_defs['timeperiod'] = qualifiers;
 
 var qualifiers =  new Array();
 qualifiers[qualifiers.length] = {name:'is',value:'Is'};
@@ -482,7 +481,7 @@ function addFilterInput(cell,default0,default1)
 	{
 		addFilterInputRelate(row,field.module,default0);
 	} 
-	else if (field.type == 'enum')
+	else if (field.type == 'enum' || field.type == 'timeperiod')
 	{
 		if (qualifier_name == 'one_of')
 		{
@@ -1055,7 +1054,7 @@ function template_form(&$field)
 	{
 		template_form_datetimecombo($field);
 	}
-	else if ($field['type'] == 'enum')
+	else if ($field['type'] == 'enum' || $field['type'] == 'timeperiod')
 	{
 		template_form_enum($field);
 	}

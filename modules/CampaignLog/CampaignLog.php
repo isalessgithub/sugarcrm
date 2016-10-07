@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class CampaignLog extends SugarBean {
 
@@ -35,9 +32,21 @@ class CampaignLog extends SugarBean {
     var $hits;
     var $more_information;
     var $marketing_id;
-    function CampaignLog() {
+
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function CampaignLog()
+    {
+        self::__construct();
+    }
+
+    public function __construct() {
         global $sugar_config;
-        parent::SugarBean();
+        parent::__construct();
 
         $this->disable_row_level_security=true;
         //$this->team_id = 1; // make the item globally accessible
@@ -69,7 +78,7 @@ class CampaignLog extends SugarBean {
             if($temp_array['TARGET_TYPE']=='Accounts'){
                 $temp_array['RECIPIENT_NAME']=$row['name'];
             }else{
-                $full_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name'], '');
+                $full_name = $locale->formatName($temp_array['TARGET_TYPE'], $row);
                 $temp_array['RECIPIENT_NAME']=$full_name;
             }
         }
@@ -128,7 +137,7 @@ class CampaignLog extends SugarBean {
             $result=$db->query($query);
             $row=$db->fetchByAssoc($result);
             if ($row != null) {
-                return $full_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+                return $full_name = $locale->formatName('Contacts', $row);
             }
         }
         if ($related_type == 'Leads') {
@@ -136,7 +145,7 @@ class CampaignLog extends SugarBean {
             $result=$db->query($query);
             $row=$db->fetchByAssoc($result);
             if ($row != null) {
-                return $full_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+                return $full_name = $locale->formatName('Leads', $row);
             }
         }
         if ($related_type == 'Prospects') {
@@ -144,7 +153,7 @@ class CampaignLog extends SugarBean {
             $result=$db->query($query);
             $row=$db->fetchByAssoc($result);
             if ($row != null) {
-                return $full_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+                return $full_name = $locale->formatName('Prospects', $row);
             }
         }
         if ($related_type == 'CampaignTrackers') {

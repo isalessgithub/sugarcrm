@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: LDAPAuthenticateUser.php 47028 2009-05-11 21:50:51Z majed $
 
 /**
  * This file is where the user authentication occurs. No redirection should happen in this file.
@@ -37,9 +34,8 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 	 * Contributions by Erik Mitchell erikm@logicpd.com
 	 */
 	function authenticateUser($name, $password) {
-
-		$server = $GLOBALS['ldap_config']->settings['ldap_hostname'];
-		$port = $GLOBALS['ldap_config']->settings['ldap_port'];
+        $server = isset($GLOBALS['ldap_config']->settings['ldap_hostname']) ? $GLOBALS['ldap_config']->settings['ldap_hostname'] : '';
+        $port = isset($GLOBALS['ldap_config']->settings['ldap_port']) ? $GLOBALS['ldap_config']->settings['ldap_port'] : '';
 		if(!$port)
 			$port = DEFAULT_PORT;
 		$GLOBALS['log']->debug("ldapauth: Connecting to LDAP server: $server");
@@ -148,8 +144,7 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
                         $user_uid = $user_uid[0];
                     }
                     // If user_uid contains special characters (for LDAP) we need to escape them !
-                    $user_uid = str_replace(array("(", ")"), array("\(", "\)"), $user_uid);
-
+                    $user_uid = str_replace(array("\\", "(", ")"), array("\\\\", "\(", "\)"), $user_uid);
 				}
 
 				// build search query and determine if we are searching for a bare id or the full dn path
@@ -239,7 +234,7 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 	 */
 	function createUser($name){
 
-			$user = new User();
+			$user = BeanFactory::getBean('Users');
 			$user->user_name = $name;
 			foreach($this->ldapUserInfo as $key=>$value){
 				$user->$key = $value;
@@ -272,8 +267,7 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 	    }
 
 		global $login_error;
-		$GLOBALS['ldap_config']  = new Administration();
-		$GLOBALS['ldap_config']->retrieveSettings('ldap');
+		$GLOBALS['ldap_config'] = Administration::getSettings('ldap');
 		$GLOBALS['log']->debug("Starting user load for ". $name);
 		if(empty($name) || empty($password)) return false;
 		checkAuthUserStatus();
@@ -321,18 +315,18 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
     function ldap_rdn_lookup($user_name, $password) {
 
         // MFH BUG# 14547 - Added htmlspecialchars_decode()
-        $server = $GLOBALS['ldap_config']->settings['ldap_hostname'];
-        $base_dn = htmlspecialchars_decode($GLOBALS['ldap_config']->settings['ldap_base_dn']);
+        $server = isset($GLOBALS['ldap_config']->settings['ldap_hostname']) ? $GLOBALS['ldap_config']->settings['ldap_hostname'] : '';
+        $base_dn = isset($GLOBALS['ldap_config']->settings['ldap_base_dn']) ? htmlspecialchars_decode($GLOBALS['ldap_config']->settings['ldap_base_dn']) : '';
 		if(!empty($GLOBALS['ldap_config']->settings['ldap_authentication'])){
-       		$admin_user = htmlspecialchars_decode($GLOBALS['ldap_config']->settings['ldap_admin_user']);
-        	$admin_password = htmlspecialchars_decode($GLOBALS['ldap_config']->settings['ldap_admin_password']);
+            $admin_user = isset($GLOBALS['ldap_config']->settings['ldap_admin_user']) ? htmlspecialchars_decode($GLOBALS['ldap_config']->settings['ldap_admin_user']) : '';
+            $admin_password = isset($GLOBALS['ldap_config']->settings['ldap_admin_password']) ? htmlspecialchars_decode($GLOBALS['ldap_config']->settings['ldap_admin_password']) : '';
 		}else{
 			$admin_user = '';
         	$admin_password = '';
 		}
-        $user_attr = $GLOBALS['ldap_config']->settings['ldap_login_attr'];
-        $bind_attr = $GLOBALS['ldap_config']->settings['ldap_bind_attr'];
-        $port = $GLOBALS['ldap_config']->settings['ldap_port'];
+        $user_attr = isset($GLOBALS['ldap_config']->settings['ldap_login_attr']) ? $GLOBALS['ldap_config']->settings['ldap_login_attr'] : '';
+        $bind_attr = isset($GLOBALS['ldap_config']->settings['ldap_bind_attr']) ? $GLOBALS['ldap_config']->settings['ldap_bind_attr'] : '';
+        $port = isset($GLOBALS['ldap_config']->settings['ldap_port']) ? $GLOBALS['ldap_config']->settings['ldap_port'] : '';
 		if(!$port)
 			$port = DEFAULT_PORT;
         $ldapconn = ldap_connect($server, $port);

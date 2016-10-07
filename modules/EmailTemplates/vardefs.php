@@ -1,20 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['EmailTemplate'] = array(
-	'table' => 'email_templates', 'comment' => 'Templates used in email processing',
+    'table' => 'email_templates',
+    'favorites' => false,
+    'comment' => 'Templates used in email processing',
 	'fields' => array(
 		'id' => array(
 			'name' => 'id',
@@ -53,7 +52,7 @@ $dictionary['EmailTemplate'] = array(
 		'created_by' => array(
 			'name' => 'created_by',
 			'vname' => 'LBL_CREATED_BY',
-			'type' => 'varchar',
+			'type' => 'id',
 			'len'=> '36',
 			'comment' => 'User who created record'
 		),
@@ -108,16 +107,11 @@ $dictionary['EmailTemplate'] = array(
 		),
 		'assigned_user_id' => array (
 			'name' => 'assigned_user_id',
-			'rname' => 'user_name',
-			'id_name' => 'assigned_user_id',
 			'vname' => 'LBL_ASSIGNED_TO_ID',
 			'group'=>'assigned_user_name',
-			'type' => 'relate',
-			'table' => 'users',
-			'module' => 'Users',
-			'reportable'=>true,
+            'type' => 'id',
+			'reportable'=>false,
 			'isnull' => 'false',
-			'dbType' => 'id',
 			'audited'=>true,
 			'comment' => 'User ID assigned to record',
             'duplicate_merge'=>'disabled'
@@ -133,7 +127,8 @@ $dictionary['EmailTemplate'] = array(
         	 'table' => 'users',
         	 'id_name' => 'assigned_user_id',
         	 'module'=>'Users',
-        	 'duplicate_merge'=>'disabled'
+        	 'duplicate_merge'=>'disabled',
+             'exportable'=> true,
     	 ),
 		 'assigned_user_link' => array (
     		 'name' => 'assigned_user_link',
@@ -198,7 +193,10 @@ $dictionary['EmailTemplate'] = array(
 			'name' => 'idx_email_template_name',
 			'type'=>'index',
 			'fields'=>array('name')
-		)
+		),
+        array('name' => 'idx_emailtemplate_type', 'type' => 'index', 'fields' => array('type')),
+        array('name' => 'idx_emailtemplate_date_modified', 'type' => 'index', 'fields' => array('date_modified')),
+        array('name' => 'idx_emailtemplate_date_entered', 'type' => 'index', 'fields' => array('date_entered')),
 	),
 	'relationships' => array(
 	'emailtemplates_assigned_user' =>

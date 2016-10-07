@@ -2,29 +2,27 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
-  'LBL_FIELD_NAME' => 'Mező',
-  'LBL_OLD_NAME' => 'Régi érték',
-  'LBL_NEW_VALUE' => 'Új érték',
-  'LBL_CREATED_BY' => 'Módosította',
-  'LBL_LIST_DATE' => 'Változás dátuma',
   'LBL_AUDITED_FIELDS' => 'Mezők ellenőrizve lettek ebben a modulban:',
-  'LBL_NO_AUDITED_FIELDS_TEXT' => 'A mezők nem ellenőrzöttek ebben a modulban',
+  'LBL_AUDIT_TITLE' => 'Változásnapló megtekintése',
   'LBL_CHANGE_LOG' => 'Változásnapló',
+  'LBL_CREATED_BY' => 'Módosította',
+  'LBL_FIELD_NAME' => 'Mező',
+  'LBL_LIST_DATE' => 'Változás dátuma',
+  'LBL_NEW_VALUE' => 'Új érték',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'A mezők nem ellenőrzöttek ebben a modulban',
+  'LBL_OLD_NAME' => 'Régi érték',
 );
 

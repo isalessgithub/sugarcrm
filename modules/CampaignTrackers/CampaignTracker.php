@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description: The primary Function of this file is to manage all the data
@@ -76,9 +73,21 @@ class CampaignTracker extends SugarBean {
     var $relationship_fields = Array('campaing_id'=>'campaign');
 
     var $required_fields =  array('tracker_name'=>1,'tracker_url'=>1);
+
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function CampaignTracker()
+    {
+        self::__construct();
+    }
+
     /*This bean's constructor*/
-    function CampaignTracker() {
-        parent::SugarBean();
+    public function __construct() {
+        parent::__construct();
         $this->disable_row_level_security=true;
     }
 
@@ -123,8 +132,7 @@ class CampaignTracker extends SugarBean {
         if (!class_exists('Administration')) {
 
         }
-        $admin=new Administration();
-        $admin->retrieveSettings('massemailer'); //retrieve all admin settings.
+        $admin = Administration::getSettings('massemailer'); //retrieve all admin settings.
         if (isset($admin->settings['massemailer_tracking_entities_location_type']) and $admin->settings['massemailer_tracking_entities_location_type']=='2'  and isset($admin->settings['massemailer_tracking_entities_location']) ) {
             $this->message_url=$admin->settings['massemailer_tracking_entities_location'];
         } else {

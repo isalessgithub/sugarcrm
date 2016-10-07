@@ -1,19 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-require_once("include/Sugarpdf/sugarpdf_config.php");
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 class FontManager{
     /**
      * Contain all the errors generated during the process of FontManager
@@ -60,6 +56,11 @@ class FontManager{
      * @var String
      */
     var $font_type = "";
+
+    public function __construct()
+    {
+        require_once("include/Sugarpdf/sugarpdf_config.php");
+    }
 
     private function setFontPath(){
         if(file_exists(K_PATH_CUSTOM_FONTS.$this->filename)){
@@ -272,7 +273,7 @@ class FontManager{
      */
     public function deleteFont(){
         global $current_user;
-        if(!is_admin($current_user)){
+        if(!$current_user->isDeveloperForAnyModule()){
             sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
         }
         $this->loadFontFile();
@@ -320,7 +321,7 @@ class FontManager{
 
         $oldStr=ob_get_contents();
         ob_clean();
-        require_once("include/tcpdf/fonts/utils/makefont.php");
+        require_once("vendor/tcpdf/fonts/utils/makefont.php");
         $filename = MakeFont($font_file,$metric_file, $embedded, $encoding_table, $patch, $cid_info);
 
         unlink($font_file);
@@ -387,7 +388,7 @@ class FontManager{
      */
     public function clearCachedFile(){
         global $current_user;
-        if(!is_admin($current_user)){
+        if(!$current_user->isDeveloperForAnyModule()){
             sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
         }
          if(file_exists($cachedfile = sugar_cached("Sugarpdf/cachedFontList.php"))) {

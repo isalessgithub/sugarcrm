@@ -1,17 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /*********************************************************************************
 
@@ -63,7 +61,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 *
 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
 * All Rights Reserved.
-* Contributor(s): ______________________________________..
 ********************************************************************************/
 
 /**
@@ -73,7 +70,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 abstract class DBManager
 {
 	/**
-	 * Name of database
+	 * Actual database link, used in concrete classes
 	 * @var resource
 	 */
 	public $database = null;
@@ -91,7 +88,7 @@ abstract class DBManager
 	/**
 	 * Records the execution time of the last query
 	 */
-	protected $query_time = 0;
+	public $query_time = 0;
 
 	/**
 	 * Last error message from the DB backend
@@ -117,6 +114,11 @@ abstract class DBManager
 	 * Array of prepared statements and their correspoding parsed tokens
 	 */
 	protected $preparedTokens = array();
+
+    /**
+     * default state for using Prepared Statements
+     */
+    public $usePreparedStatements = false;
 
 	/**
 	 * TimeDate instance
@@ -178,19 +180,22 @@ abstract class DBManager
 	/**
 	 * Type classification into:
 	 * - int
+	 * - bigint
 	 * - bool
 	 * - float
 	 * - date
-	 * @abstract
+	 * - time
 	 * @var array
 	 */
 	protected $type_class = array(
 			'int'      => 'int',
+			'integer'  => 'int',
 			'double'   => 'float',
 			'float'    => 'float',
 			'uint'     => 'int',
 			'ulong'    => 'bigint',
 			'long'     => 'bigint',
+			'bigint'   => 'bigint',
 			'short'    => 'int',
 			'date'     => 'date',
 			'datetime' => 'date',
@@ -201,6 +206,7 @@ abstract class DBManager
 			'currency' => 'float',
 			'decimal'  => 'float',
 			'decimal2' => 'float',
+	        'decimal_tpl' => 'float',
 	);
 
 	/**
@@ -218,6 +224,12 @@ abstract class DBManager
 	 * create_db		Can create databases
 	 * collation		Supports setting collations
 	 * disable_keys     Supports temporarily disabling keys (for upgrades, etc.)
+     * recursive_query  Supports recursive queries
+     *
+     * order_stability  Supports stable order on SELECTs without the need for
+     *                  unique column usage in the `ORDER BY` clause when no
+     *                  huge insert/delete operations are happening on the
+     *                  SELECTed tables.
 	 *
 	 * @abstract
 	 * Special cases:
@@ -233,6 +245,44 @@ abstract class DBManager
 	protected $options = array();
 
     /**
+     * Default performance profile
+     * @var array
+     */
+    protected $defaultPerfProfile = array();
+
+    /**
+     * Getter default performance profile
+     * @param string $name Profile name
+     * @return array
+     */
+    public function getDefaultPerfProfile($name)
+    {
+        if (isset($this->defaultPerfProfile[$name])) {
+            return $this->defaultPerfProfile[$name];
+        } else {
+            return array();
+        }
+    }
+
+    /**
+     * Do we encode HTML?
+	 * @return bool $encode
+	 */
+	public function getEncode()
+	{
+		return $this->encode;
+	}
+
+	/**
+	 * Set HTML encoding flag
+	 * @param boolean $encode
+	 */
+	public function setEncode($encode)
+	{
+		$this->encode = $encode;
+	}
+
+	/**
      * Create DB Driver
      */
 	public function __construct()
@@ -240,6 +290,9 @@ abstract class DBManager
 		$this->timedate = TimeDate::getInstance();
 		$this->log = $GLOBALS['log'];
 		$this->helper = $this; // compatibility
+		if(defined('ENTRY_POINT_TYPE') && constant('ENTRY_POINT_TYPE') == 'api') {
+		    $this->encode = false;
+		}
 	}
 
     /**
@@ -249,7 +302,7 @@ abstract class DBManager
      */
 	public function __get($p)
 	{
-		$this->log->info('Call to DBManager::$'.$p.' is deprecated');
+		$this->log->deprecated('Call to DBManager::$'.$p.' is deprecated');
 		return $this->$p;
 	}
 
@@ -305,7 +358,7 @@ abstract class DBManager
 	 * @param string $message Message from SQL driver
 	 * @param bool $dieOnError
 	 */
-	protected function registerError($userMessage, $message, $dieOnError = false)
+	public function registerError($userMessage, $message, $dieOnError = false)
 	{
 		if(!empty($message)) {
 			if(!empty($userMessage)) {
@@ -345,7 +398,7 @@ abstract class DBManager
 	 * @param  string  $query query to log
 	 * @return boolean true if the query was logged, false otherwise
 	 */
-	protected function dump_slow_queries($query)
+	public function dump_slow_queries($query)
 	{
 		global $sugar_config;
 
@@ -387,21 +440,43 @@ abstract class DBManager
 	}
 
 	/**
-	 * addDistinctClause
-	 * This method takes a SQL statement and checks if the disable_count_query setting is enabled
-	 * before altering it.  The alteration modifies the way the team security queries are made by
-	 * changing it from a subselect to a distinct clause; hence the name of the method.
-	 *
-	 * @param string $sql value of SQL statement to alter
+	 * Service method for addDistinctClause, replaces subquery with JOIN
+	 * @param array $matches
+	 * @return string
 	 */
+	protected function replaceTeamClause($matches)
+	{
+	    $part = $matches[0];
+	    $search = array();
+	    $replace = array();
+
+	    $table = $matches[2];
+	    $search[] =  'INNER JOIN (select tst.team_set_id from team_sets_teams tst';
+	    $replace[] =  ' INNER JOIN team_sets_teams tst ON tst.team_set_id = ' . $table . '.team_set_id';
+	    $search[] = 'group by tst.team_set_id) ' . $table . '_tf on ' . $table . '_tf.team_set_id  = ' . $table .'.team_set_id';
+	    $replace[] = '';
+
+	    $part= str_replace($search, $replace, $part);
+	    return $part;
+	}
+
+    /**
+     * addDistinctClause
+     * This method takes a SQL statement and checks if the disable_count_query setting is enabled
+     * before altering it.  The alteration modifies the way the team security queries are made by
+     * changing it from a subselect to a distinct clause; hence the name of the method.
+     *
+     * @param string $sql value of SQL statement to alter
+     * @deprecated
+     */
 	protected function addDistinctClause(&$sql)
 	{
-	    preg_match("|^\w*(\w+)|i", $sql, $firstword);
+	    preg_match('|^\W*(\w+)|i', $sql, $firstword);
 	    if(empty($firstword[1]) || strtolower($firstword[1]) != 'select') {
 	        // take first word of the query, if it's not SELECT - ignore it
 	        return;
 	    }
-		if(!empty($GLOBALS['sugar_config']['disable_count_query']) && (stripos($sql, 'count(*)') === false && stripos($sql, '(select tst.team_set_id from') !==false)){
+		if(!empty($GLOBALS['sugar_config']['disable_count_query']) && (stripos($sql, 'count(*)') === false && stripos($sql, ' JOIN (select tst.team_set_id from') !==false)){
 			if(stripos( $sql, 'UNION ALL') !== false){
 				$parts = explode('UNION ALL', $sql);
 			}else{
@@ -409,24 +484,26 @@ abstract class DBManager
 			}
 			$newSql = '';
 			foreach($parts as $p=>$part){
-				if(preg_match_all('/INNER JOIN \((select tst\.team_set_id[^\)]*)\)\s*(\w*)_tf on \w*_tf\.team_set_id  = \w*\.team_set_id/i', $part, $matches,  PREG_SET_ORDER  )) {
-					$search = array();
-					$replace = array();
-					$table = $matches[0][2];
-					$search[] =  'INNER JOIN (select tst.team_set_id from team_sets_teams tst';
-					$replace[] =  ' INNER JOIN team_sets_teams tst ON tst.team_set_id = ' . $table . '.team_set_id';
-					$search[] = 'group by tst.team_set_id) ' . $table . '_tf on ' . $table . '_tf.team_set_id  = ' . $table .'.team_set_id';
-					$replace[] = '';
+			    $newpart = preg_replace_callback('/INNER JOIN \((select tst\.team_set_id[^\)]*)\)\s*(\w*)_tf on \w*_tf\.team_set_id  = \w*\.team_set_id/i',
+			        array($this, "replaceTeamClause"), $part);
+			    $selects = array();
+			    preg_match_all('/SELECT\s+(.*?)\s+FROM\s+/is', $newpart, $selects, PREG_OFFSET_CAPTURE);
+			    if(!empty($selects[1])) {
+			        $offset = 0;
+			        do {
+    			        foreach($selects[1] as $match) {
+                            if(stripos($match[0], 'distinct') !== false) continue; /* already have distinct */
+                            if(preg_match('/(avg|sum|min|max|count)\(.*\)/i', $match[0])) {
+                                /* bug #61011 - don't rewrite queries with aggregates */
+                                break 2;
+                            }
+                            $newpart = substr($newpart, 0, $match[1]+$offset)."DISTINCT ".substr($newpart, $match[1]+$offset);
+                            $offset += strlen("DISTINCT "); // adjust following offsets since we've added stuff
+    			        }
+			            $part = $newpart;
+			        } while(false);
+			    }
 
-					$selectPos = stripos($part , 'select');
-					if($selectPos !== false){
-						$distinctPos = stripos($part , 'distinct', $selectPos);
-						if($distinctPos === false || $distinctPos > 20){
-							$part = substr($part, 0, $selectPos + 6) .' DISTINCT ' . substr( $part, $selectPos + 7);
-						}
-					}
-					$part= str_replace($search, $replace, $part);
-				}
 				if( $p < count($parts) - 1 )$part .= 'UNION ALL';
 				$newSql .= $part;
 
@@ -536,12 +613,47 @@ protected function checkQuery($sql, $object_name = false)
      */
 	public function insert(SugarBean $bean)
 	{
-		$sql = $this->insertSQL($bean);
 		$tablename =  $bean->getTableName();
 		$msg = "Error inserting into table: $tablename:";
-		return $this->query($sql,true,$msg);
+	    if ($this->usePreparedStatements) {
+	        list($sql, $data, $clob) = $this->insertSQL($bean, true);
+	        // Prepare and execute the statement
+	        return $this->preparedQuery($sql, $data, $clob, $msg);
+	    } else {
+	       $sql = $this->insertSQL($bean);
+	       return $this->query($sql,true,$msg);
+	    }
 	}
 
+	/**
+	 * Replaces specific characters with their HTML entity values
+	 * @param string $string String to check/replace
+	 * @return string
+	 *
+	 */
+	public function encodeHTML($string)
+	{
+		if (empty($string) || !$this->encode) {
+			return $string;
+		}
+		/** Not using ENT_HTML401|ENT_SUBSTITUTE since they are 5.4+ only */
+		return htmlspecialchars($string, ENT_QUOTES, "UTF-8");
+	}
+
+
+	/**
+	 * Replaces specific HTML entity values with the true characters
+	 * @param string $string String to check/replace
+	 * @param bool $encode Default true
+	 * @return string
+	 */
+	public function decodeHTML($string)
+	{
+		if (!is_string($string) || !$this->encode) {
+			return $string;
+		}
+		return htmlspecialchars_decode($string, ENT_QUOTES);
+	}
 	/**
 	 * Insert data into table by parameter definition
 	 * @param string $table Table name
@@ -551,18 +663,23 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param bool $execute Execute or return query?
      * @return bool query result
      */
-	public function insertParams($table, $field_defs, $data, $field_map = null, $execute = true)
+	public function insertParams($table, $field_defs, $data, $field_map = null, $execute = true, $usePreparedStatements = false)
 	{
-		$values = array();
+        $values = array();
 		foreach ($field_defs as $field => $fieldDef)
 		{
 			if (isset($fieldDef['source']) && $fieldDef['source'] != 'db')  continue;
-			//custom fields handle there save seperatley
+			//custom fields handle their save separately
 			if(!empty($field_map) && !empty($field_map[$field]['custom_type'])) continue;
 
 			if(isset($data[$field])) {
 				// clean the incoming value..
-				$val = from_html($data[$field]);
+				if ($usePreparedStatements) {
+				    $val = $this->decodeHTML($data[$field]);
+				} else {
+				    // if it's not for prep, massageValue will decode it
+				    $val = $data[$field];
+				}
 			} else {
 				if(isset($fieldDef['default']) && strlen($fieldDef['default']) > 0) {
 					$val = $fieldDef['default'];
@@ -577,12 +694,12 @@ protected function checkQuery($sql, $object_name = false)
 				if(!empty($auto)) {
 					$values[$field] = $auto;
 				}
-			} elseif ($fieldDef['name'] == 'deleted') {
+			} elseif (!empty($fieldDef['name']) && $fieldDef['name'] == 'deleted') {
 				$values['deleted'] = (int)$val;
 			} else {
 				// need to do some thing about types of values
 				if(!is_null($val) || !empty($fieldDef['required'])) {
-					$values[$field] = $this->massageValue($val, $fieldDef);
+					$values[$field] = $this->massageValue($val, $fieldDef, $usePreparedStatements);
 				}
 			}
 		}
@@ -590,10 +707,35 @@ protected function checkQuery($sql, $object_name = false)
 		if (empty($values))
 			return $execute?true:''; // no columns set
 
-		// get the entire sql
-		$query = "INSERT INTO $table (".implode(",", array_keys($values)).")
-					VALUES (".implode(",", $values).")";
-		return $execute?$this->query($query):$query;
+        if (!$usePreparedStatements) {
+            // get the entire sql
+            $query = "INSERT INTO $table (".implode(",", array_keys($values)).")
+                        VALUES (".implode(",", $values).")";
+            return $execute?$this->query($query):$query;
+        } else {  //Prepared Statement
+            $query = "INSERT INTO $table (".implode(",", array_keys($values)).") VALUES (";
+            $lobs = $types = $data_values = array();
+            foreach($values as $valueKey => $value) {
+                if (!empty($field_defs[$valueKey]) && !empty($field_defs[$valueKey]['auto_increment'])) {
+                    $types[] = $value;
+                } else {
+                    $type = $this->getFieldType($field_defs[$valueKey]);
+                    $types[] = $this->convert("?$type", $type);
+                    $data_values[] = $value;
+                    if ($this->isTextType($type)) {
+                        $lobs[] = $valueKey;
+                    }
+                }
+            }
+            $query .= join(",", $types).")";
+
+            if (!$execute)
+                return array($query, $data_values, $lobs);
+
+            // Prepare and execute the statement
+            return $this->preparedQuery($query, $data_values, $lobs);
+        }
+
 	}
 
     /**
@@ -608,10 +750,16 @@ protected function checkQuery($sql, $object_name = false)
      */
 	public function update(SugarBean $bean, array $where = array())
 	{
-		$sql = $this->updateSQL($bean, $where);
 		$tablename = $bean->getTableName();
 		$msg = "Error updating table: $tablename:";
-		return $this->query($sql,true,$msg);
+	    if($this->usePreparedStatements) {
+            list($sql, $data, $lobs) = $this->updateSQL($bean, $where, true);
+            // Prepare and execute the statement
+            return $this->preparedQuery($sql, $data, $lobs, $msg);
+	    } else {
+	        $sql = $this->updateSQL($bean, $where);
+	        return $this->query($sql,true,$msg);
+	    }
 	}
 
     /**
@@ -625,10 +773,16 @@ protected function checkQuery($sql, $object_name = false)
      */
 	public function delete(SugarBean $bean, array $where = array())
 	{
-		$sql = $this->deleteSQL($bean, $where);
-		$tableName = $bean->getTableName();
-		$msg = "Error deleting from table: ".$tableName. ":";
-		return $this->query($sql,true,$msg);
+	    $tablename =  $bean->getTableName();
+	    $msg = "Error deleting from table: $tablename:";
+	    if($this->usePreparedStatements) {
+	        list($sql, $data) = $this->deleteSQL($bean, $where, true);
+	        // Prepare and execute the statement
+	        return $this->preparedQuery($sql, $data, array(), $msg);
+	    } else {
+	        $sql = $this->deleteSQL($bean, $where);
+	        return $this->query($sql,true,$msg);
+	    }
 	}
 
 	/**
@@ -643,10 +797,16 @@ protected function checkQuery($sql, $object_name = false)
 	 */
 	public function retrieve(SugarBean $bean, array $where = array())
 	{
-		$sql = $this->retrieveSQL($bean, $where);
-		$tableName = $bean->getTableName();
-		$msg = "Error retriving values from table:".$tableName. ":";
-		return $this->query($sql,true,$msg);
+		$tablename =  $bean->getTableName();
+	    $msg = "Error retriving values from table: $tablename:";
+	    if($this->usePreparedStatements) {
+	        list($sql, $data) = $this->retrieveSQL($bean, $where, true);
+	        // Prepare and execute the statement
+	        return $this->preparedQuery($sql, $data, array(), $msg);
+	    } else {
+	        $sql = $this->retrieveSQL($bean, $where);
+	        return $this->query($sql,true,$msg);
+	    }
 	}
 
 	/**
@@ -672,6 +832,22 @@ protected function checkQuery($sql, $object_name = false)
 		return $this->query($sql,true,$msg);
 	}
 
+	/**
+	 * Run query throuh prepared statement
+	 * @param string $sql SQL query
+	 * @param array $lobs names of clob and blob fields from query
+	 * @param string $data Data for SQL
+	 * @param string $msg Error message
+	 * @return boolean
+	 */
+	public function preparedQuery($sql, $data, array $lobs = array(), $msg = '')
+	{
+	    $ps = $this->prepareStatement($sql, $lobs);
+	    if(!$ps) {
+	        return false;
+	    }
+	    return $ps->executePreparedStatement($data, $msg);
+	}
 
 	/**
 	 * Implements creation of a db table for a bean.
@@ -781,8 +957,8 @@ protected function checkQuery($sql, $object_name = false)
 				/* required + is_null=false => not null */
 			return false;
 		}
-		if(empty($vardef['auto_increment']) && (empty($vardef['type']) || $vardef['type'] != 'id')
-					&& (empty($vardef['dbType']) || $vardef['dbType'] != 'id')
+		if(empty($vardef['auto_increment']) && (empty($vardef['type']) || $vardef['type'] != 'id' || (isset($vardef['required']) && empty($vardef['required'])))
+					&& (empty($vardef['dbType']) || $vardef['dbType'] != 'id' || (isset($vardef['required']) && empty($vardef['required'])))
 					&& (empty($vardef['name']) || ($vardef['name'] != 'id' && $vardef['name'] != 'deleted'))
 		) {
 			return true;
@@ -794,7 +970,7 @@ protected function checkQuery($sql, $object_name = false)
 	/**
 	 * Builds the SQL commands that repair a table structure
 	 *
-	 * @param  string $tablename
+	 * @param  string $tableName
 	 * @param  array  $fielddefs Field definitions, in vardef format
 	 * @param  array  $indices   Index definitions, in vardef format
 	 * @param  bool   $execute   optional, true if we want the queries executed instead of returned
@@ -802,209 +978,309 @@ protected function checkQuery($sql, $object_name = false)
      * @todo: refactor engine param to be more generic
      * @return string
      */
-	public function repairTableParams($tablename, $fielddefs,  $indices, $execute = true, $engine = null)
-	{
-		//jc: had a bug when running the repair if the tablename is blank the repair will
-		//fail when it tries to create a repair table
-		if ($tablename == '' || empty($fielddefs))
-			return '';
 
-		//if the table does not exist create it and we are done
-		$sql = "/* Table : $tablename */\n";
-		if (!$this->tableExists($tablename)) {
-			$createtablesql = $this->createTableSQLParams($tablename,$fielddefs,$indices,$engine);
-			if($execute && $createtablesql){
-				$this->createTableParams($tablename,$fielddefs,$indices,$engine);
-			}
+    public function repairTableParams($tableName, $fielddefs,  $indices, $execute = true, $engine = null)
+    {
+        global  $sugar_config;
+        //jc: had a bug when running the repair if the tablename is blank the repair will
+        //fail when it tries to create a repair table
+        if ($tableName == '' || empty($fielddefs))
+            return '';
 
-			$sql .= "/* MISSING TABLE: {$tablename} */\n";
-			$sql .= $createtablesql . "\n";
-			return $sql;
-		}
+        //if the table does not exist create it and we are done
+        $sql = "/* Table : $tableName */\n";
+        if (!$this->tableExists($tableName)) {
+            $createtablesql = $this->createTableSQLParams($tableName,$fielddefs,$indices,$engine);
+            if($execute && $createtablesql){
+                $this->createTableParams($tableName,$fielddefs,$indices,$engine);
+            }
 
-		$compareFieldDefs = $this->get_columns($tablename);
-		$compareIndices = $this->get_indices($tablename);
+            $sql .= "/* MISSING TABLE: {$tableName} */\n";
+            $sql .= $createtablesql . "\n";
+            return $sql;
+        }
 
-		$take_action = false;
+        $sql = $this->repairTableColumns($tableName, $fielddefs, $execute);
+        if (empty($this->options['skip_index_rebuild'])) {
+            $sql .= $this->repairTableIndices($tableName, $indices, $execute);
+        }
 
-		// do column comparisons
-		$sql .=	"/*COLUMNS*/\n";
-		foreach ($fielddefs as $name => $value) {
-			if (isset($value['source']) && $value['source'] != 'db')
-				continue;
+        return $sql;
+    }
 
-            // Bug #42406. Skipping breaked vardef without type or name
+    /**
+     * Parse length & precision into 2 numbers
+     * @param array $def Vardef-like data
+     * @return array(length, precision)
+     */
+    protected function parseLenPrecision($def)
+    {
+        if (strpos($def['len'], ",") !== false) {
+            return explode(",", $def['len']);
+        }
+        if (isset($def['precision'])) {
+            return array($def['len'], $def['precision']);
+        }
+        return array($def['len'], null);
+    }
+
+    /**
+     * Supplies the SQL commands that repair a table structure
+     *
+     * @param  string $tableName
+     * @param  array  $fielddefs Field definitions, in vardef format
+     * @param  bool   $execute   optional, true if we want the queries executed instead of returned
+     *
+     * @return string
+     */
+    protected function repairTableColumns($tableName, $fielddefs, $execute)
+    {
+        $compareFieldDefs = $this->get_columns($tableName);
+        $sql = "/*COLUMNS*/\n";
+        $take_action = false;
+
+        // do column comparisons
+        foreach ($fielddefs as $name => $value) {
+            if (isset($value['source']) && $value['source'] != 'db')
+                continue;
+
+            // Bug #42406. Skipping broken vardef without type or name
             if (isset($value['name']) == false || $value['name'] == false)
             {
-                $sql .= "/* NAME IS MISSING IN VARDEF $tablename::$name */\n";
+                $sql .= "/* NAME IS MISSING IN VARDEF $tableName::$name */\n";
                 continue;
             }
             else if (isset($value['type']) == false || $value['type'] == false)
             {
-                $sql .= "/* TYPE IS MISSING IN VARDEF $tablename::$name */\n";
+                $sql .= "/* TYPE IS MISSING IN VARDEF $tableName::$name */\n";
                 continue;
             }
 
-			$name = strtolower($value['name']);
-			// add or fix the field defs per what the DB is expected to give us back
-			$this->massageFieldDef($value,$tablename);
+            $name = strtolower($value['name']);
+            // add or fix the field defs per what the DB is expected to give us back
+            $this->massageFieldDef($value,$tableName);
 
-			$ignorerequired=false;
+            $ignorerequired=false;
 
-			//Do not track requiredness in the DB, auto_increment, ID,
-			// and deleted fields are always required in the DB, so don't force those
-			if ($this->isNullable($value)) {
-				$value['required'] = false;
-			}
-			//Should match the conditions in DBManager::oneColumnSQLRep for DB required fields, type='id' fields will sometimes
+            //Do not track requiredness in the DB, auto_increment, ID,
+            // and deleted fields are always required in the DB, so don't force those
+            if ($this->isNullable($value)) {
+                $value['required'] = false;
+            }
+            //Should match the conditions in DBManager::oneColumnSQLRep for DB required fields, type='id' fields will sometimes
+            //come into this function as 'type' = 'char', 'dbType' = 'id' without required set in $value. Assume they are correct and leave them alone.
+            else if (($name == 'id' || $value['type'] == 'id' || (isset($value['dbType']) && $value['dbType'] == 'id'))
+                && (!isset($value['required']) && isset($compareFieldDefs[$name]['required'])) || (!empty($value['auto_increment']) && isset($compareFieldDefs[$name]['required'])))
+            {
+                $value['required'] = $compareFieldDefs[$name]['required'];
+            }
 
-			//come into this function as 'type' = 'char', 'dbType' = 'id' without required set in $value. Assume they are correct and leave them alone.
-			else if (($name == 'id' || $value['type'] == 'id' || (isset($value['dbType']) && $value['dbType'] == 'id'))
-				&& (!isset($value['required']) && isset($compareFieldDefs[$name]['required'])))
-			{
-				$value['required'] = $compareFieldDefs[$name]['required'];
-			}
+            if ( !isset($compareFieldDefs[$name]) ) {
+                // ok we need this field lets create it
+                $sql .=	"/*MISSING IN DATABASE - $name -  ROW*/\n";
+                $sql .= $this->addColumnSQL($tableName, $value) .  "\n";
+                if ($execute) {
+                    $this->addColumn($tableName, $value);
+                }
+                $take_action = true;
+            } elseif ( !$this->compareVarDefs($compareFieldDefs[$name],$value)) {
+                //fields are different lets alter it
+                $sql .=	"/*MISMATCH WITH DATABASE - $name -  ROW ";
+                foreach($compareFieldDefs[$name] as $rKey => $rValue) {
+                    $sql .=	"[$rKey] => '$rValue'  ";
+                }
+                $sql .=	"*/\n";
+                $sql .=	"/* VARDEF - $name -  ROW";
+                foreach($value as $rKey => $rValue) {
+                    if(is_array($rValue)) {
+                        // no newlines
+                        $rValue = str_replace("\n", " ", print_r($rValue, true));
+                    }
+                    $sql .=	"[$rKey] => '$rValue'  ";
+                }
+                $sql .=	"*/\n";
 
-			if ( !isset($compareFieldDefs[$name]) ) {
-				// ok we need this field lets create it
-				$sql .=	"/*MISSING IN DATABASE - $name -  ROW*/\n";
-				$sql .= $this->addColumnSQL($tablename, $value) .  "\n";
-				if ($execute)
-					$this->addColumn($tablename, $value);
-				$take_action = true;
-			} elseif ( !$this->compareVarDefs($compareFieldDefs[$name],$value)) {
-				//fields are different lets alter it
-				$sql .=	"/*MISMATCH WITH DATABASE - $name -  ROW ";
-				foreach($compareFieldDefs[$name] as $rKey => $rValue) {
-					$sql .=	"[$rKey] => '$rValue'  ";
-				}
-				$sql .=	"*/\n";
-				$sql .=	"/* VARDEF - $name -  ROW";
-				foreach($value as $rKey => $rValue) {
-					$sql .=	"[$rKey] => '$rValue'  ";
-				}
-				$sql .=	"*/\n";
+                //jc: oracle will complain if you try to execute a statement that sets a column to (not) null
+                //when it is already (not) null
+                if ( isset($value['isnull']) && isset($compareFieldDefs[$name]['isnull']) &&
+                    $value['isnull'] === $compareFieldDefs[$name]['isnull']) {
+                    unset($value['required']);
+                    $ignorerequired=true;
+                }
 
-				//jc: oracle will complain if you try to execute a statement that sets a column to (not) null
-				//when it is already (not) null
-				if ( isset($value['isnull']) && isset($compareFieldDefs[$name]['isnull']) &&
-					$value['isnull'] === $compareFieldDefs[$name]['isnull']) {
-					unset($value['required']);
-					$ignorerequired=true;
-				}
+                //dwheeler: Once a column has been defined as null, we cannot try to force it back to !null
+                if ((isset($value['required']) && ($value['required'] === true || $value['required'] == 'true' || $value['required'] === 1))
+                    && (empty($compareFieldDefs[$name]['required']) || $compareFieldDefs[$name]['required'] != 'true'))
+                {
+                    $ignorerequired = true;
+                }
 
-				//dwheeler: Once a column has been defined as null, we cannot try to force it back to !null
-				if ((isset($value['required']) && ($value['required'] === true || $value['required'] == 'true' || $value['required'] === 1))
-					&& (empty($compareFieldDefs[$name]['required']) || $compareFieldDefs[$name]['required'] != 'true'))
-				{
-					$ignorerequired = true;
-				}
-				$altersql = $this->alterColumnSQL($tablename, $value,$ignorerequired);
-				if(is_array($altersql)) {
-					$altersql = join("\n", $altersql);
-				}
-				$sql .= $altersql .  "\n";
-				if($execute){
-					$this->alterColumn($tablename, $value, $ignorerequired);
-				}
-				$take_action = true;
-			}
-		}
+                // BR-1787: we can not decrease the length of the column
+                if (!empty($value['len']) && !empty($compareFieldDefs[$name]['len'])) {
+                    list($dblen, $dbprec) = $this->parseLenPrecision($compareFieldDefs[$name]);
+                    list($vlen, $vprec) = $this->parseLenPrecision($value);
 
-		// do index comparisons
-		$sql .=	"/* INDEXES */\n";
-		$correctedIndexs = array();
+                    if (isset($dbprec)) {
+                        // already have precision - match both separately
+                        if ($vprec < $dbprec) {
+                            $vprec = $dbprec;
+                        }
+                    } else {
+                        // did not have precision - length-precision should be no less than old length
+                        if (isset($vprec)) {
+                            $dblen += $vprec;
+                        }
+                    }
+                    if ($vlen < $dblen) {
+                        $vlen = $dblen;
+                    }
+                    if (isset($vprec)) {
+                        $value['precision'] = $vprec;
+                        $value['len'] = "$vlen,$vprec";
+                    } else {
+                        $value['len'] = $vlen;
+                    }
+                }
 
-        $compareIndices_case_insensitive = array();
+                $altersql = $this->alterColumnSQL($tableName, $value, $ignorerequired);
+                if(is_array($altersql)) {
+                    $altersql = join("\n", $altersql);
+                }
+                $sql .= $altersql .  "\n";
+                if($execute){
+                    $this->alterColumn($tableName, $value, $ignorerequired);
+                }
+                $take_action = true;
+            }
+        }
+        return ($take_action === true) ? $sql : '';
+    }
 
-		// do indices comparisons case-insensitive
-		foreach($compareIndices as $k => $value){
-			$value['name'] = strtolower($value['name']);
-			$compareIndices_case_insensitive[strtolower($k)] = $value;
-		}
-		$compareIndices = $compareIndices_case_insensitive;
-		unset($compareIndices_case_insensitive);
+    /**
+     * Supplies the SQL commands that repair a table Indices
+     *
+     * @param  string $tableName
+     * @param  array  $indices   Index definitions, in vardef format
+     * @param  bool   $execute   optional, true if we want the queries executed instead of returned
+     *
+     * @return string
+     */
+    private function repairTableIndices($tableName, $indices, $execute)
+    {
+        $take_action = false;
+        $compareIndices = $this->get_indices($tableName);
+        $tableDefs = $this->get_columns($tableName);
+        $sql = "/* INDEXES */\n";
+        $correctedIndexes = array();
 
-		foreach ($indices as $value) {
-			if (isset($value['source']) && $value['source'] != 'db')
-				continue;
+        $compareIndices_ci = array();
 
+        // ****************************************
+        // do indices comparisons case-insensitive
+        // ****************************************
 
-			$validDBName = $this->getValidDBName($value['name'], true, 'index', true);
-			if (isset($compareIndices[$validDBName])) {
-				$value['name'] = $validDBName;
-			}
-		    $name = strtolower($value['name']);
+        //First change the DB indices to lower case
+        foreach($compareIndices as $k => $value){
+            $value['name'] = strtolower($value['name']);
+            $value['type'] = strtolower($value['type']);
+            if (isset($value['fields'])) {
+                foreach($value['fields'] as $index=>$fieldName) {
+                    $value['fields'][$index]=strtolower($fieldName);
+                }
+            }
+            $compareIndices_ci[strtolower($k)] = $value;
+        }
+        $compareIndices = $compareIndices_ci;
+        $compareIndices_ci = array();
+        //Then change the $indices to lower case
+        foreach($indices as $k => $value){
+            $value['name'] = strtolower($value['name']);
+            $value['type'] = strtolower($value['type']);
+            if (isset($value['fields'])) {
+                foreach($value['fields'] as $index=>$fieldName) {
+                    $value['fields'][$index]=strtolower($fieldName);
+                }
+            }
+            $compareIndices_ci[strtolower($k)] = $value;
+        }
+        $indices = $compareIndices_ci;
+        unset($compareIndices_ci);
 
-			//Don't attempt to fix the same index twice in one pass;
-			if (isset($correctedIndexs[$name]))
-				continue;
+        foreach ($indices as $value) {
+            if (isset($value['source']) && $value['source'] != 'db') {
+                continue;
+            }
 
-			//don't bother checking primary nothing we can do about them
-			if (isset($value['type']) && $value['type'] == 'primary')
-				continue;
+            $validDBName = $this->getValidDBName($value['name'], true, 'index', true);
+            if (isset($compareIndices[$validDBName])) {
+                $value['name'] = $validDBName;
+            }
+            $name = strtolower($value['name']);
 
-			//database helpers do not know how to handle full text indices
-			if ($value['type']=='fulltext')
-				continue;
+            //Don't attempt to fix the same index twice in one pass;
+            if (isset($correctedIndexes[$name]))
+                continue;
 
-			if ( in_array($value['type'],array('alternate_key','foreign')) )
-				$value['type'] = 'index';
+            //database helpers do not know how to handle full text indices
+            if ($value['type']=='fulltext')
+                continue;
 
-			if ( !isset($compareIndices[$name]) ) {
-				//First check if an index exists that doesn't match our name, if so, try to rename it
-				$found = false;
-				foreach ($compareIndices as $ex_name => $ex_value) {
-					if($this->compareVarDefs($ex_value, $value, true)) {
-						$found = $ex_name;
-						break;
-					}
-				}
-				if ($found) {
-					$sql .=	 "/*MISSNAMED INDEX IN DATABASE - $name - $ex_name */\n";
-					$rename = $this->renameIndexDefs($ex_value, $value, $tablename);
-					if($execute) {
-						$this->query($rename, true, "Cannot rename index");
-					}
-					$sql .= is_array($rename)?join("\n", $rename). "\n":$rename."\n";
+            if ( in_array($value['type'],array('alternate_key','foreign')) )
+                $value['type'] = 'index';
 
-				} else {
-					// ok we need this field lets create it
-					$sql .=	 "/*MISSING INDEX IN DATABASE - $name -{$value['type']}  ROW */\n";
-					$sql .= $this->addIndexes($tablename,array($value), $execute) .  "\n";
-				}
-				$take_action = true;
-				$correctedIndexs[$name] = true;
-			} elseif ( !$this->compareVarDefs($compareIndices[$name],$value) ) {
-				// fields are different lets alter it
-				$sql .=	"/*INDEX MISMATCH WITH DATABASE - $name -  ROW ";
-				foreach ($compareIndices[$name] as $n1 => $t1) {
-					$sql .=	 "<$n1>";
-					if ( $n1 == 'fields' )
-						foreach($t1 as $rKey => $rValue)
-							$sql .= "[$rKey] => '$rValue'  ";
-					else
-						$sql .= " $t1 ";
-				}
-				$sql .=	"*/\n";
-				$sql .=	"/* VARDEF - $name -  ROW";
-				foreach ($value as $n1 => $t1) {
-					$sql .=	"<$n1>";
-					if ( $n1 == 'fields' )
-						foreach ($t1 as $rKey => $rValue)
-							$sql .=	"[$rKey] => '$rValue'  ";
-					else
-						$sql .= " $t1 ";
-				}
-				$sql .=	"*/\n";
-				$sql .= $this->modifyIndexes($tablename,array($value), $execute) .  "\n";
-				$take_action = true;
-				$correctedIndexs[$name] = true;
-			}
-		}
+            // Filter the fields, remove non-indexable ones
+            $value['fields'] = $this->filterIndexFields($tableDefs, $value['fields']);
+            if(empty($value['fields'])) {
+                // if we have no fields, ignore this index
+                continue;
+            }
 
-		return ($take_action === true) ? $sql : '';
-	}
+            if ( !isset($compareIndices[$name]) ) {
+                //First check if an index exists that doesn't match our name, if so, try to rename it
+                $found = false;
+                foreach ($compareIndices as $ex_name => $ex_value) {
+                    if($this->compareVarDefs($ex_value, $value, true)) {
+                        $found = $ex_name;
+                        break;
+                    }
+                }
+                if ($found === false) {
+                    // ok we need this field lets create it
+                    $sql .=	 "/*MISSING INDEX IN DATABASE - $name - {$value['type']}  ROW */\n";
+                    $sql .= $this->addIndexes($tableName,array($value), $execute) .  "\n";
+                    $take_action = true;
+                    $correctedIndexes[$name] = true;
+                }
+            } elseif ( !$this->compareVarDefs($compareIndices[$name],$value) ) {
+                // fields are different lets alter it
+                $sql .=	"/*INDEX MISMATCH WITH DATABASE - $name -  ROW ";
+                foreach ($compareIndices[$name] as $n1 => $t1) {
+                    $sql .=	 "<$n1>";
+                    if ( $n1 == 'fields' )
+                        foreach($t1 as $rKey => $rValue)
+                            $sql .= "[$rKey] => '$rValue'  ";
+                    else
+                        $sql .= " $t1 ";
+                }
+                $sql .=	"*/\n";
+                $sql .=	"/* VARDEF - $name -  ROW";
+                foreach ($value as $n1 => $t1) {
+                    $sql .=	"<$n1>";
+                    if ( $n1 == 'fields' )
+                        foreach ($t1 as $rKey => $rValue)
+                            $sql .=	"[$rKey] => '$rValue'  ";
+                    else
+                        $sql .= " $t1 ";
+                }
+                $sql .=	"*/\n";
+                $sql .= $this->modifyIndexes($tableName,array($value), $execute) .  "\n";
+                $take_action = true;
+                $correctedIndexes[$name] = true;
+            }
+        }
+
+        return ($take_action === true) ? $sql : '';
+    }
 
     /**
      * Compares two vardefs
@@ -1017,33 +1293,22 @@ protected function checkQuery($sql, $object_name = false)
 	public function compareVarDefs($fielddef1, $fielddef2, $ignoreName = false)
 	{
 		foreach ( $fielddef1 as $key => $value ) {
-			if ($key == 'name' && $ignoreName)
+			if ( $key == 'name' && ( strtolower($fielddef1[$key]) == strtolower($fielddef2[$key]) || $ignoreName) )
 				continue;
-            if (isset($fielddef2[$key]))
-            {
-                if (!is_array($fielddef1[$key]) && !is_array($fielddef2[$key]))
-                {
-                    if (strtolower($fielddef1[$key]) == strtolower($fielddef2[$key]))
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    if (array_map('strtolower', $fielddef1[$key]) == array_map('strtolower',$fielddef2[$key]))
-                    {
-                        continue;
-                    }
-                }
-            }
+			if ( isset($fielddef2[$key]) && $fielddef1[$key] == $fielddef2[$key] )
+				continue;
 			//Ignore len if its not set in the vardef
 			if ($key == 'len' && empty($fielddef2[$key]))
 				continue;
             // if the length in db is greather than the vardef, ignore it
-            if ($key == 'len' && ($fielddef1[$key] >= $fielddef2[$key])) {
-                continue;
+            if ($key == 'len') {
+                list($dblen, $dbprec) = $this->parseLenPrecision($fielddef1);
+                list($vlen, $vprec) = $this->parseLenPrecision($fielddef2);
+                if ($dblen >= $vlen && ((is_null($dbprec) && is_null($vprec)) || $dbprec >= $vprec)) {
+                    continue;
+                }
             }
-			return false;
+            return false;
 		}
 
 		return true;
@@ -1161,6 +1426,29 @@ protected function checkQuery($sql, $object_name = false)
 	}
 
 	/**
+	 * Filter indexed fields, remove non-indexable ones
+	 * @param array $tableDefs Table field definitions
+	 * @param array $fields Fields to filter
+	 */
+	public function filterIndexFields($tableDefs, $fields)
+	{
+	    if(!is_array($fields)) {
+	        $fields = array($fields);
+	    }
+	    foreach($fields as $k => $field) {
+            if(empty($tableDefs[$field]) || empty($tableDefs[$field]['type'])) {
+                // if we don't know this field, ignore it - we may add it as a part of bulk SQL update
+                // we're assuming that if somebody adds field they won't lead us astray
+                continue;
+            }
+            if($this->isTextType($tableDefs[$field]['type'])) {
+                unset($fields[$k]);
+            }
+	    }
+	    return $fields;
+	}
+
+	/**
 	 * returns a SQL query that creates the indices as defined in metadata
 	 * @param  array  $indices Assoc array with index definitions from vardefs
 	 * @param  string $table Focus table
@@ -1174,10 +1462,12 @@ protected function checkQuery($sql, $object_name = false)
 		$columns = array();
 
 		foreach ($indices as $index) {
-			if(!empty($index['db']) && $index['db'] != $this->dbType)
+			if(!empty($index['db']) && $index['db'] != $this->dbType) {
 				continue;
-			if (isset($index['source']) && $index['source'] != 'db')
-			continue;
+			}
+			if (isset($index['source']) && $index['source'] != 'db') {
+			    continue;
+			}
 
 			$sql = $this->add_drop_constraint($table, $index);
 
@@ -1346,6 +1636,20 @@ protected function checkQuery($sql, $object_name = false)
 		return $this->query($sql,true,$msg);
 	}
 
+	/**
+	 * Decode string and quote it
+	 * @param unknown_type $string
+	 * @return string
+	 */
+	protected function quotedDecode($string)
+	{
+	    if($this->encode) {
+	        return $this->quoted($this->decodeHTML($string));
+	    } else {
+	        return $this->quoted($string);
+	    }
+	}
+
     /**
      * Generate a set of Insert statements based on the bean given
      *
@@ -1441,14 +1745,14 @@ protected function checkQuery($sql, $object_name = false)
 						}else{
 							if(isset($type) && $type=='int') {
 								if(!empty($custom_fields[$fieldDef['name']]))
-									$cstm_values[$fieldDef['name']] = $GLOBALS['db']->quote(from_html($val));
+									$cstm_values[$fieldDef['name']] = $this->quote($this->decodeHTML($val));
 								else
-									$values[$fieldDef['name']] = $GLOBALS['db']->quote(from_html($val));
+									$values[$fieldDef['name']] = $this->quote($this->decodeHTML($val));
 							} else {
 								if(!empty($custom_fields[$fieldDef['name']]))
-									$cstm_values[$fieldDef['name']] = "'".$GLOBALS['db']->quote(from_html($val))."'";
+									$cstm_values[$fieldDef['name']] = $this->quotedDecode($val);
 								else
-									$values[$fieldDef['name']] = "'".$GLOBALS['db']->quote(from_html($val))."'";
+									$values[$fieldDef['name']] = $this->quotedDecode($val);
 							}
 						}
 						if(!$built_columns){
@@ -1536,6 +1840,45 @@ protected function checkQuery($sql, $object_name = false)
 		return self::$queryCount;
 	}
 
+    /**
+     * This function takes a user input string and returns a string that contains wild card(s)
+     * that can be used in the db query.
+     *
+     * @param string $str String to be searched.
+     * @param string $wildcard (optional) Wildcard character, defaults to '%'.
+     * @param bool $appendWildcard (optional) Appends the wildcard to the end of $str,
+     *   defaults to true.
+     * @return string Returns a string to be searched in db query.
+     */
+    public function sqlLikeString($str, $wildcard = '%', $appendWildcard = true)
+    {
+        // If we have a valid wildcard character in config, use it, or use $wildcard by default.
+        // The config wildcard exists because there may be a case where a Sugar user would want
+        // to use a non-standard character (e.g. '@') as a wildcard character for search.
+        if (!empty($GLOBALS['sugar_config']['search_wildcard_char']) &&
+            is_string($GLOBALS['sugar_config']['search_wildcard_char']) &&
+            strlen($GLOBALS['sugar_config']['search_wildcard_char']) === 1
+        ) {
+            $likeChar = $GLOBALS['sugar_config']['search_wildcard_char'];
+        } else {
+            $likeChar = $wildcard;
+        }
+
+        // Add wildcard at the beginning of the search string.
+        if (!empty($GLOBALS['sugar_config']['search_wildcard_infront']) &&
+            substr(ltrim($str), 0, 1) !== $wildcard) {
+            $str = $likeChar . $str;
+        }
+
+        // Add wildcard at the end of search string (default).
+        if ($appendWildcard && substr(rtrim($str), -1) !== $wildcard) {
+            $str .= $likeChar;
+        }
+
+        // Replace all instances of $likeChar with $wildcard.
+        $str = str_replace($likeChar, $wildcard, $str);
+        return $str;
+    }
 
 	/**
 	 * Resets the queryCount value to 0
@@ -1548,12 +1891,17 @@ protected function checkQuery($sql, $object_name = false)
 
 	/**
 	 * This function increments the global $sql_queries variable
+	 *
+	 * @param string $sql The query that was just run
 	 */
-	public function countQuery()
+	public function countQuery($sql = '')
 	{
 		if (self::$queryLimit != 0 && ++self::$queryCount > self::$queryLimit
 			&&(empty($GLOBALS['current_user']) || !is_admin($GLOBALS['current_user']))) {
             require_once('include/resource/ResourceManager.php');
+            if ($sql) {
+                $GLOBALS['log']->fatal("Last query before failure:\n" . $sql);
+            }
             $resourceManager = ResourceManager::getInstance();
             $resourceManager->notifyObservers('ERR_QUERY_LIMIT');
 		}
@@ -1567,7 +1915,7 @@ protected function checkQuery($sql, $object_name = false)
      */
 	protected function quoteInternal($string)
 	{
-		return from_html($string);
+		return $this->decodeHTML($string);
 	}
 
 	/**
@@ -1605,6 +1953,19 @@ protected function checkQuery($sql, $object_name = false)
         }
 
         return $this->quoted($value);
+	}
+
+	/**
+	 * Get type class for certain type
+	 * @param string $type
+	 * @return string
+	 */
+	public function getTypeClass($type)
+	{
+	    if(isset($this->type_class[$type])) {
+	        return $this->type_class[$type];
+	    }
+	    return 'string';
 	}
 
     /**
@@ -1928,6 +2289,8 @@ protected function checkQuery($sql, $object_name = false)
 		return $this->executePreparedQuery($stmt, $data);
 	}
 
+
+
 /********************** SQL FUNCTIONS ****************************/
     /**
      * Generates sql for create table statement for a bean.
@@ -1950,12 +2313,11 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  SugarBean $bean SugarBean instance
 	 * @return string SQL Create Table statement
 	 */
-	public function insertSQL(SugarBean $bean)
+	public function insertSQL(SugarBean $bean, $usePreparedStatements = false)
 	{
 		// get column names and values
-		$sql = $this->insertParams($bean->getTableName(), $bean->getFieldDefinitions(), get_object_vars($bean),
-		        isset($bean->field_name_map)?$bean->field_name_map:null, false);
-		return $sql;
+		return $this->insertParams($bean->getTableName(), $bean->getFieldDefinitions(), get_object_vars($bean),
+		        isset($bean->field_name_map)?$bean->field_name_map:null, false, $usePreparedStatements);
 	}
 
 	/**
@@ -1965,10 +2327,11 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  array  $where Optional, where conditions in an array
 	 * @return string SQL Create Table statement
 	 */
-	public function updateSQL(SugarBean $bean, array $where = array())
+	public function updateSQL(SugarBean $bean, array $where = array(), $usePreparedStatements = false)
 	{
-		$primaryField = $bean->getPrimaryFieldDefinition();
-		$columns = array();
+        $dataFields = array();
+        $dataValues = array();
+        $primaryField = $bean->getPrimaryFieldDefinition();
         $fields = $bean->getFieldDefinitions();
 		// get column names and values
 		foreach ($fields as $field => $fieldDef) {
@@ -1987,50 +2350,142 @@ protected function checkQuery($sql, $object_name = false)
     		// no need to clear deleted since we only update not deleted records anyway
     		if($fieldDef['name'] == 'deleted' && empty($bean->deleted)) continue;
 
-    		if(isset($bean->$field)) {
-    			$val = from_html($bean->$field);
-    		} else {
-    			continue;
+            if (!isset($bean->$field)) {
+                continue;
     		}
 
-    		if(!empty($fieldDef['type']) && $fieldDef['type'] == 'bool'){
-    			$val = $bean->getFieldValue($field);
-    		}
-
-    		if(strlen($val) == 0) {
-    			if(isset($fieldDef['default']) && strlen($fieldDef['default']) > 0) {
-    				$val = $fieldDef['default'];
-    			} else {
-    				$val = null;
-    			}
-    		}
-
-    		if(!empty($val) && !empty($fieldDef['len']) && strlen($val) > $fieldDef['len']) {
-			    $val = $this->truncate($val, $fieldDef['len']);
-			}
-
-    		if(!is_null($val) || !empty($fieldDef['required'])) {
-    			$columns[] = "{$fieldDef['name']}=".$this->massageValue($val, $fieldDef);
-    		} elseif($this->isNullable($fieldDef)) {
-    			$columns[] = "{$fieldDef['name']}=NULL";
-    		} else {
-    		    $columns[] = "{$fieldDef['name']}=".$this->emptyValue($fieldDef['type']);
-    		}
+            $dataValues[$field] = $bean->$field;
+            $dataFields[$field] = $fieldDef;
 		}
 
-		if ( sizeof($columns) == 0 )
+		if (empty($dataValues)) {
 			return ""; // no columns set
-
-		// build where clause
-		$where = $this->getWhereClause($bean, $this->updateWhereArray($bean, $where));
-		if(isset($fields['deleted'])) {
-		    $where .= " AND deleted=0";
 		}
 
-		return "UPDATE ".$bean->getTableName()."
-					SET ".implode(",", $columns)."
-					$where";
+        // build where clause
+		$where_data = $this->updateWhereArray($bean, $where, $usePreparedStatements);
+        if (isset($fields['deleted'])) {
+            $where_data['deleted'] = "0";
+        }
+        foreach ($where_data as $field => $value) {
+            $dataFields[$field] = $fields[$field];
+        }
+
+        return $this->updateParams($bean->getTableName(), $dataFields, $dataValues, $where_data, null, false, $usePreparedStatements);
 	}
+
+    /**
+     * Update data in table by parameter definition
+     *
+     * @param string $table Table name
+     * @param array $field_defs Definitions in vardef-like format
+     * @param array $data Key/value for update
+     * @param array $where Key/value for where
+     * @param array $field_map Fields map from SugarBean
+     * @param bool $execute Execute or return query?
+     * @param bool $usePreparedStatements
+     *
+     * @return bool|string|array|PreparedStatement query result
+     */
+    public function updateParams($table, $field_defs, $data, array $where = array(), $field_map = null, $execute = true, $usePreparedStatements = false)
+    {
+        $values = array();
+        foreach ($field_defs as $field => $fieldDef) {
+            if (!array_key_exists($field, $data)) {
+                continue;
+            }
+            if (isset($fieldDef['source']) && $fieldDef['source'] != 'db') {
+                continue;
+            }
+            //custom fields handle their save separately
+            if (!empty($field_map) && !empty($field_map[$field]['custom_type'])) {
+                continue;
+            }
+
+            $fieldType = $this->getFieldType($fieldDef);
+            if ($usePreparedStatements) {
+                $val = $this->decodeHTML($data[$field]);
+            } else {
+                // BR-2052: if it's not for prep, massageValue will decode it
+                $val = $data[$field];
+            }
+
+
+            if (strlen($val) == 0) {
+                if (!empty($fieldDef['required']) && isset($fieldDef['default']) && strlen($fieldDef['default']) > 0) {
+                    $val = $fieldDef['default'];
+                } else {
+                    $val = null;
+                }
+            }
+
+            if ($fieldType == 'bool') {
+                $val = (int)$val;
+            }
+
+            // we should care about auto_increment in update query
+            if (!empty($fieldDef['auto_increment'])) {
+                continue;
+            } elseif (!is_null($val) || !empty($fieldDef['required'])) {
+                $values[$field] = $this->massageValue($val, $fieldDef, $usePreparedStatements);
+            } elseif ($this->isNullable($fieldDef)) {
+                $values[$field] = $usePreparedStatements ? null : 'NULL';
+            } else {
+                $values[$field] = $this->emptyValue($fieldType, $usePreparedStatements);
+            }
+        }
+
+        if (empty($values)) {
+            return $execute ? true : ''; // no columns set
+        }
+
+        if ($usePreparedStatements) {
+            $types = array();
+            foreach ($where as $field => $value) {
+                $types[$field] = '?' . $field_defs[$field]['type'];
+            }
+            $whereString = $this->getColumnWhereClause($table, $types, true);
+        } else {
+            $whereString = $this->getColumnWhereClause($table, $where);
+        }
+        if (!empty($whereString)) {
+            $whereString = ' WHERE ' . $whereString;
+        }
+
+        if (!$usePreparedStatements) {
+            $query = "UPDATE " . $table . "\n\t\t\t\t\tSET";
+            $sep = ' ';
+            foreach ($values as $field => $value) {
+                $query .= $sep . $field . '=' . $value;
+                $sep = ', ';
+            }
+            $query .= "\n\t\t\t\t\t" . $whereString;
+
+            if (!$execute) {
+                return $query;
+            }
+            return $this->query($query);
+        } else { //Prepared Statement
+            $data = array_merge(array_values($values), array_values($where));
+            $query = "UPDATE " . $table . "\n\t\t\t\t\tSET";
+            $lobs = array();
+            $sep = ' ';
+            foreach ($values as $field => $value) {
+                $type = $this->getFieldType($field_defs[$field]);
+                $query .= $sep . $field . '=' . $this->convert("?$type", $type);
+                $sep = ', ';
+                if ($this->isTextType($type)) {
+                    $lobs[] = $field;
+                }
+            }
+            $query .= "\n\t\t\t\t\t" . $whereString;
+
+            if (!$execute) {
+                return array($query, $data, $lobs);
+            }
+            return $this->preparedQuery($query, $data, $lobs);
+        }
+    }
 
 	/**
 	 * This method returns a where array so that it has id entry if
@@ -2065,7 +2520,7 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  array  $whereArray Optional, where conditions in an array
 	 * @return string
 	 */
-	protected function getColumnWhereClause($table, array $whereArray = array())
+	protected function getColumnWhereClause($table, array $whereArray = array(), $forPrepared = false)
 	{
 		$where = array();
 		foreach ($whereArray as $name => $val) {
@@ -2074,12 +2529,12 @@ protected function checkQuery($sql, $object_name = false)
 				$op = "IN";
 				$temp = array();
 				foreach ($val as $tval){
-					$temp[] = $this->quoted($tval);
+					$temp[] = $forPrepared?$tval:$this->quoted($tval);
 				}
 				$val = implode(",", $temp);
 				$val = "($val)";
 			} else {
-				$val = $this->quoted($val);
+				$val = $forPrepared?$val:$this->quoted($val);
 			}
 
 			$where[] = " $table.$name $op $val";
@@ -2091,6 +2546,19 @@ protected function checkQuery($sql, $object_name = false)
 		return '';
 	}
 
+    /**
+     * Called in SearchForm and QuickSearch and overriden in OracleManager to 
+     * support case insensitive search.
+     *
+     * @param  string $name column name
+     * @param  string $value search string
+     * @return string
+     */
+    public function getLikeSQL($name, $value)
+    {
+        return $name . ' LIKE ' . $this->quoted($value);
+    }
+
 	/**
 	 * This method returns a complete where clause built from the
 	 * where values specified.
@@ -2099,9 +2567,15 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  array  $whereArray Optional, where conditions in an array
 	 * @return string
 	 */
-	protected function getWhereClause(SugarBean $bean, array $whereArray=array())
+	protected function getWhereClause(SugarBean $bean, array $whereArray=array(), $forPrepared = false)
 	{
-	    return " WHERE " . $this->getColumnWhereClause($bean->getTableName(), $whereArray);
+	    if($forPrepared) {
+	       $where = $this->getColumnWhereClause($bean->getTableName(), $this->prepareTypeData($bean, array_keys($whereArray)), true);
+	    } else {
+	        $where = $this->getColumnWhereClause($bean->getTableName(), $whereArray);
+	    }
+
+	    return " WHERE $where";
 	}
 
 	/**
@@ -2111,7 +2585,7 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  array $fieldDef field definition
 	 * @return mixed
 	 */
-	public function massageValue($val, $fieldDef)
+	public function massageValue($val, $fieldDef, $forPrepared = false)
 	{
 		$type = $this->getFieldType($fieldDef);
 
@@ -2152,9 +2626,9 @@ protected function checkQuery($sql, $object_name = false)
 							if (isset($fieldDef['default'])) {
 								return $fieldDef['default'];
 							}
-							return $this->emptyValue($type);
+							return $this->emptyValue($type, $forPrepared);
 						}
-						return "NULL";
+						return $forPrepared?null:"NULL";
 					}
 					break;
 			}
@@ -2166,18 +2640,22 @@ protected function checkQuery($sql, $object_name = false)
 
 		if ( is_null($val) ) {
 			if(!empty($fieldDef['required'])) {
-				if (isset($fieldDef['default'])){
+				if (isset($fieldDef['default']) && !empty($fieldDef['default'])){
 					return $fieldDef['default'];
 				}
-				return $this->emptyValue($type);
+				return $this->emptyValue($type, $forPrepared);
 			} else {
-				return "NULL";
+				return $forPrepared?null:"NULL";
 			}
 		}
         if($type == "datetimecombo") {
             $type = "datetime";
         }
-		return $this->convert($this->quoted($val), $type);
+        if ($forPrepared) {
+            return $val;
+        } else {
+		    return $this->convert($this->quoted($val), $type);
+        }
 	}
 
 	/**
@@ -2279,30 +2757,58 @@ protected function checkQuery($sql, $object_name = false)
 	}
 
 	/**
-	 * Generates SQL for delete statement identified by id.
-	 *
-	 * @param  SugarBean $bean SugarBean instance
-	 * @param  array  $where where conditions in an array
-	 * @return string SQL Update Statement
+	 * Make array of types for prepared statement from list of columns
+	 * @param SugarBean $bean
+	 * @param array $columns
+	 * @return array
 	 */
-	public function deleteSQL(SugarBean $bean, array $where)
+	protected function prepareTypeData(SugarBean $bean, $columns)
 	{
-		$where = $this->getWhereClause($bean, $this->updateWhereArray($bean, $where));
-		return "UPDATE ".$bean->getTableName()." SET deleted=1 $where";
+	    $types = array();
+	    foreach ($columns as $name) {
+	        $def = $bean->getFieldDefinition($name);
+	        $types[$name] = "?" . $def['type'];
+	    }
+	    return $types;
 	}
+
+    /**
+     * Generates SQL for delete statement identified by id.
+     *
+     * @param SugarBean $bean SugarBean instance
+     * @param array $where where conditions in an array
+     * @return string SQL Update Statement
+     */
+    public function deleteSQL(SugarBean $bean, array $where, $usePreparedStatements = false)
+    {
+        $where_data = $this->updateWhereArray($bean, $where);
+        $tname = $bean->getTableName();
+        $where = $this->getWhereClause($bean, $where_data, $usePreparedStatements);
+        if ($usePreparedStatements) {
+            return array("UPDATE $tname SET deleted=1 $where", array_values($where_data));
+        } else {
+            return "UPDATE $tname SET deleted=1 $where";
+        }
+    }
 
     /**
      * Generates SQL for select statement for any bean identified by id.
      *
-     * @param  SugarBean $bean SugarBean instance
-     * @param  array  $where where conditions in an array
+     * @param SugarBean $bean SugarBean instance
+     * @param array $where where conditions in an array
      * @return string SQL Select Statement
      */
-	public function retrieveSQL(SugarBean $bean, array $where)
-	{
-		$where = $this->getWhereClause($bean, $this->updateWhereArray($bean, $where));
-		return "SELECT * FROM ".$bean->getTableName()." $where AND deleted=0";
-	}
+    public function retrieveSQL(SugarBean $bean, array $where, $usePreparedStatements = false)
+    {
+        $where_data = $this->updateWhereArray($bean, $where);
+        $tname = $bean->getTableName();
+        $where = $this->getWhereClause($bean, $where_data, $usePreparedStatements);
+        if ($usePreparedStatements) {
+            return array("SELECT * FROM $tname $where AND deleted=0", array_values($where_data));
+        } else {
+            return "SELECT * FROM $tname $where AND deleted=0";
+        }
+    }
 
     /**
      * This method implements a generic sql for a collection of beans.
@@ -2454,7 +2960,7 @@ protected function checkQuery($sql, $object_name = false)
      */
     public function getTypeParts($type)
     {
-        if(preg_match("#(?P<type>\w+)\s*(?P<arg>\((?P<len>\w+)\s*(,\s*(?P<scale>\d+))*\))*#", $type, $matches))
+        if(preg_match('#(?P<type>\w+)\s*(?P<arg>\((?P<len>\w+)\s*(,\s*(?P<scale>\d+))*\))*#', $type, $matches))
         {
             $return = array();  // Not returning matches array as such as we don't want to expose the regex make up on the interface
             $return['baseType'] = $matches['type'];
@@ -2471,6 +2977,26 @@ protected function checkQuery($sql, $object_name = false)
         } else {
             return false;
         }
+    }
+
+    /**
+     * Get default value for database from field definition.
+     * @param array $fieldDef
+     * @return string
+     */
+    protected function getDefaultFromDefinition($fieldDef)
+    {
+        $default = '';
+        if (!empty($fieldDef['no_default'])) {
+            // nothing to do
+        } elseif ($this->getFieldType($fieldDef) == 'bool') {
+            if (isset($fieldDef['default'])) {
+                $default = " DEFAULT " . (int)isTruthy($fieldDef['default']);
+            }
+        } elseif (isset($fieldDef['default'])) {
+            $default = " DEFAULT " . $this->massageValue($fieldDef['default'], $fieldDef);
+        }
+        return $default;
     }
 
 	/**
@@ -2491,13 +3017,17 @@ protected function checkQuery($sql, $object_name = false)
         if($parts = $this->getTypeParts($colType))
         {
             $colBaseType = $parts['baseType'];
-            $defLen =  isset($parts['len']) ? $parts['len'] : '255'; // Use the mappings length (precision) as default if it exists
+            $defLen = 255;
+            if ($type == 'char') {
+                $defLen = 254;
+            }
+            $defLen =  isset($parts['len']) ? $parts['len'] : $defLen; // Use the mappings length (precision) as default if it exists
         }
 
         if(!empty($fieldDef['len'])) {
             if (in_array($colBaseType, array( 'nvarchar', 'nchar', 'varchar', 'varchar2', 'char',
-                                          'clob', 'blob', 'text'))) {
-          	    $colType = "$colBaseType(${fieldDef['len']})";
+                                          'clob', 'blob', 'text', 'binary', 'varbinary'))) {
+          	    $colType = "$colBaseType({$fieldDef['len']})";
             } elseif(($colBaseType == 'decimal' || $colBaseType == 'float')){
                   if(!empty($fieldDef['precision']) && is_numeric($fieldDef['precision']))
                       if(strpos($fieldDef['len'],',') === false){
@@ -2514,21 +3044,7 @@ protected function checkQuery($sql, $object_name = false)
             }
         }
 
-        $default = '';
-
-        // Bug #52610 We should have ability don't add DEFAULT part to query for boolean fields
-        if (!empty($fieldDef['no_default']))
-        {
-            // nothing to do
-        }
-        elseif (isset($fieldDef['default']) && strlen($fieldDef['default']) > 0)
-        {
-            $default = " DEFAULT ".$this->quoted($fieldDef['default']);
-        }
-        elseif (!isset($default) && $type == 'bool')
-        {
-            $default = " DEFAULT 0 ";
-        }
+        $default = $this->getDefaultFromDefinition($fieldDef);
 
 		$auto_increment = '';
 		if(!empty($fieldDef['auto_increment']) && $fieldDef['auto_increment'])
@@ -2857,7 +3373,9 @@ protected function checkQuery($sql, $object_name = false)
 			$values['after_value_string'] = $this->massageValue($changes['after'], $fieldDefs['after_value_string']);
 		}
 		$values['date_created'] = $this->massageValue(TimeDate::getInstance()->nowDb(), $fieldDefs['date_created'] );
-		$values['created_by'] = $this->massageValue($current_user->id, $fieldDefs['created_by']);
+		if(!empty($current_user->id)) {
+		    $values['created_by'] = $this->massageValue($current_user->id, $fieldDefs['created_by']);
+		}
 
 		$sql .= "(".implode(",", array_keys($values)).") ";
 		$sql .= "VALUES(".implode(",", $values).")";
@@ -2883,47 +3401,71 @@ protected function checkQuery($sql, $object_name = false)
      * Uses $bean->fetched_row && $bean->fetched_rel_row to compare
      *
      * @param SugarBean $bean Sugarbean instance that was changed
-     * @param array|null $field_filter Array of filter names to be inspected (NULL means all fields)
+     * @param array|null $options Array of optional arguments
+     *                   field_filter => Array of filter names to be inspected (NULL means all fields)
+     *                   for => Who are we getting the changes for, options are audit (default) and activity
      * @return array
      */
-    public function getDataChanges(SugarBean &$bean, array $field_filter = null)
-	{
+    /**
+     * Finds fields whose value has changed.
+     * The before and after values are stored in the bean.
+     * Uses $bean->fetched_row && $bean->fetched_rel_row to compare
+     *
+     * @param SugarBean $bean Sugarbean instance that was changed
+     * @param array|null $options Array of optional arguments
+     *                   field_filter => Array of filter names to be inspected (NULL means all fields)
+     *                   for => Who are we getting the changes for, options are audit (default) and activity
+     *                   excludeType => Types of fields to exclude
+     * @return array
+     */
+    public function getDataChanges(SugarBean &$bean, array $options = null)
+    {
         $changed_values=array();
 
-        $fetched_row = array();
-        if (is_array($bean->fetched_row))
-        {
-            $fetched_row = array_merge($bean->fetched_row, $bean->fetched_rel_row);
+        $fields = $bean->field_defs;
+
+        if (!empty($options['for']) && $options['for'] == 'activity') {
+            $excludeType = array('datetime');
+            if (isset($options['excludeType'])) {
+                $excludeType = $options['excludeType'];
+            }
+            $fields = $bean->getActivityEnabledFieldDefinitions($excludeType);
+        } elseif (!empty($options['for']) && $options['for'] == 'audit') {
+            $fields = $bean->getAuditEnabledFieldDefinitions();
         }
 
-        if ($fetched_row) {
+        $fetched_row = array();
+        if (is_array($bean->fetched_row)) {
+            $fetched_row = array_merge($bean->fetched_row, $bean->fetched_rel_row);
+        }
+        if (!$fetched_row) {
+            return $changed_values;
+        }
 
-            $field_defs = $bean->field_defs;
+        if (isset($options['field_filter']) && is_array($options['field_filter'])) {
+            $fields = array_intersect_key($fields, array_flip($options['field_filter']));
+        }
 
-            if (is_array($field_filter)) {
-                $field_defs = array_intersect_key($field_defs, array_flip($field_filter));
-            }
+        // remove fields which do not present in fetched row
+        $fields = array_intersect_key($fields, $fetched_row);
 
-            // remove fields which do not present in fetched row
-            $field_defs = array_intersect_key($field_defs, $fetched_row);
+        // remove fields which do not exist as bean property
+        $fields = array_intersect_key($fields, (array) $bean);
 
-            // remove fields which do not exist as bean property
-            $field_defs = array_intersect_key($field_defs, (array) $bean);
-
-            foreach ($field_defs as $field => $properties) {
-                $before_value = $fetched_row[$field];
-                $after_value=$bean->$field;
-                if (isset($properties['type'])) {
-                    $field_type=$properties['type'];
-                } else {
-                    if (isset($properties['dbType'])) {
-                        $field_type=$properties['dbType'];
-                    }
-                    else if(isset($properties['data_type'])) {
-                        $field_type=$properties['data_type'];
-                    }
-                    else {
-                        $field_type=$properties['dbtype'];
+        if (is_array($fields) and count($fields) > 0) {
+            foreach ($fields as $field=>$properties) {
+                if (array_key_exists($field, $fetched_row)) {
+                    $before_value = $fetched_row[$field];
+                    $after_value=$bean->$field;
+                    if (isset($properties['type'])) {
+                        $field_type=$properties['type'];
+                    } else {
+                        if (isset($properties['dbType']))
+                            $field_type=$properties['dbType'];
+                        else if(isset($properties['data_type']))
+                            $field_type=$properties['data_type'];
+                        else
+                            $field_type=$properties['dbtype'];
                     }
                 }
 
@@ -2935,7 +3477,10 @@ protected function checkQuery($sql, $object_name = false)
                 //if the type and values match, do nothing.
                 if (!($this->_emptyValue($before_value,$field_type) && $this->_emptyValue($after_value,$field_type))) {
                     $change = false;
-                    if (trim($before_value) !== trim($after_value)) {
+
+                    $check_before = is_object($before_value)?$before_value:trim($before_value);
+                    $check_after = is_object($after_value)?$after_value:trim($after_value);
+                    if ($check_before !== $check_after) {
                         // Bug #42475: Don't directly compare numeric values, instead do the subtract and see if the comparison comes out to be "close enough", it is necessary for floating point numbers.
                         // Manual merge of fix 95727f2eed44852f1b6bce9a9eccbe065fe6249f from DBHelper
                         // This fix also fixes Bug #44624 in a more generic way and therefore eliminates the need for fix 0a55125b281c4bee87eb347709af462715f33d2d in DBHelper
@@ -2964,10 +3509,10 @@ protected function checkQuery($sql, $object_name = false)
                         }
                     }
                 }
-			}
-		}
-		return $changed_values;
-	}
+            }
+        }
+        return $changed_values;
+    }
 
     /**
      * Uses the audit enabled fields array to find fields whose value has changed.
@@ -2980,7 +3525,7 @@ protected function checkQuery($sql, $object_name = false)
     public function getAuditDataChanges(SugarBean $bean)
     {
         $audit_fields = $bean->getAuditEnabledFieldDefinitions();
-        return $this->getDataChanges($bean, array_keys($audit_fields));
+        return $this->getDataChanges($bean, array('field_filter'=>array_keys($audit_fields)));
     }
 
 	/**
@@ -3028,8 +3573,10 @@ protected function checkQuery($sql, $object_name = false)
      */
 	public function renameIndexDefs($old_definition, $new_definition, $table_name)
 	{
-		return array($this->add_drop_constraint($table_name,$old_definition,true),
-				$this->add_drop_constraint($table_name,$new_definition), false);
+        return array(
+            $this->add_drop_constraint($table_name, $old_definition, true),
+            $this->add_drop_constraint($table_name, $new_definition, false),
+        );
 	}
 
 	/**
@@ -3064,7 +3611,7 @@ protected function checkQuery($sql, $object_name = false)
 	 */
 	public function isNumericType($type)
 	{
-	    if(isset($this->type_class[$type]) && ($this->type_class[$type] == 'int' || $this->type_class[$type] == 'float')) {
+	    if(isset($this->type_class[$type]) && ($this->type_class[$type] == 'int' || $this->type_class[$type] == 'float' || $this->type_class[$type] == 'bool')) {
 	        return true;
 	    }
 		return false;
@@ -3081,7 +3628,8 @@ protected function checkQuery($sql, $object_name = false)
 		if (empty($val))
 			return true;
 
-		if($this->emptyValue($type) == $val) {
+		// Use raw empty value
+		if($this->emptyValue($type, true) == $val) {
 			return true;
 		}
 		switch ($type) {
@@ -3154,15 +3702,16 @@ protected function checkQuery($sql, $object_name = false)
 	 * Return representation of an empty value depending on type
 	 * The value is fully quoted, converted, etc.
 	 * @param string $type
+	 * @param bool $forPrepared Is it going to be used for prepared statement?
      * @return mixed Empty value
      */
-	public function emptyValue($type)
+	public function emptyValue($type, $forPrepared = false)
 	{
 		if(isset($this->type_class[$type]) && ($this->type_class[$type] == 'bool' || $this->type_class[$type] == 'int' || $this->type_class[$type] == 'float')) {
 			return 0;
 		}
 
-		return "''";
+		return $forPrepared?"":"''";
 	}
 
 	/**
@@ -3460,9 +4009,13 @@ protected function checkQuery($sql, $object_name = false)
 	        $GLOBALS['log']->deprecated("Using row number in fetchByAssoc is not portable and no longer supported. Please fix your code.");
 	        $encode = func_get_arg(2);
 	    }
-	    $row = $this->fetchRow($result);
+	    if($result instanceof PreparedStatement) {
+	       $row = $result->preparedStatementFetch();
+	    } else {
+	       $row = $this->fetchRow($result);
+	    }
 	    if (!empty($row) && $encode && $this->encode) {
-	    	return array_map('to_html', $row);
+	    	return array_map(array($this, "encodeHTML"), $row);
 	    } else {
 	       return $row;
 	    }
@@ -3549,6 +4102,100 @@ protected function checkQuery($sql, $object_name = false)
 		return preg_match('#[/.\\\\]#', $name)==0;
 	}
 
+    /**
+     * Generates the a recursive SQL query or equivalent stored procedure implementation.
+     * The DBManager's default implementation is based on SQL-99's recursive common table expressions.
+     * Databases supporting recursive CTEs (such as SQL server) only need to set the recursive_query capability to true
+     * @param string    $tablename       table name
+     * @param string    $key             primary key field name
+     * @param string    $parent_key      foreign key field name self referencing the table
+     * @param string    $fields          list of fields that should be returned. The pseudocolumn "level" may be in the list
+     * @param bool      $lineage         find the lineage, if false, find the children
+     * @param string    $startWith       identifies starting element(s) as in a where clause
+     * @param string    $max_level       when not null is the maximum number of levels to traverse in the the tree
+	 * @return string               Recursive SQL query or equivalent representation.
+     */
+    public function getRecursiveSelectSQL($tablename, $key, $parent_key, $fields, $lineage = false, $startWith = null, $level = null, $whereClause = null)
+    {
+
+        if($lineage) {
+            $connectWhere = "e.$key = sg.$parent_key";  // Search up the tree to get lineage
+        } else {
+            $connectWhere = "sg.$key = e.$parent_key";  // Search down the tree to find children
+        }
+
+        if(!empty($startWith)) {
+            $startWith = 'WHERE ' . $startWith;
+        } else {
+            $startWith = '';
+        }
+
+        // cleanup WHERE clause
+        if (empty($whereClause)) {
+			 $whereClause = '';
+		}
+		else {
+			$whereClause = ltrim($whereClause);
+			if (strtoupper(substr($whereClause, 0, 5)) == 'WHERE' ) {   // remove WHERE
+				$whereClause = substr($whereClause, 6);
+            }
+            if (strtoupper(substr($whereClause, 0, 4)) != 'AND ' ) {  // Add AND
+                $whereClause = "AND $whereClause";
+            }
+            $whereClause .= ' ';  // make sure there is a trailing blank
+		}
+
+        // compose level clause of query if Level is in the fieldList passed
+		$tokens = explode(',', $fields);
+		$fieldsTop = "";
+		$fieldsBottom = "";
+		$delimiter = "";
+		foreach ($tokens as $token) {
+			if (trim($token) == '_level') {
+	            $fieldsTop = $fieldsTop . $delimiter . " 1 as _level";
+		        $fieldsBottom = $fieldsBottom . $delimiter . " sg._level + 1 as _level";
+                $delimiter = ",";
+			}
+			else {
+	            $fieldsTop = $fieldsTop . $delimiter . $token;
+		        $fieldsBottom = $fieldsBottom . $delimiter . "e.$token";
+                $delimiter = ",";
+			}
+		}
+
+        $sql = "WITH search_graph AS (
+                   SELECT $fieldsTop
+                   FROM $tablename e
+                   $startWith $whereClause
+                 UNION ALL
+                   SELECT $fieldsBottom
+                   FROM $tablename e, search_graph sg
+                   WHERE $connectWhere $whereClause
+                )
+                SELECT * FROM search_graph";
+
+        return $sql;
+    }
+
+    /**
+     * Get the list of reserved words
+     * @return array
+     */
+    public function getReservedWords()
+    {
+        return self::$reserved_words;
+    }
+
+    /**
+     * Check if the word is reserved word
+     * @param string $word
+     * @return boolean
+     */
+    public function isReservedWord($word)
+    {
+        return !empty(self::$reserved_words[strtoupper($word)]);
+    }
+
 	/**
 	 * Check special requirements for DB installation.
 	 * @abstract
@@ -3576,6 +4223,26 @@ protected function checkQuery($sql, $object_name = false)
 	public function postInstall()
 	{
 	}
+
+	/**
+	 * Create prepared statement from query
+	 * @param string $sql SQL Query
+	 * @param array $lobs names of clob and blob fields from query
+	 * @param string $msg Error message
+	 * @return false|PreparedStatement
+	 */
+	public function prepareStatement($sql, array $lobs = array(), $msg = '')
+	{
+	    if(empty($this->capabilities['prepared_statements']) || empty($this->preparedStatementClass)) {
+	       $this->registerError($msg, "Prepared statements not supported");
+	    }
+	    $ps = new $this->preparedStatementClass($this);
+	    if(!$ps) {
+	        return false;
+	    }
+	    return $ps->prepareStatement($sql, $lobs, $msg);
+	}
+
 
 	/**
 	 * Disable keys on the table
@@ -3935,4 +4602,132 @@ protected function checkQuery($sql, $object_name = false)
      * @return string
      */
 	abstract public function getGuidSQL();
+
+	/**
+	 * List of SQL reserved words
+	 * Column can not be named as one of these
+	 * Sources:
+	 * http://msdn.microsoft.com/en-us/library/aa238507(SQL.80).aspx
+	 * http://dev.mysql.com/doc/refman/5.0/en/reserved-words.html
+	 * @var array
+	 */
+    public static $reserved_words = array('ACCESS' => true, 'ACCESSIBLE' => true, 'ADD' => true,
+        'AFTER' => true, 'ALL' => true, 'ALLOCATE' => true, 'ALLOW' => true, 'ALTER' => true,
+        'ANALYZE' => true, 'AND' => true, 'ANY' => true, 'AS' => true, 'ASC' => true,
+        'ASENSITIVE' => true, 'ASSOCIATE' => true, 'ASUTIME' => true, 'AT' => true, 'AUDIT' => true,
+        'AUTHORIZATION' => true, 'AUX' => true, 'AUXILIARY' => true, 'BACKUP' => true,
+        'BEFORE' => true, 'BEGIN' => true, 'BETWEEN' => true, 'BFILE' => true, 'BIG' => true,
+        'BIGINT' => true, 'BINARY' => true, 'BINARY_INTEGER' => true, 'BIND' => true,
+        'BINLOG' => true, 'BLOB' => true, 'BOTH' => true, 'BREAK' => true, 'BROWSE' => true,
+        'BUFFERPOOL' => true, 'BULK' => true, 'BY' => true, 'CALC' => true, 'CALL' => true,
+        'CAPTURE' => true, 'CASCADE' => true, 'CASCADED' => true, 'CASE' => true, 'CAST' => true,
+        'CCSID' => true, 'CEILING' => true, 'CERT' => true, 'CHANGE' => true, 'CHAR' => true,
+        'CHARACTER' => true, 'CHECK' => true, 'CHECKPOINT' => true, 'CLOB' => true, 'CLONE' => true,
+        'CLOSE' => true, 'CLUSTER' => true, 'CLUSTERED' => true, 'COALESCE' => true,
+        'COLLATE' => true, 'COLLECTION' => true, 'COLLID' => true, 'COLUMN' => true,
+        'COMMENT' => true, 'COMMIT' => true, 'COMPRESS' => true, 'COMPUTE' => true, 'CONCAT' => true,
+        'CONDITION' => true, 'CONNECT' => true, 'CONNECTION' => true, 'CONSTRAINT' => true,
+        'CONTAINS' => true, 'CONTAINSTABLE' => true, 'CONTENT' => true, 'CONTINUE' => true,
+        'CONVERT' => true, 'CREATE' => true, 'CROSS' => true, 'CTYPE' => true, 'CURRENT' => true,
+        'CURRENT_DATE' => true, 'CURRENT_TIME' => true, 'CURRENT_TIMESTAMP' => true,
+        'CURRENT_USER' => true, 'CURRVAL' => true, 'CURSOR' => true, 'DATA' => true,
+        'DATABASE' => true, 'DATABASES' => true, 'DATE' => true, 'DAY' => true, 'DAYS' => true,
+        'DAY_HOUR' => true, 'DAY_MICROSECOND' => true, 'DAY_MINUTE' => true, 'DAY_SECOND' => true,
+        'DBCC' => true, 'DBINFO' => true, 'DEALLOCATE' => true, 'DEC' => true, 'DECIMAL' => true,
+        'DECLARE' => true, 'DEFAULT' => true, 'DELAYED' => true, 'DELETE' => true, 'DENY' => true,
+        'DESC' => true, 'DESCRIBE' => true, 'DESCRIPTOR' => true, 'DETERMINISTIC' => true,
+        'DISABLE' => true, 'DISALLOW' => true, 'DISK' => true, 'DISTINCT' => true,
+        'DISTINCTROW' => true, 'DISTRIBUTED' => true, 'DIV' => true, 'DO' => true,
+        'DOCUMENT' => true, 'DOUBLE' => true, 'DOWN' => true, 'DROP' => true, 'DSSIZE' => true,
+        'DUAL' => true, 'DUMMY' => true, 'DUMP' => true, 'DYNAMIC' => true, 'EACH' => true,
+        'EDITPROC' => true, 'ELSE' => true, 'ELSEIF' => true, 'ENCLOSED' => true, 'ENCODING' => true,
+        'ENCRYPTION' => true, 'END' => true, 'ENDING' => true, 'ERASE' => true, 'ERRLVL' => true,
+        'ESCAPE' => true, 'ESCAPED' => true, 'EVEN' => true, 'EXCEPT' => true, 'EXCEPTION' => true,
+        'EXCLUSIVE' => true, 'EXEC' => true, 'EXECUTE' => true, 'EXISTS' => true, 'EXIT' => true,
+        'EXPLAIN' => true, 'EXTERNAL' => true, 'FALSE' => true, 'FENCED' => true, 'FETCH' => true,
+        'FIELDPROC' => true, 'FILE' => true, 'FILLFACTOR' => true, 'FINAL' => true, 'FIRST' => true,
+        'FLOAT' => true, 'FLOAT4' => true, 'FLOAT8' => true, 'FLOOR' => true, 'FOR' => true,
+        'FORCE' => true, 'FOREIGN' => true, 'FOUND' => true, 'FREE' => true, 'FREETEXT' => true,
+        'FREETEXTTABLE' => true, 'FROM' => true, 'FULL' => true, 'FULLTEXT' => true,
+        'FUNCTION' => true, 'GENERATED' => true, 'GET' => true, 'GLOBAL' => true, 'GO' => true,
+        'GOTO' => true, 'GRANT' => true, 'GROUP' => true, 'GTIDS' => true, 'HALF' => true,
+        'HANDLER' => true, 'HAVING' => true, 'HIGH' => true, 'HIGH_PRIORITY' => true, 'HOLD' => true,
+        'HOLDLOCK' => true, 'HOUR' => true, 'HOURS' => true, 'HOUR_MICROSECOND' => true,
+        'HOUR_MINUTE' => true, 'HOUR_SECOND' => true, 'IDENTIFIED' => true, 'IDENTITY' => true,
+        'IDENTITYCOL' => true, 'IDENTITY_INSERT' => true, 'IF' => true, 'IGNORE' => true,
+        'IMMEDIATE' => true, 'IN' => true, 'INCLUSIVE' => true, 'INCREMENT' => true, 'INDEX' => true,
+        'INFILE' => true, 'INHERIT' => true, 'INITIAL' => true, 'INNER' => true, 'INOUT' => true,
+        'INSENSITIVE' => true, 'INSERT' => true, 'INT' => true, 'INT1' => true, 'INT2' => true,
+        'INT3' => true, 'INT4' => true, 'INT8' => true, 'INTEGER' => true, 'INTERSECT' => true,
+        'INTERVAL' => true, 'INTO' => true, 'IO' => true, 'IS' => true, 'ISOBID' => true,
+        'ITERATE' => true, 'JAR' => true, 'JOIN' => true, 'KEEP' => true, 'KEY' => true,
+        'KEYS' => true, 'KILL' => true, 'LABEL' => true, 'LANGUAGE' => true, 'LAST' => true,
+        'LC' => true, 'LEADING' => true, 'LEAVE' => true, 'LEFT' => true, 'LEVEL' => true,
+        'LIKE' => true, 'LIMIT' => true, 'LINEAR' => true, 'LINENO' => true, 'LINES' => true,
+        'LOAD' => true, 'LOCAL' => true, 'LOCALE' => true, 'LOCALTIME' => true,
+        'LOCALTIMESTAMP' => true, 'LOCATOR' => true, 'LOCATORS' => true, 'LOCK' => true,
+        'LOCKMAX' => true, 'LOCKSIZE' => true, 'LONG' => true, 'LONGBLOB' => true,
+        'LONGTEXT' => true, 'LOOP' => true, 'LOW' => true, 'LOW_PRIORITY' => true,
+        'MAINTAINED' => true, 'MASTER' => true, 'MATCH' => true, 'MATERIALIZED' => true,
+        'MAXEXTENTS' => true, 'MAXVALUE' => true, 'MEDIUMBLOB' => true, 'MEDIUMINT' => true,
+        'MEDIUMTEXT' => true, 'MICROSECOND' => true, 'MICROSECONDS' => true, 'MIDDLEINT' => true,
+        'MINUS' => true, 'MINUTE' => true, 'MINUTES' => true, 'MINUTE_MICROSECOND' => true,
+        'MINUTE_SECOND' => true, 'MLSLABEL' => true, 'MOD' => true, 'MODE' => true,
+        'MODIFIES' => true, 'MODIFY' => true, 'MONTH' => true, 'MONTHS' => true, 'NATIONAL' => true,
+        'NATURAL' => true, 'NCHAR' => true, 'NCLOB' => true, 'NEXT' => true, 'NEXTVAL' => true,
+        'NO' => true, 'NOAUDIT' => true, 'NOCHECK' => true, 'NOCOMPRESS' => true,
+        'NONBLOCKING' => true, 'NONCLUSTERED' => true, 'NONE' => true, 'NOT' => true,
+        'NOWAIT' => true, 'NO_WRITE_TO_BINLOG' => true, 'NULL' => true, 'NULLIF' => true,
+        'NULLS' => true, 'NUMBER' => true, 'NUMERIC' => true, 'NUMPARTS' => true,
+        'NVARCHAR2' => true, 'OBID' => true, 'OF' => true, 'OFF' => true, 'OFFLINE' => true,
+        'OFFSETS' => true, 'OLD' => true, 'ON' => true, 'ONLINE' => true, 'OPEN' => true,
+        'OPENCONNECTOR' => true, 'OPENQUERY' => true, 'OPENROWSET' => true, 'OPENXML' => true,
+        'OPTIMIZATION' => true, 'OPTIMIZE' => true, 'OPTION' => true, 'OPTIONALLY' => true,
+        'OR' => true, 'ORDER' => true, 'ORGANIZATION' => true, 'OUT' => true, 'OUTER' => true,
+        'OUTFILE' => true, 'OVER' => true, 'PACKAGE' => true, 'PADDED' => true, 'PARAMETER' => true,
+        'PART' => true, 'PARTITION' => true, 'PARTITIONED' => true, 'PARTITIONING' => true,
+        'PATH' => true, 'PCTFREE' => true, 'PERCENT' => true, 'PERIOD' => true, 'PIECESIZE' => true,
+        'PLAN' => true, 'PLS_INTEGER' => true, 'PRECISION' => true, 'PREPARE' => true,
+        'PREVVAL' => true, 'PRIMARY' => true, 'PRINT' => true, 'PRIOR' => true, 'PRIORITY' => true,
+        'PRIQTY' => true, 'PRIVILEGES' => true, 'PROC' => true, 'PROCEDURE' => true,
+        'PROGRAM' => true, 'PSID' => true, 'PUBLIC' => true, 'PURGE' => true, 'QUERY' => true,
+        'QUERYNO' => true, 'RAISERROR' => true, 'RANGE' => true, 'RAW' => true, 'READ' => true,
+        'READS' => true, 'READTEXT' => true, 'REAL' => true, 'RECONFIGURE' => true,
+        'REFERENCES' => true, 'REFRESH' => true, 'REGEXP' => true, 'RELEASE' => true,
+        'RENAME' => true, 'REPEAT' => true, 'REPLACE' => true, 'REPLICATION' => true,
+        'REQUIRE' => true, 'RESIGNAL' => true, 'RESOURCE' => true, 'RESTORE' => true,
+        'RESTRICT' => true, 'RESULT' => true, 'RETURN' => true, 'RETURNS' => true, 'REVOKE' => true,
+        'RIGHT' => true, 'RLIKE' => true, 'ROLE' => true, 'ROLLBACK' => true, 'ROUND' => true,
+        'ROW' => true, 'ROWCOUNT' => true, 'ROWGUIDCOL' => true, 'ROWID' => true, 'ROWNUM' => true,
+        'ROWS' => true, 'ROWSET' => true, 'RULE' => true, 'RUN' => true, 'SAVE' => true,
+        'SAVEPOINT' => true, 'SCHEMA' => true, 'SCHEMAS' => true, 'SCRATCHPAD' => true,
+        'SECOND' => true, 'SECONDS' => true, 'SECOND_MICROSECOND' => true, 'SECQTY' => true,
+        'SECURITY' => true, 'SELECT' => true, 'SENSITIVE' => true, 'SEPARATOR' => true,
+        'SEQUENCE' => true, 'SERVER' => true, 'SESSION' => true, 'SESSION_USER' => true,
+        'SET' => true, 'SETUSER' => true, 'SHARE' => true, 'SHOW' => true, 'SHUTDOWN' => true,
+        'SIGNAL' => true, 'SIMPLE' => true, 'SIZE' => true, 'SMALL' => true, 'SMALLINT' => true,
+        'SOME' => true, 'SONAME' => true, 'SOURCE' => true, 'SPATIAL' => true, 'SPECIFIC' => true,
+        'SQL' => true, 'SQLEXCEPTION' => true, 'SQLSTATE' => true, 'SQLWARNING' => true,
+        'SQL_BIG_RESULT' => true, 'SQL_CALC_FOUND_ROWS' => true, 'SQL_SMALL_RESULT' => true,
+        'SSL' => true, 'STANDARD' => true, 'START' => true, 'STARTING' => true, 'STATEMENT' => true,
+        'STATIC' => true, 'STATISTICS' => true, 'STAY' => true, 'STOGROUP' => true, 'STORES' => true,
+        'STRAIGHT' => true, 'STRAIGHT_JOIN' => true, 'STYLE' => true, 'SUCCESSFUL' => true,
+        'SUMMARY' => true, 'SYNONYM' => true, 'SYSDATE' => true, 'SYSTEM_USER' => true,
+        'SYSTIMESTAMP' => true, 'TABLE' => true, 'TABLESPACE' => true, 'TERMINATED' => true,
+        'TEXTSIZE' => true, 'THEN' => true, 'TIME' => true, 'TIMESTAMP' => true, 'TINYBLOB' => true,
+        'TINYINT' => true, 'TINYTEXT' => true, 'TO' => true, 'TOP' => true, 'TRAILING' => true,
+        'TRAN' => true, 'TRANSACTION' => true, 'TRIGGER' => true, 'TRUE' => true, 'TRUNCATE' => true,
+        'TSEQUAL' => true, 'TYPE' => true, 'UID' => true, 'UNDO' => true, 'UNION' => true,
+        'UNIQUE' => true, 'UNLOCK' => true, 'UNSIGNED' => true, 'UNTIL' => true, 'UP' => true,
+        'UPDATE' => true, 'UPDATETEXT' => true, 'UPGRADE' => true, 'UROWID' => true, 'USAGE' => true,
+        'USE' => true, 'USER' => true, 'USING' => true, 'UTC' => true, 'UTC_DATE' => true,
+        'UTC_TIME' => true, 'UTC_TIMESTAMP' => true, 'VALIDATE' => true, 'VALIDPROC' => true,
+        'VALUE' => true, 'VALUES' => true, 'VARBINARY' => true, 'VARCHAR' => true,
+        'VARCHAR2' => true, 'VARCHARACTER' => true, 'VARIABLE' => true, 'VARIANT' => true,
+        'VARYING' => true, 'VCAT' => true, 'VERIFY' => true, 'VIEW' => true, 'VOLATILE' => true,
+        'VOLUMES' => true, 'WAITFOR' => true, 'WHEN' => true, 'WHENEVER' => true, 'WHERE' => true,
+        'WHILE' => true, 'WITH' => true, 'WLM' => true, 'WRITE' => true, 'WRITETEXT' => true,
+        'XMLCAST' => true, 'XMLEXISTS' => true, 'XMLNAMESPACES' => true, 'XMLTYPE' => true,
+        'XOR' => true, 'YEAR' => true, 'YEARS' => true, 'YEAR_MONTH' => true, 'ZEROFILL' => true,
+        'ZEROFILLADD' => true, 'ZONE' => true);
 }

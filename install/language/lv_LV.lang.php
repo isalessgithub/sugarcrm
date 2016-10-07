@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Norādiet Sugar administratora paroli.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Norādiet Sugar administratora lietotājvārdu.',
   'ERR_CHECKSYS' => 'Savietojamības pārbaudes laikā atklātas kļūdas.  Lai SugarCRM instalācija funkcionētu korekti, veic atbilstošus pasākumus, lai atrisinātu zemāk esošās problēmas vai spied pogu Atkārtoti pārbaudīt, vai mēģini instalēt no jauna.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH support not found: SugarCRM needs BCMATH support for arbitrary precision math.',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass Reference ir stāvoklī On (šo vajadzētu uzstādīt stāvoklī Off failā php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Config fails eksistē, bet tajā nevar ierakstīt. Lūdzu veic nepieciešamās darbības, lai šajā failā varētu ierakstīt. Atkarībā no Jūsu operētājsistēmas, nepieciešams izmainīt tiesības, izpildot chmod 766 vai ar labo peles taustiņu noklikšķinot uz faila nosaukuma, lai piekļūtu faila īpašībām un atceltu iespēju - tikai lasīt.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Konfigurācijas fails eksistē, bet tajā nevar ierakstīt. Lūdzu veiciet nepieciešamos soļus, lai failā varētu ierakstīt. Atkarībā no jūsu operētājsistēmas, ir nepieciešams izmainīt atļaujas, palaižot chmod 766 vai nospiediet uz faila nosaukuma, lai piekļūtu īpašībām un atceltu opciju - tikai lasīt.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Konstatēts, ka netiek izmantota FastCGI  funkciju kartēšana PHP valodai. Jums būs jāuzstāda/jākonfigurē Sugar lietojumam atbilstoša versija.  Informācija par atbalstītajām versijām sniegta  laidiena piezīmēs Atbilstību matricā. Papildus informācijai skatīt <a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a>',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Optimālai IIS/FastCGI sapi lietošanai php.ini datnē parametram fastcgi.logging uzstādiet vērtību 0.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Zemāk uzskaitītie faili vai katalogi iztrūkst, vai nav pieejami rakstīšanai un tos nevar izveidot. Atkarībā no izmantotās operētājsistēmas problēmas novēršanai var būt nepieciešama pieejas tiesību maiņa failiem vai vecākdirektorijam (chmod 766), vai arī ar labās pogas klikšķi uz vecākdirektorija jāatceļ $#39;read only$#39; opcija, ka arī tas jāattiecina uz apakšdirektorijiem.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test for .htaccess rewrites failed. This usually means you do not have AllowOverride set up for Sugar directory.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Suagr neatbalsta Jūsu IIS versiju - uzstādiet ar Sugar lietojumu saderīgu versiju. Informācija par atbalstītajām IIS versijām sniegta Laidiena piezīmēs Atbilstību matricā.  Jūsu versija ir',
   'ERR_CHECKSYS_IMAP' => 'Netika atrasts: Ienākošajiem e-pastiem un Kampaņām (E-pasta) nepieciešamas IMAP bibliotēkas. Pretējā gadījumā funkcionalitāte nedarbosies.',
   'ERR_CHECKSYS_MBSTRING' => 'Nav atrastas funkcijas, kas nepieciešamas, lai Sugar  varētu izmantot PHP  Multibyte Strings paplašinājumu (mbstring). <br/><br/>Parasti pēc noklusējuma PHP mbstring modulis nav spējīgots un tā aktivizēšanai jāveic PHP būvējums, izmantojot  --enable-mbstring. Detalizētāka informācija par mbstring atbalstu pieejama PHP rokasgrāmatā.',
@@ -130,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Pamata tips',
   'LBL_CANCEL' => 'Atcelt',
   'LBL_CHECKSYS_1' => 'Lai Jūsu SugarCRM instalācija funkcionētu korekti, visiem sistēmas pārbaudes punktiem ir jābūt zaļā krāsā. Ja kāds punkts ir sarkans, lūdzu veiciet nepieciešamās darbības, lai to salabotu.<BR><BR> Pēc sistēmas pārbaudes palīdzības, dodaties uz <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Arbitrary Precision Math Module',
   'LBL_CHECKSYS_CACHE' => 'Rakstīšanai pieejamie keša apakšdirektoriji',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP izsaukšanas laika atsauce izslēgta',
   'LBL_CHECKSYS_COMPONENT' => 'Komponente',
@@ -143,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Pirms turpināt, Lūdzu salabojiet sekojošos failus vai direktorijas:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Pirms turpināt, lūdzu salabojiet moduļa direktorijas un tajās esošos failus:',
+  'LBL_CHECKSYS_HTACCESS' => 'AllowOverride setup for .htaccess',
   'LBL_CHECKSYS_IISVER' => 'IIS versija',
   'LBL_CHECKSYS_IMAP' => 'IMAP Modulis',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings modulis',
@@ -235,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Pilna teksta meklēšanas iespējas nav instalētas.',
   'LBL_FTS_INSTALLED_ERR2' => 'Jūs joprojām varat instalēt, bet nebūs iespējams lietot pilna teksta meklēšanas funkcionalitāti. Lūdzu skatieties datubāzes servera instalācijas pamācībā, kā to darīt vai kontaktējieties ar savu administratoru.',
   'LBL_FTS_PORT' => 'Ports',
+  'LBL_FTS_REQUIRED' => 'Elastic Search is required.',
   'LBL_FTS_TABLE_TITLE' => 'Ievadīt pilna teksta meklēšanas iestatījumus',
   'LBL_FTS_TYPE' => 'Meklēšanas dzinēja tips',
   'LBL_HELP' => 'Palīdzība',
@@ -336,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Attīrīšanas uzdevumu rinda',
   'LBL_OOTB_IE' => 'Pārbaudīt ienākušos e-pastus',
   'LBL_OOTB_PRUNE' => 'Arhivēt datubāzi 1.mēneša dienā',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Dokumentu aizvākšana no failu sistēmas',
   'LBL_OOTB_REPORTS' => 'Izpildīt atskaišu veidošanas ieplānotos uzdevumus',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Palaist e-pasta notikumu atgādinātāju',
-  'LBL_OOTB_SUGARFEEDS' => 'Iztīrīt SugarFeed tabulas',
   'LBL_OOTB_TRACKER' => 'Arhivēt sekotāja tabulas',
   'LBL_OOTB_WORKFLOW' => 'Izpildīt darbplūsmas uzdevumus',
   'LBL_OPP' => 'Iespēju datu kopa',

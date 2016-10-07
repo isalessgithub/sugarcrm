@@ -2,26 +2,26 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
+  'EXCEPTION_INVALID_QUOTE_ID' => '报价编号不在有效载荷中',
+  'EXCEPTION_NOT_FOUND_QUOTE' => '找不到你要求的报价',
   'LBL_BUNDLE_STAGE' => '分组阶段:',
   'LBL_DEAL_TOT' => '折扣小计',
   'LBL_DEAL_TOT_USDOLLAR' => '折扣小计(美元)',
   'LBL_NEW_SUB' => '折扣小计:',
+  'LBL_QUOTE_BUNDLE_POSITION' => '报价组合位置',
   'LBL_SHIPPING' => '运费:',
   'LBL_SHIPPING_USDOLLAR' => '运费(美元)',
   'LBL_SUBTOTAL' => '小计:',

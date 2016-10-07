@@ -1,28 +1,28 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-	
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Els següents mòduls han estat instal·lats:',
   'DESC_MODULES_QUEUED' => 'Els següents mòduls són llestos per ser instal·lats:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'L´arxiu pujat no és compatible amb aquesta edició (Community Edition, Professional, o Enterprise) de Sugar:',
+  'ERROR_HT_NO_WRITE' => 'No es pot escriure en el fitxer: %s.',
+  'ERROR_MANIFEST_TYPE' => 'L´arxiu de manifest ha d´especificar el tipus de paquet.',
+  'ERROR_PACKAGE_TYPE' => 'L´arxiu de manifest deu especificar un tipus de paquet no reconegut',
+  'ERROR_UW_CONFIG_DB' => 'Error guardant %s config var a la db (clau %s, valor %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'L´arxiu pujat no és compatible amb aquesta versió de Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'La seva versió de PHP no està soportada per Sugar. Necessitarà instalar una versió que sigui compatible amb l&#39;aplicació Sugar. Si us plau,consulti la Matriu de Compatibilitat de les Notes de Llançament per a informació sobre les Versions de PHP soportades. La seva versió és la',
+  'ERR_NOT_ADMIN' => 'Accés no autoritzat a l´administració.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'No té permís per accedir a aquesta pàgina',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'No s´ha pogut determinar el Grup',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'No s´ha pogut determinar el Propietari',
   'ERR_UW_CONFIG' => 'Si us plau, de permisos d´escriptura per al seu arxiu config.php, i recarregui aquesta pàgina.',
@@ -73,6 +73,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Reiniciar',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Realització de l´Actualizació en progrés',
   'LBL_CURRENT_PHP_VERSION' => '(La seva versió actual de PHP és',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globalment Visible',
   'LBL_HOME_PAGE_4_NAME' => 'Monitorització',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Es requereix la versió de PHP 5 o superior.',
   'LBL_LANGPACKS' => 'Paquets d&#39;idioma',
@@ -140,7 +141,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'Configuració de PHP: Límit de Memòria',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server i PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Versió Mínima de MySQL',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE Version',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Ruta de php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Versió Mínima de PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Configuració de PHP: Manera Segura',
@@ -258,4 +258,3 @@ $mod_strings = array (
   'LBL_UW_UNINSTALL' => 'Desinstal·lar',
   'LBL_WORKFLOW' => 'Work Flow',
 );
-

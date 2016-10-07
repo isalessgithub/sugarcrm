@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 function DurationDependency(start_field,end_field,duration_field,format){this.duration=0;this.start_field=start_field;this.end_field=end_field;this.duration_field=duration_field;this.format=format;this.lock_end_listener=false;var format_parts=this.format.split(" ");this.date_format=format_parts[0];this.time_format=format_parts[1];if(format_parts.length==3)
 this.time_format+=""+this.time_format[2];this.date_delimiter=/([-.\\/])/.exec(this.date_format)[0];this.time_delimiter=/([.:])/.exec(this.time_format)[0];this.has_meridiem=/p/i.test(this.format);var delimiter=(this.date_delimiter=="."?"\\"+this.date_delimiter:this.date_delimiter);var date_format_cleaned=this.date_format.replace(/%/g,"").replace(new RegExp(delimiter,'g'),"");this.month_pos=date_format_cleaned.search(/m/);this.day_pos=date_format_cleaned.search(/d/);this.year_pos=date_format_cleaned.search(/Y/);if(YAHOO.util.Selector.query('input#'+end_field)[0].value!="")
 {this.calculate_duration();}
@@ -30,7 +28,7 @@ return v;}
 return d+h+m;}
 DurationDependency.prototype.set_duration_handler=function(){if(this.duration_field==null)
 return;var dur_elm=YAHOO.util.Selector.query('select#'+this.duration_field)[0];if(dur_elm){if(this.duration>=0){this.add_custom_duration(dur_elm);}
-dur_elm.value="";dur_elm.value=this.duration;}}
+dur_elm.value=this.duration;if(!_.isUndefined(window.parent.SUGAR)&&!_.isUndefined(window.parent.SUGAR.App.view)){var model=window.parent.SUGAR.App.controller.layout.getComponent('bwc').bwcModel;model.set($(dur_elm).attr('name'),this.duration.toString());}}}
 DurationDependency.prototype.add_custom_duration=function(dur_elm){for(var i=0;i<dur_elm.length;i++){if(dur_elm.options[i].className=='custom'){var el=dur_elm.options[i];el.parentNode.removeChild(el);}}
 var option_exists=false;var pos_index=0;var pos_found=false;for(var i=0;i<dur_elm.length;i++){var v=dur_elm.options[i].value;if(v==this.duration){var option_exists=true;break;}
 if(!pos_found&&v>this.duration){pos_index=i;pos_found=true;}

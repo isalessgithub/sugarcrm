@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/ListView/ListViewDisplay.php');
 
@@ -108,7 +105,8 @@ class ListViewSmarty extends ListViewDisplay{
             $action_menu = $this->buildActionsLink();
 			$this->ss->assign('actionsLinkTop', $action_menu);
             if(count($action_menu['buttons']) > 0) {
-                $this->ss->assign('actionDisabledLink', preg_replace("/id\s*\=(\"\w+\"|w+)/i", "", $action_menu['buttons'][0]));
+                $firstButton = reset($action_menu['buttons']);
+                $this->ss->assign('actionDisabledLink', preg_replace("/id\\s*\\=(\"\\w+\"|w+)/i", "", $firstButton));
             }
             $menu_location = 'bottom';
             $this->ss->assign('actionsLinkBottom', $this->buildActionsLink('actions_link' ,$menu_location));
@@ -180,7 +178,7 @@ class ListViewSmarty extends ListViewDisplay{
 	function display($end = true) {
 
 		if(!$this->should_process) return $GLOBALS['app_strings']['LBL_SEARCH_POPULATE_ONLY'];
-        global $app_strings, $sugar_version, $sugar_flavor, $server_unique_key, $currentModule, $app_list_strings;
+        global $app_strings, $sugar_version, $sugar_flavor, $server_unique_key, $currentModule, $app_list_strings, $sugar_config;
         $this->ss->assign('moduleListSingular', $app_list_strings["moduleListSingular"]);
         $this->ss->assign('moduleList', $app_list_strings['moduleList']);
         $this->ss->assign('data', $this->data['data']);
@@ -197,7 +195,8 @@ class ListViewSmarty extends ListViewDisplay{
                             'of' => $app_strings['LBL_LIST_OF']);
         $this->ss->assign('navStrings', $navStrings);
 
-        $displayEmptyDataMessages = TRUE;
+        // Default is true
+        $displayEmptyDataMessages = !isset($sugar_config['display_empty_data_messages']) || !empty($sugar_config['display_empty_data_messages']);
         //TODO: Cleanup, better logic for which modules are exempt from the new messaging. 
         $modulesExemptFromEmptyDataMessages = array('WorkFlow','ContractTypes', 'OAuthKeys', 'TimePeriods');
         if( (isset($GLOBALS['moduleTabMap'][$currentModule]) && $GLOBALS['moduleTabMap'][$currentModule] == 'Administration')
@@ -206,6 +205,14 @@ class ListViewSmarty extends ListViewDisplay{
             $displayEmptyDataMessages = FALSE;
         }
         $this->ss->assign('displayEmptyDataMesssages', $displayEmptyDataMessages);
+
+        $displaySubMessage = true;
+        $modulesExemptFromSubMessage = array('Reports');
+        if(in_array($currentModule, $modulesExemptFromSubMessage) )
+        {
+            $displaySubMessage = false;
+        }
+        $this->ss->assign('displaySubMessage', $displaySubMessage);
 
 		$str = parent::display();
 		$strend = $this->displayEnd();

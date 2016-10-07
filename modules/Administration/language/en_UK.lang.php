@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACLActions' => 'ACLAction',
@@ -53,6 +50,7 @@ $mod_strings = array (
   'DynamicFields' => 'DynamicField',
   'ENABLED_OFFLINE_CLIENTS' => 'Offline Clients are enabled.',
   'ENABLE_CAPTCHA' => 'Enable reCAPTCHA Validations',
+  'ENABLE_HONEYPOT' => 'Enable Honeypot Validations',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'The uploaded file is not compatible with this flavor (Community Edition, Professional, or Enterprise) of Sugar:',
   'ERROR_LICENSE_EXPIRED' => 'Error: Your licence expired',
   'ERROR_LICENSE_EXPIRED2' => 'day(s) ago.   Please go to the <a href=&#39;index.php?action=LicenseSettings&module=Administration&#39;>&#39;"Licence Management"</a>  in the Admin screen to enter your new licence key.  If you do not enter a new licence key within 30 days of your licence key expiration, you will no longer be able to log into this application.',
@@ -61,6 +59,7 @@ $mod_strings = array (
   'ERROR_VALIDATION_EXPIRED' => 'Error: Your validation key expired',
   'ERROR_VALIDATION_EXPIRED2' => 'day(s) ago.   Please go to the <a href=&#39;index.php?action=LicenseSettings&module=Administration&#39;>&#39;"Licence Management"</a> in the Admin screen to enter your new validation key.  If you do not enter a new validation key within 30 days of your validation key expiration, you will no longer be able to log into this application.',
   'ERROR_VERSION_INCOMPATIBLE' => 'The uploaded file is not compatible with this version of Sugar:',
+  'ERROR_VERSION_MISSING' => 'Manifest file must specify an acceptable version of Sugar',
   'ERR_CANNOT_CREATE_RESTORE_FILE' => 'Error: Could not create restore file',
   'ERR_CREDENTIALS_MISSING' => 'Your sugarcrm.com credentials are missing.',
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the account.',
@@ -179,9 +178,10 @@ $mod_strings = array (
   'LBL_BACKUP_RUN_BACKUP' => 'Run Backup',
   'LBL_BACKUP_TITLE' => 'Online Backups',
   'LBL_BASIC_SEARCH' => 'Basic Search',
+  'LBL_BEGIN_QUICK_REPAIR_AND_REBUILD' => 'Beginning Quick Repair and Rebuild...',
   'LBL_BROWSE' => 'Browse',
-  'LBL_BUG_DESC' => 'Maintain a list of releases for your product. Active releases are displayed in the Releases drop-down menus in bug records created within the Bugs module.',
-  'LBL_BUG_TITLE' => 'Bugs',
+  'LBL_BUG_DESC' => 'Maintain a list of releases for your product. Active releases are displayed in the Releases drop-down menus in bug records created within the Bug Tracker module.',
+  'LBL_BUG_TITLE' => 'Bug Tracker',
   'LBL_CAMPAIGN_CONFIG_DESC' => 'Configure email settings for campaigns',
   'LBL_CAMPAIGN_CONFIG_TITLE' => 'Campaign Email Setttings',
   'LBL_CANCEL_BUTTON_TITLE' => 'Cancel',
@@ -233,9 +233,6 @@ $mod_strings = array (
   'LBL_CONFIGURE_TABS_AND_SUBPANELS' => 'Display Module Tabs and Subpanels',
   'LBL_CONFIGURE_TABS_AND_SUBPANELS_DESC' => 'Choose which module tabs and subpanels are displayed system-wide',
   'LBL_CONFIGURE_UPDATER' => 'Configure Sugar Updates',
-  'LBL_CONFIG_AJAX' => 'Configure AJAX User Interface',
-  'LBL_CONFIG_AJAX_DESC' => 'Performance and page-rendering times are improved in AJAX UI-enabled modules because full page refreshes are not required in those modules. If you are experiencing display issues with modules that are not compatible with AJAX, the AJAX UI for those modules can be disabled.',
-  'LBL_CONFIG_AJAX_HELP' => 'Drag and drop the names of the modules below to enable or disable the use of the AJAX UI in those modules.',
   'LBL_CONFIG_CHECK' => 'Config Check',
   'LBL_CONFIG_FTS' => 'Configure Full Text Search Engine',
   'LBL_CONFIG_LANGS_DESC' => 'Drag and Drop the names of the languages below to enable and disable them.',
@@ -265,9 +262,7 @@ $mod_strings = array (
   'LBL_CONVERT_DISC_CLIENT_UNIQUE_SYSTEM_ID_ERROR' => 'Unable to obtain unique system id from server:',
   'LBL_CONVERT_DISC_CLIENT_UPDATE_LOCAL_INFO' => 'Updating Local Information<br>',
   'LBL_CONVERT_DISC_CLIENT_USER_NAME_EMPTY_ERROR' => 'User Name cannot be empty.',
-  'LBL_COULD_NOT_CONNECT' => 'Error: Could not connect to the Sugar Server.<br />
-  <br />Please check your Proxy Settings value in the <a href="index.php?module=Configurator&action=EditView">System Settings</a> admin panel.<br />
-  <br />Last attempted connection @',
+  'LBL_COULD_NOT_CONNECT' => 'Error: Could not connect to the Sugar Server. Please check your Proxy Settings value in the <a href="index.php?module=Configurator&action=EditView">System Settings</a> admin panel. Last attempted connection @',
   'LBL_CREATE_RESOTRE_FILE' => 'restoreExpand.sql file was successfully created.  Please use this file to revert column changes.',
   'LBL_CURRENCY' => 'Set up currencies and conversion rates',
   'LBL_CURRENT_LANGUAGE_CHANGE' => 'Your current language is changed to',
@@ -372,7 +367,6 @@ $mod_strings = array (
   'LBL_ENABLED' => 'Enabled',
   'LBL_ENABLED_LANGS' => 'Enabled Languages',
   'LBL_ENABLE_MAILMERGE' => 'Enable Mail Merge?',
-  'LBL_ERROR_PROD_BAR_NUM_MODULES' => 'Error: There can be at most 10 modules on the Sugar Shortcut Bar at a time.',
   'LBL_ERROR_VERSION_INFO' => 'Error fetching version information, please try again later.',
   'LBL_EXCEEDING_OC_LICENSES' => 'Error: The number of enabled Offline Clients currently exceeds the number specified in your licence.  Please go to <a href=&#39;index.php?module=Administration&action=ListViewOfflineClient&#39;>&#39;"Manage Offline Clients"</a> in the Admin screen to disable Offline Clients or update your Licence.',
   'LBL_EXECUTE' => 'Execute',
@@ -394,6 +388,7 @@ $mod_strings = array (
   'LBL_FTS_CONN_FAILURE_SHORT' => 'Unable to schedule an index operation.',
   'LBL_FTS_CONN_SUCCESS' => 'The connection was successfully made. You will need to perform a system index for full-text searching to work for the enabled modules and module fields.',
   'LBL_FTS_CONN_SUCCESS_SHORT' => 'A system index operation has been scheduled to run within the next several minutes.',
+  'LBL_FTS_CONN_UNKNOWN_FAILURE' => 'An unknown error occured connecting to the specified full text seach server',
   'LBL_FTS_DISABLED' => 'Full Text Search has been disabled because the system is not able to connect to the search engine.',
   'LBL_FTS_HOST' => 'Host',
   'LBL_FTS_HOST_HELP' => 'Enter the name of the host where the full text search engine resides.',
@@ -425,8 +420,9 @@ $mod_strings = array (
   'LBL_HIDDEN_TABS' => 'Hidden Tabs',
   'LBL_HIDE_ADVANCED_OPTIONS' => 'Hide Advanced Options',
   'LBL_HIDE_TABS' => 'Hide Tabs',
-  'LBL_HISTORY_CONTACTS_EMAILS' => 'History Subpanel',
-  'LBL_HISTORY_CONTACTS_EMAILS_DESC' => 'Enable/Disable contacts&#39; emails in history',
+  'LBL_HISTORY_CONTACTS_EMAILS' => 'Related Contacts Emails',
+  'LBL_HISTORY_CONTACTS_EMAILS_DESC' => 'Enable/Disable emails from related (or linked) contacts to show in Email Subpanel.',
+  'LBL_HONEYPOT_HELP_TEXT' => 'Honeypots are a non intrusive method of human form submission confirmation that is more effective than traditional CAPTCHA',
   'LBL_HOURS' => 'Hours',
   'LBL_HT_DONE' => '--- DONE ---',
   'LBL_HT_NO_WRITE' => 'Cannot write to the file:',
@@ -536,11 +532,15 @@ $mod_strings = array (
   'LBL_MANAGE_MAILBOX' => 'Inbound Email',
   'LBL_MANAGE_OFFLINE_CLIENT' => 'View Offline Clients',
   'LBL_MANAGE_OPPORTUNITIES' => 'Opportunities',
+  'LBL_MANAGE_OPPORTUNITIES_DESC' => 'Configure Opportunities Module',
+  'LBL_MANAGE_OPPORTUNITIES_TITLE' => 'Opportunities',
   'LBL_MANAGE_PASSWORD' => 'Manage password requirements and expiration',
   'LBL_MANAGE_PASSWORD_TITLE' => 'Password Management',
   'LBL_MANAGE_RELEASES' => 'Releases',
   'LBL_MANAGE_ROLES' => 'Manage role membership and properties',
   'LBL_MANAGE_ROLES_TITLE' => 'Role Management',
+  'LBL_MANAGE_STYLEGUIDE' => 'Styleguide (Lab)',
+  'LBL_MANAGE_STYLEGUIDE_TITLE' => 'Documentation and samples',
   'LBL_MANAGE_TEAMS' => 'Manage team membership and properties',
   'LBL_MANAGE_TEAMS_TITLE' => 'Team Management',
   'LBL_MANAGE_TIMEPERIODS' => 'Manage time periods',
@@ -548,9 +548,7 @@ $mod_strings = array (
   'LBL_MANAGE_USERS' => 'Manage user accounts and passwords',
   'LBL_MANAGE_USERS_TITLE' => 'User Management',
   'LBL_MANAGE_WORKFLOW' => 'Workflow Management',
-  'LBL_MANUAL_VALIDATION' => '
-  <br />If you experience persistent problems with automatic validation, please check your Proxy configuration in the <a href="index.php?module=Configurator&action=EditView">System Settings</a> admin panel.<br />
-  <br />If your system environment prohibits your system from communicating to the license validation server through the internet, you should proceed with the <a href="#" onclick="toggleDisplay(&#39;mainbody&#39;);toggleDisplay(&#39;manualbody&#39;);">Manual Validation</a> steps.',
+  'LBL_MANUAL_VALIDATION' => 'If you experience persistent problems with automatic validation, please check your Proxy configuration in the <a href="index.php?module=Configurator&action=EditView">System Settings</a> admin panel.<br />   <br />    If your system environment prohibits your system from communicating to the license validation server through the internet, you should proceed with the <a href="#" onclick="toggleDisplay(&#39;mainbody&#39;);toggleDisplay(&#39;manualbody&#39;);">Manual Validation</a> steps.',
   'LBL_MANUAL_VALIDATION1' => 'Step 1: Generate a licence key information file by clicking the following button.',
   'LBL_MANUAL_VALIDATION2' => 'Then save the file (sugarkey.lic) on your local file system.',
   'LBL_MANUAL_VALIDATION3' => 'Step 2: Transfer the sugarkey.lic file to a system where you can access the internet with a web browser.   <br<br>Go to <a href="http://updates.sugarcrm.com/license">http://updates.sugarcrm.com/license</a>  and submit the sugarkey.lic file.  <br><br>The licence validation web site will perform the validation immediately and return you the validation key file (sugarvalidationkey.lic) if the validation is successful.  Your browser should prompt you to save the file.',
@@ -588,6 +586,7 @@ $mod_strings = array (
   'LBL_MI_IN_USER' => 'Installing User Page Section',
   'LBL_MI_IN_VAR' => 'Installing Variable Definitions',
   'LBL_MI_REBUILDING' => 'Rebuilding',
+  'LBL_MI_REBUILDING_CLIENT_METADATA' => 'metadata for clients...',
   'LBL_MI_REPAIR_INDICES' => 'Repairing indexes',
   'LBL_MI_SECTION' => 'Section...',
   'LBL_MI_UN_ACTIONVIEWMAP' => 'Unninstalling Action View Map',
@@ -638,17 +637,16 @@ $mod_strings = array (
   'LBL_OAUTH_TITLE' => 'OAuth Keys',
   'LBL_OC_SEARCH_FORM_TITLE' => 'Offline Client Search',
   'LBL_OFFLINE_CLIENT' => 'View Offline Clients that are connected to this Sugar system',
+  'LBL_OFFLINE_ENABLED' => 'Offline enabled',
+  'LBL_OFFLINE_SETTINGS' => 'Offline Settings',
   'LBL_OOTB_BOUNCE' => 'Run Nightly Process Bounced Campaign Emails',
   'LBL_OOTB_CAMPAIGN' => 'Run Nightly Mass Email Campaigns',
-  'LBL_OOTB_DCE_CLNUP' => 'Close loop on completed DCE actions',
-  'LBL_OOTB_DCE_REPORT' => 'Create Action to gather daily reports',
-  'LBL_OOTB_DCE_SALES_REPORT' => 'Create weekly Sales Report Email',
   'LBL_OOTB_IE' => 'Check Inbound Email Accounts',
   'LBL_OOTB_PRUNE' => 'Prune Database on 1st of Month',
   'LBL_OOTB_REPORTS' => 'Run Report Generation Scheduled Tasks',
-  'LBL_OOTB_SUGARFEEDS' => 'Prune SugarFeed Tables',
   'LBL_OOTB_TRACKER' => 'Prune User History Table on 1st of Month',
   'LBL_OOTB_WORKFLOW' => 'Process Workflow Tasks',
+  'LBL_OPPORTUNITIES_DESC' => 'Configure admin setting for the Opportunities module. The Opportunities Settings include viewing Opportunities by just the Opportunity, or by Opportunities plus the Revenue Line Items attached to it.',
   'LBL_OVERWRITE_FILES' => 'Overwrite Files',
   'LBL_PASSWORD' => 'Password',
   'LBL_PASSWORD_AND_MAXIMUM_LENGTH' => 'and Maximum Length',
@@ -702,6 +700,14 @@ $mod_strings = array (
   'LBL_PERFORM_UPDATE' => 'Perform Update',
   'LBL_PLUGINS' => 'Get plug-ins and other Sugar extensions.',
   'LBL_PLUGINS_TITLE' => 'Sugar Forge',
+  'LBL_PMSE_ADMIN_DESC_CASESLIST' => 'Processes List can be accessed here.',
+  'LBL_PMSE_ADMIN_DESC_ENGINELOGS' => 'Process Author logs can be accessed here.',
+  'LBL_PMSE_ADMIN_DESC_MODULE' => 'Process Author conforms a standard compliant BPM suite that can improve your SugarCRM work.',
+  'LBL_PMSE_ADMIN_DESC_SETTINGS' => 'Process Author settings can be accessed here.',
+  'LBL_PMSE_ADMIN_TITLE_CASESLIST' => 'Processes List',
+  'LBL_PMSE_ADMIN_TITLE_ENGINELOGS' => 'Log Viewer',
+  'LBL_PMSE_ADMIN_TITLE_MODULE' => 'Process Author',
+  'LBL_PMSE_ADMIN_TITLE_SETTINGS' => 'Settings',
   'LBL_PRICE_LIST_DESC' => 'Manage the product catalog, along with the related information on manufacturers and shipping providers.',
   'LBL_PRICE_LIST_TITLE' => 'Product and Quotes',
   'LBL_PRIVATE_KEY' => 'Private Key',
@@ -797,6 +803,8 @@ $mod_strings = array (
   'LBL_REBUILD_SCHEDULERS_DESC_SHORT' => 'Rebuilds out-of-the-box Scheduler Jobs',
   'LBL_REBUILD_SCHEDULERS_DESC_SUCCESS' => 'Scheduler Job rebuild complete.',
   'LBL_REBUILD_SCHEDULERS_TITLE' => 'Rebuild Schedulers',
+  'LBL_REBUILD_SIDECAR_FILES_DESC_SHORT' => 'Copies original Sidecar Full JS Source files and replaces existing compressed JS files',
+  'LBL_REBUILD_SIDECAR_FILES_TITLE' => 'Rebuild Sidecar Files',
   'LBL_REBUILD_SPRITES_DESC_SHORT' => 'Rebuilds the sprite images and configuration files',
   'LBL_REBUILD_SPRITES_TITLE' => 'Rebuild Sprites',
   'LBL_REBUILD_WEBCONFIG' => 'Rebuild web.config File',
@@ -809,7 +817,6 @@ $mod_strings = array (
   'LBL_REGEX_HELP_TEXT' => '<b>Regular Expressions </b> provide a concise and flexible means for identifying strings of the password, such as particular characters or patterns of characters. You can create custom password rules by providing a regex that will be used in a NOT MATCH condition; the password must not contain a match to any expressions in the regex.',
   'LBL_REGEX_HELP_TITLE' => 'Regex Description',
   'LBL_RELEASE' => 'Manage releases and versions',
-  'LBL_REMOVED_FILES' => 'Removed files',
   'LBL_RENAME_TABS' => 'Rename Tabs',
   'LBL_REPAIR' => 'Repair',
   'LBL_REPAIRXSSEXECUTE_FAILED' => 'Failure: Bean or ID not defined',
@@ -880,8 +887,6 @@ $mod_strings = array (
   'LBL_REPAIR_TEAMS_SKIP_USER' => '<BR> Skipping user=',
   'LBL_REPAIR_THEME_IMAGES' => 'Optimise Themes',
   'LBL_REPAIR_THEME_IMAGES_DESC' => 'Optimise themes by removing cloned images.',
-  'LBL_REPAIR_UPLOAD_FOLDER' => 'Remove missed files from upload directory',
-  'LBL_REPAIR_UPLOAD_FOLDER_DESC' => 'Please note that removal can take a lot of time',
   'LBL_REPAIR_XSS' => 'Remove XSS',
   'LBL_RESERVE_OC_SPOT' => 'Reserve an Offline Client Position',
   'LBL_RESTORE_BUTTON_LABEL' => 'Restore',
@@ -893,6 +898,8 @@ $mod_strings = array (
   'LBL_SAML_HELP_TXT' => 'When SAML authentication is enabled, passwords can only be handled through SAML. None of the Sugar Password Management feature settings will apply.',
   'LBL_SAML_LOGIN_URL' => 'Login URL',
   'LBL_SAML_LOGIN_URL_DESC' => 'Enter Login URL',
+  'LBL_SAML_LOGOUT_URL' => 'SLO URL',
+  'LBL_SAML_LOGOUT_URL_DESC' => 'Enter Single Log-Out URL (optional)',
   'LBL_SAML_TITLE' => 'SAML Authentication',
   'LBL_SAVE_FAILED' => 'Save failed.<br/> Please check your file permissions',
   'LBL_SAVE_SCHED_BUTTON' => 'Schedule System Index',
@@ -921,8 +928,6 @@ $mod_strings = array (
   'LBL_STUDIO_DESC' => 'Customise module fields, layouts and relationships',
   'LBL_STUDIO_TITLE' => 'Developer Tools',
   'LBL_SUGARCRM_HELP' => 'SugarCRM Help',
-  'LBL_SUGARFEED_SETTINGS' => 'Sugar Feed',
-  'LBL_SUGARFEED_SETTINGS_DESC' => 'Enable User Feed and select modules to post updates',
   'LBL_SUGARPDF_SETTINGS' => 'PDF',
   'LBL_SUGARPDF_SETTINGS_DESC' => 'Manage settings for generated PDF files',
   'LBL_SUGARPORTAL' => 'Sugar Portal',
@@ -951,7 +956,6 @@ $mod_strings = array (
   'LBL_TIMEZONE' => 'Time Zone',
   'LBL_TO' => 'to',
   'LBL_TOOLS_DESC' => 'Create and edit modules and module layouts, manage standard and custom fields and configure tabs.',
-  'LBL_TOTAL_FILES' => 'Total files',
   'LBL_TRACKER_SETTINGS' => 'Tracker',
   'LBL_TRACKER_SETTINGS_DESC' => 'Enable/Disable tracking',
   'LBL_UPDATE_CHECK_AUTO' => 'Automatically',
@@ -1069,13 +1073,15 @@ $mod_strings = array (
   'LBL_VALIDATION_SUCCESS_DATE' => 'Last successful validation :',
   'LBL_VISIBLE_PANELS' => 'Displayed Subpanels',
   'LBL_VISIBLE_TABS' => 'Displayed Tabs',
+  'LBL_WEB_LOGIC_HOOKS' => 'Web Logic Hooks',
+  'LBL_WEB_LOGIC_HOOKS_DESC' => 'Manage Sugar Web Logic Hooks',
   'LBL_WEEKS' => 'Weeks',
   'LBL_WIRELESS_LEGACY_ONLY' => '(Sugar Mobile Only)',
   'LBL_WIRELESS_MODULES_ENABLE' => 'Mobile',
   'LBL_WIRELESS_MODULES_ENABLE_DESC' => 'Select modules to appear in the browser-based mobile view of Sugar and in the Sugar Mobile application',
   'LBL_WIRELESS_MODULES_ENABLE_DESC2' => 'Drag and Drop the modules below to make them available or hidden in the browser-based mobile view, the Sugar Mobile application, and the SugarCRM Mobile application.',
   'LBL_WIRELESS_SUPPORTED_MODULES' => '* The following modules are available for SugarCRM Mobile: Accounts, Contacts, Leads, Opportunities, Meetings, Calls, Tasks, Notes, Reports, Cases, Quotes, Employees, and custom modules. All modules apply for Sugar Mobile.',
-  'LBL_WIRELESS_SUPPORTED_MODULES2' => '* The Bug Tracker, Campaigns, Contracts, Knowledge Base, Products, Projects, and Targets modules are not available for SugarCRM Mobile.',
+  'LBL_WIRELESS_SUPPORTED_MODULES2' => '* The Bug Tracker, Campaigns, Contracts, Knowledge Base and Targets modules are not available for SugarCRM Mobile.',
   'LBL_WIRELESS_URL_HELP' => 'Click to configure Sugar Mobile Plus applications',
   'LBL_WORKBENCH' => 'Workbench',
   'LBL_WORKBENCH_DESC' => 'Customise the application and create new modules.',

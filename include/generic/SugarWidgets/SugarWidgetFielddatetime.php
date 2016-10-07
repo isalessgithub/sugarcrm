@@ -1,21 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 class SugarWidgetFieldDateTime extends SugarWidgetReportField
 {
 	var $reporter;
@@ -43,7 +37,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 
 		if(empty($report_def_str['assigned_user_id'])) return null;
 
-		$this->assigned_user = new User();
+		$this->assigned_user = BeanFactory::getBean('Users');
 		$this->assigned_user->retrieve($report_def_str['assigned_user_id']);
 		return $this->assigned_user;
 	}
@@ -53,21 +47,11 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 		global $timedate;
         $begin = $layout_def['input_name0'];
         $hasTime = $this->hasTime($begin);
-        $date = $timedate->fromString($begin);
-
-        if (!$hasTime) {
-            return $this->queryDay(
-                $layout_def,
-                $date
-            );
+        if(!$hasTime)
+        {
+            return $this->queryDay($layout_def, $timedate->fromString($begin));
         }
-
-        return $this->queryDateOp(
-            $this->_get_column_select($layout_def),
-            $date,
-            '=',
-            "datetime"
-        );
+        return $this->queryDateOp($this->_get_column_select($layout_def), $begin, '=', "datetime");
 	}
 
     /**
@@ -110,26 +94,105 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 
 	function queryFilterBefore($layout_def)
 	{
+        $column = $this->_get_column_select($layout_def);
+
         $begin = $this->expandDate($layout_def['input_name0']);
-        return $this->queryDateOp($this->_get_column_select($layout_def), $begin, '<', "datetime");
+
+        return $this->queryDateOp($column, $begin, '<', "datetime");
 	}
 
 	function queryFilterAfter($layout_def)
 	{
+        $column = $this->_get_column_select($layout_def);
+
         $begin = $this->expandDate($layout_def['input_name0'], true);
-        return $this->queryDateOp($this->_get_column_select($layout_def), $begin, '>', "datetime");
+
+        return $this->queryDateOp($column, $begin, '>', "datetime");
 	}
 
 	function queryFilterBetween_Dates($layout_def)
 	{
         $begin = $this->expandDate($layout_def['input_name0']);
      	$end = $this->expandDate($layout_def['input_name1'], true);
-        $column = $this->_get_column_select($layout_def);
-	    return "(".$this->queryDateOp($column, $begin, ">=", "datetime")." AND ".
-            $this->queryDateOp($column, $end, "<=", "datetime").")\n";
+
+        $query = $this->get_start_end_date_filter($layout_def, $begin, $end);
+
+        return $query;
 	}
 
-	function queryFilterNot_Equals_str($layout_def)
+    /**
+     * Returns SQL WHERE query for previous fiscal year filter
+     * in regard to fiscal start date and current date
+     *
+     * @param $layout_def - filter def
+     * @return string - SQL WHERE query for filter
+     */
+    public function queryFiltertp_previous_fiscal_year($layout_def)
+    {
+        return $this->getFiscalYearFilter($layout_def, '-1 year', '');
+    }
+
+    /**
+     * Returns SQL WHERE query for previous fiscal quarter filter
+     * in regard to fiscal start date and current date
+     *
+     * @param $layout_def - filter def
+     * @return string - SQL WHERE query for filter
+     */
+    public function queryFiltertp_previous_fiscal_quarter($layout_def)
+    {
+        return $this->getFiscalYearFilter($layout_def, '-3 month', '');
+    }
+
+    /**
+     * Returns SQL WHERE query for current fiscal year filter
+     * in regard to fiscal start date and current date
+     *
+     * @param $layout_def - filter def
+     * @return string - SQL WHERE query for filter
+     */
+    public function queryFiltertp_current_fiscal_year($layout_def)
+    {
+        return $this->getFiscalYearFilter($layout_def, '', '+1 year');
+    }
+
+    /**
+     * Returns SQL WHERE query for current fiscal quarter filter
+     * in regard to fiscal start date and current date
+     *
+     * @param $layout_def - filter def
+     * @return string - SQL WHERE query for filter
+     */
+    public function queryFiltertp_current_fiscal_quarter($layout_def)
+    {
+        return $this->getFiscalYearFilter($layout_def, '', '+3 month');
+    }
+
+    /**
+     * Returns SQL WHERE query for next fiscal year filter
+     * in regard to fiscal start date and current date
+     *
+     * @param $layout_def - filter def
+     * @return string - SQL WHERE query for filter
+     */
+    public function queryFiltertp_next_fiscal_year($layout_def)
+    {
+        return $this->getFiscalYearFilter($layout_def, '+1 year', '+2 year');
+    }
+
+    /**
+     * Returns SQL WHERE query for next fiscal quarter filter
+     * in regard to fiscal start date and current date
+     *
+     * @param $layout_def - filter def
+     * @return string - SQL WHERE query for filter
+     */
+    public function queryFiltertp_next_fiscal_quarter($layout_def)
+    {
+        return $this->getFiscalYearFilter($layout_def, '+3 month', '+6 month');
+    }
+
+    public function queryFilterNot_Equals_str($layout_def)
 	{
 		global $timedate;
 
@@ -202,25 +265,30 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
         return $begin;
 	}
 
-	/**
-	 * Get filter string for a date field.
-	 * @param array layout_def field def for field being filtered
-	 * @param string $begin start date value (in DB format)
-	 * @param string $end End date value (in DB format)
-	 */
-	function get_start_end_date_filter(& $layout_def, $begin,$end)
-	{
-	    if (isset ($layout_def['rel_field'])) {
-	        $field_name = $this->reporter->db->convert(
-	            $this->reporter->db->convert($this->_get_column_select($layout_def), 'date_format', '%Y-%m-%d'),
-	            "CONCAT",
-	            array("' '", $this->reporter->db->convert($layout_def['rel_field'], 'time_format'))
-	        );
-	    } else {
-	       $field_name = $this->_get_column_select($layout_def);
-	    }
-	    return $field_name.">=".$this->reporter->db->quoted($begin)." AND ".$field_name."<=".$this->reporter->db->quoted($end)."\n";
-	}
+    /**
+     * Get start/end filter string for 'datetime' field
+     *
+     * @param array layout_def field def for field being filtered
+     * @param SugarDateTime $begin Start DateTime object
+     * @param SugarDateTime $end End DateTime object
+     */
+    public function get_start_end_date_filter($layout_def, $begin, $end)
+    {
+        if (isset($layout_def['rel_field'])) {
+            $field_name = $this->reporter->db->convert(
+                $this->reporter->db->convert($this->_get_column_select($layout_def), 'date_format', '%Y-%m-%d'),
+                "CONCAT",
+                array("' '", $this->reporter->db->convert($layout_def['rel_field'], 'time_format'))
+            );
+        } else {
+            $field_name = $this->_get_column_select($layout_def);
+        }
+
+        $query = $field_name . " >= " . $this->reporter->db->convert($this->reporter->db->quoted($this->formatDate($begin)), $layout_def['type']) . " AND " .
+            $field_name . " <= " . $this->reporter->db->convert($this->reporter->db->quoted($this->formatDate($end)), $layout_def['type']) . "\n";
+
+        return $query;
+    }
 
 	/**
 	 * Create query for binary operation of field of certain type
@@ -260,46 +328,67 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     {
         $begin = $day->get_day_begin();
         $end = $day->get_day_end();
-        return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
+        return $this->get_start_end_date_filter($layout_def, $begin, $end);
     }
 
 	function queryFilterTP_yesterday($layout_def)
 	{
-		global $timedate;
 		return $this->queryDay($layout_def, $this->now()->get("-1 day"));
 	}
 
 	function queryFilterTP_today($layout_def)
 	{
-		global $timedate;
 		return $this->queryDay($layout_def, $this->now());
 	}
 
-	function queryFilterTP_tomorrow(& $layout_def)
+	function queryFilterTP_tomorrow($layout_def)
 	{
-		global $timedate;
 		return $this->queryDay($layout_def, $this->now()->get("+1 day"));
 	}
 
+    function queryFilterTP_last_n_days($layout_def)
+    {
+        $days = $layout_def['input_name0'] - 1;
+
+        $begin = $this->now()->get("-$days days")->get_day_begin();
+        $end = $this->now()->get_day_end();
+
+        return $this->get_start_end_date_filter($layout_def, $begin, $end);
+    }
+
+    function queryFilterTP_next_n_days($layout_def)
+    {
+        $days = $layout_def['input_name0'] - 1;
+
+        $begin = $this->now()->get_day_begin();
+        $end = $this->now()->get("+$days days")->get_day_end();
+
+        return $this->get_start_end_date_filter($layout_def, $begin, $end);
+    }
+
 	function queryFilterTP_last_7_days($layout_def)
-	{
-		global $timedate;
+    {
+        $layout_def['input_name0'] = 7;
+        return $this->queryFilterTP_last_n_days($layout_def);
+    }
 
-		$begin = $this->now()->get("-6 days")->get_day_begin();
-		$end = $this->now()->get_day_end();
+    function queryFilterTP_next_7_days($layout_def)
+    {
+        $layout_def['input_name0'] = 7;
+        return $this->queryFilterTP_next_n_days($layout_def);
+    }
 
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
-	}
+    function queryFilterTP_last_30_days($layout_def)
+    {
+        $layout_def['input_name0'] = 30;
+        return $this->queryFilterTP_last_n_days($layout_def);
+    }
 
-	function queryFilterTP_next_7_days($layout_def)
-	{
-		global $timedate;
-
-		$begin = $this->now()->get_day_begin();
-		$end = $this->now()->get("+6 days")->get_day_end();
-
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
-	}
+    function queryFilterTP_next_30_days($layout_def)
+    {
+        $layout_def['input_name0'] = 30;
+        return $this->queryFilterTP_next_n_days($layout_def);
+    }
 
     /**
      * Create query from the beginning to the end of certain month
@@ -311,50 +400,24 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
         $begin = $month->setTime(0, 0, 0);
         $end = clone($begin);
 		$end->setDate($begin->year, $begin->month, $begin->days_in_month)->setTime(23, 59, 59);
-        return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
+        return $this->get_start_end_date_filter($layout_def, $begin, $end);
     }
 
     function queryFilterTP_last_month($layout_def)
 	{
-		global $timedate;
 		$month = $this->now();
 		return $this->queryMonth($layout_def, $month->setDate($month->year, $month->month-1, 1));
 	}
 
 	function queryFilterTP_this_month($layout_def)
 	{
-		global $timedate;
-
-        //Bug 62414 - take timezone into account when determining current month
-        $now = $this->now();
-        $timezoneOffset = $timedate->getUserUTCOffset();
-        $timezoneOffset = "$timezoneOffset minutes";
-        $now->modify($timezoneOffset);
-
-        return $this->queryMonth($layout_def, $now->get_day_by_index_this_month(0));
+		return $this->queryMonth($layout_def, $this->now()->get_day_by_index_this_month(0));
 	}
 
 	function queryFilterTP_next_month($layout_def)
 	{
-		global $timedate;
 		$month = $this->now();
 		return $this->queryMonth($layout_def, $month->setDate($month->year, $month->month+1, 1));
-	}
-
-	function queryFilterTP_last_30_days($layout_def)
-	{
-		global $timedate;
-		$begin = $this->now()->get("-29 days")->get_day_begin();
-		$end = $this->now()->get_day_end();
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
-	}
-
-	function queryFilterTP_next_30_days($layout_def)
-	{
-		global $timedate;
-		$begin = $this->now()->get_day_begin();
-		$end = $this->now()->get("+29 days")->get_day_end();
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
 	}
 
     /**
@@ -371,9 +434,11 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     {
         $timedate = TimeDate::getInstance();
 
+        $convert = $this->isDateTimeField($layout_def['type']);
+
         // See if date is set, if not, use current date
         if (empty($date)) {
-            $begin = $timedate->getNow(true);
+            $begin = $timedate->getNow($convert);
         } else {
             $begin = $timedate->fromString($date);
         }
@@ -384,7 +449,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
             1
         )->setTime(0, 0);
 
-        $end = $begin->get("+3 month")->setTime(23, 59, 59)->get("-1 day");
+        $end = $begin->get("+3 month");
 
         // Modify begin/end if filter is set
         if (!empty($modifyFilter)) {
@@ -392,7 +457,9 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
             $end->modify($modifyFilter);
         }
 
-        return $this->get_start_end_date_filter($layout_def, $begin->asDb(), $end->asDb());
+        $end = $end->get("-1 day")->setTime(23, 59, 59);
+
+        return $this->get_start_end_date_filter($layout_def, $begin, $end);
     }
 
     /**
@@ -428,35 +495,41 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
         return $this->getQuarterFilter($layout_def, '+3 month');
     }
 
-	function queryFilterTP_last_year($layout_def)
-	{
-		global $timedate;
-		$begin = $this->now();
-		$begin->setDate($begin->year-1, 1, 1)->setTime(0, 0);
-		$end = clone $begin;
-		$end->setDate($end->year, 12, 31)->setTime(23, 59, 59);
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
-	}
+    /**
+     * Returns part of query for select
+     *
+     * @param $layout_def - Filter layout_def
+     * @param string $modifyFilter - Modification to start/end date, used to select previous/next year
+     */
+    protected function queryYear($layout_def, $modifyFilter)
+    {
+        $begin = $this->now();
+        $begin->setDate($begin->year, 1, 1)->setTime(0, 0);
 
-	function queryFilterTP_this_year($layout_def)
-	{
-		global $timedate;
-		$begin = $this->now();
-		$begin->setDate($begin->year, 1, 1)->setTime(0, 0);
-		$end = clone $begin;
-		$end->setDate($end->year, 12, 31)->setTime(23, 59, 59);
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
-	}
+        if (!empty($modifyFilter)) {
+            $begin->modify($modifyFilter);
+        }
 
-	function queryFilterTP_next_year(& $layout_def)
-	{
-		global $timedate;
-		$begin = $this->now();
-		$begin->setDate($begin->year+1, 1, 1)->setTime(0, 0);
-		$end = clone $begin;
-		$end->setDate($end->year, 12, 31)->setTime(23, 59, 59);
-		return $this->get_start_end_date_filter($layout_def,$begin->asDb(),$end->asDb());
-	}
+        $end = clone $begin;
+        $end->setDate($end->year, 12, 31)->setTime(23, 59, 59);
+
+        return $this->get_start_end_date_filter($layout_def, $begin, $end);
+    }
+
+    public function queryFilterTP_last_year($layout_def)
+    {
+        return $this->queryYear($layout_def, '-1 year');
+    }
+
+    public function queryFilterTP_this_year($layout_def)
+    {
+        return $this->queryYear($layout_def, '');
+    }
+
+    public function queryFilterTP_next_year($layout_def)
+    {
+        return $this->queryYear($layout_def, '+1 year');
+    }
 
 	function queryGroupBy($layout_def)
 	{
@@ -537,8 +610,17 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 		return parent :: querySelect($layout_def)." \n";
 	}
 	function & displayListday(& $layout_def) {
-        $value = parent:: displayListPlain($layout_def);
-        return $value;
+        global $timedate;
+        $field_name = strtoupper($this->_get_column_alias($layout_def));
+        $tmp_field_name = str_replace('_DAY_', '_DAYREAL_', $field_name);
+        if($tmp_field_name != $field_name && isset($layout_def['fields'][$tmp_field_name]))
+        {
+            return $timedate->to_display_date($layout_def['fields'][$tmp_field_name], true);
+        }
+        else
+        {
+		    return parent:: displayListPlain($layout_def);
+        }
 	}
 
 	function & displayListyear(& $layout_def) {
@@ -561,6 +643,245 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 	}
 
     /**
+     * Checks if it's a date field that contains time too
+     *
+     * @param $type - field type from layout_def
+     * @return bool true if field contains time, false otherwise
+     */
+    protected function isDateTimeField($type)
+    {
+        return in_array($type, array('datetime', 'datetimecombo'));
+    }
+
+    /**
+     * Returns the fiscal start date in user TZ if it exists
+     * otherwise uses 01-01 of current year
+     *
+     * @return DateTime - Fiscal start date in user TZ
+     */
+    private function getFiscalStartDate()
+    {
+        // Pick fiscal start date
+        $admin = BeanFactory::getBean('Administration');
+        $config = $admin->getConfigForModule('Forecasts', 'base');
+
+        $timedate = TimeDate::getInstance();
+        $now = $timedate->getNow(true);
+
+        if (!empty($config['timeperiod_start_date'])) {
+            $fiscalDate = $timedate->fromString($config['timeperiod_start_date']);
+        } else {
+            // If there is no fiscal start date, use 1st of January
+            // Probably because of reseting the forecast settings, while running an old report
+            $GLOBALS['log']->error('Fiscal start date not set. Using 1st January.');
+            $fiscalDate = $now->setDate($now->year, 1, 1)->setTime(0, 0, 0);
+        }
+
+        return $fiscalDate;
+    }
+
+    /**
+     * Normalizes the date field, so we can group by year/quarter
+     * in regard to fiscal start date
+     *
+     * @param $column - DB column name
+     * @return string - date field normalized in regard to fiscal start date
+     */
+    private function getNormalizedDate($layout_def)
+    {
+        $fiscalDate = $this->getFiscalStartDate();
+
+        $column = $this->_get_column_select($layout_def);
+
+        if ($this->isDateTimeField($layout_def['type'])) {
+            // Need to add tz offset for grouping
+            $column = $this->reporter->db->convert($column, 'add_tz_offset');
+        }
+
+        if ($fiscalDate->day_of_year > 0) {
+            $column = $this->reporter->db->convert(
+                $column,
+                'add_date',
+                array('-' . $fiscalDate->day_of_year, 'DAY')
+            );
+        }
+
+        return $column;
+    }
+
+    /**
+     * Return the between WHERE query for Fiscal Year/Quarter queries
+     *
+     * Both begin/end dates use the same fiscal date, but are updated
+     * by the $modifyBegin/$modifyEnd parameters
+     *
+     * @param $layout_def - Filter layout_def
+     * @param string $modifyStart - Modification to fiscal start date
+     * @param string $modifyEnd - Modification to fiscal end date
+     * @param string $date - Date for which to find fiscal quarter/year, if not set uses current date
+     * @return string - BETWEEN WHERE query for Fiscal filter
+     */
+    protected function getFiscalYearFilter($layout_def, $modifyStart, $modifyEnd, $date = '')
+    {
+        $timedate = TimeDate::getInstance();
+
+        // Get Fiscal Start Date
+        $fiscalDate = $this->getFiscalStartDate();
+
+        $convert = $this->isDateTimeField($layout_def['type']);
+
+        // We need to make changes to fiscal date, depending on current date
+        // See if date is set, if not, use current date
+        if (empty($date)) {
+            $date = $timedate->getNow($convert);
+        } else {
+            $date = $timedate->fromString($date);
+        }
+
+        // Use Year from the date we're checking
+        $fiscalDate->setDate($date->year, $fiscalDate->month, $fiscalDate->day);
+
+        // If we're dealing with year filter, we need to set the year
+        if (strpos($layout_def['qualifier_name'], 'year') !== false) {
+            // Set year for the fiscal period, depending on current date
+            if ($fiscalDate > $date) {
+                $fiscalDate->modify("-1 year");
+            }
+        } elseif (strpos($layout_def['qualifier_name'], 'quarter') !== false) {
+            // If we're dealing with quarter filter, we need to set the month
+
+            $currentMonth = $date->format("m");
+            $tempFiscalMonth = $fiscalDate->format("m");
+
+            // Find the quarter in regard to the fiscal month
+            $monthDiff = $currentMonth - $tempFiscalMonth;
+            if ($monthDiff < 0) {
+                $monthDiff -= 1;
+            }
+            $monthDiff = 3 * floor($monthDiff / 3);
+
+            // Update the month
+            if ($monthDiff != 0) {
+                $fiscalDate->modify($monthDiff . " month");
+            }
+        }
+
+        // Modify the start date
+        $start = clone $fiscalDate;
+        if (!empty($modifyStart)) {
+            $start->modify($modifyStart);
+        }
+
+        // Modify the end date
+        $end = clone $fiscalDate;
+        if (!empty($modifyEnd)) {
+            $end->modify($modifyEnd);
+        }
+        $end->modify('-1 seconds');
+
+        $query = $this->get_start_end_date_filter($layout_def, $start, $end);
+
+        return $query;
+    }
+
+    /**
+     * Returns the select query used for displaying the group data
+     *
+     * @param $layout_def - group by layout def
+     * @return string - Select query used for display
+     */
+    public function querySelectfiscalQuarter($layout_def)
+    {
+        return $this->queryGroupByFiscalQuarter($layout_def) . " " . $this->_get_column_alias($layout_def) . "\n";
+    }
+
+    /**
+     * Returns the value to be displayed for the group by
+     *
+     * @param $layout_def - group by layout def
+     * @return string - string for display
+     */
+    public function displayListfiscalQuarter($layout_def)
+    {
+        $match = array();
+        if (preg_match('/(\d{4})-(\d)/', $this->displayListPlain($layout_def), $match)) {
+
+            return 'Q' . $match[2] .' ' . $match[1];
+        }
+        return '';
+    }
+
+    /**
+     * Returns the group by part of the query for
+     * grouping by fiscal quarter
+     *
+     * @param $layout_def - group by layout def
+     * @return string - fiscal quarter group by query
+     */
+    public function queryGroupByFiscalQuarter($layout_def)
+    {
+        $date = $this->getNormalizedDate($layout_def);
+
+        $query = $this->reporter->db->convert(
+            $this->reporter->db->convert(
+                $date,
+                "date_format",
+                array('%Y')
+            ),
+            'CONCAT',
+            array("'-'",
+                $this->reporter->db->convert(
+                    $date,
+                    "quarter"
+                )
+            )
+        );
+
+        return $query;
+    }
+
+    /**
+     * Returns the select query used for displaying the group data
+     *
+     * @param $layout_def - group by layout def
+     * @return string - Select query used for display
+     */
+    public function querySelectfiscalYear($layout_def)
+    {
+        return $this->queryGroupByFiscalYear($layout_def) . " " . $this->_get_column_alias($layout_def) . "\n";
+    }
+
+    /**
+     * Returns the value to be displayed for the group by
+     *
+     * @param $layout_def - group by layout def
+     * @return string - string for display
+     */
+    public function displayListfiscalYear($layout_def)
+    {
+        global $app_list_strings;
+        $value = parent::displayListPlain($layout_def);
+
+        return $value;
+    }
+
+    /**
+     * Returns the group by part of the query for
+     * grouping by fiscal year
+     *
+     * @param $layout_def - group by layout def
+     * @return string - fiscal year group by query
+     */
+    public function queryGroupByFiscalYear($layout_def)
+    {
+        $date = $this->getNormalizedDate($layout_def);
+
+        $query = $this->reporter->db->convert($date, "date_format", array('%Y'));
+
+        return $query;
+    }
+
+    /**
      * Returns part of query for select
      *
      * @param array $layout_def for field
@@ -569,8 +890,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function querySelectmonth($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         return $this->reporter->db->convert($return, "date_format", array('%Y-%m')) . ' ' . $this->_get_column_alias($layout_def) . "\n";
@@ -585,8 +905,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function queryGroupByMonth($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         return $this->reporter->db->convert($return, "date_format", array('%Y-%m')) . "\n";
@@ -601,8 +920,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function queryOrderByMonth($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         $orderBy = $this->reporter->db->convert($return, "date_format", array('%Y-%m'));
@@ -618,6 +936,17 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     }
 
     /**
+     * Select addon datetime field for "day" field in reports
+     *
+     * @param $layout_def array definition of new field
+     * @return string piece for creation "select" query
+     */
+    function querySelectdayreal($layout_def)
+    {
+        return $this->reporter->db->convert($this->_get_column_select($layout_def), "date_format", array('%Y-%m-%d %H:%i:%s'))." ".$this->_get_column_alias($layout_def)."\n";
+    }
+
+    /**
      * Returns part of query for select
      *
      * @param array $layout_def for field
@@ -626,8 +955,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function querySelectday($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         return $this->reporter->db->convert($return, "date_format", array('%Y-%m-%d')) . ' ' . $this->_get_column_alias($layout_def) . "\n";
@@ -642,8 +970,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function queryGroupByDay($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         return $this->reporter->db->convert($return, "date_format", array('%Y-%m-%d')) . "\n";
@@ -658,8 +985,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function querySelectyear($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         return $this->reporter->db->convert($return, "date_format", array('%Y')) . ' ' . $this->_get_column_alias($layout_def) . "\n";
@@ -674,8 +1000,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     function queryGroupByYear($layout_def)
     {
         $return = $this->_get_column_select($layout_def);
-        if ($layout_def['type'] == 'datetime')
-        {
+        if ($this->isDateTimeField($layout_def['type'])) {
             $return = $this->reporter->db->convert($return, 'add_tz_offset');
         }
         return $this->reporter->db->convert($return, "date_format", array('%Y')) . "\n";
@@ -774,4 +1099,14 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
         return strlen(trim($date)) < 11 ? false : true;
     }
 
+    /**
+     * Formats a DateTime object as string for given widget
+     *
+     * @param SugarDateTime $date - Date to be formatted for widget
+     * @return string date formatted for widget type
+     */
+    protected function formatDate($date)
+    {
+        return $date->asDb();
+    }
 }

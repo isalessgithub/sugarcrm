@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
@@ -85,16 +82,23 @@ include_once('include/workflow/expression_utils.php');
 		}
 
 		if(!empty($field_type)){
-
 			/*
 			One off check to see if this is duration_hours or duration_minutes
 			These two fields really should be enum, but they are chars.  This is a problem,
 			since the UI for calls is really enum in 15 minute increments
 			*/
+            $sorted_fields = array();
+
 			if($selector_array['target_field']=="duration_minutes"){
 
 				$target_field_array['options'] = "duration_intervals";
 				$field_type = "enum";
+
+                //if the module is calls, then populate sorted_fields array with minute values
+                if(get_class($temp_module) == 'Call' && isset($temp_module->minutes_values)) {
+                    $target_field_array['function'] = '';
+                    $sorted_fields = $temp_module->minutes_values;
+                }
 			//end if target_field is duration_minutes or duration_hours
 			}
 
@@ -107,15 +111,18 @@ include_once('include/workflow/expression_utils.php');
 			//end if target_field is reminder_time
 			}
 
-
+            // currency_id field should be enum
+            if ($field_type == 'currency_id') {
+                $target_field_array['function'] = 'getCurrencyDropDownList';
+                $field_type = "enum";
+            }
 
 			if($field_type=="enum" || $field_type=="multienum" || $field_type=="radioenum"){
 				$output_array['real_type'] = $field_type;
 				//check for multi_select and that this is the same dropdown as previous;
 
 				//Set the value select
-				$sorted_fields = array();
-				if(!empty($target_field_array['function'])){ 
+				if(!empty($target_field_array['function'])){
 					$function = $target_field_array['function'];
 					if(is_array($function) && isset($function['name'])){
 	       				$function = $target_field_array['function']['name'];
@@ -126,10 +133,20 @@ include_once('include/workflow/expression_utils.php');
 						if(!empty($target_field_array['function']['include'])){
 								require_once($target_field_array['function']['include']);
 						}
-					}	
-					$sorted_fields = $function();					
-				}else{	
-					$sorted_fields = $app_list_strings[$target_field_array['options']];
+					}
+                    if (isset($target_field_array['function_bean'])) {
+                        $funcBean =  BeanFactory::getBean($target_field_array['function_bean']);
+                        if (method_exists($funcBean, $function)) {
+                            $function = array($funcBean, $function);
+                        }
+                    }
+					$sorted_fields = call_user_func($function);
+				}else{
+                    //get list of strings if sorted fields has not already been populated
+                    if(count($sorted_fields) == 0)
+                    {
+                        $sorted_fields = $app_list_strings[$target_field_array['options']];
+                    }
 				}
 				if (isset($sorted_fields)) {
 					asort($sorted_fields);
@@ -207,7 +224,7 @@ include_once('include/workflow/expression_utils.php');
             $field_type =="encrypt" ||
 			$field_type =="name" ||
 			$field_type =="phone" ||
-			$field_type =="email" || 
+			$field_type =="email" ||
 			$field_type =="url"
 			){
 				$output_array['real_type'] = $field_type;
@@ -333,7 +350,7 @@ include_once('include/workflow/expression_utils.php');
 
 				//Set the value select
 				$user_array = get_user_array(TRUE, "Active", "", true, null, ' AND is_group=0 ');
-				
+
 				//$column_select = get_select_options_with_id($app_list_strings[$target_field_array['options']], $selected_value);
 				$column_select = get_select_options_with_id($user_array, $selected_value);
 				$value_select =  "<select id='".$meta_array['parent_type']."__field_value' name='".$meta_array['parent_type']."_field_value' tabindex='2'>".$column_select."</select>";
@@ -495,6 +512,7 @@ include_once('include/workflow/expression_utils.php');
 			$field_type=="int" ||
 			$field_type=="num" ||
 			$field_type=="decimal" ||
+            $field_type=="double" ||
 			$field_type=="currency"
 			){
 				//Real type is just a surface variable used by javascript to determine dual type actions
@@ -570,7 +588,7 @@ include_once('include/workflow/expression_utils.php');
 function get_username_by_id($userid)
 {
     if(empty($userid)) return false;
-    $user = SugarModule::get('Users')->loadBean();
+    $user = BeanFactory::getBean('Users');
     $user->retrieve($userid);
     if($userid != $user->id) {
         return false;
@@ -610,13 +628,18 @@ function get_display_text($temp_module, $field, $field_value, $adv_type=null, $e
 		$target_type = $temp_module->field_defs[$field]['type'];
 	}
 
-
 	//Land of the "one offs"
 	//This is for meetings and calls, the reminder time
 	if($temp_module->field_defs[$field]['name']=="reminder_time"){
 		$target_type = "enum";
 		$temp_module->field_defs[$field]['options'] = "reminder_time_options";
 	}
+
+    // handle currency_id field to display the actual currency name vs the id when in edit view.
+    if($target_type == 'currency_id' && !empty($field_value)) {
+        $currency = SugarCurrency::getCurrencyByID($field_value);
+        return $currency->name;
+    }
 
 	if($target_type == "assigned_user_name"){
 
@@ -670,9 +693,7 @@ function get_display_text($temp_module, $field, $field_value, $adv_type=null, $e
 
     require_once('include/SugarFields/SugarFieldHandler.php');
     $sugarField = SugarFieldHandler::getSugarField($target_type);
-    $GLOBALS['log']->debug("Field: $field is of type $target_type, before: $field_value");
     $field_value = $sugarField->getEmailTemplateValue($field_value,$temp_module->field_defs[$field], $context);
-    $GLOBALS['log']->debug("after: $field_value");
 
 	return $field_value;
 
@@ -734,7 +755,6 @@ function process_advanced_actions(& $focus, $field, $meta_array, & $rel_this){
 	if($meta_array['adv_type']=='value_calc'){
 
 		$jang = get_expression($meta_array['ext1'], $rel_this->$field, $meta_array['value']);
-		echo $jang;
 		return $jang;
 	}
 
@@ -787,16 +807,22 @@ function check_special_fields($field_name, $source_object, $use_past_array=false
 	if($field_name == 'full_name'){
 		if($use_past_array==false){
 			//use the future value
-			return $locale->getLocaleFormattedName($source_object->first_name, $source_object->last_name);
+            return $locale->formatName($source_object);
 		} else {
 			//use the past value
-			return $locale->getLocaleFormattedName($source_object->fetched_row['first_name'], $source_object->fetched_row['last_name']);
+            return $locale->formatName($source_object, $source_object->fetched_row);
 		}
 	} elseif($field_name == 'modified_by_name' && $use_past_array) {
         return $source_object->old_modified_by_name;
-    } elseif($field_name == 'assigned_user_name' && $use_past_array) {
-	    // We have to load the user here since fetched_row only has the ID, not the name
-        return get_username_by_id($source_object->fetched_row['assigned_user_id']);
+    } elseif($field_name == 'assigned_user_name') {
+        //load the user for either the current value or past value.
+        // We have to load the user here since fetched_row only has the ID, not the name
+         if($use_past_array) {
+             //return previous assigned user from fetched row
+             return get_username_by_id($source_object->fetched_row['assigned_user_id']);
+         }
+        //return current assigned user in source object
+        return get_username_by_id($source_object->assigned_user_id);
     }
     elseif ($field_name == 'team_name')
     {
@@ -838,12 +864,24 @@ function check_special_fields($field_name, $source_object, $use_past_array=false
 //end function check_special_fields
 }
 
-function execute_special_logic($field_name, &$source_object){
-	if(file_exists('modules/'.$source_object->module_dir.'/SaveOverload.php'))
+/**
+ * Executes logic specific for the field being updated
+ *
+ * @param string $field_name
+ * @param SugarBean $source_object
+ */
+function execute_special_logic($field_name, SugarBean $source_object)
+{
+    if ($field_name === 'team_id') {
+        // when Team ID is updated, remove all previously associated teams
+        if ($source_object->load_relationship('teams')) {
+            $source_object->teams->replace(array(), array(), false);
+        }
+        $source_object->team_set_id = null;
+    }
+
+	if(SugarAutoLoader::requireWithCustom('modules/'.$source_object->module_dir.'/SaveOverload.php'))
 	{
-		require_once('modules/'.$source_object->module_dir.'/SaveOverload.php');
 		perform_save($source_object);
 	}
 }
-
-?>

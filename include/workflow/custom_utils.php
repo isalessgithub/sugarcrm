@@ -1,48 +1,22 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-
 //Custom plugins
 //Search through the plugins to include any custom_utils.php files
-	$dir_path = "./custom/workflow/plugins";	
-
-	if(is_dir($dir_path)){
-		if ($dir = opendir($dir_path)) {
-			while (($file = readdir($dir)) !== false) {
-
-			   if($file != "." && $file != ".." ) {
-     				if(is_dir($dir_path."/".$file) == true) {
-			   			
-     					
-     					if(file_exists($dir_path."/".$file."/custom_utils.php")){
-     					
-     						include_once($dir_path."/".$file."/custom_utils.php");
-     						
-     					//end if custom_utils file exists	
-     					}
-				   	
-     				//end if is dir
-     				}
-				//confirm not . or ..
-			   }	   	
-			//end while
-			}
-		//end if can open dir
-		}
-	//end if is dir
-	}
-?>
+$dir_path = "./custom/workflow/plugins";
+foreach(SugarAutoLoader::getDirFiles("custom/workflow/plugins", true) as $dir) {
+    if(SugarAutoLoader::existing("$dir/custom_utils.php")) {
+        include_once("$dir/custom_utils.php");
+    }
+}

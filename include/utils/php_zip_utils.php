@@ -1,19 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: zip_utils.php 16276 2006-08-22 18:56:15Z awu $
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 function unzip( $zip_archive, $zip_dir)
@@ -32,7 +29,7 @@ function unzip_file( $zip_archive, $archive_file, $zip_dir)
             die( "Specified directory '$zip_dir' for zip file '$zip_archive' extraction does not exist." );
         }
     }
-    
+
     $zip = new ZipArchive;
 
     $res = $zip->open(UploadFile::realpath($zip_archive)); // we need realpath here for PHP streams support
@@ -53,7 +50,7 @@ function unzip_file( $zip_archive, $archive_file, $zip_dir)
     } else {
         $res = $zip->extractTo(UploadFile::realpath($zip_dir));
     }
-    
+
     if($res !== TRUE) {
         if (defined('SUGAR_PHPUNIT_RUNNER') || defined('SUGARCRM_INSTALL'))
         {
@@ -74,23 +71,24 @@ function zip_dir( $zip_dir, $zip_archive )
         return false;
     }
     $zip = new ZipArchive();
+    // we need this for shadow path resolution to work
     $zip->open(UploadFile::realpath($zip_archive), ZIPARCHIVE::CREATE|ZIPARCHIVE::OVERWRITE); // we need realpath here for PHP streams support
     $path = UploadFile::realpath($zip_dir);
-    $chop = strlen($path)+1;
-    $dir = new RecursiveDirectoryIterator($path);
-    $it = new RecursiveIteratorIterator($dir, RecursiveIteratorIterator::SELF_FIRST);
-    foreach ($it as $k => $fileinfo) {
-        // Bug # 45143
-        // ensure that . and .. are not zipped up, otherwise, the
-        // CENT OS and others will fail when deploying module
-        $fileName = $fileinfo->getFilename();
-        if ($fileName == "." || $fileName == "..")
-            continue;
-        $localname = str_replace("\\", "/",substr($fileinfo->getPathname(), $chop)); // ensure file
-        if($fileinfo->isDir()) {
-            $zip->addEmptyDir($localname."/");
+
+    /** @var RecursiveIteratorIterator|RecursiveDirectoryIterator $it */
+    $it = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator(
+            $path,
+            FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS
+        ),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+    foreach ($it as $fileinfo) {
+        $subPathName = $it->getSubPathname();
+        if ($fileinfo->isDir()) {
+            $zip->addEmptyDir($subPathName);
         } else {
-            $zip->addFile($fileinfo->getPathname(), $localname);
+            $zip->addFile($fileinfo->getPathname(), $subPathName);
         }
     }
 }

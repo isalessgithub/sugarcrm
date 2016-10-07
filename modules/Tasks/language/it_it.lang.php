@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DATE_FORMAT' => '(aaaa-mm-jj)',
@@ -49,8 +46,22 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificato da ID',
   'LBL_EXPORT_PARENT_ID' => 'Collegato a ID',
   'LBL_EXPORT_PARENT_TYPE' => 'Collegato al Modulo',
+  'LBL_HELP_CREATE' => 'Il modulo {{plural_module_name}} consiste in azioni flessibili, attività da svolgere, o altri tipi di attività che devono essere completate. Per creare un {{module_name}}: 
+1. Compila i campi con i valori desiderati. 
+- I campi segnati come "Obbligatorio" devono essere compilati prima del salvataggio. 
+- Clicca "Mostra più Moduli" per visualizzare ulteriori campi se necessario.
+2. Clicca "Salva" per salvare il nuovo record e tornare alla pagina precedente. 
+- Seleziona "Salva e visualizza" per aprire la scheda del nuovo record del modulo {{module_name}}. 
+- Seleziona "Salva e crea nuovo" per creare subito un nuovo record del modulo {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Il modulo {{plural_module_name}} consiste in azioni flessibili, attività da svolgere o altri tipi di attività che devono essere completate. 
+- Puoi modificare i campi di questi records cliccando il singolo campo o il pulsante Modifica. 
+- Puoi visualizzare o modificare i collegamenti agli altri record nei sottopannelli agendo sul pulsante "Visualizza dati" in basso a sinistra
+- Puoi creare e visualizzare i commenti degli utenti e la cronologia delle modifiche ai record nel modulo {{activitystream_singular_module}} agendo sul pulsante  "Activity Stream" in basso a sinistra. 
+- Puoi seguire o impostare come preferito questo record usando le icone alla destra del nome del record. 
+- Azioni aggiuntive sono disponibili nel menù a tendina delle Azioni alla destra del pulsante Modifica.',
+  'LBL_HELP_RECORDS' => 'Il modulo {{plural_module_name}} consiste in azioni flessibili, attività da svolgere o altri tipi di attività che devono essere completate. I records del modulo {{module_name}} possono essere relazionati ad un record in più moduli attraverso il campo flex relate e possono anche essere relazionati ad un singolo {{contacts_singular_module}}. Esistono diversi modi per creare {{plural_module_name}} in Sugar, ad esempio dal modulo {{plural_module_name}}, duplicando un record esistente, attraverso l´importazione di {{plural_module_name}}, ecc. Una volta che il record {{module_name}} è stato creato, puoi visualizzare e modificare le informazioni relative al modulo {{module_name}} attraverso la vista elenco del modulo {{plural_module_name}}. In base ai dettagli del modulo {{module_name}}, puoi anche visualizzare e modificare le informazioni del modulo {{module_name}} attraverso il modulo Calendario. Ogni record del modulo {{module_name}} può essere poi relazionato ad altri record di Sugar come {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, e molti altri.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Note',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Utente Assegnato',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Assegnato a',
   'LBL_LIST_CLOSE' => 'Chiudi',
   'LBL_LIST_COMPLETE' => 'Completa:',
   'LBL_LIST_CONTACT' => 'Contatto',
@@ -63,7 +74,7 @@ $mod_strings = array (
   'LBL_LIST_RELATED_TO' => 'Collegato a',
   'LBL_LIST_START_DATE' => 'Data Inizio',
   'LBL_LIST_START_TIME' => 'Ora Inizio',
-  'LBL_LIST_STATUS' => 'Status',
+  'LBL_LIST_STATUS' => 'Stato',
   'LBL_LIST_SUBJECT' => 'Oggetto',
   'LBL_MODULE_NAME' => 'Compiti',
   'LBL_MODULE_NAME_SINGULAR' => 'Compito',
@@ -75,11 +86,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Nuovo Compito',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'Nessuno',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_PARENT_ID' => 'ID Padre:',
   'LBL_PARENT_NAME' => 'Tipo Relazione:',
   'LBL_PHONE' => 'Telefono:',
   'LBL_PRIORITY' => 'Priorità:',
-  'LBL_RELATED_TO' => 'Relativo a:',
+  'LBL_REVENUELINEITEMS' => 'Elemento dell´Opportunità',
   'LBL_SEARCH_FORM_TITLE' => 'Cerca Compito',
   'LBL_START_DATE' => 'Data Inizio:',
   'LBL_START_DATE_AND_TIME' => 'Data e Ora Inizio:',
@@ -87,9 +99,9 @@ $mod_strings = array (
   'LBL_STATUS' => 'Stato:',
   'LBL_SUBJECT' => 'Oggetto:',
   'LBL_TASK' => 'Compiti:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Compito concluso con successo.',
   'LBL_TASK_INFORMATION' => 'Informazioni Compito',
   'LNK_IMPORT_TASKS' => 'Importa Compiti',
   'LNK_NEW_TASK' => 'Nuovo Compito',
   'LNK_TASK_LIST' => 'Visualizza Compiti',
 );
-

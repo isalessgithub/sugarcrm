@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Prima di procedere correggi i seguenti errori',
@@ -51,13 +48,13 @@ $mod_strings = array (
   'LBL_CAMPAIGN_COST_PER_CLICK_THROUGH' => 'Costo Per Click:',
   'LBL_CAMPAIGN_COST_PER_IMPRESSION' => 'Costo Per Impressione:',
   'LBL_CAMPAIGN_DAYS_REMAIN' => 'Giorni Rimanenti',
-  'LBL_CAMPAIGN_DIAGNOSTICS' => 'Parametri Campagne',
+  'LBL_CAMPAIGN_DIAGNOSTICS' => 'Diagnostica delle campagne',
   'LBL_CAMPAIGN_END_DATE' => 'Data Fine:',
   'LBL_CAMPAIGN_EXPECTED_COST' => 'Costo Previsto:',
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Ritorno Atteso:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frequenza',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Impressione:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'La Campagna ´{0}´ ha come stato ´Inattivo´. Devi impostare lo stato ´Attivo´.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'La campagna ´{0}´ ha stato ´Inattivo´. Devi impostare lo stato della campagna in ´Attivo´.',
   'LBL_CAMPAIGN_INFORMATION' => 'Informazioni Campagna',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Leads',
   'LBL_CAMPAIGN_NAME' => 'Nome:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Creato da:',
   'LBL_CREATED_BY' => 'Creato da:',
   'LBL_CREATED_USER' => 'Utente Creato',
+  'LBL_CREATE_EMAIL' => 'Crea Email',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Crea',
   'LBL_CREATE_MAILBOX' => 'Generare nuova mailbox',
   'LBL_CREATE_NEWSLETTER' => 'Crea nuova Newsletter',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Crea WebToLeadForm',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_ID' => 'ID Valuta',
+  'LBL_CURRENCY_RATE' => 'Tasso di Valuta',
   'LBL_CUSTOM_LOCATION' => 'Permettere la selezione',
   'LBL_DATE_CREATED' => 'Data Creazione:',
   'LBL_DATE_ENTERED' => 'Data Inserimento',
@@ -119,8 +118,8 @@ $mod_strings = array (
   'LBL_DELETE_INLINE' => 'Cancella',
   'LBL_DESCRIPTION_LEAD_FORM' => 'Descrizione form:',
   'LBL_DESCRIPTION_TEXT_LEAD_FORM' => 'La presentazione del form genererà un lead e un collegamento con la campagna',
-  'LBL_DIAGNOSTIC' => 'Parametri Campagne',
-  'LBL_DIAGNOSTIC_WIZARD' => 'Visualizza Parametri',
+  'LBL_DIAGNOSTIC' => 'Diagnostica',
+  'LBL_DIAGNOSTIC_WIZARD' => 'Diagnostica',
   'LBL_DOWNLOAD_TEXT_WEB_TO_LEAD_FORM' => 'Si prega di scaricare il web to lead form',
   'LBL_DOWNLOAD_WEB_TO_LEAD_FORM' => 'Web To Lead Form',
   'LBL_DRAG_DROP_COLUMNS' => 'Seleziona e Trascina tra i campi disponibili quelli che vuoi visualizzare nella prima e nella seconda colonna',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Avvia configurazione email',
   'LBL_EMAIL_SETUP_WIZARD' => 'Impostazioni Email',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Setup Email per le campagne',
+  'LBL_EMAIL_TITLE' => 'Campagne: Email',
+  'LBL_END_DATE' => 'Data Fine',
   'LBL_FILTER_CHART_BY' => 'Filtra tabella per:',
   'LBL_FINISH' => 'Finito',
   'LBL_FROM_ADDR' => '"Da" Indirizzo:',
@@ -192,8 +193,8 @@ $mod_strings = array (
   'LBL_MAILBOX' => 'Cartella monitorata',
   'LBL_MAILBOX_CHECK1_BAD' => 'Nessuna mailbox di ritorno rilevata.',
   'LBL_MAILBOX_CHECK1_GOOD' => 'Mailbox di ritorno rilevata:',
-  'LBL_MAILBOX_CHECK2_BAD' => 'Si prega di configurare un indirizzo email. Le impostazioni Email non sono state configurate.',
-  'LBL_MAILBOX_CHECK2_GOOD' => 'Impostazioni Email sono state configurate:',
+  'LBL_MAILBOX_CHECK2_BAD' => 'Si prega di configurare un indirizzo email. Le impostazioni E-mail non sono state configurate.',
+  'LBL_MAILBOX_CHECK2_GOOD' => 'Impostazioni E-mail sono state configurate:',
   'LBL_MAILBOX_CHECK_WIZ_BAD' => 'Non sono state rilevate caselle con gestione dei messaggi di ritorno, prego crearne una ora',
   'LBL_MAILBOX_CHECK_WIZ_GOOD' => 'Rilevate delle caselle con gestione dei messaggi di ritorno. Non è necessario crearne altre, puoi comunque farlo.',
   'LBL_MAILBOX_DEFAULT' => 'INBOX',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Utilizza SSL',
   'LBL_SSL_DESC' => 'Se il server mail supporta le connessioni socket sicure, abilitandolo forzerai le connessioni SSL quando importerai le email.',
   'LBL_START' => 'Inizia',
+  'LBL_START_DATE' => 'Data Inizio',
   'LBL_START_DATE_TIME' => 'Data e Ora Inizio:',
+  'LBL_STATUS' => 'Stato',
   'LBL_STATUS_TEXT' => 'Stato:',
   'LBL_SUBSCRIPTION_LIST' => 'Elenco Sottoscritti',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Elenco dei Sottoscritti:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Mostra Dettagli',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Mostra Dettagli',
   'LBL_TOP_CAMPAIGNS' => 'Top Campagne',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Campagne più Performanti per Ricavo',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Migliori Campagne per Redditività',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Nome Campagna',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Profitto',
   'LBL_TOTAL_ENTRIES' => 'Entrate',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Questa opzione cancellerà il registro relativo ai test. Continuare?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Coda Track',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Vista ROI',
+  'LBL_TYPE' => 'Tipo',
   'LBL_UNSUBSCRIBED_HEADER' => 'NewsLetter disponibili',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Moving the newsletter to the Available Newsletters/Newsletters Unsubscribed To list will add the contact to the Unsubscription List for this newsletter.  It will not remove the contact from the original Subscription List or Target List.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Elenco Non Sottoscritti',
@@ -394,3 +398,4 @@ $mod_strings = array (
   'NTC_NO_LEGENDS' => 'Nessuno',
   'TRACKING_ENTRIES_LOCATION_DEFAULT_VALUE' => 'Valore di Config.php che regola site_url',
 );
+

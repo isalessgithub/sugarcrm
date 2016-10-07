@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registro deverá ser especificado para eliminar esta cotação.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Cotação Já Convertida em Oportunidade',
   'LBL_ACCOUNT_ID' => 'Id da conta',
   'LBL_ACCOUNT_NAME' => 'Nome da conta:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Atividades',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Custo',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Fecho efectivo',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Válido até',
-  'LBL_LIST_DEAL_TOT' => 'Desconto',
+  'LBL_LIST_DEAL_TOT' => 'Total de Desconto',
   'LBL_LIST_DISCOUNT_PRICE' => 'Preço Unitário',
   'LBL_LIST_FORM_TITLE' => 'Lista de Cotações',
   'LBL_LIST_GRAND_TOTAL' => 'Total Geral',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Remover comentário',
   'LBL_REMOVE_ROW' => 'Remover linha',
   'LBL_RENAME_ERROR' => 'ERRO: não pode mover _pdf para destination. Deve tentar fazer com que o diretorio possa ser escrito pelo servidor de rede',
+  'LBL_REVENUELINEITEMS' => 'Receita Itens de Linha',
   'LBL_SALES_STAGE' => 'Fase da Cotação:',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Cotações',
   'LBL_SHIPPING' => 'Envio:',
@@ -194,7 +193,7 @@ $mod_strings = array (
   'NTC_COPY_BILLING_ADDRESS2' => 'Copiar para envio',
   'NTC_COPY_SHIPPING_ADDRESS' => 'Copiar os dados de endereço de entrega para os de faturamento',
   'NTC_COPY_SHIPPING_ADDRESS2' => 'Copiar para faturamento',
-  'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'Este registro contem actualmente valores no campo da Morada. Para substituir esses valores com a Morada da Conta seleccionada, clique em "OK". Para manter os valores actuais, clique em "Cancelar".',
+  'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'Este registro contem atualmente valores no campo da Morada. Para substituir esses valores com a Morada da Conta seleccionada, clique em "OK". Para manter os valores atuais, clique em "Cancelar".',
   'NTC_REMOVE_COMMENT_CONFIRMATION' => 'Tem a certeza de que pretende remover este comentário desta Cotação?',
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Tem certeza que deseja remover este grupo da cotação?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Tem a certeza de que pretende remover esta linha desta Cotação?',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -40,7 +37,7 @@ $current_module_strings = return_module_language($current_language, 'MergeRecord
 
 if (!isset($where)) $where = "";
 
-$focus = new MergeRecord();
+$focus = BeanFactory::getBean('MergeRecords');
 
 ////////////////////////////////////////////////////////////
 //get instance of master record and retrieve related record
@@ -56,29 +53,27 @@ $avail_fields=array();
 $sel_fields=array();
 $temp_field_array = $focus->merge_bean->field_defs;
 $bean_data=array();
-ACLField::listFilter($temp_field_array, $focus->merge_bean->module_dir, $GLOBALS['current_user']->id, false, true, 2, false, true);
+$focus->merge_bean->ACLFilterFieldList($temp_field_array);
 foreach($temp_field_array as $field_array)
 {
-	if (isset($field_array['merge_filter']) 
-	&& $field_array['acl'] > 0
-	) {
+	if (isset($field_array['merge_filter'])) {
 		if (strtolower($field_array['merge_filter'])=='enabled' or strtolower($field_array['merge_filter'])=='selected') {
 			$col_name = $field_array['name'];
 
-                            
+
 			if(!isset($focus->merge_bean_strings[$field_array['vname']])) {
 				$col_label = $col_name;
 			}
 			else {
 				$col_label = str_replace(':', '', $focus->merge_bean_strings[$field_array['vname']]);
 			}
-			
+
 			if (strtolower($field_array['merge_filter'])=='selected') {
 				$sel_fields[$col_name]=$col_label;
 			} else {
                 $avail_fields[$col_name] = $col_label;
             }
-			
+
 			$bean_data[$col_name]=$focus->merge_bean->$col_name;
 		}
 	}
@@ -145,7 +140,7 @@ $xtpl->out("main");
  */
 function addFieldRow($colName,$colLabel,$colValue) {
     global $theme, $app_list_strings;
-    
+
     static $operator_options;
     if (empty($operator_options)) {
         $operator_options= get_select_options_with_id($app_list_strings['merge_operators_dom'],'');
@@ -160,8 +155,8 @@ function addFieldRow($colName,$colLabel,$colValue) {
                 <td width='2%'><a class="listViewTdToolsS1" href="javascript:remove_filter('filter_{$colName}')"><!--not_in_theme!--><img src='{$deleteInlineImage}' align='absmiddle' alt='{$LBL_REMOVE}' border='0' height='12' width='12'>&nbsp;</a></td>
                 <td width='20%'>{$colLabel}:&nbsp;</td>
                 <td width='10%'><select name='{$colName}SearchType'>{$operator_options}</select></td>
-                <td width='68%'><input value="{$colValue}" id="{$colName}SearchField" name="{$colName}SearchField" type="text"></td>                  
-            </tr> 
+                <td width='68%'><input value="{$colValue}" id="{$colName}SearchField" name="{$colName}SearchField" type="text"></td>
+            </tr>
         </table>
     </span>
 EOQ;

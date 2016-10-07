@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -22,7 +19,7 @@ class OpportunityFormBase{
 function checkForDuplicates($prefix){
 	require_once('include/formbase.php');
 	
-	$focus = new Opportunity();
+	$focus = BeanFactory::getBean('Opportunities');
 	$query = '';
 	$baseQuery = 'select id, name, sales_stage,amount, date_closed  from opportunities where deleted!=1 and (';
 
@@ -144,7 +141,7 @@ function getWideFormBody($prefix, $mod='Opportunities', $formname='', $lead='', 
 		return '';
 	}
 	if(empty($lead)){
-		$lead = new Lead();
+		$lead = BeanFactory::getBean('Leads');
 	}
 global $mod_strings, $sugar_config;
 $showaccount = $showaccount && $sugar_config['require_accounts'];
@@ -268,7 +265,7 @@ $the_form .= <<<EOQ
 </tr>
 EOQ;
 //carry forward custom lead fields to opportunities during Lead Conversion
-	$tempOpp = new Opportunity();
+	$tempOpp = BeanFactory::getBean('Opportunities');
 	if (method_exists($lead, 'convertCustomFieldsForm')) $lead->convertCustomFieldsForm($the_form, $tempOpp, $prefix);
 	unset($tempOpp);
 
@@ -289,7 +286,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Opportunity());
+$javascript->setSugarBean(BeanFactory::getBean('Opportunities'));
 $javascript->addRequiredFields($prefix);
 $the_form .=$javascript->getScript();
 $mod_strings = $temp_strings;
@@ -400,7 +397,7 @@ $the_form .= $quicksearch_js;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Opportunity());
+$javascript->setSugarBean(BeanFactory::getBean('Opportunities'));
 $javascript->addRequiredFields($prefix);
 $the_form .=$javascript->getScript();
 
@@ -416,7 +413,7 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
 	
 	require_once('include/formbase.php');
 	
-	$focus = new Opportunity();
+	$focus = BeanFactory::getBean('Opportunities');
 	if($useRequired &&  !checkRequired($prefix, array_keys($focus->required_fields))){
 		return null;
 	}

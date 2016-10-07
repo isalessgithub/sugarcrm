@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Kļūdaina Cron sintakse',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Katru dienu',
   'LBL_ALWAYS' => 'Vienmēr',
   'LBL_AND' => 'un',
+  'LBL_ASYNCMASSUPDATE' => 'Notiek asinhronas masveida izmaiņas (Mass Update)',
   'LBL_AT' => 'pie',
   'LBL_AT_THE' => 'Pie',
   'LBL_BASIC_OPTIONS' => 'Pamata uzstādījumi',
   'LBL_CATCH_UP' => 'Izpildīt ja neveiksmīgs',
   'LBL_CATCH_UP_WARNING' => 'Neatzīmēt, ja procesa izpildei vajaga daudz laika.',
   'LBL_CLEANJOBQUEUE' => 'Attīrīšanas uzdevumu rinda',
+  'LBL_CLEANOLDRECORDLISTS' => 'Iztīrīt vecos ierakstus',
   'LBL_CRONTAB_EXAMPLES' => 'Augstāk redzamais balstīts uz standarta crontab notāciju.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Lūdzu norādiet atbilstošu plānotāja izpildes laiku.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Cron specifikācijas izpildās, balstoties uz servera laika zonu  (',
@@ -82,16 +81,20 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Masu e-pasta kampaņas izpildīt pa nakti',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Attīrīt uzdevumu rindu',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Izveidot nākotnes laika periodus',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar pulss',
   'LBL_OOTB_IE' => 'Pārbaudīt ienākošā e-pasta kastītes',
   'LBL_OOTB_PRUNE' => 'Attīrīt datubāzi 1. mēneša dienā',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Dokumentu aizvākšana no failu sistēmas',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Izmest vecos ierakstus',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Noņemt diagnostikas rīka failus',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Noņemt pagaidu PDF failus',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Noņemt pagaidu failus',
   'LBL_OOTB_REPORTS' => 'Izpildīt atskaišu ģenerēšanas ieplānotos uzdevumus',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Izpildīt e-pasta atgādinājuma paziņojumus',
-  'LBL_OOTB_SUGARFEEDS' => 'Iztīrīt SugarFeed tabulas',
   'LBL_OOTB_TRACKER' => 'Attīrīt sekotāja tabulas',
   'LBL_OOTB_WORKFLOW' => 'Izpildīt darbplūsmas uzdevumus',
   'LBL_PERENNIAL' => 'nepārtraukts',
   'LBL_PERFORMFULLFTSINDEX' => 'Pilna teksta meklēšanas indeksēšanas sistēma',
+  'LBL_PMSEENGINECRON' => 'Izpildīt autora plānotāju',
   'LBL_POLLMONITOREDINBOXES' => 'Pārbaudīt ienākošā e-pasta kontus',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Procesa noraidītos kompaņas e-pastus apstrādāt pa nakti',
   'LBL_PROCESSQUEUE' => 'Izpildīt atskaišu ģenerēšanas ieplānotos uzdevumus',
@@ -99,7 +102,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Attīrīt datubāzi 1. mēneša dienā',
   'LBL_RANGE' => 'līdz',
   'LBL_REFRESHJOBS' => 'Atjaunot uzdevumus',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Dokumentu aizvākšana no failu sistēmas',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Masveida e-pasta kampaņas izpildīt pa nakti',
   'LBL_SAT' => 'Sestdiena',
   'LBL_SCHEDULER' => 'Plānotājs:',
@@ -107,13 +109,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Veikt e-pasta atgādinājumu sūtīšanu',
   'LBL_STATUS' => 'Statuss',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Izveidot nākotnes laika periodus',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar pulss',
   'LBL_SUN' => 'Svētdiena',
   'LBL_THU' => 'Ceturtdiena',
   'LBL_TIME_FROM' => 'Aktīvs no',
   'LBL_TIME_TO' => 'Aktīvs līdz',
   'LBL_TOGGLE_ADV' => 'Parādīt detalizētas iespējas',
   'LBL_TOGGLE_BASIC' => 'Parādīt standarta iespējas',
-  'LBL_TRIMSUGARFEEDS' => 'Iztīrīt SugarFeed tabulas',
   'LBL_TRIMTRACKER' => 'Attīrīt sekotāja tabulas',
   'LBL_TUE' => 'Otrdiena',
   'LBL_UPDATETRACKERSESSIONS' => 'Atjaunināt Sekotāja sesiju tabulas',

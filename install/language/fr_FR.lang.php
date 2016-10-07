@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Le mot de passe admin de SugarCRM ne peut pas être vide.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Veuillez fournir le nom d&#39;utilisateur pour le profil administrateur de SugarCRM.',
   'ERR_CHECKSYS' => 'Des erreurs ont été détecté durant la vérification de compatibilité. Pour que votre installation de SugarCRM ce fasse correctement, veuillez effectuer les modifications appropriées pour corriger les problèmes signalés ci-dessous puis cliquer sur le bouton re-vérification ou relancer l&#39;installation.',
+  'ERR_CHECKSYS_BCMATH' => 'Support de BCMATH non trouvé : SugarCRM requiert BCMATH pour une meilleure précision mathématique.',
   'ERR_CHECKSYS_CALL_TIME' => 'La fonction &#39;Allow Call Time Pass Reference&#39; est à On (veuillez le désactiver dans le php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Le fichier de configuration existe, mais elle n&#39;est pas en écriture. Veuillez prendre les mesures nécessaires pour rendre le fichier en écriture. En fonction de votre système d&#39;exploitation, ceci pourrait vous demander de changer les permissions en exécutant "chmod 755", ou faire un clic-droit sur le nom du fichier pour accès aux propriétés et décochez l&#39;option de lecture seule.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Le fichier config_override.php existe mais n&#39;est pas accessible en écriture. Veuillez effectuer les modifications de droits nécessaire sur ce fichier afin de le rendre accessible en écriture par le serveur web. En fonction de votre système d&#39;exploitation, vous pouvez changer les droits en exécutant la commande chmod 766, or en effectuant un clic droit sur le fichier puis en déchant l&#39;option lecture seule.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Nous avons détecté que vous n&#39;utiliser pas PHP en mode FastCGI. Vous devez installer/configurer une version de PHP compatible avec SugarCRM.  Veuillez consulter la matrice de compatibilité présente dans les Release Notes pour connaitre les verions supportées. Veuillez consulter <a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a> pour plus de détails',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Pour une utilisation optimale du SAPI IIS/FastCGI, positionnez fastcgi.logging à 0 dans votre fichier php.ini.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Les fichiers ou répertoires énumérés ci-dessous ne sont pas modifiables. Veuillez prendre les mesures nécessaires pour permettre l&#39;écriture. En fonction de votre système d&#39;exploitation, il peut vous demander de changer les permissions sur les fichiers (chmod 755), ou de faire un clic droit sur le répertoire parent, désélectionnez l&#39;option "lecture seule" et de l&#39;appliquer à tous les sous-dossiers.',
+  'ERR_CHECKSYS_HTACCESS' => 'Le test d&#39;écriture du fichier .htaccess a échoué. Cela signifie généralement que vous n&#39;avez pas autoriser la directive AllowOverride pour le répertoire contenant Sugar.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Votre version deIIS n&#39;est pas supportée par SugarCRM. Vous devez installer une version compatible avec SugarCRM. Veuillez consulter la matrice de compatibilité présente dans les Release Notes pour connaitre les verions d&#39;Oracle qui sont supportées. Votre version est',
   'ERR_CHECKSYS_IMAP' => 'INTROUVABLE: Les mails entrants et les campagnes (Email) nécessitent la librairie IMAP dans PHP. Aucun des 2 ne pourra fonctionner.',
   'ERR_CHECKSYS_MBSTRING' => 'Les fonctions associées avec l$#39;extension Multibyte de PHP (mbstring) qui sont nécessaires pour Sugar n$#39;ont pas été trouvées. <br/><br/>En général, le module mbstring n$#39;est pas activé par défaut dans PHP et doit être activé avec --enable-mbstring quand le binaire PHP est constitué. Veuillez vous référer au manuel PHP pour plus d$#39;informations sur l$#39;activation de mbstring.',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Répertoire Invalide',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'ATTENTION: Impossible d&#39;écrire',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Impossible d&#39;écrire ou lire les paramètres de session. Impossible de continuer l&#39;installation.',
-  'ERR_CHECKSYS_PCRE' => 'La librairie PCRE n&#39;a pas été trouvé : SugarCRM nécessite PCRE 7.0 ou supérieur pour exécuter les expressions rationnelles Perl.',
-  'ERR_CHECKSYS_PCRE_VER' => 'Version de la librairie PCRE : SugarCRM nécessite PCRE 7.0 ou supérieur pour exécuter les expressions rationnelles Perl.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Version de PHP installée Invalide: ( ver',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Version de PHP installée non supportée: ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Safe Mode est activé (veuillez le désactivé dans le fichier php.ini)',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Type basique',
   'LBL_CANCEL' => 'Annuler',
   'LBL_CHECKSYS_1' => 'Afin que votre installation de SugarCRM fonctionne correctement, veuillez vous assurer que toutes les vérifications du système listées ci-dessous sont en vert. Si au moins une est en rouge veuillez corriger le problème avant de continuer.<BR><BR>Pour obtenir de l&#39;aide sur ces vérifications systèmes, rendez-vous sur <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Module de précision mathématique arbitraire',
   'LBL_CHECKSYS_CACHE' => 'Ecriture possible dans les sous-répertoires de cache',
   'LBL_CHECKSYS_CALL_TIME' => 'La fonction Allow Call Time Pass Reference est désactivée',
   'LBL_CHECKSYS_COMPONENT' => 'Composants',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Veuillez corriger les fichiers ou répertoires suivants avant de poursuivre :',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Veuillez corriger les fichiers ou répertoires de module suivants avant de poursuivre :',
+  'LBL_CHECKSYS_HTACCESS' => 'La directive AllowOverride est positionnée dans le .htaccess',
   'LBL_CHECKSYS_IISVER' => 'Version IIS',
   'LBL_CHECKSYS_IMAP' => 'IMAP Module',
   'LBL_CHECKSYS_MBSTRING' => 'Module MB Strings',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'Version de MySQL',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Non disponible',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'Librairie PCRE',
   'LBL_CHECKSYS_PHPVER' => 'Version PHP',
   'LBL_CHECKSYS_PHP_INI' => 'Votre fichier de configuration php (php.ini) est situé ici :',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Les options de recherche Full Text ne sont pas installées.',
   'LBL_FTS_INSTALLED_ERR2' => 'Vous pouvez installer l&#39;application mais vous ne pourrez utiliser la fonctionnalité de recherche Full Text. Veuillez vous référer à votre manuel d’installation de la base de données pour savoir comment faire ou contacter votre administrateur.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search est requit pour le bon fonctionnement de l&#39;application.',
   'LBL_FTS_TABLE_TITLE' => 'Parmètres de la recherche Full-Text',
   'LBL_FTS_TYPE' => 'Type de moteur de recherche',
   'LBL_HELP' => 'Aide',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Nettoyer la file des jobs',
   'LBL_OOTB_IE' => 'Vérifier les emails entrants',
   'LBL_OOTB_PRUNE' => 'Nettoyage de la base le 1er du mois',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Suppression des documents du système de fichier',
   'LBL_OOTB_REPORTS' => 'Lancer les tâches planifiées de génération de rapports',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Exécuter les rappels par email',
-  'LBL_OOTB_SUGARFEEDS' => 'Vider les tables liées aux SugarFeeds',
   'LBL_OOTB_TRACKER' => 'Purger la table des historiques utilisateurs le premier de chaque mois',
   'LBL_OOTB_WORKFLOW' => 'Réaliser les tâches de Workflow',
   'LBL_OPP' => 'Jeu de donnée pour les affaires',

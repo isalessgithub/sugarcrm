@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Javítások ebben a kiadásban:',
   'LBL_FOUND_IN_RELEASE' => 'Találatok ebben a kiadásban:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Megtalálható a kiadás nevében',
+  'LBL_HELP_CREATE' => '{{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi oldalra való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása" paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul a termékekkel kapcsolatos problémákat listázza, külső vagy belső jelentések alapján. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul a termékekkel kapcsolatos problémákat listázza, külső vagy belső jelentések alapján. A problémák aszerint is csoportosíthatók, hogy született-e már megoldás velük kapcsolatban. Amennyiben egy problémáról jelentés készült, az azzal kapcsolatos információk rekord nézetben követhetők nyomon. A rekordok hozzákapcsolódhatnak egyéb Sugar bejegyzésekhez, így hívásokhoz, kapcsolatokhoz vagy esetekhez is.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_INVITEE' => 'Kapcsolatok',
   'LBL_LIST_ACCOUNT_NAME' => 'Fiók neve',
@@ -69,7 +69,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Hiba',
   'LBL_MODULE_TITLE' => 'Hibakereső: Főoldal',
   'LBL_NEW_FORM_TITLE' => 'Új hiba',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Feljegyzések',
   'LBL_NUMBER' => 'Szám:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Amennyiben Ön új hibát talál, amit jelenteni szeretne, ide kattintva megteheti azt!',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Keresendő kifejezés megadásával szűrheti a hibák listáját.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Ez hasznos lehet, ha például egy korábban bejelentett hibára kíváncsi.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'A Hiba modul a jelentett hibák rendszerezésére szolgál. Alább a nyilak használatával megismerkedhet a modullal.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Az oldal a közzétett hibák aktuális listáját tartalmazza.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Ide kattintva bármikor visszatérhet ehhez a nézethez.',
   'LBL_PORTAL_VIEWABLE' => 'Megtekinthető portál',
   'LBL_PRIORITY' => 'Prioritás:',
   'LBL_PRODUCT_CATEGORY' => 'Kategória:',

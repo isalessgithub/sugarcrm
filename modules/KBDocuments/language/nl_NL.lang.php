@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Document Aangemaakt',
@@ -26,16 +23,17 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Document Naam',
   'ERR_DOC_VERSION' => 'Document Versie',
   'ERR_FILENAME' => 'Bestandsnaam',
+  'ERR_FILESIZE' => 'Bestand is te groot. Maximum bestandsgrootte:',
   'LBL_ACTIVE_DATE' => 'Publiceer Datum',
   'LBL_AND' => 'en',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Toepassen tags op artikelen ...',
   'LBL_APPLY_TAG' => 'Toepassen Tag',
   'LBL_ARTICLES_IN_TREE_HOVER' => 'Artikelen',
-  'LBL_ARTICLE_APPROVED_BY' => 'Goedkeurder:',
+  'LBL_ARTICLE_APPROVED_BY' => 'Goedkeuring door:',
   'LBL_ARTICLE_AUTHOR' => 'Auteur:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Auteur',
   'LBL_ARTICLE_BODY' => 'Artikel Body:',
-  'LBL_ARTICLE_EXISTS' => 'Article already exists',
+  'LBL_ARTICLE_EXISTS' => 'Artikel bestaat al',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artikel',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Voorvertoning is niet beschikbaar. Het document bestaat, maar er is nog geen inhoud aangemaakt.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Voorvertoning is niet beschikbaar. Documentrecord is niet gevonden.',
@@ -44,11 +42,11 @@ $mod_strings = array (
   'LBL_CASE' => 'Casus:',
   'LBL_CASES' => 'Cases',
   'LBL_CASES_SUBPANEL_TITLE' => 'Verwante Cases',
-  'LBL_CASE_ID' => 'Case ID:',
+  'LBL_CASE_ID' => 'Case ID',
   'LBL_CATEGORY' => 'Categorie',
   'LBL_CATEGORY_VALUE' => 'Categorie:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Niet gespecificeerd',
-  'LBL_CHANGE_LOG' => 'Wijzig Log',
+  'LBL_CHANGE_LOG' => 'Wijzigings Log',
   'LBL_CHILD_TAGS_IN_TREE_HOVER' => 'Onderliggende Tags',
   'LBL_CHILD_TAG_IN_TREE_HOVER' => 'Onderliggende Tag',
   'LBL_CLEAR' => 'Wissen',
@@ -56,21 +54,22 @@ $mod_strings = array (
   'LBL_CONTAINING_THESE_WORDS' => 'Bevat deze woorden:',
   'LBL_CONTRACTS' => 'Contracten',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Verwante Contracten',
-  'LBL_CONTRACT_NAME' => 'Contract Naam:',
+  'LBL_CONTRACT_NAME' => 'Contractnaam:',
+  'LBL_CONTRACT_STATUS' => 'Contractstatus',
   'LBL_CREATED' => 'Gemaakt door',
   'LBL_CREATED_BY' => 'Gemaakt door',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
   'LBL_CREATE_NEW_TAG' => 'Nieuwe Tag Aanmaken',
-  'LBL_CREATING_NEW_TAG' => 'Aanmaken Nieuwe Tag...',
+  'LBL_CREATING_NEW_TAG' => 'Nieuwe Tag wordt aangemaakt...',
   'LBL_DATE_ENTERED' => 'Datum ingevoerd',
-  'LBL_DATE_MODIFIED' => 'Laatste wijziging',
+  'LBL_DATE_MODIFIED' => 'Datum gewijzigd',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'Kies een actie uit de dropdownlijst.',
   'LBL_DEFAULT_LINK_TEXT' => 'Standaard link tekst.',
   'LBL_DELETE' => 'Verwijder',
   'LBL_DELETED' => 'Verwijderd',
   'LBL_DELETE_TAG' => 'Verwijder Tag',
   'LBL_DESCRIPTION' => 'Beschrijving',
-  'LBL_DET_IS_TEMPLATE' => 'Template? :',
+  'LBL_DET_IS_TEMPLATE' => 'Sjabloon? :',
   'LBL_DET_RELATED_DOCUMENT' => 'Verwant Document:',
   'LBL_DET_RELATED_DOCUMENT_VERSION' => 'Verwant Document Revisie:',
   'LBL_DET_TEMPLATE_TYPE' => 'Document Type:',
@@ -86,7 +85,7 @@ $mod_strings = array (
   'LBL_EDIT_INLINE' => 'Wijzigen',
   'LBL_EMAILS' => 'E-mails',
   'LBL_EMAILS_SUBPANEL_TITLE' => 'Verwante E-mails',
-  'LBL_EMBEDED_IMAGES' => 'Ingebedde Afbeeldingen:',
+  'LBL_EMBEDED_IMAGES' => 'Ingesloten Afbeeldingen:',
   'LBL_ERROR_NOT_A_FILE_INPUT_ELEMENT' => 'Fout: Geen bestandsinput element',
   'LBL_EXCLUDING_THESE_WORDS' => 'Exclusief deze woorden:',
   'LBL_EXPIRATION_DATE' => 'Vervaldatum',
@@ -105,13 +104,14 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Document Id',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDocument Revisie Nummer',
   'LBL_KBDOC_APPROVED_BY' => 'Goedgekeurd door:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Goedkeuring door',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attachment',
   'LBL_KBDOC_ATTS_TITLE' => 'Download Bijlagen:',
-  'LBL_KBDOC_BODY' => 'Body:',
+  'LBL_KBDOC_BODY' => 'Inhoud:',
   'LBL_KBDOC_SUBJECT' => 'Onderwerp:',
   'LBL_KBDOC_TAGS' => 'Tags:',
   'LBL_KB_NOTIFICATION' => 'Document is gepubliceerd',
-  'LBL_KB_PUBLISHED_REQUEST' => 'heeft toegewezen een document aan u voor goedkeuring en publicatie.',
+  'LBL_KB_PUBLISHED_REQUEST' => 'heeft een document aan u toegewezen voor goedkeuring en publicatie.',
   'LBL_KB_STATUS_BACK_TO_DRAFT' => 'Document status is terug gewijzigd naar ontwerp.',
   'LBL_KEYWORDS' => 'Sleutelwoorden:',
   'LBL_KNOWLEDGE_BASE_ADMIN' => 'Knowledge Base Admin',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Laatste Revisie Id',
   'LBL_LATEST_REVISION_NAME' => 'Laatste Revisie Naam',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Opstarten Tag Bladeren ...',
+  'LBL_LINKED_ID' => 'Gerelateerde ID',
   'LBL_LIST_ACTIVE_DATE' => 'Publiceerdatum',
-  'LBL_LIST_APPROVED_BY' => 'Goedgekeurd door:',
+  'LBL_LIST_APPROVED_BY' => 'Goedgekeurd door',
   'LBL_LIST_ARTICLES' => 'Artikelen',
   'LBL_LIST_CATEGORY' => 'Categorie',
   'LBL_LIST_DOCUMENT' => 'Document',
@@ -132,8 +133,8 @@ $mod_strings = array (
   'LBL_LIST_DOWNLOAD' => 'Download',
   'LBL_LIST_EXP_DATE' => 'Vervaldatum',
   'LBL_LIST_FORM_TITLE' => 'Document Lijst',
-  'LBL_LIST_IS_TEMPLATE' => 'Template?',
-  'LBL_LIST_KBDOC_APPROVER_NAME' => 'Naam Goedkeurder',
+  'LBL_LIST_IS_TEMPLATE' => 'Sjabloon?',
+  'LBL_LIST_KBDOC_APPROVER_NAME' => 'Goedkeuring door',
   'LBL_LIST_LAST_REV_CREATOR' => 'Gepubliceerd door',
   'LBL_LIST_LAST_REV_DATE' => 'Revisie Datum',
   'LBL_LIST_LATEST_REVISION' => 'Laatste Revisie',
@@ -146,7 +147,7 @@ $mod_strings = array (
   'LBL_LIST_TEMPLATE_TYPE' => 'Document Type',
   'LBL_LIST_VIEWING_FREQUENCY' => 'Frequentie',
   'LBL_LIST_VIEW_DOCUMENT' => 'Bekijk',
-  'LBL_MAIL_MERGE_DOCUMENT' => 'Mail Merge Template:',
+  'LBL_MAIL_MERGE_DOCUMENT' => 'Mail Merge Sjabloon:',
   'LBL_MENU_FTS' => 'Zoeken in Volledige tekst',
   'LBL_MIME' => 'Mime Type',
   'LBL_MISMATCH_QUOTES_ERR' => 'Uw ingevoerde query zal niet werken. Er moet een afsluitende dubbele quote voor elke beginnende dubbele quote zijn (een paar dus). Als u wilt zoeken naar een string met een dubbele quote, dan moet u dit doen door te starten met een backslash (\\ ")',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Geen geldig bestand',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Bovenliggende Type',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'U kunt de lijst met artikelen filteren door een zoekterm op te geven.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Bijvoorbeeld, u kunt dit gebruiken om een artikel te vinden over een bepaald onderwerp.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'In de Knowledge Base module kunt u gepubliceerde artikelen beheren. Gebruik de pijltjes om te navigeren door de snelle rondleiding.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Deze pagina toont de lijst met gepubliceerde artikelen.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Door hier te klikken kunt u altijd terugkeren naar deze weergave.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Vorige Bewaarde Zoekopdrachten:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Wijzig of Verwijder een bestaande bewaarde zoekopdracht.',
   'LBL_PUBLISHED' => 'Gepubliceerd:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Document Zoeken',
   'LBL_SEARCH_TAG' => 'Zoeken',
   'LBL_SEARCH_WITHIN' => 'Zoeken in:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Gekozen Revisie Bestandsnaam',
+  'LBL_SELECTED_REVISION_ID' => 'Gekozen Revisie ID',
   'LBL_SELECTED_REVISION_NAME' => 'Geselecteerde Revisie Naam',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Selecteer de Artikelen om Tags op toe te passen',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Selecteer Artikelen Eerst',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Gebruik maken van deze Tag:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Artikelen zonder tags',
   'LBL_UPDATE' => 'Update',
+  'LBL_VIEWS_NUMBER' => 'Aantal keer bekeken',
   'LNK_KBDOCUMENT_LIST' => 'Documents Lijst',
   'LNK_NEW_ARTICLE' => 'Nieuw Artikel',
   'LNK_NEW_MAIL_MERGE' => 'Mail Merge',

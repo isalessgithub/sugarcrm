@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 (function(){if(SUGAR.EmailAddressWidget)return;var Dom=YAHOO.util.Dom;SUGAR.EmailAddressWidget=function(module){if(!SUGAR.EmailAddressWidget.count[module])SUGAR.EmailAddressWidget.count[module]=0;this.count=SUGAR.EmailAddressWidget.count[module];SUGAR.EmailAddressWidget.count[module]++;this.module=module;this.id=this.module+this.count;if(document.getElementById(module+'_email_widget_id'))
 document.getElementById(module+'_email_widget_id').value=this.id;SUGAR.EmailAddressWidget.instances[this.id]=this;}
 SUGAR.EmailAddressWidget.instances={};SUGAR.EmailAddressWidget.count={};SUGAR.EmailAddressWidget.prototype={emailTemplate:'<tr id="emailAddressRow">'+'<td nowrap="NOWRAP"><input type="text" title="email address 0" name="emailAddress{$index}" id="emailAddress0" size="30"/></td>'+'<td><span>&nbsp;</span><img id="removeButton0" name="0" src="index.php?entryPoint=getImage&amp;themeName=Sugar&amp;imageName=delete_inline.gif"/></td>'+'<td align="center"><input type="radio" name="emailAddressPrimaryFlag" id="emailAddressPrimaryFlag0" value="emailAddress0" enabled="true" checked="true"/></td>'+'<td align="center"><input type="checkbox" name="emailAddressOptOutFlag[]" id="emailAddressOptOutFlag0" value="emailAddress0" enabled="true"/></td>'+'<td align="center"><input type="checkbox" name="emailAddressInvalidFlag[]" id="emailAddressInvalidFlag0" value="emailAddress0" enabled="true"/></td>'+'<td><input type="hidden" name="emailAddressVerifiedFlag0" id="emailAddressVerifiedFlag0" value="true"/></td>'+'<td><input type="hidden" name="emailAddressVerifiedValue0" id="emailAddressVerifiedValue0" value=""/></td></tr>',numberEmailAddresses:0,replyToFlagObject:new Object(),verifying:false,enterPressed:false,tabPressed:false,emailView:"",emailIsRequired:false,tabIndex:-1,prefillEmailAddresses:function(tableId,o){for(i=0;i<o.length;i++){o[i].email_address=o[i].email_address.replace('&#039;',"'");this.addEmailAddress(tableId,o[i].email_address,o[i].primary_address,o[i].reply_to_address,o[i].opt_out,o[i].invalid_email,o[i].email_address_id);}},retrieveEmailAddress:function(event){var callbackFunction=function success(data){var vals=YAHOO.lang.JSON.parse(data.responseText);var target=vals.target;event=this.getEvent(event);if(vals.email){var email=vals.email;if(email!=''&&/\d+$/.test(target)){var matches=target.match(/\d+$/);var targetNumber=matches[0];var optOutEl=Dom.get(this.id+'emailAddressOptOutFlag'+targetNumber);if(optOutEl){optOutEl.checked=email['opt_out']==1?true:false;}

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -48,6 +45,8 @@ $mod_strings = array (
   'LBL_ERR_NO_AUTHINFO' => 'Der er ingen godkendelsesinformation for denne konto.',
   'LBL_ERR_NO_RESPONSE' => 'Der opstod en fejl, da du forsøgte at gemme på den eksterne konto.',
   'LBL_ERR_NO_TOKEN' => 'Der er ingen gyldig login token for denne konto.',
+  'LBL_ERR_OAUTH_FACEBOOK_1' => 'Facebook session er udløbet. Hvis du vil genindlæse, bedes',
+  'LBL_ERR_OAUTH_FACEBOOK_2' => 'Logge ind på Facebook igen',
   'LBL_ERR_POPUPS_DISABLED' => 'Venligst tillad browser popup vinduer eller tilføj en undtagelse for websiden "{0}" to undtagelseslisten for at kunne vise websiden.',
   'LBL_ERR_TWITTER' => 'Twitter returnerede en fejl, og feed&#39;et kan ikke vises.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vis historik',
@@ -61,6 +60,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Ændret af navn',
   'LBL_MODIFIED_USER' => 'Ændret af bruger',
   'LBL_MODULE_NAME' => 'Ekstern konto',
+  'LBL_MODULE_NAME_SINGULAR' => 'Ekstern konto',
   'LBL_MODULE_TITLE' => 'Eksterne konti',
   'LBL_NAME' => 'App brugernavn',
   'LBL_NEW_FORM_TITLE' => 'Nye eksterne konto',
@@ -72,6 +72,7 @@ $mod_strings = array (
   'LBL_REAUTHENTICATE_KEY' => 'a',
   'LBL_REAUTHENTICATE_LABEL' => 'Gen-godkendelse',
   'LBL_SEARCH_FORM_TITLE' => 'Søg i eksterne kilder',
+  'LBL_SUCCESS' => 'Handlingen lykkedes',
   'LBL_SUGAR_EAPM_SUBPANEL_TITLE' => 'Eksterne konti',
   'LBL_SUGAR_USER_NAME' => 'Sugar bruger',
   'LBL_TEAM' => 'Teams',

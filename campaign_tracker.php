@@ -1,26 +1,17 @@
 <?php
  if(!defined('sugarEntry'))define('sugarEntry', true);
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-require_once('include/entryPoint.php');
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+ define('ENTRY_POINT_TYPE', 'api');
+ require_once('include/entryPoint.php');
 
 // logic will be added here at a later date to track campaigns
 // this script; currently forwards to site_URL variable of $sugar_config
@@ -50,12 +41,6 @@ if(preg_match('/^[0-9A-Za-z\-]*$/', $track))
 	$row = $db->fetchByAssoc($res);
 
 	$redirect_URL = $row['refer_url'];
-	sugar_cleanup();
 	header("Location: $redirect_URL");
 }
-else
-{
-	sugar_cleanup();
-}
-exit;
-?>
+sugar_cleanup(true);

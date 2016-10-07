@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => '修正リリース:',
   'LBL_FOUND_IN_RELEASE' => '発見リリース:',
   'LBL_FOUND_IN_RELEASE_NAME' => '発見リリース',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、内部的に見つからないか、顧客から報告されたいずれか、一般的に{{plural_module_name}}や不具合と呼ばれる製品に関連する問題を追跡し、管理するために使用されます。{{module_name}}作成するには：1。必要に応じてフィールドの値を指定します。 - 「必須」フィールドは保存する前に入力完了しなければならない。 - 必要に応じて、追加のフィールドを展開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 「保存して表示」を選択し、レコードビューに{{module_name}}]を開きます。 - すぐに別の新しい{{module_name}}を作成するには「保存して新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、内部的に見つからないか、顧客から報告されたいずれか、一般的に{{plural_module_name}}や不具合と呼ばれる製品に関連する問題を追跡し、管理するために使用されます。 - 個々のフィールドまたは「編集」ボタンをクリックして、このレコードのフィールドを編集します。 - 左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示したり変更してください。 - 左下ペインに「アクティビティストリーム」を切り替えることにより、{{activitystream_singular_module}}内のレコードの変更履歴やユーザーコメントを作成したり編集したりしてください。 - レコード名の右にあるアイコンを使用して、このレコードをフォローするかお気に入りにしてください。 - 追加のアクションは、「編集」ボタンの右にあるドロップダウンの「操作」メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、内部的に見つからないか、顧客から報告されたいずれか、一般的に{{plural_module_name}}や不具合と呼ばれる製品に関連する問題を追跡し、管理するために使用されます。  {{plural_module_name}}リリースで発見され修正されたものを追跡することによって優先順位付けすることができます。 {{plural_module_name}}モジュールにより、ユーザーはすぐにすべての{{module_name}}の詳細およびプロセスとそれを是正するために使用されているものを再確認することができます。{{module_name}}が作成されるか、または提出されたら、{{module_name}}のレコードの表示を経由して{{module_name}}に関連する情報を表示したり、編集することができます。各{{module_name}}レコードは、{{calls_module}}、{{contacts_module}}、{{cases_module}}など、およびその他多くの他のSugarの記録に関するものになります。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_INVITEE' => '取引先担当者',
   'LBL_LIST_ACCOUNT_NAME' => '取引先',
@@ -69,7 +69,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'バグトラッカー',
   'LBL_MODULE_TITLE' => 'バグトラッカー: ホーム',
   'LBL_NEW_FORM_TITLE' => '不具合作成',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_NUMBER' => '番号:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => '報告したい新しいバグがあるのであれば、ここをクリックすることによりバグを報告できます。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => '検索条件を提示することにより、バグのリストをフィルタすることができます。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => '例えば、以前に報告されたバグを見つけるためにこれを使用する事ができます。',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'バグモジュールはバグを確認したり報告したりするためのものです。クイックツアーを見るためには下の矢印を使用してください。',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'このページは存在する公開されたバグのリストを表示します。',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'ここをクリックすることによりいつでもこのビューに戻ることができます。',
   'LBL_PORTAL_VIEWABLE' => 'ポータルで表示',
   'LBL_PRIORITY' => '優先度:',
   'LBL_PRODUCT_CATEGORY' => 'カテゴリ:',

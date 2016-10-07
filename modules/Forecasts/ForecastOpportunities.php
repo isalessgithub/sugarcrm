@@ -1,31 +1,15 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
-
-// User is used to store customer information.
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 class ForecastOpportunities extends SugarBean {
 
     var $id;
@@ -45,6 +29,7 @@ class ForecastOpportunities extends SugarBean {
     var $current_timeperiod_id;
 
     var $object_name = 'ForecastOpportunities';
+    var $module_name = 'ForecastOpportunities';
     var $module_dir = 'Forecasts';
 
     var $table_name = 'opportunities';
@@ -61,21 +46,13 @@ class ForecastOpportunities extends SugarBean {
 
     var $new_schema = true;
 
-    function ForecastOpportunities() {
+    public function __construct() {
         global $current_user, $db;
 
-        parent::SugarBean();
+        parent::__construct();
         $this->disable_row_level_security =true;
 
-
-        $this->currency = new Currency();
-
-        if (isset($current_user)) {
-
-            $this->currency->retrieve($current_user->getPreference('currency'));
-        }else{
-            $this->currency->retrieve('-99');
-        }
+        $this->currency = BeanFactory::getBean('Currencies')->getUserCurrency();
         $this->currencysymbol= $this->currency->symbol;
     }
 
@@ -85,13 +62,7 @@ class ForecastOpportunities extends SugarBean {
 
     function get_summary_text()
     {
-        return "$this->name";
-    }
-
-    function retrieve($id, $encode=false, $deleted=true){
-        $ret = parent::retrieve($id, $encode, $deleted);
-
-        return $ret;
+        return $this->name;
     }
 
     function is_authenticated()
@@ -148,59 +119,36 @@ class ForecastOpportunities extends SugarBean {
         return $list_form;
     }
 
-    function create_export_query($order_by, $where)
-    {
-        $custom_join = $this->getCustomJoin();
-        //$custom_join='';
-
-        $query = "SELECT ";
-        $query .= " opportunities.id, opportunities.name , amount_usdollar as revenue,  ((amount_usdollar * probability)/100) as weighted_value, probability";
-
-        $query .= $custom_join['select'];
-
-        $query .= " FROM opportunities, timeperiods ";
-
-        $query .= $custom_join['join'];
-
-        if($where != "")
-            $query .= "where $where ";
-
-        if($order_by != "")
-            $query .= " ORDER BY $order_by";
-        else
-            $query .= " ORDER BY $this->table_name.name";
-
-
-        return $query;
-
-    }
     function create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false,$parentbean){
 //        _pp(func_get_args());
         // Workaround due to fix for Bug 14232. date_entered is ambiguous in this case, so we specify it if it is the default sort
-        if(strpos($order_by, 'date_entered') !== false){
+        if (strpos($order_by, 'date_entered') !== false) {
             $order_by = str_replace('date_entered', 'opportunities.date_entered', $order_by);
         }
+        $opp = BeanFactory::getBean('Opportunities');
         $ret_array=array();
         $ret_array['select'] = "SELECT  opportunities.id, opportunities.name ,opportunities.assigned_user_id opportunity_owner, opportunities.amount_usdollar as revenue,  ((opportunities.amount_usdollar * opportunities.probability)/100) as weighted_value, opportunities.probability,opportunities.description, opportunities.next_step,opportunities.opportunity_type";
-        $ret_array['select'] .=" ,worksheet.id worksheet_id, best_case,likely_case,worst_case ";
+        $ret_array['select'] .=" ,worksheet.id worksheet_id, opportunities.best_case,opportunities.worst_case ";
         $ret_array['from'] = " FROM opportunities  ";
+        $opp->addVisibilityFrom($ret_array['from'], array('where_condition' => true));
         $ret_array['where']  = " INNER JOIN timeperiods on 1=1 LEFT JOIN worksheet on opportunities.id = worksheet.related_id and worksheet.user_id='{$this->fo_user_id}' and worksheet.timeperiod_id='{$this->fo_timeperiod_id}' and worksheet.forecast_type='{$this->fo_forecast_type}'";
+        $opp->addVisibilityFrom($where, array('where_condition' => true));
         $ret_array['where'] .= ' WHERE '. $where;
+
         $ret_array['order_by'] = !empty($order_by) ? ' ORDER BY '. $order_by : ' ORDER BY opportunities.name ';
         return $ret_array;
     }
 
-    //get oppotunity forecast summary
+    //get opportunity forecast summary
     function get_opportunity_summary($currency_format=true) {
 
         $abc = array();
-        $amount_usdollar = $this->db->convert("amount_usdollar", "IFNULL", array(0));
-        $probability = $this->db->convert("probability", "IFNULL", array(0));
+        $amount_usdollar = $this->db->convert("opportunities.amount_usdollar", "IFNULL", array(0));
+        $probability = $this->db->convert("opportunities.probability", "IFNULL", array(0));
         $query1 = "SELECT count(*) as opportunitycount, sum(amount_usdollar) as total_amount,
-        	sum((amount_usdollar * probability)/100) as weightedvalue,
-        	sum(".$this->db->convert("best_case","IFNULL", array("(($amount_usdollar * $probability)/100)")).") total_best_case,
-        	sum(".$this->db->convert("likely_case","IFNULL", array("(($amount_usdollar * $probability)/100)")).") total_likely_case,
-        	sum(".$this->db->convert("worst_case","IFNULL", array("(($amount_usdollar * $probability)/100)")).") total_worst_case";
+            sum((amount_usdollar * opportunities.probability)/100) as weightedvalue,
+            sum(".$this->db->convert("opportunities.best_case","IFNULL", array("(($amount_usdollar * $probability)/100)")).") total_best_case,
+            sum(".$this->db->convert("opportunities.worst_case","IFNULL", array("(($amount_usdollar * $probability)/100)")).") total_worst_case";
 
         $query1 .= " FROM timeperiods, opportunities ";
         $query1 .= " LEFT JOIN worksheet on opportunities.id = worksheet.related_id and worksheet.user_id='{$this->fo_user_id}' and worksheet.timeperiod_id='{$this->fo_timeperiod_id}' and worksheet.forecast_type='{$this->fo_forecast_type}'";
@@ -208,10 +156,23 @@ class ForecastOpportunities extends SugarBean {
         $query1 .= " AND date_closed <= timeperiods.end_date";
         $query1 .= " AND assigned_user_id = '$this->current_user_id'";
         $query1 .= " AND opportunities.deleted = 0";
+        $query1 .= " AND opportunities.probability >= 70";
         $query1 .= " AND timeperiods.id = '$this->current_timeperiod_id'";
-        $query1 .= " AND opportunities.sales_stage != 'Closed Lost'";
+        $query1 .= " AND opportunities.sales_stage != '".Opportunity::STAGE_CLOSED_LOST."'";
+
+        $query2 = "SELECT sum(o.amount * o.base_rate) as amount, count(*) as rows FROM opportunities o " .
+                  "INNER JOIN timeperiods t " .
+                  "ON t.id = '{$this->current_timeperiod_id}' " .
+                  "WHERE o.sales_stage in ('" . Opportunity::STAGE_CLOSED_WON ."', '" . Opportunity::STAGE_CLOSED_LOST . "') " .
+                  "AND o.assigned_user_id = '{$this->current_user_id}' " .
+                  "AND o.date_closed >= t.start_date " .
+                  "AND o.date_closed <= t.end_date ";
+
         $result1 = $this->db->query($query1,true,"Error filling in opportunity details: ");
         $row1 = $this->db->fetchByAssoc($result1);
+        $result2 = $this->db->query($query2,true,"Error getting close lost/won count: ");
+        $row2 = $this->db->fetchByAssoc($result2);
+
         if ($row1 == null) {
             $abc['OPPORTUNITYCOUNT'] = 0;
             $abc['WEIGHTEDVALUE'] = 0;
@@ -247,6 +208,14 @@ class ForecastOpportunities extends SugarBean {
             //format currency and number selectively
             $abc['WEIGHTEDVALUE'] = $this->currency->symbol. format_number($abc['WEIGHTEDVALUE'],0,0);
             $abc['TOTAL_AMOUNT'] =  $this->currency->symbol. format_number($abc['TOTAL_AMOUNT'],0,0);
+        }
+
+        if ($row2 == null) {
+            $abc['CLOSED_OPP_COUNT'] = 0;
+            $abc['CLOSED_AMOUNT'] = 0;
+        } else {
+            $abc['CLOSED_OPP_COUNT'] = $row2['rows'];
+            $abc['CLOSED_AMOUNT'] = empty($row2['amount'])? 0: $row2['amount'];
         }
 
         return $abc;
@@ -307,16 +276,16 @@ class ForecastOpportunities extends SugarBean {
     function listviewACLHelper(){
         $array_assign = parent::listviewACLHelper();
         $is_owner = false;
-        if(!empty($this->name)){
+        if (!empty($this->name)) {
 
-            if(!empty($this->opportunity_owner)){
+            if (!empty($this->opportunity_owner)) {
                 global $current_user;
                 $is_owner = $current_user->id == $this->opportunity_owner;
             }
         }
-            if( ACLController::checkAccess('Opportunities', 'view', $is_owner)){
+            if ( ACLController::checkAccess('Opportunities', 'view', $is_owner)) {
                 $array_assign['OPPORTUNITY'] = 'a';
-            }else{
+            } else {
                 $array_assign['OPPORTUNITY'] = 'span';
             }
 

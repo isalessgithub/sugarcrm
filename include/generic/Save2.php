@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /*
 ARGS:
@@ -68,14 +58,7 @@ if (isset($_REQUEST['return_type'])  && $_REQUEST['return_type'] == 'report') {
     // Get a list of campaigns selected.
     if (isset($_REQUEST['subpanel_id'])  && !empty($_REQUEST['subpanel_id'])) {
         $campaign_ids = $_REQUEST['subpanel_id'];
-        global $beanFiles;
-        global $beanList;
-        //retrieve current bean
-        $bean_name = $beanList[$_REQUEST['module']];
-        require_once($beanFiles[$bean_name]);
-        $focus = new $bean_name();
-        $focus->retrieve($_REQUEST['record']);
-
+        $focus = BeanFactory::getBean($_REQUEST['module'], $_REQUEST['record']);
         require_once('modules/Campaigns/utils.php');
         //call util function to create the campaign log entry
         foreach($campaign_ids as $id){
@@ -85,20 +68,14 @@ if (isset($_REQUEST['return_type'])  && $_REQUEST['return_type'] == 'report') {
     }
 }
 else {
-
-	global $beanFiles,$beanList;
- 	$bean_name = $beanList[$_REQUEST['module']];
- 	require_once($beanFiles[$bean_name]);
- 	$focus = new $bean_name();
-
- 	$focus->retrieve($_REQUEST['record']);
+    $focus = BeanFactory::getBean($_REQUEST['module'], $_REQUEST['record']);
 
  	// If the user selected "All records" from the selection menu, we pull up the list
  	// based on the query they used on that popup to relate them to the parent record
  	if(!empty($_REQUEST['select_entire_list']) &&  $_REQUEST['select_entire_list'] != 'undefined' && isset($_REQUEST['current_query_by_page'])){
 		$order_by = '';
 		$current_query_by_page = $_REQUEST['current_query_by_page'];
- 		$current_query_by_page_array = sugar_unserialize(base64_decode($current_query_by_page));
+ 		$current_query_by_page_array = unserialize(base64_decode($current_query_by_page));
 
         $module = $current_query_by_page_array['module'];
         $seed = BeanFactory::getBean($module);
@@ -106,31 +83,13 @@ else {
  		$where_clauses = '';
  		require_once('include/SearchForm/SearchForm2.php');
 
- 		if(file_exists('custom/modules/'.$module.'/metadata/metafiles.php')){
-            require('custom/modules/'.$module.'/metadata/metafiles.php');
-        }elseif(file_exists('modules/'.$module.'/metadata/metafiles.php')){
-            require('modules/'.$module.'/metadata/metafiles.php');
-        }
+ 		$searchdefs_file = SugarAutoLoader::loadWithMetafiles($module, 'searchdefs');
+ 		if($searchdefs_file) {
+ 			require $searchdefs_file;
+ 		}
 
-        if (file_exists('custom/modules/'.$module.'/metadata/searchdefs.php'))
-        {
-        	require_once('custom/modules/'.$module.'/metadata/searchdefs.php');
-        }
-        elseif (!empty($metafiles[$module]['searchdefs']))
-        {
-        	require_once($metafiles[$module]['searchdefs']);
-        }
-        elseif (file_exists('modules/'.$module.'/metadata/searchdefs.php'))
-        {
-        	require_once('modules/'.$module.'/metadata/searchdefs.php');
-        }
+ 		$searchFields = SugarAutoLoader::loadSearchFields($module);
 
-        if(!empty($metafiles[$module]['searchfields'])){
-        	require_once($metafiles[$module]['searchfields']);
-        }
-        elseif(file_exists('modules/'.$module.'/metadata/SearchFields.php')){
-        	require_once('modules/'.$module.'/metadata/SearchFields.php');
-        }
         if(!empty($searchdefs) && !empty($searchFields)) {
         	$searchForm = new SearchForm($seed, $module);
 	        $searchForm->setup($searchdefs, $searchFields, 'SearchFormGeneric.tpl');
@@ -151,7 +110,7 @@ else {
 		$_REQUEST['subpanel_id'] = $uids;
  	}
 
- 	if($bean_name == 'Team'){
+ 	if ($_REQUEST['module'] == 'Teams') {
  		$subpanel_id = $_REQUEST['subpanel_id'];
  		if(is_array($subpanel_id)){
  			foreach($subpanel_id as $id){

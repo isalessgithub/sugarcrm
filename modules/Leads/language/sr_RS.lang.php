@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'en_us Morate navesti broj zapisa da bi obrisali potencijalnog klijenta.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Informacija o adresi',
   'LBL_ADD_BUSINESSCARD' => 'Dodaj Vizit kartu',
   'LBL_ALTERNATE_ADDRESS' => 'Druga adresa:',
-  'LBL_ALT_ADDRESS' => 'Druga adresa:',
   'LBL_ALT_ADDRESS_CITY' => 'Grad alternativne adrese:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Država alternativne adrese:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Poštanski broj alternativne adrese:',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Konvertovana prodajna prilika:',
   'LBL_CONVERTLEAD' => 'Konvertuj potencijalnog klijenta',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Nemogućnost konvertovanja potencijalnog klijenta',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Uspešno ste konvertovali potencijalnog klijenta {{leadName}}, ali bilo je problema sa otpremanjem priloga na jedan ili više zapisa.',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Uspešno ste konvertovali potencijalnog klijenta {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Konvertuj potencijalnog klijenta [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Upozorenje: Status Potencijalnog klijenta kojeg konvertujete je "Konvertovan". Zapisi Kontakta i/ili Kompanije su možda već kreirani iz potencijalnog klijenta. Ako želite da nastavite sa konvertovanjem Potencijalnog klijenta, kliknite Sačuvaj. Da bi ste se vratili nazad na Potencijalnog klijenta bez da ga konvertujete, kliknite Otkaži.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Mogući Kontakt:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Nedostaju vam prava pristupa modulima potrebnim za konvertovanje potencijalnog klijenta: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Dodaj modul',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Povezani {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Poveži {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Nazad na duplikate',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Konvertuj',
   'LBL_CONVERT_COPY' => 'Kopiraj Podatke',
+  'LBL_CONVERT_CREATE_NEW' => 'Novi {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Obriši',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} duplikata je pronađeno',
   'LBL_CONVERT_EDIT' => 'Izmeni',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Izmeni konvertovani raspored',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Pretraga za duplikatima...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Zanemari i napravi novi',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Povezano',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Povezali ste {{moduleNameLower}} {{recordName}}, ali neće biti kreirano dok ne završite i sačuvate',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Povezali ste {{moduleNameLower}} {{recordName}}, ali neće biti finalno povezano dok ne završite i sačuvate.',
   'LBL_CONVERT_MODULE_NAME' => 'Modul',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Modul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(opciono)',
   'LBL_CONVERT_REQUIRED' => 'Obavezan',
+  'LBL_CONVERT_RESET_PANEL' => 'Resetuj',
   'LBL_CONVERT_SELECT' => 'Dozvolite selekciju',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Kreiraj novi',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Pretraga',
   'LBL_COPY_TIP' => 'Ako su obeležena, polja iz potencijalnog klijenta će biti kopirana u polja sa istim imenom u novim zapisima.',
   'LBL_COUNTRY' => 'Država:',
   'LBL_CREATE' => 'Kreiraj',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Odeljenje:',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Opisne informacije',
+  'LBL_DNB_BAL_PREVIEW' => 'Pregled kompanija.',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Potencijalni klijenti',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: informacije o potencijalnim klijentima',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Direktorski Id',
   'LBL_DO_NOT_CALL' => 'Ne zovi:',
   'LBL_DUPLICATE' => 'Slični potencijalni klijenti',
   'LBL_EDITLAYOUT' => 'Izmeni raspored',
@@ -115,12 +134,38 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'ID korisnika koji je promenio',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobilni telefon',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Vodeći izveštaji',
   'LBL_FIRST_NAME' => 'Ime:',
   'LBL_FULL_NAME' => 'Puno ime:',
+  'LBL_HELP_CONVERT' => 'Sugara vam omogućava da konvertujete {{plural_module_name}} u {{contacts_module}}, {{accounts_module}}, i druge module kada {{module_name}} ispunjava vaše kriterijume.
+
+Prođite kroz svaki modul promenom polja i potvrdom novih vrednosti zapisa klikom na svako Poveži dugme.
+
+Ako Sugar primeti zapis koji odgovara vašim {{module_name}} informacijama, da izaberete Kopiraj i potvrdite odabir sa Poveži dugmetom ili da klikom na "Zanemari i napravi novi" i nastavite normalno.
+
+After confirming each required and desired module, click the Save and Convert button at the top to finalize the conversion.',
+  'LBL_HELP_CONVERT_TITLE' => 'Kovertuj {{module_name}}',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modul se sastoji od mogućih klijenata koji bi mogli da budu zainteresovani u proizvod ili uslugu koje vaša organizacija pruža. Kada se {{module_name}} modul se kvalifikuje kao {{opportunities_singular_module}}, {{plural_module_name}} može biti konvertovan u {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}} ili drugi zapis.
+
+Da bi {{module_name}} bio kreiran: 
+1. Obezbediti vrednost za polja po želji. 
+   - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka.
+   - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 
+2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. 
+   - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. 
+   - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modul se sastoji od mogućih klijenata koji bi mogli da budu zainteresovani u proizvod ili uslugu koje vaša organizacija pruža.
+
+- Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. 
+- Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka".
+- Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti".
+- Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modul se sastoji od mogućih klijenata koji bi mogli da budu zainteresovani u proizvod ili uslugu koje vaša organizacija pruža. Kada se {{module_name}} modul se kvalifikuje kao {{opportunities_singular_module}}, {{plural_module_name}} može biti konvertovan u {{contacts_module}}, {{opportunities_module}}, i {{accounts_module}}. Postoji više načina na koje možete da kreirate {{plural_module_name}} u Sugaru kao što su {{plural_module_name}} modul, kopiranje, uvoz {{plural_module_name}}, itd. Kada je {{module_name}} zapis napravljen, možete pregledati i izmeniti informacije vezane sa {{module_name}} modulom preko {{plural_module_name}} pogleda na zapise.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istorija',
   'LBL_HOME_PHONE' => 'Kućni telefon:',
   'LBL_IMPORT_VCARD' => 'Uvezi digitalnu vizitkartu',
   'LBL_IMPORT_VCARDTEXT' => 'Automatski kreiraj novog potencijalnog klijenta uvoženjem digitalne vizit karte sa vašeg sistema.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Potencijalni klijent iz virtuelnog imenika je uspešno napravljen',
   'LBL_INVALID_EMAIL' => 'Nevažeći Email:',
   'LBL_INVITEE' => 'Direktni izveštaji',
   'LBL_LAST_NAME' => 'Prezime:',
@@ -146,6 +191,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Titula',
   'LBL_LOADING' => 'Učitavanje',
   'LBL_MESSAGE' => 'Molimo, unesite Vaše podatke ispod. Podaci i/ili nalog koji će biti kreirani za Vas čekaju na odobrenje.',
+  'LBL_MKTO_ID' => 'Marketo Glavni ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Vodeći Rezultat',
+  'LBL_MKTO_SYNC' => 'Sinhronizuj sa Marketo®',
   'LBL_MOBILE_PHONE' => 'Mob. telefon:',
   'LBL_MODIFIED' => 'Promenio',
   'LBL_MODIFIED_ID' => 'ID broj korisnika koji je promenio',
@@ -157,8 +205,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Ime:',
   'LBL_NEW_FORM_TITLE' => 'Novi potencijalni klijent',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nova portal lozinka:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Beleške',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Obaveštenje: Trenutni ekran Konvertovanja Potencijalnog klijenta sadrži prilagođena polja. Kada prilagodite ekran Konvertovanja Potencijalnog klijenta u Studiju po prvi put, moraćete da dodate prilagođena poljana raspored, po potrebi. Prilagođena polja se neće automatski pojaviti u rasporedu, kao što su prethodno.',
   'LBL_OFFICE_PHONE' => 'Poslovni telefon:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Prodajne prilike',
   'LBL_OPPORTUNITY_AMOUNT' => 'Iznos prodajne prilike:',
   'LBL_OPPORTUNITY_ID' => 'ID broj Prodajne prilike:',
   'LBL_OPPORTUNITY_NAME' => 'Ime prodajne prilike:',
@@ -186,6 +236,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Ulica br.2 primarne adrese',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Ulica br.3 primarne adrese:',
   'LBL_PROSPECT_LIST' => 'Lista ciljeva',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Uspešno ste napravili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Preporučen od:',
   'LBL_REGISTRATION' => 'Registracija',
   'LBL_REPORTS_FROM' => 'Izveštaji od:',
@@ -194,6 +245,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Neophodni moduli moraju da se kreiraju ili izaberu pre nego što potencijalni klijent može da se konvertuje.',
   'LBL_SALUTATION' => 'Pozdrav',
   'LBL_SAVED' => 'Hvala što ste se registrovali. Vaš nalog će biti kreiran i neko će Vas uskoro kontaktirati.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Sačuvaj i konvertuj',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga potencijalnih klijenata',
   'LBL_SELECT' => '<b>ILI</b> Izaberite',
   'LBL_SELECTION_TIP' => 'Moduli sa povezanim poljem u Kontaktima mogu se odabrati radije nego da se kreiraju tokom procesa konvertovanja potencijalnog klijenta.',
@@ -210,6 +262,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Uspešna kampanja:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Hvala Vam za Vaš predlog.',
   'LBL_TITLE' => 'Naslov:',
+  'LBL_UNCONVERTED' => 'Nekonvertovani',
   'LBL_VCARD' => 'Digitalna vizitkarta',
   'LBL_VIEW_FORM_TITLE' => 'Pregled potencijalnog klijenta',
   'LBL_WEBSITE' => 'Web stranica',
@@ -235,6 +288,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Za kreiranje prodajne prilike neophodna je kompanija.\\n Molim, kreirajte novu kompaniju ili odaberite neku postojeću.',
   'NTC_REMOVE_CONFIRMATION' => 'Da li ste sigurni da želite da obrišete ovog potencijalnog klijenta iz ovog slučaja?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Da li ste sigurni da želite da uklonite ovaj zapis kao direktni izveštaj?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

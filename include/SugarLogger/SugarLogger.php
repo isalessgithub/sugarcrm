@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id$
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -40,7 +37,7 @@ class SugarLogger implements LoggerTemplate
 	protected $filesuffix = "";
     protected $date_suffix = "";
 	protected $log_dir = '.';
-    protected $full_log_file;
+
 
 	/**
 	 * used for config screen
@@ -168,10 +165,20 @@ class SugarLogger implements LoggerTemplate
 		    $message = print_r($message,true);
 
 		//write out to the file including the time in the dateFormat the process id , the user id , and the log level as well as the message
-		fwrite($this->fp,
-		    strftime($this->dateFormat) . ' [' . getmypid () . '][' . $userID . '][' . strtoupper($level) . '] ' . $message . "\n"
-		    );
-	}
+        $this->write(strftime($this->dateFormat) . ' [' . getmypid () . '][' . $userID . '][' . strtoupper($level) . '] ' . $message . "\n");
+    }
+    
+    /**
+     * Writing log to file
+     * 
+     * @param string $string Message to log
+     */
+    protected function write($string)
+    {
+        if ($this->fp) {
+            fwrite($this->fp, $string);
+        }
+    }
 
 	/**
 	 * rolls the logger file to start using a new file
@@ -194,47 +201,25 @@ class SugarLogger implements LoggerTemplate
             $rollAt = ( int ) $match[1] * $units[strtolower($match[2])];
         }
 		//check if our log file is greater than that or if we are forcing the log to roll if and only if roll size assigned the value correctly
-		if ( $force || ($rollAt && filesize ( $this->full_log_file ) >= $rollAt) ) {
-            $temp = tempnam($this->log_dir, 'rot');
-            if ($temp) {
-                // warning here is expected in case if log file is opened by another process on Windows
-                // or rotation has been already started by another process
-                if (@rename($this->full_log_file, $temp)) {
+        if ($force || (!empty($rollAt) && filesize($this->full_log_file) >= $rollAt)) {
+			//now lets move the logs starting at the oldest and going to the newest
+			for($i = $this->maxLogs - 2; $i > 0; $i --) {
+                if (file_exists ( $this->log_dir . $this->logfile . $this->date_suffix . '_'. $i . $this->ext )) {
+					$to = $i + 1;
+                    $old_name = $this->log_dir . $this->logfile . $this->date_suffix . '_'. $i . $this->ext;
+                    $new_name = $this->log_dir . $this->logfile . $this->date_suffix . '_'. $to . $this->ext;
+					//nsingh- Bug 22548  Win systems fail if new file name already exists. The fix below checks for that.
+					//if/else branch is necessary as suggested by someone on php-doc ( see rename function ).
+					sugar_rename($old_name, $new_name);
 
-                    // manually remove the obsolete part. Otherwise, rename() may fail on Windows (bug #22548)
-                    $obsolete_part = $this->getLogPartPath($this->maxLogs - 1);
-                    if (file_exists($obsolete_part)) {
-                        unlink($obsolete_part);
-                    }
+					//rename ( $this->logfile . $i . $this->ext, $this->logfile . $to . $this->ext );
+				}
+			}
+			//now lets move the current .log file
+            sugar_rename ($this->full_log_file, $this->log_dir . $this->logfile . $this->date_suffix . '_1' . $this->ext);
 
-                    // now lets move the logs starting at the oldest and going to the newest
-                    for ($old = $this->maxLogs - 2; $old > 0; $old--) {
-                        $old_name = $this->getLogPartPath($old);
-                        if (file_exists($old_name)) {
-                            $new_name = $this->getLogPartPath($old + 1);
-                            rename($old_name, $new_name);
-                        }
-                    }
-
-                    $part1 = $this->getLogPartPath(1);
-                    rename($temp, $part1);
-                } else {
-                    unlink($temp);
-                }
-            }
 		}
 	}
-
-    /**
-     * Returns path for the given log part
-     *
-     * @param int $i
-     * @return string
-     */
-    protected function getLogPartPath($i)
-    {
-        return $this->log_dir . $this->logfile . $this->date_suffix . '_' . $i . $this->ext;
-    }
 
     /**
 	 * This is needed to prevent unserialize vulnerability

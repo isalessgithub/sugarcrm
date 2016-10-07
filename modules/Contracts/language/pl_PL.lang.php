@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'ID kontrahenta',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Użytkownik tworzący',
   'LBL_CURRENCY' => 'Waluta:',
   'LBL_CURRENCY_ID' => 'ID waluty:',
+  'LBL_CURRENCY_RATE' => 'Stawka waluty',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Data podpisania przez klienta:',
   'LBL_DAYS' => 'Dni',
   'LBL_DESCRIPTION' => 'Opis:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenty',
   'LBL_END_DATE' => 'Data zakończenia:',
   'LBL_EXPIRATION_NOTICE' => 'Ostrzeżenie o wygaśnieciu:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Przydzielono do (ID)',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Przydzielono do',
+  'LBL_EXPORT_CREATED_BY' => 'Utworzono przez',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Zmodyfikowano przez',
+  'LBL_EXPORT_TYPE_NAME' => 'Nazwa typu',
   'LBL_LIST_ACCOUNT_NAME' => 'Nazwa kontrahenta',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Użytkownik',
   'LBL_LIST_CONTRACT_NAME' => 'Nazwa umowy',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Zespół',
   'LBL_MODIFIED_USER' => 'Użytkownik modyfikujący',
   'LBL_MODULE_NAME' => 'Umowy',
+  'LBL_MODULE_NAME_SINGULAR' => 'Umowa',
   'LBL_MODULE_TITLE' => 'Umowy: Strona główna',
   'LBL_NEW_FORM_TITLE' => 'Nowa umowa',
   'LBL_NONE' => 'Brak',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Notatki',
   'LBL_OPPORTUNITY' => 'Szansa',
-  'LBL_OPPORTUNITY_NAME' => 'Nazwa szansy',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkty',
+  'LBL_OPPORTUNITY_ID' => 'ID szansy',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Oferty',
   'LBL_REFERENCE_CODE' => 'Kod umowy:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Pozycje szansy',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukiwanie umowy',
   'LBL_SF_ACCOUNT_NAME' => 'Nazwa kontrahenta:',
   'LBL_SF_ASSIGNED_TO' => 'Przydzielono do:',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Wartość umowy:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Wartość umowy (PLN):',
   'LBL_TYPE' => 'Typ',
+  'LBL_TYPE_NAME' => 'Nazwa typu',
   'LBL_UNDEFINED' => 'Niezdefiniowane',
   'LNK_CONTRACT_LIST' => 'Lista umów',
   'LNK_IMPORT_CONTRACTS' => 'Import umów',

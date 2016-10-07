@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Header$
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -28,7 +25,7 @@ require_once('include/DetailView/DetailView.php');
 global $app_strings;
 global $mod_strings;
 
-$focus = new EmailTemplate();
+$focus = BeanFactory::getBean('EmailTemplates');
 
 $detailView = new DetailView();
 $offset=0;
@@ -76,6 +73,7 @@ $GLOBALS['log']->info("EmailTemplate detail view");
 $xtpl=new XTemplate ('modules/WorkFlow/WorkFlowDetailView.html');
 $xtpl->assign("MOD", $mod_strings);
 $xtpl->assign("APP", $app_strings);
+$xtpl->assign("MOD_EMAILS", return_module_language($GLOBALS['current_language'], 'EmailTemplates'));
 
 if (isset($_REQUEST['return_module'])) $xtpl->assign("RETURN_MODULE", $_REQUEST['return_module']);
 if (isset($_REQUEST['return_action'])) $xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
@@ -103,6 +101,20 @@ if ( $focus->published == 'on')
 {
 $xtpl->assign("PUBLISHED","CHECKED");
 }
+
+///////////////////////////////////////////////////////////////////////////////
+////	NOTES (attachements, etc.)
+///////////////////////////////////////////////////////////////////////////////
+$attachments = '';
+$note = BeanFactory::getBean('Notes');
+$notes_list = $note->get_full_list("notes.name", "notes.parent_id=" . $GLOBALS['db']->quoted($focus->id), true);
+if(!empty($notes_list)) {
+    for($i=0; $i<count($notes_list); $i++) {
+        $the_note = $notes_list[$i];
+        $attachments .= "<a href=\"index.php?entryPoint=download&id={$the_note->id}&type=Notes\">".$the_note->name."</a><br />";
+    }
+}
+$xtpl->assign("ATTACHMENTS", $attachments);
 
 global $current_user;
 if((is_admin($current_user)|| is_admin_for_any_module($current_user)) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){

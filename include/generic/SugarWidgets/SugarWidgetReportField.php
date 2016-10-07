@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: SugarWidgetReportField.php 58357 2010-09-29 23:22:03Z kjing $
 
 
 
@@ -126,9 +123,9 @@ class SugarWidgetReportField extends SugarWidgetField
             $query = $this->reporter->db->convert($currency_alias.".conversion_rate", "IFNULL", array(1));
             // We need to use convert() for AVG because of Oracle
             if ($layout_def['group_function'] != 'avg') {
-                $alias = "{$layout_def['group_function']}($alias/{$query})*{$currency->conversion_rate}";
+                $alias = "{$layout_def['group_function']}($alias/{$query})";
             } else {
-                $alias = $this->reporter->db->convert("$alias/$query", "AVG") . " * {$currency->conversion_rate}";
+                $alias = $this->reporter->db->convert("$alias/$query", "AVG");
             }
         } else {
             // We need to use convert() for AVG because of Oracle
@@ -158,7 +155,6 @@ class SugarWidgetReportField extends SugarWidgetField
 
  function queryOrderBy($layout_def)
  {
-     $field_def = array();
 	if(!empty($this->reporter->all_fields[$layout_def['column_key']])) $field_def = $this->reporter->all_fields[$layout_def['column_key']];
 
     if (!empty($layout_def['group_function']))
@@ -174,12 +170,6 @@ class SugarWidgetReportField extends SugarWidgetField
 	else {
 		$order_by = $this->_get_column_alias($layout_def)." \n";
 	}
-
-     //use sugar db function convert on order by string to convert to varchar.  This is mainly for db's
-     //that do not allow sorting on clob/text fields
-    if ($this->reporter->db->isTextType($this->reporter->db->getFieldType($field_def))) {
-        $order_by = $this->reporter->db->convert($order_by,'text2char', array(10000)); // array(10000) is for db2 only
-    }
 
 			if ( empty($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a')
 			{
@@ -213,7 +203,7 @@ class SugarWidgetReportField extends SugarWidgetField
                 $sort_by ='';
                 if ( ! empty($layout_def['table_key']) && ! empty($layout_def['name']) ) {
                 	if (! empty($layout_def['group_function']) && $layout_def['group_function'] == 'count') {
-                        $sort_by = $layout_def['table_key'].":".'count';
+                            $sort_by = $layout_def['table_key'].":".'count';
                 	} else {
                     	$sort_by = $layout_def['table_key'].":".$layout_def['name'];
                         if ( ! empty($layout_def['column_function'])) {
@@ -320,7 +310,7 @@ class SugarWidgetReportField extends SugarWidgetField
  function queryFilterEmpty($layout_def)
  {
      $column = $this->_get_column_select($layout_def);
-     return "($column IS NULL OR $column = ".$this->reporter->db->emptyValue($layout_def['type']).")";
+        return "(coalesce({$this->reporter->db->convert($column, 'length')}, 0) = 0)";
  }
 
  function queryFilterIs($layout_def)
@@ -335,10 +325,18 @@ class SugarWidgetReportField extends SugarWidgetField
 
  function queryFilterNot_Empty($layout_def)
  {
-     /** @var $db DBManager */
-     $db = $this->reporter->db;
      $column = $this->_get_column_select($layout_def);
-     return "(coalesce(" . $db->convert($column, "length") . ",0) > 0)\n";
+        return "(coalesce({$this->reporter->db->convert($column, 'length')}, 0) <> 0)";
+ }
+
+ protected function getInputValue($layout_def)
+ {
+     $input_name0 = $layout_def['input_name0'];
+     if (is_array($layout_def['input_name0']))
+     {
+         $input_name0 = $layout_def['input_name0'][0];
+     }
+     return $input_name0;
  }
 
 }

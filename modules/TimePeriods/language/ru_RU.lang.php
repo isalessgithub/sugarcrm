@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_TIME_PERIOD_DATE_RANGE' => 'Дата окончания отчётного периода должна быть утсновлена позже, чем дата начала.',
@@ -23,8 +20,11 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Дата создания',
   'LBL_DATE_MODIFIED' => 'Дата изменения',
   'LBL_DELETED' => 'Удалено',
+  'LBL_DROPDOWN_TOOLTIP' => '{{start}} до {{end}}',
   'LBL_EDITLAYOUT' => 'Правка расположения',
+  'LBL_LEAF_CYCLE' => 'Листовой Цикл',
   'LBL_LIST_FORM_TITLE' => 'Отчётные периоды',
+  'LBL_LIST_WARNING' => 'Обратите внимание, что любые изменения, внесенные в этот модуль, потенциально могут нарушить функциональность модуля {0}. Изменения, относящиеся к {1}, должны вноситься через <a style="text-decoration:none;" href="index.php?module=Forecasts&action=#config">{0} Settings</a>.',
   'LBL_MODULE_NAME' => 'Отчётные периоды',
   'LBL_MODULE_NAME_SINGULAR' => 'Промежуток времени',
   'LBL_MODULE_TITLE' => 'Отчётные периоды: Главная',
@@ -36,12 +36,14 @@ $mod_strings = array (
   'LBL_SEARCH_TP_NAME' => 'Отчётный период',
   'LBL_SEARCH_TP_START_DATE' => 'Дата начала',
   'LBL_TP_END_DATE' => 'Дата окончания',
-  'LBL_TP_END_DATE_TIMESTAMP' => 'Дата окончания',
+  'LBL_TP_END_DATE_TIMESTAMP' => 'Временная метка даты окончания',
   'LBL_TP_FISCAL_YEAR' => 'Финансовый год',
+  'LBL_TP_IS_FISCAL' => 'Финансовый промежуток времени?',
   'LBL_TP_IS_FISCAL_YEAR' => 'За весь финансовый год',
+  'LBL_TP_IS_LEAF' => 'Лист?',
   'LBL_TP_NAME' => 'Отчётный период',
   'LBL_TP_START_DATE' => 'Дата начала',
-  'LBL_TP_START_DATE_TIMESTAMP' => 'Дата начала',
+  'LBL_TP_START_DATE_TIMESTAMP' => 'Временная метка даты начала',
   'LBL_TP_TYPE' => 'Тип временного промежутка',
   'LNK_NEW_TIMEPERIOD' => 'Создать отчётный период',
   'LNK_TIMEPERIOD_LIST' => 'Обзор отчётных периодов',

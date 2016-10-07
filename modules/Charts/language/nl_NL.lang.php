@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -22,16 +19,16 @@ $mod_strings = array (
   'LBL_ALL_OPPORTUNITIES' => 'Het totaal van alle Opportunities is',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => 'Toon campagnereacties op basis van ROI',
   'LBL_CHART_ACTION' => 'Actie',
-  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE Actions per Types (Huidige maand)',
-  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Lead bron per Uitkomst',
-  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'Modules gebruikt door degenen die aan mij rapporteren (laatste 30 dagen)',
-  'LBL_CHART_MY_MODULES_USED_30_DAYS' => 'Modules door mij gebruikt (Laatste 30 dagen)',
-  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Mijn veerkooppijplijn per verkoopstadium',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE Acties per type (Huidige maand)',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Bron voor Lead per resultaat',
+  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'Modules gebruikt door ondergeschikten (afgelopen 30 dagen)',
+  'LBL_CHART_MY_MODULES_USED_30_DAYS' => 'Modules door mij gebruikt (afgelopen 30 dagen)',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Mijn pijplijn per verkoopstadium',
   'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'Opportunities dit kwartaal',
   'LBL_CHART_OUTCOME_BY_MONTH' => 'Uitkomst per maand',
-  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'Pijplijn per Lead bron',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'Pijplijn per bron voor Lead',
   'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'Pijplijn per verkoopstadium',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'Pijplijn per verkoopstadium tunnel',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'Pijplijn per verkoopstadium-tunnel',
   'LBL_CHART_TYPE' => 'Grafiektype:',
   'LBL_CLOSE_DATE_END' => 'Verwachte afsluitdatum - Tot:',
   'LBL_CLOSE_DATE_START' => 'Verwachte afsluitdatum - Vanaf:',
@@ -65,9 +62,9 @@ $mod_strings = array (
   'LBL_ROLLOVER_WEDGE_DETAILS' => 'Mouse-over een taartpunt voor details',
   'LBL_SALES_STAGES' => 'Verkoopfase:',
   'LBL_SALES_STAGE_FORM_DESC' => 'Cumulatieve Opportunitybedragen per Verkoopfase voor geselecteerde gebruikers waar de verwachte einddatum binnen de aangegeven tijdsvak ligt.',
-  'LBL_SALES_STAGE_FORM_TITLE' => 'Pipeline per verkoopfase',
+  'LBL_SALES_STAGE_FORM_TITLE' => 'Pijplijn per verkoopfase',
   'LBL_TITLE' => 'Titel:',
-  'LBL_TOTAL_PIPELINE' => 'Totaal Pipeline',
+  'LBL_TOTAL_PIPELINE' => 'Totaal pijplijn is',
   'LBL_USERS' => 'Gebruikers:',
   'LBL_YEAR' => 'Jaar:',
   'LBL_YEAR_BY_OUTCOME' => 'Jaar per Resultaat',
@@ -75,7 +72,7 @@ $mod_strings = array (
   'LNK_NEW_CALL' => 'Nieuw Telefoongesprek',
   'LNK_NEW_CASE' => 'Nieuwe Case',
   'LNK_NEW_CONTACT' => 'Nieuw Persoon',
-  'LNK_NEW_ISSUE' => 'Nieuw Defect',
+  'LNK_NEW_ISSUE' => 'Nieuwe Bug',
   'LNK_NEW_LEAD' => 'Nieuwe Lead',
   'LNK_NEW_MEETING' => 'Nieuwe Afspraak',
   'LNK_NEW_NOTE' => 'Nieuwe Notitie of Bijlage',

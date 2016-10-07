@@ -1,17 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once("include/Expressions/DependencyManager.php");
 
@@ -83,22 +81,16 @@ class TemplateHandler {
 
         $cacheDir = create_cache_directory($this->templateDir. $module . '/');
         $file = $cacheDir . $view . '.tpl';
-        $string = '{* Create Date: ' . date('Y-m-d H:i:s') . "*}\n";
         $this->ss->left_delimiter = '{{';
         $this->ss->right_delimiter = '}}';
         $this->ss->assign('module', $module);
-        $this->ss->assign('built_in_buttons', array('CANCEL', 'DELETE', 'DUPLICATE', 'EDIT', 'FIND_DUPLICATES', 'SAVE', 'CONNECTOR'));
+        $this->ss->assign('built_in_buttons', array('CANCEL', 'DELETE', 'DUPLICATE', 'EDIT', 'SHARE', 'FIND_DUPLICATES', 'SAVE', 'CONNECTOR'));
         $contents = $this->ss->fetch($tpl);
         //Insert validation and quicksearch stuff here
         if($view == 'EditView' || strpos($view,'QuickCreate') || $ajaxSave || $view == "ConvertLead") {
 
-            global $dictionary, $beanList, $app_strings, $mod_strings;
-            $mod = $beanList[$module];
-
-            if($mod == 'aCase') {
-                $mod = 'Case';
-            }
-
+            global $dictionary, $app_strings, $mod_strings;
+            $mod = BeanFactory::getObjectName($module);
             $defs = $dictionary[$mod]['fields'];
             $defs2 = array();
             //Retrieve all panel field definitions with displayParams Array field set
@@ -197,23 +189,16 @@ class TemplateHandler {
 			$contents .= $this->createDependencyJavascript($defs, $metaDataDefs, $view, $module);
             $contents .= "{/literal}\n";
         }else if(preg_match('/^SearchForm_.+/', $view)){
-            global $dictionary, $beanList, $app_strings, $mod_strings;
-            $mod = $beanList[$module];
-
-            if($mod == 'aCase') {
-                $mod = 'Case';
-            }
-
+            global $dictionary, $app_strings, $mod_strings;
+            $mod = BeanFactory::getObjectName($module);
             $defs = $dictionary[$mod]['fields'];
             $contents .= '{literal}';
             $contents .= $this->createQuickSearchCode($defs, array(), $view);
             $contents .= '{/literal}';
         }//if
 		else if ($view == 'DetailView') {
-            global $dictionary, $beanList, $app_strings, $mod_strings;
-            $mod = $beanList[$module];
-            if($mod == 'aCase')
-                $mod = 'Case';
+            global $dictionary, $app_strings, $mod_strings;
+            $mod = BeanFactory::getObjectName($module);
             $defs = $dictionary[$mod]['fields'];
             $contents .= "{literal}\n";
             $contents .= $this->createDependencyJavascript($defs, $metaDataDefs, $view, $module);
@@ -366,7 +351,7 @@ class TemplateHandler {
                         }
                     } else {
                          $sqs_objects[$name.'_'.$parsedView] = $qsd->getQSParent($field['module']);
-                         if(!isset($field['field_list']) && !isset($field['populate_list'])) {
+                         if(!isset($field['field_list'])) {
                              $sqs_objects[$name.'_'.$parsedView]['populate_list'] = array($field['name'], $field['id_name']);
                              $sqs_objects[$name.'_'.$parsedView]['field_list'] = array('name', 'id');
                          } else {
@@ -378,11 +363,14 @@ class TemplateHandler {
                     $sqs_objects[$name.'_'.$parsedView] = $qsd->getQSParent();
                 } //if-else
             } //foreach
-
-            foreach ( $sqs_objects as $name => $field )
-               foreach ( $field['populate_list'] as $key => $fieldname )
-                    $sqs_objects[$name]['populate_list'][$key] = $sqs_objects[$name]['populate_list'][$key] . '_'.$parsedView;
-        }else{
+            foreach ($sqs_objects as $name => $field) {
+                if (!empty($field['populate_list'])) {
+                    foreach ($field['populate_list'] as $key => $fieldname) {
+                        $sqs_objects[$name]['populate_list'][$key] = $sqs_objects[$name]['populate_list'][$key] . '_'.$parsedView;
+                    }
+                }
+            }
+        } else {
             //Loop through the Meta-Data fields to see which ones need quick search support
             foreach($defs2 as $f) {
                 if(!isset($defs[$f['name']])) continue;
@@ -402,7 +390,7 @@ class TemplateHandler {
                     }
                     else {
                         if (!empty($field['id_name']))
-                            $field['id_name'] = $module.$field['id_name'];
+                            $field['id_name'] = $field['name'] . "_" . $field['id_name'];
                     }
                 }
 				$name = $qsd->form_name . '_' . $field['name'];
@@ -455,7 +443,7 @@ class TemplateHandler {
                         }
                     } else {
                         $sqs_objects[$name] = $qsd->getQSParent($field['module']);
-                        if(!isset($field['field_list']) && !isset($field['populate_list'])) {
+                        if(!isset($field['field_list'])) {
                             $sqs_objects[$name]['populate_list'] = array($field['name'], $field['id_name']);
                             // now handle quicksearches where the column to match is not 'name' but rather specified in 'rname'
                             if (!isset($field['rname']))
@@ -557,8 +545,9 @@ class TemplateHandler {
      */
     function createDependencyJavascript($fieldDefs, $viewDefs, $view, $module = null) {
         //Use a doWhen to wait for the page to be fulled loaded (!SUGAR.util.ajaxCallInProgress())
+        // TODO check if this isn't broken...
         $js = "<script type=text/javascript>\n"
-            . "SUGAR.util.doWhen('!SUGAR.util.ajaxCallInProgress() && ((typeof action_sugar_grp1 != \"undefined\" && action_sugar_grp1 == \"Popup\") || (typeof DCMenu != \"undefined\" && DCMenu.module))', function(){\n"
+            . "SUGAR.util.doWhen('!SUGAR.util.ajaxCallInProgress()', function(){\n"
             . "SUGAR.forms.AssignmentHandler.registerView('$view');\n";
 
         if ($view == 'ConvertLead')
@@ -596,4 +585,3 @@ class TemplateHandler {
         return array();
     }
 }
-?>

@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class Call extends SugarBean {
 	var $field_name_map;
@@ -69,9 +59,9 @@ class Call extends SugarBean {
     var $outlook_id;
 	var $team_name;
 	var $update_vcal = true;
-	var $contacts_arr;
-	var $users_arr;
-	var $leads_arr;
+	var $contacts_arr = array();
+	var $users_arr = array();
+	var $leads_arr = array();
 	var $default_call_name_values = array('Assemble catalogs', 'Make travel arrangements', 'Send a letter', 'Send contract', 'Send fax', 'Send a follow-up letter', 'Send literature', 'Send proposal', 'Send quote');
 	var $minutes_value_default = 15;
 	var $minutes_values = array('0'=>'00','15'=>'15','30'=>'30','45'=>'45');
@@ -83,7 +73,6 @@ class Call extends SugarBean {
 	var $object_name = "Call";
 	var $new_schema = true;
 	var $importable = true;
-	var $syncing = false;
 	var $recurring_source;
 
 	// This is used to retrieve related fields from form posts.
@@ -98,14 +87,30 @@ class Call extends SugarBean {
                                         'lead_id'			=> 'leads',
 								);
 
-	function Call() {
-		parent::SugarBean();
+	public $send_invites = false;
+
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Call()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		global $app_list_strings;
 
        	$this->setupCustomFields('Calls');
 
 		foreach ($this->field_defs as $field) {
-			$this->field_name_map[$field['name']] = $field;
+			if(empty($field['name'])) {
+		        continue;
+		    }
+		    $this->field_name_map[$field['name']] = $field;
 		}
 
 		global $current_user;
@@ -122,62 +127,45 @@ class Call extends SugarBean {
         	$this->minutes_values = $GLOBALS['app_list_strings']['duration_intervals'];
 	}
 
-	/**
-	 * Disable edit if call is recurring and source is not Sugar. It should be edited only from Outlook.
-	 * @param $view string
-	 * @param $is_owner bool
-	 */
-	function ACLAccess($view,$is_owner = 'not_set'){
-		// don't check if call is being synced from Outlook
-		if($this->syncing == false){
-			$view = strtolower($view);
-			switch($view){
-				case 'edit':
-				case 'save':
-				case 'editview':
-				case 'delete':
-					if(!empty($this->recurring_source) && $this->recurring_source != "Sugar"){
-						return false;
-					}
-			}
-		}
-		return parent::ACLAccess($view,$is_owner);
-	}
     // save date_end by calculating user input
     // this is for calendar
 	function save($check_notify = FALSE) {
 		global $timedate,$current_user;
 
-	    if(isset($this->date_start) && isset($this->duration_hours) && isset($this->duration_minutes))
-        {
-    	    $td = $timedate->fromDb($this->date_start);
-    	    if($td)
-    	    {
-	        	$this->date_end = $td->modify("+{$this->duration_hours} hours {$this->duration_minutes} mins")->asDb();
-    	    }
+        if (isset($this->date_start)) {
+            $td = $timedate->fromDb($this->date_start);
+            if (!$td) {
+                $this->date_start = $timedate->to_db($this->date_start);
+                $td = $timedate->fromDb($this->date_start);
+            }
+            if ($td) {
+                if (isset($this->duration_hours) && $this->duration_hours != '') {
+                    $td->modify("+{$this->duration_hours} hours");
+                }
+                if (isset($this->duration_minutes) && $this->duration_minutes != '') {
+                    $td->modify("+{$this->duration_minutes} mins");
+                }
+                $this->date_end = $td->asDb();
+            }
         }
 
-		if(!empty($_REQUEST['send_invites']) && $_REQUEST['send_invites'] == '1') {
-			$check_notify = true;
-        } else {
-			$check_notify = false;
-		}
-		if(empty($_REQUEST['send_invites'])) {
-			if(!empty($this->id)) {
-				$old_record = new Call();
-				$old_record->retrieve($this->id);
-				$old_assigned_user_id = $old_record->assigned_user_id;
-			}
-			if((empty($this->id) && isset($_REQUEST['assigned_user_id']) && !empty($_REQUEST['assigned_user_id']) && $GLOBALS['current_user']->id != $_REQUEST['assigned_user_id']) || (isset($old_assigned_user_id) && !empty($old_assigned_user_id) && isset($_REQUEST['assigned_user_id']) && !empty($_REQUEST['assigned_user_id']) && $old_assigned_user_id != $_REQUEST['assigned_user_id']) ){
-				$this->special_notification = true;
-				if(!isset($GLOBALS['resavingRelatedBeans']) || $GLOBALS['resavingRelatedBeans'] == false) {
-					$check_notify = true;
-				}
-                if(isset($_REQUEST['assigned_user_name'])) {
+        $check_notify = $this->send_invites;
+        if ($this->send_invites == false) {
+            $old_assigned_user_id = CalendarEvents::$old_assigned_user_id;
+            if ((empty($GLOBALS['installing']) || $GLOBALS['installing'] != true) &&
+                (!empty($this->assigned_user_id) &&
+                    $this->assigned_user_id != $GLOBALS['current_user']->id &&
+                    $this->assigned_user_id != $old_assigned_user_id)
+            ) {
+                $this->special_notification = true;
+                $check_notify = true;
+                CalendarEvents::$old_assigned_user_id = $this->assigned_user_id;
+                if (isset($_REQUEST['assigned_user_name'])) {
                     $this->new_assigned_user_name = $_REQUEST['assigned_user_name'];
                 }
-			}
-		}
+            }
+        }
+
         if (empty($this->status) ) {
             $this->status = $this->getDefaultStatus();
         }
@@ -193,11 +181,22 @@ class Call extends SugarBean {
 		}*/
 
         $return_id = parent::save($check_notify);
-        global $current_user;
 
+        $this->setUserInvitees($this->users_arr);
 
-        if($this->update_vcal) {
-			vCal::cache_sugar_vcal($current_user);
+        if ($this->update_vcal) {
+            $assigned_user = BeanFactory::getBean('Users', $this->assigned_user_id);
+            vCal::cache_sugar_vcal($assigned_user);
+            if ($this->assigned_user_id != $GLOBALS['current_user']->id) {
+                vCal::cache_sugar_vcal($current_user);
+            }
+        }
+
+        // CCL - Comment out call to set $current_user as invitee
+        // set organizer to auto-accept
+        // if there isn't a fetched row its new
+        if ($this->assigned_user_id == $GLOBALS['current_user']->id && empty($this->fetched_row)) {
+            $this->set_accept_status($GLOBALS['current_user'], 'accept');
         }
 
         return $return_id;
@@ -213,7 +212,7 @@ class Call extends SugarBean {
 		// First, get the list of IDs.
 		$query = "SELECT contact_id as id from calls_contacts where call_id='$this->id' AND deleted=0";
 
-		return $this->build_related_list($query, new Contact());
+		return $this->build_related_list($query, BeanFactory::getBean('Contacts'));
 	}
 
 
@@ -288,54 +287,6 @@ class Call extends SugarBean {
 		return $query;
 	}
 
-        function create_export_query(&$order_by, &$where, $relate_link_join='')
-        {
-            $custom_join = $this->getCustomJoin(true, true, $where);
-            $custom_join['join'] .= $relate_link_join;
-			$contact_required = stristr($where, "contacts");
-            if($contact_required)
-            {
-                    $query = "SELECT calls.*, contacts.first_name, contacts.last_name, users.user_name as assigned_user_name ";
-                    $query .= ", teams.name AS team_name";
-                    $query .= $custom_join['select'];
-                    $query .= " FROM contacts, calls, calls_contacts ";
-                    $where_auto = "calls_contacts.contact_id = contacts.id AND calls_contacts.call_id = calls.id AND calls.deleted=0 AND contacts.deleted=0";
-            }
-            else
-            {
-                    $query = 'SELECT calls.*, users.user_name as assigned_user_name ';
-                    $query .= ", teams.name AS team_name";
-                    $query .= $custom_join['select'];
-                    $query .= ' FROM calls ';
-                    $where_auto = "calls.deleted=0";
-            }
-
-				// We need to confirm that the user is a member of the team of the item.
-				$this->add_team_security_where_clause($query);
-
-				$query .= getTeamSetNameJoin('calls');
-			$query .= "  LEFT JOIN users ON calls.assigned_user_id=users.id ";
-
-            $query .= $custom_join['join'];
-
-			if($where != "")
-                    $query .= "where $where AND ".$where_auto;
-            else
-                    $query .= "where ".$where_auto;
-
-        $order_by = $this->process_order_by($order_by);
-        if (empty($order_by)) {
-            $order_by = 'calls.name';
-        }
-        $query .= ' ORDER BY ' . $order_by;
-
-            return $query;
-        }
-
-
-
-
-
 	function fill_in_additional_detail_fields()
 	{
 		global $locale;
@@ -350,7 +301,7 @@ class Call extends SugarBean {
 			$GLOBALS['log']->info("additional call fields $query");
 			if($row != null)
 			{
-				$this->contact_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name'], '', '');
+                $this->contact_name = $locale->formatName('Contacts', $row);
 				$GLOBALS['log']->debug("Call($this->id): contact_name = $this->contact_name");
 				$GLOBALS['log']->debug("Call($this->id): contact_id = $this->contact_id");
 			}
@@ -373,16 +324,6 @@ class Call extends SugarBean {
 		$this->fill_in_additional_parent_fields();
 
 		global $app_list_strings;
-		$parent_types = $app_list_strings['record_type_display'];
-		$disabled_parent_types = ACLController::disabledModuleList($parent_types,false, 'list');
-		foreach($disabled_parent_types as $disabled_parent_type){
-			if($disabled_parent_type != $this->parent_type){
-				unset($parent_types[$disabled_parent_type]);
-			}
-		}
-
-		$this->parent_type_options = get_select_options_with_id($parent_types, $this->parent_type);
-
 		if (empty($this->reminder_time)) {
 			$this->reminder_time = -1;
 		}
@@ -505,7 +446,6 @@ class Call extends SugarBean {
 
 
 	function get_call_users() {
-		$template = new User();
 		// First, get the list of IDs.
 		$query = "SELECT calls_users.required, calls_users.accept_status, calls_users.user_id from calls_users where calls_users.call_id='$this->id' AND calls_users.deleted=0";
 		$GLOBALS['log']->debug("Finding linked records $this->object_name: ".$query);
@@ -513,53 +453,40 @@ class Call extends SugarBean {
 		$list = Array();
 
 		while($row = $this->db->fetchByAssoc($result)) {
-			$template = new User(); // PHP 5 will retrieve by reference, always over-writing the "old" one
-			$record = $template->retrieve($row['user_id']);
-			$template->required = $row['required'];
-			$template->accept_status = $row['accept_status'];
-
-			if($record != null) {
-			    // this copies the object into the array
-				$list[] = $template;
-			}
+			$record = BeanFactory::retrieveBean('Users', $row['user_id']);
+			if(empty($record)) continue;
+			$record->required = $row['required'];
+			$record->accept_status = $row['accept_status'];
+			$list[] = $record;
 		}
 		return $list;
 	}
 
 
-  function get_invite_calls(&$user)
+  function get_invite_calls($user)
   {
-    $template = $this;
     // First, get the list of IDs.
     $query = "SELECT calls_users.required, calls_users.accept_status, calls_users.call_id from calls_users where calls_users.user_id='$user->id' AND ( calls_users.accept_status IS NULL OR  calls_users.accept_status='none') AND calls_users.deleted=0";
     $GLOBALS['log']->debug("Finding linked records $this->object_name: ".$query);
 
-
     $result = $this->db->query($query, true);
-
 
     $list = Array();
 
-
     while($row = $this->db->fetchByAssoc($result))
     {
-      $record = $template->retrieve($row['call_id']);
-      $template->required = $row['required'];
-      $template->accept_status = $row['accept_status'];
-
-
-      if($record != null)
-      {
-        // this copies the object into the array
-        $list[] = $template;
-      }
+        $record = BeanFactory::retrieveBean($this->module_dir, $row['call_id']);
+        if(empty($record)) continue;
+        $record->required = $row['required'];
+        $record->accept_status = $row['accept_status'];
+        $list[] = $record;
     }
     return $list;
 
   }
 
 
-  function set_accept_status(&$user,$status)
+  function set_accept_status($user,$status)
   {
     if ( $user->object_name == 'User')
     {
@@ -600,42 +527,51 @@ class Call extends SugarBean {
 			$this->contacts_arr =	array();
 		}
 
+        if (empty($this->contacts_arr) && $this->load_relationship('contacts')) {
+            $this->contacts_arr = $this->contacts->get();
+        }
+
 		if(!is_array($this->users_arr)) {
 			$this->users_arr =	array();
 		}
+
+        if (empty($this->users_arr) && $this->load_relationship('users')) {
+            $this->users_arr = $this->users->get();
+        }
 
         if(!is_array($this->leads_arr)) {
 			$this->leads_arr =	array();
 		}
 
+        if (empty($this->leads_arr) && $this->load_relationship('leads')) {
+            $this->leads_arr = $this->leads->get();
+        }
+
 		foreach($this->users_arr as $user_id) {
-			$notify_user = new User();
-			$notify_user->retrieve($user_id);
-			$notify_user->new_assigned_user_name = $notify_user->full_name;
-			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
-			$list[$notify_user->id] = $notify_user;
+			$notify_user = BeanFactory::getBean('Users', $user_id);
+			if(!empty($notify_user->id)) {
+				$notify_user->new_assigned_user_name = $notify_user->full_name;
+				$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
+				$list[$notify_user->id] = $notify_user;
+			}
 		}
 
 		foreach($this->contacts_arr as $contact_id) {
-			$notify_user = new Contact();
-			$notify_user->retrieve($contact_id);
-			$notify_user->new_assigned_user_name = $notify_user->full_name;
-			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
-			$list[$notify_user->id] = $notify_user;
+			$notify_user = BeanFactory::getBean('Contacts', $contact_id);
+			if(!empty($notify_user->id) && !empty($notify_user->email1)) {
+				$notify_user->new_assigned_user_name = $notify_user->full_name;
+				$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
+				$list[$notify_user->id] = $notify_user;
+			}
 		}
 
         foreach($this->leads_arr as $lead_id) {
-			$notify_user = new Lead();
-			$notify_user->retrieve($lead_id);
-			$notify_user->new_assigned_user_name = $notify_user->full_name;
-			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
-			$list[$notify_user->id] = $notify_user;
-		}
-		global $sugar_config;
-		if(isset($sugar_config['disable_notify_current_user']) && $sugar_config['disable_notify_current_user']) {
-			global $current_user;
-			if(isset($list[$current_user->id]))
-				unset($list[$current_user->id]);
+			$notify_user = BeanFactory::getBean('Leads', $lead_id);
+			if(!empty($notify_user->id)) {
+				$notify_user->new_assigned_user_name = $notify_user->full_name;
+				$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
+				$list[$notify_user->id] = $notify_user;
+			}
 		}
 //		$GLOBALS['log']->debug('Call.php->get_notification_recipients():'.print_r($list,true));
 		return $list;
@@ -728,5 +664,177 @@ class Call extends SugarBean {
         CalendarUtils::correctRecurrences($this, $id);
 
         parent::mark_deleted($id);
+    }
+
+    /**
+     * Stores contact invitees
+     *
+     * @patam array $userInvitees Array of contact invitees ids
+     * @patam array $existingUsers
+     */
+    public function setContactInvitees($contactInvitees, $existingContacts = array())
+    {
+        $this->contacts_arr = $contactInvitees;
+
+        $deleteContacts = array();
+        $this->load_relationship('contacts');
+        $q = 'SELECT mu.contact_id, mu.accept_status FROM calls_contacts mu WHERE mu.call_id = \''.$this->id.'\'';
+        $r = $this->db->query($q);
+        $acceptStatusContacts = array();
+        while ($a = $this->db->fetchByAssoc($r)) {
+              if(!in_array($a['contact_id'], $contactInvitees)) {
+                   $deleteContacts[$a['contact_id']] = $a['contact_id'];
+              } else {
+                   $acceptStatusContacts[$a['contact_id']] = $a['accept_status'];
+              }
+        }
+
+        if (count($deleteContacts) > 0) {
+            $sql = '';
+            foreach ($deleteContacts as $u) {
+                $sql .= ",'" . $u . "'";
+            }
+            $sql = substr($sql, 1);
+            $sql = "UPDATE calls_contacts SET deleted = 1 WHERE contact_id IN ($sql) AND call_id = '". $this->id . "'";
+            $this->db->query($sql);
+        }
+
+        foreach ($contactInvitees as $contactId) {
+            if (empty($contactId) || isset($existingContacts[$contactId]) || isset($deleteContacts[$contactId])) {
+                continue;
+            }
+            if (!isset($acceptStatusContacts[$contactId])) {
+                $this->contacts->add($contactId);
+            } else {
+                // update query to preserve accept_status
+                $qU  = 'UPDATE calls_contacts SET deleted = 0, accept_status = \''.$acceptStatusContacts[$contactId].'\' ';
+                $qU .= 'WHERE call_id = \''.$this->id.'\' ';
+                $qU .= 'AND contact_id = \''.$contactId.'\'';
+                $this->db->query($qU);
+            }
+        }
+    }
+
+    /**
+     * Stores user invitees
+     *
+     * @patam array $userInvitees Array of user invitees ids
+     * @patam array $existingUsers
+     */
+    public function setUserInvitees($userInvitees, $existingUsers = array())
+    {
+    	// if both are empty, don't do anything.  From the App these will always be set [they are set to at least current-user].
+    	// For the api, these sometimes will not be set [linking related records]
+    	if(empty($userInvitees) && empty($existingUsers)) {
+    		return true;
+    	}
+        $this->users_arr = $userInvitees;
+
+        $deleteUsers = array();
+        $this->load_relationship('users');
+        // Get all users for the call
+        $q = 'SELECT mu.user_id, mu.accept_status FROM calls_users mu WHERE mu.call_id = \''.$this->id.'\'';
+        $r = $this->db->query($q);
+        $acceptStatusUsers = array();
+        while ($a = $this->db->fetchByAssoc($r)) {
+              if (!in_array($a['user_id'], $userInvitees)) {
+                   $deleteUsers[$a['user_id']] = $a['user_id'];
+              } else {
+                 $acceptStatusUsers[$a['user_id']] = $a['accept_status'];
+              }
+        }
+
+        if (count($deleteUsers) > 0) {
+            $sql = '';
+            foreach ($deleteUsers as $u) {
+                   $sql .= ",'" . $u . "'";
+            }
+            $sql = substr($sql, 1);
+            $sql = "UPDATE calls_users SET deleted = 1 WHERE user_id IN ($sql) AND call_id = '". $this->id . "'";
+            $this->db->query($sql);
+        }
+
+        foreach ($userInvitees as $userId) {
+            if (empty($userId) || isset($existingUsers[$userId]) || isset($deleteUsers[$userId])) {
+                continue;
+            }
+            if (!isset($acceptStatusUsers[$userId])) {
+                $this->users->add($userId);
+            } else {
+                // update query to preserve accept_status
+                $qU  = 'UPDATE calls_users SET deleted = 0, accept_status = \''.$acceptStatusUsers[$userId].'\' ';
+                $qU .= 'WHERE call_id = \''.$this->id.'\' ';
+                $qU .= 'AND user_id = \''.$userId.'\'';
+                $this->db->query($qU);
+            }
+        }
+    }
+
+    /**
+     * Stores lead invitees
+     *
+     * @patam array $userInvitees Array of lead invitees ids
+     * @patam array $existingUsers
+     */
+    public function setLeadInvitees($leadInvitees, $existingLeads = array())
+    {
+        $this->leads_arr = $leadInvitees;
+
+        $deleteLeads = array();
+        $this->load_relationship('leads');
+        $q = 'SELECT mu.lead_id, mu.accept_status FROM calls_leads mu WHERE mu.call_id = \''.$this->id.'\'';
+        $r = $this->db->query($q);
+        $acceptStatusLeads = array();
+        while($a = $this->db->fetchByAssoc($r)) {
+              if(!in_array($a['lead_id'], $leadInvitees)) {
+                   $deleteLeads[$a['lead_id']] = $a['lead_id'];
+              }    else {
+                   $acceptStatusLeads[$a['lead_id']] = $a['accept_status'];
+              }
+        }
+
+        if (count($deleteLeads) > 0) {
+            $sql = '';
+            foreach($deleteLeads as $u) {
+                    $sql .= ",'" . $u . "'";
+            }
+            $sql = substr($sql, 1);
+            $sql = "UPDATE calls_leads SET deleted = 1 WHERE lead_id IN ($sql) AND call_id = '". $this->id . "'";
+            $this->db->query($sql);
+        }
+
+        foreach ($leadInvitees as $leadId) {
+            if(empty($leadId) || isset($existingLeads[$leadId]) || isset($deleteLeads[$leadId])) {
+                continue;
+            }
+            if(!isset($acceptStatusLeads[$leadId])) {
+                $this->leads->add($leadId);
+            } else {
+                // update query to preserve accept_status
+                $qU  = 'UPDATE calls_leads SET deleted = 0, accept_status = \''.$acceptStatusLeads[$leadId].'\' ';
+                $qU .= 'WHERE call_id = \''.$this->id.'\' ';
+                $qU .= 'AND lead_id = \''.$leadId.'\'';
+                $this->db->query($qU);
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadFromRow($arr, $convert = false)
+    {
+        $fields = array(
+            'reminder_time' => 'reminder_checked',
+            'email_reminder_time' => 'email_reminder_checked',
+        );
+
+        foreach ($fields as $value => $flag) {
+            if (isset($arr[$value]) && !isset($arr[$flag])) {
+                $arr[$flag] = $arr[$value] > -1;
+            }
+        }
+
+        parent::loadFromRow($arr, $convert);
     }
 }

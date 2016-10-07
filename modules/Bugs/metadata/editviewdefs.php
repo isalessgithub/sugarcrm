@@ -1,116 +1,91 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Bugs']['EditView'] = array (
-  'templateMeta' => 
-  array (
-    'form' => 
-    array (
-      'hidden' => 
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$viewdefs['Bugs']['EditView'] = array(
+    'templateMeta' => array('form'=>array('hidden'=>array('<input type="hidden" name="account_id" value="{$smarty.request.account_id}">',
+    											          '<input type="hidden" name="contact_id" value="{$smarty.request.contact_id}">')
+    											          ),
+							'maxColumns' => '2',
+                            'widths' => array(
+                                            array('label' => '10', 'field' => '30'),
+                                            array('label' => '10', 'field' => '30')
+                                            ),
+                                            ),
+
+
+ 'panels' =>array (
+	  'lbl_bug_information' =>
+		  array (
+
+		    array (
+		      array (
+		        'name' => 'bug_number',
+		        'type' => 'readonly',
+		      ),
+		    ),
+
+		    array (
+		      array('name'=>'name', 'displayParams'=>array('size'=>60, 'required'=>true)),
+		    ),
+
+		    array (
+		      'priority',
+		      'type',
+		    ),
+
+		    array (
+		      'source',
+		      'status',
+
+		    ),
+
+		    array (
+		      'product_category',
+		      'resolution',
+		    ),
+
+
+		    array (
+		      'found_in_release',
+		      'fixed_in_release'
+		    ),
+
+		    array (
+		      array (
+			      'name' => 'description',
+			      'nl2br' => true,
+		      ),
+		    ),
+
+
+		    array (
+		      array (
+			      'name' => 'work_log',
+			      'nl2br' => true,
+		      ),
+		    ),
+
+	  ),
+
+      'LBL_PANEL_ASSIGNMENT' =>
       array (
-        0 => '<input type="hidden" name="account_id" value="{$smarty.request.account_id}">',
-        1 => '<input type="hidden" name="contact_id" value="{$smarty.request.contact_id}">',
-      ),
-    ),
-    'maxColumns' => '2',
-    'widths' => 
-    array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      'LBL_BUG_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      'LBL_PANEL_ASSIGNMENT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'lbl_bug_information' => 
-    array (
-      0 => 
-      array (
-        0 => 
         array (
-          'name' => 'bug_number',
-          'type' => 'readonly',
-        ),
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'name',
-          'displayParams' => 
-          array (
-            'size' => 60,
-            'required' => true,
+            array (
+            'name' => 'assigned_user_name',
+            'label' => 'LBL_ASSIGNED_TO_NAME',
           ),
+          'team_name',
         ),
       ),
-      2 => 
-      array (
-        0 => 'priority',
-        1 => 'type',
-      ),
-      3 => 
-      array (
-        0 => 'source',
-        1 => 'status',
-      ),
-      4 => 
-      array (
-        0 => 'product_category',
-        1 => 'resolution',
-      ),
-      5 => 
-      array (
-        0 => 'found_in_release',
-        1 => 'fixed_in_release',
-      ),
-      6 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'nl2br' => true,
-        ),
-      ),
-      7 => 
-      array (
-        0 => 
-        array (
-          'name' => 'work_log',
-          'nl2br' => true,
-        ),
-      ),
-    ),
-    'LBL_PANEL_ASSIGNMENT' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-          'label' => 'LBL_ASSIGNED_TO_NAME',
-        ),
-        1 => 'team_name',
-      ),
-    ),
-  ),
+),
+
 );
+?>

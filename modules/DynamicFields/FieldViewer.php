@@ -1,19 +1,31 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 class FieldViewer{
-	function FieldViewer(){
+    public static $fieldNameBlacklist = array(
+        'date_entered', 'date_modified', 'modified_user_id', 'created_by', 'deleted'
+    );
+
+    public static $fieldTypeBlacklist = array(
+        'password'
+    );
+
+    public static $fieldNameNoRequired = array(
+        'date_entered', 'date_modified'
+    );
+
+	public function FieldViewer(){
+        self::__construct();
+    }
+    public function __construct() {
 		$this->ss = new Sugar_Smarty();
 	}
 	function getLayout($vardef){
@@ -25,7 +37,23 @@ class FieldViewer{
 		$this->ss->assign('APP', $GLOBALS['app_strings']);
 		//Only display range search option if in Studio, not ModuleBuilder
 		$this->ss->assign('range_search_option_enabled', empty($_REQUEST['view_package']));
-		
+
+        if ((isset($vardef['name']) && in_array($vardef['name'], self::$fieldNameBlacklist))
+        || (isset($vardef['type']) && in_array($vardef['type'], self::$fieldTypeBlacklist))) {
+            $this->ss->assign('hideDuplicatable', 'true');
+        }
+
+        if ($fieldRangeValue = DynamicField::getFieldRangeValueByType($vardef['type'])) {
+            $this->ss->assign('field_range_value', $fieldRangeValue);
+        }
+
+        if ((isset($vardef['name']) && in_array($vardef['name'], self::$fieldNameNoRequired))) {
+            $this->ss->assign('hideRequired', true);
+        }
+        else {
+            $this->ss->assign('hideRequired', false);
+        }
+
 		$GLOBALS['log']->debug('FieldViewer.php->getLayout() = '.$vardef['type']);
 		switch($vardef['type']){
 			case 'address':
@@ -76,20 +104,13 @@ class FieldViewer{
 			case 'url':
 				require_once('modules/DynamicFields/templates/Fields/Forms/url.php');
 				return get_body($this->ss, $vardef);
-			case 'phone:':
+			case 'phone':
 				require_once('modules/DynamicFields/templates/Fields/Forms/phone.php');
 				return get_body($this->ss, $vardef);
 			default:
-				$file = false;
-				if(file_exists('custom/modules/DynamicFields/templates/Fields/Forms/' . $vardef['type'] . '.php')){
-					$file = 'custom/modules/DynamicFields/templates/Fields/Forms/' . $vardef['type'] . '.php';
-				} elseif(file_exists('modules/DynamicFields/templates/Fields/Forms/' . $vardef['type'] . '.php')){
-					$file = 'modules/DynamicFields/templates/Fields/Forms/' . $vardef['type'] . '.php';
-				}
-				if(!empty($file)){
-					require_once($file);
+			    if(SugarAutoLoader::requireWithCustom('modules/DynamicFields/templates/Fields/Forms/'. $vardef['type'] . '.php')) {
 					return get_body($this->ss, $vardef);
-				}else{ 
+				}else{
 					return $this->ss->fetch('modules/DynamicFields/templates/Fields/Forms/varchar.tpl');
 				}
 		}

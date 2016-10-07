@@ -1,28 +1,25 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/MVC/View/SugarView.php');
 require_once('include/MVC/Controller/SugarController.php');
 
 class CampaignsViewClassic extends SugarView
-{	
+{
  	function CampaignsViewClassic()
  	{
  		parent::SugarView();
  		$this->type = $this->action;
- 	}	
- 	
+ 	}
+
  	/**
 	 * @see SugarView::display()
 	 */
@@ -30,16 +27,14 @@ class CampaignsViewClassic extends SugarView
 	{
  		// Call SugarController::getActionFilename to handle case sensitive file names
  		$file = SugarController::getActionFilename($this->action);
- 		if(file_exists('custom/modules/' . $this->module . '/'. $file . '.php')){
-			$this->includeClassicFile('custom/modules/'. $this->module . '/'. $file . '.php');
-			return true;
-		}elseif(file_exists('modules/' . $this->module . '/'. $file . '.php')){
-			$this->includeClassicFile('modules/'. $this->module . '/'. $file . '.php');
-			return true;
-		}
+ 		$classic = SugarAutoLoader::existingCustomOne('modules/' . $this->module . '/'. $file . '.php');
+ 		if($classic) {
+ 		    $this->includeClassicFile($classic);
+ 		    return true;
+ 		}
 		return false;
- 	} 	
-	
+ 	}
+
     /**
 	 * @see SugarView::_getModuleTitleParams()
 	 */
@@ -60,28 +55,36 @@ class CampaignsViewClassic extends SugarView
     					$params[] = $GLOBALS['mod_strings']['LBL_LEAD_FORM_WIZARD'];
     					break;
     				case 'WizardNewsletter':
-				    	if(!empty($this->bean->id))
-				    	{
-				    		$params[] = "<a href='index.php?module={$this->module}&action=DetailView&record={$this->bean->id}'>".$GLOBALS['mod_strings']['LBL_NEWSLETTER_TITLE']."</a>";
-				    	}
-				    	$params[] = $GLOBALS['mod_strings']['LBL_CREATE_NEWSLETTER'];
+
+                        if (isset($_REQUEST['wizardtype']) && $_REQUEST['wizardtype'] == '2') {
+                            if (!empty($this->bean->id)) {
+                                $params[] = "<a href='index.php?module={$this->module}&action=DetailView&record={$this->bean->id}'>".$GLOBALS['mod_strings']['LBL_EMAIL_TITLE']."</a>";
+                            }
+                            $params[] = $GLOBALS['mod_strings']['LBL_CREATE_EMAIL'];
+                        } else {
+                            if (!empty($this->bean->id)) {
+				    		    $params[] = "<a href='index.php?module={$this->module}&action=DetailView&record={$this->bean->id}'>".$GLOBALS['mod_strings']['LBL_NEWSLETTER_TITLE']."</a>";
+				    	    }
+                            $params[] = $GLOBALS['mod_strings']['LBL_CREATE_NEWSLETTER'];
+
+                        }
 				    	break;
     				case 'CampaignDiagnostic':
     					$params[] = $GLOBALS['mod_strings']['LBL_CAMPAIGN_DIAGNOSTICS'];
-    					break;  
+    					break;
     				case 'WizardEmailSetup':
     					$params[] = $GLOBALS['mod_strings']['LBL_EMAIL_SETUP_WIZARD_TITLE'];
-    					break;    
+    					break;
     				case 'TrackDetailView':
     					if(!empty($this->bean->id))
     					{
 	    					$params[] = "<a href='index.php?module={$this->module}&action=DetailView&record={$this->bean->id}'>".$this->bean->name."</a>";
     					}
 	    				$params[] = $GLOBALS['mod_strings']['LBL_LIST_TO_ACTIVITY'];
-    					break;			  					    					
+    					break;
     		}//switch
     	}//fi
- 		
+
     	return $params;
     }
 }

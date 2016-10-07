@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -28,10 +25,10 @@ $mod_strings = array (
   'LBL_ALT_ADDRESS_STREET_2' => 'Adres 2:',
   'LBL_ALT_ADDRESS_STREET_3' => 'Adres 3:',
   'LBL_ALT_STREET' => 'Ander Adres',
-  'LBL_ANY_EMAIL' => 'E-mailadres(sen)',
+  'LBL_ANY_EMAIL' => 'E-mailadres',
   'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan',
   'LBL_ASSISTANT' => 'Assistent',
-  'LBL_ASSISTANT_PHONE' => 'Telefoon Assistent',
+  'LBL_ASSISTANT_PHONE' => 'Telefoon (assistent)',
   'LBL_CITY' => 'Plaats',
   'LBL_CONTACT_INFORMATION' => 'Contactinformatie',
   'LBL_COUNTRY' => 'Land',
@@ -39,16 +36,19 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Niet Bellen',
   'LBL_EDIT_BUTTON' => 'Wijzig',
   'LBL_EMAIL_ADDRESS' => 'E-mailadres(sen)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Non Primary E-mails',
+  'LBL_FACEBOOK' => 'Facebook account',
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FIRST_NAME' => 'Voornaam',
-  'LBL_HOME_PHONE' => 'Telefoon Thuis',
+  'LBL_GOOGLEPLUS' => 'Google+ ID',
+  'LBL_HOME_PHONE' => 'Telefoon (privé)',
+  'LBL_IMPORT_VCARDTEXT' => 'Maak automatisch een nieuw persoon aan door een vCard te importeren.',
   'LBL_LAST_NAME' => 'Achternaam',
-  'LBL_MOBILE_PHONE' => 'Telefoon Mobiel',
+  'LBL_LINKEDIN' => 'LinkedIn gebruikersaccount',
+  'LBL_MOBILE_PHONE' => 'Telefoon (mobiel)',
   'LBL_NAME' => 'Naam',
-  'LBL_OFFICE_PHONE' => 'Telefoon Werk',
-  'LBL_OTHER_EMAIL_ADDRESS' => 'Ander E-mailadres:',
-  'LBL_OTHER_PHONE' => 'Telefoon Anders',
+  'LBL_OFFICE_PHONE' => 'Telefoon (werk)',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Ander e-mailadres:',
+  'LBL_OTHER_PHONE' => 'Telefoon (anders)',
   'LBL_PICTURE_FILE' => 'Afbeelding',
   'LBL_POSTALCODE' => 'Postcode',
   'LBL_POSTAL_CODE' => 'Postcode',
@@ -66,8 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Provincie',
   'LBL_STREET' => 'Ander Adres',
   'LBL_TITLE' => 'Titel',
-  'LBL_TWITTER_ID' => 'Twitter gebruikersnaam',
-  'LBL_WORK_PHONE' => 'Telefoon Werk',
+  'LBL_TWITTER' => 'Twitter account',
+  'LBL_WORK_PHONE' => 'Telefoon (werk)',
   'LNK_IMPORT_VCARD' => 'Maak van vCard',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Kopieër alternatief adres naar primair adres',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Kopieër primair adres naar alternatief adres',
 );
 

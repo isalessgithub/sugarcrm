@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -22,8 +19,8 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Organisatie ID',
   'LBL_ACCOUNT_NAME' => 'Organisatienaam:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activiteiten',
-  'LBL_AMOUNT' => 'Transactie Bedrag:',
-  'LBL_AMOUNT_USDOLLAR' => 'Omgerekend Bedrag:',
+  'LBL_AMOUNT' => 'Bedrag:',
+  'LBL_AMOUNT_USDOLLAR' => 'Bedrag USD:',
   'LBL_ASSIGNED_TO_ID' => 'Toegewezen aan ID',
   'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan:',
   'LBL_CAMPAIGN' => 'Campagne:',
@@ -41,10 +38,10 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Wijzig',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
-  'LBL_LEAD_SOURCE' => 'Bron voor Lead:',
+  'LBL_LEAD_SOURCE' => 'Bron voor lead:',
   'LBL_LIST_ACCOUNT_NAME' => 'Organisatienaam',
-  'LBL_LIST_AMOUNT' => 'Transactie Bedrag',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Toegewezen Gebruiker',
+  'LBL_LIST_AMOUNT' => 'Bedrag',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Toegewezen aan',
   'LBL_LIST_DATE_CLOSED' => 'Sluiten',
   'LBL_LIST_FORM_TITLE' => 'Verkoop: Lijst',
   'LBL_LIST_SALE_NAME' => 'Naam',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('modules/DynamicFields/templates/Fields/TemplateRange.php');
 
@@ -20,6 +17,7 @@ class TemplateDatetimecombo extends TemplateRange
 {
 	var $type = 'datetimecombo';
 	var $len = '';
+    var $massupdate = 1;
 	var $dateStrings = array(
 		'-none-' => '',
         'today'=>'now',
@@ -30,7 +28,7 @@ class TemplateDatetimecombo extends TemplateRange
         'next friday'=>'next friday',
         'two weeks'=> '+2 weeks',
         'next month'=> '+1 month',
-        'first day of next month'=> 'first of next month', // must handle this non-GNU date string in SugarBean->populateDefaultValues; if we don't this will evaluate to 1969...
+        'first day of next month'=> 'first day of next month', // must handle this non-GNU date string in SugarBean->populateDefaultValues; if we don't this will evaluate to 1969...
         'three months'=> '+3 months',  //kbrill Bug #17023
         'six months'=> '+6 months',
         'next year'=> '+1 year',
@@ -103,13 +101,15 @@ class TemplateDatetimecombo extends TemplateRange
 	    $def['dbType'] = 'datetime';
 	    if(!empty($def['default'])){
 			$def['display_default'] = $def['default'];
-			$def['default'] = '';
-		}
+        }
+        $def['default'] = null;
 		return $def;
 	}
 	
     function populateFromPost(){
     	parent::populateFromPost();
+        // Handle empty massupdate checkboxes
+        $this->massupdate = !empty($_REQUEST['massupdate']);
     	if(!empty($_REQUEST['defaultDate']) && !empty($_REQUEST['defaultTime'])){
     		$_REQUEST['default'] = $_REQUEST['defaultDate'].'&'.$_REQUEST['defaultTime'];
 

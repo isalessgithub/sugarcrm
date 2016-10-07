@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-$dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search' => true, 'full_text_search' => true, 'unified_search_default_enabled' => true, 'duplicate_merge'=>true,
+$dictionary['Case'] = array('table' => 'cases','audited'=>true, 'activity_enabled' => true, 'unified_search' => true, 'full_text_search' => true, 'unified_search_default_enabled' => true, 'duplicate_merge'=>true,
 		'comment' => 'Cases are issues or problems that a customer asks a support representative to resolve'
                                ,'fields' => array (
 
@@ -38,15 +35,11 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
     'comment' => 'The name of the account represented by the account_id field',
     'required' => true,
     'importable' => 'required',
-  ),
-   'account_name1' =>
-  array (
-    'name' => 'account_name1',
-    'source'=>'non-db',
-    'type'=>'text',
-    'len' => 100,
-    'importable' => 'false',
-    'studio' => array("formula" => false),
+    'exportable'=>true,
+    'studio' => array(
+        'portalrecordview' => false,
+        'portallistview' => false,
+    ),
   ),
 
     'account_id'=>
@@ -63,6 +56,15 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
   	'massupdate' => false,
   	'comment' => 'The account to which the case is associated'
   	),
+        'source' =>
+        array(
+            'name' => 'source',
+            'vname' => 'LBL_SOURCE',
+            'type' => 'enum',
+            'options' => 'source_dom',
+            'len' => 255,
+            'comment' => 'An indicator of how the bug was entered (ex: via web, email, etc.)'
+        ),
 
   'status' =>
   array (
@@ -74,7 +76,7 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
     'audited'=>true,
     'comment' => 'The status of the case',
     'merge_filter' => 'enabled',
-
+    'sortable' => true,
   ),
    'priority' =>
   array (
@@ -86,7 +88,7 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
     'audited'=>true,
     'comment' => 'The priority of the case',
     'merge_filter' => 'enabled',
-
+    'sortable' => true,
   ),
   'resolution' =>
   array (
@@ -129,6 +131,20 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
     'relationship' => 'emails_cases_rel',/* reldef in emails */
     'source'=>'non-db',
 		'vname'=>'LBL_EMAILS',
+  ),
+  'archived_emails' => array(
+    'name' => 'archived_emails',
+    'type' => 'link',
+    'link_file' => 'modules/Cases/CaseEmailsLink.php',
+    'link_class' => 'CaseEmailsLink',
+    'link' => 'contacts',
+    'module' => 'Emails',
+    'source' => 'non-db',
+    'vname' => 'LBL_EMAILS',
+    'link_type' => 'many',
+    'relationship' => '',
+    'hideacl' => true,
+    'readonly' => true,
   ),
   'documents'=>
   array (
@@ -197,7 +213,8 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
        array('name' =>'idx_case_name', 'type' =>'index', 'fields'=>array('name')),
        array( 'name' => 'idx_account_id', 'type' => 'index', 'fields'=> array('account_id')),
        array('name' => 'idx_cases_stat_del', 'type' => 'index', 'fields'=> array('assigned_user_id', 'status', 'deleted')),
-                                                      )
+
+    )
 
 , 'relationships' => array (
 	'case_calls' => array('lhs_module'=> 'Cases', 'lhs_table'=> 'cases', 'lhs_key' => 'id',
@@ -239,9 +256,27 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'unified_search'
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
    'rhs_module'=> 'Cases', 'rhs_table'=> 'cases', 'rhs_key' => 'created_by',
    'relationship_type'=>'one-to-many')
-)
+    ),
+
+    'duplicate_check' => array(
+        'enabled' => true,
+        'FilterDuplicateCheck' => array(
+            'filter_template' => array(
+                array('$and' => array(
+                    array('name' => array('$starts' => '$name')),
+                    array('status' => array('$not_equals' => 'Closed')),
+                    array('account_id' => array('$equals' => '$account_id')),
+                )),
+            ),
+            'ranking_fields' => array(
+                array('in_field_name' => 'name', 'dupe_field_name' => 'name'),
+                array('in_field_name' => 'account_id', 'dupe_field_name' => 'account_id'),
+            )
+        )
+    ),
+
 //This enables optimistic locking for Saves From EditView
-	,'optimistic_locking'=>true,
+    'optimistic_locking'=>true,
 );
 VardefManager::createVardef('Cases','Case', array('default', 'assignable',
 'team_security',

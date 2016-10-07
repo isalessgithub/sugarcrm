@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DATE_JS_ERROR' => 'Please enter a date corresponding to the time entered',
@@ -42,7 +39,7 @@ $mod_strings = array (
   'LBL_ESTIMATED_EFFORT' => 'מאמץ נדרש הערכה (בשעות):',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'הסטוריה',
   'LBL_HISTORY_TITLE' => 'הסטוריה',
-  'LBL_ID' => 'Id:',
+  'LBL_ID' => 'ID',
   'LBL_LIST_ACTUAL_DURATION' => 'נמשך בפועל',
   'LBL_LIST_ASSIGNED_USER_ID' => 'הוקצה עבור',
   'LBL_LIST_CLOSE' => 'סגור',
@@ -63,6 +60,7 @@ $mod_strings = array (
   'LBL_MILESTONE_FLAG' => 'אבן דרך:',
   'LBL_MODIFIED_USER_ID' => 'שונה על ידי משתמש זהות:',
   'LBL_MODULE_NAME' => 'משימות בפרויקט',
+  'LBL_MODULE_NAME_SINGULAR' => 'משימת הפרויקט',
   'LBL_MODULE_TITLE' => 'משימות בפרויקט: דף ראשי',
   'LBL_NAME' => 'שם:',
   'LBL_NEW_FORM_TITLE' => 'משימה חדשה בפרויקט',
@@ -77,6 +75,7 @@ $mod_strings = array (
   'LBL_PROJECT_NAME' => 'שם פרויקט',
   'LBL_PROJECT_TASK_ID' => 'משימה בפרויקט זהות:',
   'LBL_RESOURCE' => 'משאב:',
+  'LBL_RESOURCE_ID' => 'משאב ID',
   'LBL_SEARCH_FORM_TITLE' => 'חיפוש משימות בפרויקט',
   'LBL_STATUS' => 'סטאטוס:',
   'LBL_TASK_ID' => 'משימה זהות:',

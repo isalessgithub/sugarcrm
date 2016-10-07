@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: SubPanelViewer.php 41439 2008-11-06 20:10:33Z jmertic $
 
 global $beanList;
 global $beanFiles;
@@ -30,13 +27,15 @@ if(empty($_REQUEST['record']))
 	die("'record' was not defined");
 }
 
+if(empty($_REQUEST['subpanel']))
+{
+    LoggerManager::getLogger()->error("SubPanelViewer: 'subpanel' was not defined in request");
+    exit(1);
+}
+
 if(!isset($beanList[$_REQUEST['module']]))
 {
 	die("'".$_REQUEST['module']."' is not defined in \$beanList");
-}
-
-if (!isset($_REQUEST['subpanel'])) {
-    sugar_die('Subpanel was not defined');
 }
 
 $subpanel = $_REQUEST['subpanel'];
@@ -48,11 +47,6 @@ if(empty($_REQUEST['inline']))
 	insert_popup_header($theme);
 }
 
-//require_once('include/SubPanel/SubPanelDefinitions.php');
-//require_once($beanFiles[$beanList[$_REQUEST['module']]]);
-//$focus=new $beanList[$_REQUEST['module']];
-//$focus->retrieve($record);
-
 include('include/SubPanel/SubPanel.php');
 $layout_def_key = '';
 if(!empty($_REQUEST['layout_def_key'])){
@@ -62,14 +56,9 @@ if(!empty($_REQUEST['layout_def_key'])){
 $subpanel_object = new SubPanel($module, $record, $subpanel,null, $layout_def_key);
 
 $subpanel_object->setTemplateFile('include/SubPanel/SubPanelDynamic.html');
-echo (empty($_REQUEST['inline']))?$subpanel_object->get_buttons():'' ;  
+echo (empty($_REQUEST['inline']))?$subpanel_object->get_buttons():'' ;
 
 $subpanel_object->display();
-
-$jsAlerts = new jsAlerts();
-if (!isset($_SESSION['isMobile'])) {
-    echo $jsAlerts->getScript();
-}
 
 if(empty($_REQUEST['inline']))
 {

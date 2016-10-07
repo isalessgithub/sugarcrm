@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 55754 2010-04-02 01:37:10Z jmertic $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -79,10 +76,11 @@ $mod_strings = array (
 	'LBL_EXCHANGE_SMTPPORT'					=> 'Exchange Server Port',
 	'LBL_EXCHANGE_SMTPSERVER'				=> 'Exchange Server',
 	'LBL_EMAIL_LINK_TYPE'				=> 'Email Client',
-    'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
+    'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br>This option is only available if your administrator has configured your email settings to allow it. Please contact your administrator if you have any questions.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
 	'LBL_MARKETING_ID'							=> 'Marketing Id',
     'LBL_MODULE_ID'                             => 'EmailMan',
 	'LBL_MODULE_NAME'							=> 'Email Settings',
+	'LBL_MODULE_NAME_SINGULAR'						=> 'Email Settings',
 	'LBL_CONFIGURE_CAMPAIGN_EMAIL_SETTINGS'    => 'Configure Campaign Email Settings',
 	'LBL_MODULE_TITLE'							=> 'Outbound Email Queue Management',
 	'LBL_NOTIFICATION_ON_DESC' 					=> 'When enabled, emails are sent to users when records are assigned to them.',
@@ -136,6 +134,6 @@ $mod_strings = array (
 	'LBL_YAHOO_MAIL_LOGO' => 'Yahoo Mail' /*for 508 compliance fix*/,
 	'LBL_EXCHANGE_LOGO' => 'Exchange' /*for 508 compliance fix*/,
 	'LBL_HELP' => 'Help' /*for 508 compliance fix*/,
+    'LBL_UNAUTH_ACCESS' => 'Unauthorized access to administration.',
+    'LBL_INVALID_ENTRY_POINT' => 'Not a Valid Entry Point',
 );
-
-?>

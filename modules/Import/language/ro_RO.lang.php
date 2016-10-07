@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Nu puteti importa un utilizator administrator de sistem',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Acum alege fisierul de importat:',
   'LBL_NO_DATECHECK' => 'Treci peste verificarea datei (mai rapid, dar va esua daca orice data este gresita)',
   'LBL_NO_EMAILS' => 'Nu trimite notificari Email in timpul acestui import',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Se încearcă gestionarea adreselor de e-mail într-un Bean care nu acceptă acest lucru.',
   'LBL_NO_ID' => 'Este necesar ID',
   'LBL_NO_IMPORT_TO_UNDO' => 'Nu a fost niciun import pentru a anula.',
   'LBL_NO_LINES' => 'Nu au existat randuri în fişierul de import dvs.',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Importate cu succes',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Inregistrari create cu succes',
   'LBL_SUMMARY' => 'Sumar',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Cifre semnificative pentru sistem',
   'LBL_TAB' => 'Dosar delimitat de foaie',
   'LBL_TAB_NUM_1' => 'Lansa aplicaţia şi a deschide fişierul de date',
   'LBL_TAB_NUM_2' => 'Selectaţi Salvare ca ... sau de export ... opţiunea de meniu',

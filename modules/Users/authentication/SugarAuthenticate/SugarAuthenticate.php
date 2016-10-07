@@ -1,20 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * This file is used to control the authentication process.
@@ -34,12 +29,7 @@ class SugarAuthenticate{
 	function SugarAuthenticate()
 	{
 	    // check in custom dir first, in case someone want's to override an auth controller
-		if (file_exists('custom/modules/Users/authentication/'.$this->authenticationDir.'/' . $this->userAuthenticateClass . '.php')) {
-            require_once('custom/modules/Users/authentication/'.$this->authenticationDir.'/' . $this->userAuthenticateClass . '.php');
-        }
-        elseif (file_exists('modules/Users/authentication/'.$this->authenticationDir.'/' . $this->userAuthenticateClass . '.php')) {
-            require_once('modules/Users/authentication/'.$this->authenticationDir.'/' . $this->userAuthenticateClass . '.php');
-        }
+	    SugarAutoLoader::requireWithCustom('modules/Users/authentication/'.$this->authenticationDir.'/' . $this->userAuthenticateClass . '.php');
 
         $this->userAuthenticate = new $this->userAuthenticateClass();
 	}
@@ -53,18 +43,17 @@ class SugarAuthenticate{
 	 * @return boolean
 	 */
 	function loginAuthenticate($username, $password, $fallback=false, $PARAMS = array ()){
-		global $mod_strings;
+		global $app_strings;
 		unset($_SESSION['login_error']);
 		$res = $GLOBALS['sugar_config']['passwordsetting'];
-		$usr= new user();
-		$usr_id=$usr->retrieve_user_id($username);
-		$usr->retrieve($usr_id);
+        $usr = BeanFactory::getBean('Users');
+        $usr->retrieve_by_string_fields(array('user_name'=>$username));
 		$_SESSION['login_error']='';
 		$_SESSION['waiting_error']='';
 		$_SESSION['hasExpiredPassword']='0';
 		$usr->reloadPreferences();
 		// if there is too many login attempts
-		if (!empty($usr_id) && $res['lockoutexpiration'] > 0 && $usr->getPreference('loginfailed')>=($res['lockoutexpirationlogin']) && !($usr->portal_only)){
+		if (!empty($usr->id) && $res['lockoutexpiration'] > 0 && $usr->getPreference('loginfailed')>=($res['lockoutexpirationlogin']) && !($usr->portal_only)){
 		    // if there is a lockout time set
 		    if ($res['lockoutexpiration'] == '2'){
 		    	// lockout date is now if not set
@@ -81,21 +70,21 @@ class SugarAuthenticate{
 				// Test if the user is still locked out and return a error message
 			    if (TimeDate::getInstance()->nowDb() < $expiretime){
 			    	$usr->setPreference('lockout','1');
-			        $_SESSION['login_error']=$mod_strings['LBL_LOGIN_ATTEMPTS_OVERRUN'];
-			        $_SESSION['waiting_error']=$mod_strings['LBL_LOGIN_LOGIN_TIME_ALLOWED'].' ';
+			        $_SESSION['login_error'] = $app_strings['LBL_LOGIN_ATTEMPTS_OVERRUN'] . ' ';
+			        $_SESSION['login_error'] .= $app_strings['LBL_LOGIN_LOGIN_TIME_ALLOWED'] . ' ';
 			        $lol= strtotime($expiretime)-strtotime(TimeDate::getInstance()->nowDb());
 					        switch (true) {
 				    case (floor($lol/86400) !=0):
-				        $_SESSION['waiting_error'].=floor($lol/86400).$mod_strings['LBL_LOGIN_LOGIN_TIME_DAYS'];
+				        $_SESSION['login_error'] .= floor($lol/86400).$app_strings['LBL_LOGIN_LOGIN_TIME_DAYS'];
 				        break;
 				    case (floor($lol/3600)!=0):
-				        $_SESSION['waiting_error'].=floor($lol/3600).$mod_strings['LBL_LOGIN_LOGIN_TIME_HOURS'];
+				        $_SESSION['login_error'] .= floor($lol/3600).$app_strings['LBL_LOGIN_LOGIN_TIME_HOURS'];
 				        break;
 				    case (floor($lol/60)!=0):
-				        $_SESSION['waiting_error'].=floor($lol/60).$mod_strings['LBL_LOGIN_LOGIN_TIME_MINUTES'];
+				        $_SESSION['login_error'] .= floor($lol/60).$app_strings['LBL_LOGIN_LOGIN_TIME_MINUTES'];
 				        break;
 			        case (floor($lol)!=0):
-				        $_SESSION['waiting_error'].=floor($lol).$mod_strings['LBL_LOGIN_LOGIN_TIME_SECONDS'];
+				        $_SESSION['login_error'] .= floor($lol).$app_strings['LBL_LOGIN_LOGIN_TIME_SECONDS'];
 				        break;
 					}
 					$usr->savePreferencesToDB();
@@ -110,15 +99,15 @@ class SugarAuthenticate{
 		    }
 		    else{
 		    	$usr->setPreference('lockout','1');
-			    $_SESSION['login_error']=$mod_strings['LBL_LOGIN_ATTEMPTS_OVERRUN'];
-		        $_SESSION['waiting_error']=$mod_strings['LBL_LOGIN_ADMIN_CALL'];
+			    $_SESSION['login_error']=$app_strings['LBL_LOGIN_ATTEMPTS_OVERRUN'];
+		        $_SESSION['waiting_error']=$app_strings['LBL_LOGIN_ADMIN_CALL'];
 		        $usr->savePreferencesToDB();
 		        return false;
 			}
 		}
 		if ($this->userAuthenticate->loadUserOnLogin($username, $password, $fallback, $PARAMS)) {
 			require_once('modules/Users/password_utils.php');
-			if(hasPasswordExpired($username)) {
+            if (hasPasswordExpired($username, true)) {
 				$_SESSION['hasExpiredPassword'] = '1';
 			}
 			// now that user is authenticated, reset loginfailed
@@ -126,12 +115,13 @@ class SugarAuthenticate{
 				$usr->setPreference('loginfailed','0');
 				$usr->savePreferencesToDB();
 			}
+            $this->updateUserLastLogin($usr);
 			return $this->postLoginAuthenticate();
 
 		}
 		else
 		{
-			if(!empty($usr_id) && $res['lockoutexpiration'] > 0){
+			if(!empty($usr->id) && isset($res['lockoutexpiration']) && $res['lockoutexpiration'] > 0){
 				if (($logout=$usr->getPreference('loginfailed'))=='')
 	        		$usr->setPreference('loginfailed','1');
 	    		else
@@ -222,6 +212,7 @@ class SugarAuthenticate{
 
 	/**
 	 * On every page hit this will be called to ensure a user is authenticated
+	 *
 	 * @return boolean
 	 */
 	function sessionAuthenticate(){
@@ -234,6 +225,15 @@ class SugarAuthenticate{
 			$GLOBALS['log']->debug("We have an authenticated user id: ".$_SESSION["authenticated_user_id"]);
 
 			$authenticated = $this->postSessionAuthenticate();
+			
+			if (!$authenticated) {
+				// postSessionAuthenticate failed, nuke the session
+				if (session_id()) {
+					session_destroy();
+				}
+				header("Location: index.php?action=Login&module=Users&loginErrorMessage=LBL_SESSION_EXPIRED");
+				sugar_cleanup(true);				
+			}
 
 		} else
 		if (isset ($action) && isset ($module) && $action == "Authenticate" && $module == "Users") {
@@ -255,9 +255,6 @@ class SugarAuthenticate{
 
 		}
 
-		if($authenticated && ((empty($_REQUEST['module']) || empty($_REQUEST['action'])) || ($_REQUEST['module'] != 'Users' || $_REQUEST['action'] != 'Logout'))){
-			$this->validateIP();
-		}
 		return $authenticated;
 	}
 
@@ -271,36 +268,40 @@ class SugarAuthenticate{
 	 */
 
 	function postSessionAuthenticate(){
-
 		global $action, $allowed_actions, $sugar_config;
+
 		$_SESSION['userTime']['last'] = time();
 		$user_unique_key = (isset ($_SESSION['unique_key'])) ? $_SESSION['unique_key'] : '';
 		$server_unique_key = (isset ($sugar_config['unique_key'])) ? $sugar_config['unique_key'] : '';
+		$authenticated = true;
 
 		//CHECK IF USER IS CROSSING SITES
-		if (($user_unique_key != $server_unique_key) && (!in_array($action, $allowed_actions)) && (!isset ($_SESSION['login_error']))) {
+		if (($user_unique_key != $server_unique_key) && (!isset($_SESSION['login_error']))) {
 
-			$GLOBALS['log']->debug('Destroying Session User has crossed Sites');
-		    session_destroy();
-			header("Location: index.php?action=Login&module=Users".$GLOBALS['app']->getLoginRedirect());
-			sugar_cleanup(true);
+			$GLOBALS['log']->security('Destroying Session User has crossed Sites');
+			$authenticated = false;
 		}
 		if (!$this->userAuthenticate->loadUserOnSession($_SESSION['authenticated_user_id'])) {
-			session_destroy();
-			header("Location: index.php?action=Login&module=Users&loginErrorMessage=LBL_SESSION_EXPIRED");
-			$GLOBALS['log']->debug('Current user session does not exist redirecting to login');
-			sugar_cleanup(true);
+			$GLOBALS['log']->error('Current user session does not exist redirecting to login');
+			$authenticated = false;
 		}
-		$GLOBALS['log']->debug('Current user is: '.$GLOBALS['current_user']->user_name);
-		return true;
+		if ($authenticated) {
+			$authenticated = $this->validateIP();
+		}
+		if ($authenticated) {
+			$GLOBALS['log']->debug('Current user is: '.$GLOBALS['current_user']->user_name);
+		}
+		return $authenticated;
 	}
 
 	/**
 	 * Make sure a user isn't stealing sessions so check the ip to ensure that the ip address hasn't dramatically changed
 	 *
 	 */
-	function validateIP() {
+	public function validateIP() {
 		global $sugar_config;
+		$isValidIP = true;
+		
 		// grab client ip address
 		$clientIP = query_client_ip();
 		$classCheck = 0;
@@ -311,31 +312,31 @@ class SugarAuthenticate{
 			if (isset ($_SESSION["ipaddress"])) {
 				$session_parts = explode(".", $_SESSION["ipaddress"]);
 				$client_parts = explode(".", $clientIP);
-                if(count($session_parts) < 4) {
-                    $classCheck = 0;
-                }
-                else {
-    				// match class C IP addresses
-    				for ($i = 0; $i < 3; $i ++) {
-    					if ($session_parts[$i] == $client_parts[$i]) {
-    						$classCheck = 1;
-    						continue;
-    					} else {
-    						$classCheck = 0;
-    						break;
-    					}
-    				}
-                }
+				if(count($session_parts) < 4) {
+					$classCheck = 0;
+				}
+				else {
+					// match class C IP addresses
+					for ($i = 0; $i < 3; $i ++) {
+						if ($session_parts[$i] == $client_parts[$i]) {
+							$classCheck = 1;
+							continue;
+						} else {
+							$classCheck = 0;
+							break;
+						}
+					}
+				}
 				// we have a different IP address
 				if ($_SESSION["ipaddress"] != $clientIP && empty ($classCheck)) {
-					$GLOBALS['log']->fatal("IP Address mismatch: SESSION IP: {$_SESSION['ipaddress']} CLIENT IP: {$clientIP}");
-					session_destroy();
-					die("Your session was terminated due to a significant change in your IP address.  <a href=\"{$sugar_config['site_url']}\">Return to Home</a>");
+                                    $GLOBALS['log']->fatal("IP Address mismatch: SESSION IP: {$_SESSION['ipaddress']} CLIENT IP: {$clientIP}");
+					$isValidIP = false;
 				}
 			} else {
 				$_SESSION["ipaddress"] = $clientIP;
 			}
 		}
+		return $isValidIP;
 
 	}
 
@@ -346,11 +347,14 @@ class SugarAuthenticate{
 	 * Called when a user requests to logout
 	 *
 	 */
-	function logout(){
+	function logout()
+	{
+	    if(session_id() != '') {
 			session_destroy();
-			ob_clean();
-			header('Location: index.php?module=Users&action=Login');
-			sugar_cleanup(true);
+	    }
+		ob_clean();
+		header('Location: index.php?module=Users&action=Login');
+		sugar_cleanup(true);
 	}
 
 
@@ -398,13 +402,12 @@ class SugarAuthenticate{
     }
 
     /**
-     * Redirect to login page
-     * 
-     * @param SugarApplication $app
+     * Updates user's last_login field with current datetime
+     *
+     * @param User $user
      */
-    public function redirectToLogin(SugarApplication $app)
+    protected function updateUserLastLogin(User $user)
     {
-        $loginVars = $app->createLoginVars();
-        $app->redirect('index.php?action=Login&module=Users' . $loginVars);
+        $user->updateLastLogin();
     }
 }

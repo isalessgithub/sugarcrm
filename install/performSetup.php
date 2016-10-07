@@ -1,17 +1,14 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -21,19 +18,43 @@ $GLOBALS['installing'] = true;
 if( !isset( $install_script ) || !$install_script ){
     die($mod_strings['ERR_NO_DIRECT_SCRIPT']);
 }
-ini_set("output_buffering","0");
+
+// Disable zlib compression as this will interfere with live scrolling
+ini_set('zlib.output_compression', 0);
+
+// Give the install ample time to finish
 set_time_limit(3600);
-// flush after each output so the user can see the progress in real-time
+
+// Implicitly set character set to skip browser buffer sniffing
+header('Content-Type: text/html; charset=UTF-8');
+
+// Bypass output buffering if enforced by FastCGI implementation
+header('X-Accel-Buffering: no');
+
+// Flush after each output so the user can see the progress in real-time
 ob_implicit_flush();
 
-
-
-
+// When output_buffering is enabled - which is recommended in production -
+// make sure we flush the current output buffer(s) otherwise we are still
+// buffering at this point and real-time updates wont make it to the screen.
+while (@ob_end_flush());
 
 require_once('install/install_utils.php');
 
-require_once('modules/TableDictionary.php');
+// since we need to make sure we have even the custom tabledictionary items in there
+$mi = new ModuleInstaller();
+$mi->silent = true;
+$mi->rebuild_tabledictionary();
+$mi->rebuild_vardefs();
 
+require_once 'include/MetaDataManager/MetaDataManager.php';
+MetaDataManager::disableCache();
+
+include "modules/Trackers/tracker_perfMetaData.php";
+include "modules/Trackers/tracker_queriesMetaData.php";
+include "modules/Trackers/tracker_sessionsMetaData.php";
+include "modules/Trackers/tracker_tracker_queriesMetaData.php";
+require_once('modules/TableDictionary.php');
 
 $trackerManager = TrackerManager::getInstance();
 $trackerManager->pause();
@@ -160,6 +181,8 @@ if( is_file("config_override.php") ){
 }
 
 $db                 = DBManagerFactory::getInstance();
+//Call preInstall function
+$db->preInstall();
 $startTime          = microtime(true);
 $focus              = 0;
 $processed_tables   = array(); // for keeping track of the tables we have worked on
@@ -172,6 +195,10 @@ $new_report     = 1;
 $nonStandardModules = array (
     //'Tracker',
 );
+
+// TODO: Remove the following. (See MAR-1314)
+// Disable the activity stream from creating messages while installing.
+Activity::disable();
 
 //If this is MIcrosoft install and FTS is enabled, then fire index wake up method to prime the indexing service.
 if($db->supports('fulltext') && $db->full_text_indexing_installed()){
@@ -249,6 +276,10 @@ foreach( $beanFiles as $bean => $file ) {
 }
 installerHook('post_createAllModuleTables');
 
+// re-add this back to re-generate everything here $mi is created above
+$mi->silent = true;
+$mi->rebuild_extensions();
+
 echo "<br>";
 ////    END TABLE STUFF
 
@@ -266,11 +297,14 @@ echo "<br>";
         }
 
         if( !$db->tableExists($table) ){
-            $db->createTableParams($table, $rel_data['fields'], $rel_data['indices']);
+            $db->createTableParams($table, $rel_data['fields'], isset($rel_data['indices']) ? $rel_data['indices'] : array());
         }
 
         SugarBean::createRelationshipMeta($rel_name,$db,$table,$rel_dictionary,'');
     }
+
+    // Setup the relationship cache and build out the initial vardef cache
+    SugarRelationshipFactory::rebuildCache();
 
 ///////////////////////////////////////////////////////////////////////////////
 ////    START CREATE DEFAULTS
@@ -294,7 +328,15 @@ echo "<br>";
 
 
 
+    //Install forecasts configuration
+    require_once('modules/Forecasts/ForecastsDefaults.php');
+    $forecast_config = ForecastsDefaults::setupForecastSettings();
 
+    //Install Opportunities configuration
+    require_once('modules/Opportunities/OpportunitiesDefaults.php');
+    $opps_config = OpportunitiesDefaults::setupOpportunitiesSettings();
+
+    unset($opps_config);
 
     installerHook('pre_createUsers');
     if ($new_tables) {
@@ -371,6 +413,7 @@ $disabledTabs = array(
     "bugs",
     "products",
     "contracts",
+    "revenuelineitems"
     );
 
 installerHook('pre_setHiddenSubpanels');
@@ -379,46 +422,28 @@ SubPanelDefinitions::set_hidden_subpanels($disabledTabsKeyArray);
 installerHook('post_setHiddenSubpanels');
 
 
-// Enable Sugar Feeds and add all feeds by default
-installLog("Enable SugarFeeds");
-enableSugarFeeds();
-
 // Create the user that will be used by Snip
 require_once ('install/createSnipUser.php');
-
+/**
+ * SP-1071 disable unsupported legacy connectors for 7.0
 // Enable the InsideView connector and add all modules
 installLog("Enable InsideView Connector");
 enableInsideViewConnector();
-
-// Install the logic hook for FTS
-installLog("Creating FTS logic hook");
-if (!function_exists('createFTSLogicHook')) {
-    function createFTSLogicHook($filePath = 'application/Ext/LogicHooks/logichooks.ext.php')
-    {
-        $customFileLoc = create_custom_directory($filePath);
-        $fp = sugar_fopen($customFileLoc, 'wb');
-        $contents = <<<CIA
-<?php
-if (!isset(\$hook_array) || !is_array(\$hook_array)) {
-    \$hook_array = array();
-}
-if (!isset(\$hook_array['after_save']) || !is_array(\$hook_array['after_save'])) {
-    \$hook_array['after_save'] = array();
-}
-\$hook_array['after_save'][] = array(1, 'fts', 'include/SugarSearchEngine/SugarSearchEngineQueueManager.php', 'SugarSearchEngineQueueManager', 'populateIndexQueue');
-CIA;
-
-        fwrite($fp,$contents);
-        fclose($fp);
-
-    }
-}
-createFTSLogicHook();
-// also write it to Extension directory so it won't be lost when rebuilding extensions
-createFTSLogicHook('Extension/application/Ext/LogicHooks/SugarFTSHooks.php');
-
+**/
 ///////////////////////////////////////////////////////////////////////////////
 ////    START DEMO DATA
+
+/*
+ * Enable asynchronous index mode before adding demo data. At this point
+ * the ES idex has not been initialized yet. The demo data loader uses
+ * SugarBean->save() which automatically triggers an inline index of each
+ * object. This is pointless as we want to take care of this in bulk
+ * during the intial full indexer run. This will also speed up the install
+ * process significantly and avoids ES errors when dyamic update is
+ * disabled on the ES cluster itself.
+ */
+$sse = SugarSearchEngineFactory::getInstance();
+$sse->setForceAsyncIndex(true);
 
     // populating the db with seed data
     installLog("populating the db with seed data");
@@ -426,7 +451,7 @@ createFTSLogicHook('Extension/application/Ext/LogicHooks/SugarFTSHooks.php');
         installerHook('pre_installDemoData');
         set_time_limit( 301 );
 
-      echo "<br>";
+        echo "<br>";
         echo "<b>{$mod_strings['LBL_PERFORM_DEMO_DATA']}</b>";
         echo "<br><br>";
 
@@ -438,12 +463,15 @@ createFTSLogicHook('Extension/application/Ext/LogicHooks/SugarFTSHooks.php');
         $current_user->retrieve(1);
         include("install/populateSeedData.php");
         installerHook('post_installDemoData');
-        if(!empty($_SESSION['fts_type']) || !empty($_SESSION['setup_fts_type']))
-        {
-            require_once('include/SugarSearchEngine/SugarSearchEngineFullIndexer.php');
-            $indexer = new SugarSearchEngineFullIndexer();
-            $results = $indexer->performFullSystemIndex();
-        }
+    }
+
+    if((!empty($_SESSION['fts_type']) || !empty($_SESSION['setup_fts_type'])) &&
+            (empty($_SESSION['setup_fts_skip'])))
+    {
+        installLog('running full indexer');
+        require_once('include/SugarSearchEngine/SugarSearchEngineFullIndexer.php');
+        $indexer = new SugarSearchEngineFullIndexer();
+        $results = $indexer->performFullSystemIndex(array(), true, true);
     }
 
     $endTime = microtime(true);
@@ -482,9 +510,13 @@ createFTSLogicHook('Extension/application/Ext/LogicHooks/SugarFTSHooks.php');
 	////    INSTALL PASSWORD TEMPLATES
     include('install/seed_data/Advanced_Password_SeedData.php');
 
+	///////////////////////////////////////////////////////////////////////////////
+	////    INSTALL PDF TEMPLATES
+    include('install/seed_data/PdfManager_SeedData.php');
+
 ///////////////////////////////////////////////////////////////////////////////
 ////    SETUP DONE
-installLog("Installation has completed *********");
+installLog("Done populating data *********");
 $memoryUsed = '';
     if(function_exists('memory_get_usage')) {
     $memoryUsed = $mod_strings['LBL_PERFORM_OUTRO_5'].memory_get_usage().$mod_strings['LBL_PERFORM_OUTRO_6'];
@@ -566,14 +598,15 @@ FP;
     $enabled_tabs[] = 'Prospects';
     $enabled_tabs[] = 'ProspectLists';
 
-
     installerHook('pre_setSystemTabs');
     require_once('modules/MySettings/TabController.php');
     $tabs = new TabController();
     $tabs->set_system_tabs($enabled_tabs);
     installerHook('post_setSystemTabs');
 
+installLog("Running post-install hooks");
 post_install_modules();
+installLog("Finished post-install hooks");
 
 //Call rebuildSprites
 if(function_exists('imagecreatetruecolor'))
@@ -591,8 +624,25 @@ if( count( $bottle ) > 0 ){
 }
 installerHook('post_installModules');
 
+installerHook('pre_handleMissingSmtpServerSettingsNotifications');
+handleMissingSmtpServerSettingsNotifications();
+installerHook('post_handleMissingSmtpServerSettingsNotifications');
 
+// rebuild cache after all is said and done
+installLog("Populating file cache");
+SugarAutoLoader::buildCache();
 
+// Build the base platform metadata caches after everything else is done.
+installLog("Populating metadata cache");
+MetaDataManager::enableCache();
+$app_list_strings = return_app_list_strings_language('en_us');
+MetaDataManager::setupMetadata(array('base'), array('en_us'));
+
+// TODO: Remove the following. (See MAR-1314)
+// Restore the activity stream behaviour.
+Activity::enable();
+
+installerHook('post_performSetup');
 $out =<<<EOQ
 <br><p><b>{$mod_strings['LBL_PERFORM_OUTRO_1']} {$setup_sugar_version} {$mod_strings['LBL_PERFORM_OUTRO_2']}</b></p>
 
@@ -622,6 +672,4 @@ $out =<<<EOQ
 EOQ;
 
 echo $out;
-
-
-?>
+installLog("Installation has completed *********");

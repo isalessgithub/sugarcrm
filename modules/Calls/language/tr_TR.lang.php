@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Müşteriyi silmek için bir kayıt numarası belirtilmelidir.',
@@ -65,6 +62,30 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'İlişkili Olduğu Modül',
   'LBL_EXPORT_REMINDER_TIME' => 'Hatırlatma Süresi (dakika)',
   'LBL_FIRST_NAME' => 'İsim',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modülü, organizasyonunuzdaki kullanıcıların oluşturduğu {{calls_singular_module}} kayıtlarından oluşur. {{plural_module_name}}, "Planlanan", "Yapıldı", veya "İptal" durumunda olabilir. Sugar kullanıcıları ile {{contacts_module}} ve {{leads_module}} davetli olarak eklenebilir.
+
+{{calls_singular_module}} oluşturmak için:
+1. Alanlar için istediğiniz şekilde değerleri girin
+    - "Zorunlu" olarak işaretlenen kayıtların, kaydetmeden önce girilmesi gereklidir.
+    - Gerekiyorsa ""Daha Fazlası"" seçeneği ile, ek alanların görüntülenmesini sağlayın.
+2. Davetlileri, {{calls_singular_module}} için ekleyin.
+    - "Katılımcı Seçin" ile mevcut kullanıcı, kontak, potansiyel {{calls_singular_module}} için dahil edilebilir.
+    - "Katılımcı Seçin" seçeneğinin yanındaki artı işaretine tıklayarak yeni bir {{calls_singular_module}} katılımcısını Sugar kaydı olarak ekleyin.
+3. "Kaydet" tuşuna basarak yeni kaydı sona erdirin ve önceki sayfaya dönün.
+    - "Kaydet ve görüntüle" ile yeni {{calls_singular_module}} kaydı açın.
+    - "Kaydet ve yeni oluştur" ile hemen farklı bir yeni {{calls_singular_module}} kaydı oluşturun.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü, organizasyonunuzdaki kullanıcıların oluşturduğu {{calls_singular_module}} kayıtlarından oluşur. {{plural_module_name}}, "Planlanan", "Yapıldı", veya "İptal" durumunda olabilir. Sugar kullanıcıları ile {{contacts_module}} ve {{leads_module}} davetli olarak eklenebilir.
+
+- Kaydın alanlarını bir alana tıklayarak veya Değiştir tuşuna basarak değiştirin.
+- Sol altta yer alan tuşu "Veri Görüntüle" değerine çevirerek, diğer kayıtlara olan bağlantıları görün veya değiştirin.
+- Sol altta yer alan tuşu "Aktivite Akışı" değerine değiştirerek, kullanıcı yorumlarını ve kayıt değişiklik tarihçesini görün veya ekleyin.
+- Kaydın sağındaki ikona tıklayarak kaydı izlemeye alın veya favori olarak işaretleyin.
+- Değiştir tuşunun sağındaki açılır Aksiyonlar menüsü içinde ek aksiyonlar yer almaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü, organizasyonunuzdaki kullanıcıların oluşturduğu çağrı kayıtlarından oluşur ve "Planlanan", "Yapıldı", veya "İptal"" durumunda olabilir. Önümüzdeki 24 saat içinde başlayacak olan toplantıların başlangıç tarihi mavi ile gösterilir. Geçmiş toplantılar için başlangıç değeri kırmızı renktedir.
+
+{{plural_module_name}} liste görünümünden, toplantı bilgisini görebilir veya hemen değiştirebilirsiniz. Ek aksiyonlar, her menü satırının sonundaki menü ile mümkün olmaktadır. Menü içinden "Kapat" seçerek, herhangi bir toplantıyı yapıldı olarak işaretleyebilirsiniz.
+
+Sugar kullanıcıları, kontaklar ve potansiyeller, toplantı davetlisi olarak eklenebilir. {{plural_module_name}}, {{plural_module_name}} modülü ile, Takvim modülü ile, içeri yüklemeyle, Aktiviteler alt paneli ile (Eski modüller için) veya ilgili modül kaydı üzerindeyken Planlanan Aktiviteler penceresi ile (Yan menü modülleri için)  - her iki kayıt arasında otomatik olarak ilişki oluşturacaktır.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notlar',
   'LBL_HOURS_ABBREV' => 's',
   'LBL_HOURS_MINUTES' => '(saat/dakika)',
@@ -89,12 +110,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Aramalar',
   'LBL_MODULE_NAME_SINGULAR' => 'Tel.Araması',
   'LBL_MODULE_TITLE' => 'Tel.Aramaları: Ana Sayfa',
+  'LBL_MY_SCHEDULED_CALLS' => 'Planlanan Aramalarım',
   'LBL_NAME' => 'İsim',
   'LBL_NEW_FORM_TITLE' => 'Randevu Oluştur',
   'LBL_NO_ACCESS' => '$module modülünü oluşturmak için erişim yetkiniz yok',
   'LBL_OUTLOOK_ID' => 'Outlook ID',
   'LBL_PARENT_ID' => 'Üst ID',
   'LBL_PHONE' => 'Telefon',
+  'LBL_POPUP_REMINDER_TIME' => 'Açılır Liste Hatırlatma Zamanı',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => '{{moduleSingularLower}}, {{formatDate date_start}} için planladınız ancak erişim hakkınız bulunmuyor.',
+  'LBL_RECORD_SAVED_SUCCESS' => '{{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> , {{formatDate date_start}} için planladınız.',
   'LBL_RECURRENCE' => 'Tekrar',
   'LBL_RECURRING_LIMIT_ERROR' => 'Bu tekrarlayan çağrı, maksimum tekrarlama limitini ($limit) aştığı için planlanamaz.',
   'LBL_RECURRING_SOURCE' => 'Tekrarlanan Kaynak',
@@ -105,6 +130,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Tüm davetlilere e-posta',
   'LBL_REMINDER_POPUP' => 'Ekran',
   'LBL_REMINDER_TIME' => 'Hatırlatma Saati',
+  'LBL_REMINDER_TITLE' => 'Çağrı:',
   'LBL_REMOVE' => 'sil',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Bütün Tekrarları Sil',
   'LBL_REPEAT_COUNT' => 'Tekrar Sayısı',
@@ -117,6 +143,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Tekrar Eden Üst ID',
   'LBL_REPEAT_TYPE' => 'Tekrarlama Türü',
   'LBL_REPEAT_UNTIL' => 'Tekrar Limiti:',
+  'LBL_REVENUELINEITEMS' => 'Gelir Kalemleri',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planlanıyor',
   'LBL_SEARCH_BUTTON' => 'Ara',
   'LBL_SEARCH_FORM_TITLE' => 'Tel.Aramaları Ara',
@@ -132,7 +159,7 @@ $mod_strings = array (
   'LBL_TIME_END' => 'Bitiş Saati',
   'LBL_USERS_SUBPANEL_TITLE' => 'Kullanıcılar',
   'LNK_CALL_LIST' => 'Tel.Aramalarını Gör',
-  'LNK_IMPORT_CALLS' => 'Arama Verilerini Yükle',
+  'LNK_IMPORT_CALLS' => 'Çağrı Verilerini Yükle',
   'LNK_NEW_ACCOUNT' => 'Yeni Müşteri',
   'LNK_NEW_APPOINTMENT' => 'Randevu Oluştur',
   'LNK_NEW_CALL' => 'Tel. Araması Planla',
@@ -141,5 +168,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Müşteri Seç',
   'NOTICE_DURATION_TIME' => 'Süre 0 dan büyük olmalıdır',
   'NTC_REMOVE_INVITEE' => 'Arama kaydından bu davetliyi silmek istediğinize emin misiniz?',
+  'TPL_CALL_STATUS_CHANGED' => 'Kayıt {{status}} olarak işaretlendi',
 );
 

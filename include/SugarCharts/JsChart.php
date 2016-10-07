@@ -1,19 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id$
 
 require_once("include/SugarCharts/SugarChart.php");
 
@@ -195,10 +192,10 @@ class JsChart extends SugarChart {
 	function getChartDimensions($xmlStr) {
 		if($this->getNumNodes($xmlStr) > 9 && $this->chartType != "pie chart") {
 			if($this->chartType == "horizontal group by chart" || $this->chartType == "horizontal bar chart") {
-				$height = ($this->getNumNodes($xmlStr) * 60) + 100;
+				$height = ($this->getNumNodes($xmlStr) * 40);
 				return array("width"=>$this->width, "height"=>($height));
 			} else {
-				return array("width"=>($this->width * 2), "height"=>$this->height);
+				return array("width"=>$this->width, "height"=>$this->height);
 			}
 		} else {
 			return array("width"=>"100%", "height"=>$this->height);
@@ -237,10 +234,13 @@ class JsChart extends SugarChart {
 		$content = $this->tab("\"label\": [\n",1);
 		$labels = array();
 		$xml = new SimpleXMLElement($xmlstr);
-		foreach($xml->data->group[0]->subgroups->group as $group) {
-			$labels[] = $this->tab("\"".$this->processSpecialChars($group->title)."\"",2);
-		}
-		$content .= join(",\n",$labels)."\n";
+          if(isset($xml->data->group)) {
+            foreach($xml->data->group[0]->subgroups->group as $group) {
+                $labels[] = $this->tab("\"".$this->processSpecialChars($group->title)."\"",2);
+            }
+
+		    $content .= join(",\n",$labels)."\n";
+          }
 		$content .= $this->tab("],\n",1);
 		return $content;
 	}
@@ -251,9 +251,6 @@ class JsChart extends SugarChart {
         //    like a stacked bar chart, this applies when a stacked chart has been converted in templates_chart.php to a bar chart due to it
         //    having nothing but single value columns
         $xml = new SimpleXMLElement($xmlstr);
-        if (count($xml->data->group[0]->subgroups->group) > 0) {
-            return $this->buildLabelsBarChartStacked($xmlstr);
-        }
 
         $content = $this->tab("\"label\": [\n",1);
 		$labels = array();
@@ -276,10 +273,6 @@ class JsChart extends SugarChart {
 			$groupcontent .= $this->tab("\"label\": \"".$this->processSpecialChars($group->title)."\",\n",2);
 			$groupcontent .= $this->tab("\"gvalue\": \"{$group->value}\",\n",2);
 			$groupcontent .= $this->tab("\"gvaluelabel\": \"{$group->label}\",\n",2);
-			if (!empty($group->id))
-			{
-				$groupcontent .= $this->tab("\"id\": \"{$group->id}\",\n",2);
-			}
 			$subgroupValues = array();
 			$subgroupValueLabels = array();
 			$subgroupLinks = array();
@@ -315,10 +308,6 @@ class JsChart extends SugarChart {
 			$groupcontent .= $this->tab("\"label\": \"".$this->processSpecialChars($group->title)."\",\n",2);
 			$groupcontent .= $this->tab("\"gvalue\": \"{$group->value}\",\n",2);
 			$groupcontent .= $this->tab("\"gvaluelabel\": \"{$group->label}\",\n",2);
-			if (!empty($group->id))
-			{
-				$groupcontent .= $this->tab("\"id\": \"{$group->id}\",\n",2);
-			}
 			$subgroupValues = array();
 			$subgroupValueLabels = array();
 			$subgroupLinks = array();
@@ -365,10 +354,6 @@ class JsChart extends SugarChart {
 		$groupcontent .= $this->tab("\"values\": [\n",2);
 		$groupcontent .= $this->tab(($group->value == "NULL") ? 0 : $group->value."\n",3);
 		$groupcontent .= $this->tab("],\n",2);
-		if (!empty($group->id))
-		{
-			$groupcontent .= $this->tab("\"id\": \"{$group->id}\",\n",2);
-		}
 		if($group->label) {
 			$groupcontent .= $this->tab("\"valuelabels\": [\n",2);
 			$groupcontent .= $this->tab("\"{$group->label}\"\n",3);
@@ -524,8 +509,13 @@ class JsChart extends SugarChart {
 
 	}
 
-	function buildJson($xmlstr){
-		if($this->checkData($xmlstr)) {
+	function buildJson($xmlstr, $ignore_datacheck = false){
+        // make sure chartType is set if we buildJson() instead of going thru display()
+        if(!isset($this->chartType)) {
+            $this->chartType = $this->chart_properties['type'];
+        }
+
+		if($this->checkData($xmlstr) || $ignore_datacheck === true) {
 			$content = "{\n";
 			if ($this->chartType == "pie chart" || $this->chartType == "funnel chart 3D") {
 				$content .= $this->buildProperties($xmlstr);
@@ -557,6 +547,10 @@ class JsChart extends SugarChart {
 				$content .= $this->buildDataBarChartStacked($xmlstr);
 			}
 			$content .= "\n}";
+
+            // fix-up the json since it's not valid json for JS or PHP
+            $content = str_replace(array("\t", "\n", "'"), array("","",'"'), $content);
+
 			return $content;
 		} else {
 			return "No Data";
@@ -565,6 +559,11 @@ class JsChart extends SugarChart {
 
 	function buildHTMLLegend($xmlFile) {
 		$xmlstr = $this->processXML($xmlFile);
+
+        if (empty($xmlstr)) {
+            return '';
+        }
+
 		$xml = new SimpleXMLElement($xmlstr);
 		$this->chartType = $xml->properties->type;
 		$html = "<table align=\"left\" cellpadding=\"2\" cellspacing=\"2\">";
@@ -684,20 +683,20 @@ class JsChart extends SugarChart {
 
 		if(!file_exists($xmlFile)) {
 			$GLOBALS['log']->debug("Cannot open file ($xmlFile)");
+            return '';
 		}
 
 		$pattern = array();
-		$replacement = array();
 		$content = file_get_contents($xmlFile);
 		$content = $GLOBALS['locale']->translateCharset($content,'UTF-16LE', 'UTF-8');
-		$pattern[] = '/\<link\>([a-zA-Z0-9#?&%.;\[\]\/=+_-\s]+)\<\/link\>/e';
-		$replacement[] = "'<link>'.urlencode(\"$1\").'</link>'";
-//		$pattern[] = '/NULL/e';
-//		$replacement[] = "";
-		return preg_replace($pattern,$replacement, $content);
+		$pattern[] = '/\<link\>([a-zA-Z0-9#?&%.;\[\]\/=+_-\s]+)\<\/link\>/';
+
+		return preg_replace_callback($pattern, function($m) {
+			return '<link>'.urlencode($m[1]).'</link>';
+		}, $content);
+
 	}
 
 
 }
 
-?>

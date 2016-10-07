@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge contul',
@@ -43,6 +40,9 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Tipul de mima',
   'LBL_FILE_URL' => 'Fisier URL',
   'LBL_FIRST_NAME' => 'Prenume',
+  'LBL_HELP_CREATE' => 'Pentru a crea {{module_name}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noul (noua) {{module_name}} în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} este format din {{plural_module_name}} individuali/e care conţin text sau un ataşament potrivit înregistrării aferente. - Editează câmpurile acestei înregistrări apăsând pe fiecare câmp individual sau pe butonul Editare. - Vizualizează sau modifică linkuri către alte înregistrări in panourile secundare, trecând fereastra din stânga jos în stadiul "Vizualizare Date". - Creează şi vizualizează comentariile utilizatorilor şi istoricul modificărilor în {{activitystream_singular_module}} trecând fereastra din stânga jos în stadiul "Flux de activitate". - Urmăreşte sau marchează ca favorit această înregistrare folosind pictogramele din dreapta numelui înregistrării. - Sunt disponibile acţiuni suplimentare în meniul cu listă derulantă Acţiuni din dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} este format din {{plural_module_name}} individuali/e care conţin text sau un ataşament potrivit înregistrării aferente. Înregistrările {{module_name}} pot fi legate de o înregistrare în majoritatea modulelor prin câmpul relaţionat flexibil sau mai pot fi legate de un/o singur/ă {{contacts_singular_module}}. {{plural_module_name}} poate conţine text generic despre înregistrare, sau chiar un ataşament privind înregistrarea. Există mai multe modalităţi prin care puteţi crea {{plural_module_name}} în Sugar, cum ar fi prin intermediul modulului {{plural_module_name}}, prin import de {{plural_module_name}}, prin panouri secundare de Istoric etc. Odată ce a fost creată înregistrarea {{module_name}}, puteţi vizualiza şi edita informaţiile privitoare la {{module_name}} prin intermediul ferestrei de vizualizare a înregistrării {{plural_module_name}}. Fiecare înregistrare {{module_name}} poate apoi relaţiona cu alte înregistrări Sugar, cum ar fi {{accounts_module}}, {{contacts_module}}, {{opportunities_module}} şi multe altele.',
   'LBL_LAST_NAME' => 'Nume de Familie',
   'LBL_LEAD_ID' => 'Identitate Lead',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Utilizator Atribuit',
@@ -79,6 +79,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'Indentitate mentiune:',
   'LBL_RELATED_TO' => 'Asociat cu:',
   'LBL_REMOVING_ATTACHMENT' => 'Indepartare atasament...',
+  'LBL_REVENUELINEITEMS' => 'Elemente venit',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta nota',
   'LBL_SEND_ANYWAYS' => 'Emailul nu are subiect...Salveaza/trimite oricum?',
   'LBL_STATUS' => 'Statut',

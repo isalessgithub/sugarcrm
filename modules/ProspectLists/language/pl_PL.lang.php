@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kontrahenci',
   'LBL_ASSIGNED_TO' => 'Przydzielono do',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampanie',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakty',
   'LBL_COPY_PREFIX' => 'Kopia',
   'LBL_CREATED' => 'Utworzono przez',
@@ -32,6 +30,24 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Nie ma wiadomości e-mail dla domeny',
   'LBL_DOMAIN_NAME' => 'Nazwa domeny',
   'LBL_ENTRIES' => 'Wszystkie pozycje',
+  'LBL_HELP_CREATE' => '{{module_name}} jest zbiorem osób lub organizacji, które chcesz zawrzeć lub wykluczyć z kampanii marketingowej.
+
+Aby utworzyć Grupę odbiorców:
+1. Wprowadź odpowiednie wartości do pól.
+ - Pola oznaczone jako "Wymagane" muszą zostać uzupełnione.
+ - Kliknij "Pokaż więcej", aby wyświetlić więcej pól.
+2. Kliknij "Zapisz", aby zapisać nowy rekord i powrócić do poprzedniej strony.
+ - Wybierz "Zapisz i pokaż", aby otworzyć rekord widoku {{plural_module_name}} w nowym oknie.
+ - Wybierz "Zapisz i utwórz nowy", aby bez zwłoki utworzyć nową Grupę odbiorców.
+3. Po zapisaniu, użyj subpaneli dostępnych w widoku rekordu Grupy odbiorców, aby dodać Odbiorców kampanii.',
+  'LBL_HELP_RECORD' => '{{module_name}} jest zbiorem osób lub organizacji, które chcesz zawrzeć lub wykluczyć z kampanii marketingowej.
+
+- Edytuj pola tego rekordu poprzez kliknięcie na odpowiednie pole lub na przycisk Edytuj.
+- Przeglądaj lub modyfikuj powiązania z innymi rekordami w subpanelach poprzez przełączenie widoku dolnego lewego panelu na “Widok danych”.
+- Dodawaj i przeglądaj komentarze użytkowników i historię zmian rekordu w Panelu aktywności poprzez przełączenie widoku dolnego lewego panelu na „Panel aktywności”.
+- Obserwuj lub dodaj do ulubionych ten rekord za pomocą ikon znajdujących się z prawej strony nazwy rekordu.
+- Dodatkowe działania dostępne są w liście rozwijalnej menu Działania po prawej stronie przycisku Edytuj.',
+  'LBL_HELP_RECORDS' => '{{module_name}} jest zbiorem osób lub organizacji, które chcesz zawrzeć lub wykluczyć z kampanii marketingowej. {{plural_module_name}} może zawierać dowolną liczbę Odbiorców, Kontaktów, Namiarów, Użytkowników i Kontrahentów. Odbiorcy mogą być częścią Grupy odbiorców według wcześniej określonych kryteriów , takich jak: grupa wiekowa, położenie geograficzne itp. {{plural_module_name}} jest wykorzystywana w masowej kampanii marketingowej, którą można skonfigurować w module Kampanie.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Namiary',
   'LBL_LIST_DESCRIPTION' => 'Opis',
   'LBL_LIST_END_DATE' => 'Data zakończenia',

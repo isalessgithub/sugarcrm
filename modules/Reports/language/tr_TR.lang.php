@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,8 +76,8 @@ $mod_strings = array (
     1209600 => 'Her 2 Haftada',
     2419200 => 'Her 4 Haftada',
   ),
-  'ERR_REPORT_DEACTIVATED' => 'Planlanmış Rapor "{0}" devrede dışı bırakıldı',
-  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Planlanmış rapor devre dışı bırakıldı',
+  'ERR_REPORT_DEACTIVATED' => 'Planlı rapor "{0}" devre dışı bırakıldı',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Planlı rapor devre dışı kaldı',
   'ERR_REPORT_INVALID' => '"{0}" Raporun tanımı geçersiz alanlar içeriyor: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Rapor geçersiz',
   'ERR_SELECT_COLUMN' => 'İlk olarak bir görüntü kolonu seçiniz.',
@@ -124,7 +121,7 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Önce',
   'LBL_BUG_REPORTS' => 'Hata Raporları',
   'LBL_BY_DAY' => 'Günlük',
-  'LBL_BY_FISCAL_QUARTER' => 'Mali Çeyreğe Göre',
+  'LBL_BY_FISCAL_QUARTER' => 'Mali Çeyreğe göre',
   'LBL_BY_FISCAL_YEAR' => 'Mali Yıla Göre',
   'LBL_BY_MONTH' => 'Aylık',
   'LBL_BY_QUARTER' => 'Çeyrek bazında',
@@ -156,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Rapor Sihirbazı',
   'LBL_CREATE_REPORT' => 'Rapor Oluştur',
   'LBL_CSV_TIMESTAMP' => 'Y_a_g_S_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Güncel Mali Çeyrek',
-  'LBL_CURRENT_FISCAL_YEAR' => 'Güncel Mali Yıl',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Mevcut Mali Çeyrek',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Mevcut Mali Yıl',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Şimdiki Çeyrekte Onaylanmış Anlaşmalar',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Şimdiki Çeyrek Tahmini',
   'LBL_CURRENT_USER' => 'Geçerli Kullanıcı',
@@ -207,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'aşağıdaki filtrelerden.',
   'LBL_FILTERS_HELP_DESC' => '<b> Filtre Tanımlama Adımları:</b><br /><br/><br/><br />1) Modül üzerindeki <b>İlişkili Modüller</b> penceresindeki kullanmak istediğin filtre tanımlarına tıkla. Aksi istenmediği takdirde Asıl Modül (ağaç görünümündeki en üst nod) seçilidir. <br/><br/>Modülün üzerine tıklayarak ilişkili bir modül (ağaç görünümündeki alt nod) seçebilirsiniz. İlişkili modül ile ilgili ek modülleri görüntüleyebilmek için nodu genişlet. Seçtiğiniz modül <b>Mevcut Alanlar</b> penceresinde hangi raporlanabilir alanların ortaya çıkacağını belirler.<br /><br/><br/><br />2) Filtreler ekleyebilmek için <b>Mevcut Alanlar</b> penceresindeki Alan üzerine tıkla. Aynı zamanda penceredeki metin kutusunun içine yazarak alan araması da yapabilirsiniz.<br /><br/><br/><br /><b>İlişkili Modüller</b> penceresinden seçilen modülden herhangi bir sayıda alan seçtikten sonra, filtre gibi kullanmak amacıyla herhangi bir sayıda seçebildiğiniz alanlardan farklı modüller seçebilirsiniz.<br /><br/><br/><br />3) Her biri ayrı ayrı olmak üzere rapor sonuçlarını bulabilmek için kullanılan tüm filtreleri veya herhangi bir fitreyi adlandırmak için <b>VE</b> veya <b>VEYA</b> seç.<br /><br/><br/><br />4)[Opsiyonel] Filtre Grupları oluşturmak için <b>Filtre Grup Ekle</b> ye tıkla. Birbirinin içine yerleştirilmiş Filtreleri oluşturmak için herhangi bir sayıda filtre grubu ve filtreye sahip olabilirsiniz. <br /><br/><br/><br />5) [Opsiyonel] Kullanıcıların rapor görüntülerken  rapor sonuçlarını özelleştirmek için filtre kullanmalarına izin vermek amacıyla bir Filtre için Çalışma Sırası opsiyonunu seçiniz.',
   'LBL_FILTER_AND' => 'VE',
+  'LBL_FILTER_BY_MODULE' => 'Modüle Göre',
   'LBL_FILTER_CONDITIONS' => 'Operatör Seçiniz:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Kime',
   'LBL_FILTER_DATE_RANGE_START' => 'Kimden',
@@ -309,19 +307,19 @@ $mod_strings = array (
   'LBL_NEXT_FISCAL_QUARTER' => 'Sonraki Mali Çeyrek',
   'LBL_NEXT_FISCAL_YEAR' => 'Sonraki Mali Yıl',
   'LBL_NEXT_MONTH' => 'Gelecek Ay',
-  'LBL_NEXT_N_DAYS' => 'Sonraki # Gün',
+  'LBL_NEXT_N_DAYS' => 'Önümüzdeki # Gün',
   'LBL_NEXT_QUARTER' => 'Gelecek Çeyrek',
   'LBL_NEXT_RUN' => 'Bir Sonraki E-posta',
   'LBL_NEXT_WEEK' => 'Önümüzdeki Hafta',
   'LBL_NEXT_YEAR' => 'Gelecek Yıl',
-  'LBL_NONE' => '-- yok --',
+  'LBL_NONE' => '--boş--',
   'LBL_NONE_STRING' => 'Yok',
   'LBL_NOTHING_WAS_SELECTED' => 'hiçbir şey seçilmemiştir.',
   'LBL_NOT_ON' => 'Üzerinde değil',
   'LBL_NO_ACCESS' => 'İzinlerdeki kısıtlamalar nedeniyle bu bölüme erişim izniniz yok.',
   'LBL_NO_CHART' => 'Grafik yok',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Yetersiz veriler nedeniyle grafik çizilememektedir',
-  'LBL_NO_EXPORT_ACCESS' => 'Dışarı Veri Aktarımı Etkin Değil',
+  'LBL_NO_EXPORT_ACCESS' => 'İhracat Devre Dışı',
   'LBL_NO_FILTERS' => 'filtresi yok.',
   'LBL_NO_IMAGE' => 'Resim yok',
   'LBL_NO_REPORTS' => 'Sonuç yok.',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'Bir ortalama ile',
   'LBL_WITH_A_TOTAL' => 'Bir toplam ile',
   'LBL_WITH_DETAILS' => 'Detaylı',
-  'LBL_WORKSHEET' => 'Çalışma Sayfası',
   'LBL_YEAR' => 'Yıl',
   'LBL_YESTERDAY' => 'Dün',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Kaydedilmiş raporunuz bulunmamaktadır.',
+  'LNK_ADVANCED_REPORTING' => 'Gelişmiş Raporları yönetin',
   'LNK_NEW_ACCOUNT' => 'Müşteri Oluştur',
   'LNK_NEW_CALL' => 'Tel. Araması Planla',
   'LNK_NEW_CASE' => 'Talep Oluştur',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Bu raporu değiştirmek için izniniz bulunmamaktadır',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Yayınlanamaz. Aynı isimde yayınlanmış başka bir rapor yer almaktadır.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Başka bir kullanıcıya ait bir raporun yayından kaldırılması olanaksızdır. Aynı isimde bir rapor sahibi olun.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'Rapor Üretimi Görev Planlayıcı İşlemcisi şu anda aktif değil ve Rapor gönderimi planlanamaz. Lütfen Yönetici kullanıcısdan Planlayıcıyı Aktif hale getirmesini isteyiniz.',
 );
 

@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(typeof(SimpleList) == 'undefined'){
 	var Dom = YAHOO.util.Dom;
@@ -20,6 +18,8 @@ if(typeof(SimpleList) == 'undefined'){
         var jstransaction;
         var lastEdit;
         var isIE = isSupportedIE();
+        var requiredOptions;
+        var listName;
         return {
     init: function(editImage, deleteImage) {
         var ul = document.getElementById('ul1', 'drpdwn');
@@ -60,8 +60,8 @@ if(typeof(SimpleList) == 'undefined'){
     	var drop_value = document.getElementById('drop_value');
     	//Validate the dropdown key manually
     	removeFromValidate('dropdown_form', 'drop_name');
-    	if(!SimpleList.isValidDropDownKey(escape(drop_name.value))) {
-			addToValidate('dropdown_form', 'drop_name', 'error', false, SUGAR.language.get("ModuleBuilder", "LBL_JS_VALIDATE_KEY"));
+    	if(!SimpleList.isValidDropDownKey(YAHOO.lang.escapeHTML(drop_name.value))) {
+			addToValidate('dropdown_form', 'drop_name', 'error', false, SUGAR.language.get('ModuleBuilder', 'LBL_JS_VALIDATE_KEY_WITH_SPACE'));
     	}
     	
     	if (!check_form("dropdown_form")) return;
@@ -70,11 +70,11 @@ if(typeof(SimpleList) == 'undefined'){
 
         var items = ul1.getElementsByTagName("li");
         for (i=0;i<items.length;i=i+1) {
-            if((SimpleList.isBlank(items[i].id) && SimpleList.isBlank(escape(drop_name.value))) || items[i].id == escape(drop_name.value)){
+            if((SimpleList.isBlank(items[i].id) && SimpleList.isBlank(YAHOO.lang.escapeHTML(drop_name.value))) || items[i].id == YAHOO.lang.escapeHTML(drop_name.value)){
                 alert(SUGAR.language.get('ModuleBuilder', 'LBL_DROPDOWN_KEY_EXISTS'));
                 return;
             }
-            if((!SimpleList.isBlank(escape(drop_name.value)) && SimpleList.isBlank(escape(drop_value.value))) || (SimpleList.isBlank(escape(drop_name.value)) && !SimpleList.isBlank(escape(drop_value.value)))){
+            if((!SimpleList.isBlank(YAHOO.lang.escapeHTML(drop_name.value)) && SimpleList.isBlank(YAHOO.lang.escapeHTML(drop_value.value))) || (SimpleList.isBlank(YAHOO.lang.escapeHTML(drop_name.value)) && !SimpleList.isBlank(YAHOO.lang.escapeHTML(drop_value.value)))){
                 alert(SUGAR.language.get('ModuleBuilder', 'LBL_DROPDOWN_BLANK_WARNING'));
                 return;
             }
@@ -82,19 +82,19 @@ if(typeof(SimpleList) == 'undefined'){
 
         liObj = document.createElement('li');
         liObj.className = "draggable";
-        if(escape(drop_name.value) == '' || !escape(drop_name.value)){
+        if(YAHOO.lang.escapeHTML(drop_name.value) == '' || !YAHOO.lang.escapeHTML(drop_name.value)){
             liObj.id = SUGAR.language.get('ModuleBuilder', 'LBL_BLANK');
         }else{
-            liObj.id = escape(drop_name.value);
+            liObj.id = YAHOO.lang.escapeHTML(drop_name.value);
         }
 
         var text1 = document.createElement('input');
         text1.type = 'hidden';
         text1.id = 'value_' + liObj.id;
         text1.name = 'value_' + liObj.id;
-        text1.value = escape(drop_value.value);
+        text1.value = YAHOO.lang.escapeHTML(drop_value.value);
 
-        var html = "<table width='100%'><tr><td><b>"+liObj.id+"</b><input id='value_"+liObj.id+"' value=\""+escape(drop_value.value)+"\" type = 'hidden'><span class='fieldValue' id='span_"+liObj.id+"'>";
+        var html = "<table width='100%'><tr><td><b>"+liObj.id+"</b><input id='value_"+liObj.id+"' value=\""+YAHOO.lang.escapeHTML(drop_value.value)+"\" type = 'hidden'><span class='fieldValue' id='span_"+liObj.id+"'>";
         if(drop_value.value == ""){
             html += "[" + SUGAR.language.get('ModuleBuilder', 'LBL_BLANK') + "]";
         }else{
@@ -135,30 +135,31 @@ if(typeof(SimpleList) == 'undefined'){
             //Cleanup the placeholder element
             parent.removeChild(placeholder);
         }
-        
-        while ( increment > 0 )
-        {
-        	for (var i = increment; i < items.length; i++)
-        	{
-            	var j = i;
-            	var id = items[i].id;
-            	var iValue = document.getElementById( 'input_' + id ).value.toLowerCase() ;
-              
-            	while ( ( j >= increment ) && ( document.getElementById( 'input_' + items [j-increment].id ).value.toLowerCase() > iValue ) )
-            	{
-            		// logically, this is what we need to do: items [j] = items [j - increment];
-            		// but we're working with the DOM through a NodeList (items) which is readonly, so things aren't that simple
-            		// A placeholder will be used to keep track of where in the DOM the swap needs to take place
-            		// especially with IE which enforces the prohibition on duplicate Ids, so copying nodes is problematic
-            		swapItems(items [j], items [j - increment]);
-                	j = j - increment;
-            	}
+
+        while (increment > 0) {
+            for (var i = increment; i < items.length; i++) {
+                var j = i,
+                    getItemValue = function(id) {
+                        var input = document.getElementById('input_' + id) || document.getElementById('value_' + id);
+                        return input && input.value ? input.value.toLowerCase() : "";
+                    },
+                    id = items[i].id,
+                    iValue = getItemValue(id);
+
+                while ((j >= increment) && (getItemValue(items[j - increment].id) > iValue)) {
+                    // logically, this is what we need to do: items [j] = items [j - increment];
+                    // but we're working with the DOM through a NodeList (items) which is readonly, so things aren't that simple
+                    // A placeholder will be used to keep track of where in the DOM the swap needs to take place
+                    // especially with IE which enforces the prohibition on duplicate Ids, so copying nodes is problematic
+                    swapItems(items [j], items [j - increment]);
+                    j = j - increment;
+                }
             }
-             
+
             if (increment == 2)
-            	increment = 1;
-            else 
-            	increment = Math.floor (increment / 2.2);
+                increment = 1;
+            else
+                increment = Math.floor(increment / 2.2);
         }
     },
     sortDescending: function ()
@@ -190,11 +191,13 @@ if(typeof(SimpleList) == 'undefined'){
         };
         var ul1=YAHOO.util.Dom.get("ul1");
         var hasDeletedItem = false;
-        for(j = 0; j < SimpleList.jstransaction.JSTransactions.length; j++){            
-            var liEl = new YAHOO.util.Element(SimpleList.jstransaction.JSTransactions[j]['data']['id']);
-            if(liEl && liEl.hasClass('deleted'))
-            	hasDeletedItem = true;
-            	break;
+        for(j = 0; j < SimpleList.jstransaction.JSTransactions.length; j++){
+            if(SimpleList.jstransaction.JSTransactions[j]['transaction'] == 'deleteDropDown') {
+                var liEl = new YAHOO.util.Element(SimpleList.jstransaction.JSTransactions[j]['data']['id']);
+                if (liEl && liEl.hasClass('deleted'))
+                    hasDeletedItem = true;
+                break;
+            }
         }
         if(hasDeletedItem) {
         	if(!confirm(SUGAR.language.get('ModuleBuilder', 'LBL_CONFIRM_SAVE_DROPDOWN')))
@@ -222,15 +225,58 @@ if(typeof(SimpleList) == 'undefined'){
             ModuleBuilder.handleSave("dropdown_form", ModuleBuilder.refreshGlobalDropDown);
         }
     },
-    deleteDropDownValue : function(id, record){
-        var field = new YAHOO.util.Element(id);
-        if(record){
-            SimpleList.jstransaction.record('deleteDropDown',{'id': id });
+    isRequiredItem: function(name) {
+        var required = false;
+        for (var i in SimpleList.requiredOptions) {
+            if (SimpleList.requiredOptions[i] == name) {
+                required = true;
+                break;
+            }
         }
-        if (field.hasClass('deleted'))
-            field.removeClass('deleted');
-        else
-            field.addClass('deleted');
+        
+        return required;
+    },
+    getDeleteConfirmationMessage: function(id) {
+        // Base key is the always available confirmation lang string index.
+        // Name key is a string that could exist within ModuleBuilder for a
+        // given dropdown name. This allows for customizations of messaging per
+        // dropdown.
+        // Item key is a string that could exist for a given list item. This allows
+        // for very fine control over confirmation messages to the list item level.
+        var baseKey = 'LBL_JS_DELETE_REQUIRED_DDL_ITEM',
+            nameKey = (SimpleList.name) ? baseKey + '_' + SimpleList.name.toUpperCase() : baseKey,
+            itemKey = baseKey + '_' + id.replace(/\s/g, '_').replace(/[^\w]/gi, '').toUpperCase(),
+            message = SUGAR.language.get('ModuleBuilder', itemKey);
+
+        // See if the item key check passed muster. Checking 'undefined' here is
+        // safe, as that is what is returned from get()
+        if (message == 'undefined') {
+            message = SUGAR.language.get('ModuleBuilder', nameKey);
+        }
+
+        // If name key is undefined then we fall back to the base key which is
+        // always there
+        if (message == 'undefined') {
+            message = SUGAR.language.get('ModuleBuilder', baseKey);
+        }
+
+        return message;
+    },
+    deleteDropDownValue : function(id, record){
+        var required = SimpleList.isRequiredItem(id),
+            message  = SimpleList.getDeleteConfirmationMessage(id);
+
+        if (!required || (required && confirm(message))) {
+            var field = new YAHOO.util.Element(id);
+            if(record){
+                SimpleList.jstransaction.record('deleteDropDown',{'id': id });
+            }
+            if (field.hasClass('deleted')) {
+                field.removeClass('deleted');
+            } else {
+                field.addClass('deleted');
+            }
+        }
     },
     editDropDownValue : function(id, record){
         //Close any other dropdown edits

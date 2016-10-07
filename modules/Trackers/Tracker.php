@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 if(!class_exists('Tracker')){
@@ -23,7 +20,6 @@ class Tracker extends SugarBean
     var $module_dir = 'Trackers';
     var $table_name = 'tracker';
     var $object_name = 'Tracker';
-    var $disable_var_defs = true;
     var $acltype = 'Tracker';
     var $acl_category = 'Trackers';
     var $disable_custom_fields = true;
@@ -41,15 +37,20 @@ class Tracker extends SugarBean
         "visible"
     );
 
-    function Tracker()
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Tracker()
     {
-        global $dictionary;
-        if(isset($this->module_dir) && isset($this->object_name) && !isset($GLOBALS['dictionary'][$this->object_name])){
-            $path = 'modules/Trackers/vardefs.php';
-            if(defined('TEMPLATE_URL'))$path = SugarTemplateUtilities::getFilePath($path);
-            require_once($path);
-        }
-        parent::SugarBean();
+        self::__construct();
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
     }
 
     /*
@@ -77,13 +78,13 @@ class Tracker extends SugarBean
 	        } else {
 	           $history_max_viewed = (!empty($GLOBALS['sugar_config']['history_max_viewed']))? $GLOBALS['sugar_config']['history_max_viewed'] : 50;
 	        }
-	         
+
 	        $query = 'SELECT item_id, item_summary, module_name, id FROM ' . $this->table_name . ' WHERE id = (SELECT MAX(id) as id FROM ' . $this->table_name . ' WHERE user_id = \'' . $user_id . '\' AND deleted = 0 AND visible = 1' . $module_query . ')';
 	        $result = $this->db->limitQuery($query,0,$history_max_viewed,true,$query);
 	        while(($row = $this->db->fetchByAssoc($result))) {
 	               $breadCrumb->push($row);
 	        }
-        }     
+        }
 
         $list = $breadCrumb->getBreadCrumbList($modules);
         $GLOBALS['log']->info("Tracker: retrieving ".count($list)." items");
@@ -103,7 +104,8 @@ class Tracker extends SugarBean
         }
     }
 
-    function logPage(){
+    static function logPage()
+    {
         $time_on_last_page = 0;
         //no need to calculate it if it is a redirection page
         if(empty($GLOBALS['app']->headerDisplayed ))return;
@@ -122,7 +124,7 @@ class Tracker extends SugarBean
         require($path);
         foreach($tracker_config as $key=>$configEntry) {
         if(isset($configEntry['bean']) && $configEntry['bean'] != 'Tracker') {
-            $bean = new $configEntry['bean']();
+            $bean = BeanFactory::newBeanByName($configEntry['bean']);
             if($bean->bean_implements('ACL')) {
                   ACLAction::addActions($bean->getACLCategory(), $configEntry['bean']);
                }

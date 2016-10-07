@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Pro vymazání příležitosti musíte specifikovat číslo záznamu.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adresa',
   'LBL_ADD_BUSINESSCARD' => 'Přidat obchodní kartu',
   'LBL_ALTERNATE_ADDRESS' => 'Další adresa:',
-  'LBL_ALT_ADDRESS' => 'Ostatní adresy:',
   'LBL_ALT_ADDRESS_CITY' => 'Město',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Stát',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'PSČ',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Zkonvertovaný obchod:',
   'LBL_CONVERTLEAD' => 'Konvertovat příležitost',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Nepodařilo se převést zájemce',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Zájemce byl úspěšně převeden {{leadName}}, ale během nahrávání příloh k jednomu nebo více záznamům se vyskytl problém.',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Zájemce byl úspěšně převeden {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Konvertovat příležitost [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Upozornění: Příležitost, kterou se chystáte konvertovat, má již nastaven stav "Konvertovaná". Kontakt a / nebo Společnost mohou být již vytvořeny. Pokud si přejete pokračovat v konverzi Příležitosti, klepněte na tlačítko Uložit. Chcete-li přejít zpět na detail Příležitosti bez převodu, klepněte na tlačítko Storno.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Možný kontakt:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Nemáte přístup pro úpravy k modulu potřebnému pro převod zájemce: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Přidat modul',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Přiřazeno {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Přiřadit {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Zpět k duplicitám',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Převést',
   'LBL_CONVERT_COPY' => 'Kopírovat data',
+  'LBL_CONVERT_CREATE_NEW' => 'Nový {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Smazat',
+  'LBL_CONVERT_DUPLICATES_FOUND' => 'Nalezeno {{duplicateCount}} duplicit',
   'LBL_CONVERT_EDIT' => 'Upravit',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Upravit konvertovací formulář',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Hledání duplicit...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignorovat a vytvořit nový',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Přiřazeno',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Přiřadili jste {{moduleNameLower}} {{recordName}}, ale záznam nebude vytvořen, dokud nedokončíte a neuložíte operaci.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Přiřadili jste {{moduleNameLower}} {{recordName}}, ale záznam nebude propojen, dokud nedokončíte a neuložíte operaci.',
   'LBL_CONVERT_MODULE_NAME' => 'Modul',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Modul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(volitelné)',
   'LBL_CONVERT_REQUIRED' => 'Povinná',
+  'LBL_CONVERT_RESET_PANEL' => 'Resetovat',
   'LBL_CONVERT_SELECT' => 'Povolit výběr',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Vytvořit nový',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Hledat',
   'LBL_COPY_TIP' => 'Pokud je zatrženo, políčka z příležitosti budou zkopírovana do políček se shodným názvem ve vytvořených záznamech.',
   'LBL_COUNTRY' => 'Země:',
   'LBL_CREATE' => 'Vytvořit',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Oddělení:',
   'LBL_DESCRIPTION' => 'Popis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Popis',
+  'LBL_DNB_BAL_PREVIEW' => 'Náhled smlouvy',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Zájemci',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Kontaktní informace',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B hlavní Id',
   'LBL_DO_NOT_CALL' => 'Nevolat:',
   'LBL_DUPLICATE' => 'Podobné příležitosti',
   'LBL_EDITLAYOUT' => 'Úprava rozvržení',
@@ -115,12 +134,19 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Upraveno dle ID',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobilní telefon',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Reporty leadů',
   'LBL_FIRST_NAME' => 'Křestní jméno:',
   'LBL_FULL_NAME' => 'Plné jméno:',
+  'LBL_HELP_CONVERT' => 'Sugar umožnuje převést Příležitosti na Kontakty, Společnosti a jiné moduly jakmile Příležitost splňuje Vaše kvalifikační kritéria. Procházejte každým modulem upravováním polí a následným potvrzením hodnot nového záznamu kliknutím na tlačítko Asociovat. Pokud Sugar detekuje již existující záznam, který se shoduje s informacemi ve Vaší Příležitosti, můžete vybrat duplikát a potvrdit výběr poklepáním na tlačítko Asociovat nebo zvolit “Ignorovat a vytvořit nový” a pokračovat standartním způsobem. Po potvrzení každého povinného a požadovaného modulu, klikněte na tlačitko Uložit a Konvertovat na vrchu stránky pro dokončení konverze.',
+  'LBL_HELP_CONVERT_TITLE' => 'Převést {{module_name}}',
+  'LBL_HELP_CREATE' => 'Modul Příležitosti se skládá z jednotlivých vyhlídek, které potenciálně mohou mít zájem o výrobek nebo službu Vaší organizace.  Chceteli vytvořit Příležitost: 1. Vyplňte hodnoty polí dle potřeby. - Pole oznařená “Povinné” musejí být vyplněné před uložením. - Pokud bude potřeba, klikněte na “Zobrazit více” pro zobrazení dalších polí. 2. Klikněte na tlačítko “Uložit” pro dokončení nového záznamu a navrácení na předchozí stránku. - Zvolte “Uložit a zobrazit” pro otevření přehledu nově vytvořené Příležitosti. - Zvolte “Uložit a vytvořit nový” v případě, že chcete pokračovat vytvářením další Příležitosti.',
+  'LBL_HELP_RECORD' => 'Modul Příležitosti se skládá z jednotlivých vyhlídek, které potenciálně mohou mít zájem o výrobek nebo službu Vaší organizace.  - Upravte pole tohoto záznamu klepnutím na jednotlivé pole nebo na tlačítko Upravit. - Zobrazte nebo upravte odkazy na jiné záznamy v subpanelech přepnutím spodního levého podokna na “Zobrazení dat” - Vytvořte a zobrazte uživatelské komentáře a historii změn v modulu Aktivity přepnutím spodního levého podokna na “Aktivity”. - Sledujte záznam nebo si ho přidejte do oblíbených pomocí tlačítek vpravo od názvu záznamu. - Další akce jsou k dispozici v rozbalovací nabídce vpravo od tlačítka Upravit.',
+  'LBL_HELP_RECORDS' => 'Modul Příležitosti se skládá z jednotlivých vyhlídek, které potenciálně mohou mít zájem o výrobek nebo službu Vaší organizace. Jakmile je Příležitost kvalifikovaná jako Obchod, může být konvertována na Kontakt, Obchod a Společnost. Existují různé způsoby, jak můžete vytvořit Příležitost v Sugar, např. přes modul Příležitosti, duplikací, importem Příležitostí apod. Po vytvoření Příležitosti můžete informace o něm zobrazovat a měnit z přehledu záznamu.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_HOME_PHONE' => 'Telefon domů:',
   'LBL_IMPORT_VCARD' => 'Importovat vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automaticky vytvořit novou příležitost importem vCard z Vašeho systému.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Zájemce byl z vCard úspěšně vytvořen',
   'LBL_INVALID_EMAIL' => 'Neplatný email:',
   'LBL_INVITEE' => 'Přímé Reporty',
   'LBL_LAST_NAME' => 'Příjmení:',
@@ -146,6 +172,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Titul',
   'LBL_LOADING' => 'Nahrávání',
   'LBL_MESSAGE' => 'Prosím, zadejte své údaje níže. Informace a / nebo účet bude vytvořen a připraven k Vašemu potvrzení.',
+  'LBL_MKTO_ID' => 'Marketo ID leada',
+  'LBL_MKTO_LEAD_SCORE' => 'Skóre leada',
+  'LBL_MKTO_SYNC' => 'Synchronizovat do Marketo®',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_MODIFIED' => 'Upravil',
   'LBL_MODIFIED_ID' => 'Upraveno podle ID',
@@ -157,8 +186,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Název:',
   'LBL_NEW_FORM_TITLE' => 'Nová příležitost',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nové vstupní heslo:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Poznámky',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Upozornění: Aktuální obrazovka Konvertovat příležitost obsahuje vlastní pole. Pokud upravujete vzhled konvertovacího formuláře poprvé, dle potřeby je možné přidat vlastní pole do formuláře. Vlastní pole nebudou automaticky zobrazeny v rozvržení tak, jako dříve.',
   'LBL_OFFICE_PHONE' => 'Telefon do práce:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Příležitosti',
   'LBL_OPPORTUNITY_AMOUNT' => 'Částka obchodu:',
   'LBL_OPPORTUNITY_ID' => 'ID obchodu',
   'LBL_OPPORTUNITY_NAME' => 'Název obchodu:',
@@ -186,6 +217,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Hlavní adresa ulice 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Hlavní adresa ulice 3',
   'LBL_PROSPECT_LIST' => 'Seznam prospektů',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Úspěšně jste vytvořili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Oznámeno kým:',
   'LBL_REGISTRATION' => 'Registrace',
   'LBL_REPORTS_FROM' => 'Reporty od:',
@@ -194,6 +226,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Požadované moduly musí být vytvořeny nebo zvoleny, než konvertujete Příležitost.',
   'LBL_SALUTATION' => 'Oslovení',
   'LBL_SAVED' => 'Děkujeme Vám za registraci. Váš účet bude vytvořen. V nejbližší době Vás kontaktujeme.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Uložit a převést',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat příležitost',
   'LBL_SELECT' => '<b>NEBO</b> zvolte',
   'LBL_SELECTION_TIP' => 'Moduly s relačním políčkem v modulu Kontakty mohou být spíše vybrány než vytvořeny během konvertovacího procesu.',
@@ -210,6 +243,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Uspěšná kampaň:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Děkujeme za příspěvek.',
   'LBL_TITLE' => 'Titul:',
+  'LBL_UNCONVERTED' => 'Nepřevedeno',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Zobrazení příležitosti',
   'LBL_WEBSITE' => 'Webová stránka',
@@ -228,13 +262,15 @@ $mod_strings = array (
   'LNK_NEW_OPPORTUNITY' => 'Vytvořit obchod',
   'LNK_NEW_TASK' => 'Vytvořit úkol',
   'LNK_SELECT_ACCOUNTS' => '<b>NEBO</b> zvolte účet',
-  'LNK_SELECT_CONTACTS' => '<b>OR</b> vyberte kontakt',
+  'LNK_SELECT_CONTACTS' => '<b>OR</b> Vyberte kontakt',
   'NTC_COPY_ALTERNATE_ADDRESS' => 'Zkopírovat další adresu do adresy',
   'NTC_COPY_PRIMARY_ADDRESS' => 'Zkopírovat adresu do další adresy',
   'NTC_DELETE_CONFIRMATION' => 'Opravdu chcete smazat tento záznam?',
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Pro vytvoření nového obchodu je třeba zadat účet. Prosím zvolte existující nebo přidejte nový.',
   'NTC_REMOVE_CONFIRMATION' => 'Opravdu chcete příležitost odstranit z případu?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Opravdu chcete odstranit tento záznam z Přímých reportů?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

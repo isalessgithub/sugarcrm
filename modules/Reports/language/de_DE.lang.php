@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -72,13 +69,15 @@ $mod_strings = array (
   'DROPDOWN_SCHEDULE_INTERVALS' => 
   array (
     3600 => 'stündlich',
-    21600 => 'Jede 6te Stunde',
-    43200 => 'Jede 12te Stunde',
+    21600 => 'Alle 6 Stunden',
+    43200 => 'Alle 12 Stunden',
     86400 => 'täglich',
     604800 => 'wöchentlich',
-    1209600 => 'Jede 2te Woche',
-    2419200 => 'Jede 4te Woche',
+    1209600 => 'Alle 2 Wochen',
+    2419200 => 'Alle 4 Wochen',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Zeitlich versendeter Bericht "{0}" wurde deaktiviert.',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Der Zeitplaner für Berichte wurde deaktiviert.',
   'ERR_REPORT_INVALID' => 'Der Bericht "{0}" enthält ungültige Felder: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Bericht ist nicht gültig',
   'ERR_SELECT_COLUMN' => 'Bitte wählen Sie zuerst eine Anzeigespalte',
@@ -122,8 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => 'vor',
   'LBL_BUG_REPORTS' => 'Fehlerberichte',
   'LBL_BY_DAY' => 'Täglich',
-  'LBL_BY_FISCAL_QUARTER' => 'Nach Quartalen',
-  'LBL_BY_FISCAL_YEAR' => 'Nach Geschäftsjahren',
+  'LBL_BY_FISCAL_QUARTER' => 'Nach Geschäftsquartal',
+  'LBL_BY_FISCAL_YEAR' => 'Nach Geschäftsjahr',
   'LBL_BY_MONTH' => 'Monatlich',
   'LBL_BY_QUARTER' => 'Quartalsweise',
   'LBL_BY_YEAR' => 'Jährlich',
@@ -154,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Neuer benutzerdefinierter Bericht',
   'LBL_CREATE_REPORT' => 'Neuer Bericht',
   'LBL_CSV_TIMESTAMP' => 'J_m_t_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Laufendes Quartal',
-  'LBL_CURRENT_FISCAL_YEAR' => 'Laufendes Geschäftsjahr',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'jetziges Geschäftsquartal',
+  'LBL_CURRENT_FISCAL_YEAR' => 'jetziges Geschäftsjahr',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Festgelegte Abschlüsse aktuelles Quartal',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Aktuelle Quartalsprognose',
   'LBL_CURRENT_USER' => 'Aktueller Benutzer',
@@ -167,11 +166,11 @@ $mod_strings = array (
   'LBL_DELETE' => 'Löschen',
   'LBL_DELETED_FIELD_IN_REPORT1' => 'Das Feld in diesem Bericht ist nicht länger gültig',
   'LBL_DELETED_FIELD_IN_REPORT2' => 'Bitte editieren den Bericht und überprüfen Sie ob die anderen Parameter noch relevant sind',
-  'LBL_DELETE_ERROR' => 'Nur Eigentümer der Berichte oder Administratoren können Berichte löschen.',
+  'LBL_DELETE_ERROR' => 'Nur Zugewiesene Benutzer der Berichte oder Administratoren können Berichte löschen.',
   'LBL_DEL_THIS' => 'Entfernen',
   'LBL_DESCENDING' => 'Absteigend',
   'LBL_DETAILED_FORECAST' => 'Detaillierte Prognose',
-  'LBL_DISPLAY_COLS_HELP_DESC' => '<b>Schritte um Anzeigespalten zu wählen:</b><br/><br/>1) Klicken Sie auf ein Modul im <b>Verknüpfte Module</b> Panel, welches Sie für Ihre Ausgabe verwenden möchten.  Standardmäßig wird das Primärmodul (oberstes) im Baum ausgewählt.<br/><br/>	Sie können auch Felder von einem verknüpften Moudul duch Klicken auf das Modul wählen. Module die verknüpft sind mit verknüften Modulen des Primärmoduls können auch gewählt werden. Das Modul, welches Sie wählen entscheidet, welche Felder im <b>Verfügbare Felder</b> Panel erscheinen.<br/><br/>	2) Klicken Sie auf das Feld im <b>Verfügbare Felder</b> Panel, um die Felddaten in Ihrem Report anzuzeigen.  Sie können mit der Textbox auch nach Feldern suchen.<br/><br/>	Sie können die Reihenfolge durch Drag & Drop ändern.',
+  'LBL_DISPLAY_COLS_HELP_DESC' => '<b>Schritte um Anzeigespalten zu wählen:</b><br/><br/>1) Klicken Sie auf ein Modul im <b>Verknüpfte Module</b> Panel, welches Sie für Ihre Ausgabe verwenden möchten.  Standardmäßig wird das Primärmodul (oberstes) im Baum ausgewählt.<br/><br/>Sie können auch Felder von einem verknüpften Moudul duch Klicken auf das Modul wählen. Module die verknüpft sind mit verknüften Modulen des Primärmoduls können auch gewählt werden. Das Modul, welches Sie wählen entscheidet, welche Felder im <b>Verfügbare Felder</b> Panel erscheinen.<br/><br/>	2) Klicken Sie auf das Feld im <b>Verfügbare Felder</b> Panel, um die Felddaten in Ihrem Report anzuzeigen.  Sie können mit der Textbox auch nach Feldern suchen.<br/><br/>	Sie können die Reihenfolge durch Drag & Drop ändern.',
   'LBL_DISPLAY_COLUMNS' => 'Spalten anzeigen',
   'LBL_DISPLAY_SUMMARIES' => 'Auswertungen anzeigen',
   'LBL_DISPLAY_SUMMARY_HELP_DESC' => '<b>Steps to Choose Display Summaries:</b><br/><br/>1) Click on the Module in the <b>Related Modules</b> pane that you would like to use for the summaries in your report. By default, the primary module (top node in the tree view) is selected.<br/><br/><br />	You can select a related module (child node in the tree view) by clicking on the module. Expand the node to view additional modules related to the related module. The module that you select determines which reportable fields appear in the <b>Available Fields</b> pane.<br/><br/><br />	2) Click on a Field in the <b>Available Fields</b> pane to select summaries for your report. You can also search for the field by typing in the text box in the pane.<br/><br/><br />	After selecting any number of fields from the module selected in the <b>Related Modules</b> pane, you can choose a different module from which you can select additional fields for the summaries in your report.<br/><br/>For Matrix Reports, you can select more than one field to display multiple values within a single cell in your report.',
@@ -205,11 +204,12 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'der folgenden Filter erfüllen.',
   'LBL_FILTERS_HELP_DESC' => '<b>Wie man Filter definiert:</b><br/><br/>1) Klicken Sie auf das Modul im <b>Verknüpfte Module</b> Panel, welches Sie für die Filterdefinition verwenden möchten. Standardmäßig wird das Primärmodul (oberstes) im Baum ausgewählt. <br/><br/>Sie können ein verknüpftes Modul durch Klicken des Moduls auswählen. Expandieren Sie den Punkt um zusätzliche Verknüpfte Module aufzulisten. Das Modul, welches Sie wählen, bestimmt welche <b>Verfügbaren Felder</b> Sie für den Report zur Verügung haben.<br/><br/>2) Klicken Sie auf ein Feld im <b>Verfügbare Felder</b> Panel, um es Ihren Filtern hinzuzufügen. Sie können nach Feldern mit der Textbox auch suchen.<br/><br/>Nach dem Auswählen einer beliebigen Anzahl an Feldern können Sie das ausgewählte Modul im <b>Verknüpfte Module</b> Panel ändern in dem Sie wieder eine beliebige Anzahl an Felder als Filter setzten können.<br/><br/>3) Wählen Sie <b>ALLE</b> oder <b>IRGENDEINEN</b>, um zu bestimmen wie die Filter für den Report verwendet werden.<br/><br/> 4) [Optional] Klicken Sie auf <b>Filtergruppe hinzufügen</b> um Filtergruppen zu erstellen. Sie können unbegrenzt viele Filtergruppen erstellen und unbegrenzt viele Filter in einer Gruppe erstellen.<br/><br/> 5) [Optional] Wählen Sie die Laufzeit Option für einen Filter, um Benutzern den Zugriff auf den Filter zu erlauben um die Filter anzupassen während der Report betrachtet wird.',
   'LBL_FILTER_AND' => 'ALLE',
+  'LBL_FILTER_BY_MODULE' => 'Nach Modul',
   'LBL_FILTER_CONDITIONS' => 'Wählen Sie Einträge die',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'bis',
   'LBL_FILTER_DATE_RANGE_START' => 'Von',
   'LBL_FILTER_OR' => 'IRGENDEINEN',
-  'LBL_FISCAL_QUARTER' => 'Quartal',
+  'LBL_FISCAL_QUARTER' => 'Geschäftsquartal',
   'LBL_FISCAL_YEAR' => 'Geschäftsjahr',
   'LBL_FORECAST_REPORTS' => 'Prognoseberichte',
   'LBL_FUNNEL' => 'Trichter',
@@ -235,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Letzten 30 Tage',
   'LBL_LAST_7_DAYS' => 'Letzten 7 Tage',
   'LBL_LAST_MONTH' => 'Letzten Monat',
+  'LBL_LAST_N_DAYS' => 'Letzten # Tage',
   'LBL_LAST_QUARTER' => 'Letzes Quartal',
   'LBL_LAST_WEEK' => 'Letzte Woche',
   'LBL_LAST_YEAR' => 'Letztes Jahr',
@@ -249,7 +250,7 @@ $mod_strings = array (
   'LBL_LIST_PUBLISHED' => 'Veröffentlicht',
   'LBL_MATRIX_LAYOUT' => 'Layout Optionen:',
   'LBL_MATRIX_REPORT' => 'Matrix-Bericht',
-  'LBL_MATRIX_REPORT_DESC' => 'Einen Matrix-Bericht erstellen, der die Ergebnisse einer Filteroperation als Gittertabelle über maximal drei Felder zusammengruppiert anzeigt.',
+  'LBL_MATRIX_REPORT_DESC' => 'Einen Matrix-Bericht erstellen, der die Ergebnisse einer Filteroperation als Gittertabelle über maximal drei Felder gruppiert anzeigt.',
   'LBL_MAX' => 'MAX',
   'LBL_MAXIMUM_3_GROUP_BY' => 'Ein Matrix-Bericht kann nicht mehr als 3 Gruppierungen enthalten.',
   'LBL_MEETING_REPORTS' => 'Meetingberichte',
@@ -292,8 +293,8 @@ $mod_strings = array (
   'LBL_MY_TEAM_CONTACT_REPORTS' => 'Kontaktberichte meines Teams',
   'LBL_MY_TEAM_CONTRACT_REPORTS' => 'Vertragsberichte meines Teams',
   'LBL_MY_TEAM_EMAIL_REPORTS' => 'E-Mailberichte meines Teams',
-  'LBL_MY_TEAM_FORECAST_REPORTS' => 'Prognoseberichte meines Teams',
-  'LBL_MY_TEAM_LEAD_REPORTS' => 'Leadberichte meines Teams',
+  'LBL_MY_TEAM_FORECAST_REPORTS' => 'Umsatzplanberichte meines Teams',
+  'LBL_MY_TEAM_LEAD_REPORTS' => 'Interessentenberichte meines Teams',
   'LBL_MY_TEAM_MEETING_REPORTS' => 'Meetingberichte meines Teams',
   'LBL_MY_TEAM_OPPORTUNITY_REPORTS' => 'Verkaufschancenberichte meines Teams',
   'LBL_MY_TEAM_PROJECT_TASK_REPORTS' => 'Projektaufgabenberichte meines Teams',
@@ -303,9 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'Nächste >',
   'LBL_NEXT_30_DAYS' => 'Nächsten 30 Tage',
   'LBL_NEXT_7_DAYS' => 'Nächsten 7 Tage',
-  'LBL_NEXT_FISCAL_QUARTER' => 'Nächstes Quartal',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Nächstes Geschäftsquartal',
   'LBL_NEXT_FISCAL_YEAR' => 'Nächstes Geschäftsjahr',
   'LBL_NEXT_MONTH' => 'Nächster Monat',
+  'LBL_NEXT_N_DAYS' => 'Nächsten # Tage',
   'LBL_NEXT_QUARTER' => 'Nächstes Quartal',
   'LBL_NEXT_RUN' => 'Nächste E-Mail',
   'LBL_NEXT_WEEK' => 'Nächste Woche',
@@ -317,6 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Sie können diesen Bericht wegen Berechtigungseinschränkungen nicht ausführen.',
   'LBL_NO_CHART' => 'Kein Diagramm',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Es kann keine Grafik erzeugt werden, da zu wenige Daten vorliegen.',
+  'LBL_NO_EXPORT_ACCESS' => 'Export ist gesperrt.',
   'LBL_NO_FILTERS' => 'hat keine Filter.',
   'LBL_NO_IMAGE' => 'Kein Bild',
   'LBL_NO_REPORTS' => 'Keine Ergebnisse.',
@@ -337,8 +340,8 @@ $mod_strings = array (
   'LBL_PIE' => 'Tortenstück',
   'LBL_PREVIEW_REPORT' => 'Vorschau',
   'LBL_PREVIOUS' => '< Zurück',
-  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Voriges Quartal',
-  'LBL_PREVIOUS_FISCAL_YEAR' => 'Voriges Geschäftsjahr',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'vorheriges Geschäftsquartal',
+  'LBL_PREVIOUS_FISCAL_YEAR' => 'vorheriges Geschäftsjahr',
   'LBL_PROJECT_TASK_REPORTS' => 'Projektaufgabenberichte',
   'LBL_PROSPECT_REPORTS' => 'Zielpersonen Berichte',
   'LBL_PUBLISH' => 'publizieren',
@@ -374,10 +377,10 @@ $mod_strings = array (
   'LBL_REPORTS_TO' => 'Berichtet an',
   'LBL_REPORT_ATT_MODULES' => 'Berichte',
   'LBL_REPORT_ATT_NAME' => 'Name',
-  'LBL_REPORT_COLLAPSE_ALL' => 'Alle zuklappen',
+  'LBL_REPORT_COLLAPSE_ALL' => 'Alle einklappen',
   'LBL_REPORT_DATA_COLUMN_ORDERS' => 'Der Bericht enthält Daten in folgender Spaltenreihenfolge',
   'LBL_REPORT_DETAILS' => 'Berichtdetails',
-  'LBL_REPORT_EXPAND_ALL' => 'Alle ausklappen',
+  'LBL_REPORT_EXPAND_ALL' => 'Alle aufklappen',
   'LBL_REPORT_FILTER_MODIFIED_MESSAGE' => 'Die Berichtsfilter sind seit der letzte Ausführung verändert worden.',
   'LBL_REPORT_GRAND_TOTAL' => 'Gesamtbetrag',
   'LBL_REPORT_GROUP_BY' => 'Gruppierung nach',
@@ -402,7 +405,7 @@ $mod_strings = array (
   'LBL_ROLLOVER_SQUARE' => 'Über ein Quadrat bewegen für Details',
   'LBL_ROLLOVER_WEDGE' => 'Für Details gehen Sie auf einen Ausschnitt.',
   'LBL_ROWS_AND_COLUMNS_REPORT' => 'Zeilen und Spalten Bericht',
-  'LBL_ROWS_AND_COLUMNS_REPORT_DESC' => 'Einen tabellarischer Bericht erstellen, der die Ergebnisse einer Filteroperation als Zeilen- und Spaltenbericht anzeigt.',
+  'LBL_ROWS_AND_COLUMNS_REPORT_DESC' => 'Einen tabellarischen Bericht erstellen, der die Ergebnisse einer Filteroperation als Zeilen- und Spaltenbericht anzeigt.',
   'LBL_RUNTIME_FILTERS' => 'Laufzeit Filter',
   'LBL_RUNTIME_HELP' => 'Dieses Kästchen auswählen, um User die Möglichkeit zu geben, die Filterwerte vor der Berichtgenerierung zu verändern.',
   'LBL_RUN_BUTTON_TITLE' => 'Bericht ausführen [Alt+R]',
@@ -440,9 +443,9 @@ $mod_strings = array (
   'LBL_SUM' => 'SUMME',
   'LBL_SUMMARY_COLUMNS' => 'Summierungsspalten',
   'LBL_SUMMATION_REPORT' => 'Summierungsbericht',
-  'LBL_SUMMATION_REPORT_DESC' => 'Einen tabellarischer Bericht erstellen, der die Ergebnisse einer Filteroperation von berechneten Werten anzeigt. Die Daten können auch als Diagramm angezeigt werden.',
+  'LBL_SUMMATION_REPORT_DESC' => 'Einen tabellarischen Bericht erstellen, der die Ergebnisse einer Filteroperation von berechneten Werten anzeigt. Die Daten können auch als Diagramm angezeigt werden.',
   'LBL_SUMMATION_REPORT_WITH_DETAILS' => 'Summierungsbericht mit Details',
-  'LBL_SUMMATION_REPORT_WITH_DETAILS_DESC' => 'Einen Summierungsbericht erstellen, der die Daten je Datensatz zusätzlich anzeigt. .',
+  'LBL_SUMMATION_REPORT_WITH_DETAILS_DESC' => 'Einen Summierungsbericht erstellen, der zusätzlich Daten pro Datensatz anzeigt.',
   'LBL_SUMMATION_WITH_DETAILS' => 'Summierung mit Details',
   'LBL_TABLE_CHANGED' => 'Die Modulliste wurde geändert, bitte überprüfen Sie nochmals die Einstellungen der Kriterien im Reiter Gruppen.',
   'LBL_TASK_REPORTS' => 'Aufgabenberichte',
@@ -478,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'mit einem Durchschnitt',
   'LBL_WITH_A_TOTAL' => 'mit einer Summe',
   'LBL_WITH_DETAILS' => 'Mit Details',
-  'LBL_WORKSHEET' => 'Arbeitsblatt',
   'LBL_YEAR' => 'Jahr',
   'LBL_YESTERDAY' => 'Gestern',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Sie haben keine gespeicherte Berichte',
+  'LNK_ADVANCED_REPORTING' => 'Erweiterte Reports verwalten',
   'LNK_NEW_ACCOUNT' => 'Neue Firma',
   'LNK_NEW_CALL' => 'Neuer Anruf',
   'LNK_NEW_CASE' => 'Neues Ticket',

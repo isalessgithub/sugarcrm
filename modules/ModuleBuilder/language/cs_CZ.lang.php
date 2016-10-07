@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Pole už existuje',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Dostupné',
   'LBL_AVAILABLE_OPTIONS' => 'Dostupné možnosti',
   'LBL_AVAILABLE_SUBPANELS' => 'Dostupné sub-panely',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: špatně formovaný dokument',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: nesprávně zformulovaný dokument',
   'LBL_BASIC' => 'Základní',
   'LBL_BASIC_SEARCH' => 'Základní',
   'LBL_BLANK' => '-prázdný-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Zrušit',
   'LBL_BTN_CLONE' => 'Duplikovat',
   'LBL_BTN_CLOSE' => 'Zavřít',
+  'LBL_BTN_COPY' => 'Kopírovat',
+  'LBL_BTN_COPY_FROM' => 'Kopírovat z',
   'LBL_BTN_DELETE' => 'Smazat',
   'LBL_BTN_DEPLOY' => 'Použít',
   'LBL_BTN_DONT_SAVE' => 'Zahodit změny',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Zpět',
   'LBL_BTN_VIEW_FIELDS' => 'Zobrazit pole',
   'LBL_BTN_VIEW_LAYOUTS' => 'Zobrazit rozvržení',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Zobrazit mobilní layout',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Zobrazit vztahy',
-  'LBL_BUG_TRACKER' => '"Bugs"',
+  'LBL_BUG_TRACKER' => '"Bug Tracker"',
   'LBL_CALCULATED' => 'Vypočtená hodnota',
   'LBL_CASES' => 'Případy',
   'LBL_CLEAR_EXTENSIONS' => 'Vyčistit rozšíření',
   'LBL_CLEAR_RELATIONSHIPS' => 'Vymazat vztahy',
+  'LBL_COMBO_FIELD_CONTAINS' => 'Obsah:',
   'LBL_COMPANY' => 'Společnost',
   'LBL_CONFIG_PORTAL_URL' => 'URL pro vlastní obrázek loga. Doporučené rozměry jsou 163 × 18 pixelů.',
   'LBL_CONFIRM_DONT_SAVE' => 'Byly provedeny změny od posledního uložení, chcete je uložit?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Jste si jisti, že chcete smazat tento vztah?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Toto vytvoří tento vztah trvalím. Jste si jisti, že chcete nasadit tento vztah?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Označujete položku pro odstranění z "dropdown" seznamu. Jakékoli "dropdown" pole užívající tento seznam s touto polokou jako hodnotu již nebude zobrazeno. Hodnota již nebude moci být vybrána z "dropdownu". Jste si jisti, že chcete pokračovat?',
+  'LBL_COPY_FROM' => 'Kopírovat hodnoty z:',
   'LBL_COPY_FROM_EDITVIEW' => 'Zkopíruj z EditView (změnového pohledu)',
   'LBL_CREATE' => 'Přidat',
   'LBL_CREATE_NEW' => 'Vytvořit nový',
   'LBL_CURRENCY' => 'Měna',
   'LBL_CURRENT_LAYOUT' => 'Rozvržení',
   'LBL_CUSTOM' => 'Uživatelský',
-  'LBL_CUSTOMIZE_THEME' => 'Přizpůsobit téma',
   'LBL_CUSTOM_FIELDS' => '* pole vytvořené ve Studiu',
   'LBL_CUSTOM_MODULE' => 'Modul',
   'LBL_CUSTOM_RELATIONSHIPS' => '* vztah vytvořený ve Studiu',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'V závislosti',
   'LBL_DEPENDENCY' => 'Vazba',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Přetáhněte možnosti ze seznamu na levé straně dostupných možností, které chcete zobrazit v závislém číselníku, když je zvolena rodičovská hodnota. Pokud není vybrána ani jedna hodnota, bude závislý číselník skryt.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Věnujte pozornost: Může být potřeba obnovit záznam EditView modulu, aby byly úpravy vidět',
   'LBL_DEPLOYE_COMPLETE' => 'Nasadit kompletní',
   'LBL_DEPLOY_FAILED' => 'Došlo k chybě při nasazování procesu, může váš balíček není správně nainstalován',
   'LBL_DEPLOY_IN_PROGRESS' => 'Nasazuji balík',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Seznam položek',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Zobrazit štítek',
   'LBL_DROPDOWN_ITEM_NAME' => 'Jméno položky',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'Klíč již v seznamu existuje',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Klíč v seznamu již existuje',
   'LBL_DROPDOWN_LANGUAGE' => 'Jazyk',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'List musí obsahuvat nejméně jednu umožněnou položku',
   'LBL_DROPDOWN_TITLE_NAME' => 'Jméno',
   'LBL_DROP_HERE' => '[Položit zde]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Závisející',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Prosím vyberte modul.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'Upravený dropdown',
   'LBL_EC_CUSTOMFIELD' => 'vlastní pole',
+  'LBL_EC_CUSTOMLABEL' => 'Přizpůsobit popisek',
   'LBL_EC_CUSTOMLAYOUT' => 'upravená rozvržení',
   'LBL_EC_DESCRIPTION' => 'Popis:',
   'LBL_EC_EMPTYCUSTOM' => 'má prázdné vlastní úpravy.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Pole',
   'LBL_FILE' => 'Soubor',
   'LBL_FILLER' => '(výplň)',
+  'LBL_FILTER_SEARCH' => 'Hledat',
   'LBL_FORMULA' => 'Výraz',
   'LBL_FORMULA_BUILDER' => 'Tvořič výrazů',
   'LBL_FORMULA_INVALID' => 'Chybné pravidlo',
   'LBL_FORMULA_TYPE' => 'Pravidlo musí být typu',
   'LBL_HCUSTOM' => 'VLATNÍ',
   'LBL_HDEFAULT' => 'ZÁKLADNÍ',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Kopírovat z layoutu',
   'LBL_HIDDEN' => 'Skryté',
   'LBL_HIDEOPTIONS' => 'Skrýt více možností',
   'LBL_HIGH' => 'Vysoký',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Moje',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Editor "dropdownu"',
   'LBL_ILLEGAL_FIELD_VALUE' => '"Dropdown" nemůže obsahovat uvozovky.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Označuje kombinační pole. Kombinační pole je kolekce individuálních polí. Například "Adresa" je kombinační pole obsahující pole "Ulice", "Město", "PSČ", "Region" a "Stát".<br><br>Dvojklikem na kombinační pole zobrazíte položky, které obsahuje.',
   'LBL_ISSUE' => 'Problém',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Přejete si skutečně smazat toto požadované vybírací pole? Můžete tím ovlivnit funkcionalitu vaší aplikace.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Přejete si skutečně smazat prodejní fázi Uzavřeno - prohráno? Smazáním této fáze přestane modul Předpovědí fungovat správně.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Přejete si skutečně smazat prodejní fázi Uzavřeno - vyhráno? Smazáním této fáze přestane modul Předpovědí fungovat správně.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Jste si jistí, že chcete smazat prodejní fázi "Probíhá"? Smazání způsobí, že nebude workflow nad Řádkami tržby modulu Obchody pracovat správně.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Jste si jisti, že chcete smazat nový stav prodeje? Odstranění tohoto stavu způsobí, že workflow Revenue Line Item modulu Příležitosti modul nebude fungovat správně.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Přejete si skutečně smazat toto vybírací pole? Smazáním fází Uzavřeno - vyhráno a Uzavřeno - prohráno přestane modul Předpovědí fungovat správně.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Žádné úpravy, které jste provedli ve studiu nebudou přepsány, pokud tento modul je znovu-nasazený. Jste si jisti, že chcete pokračovat?',
   'LBL_JS_REMOVE_MODULE' => 'Jste si jisti, že chcete odstranit tento modul? Budou odstraněny všechny soubory spojené s tímto modul.',
   'LBL_JS_REMOVE_PACKAGE' => 'Jste si jisti, že chcete odstranit tento balíček? Budou odstraněny všechny soubory spojené s tímto balíčkem.',
   'LBL_JS_VALIDATE_KEY' => 'Klíč - musí být alfanumerické',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Klíč - Musí být alfanumerický a začínat písmenem',
   'LBL_JS_VALIDATE_LABEL' => 'Prosím, zadejte popisek, který bude použit jako zobrazovaný název pro tento modul',
   'LBL_JS_VALIDATE_NAME' => 'Název - Musí být alfanumerické bez mezer a začínající písmenem',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Jméno balíčku již existuje',
@@ -227,7 +240,7 @@ $mod_strings = array (
   'LBL_MODULES' => 'Moduly:',
   'LBL_MODULE_DEPLOYED' => 'Modul byl nasazen.',
   'LBL_MODULE_NAME' => 'Jméno modulu:',
-  'LBL_MODULE_NAME_SINGULAR' => 'Název modulu (jedn. č.)',
+  'LBL_MODULE_NAME_SINGULAR' => 'Název modulu',
   'LBL_MODULE_TITLE' => 'Studio',
   'LBL_MSUB' => 'Toto je subpanel, že váš modul poskytuje související modul pro zobrazení',
   'LBL_MY_ACCOUNT' => 'Můj účet',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Nenalezeny žádné položky',
   'LBL_NO_FUNCS' => 'Nenalezeny žádné funkce',
   'LBL_NO_RELS' => 'Žádné vztahy',
-  'LBL_NO_SAVE_ACTION' => 'Nebylo možné najít akci uložení pro tento pohled',
+  'LBL_NO_SAVE_ACTION' => 'Akce na uložení nebyla nalezena v tomto pohledu',
   'LBL_NUMBER' => 'Číslo:',
   'LBL_ONETOMANY' => 'Jeden na více',
   'LBL_ONETOONE' => 'Jeden na jednoho',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Vyberte rozvržení Sugar portálu pro úpravu.',
   'LBL_QUICKCREATE' => 'Rychlé vytvoření',
   'LBL_READ_ONLY' => 'Pouze pro čtení',
+  'LBL_RECORDVIEW' => 'Zobrazení záznamu',
   'LBL_RELATED_FIELD' => 'Související pole',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
   'LBL_RELATE_TO' => 'Týkající se',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Zrušit modul',
   'LBL_RESTORE_DEFAULT' => 'Obnovit výchozí',
   'LBL_RHS_MODULE' => 'Související modul',
+  'LBL_ROLE' => 'Role',
   'LBL_ROLLUP' => 'Kumulativní',
   'LBL_RSUB' => 'Toto je sub-panel, který se zobrazí ve vašem modulu',
   'LBL_SALE' => 'Sleva',
-  'LBL_SAVE' => 'Uložit',
   'LBL_SAVE_LAYOUT' => 'Uložit rozvržení',
   'LBL_SEARCH' => 'Hledat',
   'LBL_SEARCH_FIELDS' => 'vyhledávání polí...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Vybrat Subpanel',
   'LBL_SELECT_FILE' => 'Vybrat soubor',
   'LBL_SELECT_SUBPANEL' => 'Vybrat Subpanel',
+  'LBL_SINGULAR_LABEL' => 'Popis',
   'LBL_SP_PREVIEW' => 'Zde je náhled jak bude portál Sugaru vypadat při použití stylu.',
   'LBL_SP_UPLOADED' => 'Nahráno',
   'LBL_SP_UPLOADSTYLE' => 'Vyberte soubor stylu z vašeho počítače.<br>Styl bude implementován do Sugaru při přístím provedení synchronizace.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => '',
       'defaultdetailview' => '',
       'defaultquickcreate' => '',
+      'defaultrecordview' => '',
       'delete' => '',
       'historyBtn' => '',
       'historyDefault' => '',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => '',
       'viewfieldsbtn' => '',
       'viewlayoutsbtn' => '',
+      'viewmobilelayoutsbtn' => '',
       'viewrelsbtn' => '',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => '',
       'searchBtn' => '',
       'searchHelp' => '',
+      'studioBCHelp' => '',
       'studioBtn' => '',
       'studioHelp' => '',
       'subpanelBtn' => '',

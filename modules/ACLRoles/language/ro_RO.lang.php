@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -24,7 +21,7 @@ $mod_strings = array (
   'LBL_COULD_NOT_CONNECT' => 'Eroare: Nu sa putut conecta la serverul Sugar. Vă rugăm să verificaţi valoarea ta Setări proxy în panoul de admin System Settings. Ultima conexiune încercat @',
   'LBL_CREATE_ROLE' => 'Creeaza rol',
   'LBL_DESCRIPTION' => 'Descriere',
-  'LBL_DONE' => 'Indeplinit',
+  'LBL_DONE' => 'Terminat',
   'LBL_DUPLICATE_OF' => 'Duplicat al',
   'LBL_EDIT_VIEW_DIRECTIONS' => 'Dublu clic pe o celula pentru a schimba valoarea',
   'LBL_LIST_FORM_TITLE' => 'Rol',
@@ -32,8 +29,8 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Rol:',
   'LBL_MODULE_TITLE' => 'Roluri : Acasa',
   'LBL_NAME' => 'Nume',
-  'LBL_NO_MODULES_AVAILABLE' => 'Module indisponibile',
-  'LBL_NO_ROLES' => 'Fara functii',
+  'LBL_NO_MODULES_AVAILABLE' => 'Nu Module disponibile',
+  'LBL_NO_ROLES' => 'niciun rol',
   'LBL_ROLE' => 'Rol',
   'LBL_ROLES_SUBPANEL_TITLE' => 'Roluri Utilizatori',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta',

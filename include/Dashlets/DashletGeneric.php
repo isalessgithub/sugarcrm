@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/Dashlets/Dashlet.php');
 require_once('include/ListView/ListViewSmarty.php');
 require_once('include/generic/LayoutManager.php');
@@ -132,9 +129,7 @@ class DashletGeneric extends Dashlet {
         // Bug 39517 - Don't add custom fields automatically to the available fields to display in the listview
         //$this->addCustomFields();
         if($this->displayColumns) {
-             if($this->seedBean->bean_implements('ACL')) {
-                    ACLField::listFilter($this->displayColumns,$this->seedBean->module_dir, $GLOBALS['current_user']->id ,true);
-             }
+             $this->seedBean->ACLFilterFieldList($this->displayColumns, array("owner_override" => true));
              // columns to display
              foreach($this->displayColumns as $num => $name) {
                     // defensive code for array being returned
@@ -151,9 +146,7 @@ class DashletGeneric extends Dashlet {
              }
         }
         else {
-             if($this->seedBean->bean_implements('ACL')) {
-                ACLField::listFilter($this->columns,$this->seedBean->module_dir, $GLOBALS['current_user']->id ,true);
-             }
+             $this->seedBean->ACLFilterFieldList($this->columns, array("owner_override" => true));
              foreach($this->columns as $name => $val) {
                 // defensive code for array being returned
                 $translated = translate($this->columns[$name]['label'], $this->seedBean->module_dir);
@@ -191,18 +184,13 @@ class DashletGeneric extends Dashlet {
                 $name = strtolower($name);
                 $currentSearchFields[$name] = array();
                 $widgetDef = $this->seedBean->field_defs[$name];
+                if($widgetDef['type'] == 'enum') $widgetDef['remove_blank'] = true; // remove the blank option for the dropdown
                 if($widgetDef['name'] == 'assigned_user_name') $widgetDef['name'] = 'assigned_user_id';
                 //bug 39170 - begin
                 if($widgetDef['name'] == 'created_by_name') $name = $widgetDef['name'] = 'created_by';
                 if($widgetDef['name'] == 'modified_by_name') $name = $widgetDef['name'] = 'modified_user_id';
                 //bug 39170 - end
-                if($widgetDef['type']=='enum'){
-                   $filterNotSelected = array(); // we need to have some value otherwise '' or null values make -none- to be selected by default
-                }else{
-                   $filterNotSelected = '';
-                }
-                $widgetDef['input_name0'] = empty($this->filters[$name]) ? $filterNotSelected : $this->filters[$name];
-
+                $widgetDef['input_name0'] = empty($this->filters[$name]) ? '' : $this->filters[$name];
                 $currentSearchFields[$name]['label'] = !empty($params['label']) ? translate($params['label'], $this->seedBean->module_dir) : translate($widgetDef['vname'], $this->seedBean->module_dir);
                 $currentSearchFields[$name]['input'] = $this->layoutManager->widgetDisplayInput($widgetDef, true, (empty($this->filters[$name]) ? '' : $this->filters[$name]));
             }
@@ -273,7 +261,7 @@ class DashletGeneric extends Dashlet {
                 $widgetClass = $this->layoutManager->getClassFromWidgetDef($widgetDef, true);
                 $widgetDef['table'] = $this->seedBean->table_name;
                 $widgetDef['table_alias'] = $this->seedBean->table_name;
-                if(!empty($widgetDef['source']) && $widgetDef['source'] == 'custom_fields') {
+				if(!empty($widgetDef['source']) && $widgetDef['source'] == 'custom_fields'){
                     $widgetDef['table'] = $this->seedBean->table_name."_cstm";
                     $widgetDef['table_alias'] = $widgetDef['table'];
                 }
@@ -297,12 +285,6 @@ class DashletGeneric extends Dashlet {
                             $widgetDef['column_key'] = $name;
                         }
                         // No break here, we want to run through the default handler
-                    case 'relate':
-                        if (isset($widgetDef['link']) && $this->seedBean->load_relationship($widgetDef['link'])) {
-                            $widgetDef['module'] = $this->seedBean->$widgetDef['link']->focus->module_name;
-                            $widgetDef['link'] = $this->seedBean->$widgetDef['link']->getRelationshipObject()->name;
-                        }
-                        // No break - run through the default handler
                     default:
                         $widgetDef['input_name0'] = $params;
                         if(is_array($params) && !empty($params)) { // handle array query
@@ -324,8 +306,7 @@ class DashletGeneric extends Dashlet {
 
 	protected function loadCustomMetadata()
 	{
-    	$customMetadate = 'custom/modules/'.$this->seedBean->module_dir.'/metadata/dashletviewdefs.php';
-    	if ( file_exists ( $customMetadate )){
+    	foreach(SugarAutoLoader::existing('custom/modules/'.$this->seedBean->module_dir.'/metadata/dashletviewdefs.php') as $customMetadate) {
     		require($customMetadate);
 			$this->searchFields = $dashletData[$this->seedBean->module_dir.'Dashlet']['searchFields'];
 			foreach($this->searchFields  as $key =>$def){
@@ -378,9 +359,7 @@ class DashletGeneric extends Dashlet {
         }
         $this->lvs->displayColumns = $displayColumns;
 
-        if($this->seedBean->bean_implements('ACL')) {
-            ACLField::listFilter($this->lvs->displayColumns,$this->seedBean->module_dir, $GLOBALS['current_user']->id ,true);
-        }
+        $this->seedBean->ACLFilterFieldList($this->lvs->displayColumns, array("owner_override" => true));
 
         $this->lvs->lvd->setVariableName($this->seedBean->object_name, array());
         $lvdOrderBy = $this->lvs->lvd->getOrderBy(); // has this list been ordered, if not use default
@@ -422,7 +401,7 @@ class DashletGeneric extends Dashlet {
             $this->lvs->setup($this->seedBean, $this->displayTpl, $where , $lvsParams, 0, $this->displayRows/*, $filterFields*/);
             if(in_array('CREATED_BY', array_keys($displayColumns))) { // handle the created by field
                 foreach($this->lvs->data['data'] as $row => $data) {
-                    $this->lvs->data['data'][$row]['CREATED_BY'] = get_assigned_user_name($data['CREATED_BY']);
+                    $this->lvs->data['data'][$row]['CREATED_BY'] = $data['CREATED_BY_NAME'];
                 }
             }
             // assign a baseURL w/ the action set as DisplayDashlet

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -34,7 +31,7 @@ $mod_strings = array (
   'COLUMN_TITLE_EXT3' => 'Extra Meta Veld 3',
   'COLUMN_TITLE_FRAME_HEIGHT' => 'Frame hoogte',
   'COLUMN_TITLE_FTS' => 'Full Text Searchable',
-  'COLUMN_TITLE_GLOBAL_SEARCH' => 'Globaal Zoeken',
+  'COLUMN_TITLE_GLOBAL_SEARCH' => 'Global Search',
   'COLUMN_TITLE_HELP_TEXT' => 'Help tekst',
   'COLUMN_TITLE_HTML_CONTENT' => 'HTML',
   'COLUMN_TITLE_IMPORTABLE' => 'Importeerbaar',
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Standaard URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S. Format',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Veldnaam bestaat reeds',
-  'ERR_NO_MODULE_INCLUDED' => 'Geen module gekozen. Er kon niets opgeslagen worden.',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Het veld &#39;naam&#39; mag alleen de volgende karakters bevatten: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Geen module toegevoegd. Kon niet opslaan.',
   'ERR_RESERVED_FIELD_NAME' => 'Gereserveerd sleutelwoord',
   'ERR_SELECT_FIELD_TYPE' => 'Selecteer een veldtype',
-  'LBL_ADDING_COLUMN' => 'Kolom {0} toevoegen aan',
+  'LBL_ADDING_COLUMN' => 'Toevoegen van kolom {0} bij',
   'LBL_ADD_FIELD' => 'Veld toevoegen:',
   'LBL_AUDITED' => 'Gecontroleerd',
   'LBL_BTN_ADD' => 'Toevoegen',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => 'Afhankelijk',
   'LBL_DEPENDENT_TRIGGER' => 'Trigger',
   'LBL_DONE' => 'Gereed',
-  'LBL_DROPPING_COLUMN' => 'Verwijderen van kolom {0} van {1} voor module',
+  'LBL_DROPPING_COLUMN' => 'Weglaten van kolom {0} van {1} voor module',
   'LBL_DROP_DOWN_LIST' => 'Dropdownlijst',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Afhankelijk',
   'LBL_EDIT_VIS' => 'Edit Visibility',
   'LBL_ENFORCED' => 'Gedwongen',
-  'LBL_EXE_NON_SIM_MODE' => 'Uitvoeren van non-simulation mode',
-  'LBL_FIELD_MISSING' => 'Veld(en) ontbreken uit',
-  'LBL_FIX_COLUMN_TYPE' => 'Fixing Column Type for {0} changing {1} to',
+  'LBL_EXE_NON_SIM_MODE' => 'Voer niet-simulatie modus uit',
+  'LBL_FIELD_MISSING' => 'Veld(en) missen bij',
+  'LBL_FIX_COLUMN_TYPE' => 'Repareren van kolomtype voor {0}. Wijzigen van {1} naar',
   'LBL_FORMULA' => 'Formule',
   'LBL_GENERATE_URL' => 'Genereer URL',
   'LBL_HAS_PARENT' => 'Has Parent',
@@ -92,9 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Parent Dropdown',
   'LBL_RADIO_FIELDS' => 'Radioknoppen',
   'LBL_REPORTABLE' => 'Rapporteerbaar',
-  'LBL_SCAN_MODULE' => 'Bezig met scannen',
+  'LBL_SCAN_MODULE' => 'Scannen',
   'LBL_SEARCH_FORM_TITLE' => 'Zoek module',
-  'LBL_SIMULATION_MODE' => 'SIMULATIE MODUS - GEEN WIJZIGEN ZULLEN WORDEN DOORGEVOERD BEHALVE VERWIJDEREN VAN CACHE',
+  'LBL_SIMULATION_MODE' => 'SIMULATIE - ER ZULLEN GEEN WIJZIGINGEN DOORGEVOERD WORDEN M.U.V. HET LEGEN VAN HET CACHE.',
   'LBL_VISIBLE_IF' => 'Zichtbaar indien',
   'LNK_CALL_LIST' => 'Telefoongesprekken',
   'LNK_EMAIL_LIST' => 'E-mails',

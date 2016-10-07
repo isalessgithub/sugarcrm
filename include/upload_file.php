@@ -1,38 +1,44 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/externalAPI/ExternalAPIFactory.php');
-
 /**
  * @api
  * Manage uploaded files
  */
 class UploadFile
 {
-	var $field_name;
-	var $stored_file_name;
+	public $field_name;
+	public $stored_file_name;
 	var $uploaded_file_name;
-	var $original_file_name;
-	var $temp_file_location;
-	var $use_soap = false;
-	var $file;
-	var $file_ext;
+	public $original_file_name;
+	public $temp_file_location;
+	public $use_soap = false;
+	public $file;
+	public $file_ext;
+
+    /**
+     * An error array, meant to be accessed by consumers and callers of this
+     * class for reporting status.
+     *
+     * This array will contain two members:
+     *  - code: An error code reported by the uploader
+     *  - message: The error string to report
+     *
+     * @access public
+     * @var array
+     */
+    public $error = array();
+
 	protected static $url = "upload/";
 
 	/**
@@ -93,6 +99,7 @@ class UploadFile
 	 * Get URL of the uploaded file related to the document
 	 * @param SugarBean $document
 	 * @param string $type Type of the document, if different from $document
+	 * @return string the URL
 	 */
 	public static function get_upload_url($document, $type = null)
 	{
@@ -101,29 +108,29 @@ class UploadFile
 	    }
 	    return "index.php?entryPoint=download&type=$type&id={$document->id}";
 	}
-	
+
 	/**
 	 * Try renaming a file to bean_id name
 	 * @param string $filename
 	 * @param string $bean_id
+	 * @return bool Success?
 	 */
 	protected static function tryRename($filename, $bean_id)
 	{
 	    $fullname = "upload://$bean_id.$filename";
 	    if(file_exists($fullname)) {
-            if(!rename($fullname,  "upload://$bean_id")) {
-                $GLOBALS['log']->fatal("unable to rename file: $fullname => $bean_id");
+            if(rename($fullname,  "upload://$bean_id")) {
+                return true;
             }
-	        return true;
 	    }
 	    return false;
 	}
 
 	/**
 	 * builds a URL path for an anchor tag
-	 * @param string stored_file_name File name in filesystem
-	 * @param string bean_id note bean ID
-	 * @return string path with file name
+	 * @param string $stored_file_name File name in filesystem
+	 * @param string $bean_id note bean ID
+	 * @return string $path with file name
 	 */
 	static public function get_file_path($stored_file_name, $bean_id, $skip_rename = false)
 	{
@@ -146,11 +153,11 @@ class UploadFile
 
 	/**
 	 * duplicates an already uploaded file in the filesystem.
-	 * @param string old_id ID of original note
-	 * @param string new_id ID of new (copied) note
-	 * @param string filename Filename of file (deprecated)
+	 * @param string $old_id ID of original note
+	 * @param string $new_id ID of new (copied) note
+	 * @param string $filename Filename of file (deprecated)
 	 */
-	public static function duplicate_file($old_id, $new_id, $file_name)
+	public static function duplicate_file($old_id, $new_id, $file_name = '')
 	{
 		global $sugar_config;
 
@@ -165,18 +172,23 @@ class UploadFile
 				if(copy($oldStyleSource, $source)) {
 					// delete the old
 					if(!unlink($oldStyleSource)) {
-						$GLOBALS['log']->error("upload_file could not unlink [ {$oldStyleSource} ]");
+                        $GLOBALS['log']->error("upload_file could not unlink [ {$oldStyleSource} ]");
 					}
 				} else {
-					$GLOBALS['log']->error("upload_file could not copy [ {$oldStyleSource} ] to [ {$source} ]");
+                    $GLOBALS['log']->error("upload_file could not copy [ {$oldStyleSource} ] to [ {$source} ]");
+                    return false;
 				}
+			} else {
+			    return false;
 			}
 		}
 
 		$destination = "upload://$new_id";
 		if(!copy($source, $destination)) {
-			$GLOBALS['log']->error("upload_file could not copy [ {$source} ] to [ {$destination} ]");
+            $GLOBALS['log']->error("upload_file could not copy [ {$source} ] to [ {$destination} ]");
+            return false;
 		}
+		return true;
 	}
 
 	/**
@@ -209,27 +221,36 @@ class UploadFile
                 if($_FILES[$this->field_name]['error'] == UPLOAD_ERR_INI_SIZE) {
                     //log the error, the string produced will read something like:
                     //ERROR: There was an error during upload. Error code: 1 - UPLOAD_ERR_INI_SIZE - The uploaded file exceeds the upload_max_filesize directive in php.ini. upload_maxsize is 16
-                    $errMess = string_format($GLOBALS['app_strings']['UPLOAD_ERROR_TEXT_SIZEINFO'],array($_FILES['filename_file']['error'], self::$filesError[$_FILES['filename_file']['error']],$sugar_config['upload_maxsize']));
-                    $GLOBALS['log']->fatal($errMess);
+                    $errMess = string_format($GLOBALS['app_strings']['UPLOAD_ERROR_TEXT_SIZEINFO'],array($_FILES[$this->field_name]['error'], self::$filesError[$_FILES[$this->field_name]['error']],$sugar_config['upload_maxsize']));
+                    $this->setError('fatal', $errMess, $_FILES[$this->field_name]['error']);
                 }else{
                     //log the error, the string produced will read something like:
                     //ERROR: There was an error during upload. Error code: 3 - UPLOAD_ERR_PARTIAL - The uploaded file was only partially uploaded.
-                    $errMess = string_format($GLOBALS['app_strings']['UPLOAD_ERROR_TEXT'],array($_FILES['filename_file']['error'], self::$filesError[$_FILES['filename_file']['error']]));
-                    $GLOBALS['log']->fatal($errMess);
+                    $errMess = string_format($GLOBALS['app_strings']['UPLOAD_ERROR_TEXT'],array($_FILES[$this->field_name]['error'], self::$filesError[$_FILES[$this->field_name]['error']]));
+                    $this->setError('fatal', $errMess, $_FILES[$this->field_name]['error']);
                 }
 		    }
 		    return false;
 		}
 
-		if(!is_uploaded_file($_FILES[$this->field_name]['tmp_name'])) {
-			return false;
-		} elseif($_FILES[$this->field_name]['size'] > $sugar_config['upload_maxsize']) {
-		    $GLOBALS['log']->fatal("ERROR: uploaded file was too big: max filesize: {$sugar_config['upload_maxsize']}");
-			return false;
-		}
+        // Added Sugar API Override flag to FILES to allow PUT API hits to work
+		//if(!is_uploaded_file($_FILES[$this->field_name]['tmp_name']) || !isset($_FILES[$this->field_name]['_SUGAR_API_UPLOAD']) || $_FILES[$this->field_name]['_SUGAR_API_UPLOAD'] !== true) {
+		//	return false;
+		//} elseif($_FILES[$this->field_name]['size'] > $sugar_config['upload_maxsize']) {
+		//    $GLOBALS['log']->fatal("ERROR: uploaded file was too big: max filesize: {$sugar_config['upload_maxsize']}");
+		//	return false;
+		//}
+        if (is_uploaded_file($_FILES[$this->field_name]['tmp_name']) || (isset($_FILES[$this->field_name]['_SUGAR_API_UPLOAD']) && $_FILES[$this->field_name]['_SUGAR_API_UPLOAD'] === true)) {
+            if($_FILES[$this->field_name]['size'] > $sugar_config['upload_maxsize']) {
+                $this->setError('fatal', "ERROR: uploaded file was too big: max filesize: {$sugar_config['upload_maxsize']}");
+                return false;
+            }
+        } else {
+            return false;
+        }
 
 		if(!UploadStream::writable()) {
-		    $GLOBALS['log']->fatal("ERROR: cannot write to upload directory");
+		    $this->setError('fatal', "ERROR: cannot write to upload directory");
 			return false;
 		}
 
@@ -247,17 +268,7 @@ class UploadFile
 	 * @return string MIME type
 	 */
 	function getMimeSoap($filename){
-
-		if( function_exists( 'ext2mime' ) )
-		{
-			$mime = ext2mime($filename);
-		}
-		else
-		{
-			$mime = ' application/octet-stream';
-		}
-		return $mime;
-
+        return get_file_mime_type($filename, 'application/octet-stream');
 	}
 
 	/**
@@ -268,29 +279,18 @@ class UploadFile
 	function getMime($_FILES_element)
 	{
 		$filename = $_FILES_element['name'];
-        $filetype = isset($_FILES_element['type']) ? $_FILES_element['type'] : null;
         $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        $is_image = strpos($filetype, 'image/') === 0;
-        // if it's an image, or no file extension is available and the mime is octet-stream
-        // try to determine the mime type
-        $recheckMime = $is_image || (empty($file_ext) && $filetype == 'application/octet-stream');
+        //If no file extension is available and the mime is octet-stream try to determine the mime type.
+        $recheckMime = empty($file_ext) && !empty($_FILES_element['type']) && ($_FILES_element['type']  == 'application/octet-stream');
 
-        $mime = 'application/octet-stream';
-        if ($filetype && !$recheckMime) {
-            $mime = $filetype;
-		} elseif( function_exists( 'mime_content_type' ) ) {
-			$mime = mime_content_type( $_FILES_element['tmp_name'] );
-        } elseif ($is_image) {
-            $info = getimagesize($_FILES_element['tmp_name']);
-            if ($info) {
-                $mime = $info['mime'];
-            }
-        } elseif (function_exists('ext2mime')) {
-            $mime = ext2mime($filename);
+		if (!empty($_FILES_element['type']) && !$recheckMime) {
+			$mime = $_FILES_element['type'];
+		} else {
+            // Try to get the mime type, using application/octet-stream as a default
+            $mime = get_file_mime_type($_FILES_element['tmp_name'], 'application/octet-stream');
         }
-
-        return $mime;
+		return $mime;
 	}
 
 	/**
@@ -379,24 +379,42 @@ class UploadFile
 
 	/**
 	 * moves uploaded temp file to permanent save location
-	 * @param string bean_id ID of parent bean
+	 * @param string $bean_id ID of parent bean
+     * @param boolean $temporary set true to move the file to temp folder
 	 * @return bool True on success
 	 */
-	function final_move($bean_id)
+	function final_move($bean_id, $temporary = false)
 	{
 	    $destination = $bean_id;
 	    if(substr($destination, 0, 9) != "upload://") {
             $destination = "upload://$bean_id";
 	    }
+        if ($temporary === true) {
+            $tempFolder = "upload://tmp/";
+            if (!is_dir($tempFolder)) {
+                sugar_mkdir($tempFolder, 0755, true);
+            }
+            $destination = $tempFolder . $bean_id;
+        }
         if($this->use_soap) {
         	if(!file_put_contents($destination, $this->file)){
-        	    $GLOBALS['log']->fatal("ERROR: can't save file to $destination");
+        	    $this->setError('fatal', "ERROR: can't save file to $destination");
                 return false;
         	}
 		} else {
 			if(!UploadStream::move_uploaded_file($_FILES[$this->field_name]['tmp_name'], $destination)) {
-			    $GLOBALS['log']->fatal("ERROR: can't move_uploaded_file to $destination. You should try making the directory writable by the webserver");
-                return false;
+                if (isset($_FILES[$this->field_name]['_SUGAR_API_UPLOAD']) && $_FILES[$this->field_name]['_SUGAR_API_UPLOAD'] === true) {
+                    // Try to move it manually
+                    if (copy($_FILES[$this->field_name]['tmp_name'], $destination)) {
+                        unlink($_FILES[$this->field_name]['tmp_name']);
+                    } else {
+                        $this->setError('fatal', "ERROR: can't move_uploaded_file to $destination. You should try making the directory writable by the webserver");
+                        return false;
+                    }
+                } else {
+                    $this->setError('fatal', "ERROR: can't move_uploaded_file to $destination. You should try making the directory writable by the webserver");
+                    return false;
+                }
 			}
 		}
 		return true;
@@ -459,8 +477,8 @@ class UploadFile
 
 	/**
 	 * returns the path with file name to save an uploaded file
-	 * @param string bean_id ID of the parent bean
-	 * @return string
+	 * @param string $bean_id ID of the parent bean
+	 * @return string path
 	 */
 	function get_upload_path($bean_id)
 	{
@@ -475,8 +493,9 @@ class UploadFile
 
 	/**
 	 * deletes a file
-	 * @param string bean_id ID of the parent bean
-	 * @param string file_name File's name
+	 * @param string $bean_id ID of the parent bean
+	 * @param string $file_name File's name
+	 * @return bool Success?
 	 */
 	static public function unlink_file($bean_id,$file_name = '')
 	{
@@ -497,6 +516,7 @@ class UploadFile
     /**
      * Return real FS path of the file
      * @param string $path
+     * @return string path
      */
     public static function realpath($path)
     {
@@ -510,6 +530,7 @@ class UploadFile
     /**
      * Return path of uploaded file relative to uploads dir
      * @param string $path
+     * @return string path
      */
     public static function relativeName($path)
     {
@@ -517,6 +538,41 @@ class UploadFile
             $path = substr($path, 9);
         }
         return $path;
+    }
+
+    /**
+     * Gets the last reported error. Optionally will return just the error message.
+     *
+     * @param bool $messageOnly
+     * @return array|null
+     */
+    public function getError($messageOnly = false) {
+        return $messageOnly ? $this->getErrorMessage() : $this->error;
+    }
+
+    /**
+     * Gets just the error message from the last reported error.
+     *
+     * @return string|null
+     */
+    public function getErrorMessage() {
+        return empty($this->error['message']) ? null : $this->error['message'];
+    }
+
+    /**
+     * Sets an error message and optional error code
+     *
+     * @param string $type
+     * @param string $message
+     * @param int $code
+     */
+    protected function setError($type, $message, $code = 0) {
+        // Read it into the error array
+        $this->error['message'] = $message;
+        $this->error['code'] = $code;
+
+        // Send it to the log
+        $GLOBALS['log']->$type($message);
     }
 }
 
@@ -528,6 +584,16 @@ class UploadStream
 {
     const STREAM_NAME = "upload";
     protected static $upload_dir;
+    public static $wrapper_class = __CLASS__;
+    protected static $instance;
+
+    /**
+     * Empty parent ctor
+     */
+    public function __construct()
+    {
+
+    }
 
     /**
      * Method checks Suhosin restrictions to use streams in php
@@ -629,7 +695,18 @@ class UploadStream
      */
     public function register()
     {
-        stream_register_wrapper(self::STREAM_NAME, __CLASS__);
+        if(isset($GLOBALS['sugar_config']['upload_wrapper_class'])) {
+            SugarAutoLoader::requireWithCustom("include/{$GLOBALS['sugar_config']['upload_wrapper_class']}.php");
+            if(class_exists($GLOBALS['sugar_config']['upload_wrapper_class'])) {
+                self::$wrapper_class = $GLOBALS['sugar_config']['upload_wrapper_class'];
+            } else {
+                self::$wrapper_class = __CLASS__;
+            }
+        } else {
+            self::$wrapper_class = __CLASS__;
+        }
+        stream_register_wrapper(self::STREAM_NAME, self::$wrapper_class);
+        self::$instance = new self::$wrapper_class();
     }
 
     /**
@@ -639,28 +716,82 @@ class UploadStream
      */
     public static function path($path)
     {
+        return self::$instance->getFSPath($path);
+    }
+
+    /**
+     * Ensure upload subdir exists
+     * @param string $path Upload stream path (with upload://)
+     * @return boolean
+     */
+    public static function ensureDir($path)
+    {
+        if(!self::$instance->checkDir($path)) {
+            return self::$instance->createDir($path);
+        }
+        return true;
+    }
+
+    /**
+     * Move uploaded file to the path
+     * @param string $upload Uploaded file
+     * @param string $path Target dir
+     */
+    public static function move_uploaded_file($upload, $path)
+    {
+    	if(move_uploaded_file($upload, self::path($path))) {
+    	    return self::$instance->registerFile($path);
+    	}
+    	return false;
+    }
+
+    /**
+     * Register new file added to uploads by external means
+     * @param string $path
+     * @return boolean
+     */
+    public function registerFile($path)
+    {
+        return true;
+    }
+
+    /**
+     * Get real FS path of the upload stream file
+     * Non-static version for overrides
+     * @param string $path Upload stream path (with upload://)
+     * @return string FS path
+     */
+    public function getFSPath($path)
+    {
     	$path = substr($path, strlen(self::STREAM_NAME)+3); // cut off upload://
     	$path = str_replace("\\", "/", $path); // canonicalize path
     	if($path == ".." || substr($path, 0, 3) == "../" || substr($path, -3, 3) == "/.." || strstr($path, "/../")) {
+    		$GLOBALS['log']->fatal("Invalid uploaded file name supplied: $path");
     		return null;
     	}
         return self::getDir()."/".$path;
     }
 
     /**
-     * Ensure upload subdir exists
-     * @param string $path Upload stream path (with upload://)
-     * @param bool $writable
+     * Create directory within uploads
+     * @param string $path
      * @return boolean
      */
-    public static function ensureDir($path, $writable = true)
+    public function createDir($path)
     {
-        $path = self::path($path);
-        if(!is_dir($path)) {
-           return sugar_mkdir($path, 0755, true);
-        }
-        return true;
+        return sugar_mkdir($this->getFSPath($path), 0755, true);
     }
+
+    /**
+     * Check if uploads directory exists
+     * @param string $path
+     * @return boolean
+     */
+    public function checkDir($path)
+    {
+        return is_dir($this->getFSPath($path));
+    }
+
 
     public function dir_closedir()
     {
@@ -669,7 +800,7 @@ class UploadStream
 
     public function dir_opendir ($path, $options )
     {
-        $this->dirp = opendir(self::path($path));
+        $this->dirp = opendir($this->getFSPath($path));
         return !empty($this->dirp);
     }
 
@@ -685,17 +816,17 @@ class UploadStream
 
     public function mkdir($path, $mode, $options)
     {
-        return mkdir(self::path($path), $mode, ($options&STREAM_MKDIR_RECURSIVE) != 0);
+        return mkdir($this->getFSPath($path), $mode, ($options&STREAM_MKDIR_RECURSIVE) != 0);
     }
 
     public function rename($path_from, $path_to)
     {
-        return rename(self::path($path_from), self::path($path_to));
+        return rename($this->getFSPath($path_from), $this->getFSPath($path_to));
     }
 
     public function rmdir($path, $options)
     {
-        return rmdir(self::path($path));
+        return rmdir($this->getFSPath($path));
     }
 
     public function stream_cast ($cast_as)
@@ -725,7 +856,7 @@ class UploadStream
 
     public function stream_open($path, $mode)
     {
-        $fullpath = self::path($path);
+        $fullpath = $this->getFSPath($path);
         if(empty($fullpath)) return false;
         if($mode == 'r') {
             $this->fp = fopen($fullpath, $mode);
@@ -771,18 +902,17 @@ class UploadStream
 
     public function unlink($path)
     {
-        unlink(self::path($path));
+        $newPath = $this->getFSPath($path);
+        if (file_exists($newPath)) {
+            unlink($newPath);
+        }
         return true;
     }
 
     public function url_stat($path, $flags)
     {
-        return @stat(self::path($path));
+        return @stat($this->getFSPath($path));
     }
 
-    public static function move_uploaded_file($upload, $path)
-    {
-        return move_uploaded_file($upload, self::path($path));
-    }
 }
 

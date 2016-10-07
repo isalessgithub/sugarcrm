@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/EditView/SugarVCR.php');
 /**
@@ -207,7 +204,7 @@ class ListViewData {
 	function getListViewData($seed, $where, $offset=-1, $limit = -1, $filter_fields=array(),$params=array(),$id_field = 'id',$singleSelect=true) {
         global $current_user;
         SugarVCR::erase($seed->module_dir);
-        $this->seed =& $seed;
+        $this->seed = $seed;
         $totalCounted = empty($GLOBALS['sugar_config']['disable_count_query']);
         $_SESSION['MAILMERGE_MODULE_FROM_LISTVIEW'] = $seed->module_dir;
         if(empty($_REQUEST['action']) || $_REQUEST['action'] != 'Popup'){
@@ -284,6 +281,10 @@ class ListViewData {
         if(!isset($params['custom_where'])) $params['custom_where'] = '';
         if(!isset($params['custom_order_by'])) $params['custom_order_by'] = '';
 		$main_query = $ret_array['select'] . $params['custom_select'] . $ret_array['from'] . $params['custom_from'] . $ret_array['inner_join']. $ret_array['where'] . $params['custom_where'] . $ret_array['order_by'] . $params['custom_order_by'];
+
+        //Prevent multiple (same) ACLAccess calls
+        $seedACL['ListView'] = $this->seed->ACLAccess('ListView');
+
 		//C.L. - Fix for 23461
 		if(empty($_REQUEST['action']) || $_REQUEST['action'] != 'Popup') {
           	   $_SESSION['export_where'] = $ret_array['where'];
@@ -302,7 +303,7 @@ class ListViewData {
             	$totalCount = $this->getTotalCount($main_query);
             	$offset = (floor(($totalCount -1) / $limit)) * $limit;
             }
-            if($this->seed->ACLAccess('ListView')) {
+            if($seedACL['ListView']) {
                 $result = $this->db->limitQuery($main_query, $offset, $limit + 1);
             }
             else {
@@ -389,16 +390,16 @@ class ListViewData {
 			$pageData = array();
 
 			reset($rows);
+            $additionalDetailsFile = SugarAutoLoader::existingCustomOne('modules/' . $seed->module_dir . '/metadata/additionalDetails.php');
 			while($row = current($rows)){
 
                 $temp = clone $seed;
 			    $dataIndex = count($data);
 
-			    $temp->setupCustomFields($temp->module_dir);
+                if (!isset($temp->custom_fields) && empty($temp->disable_custom_fields)) {
+                    $temp->setupCustomFields($temp->module_dir);
+                }
 				$temp->loadFromRow($row);
-				if (empty($this->seed->assigned_user_id) && !empty($temp->assigned_user_id)) {
-				    $this->seed->assigned_user_id = $temp->assigned_user_id;
-				}
 				if($idIndex[$row[$id_field]][0] == $dataIndex){
 				    $pageData['tag'][$dataIndex] = $temp->listviewACLHelper();
 				}else{
@@ -407,71 +408,77 @@ class ListViewData {
 				$temp->updateDependentFieldForListView('', $filter_fields);
 				$data[$dataIndex] = $temp->get_list_view_data($filter_fields);
                 if($temp->isFavoritesEnabled()){
-					$data[$dataIndex]['star'] = SugarFavorites::generateStar(!empty($row['is_favorite']), $temp->module_dir, $temp->id);
+					$data[$dataIndex]['star'] = SugarFavorites::generateStar(!empty($row['my_favorite']), $temp->module_dir, $temp->id);
 				}
-				if($temp->bean_implements('ACL')){
-			    	ACLField::listFilter($data[$dataIndex],$temp->module_dir,$GLOBALS['current_user']->id, $temp->isOwner($GLOBALS['current_user']->id));
-				}
-                $detailViewAccess = $temp->ACLAccess('DetailView');
-                $editViewAccess = $temp->ACLAccess('EditView');
-                $pageData['rowAccess'][$dataIndex] = array('view' => $detailViewAccess, 'edit' => $editViewAccess);
-                $additionalDetailsAllow = $this->additionalDetails && $detailViewAccess && (file_exists(
-                         'modules/' . $temp->module_dir . '/metadata/additionalDetails.php'
-                     ) || file_exists('custom/modules/' . $temp->module_dir . '/metadata/additionalDetails.php'));
-                $additionalDetailsEdit = $editViewAccess;
-                if($additionalDetailsAllow) {
+
+				$temp->ACLFilterFieldList($data[$dataIndex]);
+                //Preventing multiple (same) ACLAccess calls
+                $tempACL['EditView'] = $temp->ACLAccess('EditView');
+                $tempACL['DetailView'] = $temp->ACLAccess('DetailView');
+
+                $pageData['rowAccess'][$dataIndex] = array('view' => $tempACL['DetailView'], 'edit' => $tempACL['EditView']);
+                $additionalDetailsAllow = $this->additionalDetails && $tempACL['DetailView'] && !empty($additionalDetailsFile);
+			    //if($additionalDetailsAllow) $pageData['additionalDetails'] = array();
+			    $additionalDetailsEdit = $tempACL['EditView'];
+				if($additionalDetailsAllow) {
                     if($this->additionalDetailsAjax) {
 					   $ar = $this->getAdditionalDetailsAjax($data[$dataIndex]['ID']);
                     }
                     else {
-                        $additionalDetailsFile = 'modules/' . $this->seed->module_dir . '/metadata/additionalDetails.php';
-                        if(file_exists('custom/modules/' . $this->seed->module_dir . '/metadata/additionalDetails.php')){
-                        	$additionalDetailsFile = 'custom/modules/' . $this->seed->module_dir . '/metadata/additionalDetails.php';
-                        }
-                        require_once($additionalDetailsFile);
+                        require_once $additionalDetailsFile;
                         $ar = $this->getAdditionalDetails($data[$dataIndex],
                                     (empty($this->additionalDetailsFunction) ? 'additionalDetails' : $this->additionalDetailsFunction) . $this->seed->object_name,
                                     $additionalDetailsEdit);
                     }
                     $pageData['additionalDetails'][$dataIndex] = $ar['string'];
                     $pageData['additionalDetails']['fieldToAddTo'] = $ar['fieldToAddTo'];
-				}
-				next($rows);
-			}
-		}
-		$nextOffset = -1;
-		$prevOffset = -1;
-		$endOffset = -1;
-		if($count > $limit) {
-			$nextOffset = $offset + $limit;
-		}
+                }
+                next($rows);
+            }
+        }
+        $nextOffset = -1;
+        $prevOffset = -1;
+        $endOffset = -1;
+        if($count > $limit) {
+            $nextOffset = $offset + $limit;
+        }
 
-		if($offset > 0) {
-			$prevOffset = $offset - $limit;
-			if($prevOffset < 0)$prevOffset = 0;
-		}
-		$totalCount = $count + $offset;
+        if($offset > 0) {
+            $prevOffset = $offset - $limit;
+            if($prevOffset < 0)$prevOffset = 0;
+        }
+        $totalCount = $count + $offset;
 
-		if( $count >= $limit && $totalCounted){
-			$totalCount  = $this->getTotalCount($main_query);
-		}
-		SugarVCR::recordIDs($this->seed->module_dir, array_keys($idIndex), $offset, $totalCount);
+        if( $count >= $limit && $totalCounted){
+            $totalCount  = $this->getTotalCount($main_query);
+        }
+        SugarVCR::recordIDs($this->seed->module_dir, array_keys($idIndex), $offset, $totalCount);
         $module_names = array(
             'Prospects' => 'Targets'
         );
-		$endOffset = (floor(($totalCount - 1) / $limit)) * $limit;
-		$pageData['ordering'] = $order;
-		$pageData['ordering']['sortOrder'] = $this->getReverseSortOrder($pageData['ordering']['sortOrder']);
+        $endOffset = (floor(($totalCount - 1) / $limit)) * $limit;
+        $pageData['ordering'] = $order;
+        $pageData['ordering']['sortOrder'] = $this->getReverseSortOrder($pageData['ordering']['sortOrder']);
         //get url parameters as an array
         $pageData['queries'] = $this->generateQueries($pageData['ordering']['sortOrder'], $offset, $prevOffset, $nextOffset,  $endOffset, $totalCounted);
         //join url parameters from array to a string
         $pageData['urls'] = $this->generateURLS($pageData['queries']);
-		$pageData['offsets'] = array( 'current'=>$offset, 'next'=>$nextOffset, 'prev'=>$prevOffset, 'end'=>$endOffset, 'total'=>$totalCount, 'totalCounted'=>$totalCounted);
-		$pageData['bean'] = array('objectName' => $seed->object_name, 'moduleDir' => $seed->module_dir, 'moduleName' => strtr($seed->module_dir, $module_names));
+        $pageData['offsets'] = array( 'current'=>$offset, 'next'=>$nextOffset, 'prev'=>$prevOffset, 'end'=>$endOffset, 'total'=>$totalCount, 'totalCounted'=>$totalCounted);
+        $pageData['bean'] = array(
+            'objectName' => $seed->object_name,
+            'moduleDir' => $seed->module_dir,
+            'moduleName' => strtr($seed->module_dir, $module_names),
+            'moduleTitle' => isset($seed->module_title) ? $seed->module_title : null,
+            'parentTitle' => isset($seed->parent_title) ? $seed->parent_title : null,
+            'parentModuleDir' => isset($seed->parent_module_dir) ? $seed->parent_module_dir : null,
+            'createAction' => isset($seed->create_action) ? $seed->create_action : 'EditView',
+            'showLink' => isset($seed->show_link) ? $seed->show_link : null,
+            'importable' => $seed->importable
+        );
         $pageData['stamp'] = $this->stamp;
         $pageData['access'] = array('view' => $this->seed->ACLAccess('DetailView'), 'edit' => $this->seed->ACLAccess('EditView'));
-		$pageData['idIndex'] = $idIndex;
-        if(!$this->seed->ACLAccess('ListView')) {
+        $pageData['idIndex'] = $idIndex;
+        if(!$seedACL['ListView']) {
             $pageData['error'] = 'ACL restricted access';
         }
 
@@ -499,12 +506,12 @@ class ListViewData {
                 $field_name .= "_basic";
                 if( isset($_REQUEST[$field_name])  && ( !is_array($basicSearchField) || !isset($basicSearchField['type']) || $basicSearchField['type'] == 'text' || $basicSearchField['type'] == 'name') )
                 {
-                    // Ensure the encoding is UTF-8
-                    $queryString = htmlentities($_REQUEST[$field_name], null, 'UTF-8');
+                    $queryString = $_REQUEST[$field_name];
                     break;
                 }
             }
         }
+
 
 		return array('data'=>$data , 'pageData'=>$pageData, 'query' => $queryString);
 	}
@@ -545,6 +552,8 @@ class ListViewData {
 
         $queries['orderBy'] = $queries['baseURL'];
         $queries['orderBy'][$this->var_order_by] = '';
+        // Do not send entryPoint for sorting URLs
+        unset($queries['orderBy']['entryPoint']);
 
         if($nextOffset > -1)
         {
@@ -596,9 +605,9 @@ class ListViewData {
     /**
      * generates the additional details values
      *
-     * @param unknown_type $fields
-     * @param unknown_type $adFunction
-     * @param unknown_type $editAccess
+     * @param array $fields
+     * @param string $adFunction
+     * @param boolean $editAccess
      * @return array string to attach to field
      */
     function getAdditionalDetails($fields, $adFunction, $editAccess)

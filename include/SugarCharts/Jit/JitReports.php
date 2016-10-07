@@ -1,19 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id$
 
 require_once("include/SugarCharts/Jit/Jit.php");
 
@@ -86,9 +83,13 @@ class JitReports extends Jit {
 	
 	function processReportGroup($dataset){
 		$super_set = array();
+        $super_set_data = array();
 
         foreach($dataset as $groupBy => $groups){
             $prev_super_set = $super_set;
+            foreach ($groups as $group => $groupData) {
+                $super_set_data[$group] = $groupData;
+            }
             if (count($groups) > count($super_set)){
 	            $super_set = array_keys($groups);
                 foreach($prev_super_set as $prev_group){
@@ -106,10 +107,52 @@ class JitReports extends Jit {
             }       
         }     
         $super_set = array_unique($super_set);
+        $this->super_set_data = $super_set_data;
+
+        $this->handleSort($super_set);
 
 		return $super_set;
 	}
 	
+    /**
+     * Handle sorting for special field types on grouped data. 
+     *
+     * @param array &$super_set Grouped data
+     */
+    protected function handleSort(&$super_set)
+    {
+        if (!isset($this->reporter)) {
+            return;
+        }
+
+        // store last grouped field
+        $lastgroupfield = end($this->group_by);
+
+        if (isset($this->reporter->focus->field_defs[$lastgroupfield]) &&
+            $this->reporter->focus->field_defs[$lastgroupfield]['type'] === "date") {
+            usort($super_set, array($this, "runDateSort"));
+        }
+    }
+
+    /**
+     * Helper function for sorting dates.
+     *
+     * @param DateTime $a Date 1
+     * @param DateTime $b Date 2
+     * @return int an integer LT, EQ, or GT zero if Date 1 is respectively LT, EQ, or GT Date 2
+     */
+    protected function runDateSort($a, $b)
+    {
+        $a = new DateTime($this->super_set_data[$a]['raw_value']);
+        $b = new DateTime($this->super_set_data[$b]['raw_value']);
+
+        if ($a == $b) {
+            return 0;
+        }
+
+        return ($a < $b) ? -1 : 1;
+    }
+
 	function xmlDataReportSingleValue(){
 		$data = '';		
 		foreach ($this->data_set as $key => $dataset){
@@ -147,15 +190,13 @@ class JitReports extends Jit {
 			$data .= $this->tabValue('value',$total, 3);
 
             $label = $total;
-            if ($this->isCurrencyReportGroupTotal($dataset))
-            {;
+            if ($this->isCurrencyReportGroupTotal($dataset)) {
                 $label = currency_format_number($total, array(
                     'currency_symbol' => $this->currency_symbol,
                     'decimals' => ($this->chart_properties['thousands'] ? 0 : null)
                 ));
             }
-            if ($this->chart_properties['thousands'])
-            {
+            if ($this->chart_properties['thousands']) {
                 $label .= $app_strings['LBL_THOUSANDS_SYMBOL'];
             }
             $data .= $this->tabValue('label', $label, 3);
@@ -165,7 +206,8 @@ class JitReports extends Jit {
 			if (count($this->group_by) > 1){
 					$data .= $this->processReportData($dataset, 4, $first);
 			}
-			else if(count($this->data_set) == 1 && $first){
+			else
+            {
 			    foreach ($dataset as $k=>$v){
 			        if(isset($v['numerical_value'])) {
 			            $data .= $this->processDataGroup(4, $k, $v['numerical_value'], $v['numerical_value'], '');
@@ -224,16 +266,15 @@ class JitReports extends Jit {
 	 *			string $xmlFile	location of the XML file
 	 *			string $style	optional additional styles for the div
      * @return	string returns the html code through smarty
-     */					
-	function display($name, $xmlFile, $width='320', $height='480', $reportChartDivStyle, $resize=false){
+     */
+	function display($name, $xmlFile, $width='320', $height='480', $resize=false){
 		if(empty($name)) {
-			$name = "unsavedReport";	
+			$name = "unsavedReport";
 		}
 		
 		parent::display($name, $xmlFile, $width, $height, $resize=false);			
 		
 		return $this->ss->fetch('include/SugarCharts/Jit/tpls/chart.tpl');	
-		
-		
+
 	}
 }

@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'The following modules have been installed:',
   'DESC_MODULES_QUEUED' => 'The following modules are ready to be installed:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'The uploaded file is not compatible with this flavor (Community Edition, Professional, or Enterprise) of Sugar:',
+  'ERROR_HT_NO_WRITE' => 'לא מצליח לכתובת לקובץ %s',
+  'ERROR_MANIFEST_TYPE' => 'Manifest file must specify the package type.',
+  'ERROR_PACKAGE_TYPE' => 'Manifest file specifies an unrecognized package type: %s',
+  'ERROR_UW_CONFIG_DB' => 'שגיאה בשמירת %s הגדרת משתנה בבסיס הנתונים (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'The uploaded file is not compatible with this version of Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Your version of PHP is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported PHP Versions. Your version is',
+  'ERR_NOT_ADMIN' => 'גישה לא מורשית למערכת ניהול.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'אין לך הרשאה לגשת לדף זה',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Cannot determine Group',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Cannot determine Owner',
   'ERR_UW_CONFIG' => 'Please make your config.php file writable and reload this page.',
@@ -48,14 +51,14 @@ $mod_strings = array (
   'ERR_UW_ONLY_PATCHES' => 'You can only upload patches on this page.',
   'ERR_UW_PHP_FILE_ERRORS' => 
   array (
-    1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
-    2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
-    3 => 'The uploaded file was only partially uploaded.',
-    4 => 'No file was uploaded.',
-    5 => 'Unknown error.',
-    6 => 'Missing a temporary folder.',
-    7 => 'Failed to write file to disk.',
-    8 => 'File upload stopped by extension.',
+      1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
+      2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
+      3 => 'The uploaded file was only partially uploaded.',
+      4 => 'No file was uploaded.',
+      5 => 'Unknown error.',
+      6 => 'Missing a temporary folder.',
+      7 => 'Failed to write file to disk.',
+      8 => 'File upload stopped by extension.'
   ),
   'ERR_UW_PREFLIGHT_ERRORS' => 'Errors Found During Preflight Check',
   'ERR_UW_UPLOAD_ERR' => 'There was an error uploading the file, please try again!<br>\\n',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'אתחל',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Commit Upgrade in progress',
   'LBL_CURRENT_PHP_VERSION' => '(Your current php version is',
+  'LBL_GLOBAL_TEAM_DESC' => 'זמין לכולם',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php version 5 or above is required.',
   'LBL_LANGPACKS' => 'חבילת שפה',
@@ -94,6 +98,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Version',
   'LBL_MODULELOADER' => 'Module Loader',
   'LBL_MODULE_NAME' => 'UpgradeWizard',
+  'LBL_MODULE_NAME_SINGULAR' => 'אשף שדרוג',
   'LBL_PATCHUPGRADES' => 'Patch Upgrades',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Preflight Check in progress',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'File Copying in Progress',

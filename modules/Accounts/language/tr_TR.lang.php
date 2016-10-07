@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Bu müşteriyi projeden silmeye emin misiniz?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Aramalar',
   'LBL_CAMPAIGNS' => 'Kampanyalar',
   'LBL_CAMPAIGN_ID' => 'Kampanya ID',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampanya Tarihçesi',
   'LBL_CASES_SUBPANEL_TITLE' => 'Talepler',
   'LBL_CHARTS' => 'Grafikler',
   'LBL_CITY' => 'Şehir:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Müşteriler',
   'LBL_DESCRIPTION' => 'Tanım:',
   'LBL_DESCRIPTION_INFORMATION' => 'Tanım Bilgisi',
+  'LBL_DNB_BAL_PREVIEW' => 'Müşteri Önizleme',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokümanlar',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Muhtemelen Tekrar Eden Müşteri',
   'LBL_EMAIL' => 'E-Posta Adresi:',
   'LBL_EMAIL_ADDRESSES' => 'E-Posta Adresleri',
@@ -72,6 +72,25 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Çalışanlar:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Atanmış Kullanıcı İsmi',
   'LBL_FAX' => 'Faks:',
+  'LBL_FILENAME' => 'Ek',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Müşteri Raporları',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modülü organizasyonunuz ile ilişkisi olan ve her bir müşteri ile iş etkileşiminizi yönetmek ve analiz etmek için bağlantı noktası olarak görülen firmalardan oluştur.
+
+{{module_name}} kaydı oluşturmak için:
+1. İstenen şekilde alanlara değer giriniz.
+ - "Zorunlu" olarak işaretlenmiş alanların kayıt öncesinde girilmesi gerekmektedir.
+- Gerektiğinde, "Daha Fazlası" seçeneği ile ek alanları gösteriniz.
+2. "Kaydet" tuşuna basarak yeni kaydınızı tamamlayın ve önceki sayfaya dönün.
+- Yeni {{module_name}} kaydını görüntüleme modunda açmak için Kaydet ve Görüntüle seçeneğini kullanın.
+- "Kaydet ve yenisini oluştur" seçeneği ile, kayıt sonrasında, hemen yeni bir {{module_name}} kaydı oluşturun.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü organizasyonunuz ile ilişkisi olan ve her bir müşteri ile iş etkileşiminizi yönetmek ve analiz etmek için bağlantı noktası olarak görülen firmalardan oluştur.
+
+- Kaydın alanlarını, herhangi bir alana veya "Değiştir" tuşuna tıklayarak değiştirin.
+- Alt solda yer alan paneli "Kayıt Görünümü" olarak değiştirerek, diğer kayıtlar ile olan bağlantıları görün veya değiştirin.
+- Kaydın isminin sağındaki ikonlara tıklayarak kaydı izleyiniz veya favori olarak işaretleyiniz.
+- Alt solda yer alan paneli "Aktivite Akışı" olarak değiştirerek, kullanıcı yorumları görün, oluşturun ve  {{activitystream_singular_module}}  kayıtındaki değişiklik tarihçesini görün.
+- Daha fazla aksiyon, Değiştir tuşunun sağındaki Aksiyonlar seçimli menüde yer almaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü organizasyonunuzun ilişkide olduğu şirketlerden oluşur ve genellikle işinizin her bir müşteriyle etkileşiminin yönetilmesi ve analizi için kesişim noktası olarak kabul edilir. Sugar içinde {{plural_module_name}} kaydı oluşturmak için farklı yöntemler bulunmaktadır, örneğin {{plural_module_name}} modülü ile, aynı kayıttan oluşturarak, {{plural_module_name}} kayıtlarını içeri yükleyerek... {{module_name}} kaydı oluşturulduktan sonra, {{plural_module_name}} kayıt görüntüleme ekranını kullanarak {{module_name}} kaydındaki eksiklikleri ekleyebilirsiniz. Her {{module_name}} kaydı bu işlem sonrasında diğer Sugar kayıtları ile (örneğin {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, ve diğerleri) ilişkilendirilebilir.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Tarihçe',
   'LBL_HOMEPAGE_TITLE' => 'Müşterilerim',
   'LBL_INDUSTRY' => 'Endüstri:',
@@ -98,6 +117,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Müşteriler: Ana Sayfa',
   'LBL_NAME' => 'İsim:',
   'LBL_NEW_FORM_TITLE' => 'Yeni Müşteri',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notlar',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Fırsatlar',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Diğer E-Posta:',
   'LBL_OTHER_PHONE' => 'Diğer Telefon:',
@@ -110,7 +130,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Ofis Faks:',
   'LBL_PHONE_OFFICE' => 'Ofis Telefonu:',
   'LBL_POSTAL_CODE' => 'Posta Kodu:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Ürünler',
   'LBL_PRODUCTS_TITLE' => 'Ürünler',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projeler',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projeler',
@@ -121,6 +140,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Gönderimi Başlat',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Teklifler',
   'LBL_RATING' => 'Seviyesi:',
+  'LBL_REVENUELINEITEMS' => 'Gelir Kalemleri',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Gelir Kalemleri',
   'LBL_SAVE_ACCOUNT' => 'Müşteri Kaydet',
   'LBL_SEARCH_FORM_TITLE' => 'Müşteri Arama',
   'LBL_SHIPPING_ADDRESS' => 'Teslimat Adresi:',
@@ -146,6 +167,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Web Sitesi:',
   'LNK_ACCOUNT_LIST' => 'Müşterileri Görüntüle',
   'LNK_ACCOUNT_REPORTS' => 'Müşteri Raporlarını Gör',
+  'LNK_CREATE' => 'Firma Oluştur',
   'LNK_IMPORT_ACCOUNTS' => 'Müşteri Verilerini Yükle',
   'LNK_NEW_ACCOUNT' => 'Müşteri Oluştur',
   'MSG_DUPLICATE' => 'Oluşturmak üzere olduğunuz müşteri kaydı, zaten var olan bir müşterinin benzeri olabilir. Benzer isimleri içeren müşteriler aşağıda listelenmektedir.<br>Bu müşteriyi oluşturmaya devam etmek için Hesap Oluştura tıklayın veya aşağıdaki listeden var olan bir hesap seçin.',

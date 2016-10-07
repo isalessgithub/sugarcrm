@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTIVE' => 'Активно',
@@ -44,11 +41,13 @@ $mod_strings = array (
   'LBL_DISCONNECTED' => 'Подключение отсутствует',
   'LBL_DISPLAY_PROPERTIES' => 'Обзор свойств',
   'LBL_ERR_FACEBOOK' => 'Ошибка от Facebook, лента событий не может быть отображена.',
-  'LBL_ERR_FAILED_QUICKCHECK' => 'Вы сейчас не находитесь в системе под Вашей учётной записью {0}. Нажмите ОК чтобы войти в систему ещё раз и активировать внешнюю учётную запись.',
+  'LBL_ERR_FAILED_QUICKCHECK' => 'Вы сейчас не находитесь в системе под Вашей учётной записью {0}. Нажмите ОК, чтобы войти в систему ещё раз и активировать внешнюю учётную запись.',
   'LBL_ERR_NO_AUTHINFO' => 'Для этой учетной записи нет информации для авторизации.',
-  'LBL_ERR_NO_RESPONSE' => 'Произошла ошибка при попытке сохранения во внешнюю учетную запись.',
+  'LBL_ERR_NO_RESPONSE' => 'Произошла ошибка при попытке подключения к учетной записи.',
   'LBL_ERR_NO_TOKEN' => 'Нет действительный токенов для этой учётной записи',
-  'LBL_ERR_POPUPS_DISABLED' => 'Чтобы произвести подключение, разреите всплывающие окна в браузере или добавьте сайт "{0}" в исключения.',
+  'LBL_ERR_OAUTH_FACEBOOK_1' => 'Сессия в Facebook истекла. Чтобы возобновить, пожалуйста',
+  'LBL_ERR_OAUTH_FACEBOOK_2' => 'Повторно войти в Facebook',
+  'LBL_ERR_POPUPS_DISABLED' => 'Чтобы произвести подключение, разрешите всплывающие окна в браузере или добавьте сайт "{0}" в исключения.',
   'LBL_ERR_TWITTER' => 'Ошибка от Twitter, лента событий не может быть отображена.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_HOMEPAGE_TITLE' => 'Мои внешние учетные записи',
@@ -73,6 +72,7 @@ $mod_strings = array (
   'LBL_REAUTHENTICATE_KEY' => 'a',
   'LBL_REAUTHENTICATE_LABEL' => 'Повторная авторизация',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск внешнего источника',
+  'LBL_SUCCESS' => 'Готово',
   'LBL_SUGAR_EAPM_SUBPANEL_TITLE' => 'Внешние учетные записи',
   'LBL_SUGAR_USER_NAME' => 'Пользователь Sugar',
   'LBL_TEAM' => 'Команды',
@@ -84,7 +84,7 @@ $mod_strings = array (
   'LBL_USER_NAME' => 'Имя пользователя',
   'LBL_VALIDATED' => 'Доступ подтверждён',
   'LBL_VIEW_LOTUS_LIVE_DOCUMENTS' => 'Обзор документов LotusLive™',
-  'LBL_VIEW_LOTUS_LIVE_MEETINGS' => 'Ваши предстоящие встречи LotusLive™',
+  'LBL_VIEW_LOTUS_LIVE_MEETINGS' => 'Ваши предстоящие встречи IBM SmartCloud&trade;',
   'LNK_IMPORT_SUGAR_EAPM' => 'Импортировать внешние учетные записи',
   'LNK_LIST' => 'Обзор внешних учетных записей',
   'LNK_NEW_RECORD' => 'Создать внешнюю учетную запись',

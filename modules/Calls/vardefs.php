@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activity representing a phone call',
-                               'unified_search' => true, 'full_text_search' => true, 'unified_search_default_enabled' => true, 'fields' => array (
+                               'activity_enabled'=>true,'unified_search' => true, 'full_text_search' => true, 'unified_search_default_enabled' => true, 'fields' => array (
 
   'name' =>
   array (
@@ -25,7 +22,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'len' => '50',
     'comment' => 'Brief description of the call',
     'unified_search' => true,
-    'full_text_search' => array('boost' => 3),
+    'full_text_search' => array('enabled' => true, 'boost' => 3),
 	'required'=>true,
     'importable' => 'required',
   ),
@@ -37,7 +34,9 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'type' => 'int',
     'len' => '2',
     'comment' => 'Call duration, hours portion',
-	'required' => true,
+    'required' => true,
+    'massupdate' => false,
+    'studio' => false,
   ),
   'duration_minutes' =>
   array (
@@ -48,32 +47,40 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'len' => '2',
     'group'=>'duration_hours',
     'importable' => 'required',
-    'comment' => 'Call duration, minutes portion'
+    'comment' => 'Call duration, minutes portion',
+    'required' => true,
+    'massupdate' => false,
+    'studio' => false,
   ),
 
    'date_start' =>
   array (
     'name' => 'date_start',
-    'vname' => 'LBL_DATE',
+    'vname' => 'LBL_CALENDAR_START_DATE',
     'type' => 'datetimecombo',
     'dbType' => 'datetime',
     'comment' => 'Date in which call is schedule to (or did) start',
     'importable' => 'required',
 	'required' => true,
+    'massupdate' => false,
     'enable_range_search' => true,
     'options' => 'date_range_search_dom',
+    'validation' => array('type' => 'isbefore', 'compareto' => 'date_end', 'blank' => false),
+    'studio' => array('recordview' => false),
   ),
 
   'date_end' =>
   array (
     'name' => 'date_end',
-    'vname' => 'LBL_DATE_END',
+    'vname' => 'LBL_CALENDAR_END_DATE',
     'type' => 'datetimecombo',
 	'dbType' => 'datetime',
-    'massupdate'=>false,
+    'massupdate' => false,
     'comment' => 'Date is which call is scheduled to (or did) end',
     'enable_range_search' => true,
     'options' => 'date_range_search_dom',
+    'studio' => array('recordview' => false, 'wirelesseditview'=>false), // date_end is computed by the server from date_start and duration
+    'readonly' => true,
   ),
 
  'parent_type'=>
@@ -86,6 +93,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   	'group'=>'parent_name',
     'options'=> 'parent_type_display',
   	'len'=>255,
+    'studio' => array('wirelesslistview'=>false),
       'comment' => 'The Sugar object to which the call is related'
   	),
 
@@ -100,6 +108,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
 		'group'=>'parent_name',
 		'source'=>'non-db',
 		'options'=> 'parent_type_display',
+    'studio' => true,
   ),
   'status' =>
   array (
@@ -112,6 +121,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
 	'required' => true,
 	'importable' => 'required',
     'default' => 'Planned',
+    'duplicate_on_record_copy' => 'no',
 	'studio' => array('detailview'=>false)
   ),
   'direction' =>
@@ -139,18 +149,20 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'source' => 'non-db',
     'comment' => 'checkbox indicating whether or not the reminder value is set (Meta-data only)',
     'massupdate' => false,
-   ),
+    'studio' => false,
+  ),
   'reminder_time' =>
   array (
     'name' => 'reminder_time',
-    'vname' => 'LBL_REMINDER_TIME',
+    'vname' => 'LBL_POPUP_REMINDER_TIME',
     'type' => 'enum',
     'dbType' => 'int',
     'options' => 'reminder_time_options',
     'reportable' => false,
     'massupdate' => false,
     'default'=> -1,
-    'comment' => 'Specifies when a reminder alert should be issued; -1 means no alert; otherwise the number of seconds prior to the start'
+    'comment' => 'Specifies when a reminder alert should be issued; -1 means no alert; otherwise the number of seconds prior to the start',
+    'studio' => array('recordview' => false, 'wirelesseditview' => false),
   ),
   'email_reminder_checked' => array(
     'name' => 'email_reminder_checked',
@@ -159,6 +171,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'source' => 'non-db',
     'comment' => 'checkbox indicating whether or not the email reminder value is set (Meta-data only)',
     'massupdate' => false,
+    'studio' => false,
    ),
   'email_reminder_time' =>
   array (
@@ -170,7 +183,8 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'reportable' => false,
     'massupdate' => false,
     'default'=> -1,
-    'comment' => 'Specifies when a email reminder alert should be issued; -1 means no alert; otherwise the number of seconds prior to the start'
+    'comment' => 'Specifies when a email reminder alert should be issued; -1 means no alert; otherwise the number of seconds prior to the start',
+    'studio' => array('recordview' => false, 'wirelesseditview' => false),
   ),
   'email_reminder_sent' => array( 
     'name' => 'email_reminder_sent',
@@ -200,7 +214,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   ),
   //bug 39559 
   'set_accept_links' => array (
-    'name' => 'accept_status',
+    'name' => 'set_accept_links',
     'vname' => 'LBL_ACCEPT_LINK',
     'dbType' => 'varchar',
     'type' => 'varchar',
@@ -210,7 +224,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   'contact_name' =>
   array (
     'name' => 'contact_name',
-    'rname' => 'last_name',
+    'rname' => 'name',
     'db_concat_fields'=> array(0=>'first_name', 1=>'last_name'),
     'id_name' => 'contact_id',
     'massupdate' => false,
@@ -225,7 +239,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'source'=>'non-db',
     'len' => 36,
     'importable' => 'false',
-    'studio' => array('required' => false, 'listview'=>true, 'visible' => false),
+    'studio' => false,
   ),
   'opportunities' =>
   array (
@@ -252,9 +266,9 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
         'source' => 'non-db',
         'vname' => 'LBL_PROJECTS'
     ),
-  'case' =>
+  'cases' =>
   array (
-  	'name' => 'case',
+  	'name' => 'cases',
     'type' => 'link',
     'relationship' => 'case_calls',
     'source'=>'non-db',
@@ -271,6 +285,34 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'source'=>'non-db',
     'vname'=>'LBL_ACCOUNT',
   ),
+        'revenuelineitems' => array(
+            'name' => 'revenuelineitems',
+            'type' => 'link',
+            'relationship' => 'revenuelineitem_calls',
+            'module' => 'RevenueLineItems',
+            'bean_name' => 'RevenueLineItem',
+            'source' => 'non-db',
+            'vname' => 'LBL_REVENUELINEITEMS',
+            'workflow' => false
+        ),
+        'products' => array(
+            'name' => 'products',
+            'type' => 'link',
+            'relationship' => 'product_calls',
+            'module' => 'Products',
+            'bean_name' => 'Product',
+            'source' => 'non-db',
+            'vname' => 'LBL_PRODUCTS',
+        ),
+    'bugs' =>
+    array (
+        'name' => 'bugs',
+        'type' => 'link',
+        'relationship' => 'bug_calls',
+        'source'=>'non-db',
+        'vname'=>'LBL_BUGS',
+        'module'=>'Bugs',
+    ),
   'contacts' =>
   array (
   	'name' => 'contacts',
@@ -279,6 +321,23 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'source'=>'non-db',
 		'vname'=>'LBL_CONTACTS',
   ),
+  'prospects' =>
+  array(
+      'name'         => 'prospects',
+      'type'         => 'link',
+      'relationship' => 'prospect_calls',
+      'source'       => 'non-db',
+      'vname'        => 'LBL_PROSPECTS',
+      'module'       => 'Prospects',
+  ),
+  'quotes' =>
+  array(
+      'name' => 'quotes',
+      'type' => 'link',
+      'relationship' => 'quote_calls',
+      'source'=>'non-db',
+      'vname'=>'LBL_QUOTES',
+  ),    
   'users' =>
   array (
   	'name' => 'users',
@@ -286,6 +345,18 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'relationship' => 'calls_users',
     'source'=>'non-db',
 		'vname'=>'LBL_USERS',
+  ),
+  'accept_status_users' => array(
+      'massupdate' => false,
+      'name' => 'accept_status_users',
+      'type' => 'enum',
+      'studio' => 'false',
+      'source' => 'non-db',
+      'vname' => 'LBL_ACCEPT_STATUS',
+      'options' => 'dom_meeting_accept_status',
+      'importable' => 'false',
+      'link' => 'users',
+      'rname_link' => 'accept_status',
   ),
  'notes' =>
   array (
@@ -332,13 +403,15 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   ),
 	'contact_id' => array(
 		'name' => 'contact_id',
-		'type' => 'id',
+        'type' => 'relate',
+		'rname' => 'id',
+        'link' => 'contacts',
 		'source' => 'non-db',
 	),
   'repeat_type' =>
   array(
     'name' => 'repeat_type',
-    'vname' => 'LBL_REPEAT_TYPE',
+    'vname' => 'LBL_CALENDAR_REPEAT_TYPE',
     'type' => 'enum',
     'len' => 36,
     'options' => 'repeat_type_dom',
@@ -351,7 +424,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   'repeat_interval' =>
   array(
     'name' => 'repeat_interval',
-    'vname' => 'LBL_REPEAT_INTERVAL',
+    'vname' => 'LBL_CALENDAR_REPEAT_INTERVAL',
     'type' => 'int',
     'len' => 3,
     'default' => 1,
@@ -364,7 +437,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   'repeat_dow' =>
   array(
     'name' => 'repeat_dow',
-    'vname' => 'LBL_REPEAT_DOW',
+    'vname' => 'LBL_CALENDAR_REPEAT_DOW',
     'type' => 'varchar',
     'len' => 7,
     'comment' => 'Days of week in recurrence',
@@ -376,7 +449,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   'repeat_until' =>
   array(
     'name' => 'repeat_until',
-    'vname' => 'LBL_REPEAT_UNTIL',
+    'vname' => 'LBL_CALENDAR_REPEAT_UNTIL_DATE',
     'type' => 'date',
     'comment' => 'Repeat until specified date',
     'importable' => 'false',
@@ -387,7 +460,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   'repeat_count' =>
   array(
     'name' => 'repeat_count',
-    'vname' => 'LBL_REPEAT_COUNT',
+    'vname' => 'LBL_CALENDAR_REPEAT_COUNT',
     'type' => 'int',
     'len' => 7,
     'comment' => 'Number of recurrence',
@@ -420,6 +493,55 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'reportable' => false,
     'studio' => false,
   ),
+  'send_invites' => array(
+    'name' => 'send_invites',
+    'vname' => 'LBL_SEND_INVITES',
+    'type' => 'bool',
+    'source' => 'non-db',
+    'comment' => 'checkbox indicating whether or not to send out invites (Meta-data only)',
+    'massupdate' => false,
+   ),
+        'invitees' => array(
+            'name' => 'invitees',
+            'source' => 'non-db',
+            'type' => 'collection',
+            'vname' => 'LBL_INVITEES',
+            'links' => array(
+                'contacts',
+                'leads',
+                'users',
+            ),
+            'order_by' => 'name:asc',
+            'studio' => false,
+        ),
+    'auto_invite_parent' => array(
+        'name' => 'auto_invite_parent',
+        'type' => 'bool',
+        'source' => 'non-db',
+        'comment' => 'Flag to allow for turning off auto invite of parent record -  (Meta-data only)',
+        'massupdate' => false,
+    ),
+    'contact_parent' => array(
+        'name' => 'contact_parent',
+        'type' => 'link',
+        'relationship' => 'contact_calls_parent',
+        'source' => 'non-db',
+        'reportable' => false
+    ),
+    'task_parent' => array(
+        'name' => 'task_parent',
+        'type' => 'link',
+        'relationship' => 'task_calls_parent',
+        'source' => 'non-db',
+        'reportable' => false,
+    ),
+    'lead_parent' => array(
+        'name' => 'lead_parent',
+        'type' => 'link',
+        'relationship' => 'lead_calls',
+        'source' => 'non-db',
+        'reportable' => false
+    ),
 ),
 'indices' => array (
 	array(
@@ -437,6 +559,22 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
         'type' => 'index',
         'fields' => array('date_start'),
     ),
+    array(
+        'name' => 'idx_calls_date_start_end_del',
+        'type' => 'index',
+        'fields'=> array('date_start', 'date_end', 'deleted'),
+    ),
+    array(
+        'name' => 'idx_calls_repeat_parent_id',
+        'type' => 'index',
+        'fields' => array('repeat_parent_id', 'deleted'),
+    ),
+    // due to pulls from client side to check if there are reminders to handle.
+    array(
+        'name' => 'idx_calls_date_start_reminder',
+        'type' => 'index',
+        'fields' => array('date_start', 'reminder_time'),
+    ),
     array (
     	'name' => 'idx_calls_par_del',
     	'type' => 'index',
@@ -446,6 +584,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
         'name' =>'idx_calls_assigned_del',
         'type' =>'index',
         'fields'=>array( 'deleted', 'assigned_user_id')),
+    array('name' => 'idx_call_direction', 'type' => 'index', 'fields' => array('direction')),
 ),
 'relationships' => array (
 		'calls_assigned_user' => array(
@@ -487,8 +626,13 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
       'relationship_role_column_value'=>'Calls',
 		),
 	),
+    'acls' => array('SugarACLOpi' => true, 'SugarACLStatic' => true),
 //This enables optimistic locking for Saves From EditView
 	'optimistic_locking'	=> true,
+
+    'duplicate_check' => array(
+        'enabled' => false,
+    ),
 );
 
 VardefManager::createVardef('Calls','Call', array('default', 'assignable',

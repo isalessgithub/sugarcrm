@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,6 +46,10 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Verändert von:',
   'LBL_EXPORT_PARENT_ID' => 'Eltern-ID:',
   'LBL_EXPORT_PARENT_TYPE' => 'Verknüpft mit Modul',
+  'LBL_HELP_CREATE' => 'Das {{plural_module_name}} Modul beeinhaltet Aktionen/Aufgaben und To-Do&#39;s, oder andere Typen von Aktivitäten die erledigt werden sollen. 
+1. Erfassen Sie alle relevanten Informationen. - Felder die als Pflichtfeld markiert sind müssen ausgefüllt werden um den Datensatz speichern zu können. - Klicken Sie auf "mehr zeigen" um weitere Felder zu erfassen. 2. Drücken Sie auf "Speichern" um den Datensatz verfügbar zu machen und um auf die letzte Seite zurück zu kommen. - Wählen Sie "Speichern und Öffnen" um den neuen {{module_name}} in der Datensatzansicht zu öffnen. - Wählen Sie "Speichern und neuen Datensatz erstellen" um sofort einen weiteren {{module_name}} Datensatz anzulegen.',
+  'LBL_HELP_RECORD' => 'Das {{plural_module_name}} Modul beeinhaltet Aktionen/Aufgaben und To-Do&#39;s, oder andere Typen von Aktivitäten die erledigt werden sollen. Editieren Sie den Datensatz in dem Sie ein einzelnes Feld anklicken oder indem Sie auf die Bearbeiten Schaltfläche drücken. Sehen Sie sich in der Vorschau Verknüpfungen zu anderen Datensätzen an. Klicken Sie im Subpanel entsprechend auf das Vorschausymbol klicken. Erstellen oder sehen Sie sich Benutzerkommentare und die Änderungshistorie verschiedener Datensätze im  {{activitystream_singular_module}} an indem Sie die Sicht auf "Activity Stream" im unteren linken Bereich stellen. Folgen Sie favorisierten Einträgen indem Sie das Sternsymbol neben dem Namen oben anklicken. Weitere Aktionen finden Sie im Ausklappmenü auf der rechten Seite der Bearbeiten Schaltfläche.',
+  'LBL_HELP_RECORDS' => 'Das {{plural_module_name}} Modul beeinhaltet Aktionen/Aufgaben und To-Do&#39;s, oder andere Typen von Aktivitäten die erledigt werden sollen. Eine {{module_name}} kann mit einem anderen Datensatz verknüpft werden, kann aber auch nur zu einem {{contacts_singular_module}} angelegt werden. Es gibt verschiedene Möglichkeiten wie Sie {{plural_module_name}} in Sugar erstellen, über das {{plural_module_name}} selbst oder über Duplizieren oder importieren von {{plural_module_name}}, etc. Sobald der {{module_name}} erstellt ist, können Informationen in der Datenansicht eingesehen und editiert werden. Abhängig wie mit einer {{module_name}} gearbeitet wird, können die Details einer {{module_name}} auch über das Kalender Module bearbeitet und eingesehen werden. Jeder {{module_name}} kann mit einem anderen Sugar Datensatz wie {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, und viele andere verknüpft werden.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notizen',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Zugew. Benutzer',
   'LBL_LIST_CLOSE' => 'Schließen',
@@ -75,11 +76,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Neue Aufgabe',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'Kein(e)',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notizen',
   'LBL_PARENT_ID' => 'Eltern ID:',
   'LBL_PARENT_NAME' => 'Eltern-Typ:',
   'LBL_PHONE' => 'Telefon:',
   'LBL_PRIORITY' => 'Priorität:',
-  'LBL_RELATED_TO' => 'Gehört zu:',
+  'LBL_REVENUELINEITEMS' => 'Umsatzposten',
   'LBL_SEARCH_FORM_TITLE' => 'Aufgaben Suche',
   'LBL_START_DATE' => 'Startdatum:',
   'LBL_START_DATE_AND_TIME' => 'Startdatum und -zeit:',
@@ -87,6 +89,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Betreff:',
   'LBL_TASK' => 'Aufgaben:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Aufgabe erfolgreich abgeschlossen.',
   'LBL_TASK_INFORMATION' => 'Überblick Aufgaben',
   'LNK_IMPORT_TASKS' => 'Aufgaben importieren',
   'LNK_NEW_TASK' => 'Neue Aufgabe',

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ListView.php 19107 2007-01-06 00:58:36 +0000 (Sat, 06 Jan 2007) wayne $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -50,7 +47,7 @@ $savedDisplayColumns = $current_user->getPreference('ListViewDisplayColumns', $c
 
 $json = getJSONobj();
 
-$seedCase = new KBDocument(); // seed bean
+$seedCase = BeanFactory::getBean('KBDocuments'); // seed bean
 $searchForm = new SearchForm('Cases', $seedCase); // new searchform instance
 
 // setup listview smarty
@@ -58,7 +55,7 @@ $lv = new ListViewSmarty();
 
 if(!empty($_REQUEST['saved_search_select']) && $_REQUEST['saved_search_select']!='_none') {
     if(empty($_REQUEST['fts_search']) && empty($_REQUEST['fts_search_ADV']) && (empty($_REQUEST['clear_query']) || $_REQUEST['clear_query']!='true')) {
-        $saved_search = loadBean('SavedSearch');
+        $saved_search = BeanFactory::getBean('SavedSearch');
         $saved_search->retrieveSavedSearch($_REQUEST['saved_search_select']);
         $saved_search->populateRequest();
     }
@@ -160,7 +157,7 @@ $savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . 
 echo get_form_header($current_module_strings['LBL_LIST_FORM_TITLE'] . $savedSearchName, '', false);
 echo $lv->display();
 
-$savedSearch = new SavedSearch();
+$savedSearch = BeanFactory::getBean('SavedSearch');
 $json = getJSONobj();
 // fills in saved views select box on shortcut menu
 $savedSearchSelects = $json->encode(array($GLOBALS['app_strings']['LBL_SAVED_SEARCH_SHORTCUT'] . '<br>' . $savedSearch->getSelect('KBDocuments')));

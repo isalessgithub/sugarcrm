@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'ID Compte',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Usuari Creat',
   'LBL_CURRENCY' => 'Moneda:',
   'LBL_CURRENCY_ID' => 'ID Moneda:',
+  'LBL_CURRENCY_RATE' => 'Divisa',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Data de Firma per Client:',
   'LBL_DAYS' => 'Dia(es)',
   'LBL_DESCRIPTION' => 'Descripció:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
   'LBL_END_DATE' => 'Data de Fi:',
   'LBL_EXPIRATION_NOTICE' => 'Avís de Caducitat:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID d&#39;usuari assignat',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nom d&#39;usuari assignat',
+  'LBL_EXPORT_CREATED_BY' => 'Creat per ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat per ID',
+  'LBL_EXPORT_TYPE_NAME' => 'Nom de tipus',
   'LBL_LIST_ACCOUNT_NAME' => 'Compte',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Usuari',
   'LBL_LIST_CONTRACT_NAME' => 'Nom de Contracte',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Equip',
   'LBL_MODIFIED_USER' => 'Usuari Modificat',
   'LBL_MODULE_NAME' => 'Contractes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Contrate',
   'LBL_MODULE_TITLE' => 'Contractes: Inici',
   'LBL_NEW_FORM_TITLE' => 'Nou Contracte',
   'LBL_NONE' => 'Cap',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_OPPORTUNITY' => 'Oportunitat:',
-  'LBL_OPPORTUNITY_NAME' => 'Nom oportunitat',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Productes',
+  'LBL_OPPORTUNITY_ID' => 'ID d&#39;oportunitat',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Pressuposts',
   'LBL_REFERENCE_CODE' => 'Codi de Referència:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Línia d&#39;impostos articles',
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Contractes',
   'LBL_SF_ACCOUNT_NAME' => 'Compte:',
   'LBL_SF_ASSIGNED_TO' => 'Assignat a:',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Valor del Contracte:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Valor del Contracte (Dòlar EEUU):',
   'LBL_TYPE' => 'Tipus',
+  'LBL_TYPE_NAME' => 'Nom de tipus',
   'LBL_UNDEFINED' => 'No definit',
   'LNK_CONTRACT_LIST' => 'Llista de Contractes',
   'LNK_IMPORT_CONTRACTS' => 'Importar Contractes',

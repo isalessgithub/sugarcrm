@@ -1,51 +1,29 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Notifications/Notifications.php');
 
+/**
+ * @deprecated Since 7.5 will be removed on 7.8
+ */
 class NotificationsController extends SugarController
 {
     var $action_remap = array ( ) ;
 
     /**
-     * DEPRECATED 
-     *
+     * @deprecated Since 7.5 will be removed on 7.8
      */
-    function action_checkNewNotifications()
+    public function __construct()
     {
-	    global $timedate;
-	   
-	    $thirtySecondsAgoFormatted = $timedate->getNow()->get("30 seconds ago")->asDb();
-
-	    $now = $timedate->nowDb();
-
-	    $lastNotiticationCheck = !empty($_SESSION['lastNotificationCheck']) ? $_SESSION['lastNotificationCheck'] : $thirtySecondsAgoFormatted;
-	    
-        $n = new Notifications();
-        $unreadCount = $n->retrieveUnreadCountFromDateEnteredFilter($lastNotiticationCheck);
-        
-        //Store the last datetime checked.
-        $_SESSION['lastNotificationCheck'] = $now;
-        
-        $results = array('unreadCount' => $unreadCount );
-
-	    $json = getJSONobj();
-		$out = $json->encode($results);
-		ob_clean();
-		print($out);
-		sugar_cleanup(true);
-	    
+        $GLOBALS['log']->deprecated('Notifications/controller.php is deprecated');
+        parent::SugarController();
     }
 }
-?>

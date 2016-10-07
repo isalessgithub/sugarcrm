@@ -1,22 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry)
 	die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once ('modules/DynamicFields/DynamicField.php');
 require_once ('modules/DynamicFields/FieldCases.php');
-global $db;
+global $db, $mod_strings;
 
 if (!isset ($db)) {
 	$db = DBManagerFactory:: getInstance();
@@ -38,15 +35,12 @@ while ($row = $db->fetchByAssoc($result)) {
 $simulate = false;
 if (!isset ($_REQUEST['run'])) {
 	$simulate = true;
-	echo "SIMULATION MODE - NO CHANGES WILL BE MADE EXCEPT CLEARING CACHE";
+	echo $mod_strings['LBL_UPGRADE_FIELDS_SIMULATION_MODE'];
 }
 
 foreach ($modules as $the_module => $fields) {
-	$class_name = $beanList[$the_module];
-	echo "<br><br>Scanning $the_module <br>";
-
-	require_once ($beanFiles[$class_name]);
-	$mod = new $class_name ();
+	echo "<br><br>".$mod_strings['LBL_UPGRADE_FIELDS_SCANNING']." $the_module <br>";
+    $mod = BeanFactory::getBean($the_module);
 	if (!$db->tableExists($mod->table_name."_cstm")) {
 		$mod->custom_fields = new DynamicField();
 		$mod->custom_fields->setup($mod);
@@ -72,7 +66,7 @@ foreach ($modules as $the_module => $fields) {
 				$db->query("ALTER TABLE $mod->table_name"."_cstm DROP COLUMN $col");
 			}
 			unset ($fields[$col]);
-			echo "Dropping Column $col from $mod->table_name"."_cstm for module $the_module<br>";
+            echo string_format($mod_strings['LBL_UPGRADE_FIELDS_DROPPING_COLUMN'], array($col, $mod->table_name."_cstm", $the_module))."<br>";
 		} else {
 			if ($col != 'id_c') {
 				$db_data_type = strtolower(str_replace(' ' , '', $the_field->get_db_type()));
@@ -80,7 +74,7 @@ foreach ($modules as $the_module => $fields) {
 				$type = strtolower(str_replace(' ' , '', $type));
 				if (strcmp($db_data_type,$type) != 0) {
 
-					echo "Fixing Column Type for $col changing $type to ".$db_data_type."<br>";
+					echo string_format($mod_strings['LBL_UPGRADE_FIELDS_FIXING_COLUMN'], array($col, $type)) . $db_data_type."<br>";
 					if (!$simulate) {
 						$db->query($the_field->get_db_modify_alter_table($mod->table_name.'_cstm'));
                     }
@@ -92,9 +86,9 @@ foreach ($modules as $the_module => $fields) {
 
 	}
 
-	echo sizeof($fields)." field(s) missing from $mod->table_name"."_cstm<br>";
+	echo sizeof($fields)." ".$mod_strings['LBL_UPGRADE_FIELDS_FIELD_MISSING']." $mod->table_name"."_cstm<br>";
 	foreach ($fields as $field) {
-		echo "Adding Column $field to $mod->table_name"."_cstm<br>";
+		echo string_format($mod_strings['LBL_UPGRADE_FIELDS_ADDING_COLUMN'], array($field))." $mod->table_name"."_cstm<br>";
 		if (!$simulate)
 			$mod->custom_fields->add_existing_custom_field($field);
 	}
@@ -102,8 +96,8 @@ foreach ($modules as $the_module => $fields) {
 }
 
 DynamicField :: deleteCache();
-echo '<br>Done<br>';
+echo '<br>'.$mod_strings['LBL_DONE'].'<br>';
 if ($simulate) {
-	echo '<a href="index.php?module=Administration&action=UpgradeFields&run=true">Execute non-simulation mode</a>';
+	echo '<a href="index.php?module=Administration&action=UpgradeFields&run=true">'.$mod_strings['LBL_UPGRADE_FIELDS_EXECUTE_NON_SIM_MODE'].'</a>';
 }
 ?>

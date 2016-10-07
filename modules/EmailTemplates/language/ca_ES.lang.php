@@ -1,21 +1,15 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-	
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
   'LBL_ACCOUNT' => 'Compte',
@@ -34,6 +28,7 @@ $mod_strings = array (
   'LBL_EDIT_ALT_TEXT' => 'Editar Text Plà',
   'LBL_EDIT_LAYOUT' => 'Editar disseny',
   'LBL_EMAIL_ATTACHMENT' => 'Adjunt de Correu',
+  'LBL_FILTER_EMAIL_TYPE_TEMPLATES' => 'Plantilles per Email',
   'LBL_FROM_ADDRESS' => 'Direcció del Remitent',
   'LBL_FROM_NAME' => 'Nom del Remitent',
   'LBL_HIDE_ALT_TEXT' => 'Amaga el text sense format',
@@ -66,6 +61,7 @@ $mod_strings = array (
   'LBL_SHOW_ALT_TEXT' => 'Mostrar Text Plà',
   'LBL_SUBJECT' => 'Assumpte:',
   'LBL_SUGAR_DOCUMENT' => 'Document Sugar',
+  'LBL_TEAM' => 'Equips',
   'LBL_TEAMS' => 'Equips:',
   'LBL_TEAMS_LINK' => 'Equip',
   'LBL_TEXT_BODY' => 'Cos de Text',
@@ -91,4 +87,3 @@ $mod_strings = array (
   'LNK_VIEW_CALENDAR' => 'Avui',
   'LNK_VIEW_MY_INBOX' => 'Veure el Meu Correu',
 );
-

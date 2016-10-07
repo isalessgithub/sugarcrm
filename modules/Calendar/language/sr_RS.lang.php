@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nije definisan za ovaj pogled',
-  'ERR_YEAR_BETWEEN' => 'Izvinjavamo se, kalendar ne može da obradi vaš zahtev<br>Godina mora biti između 1970 i 2037',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nije definisano za ovaj pogled',
+  'ERR_YEAR_BETWEEN' => 'Izvinjavamo se,  kalendar ne može da obradi traženu godinu <br>Godina mora biti između 1970. i 2037.',
   'LBL_AM' => 'Pre podne',
   'LBL_APPLY_BUTTON' => 'Primeni',
   'LBL_ASSIGNED_TO_NAME' => 'Dodeljeno',
   'LBL_BUSY' => 'Zauzeto',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Povratni brojač događaja {0} je dostigao svoj limit',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} nije roditeljsko vraćanje',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} nije povratni događaj',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} nije prepoznat kao modul povratnog događaja',
   'LBL_CANCEL_BUTTON' => 'Otkaži',
   'LBL_CLOSE_BUTTON' => 'Zatvori',
   'LBL_CONFIRM_REMOVE' => 'Da li ste sigurni da želite uklonite ovaj zapis?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Sukob',
   'LBL_CREATE_CALL' => 'Evidentiraj poziv',
   'LBL_CREATE_MEETING' => 'Zakaži sastanak',
+  'LBL_CREATE_NEW_CALL' => 'Kreiraj poziv',
   'LBL_CREATE_NEW_RECORD' => 'Kreiraj aktivnost',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Kreirate novi sastanak. Da li ste hteli da kreirate zadatak ili zakažete poziv',
   'LBL_DATE' => 'Datum i vreme početka:',
   'LBL_DATE_END_ERROR' => 'Datum kraja je pre datuma početka',
   'LBL_DATE_TIME' => 'Datum i vreme',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Obriši',
   'LBL_DURATION' => 'Trajanje',
   'LBL_EDIT_ALL_RECURRENCES' => 'Uredi sva ponavljanja',
+  'LBL_EDIT_CALL' => 'Izmeni poziv',
   'LBL_EDIT_RECORD' => 'Uredi aktivnost',
   'LBL_EDIT_USERLIST' => 'Lista korisnika',
   'LBL_ERROR_LOADING' => 'Greška pri učitavanju',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Sledeća nedelja',
   'LBL_NEXT_YEAR' => 'Sledeća godina',
   'LBL_NO' => 'Ne',
+  'LBL_NO_ACCESS' => 'Nemate pristup',
   'LBL_NO_USER' => 'Nema rezultata za polje: Dodeljeno',
   'LBL_PARTICIPANTS_TAB' => 'Pozvani',
   'LBL_PM' => 'Po podne',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Pošalji pozvanima',
   'LBL_SETTINGS' => 'Podešavanja',
   'LBL_SETTINGS_CALLS_SHOW' => 'Prikaži pozive:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Prikaži završene sastanke, pozive i zadatke',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Prikaži vremenske slotove u pogledima dana i nedelje:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Prikaži zadatke:',
   'LBL_SETTINGS_TIME_ENDS' => 'Vreme završetka:',

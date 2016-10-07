@@ -1,35 +1,44 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
 /*
- * Created on Apr 13, 2007
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
+ * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
 require_once('include/EditView/EditView2.php');
- class ViewEdit extends SugarView{
+class ViewEdit extends SugarView
+{
  	var $ev;
  	var $type ='edit';
  	var $useForSubpanel = false;  //boolean variable to determine whether view can be used for subpanel creates
  	var $useModuleQuickCreateTemplate = false; //boolean variable to determine whether or not SubpanelQuickCreate has a separate display function
  	var $showTitle = true;
 
- 	function ViewEdit(){
- 		parent::SugarView();
- 	}
+    /**
+     * Constructor
+     *
+     * @see SugarView::SugarView()
+     */
+    public function __construct($bean = null, $view_object_map = array())
+    {
+        parent::__construct($bean, $view_object_map);
+    }
+
+    /**
+     * Constructor
+     * @deprecated Use the PHP 5.x style __construct instead
+     * @see SugarView::SugarView()
+     */
+    public function ViewEdit($bean = null, $view_object_map = array())
+    {
+        parent::SugarView($bean, $view_object_map);
+    }
 
     /**
      * @see SugarView::preDisplay()
@@ -38,8 +47,8 @@ require_once('include/EditView/EditView2.php');
     {
         $metadataFile = $this->getMetaDataFile();
         $this->ev = $this->getEditView();
-        $this->ev->ss =& $this->ss;
-        $this->ev->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('include/EditView/EditView.tpl'));
+        $this->ev->ss = $this->ss;
+        $this->ev->setup($this->module, $this->bean, $metadataFile, SugarAutoLoader::existingCustomOne('include/EditView/EditView.tpl'));
     }
 
  	function display(){

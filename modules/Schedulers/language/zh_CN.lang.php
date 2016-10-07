@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => '非法Cron语法',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => '每天',
   'LBL_ALWAYS' => '始终',
   'LBL_AND' => '和',
+  'LBL_ASYNCMASSUPDATE' => '执行异步大规模更新',
   'LBL_AT' => '在',
   'LBL_AT_THE' => '在',
   'LBL_BASIC_OPTIONS' => '基本设置',
   'LBL_CATCH_UP' => '错过时执行',
   'LBL_CATCH_UP_WARNING' => '如果这个任务执行需要一些时间就取消选择。',
   'LBL_CLEANJOBQUEUE' => '清理任务队列',
+  'LBL_CLEANOLDRECORDLISTS' => '清除旧记录列表',
   'LBL_CRONTAB_EXAMPLES' => '使用上述标准crontab符号。',
   'LBL_CRONTAB_SERVER_TIME_POST' => ')。 请相应地确定任务执行。',
   'LBL_CRONTAB_SERVER_TIME_PRE' => '计量规格基于服务器所在的时区运行 (',
@@ -55,14 +54,14 @@ $mod_strings = array (
   'LBL_JOBS_SUBPANEL_TITLE' => '任务日志',
   'LBL_JOB_URL' => '任务 URL',
   'LBL_LAST_RUN' => '最后执行时间',
-  'LBL_LIST_EXECUTE_TIME' => '执行时间:',
-  'LBL_LIST_JOB_INTERVAL' => '间隔:',
-  'LBL_LIST_LIST_ORDER' => '计划任务:',
-  'LBL_LIST_NAME' => '计划任务:',
-  'LBL_LIST_RANGE' => '范围:',
-  'LBL_LIST_REMOVE' => '移除:',
-  'LBL_LIST_STATUS' => '状态:',
-  'LBL_LIST_TITLE' => '计划任务列表:',
+  'LBL_LIST_EXECUTE_TIME' => '执行时间：',
+  'LBL_LIST_JOB_INTERVAL' => '间隔：',
+  'LBL_LIST_LIST_ORDER' => '计划任务：',
+  'LBL_LIST_NAME' => '计划任务：',
+  'LBL_LIST_RANGE' => '范围：',
+  'LBL_LIST_REMOVE' => '移除：',
+  'LBL_LIST_STATUS' => '状态：',
+  'LBL_LIST_TITLE' => '计划任务列表：',
   'LBL_MINS' => '分钟',
   'LBL_MINUTES' => '分钟',
   'LBL_MIN_MARK' => '分钟标示',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => '运行每晚批量运行邮件营销',
   'LBL_OOTB_CLEANUP_QUEUE' => '清理任务队列',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => '创建未来时间周期',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => '检查收件箱',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => '流程撰写器已计划的作业',
   'LBL_OOTB_PRUNE' => '每月1号精简数据库',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => '从文件系统的文件删除',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => '删减旧的记录列表',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => '移除诊断工具文件',
+  'LBL_OOTB_REMOVE_PDF_FILES' => '移除临时PDF文件',
+  'LBL_OOTB_REMOVE_TMP_FILES' => '移除临时文件',
   'LBL_OOTB_REPORTS' => '运行报表生成计划任务',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => '运行邮件提醒通知',
-  'LBL_OOTB_SUGARFEEDS' => '修改sugarfeed表',
   'LBL_OOTB_TRACKER' => '清理跟踪器表',
-  'LBL_OOTB_WORKFLOW' => '处理工作流程任务',
+  'LBL_OOTB_WORKFLOW' => '处理工作流任务',
   'LBL_PERENNIAL' => '永久',
   'LBL_PERFORMFULLFTSINDEX' => '全文搜索索引系统',
+  'LBL_PMSEENGINECRON' => '流程撰写排程器',
   'LBL_POLLMONITOREDINBOXES' => '收取邮件',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => '收取退订邮件',
   'LBL_PROCESSQUEUE' => '执行队列',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => '清理数据库',
   'LBL_RANGE' => '到',
   'LBL_REFRESHJOBS' => '刷新任务',
-  'LBL_REMOVEDOCUMENTSFROMFS' => '从文件系统的文件删除',
   'LBL_RUNMASSEMAILCAMPAIGN' => '批量发送市场活动邮',
   'LBL_SAT' => '星期六',
   'LBL_SCHEDULER' => '计划任务:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => '运行发送邮件提醒',
   'LBL_STATUS' => '状态',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => '创建未来时间周期',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => '星期日',
   'LBL_THU' => '星期四',
   'LBL_TIME_FROM' => '启用从',
   'LBL_TIME_TO' => '启用到',
   'LBL_TOGGLE_ADV' => '高级选项',
   'LBL_TOGGLE_BASIC' => '基本选项',
-  'LBL_TRIMSUGARFEEDS' => '修改sugarfeed表',
   'LBL_TRIMTRACKER' => '清除访问记录',
   'LBL_TUE' => '星期二',
   'LBL_UPDATETRACKERSESSIONS' => '更新访问记录会话信息',

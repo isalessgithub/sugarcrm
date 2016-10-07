@@ -1,21 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ImportDuplicateCheck.php 31561 2008-02-04 18:41:10Z jmertic $
  * Description: Handles getting a list of fields to duplicate check and doing the duplicate checks
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -25,6 +22,8 @@ class ImportDuplicateCheck
 {
     /**
      * Private reference to the bean we're dealing with
+     *
+     * @var SugarBean
      */
     private $_focus;
 
@@ -56,6 +55,22 @@ class ImportDuplicateCheck
         if($this->_focus->hasCustomFields()){
             $custmIndexes = $this->_focus->db->helper->get_indices($this->_focus->table_name.'_cstm');
             $indexes = array_merge($custmIndexes,$indexes);
+        }
+
+        // remove any that are datetime or time field as we can't dupe check them correctly since we don't export
+        // seconds
+        $fields = $this->_focus->getFieldDefinitions();
+        foreach ($indexes as $key => $index) {
+            foreach ($index['fields'] as $field) {
+                if (isset($fields[$field])
+                    && (
+                        $fields[$field]['type'] == 'datetime'
+                        || $fields[$field]['type'] == 'datetimecombo'
+                        || $fields[$field]['type'] == 'time')) {
+                    unset($indexes[$key]);
+                    break 1;
+                }
+            }
         }
 
         if ( $this->_focus->getFieldDefinition('email1') )
@@ -117,7 +132,7 @@ class ImportDuplicateCheck
         {
             if ( $field == 'email1' || $field == 'email2' )
             {
-                $emailAddress = new SugarEmailAddress();
+                $emailAddress = BeanFactory::getBean('EmailAddresses');
                 $email = $field;
                 if ( $emailAddress->getCountEmailAddressByBean($this->_focus->$email,$this->_focus,($field == 'email1')) > 0 )
                     return true;
@@ -141,7 +156,7 @@ class ImportDuplicateCheck
                 if ( count($index_fields) <= 1 )
                     continue;
 
-                $newfocus = loadBean($this->_focus->module_dir);
+                $newfocus = BeanFactory::getBean($this->_focus->module_dir);
                 $result = $newfocus->retrieve_by_string_fields($index_fields,true);
 
                 if ( !is_null($result) )
@@ -197,7 +212,7 @@ class ImportDuplicateCheck
         //if full_name is set, then manually search on the first and last name fields before iterating through rest of fields
         //this is a special handling of the name fields on people objects, the rest of the fields are checked individually
         if(in_array('full_name',$indexlist)){
-            $newfocus = loadBean($this->_focus->module_dir);
+            $newfocus = BeanFactory::getBean($this->_focus->module_dir);
             $result = $newfocus->retrieve_by_string_fields(array('deleted' =>'0', 'first_name'=>$this->_focus->first_name, 'last_name'=>$this->_focus->last_name),true);
 
             if ( !is_null($result) ){
@@ -217,7 +232,7 @@ class ImportDuplicateCheck
 
             // This handles the special case of duplicate email checking
             if ( $index['name'] == 'special_idx_email1' || $index['name'] == 'special_idx_email2' ) {
-                $emailAddress = new SugarEmailAddress();
+                $emailAddress = BeanFactory::getBean('EmailAddresses');
                 $email = $index['fields'][0];
                 if ( $emailAddress->getCountEmailAddressByBean(
                         $this->_focus->$email,
@@ -250,7 +265,7 @@ class ImportDuplicateCheck
                 if ( count($index_fields) <= 1 )
                     continue;
 
-                $newfocus = loadBean($this->_focus->module_dir);
+                $newfocus = BeanFactory::getBean($this->_focus->module_dir);
                 $result = $newfocus->retrieve_by_string_fields($index_fields,true);
 
                 if ( !is_null($result) ){

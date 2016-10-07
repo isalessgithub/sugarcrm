@@ -1,31 +1,30 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
-	'comment' => 'OAuth tokens',
-	'audited'=>false,
-	'fields' => array (
-	  'id' =>
-	  array (
-	    'name' => 'id',
-	    'vname' => 'LBL_ID',
-	    'type' => 'id',
-	    'required'=>true,
-	    'reportable'=>true,
-	    'comment' => 'Unique identifier'
-	  ),
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$dictionary['OAuthToken'] = array(
+    'table' => 'oauth_tokens',
+    'favorites' => false,
+    'comment' => 'OAuth tokens',
+    'audited' => false,
+    'fields' => array (
+      'id' =>
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+        'reportable' => true,
+        'comment' => 'Unique identifier'
+      ),
       'secret' =>
       array (
             'name' => 'secret',
@@ -59,6 +58,15 @@ $dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
             'comment' => 'Token timestamp',
             'function' => array('name' => 'displayDateFromTs', 'returns' => 'html', 'onListView' => true)
       ),
+      'expire_ts' =>
+      array (
+            'name' => 'expire_ts',
+            'type' => 'long',
+            'required' => true,
+            'default' => -1,
+            'comment' => 'Token expiration, defaults to -1 for no expiration date',
+            'function' => array('name' => 'displayDateFromTs', 'returns' => 'html', 'onListView' => true)
+      ),
       'verify' =>
       array (
             'name' => 'verify',
@@ -66,12 +74,21 @@ $dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
             'len' => 32,
             'comment' => 'Token verification info',
       ),
-//      'authdata' =>
-//      array (
-//            'name' => 'verify',
-//            'type' => 'text',
-//            'comment' => 'Token auth data',
-//      ),
+      'download_token' =>
+      array (
+            'name' => 'download_token',
+            'type' => 'varchar',
+            'len' => 36,
+            'comment' => 'A token used to download images and files.',
+      ),
+      'platform' =>
+      array (
+            'name' => 'platform',
+            'type' => 'varchar',
+            'len' => 255,
+            'comment' => 'Which platform is this token attached to',
+            'default' => 'base',
+      ),
 	  'deleted' =>
 	  array (
 	    'name' => 'deleted',
@@ -116,19 +133,40 @@ $dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
 		    'module'=>'OAuthKeys',
 		    'duplicate_merge'=>'disabled'
 	  ),
+      'contact_id'=>
+      array(
+          'name'=>'contact_id',
+          'vname'=>'LBL_CONTACTS',
+          'type'=>'id',
+          'required'=>false,
+          'reportable'=>false,
+          'comment' => 'Contact ID this oauth token is associated with (via portal)'
+      ),
+      'contact_name'=>
+      array(
+          'name'=>'contact_name',
+          'rname'=>'name',
+          'id_name'=>'contact_id',
+          'vname'=>'LBL_CONTACTS',
+          'table'=>'contacts',
+          'type'=>'relate',
+          'link'=>'contacts',
+          'join_name'=>'contacts',
+          'db_concat_fields'=> array(0=>'first_name', 1=>'last_name'),
+          'isnull'=>'true',
+          'module'=>'Contacts',
+          'bean_name'=>'Contact',
+          'source'=>'non-db',
+      ),
+
 	 'assigned_user_id' =>
 		array (
 			'name' => 'assigned_user_id',
-			'rname' => 'user_name',
-			'id_name' => 'assigned_user_id',
 			'vname' => 'LBL_ASSIGNED_TO_ID',
 			'group'=>'assigned_user_name',
-			'type' => 'relate',
-			'table' => 'users',
-			'module' => 'Users',
+            'type' => 'id',
 			'reportable'=>true,
 			'isnull' => 'false',
-			'dbType' => 'id',
 			'audited'=>true,
 			'comment' => 'User ID assigned to record',
             'duplicate_merge'=>'disabled'
@@ -145,7 +183,8 @@ $dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
 		    'table' => 'users',
 		    'id_name' => 'assigned_user_id',
 		    'module'=>'Users',
-		    'duplicate_merge'=>'disabled'
+		    'duplicate_merge'=>'disabled',
+            'exportable'=> true,
 	 ),
 	 'assigned_user_link' =>
       array (
@@ -162,7 +201,17 @@ $dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
         'id_name' => 'assigned_user_id',
         'table' => 'users',
   ),
+  'contacts' =>
+  array (
+    'name' => 'contacts',
+    'type' => 'link',
+    'relationship' => 'contacts_oauthtokens',
+    'vname' => 'LBL_CONTACTS',
+    'source'=>'non-db',
   ),
+
+  ),
+    'acls' => array('SugarACLOAuthTokens' => true),
     'indices' => array (
        'id'=>array('name' =>'oauthtokenpk', 'type' =>'primary', 'fields'=>array('id', 'deleted')),
        'state_ts'=>array('name' =>"oauth_state_ts", 'type' =>'index', 'fields'=>array('tstate','token_ts')),
@@ -176,6 +225,14 @@ $dictionary['OAuthToken'] = array('table' => 'oauth_tokens',
 	  'oauthtokens_assigned_user' =>
            array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
            'rhs_module'=> 'OAuthTokens' , 'rhs_table'=> 'oauth_tokens', 'rhs_key' => 'assigned_user_id',
-           'relationship_type'=>'one-to-many')
+                 'relationship_type'=>'one-to-many'),
+        'contacts_oauthtokens' => array('lhs_module' => 'Contacts',
+                                 'lhs_table' => 'contacts',
+                                 'lhs_key' => 'id',
+                                 'rhs_module' => 'OAuthTokens',
+                                 'rhs_table' => 'oauth_tokens',
+                                 'rhs_key' => 'contact_id',
+                                 'relationship_type' => 'one-to-many'),
+
            )
 );

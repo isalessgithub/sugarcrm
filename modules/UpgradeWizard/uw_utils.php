@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -380,7 +377,7 @@ function deleteAndOverWriteSelectedFiles($unzip_dir, $zip_from_dir,$delete_dirs)
 // to use this function to empty a directory, write:
 // recursive_remove_directory('path/to/full_directory');
 
-function recursive_empty_or_remove_directory($directory, $exclude_dirs=null,$exclude_files=null,$empty=TRUE)
+function recursive_empty_or_remove_directory($directory, $exclude_dirs=null,$exclude_files=null,$empty=true)
 {
 	// if the path has a slash at the end we remove it here
 	if(substr($directory,-1) == '/')
@@ -392,13 +389,13 @@ function recursive_empty_or_remove_directory($directory, $exclude_dirs=null,$exc
 	if(!file_exists($directory) || !is_dir($directory))
 	{
 		// ... we return false and exit the function
-		return FALSE;
+		return false;
 
 	// ... if the path is not readable
 	}elseif(!is_readable($directory))
 	{
 		// ... we return false and exit the function
-		return FALSE;
+		return false;
 
 	// ... else if the path is readable
 	}else{
@@ -407,7 +404,7 @@ function recursive_empty_or_remove_directory($directory, $exclude_dirs=null,$exc
 		$handle = opendir($directory);
 
 		// and scan through the items inside
-		while (FALSE !== ($item = readdir($handle)))
+		while (false !== ($item = readdir($handle)))
 		{
 			// if the filepointer is not the current directory
 			// or the parent directory
@@ -442,17 +439,17 @@ function recursive_empty_or_remove_directory($directory, $exclude_dirs=null,$exc
 		closedir($handle);
 
 		// if the option to empty is not set to true
-		if($empty == FALSE)
+		if($empty == false)
 		{
 			// try to delete the now empty directory
 			if(!rmdir($directory))
 			{
 				// return false if not possible
-				return FALSE;
+				return false;
 			}
 		}
 		// return success
-		return TRUE;
+		return true;
 	}
 }
 // ------------------------------------------------------------
@@ -538,77 +535,6 @@ function removeMd5MatchingFiles($deleteNot=array()){
    }
 }
 
-/**
- * Handles requirements for creating reminder Tasks and Emails
- * @param array skippedFiles Array of files that were not overwriten and must be manually mereged.
- * @param string path Optional full path to alternate upgradeWizard log.
- */
-function commitHandleReminders($skippedFiles, $path='') {
-	global $mod_strings;
-	global $current_user;
-
-	if(empty($mod_strings))
-		$mod_strings = return_module_language('en_us', 'UpgradeWizard');
-
-	if(empty($current_user->id)) {
-		$current_user->getSystemUser();
-	}
-
-	if(count($skippedFiles) > 0) {
-		$desc = $mod_strings['LBL_UW_COMMIT_ADD_TASK_OVERVIEW'] . "\n\n";
-		$desc .= $mod_strings['LBL_UW_COMMIT_ADD_TASK_DESC_1'];
-		$desc .= $_SESSION['uw_restore_dir'] . "\n\n";
-		$desc .= $mod_strings['LBL_UW_COMMIT_ADD_TASK_DESC_2'] . "\n\n";
-
-		foreach($skippedFiles as $file) {
-			$desc .= $file . "\n";
-		}
-
-		//MFH #13468
-		/// Not using new TimeDate stuff here because it needs to be compatible with 6.0
-		$nowDate = gmdate('Y-m-d');
-		$nowTime = gmdate('H:i:s');
-		$nowDateTime = $nowDate . ' ' . $nowTime;
-
-		if($_REQUEST['addTaskReminder'] == 'remind') {
-			logThis('Adding Task for admin for manual merge.', $path);
-
-			$task = new Task();
-			$task->name = $mod_strings['LBL_UW_COMMIT_ADD_TASK_NAME'];
-			$task->description = $desc;
-			$task->date_due = $nowDate;
-			$task->time_due = $nowTime;
-			$task->priority = 'High';
-			$task->status = 'Not Started';
-			$task->assigned_user_id = $current_user->id;
-			$task->created_by = $current_user->id;
-			$task->date_entered = $nowDateTime;
-			$task->date_modified = $nowDateTime;
-			$task->team_id = '1';
-			$task->save();
-		}
-
-		if($_REQUEST['addEmailReminder'] == 'remind') {
-			logThis('Sending Reminder for admin for manual merge.', $path);
-
-			$email = new Email();
-			$email->assigned_user_id = $current_user->id;
-			$email->name = $mod_strings['LBL_UW_COMMIT_ADD_TASK_NAME'];
-			$email->description = $desc;
-			$email->description_html = nl2br($desc);
-			$email->from_name = $current_user->full_name;
-			$email->from_addr = $current_user->email1;
-			$email->to_addrs_arr = $email->parse_addrs($current_user->email1, '', '', '');
-			$email->cc_addrs_arr = array();
-			$email->bcc_addrs_arr = array();
-			$email->date_entered = $nowDateTime;
-			$email->date_modified = $nowDateTime;
-			$email->team_id = '1';
-			$email->send();
-			$email->save();
-		}
-	}
-}
 
 function deleteCache(){
 	//Clean modules from cache
@@ -699,23 +625,23 @@ function upgradeUWFiles($file) {
     }
     // upgradeWizard
     if(file_exists("$from_dir/modules/UpgradeWizard")) {
-        $allFiles[] = findAllFiles("$from_dir/modules/UpgradeWizard", $allFiles);
+        $allFiles[] = findAllFiles("$from_dir/modules/UpgradeWizard", array());
     }
     // moduleInstaller
     if(file_exists("$from_dir/ModuleInstall")) {
-        $allFiles[] = findAllFiles("$from_dir/ModuleInstall", $allFiles);
+        $allFiles[] = findAllFiles("$from_dir/ModuleInstall", array());
     }
     if(file_exists("$from_dir/include/javascript/yui")) {
-        $allFiles[] = findAllFiles("$from_dir/include/javascript/yui", $allFiles);
+        $allFiles[] = findAllFiles("$from_dir/include/javascript/yui", array());
     }
     if(file_exists("$from_dir/HandleAjaxCall.php")) {
         $allFiles[] = "$from_dir/HandleAjaxCall.php";
     }
     if(file_exists("$from_dir/include/SugarTheme")) {
-        $allFiles[] = findAllFiles("$from_dir/include/SugarTheme", $allFiles);
+        $allFiles[] = findAllFiles("$from_dir/include/SugarTheme", array());
     }
     if(file_exists("$from_dir/include/SugarCache")) {
-        $allFiles[] = findAllFiles("$from_dir/include/SugarCache", $allFiles);
+        $allFiles[] = findAllFiles("$from_dir/include/SugarCache", array());
     }
     if(file_exists("$from_dir/include/utils/external_cache.php")) {
         $allFiles[] = "$from_dir/include/utils/external_cache.php";
@@ -726,14 +652,16 @@ function upgradeUWFiles($file) {
     if(file_exists("$from_dir/include/file_utils.php")) {
         $allFiles[] = "$from_dir/include/file_utils.php";
     }
-    if(file_exists("$from_dir/include/upload_file.php")) {
-        $allFiles[] = "$from_dir/include/upload_file.php";
-    }
     if(file_exists("$from_dir/include/utils/sugar_file_utils.php")) {
         $allFiles[] = "$from_dir/include/utils/sugar_file_utils.php";
     }
+
+    // users
+    if(file_exists("$from_dir/modules/Users")) {
+        $allFiles[] = findAllFiles("$from_dir/modules/Users", array());
+    }
     if(file_exists("$from_dir/include/utils/autoloader.php")) {
-        $allFiles[] = "$from_dir/include/utils/autoloader.php";
+    	$allFiles[] = "$from_dir/include/utils/autoloader.php";
     }
 
     upgradeUWFilesCopy($allFiles, $from_dir);
@@ -925,7 +853,6 @@ eoq;
  */
 function updateVersions($version) {
 	global $db;
-	global $sugar_config;
 	global $path;
 
 	logThis('At updateVersions()... updating config table and sugar_version.php.', $path);
@@ -1112,19 +1039,7 @@ function checkSystemCompliance() {
         $ret['ZipStatus'] = "<b><span class=go>{$installer_mod_strings['LBL_CHECKSYS_OK']}</span></b>";
     }
 
-    // PCRE
-    if(defined('PCRE_VERSION')) {
-        if (version_compare(PCRE_VERSION, '7.0') < 0) {
-            $ret['pcreVersion'] = "<b><span class='stop'>{$installer_mod_strings['ERR_CHECKSYS_PCRE_VER']}</span></b>";
-            $ret['error_found'] = true;
-        }
-        else {
-            $ret['pcreVersion'] = "<b><span class='go'>{$installer_mod_strings['LBL_CHECKSYS_OK']}</span></b>";
-        }
-    } else {
-        $ret['pcreVersion'] = "<b><span class='stop'><b>{$installer_mod_strings['ERR_CHECKSYS_PCRE']}</span></b>";
-        $ret['error_found'] = true;
-    }
+
 
     // Suhosin allow to use upload://
     $ret['stream_msg'] = '';
@@ -1138,7 +1053,7 @@ function checkSystemCompliance() {
         $ret['error_found'] = true;
     }
 
-	/* mbstring.func_overload
+	// mbstring.func_overload
 	$ret['mbstring.func_overload'] = '';
 	$mb = ini_get('mbstring.func_overload');
 
@@ -1146,7 +1061,6 @@ function checkSystemCompliance() {
 		$ret['mbstring.func_overload'] = "<b><span class=\"stop\">{$mod_strings['ERR_UW_MBSTRING_FUNC_OVERLOAD']}</b>";
 		$ret['error_found'] = true;
 	}
-	*/
 	return $ret;
 }
 
@@ -1181,32 +1095,13 @@ function logThis($entry, $path='') {
 	if(file_exists('include/utils/sugar_file_utils.php')){
 		require_once('include/utils/sugar_file_utils.php');
 	}
-		$log = empty($path) ? clean_path(getcwd().'/upgradeWizard.log') : clean_path($path);
+		$log = empty($path) ? 'upgradeWizard.log' : $path;
 
 		// create if not exists
-		if(!file_exists($log)) {
-			if(function_exists('sugar_fopen')){
-				$fp = @sugar_fopen($log, 'w+'); // attempts to create file
-		     }
-		     else{
-				$fp = fopen($log, 'w+'); // attempts to create file
-		     }
-			if(!is_resource($fp)) {
-				$GLOBALS['log']->fatal('UpgradeWizard could not create the upgradeWizard.log file');
-				die($mod_strings['ERR_UW_LOG_FILE_UNWRITABLE']);
-			}
-		} else {
-			if(function_exists('sugar_fopen')){
-				$fp = @sugar_fopen($log, 'a+'); // write pointer at end of file
-		     }
-		     else{
-				$fp = @fopen($log, 'a+'); // write pointer at end of file
-		     }
-
-			if(!is_resource($fp)) {
+		$fp = @fopen($log, 'a+');
+		if(!is_resource($fp)) {
 				$GLOBALS['log']->fatal('UpgradeWizard could not open/lock upgradeWizard.log file');
 				die($mod_strings['ERR_UW_LOG_FILE_UNWRITABLE']);
-			}
 		}
 
 		$line = date('r').' [UpgradeWizard] - '.$entry."\n";
@@ -1221,62 +1116,6 @@ function logThis($entry, $path='') {
 		}
 }
 
-/**
-	*  @params : none
-	*  @author: nsingh
-	*  @desc This function is to be used in the upgrade process to preserve changes/customaizations made to pre 5.1 quickcreate layout.
-	*  Prior to 5.1 we have been using editviewdefs as the base for quickcreatedefs. If a custom field was added to edit view layout, it
-	*  was automatically picked up by the quick create. [Addresses Bug 21469]
-	*  This function will check if customizations were made, and will create quickcreatedefs.php in the /cutom/working/$module_name directory.
-	**/
-function updateQuickCreateDefs(){
-	$d = dir('modules');
-	$studio_modules = array();
-
-	while($e = $d->read()){ //collect all studio modules.
-		if(substr($e, 0, 1) == '.' || !is_dir('modules/' . $e))continue;
-		if(file_exists('modules/' . $e . '/metadata/studio.php'))
-		{
-			array_push($studio_modules, $e);
-		}
-	}
-
-	foreach( $studio_modules as $modname ){ //for each studio enabled module
-		//Check !exists modules/$modname/metadata/quickcreatedefs.php &&
-		//exists custom/$modname/editviewdefs.php (module was customized) &&
-		//!exists custom/$modname/quickcreateviewdefs.php
-
-		$editviewdefs = "custom/working/modules/".$modname."/metadata/editviewdefs.php";
-		$quickcreatedefs = "custom/working/modules/".$modname."/metadata/quickcreatedefs.php";
-
-		if ( !file_exists("modules/".$modname."/metadata/quickcreatedefs.php") &&
-			 file_exists($editviewdefs) &&
-			 !file_exists($quickcreatedefs) ){
-				//clone editviewdef and save it in custom/working/modules/metadata
-				$GLOBALS['log']->debug("Copying editviewdefs.php as quickcreatedefs.php for the $modname module in custom/working/modules/$modname/metadata!");
-				if(copy( $editviewdefs, $quickcreatedefs)){
-					if(file_exists($quickcreatedefs) && is_readable($quickcreatedefs)){
-						$file = file($quickcreatedefs);
-						//replace 'EditView' with 'QuickCreate'
-						$fp = fopen($quickcreatedefs,'w');
-						foreach($file as &$line){
-							if(preg_match('/^\s*\'EditView\'\s*=>\s*$/', $line) > 0){
-								$line = "'QuickCreate' =>\n";
-							}
-							fwrite($fp, $line);
-						}
-						//write back.
-						fclose($fp);
-					}
-					else{
-						$GLOBALS['log']->debug("Failed to replace 'EditView' with QuickCreate because $quickcreatedefs is either not readable or does not exist.");
-					}
-				}else{
-					$GLOBALS['log']->debug("Failed to copy $editviewdefs to $quickcreatedefs!");
-				}
-		}
-	}
-}
 
 /**
  * test perms for CREATE queries
@@ -2038,7 +1877,7 @@ function validate_manifest($manifest) {
         if(!$version_ok && isset($manifest['acceptable_sugar_versions']['regex_matches'])) {
             $matches_empty = false;
             foreach($manifest['acceptable_sugar_versions']['regex_matches'] as $match) {
-                if(preg_match("/$match/", $sugar_version)) {
+                if(!empty($match) && preg_match("/$match/", $sugar_version)) {
                     $version_ok = true;
                 }
             }
@@ -2282,136 +2121,6 @@ function executeConvertTablesSql($tables)
 	}
 	return true;
 }
-
-function testThis() {
-	$files = uwFindAllFiles(getcwd().'/test', array());
-
-	$out = "<table cellpadding='1' cellspacing='0' border='0'>\n";
-
-	$priorPath = '';
-	foreach($files as $file) {
-		$relativeFile = clean_path(str_replace(getcwd().'/test', '', $file));
-		$relativeFile = ($relativeFile{0} == '/') ? substr($relativeFile, 1, strlen($relativeFile)) : $relativeFile;
-
-		$relativePath = dirname($relativeFile);
-
-		if($relativePath == $priorPath) { // same dir, new file
-			$out .= "<tr><td>".basename($relativeFile)."</td></tr>";
-			$priorPath = $relativePath;
-		} else { // new dir
-
-		}
-	}
-
-	$out .= "</table>";
-
-	echo $out;
-}
-
-
-
-
-function testThis2($dir, $id=0, $hide=false) {
-    global $mod_strings;
-	$path = $dir;
-	$dh = opendir($dir);
-	rewinddir($dh);
-
-	$doHide = ($hide) ? 'none' : '';
-	$out = "<div id='{$id}' style='display:{$doHide};'>";
-	$out .= "<table cellpadding='1' cellspacing='0' style='border:0px solid #ccc'>\n";
-
-	while($file = readdir($dh)) {
-		if($file == '.' || $file == '..' || $file == 'CVS' || $file == '.cvsignore')
-			continue;
-
-		if(is_dir($path.'/'.$file)) {
-			$file = $path.'/'.$file;
-			$newI = create_guid();
-			$out .= "<tr><td valign='top'><a href='javascript:toggleNwFiles(\"{$newI}\");'>".SugarThemeRegistry::current()->getImage("Workflow", "", null, null, ".gif", $mod_strings['LBL_WORKFLOW'])."</a></td>\n";
-			$out .= "<td valign='top'><b><a href='javascript:toggleNwFiles(\"{$newI}\");'>".basename($file)."</a></b></td></tr>";
-			$out .= "<tr><td></td><td valign='top'>".testThis2($file, $newI, true)."</td></tr>";
-		} else {
-			$out .= "<tr><td valign='top'>&nbsp;</td>\n";
-			$out .= "<td valign='top'>".basename($file)."</td></tr>";
-		}
-	}
-
-	$out .= "</tr></table>";
-	$out .= "</div>";
-
-	closedir($dh);
-	return $out;
-}
-
-
-
-
-
-function testThis3(&$files, $id, $hide, $previousPath = '') {
-	if(!is_array($files) || empty($files))
-		return '';
-
-	$out = '';
-
-    global $mod_strings;
-	// expecting full path here
-	foreach($files as $k => $file) {
-		$file = str_replace(getcwd(), '', $file);
-		$path = dirname($file);
-		$fileName = basename($file);
-
-		if($fileName == 'CVS' || $fileName == '.cvsignore')
-			continue;
-
-		if($path == $previousPath) { // same directory
-			// new row for each file
-			$out .= "<tr><td valign='top' align='left'>&nbsp;</td>";
-			$out .= "<td valign='top' align='left'>{$fileName}</td></tr>";
-		} else { // new directory
-			$newI = $k;
-			$out .= "<tr><td valign='top'><a href='javascript:toggleNwFiles(\"{$newI}\");'>".SugarThemeRegistry::current()->getImage("Workflow", "", null, null, ".gif", $mod_strings['LBL_WORKFLOW'])."</a></td>\n";
-			$out .= "<td valign='top'><b><a href='javascript:toggleNwFiles(\"{$newI}\");'>".$fileName."</a></b></td></tr>";
-			$recurse = testThis3($files, $newI, true, $previousPath);
-			$out .= "<tr><td></td><td valign='top'>".$recurse."</td></tr>";
-		}
-
-		$previousPath = $path;
-	}
-	$display = ($hide) ? 'none' : '';
-	$ret = <<<eoq
-	<div id="{$id}" style="display:{$display}">
-	<table cellpadding='1' cellspacing='0' border='0' style='border:1px solid #ccc'>
-		{$out}
-	</table>
-	</div>
-eoq;
-	return $ret;
-}
-
-
-function testThis4($filePath, $fileNodes=array(), $fileName='') {
-	$path = dirname($filePath);
-	$file = basename($filePath);
-
-	$exFile = explode('/', $path);
-
-	foreach($exFile as $pathSegment) {
-		if(is_array($fileNodes[$pathSegment])) { // path already processed
-
-		} else { // newly found path
-			$fileNodes[$pathSegment] = array();
-		}
-
-		if($fileName != '') {
-			$fileNodes[$pathSegment][] = $fileName;
-		}
-	}
-
-	return $fileNodes;
-}
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 ////	SYSTEM CHECK FUNCTIONS
@@ -2668,7 +2377,7 @@ function set_upgrade_vars(){
     	$upgrade_config[1]['upgrade_vars'] = array();
     }
 
-	if(!isset($upgrade_vars) || $upgrade_vars == NULL){
+	if(!isset($upgrade_vars) || $upgrade_vars == null){
 		$upgrade_vars = array();
 	}
 	if(isset($_SESSION['unzip_dir']) && !empty($_SESSION['unzip_dir']) && file_exists($_SESSION['unzip_dir'])){
@@ -2933,7 +2642,7 @@ function post_install_progress($progArray='',$action=''){
 		else{
 			fopen($upgrade_progress_file, 'w+');
 		}
-		if(!is_array($upgrade_config[sizeof($upgrade_config)]['commit']['post_install'])){
+		if(empty($upgrade_config[sizeof($upgrade_config)]['commit']['post_install']) || !is_array($upgrade_config[sizeof($upgrade_config)]['commit']['post_install'])){
 			$upgrade_config[sizeof($upgrade_config)]['commit']['post_install']=array();
 			$upgrade_config[sizeof($upgrade_config)]['commit']['post_install']['post_install'] = 'in_progress';
 		}
@@ -3262,7 +2971,7 @@ function upgradeUserPreferences() {
     global $sugar_config, $sugar_version;
     $uw_strings = return_module_language($GLOBALS['current_language'], 'UpgradeWizard');
 
-    $localization = new Localization();
+    $localization = Localization::getObject();
     $localeCoreDefaults = $localization->getLocaleConfigDefaults();
 
     // check the current system wide default_locale_name_format and add it to the list if it's not there
@@ -3313,24 +3022,25 @@ function upgradeUserPreferences() {
 
     $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], 'Home');
 
-    $ce_to_pro_or_ent = (isset($_SESSION['upgrade_from_flavor']) && ($_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarPro' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarEnt' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarCorp' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarUlt'));
+    $ce_to_pro_or_ent = (isset($_SESSION['upgrade_from_flavor']) && preg_match('/^SugarCE.*?(Pro|Ent|Corp|Ult)$/', $_SESSION['upgrade_from_flavor']));
+
    	$db = &DBManagerFactory::getInstance();
-    $result = $db->query("SELECT id FROM users where deleted = '0'");
+    $result = $db->query("SELECT id FROM users WHERE " . User::getLicensedUsersWhere());
    	while($row = $db->fetchByAssoc($result))
     {
         $current_user = new User();
         $current_user->retrieve($row['id']);
 
         // get the user's name locale format, check if it's in our list, add it if it's not, keep it as user's default
+        $changed = false;
         $currentUserNameFormat = $current_user->getPreference('default_locale_name_format');
         if ($localization->isAllowedNameFormat($currentUserNameFormat)) {
             upgradeLocaleNameFormat($currentUserNameFormat);
         } else {
             $current_user->setPreference('default_locale_name_format', 's f l', 0, 'global');
-            $current_user->savePreferencesToDB();
+            $changed = true;
         }
 
-        $changed = false;
         if(!$current_user->getPreference('calendar_publish_key')) {
         	// set publish key if not set already
         	$current_user->setPreference('calendar_publish_key', create_guid());
@@ -3340,10 +3050,11 @@ function upgradeUserPreferences() {
 	      //Set the user theme to be 'Sugar' theme since this is run for CE flavor conversions
 	      $userTheme = $current_user->getPreference('user_theme', 'global');
 
-	      if(empty($userTheme) || $ce_to_pro_or_ent)
+          //If theme is empty or if theme was set to Classic (Sugar5) or if this is a ce to pro/ent flavor upgrade change to RacerX theme
+	      if(empty($userTheme) || $userTheme == 'Sugar5' || $ce_to_pro_or_ent)
 	      {
             $changed = true;
-	      	$current_user->setPreference('user_theme', 'Sugar', 0, 'global');
+	      	$current_user->setPreference('user_theme', 'RacerX', 0, 'global');
 	      }
 
 	      //Set the number of tabs by default to 7
@@ -3431,7 +3142,7 @@ function upgradeUserPreferences() {
 	 * For the CE version, we are checking to see that there are no entries enabled for PRO/ENT versions
 	 * we are checking for Tracker sessions, performance and queries.
 	 */
-	if(isset($_SESSION['upgrade_from_flavor']) && ($_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarPro' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarEnt' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarCorp' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarUlt')) {
+	if($ce_to_pro_or_ent) {
 		//Set tracker settings. Disable tracker session, performance and queries
 		$category = 'tracker';
 		$value = 1;
@@ -3482,7 +3193,7 @@ function upgradeUserPreferences() {
 function upgradeLocaleNameFormat($name_format) {
     global $sugar_config, $sugar_version;
 
-    $localization = new Localization();
+    $localization = Localization::getObject();
     $localeConfigDefaults = $localization->getLocaleConfigDefaults();
 
     $uw_strings = return_module_language($GLOBALS['current_language'], 'UpgradeWizard');
@@ -3820,7 +3531,7 @@ function upgradeModulesForTeam() {
     } //while
 
     //Update the team_set_id and default_team columns
-    $ce_to_pro_or_ent = (isset($_SESSION['upgrade_from_flavor']) && ($_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarPro' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarEnt' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarCorp' || $_SESSION['upgrade_from_flavor'] == 'SugarCE to SugarUlt'));
+    $ce_to_pro_or_ent = isset($_SESSION['upgrade_from_flavor']) && preg_match('/^SugarCE.*?(Pro|Ent|Corp|Ult)$/', $_SESSION['upgrade_from_flavor']);
 
     //Update team_set_id
 	if($ce_to_pro_or_ent) {
@@ -3878,226 +3589,6 @@ function upgradeModulesForTeam() {
         }
     }
 
-    /**
-     * fix_dropdown_list
-     * This method attempts to fix dropdown lists that were incorrectly named.
-     * There were versions of SugarCRM that did not enforce naming convention rules
-     * for the dropdown list field name.  This method attempts to resolve that by
-     * fixing the language files that may have been affected and then updating the
-     * fields_meta_data table accordingly.  It also refreshes any vardefs that may
-     * have been affected.
-     *
-     */
-	function fix_dropdown_list() {
-        if(file_exists('custom/include/language')) {
-           $files = array();
-           $affected_modules = array();
-           $affected_keys = array();
-
-           getFiles($files, 'custom/include/language', '/\.php$/i');
-           foreach($files as $file) {
-
-              if(file_exists($file . '.bak')) {
-              	 $bak_mod_time = filemtime($file . '.bak');
-              	 $php_mod_time = filemtime($file);
-              	 //We're saying if the .php file was modified 30 seconds no more than php.bak file then we
-              	 //run these additional cleanup checks
-              	 if($php_mod_time - $bak_mod_time < 30) {
-
-              	 	$app_list_strings = array();
-              	 	$GLOBALS['app_list_strings'] = array();
-              	 	require($file . '.bak');
-              	 	$bak_app_list_strings = array_merge($app_list_strings, $GLOBALS['app_list_strings']);
-
-              	 	$app_list_strings = array();
-              	 	$GLOBALS['app_list_strings'] = array();
-              	 	require($file);
-              	 	$php_app_list_strings = array_merge($app_list_strings, $GLOBALS['app_list_strings']);
-
-              	 	//Get the file contents
-              	 	$contents = file_get_contents($file);
-
-              	 	//Now simulate a fix for the file before we compare w/ the .php file
-              	 	//we also append to the $contents
-              	 	foreach($bak_app_list_strings as $key=>$entry) {
-						   if(preg_match('/([^A-Za-z_])/', $key, $matches) && is_array($entry)) {
-						   	  $new_key = preg_replace('/[^A-Za-z_]/', '_', $key);
-						   	  $bak_app_list_strings[$new_key] = $bak_app_list_strings[$key];
-						   	  unset($bak_app_list_strings[$key]);
-						   	  //Now if the entry doesn't exists in the .php file, then add to contents
-						   	  if(!isset($php_app_list_strings[$new_key])) {
-						   	  	 $contents .= "\n\$GLOBALS['app_list_strings']['{$new_key}'] = " . var_export_helper($bak_app_list_strings[$new_key]) . ";";
-						   	  }
-						   } //if
-              	 	} //foreach
-
-              	 	//Now load the .php file to do the comparison
-              	 	foreach($php_app_list_strings as $key=>$entry) {
-              	 		if(isset($bak_app_list_strings[$key])) {
-              	 			$diff = array_diff($bak_app_list_strings[$key], $entry);
-              	 			if(!empty($diff)) {
-              	 			   //There is a difference, so copy the $bak_app_list_strings version into the .php file
-              	 			   $contents .= "\n\$GLOBALS['app_list_strings']['{$key}'] = " . var_export_helper($bak_app_list_strings[$key]) . ";";
-              	 			} //if
-              	 		} //if
-              	 	} //foreach
-
-              	 	//Now write out the file contents
-              	 	//Create backup just in case
-              	 	copy($file, $file . '.php_bak');
- 					$fp = @sugar_fopen($file, 'w');
-	                if($fp) {
-		               fwrite($fp, $contents);
-		               fclose($fp);
-	                } else {
-	                   $GLOBALS['log']->error("Unable to update file contents in fix_dropdown_list for {$file}");
-	                } //if-else
-              	 }
-              }
-
-              unset($GLOBALS['app_strings']);
-              unset($GLOBALS['app_list_strings']);
-              $app_list_strings = array();
-           	  require($file);
-           	  $touched = false;
-           	  $contents = file_get_contents($file);
-           	  if ( !isset($GLOBALS['app_list_strings']) ) {
-           	      $GLOBALS['app_list_strings'] = $app_list_strings;
-           	  }
-           	  else {
-           	      $GLOBALS['app_list_strings'] = array_merge($app_list_strings, $GLOBALS['app_list_strings']);
-           	  }
-
-           	  if(isset($GLOBALS['app_list_strings']) && is_array($GLOBALS['app_list_strings'])) {
-           	  	 foreach($GLOBALS['app_list_strings'] as $key=>$entry) {
-           	  	 	if(preg_match('/([^A-Za-z_])/', $key, $matches) && is_array($entry)) {
-           	  	 	   $result = $GLOBALS['db']->query("SELECT custom_module FROM fields_meta_data WHERE ext1 = '{$key}'");
-           	  	 	   if(!empty($result)) {
-           	  	 	   	  while($row = $GLOBALS['db']->fetchByAssoc($result)) {
-           	  	 	   	  	    $custom_module = $row['custom_module'];
-           	  	 	   	  	    if(!empty($GLOBALS['beanList'][$custom_module])) {
-           	  	 	   	           $affected_modules[$custom_module] = $GLOBALS['beanList'][$custom_module];
-           	  	 	   	  	    }
-           	  	 	   	  } //while
-           	  	 	   }
-
-           	  	 	   //Replace all invalid characters with '_' character
-	           	  	   $new_key = preg_replace('/[^A-Za-z_]/', '_', $key);
-	           	  	   $affected_keys[$key] = $new_key;
-
-           	  	 	   $GLOBALS['app_list_strings'][$new_key] = $GLOBALS['app_list_strings'][$key];
-           	  	 	   unset($GLOBALS['app_list_strings'][$key]);
-
-           	  	 	   $pattern_match = "/(\[\s*\'{$key}\'\s*\])/";
-           	  	 	   $new_key = "['{$new_key}']";
-           	  	 	   $out = preg_replace($pattern_match, $new_key, $contents);
-           	  	 	   $contents = $out;
-           	  	 	   $touched = true;
-           	  	 	} //if
-           	  	 } //foreach
-
-                 //This is a check for g => h instances where the file contents were incorrectly written
-                 //and also fixes the scenario where via a UI upgrade, the app_list_strings were incorrectly
-                 //merged with app_list_strings variables declared elsewhere
-           	  	 if(!$touched) {
-           	  	 	   if(preg_match('/\$GLOBALS\s*\[\s*[\"|\']app_list_strings[\"|\']\s*\]\s*=\s*array\s*\(/', $contents)) {
-           	  	 	   	  //Now also remove all the non-custom labels that were added
-           	  	 	   	  if(preg_match('/language\/([^\.]+)\.lang\.php$/', $file, $matches)) {
-           	  	 	   	        $language = $matches[1];
-
-           	  	 	   	        $app_list_strings = array();
-
-           	  	                if(file_exists("include/language/$language.lang.php")) {
-								   include("include/language/$language.lang.php");
-								}
-								if(file_exists("include/language/$language.lang.override.php")) {
-								   $app_list_strings =  _mergeCustomAppListStrings("include/language/$language.lang.override.php" , $app_list_strings) ;
-								}
-								if(file_exists("custom/application/Ext/Language/$language.ext.lang.php")) {
-								   $app_list_strings =  _mergeCustomAppListStrings("custom/application/Ext/Language/$language.ext.lang.php" , $app_list_strings) ;
-								}
-								if(file_exists("custom/application/Ext/Language/$language.lang.ext.php")) {
-								   $app_list_strings =  _mergeCustomAppListStrings("custom/application/Ext/Language/$language.lang.ext.php" , $app_list_strings) ;
-								}
-
-								$all_non_custom_include_language_strings = $app_strings;
-								$all_non_custom_include_language_list_strings = $app_list_strings;
-
-								$unset_keys = array();
-								if(!empty($GLOBALS['app_list_strings'])) {
-									foreach($GLOBALS['app_list_strings'] as $key=>$value) {
-										$diff = array();
-										if(isset($all_non_custom_include_language_list_strings[$key])) {
-											$diff = array_diff($all_non_custom_include_language_list_strings[$key], $GLOBALS['app_list_strings'][$key]);
-										}
-
-										if(!empty($all_non_custom_include_language_list_strings[$key]) && empty($diff)) {
-											$unset_keys[] = $key;
-										}
-									}
-								}
-
-								foreach($unset_keys as $key) {
-									unset($GLOBALS['app_list_strings'][$key]);
-								}
-
-								if(!empty($GLOBALS['app_strings'])) {
-	           	  	 	   	  		foreach($GLOBALS['app_strings'] as $key=>$value) {
-										if(!empty($all_non_custom_include_language_strings[$key])) {
-										   unset($GLOBALS['app_strings'][$key]);
-										}
-	           	  	 	   	  		}
-								}
-           	  	 	   	  } //if(preg_match...)
-
-			              $out = "<?php \n";
-			              if(!empty($GLOBALS['app_strings'])) {
-				             foreach($GLOBALS['app_strings'] as $key=>$entry) {
-				                     $out .= "\n\$GLOBALS['app_strings']['$key']=" . var_export_helper($entry) . ";";
-				             }
-			              }
-
-						  foreach($GLOBALS['app_list_strings'] as $key=>$entry) {
-								  $out .= "\n\$GLOBALS['app_list_strings']['$key']=" . var_export_helper($entry) . ";";
-						  } //foreach
-
-						  $touched = true;
-           	  	 	   } //if(preg_match...)
-           	  	 } //if(!$touched)
-
-           	  	 if($touched) {
-	           	  	 //Create a backup just in case
-			         copy($file, $file . '.bak');
-	             	 $fp = @sugar_fopen($file, 'w');
-	                 if($fp) {
-		               fwrite($fp, $out);
-		               fclose($fp);
-	                 } else {
-	                   //If we can't update the file, just return
-	                   $GLOBALS['log']->error("Unable to update file contents in fix_dropdown_list.");
-	                   return;
-	                 }
-           	  	 } //if($touched)
-           	  } //if
-
-           } //foreach($files)
-
-           //Update db entries (the order matters here... need to process database changes first)
-           if(!empty($affected_keys)) {
-           	  foreach($affected_keys as $old_key=>$new_key) {
-           	  	 	  $GLOBALS['db']->query("UPDATE fields_meta_data SET ext1 = '{$new_key}' WHERE ext1 = '{$old_key}'");
-           	  }
-           }
-
-           //Update vardef files for affected modules
-           if(!empty($affected_modules)) {
-           	  foreach($affected_modules as $module=>$object) {
-           	  	  VardefManager::refreshVardefs($module, $object);
-           	  }
-           }
-        }
-	}
-
 
 	function update_iframe_dashlets(){
 		require_once(sugar_cached('dashlets/dashlets.php'));
@@ -4116,7 +3607,7 @@ function upgradeModulesForTeam() {
 			if(!empty($content['dashlets']) && !empty($content['pages'])){
 				$originalDashlets = $content['dashlets'];
 				foreach($originalDashlets as $key => $ds){
-				    if(!empty($ds['options']['url']) && stristr($ds['options']['url'],'https://www.sugarcrm.com/crm/product/gopro')){
+				    if(!empty($ds['options']['url']) && stristr($ds['options']['url'],'http://www.sugarcrm.com/crm/product/gopro')){
 						unset($originalDashlets[$key]);
 					}
 				}
@@ -4275,27 +3766,6 @@ function upgradeModulesForTeam() {
 	}
 
 	/**
-	 * upgradeDateTimeFields
-	 *
-	 * This method came from bug: 39757 where the date_end field is a date field and not a datetime field
-	 * which prevents you from performing timezone offset calculations once the data has been saved.
-	 *
-	 * @param path String location to log file, empty by default
-	 */
-	function upgradeDateTimeFields($path)
-	{
-		//bug: 39757
-		global $db;
-		$meetingsSql = "UPDATE meetings SET date_end = ".$db->convert("date_start", 'add_time', array('duration_hours', 'duration_minutes'));
-		$callsSql = "UPDATE calls SET date_end = ".$db->convert("date_start", 'add_time', array('duration_hours', 'duration_minutes'));
-    	logThis('upgradeDateTimeFields Meetings SQL:' . $meetingsSql, $path);
-		$db->query($meetingsSql);
-
-		logThis('upgradeDateTimeFields Calls SQL:' . $callsSql, $path);
-		$db->query($callsSql);
-	}
-
-	/**
 	 * upgradeDocumentTypeFields
 	 *
 	 */
@@ -4415,13 +3885,15 @@ function merge_config_si_settings($write_to_upgrade_log=false, $config_location=
 	$modified = false;
 	foreach($sugar_config_si as $key=>$value)
 	{
-		if(!preg_match('/^setup_/', $key) && !isset($sugar_config[$key]))
-		{
+        if (!preg_match('/^setup_/', $key)) {
 		   if($write_to_upgrade_log)
 		   {
 		      logThis('Merge key (' . $key . ') with value (' . $value . ')', $path);
 		   }
-		   $sugar_config[$key] = $value;
+		   // Add config_si values to the global sugar_config array so that they
+		   // are available on install, since merging SI happens after capturing
+		   // sugar_config and only saves to file, not to memory
+		   $GLOBALS['sugar_config'][$key] = $sugar_config[$key] = $value;
 		   $modified = true;
 		}
 	}
@@ -4464,8 +3936,6 @@ function merge_config_si_settings($write_to_upgrade_log=false, $config_location=
  */
 function upgrade_connectors() {
     require_once('include/connectors/utils/ConnectorUtils.php');
-    remove_linkedin_config();
-
     if(!ConnectorUtils::updateMetaDataFiles()) {
        $GLOBALS['log']->fatal('Cannot update metadata files for connectors');
     }
@@ -4475,77 +3945,7 @@ function upgrade_connectors() {
     {
         unlink('custom/modules/Connectors/metadata/connectors.php');
     }
-
-    remove_linkedin_connector();
 }
-
-/**
- * remove_linkedin_config
- *
- * This function removes linkedin config from custom/modules/Connectors/metadata/display_config.php, linkedin connector is removed in 6.5.16
- *
- */
-function remove_linkedin_config() 
-{
-    $display_file = 'custom/modules/Connectors/metadata/display_config.php';
-
-    if (file_exists($display_file)) {
-        require($display_file);
-
-        if (!empty($modules_sources)) {
-            foreach ($modules_sources as $module => $config) {
-                if (isset($config['ext_rest_linkedin'])) {
-                    unset($modules_sources[$module]['ext_rest_linkedin']);
-                }
-            }
-            if(!write_array_to_file('modules_sources', $modules_sources, $display_file)) {
-                //Log error
-                $GLOBALS['log']->fatal("Cannot write \$modules_sources to " . $display_file);
-            }
-        }
-    }
-
-    $search_file = 'custom/modules/Connectors/metadata/searchdefs.php';
-
-    if (file_exists($search_file)) {
-        require($search_file);
-
-        if (isset($searchdefs['ext_rest_linkedin'])) {
-            unset($searchdefs['ext_rest_linkedin']);
-
-            if(!write_array_to_file('searchdefs', $searchdefs, $search_file)) {
-                //Log error
-                $GLOBALS['log']->fatal("Cannot write \$searchdefs to " . $search_file);
-            }
-        }
-    }
-}
-
-/**
- * remove_linkedin_connector
- *
- * This function removes linkedin connector from upgrade, linkedin connector is removed in 6.5.16
- *
- */
-function remove_linkedin_connector() {
-
-    if (file_exists('modules/Connectors/connectors/formatters/ext/rest/linkedin')) {
-        deleteDirectory('modules/Connectors/connectors/formatters/ext/rest/linkedin');
-    }
-
-    if (file_exists('modules/Connectors/connectors/sources/ext/rest/linkedin')) {
-        deleteDirectory('modules/Connectors/connectors/sources/ext/rest/linkedin');
-    }
-
-    if (file_exists('custom/modules/Connectors/connectors/sources/ext/rest/linkedin')) {
-        deleteDirectory('custom/modules/Connectors/connectors/sources/ext/rest/linkedin');
-    }
-
-    if (file_exists('include/externalAPI/LinkedIn')) {
-        deleteDirectory('include/externalAPI/LinkedIn');
-    }
-}
-
 
 /**
  * Enable the InsideView connector for the four default modules.
@@ -4635,7 +4035,7 @@ function loadSilentUpgradeVars(){
     global $silent_upgrade_vars_loaded;
 
     if(empty($silent_upgrade_vars_loaded)){
-        $cacheFile = "{$GLOBALS['sugar_config']['cache_dir']}/silentUpgrader/silentUpgradeCache.php";
+        $cacheFile = sugar_cached("silentUpgrader/silentUpgradeCache.php");
         // We have no pre existing vars
         if(!file_exists($cacheFile)){
             // Set the vars array so it's loaded
@@ -4657,7 +4057,7 @@ function writeSilentUpgradeVars(){
         return false; // You should have set some values before trying to write the silent upgrade vars
     }
 
-    $cacheFileDir = "{$GLOBALS['sugar_config']['cache_dir']}/silentUpgrader";
+    $cacheFileDir = sugar_cached("silentUpgrader");
     $cacheFile = "{$cacheFileDir}/silentUpgradeCache.php";
 
     require_once('include/dir_inc.php');
@@ -4695,8 +4095,7 @@ function getSilentUpgradeVar($var){
 
     if(!isset($silent_upgrade_vars_loaded['vars'][$var])){
         return null;
-    }
-    else{
+    }else{
         return $silent_upgrade_vars_loaded['vars'][$var];
     }
 }
@@ -4718,64 +4117,13 @@ function add_unified_search_to_custom_modules_vardefs()
 }
 
 /**
- * change from using the older SugarCache in 6.1 and below to the new one in 6.2
- */
-function upgradeSugarCache($file)
-{
-	global $sugar_config;
-	$cacheUploadUpgradesTemp = mk_temp_dir(sugar_cached('upgrades/temp'));
-
-	unzip($file, $cacheUploadUpgradesTemp);
-
-	if(!file_exists(clean_path("{$cacheUploadUpgradesTemp}/manifest.php"))) {
-		logThis("*** ERROR: no manifest file detected while bootstraping upgrade wizard files!");
-		return;
-	} else {
-		include(clean_path("{$cacheUploadUpgradesTemp}/manifest.php"));
-	}
-
-	$from_dir = "{$cacheUploadUpgradesTemp}/{$manifest['copy_files']['from_dir']}";
-	$allFiles = array();
-	if(file_exists("$from_dir/include/SugarCache")) {
-		$allFiles = findAllFiles("$from_dir/include/SugarCache", $allFiles);
-	}
-	if(file_exists("$from_dir/include/database")) {
-		$allFiles = findAllFiles("$from_dir/include/database", $allFiles);
-	}
-	if(file_exists("$from_dir/include/utils/external_cache.php")) {
-		$allFiles[] = "$from_dir/include/utils/external_cache.php";
-	}
-	if(file_exists("$from_dir/include/utils/sugar_file_utils.php")) {
-		$allFiles[] = "$from_dir/include/utils/sugar_file_utils.php";
-	}
-	if(file_exists("$from_dir/include/utils/sugar_file_utils.php")) {
-		$allFiles[] = "$from_dir/include/utils/sugar_file_utils.php";
-	}
-	if(file_exists("$from_dir/include/utils/autoloader.php")) {
-		$allFiles[] = "$from_dir/include/utils/autoloader.php";
-	}
-
-	foreach($allFiles as $k => $file) {
-		$destFile = str_replace($from_dir."/", "", $file);
-       if(!is_dir(dirname($destFile))) {
-			mkdir_recursive(dirname($destFile)); // make sure the directory exists
-		}
-		if ( stristr($file,'uw_main.tpl') )
-            logThis('Skipping "'.$file.'" - file copy will during commit step.');
-        else {
-            logThis('updating UpgradeWizard code: '.$destFile);
-            copy_recursive($file, $destFile);
-        }
-	}
-}
-
-/**
  * unlinkUpgradeFiles
  * This is a helper function to clean up
  *
  * @param $version String value of current system version (pre upgrade)
+ * @param $path String value to the path of the log file; defaults to empty
  */
-function unlinkUpgradeFiles($version)
+function unlinkUpgradeFiles($version, $path='')
 {
 	if(!isset($version))
 	{
@@ -4784,16 +4132,6 @@ function unlinkUpgradeFiles($version)
 
     //First check if we even have the scripts_for_patch/files_to_remove directory
     require_once('modules/UpgradeWizard/UpgradeRemoval.php');
-
-    /*
-    if(empty($_SESSION['unzip_dir']))
-    {
-        global $sugar_config;
-        $base_upgrade_dir		= $sugar_config['upload_dir'] . "/upgrades";
-        $base_tmp_upgrade_dir	= "$base_upgrade_dir/temp";
-        $_SESSION['unzip_dir'] = mk_temp_dir( $base_tmp_upgrade_dir );
-    }
-    */
 
     if(isset($_SESSION['unzip_dir']) && file_exists($_SESSION['unzip_dir'].'/scripts/files_to_remove'))
     {
@@ -4812,14 +4150,14 @@ function unlinkUpgradeFiles($version)
 
                 //Check to make sure we should load and run this UpgradeRemoval instance
                 $upgradeInstance = new $upgradeClass();
-                if ($upgradeInstance instanceof UpgradeRemoval && version_compare($upgradeInstance->version, $version, '<='))
+                if ($upgradeInstance instanceof UpgradeRemoval && version_compare($upgradeInstance->version, $version, '>='))
                 {
-                    logThis('Running UpgradeRemoval instance ' . $upgradeClass);
-                    logThis('Files will be backed up to custom/backup');
+                    logThis('Running UpgradeRemoval instance ' . $upgradeClass, $path);
+                    logThis('Files will be backed up to custom/backup', $path);
                     $files = $upgradeInstance->getFilesToRemove($version);
                     foreach($files as $file)
                     {
-                       logThis($file);
+                       logThis($file, $path);
                     }
                     $upgradeInstance->processFilesToRemove($files);
                 }
@@ -4852,7 +4190,7 @@ function unlinkUpgradeFiles($version)
 	       	   	   	  $files = $upgradeInstance->getFilesToRemove($version);
 	       	   	   	  foreach($files as $file)
 	       	   	   	  {
-	       	   	   	  	 logThis($file);
+	       	   	   	  	 logThis($file, $path);
 	       	   	   	  }
 	       	   	   	  $upgradeInstance->processFilesToRemove($files);
        	   	   }
@@ -5060,4 +4398,86 @@ function repairUpgradeHistoryTable()
         }
     }
 
+}
+
+
+/**
+ * Patch for bug57431
+ * Compares current moduleList to base moduleList to detect if some modules have been renamed
+ * Run changeModuleModStrings to create new labels based on customizations.
+ */
+function updateRenamedModulesLabels()
+{
+    require_once('modules/Studio/wizards/RenameModules.php');
+    require_once('include/utils.php');
+
+    $klass = new RenameModules();
+    $languages = get_languages();
+
+    foreach ($languages as $langKey => $langName) {
+        //get list strings for this language
+        $strings = return_app_list_strings_language($langKey);
+
+        //get base list strings for this language
+        if (file_exists("include/language/$langKey.lang.php")) {
+            include("include/language/$langKey.lang.php");
+
+            //Keep only renamed modules
+            $renamedModules = array_diff($strings['moduleList'], $app_list_strings['moduleList']);
+
+            foreach ($renamedModules as $moduleId => $moduleName) {
+                if(isset($app_list_strings['moduleListSingular'][$moduleId])) {
+                    $klass->selectedLanguage = $langKey;
+
+                    $replacementLabels = array(
+                        'singular' => $strings['moduleListSingular'][$moduleId],
+                        'plural' => $strings['moduleList'][$moduleId],
+                        'prev_singular' => $app_list_strings['moduleListSingular'][$moduleId],
+                        'prev_plural' => $app_list_strings['moduleList'][$moduleId],
+                        'key_plural' => $moduleId,
+                        'key_singular' => $klass->getModuleSingularKey($moduleId)
+                    );
+                    $klass->changeModuleModStrings($moduleId, $replacementLabels);
+                }
+            }
+        }
+    }
+}
+
+
+/**
+ * addPdfManagerTemplate
+ *
+ * This method adds default PDF Template in PDF Manager
+ */
+function addPdfManagerTemplate() {
+    logThis('Begin addPdfManagerTemplate');
+
+    include 'install/seed_data/PdfManager_SeedData.php';
+
+    logThis('End addPdfManagerTemplate');
+}
+
+
+/**
+ * This is left here for legacy, just calling the new methods
+ * @deprecated
+ * @param int $perJob The Number of records to put in a job
+ * @return array|string An array of jobs ids that were created, unless
+ *      there is one, the it's just that single job id
+ */
+function updateOpportunitiesForForecasting($perJob = 100)
+{
+    SugarAutoLoader::load('include/SugarQueue/jobs/SugarJobUpdateOpportunities.php');
+    return SugarJobUpdateOpportunities::updateOpportunitiesForForecasting($perJob);
+}
+
+/**
+ * Add the platform to the portal config settings
+ */
+function updatePortalConfigToContainPlatform()
+{
+    $db = DBManagerFactory::getInstance();
+    $sql = "UPDATE config SET platform = 'support' where category = 'portal'";
+    $db->query($sql);
 }

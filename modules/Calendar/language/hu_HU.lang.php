@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nincs definiálva a nézethez',
-  'ERR_YEAR_BETWEEN' => 'A naptár nem ismeri a megadott dátumot. <br />A kiválasztott évnek 1970 és 2037 közé kell esnie.',
+  'ERR_YEAR_BETWEEN' => 'A naptár nem tudja értelmezni a megadott évet.<br />Az évnek az 1907 és 2037 közötti időszakban kell szerepelnie!',
   'LBL_AM' => 'de.',
   'LBL_APPLY_BUTTON' => 'Alkalmaz',
   'LBL_ASSIGNED_TO_NAME' => 'Felelős:',
   'LBL_BUSY' => 'Foglalt',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Rekurzív {0} esemény száma meghaladta a limitet',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} szülő rekurzív sorozat',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} nem rekurzív esemény',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} nem rekurzív esemény modulként van nyilvántartva',
   'LBL_CANCEL_BUTTON' => 'Mégsem',
   'LBL_CLOSE_BUTTON' => 'Bezár',
   'LBL_CONFIRM_REMOVE' => 'Biztos benne, hogy eltávolítja a rekordot?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Ütközés',
   'LBL_CREATE_CALL' => 'Hívás naplózása',
   'LBL_CREATE_MEETING' => 'Találkozó ütemezése',
+  'LBL_CREATE_NEW_CALL' => 'Hivás kezdeményezése',
   'LBL_CREATE_NEW_RECORD' => 'Tevékenység létrehozása',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Ön egy új összejövetelt hoz létre. MIt akart csinálni? Egy feladatot létrehozni vagy Egy hívást ütemezni',
   'LBL_DATE' => 'Kezdő dátum & idő',
   'LBL_DATE_END_ERROR' => 'A befejezés dátuma megelőzi a kezdés dátumát',
   'LBL_DATE_TIME' => 'Dátum és idő',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Törlés',
   'LBL_DURATION' => 'Időtartam',
   'LBL_EDIT_ALL_RECURRENCES' => 'Minden ismétlődés szerkesztése',
+  'LBL_EDIT_CALL' => 'Hivás szerkesztése',
   'LBL_EDIT_RECORD' => 'Tevékenység szerkesztése',
   'LBL_EDIT_USERLIST' => 'Felhasználói lista',
   'LBL_ERROR_LOADING' => 'Hiba a betöltés során',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Következő hét',
   'LBL_NEXT_YEAR' => 'Következő év',
   'LBL_NO' => 'Nem',
+  'LBL_NO_ACCESS' => 'Nincs hozzáférési jogosultsága',
   'LBL_NO_USER' => 'Hozzárendelés nem található',
   'LBL_PARTICIPANTS_TAB' => 'Meghívottak',
   'LBL_PM' => 'du.',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Mentés és meghívók küldése',
   'LBL_SETTINGS' => 'Beállítások',
   'LBL_SETTINGS_CALLS_SHOW' => 'Hívások megjelenítése:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Befejezett találkozók, hívások és feladatok mutatása:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Idősávok megjelenítése napi és heti bontásban:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Feladatok megjelenítése:',
   'LBL_SETTINGS_TIME_ENDS' => 'Befejezés időpontja:',

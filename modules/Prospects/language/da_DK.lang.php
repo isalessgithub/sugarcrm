@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Der skal angives et postnummer for at slette kontakten.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Afdeling:',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelsesoplysninger',
+  'LBL_DNB_BAL_PREVIEW' => 'Mål visning',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Mål',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Mål information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => 'Ring ikke:',
   'LBL_DUPLICATE' => 'Mulige identiske mål',
   'LBL_EDIT_ACCOUNT_NAME' => 'virksomhedsnavn:',
@@ -74,12 +75,17 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Anden e-mail adresse',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ændret af id',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Mål rapporter',
   'LBL_FIRST_NAME' => 'Fornavn:',
   'LBL_FULL_NAME' => 'Navn',
+  'LBL_HELP_CREATE' => 'Den {{MODULE_NAME}} modul består af individuelle mennesker, der er ukvalificerede kundeemner, som du har nogle oplysninger om, men er endnu ikke kvalificeret {{leads_singular_module}}. For at oprette en {{MODULE_NAME}}:. 1. Give værdier for felterne som ønsket. - Felter mærket "Required" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og vis" for at åbne den nye {{MODULE_NAME}} liste visning. - Vælg "Gem og skabe nye" til straks at oprette et nyt {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{MODULE_NAME}} modul består af individuelle mennesker, der er ukvalificerede kundeemner, som du har nogle oplysninger om, men er endnu ikke kvalificeret {{leads_singular_module}}. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler ved at skifte nederste venstre rude i "Data View". - Foretag og vis brugernes kommentarer og post ændring historie i {{activitystream_singular_module}} ved at skifte nederste venstre rude til "Activity Stream". - Følg elle marker som favorit denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består af alle produkter, der allerede er solgt eller er i færd med at blive solgt til kunderne. Listen over de produkter, der sælges af din organisation ligger i Admin> Product Catalog og administratorer har mulighed for at tilføje produkter som nødvendigt. Når du opretter {{plural_module_name}}, har du mulighed for enten at vælge produkter fra kataloget eller skabe nye produkter via {{plural_module_name}} modul. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar som via {{plural_module_name}} modul, {{quotes_module}} modul, duplikering, import {{plural_module_name}} osv. Når den {{MODULE_NAME}} post er oprettet, kan du se og redigere oplysninger om den {{MODULE_NAME}} via {{plural_module_name}} post oversigt.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_HOME_PHONE' => 'Startside:',
   'LBL_IMPORT_VCARD' => 'Importér vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Opret automatisk en ny kontakt ved at importere et vCard fra filsystemet.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Mål fra vCard blev oprettet med succes',
   'LBL_INVALID_EMAIL' => 'Ugyldig e-mail:',
   'LBL_INVITEE' => 'Direkte rapporter',
   'LBL_LAST_NAME' => 'Efternavn:',
@@ -98,6 +104,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Ændret bruger',
   'LBL_MODULE_ID' => 'Mål',
   'LBL_MODULE_NAME' => 'Mål',
+  'LBL_MODULE_NAME_SINGULAR' => 'Mål:',
   'LBL_MODULE_TITLE' => 'Mål: Startside',
   'LBL_MORE_INFORMATION' => 'Flere oplysninger',
   'LBL_NAME' => 'Navn:',
@@ -124,12 +131,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Liste over potentielle kunder',
   'LBL_PROSPECT_NAME' => 'Målnavn:',
   'LBL_PROSPECT_ROLE' => 'Rolle:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Du har med succes skabt den {{moduleSingularLower}} {{fulde navn}}.',
   'LBL_SALUTATION' => 'Tiltaleform',
   'LBL_SAVE_PROSPECT' => 'Gem mål',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter Mål',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Vælg kontrollerede mål',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Vælg kontrollerede mål',
   'LBL_STATE' => 'Tilstand:',
+  'LBL_STREET' => 'Gade',
   'LBL_TITLE' => 'Titel:',
   'LBL_TRACKER_KEY' => 'Sporingsnøgle',
   'LNK_CAMPAIGN_LIST' => 'Kampagner',
@@ -160,6 +169,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Oprettelse af en salgsmulighed kræver en virksomhed.\\n Opret en ny virksomhed, eller vælg en eksisterende.',
   'NTC_REMOVE_CONFIRMATION' => 'Er du sikker på, at du vil fjerne denne kontakt fra sagen?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Er du sikker på, at du vil fjerne denne post som en direkte rapport?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{modul}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

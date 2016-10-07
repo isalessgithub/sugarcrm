@@ -1,144 +1,90 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Prospects']['EditView'] = array (
-  'templateMeta' => 
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$viewdefs['Prospects']['EditView'] = array(
+    'templateMeta' => array('maxColumns' => '2', 
+                            'useTabs' => true,
+                            'widths' => array(
+                                            array('label' => '10', 'field' => '30'), 
+                                            array('label' => '10', 'field' => '30')
+                                            ),
+     ),
+ 'panels' =>array (
+  'lbl_prospect_information' => 
   array (
-    'maxColumns' => '2',
-    'useTabs' => true,
-    'widths' => 
+    
     array (
-      0 => 
       array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
+        'name' => 'first_name',
+        'customCode' => '{html_options name="salutation" id="salutation" options=$fields.salutation.options selected=$fields.salutation.value}' 
+      . '&nbsp;<input name="first_name"  id="first_name" size="25" maxlength="25" type="text" value="{$fields.first_name.value}">',
       ),
     ),
-    'tabDefs' => 
+    
     array (
-      'LBL_PROSPECT_INFORMATION' => 
-      array (
-        'newTab' => true,
-        'panelDefault' => 'expanded',
+      array('name'=>'last_name',
+            'displayParams'=>array('required'=>true),
       ),
-      'LBL_MORE_INFORMATION' => 
+      'phone_work',
+    ),
+    
+    array (
+      'title',
+      'phone_mobile',
+    ),
+    
+    array (
+      'department',
+      'phone_fax',
+    ),
+    
+    array (
+      'account_name',
+    ),
+    
+    array (
       array (
-        'newTab' => true,
-        'panelDefault' => 'expanded',
+	      'name' => 'primary_address_street',
+          'hideLabel' => true,      
+	      'type' => 'address',
+	      'displayParams'=>array('key'=>'primary', 'rows'=>2, 'cols'=>30, 'maxlength'=>150),
       ),
-      'LBL_PANEL_ASSIGNMENT' => 
+      
       array (
-        'newTab' => true,
-        'panelDefault' => 'expanded',
+	      'name' => 'alt_address_street',
+	      'hideLabel'=>true,
+	      'type' => 'address',
+	      'displayParams'=>array('key'=>'alt', 'copy'=>'primary', 'rows'=>2, 'cols'=>30, 'maxlength'=>150),      
       ),
     ),
+    array('email1'),
+    array (
+      array('name'=>'description', 
+            'label'=>'LBL_DESCRIPTION'),
+    ),
+    ),
+  'LBL_MORE_INFORMATION' => array(
+    array (
+      'do_not_call',
+    ),
+    ),
+  'LBL_PANEL_ASSIGNMENT' => array(
+    array (
+	  'assigned_user_name',
+	  array('name'=>'team_name','displayParams'=>array('required'=>true)),
+    ),    
+
   ),
-  'panels' => 
-  array (
-    'lbl_prospect_information' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'first_name',
-          'customCode' => '{html_options name="salutation" id="salutation" options=$fields.salutation.options selected=$fields.salutation.value}&nbsp;<input name="first_name"  id="first_name" size="25" maxlength="25" type="text" value="{$fields.first_name.value}">',
-        ),
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'last_name',
-          'displayParams' => 
-          array (
-            'required' => true,
-          ),
-        ),
-        1 => 'phone_work',
-      ),
-      2 => 
-      array (
-        0 => 'title',
-        1 => 'phone_mobile',
-      ),
-      3 => 
-      array (
-        0 => 'department',
-        1 => 'phone_fax',
-      ),
-      4 => 
-      array (
-        0 => 'account_name',
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'primary_address_street',
-          'hideLabel' => true,
-          'type' => 'address',
-          'displayParams' => 
-          array (
-            'key' => 'primary',
-            'rows' => 2,
-            'cols' => 30,
-            'maxlength' => 150,
-          ),
-        ),
-        1 => 
-        array (
-          'name' => 'alt_address_street',
-          'hideLabel' => true,
-          'type' => 'address',
-          'displayParams' => 
-          array (
-            'key' => 'alt',
-            'copy' => 'primary',
-            'rows' => 2,
-            'cols' => 30,
-            'maxlength' => 150,
-          ),
-        ),
-      ),
-      6 => 
-      array (
-        0 => 'email1',
-      ),
-      7 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-          'label' => 'LBL_DESCRIPTION',
-        ),
-      ),
-    ),
-    'LBL_MORE_INFORMATION' => 
-    array (
-      0 => 
-      array (
-        0 => 'do_not_call',
-      ),
-    ),
-    'LBL_PANEL_ASSIGNMENT' => 
-    array (
-      0 => 
-      array (
-        0 => 'assigned_user_name',
-        1 => 
-        array (
-          'name' => 'team_name',
-          'displayParams' => 
-          array (
-            'required' => true,
-          ),
-        ),
-      ),
-    ),
-  ),
+)
+
+
 );
+?>

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the account.',
@@ -28,7 +25,7 @@ $mod_strings = array (
   'ERR_IE_FAILURE1' => '[Click here to return]',
   'ERR_IE_FAILURE2' => 'There was a problem connecting to the Email Account.  Please check your settings and try again.',
   'ERR_IE_MISSING_REQUIRED' => 'Inbound Email settings are missing required information.<br />  Please check your settings and try again.<br /><br />If you are not setting up Inbound Email, please clear all fields in that section.',
-  'ERR_INVALID_PASSWORD' => 'You must specify a valid username and password.',
+  'ERR_INVALID_PASSWORD' => 'You must specify a valid username and password..',
   'ERR_LAST_ADMIN_1' => 'The user name "',
   'ERR_LAST_ADMIN_2' => '" is the last user with administrator access.	At least one user must be an administrator.',
   'ERR_NO_LOGIN_MOBILE' => 'Your first login to this application must be completed with a non-mobile browser or in normal mode. Please return with a full browser or click on the normal link below. We apologize for any inconvenience.',
@@ -62,6 +59,8 @@ $mod_strings = array (
   'LBL_ADDRESS_POSTALCODE' => 'Address Postal Code',
   'LBL_ADDRESS_STATE' => 'Address State',
   'LBL_ADDRESS_STREET' => 'Address Street',
+  'LBL_ADDRESS_STREET_2' => 'רחוב 2',
+  'LBL_ADDRESS_STREET_3' => 'רחוב 3',
   'LBL_ADMIN' => 'System Administrator',
   'LBL_ADMIN_DESC' => 'User can access the Administration page all records, regardless of team security.',
   'LBL_ADMIN_USER' => 'System Administrator User',
@@ -71,8 +70,8 @@ $mod_strings = array (
   'LBL_ANY_EMAIL' => 'Any Email',
   'LBL_ANY_PHONE' => 'Any Phone',
   'LBL_APPLY_OPTIMUMS' => 'Apply Optimums',
-  'LBL_ASSIGN_PRIVATE_TEAM' => '(private team on save)',
-  'LBL_ASSIGN_TEAM' => 'Assign To Team',
+  'LBL_ASSIGN_PRIVATE_TEAM' => '(צוות פרטי בשמירה)',
+  'LBL_ASSIGN_TEAM' => 'הקצה לצוות',
   'LBL_ASSIGN_TO_USER' => 'Assign To User',
   'LBL_AUTHENTICATE_ID' => 'Authentication Id',
   'LBL_BASIC' => 'Inbound Setup',
@@ -98,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'נוצר על ידי',
   'LBL_CURRENCY' => 'Currency',
   'LBL_CURRENCY_EXAMPLE' => 'Currency Display Example',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'הצג מטבע מועדף',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'המר מטבע בסיס לבחירת המשתמש במסכים רשימה ורשומות',
   'LBL_CURRENCY_SIG_DIGITS' => 'Currency Significant Digits',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Number of decimal places to show for currency',
   'LBL_CURRENCY_TEXT' => 'Select the currency that will be displayed by default when you create new records. This is also the currency that will be displayed in the Amount columns in the Opportunities ListView.',
@@ -127,6 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Edit Tabs',
   'LBL_EMAIL' => 'Email Address',
   'LBL_EMAILS' => 'דואר אלקטרוני',
+  'LBL_EMAIL_ADDRESS' => 'כתובת דואר אלקטרוני:',
   'LBL_EMAIL_CHARSET' => 'Outbound Character Set',
   'LBL_EMAIL_EDITOR_OPTION' => 'Compose format',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Prefill Gmail&#153; Defaults',
@@ -159,12 +161,15 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'First Day of Week',
   'LBL_FDOW_TEXT' => 'First Day displayed in Week, Month, and Year Views',
+  'LBL_FILTER_USERS_REPORTS' => 'דוחות משתמש',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Finding optimum connection variables.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Find Optimum Configuration',
   'LBL_FIRST_NAME' => 'First Name',
   'LBL_FORCE' => 'Force Negative',
   'LBL_FORCE_DESC' => 'Some IMAP/POP3 servers require special switches. Check to force a negative switch when connecting (i.e., /notls)',
+  'LBL_FORECASTS' => 'תחזיות',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'זה לא פעיל כעת. אנא צור קשר עם המנהל',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Found optimum settings.	Press the button below to apply them to your Mailbox.',
   'LBL_GENERATE_PASSWORD' => 'Reset Password',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -206,7 +211,7 @@ $mod_strings = array (
   'LBL_LIST_PASSWORD' => 'Password',
   'LBL_LIST_PRIMARY_PHONE' => 'Primary Phone',
   'LBL_LIST_STATUS' => 'Status',
-  'LBL_LIST_TITLE' => 'Title',
+  'LBL_LIST_TITLE' => 'כותרת',
   'LBL_LIST_USER_NAME' => 'User Name',
   'LBL_LOCALE_DEFAULT_NAME_FORMAT' => 'Name Display Format',
   'LBL_LOCALE_DESC_FIRST' => '[First]',
@@ -267,11 +272,11 @@ $mod_strings = array (
   'LBL_MODIFIED_BY_ID' => 'Modified By ID',
   'LBL_MODIFIED_USER_ID' => 'שונה על ידי ID',
   'LBL_MODULE_NAME' => 'Users',
+  'LBL_MODULE_NAME_SINGULAR' => 'משתמש',
   'LBL_MODULE_TITLE' => 'Users: Home',
   'LBL_MY_TEAMS' => 'My Teams',
   'LBL_NAME' => 'Full Name',
   'LBL_NAVIGATION_PARADIGM' => 'Navigation',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'View modules grouped under tab categories or view modules by distinct tabs for each module.',
   'LBL_NEW_FORM_TITLE' => 'New User',
   'LBL_NEW_PASSWORD' => 'New Password',
   'LBL_NEW_PASSWORD1' => 'Password',
@@ -284,6 +289,7 @@ $mod_strings = array (
   'LBL_NEW_USER_PASSWORD_3' => 'Password was created successfully.',
   'LBL_NORMAL_LOGIN' => 'Switch to Normal View',
   'LBL_NOTES' => 'Notes',
+  'LBL_NO_KEY' => 'לא הוגדר מפתח. אנא הגדר מפתח על מנת לאפשר פרסום',
   'LBL_NUMBER_GROUPING_SEP' => '1000s separator',
   'LBL_NUMBER_GROUPING_SEP_TEXT' => 'Character used to separate thousands',
   'LBL_OAUTH_TOKENS' => 'OAuth Tokens',
@@ -357,6 +363,7 @@ $mod_strings = array (
   'LBL_PROVIDE_USERNAME_AND_EMAIL' => 'Provide both a User Name and an Email Address.',
   'LBL_PSW_MODIFIED' => 'password last changed',
   'LBL_PUBLISH_KEY' => 'Publish Key',
+  'LBL_QUOTAS' => 'מיכסות',
   'LBL_REASS_ASSESSING' => 'Assessing',
   'LBL_REASS_BUTTON_CLEAR' => 'Clear',
   'LBL_REASS_BUTTON_CONTINUE' => 'Continue',
@@ -421,6 +428,7 @@ $mod_strings = array (
   'LBL_REGULAR_USER' => 'Regular User',
   'LBL_REMINDER' => 'Reminders',
   'LBL_REMINDER_EMAIL' => 'דואר אלקטרוני',
+  'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'שלח מייל לכל המוזמנים',
   'LBL_REMINDER_POPUP' => 'הודעה קופצת',
   'LBL_REMINDER_TEXT' => 'Set a default for reminders for calls and meetings.',
   'LBL_REMOVED_TABS' => 'Admin Remove Tabs',
@@ -429,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Reports to',
   'LBL_REQUEST_SUBMIT' => 'Your request has been submitted.',
   'LBL_RESET_DASHBOARD' => 'Reset Dashboard',
-  'LBL_RESET_HOMEPAGE' => 'Reset Homepage',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Are you sure you want reset your Homepage?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Are you sure you want reset the Homepage for this user?',
   'LBL_RESET_PREFERENCES' => 'Reset User Preferences',
   'LBL_RESET_PREFERENCES_WARNING' => 'Are you sure you want reset all of your user preferences? Warning: This will also log you out of the application.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Are you sure you want reset all of the preferences for this user?',
@@ -466,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Subpanel Links',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'In Detail Views, display a row of Subpanel shortcut links.',
-  'LBL_SUBPANEL_TABS' => 'Subpanel Tabs',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'In Detail Views, group Subpanels into tabs and display one tab at a time.',
   'LBL_SUGAR_LOGIN' => 'Is Sugar User',
   'LBL_SUPPORTED_THEME_ONLY' => 'Only affects themes that support this option.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Display the Last Viewed bar on the side if checked.  Otherwise it goes on top.',
@@ -475,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Display the Shortcuts bar on top if checked.  Otherwise it goes on the side.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Shortcuts on top',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'System Generated Password',
+  'LBL_SYSTEM_SIG_DIGITS' => 'ספרות משמעותיות במערכת',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'מספר ספרים להצגה במערכת לאחר הנקודה בשבר עשרוני',
   'LBL_TAB_TITLE_EMAIL' => 'Email Settings',
   'LBL_TAB_TITLE_USER' => 'User Settings',
   'LBL_TEAMS' => 'Teams',
@@ -553,6 +558,7 @@ $mod_strings = array (
   'LBL_WIZARD_WELCOME_NOSMTP' => 'Click <b>Next</b> to configure a few basic settings for using Sugar.',
   'LBL_WIZARD_WELCOME_TAB' => 'Welcome',
   'LBL_WIZARD_WELCOME_TITLE' => 'Welcome to Sugar!',
+  'LBL_WORKSHEETS' => 'גליונות עבודה',
   'LBL_WORK_PHONE' => 'Work Phone',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail Password:',
   'LBL_YAHOOMAIL_SMTPUSER' => 'Yahoo! Mail ID:',

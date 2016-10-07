@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Debe especificar un número de registro a eliminar.',
@@ -65,6 +62,30 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Relacionado con el módulo',
   'LBL_EXPORT_REMINDER_TIME' => 'Tiempo de Recordatorio (en minutos)',
   'LBL_FIRST_NAME' => 'Nombre',
+  'LBL_HELP_CREATE' => 'El módulo {{plural_module_name}} consiste en registros de {{calls_singular_module}} registrados por usuarios de su organización. {{plural_module_name}} pueden tener el estado "Programado", "Celebrado" o "Cancelado". Se pueden añadir usuarios de Sugar, además de contactos y clientes potenciales como invitados.
+
+Para crear un {{calls_singular_module}}:
+1. Introduzca los valores deseados en los campos correspondientes.
+    - Los campos marcados como "Necesario" se deben completar antes de guardar.
+    - Haga clic en "Mostrar más" para mostrar campos adicionales si fuera necesario.
+2. Añadir invitados al {{calls_singular_module}}.
+    - Haga clic en "Seleccionar un invitado" para añadir in usuario, contacto o cliente potencial existente al {{calls_singular_module}}.
+    - Haga clic en el símbolo + a la derecha de "Seleccionar un invitado" para crear un invitado al{{calls_singular_module}} como nuevo registro de Sugar.
+3. Haga clic en "Guardar" para finalizar el nuevo registro y volver a la página anterior.
+    - Elija "Guardar y ver" para abrir la nueva {{calls_singular_module}} en la vista de registros.
+    - Elija "Guardar y crear nuevo" para crear inmediatamente otra nueva {{calls_singular_module}}.',
+  'LBL_HELP_RECORD' => 'El módulo {{plural_module_name}} consiste en registros de {{calls_singular_module}} registrados por usuarios de su organización. {{plural_module_name}} pueden tener el estado "Programado", "Celebrado" o "Cancelado". Se pueden añadir usuarios de Sugar, además de {{contacts_module}} y {{leads_module}} como invitados.
+
+- Edite los campos de este registro haciendo clic en el campo individual o en el botón de Editar.
+- Vea o modifique enlaces a otros registros en los subpaneles cambiando el panel inferior izquierdo a "Vista de datos".
+- Escriba y vea comentarios de usuarios y el historial de cambios del registro en el canal de actividad cambiando el panel inferior izquierdo a "Canal de actividad".
+- Siga o marque este registro como favorito con los iconos de la derecha del nombre del registro.
+- En el menú desplegable Acciones a la derecha del botón de Editar existen acciones adicionales disponibles.',
+  'LBL_HELP_RECORDS' => 'El módulo {{plural_module_name}} consiste en registros de llamadas que pueden tener el estado "Programada", "Celebrada" o "Cancelada". Llamadas próximas programadas en las siguientes 24 horas muestran la fecha de inicio marcada en azul. Las llamadas cuya fecha ya ha pasado muestran la fecha de inicio marcada en rojo.
+
+En esta vista de lista {{plural_module_name}} puede ver y editar en línea información de llamadas. También hay acciones adicionales disponibles en el menú al final de cada fila de llamada. Puede seleccionar "Cerrar" en el menú de cualquier fila de llamada programada para marcarla como ya celebrada.
+
+Se puede añadir usuarios de Sugar, contactos y clientes potenciales como invitados a la llamada. {{plural_module_name}} se pueden crear a través del módulo {{plural_module_name}}, del módulo del Calendario, se puede importar y también se puede crear por medio del subpanel de Actividades (en módulos heredados) o en el dashlet de Actividades planeadas (en módulos Sidecar) de registros de módulos relacionados (por ejemplo, Contactos, Cuentas, etc.), que automáticamente crea una relación entre ambos registros.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notas',
   'LBL_HOURS_ABBREV' => 'h',
   'LBL_HOURS_MINUTES' => '(horas/minutos)',
@@ -89,12 +110,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Llamadas',
   'LBL_MODULE_NAME_SINGULAR' => 'Llamada',
   'LBL_MODULE_TITLE' => 'Llamadas: Inicio',
+  'LBL_MY_SCHEDULED_CALLS' => 'Mis llamadas programadas',
   'LBL_NAME' => 'Nombre',
   'LBL_NEW_FORM_TITLE' => 'Crear Cita',
   'LBL_NO_ACCESS' => 'No tiene permisos para crear registros en el módulo $module',
   'LBL_OUTLOOK_ID' => 'ID Outlook',
   'LBL_PARENT_ID' => 'ID Padre',
   'LBL_PHONE' => 'Teléfono',
+  'LBL_POPUP_REMINDER_TIME' => 'Hora de recordatorio emergente',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Ha programado {{moduleSingularLower}} para el {{formatDate date_start}}, pero no tiene permiso de acceso.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ha programado el {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> para el {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Repetir',
   'LBL_RECURRING_LIMIT_ERROR' => 'Esta llamada recurrente no se puede programar debido a que excede el máximo de $límite recurrencias permitidas.',
   'LBL_RECURRING_SOURCE' => 'Fuente periódica',
@@ -105,6 +130,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Enviar correo electrónico a todos los asistentes',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Hora Aviso',
+  'LBL_REMINDER_TITLE' => 'Llamada:',
   'LBL_REMOVE' => 'quit',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Eliminar Todas las Recurrencias',
   'LBL_REPEAT_COUNT' => 'Número de repeticiones',
@@ -117,6 +143,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Repita el ID principal',
   'LBL_REPEAT_TYPE' => 'Repetición',
   'LBL_REPEAT_UNTIL' => 'Repetir Hasta',
+  'LBL_REVENUELINEITEMS' => 'Líneas de Ingreso',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planificación',
   'LBL_SEARCH_BUTTON' => 'Buscar',
   'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Llamadas',
@@ -141,5 +168,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Seleccionar Cuenta',
   'NOTICE_DURATION_TIME' => 'El tiempo de duración debe ser mayor que 0',
   'NTC_REMOVE_INVITEE' => '¿Está seguro de que desea quitar a este participante de la llamada?',
+  'TPL_CALL_STATUS_CHANGED' => 'Llamada marcada como {{status}}.',
 );
 

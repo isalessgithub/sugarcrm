@@ -2,26 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: לא מוגדר עבור תצוגה זו',
+  'ERR_YEAR_BETWEEN' => 'שגיאה - השנה צריכה להיות בין 1970 ל-2037',
   'LBL_AM' => 'לפני הצהרים',
   'LBL_APPLY_BUTTON' => 'הפעל',
   'LBL_ASSIGNED_TO_NAME' => 'הוקצה עבור',
   'LBL_BUSY' => 'עסוק',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'ארוע חוזר {0} חרג מהמגבלה',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} אינו הישנות של הורה',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} אינו ארוע חוזר',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} אינו מזוהה כארוע מודול חוזר',
   'LBL_CANCEL_BUTTON' => 'בטל',
   'LBL_CLOSE_BUTTON' => 'סגור:',
   'LBL_CONFIRM_REMOVE' => 'אתה בטוח שברצונך להסיר רשומה זו',
@@ -29,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'סתירה',
   'LBL_CREATE_CALL' => 'יומן שיחה',
   'LBL_CREATE_MEETING' => 'תזמן פגישה [Alt+M]',
+  'LBL_CREATE_NEW_CALL' => 'צור שיחה',
   'LBL_CREATE_NEW_RECORD' => 'צור פעילות',
+  'LBL_CREATING_NEW_ACTIVITY' => 'אתה יוצר הזדמנות. האם רצית <br /><a href="javascript:void(0);" data-action="create-task">ליצור משימה</a><br /> או <br />or <a href="javascript:void(0);" data-action="schedule-call">לקבוע מועד לשיחה</a>',
   'LBL_DATE' => 'תאריך ושעה',
   'LBL_DATE_END_ERROR' => 'תאריך הסיום לפני תאריך ההתחלה',
   'LBL_DATE_TIME' => 'תאריך ושעת התחלה',
@@ -37,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'מחק',
   'LBL_DURATION' => 'משך:',
   'LBL_EDIT_ALL_RECURRENCES' => 'ערוך כל החזרות',
+  'LBL_EDIT_CALL' => 'ערוך שיחה',
   'LBL_EDIT_RECORD' => 'ערוך פעילות',
   'LBL_EDIT_USERLIST' => 'רשימת משתמשים',
   'LBL_ERROR_LOADING' => 'שגיאה בעת הטעינה',
@@ -55,6 +61,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'טוען ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'לוח שנה',
+  'LBL_MODULE_NAME_SINGULAR' => 'לוח שנה',
   'LBL_MODULE_TITLE' => 'לוח שנה',
   'LBL_MONTH' => 'חודש',
   'LBL_NEXT_DAY' => 'היום הבא',
@@ -63,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'שבוע הבא',
   'LBL_NEXT_YEAR' => 'שנה הבאה',
   'LBL_NO' => 'לא',
+  'LBL_NO_ACCESS' => 'אין לך גישה',
   'LBL_NO_USER' => 'אין התאמה לשדה:הוקצה עבור',
   'LBL_PARTICIPANTS_TAB' => 'מוזמנים',
   'LBL_PM' => 'אחרי הצהרים',
@@ -71,6 +79,7 @@ $mod_strings = array (
   'LBL_PREVIOUS_SHARED' => 'הקודם',
   'LBL_PREVIOUS_WEEK' => 'שבוע שעבר',
   'LBL_PREVIOUS_YEAR' => 'שנה שעברה',
+  'LBL_RECURRING_LIMIT_ERROR' => 'לא ניתן לקבוע מועד כותרת ה-$module חוזר זה ל-  בגלל שהוא חורג ממספר החזרות המותר $limit.',
   'LBL_REFRESH' => 'רענן',
   'LBL_REMOVE_ALL_RECURRENCES' => 'מחק את כל החזרות',
   'LBL_REPEAT_COUNT' => 'מספר החזרות והנישנות',
@@ -79,7 +88,6 @@ $mod_strings = array (
   'LBL_REPEAT_END_AFTER' => 'אחרי',
   'LBL_REPEAT_END_BY' => 'על ידי',
   'LBL_REPEAT_INTERVAL' => 'כל',
-  'LBL_REPEAT_LIMIT_ERROR' => 'Your request was going to create more than $limit meetings.',
   'LBL_REPEAT_OCCURRENCES' => 'חוזר ונשנה',
   'LBL_REPEAT_TAB' => 'חוזר ונשנה',
   'LBL_REPEAT_TYPE' => 'חזור',

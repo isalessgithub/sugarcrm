@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * ExtAPIIBMSmartCloud.php
@@ -81,12 +78,11 @@ class ExtAPIIBMSmartCloud extends OAuthPluginBase implements WebMeeting,WebDocum
     protected $oauthParams = array(
         'signatureMethod' => 'PLAINTEXT',
     );
-    protected $url = 'https://apps.lotuslive.com/'; // 'https://collabserv.com/';
+    protected $url = 'https://apps.na.collabserv.com/';
 
     public $canInvite = false;
     public $sendsInvites = false;
     public $needsUrl = false;
-    // public $sharingOptions = array('private'=>'LBL_SHARE_PRIVATE','company'=>'LBL_SHARE_COMPANY','public'=>'LBL_SHARE_PUBLIC');
 
     function __construct() {
         if ( isset($GLOBALS['sugar_config']['ll_base_url']) ) {
@@ -123,7 +119,7 @@ class ExtAPIIBMSmartCloud extends OAuthPluginBase implements WebMeeting,WebDocum
         $reply = parent::quickCheckLogin();
         $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): Parent Reply: '.print_r($reply,true));
         if ( $reply['success'] ) {
-            $reply = $this->makeRequest('/shindig-server/social/rest/people/@me/@self');
+            $reply = $this->makeRequest('/lotuslive-shindig-server/social/rest/people/@me/@self');
             $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): LL Reply: '.print_r($reply,true));
             if ( $reply['success'] == true ) {
                 if ( !empty($reply['responseJSON']['entry']['objectId']) ) {
@@ -145,7 +141,6 @@ class ExtAPIIBMSmartCloud extends OAuthPluginBase implements WebMeeting,WebDocum
     {
         $reply = parent::checkLogin($eapmBean);
         if ( $reply['success'] != true ) {
-            // $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): Bad reply: '.print_r($reply,true));
             return $reply;
         }
         try {
@@ -163,27 +158,23 @@ class ExtAPIIBMSmartCloud extends OAuthPluginBase implements WebMeeting,WebDocum
                     'joinURL'=>$reply['responseJSON']['details']['joinURL'],
                 );
             } else {
-                // $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): Bad reply: '.print_r($reply,true));
                 return $reply;
             }
             // get user details
-            $reply = $this->makeRequest('/shindig-server/social/rest/people/@me/@self');
+            $reply = $this->makeRequest('/lotuslive-shindig-server/social/rest/people/@me/@self');
             if ( $reply['success'] == true ) {
                 $this->api_data['subscriberId'] = $reply['responseJSON']['entry']['objectId'];
             } else {
-                // $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): Bad reply: '.print_r($reply,true));
                 return $reply;
             }
         } catch(Exception $e) {
             $reply['success'] = FALSE;
             $reply['errorMessage'] = $e->getMessage();
-            // $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): Bad reply: '.print_r($reply,true));
             return $reply;
         }
 
         $this->eapmBean->api_data = base64_encode(json_encode($this->api_data));
 
-        // $GLOBALS['log']->debug(__FILE__.'('.__LINE__.'): Good reply: '.print_r($reply,true));
         return $reply;
     }
 
@@ -193,7 +184,6 @@ class ExtAPIIBMSmartCloud extends OAuthPluginBase implements WebMeeting,WebDocum
      * @return: array ('success' => boolean)
      */
     function scheduleMeeting($bean) {
-        global $current_user;
         $bean->join_url = $this->api_data['joinURL'].'&TagCode=SugarCRM&TagID='.$bean->id;
         $bean->host_url = $this->api_data['hostURL'].'?TagCode=SugarCRM&TagID='.$bean->id;
         $bean->creator = $this->account_name;
@@ -299,9 +289,6 @@ class ExtAPIIBMSmartCloud extends OAuthPluginBase implements WebMeeting,WebDocum
             ->setHeaders("slug", $docName)
             ->request("POST");
         $reply = array('rawResponse' => $rawResponse->getBody());
-
-        //$GLOBALS['log']->debug("REQUEST: ".var_export($client->getLastRequest(), true));
-        //$GLOBALS['log']->debug("RESPONSE: ".var_export($rawResponse, true));
 
         if(!$rawResponse->isSuccessful() || empty($reply['rawResponse'])) {
             $reply['success'] = false;

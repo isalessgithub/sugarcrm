@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -23,7 +20,19 @@ class CalendarActivity {
 	var $start_time;
 	var $end_time;
 
-	function __construct($args){
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function CalendarActivity($args)
+    {
+        $GLOBALS['log']->deprecated('Calls to CalendarActivity::CalendarActivity() are deprecated.');
+        self::__construct($args);
+    }
+
+	public function __construct($args){
 		// if we've passed in an array, then this is a free/busy slot
 		// and does not have a sugarbean associated to it
 		global $timedate;
@@ -76,7 +85,7 @@ class CalendarActivity {
 	}
 
 	/**
-	 * Get where clause for fetching entries from DB for within two dates timespan
+	 * Get where clause for fetching entried from DB
 	 * @param string $table_name t
 	 * @param string $rel_table table for accept status, not used in Tasks
 	 * @param SugarDateTime $start_ts_obj start date
@@ -85,29 +94,50 @@ class CalendarActivity {
 	 * @param string $view view; not used for now, left for compatibility
 	 * @return string
 	 */
-    function get_occurs_within_where_clause($table_name, $rel_table, $start_ts_obj, $end_ts_obj, $field_name = 'date_start', $view)
-    {
-        return self::getOccursWhereClauseGeneral($table_name, $rel_table, $start_ts_obj, $end_ts_obj, $field_name, array('self', 'within'));
+    public static function get_occurs_within_where_clause(
+        $table_name,
+        $rel_table,
+        $start_ts_obj,
+        $end_ts_obj,
+        $field_name = 'date_start',
+        $view
+    ) {
+        global $timedate;
+
+		$start = clone $start_ts_obj;
+		$end = clone $end_ts_obj;
+
+		$field_date = $table_name.'.'.$field_name;
+		$start_day = $GLOBALS['db']->convert("'{$start->asDb()}'",'datetime');
+		$end_day = $GLOBALS['db']->convert("'{$end->asDb()}'",'datetime');
+
+        //Of the calendar activities, tasks do not span dates, so just filter by field date
+        if(strpos($table_name,'task')!==false){
+            $where = "($field_date >= $start_day AND $field_date < $end_day";
+        }else{
+            //meetings & calls render across date ranges, so make sure table.date_start is less than view end day AND...
+            //... table.date_end is greater than view start date
+            $where = "({$table_name}.date_start < $end_day AND {$table_name}.date_end > $start_day";
+        }
+
+		if($rel_table != ''){
+			$where .= " AND $rel_table.accept_status != 'decline'";
+		}
+
+		$where .= ")";
+		return $where;
 	}
 
     /**
-     * Get where clause for fetching entries from DB for until certain date timespan
-     * @param string $table_name t
-     * @param string $rel_table table for accept status, not used in Tasks
-     * @param SugarDateTime $start_ts_obj start date
-     * @param SugarDateTime $end_ts_obj end date
-     * @param string $field_name date field in table
-     * @param string $view view; not used for now, left for compatibility
-     * @return string
+     * @param SugarBean $user_focus
+     * @param $start_date_time Not used.
+     * @param $end_date_time Not used.
+     * @return array
      */
-    public static function get_occurs_until_where_clause($table_name, $rel_table, $start_ts_obj, $end_ts_obj, $field_name = 'date_start', $view)
+    public static function get_freebusy_activities($user_focus, $start_date_time, $end_date_time)
     {
-        return self::getOccursWhereClauseGeneral($table_name, $rel_table, $start_ts_obj, $end_ts_obj, $field_name, array('self', 'until'));
-    }
-
-	function get_freebusy_activities($user_focus, $start_date_time, $end_date_time){
 		$act_list = array();
-		$vcal_focus = new vCal();
+		$vcal_focus = BeanFactory::getBean('vCals');
 		$vcal_str = $vcal_focus->get_vcal_freebusy($user_focus);
 
 		$lines = explode("\n",$vcal_str);
@@ -130,36 +160,31 @@ class CalendarActivity {
 	 * @param SugarDateTime $view_end_time end date
 	 * @param string $view view; not used for now, left for compatibility
 	 * @param boolean $show_calls
-	 * @param boolean $show_completed use to allow filtering completed events 
 	 * @return array
 	 */
- 	function get_activities($user_id, $show_tasks, $view_start_time, $view_end_time, $view, $show_calls = true, $show_completed = true)
- 	{
+    public static function get_activities(
+        $user_id,
+        $show_tasks,
+        $view_start_time,
+        $view_end_time,
+        $view,
+        $show_calls = true
+    ) {
 		global $current_user;
 		$act_list = array();
 		$seen_ids = array();
-		
-		$completedCalls = '';
-		$completedMeetings = '';
-		$completedTasks = '';
-		if (!$show_completed)
-		{
-		    $completedCalls = " AND calls.status = 'Planned' ";
-		    $completedMeetings = " AND meetings.status = 'Planned' ";
-		    $completedTasks = " AND tasks.status != 'Completed' ";
-		}
-		
+
+
 		// get all upcoming meetings, tasks due, and calls for a user
 		if(ACLController::checkAccess('Meetings', 'list', $current_user->id == $user_id)) {
-			$meeting = new Meeting();
+			$meeting = BeanFactory::getBean('Meetings');
 
 			if($current_user->id  == $user_id) {
 				$meeting->disable_row_level_security = true;
 			}
 
-            $where = self::get_occurs_until_where_clause($meeting->table_name, $meeting->rel_users_table, $view_start_time, $view_end_time, 'date_start', $view);
-			$where .= $completedMeetings;
-			$focus_meetings_list = build_related_list_by_user_id($meeting, $user_id, $where);
+			$where = CalendarActivity::get_occurs_within_where_clause($meeting->table_name, $meeting->rel_users_table, $view_start_time, $view_end_time, 'date_start', $view);
+			$focus_meetings_list = build_related_list_by_user_id($meeting,$user_id,$where);
 			foreach($focus_meetings_list as $meeting) {
 				if(isset($seen_ids[$meeting->id])) {
 					continue;
@@ -176,15 +201,14 @@ class CalendarActivity {
 
 		if($show_calls){
 			if(ACLController::checkAccess('Calls', 'list',$current_user->id  == $user_id)) {
-				$call = new Call();
+				$call = BeanFactory::getBean('Calls');
 
 				if($current_user->id  == $user_id) {
 					$call->disable_row_level_security = true;
 				}
 
 				$where = CalendarActivity::get_occurs_within_where_clause($call->table_name, $call->rel_users_table, $view_start_time, $view_end_time, 'date_start', $view);
-				$where .= $completedCalls;
-				$focus_calls_list = build_related_list_by_user_id($call, $user_id, $where);
+				$focus_calls_list = build_related_list_by_user_id($call,$user_id,$where);
 
 				foreach($focus_calls_list as $call) {
 					if(isset($seen_ids[$call->id])) {
@@ -203,13 +227,12 @@ class CalendarActivity {
 
 		if($show_tasks){
 			if(ACLController::checkAccess('Tasks', 'list',$current_user->id == $user_id)) {
-				$task = new Task();
+				$task = BeanFactory::getBean('Tasks');
 
 				$where = CalendarActivity::get_occurs_within_where_clause('tasks', '', $view_start_time, $view_end_time, 'date_due', $view);
 				$where .= " AND tasks.assigned_user_id='$user_id' ";
-				$where .= $completedTasks;
 
-				$focus_tasks_list = $task->get_full_list("", $where, true);
+				$focus_tasks_list = $task->get_full_list("", $where,true);
 
 				if(!isset($focus_tasks_list)) {
 					$focus_tasks_list = array();
@@ -225,61 +248,6 @@ class CalendarActivity {
 		}
 		return $act_list;
 	}
-
-    /**
-     * Get where clause for fetching entries from DB (is used by certain get_occurs.. methods)
-     * @param string $table_name t
-     * @param string $rel_table table for accept status, not used in Tasks
-     * @param SugarDateTime $start_ts_obj start date
-     * @param SugarDateTime $end_ts_obj end date
-     * @param string $field_name date field in table
-     * @param array $callback callback function to generete specific SQL query-part
-     * @return string
-     */
-    protected static function getOccursWhereClauseGeneral($table_name, $rel_table, $start_ts_obj, $end_ts_obj, $field_name, $callback)
-    {
-        $start = clone $start_ts_obj;
-        $end = clone $end_ts_obj;
-
-        $field_date = $table_name . '.' . $field_name;
-
-        $start_day = $GLOBALS['db']->convert("'{$start->asDb()}'",'datetime');
-        $end_day = $GLOBALS['db']->convert("'{$end->asDb()}'",'datetime');
-
-        $where = '(';
-        $where .= call_user_func($callback, $field_date, $start_day, $end_day);
-
-        if ($rel_table != ''){
-            $where .= " AND $rel_table.accept_status != 'decline'";
-        }
-
-        $where .= ")";
-        return $where;
-    }
-
-    /**
-     * Helper-method to generate within two dates sql clause
-     * @param $field_date string table_name.field_name to compare
-     * @param $start_day string period start date
-     * @param $end_day string period end date
-     * @return string
-     */
-    protected static function within($field_date, $start_day, $end_day)
-    {
-        return "$field_date >= $start_day AND $field_date < $end_day";
-    }
-
-    /**
-     * Helper-method to generate until some date sql clause
-     * @param $field_date string table_name.field_name to compare
-     * @param $start_day string period start date
-     * @param $end_day string period end date
-     * @return string
-     */
-    protected static function until($field_date, $start_day, $end_day)
-    {
-        return "$field_date < $end_day";
-    }
 }
 
 ?>

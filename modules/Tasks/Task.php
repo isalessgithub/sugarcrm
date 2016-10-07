@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 // Task is used to store customer information.
 class Task extends SugarBean {
@@ -61,9 +58,20 @@ class Task extends SugarBean {
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = Array('assigned_user_name', 'assigned_user_id', 'contact_name', 'contact_phone', 'contact_email', 'parent_name');
 
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function Task()
+    {
+        $GLOBALS['log']->deprecated('Calls to Task::Task() are deprecated.');
+        self::__construct();
+    }
 
-	function Task() {
-		parent::SugarBean();
+	public function __construct() {
+		parent::__construct();
 	}
 
 	var $new_schema = true;
@@ -81,52 +89,6 @@ class Task extends SugarBean {
 		return "$this->name";
 	}
 
-    function create_export_query(&$order_by, &$where, $relate_link_join='')
-    {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-        $custom_join['join'] .= $relate_link_join;
-                $contact_required = stristr($where,"contacts");
-                if($contact_required)
-                {
-                        $query = "SELECT tasks.*, contacts.first_name, contacts.last_name, users.user_name as assigned_user_name ";
-						$query .= ", teams.name AS team_name";
-                        $query .= $custom_join['select'];
-                        $query .= " FROM contacts, tasks ";
-                        $where_auto = "tasks.contact_id = contacts.id AND tasks.deleted=0 AND contacts.deleted=0";
-                }
-                else
-                {
-                        $query = 'SELECT tasks.*, users.user_name as assigned_user_name ';
-                        $query .= ", teams.name AS team_name";
-                        $query .= $custom_join['select'];
-                        $query .= ' FROM tasks ';
-                        $where_auto = "tasks.deleted=0";
-                }
-
-				// We need to confirm that the user is a member of the team of the item.
-				$this->add_team_security_where_clause($query);
-
-				$query .= getTeamSetNameJoin('tasks');
-        $query .= $custom_join['join'];
-		$query .= "  LEFT JOIN users ON tasks.assigned_user_id=users.id ";
-
-                if($where != "")
-                        $query .= "where $where AND ".$where_auto;
-                else
-                        $query .= "where ".$where_auto;
-
-        $order_by = $this->process_order_by($order_by);
-        if (empty($order_by)) {
-            $order_by = 'tasks.name';
-        }
-        $query .= ' ORDER BY ' . $order_by;
-
-                return $query;
-
-        }
-
-
-
 	function fill_in_additional_list_fields()
 	{
 
@@ -139,8 +101,7 @@ class Task extends SugarBean {
 
 		if (isset($this->contact_id)) {
 
-			$contact = new Contact();
-			$contact->retrieve($this->contact_id);
+			$contact = BeanFactory::getBean('Contacts', $this->contact_id);
 
 			if($contact->id != "") {
 				$this->contact_name = $contact->full_name;
@@ -165,21 +126,18 @@ class Task extends SugarBean {
 	{
 
 		$this->parent_name = '';
-		global $app_strings, $beanFiles, $beanList, $locale;
-		if ( ! isset($beanList[$this->parent_type]))
+		global $app_strings, $locale;
+
+		$parent = BeanFactory::getBean($this->parent_type);
+		if ( empty($parent))
 		{
-			$this->parent_name = '';
 			return;
 		}
-
-	    $beanType = $beanList[$this->parent_type];
-		require_once($beanFiles[$beanType]);
-		$parent = new $beanType();
 
 		if (is_subclass_of($parent, 'Person')) {
 			$query = "SELECT first_name, last_name, assigned_user_id parent_name_owner from $parent->table_name where id = '$this->parent_id'";
 		}
-		else if (is_subclass_of($parent, 'File')) {
+		else if (is_subclass_of($parent, 'File') || $parent->module_dir == 'Documents') {
 			$query = "SELECT document_name, assigned_user_id parent_name_owner from $parent->table_name where id = '$this->parent_id'";
 		}
 		else {
@@ -203,9 +161,9 @@ class Task extends SugarBean {
 		}
 		if (is_subclass_of($parent, 'Person') and $row != null)
 		{
-			$this->parent_name = $locale->getLocaleFormattedName(stripslashes($row['first_name']), stripslashes($row['last_name']));
+            $this->parent_name = $locale->formatName($this->parent_type, $row);
 		}
-		else if (is_subclass_of($parent, 'File') && $row != null) {
+		else if ((is_subclass_of($parent, 'File') || $parent->module_dir == 'Documents') && $row != null) {
 			$this->parent_name = $row['document_name'];
 		}
 		elseif($row != null)

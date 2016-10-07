@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
  (function() {
 	var sw = YAHOO.SUGAR,
 		Event = YAHOO.util.Event,
@@ -1859,7 +1856,7 @@ SE.composeLayout = {
         //If the outbound account has an error message associate with it, alert the user and refuse to continue.
         var obAccountID = document.getElementById('addressFrom' + idx).value;
 
-        if( typeof(SUGAR.email2.composeLayout.outboundAccountErrors[obAccountID]) != 'undefined' )
+        if( typeof(SUGAR.email2.composeLayout.outboundAccountErrors[obAccountID]) != 'undefined' && !isDraft )
         {
             SUGAR.showMessageBox(app_strings.LBL_EMAIL_ERROR_DESC, SUGAR.email2.composeLayout.outboundAccountErrors[obAccountID], 'alert');
             return false;
@@ -2395,28 +2392,6 @@ SE.composeLayout = {
 
         var sendType = type;
         AjaxObject.startRequest(callbackReplyForward, urlStandard + "&composeType=" + type + sugarEmail);
-    },
-
-    /**
-     * Move email addresses from To field to BCC field
-     */
-    moveToBCC : function (addrType,idx) {
-
-        var toVal = $.trim($("#addressTO"+idx).val());
-        var BCCVal =$.trim($("#addressBCC"+idx).val());
-
-        if (toVal.length != 0)
-        {
-            // get rid of first comma in BCC field and last comma in TO field
-            // so we don't end up with double commas in BCC field
-            BCCVal = BCCVal.replace(/^,/, '');
-            toVal = toVal.replace(/\,$/, '');
-
-            $("#addressBCC"+idx).val(toVal +","+BCCVal);
-            $("#addressTO"+idx).val("");     // empty out the to field
-        }
-        // show the BCC field
-        SE.composeLayout.showHiddenAddress('bcc', SE.composeLayout.currentInstanceId);
     },
 
     /**

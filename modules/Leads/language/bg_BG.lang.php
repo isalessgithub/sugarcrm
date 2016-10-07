@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'en_us Трябва да определите номер на записа, за да изтриете този потенциален клиент.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Адресна информация',
   'LBL_ADD_BUSINESSCARD' => 'Въведи визитка',
   'LBL_ALTERNATE_ADDRESS' => 'Алтернативен адрес:',
-  'LBL_ALT_ADDRESS' => 'Алтернативен адрес:',
   'LBL_ALT_ADDRESS_CITY' => 'Алтернативен адрес: град',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Алтернативен адрес: държава',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Алтернативен адрес: пощенски код',
@@ -67,19 +63,38 @@ $mod_strings = array (
   'LBL_CONVERTED_CONTACT' => 'Преобразуван в контакт:',
   'LBL_CONVERTED_OPP' => 'Преобразуван във възможност:',
   'LBL_CONVERTLEAD' => 'Преобразуване в контакт',
-  'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_BUTTON_KEY' => 'Ж',
+  'LBL_CONVERTLEAD_ERROR' => 'Потенциалният клиент не може да бъде конвертиран',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Успешно преобразувахте потенциалния клиент {{leadName}}, но възникна проблем при качване на прикачените файлове към един или повече записи',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Успешно преобразувахте потенциалния клиент {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Преобразуване в контакт [Alt+V]',
-  'LBL_CONVERTLEAD_WARNING' => 'Warning: This Lead may have already been converted',
-  'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'into Contact',
+  'LBL_CONVERTLEAD_WARNING' => 'Предупреждение: Текущият потенциален клиент е със статус "Преобразуван". Записи за Контакт и Организация е възможно да са били вече създадени. Ако желаете да продължите с процеса на преобразуване натиснете бутона Запази. За да се върнете обратно в потенциалния клиент без да го преобразувате, натиснете Откажи.',
+  'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Възможен контакт',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Нямате необходимите права за редактиране в модулите, за да преобразувате потенциалния клиент: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Добавяне на модул',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Аосцииран {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Асоциирай {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Обратни към дублираните записи',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Преобразувай',
   'LBL_CONVERT_COPY' => 'Копирай данните',
+  'LBL_CONVERT_CREATE_NEW' => 'Нов {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Изтриване',
+  'LBL_CONVERT_DUPLICATES_FOUND' => 'Открити са {{duplicateCount}} брой дублирания',
   'LBL_CONVERT_EDIT' => 'Редактиране',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Модифицирай шаблона за преобразуване',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Търсене на дублирани записи...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Игнорирай и създай нов',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Асоцииран',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Асоциирахте {{moduleNameLower}} {{recordName}} , но те няма да бъдат създадени преди да запазите промените.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Асоциирахте {{moduleNameLower}} {{recordName}} , но те няма да бъдат свързани преди да запазите промените.',
   'LBL_CONVERT_MODULE_NAME' => 'Модул',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Модул',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(по желание)',
   'LBL_CONVERT_REQUIRED' => 'Задължително',
+  'LBL_CONVERT_RESET_PANEL' => 'Зареди стойности по подразбиране',
   'LBL_CONVERT_SELECT' => 'Дава възможност за избор',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Създай нов',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Търси',
   'LBL_COPY_TIP' => 'Ако е избрано поле от потенциалния клиент ще бъдат копирани в полето със същото име в новосъздадения списък.',
   'LBL_COUNTRY' => 'Държава:',
   'LBL_CREATE' => 'Създай',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Отдел:',
   'LBL_DESCRIPTION' => 'Описание:',
   'LBL_DESCRIPTION_INFORMATION' => 'Допълнителна информация',
+  'LBL_DNB_BAL_PREVIEW' => 'Преглед на потенциалните клиенти',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Потенциални клиенти',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Информация за потенциалния клиент',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Идентификатор',
   'LBL_DO_NOT_CALL' => 'Да не бъде търсен по телефон:',
   'LBL_DUPLICATE' => 'Подобни потенциални клиенти',
   'LBL_EDITLAYOUT' => 'Редактиране на подредби',
@@ -115,13 +134,39 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Модифицирано от',
   'LBL_EXPORT_PHONE_MOBILE' => 'Мобилен номер',
   'LBL_FAX_PHONE' => 'Факс:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Справки за потенциални клиенти',
   'LBL_FIRST_NAME' => 'Име:',
   'LBL_FULL_NAME' => 'Пълно име:',
+  'LBL_HELP_CONVERT' => 'SugarCRM дава възможност отделните {{plural_module_name}}, след като посрещнат квалификационните ви критерии, да бъдат преобразувани в {{contacts_module}} и да бъдат асоциирани с {{accounts_module}} и други модули в системата.
+
+Преминете през всеки от модулите, които желаете да създадете при преобразуването, като модифицирате отделните полета в тях според желанието ви.
+В случай че SugarCRM открие съществуващ запис, които съдържа аналогична на преобразувания {{module_name}} информация, то вие имате възможност да използвате намерения запис, като прехвърлите в него новите данни или чрез използване на на бутона „Игнорирай и създай нов“ да създадете отделен запис в системата.
+
+След като потвърдите създаване на всеки от модулите, които да бъдат създадени, натиснете бутона „Запази и преобразувай“, за да приключите процеса на преобразуване.',
+  'LBL_HELP_CONVERT_TITLE' => 'Преобразувай {{module_name}}',
+  'LBL_HELP_CREATE' => 'Модулът {{plural_module_name}} съдържа лицата, които са проявили интерес към предлаганите от вашата организация стоки или услуги. След като към един {{module_name}} е идентифицирана реална търговска възможност за сключване на сделка, той може да бъде преобразуван и да бъдат създадени записи за {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}} и други.
+
+За да създадете нов запис в модул {{plural_module_name}}:
+1. Въведете стойности в отделните полета.
+ - Полетата маркирани като "Задължителни" се изисква да имат зададена стойнист преди да се пристъпи към съхраняване на записа.
+ - Натиснете върху "Покажи повече", за да бъдат визуализирани допълнителни полета ако е необходимо.
+2. Натиснете "Съхрани", за да запазите новия запис и да се върнете в предходната страница.
+ - Изберете "Съхрани и разгледай", за да отворите автоматично детайли за новия запис.
+ - Изберете "Съхрани и създай нов", за да пристъпите към създаване на друг нов запис в модул {{plural_module_name}}.',
+  'LBL_HELP_RECORD' => 'Модулът {{plural_module_name}} съдържа лицата, които са проявили интерес към предлаганите от вашата организация стоки или услуги.
+
+- Редактирайте текущия запис като натиснете конкретно поле или използвате бутона „Редактирай“.
+- Разгледайте или модифицирайте връзките с други записи в системата, като за целта визуализирате панела „Свързани записи“.
+- Поставете коментари към текущия запис и разгледайте история на извършените промени свързани с него, като преминете в панела „Хронология“.
+- Следвайте или харесайте текущия запис като използвате иконите, намиращи се в дясно от името му.
+- Можете да извършвате допълнителни действия със записа като използвате падащото меню в дясно на бутона „Редактирай“.',
+  'LBL_HELP_RECORDS' => 'Модулът {{plural_module_name}} съдържа лицата, които са проявили интерес към предлаганите от вашата организация стоки или услуги. След като за даден {{module_name}} е идентифицирана {{opportunities_singular_module}} за сделка и са стартирали търговски преговори, той може да бъде преобразуван в {{contacts_singular_module}}, {{opportunities_singular_module}} и {{accounts_singular_module}}. Съществуват различни начини да създадете {{plural_module_name}} в SugarCRM, като за целта можете да използвате опциите на модула {{plural_module_name}}, да дублирате съществуващ запис, да импортирате {{plural_module_name}} и други. След като даден {{module_name}} е въведен в системата, можете да разгледате и редактирате информацията за него през изгледа „Детайли за записа“.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_HOME_PHONE' => 'Домашен телефон:',
   'LBL_IMPORT_VCARD' => 'Импортиране на електронна визитка',
   'LBL_IMPORT_VCARDTEXT' => 'Автоматично създава нов потенциален клиент чрез импортиране на електронна визитка от Вашата файлова система.',
-  'LBL_INVALID_EMAIL' => 'Неработеща електронна поща:',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Потенциалният клиент от електронна визитка беше създаден успешно.',
+  'LBL_INVALID_EMAIL' => 'Невалидна електронна поща:',
   'LBL_INVITEE' => 'Докладва на',
   'LBL_LAST_NAME' => 'Фамилия:',
   'LBL_LEAD_SOURCE' => 'Източник:',
@@ -146,6 +191,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Длъжност',
   'LBL_LOADING' => 'Зарежда се ...',
   'LBL_MESSAGE' => 'Моля, въведете необходимата информация долу. Персонален профил ще бъде създаден за последващо потвърждение от Ваша страна.',
+  'LBL_MKTO_ID' => 'Идентификатор на потенциалния клиент в Marketo',
+  'LBL_MKTO_LEAD_SCORE' => 'Оценка на потенциала',
+  'LBL_MKTO_SYNC' => 'Синхронизирай с Marketo®',
   'LBL_MOBILE_PHONE' => 'Мобилен номер:',
   'LBL_MODIFIED' => 'Модифицирано от',
   'LBL_MODIFIED_ID' => 'Модифицирано от',
@@ -157,8 +205,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Име:',
   'LBL_NEW_FORM_TITLE' => 'Нов потенциален клиент',
   'LBL_NEW_PORTAL_PASSWORD' => 'Нова парола за достъп до портала:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Бележки',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Забележка: Сегашните превърнати потенциални клиенти на екрана, съдържат допълнителни полета. Когато персонализирате превърнатите потенциални клиенти в студиото за първи път, трябва да добавите допълнителните полета към визуализиране, колкото е необходимо.  Допълнителните полета, няма да се визуализират, както е при стандартните.',
   'LBL_OFFICE_PHONE' => 'Служебен телефон:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Възможности',
   'LBL_OPPORTUNITY_AMOUNT' => 'Сума на възможността:',
   'LBL_OPPORTUNITY_ID' => 'Възможност',
   'LBL_OPPORTUNITY_NAME' => 'Възможност:',
@@ -186,6 +236,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Адрес за кореспонденция: улица 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Адрес за кореспонденция: улица 3',
   'LBL_PROSPECT_LIST' => 'Целева група',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Успешно създадохте {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Пренасочен от:',
   'LBL_REGISTRATION' => 'Регистрация',
   'LBL_REPORTS_FROM' => 'Справки от:',
@@ -194,6 +245,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Модулите трябва да бъдат създадени или избрани, преди да бъдат преобразувани потенциалните клиенти.',
   'LBL_SALUTATION' => 'Поздрав',
   'LBL_SAVED' => 'Благодарим Ви за регистрацията. Вашият профил бе създаден успешно. Нашият представител ще се свърже с Вас в най-кратки срокове.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Запази и преобразувай',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Потенциални клиенти"',
   'LBL_SELECT' => '<b>OR</b> Select',
   'LBL_SELECTION_TIP' => 'Модули с relate поле в Контакти може да бъде избрано преди да завърши процеса на преобразуване на потенциалните клиенти.',
@@ -204,12 +256,13 @@ $mod_strings = array (
   'LBL_STATUS' => 'Статус:',
   'LBL_STATUS_DESCRIPTION' => 'Описание на статуса:',
   'LBL_STREET' => 'Улица',
-  'LBL_TARGET_BUTTON_KEY' => 'T',
+  'LBL_TARGET_BUTTON_KEY' => 'Т',
   'LBL_TARGET_BUTTON_LABEL' => 'Целеви',
   'LBL_TARGET_BUTTON_TITLE' => 'Целеви',
   'LBL_TARGET_OF_CAMPAIGNS' => 'Успешна кампания:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Благодарим Ви за изпратената информация.',
   'LBL_TITLE' => 'Длъжност:',
+  'LBL_UNCONVERTED' => 'Неконвертиран',
   'LBL_VCARD' => 'Електронна визитка',
   'LBL_VIEW_FORM_TITLE' => 'Потенциални клиенти',
   'LBL_WEBSITE' => 'Сайт',
@@ -235,6 +288,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'За да запазите тази възможност е необходимо да посочите организация.n Моля, въведете нова или изберете от вече съществуващи.',
   'NTC_REMOVE_CONFIRMATION' => 'Сигурни ли сте, че искате да премахнете този потенциален клиент от този казус?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Сигурни ли сте, че искате да изтриете този запис като direct report?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

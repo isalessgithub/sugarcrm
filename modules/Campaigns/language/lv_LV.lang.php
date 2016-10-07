@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Lūdzu, izlabojiet šīs kļūdas, pirms turpināt tālākas darbības',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Paredzamie ieņēmumi:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Biežums',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Metieni:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Kampaņas &#39;{0}&#39; statuss ir  &#39;Neaktīva&#39;. Jums jānomaina kampaņas statuss uz &#39;Aktīva&#39;.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Kampaņas &#39;{0}&#39; statuss ir &#39;Neaktīvs&#39;. Jums jāuzliek kampaņas statuss uz &#39;Aktīvs&#39;.',
   'LBL_CAMPAIGN_INFORMATION' => 'Apraksts',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Interesenti',
   'LBL_CAMPAIGN_NAME' => 'Nosaukums:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Izveidoja:',
   'LBL_CREATED_BY' => 'Izveidoja:',
   'LBL_CREATED_USER' => 'Izveidoja',
+  'LBL_CREATE_EMAIL' => 'Veidot E-pastu',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Izveidot',
   'LBL_CREATE_MAILBOX' => 'Izveidot jaunu pasta kontu',
   'LBL_CREATE_NEWSLETTER' => 'Izveidot biļetenu',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Izveidot web-to-lead formu',
   'LBL_CURRENCY' => 'Valūta:',
   'LBL_CURRENCY_ID' => 'Valūtas ID',
+  'LBL_CURRENCY_RATE' => 'Valūtas kurss',
   'LBL_CUSTOM_LOCATION' => 'Lietotāja definēta',
   'LBL_DATE_CREATED' => 'Izveidošanas datums:',
   'LBL_DATE_ENTERED' => 'Izveidots',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Sākt e-pasta konfigurēšanu',
   'LBL_EMAIL_SETUP_WIZARD' => 'Uzstādīt e-pastu',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Kampaņu e-pasta iestatījumi',
+  'LBL_EMAIL_TITLE' => 'Kampaņas: E-pasti',
+  'LBL_END_DATE' => 'Beigu datums',
   'LBL_FILTER_CHART_BY' => 'Filtrēt diagrammu pēc:',
   'LBL_FINISH' => 'Pabeigt',
   'LBL_FROM_ADDR' => '"No" Adreses',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Lietot SSL',
   'LBL_SSL_DESC' => 'Ja jūsu pasta serveris atbalsta drošo soketu savienojumus, aktivizējot šo tiks ietekmēti SSL savienojumi importējot e-pastus.',
   'LBL_START' => 'Sākt',
+  'LBL_START_DATE' => 'Sākuma datums',
   'LBL_START_DATE_TIME' => 'Sākuma datums un laiks:',
+  'LBL_STATUS' => 'Statuss',
   'LBL_STATUS_TEXT' => 'Statuss:',
   'LBL_SUBSCRIPTION_LIST' => 'Parakstīšanās saraksts',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Pierakstīšanās saraksta nosaukums:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'aplūkot papildus informāciju',
   'LBL_TODETAIL_BUTTON_TITLE' => 'aplūkot papildus informāciju',
   'LBL_TOP_CAMPAIGNS' => 'Kampaņu tops',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Pēc ieņēmumiem veiksmīgākās kampaņas',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Veiksmīgākās kampaņas pēc ieņēmumiem',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Kampaņas nosaukums',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Ieņēmumi',
   'LBL_TOTAL_ENTRIES' => 'Ieraksti',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Šīs darbības rezultātā tiks dzēsti visi žurnāla ieraksti, kas izveidoti testa  laikā. Turpināt?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Izsekot rindu',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Aplūkot ROI',
+  'LBL_TYPE' => 'Veids',
   'LBL_UNSUBSCRIBED_HEADER' => 'Atceltie biļetenu abonementi',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Pārvietojot biļetenu uz atceto abonementu sarakstu, pievienos kontaktpersonu beļetena abonementa atrakstīšanās sarakstam. Kontaktpersona netiks izņemta no oriģinālā abonementu saraksta vai mērķu saraksta.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Atrakstīšanās saraksts',

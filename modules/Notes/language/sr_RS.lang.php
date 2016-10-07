@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,9 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'MIME tip',
   'LBL_FILE_URL' => 'URL fajla',
   'LBL_FIRST_NAME' => 'Ime',
+  'LBL_HELP_CREATE' => 'Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '•	{{plural_module_name}} modul se sastoji od individualnih {{plural_module_name}} koji sadrže tekst ili prilog koji se tiču povezanog zapisa.  - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '•	{{plural_module_name}} modul se sastoji od individualnih {{plural_module_name}} koji sadrže tekst ili prilog koji se tiču povezanog zapisa.  {{module_name}} zapis može biti povezan sa jednim zapisom u većini modula pomoću flex povezanog polja i takođe može biti povezan sa jednim {{contacts_singular_module}}. {{plural_module_name}}  može da sadrži generčki tekst o zapisu ili o prilogu vezanim za zapis. Postoji nekoliko načina da se kreira {{plural_module_name}} u Sugar-u kao što su preko {{plural_module_name}} modula, uvozom {{plural_module_name}}, preko podokvira Istorija itd.  Jednom kada je {{module_name}} kreiran, moguće je pregledati i izmeniti informacije koji se tiču {{module_name}} kroz {{module_name}}-og pregleda zapisa. Svaki {{module_name}} zapis može biti uvezan sa drugim Sugar-ovim zapisima kao što su  {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, i mnogi drugi.',
   'LBL_LAST_NAME' => 'Prezime',
   'LBL_LEAD_ID' => 'ID broj potencijalnog klijenta:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Dodeljeni korisnik',
@@ -79,6 +79,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'ID broj ponude:',
   'LBL_RELATED_TO' => 'Povezano sa:',
   'LBL_REMOVING_ATTACHMENT' => 'Uklanjam prilog...',
+  'LBL_REVENUELINEITEMS' => 'Stavke prihoda',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga beležaka',
   'LBL_SEND_ANYWAYS' => 'Ovaj email je bez naslova. Da li da ga ipak pošaljem/sačuvam?',
   'LBL_STATUS' => 'Status',

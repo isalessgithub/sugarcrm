@@ -8,7 +8,7 @@ $dictionary["ProspectList"]["fields"]["accounts_prospectlists_1"] = array (
   'vname' => 'LBL_ACCOUNTS_PROSPECTLISTS_1_FROM_ACCOUNTS_TITLE',
   'id_name' => 'accounts_prospectlists_1accounts_ida',
 );
-$dictionary["ProspectList"]["fields"]["accounts_prospectlists_1_name"] = array (
+$dictionary["ProspectList"]["fields"]["accounts_prospectlists_1_name"]=array (
   'name' => 'accounts_prospectlists_1_name',
   'type' => 'relate',
   'source' => 'non-db',
@@ -20,12 +20,30 @@ $dictionary["ProspectList"]["fields"]["accounts_prospectlists_1_name"] = array (
   'module' => 'Accounts',
   'rname' => 'name',
 );
-$dictionary["ProspectList"]["fields"]["accounts_prospectlists_1accounts_ida"] = array (
+
+$dictionary["ProspectList"]["fields"]["accounts_prospectlists_1accounts_ida"]=array (
   'name' => 'accounts_prospectlists_1accounts_ida',
+  'type' => 'id',
+  'source' => 'non-db',
+  'vname' => 'LBL_ACCOUNTS_PROSPECTLISTS_1_FROM_PROSPECTLISTS_TITLE',
+  'id_name' => 'accounts_prospectlists_1accounts_ida',
+  'link' => 'accounts_prospectlists_1',
+  'table' => 'accounts',
+  'module' => 'Accounts',
+  'rname' => 'id',
+  'reportable' => false,
+  'massupdate' => false,
+  'duplicate_merge' => 'disabled',
+  'hideacl' => true,
+);
+$dictionary["ProspectList"]["fields"]["accounts_prospectlists_1_right"]=array (
+  'name' => 'accounts_prospectlists_1_right',
   'type' => 'link',
   'relationship' => 'accounts_prospectlists_1',
   'source' => 'non-db',
-  'reportable' => false,
-  'side' => 'right',
   'vname' => 'LBL_ACCOUNTS_PROSPECTLISTS_1_FROM_PROSPECTLISTS_TITLE',
+  'id_name' => '_idb',
+  'side' => 'right',
+  'link-type' => 'many',
 );
+

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * view.showduplicates.php
@@ -44,8 +41,7 @@ class ViewShowDuplicates extends SugarView
         }
         unset($_SESSION['SHOW_DUPLICATES']);
 
-
-        $lead = new Lead();
+        $lead = BeanFactory::getBean('Leads');
         require_once('modules/Leads/LeadFormBase.php');
         $leadForm = new LeadFormBase();
         $GLOBALS['check_notify'] = FALSE;
@@ -104,7 +100,7 @@ class ViewShowDuplicates extends SugarView
 
         $input .= get_teams_hidden_inputs('Leads');
 
-        $emailAddress = new SugarEmailAddress();
+        $emailAddress = BeanFactory::getBean('EmailAddresses');
         $input .= $emailAddress->getEmailAddressWidgetDuplicatesView($lead);
 
         $get = '';
@@ -163,16 +159,10 @@ class ViewShowDuplicates extends SugarView
 
         $this->ss->assign('INPUT_FIELDS', $input);
 
-        //Load the appropriate template
-        $template = 'modules/Leads/tpls/ShowDuplicates.tpl';
-        if(file_exists('custom/' . $template))
-        {
-           $template = 'custom/' . $template;
-        }
-
         $saveLabel = string_format($app_strings['LBL_SAVE_OBJECT'], array($this->module));
         $this->ss->assign('TITLE', getClassicModuleTitle('Leads', array($this->module, $saveLabel), true));
-        $this->ss->display($template);
+        //Load the appropriate template
+        $this->ss->displayCustom('modules/Leads/tpls/ShowDuplicates.tpl');
     }
 
 }

@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $viewdefs['Users']['EditView'] = array(
     'templateMeta' => array('maxColumns' => '2', 
                             'widths' => array(
@@ -34,7 +31,6 @@ $viewdefs['Users']['EditView'] = array(
             ),
             array(array(
                       'name' => 'status',
-                      'customCode' => '{if $IS_ADMIN}@@FIELD@@{else}{$STATUS_READONLY}{/if}',
                       'displayParams' => array('required'=>true),
                   ),
                   'last_name'),
@@ -46,25 +42,13 @@ $viewdefs['Users']['EditView'] = array(
             array('picture'),
         ),
         'LBL_EMPLOYEE_INFORMATION' => array(
-            array(array(
-                      'name'=>'employee_status',
-                      'customCode'=>'{if $IS_ADMIN}@@FIELD@@{else}{$EMPLOYEE_STATUS_READONLY}{/if}',
-                  ),
+            array('employee_status',
                   'show_on_employees'),
-            array(array(
-                      'name'=>'title',
-                      'customCode'=>'{if $IS_ADMIN}@@FIELD@@{else}{$TITLE_READONLY}{/if}',
-                  ),
+            array('title',
                   'phone_work'),
-            array(array(
-                      'name'=>'department',
-                      'customCode'=>'{if $IS_ADMIN}@@FIELD@@{else}{$DEPT_READONLY}{/if}',
-                  ),
+            array('department',
                   'phone_mobile'),
-            array(array(
-                      'name'=>'reports_to_name',
-                      'customCode'=>'{if $IS_ADMIN}@@FIELD@@{else}{$REPORTS_TO_READONLY}{/if}',
-                  ),
+            array('reports_to_name',
                   'phone_other'),
             array('','phone_fax'),
             array('','phone_home'),

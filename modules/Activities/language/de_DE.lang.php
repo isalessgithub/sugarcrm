@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -26,7 +23,7 @@ $mod_strings = array (
   'LBL_DATE' => 'Startdatum:',
   'LBL_DATE_TIME' => 'Startdatum und -zeit:',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Offene Aktivitäten',
-  'LBL_DELETE_ACTIVITY' => 'Sind Sie sicher, dass Sie diese Aktivität löschen wollen?',
+  'LBL_DELETE_ACTIVITY' => 'Sind Sie sicher dass Sie Ihre letzte Aktion löschen wollen?',
   'LBL_DESCRIPTION' => 'Beschreibung:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beschreibungsinformation',
   'LBL_DIRECTION' => 'Richtung',
@@ -48,9 +45,9 @@ $mod_strings = array (
   'LBL_LIST_SUBJECT' => 'Betreff',
   'LBL_LIST_TIME' => 'Startzeit',
   'LBL_LOCATION' => 'Ort:',
-  'LBL_MEETING' => 'Meeting:',
+  'LBL_MEETING' => 'Sitzung:',
   'LBL_MODULE_NAME' => 'Aktivitäten',
-  'LBL_MODULE_NAME_SINGULAR' => 'Aktivität',
+  'LBL_MODULE_NAME_SINGULAR' => 'Aktivitäten',
   'LBL_MODULE_TITLE' => 'Aktivitäten: Home',
   'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
   'LBL_NEW_NOTE_BUTTON_LABEL' => 'Neue Notiz oder Anlage',

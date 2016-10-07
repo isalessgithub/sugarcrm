@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -30,7 +27,7 @@ $mod_strings = array (
   'LBL_TRACKER_PRUNE_RANGE' => 'Gün Sayısı',
   'LBL_TRACKER_QUERIES_DESC' => 'Takipçi Sorguları',
   'LBL_TRACKER_QUERIES_HELP' => '"Yavaş sorgulamayı kaydet" etkinleştirildiğinde ve sorgu çalıştırma süresi "Yavaş sorgu zaman eşiği" değerini aştığı durumlarda SQL ifadelerini takip et',
-  'LBL_TRACKER_SESSIONS_DESC' => 'Takipçi Toplantıları',
+  'LBL_TRACKER_SESSIONS_DESC' => 'Takipçi Oturumu',
   'LBL_TRACKER_SESSIONS_HELP' => 'Aktif kullanıcıları ve kullanıcıların oturum bilgilerini takip eder',
   'LBL_TRACKER_SETTINGS' => 'Takipçi Ayarları',
   'ShowActiveUsers' => 'Aktif Kullanıcıları Göster',

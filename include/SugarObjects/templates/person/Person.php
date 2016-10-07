@@ -1,60 +1,74 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-require_once('include/SugarObjects/templates/basic/Basic.php');
+require_once ('include/SugarObjects/templates/basic/Basic.php');
 
 class Person extends Basic
 {
     var $picture;
     /**
-     * @var bool controls whether or not to invoke the getLocalFormatttedName method with title and salutation
+     *
+     * @var bool controls whether or not to invoke the getLocalFormatttedName
+     *      method with title and salutation
      */
     var $createLocaleFormattedName = true;
 
     /**
+     *
      * @var Link2
      */
     public $email_addresses;
 
-	public function Person()
-	{
-		parent::Basic();
-		$this->emailAddress = new SugarEmailAddress();
-	}
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function Person()
+    {
+        $GLOBALS['log']->deprecated('Calls to Person::Person() are deprecated.');
+        self::__construct();
+    }
 
-	/**
-	 * need to override to have a name field created for this class
-	 *
- 	 * @see parent::retrieve()
- 	 */
-    public function retrieve($id = -1, $encode=true, $deleted=true) {
-		$ret_val = parent::retrieve($id, $encode, $deleted);
-		$this->_create_proper_name_field();
-		return $ret_val;
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->emailAddress = BeanFactory::getBean('EmailAddresses');
+    }
 
-	/**
- 	 * Populate email address fields here instead of retrieve() so that they are properly available for logic hooks
- 	 *
- 	 * @see parent::fill_in_relationship_fields()
- 	 */
-	public function fill_in_relationship_fields()
-	{
-	    parent::fill_in_relationship_fields();
-	    $this->emailAddress->handleLegacyRetrieve($this);
-	}
+    /**
+     * need to override to have a name field created for this class
+     *
+     * @see parent::retrieve()
+     */
+    public function retrieve($id = -1, $encode = true, $deleted = true)
+    {
+        $ret_val = parent::retrieve($id, $encode, $deleted);
+        $this->_create_proper_name_field();
+        return $ret_val;
+    }
+
+    /**
+     * Populate email address fields here instead of retrieve() so that they are
+     * properly available for logic hooks
+     *
+     * @see parent::fill_in_relationship_fields()
+     */
+    public function fill_in_relationship_fields()
+    {
+        parent::fill_in_relationship_fields();
+        $this->emailAddress->handleLegacyRetrieve($this);
+    }
 
 	/**
      * This function helps generate the name and full_name member field variables from the salutation, title, first_name and last_name fields.
@@ -62,65 +76,19 @@ class Person extends Basic
 	 */
 	public function _create_proper_name_field()
 	{
-		global $locale, $app_list_strings;
-
-        // Bug# 46125 - make first name, last name, salutation and title of Contacts respect field level ACLs
-        $first_name = ""; $last_name = ""; $salutation = ""; $title = "";
-
-        $globalUserSet = isset($GLOBALS['current_user']);
-        if ($globalUserSet && (ACLField::hasAccess('first_name', $this->module_dir, $GLOBALS['current_user']->id, $this->isOwner($GLOBALS['current_user']->id))) > 0) {
-           // first name has at least read access
-           $first_name = $this->first_name;
-        }
-
-        if ($globalUserSet && (ACLField::hasAccess('last_name', $this->module_dir, $GLOBALS['current_user']->id, $this->isOwner($GLOBALS['current_user']->id))) > 0) {
-            // last name has at least read access
-            $last_name = $this->last_name;
-        }
-
-        if ($globalUserSet && (ACLField::hasAccess('salutation', $this->module_dir, $GLOBALS['current_user']->id, $this->isOwner($GLOBALS['current_user']->id))) > 0) {
-
-            // salutation has at least read access
-            if(isset($this->field_defs['salutation']['options'])
-			  && isset($app_list_strings[$this->field_defs['salutation']['options']])
-			  && isset($app_list_strings[$this->field_defs['salutation']['options']][$this->salutation]) ) {
-
-			        $salutation = $app_list_strings[$this->field_defs['salutation']['options']][$this->salutation];
-			} // if
-        }
-
-        if ($globalUserSet && (ACLField::hasAccess('title', $this->module_dir, $GLOBALS['current_user']->id, $this->isOwner($GLOBALS['current_user']->id))) > 0) {
-            // last name has at least read access
-            $title = $this->title;
-        }
-
-        // Corner Case:
-        // Both first name and last name cannot be empty, at least one must be shown
-        // In that case, we can ignore field level ACL and just display last name...
-        // In the ACL field level access settings, last_name cannot be set to "none"
-        if (empty($first_name) && empty($last_name)) {
-            $full_name = $locale->getLocaleFormattedName("", $last_name, $salutation, $title);
-        } else {
-			if($this->createLocaleFormattedName) {
-				$full_name = $locale->getLocaleFormattedName($first_name, $last_name, $salutation, $title);
-			} else {
-				$full_name = $locale->getLocaleFormattedName($first_name, $last_name);
-			}
-		}
-
-		$this->name = $full_name;
-		$this->full_name = $full_name; //used by campaigns
+        global $locale;
+        $this->name = $this->full_name = $locale->formatName($this);
 	}
-	
 
-	/**
- 	 * @see parent::save()
- 	 */
-	public function save($check_notify=false) 
-	{
-		//If we are saving due to relationship changes, don't bother trying to update the emails
-        if(!empty($GLOBALS['resavingRelatedBeans']))
-        {
+    /**
+     *
+     * @see parent::save()
+     */
+    public function save($check_notify = false)
+    {
+        // If we are saving due to relationship changes, don't bother trying to
+        // update the emails
+        if (static::inOperation('saving_related')) {
             parent::save($check_notify);
             return $this->id;
         }
@@ -131,37 +99,39 @@ class Person extends Basic
         // bug #39188 - store emails state before workflow make any changes
         $this->emailAddress->stash($this->id, $this->module_dir);
         parent::save($check_notify);
-        // $this->emailAddress->evaluateWorkflowChanges($this->id, $this->module_dir);
+        // $this->emailAddress->evaluateWorkflowChanges($this->id,
+        // $this->module_dir);
         $override_email = array();
-        if(!empty($this->email1_set_in_workflow)) {
+        if (!empty($this->email1_set_in_workflow)) {
             $override_email['emailAddress0'] = $this->email1_set_in_workflow;
         }
-        if(!empty($this->email2_set_in_workflow)) {
+        if (!empty($this->email2_set_in_workflow)) {
             $override_email['emailAddress1'] = $this->email2_set_in_workflow;
         }
-        if(!isset($this->in_workflow)) {
+        if (!isset($this->in_workflow)) {
             $this->in_workflow = false;
         }
-        if($ori_in_workflow === false || !empty($override_email)){
-            $this->emailAddress->save($this->id, $this->module_dir, $override_email,'','','','',$this->in_workflow);
+        if ($ori_in_workflow === false || !empty($override_email)) {
+            $this->emailAddress->save($this->id, $this->module_dir, $override_email, '', '', '', '', $this->in_workflow);
             // $this->emailAddress->applyWorkflowChanges($this->id, $this->module_dir);
         }
-		return $this->id;
-	}
+        return $this->id;
+    }
 
-	/**
- 	 * @see parent::get_summary_text()
- 	 */
-	public function get_summary_text() 
-	{
-		$this->_create_proper_name_field();
+    /**
+     *
+     * @see parent::get_summary_text()
+     */
+    public function get_summary_text()
+    {
+        $this->_create_proper_name_field();
         return $this->name;
 	}
 
 	/**
  	 * @see parent::get_list_view_data()
  	 */
-	public function get_list_view_data() 
+	public function get_list_view_data()
 	{
 		global $system_config;
 		global $current_user;
@@ -173,30 +143,28 @@ class Person extends Basic
         $temp_array["ENCODED_NAME"] = $this->full_name;
         $temp_array["FULL_NAME"] = $this->full_name;
 
-        $temp_array['EMAIL1'] = $this->emailAddress->getPrimaryAddress($this);
+        $temp_array['EMAIL'] = $this->emailAddress->getPrimaryAddress($this);
 
         // Fill in the email1 field only if the user has access to it
         // This is a special case, because getEmailLink() uses email1 field for making the link
         // Otherwise get_list_view_data() shouldn't set any fields except fill the template data
-        if (ACLField::hasAccess('email1', $this->module_dir, $GLOBALS['current_user']->id, $this->isOwner($GLOBALS['current_user']->id)))
-        {
-            $this->email1 = $temp_array['EMAIL1'];
+        if ($this->ACLFieldAccess('email1', 'read')) {
+            $this->email1 = $temp_array['EMAIL'];
         }
-        $temp_array['EMAIL1_LINK'] = $current_user->getEmailLink('email1', $this, '', '', 'ListView');
+        $temp_array['EMAIL_LINK'] = $current_user->getEmailLink('email1', $this, '', '', 'ListView');
 
 		return $temp_array;
 	}
 
     /**
+     *
      * @see SugarBean::populateRelatedBean()
- 	 */
-    public function populateRelatedBean(
-        SugarBean $newbean
-        )
+     */
+    public function populateRelatedBean(SugarBean $newbean)
     {
         parent::populateRelatedBean($newbean);
 
-        if ( $newbean instanceOf Company ) {
+        if ($newbean instanceof Company) {
             $newbean->phone_fax = $this->phone_fax;
             $newbean->phone_office = $this->phone_work;
             $newbean->phone_alternate = $this->phone_other;
@@ -217,69 +185,52 @@ class Person extends Basic
     }
 
     /**
-     * Default export query for Person based modules
-     * used to pick all mails (primary and non-primary)
-     *
-     * @see SugarBean::create_export_query()
+     * Retrieve a list of this person's calendar event start and end times ordered by start datetime
+     * @return array
      */
-    function create_export_query(&$order_by, &$where, $relate_link_join = '')
+    public function getFreeBusySchedule(array $options = array())
     {
-        $custom_join = $this->custom_fields->getJOIN(true, true, $where);
+        global $timedate;
+        global $sugar_config;
 
-        // For easier code reading, reused plenty of time
-        $table = $this->table_name;
+        //--- Explicit config can be used to force use of vCal Cache instead of RealTime Search
+        $useFreeBusyCache = !empty($sugar_config['freebusy_use_vcal_cache']);
 
-        if($custom_join)
-        {
-            $custom_join['join'] .= $relate_link_join;
-        }
-        $query = "SELECT
-					$table.*,
-					email_addresses.email_address email_address,
-					'' email_addresses_non_primary, " . // email_addresses_non_primary needed for get_field_order_mapping()
-					"users.user_name as assigned_user_name ";
-        $query .= ", teams.name AS team_name ";
-        if($custom_join)
-        {
-            $query .= $custom_join['select'];
+        $vcalBean = BeanFactory::getBean('vCals');
+        if (!$useFreeBusyCache && !empty($options['start']) && !empty($options['end'])) {
+            $sugarDateTimeStart = $timedate->fromIso($options['start']);
+            $sugarDateTimeEnd = $timedate->fromIso($options['end']);
+            $vcalData = $vcalBean->get_vcal_freebusy($this, false, $sugarDateTimeStart, $sugarDateTimeEnd);
+        } else {
+            $vcalData = $vcalBean->get_vcal_freebusy($this, true);
         }
 
-        $query .= " FROM $table ";
+        $vcalData = str_replace("\r\n", "\n", $vcalData);
+        $lines = explode("\n", $vcalData);
+        $utc = new DateTimeZone("UTC");
 
-        // We need to confirm that the user is a member of the team of the item.
-        $this->add_team_security_where_clause($query);
-
-        $query .= "LEFT JOIN users
-					ON $table.assigned_user_id=users.id ";
-
-        $query .= getTeamSetNameJoin($table);
-
-        //Join email address table too.
-        $query .=  " LEFT JOIN email_addr_bean_rel on $table.id = email_addr_bean_rel.bean_id and email_addr_bean_rel.bean_module = '" . $this->module_dir . "' and email_addr_bean_rel.deleted = 0 and email_addr_bean_rel.primary_address = 1";
-        $query .=  " LEFT JOIN email_addresses on email_addresses.id = email_addr_bean_rel.email_address_id ";
-
-        if($custom_join)
-        {
-            $query .= $custom_join['join'];
+        $activities = array();
+        foreach ($lines as $line) {
+            if (preg_match('/^FREEBUSY.*?:([^\/]+)\/([^\/]+)/i', $line, $matches)) {
+                $datesArray = array(
+                    SugarDateTime::createFromFormat(vCal::UTC_FORMAT, $matches[1], $utc),
+                    SugarDateTime::createFromFormat(vCal::UTC_FORMAT, $matches[2], $utc)
+                );
+                $act = new CalendarActivity($datesArray);
+                $startTime = $timedate->asIso($act->start_time);
+                $endTime = $timedate->asIso($act->end_time);
+                $activities[$startTime] = array(
+                    "start" => $startTime,
+                    "end" => $endTime,
+                );
+            }
+        }
+        ksort($activities); // order by start date
+        $freeBusySchedule = array();
+        foreach ($activities AS $startDate => $act) {
+            $freeBusySchedule[] = $act;
         }
 
-        $where_auto = " $table.deleted=0 ";
-
-        if($where != "")
-        {
-            $query .= "WHERE ($where) AND " . $where_auto;
-        }
-        else
-        {
-            $query .= "WHERE " . $where_auto;
-        }
-
-        $order_by = $this->process_order_by($order_by);
-        if (!empty($order_by)) {
-            $query .= ' ORDER BY ' . $order_by;
-        }
-
-        return $query;
+        return $freeBusySchedule;
     }
-
 }

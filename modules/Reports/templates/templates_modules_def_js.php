@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Reports/config.php');
 
 //////////////////////////////////////////////
@@ -21,14 +18,14 @@ require_once('modules/Reports/config.php');
 // THIS TEMPLATE IS NOW USED TO CREATE A JAVASCRIPT CACHED FILE
 // THE FILE IS LOCATED IN cache/modules/modules_def_<lang>_<md5>.js
 //////////////////////////////////////////////
-function template_module_defs_js(&$args) {
+function template_module_defs_js() {
 global $report_modules,$current_language;
 $mod_strings = return_module_language($current_language,'Reports');
 $currentModule = 'Reports';
 
 $global_json = getJSONobj();
 global $ACLAllowedModules;
-$ACLAllowedModules = getACLAllowedModules();
+$ACLAllowedModules = getACLAllowedModules(true);
 echo 'ACLAllowedModules = ' . $global_json->encode(array_keys($ACLAllowedModules)) .";\n";
 
 ?>
@@ -72,19 +69,48 @@ var link_defs_<?php echo $module_name; ?> = new Object();
     {
 		$module->load_relationship($linked_field['name']);
 		$field = $linked_field['name'];
-		if(empty($module->$field) || (isset($linked_field['reportable']) &&
-	           $linked_field['reportable'] == false))
-	    {
-	       continue;
-	    }
+		if(empty($module->$field)
+		   || (isset($linked_field['reportable']) && $linked_field['reportable'] == false)
+		   || empty($linked_field['relationship'])) {
+			continue;
+		}
 		if(empty($relationships[$linked_field['relationship']]))
 		{
 			$relationships[$linked_field['relationship']] = $module->$field->relationship;
 		}
 
-		if(! empty($linked_field['vname']))
-		{
-			$linked_field['label'] =translate($linked_field['vname']);
+        $vname = '';
+        // To figure out the label, we will start with the least specific and move in from there
+        if (!empty($linked_field['vname'])) {
+            $vname = $linked_field['vname'];
+        }
+
+        // In order to get the correct label, we have to track down and see if there is a name field and use that for the label.
+        foreach ($module->field_defs as $idx => $fieldDef) {
+            if (!isset($fieldDef['link'])) {
+                continue;
+            }
+            if ($fieldDef['link'] != $linked_field['name']) {
+                continue;
+            }
+            if ($fieldDef['type'] == 'relate'
+                && $fieldDef['rname'] == 'name'
+                && !empty($fieldDef['vname'])) {
+                // This is the name field for the link field
+                $vname = $fieldDef['vname'];
+                break;
+            }
+        }
+        if (!empty($vname)) {
+			$linked_field['label'] = translate($vname);
+            // Try the label from this side of the module
+            if ($linked_field['label'] == $vname) {
+                $linked_field['label'] = translate($vname, $module->module_dir);
+            }
+            // How about from the other side
+            if ($linked_field['label'] == $vname) {
+                $linked_field['label'] = translate($vname, $module->$field->getRelatedModuleName());
+            }
 		} else {
 			$linked_field['label'] =$linked_field['name'];
 		}
@@ -105,7 +131,8 @@ var field_defs_<?php echo $module_name; ?> = new Object();
 <?php
 
 		if(is_array($module->field_defs)) {
-			ACLField::listFilter($module->field_defs, $module->module_dir, $GLOBALS['current_user']->id, true);
+			$module->ACLFilterFieldList($module->field_defs, array("owner_override" => true));
+
 			ksort($module->field_defs);
 
 		    if(isset($module->field_defs['team_set_id'])) {
@@ -114,9 +141,6 @@ var field_defs_<?php echo $module_name; ?> = new Object();
 
 			foreach($module->field_defs as $field_def)
 			{
-				//if (ACLField::hasAccess($field_def, $module, $GLOBALS['current_user']->id,))
-				//$field, $category,$user_id, $is_owner
-
 			    if(isset($field_def['reportable']) &&
 			           $field_def['reportable'] == false)
 			    {
@@ -125,6 +149,7 @@ var field_defs_<?php echo $module_name; ?> = new Object();
 
                 //Allowed fields array with non-db-source
                 $allowed_fields_array = array('full_name', 'default_primary_team');
+
 			    if(isset($field_def['source']) &&
 			           ($field_def['source'] == 'non-db' && empty($field_def['ext2'])) && $field_def['name'] != 'full_name')
 			    {
@@ -141,6 +166,10 @@ var field_defs_<?php echo $module_name; ?> = new Object();
 			       continue;
 			    }
 
+			    if ($field_def['type'] == 'encrypt')
+			    {
+			    	continue;
+			    }
 
 ?>
 field_defs_<?php echo $module_name; ?>[ "<?php echo $field_def['name']; ?>"] = <?php
@@ -150,7 +179,7 @@ field_defs_<?php echo $module_name; ?>[ "<?php echo $field_def['name']; ?>"] = <
 				foreach($field_def as $field_name=>$field_value)
 				{
 					if(empty($field_name) || empty($field_value) || $field_name  == 'comment'
-						|| $field_name == "formula" || $field_name == "dependency" || $field_name == "visibility_grid")
+						|| $field_name == "formula" || $field_name == "dependency" || $field_name == "visibility_grid" || is_array($field_value))
 					{
 						continue;
 					}
@@ -218,14 +247,13 @@ option_arr_<?php echo $module_name; ?>[option_arr_<?php echo $module_name; ?>.le
 field_defs_<?php echo $module_name; ?>[ "<?php echo $field_def['name']; ?>"].options=option_arr_<?php echo $module_name; ?>;
 
 <?php
-				} else if(isset($field_def['type']) && $field_def['type'] == 'enum' && isset($field_def['function']))
+				} else if(isset($field_def['type']) && ($field_def['type'] == 'enum' || $field_def['type'] == 'timeperiod') && isset($field_def['function']))
 				{
 ?>
 					var option_arr_<?php echo $module_name; ?> = new Array();
 
 <?php
-			        $options_array = array();
-			        $options_array = $field_def['function']();
+                    $options_array = getFunctionValue(!empty($field_def['function_bean']) ? $field_def['function_bean'] : null, $field_def['function']);
 
 			        foreach($options_array as $option_value=>$option_text)
 			        {
@@ -345,10 +373,15 @@ module_defs['<?php echo $module_name; ?>'].label = "<?php echo addslashes(
 	$day = translate('LBL_DAY');
 	$month = translate('LBL_MONTH');
 	$year = translate('LBL_YEAR');
-	$quarter = translate('LBL_QUARTER');
+    $quarter = translate('LBL_QUARTER');
 ?>
 var summary_types = {sum:'<?php echo $sum; ?>',avg:'<?php echo $avg; ?>',max:'<?php echo $max; ?>',min:'<?php echo $min; ?>'};
-var date_summary_types = {day:'<?php echo $day; ?>',month:'<?php echo $month; ?>',year:'<?php echo $year; ?>',quarter:'<?php echo $quarter; ?>'};
+    var date_summary_types = {
+        day:'<?php echo $day; ?>',
+        month:'<?php echo $month; ?>',
+        year:'<?php echo $year; ?>',
+        quarter:'<?php echo $quarter; ?>'
+    };
 
 // create summary_defs_field and group_by_field_defs for every module
 
@@ -382,7 +415,8 @@ for(module_name in module_defs)
 		      module_defs[module_name].group_by_field_defs[ field_def.name] = field_def;
         }
 
-		if(field_type == 'int' || field_type == 'float' || field_type=='currency' || field_type=='decimal')
+
+		if(field_type == 'int' || field_type == 'float' || field_type=='currency' || field_type=='decimal' || field_type == 'long')
 		{
 			// create a new "column" for each summary type
 			for(stype in summary_types)
@@ -402,8 +436,6 @@ for(module_name in module_defs)
 				module_defs[module_name].group_by_field_defs[field_def.name+':'+stype] = { name: field_def.name+':'+stype, field_def_name: field_def.name, vname: date_summary_types[stype]+': '+ field_def.vname,column_function:stype,summary_type:'column',field_type:field_type };
 			}
 
-
-//			module_defs[module_name].group_by_field_defs[ field_def.name ] = field_def;
 		}
 
 		if(field_def.name == 'amount')
@@ -469,13 +501,15 @@ var qualifiers_name = new Array();
 //qualifiers_name = qualifiers_name.concat(qualifiers);
 var is_not_empty_def = {name:'not_empty',value:'<?php echo $mod_strings['LBL_IS_NOT_EMPTY']; ?>'};
 var is_empty_def = {name:'empty',value:'<?php echo $mod_strings['LBL_IS_EMPTY']; ?>'};
+var reports_to_def = {name:'reports_to',value:'<?php echo $mod_strings['LBL_REPORTS_TO']; ?>'};
+qualifiers_name.unshift(reports_to_def);
 qualifiers_name.unshift(is_not_empty_def);
 qualifiers_name.unshift(is_empty_def);
 qualifiers_name.unshift(not_one_of_def);
 qualifiers_name.unshift(one_of_def);
 qualifiers_name.unshift(is_not_def);
 qualifiers_name.unshift(is_def);
-filter_defs['user_name'] = qualifiers_name;
+filter_defs['username'] = qualifiers_name;
 
 var qualifiers =  new Array();
 qualifiers[qualifiers.length] = {name:'on',value:'<?php echo $mod_strings['LBL_ON']; ?>'};
@@ -491,10 +525,8 @@ qualifiers[qualifiers.length] = {name:'not_empty',value:'<?php echo $mod_strings
 qualifiers[qualifiers.length] = {name:'tp_yesterday',value:'<?php echo $mod_strings['LBL_YESTERDAY']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_today',value:'<?php echo $mod_strings['LBL_TODAY']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_tomorrow',value:'<?php echo $mod_strings['LBL_TOMORROW']; ?>'};
-/*
-qualifiers[qualifiers.length] = {name:'tp_last_week',value:'<?php echo $mod_strings['LBL_LAST_WEEK']; ?>'};
-qualifiers[qualifiers.length] = {name:'tp_next_week',value:'<?php echo $mod_strings['LBL_NEXT_WEEK']; ?>'};
-*/
+qualifiers[qualifiers.length] = {name:'tp_last_n_days',value:'<?php echo $mod_strings['LBL_LAST_N_DAYS']; ?>'};
+qualifiers[qualifiers.length] = {name:'tp_next_n_days',value:'<?php echo $mod_strings['LBL_NEXT_N_DAYS']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_last_7_days',value:'<?php echo $mod_strings['LBL_LAST_7_DAYS']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_next_7_days',value:'<?php echo $mod_strings['LBL_NEXT_7_DAYS']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_last_month',value:'<?php echo $mod_strings['LBL_LAST_MONTH']; ?>'};
@@ -510,6 +542,7 @@ qualifiers[qualifiers.length] = {name:'tp_next_30_days',value:'<?php echo $mod_s
 qualifiers[qualifiers.length] = {name:'tp_last_year',value:'<?php echo $mod_strings['LBL_LAST_YEAR']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_this_year',value:'<?php echo $mod_strings['LBL_THIS_YEAR']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_next_year',value:'<?php echo $mod_strings['LBL_NEXT_YEAR']; ?>'};
+
 filter_defs['date'] = qualifiers;
 filter_defs['datetime'] = qualifiers;
 
@@ -524,6 +557,8 @@ qualifiers[qualifiers.length] = {name:'not_empty',value:'<?php echo $mod_strings
 qualifiers[qualifiers.length] = {name:'tp_yesterday',value:'<?php echo $mod_strings['LBL_YESTERDAY']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_today',value:'<?php echo $mod_strings['LBL_TODAY']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_tomorrow',value:'<?php echo $mod_strings['LBL_TOMORROW']; ?>'};
+qualifiers[qualifiers.length] = {name:'tp_last_n_days',value:'<?php echo $mod_strings['LBL_LAST_N_DAYS']; ?>'};
+qualifiers[qualifiers.length] = {name:'tp_next_n_days',value:'<?php echo $mod_strings['LBL_NEXT_N_DAYS']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_last_7_days',value:'<?php echo $mod_strings['LBL_LAST_7_DAYS']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_next_7_days',value:'<?php echo $mod_strings['LBL_NEXT_7_DAYS']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_last_month',value:'<?php echo $mod_strings['LBL_LAST_MONTH']; ?>'};
@@ -539,17 +574,21 @@ qualifiers[qualifiers.length] = {name:'tp_next_30_days',value:'<?php echo $mod_s
 qualifiers[qualifiers.length] = {name:'tp_last_year',value:'<?php echo $mod_strings['LBL_LAST_YEAR']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_this_year',value:'<?php echo $mod_strings['LBL_THIS_YEAR']; ?>'};
 qualifiers[qualifiers.length] = {name:'tp_next_year',value:'<?php echo $mod_strings['LBL_NEXT_YEAR']; ?>'};
+
 filter_defs['datetimecombo'] = qualifiers;
 
 var qualifiers =  new Array();
 qualifiers[qualifiers.length] = {name:'equals',value:'<?php echo $mod_strings['LBL_EQUALS']; ?>'};
 qualifiers[qualifiers.length] = {name:'not_equals',value:'<?php echo $mod_strings['LBL_DOES_NOT_EQUAL']; ?>'};
 qualifiers[qualifiers.length] = {name:'less',value:'<?php echo $mod_strings['LBL_LESS_THAN']; ?>'};
+qualifiers[qualifiers.length] = {name:'less_equal',value:'<?php echo $mod_strings['LBL_LESS_THAN_EQUAL']; ?>'};
+qualifiers[qualifiers.length] = {name:'greater_equal',value:'<?php echo $mod_strings['LBL_GREATER_THAN_EQUAL']; ?>'};
 qualifiers[qualifiers.length] = {name:'greater',value:'<?php echo $mod_strings['LBL_GREATER_THAN']; ?>'};
 qualifiers[qualifiers.length] = {name:'between',value:'<?php echo $mod_strings['LBL_IS_BETWEEN']; ?>'};
 qualifiers[qualifiers.length] = {name:'empty',value:'<?php echo $mod_strings['LBL_IS_EMPTY']; ?>'};
 qualifiers[qualifiers.length] = {name:'not_empty',value:'<?php echo $mod_strings['LBL_IS_NOT_EMPTY']; ?>'};
 filter_defs['int'] = qualifiers;
+filter_defs['long'] = qualifiers;
 filter_defs['float'] = qualifiers;
 filter_defs['decimal'] = qualifiers;
 filter_defs['currency'] = qualifiers;
@@ -565,6 +604,7 @@ qualifiers[qualifiers.length] = {name:'not_empty',value:'<?php echo $mod_strings
 filter_defs['enum'] = qualifiers;
 filter_defs['radioenum'] = qualifiers;
 filter_defs['parent_type'] = qualifiers;
+filter_defs['timeperiod'] = qualifiers;
 filter_defs['currency_id'] = qualifiers;
 
 var qualifiers =  new Array();
@@ -610,6 +650,11 @@ qualifiers[qualifiers.length] = {name:'all',value:'<?php echo $mod_strings['LBL_
 qualifiers[qualifiers.length] = {name:'exact',value:'<?php echo $mod_strings['LBL_EXACT']; ?>'};
 filter_defs['team_set_id'] = qualifiers;
 
+    filter_defs['file'] = [
+        {name:'empty',value:'<?php echo $mod_strings['LBL_IS_EMPTY']; ?>'},
+        {name:'not_empty',value:'<?php echo $mod_strings['LBL_IS_NOT_EMPTY']; ?>'}
+    ];
+
 function in_array(n, h){
     var i = 0;
     while (i < h.length) {
@@ -626,4 +671,97 @@ for(i in module_defs) {
 }
 <?php
 } //End of the PHP function template_module_defs_js
+
+/**
+ * Used for creating fiscal filters .js cache file
+ * but since this file is dependent on whether the fiscal start date is set
+ * we create it in a separate file and include if needed
+ */
+function template_module_defs_fiscal_js()
+{
+    global $current_language;
+    $mod_strings = return_module_language($current_language, 'Reports');
+
+    // Prepare the arrays for json_encode()
+    $fiscalSummaryArray = array(
+        'fiscalYear' => translate('LBL_FISCAL_YEAR'),
+        'fiscalQuarter' => translate('LBL_FISCAL_QUARTER')
+    );
+    $fiscalGroupingsArray = array(
+        array(
+            'name' => 'fiscalYear',
+            'value' => $mod_strings['LBL_BY_FISCAL_YEAR']
+        ),
+        array(
+            'name' => 'fiscalQuarter',
+            'value' => $mod_strings['LBL_BY_FISCAL_QUARTER']
+        )
+    );
+    $fiscalFiltersArray = array(
+        array(
+            'name' => 'tp_previous_fiscal_year',
+            'value' => $mod_strings['LBL_PREVIOUS_FISCAL_YEAR']
+        ),
+        array(
+            'name' => 'tp_previous_fiscal_quarter',
+            'value' => $mod_strings['LBL_PREVIOUS_FISCAL_QUARTER']
+        ),
+        array(
+            'name' => 'tp_current_fiscal_year',
+            'value' => $mod_strings['LBL_CURRENT_FISCAL_YEAR']
+        ),
+        array(
+            'name' => 'tp_current_fiscal_quarter',
+            'value' => $mod_strings['LBL_CURRENT_FISCAL_QUARTER']
+        ),
+        array(
+            'name' => 'tp_next_fiscal_year',
+            'value' => $mod_strings['LBL_NEXT_FISCAL_YEAR']
+        ),
+        array(
+            'name' => 'tp_next_fiscal_quarter',
+            'value' => $mod_strings['LBL_NEXT_FISCAL_QUARTER']
+        )
+    );
+
+    // Prepare JSON strings for HEREDOC
+    $jsonFiscalSummaryArray = json_encode($fiscalSummaryArray);
+    $jsonFiscalGroupingsArray = json_encode($fiscalGroupingsArray);
+    $jsonFiscalFiltersArray = json_encode($fiscalFiltersArray);
+
+    $return = <<<EOT
+var fiscalSummary = {$jsonFiscalSummaryArray};
+// Add the fiscal group by defs to all modules with date type fields
+for (module_name in module_defs) {
+    for (field_name in module_defs[module_name].field_defs) {
+        var field_def = module_defs[module_name].field_defs[field_name];
+        var field_type = field_def.type;
+
+        if (field_type == 'date' || field_type == 'datetime' || field_type == 'datetimecombo') {
+            // Just loop over the fiscal group bys
+            for (stype in fiscalSummary) {
+                module_defs[module_name].group_by_field_defs[field_def.name + ':' + stype] = {
+                    name : field_def.name + ':' + stype,
+                    field_def_name : field_def.name,
+                    vname : fiscalSummary[stype] + ': ' + field_def.vname,
+                    column_function : stype,
+                    summary_type : 'column',
+                    field_type : field_type
+                };
+            }
+        }
+    }
+}
+
+var fiscalGroupings = {$jsonFiscalGroupingsArray};
+date_group_defs = date_group_defs.concat(fiscalGroupings);
+
+var fiscalFilters = {$jsonFiscalFiltersArray};
+filter_defs['date'] = filter_defs['date'].concat(fiscalFilters);
+filter_defs['datetime'] = filter_defs['datetime'].concat(fiscalFilters);
+filter_defs['datetimecombo'] = filter_defs['datetimecombo'].concat(fiscalFilters);
+EOT;
+
+    echo $return;
+}
 ?>

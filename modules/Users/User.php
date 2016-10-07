@@ -1,21 +1,20 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarObjects/templates/person/Person.php');
 
-// User is used to store customer information.
+/**
+ * User is used to store customer information.
+ */
 class User extends Person {
 	// Stored fields
 	var $name = '';
@@ -72,7 +71,10 @@ class User extends Person {
 	var $user_preferences;
 
 	var $importable = true;
-	var $_userPreferenceFocus;
+    /**
+     * @var UserPreference
+     */
+    var $_userPreferenceFocus;
 
 	var $encodeFields = Array ("first_name", "last_name", "description");
 
@@ -82,11 +84,23 @@ class User extends Person {
 
 	var $emailAddress;
 
+    public $relationship_fields = array('call_id' => 'calls', 'meeting_id' => 'meetings');
 
 	var $new_schema = true;
 
-	function User() {
-		parent::Person();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function User()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		$this->disable_row_level_security = true;
 
 		$this->_loadUserPreferencesFocus();
@@ -133,7 +147,7 @@ class User extends Person {
 	{
 	    $signatures = $this->getSignaturesArray();
 
-	    return isset($signatures[$id]) ? $signatures[$id] : FALSE;
+	    return isset($signatures[$id]) ? $signatures[$id] : false;
 	}
 
 	function getSignaturesArray() {
@@ -206,7 +220,8 @@ class User extends Person {
 	 */
 	public function hasPersonalEmail()
 	{
-	    $focus = new InboundEmail;
+	    $focus = BeanFactory::getBean('InboundEmail');
+        $focus->disable_row_level_security = true;
 	    $focus->retrieve_by_string_fields(array('group_id' => $this->id));
 
 	    return !empty($focus->id);
@@ -430,9 +445,57 @@ class User extends Person {
     */
 	public static function getLicensedUsersWhere()
 	{
-		return "deleted=0 AND status='Active' AND user_name IS NOT NULL AND is_group=0 AND portal_only=0  AND ".$GLOBALS['db']->convert('user_name', 'length').">0";
+        $db = DBManagerFactory::getInstance();
+        $where = sprintf(
+            " deleted != 1 AND user_name IS NOT NULL AND is_group != 1 AND portal_only != 1 AND status = %s AND %s > 0 AND %s",
+            $db->quoted('Active'),
+            $db->convert('user_name', 'length'),
+            self::getSystemUsersWhere()
+        );
+        return $where;
 	    return "1<>1";
 	}
+
+    /**
+     * Get WHERE clause for system users
+     * @param string $comp SQL comparison operator
+     * @param string $logic SQL logical operator
+     * @return string
+     */
+    public static function getSystemUsersWhere($comp = '!=', $logic = 'AND')
+    {
+        $db = DBManagerFactory::getInstance();
+        $users = array('SugarCRMSupport', 'SugarCRMUpgradeUser');
+        $where = ' 1=1 ';
+        foreach ($users as $user) {
+            $where .= sprintf(
+                " %s user_name %s %s ",
+                $logic,
+                $comp,
+                $db->quoted($user)
+            );
+        }
+        return $where;
+    }
+
+    /**
+     * Gets the BWC theme for this user.
+     *
+     * There are only 2 supported themes at this time: `RTL` and `RacerX`.
+     * `RTL` is returned if the current language is an RTL language, `RacerX` is
+     * returned otherwise.
+     *
+     * @return string The theme currently set to this user.
+     */
+    public function getBWCTheme()
+    {
+        //FIXME: SC-3358 Should be getting the RTL languages from metadata.
+        static $rtlLanguages = array('he_IL', 'ar_SA');
+        $language = !empty($this->preferred_language) ? $this->preferred_language : $GLOBALS['current_language'];
+        $theme = in_array($language, $rtlLanguages) ? 'RTL' : 'RacerX';
+
+        return $theme;
+    }
 
 	function save($check_notify = false) {
 		$isUpdate = !empty($this->id) && !$this->new_with_id;
@@ -444,8 +507,7 @@ class User extends Person {
 
 
 		global $sugar_flavor;
-        $admin = new Administration();
-        $admin->retrieveSettings();
+        $admin = Administration::getSettings();
 		if((isset($sugar_flavor) && $sugar_flavor != null) &&
 			($sugar_flavor=='CE' || isset($admin->settings['license_enforce_user_limit']) && $admin->settings['license_enforce_user_limit'] == 1)){
 
@@ -488,15 +550,7 @@ class User extends Person {
             // End Express License Enforcement Check
 
 
-        // is_group & portal should be set to 0 by default
-        if (!isset($this->is_group)) {
-            $this->is_group = 0;
-        }
-        if (!isset($this->portal_only)) {
-            $this->portal_only = 0;
-        }
-
-        // wp: do not save user_preferences in this table, see user_preferences module
+		// wp: do not save user_preferences in this table, see user_preferences module
 		$this->user_preferences = '';
 
 		// if this is an admin user, do not allow is_group or portal_only flag to be set.
@@ -516,7 +570,10 @@ class User extends Person {
 		{
             $this->default_team = $this->team_id;
         }
-        
+
+
+        // track the current reports to id to be able to use it if it has changed
+        $old_reports_to_id = isset($this->fetched_row['reports_to_id']) ? $this->fetched_row['reports_to_id'] : '';
 
 		parent::save($check_notify);
 
@@ -526,31 +583,42 @@ class User extends Person {
             if (!$isUpdate) {
                 // If this is a new user, make sure to add them to the appriate default teams
                 if (!$this->team_exists) {
-                    $team = new Team();
+                    $team = BeanFactory::getBean('Teams');
                     $team->new_user_created($this);
                 }
-            }else{
+            } else if (empty($GLOBALS['sugar_config']['noPrivateTeamUpdate'])) {
                 //if this is an update, then we need to ensure we keep the user's
                 //private team name and name_2 in sync with their name.
                 $team_id = $this->getPrivateTeamID();
                 if(!empty($team_id)){
 
-                    $team = new Team();
-                    $team->retrieve($team_id);
+                    $team = BeanFactory::getBean('Teams', $team_id);
                     Team::set_team_name_from_user($team, $this);
                     $team->save();
                 }
             }
 		}
 
+        // If reports to has changed, call update team memberships to correct the membership tree
+        if ($old_reports_to_id != $this->reports_to_id) {
+            $this->update_team_memberships($old_reports_to_id);
+        }
+
 		// set some default preferences when creating a new user
 		if ( $setNewUserPreferences ) {
+            $this->setPreference('reminder_time', 1800);
 	        if(!$this->getPreference('calendar_publish_key')) {
 		        $this->setPreference('calendar_publish_key', create_guid());
 	        }
 		}
 
         $this->savePreferencesToDB();
+        //CurrentUserApi needs a consistent timestamp/format of the data modified for hash purposes.
+        $this->hashTS = $this->date_modified;
+
+        // In case this new/updated user changes the system status, reload it here
+        apiLoadSystemStatus(true);
+
         return $this->id;
 	}
 
@@ -645,22 +713,33 @@ class User extends Person {
 	}
 
     /**
-     * retrieves an User bean
-     * preformat name & full_name attribute with first/last
+     * Retrieves an User bean
+     * pre-format name & full_name attribute with first/last
      * loads User's preferences
+     * If the picture doesn't exist on the file system, it empties out the picture field
      *
-     * @param string id ID of the User
-     * @param bool encode encode the result
-     * @return object User bean
-     * @return null null if no User found
+     * @param string $id         ID of the User
+     * @param bool $encode       Encode the result
+     * @param bool $deleted      Include deleted users
+     * @return User|null         Returns the user object unless once is not found, then it returns null
      */
-	function retrieve($id, $encode = true, $deleted = true) {
-		$ret = parent::retrieve($id, $encode, $deleted);
+    public function retrieve($id, $encode = true, $deleted = true) {
+        $ret = parent::retrieve($id, $encode, $deleted);
+        //CurrentUserApi needs a consistent timestamp/format of the data modified for hash purposes.
+        $this->hashTS = $this->fetched_row['date_modified'];
 		if ($ret) {
-			if (isset ($_SESSION)) {
+			if (isset($_SESSION)) {
 				$this->loadPreferences();
 			}
+
+            // make sure that the picture actually exists
+            SugarAutoLoader::requireWithCustom('include/download_file.php');
+            $download_file = new DownloadFile();
+            if (!empty($ret->picture) && !file_exists($download_file->getFilePathFromId($ret->picture))) {
+                $ret->picture = '';
+            }
 		}
+
 		return $ret;
 	}
 
@@ -797,9 +876,9 @@ EOQ;
 	    if(empty($user_hash)) return false;
 	    if($user_hash[0] != '$' && strlen($user_hash) == 32) {
 	        // Old way - just md5 password
-	        return strtolower($password_md5) == $user_hash;
+	        return strtolower($password_md5) === $user_hash;
 	    }
-	    return crypt(strtolower($password_md5), $user_hash) == $user_hash;
+	    return crypt(strtolower($password_md5), $user_hash) === $user_hash;
 	}
 
 	/**
@@ -855,8 +934,9 @@ EOQ;
 	 */
 	function change_password($user_password, $new_password, $system_generated = '0')
 	{
-	    global $mod_strings;
+		global $current_language;
 		global $current_user;
+		$mod_strings = return_module_language($current_language, 'Users');
 		$GLOBALS['log']->debug("Starting password change for $this->user_name");
 
 		if (!isset ($new_password) || $new_password == "") {
@@ -870,8 +950,7 @@ EOQ;
 		    return false;
 		}
 
-		//check old password current user is not an admin or current user is an admin editing themselves
-		if (!$current_user->isAdminForModule('Users')  || ($current_user->isAdminForModule('Users') && ($current_user->id == $this->id))) {
+		if (!$current_user->isAdminForModule('Users')) {
 			//check old password first
 			$row = self::findUserPassword($this->user_name, md5($user_password));
             if (empty($row)) {
@@ -951,12 +1030,13 @@ EOQ;
 		$row = $this->db->fetchByAssoc($result);
 
 		if ($row != null) {
-			$this->reports_to_name = stripslashes($row['first_name'].' '.$row['last_name']);
+            global $locale;
+            $this->reports_to_name = $locale->formatName('Users', $row);
 		} else {
 			$this->reports_to_name = '';
 		}
 
-        
+
         // Must set team_id for team widget purposes (default_team is primary team id)
         if (empty($this->team_id))
         {
@@ -974,16 +1054,14 @@ EOQ;
             $this->default_team_name = '';
             $this->team_set_id = '';
         }
-        
+
 
 		$this->_create_proper_name_field();
 	}
 
-	public function retrieve_user_id(
-	    $user_name
-	    )
+	public function retrieve_user_id($user_name)
 	{
-	    $userFocus = new User;
+	    $userFocus = BeanFactory::getBean('Users');
 	    $userFocus->retrieve_by_string_fields(array('user_name'=>$user_name));
 	    if ( empty($userFocus->id) )
 	        return false;
@@ -999,7 +1077,7 @@ EOQ;
 	 */
 	function verify_data($ieVerified=true) {
 		global $mod_strings, $current_user;
-		$verified = TRUE;
+		$verified = true;
 
 		if (!empty ($this->id)) {
 			// Make sure the user doesn't report to themselves.
@@ -1027,7 +1105,7 @@ EOQ;
 
 			if ($reports_to_self == 1) {
 				$this->error_string .= $mod_strings['ERR_REPORT_LOOP'];
-				$verified = FALSE;
+				$verified = false;
 			}
 		}
 
@@ -1038,7 +1116,7 @@ EOQ;
 
 		if (!empty($dup_users)) {
 			$this->error_string .= $mod_strings['ERR_USER_NAME_EXISTS_1'].$this->user_name.$mod_strings['ERR_USER_NAME_EXISTS_2'];
-			$verified = FALSE;
+			$verified = false;
 		}
 
 		if (is_admin($current_user)) {
@@ -1047,7 +1125,7 @@ EOQ;
 			if (($remaining_admins <= 1) && ($this->is_admin != '1') && ($this->id == $current_user->id)) {
 				$GLOBALS['log']->debug("Number of remaining administrator accounts: {$remaining_admins}");
 				$this->error_string .= $mod_strings['ERR_LAST_ADMIN_1'].$this->user_name.$mod_strings['ERR_LAST_ADMIN_2'];
-				$verified = FALSE;
+				$verified = false;
 			}
 		}
 		///////////////////////////////////////////////////////////////////////
@@ -1061,16 +1139,13 @@ EOQ;
 	}
 
 	function get_list_view_data() {
-
-		global $mod_strings;
-
 		$user_fields = parent::get_list_view_data();
 
 		if ($this->is_admin)
-			$user_fields['IS_ADMIN_IMAGE'] = SugarThemeRegistry::current()->getImage('check_inline', '',null,null,'.gif',$mod_strings['LBL_CHECKMARK']);
+			$user_fields['IS_ADMIN_IMAGE'] = SugarThemeRegistry::current()->getImage('check_inline', '',null,null,'.gif', translate('LBL_CHECKMARK', 'Users'));
 		elseif (!$this->is_admin) $user_fields['IS_ADMIN'] = '';
 		if ($this->is_group)
-			$user_fields['IS_GROUP_IMAGE'] = SugarThemeRegistry::current()->getImage('check_inline', '',null,null,'.gif',$mod_strings['LBL_CHECKMARK']);
+			$user_fields['IS_GROUP_IMAGE'] = SugarThemeRegistry::current()->getImage('check_inline', '',null,null,'.gif', translate('LBL_CHECKMARK', 'Users'));
 		else
 			$user_fields['IS_GROUP_IMAGE'] = '';
 
@@ -1118,15 +1193,14 @@ EOQ;
 	 */
 	function getPrivateTeam($id='') {
 		if(!empty($id)) {
-			$user = new User();
-			$user->retrieve($id);
+			$user = BeanFactory::getBean('Users', $id);
 			return $user->getPrivateTeamID();
 		}
 		return $this->getPrivateTeamID();
 	}
 
 
-	function get_my_teams($return_obj = FALSE) {
+	function get_my_teams($return_obj = false) {
 		$query = "SELECT DISTINCT rel.team_id, teams.name, teams.name_2, rel.implicit_assign FROM team_memberships rel RIGHT JOIN teams ON (rel.team_id = teams.id) WHERE rel.user_id = '{$this->id}' AND rel.deleted = 0 ORDER BY teams.name ASC";
 		$result = $this->db->query($query, false, "Error retrieving user ID: ");
 		$out = Array ();
@@ -1138,7 +1212,7 @@ EOQ;
 
 		while ($row = $this->db->fetchByAssoc($result)) {
 			if ($return_obj) {
-				$out[$x] = new Team();
+				$out[$x] = BeanFactory::getBean('Teams');
 				$out[$x]->retrieve($row['team_id']);
 				$out[$x++]->implicit_assign = $row['implicit_assign'];
 			} else {
@@ -1168,7 +1242,7 @@ EOQ;
 	 */
 	function update_team_memberships($old_reports_to_id) {
 
-		$team = new Team();
+		$team = BeanFactory::getBean('Teams');
 		$team->user_manager_changed($this->id, $old_reports_to_id, $this->reports_to_id);
 	}
 
@@ -1182,60 +1256,12 @@ EOQ;
 
     public static function getAllUsers()
     {
-        $active_users = get_user_array(FALSE);
-        $inactive_users = get_user_array(FALSE, "Inactive");
+        $active_users = get_user_array(false);
+        $inactive_users = get_user_array(false, "Inactive");
         $result = $active_users + $inactive_users;
         asort($result);
         return $result;
     }
-
-    /**
-     * getActiveUsers
-     *
-     * Returns all active users
-     * @return Array of active users in the system
-     */
-
-    public static function getActiveUsers()
-    {
-        $active_users = get_user_array(FALSE);
-        asort($active_users);
-        return $active_users;
-    }
-
-
-
-	function create_export_query($order_by, $where) {
-		include('modules/Users/field_arrays.php');
-
-		$cols = '';
-		foreach($fields_array['User']['export_fields'] as $field) {
-			$cols .= (empty($cols)) ? '' : ', ';
-			$cols .= $field;
-		}
-
-		$query = "SELECT {$cols} FROM users ";
-
-		$where_auto = " users.deleted = 0";
-
-		if ($where != "")
-			$query .= " WHERE $where AND ".$where_auto;
-		else
-			$query .= " WHERE ".$where_auto;
-
-		// admin for module user is not be able to export a super-admin
-		global $current_user;
-		if(!$current_user->is_admin){
-			$query .= " AND users.is_admin=0";
-		}
-
-		if ($order_by != "")
-			$query .= " ORDER BY $order_by";
-		else
-			$query .= " ORDER BY users.user_name";
-
-		return $query;
-	}
 
 	/** Returns a list of the associated users
 	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
@@ -1245,12 +1271,12 @@ EOQ;
 	function get_meetings() {
 		// First, get the list of IDs.
 		$query = "SELECT meeting_id as id from meetings_users where user_id='$this->id' AND deleted=0";
-		return $this->build_related_list($query, new Meeting());
+		return $this->build_related_list($query, BeanFactory::getBean('Meetings'));
 	}
 	function get_calls() {
 		// First, get the list of IDs.
 		$query = "SELECT call_id as id from calls_users where user_id='$this->id' AND deleted=0";
-		return $this->build_related_list($query, new Call());
+		return $this->build_related_list($query, BeanFactory::getBean('Calls'));
 	}
 
 	/**
@@ -1344,7 +1370,7 @@ EOQ;
 
 	function getSystemDefaultNameAndEmail() {
 
-		$email = new Email();
+		$email = BeanFactory::getBean('Emails');
 		$return = $email->getSystemDefaultEmail();
 		$prefAddr = $return['email'];
 		$fullName = $return['name'];
@@ -1373,8 +1399,7 @@ EOQ;
     function getEmailInfo($id='') {
         $user = $this;
         if(!empty($id)) {
-            $user = new User();
-            $user->retrieve($id);
+            $user = BeanFactory::getBean('Users', $id);
         }
 
         // from name
@@ -1404,6 +1429,28 @@ EOQ;
         return $ret;
     }
 
+    /**
+     * Get the string representing the user's preferred email client.
+     *
+     * @return string
+     */
+    public function getEmailClientPreference()
+    {
+        if (!isset($GLOBALS['sugar_config']['email_default_client'])) {
+            $this->setDefaultsInConfig();
+        }
+
+        $clientPref = $this->getPreference('email_link_type');
+        $client     = (!empty($clientPref)) ? $clientPref : $GLOBALS['sugar_config']['email_default_client'];
+
+        // check for presence of a mobile device, if so use its email client
+        if (isset($_SESSION['isMobile'])){
+            $client = 'other';
+        }
+
+        return $client;
+    }
+
 	/**
 	 * returns opening <a href=xxxx for a contact, account, etc
 	 * cascades from User set preference to System-wide default
@@ -1418,23 +1465,7 @@ EOQ;
 	 */
 	function getEmailLink2($emailAddress, &$focus, $contact_id='', $ret_module='', $ret_action='DetailView', $ret_id='', $class='') {
 		$emailLink = '';
-		global $sugar_config;
-
-		if(!isset($sugar_config['email_default_client'])) {
-			$this->setDefaultsInConfig();
-		}
-
-		$userPref = $this->getPreference('email_link_type');
-		$defaultPref = $sugar_config['email_default_client'];
-		if($userPref != '') {
-			$client = $userPref;
-		} else {
-			$client = $defaultPref;
-		}
-		// check for presence of a mobile device, if so use it's email client
-		if(isset($_SESSION['isMobile'])){
-			$client = 'other';
-		}
+        $client    = $this->getEmailClientPreference();
 
 		if($client == 'sugar') {
 			$email = '';
@@ -1499,23 +1530,7 @@ EOQ;
 	 */
 	function getEmailLink($attribute, &$focus, $contact_id='', $ret_module='', $ret_action='DetailView', $ret_id='', $class='') {
 	    $emailLink = '';
-		global $sugar_config;
-
-		if(!isset($sugar_config['email_default_client'])) {
-			$this->setDefaultsInConfig();
-		}
-
-		$userPref = $this->getPreference('email_link_type');
-		$defaultPref = $sugar_config['email_default_client'];
-		if($userPref != '') {
-			$client = $userPref;
-		} else {
-			$client = $defaultPref;
-		}
-		// check for presence of a mobile device, if so use it's email client
-		if(isset($_SESSION['isMobile'])){
-			$client = 'other';
-		}
+        $client    = $this->getEmailClientPreference();
 
 		if($client == 'sugar') {
 			$email = '';
@@ -1612,7 +1627,7 @@ EOQ;
 
     public static function staticGetPrivateTeamID($user_id)
 	{
-	    $teamFocus = new Team;
+	    $teamFocus = BeanFactory::getBean('Teams');
 	    $teamFocus->retrieve_by_string_fields(array('associated_user_id'=>$user_id));
 	    if ( empty($teamFocus->id) )
 	        return '';
@@ -1657,7 +1672,7 @@ EOQ;
         }
 
         // These modules don't take kindly to the studio trying to play about with them.
-        static $ignoredModuleList = array('iFrames','Feeds','Home','Dashboard','Calendar','Activities','Reports');
+        static $ignoredModuleList = array('iFrames','Feeds','Home','Dashboard','Calendar','Activities','Reports', 'UpgradeHistory');
 
 
         $actions = ACLAction::getUserActions($this->id);
@@ -1674,11 +1689,15 @@ EOQ;
                 continue;
             }
 
-            $focus = SugarModule::get($module)->loadBean();
-            if ( $focus instanceOf SugarBean ) {
-                $key = $focus->acltype;
-            } else {
-                $key = 'module';
+            $key = 'module';
+            // The tracker modules have special case ACL mappings
+            // in $GLOBALS['ACLActions'] that we need to account for.
+            // TODO: In the future these should be migrated to a custom ACL strategy for those modules.
+            if (in_array($module, array('Tracker', 'TrackerPerfs', 'TrackerQueries', 'TrackerSessions'))) {
+                $focus = BeanFactory::getBean($module);
+                if ($focus instanceOf SugarBean) {
+                    $key = $focus->acltype;
+                }
             }
 
             if (($this->isAdmin() && isset($actions[$module][$key]))
@@ -1753,6 +1772,9 @@ EOQ;
         $devModules = $this->getDeveloperModules();
 
         $module = $this->_fixupModuleForACL($module);
+        if ($this->isWorkFlowModule($module) && count($devModules) > 0) {
+            return true;
+        }
 
         if (in_array($module,$devModules) ) {
             return true;
@@ -1789,6 +1811,9 @@ EOQ;
         $adminModules = $this->getAdminModules();
 
         $module = $this->_fixupModuleForACL($module);
+        if ($this->isWorkFlowModule($module) && count($adminModules) > 0) {
+            return true;
+        }
 
         if (in_array($module,$adminModules) ) {
             return true;
@@ -1796,6 +1821,33 @@ EOQ;
 
         return false;
     }
+
+    /**
+     * Check if module is workflow-related
+     *
+     * @param string $module Module name
+     * @return bool
+     */
+    protected function isWorkFlowModule($module)
+    {
+        switch ($module) {
+            case 'Expressions':
+            case 'WorkFlow':
+            case 'WorkFlowActions':
+            case 'WorkFlowActionShells':
+            case 'WorkFlowAlerts':
+            case 'WorkFlowAlertShells':
+            case 'WorkFlowTriggerShells':
+            case 'pmse_Project':
+            case 'pmse_Inbox':
+            case 'pmse_Emails_Templates':
+            case 'pmse_Business_Rules':
+                return true;
+        }
+
+        return false;
+    }
+
 	/**
 	 * Whether or not based on the user's locale if we should show the last name first.
 	 *
@@ -1811,9 +1863,30 @@ EOQ;
         }
 	}
 
-   function create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false,$parentbean=null, $singleSelect = false)
-   {	//call parent method, specifying for array to be returned
-   	$ret_array = parent::create_new_list_query($order_by, $where,$filter,$params, $show_deleted,$join_type, true,$parentbean, $singleSelect);
+    public function create_new_list_query(
+        $order_by,
+        $where,
+        $filter = array(),
+        $params = array(),
+        $show_deleted = 0,
+        $join_type = '',
+        $return_array = false,
+        $parentbean = null,
+        $singleSelect = false,
+        $ifListForExport = false
+    ) {	//call parent method, specifying for array to be returned
+        $ret_array = parent::create_new_list_query(
+            $order_by,
+            $where,
+            $filter,
+            $params,
+            $show_deleted,
+            $join_type,
+            true,
+            $parentbean,
+            $singleSelect,
+            $ifListForExport
+        );
 
    	//if this is being called from webservices, then run additional code
    	if(!empty($GLOBALS['soap_server_object'])){
@@ -1986,128 +2059,123 @@ EOQ;
     /**
      * Send new password or link to user
      *
-     * @param string $templateId Id of email template
-     * @param array $additionalData additional params: link, url, password
+     * @param string $templateId     Id of email template
+     * @param array  $additionalData additional params: link, url, password
      * @return array status: true|false, message: error message, if status = false and message = '' it means that send method has returned false
      */
-    public function sendEmailForPassword($templateId, array $additionalData = array())
-    {
-        global $sugar_config, $current_user;
+    public function sendEmailForPassword($templateId, array $additionalData = array()) {
+        global $current_user,
+               $app_strings;
+
         $mod_strings = return_module_language('', 'Users');
+
         $result = array(
-            'status' => false,
+            'status'  => false,
             'message' => ''
         );
 
-        $emailTemp = new EmailTemplate();
-        $emailTemp->disable_row_level_security = true;
-        if ($emailTemp->retrieve($templateId) == '')
-        {
+        $emailTemplate                             = BeanFactory::getBean('EmailTemplates');
+        $emailTemplate->disable_row_level_security = true;
+
+        if ($emailTemplate->retrieve($templateId) == '') {
             $result['message'] = $mod_strings['LBL_EMAIL_TEMPLATE_MISSING'];
             return $result;
         }
 
-        //replace instance variables in email templates
-        $htmlBody = $emailTemp->body_html;
-        $body = $emailTemp->body;
-        if (isset($additionalData['link']) && $additionalData['link'] == true)
-        {
-            $htmlBody = str_replace('$contact_user_link_guid', $additionalData['url'], $htmlBody);
-            $body = str_replace('$contact_user_link_guid', $additionalData['url'], $body);
-        }
-        else
-        {
-            $htmlBody = str_replace('$contact_user_user_hash', $additionalData['password'], $htmlBody);
-            $body = str_replace('$contact_user_user_hash', $additionalData['password'], $body);
-        }
-        // Bug 36833 - Add replacing of special value $instance_url
-        $htmlBody = str_replace('$config_site_url', $sugar_config['site_url'], $htmlBody);
-        $body = str_replace('$config_site_url', $sugar_config['site_url'], $body);
+        $emailTemplate->body = $this->replaceInstanceVariablesInEmailTemplates($emailTemplate->body, $additionalData);
 
-        $htmlBody = str_replace('$contact_user_user_name', $this->user_name, $htmlBody);
-        $htmlBody = str_replace('$contact_user_pwd_last_changed', TimeDate::getInstance()->nowDb(), $htmlBody);
-        $body = str_replace('$contact_user_user_name', $this->user_name, $body);
-        $body = str_replace('$contact_user_pwd_last_changed', TimeDate::getInstance()->nowDb(), $body);
-        $emailTemp->body_html = $htmlBody;
-        $emailTemp->body = $body;
+        // in case the email is text-only and $emailTemplate->body_html is not empty, use a local variable for the HTML
+        // part to ignore the body_html property and prevent changing it on the EmailTemplate object
+        $htmlBody = null;
 
-        $itemail = $this->emailAddress->getPrimaryAddress($this);
-        //retrieve IT Admin Email
-        //_ppd( $emailTemp->body_html);
-        //retrieve email defaults
-        $emailObj = new Email();
-        $defaults = $emailObj->getSystemDefaultEmail();
-        require_once('include/SugarPHPMailer.php');
-        $mail = new SugarPHPMailer();
-        $mail->setMailerForSystem();
-        //$mail->IsHTML(true);
-        $mail->From = $defaults['email'];
-        $mail->FromName = $defaults['name'];
-        $mail->ClearAllRecipients();
-        $mail->ClearReplyTos();
-        $mail->Subject = from_html($emailTemp->subject);
-        if ($emailTemp->text_only != 1)
-        {
-            $mail->IsHTML(true);
-            $mail->Body = from_html($emailTemp->body_html);
-            $mail->AltBody = from_html($emailTemp->body);
-        }
-        else
-        {
-            $mail->Body_html = from_html($emailTemp->body_html);
-            $mail->Body = from_html($emailTemp->body);
-        }
-        if ($mail->Body == '' && $current_user->is_admin)
-        {
-            global $app_strings;
-            $result['message'] = $app_strings['LBL_EMAIL_TEMPLATE_EDIT_PLAIN_TEXT'];
-            return $result;
-        }
-        if ($mail->Mailer == 'smtp' && $mail->Host =='' && $current_user->is_admin)
-        {
-            $result['message'] = $mod_strings['ERR_SERVER_SMTP_EMPTY'];
-            return $result;
+        if ($emailTemplate->text_only != 1) {
+            $emailTemplate->body_html = $this->replaceInstanceVariablesInEmailTemplates(
+                $emailTemplate->body_html,
+                $additionalData
+            );
+            $htmlBody                 = $emailTemplate->body_html;
         }
 
-        $mail->prepForOutbound();
-        $hasRecipients = false;
+        try {
+            $mailer = MailerFactory::getSystemDefaultMailer();
 
-        if (!empty($itemail))
-        {
-            if ($hasRecipients)
-            {
-                $mail->AddBCC($itemail);
+            // set the subject
+            $mailer->setSubject($emailTemplate->subject);
+
+            // set the plain-text body
+            $mailer->setTextBody($emailTemplate->body);
+
+            // set the HTML body... it will be null in the text-only case, but that's okay
+            $mailer->setHtmlBody($htmlBody);
+
+            // make sure there is at least one message part (but only if the current user is an admin)...
+
+            // even though $htmlBody is already set, resetting it verifies that $mailer actually got it
+            $textBody = $mailer->getTextBody();
+            $htmlBody = $mailer->getHtmlBody();
+
+            if ($current_user->is_admin && !$mailer->hasMessagePart($textBody) && !$mailer->hasMessagePart($htmlBody)) {
+                throw new MailerException("No email body was provided", MailerException::InvalidMessageBody);
             }
-            else
-            {
-                $mail->AddAddress($itemail);
-            }
-            $hasRecipients = true;
-        }
-        if ($hasRecipients)
-        {
-            $result['status'] = @$mail->Send();
-        }
 
-        if ($result['status'] == true)
-        {
-            $emailObj->team_id = 1;
-            $emailObj->to_addrs = '';
-            $emailObj->type = 'archived';
-            $emailObj->deleted = '0';
-            $emailObj->name = $mail->Subject ;
-            $emailObj->description = $mail->Body;
-            $emailObj->description_html = null;
-            $emailObj->from_addr = $mail->From;
-            $emailObj->parent_type = 'User';
-            $emailObj->date_sent = TimeDate::getInstance()->nowDb();
-            $emailObj->modified_user_id = '1';
-            $emailObj->created_by = '1';
-            $emailObj->status = 'sent';
-            $emailObj->save();
-            if (!isset($additionalData['link']) || $additionalData['link'] == false)
-            {
-                $this->setNewPassword($additionalData['password'], '1');
+            // get the recipient's email address
+            $itemail = $this->emailAddress->getPrimaryAddress($this);
+
+            if (!empty($itemail)) {
+                // add the recipient
+                $mailer->addRecipientsTo(new EmailIdentity($itemail));
+
+                // if send doesn't raise an exception then set the result status to true
+                $mailer->send();
+                $result["status"] = true;
+
+                // save the email record
+                $email                   = new Email();
+                $email->team_id          = 1;
+                $email->to_addrs         = '';
+                $email->type             = 'archived';
+                $email->deleted          = '0';
+                $email->name             = $emailTemplate->subject;
+                $email->description      = $textBody;
+                $email->description_html = $htmlBody;
+                $email->from_addr        = $mailer->getHeader(EmailHeaders::From)->getEmail();
+                $email->parent_type      = 'User';
+                $email->date_sent        = TimeDate::getInstance()->nowDb();
+                $email->modified_user_id = '1';
+                $email->created_by       = '1';
+                $email->status           = 'sent';
+                $email->save();
+
+                if (!isset($additionalData['link']) || $additionalData['link'] == false) {
+                    $this->setNewPassword($additionalData['password'], '1');
+                }
+            } else {
+                // this exception is ignored as part of the default case in the switch statement in the catch block
+                // but it adds documentation as to what is happening
+                throw new MailerException("There are no recipients", MailerException::FailedToSend);
+            }
+        } catch (MailerException $me) {
+            switch ($me->getCode()) {
+                case MailerException::FailedToConnectToRemoteServer:
+                    if ($current_user->is_admin) {
+                        // the smtp host may not be empty, but this is the best error message for now
+                        $result['message'] = $mod_strings['ERR_SERVER_SMTP_EMPTY'];
+                    } else {
+                        // status=failed to send, but no message is returned to non-admin users
+                    }
+
+                    break;
+                case MailerException::InvalidMessageBody:
+                    // this exception will only be raised if the current user is an admin, so there is no need to
+                    // worry about catching it in a non-admin case and handling the error message accordingly
+
+                    // both the plain-text and HTML parts are empty, but this is the best error message for now
+                    $result['message'] = $app_strings['LBL_EMAIL_TEMPLATE_EDIT_PLAIN_TEXT'];
+
+                    break;
+                default:
+                    // status=failed to send, but no message is returned
+                    break;
             }
         }
 
@@ -2138,8 +2206,189 @@ EOQ;
     }
 
     /**
+     * @static
+     * This function to determine if a given user id is a manager.  A manager is defined as someone who has direct reports
+     *
+     * @param String user_id The id of the user to check
+     * @param boolean include_deleted Boolean value indicating whether or not to include deleted records (defaults to FALSE)
+     * @return boolean TRUE if user id is a manager; FALSE otherwise
+     */
+    public static function isManager($user_id, $include_deleted=false)
+    {
+        $db = DBManagerFactory::getInstance();
+        $query = 'SELECT count(id) as total FROM users
+                WHERE reports_to_id = ' .  $db->quoted(clean_string($user_id)) . ' AND status = ' . $db->quoted(clean_string('Active'));
+        if (!$include_deleted) {
+            $query .= " AND deleted=0";
+        }
+        $count = $db->getOne($query);
+        return $count > 0;
+    }
+
+    /**
+     * @static
+     * This function returns an array of reportees and their corresponding reportee count, if additional_fields are
+     * passed in, the return will contain the whole row vs just the key => total value pair that is returned when no
+     * additional_fields are defined
+     *
+     * @param String $user_id The id of the user to check
+     * @param boolean $include_deleted Boolean Value indicating whether or not to include deleted records (defaults to false)
+     * @param array $additional_fields      Additional Fields you want returned
+     * @return array Array of reportee IDs and their leaf count
+     */
+    public static function getReporteesWithLeafCount($user_id, $include_deleted = false, $additional_fields = array())
+    {
+        $db = DBManagerFactory::getInstance();
+        $deleted = ($include_deleted ? 1 : 0);
+        $returnArray = array();
+
+        $_fields = join(',u.', $additional_fields);
+        if (!empty($_fields)) {
+            $_fields = ", u." . $_fields;
+        }
+
+        $query = "SELECT u.id, sum(CASE WHEN u2.id IS NULL THEN 0 ELSE 1 END) as total{$_fields} FROM users u " .
+            "LEFT JOIN users u2 " .
+            "ON u.id = u2.reports_to_id AND u2.status = 'Active' ";
+        if (!$include_deleted) {
+            $query .= "AND u2.deleted = 0 ";
+        }
+        $query .= "WHERE u.reports_to_id = {$db->quoted(clean_string($user_id))} ";
+        if (!$include_deleted) {
+            $query .= "AND u.deleted = {$deleted} AND u.status = 'Active' ";
+        }
+        $query .= "GROUP BY u.id". $_fields;
+
+        $result = $db->query($query);
+        while ($row = $db->fetchByAssoc($result)) {
+            if (!empty($additional_fields)) {
+                $returnArray[$row["id"]] = $row;
+            } else {
+                $returnArray[$row["id"]] = $row["total"];
+            }
+        }
+
+        return $returnArray;
+    }
+
+     /**
+      * @static
+      * This function returns an array of reportee IDs that are managers
+      *
+      * @param String user_id The id of the user to check
+      * @param boolean included_deleted Boolean Value indicating whether or not to include deleted records (defaults to false)
+      * @return array Array of manager reportee IDs
+      */
+     public static function getReporteeManagers($user_id, $include_deleted = false)
+     {
+        $returnArray = array();
+        $reportees = User::getReporteesWithLeafCount($user_id, $include_deleted);
+        foreach($reportees as $key=>$value){
+            if($value > 0){
+               $returnArray[] = $key;
+            }
+        }
+        return $returnArray;
+     }
+
+     /**
+      * @static
+      * This function returns an array of reportee IDs that are sales reps
+      *
+      * @param String user_id The id of the user to check
+      * @param boolean included_deleted Boolean Value indicating whether or not to include deleted records (defaults to false)
+      * @return array Array of rep reportee IDs
+      */
+     public static function getReporteeReps($user_id, $include_deleted = false)
+     {
+        $returnArray = array();
+        $reportees = User::getReporteesWithLeafCount($user_id, $include_deleted);
+        foreach($reportees as $key=>$value){
+            if($value == 0){
+               $returnArray[] = $key;
+            }
+        }
+        return $returnArray;
+     }
+
+    /**
+     * @static
+     * This function is used to determine if a given user id is a top level manager.  A top level manager is defined as someone
+     * who has direct reports, but does not have to report to anyone (reports_to_id is null).
+     *
+     * This is functionally equivalent to User::isManager($user->id) && empty($user->reports_to_id)
+     *
+     * @param String user_id The id of the user to check
+     * @param boolean include_deleted Boolean value indicating whether or not to include deleted records of reportees (defaults to FALSE)
+     * @return boolean TRUE if user id is a top level manager; FALSE otherwise
+     */
+    public static function isTopLevelManager($user_id, $include_deleted=false)
+    {
+        if(User::isManager($user_id, $include_deleted))
+        {
+            $query = 'SELECT reports_to_id FROM users WHERE id = ' . $GLOBALS['db']->quoted(clean_string($user_id));
+            $reports_to_id = $GLOBALS['db']->getOne($query);
+            return empty($reports_to_id);
+        }
+        return false;
+    }
+
+    /**
+     * Sets value from fetched row into the bean.  Special case override for Users module otherwise we incur the
+     * unnecessary check for user_preferences field for all SugarBean instances.
+     *
+     * @param array $row Fetched row
+     * @todo loop through vardefs instead
+     * @internal runs into an issue when populating from field_defs for users - corrupts user prefs
+     *
+     */
+    function populateFromRow($row, $convert = false)
+    {
+        unset($row['user_preferences']);
+        return parent::populateFromRow($row, $convert);
+    }
+
+
+    /**
+     * Replace instance variables in email templates for a particular message part.
+     *
+     * @param string $body                    required The plain-text or HTML part.
+     * @param array  $additionalData          Additional parameters: link, url, password.
+     * @return string
+     */
+    private function replaceInstanceVariablesInEmailTemplates($body, $additionalData = array()) {
+        global $sugar_config;
+
+        if (isset($additionalData['link']) && $additionalData['link'] == true) {
+            $body = str_replace('$contact_user_link_guid', $additionalData['url'], $body);
+        } else {
+            $body = str_replace('$contact_user_user_hash', $additionalData['password'], $body);
+        }
+
+        // Bug 36833 - Add replacing of special value $instance_url
+        $body = str_replace('$config_site_url', $sugar_config['site_url'], $body);
+
+        $body = str_replace('$contact_user_user_name', $this->user_name, $body);
+        $body = str_replace('$contact_user_pwd_last_changed', TimeDate::getInstance()->nowDb(), $body);
+
+        return $body;
+    }
+
+    public function getUserMDHash() {
+        return md5($this->hashTS);
+    }
+
+    public function setupSession() {
+        if (!isset($_SESSION[$this->user_name.'_get_developer_modules_for_user'])) {
+            $this->getDeveloperModules();
+        }
+        if (!isset($_SESSION[$this->user_name.'_get_admin_modules_for_user'])) {
+            $this->getAdminModules();
+        }
+    }
+    /**
      * Checks if the passed email is primary.
-     * 
+     *
      * @param string $email
      * @return bool Returns TRUE if the passed email is primary.
      */
@@ -2150,5 +2399,21 @@ EOQ;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Updates last_login field with current timestamp.
+     * Executes User::save internally.
+     *
+     * @return void
+     */
+    public function updateLastLogin()
+    {
+		// need to call a direct db query
+		// if we do not the email address is removed
+		$db = DBManagerFactory::getInstance();
+		$this->last_login = TimeDate::getInstance()->nowDb();
+		$db->query("UPDATE users SET last_login = '{$this->last_login}' WHERE id = '{$this->id}'");
+		return $this->last_login;
     }
 }

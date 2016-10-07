@@ -1,35 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
-
-global $theme;
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/workflow/workflow_utils.php');
 require_once('include/workflow/field_utils.php');
 
-
-
-
-
-
-
+global $theme;
 global $app_strings;
 global $app_list_strings;
 global $mod_strings;
@@ -37,26 +21,24 @@ global $mod_strings;
 global $urlPrefix;
 global $currentModule;
 
-
-$workflow_object = new WorkFlow();
-if(isset($_REQUEST['workflow_id']) && isset($_REQUEST['workflow_id'])) {
-    $workflow_object->retrieve($_REQUEST['workflow_id']);
-} else {
+if(!empty($_REQUEST['workflow_id'])) {
+    $workflow_object = BeanFactory::retrieveBean('WorkFlow', $_REQUEST['workflow_id']);
+}
+if(empty($workflow_object)) {
 	sugar_die("You shouldn't be here");
 }
 
-$focus = new WorkFlowTriggerShell();
-
-if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
+$focus = BeanFactory::getBean('WorkFlowTriggerShells');
+if(!empty($_REQUEST['record']) ) {
     $focus->retrieve($_REQUEST['record']);
 
 }
 
-if(!empty($_REQUEST['field']) && $_REQUEST['field']!="") {
+if(!empty($_REQUEST['field'])) {
    $focus->field = $_REQUEST['field'];
 }
 
-if(!empty($_REQUEST['type']) && $_REQUEST['type']!="") {
+if(!empty($_REQUEST['type'])) {
    $focus->type = $_REQUEST['type'];
 }
 
@@ -120,7 +102,7 @@ $form->out("embeded");
 
 ////////Middle Items/////////////////////////////
 
-	$temp_module = get_module_info($workflow_object->base_module);
+	$temp_module = BeanFactory::getBean($workflow_object->base_module);
 	$display_field_name = $temp_module->field_defs[$focus->field]['vname'];
 	$current_module_strings = return_module_language($current_language, $workflow_object->base_module);
 	$display_field_name = "<i><b>\" ".get_label($display_field_name, $current_module_strings)." \"</i></b>";
@@ -146,7 +128,7 @@ $form->out("embeded");
 
 //////////////////BEGIN Future Object	/////////////////////////////////
 
-		$future_object = new Expression();
+		$future_object = BeanFactory::getBean('Expressions');
 		$future_list = $focus->get_linked_beans('future_triggers','Expression');
 		if(!empty($future_list[0])) {
 			$future_id = $future_list[0]->id;
@@ -218,7 +200,7 @@ if($workflow_object->type=="Normal"){
 		}
 
 
-		$past_object = new Expression();
+		$past_object = BeanFactory::getBean('Expressions');
 		$past_list = $focus->get_linked_beans('past_triggers','Expression');
 		if(isset($past_list[0]) && $past_list[0]!='') {
 			$past_id = $past_list[0]->id;

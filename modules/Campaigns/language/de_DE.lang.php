@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Bitte korrigieren Sie zuerst die folgenden Fehler',
@@ -24,15 +21,15 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'Für diese Kontaktliste wurde keine E-Mail Marketing Nachricht gefunden.',
   'ERR_NO_EMAIL_MARKETING' => 'Mit der Kampagne muss mindestens eine aktive E-Mail Marketing Nachricht verbunden sein.',
   'ERR_NO_MAILBOX' => 'Die folgenden Marketing Nachrichten haben keine zugeordnete Mailbox. Bitte korrigieren Sie das vor dem Weitermachen.',
-  'ERR_NO_OPTS_SAVED' => 'Die gesicherten Werte Ihres Inbound Email Kontos sind nicht optimal.',
+  'ERR_NO_OPTS_SAVED' => 'No optimums were saved with your Inbound Email account.',
   'ERR_NO_TARGET_LISTS' => 'Mit der Kampagne muss mindestens eine Kontaktliste verbunden sein.',
   'ERR_NO_TEST_TARGET_LISTS' => 'Mit der Kampagne muss mindestens eine Kontaktliste vom Typ &#39;Test&#39; verbunden sein.',
-  'ERR_REVIEW_EMAIL_SETTINGS' => 'Bitte überprüfen Sie die Inbound Email Einstellungen.',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'Please review Inbound Email settings.',
   'ERR_SENDING_NOW' => 'Nachrichten werden gesendet. Bitte versuchen Sie das später.',
   'LBL_ACCOUNTS' => 'Firmen',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Firmen',
   'LBL_ADD_TARGET' => 'Hinzufügen',
-  'LBL_ADD_TRACKER' => 'Neuer Tracker Link',
+  'LBL_ADD_TRACKER' => 'Erzeuge Tracker Link',
   'LBL_ALERT' => 'Hinweis',
   'LBL_ALL_PROSPECT_LISTS' => 'Alle Kontaktlisten in der Kampagne.',
   'LBL_ALREADY_SUBSCRIBED_HEADER' => 'Abonnierte Newsletter',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Erwarteter Umsatz:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Häufigkeit:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Anzeigen:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Die Kampagne &#39;{0}&#39; hat den Status &#39;Inaktiv&#39;. Sie haben den Status der Kampagne auf &#39;Aktiv&#39; gesetzt.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Die Kampagne &#39;{0}&#39; hat den Status &#39;Inaktiv&#39;. Sie müssen den Kampagnen Status als &#39;Aktiv&#39; setzen.',
   'LBL_CAMPAIGN_INFORMATION' => 'Übersicht Kampagnen',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Interessenten',
   'LBL_CAMPAIGN_NAME' => 'Name:',
@@ -88,14 +85,16 @@ $mod_strings = array (
   'LBL_CREATED' => 'Erstellt von:',
   'LBL_CREATED_BY' => 'Erstellt von:',
   'LBL_CREATED_USER' => 'Erstellter Benutzer',
+  'LBL_CREATE_EMAIL' => 'E-Mail erstellen',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Erstellen',
   'LBL_CREATE_MAILBOX' => 'Neue Mailbox erstellen',
   'LBL_CREATE_NEWSLETTER' => 'Newsletter erstellen',
   'LBL_CREATE_NEW_MARKETING_EMAIL' => 'Neues Marketing E-Mail erstellen',
   'LBL_CREATE_TARGET' => 'Erstellen',
-  'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Web-2-Lead Formular erzeugen',
+  'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Erzeuge WebToLead Formular',
   'LBL_CURRENCY' => 'Währung',
   'LBL_CURRENCY_ID' => 'Währungs ID',
+  'LBL_CURRENCY_RATE' => 'Wechselkurs',
   'LBL_CUSTOM_LOCATION' => 'Auswahl erlauben',
   'LBL_DATE_CREATED' => 'Erstellt am:',
   'LBL_DATE_ENTERED' => 'Datum erstellt',
@@ -144,15 +143,17 @@ $mod_strings = array (
   'LBL_EMAIL_MARKETING_SUBPANEL_TITLE' => 'E-Mail Marketing',
   'LBL_EMAIL_SETUP_DESC' => 'Füllen Sie das nachfolgende Formular aus, um die System Einstellungen zu ändern, damit Kampagnen E-Mails versendet werden können.',
   'LBL_EMAIL_SETUP_WIZ' => 'E-Mail Setup starten',
-  'LBL_EMAIL_SETUP_WIZARD' => 'E-Mail Setup',
+  'LBL_EMAIL_SETUP_WIZARD' => 'E-Mail einrichten',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'E-Mail Einstellungen für Kampagnen',
+  'LBL_EMAIL_TITLE' => 'Kampagnen: E-Mails',
+  'LBL_END_DATE' => 'Enddatum',
   'LBL_FILTER_CHART_BY' => 'Diagramm filtern nach:',
   'LBL_FINISH' => 'Ende',
   'LBL_FROM_ADDR' => '"Von" Adresse',
   'LBL_FROM_MAILBOX_NAME' => 'Mailbox benutzen:',
   'LBL_FROM_NAME' => 'Von Name:',
   'LBL_HOME_START_MESSAGE' => 'Wählen Sie den Typ der Kampagne aus.',
-  'LBL_IMPORT_PROSPECTS' => 'Zielpersonen importieren',
+  'LBL_IMPORT_PROSPECTS' => 'Zielkontakte importieren',
   'LBL_INVALID' => 'Ungültig',
   'LBL_INVALID EMAIL_SUBPANEL_TITLE' => 'Ungültige Email',
   'LBL_INVITEE' => 'Kontakte',
@@ -229,7 +230,7 @@ $mod_strings = array (
   'LBL_NAVIGATION_MENU_NEW_MAILBOX' => 'Neue Mailbox',
   'LBL_NAVIGATION_MENU_SEND_EMAIL' => 'E-Mail senden',
   'LBL_NAVIGATION_MENU_SETUP' => 'E-Mail einrichten',
-  'LBL_NAVIGATION_MENU_SUBSCRIPTIONS' => 'Anmeldungen',
+  'LBL_NAVIGATION_MENU_SUBSCRIPTIONS' => 'Kontaktlisten',
   'LBL_NAVIGATION_MENU_SUMMARY' => 'Zusammenfassung',
   'LBL_NAVIGATION_MENU_TRACKERS' => 'Tracker Links',
   'LBL_NEWSLETTER' => 'Newsletter',
@@ -255,7 +256,7 @@ $mod_strings = array (
   'LBL_PASSWORD' => 'Passwort',
   'LBL_PORT' => 'Mail Server Port',
   'LBL_PROSPECTLISTS_SUBPANEL_TITLE' => 'Kontaktlisten',
-  'LBL_PROSPECT_LIST_SUBPANEL_TITLE' => 'Kontaktlisten',
+  'LBL_PROSPECT_LIST_SUBPANEL_TITLE' => 'Kontaktliste',
   'LBL_PROVIDE_WEB_TO_LEAD_FORM_FIELDS' => 'Bitte geben Sie alle erforderlichen Felder an',
   'LBL_QUEUE_BUTTON_KEY' => 'u',
   'LBL_QUEUE_BUTTON_LABEL' => 'E-Mails senden',
@@ -286,7 +287,7 @@ $mod_strings = array (
   'LBL_SELECT_LEAD_FIELDS' => 'Bitte wählen Sie aus den verfügbaren Feldern',
   'LBL_SELECT_REQUIRED_LEAD_FIELDS' => 'Bitte wählen Sie die erforderlichen Felder:',
   'LBL_SELECT_TARGET' => 'Vorhandene Kontaktliste verwenden',
-  'LBL_SEND ERROR_SUBPANEL_TITLE' => 'Sendefehler',
+  'LBL_SEND ERROR_SUBPANEL_TITLE' => 'Send Error',
   'LBL_SEND_AS_TEST' => 'Marketing E-Mail als Test senden',
   'LBL_SEND_EMAIL' => 'E-Mail planen',
   'LBL_SERVER_TYPE' => 'Mail Server Protokoll',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Verwende SSL',
   'LBL_SSL_DESC' => 'Falls Ihr Mail Server SSL Verbindungen unterstützt, so werden beim Import der E-Mails SSL Verbindungen erzwungen.',
   'LBL_START' => 'Start',
+  'LBL_START_DATE' => 'Startdatum',
   'LBL_START_DATE_TIME' => 'Startdatum und -zeit:',
+  'LBL_STATUS' => 'Status',
   'LBL_STATUS_TEXT' => 'Status:',
   'LBL_SUBSCRIPTION_LIST' => 'Anmeldeliste',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Name der Anmeldeliste:',
@@ -321,13 +324,13 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Details anzeigen',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Details anzeigen',
   'LBL_TOP_CAMPAIGNS' => 'Top Kampagnen',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Die besten Kampagnen nach Ergebnis',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Besste Kampagnen sortiert nach Einnahmen',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Kampagnenname',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Umsatz',
   'LBL_TOTAL_ENTRIES' => 'Einträge',
   'LBL_TOTAL_TARGETED' => 'Total Ziel',
   'LBL_TO_WIZARD' => 'starten',
-  'LBL_TO_WIZARD_TITLE' => 'Wizard starten',
+  'LBL_TO_WIZARD_TITLE' => 'Assistenten starten',
   'LBL_TRACKED_URLS' => 'Tracker URLs',
   'LBL_TRACKED_URLS_SUBPANEL_TITLE' => 'Tracker URLs',
   'LBL_TRACKERS' => 'Tracker Links',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Diese Option löscht Einträge vom Testlauf. Fortfahren?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Track Queue',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'ROI anzeigen',
+  'LBL_TYPE' => 'Typ',
   'LBL_UNSUBSCRIBED_HEADER' => 'Verfügbare Newsletter',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Durch Verschieben eines Newsletters von der Liste der abonnierten Newsletter in die Liste der verfügbaren Newsletter wird der Kontakt in die Abmeldeliste dieses Newsletters hinzugefügt. Der Kontakt wird nicht aus der ursprünglichen Anmeldeliste entfernt.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Abmeldeliste',
@@ -353,7 +357,7 @@ $mod_strings = array (
   'LBL_USERS_CANNOT_OPTOUT' => 'Systembenutzer können sich nicht von Newsletters/Kampagnen  abmelden.',
   'LBL_USE_EXISTING' => 'Vorhandene verwenden',
   'LBL_VALID' => 'Gültig',
-  'LBL_VIEWED_SUBPANEL_TITLE' => 'Prospectiewed',
+  'LBL_VIEWED_SUBPANEL_TITLE' => 'Nachricht gelesen',
   'LBL_VIEW_INLINE' => 'Ansicht',
   'LBL_WEB_TO_LEAD' => 'Interessenten Formular erstellen',
   'LBL_WEB_TO_LEAD_FORM_TITLE1' => 'Interessenten Formular: Felder wählen',
@@ -389,7 +393,7 @@ $mod_strings = array (
   'LNK_NEW_PROSPECT_LIST' => 'Kontaktliste erstellen',
   'LNK_PROSPECT_LIST' => 'Zielkontakte',
   'LNK_PROSPECT_LIST_LIST' => 'Kontaktlisten',
-  'LNL_NEW_CAMPAIGN_WIZARD' => 'Kampagne anlegen (mit Assistent)',
+  'LNL_NEW_CAMPAIGN_WIZARD' => 'Neue Kampagne (mit Assistent)',
   'NTC_DELETE_CONFIRMATION' => 'Sind Sie sicher, dass Sie diesen Eintrag löschen wollen?',
   'NTC_NO_LEGENDS' => 'Kein(e)',
   'TRACKING_ENTRIES_LOCATION_DEFAULT_VALUE' => 'Wert von site_url in config.php',

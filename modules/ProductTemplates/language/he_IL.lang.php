@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the product.',
@@ -60,23 +57,28 @@ $mod_strings = array (
   'LBL_LIST_TYPE_ID' => 'סוג זהות:',
   'LBL_LIST_USDOLLAR' => 'מחירון בשקלים:',
   'LBL_MANUFACTURER' => 'יצרן:',
+  'LBL_MANUFACTURERS' => 'יצרנים',
   'LBL_MANUFACTURER_ID' => 'יצרן זהות:',
   'LBL_MANUFACTURER_NAME' => 'שם יצרן:',
   'LBL_MFT_PART_NUM' => 'מספר חלק אצל היצרן:',
   'LBL_MODULE_ID' => 'תבנית מוצרים',
   'LBL_MODULE_NAME' => 'קטלוג מוצרים',
+  'LBL_MODULE_NAME_SINGULAR' => 'קטלוג מוצרים',
   'LBL_MODULE_TITLE' => 'קטלוג מוצרים: דף בית',
   'LBL_NAME' => 'שם מוצר:',
   'LBL_NEW_FORM_TITLE' => 'צור צוות',
   'LBL_PERCENTAGE' => 'אחוזים(%)',
   'LBL_POINTS' => 'נקודות',
+  'LBL_POINTS_ABBR' => 'Pts.',
   'LBL_PRICING_FACTOR' => 'פקטור תימחור:',
   'LBL_PRICING_FORMULA' => 'נוסחת תמחור בררת מחדל :',
-  'LBL_PRODUCT' => 'מוצר:',
+  'LBL_PRODUCT' => 'מוצר',
+  'LBL_PRODUCT_CATEGORIES' => 'קטגוריית מוצרים',
   'LBL_PRODUCT_ID' => 'מוצר זהות:',
+  'LBL_PRODUCT_TYPES' => 'סוגי מוצרים',
   'LBL_QTY_IN_STOCK' => 'כמות במלאי',
   'LBL_QUANTITY' => 'כמות במלאי:',
-  'LBL_RELATED_PRODUCTS' => 'מוצרים קשורים',
+  'LBL_RELATED_PRODUCTS' => 'הצעות מחיר לשורת פריט קשורים',
   'LBL_SEARCH_FORM_TITLE' => 'חיפוש קטלוג מוצר',
   'LBL_STATUS' => 'זמינות:',
   'LBL_SUPPORT_CONTACT' => 'איש תמיכה:',
@@ -92,6 +94,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'אתר אינטרנט',
   'LBL_WEIGHT' => 'משקל:',
   'LNK_IMPORT_PRODUCTS' => 'ייבוא מוצרים',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'ייבא פרטי קטלוג מוצרים',
   'LNK_NEW_MANUFACTURER' => 'יצרנים',
   'LNK_NEW_PRODUCT' => 'צור מוצר עבור קטלוג',
   'LNK_NEW_PRODUCT_CATEGORY' => 'קטגוריות מוצרים',

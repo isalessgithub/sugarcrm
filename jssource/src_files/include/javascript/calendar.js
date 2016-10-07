@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 Calendar = function() {};
 
@@ -34,47 +31,17 @@ Calendar.getHighestZIndex = function (containerEl)
    return (highestIndex == Number.MAX_VALUE) ? Number.MAX_VALUE : highestIndex+1;
 };
 
-/**
- * Returns a HTML Element reference by looking for the id in the given form
- *
- * @param id - id of the input element
- * @param form - form (id) in which to look for the element
- * @return HTMLInputElement
- */
-Calendar.getDateField = function (id, form)
-{
-    var input;
-
-    // If we have a form, try to pull the element from it
-    if (form) {
-        var formElement = document.getElementById(form);
-        if (formElement) {
-            for (var i = 0; i < formElement.elements.length; i++) {
-                if (formElement.elements[i].id == id) {
-                    input = formElement.elements[i];
-                    break;
-                }
-            }
-        }
-    } else {
-        input = document.getElementById(id);
-    }
-
-    return input;
-};
-
 Calendar.setup = function (params) {
 
     YAHOO.util.Event.onDOMReady(function(){
-
+    	
         var Event = YAHOO.util.Event;
         var Dom = YAHOO.util.Dom;
         var dialog;
         var calendar;
         var showButton = params.button ? params.button : params.buttonObj;
         var userDateFormat = params.ifFormat ? params.ifFormat : (params.daFormat ? params.daFormat : "m/d/Y");
-        var inputField = params.inputField ? params.inputField : params.inputFieldObj.id;
-        var form = params.form ? params.form : '';
+        var inputField = params.inputField ? params.inputField : params.inputFieldObj;
         var startWeekday = params.startWeekday ? params.startWeekday : 0;
         var dateFormat = userDateFormat.substr(0,10);
         var date_field_delimiter = /([-.\\/])/.exec(dateFormat)[0];
@@ -117,9 +84,8 @@ Calendar.setup = function (params) {
                 Event.addListener("callnav_today", "click", function(){ 
                     calendar.clear();
                     var now = new Date();
-                    // Reset the input field value
-                    var input = Calendar.getDateField(inputField, form);
-
+                    //Reset the input field value
+                    var input = Dom.get(inputField);
                     input.value = formatSelectedDate(now);
                     //Highlight the cell
                     var cellIndex = calendar.getCellIndex(now);
@@ -272,7 +238,7 @@ Calendar.setup = function (params) {
 
                 calendar.selectEvent.subscribe(function(type, args, obj) {
 
-                    var input = Calendar.getDateField(inputField, form);
+                    var input = Dom.get(inputField);
 					if (calendar.getSelectedDates().length > 0) {
 
                         input.value = formatSelectedDate(calendar.getSelectedDates()[0]);
@@ -377,8 +343,8 @@ Calendar.setup = function (params) {
             	}
             	return returnArray.join(dateParams.delim);
             };
-
-            var sanitizedDate = sanitizeDate(Calendar.getDateField(inputField, form).value, dateParams);
+            
+            var sanitizedDate = sanitizeDate(Dom.get(inputField).value, dateParams);
             var sanitizedDateArray = sanitizedDate.split(dateParams.delim);
             calendar.cfg.setProperty("selected", sanitizedDate);
             calendar.cfg.setProperty("pageDate", sanitizedDateArray[monthPos] + dateParams.delim + sanitizedDateArray[yearPos]);

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Por favor, corrija los siguientes errores antes de proceder',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Ingresos Esperados:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frecuencia:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Impresiones:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Campaña &#39;{0}&#39; está &#39;Inactiva&#39;. Debería cambiar el estado como &#39;Activa&#39;.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'La Campaña &#39;{0}&#39; tiene establecido el estado como &#39;Inactivo&#39;. Debes establecer el estado de la campaña como &#39;Activa&#39;.',
   'LBL_CAMPAIGN_INFORMATION' => 'Visión General',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Clientes Potenciales',
   'LBL_CAMPAIGN_NAME' => 'Nombre:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Creada por:',
   'LBL_CREATED_BY' => 'Creada por:',
   'LBL_CREATED_USER' => 'Usuario Creado',
+  'LBL_CREATE_EMAIL' => 'Crear correo electrónico',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Crear',
   'LBL_CREATE_MAILBOX' => 'Crear Nueva Cuenta de Correo',
   'LBL_CREATE_NEWSLETTER' => 'Nuevo Boletín de Noticias',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'CreateWebToLeadForm',
   'LBL_CURRENCY' => 'Moneda:',
   'LBL_CURRENCY_ID' => 'ID Moneda',
+  'LBL_CURRENCY_RATE' => 'Tipo de Cambio',
   'LBL_CUSTOM_LOCATION' => 'Definida por el Usuario',
   'LBL_DATE_CREATED' => 'Fecha Creación:',
   'LBL_DATE_ENTERED' => 'Fecha Creación',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Lanzar Configuración de Email',
   'LBL_EMAIL_SETUP_WIZARD' => 'Configurar Email',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Configuración de Email para Campañas',
+  'LBL_EMAIL_TITLE' => 'Campañas: correos electrónicos',
+  'LBL_END_DATE' => 'Fecha de Fin',
   'LBL_FILTER_CHART_BY' => 'Filtrar Gráfico Por:',
   'LBL_FINISH' => 'Finalizar',
   'LBL_FROM_ADDR' => 'Dirección del Remitente',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Usar SSL',
   'LBL_SSL_DESC' => 'Si su servidor de correo soporta conexiones seguras de sockets (SSL), habilitar esta opción forzará conexiones SSL al importar el correo.',
   'LBL_START' => 'Iniciar',
+  'LBL_START_DATE' => 'Fecha de Inicio',
   'LBL_START_DATE_TIME' => 'Fecha y Hora de Inicio:',
+  'LBL_STATUS' => 'Estado',
   'LBL_STATUS_TEXT' => 'Estado:',
   'LBL_SUBSCRIPTION_LIST' => 'Lista de Suscripción',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Nombre de Lista de Suscripción:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Ver Detalles',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Ver Detalles',
   'LBL_TOP_CAMPAIGNS' => 'Campañas Principales',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Campañas con Mejor Rendimiento por Ingreso',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Las Campañas con Mejor Rendimiento según Ingresos',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Nombre de Campaña',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Ingresos',
   'LBL_TOTAL_ENTRIES' => 'Entradas',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Esta opción eliminará las entradas del registro creadas por el juego de pruebas. ¿Desea continuar?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Cola de Seguimiento',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Ver ROI',
+  'LBL_TYPE' => 'Tipo',
   'LBL_UNSUBSCRIBED_HEADER' => 'Boletines de Noticias Disponibles/Sin Suscripción',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Al mover el boletín de noticias a la lista de Boletines de Noticias Disponibles/Sin Suscripción añadirá el contacto a la Lista de Sin Suscripción para este boletín de noticias.  El contacto no será eliminado de la Lista de Suscripción o Lista de Público Objetivo original.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Lista de No suscripción',

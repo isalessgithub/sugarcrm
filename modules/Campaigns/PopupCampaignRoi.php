@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -44,12 +41,12 @@ $xtpl=new XTemplate ('modules/Campaigns/PopupCampaignRoi.html');
 
 //_pp($_REQUEST['id']);
 $campaign_id=$_REQUEST['id'];
-$campaign = new Campaign();
+$campaign = BeanFactory::getBean('Campaigns');
 $opp_query1  = "select camp.name, camp.actual_cost,camp.budget,camp.expected_revenue,count(*) opp_count,SUM(opp.amount) as Revenue, SUM(camp.actual_cost) as Investment,
                             ROUND((SUM(opp.amount) - SUM(camp.actual_cost))/(SUM(camp.actual_cost)), 2)*100 as ROI";
             $opp_query1 .= " from opportunities opp";
             $opp_query1 .= " right join campaigns camp on camp.id = opp.campaign_id";
-            $opp_query1 .= " where opp.sales_stage = 'Closed Won' and camp.id='$campaign_id'";
+            $opp_query1 .= " where opp.sales_stage = '".Opportunity::STAGE_CLOSED_WON."' and camp.id='$campaign_id'";
             $opp_query1 .= " group by camp.name";
             //$opp_query1 .= " and deleted=0";
             $opp_result1=$campaign->db->query($opp_query1);
@@ -77,7 +74,7 @@ $opp_query1  = "select camp.name, camp.actual_cost,camp.budget,camp.expected_rev
 
 
 
-	$currency  = new Currency();
+	$currency = BeanFactory::getBean('Currencies');
 if(isset($focus->currency_id) && !empty($focus->currency_id))
 {
 	$currency->retrieve($focus->currency_id);

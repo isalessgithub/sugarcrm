@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Invalidera Cron-syntax',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Varje dag',
   'LBL_ALWAYS' => 'Alltid',
   'LBL_AND' => 'och',
+  'LBL_ASYNCMASSUPDATE' => 'Utför asynkron mäss uppdateringar',
   'LBL_AT' => 'på',
   'LBL_AT_THE' => 'Vid',
   'LBL_BASIC_OPTIONS' => 'Enkla inställningar',
   'LBL_CATCH_UP' => 'Exekvera om missat',
   'LBL_CATCH_UP_WARNING' => 'Kryssa ur detta jobb kan ta längre än en stund att köra.',
   'LBL_CLEANJOBQUEUE' => 'Rensa Upp Job Köer',
+  'LBL_CLEANOLDRECORDLISTS' => 'Cleanup gamla postlistor',
   'LBL_CRONTAB_EXAMPLES' => 'Det ovan använder standard crontab notation.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Vänligen specificera schemats körningstid därefter.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Cron specifikations körning baserad på en annan servers tidszon (',
@@ -67,6 +66,7 @@ $mod_strings = array (
   'LBL_MINUTES' => 'minuter',
   'LBL_MIN_MARK' => 'minut markering',
   'LBL_MODULE_NAME' => 'Sugar schemaläggare',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sugar schemaläggare',
   'LBL_MODULE_TITLE' => 'Schemaläggare',
   'LBL_MON' => 'Måndag',
   'LBL_MONTH' => 'månad',
@@ -80,14 +80,22 @@ $mod_strings = array (
   'LBL_OOTB_BOUNCE' => 'Kör nattlig process för studsad kampanj epost',
   'LBL_OOTB_CAMPAIGN' => 'Kör nattliga mass epost kampanjer',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Rensa Jobbköer',
+  'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Skapa framtida tidsperioder',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Kontrollera inkommande mailboxar',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Process Author Scheduled Job',
   'LBL_OOTB_PRUNE' => 'Rensa databasen den 1:a varje månad',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Beskär gamla postlistor',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Ta bort diagnoseringsfiler',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Ta bort tillfälliga PDF-filer',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Ta bort temporära filer',
   'LBL_OOTB_REPORTS' => 'Kör schemalagd process för att generera rapporter',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Kör Epostpåminnelse Meddelanden',
   'LBL_OOTB_TRACKER' => 'Rensa användarhistorik den 1:a varje månad',
   'LBL_OOTB_WORKFLOW' => 'Genomför workflow uppgifter',
   'LBL_PERENNIAL' => 'evig',
   'LBL_PERFORMFULLFTSINDEX' => 'Fulltextsökning indexerar System',
+  'LBL_PMSEENGINECRON' => 'Process Author Scheduler',
   'LBL_POLLMONITOREDINBOXES' => 'Kontrollera inkommande Epost konton',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Kör nattlig process för studsad kampanj epost',
   'LBL_PROCESSQUEUE' => 'Kör schemalagd process för att generera rapporter',
@@ -101,6 +109,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Sök schemaläggare',
   'LBL_SENDEMAILREMINDERS' => 'Kör Epost Påminnelse Skickning',
   'LBL_STATUS' => 'Status',
+  'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Skapa framtida tidsperioder',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Söndag',
   'LBL_THU' => 'Torsdag',
   'LBL_TIME_FROM' => 'Aktiv från',

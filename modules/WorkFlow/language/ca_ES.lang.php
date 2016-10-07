@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTION_ERROR' => 'Aquesta acció no pot ser executat. Edita l&#39;acció perquè tots els camps i els valors de camp siguin vàlids.',
@@ -89,5 +86,6 @@ $mod_strings = array (
   'LNK_PROCESS_VIEW' => 'Sequencia de Workflow',
   'LNK_WORKFLOW' => 'Llistar Definicions de Workflow',
   'NTC_REMOVE_ALERT' => 'Està segur que vol treure aquest workflow?',
+  'WARN_WORKFLOW_DEPRECATED_ERROR' => '<b>Advertència:</b> El mòdul del flux de treball quedarà obsolet aviat i s&#39;esborrarà. Transferiu els fluxos de treball al nou <a href="index.php?module=pmse_Project">Autor de processos</a>.<span style="width: 1em; display: inline-block;">&nbsp;</span><a target="_blank" href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/01_Sugar_Ultimate/Sugar_Ultimate_7.6/Administration_Guide/135_Process_Author/">Obteniu més informació quant a l&#39;autor de processos</a>.',
 );
 

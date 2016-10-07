@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Lai dzēstu uzņēmumu, jānorāda ieraksta numurs.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Pievienot piezīmi',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Kļūdas',
   'LBL_CASE' => 'Pieteikums:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Apraksts',
   'LBL_CASE_NUMBER' => 'Pieteikuma numurs:',
   'LBL_CASE_SUBJECT' => 'Pieteikuma temats:',
@@ -53,6 +51,23 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_EXPORT_TEAM_COUNT' => 'Darba grupu skaits',
   'LBL_FILENANE_ATTACHMENT' => 'Pielikums',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulis paredzēts ar produktiem vai servisiem saistītu problēmu reģistrēšansai un pārvaldībai par kurām ir ziņojuši jūsu klienti.
+
+Lai izveidotu ierakstu:
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+- Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+- Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+- Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+- Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulis paredzēts ar produktiem vai servisiem saistītu problēmu reģistrēšansai un pārvaldībai par kurām ir ziņojuši jūsu klienti.
+
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulis paredzēts ar produktiem vai servisiem saistītu problēmu reģistrēšansai un pārvaldībai par kurām ir ziņojuši jūsu klienti. {{plural_module_name}} parasti ir pakārtots modulim {{accounts_singular_module}}, un vairāki {{plural_module_name}} var būt pakārtoti vienam {{accounts_singular_module}}. Ir vairākas iespējas kā izveidot {{plural_module_name}} Sugar, izmantojot moduli {{plural_module_name}}, importējot {{plural_module_name}},  vai konvertējot no e-pasta. Kad {{module_name}} ir izveidots, jūs variet aplūkot un rediģēt informāciju kas attiecas uz {{module_name}} caur {{module_name}} kartiņas skatu. Katram {{module_name}} ierakstam tad var tikt pakārtots cits Sugar iereksts, tādas kā {{calls_module}}, {{contacts_module}}, {{bugs_module}}, un daudzi citi',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_INVITEE' => 'Ielūgtie',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Zināšanu bāze',
@@ -79,7 +94,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Pieteikums',
   'LBL_MODULE_TITLE' => 'Pieteikumi',
   'LBL_NEW_FORM_TITLE' => 'Jauns pieteikums',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_NUMBER' => 'Numurs:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Ja Jums ir jauns atbalsta Pieteikums, kuru vēlaties apstiprināt, klikšķiniet šeit, lai apstiprinātu jaunu Pieteikumu',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Jūs varat filtrēt Pieteikumu sarakstu, ievadot meklēšanas frāzi.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Piemēram, Jūs varat izmantot šo, lai atrastu iepriekš apstiprinātas problēmas.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Pieteikumu modulis tiek lietots lai pārvaldītu atbalsta pieteikumus, kuri ietekmē jūsu klientus. Izmanto zemāk esošās bultas,lai izietu ātro apskati.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Šajā lapā attēlots Uzņēmumam piesaistīto Pieteikumu saraksts.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Spiežot šeit jūs tiksiet atgriezts šajā skatījumā jebkurā laikā.',
   'LBL_PORTAL_VIEWABLE' => 'Redzams portālā',
   'LBL_PRIORITY' => 'Prioritāte:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekti',
@@ -88,6 +110,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Pieteikumu meklēšana',
   'LBL_SHOW_IN_PORTAL' => 'Rādīt portālā',
   'LBL_SHOW_MORE' => 'Rādīt vairāk pieteikumu',
+  'LBL_SOURCE' => 'Avots:',
   'LBL_STATUS' => 'Statuss:',
   'LBL_SUBJECT' => 'Temats:',
   'LBL_SYSTEM_ID' => 'Sistēmas ID',

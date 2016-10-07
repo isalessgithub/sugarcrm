@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Przed kontynuacją popraw następujące błędy',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Utworzone przez:',
   'LBL_CREATED_BY' => 'Utworzone przez:',
   'LBL_CREATED_USER' => 'Utworzony użytkownik',
+  'LBL_CREATE_EMAIL' => 'Utwórz e-mail',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Utwórz',
   'LBL_CREATE_MAILBOX' => 'Utwórz nową skrzynkę pocztową',
   'LBL_CREATE_NEWSLETTER' => 'Utwórz newsletter',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Utwórz formularz Web-To-Lead',
   'LBL_CURRENCY' => 'Waluta:',
   'LBL_CURRENCY_ID' => 'ID Waluty',
+  'LBL_CURRENCY_RATE' => 'Stawka waluty',
   'LBL_CUSTOM_LOCATION' => 'Wartość zdefiniowana',
   'LBL_DATE_CREATED' => 'Data utworzenia:',
   'LBL_DATE_ENTERED' => 'Data utworzenia',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Uruchom ustawienia wiadomości e-mail',
   'LBL_EMAIL_SETUP_WIZARD' => 'Ustawienia wiadomości e-mail',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Ustawienia wiadomości e-mail dla kampanii',
+  'LBL_EMAIL_TITLE' => 'Kampanie: E-maile',
+  'LBL_END_DATE' => 'Data zakończenia',
   'LBL_FILTER_CHART_BY' => 'Filtruj wykresy wg:',
   'LBL_FINISH' => 'Zakończ',
   'LBL_FROM_ADDR' => 'Adres "Od"',
@@ -244,7 +245,7 @@ $mod_strings = array (
   'LBL_NONE' => 'Nie utworzono',
   'LBL_NON_ADMIN_ERROR_MSG' => 'Powiadom administratora, aby mógł zająć się tym problemem',
   'LBL_NOTIFY_TITLE' => 'Opcje powiadamiania za pomocą wiadomości e-mail',
-  'LBL_NOT_VALID_EMAIL_ADDRESS' => 'Niepoprawny adres e-mail',
+  'LBL_NOT_VALID_EMAIL_ADDRESS' => 'Nieprawidłowy adres e-mail',
   'LBL_NO_SUBS_ENTRIES_WARNING' => 'Nie można wysłać wiadomości, dopóki lista odbiorców nie będzie zawierać przynajmniej jednego wpisu.',
   'LBL_NO_TARGETS_WARNING' => 'Nie można wysłać wiadomości, dopóki kampania nie będzie posiadać przypisanej co najmniej jednej grupy odbiorców.',
   'LBL_NO_TARGET_ENTRIES_WARNING' => 'Nie można wysłać wiadomości, dopóki grupa odbiorców nie będzie zawierać przynajmniej jednego wpisu.',
@@ -254,7 +255,7 @@ $mod_strings = array (
   'LBL_OTHER_TYPE_CAMPAIGN' => 'Kampania klasyczna (nieoparta na wiadomościach e-mail)',
   'LBL_PASSWORD' => 'Hasło',
   'LBL_PORT' => 'Port serwera pocztowego',
-  'LBL_PROSPECTLISTS_SUBPANEL_TITLE' => 'Lista prospektów',
+  'LBL_PROSPECTLISTS_SUBPANEL_TITLE' => 'Lista odbiorców',
   'LBL_PROSPECT_LIST_SUBPANEL_TITLE' => 'Lista odbiorców',
   'LBL_PROVIDE_WEB_TO_LEAD_FORM_FIELDS' => 'Wypełnij wszystkie wymagane pola',
   'LBL_QUEUE_BUTTON_KEY' => 'u',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Użyj SSL',
   'LBL_SSL_DESC' => 'Jeżeli Twój serwer wspiera SSL, włączenie tej funkcji wymusi korzystanie z niego, podczas importu wiadomości.',
   'LBL_START' => 'Start',
+  'LBL_START_DATE' => 'Data rozpoczęcia',
   'LBL_START_DATE_TIME' => 'Czas i data rozpoczęcia:',
+  'LBL_STATUS' => 'Status',
   'LBL_STATUS_TEXT' => 'Status:',
   'LBL_SUBSCRIPTION_LIST' => 'Lista potencjalnych kontrahentów',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Nazwa listy potencjalnych kontrahentów:',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Ta opcja usunie dziennik rekordów utworzonych podczas testowania. Kontynuować?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Namierz kolejkę',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Zwroty z inwestycji (ROI)',
+  'LBL_TYPE' => 'Typ',
   'LBL_UNSUBSCRIBED_HEADER' => 'Dostępne Newslettery / Newslettry niezasubskrybowane',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Przeniesienie newslettera do listy Dostępne Newslettery / Newslettry niezasubskrybowane doda kontakt do wypisanych z newslettera.  Nie usunie kontaktu z listy subskrypcji.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Lista osób niezasubskrybowanych',

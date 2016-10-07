@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 ///include some fake products and categories as arrays
 ///for now we will just use the account and contact name info
 
@@ -91,6 +88,8 @@ $last_name_max = $last_name_count - 1;
 	$category = new ProductCategory();
 	$category->name = $last_name_array[mt_rand(0,$last_name_max)] .$sugar_demodata['category_ext_name'];
 	$category->parent_id = $parent_id;
+    $key = array_rand($sugar_demodata['users']);
+    $category->assigned_user_id = $sugar_demodata['users'][$key]['id'];
 	$category->save();
 	$cat_id = $category->id;
 	unset($category);
@@ -101,41 +100,49 @@ $last_name_max = $last_name_count - 1;
 }
 
 
-function create_product($category_id){
-global $sugar_demodata;
-$first_name_array = $sugar_demodata['first_name_array'];
-$first_name_count = count($sugar_demodata['first_name_array']);
-$company_name_array = $sugar_demodata['company_name_array'];
-$company_name_count = count($sugar_demodata['company_name_array']);
-global $dollar_id;
-global $manufacturer_id_arr;
-$first_name_max = $first_name_count - 1;
+function create_product($category_id)
+{
+    global $sugar_demodata;
+    $first_name_array = $sugar_demodata['first_name_array'];
+    $first_name_count = count($sugar_demodata['first_name_array']);
+    $company_name_array = $sugar_demodata['company_name_array'];
+    $company_name_count = count($sugar_demodata['company_name_array']);
+    global $dollar_id;
+    if (empty($dollar_id)) {
+        $dollar_id = '-99';
+    }
+    global $manufacturer_id_arr;
+    $first_name_max = $first_name_count - 1;
 
-	$template = new ProductTemplate();
-	$template->name = $first_name_array[mt_rand(0,$first_name_max)] .$sugar_demodata['product_ext_name'];
-	$template->tax_class = "Taxable";
-	$template->manufacturer_id = $manufacturer_id_arr[0];
-	$template->currency_id = $dollar_id;
-	$template->cost_price = 500.00;
-	$template->cost_usdollar = 500.00;
-	$template->list_price = 800.00;
-	$template->list_usdollar = 800.00;
-	$template->discount_price = 800.00;
-	$template->discount_usdollar = 800.00;
-	$template->pricing_formula = "IsList";
-	$template->mft_part_num = $company_name_array[mt_rand(0,$company_name_count-1)].' '.mt_rand(1,1000000) ."XYZ987";
-	$template->pricing_factor = "1";
-	$template->status = "Available";
-	$template->weight = 20.0;
-	$template->date_available = "2004-10-15";
-	$template->qty_in_stock = "72";
-	$template->category_id = $category_id;
-	$template->save();
+    $cost = rand(300, 600);
+    $list = rand(700, 1000);
+    $discount = rand($list - 200, $list - 50);
 
-	unset($template);
+    $template = new ProductTemplate();
+    $template->name = $first_name_array[mt_rand(0, $first_name_max)] . $sugar_demodata['product_ext_name'];
+    $template->tax_class = "Taxable";
+    $template->manufacturer_id = $manufacturer_id_arr[0];
+    $template->currency_id = $dollar_id;
+    $template->cost_price = $cost;
+    $template->cost_usdollar = $cost;
+    $template->list_price = $list;
+    $template->list_usdollar = $list;
+    $template->discount_price = $discount;
+    $template->discount_usdollar = $discount;
+    $template->pricing_formula = "IsList";
+    $template->mft_part_num = $company_name_array[mt_rand(0, $company_name_count - 1)] . ' ' . mt_rand(
+            1,
+            1000000
+        ) . "XYZ987";
+    $template->pricing_factor = "1";
+    $template->status = "Available";
+    $template->weight = rand(10, 40);
+    $template->date_available = "2004-10-15";
+    $template->qty_in_stock = rand(0, 150);
+    $template->category_id = $category_id;
+    $template->save();
+
+    unset($template);
 
 //end function create_product
 }
-
-
-?>

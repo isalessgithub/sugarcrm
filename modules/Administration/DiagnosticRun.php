@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -38,7 +35,6 @@ global $app_strings;
 global $app_list_strings;
 global $mod_strings;
 
-global $theme;
 
 
 global $db;
@@ -155,14 +151,14 @@ function array_as_table($header, $values)
 // returns a string containing (in html) the dump of all rows
 function getFullTableDump($tableName){
 
-	global $db;
+	global $db, $mod_strings;
 
     $cols = $db->get_columns($tableName);
     $indexes = $db->get_indices($tableName);
     $returnString = "";
     //setting up table header for each file
-    $returnString .= array_as_table("{$db->dbName} $tableName Definitions:", $cols);
-    $returnString .= array_as_table("{$db->dbName} $tableName Keys:", $indexes);
+    $returnString .= array_as_table("{$db->dbName} $tableName " . $mod_strings['LBL_DIAGNOSTICS_FULLTABLEDUMP_DEFINITIONS'] . ":", $cols);
+    $returnString .= array_as_table("{$db->dbName} $tableName " . $mod_strings['LBL_DIAGNOSTICS_FULLTABLEDUMP_KEYS'] . ":", $indexes);
     $returnString .= "<BR><BR>";
 
     $def_count = count($cols);
@@ -303,11 +299,12 @@ function executesugarlog()
 {
     //BEGIN COPY SUGARCRM.LOG
     //Copies the Sugarcrm log to our diagnostic directory
-    global $cacheDir;
+    global $cacheDir, $mod_strings;
 	require_once('include/SugarLogger/SugarLogger.php');
 	$logger = new SugarLogger();
     if(!copy($logger->getLogFileNameWithPath(), $cacheDir.'/'.$logger->getLogFileName())) {
-      echo "Couldn't copy sugarcrm.log to cacheDir.<br>";
+        $data = array($cacheDir);
+        echo string_format($mod_strings['LBL_DIAGNOSTICS_ERROR_SUGARLOG'], $data);
     }
     //END COPY SUGARCRM.LOG
 
@@ -319,7 +316,7 @@ function executephpinfo()
 {
     //BEGIN GETPHPINFO
     //This gets phpinfo, writes to a buffer, then I write to phpinfo.html
-    global $cacheDir;
+    global $cacheDir, $mod_strings;
 
     ob_start();
     phpinfo();
@@ -328,7 +325,8 @@ function executephpinfo()
 
     $handle = sugar_fopen($cacheDir."phpinfo.html", "w");
     if(fwrite($handle, $phpinfo) === FALSE){
-      echo "Cannot write to file ".$cacheDir."phpinfo.html<br>";
+        $data = array($cacheDir);
+        echo string_format($mod_strings['LBL_DIAGNOSTICS_ERROR_PHPINFO'], $data);
     }
     fclose($handle);
     //END GETPHPINFO
@@ -521,23 +519,29 @@ function executebeanlistbeanfiles()
 	{
 		if(!isset($beanFiles[$beanz]))
 		{
-			echo "<font color=orange>NO! --- ".$beanz." is not an index in \$beanFiles</font><br>";
+            $data = array($beanz);
+			echo "<font color=orange>" . string_format($mod_strings['LBL_DIAGNOSTICS_LISTBEANFILES_NOT_INDEX'], $data) . "</font><br>";
 		}
 		else
 		{
+            $data = array($beanz, $beanFiles[$beanz]);
 			if(file_exists($beanFiles[$beanz]))
-				echo "<font color=green>YES --- ".$beanz." file \"".$beanFiles[$beanz]."\" exists</font><br>";
+            {
+				echo "<font color=green>" . string_format($mod_strings['LBL_DIAGNOSTICS_LISTBEANFILES_EXISTS'], $data) . "</font><br>";
+            }
 			else
-				echo "<font color=red>NO! --- ".$beanz." file \"".$beanFiles[$beanz]."\" does NOT exist</font><br>";
+            {
+				echo "<font color=red>" . string_format($mod_strings['LBL_DIAGNOSTICS_LISTBEANFILES_NOT_EXISTS'], $data) . "</font><br>";
+            }
 		}
 	}
 
 	$content = ob_get_contents();
 	ob_clean();
-
 	$handle = sugar_fopen($cacheDir."beanFiles.html", "w");
 	if(fwrite($handle, $content) === FALSE){
-    	echo "Cannot write to file ".$cacheDir."beanFiles.html<br>";
+        $data = array($cacheDir);
+        echo string_format($mod_strings['LBL_DIAGNOSTICS_ERROR_LISTBEANFILES'], $data);
     }
     fclose($handle);
     //END CHECK BEANLIST FILES ARE AVAILABLE
@@ -561,9 +565,8 @@ function executecustom_dir()
 function executemd5($filesmd5, $md5calculated)
 {
 	//BEGIN ALL MD5 CHECKS
-	global $curdatetime;
-	global $skip_md5_diff;
-	global $sod_guid;
+	global $curdatetime, $skip_md5_diff, $sod_guid, $mod_strings;
+
 	if(file_exists('files.md5'))
         include( 'files.md5');
 	//create dir for md5s
@@ -575,7 +578,10 @@ function executemd5($filesmd5, $md5calculated)
 		//make sure the files.md5
 		if($filesmd5)
 			if(!copy('files.md5', $md5_directory."files.md5"))
-				echo "Couldn't copy files.md5 to ".$md5_directory."<br>Skipping md5 checks.<br>";
+            {
+                $data = array($md5_directory);
+				echo string_format($mod_strings['LBL_DIAGNOSTICS_ERROR_MD5'], $data);
+            }
 	}
 
 	$md5_string_calculated = generateMD5array('./');
@@ -611,6 +617,7 @@ function executevardefs()
     global $sugar_version;
     global $sugar_db_version;
     global $sugar_flavor;
+    global $mod_strings;
 
     ob_start();
     foreach ( $beanList as $beanz ) {
@@ -626,17 +633,19 @@ function executevardefs()
 
     echo "<html lang='en'>";
     echo "<BODY>";
-    echo "<H1>Schema listing based on vardefs</H1>";
-    echo "<P>Sugar version:  ".$sugar_version." / Sugar DB version:  ".$sugar_db_version." / Sugar flavor:  ".$sugar_flavor;
+    echo $mod_strings['LBL_DIAGNOSTICS_VARDEFS_SCHEMA_LISTING'];
+    $versionData = array($sugar_version, $sugar_db_version, $sugar_flavor);
+    echo string_format($mod_strings['LBL_DIAGNOSTICS_VARDEFS_VERSIONS'], $versionData);
     echo "</P>";
 
     echo "<style> th { text-align: left; } </style>";
 
     $tables = array();
-    foreach($dictionary as $vardef) {
-	$tables[] = $vardef['table'];
-	$fields[$vardef['table']] = $vardef['fields'];
-	$comments[$vardef['table']] = $vardef['comment'];
+    foreach ($dictionary as $vardef)
+    {
+        $tables[] = $vardef['table'];
+        $fields[$vardef['table']] = $vardef['fields'];
+        $comments[$vardef['table']] = empty($vardef['comment']) ? '' : $vardef['comment'];
     }
 
     asort($tables);
@@ -646,15 +655,15 @@ function executevardefs()
 	if ( $name == "does_not_exist" )
 	  continue;
 	$comment = $comments[$t];
-	echo "<h2>Table: $t</h2>
+	echo "<h2>" . $mod_strings['LBL_DIAGNOSTICS_VARDEFS_TABLE'] . ": $t</h2>
 		<p><i>{$comment}</i></p>";
 	echo "<table border=\"0\" cellpadding=\"3\" class=\"tabDetailView\">";
 	echo '<TR BGCOLOR="#DFDFDF">
-		<TD NOWRAP ALIGN=left class=\"tabDetailViewDL\">Column</TD>
-		<TD NOWRAP class=\"tabDetailViewDL\">Type</TD>
-		<TD NOWRAP class=\"tabDetailViewDL\">Length</TD>
-		<TD NOWRAP class=\"tabDetailViewDL\">Required</TD>
-		<TD NOWRAP class=\"tabDetailViewDL\">Comment</TD>
+		<TD NOWRAP ALIGN=left class=\"tabDetailViewDL\">' . $mod_strings['LBL_DIAGNOSTICS_VARDEFS_COLUMN'] . '</TD>
+		<TD NOWRAP class=\"tabDetailViewDL\">' . $mod_strings['LBL_DIAGNOSTICS_VARDEFS_TYPE'] . '</TD>
+		<TD NOWRAP class=\"tabDetailViewDL\">' . $mod_strings['LBL_DIAGNOSTICS_VARDEFS_LENGTH'] . '</TD>
+		<TD NOWRAP class=\"tabDetailViewDL\">' . $mod_strings['LBL_DIAGNOSTICS_VARDEFS_REQUIRED'] . '</TD>
+		<TD NOWRAP class=\"tabDetailViewDL\">' . $mod_strings['LBL_DIAGNOSTICS_VARDEFS_COMMENT'] . '</TD>
 	</TR>';
 
 	ksort( $fields[ $t ] );
@@ -663,20 +672,16 @@ function executevardefs()
 	  // we only care about physical tables ('source' can be 'non-db' or 'nondb' or 'function' )
 	  if ( isset( $v[ 'source' ] ))
 	    continue;
-	  $columnname = $v[ 'name' ];
-	  $columntype = $v[ 'type' ];
-	  $columndbtype = $v[ 'dbType' ];
-	  $columnlen = $v[ 'len' ];
-	  $columncomment = $v[ 'comment' ];
-	  $columnrequired = $v[ 'required' ];
 
-	  if ( empty( $columnlen ) ) $columnlen = '<i>n/a</i>';
-	  if ( empty( $columncomment ) ) $columncomment = '<i>(none)</i>';
+	  $columnname = empty($v[ 'name' ]) ? '<i>n/a</i>' : $v[ 'name' ];
+	  $columntype = $v[ 'type' ];
+	  $columndbtype = empty($v[ 'dbType' ]) ? '' : $v[ 'dbType' ];
+	  $columnlen = empty($v[ 'len' ]) ? '' : $v[ 'len' ];
+	  $columncomment = empty($v[ 'comment' ]) ? '<i>(none)</i>' : $v[ 'comment' ];
+      $columndisplayrequired = empty($v[ 'required' ]) ? 'no' : 'yes';
+
 	  if ( !empty( $columndbtype ) ) $columntype = $columndbtype;
-	  if ( empty( $columnrequired ) || ( $columnrequired == false ))
-	    $columndisplayrequired = 'no';
-	  else
-	    $columndisplayrequired = 'yes';
+
 
 	  echo '<TR BGCOLOR="#FFFFFF" ALIGN=left>
 			<TD ALIGN=left class=\"tabDetailViewDF\">'.$columnname.'</TD>

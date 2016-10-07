@@ -1,5 +1,5 @@
 <?php
-// created: 2013-01-31 05:12:37
+// created: 2016-10-06 15:32:28
 $viewdefs = array (
   'Leads' => 
   array (
@@ -132,8 +132,7 @@ $viewdefs = array (
                 'module' => 'Leads',
                 'connectors' => 
                 array (
-                  0 => 'ext_rest_linkedin',
-                  1 => 'ext_rest_twitter',
+                  0 => 'ext_rest_twitter',
                 ),
               ),
             ),

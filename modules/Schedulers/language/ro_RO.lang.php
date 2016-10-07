@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Sintaxa Cron invalida',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'In fiecare zi',
   'LBL_ALWAYS' => 'Intotdeauna',
   'LBL_AND' => 'si',
+  'LBL_ASYNCMASSUPDATE' => 'Realizare actualizări în masă asincrone',
   'LBL_AT' => 'la',
   'LBL_AT_THE' => 'La',
   'LBL_BASIC_OPTIONS' => 'Setari de baza',
   'LBL_CATCH_UP' => 'Activati in cazul in care sunt pierdute',
   'LBL_CATCH_UP_WARNING' => 'Debifaţi daca aceasta functie poate dura mai mult decât o clipă pentru a rula.',
   'LBL_CLEANJOBQUEUE' => 'Cleanup Job Queue',
+  'LBL_CLEANOLDRECORDLISTS' => 'Curăţare liste înregistrări vechi',
   'LBL_CRONTAB_EXAMPLES' => 'Cele de mai sus folosesc notatia crontab standard.',
   'LBL_CRONTAB_SERVER_TIME_POST' => 'Vă rugăm să specificaţi timpul de executie planificator în consecinţă',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Caietul de sarcini cron rula pe server-ul de  fus orar',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Derulati campania Nightly Mass email',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Creați perioadele viitoare de timp',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Verificati casutele postale Inbound',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Sarcină programată de Autor Proces',
   'LBL_OOTB_PRUNE' => 'Baza de date Prune la data de 1 a lunii',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Eliminarea documentelor din sistemul de fișiere',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Reducere liste înregistrări vechi',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Eliminare fişiere instrumente de diagnosticare',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Eliminare fişiere PDF temporare',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Eliminare fişiere temporare',
   'LBL_OOTB_REPORTS' => 'Activati Raportul de Sarcini programat',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Instalati notificari Email Reminder',
-  'LBL_OOTB_SUGARFEEDS' => 'Simplifica tabelele SugarFeed',
   'LBL_OOTB_TRACKER' => 'tabele Prune Tracker',
   'LBL_OOTB_WORKFLOW' => 'Prelucrati activitatile Workflow',
   'LBL_PERENNIAL' => 'perpetuu',
   'LBL_PERFORMFULLFTSINDEX' => 'Full-text de căutare sistem de index',
+  'LBL_PMSEENGINECRON' => 'Programator Autor Proces',
   'LBL_POLLMONITOREDINBOXES' => 'Verificaţi Conturi Inbound Mail',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Activati procesul Nightly pt email-urile returnate companiei',
   'LBL_PROCESSQUEUE' => 'Activati raportul de sarcini programat',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Baza de date Prune la data de 1 a lunii',
   'LBL_RANGE' => 'catre',
   'LBL_REFRESHJOBS' => 'Locuri de munca actualizate',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Eliminarea documentelor din sistemul de fișiere',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Derulati campania Nightly Mass',
   'LBL_SAT' => 'Sambata',
   'LBL_SCHEDULER' => 'Programare:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Rulaţi Memento-uri de e-mail trimise',
   'LBL_STATUS' => 'Statut',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Creați perioadele viitoare de timp',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Duminica',
   'LBL_THU' => 'Joi',
   'LBL_TIME_FROM' => 'Activ de la',
   'LBL_TIME_TO' => 'Activ pana la',
   'LBL_TOGGLE_ADV' => 'Arata optiunile avansate',
   'LBL_TOGGLE_BASIC' => 'Arata optiunile de baza',
-  'LBL_TRIMSUGARFEEDS' => 'Simplifica tabelele SugarFeed',
   'LBL_TRIMTRACKER' => 'Tabele Prune Tracker',
   'LBL_TUE' => 'Marti',
   'LBL_UPDATETRACKERSESSIONS' => 'Update tabele tracker session',

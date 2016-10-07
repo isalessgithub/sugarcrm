@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'A kliens törléséhez meg kell adni egy rekordot.',
@@ -65,6 +62,9 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Kapcsolódó modul neve',
   'LBL_EXPORT_REMINDER_TIME' => 'Emlékeztető (percekben)',
   'LBL_FIRST_NAME' => 'Keresztnév',
+  'LBL_HELP_CREATE' => 'A {{plural_module_name}} modul olyan {{calls_singular_module}} adatokat tartalmaz, melyeket az Ön szervezetének felhasználói vittek be. A {{plural_module_name}} lehet "Ütemezett", "Tartott", vagy "Törölt" állapotban. Sugar felhasználók, kapcsolatok és ajánlások felvehetők meghívottakként. Egy {{calls_singular_module}} modul létrehozásához: 1. Adja meg igény szerint a mezők értékeit. - A "Kötelező" jelzésű mezőket ki kell tölteni a mentés előtt. - Kattintson a "Több mutatása" opcióra ha szükséges, a ráadás mezők felfedéséhez. 2. Adjon hozzá meghívottakat a  {{calls_singular_module}} modulhoz. - Kattintson a "Résztvevő kiválasztása" gombra egy meglévő felhasználó, kapcsolat vagy ajánlás a {{calls_singular_module}} modulhoz történő  hozzáadásához. - Kattintson a plusz ikonra a "Résztvevő kiválasztása" mellett jobbra egy {{calls_singular_module}} résztvevő új Sugar adatként történő létrehozásához. 3. Kattintson a "Mentés" gombra az új adat mentéséhez és az előző oldalra történő visszatéréshez. - Válassza a "Mentés és megtekintés" opciót az új {{calls_singular_module}} modul adatnézetben történő megtekintéséhez. - Válassza a "Mentés és új létrehozása" opciót egy új {{calls_singular_module}} modul azonnali létrehozásához.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul olyan {{calls_singular_module}} adatokból áll, melyeket az Ön szervezetének felhasználói vittek be. A {{plural_module_name}} lehet "Ütemezett", "Tartott", vagy "Törölt" állapotban. Sugar felhasználók és {{contacts_module}} és {{leads_module}} felvehetők meghívottakként. - Szerkessze ezeket az adatmezőket az egyes mezőkre, vagy a Szerkesztés gombra történő kattintással.- Tekintse meg vagy módosítsa a linkeket más adatokhoz az alpanelekben a bal alsó képernyőrészen a "Adatnézet"-re történő kattintással. - Hozzon létre és tekintsen meg felhasználói megjegyzéseket és mentse el a változtatásokat a tevékenységi folyamban a bal alsó képernyőrészen a "Tevékenységi folyam"-ra történő kattintással. - Kövesse vagy favorizálja ezt az adatot az adatnév melletti jobb oldali ikonok használatával. - További műveletek elérhetők a Müveletek legördülő menűjében a Szerkesztés gombtól jobbra.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul olyan hívási adatokból áll, amik a következő állapotoktban lehetnek  "Ütemezett", "Tartott", vagy "Törölt". Az elintézendő hívások a elkövetkezendő 24 órára ütemezésre kerülnek és a hívási idő kék színnel ki van emeleve. A hívások kezdési ideje, amiket már ell kellett volna intézni pirossal vannak kimelve. Ebből a  {{plural_module_name}} listanézetből, a hívásokkal kapcsolatos információkat itt láthatja és in-line szerkesztheti. További műveletek a menűből érhetők el minden hívási sor végén. Kiválaszthatja a "Bezárás" funkciót a menűből minden üzemezett hívás sorában, annak érdekében, hogy megjelölje azt tartásra. A Sugar felhasználók, kapcsolatok és ajánlások hívási lehetőségekként adhatók hozzá a listához. {{plural_module_name}} hozható létre a {{plural_module_name}} modulon, a Naptár modulon keresztül, importálható, vagy a Tevékenységek alpanelen keresztül (Hatósági modulok esetében) vagy Tervezett Tevékenységek információ blokkjain keresztül (kapcsolódó modulokhoz) az érintett modul adatokon (pl. Szerződések, Fiókok stb.), melyek automatikusan új kapcsolatot teremtenek a két adat között.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Jegyzetek',
   'LBL_HOURS_ABBREV' => 'ó',
   'LBL_HOURS_MINUTES' => '(Óra / perc)',
@@ -89,12 +89,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Hívások',
   'LBL_MODULE_NAME_SINGULAR' => 'Hívás',
   'LBL_MODULE_TITLE' => 'Hívások: Főoldal',
+  'LBL_MY_SCHEDULED_CALLS' => 'Ütemezett Hívásaim',
   'LBL_NAME' => 'Név',
   'LBL_NEW_FORM_TITLE' => 'Találkozó létrehozása',
   'LBL_NO_ACCESS' => 'Nem jogosult $module létrehozására',
   'LBL_OUTLOOK_ID' => 'Outlook azonosító',
   'LBL_PARENT_ID' => 'Szülő azonosítója',
   'LBL_PHONE' => 'Telefon',
+  'LBL_POPUP_REMINDER_TIME' => 'Előugró Emlékeztető Ideje',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Ön ezt ütemezte:{{moduleSingularLower}} ehhez {{formatDate date_start}},de nincs hozzáférése.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ön ezt ütemezte: {{moduleSingularLower}} {{name}} ehhez {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Többszörös előfordulás',
   'LBL_RECURRING_LIMIT_ERROR' => 'Az ismétlődő hívás nem rögzíthető, mert a hívások száma meghaladja a megengedett mennyiséget ($limit).',
   'LBL_RECURRING_SOURCE' => 'Visszatérő forrás',
@@ -105,6 +109,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Email minden meghívottnak',
   'LBL_REMINDER_POPUP' => 'Felugró',
   'LBL_REMINDER_TIME' => 'Emlékeztető időpontja',
+  'LBL_REMINDER_TITLE' => 'Hívás:',
   'LBL_REMOVE' => 'Eltávolítás',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Minden ismétlődés törlése',
   'LBL_REPEAT_COUNT' => 'Többszörös előfordulások száma',
@@ -117,6 +122,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Szülő azonosító megismétlése',
   'LBL_REPEAT_TYPE' => 'Típus megismétlése',
   'LBL_REPEAT_UNTIL' => 'ismétel míg',
+  'LBL_REVENUELINEITEMS' => 'Bevételi sor tételek',
   'LBL_SCHEDULING_FORM_TITLE' => 'Ütemezés',
   'LBL_SEARCH_BUTTON' => 'Keres',
   'LBL_SEARCH_FORM_TITLE' => 'Hívás keresése',
@@ -141,5 +147,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Kliens kiválasztása',
   'NOTICE_DURATION_TIME' => 'Az időtartamnak nagyobbnak kell lennie 0-nál',
   'NTC_REMOVE_INVITEE' => 'Biztosan el akarja távolítani ezt a meghívottat a hívásból?',
+  'TPL_CALL_STATUS_CHANGED' => 'A hívás állapota: {{status}}.',
 );
 

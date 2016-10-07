@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Rozšiřené',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Zobrazovat časy odpovědi serveru',
   'ERR_ALERT_FILE_UPLOAD' => 'Chyba při nahrávání obrázku',
   'ERR_DELETE_CORE_FILE' => 'Chyba: není možné odstranit původní písmo.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML certifikát nemůže být prázdný',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL nemůže být prázdná',
   'ERR_EZPDF_DISABLE' => 'Upozornění: třída EZPDF je vypnuta. Prosím Uložte tento formulář s PDF třídou TCPDF.',
   'ERR_FONT_ALREADY_EXIST' => 'Chyba : Písmo již existuje.',
   'ERR_FONT_EMPTYFILE' => 'Chyba: Prázdný název souboru!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'Chyba: Cesta k písmu uživatele neexistuje!',
   'ERR_NO_FONT_PATH' => 'Chyba: Cesta k písmu neexistuje',
   'ERR_PDF_NO_UPLOAD' => 'Chyba při odesílání souboru s písmem nebo metrického souboru.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL není platné',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL není platné',
   'HEAD_MAGNIFICATION' => 'Titulek zvětšení',
   'HEAD_MAGNIFICATION_INFO' => 'Faktor zvětšení pro titulek.',
   'IMAGES' => 'Loga',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Zpět',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Vyberte si svého e-mailového poskytovatele:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Systémové nastavení',
-  'LBL_CONFIG_AJAX' => 'Konfigurovat AJAX uživatelské rozhraní',
-  'LBL_CONFIG_AJAX_DESC' => 'Povolte nebo zakažte použití AJAX UI rozhraní pro dané moduly.',
   'LBL_DELETE' => 'Smazat',
   'LBL_DISALBE_CONVERT_LEAD' => 'Zneaktivit akci Konvertovat příležitost pro již konvertované příležitosti',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Pokud byla příležitost již konvertována, povolením této volby odstraníte možnost znovu konvertování příležitosti',
   'LBL_DISPLAYING_LOG' => 'Zobrazuji Log',
   'LBL_ENABLE_ACTION_MENU' => 'Zobrazit akce v menu',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Zvolte, pokud chcete zobrazit Detailní zobrazení a akce Podpanelu v menu. Pokud toto nezvolíte, tyto akce budou zobrazeny jako tlačítka odděleně.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Zobrazit e-maily souvisejících kontaktů v subpanelu Historie pro moduly',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Povolit/Zakázat zobrazení e-mailů ze souvisejících (nebo propojených) kontaktů v subpanelu E-mail.',
   'LBL_ENABLE_MAILMERGE' => 'Aktivovat spojování pošty?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange heslo:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Jakýkoli další filtrovací parametr lze používat při autentizaci např. nis_sugar_user=1 or (is_sugar_user=1)(is_sales=1)',
   'LBL_LEAD_CONV_OPTION' => 'Možnosti při konvertovaní příležitosti',
   'LBL_LOADING' => 'Nahrávám...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Toto nastavení je aplikováno na moduly v dědičném módu.',
   'LBL_LOGGER' => 'Logger nastavení',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Výchozí formát datumu',
   'LBL_LOGGER_FILENAME' => 'Jméno Log souboru',
@@ -183,7 +183,7 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Minimální interval pro automatické obnovování budíků',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Toto je minimální hodnota, která může být zvolena pro automatické obnovování budíků. Zvolením možnosti "Nikdy" zamezíte automatickému obnovování budíků.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* Modul Reporty je dostupny pouze pro nativní Sugar Mobile Plus klienty.',
-  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Modul Reporty není dostupný v prohlížeči mobilního zařízení.',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Modul Reporty není k dispozici pro zobrazení v mobilním prohlížeči.',
   'LBL_MODULE_FAVICON' => 'Zobraz ikonu modulu jako favicon',
   'LBL_MODULE_FAVICON_HELP' => 'Pokud jste v modulu s ikonou, použije se ikona modulu jako favicon namísto základní favicon.',
   'LBL_MODULE_ID' => 'Konfigurátor',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Další>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Emailová adresa:',
   'LBL_NOTIFY_SUBJECT' => 'Předmět emailu:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Předejděte změnám ve jménech uživateli tím, že zaktualizujete jejich Private team name',
   'LBL_OC_STATUS' => 'Výchozí status offline klienta',
   'LBL_OC_STATUS_DESC' => 'Zaškrtnutím zvolíte, že každý uživatel bude mít přístup k offline klientovi. V opačném případě můžete přístup nastavit v uživatelském nastavení.',
   'LBL_PDFMODULE_NAME' => 'Nastavení PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'Chyba: písmo nebylo přidáno. Podívejte se na log níže.',
   'LBL_STATUS_FONT_SUCCESS' => 'Písmo bylo přidáno do SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Nastavení systému',
+  'LBL_TWEETTOCASE_ON' => 'Umožňuje Tweet - případ podpory integraci',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Umožňuje uživatelům vytvořit případy podpory z Tweetů',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet na případ podpory',
   'LBL_USE_REAL_NAMES' => 'Ukázat celé jméno (ne uživ. jméno)',
   'LBL_USE_REAL_NAMES_DESC' => 'Zobrazit celá jména uživatelů namísto jejich uživatelských jmen',
   'LBL_VCAL_PERIOD' => 'vCal aktualizace časového období:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Název systému',
   'SYSTEM_NAME_HELP' => 'Toto jméno se zobrazí v záhlaví prohlížeče.',
   'SYSTEM_NAME_WIZARD' => 'Název:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Doporučené nastavení je pod {{listEntriesNum}} pro akceptovatelné úrovně výkonu. Když jsou přidána nová pole do seznamu, toto číslo by mělo být na spodní hranici doporučeného nastavení.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Doporučené nastavení je pod {{subpanelEntriesNum}} pro akceptovatelné úrovně výkonu. Když jsou přidána nová pole do seznamu, toto číslo by mělo být na spodní hranici doporučeného nastavení.',
   'UPLOAD_MAX_SIZE' => 'Maximální uplodovaná velikost',
   'VERIFY_CLIENT_IP' => 'Ověřovat uživatelovu IP adresu',
   'vCAL_HELP' => 'Pomocí tohoto nastavení určíte počet měsíců před aktuálním datem, které je zveřejněno ve Free/Busy informacích. Chcete-li vypnout Free/busy informace, vložte 0. Jinak minimum je 1 měsíc a maximum je 12 měsíců.',

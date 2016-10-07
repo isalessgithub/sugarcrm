@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once("include/SugarTheme/cssmin.php");
 
@@ -220,7 +217,8 @@ class SugarSpriteBuilder
 					$result['type'] = $info[2];
 				}
 			} else {
-                $msg = "Skipping unsupported image file type ({$info[2]}) for file {$file}";
+                $mod_strings = return_module_language($GLOBALS['current_language'], 'Administration');
+                $msg = string_format($mod_strings['LBL_SPRITE_BUILDER_SKIP'], array($info[2], $file));
                 $GLOBALS['log']->error($msg);
                 $this->logMessage($msg."\n");
             }
@@ -351,7 +349,11 @@ class SugarSpriteBuilder
                 }
 
 				// save sprite image
-				imagepng($this->spriteImg, "$outputDir/$spriteFileName", $this->pngCompression, $this->pngFilter);
+				// Unfortunately, in PHP before 5.4 imagepng can not save to streams, so we need to do a little trick here
+				$temp = tempnam($outputDir, "sprites");
+				imagepng($this->spriteImg, $temp, $this->pngCompression, $this->pngFilter);
+				copy($temp, "$outputDir/$spriteFileName");
+				unlink($temp);
 				imagedestroy($this->spriteImg);
 
 				/* generate css & metadata */
@@ -525,7 +527,7 @@ class SpritePlacement
 	*/
 	var $config = array();
 
-	function __construct($spriteSrc, $config) {
+	public function __construct($spriteSrc, $config) {
 
 		// convert spriteSrc to flat array
 		foreach($spriteSrc as $dir => $files) {

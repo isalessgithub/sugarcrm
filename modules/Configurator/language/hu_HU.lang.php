@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Összetett',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Szerver válaszidő kijelzése',
   'ERR_ALERT_FILE_UPLOAD' => 'Hiba a kép feltöltése közben.',
   'ERR_DELETE_CORE_FILE' => 'HIBA: alapvető betűtípust nem lehet törölni.',
+  'ERR_EMPTY_SAML_CERT' => 'Az SAML tanúsítvány nem lehet üres',
+  'ERR_EMPTY_SAML_LOGIN' => 'Az SAML Bejelentkezési URL nem lehet üres',
   'ERR_EZPDF_DISABLE' => 'Figyelem: az EZPDF osztály le van tiltva a config táblából és PDF osztályként van beállítva. Kérem, mentse ezt az űrlapot a TCPDF, PDF osztályként történő beállításához, és térjen vissza egy stabil állapotba.',
   'ERR_FONT_ALREADY_EXIST' => 'HIBA: ez a betűkészlet már létezik. Korábbi állapot visszaállítása...',
   'ERR_FONT_EMPTYFILE' => 'HIBA: üres fájlnév!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'HIBA: nincs elérhető egyéni font!',
   'ERR_NO_FONT_PATH' => 'HIBA: nincs elérhető font!',
   'ERR_PDF_NO_UPLOAD' => 'Hiba a betűtípus vagy a metrikus file feltöltése közben.',
+  'ERR_SAML_LOGIN_URL' => 'Az SAML Bejelentkezési URL nem érvényes',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL nem érvényes',
   'HEAD_MAGNIFICATION' => 'Head nagyítás',
   'HEAD_MAGNIFICATION_INFO' => 'Nagyítási tényező a címekhez.',
   'IMAGES' => 'Logók',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => '< Vissza',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Válassza ki az email szolgáltatót:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Rendszerbeállítások',
-  'LBL_CONFIG_AJAX' => 'AJAX felhasználói felület beállítása',
-  'LBL_CONFIG_AJAX_DESC' => 'Az AJAX felhasználói felület letiltása/engedélyezése egyes modulokra vonatkozóan.',
   'LBL_DELETE' => 'Törlés',
   'LBL_DISALBE_CONVERT_LEAD' => 'Tiltsa le az ajánlás konvertálása parancsot a konvertált ajánlatokra vonatkozóan',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Amennyiben az ajánlás már eleve konvertált, az opció letiltása eltávolítja az ajánlás konvertálása parancsot.',
   'LBL_DISPLAYING_LOG' => 'Napló megjelenítése',
   'LBL_ENABLE_ACTION_MENU' => 'Parancsok megjelenítése a menüben',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Válassza ki, ha a parancsokat legördülő menüben szeretné megjeleníteni! Kiválasztás hiányában a parancsok külön gombokon fognak szerepelni.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'A kapcsolódó Kapcsolatok emailjeinek mutatása a modulokon szereplő Előzmények alpanelen',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'A kapcsolódó kontaktoktól származó emailek alpanelen történő megjelenítésének engedélyezése és tiltása.',
   'LBL_ENABLE_MAILMERGE' => 'Körlevél létrehozásának engedélyezése?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange jelszó:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'További szűrési paraméterek alkalmazása a felhasználó hitelesítésekor. Például: is_sugar_user=1 vagy (is_sugar_user=1) (is_sales=1)',
   'LBL_LEAD_CONV_OPTION' => 'Ajánlás konverzió lehetőségek',
   'LBL_LOADING' => 'Betöltés...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Öröklődő beállítás mellett a modulok átveszik az itt megadott tulajdonságokat.',
   'LBL_LOGGER' => 'Naplózási beállítások',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Alapértelmezett dátumformátum',
   'LBL_LOGGER_FILENAME' => 'Naplófájl neve',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Tovább>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Feladó címe:',
   'LBL_NOTIFY_SUBJECT' => 'Email tárgya:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Megakadályozza a felhasználói névváltoztatásokat Privát Csoportjuk Neveinek aktualizálására.',
   'LBL_OC_STATUS' => 'Alapértelmezett offline kliens állapot',
   'LBL_OC_STATUS_DESC' => 'Jelölje be, ha az összes felhasználónak engedélyezi a hozzáférést az offline klienshez. Ellenkező esetben felhasználói szinten tudja beállítani a hozzáférést.',
   'LBL_PDFMODULE_NAME' => 'PDF beállítások',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'HIBA: a betűtípus nincs hozzáadva. Tekintse meg a hibanaplót alább.',
   'LBL_STATUS_FONT_SUCCESS' => 'SIKERES: a betűtípus hozzá lett adva a SugaCRM-hez.',
   'LBL_SYSTEM_SETTINGS' => 'Rendszerbeállítások',
+  'LBL_TWEETTOCASE_ON' => 'Lehetővé teszi a Tweet® részére az eset integrációját',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Lehetővé teszi a felhasználóknak, hogy a Tweets-ből eseteket kreáljanak',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet®-ből esetbe',
   'LBL_USE_REAL_NAMES' => 'Felhasználók teljes nevének megjelenítése',
   'LBL_USE_REAL_NAMES_DESC' => 'A felhasználó teljes nevét jelenítse meg a felhasználónév helyett a hozzárendelési mezőkben.',
   'LBL_VCAL_PERIOD' => 'vCal frissítési időintervalluma:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Rendszer neve:',
   'SYSTEM_NAME_HELP' => 'Ez a név jelenik meg címként a böngésző címsorában.',
   'SYSTEM_NAME_WIZARD' => 'Név:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'A helyes működés érdekében ajánlott beállítás alább található ({{listEntriesNum}}). Amennyiben ráadás mezők kerülnek a listanézetbe, a számnak a lista végén kell szerepelnie.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'A helyes működés érdekében ajánlott beállítás alább látható ({{subpanelEntriesNum}}). Amennyiben ráadás mezők kerülnek a listanézetbe, a számnak a lista végén kell szerepelnie.',
   'UPLOAD_MAX_SIZE' => 'Maximális feltöltési méret',
   'VERIFY_CLIENT_IP' => 'Felhasználói IP cím ellenőrzése',
   'vCAL_HELP' => 'Használja ezt a beállítást annak meghatározására, hogy az aktuális dátumhoz képest hány hónapra előre lehessen látni a Szabad/Foglalt üzenetet a közzétett hívásoknál és találkozóknál.<br />A Szabad/Foglalt információ megjelenítésének kikapcsolásához írjon be 0-t. A minimum intervallum 1 hónap, a maximum 12.',

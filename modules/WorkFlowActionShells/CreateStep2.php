@@ -1,34 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
-
-global $theme;
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/workflow/field_utils.php');
 
-
-
-
-
+global $theme;
 global $app_strings;
 global $app_list_strings;
 global $mod_strings;
@@ -36,11 +20,8 @@ global $mod_strings;
 global $urlPrefix;
 global $currentModule;
 
-
-$seed_object = new WorkFlow();
-
-if(!empty($_REQUEST['workflow_id']) && $_REQUEST['workflow_id']!="") {
-    $seed_object->retrieve($_REQUEST['workflow_id']);
+if(!empty($_REQUEST['workflow_id'])) {
+    $seed_object = BeanFactory::retrieveBean('WorkFlow', $_REQUEST['workflow_id']);
 } else {
 	sugar_die("You shouldn't be here");
 }
@@ -64,11 +45,11 @@ else {
 $form->assign("MOD", $mod_strings);
 $form->assign("APP", $app_strings);
 
-$focus = new WorkFlowActionShell();
+$focus = BeanFactory::getBean('WorkFlowActionShells');
 //Add When Expressions Object is availabe
 //$exp_object = new Expressions();
 
-if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 
 }

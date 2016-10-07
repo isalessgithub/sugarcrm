@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CHART_COUNT_PATTERN' => '{count} {module} where {group_label} is {group_text}',
@@ -207,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'of the following filters.',
   'LBL_FILTERS_HELP_DESC' => '<b>Steps to Define Filters:</b><br/><br/>1) Click on the Module in the <b>Related Modules</b> pane that you would like to use to define filters. By default, the primary module (top node in the tree view) is selected. <br/><br/><br />	You can select a related module (child node in the tree view) by clicking on the module. Expand the node to view additional modules related to the related module. The module that you select determines which reportable fields appear in the <b>Available Fields</b> pane.<br/><br/><br />	2) Click on a Field in the <b>Available Fields</b> pane to add it to the filters. You can also search for the field by typing in the text box in the pane.<br/><br/><br />	After selecting any number of fields from the module selected in the <b>Related Modules</b> pane, you can choose a different module from which you can select any number of fields to use as filters.<br/><br/><br />	3) Choose <b>AND</b> or <b>OR</b> to designate whether all filters or any filters, respectively, are used to find results for the report.<br/><br/><br />	4) [Optional] Click on <b>Add Filter Group</b> to create groups of filters. You can have any number of filter groups and any number of filters in a group to create nested filters.<br/><br/><br />	5) [Optional] Select the Run-time option for a Filter to allow users to use the filter to further customise the results of the reports while viewing the report.',
   'LBL_FILTER_AND' => 'AND',
+  'LBL_FILTER_BY_MODULE' => 'By Module',
   'LBL_FILTER_CONDITIONS' => 'Select Operator:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'To',
   'LBL_FILTER_DATE_RANGE_START' => 'From',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'with an average',
   'LBL_WITH_A_TOTAL' => 'with a total',
   'LBL_WITH_DETAILS' => 'With details',
-  'LBL_WORKSHEET' => 'Worksheet',
   'LBL_YEAR' => 'Year',
   'LBL_YESTERDAY' => 'Yesterday',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'You have no saved reports.',
+  'LNK_ADVANCED_REPORTING' => 'Manage Advanced Reports',
   'LNK_NEW_ACCOUNT' => 'Create Account',
   'LNK_NEW_CALL' => 'Log Call',
   'LNK_NEW_CASE' => 'Create Case',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'You do not have permission to edit this report',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Unable to publish. There is another published Report by the same name.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Unable to un-publish a Report owned by another user. You own an Report by the same name.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'The Process Report Generation Task Scheduler is currently Inactive and Reports cannot be Scheduled. Please request that an Administrator User sets this Scheduler to Active and try again.',
 );
 

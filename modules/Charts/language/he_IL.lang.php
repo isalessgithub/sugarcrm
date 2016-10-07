@@ -2,25 +2,33 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_NO_OPPS' => 'Please create some Opportunities to see Opportunity graphs.',
   'LBL_ALL_OPPORTUNITIES' => 'סכום כולל של כל ההזדמנויות הוא',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => 'Shows campaign response by return on investment.',
+  'LBL_CHART_ACTION' => 'פעולה',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'פעולות DCE לפי סוגים (חודש נוכחי)',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'מקור ליד לפי תוצאות',
+  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'מודולים שעשיתי בהם שימוש בדוחות הישירים שלי (בשלושים הימים האחרונים)',
+  'LBL_CHART_MY_MODULES_USED_30_DAYS' => 'המודולים שהשתמשתי בהם (Last 30 Days)',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'הצינור שלי לפי שלב מכירה',
+  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'הזדמנויות ברבעון זה',
+  'LBL_CHART_OUTCOME_BY_MONTH' => 'תוצאות לפי חודש',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'צינור לפי מקור ליד',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'צינורות לפי שלב מכירה',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'הצינור שלי לפי משפך שלב מכירה',
   'LBL_CHART_TYPE' => 'סוג תרשים:',
   'LBL_CLOSE_DATE_END' => 'Expected Close Date - To:',
   'LBL_CLOSE_DATE_START' => 'Expected Close Date - From:',
@@ -37,6 +45,7 @@ $mod_strings = array (
   'LBL_LEAD_SOURCE_FORM_TITLE' => 'All Opportunities By Lead Source',
   'LBL_LEAD_SOURCE_OTHER' => 'אחר',
   'LBL_MODULE_NAME' => 'לוח מחונים',
+  'LBL_MODULE_NAME_SINGULAR' => 'לוח מחוונים',
   'LBL_MODULE_TITLE' => 'לוח מחונים: דף רשאי',
   'LBL_MONTH_BY_OUTCOME_DESC' => 'Shows cumulative opportunity amounts by month by outcome for selected users where the expected closed date is within the specified date range.  Outcome is based on whether the sales stage is Closed Won, Closed Lost, or any other value.',
   'LBL_MY_MODULES_USED_SIZE' => 'ספירת כניסות',

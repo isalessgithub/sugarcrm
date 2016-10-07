@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Per eliminare l´offerta deve essere specificato il numero del record.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Offerta già Convertita in Opportunità',
   'LBL_ACCOUNT_ID' => 'Id Azienda',
   'LBL_ACCOUNT_NAME' => 'Nome Azienda:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Attività',
@@ -29,7 +27,7 @@ $mod_strings = array (
   'LBL_AMOUNT' => 'Valore dell´Offerta:',
   'LBL_AMOUNT_USDOLLAR' => 'Valore:',
   'LBL_ANY_ADDRESS' => 'Altro Indirizzo:',
-  'LBL_ASSIGNED_TO_ID' => 'Utente Assegnato:',
+  'LBL_ASSIGNED_TO_ID' => 'Assegnato a:',
   'LBL_ASSIGNED_TO_NAME' => 'Assegnato a:',
   'LBL_ATTACHMENT' => 'Allegato',
   'LBL_BILLING_ACCOUNT' => 'Azienda:',
@@ -48,7 +46,7 @@ $mod_strings = array (
   'LBL_BUNDLE_NAME' => 'Nome Gruppo:',
   'LBL_BUNDLE_STAGE' => 'Fase Gruppo:',
   'LBL_CALC_GRAND' => 'Visualizza Importo Totale:',
-  'LBL_CHECK_DATA' => 'Data Inserita non valida: controlla di aver inserito un numero valido (0-9 or´.´)',
+  'LBL_CHECK_DATA' => 'Data Inserita non valida: controlla di aver inserito un numero valido (0-9 or ´.´)',
   'LBL_CITY' => 'Comune :',
   'LBL_CONTACT_NAME' => 'Nome Contatto:',
   'LBL_CONTACT_QUOTE_FORM_TITLE' => 'Contatto-Offerta:',
@@ -82,11 +80,11 @@ $mod_strings = array (
   'LBL_LIST_ACCOUNT_NAME' => 'Nome Azienda',
   'LBL_LIST_AMOUNT' => 'Valore dell´Offerta',
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Valore Totale',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Utente Assegnato:',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Assegnato a:',
   'LBL_LIST_COST_PRICE' => 'Costo',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Fine reale',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Valido fino a',
-  'LBL_LIST_DEAL_TOT' => 'Sconto',
+  'LBL_LIST_DEAL_TOT' => 'Sconto Totale',
   'LBL_LIST_DISCOUNT_PRICE' => 'Prezzo Unitario',
   'LBL_LIST_FORM_TITLE' => 'Elenco Offerte',
   'LBL_LIST_GRAND_TOTAL' => 'Importo totale',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Rimuovi Commento',
   'LBL_REMOVE_ROW' => 'Elimina Fila',
   'LBL_RENAME_ERROR' => 'ERRORE: non puoi spostare _pdf in $destination. Dovresti provare a rendere l´indice scrivibile dal web server',
+  'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
   'LBL_SALES_STAGE' => 'Fase Offerta:',
   'LBL_SEARCH_FORM_TITLE' => 'Cerca Offerta',
   'LBL_SHIPPING' => 'Spedizione:',
@@ -201,3 +200,4 @@ $mod_strings = array (
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Sei sicuro di voler rimuovere questo contatto dall´offerta?',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Sei sicuro di voler rimuovere questa offerta dal progetto?',
 );
+

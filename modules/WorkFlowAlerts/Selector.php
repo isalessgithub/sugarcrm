@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Selector.php 54045 2010-01-26 20:25:05Z roger $
  * Description:
  ********************************************************************************/
 
@@ -35,8 +32,8 @@ global $urlPrefix;
 global $currentModule;
 
 
-$seed_object = new WorkFlow();
-$focus = new WorkFlowAlert();
+$seed_object = BeanFactory::getBean('WorkFlow');
+$focus = BeanFactory::getBean('WorkFlowAlerts');
 
 if(!empty($_REQUEST['base_module']) && $_REQUEST['base_module']!="") {
     $seed_object->base_module = $_REQUEST['base_module'];
@@ -60,7 +57,7 @@ $form->assign("USER_TYPE", $_REQUEST['user_type']);
 
 if($_REQUEST['user_type']=='rel_user' || $_REQUEST['user_type']=='rel_user_custom' || $_REQUEST['user_type']=='assigned_team_relate' ) {
 
-	$temp_module = get_module_info($seed_object->base_module);
+	$temp_module = BeanFactory::getBean($seed_object->base_module);
 	$temp_module->call_vardef_handler("alert_rel_filter");
 	$temp_module->vardef_handler->start_none=true;
 	$temp_module->vardef_handler->start_none_lbl =  $mod_strings['LBL_PLEASE_SELECT'];
@@ -78,7 +75,7 @@ if($_REQUEST['user_type']=='rel_user' || $_REQUEST['user_type']=='rel_user_custo
 			$rel_module2 = "";	
 		}	
 		
-		$temp_module2 = get_module_info($rel_module);
+		$temp_module2 = BeanFactory::getBean($rel_module);
 		$temp_module2->call_vardef_handler("alert_rel_filter");
 		$temp_module2->vardef_handler->start_none=true;
 		$temp_module2->vardef_handler->start_none_lbl = $mod_strings['LBL_PLEASE_SELECT'];

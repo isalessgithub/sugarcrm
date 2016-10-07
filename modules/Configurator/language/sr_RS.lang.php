@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Napredno',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Prikaži vremena odziva servera',
   'ERR_ALERT_FILE_UPLOAD' => 'Greška prilikom uvoza slike.',
   'ERR_DELETE_CORE_FILE' => 'GREŠKA: Nije moguće obrisati osnovni font.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML sertifikat ne može biti prazan',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML prijava URL ne može biti prazna',
   'ERR_EZPDF_DISABLE' => 'Upozorenje: Klasa EZPDF je onemogućena u config tabeli i podešena je kao PDF klasa. Molim vas "Sačuvajte" ovaj obrazac da podesite TCPDF kao PDF Klasu i vratite je u stabilno stanje.',
   'ERR_FONT_ALREADY_EXIST' => 'GREŠKA: Ovaj font već postoji.Vraćanje...',
   'ERR_FONT_EMPTYFILE' => 'GREŠKA: Praznan naziv fajla!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'GREŠKA: Nema dostupne prilagođene putanje fonta!',
   'ERR_NO_FONT_PATH' => 'GREŠKA: Nema dostupne putanje fonta!',
   'ERR_PDF_NO_UPLOAD' => 'Greška prilikom učitavanja fonta ili metričkog fajla.',
+  'ERR_SAML_LOGIN_URL' => 'SAML prijava URL nije tačan',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL nije tačan',
   'HEAD_MAGNIFICATION' => 'Uveličavanje Zaglavlja',
   'HEAD_MAGNIFICATION_INFO' => 'Faktor uveličavanja za naslove.',
   'IMAGES' => 'Logo slike',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Nazad',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Izaberite vašeg Email provajdera:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Sistemska podešavaja',
-  'LBL_CONFIG_AJAX' => 'Podesi AJAX korisnički interfejs',
-  'LBL_CONFIG_AJAX_DESC' => 'Performanse i vreme učitavanja strane su poboljšani u modulima u kojima je omogućen AJAX korisnički interfejs, zato što više nije potrebno osvežavati stranu.',
   'LBL_DELETE' => 'Obriši',
   'LBL_DISALBE_CONVERT_LEAD' => 'Isključi akciju za konverziju potencijalnih klijenata u konvertovane potencijalne klijente',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Ako je potencijalni klijent već konvertovan, omogućavanje ove opcije će ukloniti akciju konverzije',
   'LBL_DISPLAYING_LOG' => 'Prikazivanje loga',
   'LBL_ENABLE_ACTION_MENU' => 'Prikaži akcije u ovkviru menija',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Odaberite da bi ste prikazali detaljni pregled i podstavke u ovkiru padajućeg menija. Ako nije odabrana ova opcija, akcije će biti prikazane kao pojedinačni dugmići.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Prikazi e-mail adrese povezanih kontakata u "Istorija" podpanelu za module',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Uključiti/Isključiti prikaz emailova od povezanih konatakata u email subpanelu.',
   'LBL_ENABLE_MAILMERGE' => 'Omoguči email spajanje?',
   'LBL_EXCHANGE_LOGO' => 'Razmeni',
   'LBL_EXCHANGE_SMTPPASS' => 'Lozinka za Exchange:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Svi dodatni parametri filtera za primenu pri autentifikaciji korisnika npr.\\nis_sugar_user=1 or (is_sugar_user=1)(is_sales=1)',
   'LBL_LEAD_CONV_OPTION' => 'Opcije konvertovanja potencijalnih klijenata',
   'LBL_LOADING' => 'Učitavanje...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Ovo podešavanje se primenjuje na moduluima u posebnom režimu.',
   'LBL_LOGGER' => 'Podešavanja logera',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Podrazumevani format datuma',
   'LBL_LOGGER_FILENAME' => 'Ime log fajla',
@@ -183,7 +183,7 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Minimalni interval za automatsko osvežavanje Dašleta',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Ovo je najmanja vrednost koju neko može odabrati za automatsko osvežavanje sašleta. Podešavanje na &#39;Nikad&#39; u potpunosti onemogućuje automatsko osvežavanje dašleta.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* Modul Izveštaji je dostupan samo za nativne Sugar Mobile klijenate',
-  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Modul Izveštaji nije dostupan za pregled kroz pregledač mobilnog uređaja.',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Modul Izveštaji nije dostupan za pregledač mobilnog uređaja.',
   'LBL_MODULE_FAVICON' => 'Prikaži ikonu modula kao favicon',
   'LBL_MODULE_FAVICON_HELP' => 'Ako ste u modulu sa ikonom, koristite ikonu modula kao favicon umesto favicon teme, u kartici internet pretraživača.',
   'LBL_MODULE_ID' => 'Konfigurator',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Sledeće>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Adresa "Pošiljaoca":',
   'LBL_NOTIFY_SUBJECT' => 'Email naslov:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Sprečite promene imene od strane korisnika kako biste ažurirali imena njihovog privatnog tima',
   'LBL_OC_STATUS' => 'Podrazumevani status Offline klijenta',
   'LBL_OC_STATUS_DESC' => 'Označite ovu opciju ako želite da svaki korisnik može da pristupi Offline klijentu. U suprotnom možete da konfigurišete pristup na nivou korisnika.',
   'LBL_PDFMODULE_NAME' => 'PDF Podešavanja',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'GREŠKA: Font nije dodan. Pogledajte log ispod.',
   'LBL_STATUS_FONT_SUCCESS' => 'USPEŠNO: Font je dodat u SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Sistemska podešavaja',
+  'LBL_TWEETTOCASE_ON' => 'Dozvoliti integraciju od objave prema predmeta',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Dozvoliti korisnicima da kreiraju predmete od objava',
+  'LBL_TWEETTOCASE_TITLE' => 'Objava predmeta predmeta',
   'LBL_USE_REAL_NAMES' => 'Prikaži puno ime',
   'LBL_USE_REAL_NAMES_DESC' => 'Prikaži puno ime korisnika umesto njegovog korisničkog imena u poljima za zadatke.',
   'LBL_VCAL_PERIOD' => 'vCal Ažuriranja Vremenskog perioda:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Naziv sistema:',
   'SYSTEM_NAME_HELP' => 'Ovo je naziv koji se prikazuje u naslovnoj traci vašeg web čitača.',
   'SYSTEM_NAME_WIZARD' => 'Naziv:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Preporučena podešavanja su ispod {{listEntriesNum}} za prihvatljive nivoe preformansi. Kako se dodatna polja dodaju u pregledu liste, ovaj broj treba da bude na donjem kraju preporučenih podešavanja.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Preporučena podešavanja su ispod {{subpanelEntriesNum}} za prihvatljive nivoe preformansi. Kako se dodatna polja dodaju u pregledu liste, ovaj broj treba da bude na donjem kraju preporučenih podešavanja.',
   'UPLOAD_MAX_SIZE' => 'Maksimalna veličina uvoza',
   'VERIFY_CLIENT_IP' => 'Proveri IP adresu korisnika',
   'vCAL_HELP' => 'Koristite ovo podešavanje da odredite broj meseci pre tekućeg datuma za koje je informacija poziva i sastanaka Slobodan/Zauzet objavljena.',

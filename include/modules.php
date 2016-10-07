@@ -1,22 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************gf
-
- * Description:  Executes a step in the installation process.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $moduleList = array();
 // this list defines the modules shown in the top tab list of the app
@@ -37,23 +30,24 @@ $moduleList[] = 'Emails';
 $moduleList[] = 'Campaigns';
 $moduleList[] = 'Prospects';
 $moduleList[] = 'ProspectLists';
+
 $moduleList[] = 'Quotes';
 $moduleList[] = 'Products';
+$moduleList[] = 'Forecasts';
+$moduleList[] = 'Contracts';
+$moduleList[] = 'KBDocuments';
 
 $moduleList[] = 'Documents';
 $moduleList[] = 'Cases';
 $moduleList[] = 'Project';
 $moduleList[] = 'Bugs';
-$moduleList[] = 'Forecasts';
-$moduleList[] = 'Contracts';
-$moduleList[] = 'KBDocuments';
-
 
 // this list defines all of the module names and bean names in the app
 // to create a new module's bean class, add the bean definition here
 $beanList = array();
 //ACL Objects
 $beanList['ACLRoles']       = 'ACLRole';
+$beanList['ACLRoleSets']    = 'ACLRoleSet';
 $beanList['ACLActions']     = 'ACLAction';
 $beanList['ACLFields']       = 'ACLField';
 //END ACL OBJECTS
@@ -78,7 +72,9 @@ $beanList['Accounts']       = 'Account';
 $beanList['DynamicFields']  = 'DynamicField';
 $beanList['EditCustomFields']   = 'FieldsMetaData';
 $beanList['Opportunities']  = 'Opportunity';
+
 $beanList['EmailTemplates']     = 'EmailTemplate';
+$beanList['UserSignatures'] = 'UserSignature';
 $beanList['Notes']          = 'Note';
 $beanList['Calls']          = 'Call';
 $beanList['Emails']         = 'Email';
@@ -99,15 +95,13 @@ $beanList['vCals']          = 'vCal';
 $beanList['CustomFields']       = 'CustomFields';
 
 
-
-
-
 $beanList['Documents']  = 'Document';
 $beanList['DocumentRevisions']  = 'DocumentRevision';
 $beanList['Roles']  = 'Role';
 
 $beanList['Audit']  = 'Audit';
 
+$beanList['Styleguide'] = 'Styleguide';
 // deferred
 //$beanList['Queues'] = 'Queue';
 
@@ -122,12 +116,12 @@ $beanList['EmailText'] = 'EmailText';
 $beanList['Relationships'] = 'Relationship';
 $beanList['Employees']      = 'Employee';
 $beanList['Reports']        = 'SavedReport';
-$beanList['Reports_1']      = 'SavedReport';
 $beanList['Teams']          = 'Team';
 $beanList['TeamMemberships']            = 'TeamMembership';
 $beanList['TeamSets']            = 'TeamSet';
 $beanList['TeamSetModules']            = 'TeamSetModule';
 $beanList['Quotes']         = 'Quote';
+$beanList['RevenueLineItems'] = 'RevenueLineItem';
 $beanList['Products']       = 'Product';
 $beanList['ProductBundles']     = 'ProductBundle';
 $beanList['ProductBundleNotes'] = 'ProductBundleNote';
@@ -139,10 +133,17 @@ $beanList['Shippers']       = 'Shipper';
 $beanList['TaxRates']       = 'TaxRate';
 $beanList['TeamNotices']        = 'TeamNotice';
 $beanList['TimePeriods']    = 'TimePeriod';
+$beanList['AnnualTimePeriods'] = 'AnnualTimePeriod';
+$beanList['QuarterTimePeriods']    = 'QuarterTimePeriod';
+$beanList['Quarter544TimePeriods']    = 'Quarter544TimePeriod';
+$beanList['Quarter445TimePeriods']    = 'Quarter445TimePeriod';
+$beanList['Quarter454TimePeriods']    = 'Quarter454TimePeriod';
+$beanList['MonthTimePeriods']    = 'MonthTimePeriod';
 $beanList['Forecasts']  = 'Forecast';
-$beanList['ForecastSchedule']  = 'ForecastSchedule';
-$beanList['Worksheet']  = 'Worksheet';
+$beanList['ForecastWorksheets']  = 'ForecastWorksheet';
+$beanList['ForecastManagerWorksheets']  = 'ForecastManagerWorksheet';
 $beanList['ForecastOpportunities']  = 'ForecastOpportunities';
+$beanList['ForecastDirectReports'] = 'ForecastDirectReports';
 $beanList['Quotas']     = 'Quota';
 $beanList['WorkFlow']  = 'WorkFlow';
 $beanList['WorkFlowTriggerShells']  = 'WorkFlowTriggerShell';
@@ -160,9 +161,11 @@ $beanList['KBContents'] = 'KBContent';
 $beanList['ContractTypes']  = 'ContractType';
 $beanList['Holidays'] = 'Holiday';
 $beanList['ProjectResources'] = 'ProjectResource';
+$beanList['System'] = 'System';
 
-
-
+$beanList['Empty'] = 'EmptyBean';
+$beanList['TeamHierarchy'] = 'TeamHierarchy';
+$beanList['UpgradeHistory'] = 'UpgradeHistory';
 
 // this list defines all of the files that contain the SugarBean class definitions from $beanList
 // to create a new module's bean class, add the file definition here
@@ -172,6 +175,8 @@ $beanFiles['ACLAction'] = 'modules/ACLActions/ACLAction.php';
 $beanFiles['ACLRole'] = 'modules/ACLRoles/ACLRole.php';
 $beanFiles['Relationship']  = 'modules/Relationships/Relationship.php';
 
+// do not add any bean files before this point, otherwise the application may fail to install
+$beanFiles['ACLRoleSet'] = 'modules/ACLRoles/ACLRoleSet.php';
 $beanFiles['Lead']          = 'modules/Leads/Lead.php';
 $beanFiles['aCase']         = 'modules/Cases/Case.php';
 $beanFiles['Bug']           = 'modules/Bugs/Bug.php';
@@ -194,6 +199,7 @@ $beanFiles['Contact']       = 'modules/Contacts/Contact.php';
 $beanFiles['Account']       = 'modules/Accounts/Account.php';
 $beanFiles['Opportunity']   = 'modules/Opportunities/Opportunity.php';
 $beanFiles['EmailTemplate']         = 'modules/EmailTemplates/EmailTemplate.php';
+$beanFiles['UserSignature'] = 'modules/UserSignatures/UserSignature.php';
 $beanFiles['Note']          = 'modules/Notes/Note.php';
 $beanFiles['Call']          = 'modules/Calls/Call.php';
 $beanFiles['Email']         = 'modules/Emails/Email.php';
@@ -213,8 +219,6 @@ $beanFiles['UpgradeHistory']= 'modules/Administration/UpgradeHistory.php';
 $beanFiles['vCal']          = 'modules/vCals/vCal.php';
 
 $beanFiles['Version']           = 'modules/Versions/Version.php';
-
-
 
 $beanFiles['Role']          = 'modules/Roles/Role.php';
 
@@ -251,14 +255,22 @@ $beanFiles['Quote']         = 'modules/Quotes/Quote.php';
 $beanFiles['ProductBundleNote'] = 'modules/ProductBundleNotes/ProductBundleNote.php';
 $beanFiles['Product']       = 'modules/Products/Product.php';
 $beanFiles['ProductBundle']     = 'modules/ProductBundles/ProductBundle.php';
+$beanFiles['RevenueLineItem'] = 'modules/RevenueLineItems/RevenueLineItem.php';
 $beanFiles['Shipper']       = 'modules/Shippers/Shipper.php';
 $beanFiles['TaxRate']       = 'modules/TaxRates/TaxRate.php';
 $beanFiles['TimePeriod']        = 'modules/TimePeriods/TimePeriod.php';
+$beanFiles['AnnualTimePeriod']        = 'modules/TimePeriods/AnnualTimePeriod.php';
+$beanFiles['QuarterTimePeriod']    = 'modules/TimePeriods/QuarterTimePeriod.php';
+$beanFiles['Quarter544TimePeriod']    = 'modules/TimePeriods/Quarter544TimePeriod.php';
+$beanFiles['Quarter454TimePeriod']    = 'modules/TimePeriods/Quarter454TimePeriod.php';
+$beanFiles['Quarter445TimePeriod']    = 'modules/TimePeriods/Quarter445TimePeriod.php';
+$beanFiles['MonthTimePeriod']    = 'modules/TimePeriods/MonthTimePeriod.php';
 $beanFiles['Forecast']      = 'modules/Forecasts/Forecast.php';
-$beanFiles['ForecastSchedule']  = 'modules/ForecastSchedule/ForecastSchedule.php';
+$beanFiles['ForecastWorksheet'] = 'modules/ForecastWorksheets/ForecastWorksheet.php';
+$beanFiles['ForecastManagerWorksheet'] = 'modules/ForecastManagerWorksheets/ForecastManagerWorksheet.php';
 $beanFiles['ForecastOpportunities']  = 'modules/Forecasts/ForecastOpportunities.php';
+$beanFiles['ForecastDirectReports'] = 'modules/Forecasts/ForecastDirectReports.php';
 $beanFiles['Quota']  = 'modules/Quotas/Quota.php';
-$beanFiles['Worksheet']  = 'modules/Forecasts/Worksheet.php';
 $beanFiles['WorkFlow']  = 'modules/WorkFlow/WorkFlow.php';
 $beanFiles['WorkFlowTriggerShell']  = 'modules/WorkFlowTriggerShells/WorkFlowTriggerShell.php';
 $beanFiles['WorkFlowAlertShell']  = 'modules/WorkFlowAlertShells/WorkFlowAlertShell.php';
@@ -277,31 +289,30 @@ $beanFiles['ContractType']  = 'modules/ContractTypes/ContractType.php';
 $beanFiles['ProjectResource'] = 'modules/ProjectResources/ProjectResource.php';
 $beanFiles['Holiday'] = 'modules/Holidays/Holiday.php';
 
-
-
-// TODO: Remove the Library module, it is an example.
-//$moduleList[] = 'Library';
-//$beanList['Library']= 'Library';
-//$beanFiles['Library'] = 'modules/Library/Library.php';
-
 $beanFiles['Configurator']          = 'modules/Configurator/Configurator.php';
+$beanFiles['EmptyBean'] = 'data/EmptyBean.php';
+$beanFiles['Styleguide'] = 'modules/Styleguide/Styleguide.php';
 
 // added these lists for security settings for tabs
 $modInvisList = array('Administration', 'Currencies', 'CustomFields', 'Connectors',
     'Dropdown', 'Dynamic', 'DynamicFields', 'DynamicLayout', 'EditCustomFields',
     'Help', 'Import',  'MySettings', 'EditCustomFields','FieldsMetaData',
     'UpgradeWizard', 'Trackers', 'Connectors', 'Employees', 'Calendar',
-    'Manufacturers','ProductBundles', 'ProductBundleNotes', 'ProductCategories', 'ProductTemplates', 'ProductTypes','Shippers', 'TaxRates', 'TeamNotices', 'Teams','TimePeriods','ForecastOpportunities','Quotas','KBDocumentRevisions','KBDocumentKBTags','KBTags','KBContents',
+    'Manufacturers', 'ProductBundles', 'ProductBundleNotes', 'ProductCategories', 'ProductTemplates', 'ProductTypes',
+    'Shippers', 'TaxRates', 'TeamNotices', 'Teams', 'TimePeriods', 'ForecastOpportunities', 'Quotas',
+    'KBDocumentRevisions', 'KBDocumentKBTags', 'KBTags', 'KBContents', 'ContractTypes',
+    'ACLFields', 'Holidays', 'SNIP', 'ForecastDirectReports', 'System',
     'Releases','Sync',
     'Users',  'Versions', 'LabelEditor','Roles','EmailMarketing'
     ,'OptimisticLock', 'TeamMemberships', 'TeamSets', 'TeamSetModule', 'Audit', 'MailMerge', 'MergeRecords', 'EmailAddresses','EmailText',
-    'Schedulers','Schedulers_jobs', /*'Queues',*/ 'EmailTemplates',
+    'Schedulers','Schedulers_jobs', /*'Queues',*/ 'EmailTemplates','UserSignature',
     'CampaignTrackers', 'CampaignLog', 'EmailMan', 'Prospects', 'ProspectLists',
     'Groups','InboundEmail',
     'ACLActions', 'ACLRoles',
     'DocumentRevisions',
-    'ContractTypes', 'ForecastSchedule', 'Worksheet','ACLFields', 'ProjectResources', 'Holidays', 'SNIP',
+    'Empty',
     'ProjectTask',
+    'RevenueLineItems',
     'ModuleBuilder',
     );
 $adminOnlyList = array(
@@ -321,7 +332,10 @@ $adminOnlyList = array(
                     'UpgradeWizard' => array('all' => 1),
                     'Studio' => array('all' => 1),
                     'Schedulers' => array('all' => 1),
+                    'WebLogicHooks' => array('all' => 1),
                     );
+
+$apiModuleList = array('Users', 'ActivityStream');
 
 
 //$modInvisList[] = 'QueryBuilder';
@@ -333,6 +347,8 @@ $modInvisList[] = 'WorkFlowActionShells';
 $modInvisList[] = 'WorkFlowActions';
 $modInvisList[] = 'Expressions';
 $modInvisList[] = 'ACLFields';
+$modInvisList[] = 'ForecastManagerWorksheets';
+$modInvisList[] = 'ForecastWorksheets';
 $modInvisList[] = 'ACL';
 $modInvisList[] = 'ACLRoles';
 $modInvisList[] = 'Configurator';
@@ -342,6 +358,7 @@ $modInvisList[] = 'SavedSearch';
 //$modInvisList[] = 'Queues';
 $modInvisList[] = 'Studio';
 $modInvisList[] = 'Connectors';
+$modInvisList[] = 'Styleguide';
 
 $report_include_modules = array();
 $report_include_modules['Currencies']='Currency';
@@ -355,15 +372,11 @@ $report_include_modules['Contracts']='Contract';
 
 $report_include_modules['Trackers']         = 'Tracker';
 
-
-
 $report_include_modules['TrackerPerfs']     = 'TrackerPerf';
 $report_include_modules['TrackerSessions']  = 'TrackerSession';
 $report_include_modules['TrackerQueries']   = 'TrackerQuery';
+$report_include_modules['Quotas']    = 'Quota';
 
-$beanList['SugarFeed'] = 'SugarFeed';
-$beanFiles['SugarFeed'] = 'modules/SugarFeed/SugarFeed.php';
-$modInvisList[] = 'SugarFeed';
 
 $beanList['Notifications'] = 'Notifications';
 $beanFiles['Notifications'] = 'modules/Notifications/Notifications.php';
@@ -377,12 +390,13 @@ $GLOBALS['moduleTabMap'] = array(
     'Configurator' => 'Administration',
     'Studio' => 'Administration',
     'Currencies' => 'Administration',
-    'SugarFeed' => 'Administration',
     'DocumentRevisions' => 'Documents',
     'EmailTemplates' => 'Emails',
     'EmailMarketing' => 'Campaigns',
     'Quotas' => 'Forecasts',
     'TeamNotices' => 'Teams',
+    'Activities' => 'Home',
+    'WorkFlowAlertShells' => 'WorkFlow',
  );
 $beanList['EAPM'] = 'EAPM';
 $beanFiles['EAPM'] = 'modules/EAPM/EAPM.php';
@@ -397,11 +411,36 @@ $beanFiles['OAuthToken'] = 'modules/OAuthTokens/OAuthToken.php';
 $modules_exempt_from_availability_check['OAuthTokens'] = 'OAuthTokens';
 $modInvisList[] = 'OAuthTokens';
 
+
 $beanList['SugarFavorites'] = 'SugarFavorites';
 $beanFiles['SugarFavorites'] = 'modules/SugarFavorites/SugarFavorites.php';
 $modules_exempt_from_availability_check['SugarFavorites'] = 'SugarFavorites';
 $modInvisList[] = 'SugarFavorites';
 
+
+$beanList['WebLogicHooks'] = 'WebLogicHook';
+$beanFiles['WebLogicHook'] = 'modules/WebLogicHooks/WebLogicHook.php';
+$modInvisList[] = 'WebLogicHooks';
+
+$beanList['Activities'] = 'Activity';
+$beanFiles['Activity'] = 'modules/ActivityStream/Activities/Activity.php';
+$modInvisList[] = 'Activities';
+
+$beanList['Comments'] = 'Comment';
+$beanFiles['Comment'] = 'modules/ActivityStream/Comments/Comment.php';
+$modInvisList[] = 'Comments';
+
+$beanList['Subscriptions'] = 'Subscription';
+$beanFiles['Subscription'] = 'modules/ActivityStream/Subscriptions/Subscription.php';
+$modInvisList[] = 'Subscriptions';
+
+$beanList['Filters'] = 'Filters';
+$beanFiles['Filters'] = 'modules/Filters/Filters.php';
+$modInvisList[] = 'Filters';
+
+$beanList['Dashboards'] = 'Dashboard';
+$beanFiles['Dashboard'] = 'modules/Dashboards/Dashboard.php';
+$modInvisList[] = 'Dashboards';
 
 //Object list is only here to correct for modules that break
 //the bean class name == dictionary entry/object name convention
@@ -410,17 +449,114 @@ $objectList = array();
 $objectList['Cases'] =  'Case';
 $objectList['Groups'] =  'User';
 $objectList['Users'] =  'User';
+$objectList['ActivityStream/Activities'] = 'Activities';
 $objectList['TrackerSessions'] =  'tracker_sessions';
 $objectList['TrackerPerfs'] =  'tracker_perf';
 $objectList['TrackerQueries'] =  'tracker_queries';
 $objectList['TeamNotices'] =  'TeamNotices';
 
-if (file_exists('include/modules_override.php'))
-{
-    include('include/modules_override.php');
+$beanList['PdfManager']     = 'PdfManager';
+$beanFiles['PdfManager']     = 'modules/PdfManager/PdfManager.php';
+$modInvisList[] = 'PdfManager';
+$adminOnlyList['PdfManager'] = array('all' => 1);
+
+// TODO: this definition should be grouped with all the others definitions like $beanList, $beanFiles and so on
+$bwcModules = array(
+    'ACLFields',
+    'ACLRoles',
+    'ACLActions',
+    'Administration',
+    'Audit',
+    'Calendar',
+    'CampaignLog',
+    'Campaigns',
+    'CampaignTrackers',
+    'Charts',
+    'Configurator',
+    'Contracts',
+    'ContractTypes',
+    'Connectors',
+    'Currencies',
+    'DocumentRevisions',
+    'Documents',
+    'EAPM',
+    'EmailAddresses',
+    'EmailMarketing',
+    'EmailMan',
+    'Emails',
+    'EmailTemplates',
+    'Employees',
+    'Exports',
+    'Expressions',
+    'Groups',
+    'History',
+    'Holidays',
+    'iCals',
+    'Import',
+    'InboundEmail',
+    'KBContents',
+    'KBDocuments',
+    'KBDocumentRevisions',
+    'KBTags',
+    'KBDocumentKBTags',
+    'KBContents',
+    'Manufacturers',
+    'MergeRecords',
+    'ModuleBuilder',
+    'MySettings',
+    'OAuthKeys',
+    'OAuthTokens',
+    'OptimisticLock',
+    'OutboundEmailConfiguration',
+    'PdfManager',
+    'ProductBundleNotes',
+    'ProductBundles',
+    'ProductTypes',
+    'Project',
+    'ProjectResources',
+    'ProjectTask',
+    'Quotas',
+    'Quotes',
+    'QueryBuilder',
+    'Relationships',
+    'Releases',
+    'Reports',
+    'Roles',
+    'SavedSearch',
+    'Schedulers',
+    'SchedulersJobs',
+    'Shippers',
+    'SNIP',
+    'Studio',
+    'SugarFavorites',
+    'TaxRates',
+    'Teams',
+    'TeamMemberships',
+    'TeamSets',
+    'TeamSetModules',
+    'TeamNotices',
+    'TimePeriods',
+    'Trackers',
+    'TrackerSessions',
+    'TrackerPerfs',
+    'TrackerQueries',
+    'UserPreferences',
+    'UserSignatures',
+    'Users',
+    'vCals',
+    'vCards',
+    'Versions',
+    'WorkFlow',
+    'WorkFlowActions',
+    'WorkFlowActionShells',
+    'WorkFlowAlerts',
+    'WorkFlowAlertShells',
+    'WorkFlowTriggerShells'
+);
+
+// this module doesn't need a Bean
+$modInvisList[] = 'Feedbacks';
+
+foreach(SugarAutoLoader::existing('include/modules_override.php', SugarAutoLoader::loadExtension("modules")) as $modExtFile) {
+    include $modExtFile;
 }
-if (file_exists('custom/application/Ext/Include/modules.ext.php'))
-{
-    include('custom/application/Ext/Include/modules.ext.php');
-}
-?>

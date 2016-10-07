@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,8 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'URL по умолчанию',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'Формат США',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Имя поля уже существует',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Название поля должно содержать только следующие символы: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Неактивный модуль не будет сохранен',
   'ERR_RESERVED_FIELD_NAME' => 'Зарезервированное ключевое слово',
   'ERR_SELECT_FIELD_TYPE' => 'Пожалуйста, выберите тип поля',
+  'LBL_ADDING_COLUMN' => 'Добавить столбец (0)',
   'LBL_ADD_FIELD' => 'Добавить поле:',
   'LBL_AUDITED' => 'Аудит',
   'LBL_BTN_ADD' => 'Добавить',
@@ -66,10 +66,15 @@ $mod_strings = array (
   'LBL_DEPENDENT' => 'Зависимый',
   'LBL_DEPENDENT_CHECKBOX' => 'Зависимый',
   'LBL_DEPENDENT_TRIGGER' => 'Условие запуска',
+  'LBL_DONE' => 'Готово',
+  'LBL_DROPPING_COLUMN' => 'Выпадающий столбец (0) из (1) для модуля',
   'LBL_DROP_DOWN_LIST' => 'Выпадающий список',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Зависимый',
   'LBL_EDIT_VIS' => 'Изменить видимость',
   'LBL_ENFORCED' => 'Усиленный',
+  'LBL_EXE_NON_SIM_MODE' => 'Запустить режим симуляции',
+  'LBL_FIELD_MISSING' => 'Незаполненное поле(я)',
+  'LBL_FIX_COLUMN_TYPE' => 'Назначить тип столбца для (0) изменить (1) на',
   'LBL_FORMULA' => 'Формула',
   'LBL_GENERATE_URL' => 'Сгенерировать URL',
   'LBL_HAS_PARENT' => 'Имеет родительский',
@@ -85,7 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Родительский выпадающий список',
   'LBL_RADIO_FIELDS' => 'Радио поля',
   'LBL_REPORTABLE' => 'Доступен для сообщения',
+  'LBL_SCAN_MODULE' => 'Поиск',
   'LBL_SEARCH_FORM_TITLE' => 'Найти модуль',
+  'LBL_SIMULATION_MODE' => 'Режим моделирования - в режиме доступна только функция очистки кэша',
   'LBL_VISIBLE_IF' => 'Видимый если',
   'LNK_CALL_LIST' => 'Звонки',
   'LNK_EMAIL_LIST' => 'Электронные письма',

@@ -1,22 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 //TODO move me out of generic
 
-
+// $Id: SugarWidget.php 38393 2008-07-29 19:44:00Z Collin Lee $
 
 /**
  * Generic Sugar widget
@@ -83,6 +80,30 @@ class SugarWidget
 	  	   return $column_name;
 	  	}
 	    return strtoupper(substr($column_name,0,22) . substr(md5(strtolower($column_name)), 0, 6));
+    }
+
+    /**
+     * check was module hidden in the top navigation bar or as subpanels
+     * @param string moduleName - name of module to chaeck e.g. Notes, Tasks
+     * @return bool
+     * @see Bug #55632 : Hiding Notes Module does not prevent creation of notes.
+     */
+    static public function isModuleHidden( $moduleName )
+    {
+        global $modules_exempt_from_availability_check;
+        if(isset($modules_exempt_from_availability_check[$moduleName])) {
+            return false;
+        }
+
+        require_once('modules/MySettings/TabController.php');
+        require_once('include/SubPanel/SubPanelDefinitions.php');
+        $tabs = new TabController();
+        if ( in_array(strtolower($moduleName), SubPanelDefinitions::get_hidden_subpanels()) )
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 

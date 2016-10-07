@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_DELETE_EMPTY' => 'Recordul este deja ștears sau inexistent.',
-  'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge oportunitatea',
+  'ERR_DELETE_EMPTY' => 'Înregistrarea a fost deja ştearsă sau este inexistentă.',
+  'ERR_DELETE_RECORD' => 'Trebuie specificat un număr de înregistrare pentru a şterge înregistrarea.',
   'LBL_ALERT_TEMPLATES' => 'Sabloane alerta',
   'LBL_APOSTROPHE_S' => 'ale',
   'LBL_COMPARE_ANY_TIME_PART2' => 'nu se schimba pentru',
@@ -95,6 +92,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Declanşatori Flux de Lucru',
   'LNK_WORKFLOW' => 'Listeaza Obiectele Debitului de Munca',
   'NTC_REMOVE_TRIGGER' => 'Sunteti sigur ca doriti sa eliminati acest declasator?',
-  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Removing a primary trigger will remove all triggers.',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Prin eliminarea unui declanşator primar se elimină toate declanşatoarele.',
 );
 

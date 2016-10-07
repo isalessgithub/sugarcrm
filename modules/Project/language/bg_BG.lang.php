@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Сигурни ли сте, че искате да премахнете този контакт от проекта?',
@@ -26,9 +23,10 @@ $mod_strings = array (
   'ERR_PERCENT_COMPLETE' => '% завършеност трябва да е със стойност от 0 до 100.',
   'ERR_PREDECESSORS_INPUT' => 'Въвежданите стойности в полето "Свързани задачи" следва да се взимат от формата "1" или "1,2"',
   'ERR_PREDECESSORS_OUT_OF_RANGE' => 'Стойността, дефинирана в полето "Свързани задачи" е по-голяма от броя на редовете.',
-  'ERR_PREDECESSOR_CYCLE_FAIL' => 'The specified predecessor causes a dependency cycle.',
-  'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => 'The specified predecessor is either a parent task or a subtask.',
+  'ERR_PREDECESSOR_CYCLE_FAIL' => 'Специфицираната предишна обвързана задача води до безкраен цикъл на зависимости межди задачите.',
+  'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => 'Специфицираната предишна обвързана задача е или основна задача или е подзадача.',
   'ERR_TASK_NAME_FOR_ROW' => 'Име на задачата за ред',
+  'ERR_TASK_VIEW_DETAILS' => 'Не можете да разгледате описанието на задача, която още не е съхранена като запис в системата.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Организации',
   'LBL_ACCOUNT_SUBPANEL_TITLE' => 'Организации',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Дейности',
@@ -76,17 +74,17 @@ $mod_strings = array (
   'LBL_FILTER_RESOURCE' => 'Задачи с изпълнител',
   'LBL_FILTER_VIEW' => 'Разгледай',
   'LBL_FINISH' => 'Край',
-  'LBL_FINISH_WIDGET' => 'date_finish',
+  'LBL_FINISH_WIDGET' => 'дата_приключване',
   'LBL_GANTT_ONLY' => 'Диаграма на Гант',
   'LBL_GRID_GANTT' => 'Комбиниран изглед',
   'LBL_GRID_ONLY' => 'Списък задачи',
-  'LBL_HIDE_OPTIONAL_COLUMNS_BUTTON' => 'Hide Optional Columns',
+  'LBL_HIDE_OPTIONAL_COLUMNS_BUTTON' => 'Скрий опционните колони',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_HISTORY_TITLE' => 'История',
   'LBL_HOLIDAY' => 'Почивен ден',
   'LBL_HOLIDAYS_SUBPANEL_TITLE' => 'Почивни дни',
   'LBL_HOLIDAYS_TITLE' => 'Почивни дни',
-  'LBL_ID' => 'Id:',
+  'LBL_ID' => 'Идентификатор:',
   'LBL_INDENT_BUTTON' => 'Indent',
   'LBL_INSERTROWS' => 'Добави редове',
   'LBL_INSERT_BUTTON' => 'Вмъкни ред',
@@ -111,7 +109,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Проект',
   'LBL_MODULE_TITLE' => 'Проекти',
   'LBL_MONTH_BUTTON' => 'Месец',
-  'LBL_MORE' => 'More...',
+  'LBL_MORE' => 'Още...',
   'LBL_MY_PROJECTS' => 'Моите проекти',
   'LBL_MY_PROJECTS_DASHBOARD' => 'Статистика на моите проекти',
   'LBL_MY_PROJECT_TASKS' => 'Моите текущи задачи по проекти',
@@ -126,17 +124,17 @@ $mod_strings = array (
   'LBL_PDF_PROJECT_NAME' => 'Име на проекта:',
   'LBL_PERCENT_BUSY' => '% натовареност',
   'LBL_PERCENT_COMPLETE' => '% завършеност',
-  'LBL_PERCENT_COMPLETE_WIDGET' => 'percent_complete',
+  'LBL_PERCENT_COMPLETE_WIDGET' => 'процент_изпълнение',
   'LBL_PERSONAL_HOLIDAY' => '-- Почивен ден на изпълнителя --',
   'LBL_POPUP_DATE_FINISH' => 'Крайна дата:',
   'LBL_POPUP_DATE_START' => 'Начална дата:',
   'LBL_POPUP_PERCENT_COMPLETE' => '% завършеност:',
   'LBL_POPUP_RESOURCE_NAME' => 'Изпълнител:',
   'LBL_PREDECESSORS' => 'Свързани задачи',
-  'LBL_PREDECESSORS_WIDGET' => 'predecessors_',
+  'LBL_PREDECESSORS_WIDGET' => 'предишни_обвързани_задачи_',
   'LBL_PRIORITY' => 'Степен на важност:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукти',
-  'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Project Resources',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Оферирани позиции',
+  'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Ресурси за проекта',
   'LBL_PROJECTTASK_SUBPANEL_TITLE' => 'Задача по проект',
   'LBL_PROJECT_HOLIDAYS' => 'Почивен ден',
   'LBL_PROJECT_HOLIDAYS_TITLE' => 'Почивни дни',
@@ -157,9 +155,10 @@ $mod_strings = array (
   'LBL_RESOURCES_SUBPANEL_TITLE' => 'Изпълнители',
   'LBL_RESOURCE_NAME' => 'Име',
   'LBL_RESOURCE_NAMES' => 'Изпълнител',
-  'LBL_RESOURCE_NAMES_WIDGET' => 'resource',
+  'LBL_RESOURCE_NAMES_WIDGET' => 'ресурс',
   'LBL_RESOURCE_REPORT' => 'Отчет за изпълнение',
   'LBL_RESOURCE_TYPE' => 'Тип',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Приходни позиции',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Запази като нов проект',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Запази като нов шаблон',
   'LBL_SAVE_AS_PROJECT' => 'Запази като проект',
@@ -168,12 +167,12 @@ $mod_strings = array (
   'LBL_SAVE_TEMPLATE_BUTTON_LABEL' => 'Запази като шаблон',
   'LBL_SAVE_TEMPLATE_BUTTON_TITLE' => 'Запази като шаблон',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Проекти"',
-  'LBL_SHOW_OPTIONAL_COLUMNS_BUTTON' => 'Show Optional Columns',
+  'LBL_SHOW_OPTIONAL_COLUMNS_BUTTON' => 'Покажи опционните колони',
   'LBL_START' => 'Начало',
-  'LBL_START_WIDGET' => 'date_start',
+  'LBL_START_WIDGET' => 'дата_стартиране',
   'LBL_STATUS' => 'Статус:',
-  'LBL_TASK_ID' => 'ID',
-  'LBL_TASK_ID_WIDGET' => 'id',
+  'LBL_TASK_ID' => 'ИДЕНТИФИКАТОР',
+  'LBL_TASK_ID_WIDGET' => 'идентификатор',
   'LBL_TASK_NAME' => 'Задача',
   'LBL_TASK_NAME_WIDGET' => 'описание',
   'LBL_TEAM_ID' => 'Екип:',
@@ -183,7 +182,7 @@ $mod_strings = array (
   'LBL_UNMARK_AS_MILESTONE_BUTTON' => 'Демаркирай като критична точка',
   'LBL_USER_RESOURCE' => 'Изпълнител: потребител',
   'LBL_VIEW_GANTT_TITLE' => 'Диаграма на Гант',
-  'LBL_VIEW_TASK_DETAILS_BUTTON' => 'View Task Details',
+  'LBL_VIEW_TASK_DETAILS_BUTTON' => 'Описание на задачата',
   'LBL_WEEK_BUTTON' => 'Седмица',
   'LNK_NEW_PROJECT' => 'Въвеждане на проект',
   'LNK_NEW_PROJECT_TASK' => 'Въвеждане на задача по проекта',

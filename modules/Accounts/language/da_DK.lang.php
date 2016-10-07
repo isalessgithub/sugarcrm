@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på, at du vil fjerne denne virksomheden fra projektet?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Opkald',
   'LBL_CAMPAIGNS' => 'Kampagner',
   'LBL_CAMPAIGN_ID' => 'Kampagne-id',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampagnelog',
   'LBL_CASES_SUBPANEL_TITLE' => 'Sager',
   'LBL_CHARTS' => 'Diagrammer',
   'LBL_CITY' => 'By:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Virksomheder',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelsesoplysninger',
+  'LBL_DNB_BAL_PREVIEW' => 'Virksomhet visning',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenter',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Mulig identisk virksomhed',
   'LBL_EMAIL' => 'E-mail-adresse:',
   'LBL_EMAIL_ADDRESSES' => 'E-mail adresser',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Medarbejdere:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Tildelt brugernavn',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Vedhæftet fil',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Virksomheds rapporter',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modul består af virksomheder, som din organisation har et samarbejde med og ses generelt som knudepunkt for styring og analyse af din virksomheds interaktion med den enkelte kunde. Hvis du vil oprette en {{MODULE_NAME}}:. 1. Give værdier for felterne som ønsket. - Felter mærket "Påkrævet" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og vis" for at åbne den nye {{MODULE_NAME}} i listevisning. - Vælg "Gem og skabe nye" til straks at oprette et nyt {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består af virksomheder, som din organisation har et samarbejde og ses generelt som knudepunkt for håndtering og analyse af din virksomheds interaktion med den enkelte kunde. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler ved at skifte det nederste venstre rude til"Data View". - Foretag og vis brugenes kommentarer og post ændringhistorie i {{activitystream_singular_module}} ved at skifte det nederste venstre rude til "Activity Stream". - Følg eller favoriser denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består af virksomheder, som din organisation har et samarbeid med og ses generelt som knudepunkt for håndtering og analyse af din virksomheds interaktion med den enkelte kunde. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar såsom via {{plural_module_name}} modul, duplikering, import {{plural_module_name}} osv. Når den {{MODULE_NAME}} post er oprettet, kan du få vist og redigere oplysninger om den {{MODULE_NAME}} via {{plural_module_name}} listevisning. Hver {{MODULE_NAME}} post kan så forholde sig til andre Sugar optegnelser, såsom {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, og mange andre, som kundens forhold modnes.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_HOMEPAGE_TITLE' => 'Mine virksomheder',
   'LBL_INDUSTRY' => 'Branche:',
@@ -94,9 +99,11 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Ændret af id:',
   'LBL_MODULE_ID' => 'Virksomheder',
   'LBL_MODULE_NAME' => 'Virksomheder',
+  'LBL_MODULE_NAME_SINGULAR' => 'Virksomhed',
   'LBL_MODULE_TITLE' => 'Virksomheder: Startside',
   'LBL_NAME' => 'Navn:',
   'LBL_NEW_FORM_TITLE' => 'Ny virksomhed',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Noter',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Salgsmuligheder',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Anden e-mail:',
   'LBL_OTHER_PHONE' => 'Anden telefon:',
@@ -109,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Telefon "fax":',
   'LBL_PHONE_OFFICE' => 'Telefon "arbejde":',
   'LBL_POSTAL_CODE' => 'Postnummer:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PRODUCTS_TITLE' => 'Produkter',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekter',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekter',
@@ -120,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Skub forsendelse',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Tilbud',
   'LBL_RATING' => 'Klassifikation:',
+  'LBL_REVENUELINEITEMS' => 'Revenue detaljposter',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Revenue detaljposter',
   'LBL_SAVE_ACCOUNT' => 'Gem virksomhed',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter virksomhed',
   'LBL_SHIPPING_ADDRESS' => 'Leveringsadresse:',
@@ -145,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Websted:',
   'LNK_ACCOUNT_LIST' => 'Se virksomheder',
   'LNK_ACCOUNT_REPORTS' => 'Se virksomhedsrapporter',
+  'LNK_CREATE' => 'Opret virksomhed',
   'LNK_IMPORT_ACCOUNTS' => 'Importér virksomheder',
   'LNK_NEW_ACCOUNT' => 'Opret virksomhed',
   'MSG_DUPLICATE' => 'Den virksomhedspost, du er ved at oprette, kan være en dublet af en virksomhedspost, der allerede findes. virksomhedsposter, som indeholder lignende navne, er vist nedenfor.<br>Klik på Gem for at fortsætte med at oprette denne nye virksomhed, eller klik på Annuller for at vende tilbage til modulet uden at oprette virksomheden.',

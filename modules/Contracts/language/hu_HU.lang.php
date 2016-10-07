@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Kliens azonosító',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Létrehozott felhasználó',
   'LBL_CURRENCY' => 'Pénznem:',
   'LBL_CURRENCY_ID' => 'Pénznem azonosító:',
+  'LBL_CURRENCY_RATE' => 'Árfolyam',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Kliens aláírásának dátuma:',
   'LBL_DAYS' => 'Nap',
   'LBL_DESCRIPTION' => 'Leírás:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumentumok',
   'LBL_END_DATE' => 'Befejezés dátuma:',
   'LBL_EXPIRATION_NOTICE' => 'Lejárati megjegyzés:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Felelős Felhasználó Azonosítója',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Felelős Felhasználó Neve',
+  'LBL_EXPORT_CREATED_BY' => 'Azonosító Szerinti Létrehozás',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Azonosító Szerinti Módosítás',
+  'LBL_EXPORT_TYPE_NAME' => 'Típus Név',
   'LBL_LIST_ACCOUNT_NAME' => 'Kliens neve',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Felhasználó',
   'LBL_LIST_CONTRACT_NAME' => 'Szerződés neve',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Csoport',
   'LBL_MODIFIED_USER' => 'Módosított felhasználó',
   'LBL_MODULE_NAME' => 'Szerződések',
+  'LBL_MODULE_NAME_SINGULAR' => 'Szerződés',
   'LBL_MODULE_TITLE' => 'Szerződések: Főoldal',
   'LBL_NEW_FORM_TITLE' => 'Új szerződés',
   'LBL_NONE' => 'Egyik sem',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Jegyzetek',
   'LBL_OPPORTUNITY' => 'Lehetőség',
-  'LBL_OPPORTUNITY_NAME' => 'Lehetőség neve',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Termékek',
+  'LBL_OPPORTUNITY_ID' => 'Lehetőség Azonosítója',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Árajánlatok',
   'LBL_REFERENCE_CODE' => 'Hivatkozási kód:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Bevétel sorok',
   'LBL_SEARCH_FORM_TITLE' => 'Szerződés keresése',
   'LBL_SF_ACCOUNT_NAME' => 'Kliens neve:',
   'LBL_SF_ASSIGNED_TO' => 'Felelős:',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Szerződés értéke:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Szerződés értéke (USD):',
   'LBL_TYPE' => 'Típus',
+  'LBL_TYPE_NAME' => 'Típus Név',
   'LBL_UNDEFINED' => 'Nem definiált',
   'LNK_CONTRACT_LIST' => 'Szerződések megtekintése',
   'LNK_IMPORT_CONTRACTS' => 'Szerződések importálása',

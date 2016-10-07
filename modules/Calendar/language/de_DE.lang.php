@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: in dieser Ansicht nicht definiert',
-  'ERR_YEAR_BETWEEN' => 'Leider kann der Kalender das angegebene Jahr nicht bearbeiten.<br />Jahre müssen zwischen 1970 und 2037 liegen',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: ist fur diese Ansicht nicht definiert',
+  'ERR_YEAR_BETWEEN' => 'Tut uns leid, der Kalender kann das angegebene Jahn nicht anzeigen<br />Das Jahr muss zwischen 1970 und 2037 liegen.',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Filter anwenden',
   'LBL_ASSIGNED_TO_NAME' => 'Zugewiesen an',
   'LBL_BUSY' => 'Belegt',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => '{0} Serienereigniszahl hat Grenzwert überschritten',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} ist kein übergeordnetes Ereignis',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} ist kein Serienereignis',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} wird nicht als Serienereignismodul erkannt',
   'LBL_CANCEL_BUTTON' => 'Abbrechen',
   'LBL_CLOSE_BUTTON' => 'Beenden:',
   'LBL_CONFIRM_REMOVE' => 'Soll der Satz wirklich gelöscht werden?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Terminkonflikt',
   'LBL_CREATE_CALL' => 'Neuer Anruf',
   'LBL_CREATE_MEETING' => 'Neues Meeting',
+  'LBL_CREATE_NEW_CALL' => 'Anruf erstellen',
   'LBL_CREATE_NEW_RECORD' => 'Aktivität erstellen',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Sie erstellen ein neues Meeting. Wollten Sie eine <a href="javascript:void(0);" data-action="create-task">Aufgabe erstellen</a> oder einen <a href="javascript:void(0);" data-action="schedule-call">Anruf planen</a>',
   'LBL_DATE' => 'Startdatum und -zeit:',
   'LBL_DATE_END_ERROR' => 'Enddatum liegt vor dem Stardatum',
   'LBL_DATE_TIME' => 'Startdatum und -zeit:',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Löschen',
   'LBL_DURATION' => 'Dauer:',
   'LBL_EDIT_ALL_RECURRENCES' => 'Alle Ereignisse bearbeieten',
+  'LBL_EDIT_CALL' => 'Anruf bearbeiten',
   'LBL_EDIT_RECORD' => 'Aktivität bearbeiten',
   'LBL_EDIT_USERLIST' => 'Benutzer Liste',
   'LBL_ERROR_LOADING' => 'Fehler beim Laden',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Nächste Woche',
   'LBL_NEXT_YEAR' => 'Nächstes Jahr',
   'LBL_NO' => 'Nein',
+  'LBL_NO_ACCESS' => '(Kein Zugriff)',
   'LBL_NO_USER' => 'kein passendes Feld: gehört zu',
   'LBL_PARTICIPANTS_TAB' => 'Teilnehmer',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Einladungen senden',
   'LBL_SETTINGS' => 'Einstellungen',
   'LBL_SETTINGS_CALLS_SHOW' => 'Anrufe anzeigen',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Abgeschlossene Meetings, Calls und Aufgaben anzeigen:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Zeiteinteilung in Tag- und Wochenansichten anzeigen',
   'LBL_SETTINGS_TASKS_SHOW' => 'Aufgaben zeigen',
   'LBL_SETTINGS_TIME_ENDS' => 'Endzeit',

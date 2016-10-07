@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att kunna radera kontakten.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adressinformation',
   'LBL_ADD_BUSINESSCARD' => 'Lägg till visitkort',
   'LBL_ALTERNATE_ADDRESS' => 'Annan adress:',
-  'LBL_ALT_ADDRESS' => 'Annan adress:',
   'LBL_ALT_ADDRESS_CITY' => 'Alternativ adress stad:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Alternativ adress land:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Alternativ adress postnummer:',
@@ -77,6 +73,10 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Beskrivning:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivande information',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Direktrapporter',
+  'LBL_DNB_BAL_PREVIEW' => 'Kontakter förhandsvisning',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Kontakter',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Kontakt information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Huvud-ID',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokument',
   'LBL_DO_NOT_CALL' => 'Ring inte:',
   'LBL_DUPLICATE' => 'Möjlig kopia av kontakter',
@@ -92,21 +92,30 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ändrad av ID',
   'LBL_EXPORT_PHONE_HOME' => 'Hemtelefon',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobiltelefon',
+  'LBL_FACEBOOK' => 'Facebook-konto',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILENAME' => 'Bilaga',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Kontakternas rapporter',
   'LBL_FIRST_NAME' => 'Förnamn:',
   'LBL_FULL_NAME' => 'Namn:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}-modulen består av enskilda människor som din organisation har en relation till. {{module}}poster är oftast relaterade till en {{accounts_singular_module}}poster. För att skapa en {{modul}}: 1. För in värden för fälten som önskat. - Fält markerade "Required" måste fyllas i innan du sparar. - Klicka på "Visa mer" för att visa ytterligare fält vid behov. 2 Klicka på "Spara" för att spara och återgå till föregående sidan. - Välj "Spara och visa" för att öppna den nya {{modul}}. - Välj "Spara och skapa ny" för att omedelbart skapa en annan ny {{modul}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}modulen består av enskilda människor som din organisation har en relation till. {{modulE}}poster är oftast relaterade till en {{accounts_singular_module}}poster. Redigera denna postens fält genom att klicka ett enskilt fält eller på knappen Redigera. - Visa eller ändra länkar till andra poster i underpaneler, även {{campaigns_singular_module}} mottagare, genom att växla den nedre vänstra rutan till "Data View". - Utför och se användarkommentarer och eller se förändringar i {{activitystream_singular_module}} genom att växla den nedre vänstra rutan på "Activity Stream".  - Följ som favorit med hjälp av ikonerna till höger om namnet. - Ytterligare åtgärder finns i dropdown menyn Åtgärder till höger om knappen Redigera.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}-modulen består av enskilda människor som din organisation har en relation till. {{modul}}poster är oftast relaterade till en {{accounts_singular_module}} poster.Det finns olika sätt som du kan skapa {{plural_module_name}} i Sugar exempel via {{plural_module_name}}modulen, importera {{plural_module_name}}, konvertering av {{leads_module}} till {{plural_module_name}}, etc. När en {{modul}}post skapas, kan du visa och redigera information som hänför sig till {{modul}} via {{plural_module_name}}vyn. Varje {{modul}}post kan då avse andra Sugarposter som {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, och många andra, vilket gör {{modul}} till ett nav för visning och fortsatt interaktion med den enskilde.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_HOMEPAGE_TITLE' => 'Mina kontakter',
   'LBL_HOME_PHONE' => 'Hem:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'Importera vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Skapa en kontakt automatiskt vid import av vCard från ditt filsystem.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Kontakt från vCard skapades utan problem',
   'LBL_INVALID_EMAIL' => 'Ogiltig epostadress:',
   'LBL_INVITEE' => 'Direktrapporter',
   'LBL_LANG_PREF_TOOLTIP' => 'Support Portalens användargränssnitt renderas i det språk som används här.',
   'LBL_LAST_NAME' => 'Efternamn',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LEAD_SOURCE' => 'Lead källa:',
+  'LBL_LINKEDIN' => 'Linkedin medlemskonto',
   'LBL_LIST_ACCEPT_STATUS' => 'Status för accepterat',
   'LBL_LIST_ACCOUNT_NAME' => 'Organisationsnamn',
   'LBL_LIST_CITY' => 'Stad',
@@ -121,13 +130,18 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Kontorstelefon',
   'LBL_LIST_STATE' => 'Stat',
   'LBL_LIST_TITLE' => 'Titel',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Score',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_MODIFIED' => 'Uppdaterad av:',
   'LBL_MODULE_NAME' => 'Kontakter',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kontakt',
   'LBL_MODULE_TITLE' => 'Kontakter: Hem',
   'LBL_NAME' => 'Namn:',
   'LBL_NEW_FORM_TITLE' => 'Ny kontakt',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nytt portallösenord:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anteckningar',
   'LBL_NOTE_SUBJECT' => 'Anteckningsämne',
   'LBL_OFFICE_PHONE' => 'Kontorstelefon',
   'LBL_OLD_PORTAL_PASSWORD' => 'Gammalt Portal Lösenord',
@@ -138,6 +152,7 @@ $mod_strings = array (
   'LBL_OPP_NAME' => 'Namn på affärsmöjligheten:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Annan epost:',
   'LBL_OTHER_PHONE' => 'Annan telefon:',
+  'LBL_PARENT_ID' => 'Huvud-ID',
   'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Lösenord Ändras',
   'LBL_PHONE' => 'Telefon:',
   'LBL_PHONE_FAX' => 'Telefon fax:',
@@ -151,6 +166,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Portalnamn:',
   'LBL_PORTAL_PASSWORD' => 'Portallösenord',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Portallösenord är satt:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Klicka här för att redigera din profil.',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'Profilen är där du kan hantera dina kontaktuppgifter, lösenord, och språk.',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Här är var du kan ställa in önskat språk. Detta kommer att ändra det språk som används av Sugar Portal.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Du kan återgå till din profil när som helst med hjälp av användarmenyn.',
   'LBL_POSTAL_CODE' => 'Postnummer:',
   'LBL_PRIMARY_ADDRESS' => 'Primär adress:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Primär adress stad:',
@@ -169,10 +188,12 @@ $mod_strings = array (
   'LBL_QUOTES_BILL_TO' => 'Offerter (Räkning skickas till)',
   'LBL_QUOTES_SHIP_TO' => 'Offerter (skickas till)',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Offerter',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Du har skapat med framgång {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Relaterade kontakter',
   'LBL_REPORTS_TO' => 'Rapporterar till:',
   'LBL_REPORTS_TO_ID' => 'Rapporterar till ID:',
   'LBL_RESOURCE_NAME' => 'Resursnamn',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Intäktsposter',
   'LBL_SALUTATION' => 'Titel:',
   'LBL_SAVE_CONTACT' => 'Spara kontakt',
   'LBL_SEARCH_FORM_TITLE' => 'Sök kontakt',
@@ -184,12 +205,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Kampanjer (medlem av) :',
   'LBL_TEAM_ID' => 'Team ID:',
   'LBL_TITLE' => 'Titel:',
+  'LBL_TWITTER' => 'Twitter konto',
   'LBL_USER_PASSWORD' => 'Lösenord:',
   'LBL_USER_SYNC' => 'Användarsynkronisering',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Kontaktvy',
   'LNK_CONTACT_LIST' => 'Kontakter',
   'LNK_CONTACT_REPORTS' => 'Kontaktrapporter',
+  'LNK_CREATE' => 'Skapa person',
   'LNK_IMPORT_CONTACTS' => 'Importera kontakter',
   'LNK_IMPORT_VCARD' => 'Skapa från vCard',
   'LNK_NEW_ACCOUNT' => 'Skapa organisation',
@@ -211,6 +234,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'När en affärsmöjlighet skapas krävs en organisation.\\n Var god skapa en ny organisation eller välj en existerande.',
   'NTC_REMOVE_CONFIRMATION' => 'Är du säker på att du vill ta bort kontakten från ärendet?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Är du säker på att du vill ta bort det här objektet som en direktrapport?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

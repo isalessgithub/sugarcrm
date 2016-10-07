@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,9 +20,13 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Oprettet den',
   'LBL_DATE_MODIFIED' => 'Ændret den',
   'LBL_DELETED' => 'Slettet',
+  'LBL_DROPDOWN_TOOLTIP' => '{{start}} til {{slutt}}',
   'LBL_EDITLAYOUT' => 'Rediger layout',
+  'LBL_LEAF_CYCLE' => 'Leaf cyklus',
   'LBL_LIST_FORM_TITLE' => 'Tidsperioder',
+  'LBL_LIST_WARNING' => 'Bemærk, at eventuelle ændringer i dette modul potentielt kan bryde funktionaliteten af ​​{0} modul. De ændringer i forbindelse med {1} bør gøres gennem {0} Indstillinger.',
   'LBL_MODULE_NAME' => 'Tidsperioder',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tidsperiode',
   'LBL_MODULE_TITLE' => 'Tidsperioder:Startside',
   'LBL_NAME' => 'Id',
   'LBL_NEW_FORM_TITLE' => 'Ny tidsperiode',
@@ -35,10 +36,15 @@ $mod_strings = array (
   'LBL_SEARCH_TP_NAME' => 'Tidsperiode',
   'LBL_SEARCH_TP_START_DATE' => 'Startdato',
   'LBL_TP_END_DATE' => 'Slutdato',
+  'LBL_TP_END_DATE_TIMESTAMP' => 'Slutdato tidsstempel',
   'LBL_TP_FISCAL_YEAR' => 'Regnskabsår',
+  'LBL_TP_IS_FISCAL' => 'Er Fiscal regnskabsperiode?',
   'LBL_TP_IS_FISCAL_YEAR' => 'Er regnskabsår?',
+  'LBL_TP_IS_LEAF' => 'Er Leaf prognoseperiode?',
   'LBL_TP_NAME' => 'Tidsperiode',
   'LBL_TP_START_DATE' => 'Startdato',
+  'LBL_TP_START_DATE_TIMESTAMP' => 'Startdato tidsstempel',
+  'LBL_TP_TYPE' => 'Tidsperiode Type',
   'LNK_NEW_TIMEPERIOD' => 'Opret tidsperiode',
   'LNK_TIMEPERIOD_LIST' => 'Tidsperioder',
 );

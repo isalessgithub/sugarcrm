@@ -1,18 +1,15 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: popup_helper.js 56952 2010-06-14 21:44:26Z sadek $
 
 /**
  * Helper function used in send_backs to close the popup window if closePopup is true.
@@ -94,40 +91,32 @@ function send_back(module, id)
 	var array_contents = Array();
 
 	// constructs the array of values associated to the bean that the user clicked
-    var fill_array_contents = function(the_key, the_name)
-    {
-        var the_value = '';
-        if (module != '' && id != '') {
-            if (associated_row_data['DOCUMENT_NAME'] && the_key.toUpperCase() == "NAME") {
-                the_value = associated_row_data['DOCUMENT_NAME'];
-            } else if ((the_key.toUpperCase() == 'USER_NAME' || the_key.toUpperCase() == 'LAST_NAME' || the_key.toUpperCase() == 'FIRST_NAME')
-                        && typeof(is_show_fullname) != 'undefined' && is_show_fullname && form_name != 'search_form') {
-                        //if it is from searchform, it will search by assigned_user_name like 'ABC%', then it will return nothing
-                the_value = associated_row_data['FULL_NAME'];
-            } else {
-                the_value = associated_row_data[the_key.toUpperCase()];
-            }
-        }
-
-        if (typeof(the_value) == 'string') {
-            the_value = the_value.replace(/\r\n|\n|\r/g, '\\n');
-        }
-
-        array_contents.push('"' + the_name + '":"' + the_value + '"');
-    }
-
 	for(var the_key in field_to_name_array)
 	{
 		if(the_key != 'toJSON')
 		{
-            if (YAHOO.lang.isArray(field_to_name_array[the_key])) {
-                for (var i = 0; i < field_to_name_array[the_key].length; i++) {
-                    fill_array_contents(the_key, field_to_name_array[the_key][i]);
+			var the_name = field_to_name_array[the_key];
+			var the_value = '';
+
+			if(module != '' && id != '')
+			{
+				if(associated_row_data['DOCUMENT_NAME'] && the_key.toUpperCase() == "NAME"){
+    				the_value = associated_row_data['DOCUMENT_NAME'];
+    				
+    			}  
+				else if((the_key.toUpperCase() == 'USER_NAME' || the_key.toUpperCase() == 'LAST_NAME' || the_key.toUpperCase() == 'FIRST_NAME') && typeof(is_show_fullname) != 'undefined' && is_show_fullname && form_name != 'search_form') {//if it is from searchform, it will search by assigned_user_name like 'ABC%', then it will return nothing
+                    the_value = associated_row_data['FULL_NAME'];
                 }
-            }
-            else {
-                fill_array_contents(the_key, field_to_name_array[the_key]);
-            }
+                else {
+                    the_value = associated_row_data[the_key.toUpperCase()];
+               }
+			}
+			
+			if (typeof(the_value) == 'string') {
+				the_value = the_value.replace(/\r\n|\n|\r/g, '\\n');
+			}
+			
+			array_contents.push('"' + the_name + '":"' + the_value + '"');
 		}
 	}
 

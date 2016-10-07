@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,21 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Type mime',
   'LBL_FILE_URL' => 'Plik URL',
   'LBL_FIRST_NAME' => 'Imię',
+  'LBL_HELP_CREATE' => 'Aby utworzyć Notatkę:
+1. Wprowadź odpowiednie wartości do pól.
+ - Pola oznaczone jako "Wymagane" muszą zostać uzupełnione.
+ - Kliknij "Pokaż więcej", aby wyświetlić więcej pól.
+2. Kliknij "Zapisz", aby zapisać nowy rekord i powrócić do poprzedniej strony.
+ - Wybierz "Zapisz i pokaż", aby otworzyć rekord widoku Notatki w nowym oknie.
+ - Wybierz "Zapisz i utwórz nowy", aby bez zwłoki utworzyć nową Notatkę.',
+  'LBL_HELP_RECORD' => 'Moduł {{plural_module_name}} składa się z pojedynczych Notatek, które zawierają tekst lub załącznik dotyczący powiązanego rekordu.
+
+- Edytuj pola tego rekordu poprze kliknięcie na odpowiednie pole lub na przycisk Edytuj.
+- Przeglądaj lub modyfikuj powiązania z innymi rekordami w subpanelach poprzez przełączenie widoku dolnego lewego panelu na “Widok danych”.
+- Dodawaj i przeglądaj komentarze użytkowników i historię zmian rekordu w Panelu aktywności poprzez przełączenie widoku dolnego lewego panelu na „Panel aktywności”.
+- Obserwuj lub dodaj do ulubionych ten rekord za pomocą ikon znajdujących się z prawej strony nazwy rekordu.
+- Dodatkowe działania dostępne są w liście rozwijalnej menu Działania po prawej stronie przycisku Edytuj.',
+  'LBL_HELP_RECORDS' => 'Moduł {{plural_module_name}} składa się z pojedynczych Notatek, które zawierają tekst lub załącznik dotyczący powiązanego rekordu. Rekord Notatki może być powiązany z jednym rekordem w większości modułów za pomocą pola relacji elastycznej i może być również powiązany z pojedynczym Kontaktem. {{plural_module_name}} mogą zawierać tekst lub załącznik powiązany z rekordem. Jest kilka sposobów na utworzenie {{plural_module_name}} w Sugar, np. poprzez moduł {{plural_module_name}}, importowanie Notatek, poprzez subpanele Historia itp. Po utworzeniu Notatki, możesz przeglądać i edytować informacje dotyczące Notatki poprzez widok rekordu Notatki. Każda Notatka może zostać powiązana z innymi rekordami Sugar, np. z Kontrahentem, Kontaktem, Szansą oraz wieloma innymi.',
   'LBL_LAST_NAME' => 'Nazwisko',
   'LBL_LEAD_ID' => 'ID Namiaru:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielono do',
@@ -79,6 +91,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'ID oferty:',
   'LBL_RELATED_TO' => 'Powiązane z:',
   'LBL_REMOVING_ATTACHMENT' => 'Usuwanie załącznika...',
+  'LBL_REVENUELINEITEMS' => 'Pozycje szansy',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukaj notatki',
   'LBL_SEND_ANYWAYS' => 'Ta wiadomość nie ma tematu. Czy na pewno chcesz wysłać wiadomość bez tematu?',
   'LBL_STATUS' => 'Status',

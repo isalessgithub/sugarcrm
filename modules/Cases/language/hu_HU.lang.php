@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót a kliens törléséhez!',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Feljegyzés csatolása',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Hibák',
   'LBL_CASE' => 'Eset:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Eset áttekintés',
   'LBL_CASE_NUMBER' => 'Eset száma:',
   'LBL_CASE_SUBJECT' => 'Eset tárgya:',
@@ -53,6 +51,9 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Módosító azonosítója',
   'LBL_EXPORT_TEAM_COUNT' => 'Csoportlétszám',
   'LBL_FILENANE_ATTACHMENT' => 'Melléklet',
+  'LBL_HELP_CREATE' => '{{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi oldalra való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása" paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul a termékekkel és szolgáltatásokkal kapcsolatos problémákat listázza, külső vagy belső jelentések alapján. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul a termékekkel és szolgáltatásokkal kapcsolatos problémákat listázza, külső vagy belső jelentések alapján. Egy klienshez több probléma is kapcsolódhat, amelyek bejegyzés létrehozásával, importálással vagy email konvertálásával kerülhetnek a rendszerbe. Amennyiben egy problémáról jelentés készült, az azzal kapcsolatos információk rekord nézetben követhetők nyomon. A rekordok hozzákapcsolódhatnak egyéb Sugar bejegyzésekhez, így hívásokhoz, kapcsolatokhoz vagy esetekhez is.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_INVITEE' => 'Kapcsolatok',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Tudásbázis',
@@ -79,7 +80,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Eset',
   'LBL_MODULE_TITLE' => 'Esetek: Főoldal',
   'LBL_NEW_FORM_TITLE' => 'Új eset',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Feljegyzések',
   'LBL_NUMBER' => 'Száma:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Új eset, vagy ügy hozzáadásához, kattintson ide!',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Keresendő kifejezés megadásával szűrheti az ügyek listáját.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Ez hasznos lehet, ha például egy korábban bejegyzett ügyet keres.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Az Ügyek/Esetek modul a klienséhez kapcsolódó technikai jellegű tevékenységeket listázza. Alább a nyilak használatával megismerkedhet a modullal.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Az oldal a klienshez kapcsolódó ügyeket mutatja.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Ide kattintva bármikor visszatérhet ehhez a nézethez.',
   'LBL_PORTAL_VIEWABLE' => 'Látható portál',
   'LBL_PRIORITY' => 'Prioritás:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projektek',
@@ -88,6 +96,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Esetek keresése',
   'LBL_SHOW_IN_PORTAL' => 'Mutassa portál-formában',
   'LBL_SHOW_MORE' => 'Több mutatása',
+  'LBL_SOURCE' => 'Forrás:',
   'LBL_STATUS' => 'Állapot:',
   'LBL_SUBJECT' => 'Tárgy:',
   'LBL_SYSTEM_ID' => 'Rendszer azonosító',

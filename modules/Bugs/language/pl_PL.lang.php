@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć ten błąd.',
+  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć błąd.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kontrahenci',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Wydarzenia',
   'LBL_ASSIGNED_TO_NAME' => 'Przydzielono do',
@@ -37,7 +34,7 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Śledzenie błędów',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenty',
-  'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID przydzielonego użytkownika',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Przydzielony użytkownik',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nazwa przydzielonego użytkownika',
   'LBL_EXPORT_CREATED_BY' => 'Stworzone przez ID',
   'LBL_EXPORT_FIXED_IN_RELEASE_NAMR' => 'Naprawiony w wydaniu',
@@ -45,10 +42,27 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Naprawione w wydaniu:',
   'LBL_FOUND_IN_RELEASE' => 'Odnalezione w wydaniu:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Odnaleziony w wydaniu',
+  'LBL_HELP_CREATE' => 'Moduł Błędy jest używany do śledzenia i zarządzania problemami, związanymi z produktami, znalezionymi wewnętrznie lub zgłoszonymi przez klientów.
+
+Aby utworzyć Błąd:
+1. Wprowadź odpowiednie wartości do pól.
+- Pola oznaczone jako "Wymagane" muszą zostać uzupełnione.
+- Kliknij "Pokaż więcej", aby wyświetlić więcej pól.
+2. Kliknij "Zapisz", aby zapisać nowy rekord i powrócić do poprzedniej strony.
+- Wybierz "Zapisz i pokaż", aby otworzyć rekord widoku Błędu w nowym oknie.
+- Wybierz "Zapisz i utwórz nowy", aby bez zwłoki utworzyć nowy Błąd.',
+  'LBL_HELP_RECORD' => 'Moduł Błędy jest używany do śledzenia i zarządzania problemami, związanymi z produktami, znalezionymi wewnętrznie lub zgłoszonymi przez klientów.
+
+- Edytuj pola tego rekordu poprze kliknięcie na odpowiednie pole lub na przycisk Edytuj.
+- Przeglądaj lub modyfikuj powiązania z innymi rekordami w subpanelach poprzez przełączenie widoku dolnego lewego panelu na “Widok danych”.
+- Dodawaj i przeglądaj komentarze użytkowników i historię zmian rekordu w Panelu aktywności poprzez przełączenie widoku dolnego lewego panelu na „Panel aktywności”.
+- Obserwuj lub dodaj do ulubionych ten rekord za pomocą ikon znajdujących się z prawej strony nazwy rekordu.
+- Dodatkowe działania dostępne są w liście rozwijalnej menu Działania po prawej stronie przycisku Edytuj.',
+  'LBL_HELP_RECORDS' => 'Moduł Błędy jest używany do śledzenia i zarządzania problemami, związanymi z produktami, znalezionymi wewnętrznie lub zgłoszonymi przez klientów. Błędy mogą zostać sprawdzone poprzez śledzenie znalezionych i naprawionych błędów w wydaniu. Moduł Błędy pozwala na szybką ocenę wszystkich elementów  Błędu i proces jego naprawy. Po utworzeniu Błędu, możesz przeglądać i edytować informacje dotyczące Błędu poprzez widok rekordu Błędu. Każdy Błąd może zostać powiązany z innymi rekordami Sugar, np. z Rozmową telefoniczną, Kontaktem, Zgłoszeniem oraz wieloma innymi.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historia',
   'LBL_INVITEE' => 'Kontakty',
   'LBL_LIST_ACCOUNT_NAME' => 'Nazwa kontrahenta',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielono do',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielony użytkownik',
   'LBL_LIST_CONTACT_NAME' => 'Nazwa kontaktu',
   'LBL_LIST_EMAIL_ADDRESS' => 'Adres e-mail',
   'LBL_LIST_FIXED_IN_RELEASE' => 'Naprawione w wydaniu',
@@ -65,11 +79,18 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Typ',
   'LBL_MODIFIED_BY' => 'Ostatnio modyfikowane przez:',
   'LBL_MODULE_ID' => 'Błędy',
-  'LBL_MODULE_NAME' => 'Błędów',
+  'LBL_MODULE_NAME' => 'Błędy',
   'LBL_MODULE_NAME_SINGULAR' => 'Błąd',
   'LBL_MODULE_TITLE' => 'Śledzenie błędów: Strona główna',
   'LBL_NEW_FORM_TITLE' => 'Zgłoś błąd',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notatki',
   'LBL_NUMBER' => 'Numer:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Kliknij tutaj, aby zgłosić nowy błąd.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Wprowadzenie wyrażenia wyszukiwania umożliwi filtrację listy błędów.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Możesz na przykład użyć tej opcji do znalezienia wcześniej zgłoszonego błędu.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Moduł Błędy służy do zgłaszania i przeglądania błędów. Użyj poniższych strzałek, aby przejść dalej.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Ta strona wyświetla listę istniejących opublikowanych błędów.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Kliknięcie tutaj przeniesie Cię z powrotem do tego widoku.',
   'LBL_PORTAL_VIEWABLE' => 'Widoczny Portal',
   'LBL_PRIORITY' => 'Priorytet:',
   'LBL_PRODUCT_CATEGORY' => 'Kategoria:',

@@ -1,17 +1,14 @@
 <!--
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 -->
 
 
@@ -323,3 +320,36 @@ O seu contracto: {CONTRACT_NAME} vai expirar em {CONTRACT_END_DATE}.
 Pode rever este contracto em:
 <{URL}>
 <!-- END:ContractSpecial-->
+
+<!-- BEGIN: MeetingReminder_Subject -->
+Lembrete da Reunião - {MEETING_SUBJECT}
+<!-- END: MeetingSpecial_Subject -->
+<!-- BEGIN: MeetingReminder -->
+Titulo: {MEETING_SUBJECT}
+Quando: {MEETING_STARTDATE}
+Local: {MEETING_LOCATION}
+Criado por: {MEETING_CREATED_BY}
+Descrição: {MEETING_DESCRIPTION}
+<!-- END: MeetingReminder -->
+
+<!-- BEGIN: CallReminder_Subject -->
+Lembrete de chamada - {CALL_SUBJECT}
+<!-- END: CallReminder_Subject -->
+<!-- BEGIN: CallReminder -->
+Titulo: {CALL_SUBJECT}
+Quando: {CALL_STARTDATE}
+Criado por: {CALL_CREATED_BY}
+<!-- END: CallReminder -->
+
+<!-- BEGIN: Note_Subject -->
+SugarCRM Nota - {NOTE_SUBJECT}
+<!-- END: Note_Subject -->
+<!-- BEGIN: Note -->
+{ASSIGNER} foi atribuída uma nota para {ASSIGNED_USER}.
+
+Assunto: {NOTE_SUBJECT}
+Descrição: {NOTE_DESCRIPTION}
+
+Você pode revisar esta nota em:
+<{URL}>
+<!-- END: Note -->

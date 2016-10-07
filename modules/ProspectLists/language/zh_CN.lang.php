@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => '客户',
   'LBL_ASSIGNED_TO' => '负责人',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => '市场活动',
   'LBL_CONTACTS_SUBPANEL_TITLE' => '联系人',
   'LBL_COPY_PREFIX' => '复制',
   'LBL_CREATED' => '创建人',
@@ -32,6 +30,24 @@ $mod_strings = array (
   'LBL_DOMAIN' => '没有电子邮件的域',
   'LBL_DOMAIN_NAME' => '域名',
   'LBL_ENTRIES' => '记录总数',
+  'LBL_HELP_CREATE' => '{{module_name}}收集了一批您要包括或不包括在市场营销活动{{campaigns_singular_module}}之内的个人或组织{{plural_module_name}}。
+
+要创建{{module_name}}：
+1. 按需要提供字段的值。
+ - 标记"必须"的字段必须在保存前填写完毕。
+ - 若有必要，单击"显示更多"显示额外字段。
+2. 单击"保存"完成新记录并返回上一页。
+ - 选择"保存并查看"以便在记录视图内打开新{{module_name}}。
+ - 选择"保存并新增"以便立即另一新{{module_name}}。
+3. 保存之后，通过target&#39;s记录视图上的副面板添加{{campaigns_singular_module}}收件人。',
+  'LBL_HELP_RECORD' => 'A {{module_name}} consists of a collection of individuals or organizations you want to include or exclude in a mass marketing {{campaigns_singular_module}}.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels, including {{campaigns_singular_module}} recipeints, by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => '{{module_name}}收集了一批您要包括或不包括在市场营销活动{{campaigns_singular_module}}之内的个人或组织{{plural_module_name}}可以包含任何数量和任何组合的目标：{{contacts_module}}、{{leads_module}}、用户和{{accounts_module}}。目标可以按一套预先定制的条件，例如年龄段、地理位置或消费习惯组成{{module_name}}。{{plural_module_name}}可用于可在{{campaigns_module}}模块中配置的批发电子邮件市场活动{{campaigns_module}}。',
   'LBL_LEADS_SUBPANEL_TITLE' => '潜在客户',
   'LBL_LIST_DESCRIPTION' => '说明',
   'LBL_LIST_END_DATE' => '结束日期',

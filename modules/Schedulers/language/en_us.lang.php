@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -31,11 +28,16 @@ $mod_strings = array (
 'LBL_OOTB_CAMPAIGN'		=> 'Run Nightly Mass Email Campaigns',
 'LBL_OOTB_PRUNE'		=> 'Prune Database on 1st of Month',
 'LBL_OOTB_TRACKER'		=> 'Prune Tracker Tables',
-'LBL_OOTB_SUGARFEEDS'   => 'Prune SugarFeed Tables',
+'LBL_OOTB_PRUNE_RECORDLISTS'		=> 'Prune Old Record Lists',
+'LBL_OOTB_REMOVE_TMP_FILES' => 'Remove temporary files',
+'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Remove diagnostic tool files',
+'LBL_OOTB_REMOVE_PDF_FILES' => 'Remove temporary PDF files',
 'LBL_UPDATE_TRACKER_SESSIONS' => 'Update tracker_sessions Table',
 'LBL_OOTB_SEND_EMAIL_REMINDERS'	=> 'Run Email Reminder Notifications',
 'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
-'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Removal of documents from filesystem',
+'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Create Future TimePeriods',
+'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
+'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Process Author Scheduled Job',
 
 // List Labels
 'LBL_LIST_JOB_INTERVAL' => 'Interval:',
@@ -92,6 +94,7 @@ $mod_strings = array (
 'LBL_JOB_URL' => 'Job URL',
 'LBL_LAST_RUN' => 'Last Successful Run',
 'LBL_MODULE_NAME' => 'Sugar Scheduler',
+'LBL_MODULE_NAME_SINGULAR' => 'Sugar Scheduler',
 'LBL_MODULE_TITLE' => 'Schedulers',
 'LBL_NAME' => 'Job Name',
 'LBL_NEVER' => 'Never',
@@ -135,15 +138,17 @@ $mod_strings = array (
 'LBL_PERFORMFULLFTSINDEX' => 'Full-text Search Index System',
 
 'LBL_RUNMASSEMAILCAMPAIGN' => 'Run Nightly Mass Email Campaigns',
+'LBL_ASYNCMASSUPDATE' => 'Perform Asynchronous Mass Updates',
 'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Run Nightly Process Bounced Campaign Emails',
 'LBL_PRUNEDATABASE' => 'Prune Database on 1st of Month',
 'LBL_TRIMTRACKER' => 'Prune Tracker Tables',
-'LBL_TRIMSUGARFEEDS'   => 'Prune SugarFeed Tables',
 'LBL_PROCESSWORKFLOW' => 'Process Workflow Tasks',
 'LBL_PROCESSQUEUE' => 'Run Report Generation Scheduled Tasks',
 'LBL_UPDATETRACKERSESSIONS' => 'Update Tracker Session Tables',
+'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Create Future TimePeriods',
+'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
 'LBL_SENDEMAILREMINDERS'=> 'Run Email Reminders Sending',
 'LBL_CLEANJOBQUEUE' => 'Cleanup Job Queue',
-'LBL_REMOVEDOCUMENTSFROMFS' => 'Removal of documents from filesystem',
+'LBL_CLEANOLDRECORDLISTS' => 'Cleanup Old Record Lists',
 );
-?>
+

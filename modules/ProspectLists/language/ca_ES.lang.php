@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Comptes',
   'LBL_ASSIGNED_TO' => 'Assignada a',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campanyes',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contactes',
   'LBL_COPY_PREFIX' => 'Copia de',
   'LBL_CREATED' => 'Creada per',
@@ -32,6 +30,14 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'No hi ha correus per aquest domini',
   'LBL_DOMAIN_NAME' => 'Nom de Domini',
   'LBL_ENTRIES' => 'Total d´Entrades',
+  'LBL_HELP_CREATE' => 'El mòdul {{plural_module_name}} consisteix en una col·lecció de persones o organitzacions que voleu incloure o excloure d&#39;una {{campaigns_singular_module}} de màrqueting massiva. Per crear un {{module_name}}:. 1 Proporcioneu els valors desitjats per als camps. - Els camps marcats "Obligatori" s&#39;han de completar abans de desar. - Feu clic a "Mostra més" per exposar camps addicionals si és necessari. 2. Feu clic a "Desa" per finalitzar el nou registre i torneu a la pàgina anterior. - Seleccioneu l&#39;opció "Guarda i vegeu" per obrir el nou {{module_name}}  en vista de registre. - Seleccioneu "Guarda i crea nou" per crear un nou {{module_name}} immediatament. 3. Després de desar, eu servir els subpanells disponibles a la vista de regi´stres de l&#39;objectiu per afegir {{campaigns_singular_module}}',
+  'LBL_HELP_RECORD' => 'El mòdul {{plural_module_name}} consisteix en una col·lecció de persones o organitzacions que voleu incloure o excloure d&#39;una {{campaigns_singular_module}} de màrqueting massiva. 
+- Editeu els camps d&#39;aquest registre fent clic a un camp individual o amb el botó Edita.
+- Vegeu o modifiqueu enllaços a altres registres als subpanells mitjançant la commutació de la subfinestra inferior esquerra a la "Vista de dades".
+- Feu i vegeu comentaris d&#39;usuari i l&#39;historial de canvis del registre al {{activitystream_singular_module}} mitjançant la commutació de la subfinestra inferior esquerra al "Canal d&#39;activitat".
+- Feu el seguiment d&#39;aquest favorit o marqueu-lo com a favorit amb les icones que hi han a la dreta del nom del registre.
+- Hi han accions addicionals disponibles al menú desplegable d&#39;accions a la dreta del botó Edita.',
+  'LBL_HELP_RECORDS' => '{{module_name}} consisteix en una col·lecció d&#39;individus o organitzacions que voleu incloure o excloure en un màrqueting massiu {{campaigns_singular_module}}.{{plural_module_name}} pot contenir qualsevol nombre i qualsevol combinació d&#39;objectius, {{contacts_module}}, {{leads_module}}, Usuaris, i {{accounts_module}}. Els objectius poden ser agrupades en un {{module_name}} segons un conjunt de criteris predeterminats, com a grup d&#39;edat, la ubicació geogràfica, o hàbits de despesa. {{Plural_module_name}} s&#39;utilitzen en el màrqueting de correu electrònic massiu {{campaigns_module}} que es pot configurar en el {{campaigns_module}} mòdul.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Clients Potencials',
   'LBL_LIST_DESCRIPTION' => 'Descripció',
   'LBL_LIST_END_DATE' => 'Data Fi',

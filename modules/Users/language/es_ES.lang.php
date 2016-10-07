@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Debe especificar un número de registro a borrar.',
@@ -39,10 +36,10 @@ $mod_strings = array (
   'ERR_PASSWORD_INCORRECT_OLD_2' => '. Introdúzcala de nuevo.',
   'ERR_PASSWORD_LINK_EXPIRED' => 'Su enlace ha caducado, por favor genere uno nuevo',
   'ERR_PASSWORD_MISMATCH' => 'Las contraseñas no coinciden.',
-  'ERR_PASSWORD_USERNAME_MISSMATCH' => 'Debe especificar un Nombre de Usuario y Correo Electrónico válidos.',
+  'ERR_PASSWORD_USERNAME_MISSMATCH' => 'Debe especificar un Nombre de Usuario y Correo electrónico válidos.',
   'ERR_REASS_DIFF_USERS' => 'Por favor, seleccione un Usuario Destino distinto del Usuario Origen.',
   'ERR_REASS_SELECT_MODULE' => 'Por favor, vuelva atrás y seleccione al menos un módulo.',
-  'ERR_RECIPIENT_EMAIL' => 'Correo Electrónico del Destinatario',
+  'ERR_RECIPIENT_EMAIL' => 'Correo electrónico del Destinatario',
   'ERR_REENTER_PASSWORDS' => 'Los valores de Nueva Contraseña y Confirmar Contraseña no coinciden.',
   'ERR_REPORT_LOOP' => 'El sistema ha detectado dependencias cíclicas en la jerarquía de informadores. Un usuario no puede informarse a si mismo, ni puede ninguno de sus responsables informarle a él.',
   'ERR_RULES_NOT_MET' => 'La contraseña que ha introducido no cumple con los requisitos de contraseñas.  Por favor, inténtelo de nuevo.',
@@ -100,8 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Creado por',
   'LBL_CURRENCY' => 'Moneda',
   'LBL_CURRENCY_EXAMPLE' => 'Ejemplo de Visualización de Moneda',
-  'LBL_CURRENCY_SHOW_PREFERRED' => 'Mostrar Moneda Preferida',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Cambiar base de moneda al preferido por el usuario en el listado y guardar vistas.',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Mostrar Moneda Principal',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Convertir moneda base a la preferencia del usuario en vistas de listado y registros',
   'LBL_CURRENCY_SIG_DIGITS' => 'Dígitos Significativos en Moneda',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Número de decimales a visualizar para la moneda',
   'LBL_CURRENCY_TEXT' => 'Seleccione la moneda que será mostrada por defecto cuando cree nuevos registros. Esta será también la moneda mostrada en las columnas de Cantidad en las Vistas de Lista de las Oportunidades.',
@@ -129,9 +126,9 @@ $mod_strings = array (
   'LBL_EDIT' => 'Editar',
   'LBL_EDITLAYOUT' => 'Editar Diseño',
   'LBL_EDIT_TABS' => 'Editar Pestañas',
-  'LBL_EMAIL' => 'Correo Electrónico:',
+  'LBL_EMAIL' => 'Correo electrónico:',
   'LBL_EMAILS' => 'Emails',
-  'LBL_EMAIL_ADDRESS' => 'Dirección de Correo',
+  'LBL_EMAIL_ADDRESS' => 'Dirección de Correo electrónico',
   'LBL_EMAIL_CHARSET' => 'Juego de Caracteres para el Correo Saliente',
   'LBL_EMAIL_EDITOR_OPTION' => 'Formato de correo',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Rellenar previamente valores por defecto para Gmail&#153;',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Primer Día de la Semana',
   'LBL_FDOW_TEXT' => 'Primer Día a mostrar en las vistas de Semana, Mes y Año.',
+  'LBL_FILTER_USERS_REPORTS' => 'Informes de usuarios',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Buscando variables óptimas de conexión.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Buscar Configuración Óptima',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forzar Negativo',
   'LBL_FORCE_DESC' => 'Algunos servidores IMAP/POP3 requieren opciones especiales. Marque para forzar una opción negativa al conectar (ej., /notls)',
   'LBL_FORECASTS' => 'Previsiones',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'No está activado en este momento. Por favor contacte con el administrador.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Opciones óptimas encontradas.	Presiones el siguiente botón para aplicarlas a su bandeja de correo.',
   'LBL_GENERATE_PASSWORD' => 'Restablecer Contraseña',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Mis Equipos',
   'LBL_NAME' => 'Nombre y Apellidos',
   'LBL_NAVIGATION_PARADIGM' => 'Navegación',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Seleccionar para ver pestañas de módulos en la barra de navegación basadas en grupos predefinidos. Si esta característica no está seleccionada, todos los módulos aparecerán en la barra de navegación.',
   'LBL_NEW_FORM_TITLE' => 'Nuevo Usuario',
   'LBL_NEW_PASSWORD' => 'Nueva contraseña',
   'LBL_NEW_PASSWORD1' => 'Contraseña',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Informa a',
   'LBL_REQUEST_SUBMIT' => 'Su petición ha sido enviada.',
   'LBL_RESET_DASHBOARD' => 'Restablecer Cuadro de Mando',
-  'LBL_RESET_HOMEPAGE' => 'Restablecer Página de Inicio',
-  'LBL_RESET_HOMEPAGE_WARNING' => '¿Está seguro de que desea reiniciar su Página de Inicio?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => '¿Está seguro de que desea restablecer la Página de Inicio de este usuario?',
   'LBL_RESET_PREFERENCES' => 'Restablecer Preferencias de Usuario',
   'LBL_RESET_PREFERENCES_WARNING' => '¿Está seguro de que desea restablecer todas sus preferencias? Advertencia: Su sesión actual será finalizada.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => '¿Está seguro de que desea restablecer todas las preferencias de este usuario?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Estado',
   'LBL_SUBPANEL_LINKS' => 'Enlaces de Subpanel',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'En las Vistas de Detalle, muestra una fila con enlaces a atajos del Subpanel.',
-  'LBL_SUBPANEL_TABS' => 'Pestañas de Subpanel',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'En las Vistas de Detalle, agrupa los Subpaneles en pestañas y muestra sólo una pestaña a la vez.',
   'LBL_SUGAR_LOGIN' => 'Es Usuario de Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'Sólo afecta a temas que soportan esta opción.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Muestra la barra de Recientes en el lateral, si está marcado.  En otro caso, la barra se muestra en la parte superior.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Muestra la barra de Atajos en la parte superior, si está marcado.  En otro caso, la barra se muestra en el lateral.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Atajos en la parte superior',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Contraseña Generada por el Sistema',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Dígitos significativos del sistema',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Número de posiciones decimales para mostrar los decimales y las fluctuaciones en el sistema, como por ejemplo la moneda y la media en informes.',
   'LBL_TAB_TITLE_EMAIL' => 'Opciones de correo',
   'LBL_TAB_TITLE_USER' => 'Opciones de usuario',
   'LBL_TEAMS' => 'Equipos',

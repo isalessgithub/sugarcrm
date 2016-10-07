@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the product type.',
@@ -35,6 +32,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Product Type:',
   'LBL_PRODUCTTYPE' => 'Product Type:',
   'LBL_SEARCH_FORM_TITLE' => 'Product Type Search',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Import Product Categories',
   'LNK_IMPORT_PRODUCT_TYPES' => 'Import Product Types',
   'LNK_NEW_MANUFACTURER' => 'Manufacturers',
   'LNK_NEW_PRODUCT' => 'Create Product for Catalog',
@@ -42,6 +40,7 @@ $mod_strings = array (
   'LNK_NEW_PRODUCT_TYPE' => 'Product Type List',
   'LNK_NEW_SHIPPER' => 'Shipping Providers',
   'LNK_PRODUCT_LIST' => 'View Product Catalog',
+  'LNK_VIEW_PRODUCT_TYPES' => 'View Product Types',
   'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to delete this record?',
   'NTC_LIST_ORDER' => 'Set the order in which this type will appear in the Product Type dropdown lists',
 );

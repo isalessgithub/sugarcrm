@@ -1,73 +1,48 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Project']['QuickCreate'] = array (
-  'templateMeta' => 
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+
+$viewdefs['Project']['QuickCreate'] = array(
+					'templateMeta' => array('maxColumns' => '2', 
+                        'widths' => array(
+                                        array('label' => '10', 'field' => '30'), 
+                                        array('label' => '10', 'field' => '30')
+                                        ),
+                       ),
+'panels' =>
+
+array (
+  
   array (
-    'maxColumns' => '2',
-    'widths' => 
+    'name',
+    'status'
+  ),
+  
+  array (
+    'estimated_start_date',
+    'estimated_end_date'
+  ),
+  
+  array('priority',),
+  array('assigned_user_name',
+	  'team_name',
+  ),
+  array (
     array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      1 => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      2 => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      3 => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      4 => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
+      'name' => 'description',
     ),
   ),
-  'panels' => 
-  array (
-    0 => 
-    array (
-      0 => 'name',
-      1 => 'status',
-    ),
-    1 => 
-    array (
-      0 => 'estimated_start_date',
-      1 => 'estimated_end_date',
-    ),
-    2 => 
-    array (
-      0 => 'priority',
-    ),
-    3 => 
-    array (
-      0 => 'assigned_user_name',
-      1 => 'team_name',
-    ),
-    4 => 
-    array (
-      0 => 
-      array (
-        'name' => 'description',
-      ),
-    ),
-  ),
+
+),
+
 );
+?>

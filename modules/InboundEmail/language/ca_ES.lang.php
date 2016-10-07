@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Usuari o clau de pas incorrecta',
   'ERR_BODY_TOO_LONG' => 'rEl text del cos és massa llarg per capturar el correu COMPLET. Truncat.',
+  'ERR_DELETE_FOLDER' => 'No es pot esborrar la carpeta',
   'ERR_INI_ZLIB' => 'No va poder deshabilitar-se la compressió Zlib temporalment. Pot ser que "Comprovar Configuració" falli.',
   'ERR_MAILBOX_FAIL' => 'No es va poder recuperar cap compte de correu.',
   'ERR_NO_IMAP' => 'No s´han trobat les llibreries d´IMAP. Si us plau, resolgui això abans de continuar amb la configuració de correu entrant',
   'ERR_NO_OPTS_SAVED' => 'No s´han guardat valors òptims amb el seu compte de correu entrant. Si us plau, revisi la configuració',
   'ERR_TEST_MAILBOX' => 'Si us plau, comprovi la seva configuració i intenti-ho de nou.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'No es pot cancel·lar la subscripció a la carpeta abans de ser eliminada',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Permetre als usuaris enviar correus electrònics utilitzant el camp "De", nom i adreça amb la direcció de resposta',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Quan se selecciona aquesta opció, el nom i de direcció de correu electrònic associada a aquest compte de correu del grup apareixerà com una opció per al camp l&#39;hora de compondre missatges de correu electrònic per als usuaris que tenen accés al compte de correu del grup.',
   'LBL_APPLY_OPTIMUMS' => 'Aplicar Valors Òptims',

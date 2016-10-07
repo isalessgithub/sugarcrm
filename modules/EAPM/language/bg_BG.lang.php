@@ -2,29 +2,26 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
-  'LBL_ACTIVE' => 'Active',
+  'LBL_ACTIVE' => 'Активен',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Дейности',
-  'LBL_API_CONSKEY' => 'Consumer Key',
-  'LBL_API_CONSSECRET' => 'Consumer Secret',
+  'LBL_API_CONSKEY' => 'Потребителски склюя',
+  'LBL_API_CONSSECRET' => 'Потребителски стринг за криптиране',
   'LBL_API_DATA' => 'API Data',
   'LBL_API_OAUTHTOKEN' => 'OAuth Token',
-  'LBL_API_TYPE' => 'Login Type',
+  'LBL_API_TYPE' => 'Тип аутентикация',
   'LBL_APPLICATION' => 'Приложение',
   'LBL_APPLICATION_FOUND_NOTICE' => 'An account for this application already exists. We have reinstated the existing account.',
   'LBL_ASSIGNED_TO_ID' => 'Отговорник',
@@ -32,7 +29,7 @@ $mod_strings = array (
   'LBL_AUTH_ERROR' => 'Неуспешна идентификация на външната организация.',
   'LBL_AUTH_UNSUPPORTED' => 'Този метод на идентификация не се поддържа от приложението',
   'LBL_BASIC_SAVE_NOTICE' => 'Click <b>Connect</b> to connect this account to Sugar.',
-  'LBL_CONNECTED' => 'Connected',
+  'LBL_CONNECTED' => 'Свързан',
   'LBL_CONNECT_BUTTON_TITLE' => 'Свържи се',
   'LBL_CREATED' => 'Създадено от',
   'LBL_CREATED_ID' => 'Създадено от',
@@ -41,7 +38,7 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Модифицирано на',
   'LBL_DELETED' => 'Изтрити',
   'LBL_DESCRIPTION' => 'Описание',
-  'LBL_DISCONNECTED' => 'Not Connected',
+  'LBL_DISCONNECTED' => 'Не е свързан',
   'LBL_DISPLAY_PROPERTIES' => 'Display Properties',
   'LBL_ERR_FACEBOOK' => 'Facebook returned an error, and the feed cannot be displayed.',
   'LBL_ERR_FAILED_QUICKCHECK' => 'You are not currently logged in to your {0} account. Click OK to re-login to your account and to activate the external account record.',
@@ -63,11 +60,11 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Модифицирано от',
   'LBL_MODIFIED_USER' => 'Модифицирано от',
   'LBL_MODULE_NAME' => 'Външен профил',
-  'LBL_MODULE_NAME_SINGULAR' => 'External Account',
+  'LBL_MODULE_NAME_SINGULAR' => 'Профил във външна програма',
   'LBL_MODULE_TITLE' => 'Външни профили',
   'LBL_NAME' => 'Потребител',
   'LBL_NEW_FORM_TITLE' => 'Създаване на нов външен профил',
-  'LBL_NOTE' => 'Please Note',
+  'LBL_NOTE' => 'Моля имайте в предвид',
   'LBL_OAUTH_NAME' => '%s',
   'LBL_OAUTH_SAVE_NOTICE' => 'Click <b>Connect</b> to be directed to a page to provide your account information and to authorize access to the account by Sugar. After connecting, you will be directed back to Sugar.',
   'LBL_OMIT_URL' => '(Пропусни http:// или https://)',
@@ -77,7 +74,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Search External Source',
   'LBL_SUCCESS' => 'УСПЕХ',
   'LBL_SUGAR_EAPM_SUBPANEL_TITLE' => 'Външни профили',
-  'LBL_SUGAR_USER_NAME' => 'Sugar User',
+  'LBL_SUGAR_USER_NAME' => 'Sugar потребител',
   'LBL_TEAM' => 'Екипи',
   'LBL_TEAMS' => 'Екипи',
   'LBL_TEAM_ID' => 'Екип',

@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Actions/AbstractAction.php");
 require_once("include/Expressions/Expression/Date/DateExpression.php");
 
@@ -31,8 +28,13 @@ class SetValueAction extends AbstractAction{
 	static function getJavascriptClass() {
 		return  "
 		SUGAR.forms.SetValueAction = function(target, valExpr) {
-			this.expr = valExpr;
-			this.target = target;
+			if (_.isObject(target)){
+			    this.expr = target.value;
+			    this.target = target.target;
+			} else {
+                this.expr = valExpr;
+                this.target = target;
+			}
 		};
 		SUGAR.util.extend(SUGAR.forms.SetValueAction, SUGAR.forms.AbstractAction, {
 			exec : function(context)
@@ -41,10 +43,15 @@ class SetValueAction extends AbstractAction{
 				    context = this.context;
 
 				try {
-				    var val = this.evalExpression(this.expr, context);
-				    context.setValue(this.target, val);
+				    var val = this.evalExpression(this.expr, context),
+				        cVal = context.getValue(this.target).evaluate();
+                    // only set the value if the two numbers are different
+                    // get rid of the flash
+                    if (!_.isUndefined(val) && val !== cVal) {
+				        context.setValue(this.target, val);
+				    }
 				} catch (e) {
-			        context.setValue(this.target, '');
+	                context.setValue(this.target, '');
 			    }
 	       }
 		});";
@@ -60,16 +67,13 @@ class SetValueAction extends AbstractAction{
 		return  "new SUGAR.forms.SetValueAction('{$this->targetField}','" . addslashes($this->expression) . "')";
 	}
 
-
-
-
 	/**
 	 * Applies the Action to the target.
 	 *
 	 * @param SugarBean $target
 	 */
 	function fire(&$target) {
-        set_error_handler('handleExpressionError');
+        set_error_handler('handleExpressionError', E_ERROR);
         try {
             $result = Parser::evaluate($this->expression, $target)->evaluate();
         } catch(Exception $e){
@@ -105,6 +109,9 @@ class SetValueAction extends AbstractAction{
         {
             $target->$field = $result === true || $result === AbstractExpression::$TRUE;
         }
+        else if (is_array($result) && $def['type'] != 'multienum') {
+            $target->$field = implode(', ',$result);
+        }
         else
         {
             $target->$field = $result;
@@ -118,8 +125,10 @@ class SetValueAction extends AbstractAction{
 	function getDefinition() {
 		return array(
 			"action" => $this->getActionName(),
-	        "target" => $this->targetField,
-	        "value" => $this->expression,
+	        "params" => array(
+                "target" => $this->targetField,
+	            "value" => $this->expression,
+            )
 	    );
 	}
 

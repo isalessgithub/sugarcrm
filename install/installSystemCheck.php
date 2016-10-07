@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+// $Id: checkSystem.php 19538 2007-01-23 01:16:25 +0000 (Tue, 23 Jan 2007) chris $
 $_SESSION['setup_license_accept'] = true;
 
 function runCheck($install_script = false, $mod_strings){
@@ -324,36 +321,64 @@ if (!class_exists("ZipArchive"))
 
 }
 
-
-// check PCRE version
-if (defined('PCRE_VERSION'))
+// check BCMATH support
+if (!function_exists("bcadd"))
 {
-    if (version_compare(PCRE_VERSION, '7.0') < 0) {
-        installLog("ERROR: PCRE Version is less than 7.0.");
-        $error_found = true;
-        $pcreStatus = "<span class='stop'><b>{$mod_strings['ERR_CHECKSYS_PCRE_VER']}</b></span>";
-        $error_txt .= '
-          <tr>
-            <td><strong>'.$mod_strings['LBL_CHECKSYS_PCRE'].'</strong></td>
-            <td  align="right" class="error">'.$pcreStatus.'</td>
-          </tr>';
-    }
-    else {
-        installLog("PCRE version check passed");
-    }
-}
-else {
-    installLog("ERROR: PCRE not found.");
+    $bcmathStatus = "<span class='stop'><b>{$mod_strings['ERR_CHECKSYS_BCMATH']}</b></span>";
+
+    installLog("ERROR: BCMATH support not found.");
     $error_found = true;
-    $pcreStatus = "<span class='stop'><b>{$mod_strings['ERR_CHECKSYS_PCRE']}</b></span>";
     $error_txt .= '
       <tr>
-        <td><strong>'.$mod_strings['LBL_CHECKSYS_PCRE'].'</strong></td>
-        <td  align="right" class="error">'.$pcreStatus.'</td>
+        <td><strong>'.$mod_strings['LBL_CHECKSYS_BCMATH'].'</strong></td>
+        <td  align="right" class="error">'.$bcmathStatus.'</td>
       </tr>';
+} else {
+    installLog("/BCMATH check passed");
 }
 
 
+// check htaccess & rewrite working
+    if(empty($_SERVER["SERVER_SOFTWARE"]) || strpos($_SERVER["SERVER_SOFTWARE"],'Microsoft-IIS') === false) {
+        installLog("Testing .htaccess redirects");
+        if(file_exists(".htaccess")) {
+            $old_htaccess = file_get_contents(".htaccess");
+        }
+        $basePath = parse_url($_SESSION['setup_site_url'], PHP_URL_PATH);
+        if(empty($basePath)) $basePath = '/';
+        $htaccess_test = <<<EOT
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase {$basePath}
+    RewriteRule ^itest.txt$ install_test.txt [N,QSA]
+</IfModule>
+EOT;
+       if(!empty($old_htaccess)) {
+           $htaccess_test = $old_htaccess.$htaccess_test;
+       }
+       file_put_contents(".htaccess", $htaccess_test);
+       file_put_contents("install_test.txt", "SUCCESS");
+       $res = file_get_contents($_SESSION['setup_site_url']."/itest.txt");
+       unlink("install_test.txt");
+       if(!empty($old_htaccess)) {
+           file_put_contents(".htaccess", $old_htaccess);
+       } else {
+           unlink(".htaccess");
+       }
+       if($res != "SUCCESS") {
+           $error_found = true;
+           $error_txt .= '
+          <tr>
+            <td><strong>'.$mod_strings['LBL_CHECKSYS_HTACCESS'].'</strong></td>
+            <td  align="right" class="error"><span class="stop"><b>'.$mod_strings['ERR_CHECKSYS_HTACCESS'].'</b></span></td>
+          </tr>';
+       } else {
+           installLog("Passed .htaccess redirects check");
+       }
+    }
+
+// custom checks
 $customSystemChecks = installerHook('additionalCustomSystemChecks');
 if($customSystemChecks != 'undefined'){
 	if($customSystemChecks['error_found'] == true){
@@ -435,4 +460,3 @@ return $out;
 }
 ////    END PAGEOUTPUT
 ///////////////////////////////////////////////////////////////////////////////
-?>

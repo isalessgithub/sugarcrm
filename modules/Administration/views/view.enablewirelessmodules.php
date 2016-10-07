@@ -1,80 +1,89 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarLicensing/SugarLicensing.php');
 
-class AdministrationViewEnablewirelessmodules extends SugarView 
-{	
+class AdministrationViewEnablewirelessmodules extends SugarView
+{
  	/**
 	 * @see SugarView::preDisplay()
 	 */
 	public function preDisplay()
     {
         if(!is_admin($GLOBALS['current_user']))
-            sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']); 
+            sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
     }
-    
+
     /**
 	 * @see SugarView::_getModuleTitleParams()
 	 */
 	protected function _getModuleTitleParams($browserTitle = false)
 	{
 	    global $mod_strings;
-	    
+
     	return array(
     	   "<a href='index.php?module=Administration&action=index'>".$mod_strings['LBL_MODULE_NAME']."</a>",
     	   translate('LBL_WIRELESS_MODULES_ENABLE')
     	   );
     }
-    
+
     /**
 	 * @see SugarView::display()
 	 */
 	public function display()
 	{
         require_once('modules/Administration/Forms.php');
-        
+
         global $mod_strings;
         global $app_list_strings;
         global $app_strings;
         global $license;
-        global $current_user;
-        global $theme;
-        global $currentModule;
-        
+
         $configurator = new Configurator();
         $this->ss->assign('config', $configurator->config);
 
         $enabled_modules = array();
         $disabled_modules = array();
-        
+
+        // todo: should we move this config to another place?
+        $wireless_not_supported_modules = array(
+            'Bugs',
+            'Campaigns',
+            'Contracts',
+            'KBDocuments', // Knowledge base
+            'Prospects', // this is Targets
+            'Users',
+            'pmse_Business_Rules',
+            'pmse_Emails_Templates',
+            'pmse_Inbox',
+            'pmse_Project',
+        );
+
         // replicate the essential part of the behavior of the private loadMapping() method in SugarController
-        foreach ( array ( '','custom/') as $prefix)
+        foreach (SugarAutoLoader::existingCustom('include/MVC/Controller/wireless_module_registry.php') as $file)
         {
-            if(file_exists($prefix.'include/MVC/Controller/wireless_module_registry.php')){
-                require $prefix.'include/MVC/Controller/wireless_module_registry.php' ;
-            }
+            require $file;
         }
-        
-        foreach ( $wireless_module_registry as $e => $def )
+
+        $moduleList = $GLOBALS['moduleList'];
+        array_push($moduleList, 'Employees');
+
+        foreach ($wireless_module_registry as $e => $def)
         {
-            if (in_array($e, $GLOBALS['moduleList']))
+            if (in_array($e, $moduleList) && !in_array($e, $wireless_not_supported_modules))
             {
-                $enabled_modules [ $e ] = empty($app_list_strings['moduleList'][$e]) ? $e : ($app_list_strings['moduleList'][$e]);
+                $enabled_modules [ $e ] = empty($app_list_strings['moduleList'][$e]) ? $e : $app_list_strings['moduleList'][$e];
             }
         }
 
@@ -87,10 +96,10 @@ class AdministrationViewEnablewirelessmodules extends SugarView
         require_once('modules/ModuleBuilder/Module/StudioBrowser.php');
         $browser = new StudioBrowser();
         $browser->loadModules();
-        
+
         foreach ( $browser->modules as $e => $def)
         {
-            if ( empty ( $enabled_modules [ $e ]) && in_array($e, $GLOBALS['moduleList']) )
+            if ( empty ( $enabled_modules [ $e ]) && in_array($e, $GLOBALS['moduleList']) && !in_array($e, $wireless_not_supported_modules) )
             {
                 $disabled_modules [ $e ] = empty($app_list_strings['moduleList'][$e]) ? $e : ($app_list_strings['moduleList'][$e]);
             }
@@ -101,15 +110,23 @@ class AdministrationViewEnablewirelessmodules extends SugarView
             $disabled_modules ['Employees'] = $app_strings['LBL_EMPLOYEES'];
         }
 
-        natcasesort($enabled_modules);
-        natcasesort($disabled_modules);
-        
+        // NOMAD-1793
+        // Handling case when modules from initial wireless list are vanishing because they're not listed in studio browser.
+        include 'include/MVC/Controller/wireless_module_registry.php';
+        foreach($wireless_module_registry as $moduleName => $def) {
+            // not in any list
+            if (empty($enabled_modules[$moduleName]) && empty($disabled_modules[$moduleName]) && !in_array($e, $wireless_not_supported_modules)) {
+                // add module to disabled modules list
+                $disabled_modules[$moduleName] = empty($app_list_strings['moduleList'][$moduleName]) ? $moduleName : ($app_list_strings['moduleList'][$moduleName]);
+            }
+        }
+
         $json_enabled = array();
         foreach($enabled_modules as $mod => $label)
         {
             $json_enabled[] = array("module" => $mod, 'label' => $label);
         }
-        
+
         $json_disabled = array();
         foreach($disabled_modules as $mod => $label)
         {
@@ -119,19 +136,18 @@ class AdministrationViewEnablewirelessmodules extends SugarView
         // We need to grab the license key
         $key = $license->settings["license_key"];
         $this->ss->assign('url', $this->getMobileEdgeUrl($key));
-        
+
         $this->ss->assign('enabled_modules', json_encode($json_enabled));
         $this->ss->assign('disabled_modules', json_encode($json_disabled));
         $this->ss->assign('mod', $GLOBALS['mod_strings']);
         $this->ss->assign('APP', $GLOBALS['app_strings']);
-        $this->ss->assign('theme', $GLOBALS['theme']);
-        
+
         echo getClassicModuleTitle(
-                "Administration", 
+                "Administration",
                 array(
                     "<a href='index.php?module=Administration&action=index'>{$mod_strings['LBL_MODULE_NAME']}</a>",
                    translate('LBL_WIRELESS_MODULES_ENABLE')
-                   ), 
+                   ),
                 false
                 );
         echo $this->ss->fetch('modules/Administration/templates/enableWirelessModules.tpl');
@@ -144,7 +160,7 @@ class AdministrationViewEnablewirelessmodules extends SugarView
     protected function getMobileEdgeUrl($license) {
         $licensing = new SugarLicensing();
         $result = $licensing->request("/rest/fetch/mobileserver", array('key' => $license));
-        
+
         // Check if url exists for the provided key.
         if (isset($result["mobileserver"]["server"]["url"])) {
             return $result["mobileserver"]["server"]["url"];

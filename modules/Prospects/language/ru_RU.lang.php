@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вы должны указать номер записи перед удалением контакта.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Отдел:',
   'LBL_DESCRIPTION' => 'Описание:',
   'LBL_DESCRIPTION_INFORMATION' => 'Описание',
+  'LBL_DNB_BAL_PREVIEW' => 'Предварительный просмотр потенциальных клиентов',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Потенциальные клиенты',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Информация о потенциальном клиенте',
+  'LBL_DNB_PRINCIPAL_ID' => 'Основной Id D&B',
   'LBL_DO_NOT_CALL' => 'Не звонить:',
   'LBL_DUPLICATE' => 'Возможно дублирующий потенциальный клиент',
   'LBL_EDIT_ACCOUNT_NAME' => 'Контрагент:',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Другой Email-адрес',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Изменено (ID):',
   'LBL_FAX_PHONE' => 'Факс:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Отчёты по потенциальным клиентам',
   'LBL_FIRST_NAME' => 'Имя',
   'LBL_FULL_NAME' => 'Имя',
+  'LBL_HELP_CREATE' => '{{module_name}} модуль содержит неквалифицированные контакты, точнее интересы, о которых вам удалось собрать немного информации, но которой недостаточно для квалификации интереса {{leads_singular_module}}.
+
+Чтобы создать {{module_name}}:
+1. Укажите значения полей.
+- Поля с пометкой "Обязательно" должны быть заполнены перед сохранением.
+- Нажмите "Показать больше", чтобы отобразить дополнительные поля при необходимости.
+2. Нажмите "Сохранить" для сохранения новой записи и возвращения на предыдущую страницу.
+- Выберите "Сохранить и просмотреть", чтобы открыть новый {{module_name}} в режиме просмотра записи.
+- Выберите "Сохранить и создать", чтобы сразу создать новый {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{module_name}} модуль содержит неквалифицированные контакты, точнее интересы, о которых вам удалось собрать немного информации, но которой недостаточно для квалификации интереса {{leads_singular_module}}.
+
+- Чтобы редактировать поля данной записи, нажмите на самом поле или кликните на кнопку Редактировать.
+- Чтобы просмотреть или изменить ссылки, ведущие к другим записям, на субпанеле переключите левую нижнюю панель на "Просмотр данных".
+- Чтобы оставлять и просматривать пользовательские комментарии, а также изменять историю в рамках одной записи в {{activitystream_singular_module}}, переключите левую нижнюю панель на "Лента активностей".
+- Чтобы подписаться или добавить в Избранное данную запись, используйте иконки справа от записи.
+- Дополнительные действия доступны в выпадающем меню Действий справа от кнопки Редактировать.',
+  'LBL_HELP_RECORDS' => '{{module_name}} модуль содержит неквалифицированные контакты, точнее интересы, о которых вам удалось собрать немного информации, но которой недостаточно для квалификации интереса {{leads_singular_module}}. Информация (к примеру. имя, email адрес), которая относится к этим {{plural_module_name}}, получена через визитки с разных выставок, конференций, и др. {{plural_module_name}} в Sugar являются отдельными записями, поскольку они не относятся к {{contacts_module}}, {{leads_module}}, {{accounts_module}}, или {{opportunities_module}}. Существуют различные способы создания {{plural_module_name}} в Sugar как через {{plural_module_name}} модуль, импорт {{plural_module_name}}, др. Как только {{module_name}} запись создана, вы можете просмотреть и редактировать информацию, относящуюся к {{module_name}}, в {{plural_module_name}} режиме просмотра записи.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Заметки',
   'LBL_HOME_PHONE' => 'Домашний тел.:',
   'LBL_IMPORT_VCARD' => 'Импортирование vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Автоматическое создание нового контакта при импортировании файла vCard.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Объект из vCard создан успешно',
   'LBL_INVALID_EMAIL' => 'Неверный E-mail:',
   'LBL_INVITEE' => 'Прямые отчеты',
   'LBL_LAST_NAME' => 'Фамилия:',
+  'LBL_LEAD' => 'Предварительный контакт',
   'LBL_LEAD_ID' => 'Предварительный контакт',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-mail',
   'LBL_LIST_FIRST_NAME' => 'Имя',
@@ -125,12 +146,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Список потенциальных клиентов',
   'LBL_PROSPECT_NAME' => 'Имя потенциального клиента:',
   'LBL_PROSPECT_ROLE' => 'Роль:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Вы успешно создали {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Обращение',
   'LBL_SAVE_PROSPECT' => 'Сохранить потенциального клиента',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск потенциального клиента',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Выбрать отмеченных потенциальных клиентов',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Выбрать отмеченных потенциальных клиентов',
   'LBL_STATE' => 'Область:',
+  'LBL_STREET' => 'Улица',
   'LBL_TITLE' => 'Должность',
   'LBL_TRACKER_KEY' => 'Трекер:',
   'LNK_CAMPAIGN_LIST' => 'Маркетинговые кампании',
@@ -150,7 +173,7 @@ $mod_strings = array (
   'LNK_NEW_PROSPECT' => 'Создать потенциального клиента',
   'LNK_NEW_PROSPECT_LIST' => 'Создать целевой список',
   'LNK_NEW_TASK' => 'Новая задача',
-  'LNK_PROSPECT_LIST' => 'Обзор потенциальных клиантов',
+  'LNK_PROSPECT_LIST' => 'Обзор потенциальных клиентов',
   'LNK_PROSPECT_LIST_LIST' => 'Целевые списки',
   'LNK_SELECT_ACCOUNT' => 'Выбрать контрагента',
   'MSG_DUPLICATE' => 'Запись, которую Вы создаете, возможно, дублирует уже имеющуюся запись. Похожие потенциальные клиенты показаны ниже. Нажмите кнопку "Сохранить"  для продолжения создания нового потенциального клиента или кнопку "Отмена" для возврата в модуль без создания потенциального клиента.',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Для создания сделки необходим контрагент.\\n Пожалуйста, или создайте новый контрагент или выберите один из уже существующих.',
   'NTC_REMOVE_CONFIRMATION' => 'Вы действительно хотите удалить этот контакт из данного обращения?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Вы уверены, что хотите удалить эту запись из прямых отчетов?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

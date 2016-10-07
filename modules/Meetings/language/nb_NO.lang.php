@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Et registreringsnummer må oppgis for å kunne slette møtet.',
@@ -38,6 +35,7 @@ $mod_strings = array (
   'LBL_CREATE_CONTACT' => 'Som Kontakt',
   'LBL_CREATE_INVITEE' => 'Opprett en gjest',
   'LBL_CREATE_LEAD' => 'Som Lead',
+  'LBL_CREATE_MODULE' => 'Planlegg møte',
   'LBL_CREATOR' => 'Møte oppretter',
   'LBL_DATE' => 'Startdato:',
   'LBL_DATE_END' => 'Sluttdato',
@@ -58,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Epost-påminnelse sendt',
   'LBL_EMAIL_REMINDER_TIME' => 'Epost-påminnelse Tidspunkt',
   'LBL_EMPTY_SEARCH_RESULT' => 'beklager, ingen funnet. Vennligst opprett en gjest under.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Det var en feil å lansere dette møtet . Ta kontakt med din administrator.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Tildelt Bruker-ID',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Tildelt Brukernavn',
   'LBL_EXPORT_CREATED_BY' => 'Opprettet Av ID',
@@ -79,6 +78,9 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Du kan ikke delta på dette møtet fordi du ikke er invitert.',
   'LBL_EXTNOT_RECORD_LINK' => 'Se Møte',
   'LBL_FIRST_NAME' => 'Fornavn',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modulen består av {{meetings_module}} poster innloggede av brukere i din organisasjon. {{Plural_module_name}} kan være i en status som "planlagt", "Held", eller "avbrutt". Sukker brukere så vel som {{contacts_module}} og {{leads_module}} kan bli lagt til som inviterte. Å skape en {{meetings_singular_module}}: 1. Gi verdier for feltene som ønsket. - Felt som er merket "Nødvendig" må være fullført før du lagrer. - Klikk på "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Legg inviterte til {{meetings_singular_module}}. - Klikk på "Velg en deltaker" for å legge til en eksisterende bruker, kontakt, eller føre til {{meetings_singular_module}}. - Klikk på plussikonet til høyre for "Velg en deltaker" for å lage en {{meetings_singular_module}} deltaker som en ny Sugar posten. 3. Klikk på "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne nytt møte i rekord visning. - Velg "Lagre og skape nye" å umiddelbart opprette en ny {{meetings_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Den { { plural_module_name } } modulen består av {{ meetings_singular_module }} poster innloggede av brukere i din organisasjon . { { plural_module_name } } kan være i en status som " planlagt" , " Held " , eller " avbrutt" . Sukker brukere så vel som { { contacts_module } } og { { leads_module } } kan bli lagt til som inviterte . - Rediger denne rekord felt ved å klikke en enkelt felt eller Rediger. - Vis eller endre linker til andre poster i de underpaneler ved veksling nederst venstre ruten til "Data View" . - Lag og utsikt bruker kommentarer og postendring historie i aktivitetsstrømmenved veksling nederst venstre ruten til " Activity Stream" . - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for posten navn . - Ytterligere tiltak er tilgjengelig i dropdown menyen Handlinger til høyre for knappen Rediger .',
+  'LBL_HELP_RECORDS' => 'Den { { plural_module_name } } modulen består av møte poster som kan være i en status som " planlagt" , " Held " , eller " avbrutt" . Kommende møter planlagt i løpet av de neste 24 timene viser startdato merket med blått. Forfalte møter viser startdato uthevet i rødt. Fra dette { { plural_module_name } } listevisning kan du vise og in-line redigere møteinformasjonen. Andre tiltak er tilgjengelig i menyen på slutten av pi hver forsamlingens . Du kan velge "Close " fra menyen på rad noen planlagte møtet er i orden å merke den som holdt. Sukker brukere , kontakter og ledninger kan bli lagt til som møte inviterte. { { plural_module_name } } kan opprettes via {{ plural_module_name }} modul , Kalender modul , import , samt via Aktiviteter underpanelet ( for Legacy moduler ) eller Planlagte aktiviteter dashlet ( for Sidecar moduler) på relaterte modul poster (f.eks Kontakter , regnskap , etc. ) , som automatisk skaper en relasjon mellom begge postene .',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notater',
   'LBL_HOST_EXT_MEETING' => 'Start Møte',
   'LBL_HOST_URL' => 'Verts-URL',
@@ -86,6 +88,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(timer/minutter)',
   'LBL_INVITEE' => 'Deltagere',
   'LBL_JOIN_EXT_MEETING' => 'Bli med på Møte',
+  'LBL_JOIN_MEETING' => 'Deltag {{meetingType}}',
   'LBL_LAST_NAME' => 'Etternavn',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Tildelt bruker',
@@ -104,12 +107,15 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Starttid',
   'LBL_LOCATION' => 'Sted:',
   'LBL_MEETING' => 'Møte:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Møte avsluttet med suksess.',
   'LBL_MEETING_INFORMATION' => 'Møteoversikt',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Endret av',
   'LBL_MODIFIED_USER' => 'Endret bruker',
   'LBL_MODULE_NAME' => 'Møter',
+  'LBL_MODULE_NAME_SINGULAR' => 'Møte',
   'LBL_MODULE_TITLE' => 'Møter: Hovedside',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Mine Planlagte Møter',
   'LBL_NAME' => 'Navn',
   'LBL_NEW_FORM_TITLE' => 'Opprett avtale',
   'LBL_NO_ACCESS' => 'Du har ingen tilgang til å opprette $module',
@@ -118,15 +124,21 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Overordnet Type',
   'LBL_PASSWORD' => 'Møtepassord',
   'LBL_PHONE' => 'Kontortelefon:',
+  'LBL_POPUP_REMINDER' => 'Popup Reminder',
+  'LBL_POPUP_REMINDER_TIME' => 'Popup Reminder Tid',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Du opprettet denne posten, men du har ikke tillatelse til å få tilgang til denne posten.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Du lyktes i å opprette {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a>.',
   'LBL_RECURRENCE' => 'Gjentakelse',
   'LBL_RECURRING_LIMIT_ERROR' => 'Det gjentagende møtet kan ikke planlegges da maks antall gjentakelser på $limit overskrides.',
   'LBL_RECURRING_SOURCE' => 'Repeterende Kilde',
+  'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Møte med {{{this}}}',
   'LBL_RELATED_TO' => 'Beslektet med:',
   'LBL_REMINDER' => 'Påminnelse:',
   'LBL_REMINDER_EMAIL' => 'E-post',
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Send epost til alle inviterte',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Påminnelsestid',
+  'LBL_REMINDER_TITLE' => 'Møte:',
   'LBL_REMOVE' => 'fjern',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Slett Alle Gjentakelser',
   'LBL_REPEAT_COUNT' => 'Antall Gjentakelser',
@@ -139,13 +151,16 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Gjenta Overordnet ID',
   'LBL_REPEAT_TYPE' => 'Repetisjonstype',
   'LBL_REPEAT_UNTIL' => 'Gjenta Til',
+  'LBL_REVENUELINEITEMS' => 'Omsetninsposter',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planlegging',
   'LBL_SEARCH_BUTTON' => 'Søk',
   'LBL_SEARCH_FORM_TITLE' => 'Søk møte',
   'LBL_SEND_BUTTON_KEY' => 'I',
   'LBL_SEND_BUTTON_LABEL' => 'Send invitasjoner',
   'LBL_SEND_BUTTON_TITLE' => 'Send invitasjoner [Alt+I]',
+  'LBL_SEND_INVITES' => 'Send invitasjoner',
   'LBL_SEQUENCE' => 'Møteoppdateringsrekkefølge',
+  'LBL_START_MEETING' => 'Start {{meetingType}}',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Emne:',
   'LBL_SYNCED_RECURRING_MSG' => 'Dette møtet kommer fra et annet system og ble synkronisert til Sugar. For å lage endringer, gå til det originale møtet i det andre systemet Endringer i det andre systemer kan så synkroniseres hit.',

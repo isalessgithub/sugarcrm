@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,7 +20,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Elérhető',
   'LBL_BACK' => '< Vissza',
   'LBL_BROWSER_NOTICE' => 'Az IE 6.0-s vagy későbbi verzióját kell futtatni az összevonás érvényesítéséhez.',
-  'LBL_BROWSER_REQUIREMENT' => 'Az Explorer legalább 6.0-s verziója szükséges.',
+  'LBL_BROWSER_REQUIREMENT' => 'Minimum IE 6.0-ás verzió szükséges.',
   'LBL_CONTAINS_CONTACT_INFO' => 'A kiválasztott minta tartalmaz kapcsolódó',
   'LBL_DOC_DESCRIPTION' => 'Leírás:',
   'LBL_DOC_NAME' => 'Dokumentum neve:',
@@ -39,13 +36,13 @@ $mod_strings = array (
   'LBL_MAILMERGE_TEMPLATES' => 'Válassza ki a sablont:',
   'LBL_MERGED_FILE' => 'Összevont fájl:',
   'LBL_NEXT' => 'Következő >',
-  'LBL_RELATED_INFO_SELECTION' => 'Használja az alábbi kijelöléseket a létrehozni kívánt dokumentum megtervezéséhez. Amennyiben a sablonban nem szerepelnek a felsorolt adatok, hagyja ki ezt a lépést!',
+  'LBL_RELATED_INFO_SELECTION' => 'Használja az alábbi kijelöléseket, hogy megszabja, mely kapcsolódó információkat tartalmazza az összevont dokumentum! Hagyja ki ezt a lépést, amennyiben sablonjához nem tartozik kapcsolódó információ!',
   'LBL_REMOVE' => 'Eltávolítás',
   'LBL_SELECTED' => 'Kiválasztott',
   'LBL_SELECTED_ITEMS' => 'Kiválasztott elemek:',
   'LBL_SELECTED_MODULE' => 'Kiválasztott modul:',
   'LBL_SELECTED_TEMPLATE' => 'Kiválasztott sablon:',
-  'LBL_SELECT_ONE' => 'Válasszon ki legalább egy elemet!',
+  'LBL_SELECT_ONE' => 'Legalább egy elemet válasszon ki!',
   'LBL_START' => 'Kattintson ide a folytatáshoz',
   'LBL_STEP_1' => '1. lépés: Válassza ki a modult és a sablont',
   'LBL_STEP_2' => '2. lépés: Válassza az objektumokat a körlevélhez',

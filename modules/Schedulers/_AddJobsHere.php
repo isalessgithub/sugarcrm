@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Set up an array of Jobs with the appropriate metadata
@@ -46,9 +43,11 @@ $job_strings = array (
     9 => 'updateTrackerSessions',
     12 => 'sendEmailReminders',
     13 => 'performFullFTSIndex',
-    14 => 'cleanJobQueue',
-    15 => 'removeDocumentsFromFS',
-    16 => 'trimSugarFeeds',
+    15 => 'cleanJobQueue',
+    //Add class to build additional TimePeriods as necessary
+    16 => 'class::SugarJobCreateNextTimePeriod',
+    17 => 'class::SugarJobHeartbeat',
+    20 => 'cleanOldRecordLists',
 
 );
 
@@ -74,15 +73,14 @@ function pollMonitoredInboxes() {
 
 	require_once('modules/Emails/EmailUI.php');
 
-	$ie = new InboundEmail();
+	$ie = BeanFactory::getBean('InboundEmail');
 	$emailUI = new EmailUI();
 	$r = $ie->db->query('SELECT id, name FROM inbound_email WHERE is_personal = 0 AND deleted=0 AND status=\'Active\' AND mailbox_type != \'bounce\'');
 	$GLOBALS['log']->debug('Just got Result from get all Inbounds of Inbound Emails');
 
 	while($a = $ie->db->fetchByAssoc($r)) {
 		$GLOBALS['log']->debug('In while loop of Inbound Emails');
-		$ieX = new InboundEmail();
-		$ieX->retrieve($a['id']);
+		$ieX = BeanFactory::getBean('InboundEmail', $a['id'], array('disable_row_level_security' => true));
         $GLOBALS['current_user']->team_id = $ieX->team_id;
         $GLOBALS['current_user']->team_set_id = $ieX->team_set_id;
 		$mailboxes = $ieX->mailboxarray;
@@ -126,7 +124,7 @@ function pollMonitoredInboxes() {
 						require_once("modules/Teams/TeamSet.php");
 						require_once("modules/Teams/Team.php");
 						$GLOBALS['log']->debug('Getting users for teamset');
-						$teamSet = new TeamSet();
+						$teamSet = BeanFactory::getBean('TeamSets');
 						$usersList = $teamSet->getTeamSetUsers($sugarFolder->team_set_id, true);
 						$GLOBALS['log']->debug('Done Getting users for teamset');
 						$users = array();
@@ -204,7 +202,7 @@ function pollMonitoredInboxes() {
 									/*If the group folder doesn't exist then download only those messages
 									 which has caseid in message*/
 									$ieX->getMessagesInEmailCache($msgNo, $uid);
-									$email = new Email();
+									$email = BeanFactory::getBean('Emails');
 									$header = imap_headerinfo($ieX->conn, $msgNo);
 									$email->name = $ieX->handleMimeHeaderDecode($header->subject);
 									$email->from_addr = $ieX->convertImapToSugarEmailAddress($header->from);
@@ -219,7 +217,7 @@ function pollMonitoredInboxes() {
 										if(!class_exists('aCase')) {
 
 										}
-										$c = new aCase();
+										$c = BeanFactory::getBean('Cases');
 										$GLOBALS['log']->debug('looking for a case for '.$email->name);
 										if ($ieX->getCaseIdFromCaseNumber($email->name, $c)) {
 											$ieX->importOneEmail($msgNo, $uid);
@@ -299,7 +297,7 @@ function pruneDatabase() {
 
 	$db = DBManagerFactory::getInstance();
 	$tables = $db->getTablesArray();
-    $queryString = array();
+	$queryString = array();
 
 	if(!empty($tables)) {
 		foreach($tables as $kTable => $table) {
@@ -369,8 +367,7 @@ function trimTracker()
 	$GLOBALS['log']->info('----->Scheduler fired job of type trimTracker()');
 	$db = DBManagerFactory::getInstance();
 
-	$admin = new Administration();
-	$admin->retrieveSettings('tracker');
+	$admin = Administration::getSettings('tracker');
 	require('modules/Trackers/config.php');
 	$trackerConfig = $tracker_config;
 
@@ -404,14 +401,35 @@ function pollMonitoredInboxesForBouncedCampaignEmails() {
 	global $dictionary;
 
 
-	$ie = new InboundEmail();
+	$ie = BeanFactory::getBean('InboundEmail');
 	$r = $ie->db->query('SELECT id FROM inbound_email WHERE deleted=0 AND status=\'Active\' AND mailbox_type=\'bounce\'');
 
 	while($a = $ie->db->fetchByAssoc($r)) {
-		$ieX = new InboundEmail();
-		$ieX->retrieve($a['id']);
+		$ieX = BeanFactory::getBean('InboundEmail', $a['id'], array('disable_row_level_security' => true));
 		$ieX->connectMailserver();
-        $ieX->importMessages();
+        $GLOBALS['log']->info("Bounced campaign scheduler connected to mail server id: {$a['id']} ");
+		$newMsgs = array();
+		if ($ieX->isPop3Protocol()) {
+			$newMsgs = $ieX->getPop3NewMessagesToDownload();
+		} else {
+			$newMsgs = $ieX->getNewMessageIds();
+		}
+
+		//$newMsgs = $ieX->getNewMessageIds();
+		if(is_array($newMsgs)) {
+			foreach($newMsgs as $k => $msgNo) {
+				$uid = $msgNo;
+				if ($ieX->isPop3Protocol()) {
+					$uid = $ieX->getUIDLForMessage($msgNo);
+				} else {
+					$uid = imap_uid($ieX->conn, $msgNo);
+				} // else
+                 $GLOBALS['log']->info("Bounced campaign scheduler will import message no: $msgNo");
+				$ieX->importOneEmail($msgNo, $uid, false,false);
+			}
+		}
+		imap_expunge($ieX->conn);
+		imap_close($ieX->conn);
 	}
 
 	return true;
@@ -459,6 +477,7 @@ function sendEmailReminders(){
 	$reminder = new EmailReminder();
 	return $reminder->process();
 }
+
 function performFullFTSIndex()
 {
     require_once('include/SugarSearchEngine/SugarSearchEngineFullIndexer.php');
@@ -468,89 +487,23 @@ function performFullFTSIndex()
     return true;
 }
 
-function removeDocumentsFromFS()
-{
-    $GLOBALS['log']->info('Starting removal of documents if they are not present in DB');
-
-    /**
-     * @var DBManager $db
-     * @var SugarBean $bean
-     */
-    global $db;
-
-    // temp table to store id of files without memory leak
-    $tableName = 'cron_remove_documents';
-
-    $resource = $db->limitQuery("SELECT * FROM cron_remove_documents WHERE 1=1 ORDER BY date_modified ASC", 0, 100);
-    $return = true;
-    while ($row = $db->fetchByAssoc($resource)) {
-        $bean = BeanFactory::getBean($row['module']);
-        $bean->retrieve($row['bean_id'], true, false);
-        if (empty($bean->id)) {
-            $isSuccess = true;
-            $bean->id = $row['bean_id'];
-            $directory = $bean->deleteFileDirectory();
-            if (!empty($directory) && is_dir('upload://deleted/' . $directory)) {
-                if ($isSuccess = rmdir_recursive('upload://deleted/' . $directory)) {
-                    $directory = explode('/', $directory);
-                    while (!empty($directory)) {
-                        $path = 'upload://deleted/' . implode('/', $directory);
-                        if (is_dir($path)) {
-                            $directoryIterator = new DirectoryIterator($path);
-                            $empty = true;
-                            foreach ($directoryIterator as $item) {
-                                if ($item->getFilename() == '.' || $item->getFilename() == '..') {
-                                    continue;
-                                }
-                                $empty = false;
-                                break;
-                            }
-                            if ($empty) {
-                                rmdir($path);
-                            }
-                        }
-                        array_pop($directory);
-                    }
-                }
-            }
-            if ($isSuccess) {
-                $db->query('DELETE FROM ' . $tableName . ' WHERE id=' . $db->quoted($row['id']));
-            } else {
-                $return = false;
-            }
-        } else {
-            $db->query('UPDATE ' . $tableName . ' SET date_modified=' . $db->convert($db->quoted(TimeDate::getInstance()->nowDb()), 'datetime') . ' WHERE id=' . $db->quoted($row['id']));
-        }
-    }
-
-    return $return;
-}
-
-
 /**
-+ * Job 16
-+ * this will trim all records in sugarfeeds table that are older than 30 days or specified interval
-+ */
+ * Job 20
+ */
+function cleanOldRecordLists() {
+    global $timedate;
 
-function trimSugarFeeds()
-{
-    global $sugar_config, $timedate;
-    $GLOBALS['log']->info('----->Scheduler fired job of type trimSugarFeeds()');
+	$GLOBALS['log']->info('----->Scheduler fired job of type cleanOldRecordLists()');
+    $delTime = time()-3600; // Nuke anything an hour old. 
+
+    $hourAgo = $timedate->asDb($timedate->getNow()->modify("-1 hour"));
+    
     $db = DBManagerFactory::getInstance();
+    
+    $query = "DELETE FROM record_list WHERE date_modified < '".$db->quote($hourAgo)."'";
+    $db->query($query,true);
 
-    //get the pruning interval from globals if it's specified
-    $prune_interval = !empty($GLOBALS['sugar_config']['sugarfeed_prune_interval']) && is_numeric($GLOBALS['sugar_config']['sugarfeed_prune_interval']) ? $GLOBALS['sugar_config']['sugarfeed_prune_interval'] : 30;
-
-
-    //create and run the query to delete the records
-    $timeStamp = $db->convert("'". $timedate->asDb($timedate->getNow()->get("-".$prune_interval." days")) ."'" ,"datetime");
-    $query = "DELETE FROM sugarfeed WHERE date_modified < $timeStamp";
-
-
-    $GLOBALS['log']->info("----->Scheduler is about to trim the sugarfeed table by running the query $query");
-    $db->query($query);
-
-    return true;
+	return true;
 }
 
 
@@ -575,12 +528,16 @@ function cleanJobQueue($job)
     return true;
 }
 
-if (file_exists('custom/modules/Schedulers/_AddJobsHere.php')) {
+if (SugarAutoLoader::existing('custom/modules/Schedulers/_AddJobsHere.php')) {
 	require('custom/modules/Schedulers/_AddJobsHere.php');
 }
 
-if (file_exists('custom/modules/Schedulers/Ext/ScheduledTasks/scheduledtasks.ext.php'))
-{
-	require('custom/modules/Schedulers/Ext/ScheduledTasks/scheduledtasks.ext.php');
+$extfile = SugarAutoLoader::loadExtension('schedulers');
+if($extfile) {
+    require $extfile;
 }
-?>
+
+$extfile = SugarAutoLoader::loadExtension('app_schedulers');
+if($extfile) {
+    require $extfile;
+}

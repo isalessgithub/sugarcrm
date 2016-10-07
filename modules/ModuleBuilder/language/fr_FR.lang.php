@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Ce champ existe déjà',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponible',
   'LBL_AVAILABLE_OPTIONS' => 'Options disponibles',
   'LBL_AVAILABLE_SUBPANELS' => 'Sous-panels disponibles',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: badly formed document',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: Document mal formé',
   'LBL_BASIC' => 'Basique',
   'LBL_BASIC_SEARCH' => 'Recherche Basique',
   'LBL_BLANK' => '-vide-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Annuler/Fermer',
   'LBL_BTN_CLONE' => 'Cloner',
   'LBL_BTN_CLOSE' => 'Fermer',
+  'LBL_BTN_COPY' => 'Copier',
+  'LBL_BTN_COPY_FROM' => 'Copie depuis...',
   'LBL_BTN_DELETE' => 'Supprimer',
   'LBL_BTN_DEPLOY' => 'Déployer',
   'LBL_BTN_DONT_SAVE' => 'Annuler les modifications',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Annuler',
   'LBL_BTN_VIEW_FIELDS' => 'Voir les champs',
   'LBL_BTN_VIEW_LAYOUTS' => 'Voir les mises en page',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Afficher la mise en page mobile',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Voir les relations',
   'LBL_BUG_TRACKER' => 'suivi de Bugs',
   'LBL_CALCULATED' => 'Calculé',
   'LBL_CASES' => 'Tickets',
   'LBL_CLEAR_EXTENSIONS' => 'Nettoyer Extensions',
   'LBL_CLEAR_RELATIONSHIPS' => 'Nettoyer Relations',
+  'LBL_COMBO_FIELD_CONTAINS' => 'contient :',
   'LBL_COMPANY' => 'Société',
   'LBL_CONFIG_PORTAL_URL' => 'URL de l&#39;image de votre logo. Les dimensions recommandées pour votre logo sont 163 × 18 pixels.',
   'LBL_CONFIRM_DONT_SAVE' => 'Attention vous avez fait des modifications depuis votre dernière sauvegarde, voulez-vous sauvegarder ces modifications ?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Etes-vous sûr(e) de vouloir supprimer cette relation ?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Cela rendra votre relation permanente. Etes-vous sûr(e) de vouloir déployer cette relation ?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Vous avez sélectionné un élément de la liste déroulante à supprimer. Tous les champs de type liste déroulante utilisant cette liste ne vont plus afficher cette valeur, et elle ne pourra plus être sélectionnée dans la liste déroulante de ces champs. Etes-vous sûr de vouloir continuer ?',
+  'LBL_COPY_FROM' => 'Copier depuis',
   'LBL_COPY_FROM_EDITVIEW' => 'Copie depuis la vue Edition',
   'LBL_CREATE' => 'Créer',
   'LBL_CREATE_NEW' => 'Créer un nouveau',
   'LBL_CURRENCY' => 'Devise',
   'LBL_CURRENT_LAYOUT' => 'Mise en page courante',
   'LBL_CUSTOM' => 'Personnalisé',
-  'LBL_CUSTOMIZE_THEME' => 'Personnaliser le theme',
   'LBL_CUSTOM_FIELDS' => '* champ créé via le Studio',
   'LBL_CUSTOM_MODULE' => 'Module',
   'LBL_CUSTOM_RELATIONSHIPS' => '* relation(s) créée(s) via le studio',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Dépendant',
   'LBL_DEPENDENCY' => 'Dépendance',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Glissez les éléments depuis la liste des options disponibles à gauche sur l&#39;une des listes à droite pour rendre cette option disponible lorsque son parent est sélectionné',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Remarque : Les utilisateurs peuvent avoir besoin de rafraîchir leurs écrans pour que les mises à jour soient visibles',
   'LBL_DEPLOYE_COMPLETE' => 'Déploiement terminé',
   'LBL_DEPLOY_FAILED' => 'Une erreur s&#39;est produite pendant le processus de déploiement, votre paquet n&#39;est peut-être pas installé correctement',
   'LBL_DEPLOY_IN_PROGRESS' => 'Déploiement du package',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => '<u>Eléments de la liste déroulante</u>',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Libellé',
   'LBL_DROPDOWN_ITEM_NAME' => 'Clé',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'La clé existe déjà dans la liste',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Cette clé existe déjà dans la liste',
   'LBL_DROPDOWN_LANGUAGE' => 'Langue de la liste déroulante',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'La liste doit contenir au moins une valeur possible',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nom de la liste déroulante',
   'LBL_DROP_HERE' => '[Déposer ici]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dépendant',
   'LBL_EC_AUTHOR' => 'Auteur :',
   'LBL_EC_CHECKERROR' => 'Vous devez sélectionnez au moins un module',
+  'LBL_EC_CUSTOMDROPDOWN' => 'listes déroulantes personnalisées',
   'LBL_EC_CUSTOMFIELD' => 'Champ(s) personnalisé(s)',
+  'LBL_EC_CUSTOMLABEL' => 'libellé(s) personnalisé(s)',
   'LBL_EC_CUSTOMLAYOUT' => 'Mise(s) en page personnalisée(s)',
   'LBL_EC_DESCRIPTION' => 'Déscription :',
   'LBL_EC_EMPTYCUSTOM' => 'n&#39;est pas personnalisé.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Champs',
   'LBL_FILE' => 'Document',
   'LBL_FILLER' => '(filler)',
+  'LBL_FILTER_SEARCH' => 'Recherche',
   'LBL_FORMULA' => 'Formule',
   'LBL_FORMULA_BUILDER' => 'Constructeur de formule',
   'LBL_FORMULA_INVALID' => 'Formule invalide',
   'LBL_FORMULA_TYPE' => 'La formule doit être du type',
   'LBL_HCUSTOM' => 'PERSONNALISE',
   'LBL_HDEFAULT' => 'DEFAUT',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Copie depuis la mise en page',
   'LBL_HIDDEN' => 'Caché',
   'LBL_HIDEOPTIONS' => 'Masquer options',
   'LBL_HIGH' => 'Haute',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Mes',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Editeur de liste déroulante',
   'LBL_ILLEGAL_FIELD_VALUE' => 'La clé dans une liste déroulante ne peut pas contenir des guillemets.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indique une collection de champ. Une collection de champ est un regroupement de champ individuel. Par exemple, "Adresse" est une collection de champ qui contient "Rue", "Ville", "Code postal", "Région" et "Pays".<br><br>Un double clic sur une collection de champ affiche les champs contenus dans celle-ci.',
   'LBL_ISSUE' => 'Ticket',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Etes-vous sur de vouloir supprimer cette valeur requise de la liste déroulante ? Cela peut affecter le fonctionnement de votre application.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Etes-vous sur de vouloir supprimer la valeur "Perdu" ? Supprimer cette valeur peut engendrer des dysfonctionnements du module de prévison',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Etes-vous sur de vouloir supprimer la valeur "Gagné" ? Supprimer cette valeur peut engendrer des dysfonctionnements du module de prévison',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Etes-vous sur de vouloir supprimer le statut En cours ? La suppression de ce statut peut entraîner des dysfonctionnements entre le module Affaire et le module Ligne de revenu.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Etes-vous sur de vouloir supprimer le statut Nouveau ? La suppression de ce statut peut entraîner des dysfonctionnements entre le module Affaire et le module Ligne de revenu.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Etes-vous sur de vouloir supprimer cette valeur de la liste déroulante? Supprimer les valeurs "Gagnée" ou "Perdue" peut engendrer des dysfonctionnements du module de prévison',
   'LBL_JS_DEPLOY_PACKAGE' => 'Toutes les personnalisations que vous avez fait dans le Studio seront écrasées lorsque ce module sera de nouveau déployée. Etes-vous sûr de vouloir continuer?',
   'LBL_JS_REMOVE_MODULE' => 'Etes-vous sûr(e) de vouloir supprimer ce Module? Cela supprimera définitivement tous les fichiers associés à celui-ci.',
   'LBL_JS_REMOVE_PACKAGE' => 'Etes-vous sûr(e) de vouloir supprimer ce Package ? Cela supprimera définitivement tous les fichiers associés à celui-ci.',
   'LBL_JS_VALIDATE_KEY' => 'Clé - Doit être alphanumérique sans espace et commencer par une lettre',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Clé - Doit contenir uniquement des caractères alphanumériques et commencer par une lettre',
   'LBL_JS_VALIDATE_LABEL' => 'Veuillez saisir un libellé qui sera utilisé comme nom public pour ce module',
   'LBL_JS_VALIDATE_NAME' => 'Nom - Doit être alphanumérique sans espace et commencer par une lettre',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Ce nom de package existe déjà',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Aucun champ trouvé',
   'LBL_NO_FUNCS' => 'Aucune fonction trouvée',
   'LBL_NO_RELS' => 'Aucune relation',
-  'LBL_NO_SAVE_ACTION' => 'Impossible de trouver l&#039;action de sauvegarde (save) pour cette vue.',
+  'LBL_NO_SAVE_ACTION' => 'Impossible de trouver l&#39;action de sauvegarde pour cette vue.',
   'LBL_NUMBER' => 'Numéro :',
   'LBL_ONETOMANY' => 'One to Many',
   'LBL_ONETOONE' => 'One to One',
@@ -273,13 +286,13 @@ $mod_strings = array (
   'LBL_PORTAL_APP_NAME' => 'Nom de l&#39;application',
   'LBL_PORTAL_CONFIGURE' => 'Configuration du portail',
   'LBL_PORTAL_DEFAULT_ASSIGN_USER' => 'Utilisateur assigné aux enregistrements créés via le portail',
-  'LBL_PORTAL_DETAIL_NUMBER' => 'Nombre maximum de champs affichés par page dans les vues "Detail"',
+  'LBL_PORTAL_DETAIL_NUMBER' => 'Nombre maximum de champs affichés par page dans les vues Detail',
   'LBL_PORTAL_DISABLED_MODULES' => 'Les modules suivants sont désactivés :',
   'LBL_PORTAL_ENABLE' => 'Activer',
   'LBL_PORTAL_ENABLE_MODULES' => 'Si vous souhaitez activez ces modules dans le portail Sugar, vous pouvez les activez <a id="configure_tabs" target="_blank" href="./index.php?module=Administration&amp;action=ConfigureTabs">ici</a>',
   'LBL_PORTAL_GO' => 'Aller',
   'LBL_PORTAL_LAYOUTS' => 'Mise en page Portail',
-  'LBL_PORTAL_LIST_NUMBER' => 'Nombre maximum d’éléments affichés par page dans les vues "Liste"',
+  'LBL_PORTAL_LIST_NUMBER' => 'Nombre maximum d’éléments affichés par page dans les vues Liste',
   'LBL_PORTAL_LOGO_URL' => 'Url du logo',
   'LBL_PORTAL_ROLE_DESC' => 'Ne supprimez pas ce rôle. Le rôle Customer Self-Service Portal / Portail client est un rôle générée par le système et créé pendant le processus d&#39;activation du portail Sugar. Utilisez les contrôles d&#39;accès dans ce rôle à activer et / ou désactiver les modules Bugs, Tickets ou Base de connaissances sur le portail Sugar. Ne modifiez pas les autres contrôles d&#39;accès pour ce rôle afin d&#39;éviter le comportement du système inconnu et imprévisible. En cas de suppression accidentelle de ce rôle, vous pouvez le recréer en désactivant puis en réactivant le portail Sugar.',
   'LBL_PORTAL_SEARCH_RESULT_NUMBER' => 'Nombre maximum de résultats affichés dans la recherche globale',
@@ -305,8 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Sélectionnez la mise en page du portail Sugar à éditer.',
   'LBL_QUICKCREATE' => 'Creation Rapide',
   'LBL_READ_ONLY' => 'Lecture seule',
+  'LBL_RECORDVIEW' => 'Enregistrement',
   'LBL_RELATED_FIELD' => 'Champ relatif',
-  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (ID lié {1})',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (ID lié {1} )',
   'LBL_RELATE_TO' => 'Relatif à',
   'LBL_RELATIONSHIPS' => 'Relations',
   'LBL_RELATIONSHIP_EDIT' => 'Edition de la relation',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Réinitialiser Module',
   'LBL_RESTORE_DEFAULT' => 'Réinitialiser',
   'LBL_RHS_MODULE' => 'Module lié',
+  'LBL_ROLE' => 'Rôle',
   'LBL_ROLLUP' => 'Formule de consolidation',
   'LBL_RSUB' => 'Ceci est le sous-panel qui apparaitra dans votre module',
   'LBL_SALE' => 'Affaire',
-  'LBL_SAVE' => 'Sauvegarder',
   'LBL_SAVE_LAYOUT' => 'Sauvegarder la mise en page',
   'LBL_SEARCH' => 'Recherche',
   'LBL_SEARCH_FIELDS' => 'Recherche de champs...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Sélectionnez un sous-panel',
   'LBL_SELECT_FILE' => 'Sélectionnez un fichier',
   'LBL_SELECT_SUBPANEL' => 'Sélectionnez un sous-panel',
+  'LBL_SINGULAR_LABEL' => 'Nom du module au singulier',
   'LBL_SP_PREVIEW' => 'Voici un aperçu du rendu de votre feuille de style.',
   'LBL_SP_UPLOADED' => 'Uploader',
   'LBL_SP_UPLOADSTYLE' => 'Cliquez sur <b>Naviguer</b> et Sélectionnez une feuille de style sur votre ordinateur que vous voulez uploader.<br /> A la prochaine synchronisation avec le portail, cela synchronisera aussi cette feuille de style.',
@@ -451,7 +466,7 @@ $mod_strings = array (
       'existingModule' => 'Après avoir créé et personnalisé ce module, vous pouvez créer un module créer un module complémentaire ou retourner au package pour <b>Publier</b> ou <b>Deployer</b> le package.<br><br>Pour créer un module complémentaire, vous pouvez cliquez sur <b>Dupliquer</b> pour créer un module avec les mêmes propriétés que le module courant, ou retourner au package, et cliquez sur <b>Nouveau Module</b>.<br><br> Si vous ^tes prêt à <b>Publier</b> ou <b>Deployer</b> le package contenant ce module, retourner au package pour réaliser ces fonctions. Vous pouvez publier ou déployer des packages contenant au moins un module.',
       'labels' => 'Les libellés des champs standards ainsi que des champs personnalisés peuvent être modifiés. Changer les libellés des champs n&#39;aura pas d&#39;incidence sur les données stockées dans ces champs.',
       'somemodules' => 'Maintenant que vous avez au moins un module pour ce package, vous pouvez <b>Publier</b> ou <b>Déployer</b> le package de votre instance de Suar.<br /><br /> Pour créer un fichier .zip pour le package qui peuvent être chargés et installés dans votre instance de Sugar et dans les autres instances utilisateurs, cliquez sur <b>Publier</b>.<br /><br /> Pour installer le package directement dans votre instance de Sugar sans créet auparavant un fichier .zip chargeable, cliquez sur <b>Déployer</b>.<br /><br /> Vous pouvez construire par étapes les modules pour ce package, et le publier ou le déployer lorsque vous êtes prêt à le faire. <br /><br /> Après la publication ou le déploiement d&#39;un package, vous pouvez apporter des modifications à l&#39;ensemble des propriétés et personnaliser d&#39;avantage les modules. Puis, de re-publier de nouveau ou de re-déployer le package pour appliquer les modifications.',
-      'viewfields' => 'Les champs dans le module peuvent être personnalisés en fonction de vos besoins.<br /><br /> Pour créer des champs personnalisés, cliquez sur <b>Ajouter un champs</b>. Saisissez les propriétés du champ dans le panneau de droite et cliquez sur <b>Sauvegarder</b>.<br /><br /> Pour changer les libellés de vos champs, cliquez sur<b>Editer les libellés</b>.<br /><br /> Pour éditer les champs, cliquez sur le nom du champs et les propriétés apparaitront dans le panneau de droite. Faite vos changements puis cliquez sur <b>Sauvegarder</b>.<br /><br /> Vous pouvez créer rapidement de nouveaux champs qui ont des propriétés similaires en cliquant sur <b>Cloner</b>. Entrez les nouvelles propriétés, puis cliquez sur <b>Sauvegarder</b>.<br /><br /> Pour supprimer un champ, vous pouvez le supprimer des mises en page appropriées.<br /><br />Note: Une fois le module installé, toutes les propriétés des champs ne sont pas éditables. Positionnez toutes les propriétés pour la mise en page des champs et des champs personnalisés avant de publier et d&#39;installer le package.',
+      'viewfields' => 'Les champs dans le module peuvent être personnalisés en fonction de vos besoins.<br /><br /> Pour créer des champs personnalisés, cliquez sur <b>Ajouter un champs</b>. Saisissez les propriétés du champ dans le panneau de droite et cliquez sur <b>Sauvegarder</b>.<br /><br /> Pour changer les libellés de vos champs, cliquez sur<b>Editer les libellés</b>.<br /><br /> Pour éditer les champs, cliquez sur le nom du champs et les propriétés apparaîtront dans le panneau de droite. Faite vos changements puis cliquez sur <b>Sauvegarder</b>.<br /><br /> Vous pouvez créer rapidement de nouveaux champs qui ont des propriétés similaires en cliquant sur <b>Cloner</b>. Entrez les nouvelles propriétés, puis cliquez sur <b>Sauvegarder</b>.<br /><br /> Pour supprimer un champ, vous pouvez le supprimer des mises en page appropriées.<br /><br />Note: Une fois le module installé, toutes les propriétés des champs ne sont pas éditables. Positionnez toutes les propriétés pour la mise en page des champs et des champs personnalisés avant de publier et d&#39;installer le package.',
       'viewlayouts' => 'Vous pouvez contrôler les champs qui sont disponibles pour la saisie des données dans la Vue Edition. Vous pouvez aussi controler les données qui seront affichées dans la Vue Détails. Les vues ne doivent pas forcement correspondres.<br /><br /> Vous pouvez déterminer la sécurité du module en utilisant la mise en page personnalisée et la gestion des rôles.',
       'viewrelationships' => 'Vous pouvez rapporter ce module avec les autres modules dans le même package ou à des modules déjà installés dans l&#39;application.<br /><br /> Pour modifier une relation existante, cliquez sur le  nom, et modifiez les propriétés dans le volet de droite.<br /><br /> Pour créer de nouvelle relation, cliquez sur <b>Ajouter une relation</b>. Les propriétés de la relation s&#39;affichent dans le volet de droite. Utilisez la liste déroulante <b>Relatif à</b> pour Sélectionnez le module. Fournisez un <b>Libellé</b> qui sera utilisé pour le sous-panel du module relatif. Vous pouvez être en mesure de Sélectionnez différents sous-panels dépendants du module sélectionnés.<br /><br /> Cliquez sur <b>Sauvegarder</b> pour créer une relation. Cliquez sur <b> Supprimer</p> pour supprimer la relation sélectionnée.',
     ),
@@ -526,7 +541,7 @@ $mod_strings = array (
       'author' => 'Ceci est l&#39;<b>Auteur</b> qui est affichée lors de l&#39;installation comme le nom de l&#39;entité qui a créé le package. L&#39;auteur peut être une personne physique ou une société.',
       'description' => '<b>Description</b> affichée lors de l&#39;installation du Package.',
       'exportCustomBtn' => 'Cliquez sur <b>Exporter</b> pour créer un fichier .zip pour le package contenant les personnalisations que vous souhaitez exporter.',
-      'exportHelp' => 'Vous pouvez exporter les personnalisations effectuées via le Studio en créant des packages qui peuvent ensuite être uploader sur d&#39;autre instance de Sugar via le <b>Chargeur de Module</b>.<br /><br /> Tout d&#39;abord fournir un <b>Nom de Package</b>, un <b>Auteur</b> et une <b>description</b> pour ce package.<br /><br /> Sélectionnez le ou les modules contenant les personnalisations que vous voulez exporter. Seulement les modules contenant des personnalisations pourront être séclèctionnés.<br /><br /> Cliquez sur <b>Ecporter</b> pour créer le fichier .zip du package qui contiendra ainsi les personnalisations.',
+      'exportHelp' => 'Vous pouvez exporter les personnalisations effectuées via le Studio en créant des packages qui peuvent ensuite être uploader sur d&#39;autre instance de Sugar via le <b>Chargeur de Module</b>.<br /><br /> Tout d&#39;abord fournir un <b>Nom de Package</b>, un <b>Auteur</b> et une <b>description</b> pour ce package.<br /><br /> Sélectionnez le ou les modules contenant les personnalisations que vous voulez exporter. Seulement les modules contenant des personnalisations pourront être séclèctionnés.<br /><br /> Cliquez sur <b>Exporter</b> pour créer le fichier .zip du package qui contiendra ainsi les personnalisations.',
       'name' => 'Ceci est le <b>Nom</b> du package. Ce nom sera affiché lors de l&#39;installation.',
     ),
     'fieldsEditor' => 
@@ -549,9 +564,10 @@ $mod_strings = array (
     ),
     'layoutEditor' => 
     array (
-      'default' => 'La zone de <b>Mise en page</b> contient les champs actuellement affichés dans la <b>Vue Edition</b>.<br><br>La <b>Boîte à outils</b> contient la <b>Corbeille</b> ainsi que tous les éléments qui peuvent être ajoutés dans la mise en page.<br><br>Pour faire des changements, utiliser le Glisser/Déposer sur les éléments désirés entre la <b>Boîte à outils</b> et la zone de <b>Mise en page</b> où vous souhaitez voir apparaître le champ.<br><br>Pour supprimer un champ, utiliser le Glisser/Déposer sur les éléments désirés entre la zone de <b>Mise en page</b> et la <b>Corbeille</b>. Les champs ainsi supprimés apparaîtront alors dans la liste des champs diponible au sein de la boîte à outils afin de pouvoir les remettre en page ultérieurement si besoin.',
-      'defaultdetailview' => 'La zone de <b>Mise en page</b> contient tous les champs qui sont affiché dans le <b>Vue Détail</b>.<br><br>La <b>Boîte à outils</b> contient la <b>Corbeille</b> ainsi que tous les éléments qui peuvent être ajoutés dans la mise en page.<br><br>Pour faire des changements, utiliser le Glisser/Déposer sur les éléments désirés entre la <b>Boîte à outils</b> et la zone de <b>Mise en page</b> où vous souhaitez voir apparaître le champ.<br><br>Pour supprimer un champ, utiliser le Glisser/Déposer sur les éléments désirés entre la zone de <b>Mise en page</b> et la <b>Corbeille</b>. Les champs ainsi supprimés apparaîtront alors dans la liste des champs diponible au sein de la boîte à outils afin de pouvoir les remettre en page ultérieurement si besoin.',
-      'defaultquickcreate' => 'La zone <b>Mise en page</b> contient les champs actuellement visible dans le fomulaire de <b>Création Rapide</b>.<br><br>Le formulaire de création rapide apparait dans le sous-panel du module où l&#39;on a cliqué sur le bouton de Création.<br><br>La <b>Boîte à outils</b> contient la <b>Corbeille</b> ainsi que tous les éléments qui peuvent être ajoutés dans la mise en page.<br><br>Pour faire des changements, utiliser le Glisser/Déposer sur les éléments désirés entre la <b>Boîte à outils</b> et la zone de <b>Mise en page</b> où vous souhaitez voir apparaître le champ.<br><br>Pour supprimer un champ, utiliser le Glisser/Déposer sur les éléments désirés entre la zone de <b>Mise en page</b> et la <b>Corbeille</b>. Les champs ainsi supprimés apparaîtront alors dans la liste des champs diponible au sein de la boîte à outils afin de pouvoir les remettre en page ultérieurement si besoin.',
+      'default' => 'La zone de <b>Mise en page</b> contient les champs actuellement affichés dans la <b>Vue Edition</b>.<br><br>La <b>Boîte à outils</b> contient la <b>Corbeille</b> ainsi que tous les éléments qui peuvent être ajoutés dans la mise en page.<br><br>Pour faire des changements, utiliser le Glisser/Déposer sur les éléments désirés entre la <b>Boîte à outils</b> et la zone de <b>Mise en page</b> où vous souhaitez voir apparaître le champ.<br><br>Pour supprimer un champ, utiliser le Glisser/Déposer sur les éléments désirés entre la zone de <b>Mise en page</b> et la <b>Corbeille</b>. Les champs ainsi supprimés apparaîtront alors dans la liste des champs diponible au sein de la boîte à outils afin de pouvoir les re mettre en page ultérieurement si besoin.',
+      'defaultdetailview' => 'La zone de <b>Mise en page</b> contient tous les champs qui sont affiché dans le <b>Vue Détail</b>.<br><br>La <b>Boîte à outils</b> contient la <b>Corbeille</b> ainsi que tous les éléments qui peuvent être ajoutés dans la mise en page.<br><br>Pour faire des changements, utiliser le Glisser/Déposer sur les éléments désirés entre la <b>Boîte à outils</b> et la zone de <b>Mise en page</b> où vous souhaitez voir apparaître le champ.<br><br>Pour supprimer un champ, utiliser le Glisser/Déposer sur les éléments désirés entre la zone de <b>Mise en page</b> et la <b>Corbeille</b>. Les champs ainsi supprimés apparaîtront alors dans la liste des champs diponible au sein de la boîte à outils afin de pouvoir les re mettre en page ultérieurement si besoin.',
+      'defaultquickcreate' => 'La zone <b>Mise en page</b> contient les champs actuellement visible dans le fomulaire de <b>Création Rapide</b>.<br><br>Le formulaire de création rapide apparait dans le sous-panel du module où l&#39;on a cliqué sur le bouton de Création.<br><br>La <b>Boîte à outils</b> contient la <b>Corbeille</b> ainsi que tous les éléments qui peuvent être ajoutés dans la mise en page.<br><br>Pour faire des changements, utiliser le Glisser/Déposer sur les éléments désirés entre la <b>Boîte à outils</b> et la zone de <b>Mise en page</b> où vous souhaitez voir apparaître le champ.<br><br>Pour supprimer un champ, utiliser le Glisser/Déposer sur les éléments désirés entre la zone de <b>Mise en page</b> et la <b>Corbeille</b>. Les champs ainsi supprimés apparaîtront alors dans la liste des champs diponible au sein de la boîte à outils afin de pouvoir les re mettre en page ultérieurement si besoin.',
+      'defaultrecordview' => 'La section <b>Mise en place</b> contient les champs qui sont actuellement afficher sur la <b>Vue Enregistrement</b>.<br/><br/>La <b>boite à outils</b> contient la <b>corbeille</b> ainsi que les champs et les éléments de mise en page qui peuvent être ajouté sur les écrans.<br><br>Vous pouvez personnaliser votre mise en page en effectuant des glisser/déposer des différents éléments entre la <b>boite à outils</b> et <b>l&#39;écran de mise en page</b> ainsi qu&#39;à l&#39;intérieur de l&#39;écran lui même.<br><br>Pour retirer un champ d&#39;un écran, il faut déplacer celui-ci vers la <b>corbeille</b>. Le champ sera alors disponible dans la boite à outils si vous souhaitez l&#39;ajouter de nouveau sur l&#39;écran.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indique un champ dépendant ou bien affiché de manière conditionnelle en fonction d&#39;une formule.<br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_calculated.png" /> Indique un champ calcullé donc la valeur sera automatiquement mise à jour en fonction d&#39;une formule.',
       'delete' => 'Glisser / Déposer ici les éléments de votre mise en page à supprimer',
       'historyBtn' => 'Cliquez sur <b>voir l&#39;historique</b> pour voir et restaurer une version précédement sauvegardée de la mise en page.',
       'historyDefault' => 'Cliquez sur <b>Réinitialiser</b> pour restaurer l&#39;affichage par défaut.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => 'Le modèle <b>Vente</b> prévoit la mise en page des champs spécifiques aux Affaires, comme la source du Lead, les phases de l&#39;affaire, le montant et la probabilité. <br/><br/>Utiliser ce modèle pour créer des modules qui sont semblables au module Affaire.',
       'viewfieldsbtn' => 'Cliquez sur <b>Voir les champs</b> pour afficher les champs associés au module et pour créer/modifier des champs personnalisés.',
       'viewlayoutsbtn' => 'Cliquez sur <b>Voir les mise en page</b> pour afficher la mise en page du module et personnaliser la mise en page des champs.',
+      'viewmobilelayoutsbtn' => 'Cliquez <b>Afficher la mise en page mobile</b> pour afficher la mise en page de la vue mobile et personnaliser la disposition des champs sur la vue.',
       'viewrelsbtn' => 'Cliquez sur <b>Voir les Relations</b> pour afficher les liens associés à ce module et créer de nouvelles relations.',
     ),
     'package' => 
@@ -641,7 +658,7 @@ $mod_strings = array (
     array (
       'addRelationship' => 'Des <b>relations</b> peuvent être créées entre le module et un autre module personnalisé ou un module déployé.<br><br>Les relations sont visible au travers des sous-panels ou des champs liés dans un enregistrement du module.<br><br>Sélection un des <b>Types</b> de relation possible pour le module:<br><br> <b>One-to-One</b> - Les deux enregistrements des modules contiennent des champs liés.<br><br< <b>One-to-Many</b> - L&#39;enregistrement du module principal contient un sous-panel et l&#39;enregistrement du module lié contient un champ lié.<br><br> <b>Many-to-Many</b> - Les enregistrements des deux modules affichent un sous-panel.<br><br> Sélectionnez le <b>Module Lié</b> pour la relation. <br><br>Si le type de relation requiert un sous-panel, sélectioner la vue du sous-panel pour le module approprié.<br><br>Cliquez sur <b>Sauvegarder</b> pour créer la relation.',
       'addrelbtn' => 'Une aide apparait pour créer une relation.',
-      'default' => 'Les <b>relations</b> qui sont créées entre le module et les autres modules apparaitront ici.<br><br>Le <b>Nom</b> de la relation est le nom système généré pour cette relation.<br><br>Le <b>Module principal</b> est le module propriétaire des relations. Les propriétés de la relation sont stockées dans les tables rattachées au module principal.<br><br>Cliquez sur une des relations présentes dans le tableau ci dessous pour voir et éditer les propriétés associées à cette relation.<br><br>Cliquez sur <b>Ajouter une Relation</b> pour créer une relation.',
+      'default' => 'Les <b>relations</b> qui sont créées entre le module et les autres modules apparaîtront ici.<br><br>Le <b>Nom</b> de la relation est le nom système généré pour cette relation.<br><br>Le <b>Module principal</b> est le module propriétaire des relations. Les propriétés de la relation sont stockées dans les tables rattachées au module principal.<br><br>Cliquez sur une des relations présentes dans le tableau ci dessous pour voir et éditer les propriétés associées à cette relation.<br><br>Cliquez sur <b>Ajouter une Relation</b> pour créer une relation.',
     ),
     'searchViewEditor' => 
     array (
@@ -688,15 +705,16 @@ $mod_strings = array (
       'relationshipHelp' => 'Des <b>relations</b> peuvent être créées entre un module principal et un module déployé.<br><br>Les relations sont visibles de manière explicite via des sous-panels et des champs liés dans une vue d&#39;un enregistrement d&#39;un module.<br><br> Si une relation existe déjà entre deux modules, toutes nouvelles relations créés entre ces deux modules n&#39;apparaitra pas de manière explicite.<br><br>Sélection un des <b>Types</b> de relation possible pour le module:<br><br> <b>One-to-One</b> - Les deux enregistrements des modules contiennent des champs liés.<br><br><b>One-to-Many</b> - L&#39;enregistrement du module principal contient un sous-panel et l&#39;enregistrement du module lié contient un champ lié.<br><br> <b>Many-to-Many</b> - Les enregistrements des deux modules affichent un sous-panel.<br><br> Sélectionnez le <b>Module Lié</b> pour la relation. <br><br>Si le type de relation requiert un sous-panel, sélectioner la vue du sous-panel pour le module approprié.<br><br>Cliquez sur <b>Déployer</b> pour créer la relation. Une fois une relation créé, celle-ci ne peut être ni modifié ni supprimé.',
       'relationshipsBtn' => 'Personnalisation des relations entre le module courant et les autres modules de SugarCRM.',
       'relationshipsHelp' => 'Toutes les <b>relations</b> entre le module courant et les autres modules apparaissent ici.<br><br>Le <b>Nom</b> de la relation est le nom système (stocké dans la base de données) de la relation.<br><br>Le <b>Module principal</b> est le module "propriétaire" des relations. Les propriétés de la relation sont stockées dans les tables rattachés au module principal. Par exemple, toutes les propriétés des relations dont le module Compte est le module principal sont stockées dans les tables contenant les données des Comptes.<br><br>Cliquez sur une des relations présentes dans le tableau ci-dessous pour voir et éditer les propriétés associées à cette relation.<br><br>Cliquez sur <b>Ajouter une relation</b> pour créer une nouvelle relation.<br><br>Des relations ne peuvent être créées qu&#39;entre deux modules déjà déployés.',
-      'searchBtn' => 'Personnaliser la mise en page de la <b>Recherche</b> du module.<br><br>Permet de déterminer les champs qui seront utilisés pour filter les enregistrements qui apparaitront dans la Vue Liste.',
+      'searchBtn' => 'Personnaliser la mise en page de la <b>Recherche</b> du module.<br><br>Permet de déterminer les champs qui seront utilisés pour filter les enregistrements qui apparaîtront dans la Vue Liste.',
       'searchHelp' => 'Les formulaires de <b>Recherche</b> qui peuvent être personnalisé, apparaissent ici.<br><br> Les formulaire de recherche contiennent les champs permettant de filtrer les enregistrements.<br><br>Sélectionnez une mise en page de <b>Recherche</b> pour l&#39;éditer.',
+      'studioBCHelp' => 'indique que le module est en mode rétrocompatibilité',
       'studioBtn' => 'Dans le Studio vous pouvez personnaliser les modules installées en changant l&#39;affichage des informations, en indiquant les données disponnibles ou en créant des champs de donnée personnalisés.',
       'studioHelp' => 'Le Studio vous permet de personnaliser les différents modules de SugarCRM.<br><br>Vous pouvez y modifier l&#39;apparences des différents modules, ajouter de nouveaux champs, personnaliser les libellés des différents modules, etc.',
       'subpanelBtn' => 'Personnalisation des colonnes des sous-panels du module courant.',
       'subpanelHelp' => 'Les sous-panels personnalisables du module courant apparaissent ici.<br><br>Les sous-panels liés aux Activités ne sont pas modifiables.<br><br>Sélectionnez un sous-panel que vous voulez modifier.',
       'sugarPortalBtn' => 'Utiliser l&#39;<b>Editeur de Portail Sugar</b> pour gérer et personnaliser le Portail Sugar.',
       'viewBtnDashlet' => 'Personnaliser la mise en page de des <b>Dashlet</b> du module, cela inclus la Vue Liste et la Vue Recherche.<br><br> Le dashlet doit être disponible sur la page hôte du module.',
-      'viewBtnDetailView' => 'Personnaliser la mise en page de la <b>Vue Détail</b> du module.<br><br> La Vue Detail permet de visualiser les données saisies par les utilistateurs.',
+      'viewBtnDetailView' => 'Personnaliser la mise en page de la <b>Vue Détail</b> du module.<br><br> La Vue Détail permet de visualiser les données saisies par les utilistateurs.',
       'viewBtnEditView' => 'Personnaliser la mise en page de l&#39;<b>Vue Edition</b> du module.<br><br> La Vue Edition est le formulaire contenant les champs permettant aux utilisateurs de saisir des données.',
       'viewBtnListView' => 'personnaliser la mise en page de la <b>Vue Liste</b> du module.<br><br> La Vue Liste affiche les résultats des forumlaires de recherche.',
       'viewBtnQuickCreate' => 'Personnaliser la mise en page de la <b>Création rapide</b> du module.<br><br>Le formulaire de Création rapide apparait dans les sous-panels ainsi que dans le module Email.',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Du kan inte importera en system administratörs användare',
@@ -210,6 +207,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'För att fortsätta med importeringen av den valda filen, klicka OK. För att ladda upp en ny fil, klicka Försök Igen',
   'LBL_MISSING_HEADER_ROW' => 'Ingen Huvudrad Hittades',
   'LBL_MODULE_NAME' => 'Importera',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importera',
   'LBL_MY_PUBLISHED_HELP' => 'En sparad mappning specificerar en tidigare använd kombination av en tidigare använd datakälla och en uppsättning databasfält att mappa fälten mot i importfilen.',
   'LBL_MY_SAVED' => 'Mina sparade källor:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Använd det här alternativet för att använda dina förinställda importinställningar, inklusive import egenskaper, mappning, och dubbelpostkontroll, till den här importeringen.<br><br>Klicka <b>Publicera</b> för att göra mappning möjlig för andra användare.<br>Klicka <b>Avpublicera</b> för att inte göra mappning möjlig för andra användare.<br>Klicka <b>Radera</b> för att radera mappning för andra användare.',
@@ -225,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Välj nu importfilen:',
   'LBL_NO_DATECHECK' => 'Skippa datumkontroll (snabbare men kommer att misslyckas om datan är fel)',
   'LBL_NO_EMAILS' => 'Skicka inte ut epost-notifieringar under den här importen',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Försöker att hantera e-postadresser i en Bean som inte stödjer det.',
   'LBL_NO_ID' => 'ID krävs',
   'LBL_NO_IMPORT_TO_UNDO' => 'Det fanns ingen import att göra ogjord',
   'LBL_NO_LINES' => 'Det var inga linjer i din importfil',
@@ -312,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Importen genomförd',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Poster skapade framgångsrikt',
   'LBL_SUMMARY' => 'Sammanfattning',
+  'LBL_SYSTEM_SIG_DIGITS' => 'System Antal Decimaler',
   'LBL_TAB' => 'Tabbseparerad fil',
   'LBL_TAB_NUM_1' => 'Starta applikationen och öppna datafilen',
   'LBL_TAB_NUM_2' => 'Välj <b>Spara som...</b> eller <b>Exportera...</b> menyalternativ',

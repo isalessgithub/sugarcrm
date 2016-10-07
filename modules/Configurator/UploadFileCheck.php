@@ -1,21 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/JSON.php');
-require_once('include/entryPoint.php');
 require_once 'include/upload_file.php';
 
 global $sugar_config;
@@ -44,8 +40,7 @@ if(isset($_FILES['file_1'])){
 if(!$upload_ok) {
     $returnArray['data']='not_recognize';
     echo $json->encode($returnArray);
-    sugar_cleanup();
-    exit();
+    sugar_cleanup(true);
 }
 if(file_exists($file_name) && is_file($file_name)) {
     $encoded_file_name = rawurlencode($upload->get_stored_file_name());
@@ -64,6 +59,7 @@ if(file_exists($file_name) && is_file($file_name)) {
         }
         if (($test>20 || $test<3)&& $returnArray['forQuotes'] == 'quotes')
             $returnArray['data']='size';
+        sugar_mkdir(sugar_cached('images'));
         copy($file_name, sugar_cached('images/'.$upload->get_stored_file_name()));
     }
     if(!empty($returnArray['data'])){
@@ -77,5 +73,4 @@ if(file_exists($file_name) && is_file($file_name)) {
     $returnArray['data']='file_error';
     echo $json->encode($returnArray);
 }
-sugar_cleanup();
-exit();
+sugar_cleanup(true);

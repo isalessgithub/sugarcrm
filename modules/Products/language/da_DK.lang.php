@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Der skal angives et postnummer for at slette produktet.',
@@ -23,22 +20,34 @@ $mod_strings = array (
   'LBL_ACCOUNT_NAME' => 'Virksomhedsnavn:',
   'LBL_ASSET_NUMBER' => 'Aktivnummer:',
   'LBL_ASSIGNED_TO_NAME' => 'Tildelt til:',
+  'LBL_ASSIGNED_USER_ID' => 'Tildelt bruger id:',
+  'LBL_ASSOCIATED_QUOTE' => 'Quote Emne',
   'LBL_BOOK_VALUE' => 'Bogført værdi:',
   'LBL_BOOK_VALUE_DATE' => 'Bogført værdi, dato:',
   'LBL_BOOK_VALUE_USDOLLAR' => 'Bogført værdi (US Dollar):',
+  'LBL_CALCULATED_LINE_ITEM_AMOUNT' => 'Calculated Quoted Line Item Amount',
+  'LBL_CAMPAIGN_PRODUCT' => 'Campaign Quoted Line Item',
   'LBL_CATEGORY' => 'Kategori:',
   'LBL_CATEGORY_NAME' => 'Kategorinavn:',
+  'LBL_COMMIT_STAGE' => 'Forpligtet fase',
+  'LBL_COMMIT_STAGE_FORECAST' => 'Prognose',
   'LBL_CONTACT' => 'Kontakt',
+  'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakter',
   'LBL_CONTACT_ID' => 'Kontakt-id:',
   'LBL_CONTACT_NAME' => 'Kontaktnavn:',
   'LBL_CONTRACTS' => 'Kontrakter',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Kontrakter',
+  'LBL_CONVERT_TO_QUOTE_ERROR' => 'Fejl:',
+  'LBL_CONVERT_TO_QUOTE_ERROR_MESSAGE' => 'Der opstod en fejl ved konvertering fra produkt til Quote',
   'LBL_COST_PRICE' => 'Omkostninger:',
   'LBL_COST_USDOLLAR' => 'Omkostninger i USD:',
   'LBL_CREATED_USER' => 'Oprettet bruger',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'Valuta-id:',
+  'LBL_CURRENCY_RATE' => 'Valuta kurs',
   'LBL_CURRENCY_SYMBOL_NAME' => 'Navn på valutasymbol',
+  'LBL_DATE_CLOSED' => 'Forventet lukkedato:',
+  'LBL_DATE_CLOSED_TIMESTAMP' => 'Forventet lukkedato tidsstempel',
   'LBL_DATE_PURCHASED' => 'Købt:',
   'LBL_DATE_SUPPORT_EXPIRES' => 'Support udløber:',
   'LBL_DATE_SUPPORT_STARTS' => 'Support starter:',
@@ -46,6 +55,7 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Produkter',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DISCOUNT_AMOUNT' => 'Rabatbeløb',
+  'LBL_DISCOUNT_AS_PERCENT' => 'Rabat i%',
   'LBL_DISCOUNT_PRICE' => 'Enhedspris:',
   'LBL_DISCOUNT_PRICE_DATE' => 'Rabatpris, dato:',
   'LBL_DISCOUNT_RATE' => 'Rabatsats',
@@ -55,8 +65,15 @@ $mod_strings = array (
   'LBL_DISCOUNT_USDOLLAR' => 'Enhedspris i USD:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenter',
   'LBL_EDITLAYOUT' => 'Rediger layout',
+  'LBL_EXPERT_ID' => 'Produkt ekspert',
   'LBL_EXPORT_CURRENCY_ID' => 'Valuta-id',
   'LBL_EXT_PRICE' => 'Ekst. pris',
+  'LBL_FORECAST' => 'Inkluder i prognose',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modul består af alle produkter, der allerede er solgt eller er i færd med at blive solgt til kunderne. For at oprette en {{MODULE_NAME}}:. 1. Give værdier for felterne som ønsket. - Felter mærket "Required" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og vis" for at åbne den nye {{MODULE_NAME}} post visning. - Vælg "Gem og skabe nye" til straks at oprette et nyt visning {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består af alle produkter, der allerede er solgt eller er i færd med at blive solgt til kunderne. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpaneler ved at skifte nederste venstre rude til "Data View". - Foretag og vis brugernes kommentarer og ændring i historie {{activitystream_singular_module}} ved at skifte nederste venstre rude til "Activity Stream". - Følg eller faviroser denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består af alle produkter, der allerede er solgt eller er i færd med at blive solgt til kunderne. Listen over de produkter, der sælges af din organisation ligger i Admin> Product Catalog og administratorer har mulighed for at tilføje produkter som nødvendigt. Når du opretter {{plural_module_name}}, har du mulighed for enten at vælge produkter fra kataloget eller skabe nye produkter via {{plural_module_name}} modul. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar som via {{plural_module_name}} modul, {{quotes_module}} modul, duplikering, import {{plural_module_name}} osv. Når den {{MODULE_NAME}} post er oprettet, kan du se og redigere oplysninger om den {{MODULE_NAME}} via {{plural_module_name}} post oversigt.',
+  'LBL_LEADS_SUBPANEL_TITLE' => 'Kundeemner',
+  'LBL_LEAD_SOURCE' => 'Kilde til kundeemne',
   'LBL_LIST_ACCOUNT_NAME' => 'Virksomhedsnavn',
   'LBL_LIST_CONTACT_NAME' => 'Kontaktnavn',
   'LBL_LIST_COST_PRICE' => 'Omkostninger',
@@ -74,28 +91,43 @@ $mod_strings = array (
   'LBL_LIST_SUPPORT_EXPIRES' => 'Udløber',
   'LBL_LIST_USDOLLAR' => 'Listepris i USD:',
   'LBL_MANUFACTURER' => 'Producent:',
+  'LBL_MANUFACTURERS' => 'Producenter',
+  'LBL_MANUFACTURER_NAME' => 'Producentnavn:',
   'LBL_MEMBER_OF' => 'Medlem af:',
   'LBL_MFT_PART_NUM' => 'Prod. artikelnummer:',
   'LBL_MODIFIED_USER' => 'Ændret bruger',
   'LBL_MODULE_NAME' => 'Produkter',
-  'LBL_MODULE_TITLE' => 'Produkter: Startside',
-  'LBL_NAME' => 'Produkt:',
+  'LBL_MODULE_NAME_SINGULAR' => 'Produkt',
+  'LBL_MODULE_TITLE' => 'Produkter: Hjem',
+  'LBL_NAME' => 'Navn',
   'LBL_NEW_FORM_TITLE' => 'Opret produkt',
+  'LBL_NEXT_STEP' => 'Næste trin:',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Noter',
+  'LBL_OPPORTUNITY' => 'Salgsmulighed',
+  'LBL_OPPORTUNITY_ID' => 'Salgsmuligheds-id',
   'LBL_PRICING_FACTOR' => 'Prisfaktor:',
   'LBL_PRICING_FORMULA' => 'Prisformel:',
+  'LBL_PROBABILITY' => 'Sandsynlighed "%":',
   'LBL_PRODUCT' => 'Produkt:',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PRODUCT_CATEGORIES' => 'Produktkategorier',
+  'LBL_PRODUCT_TEMPLATE' => 'Produkt skabelon',
   'LBL_PRODUCT_TEMPLATE_ID' => 'Produktskabelon-id:',
   'LBL_PRODUCT_TYPES' => 'Produkttyper',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekter',
   'LBL_QUANTITY' => 'Mængde:',
   'LBL_QUOTE' => 'Tilbud',
+  'LBL_QUOTES_SUBPANEL_TITLE' => 'Tilbud',
   'LBL_QUOTE_ID' => 'Tilbuds-id',
   'LBL_QUOTE_NAME' => 'Tilbudsnavn:',
-  'LBL_RELATED_PRODUCTS' => 'Relaterede produkter',
+  'LBL_RELATED_PRODUCTS' => 'Relateret produkter',
   'LBL_RELATED_PRODUCTS_TITLE' => 'Relaterede produkter',
+  'LBL_REVENUELINEITEM' => 'Revenue Line Item',
+  'LBL_REVENUELINEITEMS' => 'Revenue Line Items',
+  'LBL_REVENUELINEITEM_ID' => 'Revenue Line Item ID:',
+  'LBL_REVENUELINEITEM_NAME' => 'Revenue Line Item Name:',
+  'LBL_SALES_STAGE' => 'Salgsfase',
+  'LBL_SALES_STATUS' => 'Status',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter produkt',
   'LBL_SELECT_DISCOUNT' => 'Rabat i %',
   'LBL_SERIAL_NUMBER' => 'Serienummer:',

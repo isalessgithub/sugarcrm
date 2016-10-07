@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć namiar.',
@@ -30,8 +27,7 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Informacje adresowe',
   'LBL_ADD_BUSINESSCARD' => 'Dodaj wizytówkę',
   'LBL_ALTERNATE_ADDRESS' => 'Adres alternatywny:',
-  'LBL_ALT_ADDRESS' => 'Adres alternatywny:',
-  'LBL_ALT_ADDRESS_CITY' => 'Miejscowość',
+  'LBL_ALT_ADDRESS_CITY' => 'Miasto',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Kraj',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Kod pocztowy',
   'LBL_ALT_ADDRESS_STATE' => 'Województwo',
@@ -40,21 +36,21 @@ $mod_strings = array (
   'LBL_ALT_ADDRESS_STREET_3' => 'Ulica 3',
   'LBL_ANY_ADDRESS' => 'Adres:',
   'LBL_ANY_EMAIL' => 'Dowolny adres e-mail:',
-  'LBL_ANY_PHONE' => 'Dowolny mumer telefonu:',
+  'LBL_ANY_PHONE' => 'Dowolny numer telefonu:',
   'LBL_ASSIGNED_TO_ID' => 'Przydzielono do:',
   'LBL_ASSIGNED_TO_NAME' => 'Przydzielono do',
   'LBL_ASSISTANT' => 'Asystent',
   'LBL_ASSISTANT_PHONE' => 'Telefon asystenta',
   'LBL_BACKTOLEADS' => 'Wróć do namiarów',
   'LBL_BIRTHDATE' => 'Data urodzin:',
-  'LBL_BUSINESSCARD' => 'Przekształć w kontakt',
+  'LBL_BUSINESSCARD' => 'Przekształć namiar',
   'LBL_CAMPAIGN' => 'Kampanie:',
   'LBL_CAMPAIGNS' => 'Kampanie',
   'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampanie',
   'LBL_CAMPAIGN_ID' => 'ID kampanii',
   'LBL_CAMPAIGN_LEAD' => 'Kampanie',
   'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampanie',
-  'LBL_CITY' => 'Miejscowość:',
+  'LBL_CITY' => 'Miasto:',
   'LBL_CLICK_TO_RETURN' => 'Powrót do portalu',
   'LBL_CONTACT' => 'Namiar:',
   'LBL_CONTACT_ID' => 'ID Kontaktu',
@@ -66,20 +62,39 @@ $mod_strings = array (
   'LBL_CONVERTED_ACCOUNT' => 'Przekształceni kontrahenci:',
   'LBL_CONVERTED_CONTACT' => 'Przekształcone kontakty:',
   'LBL_CONVERTED_OPP' => 'Przekształcone szanse:',
-  'LBL_CONVERTLEAD' => 'Przekształć w kontakt',
+  'LBL_CONVERTLEAD' => 'Przekształć namiar',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Nie można przekształcić namiaru',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Przekształcanie namiaru {{leadName}} powiodło się, jednakże pojawił się problem podczas dodawania załączników w co najmniej jednym rekordzie',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Przekształcanie namiaru {{leadName}} powiodło się',
   'LBL_CONVERTLEAD_TITLE' => 'Przekształć namiar',
   'LBL_CONVERTLEAD_WARNING' => 'Uwaga: Status namiaru, który próbujesz przekształcić to "Przekształcony". Rekordy kontaktu i/lub kontrahenta mogły już zostać utworzone. Jeśli chcesz kontynuować, kliknij zapisz. Aby powrócić bez przekształcenia namiaru kliknij Anuluj.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Prawdopodobny kontakt:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Nie posiadasz uprawnień edycji modułów wymaganych do przekształcenia namiaru: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Dodaj moduł',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Przekształcony(a) {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Zastosuj',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Wróć do duplikatów',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Przekształć',
   'LBL_CONVERT_COPY' => 'Kopiuj dane',
+  'LBL_CONVERT_CREATE_NEW' => 'Nowy {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Usuń',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} - liczba znalezionych duplikatów',
   'LBL_CONVERT_EDIT' => 'Edytuj',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Edytuj widok przekształcania',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Wyszukiwanie duplikatów...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Zignoruj i utwórz nowy',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} przekształcony(a)',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Powiązano {{moduleNameLower}} {{recordName}}, ale nie zostanie on utworzony zanim nie zakończysz i zapiszesz.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Powiązano {{moduleNameLower}} {{recordName}}, jednakże nie zostaną one połączone dopóki zmiany nie zostaną zapisane.',
   'LBL_CONVERT_MODULE_NAME' => 'Moduł',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Moduł',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(opcjonalne)',
   'LBL_CONVERT_REQUIRED' => 'Wymagane',
+  'LBL_CONVERT_RESET_PANEL' => 'Resetuj',
   'LBL_CONVERT_SELECT' => 'Zezwól na wybór',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Utwórz nowy',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Wyszukiwanie',
   'LBL_COPY_TIP' => 'Jeśli zaznaczone, pola namiaru zostaną skopiowane do pól o tych samych nazwach w nowo utworzonych rekordach.',
   'LBL_COUNTRY' => 'Kraj:',
   'LBL_CREATE' => 'Utwórz',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Dział:',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Informacje opisowe',
+  'LBL_DNB_BAL_PREVIEW' => 'Podgląd namiarów',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Namiary',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informacje o namiarze',
+  'LBL_DNB_PRINCIPAL_ID' => 'Główne ID D&B',
   'LBL_DO_NOT_CALL' => 'Nie dzwonić:',
   'LBL_DUPLICATE' => 'Podobne namiary',
   'LBL_EDITLAYOUT' => 'Edytuj widok',
@@ -115,20 +134,41 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Zmodyfikowane przez',
   'LBL_EXPORT_PHONE_MOBILE' => 'Telefon kom.',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Raporty Namiarów',
   'LBL_FIRST_NAME' => 'Imię:',
   'LBL_FULL_NAME' => 'Pełna nazwa:',
+  'LBL_HELP_CONVERT' => 'Sugar umożliwia przekształcanie Namiaru w Kontakt, Kontrahenta lub inny moduł, jak tylko {{module_name}} zacznie spełniać kryteria kwalifikacji. Przejdź przez każdy moduł, zmodyfikuj odpowiednio pola i potwierdź nowe wartości pól poprzez kliknięcie przycisku Powiąż. Jeśli Sugar wykryje istniejący rekord odpowiadający informacjom z Twojego Namiaru, pojawi się opcja wyboru duplikatu i powiązania rekordów lub zignorowanie ostrzeżenia poprzez kliknięcie w przycisk “Ignoruj i utwórz nowy” i kontynuacji działań. Po potwierdzeniu wprowadzonych zmian w modułach, kliknij przycisk “Zapisz i przekształć”, aby zakończyć przekształcanie.',
+  'LBL_HELP_CONVERT_TITLE' => 'Przekształć namiar',
+  'LBL_HELP_CREATE' => 'Moduł {{plural_module_name}} składa się z pojedynczych prospektów, które mogą być zainteresowane produktem lub usługą oferowaną przez Twoją firmę.
+
+Aby utworzyć Namiar:
+1. Wprowadź odpowiednie wartości do pól.
+ - Pola oznaczone jako "Wymagane" muszą zostać uzupełnione.
+ - Kliknij "Pokaż więcej", aby wyświetlić więcej pól.
+2. Kliknij "Zapisz", aby zapisać nowy rekord i powrócić do poprzedniej strony.
+ - Wybierz "Zapisz i pokaż", aby otworzyć rekord widoku Namiaru w nowym oknie.
+ - Wybierz "Zapisz i utwórz nowy", aby bez zwłoki utworzyć nowy Namiar.',
+  'LBL_HELP_RECORD' => 'Moduł {{plural_module_name}} składa się z pojedynczych prospektów, które mogą być zainteresowane produktem lub usługą oferowaną przez Twoją firmę.
+
+- Edytuj pola tego rekordu poprze kliknięcie na odpowiednie pole lub na przycisk Edytuj.
+- Przeglądaj lub modyfikuj powiązania z innymi rekordami w subpanelach poprzez przełączenie widoku dolnego lewego panelu na “Widok danych”.
+- Dodawaj i przeglądaj komentarze użytkowników i historię zmian rekordu w Panelu aktywności poprzez przełączenie widoku dolnego lewego panelu na „Panel aktywności”.
+- Obserwuj lub dodaj do ulubionych ten rekord za pomocą ikon znajdujących się z prawej strony nazwy rekordu.
+- Dodatkowe działania dostępne są w liście rozwijalnej menu Działania po prawej stronie przycisku Edytuj.',
+  'LBL_HELP_RECORDS' => 'Moduł {{plural_module_name}} składa się z pojedynczych prospektów, które mogą być zainteresowane produktem lub usługą oferowaną przez Twoją firmę. Po kwalifikacji Namiaru jako szansy sprzedażowej, może on zostać przekształcony w Kontakt, Szansę oraz Kontrahenta. Jest kilka sposobów na utworzenie Namiaru w Sugar, np. poprzez moduł {{plural_module_name}}, duplikowanie, importowanie Namiarów itp. Po utworzeniu rekordu Namiaru, możesz przeglądać i edytować informacje dotyczące Namiaru poprzez widok rekordu Namiaru.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historia',
   'LBL_HOME_PHONE' => 'Telefon domowy:',
   'LBL_IMPORT_VCARD' => 'Importuj vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automatycznie utwórz nowy namiar korzystając z vCard na Twoim komputerze.',
-  'LBL_INVALID_EMAIL' => 'Niepoprawny adres e-mail:',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Tworzenie namiaru z vCard zakończyło się powodzeniem',
+  'LBL_INVALID_EMAIL' => 'Nieprawidłowy adres e-mail:',
   'LBL_INVITEE' => 'Raportowanie bezpośrednie',
   'LBL_LAST_NAME' => 'Nazwisko:',
   'LBL_LEAD_SOURCE' => 'Źródło pozyskania:',
   'LBL_LEAD_SOURCE_DESCRIPTION' => 'Opis źródła pozyskania:',
   'LBL_LIST_ACCEPT_STATUS' => 'Status',
   'LBL_LIST_ACCOUNT_NAME' => 'Nazwa kontrahenta',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielono do',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Przydzielony użytkownik',
   'LBL_LIST_CONTACT_NAME' => 'Nazwa namiaru',
   'LBL_LIST_CONTACT_ROLE' => 'Rola',
   'LBL_LIST_DATE_ENTERED' => 'Data utworzenia',
@@ -146,6 +186,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Stanowisko',
   'LBL_LOADING' => 'Ładowanie',
   'LBL_MESSAGE' => 'Wprowadź poniżej informacje o sobie. Informacje i/lub konto zostaną utworzone po Twojej akceptacji.',
+  'LBL_MKTO_ID' => 'ID namiaru Marketo',
+  'LBL_MKTO_LEAD_SCORE' => 'Kwalifikacja namiarów',
+  'LBL_MKTO_SYNC' => 'Synchronizuj z Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Telefon komórkowy:',
   'LBL_MODIFIED' => 'Zmodyfikowane przez',
   'LBL_MODIFIED_ID' => 'Zmodyfikowane przez',
@@ -157,8 +200,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Imię i nazwisko:',
   'LBL_NEW_FORM_TITLE' => 'Utwórz namiar',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nowe hasło portalu:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notatki',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Uwaga: Aktualny ekran przekształcania namiaru zawiera pola domyślne. Kiedy dostosujesz ekran przekształcania namiarów w Studio po raz pierwszy, będzie trzeba dodać własne pola do widoku, jeśli są potrzebne. Domyślne pola nie pojawią się automatycznie w widoku, tak jak miało to miejsce wcześniej.',
   'LBL_OFFICE_PHONE' => 'Telefon służbowy:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Szanse',
   'LBL_OPPORTUNITY_AMOUNT' => 'Kwota szansy:',
   'LBL_OPPORTUNITY_ID' => 'ID szansy',
   'LBL_OPPORTUNITY_NAME' => 'Nazwa szansy:',
@@ -186,6 +231,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Adres podstawowy - ulica 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Adres podstawowy - ulica 3',
   'LBL_PROSPECT_LIST' => 'Odbiorcy',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Tworzenie namiaru <a href="#{{buildRoute model=this}}">{{full_name}}</a> zakończyło się powodzeniem.',
   'LBL_REFERED_BY' => 'Polecone przez:',
   'LBL_REGISTRATION' => 'Rejestracja',
   'LBL_REPORTS_FROM' => 'Podwładny:',
@@ -194,6 +240,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Wymagane moduły muszą zostać utworzone lub wybrane zanim namiar zostanie przekształcony.',
   'LBL_SALUTATION' => 'Forma grzecznościowa',
   'LBL_SAVED' => 'Dziękujemy za rejestrację. Twoje konto zostanie utworzone i ktoś skontaktuje się z Tobą niezwłocznie.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Zapisz i przekształć',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukiwanie namiarów',
   'LBL_SELECT' => '<b>LUB</b> wybierz',
   'LBL_SELECTION_TIP' => 'Moduły z powiązanymi polami w kontaktach mogą zostać wybrane, raczej niż utworzone, podczas procesu przekształcania namiaru.',
@@ -210,6 +257,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Udane kampanie:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Dziękujemy za Twoją propozycję.',
   'LBL_TITLE' => 'Stanowisko:',
+  'LBL_UNCONVERTED' => 'Nieprzekształcony',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Widok namiarów',
   'LBL_WEBSITE' => 'Strona internetowa',
@@ -235,6 +283,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Utworzenie szansy wymaga kontrahenta.\\n Utwórz nowego lub wybierz już istniejącego.',
   'NTC_REMOVE_CONFIRMATION' => 'Czy na pewno chcesz usunąć ten namiar z tego zgłoszenia?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Czy na pewno chcesz usunąć ten rekord jako zwierzchnika?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

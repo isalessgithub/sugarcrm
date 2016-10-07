@@ -1,23 +1,20 @@
 <?php
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Base/SugarFieldBase.php');
 require_once('modules/Currencies/Currency.php');
 
-class SugarFieldInt extends SugarFieldBase 
+class SugarFieldInt extends SugarFieldBase
 {
     public function formatField($rawField, $vardef){
         if ( !empty($vardef['disable_num_format']) ) {
@@ -26,13 +23,31 @@ class SugarFieldInt extends SugarFieldBase
         if ( $rawField === '' || $rawField === NULL ) {
             return '';
         }
-            
+
         return format_number($rawField,0,0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
+
+        $data[$fieldName] = isset($bean->$fieldName) && is_numeric($bean->$fieldName)
+                            ? (int)$bean->$fieldName : null;
     }
 
     public function unformatField($formattedField, $vardef){
         if ( $formattedField === '' || $formattedField === NULL ) {
-            return null;
+            return '';
         }
         return (int)unformat_number($formattedField);
     }
@@ -77,21 +92,17 @@ class SugarFieldInt extends SugarFieldBase
     	$this->setup($parentFieldArray, $vardef, $displayParams, $tabindex);
         if($this->isRangeSearchView($vardef)) {
            $id = isset($displayParams['idName']) ? $displayParams['idName'] : $vardef['name'];
- 		   $this->ss->assign('original_id', "{$id}");           
+ 		   $this->ss->assign('original_id', "{$id}");
            $this->ss->assign('id_range', "range_{$id}");
            $this->ss->assign('id_range_start', "start_range_{$id}");
            $this->ss->assign('id_range_end', "end_range_{$id}");
            $this->ss->assign('id_range_choice', "{$id}_range_choice");
-           if(file_exists('custom/include/SugarFields/Fields/Int/RangeSearchForm.tpl'))
-           {
-           	  return $this->fetch('custom/include/SugarFields/Fields/Int/RangeSearchForm.tpl');
-           } 
            return $this->fetch('include/SugarFields/Fields/Int/RangeSearchForm.tpl');
-        }        
-    
+        }
+
     	return $this->fetch($this->findTemplate('SearchForm'));
-    }  
-    
+    }
+
     /**
      * @see SugarFieldBase::importSanitize()
      */
@@ -106,7 +117,7 @@ class SugarFieldInt extends SugarFieldBase
         if (!is_numeric($value) || strstr($value,".")) {
             return false;
         }
-        
+
         return $value;
     }
 }

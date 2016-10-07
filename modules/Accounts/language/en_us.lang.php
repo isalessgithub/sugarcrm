@@ -1,25 +1,14 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
 	// DON'T CONVERT THESE THEY ARE MAPPINGS
@@ -29,7 +18,7 @@ $mod_strings = array (
 	// END DON'T CONVERT
 	'LBL_CONTRACTS'=>'Contracts',
 	'LBL_CONTRACTS_SUBPANEL_TITLE'=>'Contracts',
-	'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Products',
+    'LBL_RLI_SUBPANEL_TITLE' => 'Revenue Line Items',
 	'LBL_QUOTES_SUBPANEL_TITLE' => 'Quotes',
 	'LNK_ACCOUNT_REPORTS' => 'View Account Reports',
     'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
@@ -40,8 +29,8 @@ $mod_strings = array (
 	'LBL_UTILS'    => 'Utils',
 	// END Dashlet Categories
 
-	'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Are you sure you want to remove this account from the project?',
-	'ERR_DELETE_RECORD' => 'You must specify a record number in order to delete the account.',
+	'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Are you sure you want to remove this Account from the project?',
+	'ERR_DELETE_RECORD' => 'You must specify a record number in order to delete the Account.',
 	'LBL_ACCOUNT_INFORMATION' => 'Overview',
 	'LBL_ACCOUNT_NAME' => 'Account Name:',
 	'LBL_ACCOUNT' => 'Account:',
@@ -49,7 +38,7 @@ $mod_strings = array (
 	'LBL_ADDRESS_INFORMATION' => 'Address Information',
 	'LBL_ANNUAL_REVENUE' => 'Annual Revenue:',
 	'LBL_ANY_ADDRESS' => 'Any Address:',
-	'LBL_ANY_EMAIL' => 'Any Email:',
+	'LBL_ANY_EMAIL' => 'Email:',
 	'LBL_ANY_PHONE' => 'Any Phone:',
 	'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
 	'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
@@ -65,7 +54,7 @@ $mod_strings = array (
 	'LBL_BUG_FORM_TITLE' => 'Accounts',
 	'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
 	'LBL_CALLS_SUBPANEL_TITLE' => 'Calls',
-	'LBL_CAMPAIGN_ID' => 'Campaign ID',
+	'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Campaign Log',
 	'LBL_CASES_SUBPANEL_TITLE' => 'Cases',
 	'LBL_CITY' => 'City:',
 	'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contacts',
@@ -101,7 +90,8 @@ $mod_strings = array (
 	'LBL_MEMBER_ORG_FORM_TITLE' => 'Member Organizations',
 	'LBL_MEMBER_ORG_SUBPANEL_TITLE'=>'Member Organizations',
 	'LBL_MODULE_NAME' => 'Accounts',
-	'LBL_MODULE_TITLE' => 'Accounts: Home',
+    'LBL_MODULE_NAME_SINGULAR'	=> 'Account',
+    'LBL_MODULE_TITLE' => 'Accounts: Home',
 	'LBL_MODULE_ID'=> 'Accounts',
 	'LBL_NAME'=>'Name:',
 	'LBL_NEW_FORM_TITLE' => 'New Account',
@@ -115,7 +105,7 @@ $mod_strings = array (
 	'LBL_PHONE_OFFICE' => 'Office Phone:',
 	'LBL_PHONE' => 'Phone:',
 	'LBL_POSTAL_CODE' => 'Postal Code:',
-	'LBL_PRODUCTS_TITLE'=>'Products',
+	'LBL_PRODUCTS_TITLE'=>'Quoted Line Items',
 	'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projects',
 	'LBL_PUSH_BILLING' => 'Push Billing',
 	'LBL_PUSH_CONTACTS_BUTTON_LABEL' => 'Copy to Contacts',
@@ -146,11 +136,12 @@ $mod_strings = array (
 	'LBL_WEBSITE' => 'Website:',
 	'LBL_CREATED_ID'=>'Created By Id',
 	'LBL_CAMPAIGNS' =>'Campaigns',
+	'LNK_CREATE' => 'Create Company',
 	'LNK_ACCOUNT_LIST' => 'View Accounts',
 	'LNK_NEW_ACCOUNT' => 'Create Account',
 	'LNK_IMPORT_ACCOUNTS' => 'Import Accounts',
-	'MSG_DUPLICATE' => 'The account record you are about to create might be a duplicate of an account record that already exists. Account records containing similar names are listed below.<br>Click Create Account to continue creating this new account, or select an existing account listed below.',
-	'MSG_SHOW_DUPLICATES' => 'The account record you are about to create might be a duplicate of an account record that already exists. Account records containing similar names are listed below.<br>Click Save to continue creating this new account, or click Cancel to return to the module without creating the account.',
+	'MSG_DUPLICATE' => 'The Account record you are about to create might be a duplicate of an Account record that already exists. Account records containing similar names are listed below.<br>Click Create Account to continue creating this new Account, or select an existing Account listed below.',
+	'MSG_SHOW_DUPLICATES' => 'The Account record you are about to create might be a duplicate of an Account record that already exists. Account records containing similar names are listed below.<br>Click Save to continue creating this new Account, or click Cancel to return to the module without creating the Account.',
 	'NTC_COPY_BILLING_ADDRESS' => 'Copy billing address to shipping address',
 	'NTC_COPY_BILLING_ADDRESS2' => 'Copy to shipping',
 	'NTC_COPY_SHIPPING_ADDRESS' => 'Copy shipping address to billing address',
@@ -171,5 +162,35 @@ $mod_strings = array (
     'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Assigned User Name',
     // SNIP
     'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Related Contacts\' Emails',
+    'LBL_FILENAME' => 'Attachment',
+    'LBL_REVENUELINEITEMS' => 'Revenue Line Items',
+    'LBL_DUNS_NUM' => 'DUNS:',
+    'LBL_DNB_BAL_PREVIEW' => 'Accounts Preview',
+    'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
+
+    // Help Text
+    // List View Help Text
+    'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of companies with whom your organization has a relationship and is generally seen as the hub for managing and analyzing your business\' interactions with each customer. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, duplication, importing {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} record view. Each {{module_name}} record may then relate to other Sugar records such as {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, and many others as the customer\'s relationship matures.',
+
+    // Record View Help Text
+    'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of companies with whom your organization has a relationship and is generally seen as the hub for managing and analyzing your business\' interactions with each customer.
+
+- Edit this record\'s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+
+    // Create View Help Text
+    'LBL_HELP_CREATE' => 'The {{plural_module_name}} module consists of companies with whom your organization has a relationship and is generally seen as the hub for managing and analyzing your business\' interactions with each customer.
+
+To create an {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+
+    'LBL_FILTER_ACCOUNTS_REPORTS' => 'Accounts\' reports',
 );
-?>

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -54,7 +51,7 @@ $mod_strings = array (
   'LBL_GMAIL_SMTPUSER' => 'Gmail邮件地址',
   'LBL_HELP' => '帮助',
   'LBL_ID' => '编号',
-  'LBL_INVALID_ENTRY_POINT' => '不是一个有效的切入点',
+  'LBL_INVALID_ENTRY_POINT' => '无效的输入点',
   'LBL_IN_QUEUE' => '在队列中',
   'LBL_IN_QUEUE_DATE' => '排队日期',
   'LBL_LIST_CAMPAIGN' => '市场活动',
@@ -119,7 +116,7 @@ $mod_strings = array (
   'LBL_SECURITY_XMP' => 'Xmp 标签',
   'LBL_SEND_ATTEMPTS' => '尝试发送',
   'LBL_SEND_DATE_TIME' => '发送日期',
-  'LBL_UNAUTH_ACCESS' => '没有管理权限。',
+  'LBL_UNAUTH_ACCESS' => '未经授权的访问管理',
   'LBL_VIEW_PROCESSED_EMAILS' => '查看已处理的电子邮件',
   'LBL_VIEW_QUEUED_EMAILS' => '查看队列电子邮件',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail 密码',

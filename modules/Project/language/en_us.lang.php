@@ -1,23 +1,21 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Project',
+	'LBL_MODULE_NAME' => 'Projects',
+	'LBL_MODULE_NAME_SINGULAR' => 'Project',
 	'LBL_MODULE_TITLE' => 'Projects: Home',
 	'LBL_SEARCH_FORM_TITLE' => 'Project Search',
     'LBL_LIST_FORM_TITLE' => 'Project List',
@@ -35,7 +33,6 @@ $mod_strings = array (
     'LBL_PDF_PROJECT_NAME' => 'Project Name:',
 	'LBL_DESCRIPTION' => 'Description:',
 	'LBL_DELETED' => 'Deleted:',
-    'LBL_DATE' => 'Date:',
 	'LBL_DATE_START' => 'Start Date:',
 	'LBL_DATE_END' => 'End Date:',
 	'LBL_PRIORITY' => 'Priority:',
@@ -92,7 +89,8 @@ $mod_strings = array (
 	'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Opportunities',
     'LBL_CASES_SUBPANEL_TITLE' => 'Cases',
     'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
-    'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Products',
+    'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Quoted Line Items',
+    'LBL_RLI_SUBPANEL_TITLE' => 'Revenue Line Items',
     
 	'LBL_QUOTES_SUBPANEL_TITLE' => 'Quotes',
 	
@@ -177,6 +175,7 @@ $mod_strings = array (
     'ERR_PREDECESSORS_OUT_OF_RANGE' => 'The value specified for the Predecessor field is larger than the number of rows.',   
     'ERR_PREDECESSOR_CYCLE_FAIL' => 'The specified predecessor causes a dependency cycle.',
     'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => 'The specified predecessor is either a parent task or a subtask.', 
+    'ERR_TASK_VIEW_DETAILS' => 'You cannot view the details of a task not yet saved.',
     'NTC_DELETE_TASK_AND_SUBTASKS' => 'Are you sure you want to delete this task and all its subtasks?',
     'NTC_NO_ACTIVE_PROJECTS' => 'You do not have any active projects or project tasks.',
     'NTC_ASSIGN_RIGHT_TEAM' => 'Make sure that all project resources are members of this team.',
@@ -228,7 +227,6 @@ $mod_strings = array (
 	'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Project Resources',
 	'LBL_PROJECTTASK_SUBPANEL_TITLE' => 'Project Task',
 	'LBL_HOLIDAYS_SUBPANEL_TITLE' => 'Holidays',
-	'LBL_PROJECT_INFORMATION' => 'Project Overview',
 	'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
 	'LBL_INSERTROWS' => 'Insert Rows' /*for 508 compliance fix*/,
 	'LBL_PROJECT_INFORMATION' => 'Overview',

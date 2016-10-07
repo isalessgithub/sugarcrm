@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => '每2星期',
     2419200 => '每4星期',
   ),
+  'ERR_REPORT_DEACTIVATED' => '计划运行的报表 "{0}" 被停止',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => '计划运行的报表被停止',
   'ERR_REPORT_INVALID' => '报表定义 "{0}" 包含无效字段: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => '报表无效',
   'ERR_SELECT_COLUMN' => '请先选择要显示的列。',
@@ -122,8 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => '前',
   'LBL_BUG_REPORTS' => '缺陷报表',
   'LBL_BY_DAY' => '按天',
-  'LBL_BY_FISCAL_QUARTER' => '会计季度',
-  'LBL_BY_FISCAL_YEAR' => '会计年度',
+  'LBL_BY_FISCAL_QUARTER' => '按财政季度',
+  'LBL_BY_FISCAL_YEAR' => '按财政年度',
   'LBL_BY_MONTH' => '按月',
   'LBL_BY_QUARTER' => '按季度',
   'LBL_BY_YEAR' => '按年',
@@ -154,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => '新增自定义报表',
   'LBL_CREATE_REPORT' => '新建报表',
   'LBL_CSV_TIMESTAMP' => 'Y_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => '当前会计季度',
-  'LBL_CURRENT_FISCAL_YEAR' => '当前会计年度',
+  'LBL_CURRENT_FISCAL_QUARTER' => '当前财政季度',
+  'LBL_CURRENT_FISCAL_YEAR' => '当前财政年度',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => '当前季度提交的交易',
   'LBL_CURRENT_QUARTER_FORECAST' => '当前季度销售预测',
   'LBL_CURRENT_USER' => '当前用户',
@@ -205,12 +204,13 @@ $mod_strings = array (
   'LBL_FILTERS_END' => '下面的过滤器。',
   'LBL_FILTERS_HELP_DESC' => '<b>定义过滤器的步骤：</b><br/><br/>1) 在 <b>相关模块</b> 中单击你定义过滤器要使用的模块。默认情况下被选中的为主模块（树视图的根节点）<br/><br/>你可以在这个模块上单击选择一个相关模块（树视图的孩子节点）。展开这个节点就可以看到和这个相关模块关联的其他模块。你选择的模块决定了哪些可报告的字段出现在<b> 可用字段 </b>块中。<br/><br/>2) 在 <b>可用字段</b> 块中单击一个字段，将它加入到过滤器中。你也可以通过在面板的文本框中输入文字来查询字段。<br/><br/>在从 <b>相关模块 </b>面板中选择了任意数量的字段后，你可以选择一个不同的模块，从这个模块中你可以选择任意数量的字段作为过滤器。<br/><br/>3) 选择 <b>AND</b> 或 <b>OR</b> 来指定是否所有的过滤器或者任何过滤器，典型地，被用于查找报表的结果。<br/><br/>4) [可选] 在 <b>添加过滤器组</b> 上单击来创建一个过滤器组。可以有任意数量的过滤器组，在一个组中也可以有任意数量的过滤器来创建嵌套过滤器。<br/><br/>5) [可选] 为一个过滤器选择运行时选项，允许用户使用这个过滤器，在将来查看这个报表时进一步定制结果。',
   'LBL_FILTER_AND' => '所有',
+  'LBL_FILTER_BY_MODULE' => '根据模块',
   'LBL_FILTER_CONDITIONS' => '选择记录，满足',
   'LBL_FILTER_DATE_RANGE_FINISH' => '至',
   'LBL_FILTER_DATE_RANGE_START' => '从',
   'LBL_FILTER_OR' => '任何',
-  'LBL_FISCAL_QUARTER' => '会计季度',
-  'LBL_FISCAL_YEAR' => '会计年度',
+  'LBL_FISCAL_QUARTER' => '财政季度',
+  'LBL_FISCAL_YEAR' => '财政年度',
   'LBL_FORECAST_REPORTS' => '销售预测报表',
   'LBL_FUNNEL' => '漏斗形图',
   'LBL_GRAND_TOTAL' => '总计',
@@ -235,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => '过去30天',
   'LBL_LAST_7_DAYS' => '过去7天',
   'LBL_LAST_MONTH' => '上月',
+  'LBL_LAST_N_DAYS' => '过去#日',
   'LBL_LAST_QUARTER' => '上个季度',
   'LBL_LAST_WEEK' => '上周',
   'LBL_LAST_YEAR' => '去年',
@@ -303,9 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => '下一步 >',
   'LBL_NEXT_30_DAYS' => '未来30天',
   'LBL_NEXT_7_DAYS' => '未来7天',
-  'LBL_NEXT_FISCAL_QUARTER' => '下一会计季度',
-  'LBL_NEXT_FISCAL_YEAR' => '下一会计年度',
+  'LBL_NEXT_FISCAL_QUARTER' => '明年财政季度',
+  'LBL_NEXT_FISCAL_YEAR' => '下一财政年度',
   'LBL_NEXT_MONTH' => '下月',
+  'LBL_NEXT_N_DAYS' => '下#日',
   'LBL_NEXT_QUARTER' => '下个季度',
   'LBL_NEXT_RUN' => '下一封电子邮件',
   'LBL_NEXT_WEEK' => '下周',
@@ -317,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => '您不能够访问这个报表因为严格的权限限制.',
   'LBL_NO_CHART' => '没有图表',
   'LBL_NO_CHART_DRAWN_MESSAGE' => '数据不充分，因而不能绘制图标。',
-  'LBL_NO_EXPORT_ACCESS' => '出口禁用',
+  'LBL_NO_EXPORT_ACCESS' => '导出关闭',
   'LBL_NO_FILTERS' => '没有过滤器.',
   'LBL_NO_IMAGE' => '无图像',
   'LBL_NO_REPORTS' => '没有匹配记录',
@@ -338,8 +340,8 @@ $mod_strings = array (
   'LBL_PIE' => '饼图',
   'LBL_PREVIEW_REPORT' => '预览',
   'LBL_PREVIOUS' => '< 退后',
-  'LBL_PREVIOUS_FISCAL_QUARTER' => '上一会计季度',
-  'LBL_PREVIOUS_FISCAL_YEAR' => '上一会计年度',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => '上一财政季度',
+  'LBL_PREVIOUS_FISCAL_YEAR' => '上一财政年度',
   'LBL_PROJECT_TASK_REPORTS' => '项目任务报表',
   'LBL_PROSPECT_REPORTS' => '目标类型',
   'LBL_PUBLISH' => '公布',
@@ -479,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => '平均',
   'LBL_WITH_A_TOTAL' => '总计',
   'LBL_WITH_DETAILS' => '细节',
-  'LBL_WORKSHEET' => '工作单',
   'LBL_YEAR' => '年',
   'LBL_YESTERDAY' => '昨天',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => '您还没有保存报表。',
+  'LNK_ADVANCED_REPORTING' => '管理企业级报表',
   'LNK_NEW_ACCOUNT' => '新增客户',
   'LNK_NEW_CALL' => '安排电话',
   'LNK_NEW_CASE' => '新增客户反馈',
@@ -495,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => '您没有编辑这个报表的权限',
   'MSG_UNABLE_PUBLISH_ANOTHER' => '不能公布。已经有一个相同名称的报表公布了。',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => '不能取消公布另一个用户的报表。您有一个相同名称的报表。',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => '进程报告生成任务调度是目前非活动和报告不能安排。请要求系统管理员用户设置该调度到Active，然后再试一次。',
 );
 

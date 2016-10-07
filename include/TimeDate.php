@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once 'include/SugarDateTime.php';
 
 /**
@@ -86,6 +83,8 @@ class TimeDate
 
        	'i' => '%M',
        	's' => '%S',
+        '\T' => 'T',
+
     );
 
     /**
@@ -514,11 +513,14 @@ class TimeDate
      * Format DateTime object as DB datetime
      *
      * @param DateTime $date
+     * @param boolean $setGMT Set timezone to GMT (defaults to true)
      * @return string
      */
-    public function asDb(DateTime $date)
+    public function asDb(DateTime $date, $setGMT = true)
     {
-        $date->setTimezone(self::$gmtTimezone);
+        if ($setGMT) {
+            $date->setTimezone(self::$gmtTimezone);
+        }
         return $date->format($this->get_db_date_time_format());
     }
 
@@ -526,13 +528,19 @@ class TimeDate
      * Format date as DB-formatted field type
      * @param DateTime $date
      * @param string $type Field type - date, time, datetime[combo]
+     * @param boolean $setGMT Set timezone to GMT (defaults to null, will not be passed to any method)
      * @return string Formatted date
      */
-    public function asDbType(DateTime $date, $type)
+    public function asDbType(DateTime $date, $type, $setGMT = null)
     {
+        $args = array($date);
+        // because asDbDate and asDb have different default value for $setGMT (true and false) we have to use NULL as default value for this method
+        if (!is_null($setGMT)) {
+            $args[] = $setGMT;
+        }
         switch($type) {
             case "date":
-                return $this->asDbDate($date);
+                return call_user_func_array(array($this, 'asDbDate'), $args);
                 break;
             case 'time':
                 return $this->asDbtime($date);
@@ -540,7 +548,7 @@ class TimeDate
             case 'datetime':
             case 'datetimecombo':
             default:
-                return $this->asDb($date);
+                return call_user_func_array(array($this, 'asDb'), $args);
         }
     }
 
@@ -756,7 +764,7 @@ class TimeDate
     {
         switch($type) {
             case "date":
-                return $this->fromUserDate($date, $user);
+                return $this->fromUserDate($date, true, $user);
                 break;
             case 'time':
                 return $this->fromUserTime($date, $user);
@@ -834,6 +842,136 @@ class TimeDate
     public function fromTimestamp($ts)
     {
         return new SugarDateTime("@$ts");
+    }
+
+    /**
+     * Output the date and time in ISO-8601 format
+     * @param DateTime $date The date object to output in ISO-8601 format
+     * @param User $user
+     * @param array $options 
+     * @return string The date and time in ISO-8601 format (aka 2012-10-11T13:01:45-07:00)
+     */
+    public function asIso(DateTime $date, User $user = null, $options = null)
+    {
+        $this->tzUser($date, $user);
+        return $date->format(self::DB_DATE_FORMAT.'\T'.self::DB_TIME_FORMAT).$this->getIsoOffset($date, $options);
+    }
+
+    /**
+     * Output the date in ISO-8601 format
+     * @param DateTime $date The date object to output in ISO-8601 format
+     * @param boolean $tz Perform TZ conversion?
+     * @param User $user
+     * @return string Just the date in ISO-8601 format (aka 2012-10-11)
+     */
+    public function asIsoDate(DateTime $date, $tz = false, User $user = null)
+    {
+        return $this->asDbDate($date,$tz,$user);
+    }
+
+    /**
+     * Output the time in ISO-8601 format
+     * @param DateTime $date The date object to output in ISO-8601 format
+     * @param User $user
+     * @return string Just the time in ISO-8601 format (aka 13:01:45-07:00)
+     */
+    public function asIsoTime(DateTime $date, User $user = null)
+    {
+        $this->tzUser($date, $user);
+        return $date->format(self::DB_TIME_FORMAT).$this->getIsoOffset($date);
+    }
+
+    /**
+     * Build a new SugarDateTime object from the input date and time
+     * @param string $inputDate The date and time in ISO-8601 format (aka 2012-10-11T13:01:45-0700)
+     * @param User $user (Optional) The user object for timezone-less conversions (will use the user's timezone if none is specified)
+     * @return SugarDateTime DateTime object representing the input date
+     */
+    public function fromIso($inputDate, User $user = null)
+    {
+        try {
+            // We need to strip off milliseconds so that javascript ISO dates are accepted
+            // Since we're already running this through a regex we might as well cover all of the bases
+            $matched = preg_match(
+                '/(\d{4})\-?(\d{2})\-?(\d{2})T(\d{2}):?(\d{2}):?(\d{2})\.?\d*([Z+-]?)(\d{0,2}):?(\d{0,2})/i',
+                $inputDate, $inputSplit);
+            if ( !$matched ) {
+                // We didn't match the regex, this is in some other format
+                return null;
+            }
+            $formattedDate = "{$inputSplit[1]}-{$inputSplit[2]}-{$inputSplit[3]} {$inputSplit[4]}:{$inputSplit[5]}:{$inputSplit[6]}";
+            if ( !empty($inputSplit[7]) ) {
+                // This has the attached offset, when 5.3 comes around we can stop messing with manually
+                // tweaking the offset manually and just throw an "O" on the end of the format string.
+                $date = SugarDateTime::createFromFormat(self::DB_DATETIME_FORMAT,$formattedDate,self::$gmtTimezone);
+                $date->adjustByIsoOffset("{$inputSplit[7]}{$inputSplit[8]}{$inputSplit[9]}");
+                
+                $this->tzUser($date,$user);
+
+                return $date;
+            } else {
+                // This time doesn't have an attached offset, convert it according to the user's date and time
+                return SugarDateTime::createFromFormat(self::DB_DATETIME_FORMAT,$formattedDate,$this->_getUserTZ($user));
+            }
+        } catch (Exception $e) {
+            $GLOBALS['log']->error("fromIsoTime: Conversion of $inputDate from ISO Time failed. {$e->getMessage()}");
+            return null;
+        }
+
+    }
+
+    /**
+     * Build a new SugarDateTime object from the input date
+     * @param string $inputDate Just the date in ISO-8601 format (aka 2012-10-11)
+     * @param User $user (Optional) The user object for timezone-less conversions (will use the user's timezone if none is specified)
+     * @return SugarDateTime DateTime object representing the input date
+     */
+    public function fromIsoDate($inputDate, User $user = null)
+    {
+        // The ISO standard matches up with our "DB" date format
+        return $this->fromDbDate($inputDate);
+    }
+
+    /**
+     * Build a new SugarDateTime object from the input time
+     * @param string $inputDate Just the time in ISO-8601 format (aka 13:01:45-0700)
+     * @param User $user (Optional) The user object for timezone-less conversions (will use the user's timezone if none is specified)
+     * @return SugarDateTime DateTime object representing the input date
+     */
+    public function fromIsoTime($inputDate, User $user = null)
+    {
+        try {
+            if ( strlen($inputDate) > 8 ) {
+                // This time does have an attached offset
+                $date = SugarDateTime::createFromFormat(self::DB_TIME_FORMAT,substr($inputDate,0,8),self::$gmtTimezone);
+                $date->adjustByIsoOffset(substr($inputDate,8));
+                
+                return $date;
+            } else {
+                // This time doesn't have an attached offset, convert it according to the user's date and time
+                return SugarDateTime::createFromFormat(self::DB_TIME_FORMAT,$inputDate,$this->_getUserTZ($user));
+            }
+        } catch (Exception $e) {
+            $GLOBALS['log']->error("fromIsoTime: Conversion of $inputDate from ISO Time failed. {$e->getMessage()}");
+        }
+    }
+
+    /**
+     * This function converts the offset of the date object into a ISO-8601 compatible format
+     * @param DateTime $date The date object
+     * @param array $options 
+     * @return string The offset of date object in ISO-8601 compatible format (aka -07:00)
+     */
+    public function getIsoOffset(DateTime $date, $options=null)
+    {
+        $tzColon = (isset($options['stripTZColon']) && $options['stripTZColon']) ? '' : ':';
+        $offsetSec = $date->getOffset();
+        $offsetType = ($offsetSec>-1)?'+':'-';
+        $offsetSec = abs($offsetSec);
+        $offsetMin = floor($offsetSec/60);
+        $offsetHour = floor($offsetMin/60);
+        $offsetMin = $offsetMin%60;
+        return sprintf("%s%02d".$tzColon."%02d",$offsetType,$offsetHour,$offsetMin);
     }
 
     /**
@@ -1813,7 +1951,7 @@ class TimeDate
     function convert_to_gmt_datetime($olddatetime)
     {
         if (! empty($olddatetime)) {
-            return date('Y-m-d H:i:s', strtotime($olddatetime) - date('Z'));
+            return date(self::DB_DATETIME_FORMAT, strtotime($olddatetime) - date('Z'));
         }
         return '';
     }

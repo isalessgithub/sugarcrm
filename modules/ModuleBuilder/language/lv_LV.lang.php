@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Kļūda: Lauks jau eksistē',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Pieejams',
   'LBL_AVAILABLE_OPTIONS' => 'Pieejamās izvēles',
   'LBL_AVAILABLE_SUBPANELS' => 'Pieejamie apakšpaneļi',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: nepareizi noformēts dokuments',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: badly formed document',
   'LBL_BASIC' => 'Pamata',
   'LBL_BASIC_SEARCH' => 'Pamata meklēšana',
   'LBL_BLANK' => '-tukšs-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Atcelt',
   'LBL_BTN_CLONE' => 'Klonēt',
   'LBL_BTN_CLOSE' => 'Aizvērt',
+  'LBL_BTN_COPY' => 'Kopēt',
+  'LBL_BTN_COPY_FROM' => 'Kopē no …',
   'LBL_BTN_DELETE' => 'Dzēst',
   'LBL_BTN_DEPLOY' => 'Izvietot',
   'LBL_BTN_DONT_SAVE' => 'Atmest izmaiņas',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Atsaukt',
   'LBL_BTN_VIEW_FIELDS' => 'Skatīt laukus',
   'LBL_BTN_VIEW_LAYOUTS' => 'Skatīt izkārtojumus',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Skatīt mobilos izkārtojumus',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Skatīt relācijas',
   'LBL_BUG_TRACKER' => 'Kļūdu sekotājs',
   'LBL_CALCULATED' => 'Aprēķināta vērtība',
   'LBL_CASES' => 'Pieteikumi',
   'LBL_CLEAR_EXTENSIONS' => 'Notīrīt paplašinājumus',
   'LBL_CLEAR_RELATIONSHIPS' => 'Dzēst relācijas',
+  'LBL_COMBO_FIELD_CONTAINS' => 'contains:',
   'LBL_COMPANY' => 'Uzņēmums:',
   'LBL_CONFIG_PORTAL_URL' => 'URL uz pielāgoto logotipa attēlu. Ieteicamās logotipa dimensijas ir 163 × 18 pikseļi.',
   'LBL_CONFIRM_DONT_SAVE' => 'Kopš pēdējās saglabāšanas ir veiktas izmaiņas, vai vēlaties saglabāt?',
@@ -103,6 +104,7 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Vai tiešām vēlaties dzēst šo relāciju?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Tādejādi tiks radīta pastāvīga relācija. Vai tiešām vēlaties izvietot šo relāciju?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Esat izvēlējies šo elementu izņemšanai no nolaižamās izvēlnes saraksta. Jebkuri nolaižamās izvēlnes saraksta lauki, kuri izmanto šo sarakstu vairs nesaturēs šo elementu, un tas vairs nebūs pieejams atlasīšanai no nolaižamās izvēlnes laukiem. Vai vēlaties turpināt?',
+  'LBL_COPY_FROM' => 'Kopēt no',
   'LBL_COPY_FROM_EDITVIEW' => 'Kopēt no rediģēšanas skatījuma',
   'LBL_CREATE' => 'Izveidot',
   'LBL_CREATE_NEW' => 'Izveidot jaunu',
@@ -137,12 +139,15 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEM_NAME' => 'Vienuma nosaukums',
   'LBL_DROPDOWN_KEY_EXISTS' => 'Atslēga jau ir sarakstā',
   'LBL_DROPDOWN_LANGUAGE' => 'Valoda',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Sarakstā jābūt vismaz vienai aktīvai vērtībai',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nosaukums',
   'LBL_DROP_HERE' => '[Nomest šeit]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Atkarīgs',
   'LBL_EC_AUTHOR' => 'Autors:',
   'LBL_EC_CHECKERROR' => 'Lūdzu izvēlieties moduli.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'Pielāgotie izvēles saraksti',
   'LBL_EC_CUSTOMFIELD' => 'pielāgotais(ie) lauks(i)',
+  'LBL_EC_CUSTOMLABEL' => 'pielāgotās etiķetes',
   'LBL_EC_CUSTOMLAYOUT' => 'pielāgots(ie) izkārtojums(i)',
   'LBL_EC_DESCRIPTION' => 'Apraksts:',
   'LBL_EC_EMPTYCUSTOM' => 'satur tukšus pielāgojumus.',
@@ -166,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Lauki',
   'LBL_FILE' => 'Fails',
   'LBL_FILLER' => '(aizpildītājs)',
+  'LBL_FILTER_SEARCH' => 'Meklēšana',
   'LBL_FORMULA' => 'Formula',
   'LBL_FORMULA_BUILDER' => 'Formulu redaktors',
   'LBL_FORMULA_INVALID' => 'Nederīga formula',
   'LBL_FORMULA_TYPE' => 'Formulas tipam jābūt',
   'LBL_HCUSTOM' => 'PIELĀGOTS',
   'LBL_HDEFAULT' => 'NOKLUSĒTS',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Kopēt no izkārtojuma',
   'LBL_HIDDEN' => 'Slēpts',
   'LBL_HIDEOPTIONS' => 'Paslēpt iespējas',
   'LBL_HIGH' => 'Augsta',
@@ -182,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Mans',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Nolaižamās izvēlnes redaktors',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Nolaižamās izvēlnes atslēga nedrīkst saturēt pēdiņas.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indicates a combination field. A combination field is a collection of individual fields. For example, "Address" is a combination field that contains "Street address", "City", "Zip Code","State" and "Country".<br><br>Doubleclick a combination field to see which fields it contains.',
   'LBL_ISSUE' => 'Problēma',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Vai tiešām vēlies dzēst šo obligāto nolaižamās izvēlnes saraksta vienumu? Tas var ietekmēt lietojumprogrammas funkcionalitāti.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Vai tiešām vēlies dzēst pārdošanas stadiju "Aizvērts - zaudēts"? Dzēšot šo pārdošanas stadiju Prognožu modulis nedarbosies korekti.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Vai tiešām vēlies dzēst pārdošanas stadiju "Aizvērts - iegūts"? Dzēšot šo pārdošanas stadiju Prognožu modulis nedarbosies korekti.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Vai tiešām vēlaties dzēst statusu "Procesā"? Šī statusa izdzēšana ietekmēs Iespēju moduļa ieņēmumu posteņu procesu pareizu darbību.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Vai tiešām vēlaties dzēst statusu "Jauns"? Šī statusa izdzēšana ietekmēs Iespēju moduļa ieņēmumu posteņu procesu pareizu darbību.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Vai tiešām vēlies dzēst šo obligāto nolaižamās izvēlnes saraksta vienumu?Dzēšot pārdošanas stadiju  "Aizvērts - zaudēts" vai "Aizvērts - iegūts"  Prognožu modulis nedarbosies korekti.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Jebkuras Studio veiktās izmaiņas tiks pārrakstītas, šo moduli izvietojot atkārtoti. Vai vēlaties turpināt?',
   'LBL_JS_REMOVE_MODULE' => 'Vai tiešām vēlaties izņemt šo moduli? Darbības rezultātā tiks izdzēsti visi ar moduli saistītie faili.',
   'LBL_JS_REMOVE_PACKAGE' => 'Vai tiešām vēlaties izņemt šo pakotni? Darbības rezultātā tiks izdzēsti visi ar pakotni saistītie faili.',
   'LBL_JS_VALIDATE_KEY' => 'Atslēga - Jābūt burtciparu, jāsākas ar burtu un nedrīkst saturēt atstarpes.',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Atslēga - jābūt burtu un ciparu kombinācijai un jāsākas ar burtu.',
   'LBL_JS_VALIDATE_LABEL' => 'Lūdzu ievadiet etiķeti, ko lietot par šī moduļa attēlošanas vārdu',
   'LBL_JS_VALIDATE_NAME' => 'Nosaukums - Jāsastāv tikai no cipariem un burtiem, jāsākas ar burtu un nedrīkst saturēt atstarpes.',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Pakotnes nosaukums jau eksistē',
@@ -241,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Lauki netika atrasti',
   'LBL_NO_FUNCS' => 'Funkcijas netika atrastas',
   'LBL_NO_RELS' => 'Nav relāciju',
-  'LBL_NO_SAVE_ACTION' => 'Saglabāšanas darbība šim skatījumam netika atrasta.',
+  'LBL_NO_SAVE_ACTION' => 'Nevar atrast saglabāšanas darbību šim skatam.',
   'LBL_NUMBER' => 'Numurs:',
   'LBL_ONETOMANY' => 'Viens pret Daudziem',
   'LBL_ONETOONE' => 'Viens pret Vienu',
@@ -303,8 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Atlasiet Sugar portāla izkārtojumu rediģēšanai.',
   'LBL_QUICKCREATE' => 'Ātri izveidot',
   'LBL_READ_ONLY' => 'Tikai lasīt',
+  'LBL_RECORDVIEW' => 'Ieraksta skats',
   'LBL_RELATED_FIELD' => 'Saistītais lauks',
-  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (saistītais {1} ID)',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
   'LBL_RELATE_TO' => 'Saistīts ar',
   'LBL_RELATIONSHIPS' => 'Relācijas',
   'LBL_RELATIONSHIP_EDIT' => 'Rediģēt relāciju',
@@ -324,6 +340,7 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Atiestatīt moduli',
   'LBL_RESTORE_DEFAULT' => 'Atjaunot noklusējumus',
   'LBL_RHS_MODULE' => 'Saistītais modulis',
+  'LBL_ROLE' => 'Loma',
   'LBL_ROLLUP' => 'Apkopojums',
   'LBL_RSUB' => 'Šis ir apakšpanelis, kurš parādīsies jūsu modulī',
   'LBL_SALE' => 'Pārdošana',
@@ -351,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Norādīt apakšpaneli',
   'LBL_SELECT_FILE' => 'Norādīt failu',
   'LBL_SELECT_SUBPANEL' => 'Norādīt apakšpaneli',
+  'LBL_SINGULAR_LABEL' => 'Etiķete vienskaitlī',
   'LBL_SP_PREVIEW' => 'Šādi izskatās Sugar portāls, lietojot stila lapu.',
   'LBL_SP_UPLOADED' => 'Augšupielādēts',
   'LBL_SP_UPLOADSTYLE' => 'Izvēlieties no sava datora augšuplādējamu stila lapu.<br />Stila lapa Sugar portālā tiks izmantota, kad nākamo reizi veiksiet sinhronizāciju.',
@@ -549,6 +567,7 @@ $mod_strings = array (
       'default' => '<b>Izkārtojuma</b> zona satur laukus, kuri patreiz ir attēloti <b>Rediģēšanas skatījumā</b>.<br/><br/><b>Rīkjosla</b> satur <b>Atkritni</b> un lauku un izkārtojumu elementus, kurus var pievienot izkārtojumam.<br><br>Veic izmaiņas izkārtojumā velkot un nometot elementus un laukus starp <b>Rīkjoslu</b> un <b>Izkārtojumu</b>, kā arī starp izkārtojuma elementiem.<br><br>Lai izņemtu lauku no izkārtojuma, velc lauku uz <b>Atkritni</b>. Tad šis lauks būs pieejams Rīkjoslā, un to varēs atkārtoti pievienot izkārtojumam.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Norāda Atkarīgo lauku, kurš var būt, un var nebūt redzams balstoties uz formulas vērtību.<br/>Norāda Aprēķināto lauku, kura vērtība tiks noteikta automātiski, balstoties uz formulu.',
       'defaultdetailview' => '<b>Izkārtojuma</b> zona satur laukus, kuri patreiz ir attēloti <b>Detalizētajā skatījumā</b>.<br/><br/><b>Rīkjosla</b> satur <b>Atkritni</b> un lauku un izkārtojumu elementus, kurus var pievienot izkārtojumam.<br><br>Veic izmaiņas izkārtojumā velkot un nometot elementus un laukus starp <b>Rīkjoslu</b> un <b>Izkārtojumu</b>, kā arī starp izkārtojuma elementiem.<br><br>Lai izņemtu lauku no izkārtojuma, velc lauku uz <b>Atkritni</b>. Tad šis lauks būs pieejams Rīkjoslā, un to varēs atkārtoti pievienot izkārtojumam.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Norāda Atkarīgo lauku, kurš var būt, un var nebūt redzams balstoties uz formulas vērtību.<br/>Norāda Aprēķināto lauku, kura vērtība tiks noteikta automātiski, balstoties uz formulu.',
       'defaultquickcreate' => '<b>Izkārtojuma</b> zona satur laukus, kuri patreiz ir attēloti <b>Ātrās izveidošanas</b> formā.<br><br>Ātrās izveidošanas forma parādās moduļa apakšpaneļos kad ir noklikšķināta  poga Izveidot. <<br/><b>Rīkjosla</b> satur <b>Atkritni</b> un lauku un izkārtojumu elementus, kurus var pievienot izkārtojumam.<br><br>Veic izmaiņas izkārtojumā velkot un nometot elementus un laukus starp <b>Rīkjoslu</b> un <b>Izkārtojumu</b>, kā arī starp izkārtojuma elementiem.<br><br>Lai izņemtu lauku no izkārtojuma, velc lauku uz <b>Atkritni</b>. Tad šis lauks būs pieejams Rīkjoslā, un to varēs atkārtoti pievienot izkārtojumam.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Norāda Atkarīgo lauku, kurš var būt, un var nebūt redzams balstoties uz formulas vērtību.<br/>Norāda Aprēķināto lauku, kura vērtība tiks noteikta automātiski, balstoties uz formulu.',
+      'defaultrecordview' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>Record View</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indicates a Dependent field that may or may not be visible based on the value of a formula.<br/>Indicates a Calculated field whose value will be automatically determined based on a formula.',
       'delete' => 'Vilkt un nomest jebkuru elementu lai izņemtu to no izkārtojuma',
       'historyBtn' => 'Klikšķini <b>Aplūkot vēsturi</b>, lai aplūkotu vēsturi un atjaunotu iepriekš saglabātus izkārtojumus no vēstures.<br><br><b>Atjaunošana</b> caur <b>Aplūkot vēsturi</b> atjauno lauku novietojumu tādu kā iepriekš saglabātajos izkārtojumos. Lai izmainītu lauku etiķetes, klikšķini uz ikonas Rediģēt, blakus katram laukam.',
       'historyDefault' => 'Klikšķini  <b>Atjaunot noklusētās vērtības</b>, lai atjaunotu skatu tā oriģinālajā izkārtojumā.',
@@ -593,6 +612,7 @@ $mod_strings = array (
       'type_sale' => '<b>Pārdošanas</b> veidnes tips nodrošina iespējām raksturīgus laukus, tādus kā Interesenta avots, Stadija, Apjoms un Varbūtība. <br/><br/>Lieto šo veidni, lai izveidotu standarta Iespēju modulim līdzīgus moduļus.',
       'viewfieldsbtn' => 'Klikšķini <b>Aplūkot laukus</b>, lai aplūkotu moduļa laukus un izveidotu un rediģētu pielāgotos laukus.',
       'viewlayoutsbtn' => 'Klikšķini <b>Aplūkot izkārtojumus</b> lai aplūkotu moduļa izkārtojumus un izkārtojumos pielāgotu lauku kārtību.',
+      'viewmobilelayoutsbtn' => 'Klikšķiniet <b>Skatīt mobilos izkārtojumu</b> lai redzētu moduļa mobilos izkārtojumus un rediģētu lauku secību izkārtojumos.',
       'viewrelsbtn' => 'Klikšķini <b>Aplūkot relācijas</b> , lai aplūkotu šim modulim piesaistītās relācijas un izveidotu jaunas relācijas.',
     ),
     'package' => 
@@ -687,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Visas esošās <b>Relācijas</b> starp moduli un citiem izvietotiem moduļiem parādās šeit.<br><br>Relācijas <b>Nosaukums</b> ir sistēmas ģenerēts relācijas nosaukums.<br><br><b>Primārais modulis</b> ir modulis, kuram pieder relācija.  Piemēram, visas relācijas īpašības, kurām Uzņēmumu modulis ir primārais modulis ir saglabātas Uzņēmuma moduļa datubāzes tabulās.<br><br> <b>Tips</b> ir relācijas tips kurš eksistē starp primāro moduli un <b>Saistīto moduli</b>.<br><br>Klikšķini uz kolonnas nosaukuma, lai ierakstus sašķirotu pēc kolonnas.<br><br>Klikšķini uz ieraksta saišu tabulā lai aplūkotu relācijas īpašības.<br><br>Klikšķini <b>Pievienot saiti</b>, lai izveidotu jaunu saiti<br><br>Relācijas var izveidot starp jebkuriem diviem izvietotiem moduļiem.',
       'searchBtn' => 'Pielāgot moduļu <b>Meklēšanas</b> izkārtojumus.<br><br>Nosaki, kuri lauki var tikt izmantoti ierakstu filtrēšanai priekš Saraksta skatījuma.',
       'searchHelp' => 'Pielāgošanai pieejamās <b>Meklēšanas</b> formas parādās šeit.<br><br>Meklēšanas formas satur laukus ierakstu filtrēšanai.<br><br>Klikšķini uz ikonas, lai atlasītu meklēšanas izkārtojumu rediģēšanai. .',
+      'studioBCHelp' => 'norāda ka modulis ir savietojams ar iepriekšējām versijām',
       'studioBtn' => 'Lieto <b>Studio</b>l, ai pielāgotu izvietotos moduļus.',
       'studioHelp' => 'Lieto <b>Studio</b>, lai noteiktu kāda un kā informācija tiks parādīta moduļos.',
       'subpanelBtn' => 'Nosaki kuri lauki parādīsies moduļa apakšpaneļos.',

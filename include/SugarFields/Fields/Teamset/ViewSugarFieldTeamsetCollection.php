@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarFields/Fields/Collection/SugarFieldCollection.php');
 require_once('include/SugarFields/Fields/Collection/ViewSugarFieldCollection.php');
 
@@ -21,6 +18,7 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
 	var $add_user_private_team = true;
 	var $team_set_id = null;
 	var $team_id = null;
+	var $type = 'TeamsetCollection';
 
 	function ViewSugarFieldTeamsetCollection($fill_data=false){
     	parent::ViewSugarFieldCollection($fill_data);
@@ -93,8 +91,8 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
         	$this->vardef['name'] = $this->name;
         	if(!empty($GLOBALS['beanList'][$this->module_dir])){
 	        	$class = $GLOBALS['beanList'][$this->module_dir];
-	            if(file_exists($GLOBALS['beanFiles'][$class])){
-		        	$this->bean = loadBean($this->module_dir);
+	            if(SugarAutoLoader::fileExists($GLOBALS['beanFiles'][$class])){
+		        	$this->bean = BeanFactory::getBean($this->module_dir);
 					$secondaries = array();
 					$primary = false;
 
@@ -122,8 +120,7 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
 			        	} //foreach
 			        }elseif(!empty($this->bean->team_id)){
 			        	//since the team_set_id is not set, but the team_id is.
-			        	$focus = new Team();
-			        	$focus->retrieve($this->bean->team_id);
+			        	$focus = BeanFactory::getBean('Teams', $this->bean->team_id);
 			        	$display_name = Team::getDisplayName($focus->name, $focus->name_2);
 			        	$this->bean->{$this->value_name}=array_merge($this->bean->{$this->value_name}, array('primary'=>array('id'=>$focus->id, 'name'=>$display_name)));
 			        }
@@ -191,8 +188,6 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
         $sf = $sfh->getSugarField('Teamset', true);
         $teams = $sf->getTeamsFromRequest($this->name);
 		$full_form_values = array();
-        // Don't prefill the search form with default teams
-        $this->bean->{$this->value_name} = array('role_field' => 'team_name');
         if(!empty($teams)) {
             //If a primary team is selected, adjust the appropriate settings; otherwise use the first
         	//team from the $_REQUEST
@@ -245,7 +240,7 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
     	if(empty($_REQUEST['record'])) {
            $isDuplicate = isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true' && $this->bean->aclAccess('edit');
            if($isDuplicate) {
-		        $dupBean = loadBean($_REQUEST['module']);
+		        $dupBean = BeanFactory::getBean($_REQUEST['module']);
 		        $dupBean->retrieve($_REQUEST['record']);
 		        $full_form_values = array();
 		        $full_form_values['primary'] = array('id'=>$dupBean->team_id, 'name'=>$dupBean->team_name);
@@ -371,42 +366,7 @@ class ViewSugarFieldTeamsetCollection extends ViewSugarFieldCollection {
        return '';
     }
 
-function findTemplate($view){
-        static $tplCache = array();
-
-        if ( isset($tplCache['TeamsetCollection'][$view]) ) {
-            return $tplCache['TeamsetCollection'][$view];
-        }
-
-        $lastClass = get_class($this);
-        $classList = array('Teamset');
-
-        $tplName = '';
-        foreach ( $classList as $className ) {
-            global $current_language;
-            if(isset($current_language)) {
-                $tplName = 'include/SugarFields/Fields/'. $className .'/'. $current_language . '.' . $view .'.tpl';
-                if ( file_exists('custom/'.$tplName) ) {
-                    $tplName = 'custom/'.$tplName;
-                    break;
-                }
-                if ( file_exists($tplName) ) {
-                    break;
-                }
-            }
-            $tplName = 'include/SugarFields/Fields/'. $className .'/'. $view .'.tpl';
-            if ( file_exists('custom/'.$tplName) ) {
-                $tplName = 'custom/'.$tplName;
-                break;
-            }
-            if ( file_exists($tplName) ) {
-                break;
-            }
-        }
-
-        $tplCache['TeamsetCollection'][$view] = $tplName;
-
-        return $tplName;
+    function findTemplate($view) {
+        return parent::findTemplate($view, array('Teamset'));
     }
 }
-?>

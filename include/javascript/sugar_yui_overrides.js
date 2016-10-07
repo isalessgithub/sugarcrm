@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 YAHOO.widget.Panel.prototype.configClose=function(type,args,obj){var val=args[0],oClose=this.close,strings=this.cfg.getProperty("strings"),fc;if(val){if(!oClose){if(!this.m_oCloseIconTemplate){this.m_oCloseIconTemplate=document.createElement("a");this.m_oCloseIconTemplate.className="container-close";this.m_oCloseIconTemplate.href="#";}
 oClose=this.m_oCloseIconTemplate.cloneNode(true);fc=this.innerElement.firstChild;if(fc){if(fc.className==this.m_oCloseIconTemplate.className){this.innerElement.replaceChild(oClose,fc);}else{this.innerElement.insertBefore(oClose,fc);}}else{this.innerElement.appendChild(oClose);}
 oClose.innerHTML=(strings&&strings.close)?strings.close:"&#160;";YAHOO.util.Event.on(oClose,"click",this._doClose,this,true);this.close=oClose;}else{oClose.style.display="block";}}else{if(oClose){oClose.style.display="none";}}}

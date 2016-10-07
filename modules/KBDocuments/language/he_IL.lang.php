@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'המסמך נוצר',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'שם מסמך',
   'ERR_DOC_VERSION' => 'מסמך בגרסה',
   'ERR_FILENAME' => 'שם קובץ',
+  'ERR_FILESIZE' => 'הקובץ גדול מדי. גודל מקסימלי הוא:',
   'LBL_ACTIVE_DATE' => 'תאריך פרסום',
   'LBL_AND' => 'וגם',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'מיישם תגיות על מאמרים ...',
@@ -35,13 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'מחבר:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'מחבר',
   'LBL_ARTICLE_BODY' => 'גוף המאמר:',
+  'LBL_ARTICLE_EXISTS' => 'המאמר כבר קיים',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'מאמרים',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'צפייה מוקדמת לא פאשרית, המסמך נמצא אבל ,ככל הנראה, הוא ללא מידע.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'צפייה מקודמת איננה אפשרית, המסמך שמבוקש לא נמצא.',
   'LBL_ARTICLE_TITLE' => 'כותרת:',
   'LBL_ATTACHMENTS' => 'מסמכים מצורפים:',
+  'LBL_CASE' => 'פניית שירות',
   'LBL_CASES' => 'אירועים',
   'LBL_CASES_SUBPANEL_TITLE' => 'אירועים קשורים',
+  'LBL_CASE_ID' => 'פניית שירות ID',
   'LBL_CATEGORY' => 'קטגוריה',
   'LBL_CATEGORY_VALUE' => 'קטגוריה:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'לא מוגדר',
@@ -54,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'חוזים',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'חוזים קשורים',
   'LBL_CONTRACT_NAME' => 'שם איש קשר:',
+  'LBL_CONTRACT_STATUS' => 'סטאטוס איש קשר:',
   'LBL_CREATED' => 'נוצר על ידי',
   'LBL_CREATED_BY' => 'נוצר על ידי',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -62,11 +64,12 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'נוצר בתאריך',
   'LBL_DATE_MODIFIED' => 'שונה בתאריך',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'בחר פעולה מהרשימה הנגללת',
+  'LBL_DEFAULT_LINK_TEXT' => 'פניית שירות',
   'LBL_DELETE' => 'מחק',
   'LBL_DELETED' => 'נמחק',
   'LBL_DELETE_TAG' => 'מחק תגית',
   'LBL_DESCRIPTION' => 'תיאור',
-  'LBL_DET_IS_TEMPLATE' => 'תבנית? :',
+  'LBL_DET_IS_TEMPLATE' => 'תבנית:',
   'LBL_DET_RELATED_DOCUMENT' => 'מסמכים קשורים:',
   'LBL_DET_RELATED_DOCUMENT_VERSION' => 'רויזיות של מסמכים קשורים:',
   'LBL_DET_TEMPLATE_TYPE' => 'סוג מסמך:',
@@ -101,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'מסמך Id',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDocument רויזיה מספר',
   'LBL_KBDOC_APPROVED_BY' => 'אושר על ידי:',
+  'LBL_KBDOC_APPROVER_NAME' => 'שם מאשר',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_צרופה',
   'LBL_KBDOC_ATTS_TITLE' => 'הורד קבצים מצורפים:',
   'LBL_KBDOC_BODY' => 'גוף:',
@@ -119,7 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'הרויזיה האחרונה Id',
   'LBL_LATEST_REVISION_NAME' => 'שם הרויזיה האחרונה',
   'LBL_LAUNCHING_TAG_BROWSING' => 'מפעיל דפדוף בתגיות ...',
+  'LBL_LINKED_ID' => 'קישור ID',
   'LBL_LIST_ACTIVE_DATE' => 'תאריך פרסום',
+  'LBL_LIST_APPROVED_BY' => 'אושר על ידי:',
   'LBL_LIST_ARTICLES' => 'צפייה במאמרים',
   'LBL_LIST_CATEGORY' => 'קטגוריה',
   'LBL_LIST_DOCUMENT' => 'מסמך',
@@ -148,6 +154,7 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'שונה על ידי id',
   'LBL_MODIFIED_USER' => 'שונה על ידי',
   'LBL_MODULE_NAME' => 'מרכז מידע',
+  'LBL_MODULE_NAME_SINGULAR' => 'מסמך KB',
   'LBL_MODULE_TITLE' => 'מאמר במרכז המידע',
   'LBL_MOVE' => 'הזז',
   'LBL_MOVING_ARTICLES_TO_TAG' => 'מזיז מאמרים לתגיות...',
@@ -157,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'קובץ לא חוקי',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'סוג אב',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'ניתן לסנן את רשימת המאמרים על ידי מונח לחיפוש',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'לדוגמא, אתה יכול להשתמש בזה למציאת מאמר בנושא שיש לך בו עניין',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'מודול מאגר מידע משמש לצפיה במאמרים שפורסמו. השתמש בחצים למטה לסיור קצר.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'דף זה מציג מאמרים פעילים',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'הקלקה כאן תחזיר אותך למאגר מידע  בכל עת',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'חיפושים שמורים קודמים:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'ערוך או מחק חיפוש שמור.',
   'LBL_PUBLISHED' => 'פורסם:',
@@ -174,12 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'חפש מסמכים',
   'LBL_SEARCH_TAG' => 'חפש',
   'LBL_SEARCH_WITHIN' => 'חפש בתוך:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'שם קובץ של הבדיקה המחדש',
+  'LBL_SELECTED_REVISION_ID' => 'ID בדיקה מחדש שנבחרה',
   'LBL_SELECTED_REVISION_NAME' => 'שם רויזיה אחרונה שנבחרה',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'בחר מאמרים שהתגיות האלה יתיחסו אליהם',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'ראשית בחר מאמרים',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'קודם כל בחר מאמר',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'צור תגית חדשה',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'בחר תגית מעץ',
+  'LBL_SELECT_NODE' => 'אנא בחר צומת',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'בחר תגית אב מהעץ',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'בחר תגית אב מהעץ',
   'LBL_SELECT_TAG' => 'בחר תגית',
@@ -195,6 +210,7 @@ $mod_strings = array (
   'LBL_SF_EXP_DATE' => 'תאריך תפוגה:',
   'LBL_SF_SUBCATEGORY' => 'תת-קטגוריה:',
   'LBL_SHOW_ARTICLE_DETAILS' => 'הצג פרטים נוספים',
+  'LBL_SHOW_MORE' => 'הצג מאמרים נוספים',
   'LBL_SHOW_OPTIONS' => 'אפשרויות נוספות',
   'LBL_SHOW_SYNTAX_HELP' => 'עזרה בתחביר',
   'LBL_SHOW_TAGS' => 'הצג תגיות נוספות',
@@ -225,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'משתמש בתגיות אלה:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'מאמרים לא מתוייגים',
   'LBL_UPDATE' => 'עדכן',
+  'LBL_VIEWS_NUMBER' => 'מספר צפיות',
   'LNK_KBDOCUMENT_LIST' => 'צפה במסמכים',
   'LNK_NEW_ARTICLE' => 'צור מאמר',
   'LNK_NEW_MAIL_MERGE' => 'מיזוג דואר',

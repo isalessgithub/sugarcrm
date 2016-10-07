@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,8 +76,8 @@ $mod_strings = array (
     1209600 => 'Cada 2 semanas',
     2419200 => 'Cada 4 semanas',
   ),
-  'ERR_REPORT_DEACTIVATED' => 'El informe programado "{0}" ha sido desactivado',
-  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'El informe programado ha sido desactivado',
+  'ERR_REPORT_DEACTIVATED' => 'Informe planificado "{0}" ha sido desactivado',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Informe planificado ha sido desactivado',
   'ERR_REPORT_INVALID' => 'La definición del informe "{0}" contiene campos no válidos: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'El reportes es invalido',
   'ERR_SELECT_COLUMN' => 'Por favor, seleccione primero una columa de visualización.',
@@ -124,7 +121,7 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Antes de',
   'LBL_BUG_REPORTS' => 'Informes de Incidencias',
   'LBL_BY_DAY' => 'Por Día',
-  'LBL_BY_FISCAL_QUARTER' => 'Por Trimestre',
+  'LBL_BY_FISCAL_QUARTER' => 'Por Trimestre Fiscal',
   'LBL_BY_FISCAL_YEAR' => 'Por Año Fiscal',
   'LBL_BY_MONTH' => 'Por Mes',
   'LBL_BY_QUARTER' => 'Por Trimestre',
@@ -156,7 +153,7 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Asistente de Informes',
   'LBL_CREATE_REPORT' => 'Nuevo Informe',
   'LBL_CSV_TIMESTAMP' => 'Y_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre Actual',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre Fiscal Actual',
   'LBL_CURRENT_FISCAL_YEAR' => 'Año Fiscal Actual',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Acuerdos Cerrados en el Trimestre Actual',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Forecast de Trimestre Actual',
@@ -207,11 +204,12 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'de los siguientes filtros.',
   'LBL_FILTERS_HELP_DESC' => '<b>Pasos para la Definición de Filtros:</b><br/><br/>1) Haga clic en un Módulo del panel <b>Módulos Relacionados</b> que desea utilizar para definir el filtro. Por defecto, el módulo principal (el nodo raíz en el árbol) está seleccionado. <br/><br/><br />	Puede seleccionar un módulo relacionado (nodo hijo en el árbol) haciendo clic en el módulo. Puede expandir el nodo para ver módulos adicionales relacionados con el módulo. El módulo que seleccione determina los campos utilizables en un informe que aparecen en el panel <b>Campos Disponibles</b>.<br/><br/><br />	2) Haga clic en un Campo del panel <b>Campos Disponibles</b> para agregarlo a los filtros. También puede buscar un campo usando el cuadro de texto del panel.<br/><br/><br />	Tras seleccionar un conjunto de campos del módulo seleccionado en el panel <b>Módulos Relacionados</b>, puede seleccionar un módulo distinto del cual quiera seleccionar campos adicionales para ser utilizados como filtro.<br/><br/><br />	3) Seleccione <b>Y</b> o <b>O</b> para establecer si todos los filtros o cualquiera de ellos, respectivamente, se utilizarán para obtener los resultados del informe.<br/><br/><br />	4) [Opcional] Haga clic en <b>Agregar Grupo de Filtros</b> para crear grupos de filtros. Puede tener tantos grupos de filtros y tantos filtros en un grupo como desee para crear filtros anidados.<br/><br/><br />	5) [Opcional] Seleccione la opción de Tiempo de ejecución de un Filtro para permitir que los usuarios utilicen el filtro para personalizar los resultados de los informes mientras ven el informe.',
   'LBL_FILTER_AND' => 'Y',
+  'LBL_FILTER_BY_MODULE' => 'Por Módulo',
   'LBL_FILTER_CONDITIONS' => 'Seleccione Operador:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Hasta',
   'LBL_FILTER_DATE_RANGE_START' => 'Desde',
   'LBL_FILTER_OR' => 'O',
-  'LBL_FISCAL_QUARTER' => 'Trimestre',
+  'LBL_FISCAL_QUARTER' => 'Trimestre Fiscal',
   'LBL_FISCAL_YEAR' => 'Año Fiscal',
   'LBL_FORECAST_REPORTS' => 'Informes de Forecasts',
   'LBL_FUNNEL' => 'Embudo',
@@ -237,7 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Últimos 30 Días',
   'LBL_LAST_7_DAYS' => '7 Días Anteriores',
   'LBL_LAST_MONTH' => 'Último Mes',
-  'LBL_LAST_N_DAYS' => 'Últimos x días',
+  'LBL_LAST_N_DAYS' => 'Últimos # Días',
   'LBL_LAST_QUARTER' => 'Último Trimestre',
   'LBL_LAST_WEEK' => 'Última Semana',
   'LBL_LAST_YEAR' => 'Último Año',
@@ -306,10 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'Siguiente >',
   'LBL_NEXT_30_DAYS' => '30 Días Siguientes',
   'LBL_NEXT_7_DAYS' => '7 Días Siguientes',
-  'LBL_NEXT_FISCAL_QUARTER' => 'Próximo Trimestre',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Próximo Trimestre Fiscal',
   'LBL_NEXT_FISCAL_YEAR' => 'Próximo Año Fiscal',
   'LBL_NEXT_MONTH' => 'Mes Siguiente',
-  'LBL_NEXT_N_DAYS' => 'Próximos x días',
+  'LBL_NEXT_N_DAYS' => 'Próximos # Días',
   'LBL_NEXT_QUARTER' => 'Siguiente Trimestre',
   'LBL_NEXT_RUN' => 'Email Siguiente',
   'LBL_NEXT_WEEK' => 'Semana Siguiente',
@@ -342,7 +340,7 @@ $mod_strings = array (
   'LBL_PIE' => 'Círculo',
   'LBL_PREVIEW_REPORT' => 'Vista Preliminar',
   'LBL_PREVIOUS' => '< Atrás',
-  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestre Anterior',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestre Fiscal Anterior',
   'LBL_PREVIOUS_FISCAL_YEAR' => 'Año Fiscal Anterior',
   'LBL_PROJECT_TASK_REPORTS' => 'Informes de Tareas de Proyectos',
   'LBL_PROSPECT_REPORTS' => 'Informes de Público Objetivo',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'con una media de',
   'LBL_WITH_A_TOTAL' => 'con un total de',
   'LBL_WITH_DETAILS' => 'Con detalles',
-  'LBL_WORKSHEET' => 'Hoja de Trabajo',
   'LBL_YEAR' => 'Año',
   'LBL_YESTERDAY' => 'Ayer',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'No tiene informes almacenados.',
+  'LNK_ADVANCED_REPORTING' => 'Gestionar Informes Avanzados',
   'LNK_NEW_ACCOUNT' => 'Nueva Cuenta',
   'LNK_NEW_CALL' => 'Registrar Llamada',
   'LNK_NEW_CASE' => 'Nuevo Caso',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'No tiene permisos para editar este informe',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Imposible realizar la publicación. Ya hay otro Informe publicado con el mismo nombre.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Imposible retirar un Informe propiedad de otro usuario. Usted posee otro Informe con el mismo nombre.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'El Planificador para la generación de informes está actualmente inactivo y los informes no pueden ser programados.  Es necesario que el usuario Administrador lo active para continuar.',
 );
 

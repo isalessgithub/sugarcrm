@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokument vytvořen',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Název dokumentu',
   'ERR_DOC_VERSION' => 'Verze dokumentu',
   'ERR_FILENAME' => 'Název souboru',
+  'ERR_FILESIZE' => 'Soubor je příliš veliký. Maximální velikost souboru:',
   'LBL_ACTIVE_DATE' => 'Datum publikace',
   'LBL_AND' => 'a',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Aplikuji štítky na články',
@@ -41,10 +39,10 @@ $mod_strings = array (
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Náhled není k dispozici, záznam o byl dokumentu nebyl nalezen.',
   'LBL_ARTICLE_TITLE' => 'Název:',
   'LBL_ATTACHMENTS' => 'Přílohy:',
-  'LBL_CASE' => 'Případ',
+  'LBL_CASE' => 'Případ:',
   'LBL_CASES' => 'Případy',
   'LBL_CASES_SUBPANEL_TITLE' => 'Související případy',
-  'LBL_CASE_ID' => 'ID případu',
+  'LBL_CASE_ID' => 'ID případu:',
   'LBL_CATEGORY' => 'Kategorie',
   'LBL_CATEGORY_VALUE' => 'Kategorie:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Nespecifikovaný',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Kontrakty',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Související kontrakty',
   'LBL_CONTRACT_NAME' => 'Jméno kontraktu:',
+  'LBL_CONTRACT_STATUS' => 'Stav smlouvy',
   'LBL_CREATED' => 'Vytvořeno',
   'LBL_CREATED_BY' => 'Vytvořeno',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'ID dokumentu',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDokument číslo revize',
   'LBL_KBDOC_APPROVED_BY' => 'Schváleno:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Jméno schvalovatele',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Stáhnout přílohy:',
   'LBL_KBDOC_BODY' => 'Tělo:',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'ID poslední revize',
   'LBL_LATEST_REVISION_NAME' => 'Jméno poslední revize',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Spouštím procházení štítků',
+  'LBL_LINKED_ID' => 'ID související',
   'LBL_LIST_ACTIVE_DATE' => 'Datum vydání',
-  'LBL_LIST_APPROVED_BY' => 'Schválil',
+  'LBL_LIST_APPROVED_BY' => 'Schváleno:',
   'LBL_LIST_ARTICLES' => 'Zobrazit články',
   'LBL_LIST_CATEGORY' => 'Kategorie',
   'LBL_LIST_DOCUMENT' => 'Dokument',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Není platný soubor',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Rodičovský typ',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Můžete omezit seznam článků zadáním podmínek hledání.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Můžete například použít toto k vyhledání článku určitého tématu zájmu.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modul Knowledge Base slouží pro práci s publikovanými články. Použijte šipky níže k projití rychlým průvodcem.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Tato stránka zobrazuje seznam publikovaných článků.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Kliknutím zde se kdykoliv vrátíte do Knowledge Base.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Předchozí uložená hledání:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Upravit nebo smazat stávající uložená hledání.',
   'LBL_PUBLISHED' => 'Publikováno:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat dokument',
   'LBL_SEARCH_TAG' => 'Vyhledávání',
   'LBL_SEARCH_WITHIN' => 'Hledat v:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Název souboru vybrané revize',
+  'LBL_SELECTED_REVISION_ID' => 'ID vybrané revize',
   'LBL_SELECTED_REVISION_NAME' => 'Zvolené jméno revize',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Vyberte články pro aktivaci štítků',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Nejprve vyberte články',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Použití tohoto štítku:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Neoznačené články',
   'LBL_UPDATE' => 'Aktualizovat',
+  'LBL_VIEWS_NUMBER' => 'Počet pohledů',
   'LNK_KBDOCUMENT_LIST' => 'Zobrazit dokumenty',
   'LNK_NEW_ARTICLE' => 'Vytvořit článek',
   'LNK_NEW_MAIL_MERGE' => 'Hromadná korespondence',

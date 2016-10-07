@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -23,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'Employees',
+  'LBL_MODULE_NAME_SINGULAR' => 'Employee',
   'LBL_MODULE_TITLE' => 'Employees: Home',
   'LBL_SEARCH_FORM_TITLE' => 'Employee Search',
   'LBL_LIST_FORM_TITLE' => 'Employees',
@@ -68,8 +66,7 @@ $mod_strings = array (
   'LBL_TITLE' => 'Title:',
   'LBL_ANY_ADDRESS' => 'Any Address:',
   'LBL_ANY_PHONE' => 'Any Phone:',
-  'LBL_ANY_EMAIL' => 'Any Email:',
-  'LBL_ADDRESS' => 'Address:',
+  'LBL_ANY_EMAIL' => 'Email:',
   'LBL_CITY' => 'City:',
   'LBL_STATE' => 'State:',
   'LBL_POSTAL_CODE' => 'Postal Code:',
@@ -77,13 +74,11 @@ $mod_strings = array (
   'LBL_NAME' => 'Name:',
   'LBL_MOBILE_PHONE' => 'Mobile:',
   'LBL_OTHER' => 'Other:',
-  'LBL_FAX' => 'Fax:',
   'LBL_EMAIL' => 'Email Address:',
   'LBL_EMAIL_LINK_TYPE'				=> 'Email Client',
   'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
   'LBL_HOME_PHONE' => 'Home Phone:',
   'LBL_WORK_PHONE' => 'Work Phone:',
-  'LBL_ADDRESS_INFORMATION' => 'Address Information',
   'LBL_EMPLOYEE_STATUS' => 'Employee Status:',
   'LBL_PRIMARY_ADDRESS' => 'Primary Address:',
   'LBL_SAVED_SEARCH' => 'Layout Options',
@@ -131,7 +126,7 @@ $mod_strings = array (
   'LBL_SHOW_ON_EMPLOYEES' => 'Display Employee Record',
   'LBL_USER_HASH' => 'Password',
   'LBL_SYSTEM_GENERATED_PASSWORD' =>'System Generated Password',
-  'LBL_PICTURE_FILE' => 'Picture',
+  'LBL_PICTURE_FILE' => 'Avatar',
   'LBL_DESCRIPTION'	=> 'Description',
   'LBL_FAX_PHONE'						=> 'Fax',
   'LBL_FAX'							=> 'Fax',
@@ -147,6 +142,8 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'Date Modified',
   'LBL_DATE_ENTERED' => 'Date Entered',
   'LBL_DELETED' => 'Deleted',
+  'LBL_EMAIL_ADDRESS'=>'Email Address',
+  'LBL_CONTACTS_SYNC' => 'Contacts',
 );
 
 

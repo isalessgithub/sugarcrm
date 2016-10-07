@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: SugarWidgetSubPanelRemoveButtonMeetings.php 56853 2010-06-08 02:36:54Z clee $
 
 
 
@@ -28,8 +25,8 @@ class SugarWidgetSubPanelRemoveButtonMeetings extends SugarWidgetField
 	function displayList(&$layout_def)
 	{
 		global $app_strings;
-		
-				
+
+
 		$parent_record_id = $_REQUEST['record'];
 		$parent_module = $_REQUEST['module'];
 
@@ -40,26 +37,20 @@ class SugarWidgetSubPanelRemoveButtonMeetings extends SugarWidgetField
 		$return_action = 'SubPanelViewer';
 		$subpanel = $layout_def['subpanel_id'];
 		$return_id = $_REQUEST['record'];
-		
-		
-		if(isset($GLOBALS['FOCUS'])) {	
+
+
+		if(isset($GLOBALS['FOCUS'])) {
 			$focus = $GLOBALS['FOCUS'];
 		}
-		
+
         /* Handle case where we generate subpanels from MySettings/LoadTabSubpanels.php */
         else if($return_module == 'MySettings') {
-        	global $beanList, $beanFiles;
-            $return_module = $_REQUEST['loadModule'];
-            
-            $class = $beanList[$return_module];
-            require_once($beanFiles[$class]);
-            $focus = new $class();
-            $focus->retrieve($return_id);
+            $focus = BeanFactory::getBean($_REQUEST['loadModule'], $return_id);
         }
-		
+
         //CCL - Comment out restriction to not remove assigned user
 		//if($focus->assigned_user_id == $record) return '';
-		
+
 		if (isset($layout_def['linked_field_set']) && !empty($layout_def['linked_field_set'])) {
 			$linked_field= $layout_def['linked_field_set'] ;
 		} else {

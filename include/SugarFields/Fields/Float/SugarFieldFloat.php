@@ -1,18 +1,15 @@
 <?php
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Int/SugarFieldInt.php');
 
@@ -31,10 +28,31 @@ class SugarFieldFloat extends SugarFieldInt
 
         return format_number($rawField,$precision,$precision);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
+
+        $data[$fieldName] = isset($bean->$fieldName) && is_numeric($bean->$fieldName)
+                            ? (float)$bean->$fieldName : null;
+    }
+
     public function unformatField($formattedField, $vardef){
         if ( $formattedField === '' || $formattedField === NULL ) {
-            return null;
+            return '';
+        }
+        if (is_array($formattedField)) {
+            $formattedField = array_shift($formattedField);
         }
         return (float)unformat_number($formattedField);
     }
@@ -58,6 +76,75 @@ class SugarFieldFloat extends SugarFieldInt
             return false;
         }
         
-        return (float)$value;
+        return $value;
+    }
+
+    /**
+     * For Floats we need to round down to the precision of the passed in value, since the db's could be showing
+     * something different
+     *
+     * @param Number $value                         The value for which we are trying to filter
+     * @param String $fieldName                     What field we are trying to modify
+     * @param SugarBean $bean                       The associated SugarBean
+     * @param SugarQuery $q                         The full query object
+     * @param SugarQuery_Builder_Where $where       The where object for the filter
+     * @param String $op                            The filter operation we are trying to do
+     * @return bool
+     * @throws SugarApiExceptionInvalidParameter
+     */
+    public function fixForFilter(
+        &$value,
+        $fieldName,
+        SugarBean $bean,
+        SugarQuery $q,
+        SugarQuery_Builder_Where $where,
+        $op
+    ) {
+        // if we have an array, pull the first value
+        if (is_array($value)) {
+            $v = $value[1];
+        } else {
+            $v = $value;
+        }
+
+        $decimal_separator_location = substr(strrchr($v, '.'), 1);
+        // if we don't have a decimal, just use the normal methods back up the chain
+        // since it's a whole number that is being searched on
+        if ($decimal_separator_location === false) {
+            return true;
+        }
+        // ROUND(<value>, <precision>) is the standard across all DB's we support
+        $field = "ROUND($fieldName, ". strlen($decimal_separator_location) . ")";
+
+        switch($op){
+            case '$equals':
+                $q->whereRaw("$field = $value");
+                return false;
+            case '$not_equals':
+                $q->whereRaw("$field != $value");
+                return false;
+            case '$between':
+                if (!is_array($value) || count($value) != 2) {
+                    throw new SugarApiExceptionInvalidParameter(
+                        '$between requires an array with two values.'
+                    );
+                }
+                $q->whereRaw("$field BETWEEN $value[0] AND $value[1]");
+                return false;
+            case '$lt':
+                $q->whereRaw("$field < $value");
+                return false;
+            case '$lte':
+                $q->whereRaw("$field <= $value");
+                return false;
+            case '$gt':
+                $q->whereRaw("$field > $value");
+                return false;
+            case '$gte':
+                $q->whereRaw("$field >= $value");
+                return false;
+        }
+
+        return true;
     }
 }

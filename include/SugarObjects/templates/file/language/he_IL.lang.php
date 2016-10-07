@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'מסמך נוצר',
@@ -39,6 +36,7 @@ $mod_strings = array (
   'LBL_DOC_NAME' => 'שם מסמך:',
   'LBL_DOC_STATUS' => 'סטאטוס:',
   'LBL_DOC_VERSION' => 'רויזיה:',
+  'LBL_EDIT_BUTTON' => 'ערוך',
   'LBL_EXPIRATION_DATE' => 'תאריך תפוגה',
   'LBL_FILENAME' => 'שם קובץ:',
   'LBL_FILE_EXTENSION' => 'סיומת קובץ',
@@ -49,8 +47,10 @@ $mod_strings = array (
   'LBL_LIST_CATEGORY' => 'קטגוריה',
   'LBL_LIST_DOCUMENT' => 'מסמך',
   'LBL_LIST_DOCUMENT_NAME' => 'שם המסמך',
+  'LBL_LIST_DOC_TYPE' => 'סוג מסמך',
   'LBL_LIST_DOWNLOAD' => 'הורד',
   'LBL_LIST_EXP_DATE' => 'תאריך תפוגה',
+  'LBL_LIST_FILENAME' => 'שם קובץ',
   'LBL_LIST_FORM_TITLE' => 'רשימת מסמכים',
   'LBL_LIST_LAST_REV_CREATOR' => 'פורסם על ידי',
   'LBL_LIST_LAST_REV_DATE' => 'רויזיה בתאריך',
@@ -63,6 +63,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'מסמכים: דף בית',
   'LBL_NAME' => 'שם משסמך',
   'LBL_NEW_FORM_TITLE' => 'מסמך חדש',
+  'LBL_REMOVE' => 'הסר',
   'LBL_REVISION' => 'רויזיה',
   'LBL_REVISION_NAME' => 'רויזיה מספר',
   'LBL_SEARCH_FORM_TITLE' => 'חפש מסמך',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Lütfen devam etmeden önce aşağıdaki hataları düzeltiniz',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Beklenen Gelir:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Sıklık:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Etkiler:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => '{0}&#39; kampanyası &#39;İnaktif&#39; durumda. Kampanya durumunu &#39;Aktif&#39; hale getirmeniz gerekir.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => '"{0}" Kampanyasının durumu "Aktif Değil". Kampanyanın durumunu "Aktif" olarak değiştirmeniz gerekir.',
   'LBL_CAMPAIGN_INFORMATION' => 'Genel Bilgi',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Potansiyeller',
   'LBL_CAMPAIGN_NAME' => 'İsim:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Oluşturan:',
   'LBL_CREATED_BY' => 'Oluşturan:',
   'LBL_CREATED_USER' => 'Oluşturan Kullanıcı',
+  'LBL_CREATE_EMAIL' => 'E-posta oluşturma',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Oluştur',
   'LBL_CREATE_MAILBOX' => 'Yeni Posta Hesabı Oluştur',
   'LBL_CREATE_NEWSLETTER' => 'Bülten Oluştur',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Webden Potansiyel Formu Oluştur',
   'LBL_CURRENCY' => 'Para Birimi:',
   'LBL_CURRENCY_ID' => 'Para Birimi ID',
+  'LBL_CURRENCY_RATE' => 'Döviz Kuru',
   'LBL_CUSTOM_LOCATION' => 'Kullanıcı Tarafından Tanımlı',
   'LBL_DATE_CREATED' => 'Oluşturulma Tarihi:',
   'LBL_DATE_ENTERED' => 'Oluşturulma Tarihi',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'E-Posta Ayarlarını Başlat',
   'LBL_EMAIL_SETUP_WIZARD' => 'E-Posta Kurulumu',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Kampanyalar için E-Posta Kurulumu',
+  'LBL_EMAIL_TITLE' => 'Kampanyalar: E-Postalar',
+  'LBL_END_DATE' => 'Bitiş Tarihi',
   'LBL_FILTER_CHART_BY' => 'Grafikleri Filtreleme Koşulu:',
   'LBL_FINISH' => 'Bitir',
   'LBL_FROM_ADDR' => '"Kimden" Adresi',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'SSL Kullan',
   'LBL_SSL_DESC' => 'Eğer E-Posta sunucusu güvenli soket bağlantısını destekliyorsa, bunun etkinleştirilmesi E-Postaların yüklenmesi sırasında SSL bağlantısına zorlayacaktır.',
   'LBL_START' => 'İlk',
+  'LBL_START_DATE' => 'Başlangıç Tarihi',
   'LBL_START_DATE_TIME' => 'Başlangıç Tarih & Saat:',
+  'LBL_STATUS' => 'Durum',
   'LBL_STATUS_TEXT' => 'Durum:',
   'LBL_SUBSCRIPTION_LIST' => 'Abonelik Listesi',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Abonelik Liste İsmi:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Detayları Göster',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Detayları Göster',
   'LBL_TOP_CAMPAIGNS' => 'En Üst Kampanyalar',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Gelire göre En Başarılı Kampanyalar',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Gelirlerine göre En iyi Performans Gösteren Kampanyalar',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Kampanya İsmi',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Ciro',
   'LBL_TOTAL_ENTRIES' => 'Kayıtlar',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Bu opsiyon test sırasında üretilmiş tarihçeleri silecek. Devam mı?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Takip Kuyruğu',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'ROI Görüntüle',
+  'LBL_TYPE' => 'Tipi',
   'LBL_UNSUBSCRIBED_HEADER' => 'Abonelikten Çıkılacak Mevcut Bültenler',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Bu Bülteni Mevcut Bültenler/Abonelikten Çıkılan Bültenler listesine taşımak, kontağı bu bülten için Abonelikten Çıkanlar listesine ekleyecek. Kontağı orijinal Abonelik Listesinden veya Hedef Listesinden çıkarmayacak.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Abonelikten Çıkanlar Listesi',

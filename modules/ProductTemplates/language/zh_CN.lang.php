@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '必须指定记录编号才能删除产品。',
@@ -72,6 +69,7 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => '新增记录',
   'LBL_PERCENTAGE' => '百分比(%)',
   'LBL_POINTS' => '点',
+  'LBL_POINTS_ABBR' => 'Pts.',
   'LBL_PRICING_FACTOR' => '定价因素:',
   'LBL_PRICING_FORMULA' => '默认定价公式:',
   'LBL_PRODUCT' => '产品:',
@@ -80,7 +78,7 @@ $mod_strings = array (
   'LBL_PRODUCT_TYPES' => '产品类型',
   'LBL_QTY_IN_STOCK' => '存货数量',
   'LBL_QUANTITY' => '库存量:',
-  'LBL_RELATED_PRODUCTS' => '相关产品',
+  'LBL_RELATED_PRODUCTS' => '相关收入线项目',
   'LBL_SEARCH_FORM_TITLE' => '查找产品目录',
   'LBL_STATUS' => '有效性:',
   'LBL_SUPPORT_CONTACT' => '服务联系人:',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => '网站',
   'LBL_WEIGHT' => '重量:',
   'LNK_IMPORT_PRODUCTS' => '导入产品',
+  'LNK_IMPORT_PRODUCT_CATALOG' => '导入产品目录',
   'LNK_NEW_MANUFACTURER' => '制造商',
   'LNK_NEW_PRODUCT' => '在产品目录中新增记录',
   'LNK_NEW_PRODUCT_CATEGORY' => '产品类别',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Fırsatı silmek için kayıt numarası belirtilmelidir.',
@@ -23,16 +20,12 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Müşteri ID',
   'LBL_ACCOUNT_NAME' => 'Müşteri İsmi:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteler',
-  'LBL_AMOUNT' => 'Fırsat Miktarı:',
-  'LBL_AMOUNT_USDOLLAR' => 'Tutar:',
   'LBL_ASSIGNED_TO_ID' => 'Atanan Kullanıcı ID:',
   'LBL_ASSIGNED_TO_NAME' => 'Atanan Kişi:',
-  'LBL_BEST_CASE' => 'En İyi ihtimal',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'En iyi ihtimal temel para birimi',
-  'LBL_BEST_CASE_WORKSHEET' => 'En İyi İhtimal (Düzeltilmiş)',
   'LBL_CAMPAIGN' => 'Kampanya:',
   'LBL_CAMPAIGN_LINK' => 'Kampanya Linki',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampanyalar',
+  'LBL_CLOSED_RLIS' => '# Kapanan Gelir Kalemleri',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Kapatılan Kazanılmış Fırsatlar',
   'LBL_COMMITTED' => 'Uygulandı',
   'LBL_COMMIT_STAGE' => 'Onay Aşaması',
@@ -48,6 +41,7 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => 'Para Birimi İsmi',
   'LBL_CURRENCY_RATE' => 'Döviz Kuru',
   'LBL_CURRENCY_SYMBOL' => 'Para Birimi Sembolü',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'En üst 10 Satış Fırsatı',
   'LBL_DATE_CLOSED' => 'Tahmini Kapanış Tarihi:',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Beklenen Kapanış Tarihi Zaman Damgası',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Fırsatlar',
@@ -61,22 +55,40 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Oluşturan ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Değiştiren ID',
   'LBL_EXPORT_NAME' => 'İsim',
+  'LBL_FILENAME' => 'Ek',
   'LBL_FORECAST' => 'Tahminde Dahil et',
+  'LBL_HELP_CONFIG_OPPS' => 'Bu değişikliği başlattıktan sonra, Gelir Kalemleri özet notları arka planda oluşturulacak. Notlar tamamlandığında ve kullanıma hazır olduğunda, kullanıcı profilinizdeki e-posta adresine bir mesaj gönderilecek. Eğer kurulumunuz {{forecasts_module}} için ayarlandı ise, Sugar ayrıca {{module_name}} kayıtlarınız {{forecasts_module}} modülü ile senkronize olduğunda da bir posta gönderecek. Lütfen, kurulumunuzun Sistem Yönetimi > E-Posta Ayarları altında, e-posta gönderecek şekilde ayarlandığından emin olun.',
+  'LBL_HELP_CONFIG_RLIS' => 'Bu değişikliği başlattıktan sonra, Gelir Kalemleri kayıtları mevcut bütün {{module_name}} için arka planda oluşturulacak. Gelir Kalemleri tamamlandığında ve kullanıma hazır olduğunda, kullanıcı profilinizdeki e-posta adresine bir mesaj gönderilecek. Lütfen, kurulumunuzun Sistem Yönetimi > E-Posta Ayarları altında, e-posta gönderecek şekilde ayarlandığından emin olun.',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modülü, satışları ve bu satışlara ait kalemlerin satış sürecinin takip edilmesini sağlar. Her {{module_name}} kaydı, bir grup {{revenuelineitems_module}} kaydı için başlığı temsil eder ve diğer {{quotes_module}}, {{contacts_module}} gibi önemli kayıtlar ile ilişkisini sağlar.
+{{module_name}} kaydı oluşturmak için: 
+1. Alanlar için değerleri istendiği gibi girin. 
+- "Zorunlu" olarak işaretlenmiş alanların kayıt öncesinde girilmesi gerekmektedir. 
+- "Daha fazlasını göster" seçeneği ile, gerektiğinde ek alanları görünür kılın.
+2. "Kaydet" tuşuna basarak kayıt işlemini tamamlayın ve  önceki sayfaya dönün.
+- Kaydet ve göster" seçeneği ile yeni {{module_name}} kaydını görüntüleme ekranında açın. 
+-  "Kaydet ve yenisini oluştur" seçeneğiyle hemen yeni bir {{module_name}} kaydı oluşturun.
+3. Kaydettikten sonra, {{revenuelineitems_module}} alt panelini kullanarak, {{module_name}} içine kalemleri oluşturunuz.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü, satışları ve bu satışlara ait kalemlerin satış sürecinin takip edilmesini sağlar. Her {{module_name}} kaydı, bir grup {{revenuelineitems_module}} kaydı için başlığı temsil eder ve diğer {{quotes_module}}, {{contacts_module}} gibi önemli kayıtlar ile ilişkisini sağlar.   
+- Bu kayıtın alanlarını her bir alana tıklayarak veya Değiştir seçeneği ile değiştirebilirsiniz. 
+- Alt sol paneli "Veri Görüntüleme" moduna getirerek, diğer modüller ile ilişkisini görüntüleyebilir veya değiştirebilirsiniz. 
+- Sol alt paneli "Aktivite Akışı" moduna getirerek, kullanıcı yorumlarını ve değişiklik tarihçesini görebilir veya ekleyebilirsiniz. 
+- Kayıtın sağındaki ikonlara tıklayarak izlemeye alabilir veya favori olarak işaretleyebilirsiniz. 
+- Değiştir tuşunun sağındaki Aksiyonlar menüsü ile ek aksiyonlar mümkün olmaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü, satışları ve bu satışlara ait kalemlerin satış sürecinin takip edilmesini sağlar. Her {{module_name}} kaydı, bir grup {{revenuelineitems_module}} kaydı için başlığı temsil eder ve diğer {{quotes_module}}, {{contacts_module}} gibi önemli kayıtlar ile ilişkisini sağlar. Her {{revenuelineitems_singular_module}}, spesifik bir ürünün satış fırsatıdır ve ilişkili satış bilgisini içerir. Her {{revenuelineitems_singular_module}} için Satış Aşamaları, "Kazanılarak Kapandı" veya "Kaybedilerek Kapandı" şeklinde işaretlenene kadar takip edilir. {{module_name}} kaydı, ilgili {{revenuelineitems_module}} kaydının beklenen miktarını ve kapanma tarihini içerir. {{plural_module_name}} ve {{revenuelineitems_module}} kayıtları, Sugar {{forecasts_singular_module}} modülüne veri olarak kullanılabilir ve satış trendlerini ve satış kotasının başarılması için odaklanmayı sağlar.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Tarihçe',
   'LBL_INVITEE' => 'Kontaklar',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potansiyeller',
   'LBL_LEAD_SOURCE' => 'Potansiyel Kaynağı:',
-  'LBL_LIKELY_CASE' => 'Olası ihtimal',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Olası İhtimal Temel para birimi',
-  'LBL_LIKELY_CASE_WORKSHEET' => 'Olası İhtimal (Düzeltilmiş)',
   'LBL_LIST_ACCOUNT_NAME' => 'Müşteri İsmi',
-  'LBL_LIST_AMOUNT' => 'Fırsat Miktarı',
+  'LBL_LIST_AMOUNT' => 'Muhtemel',
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Tutar',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Atanan Kullanıcı',
   'LBL_LIST_DATE_CLOSED' => 'Kapat',
   'LBL_LIST_FORM_TITLE' => 'Fırsat Listesi',
   'LBL_LIST_OPPORTUNITY_NAME' => 'İsim',
   'LBL_LIST_SALES_STAGE' => 'Satış Aşaması',
+  'LBL_MKTO_ID' => 'Marketo Potansyel ID',
+  'LBL_MKTO_SYNC' => 'Marketo&reg; ile senkronize et',
   'LBL_MODIFIED_ID' => 'Değiştiren ID',
   'LBL_MODIFIED_NAME' => 'Değiştiren Kullanıcı İsmi',
   'LBL_MODIFIED_USER' => 'Değiştiren Kullanıcı',
@@ -87,36 +99,58 @@ $mod_strings = array (
   'LBL_NAME' => 'Fırsat İsmi',
   'LBL_NEW_FORM_TITLE' => 'Fırsat Oluştur',
   'LBL_NEXT_STEP' => 'Bir Sonraki Adım:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notlar',
   'LBL_OPPORTUNITY' => 'Fırsat:',
   'LBL_OPPORTUNITY_NAME' => 'Fırsat İsmi:',
+  'LBL_OPPORTUNITY_ROLE' => 'Fırsat Rolü',
   'LBL_OPPORTUNITY_TYPE' => 'Fırsat Tipi',
+  'LBL_OPPS_CONFIG_ALERT' => 'Onayla tuşuna basarak, BÜTÜN Satış Tahminlerini silecek ve Fırsatlar Görünümünü değiştireceksiniz. Eğer yapmak istediğiniz bu değilse, iptal tuşuna basın ve önceki ekrana dönün.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Eğer bütün gelir kalemleri kapandıysa ve en azından biri kazanıldıysa,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'Fırsat Satış Aşaması "Kazanılarak Kapatıldı" olarak işaretlendi.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Eğer bütün gelir kalemleri "Kaybedilerek Kapandı" Satış Aşamasındaysa,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'Fırsat Satış Aşaması "Kaybedilerek Kapatıldı" olarak işaretlendi.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Eğer hala bir gelir kalemi açıksa,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'Fırsat, en az ilerlemiş Satış Aşaması olarak işaretlenecek.',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Mevcut Gelir Kalemlerinin en erken veya en geç değerine göre, Fırsatlar için Beklenen Kapanma Tarihini belirle',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Fırsat Hiyerarşisi',
+  'LBL_PIPELINE_TOTAL_IS' => 'Satış Olasılıkları toplamı:',
   'LBL_PRIMARY_QUOTE_ID' => 'Birincil Teklif',
   'LBL_PROBABILITY' => 'Olasılık (%):',
   'LBL_PRODUCTS' => 'Ürünler',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => 'Ürün Kalemleri',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Teklif Kalemleri',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projeler',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projeler',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Teklifler',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Teklifler',
   'LBL_RAW_AMOUNT' => 'İşlenmemiş Miktar',
+  'LBL_RLI' => 'Gelir Kalemleri',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Gelir Kalemleri',
   'LBL_SALES_STAGE' => 'Satış Aşaması:',
+  'LBL_SALES_STATUS' => 'Durum',
   'LBL_SEARCH_FORM_TITLE' => 'Fırsat Arama',
   'LBL_TEAM_ID' => 'Takım ID',
   'LBL_TIMEPERIODS' => 'Zaman Aralıkları',
   'LBL_TIMEPERIOD_ID' => 'Zaman Aralık ID',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Balon grafiğinde en iyi on Gelir Kalemleri görüntülenir.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Fırsatlarım',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Takımımın Fırsatları',
   'LBL_TOP_OPPORTUNITIES' => 'En Önemli Fırsatlarım',
   'LBL_TOTAL_OPPORTUNITIES' => 'Toplam Fırsatlar',
+  'LBL_TOTAL_RLIS' => '# Toplam Gelir Kalemleri',
   'LBL_TYPE' => 'Tipi:',
   'LBL_VIEW_FORM_TITLE' => 'Fırsat Görüntüleme',
   'LBL_WORKSHEET' => 'Çalışma Sayfası',
-  'LBL_WORST_CASE' => 'En kötü ihtimal',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'En Kötü İhtimal temel para birimi',
+  'LNK_CREATE' => 'Satış Oluştur',
   'LNK_IMPORT_OPPORTUNITIES' => 'Fırsat Verilerini Yükle',
   'LNK_NEW_OPPORTUNITY' => 'Fırsat Oluştur',
   'LNK_OPPORTUNITY_LIST' => 'Fırsatları Görüntüle',
   'LNK_OPPORTUNITY_REPORTS' => 'Fırsat Raporlarını Görüntüle',
   'MSG_DUPLICATE' => 'Şu anda oluşturmakta olduğunuz Fırsat kaydı, başka bir Fırsat kaydının aynısı olabilir. Aynı ismi içeren Fırsat kayıtları aşağıda listelenmektedir.<br>Kaydet butonuna basarak Fırsatı oluşturmaya devam edebilir, veya İptal butonuna basarak Fırsatı oluşturmadan modüle geri dönebilirsiniz.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Kapatılmış Gelir Kalemleri içeren Fırsatlar silemezsiniz',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Bu kontağı fırsat listesinden silmek istediğinizden emin misiniz?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Bu fırsatı projeden silmek istediğinizden emin misiniz?',
+  'TPL_RLI_CREATE' => 'Fırsat ilişkilendirilmiş bir Gelir Kalemi içermelidir. <a href="javascript:void(0);" id="createRLI">Gelir Kalemi Oluştur</a>.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Gelir Satır Öğesi Oluştur.',
   'UPDATE' => 'Fırsat - Para Birimi Güncelle',
   'UPDATE_BUGFOUND_COUNT' => 'Hatalar Bulundu:',
   'UPDATE_BUG_COUNT' => 'Hatalar Bulundu ve Düzeltilmesi Denendi:',
@@ -142,5 +176,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Yeni Tutar:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Yeni Para Birimi:',
   'UPDATE_VERIFY_TXT' => 'Fırsatlardaki miktarların düzgün sayısal değerler olduğunu, yalnızca (0-9) arasında rakam içerdiğini ve (.) ayracını kontrol eder',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'Seçilen kayıtların bir veya daha fazla kapatılmış Gelir Kalemlerini içerir ve silinemez.',
 );
 

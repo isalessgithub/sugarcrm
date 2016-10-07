@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 {if strlen({{sugarvar key='value' string=true}}) <= 0}
 {assign var="value" value={{sugarvar key='default_value' string=true}} }
@@ -68,39 +65,6 @@ YAHOO.util.Event.onDOMReady(function() {ldelim}
  	 {rdelim}
 {rdelim});
 
-YAHOO.util.Event.onDOMReady(function() {ldelim}
-    //register on basic search form button if it exists
-    if(document.getElementById('search_form_submit'))
-     {ldelim}
-         YAHOO.util.Event.addListener('search_form_submit', 'click',{$id}_range_validate);
-     {rdelim}
-    //register on advanced search submit button if it exists
-   if(document.getElementById('search_form_submit_advanced'))
-    {ldelim}
-        YAHOO.util.Event.addListener('search_form_submit_advanced', 'click',{$id}_range_validate);
-    {rdelim}
-
-{rdelim});
-
-// this function is specific to range searches and will check that both start and end range fields have been
-// filled prior to submitting search form.  It is called from the listener added above.
-function {$id}_range_validate(e){ldelim}
-    if (
-            (document.getElementById("start_range_{$id}").value.length >0 && document.getElementById("end_range_{$id}").value.length == 0)
-          ||(document.getElementById("end_range_{$id}").value.length >0 && document.getElementById("start_range_{$id}").value.length == 0)
-       )
-    {ldelim}
-        e.preventDefault();
-        alert('{$APP.LBL_CHOOSE_START_AND_END_ENTRIES}');
-        if (document.getElementById("start_range_{$id}").value.length == 0) {ldelim}
-            document.getElementById("start_range_{$id}").focus();
-        {rdelim}
-        else {ldelim}
-            document.getElementById("end_range_{$id}").focus();
-        {rdelim}
-    {rdelim}
-
-{rdelim}
 </script>
 
 <span style="white-space:nowrap !important;">

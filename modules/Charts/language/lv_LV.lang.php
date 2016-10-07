@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -22,16 +19,16 @@ $mod_strings = array (
   'LBL_ALL_OPPORTUNITIES' => 'Kopējais visu iespēju skaits ir:',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => 'Attēlo kampaņu atdevi pēc ROI (atdeve no investīcijām).',
   'LBL_CHART_ACTION' => 'Darbība',
-  'LBL_CHART_DCE_ACTIONS_MONTH' => '',
-  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Interesentu avoti pēc rezultāta',
-  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'Manu padoto lietotie moduļi (Pēdējās 30 dienas)',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'Darbības pēc veidiem (šis mēnesis)',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Interesentu avoti pēc rezultātiem',
+  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'Manu padoto lietotie moduļi(pēdējās 30 dienas)',
   'LBL_CHART_MY_MODULES_USED_30_DAYS' => 'Manis lietotie moduļi (pēdējās 30 dienas)',
-  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Mana piltuve pa pārdošanas fāzēm',
-  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'Iespējas šajā mēnesī',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Mana Piltuve pēc pārdošanas stadijas',
+  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'Šī ceturkšņa Iespējas',
   'LBL_CHART_OUTCOME_BY_MONTH' => 'Rezultāti pa mēnešiem',
-  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'Piltuve pēc interesenta avota',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'Piltuve pēc pārdošanas fāzēm',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => '',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'Piltuve pēc Interesenta avota',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'Piltuve pēc pārdošanas stadijas',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'Pārdošanas piltuve pa pārdošnas posmiem',
   'LBL_CHART_TYPE' => 'Diagrammas veids:',
   'LBL_CLOSE_DATE_END' => 'Plānotais slēgšanas datums - līdz:',
   'LBL_CLOSE_DATE_START' => 'Plānotais slēgšanas datums - no:',

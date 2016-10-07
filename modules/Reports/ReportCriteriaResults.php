@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 global $theme;
 
@@ -27,20 +24,16 @@ require_once('modules/Reports/templates/templates_export.php');
 require_once('modules/Reports/templates/templates_chart.php');
 
 require_once('modules/Reports/config.php');
-global $current_language, $report_modules, $modules_report, $current_user, $app_strings;
+global $current_language, $report_modules, $modules_report, $current_user, $app_strings, $mod_strings;
 
 require_once('modules/Reports/Report.php');
 
 $args = array();
 $jsonObj = getJSONobj();
 if (isset($_REQUEST['id']) && !isset($_REQUEST['record'])) {
-	$saved_report_seed = new SavedReport();
+	$saved_report_seed = BeanFactory::getBean('Reports');
+	$saved_report_seed->disable_row_level_security = true;
 	$saved_report_seed->retrieve($_REQUEST['id'], false);
-
-    if (empty($saved_report_seed->id)) {
-        sugar_die($app_strings['ERROR_NO_RECORD']);
-    }
-
 	// do this to go through the transformation
 	$reportObj = new Report($saved_report_seed->content);
 	$saved_report_seed->content = $reportObj->report_def_str;
@@ -90,13 +83,9 @@ if (isset($_REQUEST['id']) && !isset($_REQUEST['record'])) {
 	$args['reportCache'] = $reportCache;
 }
 else if (isset($_REQUEST['record'])){
-    $saved_report_seed = new SavedReport();
+    $saved_report_seed = BeanFactory::getBean('Reports');
+    $saved_report_seed->disable_row_level_security = true;
     $saved_report_seed->retrieve($_REQUEST['record'], false);
-
-    if (empty($saved_report_seed->id)) {
-        sugar_die($app_strings['ERROR_NO_RECORD']);
-    }
-
     // do this to go through the transformation
     $reportObj = new Report($saved_report_seed->content);
     $saved_report_seed->content = $reportObj->report_def_str;
@@ -192,9 +181,11 @@ if(! empty($_REQUEST['to_pdf'])){
 	return;
 } // if
 if(! empty($_REQUEST['to_csv'])){
-	if($sugar_config['disable_export'] || (!empty($sugar_config['admin_export_only']) && !(is_admin($current_user) || (ACLController::moduleSupportsACL($args['reporter']->module) && ACLAction::getUserAccessLevel($current_user->id,$args['reporter']->module, 'access') == ACL_ALLOW_ENABLED && ACLAction::getUserAccessLevel($current_user->id, $args['reporter']->module, 'admin') == ACL_ALLOW_ADMIN)))){
-		die("Exports Disabled");
-	}
+    //check to see if exporting is allowed
+    if(!hasExportAccess($args)){
+        //die if one of the above conditions has been met
+        sugar_die($mod_strings['LBL_NO_EXPORT_ACCESS']);
+    }
 	template_handle_export($args['reporter']);
 	return;
 } // if

@@ -1,24 +1,34 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 require_once('include/Sugarpdf/Sugarpdf.php');
 
 class ReportsSugarpdfReports extends Sugarpdf
 {
+
+    /**
+     * Maximal Width for header logo
+     * @var integer
+     */
+    private $logoMaxWidth = 348;
+
+    /**
+     * Maximal Height for header logo
+     * @var integer
+     */
+    private $logoMaxHeight = 55;
+
     /**
      * Options array for the writeCellTable method of reports.
      * @var Array
@@ -46,6 +56,60 @@ class ReportsSugarpdfReports extends Sugarpdf
             $this->SetHeaderData(PDF_SMALL_HEADER_LOGO, PDF_SMALL_HEADER_LOGO_WIDTH, $this->bean->name, $timedate->getNow(true));
         }
         $cols = count($this->bean->report_def['display_columns']);
+    }
+
+    /**
+     * Custom header for Reports
+     * @return void
+     */
+    public function Header()
+    {
+        $ormargins = $this->getOriginalMargins();
+        $headerfont = $this->getHeaderFont();
+        $headerdata = $this->getHeaderData();
+
+        if (($headerdata['logo']) AND ($headerdata['logo'] != K_BLANK_IMAGE))
+        {
+            $logo = K_PATH_CUSTOM_IMAGES.$headerdata['logo'];
+            $imsize = @getimagesize($logo);
+            if ($imsize === FALSE)
+            {
+                // encode spaces on filename
+                $logo = str_replace(' ', '%20', $logo);
+                $imsize = @getimagesize($logo);
+                if ($imsize === FALSE) {
+                    $logo = K_PATH_IMAGES.$headerdata['logo'];
+                    $imsize = @getimagesize($logo);
+                }
+            }
+            //resize image
+            if ( $imsize )
+            {
+                $this->Image($logo, $this->GetX(), $this->getHeaderMargin(), $this->logoMaxWidth, $this->logoMaxHeight, '', '', '', true);
+            }
+
+            $imgy = $this->getImageRBY();
+
+        }
+        // This table split the header in 3 parts of equal width. The last part (on the right) contain the header text.
+        $table[0]["logo"]="";
+        $table[0]["blank"]="";
+        $table[0]["data"]="<div><font face=\"".$headerfont[0]."\" size=\"".($headerfont[2]+1)."\"><b>".$headerdata['title']."</b></font></div>".$headerdata['string'];
+        $options = array(
+            "isheader"=>false,
+        );
+
+        $this->SetTextColor(0, 0, 0);
+        // header string
+        $this->SetFont($headerfont[0], $headerfont[1], $headerfont[2]);
+        // Start overwrite
+        $this->writeHTMLTable($table, false, $options);
+
+        // print an ending header line
+        $this->SetLineStyle(array('width' => 0.85 / $this->getScaleFactor(), 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+        $this->SetY((2.835 / $this->getScaleFactor()) + max($imgy, $this->GetY()));
+        $this->SetX($ormargins['left']);
+        $this->Cell(0, 0, '', 'T', 0, 'C');
     }
 }
 

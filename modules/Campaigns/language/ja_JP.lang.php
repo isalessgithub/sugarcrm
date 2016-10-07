@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => '実行する前に以下のエラーを修正してください。',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => '売上見込み:',
   'LBL_CAMPAIGN_FREQUENCY' => '頻度:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'ページインプレッション:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'キャンペーン &#39;{0}&#39; は&#39;アクティブではない&#39;状態です。 キャンペーンを&#39;アクティブ&#39;に設定してください。',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'キャンペーン &#39;{0}&#39; は &#39;アクティブではない&#39;ステータスです。キャンペーンステータスを&#39;アクティブ&#39;に設定しなければなりません。',
   'LBL_CAMPAIGN_INFORMATION' => 'キャンペーンの概要',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'リード',
   'LBL_CAMPAIGN_NAME' => '名前:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => '作成者:',
   'LBL_CREATED_BY' => '作成者:',
   'LBL_CREATED_USER' => '作成者',
+  'LBL_CREATE_EMAIL' => 'Eメールを作成',
   'LBL_CREATE_EMAIL_TEMPLATE' => '作成',
   'LBL_CREATE_MAILBOX' => '新たなメールアカウントを作成',
   'LBL_CREATE_NEWSLETTER' => 'ニュースレター作成',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Web To Leadフォームを作成',
   'LBL_CURRENCY' => '通貨:',
   'LBL_CURRENCY_ID' => '通貨ID',
+  'LBL_CURRENCY_RATE' => '通貨レート',
   'LBL_CUSTOM_LOCATION' => '選択を許可',
   'LBL_DATE_CREATED' => '作成日:',
   'LBL_DATE_ENTERED' => '作成日',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Eメール設定の開始',
   'LBL_EMAIL_SETUP_WIZARD' => 'Eメールの設定',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'キャンペーンメールのセットアップ',
+  'LBL_EMAIL_TITLE' => 'キャンペーン：Eメール',
+  'LBL_END_DATE' => '終了日',
   'LBL_FILTER_CHART_BY' => 'チャートの絞込み:',
   'LBL_FINISH' => '完了',
   'LBL_FROM_ADDR' => '送信元（From）のアドレス',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'SSL利用',
   'LBL_SSL_DESC' => 'メールサーバがSSLをサポートする場合、SSLを利用してメールをインポートします。',
   'LBL_START' => '開始',
+  'LBL_START_DATE' => '開始日',
   'LBL_START_DATE_TIME' => '開始日時:',
+  'LBL_STATUS' => 'ステータス',
   'LBL_STATUS_TEXT' => 'ステータス:',
   'LBL_SUBSCRIPTION_LIST' => '購読リスト',
   'LBL_SUBSCRIPTION_LIST_NAME' => '購読リスト名:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => '詳細を見る',
   'LBL_TODETAIL_BUTTON_TITLE' => '詳細を見る',
   'LBL_TOP_CAMPAIGNS' => 'トップキャンペーン',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => '収益トップのキャンペーン',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => '収益別のトップパフォーマンスキャンペーン',
   'LBL_TOP_CAMPAIGNS_NAME' => 'キャンペーン名',
   'LBL_TOP_CAMPAIGNS_REVENUE' => '売上',
   'LBL_TOTAL_ENTRIES' => 'エントリ',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'このオプションによってテスト実行によって作成されたログエントリが削除されます。続けますか？',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'トラックキュー',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'ROIを見る',
+  'LBL_TYPE' => 'タイプ',
   'LBL_UNSUBSCRIBED_HEADER' => '購読解除',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => '購読解除に移動することで、取引先担当者をこのニュースレターの解約リストに追加します。これにより、元の購読リストもしくはターゲットリストから取引先担当者を削除することはありません。',
   'LBL_UNSUBSCRIPTION_LIST' => '解約リスト',

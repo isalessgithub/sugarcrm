@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_ONE_CHAR' => 'Skriv bokstav(er) eller tegn som du vil søke etter...',
@@ -37,7 +34,20 @@ $mod_strings = array (
   'LBL_CLEAR' => 'Tøm',
   'LBL_CLOSE_DASHLETS' => 'Lukk',
   'LBL_CLOSE_SITEMAP' => 'Lukk',
+  'LBL_CREATE_DASHBOARD_LINK' => 'Opprett et dashboard',
+  'LBL_CREATE_DASHBOARD_MENU' => 'Opprett Dashboard',
   'LBL_CREATING_NEW_PAGE' => 'Oppretter ny side...',
+  'LBL_DASHBOARD_1_COLUMN_LAYOUT' => '1 kolonne layout',
+  'LBL_DASHBOARD_2_COLUMN_LAYOUT' => '2 kolonne layout',
+  'LBL_DASHBOARD_3_COLUMN_LAYOUT' => '3 kolonne layout',
+  'LBL_DASHBOARD_ADD_1_COLUMN' => '+ 1 kolonne',
+  'LBL_DASHBOARD_ADD_2_COLUMNS' => '+ 2 kolonner',
+  'LBL_DASHBOARD_ADD_3_COLUMNS' => '+ 3 kolonner',
+  'LBL_DASHBOARD_ADD_ROW' => 'Legge til en rad',
+  'LBL_DASHBOARD_EDIT' => 'Rediger Dashboard',
+  'LBL_DASHBOARD_LAYOUT_CONFIRM' => 'Dashlets vil bli omorganisert, er du sikker på at du vil endre kolonne layout?',
+  'LBL_DASHBOARD_TITLE' => 'Dashboard tittel',
+  'LBL_DASHLET_ADD' => 'Legg til en Dashlet',
   'LBL_DASHLET_CONFIGURE_DISPLAY_ROWS' => 'Vis rader',
   'LBL_DASHLET_CONFIGURE_FILTERS' => 'Filtre',
   'LBL_DASHLET_CONFIGURE_GENERAL' => 'Generell',
@@ -53,6 +63,12 @@ $mod_strings = array (
   'LBL_DASHLET_SEARCH' => 'Dashlet-søk',
   'LBL_DASHLET_SUGAR_NEWS' => 'Sugar nyheter',
   'LBL_DASHLET_TITLE' => 'Mine portaler',
+  'LBL_DASHLET_WEBPAGE_DESC' => 'Webside',
+  'LBL_DASHLET_WEBPAGE_NAME' => 'Webside',
+  'LBL_DASHLET_WEBPAGE_URL' => 'Link',
+  'LBL_DASHLET_WEBPAGE_URL_HELP' => 'Noen nettsteder kan ikke laste riktig på grunn av usikkert innhold eller retningslinjer.',
+  'LBL_DELETE_DASHBOARD_CONFIRM' => 'Er du sikker på at du vil slette dette dashboard?',
+  'LBL_DELETE_DASHBOARD_SUCCESS' => 'Dette dashboard "{{name}}" har blitt slettet.',
   'LBL_DELETE_PAGE' => 'Slett side',
   'LBL_DELETE_PAGE_CONFIRM' => 'Er du sikker på at du vil slette denne siden?',
   'LBL_DEL_PAGE' => 'Slett side',
@@ -62,6 +78,7 @@ $mod_strings = array (
   'LBL_DETAILS_SUGARFORGE' => 'Collaborate and develop Sugar extensions',
   'LBL_DETAILS_TRAINING' => 'Learn about Sugar using online and interactive learning content',
   'LBL_DETAILS_WIKI' => 'Search the knowledge base of user and developer topics',
+  'LBL_DEVELOPERS' => 'Utviklere',
   'LBL_DEVSITE' => 'Developer Site',
   'LBL_EMAIL_ADDRESS' => 'E-post',
   'LBL_FIRST_NAME' => 'Fornavn:',
@@ -69,12 +86,15 @@ $mod_strings = array (
   'LBL_FOUNDERS' => 'Grunnleggere',
   'LBL_GET_SUGARCRM_RSS' => 'Get SugarCRM RSS',
   'LBL_GLOBAL_REPORT_CHARTS' => 'Globale grupperapporter',
+  'LBL_HELP_RECORD' => 'Hjelp Dashlet viser spesifikk informasjon om modulen du ser, gir en detaljert fremgangsmåte for å utføre enkelte handlinger i modulen, og leder deg hvor du skal gå for mer omfattende informasjon og støtte. Hjelp Dashlet forblir åpen slik at du kan se trinnene som du utfører i modulen. Hjelp Dashboard er tilgjengelig for alle Sugar 7 moduler og kan veksle mellom "åpen" og "lukket" ved å klikke på Hjelp-ikonet i bunnteksten.',
+  'LBL_HELP_RECORD_TITLE' => 'Velkommen til Sugar 7 Hjelp Dashboard',
   'LBL_HOME_PAGE_1_NAME' => 'Min Sugar',
   'LBL_HOME_PAGE_2_NAME' => 'Salgsside',
   'LBL_HOME_PAGE_3_NAME' => 'Markedsførings- & supportside',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_HOME_PAGE_6_NAME' => 'Marketing',
   'LBL_JOIN_SUGAR_COMMUNITY' => 'Join the Sugar Community',
+  'LBL_LANGUAGE_PACKS' => 'Språkpakker',
   'LBL_LAST_30_DAYS' => 'Siste 30 dager',
   'LBL_LAST_7_DAYS' => 'Siste 7 dager',
   'LBL_LAST_MONTH' => 'Siste måned',
@@ -88,7 +108,14 @@ $mod_strings = array (
   'LBL_MODULES' => 'Moduler',
   'LBL_MODULES_TO_SEARCH' => 'Søkermoduler',
   'LBL_MODULE_NAME' => 'Hjem',
+  'LBL_MODULE_NAME_SINGULAR' => 'Hjem',
   'LBL_MORE_DETAIL' => 'Flere Detaljer',
+  'LBL_MOST_ACTIVE_COLLEAGUES' => 'Mest aktiv',
+  'LBL_MOST_ACTIVE_COLLEAGUES_DESC' => 'Det viser interne brukerne som er mest aktive',
+  'LBL_MOST_CALLS_MADE' => '{{count}} samtaler foretatt',
+  'LBL_MOST_EMAILS_RECEIVED' => '{{count}} e-poster mottatt',
+  'LBL_MOST_EMAILS_SENT' => '{{count}} e-poster sendt',
+  'LBL_MOST_MEETING_HELD' => '{{count}} møter avholdt',
   'LBL_MY_CLOSED_OPPORTUNITIES_GAUGE' => 'Mine lukkede mulighetsdimensjoner',
   'LBL_MY_FAVORITE_REPORT_CHARTS' => 'Mine favorittrapporter',
   'LBL_MY_PIPELINE_FORM_TITLE' => 'Min salgstrakt',
@@ -102,6 +129,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Neste uke',
   'LBL_NEXT_YEAR' => 'Neste år',
   'LBL_NO_ACCESS' => 'Du har ikke tilgang til dette området. Kontakt administrator for å få tilgang.',
+  'LBL_NO_DASHBOARD_CONFIGURED' => 'Ingen dashbord konfigurert.',
   'LBL_NO_RESULTS' => '<h2>Fant ingenting. Prøv et nytt søk.</h2><br>',
   'LBL_NO_RESULTS_IN_MODULE' => '-- Ingen treff --',
   'LBL_NO_RESULTS_TIPS' => '<h3>Search Tips:</h3><ul><li>Make sure you have the proper categories selected above.</li><li>Broaden your search criteria.</li><li>If you still cannot find any results try the advanced search option.</li></ul>',
@@ -110,6 +138,16 @@ $mod_strings = array (
   'LBL_OPTIONS' => 'Valg',
   'LBL_PHONE' => 'Telefon',
   'LBL_PIPELINE_FORM_TITLE' => 'Sakgstrakt etter salgsfaser',
+  'LBL_PORTAL_TOUR_RECORDS_BUGS' => 'Klikk her for å se på eller sende inn feilrapporter i Bugs modulen.',
+  'LBL_PORTAL_TOUR_RECORDS_CASES' => 'Klikk her for å se på eller sender kundestøtteproblemer i Cases modulen.',
+  'LBL_PORTAL_TOUR_RECORDS_GLOBAL_SEARCH' => 'Søk etter poster ved navn eller nummer på tvers av alle tilgjengelige modulen.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Velkommen til Sugar Portalen. Bruk pilene nedenfor for å gå gjennom en rask tour.',
+  'LBL_PORTAL_TOUR_RECORDS_KB' => 'Klikk her for å lese artikler som er publisert i Knowledge Base-modulen.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Dashbordet viser et raskt snapshot av de sist oppdaterte poster.',
+  'LBL_PORTAL_TOUR_RECORDS_QUICK_CREATE' => 'Klikk her for raskt å skape poster.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Ved å klikke her kommer du til denne visningen til enhver tid.',
+  'LBL_PORTAL_TOUR_RECORDS_SEARCH' => 'Du kan søke etter poster i lister også.',
+  'LBL_PORTAL_TOUR_RECORDS_USER' => 'Fra brukermenyen kan du få tilgang til din profil eller utlogging.',
   'LBL_POWERED_BY_SUGAR' => 'Utviklet av SugarCRM',
   'LBL_RELOAD_PAGE' => 'Please <a href="javascript: window.location.reload()">reload the window</a> to use this dashlet.',
   'LBL_REMOVED_DASHLET' => 'Dashlet fjernet',
@@ -117,10 +155,15 @@ $mod_strings = array (
   'LBL_REMOVING_DASHLET' => 'Fjerner dashlet',
   'LBL_RENAME_PAGE' => 'Endre navn på side',
   'LBL_REPORT_CHARTS' => 'Rapportdiagrammer',
+  'LBL_RESOURCES' => 'Ressurser',
+  'LBL_RESOURCES_DEVELOPERS' => 'Utviklere',
+  'LBL_RESOURCES_DOCUMENTATION' => 'Dokumentasjon',
+  'LBL_RESOURCES_SUGAR_INFO' => 'SugarCRM selskapsinformasjon',
   'LBL_RETRIEVING_PAGE' => 'Henter side...',
   'LBL_RSS_TITLE' => 'Nyhets mating',
   'LBL_SAVING_PAGE_TITLE' => 'Lagrer sidetittel',
   'LBL_SEARCH' => 'Søk',
+  'LBL_SEARCH_DASHLET' => 'Søk i dashlets',
   'LBL_SEARCH_RESULTS' => 'Søkeresultat',
   'LBL_SEARCH_RESULTS_IN' => 'i',
   'LBL_SOURCE_ASYNC' => 'Async - Async-verktøy for noder og nettleseren.',
@@ -163,6 +206,7 @@ $mod_strings = array (
   'LBL_SOURCE_TCPDF' => 'TCPDF - en PHP klasse for å generere PDF dokumenter',
   'LBL_SOURCE_TIMEAGO' => 'jquery timeago - En jQuery-plugin som gjør det enkelt å støtte automatisk oppdaterte fuzzy-tidsstempler.',
   'LBL_SOURCE_TINYMCE' => 'TinyMCE - A WYSIWYG editor control for web browsers that enables the user to edit HTML contents',
+  'LBL_SOURCE_XHPROF' => 'XHProf - En funksjon-nivå hierarkisk profil for PHP.',
   'LBL_SOURCE_XML_HTMLSAX3' => 'XML_HTMLSax3 - A SAX parser for HTML and other badly formed XML documents',
   'LBL_SOURCE_XTEMPLATE' => 'XTemplate - A template engine for PHP created by BarnabÃ¡s Debreceni',
   'LBL_SOURCE_YAHOO_UI_LIB' => 'Yahoo! User Interface Library - The UI Library Utilities facilitate the implementation of rich client-side features.',
@@ -173,41 +217,19 @@ $mod_strings = array (
   'LBL_SUGARCRM_TRAINING_NEWS' => 'SugarCRM Training News',
   'LBL_SUGARFORGE_NEWS' => 'SugarForge Nyheter',
   'LBL_SUGAR_COMMUNITY_EDITION' => 'Sugar Community Edition',
+  'LBL_SUGAR_CUBE_ALT' => 'SugarCRM',
   'LBL_SUGAR_ENTERPRISE' => 'Sugar Enterprise',
   'LBL_SUGAR_PROFESSIONAL' => 'Sugar Professional',
+  'LBL_SUGAR_SOURCECODE_DESC' => 'Salgsstøtte søknad.',
+  'LBL_SUGAR_VERSION' => 'versjon',
+  'LBL_THIRD_PARTY_SOFTWARE_TITLE' => 'Tredjeparts programvare',
+  'LBL_THIRD_PARTY_SOURCECODE' => 'Informasjon om tredjeparts kode som brukes i dette produktet, inkludert relaterte lisensvilkårene, er tilgjengelig på',
   'LBL_THIS_MONTH' => 'Denne måned',
   'LBL_THIS_QUARTER' => 'Neste kvartal',
   'LBL_THIS_YEAR' => 'Dette år',
   'LBL_TODAY' => 'I dag',
   'LBL_TOMORROW' => 'I morgen',
   'LBL_TOOLS' => 'Verktøy',
-  'LBL_TOUR_BRAND' => 'Ditt Merke',
-  'LBL_TOUR_BRAND_DESCRIPTION' => 'Din logo havner her. Du kan holde musa over for mer info.',
-  'LBL_TOUR_CUSTOM' => 'Tilpassede Apps',
-  'LBL_TOUR_CUSTOM_DESCRIPTION' => 'Tilpassede integrasjoner vil havne her.',
-  'LBL_TOUR_DONE' => 'Du er ferdig!',
-  'LBL_TOUR_FEATURES' => '<ul style=""><li class="icon-ok">Ny og forenklet navigasjonslinje</li><li class="icon-ok">Ny og kollapsérbar bunntekst</li><li class="icon-ok">Forbedret Søk</li><li class="icon-ok">Oppdatert action-meny</li></ul><p>og mye mer!</p>',
-  'LBL_TOUR_FOOTER' => 'Kollapsérbar bunntekst',
-  'LBL_TOUR_FOOTER_DESCRIPTION' => 'Ekspandér og kollapsér bunnteksten enkelt.',
-  'LBL_TOUR_HOME' => 'Hjem-ikon',
-  'LBL_TOUR_HOME_DESCRIPTION' => 'Kom raskt tilbake til ditt Hjemmeside-skrivebord med ett klikk.',
-  'LBL_TOUR_MODULES' => 'Moduler',
-  'LBL_TOUR_MODULES_DESCRIPTION' => 'Alle dine viktige moduler er her.',
-  'LBL_TOUR_MORE' => 'Flere moduler',
-  'LBL_TOUR_MORE_DESCRIPTION' => 'Resten av dine moduler er her.',
-  'LBL_TOUR_NOTIFICATIONS' => 'Varsler',
-  'LBL_TOUR_NOTIFICATIONS_DESCRIPTION' => 'Sugar applikasjonsvarsler vil havne her.',
-  'LBL_TOUR_PROFILE' => 'Profil',
-  'LBL_TOUR_PROFILE_DESCRIPTION' => 'Aksessér profilen, oppsett og logg ut.',
-  'LBL_TOUR_QUICKCREATE' => 'Opprett raskt',
-  'LBL_TOUR_QUICKCREATE_DESCRIPTION' => 'Opprett poster raskt uten å miste plassen.',
-  'LBL_TOUR_REFERENCE_1' => 'Du kan alltids referere til vår',
-  'LBL_TOUR_REFERENCE_2' => 'gjennom "Support"-linken under profil-fliken.',
-  'LBL_TOUR_SEARCH' => 'Fulltekst-søk',
-  'LBL_TOUR_SEARCH_DESCRIPTION' => 'Søk har blitt mye bedre.',
-  'LBL_TOUR_VISIT' => 'For mer informasjon vennligst test vår applikasjon',
-  'LBL_TOUR_WATCH' => 'Se hva som er nytt i Sugar',
-  'LBL_TOUR_WELCOME' => 'Velkommen til Sugar',
   'LBL_TRADEMARKS' => 'varemerker',
   'LBL_TRAINING' => 'oppläring',
   'LBL_TRAINING_TITLE' => 'Opplæring',
@@ -230,7 +252,10 @@ $mod_strings = array (
   'LNK_NEW_QUOTE' => 'Opprett tilbud',
   'LNK_NEW_SEND_EMAIL' => 'Skriv e-post',
   'LNK_NEW_TASK' => 'Opprett oppgave',
-  'LNK_TOUR_DOCUMENTATION' => 'dokumentasjon',
+  'TPL_ABOUT' => 'Om {{product_name}}, Versjon {{version}} (Build {{build}}{{#if custom_version}} - {{custom_version}}{{/if}})',
+  'TPL_BROWSER_SUGAR7_ABOUT_TITLE' => 'Om &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if name}}{{str name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
+  'TPL_LANGUAGE_PACKS_PROVIDED_BY' => 'Levert av {{{link}}}',
   'dashlet_categories_dom' => 
   array (
     'Charts' => 'Diagrammer',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -48,7 +45,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
     $savedDisplayColumns = $current_user->getPreference('ListViewDisplayColumns', $currentModule); // get user defined display columns
     $json = getJSONobj();
-    $seedDocument = new KBDocument(); // seed bean
+    $seedDocument = BeanFactory::getBean('KBDocuments'); // seed bean
 
     // setup listview smarty
     $lv = new ListViewSmarty();
@@ -177,7 +174,7 @@ function get_admin_fts_list($where,$isMultiSelect=false){
 
 
     require_once('include/ListView/ListViewSmarty.php');
-	require_once('modules/KBDocuments/metadata/listviewdefs.php');
+	require_once SugarAutoLoader::loadWithMetafiles('KBDocuments', 'listviewdefs');
     require_once('modules/KBDocuments/KBListViewData.php');
 
 
@@ -206,9 +203,7 @@ function get_admin_fts_list($where,$isMultiSelect=false){
 
 	$json = getJSONobj();
 
-	$seedCase = new KBDocument(); // seed bean
-	//$searchForm = new SearchForm('KBDocuments', $seedCase); // new searchform instance
-
+	$seedCase = BeanFactory::getBean('KBDocuments'); // seed bean
 	// setup listview smarty
 	$lv = new ListViewSmarty();
     $lv->lvd= new KBListViewData();
@@ -241,6 +236,8 @@ function get_admin_fts_list($where,$isMultiSelect=false){
 	    if(!empty($_REQUEST['sortOrder'])) $params['sortOrder'] = $_REQUEST['sortOrder'];
 	}
 
+    //make sure the column names (array keys) are in upper case
+    $displayColumns = array_change_key_case($displayColumns, CASE_UPPER);
 	$lv->displayColumns = $displayColumns;
 
 
@@ -316,10 +313,9 @@ function get_admin_fts_list($where,$isMultiSelect=false){
        $result = $bean->db->query($query);
 
        while($row = $bean->db->fetchByAssoc($result)) {
-             $record = new KBDocument();
-             $record->disable_row_level_security = true;
              $id = $row['id'];
-             $record->retrieve($id);
+             $record = BeanFactory::getBean('KBDocuments', $id, array("disable_row_level_security" => true));
+             if(empty($record)) continue;
              $query = "SELECT first_name, last_name FROM users WHERE id = '".$row['created_by']."'";
              $results = $bean->db->query($query);
              $row2 = $bean->db->fetchByAssoc($results);
@@ -803,7 +799,7 @@ function get_admin_fts_list($where,$isMultiSelect=false){
 
         $qry_arr['custom_from'] .=  ") derived_table ON kbdocuments.id = derived_table.id ";
 
-     
+
         $search_str = ' ';
 
         $tag_display =' ';
@@ -995,8 +991,8 @@ function return_date_filter($db, $field, $filter, $filter_date='', $filter_date2
         }else {
             $range = TimeDate::getInstance()->parseDateRange($filter);
             if($range) {
-                return "($field >=" .$db->convert($db->quoted($range[0]->asDb()), 'date') .
-            		" AND $field <= " . $db->convert($db->quoted($range[1]->asDb()), 'date') .") ";
+                return "($field >=" . $db->convert($db->quoted($range[0]->asDb()), 'datetime') .
+                    " AND $field <= " . $db->convert($db->quoted($range[1]->asDb()), 'datetime') . ") ";
             }
         }
     }
@@ -1062,8 +1058,8 @@ function return_date_filter($db, $field, $filter, $filter_date='', $filter_date2
                 //process 'articles added last 30 days' filter
                 if($canned_search_opt == 'added'){
                     $range = TimeDate::getInstance()->parseDateRange('last_30_days');
-                    return " AND (kbdocuments.date_entered >=" .$db->convert($db->quoted($range[0]->asDb()), 'date') .
-            			" AND kbdocuments.date_entered <= " . $db->convert($db->quoted($range[1]->asDb()), 'date') .") ";
+                    return " AND (kbdocuments.date_entered >=" .$db->convert($db->quoted($range[0]->asDb()), 'datetime') .
+            			" AND kbdocuments.date_entered <= " . $db->convert($db->quoted($range[1]->asDb()), 'datetime') .") ";
                 }
 
                 //process 'articles pending my approval' filter
@@ -1075,8 +1071,8 @@ function return_date_filter($db, $field, $filter, $filter_date='', $filter_date2
                 //process 'articles updated last 30 days' filter
                 if($canned_search_opt == 'updated'){
                     $range = TimeDate::getInstance()->parseDateRange('last_30_days');
-                    return " AND (kbdocuments.date_modified >=" .$db->convert($db->quoted($range[0]->asDb()), 'date') .
-            			" AND kbdocuments.date_modified <= " . $db->convert($db->quoted($range[1]->asDb()), 'date') .") ";
+                    return " AND (kbdocuments.date_modified >=" .$db->convert($db->quoted($range[0]->asDb()), 'datetime') .
+            			" AND kbdocuments.date_modified <= " . $db->convert($db->quoted($range[1]->asDb()), 'datetime') .") ";
                 }
 
                 //process 'articles under faq's tag' filter
@@ -1114,8 +1110,11 @@ function return_date_filter($db, $field, $filter, $filter_date='', $filter_date2
 
                 //Create if filter type is set to none
                 if($attachment_search_opt == 'none' || $attachment_search_opt == 'some'){
-                    $return_att = "and kbdocuments.id not in
-                                        (select kbdocument_id from kbdocument_revisions where ".$db->convert('kbdocument_id', 'length')." or kbcontent_id IS NULL)";
+                    $return_att = "and kbdocuments.id not in (
+                            select kbdocument_id
+                            from kbdocument_revisions
+                            where coalesce({$db->convert('kbdocument_id', 'length')},0) > 0 or kbcontent_id IS NULL
+                        )";
                 }
                 //Create if filter type is set to name
                 if($attachment_search_opt == 'name'){

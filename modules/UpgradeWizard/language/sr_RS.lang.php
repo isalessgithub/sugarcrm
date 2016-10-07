@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Instalirani su sledeći moduli:',
   'DESC_MODULES_QUEUED' => 'Sledeći moduli su spremni za instalaciju:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Uvezeni fajl nije kompatibilan sa izdanjima Sugar-a (Community Edition, Professional ili Enterprise):',
+  'ERROR_HT_NO_WRITE' => 'Nije moguće upisivanje u fajl: %s',
+  'ERROR_MANIFEST_TYPE' => 'Konfiguracioni fajl (manifest.php) mora da navede tip paketa.',
+  'ERROR_PACKAGE_TYPE' => 'Konfiguracioni fajl (manifest.php) navodi tip paketa koji nije prepoznatljiv: %s',
+  'ERROR_UW_CONFIG_DB' => 'Greška pri čuvanju %s config var u bazi podataka (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Uvezeni fajl nije kompatibilan sa ovom verzijom Sugar aplikacije:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Sugar ne podržava Vašu verziju PHP-a. Treba da instalirate verziju koja kompatibilina sa Sugar aplikacijom. Konsultujte Matricu Kompatibilnosti u Beleškama O Izdanju u vezi sa podržnom verzijom PHP-a. Vaša verzija je',
+  'ERR_NOT_ADMIN' => 'Neovlašćen pristup administraciji.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Nemate prava pristupa ovoj stranici.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Ne mogu da odredim grupu',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Ne mogu da odredim vlasnika',
   'ERR_UW_CONFIG' => 'Molim, napravite svoj config.php fajl upisiv i ponovo učitajte ovu stranu.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Ponovo pokreni',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Nadgradnja je u toku',
   'LBL_CURRENT_PHP_VERSION' => '(Vaša aktuelna PHP verzija je',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globalno vidljivo',
   'LBL_HOME_PAGE_4_NAME' => 'Sistem za praćenje',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Zahteva se php verzija 5 ili novija.',
   'LBL_LANGPACKS' => 'Jezički paketi',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP podešavanje: Memorija ograničena',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL server & PHP Magic Quotes GPC opcija',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Minimalna MySQL verzija',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE Verzija',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Lokacija fajla php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Minimalna PHP verzija',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP podešavanje: Siguran način rada',

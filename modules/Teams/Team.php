@@ -1,26 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('modules/Teams/TeamMembership.php');
 
@@ -57,9 +46,20 @@ class Team extends SugarBean
 
 	var $new_schema = true;
 
-	function Team()
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Team()
+    {
+        self::__construct();
+    }
+
+	public function __construct()
 	{
-		parent::SugarBean();
+		parent::__construct();
 		$this->disable_row_level_security =true;
 	}
 
@@ -138,7 +138,7 @@ class Team extends SugarBean
 	}
 
 	function create_team($name, $description, $team_id = null, $private = 0, $name_2 = '', $associated_user_id = null) {
-		$team = new Team();
+		$team = BeanFactory::getBean('Teams');
 
 		if(isset($team_id)) {
 			$team->id = $team_id;
@@ -165,11 +165,10 @@ class Team extends SugarBean
 	function new_user_created($user) {
 		global $current_language, $dictionary;
 		$mod_strings = return_module_language($current_language, 'Users');
-		$team = new Team();
+		$team = BeanFactory::getBean('Teams', $this->global_team);
 		//Explicitly set the field_defs variable here because the calling context could come from User
         $team->field_defs =	$dictionary[$team->object_name]['fields'];
 		// add the user to the global team.
-		$team->retrieve($this->global_team);
 		$team->add_user_to_team($user->id);
 
 		// If private teams are enabled, then create private teams for this user.
@@ -187,8 +186,7 @@ class Team extends SugarBean
 			$team->add_user_to_team($user->id);
 		}
 
-		$su = new User();
-		$su->retrieve($user->id);
+		$su = BeanFactory::getBean('Users', $user->id);
 		$team->retrieve($this->global_team);
 		$su->default_team = $team->id;
 		$su->team_id = $team->id;
@@ -202,9 +200,8 @@ class Team extends SugarBean
 	 */
 	function get_team_members($only_active_users = false) {
 		// Get the list of members
-        $where = sprintf('team_id = %s and explicit_assign = 1', $this->db->quoted($this->id));
-		$member = new TeamMembership();
-        $member_list = $member->get_full_list("", $where);
+		$member = BeanFactory::getBean('TeamMemberships');
+		$member_list = $member->get_full_list("", "team_id='$this->id' and explicit_assign=1");
 
 		$user_list = Array();
 
@@ -217,8 +214,7 @@ class Team extends SugarBean
 		// create user object and call retrieve with the user_id
 		foreach($member_list as $current_member)
 		{
-			$user = new User();
-			$user->retrieve($current_member->user_id);
+			$user = BeanFactory::getBean('Users', $current_member->user_id);
 
 			//if the flag $only_active_users is set to true, then we only want to return
 			//active users. This was defined as part of workflow to not send out notifications
@@ -245,16 +241,14 @@ class Team extends SugarBean
 	 */
 	function delete_team() {
 		//todo: Verify that no items are still assigned to this team.
-        if ($this->id == $this->global_team) {
-            $msg = $GLOBALS['app_strings']['LBL_MASSUPDATE_DELETE_GLOBAL_TEAM'];
-            $GLOBALS['log']->fatal($msg);
-            SugarApplication::appendErrorMessage($msg);
-            return false;
-        }
+		if($this->id == $this->global_team) {
+			$msg = $GLOBALS['app_strings']['LBL_MASSUPDATE_DELETE_GLOBAL_TEAM'];
+			$GLOBALS['log']->fatal($msg);
+			die($msg);
+		}
 
 		//Check if the associated user is deleted
-		$user = new User();
-		$user->retrieve($this->associated_user_id);
+		$user = BeanFactory::getBean('Users', $this->associated_user_id);
 		if($this->private == 1 && (!empty($user->id) && $user->deleted != 1))
 		{
 			$msg = string_format($GLOBALS['app_strings']['LBL_MASSUPDATE_DELETE_USER_EXISTS'], array(Team::getDisplayName($this->name, $this->name_2), $user->full_name));
@@ -264,15 +258,12 @@ class Team extends SugarBean
 		}
 
 		// Update team_memberships table and set deleted = 1
-        $query = sprintf(
-            'UPDATE team_memberships SET deleted = 1 WHERE team_id = %s',
-            $this->db->quoted($this->id)
-        );
+		$query = "UPDATE team_memberships SET deleted = 1 WHERE team_id='{$this->id}'";
 		$this->db->query($query,true,"Error deleting memberships while deleting team: ");
 
 		// Update teams and set deleted = 1
-		$query = "UPDATE teams SET deleted = 1 WHERE id='{$this->id}'";
-		$this->db->query($query,true,"Error deleting team: ");
+		$this->deleted = 1;
+		$this->save();
 
 		require_once('modules/Teams/TeamSetManager.php');
 		TeamSetManager::flushBackendCache();
@@ -280,7 +271,7 @@ class Team extends SugarBean
 		TeamSetManager::removeTeamFromSets($this->id);
 
 	    // Take the item off the recently viewed lists
-	    $tracker = new Tracker();
+	    $tracker = BeanFactory::getBean('Trackers');
 	    $tracker->makeInvisibleForAll($this->id);
 	}
 
@@ -293,15 +284,12 @@ class Team extends SugarBean
 	function complete_team_duplication($original_team_id)
 	{
 		// Collect the full list of team memberships
-        $query = sprintf(
-            'select id, user_id, explicit_assign, implicit_assign, deleted from team_memberships where team_id = %s',
-            $this->db->quoted($original_team_id)
-        );
+		$query = "select id, user_id, explicit_assign, implicit_assign, deleted from team_memberships where team_id='$original_team_id'";
 		$result = $this->db->query($query,true,"Error finding team memberships: ");
 
        $GLOBALS['log']->debug("About to duplicate team memberships. from team $original_team_id.");
 
-		$membership = new TeamMembership();
+		$membership = BeanFactory::getBean('TeamMemberships');
 		while(($row = $this->db->fetchByAssoc($result)) != false)
 		{
 			$membership->retrieve($row['id']);
@@ -336,7 +324,7 @@ class Team extends SugarBean
      */
     public function add_user_to_team($user_id, User $user_override = null)
     {
-		$membership = new TeamMembership();
+		$membership = BeanFactory::getBean('TeamMemberships');
 		$result = $membership->retrieve_by_user_and_team($user_id, $this->id);
         $membershipExists = false;
 
@@ -357,8 +345,7 @@ class Team extends SugarBean
 				}
 				else
 				{
-					$focus = new User();
-					$focus->retrieve($user_id);
+					$focus = BeanFactory::getBean('Users', $user_id);
 				}
                 if (!empty($focus->reports_to_id))
                     $this->addManagerToTeam($focus->reports_to_id);
@@ -374,7 +361,7 @@ class Team extends SugarBean
 
         if (!$membershipExists)
         {
-            $membership = new TeamMembership();
+            $membership = BeanFactory::getBean('TeamMemberships');
             $membership->user_id = $user_id;
             $membership->team_id = $this->id;
             $membership->explicit_assign = 1;
@@ -389,8 +376,7 @@ class Team extends SugarBean
 		}
 		else
 		{
-			$focus = new User();
-			$focus->retrieve($user_id);
+			$focus = BeanFactory::getBean('Users', $user_id);
 		}
         if (!empty($focus->reports_to_id))
             $this->addManagerToTeam($focus->reports_to_id);
@@ -402,9 +388,8 @@ class Team extends SugarBean
      */
     private function addManagerToTeam($manager_id)
     {
-        $manager = new User();
-        $manager->retrieve($manager_id);
-        $managers_membership = new TeamMembership();
+        $manager = BeanFactory::getBean('Users', $manager_id);
+        $managers_membership = BeanFactory::getBean('TeamMemberships');
         $result = $managers_membership->retrieve_by_user_and_team($manager->id, $this->id);
 
         if($result)
@@ -427,12 +412,12 @@ class Team extends SugarBean
             }
 
             // This is an error.  There should not be a memberhsip row that does not have implicit or explicit asisgnments.
-            $GLOBALS['log']->error("Membership record found (id $membership->id) that does not have a implicit or explicit assignment");
+            $GLOBALS['log']->error("Membership record found (id $managers_membership->id) that does not have a implicit or explicit assignment");
         }
         else
         {
             // This user does not have an implict assign already, add it.
-            $managers_membership = new TeamMembership();
+            $managers_membership = BeanFactory::getBean('TeamMemberships');
             $managers_membership->user_id = $manager->id;
             $managers_membership->implicit_assign = true;
             $managers_membership->team_id = $this->id;
@@ -472,7 +457,7 @@ class Team extends SugarBean
 		$visited_users = array();
 
 		// Step0: Set the user to the initial focus
-		$focus = new User();
+		$focus = BeanFactory::getBean('Users');
 
 		if(isset($user_override))
 		{
@@ -495,12 +480,15 @@ class Team extends SugarBean
 		$visited_users[$focus->id] = $focus->user_name;
 
 		// Step2: Set explicit to false
-		$membership = new TeamMembership();
+		$membership = BeanFactory::getBean('TeamMemberships');
 		$result = $membership->retrieve_by_user_and_team($user_id, $this->id);
  		if($result)
 		{
         	$GLOBALS['log']->debug("Found existing team membership.  $user_id is a member of $this->id");
-            $this->load_relationship('users');
+            if (!$this->load_relationship('users')){
+                $GLOBALS['log']->error("Unable to load users relationship in Teams");
+                return false;
+            }
 
     		//if the user does not have implicit access, then we do not
     		//care what the explicit access is, delete the memnbership
@@ -521,7 +509,7 @@ class Team extends SugarBean
                 //             0     0
                 $this->users->delete($this->id,$user_id);
             }
-            $manager = new User();
+            $manager = BeanFactory::getBean('Users');
             $manager->reports_to_id = $focus->reports_to_id;
             while(!empty($manager->reports_to_id) && $manager->id != $manager->reports_to_id)
             {
@@ -557,10 +545,7 @@ class Team extends SugarBean
 	function scan_direct_reports_for_access($user_id)
 	{
 		// At this point, we have the manager's ID.  Let's gather the list of their employee's IDs.
-        $query = sprintf(
-            'select id from users where reports_to_id = %s',
-            $this->db->quoted($user_id)
-        );
+		$query = "select id from users where reports_to_id='$user_id'";
 		$result = $this->db->getOne($query,true,"Error finding the direct reports for a manager: ");
 		return !empty($result);
 	}
@@ -568,12 +553,8 @@ class Team extends SugarBean
     function scan_direct_reports_team_for_access($user_id)
     {
         // At this point, we have the manager's ID.  Let's gather the list of their employee's IDs.
-        $query = sprintf(
-            'SELECT users.id FROM users INNER JOIN team_memberships ON users.id = team_memberships.user_id
-            WHERE users.reports_to_id = %s AND team_memberships.team_id = %s AND team_memberships.deleted = 0',
-            $this->db->quoted($user_id),
-            $this->db->quoted($this->id)
-        );
+        $query = "SELECT users.id FROM users INNER JOIN team_memberships ON users.id = team_memberships.user_id".
+                                     " WHERE users.reports_to_id = '$user_id' AND team_memberships.team_id = '$this->id' AND team_memberships.deleted = 0";
         $result = $this->db->getOne($query,true,"Error finding the direct reports for a manager: ");
         return !empty($result);
     }
@@ -586,8 +567,7 @@ class Team extends SugarBean
 	function user_manager_changed($user_id, $old_reports_to_id, $new_reports_to_id)
 	{
 		// Step0: Set the user to the initial focus
-		$user = new User();
-		$user->retrieve($user_id);
+		$user = BeanFactory::getBean('Users', $user_id);
 		$user->reports_to_id = $old_reports_to_id;
 
         //keep track of team memberships too.
@@ -614,22 +594,13 @@ class Team extends SugarBean
        //make sure the user has same memberships as before. If not, update them accordingly.
        if (count($this->my_memberships) > 0) {
             foreach ($this->my_memberships as $team_id=>$before_row) {
-                $query = sprintf(
-                    'select * from team_memberships where user_id = %s and team_id = %s',
-                    $this->db->quoted($user_id),
-                    $this->db->quoted($team_id)
-                );
+                $query = "select * from team_memberships where user_id='$user_id' and team_id='$team_id'";
                 $result = $this->db->query($query,true,"Error finding the full membership list for a user: ");
                 $after_row=$this->db->fetchByAssoc($result);
 
                 if  ($after_row['explicit_assign'] != $before_row['explicit_assign'] or $after_row['implicit_assign'] != $before_row['implicit_assign'] ) {
-                    $update_query = sprintf(
-                        'update team_memberships set explicit_assign = %s, implicit_assign = %s where id = %s',
-                        $this->db->quoted($before_row['explicit_assign']),
-                        $this->db->quoted($before_row['implicit_assign']),
-                        $this->db->quoted($after_row['id'])
-                    );
-                    $this->db->query($update_query, true, "Error updating the team sync. ");
+                     $update_query="update team_memberships set explicit_assign='{$before_row['explicit_assign']}', implicit_assign='{$before_row['implicit_assign']}' where id='{$after_row['id']}'";
+                     $this->db->query($update_query,true,"Error updating the team sync. ");
                 }
             }
        }
@@ -642,19 +613,15 @@ class Team extends SugarBean
 	 */
 	function get_teams_for_user($user_id)
 	{
-        // Get the list of ids for the teams (include implicit and explicit)
-        // At this point, we have the manager's ID.  Let's gather the list of their employee's IDs.
-        $query = sprintf(
-            'select * from team_memberships where user_id = %s and deleted = 0',
-            $this->db->quoted($user_id)
-        );
+		// Get the list of ids for the teams (include implicit and explicit)
+		// At this point, we have the manager's ID.  Let's gather the list of their employee's IDs.
+		$query = "select * from team_memberships where user_id='$user_id' and deleted = 0";
 		$result = $this->db->query($query,true,"Error finding the full membership list for a user: ");
 
 		$team_array = Array();
 		while($row = $this->db->fetchByAssoc($result)) {
             $this->my_memberships[$row['team_id']]=$row;
-			$team = new Team();
-			$team->retrieve($row['team_id']);
+			$team = BeanFactory::getBean('Teams', $row['team_id']);
 			$team_array[] = $team;
 		}
 
@@ -665,19 +632,11 @@ class Team extends SugarBean
 	 * Return the team id for a team name.
 	 */
 	function retrieve_team_id($team_name) {
-        $query = sprintf(
-            'SELECT id from teams where name = %s OR name_2 = %s',
-            $this->db->quoted($team_name),
-            $this->db->quoted($team_name)
-        );
+		$query = "SELECT id from teams where name='".$this->db->quote($team_name)."' OR name_2 = '".$this->db->quote($team_name)."' ";
         // Private teams seem to have the name split up, so we need to check for this
         $splitVal = explode(' ',$team_name,2);
         if ( isset($splitVal[1]) && !empty($splitVal[1]) ) {
-            $query .= sprintf(
-                ' OR ( name = %s AND name_2 = %s)',
-                $this->db->quoted($splitVal[0]),
-                $this->db->quoted($splitVal[1])
-            );
+            $query .= " OR ( name = '".$this->db->quote($splitVal[0])."' AND name_2 = '".$this->db->quote($splitVal[1])."' ) ";
         }
         $query .= "AND deleted != 1";
 		$result = $this->db->query($query, false, "Error retrieving user ID: ");
@@ -698,14 +657,11 @@ class Team extends SugarBean
 	 * @return boolean value indicating whether or not the team instance is assigned as part of a team set in modules
 	 */
 	function has_records_in_modules() {
-        $query = sprintf(
-            'SELECT count(tsm.team_set_id) as total
-		    FROM team_sets_modules tsm
-		    inner join team_sets_teams tst
-		    on tsm.team_set_id = tst.team_set_id
-		    where tst.team_id = %s',
-            $this->db->quoted($this->id)
-        );
+		$query = "SELECT count(tsm.team_set_id) as total
+		          FROM team_sets_modules tsm
+		          inner join team_sets_teams tst
+		          on tsm.team_set_id = tst.team_set_id
+		          where tst.team_id = '{$this->id}'";
 		$results = $this->db->query($query);
 		if(!empty($results)) {
 		   $row = $GLOBALS['db']->fetchByAssoc($results);
@@ -715,23 +671,19 @@ class Team extends SugarBean
 	}
 
 
-    /**
-     * reassign_team_records
-     * This function accepts an Array of team ids that have records that should be reassigned
-     * to the team instance.
-     *
-     * @param $old_teams Array of team ids whose records will be reassigned to the team instance id
-     */
-    public function reassign_team_records($old_teams = array())
-    {
-        $old_team = BeanFactory::getBean('Teams');
-        foreach ($old_teams as $old_team_id) {
-            $old_team->retrieve($old_team_id);
-            $query = sprintf(
-                'SELECT tsm.module_table_name FROM team_sets_modules tsm
-                inner join team_sets_teams tst on tsm.team_set_id = tst.team_set_id where tst.team_id = %s',
-                $this->db->quoted($old_team->id)
-            );
+	/**
+	 * reassign_team_records
+	 * This function accepts an Array of team ids that have records that should be reassigned
+	 * to the team instance.
+	 *
+	 * @param $old_teams Array of team ids whose records will be reassigned to the team instance id
+	 */
+	function reassign_team_records($old_teams=array()) {
+		$old_team = BeanFactory::getBean('Teams');
+		foreach($old_teams as $old_team_id) {
+			$old_team->retrieve($old_team_id);
+
+			$query = "SELECT tsm.module_table_name FROM team_sets_modules tsm inner join team_sets_teams tst on tsm.team_set_id = tst.team_set_id where tst.team_id = '{$old_team->id}'";
 			$results = $this->db->query($query);
 			$modules_with_team = array();
 			if(!empty($results)) {
@@ -740,21 +692,19 @@ class Team extends SugarBean
 				}
 			}
 
-            if (!empty($modules_with_team)) {
-                foreach ($modules_with_team as $module) {
-                    $sql = sprintf(
-                        'UPDATE %s SET team_id = %s WHERE team_id = %s',
-                        $module,
-                        $this->db->quoted($this->id),
-                        $this->db->quoted($old_team->id)
-                    );
-                    $GLOBALS['log']->info(
-                        "Updating team_id column values in {$module} table from '{$old_team->id}' to '{$this->id}'"
-                    );
-                    $this->db->query($sql);
-                }
-            }
-            $old_team->delete_team();
+			if(!empty($modules_with_team)) {
+			   foreach($modules_with_team as $module) {
+			   	   $sql = "UPDATE {$module} SET team_id = '{$this->id}' WHERE team_id = '{$old_team->id}'";
+			   	   $GLOBALS['log']->info("Updating team_id column values in {$module} table from '{$old_team->id}' to '{$this->id}'");
+			   	   $this->db->query($sql);
+
+			   	   $sql = "UPDATE team_sets_teams SET team_id = '{$this->id}' WHERE team_id = '{$old_team->id}'";
+			   	   $GLOBALS['log']->info("Updating team_id column values in team_sets_teams table from '{$old_team->id}' to '{$this->id}'");
+			   	   $this->db->query($sql);
+
+			   }
+			}
+			$old_team->delete_team();
 		}
 	}
 
@@ -803,33 +753,6 @@ class Team extends SugarBean
     	}
     }
 
-	function create_export_query($order_by, $where) {
-		include('modules/Teams/field_arrays.php');
-
-		$cols = '';
-		foreach($fields_array['Team']['export_fields'] as $field) {
-			$cols .= (empty($cols)) ? '' : ', ';
-			$cols .= $field;
-		}
-
-		$query = "SELECT {$cols} FROM teams ";
-
-		$where_auto = " teams.deleted = 0";
-
-		if ($where != "")
-			$query .= " WHERE $where AND ".$where_auto;
-		else
-			$query .= " WHERE ".$where_auto;
-
-
-		if ($order_by != "")
-			$query .= " ORDER BY $order_by";
-		else
-			$query .= " ORDER BY teams.name";
-
-		return $query;
-	}
-
 	/**
      * Bug 13271 - Sometimes we just want to know the name of a team for display purposes when the team_id may not be one of the users assigned teams.
      * For example when they have an admin Role for a module we may need to display the teams for other users
@@ -846,8 +769,7 @@ class Team extends SugarBean
         if ( !empty($teamname) )
             return $teamname;
 
-        $focus = new Team;
-        $focus->retrieve($team_id);
+        $focus = BeanFactory::getBean('Teams', $team_id);
         if ( !empty($focus->id) ) {
             $teamname = $focus->name;
             sugar_cache_put("teamname_$team_id",$teamname);
@@ -877,16 +799,10 @@ class Team extends SugarBean
         if ( !isset($user) )
             $user = $current_user;
 
-        if ($user->isAdmin()||(!$user->isAdmin() && $user->isAdminForModule('Users'))) {
+        if($user->isAdmin()||(!$user->isAdmin() && $user->isAdminForModule('Users')))
             $query = 'SELECT t1.id, t1.name, t1.name_2 FROM teams t1 where t1.deleted = 0 ORDER BY t1.private,t1.name ASC';
-        } else {
-            $query = sprintf(
-                'SELECT t1.id, t1.name, t1.name_2 FROM teams t1, team_memberships t2
-                where t1.deleted = 0 and t2.deleted = 0 and t1.id=t2.team_id and t2.user_id = %s
-                ORDER BY t1.private,t1.name ASC',
-                $db->quoted($user->id)
-            );
-        }
+        else
+            $query = 'SELECT t1.id, t1.name, t1.name_2 FROM teams t1, team_memberships t2 where t1.deleted = 0 and t2.deleted = 0 and t1.id=t2.team_id and t2.user_id = '."'".$user->id."'".' ORDER BY t1.private,t1.name ASC';
         $result = $db->query($query, true, "Error filling in team array: ");
 
         if ($add_blank)

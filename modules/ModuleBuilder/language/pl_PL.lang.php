@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Błąd: Pole juz istnieje',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Anuluj',
   'LBL_BTN_CLONE' => 'Duplikuj',
   'LBL_BTN_CLOSE' => 'Zamknij',
+  'LBL_BTN_COPY' => 'Kopiuj',
+  'LBL_BTN_COPY_FROM' => 'Kopiuj z...',
   'LBL_BTN_DELETE' => 'Usuń',
   'LBL_BTN_DEPLOY' => 'Zamieść',
   'LBL_BTN_DONT_SAVE' => 'Porzuć zmiany',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Cofnij',
   'LBL_BTN_VIEW_FIELDS' => 'Zobacz pola',
   'LBL_BTN_VIEW_LAYOUTS' => 'Zobacz widoki',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Zobacz mobilne widoki',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Pokaż relacje',
   'LBL_BUG_TRACKER' => 'Śledzenie błędów',
   'LBL_CALCULATED' => 'Uzupełniane automatycznie',
   'LBL_CASES' => 'Zgłoszenia',
   'LBL_CLEAR_EXTENSIONS' => 'Usuń rozszerzenia',
   'LBL_CLEAR_RELATIONSHIPS' => 'Usuń relacje',
+  'LBL_COMBO_FIELD_CONTAINS' => 'zawiera:',
   'LBL_COMPANY' => 'Firma',
   'LBL_CONFIG_PORTAL_URL' => 'URL własnego obrazu loga. Zalecane wymiary loga to 163 x 18 pikseli.',
   'LBL_CONFIRM_DONT_SAVE' => 'Od ostatniego zapisu zostały wprowadzone zmiany. Czy chcesz zapisać je teraz?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Czy na pewno chcesz usunąć tę relację?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Po zaakceptowaniu relacja zostanie dodana do instancji i nie będzie możliwości jej usunięcia. Czy na pewno chcesz zamieścić tę relację?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Zaznaczyłeś do usunięcia element listy rozwijalnej. Element ten nie będzie dalej wyświetlany na liście. Czy na pewno chcesz kontynuować?',
+  'LBL_COPY_FROM' => 'Kopiuj z:',
   'LBL_COPY_FROM_EDITVIEW' => 'Kopiuj z widoku edycji',
   'LBL_CREATE' => 'Utwórz',
   'LBL_CREATE_NEW' => 'Utwórz nowy',
   'LBL_CURRENCY' => 'Waluta',
   'LBL_CURRENT_LAYOUT' => 'Aktualny widok',
   'LBL_CUSTOM' => 'Własny',
-  'LBL_CUSTOMIZE_THEME' => 'Spersonalizuj motyw',
   'LBL_CUSTOM_FIELDS' => '* pole utworzone w Studio lub Kreatorze Modułów',
   'LBL_CUSTOM_MODULE' => 'Moduł',
   'LBL_CUSTOM_RELATIONSHIPS' => '* relacje utworzone w Studio lub Kreatorze Modułów',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Zależny',
   'LBL_DEPENDENCY' => 'Zależność',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Przeciągnij i upuść z listy po lewej z dostępnych opcji w liście zależnej do listy po prawej, aby udostępnić te opcje w przypadku gdy została wybrana opcja wartości nadrzędnych. Jeżeli żaden element nie został dodany do wartości nadrzędnych, lista zależna nie będzie wyświetlana.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Uwaga: Aby aktualizacje były widoczne, może być potrzebne odświeżenie Widoku edycji rekordu.',
   'LBL_DEPLOYE_COMPLETE' => 'Zamieszczanie ukończone',
   'LBL_DEPLOY_FAILED' => 'Podczas zamieszczania pakietu wystąpił błąd. Twój pakiet mógł zostać zainstalowany niepoprawnie',
   'LBL_DEPLOY_IN_PROGRESS' => 'Zamieszczanie pakietu',
@@ -139,12 +139,15 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEM_NAME' => 'Nazwa elementu',
   'LBL_DROPDOWN_KEY_EXISTS' => 'Klucz znajduje się już na liście',
   'LBL_DROPDOWN_LANGUAGE' => 'Język',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Lista musi zawierać co najmniej jeden włączony element',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nazwa',
   'LBL_DROP_HERE' => '[Upuść tutaj]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Zależny',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Wybierz moduł.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'własne listy rozwijalne',
   'LBL_EC_CUSTOMFIELD' => 'pole dostosowane',
+  'LBL_EC_CUSTOMLABEL' => 'spersonalizowana etykieta',
   'LBL_EC_CUSTOMLAYOUT' => 'widok dostosowany',
   'LBL_EC_DESCRIPTION' => 'Opis:',
   'LBL_EC_EMPTYCUSTOM' => 'nie posiada własnych dostosowań.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Pola',
   'LBL_FILE' => 'Plik',
   'LBL_FILLER' => '(filtr)',
+  'LBL_FILTER_SEARCH' => 'Wyszukiwanie',
   'LBL_FORMULA' => 'Formuła',
   'LBL_FORMULA_BUILDER' => 'Kreator formuły',
   'LBL_FORMULA_INVALID' => 'Nieprawidłowa formuła',
   'LBL_FORMULA_TYPE' => 'Formuła musi być typu',
   'LBL_HCUSTOM' => 'WŁASNY',
   'LBL_HDEFAULT' => 'DOMYŚLNY',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Kopiuj z widoku',
   'LBL_HIDDEN' => 'Ukryte',
   'LBL_HIDEOPTIONS' => 'Ukryj opcje',
   'LBL_HIGH' => 'Wysoki',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Moje',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Edytuj listy rozwijalne',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Klucz listy rozwijalnej nie moża zawierać cytatów.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Wskazuje pole mieszane. Pole mieszane to zbiór pojedynczych pól. Na przykład pole "Adres" to pole mieszane, które zawiera pola "Ulica", "Kod pocztowy", "Miasto", "Województwo" oraz "Kraj".><br><br>Kliknij podwójnie w pole mieszane, aby zobaczyć jakie pola zawiera.',
   'LBL_ISSUE' => 'Zgłoszenie',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Czy na pewno chcesz usunąć ten wymagany element listy rozwijalnej? Usunięcie go może wpłynąć na funkcjonalność Twojej aplikacji.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Czy na pewno chcesz usunąć etap Zakończone porażką? Usunięcie tego etapu spowoduje nieprawidłowe działanie modułu Prognozy.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Czy na pewno chcesz usunąć etap Zakończone sukcesem? Usunięcie tego etapu spowoduje nieprawidłowe działanie modułu Prognozy.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Czy na pewno chcesz usunąć status sprzedaży „W trakcie”? Usunięcie tego statusu spowoduje niepoprawne działanie workflow Pozycji szans w module Szanse.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Czy na pewno chcesz usunąć status sprzedaży „Nowy”? Usunięcie tego statusu spowoduje niepoprawne działanie workflow Pozycji szans w module Szanse.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Czy na pewno chcesz usunąć ten element listy rozwijalnej? Usunięcie etapów Zakończone sukcesem lub Zakończone porażką spowoduje nieprawidłowe działanie modułu Prognozy.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Wszystkie dostosowania wykonane w Studio zostaną nadpisane w przypadku gdy ten moduł zostanie ponownie zamieszczony. Czy na pewno chcesz kontynuować?',
   'LBL_JS_REMOVE_MODULE' => 'Czy na pewno chcesz usunąć ten moduł? Ta operacja spowoduje trwałe usunięcie plików powiązanych z tym modułem.',
   'LBL_JS_REMOVE_PACKAGE' => 'Czy na pewno chcesz usunąć ten pakiet? Spowoduje to trwałe usunięcie wszystkich plików skojarzonych z tym pakietem.',
   'LBL_JS_VALIDATE_KEY' => 'Klucz - musi składać się ze znaków alfanumerycznych, bez spacji i rozpoczynać się od litery',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Klucz - musi być alfanumeryczny i zaczynać się literą.',
   'LBL_JS_VALIDATE_LABEL' => 'Wprowadź etykiete, która będzie użyta jako nazwa tego modułu',
   'LBL_JS_VALIDATE_NAME' => 'Nazwa - musi składać się ze znaków alfanumerycznych, bez spacji i rozpoczynać się od litery',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Nazwa paczki już istnieje',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Wybierz widok Portalu Sugar do edycji.',
   'LBL_QUICKCREATE' => 'Szybkie tworzenie',
   'LBL_READ_ONLY' => 'Tylko do odczytu',
+  'LBL_RECORDVIEW' => 'Widok rekordu',
   'LBL_RELATED_FIELD' => 'Pole powiązane',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (powiązane {1} ID)',
   'LBL_RELATE_TO' => 'Powiązany z',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Przywróć moduł',
   'LBL_RESTORE_DEFAULT' => 'Przywróć domyślne',
   'LBL_RHS_MODULE' => 'Powiązane moduły',
+  'LBL_ROLE' => 'Rola',
   'LBL_ROLLUP' => 'Zwiń',
   'LBL_RSUB' => 'To jest subpanel, który będzie wyświetlany w Twoim module',
   'LBL_SALE' => 'Sprzedaż',
-  'LBL_SAVE' => 'Zapisz',
   'LBL_SAVE_LAYOUT' => 'Zapisz widok',
   'LBL_SEARCH' => 'Wyszukiwanie',
   'LBL_SEARCH_FIELDS' => 'Wyszukiwanie pól...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Wybierz subpanel',
   'LBL_SELECT_FILE' => 'Wybierz plik',
   'LBL_SELECT_SUBPANEL' => 'Wybierz subpanel',
+  'LBL_SINGULAR_LABEL' => 'Liczba pojedyncza',
   'LBL_SP_PREVIEW' => 'Oto podgląd jak będzie wyglądał Portal Sugar po wprowadzeniu arkuszu stylów.',
   'LBL_SP_UPLOADED' => 'Załadowano',
   'LBL_SP_UPLOADSTYLE' => 'Wybierz arkusz stylów do załadowania z Twojego komputera.<br> Arkusz stylów zostanie wprowadzony do Portalu Sugar przy następnej synchronizacji.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => 'Obszar <b>Widoku</b> zawiera  pola, które są obecnie wyświetlone w <b>Widoku szczegółowym</b>.<br/><br/><b>Skrzynka narzędzi</b> zawiera <b>Kosz</b> oraz pola i elementy widoku, które mogą zostać do niego dodane.<br><br>Zmian w widoku dokonuje się przeciągając i upuszczając elementy i pola pomiędzy <b>Skrzynką</b> a <b>Widokiem</b> i w samym widoku.<br><br>Aby usunąć pole z widoku, przeciągnij je do <b>Kosza</b>. Pole będzie dostępne w Skrzynce narzędzi i możliwe do dodania do widoku.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Wskazuje pole zależne , które może być  lub nie być widoczne w oparciu o wartość formuły.<br/>Wskazuje pole kalkulowane, którego wartość będzie automatycznie określana na podstawie formuły.',
       'defaultdetailview' => 'Obszar <b>Widoku</b> zawiera  pola, które są obecnie wyświetlone w <b>Widoku szczegółowym</b>.<br/><br/><b>Skrzynka narzędziowa</b> zawiera <b>Kosz</b> oraz elementy pól i widoku, które mogą zostać dodane do widoku.<br><br>Zmian w widoku dokonuje się przeciągając i upuszczając elementy i pola pomiędzy <b>Skrzynką</b> a <b>Widokiem</b> i w samym widoku.<br><br>Aby usunąć pola z widoku, przeciągnij je do <b>Kosza</b>. Pola będą wtedy dostępne w Skrzynce narzędziowej i możliwe do dodania do widoku.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Wskazuje pole zależne , które może być  lub nie być widoczne w oparciu o wartość formuły.<br/>Wskazuje pole kalkulowane, którego wartość będzie automatycznie określana na podstawie formuły.',
       'defaultquickcreate' => 'Obszar <b>Widoku</b> zawiera pola, które są obecnie wyświetlone w formularzu <b>Szybkie tworzenie</b>.<br><br>Formularz ten pojawia się w subpanelach modułów powiązanych po kliknięciu przycisku Utwórz.<br/><br/><b>Skrzynka narzędziowa</b> zawiera <b>Kosz</b>, pola i elementy widoku, które mogą zostać dodane do widoku.<br><br>Zmian w widoku dokonuje się przeciągając i upuszczając elementy i pola pomiędzy <b>Skrzynką</b> a <b>Widokiem</b> i w samym widoku.<br><br>Aby usunąć pola z widoku, przeciągnij pola do <b>Kosza</b>. Pola będą wtedy dostępne w Skrzynce narzędziowej i możliwe do dodania do widoku.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Wskazuje pole zależne , które może być  lub nie być widoczne w oparciu o wartość formuły.<br/>Wskazuje pole kalkulowane, którego wartość będzie automatycznie określana na podstawie formuły.',
+      'defaultrecordview' => 'Obszar<b>Widoku</b> zawiera pola aktualnie wyświetlane w <b>Widoku rekordu</b>.<br/><br/><b>Skrzynka narzędzi</b> zawiera <b>Kosz</b>, pola oraz elementy, które mogą zostać dodane do widoku.<br><br>Wprowadź zmiany do widoku poprzez przeciąganie i upuszczanie elementów oraz pól pomiędzy <b>Skrzynką narzędzi</b> a <b>Widokiem</b> oraz w samym widoku.<br><br>Aby usunąć pole z widoku przeciągnij je do <b>Kosza</b>. Pole to będzie dostępne w Skrzynce narzędzi do ponownego dodania do widoku.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Wskazuje pole zależne, które może być lub nie być widoczne, w zależności od wartości formuły.<br/>Wskazuje pole obliczalne, którego wartość będzie automatycznie określana na podstawie formuły.',
       'delete' => 'Przeciągnij i upuść dowolny element, aby usunąć go z widoku',
       'historyBtn' => 'Kliknij <b>Zobacz historię</b>, aby zobaczyć lub przywrócić poprzednio zachowany widok.<br><br>Kliknięcie<b>Przywróć</b> w <b>Zobacz historię</b> przywraca położenie pól z poprzednio zapisanego widoku. Aby zmienić etykiety pól, kliknij przycisk edycji znajdujący się obok każdego pola.',
       'historyDefault' => 'Kliknij <b>Przywróć domyślny</b>, aby przywrócić domyślny widok widoku. <br><br> Kliknięcie <b> Przywróć  domyślne</b> przywraca tylko położenie pól z domyślnego widoku. Aby zmienić etykiety pól, kliknij przycisk edycji znajdujący się obok każdego pola.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => 'Szablon <b>Sprzedaż</b> zawiera pola właściwe dla szans sprzedażowych – Źródło pozyskania, Etap, Kwota i procentowe prawdopodobieństwo szansy. <br/><br/>Użyj tego szablonu do tworzenia modułów podobnych do standardowego modułu Szans.',
       'viewfieldsbtn' => 'Kliknij <b>Zobacz pola</b>, aby zobaczyć pola powiązane z modułem i utworzyć lub edytować własne pola.',
       'viewlayoutsbtn' => 'Kliknij <b>Zobacz widoki</b>, aby zobaczyć widoki modułu i ustawić własny układ pól w tych widokach.',
+      'viewmobilelayoutsbtn' => 'Kliknij <b>Zobacz mobilne widoki</b>, aby zobaczyć mobilne widoki dla modułu i spersonalizować układ pól w widoku.',
       'viewrelsbtn' => 'Kliknij <b>Relacje</b>, aby zobaczyć relacje tego modułu z innymi lub je utworzyć.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Wszystkie <b>Relacje</b>, które istnieją pomiędzy modułami nadrzędnymi i podległymi pojawiają sie tutaj.<br><br><b>Nazwa</b> relacji jest generowana automatycznie przez system.<br><br><b>Moduł nadrzędny</b> to moduł, do którego należa wszystkie relacje. Na przykład, wszystkie właściwości relacji, dla których moduł Kontrahenci jest modułem nadrzędnym, są przechowywane w tabelach bazy danych dla modułu Kontrahenci.<br><br>Kliknij wiersz w tabeli relacje, aby zobaczyć właściwości relacji.<br><br>Kliknij <b>Dodaj relację</b> w celu utworzenia nowej relacji.<br><br>Relacje mogą być tworzone pomiędzy dowolnymi istniejącymi modułami.',
       'searchBtn' => 'Dostosuj widok <b>Wyszukiwanie</b>.<br><br>Określ jakie pola mogą zostać użyte do filtrowania rekordów, które pojawią się w widoku listy.',
       'searchHelp' => 'Formularz <b>Wyszukiwanie</b>, który może zostać dostosowany, pojawi się tutaj.<br><br>Formularz zawiera pola służące do filtrowania rekordów.<br><br>Kliknij w ikonę, aby skonfigurować widok.',
+      'studioBCHelp' => 'wskazuje, że moduł jest modułem zgodnym wstecz',
       'studioBtn' => 'Użyj <b>Studio</b>, aby dostosować zainstalowane moduły poprzez zmianę układu pól w poszczególnych widokach pól lub utworzenie nowych.',
       'studioHelp' => 'Użyj <b>Studio</b>, aby określić zakres informacyjny poszczególnych modułów.',
       'subpanelBtn' => 'Ustal, które pola pojawią się w  <b>Subpanelach</b> modułu.',

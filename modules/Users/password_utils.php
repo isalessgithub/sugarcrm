@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO To be written.
@@ -22,88 +19,122 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 
- function canSendPassword() {
- 	require_once('include/SugarPHPMailer.php');
-    global $mod_strings;
-	global $current_user;
-	global $app_strings;
-	$mail = new SugarPHPMailer();
- 	$emailTemp = new EmailTemplate();
- 	$mail->setMailerForSystem();
-    $emailTemp->disable_row_level_security = true;
+function canSendPassword() {
+    global $mod_strings,
+           $current_user,
+           $app_strings;
 
+    require_once "modules/OutboundEmailConfiguration/OutboundEmailConfigurationPeer.php";
 
-    if ($current_user->is_admin){
-    	if ($emailTemp->retrieve($GLOBALS['sugar_config']['passwordsetting']['generatepasswordtmpl']) == '')
-        	return $mod_strings['LBL_EMAIL_TEMPLATE_MISSING'];
-    	if(empty($emailTemp->body) && empty($emailTemp->body_html))
-    		return $app_strings['LBL_EMAIL_TEMPLATE_EDIT_PLAIN_TEXT'];
-    	if($mail->Mailer == 'smtp' && $mail->Host =='')
-    		return $mod_strings['ERR_SERVER_SMTP_EMPTY'];
+    if ($current_user->is_admin) {
+        $emailTemplate                             = new EmailTemplate();
+        $emailTemplate->disable_row_level_security = true;
 
-		$email_errors=$mod_strings['ERR_EMAIL_NOT_SENT_ADMIN'];
-		if ($mail->Mailer == 'smtp')
-			$email_errors.="<br>-".$mod_strings['ERR_SMTP_URL_SMTP_PORT'];
-		if ($mail->SMTPAuth)
-		 	$email_errors.="<br>-".$mod_strings['ERR_SMTP_USERNAME_SMTP_PASSWORD'];
-		$email_errors.="<br>-".$mod_strings['ERR_RECIPIENT_EMAIL'];
-		$email_errors.="<br>-".$mod_strings['ERR_SERVER_STATUS'];
-		return $email_errors;
-	}
-	else
-		return $mod_strings['LBL_EMAIL_NOT_SENT'];
+        if ($emailTemplate->retrieve($GLOBALS['sugar_config']['passwordsetting']['generatepasswordtmpl']) == '') {
+            return $mod_strings['LBL_EMAIL_TEMPLATE_MISSING'];
+        }
+
+        if (empty($emailTemplate->body) && empty($emailTemplate->body_html)) {
+            return $app_strings['LBL_EMAIL_TEMPLATE_EDIT_PLAIN_TEXT'];
+        }
+
+        if (!OutboundEmailConfigurationPeer::validSystemMailConfigurationExists($current_user)) {
+            return $mod_strings['ERR_SERVER_SMTP_EMPTY'];
+        }
+
+        $emailErrors = $mod_strings['ERR_EMAIL_NOT_SENT_ADMIN'];
+
+        try {
+            $config = OutboundEmailConfigurationPeer::getSystemDefaultMailConfiguration();
+
+            if ($config instanceof OutboundSmtpEmailConfiguration) {
+                $emailErrors .= "<br>-{$mod_strings['ERR_SMTP_URL_SMTP_PORT']}";
+
+                if ($config->isAuthenticationRequired()) {
+                    $emailErrors .= "<br>-{$mod_strings['ERR_SMTP_USERNAME_SMTP_PASSWORD']}";
+                }
+            }
+        } catch (MailerException $me) {
+            // might want to report the error
+        }
+
+        $emailErrors .= "<br>-{$mod_strings['ERR_RECIPIENT_EMAIL']}";
+        $emailErrors .= "<br>-{$mod_strings['ERR_SERVER_STATUS']}";
+
+        return $emailErrors;
+    }
+
+    return $mod_strings['LBL_EMAIL_NOT_SENT'];
 }
 
-function  hasPasswordExpired($username){
-    $current_user= new user();
-    $usr_id=$current_user->retrieve_user_id($username);
-	$current_user->retrieve($usr_id);
-	$type = '';
-	if ($current_user->system_generated_password == '1'){
+/**
+ * Check if password has expired.
+ * @return Boolean indicating if password is expired or not
+ */
+function hasPasswordExpired($username, $updateNumberLogins = false)
+{
+    $usr_id=User::retrieve_user_id($username);
+	$usr= BeanFactory::getBean('Users', $usr_id);
+    $type = '';
+	if ($usr->system_generated_password == '1'){
         $type='syst';
     }
     else{
         $type='user';
     }
 
-    if ($current_user->portal_only=='0'){
-	    global $mod_strings, $timedate;
+    if ($usr->portal_only=='0'){
 	    $res=$GLOBALS['sugar_config']['passwordsetting'];
-	  	if ($type != '') {
-		    switch($res[$type.'expiration']){
 
+	  	if ($type != '') {
+		    switch($res[$type.'expiration']) {
 	        case '1':
 		    	global $timedate;
-		    	if ($current_user->pwd_last_changed == ''){
-		    		$current_user->pwd_last_changed= $timedate->nowDb();
-		    		$current_user->save();
-		    		}
+                    if ($usr->pwd_last_changed == '') {
+                        $usr->pwd_last_changed= $timedate->nowDb();
+                        //Suppress date_modified so a new _hash isn't generated
+                        $usr->update_date_modified = false;
+                        $usr->save();
 
-		        $expireday = $res[$type.'expirationtype']*$res[$type.'expirationtime'];
-		        $expiretime = $timedate->fromUser($current_user->pwd_last_changed)->get("+{$expireday} days")->ts;
+                        $pass_changed_timestamp = $timedate->fromDb($usr->pwd_last_changed);
+                    } else {
+                        $pass_changed_timestamp = $timedate->fromUser($usr->pwd_last_changed, $usr);
+                    }
+                // SP-1790: Creating user with default password expiration settings results in password expired page on first login
+                // Below, we calc $expireday essentially doing type*time; that requires that expirationtype factor is 1 or
+                // greater, however, expirationtype defaults to following values: 0/day, 7/week, 30/month
+                // (See and {debug} PasswordManager.tpl for more info)
+                $expiretype = $res[$type.'expirationtype'];
+                $expiretype = (!isset($expiretype) || $expiretype == '0') ? '1' : $expiretype;
+                $expireday = $expiretype * $res[$type.'expirationtime'];
+                    $expiretime = $pass_changed_timestamp->get("+{$expireday} days")->ts;
 
-			    if ($timedate->getNow()->ts < $expiretime)
-			    	return false;
-			    else{
-			    	$_SESSION['expiration_type']= $mod_strings['LBL_PASSWORD_EXPIRATION_TIME'];
-			    	return true;
-			    	}
-				break;
-
+                if ($timedate->getNow()->ts < $expiretime) {
+                    return false;
+                } else {
+                    $_SESSION['expiration_label']= 'LBL_PASSWORD_EXPIRATION_TIME';
+                    return true;
+                }
+                break;
 
 		    case '2':
-		    	$login=$current_user->getPreference('loginexpiration');
-		    	$current_user->setPreference('loginexpiration',$login+1);
-		        $current_user->save();
-		        if ($login+1 >= $res[$type.'expirationlogin']){
-		        	$_SESSION['expiration_type']= $mod_strings['LBL_PASSWORD_EXPIRATION_LOGIN'];
+		    	$login = $usr->getPreference('loginexpiration');
+                //Only increment number of logins if we're actually doing an update
+                if ($updateNumberLogins) {
+                    $login = $login + 1;
+                    $usr->setPreference('loginexpiration',$login);
+                    //Suppress date_modified so a new _hash isn't generated
+                    $usr->update_date_modified = false;
+                    $usr->save();
+                }
+		        if ($login >= $res[$type.'expirationlogin']){
+		        	$_SESSION['expiration_label']= 'LBL_PASSWORD_EXPIRATION_LOGIN';
 		        	return true;
-		        }
-		        else
-		            {
-			    	return false;
-			    	}
-		    	break;
+                }
+                else {
+                    return false;
+                }
+                break;
 
 		    case '0':
 		        return false;

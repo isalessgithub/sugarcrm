@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -114,6 +111,8 @@ class ListViewDisplay {
 
         $this->fillDisplayColumnsWithVardefs();
 
+        $data = $this->setupHTMLFields($data);
+
 		$this->process($file, $data, $seed->object_name);
 		return true;
 	}
@@ -126,11 +125,15 @@ class ListViewDisplay {
 
                $filter_fields[strtolower($columnName)] = true;
 
-            if(isset($this->seed->field_defs[strtolower($columnName)]['type']) &&
-               strtolower($this->seed->field_defs[strtolower($columnName)]['type']) == 'currency' &&
-               isset($this->seed->field_defs['currency_id'])) {
-                    $filter_fields['currency_id'] = true;
-            }
+                if(isset($this->seed->field_defs[strtolower($columnName)]['type']) &&
+                    strtolower($this->seed->field_defs[strtolower($columnName)]['type']) == 'currency') {
+                    if (isset($this->seed->field_defs['currency_id'])) {
+                        $filter_fields['currency_id'] = true;
+                    }
+                    if (isset($this->seed->field_defs['base_rate'])) {
+                        $filter_fields['base_rate'] = true;
+                    }
+                }
 
                if(!empty($def['related_fields'])) {
                     foreach($def['related_fields'] as $field) {
@@ -273,6 +276,7 @@ class ListViewDisplay {
 		foreach ( $this->actionsMenuExtraItems as $item )
 		    $menuItems[] = $item;
 
+        $menuItems = array_filter($menuItems); // delete possible empty values - they are needless
         $link = array(
             'class' => 'clickMenu selectActions fancymenu',
             'id' => 'selectActions',
@@ -291,8 +295,11 @@ class ListViewDisplay {
 	protected function buildExportLink($loc = 'top')
 	{
 		global $app_strings;
-		return "<a href='javascript:void(0)' id=\"export_listview_". $loc ." \" onclick=\"return sListView.send_form(true, '{$this->seed->module_dir}', 'index.php?entryPoint=export','{$app_strings['LBL_LISTVIEW_NO_SELECTED']}')\">{$app_strings['LBL_EXPORT']}</a>";
-    }
+        return "<a href='javascript:void(0)' id=\"export_listview_". $loc ."\" onclick=\"return sListView.send_form("
+            . "true, '{$this->seed->module_dir}', 'index.php?entryPoint=export', "
+            . "SUGAR.language.get('app_strings', 'LBL_LISTVIEW_NO_SELECTED')"
+            . ")\">{$app_strings['LBL_EXPORT']}</a>";
+	}
 
 	/**
 	 * Builds the massupdate link
@@ -363,8 +370,11 @@ class ListViewDisplay {
 	protected function buildDeleteLink($loc = 'top')
 	{
 		global $app_strings;
-        return "<a href='javascript:void(0)' id=\"delete_listview_". $loc ."\" onclick=\"return sListView.send_mass_update('selected', '{$app_strings['LBL_LISTVIEW_NO_SELECTED']}', 1)\">{$app_strings['LBL_DELETE_BUTTON_LABEL']}</a>";
-	}
+        return "<a href='javascript:void(0)' id=\"delete_listview_". $loc ."\" onclick=\""
+            . "return sListView.send_mass_update('selected', "
+            . "SUGAR.language.get('app_strings', 'LBL_LISTVIEW_NO_SELECTED')"
+            . ", 1)\">{$app_strings['LBL_DELETE_BUTTON_LABEL']}</a>";
+ 	}
 	/**
 	 * Display the selected object span object
 	 *
@@ -419,8 +429,7 @@ class ListViewDisplay {
         }
         global $current_user, $app_strings;
 
-        $admin = new Administration();
-        $admin->retrieveSettings('system');
+        $admin = Administration::getSettings('system');
         $user_merge = $current_user->getPreference('mailmerge_on');
         $module_dir = (!empty($this->seed->module_dir) ? $this->seed->module_dir : '');
         $str = '';
@@ -513,7 +522,7 @@ class ListViewDisplay {
 			open_popup('ProspectLists','600','400','',true,false,{ 'call_back_function':'set_return_and_save_targetlist','form_name':'targetlist_form','field_to_name_array':{'id':'prospect_list'} } );
 EOF;
         $js = str_replace(array("\r","\n"),'',$js);
-        return "<a href='javascript:void(0)' id=\"targetlist_listview_". $loc ." \" onclick=\"$js\">{$app_strings['LBL_ADD_TO_PROSPECT_LIST_BUTTON_LABEL']}</a>";
+        return "<a href='javascript:void(0)' id=\"targetlist_listview_". $loc ."\" onclick=\"$js\">{$app_strings['LBL_ADD_TO_PROSPECT_LIST_BUTTON_LABEL']}</a>";
 	}
 	/**
 	 * Display the bottom of the ListView (ie MassUpdate
@@ -582,20 +591,6 @@ EOF;
                 $this->displayColumns[$columnName]['options'] = $seedDef['options'];
             }
 
-            //C.L. Fix for 11177
-            if ($this->displayColumns[$columnName]['type'] == 'html') {
-                $cField = $this->seed->custom_fields;
-                if (isset($cField) && isset($cField->bean->$seedName)) {
-                    $seedName2 = strtoupper($columnName);
-                    $htmlDisplay = html_entity_decode($cField->bean->$seedName);
-                    $count = 0;
-                    while ($count < count($data['data'])) {
-                        $data['data'][$count][$seedName2] = &$htmlDisplay;
-                        $count++;
-                    }
-                }
-            }//fi == 'html'
-
             //Bug 40511, make sure relate fields have the correct module defined
             if ($this->displayColumns[$columnName]['type'] == "relate" && !empty($seedDef['link']) && empty( $this->displayColumns[$columnName]['module'])) {
                 $link = $seedDef['link'];
@@ -604,8 +599,14 @@ EOF;
                 }
             }
 
-            if (!empty($seedDef['sort_on'])) {
+            if (!empty($seedDef['sort_on']) && !is_array($seedDef['sort_on'])) {
                 $this->displayColumns[$columnName]['orderBy'] = $seedDef['sort_on'];
+            }
+
+            // bug50645 Blank value for URL custom field in DetailView and subpanel
+            // we need to replace the "default" attribute value with the value set in field definition
+            if (!empty($this->displayColumns[$columnName]['default']) && isset($seedDef['default'])) {
+                $this->displayColumns[$columnName]['default'] = $seedDef['default'];
             }
 
             if (isset($seedDef)) {
@@ -618,5 +619,30 @@ EOF;
                 $this->displayColumns[$columnName]['id'] = strtoupper($this->displayColumns[$columnName]['id_name']);
             }
         }
+    }
+
+    /**
+     * Fill in the HTML fields, since the values come from the vardefs
+     *
+     * @param $data - ListView Data
+     */
+    protected function setupHTMLFields($data)
+    {
+        foreach ($this->displayColumns as $columnName => $def) {
+            $columnLower = strtolower($columnName);
+            if ($this->displayColumns[$columnName]['type'] == 'html') {
+                if (isset($this->seed->custom_fields)) {
+                    $customField = $this->seed->custom_fields;
+                    if (isset($customField->bean) && isset($customField->bean->$columnLower)) {
+                        $htmlDisplay = html_entity_decode($customField->bean->$columnLower);
+                        for ($count = 0; $count < count($data['data']); $count++) {
+                            $data['data'][$count][$columnName] = $htmlDisplay;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $data;
     }
 }

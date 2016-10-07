@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att radera offerten.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Offerten har redankonverterats till en Affärsmöjlighet',
   'LBL_ACCOUNT_ID' => 'Organisations Id',
   'LBL_ACCOUNT_NAME' => 'Organisationsnamn:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteter',
@@ -58,6 +56,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Land:',
   'LBL_CREATED_BY' => 'Skapad av',
   'LBL_CURRENCY' => 'Valuta:',
+  'LBL_CURRENCY_RATE' => 'Valutakursen',
   'LBL_DATE_QUOTE_CLOSED' => 'Faktiskt avslutsdatum:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Giltig till:',
   'LBL_DEAL_TOT' => 'total rabatt',
@@ -85,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Kostnad',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Faktiskt stängning',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Giltig till',
-  'LBL_LIST_DEAL_TOT' => 'Rabatt',
+  'LBL_LIST_DEAL_TOT' => 'Total rabatt',
   'LBL_LIST_DISCOUNT_PRICE' => 'Enhetspris',
   'LBL_LIST_FORM_TITLE' => 'Lista offert',
   'LBL_LIST_GRAND_TOTAL' => 'Totalsumma',
@@ -102,6 +101,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Skatteklass',
   'LBL_MODIFIED_BY' => 'Redigerad av',
   'LBL_MODULE_NAME' => 'Offerter',
+  'LBL_MODULE_NAME_SINGULAR' => 'Offert',
   'LBL_MODULE_TITLE' => 'Offerter: Hem',
   'LBL_NAME' => 'Offertnamn',
   'LBL_NEW_FORM_TITLE' => 'Skapa offert',
@@ -155,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Ta bort kommentar',
   'LBL_REMOVE_ROW' => 'Ta bort rad',
   'LBL_RENAME_ERROR' => 'FEL: kan inte flytta pdf till $destination. Du bör försöka göra katalogen skrivbar för webbservern.',
+  'LBL_REVENUELINEITEMS' => 'Intäktsposter',
   'LBL_SALES_STAGE' => 'Offertstatus:',
   'LBL_SEARCH_FORM_TITLE' => 'Sök offert',
   'LBL_SHIPPING' => 'Leverans:',

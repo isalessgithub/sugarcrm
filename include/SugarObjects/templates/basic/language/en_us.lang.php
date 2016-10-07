@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array(
 'LBL_ID'=>'ID',
@@ -22,6 +19,8 @@ $mod_strings = array(
 'LBL_MODIFIED_NAME'=>'Modified By Name',
 'LBL_CREATED'=>'Created By',
 'LBL_CREATED_ID'=>'Created By Id',
+'LBL_DOC_OWNER'=>'Document Onwer',
+'LBL_USER_FAVORITES'=>'Users Who Favorite',
 'LBL_DESCRIPTION'=>'Description',
 'LBL_DELETED'=>'Deleted',
 'LBL_NAME'=>'Name',
@@ -30,6 +29,8 @@ $mod_strings = array(
 'LBL_LIST_NAME'=>'Name',
 'LBL_EDIT_BUTTON' => 'Edit',
  'LBL_REMOVE' => 'Remove',
+    //define label(s) to be used for overriding local values during import/export
+    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
 
 
 );

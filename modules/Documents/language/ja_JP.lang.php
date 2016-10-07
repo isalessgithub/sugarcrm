@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -118,7 +115,6 @@ $mod_strings = array (
   'LBL_NAME' => 'ドキュメント名',
   'LBL_NEW_FORM_TITLE' => 'ドキュメント作成',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => '商談',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => '商品',
   'LBL_QUOTES_SUBPANEL_TITLE' => '見積',
   'LBL_RELATED_DOCUMENT_ID' => '関連ドキュメントID',
   'LBL_RELATED_DOCUMENT_REVISION_ID' => '関連ドキュメント版ID',
@@ -127,6 +123,7 @@ $mod_strings = array (
   'LBL_REVISIONS_PANEL' => '版の詳細',
   'LBL_REVISIONS_SUBPANEL' => '版',
   'LBL_REVISION_NAME' => '版数',
+  'LBL_RLI_SUBPANEL_TITLE' => '商談品目',
   'LBL_SEARCH_EXTERNAL_DOCUMENT' => 'ファイル名',
   'LBL_SEARCH_FORM_TITLE' => 'ドキュメント検索',
   'LBL_SELECTED_REVISION_FILENAME' => '選択された版のファイル名',

@@ -1,28 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 // Contact is used to store customer information.
 class SavedReport extends SugarBean
@@ -147,8 +134,7 @@ class SavedReport extends SugarBean
 			&& $this->team_id == '1'
 			)
 			{
-				$owner_user = new User();
-				$owner_user->retrieve($this->assigned_user_id);
+				$owner_user = BeanFactory::getBean('Users', $this->assigned_user_id);
 				$default_team = $owner_user->getPrivateTeamID();
 				$query = "UPDATE $this->table_name set is_published='no' ";
 				$query .= ", team_id='{$default_team}' ";
@@ -179,7 +165,7 @@ class SavedReport extends SugarBean
 
 		while ($row = $this->db->fetchByAssoc($result,FALSE) )
 		{
-			$focus = new SavedReport();
+			$focus = BeanFactory::getBean('Reports');
 
 			foreach($this->column_fields as $field)
 			{
@@ -198,11 +184,8 @@ class SavedReport extends SugarBean
 
 	function fill_in_additional_list_fields()
 	{
-    // Fill in the assigned_user_name
-    $this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-    //$this->team_name = get_assigned_team_name($this->team_id);
-
-		$this->get_scheduled_query();
+        parent::fill_in_additional_detail_fields();
+        $this->get_scheduled_query();
 	}
 
 	function fill_in_additional_detail_fields()
@@ -210,9 +193,7 @@ class SavedReport extends SugarBean
 		if ($this->report_type == "Matrix") {
 			$this->report_type = "summary";
 		} // if
-    // Fill in the assigned_user_name
-    $this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-    $this->team_name = get_assigned_team_name($this->team_id);
+		parent::fill_in_additional_detail_fields();
 		$this->get_scheduled_query();
 	}
 
@@ -385,11 +366,6 @@ class SavedReport extends SugarBean
 		return $this->name;
 	}
 
-	function create_export_query($order_by, $where)
- 	{
-		return $this->create_new_list_query($order_by, $where);
-  	}
-
     /**
     * @see SugarBean::cleanBean
     */
@@ -431,12 +407,38 @@ class SavedReport extends SugarBean
         }
     }
 
+    /**
+     * Runs the query from the saved report and returns the records
+     *
+     * @return array Array of records from result of report query
+     */
+    public function runReportQuery()
+    {
+        require_once('modules/Reports/SubpanelFromReports.php');
+        $records = array();
+        $report = new SubpanelFromReports($this);
+        if(!empty($report)){
+            $report->run_query();
+            $sql = $report->query_list[0];
+
+            $results = $report->db->query($sql);
+
+            while ($row = $report->db->fetchByAssoc($results)) {
+                $records[] = $row;
+            }
+        }
+        return $records;
+    }
 }
 
   // returns the available modules for the specific user
-  function getACLAllowedModules() {
+/**
+ * @param bool $ignoreSessionCache  When true, just ignore any session and re-generate it
+ * @return array
+ */
+function getACLAllowedModules($ignoreSessionCache = false) {
 
-	if (isset($_SESSION['reports_getACLAllowedModules'])) {
+	if ($ignoreSessionCache === false && isset($_SESSION['reports_getACLAllowedModules'])) {
         return $_SESSION['reports_getACLAllowedModules'];
     }
 
@@ -447,13 +449,10 @@ class SavedReport extends SugarBean
      $report_modules = getAllowedReportModules($modListHeader);
 
      foreach($report_modules as $module=>$class_name) {
-        if(isset($beanFiles[$class_name])) {
-            require_once($beanFiles[$class_name]);
-            $seed = new $class_name;
+         $seed = BeanFactory::getBean($module);
 
-            if(!$seed->ACLAccess('DetailView')) {
+         if(empty($seed) || !$seed->ACLAccess('DetailView')) {
                 unset($report_modules[$module]);
-            }
         }
      }
      $_SESSION['reports_getACLAllowedModules'] = $report_modules;
@@ -469,22 +468,35 @@ class SavedReport extends SugarBean
 
      require_once('modules/Reports/config.php');
 
-     global $beanFiles, $modListHeader;
+     global $modListHeader;
 
      $report_modules = getAllowedReportModules($modListHeader);
 
-	$unallowed_modules = array();
+	 $unallowed_modules = array();
      foreach($report_modules as $module=>$class_name) {
-        if(isset($beanFiles[$class_name])) {
-            require_once($beanFiles[$class_name]);
-            $seed = new $class_name;
-
-            if(!$seed->ACLAccess('DetailView')) {
+         $seed = BeanFactory::getBean($module);
+         if(empty($seed) || !$seed->ACLAccess('DetailView')) {
                 $unallowed_modules[$module] = $class_name;
-            }
         }
      }
 
      return $unallowed_modules;
   }
 
+/**
+ * Gets a list of allowed report modules in the current language.
+ *
+ * @return array List of translated module names.
+ */
+function getModulesDropdown()
+{
+    require_once 'modules/Reports/config.php';
+    global $app_list_strings, $report_modules;
+
+    $allowed_modules = array();
+
+    foreach ($report_modules as $module => $value) {
+        $allowed_modules[$module] = $app_list_strings['moduleList'][$module];
+    }
+    return $allowed_modules;
+}

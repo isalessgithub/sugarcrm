@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Per eliminare la vendita deve essere specificato il numero del record.',
@@ -44,7 +41,7 @@ $mod_strings = array (
   'LBL_LEAD_SOURCE' => 'Fonte del Lead:',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome Azienda',
   'LBL_LIST_AMOUNT' => 'Importo',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Utente Assegnato',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Assegnato a',
   'LBL_LIST_DATE_CLOSED' => 'Chiudi',
   'LBL_LIST_FORM_TITLE' => 'Elenco Vendite',
   'LBL_LIST_SALE_NAME' => 'Nome',
@@ -102,3 +99,4 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWCURRENCY' => 'Nuova Valuta:',
   'UPDATE_VERIFY_TXT' => 'Verifica che i valori nelle vendite siano numeri decimali validi composti solamente da caratteri numerici (0-9) e decimali(.)',
 );
+

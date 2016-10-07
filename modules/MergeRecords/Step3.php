@@ -1,29 +1,16 @@
 <?php
 if (!defined('sugarEntry') || !sugarEntry)
     die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once ('include/JSON.php');
 $timedate = TimeDate::getInstance();
 global $app_strings;
@@ -85,7 +72,7 @@ if (isset($_REQUEST['change_parent']) && $_REQUEST['change_parent']=='1') {
         $merge_ids_array[] = $id;
      }
 }
-$focus = new MergeRecord();
+$focus = BeanFactory::getBean('MergeRecords');
 $focus->load_merge_bean($_REQUEST['merge_module'], true, $base_id);
 $params = array();
 $params[] = "<a href='index.php?module={$focus->merge_bean->module_dir}&action=index'>{$GLOBALS['app_list_strings']['moduleList'][$focus->merge_bean->module_dir]}</a>";
@@ -99,9 +86,7 @@ $records=1;
 $merged_ids='';
 $merge_records_names=array();
 foreach ($merge_ids_array as $id) {
-    require_once ($focus->merge_bean_file_path);
-    $mergeBeanArray[$id] = new $focus->merge_bean_class();
-    $mergeBeanArray[$id]->retrieve($id);
+    $mergeBeanArray[$id] = BeanFactory::getBean($focus->merge_module, $id);
     $merge_records_names[]=$mergeBeanArray[$id]->get_summary_text();
     $records++;
     $merged_ids.="<input type='hidden' name='merged_ids[]' value='$id'>";
@@ -135,13 +120,9 @@ $temp_field_array = $focus->merge_bean->field_defs;
 $field_count = 1;
 $json = new JSON(JSON_LOOSE_TYPE);
 $diff_field_count=0;
-ACLField::listFilter($temp_field_array, $focus->merge_bean->module_dir, $GLOBALS['current_user']->id, false, true, 2, false, true);
+$focus->merge_bean->ACLFilterFieldList($temp_field_array, array(), array("min_access" => SugarACL::ACL_READ_WRITE));
 foreach ($temp_field_array as $field_array) {
-
-
-    if (show_field($field_array)
-    && $field_array['acl'] > 1
-    ) {
+    if (show_field($field_array)) {
 
         $select_row_curr_field_value = null;
         $b_values_different = false;
@@ -188,54 +169,6 @@ foreach ($temp_field_array as $field_array) {
         $xtpl->assign("EDIT_FIELD_NAME", $field_array['name']);
         $xtpl->assign("TAB_INDEX", $field_count);
 
-
-        //check to see if the value of the field is from a function
-        $valueFormatted = false;
-        if(!empty($field_array['function'])){
-
-            //process the function array if it exists
-            $function = $field_array['function'];
-            if(is_array($function) && isset($function['name'])){
-                $function = $field_array['function']['name'];
-            }else{
-                $function = $field_array['function'];
-            }
-            if(!empty($field_array['function']['include']) && file_exists($field_array['function']['include']))
-            {
-                require_once($field_array['function']['include']);
-            }
-
-            //if field is enum or multi enum, lets make sure we are returning options as html, as this is what
-            //merge step3 expects
-            if($field_check == 'multienum' || $field_check == 'enum'){
-                if(!empty($field_array['function']['returns']) && $field_array['function']['returns'] == 'html'){
-
-                    //use valueformatted to hold the returned options
-                    $valueFormatted = call_user_func($function,  $focus->merge_bean, $field_array['name'], $select_row_curr_field_value, 'Import');
-
-                }else{
-                    //if no html was returned, we have an array of options, lets create the html markup
-                    $field_array['options'] = call_user_func($function);
-
-                    foreach( $field_array['options'] as $k=>$v){
-                        //process and mark the field as selected if needed
-                        if($field_check == 'enum' && $select_row_curr_field_value == $k){
-                            $valueFormatted .="<option value='$k' selected>$v</option>";
-                        }elseif($field_check == 'multienum' && !empty($k) && strpos($select_row_curr_field_value, $k) !== false){
-                            $valueFormatted .="<option value='$k' selected>$v</option>";
-                        }else{
-                            
-                            $valueFormatted .="<option value='$k'>$v</option>";
-                        }
-                    }
-                }
-
-            }else{
-            
-                $select_row_curr_field_value = call_user_func($function);
-            }
-        }
-
         switch ($field_check) {
             case ('name') :
             case ('varchar') :
@@ -259,27 +192,13 @@ foreach ($temp_field_array as $field_array) {
                 $xtpl->parse("main.".$section_name.".merge_cell_edit_textarea");
                 break;
             case ('enum') :
-
-                //assign value(s) directly if it is derived from a function
-                if(empty($field_array['function'])){
-                    $xtpl->assign("SELECT_OPTIONS", get_select_options_with_id($app_list_strings[$field_array['options']], $select_row_curr_field_value));
-                }elseif(is_string($valueFormatted)){
-                    //if this field has a function, then assign values directly
-                    $xtpl->assign("SELECT_OPTIONS", $valueFormatted);
-                }
+                $xtpl->assign("SELECT_OPTIONS", get_select_options_with_id($app_list_strings[$field_array['options']], $select_row_curr_field_value));
                 $xtpl->assign("CELL_WIDTH",$col_width);
                 $xtpl->parse("main.".$section_name.".merge_cell_edit_dropdown");
                 break;
             case ('multienum') :
-
-                //assign value(s) directly if it is derived from a function
-                if(empty($field_array['function'])){
-                    $select_row_curr_field_value = unencodeMultienum($select_row_curr_field_value);
-                    $xtpl->assign("SELECT_OPTIONS", get_select_options_with_id($app_list_strings[$field_array['options']], $select_row_curr_field_value));
-                }elseif(is_string($valueFormatted)){
-                    $xtpl->assign("SELECT_OPTIONS", $valueFormatted);
-                }
-
+                $select_row_curr_field_value = unencodeMultienum($select_row_curr_field_value);
+                $xtpl->assign("SELECT_OPTIONS", get_select_options_with_id($app_list_strings[$field_array['options']], $select_row_curr_field_value));
                 $xtpl->assign("CELL_WIDTH",$col_width);
                 $xtpl->parse("main.".$section_name.".merge_cell_edit_multidropdown");
                 break;
@@ -344,8 +263,7 @@ foreach ($temp_field_array as $field_array) {
 
 				require_once('include/SugarFields/Fields/Teamset/EmailSugarFieldTeamsetCollection.php');
 				$mod = isset($_REQUEST['action_module']) ? $_REQUEST['action_module'] : $_REQUEST['merge_module'];
-				$bean = loadBean($mod);
-				$bean->retrieve($base_id);
+				$bean = BeanFactory::getBean($mod, $base_id);
 				$teamsWidget = new EmailSugarFieldTeamsetCollection($bean, $bean->field_defs, '', 'EditView');
 				$teamsWidget->hideShowHideButton = true;
 				$xtpl->assign('TEAM_FIELD', $teamsWidget->get_code());
@@ -370,11 +288,7 @@ foreach ($temp_field_array as $field_array) {
                     $field_name="main.".$section_name.".merge_cell_field_value_checkbox";
                     break;
                 case ('enum') :
-                    if(!empty($field_array['function']) && !empty($field_array['options']) && !empty($mergeBeanArray[$id]-> $field_array['name'])){
-                        //if fieldoptions were set from a function, get the value directly
-                        display_field_value($field_array['options'][$mergeBeanArray[$id]-> $field_array['name']]);
-                    
-                    }else if ($mergeBeanArray[$id]-> $field_array['name'] != '' and isset($field_array['options']) and isset($app_list_strings[$field_array['options']][$mergeBeanArray[$id]-> $field_array['name']])) {
+                    if ($mergeBeanArray[$id]-> $field_array['name'] != '' and isset($field_array['options']) and isset($app_list_strings[$field_array['options']][$mergeBeanArray[$id]-> $field_array['name']])) {
                         display_field_value( $app_list_strings[$field_array['options']][$mergeBeanArray[$id]-> $field_array['name']]);
                     } else {
                         display_field_value($mergeBeanArray[$id]-> $field_array['name']);
@@ -382,17 +296,7 @@ foreach ($temp_field_array as $field_array) {
                     $field_name="main.".$section_name.".merge_cell_field_value";
                     break;
                 case ('multienum') :
-                     if(!empty($field_array['function']) && !empty($field_array['options']) && !empty($mergeBeanArray[$id]-> $field_array['name'])){
-                        //if fieldoptions were set from a function, get the value directly
-                        $displayME = str_replace("^","",$mergeBeanArray[$id]-> $field_array['name']);
-                        $meVals = explode(',', $displayME);
-                        //iterate through each entry and get the Options value
-                        foreach($meVals as $optionIndex){
-                            $displayME = str_replace($optionIndex,$field_array['options'][$optionIndex],$displayME);
-                        }
-                        display_field_value($displayME);
-
-                    }else if ($mergeBeanArray[$id]-> $field_array['name'] != '' and isset($field_array['options']) and isset($app_list_strings[$field_array['options']][$mergeBeanArray[$id]-> $field_array['name']])) {
+                    if ($mergeBeanArray[$id]-> $field_array['name'] != '' and isset($field_array['options']) and isset($app_list_strings[$field_array['options']][$mergeBeanArray[$id]-> $field_array['name']])) {
                         display_field_value(str_replace("^","",$app_list_strings[$field_array['options']][$mergeBeanArray[$id]-> $field_array['name']]));
                     } else {
                         display_field_value(str_replace("^","",$mergeBeanArray[$id]-> $field_array['name']));
@@ -569,11 +473,7 @@ function get_related_name($field_def,$id_value) {
             $col_name = $field_def['rname'];
             //if this module is non db and has a module set, then check to see if this field should be concatenated
             if (!empty($field_def['module']) && $field_def['source'] == 'non-db'){
-                global $beanList, $beanFiles;
-                  //get the bean field defs based on the module param
-                  $bean = $beanList[$field_def['module']];
-                  require_once ($beanFiles[$bean]);
-                  $focus = new $bean();
+                  $focus = BeanFactory::getBean($field_def['module']);
                   if(!empty( $focus->field_defs[$field_def['rname']])){
 	                $related_def = $focus->field_defs[$field_def['rname']];
 	                //if field defs has concat field array set, then concatenate values

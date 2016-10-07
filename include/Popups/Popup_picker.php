@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: Popup_picker.php 56786 2010-06-02 18:29:56Z jenny $
 
 
 
@@ -27,32 +24,32 @@ class Popup_Picker
 
 	/**
 	 * Creates a new Popup_Picker object. Controls displaying of single select and multi select popups
-	 * 
+	 *
 	 */
 	function Popup_Picker()
 	{
 		global $currentModule, $popupMeta;
 
 		// cn: bug 12269 - directory navigation attack - detect and stop.
-		if(isset($_REQUEST['metadata']) && strpos($_REQUEST['metadata'], "..") !== false)
-			die("Directory navigation attack denied.");
+		if(isset($_REQUEST['metadata']) && strpos($_REQUEST['metadata'], "..") !== false) {
+		    ACLController::displayNoAccess();
+		    sugar_cleanup(true);
+		}
+
 		if(empty($popupMeta)){
-			if(!empty($_REQUEST['metadata']) && $_REQUEST['metadata'] != 'undefined') // if custom metadata is requested
-				require_once('modules/' . $currentModule . '/metadata/' . $_REQUEST['metadata'] . '.php'); 
-			else 
-				require_once('modules/' . $currentModule . '/metadata/popupdefs.php');
+		    $popupMeta = SugarAutoLoader::loadPopupMeta($currentModule, isset($_REQUEST['metadata'])?$_REQUEST['metadata']:null);
 		}
 		$this->_popupMeta = $popupMeta;
-		
+
 		require_once('modules/' . $currentModule . '/' . $this->_popupMeta['moduleMain'] . '.php');
 		if(isset($this->_popupMeta['create']['formBase']) && isset($_REQUEST['create']) && $_REQUEST['create'] == 'true') { // include create form
 			require_once('modules/' . $currentModule . '/' . $this->_popupMeta['create']['formBase']);
 			$this->_create = true;
 		}
 	}
-	
+
 	/*
-	 * 
+	 *
 	 */
 	function _get_where_clause()
 	{
@@ -73,7 +70,7 @@ class Popup_Picker
 
 		return $where;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -84,10 +81,10 @@ class Popup_Picker
 		global $app_strings;
 		global $currentModule;
 		global $app_list_strings, $sugar_version, $sugar_config;
-		
+
 		$output_html = "<script type=\"text/javascript\" src=\"" . getJSPath('include/javascript/sugar_3.js'). "\"></script>";
 		$where = '';
-		
+
 		if(empty($_REQUEST[$currentModule . '_' . strtoupper($this->_popupMeta['moduleMain']) . '_offset'])) {
 			$_POST[$currentModule . '_' . strtoupper($this->_popupMeta['moduleMain']) . '_offset'] = '';
 		}
@@ -95,7 +92,7 @@ class Popup_Picker
 			$_POST['saved_associated_data'] = '';
 		}
 		$where = $this->_get_where_clause();
-		
+
 		// CREATE STUFF
 		if($this->_create) {
 			$formBase = new $this->_popupMeta['create']['formBaseClass']();
@@ -103,19 +100,19 @@ class Popup_Picker
 			{
 				$formBase->handleSave('', false, true);
 			}
-			
+
 			$lbl_save_button_title = $app_strings['LBL_SAVE_BUTTON_TITLE'];
 			$lbl_save_button_key = $app_strings['LBL_SAVE_BUTTON_KEY'];
 			$lbl_save_button_label = $app_strings['LBL_SAVE_BUTTON_LABEL'];
-	
+
 			// TODO: cleanup the construction of $addform
 			$prefix = empty($this->_popupMeta['create']['getFormBodyParams'][0]) ? '' : $this->_popupMeta['create']['getFormBodyParams'][0];
 			$mod = empty($this->_popupMeta['create']['getFormBodyParams'][1]) ? '' : $this->_popupMeta['create']['getFormBodyParams'][1];
 			$formBody = empty($this->_popupMeta['create']['getFormBodyParams'][2]) ? '' : $this->_popupMeta['create']['getFormBodyParams'][2];
-			
-			$getFormMethod = (empty($this->_popupMeta['create']['getFormMethod']) ? 'getFormBody' : $this->_popupMeta['create']['getFormMethod']);  
+
+			$getFormMethod = (empty($this->_popupMeta['create']['getFormMethod']) ? 'getFormBody' : $this->_popupMeta['create']['getFormMethod']);
 			$formbody = $formBase->$getFormMethod($prefix, $mod, $formBody);
-			
+
 			$addform = '<table><tr><td nowrap="nowrap" valign="top">'
 				. str_replace('<br>', '</td><td nowrap="nowrap" valign="top">&nbsp;', $formbody)
 				. '</td></tr></table>'
@@ -129,10 +126,10 @@ class Popup_Picker
 			<input type="submit" name="button" class="button" title="$lbl_save_button_title" value="  $lbl_save_button_label  " />
 			<input type="button" name="button" class="button" title="{$app_strings['LBL_CANCEL_BUTTON_TITLE']}" accesskey="{$app_strings['LBL_CANCEL_BUTTON_KEY']}" value="{$app_strings['LBL_CANCEL_BUTTON_LABEL']}" onclick="toggleDisplay('addform');" />
 EOQ;
-			// if metadata contains custom inputs for the quickcreate 
+			// if metadata contains custom inputs for the quickcreate
 			if(!empty($this->_popupMeta['customInput']) && is_array($this->_popupMeta['customInput'])) {
 				foreach($this->_popupMeta['customInput'] as $key => $value)
-					$formSave .= '<input type="hidden" name="' . $key . '" value="'. $value .'">\n';				
+					$formSave .= '<input type="hidden" name="' . $key . '" value="'. $value .'">\n';
 			}
             $createButtonTranslation = translate($this->_popupMeta['create']['createButton']);
 			$createButton = <<<EOQ
@@ -141,13 +138,13 @@ EOQ;
 			$addformheader = get_form_header($createButtonTranslation, $formSave, false);
 		}
 		// END CREATE STUFF
-		
-		
+
+
 		// search request inputs
 		$searchInputs = array();
-		foreach($this->_popupMeta['searchInputs'] as $input) 
+		foreach($this->_popupMeta['searchInputs'] as $input)
 			$searchInputs[$input] = empty($_REQUEST[$input]) ? '' : $_REQUEST[$input];
-		 
+
 		$request_data = empty($_REQUEST['request_data']) ? '' : $_REQUEST['request_data'];
 		$hide_clear_button = empty($_REQUEST['hide_clear_button']) && empty($this->_hide_clear_button) ? false : true;
 		$button = '<script>eval("var request_data = " + window.document.forms[\'popup_query_form\'].request_data.value);</script>';
@@ -155,9 +152,9 @@ EOQ;
 		if(isset($_REQUEST['mass'])) {
 			foreach(array_unique($_REQUEST['mass']) as $record) {
 				$button .= "<input style='display: none' checked type='checkbox' name='mass[]' value='$record'>\n";
-			}		
+			}
 		}
-	
+
 		//START:FOR MULTI-SELECT
 		$multi_select = false;
 		if (!empty($_REQUEST['mode']) && strtoupper($_REQUEST['mode']) == 'MULTISELECT') {
@@ -179,19 +176,19 @@ EOQ;
 			.$app_strings['LBL_CANCEL_BUTTON_TITLE']."' value='  "
 			.$app_strings['LBL_CANCEL_BUTTON_LABEL']."  ' />\n";
 
-		if(isset($this->_popupMeta['templateForm'])) { 
+		if(isset($this->_popupMeta['templateForm'])) {
 			$form = new XTemplate($this->_popupMeta['templateForm']);
 		}
 		else {
 			$form = new XTemplate('modules/' . $currentModule . '/Popup_picker.html');
 		}
-		
+
 		$form->assign('MOD', $mod_strings);
 		$form->assign('APP', $app_strings);
 		$form->assign('THEME', $theme);
 		$form->assign('MODULE_NAME', $currentModule);
 		$form->assign('request_data', $request_data);
-		
+
 		// CREATE STUFF
 		if($this->_create) {
 			$form->assign('CREATEBUTTON', $createButton);
@@ -199,9 +196,12 @@ EOQ;
 			$form->assign('ADDFORM', $addform);
 		}
 		// CREATE STUFF
-		
-		if(isset($this->_popupMeta['className'])) $seed_bean = new $this->_popupMeta['className']();
-		else $seed_bean = new $this->_popupMeta['moduleMain']();
+
+		if(isset($this->_popupMeta['className'])) {
+		    $seed_bean = BeanFactory::newBeanByName($this->_popupMeta['className']);
+		} else {
+		    $seed_bean = BeanFactory::newBeanByName($this->_popupMeta['moduleMain']);
+		}
 
 		// assign search inputs to xtemplates
 		foreach(array_keys($searchInputs) as $key) {
@@ -211,10 +211,10 @@ EOQ;
 				$form->assign(strtoupper($key), $searchInputs[$key]);
 			}
 		}
-		
+
 		if($this->_create) $form->assign('CREATE', 'true');
 		else $form->assign('CREATE', 'false');
-		
+
 		// fill any doms
 		if(isset($this->_popupMeta['selectDoms']))
 			foreach($this->_popupMeta['selectDoms'] as $key => $value) {
@@ -222,17 +222,17 @@ EOQ;
 			}
 
 		$form->assign('MULTI_SELECT', !empty($_REQUEST['mode']) ? strtoupper($_REQUEST['mode']) : '');
-		
+
 		ob_start();
 		insert_popup_header($theme);
 		$output_html .= ob_get_contents();
 		ob_end_clean();
-		
+
 		$output_html .= get_form_header($mod_strings['LBL_SEARCH_FORM_TITLE'], '', false);
-		
+
 		$form->parse('main.SearchHeader');
 		$output_html .= $form->text('main.SearchHeader');
-		
+
 		// Reset the sections that are already in the page so that they do not print again later.
 		$form->reset('main.SearchHeader');
 
@@ -243,12 +243,12 @@ EOQ;
 		$ListView->process_for_popups = true;
 		$ListView->setXTemplate($form);
 
-		$ListView->multi_select_popup = $multi_select; 
+		$ListView->multi_select_popup = $multi_select;
 		$ListView->xTemplate->assign('TAG_TYPE', 'A');
 		if(isset($this->_popupMeta['listTitle'])) {
 			$ListView->setHeaderTitle($this->_popupMeta['listTitle']);
 		}
-		else {  
+		else {
 			$ListView->setHeaderTitle($mod_strings['LBL_LIST_FORM_TITLE']);
 		}
 		$ListView->setHeaderText($button);
@@ -259,8 +259,8 @@ EOQ;
 		$ListView->processListView($seed_bean, 'main', $this->_popupMeta['varName']);
 		$output_html .= ob_get_contents();
 		ob_end_clean();
-		$json = getJSONobj(); 
-		
+		$json = getJSONobj();
+
 		// decode then encode to escape "'s
 		$output_html .= "</form>
 		<script type=\"text/javascript\">
@@ -271,12 +271,12 @@ EOQ;
 					temp_string = '';
 					temp_string += '\"' + document.MassUpdate.elements[i].value + '\": {';
 					for(the_key in associated_javascript_data[document.MassUpdate.elements[i].value]) {
-						temp_string += '\"' + the_key + '\":\"' + associated_javascript_data[document.MassUpdate.elements[i].value][the_key] + '\",'; 
+						temp_string += '\"' + the_key + '\":\"' + associated_javascript_data[document.MassUpdate.elements[i].value][the_key] + '\",';
 					}
 					temp_string = temp_string.substring(0,temp_string.length - 1);
 					temp_string += '}';
 					checked_ids.push(temp_string);
-				}				 
+				}
 			}
 			document.MassUpdate.saved_associated_data.value = escape('{' + checked_ids.join(',') + '}');
 
@@ -292,15 +292,15 @@ EOQ;
 			}
 		}
 
-		// save checks across pages for multiselects 
-		if(typeof(document.MassUpdate) != "undefined") {		
+		// save checks across pages for multiselects
+		if(typeof(document.MassUpdate) != "undefined") {
 			checked_items = Array();
 			inputs_array = document.MassUpdate.elements;
-	
+
 			for(wp = 0 ; wp < inputs_array.length; wp++) {
 				if(inputs_array[wp].name == "mass[]" && inputs_array[wp].style.display == "none") {
 					checked_items.push(inputs_array[wp].value);
-				} 
+				}
 			}
 			for(i in checked_items) {
 				for(wp = 0 ; wp < inputs_array.length; wp++) {
@@ -310,10 +310,9 @@ EOQ;
 				}
 			}
 		}
-		</script>'; 
+		</script>';
 		$output_html .= insert_popup_footer();
         return $output_html;
 	}
 } // end of class Popup_Picker
 ?>
-		

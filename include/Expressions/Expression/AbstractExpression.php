@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /**
  * Base expression class
  * @api
@@ -32,20 +29,20 @@ abstract class AbstractExpression
 	public static $GENERIC_TYPE  = "generic";
 
 	// booleans
-	public static $TRUE  = "true";
-	public static $FALSE = "false";
+    public static $TRUE;
+	public static $FALSE;
 
 	// type to class map
-	public static $TYPE_MAP		 = array(
-											"number" 	=> "NumericExpression",
-											"string" 	=> "StringExpression",
-											"date" 		=> "DateExpression",
-											"time" 		=> "TimeExpression",
-											"boolean" 	=> "BooleanExpression",
-											"enum" 		=> "EnumExpression",
-                                            "relate"	=> "RelateExpression",
-											"generic" 	=> "AbstractExpression",
-										);
+    public static $TYPE_MAP = array(
+        "number" => "NumericExpression",
+        "string" => "StringExpression",
+        "date" => "DateExpression",
+        "time" => "TimeExpression",
+        "boolean" => "BooleanExpression",
+        "enum" => "EnumExpression",
+        "relate" => "RelateExpression",
+        "generic" => "AbstractExpression",
+    );
 
 	// instance variables
 	var $params;
@@ -54,8 +51,9 @@ abstract class AbstractExpression
 	 * Constructs an Expression object given the parameters.
 	 */
 	function AbstractExpression($params=null) {
+        self::initBoolConstants();
 		// if the array contains only one value, then set params equal to that value
-		if ( is_array($params) && sizeof($params) == 1 ) {
+		if ($this->getParamCount() == 1 && is_array($params) && sizeof($params) == 1) {
 			$this->params = $params[0];
 		}
 
@@ -234,6 +232,37 @@ abstract class AbstractExpression
 	static function getParamCount() {
 		return AbstractExpression::$INFINITY;
 	}
+
+    /**
+     * Initialize function for the TRUE/FALSE constants. Should only be called by the abstract class constructor
+     */
+    protected static function initBoolConstants()
+    {
+        if (empty(self::$TRUE)) {
+            self::$TRUE = new BooleanConstantExpression(true);
+        }
+        if (empty(self::$FALSE)) {
+            self::$FALSE = new BooleanConstantExpression(false);
+        }
+    }
 }
 
-?>
+/**
+ * Internal SugarLogic class to define boolean constant values to prevent false positives/negatives when comparing to string/numeric values
+ */
+class BooleanConstantExpression {
+    protected $value;
+
+    public function __construct($value) {
+        $this->value = !empty($value);
+    }
+
+    public function __toString() {
+        if ($this->value) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+}

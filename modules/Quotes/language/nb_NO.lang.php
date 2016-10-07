@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Et registernummer må oppgis for å slette dette tilbudet.',
@@ -58,6 +55,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Land:',
   'LBL_CREATED_BY' => 'Opprettet av',
   'LBL_CURRENCY' => 'Valuta:',
+  'LBL_CURRENCY_RATE' => 'Valutakurs',
   'LBL_DATE_QUOTE_CLOSED' => 'Faktisk avslutningsdato:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Gyldig til:',
   'LBL_DEAL_TOT' => 'Total rabatt',
@@ -102,6 +100,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'Skatteklasse',
   'LBL_MODIFIED_BY' => 'Endret av',
   'LBL_MODULE_NAME' => 'Tilbud',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tilbud',
   'LBL_MODULE_TITLE' => 'Tilbud: Hjem',
   'LBL_NAME' => 'Tilbudsnavn',
   'LBL_NEW_FORM_TITLE' => 'Opprett tilbud',
@@ -155,6 +154,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Fjern innhold',
   'LBL_REMOVE_ROW' => 'Fjern rekke',
   'LBL_RENAME_ERROR' => 'FEIL: can ikke flytte_pdf til $bestemmelsessted. Du bør prøve å gjøre søkeveien tilgjengelig via webserveren',
+  'LBL_REVENUELINEITEMS' => 'Omsetning linjeelementer',
   'LBL_SALES_STAGE' => 'Tilbudsfase:',
   'LBL_SEARCH_FORM_TITLE' => 'Søk tilbud',
   'LBL_SHIPPING' => 'Avsender:',
@@ -197,7 +197,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'Er du sikker på at du vil fjerne denne gruppen fra tilbudet?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Er du sikker på at du vil fjerne denne linjeposteringen fra tilbudet?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Er du sikker på at du vil fjerne denne kontakten fra tilbudet?',
-  'PDF_FORMAT' => 'PDF-format:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på at du vil fjerne dette tilbudet fra prosjektet?',
 );
 

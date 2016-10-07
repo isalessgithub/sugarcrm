@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:
@@ -50,8 +47,19 @@ class Version extends SugarBean {
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = Array();
 
-	function Version() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Version()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		$this->team_id = 1; // make the item globally accessible
 		$this->disable_row_level_security = true;
 	}
@@ -95,7 +103,7 @@ function is_expected_version($expected_version){
 function mark_upgraded($name, $dbVersion, $fileVersion){
 	$query = "DELETE FROM versions WHERE name='$name'";
 	$GLOBALS['db']->query($query);
-	$version = new Version();
+	$version = BeanFactory::getBean('Versions');
 	$version->name = $name;
 	$version->file_version = $fileVersion;
 	$version->db_version = $dbVersion;

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: DocumentRevision.php 45763 2009-04-01 19:16:18Z majed $
  * Description: TODO:  To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -54,6 +51,8 @@ class DocumentRevision extends SugarBean {
 	var $module_dir = 'DocumentRevisions';
 	var $new_schema = true;
 	var $latest_revision_id;
+
+    public $name;
 	
 	/*var $column_fields = Array("id"
 		,"document_id"
@@ -87,10 +86,21 @@ class DocumentRevision extends SugarBean {
 		
 	var $required_fields = Array("revision");
 	
-	
 
-	function DocumentRevision() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function DocumentRevision()
+    {
+        self::__construct();
+    }
+
+
+	public function __construct() {
+		parent::__construct();
 		$this->setupCustomFields('DocumentRevisions');  //parameter is module name
 		$this->disable_row_level_security =true; //no direct access to this module. 
 	}
@@ -141,13 +151,14 @@ class DocumentRevision extends SugarBean {
         if ( empty($this->id) && empty($this->document_id) && isset($_REQUEST['return_id']) && !empty($_REQUEST['return_id']) ) {
             $this->document_id = $_REQUEST['return_id'];
         }
-		
+
 		//find the document name and current version.
 		$query = "SELECT document_name, revision, document_revision_id FROM documents, document_revisions where documents.id = '".$this->db->quote($this->document_id)."' AND document_revisions.id = documents.document_revision_id";
 		$result = $this->db->query($query,true,"Error fetching document details...:");
 		$row = $this->db->fetchByAssoc($result);
 		if ($row != null) {
 			$this->document_name = $row['document_name'];
+            $this->name = $this->document_name;
             $this->document_name = '<a href="index.php?module=Documents&action=DetailView&record='.$this->document_id.'">'.$row['document_name'].'</a>';
 			$this->latest_revision = $row['revision'];	
 			$this->latest_revision_id = $row['document_revision_id'];
@@ -171,12 +182,11 @@ class DocumentRevision extends SugarBean {
 		$localLabels = return_module_language($current_language, 'DocumentRevisions');
 		
 		// prep - get source Document
-		$document = new Document();
+		$document = BeanFactory::getBean('Documents');
 		
 		// use passed revision ID
 		if(!empty($revId)) {
-			$tempDoc = new DocumentRevision();
-			$tempDoc->retrieve($revId);
+			$tempDoc = BeanFactory::getBean('DocumentRevisions', $revId);
 		} else {
 			$tempDoc = $this;
 		}
@@ -250,7 +260,7 @@ class DocumentRevision extends SugarBean {
 		if (empty($doc_revision_id)) return null;
 		
 		$db = DBManagerFactory::getInstance();				
-		$query="select revision from document_revisions where id='$doc_revision_id' AND deleted=0";
+		$query="select revision from document_revisions where id='$doc_revision_id'";
 		$result=$db->query($query);
 		if (!empty($result)) {
 			$row=$db->fetchByAssoc($result);
@@ -276,13 +286,6 @@ class DocumentRevision extends SugarBean {
 		}
 		return $return_array;
 	}	
-
-    public function bean_implements($interface) {
-        switch($interface) {
-            case 'FILE' : return true;
-        }
-        return parent::bean_implements($interface);
-    }
 }
 
 require_once('modules/Documents/DocumentExternalApiDropDown.php');

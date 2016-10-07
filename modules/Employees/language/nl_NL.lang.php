@@ -2,27 +2,24 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Specificeer een recordnummer om dit bedrijf te verwijderen.',
+  'ERR_DELETE_RECORD' => 'U dient een recordnummer op te geven om deze organisatie te verwijderen.',
   'ERR_EMPLOYEE_NAME_EXISTS_1' => 'Naam medewerker',
   'ERR_EMPLOYEE_NAME_EXISTS_2' => 'bestaat al. Dubbele gebruikersnamen zijn niet toegestaan. Wijzig de gebruikersnaam zodat deze uniek is.',
   'ERR_LAST_ADMIN_1' => 'De medewerker naam "',
-  'ERR_LAST_ADMIN_2' => 'is de laatste gebruiker die Admin rechten heeft. Minstens een gebruiker moet Administrator zijn.',
+  'ERR_LAST_ADMIN_2' => '" is de laatste gebruiker die administrator rechten heeft. Minstens één gebruiker moet administrator zijn.',
   'LBL_ADDRESS' => 'Adres',
   'LBL_ADDRESS_CITY' => 'Woonplaats',
   'LBL_ADDRESS_COUNTRY' => 'Land',
@@ -30,9 +27,9 @@ $mod_strings = array (
   'LBL_ADDRESS_POSTALCODE' => 'Postcode',
   'LBL_ADDRESS_STATE' => 'Provincie',
   'LBL_ADDRESS_STREET' => 'Straat',
-  'LBL_ADMIN' => 'Admininstrator:',
+  'LBL_ADMIN' => 'Administrator:',
   'LBL_ANY_ADDRESS' => 'Elk adres:',
-  'LBL_ANY_EMAIL' => 'E-mailadres(sen):',
+  'LBL_ANY_EMAIL' => 'E-mailadres:',
   'LBL_ANY_PHONE' => '(Deel van) telefoonnummer',
   'LBL_AUTHENTICATE_ID' => 'Authenticatie ID',
   'LBL_CITY' => 'Plaats:',
@@ -40,11 +37,11 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Aangemaakt door',
   'LBL_CREATE_USER_BUTTON_KEY' => 'N',
   'LBL_CREATE_USER_BUTTON_LABEL' => 'Nieuwe gebruiker',
-  'LBL_CREATE_USER_BUTTON_TITLE' => 'Creëer gebruiker [ALT+N]',
+  'LBL_CREATE_USER_BUTTON_TITLE' => 'Maak gebruiker aan [ALT+N]',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_DATE_ENTERED' => 'Datum aangemaakt',
   'LBL_DATE_FORMAT' => 'Datumweergave:',
-  'LBL_DATE_MODIFIED' => 'Datum laatste wijziging',
+  'LBL_DATE_MODIFIED' => 'Datum gewijzigd',
   'LBL_DEFAULT_TEAM' => 'Standaard team:',
   'LBL_DEFAULT_TEAM_TEXT' => 'Selecteer standaard team voor nieuwe records',
   'LBL_DELETED' => 'Verwijderd',
@@ -71,10 +68,10 @@ $mod_strings = array (
   'LBL_GROUP' => 'Groepsgebruiker',
   'LBL_GROUP_USER' => 'Groepsgebruiker',
   'LBL_HOME_PHONE' => 'Privé:',
-  'LBL_IS_ADMIN' => 'Is Administator',
+  'LBL_IS_ADMIN' => 'Is administator',
   'LBL_LANGUAGE' => 'Taal:',
   'LBL_LAST_NAME' => 'Achternaam:',
-  'LBL_LIST_ACCEPT_STATUS' => 'Acceptiestatus',
+  'LBL_LIST_ACCEPT_STATUS' => 'Acceptatiestatus',
   'LBL_LIST_ADMIN' => 'Configuratie',
   'LBL_LIST_DEPARTMENT' => 'Afdeling',
   'LBL_LIST_DESCRIPTION' => 'Beschrijving',
@@ -91,7 +88,7 @@ $mod_strings = array (
   'LBL_MESSENGER_ID' => 'IM Naam:',
   'LBL_MESSENGER_TYPE' => 'IM Type:',
   'LBL_MOBILE_PHONE' => 'Mobiel:',
-  'LBL_MODIFIED_BY' => 'Gewijzigd door:',
+  'LBL_MODIFIED_BY' => 'Gewijzigd door',
   'LBL_MODIFIED_BY_ID' => 'Gewijzigd door ID',
   'LBL_MODULE_NAME' => 'Medewerker',
   'LBL_MODULE_NAME_SINGULAR' => 'Medewerker',
@@ -135,7 +132,7 @@ $mod_strings = array (
   'LBL_USER_HASH' => 'Wachtwoord',
   'LBL_USER_NAME' => 'Gebruikersnaam:',
   'LBL_USER_TYPE' => 'Type Gebruiker',
-  'LBL_WORK_PHONE' => 'Werk:',
+  'LBL_WORK_PHONE' => 'Telefoon (werk):',
   'LNK_EDIT_TABS' => 'Wijzig tabs',
   'LNK_EMPLOYEE_LIST' => 'Medewerkers',
   'LNK_NEW_EMPLOYEE' => 'Nieuwe medewerker',

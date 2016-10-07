@@ -1,19 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
- define('VCREND', '50');
- define('VCRSTART', '10');
  /**
   * @api
   */
@@ -105,37 +101,31 @@
             $ss->assign('total', '');
             $ss->assign('plus', '');
 
-            if (!empty($_SESSION[$module . 'total']))
+            if (!empty($_SESSION[$module.'total']))
             {
-                $ss->assign('total', $_SESSION[$module . 'total']);
+                $ss->assign('total', $_SESSION[$module.'total']);
                 if (
                     !empty($GLOBALS['sugar_config']['disable_count_query'])
-                    && (($_SESSION[$module. 'total']-1) % $GLOBALS['sugar_config']['list_max_entries_per_page'] == 0)
+                    && (($_SESSION[$module.'total']-1) % $GLOBALS['sugar_config']['list_max_entries_per_page'] == 0)
                 )
                 {
                     $ss->assign('plus', '+');
                 }
             }
 
-            if (is_file('custom/include/EditView/SugarVCR.tpl'))
-            {
-                $html_text .= $ss->fetch('custom/include/EditView/SugarVCR.tpl');
-            }
-            else
-            {
-                $html_text .= $ss->fetch('include/EditView/SugarVCR.tpl');
-            }
+            $html_text .= $ss->fetchCustom('include/EditView/SugarVCR.tpl');
         }
         return $html_text;
     }
 
  	function record($module, $offset){
  		$GLOBALS['log']->debug('SUGARVCR is recording more records');
- 		$start = max(0, $offset - VCRSTART);
+        $page_length = $GLOBALS['sugar_config']['list_max_entries_per_page'] + 1;
+ 		$start = max(0, $offset - $page_length);
  		$index = $start;
 	    $db = DBManagerFactory::getInstance();
 
- 		$result = $db->limitQuery(SugarVCR::retrieve($module),$start,($offset+VCREND),false);
+ 		$result = $db->limitQuery(SugarVCR::retrieve($module), $start, ($offset + $page_length), false);
  		$index++;
 
  		$ids = array();
@@ -143,6 +133,10 @@
  			$ids[$index] = $row['id'];
  			$index++;
  		}
+        //get last index of ids
+        end($ids);
+        $_SESSION[$module.'total'] = key($ids);
+        reset($ids);
  		//now that we have the array of ids, store this in the session
  		$_SESSION[$module.'QUERY_ARRAY'] = $ids;
  		return $ids;

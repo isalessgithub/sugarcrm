@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -39,6 +36,7 @@ $mod_strings = array (
   'LBL_CREATE_CONTACT' => 'Som Kontakt',
   'LBL_CREATE_INVITEE' => 'Opprett en gjest',
   'LBL_CREATE_LEAD' => 'Som Lead',
+  'LBL_CREATE_MODULE' => 'Loggfør oppringningen',
   'LBL_DATE' => 'Startdato:',
   'LBL_DATE_END' => 'Sluttdato',
   'LBL_DATE_END_ERROR' => 'Sluttdato er før startdato',
@@ -86,6 +84,7 @@ $mod_strings = array (
   'LBL_MEMBER_OF' => 'Medlem av',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Oppringninger',
+  'LBL_MODULE_NAME_SINGULAR' => 'Opringning:',
   'LBL_MODULE_TITLE' => 'Oppringninger: Hovedside',
   'LBL_NAME' => 'Navn',
   'LBL_NEW_FORM_TITLE' => 'Opprett avtale',
@@ -96,12 +95,14 @@ $mod_strings = array (
   'LBL_RECURRENCE' => 'Gjentakelse',
   'LBL_RECURRING_LIMIT_ERROR' => 'Den gjentagende aktiviteten kan ikke planlegges da maks antall gjentakelser på $limit overskrides.',
   'LBL_RECURRING_SOURCE' => 'Repeterende Kilde',
+  'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Opringning med {{{this}}}',
   'LBL_RELATED_TO' => 'Beslektet med:',
   'LBL_REMINDER' => 'Påminnelse:',
   'LBL_REMINDER_EMAIL' => 'E-post',
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Send epost til alle inviterte',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Påminnelsestid',
+  'LBL_REMINDER_TITLE' => 'Oppringing:',
   'LBL_REMOVE' => 'fjern',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Slett Alle Gjentakelser',
   'LBL_REPEAT_COUNT' => 'Antall Gjentakelser',
@@ -114,6 +115,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Gjenta Overordnet ID',
   'LBL_REPEAT_TYPE' => 'Repetisjonstype',
   'LBL_REPEAT_UNTIL' => 'Gjenta Til',
+  'LBL_REVENUELINEITEMS' => 'Omsetning linjeelementer',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planlegging',
   'LBL_SEARCH_BUTTON' => 'Søk',
   'LBL_SEARCH_FORM_TITLE' => 'Søk i oppringninger',
@@ -121,6 +123,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_KEY' => 'I',
   'LBL_SEND_BUTTON_LABEL' => 'Send innkallinger',
   'LBL_SEND_BUTTON_TITLE' => 'Send innkallinger [Alt+I]',
+  'LBL_SEND_INVITES' => 'Send invitasjoner',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Emne:',
   'LBL_SYNCED_RECURRING_MSG' => 'Dette møtet kommer fra et annet system og ble synkronisert til Sugar. For å lage endringer, gå til det originale møtet i det andre systemet. Endringer i det andre systemer kan så synkroniseres hit.',
@@ -137,5 +140,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Velg bedrift',
   'NOTICE_DURATION_TIME' => 'Varigheten i tid må väre større enn 0',
   'NTC_REMOVE_INVITEE' => 'Er du sikker på at du vil slette denne inviterte fra samtalen?',
+  'TPL_CALL_STATUS_CHANGED' => 'Opringning markert som {{status}}.',
 );
 

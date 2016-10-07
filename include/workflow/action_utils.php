@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
@@ -47,7 +44,7 @@ function process_action_update($focus, $action_array){
 			//if we have a relate field, make sure the related record still exists.
 			if ($focus->field_defs[$field]['type'] == "relate")
 			{
-				$relBean = get_module_info($focus->field_defs[$field]['module']);
+				$relBean = BeanFactory::getBean($focus->field_defs[$field]['module']);
 				$relBean->retrieve($new_value);
                 if (empty($relBean->id) && (!empty($focus->required_fields[$field]) && $focus->required_fields[$field] == true))
                 {
@@ -63,6 +60,8 @@ function process_action_update($focus, $action_array){
             if (in_array($focus->field_defs[$field]['type'], array('double', 'decimal','currency', 'float')))
             {
                 $new_value = (float)unformat_number($new_value);
+            } elseif ($focus->field_defs[$field]['type'] === 'multienum') {
+                $new_value = workflow_convert_multienum_value($new_value);
             }
 			$focus->$field = convert_bool($new_value, $focus->field_defs[$field]['type']);
 			execute_special_logic($field, $focus);
@@ -82,9 +81,10 @@ function process_action_update($focus, $action_array){
             $GLOBALS['log']->info("workflow attempting to update calculated field $field.");
             continue;
         }
+		$fieldType = get_field_type($focus->field_defs[$field]);
 		//Only here if there is a datetime.
 		if($new_value=='Triggered Date'){
-			$focus->$field = get_expiry_date(get_field_type($focus->field_defs[$field]), $action_array['basic'][$field]);
+			$focus->$field = get_expiry_date($fieldType, $action_array['basic'][$field], $fieldType === 'date');
 			if($focus->field_defs[$field]['type']=='date' && !empty($focus->field_defs[$field]['rel_field']) ){
 				$rel_field = $focus->field_defs[$field]['rel_field'];
 				$focus->$rel_field = get_expiry_date('time', $action_array['basic'][$field]);
@@ -92,7 +92,7 @@ function process_action_update($focus, $action_array){
 			execute_special_logic($field, $focus);
 		}
 		if($new_value=='Existing Value'){
-			$focus->$field = get_expiry_date(get_field_type($focus->field_defs[$field]), $action_array['basic'][$field], false, true, $focus->$field);
+			$focus->$field = get_expiry_date($fieldType, $action_array['basic'][$field], false, true, $focus->$field);
 			execute_special_logic($field, $focus);
 		}
 	}
@@ -108,6 +108,11 @@ function process_action_update($focus, $action_array){
 		execute_special_logic($field, $focus);
 	}
     $focus->in_workflow = true;
+
+    if (!empty($focus->email1_set_in_workflow)) {
+        $focus->emailAddress->dontLegacySave = false;
+        $focus->emailAddress->handleLegacySave($focus);
+    }
 //end function process_action_update
 }
 
@@ -126,13 +131,19 @@ function process_action_update_rel($focus, $action_array){
 		$rel_list = process_rel_type("rel_module_type", "rel_filter", $rel_list, $action_array);
 
 		foreach($rel_list as $rel_object){
+            if (empty($rel_object->id)) {
+                continue;
+            }
             $check_notify = false;
             $old_owner = $rel_object->assigned_user_id;
 			foreach($action_array['basic'] as $field => $new_value){
-
+                if (isset($rel_object->field_defs[$field]['type']) && $rel_object->field_defs[$field]['type'] === 'multienum') {
+                    $new_value = workflow_convert_multienum_value($new_value);
+                }
 				if(empty($action_array['basic_ext'][$field])){
 					$rel_object->$field = convert_bool($new_value, $rel_object->field_defs[$field]['type']);
 				}
+                execute_special_logic($field, $rel_object);
 				//otherwise rely on the basic_ext to handle the action for this field
 				if($field == "email1") $rel_object->email1_set_in_workflow = $rel_object->email1;
                 if($field == "email2") $rel_object->email2_set_in_workflow = $rel_object->email2;
@@ -169,10 +180,10 @@ function process_action_update_rel($focus, $action_array){
 function process_action_new($focus, $action_array){
 
 	//find out if the action_module is related to this module or not.  If so make sure to connect
-	$seed_object = new WorkFlow();
+	$seed_object = BeanFactory::getBean('WorkFlow');
     $seed_object->base_module = $focus->module_dir;
     $rel_module = $seed_object->get_rel_module($action_array['action_module'], true);
-	$target_module = get_module_info($rel_module);
+	$target_module = BeanFactory::getBean($rel_module);
 	$rel_handler = $focus->call_relationship_handler("module_dir", true);
 	//$rel_handler->base_bean = & $focus;
 	$rel_handler->get_relationship_information($target_module);
@@ -187,6 +198,9 @@ function process_action_new($focus, $action_array){
     }
 
 	foreach($action_array['basic'] as $field => $new_value){
+        if (isset($target_module->field_defs[$field]['type']) && $target_module->field_defs[$field]['type'] === 'multienum') {
+            $new_value = workflow_convert_multienum_value($new_value);
+        }
 			//rrs - bug 10466
 			$target_module->$field = convert_bool($new_value, $target_module->field_defs[$field]['type'], (empty($target_module->field_defs[$field]['dbType']) ? '' : $target_module->field_defs[$field]['dbType']));
             if($field == "email1") $target_module->email1_set_in_workflow = $target_module->email1;
@@ -219,7 +233,7 @@ function process_action_new($focus, $action_array){
 	//BEGIN BRIDGING FOR MEETINGS/CALLS
 	if(!empty($action_array['bridge_id']) && $action_array['bridge_id']!=""){
 		$target_module->bridge_id = $action_array['bridge_id'];
-		$target_module->bridge_object = & $focus;
+		$target_module->bridge_object = $focus;
 
 	}
 	//END BRIDGING FOR MEETINGS/CALLS
@@ -228,6 +242,9 @@ function process_action_new($focus, $action_array){
     $target_module->not_use_rel_in_req = true;
     $target_module->new_rel_relname = $seed_object->rel_name;
     $target_module->new_rel_id = $focus->id;
+    if (!empty($focus->assigned_user_id) && empty($target_module->assigned_user_id)) {
+        $target_module->assigned_user_id = $focus->assigned_user_id;
+    }
 	$target_module->save($check_notify);
 
 //end function_action_new
@@ -270,6 +287,9 @@ function process_action_new_rel($focus, $action_array){
 			$target_module = & $rel_handler->rel2_bean;
 
 			foreach($action_array['basic'] as $field => $new_value){
+                if (isset($target_module->field_defs[$field]['type']) && $target_module->field_defs[$field]['type'] === 'multienum') {
+                    $new_value = workflow_convert_multienum_value($new_value);
+                }
 				$target_module->$field = convert_bool($new_value, $target_module->field_defs[$field]['type']);
                 if($field == "email1") $target_module->email1_set_in_workflow = $target_module->email1;
                 if($field == "email2") $target_module->email2_set_in_workflow = $target_module->email2;
@@ -297,9 +317,12 @@ function process_action_new_rel($focus, $action_array){
 			//BEGIN BRIDGING FOR MEETINGS/CALLS
 				if(!empty($action_array['bridge_id']) && $action_array['bridge_id']!=""){
 					$target_module->bridge_id = $action_array['bridge_id'];
-					$target_module->bridge_object = & $focus;
+					$target_module->bridge_object = $focus;
 				}
 			//END BRIDGING FOR MEETINGS/CALLS
+            if($focus->object_name == $target_module->object_name){
+			     $target_module->processed = true;
+            }
 
 			$target_module->in_workflow = true;
 			$target_module->not_use_rel_in_req = true;
@@ -336,8 +359,8 @@ function clean_save_data($target_module, $action_array){
 					$data_cleaned = true;
 				}
 
-				if($target_module->field_defs[$field]['type']=='enum'){
-
+				// make sure there are options, some enums based on functions don't have options set
+				if($target_module->field_defs[$field]['type']=='enum' && isset($target_module->field_defs[$field]['options'])) {
 					$options_array_name = $target_module->field_defs[$field]['options'];
 					$target_module->$field = key($app_list_strings[$options_array_name]);
 					$data_cleaned = true;
@@ -427,8 +450,9 @@ function get_expiry_date($stamp_type, $time_interval, $user_format = false, $is_
     	    }
 	    }
 	} else {
-	    $date = $timedate->getNow();
-
+	    // When the type is "date", asDbType() does not change the TZ by default, so the date will still be in user TZ
+	    // even though formatted as DB date. That's because we do not convert dates (as opposed to datetimes) by default.
+	    $date = $timedate->getNow($user_format);
 	}
 
     if (empty($date)) {
@@ -438,5 +462,19 @@ function get_expiry_date($stamp_type, $time_interval, $user_format = false, $is_
 
 	$date->modify("+$time_interval seconds");
     return $timedate->asDbType($date, $stamp_type);
-	//end function get_expiry_date
+}
+
+/**
+ * Creates proper representation of multienum value from actions_array.php
+ *
+ * @param string $value
+ * @return string
+ */
+function workflow_convert_multienum_value($value)
+{
+    // this is weird, but new value is stored in workflow definition as a partially
+    // encoded string — without leading and trailing ^s, but with delimiting ^s and commas.
+    // thus we pretend it's a single value and wrap it into array in order to get the leading and trailing ^s
+    // @see parse_multi_array()
+    return encodeMultienumValue(array($value));
 }

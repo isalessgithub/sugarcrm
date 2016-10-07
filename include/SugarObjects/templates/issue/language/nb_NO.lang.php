@@ -1,45 +1,42 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
+
 $mod_strings = array (
-  'LBL_SUBJECT' => 'Emne:',
-  'LBL_STATUS' => 'Status:',
-  'LBL_SYSTEM_ID' => 'System Id:',
-  'LBL_TYPE' => 'Type:',
-  'LBL_NAME' => 'Navn',
-  'LBL_NUMBER' => 'Nummer:',
-  'LBL_PRIORITY' => 'Prioritet:',
-  'LBL_DESCRIPTION' => 'Beskrivelse:',
-  'LBL_RESOLUTION' => 'Løsning',
-  'LBL_LAST_MODIFIED' => 'Sist Endret',
   'LBL_ASSIGNED_TO_ID' => 'Tildelt til:',
   'LBL_ASSIGNED_TO_NAME' => 'Tildelt til:',
-  'LBL_WORK_LOG' => 'Arbieds Log:',
+  'LBL_ASSIGNED_USER' => 'Tildelt bruker:',
+  'LBL_ASSIGNED_USER_NAME' => 'Tildelt til',
   'LBL_CREATED_BY' => 'Opprettet av:',
   'LBL_DATE_CREATED' => 'Opprettet på:',
   'LBL_DATE_ENTERED' => 'Opprettet på:',
   'LBL_DATE_MODIFIED' => 'Endret på:',
+  'LBL_DESCRIPTION' => 'Beskrivelse:',
+  'LBL_EDIT_BUTTON' => 'Rediger',
+  'LBL_LAST_MODIFIED' => 'Sist Endret',
   'LBL_MODIFIED_BY' => 'Sist Endret av:',
-  'LBL_ASSIGNED_USER' => 'Tildelt bruker:',
+  'LBL_NAME' => 'Navn',
+  'LBL_NUMBER' => 'Nummer:',
+  'LBL_PRIORITY' => 'Prioritet:',
+  'LBL_REMOVE' => 'Fjern',
+  'LBL_RESOLUTION' => 'Løsning',
+  'LBL_STATUS' => 'Status:',
+  'LBL_SUBJECT' => 'Emne:',
+  'LBL_SYSTEM_ID' => 'System Id:',
   'LBL_TEAM_NAME' => 'Team Navn:',
+  'LBL_TYPE' => 'Type:',
+  'LBL_WORK_LOG' => 'Arbieds Log:',
 );
 

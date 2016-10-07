@@ -1,151 +1,48 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
 ********************************************************************************/
-require_once('include/utils/encryption_utils.php');
+require_once 'include/utils/encryption_utils.php';
+require_once 'include/SugarSystemInfo/SugarSystemInfo.php';
 
-function getSystemInfo($send_usage_info=true){
-	global $sugar_config;
-	global $db, $administration, $timedate;
-	$info=array();
-	$info = getBaseSystemInfo($send_usage_info);
-    if($send_usage_info){
-		$info['application_key']=$sugar_config['unique_key'];
-		$info['php_version']=phpversion();
-		if(isset($_SERVER['SERVER_SOFTWARE'])) {
-			$info['server_software'] = $_SERVER['SERVER_SOFTWARE'];
-		} // if
-
-		//get user count.
-
-                $query = "SELECT count(*) as total from users WHERE " . User::getLicensedUsersWhere();
-                $result = $db->getOne($query, false, 'fetching active users count');
-                if ($result !== false) {
-                    $info['users'] = $result;
-                }
-
-		if(empty($administration)){
-
-			$administration = new Administration();
-		}
-		$administration->retrieveSettings('system');
-		$info['system_name'] = (!empty($administration->settings['system_name']))?substr($administration->settings['system_name'], 0 ,255):'';
-
-
-		$result=$db->getOne("select count(*) count from users where status='Active' and deleted=0 and is_admin='1'", false, 'fetching admin count');
-		if($result !== false) {
-			$info['admin_users'] = $result;
-		}
-
-
-		$result=$db->getOne("select count(*) count from users", false, 'fetching all users count');
-		if($result !== false) {
-			$info['registered_users'] = $result;
-		}
-
-		$lastMonth = $db->convert("'". $timedate->getNow()->modify("-30 days")->asDb(false) . "'", 'datetime');
-		if( !$send_usage_info) {
-			$info['users_active_30_days'] = -1;
-		} else {
-			$info['users_active_30_days'] = $db->getOne("SELECT count( DISTINCT users.id ) user_count FROM tracker, users WHERE users.id = tracker.user_id AND  tracker.date_modified >= $lastMonth", false, 'fetching last 30 users count');
-		}
-
-
-            if (file_exists('modules/Administration/System.php')) {
-	            require_once('modules/Administration/System.php');
-	            $system = new System();
-	            $info['oc_active_30_days'] = $system->getClientsActiveInLast30Days();
-	            $info['oc_active'] = $system->getEnabledOfflineClients($system->create_new_list_query("",'system_id != 1'));
-	            $info['oc_all'] = $system->getOfflineClientCount();
-	            $info['oc_br_all'] = $system->getTotalInstallMethods('bitrock');
-	            $info['oc_br_active_30_days'] = $system->getClientsActiveInLast30Days("install_method = 'bitrock'");
-	            $info['oc_br_active'] = $system->getEnabledOfflineClients($system->create_new_list_query("",'system_id != 1 AND install_method = \'bitrock\''));
-            }
-
-
-		if(!$send_usage_info){
-			$info['latest_tracker_id'] = -1;
-		}else{
-			$id=$db->getOne("select id from tracker order by date_modified desc", false, 'fetching most recent tracker entry');
-			if ( $id !== false )
-			    $info['latest_tracker_id'] = $id;
-		}
-
-		$info['db_type']=$sugar_config['dbconfig']['db_type'];
-		$info['db_version']=$db->version();
-	}
-	if(file_exists('distro.php')){
-		include('distro.php');
-		if(!empty($distro_name))$info['distro_name'] = $distro_name;
-	}
-	$result = $db->getOne("SELECT count(*) as record_count FROM session_history WHERE is_violation =1 AND date_entered >= $lastMonth");
-	if($result){
-		$info['license_portal_ex'] = $result;
-	}
-	$result = $db->getOne("SELECT MAX(num_active_sessions) as record_max FROM session_history WHERE date_entered >= $lastMonth");
-	$info['license_portal_max'] = 0;
-	if($result !== false) {
-		$info['license_portal_max'] = $result;
-	}
-	$info['os'] = php_uname('s');
-	$info['os_version'] = php_uname('r');
-	$info['timezone_u'] = $GLOBALS['current_user']->getPreference('timezone');
-	$info['timezone'] = date('e');
-	if($info['timezone'] == 'e'){
-		$info['timezone'] = date('T');
-	}
-	return $info;
-
+/**
+ * Proxy to SugarSystemInfo::getInstance()->getInfo()
+ * Exists for BWC
+ *
+ * @param bool $send_usage_info
+ * @return array
+ */
+function getSystemInfo($send_usage_info = true)
+{
+    return SugarSystemInfo::getInstance()->getInfo();
 }
 
-function getBaseSystemInfo($send_usage_info=true){
-    include('sugar_version.php');
-    $info=array();
-
-    if($send_usage_info){
-        $info['sugar_db_version']=$sugar_db_version;
-    }
-    $info['sugar_version']=$sugar_version;
-    $info['sugar_flavor']=$sugar_flavor;
-    $info['auth_level'] = 0;
-
-
-    global $license;
-    if (!empty($license->settings))  {
-        $info['license_users']=$license->settings['license_users'];
-        $info['license_expire_date']=$license->settings['license_expire_date'];
-        $info['license_key']=$license->settings['license_key'];
-        $info['license_num_lic_oc']=$license->settings['license_num_lic_oc'];
-        $info['license_num_portal_users'] = (!empty($license->settings['license_num_portal_users']) ? $license->settings['license_num_portal_users'] : '');
-    }
-    $info['license_portal_ex'] = 0;
-    $info['license_portal_max'] = 0;
-
-
-
-    return $info;
-
-
+/**
+ * Proxy to SugarSystemInfo::getInstance()->getInfo()
+ * Exists for BWC
+ *
+ * @param bool $send_usage_info
+ * @return array
+ */
+function getBaseSystemInfo($send_usage_info = true)
+{
+    return SugarSystemInfo::getInstance()->getBaseInfo();
 }
 
 function check_now($send_usage_info=true, $get_request_data=false, $response_data = false, $from_install=false ) {
 	global $sugar_config, $timedate;
 	global $db, $license;
-    include('sugar_version.php');
 
 
 	// This section of code is a portion of the code referred
@@ -163,27 +60,16 @@ function check_now($send_usage_info=true, $get_request_data=false, $response_dat
 
 	if(!$response_data){
 
+        $systemInfo = SugarSystemInfo::getInstance();
+        SugarAutoLoader::requireWithCustom('include/SugarHeartbeat/SugarHeartbeatClient.php', true);
+        $sclientClass = SugarAutoLoader::customClass('SugarHeartbeatClient');
+        $sclient = new $sclientClass();
+
         if($from_install){
-    		$info = getBaseSystemInfo(false);
+    		$info = $systemInfo->getBaseInfo();
 
         }else{
-            $info = getSystemInfo($send_usage_info);
-        }
-
-		require_once('include/nusoap/nusoap.php');
-
-		$GLOBALS['log']->debug('USING HTTPS TO CONNECT TO HEARTBEAT');
-		$sclient = new nusoapclient('https://updates.sugarcrm.com/heartbeat/soap.php', false, false, false, false, false, 15, 15);
-		$ping = $sclient->call('sugarPing', array());
-        if (empty($ping) || $sclient->getError()) {
-            if (!$get_request_data) {
-                return array(
-                    array(
-                        'version' => $sugar_version,
-                        'description' => "You have the latest version."
-                    )
-                );
-            }
+            $info = $systemInfo->getInfo();
         }
 
 
@@ -210,7 +96,7 @@ function check_now($send_usage_info=true, $get_request_data=false, $response_dat
 			$request_data = array('key'=>$key, 'data'=>$encoded);
 			return serialize($request_data);
 		}
-		$encodedResult = $sclient->call('sugarHome', array('key'=>$key, 'data'=>$encoded));
+		$encodedResult = $sclient->sugarHome($key, $info);
 
 	}else{
 		$encodedResult = 	$response_data['data'];
@@ -218,10 +104,10 @@ function check_now($send_usage_info=true, $get_request_data=false, $response_dat
 
 	}
 
-	if($response_data || !$sclient->getError()){
+    if ($response_data || !$sclient->getError()) {
 		$serializedResultData = sugarDecode($key,$encodedResult);
 		$resultData = unserialize($serializedResultData);
-		if($response_data && empty($resultData))
+        if($response_data && empty($resultData))
 		{
 			$resultData = array();
 			$resultData['validation'] = 'invalid validation key';
@@ -232,7 +118,9 @@ function check_now($send_usage_info=true, $get_request_data=false, $response_dat
 		$resultData['versions'] = array();
 
 	}
-
+    if (!isset($resultData['validation'])) {
+        $resultData['validation'] = 'invalid';
+    }
 	if($response_data || !$sclient->getError() )
 	{
 
@@ -284,6 +172,11 @@ function check_now($send_usage_info=true, $get_request_data=false, $response_dat
 		$license->saveSetting('license', 'latest_versions','')	;
 	}
 
+
+
+
+	include('sugar_version.php');
+
 	if(sizeof($resultData) == 1 && !empty($resultData['versions'][0]['version'])
         && compareVersions($sugar_version, $resultData['versions'][0]['version']))
 	{
@@ -304,7 +197,7 @@ function compareVersions($ver1, $ver2)
 function set_CheckUpdates_config_setting($value) {
 
 
-	$admin=new Administration();
+	$admin = BeanFactory::getBean('Administration');
 	$admin->saveSetting('Update','CheckUpdates',$value);
 }
 /* return's value for the 'CheckUpdates' config setting
@@ -315,8 +208,7 @@ function get_CheckUpdates_config_setting() {
 	$checkupdates='automatic';
 
 
-	$admin=new Administration();
-	$admin=$admin->retrieveSettings('Update',true);
+	$admin = Administration::getSettings('Update',true);
 	if (empty($admin->settings) or empty($admin->settings['Update_CheckUpdates'])) {
 		$admin->saveSetting('Update','CheckUpdates','automatic');
 	} else {
@@ -328,15 +220,14 @@ function get_CheckUpdates_config_setting() {
 function set_last_check_version_config_setting($value) {
 
 
-	$admin=new Administration();
+	$admin = BeanFactory::getBean('Administration');
 	$admin->saveSetting('Update','last_check_version',$value);
 }
 function get_last_check_version_config_setting() {
 
 
 
-	$admin=new Administration();
-	$admin=$admin->retrieveSettings('Update');
+	$admin = Administration::getSettings('Update');
 	if (empty($admin->settings) or empty($admin->settings['Update_last_check_version'])) {
 		return null;
 	} else {
@@ -348,15 +239,14 @@ function get_last_check_version_config_setting() {
 function set_last_check_date_config_setting($value) {
 
 
-	$admin=new Administration();
+	$admin = BeanFactory::getBean('Administration');
 	$admin->saveSetting('Update','last_check_date',$value);
 }
 function get_last_check_date_config_setting() {
 
 
 
-	$admin=new Administration();
-	$admin=$admin->retrieveSettings('Update');
+	$admin = Administration::getSettings('Update');
 	if (empty($admin->settings) or empty($admin->settings['Update_last_check_date'])) {
 		return 0;
 	} else {
@@ -394,7 +284,7 @@ function shouldCheckSugar(){
 	if(
 
 	(empty($license->settings['license_last_validation_fail']) ||  $license->settings['license_last_validation_fail'] < $timedate->getNow()->modify("-6 hours")->asDb(false))  &&
-	get_CheckUpdates_config_setting() == 'automatic' ){
+    (get_CheckUpdates_config_setting() == 'automatic' || !empty($GLOBALS['sugar_config']['hide_admin_licensing']))) {
 		return true;
 	}
 
@@ -406,41 +296,87 @@ function shouldCheckSugar(){
 // License Agreement.  Neither the Company nor the Users
 // may modify any portion of the Critical Control Software.
 
-//Adding a comment for 6.5.5
 
-function authenticateDownloadKey(){
-	$data = array();
-	if(empty($GLOBALS['license']->settings['license_validation_key']) && shouldCheckSugar()){
-		check_now(get_sugarbeat());
-	}
-	//could not connect to server so we'll let it pass
+/**
+ * Authenticate license settings
+ * @return boolean
+ */
+function authenticateDownloadKey()
+{
+    // Retreive license if required
+    if ((!is_array($GLOBALS['license']->settings) ||
+         empty($GLOBALS['license']->settings['license_validation_key'])) &&
+         shouldCheckSugar()) {
+        check_now(get_sugarbeat());
+    }
 
-	if(empty($GLOBALS['license']->settings['license_validation_key'])){
-		return false;
-	}
+    // Validation key is required
+    if (!is_array($GLOBALS['license']->settings) ||
+        empty($GLOBALS['license']->settings['license_validation_key'])) {
+        return false;
+    }
 
+    // We are good if a validation is already set
+    if (is_array($GLOBALS['license']->settings) &&
+        is_array($GLOBALS['license']->settings['license_validation_key']) &&
+        !empty($GLOBALS['license']->settings['license_validation_key']['validation'])) {
+        return true;
+    };
 
-	if(!empty($GLOBALS['license']->settings['license_validation_key']['validation']))return true;
-	$data['license_expire_date'] = $GLOBALS['license']->settings['license_expire_date'];
-	$data['license_users'] =  intval($GLOBALS['license']->settings['license_users']);
-	$data['license_num_lic_oc'] = intval( $GLOBALS['license']->settings['license_num_lic_oc']);
-	$data['license_num_portal_users'] = intval($GLOBALS['license']->settings['license_num_portal_users']);
-	$data['license_vk_end_date'] = $GLOBALS['license']->settings['license_vk_end_date'];
-	$data['license_key'] = $GLOBALS['license']->settings['license_key'];
-	if(empty($GLOBALS['license']->settings['license_validation_key'])) return false;
-	$og = unserialize(sugarDecode('validation', $GLOBALS['license']->settings['license_validation_key']));
+    // Populate data from globals
+    $fromGlobals = array(
+        'license_expire_date' => array(
+            'type' => 'string',
+        ),
+        'license_users' => array(
+            'type' => 'int',
+        ),
+        'license_num_lic_oc' => array(
+            'type' => 'int',
+        ),
+        'license_num_portal_users' => array(
+            'type' => 'int',
+        ),
+        'license_vk_end_date' => array(
+            'type' => 'string',
+        ),
+        'license_key' => array(
+            'type' => 'string',
+        ),
+        'license_enforce_portal_user_limit' => array(
+            'type' => 'int',
+            'target' => 'enforce_portal_user_limit',
+        ),
+        'license_enforce_user_limit' => array(
+            'type' => 'int',
+            'target' => 'enforce_user_limit',
+        ),
+    );
 
+    $data = array();
+    foreach ($fromGlobals as $source => $defs) {
+        $target = empty($defs['target']) ? $source : $defs['target'];
+        if (isset($GLOBALS['license']->settings[$source])) {
+            switch ($defs['type']) {
+                case 'int':
+                    $data[$target] = intval($GLOBALS['license']->settings[$source]);
+                    break;
+                default:
+                    $data[$target] = $GLOBALS['license']->settings[$source];
+                    break;
+            }
+        }
+    }
 
-	foreach($og as $name=>$value){
+    // Decode the received validation key and compare with current settings
+    $og = unserialize(sugarDecode('validation', $GLOBALS['license']->settings['license_validation_key']));
+    foreach ($og as $name => $value) {
+        if (!isset($data[$name]) || $data[$name] != $value) {
+            return false;
+        }
+    }
 
-		if(!isset($data[$name]) || $data[$name] != $value){
-
-			return false;
-		}
-	}
-
-	return true;
-
+    return true;
 }
 
 function ocLicense(){
@@ -499,7 +435,7 @@ function checkDownloadKey($data){
 	$GLOBALS['license']->saveSetting('license', 'expire_date', $data['license_expire_date']);
 	$GLOBALS['license']->saveSetting('license', 'last_validation_success', TimeDate::getInstance()->nowDb());
 	$GLOBALS['license']->saveSetting('license', 'validation_notice', '');
-	$GLOBALS['license']->saveSetting('license', 'enforce_portal_user_limit', isset($data['enforce_portal_user_limit']) ? '1' : '0');
+	$GLOBALS['license']->saveSetting('license', 'enforce_portal_user_limit', (isset($data['enforce_portal_user_limit'])&&$data['enforce_portal_user_limit']=='1') ? '1' : '0');
 
 	if(isset($data['enforce_user_limit']))
 		$GLOBALS['license']->saveSetting('license', 'enforce_user_limit', $data['enforce_user_limit']);
@@ -581,58 +517,291 @@ function setSystemState($state){
 	}
 }
 
-function checkSystemState(){
-	if(ocLicense())return;
-	if($_SESSION['LICENSE_EXPIRES_IN'] === 'REQUIRED'){
-		die('LICENSE INFORMATION IS REQUIRED PLEASE CONTACT A SYSTEM ADMIN ');
-	}
-	if($_SESSION['VALIDATION_EXPIRES_IN'] === 'REQUIRED'){
-		die('LICENSE INFORMATION IS REQUIRED PLEASE CONTACT A SYSTEM ADMIN ');
-	}
-	if($_SESSION['LICENSE_EXPIRES_IN'] != 'valid' && $_SESSION['LICENSE_EXPIRES_IN'] < -30){
-		die('LICENSE EXPIRED ' . abs( $_SESSION['LICENSE_EXPIRES_IN']) .' day(s) ago - PLEASE CONTACT A SYSTEM ADMIN');
-	}
-	if($_SESSION['VALIDATION_EXPIRES_IN'] != 'valid' && $_SESSION['VALIDATION_EXPIRES_IN'] < -30){
-		die('VALIDATION KEY FOR LICENSE EXPIRED ' . abs( $_SESSION['VALIDATION_EXPIRES_IN']) .' day(s) ago - PLEASE CONTACT A SYSTEM ADMIN');
-	}
+/**
+ * Used by SOAP services
+ */
+function checkSystemState()
+{
+    if (ocLicense()) {
+        return;
+    }
+    if ($_SESSION['LICENSE_EXPIRES_IN'] === 'REQUIRED') {
+        die('LICENSE INFORMATION IS REQUIRED PLEASE CONTACT A SYSTEM ADMIN ');
+    }
+    if ($_SESSION['VALIDATION_EXPIRES_IN'] === 'REQUIRED') {
+        die('LICENSE INFORMATION IS REQUIRED PLEASE CONTACT A SYSTEM ADMIN ');
+    }
+    if ($_SESSION['LICENSE_EXPIRES_IN'] != 'valid' && $_SESSION['LICENSE_EXPIRES_IN'] < -30) {
+        die('LICENSE EXPIRED ' . abs($_SESSION['LICENSE_EXPIRES_IN']) .' day(s) ago - PLEASE CONTACT A SYSTEM ADMIN');
+    }
+    if ($_SESSION['VALIDATION_EXPIRES_IN'] != 'valid' && $_SESSION['VALIDATION_EXPIRES_IN'] < -30) {
+        die('VALIDATION KEY FOR LICENSE EXPIRED ' . abs($_SESSION['VALIDATION_EXPIRES_IN']) .' day(s) ago - PLEASE CONTACT A SYSTEM ADMIN');
+    }
 }
-function checkSystemLicenseStatus(){
 
-	global $license;
+/**
+ * Check current license status
+ */
+function checkSystemLicenseStatus()
+{
+    global $license;
+    loadLicense(true);
 
-	loadLicense(true);
+    if (ocLicense()) {
+        return;
+    }
 
-	if(ocLicense())return;
+    if (!empty($license->settings)) {
 
-	if(!empty($license->settings)){
+        if (isset($license->settings['license_vk_end_date'])) {
+            $_SESSION['VALIDATION_EXPIRES_IN'] = isAboutToExpire($license->settings['license_vk_end_date']);
+        } else {
+            $_SESSION['VALIDATION_EXPIRES_IN'] = 'REQUIRED';
+        }
 
+        if (!empty($license->settings['license_expire_date'])) {
+            $_SESSION['LICENSE_EXPIRES_IN'] = isAboutToExpire($license->settings['license_expire_date']);
+        } else {
+            $_SESSION['LICENSE_EXPIRES_IN'] = 'REQUIRED';
+        }
 
-		if(isset($license->settings['license_vk_end_date'])){
-
-			$_SESSION['VALIDATION_EXPIRES_IN'] = isAboutToExpire($license->settings['license_vk_end_date']);
-
-		}else{
-			$_SESSION['VALIDATION_EXPIRES_IN'] = 'REQUIRED';
-		}
-
-		if(!empty($license->settings['license_expire_date'])){
-			$_SESSION['LICENSE_EXPIRES_IN'] = isAboutToExpire($license->settings['license_expire_date']);
-		}else{
-			$_SESSION['VALIDATION_EXPIRES_IN'] = 'REQUIRED';
-		}
-
-        if(isset($license->settings['license_num_lic_oc'])){
+        if (isset($license->settings['license_num_lic_oc'])) {
             $_SESSION['EXCEEDING_OC_LICENSES'] = hasExceededOfflineClientLicenses($license->settings['license_num_lic_oc']);
-        }else{
+        } else {
             $_SESSION['EXCEEDING_OC_LICENSES'] = false;
         }
-	}else{
-		$_SESSION['INVALID_LICENSE'] = true;
-	}
 
+    } else {
+        $_SESSION['INVALID_LICENSE'] = true;
+    }
 }
 
+/**
+ * Check if system status is OK
+ * @param string $forceReload
+ * @return array|true True on OK or array with system status problem
+ */
+function apiCheckSystemStatus($forceReload = false)
+{
+    global $sugar_config, $sugar_flavor, $db;
 
+    if (!isset($sugar_config['installer_locked']) || $sugar_config['installer_locked'] == false ){
+        return array(
+            'level'  =>'admin_only',
+            'message'=>'WARN_INSTALLER_LOCKED',
+            'url'    =>'install.php',
+        );
+    }
+
+    // If they are missing session variables force a reload
+    $sessionCheckNotExists = array(
+        'VALIDATION_EXPIRES_IN',
+        'LICENSE_EXPIRES_IN',
+        'EXCEEDING_OC_LICENSES',
+    );
+    $sessionCheckExists = array(
+        'HomeOnly',
+        'INVALID_LICENSE',
+    );
+    foreach ($sessionCheckNotExists as $key) {
+        if (!isset($_SESSION[$key])) {
+            $forceReload = true;
+        }
+    }
+    foreach ($sessionCheckExists as $key) {
+        if (!empty($_SESSION[$key])) {
+            $forceReload = true;
+        }
+    }
+
+    $systemStatus = apiLoadSystemStatus($forceReload);
+
+    // Don't allow maintenanceMode to override license failures
+    if ($systemStatus === true
+        && !empty($GLOBALS['sugar_config']['maintenanceMode'])) {
+        $url = 'maintenance.php';
+        if ($GLOBALS['sugar_config']['maintenanceMode'] !== true) {
+            $url = $GLOBALS['sugar_config']['maintenanceMode'];
+        }
+
+        return array(
+            'level'  =>'maintenance',
+            'message'=>'EXCEPTION_MAINTENANCE',
+            'url'    =>$url,
+        );
+
+    }
+
+    return $systemStatus;
+}
+
+/**
+ * Get system status from cache or settings or calculate it
+ * @param string $forceReload
+ * @return array|boolean
+ */
+function apiLoadSystemStatus($forceReload = false)
+{
+    $systemStatus = null;
+    $oldSystemStatus = null;
+    // First try from SugarCache
+    $systemStatus = sugar_cache_retrieve('api_system_status');
+    if (empty($systemStatus)) {
+        // No luck, try the database
+	    $administration = Administration::getSettings('system');
+        // key defined in Adminitration::retrieveSettings(): $key = $row['category'] . '_' . $row['name'];
+        if (!empty($administration->settings['system_api_system_status'])) {
+            $systemStatus = unserialize(base64_decode($administration->settings['system_api_system_status']));
+        }
+    } else {
+        // if it's not an array and is truthy, comvert it to true
+        // See BR-1150
+        if($systemStatus && !is_array($systemStatus)) {
+            $systemStatus = true;
+        }
+    }
+
+    if (!empty($systemStatus)) {
+        // Save the old system status, so if the new one is the same
+        // even on a force reload, we don't update it.
+        $oldSystemStatus = $systemStatus;
+    }
+    if ($forceReload) {
+        $systemStatus = null;
+    }
+
+    if (empty($systemStatus)) {
+        $systemStatus = apiActualLoadSystemStatus();
+    }
+    $serializedStatus = serialize($systemStatus);
+    if ($serializedStatus != serialize($oldSystemStatus)) {
+        sugar_cache_put('api_system_status',$systemStatus);
+        if (!isset($administration)) {
+            $administration = Administration::getSettings('system');
+        }
+        $administration->saveSetting('system','api_system_status',base64_encode($serializedStatus));
+    }
+
+    return $systemStatus;
+}
+
+/**
+ *  Get actual system status
+ *  No caching, just check the system status
+ */
+function apiActualLoadSystemStatus()
+{
+    global $sugar_flavor, $db;
+
+    checkSystemLicenseStatus();
+    if (!isset($_SESSION['LICENSE_EXPIRES_IN'])) {
+        // BEGIN CE-OD License User Limit Enforcement
+        if (isset($sugar_flavor)
+            && ($sugar_flavor=='CE' || !empty($admin->settings['license_enforce_user_limit']))) {
+
+            $query = "SELECT count(id) as total from users WHERE ".User::getLicensedUsersWhere();
+            $result = $db->query($query, true, "Error filling in user array: ");
+            $row = $db->fetchByAssoc($result);
+            $admin = Administration::getSettings();
+            $license_users = $admin->settings['license_users'];
+            $license_seats_needed = $row['total'] - $license_users;
+            if( $license_seats_needed > 0 ){
+                $_SESSION['EXCEEDS_MAX_USERS'] = 1;
+                return array(
+                    'level'  =>'admin_only',
+                    'message'=>'WARN_LICENSE_SEATS_MAXED',
+                    'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+                );
+            }
+        }
+        // END CE-OD License User Limit Enforcement
+    }
+
+    // Only allow administrators because of altered license issue
+    if (!empty($_SESSION['HomeOnly'])) {
+        return array(
+            'level'  =>'admin_only',
+            'message'=>'FATAL_LICENSE_ALTERED',
+            'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+        );
+    }
+
+    if (!ocLicense()) {
+        if (!empty($_SESSION['INVALID_LICENSE'])) {
+            return array(
+                'level'  =>'admin_only',
+                'message'=>'ERROR_LICENSE_VALIDATION',
+                'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+            );
+        }
+        if (isset($_SESSION['LICENSE_EXPIRES_IN'])
+            && $_SESSION['LICENSE_EXPIRES_IN'] != 'valid') {
+            if ($_SESSION['LICENSE_EXPIRES_IN'] < -1) {
+                return array(
+                    'level'  =>'admin_only',
+                    'message'=>'ERROR_LICENSE_EXPIRED',
+                    'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+                    );
+            } else if (isset($GLOBALS['current_user']->id)
+                       && $GLOBALS['current_user']->isAdmin()) {
+                // Not yet expired, but soon enough to warn
+                return array(
+                    'level'  =>'warning',
+                    'message'=>'WARN_LICENSE_EXPIRED',
+                    'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+                    );
+            }
+        } elseif (isset($_SESSION['VALIDATION_EXPIRES_IN'])
+                  && $_SESSION['VALIDATION_EXPIRES_IN'] != 'valid') {
+            if ($_SESSION['VALIDATION_EXPIRES_IN'] < -1 ) {
+                return array(
+                    'level'  =>'admin_only',
+                    'message'=>'ERROR_LICENSE_VALIDATION',
+                    'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+                );
+            } else if (isset($GLOBALS['current_user']->id)
+                       && $GLOBALS['current_user']->isAdmin()) {
+                // Not yet expired, but soon enough to warn
+                return array(
+                    'level'  =>'warning',
+                    'message'=>'WARN_LICENSE_VALIDATION',
+                    'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+                );
+            }
+        }
+    }
+
+    if (!empty($_SESSION['EXCEEDING_OC_LICENSES'])) {
+        return array(
+            'level'  =>'admin_only',
+            'message'=>'ERROR_EXCEEDING_OC_LICENSES',
+            'url'    =>'#bwc/index.php?module=Administration&action=ListViewOfflineClient',
+        );
+    }
+
+    return true;
+}
+
+function apiCheckLoginStatus()
+{
+    unset($GLOBALS['login_error']);
+
+    // Run loginLicense()
+    loginLicense();
+
+    // The other license check codes are handled by apiCheckSystemLicenseStatus
+    if (!empty($GLOBALS['login_error'])) {
+        return array(
+            'level'  =>'admin_only',
+            'message'=>'ERROR_LICENSE_VALIDATION',
+            'url'    =>'#bwc/index.php?action=LicenseSettings&module=Administration',
+        );
+    }
+
+    // Force it to recheck the system license on login
+    unset($_SESSION['LICENSE_EXPIRES_IN']);
+    return apiCheckSystemStatus();
+}
 
 
 
@@ -672,8 +841,7 @@ function hasExceededOfflineClientLicenses($num_oc_lic){
 
 function loadLicense($firstLogin=false){
 
-	$GLOBALS['license']=new Administration();
-	$GLOBALS['license']=$GLOBALS['license']->retrieveSettings('license', $firstLogin);
+	$GLOBALS['license'] = Administration::getSettings('license', $firstLogin);
 
 }
 

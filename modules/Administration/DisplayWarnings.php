@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 global $db;
@@ -30,12 +27,15 @@ if(!empty($_SESSION['display_lotuslive_alert'])){
     displayAdminError(translate('MSG_RECONNECT_LOTUSLIVE', 'Administration'));
 }
 
-if (is_admin($current_user))
+if( is_admin($current_user) && SugarAutoLoader::fileExists('include/SugarSearchEngine/SugarSearchEngineFactory.php') )
 {
-    if (!empty($GLOBALS['sugar_config']['fts_disable_notification']))
+    require_once('include/SugarSearchEngine/SugarSearchEngineFactory.php');
+    $ftsType = SugarSearchEngineFactory::getFTSEngineNameFromConfig();
+    if(!empty($ftsType) && isset($GLOBALS['sugar_config']['full_text_engine'][$ftsType]['valid']) && !$GLOBALS['sugar_config']['full_text_engine'][$ftsType]['valid'])
     {
-        displayAdminError(translate('LBL_FTS_DISABLED', 'Administration'));
+        displayAdminError(translate('LBL_FTS_CONNECTION_INVALID', 'Administration'));
     }
+
 }
 
 
@@ -49,8 +49,7 @@ if(isset($_SESSION['rebuild_extensions'])){
 }
 
 if (empty($license)){
-	$license=new Administration();
-	$license=$license->retrieveSettings('license');
+	$license = Administration::getSettings('license');
 }
 
 
@@ -59,19 +58,18 @@ if (empty($license)){
 // to as Critical Control Software under the End User
 // License Agreement.  Neither the Company nor the Users
 // may modify any portion of the Critical Control Software.
- if( !isset($_SESSION['LICENSE_EXPIRES_IN']) ){
-        	checkSystemLicenseStatus();
+if (!isset($_SESSION['LICENSE_EXPIRES_IN'])) {
+    checkSystemLicenseStatus();
 }
 
-if(!ocLicense() && isset($_SESSION['LICENSE_EXPIRES_IN']) && $_SESSION['LICENSE_EXPIRES_IN'] != 'valid'){
-
-    if( (!is_admin($current_user) && $_SESSION['LICENSE_EXPIRES_IN'] < -1) || ( $_SESSION['LICENSE_EXPIRES_IN'] < -7) ){
+if (!ocLicense() && isset($_SESSION['LICENSE_EXPIRES_IN']) && $_SESSION['LICENSE_EXPIRES_IN'] != 'valid') {
+    if ($_SESSION['LICENSE_EXPIRES_IN'] < -1) {
         setSystemState('LICENSE_KEY');
     }
 }
 
-if(!ocLicense() && isset($_SESSION['VALIDATION_EXPIRES_IN']) && $_SESSION['VALIDATION_EXPIRES_IN'] != 'valid'){
-    if( (!is_admin($current_user) && $_SESSION['VALIDATION_EXPIRES_IN'] < -1) || ( $_SESSION['VALIDATION_EXPIRES_IN'] < -7) ){
+if (!ocLicense() && isset($_SESSION['VALIDATION_EXPIRES_IN']) && $_SESSION['VALIDATION_EXPIRES_IN'] != 'valid') {
+    if ($_SESSION['VALIDATION_EXPIRES_IN'] < -1) {
         setSystemState('LICENSE_KEY');
     }
 }
@@ -104,8 +102,7 @@ if(isset($license) && !empty($license->settings['license_msg_admin'])){
 
 //No SMTP server is set up Error.
 $smtp_error = false;
-$admin = new Administration();
-$admin->retrieveSettings();
+$admin = Administration::getSettings();
 
 //If sendmail has been configured by setting the config variable ignore this warning
 $sendMailEnabled = isset($sugar_config['allow_sendmail_outbound']) && $sugar_config['allow_sendmail_outbound'];
@@ -115,7 +112,7 @@ if(trim($admin->settings['mail_smtpserver']) == '' && !$sendMailEnabled) {
         $smtp_error = true;
     }
     else {
-        $workflow = new WorkFlow();
+        $workflow = BeanFactory::getBean('WorkFlow');
         if($workflow->getActiveWorkFlowCount()>0) {
             $smtp_error = true;
         }
@@ -148,7 +145,7 @@ if($smtp_error) {
 	         else if( $_SESSION['LICENSE_EXPIRES_IN'] < 0  ){
 	         	if($_SESSION['LICENSE_EXPIRES_IN'] < -30){
 	         			setSystemState('LICENSE_KEY');
-	         			displayAdminError( translate('FATAL_LICENSE_EXPIRED', 'Administration'). " [". abs($_SESSION['LICENSE_EXPIRES_IN']) . " day(s) ] .<br> ". translate('FATAL_LICENSE_EXPIRED2', 'Administration') );
+	         			displayAdminError( translate('FATAL_LICENSE_EXPIRED', 'Administration'). " [". abs($_SESSION['LICENSE_EXPIRES_IN']) . " " . translate('LBL_DAYS', 'Administration') . " ] .<br> ". translate('FATAL_LICENSE_EXPIRED2', 'Administration') );
 	         	}else{
 	         		displayAdminError( translate('ERROR_LICENSE_EXPIRED', 'Administration'). abs($_SESSION['LICENSE_EXPIRES_IN']) . translate('ERROR_LICENSE_EXPIRED2', 'Administration') );
 	         	}
@@ -177,11 +174,10 @@ if($smtp_error) {
         }
 
         if( !isset($_SESSION['license_seats_needed']) ){
-            $focus = new Administration();
-            $focus->retrieveSettings();
+            $focus = Administration::getSettings();
             $license_users = isset($focus->settings['license_users'])?$focus->settings['license_users']:'';
 
-            $_SESSION['license_seats_needed'] = count( get_user_array(false, "", "", false, null, " AND ".User::getLicensedUsersWhere(), false)) - $license_users;
+            $_SESSION['license_seats_needed'] = $db->getOne("SELECT count(id) as total from users WHERE ".User::getLicensedUsersWhere()) - $license_users;
         }
 
         if( $_SESSION['license_seats_needed'] > 0 ){

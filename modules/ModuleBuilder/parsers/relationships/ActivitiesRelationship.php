@@ -1,22 +1,19 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/parsers/relationships/OneToManyRelationship.php' ;
 
-/*
+/**
  * Class to manage the metadata for a One-To-Many Relationship
  * The One-To-Many relationships created by this class are a combination of a subpanel and a custom relate field
  * The LHS (One) module will receive a new subpanel for the RHS module. The subpanel gets its data ('get_subpanel_data') from a link field that references a new Relationship
@@ -43,7 +40,6 @@ require_once 'modules/ModuleBuilder/parsers/relationships/OneToManyRelationship.
  * 'source' => 'non-db'
  * A link field which references the shared Relationship
  */
-
 class ActivitiesRelationship extends OneToManyRelationship
 {
 
@@ -86,17 +82,9 @@ class ActivitiesRelationship extends OneToManyRelationship
                 }
             }
 
-            $rhs_display_label = '';
-            if (!empty($this->rhs_label)) {
-                $rhs_display_label .= $this->rhs_label . ':';
-            }
-            $rhs_display_label .= translate($this->rhs_module);
+            $rhs_display_label = translate($this->rhs_module);
 
-            $lhs_display_label = '';
-            if (!empty($this->rhs_label)) {
-                $lhs_display_label .= $this->rhs_label . ':';
-            }
-            $lhs_display_label .= translate($this->lhs_module);
+            $lhs_display_label = translate($this->lhs_module);
 
             $labelDefinitions[] = array (
                 'module' => $this->lhs_module ,
@@ -143,15 +131,12 @@ class ActivitiesRelationship extends OneToManyRelationship
     }
 
     /*
-     * Define what fields to add to which modules layouts
+     * Don't add fields to layouts we will use the flex relate
      * @return array    An array of module => fieldname
      */
     function buildFieldsToLayouts ()
     {
-        if ($this->relationship_only)
-            return array () ;
-
-        return array( $this->rhs_module => $this->relationship_name . "_name" ) ; // this must match the name of the relate field from buildVardefs
+        return array();
     }
 
  	function buildSubpanelDefinitions ()
@@ -172,17 +157,27 @@ class ActivitiesRelationship extends OneToManyRelationship
      */
     function buildRelationshipMetaData ()
     {
-        $relationshipName = $this->definition [ 'relationship_name' ];
+        $relationshipName = $this->definition['relationship_name'];
         $relMetadata = array ( ) ;
-        $relMetadata [ 'lhs_module' ] = $this->definition [ 'lhs_module' ] ;
-        $relMetadata [ 'lhs_table' ] = $this->getTablename($this->definition [ 'lhs_module' ]) ;
-        $relMetadata [ 'lhs_key' ] = 'id' ;
-        $relMetadata [ 'rhs_module' ] = $this->definition [ 'rhs_module' ] ;
-        $relMetadata [ 'rhs_table' ] = $this->getTablename($this->definition [ 'rhs_module' ]) ;
-        $relMetadata ['rhs_key'] = 'parent_id';
-        $relMetadata ['relationship_type'] = 'one-to-many';
-        $relMetadata ['relationship_role_column'] = 'parent_type';
-        $relMetadata ['relationship_role_column_value'] = $this->definition [ 'lhs_module' ] ;
+        $relMetadata['lhs_module'] = $this->definition['lhs_module'] ;
+        $relMetadata['lhs_table'] = $this->getTablename($this->definition['lhs_module']) ;
+        $relMetadata['lhs_key'] = 'id' ;
+        $relMetadata['rhs_module'] = $this->definition['rhs_module'] ;
+        $relMetadata['rhs_table'] = $this->getTablename($this->definition['rhs_module']) ;
+        $relMetadata['relationship_role_column_value'] = $this->definition['lhs_module'] ;
+            
+        if ( $this->definition['rhs_module'] != 'Emails' ) {
+            $relMetadata['rhs_key'] = 'parent_id';
+            $relMetadata['relationship_type'] = 'one-to-many';
+            $relMetadata['relationship_role_column'] = 'parent_type';
+        } else {
+            $relMetadata['rhs_key'] = 'id';
+            $relMetadata['relationship_type'] = 'many-to-many';
+            $relMetadata['join_table'] = 'emails_beans';
+            $relMetadata['join_key_rhs'] = 'email_id';
+            $relMetadata['join_key_lhs'] = 'bean_id';
+            $relMetadata['relationship_role_column'] = 'bean_module';
+        }
 
     	return array( $this->lhs_module => array(
     		'relationships' => array ($relationshipName => $relMetadata),
@@ -263,5 +258,103 @@ class ActivitiesRelationship extends OneToManyRelationship
                         'module' => 'Emails' ,
                         'subpanel_name' => 'ForHistory' ,
                         'get_subpanel_data' => $relationshipName. '_emails' ) ) )  ;
+    }
+
+    /*
+     * Builds views for sidecar dashlets
+     * @return array an array of files and file contents to write
+     */
+    protected function buildSidecarDashletMeta( $relationshipName )
+    {
+        $fileBase = "<?php\n/* File autogenerated by SugarCRM in ActivitesRelationship.php / buildSidecarDashletMeta */\n\n";
+        $files = array();
+        $files['clients/base/views/history/history.php'] = $fileBase .
+            "\$coreDefs = MetaDataFiles::loadSingleClientMetadata('view','history');
+\$coreDefs['dashlets'][0]['filter']['module'] = array('{$this->lhs_module}');
+\$coreDefs['tabs'][0]['link'] = '{$relationshipName}_meetings';
+\$coreDefs['tabs'][1]['link'] = '{$relationshipName}_emails';
+\$coreDefs['tabs'][2]['link'] = '{$relationshipName}_calls';
+\$coreDefs['custom_toolbar']['buttons'][0]['buttons'][0]['params']['link'] = '{$relationshipName}_emails';
+\$viewdefs['{$this->lhs_module}']['base']['view']['history'] = \$coreDefs;\n";
+
+        $files['clients/base/views/planned-activities/planned-activities.php'] = $fileBase .
+            "\$coreDefs = MetaDataFiles::loadSingleClientMetadata('view','planned-activities');
+\$coreDefs['dashlets'][0]['filter']['module'] = array('{$this->lhs_module}');
+\$coreDefs['tabs'][0]['link'] = '{$relationshipName}_meetings';
+\$coreDefs['tabs'][1]['link'] = '{$relationshipName}_calls';
+\$coreDefs['custom_toolbar']['buttons'][0]['buttons'][0]['params']['link'] = '{$relationshipName}_meetings';
+\$coreDefs['custom_toolbar']['buttons'][0]['buttons'][1]['params']['link'] = '{$relationshipName}_calls';
+\$viewdefs['{$this->lhs_module}']['base']['view']['planned-activities'] = \$coreDefs;\n";
+
+        $files['clients/base/views/attachments/attachments.php'] = $fileBase .
+            "\$coreDefs = MetaDataFiles::loadSingleClientMetadata('view','attachments');
+\$coreDefs['dashlets'][0]['filter']['module'] = array('{$this->lhs_module}');
+\$coreDefs['dashlets'][0]['config']['link'] = '{$relationshipName}_notes';
+\$coreDefs['dashlets'][0]['preview']['link'] = '{$relationshipName}_notes';
+\$viewdefs['{$this->lhs_module}']['base']['view']['attachments'] = \$coreDefs;\n";
+
+        $files['clients/base/views/active-tasks/active-tasks.php'] = $fileBase .
+            "\$coreDefs = MetaDataFiles::loadSingleClientMetadata('view','active-tasks');
+\$coreDefs['dashlets'][0]['filter']['module'] = array('{$this->lhs_module}');
+\$coreDefs['custom_toolbar']['buttons'][0]['buttons'][0]['params']['link'] = '{$relationshipName}_tasks';
+\$coreDefs['tabs'][0]['link'] = '{$relationshipName}_tasks';
+\$coreDefs['tabs'][1]['link'] = '{$relationshipName}_tasks';
+\$viewdefs['{$this->lhs_module}']['base']['view']['active-tasks'] = \$coreDefs;\n";
+
+        $files['clients/base/views/inactive-tasks/inactive-tasks.php'] = $fileBase .
+            "\$coreDefs = MetaDataFiles::loadSingleClientMetadata('view','inactive-tasks');
+\$coreDefs['dashlets'][0]['filter']['module'] = array('{$this->lhs_module}');
+\$coreDefs['custom_toolbar']['buttons'][0]['buttons'][0]['params']['link'] = '{$relationshipName}_tasks';
+\$coreDefs['tabs'][0]['link'] = '{$relationshipName}_tasks';
+\$coreDefs['tabs'][1]['link'] = '{$relationshipName}_tasks';
+\$viewdefs['{$this->lhs_module}']['base']['view']['inactive-tasks'] = \$coreDefs;\n";
+
+        return array($this->lhs_module => $files);
+    }
+
+    public function buildSidecarSubpanelDefinitions()
+    {
+        $baseRelName = substr($this->relationship_name, 0, strrpos($this->relationship_name, '_'));
+        $label = 'LBL_'.strtoupper($this->rhs_module).'_SUBPANEL_TITLE';
+        $linkName = $baseRelName.'_'.strtolower($this->rhs_module);
+        switch ($this->rhs_module) {
+            case 'Calls':
+                $order = 110;
+                break;
+            case 'Meetings':
+                $order = 120;
+                break;
+            case 'Notes':
+                $order = 130;
+                break;
+            case 'Tasks':
+                $order = 140;
+                break;
+            case 'Emails':
+                $order = 150;
+                break;
+            default:
+                $order = 160;
+                $GLOBALS['log']->error("Unexpected activity relationship for module {$this->rhs_module}");
+        }
+
+        $subpanels[$this->lhs_module][] = array(
+            'order' => $order,
+            'module' => $this->rhs_module,
+            'subpanel_name' => 'default',
+            'sort_order' => 'desc',
+            'sort_by' => 'date_modified',
+            'title_key' => $label,
+            'get_subpanel_data' => $linkName,
+        );
+
+        return $subpanels;
+    }
+
+    public function buildClientFiles()
+    {
+        $relationshipName = substr($this->relationship_name, 0, strrpos($this->relationship_name, '_'));
+
+        return $this->buildSidecarDashletMeta($relationshipName);
     }
 }

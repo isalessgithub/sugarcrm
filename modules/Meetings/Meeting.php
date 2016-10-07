@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class Meeting extends SugarBean {
 	// Stored fields
@@ -60,13 +57,13 @@ class Meeting extends SugarBean {
 	var $assigned_user_name;
 	var $outlook_id;
 	var $sequence;
-	var $syncing = false;
 	var $recurring_source;
 
 	var $team_name;
 	var $update_vcal = true;
-	var $contacts_arr;
-	var $users_arr;
+	var $contacts_arr = array();
+	var $users_arr = array();
+	var $leads_arr = array();
 	var $meetings_arr;
 	// when assoc w/ a user/contact:
 	var $minutes_value_default = 15;
@@ -88,13 +85,30 @@ class Meeting extends SugarBean {
 	var $new_schema = true;
     var $date_changed = false;
 
+	public $send_invites = false;
+
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function Meeting()
+    {
+        $GLOBALS['log']->deprecated('Calls to Meeting::Meeting() are deprecated.');
+        self::__construct();
+    }
+
 	/**
 	 * sole constructor
 	 */
-	function Meeting() {
-		parent::SugarBean();
+	public function __construct() {
+		parent::__construct();
 		$this->setupCustomFields('Meetings');
 		foreach($this->field_defs as $field) {
+		    if(empty($field['name'])) {
+		        continue;
+		    }
 			$this->field_name_map[$field['name']] = $field;
 		}
 		global $current_user;
@@ -111,28 +125,6 @@ class Meeting extends SugarBean {
 	}
 
 	/**
-	 * Disable edit if meeting is recurring and source is not Sugar. It should be edited only from Outlook.
-	 * @param $view string
-	 * @param $is_owner bool
-	 */
-	function ACLAccess($view,$is_owner = 'not_set'){
-		// don't check if meeting is being synced from Outlook
-		if($this->syncing == false){
-			$view = strtolower($view);
-			switch($view){
-				case 'edit':
-				case 'save':
-				case 'editview':
-				case 'delete':
-					if(!empty($this->recurring_source) && $this->recurring_source != "Sugar"){
-						return false;
-					}
-			}
-		}
-		return parent::ACLAccess($view,$is_owner);
-	}
-
-	/**
 	 * Stub for integration
 	 * @return bool
 	 */
@@ -145,8 +137,6 @@ class Meeting extends SugarBean {
 	function save($check_notify = FALSE) {
 		global $timedate;
 		global $current_user;
-
-		global $disable_date_format;
 
         if(isset($this->date_start))
         {
@@ -169,21 +159,23 @@ class Meeting extends SugarBean {
             }
         }
 
-		$check_notify =(!empty($_REQUEST['send_invites']) && $_REQUEST['send_invites'] == '1') ? true : false;
-		if(empty($_REQUEST['send_invites'])) {
-			if(!empty($this->id)) {
-				$old_record = new Meeting();
-				$old_record->retrieve($this->id);
-				$old_assigned_user_id = $old_record->assigned_user_id;
-			}
-			if((empty($this->id) && isset($_REQUEST['assigned_user_id']) && !empty($_REQUEST['assigned_user_id']) && $GLOBALS['current_user']->id != $_REQUEST['assigned_user_id']) || (isset($old_assigned_user_id) && !empty($old_assigned_user_id) && isset($_REQUEST['assigned_user_id']) && !empty($_REQUEST['assigned_user_id']) && $old_assigned_user_id != $_REQUEST['assigned_user_id']) ){
-				$this->special_notification = true;
-				$check_notify = true;
-                if(isset($_REQUEST['assigned_user_name'])) {
+        $check_notify = $this->send_invites;
+        if ($this->send_invites == false) {
+            $old_assigned_user_id = CalendarEvents::$old_assigned_user_id;
+            if ((empty($GLOBALS['installing']) || $GLOBALS['installing'] != true) &&
+                (!empty($this->assigned_user_id) &&
+                    $this->assigned_user_id != $GLOBALS['current_user']->id &&
+                    $this->assigned_user_id != $old_assigned_user_id)
+            ) {
+                $this->special_notification = true;
+                $check_notify = true;
+                CalendarEvents::$old_assigned_user_id = $this->assigned_user_id;
+                if (isset($_REQUEST['assigned_user_name'])) {
                     $this->new_assigned_user_name = $_REQUEST['assigned_user_name'];
                 }
-			}
-		}
+            }
+        }
+
 		/*nsingh 7/3/08  commenting out as bug #20814 is invalid
 		if($current_user->getPreference('reminder_time')!= -1 &&  isset($_POST['reminder_checked']) && isset($_POST['reminder_time']) && $_POST['reminder_checked']==0  && $_POST['reminder_time']==-1){
 			$this->reminder_checked = '1';
@@ -218,11 +210,13 @@ class Meeting extends SugarBean {
 
         if ( isset($api) && is_a($api,'WebMeeting') && empty($this->in_relationship_update) ) {
             // Make sure the API initialized and it supports Web Meetings
-            // Also make suer we have an ID, the external site needs something to reference
-            if ( !isset($this->id) || empty($this->id) ) {
+            // Also make sure we have an ID, the external site needs something to reference
+            if (!isset($this->id) || empty($this->id)) {
                 $this->id = create_guid();
                 $this->new_with_id = true;
             }
+            // formatting fix required because our schedule meeting APIs expect data in a specific format
+            $this->fixUpFormatting();
             $response = $api->scheduleMeeting($this);
             if ( $response['success'] == TRUE ) {
                 // Need to send out notifications
@@ -242,23 +236,35 @@ class Meeting extends SugarBean {
             $api->logoff();
         }
 
-		$return_id = parent::save($check_notify);
+        $return_id = parent::save($check_notify);
 
-		if($this->update_vcal) {
-			vCal::cache_sugar_vcal($current_user);
-		}
+        $this->setUserInvitees($this->users_arr);
 
+        if ($this->update_vcal) {
+            $assigned_user = BeanFactory::getBean('Users', $this->assigned_user_id);
+            vCal::cache_sugar_vcal($assigned_user);
+            if ($this->assigned_user_id != $GLOBALS['current_user']->id) {
+                vCal::cache_sugar_vcal($current_user);
+            }
+        }
 
+        // CCL - Comment out call to set $current_user as invitee
+        // set organizer to auto-accept
+        // if there isn't a fetched row its new
+        if ($this->assigned_user_id == $GLOBALS['current_user']->id && empty($this->fetched_row)) {
+            $this->set_accept_status($GLOBALS['current_user'], 'accept');
+        }
 
 		return $return_id;
+
 	}
 
 	// this is for calendar
 	function mark_deleted($id) {
 
 		require_once("modules/Calendar/CalendarUtils.php");
-		CalendarUtils::correctRecurrences($this, $id);		
-		
+		CalendarUtils::correctRecurrences($this, $id);
+
 		global $current_user;
 
 		parent::mark_deleted($id);
@@ -272,52 +278,9 @@ class Meeting extends SugarBean {
 		return "$this->name";
 	}
 
-    function create_export_query(&$order_by, &$where, $relate_link_join='')
-    {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-        $custom_join['join'] .= $relate_link_join;
-		$contact_required = stristr($where, "contacts");
-
-		if($contact_required) {
-			$query = "SELECT meetings.*, contacts.first_name, contacts.last_name, contacts.assigned_user_id contact_name_owner, users.user_name as assigned_user_name   ";
-			$query .= ", teams.name AS team_name";
-            $query .= $custom_join['select'];
-			$query .= " FROM contacts, meetings, meetings_contacts ";
-			$where_auto = " meetings_contacts.contact_id = contacts.id AND meetings_contacts.meeting_id = meetings.id AND meetings.deleted=0 AND contacts.deleted=0";
-		} else {
-			$query = 'SELECT meetings.*, users.user_name as assigned_user_name  ';
-			$query .= ", teams.name AS team_name";
-            $query .= $custom_join['select'];
-			$query .= ' FROM meetings ';
-			$where_auto = "meetings.deleted=0";
-		}
-		// We need to confirm that the user is a member of the team of the item.
-		$this->add_team_security_where_clause($query);
-		$query .= getTeamSetNameJoin('meetings');
-		$query .= "  LEFT JOIN users ON meetings.assigned_user_id=users.id ";
-
-        $query .= $custom_join['join'];
-
-		if($where != "")
-			$query .= " where $where AND ".$where_auto;
-		else
-			$query .= " where ".$where_auto;
-
-        $order_by = $this->process_order_by($order_by);
-        if (!empty($order_by)) {
-            $query .= ' ORDER BY ' . $order_by;
-        }
-
-		return $query;
-	}
-
-
-
 	function fill_in_additional_detail_fields() {
 		global $locale;
-		// Fill in the assigned_user_name
-		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-		$this->assigned_name = get_assigned_team_name($this->team_id);
+		parent::fill_in_additional_detail_fields();
 
 		if (!empty($this->contact_id)) {
 			$query  = "SELECT first_name, last_name FROM contacts ";
@@ -329,17 +292,11 @@ class Meeting extends SugarBean {
 			$GLOBALS['log']->info("additional call fields $query");
 			if($row != null)
 			{
-				$this->contact_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name'], '', '');
+                $this->contact_name = $locale->formatName('Contacts', $row);
 				$GLOBALS['log']->debug("Call($this->id): contact_name = $this->contact_name");
 				$GLOBALS['log']->debug("Call($this->id): contact_id = $this->contact_id");
 			}
 		}
-
-
-
-		$this->created_by_name = get_assigned_user_name($this->created_by);
-		$this->modified_by_name = get_assigned_user_name($this->modified_user_id);
-		$this->fill_in_additional_parent_fields();
 
 		if (!isset($this->time_hour_start)) {
 			$this->time_start_hour = intval(substr($this->time_start, 0, 2));
@@ -408,7 +365,7 @@ class Meeting extends SugarBean {
         if(!empty($this->date_start))
         {
             $td = SugarDateTime::createFromFormat($GLOBALS['timedate']->get_date_time_format(),$this->date_start);
-            if (!empty($td)) 
+            if (!empty($td))
             {
     	        if (!empty($this->duration_hours) && $this->duration_hours != '')
                 {
@@ -419,23 +376,14 @@ class Meeting extends SugarBean {
                     $td = $td->modify("+{$this->duration_minutes} mins");
                 }
                 $this->date_end = $td->format($GLOBALS['timedate']->get_date_time_format());
-            } 
-            else 
+            }
+            else
             {
                 $GLOBALS['log']->fatal("Meeting::save: Bad date {$this->date_start} for format ".$GLOBALS['timedate']->get_date_time_format());
             }
 		}
 
 		global $app_list_strings;
-		$parent_types = $app_list_strings['record_type_display'];
-		$disabled_parent_types = ACLController::disabledModuleList($parent_types,false, 'list');
-		foreach($disabled_parent_types as $disabled_parent_type){
-			if($disabled_parent_type != $this->parent_type){
-				unset($parent_types[$disabled_parent_type]);
-			}
-		}
-
-		$this->parent_type_options = get_select_options_with_id($parent_types, $this->parent_type);
 		if (empty($this->reminder_time)) {
 			$this->reminder_time = -1;
 		}
@@ -450,7 +398,7 @@ class Meeting extends SugarBean {
 		if (empty($this->email_reminder_time)) {
 			$this->email_reminder_time = -1;
 		}
-		if(empty($this->id)){ 
+		if(empty($this->id)){
 			$reminder_t = $GLOBALS['current_user']->getPreference('email_reminder_time');
 			if(isset($reminder_t))
 		    		$this->email_reminder_time = $reminder_t;
@@ -572,19 +520,21 @@ class Meeting extends SugarBean {
 		$xtpl->assign("MEETING_TO", $meeting->current_notify_user->new_assigned_user_name);
 		$xtpl->assign("MEETING_SUBJECT", trim($meeting->name));
 		$xtpl->assign("MEETING_STATUS",(isset($meeting->status)? $app_list_strings['meeting_status_dom'][$meeting->status]:""));
-		$typekey = strtolower($meeting->type);
-		if(isset($meeting->type)) {
-		    if(!empty($app_list_strings['eapm_list'][$typekey])) {
-    		    $typestring = $app_list_strings['eapm_list'][$typekey];
-	    	} else {
-		        $typestring = $app_list_strings['meeting_type_dom'][$meeting->type];
-		    }
-		}
-		$xtpl->assign("MEETING_TYPE", isset($meeting->type)? $typestring:"");
+        $typekey = strtolower($meeting->type);
+        if (isset($meeting->type)) {
+            if (!empty($app_list_strings['eapm_list'][$meeting->type])) {
+                $typestring = $app_list_strings['eapm_list'][$meeting->type];
+            } elseif (!empty($app_list_strings['eapm_list'][$typekey])) {
+                $typestring = $app_list_strings['eapm_list'][$typekey];
+            } else {
+                $typestring = $app_list_strings['meeting_type_dom'][$meeting->type];
+            }
+        }
+        $xtpl->assign("MEETING_TYPE", isset($meeting->type) ? $typestring : "");
 		$startdate = $timedate->fromDb($meeting->date_start);
 		$xtpl->assign("MEETING_STARTDATE", $timedate->asUser($startdate, $notifyUser)." ".TimeDate::userTimezoneSuffix($startdate, $notifyUser));
 		$enddate = $timedate->fromDb($meeting->date_end);
-		$xtpl->assign("MEETING_ENDDATE", $timedate->asUser($enddate, $notifyUser)." ".TimeDate::userTimezoneSuffix($enddate, $notifyUser));		
+		$xtpl->assign("MEETING_ENDDATE", $timedate->asUser($enddate, $notifyUser)." ".TimeDate::userTimezoneSuffix($enddate, $notifyUser));
 		$xtpl->assign("MEETING_HOURS", $meeting->duration_hours);
 		$xtpl->assign("MEETING_MINUTES", $meeting->duration_minutes);
 		$xtpl->assign("MEETING_DESCRIPTION", $meeting->description);
@@ -595,7 +545,7 @@ class Meeting extends SugarBean {
 
 		return $xtpl;
 	}
-	
+
 	/**
 	 * Redefine method to attach ics file to notification email
 	 */
@@ -605,31 +555,34 @@ class Meeting extends SugarBean {
             $this->set_accept_status($notify_user, 'none');
         }
 
-		$notify_mail = parent::create_notification_email($notify_user);
-						
+		$mailer = parent::create_notification_email($notify_user);
+
 		$path = SugarConfig::getInstance()->get('upload_dir','upload/') . $this->id;
 
 		require_once("modules/vCals/vCal.php");
 		$content = vCal::get_ical_event($this, $GLOBALS['current_user']);
-				
-		if(file_put_contents($path,$content)){
-			$notify_mail->AddAttachment($path, 'meeting.ics', 'base64', 'text/calendar');
+
+		if (file_put_contents($path, $content)) {
+            $attachment = new Attachment($path, "meeting.ics", Encoding::Base64, "text/calendar");
+            $mailer->addAttachment($attachment);
 		}
-		return $notify_mail;		
+
+		return $mailer;
 	}
-	
+
 	/**
 	 * Redefine method to remove ics after email is sent
 	 */
 	public function send_assignment_notifications($notify_user, $admin){
 		parent::send_assignment_notifications($notify_user, $admin);
-		
+
 		$path = SugarConfig::getInstance()->get('upload_dir','upload/') . $this->id;
-		unlink($path);
+		if (file_exists($path)) {
+			unlink($path);
+		}
 	}
 
 	function get_meeting_users() {
-		$template = new User();
 		// First, get the list of IDs.
 		$query = "SELECT meetings_users.required, meetings_users.accept_status, meetings_users.user_id from meetings_users where meetings_users.meeting_id='$this->id' AND meetings_users.deleted=0";
 		$GLOBALS['log']->debug("Finding linked records $this->object_name: ".$query);
@@ -637,14 +590,11 @@ class Meeting extends SugarBean {
 		$list = Array();
 
 		while($row = $this->db->fetchByAssoc($result)) {
-			$template = new User(); // PHP 5 will retrieve by reference, always over-writing the "old" one
-			$record = $template->retrieve($row['user_id']);
-			$template->required = $row['required'];
-			$template->accept_status = $row['accept_status'];
-
-			if($record != null) {
-				// this copies the object into the array
-				$list[] = $template;
+			$record = BeanFactory::retrieveBean('Users', $row['user_id']);
+			if(!empty($record)) {
+    			$record->required = $row['required'];
+	    		$record->accept_status = $row['accept_status'];
+				$list[] = $record;
 			}
 		}
 		return $list;
@@ -652,29 +602,23 @@ class Meeting extends SugarBean {
 
 	function get_invite_meetings(&$user) {
 		$template = $this;
-		// First, get the list of IDs.
-		$GLOBALS['log']->debug("Finding linked records $this->object_name: ".$query);
 		$query = "SELECT meetings_users.required, meetings_users.accept_status, meetings_users.meeting_id from meetings_users where meetings_users.user_id='$user->id' AND( meetings_users.accept_status IS NULL OR	meetings_users.accept_status='none') AND meetings_users.deleted=0";
 		$result = $this->db->query($query, true);
 		$list = Array();
 
 		while($row = $this->db->fetchByAssoc($result)) {
-			$record = $template->retrieve($row['meeting_id']);
-			$template->required = $row['required'];
-			$template->accept_status = $row['accept_status'];
-
-
-			if($record != null)
-			{
-			// this copies the object into the array
-			$list[] = $template;
+			$record = BeanFactory::retrieveBean($this->module_dir, $row['meeting_id']);
+			if(!empty($record)) {
+			    $record->required = $row['required'];
+			    $record->accept_status = $row['accept_status'];
+    			$list[] = $record;
 			}
 		}
 		return $list;
 	}
 
 
-	function set_accept_status(&$user,$status)
+	function set_accept_status($user,$status)
 	{
 		if($user->object_name == 'User')
 		{
@@ -708,49 +652,50 @@ class Meeting extends SugarBean {
 			return parent::get_notification_recipients();
 		}
 
-		$list = array();
-		if(!is_array($this->contacts_arr)) {
-			$this->contacts_arr =	array();
-		}
+        $list = array();
+        if(!is_array($this->contacts_arr)) {
+            $this->contacts_arr = array();
+        }
 
-		if(!is_array($this->users_arr)) {
-			$this->users_arr =	array();
-		}
+        if(!is_array($this->users_arr)) {
+            $this->users_arr = array();
+        }
 
         if(!is_array($this->leads_arr)) {
-			$this->leads_arr =	array();
-		}
+            $this->leads_arr = array();
+        }
+
+        if (empty($this->leads_arr) && $this->load_relationship('leads')) {
+            $this->leads_arr = $this->leads->get();
+        }
 
 		foreach($this->users_arr as $user_id) {
-			$notify_user = new User();
-			$notify_user->retrieve($user_id);
-			$notify_user->new_assigned_user_name = $notify_user->full_name;
-			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
-			$list[$notify_user->id] = $notify_user;
+			$notify_user = BeanFactory::getBean('Users', $user_id);
+			if(!empty($notify_user->id)) {
+				$notify_user->new_assigned_user_name = $notify_user->full_name;
+				$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
+				$list[$notify_user->id] = $notify_user;
+			}
 		}
 
 		foreach($this->contacts_arr as $contact_id) {
-			$notify_user = new Contact();
-			$notify_user->retrieve($contact_id);
-			$notify_user->new_assigned_user_name = $notify_user->full_name;
-			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
-			$list[$notify_user->id] = $notify_user;
+			$notify_user = BeanFactory::getBean('Contacts', $contact_id);
+			if(!empty($notify_user->id)) {
+				$notify_user->new_assigned_user_name = $notify_user->full_name;
+				$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
+				$list[$notify_user->id] = $notify_user;
+			}
 		}
 
         foreach($this->leads_arr as $lead_id) {
-			$notify_user = new Lead();
-			$notify_user->retrieve($lead_id);
-			$notify_user->new_assigned_user_name = $notify_user->full_name;
-			$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
-			$list[$notify_user->id] = $notify_user;
+			$notify_user = BeanFactory::getBean('Leads', $lead_id);
+			if(!empty($notify_user->id)) {
+				$notify_user->new_assigned_user_name = $notify_user->full_name;
+				$GLOBALS['log']->info("Notifications: recipient is $notify_user->new_assigned_user_name");
+				$list[$notify_user->id] = $notify_user;
+			}
 		}
 
-		global $sugar_config;
-		if(isset($sugar_config['disable_notify_current_user']) && $sugar_config['disable_notify_current_user']) {
-			global $current_user;
-			if(isset($list[$current_user->id]))
-				unset($list[$current_user->id]);
-		}
 		return $list;
 	}
 
@@ -797,7 +742,7 @@ class Meeting extends SugarBean {
 	}
 
 
-	function save_relationship_changes($is_update) {
+	function save_relationship_changes($is_update, $exclude = array()) {
 		$exclude = array();
 	    if(empty($this->in_workflow)) {
            if(empty($this->in_import)){//if a meeting is being imported then contact_id  should not be excluded
@@ -817,25 +762,6 @@ class Meeting extends SugarBean {
 	}
 
 
-	/**
-	 * @see SugarBean::afterImportSave()
-	 */
-	public function afterImportSave()
-	{
-	    if ( $this->parent_type == 'Contacts' ) {
-	        $this->load_relationship('contacts');
-	        if ( !$this->contacts->relationship_exists('contacts',array('id'=>$this->parent_id)) )
-	            $this->contacts->add($this->parent_id);
-	    }
-	    elseif ( $this->parent_type == 'Leads' ) {
-	        $this->load_relationship('leads');
-	        if ( !$this->leads->relationship_exists('leads',array('id'=>$this->parent_id)) )
-	            $this->leads->add($this->parent_id);
-	    }
-
-	    parent::afterImportSave();
-	}
-
     public function getDefaultStatus()
     {
          $def = $this->field_defs['status'];
@@ -851,37 +777,219 @@ class Meeting extends SugarBean {
         return '';
     }
 
+    /**
+     * Stores user invitees
+     *
+     * @patam array $userInvitees Array of user invitees ids
+     * @patam array $existingUsers
+     */
+    public function setUserInvitees($userInvitees, $existingUsers = array())
+    {
+    	// if both are empty, don't do anything.  From the App these will always be set [they are set to at least current-user].
+    	// For the api, these sometimes will not be set [linking related records]
+    	if(empty($userInvitees) && empty($existingUsers)) {
+    		return true;
+    	}
+        $this->users_arr = $userInvitees;
+
+        $deleteUsers = array();
+         $this->load_relationship('users');
+         // Get all users for the meeting
+           $q = 'SELECT mu.user_id, mu.accept_status FROM meetings_users mu WHERE mu.meeting_id = \''.$this->id.'\'';
+           $r = $this->db->query($q);
+           $acceptStatusUsers = array();
+        while ($a = $this->db->fetchByAssoc($r)) {
+              if (!in_array($a['user_id'], $userInvitees)) {
+                   $deleteUsers[$a['user_id']] = $a['user_id'];
+              } else {
+                 $acceptStatusUsers[$a['user_id']] = $a['accept_status'];
+              }
+        }
+
+        if (count($deleteUsers) > 0) {
+            $sql = '';
+            foreach ($deleteUsers as $u) {
+                $sql .= ",'" . $u . "'";
+            }
+            $sql = substr($sql, 1);
+            $sql = "UPDATE meetings_users SET deleted = 1 WHERE user_id IN ($sql) AND meeting_id = '". $this->id . "'";
+            $this->db->query($sql);
+        }
+
+        foreach ($userInvitees as $userId) {
+            if (empty($userId) || isset($existingUsers[$userId]) || isset($deleteUsers[$userId])) {
+                continue;
+            }
+            if (!isset($acceptStatusUsers[$userId])) {
+                $this->users->add($userId);
+            } else {
+                // update query to preserve accept_status
+                $qU  = 'UPDATE meetings_users SET deleted = 0, accept_status = \''.$acceptStatusUsers[$userId].'\' ';
+                $qU .= 'WHERE meeting_id = \''.$this->id.'\' ';
+                $qU .= 'AND user_id = \''.$userId.'\'';
+                $this->db->query($qU);
+            }
+        }
+    }
+
+    /**
+     * Stores contact invitees
+     *
+     * @patam array $userInvitees Array of contact invitees ids
+     * @patam array $existingUsers
+     */
+    public function setContactInvitees($contactInvitees, $existingContacts = array())
+    {
+        $this->contacts_arr = $contactInvitees;
+
+        $deleteContacts = array();
+        $this->load_relationship('contacts');
+        $q = 'SELECT mu.contact_id, mu.accept_status FROM meetings_contacts mu WHERE mu.meeting_id = \''.$this->id.'\'';
+        $r = $this->db->query($q);
+        $acceptStatusContacts = array();
+        while ($a = $this->db->fetchByAssoc($r)) {
+              if (!in_array($a['contact_id'], $contactInvitees)) {
+                   $deleteContacts[$a['contact_id']] = $a['contact_id'];
+              }    else {
+                   $acceptStatusContacts[$a['contact_id']] = $a['accept_status'];
+              }
+        }
+
+        if (count($deleteContacts) > 0) {
+            $sql = '';
+            foreach ($deleteContacts as $u) {
+                    $sql .= ",'" . $u . "'";
+            }
+            $sql = substr($sql, 1);
+            $sql = "UPDATE meetings_contacts SET deleted = 1 WHERE contact_id IN ($sql) AND meeting_id = '". $this->id . "'";
+            $this->db->query($sql);
+        }
+
+        foreach ($contactInvitees as $contactId) {
+            if (empty($contactId) || isset($existingContacts[$contactId]) || isset($deleteContacts[$contactId])) {
+                continue;
+            }
+            if (!isset($acceptStatusContacts[$contactId])) {
+                $this->contacts->add($contactId);
+            } else {
+                // update query to preserve accept_status
+                $qU  = 'UPDATE meetings_contacts SET deleted = 0, accept_status = \''.$acceptStatusContacts[$contactId].'\' ';
+                $qU .= 'WHERE meeting_id = \''.$this->id.'\' ';
+                $qU .= 'AND contact_id = \''.$contactId.'\'';
+                $this->db->query($qU);
+            }
+        }
+    }
+
+    /**
+     * Stores lead invitees
+     *
+     * @patam array $userInvitees Array of lead invitees ids
+     * @patam array $existingUsers
+     */
+    public function setLeadInvitees($leadInvitees, $existingLeads = array())
+    {
+        $this->leads_arr = $leadInvitees;
+
+        $deleteLeads = array();
+        $this->load_relationship('leads');
+        $q = 'SELECT mu.lead_id, mu.accept_status FROM meetings_leads mu WHERE mu.meeting_id = \''.$this->id.'\'';
+        $r = $this->db->query($q);
+        $acceptStatusLeads = array();
+        while ($a = $this->db->fetchByAssoc($r)) {
+              if(!in_array($a['lead_id'], $leadInvitees)) {
+                   $deleteLeads[$a['lead_id']] = $a['lead_id'];
+              }    else {
+                   $acceptStatusLeads[$a['lead_id']] = $a['accept_status'];
+              }
+        }
+
+        if (count($deleteLeads) > 0) {
+            $sql = '';
+            foreach($deleteLeads as $u) {
+                    $sql .= ",'" . $u . "'";
+            }
+            $sql = substr($sql, 1);
+            $sql = "UPDATE meetings_leads SET deleted = 1 WHERE lead_id IN ($sql) AND meeting_id = '". $this->id . "'";
+            $this->db->query($sql);
+        }
+
+        foreach ($leadInvitees as $leadId) {
+            if(empty($leadId) || isset($existingLeads[$leadId]) || isset($deleteLeads[$leadId])) {
+                continue;
+            }
+            if(!isset($acceptStatusLeads[$leadId])) {
+                $this->leads->add($leadId);
+            } else {
+                // update query to preserve accept_status
+                $qU  = 'UPDATE meetings_leads SET deleted = 0, accept_status = \''.$acceptStatusLeads[$leadId].'\' ';
+                $qU .= 'WHERE meeting_id = \''.$this->id.'\' ';
+                $qU .= 'AND lead_id = \''.$leadId.'\'';
+                $this->db->query($qU);
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadFromRow($arr, $convert = false)
+    {
+        $fields = array(
+            'reminder_time' => 'reminder_checked',
+            'email_reminder_time' => 'email_reminder_checked',
+        );
+
+        foreach ($fields as $value => $flag) {
+            if (isset($arr[$value]) && !isset($arr[$flag])) {
+                $arr[$flag] = $arr[$value] > -1;
+            }
+        }
+
+        parent::loadFromRow($arr, $convert);
+    }
 } // end class def
 
-// External API integration, for the dropdown list of what external API's are available
+/**
+ * Global functions used to get enum list for Meetings Type field
+ * TODO: Move these into Meeting class when we no longer need to support BWC
+ */
+
+/**
+ * External API integration, for the Meetings drop-down list of what external APIs are available
+
+ * @param SugarBean $focus
+ * @param string $name
+ * @param string $value
+ * @param string $view
+ * @return array External integrations available for meetings
+ */
 //TODO: do we really need focus, name and view params for this function
 function getMeetingsExternalApiDropDown($focus = null, $name = null, $value = null, $view = null)
 {
-	global $dictionary, $app_list_strings;
+    global $dictionary, $app_list_strings;
 
-	$cacheKeyName = 'meetings_type_drop_down';
-
+    $cacheKeyName = 'meetings_type_drop_down';
     $apiList = sugar_cache_retrieve($cacheKeyName);
-    if ($apiList === null)
-    {
+    if ($apiList === null) {
         require_once('include/externalAPI/ExternalAPIFactory.php');
 
         $apiList = ExternalAPIFactory::getModuleDropDown('Meetings');
-        $apiList = array_merge(array('Sugar'=>$GLOBALS['app_list_strings']['eapm_list']['Sugar']), $apiList);
+        $apiList = array_merge(array('Sugar' => $app_list_strings['eapm_list']['Sugar']), $apiList);
         sugar_cache_put($cacheKeyName, $apiList);
     }
 
-	if(!empty($value) && empty($apiList[$value]))
-	{
-		$apiList[$value] = $value;
+    if (!empty($value) && empty($apiList[$value])) {
+        $apiList[$value] = $value;
     }
-	//bug 46294: adding list of options to dropdown list (if it is not the default list)
-    if ($dictionary['Meeting']['fields']['type']['options'] != "eapm_list")
-    {
+
+    // if options list name is defined in vardef and is a different list than eapm_list then use that list
+    $typeField = $dictionary['Meeting']['fields']['type'];
+    if (isset($typeField['options']) && $typeField['options'] != "eapm_list") {
         $apiList = array_merge(getMeetingTypeOptions($dictionary, $app_list_strings), $apiList);
     }
 
-	return $apiList;
+    return $apiList;
 }
 
 /**
@@ -892,20 +1000,17 @@ function getMeetingsExternalApiDropDown($focus = null, $name = null, $value = nu
  */
 function getMeetingTypeOptions($dictionary, $app_list_strings)
 {
-	$result = array();
+    $result = array();
 
     // getting name of meeting type to fill dropdown list by its values
-    if (isset($dictionary['Meeting']['fields']['type']['options']))
-	{
-    	$typeName = $dictionary['Meeting']['fields']['type']['options'];
+    if (isset($dictionary['Meeting']['fields']['type']['options'])) {
+        $typeName = $dictionary['Meeting']['fields']['type']['options'];
 
-        if (!empty($app_list_strings[$typeName]))
-		{
-        	$typeList = $app_list_strings[$typeName];
+        if (!empty($app_list_strings[$typeName])) {
+            $typeList = $app_list_strings[$typeName];
 
-            foreach ($typeList as $key => $value)
-			{
-				$result[$value] = $value;
+            foreach ($typeList as $key => $value) {
+                $result[$value] = $value;
             }
         }
     }

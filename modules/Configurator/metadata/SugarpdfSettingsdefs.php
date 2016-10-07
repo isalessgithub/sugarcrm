@@ -1,32 +1,29 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/Sugarpdf/sugarpdf_config.php');
 
 $SugarpdfSettings = array(
     "sugarpdf_pdf_title"=>array(
         "label"=>$mod_strings["PDF_TITLE"],
-        "info_label"=>$mod_strings["PDF_TITLE_INFO"],
+        "info_label"=> "",
         "value"=>PDF_TITLE,
         "class"=>"basic",
         "type"=>"text",
     ),
     "sugarpdf_pdf_subject"=>array(
         "label"=>$mod_strings["PDF_SUBJECT"],
-        "info_label"=>$mod_strings["PDF_SUBJECT_INFO"],
+        "info_label"=> "",
         "value"=>PDF_SUBJECT,
         "class"=>"basic",
         "type"=>"text",
@@ -41,7 +38,7 @@ $SugarpdfSettings = array(
     ),*/
     "sugarpdf_pdf_author"=>array(
         "label"=>$mod_strings["PDF_AUTHOR"],
-        "info_label"=>$mod_strings["PDF_AUTHOR_INFO"],
+        "info_label"=> "",
         "value"=>PDF_AUTHOR,
         "class"=>"basic",
         "type"=>"text",
@@ -70,21 +67,6 @@ $SugarpdfSettings = array(
         "type"=>"text",
     ),
     */
-    "sugarpdf_pdf_header_logo"=>array(
-        "label"=>$mod_strings["PDF_HEADER_LOGO"],
-        "info_label"=>$mod_strings["PDF_HEADER_LOGO_INFO"],
-        "value"=>PDF_HEADER_LOGO,
-        "path"=>K_PATH_CUSTOM_IMAGES.PDF_HEADER_LOGO,
-        "class"=>"logo",
-        "type"=>"image",
-    ),
-    "new_header_logo"=>array(
-        "label"=>$mod_strings["PDF_NEW_HEADER_LOGO"],
-        "info_label"=>$mod_strings["PDF_NEW_HEADER_LOGO_INFO"],
-        "value"=>"",
-        "class"=>"logo",
-        "type"=>"file",
-    ),
     /*
     "sugarpdf_pdf_header_logo_width"=>array(
         "label"=>$mod_strings["PDF_HEADER_LOGO_WIDTH"],
@@ -246,10 +228,6 @@ $SugarpdfSettings = array(
 
 // Use the OOB directory for images if there is no image in the custom directory
 $small_logo = $SugarpdfSettings['sugarpdf_pdf_small_header_logo']['path'];
-$logo = $SugarpdfSettings['sugarpdf_pdf_header_logo']['path'];
-if (@getimagesize($logo) === FALSE) {
-    $SugarpdfSettings['sugarpdf_pdf_header_logo']['path'] = K_PATH_IMAGES.$SugarpdfSettings['sugarpdf_pdf_header_logo']['value'];
-}
 if (@getimagesize($small_logo) === FALSE) {
     $SugarpdfSettings['sugarpdf_pdf_small_header_logo']['path'] = K_PATH_IMAGES.$SugarpdfSettings['sugarpdf_pdf_small_header_logo']['value'];
 }

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Save.php 55512 2010-03-22 18:11:55Z jmertic $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -31,7 +28,7 @@ if(isset($_POST['user_id'])){
 
 if (!$GLOBALS['current_user']->isAdminForModule('Users')) sugar_die("Unauthorized access to administration.");
 
-$focus = new Team();
+$focus = BeanFactory::getBean('Teams');
 
 if ($_POST['isDuplicate'] != 1) {
 //	echo "not duplicate, retrieving record {$_POST['record']}";
@@ -54,8 +51,7 @@ if($focus->private && !empty($focus->associated_user_id)){
 		//e.g. Jean Paul Jones
 		
 			//since this is a private team we can try to match what the user's name is
-			$user = new User();
-			$user->retrieve($focus->associated_user_id);
+			$user = BeanFactory::getBean('Users', $focus->associated_user_id);
 			$tokenStr = '';
 			$index = count($tokens);
 			for($i = (count($tokens)-1); $i > 0; $i--){
@@ -83,21 +79,10 @@ function checkDupTeamName($focus){
     	return false;
     }
     if((null == $focus->fetched_row) || (null != $focus->fetched_row && 0 == $focus->private)) {
-        $query = sprintf(
-            'SELECT id from teams WHERE (deleted = 0) AND (private = 0 AND name = %s) OR (private = 1 AND %s = %s)',
-            $db->quoted(trim($focus->name)),
-            $contact_result,
-            $db->quoted(trim($focus->name))
-        );
+        $query = "SELECT id from teams WHERE (deleted = 0) AND (private = 0 AND name = '" . $db->quote(trim($focus->name)) . "') OR (private = 1 AND " . $contact_result . " = '" . $db->quote(trim($focus->name)) . "')";
     }
 	else {
-        $privateTeamNameQuoted = $db->quoted(trim($focus->name) . ' ' . trim($focus->name_2));
-        $query = sprintf(
-            'SELECT id from teams WHERE (deleted = 0) AND (private = 0 AND name = %s) OR (private = 1 AND %s = %s',
-            $privateTeamNameQuoted,
-            $contact_result,
-            $privateTeamNameQuoted
-        );
+	    $query = "SELECT id from teams WHERE (deleted = 0) AND (private = 0 AND name = '" . $db->quote(trim($focus->name) . ' ' . trim($focus->name_2)) . "') OR (private = 1 AND " . $contact_result . " = '" . $db->quote(trim($focus->name) . ' ' . trim($focus->name_2)) . "')";
 	}
     $result = $db->query($query);
     while ($row=$db->fetchByAssoc($result)){
@@ -135,3 +120,4 @@ $GLOBALS['log']->debug("Saved record with id of {$return_id}");
 
 header("Location: index.php?action={$return_action}&module={$return_module}&record={$return_id}");
 }
+?>

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
 	'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Are you sure you want to remove this account from this project?',
@@ -23,8 +20,7 @@ $mod_strings = array (
 	'LBL_ADDRESS_INFORMATION' => 'Address Information',
 	'LBL_ANNUAL_REVENUE' => 'Annual Revenue:',
 	'LBL_ANY_ADDRESS' => 'Any Address:',
-	'LBL_ANY_EMAIL' => 'Any Email:',
-    'LBL_EMAIL_NON_PRIMARY' => 'Non Primary E-mails',
+    'LBL_ANY_EMAIL' => 'Email:',
 	'LBL_ANY_PHONE' => 'Any Phone:',
 	'LBL_ASSIGNED_TO_NAME' => 'User:',
 	'LBL_RATING' => 'Rating',
@@ -50,13 +46,13 @@ $mod_strings = array (
 	'LBL_DESCRIPTION_INFORMATION' => 'Description Information',
 	'LBL_DESCRIPTION' => 'Description:',
 	'LBL_DUPLICATE' => 'Possible Duplicate Account',
-	'LBL_EMAIL' => 'Email Address:',
+    'LBL_EMAIL' => 'Email Address:',
 	'LBL_EMPLOYEES' => 'Employees:',
 	'LBL_FAX' => 'Fax:',
 	'LBL_INDUSTRY' => 'Industry:',
 	'LBL_LIST_ACCOUNT_NAME' => 'Account Name',
 	'LBL_LIST_CITY' => 'City',
-	'LBL_LIST_EMAIL_ADDRESS' => 'Email Address',
+    'LBL_LIST_EMAIL_ADDRESS' => 'Email Address',
 	'LBL_LIST_PHONE' => 'Phone',
 	'LBL_LIST_STATE' => 'State',
 	'LBL_LIST_WEBSITE' => 'Website',
@@ -64,7 +60,7 @@ $mod_strings = array (
 	'LBL_MEMBER_ORG_FORM_TITLE' => 'Member Organizations',
 	'LBL_MEMBER_ORG_SUBPANEL_TITLE'=>'Member Organizations',
 	'LBL_NAME'=>'Name:',
-	'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
+    'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
 	'LBL_OTHER_PHONE' => 'Other Phone:',
 	'LBL_OWNERSHIP' => 'Ownership:',
 	'LBL_PARENT_ACCOUNT_ID' => 'Parent Account ID',
@@ -73,7 +69,7 @@ $mod_strings = array (
 	'LBL_PHONE_OFFICE' => 'Office Phone:',
 	'LBL_PHONE' => 'Phone:',
     'LBL_EMAIL_ADDRESS' => 'Email Address',
-	'LBL_EMAIL_ADDRESSES' => 'Email Address(es)',
+    'LBL_EMAIL_ADDRESSES' => 'Email Address(es)',
 	'LBL_POSTAL_CODE' => 'Postal Code:',
 	'LBL_PUSH_BILLING' => 'Push Billing',
 	'LBL_PUSH_SHIPPING' => 'Push Shipping',
@@ -97,12 +93,16 @@ $mod_strings = array (
 	'LBL_USERS_MODIFIED_LINK'=>'Modified Users',
 	'LBL_VIEW_FORM_TITLE' => 'Account View',
 	'LBL_WEBSITE' => 'Website:',
+    'LBL_LINKEDIN' => 'Linkedin Company ID',
+    'LBL_FACEBOOK' => 'Facebook Account',
+    'LBL_TWITTER' => 'Twitter Account',
+    'LBL_GOOGLEPLUS' => 'Google Plus ID',
 
 	'LNK_ACCOUNT_LIST' => 'Accounts',
 	'LNK_NEW_ACCOUNT' => 'Create Account',
 
-	'MSG_DUPLICATE' => 'The account record you are about to create might be a duplicate of an account record that already exists. Account records containing similar names are listed below.<br>Click Create Account to continue creating this new account, or select an existing account listed below.',
-	'MSG_SHOW_DUPLICATES' => 'The account record you are about to create might be a duplicate of an account record that already exists. Account records containing similar names are listed below.<br>Click Save to continue creating this new account, or click Cancel to return to the module without creating the account.',
+	'MSG_DUPLICATE' => 'The Account record you are about to create might be a duplicate of an Account record that already exists. Account records containing similar names are listed below.<br>Click Create Account to continue creating this new Account, or select an existing account listed below.',
+	'MSG_SHOW_DUPLICATES' => 'The Account record you are about to create might be a duplicate of an Account record that already exists. Account records containing similar names are listed below.<br>Click Save to continue creating this new Account, or click Cancel to return to the module without creating the Account.',
 
 	'NTC_COPY_BILLING_ADDRESS' => 'Copy billing address to shipping address',
 	'NTC_COPY_BILLING_ADDRESS2' => 'Copy to shipping',

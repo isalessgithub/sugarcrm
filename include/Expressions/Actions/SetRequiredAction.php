@@ -1,41 +1,53 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Actions/AbstractAction.php");
 
-class SetRequiredAction extends AbstractAction{
-	protected $expression =  "";
-	
-	function SetRequiredAction($params) {
-		$this->targetField = $params['target'];
-		$this->targetLabel = $params['label'];
-		$this->expression = str_replace("\n", "",$params['value']);
-	}
-	
-/**
-	 * Returns the javascript class equavalent to this php class
-	 *
-	 * @return string javascript.
-	 */
-	static function getJavascriptClass() {
-		return  "
+class SetRequiredAction extends AbstractAction
+{
+    protected $expression = "";
+
+    /**
+     * array Array of actions on which the Expression Action is not allowed
+     */
+    protected $disallowedActions = array('view');
+
+    function SetRequiredAction($params)
+    {
+        $this->params = $params;
+        $this->targetField = $params['target'];
+        $this->targetLabel = $params['label'];
+        $this->expression = str_replace("\n", "", $params['value']);
+    }
+
+    /**
+     * Returns the javascript class equavalent to this php class
+     *
+     * @return string javascript.
+     */
+    static function getJavascriptClass()
+    {
+        return "
 SUGAR.forms.SetRequiredAction = function(variable, expr, label) {
+    if (_.isObject(variable)){
+        expr = variable.value;
+        label = variable.label;
+        variable = variable.target;
+    }
     this.variable = variable;
     this.expr = expr;
     this.label    = label;
     this._el_lbl  = document.getElementById(this.label);
-    this.msg = this._el_lbl.innerText;
+    if (this._el_lbl)
+        this.msg = this._el_lbl.innerText;
 }
 
 /**
@@ -46,17 +58,28 @@ SUGAR.util.extend(SUGAR.forms.SetRequiredAction, SUGAR.forms.AbstractAction, {
     /**
      * Triggers the required dependencies.
      */
-    exec: function(context)
-    {
+    exec: function(context) {
         if (typeof(context) == 'undefined')
 		    context = this.context;
-        var el = SUGAR.forms.AssignmentHandler.getElement(this.variable);
-        this.required = this.evalExpression(this.expr, context);
 
+        this.required = this.evalExpression(this.expr, context);
+        if (context.view) {
+            //We may get triggered before the view has rendered with the full field list.
+            //If that occurs wait for the next render to apply.
+            if (_.isEmpty(context.view.fields)) {
+                context.view.once('render', function(){this.exec(context);}, this);
+                return;
+            }
+            context.setFieldRequired(this.variable, this.required);
+        } else {
+            this.bwcExec(context, this.required);
+        }
+
+    },
+     bwcExec : function(context, required) {
+        var el = SUGAR.forms.AssignmentHandler.getElement(this.variable);
         if ( typeof(SUGAR.forms.FormValidator) != 'undefined' )
             SUGAR.forms.FormValidator.setRequired(el.form.name, el.name, this.required);
-
-
         if (this._el_lbl != null && el != null) {
             var p = this._el_lbl,
                 els = YAHOO.util.Dom.getElementsBy( function(e) { return e.className == 'req'; }, \"span\", p),
@@ -73,25 +96,23 @@ SUGAR.util.extend(SUGAR.forms.SetRequiredAction, SUGAR.forms.AbstractAction, {
                     node.className = \"req\";
                     this._el_lbl.appendChild(node);
 
-                    var i = this.findInValidate(this.context.formName, fName)
+                    var i = this.findInValidate(context.formName, fName)
                     if (i > -1)
-                        validate[this.context.formName][i][2] = true;
+                        validate[context.formName][i][2] = true;
                     else
-                        addToValidate(this.context.formName, fName, 'text', true, this.msg);
+                        addToValidate(context.formName, fName, 'text', true, this.msg);
                 }
             } else {
                 if ( p != null  && reqSpan != false) {
-                    p.removeChild(reqSpan);
+                    reqSpan.parentNode.removeChild(reqSpan);
                 }
-                var i = this.findInValidate(this.context.formName, fName)
+                var i = this.findInValidate(context.formName, fName)
                 if (i > -1)
-                    validate[this.context.formName][i][2] = false;
+                    validate[context.formName][i][2] = false;
             }
         }
-    },
-
-     findInValidate : function(form, field)
-     {
+     },
+     findInValidate : function(form, field) {
          if (validate && validate[form]){
              for (var i in validate[form]){
                 if (typeof(validate[form][i]) == 'object' && validate[form][i][0] == field)
@@ -101,28 +122,31 @@ SUGAR.util.extend(SUGAR.forms.SetRequiredAction, SUGAR.forms.AbstractAction, {
          return -1;
      }
 });";
-	}
+    }
 
-	/**
-	 * Returns the javascript code to generate this actions equivalent. 
-	 *
-	 * @return string javascript.
-	 */
-	function getJavascriptFire() {
-		return "new SUGAR.forms.SetRequiredAction('{$this->targetField}','{$this->expression}', '{$this->targetLabel}')";
-	}
-	
-	/**
-	 * Applies the Action to the target.
-	 *
-	 * @param SugarBeam $target
-	 */
-	function fire(&$target) {
-		//This is a no-op under PHP
-	}
-	
-	static function getActionName() {
-		return "SetRequired";
-	}
-	
+    /**
+     * Returns the javascript code to generate this actions equivalent.
+     *
+     * @return string javascript.
+     */
+    function getJavascriptFire()
+    {
+        return "new SUGAR.forms.SetRequiredAction('{$this->targetField}','{$this->expression}', '{$this->targetLabel}')";
+    }
+
+    /**
+     * Applies the Action to the target.
+     *
+     * @param SugarBeam $target
+     */
+    function fire(&$target)
+    {
+        //This is a no-op under PHP
+    }
+
+    static function getActionName()
+    {
+        return "SetRequired";
+    }
+
 }

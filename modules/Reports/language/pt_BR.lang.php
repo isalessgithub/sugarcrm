@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,7 +76,7 @@ $mod_strings = array (
     1209600 => 'De 2 em 2 Semanas',
     2419200 => 'De 4 em 4 Semanas',
   ),
-  'ERR_REPORT_DEACTIVATED' => 'Relatório agendado"{0}" foi desativado',
+  'ERR_REPORT_DEACTIVATED' => 'Relatório agendado "{0}" foi desativado',
   'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Relatório agendado foi desativado',
   'ERR_REPORT_INVALID' => 'definiCNao do relatório "{0}" contém campos inválidos {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Relatório inválido',
@@ -124,8 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Antes',
   'LBL_BUG_REPORTS' => 'Relatórios de Bugs',
   'LBL_BY_DAY' => 'Por Dia',
-  'LBL_BY_FISCAL_QUARTER' => 'Por Trimestre',
-  'LBL_BY_FISCAL_YEAR' => 'Por Ano Fiscal',
+  'LBL_BY_FISCAL_QUARTER' => 'Trimestre Fiscal',
+  'LBL_BY_FISCAL_YEAR' => 'Ano Fiscal',
   'LBL_BY_MONTH' => 'Por Mês',
   'LBL_BY_QUARTER' => 'Por Trimestre',
   'LBL_BY_YEAR' => 'Por Ano',
@@ -156,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Novo Relatório Personalizado',
   'LBL_CREATE_REPORT' => 'Novo Relatório',
   'LBL_CSV_TIMESTAMP' => 'A_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre Corrente',
-  'LBL_CURRENT_FISCAL_YEAR' => 'Ano Fiscal Corrente',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre Fiscal Atual',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Ano Fiscal Atual',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Negócios Registados do Trimestre Atual',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Previsão Atual do Trimestre',
   'LBL_CURRENT_USER' => 'Usuário Atual',
@@ -207,11 +204,12 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'dos seguintes filtros.',
   'LBL_FILTERS_HELP_DESC' => '<b>Etapas para Definir Filtros</b><br/><br/>1) Clique no Módulo no painel <b>Módulos Relacionados</b> que pretende utilizar para definir filtros. Por defeito, o módulo primário (nó do topo na vista de árvore) é selecionado. <br/><br/>Você pode selecionar um módulo relacionado (nó descendente na vista de árvore) clicando no módulo. Expandir para visualizar módulos adicionais relacionados com o módulo correspondente. O módulo que você selecionar determina quais os campos reportáveis a aparecer no painel <b>Campos Disponíveis</b><br/><br/>2) Clique num Campo no painel <b>Campos Disponíveis</b> para adicioná-lo aos filtros. Você pode também procurar o campo, digitando-o na caixa de texto no painel.<br/><br/> Após selecionar um número qualquer de campos a partir do módulo selecionado no painel <b>Módulos Relacionados</b>, você pode escolher um módulo diferente a partir do qual pode selecionar quaisquer campos a serem utilizados como filtros.<br/><br/> 3) Escolha <b>E</b> ou <b>OU</b> para designar se todos ou alguns filtros, respectivamente, são utilizados para procurar respostas para o relatório.<br/><br/> 4) [Opcional] Clique em <b>Adicionar Grupo de Filtro</b> para criar grupos de filtros. Você pode ter um número qualquer de grupos de filtros e de filtros dentro dos grupos para criar filtros encapsulados. <br/> <br/> 5) [Opcional] selecione a opção Run-time para um Filtro para permitir aos Usuários usarem-no para personalizar ainda mais os resultados dos relatórios enquanto visualizam o relatório.',
   'LBL_FILTER_AND' => 'TODOS',
+  'LBL_FILTER_BY_MODULE' => 'Por Módulo',
   'LBL_FILTER_CONDITIONS' => 'selecione registros que satisfaçam',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Para',
   'LBL_FILTER_DATE_RANGE_START' => 'De',
   'LBL_FILTER_OR' => 'ALGUM',
-  'LBL_FISCAL_QUARTER' => 'Trimestre',
+  'LBL_FISCAL_QUARTER' => 'Trimestre Fiscal',
   'LBL_FISCAL_YEAR' => 'Ano Fiscal',
   'LBL_FORECAST_REPORTS' => 'Relatórios de Previsão',
   'LBL_FUNNEL' => 'Funil',
@@ -306,7 +304,7 @@ $mod_strings = array (
   'LBL_NEXT' => 'Próximo >',
   'LBL_NEXT_30_DAYS' => 'Os Próximos 30 Dias',
   'LBL_NEXT_7_DAYS' => 'Próximos 7 Dias',
-  'LBL_NEXT_FISCAL_QUARTER' => 'Próximo trimestre',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Próximo Trimestre Fiscal',
   'LBL_NEXT_FISCAL_YEAR' => 'Próximo Ano Fiscal',
   'LBL_NEXT_MONTH' => 'Próximo Mês',
   'LBL_NEXT_N_DAYS' => 'Próximos # Dias',
@@ -321,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Não pode acessar a este relatório devido a restrições de permissões.',
   'LBL_NO_CHART' => 'Não tem Gráfico',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Gráfico não pode ser gerado devido à insuficiência de dados',
-  'LBL_NO_EXPORT_ACCESS' => 'Exportações Desativadas',
+  'LBL_NO_EXPORT_ACCESS' => 'Exportação desabilitada',
   'LBL_NO_FILTERS' => 'não tem filtros.',
   'LBL_NO_IMAGE' => 'Nenhuma Imagem',
   'LBL_NO_REPORTS' => 'Nenhuns resultados.',
@@ -342,7 +340,7 @@ $mod_strings = array (
   'LBL_PIE' => 'Tarte',
   'LBL_PREVIEW_REPORT' => 'Prever',
   'LBL_PREVIOUS' => '< Anterior',
-  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestre Anterior',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestre Fiscal Anterior',
   'LBL_PREVIOUS_FISCAL_YEAR' => 'Ano Fiscal Anterior',
   'LBL_PROJECT_TASK_REPORTS' => 'Relatórios de Tarefas de Projetos',
   'LBL_PROSPECT_REPORTS' => 'Relatórios de Targets',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'com uma média',
   'LBL_WITH_A_TOTAL' => 'com um total',
   'LBL_WITH_DETAILS' => 'Com detalhes',
-  'LBL_WORKSHEET' => 'Planilha',
   'LBL_YEAR' => 'Ano',
   'LBL_YESTERDAY' => 'Ontem',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Não tem relatórios gravados.',
+  'LNK_ADVANCED_REPORTING' => 'Gerenciar Relatórios avançados',
   'LNK_NEW_ACCOUNT' => 'Nova Conta',
   'LNK_NEW_CALL' => 'Nova ligação',
   'LNK_NEW_CASE' => 'Nova Ocorrência',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Não tem permissões para editar este Relatório',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Não é possível publicar. Já existe um outro Relatório publicado com o mesmo nome.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Não é possível despublicar um Relatório que pertence a outro Usuário. Você tem um Relatório com o mesmo nome.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'O Processo de Agendador de Tarefas Geração de relatórios é atualmente inativo e relatórios não podem ser agendadas. Por favor, solicite que um usuário administrador define este Scheduler para Ativo e tente novamente.',
 );
 

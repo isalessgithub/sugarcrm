@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Searches through the installed relationships to find broken self referencing one-to-many relationships 
@@ -57,6 +54,7 @@ function upgrade_custom_relationships($modules = array())
 							if (!isset($rhsDef['side']) || $rhsDef['side'] != 'left')
 							{
 								$rhsDef['side'] = 'left';
+								$rhsDef['link-type'] = 'one';
 								$fileContents = file_get_contents($filePath);
 								$out = preg_replace(
 									'/\$dictionary[\w"\'\[\]]*?' . $relName . '["\'\[\]]*?\s*?=\s*?array\s*?\(.*?\);/s',
@@ -76,10 +74,16 @@ function upgrade_custom_relationships($modules = array())
 						$layout_defs = array($module => array("subpanel_setup" => array()));
 						$filePath = "custom/Extension/modules/$module/Ext/Layoutdefs/$file";
 						include($filePath);
-						foreach($layout_defs[$module]["subpanel_setup"] as $key => $subDef)
-						{
-							if ($layout_defs[$module]["subpanel_setup"][$key]['get_subpanel_data'] == $relName)
-							{
+
+						$bean = BeanFactory::getBean($module);
+						$fields = $bean->getFieldDefinitions();
+
+						foreach ($layout_defs[$module]["subpanel_setup"] as $key => $subDef) {
+							if (isset($layout_defs[$module]["subpanel_setup"][$key]['get_subpanel_data']) &&
+								$layout_defs[$module]["subpanel_setup"][$key]['get_subpanel_data'] == $relName &&
+								isset($fields[$relName]) &&
+								$fields[$relName]['type'] != 'link'
+							) {
 								$fileContents = file_get_contents($filePath);
 								$out = preg_replace(
 									'/[\'"]get_subpanel_data[\'"]\s*=>\s*[\'"]' . $relName . '[\'"],/s',
@@ -94,7 +98,143 @@ function upgrade_custom_relationships($modules = array())
 			}
 		}
 	}
-}
 
+    // Phase 2: Module builder has been incorrectly adding the id 
+    // field attributes to created relationships
+    foreach(glob('custom/Extension/modules/*/Ext/Vardefs/*.php') as $fileToFix) {
+        // continue to the next if it's not an existing file or it's a directory
+        if(!file_exists($fileToFix) || is_dir($fileToFix)) {
+            continue;
+        }
+
+        $filename = basename($fileToFix);
+        $dictionary = array();
+
+        require($fileToFix);
+        $tmp = array_keys($dictionary);
+        if ( count($tmp) < 1 ) {
+            // Empty dictionary
+            continue;
+        }
+        $dictKey = $tmp[0];
+        if ( !isset($dictionary[$dictKey]['fields']) ) {
+            // Not modifying any fields, this isn't a relationship
+            continue;
+        }
+        
+        $isBadRelate = false;
+        $idName = '';
+        $linkField = null;
+        $relateField = null;
+        foreach ( $dictionary[$dictKey]['fields'] as $fieldName => $field ) {
+            if ( isset($field['id_name']) && $fieldName != $field['id_name'] ) {
+                if ( isset($field['type']) && $field['type'] == 'link' ) {
+                    // This looks promising
+                    if ( isset($dictionary[$dictKey]['fields'][$field['id_name']]) ) {
+                        $idField = $dictionary[$dictKey]['fields'][$field['id_name']];
+                        if ( isset($idField['type']) && $idField['type'] == 'link' ) {
+                            // This looks like a winner
+                            $idName = $field['id_name'];
+                            $isBadRelate = true;
+                            $linkField = $field;
+                        }
+                    }
+                }
+                if ( isset($field['type']) && $field['type'] == 'relate' ) {
+                    $relateField = $field;
+                }
+            }
+        }
+
+        if ( !$isBadRelate ) {
+            continue;
+        }
+                
+		$depRels = new DeployedRelationships($dictKey);
+        $relObj = $depRels->get($linkField['relationship']);
+        if ( !$relObj ) {
+            // The system doesn't know about the relationship object.
+            $linkMetadataLocation = 'custom/metadata/'.$linkField['relationship'].'MetaData.php';
+            if ( file_exists($linkMetadataLocation) ) {
+                require $linkMetadataLocation;
+                $linkDef = $dictionary[$linkField['relationship']];
+                $relObj = RelationshipFactory::newRelationship($linkDef);
+            }
+        }
+
+        $newIdField = array(
+            'name' => $idName,
+            'type' => 'id',
+            'source' => 'non-db',
+            'vname' => $idField['vname'],
+            'id_name' => $idName,
+            'link' => $relateField['link'],
+            'table' => $relateField['table'],
+            'module' => $relateField['module'],
+            'rname' => 'id',
+            'reportable' => false,
+            'massupdate' => false,
+            'duplicate_merge' => 'disabled',
+            'hideacl' => true,
+        );
+        if ( $relObj && $relObj->getLhsModule() == $relObj->getRhsModule() ) {
+            $selfReferencing = true;
+        } else {
+            $selfReferencing = false;
+        }
+
+        if ( $selfReferencing ) {
+            $newLinkField = array(
+                'name' => $relateField['link'] . '_right',
+                'type' => 'link',
+                'relationship' => $linkField['relationship'],
+                'source' => 'non-db',
+                'vname' => $idField['vname'],
+                'id_name' => $relObj->getJoinKeyRHS(),
+                'side' => 'right',
+                'link-type' => 'many',
+            );
+        }
+            
+        $replaceString = '$dictionary["' . $dictKey . '"]["fields"]["' . $idName . '"]=' . var_export_helper($newIdField) . ";\n";
+        if ( $selfReferencing ) {
+            $replaceString .= '$dictionary["'. $dictKey .'"]["fields"]["'. $newLinkField['name'] .'"]=' . var_export_helper($newLinkField) .";\n";
+        }
+
+        $fileContents = file_get_contents($fileToFix);
+        $out = preg_replace(
+            '/\$dictionary[\w"\'\[\]]*?' . $idName . '["\'\[\]]*?\s*?=\s*?array\s*?\(.*?\);/s',
+            $replaceString,
+            $fileContents
+        );
+        if ( $selfReferencing ) {
+            $out = preg_replace(
+                '/\$dictionary[\w"\'\[\]]*?' . $relateField['name'] . '["\'\[\]]*?\s*?=\s*?array\s*?\(.*?\);/s',
+                '$dictionary["' . $dictKey . '"]["fields"]["' . $relateField['name'] . '"]=' . var_export_helper($relateField) . ";\n",
+                $out
+            );
+        }
+        file_put_contents($fileToFix, $out);
+
+        if ( $selfReferencing ) {
+            // Now to fix bad layouts in self-linking relationships
+            // Go to the Layoutdefs path
+            $layoutPath = dirname(dirname($fileToFix)).'/Layoutdefs';
+            foreach(glob($layoutPath.'/*.php') as $layoutToCheck) {
+                // See if they match the id I just changed.
+                $layout_defs = array();
+                include $layoutToCheck;
+
+                if (isset($layout_defs[$dictKey]['subpanel_setup'][$newIdField['name']])) {
+                    $newLayout[$dictKey]['subpanel_setup'][$relateField['link']] = $layout_defs[$dictKey]['subpanel_setup'][$newIdField['name']];
+                    $newLayout[$dictKey]['subpanel_setup'][$relateField['link']]['get_subpanel_data'] = $newLinkField['relationship'] . '_right';
+
+                    write_array_to_file('layout_defs', $newLayout, $layoutToCheck);
+                }
+            }
+        }
+    }
+    
+}
 if (isset($_REQUEST['execute']) && $_REQUEST['execute'])
 	upgrade_custom_relationships();

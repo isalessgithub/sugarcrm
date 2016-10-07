@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ADD' => 'הוסף',
+  'LBL_ADMIN_ONLY' => 'מנהלים בלבד',
   'LBL_BELOW_MIN' => 'Conversion rate has to be above 0',
   'LBL_CREATED_BY' => 'נוצר על ידי',
   'LBL_CURRENCY' => 'מטבע',
@@ -35,6 +33,7 @@ $mod_strings = array (
   'LBL_MERGE' => 'מזג',
   'LBL_MERGE_TXT' => 'Please select the currencies you would like to map to the selected currency. This will delete all the currencies with a checkmark and reassign any value associated with them to the selected currency.',
   'LBL_MODULE_NAME' => 'מטבעות',
+  'LBL_MODULE_NAME_SINGULAR' => 'מטבע',
   'LBL_UPDATE' => 'עדכן',
   'LBL_US_DOLLAR' => 'דולר ארצות-הברית',
   'LNK_NEW_ACCOUNT' => 'חשבון חדש',

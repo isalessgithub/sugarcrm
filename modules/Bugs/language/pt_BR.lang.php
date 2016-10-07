@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -34,7 +31,7 @@ $mod_strings = array (
   'LBL_CREATED_BY' => 'Criado por:',
   'LBL_DATE_CREATED' => 'Data de criação:',
   'LBL_DATE_LAST_MODIFIED' => 'Data de modificação:',
-  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bugs',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bug Tracker',
   'LBL_DESCRIPTION' => 'Descrição:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID usuário Atribuído',
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Corrigido na versão:',
   'LBL_FOUND_IN_RELEASE' => 'Encontrado na versão:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Encontrado em nome',
+  'LBL_HELP_CREATE' => 'O {{}} plural_module_name módulo é utilizado para controlar e gerenciar os problemas relacionados com o produto, comumente referido como {{}} plural_module_name ou defeitos, seja encontrada internamente ou relatados pelos clientes. Para criar uma {{}} module_name: 1. Fornecer valores para os campos conforme desejado. - Os campos marcados "necessária" deve ser preenchido antes de salvar. - Clique em "Ver Mais" para expor campos adicionais, se necessário. 2. Clique em "Salvar" para finalizar o novo álbum e voltar para a página anterior. - Escolha "Salvar e visualizar" para abrir a nova {{}} module_name no modo de registro. - Escolha "Salvar e criar novo" para criar imediatamente um outro novo {{}} module_name.',
+  'LBL_HELP_RECORD' => 'O {{}} plural_module_name módulo é utilizado para controlar e gerenciar os problemas relacionados com o produto, comumente referido como {{}} plural_module_name ou defeitos, seja encontrada internamente ou relatados pelos clientes. - Editar campos deste registo, clicando em um campo individual ou no botão Editar. - Exibir ou modificar as ligações a outros registros nos subpainéis alternando no painel esquerdo inferior para "Ver dados". - Fazer e ver comentários de usuários e histórico de alterações de registro no {{}} activitystream_singular_module alternando no painel esquerdo inferior para "Atividade Stream". - Siga ou favorito este registro usando os ícones à direita do nome do registro. - Estão disponíveis ações adicionais no menu Ações suspensas à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O {{}} plural_module_name módulo é utilizado para controlar e gerenciar os problemas relacionados com o produto, comumente referido como {{}} plural_module_name ou defeitos, seja encontrada internamente ou relatados pelos clientes. O {{}} plural_module_name pode ser ainda triagem, acompanhando o encontrados e corrigidos no lançamento. O {{}} plural_module_name módulo oferece aos usuários uma maneira de rever rapidamente todos os detalhes do {{}} module_name eo processo a ser utilizado para corrigi-lo. Uma vez por {{}} module_name é criado ou enviado, você pode visualizar e editar as informações relativas à {{}} module_name via {{}} module_name &#39;s modo de registro. Cada {{}} module_name registro pode então relacionar com outros registros de açúcar, como {{}} calls_module, {{}} contacts_module, {{}} cases_module, e muitos outros.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Histórico',
   'LBL_INVITEE' => 'Contatos',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome da conta',
@@ -65,11 +65,18 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tipo',
   'LBL_MODIFIED_BY' => 'Modificado por:',
   'LBL_MODULE_ID' => 'Bugs',
-  'LBL_MODULE_NAME' => 'Bugs',
+  'LBL_MODULE_NAME' => 'Bug Tracker',
   'LBL_MODULE_NAME_SINGULAR' => 'Bug:',
-  'LBL_MODULE_TITLE' => 'Bugs: Tela Principal',
+  'LBL_MODULE_TITLE' => 'Bug Tracker: Tela Principal',
   'LBL_NEW_FORM_TITLE' => 'Criar Bug',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notas',
   'LBL_NUMBER' => 'Número:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Se você tem um novo caso de suporte que você gostaria de enviar, você pode clicar aqui para enviar um novo caso.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Você pode filtrar a lista de casos através de um termo de pesquisa.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Por exemplo, você pode usar isso para encontrar um caso sobre um tema específico de interesse.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'O módulo de Casos é para o gerenciamento de problemas de suporte que afetam a sua conta. Use as setas abaixo para passar por um rápido passeio.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Esta página mostra a lista de bugs publicados.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Clicando aqui, você voltará para esta visualizacão a qualquer momento.',
   'LBL_PORTAL_VIEWABLE' => 'Portal visível',
   'LBL_PRIORITY' => 'Prioridade:',
   'LBL_PRODUCT_CATEGORY' => 'Categoria:',

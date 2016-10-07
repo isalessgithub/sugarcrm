@@ -1,35 +1,25 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
+/**
  * Description: Class defining queries of predefined charts.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________.
- ********************************************************************************/
-
-
-
-class PredefinedChart{
+ */
+class PredefinedChart
+{
 	var $params = array();
 
-	function PredefinedChart(){
-	}
-
-	function predefinedChartQuery($chart, $params=array()){
+	function predefinedChartQuery($chart, $params=array())
+	{
 		switch($chart){
 			case 'pipeline_by_sales_stage':
 			case 'pipeline_by_sales_stage_funnel':
@@ -156,7 +146,7 @@ class PredefinedChart{
 		}
 
 		$user_id = $ids;
-		$opp = new Opportunity;
+		$opp = BeanFactory::getBean('Opportunities');
 		$where="";
 		//build the where clause for the query that matches $user
 		$count = count($user_id);
@@ -270,7 +260,7 @@ class PredefinedChart{
 
 		$user_id = $ids;
 
-		$opp = new Opportunity();
+		$opp = BeanFactory::getBean('Opportunities');
 		$where="";
 		//build the where clause for the query that matches $user
 		$count = count($user_id);
@@ -384,7 +374,7 @@ class PredefinedChart{
 		$dateStartDisplay = $timedate->asUserDate($timedate->fromString($date_start));
 		$dateEndDisplay = $timedate->asUserDate($timedate->fromString($date_end));
 
-		$opp = new Opportunity();
+		$opp = BeanFactory::getBean('Opportunities');
 		//build the where clause for the query that matches $date_start and $date_end
 		$where .= "AND opportunities.date_closed >= ".db_convert("'".$date_start."'",'date')." AND opportunities.date_closed <= ".db_convert("'".$date_end."'",'date')." AND opportunities.deleted=0";
 		$query = "SELECT sales_stage,".db_convert('opportunities.date_closed','date_format',array("'%Y-%m'"),array("'YYYY-MM'"))." as m, sum(amount_usdollar/1000) as total, count(*) as opp_count FROM opportunities ";
@@ -446,7 +436,7 @@ class PredefinedChart{
 		}
 
 		$user_id = $ids;
-		$opp = new Opportunity;
+		$opp = BeanFactory::getBean('Opportunities');
 		//Now do the db queries
 		//query for opportunity data that matches $legends and $user
 		$where="";
@@ -508,8 +498,9 @@ class PredefinedChart{
 	}
 
 	// This function will grab a query from the custom directory to be used for charting
-	function customChartQuery($chart){
-		if (file_exists('custom/Charts/' . $chart . '.php')){
+	function customChartQuery($chart)
+	{
+		if (SugarAutoLoader::existing('custom/Charts/' . $chart . '.php')) {
 			require_once('custom/Charts/' . $chart . '.php');
 			return customChartQuery();
 		}

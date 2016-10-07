@@ -1,19 +1,14 @@
 <?php
-/**
-* Copyright 2011 Facebook, Inc.
-*
-* Licensed under the Apache License, Version 2.0 (the "License"); you may
-* not use this file except in compliance with the License. You may obtain
-* a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations
-* under the License.
-*/
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if (!function_exists('curl_init')) {
   throw new Exception('Facebook needs the CURL PHP extension.');
@@ -558,21 +553,20 @@ class FacebookLib
     $opts[CURLOPT_SSL_VERIFYPEER] = false;
 	$opts[CURLOPT_SSL_VERIFYHOST] = 2;
 
-    $proxy_config = SugarModule::get('Administration')->loadBean();
-    $proxy_config->retrieveSettings('proxy');
-    
-    if( !empty($proxy_config) && 
+    $proxy_config = Administration::getSettings('proxy');
+
+    if( !empty($proxy_config) &&
         !empty($proxy_config->settings['proxy_on']) &&
         $proxy_config->settings['proxy_on'] == 1) {
-        
+
         $opts[CURLOPT_PROXY] = $proxy_config->settings['proxy_host'];
         $opts[CURLOPT_PROXYPORT] = $proxy_config->settings['proxy_port'];
 
         if (!empty($proxy_settings['proxy_auth'])) {
             $opts[CURLOPT_PROXYUSERPWD] = $proxy_settings['proxy_username'] . ':' . $proxy_settings['proxy_password'];
         }
-    }  
-  
+    }
+
     // disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
     // for 2 seconds if the server does not support this header.
     if (isset($opts[CURLOPT_HTTPHEADER])) {

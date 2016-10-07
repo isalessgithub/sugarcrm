@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 39146 2008-08-27 00:16:04Z awu $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -23,6 +20,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'Conditions',
+  'LBL_MODULE_NAME_SINGULAR' => 'Condition',
   'LBL_MODULE_TITLE' => 'Workflow Triggers: Home',
   'LBL_MODULE_SECTION_TITLE' => 'When these conditions are met',
   'LBL_SEARCH_FORM_TITLE' => 'Workflow Trigger Search',
@@ -133,7 +131,7 @@ $mod_strings = array (
 	'LBL_SELECT_1ST_FILTER' => 'You must select a valid 1st filter field',
 	'LBL_SELECT_2ND_FILTER' => 'You must select a valid 2nd filter field',
 
-	'ERR_DELETE_RECORD' => 'A record number must be specified to delete the opportunity.',
+	'ERR_DELETE_RECORD' => 'A record number must be specified to delete the record.',
 	'ERR_DELETE_EMPTY' => 'The record is already deleted or non-existent.',
 
 );

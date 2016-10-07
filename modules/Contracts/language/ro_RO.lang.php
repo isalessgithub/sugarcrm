@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Identitate Cont',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Utilizator creat',
   'LBL_CURRENCY' => 'Moneda',
   'LBL_CURRENCY_ID' => 'Id Moneda',
+  'LBL_CURRENCY_RATE' => 'Curs de schimb',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Data in care a semnat clientul',
   'LBL_DAYS' => 'Zi(le)',
   'LBL_DESCRIPTION' => 'Descriere',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documente',
   'LBL_END_DATE' => 'Data Sfarsit',
   'LBL_EXPIRATION_NOTICE' => 'Avertizare de expirare:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID utilizator alocat',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nume utilizator alocat',
+  'LBL_EXPORT_CREATED_BY' => 'Creare după ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificare după ID',
+  'LBL_EXPORT_TYPE_NAME' => 'Tastaţi numele',
   'LBL_LIST_ACCOUNT_NAME' => 'Numele Contului',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Utilizator',
   'LBL_LIST_CONTRACT_NAME' => 'Nume contract:',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Echipa',
   'LBL_MODIFIED_USER' => 'Utilizator Modificat',
   'LBL_MODULE_NAME' => 'Contracte',
+  'LBL_MODULE_NAME_SINGULAR' => 'Contract',
   'LBL_MODULE_TITLE' => 'Contacte: Acasa',
   'LBL_NEW_FORM_TITLE' => 'Contact nou',
   'LBL_NONE' => 'Niciunul',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_OPPORTUNITY' => 'Oportunitati',
-  'LBL_OPPORTUNITY_NAME' => 'Nume Oportunitate:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produse',
+  'LBL_OPPORTUNITY_ID' => 'ID Oportunitate',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotatii',
   'LBL_REFERENCE_CODE' => 'Cod referinta:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Elemente venit',
   'LBL_SEARCH_FORM_TITLE' => 'Cautre contracte',
   'LBL_SF_ACCOUNT_NAME' => 'Nume cont:',
   'LBL_SF_ASSIGNED_TO' => 'Atribuit lui:',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Valoare contract:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Valoare contract(moneda):',
   'LBL_TYPE' => 'Tip',
+  'LBL_TYPE_NAME' => 'Tastaţi numele',
   'LBL_UNDEFINED' => 'nedefinit',
   'LNK_CONTRACT_LIST' => 'Vezi contacte',
   'LNK_IMPORT_CONTRACTS' => 'Contracte Import',

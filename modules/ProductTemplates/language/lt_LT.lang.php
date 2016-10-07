@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -74,13 +71,13 @@ $mod_strings = array (
   'LBL_POINTS' => 'Taškai',
   'LBL_PRICING_FACTOR' => 'Kainos faktorius',
   'LBL_PRICING_FORMULA' => 'Įkainavimo formulė:',
-  'LBL_PRODUCT' => 'Prekė:',
+  'LBL_PRODUCT' => '',
   'LBL_PRODUCT_CATEGORIES' => 'Prekių kategorijos',
   'LBL_PRODUCT_ID' => 'Produkto ID:',
   'LBL_PRODUCT_TYPES' => 'Prekių tipai',
   'LBL_QTY_IN_STOCK' => 'Kiekis sandėlyje',
   'LBL_QUANTITY' => 'Kiekis:',
-  'LBL_RELATED_PRODUCTS' => 'Susijusi prekė',
+  'LBL_RELATED_PRODUCTS' => '',
   'LBL_SEARCH_FORM_TITLE' => 'Prekių katalogo paieška',
   'LBL_STATUS' => 'Statusas:',
   'LBL_SUPPORT_CONTACT' => 'Garantinio kontaktas:',

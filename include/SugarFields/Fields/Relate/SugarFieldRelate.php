@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Base/SugarFieldBase.php');
 
@@ -148,7 +147,7 @@ class SugarFieldRelate extends SugarFieldBase {
         if(isset($displayParams['formName'])) {
             $form_name = $displayParams['formName'];
         }
-     	if(!empty($vardef['rname']) && $vardef['rname'] == 'user_name'){
+        if (!empty($vardef['rname']) && $vardef['rname'] == 'full_name') {
         	$displayParams['useIdSearch'] = true;
         }
 
@@ -226,28 +225,49 @@ class SugarFieldRelate extends SugarFieldBase {
         return $this->fetch($this->findTemplate('SearchView'));
     }
 
-    function formatField($rawField, $vardef) {
-    	if ('contact_name' == $vardef['name']){
-    	    $default_locale_name_format = $GLOBALS['current_user']->getPreference('default_locale_name_format');
-    	    $default_locale_name_format = trim(preg_replace('/s/i', '', $default_locale_name_format));
-            $new_field = '';
-    	    $names = array();
-            $temp = explode(' ', $rawField);
-            if ( !isset($temp[1]) ) {
-                $names['f'] = '';
-                $names['l'] = $temp[0];
-            }
-            elseif ( !empty($temp) ) {
-                $names['f'] = $temp[0];
-                $names['l'] = $temp[1];
-            }
-            for($i=0;$i<strlen($default_locale_name_format);$i++){
-        	    $new_field .= array_key_exists($default_locale_name_format{$i}, $names) ? $names[$default_locale_name_format{$i}] : $default_locale_name_format{$i};
-            }
-    	}
-    	else  $new_field = $rawField;
+    /** {@inheritDoc} */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
 
-        return $new_field;
+        /*
+         * If we have a related field, use its formatter to format it
+         */
+        $rbean = false;
+        if(!empty($properties['link']) && !empty($bean->related_beans[$properties['link']])) {
+            $rbean = $bean->related_beans[$properties['link']];
+        } else if (!empty($bean->related_beans[$fieldName])) {
+            $rbean = $bean->related_beans[$fieldName];
+        }
+        if (!empty($rbean)) {
+            if(empty($rbean->field_defs[$properties['rname']])) {
+                $data[$fieldName] = '';
+                return;
+            }
+            $rdefs = $rbean->field_defs[$properties['rname']];
+            if(!empty($rdefs) && !empty($rdefs['type'])) {
+                $sfh = new SugarFieldHandler();
+                $field = $sfh->getSugarField($rdefs['type']);
+                $rdata = array();
+                $field->apiFormatField($rdata, $rbean, $args, $properties['rname'], $rdefs, $fieldList, $service);
+                $data[$fieldName] = $rdata[$properties['rname']];
+                if(!empty($data[$fieldName])) {
+                    return;
+                }
+            }
+        }
+        if(empty($bean->$fieldName)) {
+            $data[$fieldName] = '';
+        } else {
+            $data[$fieldName] = $this->formatField($bean->$fieldName, $properties);
+        }
     }
 
     /**
@@ -262,20 +282,7 @@ class SugarFieldRelate extends SugarFieldBase {
     {
         if ( !isset($vardef['module']) )
             return false;
-        $newbean = loadBean($vardef['module']);
-
-        // Bug 38885 - If we are relating to the Users table on user_name, there's a good chance
-        // that the related field data is the full_name, rather than the user_name. So to be sure
-        // let's try to lookup the field the relationship is expecting to use (user_name).
-        if ( $vardef['module'] == 'Users' && isset($vardef['rname']) && $vardef['rname'] == 'user_name' ) {
-            $userFocus = new User;
-            $query = sprintf("SELECT user_name FROM {$userFocus->table_name} WHERE %s=%s AND deleted=0",
-                $userFocus->db->concat('users',array('first_name','last_name')), $userFocus->db->quoted($value));
-            $username = $userFocus->db->getOne($query);
-            if(!empty($username)) {
-                $value = $username;
-            }
-        }
+        $newbean = BeanFactory::getBean($vardef['module']);
 
         // Bug 32869 - Assumed related field name is 'name' if it is not specified
         if ( !isset($vardef['rname']) )
@@ -298,7 +305,7 @@ class SugarFieldRelate extends SugarFieldBase {
 
             // Bug 24075 - clear out id field value if it is invalid
             if ( isset($focus->$idField) ) {
-                $checkfocus = loadBean($vardef['module']);
+                $checkfocus = BeanFactory::getBean($vardef['module']);
                 if ( $checkfocus && is_null($checkfocus->retrieve($focus->$idField)) )
                     $focus->$idField = '';
             }
@@ -367,4 +374,15 @@ class SugarFieldRelate extends SugarFieldBase {
 
         return $value;
     }
+
+    /**
+     * For Relate fields we should not be sending the len vardef back
+     * @param array $vardef
+     * @return array of $vardef
+     */
+    public function getNormalizedDefs($vardef, $defs) {
+        unset($vardef['len']);
+        return parent::getNormalizedDefs($vardef, $defs);
+    }
+
 }

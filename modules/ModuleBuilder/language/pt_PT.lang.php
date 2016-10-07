@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Erro: Campo Já Existente',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Cancelar',
   'LBL_BTN_CLONE' => 'Duplicar',
   'LBL_BTN_CLOSE' => 'Encerrar',
+  'LBL_BTN_COPY' => 'Copiar',
+  'LBL_BTN_COPY_FROM' => 'Copiar de...',
   'LBL_BTN_DELETE' => 'Eliminar',
   'LBL_BTN_DEPLOY' => 'Implementar',
   'LBL_BTN_DONT_SAVE' => 'Descartar Alterações',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Desfazer',
   'LBL_BTN_VIEW_FIELDS' => 'Ver Campos',
   'LBL_BTN_VIEW_LAYOUTS' => 'Ver Layouts',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Ver Mobile Layouts',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Ver Relacionamentos',
-  'LBL_BUG_TRACKER' => 'Bugs',
+  'LBL_BUG_TRACKER' => 'Bug Tracker',
   'LBL_CALCULATED' => 'Calculado',
   'LBL_CASES' => 'Ocorrências',
   'LBL_CLEAR_EXTENSIONS' => 'Limpar Extensões',
   'LBL_CLEAR_RELATIONSHIPS' => 'Limpar Relacionamentos',
+  'LBL_COMBO_FIELD_CONTAINS' => 'contém:',
   'LBL_COMPANY' => 'Empresa',
   'LBL_CONFIG_PORTAL_URL' => 'URL para a imagem do logo personalizado. As dimensões recomendadas são 163 × 18 píxeis.',
   'LBL_CONFIRM_DONT_SAVE' => 'Foram feitas alterações desde a sua última gravação, pretende gravar?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Tem a certeza que pretende eliminar este relacionamento?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Isto irá tornar este relacionamento permanente. Tem a certeza que pretende implementar este relacionamento?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Quaisquer dropdowns que utilizem tenham este item como valor vão deixar de o exibir, e o valor vai deixar de ser seleccionável nas dropdowns. Tem a certeza que quer continuar?',
+  'LBL_COPY_FROM' => 'Copiar Valor de:',
   'LBL_COPY_FROM_EDITVIEW' => 'Copiar da Edição',
   'LBL_CREATE' => 'Criar',
   'LBL_CREATE_NEW' => 'Criar Novo',
   'LBL_CURRENCY' => 'Moeda',
   'LBL_CURRENT_LAYOUT' => 'Layout Actual',
   'LBL_CUSTOM' => 'Personalizar',
-  'LBL_CUSTOMIZE_THEME' => 'Personalizar Tema',
   'LBL_CUSTOM_FIELDS' => '* campo criado no Studio',
   'LBL_CUSTOM_MODULE' => 'Módulo',
   'LBL_CUSTOM_RELATIONSHIPS' => '* relacionamento criado no Studio ou no Construtor de Módulos',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Dependente',
   'LBL_DEPENDENCY' => 'Dependência',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Arrastar itens da lista de opções disponíveis da esquerda para uma das listas na direita para tornar a opção disponível quando um determinado parente é seleccionado.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Por favor note: Os utilizadores poderão necessitar de recarregar a visualização de edição do registo do módulo de forma a que as actualizações fiquem visíveis.',
   'LBL_DEPLOYE_COMPLETE' => 'Instalação Completa',
   'LBL_DEPLOY_FAILED' => 'Ocorreu um erro durante o processo de instalação, o pacote pode não ter instalado correctamente',
   'LBL_DEPLOY_IN_PROGRESS' => 'Implementando Pacote',
@@ -139,12 +139,15 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEM_NAME' => 'Nome do Item',
   'LBL_DROPDOWN_KEY_EXISTS' => 'A chave já existe na lista',
   'LBL_DROPDOWN_LANGUAGE' => 'Idioma',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'A lista deve conter pelo menos um item activo',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nome',
   'LBL_DROP_HERE' => '[Largue Aqui]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dependente',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Por favor seleccione um módulo.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'dropdown(s) personalizadas',
   'LBL_EC_CUSTOMFIELD' => 'campo(s) personalizado(s)',
+  'LBL_EC_CUSTOMLABEL' => 'etiqueta(s) personalizada(s)',
   'LBL_EC_CUSTOMLAYOUT' => 'layout(s) personalizado(s)',
   'LBL_EC_DESCRIPTION' => 'Descrição:',
   'LBL_EC_EMPTYCUSTOM' => 'tem personalizações vazias.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Campos',
   'LBL_FILE' => 'Ficheiro',
   'LBL_FILLER' => '(filtro)',
+  'LBL_FILTER_SEARCH' => 'Pesquisar',
   'LBL_FORMULA' => 'Fórmula',
   'LBL_FORMULA_BUILDER' => 'Construtor de Fórmulas',
   'LBL_FORMULA_INVALID' => 'Fórmula Inválida',
   'LBL_FORMULA_TYPE' => 'A fórmula deverá ser do tipo',
   'LBL_HCUSTOM' => 'PERSONALIZADO',
   'LBL_HDEFAULT' => 'PADRÃO',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Copiar do layout',
   'LBL_HIDDEN' => 'Oculto',
   'LBL_HIDEOPTIONS' => 'Esconder Opções',
   'LBL_HIGH' => 'Alto',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Minha',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Editor da Lista Dropdown',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Chaves de dropdowns não podem conter plicas.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indica um campo combinado. Um campo combinado é uma colecção de campos individuais. Por exemplo "Morada" é um campo combinado que contém "Endereço", "Cidade", "Código Postal", "Estado" e "País".<br><br>Carregar duas vezes num campo combinado para ver quais os campos que este contém.',
   'LBL_ISSUE' => 'Assunto',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Tem a certeza que quer apagar o item da lista de selecção de preenchimento obrigatório? Isto poderá afectar a funcionalidade da sua aplicação.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Tem a certeza que quer apagar a fase de vendas Fechada Perdida? Apagar esta fase irá fazer com que o módulo de Previsão não funcione bem',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Tem a certeza que quer apagar a fase de vendas Fechada Ganha? Apagar esta fase irá fazer com que o módulo de Previsão não funcione bem',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Tem a certeza que quer apagar o estado de venda Em Progresso? Apagar este estado irá fazer com que o fluxo de trabalho do item de linha de receita do módulo das Oportunidades deixe de trabalhar correctamente.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Tem a certeza que quer apagar o estado de Nova venda? Apagar este estado irá fazer com que o fluxo de trabalho do item de linha de receita do módulo das Oportunidades deixe de trabalhar correctamente.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Tem a certeza que quer apagar o item da lista de selecção? Apagar as fases de Fechada Ganha e Fechada Perdida irão fazer com que o módulo de Previsão deixa de funcionar',
   'LBL_JS_DEPLOY_PACKAGE' => 'Todas as personalizações que você fez no Studio serão apagadas quando este módulo for re-instalado. Tem certeza que deseja continuar?',
   'LBL_JS_REMOVE_MODULE' => 'Tem a certeza que pretende remover este módulo? Isto irá eliminar permanentemente todos os ficheiros associados a este módulo.',
   'LBL_JS_REMOVE_PACKAGE' => 'Tem a certeza que pretende remover este pacote? Isto irá eliminar permanentemente todos os ficheiros associados a este pacote.',
   'LBL_JS_VALIDATE_KEY' => 'Chave - Deve ser alfanumérica, sem espaços e começando por uma letra',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Chave - Tem que ser alfanumérica e começar com uma letra.',
   'LBL_JS_VALIDATE_LABEL' => 'Por favor introduza um rótulo que será utilizado como Nome de Exibição para este módulo',
   'LBL_JS_VALIDATE_NAME' => 'Nome - Deve ser alfanumérico, sem espaços e começando por uma letra',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'O Nome do Pacote já existe',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Nenhum campo encontrado',
   'LBL_NO_FUNCS' => 'Nenhuma função encontrada',
   'LBL_NO_RELS' => 'Sem Relacionamentos',
-  'LBL_NO_SAVE_ACTION' => 'Não foi encontrada a acção de gravar para esta visualização.',
+  'LBL_NO_SAVE_ACTION' => 'Não foi possível encontrar a acção de gravação para esta visualização.',
   'LBL_NUMBER' => 'Número:',
   'LBL_ONETOMANY' => 'Um para Muitos',
   'LBL_ONETOONE' => 'Um para Um',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Seleccione um layout Sugar Portal para editar.',
   'LBL_QUICKCREATE' => 'Criação Rápida',
   'LBL_READ_ONLY' => 'Somente leitura',
+  'LBL_RECORDVIEW' => 'Visualização do Registo',
   'LBL_RELATED_FIELD' => 'Campo Relacionado',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (ID {1} relacionado)',
   'LBL_RELATE_TO' => 'Relacionar Com',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Reiniciar Módulo',
   'LBL_RESTORE_DEFAULT' => 'Restaurar Padrão',
   'LBL_RHS_MODULE' => 'Módulo Relacionado',
+  'LBL_ROLE' => 'Função',
   'LBL_ROLLUP' => 'Agregado',
   'LBL_RSUB' => 'Este é o sub-painel que será exibido no seu módulo',
   'LBL_SALE' => 'Venda',
-  'LBL_SAVE' => 'Gravar',
   'LBL_SAVE_LAYOUT' => 'Gravar Layout',
   'LBL_SEARCH' => 'Pesquisar',
   'LBL_SEARCH_FIELDS' => 'Campos de pesquisa...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Seleccionar um Sub-painel',
   'LBL_SELECT_FILE' => 'Seleccionar Ficheiro',
   'LBL_SELECT_SUBPANEL' => 'Seleccionar Sub-painel',
+  'LBL_SINGULAR_LABEL' => 'Etiqueta em singular',
   'LBL_SP_PREVIEW' => 'Eis uma previsão do aspecto do Sugar Portal utilizando a folha de estilo.',
   'LBL_SP_UPLOADED' => 'Carregado',
   'LBL_SP_UPLOADSTYLE' => 'Seleccione uma folha de estilo para carregar do seu computador.<br>A folha de estilo será implementada no Portal Sugar da próxima vez que desempenhar uma sincronização.',
@@ -446,7 +461,7 @@ $mod_strings = array (
     'module' => 
     array (
       'afterSave' => 'Personalize o módulo para servir as necessidades editando e criando campos, estabelecendo relações com outros módulos e dispondo os campos dentro dos layouts.<br/><br/>Para ver os campos do modelo e gerir os campos personalizados dentro do módulo, clicar <b>Ver Campos</b>.<br/><br/>Para criar e gerir relações entre o módulo e outros módulos, quer módulos já na aplicação ou outros módulos personalizados dentro do mesmo pacote, clicar <b>Ver Relações</b>.<br/><br/>Para editar os layouts dos módulos, clicar <b>Ver Layouts</b>. Poderá alterar os layouts dos Detalhes, Edição e Listagem do módulo tal como faria com módulos já na aplicação dentro do Studio.<br/><br/> Para criar um módulo com as mesmas propriedades que o módulo actual, clicar <b>Duplicar</b>.  Depois poderá personalizar mais o novo módulo.',
-      'create' => 'Ao escolher o tipo de <b>Tipo</b> de módulo que queira criar, tenha em mente que tipos de campos que gostaria de ter dentro do módulo. <br/><br/>Cada modelo de módulo contém um conjunto de campos pertencentes ao tipo de módulos descrito pelo título.<br/><br/><b>Básico</b> - Fornece campos básicos que aparecem em módulos padrão, como o campo Nome, Atribuído a, Equipa, Data de Criação e Descrição.<br/><br/> <b>Companhia</b> - Fornece campos específicos de organizações, como Nome da Companhia e Morada de Facturamento. Use este modelo para criar módulos que são similares ao módulo padrão de Entidades.<br/><br/> <b>Pessoal</b> - Fornece campos específicos de indivíduos, como Saudação, Título, Nome, Morada e Número de Telefone. Use este modelo para criar módulos que são similares com os módulos padrão Contactos e Leads.<br/><br/><b>Questões</b> - Fornece campos relacionados com ocorrências e de bugs, como Número, Estado, Prioridade e Descrição. Use este modelo para criar módulos que são similares com os módulos padrão Ocorrências e Bugs.<br/><br/>Nota: Depois de criar o módulo, poderá editar os rótulos dos campos fornecidos pelo modelo, assim como criar campos personalizados para adicionar ao layout do módulo.',
+      'create' => 'Ao escolher o tipo de <b>Tipo</b> de módulo que queira criar, tenha em mente que tipos de campos que gostaria de ter dentro do módulo. <br/><br/>Cada modelo de módulo contém um conjunto de campos pertencentes ao tipo de módulos descrito pelo título.<br/><br/><b>Básico</b> - Fornece campos básicos que aparecem em módulos padrão, como o campo Nome, Atribuído a, Equipa, Data de Criação e Descrição.<br/><br/> <b>Companhia</b> - Fornece campos específicos de organizações, como Nome da Companhia e Morada de Facturamento. Use este modelo para criar módulos que são similares ao módulo padrão de Entidades.<br/><br/> <b>Pessoal</b> - Fornece campos específicos de indivíduos, como Saudação, Título, Nome, Morada e Número de Telefone. Use este modelo para criar módulos que são similares com os módulos padrão Contactos e Leads.<br/><br/><b>Questões</b> - Fornece campos relacionados com ocorrências e de bugs, como Número, Estado, Prioridade e Descrição. Use este modelo para criar módulos que são similares com os módulos padrão Ocorrências e Bug Tracker.<br/><br/>Nota: Depois de criar o módulo, poderá editar os rótulos dos campos fornecidos pelo modelo, assim como criar campos personalizados para adicionar ao layout do módulo.',
       'editView' => 'Aqui pode editar os campos existentes. Pode remover qualquer dos campos existentes ou adicionar campos disponíveis no painel esquerdo.',
       'existingModule' => 'Depois de criar e personalizar este módulo, poderá criar módulos adicionais ou voltar ao pacote para <b>Publicar</b> ou <b>Implementar</b> o pacote.<br/><br/>Para criar módulos adicionais, clicar <b>Duplicar</b> para criar um módulo com as mesmas propriedades que o módulo actual, ou voltar ao pacote e clicar <b>Novo Módulo</b>.<br/><br/>Se já está pronto para <b>Publicar</b> ou <b>Implementar</b> o pacote que contém este módulo, voltar ao pacote para realizar estas funções. Pode publicar e implementar pacotes que contenham pelo menos um módulo.',
       'labels' => 'Os rótulos dos campos padrão assim com os dos campos personalizados podem ser alterados. Alterar os rótulos dos campos não afecta os dados guardados nos campos.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => 'A área de <b>Layout</b> contém os campos que estão actualmente exibidos dentro da <b>Edição</b>.<br/><br/>As <b>Ferramentas</b> contêm a <b>Reciclagem</b> e os campos e elementos de layout que podem ser adicionados ao layout.<br/><br/>Para efectuar alterações ao layout arrastar e largar elementos e campos entre as <b>Ferramentas</b> e o  <b>Layout</b> e dentro do próprio layout.<br/><br/>Para remover um campo do layout, arrastar o campo para a <b>Reciclagem</b>. O campo será estará então disponível nas Ferramentas para adicionar ao layout.&#39;<br />    . &#39;<br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indica um campo Dependente que pode ou não ser visível com base em um valor de uma fórmula.<br/><img src="themes/default/images/SugarLogic/icon_calculated.png"/>Indica um campo Calculado cujo valor será determinado automaticamente com base em uma fórmula.',
       'defaultdetailview' => 'A área de <b>Layout</b> contém os campos que estão actualmente exibidos dentro dos <b>Detalhes</b>.<br/><br/>As <b>Ferramentas</b> contêm a <b>Reciclagem</b> e todos os campos e elementos de layout que podem ser adicionados ao layout.<br/><br/>Para efectuar alterações ao layout arrastar e largar elementos e campos entre as <b>Ferramentas</b> e o  <b>Layout</b> e dentro do próprio layout.<br/><br/>Para remover um campo do layout, arrastar o campo para a <b>Reciclagem</b>. O campo será estará então disponível nas Ferramentas para adicionar ao layout.&#39;<br />    . &#39;<br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indica um campo Dependente que pode ou não ser visível com base em um valor de uma fórmula.<br/><img src="themes/default/images/SugarLogic/icon_calculated.png"/>Indica um campo Calculado cujo valor será determinado automaticamente com base em uma fórmula.',
       'defaultquickcreate' => 'A área de <b>Layout</b> contém os campos que estão actualmente exibidos dentro do formulário <b>Criação Rápida</b>.<br/><br/>O formulário de Criação Rápida aparece nos sub-painéis para o módulo quando o botão Criar é clicado.<br/><br/>As <b>Ferramentas</b> contêm a <b>Reciclagem</b> e todos os campos e elementos de layout que podem ser adicionados ao layout.<br/><br/>Para efectuar alterações ao layout arrastar e largar elementos e campos entre as <b>Ferramentas</b> e o  <b>Layout</b> e dentro do próprio layout.<br/><br/>Para remover um campo do layout, arrastar o campo para a <b>Reciclagem</b>. O campo será estará então disponível nas Ferramentas para adicionar ao layout.&#39;<br />    . &#39;<br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indica um campo Dependente que pode ou não ser visível com base em um valor de uma fórmula.<br/><img src="themes/default/images/SugarLogic/icon_calculated.png"/>Indica um campo Calculado cujo valor será determinado automaticamente com base em uma fórmula.',
+      'defaultrecordview' => 'A área do <b>Layout</b> contém os campos que estão actualmente exibidos dentro da <b>Visualização do Registo</b>.<br/><br/>A <b>Toolbox</b> contém o <b>Caixote do Lixo</b> e os campos e elementos do layout que podem ser adicionados ao layout.<br><br>Efectue alterações ao layout arrastando e largando elementos e campos entre a <b>Toolbox</b> e o <b>Layout</b> e dentro do layout propriamente.<br><br>Para remover um campo do layout, arraste o campo para o <b>Caixote do Lixo</b>. O campo ficará assim disponível na Toolbox para adicionar ao layout.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indica um campo Dependente que poderá ser ou não visível, dependendo do valor de uma formula.<br/>Indica um campo Calculado cujo o valor será automaticamente determinado baseado numa fórmula.',
       'delete' => 'Arrastar e largar qualquer elemento aqui para o remover do layout',
       'historyBtn' => 'Clicar em <b>Ver Histórico </b> para ver e restaurar um layout gravado previamente do histórico.',
       'historyDefault' => 'Clicar <b>Restaurar Por Defeito</b> para restaurar o layout original.',
@@ -591,11 +607,12 @@ $mod_strings = array (
       'type_basic' => 'O tipo de modelo <b>Básico</b> fornece campos básicos, como o Nome, Atribuído a, Equipa, Data de Criação e Descrição.',
       'type_company' => 'O tipo de modelo <b>Companhia</b> fornece campos específicos de organizações, como Nome da Companhia, Indústria e Morada de Facturação.<br/><br/>Usar este modelo para criar módulos que são similares ao módulo padrão Entidades.',
       'type_file' => 'O tipo de modelo  <b>Ficheiro</b> fornece campos específicos de Documento, como o Nome do Ficheiro, tipo de Documento e Data de Publicação.<br><br>Usar este modelo para criar módulos que são similares ao módulo padrão Documentos.',
-      'type_issue' => 'O tipo de modelo <b>Questão</b> fornece campos específicos de Ocorrências e Bugs, como por exemplo Número, Estado, Prioridade e Descrição.<br/><br/>Usar este modelo para criar módulos que são similares aos módulos padrão Ocorrências e Bugs.',
+      'type_issue' => 'O tipo de modelo <b>Questão</b> fornece campos específicos de Ocorrências e Bugs, como por exemplo Número, Estado, Prioridade e Descrição.<br/><br/>Usar este modelo para criar módulos que são similares aos módulos padrão Ocorrências e Bug Tracker.',
       'type_person' => 'O tipo de modelo <b>Pessoa</b> fornece campos específicos de indivíduos, como a Saudação, Título, Nome, Morada e Número de Telefone.<br/><br/>Usar este modelo para criar módulos que são similares aos módulos padrão Contactos e Leads.',
       'type_sale' => 'O tipo de modelo  <b>Venda</b> fornece campos específicos de oportunidade, como a Fonte da Lead, Fase, Quantidade e Probabilidade.<br/><br/>Usar este modelo para criar módulos que são similares ao módulo padrão Oportunidades.',
       'viewfieldsbtn' => 'Clique em <b>Ver Campos</b> para ver os campos associados com o módulo e criar ou editar campos personalizados.',
       'viewlayoutsbtn' => 'Clique em <b>Ver Layouts</b> para ver os layouts para o módulo e para personalizar a disposição dos campos dentro dos layouts.',
+      'viewmobilelayoutsbtn' => 'Clique em <b>Ver Mobile Layouts</b> para ver os mobile layouts para o módulo e personalizar a disposição do campo dentro dos layouts.',
       'viewrelsbtn' => 'Clique em <b>Ver Relações</b> para ver as relações associadas com este módulo e para criar novas relações.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Todas as <b>Relações</b> que existem entre os módulos e outros módulos implementados aparecem aqui.<br/><br/>O <b>Nome</b> da relação é um nome gerado pelo sistema para esta relação.<br/><br/>O <b>Módulo Primário</b> é o módulo que detém as relações. Por exemplo, todas as propriedades das relações cujo módulo Entidades é o módulo primário estão guardadas nas tabelas da base de dados das Entidades.<br/><br/>O <b>Tipo</b> é o tipo de relação que existe entre o módulo Primário e o  <b>Módulo Relacionado</b>.<br/><br/>Clicar num título da coluna irá ordenar pela coluna.<br/><br/>clicar na linha da tabela de relações para ver as propriedades associadas com a relação.<br/><br/>Clicar <b>Adicionar Relação</b> para criar uma nova relação.<br/><br/>Relações podem ser criadas entre quaisquer dois módulos implementados.',
       'searchBtn' => 'Personalizar o layout da <b>Pesquisa</b>.<br/><br/>Determinar quais os campos que podem ser usados para filtrar registos que aparecem na Listagem.',
       'searchHelp' => 'Os formulários de <b>Pesquisa</b> que podem ser personalizados aparecem aqui.<br/><br/>Os formulários de Pesquisa contêm campos para filtrar registos.<br/><br/>Clicar num ícone para escolher o layout de pesquisa a editar.',
+      'studioBCHelp' => 'indica que o módulo é um módulo com compatibilidade retroativa',
       'studioBtn' => 'Use o <b>Studio</b> para personalizar módulos implementados.',
       'studioHelp' => 'Use o <b>Studio</b> para determinar qual e como a informação é mostrada nos módulos.',
       'subpanelBtn' => 'Determine quais os campos que aparecem nos <b>Sub-Painéis</b> no módulo.',

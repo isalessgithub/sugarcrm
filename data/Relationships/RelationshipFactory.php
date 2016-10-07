@@ -1,21 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
-require_once("data/Relationships/SugarRelationship.php");
+// For clearing the metadata API cache
+require_once "include/MetaDataManager/MetaDataManager.php";
 
 /**
  * Create relationship objects
@@ -37,31 +34,31 @@ class SugarRelationshipFactory {
      */
     public static function getInstance()
     {
-        if (is_null(self::$rfInstance))
+        if (is_null(self::$rfInstance)) {
             self::$rfInstance = new SugarRelationshipFactory();
+        }
         return self::$rfInstance;
     }
 
     public static function rebuildCache()
     {
-        self::getInstance()->buildRelationshipCache();
+        $rf = self::getInstance();
+        $rf->buildRelationshipCache();
     }
 
     public static function deleteCache()
     {
         $file = self::getInstance()->getCacheFile();
-        if(sugar_is_file($file))
-        {
+        if(sugar_is_file($file)) {
             unlink($file);
         }
     }
 
     /**
+     * Gets a relationship by name
+     * 
      * @param  $relationshipName String name of relationship to load
-     * @return void
-     *
-     *
-     *
+     * @return SugarRelationship
      */
     public function getRelationship($relationshipName)
     {
@@ -72,35 +69,35 @@ class SugarRelationshipFactory {
 
         $def = $this->relationships[$relationshipName];
 
+        $class = $this->getCustomRelationshipClass($def, $relationshipName);
+        if ($class) {
+            return new $class($def);
+        }
+
         $type = isset($def['true_relationship_type']) ? $def['true_relationship_type'] : $def['relationship_type'];
-        switch($type)
-        {
+        switch($type) {
             case "many-to-many":
-                if (isset($def['rhs_module']) && $def['rhs_module'] == 'EmailAddresses')
-                {
-                    require_once("data/Relationships/EmailAddressRelationship.php");
+                if (isset($def['rhs_module']) && $def['rhs_module'] == 'EmailAddresses') {
                     return new EmailAddressRelationship($def);
                 }
-                require_once("data/Relationships/M2MRelationship.php");
+                
                 return new M2MRelationship($def);
             break;
+            case "user-based":
+                return new UserBasedRelationship($def);
+            break;
             case "one-to-many":
-                require_once("data/Relationships/One2MBeanRelationship.php");
                 //If a relationship has no table or join keys, it must be bean based
                 if (empty($def['true_relationship_type']) || (empty($def['table']) && empty($def['join_table'])) || empty($def['join_key_rhs'])){
                     return new One2MBeanRelationship($def);
-                }
-                else {
+                } else {
                     return new One2MRelationship($def);
                 }
                 break;
             case "one-to-one":
-                if (empty($def['true_relationship_type'])){
-                    require_once("data/Relationships/One2OneBeanRelationship.php");
+                if (empty($def['true_relationship_type'])) {
                     return new One2OneBeanRelationship($def);
-                }
-                else {
-                    require_once("data/Relationships/One2OneRelationship.php");
+                } else {
                     return new One2OneRelationship($def);
                 }
                 break;
@@ -109,6 +106,46 @@ class SugarRelationshipFactory {
         $GLOBALS['log']->fatal ("$relationshipName had an unknown type $type ");
 
         return false;
+    }
+
+    /**
+     * Returns custom relationship class based on relationship definition, or NULL if it's not defined or incorrect
+     *
+     * @param array $def Relationship definition
+     * @param string $name Relationship name
+     *
+     * @return string|null
+     */
+    protected function getCustomRelationshipClass(array $def, $name)
+    {
+        global $log;
+
+        if (!isset($def['relationship_file'], $def['relationship_class'])) {
+            return null;
+        }
+
+        if (!isset($def['relationship_file'])) {
+            $log->fatal("Relationship file for $name is not specified");
+            return null;
+        }
+
+        if (!isset($def['relationship_class'])) {
+            $log->fatal("Relationship class for $name is not specified");
+            return null;
+        }
+
+        if (!file_exists($def['relationship_file'])) {
+            $log->fatal("Relationship file {$def['relationship_file']} does not exist");
+            return null;
+        }
+
+        require_once $def['relationship_file'];
+        if (!class_exists($def['relationship_class'])) {
+            $log->fatal("Relationship class {$def['relationship_class']} does not exist");
+            return null;
+        }
+
+        return $def['relationship_class'];
     }
 
     public function getRelationshipDef($relationshipName)
@@ -121,12 +158,28 @@ class SugarRelationshipFactory {
         return $this->relationships[$relationshipName];
     }
 
+    /**
+     * This function returns an array of every relationship in the system from 
+     * cache unless told to fetch fresh defs
+     * 
+     * @param boolean $fresh If true, will get data from the source instead of cache
+     * @return array An array of relationships, indexed by the relationship name
+     */
+    public function getRelationshipDefs($fresh = false)
+    {
+        // The relationships are loaded in the constructor, so if there is a
+        // request for fresh relationships, handle it
+        if ($fresh) {
+            $this->relationships = $this->getRelationshipData();
+        }
+
+        return $this->relationships;
+    }
 
     protected function loadRelationships()
     {
-        if(sugar_is_file($this->getCacheFile()))
-        {
-            include($this->getCacheFile());
+        if(sugar_is_file($this->getCacheFile())) {
+            include $this->getCacheFile();
             $this->relationships = $relationships;
         } else {
             $this->buildRelationshipCache();
@@ -135,14 +188,67 @@ class SugarRelationshipFactory {
 
     protected function buildRelationshipCache()
     {
-        global $beanList, $dictionary, $buildingRelCache;
-        if ($buildingRelCache)
+        global $beanList, $buildingRelCache;
+        if ($buildingRelCache) {
             return;
+        }
+
         $buildingRelCache = true;
+        $relationships = $this->getRelationshipData();
+
+        //Save it out
+        sugar_mkdir(dirname($this->getCacheFile()), null, true);
+        $out = "<?php \n \$relationships = " . var_export($relationships, true) . ";";
+        sugar_file_put_contents_atomic($this->getCacheFile(), $out);
+
+        // There are only certain times when the relationship cache needs to be 
+        // refreshed...
+        // 
+        // If we have a cache, but no internal relationships yet, do NOT rebuild
+        // the api cache. This is a first load of this class.
+        //
+        // If there is no cache, then do NOT rebuild the api cache since there is
+        // nothing to rebuild.
+        //
+        // DO rebuild the cache if there is a cache, there is an internal relationships
+        // property and it is different than $relationships
+        $rebuildApiCache = false;
+        $metaCacheKey = MetaDataManager::getManager()->getCachedMetadataHash();
+        if (empty($metaCacheKey)) {
+            $rebuildApiCache = !empty($this->relationships) && array_diff_key($this->relationships, $relationships) !== array();
+        }
+
+        $this->relationships = $relationships;
+
+        if ($rebuildApiCache) {
+            MetaDataManager::refreshSectionCache(array(MetaDataManager::MM_RELATIONSHIPS));
+        }
+
+        // set the variable back to false, as we are now going to rebuild the vardefs since we have all the
+        // relationships are loaded
+        $buildingRelCache = false;
+
+        //Now load all vardefs a second time populating the rel_calc_fields
+        foreach ($beanList as $moduleName => $beanName) {
+            // need to refresh the vardef so that the related calc fields are loaded
+            VardefManager::loadVardef($moduleName, BeanFactory::getObjectName($moduleName), true);
+        }
+    }
+
+    /**
+     * Gets the relationship metadata data that is ultimately cached
+     * 
+     * @return array
+     */
+    protected function getRelationshipData()
+    {
+        global $beanList, $dictionary;
         include("modules/TableDictionary.php");
 
-        if (empty($beanList))
+        if (empty($beanList)) {
             include("include/modules.php");
+        }
+
         //Reload ALL the module vardefs....
         foreach($beanList as $moduleName => $beanName)
         {
@@ -155,15 +261,13 @@ class SugarRelationshipFactory {
         $relationships = array();
 
         //Grab all the relationships from the dictionary.
-        foreach ($dictionary as $key => $def)
-        {
-            if (!empty($def['relationships']))
-            {
-                foreach($def['relationships'] as $relKey => $relDef)
-                {
-                    if ($key == $relKey) //Relationship only entry, we need to capture everything
+        foreach ($dictionary as $key => $def) {
+            if (!empty($def['relationships'])) {
+                foreach($def['relationships'] as $relKey => $relDef) {
+                    if ($key == $relKey) {
+                        //Relationship only entry, we need to capture everything
                         $relationships[$key] = array_merge(array('name' => $key), $def, $relDef);
-                    else {
+                    } else {
                         $relationships[$relKey] = array_merge(array('name' => $relKey), $relDef);
                         if(!empty($relationships[$relKey]['join_table']) && empty($relationships[$relKey]['fields'])
                             && isset($dictionary[$relationships[$relKey]['join_table']]['fields'])) {
@@ -173,25 +277,16 @@ class SugarRelationshipFactory {
                 }
             }
         }
-        //Save it out
-        sugar_mkdir(dirname($this->getCacheFile()), null, true);
-        $out = "<?php \n \$relationships = " . var_export($relationships, true) . ";";
-        sugar_file_put_contents_atomic($this->getCacheFile(), $out);
-
-        $this->relationships = $relationships;
-
-        //Now load all vardefs a second time populating the rel_calc_fields
-        foreach ($beanList as $moduleName => $beanName) {
-            VardefManager::loadVardef($moduleName, BeanFactory::getObjectName($moduleName));
-        }
-
-        $buildingRelCache = false;
+        
+        return $relationships;
     }
 
-	protected function getCacheFile() {
-		return sugar_cached("Relationships/relationships.cache.php");
-	}
-
-
-
+    /**
+     * Gets the cache file name
+     * 
+     * @return string
+     */
+    protected function getCacheFile() {
+        return sugar_cached("Relationships/relationships.cache.php");
+    }
 }

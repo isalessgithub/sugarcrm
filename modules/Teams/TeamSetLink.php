@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('data/Link.php');
 
@@ -41,7 +38,7 @@ class TeamSetLink extends Link {
 
 	public function __construct($_rel_name, &$_bean, $fieldDef, $_table_name='', $_key_name=''){
 		parent::Link($_rel_name, $_bean, $fieldDef, $_table_name, $_key_name);
-		$this->_teamSet = new TeamSet();
+		$this->_teamSet = BeanFactory::getBean('TeamSets');
 		$this->_teamList = array();
 	}
 
@@ -136,21 +133,24 @@ class TeamSetLink extends Link {
 				//we added 'disable_team_access_check' config entry to allow for admins to revert back to the way things were
 				//pre 5.5. So that they could disable this check and if the assigned_user was not a member of one of the
 				//teams on this record we would just leave it alone.
-				if(empty($GLOBALS['sugar_config']['disable_team_access_check']) && empty($this->_bean->in_workflow)){
+				//Exclude user's module so additional teams are NOT added to a user record
+				if(($this->_bean->module_dir != 'Users') && empty($GLOBALS['sugar_config']['disable_team_access_check']) && empty($this->_bean->in_workflow)){
 					$assigned_user_id = null;
 					if(isset($this->_bean->assigned_user_id)){
 						$assigned_user_id = $this->_bean->assigned_user_id;
 					}else if(isset($this->_bean->created_by)){
 						$assigned_user_id = $this->_bean->created_by;
 					}
-					if(!is_null($assigned_user_id) && !$this->_teamSet->isUserAMember($assigned_user_id, '', $this->_teamList)){
+					if(!empty($assigned_user_id) && !$this->_teamSet->isUserAMember($assigned_user_id, '', $this->_teamList)){
 						$privateTeamId = User::staticGetPrivateTeamID($assigned_user_id);
 						if(!empty($privateTeamId)){
 							$this->_teamList[] = $privateTeamId;
 						}
 					}
 				}
-				$this->_bean->team_set_id = $this->_teamSet->addTeams($this->_teamList);
+				if (!empty($this->_teamList)) {
+				    $this->_bean->team_set_id = $this->_teamSet->addTeams($this->_teamList);
+				}
 			}//fi empty($GLOBALS['sugar_config']['disable_team_sanity_check']))
 
 	        //if this bean already exists in the database, and is not new with id
@@ -161,15 +161,8 @@ class TeamSetLink extends Link {
 	        	$runUpdate = (!empty($this->_bean->id) && empty($this->_bean->new_with_id) && !empty($this->_bean->save_from_post));
 	        }
 
-            $db = DBManagerFactory::getInstance();
-            if ($runUpdate) {
-                $sql = sprintf(
-                    'UPDATE %s SET team_set_id = %s WHERE id = %s',
-                    $this->_bean->table_name,
-                    $db->quoted($this->_bean->team_set_id),
-                    $db->quoted($this->_bean->id)
-                );
-                $db->query($sql);
+	        if($runUpdate) {
+	           $GLOBALS['db']->query("UPDATE {$this->_bean->table_name} SET team_set_id = '{$this->_bean->team_set_id}' WHERE id = '{$this->_bean->id}'");
 	        }
 	        //keep track of what we put into the database so we can clean things up later
 	        TeamSetManager::saveTeamSetModule($this->_bean->team_set_id, $this->_bean->table_name);

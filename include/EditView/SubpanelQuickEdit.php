@@ -1,19 +1,16 @@
 <?php
-//FILE SUGARCRM flav=pro || flav=sales
+//FILE SUGARCRM flav=pro
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/EditView/EditView2.php');
 /**
@@ -23,28 +20,17 @@ require_once('include/EditView/EditView2.php');
 class SubpanelQuickEdit{
 	var $defaultProcess = true;
 
-	function SubpanelQuickEdit($module, $view='QuickEdit', $proccessOverride = false){
+	function SubpanelQuickEdit($module, $view='QuickEdit', $proccessOverride = false)
+	{
         //treat quickedit and quickcreate views as the same
         if($view == 'QuickEdit') {$view = 'QuickCreate';}
 
 		// locate the best viewdefs to use: 1. custom/module/quickcreatedefs.php 2. module/quickcreatedefs.php 3. custom/module/editviewdefs.php 4. module/editviewdefs.php
-		$base = 'modules/' . $module . '/metadata/';
-		$source = 'custom/' . $base . strtolower($view) . 'defs.php';
-		if (!file_exists( $source))
-		{
-			$source = $base . strtolower($view) . 'defs.php';
-			if (!file_exists($source))
-			{
-				//if our view does not exist default to EditView
-				$view = 'EditView';
-				$source = 'custom/' . $base . 'editviewdefs.php';
-				if (!file_exists($source))
-				{
-					$source = $base . 'editviewdefs.php';
-				}
-			}
-		}
-
+        $source = SugarAutoLoader::existingCustomOne("modules/{$module}/metadata/".strtolower($view) . 'defs.php');
+        if(!$source) {
+        	$source = SugarAutoLoader::loadWithMetafiles($module, "editviewdefs");
+        	$view = 'EditView';
+        }
 
 		$this->ev = new EditView();
 		$this->ev->view = $view;
@@ -54,15 +40,11 @@ class SubpanelQuickEdit{
 
 
         //retrieve bean if id or record is passed in
-        if (isset($_REQUEST['record']) || isset($_REQUEST['id'])){
-            global $beanList;
-            $bean = $beanList[$module];
-            $this->ev->focus = new $bean();
-
-            if (isset($_REQUEST['record']) && empty($_REQUEST['id'])){
-                $_REQUEST['id'] = $_REQUEST['record'];
+        if (!empty($_REQUEST['record']) || !empty($_REQUEST['id'])){
+            if (!empty($_REQUEST['record']) && empty($_REQUEST['id'])){
+            	$_REQUEST['id'] = $_REQUEST['record'];
             }
-            $this->ev->focus->retrieve($_REQUEST['record']);
+            $this->ev->focus = BeanFactory::retrieveBean($module, $_REQUEST['id']);
             //call setup with focus passed in
 		    $this->ev->setup($module, $this->ev->focus, $source);
         }else{
@@ -76,15 +58,12 @@ class SubpanelQuickEdit{
         $this->ev->defs['templateMeta']['form']['hideAudit'] = true;
 
 
-		$viewEditSource = 'modules/'.$module.'/views/view.edit.php';
-		if (file_exists('custom/'. $viewEditSource)) {
-			$viewEditSource = 'custom/'. $viewEditSource;
-		}
+        $viewEditSource = SugarAutoLoader::existingCustomOne('modules/'.$module.'/views/view.edit.php');
 
-		if(file_exists($viewEditSource) && !$proccessOverride) {
+		if(!empty($viewEditSource) && !$proccessOverride) {
             include($viewEditSource);
             $c = $module . 'ViewEdit';
-            
+
             $customClass = 'Custom' . $c;
             if(class_exists($customClass)) {
                 $c = $customClass;
@@ -96,18 +75,13 @@ class SubpanelQuickEdit{
 	            	$this->defaultProcess = false;
 
 	            	//Check if we should use the module's QuickCreate.tpl file.
-	            	if($view->useModuleQuickCreateTemplate && file_exists('modules/'.$module.'/tpls/QuickCreate.tpl')) {
+	            	if($view->useModuleQuickCreateTemplate &&  SugarAutoLoader::fileExists('modules/'.$module.'/tpls/QuickCreate.tpl')) {
 	            	   $this->ev->defs['templateMeta']['form']['headerTpl'] = 'modules/'.$module.'/tpls/QuickCreate.tpl';
 	            	}
 
-		            $view->ev = & $this->ev;
-		            $view->ss = & $this->ev->ss;
-					$class = $GLOBALS['beanList'][$module];
-					if(!empty($GLOBALS['beanFiles'][$class])){
-						require_once($GLOBALS['beanFiles'][$class]);
-						$bean = new $class();
-						$view->bean = $bean;
-					}
+		            $view->ev = $this->ev;
+		            $view->ss = $this->ev->ss;
+					$view->bean = BeanFactory::getBean($module);
 					$this->ev->formName = 'form_Subpanel'.$this->ev->view .'_'.$module;
 					$view->showTitle = false; // Do not show title since this is for subpanel
 		            $view->display();

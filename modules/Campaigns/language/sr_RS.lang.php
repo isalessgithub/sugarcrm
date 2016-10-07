@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Molim, ispravite sledeće greške pre nego što nastavite sa radom',
@@ -24,10 +21,10 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'Za ovu listu ciljeva nije nađena Email Marketing poruka',
   'ERR_NO_EMAIL_MARKETING' => 'Mora postojati bar jedna aktivna Email Marketing poruka povezana sa kampanjom.',
   'ERR_NO_MAILBOX' => 'Sledeće marketing poruke nemaju email nalog za koji su povezane.<br>Ispravite to pre nego što nastavite.',
-  'ERR_NO_OPTS_SAVED' => 'Optimalna podešavanja za Vaš nalog dolazne e-pošte nisu sačuvana.',
+  'ERR_NO_OPTS_SAVED' => 'Optimalna podešavanja za Vaš dolazni email nalog nisu sačuvana.',
   'ERR_NO_TARGET_LISTS' => 'Mora postojati bar jedna lista ciljeva povezana sa kampanjom.',
   'ERR_NO_TEST_TARGET_LISTS' => 'Mora postojati bar jedna lista ciljeva tipa test povezana sa kampanjom.',
-  'ERR_REVIEW_EMAIL_SETTINGS' => 'Proverite podešavanja za Vaš nalog dolazne e-pošte.',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'Molimo vas proverite podešavanja za dolazni email.',
   'ERR_SENDING_NOW' => 'Poruke su dostavljene, molim pokušajte ovu kasnije.',
   'LBL_ACCOUNTS' => 'Kompanije',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kompanije',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Autor:',
   'LBL_CREATED_BY' => 'Autor:',
   'LBL_CREATED_USER' => 'Kreirao',
+  'LBL_CREATE_EMAIL' => 'Kreirati Email',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Kreiraj',
   'LBL_CREATE_MAILBOX' => 'Kreiraj novi Mail nalog',
   'LBL_CREATE_NEWSLETTER' => 'Kreiraj bilten',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Forma za kreiranje potencijalnih klijenata preko web-a',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'ID broj valute',
+  'LBL_CURRENCY_RATE' => 'Kursna Lista',
   'LBL_CUSTOM_LOCATION' => 'Korisnički definisan',
   'LBL_DATE_CREATED' => 'Datum kreiranja:',
   'LBL_DATE_ENTERED' => 'Datum kreiranja',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Pokreni Email podešavanje',
   'LBL_EMAIL_SETUP_WIZARD' => 'Podesi Email',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Email podešavanje za Kampanje',
+  'LBL_EMAIL_TITLE' => 'Kampanje: Email',
+  'LBL_END_DATE' => 'Datum završetka',
   'LBL_FILTER_CHART_BY' => 'Filtriraj dijagram po:',
   'LBL_FINISH' => 'Završi',
   'LBL_FROM_ADDR' => 'Adresa "Pošiljaoca":',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Koristi SSL',
   'LBL_SSL_DESC' => 'Ako Vaš mail server podržava SSL, uključivanjem ove opcije pri uvozu email poruka uključiće se SSL.',
   'LBL_START' => 'Početak',
+  'LBL_START_DATE' => 'Datum početka',
   'LBL_START_DATE_TIME' => 'Datum i vreme početka:',
+  'LBL_STATUS' => 'Status',
   'LBL_STATUS_TEXT' => 'Status:',
   'LBL_SUBSCRIPTION_LIST' => 'Lista prijavljivanja',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Naziv liste prijavljivanja:',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Ova opcija će obrisati log unose koji su kreirani pokretanjem testa. Da nastavim?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Prati Red',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Pregled ROI',
+  'LBL_TYPE' => 'Tip',
   'LBL_UNSUBSCRIBED_HEADER' => 'Dostupni bilteni/Odjavljeni bilteni',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Premeštanje biltena u listu Dostupni bilteni/Odjavljeni bilteni će dodati kontakt u listu za odjavljivanje za ovaj bilten. Kontakt neće biti uklonjen sa originalne liste pretplate ili liste ciljne grupe.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Lista odjavljivanja',

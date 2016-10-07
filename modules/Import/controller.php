@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description: Controller for the Import module
@@ -36,15 +33,12 @@ class ImportController extends SugarController
         global $mod_strings;
 
         if (!isset($_REQUEST['import_module'])) {
-            $_REQUEST['message'] = $mod_strings['LBL_ERROR_IMPORTS_NOT_SET_UP'];
-            $this->view = 'error';
-            $this->_processed = true;
             return; // there is no module to load
         }
 
         $this->importModule = $_REQUEST['import_module'];
 
-        $this->bean = loadBean($this->importModule);
+        $this->bean = BeanFactory::getBean($this->importModule);
         if ( $this->bean ) {
             if ( !$this->bean->importable )
                 $this->bean = false;
@@ -61,12 +55,14 @@ class ImportController extends SugarController
         if ( !$this->bean && $this->importModule != "Administration") {
             $_REQUEST['message'] = $mod_strings['LBL_ERROR_IMPORTS_NOT_SET_UP'];
             $this->view = 'error';
-            $this->_processed = true;
+            if (!isset($_REQUEST['import_map_id']) && !isset($_REQUEST['delete_map_id'])) {
+                $this->_processed = true;
+            }
         }
         else
             $GLOBALS['FOCUS'] = $this->bean;
     }
-    
+
     function action_index()
     {
         $this->action_Step1();
@@ -79,15 +75,12 @@ class ImportController extends SugarController
         // handle publishing and deleting import maps
         if(isset($_REQUEST['delete_map_id']))
         {
-            $import_map = new ImportMap();
-            $import_map->mark_deleted($_REQUEST['delete_map_id']);
+            $import_map = BeanFactory::deleteBean('Import_1', $_REQUEST['delete_map_id']);
         }
 
         if(isset($_REQUEST['publish']) )
         {
-            $import_map = new ImportMap();
-
-            $import_map = $import_map->retrieve($_REQUEST['import_map_id'], false);
+            $import_map = BeanFactory::getBean('Import_1', $_REQUEST['import_map_id'], array("encode" => false));
 
             if($_REQUEST['publish'] == 'yes')
             {
@@ -103,7 +96,7 @@ class ImportController extends SugarController
                     $results['message'] = $mod_strings['LBL_ERROR_UNABLE_TO_UNPUBLISH'];
             }
         }
-        
+
         echo json_encode($results);
         sugar_cleanup(TRUE);
     }
@@ -150,10 +143,10 @@ class ImportController extends SugarController
         $if->setHeaderRow($has_header);
         $lv = new ImportListView($if,array('offset'=> $offset), $tableID);
         $lv->display(FALSE);
-        
+
         sugar_cleanup(TRUE);
     }
-    
+
 	function action_Step1()
     {
         $fromAdminView = isset($_REQUEST['from_admin_wizard']) ? $_REQUEST['from_admin_wizard'] : FALSE;
@@ -166,7 +159,7 @@ class ImportController extends SugarController
         else
             $this->view = 'step2';
     }
-    
+
     function action_Step2()
     {
 		$this->view = 'step2';
@@ -191,17 +184,17 @@ class ImportController extends SugarController
     {
 		$this->view = 'step4';
     }
-    
+
     function action_Last()
     {
 		$this->view = 'last';
     }
-    
+
     function action_Undo()
     {
 		$this->view = 'undo';
     }
-    
+
     function action_Error()
     {
 		$this->view = 'error';
@@ -221,21 +214,11 @@ class ImportController extends SugarController
     {
         $this->view = 'extimport';
     }
-    
+
     function action_GetControl()
     {
         echo getControl($_REQUEST['import_module'],$_REQUEST['field_name']);
         exit;
-    }
-
-    public function action_AuthenticatedSources()
-    {
-        $this->view = 'authenticatedsources';
-    }
-
-    public function action_RevokeAccess()
-    {
-        $this->view = 'revokeaccess';
     }
 }
 ?>

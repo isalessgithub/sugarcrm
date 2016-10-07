@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numar de inregistrare trebuie specificat pentru a sterge antetul.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Informatii Adresa',
   'LBL_ADD_BUSINESSCARD' => 'Introduce Carte de Vizita',
   'LBL_ALTERNATE_ADDRESS' => 'Alta Adresa:',
-  'LBL_ALT_ADDRESS' => 'Alta Adresa:',
   'LBL_ALT_ADDRESS_CITY' => 'Orasul Adresei Alternative:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Tara Adresei Alternative:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Codul Postal al Adresei Alternative:',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Oportunitate Convertita:',
   'LBL_CONVERTLEAD' => 'Converteste Prospect',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Nu s-a putut converti pista',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Aţi convertit cu succes pista {{leadName}}, dar s-a produs o eroare la încărcarea ataşamentelor la una sau mai multe înregistrări',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Aţi convertit cu succes pista {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Converteste Prospect [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Atentionare: Statutul Calauzei pe care doriti s-o convertiti este "Convertita". Este posibil ca inregistrari de Contacte si/sau Conturi sa fi fost deja create din aceasta Calauza. Daca doriti sa continuati convertirea Calauzei, dati click pe Salvare. Pentru a va reintoarce la Calauza fara a o converti, dati click pe Revocare.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Contact Posibil:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Nu aveţi acces de editare pentru modulele necesare pentru convertirea unei piste:  {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Adauga Modul',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Asociat {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Asociat {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Înapoi la duplicate',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Convertire',
   'LBL_CONVERT_COPY' => 'Copiaza Datele',
+  'LBL_CONVERT_CREATE_NEW' => '{{moduleName}} nou',
   'LBL_CONVERT_DELETE' => 'Sterge',
+  'LBL_CONVERT_DUPLICATES_FOUND' => 'S-au găsit {{duplicateCount}} duplicate',
   'LBL_CONVERT_EDIT' => 'Modifica',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Editeaza Coverteste Sablon',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Căutare duplicate...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignoră şi creează nou',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} asociat',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Aţi asociat {{moduleNameLower}} {{recordName}} dar nu va fi creat până nu finalizaţi şi salvaţi.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Aţi asociat {{moduleNameLower}} {{recordName}} dar nu va fi conectat până nu finalizaţi şi salvaţi.',
   'LBL_CONVERT_MODULE_NAME' => 'Modul',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'modul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(opţional)',
   'LBL_CONVERT_REQUIRED' => 'Necesar',
+  'LBL_CONVERT_RESET_PANEL' => 'Resetare',
   'LBL_CONVERT_SELECT' => 'Permite Selectia',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Creeaza o inregistrare noua',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Cautare',
   'LBL_COPY_TIP' => 'Daca sunt marcate, campurile din antet vor fi copiate in campurile cu acelasi nume din inregistrarile nou create.',
   'LBL_COUNTRY' => 'Tara:',
   'LBL_CREATE' => 'Creeaza',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departament:',
   'LBL_DESCRIPTION' => 'Descriere',
   'LBL_DESCRIPTION_INFORMATION' => 'Descriere Informatie',
+  'LBL_DNB_BAL_PREVIEW' => 'Previzualizare piste',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Piste',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informaţii pistă',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID principal D&B',
   'LBL_DO_NOT_CALL' => 'Nu Sunati:',
   'LBL_DUPLICATE' => 'Prospecte Similare',
   'LBL_EDITLAYOUT' => 'Editeaza Plan General',
@@ -115,12 +134,25 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat de ID-ul',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobil:',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Rapoarte piste',
   'LBL_FIRST_NAME' => 'Prenume:',
   'LBL_FULL_NAME' => 'Nume intreg:',
+  'LBL_HELP_CONVERT' => 'Sugar vă permite convertirea {{plural_module_name}} în {{contacts_module}}, {{accounts_module}} şi alte module o dată ce {{module_name}} îndeplineşte criteriile dvs. de calificare.
+
+Treceţi prin fiecare modul modificând câmpurile, apoi confirmând valorile noii înregistrări prin apăsarea fiecărui buton Asociat.
+
+Dacă Sugar detectează o înregistrare existentă care se potriveşte cu informaţiile din {{module_name}} dvs., aveţi opţiunea de a alege un duplicat şi de a confirma selecţia prin butonul Asociat sau de a face clic pe "Ignoră şi creează nou", procedând ca de obicei.
+
+După confirmarea fiecărui modul solicitat şi dorit, faceţi clic pe butonul Salvare şi convertire din partea de sus pentru a finaliza conversia.',
+  'LBL_HELP_CONVERT_TITLE' => 'Converteşte un {{module_name}}',
+  'LBL_HELP_CREATE' => 'Modulul {{plural_module_name}} este format din posibili clienţi individuali ce pot fi interesaţi în produsele sau serviciile oferite de organizaţia dvs. O dată ce {{module_name}} este calificat drept {{opportunities_singular_module}} de vânzări, poate fi convertit în {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}} sau alte înregistrări. Pentru a crea {{module_name}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noul (noua) {{module_name}} în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} este format din posibili clienţi individuali ce pot fi interesaţi în produsele sau serviciile oferite de organizaţia dvs. - Editează câmpurile acestei înregistrări apăsând pe fiecare câmp individual sau pe butonul Editare. - Vizualizează sau modifică linkuri către alte înregistrări in panourile secundare, trecând fereastra din stânga jos în stadiul "Vizualizare Date". - Creează şi vizualizează comentariile altor utilizatori şi istoricul modificărilor în {{activitystream_singular_module}} trecând fereastra din stânga jos în stadiul "Flux de activitate". - Urmăreşte sau marchează ca favorit această înregistrare folosind pictogramele din dreapta numelui înregistrării. - Sunt disponibile acţiuni suplimentare în meniul cu listă derulantă Acţiuni din dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} este format din posibili clienţi individuali ce pot fi interesaţi în produsele sau serviciile oferite de organizaţia dvs. O dată ce {{module_name}} este calificat drept {{opportunities_singular_module}} de vânzări, {{plural_module_name}} poate fi convertit în {{contacts_module}}, {{opportunities_module}} şi {{accounts_module}}. Există mai multe modalităţi prin care puteţi crea {{plural_module_name}} în Sugar, cum ar fi prin modulul {{plural_module_name}}, prin duplicare, prin import de {{plural_module_name}} etc. După crearea înregistrării {{module_name}}, puteţi vizualiza şi edita informaţiile asociate cu {{module_name}} prin fereastra de vizualizare a înregistrării {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istoric',
   'LBL_HOME_PHONE' => 'Telefon Acasa:',
   'LBL_IMPORT_VCARD' => 'Importa vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Creaza automat un nou antet prin importarea unui vCard din sistemul dumneavoastra de fisiere.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Pista de la vCard creată cu succes',
   'LBL_INVALID_EMAIL' => 'Email Invalid:',
   'LBL_INVITEE' => 'Rapoarte Directe',
   'LBL_LAST_NAME' => 'Nume de Familie:',
@@ -146,6 +178,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Titlu',
   'LBL_LOADING' => 'Incarcare...Va rugam asteptati',
   'LBL_MESSAGE' => 'Va rugam sa introduceti datele dumneavoastra mai jos. Datele si/sau un cont vor fi create pentru dumneavoastra, in asteptarea aprobarii.',
+  'LBL_MKTO_ID' => 'ID pistă Marketo',
+  'LBL_MKTO_LEAD_SCORE' => 'Punctaj pistă',
+  'LBL_MKTO_SYNC' => 'Sincronizare către Marketo®',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_MODIFIED' => 'Modificat de',
   'LBL_MODIFIED_ID' => 'Modificata de ID',
@@ -157,8 +192,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Nume:',
   'LBL_NEW_FORM_TITLE' => 'Prospect Nou',
   'LBL_NEW_PORTAL_PASSWORD' => 'Parola de Portal Noua',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Nota: Ecranul Converteste Calauza curent contine campuri particularizate. Cand particularizati ecranul Converteste Calauza pentru prima oara, va fi necesar sa adaugati campuri particularizate la sablon, dupa cum este necesar.',
   'LBL_OFFICE_PHONE' => 'Telefon Birou:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Oportunităţi',
   'LBL_OPPORTUNITY_AMOUNT' => 'Cantitate Oportunitate:',
   'LBL_OPPORTUNITY_ID' => 'Identificare Oportunitate',
   'LBL_OPPORTUNITY_NAME' => 'Nume Oportunitate:',
@@ -186,6 +223,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Strada 2 a Adresei Principale',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Strada 3 a Adresei Principale',
   'LBL_PROSPECT_LIST' => 'Lista Prospect',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Aţi creat cu succes {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Mentionat De:',
   'LBL_REGISTRATION' => 'Inregistrare',
   'LBL_REPORTS_FROM' => 'Rapoarte din:',
@@ -194,6 +232,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Modulele necesare trebuie create sau selectate inainte ca antetul sa poate fi convertit.',
   'LBL_SALUTATION' => 'Formula de salut',
   'LBL_SAVED' => 'Va multumim pentru inregistrare. Contul dumneavoastrava fi creat si cineva va va contacta in curand.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Salvare şi convertire',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta Prospecte',
   'LBL_SELECT' => 'SAU Selecteaza',
   'LBL_SELECTION_TIP' => 'Module cu un camp relationat in Contacte pot fi selectate mai degraba decat create pe timpul procesului de conversie al calauzei.',
@@ -210,6 +249,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Campanii de Succes:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Va Multumim Pentru Inregistrare.',
   'LBL_TITLE' => 'Titlu:',
+  'LBL_UNCONVERTED' => 'Neconvertit',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Vizualizare Propsecte',
   'LBL_WEBSITE' => 'Site Web',
@@ -235,6 +275,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Crearea unei oportunitati necesita un cont.\\n Va rugam, fie sa creati un cont nou, fie sa selectati unul deja existent.',
   'NTC_REMOVE_CONFIRMATION' => 'Sunteţi sigur că doriţi să inlaturati acest contact din caz?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Sunteţi sigur că doriţi să inlaturati aceasta inregistrare ca un raport direct?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LISTA_NUME_CONT',
   'db_email1' => 'LBL_LISTA_EMAIL_ADRESA',
   'db_email2' => 'LBL_LISTA_ALT_EMAIL_ADRESA',

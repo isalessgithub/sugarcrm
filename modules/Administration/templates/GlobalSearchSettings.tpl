@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -101,7 +98,7 @@
 </form>
 
 <div id='selectFTSModules' class="yui-hidden">
-    <div style="background-color: white; padding: 20px;">
+    <div style="background-color: white; padding: 20px; overflow:scroll; height:400px;">
         <div id='selectFTSModulesTable' ></div>
         <div style="padding-top: 10px"><input type="checkbox" name="clearDataOnIndex" id="clearDataOnIndex" >&nbsp;{$MOD.LBL_DELETE_FTS_DATA}</div>
     </div>
@@ -223,32 +220,28 @@
 	SUGAR.saveCallBack = function(o)
 	{
 	   ajaxStatus.flashStatus(SUGAR.language.get('app_strings', 'LBL_DONE'));
-	   if (o.responseText == "true")
-	   {
+        var response = YAHOO.lang.trim(o.responseText);
+        if (response === "true") {
+            var app = parent.SUGAR.App;
+            app.metadata.sync(function (){
+                app.additionalComponents.header.getComponent('globalsearch').populateModules();
+            });
+
 	       window.location.assign('index.php?module=Administration&action=index');
 	   } else {
-	       YAHOO.SUGAR.MessageBox.show({msg:o.responseText});
+            YAHOO.SUGAR.MessageBox.show({msg: response});
 	   }
 	}
 })();
 {/literal}
 </script>
 <script type="text/javascript">
-    var shouldHide = '{$scheduleDisableButton}';
     var justRequestedAScheduledIndex = '{$justRequestedAScheduledIndex}';
     {literal}
     $(document).ready(function()
     {
-        if (shouldHide)
-        {
-            $('.shouldToggle').toggle(false);
-        }
         if(justRequestedAScheduledIndex)
             alert(SUGAR.language.get('Administration','LBL_FTS_CONN_SUCCESS_SHORT'));
-
-        $('#fts_host, #fts_port').on('input', function() {
-            $('.schedFullSystemIndex').hide();
-        });
     });
 
     SUGAR.FTS = {
@@ -282,7 +275,6 @@
             alert(SUGAR.language.get('Administration','LBL_FTS_CONN_SUCCESS_SHORT'));
             SUGAR.FTS.selectFTSModulesDialog.cancel();
 
-            SUGAR.saveGlobalSearchSettings();
         },
         schedFullSystemIndex : function()
         {
@@ -400,16 +392,6 @@
 
         }
     };
-
-    $('#fts_type').change(function(e)
-    {
-        $('.shouldToggle').toggle();
-
-        if($(this).val() == '')
-        {
-            $('.sched_button').attr('disabled', 'disabled');
-        }
-    });
     {/literal}
     addForm('GlobalSearchSettings');
     addToValidateMoreThan('GlobalSearchSettings', 'fts_port', 'int', true, '{$MOD.LBL_FTS_PORT}', 1);

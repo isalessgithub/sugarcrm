@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT' => 'Conturi',
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_EDIT_ALT_TEXT' => 'Editeaza text simplu',
   'LBL_EDIT_LAYOUT' => 'Editeaza Plan General',
   'LBL_EMAIL_ATTACHMENT' => 'Atasare email',
+  'LBL_FILTER_EMAIL_TYPE_TEMPLATES' => 'Şabloane pentru Email',
   'LBL_FROM_ADDRESS' => 'De la adresa',
   'LBL_FROM_NAME' => 'De la Nume:',
   'LBL_HIDE_ALT_TEXT' => 'Ascunde text plan',
@@ -66,6 +64,7 @@ $mod_strings = array (
   'LBL_SHOW_ALT_TEXT' => 'Arata text simplu',
   'LBL_SUBJECT' => 'Subiect',
   'LBL_SUGAR_DOCUMENT' => 'Document Sugar',
+  'LBL_TEAM' => 'Echipe',
   'LBL_TEAMS' => 'Echipe',
   'LBL_TEAMS_LINK' => 'Echipe',
   'LBL_TEXT_BODY' => 'Corp text',

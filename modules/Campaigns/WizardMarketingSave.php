@@ -1,33 +1,22 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 global $timedate;
 global $current_user;
 
 $master = 'save';
-if (isset($_REQUEST['wiz_home_next_step']) && !empty($_REQUEST['wiz_home_next_step'])) {
-    
+if (!empty($_REQUEST['wiz_home_next_step'])) {
+
     if($_REQUEST['wiz_home_next_step']==3){
         //user has chosen to save and schedule this campaign for email
         $master = 'send';
@@ -36,20 +25,20 @@ if (isset($_REQUEST['wiz_home_next_step']) && !empty($_REQUEST['wiz_home_next_st
         $master = 'test';
     }else{
         //user has chosen to simply save
-        $master  = 'save';        
+        $master  = 'save';
     }
-        
+
 }else{
      //default to just saving and exiting wizard
-     $master = 'save';   
+     $master = 'save';
 }
 
 
 
 
 $prefix = 'wiz_step3_';
-$marketing = new EmailMarketing();
-if (isset($_REQUEST['record']) && !empty($_REQUEST['record'])) {
+$marketing = BeanFactory::getBean('EmailMarketing');
+if (!empty($_REQUEST['record'])) {
     $marketing->retrieve($_REQUEST['record']);
 }
 if(!$marketing->ACLAccess('Save')){
@@ -68,14 +57,14 @@ else {
               if((strstr($key, $prefix )) && (strpos($key, $prefix )== 0)){
               $newkey  =substr($key, strlen($prefix)) ;
               $_REQUEST[$newkey] = $val;
-         }               
+         }
     }
 
     foreach ($_REQUEST as $key => $val) {
               if((strstr($key, $prefix )) && (strpos($key, $prefix )== 0)){
               $newkey  =substr($key, strlen($prefix)) ;
               $_REQUEST[$newkey] = $val;
-         }               
+         }
     }
 
 if(!empty($_REQUEST['meridiem'])){
@@ -83,7 +72,7 @@ if(!empty($_REQUEST['meridiem'])){
 }
 
 if(empty($_REQUEST['time_start'])) {
-  $_REQUEST['date_start'] = $_REQUEST['date_start'] . ' 00:00';	
+  $_REQUEST['date_start'] = $_REQUEST['date_start'] . ' 00:00';
 } else {
   $_REQUEST['date_start'] = $_REQUEST['date_start'] . ' ' . $_REQUEST['time_start'];
 }
@@ -95,7 +84,7 @@ foreach($marketing->column_fields as $field)
         {
             $marketing->$field = 1;
         } else {
-            $marketing->$field = 0;         
+            $marketing->$field = 0;
         }
     }else {
         if(isset($_REQUEST[$field]))
@@ -129,24 +118,24 @@ if ($marketing->all_prospect_lists==1) {
 } else {
     if (isset($_REQUEST['message_for']) && is_array($_REQUEST['message_for'])) {
         foreach ($_REQUEST['message_for'] as $prospect_list_id) {
-            
+
             $key=array_search($prospect_list_id,$prospectlists);
             if ($key === null or $key === false) {
-                $marketing->prospectlists->add($prospect_list_id);          
+                $marketing->prospectlists->add($prospect_list_id);
             } else {
                 unset($prospectlists[$key]);
             }
         }
         if (count($prospectlists) != 0) {
             foreach ($prospectlists as $key=>$list_id) {
-                $marketing->prospectlists->delete($marketing->id,$list_id);             
-            }   
+                $marketing->prospectlists->delete($marketing->id,$list_id);
+            }
         }
     }
 }
 
 //populate an array with marketing email id to use
-$mass[] = $marketing->id; 
+$mass[] = $marketing->id;
 //if sending an email was chosen, set all the needed variables for queuing campaign
 
 if($master !='save'){
@@ -155,7 +144,7 @@ if($master !='save'){
     $_REQUEST['record'] =$marketing->campaign_id;
     $_POST['record']=$marketing->campaign_id;
     $_REQUEST['mode'] = $master;
-     $_POST['mode'] = $master; 
+     $_POST['mode'] = $master;
      $_REQUEST['from_wiz']= 'true';
     require_once('modules/Campaigns/QueueCampaign.php');
 }

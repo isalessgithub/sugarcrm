@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numéro d&#39;enregistrement doit etre spécifié pour toute suppression',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Devis déjà converti en Affaire',
   'LBL_ACCOUNT_ID' => 'Compte (ID)',
   'LBL_ACCOUNT_NAME' => 'Nom du Compte:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activités à Réaliser',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Prix de Revient',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Clos le',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Valide jusqu&#39;à',
-  'LBL_LIST_DEAL_TOT' => 'Remise',
+  'LBL_LIST_DEAL_TOT' => 'Total Remise',
   'LBL_LIST_DISCOUNT_PRICE' => 'Prix remisé',
   'LBL_LIST_FORM_TITLE' => 'Liste Devis',
   'LBL_LIST_GRAND_TOTAL' => 'Total Général',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Mes devis',
   'LBL_LIST_PRICING_FACTOR' => 'Facteur',
   'LBL_LIST_PRICING_FORMULA' => 'Formule de Pricing',
-  'LBL_LIST_PRODUCT_NAME' => 'Articles',
+  'LBL_LIST_PRODUCT_NAME' => 'Ligne de devis',
   'LBL_LIST_QUANTITY' => 'Quantité',
   'LBL_LIST_QUOTE_NAME' => 'Titre',
   'LBL_LIST_QUOTE_NUM' => 'Identifiant',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Remise',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Prix Total',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Prix Public',
-  'LBL_PDF_ITEM_PRODUCT' => 'Articles',
+  'LBL_PDF_ITEM_PRODUCT' => 'Ligne de devis',
   'LBL_PDF_ITEM_QUANTITY' => 'Qte',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Prix Unitaire',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Supprimer commentaire',
   'LBL_REMOVE_ROW' => 'Supprimer ligne',
   'LBL_RENAME_ERROR' => 'ERREUR: impossible de déplacer move_pdf vers $destination. Vous devez donner les droits d&#39;ecriture au répertoire',
+  'LBL_REVENUELINEITEMS' => 'Lignes de revenu',
   'LBL_SALES_STAGE' => 'Etape du Devis',
   'LBL_SEARCH_FORM_TITLE' => 'Rechercher un Devis',
   'LBL_SHIPPING' => 'Frais de Port:',

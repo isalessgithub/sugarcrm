@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Geçersiz Cron söz dizimi',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Her gün',
   'LBL_ALWAYS' => 'Her zaman',
   'LBL_AND' => 've',
+  'LBL_ASYNCMASSUPDATE' => 'Asenkron Toplu Güncelleme Uygulayın',
   'LBL_AT' => 'burada',
   'LBL_AT_THE' => 'Burada',
   'LBL_BASIC_OPTIONS' => 'Basit Kurulum',
   'LBL_CATCH_UP' => 'Vakti geçmiş ise çalıştır',
   'LBL_CATCH_UP_WARNING' => 'Eğer bu iş bir saniyeden daha fazla sürecek ise işareti kaldırın.',
   'LBL_CLEANJOBQUEUE' => 'İş Kuyruğunu Temizle',
+  'LBL_CLEANOLDRECORDLISTS' => 'Eski Kayıt Listesini Temizle',
   'LBL_CRONTAB_EXAMPLES' => 'Yukarısı standart crontab gösterimini kullanır.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Lütfen planlayıcının zamanını buna göre belirleyiniz.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Sunucunun cron tanımlarını çalıştırdığı zaman dilimi (',
@@ -82,16 +81,20 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Gecelik Çalışan Kitlesel E-Posta Kampanyaları',
   'LBL_OOTB_CLEANUP_QUEUE' => 'İş Kuyruğunu Temizle',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Gelecek Zaman Aralıkları Oluştur',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Çalışırlık Sinyali',
   'LBL_OOTB_IE' => 'Gelen Posta kutularını Kontrol et',
   'LBL_OOTB_PRUNE' => 'Ayın 1 inde Veritabanında temizlik yap',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Dokümanların dosya sisteminden kaldırılması',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Eski Kayıt Listesini Silin',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Hata bulma dosyalarını sil',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Geçici PDF dosyalarını sil',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Geçici dosyaları sil',
   'LBL_OOTB_REPORTS' => 'Rapor Üretimi Planlanmış Görevleri Çalıştırın',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'E-Posta Hatırlatıcı Bildirimlerini Çalıştır',
-  'LBL_OOTB_SUGARFEEDS' => 'SugarFeed Tablolarını Temizleyin',
   'LBL_OOTB_TRACKER' => 'Takipçi Tabloları Temizle',
   'LBL_OOTB_WORKFLOW' => 'Süreç İş Akışı Görevleri',
   'LBL_PERENNIAL' => 'sürekli',
   'LBL_PERFORMFULLFTSINDEX' => 'Tam-Metin Arama İndeks Sistemi',
+  'LBL_PMSEENGINECRON' => 'Yazar Planlayıcıyı İşle',
   'LBL_POLLMONITOREDINBOXES' => 'Kontrol Et',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Gecelik Çalışan Geri Dönen Kampanya E-Postaları',
   'LBL_PROCESSQUEUE' => 'Rapor Üretimi Planlanmış Görevleri Çalıştırın',
@@ -99,7 +102,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Ayın 1 inde Veritabanında temizlik yap',
   'LBL_RANGE' => 'kime',
   'LBL_REFRESHJOBS' => 'İşleri Yenile',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Dokümanların dosya sisteminden kaldırılması',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Gecelik Çalışan Kitlesel E-Posta Kampanyaları',
   'LBL_SAT' => 'Cumartesi',
   'LBL_SCHEDULER' => 'Planlayıcı:',
@@ -107,13 +109,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'E-Posta Hatırlatıcı Gönderimini Çalıştır',
   'LBL_STATUS' => 'Durum',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Gelecek Zaman Aralıkları Oluştur',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Çalışırlık Sinyali',
   'LBL_SUN' => 'Pazar',
   'LBL_THU' => 'Perşembe',
   'LBL_TIME_FROM' => 'Aktiflik Başlangıcı',
   'LBL_TIME_TO' => 'Aktiflik Bitişi',
   'LBL_TOGGLE_ADV' => 'Gelişmiş Seçenekleri Gösterin',
   'LBL_TOGGLE_BASIC' => 'Temel Seçenekleri Göster',
-  'LBL_TRIMSUGARFEEDS' => 'SugarFeed Tablolarını Temizleyin',
   'LBL_TRIMTRACKER' => 'Takipçi Tabloları Temizle',
   'LBL_TUE' => 'Salı',
   'LBL_UPDATETRACKERSESSIONS' => 'Takipçi Oturum Tablolarını Güncelle',

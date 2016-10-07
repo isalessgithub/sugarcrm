@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avancé',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Afficher les temps de réponse serveur',
   'ERR_ALERT_FILE_UPLOAD' => 'Erreur durant l&#39;upload de l&#39;image.',
   'ERR_DELETE_CORE_FILE' => 'ERREUR: Il n&#39;est pas possible de supprimer une police système.',
+  'ERR_EMPTY_SAML_CERT' => 'Le certificat SAML ne peut être vide',
+  'ERR_EMPTY_SAML_LOGIN' => 'L&#39;URL de login SAML ne peut pas être vide',
   'ERR_EZPDF_DISABLE' => 'Attention : La classe EZPDF est désactivée dans la table de configuration mais elle est définie comme la classe par défaut pour générer des PDFs. Veuillez "Sauvegarder" ce formulaire pour positionner TCPDF comme la classe de génération des PDFs et ainsi retourner à un état stable.',
   'ERR_FONT_ALREADY_EXIST' => 'ERREUR : Cette Police existe déjà.',
   'ERR_FONT_EMPTYFILE' => 'ERREUR: Nom de fichier vide !',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERREUR: Le chemin personnalisé vers la Police n&#39;est pas disponible !',
   'ERR_NO_FONT_PATH' => 'ERREUR: Le chemin vers la Police n&#39;est pas disponible !',
   'ERR_PDF_NO_UPLOAD' => 'Une erreur est survenue durant le téléchargement du fichier de la Police ou de son unité de mesure.',
+  'ERR_SAML_LOGIN_URL' => 'L&#39;URL de login SAML n&#39;est pas valide',
+  'ERR_SAML_SLO_URL' => 'L&#39;URL SLO SAML n&#39;est pas vallide',
   'HEAD_MAGNIFICATION' => 'Grossissement des en-têtes',
   'HEAD_MAGNIFICATION_INFO' => 'Facteur de grossissement pour les titres.',
   'IMAGES' => 'Logos',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Revenir en arrière',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Choisissez votre fournisseur de messagerie:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Configuration',
-  'LBL_CONFIG_AJAX' => 'Configurer l&#39;interface utilisateur en AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Activer ou désactiver l&#39;utilisation de l&#39;interface utilisateur en AJAX pour certains modules',
   'LBL_DELETE' => 'Supprimer',
   'LBL_DISALBE_CONVERT_LEAD' => 'Désactiver l&#39;action de conversion de Lead pour les Leads convertis',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Si un Lead a déjà été converti, activer cette option supprimera l&#39;action de conversion de Lead',
   'LBL_DISPLAYING_LOG' => 'Afficher les logs',
   'LBL_ENABLE_ACTION_MENU' => 'Afficher les actions dans les menus',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Sélectionnez pour afficher les actions dans une liste de menu. Si dé-sélectionné, les actions seront affichées dans des boutons indépendants.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Voir les emails des Contacts liés dans le sous panel historique des modules',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Active/Désactive l&#39;affichage consolidé des emails en relation avec les contacts liés.',
   'LBL_ENABLE_MAILMERGE' => 'Autoriser le publipostage',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange - Mot de passe:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Tous paramètres additionnels à appliquer lors de l&#39;authentification des utilisateurs exemple <em>is_sugar_user=1 ou (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Options pour la conversion de Lead',
   'LBL_LOADING' => 'Chargement...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Ce paramétrage s&#39;applique uniquement sur les modules en mode legacy.',
   'LBL_LOGGER' => 'Fichier de logs',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Format de la date stockée dans le fichier de logs',
   'LBL_LOGGER_FILENAME' => 'Nom du fichier de logs',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Suivant >>',
   'LBL_NOTIFY_FROMADDRESS' => '"From" Email:',
   'LBL_NOTIFY_SUBJECT' => 'Sujet Email:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Empêcher le changement de nom par les utilisateurs pour mettre à jour le nom de l&#39;équipe pivée',
   'LBL_OC_STATUS' => 'Statut par défaut du Client Offline',
   'LBL_OC_STATUS_DESC' => 'Cochez cette case si vous souhaitez que tous les utilisateurs actifs aient accès au Client Offline.<br />Vous pouvez aussi configurer les accès au niveau de l&#39;utilisateur.<br />Note: vous devez acquérir le Client Offline pour pouvoir utiliser cette option.',
   'LBL_PDFMODULE_NAME' => 'Paramètres PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'ERREUR : La police n&#39;a pas pu être ajoutée. Vous trouverez plus d&#39;informations dans les logs ci-dessous.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUCCES : La police a été ajoutée à SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Paramètres Système',
+  'LBL_TWEETTOCASE_ON' => 'Activé l’intégration Tweet® vers ticket',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Autorisé les utilisateurs à créer des tickets depuis des Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet® vers ticket',
   'LBL_USE_REAL_NAMES' => 'Par défaut voir le "Nom Complet" des utilisateurs et non pas leur login',
   'LBL_USE_REAL_NAMES_DESC' => 'Par défaut voir le "Nom Complet" des utilisateurs dans les champs Assigné à',
   'LBL_VCAL_PERIOD' => 'Période de mise à jour vCal:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nom du système',
   'SYSTEM_NAME_HELP' => 'C&#39;est le nom qui s&#39;affiche dans la barre de titre de votre navigateur.',
   'SYSTEM_NAME_WIZARD' => 'Nom:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Les paramétrages recommandés pour de bonnes performances sont visibles ci-dessous {{listEntriesNum}}. Comme des champs peuvent être ajoutés à la vue liste, ce nombre devrait être au plus bas.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Les paramétrages recommandés pour de bonnes performances sont visibles ci-dessous {{subpanelEntriesNum}}. Comme des champs peuvent être ajoutés à la vue liste, ce nombre devrait être au plus bas.',
   'UPLOAD_MAX_SIZE' => 'Taille maximale des "uploads" (vérifier aussi dans votre fichier php.ini)',
   'VERIFY_CLIENT_IP' => 'Valider l&#39;adresse IP utilisateur',
   'vCAL_HELP' => 'Nombre de mois inclus dans la détermination de la disponiblité des utilisateurs<br />Pour ne pas utiliser cette fonctionnalité entrez 0. Le minimum étant 1 mois, le maximum 12 mois.',

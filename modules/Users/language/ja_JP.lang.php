@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '取引先を削除するにはレコード番号を指定する必要があります。',
@@ -100,8 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => '作成者',
   'LBL_CURRENCY' => '通貨',
   'LBL_CURRENCY_EXAMPLE' => '通貨表示のサンプル',
-  'LBL_CURRENCY_SHOW_PREFERRED' => '希望する通貨を見せる',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => '基本通貨を、リストとレコード内のユーザー希望のものに変換する',
+  'LBL_CURRENCY_SHOW_PREFERRED' => '希望する通貨を表示する',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => '基本通貨を、リストとレコードビュー内のユーザ希望のものに変換する',
   'LBL_CURRENCY_SIG_DIGITS' => '通貨の精度',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => '通貨表示において表示する小数点以下のケタ数',
   'LBL_CURRENCY_TEXT' => '新しいレコードを作成する際にデフォルトで表示される通貨を選択してください。この通貨は商談一覧で金額カラムに表示される通貨となります。',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'ファックス',
   'LBL_FDOW' => '週の最初の日',
   'LBL_FDOW_TEXT' => '週、月、年の表示で表示する最初の日です。',
+  'LBL_FILTER_USERS_REPORTS' => 'ユーザーズレポート',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '最適な接続の設定を検出',
   'LBL_FIND_OPTIMUM_TITLE' => '最適な設定を検出',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'ネガティブを強制',
   'LBL_FORCE_DESC' => 'いくつかのIMAP/POP3サーバは特別なスイッチを必要とします。チェックを入れると接続時にネガティブスイッチを強制します。（例: /notls）',
   'LBL_FORECASTS' => '予算',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'これは現在使用不可です。管理者に連絡してください。',
   'LBL_FOUND_OPTIMUM_MSG' => '最適な設定を検出しました。ボタンをクリックすると適用されます。',
   'LBL_GENERATE_PASSWORD' => 'パスワードのリセット',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => '私のチーム',
   'LBL_NAME' => '名前',
   'LBL_NAVIGATION_PARADIGM' => 'ナビゲーション',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'ナビゲーションバーで、グループに基づいてモジュールを表示するかを選択することができます。選択した場合は「その他」に「モジュールフィルタ」が表示されます。',
   'LBL_NEW_FORM_TITLE' => 'ユーザ作成',
   'LBL_NEW_PASSWORD' => '新パスワード',
   'LBL_NEW_PASSWORD1' => 'パスワード',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => '上司',
   'LBL_REQUEST_SUBMIT' => '依頼が送信されました。',
   'LBL_RESET_DASHBOARD' => 'ダッシュボード',
-  'LBL_RESET_HOMEPAGE' => 'デフォルトのホームに戻す',
-  'LBL_RESET_HOMEPAGE_WARNING' => '本当にホームをデフォルトに戻してよいですか？',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => '本当にこのユーザのホームをデフォルトに戻してよいですか？',
   'LBL_RESET_PREFERENCES' => 'ユーザ設定をリセット',
   'LBL_RESET_PREFERENCES_WARNING' => '本当にユーザの設定をすべてリセットしてよいですか？警告: アプリケーションからログアウトになります。',
   'LBL_RESET_PREFERENCES_WARNING_USER' => '本当にこのユーザの設定をすべてリセットしてよいですか？',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'ステータス',
   'LBL_SUBPANEL_LINKS' => 'サブパネルリンク',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => '詳細画面において、サブパネルがグループタブに設定されていない場合、サブパネルへのショートカットリンクを下部に表示します。',
-  'LBL_SUBPANEL_TABS' => 'サブパネルタブ',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => '詳細画面において、サブパネルをグループ化し、どれか１つだけタブを表示します。',
   'LBL_SUGAR_LOGIN' => 'Sugarユーザ',
   'LBL_SUPPORTED_THEME_ONLY' => 'このオプションをサポートするテーマのみに影響',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'チェックすると参照履歴バーをサイドに表示します。チェックしない場合、上部に表示されます。',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'チェックするとショートカットバーを上部に表示します。チェックしない場合、サイドに表示されます。',
   'LBL_SWAP_SHORTCUT_POSITION' => 'ショートカットを上部に表示',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'システムが生成したパスワード',
+  'LBL_SYSTEM_SIG_DIGITS' => 'システムの重要な数字',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => '小数点以下の桁数は、レポートの通貨と平均など、システム全体の小数などのために表示します。',
   'LBL_TAB_TITLE_EMAIL' => 'メール設定',
   'LBL_TAB_TITLE_USER' => 'ユーザ設定',
   'LBL_TEAMS' => 'チーム',

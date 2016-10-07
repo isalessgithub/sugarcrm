@@ -1,20 +1,17 @@
  <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ImportStep3.php 16440 2006-08-25 23:18:55 +0000 (Fri, 25 Aug 2006) jenny $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -30,15 +27,15 @@ $focus = 0;
 if(isset($_REQUEST['return_module'])){
     if($_REQUEST['return_module'] == 'Contacts'){
 
-        $focus = new Contact();
+        $focus = BeanFactory::getBean('Contacts');
     }
     if($_REQUEST['return_module'] == 'Leads'){
 
-        $focus = new Lead();
+        $focus = BeanFactory::getBean('Leads');
     }
     if($_REQUEST['return_module'] == 'Prospects'){
 
-        $focus = new Prospect();
+        $focus = BeanFactory::getBean('Prospects');
     }
 }
 
@@ -88,8 +85,6 @@ $title = getClassicModuleTitle($focus->module_dir, $params, true);
 $orig_vals_str = printOriginalValues($focus);
 $orig_vals_array = constructDDSubscriptionList($focus);
 
-$this->ss->assign('APP', $app_strings);
-$this->ss->assign('MOD', $mod_strings);
 $this->ss->assign('title',  $title);
 
 $this->ss->assign('enabled_subs', $orig_vals_array[0]);
@@ -97,9 +92,27 @@ $this->ss->assign('disabled_subs', $orig_vals_array[1]);
 $this->ss->assign('enabled_subs_string', $orig_vals_str[0]);
 $this->ss->assign('disabled_subs_string', $orig_vals_str[1]);
 
+// FIXME we are doing this way since this view is going to be removed later
+// this should be with proper buttons from smarty tpls.
+require_once 'include/formbase.php';
+$url = buildRedirectURL();
+$cancelButtonClick = "SUGAR.ajaxUI.loadContent('$url'); return false;";
+/*
+ * Parse the module from the URL first using regular expression.
+ * This is faster than parse_url + parse_str in first place and most of
+ * our redirects won't go to sidecar (at least for now).
+ */
+if (preg_match('/module=([^&]+)/', $url, $matches) && !isModuleBWC($matches[1])) {
+    parse_str(parse_url($url, PHP_URL_QUERY), $params);
+    $script = navigateToSidecar(
+        buildSidecarRoute($params['module'], $params['record'], translateToSidecarAction($params['action']))
+    );
+    $cancelButtonClick = "$script return false;";
+}
+
 $buttons = array(
     '<input id="save_button" title="'.$app_strings['LBL_SAVE_BUTTON_TITLE'].'" accessKey="'.$app_strings['LBL_SAVE_BUTTON_KEY'].'" class="button" onclick="save();this.form.action.value=\'Subscriptions\'; " type="submit" name="button" value="'.$app_strings['LBL_SAVE_BUTTON_LABEL'].'">',
-    '<input id="cancel_button" title="'.$app_strings['LBL_CANCEL_BUTTON_TITLE'].'" accessKey="'.$app_strings['LBL_CANCEL_BUTTON_KEY'].'" class="button" onclick="this.form.action.value=\''.$this->ss->get_template_vars('RETURN_ACTION').'\'; this.form.module.value=\''.$this->ss->get_template_vars('RETURN_MODULE').'\';" type="submit" name="button" value="'.$app_strings['LBL_CANCEL_BUTTON_LABEL'].'">'
+    '<input id="cancel_button" title="'.$app_strings['LBL_CANCEL_BUTTON_TITLE'].'" accessKey="'.$app_strings['LBL_CANCEL_BUTTON_KEY'].'" class="button" onclick="'.$cancelButtonClick.'" type="submit" name="button" value="'.$app_strings['LBL_CANCEL_BUTTON_LABEL'].'">'
 );
 $this->ss->assign('BUTTONS', $buttons);
 $this->ss->display('modules/Campaigns/Subscriptions.tpl');
@@ -236,5 +249,3 @@ function manageSubscriptions($focus){
     }
 
 }
-
-?>

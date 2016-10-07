@@ -1,18 +1,15 @@
-<!--
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+{*
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
--->
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+*}
 <!-- END METADATA SECTION -->
             <div id='email_options'>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="detail view">
@@ -43,9 +40,10 @@
                             {$MOD.LBL_EMAIL_PROVIDER|strip_semicolon}:
                         </td>
                         <td width="35%">
-                            {$mail_smtpserver}
+                            {$mail_smtpdisplay}
                         </td>
                     </tr>
+                    {if !empty($mail_smtpauth_req)}
                     <tr>
                         <td align="top"  scope="row">
                             {$MOD.LBL_MAIL_SMTPUSER|strip_semicolon}:
@@ -54,6 +52,7 @@
                             {$mail_smtpuser}
                         </td>
                     </tr>
+                    {/if}
                     {/if}
                 </table>
             </div>
@@ -78,12 +77,6 @@
                 <td scope="row" valign="top"><slot>{$MOD.LBL_REMINDER|strip_semicolon}:</td>
                 <td valign="top" nowrap><slot>{include file="modules/Meetings/tpls/reminders.tpl"}</slot></td>
                 <td ><slot>{$MOD.LBL_REMINDER_TEXT}&nbsp;</slot></td>
-
-                </tr>
-                <tr>
-                <td valign="top" scope="row"><slot>{$MOD.LBL_MAILMERGE|strip_semicolon}:</slot></td>
-                <td valign="top" nowrap><slot><input tabindex='3' name='mailmerge_on' disabled class="checkbox" type="checkbox" {$MAILMERGE_ON}></slot></td>
-                <td><slot>{$MOD.LBL_MAILMERGE_TEXT}&nbsp;</slot></td>
                 </tr>
                 <tr>
                 <td valign="top" scope="row"><slot>{$MOD.LBL_SETTINGS_URL|strip_semicolon}:</slot></td>
@@ -104,11 +97,6 @@
                 <td scope="row" valign="top"><slot>{$MOD.LBL_USE_REAL_NAMES|strip_semicolon}:</slot></td>
                 <td><slot><input tabindex='3' name='use_real_names' disabled class="checkbox" type="checkbox" {$USE_REAL_NAMES}></slot></td>
                 <td><slot>{$MOD.LBL_USE_REAL_NAMES_DESC}</slot></td>
-                </tr>
-                <tr>
-                <td scope="row" valign="top"><slot>{$MOD.LBL_OWN_OPPS|strip_semicolon}:</slot></td>
-                <td valign="top" nowrap><slot><input name='no_opps' disabled class="checkbox" type="checkbox" {$NO_OPPS}></slot></td>
-                <td><slot>{$MOD.LBL_OWN_OPPS_DESC}</slot></td>
                 </tr>
                 {if $DISPLAY_EXTERNAL_AUTH}
                 <tr>
@@ -147,9 +135,14 @@
                     <td><slot>{$MOD.LBL_CURRENCY_TEXT}&nbsp;</slot></td>
                 </tr>
                 <tr>
-                    <td width="15%" scope="row"><slot>{$MOD.LBL_CURRENCY_SIG_DIGITS|strip_semicolon}:</slot></td>
+                    <td width="15%" scope="row"><slot>{$MOD.LBL_CURRENCY_SHOW_PREFERRED|strip_semicolon}:</slot></td>
+                    <td><slot>{if $currency_show_preferred}Yes{else}No{/if}&nbsp;</slot></td>
+                    <td><slot>{$MOD.LBL_CURRENCY_SHOW_PREFERRED_TEXT}&nbsp;</slot></td>
+                </tr>
+                <tr>
+                    <td width="15%" scope="row"><slot>{$MOD.LBL_SYSTEM_SIG_DIGITS|strip_semicolon}:</slot></td>
                     <td><slot>{$CURRENCY_SIG_DIGITS}&nbsp;</slot></td>
-                    <td><slot>{$MOD.LBL_CURRENCY_SIG_DIGITS_DESC}&nbsp;</slot></td>
+                    <td><slot>{$MOD.LBL_SYSTEM_SIG_DIGITS_DESC}&nbsp;</slot></td>
                 </tr>
                 <tr>
                     <td width="15%" scope="row"><slot>{$MOD.LBL_NUMBER_GROUPING_SEP|strip_semicolon}:</slot></td>
@@ -228,26 +221,18 @@
             </tr>
             </table>
         </div>
-        <div id='edit_tabs'>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0"  class="detail view">
-            <tr>
-            <th colspan='4' align="left" width="100%" valign="top"><h4><slot>{$MOD.LBL_LAYOUT_OPTIONS}</slot></h4></th>
-            </tr>
-            <tr>
-            <td width="15%" scope="row"><slot>{$MOD.LBL_USE_GROUP_TABS|strip_semicolon}:</slot></td>
-            <td><slot><input class="checkbox" type="checkbox" disabled {$USE_GROUP_TABS}></slot></td>
-            <td><slot>{$MOD.LBL_NAVIGATION_PARADIGM_DESCRIPTION}&nbsp;</slot></td>
-            </tr>
-            <tr>
-            <td width="15%" scope="row"><slot>{$MOD.LBL_SUBPANEL_TABS|strip_semicolon}:</slot></td>
-            <td><slot><input class="checkbox" type="checkbox" disabled {$SUBPANEL_TABS}></slot></td>
-            <td><slot>{$MOD.LBL_SUBPANEL_TABS_DESCRIPTION}&nbsp;</slot></td>
-            </tr>
-            </table>
-        </div>
     </div>
 {if $SHOW_ROLES}
     {$ROLE_HTML}
 {else}
 </div>
+{/if}
+
+{if $refreshMetadata}
+<script type="text/javascript">
+// Make an API request to check for possible http 412 codes so metadata and user
+// prefs can be updates in the client
+var api = parent.SUGAR.App.api;
+api.call('read', api.buildURL('ping'));
+</script>
 {/if}

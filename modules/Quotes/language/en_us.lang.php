@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -38,8 +35,8 @@ $mod_strings = array (
     'LBL_ADD_GROUP' => 'Add Group',
     'LBL_ADD_ROW' => 'Add Row',
     'LBL_ADDRESS_INFORMATION' => 'Address Information',
-    'LBL_AMOUNT'=>'Quote Amount:',
-    'LBL_AMOUNT_USDOLLAR'=>'Amount:',
+    'LBL_AMOUNT'=>'Transaction Amount:',
+    'LBL_AMOUNT_USDOLLAR'=>'Converted Amount:',
     'LBL_ANY_ADDRESS' => 'Any Address:',
     'LBL_BILL_TO' => 'Bill to',
     'LBL_BILLING_ACCOUNT_NAME' => 'Billing Account Name:',
@@ -65,6 +62,7 @@ $mod_strings = array (
     'LBL_COUNTRY' => 'Country:',
     'LBL_CREATED_BY'=>'Created By',
     'LBL_CURRENCY' => 'Currency:',
+    'LBL_CURRENCY_RATE' => 'Currency Rate',
     'LBL_DATE_QUOTE_CLOSED' => 'Actual Close Date:',
     'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'Valid Until:',
     'LBL_DEFAULT_SUBPANEL_TITLE' => 'Quotes',
@@ -81,21 +79,21 @@ $mod_strings = array (
     'LBL_LEAD_SOURCE'=>'Lead Source:',
     'LBL_LINE_ITEM_INFORMATION' => 'Line Items',
     'LBL_LIST_ACCOUNT_NAME' => 'Account Name',
-    'LBL_LIST_AMOUNT' => 'Quote Amount',
-    'LBL_LIST_AMOUNT_USDOLLAR' => 'Total Amount',
+    'LBL_LIST_AMOUNT' => 'Transaction Amount',
+    'LBL_LIST_AMOUNT_USDOLLAR' => 'Converted Amount',
     'LBL_LIST_ASSIGNED_TO_NAME' => 'Assigned User',
     'LBL_LIST_COST_PRICE' => 'Cost',
     'LBL_LIST_DATE_QUOTE_CLOSED' => 'Actual Close',
     'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Valid Until',
     'LBL_LIST_DISCOUNT_PRICE' => 'Unit Price',
-    'LBL_LIST_DEAL_TOT'=> 'Discount',
+    'LBL_LIST_DEAL_TOT'=> 'Total Discount',
     'LBL_LIST_FORM_TITLE' => 'Quote List',
     'LBL_LIST_GRAND_TOTAL' => 'Grand Total',
     'LBL_LIST_LIST_PRICE' => 'List',
     'LBL_LIST_MANUFACTURER_PART_NUM' => 'Mft Num',
     'LBL_LIST_PRICING_FACTOR' => 'Factor',
     'LBL_LIST_PRICING_FORMULA' => 'Pricing Formula',
-    'LBL_LIST_PRODUCT_NAME' => 'Product',
+    'LBL_LIST_PRODUCT_NAME' => 'Quoted Line Item',
     'LBL_LIST_QUANTITY' => 'Quantity',
     'LBL_LIST_QUOTE_NAME' => 'Subject',
     'LBL_LIST_QUOTE_NUM' => 'Number',
@@ -103,6 +101,7 @@ $mod_strings = array (
     'LBL_LIST_TAXCLASS' => 'Tax Class',
     'LBL_MODIFIED_BY'=>'Modified By',
     'LBL_MODULE_NAME' => 'Quotes',
+    'LBL_MODULE_NAME_SINGULAR' => 'Quote',
     'LBL_MODULE_TITLE' => 'Quotes: Home',
     'LBL_NAME' => 'Quote Name',
     'LBL_NEW_FORM_TITLE' => 'Create Quote',
@@ -120,7 +119,7 @@ $mod_strings = array (
     'LBL_PDF_ITEM_DISCOUNT' => 'Discount',
     'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
     'LBL_PDF_ITEM_LIST_PRICE' => 'List Price',
-    'LBL_PDF_ITEM_PRODUCT' => 'Product',
+    'LBL_PDF_ITEM_PRODUCT' => 'Quoted Line Item',
     'LBL_PDF_ITEM_QUANTITY' => 'Quantity',
     'LBL_PDF_ITEM_UNIT_PRICE' => 'Unit Price',
     'LBL_PDF_PART_NUMBER' => 'Part Number:',
@@ -170,8 +169,8 @@ $mod_strings = array (
     'LBL_SHIPPING_CONTACT' => 'Contact:',
     'LBL_SHIPPING_PROVIDER' => 'Shipping Provider:',
     'LBL_SHIPPING_USDOLLAR'=>'Shipping (US Dollar)',
-    'LBL_DEAL_TOT'=>'discount total',
-    'LBL_DEAL_TOT_USDOLLAR'=>'discount total (US Dollar)',
+    'LBL_DEAL_TOT'=>'Discount Total',
+    'LBL_DEAL_TOT_USDOLLAR'=>'Discount Total (US Dollar)',
     'LBL_SHIPPING' => 'Shipping:',
     'LBL_DISCOUNT_TOTAL' => 'Discount:',
     'LBL_NEW_SUB' => 'Discounted Subtotal:',
@@ -200,7 +199,6 @@ $mod_strings = array (
     'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Are you sure you want to remove this quote from the project?',
 	'LNK_QUOTE_REPORTS' => 'View Quote Reports',
 	'LBL_ASSIGNED_TO_NAME'=>'Assigned to:',
-	'PDF_FORMAT'=>'PDF Format:',
 	'LBL_ASSIGNED_TO_ID'=>'Assigned User:',
 	'LBL_PROJECT_SUBPANEL_TITLE' => 'Projects',
     'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
@@ -209,5 +207,7 @@ $mod_strings = array (
     'LBL_ATTACHMENT' => 'Attachment' /*for 508 compliance fix*/,
     'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'This record currently contains values in the Address fields. To overwrite these values with the following Address of the Account that you selected, click "OK". To keep the current values, click "Cancel".',
 	'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
+    'LBL_REVENUELINEITEMS' => 'Revenue Line Items',
+
+    'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Quote Already Converted To Opportunity',
 );
-?>

@@ -1,20 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-require_once("data/Relationships/M2MRelationship.php");
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Represents a many to many relationship that is table based.
@@ -114,29 +109,5 @@ class EmailAddressRelationship extends M2MRelationship
         }
 
         return true;
-    }
-
-    /**
-     * Gets the relationship role column check for the where clause
-     * This overload adds additional bean check for the primary_address variable.
-     * @param string $table
-     * @param bool $ignore_role_filter
-     * @return string
-     */
-    protected function getRoleWhere($table = "", $ignore_role_filter = false)
-    {
-        $roleCheck = parent::getRoleWhere($table, $ignore_role_filter);
-
-        if ($this->def['relationship_role_column'] == 'primary_address' &&
-            $this->def["relationship_role_column_value"] == '1') {
-            if (empty($table)) {
-                $roleCheck .= " AND bean_module";
-            } else {
-                $roleCheck .= " AND $table.bean_module";
-            }
-            $roleCheck .= " = '" . $this->getLHSModule() . "'";
-        }
-
-        return $roleCheck;
     }
 }

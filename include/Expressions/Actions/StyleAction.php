@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Actions/AbstractAction.php");
 
 class StyleAction extends AbstractAction{
@@ -52,6 +49,10 @@ SUGAR.util.extend(SUGAR.forms.StyleAction, SUGAR.forms.AbstractAction, {
      */
     exec: function(context)
     {
+
+        //If we are running in sidecar, this action will not function
+        if(SUGAR.App) return;
+
         if (typeof(context) == 'undefined')
             context = this.context;
         try {
@@ -64,7 +65,7 @@ SUGAR.util.extend(SUGAR.forms.StyleAction, SUGAR.forms.AbstractAction, {
             {
                 temp[i] = this.evalExpression(this.attrs[i], context);
             }
-            SUGAR.forms.AssignmentHandler.setStyle(this.target, temp);
+            context.setStyle(this.target, temp);
         } catch (e) {return;}
     }
 });";

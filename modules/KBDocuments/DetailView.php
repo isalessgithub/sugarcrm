@@ -1,29 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/upload_file.php');
 
 require_once('include/DetailView/DetailView.php');
@@ -37,7 +23,7 @@ global $gridline;
 
 $mod_strings = return_module_language($current_language, 'KBDocuments');
 
-$focus = new KBDocument();
+$focus = BeanFactory::getBean('KBDocuments');
 $detailView = new DetailView();
 $offset=0;
 
@@ -81,8 +67,11 @@ $xtpl->assign("ID", $focus->id);
 $xtpl->assign("DOCUMENT_NAME", $focus->kbdocument_name);
 //$xtpl->assign("REVISION", $focus->latest_revision);
 $xtpl->assign("REVISION",$focus->kbdocument_revision_number);
-$xtpl->assign("CASE_NAME", $focus->case_name);
-$xtpl->assign("CASE_ID", $focus->case_id);
+if ($focus->parent_id != null) {
+    $xtpl->assign("CASE_NAME", $focus->case_name);
+    $xtpl->assign("CASE_ID", $focus->parent_id);
+}
+
 
 global $locale;
 
@@ -119,7 +108,7 @@ EOD
             <input title="{$mod_strings['LBL_SEND_EMAIL']}" id="send_email_button" accessKey="{$app_strings['LBL_DELETE_BUTTON_KEY']}" class="button" onclick="document.getElementById('isDuplicate').parentNode.removeChild(document.getElementById('isDuplicate'));this.form.return_module.value='Emails'; this.form.return_action.value='DetailView'; this.form.action.value='Compose';this.form.module.value='Emails'" type="submit" name="Send Email" value="{$mod_strings['LBL_SEND_EMAIL']}">
 EOD
 );
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $action_button = smarty_function_sugar_action_menu(array(
     'id' => 'detail_header_action_menu',
     'buttons' => $buttons,
@@ -142,21 +131,18 @@ if (isset($focus->date_entered) && !empty($focus->date_entered)) {
 
 if (!empty($focus->team_id)) {
 
-	$team = new Team();
-	$team->retrieve($focus->team_id,true);
+	$team = BeanFactory::getBean('Teams', $focus->team_id,true);
 	require_once('modules/Teams/TeamSetManager.php');
 	$xtpl->assign("TEAM", TeamSetManager::getCommaDelimitedTeams($focus->team_set_id, $focus->team_id, true));
 }
 if (!empty($focus->kbdoc_approver_id)) {
 
-	$user = new User();
-	$user->retrieve($focus->kbdoc_approver_id,true);
+	$user = BeanFactory::getBean('Users', $focus->kbdoc_approver_id);
 	$xtpl->assign("KBDOC_APPROVED_BY", $user->name);
 }
 if (!empty($focus->assigned_user_id)) {
 
-	$user = new User();
-	$user->retrieve($focus->assigned_user_id,true);
+	$user = BeanFactory::getBean('Users', $focus->assigned_user_id);
 	$xtpl->assign("KBARTICLE_AUTHOR_NAME", $user->name);
 }
 
@@ -174,7 +160,7 @@ $xtpl->parse("main");
 $xtpl->out("main");
 
 
-$savedSearch = new SavedSearch();
+$savedSearch = BeanFactory::getBean('SavedSearch');
 $json = getJSONobj();
 $savedSearchSelects = $json->encode(array($GLOBALS['app_strings']['LBL_SAVED_SEARCH_SHORTCUT'] . '<br>' . $savedSearch->getSelect('KBDocuments')));
 $str = "<script>

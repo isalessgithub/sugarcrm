@@ -1,15 +1,8 @@
 <?php
-// created: 2016-10-06 15:20:01
+// created: 2016-10-07 09:55:44
 $viewdefs['Quotes']['EditView'] = array (
   'templateMeta' => 
   array (
-    'includes' => 
-    array (
-      0 => 
-      array (
-        'file' => 'custom/modules/Quotes/clients_address.js',
-      ),
-    ),
     'maxColumns' => '2',
     'widths' => 
     array (
@@ -27,6 +20,13 @@ $viewdefs['Quotes']['EditView'] = array (
     'form' => 
     array (
       'footerTpl' => 'custom/modules/Quotes/tpls/EditViewFooter.tpl',
+    ),
+    'includes' => 
+    array (
+      0 => 
+      array (
+        'file' => 'custom/modules/Quotes/clients_address.js',
+      ),
     ),
     'tabDefs' => 
     array (
@@ -181,6 +181,7 @@ $viewdefs['Quotes']['EditView'] = array (
         array (
           'name' => 'esb_sync_c',
         ),
+        1 => 'description',
       ),
     ),
   ),

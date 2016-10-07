@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_EMPTY' => 'Запись уже удалена или не существует.',
-  'ERR_DELETE_RECORD' => 'Вы должны указать номер записи перед удалением продажи.',
+  'ERR_DELETE_RECORD' => 'Необходимо указать номер записи перед удалением записи.',
   'LBL_ALERT_TEMPLATES' => 'Шаблоны уведомлений',
   'LBL_APOSTROPHE_S' => ' ',
   'LBL_COMPARE_ANY_TIME_PART2' => 'не меняется',
@@ -77,7 +74,7 @@ $mod_strings = array (
   'LBL_SELECT_AMOUNT' => 'Необходимо выбрать количество.',
   'LBL_SELECT_OPTION' => 'Пожалуйста, выберите опцию.',
   'LBL_SELECT_TARGET_FIELD' => 'Пожалуйста, выберите целевой модуль.',
-  'LBL_SELECT_TARGET_MOD' => 'Пожалуйста, выберите целевой  связанный модуль.',
+  'LBL_SELECT_TARGET_MOD' => 'Пожалуйста, выберите целевой связанный модуль.',
   'LBL_SHOW' => 'Показать',
   'LBL_SHOW_PAST' => 'Изменить предыдущее значение:',
   'LBL_SPECIFIC_FIELD' => 'индивидуальное поле',
@@ -95,6 +92,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Условия запуска бизнес-процессов',
   'LNK_WORKFLOW' => 'Объекты бизнес-процесса',
   'NTC_REMOVE_TRIGGER' => 'Вы точно хотите удалить это условие запуска?',
-  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Удаление основного условия удалит все условия',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'При удалении первичного триггера будут удалены все триггеры.',
 );
 

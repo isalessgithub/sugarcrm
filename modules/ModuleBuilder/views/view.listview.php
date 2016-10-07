@@ -1,22 +1,20 @@
 <?php
 if (! defined ( 'sugarEntry' ) || ! sugarEntry)
     die ( 'Not A Valid Entry Point' ) ;
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/parsers/constants.php' ;
 require_once ('include/SubPanel/SubPanel.php') ;
+require_once 'modules/ModuleBuilder/parsers/views/SidecarListLayoutMetaDataParser.php';
 
 class ViewListView extends SugarView
 {
@@ -26,7 +24,7 @@ class ViewListView extends SugarView
 	protected function _getModuleTitleParams($browserTitle = false)
 	{
 	    global $mod_strings;
-	    
+
     	return array(
     	   translate('LBL_MODULE_NAME','Administration'),
     	   ModuleBuilderController::getModuleTitle(),
@@ -161,6 +159,8 @@ class ViewListView extends SugarView
     function constructSmarty ($parser)
     {
         global $mod_strings;
+        $isModuleBWC = isModuleBWC($this->editModule) ;
+
         $smarty = new Sugar_Smarty ( ) ;
         $smarty->assign ( 'translate', true ) ;
         $smarty->assign ( 'language', $parser->getLanguage () ) ;
@@ -170,6 +170,7 @@ class ViewListView extends SugarView
         $smarty->assign ( 'field_defs', $parser->getFieldDefs () ) ;
         $smarty->assign ( 'action', 'listViewSave' ) ;
         $smarty->assign ( 'view_module', $this->editModule ) ;
+
         if (!empty ( $this->subpanel ) )
         {
             $smarty->assign ( 'subpanel', $this->subpanel ) ;
@@ -195,22 +196,37 @@ class ViewListView extends SugarView
             // properties are name, value, title (optional)
             $groups [ $GLOBALS [ 'mod_strings' ] [ $column ] ] = $parser->$function () ; // call the parser functions to populate the list view columns, by default 'default', 'available' and 'hidden'
         }
-        foreach ( $groups as $groupKey => $group )
-        {
-            foreach ( $group as $fieldKey => $field )
-            {
-                if (isset ( $field [ 'width' ] ))
-                {
-                    if (substr ( $field [ 'width' ], - 1, 1 ) == '%')
-                    {
-
-                        $groups [ $groupKey ] [ $fieldKey ] [ 'width' ] = substr ( $field [ 'width' ], 0, strlen ( $field [ 'width' ] ) - 1 ) ;
+        foreach ($groups as $groupKey => $group) {
+            foreach ($group as $fieldKey => $field) {
+                if (isset($field['width'])) {
+                    if ($isModuleBWC) {
+                        $width = intval($field['width']);
+                        $unit = '%';
+                    } else {
+                        $isPercentage = strrpos($field['width'], '%') !== false;
+                        if ($isPercentage) {
+                            // We won't be bringing over the % definitions from metadata
+                            $width = '';
+                            $unit = '';
+                        } else {
+                            $width = intval($field['width']);
+                            if ($width > 0) {
+                                $unit = 'px';
+                            } else {
+                                // check if it is a valid string
+                                $width = in_array($field['width'], SidecarListLayoutMetaDataParser::getDefaultWidths()) ?
+                                    $field['width'] : '';
+                                $unit = '';
+                            }
+                        }
                     }
+                    $groups[$groupKey][$fieldKey]['width'] = $width;
+                    $groups[$groupKey][$fieldKey]['units'] = $unit;
                 }
             }
         }
 
-        $smarty->assign ( 'groups', $groups ) ;
+        $smarty->assign('groups', $groups);
         $smarty->assign('from_mb', $this->fromModuleBuilder);
 
         global $image_path;

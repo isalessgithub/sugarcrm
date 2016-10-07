@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/parsers/constants.php' ;
 
@@ -26,15 +23,18 @@ class RelationshipFactory
     static function newRelationship ($definition = array())
     {
         // handle the case where a relationship_type is not provided - set it to Many-To-Many as this was the usual type in ModuleBuilder
-        if (! isset ( $definition [ 'relationship_type' ] ))
-            $definition [ 'relationship_type' ] = MB_MANYTOMANY ;
-            
+        if (!isset($definition ['relationship_type'])) {
+            $definition['relationship_type'] = MB_MANYTOMANY;
+        }
+        $type = !empty($definition['true_relationship_type'])
+            ? $definition['true_relationship_type']
+            : $definition['relationship_type'];
     	if (!empty ($definition['for_activities']) && $definition['for_activities'] == true) {
         	require_once 'modules/ModuleBuilder/parsers/relationships/ActivitiesRelationship.php';
         	return new ActivitiesRelationship ($definition);
         }
         
-        switch ( strtolower ( $definition [ 'relationship_type' ] ))
+        switch (strtolower($type))
         {
             case strtolower ( MB_ONETOONE ) :
                 require_once 'modules/ModuleBuilder/parsers/relationships/OneToOneRelationship.php' ;
@@ -57,4 +57,4 @@ class RelationshipFactory
     
     }
 }
-?>
+

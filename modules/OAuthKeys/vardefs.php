@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['OAuthKey'] = array('table' => 'oauth_consumer',
     'favorites'=>false,
 	'comment' => 'OAuth consumer keys',
@@ -53,10 +50,33 @@ $dictionary['OAuthKey'] = array('table' => 'oauth_consumer',
             'source'=>'non-db',
             'vname'=>'LBL_TOKENS',
           ),
-
+          'oauth_type' =>
+          array (
+            'name' => 'oauth_type',
+            'type' => 'enum',
+            'options' => 'oauth_type_dom',
+            'len' => 50,
+            'comment' => 'Is this client an OAuth1 or OAuth2 client',
+            'default'=>'oauth1',
+            'vname'=>'LBL_OAUTH_TYPE',
+          ),
+          'client_type' =>
+          array (
+            'name' => 'client_type',
+            'type' => 'enum',
+            'options' => 'oauth_client_type_dom',
+            'len' => 50,
+            'comment' => 'What type of client does this key belong to, mobile, portal, UI or other.',
+            'default' => 'user',
+            'vname'=>'LBL_CLIENT_TYPE',
+            'dependency'=>'equal($oauth_type,"oauth2")',
+          ),
     ),
+    'acls' => array('SugarACLAdminOnly' => true, 'SugarACLOAuthKeys' => true),
     'indices' => array (
        array('name' =>'ckey', 'type' =>'unique', 'fields'=>array('c_key')),
+       array('name' => 'idx_oauthkey_name', 'type' => 'index', 'fields' => array('name')),
+       array('name' => 'idx_oauthkey_client_type', 'type' => 'index', 'fields' => array('client_type')),
     )
 );
 if (!class_exists('VardefManager')){

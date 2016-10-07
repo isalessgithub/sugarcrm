@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/tabs.php');
 /**
@@ -63,17 +60,13 @@ class SearchForm {
      * @param string $tpl template to use, defaults to moduleDir/SearchForm.html
      *
      */
-    function SearchForm($module, &$seedBean, $tpl = null) {
+    function SearchForm($module, $seedBean, $tpl = null)
+    {
         global $app_strings;
 
         $this->module = $module;
-        require_once('modules/' . $module . '/metadata/SearchFields.php');
-        if(file_exists('custom/modules/' . $module . '/metadata/SearchFields.php')){
-            require_once('custom/modules/' . $module . '/metadata/SearchFields.php');
-        }
 
-
-        //require_once('modules/' . $module . '/metadata/SearchFields.php');
+        $searchFields = SugarAutoLoader::loadSearchFields($module);
         $this->searchFields = $searchFields[$module];
         if(empty($tpl)) {
             if(!empty($GLOBALS['layout_edit_mode'])){
@@ -95,7 +88,7 @@ class SearchForm {
                                   'link'   => $module . '|advanced_search',
                                   'key'    => $module . '|advanced_search'));
 
-        if(file_exists('modules/'.$this->module.'/index.php')){
+        if(SugarAutoLoader::fileExists('modules/'.$this->module.'/index.php')){
             $this->tabs[] = array('title'  => $app_strings['LNK_SAVED_VIEWS'],
                                   'link'   => $module . '|saved_views',
                                   'key'    => $module . '|saved_views');
@@ -409,7 +402,7 @@ class SearchForm {
         $tabPanel = new SugarWidgetTabs($this->tabs, $currentKey, 'SUGAR.searchForm.searchFormSelect');
 
         if(isset($_REQUEST['saved_search_select']) && $_REQUEST['saved_search_select']!='_none') {
-            $saved_search=loadBean('SavedSearch');
+            $saved_search = BeanFactory::getBean('SavedSearch');
             $saved_search->retrieveSavedSearch($_REQUEST['saved_search_select']);
         }
 
@@ -468,9 +461,14 @@ class SearchForm {
                                     $this->xtpl->assign($templateVar, 'checked');
                                 break;
                         }
-                    }
-                    else {// regular text input
-                        $this->xtpl->assign($templateVar, to_html($params['value']));
+                    } else {// regular text input
+                        if(is_array($params['value'])) {
+                            $value = array_map('to_html', $params['value']);
+                        } else if(is_string($params['value'])) {
+                            $value = to_html($params['value']);
+                        }
+
+                        $this->xtpl->assign($templateVar, $value);
                     }
                 }
             }
@@ -576,7 +574,8 @@ class SearchForm {
         $this->bean->custom_fields->populateAllXTPL($this->xtpl, 'search' );
         if(!empty($listViewDefs) && !empty($lv)){
             $GLOBALS['log']->debug('SearchForm.php->displayAdvanced(): showing saved search');
-            $savedSearch = new SavedSearch($listViewDefs[$this->module], $lv->data['pageData']['ordering']['orderBy'], $lv->data['pageData']['ordering']['sortOrder']);
+            $savedSearch = BeanFactory::getBean('SavedSearch');
+            $savedSearch->init($listViewDefs[$this->module], $lv->data['pageData']['ordering']['orderBy'], $lv->data['pageData']['ordering']['sortOrder']);
             $this->xtpl->assign('SAVED_SEARCH', $savedSearch->getForm($this->module, false));
             $this->xtpl->assign('MOD_SAVEDSEARCH', return_module_language($current_language, 'SavedSearch'));
             $this->xtpl->assign('ADVANCED_SEARCH_IMG', SugarThemeRegistry::current()->getImageURL('advanced_search.gif'));
@@ -612,7 +611,8 @@ class SearchForm {
     function displaySavedViews($listViewDefs, $lv, $header = true, $return = false) {
         global $current_user;
 
-        $savedSearch = new SavedSearch($listViewDefs[$this->module], $lv->data['pageData']['ordering']['orderBy'], $lv->data['pageData']['ordering']['sortOrder']);
+        $savedSearch = BeanFactory::getBean('SavedSearch');
+        $savedSearch->init($listViewDefs[$this->module], $lv->data['pageData']['ordering']['orderBy'], $lv->data['pageData']['ordering']['sortOrder']);
 
         if($header) {
             $this->displayWithHeaders('saved_views', $this->displayBasic(false, true), $this->displayAdvanced(false, true), $savedSearch->getForm($this->module));
@@ -632,7 +632,7 @@ class SearchForm {
         global $app_strings;
 
         $SAVED_SEARCHES_OPTIONS = '';
-        $savedSearch = new SavedSearch();
+        $savedSearch = BeanFactory::getBean('SavedSearch');
         $SAVED_SEARCHES_OPTIONS = $savedSearch->getSelect($this->module);
         $str = "<input tabindex='2' title='{$app_strings['LBL_SEARCH_BUTTON_TITLE']}' onclick='SUGAR.savedViews.setChooser()' class='button' type='submit' name='button' value='{$app_strings['LBL_SEARCH_BUTTON_LABEL']}' id='search_form_submit'/>&nbsp;";
         $str .= "<input tabindex='2' title='{$app_strings['LBL_CLEAR_BUTTON_TITLE']}' onclick='SUGAR.searchForm.clear_form(this.form); return false;' class='button' type='button' name='clear' value=' {$app_strings['LBL_CLEAR_BUTTON_LABEL']} ' id='search_form_clear'/>";

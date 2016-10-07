@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Kérem, javítsa ki a következő hibákat a továbblépéshez',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Várható bevétel:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Gyakoriság:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Megjelenések:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'A(z) {0} kampány inaktív. A kampány státuszát aktívra kell állítani.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'A(z) &#39;{0}&#39; kampány állapota "inaktív". Állítsa "aktívra" a státuszát!',
   'LBL_CAMPAIGN_INFORMATION' => 'Áttekintés',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Ajánlások',
   'LBL_CAMPAIGN_NAME' => 'Név:',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Létrehozta:',
   'LBL_CREATED_BY' => 'Létrehozta:',
   'LBL_CREATED_USER' => 'Létrehozott felhasználó',
+  'LBL_CREATE_EMAIL' => 'E-mail írása',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Létrehozás',
   'LBL_CREATE_MAILBOX' => 'Új mail postafiók létrehozása',
   'LBL_CREATE_NEWSLETTER' => 'Hírlevél létrehozása',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => '"Ajánlások a webről" űrlap létrehozása',
   'LBL_CURRENCY' => 'Pénznem:',
   'LBL_CURRENCY_ID' => 'Pénznem azonosító',
+  'LBL_CURRENCY_RATE' => 'Árfolyam',
   'LBL_CUSTOM_LOCATION' => 'Felhasználó által definiált',
   'LBL_DATE_CREATED' => 'Létrehozás dátuma:',
   'LBL_DATE_ENTERED' => 'Dátum létrehozva',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Email beállítások indítása',
   'LBL_EMAIL_SETUP_WIZARD' => 'Email beállítása',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Email beállítás a kampányokhoz',
+  'LBL_EMAIL_TITLE' => 'Kampányok: E-mailek',
+  'LBL_END_DATE' => 'Befejezés dátuma',
   'LBL_FILTER_CHART_BY' => 'Diagram szűrése az alábbi szerint:',
   'LBL_FINISH' => 'Befejezés',
   'LBL_FROM_ADDR' => 'Feladó címe',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'SSL használata',
   'LBL_SSL_DESC' => 'Ha a levelezési kiszolgáló támogatja a biztonságos socket kapcsolatokat, bekapcsolása esetén kényszeríteni fogja az SSL kapcsolatot email importáláskor.',
   'LBL_START' => 'Kezdés',
+  'LBL_START_DATE' => 'Kezdés dátuma',
   'LBL_START_DATE_TIME' => 'Kezdő dátum és idő:',
+  'LBL_STATUS' => 'Állapot',
   'LBL_STATUS_TEXT' => 'Állapot:',
   'LBL_SUBSCRIPTION_LIST' => 'Feliratkozási lista',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Feliratkozási lista neve:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Részletek megtekintése',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Részletek megtekintése',
   'LBL_TOP_CAMPAIGNS' => 'Kiemelt kampányok',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Legtöbb bevételt hozó kampányok',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'A bevétel alapján legjobban teljesítő kampányok',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Kampány neve',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Bevétel',
   'LBL_TOTAL_ENTRIES' => 'Bejegyzések',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Ez az opció törli a próbaüzem naplóbejegyzéseit. Folytatja?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Sor követése',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Megtérülés (ROI) megtekintése',
+  'LBL_TYPE' => 'Típus',
   'LBL_UNSUBSCRIBED_HEADER' => 'Elérhető / Leiratkozott hírlevelek',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'A hírlevél áthelyezése az Elérhető hírlevelek / Leiratkozott hírlevelek kategóriába maga után vonja a kapcsolat kivonását jelen hírlevélből. A kapcsolat ugyanakkor nem fog törlődni a Feliratkozási és a Céllistából sem.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Leiratkozási lista',

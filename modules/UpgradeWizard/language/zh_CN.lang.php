@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => '以下模块已安装：',
   'DESC_MODULES_QUEUED' => '以下模块已准备好被安装：',
   'ERROR_FLAVOR_INCOMPATIBLE' => '上传的文件与Sugar版本不兼容(社区版，专业版或企业版)：',
+  'ERROR_HT_NO_WRITE' => '无法写入文件',
+  'ERROR_MANIFEST_TYPE' => '清单文件中必须指定封装类型。',
+  'ERROR_PACKAGE_TYPE' => '清单文件指定一个无法识别的封装类型',
+  'ERROR_UW_CONFIG_DB' => '保存错误% sdb配置var (key %s, value %s)。',
   'ERROR_VERSION_INCOMPATIBLE' => '上传的文件和当前版本的Sugar不兼容：',
   'ERR_CHECKSYS_PHP_INVALID_VER' => '您的PHP版本不支持Sugar。您需要安装一个支持Sugar运行的版本。请参阅支持的PHP版本说明中的兼容性矩阵。您的版本是',
+  'ERR_NOT_ADMIN' => '没有管理员权限。',
+  'ERR_NO_VIEW_ACCESS_REASON' => '您没有权限访问此页面。',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => '不能确定分组',
   'ERR_UW_CANNOT_DETERMINE_USER' => '不能确定所有者',
   'ERR_UW_CONFIG' => '请确认config.php文件可写并写刷新当前页。',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => '重新启动',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => '正在提交升级',
   'LBL_CURRENT_PHP_VERSION' => '(您当前的PHP版本是',
+  'LBL_GLOBAL_TEAM_DESC' => '全局可见',
   'LBL_HOME_PAGE_4_NAME' => '记录',
   'LBL_INCOMPATIBLE_PHP_VERSION' => '需要PHP 5或以上版本。',
   'LBL_LANGPACKS' => '语言包',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP设置：内存限制',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server和PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => '最低MySQL版本',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE版本',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'php.ini位置',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => '最低PHP版本',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP设置：安全模式',

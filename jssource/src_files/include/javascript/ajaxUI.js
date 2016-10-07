@@ -1,108 +1,19 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
-
-
+// TODO this file is here only temporarily
 SUGAR.ajaxUI = {
     loadingWindow : false,
-    callback : function(o)
-    {
-        var cont;
-        if (typeof window.onbeforeunload == "function")
-            window.onbeforeunload = null;
-        scroll(0,0);
-        SUGAR.forms.AssignmentHandler.reset();
-        try{
-            var r = YAHOO.lang.JSON.parse(o.responseText);
-            cont = r.content;
 
-            if (r.title)
-            {
-                document.title = html_entity_decode(r.title);
-            }
-            if (r.action)
-            {
-                action_sugar_grp1 = r.action;
-            }
-            if (r.favicon)
-            {
-                SUGAR.ajaxUI.setFavicon(r.favicon);
-            }
-
-            var c = document.getElementById("content");
-            // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-            // hide content of placeholder before apply new one
-            // @see SUGAR.util.evalScript
-            c.style.visibility = 'hidden';
-            c.innerHTML = cont;
-            SUGAR.util.evalScript(cont);
-            // all javascripts have been processed - show content of placeholder
-            c.style.visibility = 'visible';
-
-            if ( r.moduleList)
-            {
-                SUGAR.themes.setModuleTabs(r.moduleList);
-            }
-
-            if (r.menu)
-            {
-                SUGAR.themes.setCurrentTab(r.menu);
-            }
-            if (r.record)
-            {
-                DCMenu.record = r.record;
-            }
-            if(r.menu && r.menu.module)
-            {
-                DCMenu.module = r.menu.module;
-
-                // Fix the help link
-                // Bug50676 - This can only be run when we have the module around
-                var hl = $("#help");
-                if (hl.length > 0) {
-                    hl.find('a').each(function()
-                        {
-                            this.href = this.href.replace(new RegExp("help_action=([^\&]*)"), 'help_action=' + action_sugar_grp1)
-                                .replace(new RegExp("help_module=([^\&]*)"), 'help_module=' + r.menu.module);
-                        }
-                    );
-                    var label = (r.menu.label) ? r.menu.label: r.menu.module;
-                    hl.find('span.title').text(label + ' ' + SUGAR.language.get('app_strings','LNK_HELP'));
-                }
-            }
-
-            // set response time from ajax response
-            if(typeof(r.responseTime) != 'undefined'){
-                var rt = $("#responseTime");
-                if(rt.length > 0){
-                    rt.html(rt.html().replace(/[\d]+\.[\d]+/, r.responseTime));
-                }
-                else if(typeof(logoStats) != "undefined"){
-                	$("#logo").attr("title", logoStats.replace(/[\d]+\.[\d]+/, r.responseTime)).tipTip({maxWidth: "auto", edgeOffset: 10});
-                }
-            }
-            // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-            // hide ajax loading message after all scripts are processed
-            SUGAR.ajaxUI.hideLoadingPanel();
-        } catch (e){
-            // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-            // hide ajax loading message after all scripts are processed
-            SUGAR.ajaxUI.hideLoadingPanel();
-            SUGAR.ajaxUI.showErrorMessage(o.responseText);
-        }
-        SUGAR_callsInProgress--;
-    },
     showErrorMessage : function(errorMessage)
     {
         if (!SUGAR.ajaxUI.errorPanel) {
@@ -180,13 +91,12 @@ SUGAR.ajaxUI = {
 
     go : function(url)
     {
-
         if(YAHOO.lang.trim(url) != "")
         {
             var con = YAHOO.util.Connect, ui = SUGAR.ajaxUI;
             if (ui.lastURL == url)
                 return;
-            var inAjaxUI = /action=ajaxui/.exec(window.location);
+            var inAjaxUI = /action=ajaxui/.exec(window.location.href);
             if (typeof (window.onbeforeunload) == "function" && window.onbeforeunload())
             {
                 //If there is an unload function, we need to check it ourselves
@@ -261,7 +171,7 @@ SUGAR.ajaxUI = {
             //Do not try to submit a form that contains a file input via ajax.
             && typeof(YAHOO.util.Selector.query("input[type=file]", form)[0]) == "undefined"
             //Do not try to ajax submit a form if the ajaxUI is not initialized
-            && /action=ajaxui/.exec(window.location))
+            && /action=ajaxui/.exec(window.location.href))
         {
             var string = con.setForm(form);
             var baseUrl = "index.php?action=ajaxui#ajaxUILoc=";
@@ -308,26 +218,7 @@ SUGAR.ajaxUI = {
         }
 
     },
-    firstLoad : function()
-    {
-        //Setup Browser History
-        var url = YAHOO.util.History.getBookmarkedState('ajaxUILoc');
-        var aRegex = /action=([^&#]*)/.exec(window.location);
-        var action = aRegex ? aRegex[1] : false;
-        var mRegex = /module=([^&#]*)/.exec(window.location);
-        var module = mRegex ? mRegex[1] : false;
-        if (module != "ModuleBuilder")
-        {
-            var go = url != null || action == "ajaxui";
-            url = url ? url : 'index.php?module=Home&action=index';
-            YAHOO.util.History.register('ajaxUILoc', url, SUGAR.ajaxUI.go);
-            YAHOO.util.History.initialize("ajaxUI-history-field", "ajaxUI-history-iframe");
-            SUGAR.ajaxUI.hist_loaded = true;
-            if (go)
-                SUGAR.ajaxUI.go(url);
-        }
-        SUGAR_callsInProgress--;
-    },
+
     print: function()
     {
         var url = YAHOO.util.History.getBookmarkedState('ajaxUILoc');

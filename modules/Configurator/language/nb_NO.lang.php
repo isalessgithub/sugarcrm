@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avansert',
@@ -75,14 +72,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Tilbake',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Velg din e-postleverandør:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Systeminnstillinger',
-  'LBL_CONFIG_AJAX' => 'Konfigurér AJAX User Interface',
-  'LBL_CONFIG_AJAX_DESC' => 'Aktivér eller deaktivér bruken av AJAX UI (brukergrensesnitt) for spesifikke moduler.',
   'LBL_DELETE' => 'Slett',
   'LBL_DISALBE_CONVERT_LEAD' => 'Deaktivér "konvertér lead"-muligheten for allerdee konverterte leads',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Om et lead allerede har blitt konvertert, så vil det å aktivere dette valget fjerne muligheten for å konvertere lead&#39;et.',
   'LBL_DISPLAYING_LOG' => 'Displaying Log',
   'LBL_ENABLE_ACTION_MENU' => 'Vis handlinger i menyene',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Velg for å vise DetailView og underpanel-handligner innen en nedtrekksmeny. Hvis den ikke selekteres, så vil handlingene vises som separate knapper.',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Aktiver/deaktiver e-poster fra relaterte (eller koblede) kontakter skal vises i e-post underpanelet.',
   'LBL_ENABLE_MAILMERGE' => 'Aktivere postfletting?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange passord:',
@@ -157,6 +153,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Eventuelle ekstra filterparametre for godkjenning av brukere for eksempel \\ nis_sugar_user = 1 eller (is_sugar_user = 1) (is_sales = 1):',
   'LBL_LEAD_CONV_OPTION' => 'Lead-konvertingsvalg',
   'LBL_LOADING' => 'Laster...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Denne innstillingen gjelder for moduler i legacy mode.',
   'LBL_LOGGER' => 'log innstillinger',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Standard dato format',
   'LBL_LOGGER_FILENAME' => 'Navn på log fil',
@@ -182,10 +179,12 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Minimum auto-oppdateringsintervall for Dashlet',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Dette er den laveste verdien man kan velge for at dashlets skal auto-refresh. Innstilling til "Aldri" deaktiverer auto-refreshing av dashlets helt.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* Rapporter modulen er kun tilgjengelig for Sugar Mobile iPhone-klient.',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Rapport modulen er ikke tilgjengelig for den nettleserbaserte mobilvisningen.',
   'LBL_MODULE_FAVICON' => 'Vis modulikon som favorittikon',
   'LBL_MODULE_FAVICON_HELP' => 'Hvis du er i en modul med et ikon, bruk modulikonet som favorittikon i stedet for temaets favorittikon i nettleserfanen.',
   'LBL_MODULE_ID' => 'Konfigurator',
   'LBL_MODULE_NAME' => 'Systeminnstillinger',
+  'LBL_MODULE_NAME_SINGULAR' => 'Systeminnstillinger',
   'LBL_MODULE_TITLE' => 'Brukergrensesnitt',
   'LBL_NEXT_' => 'Neste>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Fra-adresse:',
@@ -218,12 +217,16 @@ $mod_strings = array (
   'LBL_REMOVE' => 'rem',
   'LBL_RESTORE_BUTTON_LABEL' => 'Gjenopprett',
   'LBL_SEARCH' => 'Søk:',
+  'LBL_SESSION_TIMEOUT_TOOLTIP' => 'Portal Session Timeout er for legacy versjoner av Sugar Portalen tilgjengelig i 6.5 og eldre.',
   'LBL_SKYPEOUT_ON' => 'Aktivér SkypeOut®-integrasjon',
   'LBL_SKYPEOUT_ON_DESC' => 'Tillat at brukere kan klikke på et telefonnummer for å ringe via SkypeOut®. Telefonnumrene må være korrekt formatert for at dette skal være mulig. Det innebærer at nummeret skrives slik: "+" "landskoden", f.eks. +1 (555) 555-1234. For ytterligere informasjon, sjekk Skype FAQ på <a href="http://www.skype.com/help/faq/skypeout.html#calling" target="skype">skype® faq</a>',
   'LBL_SKYPEOUT_TITLE' => 'SkypeOut®',
   'LBL_STATUS_FONT_ERROR' => 'SUKSESS: Skrifttypen er lagt til SugarCRM.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUKSESS: Skrifttypen er lagt til SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Systeminnstillinger',
+  'LBL_TWEETTOCASE_ON' => 'Aktiver Tweet® til saksintegrasjon',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Tillater brukere å opprette saker fra Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; til sak',
   'LBL_USE_REAL_NAMES' => 'Vis fullstendig navn (ikke innlogging)',
   'LBL_USE_REAL_NAMES_DESC' => 'Vis brukernes fulle navn i stedet for brukernavnet i tildelt felt.',
   'LBL_VCAL_PERIOD' => 'vCal oppdaterer tidsperiode:',
@@ -328,6 +331,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Systemnavn',
   'SYSTEM_NAME_HELP' => 'Dette er navnet som vises i tittellinjen i nettleseren.',
   'SYSTEM_NAME_WIZARD' => 'Navn:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Anbefalte innstillinger er under {{listEntriesNum}} for akseptable ytelsesnivåer. Når ytterligere felt legges til i listevisningen, bør dette tallet være i den nedre ende av det anbefalte innstilling.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Anbefalte innstillinger er under {{subpanelEntriesNum}} for akseptable ytelsesnivåer. Når ytterligere felt legges til i listevisningen, bør dette tallet være i den nedre ende av det anbefalte innstilling.',
   'UPLOAD_MAX_SIZE' => 'Maksimum størrelse for opplasting',
   'VERIFY_CLIENT_IP' => 'Gjør brukerens IP-adresse gyldig',
   'vCAL_HELP' => 'Bruk denne innstillingen til å bestemme antall måneder i forkant av dagens dato som Free / Busy informasjon for samtaler og møter blir publisert.<br />For å slå ledig / opptatt publisering av, skriv "0". Minimum er 1 måned, maksimum er 12 måneder.',

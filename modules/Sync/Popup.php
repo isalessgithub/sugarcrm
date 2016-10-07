@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 set_time_limit(3600);
 ini_set('default_socket_timeout', 360);
@@ -198,11 +195,11 @@ if ($sync_module_index > -1) {
 	echo retrieve_msg();
 	if ($display_log == 0)
 		echo '</div>';
-	echo "</td><td align='right'><A href='http://www.sugarcrm.com' target='_blank'><!--not_in_theme!--><img style='margin-top: 2px' border='0' width='120' height='34' src='include/images/poweredby_sugarcrm_65.png' alt='".$mod_strings['LBL_POWERED_BY_SUGAR']."'></a></td></tr></table></div><script>document.getElementById('sync_table').style.display='inline';</script>";
+	echo "</td><td align='right'><A href='http://www.sugarcrm.com' target='_blank'><!--not_in_theme!--><img style='margin-top: 2px' border='0' width='120' height='34' src='".getJSPath('include/images/poweredby_sugarcrm_65.png')."' alt='".$mod_strings['LBL_POWERED_BY_SUGAR']."'></a></td></tr></table></div><script>document.getElementById('sync_table').style.display='inline';</script>";
 	echo str_repeat(' ', 256);
 
 	flush();
-	require_once ('include/nusoap/nusoap.php'); //must also have the nusoap code on the ClientSide.
+	require_once ('vendor/nusoap//nusoap.php'); //must also have the nusoap code on the ClientSide.
 	$soapclient = new nusoapclient($soap_server); //define the SOAP Client an
 	$soapclient->response_timeout = 360;
 	if (empty ($_SESSION['sync_start_time'])) {
@@ -377,7 +374,7 @@ foreach($sync_modules as $name=>$val){
 					if (empty ($_REQUEST['rel_offset'])) {
 						update_progress_bar('records', 55, 100);
 						if($clean_sync == 1){
-							$result_arr = sugar_unserialize(base64_decode($result['result']));
+							$result_arr = unserialize(base64_decode($result['result']));
 							execute_query($sync_module, $result_arr['data']);
 							execute_query($sync_module, $result_arr['cstm']);
 						}
@@ -452,7 +449,7 @@ foreach($sync_modules as $name=>$val){
 							if (!has_error($result)) {
 								update_progress_bar('records', 50, 100);
 								if($clean_sync == 1){
-									$result_arr = sugar_unserialize(base64_decode($result['result']));
+									$result_arr = unserialize(base64_decode($result['result']));
 									execute_query($sync_module, $result_arr['data']);
 									execute_query($sync_module, $result_arr['cstm']);
 								}

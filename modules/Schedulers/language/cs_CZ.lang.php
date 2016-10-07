@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Špatná Cron syntax',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Každý den',
   'LBL_ALWAYS' => 'Vždy',
   'LBL_AND' => 'a',
+  'LBL_ASYNCMASSUPDATE' => 'Provést asynchroní hromadnou úpravu',
   'LBL_AT' => 'v',
   'LBL_AT_THE' => 'V',
   'LBL_BASIC_OPTIONS' => 'Základní nastavení',
   'LBL_CATCH_UP' => 'Spustit, pokud mine',
   'LBL_CATCH_UP_WARNING' => 'Odškrtněte toto, pokud tento program poběží déle než chvilku.',
   'LBL_CLEANJOBQUEUE' => 'Vyčištění fronty úloh',
+  'LBL_CLEANOLDRECORDLISTS' => 'Vyčistit seznamy starých záznamů',
   'LBL_CRONTAB_EXAMPLES' => 'To co je nahoře používá standartní crontab zápis',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Prosím, nastavte spuštění plánovače času odpovídajícím způsobem.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Funkcionalita CRONu založená na časové zóně nastavené na serveru (',
@@ -82,16 +81,20 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Spouštět noční hromadné rozesílání e-mailových kampaní',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Vyčistit frontu úloh',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Vytvořit budoucí časovou periodu',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Kontrola poštovních schránek pro příchozí poštu',
   'LBL_OOTB_PRUNE' => 'Provést údržbu databáze každého prvního v měsíci',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Odstranění dokumentů ze systému souborů',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Odstranit seznamy starých záznamů',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Vymazat soubory diagnostiky',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Vymazat prozatimní PDF soubory',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Vymazat prozatimní soubory',
   'LBL_OOTB_REPORTS' => 'Spustit Report Generation Scheduled Tasks --geneorvání reportů dle naplánovancýh úkolů--',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Spustit emailovou upomínku',
-  'LBL_OOTB_SUGARFEEDS' => 'Pročistit tabulky SugarFeed',
   'LBL_OOTB_TRACKER' => 'Omezit trekovací tabulky',
   'LBL_OOTB_WORKFLOW' => 'Zpracování úkolů workflow',
   'LBL_PERENNIAL' => 'trvalý',
   'LBL_PERFORMFULLFTSINDEX' => 'Full-textový vyhledávač',
+  'LBL_PMSEENGINECRON' => 'Process Author Scheduler',
   'LBL_POLLMONITOREDINBOXES' => 'Zkontrolovat Inbound Mail Accounts',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Spustit noční zpracování Vrácených Kampaňových Emailů',
   'LBL_PROCESSQUEUE' => 'Spustit Report Generation Scheduled Tasks --generování reportů dle naplánovancýh úkolů--',
@@ -99,7 +102,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Omezit databáze od prvního v měsíce',
   'LBL_RANGE' => 'do',
   'LBL_REFRESHJOBS' => 'Obnovit práce',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Odstranění dokumentů ze systému souborů',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Spustit noční Mass Email Campaigns',
   'LBL_SAT' => 'Sobota',
   'LBL_SCHEDULER' => 'Naplánovaná úloha:',
@@ -107,13 +109,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Spustit odesílání email. upomínek',
   'LBL_STATUS' => 'Stav',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Vytvořit budoucí časovou periodu',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Neděle',
   'LBL_THU' => 'Čtvrtek',
   'LBL_TIME_FROM' => 'Aktivní od',
   'LBL_TIME_TO' => 'Aktivní do',
   'LBL_TOGGLE_ADV' => 'Rozšířené volby',
   'LBL_TOGGLE_BASIC' => 'Základní volby',
-  'LBL_TRIMSUGARFEEDS' => 'Pročistit tabulky SugarFeed',
   'LBL_TRIMTRACKER' => 'Omezit trekovací tabulky',
   'LBL_TUE' => 'Úterý',
   'LBL_UPDATETRACKERSESSIONS' => 'Aktualizovat trekovací tabulky',

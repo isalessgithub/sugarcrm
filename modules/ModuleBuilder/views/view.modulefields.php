@@ -1,31 +1,28 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/ModuleBuilder/MB/AjaxCompose.php');
 require_once('modules/ModuleBuilder/views/view.modulefield.php');
- 
+
 class ViewModulefields extends SugarView
 {
     var $mbModule;
-    
+
     /**
 	 * @see SugarView::_getModuleTitleParams()
 	 */
 	protected function _getModuleTitleParams($browserTitle = false)
 	{
 	    global $mod_strings;
-	    
+
     	return array(
     	   translate('LBL_MODULE_NAME','Administration'),
     	   ModuleBuilderController::getModuleTitle(),
@@ -64,22 +61,29 @@ class ViewModulefields extends SugarView
             $f = array($mod_strings['LBL_HCUSTOM']=>array(), $mod_strings['LBL_HDEFAULT']=>array());
 
             foreach($dictionary[$objectName]['fields'] as $def) {
-                if ($this->isValidStudioField($def))
-                {
-                    $def['label'] = translate($def['vname'], $module_name);
-					//Custom relate fields will have a non-db source, but custom_module set
-                	if(isset($def['source']) && $def['source'] == 'custom_fields' || isset($def['custom_module'])) {
-                       $f[$mod_strings['LBL_HCUSTOM']][$def['name']] = $def;
-                       $def['custom'] = true;
-                    } else {
-                       $f[$mod_strings['LBL_HDEFAULT']][$def['name']] = $def;
-                       $def['custom'] = false;
-                    }
-
-                    $def['type'] = isset($fieldTypes[$def['type']]) ? $fieldTypes[$def['type']] : ucfirst($def['type']);
-                    $fieldsData[] = $def;
-                    $customFieldsData[$def['name']] = $def['custom'];
+                if (!$this->isValidStudioField($def)) {
+                    continue;
                 }
+                if (!empty($def['vname'])) {
+                    $def['label'] = translate($def['vname'], $module_name);
+                } elseif (!empty($def['label'])) {
+                    $def['label'] = translate($def['label'], $module_name);
+                } else {
+                    $def['label'] = $def['name'];
+                }
+
+				//Custom relate fields will have a non-db source, but custom_module set
+            	if(isset($def['source']) && $def['source'] == 'custom_fields' || isset($def['custom_module'])) {
+                   $f[$mod_strings['LBL_HCUSTOM']][$def['name']] = $def;
+                   $def['custom'] = true;
+                } else {
+                   $f[$mod_strings['LBL_HDEFAULT']][$def['name']] = $def;
+                   $def['custom'] = false;
+                }
+
+                $def['type'] = isset($fieldTypes[$def['type']]) ? $fieldTypes[$def['type']] : ucfirst($def['type']);
+                $fieldsData[] = $def;
+                $customFieldsData[$def['name']] = $def['custom'];
             }
             $studioClass->mbvardefs->vardefs['fields'] = $f;
             $smarty->assign('module', $studioClass);
@@ -109,6 +113,8 @@ class ViewModulefields extends SugarView
 
             $package->getModule($module_name);
             $this->mbModule = $package->modules[$module_name];
+            // We need the type to determine true custom fields
+            $moduleType = $this->mbModule->getModuleType();
             $this->loadPackageHelp($module_name);
             $this->mbModule->getVardefs(true);
             $this->mbModule->mbvardefs->vardefs['fields'] = array_reverse($this->mbModule->mbvardefs->vardefs['fields'], true);
@@ -154,12 +160,16 @@ class ViewModulefields extends SugarView
                 	   unset($this->mbModule->mbvardefs->vardefs['fields'][$k][$field]);
                     } else {
                        $this->mbModule->mbvardefs->vardefs['fields'][$k][$field]['label'] = isset($def['vname']) && isset($this->mbModule->mblanguage->strings[$current_language.'.lang.php'][$def['vname']]) ? $this->mbModule->mblanguage->strings[$current_language.'.lang.php'][$def['vname']] : $field;
-                       $customFieldsData[$field] = ($k == $this->mbModule->name) ? true : false;
+                       // It's only custom if the module name is the same as the key AND not the same as the module type
+                       $custom = $k == $this->mbModule->name && $this->mbModule->name != $moduleType;
+                       $customFieldsData[$field] = $custom ? true : false;
                        $loadedFields[$field] = true;
-                        
+
                        $type = $this->mbModule->mbvardefs->vardefs['fields'][$k][$field]['type'];
                        $this->mbModule->mbvardefs->vardefs['fields'][$k][$field]['type'] = isset($fieldTypes[$type]) ? $fieldTypes[$type] : ucfirst($type);
-                       $fieldsData[] = $this->mbModule->mbvardefs->vardefs['fields'][$k][$field];
+                       if ($this->isValidStudioField($this->mbModule->mbvardefs->vardefs['fields'][$k][$field])) {
+                           $fieldsData[] = $this->mbModule->mbvardefs->vardefs['fields'][$k][$field];
+                       }
                     }
                 }
             }
@@ -212,7 +222,7 @@ class ViewModulefields extends SugarView
             unset($def['currency_id']);
         return $def;
     }
-	
+
     function isValidStudioField(
         $def
         )
@@ -224,7 +234,7 @@ class ViewModulefields extends SugarView
                     return true;
     			if (isset($def['studio']['required']) && $def['studio']['required'])
                     return true;
-                    
+
     		} else
     		{
     			if ($def['studio'] == 'visible')
@@ -238,7 +248,7 @@ class ViewModulefields extends SugarView
     		if ($def ['type'] != 'id' && (empty($def ['dbType']) || $def ['dbType'] != 'id'))
 		  return true;
 		}
-		
+
 		return false;
 	}
 }

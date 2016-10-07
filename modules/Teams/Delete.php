@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Delete.php 50752 2009-09-10 22:18:28Z dwong $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -29,8 +26,7 @@ global $mod_strings;
 global $app_strings;
 
 
-$focus = new Team();
-$focus->retrieve($_REQUEST['record']);
+$focus = BeanFactory::getBean('Teams', $_REQUEST['record']);
 
 //Check if there are module records where this team is assigned to in a team_set_id
 //if so, redirect to prompt the Administrator to select a new team
@@ -48,8 +44,7 @@ if($focus->has_records_in_modules()) {
 	}
 	
 	//Check if the associated user is deleted
-	$user = new User();
-	$user->retrieve($focus->associated_user_id);
+	$user = BeanFactory::getBean('Users', $focus->associated_user_id);
 	if($focus->private == 1 && (!empty($user->id) && $user->deleted != 1))
 	{
 		$msg = string_format($GLOBALS['app_strings']['LBL_MASSUPDATE_DELETE_USER_EXISTS'], array(Team::getDisplayName($focus->name, $focus->name_2), $user->full_name));

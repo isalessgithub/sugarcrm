@@ -1,6 +1,6 @@
 <?php
-$listViewDefs ['Quotes'] = 
-array (
+// created: 2016-10-06 15:20:01
+$listViewDefs['Quotes'] = array (
   'QUOTE_NUM' => 
   array (
     'width' => '10%',
@@ -84,4 +84,3 @@ array (
     ),
   ),
 );
-?>

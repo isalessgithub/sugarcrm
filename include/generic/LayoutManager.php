@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -272,13 +269,7 @@ class LayoutManager
 		// At this point, we have a class name and we do not have a valid class defined.
 		if(!class_exists($class_name))
 		{
-
-			// The class does not exist.  Try including it.
-			if (file_exists('custom/include/generic/SugarWidgets/'.$class_name.'.php'))
-				require_once('custom/include/generic/SugarWidgets/'.$class_name.'.php');
-			else if (file_exists('include/generic/SugarWidgets/'.$class_name.'.php'))
-				require_once('include/generic/SugarWidgets/'.$class_name.'.php');
-
+            SugarAutoLoader::requireWithCustom("include/generic/SugarWidgets/{$class_name}.php");
 			if(!class_exists($class_name))
 			{
 				// If we still do not have a class, oops....
@@ -307,7 +298,7 @@ class LayoutManager
         static $beanCache;
 		if(!empty($widget_def['module']) &&!empty($GLOBALS['beanList'][$widget_def['module']]) && !empty($GLOBALS['beanFiles'][$GLOBALS['beanList'][$widget_def['module']]])){
             if (!isset($beanCache[$widget_def['module']])){
-                $beanCache[$widget_def['module']] = new $GLOBALS['beanList'][$widget_def['module']]();
+                $beanCache[$widget_def['module']] = BeanFactory::getBean($widget_def['module']);
             }
             $bean = $beanCache[$widget_def['module']];
 			if(!empty($widget_def['name']) && !empty($bean->field_name_map) &&!empty($bean->field_name_map[$widget_def['name']]) ){
@@ -322,7 +313,7 @@ class LayoutManager
 	{
 		$theclass = $this->getClassFromWidgetDef($widget_def, $use_default);
  		$label = isset($widget_def['module']) ? $widget_def['module'] : '';
-	    if (is_subclass_of($theclass, 'SugarWidgetSubPanelTopButton')) {
+	    if ($theclass instanceof SugarWidgetSubPanelTopButton) {
             $label = $theclass->get_subpanel_relationship_name($widget_def);
 	    }
 		$theclass->setWidgetId($label);
@@ -341,7 +332,7 @@ class LayoutManager
         if ($grabId) {
             return $theclass->getWidgetId();
         }
-        
+
 		return $theclass->display($widget_def, null, null);
 	}
 

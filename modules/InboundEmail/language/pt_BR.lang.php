@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Login ou Senha Incorreta',
   'ERR_BODY_TOO_LONG' => 'texto \\rBody muito longo para capturar e-mail completo. Ajustado.',
+  'ERR_DELETE_FOLDER' => 'Não foi possível deletar a pasta.',
   'ERR_INI_ZLIB' => 'Não pode desativar compressão Zlib temporariamente. "Definições de Teste" podem falhar.',
   'ERR_MAILBOX_FAIL' => 'Não foi possível recuperar nenhuma conta de e-mail.',
   'ERR_NO_IMAP' => 'Nenhuma biblioteca IMAP encontrada. Por favor resolva isto antes de prosseguir com o E-mail Recebido',
   'ERR_NO_OPTS_SAVED' => 'Nenhuma Opção foi gravada na sua Caixa de Entrada de E-mail. Por favor verifique as definições',
   'ERR_TEST_MAILBOX' => 'Por favor verifique as suas definições e tente novamente.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Não foi possível cancelar a inscrição da pasta antes da exclusão.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Permitir aos Usuários enviar e-mails usando o `De` (nome e endereço) como o endereço para resposta',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Quando esta opção for selecionada, o nome e endereço de e-mail de origem associados a esta conta de correio do grupo vão aparecer como uma opção para o campo `De` quando se escreve e-mails para usuários que têm acesso à conta de correio do grupo.',
   'LBL_APPLY_OPTIMUMS' => 'Apply Optimums',

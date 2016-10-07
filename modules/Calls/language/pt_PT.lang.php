@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registo deve ser especificado para eliminar a entidade',
@@ -65,6 +62,26 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Relacionado com o módulo',
   'LBL_EXPORT_REMINDER_TIME' => 'Tempo Restante (em minutos)',
   'LBL_FIRST_NAME' => 'Nome',
+  'LBL_HELP_CREATE' => 'O módulo de {{plural_module_name}} é usado para seguir e gerir problemas relacionados com produtos ou serviços reportados pela sua organização ou clientes.
+
+
+
+Para criar um {{module_name}}:
+1. Fornecer valores para os campos como desejado.
+- Campos marcados como "Obrigatórios" deverão ser preenchidos antes de gravar.
+- Carregar "Mostrar mais" para mostrar campos adicionais se necessário.
+
+2. Carregar em "Gravar" para finalizar o novo registo e retornar à página anterior.
+- Escolher "Gravar e ver" para abrir o novo {{module_name}} na visualização do registo.
+- Escolher "Gravar e criar novo" para criar imediatamente outro novo {{module_name}}.',
+  'LBL_HELP_RECORD' => 'O módulo de {{plural_module_name}} é usado para seguir e gerir problemas relacionados com produtos ou serviços reportados pela sua organização ou clientes.
+
+- Edite os campos deste registo carregando em um campo individualmente ou no botão Editar.
+- Visualize ou modifique ligações para outros registos nos sub-paineis alterando o painel esquerdo do fundo para "Visaulização de Dados".
+- Crie e visualize comentários de utilizador e grande alterações do histórico no {{activitystream_singular_module}}  alterando o painel esquerdo do fundo para "Fluxo de Actividade".
+- Siga ou torne favorito este registo utilizando os ícones à direita do nome do registo.
+- Acções adicionais estão disponíveis no menu de selecção Acções à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O módulo {{module_name}} consiste em indivíduos que são prospectos não qualificados dos quais tem alguma informação, mas que ainda não são uma {{leads_singular_module}} qualificada. Informação (e.g. nome, e-mail, morada) acerca destes {{plural_module_name}} normalmente são obtidos de business cards que recebe quando participa em feiras, conferências, etc. {{plural_module_name}} no Sugar são registos soltos porque não estão relacionados com {{contacts_module}}, {{leads_module}}, {{accounts_module}}, ou {{opportunities_module}}. Existem diversas maneiras que pode usar para criar {{plural_module_name}} no Sugar, por exemplo através do módulo de {{plural_module_name}}, importando {{plural_module_name}}, etc. Uma vez criado o registo do {{module_name}} pode visualizar ou editar a informação relativa ao {{module_name}} através da vista de detalhe de {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notas ou Anexos',
   'LBL_HOURS_ABBREV' => 'h',
   'LBL_HOURS_MINUTES' => '(horas/minutos)',
@@ -89,12 +106,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Chamadas Telefónicas',
   'LBL_MODULE_NAME_SINGULAR' => 'Chamada Telefónica',
   'LBL_MODULE_TITLE' => 'Chamadas Telefónicas: Ecrã Principal',
+  'LBL_MY_SCHEDULED_CALLS' => 'As minhas chamadas ao Registo',
   'LBL_NAME' => 'Nome completo',
   'LBL_NEW_FORM_TITLE' => 'Criar Compromisso',
   'LBL_NO_ACCESS' => 'Não tem permissões para criar $module',
   'LBL_OUTLOOK_ID' => 'Outlook ID',
   'LBL_PARENT_ID' => 'ID Pai',
   'LBL_PHONE' => 'Telefone',
+  'LBL_POPUP_REMINDER_TIME' => 'Popup Lembrete',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Você criou com êxito o registo {{moduleSingularLower}} em {{formatDate date_start}}, mas não tem permissões para aceder a esse registo.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Criou com sucesso o {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> em {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Recorrência',
   'LBL_RECURRING_LIMIT_ERROR' => 'Esta chamada recorrente não pode ser agendada porque excede o limite $limit máximo permitido de ocorrências.',
   'LBL_RECURRING_SOURCE' => 'Fonte Recorrente',
@@ -105,6 +126,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Enviar email a todos os convidados',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Hora do aviso',
+  'LBL_REMINDER_TITLE' => 'Chamada:',
   'LBL_REMOVE' => 'Remover',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Remover Todas as Recorrências',
   'LBL_REPEAT_COUNT' => 'Contagem de Repetição',
@@ -117,6 +139,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Id do Parente da Repetição',
   'LBL_REPEAT_TYPE' => 'Tipo de Repetição',
   'LBL_REPEAT_UNTIL' => 'Repetir Até',
+  'LBL_REVENUELINEITEMS' => 'Itens de Linha de Receita',
   'LBL_SCHEDULING_FORM_TITLE' => 'Calendarização',
   'LBL_SEARCH_BUTTON' => 'Pesquisar',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Chamadas Telefónicas',
@@ -141,5 +164,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Seleccionar Entidade',
   'NOTICE_DURATION_TIME' => 'Tempo de duração deve ser maior que 0',
   'NTC_REMOVE_INVITEE' => 'Tem certeza que deseja remover este convidado da Chamada Telefónica?',
+  'TPL_CALL_STATUS_CHANGED' => 'Chamada marcada como {{status}}.',
 );
 

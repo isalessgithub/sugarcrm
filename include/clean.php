@@ -1,20 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-require_once 'include/HTMLPurifier/HTMLPurifier.standalone.php';
-require_once 'include/HTMLPurifier/HTMLPurifier.autoload.php';
+require_once 'vendor/HTMLPurifier/HTMLPurifier.standalone.php';
 
 /**
  * cid: scheme implementation
@@ -159,7 +155,11 @@ class SugarCleaner
         if(empty($html)) return $html;
 
         if($encoded) {
-            $html = from_html($html);
+            // take care of multiple html encodings by repeatedly decoding till there is nothing to decode
+            do {
+                $oldHtml = $html;
+                $html = from_html($html);
+            } while ($html != $oldHtml);
         }
         if(!preg_match('<[^-A-Za-z0-9 `~!@#$%^&*()_=+{}\[\];:\'",./\\?\r\n|\x80-\xFF]>', $html)) {
             /* if it only has "safe" chars, don't bother */
@@ -167,11 +167,8 @@ class SugarCleaner
         } else {
             $purifier = self::getInstance()->purifier;
             $cleanhtml = $purifier->purify($html);
-//            $styles = $purifier->context->get('StyleBlocks');
-//            if(count($styles) > 0) {
-//                $cleanhtml = "<style>".join("</style><style>", $styles)."</style>".$cleanhtml;
-//            }
         }
+
         if($encoded) {
             $cleanhtml = to_html($cleanhtml);
         }

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -29,9 +26,9 @@ $mod_strings = array (
   'COLUMN_TITLE_DISPLAY_LABEL' => 'Етикет',
   'COLUMN_TITLE_DUPLICATE_MERGE' => 'Сливане на дублирани записи',
   'COLUMN_TITLE_ENABLE_RANGE_SEARCH' => 'Търсене за период',
-  'COLUMN_TITLE_EXT1' => 'Extra Meta Field 1',
-  'COLUMN_TITLE_EXT2' => 'Extra Meta Field 2',
-  'COLUMN_TITLE_EXT3' => 'Extra Meta Field 3',
+  'COLUMN_TITLE_EXT1' => 'Допълнително поле 1',
+  'COLUMN_TITLE_EXT2' => 'Допълнително поле 2',
+  'COLUMN_TITLE_EXT3' => 'Допълнително поле 3',
   'COLUMN_TITLE_FRAME_HEIGHT' => 'Моят портал',
   'COLUMN_TITLE_FTS' => 'Достъпно за пълнотекстово търсене',
   'COLUMN_TITLE_GLOBAL_SEARCH' => 'Глобално търсене',
@@ -53,6 +50,7 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S. формат',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Вече съществува поле с такова име',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Името на полето трябва да съдържа само следните символи: а-яА-Я_',
   'ERR_NO_MODULE_INCLUDED' => 'Не може да бъде направен запис поради липса на вкл&#39;чени модули',
   'ERR_RESERVED_FIELD_NAME' => 'Запази',
   'ERR_SELECT_FIELD_TYPE' => 'Моля, изберете типа на полето',
@@ -73,13 +71,13 @@ $mod_strings = array (
   'LBL_DROP_DOWN_LIST' => 'Списък с падащи менюта',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Зависимост',
   'LBL_EDIT_VIS' => 'Редактиране на видимостта',
-  'LBL_ENFORCED' => 'Enforced',
+  'LBL_ENFORCED' => 'Изпълнено',
   'LBL_EXE_NON_SIM_MODE' => 'Изпълнение не в режим на симулация',
   'LBL_FIELD_MISSING' => 'поле(та) липсват от',
   'LBL_FIX_COLUMN_TYPE' => 'Корекция на типа на колоната за {0} промяна на {1} на',
   'LBL_FORMULA' => 'Формула',
   'LBL_GENERATE_URL' => 'URL',
-  'LBL_HAS_PARENT' => 'Has Parent',
+  'LBL_HAS_PARENT' => 'Има родителски запис',
   'LBL_HELP' => 'Помощ',
   'LBL_IMAGE_BORDER' => 'Граница',
   'LBL_IMAGE_HEIGHT' => 'Височина',
@@ -89,7 +87,7 @@ $mod_strings = array (
   'LBL_MODULE' => 'Модул',
   'LBL_MODULE_SELECT' => 'Редактиране на модули',
   'LBL_MULTI_SELECT_LIST' => 'Падащо меню "MultiSelect"',
-  'LBL_PARENT_DROPDOWN' => 'Parent Dropdown',
+  'LBL_PARENT_DROPDOWN' => 'Падащо меню с родителски записи',
   'LBL_RADIO_FIELDS' => 'Radio бутон',
   'LBL_REPORTABLE' => 'Импорт на стойности:',
   'LBL_SCAN_MODULE' => 'Сканиране',

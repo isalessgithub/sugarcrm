@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the account.',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'First Day of Week',
   'LBL_FDOW_TEXT' => 'First Day displayed in Week, Month, and Year Views',
+  'LBL_FILTER_USERS_REPORTS' => 'Users&#39; reports',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Finding optimum connection variables.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Find Optimum Configuration',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Force Negative',
   'LBL_FORCE_DESC' => 'Some IMAP/POP3 servers require special switches. Check to force a negative switch when connecting (i.e., /notls)',
   'LBL_FORECASTS' => 'Forecasts',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'This is currently not enabled. Please contact your administrator.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Found optimum settings.	Press the button below to apply them to your Mailbox.',
   'LBL_GENERATE_PASSWORD' => 'Reset Password',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'My Teams',
   'LBL_NAME' => 'Full Name',
   'LBL_NAVIGATION_PARADIGM' => 'Navigation',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Select to view modules tabs in the navigation bar based on pre-defined groups. If this feature is not selected, all modules will appear within the navigation bar.',
   'LBL_NEW_FORM_TITLE' => 'New User',
   'LBL_NEW_PASSWORD' => 'New Password',
   'LBL_NEW_PASSWORD1' => 'Password',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Reports to',
   'LBL_REQUEST_SUBMIT' => 'Your request has been submitted.',
   'LBL_RESET_DASHBOARD' => 'Reset Dashboard',
-  'LBL_RESET_HOMEPAGE' => 'Reset Homepage',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Are you sure you want reset your Homepage?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Are you sure you want reset the Homepage for this user?',
   'LBL_RESET_PREFERENCES' => 'Reset User Preferences',
   'LBL_RESET_PREFERENCES_WARNING' => 'Are you sure you want reset all of your user preferences? Warning: This will also log you out of the application.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Are you sure you want reset all of the preferences for this user?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Subpanel Links',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'In Detail Views, display a row of Subpanel shortcut links.',
-  'LBL_SUBPANEL_TABS' => 'Subpanel Tabs',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'In Detail Views, group Subpanels into tabs and display one tab at a time.',
   'LBL_SUGAR_LOGIN' => 'Is Sugar User',
   'LBL_SUPPORTED_THEME_ONLY' => 'Only affects themes that support this option.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Display the Last Viewed bar on the side if checked.  Otherwise it goes on top.',

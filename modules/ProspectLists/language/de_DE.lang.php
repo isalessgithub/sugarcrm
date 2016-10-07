@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Firmen',
   'LBL_ASSIGNED_TO' => 'Zugewiesen an',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampagnen',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakte',
   'LBL_COPY_PREFIX' => 'Kopie von',
   'LBL_CREATED' => 'Erstellt von:',
@@ -32,6 +30,14 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Keine E-Mails auf dieser Domain:',
   'LBL_DOMAIN_NAME' => 'Domain Name',
   'LBL_ENTRIES' => 'Einträge Gesamt:',
+  'LBL_HELP_CREATE' => 'Eine {{module_name}} ist eine Sammlung von Personen oder Firmen die in an einer {{campaigns_singular_module}} angeschrieben bzw. nicht angeschrieben werden sollen.Um einen {{module_name}} zu erstellen: 1. Erfassen Sie alle relevanten Informationen. - Felder die als Pflichtfeld markiert sind müssen ausgefüllt werden um den Datensatz speichern zu können. - Klicken Sie auf "mehr zeigen" um weitere Felder zu erfassen. 2. Drücken Sie auf "Speichern" um den Datensatz verfügbar zu machen und um auf die letzte Seite zurück zu kommen. - Wählen Sie "Speichern und Öffnen" um den neuen {{module_name}} in der Datensatzansicht zu öffnen. - Wählen Sie "Speichern und neuen Datensatz erstellen" um sofort einen weiteren {{module_name}} Datensatz anzulegen.',
+  'LBL_HELP_RECORD' => 'Eine {{module_name}} ist eine Sammlung von Personen oder Firmen die in an einer {{campaigns_singular_module}} angeschrieben bzw. nicht angeschrieben werden sollen.
+- Bearbeiten Sie den Datensatz indem Sie auf ein Feld oder auf die Schaltfläche Bearbeiten klicken.
+- Erstellen oder sehen Sie sich Benutzerkommentare und die Änderungshistorie verschiedener Datensätze im  {{activitystream_singular_module}} an indem Sie die Sicht auf "Activity Stream" im unteren linken Bereich stellen. 
+- Folgen Sie favorisierten Einträgen indem Sie das Sternsymbol neben dem Namen oben anklicken. 
+- Weitere Aktionen finden Sie im Ausklappmenü auf der rechten Seite der Bearbeiten Schaltfläche.',
+  'LBL_HELP_RECORDS' => 'Eine {{module_name}} ist eine Sammlung von Personen oder Firmen die in an einer {{campaigns_singular_module}} angeschrieben bzw. nicht angeschrieben werden sollen.
+Die {{plural_module_name}} können eine beliebige Anzahl und Kombinationen verschiedener Empfänger, wie {{contacts_module}}, {{leads_module}}, Benutzer, and {{accounts_module}} beeinhalten. Empfänger können zum Beispiel anhand von verschiedenen Kriterien wie Alter, geografische Lage oder Kaufgewohnheiten in einer {{module_name}} gruppiert werden. {{plural_module_name}} werden in Massen Marketing Aktionen verwendet, welche im  {{campaigns_module}} erstellt werden können.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Interessenten',
   'LBL_LIST_DESCRIPTION' => 'Beschreibung',
   'LBL_LIST_END_DATE' => 'Enddatum',

@@ -1,11 +1,10 @@
 /*
- Copyright (c) 2010, Yahoo! Inc. All rights reserved.
- Code licensed under the BSD License:
- http://developer.yahoo.com/yui/license.html
- version: 3.3.0
- build: 3167
- */
-YUI.add('node-focusmanager',function(Y){var ACTIVE_DESCENDANT="activeDescendant",ID="id",DISABLED="disabled",TAB_INDEX="tabIndex",FOCUSED="focused",FOCUS_CLASS="focusClass",CIRCULAR="circular",UI="UI",KEY="key",ACTIVE_DESCENDANT_CHANGE=ACTIVE_DESCENDANT+"Change",HOST="host",scrollKeys={37:true,38:true,39:true,40:true},clickableElements={"a":true,"button":true,"input":true,"object":true},Lang=Y.Lang,UA=Y.UA,NodeFocusManager=function(){NodeFocusManager.superclass.constructor.apply(this,arguments);};NodeFocusManager.ATTRS={focused:{value:false,readOnly:true},descendants:{getter:function(value){return this.get(HOST).all(value);}},activeDescendant:{setter:function(value){var isNumber=Lang.isNumber,INVALID_VALUE=Y.Attribute.INVALID_VALUE,descendantsMap=this._descendantsMap,descendants=this._descendants,nodeIndex,returnValue,oNode;if(isNumber(value)){nodeIndex=value;returnValue=nodeIndex;}
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('node-focusmanager',function(Y,NAME){var ACTIVE_DESCENDANT="activeDescendant",ID="id",DISABLED="disabled",TAB_INDEX="tabIndex",FOCUSED="focused",FOCUS_CLASS="focusClass",CIRCULAR="circular",UI="UI",KEY="key",ACTIVE_DESCENDANT_CHANGE=ACTIVE_DESCENDANT+"Change",HOST="host",scrollKeys={37:true,38:true,39:true,40:true},clickableElements={"a":true,"button":true,"input":true,"object":true},Lang=Y.Lang,UA=Y.UA,NodeFocusManager=function(){NodeFocusManager.superclass.constructor.apply(this,arguments);};NodeFocusManager.ATTRS={focused:{value:false,readOnly:true},descendants:{getter:function(value){return this.get(HOST).all(value);}},activeDescendant:{setter:function(value){var isNumber=Lang.isNumber,INVALID_VALUE=Y.Attribute.INVALID_VALUE,descendantsMap=this._descendantsMap,descendants=this._descendants,nodeIndex,returnValue,oNode;if(isNumber(value)){nodeIndex=value;returnValue=nodeIndex;}
 else if((value instanceof Y.Node)&&descendantsMap){nodeIndex=descendantsMap[value.get(ID)];if(isNumber(nodeIndex)){returnValue=nodeIndex;}
 else{returnValue=INVALID_VALUE;}}
 else{returnValue=INVALID_VALUE;}
@@ -45,4 +44,4 @@ else{this.focus(nActiveDescendant);}}}
 this._preventScroll(event);},_afterActiveDescendantChange:function(event){var oNode=this._descendants.item(event.prevVal);if(oNode){oNode.set(TAB_INDEX,-1);}
 oNode=this._descendants.item(event.newVal);if(oNode){oNode.set(TAB_INDEX,0);}},initializer:function(config){this.start();},destructor:function(){this.stop();this.get(HOST).focusManager=null;},focus:function(index){if(Lang.isUndefined(index)){index=this.get(ACTIVE_DESCENDANT);}
 this.set(ACTIVE_DESCENDANT,index,{src:UI});var oNode=this._descendants.item(this.get(ACTIVE_DESCENDANT));if(oNode){oNode.focus();if(UA.opera&&oNode.get("nodeName").toLowerCase()==="button"){this._focusTarget=oNode;}}},blur:function(){var oNode;if(this.get(FOCUSED)){oNode=this._descendants.item(this.get(ACTIVE_DESCENDANT));if(oNode){oNode.blur();this._removeFocusClass();}
-this._set(FOCUSED,false,{src:UI});}},start:function(){if(this._stopped){this._initDescendants();this._attachEventHandlers();this._stopped=false;}},stop:function(){if(!this._stopped){this._detachEventHandlers();this._descendants=null;this._focusedNode=null;this._lastNodeIndex=0;this._stopped=true;}},refresh:function(){this._initDescendants();if(!this._eventHandlers){this._attachEventHandlers();}}});NodeFocusManager.NAME="nodeFocusManager";NodeFocusManager.NS="focusManager";Y.namespace("Plugin");Y.Plugin.NodeFocusManager=NodeFocusManager;},'3.3.0',{requires:['attribute','node','plugin','node-event-simulate','event-key','event-focus']});
+this._set(FOCUSED,false,{src:UI});}},start:function(){if(this._stopped){this._initDescendants();this._attachEventHandlers();this._stopped=false;}},stop:function(){if(!this._stopped){this._detachEventHandlers();this._descendants=null;this._focusedNode=null;this._lastNodeIndex=0;this._stopped=true;}},refresh:function(){this._initDescendants();if(!this._eventHandlers){this._attachEventHandlers();}}});NodeFocusManager.NAME="nodeFocusManager";NodeFocusManager.NS="focusManager";Y.namespace("Plugin");Y.Plugin.NodeFocusManager=NodeFocusManager;},'3.15.0',{"requires":["attribute","node","plugin","node-event-simulate","event-key","event-focus"]});

@@ -1,29 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('soap/SoapHelperFunctions.php');
 require_once('soap/SoapTypes.php');
-
-
 require_once('soap/SoapPortalHelper.php');
-
-
-
-
-
 
 /*************************************************************************************
 
@@ -42,7 +32,7 @@ $server->register(
 
 function portal_login($portal_auth, $user_name, $application_name){
     $error = new SoapError();
-    $contact = new Contact();
+    $contact = BeanFactory::getBean('Contacts');
     $result = login_user($portal_auth);
 
     if($result == 'fail' || $result == 'sessions_exceeded'){
@@ -117,7 +107,7 @@ $server->register(
 function portal_login_contact($portal_auth, $contact_portal_auth, $application_name){
 
     $error = new SoapError();
-    $contact = new Contact();
+    $contact = BeanFactory::getBean('Contacts');
     $result = login_user($portal_auth);
 
     if($result == 'fail' || $result == 'sessions_exceeded'){
@@ -181,8 +171,7 @@ function portal_validate_authenticated($session_id){
 			global $current_user;
             $valid_session->last_request_time = TimeDate::getInstance()->nowDb();
             $valid_session->save();
-            $current_user = new User();
-            $current_user->retrieve($_SESSION['portal_id']);
+            $current_user = BeanFactory::getBean('Users', $_SESSION['portal_id']);
             login_success();
             error_reporting($old_error_reporting);
             return true;
@@ -284,15 +273,15 @@ function portal_get_entry_list_filter($session, $module_name, $order_by, $select
 
     $sugar = null;
     if($module_name == 'Cases'){
-        $sugar = new aCase();
+        $sugar = BeanFactory::getBean('Cases');
     }else if($module_name == 'Contacts'){
-        $sugar = new Contact();
+        $sugar = BeanFactory::getBean('Contacts');
     }else if($module_name == 'Accounts'){
-        $sugar = new Account();
+        $sugar = BeanFactory::getBean('Accounts');
     } else if($module_name == 'Bugs'){
-        $sugar = new Bug();
+        $sugar = BeanFactory::getBean('Bugs');
     } else if($module_name == 'KBDocuments' || $module_name == 'FAQ') {
-        $sugar = new KBDocument();
+        $sugar = BeanFactory::getBean('KBDocuments');
     } else {
         $error->set_error('no_module_support');
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
@@ -363,7 +352,10 @@ function portal_get_entry($session, $module_name, $id,$select_fields ){
         $error->set_error('no_access');
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
     }
-    if(empty($beanList[$module_name])){
+
+    $seed = BeanFactory::getBean($module_name, $id, array("disable_row_level_security" => true));
+
+    if(empty($seed)){
         $error->set_error('no_module');
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
     }
@@ -373,11 +365,6 @@ function portal_get_entry($session, $module_name, $id,$select_fields ){
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
     }
 
-    $class_name = $beanList[$module_name];
-    require_once($beanFiles[$class_name]);
-    $seed = new $class_name();
-    $seed->disable_row_level_security = true;
-    $seed->retrieve($id);
     if($module_name == 'KBDocuments') {
        $body = $seed->get_kbdoc_body($id);
        $seed->description = $body;
@@ -413,7 +400,9 @@ function portal_set_entry($session,$module_name, $name_value_list){
         $error->set_error('invalid_session');
         return array('id'=>-1,  'error'=>$error->get_soap_array());
     }
-    if(empty($beanList[$module_name])){
+    $seed = BeanFactory::getBean($module_name);
+
+    if(empty($seed)){
         $error->set_error('no_module');
         return array('id'=>-1, 'error'=>$error->get_soap_array());
     }
@@ -427,10 +416,6 @@ function portal_set_entry($session,$module_name, $name_value_list){
         return array('id'=>-1, 'error'=>$error->get_soap_array());
     }
 
-
-    $class_name = $beanList[$module_name];
-    require_once($beanFiles[$class_name]);
-    $seed = new $class_name();
     $is_update = false;
     $values_set = array();
 
@@ -487,9 +472,9 @@ function portal_set_entry($session,$module_name, $name_value_list){
             }
             $id = $seed->save();
         }else{
-            $contact = new Contact();
-            $contact->disable_row_level_security = TRUE;
-            $contact->retrieve($_SESSION['user_id']);
+            $contact = BeanFactory::getBean('Contacts', $_SESSION['user_id']
+                , array("disable_row_level_security" => true)
+            );
             $seed->contact_id = $contact;
 
             if(isset( $_SESSION['account_id'])){
@@ -551,9 +536,9 @@ function portal_remove_note_attachment($session, $id)
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
     }
 
-    $focus = new Note();
-    $focus->disable_row_level_security = true;
-    $focus->retrieve($id);
+    $focus = BeanFactory::getBean('Notes', $id
+        , array("disable_row_level_security" => true)
+    );
     $result = $focus->deleteAttachment();
 
     return $error->get_soap_array();
@@ -579,9 +564,9 @@ function portal_get_note_attachment($session,$id)
     }
     $current_user = $seed_user;
 
-    $note = new Note();
-    $note->disable_row_level_security = true;
-    $note->retrieve($id);
+    $note = BeanFactory::getBean('Notes', $id
+                , array("disable_row_level_security" => true)
+    );
     require_once('modules/Notes/NoteSoap.php');
     $ns = new NoteSoap();
     if(!isset($note->filename)){
@@ -608,20 +593,19 @@ function portal_relate_note_to_module($session,$note_id, $module_name, $module_i
     if(! portal_validate_authenticated($session)){
         $error->set_error('invalid_session');
         return $error->get_soap_array();
-        }
+    }
     if($_SESSION['type'] == 'lead' || !isset($_SESSION['viewable']['Notes'][$note_id]) || !isset($_SESSION['viewable'][$module_name][$module_id])){
         $error->set_error('no_access');
         return $error->get_soap_array();
-        }
-    if(empty($beanList[$module_name])){
-        $error->set_error('no_module');
-        return $error->get_soap_array();
     }
 
-    $class_name = $beanList[$module_name];
-    require_once($beanFiles[$class_name]);
+    $seed = BeanFactory::getBean($module_name);
 
-    $seed = new $class_name();
+    if(empty($seed)){
+        $error->set_error('no_module');
+        return array('id'=>-1, 'error'=>$error->get_soap_array());
+    }
+
     $seed->disable_row_level_security = true;
     $seed->retrieve($module_id);
     if($module_name == 'Cases' || $module_name == 'Bugs') {
@@ -754,9 +738,11 @@ function portal_get_module_fields($session, $module_name){
         return array('module_name'=>$module_name, 'module_fields'=>$module_fields, 'error'=>$error->get_soap_array());
     }
 
-    if(empty($beanList[$module_name])){
+    $seed = BeanFactory::getBean($module_name);
+
+    if(empty($seed)){
         $error->set_error('no_module');
-        return array('module_name'=>$module_name, 'module_fields'=>$module_fields, 'error'=>$error->get_soap_array());
+        return array('id'=>-1, 'error'=>$error->get_soap_array());
     }
 
     if(($_SESSION['type'] == 'portal'||$_SESSION['type'] == 'contact') &&  !key_exists($module_name, $valid_modules_for_contact)){
@@ -764,9 +750,6 @@ function portal_get_module_fields($session, $module_name){
         return array('module_name'=>$module_name, 'module_fields'=>$module_fields, 'error'=>$error->get_soap_array());
     }
 
-    $class_name = $beanList[$module_name];
-    require_once($beanFiles[$class_name]);
-    $seed = new $class_name();
     $seed->fill_in_additional_detail_fields();
     $returnFields = get_return_module_fields($seed, $module_name, $error->get_soap_array(), true);
     if(is_subclass_of($seed, 'Person')) {
@@ -793,7 +776,7 @@ function portal_get_subscription_lists($session){
 
     require_once('modules/Campaigns/utils.php');
 
-    $contact = new Contact();
+    $contact = BeanFactory::getBean('Contacts');
     $contact->disable_row_level_security = true;
     $contact->retrieve($_SESSION['user_id']);
 
@@ -835,7 +818,7 @@ function portal_set_newsletters($session, $subscribe_ids, $unsubscribe_ids){
 
     require_once('modules/Campaigns/utils.php');
 
-    $contact = new Contact();
+    $contact = BeanFactory::getBean('Contacts');
     $contact->disable_row_level_security = true;
     $contact->retrieve($_SESSION['user_id']);
 

@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once("data/BeanFactory.php");
 require_once('modules/ExpressionEngine/formulaHelper.php');
@@ -20,7 +17,7 @@ class ViewRollupWizard extends SugarView
 {
     var $vars = array("tmodule", "selLink", 'type');
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         foreach($this->vars as $var)
@@ -34,25 +31,35 @@ class ViewRollupWizard extends SugarView
 
     }
 
-    function display() {
-        $rfields = array();
-        $rmodules = array();
+    /**
+     * Display the view
+     */
+    public function display()
+    {
+        $valid_links = array();
         $links = FormulaHelper::getLinksForModule($this->tmodule, $this->package);
 
-        //We need just a flat list of the modules for the module select dropdown
-        foreach ($links as $lname => $link) {
-            $rmodules[$lname] = $link['label'];
-        }
+        // loop over all the $links and if we don't have any fields, don't pass it down
+        $current_fields = array();
 
         //Preload the related fields from the first relationship
         if (!empty($links)) {
             reset($links);
-            $link = isset($links[$this->selLink]) ? $links[$this->selLink] : $links[key($links)];
-            $rfields = FormulaHelper::getRelatableFieldsForLink($link, $this->package, array("number"));
+            $selected_link = isset($links[$this->selLink]) ? $links[$this->selLink] : $links[key($links)];
+            foreach ($links as $link_key => $link) {
+                $rfields = FormulaHelper::getRelatableFieldsForLink($link, $this->package, array("number"));
+                if (!empty($rfields)) {
+                    $valid_links[$link_key] = $link['label'];
+                    if ($link === $selected_link || empty($current_fields)) {
+                        $current_fields = $rfields;
+                    }
+                }
+            }
+
         }
 
-        $this->ss->assign("rmodules", $rmodules);
-        $this->ss->assign("rfields", $rfields);
+        $this->ss->assign("rmodules", $valid_links);
+        $this->ss->assign("rfields", $current_fields);
         $this->ss->assign("tmodule", $this->tmodule);
         $this->ss->assign("selLink", $this->selLink);
 

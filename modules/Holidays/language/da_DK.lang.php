@@ -1,53 +1,39 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$mod_strings = array(
-  'LBL_SEARCH_FORM_TITLE' => 'Søg efter helligdag',
-  'LBL_RELATED_MODULE' => 'Relateret modul:',
-  'LBL_NAME' => 'Helligdagsdato: ',
-  'LBL_DESCRIPTION' => 'Beskrivelse: ',
-  'LBL_RESOURCE' => 'Ressource: ',
+$mod_strings = array (
+  'LBL_CONTACT' => 'Kontakt',
+  'LBL_DESCRIPTION' => 'Beskrivelse:',
+  'LBL_HOLIDAY' => 'Helligdag:',
+  'LBL_HOLIDAY_DATE' => 'Helligdagsdato:',
   'LBL_LIST_FORM_TITLE' => 'Helligdagsliste',
   'LBL_MODULE_NAME' => 'Helligdage',
-  'LBL_CONTACT' => 'Kontakt',
-  'LBL_HOLIDAY' => 'Helligdag: ',
-  'LNK_NEW_HOLIDAY' => 'Tilføj helligdag',
+  'LBL_MODULE_NAME_SINGULAR' => 'Helligdag',
   'LBL_MODULE_TITLE' => 'Helligdage: Startside',
-  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Brugerhelligdage',
-  'LBL_HOLIDAY_DATE' => 'Helligdagsdato: ',
-  'LBL_USERS_SUBPANEL_TITLE' => 'Brugere',
+  'LBL_NAME' => 'Helligdagsdato:',
   'LBL_PERSON_TYPE' => 'Persontype',
-  'LBL_USER' => 'Bruger',
-  'LNK_HOLIDAYS' => 'Helligdage',
+  'LBL_RELATED_MODULE' => 'Relateret modul:',
+  'LBL_RESOURCE' => 'Ressource:',
+  'LBL_RESOURCE_NAME' => 'Ressourcenavn',
+  'LBL_SEARCH_FORM_TITLE' => 'Søg efter helligdag',
   'LBL_SELECT_RESOURCE_TYPE' => 'Vælg ressourcetype...',
-  'LBL_RESOURCE_NAME' => 'Ressourcenavn ',
+  'LBL_USER' => 'Bruger',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Brugere',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Brugerhelligdage',
+  'LNK_HOLIDAYS' => 'Helligdage',
+  'LNK_NEW_HOLIDAY' => 'Tilføj helligdag',
 );
-?>
+

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Ungültige Cron Syntax',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Jeden Tag',
   'LBL_ALWAYS' => 'Immer',
   'LBL_AND' => 'und',
+  'LBL_ASYNCMASSUPDATE' => 'Asynchrone Massen Aktualisierungen',
   'LBL_AT' => 'um',
   'LBL_AT_THE' => 'Am',
   'LBL_BASIC_OPTIONS' => 'Basis Setup',
   'LBL_CATCH_UP' => 'Ausführen wenn versäumt',
   'LBL_CATCH_UP_WARNING' => 'Deaktivieren, wenn der Lauf dieses Jobs mehr als einen Moment dauert.',
   'LBL_CLEANJOBQUEUE' => 'Cleanup Job Queue',
+  'LBL_CLEANOLDRECORDLISTS' => 'Alte Datensatzlisten bereinigen',
   'LBL_CRONTAB_EXAMPLES' => 'Das oben stehende verwendet standard Crontab Notation.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Bitte die Zeitplaner Ausführungszeit definieren.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Die cron Spezifikationen laufen über die Server Zeitzone (',
@@ -67,6 +66,7 @@ $mod_strings = array (
   'LBL_MINUTES' => 'Minuten',
   'LBL_MIN_MARK' => 'Minuten nach',
   'LBL_MODULE_NAME' => 'Schedulers',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sugar Planer',
   'LBL_MODULE_TITLE' => 'Geplante Aufgaben',
   'LBL_MON' => 'Montag',
   'LBL_MONTH' => 'Monat',
@@ -80,14 +80,22 @@ $mod_strings = array (
   'LBL_OOTB_BOUNCE' => 'Unzustellbare Kampagnen E-Mails verarbeiten (Nacht)',
   'LBL_OOTB_CAMPAIGN' => 'Kampagnen-Massenmails versenden (Nacht)',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
+  'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Zukünftige Zeitspanen anlegen',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Eingehende Mailkonten überprüfen',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Process Author geplanter Job',
   'LBL_OOTB_PRUNE' => 'Datenbank am 1. des Monats säubern',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Alte Datensatzlisten kürzen',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Diagnose-Tool-Dateien entfernen',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Temporäre PDF-Dateien entfernen',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Temporäre Dateien entfernen',
   'LBL_OOTB_REPORTS' => 'Berichte Aufgaben verarbeiten',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'E-Mail Erinnerungsbenachrichtigungen ausführen',
   'LBL_OOTB_TRACKER' => 'Userhistorie am 1. des Monats säubern',
   'LBL_OOTB_WORKFLOW' => 'Workflow Aufgaben verarbeiten',
   'LBL_PERENNIAL' => 'andauernd',
   'LBL_PERFORMFULLFTSINDEX' => 'Volltext Suche Index System',
+  'LBL_PMSEENGINECRON' => 'Prozessautor-Planer',
   'LBL_POLLMONITOREDINBOXES' => 'Checke einlaufende Mail Accounts',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Run Nightly Process Bounced Campaign Emails',
   'LBL_PROCESSQUEUE' => 'Run Report Generation Scheduled Tasks',
@@ -101,6 +109,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Geplante Aufgabe Suche',
   'LBL_SENDEMAILREMINDERS' => 'E-Mail Erinnerungsbenachrichtigungen ausführen',
   'LBL_STATUS' => 'Status',
+  'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Zukünftige Zeitspanen anlegen',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Sonntag',
   'LBL_THU' => 'Donnerstag',
   'LBL_TIME_FROM' => 'Aktiv von',

@@ -1,33 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-require_once('modules/UpgradeWizard/SugarMerge/EditViewMerge.php');
-require_once('modules/UpgradeWizard/SugarMerge/DetailViewMerge.php');
-require_once('modules/UpgradeWizard/SugarMerge/SearchMerge.php');
-require_once('modules/UpgradeWizard/SugarMerge/ListViewMerge.php');
-require_once('modules/UpgradeWizard/SugarMerge/QuickCreateMerge.php');
-require_once('modules/ModuleBuilder/parsers/views/History.php');
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /**
  * SugarMerge wraps around all the merge functionality of Sugar given a module name and the path to an unzipped patch
  *
@@ -39,12 +21,21 @@ class SugarMerge {
 	private $original_path = '';
 	private $merged = array();
 	private $fp = NULL;
-	
-	function SugarMerge($new_path='', $original_path='', $custom_path='custom') {
-		
+
+	function SugarMerge($new_path='', $original_path='', $custom_path='custom', $includeFromNew = false) {
+
 		$this->new_path = empty($new_path) || preg_match('/[\/]$/', $new_path) ? $new_path : $new_path . '/';
 		$this->original_path = empty($original_path) || preg_match('/[\/]$/', $original_path) ? $original_path : $original_path . '/';
 		$this->custom_path = empty($custom_path) || preg_match('/[\/]$/', $custom_path) ? $custom_path : $custom_path . '/';
+        $includePrepend = $includeFromNew ? $this->new_path : "";
+        //Use the new Merge classes if requested
+        require_once($includePrepend . 'modules/UpgradeWizard/SugarMerge/MergeUtils.php');
+        require_once($includePrepend . 'modules/UpgradeWizard/SugarMerge/EditViewMerge.php');
+        require_once($includePrepend . 'modules/UpgradeWizard/SugarMerge/DetailViewMerge.php');
+        require_once($includePrepend . 'modules/UpgradeWizard/SugarMerge/ListViewMerge.php');
+        require_once($includePrepend . 'modules/UpgradeWizard/SugarMerge/SearchMerge.php');
+        require_once($includePrepend . 'modules/UpgradeWizard/SugarMerge/QuickCreateMerge.php');
+        require_once('modules/ModuleBuilder/parsers/views/History.php');
 
 		$this->mergeMapping = array(
 			'editviewdefs.php'=> new EditViewMerge(),
@@ -52,7 +43,7 @@ class SugarMerge {
 			'listviewdefs.php'=>new ListViewMerge(),
 			'searchdefs.php'=>new SearchMerge(),
 			'quickcreatedefs.php'=>new QuickCreateMerge(),
-		);		
+		);
 	}
 
 	function setLogFilePointer($fp){
@@ -98,11 +89,11 @@ class SugarMerge {
 
 					    if( is_array($merge) )
 					    {
-					        if ( in_array($e,$merge) ) 
+					        if ( in_array($e,$merge) )
 					        	$this->merged[$e] = $this->mergeModule($e, TRUE, $save,$logHistory );
 					        else
 					        {
-					            $GLOBALS['log']->debug("SugarMerge is skipping $e module as filter array passed in but module not specified for merge.");
+					            $this->log("SugarMerge is skipping $e module as filter array passed in but module not specified for merge.");
 					            continue;
 					        }
 					    }
@@ -115,8 +106,8 @@ class SugarMerge {
 		return $this->merged;
 	}
 
-	
-	
+
+
 
 	/**
 	 * This will merge any files that need merging for a given module
@@ -135,7 +126,7 @@ class SugarMerge {
 		$custom_path = $this->custom_path . 'modules/' . $module . '/metadata/';
 		$new_path = $this->new_path . 'modules/' . $module . '/metadata/';
 		foreach($this->mergeMapping as $file=>&$object){
-			if(file_exists("{$custom_path}{$file}") && file_exists("{$new_path}{$file}")){  
+			if(file_exists("{$custom_path}{$file}") && file_exists("{$new_path}{$file}")){
 				if($merge){
 					$merged[$file] = $this->mergeFile($module, $file, $save, $logHistory);
 				}else{
@@ -165,13 +156,12 @@ class SugarMerge {
 		    //Create a log entry of the custom file before it is merged
 		    if($logHistory && $save)
 		          $this->createHistoryLog($module, "{$custom_path}{$file}",$file);
-            $this->mergeMapping[$file]->sugarMerge = $this;
 		    return $this->mergeMapping[$file]->merge($module, "{$path}{$file}", "{$new_path}{$file}", "{$custom_path}{$file}", $save);
 		}
 		return false;
 
 	}
-	
+
     /**
 	 * Create a history copy of the custom file that will be merged so that it can be access through
 	 * studio if admins wish to revert at a later date.
@@ -184,10 +174,19 @@ class SugarMerge {
 	{
 	    $historyPath = 'custom/' . MB_HISTORYMETADATALOCATION . "/modules/$module/metadata/$file";
 	    $history = new History($historyPath);
-	    $timeStamp = $history->append($customFile);	    
-	    $GLOBALS['log']->debug("Created history file after merge with new file: " . $historyPath .'_'.$timeStamp);
+	    $timeStamp = $history->append($customFile);
+	    $this->log("Created history file after merge with new file: " . $historyPath .'_'.$timeStamp);
 	}
-	
+
+	/**
+	 * Log a message
+	 * @param string $message
+	 */
+	protected function log($message)
+	{
+	    $GLOBALS['log']->debug($message);
+	}
+
 	/**
 	 * Return the custom modules path
 	 *
@@ -196,8 +195,8 @@ class SugarMerge {
 	function getCustomPath() {
 		return $this->custom_path;
 	}
-	
-	
+
+
 	/**
 	 * Return the new upgrade modules path
 	 *
@@ -205,7 +204,7 @@ class SugarMerge {
 	 */
 	function getNewPath() {
 		return $this->new_path;
-	}	
+	}
 
 
 	/**
@@ -215,7 +214,7 @@ class SugarMerge {
 	 */
 	function getOriginalPath() {
 		return $this->original_path;
-	}		
-	
+	}
+
 }
 ?>

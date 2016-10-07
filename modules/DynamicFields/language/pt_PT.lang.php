@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'URL padrão',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'Formato E.U.A.',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'O campo Nome já existe',
-  'ERR_NO_MODULE_INCLUDED' => 'Não foi possível guardar nenhum módulo incluído',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'O nome do campo deverá conter apenas os seguintes caracteres: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Não pode ser gravado o módulo não incluído',
   'ERR_RESERVED_FIELD_NAME' => 'Palavra Reservada',
   'ERR_SELECT_FIELD_TYPE' => 'Por favor Seleccione um Tipo de Campo',
-  'LBL_ADDING_COLUMN' => 'Adicionar coluna {0} para',
+  'LBL_ADDING_COLUMN' => 'Adicionar Coluna {0} a',
   'LBL_ADD_FIELD' => 'Adicionar Campo:',
   'LBL_AUDITED' => 'Auditoria',
   'LBL_BTN_ADD' => 'Adicionar',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => 'Dependente',
   'LBL_DEPENDENT_TRIGGER' => 'Trigger:',
   'LBL_DONE' => 'Concluído',
-  'LBL_DROPPING_COLUMN' => 'A apagar coluna {0} de {1} para o módulo',
+  'LBL_DROPPING_COLUMN' => 'A apagar coluna {0} a partir de {1} para o módulo',
   'LBL_DROP_DOWN_LIST' => 'Lista Dropdown',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dependente',
   'LBL_EDIT_VIS' => 'Editar Visibilidade',
   'LBL_ENFORCED' => 'Forçado',
   'LBL_EXE_NON_SIM_MODE' => 'Executar modo de não-simulação',
   'LBL_FIELD_MISSING' => 'campo(s) em falta de',
-  'LBL_FIX_COLUMN_TYPE' => 'A corrigir tipo de coluna para {0} a mudar {1} para',
+  'LBL_FIX_COLUMN_TYPE' => 'A corrigir Tipo de Coluna para {0}. A mudar {1} para',
   'LBL_FORMULA' => 'Fórmula',
   'LBL_GENERATE_URL' => 'Gerar URL',
   'LBL_HAS_PARENT' => 'Tem Parente',
@@ -92,9 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Dropdown do Parente',
   'LBL_RADIO_FIELDS' => 'Campos Radio',
   'LBL_REPORTABLE' => 'Reportável',
-  'LBL_SCAN_MODULE' => 'A explorar',
+  'LBL_SCAN_MODULE' => 'A verificar',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Módulos',
-  'LBL_SIMULATION_MODE' => 'MODO DE SIMULAÇÃO - NÃO IRÃO SER FEITAS NENHUMAS ALTERAÇÕES PARA ALEM DA LIMPEZA DA CACHE',
+  'LBL_SIMULATION_MODE' => 'MODO DE SIMULAÇÃO - NÃO SERÃO EFECTUADAS A NÃO SER A LIMPEZA DA CACHE',
   'LBL_VISIBLE_IF' => 'Visível Se',
   'LNK_CALL_LIST' => 'Chamadas Telefónicas',
   'LNK_EMAIL_LIST' => 'E-mails',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  base form for account
@@ -26,7 +23,7 @@ class QuoteFormBase{
 function checkForDuplicates($prefix){
 	require_once('include/formbase.php');
 
-	$focus = new Quote();
+	$focus = BeanFactory::getBean('Quotes');
 	if(!checkRequired($prefix, array_keys($focus->required_fields))){
 		return null;
 	}
@@ -142,7 +139,7 @@ function getWideFormBody($prefix, $mod='Quotes', $formname='', $lead=''){
 	}
 
 	if(empty($lead)){
-		$lead = new Lead();
+		$lead = BeanFactory::getBean('Leads');
 	}
 
 if(!empty($mod)){
@@ -223,7 +220,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Quote());
+$javascript->setSugarBean(BeanFactory::getBean('Quotes'));
 $javascript->addRequiredFields($prefix);
 $the_form .=$javascript->getScript();
 
@@ -312,7 +309,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Quote());
+$javascript->setSugarBean(BeanFactory::getBean('Quotes'));
 $javascript->addRequiredFields($prefix);
 $javascript->addField('date_quote_expected_closed', true, $prefix);
 $the_form .=$javascript->getScript();
@@ -328,7 +325,7 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
 
 	require_once('include/formbase.php');
 
-	$focus = new Quote();
+	$focus = BeanFactory::getBean('Quotes');
 	if($useRequired &&  !checkRequired($prefix, array_keys($focus->required_fields))){
 		return null;
 	}

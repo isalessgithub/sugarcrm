@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- * *******************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /**
  * Known Entry Points as of 4.5
  * acceptDecline.php
@@ -66,8 +56,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
   */
 $GLOBALS['starttTime'] = microtime(true);
 
+if (!defined('SUGAR_BASE_DIR')) {
+    define('SUGAR_BASE_DIR', str_replace('\\', '/', realpath(dirname(__FILE__) . '/..')));
+}
+
 set_include_path(
-    dirname(__FILE__) . '/..' . PATH_SEPARATOR .
+    SUGAR_BASE_DIR . PATH_SEPARATOR .
+    SUGAR_BASE_DIR . '/vendor' . PATH_SEPARATOR .
     get_include_path()
 );
 
@@ -82,16 +77,17 @@ if(empty($GLOBALS['installing']) && !file_exists('config.php'))
 	exit ();
 }
 
-
 // config|_override.php
 if(is_file('config.php')) {
-	require_once('config.php'); // provides $sugar_config
+    require_once('config.php'); // provides $sugar_config
 }
 
 // load up the config_override.php file.  This is used to provide default user settings
 if(is_file('config_override.php')) {
-	require_once('config_override.php');
+    require 'config_override.php';
 }
+
+
 if(empty($GLOBALS['installing']) &&empty($sugar_config['dbconfig']['db_name']))
 {
 	    header('Location: install.php');
@@ -107,9 +103,10 @@ if (!empty($sugar_config['xhprof_config']))
 // make sure SugarConfig object is available
 require_once 'include/SugarObjects/SugarConfig.php';
 
+require_once('include/utils.php');
+register_shutdown_function('sugar_cleanup');
 ///////////////////////////////////////////////////////////////////////////////
 ////	DATA SECURITY MEASURES
-require_once('include/utils.php');
 require_once('include/clean.php');
 clean_special_arguments();
 clean_incoming_data();
@@ -120,40 +117,42 @@ clean_incoming_data();
 setPhpIniSettings();
 
 require_once('sugar_version.php'); // provides $sugar_version, $sugar_db_version, $sugar_flavor
+
+require_once('include/utils/sugar_file_utils.php');
+require_once('include/utils/autoloader.php');
+SugarAutoLoader::init();
+//check to see if custom utils exist and load them too
+// not doing it in utils since autoloader is not loaded there yet
+foreach(SugarAutoLoader::existing('include/custom_utils.php', 'custom/include/custom_utils.php', SugarAutoLoader::loadExtension('utils')) as $file) {
+	require_once $file;
+}
+
 require_once('include/database/DBManagerFactory.php');
 require_once('include/dir_inc.php');
 
 require_once('include/Localization/Localization.php');
-require_once('include/javascript/jsAlerts.php');
 require_once('include/TimeDate.php');
 require_once('include/modules.php'); // provides $moduleList, $beanList, $beanFiles, $modInvisList, $adminOnlyList, $modInvisListActivities
 
-require('include/utils/autoloader.php');
-spl_autoload_register(array('SugarAutoLoader', 'autoload'));
 require_once('data/SugarBean.php');
 require_once('include/utils/mvc_utils.php');
-require('include/SugarObjects/LanguageManager.php');
-require('include/SugarObjects/VardefManager.php');
-
-require('modules/DynamicFields/templates/Fields/TemplateText.php');
+require_once('include/SugarObjects/LanguageManager.php');
+require_once('include/SugarObjects/VardefManager.php');
 
 require_once('include/utils/file_utils.php');
-require_once('include/SugarEmailAddress/SugarEmailAddress.php');
 require_once('include/SugarLogger/LoggerManager.php');
 require_once('modules/Trackers/BreadCrumbStack.php');
 require_once('modules/Trackers/Tracker.php');
 require_once('modules/Trackers/TrackerManager.php');
-require_once('modules/ACL/ACLController.php');
-require_once('modules/Administration/Administration.php');
 require_once('modules/Administration/updater_utils.php');
 require_once('modules/Users/User.php');
 require_once('modules/Users/authentication/AuthenticationController.php');
 require_once('include/utils/LogicHook.php');
-require_once('include/SugarTheme/SugarTheme.php');
 require_once('include/MVC/SugarModule.php');
 require_once('include/SugarCache/SugarCache.php');
-require('modules/Currencies/Currency.php');
+require_once('modules/Currencies/Currency.php');
 require_once('include/MVC/SugarApplication.php');
+require_once 'data/SugarACL.php';
 
 require_once('include/upload_file.php');
 UploadStream::register();
@@ -165,8 +164,6 @@ UploadStream::register();
 if (!defined('SUGAR_PATH')) {
     define('SUGAR_PATH', realpath(dirname(__FILE__) . '/..'));
 }
-require_once 'include/SugarObjects/SugarRegistry.php';
-
 if(empty($GLOBALS['installing'])){
 ///////////////////////////////////////////////////////////////////////////////
 ////	SETTING DEFAULT VAR VALUES
@@ -183,22 +180,28 @@ if(isset($_GET['PHPSESSID'])){
     }
 }
 
+    LogicHook::initialize()->call_custom_logic('', 'entry_point_variables_setting');
+
 if(!empty($sugar_config['session_dir'])) {
 	session_save_path($sugar_config['session_dir']);
 }
 
-SugarApplication::preLoadLanguages();
-
-$timedate = TimeDate::getInstance();
+if (class_exists('SessionHandler')) {
+    session_set_save_handler(new SugarSessionHandler());
+}
 
 $GLOBALS['sugar_version'] = $sugar_version;
 $GLOBALS['sugar_flavor'] = $sugar_flavor;
+$GLOBALS['js_version_key'] = get_js_version_key();
+
+SugarApplication::preLoadLanguages();
+
+$timedate = TimeDate::getInstance();
 $GLOBALS['timedate'] = $timedate;
-$GLOBALS['js_version_key'] = md5($GLOBALS['sugar_config']['unique_key'].$GLOBALS['sugar_version'].$GLOBALS['sugar_flavor']);
 
 $db = DBManagerFactory::getInstance();
 $db->resetQueryCount();
-$locale = new Localization();
+$locale = Localization::getObject();
 
 // Emails uses the REQUEST_URI later to construct dynamic URLs.
 // IIS does not pass this field to prevent an error, if it is not set, we will assign it to ''.
@@ -206,10 +209,9 @@ if (!isset ($_SERVER['REQUEST_URI'])) {
 	$_SERVER['REQUEST_URI'] = '';
 }
 
-$current_user = new User();
+$current_user = BeanFactory::getBean('Users');
 $current_entity = null;
-$system_config = new Administration();
-$system_config->retrieveSettings();
+$system_config = Administration::getSettings();
 
 LogicHook::initialize()->call_custom_logic('', 'after_entry_point');
 }

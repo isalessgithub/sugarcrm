@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,8 +76,8 @@ $mod_strings = array (
     1209600 => 'Minden 2 héten',
     2419200 => 'Minden 4 héten',
   ),
-  'ERR_REPORT_DEACTIVATED' => 'A "{0}" jelentést inaktiválta a rendszer',
-  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Az időzített jelentést inaktiválta a rendszer',
+  'ERR_REPORT_DEACTIVATED' => 'Az ütemezett jelentés ("{0}") inaktiválva',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Ütemezett jelentés inaktiválva',
   'ERR_REPORT_INVALID' => 'A(z) "{0}" riport definíciója érvénytelen mezőket tartalmaz: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Érvénytelen riport',
   'ERR_SELECT_COLUMN' => 'Kérem, válasszon először egy oszlopcsoportot!',
@@ -207,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'az alábbi szűrők.',
   'LBL_FILTERS_HELP_DESC' => 'Szűrők meghatározásának lépései:<br />1. Kattintson arra Modulra a Kapcsolódó modulok mezőben, amelyet a szűrők meghatározására kíván használni. Az alapértelmezés szerint az első modul kerül kiválasztásra.<br />Választhat egy kapcsolódó modult a modulra kattintással, illetve választhat a kapcsolódó modulhoz kapcsolódó modulok közül is. A kiválasztott modul meghatározza az Elérhető mezők-ben megjelenő mezőket.<br />2. Kattintson egy mezőre az Elérhető mezők-ben a szűrőkhöz való hozzáadáshoz. Egy mező kereséséhez írja be a nevét a Keresőbe!<br />Miután kiválasztott tetszőleges számú mezőt a modulból, választhat másik modul mezői közül is.<br />3. Válassza az AND vagy OR logikai műveletet annak meghatározására, hogy a szűrési feltételek egyszerre, vagy egyenként teljesüljenek a keresés során!<br />4. [Nem kötelező] Kattintson a Szűrőcsoport hozzáadása gombra szűrőcsoport létrehozásához. Tetszőleges számú csoportot és azokon belül tetszőleges számú szűrőt hozhat létre.<br />5. [Nem kötelező] Válassza a Run-time beállítást, ha engedélyezi a felhasználóknak hogy a megjelenő eredményen további szűréseket végezzenek, és azok valós időben alkalmazásra kerüljenek.',
   'LBL_FILTER_AND' => 'ÉS',
+  'LBL_FILTER_BY_MODULE' => 'Modul alapján',
   'LBL_FILTER_CONDITIONS' => 'Vásszon operátort:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Eddig',
   'LBL_FILTER_DATE_RANGE_START' => 'Ettől',
@@ -321,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Hozzáférési korlátozások miatt Ön nem fér hozzá ehhez az oldalhoz.',
   'LBL_NO_CHART' => 'Nincs diagram',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Nem hozható létre diagram megjeleníthető adatok hiányában',
-  'LBL_NO_EXPORT_ACCESS' => 'Export letiltve',
+  'LBL_NO_EXPORT_ACCESS' => 'Export letiltva',
   'LBL_NO_FILTERS' => 'nincs szűrő.',
   'LBL_NO_IMAGE' => 'Nincs kép',
   'LBL_NO_REPORTS' => 'Nincs eredmény.',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'átlaggal',
   'LBL_WITH_A_TOTAL' => 'összesítve',
   'LBL_WITH_DETAILS' => 'Részletezve',
-  'LBL_WORKSHEET' => 'Munkalap',
   'LBL_YEAR' => 'Év',
   'LBL_YESTERDAY' => 'Tegnap',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Nincs mentett kimutatása.',
+  'LNK_ADVANCED_REPORTING' => 'Összetett jelentések kezelése',
   'LNK_NEW_ACCOUNT' => 'Kliens létrehozása',
   'LNK_NEW_CALL' => 'Hívás naplózása',
   'LNK_NEW_CASE' => 'Új eset létrehozása',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Önnek nincs jogosultsága ennek a jelentésnek a szerkesztéséhez.',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Nem lehet közzétenni. Létezik egy már közzétett jelentés ezzel a névvel.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Nem lehet egy más tulajdonában lévő jelentést visszahívni. Önnek van egy megegyező nevű jelentése.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'A Folyamatriport ütemező jelenleg inaktív, így nem lehet jelentéseket ütemezni. Kérje meg az adminisztrátort, hogy állítsa aktívra az ütemezőt, majd próbálkozzon újra!',
 );
 

@@ -1,21 +1,15 @@
-f<?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+<?php
 
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-	
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
@@ -31,6 +25,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Si prega di fornire una password all´utente amministratore di Sugar.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Si prega di fornire un nome utente all´utente amministratore di Sugar.',
   'ERR_CHECKSYS' => 'Sono stati rilevati degli errori durante il controllo di compatibilità. Per fare in modo che l´installazione di SugarCRM funzioni correttamente, si prega di prendere le misure adeguate per risolvere i problemi elencati sotto e premere il tasto "ricontrolla" o riprovare nuovamente l´installazione.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH support not found: SugarCRM needs BCMATH support for arbitrary precision math.',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass Reference è attiva "(questa dovrebbe essere impostata su Off in php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Il file di configurazione esiste ma non è scrivibile. Si prega di procedere con le fase necessarie per rendere il file scrivibile. A seconda del sistema operativo, questo potrebbe richiedere di modificare i permessi eseguendo chmod 766, o di cliccare il tasto destro sul nome del file per accedere alle proprietà e togliere l´opzione di sola lettura.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Il file di configurazione override esiste ma non è scrivibile. Si prega di seguire gli step necessari per rendere il file scrivibile. A seconda del sistema operativo, questo potrebbe richiedere un cambiamento dei permessi eseguendo chmod 766 oppure fare clic destro sul nome per accedere alle proprietà e deselezionare l´opzione di sola lettura.',
@@ -39,6 +34,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Si rileva che non è utilizzato un mapping per il gestore FastCGI per PHP. Sarà necessario installare/configurare  una versione compatibile con questa applicazione di Sugar. Si prega di consultare la Matrice di Compatibilità nelle note di rilascio per le versioni supportate. Per maggiori dettagli visitare http://www.iis.net/php/',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Per una prestazione ottimale dell´utilizzo di IIS/FastCGI sapi, imposta fastcgi.logging a 0 nel file php.ini.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'I file o le directory elencati di seguito non sono scrivibili o sono mancanti e non possono essere creati. A seconda del sistema operativo in uso, per correggere questo potrebbe essere richiesto di modifcare le autorizzazioni sui file o le directory padre (chmod 766), o cliccare  il tasto destro sulla directory padre per togliere l´opzione "sola lettura" e applicarla alle sottocartelle.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test per la riscrittura .htaccess fallito.Questo generalmente significa che non hai impostato AllowOverride per la Sugar directory.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'La versione di IIS utilizzata non è supportata da Sugar.  E´ necessaria installare una versione compatibile con l´applicazione Sugar. Per conoscere le versioni IIS supportate si prega di consultare la matrice di compatibilità nelle Release Notes. La versione usata è',
   'ERR_CHECKSYS_IMAP' => 'Non trovato: le email in arrivo e le campagne (Email) richiedono librerie IMAP. Nessuna delle due funzionerà.',
   'ERR_CHECKSYS_MBSTRING' => 'Le funzioni associate all´estensione di PHP Multibyte Strings (mbstring), richieste dall´applicazione di Sugar, non sono state trovate. <br /><br />Generalmente, il modulo mbstring non è abilitato di default in PHP e deve essere attivato con -- attiva-mbstring quando il PHP binario è costruito. Si prega di consultare il Manuale PHP per ulteriori informazioni su come abilitare il supporto mbstring.',
@@ -50,8 +46,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Directory non valida',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Attenzione: Non scrivibile',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Impossibile scrivere e leggere variabili di sessione. Impossibile procedere con l´installazione.',
-  'ERR_CHECKSYS_PCRE' => 'PCRE library not found: SugarCRM needs PCRE library in order to process Perl style of regular expression pattern matching.',
-  'ERR_CHECKSYS_PCRE_VER' => 'PCRE library version: SugarCRM needs PCRE library 7.0 or above to process Perl style of regular expression pattern matching.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'La versione di php utilizzata non è supportata da Sugar.  E´ necessaria installare una versione compatibile con l´applicazione Sugar. Per conoscere le versioni PHP supportate si prega di consultare la matrice di compatibilità nelle Release Notes. La versione usata è',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Versione PHP Installata Non Supportata: ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Modalità Safe è attiva (si può disattivare in php.ini)',
@@ -76,13 +70,13 @@ $mod_strings = array (
   'ERR_DB_LOGIN_FAILURE_MSSQL' => 'L´host, il nome utente e/o la password del database non sono validi e non si può stabilire la connessione al database. Si prega di inserire un host, un nome utente e una password validi.',
   'ERR_DB_LOGIN_FAILURE_MYSQL' => 'L´host, il nome utente e/o la password del database non sono validi e non si può stabilire la connessione al database. Si prega di inserire un host, un nome utente e una password validi.',
   'ERR_DB_LOGIN_FAILURE_OCI8' => 'L´host, il nome utente e/o la password del database non sono validi e non si può stabilire la connessione al database. Si prega di inserire un host, un nome utente e una password validi.',
-  'ERR_DB_MSSQL_DB_NAME_INVALID' => 'Il nome del database non può contenere ´;\\´;, ´;/´;, o ´;.´;',
-  'ERR_DB_MYSQL_DB_NAME_INVALID' => 'Il nome del database non può contenere ´;\\´;, ´;/´;, o ´;.´;',
+  'ERR_DB_MSSQL_DB_NAME_INVALID' => 'Il nome del database non può contenere ´\\´, ´/´, o ´.´',
+  'ERR_DB_MYSQL_DB_NAME_INVALID' => 'Il nome del database non può contenere ´\\´, ´/´, o ´.´',
   'ERR_DB_MYSQL_VERSION' => 'La versione di MySQL (%s) non è supportata da Sugar. E´ necessario installare una versione che sia compatibile con l´applicazione Sugar. Si prega di consultare la matrice di compatibilità nelle note di rilascio per prendere visione delle versioni MySQL supportate.',
   'ERR_DB_NAME' => 'Il nome del Database non può essere vuoto.',
-  'ERR_DB_NAME2' => 'Il nome del database non può contenere ´;\\´;, ´;/´;, or ´;.´;',
+  'ERR_DB_NAME2' => 'Il nome del database non può contenere ´\\´, ´/´, or ´.´',
   'ERR_DB_OCI8_CONNECT' => 'L´host, il nome utente e/o la password del database non sono validi e non si può stabilire la connessione al database. Si prega di inserire un host, un nome utente e una password validi.',
-  'ERR_DB_OCI8_DB_NAME_INVALID' => 'Il nome del database può contenere solo caratteri alfanumerici e simboli´;´;, ´;_´; or ´;$´;',
+  'ERR_DB_OCI8_DB_NAME_INVALID' => 'Il nome del database può contenere solo caratteri alfanumerici e simboli´#´, ´_´ or ´$´',
   'ERR_DB_OCI8_VERSION' => 'La versione di Oracle utilizzata non è supportata da Sugar. E´ necessario installare una versione che sia compatibile con l´applicazione di Sugar. Per conoscere le versioni di Oracle supportate, si prega di consultare la Matrice di Compatibilità nelle Release Notes.',
   'ERR_DB_PASSWORD' => 'Le passwords fornite per l´amministratore del database di Sugar non corrispondono. Si prega di inserire nuovamente le stesse password nei campi passwords.',
   'ERR_DB_PRIV_USER' => 'Fornire il nome utente dell´amministratore del database. L´utente è richiesto per la connessione inziale al database.',
@@ -121,7 +115,7 @@ $mod_strings = array (
   'ERR_SITE_GUID' => 'E´ richiesta l´ID di applicazione se si desidera specificare la propria.',
   'ERR_SI_NO_CONFIG' => 'Non hai incluso config_si.php nella root del documento, o non hai definito $sugar_config_si in config.php',
   'ERR_UPLOAD_MAX_FILESIZE' => 'Attenzione: La tua configurazione PHP dovrebbe essere cambiata per poter caricare file di almeno 6MB.',
-  'ERR_URL_BLANK' => 'Fornire l´URL per l´istanza di Sugar.',
+  'ERR_URL_BLANK' => 'Fornire l´URL per l´instanza di Sugar.',
   'ERR_UW_NO_UPDATE_RECORD' => 'Impossibile individuare l´installazione del record di',
   'LBL_ACCEPT' => 'Accetta',
   'LBL_ADVANCED_SEARCH' => 'Ricerca Avanzata',
@@ -132,6 +126,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Tipo Semplice',
   'LBL_CANCEL' => 'Annulla',
   'LBL_CHECKSYS_1' => 'Per il corretto funzionamento della tua installazione di SugarCRM, accertati che tutti gli elementi di controllo del sistema elencati di seguito siano verdi. Se alcuni sono rossi, si prega di procedere con le fasi necessarie per risolvere.',
+  'LBL_CHECKSYS_BCMATH' => 'Arbitrary Precision Math Module',
   'LBL_CHECKSYS_CACHE' => 'Directory Cache Sub scrivibili',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference disattivato',
   'LBL_CHECKSYS_COMPONENT' => 'Componente',
@@ -145,6 +140,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Si prega di correggere i seguenti files o directory prima di procedere:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Si prega di correggere le seguenti directory dei moduli e i file all´interno di queste prima di procedere:',
+  'LBL_CHECKSYS_HTACCESS' => 'Impostazioni AllowOverride per .htaccess',
   'LBL_CHECKSYS_IISVER' => 'Versione IIS',
   'LBL_CHECKSYS_IMAP' => 'Modulo IMAP',
   'LBL_CHECKSYS_MBSTRING' => 'Modulo Stringhe MB',
@@ -156,7 +152,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'Versione MySQL',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Non Disponibile',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'PCRE Library',
   'LBL_CHECKSYS_PHPVER' => 'Versione PHP',
   'LBL_CHECKSYS_PHP_INI' => 'Posizione del file di configurazione PHP (php.ini):',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -219,8 +214,8 @@ $mod_strings = array (
   'LBL_DBCONF_TITLE_NAME' => 'Fornire Nome Database',
   'LBL_DBCONF_TITLE_USER_INFO' => 'Fornire le Informazioni Utente del Database',
   'LBL_DB_UNAVAILABLE' => 'Database non disponibile',
-  'LBL_DISABLED_DESCRIPTION' => 'Il programma di installazione è già stato eseguito una volta. Per misura di sicurezza, è stata disabilitata l´esecuzione di una seconda volta. Se sei sicuro di voler eseguirlo ancora, vai nel file config.php e individua (o aggiungi) una variabile chiamata ´;installer_locked´; per impostarla in ´;false´;. La riga dovrebbe essere simile a questa:',
-  'LBL_DISABLED_DESCRIPTION_2' => 'Dopo questa modifca, cliccare il pulsante "Inizia" di seguito per iniziare l´installazione. <i>Una volta completata l´installazione, modificare il valore da ´;installer_locked´; a ´;true´;.</i>',
+  'LBL_DISABLED_DESCRIPTION' => 'Il programma di installazione è già stato eseguito una volta. Per misura di sicurezza, è stata disabilitata l´esecuzione di una seconda volta. Se sei sicuro di voler eseguirlo ancora, vai nel file config.php e individua (o aggiungi) una variabile chiamata ´installer_locked´ per impostarla in ´false´. La riga dovrebbe essere simile a questa:',
+  'LBL_DISABLED_DESCRIPTION_2' => 'Dopo questa modifca, cliccare il pulsante "Inizia" di seguito per iniziare l´installazione. <i>Una volta completata l´installazione, modificare il valore da ´installer_locked´ a ´true´.</i>',
   'LBL_DISABLED_HELP_1' => 'Per supporto nella fase di installazione, si prega di visitare SugarCRM',
   'LBL_DISABLED_HELP_2' => 'Forums di supporto',
   'LBL_DISABLED_HELP_LNK' => 'http://www.sugarcrm.com/forums/',
@@ -238,6 +233,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'La funzionalità di ricerca full text non è stata installata.',
   'LBL_FTS_INSTALLED_ERR2' => 'E´ comunque possibile installare ma non sarà possibile usare la funzionalità della Ricerca Full Text. Per sapere come fare si prega di far riferimento alla guida di installazione del server del database oppure contattare l´amministratore del sistema.',
   'LBL_FTS_PORT' => 'Porta',
+  'LBL_FTS_REQUIRED' => 'Elastic Search è obbligatoria.',
   'LBL_FTS_TABLE_TITLE' => 'Fornire le impostazioni Ricerca Full Text',
   'LBL_FTS_TYPE' => 'Tipo Motore di Ricerca',
   'LBL_HELP' => 'Help',
@@ -339,10 +335,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Svuota Coda Jobs',
   'LBL_OOTB_IE' => 'Controlla la posta in entrata',
   'LBL_OOTB_PRUNE' => 'Comprimi il database il primo giorno del mese',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Rimozione documenti da filesystem',
   'LBL_OOTB_REPORTS' => 'Esegui il report dei compiti schedulati',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Esegui notifiche Email di promemoria',
-  'LBL_OOTB_SUGARFEEDS' => 'Elimina Tabelle SugarFeed',
   'LBL_OOTB_TRACKER' => 'Comprimi le tabelle tracker',
   'LBL_OOTB_WORKFLOW' => 'Esegui i compiti del Workflow',
   'LBL_OPP' => 'Data Set Opportunità',
@@ -382,8 +376,8 @@ $mod_strings = array (
   'LBL_PERFORM_OUTRO_6' => 'bytes.',
   'LBL_PERFORM_OUTRO_7' => 'Il tuo sistema è ora installato e configurato per l´uso.',
   'LBL_PERFORM_REL_META' => 'Meta relazioni...',
-  'LBL_PERFORM_SUCCESS' => 'Con successo!',
-  'LBL_PERFORM_TABLES' => 'Creazione Tabelle dell´applicazione Sugar, verifica tabelle e metadati di relazione',
+  'LBL_PERFORM_SUCCESS' => 'Operazione eseguita con successo!',
+  'LBL_PERFORM_TABLES' => 'Creazione Tabelle dell´appplicazione Sugar, verifica tabelle e metadati di relazione',
   'LBL_PERFORM_TITLE' => 'Esegui Setup',
   'LBL_PRINT' => 'Stampa',
   'LBL_PRINT_SUMM' => 'Stampa Sommario',
@@ -401,7 +395,7 @@ $mod_strings = array (
   'LBL_REG_TITLE' => 'Registrazione',
   'LBL_REQUIRED' => '* Campo obbligatorio',
   'LBL_REQUIRED_SYSTEM_NAME' => 'Fornire un nome al sistema per l´instanza di Sugar.',
-  'LBL_SESSION_ERR_DESCRIPTION' => 'SugarCRM si basa su sessioni PHP per memorizzare dati importanti mentre si è connessi a questo web server. La tua installazione PHP non ha i dati di sessione configurati correttamente.<br />                                                                <br><br>Un errore di configurazione comune è che la direttiva <b>´;session.save_path´;</b> non punta ad una directory valida.  <br><br />                                                                <br>Si prega di correggere la <a target=_new href="http://us2.php.net/manual/en/ref.session.php">configurazione PHP</a> nel file php.ini che si trova qui sotto.',
+  'LBL_SESSION_ERR_DESCRIPTION' => 'SugarCRM si basa su sessioni PHP per memorizzare dati importanti mentre si è connessi a questo web server. La tua installazione PHP non ha i dati di sessione configurati correttamente.<br />                                                                <br><br>Un errore di configurazione comune è che la direttiva <b>´session.save_path´</b> non punta ad una directory valida.  <br><br />                                                                <br>Si prega di correggere la <a target=_new href="http://us2.php.net/manual/en/ref.session.php">configurazione PHP</a> nel file php.ini che si trova qui sotto.',
   'LBL_SESSION_ERR_TITLE' => 'Errore di configurazione delle sessioni PHP',
   'LBL_SHOW_PASS' => 'Mostra Password',
   'LBL_SITECFG_ADMIN_Name' => 'Nome Amministratore di Sugar',
@@ -465,7 +459,7 @@ $mod_strings = array (
   'LBL_YES_MULTI' => 'Si - Multibyte',
   'LBL_YOUR_PHP_VERSION' => '(La versione php attualmente usata è',
   'REQUIRED_INSTALLTYPE' => 'Installazione tipica o personalizzata',
-  'REQUIRED_INSTALLTYPE_MSG' => 'Dopo il completamento del controllo del sistema, è possibile scegliere se procedere con l´installazione Tipica o Personalizzata. <br />In entrambi i casi, è necessario conoscere le seguenti informazioni: <br />Tipo Database che ospiterà i dati di Sugar<br />Tipologie Database compatibili: MySQL, MS SQL Server, Oracle.<br /><br />Nome del web server o della macchina (host) su cui il database si trova<br />Potrebbe essere localhost se il database si trova in locale oppure sullo stesso web server o la macchina come i file di Sugar<br /><br />Nome del database che si desidera utilizzare per ospitare i dati Sugar<br />Si potrebbe voler utilizzare un database esistente. Se si fornisce il nome di un database esistente, le tabelle del database verranno eliminate durante l´installazione, quando lo schema per il database di Sugar è definito.<br />Se non esiste alcun database già esistente, il nome fornito verrà utilizzato per il nuovo database che sarà creato per l´instanza durante l´installazione. <br /><br />Nome utente e password dell´amministratore del database<br />L´amministratore del database dovrebbe essere in grado di creare tabelle, utenti e scrivere nel database.<br />Se il database non si trova in locale e/o non si è amministratore del database, per ottenere queste informazioni, potrebbe essere necessario contattare l´amministratore del database.<br /><br />Nome utente e password del database di Sugar<br />L´utente potrebbe essere l´amministratore del sistema oppure si potrebbe fornire il nome di un altro utente del database esistente. <br />Se si desidera creare un nuovo utente del database per questo scopo, sarete in grado di fornire un nuovo nome utente e la password durante il processo di installazione, e l´utente verrà creato durante l´installazione.<br /><br />Per l´installazione Personalizzata, si potrebbe anche avere bisogno delle seguenti informazioni:<br />URL che verrà utilizzato per accedere all´istanza Sugar dopo l´installazione. Questo URL deve includere il server Web o il nome o l´indirizzo IP della macchina.<br /><br />[Opzionale] Percorso ad una directory di sessione se si desidera utilizzare una directory di sessione personalizzata per le informazioni di Sugar al fine di impedire che i dati di sessione siano vulnerabili su server condivisi<br /><br />[Opzionale] Percorso ad una directory di log personalizzata se si desidera annullare la directory predefinita per il log di Sugar. <br /><br />[Opzionale] ID Applicazione se si desidera annullare l´ID autogenerato che garantisce che le sessioni di un´istanza di Sugar non siano usate da altre istanze. <br /><br />Set di caratteri più comunemente utilizzati in locale.<br /><br />Per ulteriori informazioni si prega di consultare la Guida per l´Installazione',
+  'REQUIRED_INSTALLTYPE_MSG' => 'Dopo il completamento del controllo del sistema, è possibile scegliere se procedere con l´installazione Tipica o Personalizzata. <br />In entrambi i casi, è necessario conoscere le seguenti informazioni: <br />Tipo Database che ospiterà i dati di Sugar<br />Tipologie Database compatibili: MySQL, MS SQL Server, Oracle.<br /><br />Nome del web server o della macchina (host) su cui il database si trova<br />Potrebbe essere localhost se il database si trova in locale oppure sullo stesso web server o la macchina come i file di Sugar<br /><br />Nome del database che si desidera utilizzare per ospitare i dati Sugar<br />Si potrebbe voler utilizzare un database esistente. Se si fornisce il nome di un database esistente, le tabelle del database verranno eliminate durante l´installazione, quando lo schema per il database di Sugar è definito.<br />Se non esiste alcun database già esistente, il nome fornito verrà utilizzato per il nuovo database che sarà creato per l´instanza durante l´installazione. <br /><br />Nome utente e password dell´amministratore del database<br />L´amministratore del database dovrebbe essere in grado di creare tabelle, utenti e scrivere nel database.<br />Se il database non si trova in locale e/o non si è amministratore del database, per ottenere queste informazioni, potrebbe essere necessario contattare l´amministratore del database.<br /><br />Nome utente e password del database di Sugar<br />L´utente potrebbe essere l´amministratore del sistema oppure si potrebbe fornire il nome di un altro utente del database esistente. <br />Se si desidera creare un nuovo utente del database per questo scopo, sarete in grado di fornire un nuovo nome utente e la password durante il processo di installazione, e l´utente verrà creato durante l´installazione.<br /><br />Per l´installazione Personalizzata, si potrebbe anche avere bisogno delle seguenti informazioni:<br />URL che verrà utilizzato per accedere all´istanza Sugar dopo l´installazione. Questo URL deve includere il server Web o il nome o l´indirizzo IP della macchina.<br /><br />[Opzionale] Percorso ad una directory di sessione se si desidera utilizzare una directory di sessione personalizzata per le informazioni di Sugar al fine di impedire che i dati di sessione siano vulnerabili su server condivisi<br /><br />[Opzionale] Percorso ad una directory di log personalizzata se si desidera annullare la directory predefinita per il log di Sugar. <br /><br />[Opzionale] ID Applicazione se si desidera annullare l´ID autogenerato che garantisce che le sessioni di un´istanza di Sugar non siano usate da altre instanze. <br /><br />Set di caratteri più comunemente utilizzati in locale.<br /><br />Per ulteriori informazioni si prega di consultare la Guida per l´Installazione',
   'REQUIRED_SYS_CHK' => 'Sistema di Controllo Iniziale',
   'REQUIRED_SYS_CHK_MSG' => 'Quando si inizia il processo di installazione, verrà eseguito un sistema di controllo sul web server sul quale si trovano i files di Sugar al fine di verificare che il sistema sia configurato correttamente e sia dotato di tutte le componenti necessarie per completare l´installazione.<br /><br />Il sistema controlla tutte le seguenti caratteristiche:<br />Versione PHP  - deve essere compatibile con l´applicazione<br />Variabili di Sessione - devono funzionare correttamente<br />Stringhe MB - devono essere installate e attivate in php.ini<br />Supporto Database - deve esistere per MySQL, SQL Server o Oracle<br />Config.php - deve esistere e deve disporre delle autorizzazioni appropriate per essere scrivibile<br />I seguenti files di Suga devono essere scrivibili: <br />     /custom<br />     /cache<br />     /modules<br />Se il controllo fallisce, non sarà possibile procedere con l´installazione. Verrà visualizzato un messaggio di errore spiegando il motivo per cui il sistema non ha superato il controllo. Dopo aver apportato le modifiche necessarie, sarà possibile sottoporsi nuovamente al controllo di sistema per continuare l´installazione.',
   'REQUIRED_SYS_COMP' => 'Componenti del sistema necessari',
@@ -487,3 +481,4 @@ $mod_strings = array (
     'txt_body' => 'Queste sono la username e la password temporanea del tuo account:$contact_user_user_name Password : $contact_user_user_hash $config_site_url Dopo esserti connesso con questa password, il sistema potrebbe richiederti di reimpostare la password con una di tua scelta.',
   ),
 );
+

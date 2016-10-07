@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Esti sigur ca vrei sa stergi acest cont de la proiect?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Apeluri',
   'LBL_CAMPAIGNS' => 'Campanii',
   'LBL_CAMPAIGN_ID' => 'Identitatea Campaniei',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Jurnal Campanii',
   'LBL_CASES_SUBPANEL_TITLE' => 'Cazuri',
   'LBL_CHARTS' => 'Grafic',
   'LBL_CITY' => 'Oras',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Conturi',
   'LBL_DESCRIPTION' => 'Descriere:',
   'LBL_DESCRIPTION_INFORMATION' => 'Descriere Informatie',
+  'LBL_DNB_BAL_PREVIEW' => 'Previzualizare conturi',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documente',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Posibil Cont Duplicat',
   'LBL_EMAIL' => 'Adresa Email:',
   'LBL_EMAIL_ADDRESSES' => 'Adrese email',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Angajati:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Alocat utilizatorului',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Atasament',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Rapoarte conturi',
+  'LBL_HELP_CREATE' => 'Modulul {{plural_module_name}} este format din companiile cu care organizaţia dvs. are o relaţie şi în general este considerat drept hub-ul pentru gestionarea şi analiza interacţiunilor de afaceri cu fiecare client. Pentru a crea un {{module_name}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noul (noua) {{module_name}} în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} contine companii cu care organizatia ta are o relatie de afaceri. In mod obisnuit, acest modul este principalul canal prin care poti coordona si analiza interactiunile companiei tale cu fiecare client. - Editeaza campurile acestei inregistrari apasand pe fiecare camp individual sau pe butonul Editare. - Vizualizeaza sau modifica linkuri catre alte inregistrari in panourile inferioare, trecand fereastra din stanga jos in stadiul "Vizualizare Date". - Creeaza si vizualizeaza comentariile altor utilizatori si istoricul modificarilor in {{activitystream_singular_module}} trecand fereastra din stanga jos in stadiul "Flux de activitate". - Urmareste sau marcheaza ca favorit aceasta inregistrare folosind icoanele din dreapta numelui inregistrarii. - Actiuni suplimentare sunt disponibile in meniul Actiuni aflat in dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} contine companii cu care organizatia ta are o relatie de afaceri. In mod obisnuit, acest modul este principalul canal prin care poti coordona si analiza interactiunile companiei tale cu fiecare client. Exista mai multe modalitati prin care poti crea {{plural_module_name}} in Sugar cum ar fi: prin intermediul modulului {{plural_module_name}}, prin duplicare, prin import de {{plural_module_name}}, etc. Odata ce un {{module_name}} a fost creat, poti vizualiza si edita informatiile privitoare la {{module_name}} prin intermediul paginii de {{plural_module_name}}. Fiecare {{module_name}} poate fi relationat de alte inreigistrari din Sugar, cum ar fi {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, si multe altele pe masura ce relatia cu clientul se maturizeaza.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istoric',
   'LBL_HOMEPAGE_TITLE' => 'Conturile Mele',
   'LBL_INDUSTRY' => 'Industrie:',
@@ -98,6 +103,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Conturi: Acasa',
   'LBL_NAME' => 'Nume:',
   'LBL_NEW_FORM_TITLE' => 'Cont Nou',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Oportunitati',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Alt Email:',
   'LBL_OTHER_PHONE' => 'Alt Telefon:',
@@ -110,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Telefon fax',
   'LBL_PHONE_OFFICE' => 'Telefon Birou',
   'LBL_POSTAL_CODE' => 'Cod Postal:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produse',
   'LBL_PRODUCTS_TITLE' => 'Produse',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Proiecte',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Proiecte',
@@ -121,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Forteaza Transportul',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotatii',
   'LBL_RATING' => 'Evaluarea:',
+  'LBL_REVENUELINEITEMS' => 'Articole linie de venituri',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Articole linie de venituri',
   'LBL_SAVE_ACCOUNT' => 'Salveaza Cont',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta Cont',
   'LBL_SHIPPING_ADDRESS' => 'Adresa Transport:',
@@ -146,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'website',
   'LNK_ACCOUNT_LIST' => 'Vezi conturi',
   'LNK_ACCOUNT_REPORTS' => 'Vizualizare Rapoarte Cont',
+  'LNK_CREATE' => 'Creaza caz',
   'LNK_IMPORT_ACCOUNTS' => 'Import Conturi',
   'LNK_NEW_ACCOUNT' => 'Creeaza Cont',
   'MSG_DUPLICATE' => 'Inregistrarea din cont sunteţi pe cale de a o crea ar putea fi un duplicat al unei înregistrări de cont care există deja. Inregistrarile contului care conţin nume similare sunt enumerate mai jos.<br />Faceţi clic pe Salvare pentru a continua crearea acestui cont nou, sau faceţi clic pe Revocare pentru a reveni la modul fără a crea contul.',

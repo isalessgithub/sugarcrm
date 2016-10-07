@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Specifcati numar inregistrarii pentru a sterge contactul.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Informatii Adresa',
   'LBL_ADD_BUSINESSCARD' => 'Introduceti Carte de Vizita',
   'LBL_ALTERNATE_ADDRESS' => 'Alta Adresa:',
-  'LBL_ALT_ADDRESS' => 'Alta Adresa:',
   'LBL_ALT_ADDRESS_CITY' => 'Orasul Adresei Alternative:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Tara Adresei Alternative:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Codul Postal al Adresei Alternative:',
@@ -77,6 +73,10 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Descriere:',
   'LBL_DESCRIPTION_INFORMATION' => 'Descriere Informatie',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Rapoarte Directe',
+  'LBL_DNB_BAL_PREVIEW' => 'Previzualizare contacte',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Contacte',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informaţii contact',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID principal D&B',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documente',
   'LBL_DO_NOT_CALL' => 'Nu Sunati:',
   'LBL_DUPLICATE' => 'Posibile Contacte Duplicate',
@@ -92,21 +92,30 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat de ID-ul',
   'LBL_EXPORT_PHONE_HOME' => 'Telefon Acasa:',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobil:',
+  'LBL_FACEBOOK' => 'Cont Facebook',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILENAME' => 'Atasament',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Rapoarte contacte',
   'LBL_FIRST_NAME' => 'Prenume:',
   'LBL_FULL_NAME' => 'Nume intreg:',
+  'LBL_GOOGLEPLUS' => 'ID Google Plus',
+  'LBL_HELP_CREATE' => 'Modulul {{plural_module_name}} este format din persoane cu care organizaţia dvs. are o relaţie. Pentru a crea {{module_name}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noul (noua) {{module_name}} în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} este format din persoane cu care organizaţia dvs. are o relaţie. - Editează câmpurile acestei înregistrări apăsând pe fiecare câmp individual sau pe butonul Editare. - Vizualizează sau modifică linkuri către alte înregistrări in panourile secundare, trecând fereastra din stânga jos în stadiul "Vizualizare Date". - Creează şi vizualizează comentariile altor utilizatori şi istoricul modificărilor în {{activitystream_singular_module}} trecând fereastra din stânga jos în stadiul "Flux de activitate". - Urmăreşte sau marchează ca favorit această înregistrare folosind pictogramele din dreapta numelui înregistrării. - Sunt disponibile acţiuni suplimentare în meniul cu listă derulantă Acţiuni din dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} este format din persoane cu care organizaţia dvs. are o relaţie. Înregistrările {{module_name}} sunt de obicei legate de o înregistrare {{accounts_singular_module}}, iar mai multe {{plural_module_name}} pot fi asociate cu un singur {{accounts_singular_module}}. Există mai multe modalităţi prin care puteţi crea {{plural_module_name}} în Sugar, cum ar fi prin modulul {{plural_module_name}}, prin import de {{plural_module_name}}, prin transformarea {{leads_module}} în {{plural_module_name}} etc. După crearea înregistrării {{module_name}}, puteţi vizualiza şi edita informaţiile asociate cu {{module_name}} prin fereastra de vizualizare a înregistrării {{plural_module_name}}. Fiecare înregistrare {{module_name}} poate fi apoi relaţionată cu alte înregistrări Sugar, cum ar fi {{meetings_module}}, {{cases_module}}, {{opportunities_module}} şi multe altele, transformând înregistrarea {{module_name}} într-un canal pentru vizualizarea şi continuarea interacţiunii dvs. cu persoana respectivă.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istoric',
   'LBL_HOMEPAGE_TITLE' => 'Contactele Mele',
   'LBL_HOME_PHONE' => 'Telefon Acasa:',
   'LBL_ID' => 'ID',
   'LBL_IMPORT_VCARD' => 'Importa vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Creaza automat un nou contact prin importarea unui vCard din sistemul dumneavoastra de fisiere.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Tinta de la vCard creeata cu succes',
   'LBL_INVALID_EMAIL' => 'Email Invalid:',
   'LBL_INVITEE' => 'Rapoarte Directe',
   'LBL_LANG_PREF_TOOLTIP' => 'Interfața Portal Suport cu utilizatorul este redata în limba selectată aici',
   'LBL_LAST_NAME' => 'Nume de Familie:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Calauze',
   'LBL_LEAD_SOURCE' => 'Sursa Calauza:',
+  'LBL_LINKEDIN' => 'Cont Membru Linkedin',
   'LBL_LIST_ACCEPT_STATUS' => 'Accept Statut',
   'LBL_LIST_ACCOUNT_NAME' => 'Nume Cont',
   'LBL_LIST_CITY' => 'Oras',
@@ -121,6 +130,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Telefon Birou',
   'LBL_LIST_STATE' => 'Stat',
   'LBL_LIST_TITLE' => 'Titlu',
+  'LBL_MKTO_ID' => 'ID responsabil Marketo',
+  'LBL_MKTO_LEAD_SCORE' => 'Punctaj responsabil',
+  'LBL_MKTO_SYNC' => 'Sincronizare către Marketo®',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_MODIFIED' => 'Modificat de:',
   'LBL_MODULE_NAME' => 'Contacte',
@@ -129,6 +141,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Nume:',
   'LBL_NEW_FORM_TITLE' => 'Contact Nou',
   'LBL_NEW_PORTAL_PASSWORD' => 'Parola de Portal Noua',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_NOTE_SUBJECT' => 'Note Subiect',
   'LBL_OFFICE_PHONE' => 'Telefon Birou:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Parola veche a Portalului',
@@ -139,6 +152,7 @@ $mod_strings = array (
   'LBL_OPP_NAME' => 'Nume Oportunitate:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Alt Email:',
   'LBL_OTHER_PHONE' => 'Alt Telefon:',
+  'LBL_PARENT_ID' => 'ID Parent',
   'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Schimbă parola',
   'LBL_PHONE' => 'Telefon:',
   'LBL_PHONE_FAX' => 'Telefon fax',
@@ -152,6 +166,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Nume Portal:',
   'LBL_PORTAL_PASSWORD' => 'Parola Portal',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Parola Portal este Setata:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Click aici pentru a edita profilul tau.',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'Profilul este locul unde puteți gestiona informațiile de contact, parola, și preferințele de limbă.',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Aici este locul unde puteți seta limba preferată. Acest lucru se va schimba limba utilizată de către portalul Sugar',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Puteți reveni la profilul în orice moment, utilizând meniul utilizator.',
   'LBL_POSTAL_CODE' => 'Cod Postal:',
   'LBL_PRIMARY_ADDRESS' => 'Adresa Principala:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Orasul Adresei Principale:',
@@ -161,19 +179,21 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET' => 'Strada Adresei Principale:',
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Strada 2 a Adresei Principale:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Strada 3 a Adresei Principale:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produse',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Elemente din ofertă',
   'LBL_PRODUCTS_TITLE' => 'Produse',
-  'LBL_PROJECTS_RESOURCES' => 'Proiect Resurse',
+  'LBL_PROJECTS_RESOURCES' => 'Resurse Proiecte',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Proiecte',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Proiecte',
   'LBL_PROSPECT_LIST' => 'Lista Prospect',
   'LBL_QUOTES_BILL_TO' => 'Quotes (Bill To)',
   'LBL_QUOTES_SHIP_TO' => 'Cote Transportate la',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Cote',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ai creeat cu succes {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Contacte Relationate',
   'LBL_REPORTS_TO' => 'Raporteaza Catre:',
   'LBL_REPORTS_TO_ID' => 'Raporteaza la ID:',
   'LBL_RESOURCE_NAME' => 'Numele Resursei',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Articole linie de venituri',
   'LBL_SALUTATION' => 'Formula de salut:',
   'LBL_SAVE_CONTACT' => 'Salveaza Contact',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta Contact',
@@ -185,12 +205,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Campanii (Tinta):',
   'LBL_TEAM_ID' => 'ID Echipa:',
   'LBL_TITLE' => 'Titlu:',
+  'LBL_TWITTER' => 'Twitter ID',
   'LBL_USER_PASSWORD' => 'Parola:',
   'LBL_USER_SYNC' => 'Sincronizare Utilizator',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Vizualizare Contacte',
   'LNK_CONTACT_LIST' => 'Vizualizeaza Contacte',
   'LNK_CONTACT_REPORTS' => 'Vizualizeaza Rapoarte Contact',
+  'LNK_CREATE' => 'Creaza persoana',
   'LNK_IMPORT_CONTACTS' => 'Importa Contacte',
   'LNK_IMPORT_VCARD' => 'Creaza Contact din vCard',
   'LNK_NEW_ACCOUNT' => 'Creaza Cont',
@@ -212,6 +234,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Crearea unei oportunitati necesita un cont.\\n Va rugam, fie sa creati un cont nou, fie sa selectati unul deja existent.',
   'NTC_REMOVE_CONFIRMATION' => 'Sunteţi sigur că doriţi să inlaturati acest contact din caz?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Sunteţi sigur că doriţi să inlaturati aceasta inregistrare ca un raport direct?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if name}}{{str name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LISTA_EMAIL_ADRESA',
   'db_email2' => 'LBL_LISTA_ALT_EMAIL_ADRESA',
   'db_first_name' => 'LBL_LISTA_PRENUME',

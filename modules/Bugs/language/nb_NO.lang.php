@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -34,7 +31,7 @@ $mod_strings = array (
   'LBL_CREATED_BY' => 'Opprettet av:',
   'LBL_DATE_CREATED' => 'Opprettelsesdato:',
   'LBL_DATE_LAST_MODIFIED' => 'Endringsdato:',
-  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bugs',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bug Tracker',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenter',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Tildelt Bruker-ID',
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Ordnet ved utsendelse:',
   'LBL_FOUND_IN_RELEASE' => 'Funnet ved utsendelse:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Funnet i Utgave-navnet',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulen brukes til å spore og administrere produktrelaterte problemer, ofte referert til som {{plural_module_name}} eller defekter, enten funnet internt eller rapportert av kunder. For å opprette en {{module_name}}: 1. Gi verdier til feltene som ønsket. - Felt som er merket "kreves" må fullføres før du lagrer. - Klikk "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Klikk "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne den nye {{module_name}} i postsvisning. - Velg "Lagre og opprett nye" for umiddelbart å opprette en ny {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulen brukes til å spore og administrere produktrelaterte problemer, ofte referert til som {{plural_module_name}} eller defekter, enten funnet internt eller rapportert av kunder. - Rediger dette postfelt ved å klikke et enkelt felt eller Rediger-knappen. - Vis eller endre lenker til andre poster i underpaneler ved veksling av nedre venstre ruten til "Data View". - Lag og vis brukerkommentarer og registrere endringsloggen i  {{activitystream_singular_module}} ved å veksle nedre venstre rute til "Activity Stream". - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for posten navn. - Ytterligere tiltak er tilgjengelig i dropdown menyen Handlinger til høyre for Rediger-knappen.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulen brukes til å spore og administrere produktrelaterte problemer, ofte referert til som {{plural_module_name}} eller defekter, enten funnet internt eller rapportert av kunder. Den {{plural_module_name}} kan bli ytterligere triaged ved å spore funnet og fikset i utgivelsen. Den {{plural_module_name}} modulen gir brukerne en rask måte å gjennomgå alle detaljer om {{module_name}} og den prosessen som brukes for å rette på det. Når en {{module_name}} er opprettet eller innsendt, kan du se på og redigere informasjon knyttet til {{module_name}} via {{module_name}}&#39;er postvisning. Hver {{module_name}} registrering kan da forholde seg til andre Sugar poster som {{calls_module}}, {{contacts_module}}, {{cases_module}}, og mange andre.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_INVITEE' => 'Kontakter',
   'LBL_LIST_ACCOUNT_NAME' => 'Kontonavn',
@@ -67,9 +67,16 @@ $mod_strings = array (
   'LBL_MODULE_ID' => 'Bugs',
   'LBL_MODULE_NAME' => 'Bugs',
   'LBL_MODULE_NAME_SINGULAR' => 'Feil',
-  'LBL_MODULE_TITLE' => 'Bugs: Hjem',
+  'LBL_MODULE_TITLE' => 'Bug Tracker: Hjem',
   'LBL_NEW_FORM_TITLE' => 'Ny bug',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notater',
   'LBL_NUMBER' => 'Nummer:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Hvis du har funnet en ny Bug du vil raportere, klikk her for å rapportere en ny Bug.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrere ned listen over Bugs ved å gi et søkebegrep.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'For eksempel kan du bruke dette til å finne en feil som har blitt rapportert tidligere.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Bugs modulen er for visning og feilrapportering av bugs. Bruk pilene nedenfor for å gå gjennom en rask omvisning.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denne siden viser en liste over eksisterende publiserte bugs.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Ved å klikke her kommer du til denne visningen til enhver tid.',
   'LBL_PORTAL_VIEWABLE' => 'Portal Synlig',
   'LBL_PRIORITY' => 'Prioritet:',
   'LBL_PRODUCT_CATEGORY' => 'Kategori:',

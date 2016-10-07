@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Vardefs management
@@ -20,6 +17,15 @@
 class VardefManager{
     static $custom_disabled_modules = array();
     static $linkFields;
+    public static $inReload = array();
+
+    /**
+     * List of templates to ignore for BWC modules when adding templates. This
+     * should be a key value pair like 'template_name' => true.
+     *
+     * @var array
+     */
+    public static $ignoreBWCTemplates = array();
 
     /**
      * this method is called within a vardefs.php file which extends from a SugarObject.
@@ -31,26 +37,84 @@ class VardefManager{
 
         include_once('modules/TableDictionary.php');
 
+        if (isset($GLOBALS['dictionary'][$object]['uses'])) {
+            // Load in the vardef 'uses' first
+            $templates = array_merge($GLOBALS['dictionary'][$object]['uses'], $templates);
+            unset($GLOBALS['dictionary'][$object]['uses']);
+
+            // createVardef auto-adds the 'default' template, so to avoid using it twice
+            // among avoiding using other templates twice let's make sure the templates
+            // are unique
+            $templates = array_unique($templates);
+        }
+
+        // Load up fields if there is a need for that. Introduced with the taggable
+        // template
+        if (isset($GLOBALS['dictionary'][$object]['load_fields'])) {
+            $lf = $GLOBALS['dictionary'][$object]['load_fields'];
+
+            // Make sure we actually have a fields array to work with
+            if (empty($GLOBALS['dictionary'][$object]['fields'])) {
+                $GLOBALS['dictionary'][$object]['fields'] = array();
+            }
+
+            if (is_string($lf) && function_exists($lf)) {
+                // Merge fields from the function onto the known fields
+                $GLOBALS['dictionary'][$object]['fields'] = array_merge(
+                    $GLOBALS['dictionary'][$object]['fields'],
+                    $lf()
+                );
+            } elseif (is_array($lf) && isset($lf['class']) && isset($lf['method'])) {
+                $class = $lf['class'];
+                $method = $lf['method'];
+
+                // Merge fields from the method call onto the known fields
+                $GLOBALS['dictionary'][$object]['fields'] = array_merge(
+                    $GLOBALS['dictionary'][$object]['fields'],
+                    $class::$method()
+                );
+            }
+        }
+
         //reverse the sort order so priority goes highest to lowest;
         $templates = array_reverse($templates);
         foreach ($templates as $template)
         {
             VardefManager::addTemplate($module, $object, $template, $object_name);
         }
+        // Some of the templates might have loaded templates
+        if (isset($GLOBALS['dictionary'][$object]['templates'])) {
+            $templates = $GLOBALS['dictionary'][$object]['templates'];
+        }
         LanguageManager::createLanguageFile($module, $templates);
 
         if (isset(VardefManager::$custom_disabled_modules[$module]))
         {
             $vardef_paths = array(
-                'custom/modules/' . $module . '/Ext/Vardefs/vardefs.ext.php',
+                SugarAutoLoader::loadExtension("vardefs", $module),
                 'custom/Extension/modules/' . $module . '/Ext/Vardefs/vardefs.php'
             );
 
             //search a predefined set of locations for the vardef files
             foreach ($vardef_paths as $path)
             {
-                if (file_exists($path)) {
+                // file_exists here is only for custom/Extension since loadExtension already checks
+                // the file map and will return false if something's wrong
+                if(!empty($path) && file_exists($path)) {
                     require($path);
+                }
+            }
+        }
+
+        // Handle unsetting of fields as per the defs. Do this last to make sure
+        // all extension fields have loaded
+        if (isset($GLOBALS['dictionary'][$object]['unset_fields'])) {
+            $uf = $GLOBALS['dictionary'][$object]['unset_fields'];
+            if (is_string($uf)) {
+                unset($GLOBALS['dictionary'][$object]['fields'][$uf]);
+            } elseif (is_array($uf)) {
+                foreach ($uf as $f) {
+                    unset($GLOBALS['dictionary'][$object]['fields'][$f]);
                 }
             }
         }
@@ -70,8 +134,38 @@ class VardefManager{
         }
     }
 
+    /**
+     * Checks to see if the template for a module should be skipped. Used by
+     * addTemplate to see if certain templates should be added by BWC modules.
+     *
+     * @param string $module The name of the module to check
+     * @param string $template The template to check for the module
+     * @return boolean
+     */
+    public static function ignoreBWCTemplate($module, $template)
+    {
+        // Add logic as needed here... starting with BWC modules not being taggable
+        return isModuleBWC($module) && !empty(self::$ignoreBWCTemplates[$template]);
+    }
+
     static function addTemplate($module, $object, $template, $object_name=false){
-        if($template == 'default')$template = 'basic';
+        // Normalize the template name
+        if ($template == 'default') {
+            $template = 'basic';
+        }
+
+        // The ActivityStream has subdirectories but this code doesn't expect it
+        // let's fix it up here
+        if (strpos($module,'/') !== false) {
+            $tmp = explode('/',$module);
+            $module = array_pop($tmp);
+        }
+
+        // Verify that we should use this template for BWC modules
+        if (self::ignoreBWCTemplate($module, $template)) {
+            return;
+        }
+
         $templates = array();
         $fields = array();
         if(empty($object_name))$object_name = $object;
@@ -83,31 +177,54 @@ class VardefManager{
         }
 
         if(empty($templates[$template])){
-            $path = 'include/SugarObjects/templates/' . $template . '/vardefs.php';
-            if(file_exists($path)){
+            foreach(SugarAutoLoader::existingCustom(
+                'include/SugarObjects/templates/' . $template . '/vardefs.php',
+                'include/SugarObjects/implements/' . $template . '/vardefs.php'
+            ) as $path) {
                 require($path);
                 $templates[$template] = $vardefs;
-            }else{
-                $path = 'include/SugarObjects/implements/' . $template . '/vardefs.php';
-                if(file_exists($path)){
-                    require($path);
-                    $templates[$template] = $vardefs;
-                }
             }
         }
-       
+
         if(!empty($templates[$template])){
-            if(empty($GLOBALS['dictionary'][$object]['fields']))$GLOBALS['dictionary'][$object]['fields'] = array();
-            if(empty($GLOBALS['dictionary'][$object]['relationships']))$GLOBALS['dictionary'][$object]['relationships'] = array();
-            if(empty($GLOBALS['dictionary'][$object]['indices']))$GLOBALS['dictionary'][$object]['indices'] = array();
-            $GLOBALS['dictionary'][$object]['fields'] = array_merge($templates[$template]['fields'], $GLOBALS['dictionary'][$object]['fields']);
-            if(!empty($templates[$template]['relationships']))$GLOBALS['dictionary'][$object]['relationships'] = array_merge($templates[$template]['relationships'], $GLOBALS['dictionary'][$object]['relationships']);
-            if(!empty($templates[$template]['indices']))$GLOBALS['dictionary'][$object]['indices'] = array_merge($templates[$template]['indices'], $GLOBALS['dictionary'][$object]['indices']);
-            if(isset($templates[$template]['favorites']) && !isset($GLOBALS['dictionary'][$object]['favorites'])){
-            	$GLOBALS['dictionary'][$object]['favorites'] = $templates[$template]['favorites'];	
+            static $merge_types = array(
+                'fields',
+                'relationships',
+                'indices',
+                'name_format_map',
+                'visibility',
+                'acls',
+            );
+
+            foreach ($merge_types as $merge_type) {
+                if (empty($GLOBALS['dictionary'][$object][$merge_type])) {
+                    $GLOBALS['dictionary'][$object][$merge_type] = array();
+                }
+                if (!empty($templates[$template][$merge_type])
+                    && is_array($templates[$template][$merge_type])) {
+                    $GLOBALS['dictionary'][$object][$merge_type] =
+                        array_merge($templates[$template][$merge_type],
+                                    $GLOBALS['dictionary'][$object][$merge_type]);
+                }
+            }
+
+            /* The duplicate_check property is inherited in full unless already defined - merge has no meaning here */
+            if(empty($GLOBALS['dictionary'][$object]['duplicate_check']) && !empty($templates[$template]['duplicate_check'])) {
+               $GLOBALS['dictionary'][$object]['duplicate_check'] = $templates[$template]['duplicate_check'];
+            }
+
+            if(isset($templates[$template]['favorites']) && !isset($GLOBALS['dictionary'][$object]['favorites']))
+            {
+            	$GLOBALS['dictionary'][$object]['favorites'] = $templates[$template]['favorites'];
             }
             // maintain a record of this objects inheritance from the SugarObject templates...
             $GLOBALS['dictionary'][$object]['templates'][ $template ] = $template ;
+
+            if (!empty($templates[$template]['uses'])) {
+                foreach ($templates[$template]['uses'] as $extraTemplate) {
+                    VardefManager::addTemplate($module, $object, $extraTemplate, $object_name);
+                }
+            }
         }
     }
 
@@ -120,10 +237,8 @@ class VardefManager{
      */
     static function cleanVardefs($fieldDefs)
     {
-        foreach($fieldDefs as $field => $defs)
-        {
-            if (empty($def['name']) || empty($def['type']))
-            {
+        foreach($fieldDefs as $field => $defs) {
+            if (empty($defs['name']) || empty($defs['type'])) {
                 unset($fieldDefs[$field]);
             }
         }
@@ -137,22 +252,15 @@ class VardefManager{
      * @param string $object the name of the object
      */
     static function saveCache($module,$object, $additonal_objects= array()){
-
         if (empty($GLOBALS['dictionary'][$object]))
             $object = BeanFactory::getObjectName($module);
-        $file = create_cache_directory('modules/' . $module . '/' . $object . 'vardefs.php');
 
+        $file = self::getCacheFileName($module, $object);
+
+        $GLOBALS['dictionary'][$object]['fields'] = self::cleanVardefs($GLOBALS['dictionary'][$object]['fields']);
         $out="<?php \n \$GLOBALS[\"dictionary\"][\"". $object . "\"]=" . var_export($GLOBALS['dictionary'][$object], true) .";";
         sugar_file_put_contents_atomic($file, $out);
-        if ( sugar_is_file($file) && is_readable($file)) {
-            include($file);
-        }
 
-        // put the item in the sugar cache.
-        $key = "VardefManager.$module.$object";
-        //Sometimes bad definitions can get in from left over extensions or file system lag(caching). We need to clean those.
-        $data = self::cleanVardefs($GLOBALS['dictionary'][$object]);
-        sugar_cache_put($key,$data);
     }
 
     /**
@@ -189,12 +297,10 @@ class VardefManager{
                 $object_name = $newName != false ? $newName : $object_name;
             }
 
-            $file = sugar_cached('modules/').$module_dir.'/' . $object_name . 'vardefs.php';
+            $file = self::getCacheFileName($module_dir, $object_name);
 
             if(file_exists($file)){
                 unlink($file);
-                $key = "VardefManager.$module_dir.$object_name";
-                sugar_cache_clear($key);
             }
         }
     }
@@ -207,12 +313,24 @@ class VardefManager{
      * @param string $object the given object we wish to load the vardefs for
      * @param array $additional_search_paths an array which allows a consumer to pass in additional vardef locations to search
      */
-    static function refreshVardefs($module, $object, $additional_search_paths = null, $cacheCustom = true, $params = array()){
+    static function refreshVardefs($module, $object, $additional_search_paths = null, $cacheCustom = true, $params = array())
+    {
         // Some of the vardefs do not correctly define dictionary as global.  Declare it first.
         global $dictionary, $beanList;
+        // some tests do new SugarBean(), we can't do much with it here.
+        if(empty($module)) return;
+        $guard_name = "$module:$object";
+        if(isset(self::$inReload[$guard_name])) {
+            self::$inReload[$guard_name]++;
+            if(self::$inReload[$guard_name] > 2) {
+                return;
+            }
+        } else {
+            self::$inReload[$guard_name] = 1;
+        }
         $vardef_paths = array(
                     'modules/'.$module.'/vardefs.php',
-                    'custom/modules/'.$module.'/Ext/Vardefs/vardefs.ext.php',
+                    SugarAutoLoader::loadExtension("vardefs", $module),
                     'custom/Extension/modules/'.$module.'/Ext/Vardefs/vardefs.php'
                  );
 
@@ -223,44 +341,79 @@ class VardefManager{
         }
         $found = false;
         //search a predefined set of locations for the vardef files
-        foreach($vardef_paths as $path){
-            if(file_exists($path)){
-                require($path);
-                $found = true;
+        foreach(SugarAutoLoader::existing($vardef_paths) as $path){
+            require($path);
+            $found = true;
+        }
+        if(!empty($params['bean'])) {
+            $bean = $params['bean'];
+        } else {
+            if(!empty($dictionary[$object])) {
+                // to avoid extra refresh - we'll fill it in later
+                if(!isset($GLOBALS['dictionary'][$object]['related_calc_fields'])) {
+                    $GLOBALS['dictionary'][$object]['related_calc_fields'] = array();
+                }
             }
+            // we will instantiate here even though dictionary may not be there,
+            // since in case somebody calls us with wrong module name we need bean
+            // to get $module_dir. This may cause a loop but since the second call will
+            // have the right module name the loop should be short.
+            $bean = BeanFactory::newBean($module);
         }
         //Some modules have multiple beans, we need to see if this object has a module_dir that is different from its module_name
         if(!$found){
-            $temp = BeanFactory::newBean($module);
-            if ($temp)
+            if ($bean instanceof SugarBean) // weed out non-bean modules
             {
-                $object_name = BeanFactory::getObjectName($temp->module_dir);
-                if ($temp && $temp->module_dir != $temp->module_name && !empty($object_name))
+                $object_name = BeanFactory::getObjectName($bean->module_dir);
+                if ($bean->module_dir != $bean->module_name && !empty($object_name))
                 {
-                    self::refreshVardefs($temp->module_dir, $object_name, $additional_search_paths, $cacheCustom);
+                    unset($params["bean"]); // don't pass this bean down - it may be wrong bean for that module
+                    self::refreshVardefs($bean->module_dir, $object_name, $additional_search_paths, $cacheCustom, $params);
                 }
             }
         }
 
         //Some modules like cases have a bean name that doesn't match the object name
-        if (empty($dictionary[$object])) {
-            $newName = BeanFactory::getObjectName($module);
-            $object = $newName != false ? $newName : $object;
+        if(empty($dictionary[$object])) {
+             $newName = BeanFactory::getObjectName($module);
+             if(!empty($newName)) {
+                $object = $newName;
+            }
         }
 
         //load custom fields into the vardef cache
-        if($cacheCustom){
+        if($cacheCustom && !empty($GLOBALS['dictionary'][$object]['fields'])){
             require_once("modules/DynamicFields/DynamicField.php");
             $df = new DynamicField ($module) ;
             $df->buildCache($module, false);
         }
-        if (empty($params['ignore_rel_calc_fields']))
+
+        // if we are currently rebuilding the relationships, we don't want `updateRelCFModules` to be called
+        // as it will fail when trying to look up relationships as they my have not been loaded into the
+        // cache yet
+        $rebuildingRelationships = (isset($GLOBALS['buildingRelCache']) && $GLOBALS['buildingRelCache'] === true);
+        if (empty($params['ignore_rel_calc_fields']) && $rebuildingRelationships === false) {
             self::updateRelCFModules($module, $object);
+        }
+
+        // Put ACLStatic into vardefs for beans supporting ACLs
+        if(!empty($bean) && ($bean instanceof SugarBean) && !empty($dictionary[$object]) && !isset($dictionary[$object]['acls']['SugarACLStatic'])
+            && $bean->bean_implements('ACL')) {
+            $dictionary[$object]['acls']['SugarACLStatic'] = true;
+        }
 
         //great! now that we have loaded all of our vardefs.
-        //let's go save them to the cache file.
+        //let's go save them to the cache file
         if(!empty($dictionary[$object])) {
             VardefManager::saveCache($module, $object);
+            SugarBean::clearLoadedDef($object);
+        }
+        if(isset(self::$inReload[$guard_name])) {
+            if(self::$inReload[$guard_name] > 1) {
+                self::$inReload[$guard_name]--;
+            } else {
+                unset(self::$inReload[$guard_name]);
+            }
         }
     }
 
@@ -299,7 +452,9 @@ class VardefManager{
         foreach($vardef['fields'] as $name => $def)
         {
             //Look through all link fields for related modules that have calculated fields that use that relationship
-            if(!empty($def['type']) && $def['type'] == 'link' && !empty($def['relationship']))
+            if(!empty($def['type']) && $def['type'] == 'link'
+                && (!empty($def['relationship']) || (!empty($def['link_class'])))
+            )
             {
                 $links[$name] = $def;
             }
@@ -310,36 +465,55 @@ class VardefManager{
         return $links;
     }
 
-
-    public static function getLinkFieldForRelationship($module, $object, $relName)
+    /**
+     * Gets a link field for a relationship
+     *
+     * @param string $module The module to find a link field from
+     * @param string $object The object name for the module
+     * @param string $relName The relationship name or link name to use
+     * @param boolean $byLinkName If set, will treat $relName as a link name not
+     *                            a relationship name
+     * @return array, or false if no link field is found
+     */
+    public static function getLinkFieldForRelationship($module, $object, $relName, $byLinkName = false)
     {
         $cacheKey = "LFR{$module}{$object}{$relName}";
         $cacheValue = sugar_cache_retrieve($cacheKey);
-        if(!empty($cacheValue))
+        if(!empty($cacheValue)) {
             return $cacheValue;
+        }
 
+        // If we are searching by link name instead of relationship name, set that here
+        $defIndex = $byLinkName ? 'name' : 'relationship';
         $relLinkFields = self::getLinkFieldsForModule($module, $object);
         $matches = array();
-        if (!empty($relLinkFields))
-        {
-            foreach($relLinkFields as $rfName => $rfDef)
-            {
-                if ($rfDef['relationship'] == $relName)
-                {
-                    $matches[] = $rfDef;
+        if (!empty($relLinkFields)) {
+            // If there is a field with this name as a field def, use it
+            if ($byLinkName && isset($relLinkFields[$relName])) {
+                $matches[] = $relLinkFields[$relName];
+            } else {
+                // Otherwise loop and set
+                foreach($relLinkFields as $rfName => $rfDef) {
+                    if ($rfDef[$defIndex] == $relName) {
+                        $matches[] = $rfDef;
+                    }
                 }
             }
         }
-        if (empty($matches))
+
+        if (empty($matches)) {
             return false;
-        if (sizeof($matches) == 1)
+        }
+
+        if (sizeof($matches) == 1) {
             $results = $matches[0];
-        else
+        } else {
             //For relationships where both sides are the same module, more than one link will be returned
             $results = $matches;
+        }
 
         sugar_cache_put($cacheKey, $results);
-        return $results ;
+        return $results;
     }
 
     /**
@@ -514,38 +688,25 @@ class VardefManager{
      * @param bool   $refresh whether or not we wish to refresh the cache file.
      */
     static function loadVardef($module, $object, $refresh=false, $params = array()){
-        //here check if the cache file exists, if it does then load it, if it doesn't
-        //then call refreshVardef
-        //if either our session or the system is set to developerMode then refresh is set to true
-        if(inDeveloperMode() || !empty($_SESSION['developerMode'])){
-            $refresh = true;
+        if ( empty($module) || empty($object) ) {
+            return;
         }
-        // Retrieve the vardefs from cache.
-        $key = "VardefManager.$module.$object";
 
-        if (empty($params['ignore_rel_calc_fields']) && !empty($GLOBALS['dictionary'][$object]) && !isset($GLOBALS['dictionary'][$object]['related_calc_fields']))
-        {
+        $GLOBALS['log']->debug("VardefManager::loadVardef called for module: $module");
+
+        if (empty($params['ignore_rel_calc_fields']) &&
+            !empty($GLOBALS['dictionary'][$object]) &&
+            !isset($GLOBALS['dictionary'][$object]['related_calc_fields'])) {
             $refresh = true;
-        }
-        if(!$refresh)
-        {
-            $return_result = sugar_cache_retrieve($key);
-            $return_result = self::applyGlobalAccountRequirements($return_result);
-
-            if(!empty($return_result))
-            {
-                $GLOBALS['dictionary'][$object] = $return_result;
-                return;
-            }
         }
 
         // Some of the vardefs do not correctly define dictionary as global.  Declare it first.
         global $dictionary;
-        if(empty($GLOBALS['dictionary'][$object]) || $refresh){
+        if (empty($GLOBALS['dictionary'][$object]) || $refresh || !isset($GLOBALS['dictionary'][$object]['fields'])) {
             //if the consumer has demanded a refresh or the cache/modules... file
             //does not exist, then we should do out and try to reload things
 
-			$cachedfile = sugar_cached('modules/'). $module . '/' . $object . 'vardefs.php';
+			$cachedfile = self::getCacheFileName($module, $object);
 			if($refresh || !file_exists($cachedfile)){
 				VardefManager::refreshVardefs($module, $object, null, true, $params);
 			}
@@ -554,17 +715,28 @@ class VardefManager{
             //which was created from the refreshVardefs so let's try to load it.
             if(file_exists($cachedfile))
             {
-                if (is_readable($cachedfile))
-                {
-                    include($cachedfile);
-                }
-                // now that we hae loaded the data from disk, put it in the cache.
-                if(!empty($GLOBALS['dictionary'][$object]))
-                {
+                @include($cachedfile);
+                // now that we have loaded the data from disk, load it in the global dictionary
+                if(!empty($GLOBALS['dictionary'][$object])) {
                     $GLOBALS['dictionary'][$object] = self::applyGlobalAccountRequirements($GLOBALS['dictionary'][$object]);
-                    sugar_cache_put($key,$GLOBALS['dictionary'][$object]);
                 }
             }
+        }
+    }
+
+    /**
+     * Gets the cache file name
+     * @param string $module the given module we want to load the vardefs for
+     * @param string $object the given object we wish to load the vardefs for
+     * @return string The filename for the vardef cache
+     */
+    static function getCacheFileName($module, $object){
+        global $beanList, $beanFiles;
+        if (isset($beanList[$module]) && isset($beanFiles[$beanList[$module]])) {
+            $pi = pathinfo($beanFiles[$beanList[$module]]);
+            return create_cache_directory($pi['dirname'] . "/" . $object . 'vardefs.php');
+        } else {
+            return create_cache_directory('modules/' . $module . '/' . $object . 'vardefs.php');
         }
     }
 

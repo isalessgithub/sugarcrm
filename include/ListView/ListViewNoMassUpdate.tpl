@@ -1,21 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 
@@ -33,7 +26,7 @@
 			<th scope='col' width='{$params.width}%' >
 				<span sugar="sugar{$colCounter}"><div style='white-space: nowrap;'width='100%' align='{$params.align|default:'left'}'>
                 {if $params.sortable|default:true}
-	                <a href='{$pageData.urls.orderBy}{$params.orderBy|default:$colHeader|lower}' class='listViewThLinkS1' title="{$arrowAlt}">{sugar_translate label=$params.label module=$pageData.bean.moduleDir}&nbsp;&nbsp;
+	                <a href='{$pageData.urls.orderBy}{$params.orderBy|default:$colHeader|lower}' class='listViewThLinkS1' title=$arrowAlt>{sugar_translate label=$params.label module=$pageData.bean.moduleDir}&nbsp;&nbsp;
 					{if $params.orderBy|default:$colHeader|lower == $pageData.ordering.orderBy}
 						{if $pageData.ordering.sortOrder == 'ASC'}
 							{capture assign="imageName"}arrow_down.$arrowExt{/capture}
@@ -69,7 +62,7 @@
 			{if !empty($quickViewLinks)}
 			<td width='1%' nowrap>
 				{if $pageData.access.edit && $pageData.bean.moduleDir != "Employees"}
-					<a title='{$editLinkString}' id="edit-{$rowData.ID}" href='index.php?action=EditView&module={$params.module|default:$pageData.bean.moduleDir}&record={$rowData[$params.id]|default:$rowData.ID}&offset={$pageData.offsets.current+$smarty.foreach.rowIteration.iteration}&stamp={$pageData.stamp}&return_module={$params.module|default:$pageData.bean.moduleDir}' title="{sugar_translate label="LBL_EDIT_INLINE"}">{sugar_getimage name="edit_inline.gif" attr='border="0" '}</a>
+					<a title='{$editLinkString}' id="edit-{$rowData.ID}" href="javascript:parent.SUGAR.App.router.navigate(parent.SUGAR.App.router.buildRoute('{$pageData.bean.moduleDir}', '{$rowData.ID}'), {$smarty.ldelim}trigger: true{$smarty.rdelim});" title="{sugar_translate label="LBL_EDIT_INLINE"}">{sugar_getimage name="edit_inline.gif" attr='border="0" '}</a>
 				{/if}
 			</td>
 			{/if}
@@ -106,7 +99,33 @@
 {include file='include/ListView/ListViewPagination.tpl'}
 </table>
 <script type='text/javascript'>
-{literal}function lvg_nav(m,id,act,offset,t){if(t.href.search(/#/) < 0){return;}else{if(act=='pte'){act='ProjectTemplatesEditView';}else if(act=='d'){ act='DetailView';}else if( act =='ReportsWizard'){act = 'ReportsWizard';}else{ act='EditView';}{/literal}url = 'index.php?module='+m+'&offset=' + offset + '&stamp={$pageData.stamp}&return_module='+m+'&action='+act+'&record='+id;t.href=url;{literal}}}{/literal}
+{literal}
+    function lvg_nav(m, id, act, offset, t) {
+        t = $(t);
+        if (t.attr('href') !== '#') {
+            return;
+        }
+        switch (act) {
+            case 'pte':
+                act = 'ProjectTemplatesEditView';
+                break;
+            case 'd':
+                act = 'DetailView';
+                break;
+            default:
+                act = 'EditView';
+                break;
+        }
+{/literal}
+        var url = '#bwc/index.php?module=' + m + '&offset=' + offset + '&stamp={$pageData.stamp}&return_module=' +
+            m +'&action=' + act + '&record=' + id;
+{literal}
+        t.attr('href', location.origin + location.pathname + url);
+        if (!_.isUndefined(parent.SUGAR) && !_.isUndefined(parent.SUGAR.App.view)) {
+            parent.SUGAR.App.controller.layout.getComponent('bwc').convertToSidecarLink(t);
+        }
+    }
+{/literal}
 {literal}function lvg_dtails(id){{/literal}return SUGAR.util.getAdditionalDetails( '{$pageData.bean.moduleDir}',id, 'adspan_'+id);{literal}}{/literal}
 {if $contextMenus}
 	{$contextMenuScript}

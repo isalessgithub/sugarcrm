@@ -1,24 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: view handler for step 1 of the import process
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Import/views/ImportView.php');
 require_once('modules/Import/sources/ImportFile.php');
 require_once('modules/Import/ImportFileSplitter.php');
@@ -31,7 +22,7 @@ class ImportViewConfirm extends ImportView
     const SAMPLE_ROW_SIZE = 3;
  	protected $pageTitleKey = 'LBL_CONFIRM_TITLE';
     protected $errorScript = "";
-    
+
  	/**
      * @see SugarView::display()
      */
@@ -39,7 +30,7 @@ class ImportViewConfirm extends ImportView
     {
         global $mod_strings, $app_strings, $current_user;
         global $sugar_config, $locale;
-        
+
         $this->ss->assign("IMPORT_MODULE", $_REQUEST['import_module']);
         $this->ss->assign("TYPE",( !empty($_REQUEST['type']) ? $_REQUEST['type'] : "import" ));
         $this->ss->assign("SOURCE_ID", $_REQUEST['source_id']);
@@ -53,7 +44,7 @@ class ImportViewConfirm extends ImportView
         $importSource = isset($_REQUEST['source']) ? $_REQUEST['source'] : 'csv' ;
 
         // Clear out this user's last import
-        $seedUsersLastImport = new UsersLastImport();
+        $seedUsersLastImport = BeanFactory::getBean('Import_2');
         $seedUsersLastImport->mark_deleted_by_user_id($current_user->id);
         ImportCacheFiles::clearCacheFiles();
 
@@ -154,7 +145,7 @@ class ImportViewConfirm extends ImportView
         $this->ss->assign("IMPORT_ENCLOSURE_OPTIONS",  $this->getEnclosureOptions($enclosure));
         $this->ss->assign("IMPORT_DELIMETER_OPTIONS",  $this->getDelimeterOptions($delimeter));
         $this->ss->assign("CUSTOM_DELIMITER",  $delimeter);
-        $this->ss->assign("CUSTOM_ENCLOSURE",  htmlentities($enclosure, ENT_QUOTES));
+        $this->ss->assign("CUSTOM_ENCLOSURE", htmlentities($enclosure, ENT_QUOTES, 'utf-8'));
         $hasHeaderFlag = $hasHeader ? " CHECKED" : "";
         $this->ss->assign("HAS_HEADER_CHECKED", $hasHeaderFlag);
 
@@ -193,7 +184,7 @@ class ImportViewConfirm extends ImportView
         $content = $this->ss->fetch('modules/Import/tpls/confirm.tpl');
         $this->ss->assign("CONTENT",$content);
         $this->ss->display('modules/Import/tpls/wizardWrapper.tpl');
-        
+
     }
 
     private function getDelimeterOptions($selctedDelim)
@@ -207,10 +198,10 @@ class ImportViewConfirm extends ImportView
         $results = array();
         foreach ($GLOBALS['app_list_strings']['import_enclosure_options'] as $k => $v)
         {
-            $results[htmlentities($k, ENT_QUOTES)] = $v;
+            $results[htmlentities($k, ENT_QUOTES, 'utf-8')] = $v;
         }
 
-        return get_select_options_with_id($results, htmlentities($enclosure, ENT_QUOTES));
+        return get_select_options_with_id($results, htmlentities($enclosure, ENT_QUOTES, 'utf-8'));
     }
 
     private function overloadImportFileMapFromRequest($importFileMap)
@@ -239,11 +230,11 @@ class ImportViewConfirm extends ImportView
 
     private function getImportMap($importSource)
     {
+        $import_map_seed = null;
         if ( strncasecmp("custom:",$importSource,7) == 0)
         {
             $id = substr($importSource,7);
-            $import_map_seed = new ImportMap();
-            $import_map_seed->retrieve($id, false);
+            $import_map_seed = BeanFactory::getBean('Import_1', $id, array("encode" => false));
 
             $this->ss->assign("SOURCE_ID", $import_map_seed->id);
             $this->ss->assign("SOURCE_NAME", $import_map_seed->name);
@@ -252,13 +243,8 @@ class ImportViewConfirm extends ImportView
         else
         {
             $classname = 'ImportMap' . ucfirst($importSource);
-            if ( file_exists("modules/Import/maps/{$classname}.php") )
-                require_once("modules/Import/maps/{$classname}.php");
-            elseif ( file_exists("custom/modules/Import/maps/{$classname}.php") )
-                require_once("custom/modules/Import/maps/{$classname}.php");
-            else
-            {
-                require_once("custom/modules/Import/maps/ImportMapOther.php");
+            if (! SugarAutoLoader::requireWithCustom("modules/Import/maps/{$classname}.php") ) {
+                SugarAutoLoader::requireWithCustom("modules/Import/maps/ImportMapOther.php");
                 $classname = 'ImportMapOther';
                 $importSource = 'other';
             }
@@ -418,7 +404,7 @@ eoq;
         {
             array_unshift($rows, array_fill(0,1,'') );
         }
-        
+
         foreach ($rows as &$row) {
             if (is_array($row)) {
                 foreach ($row as &$val) {
@@ -426,6 +412,7 @@ eoq;
                 }
             }
         }
+
         return $rows;
     }
 
@@ -437,11 +424,11 @@ eoq;
         global $mod_strings, $locale;
         $maxRecordsExceededJS = $maxRecordsExceeded?"true":"false";
         $importMappingJS = json_encode($importMappingJS);
-        
+
         $currencySymbolJs = $this->setCurrencyOptions($importFileMap);
         $getNumberJs = $locale->getNumberJs();
         $getNameJs = $locale->getNameJs();
-        
+
         return <<<EOJAVASCRIPT
 
 
@@ -598,7 +585,7 @@ EOJAVASCRIPT;
         $ss = new Sugar_Smarty();
         $display_msg = '';
         foreach($message as $m){
-            $display_msg .= '<p>'.htmlentities($m, ENT_QUOTES).'</p><br>';
+            $display_msg .= '<p>'.htmlentities($m, ENT_QUOTES, 'utf-8').'</p><br>';
         }
 		global $mod_strings;
 

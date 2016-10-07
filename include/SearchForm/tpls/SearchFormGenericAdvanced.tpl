@@ -1,4 +1,15 @@
-
+{*
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+*}
 <script>
 {literal}
 	$(function() {
@@ -73,9 +84,8 @@
 {if $DISPLAY_SAVED_SEARCH}
 <tr>
 	<td colspan='2'>
-		<a class='tabFormAdvLink' onhover href='javascript:toggleInlineSearch()'>
-            {capture assign="alt_show_hide"}{sugar_translate label='LBL_ALT_SHOW_OPTIONS'}{/capture}
-		{sugar_getimage alt=$alt_show_hide name="advanced_search" ext=".gif" other_attributes='border="0" id="up_down_img" '}&nbsp;{$APP.LNK_SAVED_VIEWS}
+    <a class='tabFormAdvLink' id='tabFormAdvLink' href='javascript:toggleInlineSearch()' title="{sugar_translate label='LBL_ALT_SHOW_OPTIONS'}">
+        {sugar_getimage alt=$alt_show_hide name="advanced_search" ext=".gif" other_attributes='border="0" class="tabFormAdvLink-icon tabFormAdvLink-advanced" '}{sugar_getimage alt=$alt_show_hide name="basic_search" ext=".gif" other_attributes='border="0" class="tabFormAdvLink-icon tabFormAdvLink-basic" '}&nbsp;{$APP.LNK_SAVED_VIEWS}
 		</a><br>
 		<input type='hidden' id='showSSDIV' name='showSSDIV' value='{$SHOWSSDIV}'><p>
 	</td>

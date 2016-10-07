@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Nome Utente o Password Non Corretti',
   'ERR_BODY_TOO_LONG' => '\\rCorpo del testo troppo lungo per bloccare tutta la email. Assettato.',
+  'ERR_DELETE_FOLDER' => 'Cancellazione cartella non riuscita.',
   'ERR_INI_ZLIB' => 'Non è possibile bloccare temporaneamente la compressione Zlib. Le "Impostazioni Test" potrebbero essere incomplete.',
   'ERR_MAILBOX_FAIL' => 'Impossibile trovare le caselle di posta elettronica.',
   'ERR_NO_IMAP' => 'Nessuna libreria IMAP trovata. Si prega di risolvere questo problema prima di continuare con le email in ingresso',
   'ERR_NO_OPTS_SAVED' => 'Nessuna impostazione ottimale è stata salvata con la vostra casella di posta in ingresso. Si prega di rivedere le impostazioni.',
   'ERR_TEST_MAILBOX' => 'Si prega di controllare le impostazioni e di riprovare.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Non è possibile disiscrivere dalla cartella prima dell´eliminazione.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Permettere agli utenti di inviare email usando il Nome e l´Indirizzo "Da"',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Quando questa opzione viene selezionata, il nome e l´indirizzo email del mittente associati a questo account email di gruppo appariranno come opzione del campo Da nelle email degli utenti che hanno accesso all´account email di gruppo.',
   'LBL_APPLY_OPTIMUMS' => 'Applicare Optimums',

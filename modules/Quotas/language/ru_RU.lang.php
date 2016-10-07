@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Сумма:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Сумма базовой валюты',
   'LBL_ASSIGNED_TO_USER' => 'Ответственный (-ая)',
   'LBL_COMMIT' => 'Прогнозирование:',
   'LBL_COMMITTED' => 'Назначен',
   'LBL_COMMIT_STATUS' => 'Статус прогнозирования',
+  'LBL_CREATED_BY' => 'Создано',
   'LBL_CURRENCY' => 'Валюта:',
   'LBL_CURRENCY_RATE' => 'Валютный курс',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Для Вас не был запланирован объём продаж на отчетный период.',
   'LBL_CURRENT_USER_QUOTA' => 'Ваша планируемый объём продаж на текущий период:',
+  'LBL_DIRECT' => 'Прямой',
   'LBL_DIRECT_REPORT' => 'Подчинённые',
   'LBL_EDITLAYOUT' => 'Правка расположения',
   'LBL_LAST_MODIFIED' => 'Последнее изменение',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Для Ваших подчиненных нет планируемых объёмов продаж за выбранный период.',
   'LBL_QUOTA' => 'Планируемый объём продаж:',
   'LBL_QUOTA_AMOUNT' => 'Размер планируемого объёма продаж',
+  'LBL_QUOTA_TYPE' => 'Тип',
+  'LBL_ROLLUP' => 'Сдвиг строк',
   'LBL_SELECT_TIME_PERIOD' => 'Выбрать отчётный период...',
   'LBL_SELECT_USER' => 'Выбор пользователя...',
   'LBL_TIMEPERIOD_ID' => 'Временной промежуток',

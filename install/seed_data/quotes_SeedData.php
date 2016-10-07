@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 require_once('modules/Quotes/Quote.php');
@@ -50,6 +47,8 @@ if(!empty($sugar_demodata['quotes_seed_data']['quotes'])) {
 		$focus->show_line_nums = 1;
 		$focus->team_id = $current_user->team_id;
 		$focus->team_set_id = $current_user->team_set_id;
+        $focus->currency_id = '-99';
+        $focus->base_rate = '1.0';
 		
 		//Set random account and contact ids
 		$sql = 'SELECT * FROM accounts WHERE deleted = 0';
@@ -70,13 +69,17 @@ if(!empty($sugar_demodata['quotes_seed_data']['quotes'])) {
 	    	break;
 	    }
 
+        $focus->save();
+
 		foreach($quote['bundle_data'] as $bundle_key=>$bundle) {
 			$pb = new ProductBundle();
 	        $pb->team_id = $focus->team_set_id;
             $pb->team_set_id = $focus->team_set_id;
             $pb->currency_id = $focus->currency_id;
+            $pb->base_rate = $focus->base_rate;
 			$pb->bundle_stage = $bundle['bundle_stage'];
 			$pb->name = $bundle['bundle_name'];
+            $pb->shipping = '0.00';
 			
             $product_bundle_id = $pb->save();
             
@@ -92,15 +95,15 @@ if(!empty($sugar_demodata['quotes_seed_data']['quotes'])) {
 	                       $product->$field = $row[$field];
 						}
 					}	                
-
+					$product->product_template_id = $row['id'];
 					$product->name = $products['name'];
 					$product->id = create_guid();
 					$product->new_with_id = true;
 	                $product->quantity = $products['quantity'];
 					$product->currency_id = $focus->currency_id;
+                    $product->base_rate = $focus->base_rate;
 					$product->team_id = $focus->team_id;
 					$product->team_set_id = $focus->team_set_id;
-					$product->quote_id = $focus->id;
 					$product->account_id = $focus->billing_account_id;
 					$product->status = 'Quotes';
 					
@@ -108,20 +111,20 @@ if(!empty($sugar_demodata['quotes_seed_data']['quotes'])) {
 						$product->status='Orders';
 					}
 
-					$pb->subtotal += ($product->list_price * $product->quantity);
-					$pb->deal_tot += ($product->list_price * $product->quantity);
-					$pb->new_sub += ($product->list_price * $product->quantity);
-					$pb->total += ($product->list_price * $product->quantity);
-					
+                    $product->ignoreQuoteSave = true;
 					$product_id = $product->save();
-					$pb->set_productbundle_product_relationship($product_id, $product_key, $product_bundle_id);
+
+                    $product->load_relationship('quotes');
+                    $product->quotes->add($focus);
+
+                    $pb->load_relationship('products');
+                    $pb->products->add($product, array('product_index' => $product_key));
 					break;
 	            } //while
 	            
             } //foreach
 
-            $pb->tax = 0;
-			$pb->shipping = 0;
+            unset($pb->products);
             $pb->save();
             
             //Save any product bundle comment
@@ -129,24 +132,18 @@ if(!empty($sugar_demodata['quotes_seed_data']['quotes'])) {
 				$product_bundle_note = new ProductBundleNote();
 				$product_bundle_note->description = $bundle['comment'];
 				$product_bundle_note->save();
-				$pb->set_product_bundle_note_relationship($bundle_key, $product_bundle_note->id, $product_bundle_id);
+
+                $pb->load_relationship('product_bundle_notes');
+				$pb->product_bundle_notes->add($product_bundle_note, array('note_index' => $bundle_key));
 	        }
-	        
-	        $pb->set_productbundle_quote_relationship($focus->id, $product_bundle_id, $bundle_key);
-	        
-			$focus->tax += $pb->tax;
-			$focus->shipping += $pb->shipping;
-			$focus->subtotal += $pb->subtotal;
-			$focus->deal_tot += $pb->deal_tot;
-			$focus->new_sub += $pb->new_sub;
-			$focus->total += $pb->total;	        
+
+            $focus->load_relationship('product_bundles');
+            $focus->product_bundles->add($pb, array('bundle_index' => $bundle_key));
 	        
 		} //foreach
+        unset($focus->product_bundles);
 		
 		//Save the quote
 		$focus->save();
    } //foreach
 }
-
-
-?>

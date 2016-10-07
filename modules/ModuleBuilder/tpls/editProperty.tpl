@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <form name="editProperty" id="editProperty" onsubmit='return false;'>
 <input type='hidden' name='module' value='ModuleBuilder'>
@@ -28,22 +25,30 @@
 
 {literal}
 <script>
-	function saveAction() {
-		for(var i=0;i<document.editProperty.elements.length;i++)
-		{
-			var field = document.editProperty.elements[i];
-			if (field.className.indexOf('save') != -1 )
-			{
-				if (field.value != 'no_change')
-				{
-					var property = field.name.substring('editProperty_'.length);
-					var id = field.id.substring('editProperty_'.length);
-					document.getElementById(id).innerHTML = YAHOO.lang.escapeHTML(field.value);
-				}
-			}
-		}
-	}
-	
+    function saveAction() {
+{/literal}
+        var widthUnit = '{$widthUnit}';
+{literal}
+        for(var i=0, l=document.editProperty.elements.length; i<l; i++) {
+            var field = document.editProperty.elements[i];
+            if (field.className.indexOf('save') != -1 )
+            {
+                if (field.value != 'no_change')
+                {
+                    var id = field.id.substring('editProperty_'.length);
+                    var fieldSpan = document.getElementById(id);
+                    var value = YAHOO.lang.escapeHTML(field.value);
+
+                    // If editing a width on list layouts, update the unit
+                    if (field.name.toLowerCase().indexOf('width') != -1) {
+                        value = value.replace('px', '').replace('%', '').trim();
+                        fieldSpan.nextElementSibling.innerHTML = field.value == '' || isNaN(+value) ? '' : widthUnit;
+                    }
+                    fieldSpan.innerHTML = value;
+                }
+            }
+        }
+    }
 
 	function switchLanguage( language )
 	{
@@ -59,19 +64,70 @@
 </script>
 {/literal}
 
-<table>
+<table style="width:100%">
 
 	{foreach from=$properties key='key' item='property'}
 	<tr>
-		<td width = "50%" align='right'>{if isset($property.title)}{$property.title}{else}{$property.name}{/if}:</td>
-		<td>
+		<td width="25%" align='right'>{if isset($property.title)}{$property.title}{else}{$property.name}{/if}:</td>
+		<td width="75%">
 			<input class='save' type='hidden' name='{$property.name}' id='editProperty_{$id}{$property.id}' value='no_change'>
 			{if isset($property.hidden)}
 				{$property.value}
 			{else}
-				<input onchange='document.getElementById("editProperty_{$id}{$property.id}").value = this.value' value='{$property.value}'>
+				{if $key == 'width'}
+					<select id="selectWidthClass_{$id}{$property.id}" onchange="handleClassSelection(this)">
+						<option value="" selected="selected">default</option>
+                        {foreach from=$defaultWidths item='width'}
+                            <option value="{$width}">{$width}</option>
+                        {/foreach}
+						<option value="custom">custom</option>
+					</select>
+					<input id="widthValue_{$id}{$property.id}" onchange="handleWidthChange(this.value)" value="{$property.value}" style="display:none">
+                    {literal}
+                    <script>
+                    var propertyValue, widthValue, saveWidthProperty, selectWidthClass;
+                    {/literal}
+
+                    propertyValue = '{$property.value}';
+                    saveWidthProperty = document.getElementById('editProperty_{$id}{$property.id}');
+                    widthValue = document.getElementById('widthValue_{$id}{$property.id}');
+                    selectWidthClass = document.getElementById('selectWidthClass_{$id}{$property.id}');
+
+                    {literal}
+                    if (propertyValue != '') {
+                        if (isNaN(propertyValue)) {
+                            selectWidthClass.value = propertyValue;
+                            widthValue.style.display = 'none';
+                            widthValue.value = '';
+                        } else {
+                            selectWidthClass.value = 'custom';
+                            widthValue.style.display = 'inline';
+                            widthValue.value = isNaN(propertyValue) ? '' : propertyValue;
+                        }
+                    }
+                    function handleClassSelection(el) {
+                        var selected = el.options[el.selectedIndex].value;
+
+                        if (selected === 'custom') {
+                            widthValue.style.display = 'inline';
+                            widthValue.value = isNaN(propertyValue) ? '' : propertyValue;
+                        } else {
+                            widthValue.style.display = 'none';
+                            widthValue.value = '';
+                            saveWidthProperty.value = selected;
+                        }
+                    }
+
+                    function handleWidthChange(w) {
+                        saveWidthProperty.value = w;
+                    }
+                    </script>
+                    {/literal}
+				{else}
+                    <input onchange='document.getElementById("editProperty_{$id}{$property.id}").value = this.value' value='{$property.value}'>
+                {/if}
 			{/if}
-		</td>	
+		</td>
 	</tr>
 	{/foreach}
 	<tr>

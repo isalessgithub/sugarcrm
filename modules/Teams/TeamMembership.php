@@ -1,32 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class TeamMembership extends SugarBean {
     // Stored fields
@@ -40,6 +23,7 @@ class TeamMembership extends SugarBean {
 
     var $table_name = "team_memberships";
     var $object_name = "TeamMembership";
+    var $module_name = 'TeamMemberships';
     var $module_dir = 'Teams';
     var $disable_custom_fields = true;
 
@@ -51,8 +35,8 @@ class TeamMembership extends SugarBean {
 
     var $new_schema = true;
 
-    function TeamMembership() {
-        parent::SugarBean();
+    public function __construct() {
+        parent::__construct();
         $this->disable_row_level_security =true;
     }
 
@@ -65,39 +49,27 @@ class TeamMembership extends SugarBean {
         return $list_form;
     }
 
-    /**
-     * Delete this team membership
-     */
-    public function delete()
+    function delete()
     {
-        $query = sprintf(
-            'UPDATE %s set deleted = 1 where id = %s',
-            $this->table_name,
-            $this->db->quoted($this->id)
-        );
+        $query = "UPDATE $this->table_name set deleted = 1 where id='$this->id'";
         $result = $this->db->query($query, TRUE, "Error deleting team membership ($this->id): ");
     }
 
-    /**
-     * This method retrieves the membership for a given user_id and team_id.
-     * The membership that this is called on is destroyed if a membership is
-     * found matching user_id and team_id
-     * @returns boolean True if found, false if not found.
-     */
-    public function retrieve_by_user_and_team($user_id, $team_id)
+    /** This method retrieves the membership for a given user_id and team_id.
+    * @returns true if found, false if not found.
+    * The membership taht this is called on is destroyed if a membership is found matching user_id and team_id
+    */
+    function retrieve_by_user_and_team($user_id, $team_id)
     {
         // determine whether the user is already on the team
-        $query = sprintf(
-            'SELECT id FROM team_memberships WHERE user_id = %s AND team_id = %s AND deleted = 0',
-            $this->db->quoted($user_id),
-            $this->db->quoted($team_id)
-        );
+        $query = "SELECT id FROM team_memberships WHERE user_id='$user_id' AND team_id='$team_id' AND deleted = 0";
         $result = $this->db->query($query, TRUE, "Error finding team memberships: ");
 
         $row = $this->db->fetchByAssoc($result);
 
         if ($row!= null) {
             $this->retrieve($row['id']);
+
             return true;
         }
 
@@ -105,3 +77,4 @@ class TeamMembership extends SugarBean {
     }
 }
 
+?>

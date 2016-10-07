@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Пожалуйста, исправьте следующие ошибки перед тем, как продолжить:',
@@ -24,10 +21,10 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'Рассылки электронных писем не найдены для этого целевого списка',
   'ERR_NO_EMAIL_MARKETING' => 'Должна быть по меньшей мере одна активная рассылка электронных писем, связанная с маркетинговой кампанией.',
   'ERR_NO_MAILBOX' => 'Следующие рассылки Е-mail не имеют связанных с ними учетных записей.',
-  'ERR_NO_OPTS_SAVED' => 'Оптимальные настройки не были сохранены для входящих писем.',
+  'ERR_NO_OPTS_SAVED' => 'По Вашему аккаунту Входящих Email сообщений оптимальные настройки не сохранены.',
   'ERR_NO_TARGET_LISTS' => 'Должен быть по меньшей мере один целевой список, связанный с маркетинговой кампанией.',
   'ERR_NO_TEST_TARGET_LISTS' => 'Должен быть по меньшей мере один целевой список текстового типа, связанный с данной маркетинговой кампанией.',
-  'ERR_REVIEW_EMAIL_SETTINGS' => 'Пожалуйста, проверьте настройки входящих писем.',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'Пожалуйста, проверьте настройки на входящие письма.',
   'ERR_SENDING_NOW' => 'Сообщения не доставлены, пожалуйста, попробуйте позже.',
   'LBL_ACCOUNTS' => 'Контрагенты',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Контрагенты',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Ожидаемый доход:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Периодичность:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Количество откликов:',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Кампания &#39;{0}&#39; со статусом &#39;Не активна&#39;. Установите статус кампании на &#39;Активна&#39;.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Кампания &#39;{0}&#39; со статусом &#39;Неактивно&#39;. Установите кампании статус &#39;Активно&#39;.',
   'LBL_CAMPAIGN_INFORMATION' => 'Описание маркетинговой кампании',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Предварительные контакты',
   'LBL_CAMPAIGN_NAME' => 'Название:',
@@ -72,7 +69,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_WIZARD' => 'Мастер маркетинговых кампаний',
   'LBL_CAMPAIGN_WIZARD_START_TITLE' => 'Редактировать маркетинговую кампанию:',
   'LBL_CAMP_MESSAGE_COPY' => 'Сохранять копии сообщений рассылок:',
-  'LBL_CAMP_MESSAGE_COPY_DESC' => 'Вы желаете сохранять полные копии <bold>КАЖДОГО</bold> отправленного Еmail-сообщения?  <bold>Мы НЕ рекомендуем этого делать.</bold>  Если вы выберите <b>НЕТ</b>, то будут сохраняться лишь шаблоны отправленных сообщений и вы можете воспользоваться системными переменными для воссоздания необходимых сообщений.',
+  'LBL_CAMP_MESSAGE_COPY_DESC' => 'Вы желаете сохранять полные копии <bold>КАЖДОГО</bold> отправленного Еmail-сообщения?  <bold>Мы НЕ рекомендуем этого делать.</bold>  Если Вы выберите <b>НЕТ</b>, то будут сохраняться лишь шаблоны отправленных сообщений и Вы можете воспользоваться системными переменными для воссоздания необходимых сообщений.',
   'LBL_CHARSET_NOTICE' => 'ВНИМАНИЕ: Убедитесь, что на странице, содержащей форму из сети-в-предварительные контакты, есть следующие линии в секции <head>:',
   'LBL_CHOOSE_CAMPAIGN_TYPE' => 'Тип маркетинговой кампании',
   'LBL_CHOOSE_NEXT_STEP' => 'Выберите ваш следующий шаг',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Создатель:',
   'LBL_CREATED_BY' => 'Создано пользователем:',
   'LBL_CREATED_USER' => 'Создано',
+  'LBL_CREATE_EMAIL' => 'Создать Email',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Создать',
   'LBL_CREATE_MAILBOX' => 'Новая учетная запись',
   'LBL_CREATE_NEWSLETTER' => 'Новый проспект',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Создать Web-форму регистрации предв. контакта',
   'LBL_CURRENCY' => 'Валюта:',
   'LBL_CURRENCY_ID' => 'Код валюты',
+  'LBL_CURRENCY_RATE' => 'Валютный курс',
   'LBL_CUSTOM_LOCATION' => 'Задается пользователем',
   'LBL_DATE_CREATED' => 'Дата создания:',
   'LBL_DATE_ENTERED' => 'Дата создания',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Настроить параметры электронной почты',
   'LBL_EMAIL_SETUP_WIZARD' => 'Настройка параметров рассылок',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Параметры почтовых рассылок',
+  'LBL_EMAIL_TITLE' => 'Кампании: Email (-ы)',
+  'LBL_END_DATE' => 'Дата окончания',
   'LBL_FILTER_CHART_BY' => 'Фильтрация диаграммы по:',
   'LBL_FINISH' => 'Готово',
   'LBL_FROM_ADDR' => 'Адрес отправителя',
@@ -195,7 +196,7 @@ $mod_strings = array (
   'LBL_MAILBOX_CHECK2_BAD' => 'Не настроены параметры электронной почты. Пожалуйста, настройте системную учётную запись.',
   'LBL_MAILBOX_CHECK2_GOOD' => 'Параметры электронной почты настроены следующим образом:',
   'LBL_MAILBOX_CHECK_WIZ_BAD' => 'Учетная запись для возвращаемых писем не обнаружена. Пожалуйста, создайте её:',
-  'LBL_MAILBOX_CHECK_WIZ_GOOD' => 'Учетная запись для возвращаемых писем обнаружена. Не обязательно создавать еще одну, однако, если в этом все же есть необходимость, вы можете сделать это сейчас:',
+  'LBL_MAILBOX_CHECK_WIZ_GOOD' => 'Учетная запись для возвращаемых писем обнаружена. Не обязательно создавать еще одну, однако, если в этом все же есть необходимость, Вы можете сделать это сейчас:',
   'LBL_MAILBOX_DEFAULT' => 'INBOX',
   'LBL_MAILBOX_NAME' => 'Имя учетной записи:',
   'LBL_MAIL_SENDTYPE' => 'Отправка почты с помощью',
@@ -205,7 +206,7 @@ $mod_strings = array (
   'LBL_MAIL_SMTPSERVER' => 'Сервер исходящей почты',
   'LBL_MAIL_SMTPUSER' => 'SMTP-логин',
   'LBL_MANAGE_SUBSCRIPTIONS_TITLE' => 'Управление подписками',
-  'LBL_MARKETING_CHECK1_BAD' => 'Необходимые составляющие для осуществления рассылки НЕ обнаружены, вам требуется добавить все необходимые компоненты.',
+  'LBL_MARKETING_CHECK1_BAD' => 'Необходимые составляющие для осуществления рассылки НЕ обнаружены, Вам требуется добавить все необходимые компоненты.',
   'LBL_MARKETING_CHECK1_GOOD' => 'Необходимые составляющие для осуществления рассылки обнаружены.',
   'LBL_MARKETING_CHECK2_BAD' => 'Не обнаружены целевые списки. Необходимо создать хотя бы один в настройках желаемой рассылки.',
   'LBL_MARKETING_CHECK2_GOOD' => 'Целевые списки обнаружены.',
@@ -242,7 +243,7 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Новая кампания',
   'LBL_NO' => 'Нет',
   'LBL_NONE' => 'ничего не создано',
-  'LBL_NON_ADMIN_ERROR_MSG' => 'Пожалуйста, сообщите вашему системному администратору о возникшей проблеме.',
+  'LBL_NON_ADMIN_ERROR_MSG' => 'Пожалуйста, сообщите Вашему системному администратору о возникшей проблеме.',
   'LBL_NOTIFY_TITLE' => 'Параметры почтовых отправлений',
   'LBL_NOT_VALID_EMAIL_ADDRESS' => 'Неверный электронный адрес',
   'LBL_NO_SUBS_ENTRIES_WARNING' => 'Вы не можете осуществлять рассылку до тех пор, пока в списке Подписки не появится по крайней мере одна запись. Вы можете заполнить список по окончании настроек.',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Использовать SSL',
   'LBL_SSL_DESC' => 'Если ваш почтовый сервер поддерживает защищенное соединение, то включение данной опции приведет к созданию SSL-соединения при импортировании электронной почты.',
   'LBL_START' => 'Вперед',
+  'LBL_START_DATE' => 'Дата начала',
   'LBL_START_DATE_TIME' => 'Дата и время начала:',
+  'LBL_STATUS' => 'Статус',
   'LBL_STATUS_TEXT' => 'Статус:',
   'LBL_SUBSCRIPTION_LIST' => 'Список подписок на рассылку',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Список подписчиков:',
@@ -321,7 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Просмотр деталей',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Просмотр деталей',
   'LBL_TOP_CAMPAIGNS' => 'Самые доходные маркет. кампании',
-  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Наилучшие кампании по уровню дохода',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Наилучшие кампании по доходам',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Название маркет. кампании',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Доход',
   'LBL_TOTAL_ENTRIES' => 'Общее количество:',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Произойдет удаление журнала данных, созданного при запуске теста. Продолжить?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Трек очереди',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Просмотр рентабельности инвестиций (ROI)',
+  'LBL_TYPE' => 'Тип',
   'LBL_UNSUBSCRIBED_HEADER' => 'Доступные рекламные проспекты / Отписка от рассылки',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Перемещение проспекта в список <b>Доступные рекламные проспекты / Отписка от рассылки</b> приведет к добавлению контакта в список отписанных от данного рекламного проспекта.  Это не приведет к удалению контакта из оригинального списка отписавшихся или целевого списка.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Список отказов от рассылки',
@@ -380,7 +384,7 @@ $mod_strings = array (
   'LBL_WIZ_TEST_EMAIL_TITLE' => 'Тестовое электронное письмо',
   'LBL_YEAR' => 'Год',
   'LBL_YES' => 'Да',
-  'LNK_CAMPAIGN_DIGNOSTIC_LINK' => 'Рассылка не может работать должным образом и ваши письма  не будут отправлены по следующим причинам:',
+  'LNK_CAMPAIGN_DIGNOSTIC_LINK' => 'Рассылка не может работать должным образом и Ваши письма  не будут отправлены по следующим причинам:',
   'LNK_CAMPAIGN_LIST' => 'Обзор маркетинговых кампаний',
   'LNK_EMAIL_TEMPLATE_LIST' => 'Просмотреть шаблоны сообщений',
   'LNK_NEW_CAMPAIGN' => 'Новая маркетинговоя кампания',

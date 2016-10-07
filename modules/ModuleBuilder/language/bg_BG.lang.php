@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Грешка: полетата вече съществуват',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Отмени',
   'LBL_BTN_CLONE' => 'Дублирай',
   'LBL_BTN_CLOSE' => 'Затвори',
+  'LBL_BTN_COPY' => 'Копирай',
+  'LBL_BTN_COPY_FROM' => 'Копиране от ...',
   'LBL_BTN_DELETE' => 'Изтрий',
   'LBL_BTN_DEPLOY' => 'Инсталирай',
   'LBL_BTN_DONT_SAVE' => 'Игнорирай промените',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Върни',
   'LBL_BTN_VIEW_FIELDS' => 'Полета',
   'LBL_BTN_VIEW_LAYOUTS' => 'Подредба на екрани',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Мобилни екрани',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Връзки с други модули',
   'LBL_BUG_TRACKER' => 'Проблеми',
   'LBL_CALCULATED' => 'Изчислявано по формула',
   'LBL_CASES' => 'Казуси',
   'LBL_CLEAR_EXTENSIONS' => 'Премахване на разширенията към модула',
   'LBL_CLEAR_RELATIONSHIPS' => 'Премахване на създадени в Studio връзки с други модули',
+  'LBL_COMBO_FIELD_CONTAINS' => 'съдържа:',
   'LBL_COMPANY' => 'Свързани с тип организация',
   'LBL_CONFIG_PORTAL_URL' => 'URL to custom logo image. Препоръчваните размери са 163 × 18 точки.',
   'LBL_CONFIRM_DONT_SAVE' => 'Има налични промени от момента на последното Ви запазване. Искате ли да запазите?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Сигурни ли сте, че искате да изтриете връзката с другия модул?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Връзката с модула ще бъде записана в базата. Сигурни ли сте, че искате да съхраните тази връзка?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'You are selecting this item for removal from the dropdown list. Any dropdown fields using this list with this item as a value will no longer display the value, and the value will no longer be able to be selected from the dropdown fields. Are you sure you want to continue?',
+  'LBL_COPY_FROM' => 'Копирай стойност от:',
   'LBL_COPY_FROM_EDITVIEW' => 'Копирай от формата за редактиране',
   'LBL_CREATE' => 'Създай',
   'LBL_CREATE_NEW' => 'Създай нов',
   'LBL_CURRENCY' => 'Валута',
   'LBL_CURRENT_LAYOUT' => 'Текуща подредба',
-  'LBL_CUSTOM' => 'Custom',
-  'LBL_CUSTOMIZE_THEME' => 'Модифциране на тема',
+  'LBL_CUSTOM' => 'Персонализиран',
   'LBL_CUSTOM_FIELDS' => '* поле създадено в Студио',
   'LBL_CUSTOM_MODULE' => 'Модул',
   'LBL_CUSTOM_RELATIONSHIPS' => '* връзката с другите модули е създадена чрез "Студио" или "Създаване на нови модули"',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Dependant',
   'LBL_DEPENDENCY' => 'Зависимост',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Drag options from the list on the left of available options in the dependent dropdown to the lists on the right to make those options available when the parent option is selected. If no items are under a parent option, when the parent option is selected, the dependent dropdown will not be displayed.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Забележка: Потребителите трябва да презаредят екрана за редактиране на записа, за да станат направените промени видими.',
   'LBL_DEPLOYE_COMPLETE' => 'Завърши и публикувай',
   'LBL_DEPLOY_FAILED' => 'Възникна грешка по време на процеса, вашият пакет може да не е инсталиран правилно',
   'LBL_DEPLOY_IN_PROGRESS' => 'Инсталиране на пакета',
@@ -139,12 +139,15 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEM_NAME' => 'Име на падащото меню',
   'LBL_DROPDOWN_KEY_EXISTS' => 'Ключът съществува в списъка',
   'LBL_DROPDOWN_LANGUAGE' => 'Език по подразбиране',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Списъкът трябва да съдържа поне една разрешена позиция',
   'LBL_DROPDOWN_TITLE_NAME' => 'Име',
   'LBL_DROP_HERE' => '[Поставете тук]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Зависимост',
   'LBL_EC_AUTHOR' => 'Автор:',
   'LBL_EC_CHECKERROR' => 'Моля, изберете модул.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'персонализирано падащо меню(та)',
   'LBL_EC_CUSTOMFIELD' => 'променени полета',
+  'LBL_EC_CUSTOMLABEL' => 'модифицирани етикети',
   'LBL_EC_CUSTOMLAYOUT' => 'променени подредби на екрани',
   'LBL_EC_DESCRIPTION' => 'Описание:',
   'LBL_EC_EMPTYCUSTOM' => 'has empty customizations.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Полета',
   'LBL_FILE' => 'Файл',
   'LBL_FILLER' => '(Филтър)',
+  'LBL_FILTER_SEARCH' => 'Търси',
   'LBL_FORMULA' => 'Формула',
   'LBL_FORMULA_BUILDER' => 'Създаване на формула',
   'LBL_FORMULA_INVALID' => 'Невалидна формула',
   'LBL_FORMULA_TYPE' => 'Формулата трябва да бъде от тип',
   'LBL_HCUSTOM' => 'Потребителски полета',
   'LBL_HDEFAULT' => 'Стандартни полета',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Копирай от подредба',
   'LBL_HIDDEN' => 'Скрити',
   'LBL_HIDEOPTIONS' => 'Скриване на опции',
   'LBL_HIGH' => 'Висока',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Мои',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Редактор на падащи менюта',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Drop down key cannot contain quotes.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indicates a combination field. A combination field is a collection of individual fields. For example, "Address" is a combination field that contains "Street address", "City", "Zip Code","State" and "Country".<br><br>Doubleclick a combination field to see which fields it contains.',
   'LBL_ISSUE' => 'Свързани с тип казус',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Сигурни ли сте, че искате да изтриете този задължителен ред от падащия списък? Това може да засегне функционалността на вашето приложение.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Сигурни ли сте, че искате да изтриете етапите Спечелена и Загубена на възможностите? Изтриването на тези етапи ще наруши функционалността на модул Прогнози',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Сигурни ли сте, че искате да изтриете етапите Спечелена и Загубена на възможностите? Изтриването на тези етапи ще наруши функционалността на модул Прогнози',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Сигурни ли сте, че желаете да изтриете статуса В процес на изпълнение за водените търговски преговори. Изтриването на статуса ще доведе до нарушаване на работата на автоматизираните задачи, свързани с Приходни позиции в отделните Възможности.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Сигурни ли сте, че желаете да изтриете статуса Нов за водените търговски преговори. Изтриването на статуса ще доведе до нарушаване на работата на автоматизираните задачи, свързани с Приходни позиции в отделните Възможности.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Сигурни ли сте, че искате да изтриете този ред от падащия списък?  Изтриването на етапите  Спечелена и Загубена на възможностите ще наруши функционалността на модул Прогнози',
   'LBL_JS_DEPLOY_PACKAGE' => 'Всички настройки извършени в Студио ще бъдат загубени, когато този модул бъде инсталиран отново. Сигурни ли сте, че искате да продължите?',
   'LBL_JS_REMOVE_MODULE' => 'Сигурни ли сте, че искате да изтриете този модул? Всички файлове асоциирани с модула ще бъдат премахнати.',
   'LBL_JS_REMOVE_PACKAGE' => 'Сигурни ли сте, че искате да изтриете този пакет? Всички файлове асоциирани с пакета ще бъдат премахнати.',
   'LBL_JS_VALIDATE_KEY' => 'Ключ - Трябва да бъде последователност от букви и цифри без интервали и да започва с буква',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Ключ - Трябва да съдържа комбинация от букви и цифри, започваща с буква.',
   'LBL_JS_VALIDATE_LABEL' => 'Моля изберете етикет, който да се използва за заглавие на този модул',
   'LBL_JS_VALIDATE_NAME' => 'Име - Трябва да бъде последователност от букви и цифри без интервали и да започва с буква',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Съществува пакет с такова име',
@@ -202,7 +215,7 @@ $mod_strings = array (
   'LBL_LANGUAGE' => 'Език:',
   'LBL_LAST_MODIFIED' => 'Последна модификация:',
   'LBL_LAYOUTS' => 'Подредба на екрани',
-  'LBL_LAYOUT_PREVIEW' => 'Layout Preview',
+  'LBL_LAYOUT_PREVIEW' => 'Преглед на подредбата',
   'LBL_LHS_MODULE' => 'Основен модул',
   'LBL_LIST' => 'Списък',
   'LBL_LISTVIEW' => 'Списък на записите',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Полето не е намерено',
   'LBL_NO_FUNCS' => 'Функцията не е намерена',
   'LBL_NO_RELS' => 'Няма дефинирани връзки с други модули',
-  'LBL_NO_SAVE_ACTION' => 'Could not find the save action for this view.',
+  'LBL_NO_SAVE_ACTION' => 'Скриптът за запис на този изглед не може да бъде намерен.',
   'LBL_NUMBER' => 'Номер:',
   'LBL_ONETOMANY' => 'Един към много',
   'LBL_ONETOONE' => 'Един към един',
@@ -278,7 +291,7 @@ $mod_strings = array (
   'LBL_PORTAL_ENABLE' => 'Активирай',
   'LBL_PORTAL_ENABLE_MODULES' => 'Ако искате да ги разрешите в портала, можете да го направите <a id="configure_tabs" target="_blank" href="./index.php?module=Administration&amp;action=ConfigureTabs">тук</a>.',
   'LBL_PORTAL_GO' => 'Go',
-  'LBL_PORTAL_LAYOUTS' => 'Portal Layouts',
+  'LBL_PORTAL_LAYOUTS' => 'Подредби в Портал',
   'LBL_PORTAL_LIST_NUMBER' => 'Брой на показвани записи в списъка',
   'LBL_PORTAL_LOGO_URL' => 'Logo URL',
   'LBL_PORTAL_ROLE_DESC' => 'Не изтривайте тази потребителска роля. Тя системно генерирана в процеса на активиране на Sugar портал. Използвайте контролите в ролята, за да разрешите/забраните модулите Проблеми, Казуси или База от знания в Sugar портал. Не модифицирайте никоя от останалите контроли за тази роля, за да избегнете потенциално некоректно поведение на системата. В случай че случайно изтриете тази роля, създайте я отново като забраните и след това отново разрешите Sugar портал.',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Select a Sugar Portal layout to edit.',
   'LBL_QUICKCREATE' => 'Кратка форма за създаване',
   'LBL_READ_ONLY' => 'Само за четене',
+  'LBL_RECORDVIEW' => 'Съдържание на записа',
   'LBL_RELATED_FIELD' => 'Свързано поле',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
   'LBL_RELATE_TO' => 'Свързано със',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Първоначални настройки',
   'LBL_RESTORE_DEFAULT' => 'Настройки по подразбиране',
   'LBL_RHS_MODULE' => 'Свързан модул',
+  'LBL_ROLE' => 'Роля',
   'LBL_ROLLUP' => 'Rollup',
   'LBL_RSUB' => 'This is the subpanel that will be displayed in your module',
   'LBL_SALE' => 'Свързани с тип сделка',
-  'LBL_SAVE' => 'Съхрани',
   'LBL_SAVE_LAYOUT' => 'Запазване на подредба',
   'LBL_SEARCH' => 'Търси',
   'LBL_SEARCH_FIELDS' => 'Търсене на поле...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Избиране на панел със свързани записи',
   'LBL_SELECT_FILE' => 'Избиране на файл',
   'LBL_SELECT_SUBPANEL' => 'Избери панел със свързани записи',
+  'LBL_SINGULAR_LABEL' => 'Етикет в единствено число',
   'LBL_SP_PREVIEW' => 'Here is a preview of what the Sugar Portal will look like using the style sheet.',
   'LBL_SP_UPLOADED' => 'Заредени',
   'LBL_SP_UPLOADSTYLE' => 'Select a style sheet to upload from your computer.<br> The style sheet will be implemented in the Sugar Portal the next time you perform a sync.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>EditView</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.',
       'defaultdetailview' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>DetailView</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.',
       'defaultquickcreate' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>QuickCreate</b> form.<br><br>The QuickCreate form appears in the subpanels for the module when the Create button is clicked.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.',
+      'defaultrecordview' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>Record View</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indicates a Dependent field that may or may not be visible based on the value of a formula.<br/>Indicates a Calculated field whose value will be automatically determined based on a formula.',
       'delete' => 'Drag and drop any element here to remove it from the layout',
       'historyBtn' => 'Click <b>View History</b> to view and restore a previously saved layout from the history.',
       'historyDefault' => 'Click <b>Restore Default</b> to restore a view to its original layout.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => 'Типът <b>Сделка</b> съдържа предефинирани полета специфични за описание на водени търговски преговори, като Източник, Етап на преговори, Сума и Вероятност за успех. <br/><br/>Използвайте този шаблон за създаване на модули подобни на стандартния Възможности.',
       'viewfieldsbtn' => 'Натиснете <b>Полета</b> , за да разгледате дефинираните полета и да създадете нови.',
       'viewlayoutsbtn' => 'Натиснете <b>Подредба на екрани</b> , за да разгледате дефинираните подредби за модула и модифицирате подредбата на полета в тях.',
+      'viewmobilelayoutsbtn' => 'Натиснете <b>Мобилни екрани</b>, за да видите подредбата на мобилните екрани за модула и да персонализирате визуализацията на полетата.',
       'viewrelsbtn' => 'Натиснете <b>Връзки с други модули</b> , за да разгледате дефинираните връзки и да създадете нови.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'All of the <b>Relationships</b> that exist between the module and other deployed modules appear here.<br><br>The relationship <b>Name</b> is the system-generated name for the relationship.<br><br>The <b>Primary Module</b> is the module that owns the relationships.  For example, all of the properties of the relationships for which the Accounts module is the primary module are stored in the Accounts database tables.<br><br>The <b>Type</b> is the type of relationship exists between the Primary module and the <b>Related Module</b>.<br><br>Click a column title to sort by the column.<br><br>Click a row in the relationship table to view the properties associated with the relationship.<br><br>Click <b>Add Relationship</b> to create a new relationship.<br><br>Relationships can be created between any two deployed modules.',
       'searchBtn' => 'Customize the module&#39;s <b>Search</b> layouts.<br><br>Determine what fields can be used to filter records that appear in the ListView.',
       'searchHelp' => 'The <b>Search</b> forms that can be customized appear here.<br><br>Search forms contain fields for filtering records.<br><br>Click an icon to select the search layout to edit.',
+      'studioBCHelp' => 'показва, че модулът е съвместим с предишни версии на продукта',
       'studioBtn' => 'Използвайте инструмента <b>Студио</b> , за да модифицирате инсталирани модули.',
       'studioHelp' => 'Use <b>Studio</b> to determine what and how information is displayed in the modules.',
       'subpanelBtn' => 'Determine which fields appear in the <b>Subpanels</b> in the module.',

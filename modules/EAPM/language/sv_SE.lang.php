@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTIVE' => 'Aktiv',
@@ -48,6 +45,8 @@ $mod_strings = array (
   'LBL_ERR_NO_AUTHINFO' => 'Det finns ingen autentiseringsinformation för de här kontot.',
   'LBL_ERR_NO_RESPONSE' => 'Ett fel uppstod under försöket att ansluta det här kontot.',
   'LBL_ERR_NO_TOKEN' => 'Det finns inga giltiga login tokens för det här kontot',
+  'LBL_ERR_OAUTH_FACEBOOK_1' => 'Facebook sessionen har löpt ut. För att få stream, vänligen',
+  'LBL_ERR_OAUTH_FACEBOOK_2' => 'logga in på Facebook igen',
   'LBL_ERR_POPUPS_DISABLED' => 'Var vänlig aktivera webbläsar popup fönster eller lägg till undantag för hemsida"{0}" i undantagslistan för att kunna ansluta.',
   'LBL_ERR_TWITTER' => 'Twitter returnerade ett fel, och flödet kan inte visas.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Visa Historik',
@@ -61,6 +60,7 @@ $mod_strings = array (
   'LBL_MODIFIED_NAME' => 'Redigerad av användarnamn',
   'LBL_MODIFIED_USER' => 'Ändrad av användare',
   'LBL_MODULE_NAME' => 'Externt Konto',
+  'LBL_MODULE_NAME_SINGULAR' => 'Externt Konto',
   'LBL_MODULE_TITLE' => 'Externa Konton',
   'LBL_NAME' => 'App Användarnamn',
   'LBL_NEW_FORM_TITLE' => 'Nytt Externt Konto',
@@ -72,6 +72,7 @@ $mod_strings = array (
   'LBL_REAUTHENTICATE_KEY' => 'a',
   'LBL_REAUTHENTICATE_LABEL' => 'Autentisera Igen',
   'LBL_SEARCH_FORM_TITLE' => 'Sök efter extern resource',
+  'LBL_SUCCESS' => 'SUCCESS',
   'LBL_SUGAR_EAPM_SUBPANEL_TITLE' => 'Externa Konton',
   'LBL_SUGAR_USER_NAME' => 'Sugaranvändare',
   'LBL_TEAM' => 'Teams',

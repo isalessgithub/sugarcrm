@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Base/SugarFieldBase.php');
 
@@ -89,7 +88,12 @@ class SugarFieldEnum extends SugarFieldBase {
     	}
     }
 
-    function displayFromFunc( $displayType, $parentFieldArray, $vardef, $displayParams, $tabindex ) {
+    /**
+     * Can return a smarty template for the current view type.
+     * {@inheritdoc}
+     */
+    public function displayFromFunc($displayType, $parentFieldArray, $vardef, $displayParams, $tabindex = 0)
+    {
         if ( isset($vardef['function']['returns']) && $vardef['function']['returns'] == 'html' ) {
             return parent::displayFromFunc($displayType, $parentFieldArray, $vardef, $displayParams, $tabindex);
         }
@@ -113,7 +117,8 @@ class SugarFieldEnum extends SugarFieldBase {
         // Bug 27467 - Trim the value given
         $value = trim($value);
         
-        if ( isset($app_list_strings[$vardef['options']]) 
+        if ( isset($vardef['options'])
+                && isset($app_list_strings[$vardef['options']])
                 && !isset($app_list_strings[$vardef['options']][$value]) ) {
             // Bug 23485/23198 - Check to see if the value passed matches the display value
             if ( in_array($value,$app_list_strings[$vardef['options']]) )
@@ -152,5 +157,21 @@ class SugarFieldEnum extends SugarFieldBase {
 			return $rawField;
 		}
     }
+
+
+    /*
+     * @see SugarFieldBase::getEmailTemplateValue()
+     */
+    public function getEmailTemplateValue($inputField, $vardef, $context = null) {
+
+        //if function is defined then call the function value and retrieve the input field string
+        if(!empty($vardef['function'])) {
+            // figure out the bean we should be using
+            $bean = (isset($vardef['function_bean']) && !empty($vardef['function_bean'])) ? $vardef['function_bean'] : null;
+            return getFunctionValue($bean, $vardef['function'], $args = array('selectID' => $inputField));
+        }
+        
+        // call format field to return value
+        return $this->formatField($inputField,$vardef);
+    }
 }
-?>

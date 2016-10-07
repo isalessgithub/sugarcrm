@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Var god åtgärda dessa fel innan ni fortsätter',
@@ -24,8 +21,10 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'Hittade inget epost utskicksmeddelande för den här mållistan',
   'ERR_NO_EMAIL_MARKETING' => 'Det måste finnas minst ett aktivt epost utskicks meddelande kopplat till kampanjen.',
   'ERR_NO_MAILBOX' => 'Följande utskicksmeddelanden saknar koppling till epostkonto.<BR>Var god korrigera det innan du fortsätter',
+  'ERR_NO_OPTS_SAVED' => 'Inga optimum sparades med ditt inkommande epostkonto.',
   'ERR_NO_TARGET_LISTS' => 'Det måste finnas minst en mållista associerad med kampanjen.',
   'ERR_NO_TEST_TARGET_LISTS' => 'Det måste finnas minst en mållista av typen Test associerad med kampanjen.',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'Gå igenom inkommande e-postinställningar.',
   'ERR_SENDING_NOW' => 'Meddelandet kunde inte levereras, var god försök igen senare.',
   'LBL_ACCOUNTS' => 'Organisationer',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Konton',
@@ -55,6 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Förväntad intäkt:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frekvens:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Adressater:',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Kampanj &#39;{0}&#39; har status "Inaktiv". Du måste ange kampanj status till "Aktiv".',
   'LBL_CAMPAIGN_INFORMATION' => 'Kampanjöversikt',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Leads',
   'LBL_CAMPAIGN_NAME' => 'Namn:',
@@ -85,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Skapad av:',
   'LBL_CREATED_BY' => 'Skapad av:',
   'LBL_CREATED_USER' => 'Skapad användare',
+  'LBL_CREATE_EMAIL' => 'Skapa Epost',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Skapa',
   'LBL_CREATE_MAILBOX' => 'Skapa nytt epostkonto',
   'LBL_CREATE_NEWSLETTER' => 'Skapa nyhetsbrev',
@@ -93,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'SkapaWebbTillLeadFormulär',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'Valuta ID',
+  'LBL_CURRENCY_RATE' => 'Valutakursen',
   'LBL_CUSTOM_LOCATION' => 'Tillåt att välja',
   'LBL_DATE_CREATED' => 'Skapande datum:',
   'LBL_DATE_ENTERED' => 'Skapat datum',
@@ -143,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Gå till epost inställningar',
   'LBL_EMAIL_SETUP_WIZARD' => 'Epost inställningar',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Epost inställningar för kampanjer',
+  'LBL_EMAIL_TITLE' => 'Kampanjer: Epost',
+  'LBL_END_DATE' => 'Slutdatum',
   'LBL_FILTER_CHART_BY' => 'Filtrera diagram med:',
   'LBL_FINISH' => 'Avsluta',
   'LBL_FROM_ADDR' => '"Från" adress',
@@ -214,6 +218,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Redigerad av',
   'LBL_MODIFIED_USER' => 'Ändrad användare',
   'LBL_MODULE_NAME' => 'Kampanjer',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampanj',
   'LBL_MODULE_TITLE' => 'Kampanjer:Hem',
   'LBL_MONTH' => 'Månad',
   'LBL_MORE_DETAILS' => 'Mer detaljer',
@@ -290,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Använd SSL',
   'LBL_SSL_DESC' => 'Om din mailserver stödjer secure socket connections, kommer detta att tvinga systemet att använda SSL connections vid import av epost.',
   'LBL_START' => 'Start',
+  'LBL_START_DATE' => 'Startdatum',
   'LBL_START_DATE_TIME' => 'Startdatum & tid:',
+  'LBL_STATUS' => 'Status',
   'LBL_STATUS_TEXT' => 'Status:',
   'LBL_SUBSCRIPTION_LIST' => 'Prenumerationslista',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Namn på lista för prenumerationer:',
@@ -317,6 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Se detaljer',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Se detaljer',
   'LBL_TOP_CAMPAIGNS' => 'Toppkampanjer',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Top Performing kampanjer från Revenue',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Kampanjnamn',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Intäkt',
   'LBL_TOTAL_ENTRIES' => 'Poster',
@@ -339,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Detta val kommer att radera loggposter som skapats av testutskicket. Vill du fortsätta?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Track kö',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Visa ROI',
+  'LBL_TYPE' => 'Typ',
   'LBL_UNSUBSCRIBED_HEADER' => 'Befintliga nyhetsbrev',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Flyttar du nyhetsbrevet till "Tillgängliga nyhetsbrev/Nyhetsbrev ej prenumeration" listan kommer den att lägga till kontakten på listan för "Stoppa prenumeration" listan för nyhetsbrev. Kontakten kommer inte att tas bort från original prenumerations listan eller mållistan.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Lista på uppsagda prenumerationer',

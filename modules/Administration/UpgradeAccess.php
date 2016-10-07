@@ -1,67 +1,29 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
-
+require_once 'install/install_utils.php';
 global $mod_strings;
 global $sugar_config;
 
 $ignoreCase = (substr_count(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache/2') > 0)?'(?i)':'';
 $htaccess_file   = getcwd() . "/.htaccess";
-$contents = '';
-$basePath = parse_url($sugar_config['site_url'], PHP_URL_PATH);
-if(empty($basePath)) $basePath = '/';
+$contents = getHtaccessData($htaccess_file);
 
-$restrict_str = <<<EOQ
-# BEGIN SUGARCRM RESTRICTIONS
-RedirectMatch 403 {$ignoreCase}.*\.log$
-RedirectMatch 403 {$ignoreCase}/+not_imported_.*\.txt
-RedirectMatch 403 {$ignoreCase}/+(soap|cache|xtemplate|data|examples|include|log4php|metadata|modules)/+.*\.(php|tpl)
-RedirectMatch 403 {$ignoreCase}/+emailmandelivery\.php
-RedirectMatch 403 {$ignoreCase}/+upload
-RedirectMatch 403 {$ignoreCase}/+cache/+diagnostic
-RedirectMatch 403 {$ignoreCase}/+files\.md5\$
-<IfModule mod_rewrite.c>
-    Options +FollowSymLinks
-    RewriteEngine On
-    RewriteBase {$basePath}
-    RewriteRule ^cache/jsLanguage/(.._..).js$ index.php?entryPoint=jslang&module=app_strings&lang=$1 [L,QSA]
-    RewriteRule ^cache/jsLanguage/(\w*)/(.._..).js$ index.php?entryPoint=jslang&module=$1&lang=$2 [L,QSA]
-</IfModule>
-# END SUGARCRM RESTRICTIONS
-EOQ;
-
-if(file_exists($htaccess_file)){
-    $fp = fopen($htaccess_file, 'r');
-    $skip = false;
-    while($line = fgets($fp)){
-
-    	if(preg_match('/\s*#\s*BEGIN\s*SUGARCRM\s*RESTRICTIONS/i', $line))$skip = true;
-        if(!$skip)$contents .= $line;
-        if(preg_match('/\s*#\s*END\s*SUGARCRM\s*RESTRICTIONS/i', $line))$skip = false;
-    }
-}
-if(substr($contents, -1) != "\n") {
-    $restrict_str = "\n".$restrict_str;
-}
-$status =  file_put_contents($htaccess_file, $contents . $restrict_str);
+$status =  file_put_contents($htaccess_file, $contents);
 if( !$status ){
     echo '<p>' . $mod_strings['LBL_HT_NO_WRITE'] . "<span class=stop>{$htaccess_file}</span></p>\n";
     echo '<p>' . $mod_strings['LBL_HT_NO_WRITE_2'] . "</p>\n";
-    echo "{$redirect_str}\n";
+    echo "{$contents}\n";
 }
 
 
@@ -107,7 +69,7 @@ include('modules/Versions/ExpectedVersions.php');
 global $expect_versions;
 
 if (isset($expect_versions['htaccess'])) {
-        $version = new Version();
+        $version = BeanFactory::getBean('Versions');
         $version->retrieve_by_string_fields(array('name'=>'htaccess'));
 
         $version->name = $expect_versions['htaccess']['name'];

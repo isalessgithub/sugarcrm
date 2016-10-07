@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-require_once('include/nusoap/nusoap.php');
+require_once('vendor/nusoap//nusoap.php');
 
 /**
  * Plugin management
@@ -25,12 +22,7 @@ class SugarPlugins
     /**
      * @const URL of the Sugar plugin server
      */
-    const SUGAR_PLUGIN_SERVER = 'http://www.sugarcrm.com/crm/plugin_service.php?wsdl';
-
-    /*
-     * @var object Proxy allowing for direct calling of methods from WSDL
-     */
-    private $proxy;
+    const SUGAR_PLUGIN_SERVER = 'https://www.sugarcrm.com/crm/plugin_service.php?wsdl';
 
     /**
      * Constructor
@@ -39,8 +31,11 @@ class SugarPlugins
      */
 	public function __construct()
 	{
-        $server = new nusoapclient(self::SUGAR_PLUGIN_SERVER, TRUE);
-        $this->proxy = $server->getProxy();
+		$this->server = new nusoapclient(self::SUGAR_PLUGIN_SERVER, TRUE);
+		if ($this->server->getError())
+			$this->server=false;
+		else
+			$this->proxy = $this->server->getProxy();
 	}
 
 	/**
@@ -51,10 +46,7 @@ class SugarPlugins
 	public function getPluginList()
 	{
 		$plugins = array();
-        if (empty($this->proxy))
-        {
-            return $plugins;
-        }
+		if(!$this->server)return $plugins;
 		$result = $this->proxy->get_plugin_list($GLOBALS['license']->settings['license_key'], $GLOBALS['sugar_version']);
 		if(!empty($result[0]['item'])){
 			$plugins = $result[0]['item'];
@@ -73,10 +65,7 @@ class SugarPlugins
 	    )
 	{
 		$plugins = array();
-        if (empty($this->proxy))
-        {
-            return $plugins;
-        }
+		if(!$this->server)return $plugins;
 		$result = $this->proxy->get_plugin_token($GLOBALS['license']->settings['license_key'], $GLOBALS['current_user']->id, $plugin_id);
 		return $result['token'];
 	}
@@ -92,6 +81,6 @@ class SugarPlugins
 	{
 		$token = $this->_getPluginDownloadToken($plugin_id);
 		ob_clean();
-		SugarApplication::redirect('http://www.sugarcrm.com/crm/plugin_service.php?token=' . $token );
+		SugarApplication::redirect('https://www.sugarcrm.com/crm/plugin_service.php?token=' . $token );
 	}
 }

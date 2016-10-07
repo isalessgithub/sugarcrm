@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'מסמך נוצר',
@@ -50,13 +47,15 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => 'שונה בתאריך',
   'LBL_DELETED' => 'נמחק',
   'LBL_DESCRIPTION' => 'תיאור',
-  'LBL_DET_IS_TEMPLATE' => 'תבנית? :',
+  'LBL_DET_IS_TEMPLATE' => 'תבנית:',
   'LBL_DET_RELATED_DOCUMENT' => 'קובץ שקשור:',
   'LBL_DET_RELATED_DOCUMENT_VERSION' => 'בדיקה מחדש של מסמך שקשור:',
   'LBL_DET_TEMPLATE_TYPE' => 'סוג מסמך:',
   'LBL_DOCUMENT' => 'מסמכים קשורים',
   'LBL_DOCUMENT_ID' => 'זהות מסמך',
   'LBL_DOCUMENT_INFORMATION' => 'סקירת מסמכים',
+  'LBL_DOCUMENT_NAME' => 'שם מסמך',
+  'LBL_DOCUMENT_REVISION_ID' => 'גירסת מסמך ID',
   'LBL_DOC_ACTIVE_DATE' => 'פורסם בתאריך:',
   'LBL_DOC_DESCRIPTION' => 'תיאור:',
   'LBL_DOC_EXP_DATE' => 'תאריך תפוגה:',
@@ -64,6 +63,7 @@ $mod_strings = array (
   'LBL_DOC_NAME' => 'שם מסמך:',
   'LBL_DOC_REV_HEADER' => 'מסמכים בבדיקה מחדש',
   'LBL_DOC_STATUS' => 'סטאטוס:',
+  'LBL_DOC_STATUS_ID' => 'סטטוס ID',
   'LBL_DOC_TYPE' => 'מקור:',
   'LBL_DOC_TYPE_POPUP' => 'בחר מקור שממנו יטען הקובץ,ואשר ממנו יהיה זמין.',
   'LBL_DOC_URL' => 'כתובת אינטרנט של מקור המסמך',
@@ -110,11 +110,11 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'שונה על ידי שזהותו',
   'LBL_MODIFIED_USER' => 'שונה על ידי',
   'LBL_MODULE_NAME' => 'מסמכים',
+  'LBL_MODULE_NAME_SINGULAR' => 'מסמך',
   'LBL_MODULE_TITLE' => 'מסמכים: דף ראשי',
   'LBL_NAME' => 'שם מסמך',
   'LBL_NEW_FORM_TITLE' => 'המסמך שלי',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'הזדמנויות',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'מוצרים',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'הצעות מחיר',
   'LBL_RELATED_DOCUMENT_ID' => 'קשור למסמך שזהותו',
   'LBL_RELATED_DOCUMENT_REVISION_ID' => 'קשור למסמך בבדיקה מחדש שזהותה',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_REVISIONS_PANEL' => 'פרטי הבדיקה מחדש',
   'LBL_REVISIONS_SUBPANEL' => 'בדיקות מחדש',
   'LBL_REVISION_NAME' => 'בדיקה מחדש מספר',
+  'LBL_RLI_SUBPANEL_TITLE' => 'שורות פרטי הכנסה',
   'LBL_SEARCH_EXTERNAL_DOCUMENT' => 'שם הקובץ:',
   'LBL_SEARCH_FORM_TITLE' => 'חיפוש מסמך',
   'LBL_SELECTED_REVISION_FILENAME' => 'שם קובץ של הבדיקה המחדש',

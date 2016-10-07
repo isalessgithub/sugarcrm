@@ -1,25 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
-
-
-
-//require_once('data/SugarBean.php');
 
 require_once('include/workflow/workflow_utils.php');
 
@@ -74,41 +65,70 @@ class WorkFlowGlue {
     }
 
     /**
-     * @param $shell_object object
-     * @param $is_equal bool set separator to condition '==' if true and '!=' if false
+     * Generates field equality comparison PHP code
+     *
+     * @param WorkFlowTriggerShell $shell_object
+     * @param bool $is_equal
      * @return string
      */
-	private function getCompareText($shell_object, $is_equal)
+    private function getCompareText($shell_object, $is_equal)
     {
-        //We need to parse datetime fields as they may come from the DB in a different format from the one in save which
-        //would cause a normal string compare to fail
-        if (!empty($_REQUEST['base_module']))
-        {
-            global $beanList, $dictionary;
-            $moduleName = $_REQUEST['base_module'];
-            $objectName = BeanFactory::getObjectName($moduleName);
-            VardefManager::loadVardef($moduleName, $objectName);
-            if (!empty($dictionary[$objectName]) && !empty($dictionary[$objectName]['fields'][$shell_object->field]))
-            {
-                $vardef = $dictionary[$objectName]['fields'][$shell_object->field];
-                if (!empty($vardef['type']) && ($vardef['type'] == 'date' || $vardef['type'] == 'datetime'))
-                {
-                    // Adding an isset check for fetched_row since new records don't have it
-                    return " ( (empty(\$focus->fetched_row['".$shell_object->field."']) && !empty(\$focus->".$shell_object->field.") ) ||"
-                                  ." ( isset(\$focus->".$shell_object->field.") && isset(\$focus->fetched_row['".$shell_object->field."']) && "
-                                  . "\$GLOBALS['timedate']->to_display_date_time(\$focus->fetched_row['".$shell_object->field."'])"
-                                  . " != \$GLOBALS['timedate']->to_display_date_time(\$focus->".$shell_object->field."))) ";
+        global $dictionary;
 
+        $parentWorkflow = $shell_object->get_workflow_type();
+        if (empty($parentWorkflow->base_module)) {
+            $GLOBALS['log']->error(
+                "WorkFlowTriggerShell ({$shell_object->id}) " .
+                "parent WorkFlow ({$parentWorkflow->id}) has no base module set."
+            );
+        }
 
-                }
+        $useStrict = true;
+
+        $moduleName = $parentWorkflow->base_module;
+        $objectName = BeanFactory::getObjectName($moduleName);
+        $field = $shell_object->field;
+        VardefManager::loadVardef($moduleName, $objectName);
+
+        if (!empty($dictionary[$objectName]) && !empty($dictionary[$objectName]['fields'][$field])) {
+            $vardef = $dictionary[$objectName]['fields'][$field];
+
+            // Don't use strict for numerical types
+            if (!empty($vardef['type']) && (in_array($vardef['type'], array('currency', 'double', 'int')))) {
+                $useStrict = false;
+            }
+
+            // Use to_display_date for Date fields
+            if (!empty($vardef['type']) && (in_array($vardef['type'], array('date')))) {
+                $dateTimeFunction = 'to_display_date';
+            }
+            // Use to_display_date_time for DateTime fields
+            if (!empty($vardef['type']) && (in_array($vardef['type'], array('datetime', 'datetimecombo')))) {
+                $dateTimeFunction = 'to_display_date_time';
             }
         }
 
-        // Use identical instead of equal
-        $sep = $is_equal ? '===' : '!==';
+        $sep = $is_equal ? '==' : '!=';
+        if ($useStrict) {
+            $sep .= '=';
+        }
 
-        // Remove check if old value is set. This should trigger when old value was empty, and new value is entered
-        return " ( isset(\$focus->".$shell_object->field.") && ( empty(\$focus->fetched_row) || array_key_exists('".$shell_object->field."', \$focus->fetched_row) ) && \$focus->fetched_row['".$shell_object->field."'] " . $sep . " \$focus->".$shell_object->field.") ";
+        $equalityCheck = "\$focus->fetched_row['" . $field . "'] " . $sep . " \$focus->" . $field;
+
+        if (!empty($dateTimeFunction)) {
+            $equalityCheck = "\$GLOBALS['timedate']->{$dateTimeFunction}(\$focus->fetched_row['" . $field . "'])"
+                . " $sep "
+                . "\$GLOBALS['timedate']->{$dateTimeFunction}(\$focus->" . $field . ")";
+        }
+
+        // Due to sidecar pushing unchanged fields, we need a check when that happens
+        if (!$is_equal) {
+            $equalityCheck .= " && !(\$focus->fetched_row['" . $field . "'] === null && strlen(\$focus->" . $field . ") === 0)";
+        }
+
+        return " (isset(\$focus->" . $field . ") && " .
+            "(empty(\$focus->fetched_row) || array_key_exists('" . $field . "', \$focus->fetched_row)) " .
+            "&& {$equalityCheck}) ";
     }
 
 	function glue_normal_compare_change(& $shell_object){
@@ -125,24 +145,34 @@ class WorkFlowGlue {
 	//end function glue_normal_compare_change
 	}
 
-	function glue_normal_compare_any_time(& $shell_object){
+    /**
+     * Generate the clauses for 'field does not change for ...'
+     *
+     * @param WorkFlowActionShell $shellObject
+     * @return string
+     */
+    public function glue_normal_compare_any_time($shellObject)
+    {
 
-		if(empty($this->temp_eval)) $this->temp_eval = "";
+        if (empty($this->temp_eval)) {
+            $this->temp_eval = "";
+        }
 
-		$this->temp_eval .= " ( ";
-        $this->temp_eval .= $this->getCompareText($shell_object, true) . " || ( \$focus->fetched_row['".$shell_object->field."'] == null && !isset(\$focus->".$shell_object->field.") )";
-		$this->temp_eval .= " ) ";
-		$this->temp_eval .= " || ";
-		$this->temp_eval .= " ( ";
+        $this->temp_eval .= " ( ";
+        $this->temp_eval .= $this->getCompareText($shellObject, true);
+        $this->temp_eval .= " || ( \$focus->fetched_row['" . $shellObject->field . "'] == null
+            && !isset(\$focus->" . $shellObject->field . ") )";
+        $this->temp_eval .= " ) || ( ";
 
-		$this->temp_eval .= " isset(\$focus->".$shell_object->field.") && isset(\$_SESSION['workflow_parameters']) && \$_SESSION['workflow_parameters'] == \$focus->".$shell_object->field." \n";
+        $this->temp_eval .= " isset(\$focus->" . $shellObject->field . ")
+		    && isset(\$_SESSION['workflow_parameters']['$shellObject->parent_id'])
+		    && \$_SESSION['workflow_parameters']['$shellObject->parent_id'] == \$focus->" . $shellObject->field . " \n";
 
-		$this->temp_eval .= " && !empty(\$_SESSION['workflow_cron']) && \$_SESSION['workflow_cron']==\"Yes\"";
-		$this->temp_eval .= " ) ";
-		return $this->temp_eval;
+        $this->temp_eval .= " && !empty(\$_SESSION['workflow_cron']) && \$_SESSION['workflow_cron']==\"Yes\"";
+        $this->temp_eval .= " ) ";
 
-	//end function glue_normal_compare_change
-	}
+        return $this->temp_eval;
+    }
 
 	function glue_normal_type(& $shell_object, & $past_object, & $future_object){
 		$this->shell_object = $shell_object;
@@ -299,9 +329,11 @@ class WorkFlowGlue {
 
 		if($type_object->exp_type=='date'){
 		$eval_string .= " !='0000-00-00' ";
+            $datetimeFunction = 'fromDbDate';
 		}
-		if($type_object->exp_type=='datetime'){
-		$eval_string .= " !='0000-00-00 00:00:00' ";
+		if($type_object->exp_type=='datetime'  || $type_object->exp_type == 'datetimecombo'){
+			$eval_string .= " !='0000-00-00 00:00:00' ";
+            $datetimeFunction = 'fromDb';
 		}
 
 		//compensates if the user changes the field sometime later
@@ -316,7 +348,7 @@ class WorkFlowGlue {
 		}
 
 		$eval_string .= ")  \n";
-        if ($type_object->exp_type=='date' || $type_object->ext_type == 'datetime') {
+            if (in_array($type_object->exp_type, array('date', 'datetime', 'datetimecombo'))) {
             // rgonzalez Bug 50258, 50482 - date comparisons being improperly evaluated
             // Logic should be if LHS Field is MORE THAN x days old then the eval
             // should be $lhsfield < (time() - interval) [field timestamp LESS THAN
@@ -325,7 +357,11 @@ class WorkFlowGlue {
             // GREATER THAN interval timestamp.
             $operator = $this->operator_array[$type_object->operator]=='<' ? '>' : '<';
 
-            $eval_string .= ' && ' . sprintf('strtotime(%sfocus->%s)', '$',  $type_object->lhs_field);
+            $eval_string .= ' && ' . sprintf(
+                'TimeDate::getInstance()->%s($focus->%s)->getTimestamp()',
+                $datetimeFunction,
+                $type_object->lhs_field
+            );
             $eval_string .= " $operator ";
             
             // Sign should be driven by point in time
@@ -392,7 +428,7 @@ class WorkFlowGlue {
             {
                 $eval_string .= build_source_array($parent_type, $type_object->lhs_field);
                 $eval_string .= " ".$this->operator_array[$type_object->operator]." ";
-                $eval_string .= " '".$this->write_escape($type_object->encrpyt_before_save($right_value))."'";
+                $eval_string .= " " . $this->write_escape($type_object->encrpyt_before_save($right_value));
                 $express_evaluated = true;
             }
 
@@ -404,7 +440,7 @@ class WorkFlowGlue {
 				$eval_string .= " " . $this->translateOperator($type_object->operator) . " ";
 
 				//escape the quotes as needed
-				$eval_string .= " '".$this->write_escape($right_value)."'";
+				$eval_string .= " " . $this->write_escape($right_value);
 
 
 
@@ -527,21 +563,6 @@ class WorkFlowGlue {
 		$dump = $this->alert_meta_data;
 		$fp = sugar_fopen($file, 'wb');
 		fwrite($fp,"<?php\n");
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
 		fwrite($fp, "//Workflow Alert Meta Data Arrays \n");
 		fwrite($fp, $dump);
 		fwrite($fp, " \n");
@@ -572,6 +593,7 @@ include_once("include/workflow/alert_utils.php");
 ');
         fwrite($fp, "\n?>");
         fclose($fp);
+        SugarAutoLoader::addToMap($file);
     //end function write_alert_meta_file
     }
 
@@ -605,17 +627,26 @@ include_once("include/workflow/alert_utils.php");
 
 	function build_action_shell_list($action_array){
 
+		global $beanList;
+
 		$action_shell_array = "";
 
+		$action_module = $action_array['action_module'];
+		if (empty($beanList[$action_module])) {
+		    if (!empty($beanList[ucfirst(strtolower($action_module))])) {
+		        $action_module = ucfirst(strtolower($action_module));
+		    }
+		}
+
 		$action_shell_array .= "\t\t 'action_type' => '".$action_array['action_type']."', \n";
-		$action_shell_array .= "\t\t 'action_module' => '".$action_array['action_module']."', \n";
+		$action_shell_array .= "\t\t 'action_module' => '".$action_module."', \n";
 		$action_shell_array .= "\t\t 'rel_module' => '".strtolower($action_array['rel_module'])."', \n";
 		$action_shell_array .= "\t\t 'rel_module_type' => '".$action_array['rel_module_type']."', \n";
 
 
 		//Check to see if this action is new meeting or new call and add the appropriate bridge id
 
-		$action_shell = new WorkFlowActionShell();
+		$action_shell = BeanFactory::getBean('WorkFlowActionShells');
 		$action_shell_array .= $action_shell->check_for_invitee_bridge_meta($action_array);
 
 		return $action_shell_array;
@@ -651,7 +682,7 @@ include_once("include/workflow/alert_utils.php");
 		// Get the id and the name.
 		while($row = $this->db->fetchByAssoc($result)){
 			///Start - Add the individual action components
-			$action_component_array .= "\t\t '".$row['field']."' => '".$this->write_escape($row['value'])."', \n";
+			$action_component_array .= "\t\t '" . $row['field'] . "' => " . $this->write_escape($row['value']) . ",\n";
 			if($row['ext1']!=""){
 				$action_component_array_ext .= "\t\t '".$row['field']."' => '".$row['ext1']."', \n";
 			}
@@ -680,7 +711,7 @@ include_once("include/workflow/alert_utils.php");
 		while($row = $this->db->fetchByAssoc($result)){
 			$action_component_array .= "\t '".$row['field']."' => array ( \n\n";
 			///Start - Add the individual action components
-				$action_component_array .= "\t\t\t 'value' => '".$this->write_escape($row['value'])."', \n";
+				$action_component_array .= "\t\t\t 'value' => " . $this->write_escape($row['value']) . ",\n";
 				$action_component_array .= "\t\t\t 'ext1' => '".$row['ext1']."', \n";
 				$action_component_array .= "\t\t\t 'ext2' => '".$row['ext2']."', \n";
 				$action_component_array .= "\t\t\t 'ext3' => '".$row['ext3']."', \n";
@@ -738,21 +769,6 @@ include_once("include/workflow/alert_utils.php");
 		$dump = $this->action_meta_data;
 		$fp = sugar_fopen($file, 'wb');
 		fwrite($fp,"<?php\n");
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
 		fwrite($fp, "//Workflow Action Meta Data Arrays \n");
 		fwrite($fp, $dump);
 		fwrite($fp, " \n");
@@ -830,7 +846,7 @@ include_once("include/workflow/alert_utils.php");
 		$trigger_shell_array .= "\t '".$name."' => array ( \n\n";
 
 		foreach($sub_array as $key => $value){
-			$trigger_shell_array .= "\t\t '".$key."' => '".$this->write_escape($value)."', \n";
+			$trigger_shell_array .= "\t\t '" . $key . "' => " . $this->write_escape($value) . ",\n";
 		}
 
 		$trigger_shell_array .= "\t ), \n\n";
@@ -861,21 +877,6 @@ include_once("include/workflow/alert_utils.php");
 		$dump = $this->trigger_meta_data;
 		$fp = sugar_fopen($file, 'wb');
 		fwrite($fp,"<?php\n");
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
 		fwrite($fp, "//Workflow Triggers Meta Data Arrays \n");
 		fwrite($fp, $dump);
 		fwrite($fp, " \n");
@@ -913,21 +914,6 @@ include_once("include/workflow/alert_utils.php");
 		$dump = $this->plugin_meta_data;
 		$fp = sugar_fopen($file, 'wb');
 		fwrite($fp,"<?php\n");
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
 		fwrite($fp, "//Workflow plugins Meta Data Arrays \n");
 		fwrite($fp, $dump);
 		fwrite($fp, " \n");
@@ -939,16 +925,14 @@ include_once("include/workflow/alert_utils.php");
 
 /////////////////////END PLUGIN GLUING FUNCTIONS/////////////////
 
-
-	function write_escape($value){
-
-		$target_value = html_entity_decode($value, ENT_QUOTES);
-		return addslashes($target_value);
-	//end function write_escape
-	}
-
-
-
-//end class WorkFlowGlue
+    /**
+     * Decode HTML values, and return the value for use in PHP, safe from injections
+     *
+     * @param $value - Value to be decoded/escaped
+     * @return string
+     */
+    public function write_escape($value) {
+        $target_value = html_entity_decode($value, ENT_QUOTES);
+        return "stripslashes('" . addslashes($target_value) . "')";
+    }
 }
-?>

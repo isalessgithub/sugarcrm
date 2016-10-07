@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_IS_READ' => 'Číst',
   'LBL_LIST_FORM_TITLE' => 'Seznam upozornění',
+  'LBL_LIST_RELATED_TO' => 'Vztahuje se k',
   'LBL_MODIFIED' => 'Změnil',
   'LBL_MODIFIED_ID' => 'Změněno podle ID',
   'LBL_MODIFIED_NAME' => 'Změněno podle jména',
@@ -43,10 +41,16 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Upozornění',
   'LBL_NAME' => 'Jméno',
   'LBL_NEW_FORM_TITLE' => 'Nové upozornění',
+  'LBL_PARENT_ID' => 'Zdrojové ID',
+  'LBL_PARENT_TYPE' => 'Typ zdroje',
+  'LBL_READ' => 'Přečtený',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat upozornění',
+  'LBL_SEVERITY' => 'Závažnost',
+  'LBL_SHOW_NOTIFICATIONS' => 'Zobrazit oznámení...',
   'LBL_TEAM' => 'Tým',
   'LBL_TEAMS' => 'Týmy',
   'LBL_TEAM_ID' => 'ID týmu',
+  'LBL_UNREAD' => 'Nepřečtený',
   'LNK_LIST' => 'Upozornění',
   'LNK_NEW_RECORD' => 'Vytvořit upozornění',
 );

@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 function build_argument_string($arguments=array()) {
    if(!is_array($arguments)) {
    	  return '';
@@ -45,50 +42,31 @@ if (substr($sapi_type, 0, 3) != 'cli') {
 }
 //End of #52872
 
-$php_path = '';
-$run_dce_upgrade = false;
-if(isset($argv[3]) && is_dir($argv[3]) && file_exists($argv[3]."/ini_setup.php")) {
-                //this is a dce call, set the dce flag
-                chdir($argv[3]);
-                $run_dce_upgrade = true;
-                //set the php path if found
-                if(is_file($argv[7].'dce_config.php')){
-                   include($argv[7].'dce_config.php');
-                   $php_path = $dce_config['client_php_path'].'/';
-                }
+if(defined('PHP_BINDIR')) {
+    $php_path = PHP_BINDIR."/";
+} else {
+    $php_path = '';
 }
 
 $php_file = $argv[0];
 $p_info = pathinfo($php_file);
-$php_dir = (isset($p_info['dirname']) && $p_info['dirname'] != '.') ?  $p_info['dirname'] . '/' : '';
+$php_dir = (isset($p_info['dirname']) && $p_info['dirname'] != '.') ?  $p_info['dirname'] . DIRECTORY_SEPARATOR : '';
 
-$step1 = $php_path."php -f {$php_dir}silentUpgrade_step1.php " . build_argument_string($argv);
-passthru($step1, $output);
-if($output != 0) {
-    echo "***************         step1 failed         ***************: $output\n";
-}
-$has_error = $output == 0 ? false : true;
-
-if(!$has_error) {
-	if($run_dce_upgrade) {
-		$step2 = $php_path."php -f {$php_dir}silentUpgrade_dce_step1.php " . build_argument_string($argv);
-		passthru($step2, $output);
-	} else {
-		$step2 = "php -f {$php_dir}silentUpgrade_step2.php " . build_argument_string($argv);
-		passthru($step2, $output);
-	}
+//Make sure that the php executable really exists; if not, just default back assuming the executable is set
+if(!file_exists($php_path . 'php')) {
+    $php_path = '';
 }
 
-if($run_dce_upgrade) {
-	$has_error = $output == 0 ? false : true;
-	if(!$has_error) {
-	   $step3 = $php_path."php -f {$php_dir}silentUpgrade_dce_step2.php " . build_argument_string($argv);
-	   passthru($step3, $output);
-	}
+for($step=1;$step<=3;$step++) {
+    $step_cmd = $php_path."php -f {$php_dir}silentUpgrade_step{$step}.php " . build_argument_string($argv);
+    passthru($step_cmd, $output);
+    if($output != 0) {
+	    echo "***************         Step {$step} failed         ***************: $output\n";
+	    exit(1);
+    } else {
+        echo "***************         Step {$step} OK\n";
+    }
 }
 
-if($output != 0) {
-   echo "***************         silentupgrade failed         ***************: $output\n";
-}
-exit($output);
-?>
+echo "***************         SUCCESS!\n";
+exit(0);

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description: Bean for import_map table
@@ -71,80 +68,48 @@ class ImportMap extends SugarBean
      */
     public function __construct()
     {
-        parent::SugarBean();
+        parent::__construct();
         $this->disable_row_level_security =true;
     }
 
     /**
-     * Returns an array with the field mappings
+     * Returns an array with the field mappings.
      *
-     * @return array
+     * @return array Converted $content.
      */
     public function getMapping()
     {
-        $mapping_arr = array();
-        if ( !empty($this->content) )
-        {
-            $pairs = explode("&",$this->content);
-            foreach ($pairs as $pair){
-                list($name,$value) = explode("=",$pair);
-                $mapping_arr[trim($name)] = $value;
-            }
-        }
-
-        return $mapping_arr;
+        return !empty($this->content) ? $this->convertFromCsv($this->content) : array();
     }
 
     /**
-     * Sets $content with the mapping given
+     * Sets $content with the mapping given.
      *
-     * @param string $mapping_arr
+     * @param array $mapping
      */
-    public function setMapping(
-        $mapping_arr
-        )
+    public function setMapping(array $mapping)
     {
-        $output = array ();
-        foreach ($mapping_arr as $key => $item) {
-            $output[] = "$key=$item";
-        }
-        $this->content = implode("&", $output);
+        $this->content = $this->convertToCsv($mapping);
     }
 
     /**
-     * Returns an array with the default field values
+     * Returns an array with the default field values.
      *
-     * @return array
+     * @return array Converted $default_values.
      */
     public function getDefaultValues()
     {
-        $defa_arr = array();
-        if ( !empty($this->default_values) )
-        {
-            $pairs = explode("&",$this->default_values);
-            foreach ($pairs as $pair){
-                list($name,$value) = explode("=",$pair);
-                $defa_arr[trim($name)] = $value;
-            }
-        }
-
-        return $defa_arr;
+        return !empty($this->default_values) ? $this->convertFromCsv($this->default_values) : array();
     }
 
     /**
-     * Sets $default_values with the default values given
+     * Sets $default_values with the default values given.
      *
-     * @param string $defa_arr
+     * @param array $defaultValues
      */
-    public function setDefaultValues(
-        $defa_arr
-        )
+    public function setDefaultValues(array $defaultValues)
     {
-        $output = array ();
-        foreach ($defa_arr as $key => $item) {
-            $output[] = "$key=$item";
-        }
-        $this->default_values = implode("&", $output);
+        $this->default_values = $this->convertToCsv($defaultValues);
     }
 
     /**
@@ -235,7 +200,7 @@ class ImportMap extends SugarBean
         global $current_user;
 
         if ( !is_admin($current_user) ) {
-            $other_map = new ImportMap();
+            $other_map = BeanFactory::getBean('Import_1');
             $other_map->retrieve_by_string_fields(array('id'=> $id), false);
 
             if ( $other_map->assigned_user_id != $current_user->id )
@@ -281,7 +246,7 @@ class ImportMap extends SugarBean
                 'is_published'     => 'no'
                 );
         }
-        $other_map = new ImportMap();
+        $other_map = BeanFactory::getBean('Import_1');
         $other_map->retrieve_by_string_fields($query_arr, false);
 
         // if we find this other map, quit
@@ -317,7 +282,7 @@ class ImportMap extends SugarBean
         $obj_arr = array();
 
         while ($row = $this->db->fetchByAssoc($result,FALSE) ) {
-            $focus = new ImportMap();
+            $focus = BeanFactory::getBean('Import_1');
 
             foreach($this->column_fields as $field) {
                 if(isset($row[$field])) {
@@ -385,6 +350,43 @@ class ImportMap extends SugarBean
         return $preference_values;
     }
 
+    /**
+     * Converts the given data to CSV format.
+     *
+     * @param array $mapping Array with data.
+     * @return string CSV formatted string.
+     */
+    protected function convertToCsv(array $mapping)
+    {
+        $output = array ();
+        foreach ($mapping as $key => $item) {
+            $output[] = "$key=$item";
+        }
+
+        $stream = fopen('data://text/plain,', 'w+');
+        fputcsv($stream, $output, $this->delimiter, $this->enclosure);
+        rewind($stream);
+        $source = stream_get_contents($stream);
+        fclose($stream);
+        return $source;
+    }
+
+    /**
+     * Converts the given CSV string to array.
+     *
+     * @param string $csvString CSV formatted string.
+     * @return array Converted set.
+     */
+    protected function convertFromCsv($csvString)
+    {
+        $mapping = array();
+        $pairs = str_getcsv(trim($csvString), $this->delimiter, $this->enclosure);
+        foreach ($pairs as $pair) {
+            list($name, $value) = explode('=', $pair);
+            $mapping[trim($name)] = $value;
+        }
+        return $mapping;
+    }
 }
 
 

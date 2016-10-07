@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Furnizaţi parola pentru utilizatorul admin Sugar.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Furnizaţi numele de utilizator pentru utilizatorul admin Sugar.',
   'ERR_CHECKSYS' => 'Au fost detectate erori in timpul verificarii compatibilitatii. Pentru ca aplicatia dumneavoastra SugarCRM sa functioneze corect, va rugam urmati urmatorii pasi pentru a rezolva problemele aparute si fie apasati butonul de reverificare, fie reinstalati aplicatia.',
+  'ERR_CHECKSYS_BCMATH' => 'Nu s-a găsit suportul BCMATH: SugarCRM are nevoie de suportul BCMATH pentru calculul matematic în precizie arbitrară',
   'ERR_CHECKSYS_CALL_TIME' => 'Setarea "Allow Call Time Pass Reference" este activa. (Ar trebui sa fie setat ca oprit in php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Fisierul de configurare exista, dar nu poate fi scris. Va rugam luati masurile necesare pentru ca directorul sa poata fi scris.In functie de sistemul dumneavoastra de operare, s-ar pute asa fie nevoie sa modificati accesul ruland chmod 766, sau sa faceti click dreapta pe numele fisierului, pentru a accesa proprietatile si sa debifati optiunea de read only.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Fişier  de configurare există, dar nu este inscriptibil. Vă rugăm să luati măsurile necesare pentru a face fişierul inscriptibil. În funcţie de sistemul dvs. de operare, acest lucru ar putea să vă solicite să modificaţi permisiunile de funcţionare chmod 766, sau să faceţi clic dreapta pe numele fişierului pentru a accesa proprietăţile şi debifaţi citi singura opţiune.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Am detectat ca nu sunt folosite handler FastCGI pentru PHP. Veţi avea nevoie pentru a instala / configura o versiune care este compatibilă cu cererea Sugar. Va rugam sa consultati Matrix compatibilitate în Notele de lansare pentru versiunile acceptate. Vă rugăm să consultaţi http://www.iis.net/php/ pentru detalii',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Pentru o experienta optima in utilizarea IIS/FastCGI sapi, setati fastcgi.logging la valoarea 0 in fisierul dumneavoastrà php.ini',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Fisierele sau directoarele listate mai jos nu pot fi scrise sau lipsesc si nu pot fi create. In functie de sistemul dumneavoastra de operare, s-ar putea sa fie nevoie sa modificati accesul la fisiere sau directorul parinte ruland chmod 766, sau sa faceti click dreapta pe directorul parinte si sa debifati optiunea de read only.',
+  'ERR_CHECKSYS_HTACCESS' => 'Testul pentru rescrierea .htaccess a eşuat. De obicei acest lucru înseamnă că AllowOverride nu este configurat pentru directorul Sugar.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Versiunea dvs. din IIS nu este susţinută de Sugar. Veţi avea nevoie pentru a instala o versiune care este compatibilă cu aplicatia Sugar. Va rugam sa consultati Compatibility Matrix în Notele de lansare pentru versiunile acceptate IIS. Versiunea ta este',
   'ERR_CHECKSYS_IMAP' => 'Nu s-a gasit: EmailPrimire si Campanii (Email) au nevoie de librariile IMAP. Niciuna nu vor fi functionale.',
   'ERR_CHECKSYS_MBSTRING' => 'Functii asociate cu extensia "Multibyte Strings" (mbstring) care sunt necesare pentru Sugar nu au fost gasite pe server. <br />In general modulul mbstring nu este activat in mod implicit si trebuie activat cu directiva --enable-mbstring cand binarul Php este construit. Va rugam consultati manualul Php pentru mai multe informatii asupra modului in care poate fi activat suportul pentru mbstring',
@@ -130,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Basic Type',
   'LBL_CANCEL' => 'Anulare',
   'LBL_CHECKSYS_1' => 'Pentru ca instanta dumneavoastra SugarCRM sa functioneze corect va rugam sa va asigurati ca toate itemele de mai jos sunt verzi. Daca exista iteme rosii va rugam sa faceti pasii necesari pentru a-i indrepta<br />Pentru ajutor in aceste verificari de sistem va rugam vizitati Sugar Wiki.',
+  'LBL_CHECKSYS_BCMATH' => 'Modul calcul matematic cu precizie arbitrară',
   'LBL_CHECKSYS_CACHE' => 'Directoare de cache in care se poate scrie',
   'LBL_CHECKSYS_CALL_TIME' => 'Setarea Php "Allow Call Time Pass Reference" oprita',
   'LBL_CHECKSYS_COMPONENT' => 'Componenta',
@@ -143,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Va rugam rezolvati fisierele si directoarele urmatoare inainte a continua:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Va rugam reparati directoarele pentru urmatoarele module si fisierele din ele inainte a incepe:',
+  'LBL_CHECKSYS_HTACCESS' => 'Configurare AllowOverride pentru .htaccess',
   'LBL_CHECKSYS_IISVER' => 'Versiunea IIS',
   'LBL_CHECKSYS_IMAP' => 'Modul IMAP',
   'LBL_CHECKSYS_MBSTRING' => 'MB strings Module',
@@ -235,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Capacitatea Full Text Search nu este instalata',
   'LBL_FTS_INSTALLED_ERR2' => 'uteţi instala în continuare, dar nu va fi capabil de a utiliza funcţia de căutare text complet. Vă rugăm să consultaţi serverul de baze de date de instala ghid despre cum să facă acest lucru, sau contactaţi administratorul.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Se solicită Elastic Search (Căutare flexibilă).',
   'LBL_FTS_TABLE_TITLE' => 'Furnizarea de full-text Setări căutare',
   'LBL_FTS_TYPE' => 'Tip Sistem',
   'LBL_HELP' => 'Ajutor',

@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre per eliminar el pressupost.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Oferta ja convertida a oportunitat',
   'LBL_ACCOUNT_ID' => 'Id Compte',
   'LBL_ACCOUNT_NAME' => 'Nom de Compte:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activitats',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Cost',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Tancament Real',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Vàlid Fins',
-  'LBL_LIST_DEAL_TOT' => 'Descompte',
+  'LBL_LIST_DEAL_TOT' => 'Descompte total',
   'LBL_LIST_DISCOUNT_PRICE' => 'Preu Unitari',
   'LBL_LIST_FORM_TITLE' => 'Llista de Pressuposts',
   'LBL_LIST_GRAND_TOTAL' => 'Totals',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Els meus pressupostos',
   'LBL_LIST_PRICING_FACTOR' => 'Factor',
   'LBL_LIST_PRICING_FORMULA' => 'Fórmula de Valoració',
-  'LBL_LIST_PRODUCT_NAME' => 'Producte',
+  'LBL_LIST_PRODUCT_NAME' => 'Element de línia d&#39;oferta',
   'LBL_LIST_QUANTITY' => 'Quantitat',
   'LBL_LIST_QUOTE_NAME' => 'Assumpte',
   'LBL_LIST_QUOTE_NUM' => 'Número',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Descompte',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Preu Ext.',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Preu de Llista',
-  'LBL_PDF_ITEM_PRODUCT' => 'Producte',
+  'LBL_PDF_ITEM_PRODUCT' => 'Element de línia d&#39;oferta',
   'LBL_PDF_ITEM_QUANTITY' => 'Quantitat',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Preu Unitari',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Treure Comentari',
   'LBL_REMOVE_ROW' => 'Treure Fila',
   'LBL_RENAME_ERROR' => 'ERROR: no pot moure´s l´arxiu PDF a $destination. Intenti donar permisos d´escriptura al servidor web per a aquest directori',
+  'LBL_REVENUELINEITEMS' => 'Línia d&#39;impostos articles',
   'LBL_SALES_STAGE' => 'Etapa del Pressupost',
   'LBL_SEARCH_FORM_TITLE' => 'Recerques de Pressuposts',
   'LBL_SHIPPING' => 'Envíament:',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $portal_name ='';
 $portal_password = '';
 $user_name ='';
@@ -39,7 +36,7 @@ EOQ;
 
 if(!empty($portal_name)){
 $portal_password = md5($portal_password);
-require_once('../include/nusoap/nusoap.php');  //must also have the nusoap code on the ClientSide.
+require_once('../vendor/nusoap//nusoap.php');  //must also have the nusoap code on the ClientSide.
 $soapclient = new nusoapclient('http://localhost/sugarcrm/soap.php');  //define the SOAP Client an
 //application_name is the client application connecting to sugar CRM for example mambo
 echo '<b>LOGIN:</b><BR>';

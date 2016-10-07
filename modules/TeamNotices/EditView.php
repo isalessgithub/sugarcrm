@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: EditView.php 55484 2010-03-19 14:56:16Z jmertic $
  ********************************************************************************/
 if (!$GLOBALS['current_user']->isAdminForModule('Users')) sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
 
@@ -23,7 +20,7 @@ $_REQUEST['edit']='true';
 
 
 
-$focus = new TeamNotice();
+$focus = BeanFactory::getBean('TeamNotices');
 if(!empty($_REQUEST['record'])) $focus->retrieve($_REQUEST['record']);
 
 $GLOBALS['log']->info("Team Notice edit view");
@@ -59,7 +56,7 @@ $buttons = array(
     '<input id="btn_teamnotices_cancel" title="' . $app_strings['LBL_CANCEL_BUTTON_TITLE']. '" accessKey="'. $app_strings['LBL_CANCEL_BUTTON_KEY'] . '" onclick="this.form.action.value=\'index\';" class="button" type="submit" name="button" value="'.$app_strings['LBL_CANCEL_BUTTON_LABEL'].'">'
 );
 
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $action_button = smarty_function_sugar_action_menu(array(
     'id' => 'teamnotices_editview_buttons',
     'buttons' => $buttons,

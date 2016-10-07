@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_INT_ONLY_EMAIL_PER_RUN' => 'Use only integer values to specify the number of emails sent per batch',
@@ -54,6 +51,7 @@ $mod_strings = array (
   'LBL_GMAIL_SMTPUSER' => 'Gmail Email Address',
   'LBL_HELP' => 'עזרה',
   'LBL_ID' => 'Id',
+  'LBL_INVALID_ENTRY_POINT' => 'לא נקודת כניסה ולידית',
   'LBL_IN_QUEUE' => 'In Process',
   'LBL_IN_QUEUE_DATE' => 'Queued Date',
   'LBL_LIST_CAMPAIGN' => 'Campaign',
@@ -79,6 +77,7 @@ $mod_strings = array (
   'LBL_MARKETING_ID' => 'Marketing Id',
   'LBL_MODULE_ID' => 'EmailMan',
   'LBL_MODULE_NAME' => 'Email Settings',
+  'LBL_MODULE_NAME_SINGULAR' => 'הגדרות מייל',
   'LBL_MODULE_TITLE' => 'Outbound Email Queue Management',
   'LBL_NO' => 'No',
   'LBL_NOTIFICATION_ON_DESC' => 'When enabled, emails are sent to users when records are assigned to them.',
@@ -117,6 +116,7 @@ $mod_strings = array (
   'LBL_SECURITY_XMP' => 'Xmp tag',
   'LBL_SEND_ATTEMPTS' => 'Send Attempts',
   'LBL_SEND_DATE_TIME' => 'Send Date',
+  'LBL_UNAUTH_ACCESS' => 'גישה לא מורשת לניהול',
   'LBL_VIEW_PROCESSED_EMAILS' => 'View Processed Emails',
   'LBL_VIEW_QUEUED_EMAILS' => 'View Queued Emails',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail Password',

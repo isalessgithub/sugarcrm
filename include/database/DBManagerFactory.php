@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
 * Description: This file generates the appropriate manager for the database
@@ -68,6 +65,8 @@ class DBManagerFactory
                 default:
                     $my_db_manager = self::getManagerByType($type, false);
                     if(empty($my_db_manager)) {
+                        echo $type . "\n";
+                        display_stack_trace();
                         $GLOBALS['log']->fatal("unable to load DB manager for: $type");
                         sugar_die("Cannot load DB manager");
                     }
@@ -82,11 +81,7 @@ class DBManagerFactory
         if(!empty($config['db_manager_class'])){
             $my_db_manager = $config['db_manager_class'];
         } else {
-            if(file_exists("custom/include/database/{$my_db_manager}.php")) {
-                require_once("custom/include/database/{$my_db_manager}.php");
-            } else {
-                require_once("include/database/{$my_db_manager}.php");
-            }
+            SugarAutoLoader::requireWithCustom("include/database/{$my_db_manager}.php");
         }
 
         if(class_exists($my_db_manager)) {
@@ -101,13 +96,15 @@ class DBManagerFactory
      * instance if one is not specified
      *
      * @param  string $instanceName optional, name of the instance
-     * @return object DBManager instance
+     * @return DBManager Database instance
      */
 	public static function getInstance($instanceName = '')
     {
         global $sugar_config;
         static $count = 0, $old_count = 0;
-
+        if(empty($sugar_config['dbconfig'])) {
+            return false;
+        }
         //fall back to the default instance name
         if(empty($sugar_config['db'][$instanceName])){
         	$instanceName = '';
@@ -122,6 +119,12 @@ class DBManagerFactory
                 self::$instances[$instanceName]->connect($config, true);
                 self::$instances[$instanceName]->count_id = $count;
                 self::$instances[$instanceName]->references = 0;
+                if (empty($instanceName) && empty($GLOBALS['db'])) {
+                    $GLOBALS['db'] = self::$instances[$instanceName];
+                }
+                if (empty($instanceName) && !empty($GLOBALS['system_config']) && $GLOBALS['system_config'] instanceof Administration && empty($GLOBALS['system_config']->db)) {
+                    $GLOBALS['system_config']->db = self::$instances[$instanceName];
+                }
         } else {
             $old_count++;
             self::$instances[$instanceName]->references = $old_count;
@@ -138,6 +141,11 @@ class DBManagerFactory
             $instance->disconnect();
         }
         self::$instances = array();
+        BeanFactory::clearCache();
+        $GLOBALS['db'] = null;
+        if (!empty($GLOBALS['system_config']) && $GLOBALS['system_config'] instanceof Administration) {
+            $GLOBALS['system_config']->db = null;
+        }
     }
 
 

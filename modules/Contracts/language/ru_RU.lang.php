@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Контрагент',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Создано пользователем',
   'LBL_CURRENCY' => 'Валюта:',
   'LBL_CURRENCY_ID' => 'ID валюты',
+  'LBL_CURRENCY_RATE' => 'Валютный курс',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Дата подписания клиентом:',
   'LBL_DAYS' => 'Дня (дней)',
   'LBL_DESCRIPTION' => 'Описание:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Документы',
   'LBL_END_DATE' => 'Дата исполнения:',
   'LBL_EXPIRATION_NOTICE' => 'Уведомление об окончании срока действия:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Ответственный (ID)',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ответственный пользователь',
+  'LBL_EXPORT_CREATED_BY' => 'Создано (ID)',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Изменено (ID)',
+  'LBL_EXPORT_TYPE_NAME' => 'Имя типа',
   'LBL_LIST_ACCOUNT_NAME' => 'Контрагент',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Ответственный (-ая)',
   'LBL_LIST_CONTRACT_NAME' => 'Контракт',
@@ -51,19 +54,20 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Команда',
   'LBL_MODIFIED_USER' => 'Изменено пользователем',
   'LBL_MODULE_NAME' => 'Контракты',
+  'LBL_MODULE_NAME_SINGULAR' => 'Контракт',
   'LBL_MODULE_TITLE' => 'Контракты: Главная',
   'LBL_NEW_FORM_TITLE' => 'Новый контракт',
   'LBL_NONE' => 'Нет',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Заметки',
   'LBL_OPPORTUNITY' => 'Сделка',
-  'LBL_OPPORTUNITY_NAME' => 'Название продажи',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты',
+  'LBL_OPPORTUNITY_ID' => 'ID Сделки',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Коммерческие предложения',
   'LBL_REFERENCE_CODE' => 'Регистрационный номер:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Доход по продуктам',
   'LBL_SEARCH_FORM_TITLE' => 'Найти контракт',
   'LBL_SF_ACCOUNT_NAME' => 'Контрагент:',
   'LBL_SF_ASSIGNED_TO' => 'Ответственный (-ая):',
-  'LBL_SF_CONTRACT_NAME' => 'Контракт:',
+  'LBL_SF_CONTRACT_NAME' => 'Название контракта:',
   'LBL_SF_CONTRACT_TYPE' => 'Тип:',
   'LBL_SF_END_DATE' => 'Дата окончания:',
   'LBL_SF_START_DATE' => 'Дата начала:',
@@ -72,12 +76,13 @@ $mod_strings = array (
   'LBL_STATUS' => 'Статус:',
   'LBL_TEAM' => 'Команда:',
   'LBL_TIME_TO_EXPIRY' => 'Срок действия:',
-  'LBL_TOTAL_CONTRACT_VALUE' => 'Сумма контакта:',
-  'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Сумма контакта (в долларах США):',
+  'LBL_TOTAL_CONTRACT_VALUE' => 'Сумма контракта:',
+  'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Сумма контракта (в долларах США):',
   'LBL_TYPE' => 'Тип',
+  'LBL_TYPE_NAME' => 'Имя типа',
   'LBL_UNDEFINED' => 'Не определено',
   'LNK_CONTRACT_LIST' => 'Обзор контрактов',
-  'LNK_IMPORT_CONTRACTS' => 'Имкпорт контактов',
+  'LNK_IMPORT_CONTRACTS' => 'Импорт контрактов',
   'LNK_NEW_CONTRACT' => 'Новый контракт',
 );
 

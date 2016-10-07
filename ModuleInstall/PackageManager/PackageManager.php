@@ -1,27 +1,23 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 define("CREDENTIAL_CATEGORY", "ml");
 define("CREDENTIAL_USERNAME", "username");
 define("CREDENTIAL_PASSWORD", "password");
 
-require_once('include/nusoap/nusoap.php');
+require_once('vendor/nusoap//nusoap.php');
 require_once('include/utils/zip_utils.php');
 require_once('ModuleInstall/PackageManager/PackageManagerDisplay.php');
 require_once('ModuleInstall/ModuleInstaller.php');
-require_once('include/entryPoint.php');
 require_once('ModuleInstall/PackageManager/PackageManagerComm.php');
 
 class PackageManager{
@@ -199,8 +195,7 @@ class PackageManager{
 
     function setCredentials($username, $password, $systemname){
 
-        $admin = new Administration();
-        $admin->retrieveSettings();
+        $admin = Administration::getSettings();
          $admin->saveSetting(CREDENTIAL_CATEGORY, CREDENTIAL_USERNAME, $username);
          $admin->saveSetting(CREDENTIAL_CATEGORY, CREDENTIAL_PASSWORD, $password);
          if(!empty($systemname)){
@@ -210,8 +205,7 @@ class PackageManager{
 
     function getCredentials(){
 
-        $admin = new Administration();
-        $admin->retrieveSettings(CREDENTIAL_CATEGORY, true);
+        $admin = Administration::getSettings(CREDENTIAL_CATEGORY, true);
         $credentials = array();
         $credentials['username'] = '';
         $credentials['password'] = '';
@@ -393,7 +387,7 @@ class PackageManager{
             if( !$version_ok && isset($manifest['acceptable_sugar_versions']['regex_matches']) ){
                 $matches_empty = false;
                 foreach( $manifest['acceptable_sugar_versions']['regex_matches'] as $match ){
-                    if( preg_match( "/$match/", $sugar_version ) ){
+                    if(!empty($match) && preg_match( "/$match/", $sugar_version ) ){
                         $version_ok = true;
                     }
                 }
@@ -441,7 +435,7 @@ class PackageManager{
         $manifest_file = $this->extractManifest( $base_filename,$base_tmp_upgrade_dir);
          $GLOBALS['log']->debug("Manifest: ".$manifest_file);
         if($view == 'module')
-            $license_file = $this->extractFile($base_filename, 'LICENSE.txt', $base_tmp_upgrade_dir);
+            $license_file = $this->extractFile($base_filename, 'LICENSE', $base_tmp_upgrade_dir);
         if(is_file($manifest_file)){
             $GLOBALS['log']->debug("VALIDATING MANIFEST". $manifest_file);
             require_once( $manifest_file );
@@ -641,7 +635,7 @@ class PackageManager{
         global $current_language;
         $uh = new UpgradeHistory();
         $base_upgrade_dir       = "upload://upgrades";
-        $uContent = findAllFiles( $base_upgrade_dir, array() , false, 'zip');
+        $uContent = findAllFiles($base_upgrade_dir, array(), false, 'zip', $base_upgrade_dir . '/backup');
         $upgrade_contents = array();
         $content_values = array_values($uContent);
         $alreadyProcessed = array();
@@ -667,53 +661,64 @@ class PackageManager{
             if(empty($md5_matches))
             {
                 $target_manifest = remove_file_extension( $upgrade_content ) . '-manifest.php';
-                if(file_exists($target_manifest)) {
-	                require_once($target_manifest);
+                if (file_exists($target_manifest)) {
+                    require_once($target_manifest);
 
-	                $name = empty($manifest['name']) ? $upgrade_content : $manifest['name'];
-	                $version = empty($manifest['version']) ? '' : $manifest['version'];
-	                $published_date = empty($manifest['published_date']) ? '' : $manifest['published_date'];
-	                $icon = '';
-	                $description = empty($manifest['description']) ? 'None' : $manifest['description'];
-	                $uninstallable = empty($manifest['is_uninstallable']) ? 'No' : 'Yes';
-	                $type = $this->getUITextForType( $manifest['type'] );
-	                $manifest_type = $manifest['type'];
-	                $dependencies = array();
-	                if( isset( $manifest['dependencies']) ){
-	    				$dependencies    = $manifest['dependencies'];
-					}
+                    $name = empty($manifest['name']) ? $upgrade_content : $manifest['name'];
+                    $version = empty($manifest['version']) ? '' : $manifest['version'];
+                    $published_date = empty($manifest['published_date']) ? '' : $manifest['published_date'];
+                    $icon = '';
+                    $description = empty($manifest['description']) ? 'None' : $manifest['description'];
+                    $uninstallable = empty($manifest['is_uninstallable']) ? 'No' : 'Yes';
+                    $type = $this->getUITextForType($manifest['type']);
+                    $manifest_type = $manifest['type'];
+                    $dependencies = array();
+                    if (isset($manifest['dependencies'])) {
+                        $dependencies = $manifest['dependencies'];
+                    }
+
+                    //check dependencies first
+                    if (!empty($dependencies)) {
+                        $uh = new UpgradeHistory();
+                        $not_found = $uh->checkDependencies($dependencies);
+                        if (!empty($not_found) && count($not_found) > 0) {
+                            $file_install =
+                                'errors_' . $mod_strings['ERR_UW_NO_DEPENDENCY'] . "[" . implode(',', $not_found) . "]";
+                        }
+                    }
+
+                    if ($view == 'default' && $manifest_type != 'patch') {
+                        continue;
+                    }
+
+                    if ($view == 'module'
+                        && $manifest_type != 'module' && $manifest_type != 'theme' && $manifest_type != 'langpack'
+                    ) {
+                        continue;
+                    }
+
+                    if (empty($manifest['icon'])) {
+                        $icon = $this->getImageForType($manifest['type']);
+                    } else {
+                        $path_parts = pathinfo($manifest['icon']);
+                        $icon = "<img src=\"" . remove_file_extension($upgrade_content) . "-icon." .
+                            $path_parts['extension'] . "\">";
+                    }
+
+                    $upgrades_available++;
+
+                    $packages[] = array(
+                        'name' => $name,
+                        'version' => $version,
+                        'published_date' => $published_date,
+                        'description' => $description,
+                        'uninstallable' => $uninstallable,
+                        'type' => $type,
+                        'file' => fileToHash($upgrade_content),
+                        'file_install' => fileToHash($upgrade_content),
+                        'unFile' => fileToHash($upgrade_content)
+                    );
                 }
-
-				//check dependencies first
-				if(!empty($dependencies)) {
-					$uh = new UpgradeHistory();
-					$not_found = $uh->checkDependencies($dependencies);
-					if(!empty($not_found) && count($not_found) > 0){
-							$file_install = 'errors_'.$mod_strings['ERR_UW_NO_DEPENDENCY']."[".implode(',', $not_found)."]";
-					}
-				}
-
-                if($view == 'default' && $manifest_type != 'patch') {
-                    continue;
-                }
-
-                if($view == 'module'
-                    && $manifest_type != 'module' && $manifest_type != 'theme' && $manifest_type != 'langpack') {
-                    continue;
-                }
-
-                if(empty($manifest['icon'])) {
-                    $icon = $this->getImageForType( $manifest['type'] );
-                } else {
-                    $path_parts = pathinfo( $manifest['icon'] );
-                    $icon = "<img src=\"" . remove_file_extension( $upgrade_content ) . "-icon." . $path_parts['extension'] . "\">";
-                }
-
-                $upgrades_available++;
-
-                $packages[] = array('name' => $name, 'version' => $version, 'published_date' => $published_date,
-                	'description' => $description, 'uninstallable' =>$uninstallable, 'type' => $type,
-                	'file' => fileToHash($upgrade_content), 'file_install' => fileToHash($upgrade_content), 'unFile' => fileToHash($upgrade_content));
             }//fi
         }//rof
         return $packages;
@@ -723,7 +728,7 @@ class PackageManager{
         global $sugar_config;
         $base_upgrade_dir       = $this->upload_dir.'/upgrades';
         $base_tmp_upgrade_dir   = "$base_upgrade_dir/temp";
-        $license_file = $this->extractFile($file, 'LICENSE.txt', $base_tmp_upgrade_dir);
+        $license_file = $this->extractFile($file, 'LICENSE', $base_tmp_upgrade_dir);
         if(is_file($license_file)){
             $contents = file_get_contents($license_file);
             return $contents;

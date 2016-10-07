@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'You cannot import a system administrator user',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Nyní zvolte typ souboru pro import:',
   'LBL_NO_DATECHECK' => 'Přeskočit kontrolu data (rychlejší, ale chybné, pokud je datum uvedeno chybně)',
   'LBL_NO_EMAILS' => 'Neodesílejte zprávy během importu',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Pokus o zpracování e-mailových adres v beanu, který je nepodporuje.',
   'LBL_NO_ID' => 'ID je povinné',
   'LBL_NO_IMPORT_TO_UNDO' => 'Import nelze vrátit zpět.',
   'LBL_NO_LINES' => 'Nebyly nalezeny žádné řádky v souboru.',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Úspěšně naimportováno',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Záznamy úspěšně vytvořeny',
   'LBL_SUMMARY' => 'Shrnutí',
+  'LBL_SYSTEM_SIG_DIGITS' => 'System Significant Digits',
   'LBL_TAB' => 'Soubor - hodnoty oddělené TABulátorem',
   'LBL_TAB_NUM_1' => 'Pusťte aplikaci a Otevřete datový soubor',
   'LBL_TAB_NUM_2' => 'Z menu vyberte <b>Uložit jako...</b> nebo <b>Export...</b>',

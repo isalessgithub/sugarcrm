@@ -1,23 +1,21 @@
 <?php
 if (! defined ( 'sugarEntry' ) || ! sugarEntry)
     die ( 'Not A Valid Entry Point' ) ;
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/parsers/relationships/AbstractRelationships.php' ;
 require_once 'modules/ModuleBuilder/parsers/relationships/RelationshipsInterface.php' ;
 require_once 'modules/ModuleBuilder/parsers/relationships/RelationshipFactory.php' ;
+require_once 'modules/ModuleBuilder/parsers/ParserFactory.php';
 
 class UndeployedRelationships extends AbstractRelationships implements RelationshipsInterface
 {
@@ -317,14 +315,13 @@ class UndeployedRelationships extends AbstractRelationships implements Relations
     }
 
     /*
-     * Add any relate fields to the DetailView and EditView of the appropriate module immediately (don't wait for a build)
+     * Add any relate fields to the Record View of the appropriate module immediately (don't wait for a build)
      * @param AbstractRelationship $relationship The relationship whose fields we are to add or remove
      * @param boolean $actionAdd True if we are to add; false if to remove
-     * return null
+     * return bool
      */
     private function updateUndeployedLayout ($relationship , $actionAdd = true)
     {
-        
         // many-to-many relationships don't have fields so if we have a many-to-many we can just skip this...
         if ($relationship->getType () == MB_MANYTOMANY)
             return false ;
@@ -332,16 +329,15 @@ class UndeployedRelationships extends AbstractRelationships implements Relations
         $successful = true ;
         $layoutAdditions = $relationship->buildFieldsToLayouts () ;
         
-        require_once 'modules/ModuleBuilder/parsers/views/GridLayoutMetaDataParser.php' ;
         foreach ( $layoutAdditions as $deployedModuleName => $fieldName )
         {
-            foreach ( array ( MB_EDITVIEW , MB_DETAILVIEW ) as $view )
+            foreach ( array ( MB_RECORDVIEW ) as $view )
             {
                 $parsedName = AbstractRelationships::parseDeployedModuleName ( $deployedModuleName ) ;
                 if (isset ( $parsedName [ 'packageName' ] ))
                 {
                     $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . ": " . (($actionAdd) ? "adding" : "removing") . " $fieldName on $view layout for undeployed module {$parsedName [ 'moduleName' ]} in package {$parsedName [ 'packageName' ]}" ) ;
-                    $parser = new GridLayoutMetaDataParser ( $view, $parsedName [ 'moduleName' ], $parsedName [ 'packageName' ] ) ;
+                    $parser = ParserFactory::getParser($view, $parsedName['moduleName'], $parsedName['packageName']);
                     
                     if (($actionAdd) ? $parser->addField ( array ( 'name' => $fieldName ) ) : $parser->removeField ( $fieldName ))
                     {
@@ -360,7 +356,7 @@ class UndeployedRelationships extends AbstractRelationships implements Relations
     }
 
     /*
-     * Add any fields to the DetailView and EditView of the appropriate modules
+     * Add any fields to the Record View of the appropriate modules
      * Only add into deployed modules, as addFieldsToUndeployedLayouts has done this already for undeployed modules (and the admin might have edited the layouts already)
      * @param string $basepath              Basepath location for this module (not used)
      * @param string $relationshipName      Name of this relationship (for uniqueness)
@@ -369,8 +365,6 @@ class UndeployedRelationships extends AbstractRelationships implements Relations
      */
     protected function saveFieldsToLayouts ($basepath , $dummy , $relationshipName , $layoutAdditions)
     {
-        require_once 'modules/ModuleBuilder/parsers/views/GridLayoutMetaDataParser.php' ;
-        
         // these modules either lack editviews/detailviews or use custom mechanisms for the editview/detailview. In either case, we don't want to attempt to add a relate field to them
         // would be better if GridLayoutMetaDataParser could handle this gracefully, so we don't have to maintain this list here
         $invalidModules = array ( 'emails' , 'kbdocuments' ) ;
@@ -379,9 +373,8 @@ class UndeployedRelationships extends AbstractRelationships implements Relations
         foreach ( $layoutAdditions as $deployedModuleName => $fieldName )
         {
             if ( ! in_array( strtolower ( $deployedModuleName ) , $invalidModules ) ) {
-                foreach ( array ( MB_EDITVIEW , MB_DETAILVIEW ) as $view )
+                foreach ( array ( MB_RECORDVIEW ) as $view )
                 {
-                    $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . ": adding $fieldName to $view layout for module $deployedModuleName" ) ;
                     $parsedName = self::parseDeployedModuleName ( $deployedModuleName ) ;
                     if (! isset ( $parsedName [ 'packageName' ] ))
                     {
@@ -393,7 +386,7 @@ class UndeployedRelationships extends AbstractRelationships implements Relations
                         $fieldsToAdd [$deployedModuleName] = $fieldName;
                     }
                 }
-        	}
+            }
         }
         return array(array('additional_fields' => $fieldsToAdd));
     }

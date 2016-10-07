@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Sugar yönetici kullanıcısı için parola verin.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Sugar yönetici kullanıcısı için kullanıcı ismi belirtin.',
   'ERR_CHECKSYS' => 'Uyumluluk denetimi sırasında hatalar tespit edildi. SugarCRM Kurulum işleminin düzgün çalışması için, lütfen aşağıda sıralanan problemleri gidermek için gerekli adımları atıp, yeniden kontrol butonuna basın ya da yeniden yüklemeyi deneyin.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH desteği bulunamadı: SugarCRM isteğe bağlı hassaslıktaki matematiksel işlemler için BCMATCH desteğine gerek duyar.',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass Reference değeri On (php.ini içinde Off yapılmalıdır)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Config dosyası var ama yazılabilir değil. Lütfen dosyanızın yazılabilir hale getirmek için gerekli adımları atın.<br /> İşletim Sistemine bağlı olarak dosyanın izinlerini değiştirmek (chmod 766 komutunu çalıştırarak)<br /> ya da dosyanın üzerine sağ tıklayıp özelliklerine eriştikten sonra, sadece okunur seçeneğini kaldırmak zorunda olabilirsiniz.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Config dosyası var ama yazılabilir değil. Lütfen dosyanızın yazılabilir hale getirmek için gerekli adımları atın. İşletim Sistemine bağlı olarak dosyanın izinlerini değiştirmek (chmod 766 komutunu çalıştırarak) ya da dosyanın üzerine sağ tıklayıp özelliklerine eriştikten sonra, sadece okunur seçeneğini kaldırmak zorunda olabilirsiniz.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'PHP için bir FastCGI işleyici eşlemesi kullanılmadığını algıladık.  Sugar uygulaması ile uyumlu bir sürümü yüklemeniz/yapılandırmanız gerekmektedir. Lütfen desteklenen sürümler için Uyumluluk Matrisine bakınız.  Lütfen detaylar için <a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a> adresini inceleyin',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'IIS/FastCGI sapi kullanımının optimal performansı için, php.ini dosyasında fastcgi.logging değerini 0 olarak belirtin.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Aşağıda listelenen dosya veya dizinler yazılabilir değil ya da eksik olup, oluşturulamamaktadır. İşletim sistemine bağlı olarak, dosyaların veya üst dizinin izinleri değiştirmeniz (chmod 766), veya üst dizinin özelliklerine tıklayıp &#39;salt okunur&#39; seçeneğini kaldırmanız gerekmektedir.',
+  'ERR_CHECKSYS_HTACCESS' => '.Htaccess üzeine yeniden yazma başarısız oldu. Bu genelikle Sugar dizini için AllowOverride kurmanız gerektiği anlamına gelir.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'IIS sürümünüz Sugar tarafından desteklenmiyor.  Sugar uygulaması ile uyumlu bir sürümü yüklemeniz gerekmektedir. Lütfen desteklenen ISS sürümleri için Uyumluluk Matrisine bakınız. Sürümünüz',
   'ERR_CHECKSYS_IMAP' => 'Bulunamadı : Gelen E-Posta ve Kampanyalar (E-Posta) için  IMAP kütüphaneleri gerekiyor. İkisi de çalışmayacak.',
   'ERR_CHECKSYS_MBSTRING' => 'Sugar uygulaması tarafından ihtiyaç duyulan Multibyte Strings PHP eki (mbstring) ile ilişkili fonksiyonlar bulunamadı.<br/><br/><br />Genellikle mbstring modülü varsayılan olarak PHP içinde etkin olmayıp, PHP programı oluşturulurken --enable-mbstring seçeneği ile etkinleştirilmelidir. <br /> Mbstring desteğini etkinleştirmek ile ilgili daha fazla bilgi için PHP Kılavuzuna bakınız.',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Geçerli bir Dizin değil',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Uyarı: Yazılabilir değil',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Oturum değişkenlerin yazma ve okuma işlemi başarısız oldu. Kuruluma devam edilemiyor.',
-  'ERR_CHECKSYS_PCRE' => 'PCRE kütüphanesi bulunamadı: SugarCRM Perl tipinde regular expression eşleşmesi yapabilmek için PCRE kütüphasnesine ihtiyaç duymaktadır.',
-  'ERR_CHECKSYS_PCRE_VER' => 'PCRE kütüphane versiyonu: SugarCRM Perl tipinde regular expression eşleşmesi yapabilmek için PCRE versiyon 7.0 veya daha sonrasına ihtiyaç duymaktadır.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'PHP versiyonunuz Sugar tarafından desteklenmemekte. Sugar uygulaması ile uyumlu bir versiyon indirmeniz gerekiyor. Desteklenen PHP sürümleri için Sürüm Notlarındaki Uyumluluk Matrisini inceleyin',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Desteklenmeyen PHP Versiyonu Yüklendi: ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Güvenli Mod Açık (php.ini içinde devre dışı bırakmak isteyebilirsiniz)',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Temel Tür',
   'LBL_CANCEL' => 'İptal',
   'LBL_CHECKSYS_1' => 'SugarCRM kurulum işleminin doğru olarak tamamlanabilmesi için, aşağıda listelenen tüm kontrol öğelerinin yeşil olduğundan emin olun. Eğer herhangi bir yerde kırmızı varsa,<br /> bunları düzeltmek için gerekli adımları atın.<BR><BR><br /> Kontroller hakkında yardım için almak için, lütfen <br /><a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a> sayfasını ziyaret edin.',
+  'LBL_CHECKSYS_BCMATH' => 'Rasgele Hassaslıktaki Matematik Modülü',
   'LBL_CHECKSYS_CACHE' => 'Yazılabilir Cache Alt-Dizinleri',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference kapalı',
   'LBL_CHECKSYS_COMPONENT' => 'Bileşen',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Devam etmeden önce aşağıdaki dosyaları veya dizinleri düzeltiniz:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Devam etmeden önce aşağıdaki modül dizinleri ve bunların altındaki dosyaları düzeltiniz:',
+  'LBL_CHECKSYS_HTACCESS' => '.htaccess için AllowOverride ayarı',
   'LBL_CHECKSYS_IISVER' => 'IIS Versiyon',
   'LBL_CHECKSYS_IMAP' => 'IMAP Modülü',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings Modülü',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQL Versiyonu',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Mevcut değil',
   'LBL_CHECKSYS_OK' => 'Tamam',
-  'LBL_CHECKSYS_PCRE' => 'PCRE Kütüphanesi',
   'LBL_CHECKSYS_PHPVER' => 'PHP Versiyon',
   'LBL_CHECKSYS_PHP_INI' => 'PHP yapılandırma dosyasının lokasyonu (php.ini):',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Tam-Metin arama özelliği kurulu değil.',
   'LBL_FTS_INSTALLED_ERR2' => 'Yine de kuruluma devam edebilirsiniz, ancak Tam Metin Taramasını kullanılamayacak. Lütfen veritabanı kurulum dokümanına bakınız veya Sistem Yöneticinize başvurun.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search gerekmektedir.',
   'LBL_FTS_TABLE_TITLE' => 'Tam-Metin Arama Ayarları Belirtin',
   'LBL_FTS_TYPE' => 'Arama Motoru Tipi',
   'LBL_HELP' => 'Yardım',
@@ -259,7 +258,7 @@ $mod_strings = array (
   'LBL_LANG_BUTTON_REMOVE' => 'Sil',
   'LBL_LANG_BUTTON_UNINSTALL' => 'Kaldır',
   'LBL_LANG_BUTTON_UPLOAD' => 'Yükleyin',
-  'LBL_LANG_NO_PACKS' => 'yok',
+  'LBL_LANG_NO_PACKS' => 'boş',
   'LBL_LANG_PACK_INSTALLED' => 'Aşağıdaki dil paketleri yüklenmiş:',
   'LBL_LANG_PACK_READY' => 'Aşağıdaki dil paketleri yüklenmeye hazır:',
   'LBL_LANG_SUCCESS' => 'Dil paketi başarıyla yüklendi.',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'İş Kuyruğunu Temizle',
   'LBL_OOTB_IE' => 'Gelen Posta kutularını Kontrol et',
   'LBL_OOTB_PRUNE' => 'Ayın 1 inde Veritabanında temizlik yap',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Dokümanların dosya sisteminden kaldırılması',
   'LBL_OOTB_REPORTS' => 'Rapor Üretimi Planlanmış Görevleri Çalıştırın',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'E-Posta Hatırlatıcı Bildirimlerini Çalıştır',
-  'LBL_OOTB_SUGARFEEDS' => 'SugarFeed Tablolarını temizleyin',
   'LBL_OOTB_TRACKER' => 'İzleyici tablolarını temizle',
   'LBL_OOTB_WORKFLOW' => 'Süreç İş Akışı Görevleri',
   'LBL_OPP' => 'Fırsat Veri Kümesi',

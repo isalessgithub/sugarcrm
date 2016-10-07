@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nav definēts šim skatījumam',
-  'ERR_YEAR_BETWEEN' => 'Atvainojiet, kalendārs nevar apstrādāt, Jūsu, pieprasīto gada skaitli<br>Gada skaitlim jābūt starp 1970 un 2037',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: not defined for this view',
+  'ERR_YEAR_BETWEEN' => 'Atvainojiet, kalendārs nevar apstrādāt jūsu pieprasīto gadu<br>Gadam jābūt no 1970 līdz 2037',
   'LBL_AM' => 'Rīts',
   'LBL_APPLY_BUTTON' => 'Apstiprināt',
   'LBL_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',
   'LBL_BUSY' => 'Aizņemts',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Periodiskais notikums {0} pārsniedzis atkārtojumu skaita limitu',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} nav iepriekšējais periodiskais notikums',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} nav periodiskais notikums',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} nav atpazīts kā periodisku notikumu modulis',
   'LBL_CANCEL_BUTTON' => 'Atcelt',
   'LBL_CLOSE_BUTTON' => 'Aizvērt',
   'LBL_CONFIRM_REMOVE' => 'Vai tiešām vēlaties noņemt ierakstu?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Konflikts',
   'LBL_CREATE_CALL' => 'Reģistrēt zvanu',
   'LBL_CREATE_MEETING' => 'Ieplānot tikšanos',
+  'LBL_CREATE_NEW_CALL' => 'Ieplānot zvanu',
   'LBL_CREATE_NEW_RECORD' => 'Izveidot darbību',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Jūs veidojiet jaunu tikšanos. Vai vēlaties <a href="javascript:void(0);" data-action="create-task">organizēt tikšanos</a> vai <a href="javascript:void(0);" data-action="schedule-call">ieplānot zvanu</a>',
   'LBL_DATE' => 'Sākuma datums un laiks:',
   'LBL_DATE_END_ERROR' => 'Beigu datums ir pirms sākuma datuma',
   'LBL_DATE_TIME' => 'Datums un laiks',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Dzēst',
   'LBL_DURATION' => 'Ilgums',
   'LBL_EDIT_ALL_RECURRENCES' => 'Rediģēt visus atkārtojumus',
+  'LBL_EDIT_CALL' => 'Rediģēt zvanu',
   'LBL_EDIT_RECORD' => 'Rediģēt darbību',
   'LBL_EDIT_USERLIST' => 'Lietotāju saraksts',
   'LBL_ERROR_LOADING' => 'Kļūda ielādējot',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Nākamā nedēļa',
   'LBL_NEXT_YEAR' => 'Nākamais gads',
   'LBL_NO' => 'Nē',
+  'LBL_NO_ACCESS' => 'Jums nav pieejas tiesību',
   'LBL_NO_USER' => 'Nav atbilstības laukam: Piešķirts lietotājam',
   'LBL_PARTICIPANTS_TAB' => 'Dalībnieki',
   'LBL_PM' => 'Vakars',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Sūtīt uzaicinājumus',
   'LBL_SETTINGS' => 'Uzstādījumi',
   'LBL_SETTINGS_CALLS_SHOW' => 'Rādīt zvanus:',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Parādīt veiktās tikšanās, Zvanus un uzdevumus:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Attēlot laika spraugas dienas un nedēļas skatos:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Rādīt uzdevumus:',
   'LBL_SETTINGS_TIME_ENDS' => 'Beigu laiks:',

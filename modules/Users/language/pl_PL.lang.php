@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Musisz wybrać rekord, aby usunąć to konto.',
@@ -56,7 +53,7 @@ $mod_strings = array (
   'ERR_USER_NAME_EXISTS_2' => 'już istnieje. Duplikowanie użytkowników jest niedozwolone. Proszę zmienić nazwę użytkownika na unikalną.',
   'LBL_ACCOUNT_NAME' => 'Nazwa kontrahenta',
   'LBL_ADDRESS' => 'Adres',
-  'LBL_ADDRESS_CITY' => 'Miejscowość',
+  'LBL_ADDRESS_CITY' => 'Miasto',
   'LBL_ADDRESS_COUNTRY' => 'Kraj',
   'LBL_ADDRESS_INFORMATION' => 'Informacje adresowe',
   'LBL_ADDRESS_POSTALCODE' => 'Kod pocztowy',
@@ -69,9 +66,9 @@ $mod_strings = array (
   'LBL_ADMIN_USER' => 'Administrator systemu',
   'LBL_ADVANCED' => 'Zaawansowane',
   'LBL_AFFECTED' => 'wpłynęła na',
-  'LBL_ANY_ADDRESS' => 'Dowolny adres:',
-  'LBL_ANY_EMAIL' => 'Dowolny e-mail',
-  'LBL_ANY_PHONE' => 'Inny telefon',
+  'LBL_ANY_ADDRESS' => 'Adres:',
+  'LBL_ANY_EMAIL' => 'E-mail',
+  'LBL_ANY_PHONE' => 'Dowolny telefon',
   'LBL_APPLY_OPTIMUMS' => 'Zatwierdź optymalne ustawienia',
   'LBL_ASSIGN_PRIVATE_TEAM' => '(prywatny zespół przy zapisywaniu)',
   'LBL_ASSIGN_TEAM' => 'Przydziel do zespołu',
@@ -92,7 +89,7 @@ $mod_strings = array (
   'LBL_CHOOSE_A_KEY' => 'Użyj klucza, aby zapobiec nieautoryzowanej publikacji Twojego kalendarza',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Wybierz swojego dostawcę poczty:',
   'LBL_CHOOSE_WHICH' => 'Wybierz, które moduły będą dostępne z poziomu górnego paska nawigacyjnego. Określ porządek w jakim mają się one wyświetlały.',
-  'LBL_CITY' => 'Miejscowość',
+  'LBL_CITY' => 'Miasto',
   'LBL_CLEAR_BUTTON_TITLE' => 'Wyczyść',
   'LBL_CONFIRM_PASSWORD' => 'Potwierdź nowe hasło:',
   'LBL_CONFIRM_REGULAR_USER' => 'Zmieniony został typ użytkownika z administratora systemu na użytkownika standardowego. Po zapisaniu tych zmian użytkownik nie będzie miał dostępu do panelu administratora.\\n\\nKliknij OK, aby kontymuować.\\nKliknij Anuluj, aby powrócić do rekordu.',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Faks',
   'LBL_FDOW' => 'Pierwszy dzień tygodnia',
   'LBL_FDOW_TEXT' => 'Pierwszy dzień wyświetlany w widoku tygodniowym, miesięcznym i rocznym',
+  'LBL_FILTER_USERS_REPORTS' => 'Raporty użytkownika',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Szukanie optymalnych zmiennych połączenia.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Znajdź optymalną konfigurację',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Wymuś ustawienie',
   'LBL_FORCE_DESC' => 'Niektóre serwery IMAP/POP3 wymagają ustawienia specjalnych funkcji. Zaznacz, aby wymusić ustawienie podczas połączenia (np. /notls)',
   'LBL_FORECASTS' => 'Prognozy',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Funkcja nie jest aktywna. Skontaktuj się z administratorem.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Znaleziono optymalne ustawienia. Naciśnij poniższy klawisz, aby zastosować je dla Twojej skrzynki.',
   'LBL_GENERATE_PASSWORD' => 'Resetuj hasło',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -231,7 +230,7 @@ $mod_strings = array (
   'LBL_LOGIN_BUTTON_KEY' => 'L',
   'LBL_LOGIN_BUTTON_LABEL' => 'Zaloguj się',
   'LBL_LOGIN_BUTTON_TITLE' => 'Zaloguj się',
-  'LBL_LOGIN_FORGOT_PASSWORD' => 'Nie pamiętasz hasła?',
+  'LBL_LOGIN_FORGOT_PASSWORD' => 'Zapomniałeś(aś) hasła?',
   'LBL_LOGIN_LOGIN_TIME_ALLOWED' => 'Możesz spróbować się zalogować ponownie za',
   'LBL_LOGIN_LOGIN_TIME_DAYS' => 'dni.',
   'LBL_LOGIN_LOGIN_TIME_HOURS' => 'godzin.',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Moje zespoły',
   'LBL_NAME' => 'Nazwa:',
   'LBL_NAVIGATION_PARADIGM' => 'Sposób wyświetlania',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Zaznacz, jeśli chcesz, aby moduły w pasku nawigacyjnym wyświetlały się według wcześniej określonych grup. Jeśli ta funkcja zostanie zaznaczona, opcja „Filtruj menu po” widoczna będzie w menu Więcej.',
   'LBL_NEW_FORM_TITLE' => 'Dodaj użytkownika',
   'LBL_NEW_PASSWORD' => 'Nowe hasło',
   'LBL_NEW_PASSWORD1' => 'Hasło',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Zwierzchnik',
   'LBL_REQUEST_SUBMIT' => 'Twoje żądanie zostało przyjęte.',
   'LBL_RESET_DASHBOARD' => 'Domyślny widok dashboardu',
-  'LBL_RESET_HOMEPAGE' => 'Domyślny widok strony głównej',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Czy na pewno chcesz zresetować swoją stronę główną?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Czy na pewno chcesz zresetować stronę główną dla tego użytkownika?',
   'LBL_RESET_PREFERENCES' => 'Przywróć ustawienia domyślne',
   'LBL_RESET_PREFERENCES_WARNING' => 'Czy na pewno chcesz zresetować swoje ustawienia? Uwaga: Zostaniesz wtedy wylogowany(a) z aplikacji.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Czy na pewno chcesz zresetować ustawienia tego dla tego użytkownika?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Linki subpaneli',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Wyświetla wiersz skrótów do subpaneli w widoku szczegółowym.',
-  'LBL_SUBPANEL_TABS' => 'Zakładki subpaneli',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Grupuje subpanele w zakładki.',
   'LBL_SUGAR_LOGIN' => 'Jest użytkownikiem SugarCRM',
   'LBL_SUPPORTED_THEME_ONLY' => 'Wpływa tylko na motywy, które wspierają tę opcję.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Jeśli zaznaczona jest ta opcja, pasek Ostatnio oglądanych elementów wyświetlany jest po lewej stronie. W przeciwnym razie pasek znajdzie się na górze.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Jeśli zaznaczona jest ta opcja, pasek Skrótów wyświetlany jest na górze. W przeciwnym razie pasek znajdzie z boku.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Wyświetl Skróty na górze',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Hasło wygenerowane przez system',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Znaczące cyfry systemu',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Liczba miejsc dziesiętnych do pokazywania w systemie, np. w walutach lub średnich w Raportach.',
   'LBL_TAB_TITLE_EMAIL' => 'Ustawienia poczty',
   'LBL_TAB_TITLE_USER' => 'Ustawienia użytkownika',
   'LBL_TEAMS' => 'Zespoły',

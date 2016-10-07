@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class SugarWidgetFieldBool extends SugarWidgetReportField
 {
@@ -29,6 +26,27 @@ class SugarWidgetFieldBool extends SugarWidgetReportField
             return "(".$this->_get_column_select($layout_def)." is null OR ". $this->_get_column_select($layout_def)."='0')\n";            
 		}
  }
+
+    /**
+     * Compose GROUP BY expression for boolean field
+     *
+     * @param array $layout_def
+     * @return string
+     */
+    public function queryGroupBy($layout_def)
+    {
+        $db = $this->reporter->db;
+
+        // explicitly cast NULL to empty value which depends on field type for proper grouping
+        $alias = parent::queryGroupBy($layout_def);
+        $alias = $db->convert(
+            $alias,
+            'IFNULL',
+            array($db->emptyValue($layout_def['type']))
+        );
+
+        return $alias;
+    }
 
     function displayListPlain($layout_def)
     {

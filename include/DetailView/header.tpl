@@ -1,26 +1,24 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 {{* Add the preForm code if it is defined (used for vcards) *}}
 {{if $preForm}}
 	{{$preForm}}
 {{/if}}
- <script language="javascript">
+<script type="text/javascript" src="{sugar_getjspath file='include/EditView/Panels.js'}"></script>
+<script language="javascript">
 {literal}
 SUGAR.util.doWhen(function(){
-    return $("#contentTable").length == 0;
+    return $("#contentTable").length == 0 && YAHOO.util.Event.DOMReady;
 }, SUGAR.themes.actionMenu);
 {/literal}
 </script>
@@ -39,7 +37,7 @@ SUGAR.util.doWhen(function(){
     {{foreach from=$form.buttons key=val item=button}}
         {{if !is_array($button) && in_array($button, $built_in_buttons)}}
         {{counter print=false}}
-        {{sugar_button module="$module" id="$button" view="EditView" form_id="formDetailView" appendTo="detail_header_buttons"}}
+        {{sugar_button module="$module" id="$button" fields="$fields" view="EditView" form_id="formDetailView" appendTo="detail_header_buttons"}}
         {{/if}}
     {{/foreach}}
     {{if count($form.buttons) > $num_buttons}}
@@ -49,9 +47,12 @@ SUGAR.util.doWhen(function(){
             {{/if}}
         {{/foreach}}
     {{/if}}
-    {{if empty($form.hideAudit) || !$form.hideAudit}}
-        {{sugar_button module="$module" id="Audit" view="EditView" form_id="formDetailView" appendTo="detail_header_buttons"}}
-    {{/if}}
+    {{sugar_button module="$module" id="PDFVIEW" view="$view" form_id="formDetailView" appendTo="detail_header_buttons"}}
+    {{sugar_button module="$module" id="PDFEMAIL" view="$view" form_id="formDetailView" appendTo="detail_header_buttons"}}
+{{/if}}
+
+{{if empty($form.hideAudit) || !$form.hideAudit}}
+    {{sugar_button module="$module" id="Audit" view="EditView" form_id="formDetailView" appendTo="detail_header_buttons"}}
 {{/if}}
 
 <form action="index.php" method="post" name="DetailView" id="formDetailView">

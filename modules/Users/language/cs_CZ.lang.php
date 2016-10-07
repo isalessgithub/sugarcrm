@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Pro vymazání zaměstnance musíte specifikovat číslo záznamu.',
@@ -101,7 +98,7 @@ $mod_strings = array (
   'LBL_CURRENCY' => 'Měna',
   'LBL_CURRENCY_EXAMPLE' => 'Příklad zobrazení měny',
   'LBL_CURRENCY_SHOW_PREFERRED' => 'Zobrazit preferovanou měnu',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Převést výchozí měnu na uživatelem preferovanou měnu v seznamech a detailech',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Konvertovat výchozí měnu na uživatelskou v pohledech seznamu a detailu',
   'LBL_CURRENCY_SIG_DIGITS' => 'Příklad významným čísel',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Počet destinných míst zobrazených pro měnu',
   'LBL_CURRENCY_TEXT' => 'Zvolte výchozí měnu',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'První den v týdnu',
   'LBL_FDOW_TEXT' => 'První den zobrazen v týdenním, měsíčním a ročním přehledu',
+  'LBL_FILTER_USERS_REPORTS' => 'Reporty uživatelů',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => 'Nalezení optimálních proměných připojení.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Nalézt optimální konfiguraci',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Nutit negativní',
   'LBL_FORCE_DESC' => 'Některé IMAP/POP3 servery potřebují speciální přepínače. Check to force a negative switch when connecting (i.e., /notls)',
   'LBL_FORECASTS' => 'Předpovědi',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Momentálně nedostupné. Prosím kontaktujte svého administrátora.',
   'LBL_FOUND_OPTIMUM_MSG' => 'Nalezeno optimální nastavení. Stiskněte tlačítko níže pro uložení.',
   'LBL_GENERATE_PASSWORD' => 'Resetovat heslo',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Můj tým',
   'LBL_NAME' => 'Jméno',
   'LBL_NAVIGATION_PARADIGM' => 'Navigační schéma',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Použít seskupené záložky místo záložek modulů.',
   'LBL_NEW_FORM_TITLE' => 'Nový uživatel',
   'LBL_NEW_PASSWORD' => 'Nové heslo',
   'LBL_NEW_PASSWORD1' => 'Heslo',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Podřízen(komu)',
   'LBL_REQUEST_SUBMIT' => 'Váš požadavek byl schválen.',
   'LBL_RESET_DASHBOARD' => 'Reporty',
-  'LBL_RESET_HOMEPAGE' => 'Nastavit původní titulní stránku [Homepage]',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Určitě obnovit nastavení titulní stránky ?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Jste si jist, že chcete smazat všechny nastavení homepage pro tohoto uživatele??',
   'LBL_RESET_PREFERENCES' => 'Obnovit původní nastavení',
   'LBL_RESET_PREFERENCES_WARNING' => 'Jste si jistí, že se chcete vrátit d původnímu nastavení ?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Jste si jist, že chcete smazat všechny nastavení pro tohoto uživatele?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Stav',
   'LBL_SUBPANEL_LINKS' => 'Odkazy na [panelu].',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'V detailním pohledu zobrazit řádek [rychlých odkazů.]',
-  'LBL_SUBPANEL_TABS' => 'Záložky [panelu]',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'V detailním pohledu seskupit panely do záložek a zobrazit vždy pouze jednu záložku.',
   'LBL_SUGAR_LOGIN' => 'Je uživatel SugarCRM',
   'LBL_SUPPORTED_THEME_ONLY' => 'Projeví se pouze u témat, které tuto možnost podporují.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Pokud zaškrtnete tuto volbu, budou zobrazeny naposled použité položky na straně. Jinak budou normálně nahoře.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Zobrazit [rychlé odkazy] nahoře. Jinak budou normálně vlevo.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Rychlé odkazy nahoře',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Systémem Generované heslo',
+  'LBL_SYSTEM_SIG_DIGITS' => 'System Significant Digits',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Number of decimal places to show for decimals and floats throughout the system, such as currency and average in Reports.',
   'LBL_TAB_TITLE_EMAIL' => 'Emailové nastavení',
   'LBL_TAB_TITLE_USER' => 'Nastavení uživatele',
   'LBL_TEAMS' => 'Týmy',
@@ -516,7 +511,7 @@ $mod_strings = array (
   'LBL_USER_ACCESS' => 'Přístup',
   'LBL_USER_HASH' => 'Heslo',
   'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Uživatelské volno',
-  'LBL_USER_INFORMATION' => 'Informatice o uživateli',
+  'LBL_USER_INFORMATION' => 'Informace o uživateli',
   'LBL_USER_LOCALE' => 'Regionální nastavení',
   'LBL_USER_NAME' => 'Uživatelské jméno',
   'LBL_USER_NAME_FOR_ROLE' => 'Uživatelé/Týmy/Role',

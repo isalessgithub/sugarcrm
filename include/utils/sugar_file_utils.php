@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * sugar_mkdir
@@ -118,12 +115,21 @@ function sugar_file_put_contents($filename, $data, $flags=null, $context=null){
 	}
 
 	if(empty($flags)) {
-		return file_put_contents($filename, $data);
+		$return = file_put_contents($filename, $data);
 	} elseif(empty($context)) {
-		return file_put_contents($filename, $data, $flags);
+        $return = file_put_contents($filename, $data, $flags);
 	} else{
-		return file_put_contents($filename, $data, $flags, $context);
+        $return = file_put_contents($filename, $data, $flags, $context);
 	}
+
+    // Add to the file loader cache if it isn't there
+    if ($return) {
+        if (!SugarAutoLoader::fileExists($filename)) {
+            SugarAutoLoader::addToMap($filename);
+        }
+    }
+
+    return $return;
 }
 
 
@@ -168,13 +174,16 @@ function sugar_file_put_contents_atomic($filename, $data, $mode='wb', $use_inclu
 
     if(file_exists($filename))
     {
-       return sugar_chmod($filename, 0655);
+        // Add to the file loader cache
+        if (!SugarAutoLoader::fileExists($filename)) {
+            SugarAutoLoader::addToMap($filename);
+        }
+
+        return sugar_chmod($filename);
     }
 
     return false;
 }
-
-
 
 /**
  * sugar_file_get_contents
@@ -185,9 +194,9 @@ function sugar_file_put_contents_atomic($filename, $data, $mode='wb', $use_inclu
  * @return string|boolean - Returns a file data on success, false otherwise
  */
 function sugar_file_get_contents($filename, $use_include_path=false, $context=null){
-	//check to see if the file exists, if not then use touch to create it.
-	if(!file_exists($filename)){
-		sugar_touch($filename);
+	if(!SugarAutoLoader::fileExists($filename)){
+        $GLOBALS['log']->error("File $filename does not exist");
+        return false;
 	}
 
 	if ( !is_readable($filename) ) {
@@ -218,7 +227,17 @@ function sugar_file_get_contents($filename, $use_include_path=false, $context=nu
  */
 function sugar_touch($filename, $time=null, $atime=null) {
 
-   $result = false;
+    if (!empty($GLOBALS['sugar_config']['default_permissions']['dir_mode'])) {
+        $dirmode = $GLOBALS['sugar_config']['default_permissions']['dir_mode'];
+    } else {
+        $dirmode = null;
+    }
+
+    $result = sugar_mkdir(dirname($filename), $dirmode, true);
+
+    if (!$result) {
+        return $result;
+    }
 
    if(!empty($atime) && !empty($time)) {
    	  $result = @touch($filename, $time, $atime);
@@ -242,7 +261,12 @@ function sugar_touch($filename, $time=null, $atime=null) {
 		sugar_chgrp($filename);
 	}
 
-   return true;
+    // Add this to the file loader cache
+    if (!SugarAutoLoader::fileExists($filename)) {
+        SugarAutoLoader::addToMap($filename);
+    }
+
+    return true;
 }
 
 /**
@@ -255,11 +279,9 @@ function sugar_touch($filename, $time=null, $atime=null) {
  * @return boolean   Returns TRUE on success or FALSE on failure.
  */
 function sugar_chmod($filename, $mode=null) {
-    if ( !is_int($mode) )
-        $mode = (int) $mode;
 	if(!is_windows()){
-		if(!isset($mode)){
-			$mode = get_mode('file_mode', $mode);
+        if ($mode === null) {
+            $mode = get_mode('file_mode', 0660);
 		}
         if(isset($mode) && $mode > 0){
 		   return @chmod($filename, $mode);

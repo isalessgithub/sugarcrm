@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'COLUMN_DISABLE_NUMBER_FORMAT' => '禁用格式',
@@ -53,11 +50,12 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => '默认URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => '美国公式',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => '字段名已经存在',
-  'ERR_NO_MODULE_INCLUDED' => '没有模块被保存',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => '字段名只能使用下列字符：a-z A-Z',
+  'ERR_NO_MODULE_INCLUDED' => '没有模块无法保存',
   'ERR_RESERVED_FIELD_NAME' => '保留字',
   'ERR_SELECT_FIELD_TYPE' => '请选择字段类型',
-  'LBL_ADDING_COLUMN' => '添加列',
-  'LBL_ADD_FIELD' => '添加字段:',
+  'LBL_ADDING_COLUMN' => '添加列 {0} 到',
+  'LBL_ADD_FIELD' => '添加字段：',
   'LBL_AUDITED' => '审核',
   'LBL_BTN_ADD' => '添加',
   'LBL_BTN_EDIT' => '编辑',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => '选择字段',
   'LBL_DEPENDENT_TRIGGER' => '触发器',
   'LBL_DONE' => '完成',
-  'LBL_DROPPING_COLUMN' => '删除列{0}{1}模块',
+  'LBL_DROPPING_COLUMN' => '删除列 {0} 到 {1} 的模块',
   'LBL_DROP_DOWN_LIST' => '下拉式列表',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => '选择字段值',
   'LBL_EDIT_VIS' => '调整能见度',
   'LBL_ENFORCED' => '强制的',
   'LBL_EXE_NON_SIM_MODE' => '执行非仿真模式',
   'LBL_FIELD_MISSING' => '缺少字段',
-  'LBL_FIX_COLUMN_TYPE' => '变化{0}{1}以固定列类型',
+  'LBL_FIX_COLUMN_TYPE' => '修复列类型{0}从{1}变更为',
   'LBL_FORMULA' => '公式',
   'LBL_GENERATE_URL' => '生成 URL',
   'LBL_HAS_PARENT' => '有父项',
@@ -87,24 +85,24 @@ $mod_strings = array (
   'LBL_LABEL' => '标签',
   'LBL_LINK_TARGET' => '打开 Link In',
   'LBL_MODULE' => '模块',
-  'LBL_MODULE_SELECT' => '编辑的模块',
+  'LBL_MODULE_SELECT' => '要编辑的模块',
   'LBL_MULTI_SELECT_LIST' => '多选列表',
   'LBL_PARENT_DROPDOWN' => '父项下拉表',
   'LBL_RADIO_FIELDS' => '单选字段',
   'LBL_REPORTABLE' => '可报告的',
   'LBL_SCAN_MODULE' => '扫描',
-  'LBL_SEARCH_FORM_TITLE' => '模块查找',
-  'LBL_SIMULATION_MODE' => '除了清除缓存，不会有任何变化',
+  'LBL_SEARCH_FORM_TITLE' => '模块搜索',
+  'LBL_SIMULATION_MODE' => '仿真模式 - 清除缓存外，不会有任何变化',
   'LBL_VISIBLE_IF' => '是否可见',
   'LNK_CALL_LIST' => '电话',
   'LNK_EMAIL_LIST' => '电子邮件',
   'LNK_MEETING_LIST' => '会议',
-  'LNK_NEW_CALL' => '安排电话',
-  'LNK_NEW_EMAIL' => '存档电子邮件',
-  'LNK_NEW_MEETING' => '安排电话',
-  'LNK_NEW_NOTE' => '新增备忘录',
+  'LNK_NEW_CALL' => '记录电话',
+  'LNK_NEW_EMAIL' => '归档电子邮件',
+  'LNK_NEW_MEETING' => '调度会议',
+  'LNK_NEW_NOTE' => '新增笔记或附件',
   'LNK_NEW_TASK' => '新增任务',
-  'LNK_NOTE_LIST' => '备注',
+  'LNK_NOTE_LIST' => '笔记',
   'LNK_REPAIR_CUSTOM_FIELD' => '修复自定义字段',
   'LNK_SELECT_CUSTOM_FIELD' => '选择自定义字段',
   'LNK_TASK_LIST' => '任务',

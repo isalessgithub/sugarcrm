@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Morate navesti broj zapisa da bi obrisali sastanak.',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Email podsetnik poslat',
   'LBL_EMAIL_REMINDER_TIME' => 'Vreme email podsetnika',
   'LBL_EMPTY_SEARCH_RESULT' => 'Žao nam je, nije pronađen ni jedan rezultat. Molimo kreirajte pozivnicu ispod:',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Pojavila se greška prilikom pokretanja ovog sastanka. Molim kontaktirajte Administratora',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID broj dodeljenog korisnika',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ime dodeljenog korisnika',
   'LBL_EXPORT_CREATED_BY' => 'ID broj osobe koja je kreirala',
@@ -80,6 +78,9 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Ne možete da se pridružite sastanku zato što niste pozvani.',
   'LBL_EXTNOT_RECORD_LINK' => 'Pregledaj sastanke',
   'LBL_FIRST_NAME' => 'Ime',
+  'LBL_HELP_CREATE' => 'Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}  modul se sastoji od stavki individualnih linija posla koje su uključene na {{opportunities_singular_module}} zapis i praćen kroz ceo prodajni životni ciklus. {{opportunities_singular_module}} zapis ima ulugo zaglavlja za jedan ili više {{module_name}} zapis. - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "To Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modul se sastoji od svih proizvoda koji su već prodati ili su u procesu prodaje klijentu. Lista proizvoda koja je prodala vaša organizacija je smeštena u Admin : Proizvodni Katalog i administratori imaju mogućnost dodavanja proizvoda po potrebi. Kada kreirate {{plural_module_name}}, imate opciju ili da odaberete proizvod iz kataloga ili da kreirate novi proizvod preko {{plural_module_name}} modula. Postoji nekoliko načina da se kreira {{plural_module_name}} u Sugar-u kao što su preko {{plural_module_name}} modula, {{quotes_module_name}} modul, uvozom {{plural_module_name}}, itd.  Jednom kada je {{module_name}} kreiran, moguće je pregledati i izmeniti informacije koji se tiču {{module_name}} kroz {{module_name}}-og pregleda zapisa.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Beleške',
   'LBL_HOST_EXT_MEETING' => 'Započni sastanak',
   'LBL_HOST_URL' => 'URL lokacije',
@@ -87,6 +88,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(sati/minuta)',
   'LBL_INVITEE' => 'Pozvani',
   'LBL_JOIN_EXT_MEETING' => 'Pridruži se sastanku',
+  'LBL_JOIN_MEETING' => 'Pridružiti se {{tip sastanka}}',
   'LBL_LAST_NAME' => 'Prezime',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potencijalni klijenti',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Dodeljeni korisnik',
@@ -105,6 +107,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Vreme početka',
   'LBL_LOCATION' => 'Lokacija:',
   'LBL_MEETING' => 'Sastanak:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Sastanak uspešno zatvoren.',
   'LBL_MEETING_INFORMATION' => 'Pregled sastanka',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Promenio',
@@ -112,6 +115,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Sastanci',
   'LBL_MODULE_NAME_SINGULAR' => 'Sastanak:',
   'LBL_MODULE_TITLE' => 'Sastanci: Početna strana',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Moji Zakazani Sastanci',
   'LBL_NAME' => 'Naziv',
   'LBL_NEW_FORM_TITLE' => 'Zakaži sastanak',
   'LBL_NO_ACCESS' => 'Nemate pristup ovom delu. Kontaktirajte administratora vašeg sajta kako biste dobili pristup.',
@@ -120,6 +124,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Matični tip',
   'LBL_PASSWORD' => 'Lozinka sastanka',
   'LBL_PHONE' => 'Poslovni telefon:',
+  'LBL_POPUP_REMINDER' => 'Iskačući prozor podsetnik',
+  'LBL_POPUP_REMINDER_TIME' => 'Iskačući vremenski podsetnik',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Uspešno ste napravili zapis, ali nemate dovoljna ovlašćenja da pristupite zapisu.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Uspešno ste napravili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a>.',
   'LBL_RECURRENCE' => 'Ponavljanje',
   'LBL_RECURRING_LIMIT_ERROR' => 'Nije moguće zakazati ponavljajući poziv zato što prelazi maksimalni broj ponavljanja - $limit',
   'LBL_RECURRING_SOURCE' => 'Izvor ponavljanja',
@@ -130,6 +138,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Pošaljite email svim pozvanima.',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Vreme podsetnika',
+  'LBL_REMINDER_TITLE' => 'Sastanak:',
   'LBL_REMOVE' => 'Ukloni',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Obriši sva ponavljanja',
   'LBL_REPEAT_COUNT' => 'Broj ponavljanja',
@@ -142,6 +151,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Matični ID ponavljanja',
   'LBL_REPEAT_TYPE' => 'Ponavlja se',
   'LBL_REPEAT_UNTIL' => 'Ponavlja se do',
+  'LBL_REVENUELINEITEMS' => 'Stavke prihoda',
   'LBL_SCHEDULING_FORM_TITLE' => 'Zakazivanje',
   'LBL_SEARCH_BUTTON' => 'Pretraga',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga sastanaka',
@@ -150,6 +160,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Pošalji pozvanima [Alt+I]',
   'LBL_SEND_INVITES' => 'Pošalji pozivnice',
   'LBL_SEQUENCE' => 'Sekvenca ažuriranja sastanka',
+  'LBL_START_MEETING' => 'Započeti {{tip sastanka}}',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Naslov:',
   'LBL_SYNCED_RECURRING_MSG' => 'Ovaj sastanak vodi poreklo iz eksternog sistema i sinhronizovan je u Sugar. Kako biste ga menjali, neophodno je izvršiti izmene u originalnom sistemu, koje kasnije mogu biti sinhronizovane ovde.',

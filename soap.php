@@ -1,29 +1,25 @@
 <?php
  if(!defined('sugarEntry'))define('sugarEntry', true);
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+define('ENTRY_POINT_TYPE', 'api');
 require_once('include/entryPoint.php');
 require_once('include/utils/file_utils.php');
 ob_start();
 
 require_once('soap/SoapError.php');
-require_once('include/nusoap/nusoap.php');
+require_once('vendor/nusoap//nusoap.php');
 require_once('modules/Contacts/Contact.php');
 require_once('modules/Accounts/Account.php');
 require_once('modules/Opportunities/Opportunity.php');
-require_once('service/core/SoapHelperWebService.php');
 require_once('modules/Cases/Case.php');
 //ignore notices
 error_reporting(E_ALL ^ E_NOTICE);
@@ -33,8 +29,7 @@ checkSystemState();
 
 global $HTTP_RAW_POST_DATA;
 
-$administrator = new Administration();
-$administrator->retrieveSettings();
+$administrator = Administration::getSettings();
 
 $NAMESPACE = 'http://www.sugarcrm.com/sugarcrm';
 $server = new soap_server;
@@ -76,8 +71,10 @@ $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
 global $soap_server_object;
 $soap_server_object = $server;
 $server->service($HTTP_RAW_POST_DATA);
+
+$action = substr($server->SOAPAction, strpos($server->SOAPAction, 'soap.php/') + 9);
+SugarMetric_Manager::getInstance()->setTransactionName('soap_' . $action);
+
 ob_end_flush();
 flush();
-sugar_cleanup();
-exit();
-?>
+sugar_cleanup(true);

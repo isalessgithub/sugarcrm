@@ -1,27 +1,20 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarObjects/templates/person/Person.php');
-// Contact is used to store customer information.
+/**
+ *  Contact is used to store customer information.
+ */
 class Contact extends Person {
     var $field_name_map;
 	// Stored fields
@@ -112,6 +105,11 @@ class Contact extends Person {
 	var $rel_opportunity_table = "opportunities_contacts";
 	var $rel_quotes_table = "quotes_contacts";
 
+    //Marketo
+    var $mkto_sync;
+    var $mkto_id;
+    var $mkto_lead_score;
+
 	var $object_name = "Contact";
 	var $module_dir = 'Contacts';
 	var $emailAddress;
@@ -123,12 +121,33 @@ class Contact extends Person {
 	,'quote_id'
 	);
 
-	var $relationship_fields = Array('account_id'=> 'accounts','bug_id' => 'bugs', 'call_id'=>'calls','case_id'=>'cases','email_id'=>'emails',
-								'meeting_id'=>'meetings','note_id'=>'notes','task_id'=>'tasks', 'opportunity_id'=>'opportunities', 'contacts_users_id' => 'user_sync'
-								);
+	var $relationship_fields = Array(
+        'account_id'=> 'accounts',
+        'bug_id' => 'bugs',
+        'call_id'=>'calls',
+        'case_id'=>'cases',
+        'email_id'=>'emails',
+        'meeting_id'=>'meetings',
+        'note_id'=>'notes',
+        'task_id'=>'tasks',
+        'opportunity_id'=>'opportunities',
+        'contacts_users_id' => 'user_sync',
+    );
 
-	function Contact() {
-		parent::Person();
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function Contact()
+    {
+        $GLOBALS['log']->deprecated('Calls to Contact::Contact() are deprecated.');
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 	}
 
 	function add_list_count_joins(&$query, $where)
@@ -164,26 +183,43 @@ class Contact extends Person {
 		return $array_assign;
 	}
 
-	function create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false,$parentbean=null, $singleSelect = false)
-	{
+    public function create_new_list_query(
+        $order_by,
+        $where,
+        $filter = array(),
+        $params = array(),
+        $show_deleted = 0,
+        $join_type = '',
+        $return_array = false,
+        $parentbean = null,
+        $singleSelect = false,
+        $ifListForExport = false
+    ) {
 		//if this is from "contact address popup" action, then process popup list query
-		if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'ContactAddressPopup'){
+		if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'ContactAddressPopup') {
 			return $this->address_popup_create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect);
 
-		}else{
+		} else {
 			//any other action goes to parent function in sugarbean
-			if(strpos($order_by,'sync_contact') !== false){
+			if (strpos($order_by,'sync_contact') !== false) {
 				//we have found that the user is ordering by the sync_contact field, it would be troublesome to sort by this field
 				//and perhaps a performance issue, so just remove it
 				$order_by = '';
 			}
-			return parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect);
+            return parent::create_new_list_query(
+                $order_by,
+                $where,
+                $filter,
+                $params,
+                $show_deleted,
+                $join_type,
+                $return_array,
+                $parentbean,
+                $singleSelect,
+                $ifListForExport
+            );
 		}
-
-
 	}
-
-
 
 	function address_popup_create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false,$parentbean=null, $singleSelect = false)
 	{
@@ -209,7 +245,7 @@ class Contact extends Person {
  		$from_query = "
                 FROM contacts ";
 		// We need to confirm that the user is a member of the team of the item.
-		$this->add_team_security_where_clause($query);
+ 		$this->addVisibilityFrom($from_query, array('where_condition' => true));
 
 		$from_query .=		"LEFT JOIN users
 	                    ON contacts.assigned_user_id=users.id
@@ -232,22 +268,24 @@ class Contact extends Person {
 				$where_auto = " $this->table_name.deleted=1 ";
 		}
 
-
 		if($where != ""){
 			$where_query = "where ($where) AND ".$where_auto;
 		}else{
 			$where_query = "where ".$where_auto;
 		}
 
+		$this->addVisibilityWhere($where_query, array('where_condition' => true));
+		$acc = BeanFactory::getBean('Accounts');
+		$acc->addVisibilityWhere($where_query, array('where_condition' => true, 'table_alias' => 'accounts'));
 
 		$ret_array['where'] = $where_query;
-        $ret_array['order_by'] = '';
+		$ret_array['order_by'] = '';
 
-        //process order by and add if it's not empty
-        $order_by = $this->process_order_by($order_by);
-        if (!empty($order_by)) {
-            $ret_array['order_by'] = ' ORDER BY ' . $order_by;
-        }
+         	//process order by and add if it's not empty
+         	$order_by = $this->process_order_by($order_by);
+         	if (!empty($order_by)) {
+        	     $ret_array['order_by'] = ' ORDER BY ' . $order_by;
+ 	        }
 
 		if($return_array)
     	{
@@ -258,65 +296,15 @@ class Contact extends Person {
 
 	}
 
+    function fill_in_additional_list_fields()
+    {
+        parent::fill_in_additional_list_fields();
+        $this->_create_proper_name_field();
 
-
-
-        function create_export_query(&$order_by, &$where, $relate_link_join='')
-        {
-            $custom_join = $this->getCustomJoin(true, true, $where);
-            $custom_join['join'] .= $relate_link_join;
-                         $query = "SELECT
-                                contacts.*,
-                                email_addresses.email_address email_address,
-                                '' email_addresses_non_primary, " . // email_addresses_non_primary needed for get_field_order_mapping()
-                                "accounts.name as account_name,
-                                users.user_name as assigned_user_name ";
-						 $query .= ", teams.name AS team_name ";
-            $query .= $custom_join['select'];
-						 $query .= " FROM contacts ";
-								// We need to confirm that the user is a member of the team of the item.
-								$this->add_team_security_where_clause($query);
-                         $query .= "LEFT JOIN users
-	                                ON contacts.assigned_user_id=users.id ";
-						 $query .= getTeamSetNameJoin('contacts');
-	                     $query .= "LEFT JOIN accounts_contacts
-	                                ON ( contacts.id=accounts_contacts.contact_id and (accounts_contacts.deleted is null or accounts_contacts.deleted = 0))
-	                                LEFT JOIN accounts
-	                                ON accounts_contacts.account_id=accounts.id ";
-
-						//join email address table too.
-						$query .=  ' LEFT JOIN  email_addr_bean_rel on contacts.id = email_addr_bean_rel.bean_id and email_addr_bean_rel.bean_module=\'Contacts\' and email_addr_bean_rel.deleted=0 and email_addr_bean_rel.primary_address=1 ';
-						$query .=  ' LEFT JOIN email_addresses on email_addresses.id = email_addr_bean_rel.email_address_id ' ;
-
-            $query .= $custom_join['join'];
-
-		$where_auto = "( accounts.deleted IS NULL OR accounts.deleted=0 )
-                      AND contacts.deleted=0 ";
-
-                if($where != "")
-                        $query .= "where ($where) AND ".$where_auto;
-                else
-                        $query .= "where ".$where_auto;
-
-        $order_by = $this->process_order_by($order_by);
-        if (!empty($order_by)) {
-            $query .= ' ORDER BY ' . $order_by;
+        if ($this->force_load_details == true) {
+            $this->fill_in_additional_detail_fields();
         }
-
-                return $query;
-        }
-
-	function fill_in_additional_list_fields() {
-		parent::fill_in_additional_list_fields();
-		$this->_create_proper_name_field();
-		// cn: bug 8586 - l10n names for Contacts in Email TO: field
-		$this->email_and_name1 = "{$this->full_name} &lt;".$this->email1."&gt;";
-		$this->email_and_name2 = "{$this->full_name} &lt;".$this->email2."&gt;";
-
-		if($this->force_load_details == true) {
-			$this->fill_in_additional_detail_fields();
-		}
-	}
+    }
 
 	function fill_in_additional_detail_fields() {
 		parent::fill_in_additional_detail_fields();
@@ -351,7 +339,7 @@ class Contact extends Person {
 		{
 			$this->account_name = $row['name'];
 			$this->account_id = $row['id'];
-			$this->report_to_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name'],'','','',null,true);
+            $this->report_to_name = $locale->formatName($this->module_name, $row);
 		}
 		else
 		{
@@ -359,60 +347,51 @@ class Contact extends Person {
 			$this->account_id = '';
 			$this->report_to_name = '';
 		}
-		$this->load_contacts_users_relationship();
+
+		$this->load_relationship('user_sync');
+		if ($this->user_sync->_relationship->relationship_exists($this, $GLOBALS['current_user'])) {
+			$this->sync_contact = true;
+		} else {
+			$this->sync_contact = false;
+		}
+		if(!empty($this->fetched_row)) {
+		    $this->fetched_row['sync_contact'] = $this->sync_contact;
+		}
+
 		/** concating this here because newly created Contacts do not have a
 		 * 'name' attribute constructed to pass onto related items, such as Tasks
 		 * Notes, etc.
 		 */
-		$this->name = $locale->getLocaleFormattedName($this->first_name, $this->last_name);
-        if(!empty($this->contacts_users_id)) {
-		   $this->sync_contact = true;
-		}
-
+        $this->name = $locale->formatName($this);
 		if(!empty($this->portal_active) && $this->portal_active == 1) {
 		   $this->portal_active = true;
 		}
         // Set campaign name if there is a campaign id
 		if( !empty($this->campaign_id)){
 
-			$camp = new Campaign();
+			$camp = BeanFactory::getBean('Campaigns');
 		    $where = "campaigns.id='{$this->campaign_id}'";
 		    $campaign_list = $camp->get_full_list("campaigns.name", $where, true);
 		    $this->campaign_name = $campaign_list[0]->name;
 		}
 	}
 
-		/**
-		loads the contacts_users relationship to populate a checkbox
-		where a user can select if they would like to sync a particular
-		contact to Outlook
-	*/
-	function load_contacts_users_relationship(){
-		global $current_user;
-
-		$this->load_relationship("user_sync");
-
-        $beanIDs = $this->user_sync->get();
-
-        if( in_array($current_user->id, $beanIDs) )
-        {
-            $this->contacts_users_id = $current_user->id;
-        }
-	}
-
-	function get_list_view_data($filter_fields = array()) {
-
+    function get_list_view_data($filter_fields = array())
+    {
         $temp_array = parent::get_list_view_data();
 
-		if($filter_fields && !empty($filter_fields['sync_contact'])){
-			$this->load_contacts_users_relationship();
-			$temp_array['SYNC_CONTACT'] = !empty($this->contacts_users_id) ? 1 : 0;
-		}
+        if ($filter_fields && !empty($filter_fields['sync_contact'])) {
+            $this->load_relationship('user_sync');
+            $temp_array['SYNC_CONTACT'] = $this->user_sync->_relationship->relationship_exists(
+                $this,
+                $GLOBALS['current_user']
+            ) ? 1 : 0;
+        }
 
-        $temp_array['EMAIL_AND_NAME1'] = "{$this->full_name} &lt;".$temp_array['EMAIL1']."&gt;";
+        $temp_array['EMAIL_AND_NAME1'] = "{$this->full_name} &lt;" . $temp_array['EMAIL1'] . "&gt;";
 
-		return $temp_array;
-	}
+        return $temp_array;
+    }
 
 	/**
 		builds a generic search based on the query string using or
@@ -454,7 +433,7 @@ class Contact extends Person {
 	{
 	    global $locale;
 
-		$xtpl->assign("CONTACT_NAME", trim($locale->getLocaleFormattedName($contact->first_name, $contact->last_name)));
+        $xtpl->assign("CONTACT_NAME", $locale->formatName($contact));
 		$xtpl->assign("CONTACT_DESCRIPTION", $contact->description);
 
 		return $xtpl;
@@ -477,8 +456,8 @@ class Contact extends Person {
 		return empty($result)?null:$result;
 	}
 
-	function save_relationship_changes($is_update) {
-
+    public function save_relationship_changes($is_update, $exclude = array())
+    {
 		//if account_id was replaced unlink the previous account_id.
 		//this rel_fields_before_value is populated by sugarbean during the retrieve call.
 		if (!empty($this->account_id) and !empty($this->rel_fields_before_value['account_id']) and
@@ -519,7 +498,7 @@ class Contact extends Person {
         // cache this object since we'll be reusing it a bunch
         if ( !($focus_user instanceof User) ) {
 
-            $focus_user = new User();
+            $focus_user = BeanFactory::getBean('Users');
         }
 
         static $focus_team;
@@ -527,7 +506,7 @@ class Contact extends Person {
         // cache this object since we'll be reusing it a bunch
         if ( !($focus_team instanceof Team) ) {
 
-            $focus_team = new Team();
+            $focus_team = BeanFactory::getBean('Teams');
         }
 
 		if ( empty($list_of_users) ) {
@@ -569,4 +548,25 @@ class Contact extends Person {
 			}
 		}
 	}
+
+	/**
+     *
+     * @see parent::save()
+     */
+    public function save($check_notify = false)
+    {
+        if(!is_null($this->sync_contact)) {
+            if(empty($this->fetched_row) || $this->fetched_row['sync_contact'] != $this->sync_contact) {
+                $this->load_relationship('user_sync');
+                if($this->sync_contact) {
+                    // They want to sync_contact
+                    $this->user_sync->add($GLOBALS['current_user']->id);
+                } else {
+                    $this->user_sync->delete($this->id, $GLOBALS['current_user']->id);
+                }
+
+            }
+        }
+        return parent::save($check_notify);
+    }
 }

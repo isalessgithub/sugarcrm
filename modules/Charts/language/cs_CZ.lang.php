@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -22,16 +19,16 @@ $mod_strings = array (
   'LBL_ALL_OPPORTUNITIES' => 'Celkový objem obchodů je',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => 'Zobrazit reakci na kampaň podle návratnosti investic',
   'LBL_CHART_ACTION' => 'Akce',
-  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE akce dle typů (aktuální měsíc)',
-  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Zdroj dle výsledku',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE akce podle typů (Aktuální měsíc)',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => 'Zdroj podle výsledku',
   'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => 'Moduly využívané Vašimi podřízenými (Posledních 30 dnů)',
   'LBL_CHART_MY_MODULES_USED_30_DAYS' => 'Moje použité moduly (posledních 30 dní)',
-  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Můj zásobník dle fáze obchodu',
-  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'Příležitosti tento kvartál',
-  'LBL_CHART_OUTCOME_BY_MONTH' => 'Výsledek dle měsíce',
-  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'Zásobník dle zdroje',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'Zásobník dle fáze obchodu',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'Zásobník dle trychtýře fází obchodu',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'Můj zásobník podle fáze obchodu',
+  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => 'Příležitosti toto čtvrtletí',
+  'LBL_CHART_OUTCOME_BY_MONTH' => 'Výsledek podle měsíce',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'Zásobník podle zdroje',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'Zásobník podle fáze obchodu',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'Zásobník podle násypky fáze obchodu',
   'LBL_CHART_TYPE' => 'Typ grafu:',
   'LBL_CLOSE_DATE_END' => 'Očekávaný datum uzavření - Do:',
   'LBL_CLOSE_DATE_START' => 'Očekávaný datum uzavření - Od:',

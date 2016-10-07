@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -39,11 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Не звонить',
   'LBL_EDIT_BUTTON' => 'Правка',
   'LBL_EMAIL_ADDRESS' => 'E-mail-адрес (-а)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Не основные E-mail адреса',
+  'LBL_FACEBOOK' => 'Аккаунт на Facebook',
   'LBL_FAX_PHONE' => 'Факс',
   'LBL_FIRST_NAME' => 'Имя',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_HOME_PHONE' => 'Домашний тел.',
+  'LBL_IMPORT_VCARDTEXT' => 'Автоматическое создание новой записи при импортировании vCard из вашей файловой системы.',
   'LBL_LAST_NAME' => 'Фамилия',
+  'LBL_LINKEDIN' => 'Участник аккаунта на Linkedin',
   'LBL_MOBILE_PHONE' => 'Мобильный тел.',
   'LBL_NAME' => 'Название',
   'LBL_OFFICE_PHONE' => 'Рабочий тел.',
@@ -66,7 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Область',
   'LBL_STREET' => 'Другой адрес',
   'LBL_TITLE' => 'Должность',
+  'LBL_TWITTER' => 'Аккаунт на Twitter',
   'LBL_WORK_PHONE' => 'Рабочий тел.',
   'LNK_IMPORT_VCARD' => 'Создать из vCard',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Cкопировать альтернативный адрес в основной',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Скопировать основной адрес в альтернативный',
 );
 

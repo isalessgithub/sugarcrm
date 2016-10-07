@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,24 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Разрешени във версия:',
   'LBL_FOUND_IN_RELEASE' => 'Намерени във версия:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Открит в издание',
+  'LBL_HELP_CREATE' => 'Модулът {{plural_module_name}} се използва за проследяване и управление на проблеми и/или дефекти на продукти, независимо дали са открити в организацията или са докладвани от клиенти.
+
+Записите в модула {{module_name}} съдържат списъци с организации или лица, които могат да бъдат включвали в маркетинговата комуникация през модул {{campaigns_singular_module}}.
+За да създадете нов запис в модул {{plural_module_name}}:
+1. Въведете стойности в отделните полета.
+- Полетата маркирани като "Задължителни" се изисква да имат зададена стойнист преди да се пристъпи към съхраняване на записа.
+- Натиснете върху "Покажи повече", за да бъдат визуализирани допълнителни полета ако е необходимо.
+2. Натиснете "Съхрани", за да запазите новия запис и да се върнете в предходната страница.
+- Изберете "Съхрани и разгледай", за да отворите автоматично детайли за новия запис.
+- Изберете "Съхрани и създай нов", за да пристъпите към създаване на друг нов запис в модул  {{plural_module_name}}.',
+  'LBL_HELP_RECORD' => 'Модулът {{plural_module_name}} се използва за проследяване и управление на проблеми и/или дефекти на продукти, независимо дали са открити в организацията или са докладвани от клиенти.
+
+- Редактирайте текущия запис като натиснете конкретно поле или използвате бутона „Редактирай“.
+- Разгледайте или модифицирайте връзките с други записи в системата, като за целта визуализирате панела „Свързани записи“.
+- Поставете коментари към текущия запис и разгледайте история на извършените промени свързани с него, като преминете в панела „Хронология“.
+- Следвайте или харесайте текущия запис като използвате иконите, намиращи се в дясно от името му.
+- Можете да извършвате допълнителни действия със записа като използвате падащото меню в дясно на бутона „Редактирай“.',
+  'LBL_HELP_RECORDS' => 'Модулът {{plural_module_name}} се използва за проследяване и управление на проблеми и/или дефекти на продукти, независимо дали са открити в организацията или са докладвани от клиенти. Откритите {{plural_module_name}} могат да бъдат допълнително анализирани чрез проследяване на откритите решения. Модулът {{plural_module_name}} предоставя на потребителите възможност да прегледат лесно и бързо всички детайли, свързани с проблема и процесът по неготово разрешаване. След като даден {{module_name}} е въведен в системата, можете да разгледате и редактирате информацията за него през изгледа „Детайли за записа“. Всеки {{module_name}}може да бъде свързан с други записи в Sugar, в това число{{calls_module}}, {{contacts_module}}, {{cases_module}} и много други.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_INVITEE' => 'Контакти',
   'LBL_LIST_ACCOUNT_NAME' => 'Oрганизация',
@@ -69,7 +84,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Проблем',
   'LBL_MODULE_TITLE' => 'Проблеми',
   'LBL_NEW_FORM_TITLE' => 'Въвеждане на нов проблем',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Бележки',
   'LBL_NUMBER' => 'Номер:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Можете да натиснете тук, в случай че желаете да повдигнете нов проблем.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Можете да филтрирате списъка с проблеми като задавате критерии за търсене.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Можете да използвате това например, за да намерите конкретен проблем, които е бил повдигнат.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Чрез модула Проблеми можете да разглеждате и повдигане проблеми. Използвайте стрелките отдолу, за кратък преглед на възможностите.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Страницата визуализира списък със повдигнати проблеми.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Натискайкитук можете да се върнете в този списък по всяко време.',
   'LBL_PORTAL_VIEWABLE' => 'Видим в Потребителски портал',
   'LBL_PRIORITY' => 'Степен на важност:',
   'LBL_PRODUCT_CATEGORY' => 'Категория:',

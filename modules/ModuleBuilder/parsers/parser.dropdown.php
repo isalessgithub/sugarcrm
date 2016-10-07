@@ -1,191 +1,263 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
+require_once 'modules/ModuleBuilder/parsers/ModuleBuilderParser.php';
+require_once 'modules/Administration/Common.php';
+require_once 'include/MetaDataManager/MetaDataManager.php';
 
-require_once('modules/ModuleBuilder/parsers/ModuleBuilderParser.php');
-
- class ParserDropDown extends ModuleBuilderParser {
-
+class ParserDropDown extends ModuleBuilderParser
+{
     /**
      * Takes in the request params from a save request and processes
      * them for the save.
      *
      * @param REQUEST params  $params
      */
-    function saveDropDown($params){
-        require_once('modules/Administration/Common.php');
-		$emptyMarker = translate('LBL_BLANK');
-		$selected_lang = (!empty($params['dropdown_lang'])?$params['dropdown_lang']:$_SESSION['authenticated_user_language']);
-		$type = $_REQUEST['view_package'];
-		$dir = '';
-		$dropdown_name = $params['dropdown_name'];
-		$json = getJSONobj();
+    public function saveDropDown($params)
+    {
+        global $locale;
 
-		$list_value = str_replace('&quot;&quot;:&quot;&quot;', '&quot;__empty__&quot;:&quot;&quot;', $params['list_value']);
-		//Bug 21362 ENT_QUOTES- convert single quotes to escaped single quotes.
-		$temp = $json->decode(html_entity_decode(rawurldecode($list_value), ENT_QUOTES) );
-		$dropdown = array () ;
-		// dropdown is received as an array of (name,value) pairs - now extract to name=>value format preserving order
-		// we rely here on PHP to preserve the order of the received name=>value pairs - associative arrays in PHP are ordered
-        if(is_array($temp))
-        {
-            foreach ( $temp as $item )
-            {
-                $dropdown[ SugarCleaner::stripTags(from_html($item [ 0 ]), false) ] = SugarCleaner::stripTags(from_html($item [ 1 ]), false) ;
+        $emptyMarker = translate('LBL_BLANK');
+
+        if (!empty($_REQUEST['dropdown_lang'])) {
+            $selected_lang = $_REQUEST['dropdown_lang'];
+        } else {
+            $selected_lang = $locale->getAuthenticatedUserLanguage();
+        }
+
+        $type = $_REQUEST['view_package'];
+        $dropdown_name = $params['dropdown_name'];
+        $json = getJSONobj();
+
+        $list_value = str_replace('&quot;&quot;:&quot;&quot;', '&quot;__empty__&quot;:&quot;&quot;', $params['list_value']);
+        //Bug 21362 ENT_QUOTES- convert single quotes to escaped single quotes.
+        $temp = $json->decode(html_entity_decode(rawurldecode($list_value), ENT_QUOTES));
+        $dropdown = array();
+        // dropdown is received as an array of (name,value) pairs - now extract to name=>value format preserving order
+        // we rely here on PHP to preserve the order of the received name=>value pairs - associative arrays in PHP are ordered
+        if (is_array($temp)) {
+            foreach ($temp as $item) {
+                $dropdown[SugarCleaner::stripTags(from_html($item [ 0 ]), false)] = SugarCleaner::stripTags(from_html($item [ 1 ]), false);
             }
         }
-		if(array_key_exists($emptyMarker, $dropdown)){
+        if (array_key_exists($emptyMarker, $dropdown)) {
             $output=array();
-            foreach($dropdown as $key => $value){
-                if($emptyMarker===$key)
+            foreach ($dropdown as $key => $value) {
+                if ($emptyMarker===$key) {
                     $output['']='';
-                else
+                } else {
                     $output[$key]=$value;
-		}
+                }
+            }
             $dropdown=$output;
-		}
+        }
 
-		if($type != 'studio'){
-			$mb = new ModuleBuilder();
-			$module = $mb->getPackageModule($params['view_package'], $params['view_module']);
-			$this->synchMBDropDown($dropdown_name, $dropdown, $selected_lang, $module);
-			//Can't use synch on selected lang as we want to overwrite values, not just keys
-			$module->mblanguage->appListStrings[$selected_lang.'.lang.php'][$dropdown_name] = $dropdown;
-			$module->mblanguage->save($module->key_name); // tyoung - key is required parameter as of
-		}else{
-			$contents = return_custom_app_list_strings_file_contents($selected_lang);
-			$my_list_strings = return_app_list_strings_language($selected_lang);
-			if($selected_lang == $GLOBALS['current_language']){
-	           $GLOBALS['app_list_strings'][$dropdown_name] = $dropdown;
-	        }
-			//write to contents
-			$contents = str_replace("?>", '', $contents);
-			if(empty($contents))$contents = "<?php";
-	        //add new drop down to the bottom
-	        if(!empty($params['use_push'])){
-	        	//this is for handling moduleList and such where nothing should be deleted or anything but they can be renamed
-	        	foreach($dropdown as $key=>$value){
-	        		//only if the value has changed or does not exist do we want to add it this way
-	        		if(!isset($my_list_strings[$dropdown_name][$key]) || strcmp($my_list_strings[$dropdown_name][$key], $value) != 0 ){
-		        		//clear out the old value
-		        		$pattern_match = '/\s*\$app_list_strings\s*\[\s*\''.$dropdown_name.'\'\s*\]\[\s*\''.$key.'\'\s*\]\s*=\s*[\'\"]{1}.*?[\'\"]{1};\s*/ism';
-		        		$contents = preg_replace($pattern_match, "\n", $contents);
-		        		//add the new ones
-		        		$contents .= "\n\$GLOBALS['app_list_strings']['$dropdown_name']['$key']=" . var_export_helper($value) . ";";
-	        		}
-	        	}
-	        }else{
-	        	//Now synch up the keys in other langauges to ensure that removed/added Drop down values work properly under all langs.
-	        	$this->synchDropDown($dropdown_name, $dropdown, $selected_lang, $dir);
-	        	$contents = $this->getNewCustomContents($dropdown_name, $dropdown, $selected_lang);
-	        }
-		    if(!empty($dir) && !is_dir($dir))
-		    {
-		     	$continue = mkdir_recursive($dir);
-		    }
-			save_custom_app_list_strings_contents($contents, $selected_lang, $dir);
-		}
-		sugar_cache_reset();
-		clearAllJsAndJsLangFilesWithoutOutput();
+        if ($type != 'studio') {
+            $mb = new ModuleBuilder();
+            $module = $mb->getPackageModule($params['view_package'], $params['view_module']);
+            $this->synchMBDropDown($dropdown_name, $dropdown, $selected_lang, $module);
+            //Can't use synch on selected lang as we want to overwrite values, not just keys
+            $module->mblanguage->appListStrings[$selected_lang.'.lang.php'][$dropdown_name] = $dropdown;
+            $module->mblanguage->save($module->key_name, false, true); // tyoung - key is required parameter as of
+        } else {
+            $contents = return_custom_app_list_strings_file_contents($selected_lang);
+            $my_list_strings = return_app_list_strings_language($selected_lang);
+            if ($selected_lang == $GLOBALS['current_language']){
+               $GLOBALS['app_list_strings'][$dropdown_name] = $dropdown;
+            }
+            //write to contents
+            $contents = str_replace("?>", '', $contents);
+            if (empty($contents)) $contents = "<?php";
+
+            // Skip saveExemptDropdowns on upgrades
+            if (empty($params['skipSaveExemptDropdowns'])) {
+                $dropdown = $this->saveExemptDropdowns($dropdown, $dropdown_name, $my_list_strings, $selected_lang);
+            }
+
+            //add new drop down to the bottom
+            if (!empty($params['use_push'])) {
+                //this is for handling moduleList and such where nothing should be deleted or anything but they can be renamed
+                foreach ($dropdown as $key=>$value) {
+                    //only if the value has changed or does not exist do we want to add it this way
+                    if (!isset($my_list_strings[$dropdown_name][$key]) || strcmp($my_list_strings[$dropdown_name][$key], $value) != 0 ) {
+                        //clear out the old value
+                        $pattern_match = '/\s*\$app_list_strings\s*\[\s*\''.$dropdown_name.'\'\s*\]\[\s*\''.$key.'\'\s*\]\s*=\s*[\'\"]{1}.*?[\'\"]{1};\s*/ism';
+                        $contents = preg_replace($pattern_match, "\n", $contents);
+                        //add the new ones without using GLOBALS
+                        $contents .= "\n\$app_list_strings['$dropdown_name']['$key']=" . var_export_helper($value) . ";";
+                    }
+                }
+            } else {
+                if (empty($params['skip_sync'])) {
+                    // Now synch up the keys in other languages to ensure that removed/added
+                    // Drop down values work properly under all langs.
+                    // If skip_sync, we don't want to sync ALL languages
+                    $this->synchDropDown($dropdown_name, $dropdown, $selected_lang);
+                }
+
+                $contents = $this->getNewCustomContents($dropdown_name, $dropdown, $selected_lang);
+            }
+
+            $this->saveContents($contents, $selected_lang);
+        }
+        $this->finalize($selected_lang);
+    }
+
+    public function saveContents($contents, $lang)
+    {
+        save_custom_app_list_strings_contents($contents, $lang);
+    }
+
+    public function finalize($lang)
+    {
+        sugar_cache_reset();
+        sugar_cache_reset_full();
+        clearAllJsAndJsLangFilesWithoutOutput();
+
+        // Clear out the api metadata languages cache for selected language
+        MetaDataManager::refreshLanguagesCache($lang);
     }
 
     /**
-	 * function synchDropDown
-	 * 	Ensures that the set of dropdown keys is consistant accross all languages.
-	 *
-	 * @param $dropdown_name The name of the dropdown to be synched
-	 * @param $dropdown array The dropdown currently being saved
-	 * @param $selected_lang String the language currently selected in Studio/MB
-	 * @param $saveLov String the path to the directory to save the new lang file in.
-	 */
-    function synchDropDown($dropdown_name, $dropdown, $selected_lang, $saveLoc) {
-   		$allLanguages =  get_languages();
+     * function synchDropDown
+     * 	Ensures that the set of dropdown keys is consistant accross all languages.
+     *
+     * @param $dropdown_name The name of the dropdown to be synched
+     * @param $dropdown array The dropdown currently being saved
+     * @param $selected_lang String the language currently selected in Studio/MB
+     */
+    public function synchDropDown($dropdown_name, $dropdown, $selected_lang)
+    {
+        $allLanguages =  get_languages();
         foreach ($allLanguages as $lang => $langName) {
-        	if ($lang != $selected_lang) {
-        		$listStrings = return_app_list_strings_language($lang);
-        		$langDropDown = array();
-        		if (isset($listStrings[$dropdown_name]) && is_array($listStrings[$dropdown_name]))
-        		{
-        		 	$langDropDown = $this->synchDDKeys($dropdown, $listStrings[$dropdown_name]);
-        		} else
-        		{
-        			//if the dropdown does not exist in the language, justt use what we have.
-        			$langDropDown = $dropdown;
-        		}
-        		$contents = $this->getNewCustomContents($dropdown_name, $langDropDown, $lang);
-        		save_custom_app_list_strings_contents($contents, $lang, $saveLoc);
-        	}
+            if ($lang != $selected_lang) {
+                $listStrings = return_app_list_strings_language($lang, false);
+                $langDropDown = array();
+                if (isset($listStrings[$dropdown_name]) && is_array($listStrings[$dropdown_name])) {
+                     $langDropDown = $this->synchDDKeys($dropdown, $listStrings[$dropdown_name]);
+                } else {
+                    //if the dropdown does not exist in the language, justt use what we have.
+                    $langDropDown = $dropdown;
+                }
+                $contents = $this->getNewCustomContents($dropdown_name, $langDropDown, $lang);
+                save_custom_app_list_strings_contents($contents, $lang);
+            }
         }
     }
 
     /**
-	 * function synchMBDropDown
-	 * 	Ensures that the set of dropdown keys is consistant accross all languages in a ModuleBuilder Module
-	 *
-	 * @param $dropdown_name The name of the dropdown to be synched
-	 * @param $dropdown array The dropdown currently being saved
-	 * @param $selected_lang String the language currently selected in Studio/MB
-	 * @param $module MBModule the module to update the languages in
-	 */
-    function synchMBDropDown($dropdown_name, $dropdown, $selected_lang, $module) {
-    	$selected_lang	= $selected_lang . '.lang.php';
-		foreach($module->mblanguage->appListStrings as $lang => $listStrings) {
-			if ($lang != $selected_lang)
-			{
-				$langDropDown = array();
-				if (isset($listStrings[$dropdown_name]) && is_array($listStrings[$dropdown_name]))
-				{
-					$langDropDown = $this->synchDDKeys($dropdown, $listStrings[$dropdown_name]);
-				} else
-        		{
-        			$langDropDown = $dropdown;
-        		}
-        		$module->mblanguage->appListStrings[$lang][$dropdown_name] = $langDropDown;
-				$module->mblanguage->save($module->key_name);
-			}
-		}
+     * function synchMBDropDown
+     * 	Ensures that the set of dropdown keys is consistant accross all languages in a ModuleBuilder Module
+     *
+     * @param $dropdown_name The name of the dropdown to be synched
+     * @param $dropdown array The dropdown currently being saved
+     * @param $selected_lang String the language currently selected in Studio/MB
+     * @param $module MBModule the module to update the languages in
+     */
+    public function synchMBDropDown($dropdown_name, $dropdown, $selected_lang, $module)
+    {
+        $selected_lang = $selected_lang . '.lang.php';
+        foreach ($module->mblanguage->appListStrings as $lang => $listStrings) {
+            if ($lang != $selected_lang) {
+                $langDropDown = array();
+                if (isset($listStrings[$dropdown_name]) && is_array($listStrings[$dropdown_name])) {
+                    $langDropDown = $this->synchDDKeys($dropdown, $listStrings[$dropdown_name]);
+                } else {
+                    $langDropDown = $dropdown;
+                }
+                $module->mblanguage->appListStrings[$lang][$dropdown_name] = $langDropDown;
+                $module->mblanguage->save($module->key_name);
+            }
+        }
     }
 
-    private function synchDDKeys($dom, $sub) {
-    	//check for extra keys
-        foreach($sub as $key=>$value) {
-        	if (!isset($dom[$key])) {
-        		unset ($sub[$key]);
-        	}
+    private function synchDDKeys($dom, $sub)
+    {
+        //check for extra keys
+        foreach ($sub as $key=>$value) {
+            if (!isset($dom[$key])) {
+                unset ($sub[$key]);
+            }
         }
         //check for missing keys
-        foreach($dom as $key=>$value) {
-        	if (!isset($sub[$key])) {
-        		$sub[$key] = $value;
-        	}
+        foreach ($dom as $key=>$value) {
+            if (!isset($sub[$key])) {
+                $sub[$key] = $value;
+            }
         }
         return $sub;
     }
 
-    function getPatternMatch($dropdown_name) {
-    	return '/\s*\$GLOBALS\s*\[\s*\'app_list_strings\s*\'\s*\]\[\s*\''
-    		 . $dropdown_name.'\'\s*\]\s*=\s*array\s*\([^\)]*\)\s*;\s*/ism';
+    public function getPatternMatch($dropdown_name)
+    {
+        // Change the regex to NOT look for GLOBALS anymore
+        return '/\s*\$app_list_strings\s*\[\s*\''
+             . $dropdown_name.'\'\s*\]\s*=\s*array\s*\([^\)]*\)\s*;\s*/ism';
     }
 
-    function getNewCustomContents($dropdown_name, $dropdown, $lang) {
-    	$contents = return_custom_app_list_strings_file_contents($lang);
+    /**
+     * Gets the new custom dropdown list file contents after replacement
+     *
+     * @param string $dropdown_name
+     * @param array $dropdown
+     * @param string $lang
+     * @return string
+     */
+    public function getNewCustomContents($dropdown_name, $dropdown, $lang)
+    {
+        $contents = return_custom_app_list_strings_file_contents($lang);
         $contents = str_replace("?>", '', $contents);
-		if(empty($contents))$contents = "<?php";
-    	$contents = preg_replace($this->getPatternMatch($dropdown_name), "\n", $contents);
-	    $contents .= "\n\$GLOBALS['app_list_strings']['$dropdown_name']=" . var_export_helper($dropdown) . ";";
-	    return $contents;
+        if (empty($contents)) $contents = "<?php";
+        $contents = preg_replace($this->getPatternMatch($dropdown_name), "\n\n", $contents);
+        $contents .= "\n\n\$app_list_strings['$dropdown_name']=" . var_export_helper($dropdown) . ";";
+        return $contents;
+    }
+
+    /**
+     * Save dropdowns in which we use 'null' to remove a value
+     *
+     * @param $dropdown - Dropdown values
+     * @param $dropdownName - Dropdown name
+     * @param $myListStrings - Current app_list_strings
+     * @param $selectedLang - Selected language
+     *
+     * @see getExemptDropdowns()
+     */
+    public function saveExemptDropdowns($dropdown, $dropdownName, $myListStrings, $selectedLang)
+    {
+        // Handle special dropdown item removal
+        if (in_array($dropdownName, getExemptDropdowns())) {
+            foreach ($myListStrings[$dropdownName] as $key => $value) {
+                // If the value is present in the old app_list_strings but not in the new, null it
+                if (!empty($key) && !isset($dropdown[$key])) {
+                    $dropdown[$key] = null;
+                }
+            }
+            // We need to copy the NULLs if they are not set in the new dropdown
+            // because return_app_list_strings_language() removes them from the array
+            $customLanguage = "custom/include/language/$selectedLang.lang.php";
+            if (file_exists($customLanguage)) {
+                include($customLanguage);
+                if (isset($app_list_strings[$dropdownName])) {
+                    foreach ($app_list_strings[$dropdownName] as $key => $value) {
+                        if ($value === null && !isset($dropdown[$key])) {
+                            $dropdown[$key] = null;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $dropdown;
     }
 }
-?>

@@ -1,24 +1,24 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
  * Reserved. Contributor(s): ______________________________________..
  * *******************************************************************************/
+
+require_once('clients/base/api/FilterApi.php');
+require_once('include/SugarFields/SugarFieldHandler.php');
 
 /**
  * gets the system default delimiter or an user-preference based override
@@ -27,10 +27,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 function getDelimiter() {
     global $sugar_config;
     global $current_user;
-
-    if (!empty($sugar_config['export_excel_compatible'])) {
-        return "\t";
-    }
 
     $delimiter = ','; // default to "comma"
     $userDelimiter = $current_user->getPreference('export_delimiter');
@@ -43,8 +39,10 @@ function getDelimiter() {
 
 /**
  * builds up a delimited string for export
- * @param string type the bean-type to export
- * @param array records an array of records if coming directly from a query
+ * @param string $type the bean-type to export
+ * @param array $records an array of records if coming directly from a query
+ * @param boolean $members
+ * @param boolean $sample return a sample of records for testing
  * @return string delimited string for export
  */
 function export($type, $records = null, $members = false, $sample=false) {
@@ -58,99 +56,32 @@ function export($type, $records = null, $members = false, $sample=false) {
     global $mod_strings;
     global $current_language;
     $sampleRecordNum = 5;
-    $contact_fields = array(
-        "id"=>"Contact ID"
-        ,"lead_source"=>"Lead Source"
-        ,"date_entered"=>"Date Entered"
-        ,"date_modified"=>"Date Modified"
-        ,"first_name"=>"First Name"
-        ,"last_name"=>"Last Name"
-        ,"salutation"=>"Salutation"
-        ,"birthdate"=>"Lead Source"
-        ,"do_not_call"=>"Do Not Call"
-        ,"email_opt_out"=>"Email Opt Out"
-        ,"title"=>"Title"
-        ,"department"=>"Department"
-        ,"birthdate"=>"Birthdate"
-        ,"do_not_call"=>"Do Not Call"
-        ,"phone_home"=>"Phone (Home)"
-        ,"phone_mobile"=>"Phone (Mobile)"
-        ,"phone_work"=>"Phone (Work)"
-        ,"phone_other"=>"Phone (Other)"
-        ,"phone_fax"=>"Fax"
-        ,"email1"=>"Email"
-        ,"email2"=>"Email (Other)"
-        ,"assistant"=>"Assistant"
-        ,"assistant_phone"=>"Assistant Phone"
-        ,"primary_address_street"=>"Primary Address Street"
-        ,"primary_address_city"=>"Primary Address City"
-        ,"primary_address_state"=>"Primary Address State"
-        ,"primary_address_postalcode"=>"Primary Address Postalcode"
-        ,"primary_address_country"=>"Primary Address Country"
-        ,"alt_address_street"=>"Other Address Street"
-        ,"alt_address_city"=>"Other Address City"
-        ,"alt_address_state"=>"Other Address State"
-        ,"alt_address_postalcode"=>"Other Address Postalcode"
-        ,"alt_address_country"=>"Other Address Country"
-        ,"description"=>"Description"
-    );
+    $fields_to_exclude = array();
 
-    $account_fields = array(
-        "id"=>"Account ID",
-        "name"=>"Account Name",
-        "website"=>"Website",
-        "industry"=>"Industry",
-        "account_type"=>"Type",
-        "ticker_symbol"=>"Ticker Symbol",
-        "employees"=>"Employees",
-        "ownership"=>"Ownership",
-        "phone_office"=>"Phone",
-        "phone_fax"=>"Fax",
-        "phone_alternate"=>"Other Phone",
-        "email1"=>"Email",
-        "email2"=>"Other Email",
-        "rating"=>"Rating",
-        "sic_code"=>"SIC Code",
-        "annual_revenue"=>"Annual Revenue",
-        "billing_address_street"=>"Billing Address Street",
-        "billing_address_city"=>"Billing Address City",
-        "billing_address_state"=>"Billing Address State",
-        "billing_address_postalcode"=>"Billing Address Postalcode",
-        "billing_address_country"=>"Billing Address Country",
-        "shipping_address_street"=>"Shipping Address Street",
-        "shipping_address_city"=>"Shipping Address City",
-        "shipping_address_state"=>"Shipping Address State",
-        "shipping_address_postalcode"=>"Shipping Address Postalcode",
-        "shipping_address_country"=>"Shipping Address Country",
-        "description"=>"Description"
-    );
     //Array of fields that should not be exported, and are only used for logic
     $remove_from_members = array("ea_deleted", "ear_deleted", "primary_address");
     $focus = 0;
 
-    $bean = $beanList[$type];
-    require_once($beanFiles[$bean]);
-    $focus = new $bean;
+	$focus = BeanFactory::newBean($type);
     $searchFields = array();
     $db = DBManagerFactory::getInstance();
 
     if($records) {
         $records = explode(',', $records);
-        $records = "'" . implode("','", $records) . "'";
+        $records = "'" . implode("','", array_map(array($db,'quote'),$records)) . "'";
         $where = "{$focus->table_name}.id in ($records)";
     } elseif (isset($_REQUEST['all']) ) {
         $where = '';
     } else {
         if(!empty($_REQUEST['current_post'])) {
             $ret_array = generateSearchWhere($type, $_REQUEST['current_post']);
-
             $where = $ret_array['where'];
             $searchFields = $ret_array['searchFields'];
         } else {
             $where = '';
         }
     }
-    $order_by = "";
+
     if($focus->bean_implements('ACL')){
         if(!ACLController::checkAccess($focus->module_dir, 'export', true)){
             ACLController::displayNoAccess();
@@ -162,8 +93,16 @@ function export($type, $records = null, $members = false, $sample=false) {
             }
             $where .= $focus->getOwnerWhere($current_user->id);
         }
-
     }
+
+	if($focus->bean_implements('ACL')){
+		if(!ACLController::checkAccess($focus->module_dir, 'export', true)){
+			ACLController::displayNoAccess();
+			sugar_die('');
+		}
+	    $focus->addVisibilityWhere($where);
+	}
+
     // Export entire list was broken because the where clause already has "where" in it
     // and when the query is built, it has a "where" as well, so the query was ill-formed.
     // Eliminating the "where" here so that the query can be constructed correctly.
@@ -171,54 +110,302 @@ function export($type, $records = null, $members = false, $sample=false) {
            $query = $focus->create_export_members_query($records);
     }else{
         $beginWhere = substr(trim($where), 0, 5);
-        if ($beginWhere == "where")
+        if ($beginWhere == "where") {
             $where = substr(trim($where), 5, strlen($where));
-        $ret_array = create_export_query_relate_link_patch($type, $searchFields, $where);
-        if(!empty($ret_array['join'])) {
-            $query = $focus->create_export_query($order_by,$ret_array['where'],$ret_array['join']);
+        }
+
+        //get the export query.  Note that $focus->fields_to_exclude is a temporary variable and is modified within create_export_query()
+        //$focus->fields_to_exclude will be used later by getExportContentFromResult() to exclude fields from export
+        $focus->fields_to_exclude = array();
+        $query = $focus->create_export_query('', $where);
+    }
+
+    $result = null;
+    if($sample) {
+       $result = $db->limitQuery($query, 0, $sampleRecordNum, true, $app_strings['ERR_EXPORT_TYPE'].$type.": <BR>.".$query);
+       $sample = $focus->_get_num_rows_in_query($query) < 1;
+    } else {
+       $result = $db->query($query, true, $app_strings['ERR_EXPORT_TYPE'].$type.": <BR>.".$query);
+    }
+
+	return getExportContentFromResult($focus, $result, $members, $remove_from_members, $sample);
+}
+
+
+/**
+ * to export sample records
+ * @param boolean args api argument
+ * @return string delimited string and description
+ */
+function exportSampleFromApi($args) {
+    global $app_strings;
+
+    $args['all'] = true;
+
+    //retrieve the export content
+    $content = exportFromApi($args, true);
+
+    //add details on removing the sample data
+    return $content . $app_strings['LBL_IMPORT_SAMPLE_FILE_TEXT'];
+}
+
+/**
+ * builds up a delimited string for export
+ * @param boolean args api argument
+ * @param boolean sample whether it's sample export
+ * @return string delimited string for export
+ */
+function exportFromApi($args, $sample=false) {
+    global $current_user;
+    global $app_strings;
+    $sampleRecordNum = 5;
+
+    $type = clean_string($args['module']);
+
+    require_once('include/RecordListFactory.php');
+    $recordList = RecordListFactory::getRecordList($args['record_list_id']);
+    if (empty($recordList)) {
+        throw new SugarApiExceptionNotFound();
+    }
+    $records = $recordList['records'];
+
+    $members = isset($args['members']) ? $args['members'] : false;
+
+    //Array of fields that should not be exported, and are only used for logic
+    $remove_from_members = array("ea_deleted", "ear_deleted", "primary_address");
+
+    $focus = BeanFactory::newBean($type);
+    $searchFields = array();
+    $db = DBManagerFactory::getInstance();
+
+    if($records) {
+        // we take an array, but we'll make an exception for one record.
+        if (!is_array($records)) {
+            $records = array($records);
+        }
+        $records = "'" . implode("','", $records) . "'";
+        $where = "{$focus->table_name}.id in ($records)";
+    } elseif (isset($args['all']) ) {
+        $where = '';
+    } else {
+        // use filter to get data instead of building a sql
+        if (!empty($args['filter'])) {
+            $content = getExportContentFromFilter($args, $remove_from_members, $focus, $members);
+            return $content;
         } else {
-            $query = $focus->create_export_query($order_by,$ret_array['where']);
+            $where = '';
         }
     }
 
-    $result = '';
-    $populate = false;
-    if($sample) {
-       $result = $db->limitQuery($query, 0, $sampleRecordNum, true, $app_strings['ERR_EXPORT_TYPE'].$type.": <BR>.".$query);
-        if( $focus->_get_num_rows_in_query($query)<1 ){
-            $populate = true;
+    if ($focus->bean_implements('ACL')) {
+        if (ACLController::requireOwner($focus->module_dir, 'export')) {
+            if (!empty($where)) {
+                $where .= ' AND ';
+            }
+            $where .= $focus->getOwnerWhere($current_user->id);
         }
     }
-    else {
+
+
+    if ($focus->bean_implements('ACL')) {
+        $focus->addVisibilityWhere($where);
+    }
+
+    // Export entire list was broken because the where clause already has "where" in it
+    // and when the query is built, it has a "where" as well, so the query was ill-formed.
+    // Eliminating the "where" here so that the query can be constructed correctly.
+    if ($members == true) {
+        $query = $focus->create_export_members_query($records);
+    } else {
+        $beginWhere = substr(trim($where), 0, 5);
+        if ($beginWhere == "where") {
+            $where = substr(trim($where), 5, strlen($where));
+        }
+
+        $query = $focus->create_export_query("", $where);
+    }
+
+    $result = null;
+    if($sample) {
+        $result = $db->limitQuery($query, 0, $sampleRecordNum, true, $app_strings['ERR_EXPORT_TYPE'].$type.": <BR>.".$query);
+        $sample = $focus->_get_num_rows_in_query($query) < 1;
+    } else {
         $result = $db->query($query, true, $app_strings['ERR_EXPORT_TYPE'].$type.": <BR>.".$query);
     }
 
+    $content = getExportContentFromResult($focus, $result, $members, $remove_from_members, $sample);
+    return $content;
+}
 
+/**
+ * This function uses filter to get the records to be exported.
+ *
+ * @param Mixed $args api arguments that include filter and module
+ * @param Mixed $remove_from_members member Array of header columns to filter out; empty by default
+ * @param SugarBean $focus sugar bean object
+ * @param bool $members used to indicate whether or not to apply filtering for header rows; false by default
+ * @return string
+ */
+function getExportContentFromFilter($args, $remove_from_members, $focus, $members = false)
+{
+    // call filter to get data
+    $filterApi = new FilterApi();
+    $api = new RestService();
+    $nextOffset = 0;
+    $records = array();
+    $filterArgs = array('filter'=>$args['filter'], 'module'=>$args['module']);
+    $filterArgs['max_num'] = 1000;
+    while ($nextOffset != -1) { // still have records to be fetched
+        $filterArgs['offset'] = $nextOffset;
+        $data = $filterApi->filterList($api, $filterArgs);
+        $records = array_merge($data['records'], $records);
+        $nextOffset = $data['next_offset'];
+    }
+
+    foreach ($records as &$record) {
+        foreach ($record as $name=>$val) {
+            if (is_array($record[$name])) {
+                if ($name != 'team_name' && $name != 'email') {
+                    // we do not need arrays like $record['_acl']
+                    unset($record[$name]);
+                }
+            }
+        }
+    }
+
+    if (is_array($records) && !empty($records)) {
+        $fields_array = get_field_order_mapping2($args['module'], array_keys($records[0]), true, true);
+    } else {
+        // no record found
+        return '';
+    }
+
+    $delimiter = getDelimiter();
+
+    //set up labels to be used for the header row
+    $field_labels = array();
+    foreach($fields_array as $key=>$dbName) {
+        //Remove fields that are only used for logic
+        if ($members && (in_array($dbName, $remove_from_members)))
+        {
+            continue;
+        }
+        //default to the db name of label does not exist
+        $field_labels[$key] = translateForExport($dbName, $focus);
+    }
+
+    // setup the "header" line with proper delimiters
+    $content = "\"".implode("\"". $delimiter ."\"", array_values($field_labels))."\"\r\n";
+
+    foreach ($records as $record) {
+        // team_name returned from filter is in array format, get team_id and team_name
+        if (isset($record['team_name']) && is_array($record['team_name'])) {
+            $firstTeam = true;
+            $teamName = '';
+            foreach ($record['team_name'] as $team) {
+                if ($firstTeam) {
+                    $teamName = $team['name'];
+                    $firstTeam = false;
+                } else {
+                    $teamName .= ',' . $team['name'];
+                }
+                if ($team['primary']) {
+                    $record['team_id'] = $team['id'];
+                }
+            }
+            $record['team_name'] = $teamName;
+        }
+        // email returned from filter is in array format, get primary email address
+        if (isset($record['email']) && is_array($record['email'])) {
+            foreach ($record['email'] as $email) {
+                if ($email['primary_address']) {
+                    $record['email'] = $email['email_address'];
+                    break;
+                }
+            }
+        }
+
+        $record = get_field_order_mapping2($args['module'], $record, true, false);
+
+        $new_arr = array();
+
+        //replace user_name with full name if use_real_name preference setting is enabled
+        //and this is a user name field
+        $useRealNames = $GLOBALS['current_user']->getPreference('use_real_names');
+
+        foreach ($record as $key => $value)
+        {
+            //getting content values depending on their types
+            $fieldNameMapKey = $fields_array[$key];
+
+            if (isset($focus->field_name_map[$fieldNameMapKey])  && $focus->field_name_map[$fieldNameMapKey]['type'])
+            {
+                $sfh = SugarFieldHandler::getSugarField($focus->field_name_map[$fieldNameMapKey]['type']);
+                $value = $sfh->exportSanitize($value, $focus->field_defs[$key], $focus);
+            }
+
+            if ($useRealNames) {
+                $value = formatRealNameField($focus, $fields_array, $key, $value);
+            }
+
+            array_push($new_arr, preg_replace("/\"/","\"\"", $value));
+        } //foreach
+
+        $line = implode("\"". $delimiter ."\"", $new_arr);
+        $line = "\"" .$line;
+        $line .= "\"\r\n";
+        $content .= $line;
+    }
+    return $content;
+}
+
+
+/**
+ * getExportContentsFromResult
+ *
+ * This is a function to handle the processing of generating the export contents.
+ *
+ * @param Mixed $focus SugarBean instance we are retrieving export results for
+ * @param Mixed $result database result resource from the export SQL
+ * @param bool $members used to indicate whether or not to apply filtering for header rows; false by default
+ * @param array $remove_from_members Array of header columns to filter out; empty by default
+ * @param bool $populate boolean used to indicate whether or not to populate with test data; false by default
+ * @return string
+ */
+function getExportContentFromResult(
+    $focus,
+    $result,
+    $members=false,
+    $remove_from_members=array(),
+    $populate=false
+) {
+
+    global $current_user, $locale, $app_strings;
+    $sampleRecordNum = 5;
+    $delimiter = getDelimiter();
+    $timedate = TimeDate::getInstance();
+    $db = DBManagerFactory::getInstance();
     $fields_array = $db->getFieldsArray($result,true);
 
+    // check if ID field is contained in query result
+    $is_id_exported = in_array('id', $fields_array);
+
     //set up the order on the header row
-    $fields_array = get_field_order_mapping($focus->module_dir, $fields_array);
-
-
+    $fields_array = get_field_order_mapping($focus->module_dir, $fields_array, true, $focus->fields_to_exclude);
 
     //set up labels to be used for the header row
     $field_labels = array();
     foreach($fields_array as $key=>$dbname){
         //Remove fields that are only used for logic
         if($members && (in_array($dbname, $remove_from_members)))
-            continue;
-
-        //If labels should not be exportable skip them
-        if (isset($focus->field_name_map[$key])  && isset( $focus->field_name_map[$key]['exportable'])
-            && $focus->field_name_map[$key]['exportable'] === false) {
+        {
             continue;
         }
-
         //default to the db name of label does not exist
         $field_labels[$key] = translateForExport($dbname,$focus);
     }
 
-    $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+    $user_agent = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : '';
     if ($locale->getExportCharset() == 'UTF-8' &&
         ! preg_match('/macintosh|mac os x|mac_powerpc/i', $user_agent)) // Bug 60377 - Mac Excel doesn't support UTF-8
     {
@@ -231,9 +418,10 @@ function export($type, $records = null, $members = false, $sample=false) {
         $content = '';
     }
 
-    // setup the "header" line with proper delimiters
-    $content .= "\"".implode("\"".getDelimiter()."\"", array_values($field_labels))."\"\r\n";
     $pre_id = '';
+
+    // Setup the "header" row with proper delimiters
+    $content .= "\"" . implode("\"" . getDelimiter() . "\"", array_values($field_labels)) . "\"\r\n";
 
     if($populate){
         //this is a sample request with no data, so create fake datarows
@@ -242,170 +430,197 @@ function export($type, $records = null, $members = false, $sample=false) {
         $records = array();
 
         //process retrieved record
-    	while($val = $db->fetchByAssoc($result, false)) {
-
+        $isAdminUser = is_admin($current_user);
+        while($val = $db->fetchByAssoc($result, false)) {
             //order the values in the record array
-            $val = get_field_order_mapping($focus->module_dir,$val);
+            $val = get_field_order_mapping($focus->module_dir, $val);
 
             $new_arr = array();
-            if(!is_admin($current_user)){
+
+            if(!$isAdminUser)
+            {
                 $focus->id = (!empty($val['id']))?$val['id']:'';
                 $focus->assigned_user_id = (!empty($val['assigned_user_id']))?$val['assigned_user_id']:'' ;
                 $focus->created_by = (!empty($val['created_by']))?$val['created_by']:'';
-                ACLField::listFilter($val, $focus->module_dir,$current_user->id, $focus->isOwner($current_user->id), true, 1, true );
+                $focus->ACLFilterFieldList($val, array(), array("blank_value" => true));
             }
 
-		if($members){
-			if($pre_id == $val['id'])
-				continue;
-			if($val['ea_deleted']==1 || $val['ear_deleted']==1){
-				$val['primary_email_address'] = '';
-			}
-			unset($val['ea_deleted']);
-			unset($val['ear_deleted']);
-			unset($val['primary_address']);
-		}
-		$pre_id = $val['id'];
-
-		foreach ($val as $key => $value)
-		{
-            //getting content values depending on their types
-            $fieldNameMapKey = $fields_array[$key];
-
-            //Dont export fields that have been explicitly marked not to be exportable
-            if (isset($focus->field_name_map[$fieldNameMapKey])  && isset($focus->field_name_map[$fieldNameMapKey]['exportable']) &&
-                $focus->field_name_map[$fieldNameMapKey]['exportable'] === false) {
-                continue;
-            }
-
-            if (isset($focus->field_name_map[$fieldNameMapKey])  && $focus->field_name_map[$fieldNameMapKey]['type'])
+            if($members)
             {
-                $fieldType = $focus->field_name_map[$fieldNameMapKey]['type'];
-                switch ($fieldType)
-                {
-                    //if our value is a currency field, then apply the users locale
-                    case 'currency':
-                        require_once('modules/Currencies/Currency.php');
-                        $value = currency_format_number($value);
-                        break;
-
-                    //if our value is a datetime field, then apply the users locale
-                    case 'datetime':
-                    case 'datetimecombo':
-                        $value = $timedate->to_display_date_time($db->fromConvert($value, 'datetime'));
-                        $value = preg_replace('/([pm|PM|am|AM]+)/', ' \1', $value);
-                        break;
-
-                    //kbrill Bug #16296
-                    case 'date':
-                        $value = $timedate->to_display_date($db->fromConvert($value, 'date'), false);
-                        break;
-
-                    // Bug 32463 - Properly have multienum field translated into something useful for the client
-                    case 'multienum':
-                        $value = str_replace("^","",$value);
-                        if (isset($focus->field_name_map[$fields_array[$key]]['options']) && isset($app_list_strings[$focus->field_name_map[$fields_array[$key]]['options']]) )
-                        {
-                            $valueArray = explode(",",$value);
-                            foreach ($valueArray as $multikey => $multivalue )
-                            {
-                                if (isset($app_list_strings[$focus->field_name_map[$fields_array[$key]]['options']][$multivalue]) )
-                                {
-                                    $valueArray[$multikey] = $app_list_strings[$focus->field_name_map[$fields_array[$key]]['options']][$multivalue];
-                                }
-                            }
-                            $value = implode(",",$valueArray);
-                        }
-                        break;
+                if ($is_id_exported && $pre_id == $val['id']) {
+                     continue;
                 }
+
+                if(isset($val['ea_deleted']) && isset($val['primary_email_address']) &&
+                    ($val['ea_deleted']==1 || $val['ear_deleted']==1))
+                {
+                    $val['primary_email_address'] = '';
+                }
+                unset($val['ea_deleted']);
+                unset($val['ear_deleted']);
+                unset($val['primary_address']);
             }
+            $pre_id = $is_id_exported ? $val['id'] : '';
 
-            if(isset($focus->field_name_map[$fields_array[$key]]['custom_type']) && $focus->field_name_map[$fields_array[$key]]['custom_type'] == 'teamset'){
-                require_once('modules/Teams/TeamSetManager.php');
-                $value = TeamSetManager::getCommaDelimitedTeams($val['team_set_id'], !empty($val['team_id']) ? $val['team_id'] : '');
+            require_once('include/SugarFields/SugarFieldHandler.php');
+
+            //replace user_name with full name if use_real_name preference setting is enabled
+            //and this is a user name field
+            $useRealNames = $current_user->getPreference('use_real_names');
+
+            foreach ($val as $key => $value)
+            {
+                //if key is not part of field map, then continue
+                if(!isset($fields_array[$key])) {
+                    continue;
+                }
+                //getting content values depending on their types
+                $fieldNameMapKey = $fields_array[$key];
+
+                if (isset($focus->field_name_map[$fieldNameMapKey])  && $focus->field_name_map[$fieldNameMapKey]['type'])
+                {
+                    $sfh = SugarFieldHandler::getSugarField($focus->field_name_map[$fieldNameMapKey]['type']);
+                    $value = $sfh->exportSanitize($value, $focus->field_defs[$key], $focus, $val);
+                }
+
+                if(isset($focus->field_name_map[$fields_array[$key]]['custom_type']) && $focus->field_name_map[$fields_array[$key]]['custom_type'] == 'teamset'){
+                    require_once('modules/Teams/TeamSetManager.php');
+                    $value = TeamSetManager::getCommaDelimitedTeams($val['team_set_id'], !empty($val['team_id']) ? $val['team_id'] : '');
+                }
+
+                if ($useRealNames) {
+                    $value = formatRealNameField($focus, $fields_array, $key, $value);
+                }
+
+
+                // Keep as $key => $value for post-processing
+                $new_arr[$key] = str_replace('"', '""', $value);
+            } //foreach
+
+            // Use Bean ID as key for records if it exists
+            if ($is_id_exported) {
+                $records[$pre_id] = $new_arr;
+            } else {
+                $records[] = $new_arr;
             }
-
-           //replace user_name with full name if use_real_name preference setting is enabled
-           //and this is a user name field
-           $useRealNames = $current_user->getPreference('use_real_names');
-           if(!empty($useRealNames) && ($useRealNames &&  $useRealNames !='off' )
-              && !empty($focus->field_name_map[$fields_array[$key]]['type']) && $focus->field_name_map[$fields_array[$key]]['type'] == 'relate'
-              && !empty($focus->field_name_map[$fields_array[$key]]['module'])&& $focus->field_name_map[$fields_array[$key]]['module'] == 'Users'
-              && !empty($focus->field_name_map[$fields_array[$key]]['rname']) && $focus->field_name_map[$fields_array[$key]]['rname'] == 'user_name'
-           ){
-               global $locale;
-               $userFocus = new User();
-               $userFocus->retrieve_by_string_fields(array('user_name' => $value ));
-               if ( !empty($userFocus->id) ) {
-                   $value = $locale->getLocaleFormattedName($userFocus->first_name, $userFocus->last_name);
-               }
-           }
-
-
-            // Keep as $key => $value for post-processing
-            $new_arr[$key] = preg_replace("/\"/","\"\"", $value);
         }
 
-        // Use Bean ID as key for records
-        $records[$pre_id] = $new_arr;
-    }
-
         // Check if we're going to export non-primary emails
-        if ($focus->hasEmails() && in_array('email_addresses_non_primary', $fields_array))
-        {
+        if ($is_id_exported && $focus->hasEmails()) {
+            // Add header column
+            $field_labels['email_addresses_non_primary'] = translateForExport('email_addresses_non_primary', $focus);
+
             // $records keys are bean ids
             $keys = array_keys($records);
 
-            // Split the ids array into chunks of size 100
-            $chunks = array_chunk($keys, 100);
-
-            foreach ($chunks as $chunk)
-            {
-                // Pick all the non-primary mails for the chunk
-                $query =
-                    "
-                      SELECT eabr.bean_id, ea.email_address
-                      FROM email_addr_bean_rel eabr
-                      LEFT JOIN email_addresses ea ON ea.id = eabr.email_address_id
-                      WHERE eabr.bean_module = '{$focus->module_dir}'
-                      AND eabr.primary_address = '0'
-                      AND eabr.bean_id IN ('" . implode("', '", $chunk) . "')
-                      AND eabr.deleted != '1'
-                      ORDER BY eabr.bean_id, eabr.reply_to_address, eabr.primary_address DESC
-                    ";
-
-                $result = $db->query($query, true, $app_strings['ERR_EXPORT_TYPE'] . $type . ": <BR>." . $query);
-
-                while ($val = $db->fetchByAssoc($result, false)) {
-                    if (empty($records[$val['bean_id']]['email_addresses_non_primary'])) {
-                        $records[$val['bean_id']]['email_addresses_non_primary'] = $val['email_address'];
-                    } else {
-                        // No custom non-primary mail delimeter yet, use semi-colon
-                        $records[$val['bean_id']]['email_addresses_non_primary'] .= ';' . $val['email_address'];
-                    }
-                }
+            $email_data = getNonPrimaryEmailsData($focus, $keys);
+            foreach (array_keys($records) as $bean_id) {
+                $records[$bean_id]['email_addresses_non_primary'] = isset($email_data[$bean_id])
+                    ? $email_data[$bean_id] : '';
             }
         }
 
-        foreach($records as $record)
-        {
-            $line = implode("\"" . getDelimiter() . "\"", $record);
+        // Write the export data
+        foreach ($records as $record) {
+            $line = implode("\"" . $delimiter . "\"", $record);
             $line = "\"" . $line;
             $line .= "\"\r\n";
             $content .= $line;
         }
-
     }
 
-	return $content;
-
+    return $content;
 }
 
+/**
+ * Returns non-primary emails for the given beans
+ *
+ * @param SugarBean $bean Bean instance
+ * @param array     $ids  Bean IDs
+ *
+ * @return array
+ */
+function getNonPrimaryEmailsData(SugarBean $bean, array $ids)
+{
+    // Split the ids array into chunks of size 100
+    $chunks = array_chunk($ids, 100);
 
-function generateSearchWhere($module, $query) {//this function is similar with function prepareSearchForm() in view.list.php
-    $seed = loadBean($module);
-    if(file_exists('modules/'.$module.'/SearchForm.html')){
-        if(file_exists('modules/' . $module . '/metadata/SearchFields.php')) {
+    // Attributes of non non-primary email that are about to be grouped later
+    $non_primary_emails = array();
+
+    foreach ($chunks as $chunk) {
+        // Pick all the non-primary mails for the chunk
+        $query = getNonPrimaryEmailsExportQuery($bean, $chunk);
+        $data = $query->execute();
+
+        foreach ($data as $row) {
+            $non_primary_emails[$row['bean_id']][] = array(
+                $row['email_address'],
+                $row['invalid_email'] ? '1' : '0',
+                $row['opt_out'] ? '1' : '0',
+            );
+        }
+    }
+
+    $result = array();
+    foreach ($non_primary_emails as $bean_id => $emails) {
+        $result[$bean_id] = serializeNonPrimaryEmails($emails);
+    }
+
+    return $result;
+}
+
+/**
+ * Generates query for fetching non-primary emails for the given beans
+ *
+ * @param SugarBean $bean Bean instance
+ * @param array     $ids  Bean IDs
+ *
+ * @return SugarQuery
+ */
+function getNonPrimaryEmailsExportQuery(SugarBean $bean, array $ids)
+{
+    $query = new SugarQuery();
+    $query->from(BeanFactory::newBean('EmailAddresses'), 'ea');
+    $query->joinTable('email_addr_bean_rel', array(
+        'joinType' => 'LEFT',
+        'alias' => 'eabr',
+        'linkingTable' => true,
+    ))->on()->equalsField('eabr.email_address_id', 'id');
+    $query->select('eabr.bean_id', 'email_address', 'invalid_email', 'opt_out');
+    $query->where()
+        ->in('eabr.bean_id', $ids)
+        ->equals('eabr.bean_module', $bean->module_dir)
+        ->notEquals('eabr.primary_address', 1)
+        ->notEquals('eabr.deleted', 1);
+    $query->orderBy('eabr.bean_id', 'ASC')
+        ->orderBy('eabr.reply_to_address', 'ASC')
+        ->orderBy('email_address', 'ASC');
+
+    return $query;
+}
+
+/**
+ * Serializes non-primary email addresses of a single bean
+ *
+ * @param array $emails
+ *
+ * @return string
+ */
+function serializeNonPrimaryEmails(array $emails)
+{
+    $email_strings = array();
+    foreach ($emails as $attrs) {
+        $email_strings[] = implode(',', $attrs);
+    }
+    return implode(';', $email_strings);
+}
+
+function generateSearchWhere($module, $query)
+{//this function is similar with function prepareSearchForm() in view.list.php
+    $seed = BeanFactory::newBean($module);
+    if(SugarAutoLoader::fileExists('modules/'.$module.'/SearchForm.html')){
+        if(SugarAutoLoader::fileExists('modules/' . $module . '/metadata/SearchFields.php')) {
             require_once('include/SearchForm/SearchForm.php');
             $searchForm = new SearchForm($module, $seed);
         }
@@ -427,57 +642,46 @@ function generateSearchWhere($module, $query) {//this function is similar with f
         else {
             return;
         }
-    }
-    else{
+    } else {
         require_once('include/SearchForm/SearchForm2.php');
 
-        if(file_exists('custom/modules/'.$module.'/metadata/metafiles.php')){
-            require('custom/modules/'.$module.'/metadata/metafiles.php');
-        }elseif(file_exists('modules/'.$module.'/metadata/metafiles.php')){
-            require('modules/'.$module.'/metadata/metafiles.php');
+        $searchdefs_file = SugarAutoLoader::loadWithMetafiles($module, 'searchdefs');
+        if($searchdefs_file) {
+            require $searchdefs_file;
         }
 
-        if (file_exists('custom/modules/'.$module.'/metadata/searchdefs.php'))
-        {
-            require_once('custom/modules/'.$module.'/metadata/searchdefs.php');
-        }
-        elseif (!empty($metafiles[$module]['searchdefs']))
-        {
-            require_once($metafiles[$module]['searchdefs']);
-        }
-        elseif (file_exists('modules/'.$module.'/metadata/searchdefs.php'))
-        {
-            require_once('modules/'.$module.'/metadata/searchdefs.php');
-        }
-
-        //fixing bug #48483: Date Range search on custom date field then export ignores range filter
-        // first of all custom folder should be checked
-        if(file_exists('custom/modules/'.$module.'/metadata/SearchFields.php'))
-        {
-            require_once('custom/modules/'.$module.'/metadata/SearchFields.php');
-        }
-        elseif(!empty($metafiles[$module]['searchfields']))
-        {
-            require_once($metafiles[$module]['searchfields']);
-        }
-        elseif(file_exists('modules/'.$module.'/metadata/SearchFields.php'))
-        {
-            require_once('modules/'.$module.'/metadata/SearchFields.php');
-        }
+        $searchFields = SugarAutoLoader::loadSearchFields($module);
         if(empty($searchdefs) || empty($searchFields)) {
            //for some modules, such as iframe, it has massupdate, but it doesn't have search function, the where sql should be empty.
             return;
         }
-        $searchForm = new SearchForm($seed, $module);
+        $searchForm = getSearchForm($seed, $module);
         $searchForm->setup($searchdefs, $searchFields, 'SearchFormGeneric.tpl');
     }
-    $searchForm->populateFromArray(sugar_unserialize(base64_decode($query)));
+    $searchForm->populateFromArray(unserialize(base64_decode($query)));
     $where_clauses = $searchForm->generateSearchWhere(true, $module);
     if (count($where_clauses) > 0 )$where = '('. implode(' ) AND ( ', $where_clauses) . ')';
         $GLOBALS['log']->info("Export Where Clause: {$where}");
     $ret_array['where'] = $where;
     $ret_array['searchFields'] = $searchForm->searchFields;
     return $ret_array;
+}
+
+/**
+ * Get search form - module specific, custom or default
+ * @param SugarBean $bean
+ * @param string $module
+ * @return SearchForm
+ */
+function getSearchForm($bean, $module)
+{
+    if (SugarAutoLoader::requireWithCustom("modules/$module/{$module}SearchForm.php")) {
+        $searchFormClass = SugarAutoLoader::customClass("{$module}SearchForm");
+    } else {
+        SugarAutoLoader::requireWithCustom('include/SearchForm/SearchForm2.php');
+        $searchFormClass = SugarAutoLoader::customClass('SearchForm');
+    }
+    return new $searchFormClass($bean, $module);
 }
 /**
   * calls export method to build up a delimited string and some sample instructional text on how to use this file
@@ -494,7 +698,7 @@ function generateSearchWhere($module, $query) {//this function is similar with f
          $content = export($type, null, false, true);
 
          // Add a new row and add details on removing the sample data
-         // Our Importer will stop after he gets to the new row, ignoring the text below 
+         // Our Importer will stop after he gets to the new row, ignoring the text below
          return $content . "\n" . $app_strings['LBL_IMPORT_SAMPLE_FILE_TEXT'];
 
      }
@@ -783,16 +987,23 @@ function generateSearchWhere($module, $query) {//this function is similar with f
 
  }
 
-//call this function to return the desired order to display columns for export in.
-//if you pass in an array, it will reorder the array and send back to you.  It expects the array
-//to have the db names as key values, or as labels
-function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
+ /**
+   * call this function to return the desired order to display columns for export in.
+   * if you pass in an array, it will reorder the array and send back to you.  It expects the array
+   * to have the db names as key values, or as labels
+   * @param string name the bean-type to export
+   * @param array reorderArr array containing desired order of field columns for export
+   * @param boolean exclude whether or not to exclude defined fields from export, defaults to true
+   * @param array passed_fields_to_exclude fields to be added to the default $fields_to_exclude array
+   * @return array of fields to be used for export
+ */
+  function get_field_order_mapping($name='', $reorderArr = '', $exclude = true, $passed_fields_to_exclude = array()) {
 
     //define the ordering of fields, note that the key value is what is important, and should be the db field name
     $field_order_array = array();
-    $field_order_array['accounts'] = array( 'name'=>'Name', 'id'=>'ID', 'website'=>'Website', 'email_address' =>'Email Address', 'email_addresses_non_primary' => 'Non Primary E-mails', 'phone_office' =>'Office Phone', 'phone_alternate' => 'Alternate Phone', 'phone_fax' => 'Fax', 'billing_address_street' => 'Billing Street', 'billing_address_city' => 'Billing City', 'billing_address_state' => 'Billing State', 'billing_address_postalcode' => 'Billing Postal Code', 'billing_address_country' => 'Billing Country', 'shipping_address_street' => 'Shipping Street', 'shipping_address_city' => 'Shipping City', 'shipping_address_state' => 'Shipping State', 'shipping_address_postalcode' => 'Shipping Postal Code', 'shipping_address_country' => 'Shipping Country', 'description' => 'Description', 'account_type' => 'Type', 'industry' =>'Industry', 'annual_revenue' => 'Annual Revenue', 'employees' => 'Employees', 'sic_code' => 'SIC Code', 'ticker_symbol' => 'Ticker Symbol', 'parent_id' => 'Parent Account ID', 'ownership' =>'Ownership', 'campaign_id' =>'Campaign ID', 'rating' =>'Rating', 'assigned_user_name' =>'Assigned to',  'assigned_user_id' =>'Assigned User ID', 'team_id' =>'Team Id', 'team_name' =>'Teams', 'team_set_id' =>'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
-    $field_order_array['contacts'] = array( 'first_name' => 'First Name', 'last_name' => 'Last Name', 'id'=>'ID', 'salutation' => 'Salutation', 'title' => 'Title', 'department' => 'Department', 'account_name' => 'Account Name', 'email_address' => 'Email Address', 'email_addresses_non_primary' => 'Non Primary E-mails for Import', 'phone_mobile' => 'Phone Mobile','phone_work' => 'Phone Work', 'phone_home' => 'Phone Home',  'phone_other' => 'Phone Other','phone_fax' => 'Phone Fax', 'primary_address_street' => 'Primary Address Street', 'primary_address_city' => 'Primary Address City', 'primary_address_state' => 'Primary Address State', 'primary_address_postalcode' => 'Primary Address Postal Code', 'primary_address_country' => 'Primary Address Country', 'alt_address_street' => 'Alternate Address Street', 'alt_address_city' => 'Alternate Address City', 'alt_address_state' => 'Alternate Address State', 'alt_address_postalcode' => 'Alternate Address Postal Code', 'alt_address_country' => 'Alternate Address Country', 'description' => 'Description', 'birthdate' => 'Birthdate', 'lead_source' => 'Lead Source', 'campaign_id' => 'campaign_id', 'do_not_call' => 'Do Not Call', 'portal_name' => 'Portal Name', 'portal_active' => 'Portal Active', 'portal_password' => 'Portal Password', 'portal_app' => 'Portal Application', 'reports_to_id' => 'Reports to ID', 'assistant' => 'Assistant', 'assistant_phone' => 'Assistant Phone', 'picture' => 'Picture', 'assigned_user_name' => 'Assigned User Name', 'assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
-    $field_order_array['leads']    = array( 'first_name' => 'First Name', 'last_name' => 'Last Name', 'id'=>'ID', 'salutation' => 'Salutation', 'title' => 'Title', 'department' => 'Department', 'account_name' => 'Account Name', 'account_description' =>  'Account Description', 'website' =>  'Website', 'email_address' =>  'Email Address', 'email_addresses_non_primary' => 'Non Primary E-mails for Import', 'phone_mobile' =>  'Phone Mobile', 'phone_work' =>  'Phone Work', 'phone_home' =>  'Phone Home', 'phone_other' =>  'Phone Other', 'phone_fax' =>  'Phone Fax', 'primary_address_street' =>  'Primary Address Street', 'primary_address_city' =>  'Primary Address City', 'primary_address_state' =>  'Primary Address State', 'primary_address_postalcode' =>  'Primary Address Postal Code', 'primary_address_country' =>  'Primary Address Country', 'alt_address_street' =>  'Alt Address Street', 'alt_address_city' =>  'Alt Address City', 'alt_address_state' =>  'Alt Address State', 'alt_address_postalcode' =>  'Alt Address Postalcode', 'alt_address_country' =>  'Alt Address Country', 'status' =>  'Status', 'status_description' =>  'Status Description', 'lead_source' =>  'Lead Source', 'lead_source_description' =>  'Lead Source Description', 'description'=>'Description', 'converted' =>  'Converted', 'opportunity_name' =>  'Opportunity Name', 'opportunity_amount' =>  'Opportunity Amount', 'refered_by' =>  'Referred By', 'campaign_id' =>  'campaign_id', 'do_not_call' =>  'Do Not Call', 'portal_name' =>  'Portal Name', 'portal_app' =>  'Portal Application', 'reports_to_id' =>  'Reports To ID', 'assistant' =>  'Assistant', 'assistant_phone' =>  'Assistant Phone', 'birthdate'=>'Birthdate', 'contact_id' =>  'Contact ID', 'account_id' =>  'Account ID', 'opportunity_id' =>  'Opportunity ID',  'assigned_user_name' =>  'Assigned User Name', 'assigned_user_id' =>  'Assigned User ID', 'team_name' =>  'Teams', 'team_id' =>  'Team id', 'team_set_id' =>  'Team Set ID', 'date_entered' =>  'Date Created', 'date_modified' =>  'Date Modified', 'created_by' =>  'Created By ID', 'modified_user_id' =>  'Modified By ID', 'deleted' =>  'Deleted');
+    $field_order_array['accounts'] = array( 'name'=>'Name', 'id'=>'ID', 'website'=>'Website', 'email_address' =>'Email Address', 'phone_office' =>'Office Phone', 'phone_alternate' => 'Alternate Phone', 'phone_fax' => 'Fax', 'billing_address_street' => 'Billing Street', 'billing_address_city' => 'Billing City', 'billing_address_state' => 'Billing State', 'billing_address_postalcode' => 'Billing Postal Code', 'billing_address_country' => 'Billing Country', 'shipping_address_street' => 'Shipping Street', 'shipping_address_city' => 'Shipping City', 'shipping_address_state' => 'Shipping State', 'shipping_address_postalcode' => 'Shipping Postal Code', 'shipping_address_country' => 'Shipping Country', 'description' => 'Description', 'account_type' => 'Type', 'industry' =>'Industry', 'annual_revenue' => 'Annual Revenue', 'employees' => 'Employees', 'sic_code' => 'SIC Code', 'ticker_symbol' => 'Ticker Symbol', 'parent_id' => 'Parent Account ID', 'ownership' =>'Ownership', 'campaign_id' =>'Campaign ID', 'rating' =>'Rating', 'assigned_user_name' =>'Assigned to',  'assigned_user_id' =>'Assigned User ID', 'team_id' =>'Team Id', 'team_name' =>'Teams', 'team_set_id' =>'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['contacts'] = array( 'first_name' => 'First Name', 'last_name' => 'Last Name', 'id'=>'ID', 'salutation' => 'Salutation', 'title' => 'Title', 'department' => 'Department', 'account_name' => 'Account Name', 'email_address' => 'Email Address', 'phone_mobile' => 'Phone Mobile','phone_work' => 'Phone Work', 'phone_home' => 'Phone Home',  'phone_other' => 'Phone Other','phone_fax' => 'Phone Fax', 'primary_address_street' => 'Primary Address Street', 'primary_address_city' => 'Primary Address City', 'primary_address_state' => 'Primary Address State', 'primary_address_postalcode' => 'Primary Address Postal Code', 'primary_address_country' => 'Primary Address Country', 'alt_address_street' => 'Alternate Address Street', 'alt_address_city' => 'Alternate Address City', 'alt_address_state' => 'Alternate Address State', 'alt_address_postalcode' => 'Alternate Address Postal Code', 'alt_address_country' => 'Alternate Address Country', 'description' => 'Description', 'birthdate' => 'Birthdate', 'lead_source' => 'Lead Source', 'campaign_id' => 'campaign_id', 'do_not_call' => 'Do Not Call', 'portal_name' => 'Portal Name', 'portal_active' => 'Portal Active', 'portal_password' => 'Portal Password', 'portal_app' => 'Portal Application', 'reports_to_id' => 'Reports to ID', 'assistant' => 'Assistant', 'assistant_phone' => 'Assistant Phone', 'picture' => 'Picture', 'assigned_user_name' => 'Assigned User Name', 'assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['leads']    = array( 'first_name' => 'First Name', 'last_name' => 'Last Name', 'id'=>'ID', 'salutation' => 'Salutation', 'title' => 'Title', 'department' => 'Department', 'account_name' => 'Account Name', 'account_description' =>  'Account Description', 'website' =>  'Website', 'email_address' =>  'Email Address', 'phone_mobile' =>  'Phone Mobile', 'phone_work' =>  'Phone Work', 'phone_home' =>  'Phone Home', 'phone_other' =>  'Phone Other', 'phone_fax' =>  'Phone Fax', 'primary_address_street' =>  'Primary Address Street', 'primary_address_city' =>  'Primary Address City', 'primary_address_state' =>  'Primary Address State', 'primary_address_postalcode' =>  'Primary Address Postal Code', 'primary_address_country' =>  'Primary Address Country', 'alt_address_street' =>  'Alt Address Street', 'alt_address_city' =>  'Alt Address City', 'alt_address_state' =>  'Alt Address State', 'alt_address_postalcode' =>  'Alt Address Postalcode', 'alt_address_country' =>  'Alt Address Country', 'status' =>  'Status', 'status_description' =>  'Status Description', 'lead_source' =>  'Lead Source', 'lead_source_description' =>  'Lead Source Description', 'description'=>'Description', 'converted' =>  'Converted', 'opportunity_name' =>  'Opportunity Name', 'opportunity_amount' =>  'Opportunity Amount', 'refered_by' =>  'Referred By', 'campaign_id' =>  'campaign_id', 'do_not_call' =>  'Do Not Call', 'portal_name' =>  'Portal Name', 'portal_app' =>  'Portal Application', 'reports_to_id' =>  'Reports To ID', 'assistant' =>  'Assistant', 'assistant_phone' =>  'Assistant Phone', 'birthdate'=>'Birthdate', 'contact_id' =>  'Contact ID', 'account_id' =>  'Account ID', 'opportunity_id' =>  'Opportunity ID',  'assigned_user_name' =>  'Assigned User Name', 'assigned_user_id' =>  'Assigned User ID', 'team_name' =>  'Teams', 'team_id' =>  'Team id', 'team_set_id' =>  'Team Set ID', 'date_entered' =>  'Date Created', 'date_modified' =>  'Date Modified', 'created_by' =>  'Created By ID', 'modified_user_id' =>  'Modified By ID', 'deleted' =>  'Deleted');
     $field_order_array['opportunities'] = array( 'name' => 'Opportunity Name', 'id'=>'ID', 'amount' => 'Opportunity Amount', 'currency_id' => 'Currency', 'date_closed' => 'Expected Close Date', 'sales_stage' => 'Sales Stage', 'probability' => 'Probability (%)', 'next_step' => 'Next Step', 'opportunity_type' => 'Opportunity Type', 'account_name' => 'Account Name', 'description' => 'Description', 'amount_usdollar' => 'Amount', 'lead_source' => 'Lead Source', 'campaign_id' => 'campaign_id', 'assigned_user_name' => 'Assigned User Name', 'assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' => 'Date Created', 'date_modified' => 'Date Modified', 'created_by' => 'Created By ID', 'modified_user_id' => 'Modified By ID', 'deleted' => 'Deleted');
     $field_order_array['notes'] =         array( 'name' => 'Name', 'id'=>'ID', 'description' => 'Description', 'filename' => 'Attachment', 'parent_type' => 'Parent Type', 'parent_id' => 'Parent ID', 'contact_id' => 'Contact ID', 'portal_flag' => 'Display in Portal?', 'assigned_user_name' =>'Assigned to', 'assigned_user_id' => 'assigned_user_id', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' => 'Date Created', 'date_modified' => 'Date Modified',  'created_by' => 'Created By ID', 'modified_user_id' => 'Modified By ID', 'deleted' => 'Deleted' );
     $field_order_array['bugs'] =   array('bug_number' => 'Bug Number', 'id'=>'ID', 'name' => 'Subject', 'description' => 'Description', 'status' => 'Status', 'type' => 'Type', 'priority' => 'Priority', 'resolution' => 'Resolution', 'work_log' => 'Work Log', 'found_in_release' => 'Found In Release', 'fixed_in_release' => 'Fixed In Release', 'found_in_release_name' => 'Found In Release Name', 'fixed_in_release_name' => 'Fixed In Release', 'product_category' => 'Category', 'source' => 'Source', 'portal_viewable' => 'Portal Viewable', 'system_id' => 'System ID', 'assigned_user_id' => 'Assigned User ID', 'assigned_user_name' => 'Assigned User Name', 'team_name'=>'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
@@ -800,16 +1011,25 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
     $field_order_array['calls'] =   array( 'name'=>'Subject', 'id'=>'ID', 'description'=>'Description', 'status'=>'Status', 'direction'=>'Direction', 'date_start'=>'Date', 'date_end'=>'Date End', 'duration_hours'=>'Duration Hours', 'duration_minutes'=>'Duration Minutes', 'reminder_time'=>'Reminder Time', 'parent_type'=>'Parent Type', 'parent_id'=>'Parent ID', 'outlook_id'=>'Outlook ID', 'assigned_user_name' =>'Assigned to', 'assigned_user_id'=>'Assigned User ID', 'team_name'=>'Teams', 'team_id'=>'Team id', 'team_set_id'=>'Team Set ID', 'date_entered'=>'Date Created', 'date_modified'=>'Date Modified', 'created_by'=>'Created By ID', 'modified_user_id'=>'Modified By ID', 'deleted'=>'Deleted');
     $field_order_array['meetings'] =array( 'name'=>'Subject', 'id'=>'ID', 'description'=>'Description', 'status'=>'Status', 'location'=>'Location', 'date_start'=>'Date', 'date_end'=>'Date End', 'duration_hours'=>'Duration Hours', 'duration_minutes'=>'Duration Minutes', 'reminder_time'=>'Reminder Time', 'type'=>'Meeting Type', 'external_id'=>'External ID', 'password'=>'Meeting Password', 'join_url'=>'Join Url', 'host_url'=>'Host Url', 'displayed_url'=>'Displayed Url', 'creator'=>'Meeting Creator', 'parent_type'=>'Related to', 'parent_id'=>'Related to', 'outlook_id'=>'Outlook ID','assigned_user_name' =>'Assigned to','assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' => 'Date Created', 'date_modified' => 'Date Modified', 'created_by' => 'Created By ID', 'modified_user_id' => 'Modified By ID', 'deleted' => 'Deleted');
     $field_order_array['cases'] =array( 'case_number'=>'Case Number', 'id'=>'ID', 'name'=>'Subject', 'description'=>'Description', 'status'=>'Status', 'type'=>'Type', 'priority'=>'Priority', 'resolution'=>'Resolution', 'work_log'=>'Work Log', 'portal_viewable'=>'Portal Viewable', 'account_name'=>'Account Name', 'account_id'=>'Account ID', 'assigned_user_id'=>'Assigned User ID', 'team_name'=>'Teams', 'team_id'=>'Team id', 'team_set_id'=>'Team Set ID', 'date_entered'=>'Date Created', 'date_modified'=>'Date Modified', 'created_by'=>'Created By ID', 'modified_user_id'=>'Modified By ID', 'deleted'=>'Deleted');
-    $field_order_array['prospects'] =array( 'first_name'=>'First Name', 'last_name'=>'Last Name', 'id'=>'ID', 'salutation'=>'Salutation', 'title'=>'Title', 'department'=>'Department', 'account_name'=>'Account Name', 'email_address'=>'Email Address', 'email_addresses_non_primary' => 'Non Primary E-mails for Import', 'phone_mobile' => 'Phone Mobile', 'phone_work' => 'Phone Work', 'phone_home' => 'Phone Home', 'phone_other' => 'Phone Other', 'phone_fax' => 'Phone Fax',  'primary_address_street' => 'Primary Address Street', 'primary_address_city' => 'Primary Address City', 'primary_address_state' => 'Primary Address State', 'primary_address_postalcode' => 'Primary Address Postal Code', 'primary_address_country' => 'Primary Address Country', 'alt_address_street' => 'Alternate Address Street', 'alt_address_city' => 'Alternate Address City', 'alt_address_state' => 'Alternate Address State', 'alt_address_postalcode' => 'Alternate Address Postal Code', 'alt_address_country' => 'Alternate Address Country', 'description' => 'Description', 'birthdate' => 'Birthdate', 'assistant'=>'Assistant', 'assistant_phone'=>'Assistant Phone', 'campaign_id'=>'campaign_id', 'tracker_key'=>'Tracker Key', 'do_not_call'=>'Do Not Call', 'lead_id'=>'Lead Id', 'assigned_user_name'=>'Assigned User Name', 'assigned_user_id'=>'Assigned User ID', 'team_id' =>'Team Id', 'team_name' =>'Teams', 'team_set_id' =>'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
-
+    $field_order_array['prospects'] =array( 'first_name'=>'First Name', 'last_name'=>'Last Name', 'id'=>'ID', 'salutation'=>'Salutation', 'title'=>'Title', 'department'=>'Department', 'account_name'=>'Account Name', 'email_address'=>'Email Address', 'phone_mobile' => 'Phone Mobile', 'phone_work' => 'Phone Work', 'phone_home' => 'Phone Home', 'phone_other' => 'Phone Other', 'phone_fax' => 'Phone Fax',  'primary_address_street' => 'Primary Address Street', 'primary_address_city' => 'Primary Address City', 'primary_address_state' => 'Primary Address State', 'primary_address_postalcode' => 'Primary Address Postal Code', 'primary_address_country' => 'Primary Address Country', 'alt_address_street' => 'Alternate Address Street', 'alt_address_city' => 'Alternate Address City', 'alt_address_state' => 'Alternate Address State', 'alt_address_postalcode' => 'Alternate Address Postal Code', 'alt_address_country' => 'Alternate Address Country', 'description' => 'Description', 'birthdate' => 'Birthdate', 'assistant'=>'Assistant', 'assistant_phone'=>'Assistant Phone', 'campaign_id'=>'campaign_id', 'tracker_key'=>'Tracker Key', 'do_not_call'=>'Do Not Call', 'lead_id'=>'Lead Id', 'assigned_user_name'=>'Assigned User Name', 'assigned_user_id'=>'Assigned User ID', 'team_id' =>'Team Id', 'team_name' =>'Teams', 'team_set_id' =>'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['forecastworksheet'] = array('commit_stage' => 'Commit Stage', 'name' => 'Name', 'date_closed' => 'Expected Close', 'sales_stage' => 'Stage', 'probability' => 'Probability', 'likely_case' => 'Likely Case', 'best_case' => 'Best Case', 'worst_case' => 'Worst Case', 'id' => 'ID', 'product_id' => 'Product ID', 'assigned_user_id' => 'Assigned To', 'amount' => 'Amount', 'worksheet_id' => 'Worksheet ID', 'currency_id' => 'Currency ID', 'base_rate' => 'Base Rate');
+    $field_order_array['forecastmanagerworksheet'] = array('name' => 'Name', 'quota' => 'Quota', 'likely_case' => 'Likely Case', 'likely_case_adjusted' => 'Likely Adjusted', 'best_case' => 'Best Case', 'best_case_adjusted' => 'Best Adjusted', 'worst_case' => 'Worst Case', 'worst_case_adjusted' => 'Worst Adjusted', 'amount' => 'Amount', 'quota_id' => 'Quota ID', 'forecast_id' => 'Forecast ID', 'worksheet_id' => 'Worksheet ID', 'currency_id' => 'Currency ID', 'base_rate' => 'Base Rate', 'show_opps' => 'Show Opps', 'timeperiod_id' => 'Timeperiod ID', 'user_id' => 'User ID', 'date_modified' => 'Date Modified');
     $fields_to_exclude = array();
     $fields_to_exclude['accounts'] = array('account_name');
     $fields_to_exclude['bugs'] = array('system_id');
     $fields_to_exclude['cases'] = array('system_id', 'modified_by_name', 'modified_by_name_owner', 'modified_by_name_mod', 'created_by_name', 'created_by_name_owner', 'created_by_name_mod', 'assigned_user_name', 'assigned_user_name_owner', 'assigned_user_name_mod', 'team_count', 'team_count_owner', 'team_count_mod', 'team_name_owner', 'team_name_mod', 'account_name_owner', 'account_name_mod', 'modified_user_name',  'modified_user_name_owner', 'modified_user_name_mod');
     $fields_to_exclude['notes'] = array('first_name','last_name', 'file_mime_type','embed_flag');
     $fields_to_exclude['tasks'] = array('date_start_flag', 'date_due_flag');
+    $field_to_exclude['forecastworksheet'] = array('version'=>'version');
+    $field_to_exclude['forecastmanagerworksheet'] = array('version'=>'version', 'label'=>'label');
 
-    //of array is passed in for reordering, process array
+    //combine any passed in passed in fields to exclude from export
+    if(!empty($passed_fields_to_exclude[strtolower($name)])){
+        foreach($passed_fields_to_exclude[strtolower($name)] as $passed_in_field) {
+            $fields_to_exclude[strtolower($name)][] = $passed_in_field;
+        }
+    }
+      
     if(!empty($name) && !empty($reorderArr) && is_array($reorderArr)){
 
         //make sure reorderArr has values as keys, if not then iterate through and assign the value as the key
@@ -824,20 +1044,15 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
 
         //if module is not defined, lets default the order to another module of the same type
         //this would apply mostly to custom modules
-        if(!isset($field_order_array[strtolower($name)]) && isset($_REQUEST['module'])){
-
-            $exemptModuleList = array('ProspectLists');
-            if(in_array($name, $exemptModuleList))
+        if(!isset($field_order_array[strtolower($name)]) && isset($_REQUEST['module']))
+        {
+            if($name == 'ProspectLists')
+            {
                 return $newReorder;
+            }
 
             //get an instance of the bean
-            global $beanList;
-            global $beanFiles;
-
-            $bean = $beanList[$_REQUEST['module']];
-            require_once($beanFiles[$bean]);
-            $focus = new $bean;
-
+            $focus = BeanFactory::getBean($_REQUEST['module']);
 
             //if module is of type person
             if($focus instanceof Person){
@@ -855,7 +1070,7 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
                 $name = 'bugs';
             }//all others including type File can use basic
             else{
-                $name = 'Notes';
+                $name = 'notes';
             }
 
         }
@@ -864,9 +1079,8 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
         //the  newly formatted copy of passed in array
         $temp_result_arr = array();
         $lname = strtolower($name);
-        if(!empty($field_order_array[$lname])) {
+        if(isset($field_order_array[$lname])) {
 	        foreach($field_order_array[$lname] as $fk=> $fv){
-
 	            //if the value exists as a key in the passed in array, add to temp array and remove from reorder array.
 	            //Do not force into the temp array as we don't want to violate acl's
 	            if(array_key_exists($fk,$newReorder)){
@@ -875,12 +1089,12 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
 	            }
 	        }
         }
+
         //add in all the left over values that were not in our ordered list
         //array_splice($temp_result_arr, count($temp_result_arr), 0, $newReorder);
         foreach($newReorder as $nrk=>$nrv){
             $temp_result_arr[$nrk] = $nrv;
         }
-
 
         if($exclude){
             //Some arrays have values we wish to exclude
@@ -895,7 +1109,7 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
         return $temp_result_arr;
     }
 
-    //if no array was passed in, pass back either the list of ordered columns by module, or the entireorder array
+    //if no array was passed in, pass back either the list of ordered columns by module, or the entire order array
     if(empty($name)){
         return $field_order_array;
     }else{
@@ -903,4 +1117,163 @@ function get_field_order_mapping($name='',$reorderArr = '', $exclude = true){
     }
 
 }
-?>
+
+/**
+ * get_field_order_mapping2
+ *
+ * This is a function to return the desired order to display columns.
+ * If you pass in an array, it will reorder the array and send back to you.
+ * It expects the array to have the db names as key values, or as labels/
+ *
+ * @param string $name module name
+ * @param Mixed $reorderArr original array to be re-ordered
+ * @param bool $exclude whether to exclude some fields
+ * @param bool $forFieldName only for field name
+ * @return Mixed re-ordered array
+ */
+function get_field_order_mapping2($name, $reorderArr = '', $exclude = true, $forFieldName = true) {
+
+    //define the ordering of fields, note that the key value is what is important, and should be the db field name
+    $field_order_array = array();
+    $field_order_array['accounts'] = array('name'=>'Name', 'id'=>'ID', 'website'=>'Website', 'email1' =>'Email Address', 'phone_office' =>'Office Phone', 'phone_alternate' => 'Alternate Phone', 'phone_fax' => 'Fax', 'billing_address_street' => 'Billing Street', 'billing_address_city' => 'Billing City', 'billing_address_state' => 'Billing State', 'billing_address_postalcode' => 'Billing Postal Code', 'billing_address_country' => 'Billing Country', 'shipping_address_street' => 'Shipping Street', 'shipping_address_city' => 'Shipping City', 'shipping_address_state' => 'Shipping State', 'shipping_address_postalcode' => 'Shipping Postal Code', 'shipping_address_country' => 'Shipping Country', 'description' => 'Description', 'account_type' => 'Type', 'industry' =>'Industry', 'annual_revenue' => 'Annual Revenue', 'employees' => 'Employees', 'sic_code' => 'SIC Code', 'ticker_symbol' => 'Ticker Symbol', 'parent_id' => 'Parent Account ID', 'ownership' =>'Ownership', 'campaign_id' =>'Campaign ID', 'rating' =>'Rating', 'assigned_user_name' =>'Assigned to',  'assigned_user_id' =>'Assigned User ID', 'team_id' =>'Team Id', 'team_name' =>'Teams', 'team_set_id' =>'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['contacts'] = array('first_name' => 'First Name', 'last_name' => 'Last Name', 'id'=>'ID', 'salutation' => 'Salutation', 'title' => 'Title', 'department' => 'Department', 'account_name' => 'Account Name', 'email_address' => 'Email Address', 'phone_mobile' => 'Phone Mobile','phone_work' => 'Phone Work', 'phone_home' => 'Phone Home',  'phone_other' => 'Phone Other','phone_fax' => 'Phone Fax', 'primary_address_street' => 'Primary Address Street', 'primary_address_city' => 'Primary Address City', 'primary_address_state' => 'Primary Address State', 'primary_address_postalcode' => 'Primary Address Postal Code', 'primary_address_country' => 'Primary Address Country', 'alt_address_street' => 'Alternate Address Street', 'alt_address_city' => 'Alternate Address City', 'alt_address_state' => 'Alternate Address State', 'alt_address_postalcode' => 'Alternate Address Postal Code', 'alt_address_country' => 'Alternate Address Country', 'description' => 'Description', 'birthdate' => 'Birthdate', 'lead_source' => 'Lead Source', 'campaign_id' => 'campaign_id', 'do_not_call' => 'Do Not Call', 'portal_name' => 'Portal Name', 'portal_active' => 'Portal Active', 'portal_password' => 'Portal Password', 'portal_app' => 'Portal Application', 'reports_to_id' => 'Reports to ID', 'assistant' => 'Assistant', 'assistant_phone' => 'Assistant Phone', 'picture' => 'Picture', 'assigned_user_name' => 'Assigned User Name', 'assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['leads'] = array('first_name' => 'First Name', 'last_name' => 'Last Name', 'id'=>'ID', 'salutation' => 'Salutation', 'title' => 'Title', 'department' => 'Department', 'account_name' => 'Account Name', 'account_description' =>  'Account Description', 'website' =>  'Website', 'email_address' =>  'Email Address', 'phone_mobile' =>  'Phone Mobile', 'phone_work' =>  'Phone Work', 'phone_home' =>  'Phone Home', 'phone_other' =>  'Phone Other', 'phone_fax' =>  'Phone Fax', 'primary_address_street' =>  'Primary Address Street', 'primary_address_city' =>  'Primary Address City', 'primary_address_state' =>  'Primary Address State', 'primary_address_postalcode' =>  'Primary Address Postal Code', 'primary_address_country' =>  'Primary Address Country', 'alt_address_street' =>  'Alt Address Street', 'alt_address_city' =>  'Alt Address City', 'alt_address_state' =>  'Alt Address State', 'alt_address_postalcode' =>  'Alt Address Postalcode', 'alt_address_country' =>  'Alt Address Country', 'status' =>  'Status', 'status_description' =>  'Status Description', 'lead_source' =>  'Lead Source', 'lead_source_description' =>  'Lead Source Description', 'description'=>'Description', 'converted' =>  'Converted', 'opportunity_name' =>  'Opportunity Name', 'opportunity_amount' =>  'Opportunity Amount', 'refered_by' =>  'Referred By', 'campaign_id' =>  'campaign_id', 'do_not_call' =>  'Do Not Call', 'portal_name' =>  'Portal Name', 'portal_app' =>  'Portal Application', 'reports_to_id' =>  'Reports To ID', 'assistant' =>  'Assistant', 'assistant_phone' =>  'Assistant Phone', 'birthdate'=>'Birthdate', 'contact_id' =>  'Contact ID', 'account_id' =>  'Account ID', 'opportunity_id' =>  'Opportunity ID',  'assigned_user_name' =>  'Assigned User Name', 'assigned_user_id' =>  'Assigned User ID', 'team_name' =>  'Teams', 'team_id' =>  'Team id', 'team_set_id' =>  'Team Set ID', 'date_entered' =>  'Date Created', 'date_modified' =>  'Date Modified', 'created_by' =>  'Created By ID', 'modified_user_id' =>  'Modified By ID', 'deleted' =>  'Deleted');
+    $field_order_array['opportunities'] = array('name' => 'Opportunity Name', 'id'=>'ID', 'amount' => 'Opportunity Amount', 'currency_id' => 'Currency', 'date_closed' => 'Expected Close Date', 'sales_stage' => 'Sales Stage', 'probability' => 'Probability (%)', 'next_step' => 'Next Step', 'opportunity_type' => 'Opportunity Type', 'account_name' => 'Account Name', 'description' => 'Description', 'amount_usdollar' => 'Amount', 'lead_source' => 'Lead Source', 'campaign_id' => 'campaign_id', 'assigned_user_name' => 'Assigned User Name', 'assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' => 'Date Created', 'date_modified' => 'Date Modified', 'created_by' => 'Created By ID', 'modified_user_id' => 'Modified By ID', 'deleted' => 'Deleted');
+    $field_order_array['notes'] = array('name' => 'Name', 'id'=>'ID', 'description' => 'Description', 'filename' => 'Attachment', 'parent_type' => 'Parent Type', 'parent_id' => 'Parent ID', 'contact_id' => 'Contact ID', 'portal_flag' => 'Display in Portal?', 'assigned_user_name' =>'Assigned to', 'assigned_user_id' => 'assigned_user_id', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' => 'Date Created', 'date_modified' => 'Date Modified',  'created_by' => 'Created By ID', 'modified_user_id' => 'Modified By ID', 'deleted' => 'Deleted' );
+    $field_order_array['bugs'] = array('bug_number' => 'Bug Number', 'id'=>'ID', 'name' => 'Subject', 'description' => 'Description', 'status' => 'Status', 'type' => 'Type', 'priority' => 'Priority', 'resolution' => 'Resolution', 'work_log' => 'Work Log', 'found_in_release' => 'Found In Release', 'fixed_in_release' => 'Fixed In Release', 'found_in_release_name' => 'Found In Release Name', 'fixed_in_release_name' => 'Fixed In Release', 'product_category' => 'Category', 'source' => 'Source', 'portal_viewable' => 'Portal Viewable', 'system_id' => 'System ID', 'assigned_user_id' => 'Assigned User ID', 'assigned_user_name' => 'Assigned User Name', 'team_name'=>'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['tasks'] = array('name'=>'Subject', 'id'=>'ID', 'description'=>'Description', 'status'=>'Status', 'date_start'=>'Date Start', 'date_due'=>'Date Due','priority'=>'Priority', 'parent_type'=>'Parent Type', 'parent_id'=>'Parent ID', 'contact_id'=>'Contact ID', 'assigned_user_name' =>'Assigned to', 'assigned_user_id'=>'Assigned User ID', 'team_name'=>'Teams', 'team_id'=>'Team id', 'team_set_id'=>'Team Set ID', 'date_entered'=>'Date Created', 'date_modified'=>'Date Modified', 'created_by'=>'Created By ID', 'modified_user_id'=>'Modified By ID', 'deleted'=>'Deleted');
+    $field_order_array['calls'] = array('name'=>'Subject', 'id'=>'ID', 'description'=>'Description', 'status'=>'Status', 'direction'=>'Direction', 'date_start'=>'Date', 'date_end'=>'Date End', 'duration_hours'=>'Duration Hours', 'duration_minutes'=>'Duration Minutes', 'reminder_time'=>'Reminder Time', 'parent_type'=>'Parent Type', 'parent_id'=>'Parent ID', 'outlook_id'=>'Outlook ID', 'assigned_user_name' =>'Assigned to', 'assigned_user_id'=>'Assigned User ID', 'team_name'=>'Teams', 'team_id'=>'Team id', 'team_set_id'=>'Team Set ID', 'date_entered'=>'Date Created', 'date_modified'=>'Date Modified', 'created_by'=>'Created By ID', 'modified_user_id'=>'Modified By ID', 'deleted'=>'Deleted');
+    $field_order_array['meetings'] = array('name'=>'Subject', 'id'=>'ID', 'description'=>'Description', 'status'=>'Status', 'location'=>'Location', 'date_start'=>'Date', 'date_end'=>'Date End', 'duration_hours'=>'Duration Hours', 'duration_minutes'=>'Duration Minutes', 'reminder_time'=>'Reminder Time', 'type'=>'Meeting Type', 'external_id'=>'External ID', 'password'=>'Meeting Password', 'join_url'=>'Join Url', 'host_url'=>'Host Url', 'displayed_url'=>'Displayed Url', 'creator'=>'Meeting Creator', 'parent_type'=>'Related to', 'parent_id'=>'Related to', 'outlook_id'=>'Outlook ID','assigned_user_name' =>'Assigned to','assigned_user_id' => 'Assigned User ID', 'team_name' => 'Teams', 'team_id' => 'Team id', 'team_set_id' => 'Team Set ID', 'date_entered' => 'Date Created', 'date_modified' => 'Date Modified', 'created_by' => 'Created By ID', 'modified_user_id' => 'Modified By ID', 'deleted' => 'Deleted');
+    $field_order_array['cases'] = array('case_number'=>'Case Number', 'id'=>'ID', 'name'=>'Subject', 'description'=>'Description', 'status'=>'Status', 'type'=>'Type', 'priority'=>'Priority', 'resolution'=>'Resolution', 'work_log'=>'Work Log', 'portal_viewable'=>'Portal Viewable', 'account_name'=>'Account Name', 'account_id'=>'Account ID', 'assigned_user_id'=>'Assigned User ID', 'team_name'=>'Teams', 'team_id'=>'Team id', 'team_set_id'=>'Team Set ID', 'date_entered'=>'Date Created', 'date_modified'=>'Date Modified', 'created_by'=>'Created By ID', 'modified_user_id'=>'Modified By ID', 'deleted'=>'Deleted');
+    $field_order_array['prospects'] = array('first_name'=>'First Name', 'last_name'=>'Last Name', 'id'=>'ID', 'salutation'=>'Salutation', 'title'=>'Title', 'department'=>'Department', 'account_name'=>'Account Name', 'email_address'=>'Email Address', 'phone_mobile' => 'Phone Mobile', 'phone_work' => 'Phone Work', 'phone_home' => 'Phone Home', 'phone_other' => 'Phone Other', 'phone_fax' => 'Phone Fax',  'primary_address_street' => 'Primary Address Street', 'primary_address_city' => 'Primary Address City', 'primary_address_state' => 'Primary Address State', 'primary_address_postalcode' => 'Primary Address Postal Code', 'primary_address_country' => 'Primary Address Country', 'alt_address_street' => 'Alternate Address Street', 'alt_address_city' => 'Alternate Address City', 'alt_address_state' => 'Alternate Address State', 'alt_address_postalcode' => 'Alternate Address Postal Code', 'alt_address_country' => 'Alternate Address Country', 'description' => 'Description', 'birthdate' => 'Birthdate', 'assistant'=>'Assistant', 'assistant_phone'=>'Assistant Phone', 'campaign_id'=>'campaign_id', 'tracker_key'=>'Tracker Key', 'do_not_call'=>'Do Not Call', 'lead_id'=>'Lead Id', 'assigned_user_name'=>'Assigned User Name', 'assigned_user_id'=>'Assigned User ID', 'team_id' =>'Team Id', 'team_name' =>'Teams', 'team_set_id' =>'Team Set ID', 'date_entered' =>'Date Created', 'date_modified' =>'Date Modified', 'modified_user_id' =>'Modified By', 'created_by' =>'Created By', 'deleted' =>'Deleted');
+    $field_order_array['forecastworksheet'] = array('commit_stage' => 'Commit Stage', 'name' => 'Name', 'date_closed' => 'Expected Close', 'sales_stage' => 'Stage', 'probability' => 'Probability', 'likely_case' => 'Likely Case', 'best_case' => 'Best Case', 'worst_case' => 'Worst Case', 'id' => 'ID', 'product_id' => 'Product ID', 'assigned_user_id' => 'Assigned To', 'amount' => 'Amount', 'worksheet_id' => 'Worksheet ID', 'currency_id' => 'Currency ID', 'base_rate' => 'Base Rate');
+    $field_order_array['forecastmanagerworksheet'] = array('name' => 'Name', 'quota' => 'Quota', 'likely_case' => 'Likely Case', 'likely_case_adjusted' => 'Likely Adjusted', 'best_case' => 'Best Case', 'best_case_adjusted' => 'Best Adjusted', 'worst_case' => 'Worst Case', 'worst_case_adjusted' => 'Worst Adjusted', 'amount' => 'Amount', 'quota_id' => 'Quota ID', 'forecast_id' => 'Forecast ID', 'worksheet_id' => 'Worksheet ID', 'currency_id' => 'Currency ID', 'base_rate' => 'Base Rate', 'show_opps' => 'Show Opps', 'timeperiod_id' => 'Timeperiod ID', 'user_id' => 'User ID', 'date_modified' => 'Date Modified');
+
+    $fields_to_exclude = array();
+    $fields_to_exclude['accounts'] = array('account_name');
+    $fields_to_exclude['bugs'] = array('system_id');
+    $fields_to_exclude['cases'] = array('system_id', 'modified_by_name', 'modified_by_name_owner', 'modified_by_name_mod', 'created_by_name', 'created_by_name_owner', 'created_by_name_mod', 'assigned_user_name', 'assigned_user_name_owner', 'assigned_user_name_mod', 'team_count', 'team_count_owner', 'team_count_mod', 'team_name_owner', 'team_name_mod', 'account_name_owner', 'account_name_mod', 'modified_user_name',  'modified_user_name_owner', 'modified_user_name_mod');
+    $fields_to_exclude['notes'] = array('first_name', 'last_name', 'file_mime_type', 'embed_flag');
+    $fields_to_exclude['tasks'] = array('date_start_flag', 'date_due_flag');
+    $fields_to_exclude['forecastworksheet'] = array('version'=>'version');
+    $fields_to_exclude['forecastmanagerworksheet'] = array('version'=>'version', 'label'=>'label');
+
+    if (!empty($name) && !empty($reorderArr) && is_array($reorderArr)) {
+
+        //make sure reorderArr has values as keys, if not then iterate through and assign the value as the key
+        $newReorder = array();
+        foreach ($reorderArr as $rk=> $rv) {
+            if (is_int($rk)) {
+                $newReorder[$rv]=$rv;
+            } else {
+                $newReorder[$rk]=$rv;
+            }
+        }
+
+        //if module is not defined, lets default the order to another module of the same type
+        //this would apply mostly to custom modules
+        if(!isset($field_order_array[strtolower($name)]) && !empty($name))
+        {
+            if($name == 'ProspectLists')
+            {
+                return $newReorder;
+            }
+
+            //get an instance of the bean
+            $focus = BeanFactory::getBean($name);
+
+            //if module is of type person
+            if($focus instanceof Person){
+                $name = 'contacts';
+            }
+            //if module is of type company
+            else if ($focus instanceof Company){
+                $name = 'accounts';
+            }
+            //if module is of type Sale
+            else if ($focus instanceof Sale){
+                $name = 'opportunities';
+            }//if module is of type File
+            else if ($focus instanceof Issue){
+                $name = 'bugs';
+            }//all others including type File can use basic
+            else{
+                $name = 'notes';
+            }
+
+        }
+
+        //lets iterate through and create a reordered temporary array using
+        //the  newly formatted copy of passed in array
+        $temp_result_arr = array();
+        $lname = strtolower($name);
+        if (isset($field_order_array[$lname])) {
+	        foreach ($field_order_array[$lname] as $fk=> $fv) {
+	            //if the value exists as a key in the passed in array, add to temp array and remove from reorder array.
+	            //Do not force into the temp array as we don't want to violate acl's
+	            if (array_key_exists($fk, $newReorder)) {
+	                $temp_result_arr[$fk] = $newReorder[$fk];
+	                unset($newReorder[$fk]);
+	            }
+                    else {
+                        if ($forFieldName) {
+                            $temp_result_arr[$fk] = $fk;
+                        } else {
+                            $temp_result_arr[$fk] = '';
+                        }
+                    }
+	        }
+        }
+
+        //add in all the left over values that were not in our ordered list
+        //array_splice($temp_result_arr, count($temp_result_arr), 0, $newReorder);
+        foreach ($newReorder as $nrk=>$nrv) {
+            $temp_result_arr[$nrk] = $nrv;
+        }
+
+        if ($exclude) {
+            //Some arrays have values we wish to exclude
+            if (isset($fields_to_exclude[$lname])) {
+                foreach ($fields_to_exclude[$lname] as $exclude_field) {
+                    unset($temp_result_arr[$exclude_field]);
+                }
+            }
+        }
+
+        return $temp_result_arr;
+    }
+
+    //if no array was passed in, pass back either the list of ordered columns by module, or the entire order array
+    if (empty($name)) {
+        return $field_order_array;
+    } else {
+        return $field_order_array[strtolower($name)];
+    }
+}
+
+/**
+ * This is a function to format User Name fields using global locale
+ *
+ * @param SugarBean $focus
+ * @param array  $fields_array field definitions array
+ * @param string $key   field name
+ * @param string $value field value
+ * @return string $value
+ */
+function formatRealNameField(SugarBean $focus, $fields_array, $key, $value) {
+    global $locale;
+
+    if (!empty($focus->field_name_map[$fields_array[$key]]['type']) && $focus->field_name_map[$fields_array[$key]]['type'] == 'relate'
+        && !empty($focus->field_name_map[$fields_array[$key]]['module']) && $focus->field_name_map[$fields_array[$key]]['module'] == 'Users'
+        && !empty($focus->field_name_map[$fields_array[$key]]['rname']) &&
+        $focus->field_name_map[$fields_array[$key]]['rname'] == 'full_name'
+    ) {
+        $userFocus = BeanFactory::getBean('Users');
+        $userFocus->retrieve_by_string_fields(array('user_name' => $value ));
+        if (!empty($userFocus->id)) {
+            $value = $locale->formatName($userFocus);
+        }
+    }
+
+    return $value;
+}

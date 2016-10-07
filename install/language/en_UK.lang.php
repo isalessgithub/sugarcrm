@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Provide the password for the Sugar admin user.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Provide the user name for the Sugar admin user.',
   'ERR_CHECKSYS' => 'Errors have been detected during compatibility check.  In order for your SugarCRM Installation to function properly, please take the proper steps to address the issues listed below and either press the recheck button, or try installing again.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH support not found: SugarCRM needs BCMATH support for arbitrary precision math.',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass Reference is On (this should be set to Off in php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'The config file exists but is not writeable.  Please take the necessary steps to make the file writeable.  Depending on your Operating system, this might require you to change the permissions by running chmod 766, or to right click on the filename to access the properties and uncheck the read only option.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'The config override file exists but is not writeable.  Please take the necessary steps to make the file writeable.  Depending on your Operating system, this might require you to change the permissions by running chmod 766, or to right click on the filename to access the properties and uncheck the read only option.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'We detect that you are not using a FastCGI handler mapping for PHP. You will need to install/configure a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported Versions. Please see <a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a> for details',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'For optimal experience using IIS/FastCGI sapi, set fastcgi.logging to 0 in your php.ini file.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'The files or directories listed below are not writeable or are missing and cannot be created.  Depending on your Operating System, correcting this may require you to change permissions on the files or parent directory (chmod 766), or to right click on the parent directory and uncheck the &#39;read only&#39; option and apply it to all subfolders.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test for .htaccess rewrites failed. This usually means you do not have AllowOverride set up for Sugar directory.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Your version of IIS is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported IIS Versions. Your version is',
   'ERR_CHECKSYS_IMAP' => 'Not found: InboundEmail and Campaigns (Email) require the IMAP libraries. Neither will be functional.',
   'ERR_CHECKSYS_MBSTRING' => 'Functions associated with the Multibyte Strings PHP extension (mbstring) that are needed by the Sugar application were not found. <br/><br/>Generally, the mbstring module is not enabled by default in PHP and must be activated with --enable-mbstring when the PHP binary is built. Please refer to your PHP Manual for more information on how to enable mbstring support.',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Not A Valid Directory',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Warning: Not Writable',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Failed to write and read session variables.  Unable to proceed with the installation.',
-  'ERR_CHECKSYS_PCRE' => 'PCRE library not found: SugarCRM needs PCRE library in order to process Perl style of regular expression pattern matching.',
-  'ERR_CHECKSYS_PCRE_VER' => 'PCRE library version: SugarCRM needs PCRE library 7.0 or above to process Perl style of regular expression pattern matching.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Your version of PHP is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported PHP Versions. Your version is',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Unsupported PHP Version Installed: ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Safe Mode is On (you may wish to disable in php.ini)',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Basic Type',
   'LBL_CANCEL' => 'Cancel',
   'LBL_CHECKSYS_1' => 'In order for your SugarCRM installation to function properly, please ensure all of the system check items listed below are green. If any are red, please take the necessary steps to fix them.<BR><BR> For help on these system checks, please visit the <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Arbitrary Precision Math Module',
   'LBL_CHECKSYS_CACHE' => 'Writable Cache Sub-Directories',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference Turned Off',
   'LBL_CHECKSYS_COMPONENT' => 'Component',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Please fix the following files or directories before proceeding:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Please fix the following module directories and the files under them before proceeding:',
+  'LBL_CHECKSYS_HTACCESS' => 'AllowOverride setup for .htaccess',
   'LBL_CHECKSYS_IISVER' => 'IIS Version',
   'LBL_CHECKSYS_IMAP' => 'IMAP Module',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings Module',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQL Version',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Not Available',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'PCRE Library',
   'LBL_CHECKSYS_PHPVER' => 'PHP Version',
   'LBL_CHECKSYS_PHP_INI' => 'Location of your PHP configuration file (php.ini):',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Full Text Search capability is not installed.',
   'LBL_FTS_INSTALLED_ERR2' => 'You can still install but will not be able to use Full Text Search functionality.  Please refer to your database server install guide on how to do this, or contact your Administrator.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search is required.',
   'LBL_FTS_TABLE_TITLE' => 'Provide Full-Text Search Settings',
   'LBL_FTS_TYPE' => 'Search Engine Type',
   'LBL_HELP' => 'Help',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
   'LBL_OOTB_IE' => 'Check Inbound Mailboxes',
   'LBL_OOTB_PRUNE' => 'Prune Database on 1st of Month',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Removal of documents from filesystem',
   'LBL_OOTB_REPORTS' => 'Run Report Generation Scheduled Tasks',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Run Email Reminder Notifications',
-  'LBL_OOTB_SUGARFEEDS' => 'Prune SugarFeed Tables',
   'LBL_OOTB_TRACKER' => 'Prune tracker tables',
   'LBL_OOTB_WORKFLOW' => 'Process Workflow Tasks',
   'LBL_OPP' => 'Opportunity Data Set',

@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('modules/Import/ImportCacheFiles.php');
 
@@ -154,14 +151,8 @@ abstract class ImportDataSource implements Iterator
      */
     public static function writeRowToLastImport($import_module, $module, $id)
     {
-        // cache $last_import instance
-        static $last_import;
+        $last_import = BeanFactory::getBean('Import_2');
 
-        if ( !($last_import instanceof UsersLastImport) )
-            $last_import = new UsersLastImport();
-
-        $last_import->id = null;
-        $last_import->deleted = null;
         $last_import->assigned_user_id = $GLOBALS['current_user']->id;
         $last_import->import_module = $import_module;
         if ( $module == 'Case' )
@@ -186,7 +177,7 @@ abstract class ImportDataSource implements Iterator
         fputcsv($fp,array($error,$fieldName,$fieldValue,$this->_rowsCount));
         fclose($fp);
 
-        if ( !$this->_rowCountedForErrors )
+        if ( !$this->_rowCountedForErrors || $error == 'Execution')
         {
             $this->_errorCount++;
             $this->_rowCountedForErrors = true;
@@ -311,14 +302,13 @@ abstract class ImportDataSource implements Iterator
 
     public function __get($var)
     {
-        if (isset($_REQUEST[$var])) {
+        if( isset($_REQUEST[$var]) )
             return $_REQUEST[$var];
-        } elseif (isset($this->_localeSettings[$var])) {
+        else if( isset($this->_localeSettings[$var]) )
             return $this->_localeSettings[$var];
-        } elseif (isset($this->$var)) {
+        else
             return $this->$var;
-        }
-        return null;
     }
+    
 }
  

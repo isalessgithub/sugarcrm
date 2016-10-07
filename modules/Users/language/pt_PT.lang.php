@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registo deverá ser especificado para eliminar a conta.',
@@ -100,8 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Criado por',
   'LBL_CURRENCY' => 'Moeda:',
   'LBL_CURRENCY_EXAMPLE' => 'Mostrar Exemplo de Moeda',
-  'LBL_CURRENCY_SHOW_PREFERRED' => 'Mostrar a moeda preferencial',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Converter a moeda base para a preferida do utilizador em visualizações de listas e de registos',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Mostrar moeda preferencial',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Converter moeda base para a preferência do utilizador em visualizações de listagem e de registos.',
   'LBL_CURRENCY_SIG_DIGITS' => 'Número de dígitos da Moeda',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Número de casas decimais a mostrar para a moeda corrente',
   'LBL_CURRENCY_TEXT' => 'Seleccione a moeda padrão',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Primeiro Dia da Semana',
   'LBL_FDOW_TEXT' => 'Primeiro Dia da Semana a ser mostrado na Semana, Mês e Ano',
+  'LBL_FILTER_USERS_REPORTS' => 'Relatórios de Utilizadores',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => 'A procurar as variáveis ideais da conexão.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Procurar a Configuração Ideal',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forçar a Negativo',
   'LBL_FORCE_DESC' => 'Alguns servidores IMAP e POP3 exigem switches especiais. Tenta forçar o switch negativo para conectar (ou seja, /notls)',
   'LBL_FORECASTS' => 'Previsões',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Isto não está actualmente activado. Por favor contactar o seu administrador.',
   'LBL_FOUND_OPTIMUM_MSG' => 'Encontrei a configuração ideal. Clique no botão para a aplicar na sua Caixa de Correio.',
   'LBL_GENERATE_PASSWORD' => 'Redefinir Palavra-chave',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'As Minhas Equipas',
   'LBL_NAME' => 'Nome:',
   'LBL_NAVIGATION_PARADIGM' => 'Paradigma de Navegação',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Usar Tabuladores agrupados em vez das Tabuladores do módulo.',
   'LBL_NEW_FORM_TITLE' => 'Novo Utilizador',
   'LBL_NEW_PASSWORD' => 'Palavra-chave Nova:',
   'LBL_NEW_PASSWORD1' => 'Palavra-chave',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Reporta a:',
   'LBL_REQUEST_SUBMIT' => 'O seu pedido foi submetido.',
   'LBL_RESET_DASHBOARD' => 'Restaurar para Painel Gráfico Padrão',
-  'LBL_RESET_HOMEPAGE' => 'Restaurar para Página Principal Padrão',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Tem a certeza de que deseja restaurar a sua Página Principal?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Tem certeza que quer restaurar a Página Inicial padrão para este utilizador?',
   'LBL_RESET_PREFERENCES' => 'Retornar para as Preferências Padrão (Default)',
   'LBL_RESET_PREFERENCES_WARNING' => 'Tem a certeza de que deseja restaurar todas as suas preferências?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Tem certeza que quer repor todas as preferências para este utilizador?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Estado:',
   'LBL_SUBPANEL_LINKS' => 'Links dos Sub-painéis',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Na visão detalhada, mostra uma coluna com um link de atalho para o sub-painel',
-  'LBL_SUBPANEL_TABS' => 'Tabuladores do Sub-painel',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Na visão detalhada, agrupa os Sub-painéis em tabuladores e mostra uma tabulador de cada vez.',
   'LBL_SUGAR_LOGIN' => 'É Utilizador Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'Apenas afecta temas que suportam esta opção.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Mostra a última barra visualizada ao lado se seleccionada. Senão vai para o topo.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Mostra as barras de atalhos no topo caso seleccionadas. Senão irá para o lado.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Atalhos no topo.',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Palavra-chave Gerada pelo Sistema',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Digitos Significativos do Sistema',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Número de casas decimais para mostrar nos campos decimais no sistema, tais como moedas e médias nos Relatórios.',
   'LBL_TAB_TITLE_EMAIL' => 'Configuração de E-mail',
   'LBL_TAB_TITLE_USER' => 'Configuração do Utilizador',
   'LBL_TEAMS' => 'Equipas',

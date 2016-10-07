@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/DetailView/DetailView.php');
 
@@ -24,11 +21,15 @@ global $app_strings;
 global $sugar_config;
 global $timedate;
 global $theme;
+global $current_user;
+
+if (!$current_user->isAdminForModule("InboundEmail")) {
+    sugar_die(translate('ERR_NOT_ADMIN'));
+}
 
 /* start standard DetailView layout process */
 $GLOBALS['log']->info("InboundEmails DetailView");
-$focus = new InboundEmail();
-$focus->retrieve($_REQUEST['record']);
+$focus = BeanFactory::getBean('InboundEmail', $_REQUEST['record']);
 if (empty($focus->id)) {
 	sugar_die($app_strings['ERROR_NO_RECORD']);
 } // if
@@ -53,15 +54,14 @@ if($focus->delete_seen == 1) {
 $groupName = '';
 if($focus->group_id) {
 	
-	//$group = new Group();
+	//$group = BeanFactory::getBean('Groups');
 	//$group->retrieve($focus->group_id);
 	//$groupName = $group->user_name;
 }
 
 if($focus->template_id) {
 	
-	$et = new EmailTemplate();
-	$et->retrieve($focus->template_id);
+	$et = BeanFactory::getBean('EmailTemplates', $focus->template_id);
 	$emailTemplate = $et->name;
 } else {
 	$emailTemplate = $mod_strings['LBL_NONE'];
@@ -85,7 +85,7 @@ if(!empty($focus->service)) {
 }
 
 // FROM NAME FROM ADDRESS STRINGS
-$email = new Email();
+$email = BeanFactory::getBean('Emails');
 $from = $email->getSystemDefaultEmail();
 $default_from_name = $from['name'];
 $default_from_addr = $from['email'];
@@ -161,8 +161,7 @@ if(!empty($focus->stored_options)) {
 
 if(!empty($create_case_email_template)) {
 	
-	$et = new EmailTemplate();
-	$et->retrieve($create_case_email_template);
+	$et = BeanFactory::getBean('EmailTemplates', $create_case_email_template);
 	$create_case_email_template_name = $et->name;
 }
 if (!empty($distrib_method)) {

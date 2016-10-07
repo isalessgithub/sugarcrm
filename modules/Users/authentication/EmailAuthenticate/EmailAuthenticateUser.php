@@ -1,66 +1,72 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: EmailAuthenticateUser.php 51443 2009-10-12 20:34:36Z jmertic $
 
 /**
  * This file is where the user authentication occurs. No redirection should happen in this file.
  *
  */
-require_once('modules/Users/authentication/SugarAuthenticate/SugarAuthenticateUser.php');
-class EmailAuthenticateUser extends SugarAuthenticateUser {
-    var $passwordLength = 4;
 
+require_once('modules/Users/authentication/SugarAuthenticate/SugarAuthenticateUser.php');
+require_once "modules/Mailer/MailerFactory.php"; // imports all of the Mailer classes that are needed
+
+class EmailAuthenticateUser extends SugarAuthenticateUser
+{
+    private $passwordLength = 4;
 
     /**
-	 * this is called when a user logs in
-	 *
-	 * @param STRING $name
-	 * @param STRING $password
-	 * @return boolean
-	 */
-    function loadUserOnLogin($name, $password) {
-
+     * This is called when a user logs in.
+     *
+     * @param string $name
+     * @param string $password
+     * @return boolean
+     */
+    public function loadUserOnLogin($name, $password) {
         global $login_error;
 
-        $GLOBALS['log']->debug("Starting user load for ". $name);
-        if(empty($name) || empty($password)) return false;
+        $GLOBALS['log']->debug("Starting user load for {$name}");
 
-        if(empty($_SESSION['lastUserId'])){
+        if (empty($name) || empty($password)) {
+            return false;
+        }
+
+        if (empty($_SESSION['lastUserId'])) {
             $input_hash = SugarAuthenticate::encodePassword($password);
-            $user_id = $this->authenticateUser($name, $input_hash);
-            if(empty($user_id)) {
-                $GLOBALS['log']->fatal('SECURITY: User authentication for '.$name.' failed');
+            $user_id    = $this->authenticateUser($name, $input_hash);
+
+            if (empty($user_id)) {
+                $GLOBALS['log']->fatal("SECURITY: User authentication for {$name} failed");
                 return false;
             }
         }
 
-        if(empty($_SESSION['emailAuthToken'])){
-            $_SESSION['lastUserId'] = $user_id;
-            $_SESSION['lastUserName'] = $name;
+        if (empty($_SESSION['emailAuthToken'])) {
+            $_SESSION['lastUserId']     = $user_id;
+            $_SESSION['lastUserName']   = $name;
             $_SESSION['emailAuthToken'] = '';
-            for($i = 0; $i < $this->passwordLength; $i++){
-                $_SESSION['emailAuthToken'] .= chr(mt_rand(48,90));
+
+            for ($i = 0; $i < $this->passwordLength; $i++) {
+                $_SESSION['emailAuthToken'] .= chr(mt_rand(48, 90));
             }
-            $_SESSION['emailAuthToken']  =  str_replace(array('<', '>'), array('#', '@'), $_SESSION['emailAuthToken']);
-            $_SESSION['login_error'] = 'Please Enter Your User Name and Emailed Session Token';
+
+            $_SESSION['emailAuthToken'] = str_replace(array('<', '>'), array('#', '@'), $_SESSION['emailAuthToken']);
+            $_SESSION['login_error']    = 'Please Enter Your User Name and Emailed Session Token';
             $this->sendEmailPassword($user_id, $_SESSION['emailAuthToken']);
             return false;
-        }else{
-            if(strcmp($name, $_SESSION['lastUserName']) == 0 && strcmp($password, $_SESSION['emailAuthToken']) == 0){
+        } else {
+            if (strcmp($name, $_SESSION['lastUserName']) == 0 && strcmp($password, $_SESSION['emailAuthToken']) == 0) {
                 $this->loadUserOnSession($_SESSION['lastUserId']);
                 unset($_SESSION['lastUserId']);
                 unset($_SESSION['lastUserName']);
@@ -70,60 +76,60 @@ class EmailAuthenticateUser extends SugarAuthenticateUser {
 
         }
 
-         $_SESSION['login_error'] = 'Please Enter Your User Name and Emailed Session Token';
+        $_SESSION['login_error'] = 'Please Enter Your User Name and Emailed Session Token';
         return false;
     }
 
 
     /**
-     * Sends the users password to the email address or sends
+     * Sends the users password to the email address.
      *
-     * @param unknown_type $user_id
-     * @param unknown_type $password
+     * @param string $user_id
+     * @param string $password
      */
-    function sendEmailPassword($user_id, $password){
+    public function sendEmailPassword($user_id, $password) {
+        $result = $GLOBALS['db']->query("SELECT email1, email2, first_name, last_name FROM users WHERE id='{$user_id}'");
+        $row    = $GLOBALS['db']->fetchByAssoc($result);
 
-	    $result = $GLOBALS['db']->query("SELECT email1, email2, first_name, last_name FROM users WHERE id='$user_id'");
-	    $row = $GLOBALS['db']->fetchByAssoc($result);
+        if (empty($row['email1']) && empty($row['email2'])) {
+            $_SESSION['login_error'] = 'Please contact an administrator to setup up your email address associated to this account';
+        } else {
+            $mailTransmissionProtocol = "unknown";
 
-	    global $sugar_config;
-	    if(empty($row['email1']) && empty($row['email2'])){
+            try {
+                $mailer                   = MailerFactory::getSystemDefaultMailer();
+                $mailTransmissionProtocol = $mailer->getMailTransmissionProtocol();
 
-	        $_SESSION['login_error'] = 'Please contact an administrator to setup up your email address associated to this account';
-	       return;
-	    }
+                // add the recipient...
 
-	    require_once("include/SugarPHPMailer.php");
-		global $locale;
-        $OBCharset = $locale->getPrecedentPreference('default_email_charset');
-        $notify_mail = new SugarPHPMailer();
-		$notify_mail->CharSet = $sugar_config['default_charset'];
-		$notify_mail->AddAddress(((!empty($row['email1']))?$row['email1']: $row['email2']),$locale->translateCharsetMIME(trim($row['first_name'] . ' ' . $row['last_name']), 'UTF-8', $OBCharset));
+                // first get all email addresses known for this recipient
+                $recipientEmailAddresses = array($row["email1"], $row["email2"]);
+                $recipientEmailAddresses = array_filter($recipientEmailAddresses);
 
-		if (empty($_SESSION['authenticated_user_language'])) {
-			$current_language = $sugar_config['default_language'];
-		}
-		else {
-			$current_language = $_SESSION['authenticated_user_language'];
-		}
-        $notify_mail->Subject = 'Sugar Token';
-        $notify_mail->Body = 'Your sugar session authentication token  is: ' . $password;
-        $notify_mail->setMailerForSystem();
-        $notify_mail->From = 'no-reply@sugarcrm.com';
-        $notify_mail->FromName = 'Sugar Authentication';
+                // then retrieve first non-empty email address
+                $recipientEmailAddress = array_shift($recipientEmailAddresses);
 
-        if(!$notify_mail->Send()) {
-            $GLOBALS['log']->warn("Notifications: error sending e-mail (method: {$notify_mail->Mailer}), (error: {$notify_mail->ErrorInfo})");
+                // get the recipient name that accompanies the email address
+                $recipientName = "{$row["first_name"]} {$row["last_name"]}";
+
+                $mailer->addRecipientsTo(new EmailIdentity($recipientEmailAddress, $recipientName));
+
+                // override the From header
+                $from = new EmailIdentity("no-reply@sugarcrm.com", "Sugar Authentication");
+                $mailer->setHeader(EmailHeaders::From, $from);
+
+                // set the subject
+                $mailer->setSubject("Sugar Token");
+
+                // set the body of the email... looks to be plain-text only
+                $mailer->setTextBody("Your sugar session authentication token  is: {$password}");
+
+                $mailer->send();
+                $GLOBALS["log"]->info("Notifications: e-mail successfully sent");
+            } catch (MailerException $me) {
+                $message = $me->getMessage();
+                $GLOBALS["log"]->warn("Notifications: error sending e-mail (method: {$mailTransmissionProtocol}), (error: {$message})");
+            }
         }
-        else {
-            $GLOBALS['log']->info("Notifications: e-mail successfully sent");
-        }
-
-
-
-	}
-
-
+    }
 }
-
-?>

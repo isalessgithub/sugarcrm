@@ -1,39 +1,57 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Contracts']['QuickCreate'] = array (
-  'templateMeta' => 
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+/*********************************************************************************
+
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+ 
+$viewdefs ['Contracts'] = 
+array (
+  'QuickCreate' => 
   array (
-    'form' => 
+    'templateMeta' => 
     array (
-      'buttons' => 
+      'form' => 
       array (
-        0 => 'SAVE',
-        1 => 'CANCEL',
+        'buttons' => 
+        array (
+          'SAVE',
+          'CANCEL',
+        ),
       ),
-    ),
-    'maxColumns' => '2',
-    'widths' => 
-    array (
-      0 => 
+      'maxColumns' => '2',
+      'widths' => 
       array (
-        'label' => '10',
-        'field' => '30',
+        array (
+          'label' => '10',
+          'field' => '30',
+        ),
+        array (
+          'label' => '10',
+          'field' => '30',
+        ),
       ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'javascript' => '<script type="text/javascript" language="javascript">
+	 'javascript' => '<script type="text/javascript" language="javascript">
 		function setvalue(source)  {ldelim} 
 			src= new String(source.value);
 			target=new String(source.form.name.value);
 	
 			if (target.length == 0)  {ldelim} 
-				lastindex=src.lastIndexOf("\\"");
+				lastindex=src.lastIndexOf("\"");
 				if (lastindex == -1)  {ldelim} 
-					lastindex=src.lastIndexOf("\\\\\\"");
+					lastindex=src.lastIndexOf("\\\\\"");
 				 {rdelim}  
 				if (lastindex == -1)  {ldelim} 
 					source.form.name.value=src;
@@ -68,128 +86,57 @@ $viewdefs['Contracts']['QuickCreate'] = array (
 			 {rdelim} 
 		 {rdelim} 
 	</script>',
-    'tabDefs' => 
-    array (
-      'LBL_CONTRACT_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      'LBL_PANEL_ASSIGNMENT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
+	),
+'panels' =>array (
+  'lbl_contract_information' => 
   array (
-    'lbl_contract_information' => 
+    
     array (
-      0 => 
-      array (
-        0 => 'name',
-        1 => 'status',
-      ),
-      1 => 
-      array (
-        0 => 'reference_code',
-        1 => 
-        array (
-          'name' => 'start_date',
-          'displayParams' => 
-          array (
-            'showFormats' => true,
-          ),
-        ),
-      ),
-      2 => 
-      array (
-        0 => 'account_name',
-        1 => 
-        array (
-          'name' => 'end_date',
-          'displayParams' => 
-          array (
-            'showFormats' => true,
-          ),
-        ),
-      ),
-      3 => 
-      array (
-        0 => 'opportunity_name',
-      ),
-      4 => 
-      array (
-        0 => 'type',
-        1 => 
-        array (
-          'name' => 'customer_signed_date',
-          'displayParams' => 
-          array (
-            'showFormats' => true,
-          ),
-        ),
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'currency_id',
-          'label' => 'LBL_CURRENCY',
-        ),
-        1 => 
-        array (
-          'name' => 'company_signed_date',
-          'displayParams' => 
-          array (
-            'showFormats' => true,
-          ),
-        ),
-      ),
-      6 => 
-      array (
-        0 => 
-        array (
-          'name' => 'total_contract_value',
-          'displayParams' => 
-          array (
-            'size' => 15,
-            'maxlength' => 25,
-          ),
-        ),
-        1 => 
-        array (
-          'name' => 'expiration_notice',
-          'type' => 'datetimecombo',
-          'displayParams' => 
-          array (
-            'showFormats' => true,
-          ),
-        ),
-      ),
-      7 => 
-      array (
-        0 => 
-        array (
-          'name' => 'description',
-        ),
-      ),
+      'name',
+      'status',
     ),
-    'LBL_PANEL_ASSIGNMENT' => 
+    
     array (
-      0 => 
-      array (
-        0 => 'assigned_user_name',
-        1 => 
-        array (
-          'name' => 'team_name',
-          'displayParams' => 
-          array (
-            'required' => true,
-          ),
-        ),
-      ),
+      'reference_code',
+      array('name'=>'start_date', 'displayParams'=>array('showFormats'=>true)),
     ),
+    
+    array (
+      'account_name',
+      array('name'=>'end_date', 'displayParams'=>array('showFormats'=>true)),
+    ),
+    
+    array (
+      'opportunity_name',
+    ),
+    
+    array (
+    	'type',
+    	array('name'=>'customer_signed_date', 'displayParams'=>array('showFormats'=>true)),
+    ),
+    
+    array (
+    	array('name'=>'currency_id','label'=>'LBL_CURRENCY'),
+    	array('name'=>'company_signed_date', 'displayParams'=>array('showFormats'=>true)),
+    ),
+    
+    array (
+    	array('name'=>'total_contract_value', 'displayParams'=>array('size'=>15, 'maxlength'=>25)),
+    	array('name'=>'expiration_notice', 'type'=>'datetimecombo', 'displayParams'=>array('showFormats'=>true)),      
+    ),
+    
+    array (
+      array('name' => 'description'),
+    ),
+    ),
+	'LBL_PANEL_ASSIGNMENT' => 
+	array(
+	    array (
+      'assigned_user_name',
+      array('name'=>'team_name','displayParams'=>array('required'=>true)),
+      ),
   ),
+)
+)
 );
+?>      

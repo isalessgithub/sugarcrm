@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Грешно потребителско име или парола',
   'ERR_BODY_TOO_LONG' => 'rBody text too long to capture FULL email.  Trimmed.',
+  'ERR_DELETE_FOLDER' => 'Папката не може да бъде изтрита.',
   'ERR_INI_ZLIB' => 'Проблем при временно изключване на Zlib компресиране.  Проверката на настройките може да се окаже неуспешна.',
   'ERR_MAILBOX_FAIL' => 'Грешка при изтегляне на информация от пощенските кутии.',
   'ERR_NO_IMAP' => 'Не са намерени IMAP библиотеки.  Моля, елиминирайте проблема преди да продължите с конфигурацията на Входяща поща',
   'ERR_NO_OPTS_SAVED' => 'Не бяха определени оптимални настройки за входяща поща.  Моля, проверете съответните настройки',
   'ERR_TEST_MAILBOX' => 'Моля, проверете настройките и опитайте отново.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Абонаментът за папка не може да бъде прекратен преди изтриване.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Потребителите могат да изпращат електронни писма от името и през адреса на груповата пощенска кутия',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Когато опцията е маркирана, потребителите с достъп до груповата пощенска кутия имат опцията да изберат името и адреса в нея като свои данни при изпращане на електронни писма.',
   'LBL_APPLY_OPTIMUMS' => 'Определяне на оптимални настройки',
@@ -74,9 +73,9 @@ $mod_strings = array (
   'LBL_FROM_ADDR_DESC' => 'Поради ограничения наложени от доставчика на услугата, посоченият адрес за електронна поща може да не се визуализира в полето &#39;От&#39; на изпратеното съобщение. При такива обстоятелства SugarCRM ще използва адреса от секцията за конфигурация на сървър за изходяща електронна поща на системата.',
   'LBL_FROM_NAME' => 'Име на подателя',
   'LBL_FROM_NAME_ADDR' => 'Reply Name/Email',
-  'LBL_GETTING_FOLDERS_LIST' => 'Getting Folders List',
-  'LBL_GET_SENT_FOLDER' => 'Get Sent Folder',
-  'LBL_GET_TRASH_FOLDER' => 'Get Trash Folder',
+  'LBL_GETTING_FOLDERS_LIST' => 'Получаване на списък на папките',
+  'LBL_GET_SENT_FOLDER' => 'Получаване на папка Изпратени съобщения',
+  'LBL_GET_TRASH_FOLDER' => 'Получаване на папка Изтрити съобщения',
   'LBL_GROUPFOLDER_ID' => 'Групова папка',
   'LBL_GROUP_QUEUE' => 'Assign To Group',
   'LBL_HOME' => 'Начало',
@@ -130,9 +129,9 @@ $mod_strings = array (
   'LBL_SAVE_RAW_DESC_1' => 'Изберете "Да" ако искате да се запазва съдържанието/raw source/ на всяко импортирано електронно писмо.',
   'LBL_SAVE_RAW_DESC_2' => 'Големи по размер прикачени файлове могат да създадат проблеми при рестриктивна или неправилна конфигурация на базата данни.',
   'LBL_SELECT' => 'Избери',
-  'LBL_SELECT_SENT_FOLDERS' => 'Select Sent Folder',
+  'LBL_SELECT_SENT_FOLDERS' => 'Избери папка Изпратени съобщения',
   'LBL_SELECT_SUBSCRIBED_FOLDERS' => 'Select Subscribed Folder(s)',
-  'LBL_SELECT_TRASH_FOLDERS' => 'Select Trash Folder',
+  'LBL_SELECT_TRASH_FOLDERS' => 'Избери папка Изтрити съобщения',
   'LBL_SENT_FOLDER' => 'Папка за изпратени съобщения',
   'LBL_SERVER_OPTIONS' => 'Допълнителни настройки',
   'LBL_SERVER_TYPE' => 'Протокол за получаване',

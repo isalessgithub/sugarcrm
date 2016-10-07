@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avansat',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Raspuns server',
   'ERR_ALERT_FILE_UPLOAD' => 'Eroare in timpul de incarcare a imaginii.',
   'ERR_DELETE_CORE_FILE' => 'EROARE: Nu este posibil să ştergeţi un font de bază.',
+  'ERR_EMPTY_SAML_CERT' => 'Certificatul SAML nu poate fi gol',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL nu poate fi gol',
   'ERR_EZPDF_DISABLE' => 'Atentie: Clasa EZPDF este dezactivata din tabelul de configurare şi e stabilita ca clasa PDF. Vă rugăm să "Salvati" acest formular pentru a seta ca TCPDF clasa PDF şi a reveni într-o stare stabilă.',
   'ERR_FONT_ALREADY_EXIST' => 'EROARE: Acest font exista deja. Rleaza inapoi ...',
   'ERR_FONT_EMPTYFILE' => 'EROARE:Nume fisier gol!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'EROARE: Nici o cale de font personalizat disponibila!',
   'ERR_NO_FONT_PATH' => 'EROARE: nici o cale de fonturi disponibile!',
   'ERR_PDF_NO_UPLOAD' => 'Eroare pe timpul de încărcare a fontului sau fişier metrice.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL nu este valabil',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL nu este valabil',
   'HEAD_MAGNIFICATION' => 'Mărire Antet',
   'HEAD_MAGNIFICATION_INFO' => 'factor de amplificare pentru titluri.',
   'IMAGES' => 'Logo',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Inapoi',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Alegeti furnizorul dumneavoastra de Email',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Setari sistem',
-  'LBL_CONFIG_AJAX' => 'Configurarea AJAX User Interface',
-  'LBL_CONFIG_AJAX_DESC' => 'Activarea sau dezactivarea utilizării UI AJAX pentru module specifice.',
   'LBL_DELETE' => 'Sterge',
   'LBL_DISALBE_CONVERT_LEAD' => 'Disable convert lead action for converted leads',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'If a lead has already been converted, enabling this option will remove the convert lead action.',
   'LBL_DISPLAYING_LOG' => 'Afiseaza de la Jurnal',
   'LBL_ENABLE_ACTION_MENU' => 'Afişati acţiuni în cadrul meniuri',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Selectaţi pentru a afişa Vezi detalii şi acţiuni de sub panouri într-un meniu vertical. Dacă neselectat, acţiunile vor fi afişate ca butoane separate.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Arata e-mailuri de contact legate de "în subpanoul de  istorie pentru module',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Activează/dezactivează e-mail-uri de la contacte relaţionate (sau asociate) pentru afişare în Panoul secundar E-mail.',
   'LBL_ENABLE_MAILMERGE' => 'Permite imbinarea corespondentei',
   'LBL_EXCHANGE_LOGO' => 'schimba',
   'LBL_EXCHANGE_SMTPPASS' => 'Schimba Parola',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Orice parametri ai filtrului suplimentar să se aplice atunci când autentificarea utilizatorilor egis_sugar_user = 1 sau (is_sugar_user = 1) (is_sales = 1)',
   'LBL_LEAD_CONV_OPTION' => 'Lead Conversion Options',
   'LBL_LOADING' => 'Incarcare...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Această setare se aplică modulelor din modul anterior.',
   'LBL_LOGGER' => 'Setari Logger',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Data format implicita',
   'LBL_LOGGER_FILENAME' => 'Numele fisierului jurnal',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'urmatorul',
   'LBL_NOTIFY_FROMADDRESS' => '"De La " Adresa:',
   'LBL_NOTIFY_SUBJECT' => 'Subiect email:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Împiedică modificarea numelui de către utilizatori pentru actualizarea Numelui privat al echipei',
   'LBL_OC_STATUS' => 'Statut offline client',
   'LBL_OC_STATUS_DESC' => 'Verificaţi aici dacă doriţi ca orice utilizator să aibă acces la Offline Client. In caz contrar, puteţi configurara accesul la nivel de utilizator.',
   'LBL_PDFMODULE_NAME' => 'Setări PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'EROARE: font nu a fost adaugat. Uită-te la jurnalul de mai jos.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUCCES: font a fost adăugat la SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Setari sistem',
+  'LBL_TWEETTOCASE_ON' => 'Activează Tweet® pentru integrarea cazurilor',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Permite utilizatorilor să creeze cazuri din tweet-uri',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; către caz',
   'LBL_USE_REAL_NAMES' => 'Arată Nume complet',
   'LBL_USE_REAL_NAMES_DESC' => 'Afişează utilizatori "numele şi prenumele în loc de nume de utilizator lor în domenii de atribuire.',
   'LBL_VCAL_PERIOD' => 'vCal Actualizări o perioadă de timp:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nume sistem',
   'SYSTEM_NAME_HELP' => 'Acesta este numele care se afişează în bara de titlu a browserului.',
   'SYSTEM_NAME_WIZARD' => 'nume',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Setarea recomandată este sub {{listEntriesNum}} pentru niveluri de performanţă acceptabile. O dată ce se adaugă câmpuri suplimentare la listview, acest număr ar trebui să fie la capătul inferior al setării recomandate.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Setarea recomandată este sub {{subpanelEntriesNum}} pentru niveluri de performanţă acceptabile. O dată ce se adaugă câmpuri suplimentare la listview, acest număr ar trebui să fie la capătul inferior al setării recomandate.',
   'UPLOAD_MAX_SIZE' => 'Dimensiunea maximă de încărcare',
   'VERIFY_CLIENT_IP' => 'Valideaza adresa utilizator IP',
   'vCAL_HELP' => 'Utilizaţi această setare pentru a determina numărul de luni înainte de data curentă că informaţiile liber / ocupat pentru apelurile şi întâlniri este publicat.<br />Pentru a activa gratuit / publicare Ocupat off, introduce "0". Minim este de 1 lună; maximă este de 12 luni.',

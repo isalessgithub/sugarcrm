@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Zaawansowane',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Wyświetlaj czas odpowiedzi serwera',
   'ERR_ALERT_FILE_UPLOAD' => 'Błąd podczas ładowania obrazka.',
   'ERR_DELETE_CORE_FILE' => 'BŁĄD: Nie jest możliwe usunięcie podstawowej czcionki.',
+  'ERR_EMPTY_SAML_CERT' => 'Certyfikat SAML nie może być pusty',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL nie może być pusty',
   'ERR_EZPDF_DISABLE' => 'Ostrzeżenie: Klasa EZPDF jest wyłączona w tabeli config a jest ustawiona, jako klasa PDF. Proszę nacisną guzik "Zapisz", aby ustawić TCPDF, jako klasę PDF i powrócić do stanu stabilnego.',
   'ERR_FONT_ALREADY_EXIST' => 'BŁĄD: Ta czcionka już istnieje. Cofam zmiany...',
   'ERR_FONT_EMPTYFILE' => 'BŁĄD: Pusta nazwa pliku!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'BŁĄD: Niedostępna ścieżka własnej czcionki!',
   'ERR_NO_FONT_PATH' => 'BŁĄD: Ścieżka czcionki jest niedostępna!',
   'ERR_PDF_NO_UPLOAD' => 'Błąd podczas przesyłania czcionki lub pliku metryki.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL jest nieprawidłowy',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL jest nieprawidłowy',
   'HEAD_MAGNIFICATION' => 'Powiększenie nagłówka',
   'HEAD_MAGNIFICATION_INFO' => 'Powiększenie nagłówka.',
   'IMAGES' => 'Loga',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Wstecz',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Wybierz dostawcę usług e-mail:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Ustawienia systemowe',
-  'LBL_CONFIG_AJAX' => 'Konfiguruj interfejs użytkownika AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Włącz lub wyłącz interfejs AJAX dla wybranych modułów.',
   'LBL_DELETE' => 'Usuń',
   'LBL_DISALBE_CONVERT_LEAD' => 'Wyłącz opcję przekształcania namiaru dla namiarów już przekształconych',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Jeśli namiar został już przekształcony, włączenie tej opcji usunie czynność przekształcania namiaru.',
   'LBL_DISPLAYING_LOG' => 'Wyświetl log',
   'LBL_ENABLE_ACTION_MENU' => 'Wyświetl działania w menu',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Wybierz, aby wyświetlić działania Widoku szczegółowego i subpanelu w menu rozwijalnym. Jeśli opcja nie zostanie wybrana, działania będą wyświetlane jako osobne przyciski.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Pokaż powiązane z Kontaktem wiadomości e-mail w subpanelu Historia w modułach',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Włącz/Wyłącz wyświetlanie e-maili od powiązanych kontaktów w subpanelu e-mail.',
   'LBL_ENABLE_MAILMERGE' => 'Włączyć scalanie poczty?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Hasło poczty Exchange:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Dowolny dodatkowy parametr stosowany w celu uwierzytelniania użytkowników, np.<em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Opcje konwersji namiaru',
   'LBL_LOADING' => 'Ładownie...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Te ustawienia mają zastosowanie w modułach w trybie "legacy".',
   'LBL_LOGGER' => 'Ustawienia dziennika',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Domyślny format daty',
   'LBL_LOGGER_FILENAME' => 'Nazwa pliku dziennika logów',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Następny>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Adres "Od":',
   'LBL_NOTIFY_SUBJECT' => 'Temat:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Zapobiegaj zmianom nazw przez użytkowników, aby zaktualizować Prywatną nazwę zespołu',
   'LBL_OC_STATUS' => 'Zarządzaj klientem offline',
   'LBL_OC_STATUS_DESC' => 'Zaznacz to pole jeśli użytkownicy mają mieć dostęp do klienta offline. Możesz skonfigurować dostęp indywidualnie dla każdego z użytkowników',
   'LBL_PDFMODULE_NAME' => 'Ustawienia PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'BŁĄD: Czcionka nie została dodana. Informacje odnajdziesz w logu.',
   'LBL_STATUS_FONT_SUCCESS' => 'POWODZENIE: Czcionka została dodana do SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Ustawienia systemu',
+  'LBL_TWEETTOCASE_ON' => 'Włącz integrację Tweet&reg; do zgłoszenia',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Zezwól użytkownikom na tworzenie zgłoszeń z Tweetów',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; do zgłoszenia',
   'LBL_USE_REAL_NAMES' => 'Pokaż pełną nazwę użytkownika',
   'LBL_USE_REAL_NAMES_DESC' => 'Wyświetl pełne imiona i nazwiska użytkowników zamiast nazw użytkowników w polach przydzielenia.',
   'LBL_VCAL_PERIOD' => 'Okres czasu uaktualniania vCal:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nazwa systemu:',
   'SYSTEM_NAME_HELP' => 'To jest nazwa wyświetlana na pasku tytułowym Twojej przeglądarki.',
   'SYSTEM_NAME_WIZARD' => 'Nazwa:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Zalecane ustawienia dla akceptowalnego poziomu wydajności są poniżej {{listEntriesNum}}. Po dodaniu dodatkowych pól do widoku listy, ta liczba powinna być na niższym końcu zalecanych ustawień.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Zalecane ustawienia dla akceptowalnego poziomu wydajności są poniżej {{subpanelEntriesNum}}. Po dodaniu dodatkowych pól do widoku listy, ta liczba powinna być na niższym końcu zalecanych ustawień.',
   'UPLOAD_MAX_SIZE' => 'Maksymalna wielkość przesyłania',
   'VERIFY_CLIENT_IP' => 'Sprawdzaj numer IP użytkownika',
   'vCAL_HELP' => 'Użyj tego ustawienia, aby określić ile miesięcy naprzód (od aktualnej daty) system będzie podawał informacje o statusie Wolny/Zajęty. Aby wyłączyć ten status, zaznacz 0. Możliwa liczba miesięcy od 1 do 12.',

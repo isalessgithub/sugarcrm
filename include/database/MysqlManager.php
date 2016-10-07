@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
 * Description: This file handles the Data base functionality for the application.
@@ -131,6 +128,7 @@ class MysqlManager extends DBManager
 	    "collation" => true,
 	    "create_db" => true,
 	    "disable_keys" => true,
+	    "fix:report_as_condition" => true,
 	);
 
 	/**
@@ -396,10 +394,11 @@ class MysqlManager extends DBManager
 		$this->log->info("tableExists: $tableName");
 
 		if ($this->getDatabase()) {
-			$result = $this->query("SHOW TABLES LIKE ".$this->quoted($tableName));
+			$result = $this->query("SHOW TABLES LIKE ".$this->quoted($tableName) . ';');
 			if(empty($result)) return false;
 			$row = $this->fetchByAssoc($result);
-			return !empty($row);
+            $exists = !empty($row);
+			return $exists;
 		}
 
 		return false;
@@ -425,6 +424,20 @@ class MysqlManager extends DBManager
 		}
 		return false;
 	}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sqlLikeString($str, $wildcard = "%", $appendWildcard = true)
+    {
+        $str = parent::sqlLikeString($str, $wildcard, $appendWildcard);
+
+        // We need to double any backslashes that may exist in $str, for a MySQL LIKE clause.
+        // See here: http://dev.mysql.com/doc/refman/5.6/en/string-comparison-functions.html
+        // Note: This replaces one backslash with two, not two with four ;)
+        $str = str_replace("\\", "\\\\", $str);
+        return $str;
+    }
 
 	/**
 	 * @see DBManager::quote()
@@ -514,6 +527,11 @@ class MysqlManager extends DBManager
 	 */
 	public function repairTableParams($tablename, $fielddefs, $indices, $execute = true, $engine = null)
 	{
+        foreach ($indices as $key => $ind) {
+            if (strtolower($ind['type']) == 'primary') {
+                $indices[$key]['name'] = 'primary';
+            }
+        }
 		$sql = parent::repairTableParams($tablename,$fielddefs,$indices,false,$engine);
 
 		if ( $sql == '' )
@@ -604,6 +622,10 @@ class MysqlManager extends DBManager
                 return $string . ' ' . $operation . ' INTERVAL ' . abs($getUserUTCOffset) . ' MINUTE';
             case 'avg':
                 return "avg($string)";
+            case 'substr':
+                return "substr($string, " . implode(', ', $additional_parameters) . ')';
+            case 'round':
+                return "round($string, " . implode(', ', $additional_parameters) . ')';
 		}
 
 		return $string;
@@ -777,7 +799,7 @@ class MysqlManager extends DBManager
 	// check if the passed value is an array of fields.
 	// if not, convert it into an array
 	if (!$this->isFieldArray($indices))
-		$indices[] = $indices;
+		$indices = array($indices);
 
 	$columns = array();
 	foreach ($indices as $index) {
@@ -1027,7 +1049,7 @@ class MysqlManager extends DBManager
 			}
 		}
 		if (!empty($sql)) {
-            $sql = "ALTER TABLE $tablename " . join(",", $sql) . ";";
+			$sql = "ALTER TABLE $tablename ".join(",", $sql);
 			if($execute)
 				$this->query($sql);
 		} else {
@@ -1071,20 +1093,24 @@ class MysqlManager extends DBManager
 		return "ALTER TABLE $tablename CHANGE COLUMN $column ".$this->oneColumnSQLRep($field);
 	}
 
-	public function emptyValue($type)
-	{
-		$ctype = $this->getColumnType($type);
-		if($ctype == "datetime") {
-			return $this->convert($this->quoted("0000-00-00 00:00:00"), "datetime");
-		}
-		if($ctype == "date") {
-			return $this->convert($this->quoted("0000-00-00"), "date");
-		}
-		if($ctype == "time") {
-			return $this->convert($this->quoted("00:00:00"), "time");
-		}
-		return parent::emptyValue($type);
-	}
+	/**
+	 * (non-PHPdoc)
+	 * @see DBManager::emptyValue()
+	 */
+    public function emptyValue($type, $forPrepared = false)
+   	{
+   		$ctype = $this->getColumnType($type);
+   		if($ctype == "datetime") {
+   			return $forPrepared?"1970-01-01 00:00:00":$this->convert($this->quoted("1970-01-01 00:00:00"), "datetime");
+   		}
+   		if($ctype == "date") {
+   			return $forPrepared?"1970-01-01":$this->convert($this->quoted("1970-01-01"), "date");
+   		}
+   		if($ctype == "time") {
+   			return $forPrepared?"00:00:00":$this->convert($this->quoted("00:00:00"), "time");
+   		}
+   		return parent::emptyValue($type, $forPrepared);
+   	}
 
 	/**
 	 * (non-PHPdoc)
@@ -1376,13 +1402,6 @@ class MysqlManager extends DBManager
 		$this->query("CREATE DATABASE `$dbname` CHARACTER SET utf8 COLLATE utf8_general_ci", true);
 	}
 
-	public function preInstall()
-	{
-		$db->query("ALTER DATABASE `{$setup_db_database_name}` DEFAULT CHARACTER SET utf8", true);
-		$db->query("ALTER DATABASE `{$setup_db_database_name}` DEFAULT COLLATE utf8_general_ci", true);
-
-	}
-
 	/**
 	 * Drop a database
 	 * @param string $dbname
@@ -1454,6 +1473,7 @@ class MysqlManager extends DBManager
 	    return $this->query('ALTER TABLE '.$tableName.' ENABLE KEYS');
 	}
 
+
     /**
      * Returns a DB specific FROM clause which can be used to select against functions.
      * Note that depending on the database that this may also be an empty string.
@@ -1470,9 +1490,26 @@ class MysqlManager extends DBManager
      * I.e. generate a unique Sugar id in a sub select of an insert statement.
      * @return string
      */
-
-	public function getGuidSQL()
+    public function getGuidSQL()
     {
       	return 'UUID()';
     }
+
+
+	/**
+	* Check if the value is empty value for this type
+	* @param mixed $val Value
+	* @param string $type Type (one of vardef types)
+	* @return bool true if the value if empty
+	*/
+	protected function _emptyValue($val, $type)
+	{
+		if($type == 'date' && ($val == $this->quoted('0000-00-00') || $val == '0000-00-00')) {
+			return true;
+		} elseif($type == 'datetime' && ($val == $this->quoted('0000-00-00 00:00:00') || $val == '0000-00-00 00:00:00')) {
+			return true;
+		}
+
+		return parent::_emptyValue($val, $type);
+	}
 }

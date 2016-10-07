@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Morate navesti odgovarajući broj zapisa da bi obrisali kontakt.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Odeljenje:',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Opisne informacije',
+  'LBL_DNB_BAL_PREVIEW' => 'Pregled kompanija.',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Potencijalni klijenti',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: informacije o potencijalnim klijentima',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Direktorski Id',
   'LBL_DO_NOT_CALL' => 'Ne zovi:',
   'LBL_DUPLICATE' => 'Mogući dupli ciljevi',
   'LBL_EDIT_ACCOUNT_NAME' => 'Naziv kompanije:',
@@ -74,15 +75,21 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Druga email adresa',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'ID broj korisnika koji je promenio',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Izveštaji ciljeva',
   'LBL_FIRST_NAME' => 'Ime:',
   'LBL_FULL_NAME' => 'Ime',
+  'LBL_HELP_CREATE' => '{{module_name}} modul se sastoji od individualnih ljudi sa nekvalifikovanim izgledima o kojima postoje neke informacije, ali nisu još kvlifikovani {{leads_singular_module}}. Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '•	{{module_name}} modul se sastoji od individualnih ljudi sa nekvalifikovanim izgledima o kojima postoje neke informacije, ali nisu još kvlifikovani {{leads_singular_module}}. - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '{{module_name}} modul se sastoji od individualnih ljudi sa nekvalifikovanim izgledima o kojima postoje neke informacije, ali nisu još kvlifikovani {{leads_singular_module}}. Informacije(npr. ime, e-mail adresa) koji se tiču {{plural_module_name}} su normalno sakupljani sa poslovnih kartica koje ste primili tokom učešća na raznim poslovnim prezentacijama, konferencijama, itd. {{plural_module_name}} u Sugar su nezavisni zapisi jer nisu povezani sa {{contacts_module}}, {{leads_module}}, {{accounts_module}}, or {{opportunities_module}}. Postoji nekoliko načina da se kreira {{plural_module_name}} u Sugar-u kao što su preko {{plural_module_name}} modula, {{quotes_module_name}} modul, uvozom {{plural_module_name}}, itd.  Jednom kada je {{module_name}} kreiran, moguće je pregledati i izmeniti informacije koji se tiču {{module_name}} kroz {{module_name}}-og pregleda zapisa.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istorija',
   'LBL_HOME_PHONE' => 'Kućni telefon:',
   'LBL_IMPORT_VCARD' => 'Uvezi digitalnu vizitkartu',
   'LBL_IMPORT_VCARDTEXT' => 'Automatski kreiraj novi kontakt uvoženjem digitalne vizit karte sa vašeg sistema.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Potencijalni klijent iz virtuelnog imenika je uspešno napravljen',
   'LBL_INVALID_EMAIL' => 'Nevažeći Email',
   'LBL_INVITEE' => 'Direktni izveštaj',
   'LBL_LAST_NAME' => 'Prezime:',
+  'LBL_LEAD' => 'Potencijalni klijent',
   'LBL_LEAD_ID' => 'ID broj potencijalnog klijenta:',
   'LBL_LIST_EMAIL_ADDRESS' => 'Email',
   'LBL_LIST_FIRST_NAME' => 'Ime',
@@ -125,12 +132,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Lista ciljeva',
   'LBL_PROSPECT_NAME' => 'Ime cilja:',
   'LBL_PROSPECT_ROLE' => 'Uloga:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Uspešno ste napravili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Pozdrav',
   'LBL_SAVE_PROSPECT' => 'Sačuvaj cilj',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga ciljeva',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Izaberi označene ciljeve',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Izaberi označene ciljeve',
   'LBL_STATE' => 'Opština:',
+  'LBL_STREET' => 'Ulica',
   'LBL_TITLE' => 'Naslov:',
   'LBL_TRACKER_KEY' => 'Ključ sistema za praćenje',
   'LNK_CAMPAIGN_LIST' => 'Kampanje',
@@ -161,6 +170,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Za kreiranje prodajne prilike neophodna je kompanija.\\n Molim, kreirajte novu kompaniju ili odaberite neku postojeću.',
   'NTC_REMOVE_CONFIRMATION' => 'Da li ste sigurni da želite da uklonite ovog kontakta iz slučaja?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Da li ste sigurni da želite da uklonite ovaj zapis kao direktni izveštaj?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

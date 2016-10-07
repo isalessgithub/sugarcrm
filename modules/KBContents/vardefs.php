@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -36,7 +33,7 @@ $dictionary['KBContent'] = array(
 		'kbdocument_body' => array (
 			'name' => 'kbdocument_body',
 			'vname' => 'LBL_TEXT_BODY',
-			'type' => 'longhtml',
+			'type' => 'longtext',
 			'comment' => 'Article body',
 		),		
 		'document_revision_id' => array (
@@ -48,16 +45,6 @@ $dictionary['KBContent'] = array(
 			'comment' => 'The document revision id to which this content is associated'
 		),
 		
-		'created_by_link' => array (
-			'name' => 'created_by_link',
-			'type' => 'link',
-			'relationship' => 'contents_created_by',
-			'vname' => 'LBL_CREATED_BY_USER',
-			'link_type' => 'one',
-			'module' => 'Users',
-			'bean_name' => 'User',
-			'source' => 'non-db',
-		),
 		'date_entered' => array (
 			'name' => 'date_entered',
 			'vname' => 'LBL_DATE_ENTERED',
@@ -88,16 +75,6 @@ $dictionary['KBContent'] = array(
 			'isnull' => false,
 			'reportable' => true,
 			'dbType' => 'id'
-		), 
-		'modified_user_link' => array (
-			'name' => 'modified_user_link',
-			'type' => 'link',
-			'relationship' => 'contents_modified_user',
-			'vname' => 'LBL_MODIFIED_BY_USER',
-			'link_type' => 'one',
-			'module' => 'Users',
-			'bean_name' => 'User',
-			'source' => 'non-db',
 		),
 	    'kb_index' => array (
 			'name' => 'kb_index',
@@ -106,6 +83,7 @@ $dictionary['KBContent'] = array(
 			'len' => 11,
 			'required' => true,
 			'auto_increment' => true,
+			'readonly' => true,
 			'comment' => 'Currently used only by instances using sql server.',
 			'duplicate_merge' => 'disabled',
 		),		

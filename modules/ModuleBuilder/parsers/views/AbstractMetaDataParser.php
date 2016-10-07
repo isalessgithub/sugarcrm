@@ -1,27 +1,49 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 abstract class AbstractMetaDataParser
 {
+    /**
+     * The client making this request for the parser. Default is empty. NOT ALL
+     * PARSERS SET THIS.
+     *
+     * @var string
+     */
+    public $client;
 
-	//Make these properties public for now until we can create some usefull accessors
-	public $_fielddefs ;
-	public $_viewdefs ;
-	protected $_moduleName ;
-    protected $implementation ; // the DeployedMetaDataImplementation or UndeployedMetaDataImplementation object to handle the reading and writing of files and field data
+    //Make these properties public for now until we can create some usefull accessors
+    public $_fielddefs;
+    public $_viewdefs;
+    public $_paneldefs = array();
+	protected $_moduleName;
+
+    /**
+     * object to handle the reading and writing of files and field data
+     *
+     * @var DeployedMetaDataImplementation|UndeployedMetaDataImplementation
+     */
+    protected $implementation;
+
+    /**
+     * Returns an array of modules affected by this object. In almost all cases
+     * this will be a single array. For subpanels, it will be more than one.
+     * 
+     * @return array List of modules changed within this object
+     */
+    public function getAffectedModules()
+    {
+        return $this->implementation->getAffectedModules();
+    }
 
     function getLayoutAsArray ()
     {
@@ -42,45 +64,63 @@ abstract class AbstractMetaDataParser
     {
         return $this->_fielddefs;
     }
-    
+
+    public function getPanelDefs() {
+        return $this->_paneldefs;
+    }
+
     function removeField ($fieldName)
     {
     	return false;
     }
 
+    public function useWorkingFile() {
+        return $this->implementation->useWorkingFile();
+    }
+
     /*
      * Is this field something we wish to show in Studio/ModuleBuilder layout editors?
-     * @param array $def    Field definition in the standard SugarBean field definition format - name, vname, type and so on
-     * @return boolean      True if ok to show, false otherwise
+     *
+     * @param array $def     Field definition in the standard SugarBean field definition format - name, vname, type and so on
+     * @param string $view   The name of the view
+     * @param string $client The client for this request
+     * @return boolean       True if ok to show, false otherwise
      */
-    static function validField ( $def, $view = "")
+    public static function validField(array $def, $view = "", $client = '')
     {
         //Studio invisible fields should always be hidden
-        if (isset ($def[ 'studio' ] ) )
-        {
-            if (is_array($def [ 'studio' ]))
-            {
-                if (!empty($view) && isset($def [ 'studio' ][$view]))
-                   return $def [ 'studio' ][$view] !== false && $def [ 'studio' ][$view] !== 'false' && $def [ 'studio' ][$view] !== 'hidden';
-                if (isset($def [ 'studio' ]['visible']))
-                   return $def [ 'studio' ]['visible'];
+        if (isset($def['studio'])) {
+            if (is_array($def['studio'])) {
+                // Handle client specific studio setting for a field
+                $clientRules = self::getClientStudioValidation($def['studio'], $view, $client);
+                if ($clientRules !== null) {
+                    return $clientRules;
+                }
+                
+                if (!empty($view) && isset($def['studio'][$view])) {
+                    return $def [ 'studio' ][$view] !== false && $def [ 'studio' ][$view] !== 'false' && $def [ 'studio' ][$view] !== 'hidden';
+                }
+                
+                if (isset($def['studio']['visible'])) {
+                    return $def['studio']['visible'];
+                }
             } else {
-                return ($def [ 'studio' ] != 'false' && $def [ 'studio' ] != 'hidden' && $def [ 'studio' ] !== false) ;
+                return $def['studio'] !== false && $def['studio'] !== 'false' && $def['studio'] !== 'hidden';
 			}
         }
 
         // bug 19656: this test changed after 5.0.0b - we now remove all ID type fields - whether set as type, or dbtype, from the fielddefs
-        return 
-		( 
-		  ( 
-		    (empty ( $def [ 'source' ] ) || $def [ 'source' ] == 'db' || $def [ 'source' ] == 'custom_fields') 
+        return
+		(
+		  (
+		    (empty ( $def [ 'source' ] ) || $def [ 'source' ] == 'db' || $def [ 'source' ] == 'custom_fields')
 			&& isset($def [ 'type' ]) && $def [ 'type' ] != 'id' && $def [ 'type' ] != 'parent_type'
-			&& (empty ( $def [ 'dbType' ] ) || $def [ 'dbType' ] != 'id') 
-			&& ( isset ( $def [ 'name' ] ) && strcmp ( $def [ 'name' ] , 'deleted' ) != 0 ) 
+			&& (empty ( $def [ 'dbType' ] ) || $def [ 'dbType' ] != 'id')
+			&& ( isset ( $def [ 'name' ] ) && strcmp ( $def [ 'name' ] , 'deleted' ) != 0 )
 		  ) // db and custom fields that aren't ID fields
           ||
-		  // exclude fields named *_name regardless of their type...just convention
-          (isset ( $def [ 'name' ] ) && substr ( $def [ 'name' ], -5 ) === '_name' ) ) ;
+          // exclude fields named *_name (just convention) and email1 regardless of their type
+          (isset($def['name']) && ($def['name'] === 'email1' || substr($def['name'], -5) === '_name')));
     }
 
 	protected function _standardizeFieldLabels ( &$fielddefs )
@@ -95,7 +135,7 @@ abstract class AbstractMetaDataParser
 	}
 
 	abstract static function _trimFieldDefs ( $def ) ;
-	
+
 	public function getRequiredFields(){
 	    $fieldDefs = $this->implementation->getFielddefs();
 	    $newAry = array();
@@ -129,5 +169,54 @@ abstract class AbstractMetaDataParser
         return true;
     }
 
+    /**
+     * Public accessor for the isTrue method, to allow handlers outside of the
+     * parsers to test truthiness of a value in metadata
+     *
+     * @static
+     * @param mixed $val
+     * @return bool
+     */
+    public static function isTruthy($val) {
+        return self::isTrue($val);
+    }
+
+    /**
+     * Cache killer, to be defined in child classes as needed.
+     */
+    protected function _clearCaches()
+    {
+        if ($this->implementation->isDeployed()) {
+            SugarCache::cleanOpcodes();
+        }
+    }
+
+    /**
+     * Gets client specific vardef rules for a field for studio
+     * 
+     * @param Array $studio The value of $defs['studio']
+     * @param string $view A view name, which could be empty
+     * @param string $client The client for this request
+     * @return bool|null Boolean if there is a setting for a client, null otherwise
+     */
+    public static function getClientStudioValidation(Array $studio, $view, $client)
+    {
+        // Handle client specific studio setting for a field
+        if ($client && isset($studio[$client])) {
+            // Posibilities are:
+            // studio[client] = true|false
+            // studio[client] = array(view => true|false)
+            if (is_bool($studio[$client])) {
+                return $studio[$client];
+            }
+            
+            // Check for a client -> specific studio setting
+            if (!empty($view) && is_array($studio[$client]) && isset($studio[$client][$view])) {
+                return $studio[$client][$view] !== false;
+            }
+        }
+        
+        return null;
+    }
+
 }
-?>

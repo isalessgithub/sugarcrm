@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 function setSymbolValue(id) {
     document.getElementById('symbol').value = currencies[id];
 }
@@ -84,7 +81,7 @@ function startOutBoundEmailSettingsTest()
     loader.addModule({
         name :"sugarwidgets",
         type : "js",
-        fullpath: "include/javascript/sugarwidgets/SugarYUIWidgets.js",
+        fullpath: "include/javascript/sugarwidgets/SugarYUIWidgets.js?v=" + (SUGAR.VERSION_MARK || ""),
         varName: "YAHOO.SUGAR",
         requires: ["datatable", "dragdrop", "treeview", "tabview"]
     });
@@ -152,9 +149,9 @@ function sendTestEmail()
     	}
     };
     var smtpServer = document.getElementById('mail_smtpserver').value;
-
+    var smtppass = trim(document.getElementById('mail_smtppass').value);
     if(document.getElementById('mail_smtpuser') && document.getElementById('mail_smtppass')){
-    var postDataString = 'mail_sendtype=SMTP&mail_smtpserver=' + smtpServer + "&mail_smtpport=" + mail_smtpport + "&mail_smtpssl=" + mail_smtpssl + "&mail_smtpauth_req=true&mail_smtpuser=" + trim(document.getElementById('mail_smtpuser').value) + "&mail_smtppass=" + trim(document.getElementById('mail_smtppass').value) + "&outboundtest_from_address=" + fromAddress + "&outboundtest_to_address=" + toAddress;
+    var postDataString = 'mail_sendtype=SMTP&mail_smtpserver=' + smtpServer + "&mail_smtpport=" + mail_smtpport + "&mail_smtpssl=" + mail_smtpssl + "&mail_smtpauth_req=true&mail_smtpuser=" + trim(document.getElementById('mail_smtpuser').value) + "&mail_smtppass=" + encodeURIComponent(smtppass) + "&outboundtest_from_address=" + fromAddress + "&outboundtest_to_address=" + toAddress;
     }
     else{
 	var postDataString = 'mail_sendtype=SMTP&mail_smtpserver=' + smtpServer + "&mail_smtpport=" + mail_smtpport + "&mail_smtpssl=" + mail_smtpssl + "&outboundtest_from_address=" + fromAddress + "&outboundtest_to_address=" + toAddress;
@@ -236,13 +233,14 @@ function verify_data(form)
 {
     // handles any errors in the email widget
     var isError = !check_form("EditView");
-	
+
     if (trim(form.last_name.value) == "") {
 		add_error_style('EditView',form.last_name.name,
                         SUGAR.language.get('app_strings','ERR_MISSING_REQUIRED_FIELDS') + SUGAR.language.get('Users','LBL_LIST_NAME') );
         isError = true;
 	}
-	if (trim(form.user_name.value) == "") {
+
+	if (typeof(form.user_name) != 'undefined' && trim(form.user_name.value) == "") {
 		add_error_style('EditView',form.user_name.name,
                         SUGAR.language.get('app_strings','ERR_MISSING_REQUIRED_FIELDS') + SUGAR.language.get('Users','LBL_USER_NAME') );
         isError = true;
@@ -254,20 +252,23 @@ function verify_data(form)
                         SUGAR.language.get('app_strings','ERR_MISSING_REQUIRED_FIELDS') + SUGAR.language.get('Users','LBL_NEW_PASSWORD') );
         isError = true;
 	}
-	
+
  	if (isError == true) {
         return false;
     }
 	
-	if (document.EditView.return_id.value != '' && (typeof(form.reports_to_id)!="undefined") && (document.EditView.return_id.value == form.reports_to_id.value)) {
-		alert(SUGAR.language.get('app_strings','ERR_SELF_REPORTING'));
-		return false;
-	}
-	
-	if (document.EditView.dec_sep.value != '' && (document.EditView.dec_sep.value == "'")) {
-		alert(SUGAR.language.get('app_strings','ERR_NO_SINGLE_QUOTE') + SUGAR.language.get('Users','LBL_DECIMAL_SEP'));
-		return false;
-	}
+    if ( !document.EditView.isDuplicate || !document.EditView.isDuplicate.value )
+    {
+        if (document.EditView.return_id.value != '' && (typeof(form.reports_to_id)!="undefined") && (document.EditView.return_id.value == form.reports_to_id.value)) {
+            alert(SUGAR.language.get('app_strings','ERR_SELF_REPORTING'));
+            return false;
+        }
+    }
+
+    if (document.EditView.dec_sep.value != '' && (document.EditView.dec_sep.value == "'")) {
+        alert(SUGAR.language.get('app_strings','ERR_NO_SINGLE_QUOTE') + SUGAR.language.get('Users','LBL_DECIMAL_SEP'));
+        return false;
+    }
     
 	if (document.EditView.num_grp_sep.value != '' && (document.EditView.num_grp_sep.value == "'")) {
 		alert(SUGAR.language.get('app_strings','ERR_NO_SINGLE_QUOTE') + SUGAR.language.get('Users','LBL_NUMBER_GROUPING_SEP'));
@@ -287,7 +288,16 @@ function verify_data(form)
 			}
 		}
 	}
-	
+    if (window.parent.SUGAR && window.parent.SUGAR.App) {
+        var field = document.getElementById('picture');
+        // make sure field exists first, when adding a group user there is no picture field
+        if (field) {
+            var filename = field.value;
+            if (!filename || filename && !filename.length) {
+                window.parent.SUGAR.App.events.trigger("bwc:avatar:removed");
+            }
+        }
+    }
 	return true;
 }
     
@@ -333,6 +343,8 @@ function set_chooser()
     document.EditView.display_tabs_def.value = display_tabs_def;
     document.EditView.hide_tabs_def.value = hide_tabs_def;
     document.EditView.remove_tabs_def.value = remove_tabs_def;
+    //sets a cookie to reload menu on ajax load so new menu shows up
+//    	Set_Cookie('sugar_theme_menu_load','true',30,'/','','');
 
 }
 
@@ -348,7 +360,7 @@ function onUserEditView() {
         document.getElementById('user_theme_picker').onchange = function() {
             document.getElementById('themePreview').src =
                 "index.php?entryPoint=getImage&themeName=" + document.getElementById('user_theme_picker').value + "&imageName=themePreview.png";
-            if (typeof themeGroupList[document.getElementById('user_theme_picker').value] != 'undefined' &&
+            if (themeGroupList && typeof themeGroupList[document.getElementById('user_theme_picker').value] != 'undefined' &&
                 themeGroupList[document.getElementById('user_theme_picker').value] ) {
                 document.getElementById('use_group_tabs_row').style.display = '';
             } else {
@@ -360,4 +372,20 @@ function onUserEditView() {
     setSymbolValue(document.getElementById('currency_select').options[document.getElementById('currency_select').selectedIndex].value);
     setSigDigits();
     user_status_display(document.getElementById('UserType'));
+    setSugarClientEmailOption();
+}
+
+function setSugarClientEmailOption() {
+    //disable the sugar client option if the system email setting are not configured properly
+    var emailType = document.getElementById('email_link_type'),
+        isSugarClientDisabled = emailType.getAttribute('data-sugarclientdisabled');
+
+    if (isSugarClientDisabled && isSugarClientDisabled === 'true') {
+        var option = emailType.getElementsByTagName('option');
+        for (var i = 0; i < option.length; i++) {
+            if (option[i].value.toLowerCase() === 'sugar') {
+                option[i].disabled = true;
+            }
+        }
+    }
 }

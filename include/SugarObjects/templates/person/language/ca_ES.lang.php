@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -39,11 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'No Trucar',
   'LBL_EDIT_BUTTON' => 'Editar',
   'LBL_EMAIL_ADDRESS' => 'Direccions de Correu',
-  'LBL_EMAIL_NON_PRIMARY' => 'No Primary E-mails',
+  'LBL_FACEBOOK' => 'Compte de Facebook',
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FIRST_NAME' => 'Nom',
+  'LBL_GOOGLEPLUS' => 'ID de Google Plus',
   'LBL_HOME_PHONE' => 'Tel. Casa',
+  'LBL_IMPORT_VCARDTEXT' => 'Crear un nou registre automàticament important una vCard el seu sistema de fitxers.',
   'LBL_LAST_NAME' => 'Cognoms',
+  'LBL_LINKEDIN' => 'Compte de Membre de Linkedin',
   'LBL_MOBILE_PHONE' => 'Mòbil',
   'LBL_NAME' => 'Nom',
   'LBL_OFFICE_PHONE' => 'Tel. Treball',
@@ -66,8 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Estat/Província',
   'LBL_STREET' => 'Direcció Alternativa',
   'LBL_TITLE' => 'Carrèg',
-  'LBL_TWITTER_ID' => 'Nom d&#39;usuari de Twitter',
+  'LBL_TWITTER' => 'Compte de Tweeter',
   'LBL_WORK_PHONE' => 'Tel. Treball',
   'LNK_IMPORT_VCARD' => 'Crea desde vCard',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Copiar direcció alternativa a direcció principal',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Copiar direcció principal a direcció alternativa',
 );
 

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót a találkozó törléséhez!',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'E-mail emlékeztető kiküldve',
   'LBL_EMAIL_REMINDER_TIME' => 'E-mail emlékeztető ideje',
   'LBL_EMPTY_SEARCH_RESULT' => 'Nincs találat. Kérem, hozzon létre alább egy meghívottat!',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Az összejövetel megszervezésénél hiba történt. Kérjük lépjen kapcsolatba az adminisztrátorával.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Felelős felhasználói azonosító',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Felelős felhasználó neve',
   'LBL_EXPORT_CREATED_BY' => 'Létrehozói azonosító',
@@ -80,6 +78,9 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Nem tud bekapcsolódni a találkozóba, mert nincs meghívva.',
   'LBL_EXTNOT_RECORD_LINK' => 'Találkozó nézet',
   'LBL_FIRST_NAME' => 'Keresztnév',
+  'LBL_HELP_CREATE' => 'A {{plural_module_name}} modul olyan {{meetings_module}} adatokat tartalmaz, melyeket az Ön szervezetének felhasználói vittek be. A {{plural_module_name}} lehet "Ütemezett", "Tartott", vagy "Törölt" állapotban. Sugar felhasználók,{{contacts_module}} és {{leads_module}} felvehetők meghívottakként. Egy {{meetings_singular_module}} modul létrehozásához: 1. Adja meg igény szerint a mezők értékeit. - A "Kötelező" jelzésű mezőket ki kell tölteni a mentés előtt. - Kattintson a "Több mutatása" opcióra ha szükséges, a ráadás mezők felfedéséhez. 2. Adjon hozzá meghívottakat a  {{meetings_singular_module}} modulhoz. - Kattintson a "Résztvevő kiválasztása" gombra egy meglévő felhasználó, kapcsolat vagy ajánlás a {{meetings_singular_module}} modulhoz történő  hozzáadásához. - Kattintson a plusz ikonra a "Résztvevő kiválasztása" mellett jobbra egy {{meetings_singular_module}} résztvevő új Sugar adatként történő létrehozásához. 3. Kattintson a "Mentés" gombra az új adat mentéséhez és az előző oldalra történő visszatéréshez. - Válassza a "Mentés és megtekintés" opciót az új összejövetel adatnézetben történő megtekintéséhez. - Válassza a "Mentés és új létrehozása" opciót egy új {{meetings_singular_module}} modul azonnali létrehozásához.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul olyan {{meetings_singular_module}} adatokat tartalmaz, melyeket az Ön szervezetének felhasználói vittek be. A {{plural_module_name}} lehet "Ütemezett", "Tartott", vagy "Törölt" állapotban. Sugar felhasználók, {{contacts_module}} és {{leads_module}} felvehetők meghívottakként. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra. Tekintse meg, vagy szerkessze a más adatokhoz kapcsolódó linkeket az alpaneleken a bal alsó "Adatnézet" kapcsoló használatával. Olvassa el, vagy írjon felhasználói hozzászólásokat és változtassa meg azok előéletét a bal alsó "Tevékenységfolyam" opcióval. A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét. Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul olyan hívási összejöveteli adatokból áll, amik a következő állapotoktban lehetnek  "Ütemezett", "Tartott", vagy "Törölt". A tervezett összejövetelek a elkövetkezendő 24 órára ütemezésre kerülnek és a kezdési idő kék színnel ki van emeleve. Azon összejövetelek kezdési ideje, amiket már ell kellett volna kezdeni pirossal vannak kimelve. Ebből a  {{plural_module_name}} listanézetből, a összejövetelekkel kapcsolatos információkat itt láthatja és in-line szerkesztheti. További műveletek a menűből érhetők el minden összejövetel sorjának végén. Kiválaszthatja a "Bezárás" funkciót a menűből minden üzemezett összejövetel sorában, annak érdekében, hogy megjelölje azt tartásra. A Sugar felhasználók, kapcsolatok és ajánlások meghívandókként hozzáadhatók a listához. {{plural_module_name}} hozható létre a {{plural_module_name}} modulon, a Naptár modulon keresztül, importálható, vagy a Tevékenységek alpanelen keresztül (Hatósági modulok esetében) vagy Tervezett Tevékenységek információ blokkjain keresztül (kapcsolódó modulokhoz) az érintett modul adatokon (pl. Szerződések, Fiókok stb.), melyek automatikusan új kapcsolatot teremtenek a két adat között.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Megjegyzések',
   'LBL_HOST_EXT_MEETING' => 'Találkozó kezdése',
   'LBL_HOST_URL' => 'Host URL',
@@ -87,6 +88,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(Óra / perc)',
   'LBL_INVITEE' => 'Meghívottak',
   'LBL_JOIN_EXT_MEETING' => 'Csatlakozás a találkozóhoz',
+  'LBL_JOIN_MEETING' => 'Csatlakozzon {{meetingType}}',
   'LBL_LAST_NAME' => 'Vezetéknév',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Ajánlások',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Felelős felhasználó',
@@ -105,6 +107,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Kezdési idő',
   'LBL_LOCATION' => 'Helyszín:',
   'LBL_MEETING' => 'Találkozó:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'A találkozó sikeresen befejezve.',
   'LBL_MEETING_INFORMATION' => 'Találkozó áttekintése',
   'LBL_MINSS_ABBREV' => 'perc',
   'LBL_MODIFIED_BY' => 'Módosította',
@@ -112,6 +115,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Találkozók',
   'LBL_MODULE_NAME_SINGULAR' => 'Találkozó',
   'LBL_MODULE_TITLE' => 'Találkozók: Főoldal',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Ütemezett Találkozóim',
   'LBL_NAME' => 'Név',
   'LBL_NEW_FORM_TITLE' => 'Időpont létrehozása',
   'LBL_NO_ACCESS' => 'Nem jogosult $module létrehozására',
@@ -120,6 +124,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Szülő típusa',
   'LBL_PASSWORD' => 'Találkozó jelszava',
   'LBL_PHONE' => 'Irodai telefon:',
+  'LBL_POPUP_REMINDER' => 'Előugró Emlékeztető',
+  'LBL_POPUP_REMINDER_TIME' => 'Előugró Emlékeztető Ideje',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Ön ezt ütemezte:{{moduleSingularLower}} ehhez {{formatDate date_start}},de nincs hozzáférése.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ön ezt ütemezte: {{moduleSingularLower}} {{name}} ehhez {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Többszörös előfordulás',
   'LBL_RECURRING_LIMIT_ERROR' => 'Az ismétlődő találkozó nem rögzíthető, mert a találkozók száma meghaladja a megengedett mennyiséget ($limit).',
   'LBL_RECURRING_SOURCE' => 'Visszatérő forrás',
@@ -130,6 +138,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Email minden meghívottnak',
   'LBL_REMINDER_POPUP' => 'Felugró',
   'LBL_REMINDER_TIME' => 'Emlékeztető időpontja',
+  'LBL_REMINDER_TITLE' => 'Találkozó:',
   'LBL_REMOVE' => 'Eltávolítás',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Minden ismétlődés törlése',
   'LBL_REPEAT_COUNT' => 'Többszörös előfordulások száma',
@@ -142,6 +151,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Szülő azonosító megismétlése',
   'LBL_REPEAT_TYPE' => 'Ismétlés típusa',
   'LBL_REPEAT_UNTIL' => 'Ismétel míg',
+  'LBL_REVENUELINEITEMS' => 'Bevételi sor tételek',
   'LBL_SCHEDULING_FORM_TITLE' => 'Ütemezés',
   'LBL_SEARCH_BUTTON' => 'Keres',
   'LBL_SEARCH_FORM_TITLE' => 'Találkozó keresése',
@@ -150,6 +160,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Mentés & meghívók küldése',
   'LBL_SEND_INVITES' => 'Meghívók küldése',
   'LBL_SEQUENCE' => 'Találkozók frissítésének sorrendje',
+  'LBL_START_MEETING' => 'Kezdés {{meetingType}}',
   'LBL_STATUS' => 'Állapot:',
   'LBL_SUBJECT' => 'Tárgy:',
   'LBL_SYNCED_RECURRING_MSG' => 'A hívás külső rendszerből származik, s csak később lett a Sugar-hez szinkronizálva. Változtatások végrehajtásához menjen a rögzítés eredeti helyére. Az újabb változások bármikor megjelentethetők lesznek a rekordban.',

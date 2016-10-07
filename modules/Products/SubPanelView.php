@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: SubPanelView.php 53409 2010-01-04 03:31:15Z roger $
  * Description:  
  ********************************************************************************/
 
@@ -67,7 +64,8 @@ function getHeaderText($action, $currentModule){
 		elseif ($currentModule == 'Contacts') {
 			$button .= "<input type='hidden' name='account_name' value='".urlencode($this->focus->account_name)."'>\n";
 			$button .= "<input type='hidden' name='account_id' value='".$this->focus->account_id."'>\n";
-			$button .= "<input type='hidden' name='contact_name' value='".urlencode($locale->getLocaleFormattedName($this->focus->first_name, $this->focus->last_name))."'>\n";
+            $focus_name = $locale->formatName($this->focus);
+            $button .= "<input type='hidden' name='contact_name' value='".urlencode($focus_name)."'>\n";
 			$button .= "<input type='hidden' name='contact_id' value='".$this->focus->id."'>\n";
 		}
 		$button .= "<td><input title='".$app_strings['LBL_NEW_BUTTON_TITLE']."' class='button' onclick=\"this.form.action.value='EditView'\" type='submit' name='button' value='  ".$app_strings['LBL_NEW_BUTTON_LABEL']."  '></td>\n";

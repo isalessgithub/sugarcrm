@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'לא תקין Cron סינטקסט',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'כל יום',
   'LBL_ALWAYS' => 'תמיד',
   'LBL_AND' => 'וגם',
+  'LBL_ASYNCMASSUPDATE' => 'בצע עדכון אסינכרוני מסיבי',
   'LBL_AT' => 'ב',
   'LBL_AT_THE' => 'ב',
   'LBL_BASIC_OPTIONS' => 'מבנה בסיסי',
   'LBL_CATCH_UP' => 'יבוצע עם פיספס',
   'LBL_CATCH_UP_WARNING' => 'בטל סימון אם גוב זה יארך יותר מרגע אחד.',
   'LBL_CLEANJOBQUEUE' => 'Cleanup Job Queue',
+  'LBL_CLEANOLDRECORDLISTS' => 'נקה רשימת רשומות ישנה',
   'LBL_CRONTAB_EXAMPLES' => 'The above uses standard crontab notation.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Please specify the scheduler execution time accordingly.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'The cron specifications run based on the server timezone (',
@@ -67,6 +66,7 @@ $mod_strings = array (
   'LBL_MINUTES' => 'דקות',
   'LBL_MIN_MARK' => 'יפעל במשך דקות',
   'LBL_MODULE_NAME' => 'שוגר בתמשן של',
+  'LBL_MODULE_NAME_SINGULAR' => 'מתזמן שוגר',
   'LBL_MODULE_TITLE' => 'מתזמנים',
   'LBL_MON' => 'שני',
   'LBL_MONTH' => 'חודש',
@@ -80,14 +80,22 @@ $mod_strings = array (
   'LBL_OOTB_BOUNCE' => 'אבד משימות ריצת דואר יוצא ליליות',
   'LBL_OOTB_CAMPAIGN' => 'הרץ קמפיין מייל לילי',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
+  'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'צור תקופות זמן עתידיות',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'בוק תיבות דואר נכנס',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'משימת תזמון תהליך מחבר',
   'LBL_OOTB_PRUNE' => 'קצץ מסד נתונים בראשון לכל חודש',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'חתוך רשימות רשומות ישנות',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'הסר קבצי כלי אבחון',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'הסר קבצי PDF זמניים',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'הסר קבצים זמניים',
   'LBL_OOTB_REPORTS' => 'הרץ יצור דוחות מתוזמן',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Run Email Reminder Notifications',
   'LBL_OOTB_TRACKER' => 'קצץ טבלאות גששים',
   'LBL_OOTB_WORKFLOW' => 'עבד משימות וורקפלו',
   'LBL_PERENNIAL' => 'תמידי',
   'LBL_PERFORMFULLFTSINDEX' => 'Full-text Search Index System',
+  'LBL_PMSEENGINECRON' => 'מתזמן מחבר תהליך',
   'LBL_POLLMONITOREDINBOXES' => 'בדוק חשבונות דואר נכנס',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'הרץ תהליך שידור דואר להודעות שחזרו כל לילה',
   'LBL_PROCESSQUEUE' => 'הרץ מחולל דוחות למשימות מתוזמנות',
@@ -101,6 +109,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'חפש תיזמון',
   'LBL_SENDEMAILREMINDERS' => 'Run Email Reminders Sending',
   'LBL_STATUS' => 'סטאטוס',
+  'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'צור תקופות זמן עתידיות',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'ראשון',
   'LBL_THU' => 'חמישי',
   'LBL_TIME_FROM' => 'פעיל מאז',

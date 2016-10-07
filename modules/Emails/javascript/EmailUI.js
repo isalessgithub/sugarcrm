@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 (function() {
 	var sw = YAHOO.SUGAR,
@@ -43,7 +40,7 @@ SE.accounts = {
     deleteOutbound : function(obi) {
 
         if(obi.match(/^(add|line|sendmail)+/)) {
-            alert('Invalid Operation');
+            alert(mod_strings.LBL_INVALID_OPS);
         } else {
         	SUGAR.showMessageBox(app_strings.LBL_EMAIL_DELETING_OUTBOUND, app_strings.LBL_EMAIL_ONE_MOMENT);
             AjaxObject.startRequest(AjaxObject.accounts.callbackDeleteOutbound, urlStandard + "&emailUIAction=deleteOutbound&outbound_email=" + obi);
@@ -269,13 +266,21 @@ SE.accounts = {
                 shadow	: true
             });
 			EAD.showEvent.subscribe(function() {
-                var el = this.element;
-                var viewH = YAHOO.util.Dom.getViewportHeight();
-                if (this.header && el && viewH - 50 < el.clientHeight) {
-                    var body = this.header.nextElementSibling;
-					body.style.overflow = "hidden";
-                    body.style.height = "100%";
-                }
+                var el = this.element,
+                    header = this.header;
+
+                setTimeout(function() {
+                    // Window heights aren't accurate until the DOM reflow has
+                    // completed. For that reason, we wait until the stack has
+                    // been cleared before checking for the heights.
+                    var viewH = YAHOO.util.Dom.getViewportHeight() - 50,
+                        height = parent ? window.innerHeight : viewH;
+                        if (header && el && height < el.clientHeight) {
+                        var body = header.nextElementSibling;
+                        body.style.overflow = "auto";
+                        body.style.height = "460px";
+                    }
+                }, 0);
             }, EAD);
             EAD.setHeader(mod_strings.LBL_EMAIL_ACCOUNTS_INBOUND);
 			Dom.removeClass("editAccountDialogue", "yui-hidden");
@@ -444,7 +449,7 @@ SE.accounts = {
 
         switch (smtptype) {
         case "yahoomail":
-            document.getElementById("mail_smtpserver").value = 'smtp.mail.yahoo.com';
+            document.getElementById("mail_smtpserver").value = 'plus.smtp.mail.yahoo.com';
             document.getElementById("mail_smtpport").value = '465';
             document.getElementById("mail_smtpauth_req").checked = true;
             var ssl = document.getElementById("mail_smtpssl");
@@ -461,7 +466,7 @@ SE.accounts = {
             document.getElementById("mail_smtpuser_label").innerHTML = mod_strings.LBL_YAHOOMAIL_SMTPUSER;
             break;
         case "gmail":
-            if(document.getElementById("mail_smtpserver").value == "" || document.getElementById("mail_smtpserver").value == 'smtp.mail.yahoo.com') {
+            if(document.getElementById("mail_smtpserver").value == "" || document.getElementById("mail_smtpserver").value == 'plus.smtp.mail.yahoo.com') {
                 document.getElementById("mail_smtpserver").value = 'smtp.gmail.com';
                 document.getElementById("mail_smtpport").value = '587';
                 document.getElementById("mail_smtpauth_req").checked = true;
@@ -479,7 +484,7 @@ SE.accounts = {
             document.getElementById("mail_smtpuser_label").innerHTML = mod_strings.LBL_GMAIL_SMTPUSER;
             break;
         case "exchange":
-            if ( document.getElementById("mail_smtpserver").value == 'smtp.mail.yahoo.com'
+            if ( document.getElementById("mail_smtpserver").value == 'plus.smtp.mail.yahoo.com'
                     || document.getElementById("mail_smtpserver").value == 'smtp.gmail.com' ) {
                 document.getElementById("mail_smtpserver").value = '';
             }
@@ -1298,7 +1303,7 @@ SE.contextMenus = {
     },
 
 	/**
-     * shows the import dialog with only relate visible.
+     * shows the email detail view
      */
     showDetailView : function() {
         SE.contextMenus.emailListContextMenu.hide();
@@ -1311,7 +1316,17 @@ SE.contextMenus = {
         var folder = SE.grid.getRecord(rows[0]).getData().mbox;
         /* iterate through available rows JIC a row is deleted - use first available */
         var uid = SE.grid.getRecord(rows[0]).getData().uid;
-        SE.contextMenus.showEmailDetailViewInPopup(ieId, uid, folder);
+        SE.contextMenus.showEmailDetailViewInFullPage(uid);
+    },
+
+    /**
+     * Open the email detail view in a full page view
+     */
+    showEmailDetailViewInFullPage: function(id) {
+        var app = parent.SUGAR.App,
+            route = app.router.buildRoute('Emails', id);
+
+        app.router.navigate(route, {trigger: true});
     },
 
     /**
@@ -1432,13 +1447,12 @@ SE.contextMenus.dv = {
 ///////////////////////////////////////////////////////////////////////////////
 ////    DETAIL VIEW
 SE.detailView = {
-    consumeMetaDetail : function(ret) {
+    consumeMetaDetail: function(ret) {
         // handling if the Email drafts
-        if(ret.type == 'draft') {
+        if (ret.type === 'draft') {
             SE.composeLayout.c0_composeDraft();
             return;
         }
-
 
         // cache contents browser-side
         SE._setDetailCache(ret);
@@ -1459,38 +1473,51 @@ SE.detailView = {
         });
         var tabLabel = meta.email.name;
         if (tabLabel != null && tabLabel.length > 25) {
-        	tabLabel = tabLabel.substring(0, 25) + "...";
+            tabLabel = tabLabel.substring(0, 25) + "...";
         } // if
         targetDiv.set("label", tabLabel);
         targetDiv.set("content", out);
 
         var displayEmailFrameDiv = document.getElementById('displayEmailFrameDiv' + targetDiv.id);
+
         if (SUGAR.email2.util.isIe()) {
-        	displayEmailFrameDiv.style.height = "390px";
+            displayEmailFrameDiv.style.height = "390px";
         } else {
-        	displayEmailFrameDiv.style.height = "410px";
+            displayEmailFrameDiv.style.height = "410px";
         }
 
         var displayFrame = document.getElementById('displayEmailFrame' + targetDiv.id);
         displayFrame.contentWindow.document.write(email.description);
         displayFrame.contentWindow.document.close();
 
+        displayFrame.contentWindow.setTargetAttributeForUrls = function() {
+            if (!this.document.body) {
+                return setTimeout(setTargetAttributeForUrls, 1);
+            }
+            var elements = this.document.body.getElementsByTagName('a');
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].setAttribute('target', '_blank');
+            }
+        };
+
+        var script = displayFrame.contentWindow.document.createElement('script');
+        script.type = 'text/javascript';
+        script.text = 'setTargetAttributeForUrls.call(window);';
+        displayFrame.contentWindow.document.body.appendChild(script);
+
         // hide archive links
-        if(ret.meta.is_sugarEmail) {
-			document.getElementById("archiveEmail" + targetDiv.id).style.display = "none";
+        if (ret.meta.is_sugarEmail) {
+            document.getElementById("archiveEmail" + targetDiv.id).style.display = "none";
             document.getElementById("btnEmailView" + targetDiv.id).style.display = "none";
-        } else {
-            if (document.getElementById("showDeialViewForEmail" + targetDiv.id))
-            	document.getElementById("showDeialViewForEmail" + targetDiv.id).style.display = "none";
+        } else if (document.getElementById("showDeialViewForEmail" + targetDiv.id)) {
+            document.getElementById("showDeialViewForEmail" + targetDiv.id).style.display = "none";
         } // else
 
     },
 
-    consumeMetaPreview : function(ret) {
+    consumeMetaPreview: function(ret) {
         // cache contents browser-side
         SE._setDetailCache(ret);
-
-
 
         var currrow = SE.grid.getLastSelectedRecord();
         currrow = SE.grid.getRecord(currrow);
@@ -1499,7 +1526,7 @@ SE.detailView = {
             return;
         }
         // handling if the Email drafts
-        if(ret.type == 'draft'){
+        if (ret.type === 'draft') {
             if (currrow.getData().uid == ret.uid) {
                 SE.composeLayout.c0_composeDraft();
             }
@@ -1513,46 +1540,53 @@ SE.detailView = {
         // remove loading sprite
         document.getElementById('_blank').innerHTML = '<iframe id="displayEmailFramePreview"/>';
         var displayTemplate = new YAHOO.SUGAR.Template(SE.templates['displayOneEmail']);
+        // 2 below must be in global context
         meta = ret.meta;
         meta['panelId'] = SE.util.getPanelId();
-        email = ret.meta.email;
 
+        email = ret.meta.email;
         document.getElementById('_blank').innerHTML = displayTemplate.exec({
             'app_strings' : app_strings,
             'theme' : theme,
             'idx' : 'Preview',
             'meta' : meta,
-            'email' :meta.email,
+            'email' : meta.email,
             'linkBeans' : linkBeans
         });
-       // document.getElementById('_blank').innerHTML = meta.email;
-       /* displayTemplate.append('_blank', {
-            'app_strings' : app_strings,
-            'theme' : theme,
-            'idx' : 'Preview',
-            'meta' : meta,
-            'email' :meta.email,
-            'linkBeans' : linkBeans
-        });*/
 
         var displayFrame = document.getElementById('displayEmailFramePreview');
         displayFrame.contentWindow.document.write(email.description);
         displayFrame.contentWindow.document.close();
 
+        displayFrame.contentWindow.setTargetAttributeForUrls = function() {
+            if (!this.document.body) {
+                return setTimeout(setTargetAttributeForUrls, 1);
+            }
+            var elements = this.document.body.getElementsByTagName('a');
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].setAttribute('target', '_blank');
+            }
+        };
+
+        var script = displayFrame.contentWindow.document.createElement('script');
+        script.type = 'text/javascript';
+        script.text = 'setTargetAttributeForUrls.call(window);';
+        displayFrame.contentWindow.document.body.appendChild(script);
+
         SE.listViewLayout.resizePreview();
 
         // hide archive links
-        if(ret.meta.is_sugarEmail) {
+        if (ret.meta.is_sugarEmail) {
             document.getElementById("archiveEmailPreview").innerHTML = "&nbsp;";
             document.getElementById("btnEmailViewPreview").style.display = "none";
             document.getElementById("archiveEmail" + meta['panelId']).style.display = "none";
         } else {
-          //hide view relationship link
-		 document.getElementById("showDeialViewForEmail" + meta['panelId']).style.display = "none";
+            //hide view relationship link
+            document.getElementById("showDeialViewForEmail" + meta['panelId']).style.display = "none";
         }
     },
 
-    /**
+     /**
      * wraps emailDelete() for single messages, comes from preview or tab
      */
     emailDeleteSingle : function(ieId, uid, mbox) {
@@ -2597,8 +2631,6 @@ SE.folders = {
         else {
             SE.listView.populateListFrame(node, node.data.ieId, false);
         }
-       //eval(node.data.click);
-       //debugger;
     },
 
     /**
@@ -2866,13 +2898,12 @@ SE.listView = {
     /**
      * Like populateListFrame(), but specifically for SugarFolders since the API is radically different
      */
-    populateListFrameSugarFolder : function(node, folderId, forceRefresh, getUnread) {
+    populateListFrameSugarFolder : function(node, folderId, forceRefresh) {
         SE.innerLayout.selectTab(0);
         Dom.get('_blank').innerHTML = "";
         SE.grid.params['emailUIAction'] = 'getMessageListSugarFolders';
         SE.grid.params['ieId'] = node.data.id;
         SE.grid.params['mbox'] = node.data.origText ? node.data.origText : node.data.text;
-        SE.grid.params['getUnread'] = getUnread;
         SE.listView.refreshGrid();
     },
 
@@ -2995,7 +3026,6 @@ SE.listView = {
      * exception handler for data load failures
      */
     loadException : function(dataModel, ex, response) {
-        //debugger;
     },
 
     /**
@@ -3373,7 +3403,7 @@ SE.settings = {
         AjaxObject.startRequest(callbackSettings, urlStandard + '&emailUIAction=saveSettingsGeneral');
 
         if(displayMessage)
-            alert(app_strings.LBL_EMAIL_SETTINGS_SAVED);
+            alert(app_strings.LBL_EMAIL_SETTINGS_SAVED+"\n\n"+app_strings.LBL_EMAIL_SETTINGS_MUST_RELOAD);
 
         SE.settings.settingsDialog.hide();
     },

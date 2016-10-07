@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -22,16 +19,16 @@ $mod_strings = array (
   'LBL_ALL_OPPORTUNITIES' => 'すべての商談の総額は',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => 'キャンペーンの反応をROI（対投資回収）で表示',
   'LBL_CHART_ACTION' => 'アクション',
-  'LBL_CHART_DCE_ACTIONS_MONTH' => 'タイプごとのDCEアクション（今月）',
-  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => '結果ごとのリードソース',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'タイプ別のDCEアクション（今月）',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => '結果別のリードソース',
   'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => '私の直属の部下の利用モジュール（過去30日間）',
   'LBL_CHART_MY_MODULES_USED_30_DAYS' => '私の利用モジュール(過去30日間)',
-  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'セールスステージごとの私のパイプライン',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => 'セールスステージ別の私のパイプライン',
   'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => '今四半期の商談',
   'LBL_CHART_OUTCOME_BY_MONTH' => '月別の結果',
-  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'リードソースごとのパイプライン',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'セールスステージごとのパイプライン',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'セールスステージフィルタによるパイプライン',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => 'リードソース別のパイプライン',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => 'セールスステージ別のパイプライン',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => 'セールスステージフィルタ別のパイプライン',
   'LBL_CHART_TYPE' => 'チャート種別:',
   'LBL_CLOSE_DATE_END' => '受注予定日 - 終了:',
   'LBL_CLOSE_DATE_START' => '受注予定日 - 開始:',

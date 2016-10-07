@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: CallFormBase.php 56853 2010-06-08 02:36:54Z clee $
  * Description: Call Form Base
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -24,6 +21,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once('include/SugarObjects/forms/FormBase.php');
 
 class CallFormBase extends FormBase {
+
+    protected $repeatDataArray = array();
+    
+    protected $recurringCreated = array();
 
 function getFormBody($prefix, $mod='', $formname='',$cal_date='',$cal_time=''){
 if(!ACLController::checkAccess('Calls', 'edit', true)){
@@ -110,7 +111,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Call());
+$javascript->setSugarBean(BeanFactory::getBean('Calls'));
 $javascript->addRequiredFields($prefix);
 $form .=$javascript->getScript();
 $form .= "<td align=\"left\" valign=top><input title='$lbl_save_button_title' accessKey='$lbl_save_button_key' class='button' type='submit' name='button' value=' $lbl_save_button_label ' ></td></tr></table></form>";
@@ -184,7 +185,7 @@ function handleSave($prefix,$redirect=true,$useRequired=false) {
 		$_POST[$prefix.'duration_hours'] = trim($_POST[$prefix.'duration_hours']);
 	}
 
-	$focus = new Call();
+	$focus = BeanFactory::getBean('Calls');
 
 	if($useRequired && !checkRequired($prefix, array_keys($focus->required_fields))) {
 		return null;
@@ -206,6 +207,9 @@ function handleSave($prefix,$redirect=true,$useRequired=false) {
 		$_POST['email_reminder_time'] = $current_user->getPreference('email_reminder_time');
 		$_POST['email_reminder_checked'] = 1;
 	}
+    if (isset($_POST['repeat_parent_id']) && trim($_POST['repeat_parent_id']) == '') {
+        unset($_POST['repeat_parent_id']);
+    }
 
 	// don't allow to set recurring_source from a form
 	unset($_POST['recurring_source']);
@@ -276,217 +280,73 @@ function handleSave($prefix,$redirect=true,$useRequired=false) {
             //need to process user invitees, just save the current values.
     		$focus->save(true);
 	    }else{
-	    	///////////////////////////////////////////////////////////////////////////
-	    	////	REMOVE INVITEE RELATIONSHIPS
-	    	if(!empty($_POST['user_invitees'])) {
-	    	   $userInvitees = explode(',', trim($_POST['user_invitees'], ','));
-	    	} else {
-	    	   $userInvitees = array();
-	    	}
+            $relate_to = $this->getRelatedModuleName($focus);
+            $userInvitees = array();
+            $contactInvitees = array();
+            $leadInvitees = array();
+           
+            $existingUsers = array();
+            $existingContacts = array();
+            $existingLeads =  array();
+            
+            if (!empty($_POST['user_invitees'])) {
+               $userInvitees = explode(',', trim($_POST['user_invitees'], ','));
+            }
+            if (!empty($_POST['existing_invitees'])) {
+               $existingUsers =  explode(",", trim($_POST['existing_invitees'], ','));
+            }
+           
+            if (!empty($_POST['contact_invitees'])) {
+               $contactInvitees = explode(',', trim($_POST['contact_invitees'], ','));
+            }
+            if (!empty($_POST['existing_contact_invitees'])) {
+                $existingContacts =  explode(",", trim($_POST['existing_contact_invitees'], ','));
+            }     
+	        if (!empty($_POST['parent_id']) && $_POST['parent_type'] == 'Contacts') {
+                $contactInvitees[] = $_POST['parent_id'];
+            }               
+            if ($relate_to == 'Contacts') {
+                if (!empty($_REQUEST['relate_id']) && !in_array($_REQUEST['relate_id'], $contactInvitees)) {
+                    $contactInvitees[] = $_REQUEST['relate_id'];
+                } 
+            }
+            
+            if (!empty($_POST['lead_invitees'])) {
+                $leadInvitees = explode(',', trim($_POST['lead_invitees'], ','));
+            }            
+            if (!empty($_POST['existing_lead_invitees'])) {
+                $existingLeads =  explode(",", trim($_POST['existing_lead_invitees'], ','));
+            }
+	        if (!empty($_POST['parent_id']) && $_POST['parent_type'] == 'Leads') {
+                $leadInvitees[] = $_POST['parent_id'];
+            }            
+            if ($relate_to == 'Leads') {
+                if (!empty($_REQUEST['relate_id']) && !in_array($_REQUEST['relate_id'], $leadInvitees)) {
+                    $leadInvitees[] = $_REQUEST['relate_id'];
+                } 
+            }
 
-	        // Calculate which users to flag as deleted and which to add
-	        $deleteUsers = array();
-	    	$focus->load_relationship('users');
-	    	// Get all users for the call
-	    	$q = 'SELECT mu.user_id, mu.accept_status FROM calls_users mu WHERE mu.call_id = \''.$focus->id.'\'';
-	    	$r = $focus->db->query($q);
-	    	$acceptStatusUsers = array();
-	    	while($a = $focus->db->fetchByAssoc($r)) {
-	    		  if(!in_array($a['user_id'], $userInvitees)) {
-	    		  	 $deleteUsers[$a['user_id']] = $a['user_id'];
-	    		  } else {
-	    		     $acceptStatusUsers[$a['user_id']] = $a['accept_status'];
-	    		  }
-	    	}
-
-	    	if(count($deleteUsers) > 0) {
-	    		$sql = '';
-		    	foreach($deleteUsers as $u) {
-	                $sql .= ",'" . $u . "'";
-	    		}
-
-	    		$sql = substr($sql, 1);
-	    		// We could run a delete SQL statement here, but will just mark as deleted instead
-	    		$sql = "UPDATE calls_users set deleted = 1 where user_id in ($sql) AND call_id = '". $focus->id . "'";
-	    		$focus->db->query($sql);
-	    	}
-
-	        // Get all contacts for the call
-	    	if(!empty($_POST['contact_invitees'])) {
-	    	   $contactInvitees = explode(',', trim($_POST['contact_invitees'], ','));
-	    	} else {
-	    	   $contactInvitees = array();
-	    	}
-
-	        $deleteContacts = array();
-	    	$focus->load_relationship('contacts');
-	    	$q = 'SELECT mu.contact_id, mu.accept_status FROM calls_contacts mu WHERE mu.call_id = \''.$focus->id.'\'';
-	    	$r = $focus->db->query($q);
-	    	$acceptStatusContacts = array();
-	    	while($a = $focus->db->fetchByAssoc($r)) {
-	    		  if(!in_array($a['contact_id'], $contactInvitees)) {
-	    		  	 $deleteContacts[$a['contact_id']] = $a['contact_id'];
-	    		  }	else {
-	    		  	 $acceptStatusContacts[$a['contact_id']] = $a['accept_status'];
-	    		  }
-	    	}
-
-	    	if(count($deleteContacts) > 0) {
-	    		$sql = '';
-	    		foreach($deleteContacts as $u) {
-	    		        $sql .= ",'" . $u . "'";
-	    		}
-	    		$sql = substr($sql, 1);
-	    		// We could run a delete SQL statement here, but will just mark as deleted instead
-	    		$sql = "UPDATE calls_contacts set deleted = 1 where contact_id in ($sql) AND call_id = '". $focus->id . "'";
-	    		$focus->db->query($sql);
-	    	}
-	        if(!empty($_POST['lead_invitees'])) {
-	    	   $leadInvitees = explode(',', trim($_POST['lead_invitees'], ','));
-	    	} else {
-	    	   $leadInvitees = array();
-	    	}
-
-	        // Calculate which leads to flag as deleted and which to add
-	        $deleteLeads = array();
-	    	$focus->load_relationship('leads');
-	    	// Get all leads for the call
-	    	$q = 'SELECT mu.lead_id, mu.accept_status FROM calls_leads mu WHERE mu.call_id = \''.$focus->id.'\'';
-	    	$r = $focus->db->query($q);
-	    	$acceptStatusLeads = array();
-	    	while($a = $focus->db->fetchByAssoc($r)) {
-	    		  if(!in_array($a['lead_id'], $leadInvitees)) {
-	    		  	 $deleteLeads[$a['lead_id']] = $a['lead_id'];
-	    		  } else {
-	    		     $acceptStatusLeads[$a['user_id']] = $a['accept_status'];
-	    		  }
-	    	}
-
-	    	if(count($deleteLeads) > 0) {
-	    		$sql = '';
-	    		foreach($deleteLeads as $u) {
-	                // make sure we don't delete the assigned user
-	                if ( $u != $focus->assigned_user_id )
-	    		        $sql .= ",'" . $u . "'";
-	    		}
-	    		$sql = substr($sql, 1);
-	    		// We could run a delete SQL statement here, but will just mark as deleted instead
-	    		$sql = "UPDATE calls_leads set deleted = 1 where lead_id in ($sql) AND call_id = '". $focus->id . "'";
-	    		$focus->db->query($sql);
-	    	}
-	    	////	END REMOVE
-	    	///////////////////////////////////////////////////////////////////////////
-
-
-	    	///////////////////////////////////////////////////////////////////////////
-	    	////	REBUILD INVITEE RELATIONSHIPS
-	    	$focus->users_arr = array();
-	    	$focus->users_arr = $userInvitees;
-	    	$focus->contacts_arr = array();
-	    	$focus->contacts_arr = $contactInvitees;
-	        $focus->leads_arr = array();
-	    	$focus->leads_arr = $leadInvitees;
-	    	if(!empty($_POST['parent_id']) && $_POST['parent_type'] == 'Contacts') {
-	    		$focus->contacts_arr[] = $_POST['parent_id'];
-	    	}
-	        if(!empty($_POST['parent_id']) && $_POST['parent_type'] == 'Leads') {
-	    		$focus->leads_arr[] = $_POST['parent_id'];
-	    	}
-	    	// Call the Call module's save function to handle saving other fields besides
-	    	// the users and contacts relationships
+            // Call the Call module's save function to handle saving other fields besides
+            // the users and contacts relationships
             $focus->update_vcal = false;    // Bug #49195 : don't update vcal b/s related users aren't saved yet, create vcal cache below
-	    	$focus->save(true);
-	    	$return_id = $focus->id;
+            
+            $focus->users_arr = $userInvitees;
+            $focus->contacts_arr = $contactInvitees;
+            $focus->leads_arr = $leadInvitees;
+            
+            $focus->save(true);
+            $return_id = $focus->id;
 
-	    	// Process users
-	    	$existing_users = array();
-	    	if(!empty($_POST['existing_invitees'])) {
-	    	   $existing_users =  explode(",", trim($_POST['existing_invitees'], ','));
-	    	}
-
-	    	foreach($focus->users_arr as $user_id) {
-	    	    if(empty($user_id) || isset($existing_users[$user_id]) || isset($deleteUsers[$user_id])) {
-	    			continue;
-	    		}
-
-	    		if(!isset($acceptStatusUsers[$user_id])) {
-	    			$focus->load_relationship('users');
-	    			$focus->users->add($user_id);
-	    		} else {
-	    			// update query to preserve accept_status
-	    			$qU  = 'UPDATE calls_users SET deleted = 0, accept_status = \''.$acceptStatusUsers[$user_id].'\' ';
-	    			$qU .= 'WHERE call_id = \''.$focus->id.'\' ';
-	    			$qU .= 'AND user_id = \''.$user_id.'\'';
-	    			$focus->db->query($qU);
-	    		}
-	    	}
-
-	        // Process contacts
-	    	$existing_contacts =  array();
-	    	if(!empty($_POST['existing_contact_invitees'])) {
-	    	   $existing_contacts =  explode(",", trim($_POST['existing_contact_invitees'], ','));
-	    	}
-
-	    	foreach($focus->contacts_arr as $contact_id) {
-	    		if(empty($contact_id) || isset($existing_contacts[$contact_id]) || (isset($deleteContacts[$contact_id]) && $contact_id !=  $_POST['parent_id'])) {
-	    			continue;
-	    		}
-
-	    		if(!isset($acceptStatusContacts[$contact_id])) {
-	    			$focus->load_relationship('contacts');
-	    		    $focus->contacts->add($contact_id);
-	    		} else {
-	    			// update query to preserve accept_status
-	    			$qU  = 'UPDATE calls_contacts SET deleted = 0, accept_status = \''.$acceptStatusContacts[$contact_id].'\' ';
-	    			$qU .= 'WHERE call_id = \''.$focus->id.'\' ';
-	    			$qU .= 'AND contact_id = \''.$contact_id.'\'';
-	    			$focus->db->query($qU);
-	    		}
-	    	}
-	        // Process leads
-	    	$existing_leads =  array();
-	    	if(!empty($_POST['existing_lead_invitees'])) {
-	    	   $existing_leads =  explode(",", trim($_POST['existing_lead_invitees'], ','));
-	    	}
-
-	    	foreach($focus->leads_arr as $lead_id) {
-	    		if(empty($lead_id) || isset($existing_leads[$lead_id]) || (isset($deleteLeads[$lead_id]) && $lead_id !=  $_POST['parent_id'])) {
-	    			continue;
-	    		}
-
-	    		if(!isset($acceptStatusLeads[$lead_id])) {
-	    			$focus->load_relationship('leads');
-	    		    $focus->leads->add($lead_id);
-	    		} else {
-	    			// update query to preserve accept_status
-	    			$qU  = 'UPDATE calls_leads SET deleted = 0, accept_status = \''.$acceptStatusLeads[$lead_id].'\' ';
-	    			$qU .= 'WHERE call_id = \''.$focus->id.'\' ';
-	    			$qU .= 'AND lead_id = \''.$lead_id.'\'';
-	    			$focus->db->query($qU);
-	    		}
-	    	}
+            $focus->setUserInvitees($userInvitees, $existingUsers);
+            $focus->setContactInvitees($contactInvitees, $existingContacts);
+            $focus->setLeadInvitees($leadInvitees, $existingLeads);
 
             // Bug #49195 : update vcal
             vCal::cache_sugar_vcal($current_user);
             
-	    	// CCL - Comment out call to set $current_user as invitee
-	    	//set organizer to auto-accept
-            if ($focus->assigned_user_id == $current_user->id && $newBean) {
-	    	$focus->set_accept_status($current_user, 'accept');
-            }
-
-	    	////	END REBUILD INVITEE RELATIONSHIPS
-	    	///////////////////////////////////////////////////////////////////////////
+            $this->processRecurring($focus);
 	    }
     }
-
-	if(!empty($_POST['is_ajax_call']))
-	{
-		$json = getJSONobj();
-		echo $json->encode(array('status' => 'success', 'get' => ''));
-		exit;
-	}
-
 	if (isset($_REQUEST['return_module']) && $_REQUEST['return_module'] == 'Home'){
 		$_REQUEST['return_action'] = 'index';
         handleRedirect('', 'Home');
@@ -613,7 +473,7 @@ EOQ;
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Call());
+$javascript->setSugarBean(BeanFactory::getBean('Calls'));
 $javascript->addRequiredFields($prefix);
 $form .=$javascript->getScript();
 $mod_strings = $temp_strings;
@@ -621,7 +481,70 @@ return $form;
 
 }
 
+    /**
+     * Saves recurring records if needed. Flushes existing recurrences if needed.
+     */
+    protected function processRecurring(Call $focus)
+    {
+            require_once "modules/Calendar/CalendarUtils.php";            
+            if (!empty($_REQUEST['edit_all_recurrences'])) {
+                // flush existing recurrence
+                CalendarUtils::markRepeatDeleted($focus);
+            }            
+            if (count($this->repeatDataArray) > 0) {
+                // prevent sending invites for recurring activities
+                unset($_REQUEST['send_invites'], $_POST['send_invites']);
+                $this->recurringCreated = CalendarUtils::saveRecurring($focus, $this->repeatDataArray);
+            }
+    }
 
-
+    /**
+     * Prepare recurring sequence if needed.
+     * @return bool true if recurring records need to be created
+     */
+    public function prepareRecurring()
+    {       
+        require_once "modules/Calendar/CalendarUtils.php";
+        
+        if (empty($_REQUEST['edit_all_recurrences'])) {        
+            $repeatFields = array('type', 'interval', 'count', 'until', 'dow', 'parent_id');
+            foreach ($repeatFields as $param) {
+                unset($_POST['repeat_' . $param]);
+            }           
+        } else if (!empty($_REQUEST['repeat_type']) && !empty($_REQUEST['date_start'])) {        
+            $params = array(
+                    'type' => $_REQUEST['repeat_type'],
+                    'interval' => $_REQUEST['repeat_interval'],
+                    'count' => $_REQUEST['repeat_count'],    
+                    'until' => $_REQUEST['repeat_until'],    
+                    'dow' => $_REQUEST['repeat_dow'],            
+            );                            
+            $this->repeatDataArray = CalendarUtils::buildRecurringSequence($_REQUEST['date_start'], $params);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Check if amount of recurring records is exceeding the limit. 
+     * @return bool/int Limit if exceeded or fase if not exceeded.
+     */
+    public function checkRecurringLimitExceeded()
+    {
+        $limit = SugarConfig::getInstance()->get('calendar.max_repeat_count', 1000);            
+        if (count($this->repeatDataArray) > ($limit - 1)) {
+            return $limit;
+        }
+        return false;
+    }
+    
+    /**
+     * Returns list of created recurrings records. Id and date start. 
+     * @return array
+     */
+    public function getRecurringCreated()
+    {
+        return $this->recurringCreated;
+    }
 }
 ?>

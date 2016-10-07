@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,7 +20,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Mevcut',
   'LBL_BACK' => '< Önceki',
   'LBL_BROWSER_NOTICE' => 'Gerçek birleştirme işlemi için IE 6.0 veya daha yüksek versiyon kullanıyor olmanız gerekmektedir.',
-  'LBL_BROWSER_REQUIREMENT' => 'Windows için IE 6.0 veya daha üst versiyonu gerektirir.',
+  'LBL_BROWSER_REQUIREMENT' => 'Windows için IE 6.0 veya üstü gerektirir.',
   'LBL_CONTAINS_CONTACT_INFO' => 'Seçilen şablon ilişki içermektedir',
   'LBL_DOC_DESCRIPTION' => 'Tanım:',
   'LBL_DOC_NAME' => 'Doküman İsmi:',
@@ -39,13 +36,13 @@ $mod_strings = array (
   'LBL_MAILMERGE_TEMPLATES' => 'Şablon Seç:',
   'LBL_MERGED_FILE' => 'Birleştirilen Dosya:',
   'LBL_NEXT' => 'Sonraki >',
-  'LBL_RELATED_INFO_SELECTION' => 'Birleştirilmiş dökümanda görüntülemek istediğiniz bilgileri belirlemek için aşağıdaki seçimleri kullanın. Şablon belgeniz ilişkili bilgi içermiyorsa bu adımı atlayın.',
+  'LBL_RELATED_INFO_SELECTION' => 'Birleştirilmiş belgede görüntülemek istediğiniz bilgileri belirlemek için aşağıdaki seçimleri kullanın. Şablon belgeniz ilişkili bilgi içermiyorsa bu adımı atlayın.',
   'LBL_REMOVE' => 'Öğe(leri) Sil',
-  'LBL_SELECTED' => 'Seçilmiş',
+  'LBL_SELECTED' => 'Seçilenler',
   'LBL_SELECTED_ITEMS' => 'Seçilen Kalemler:',
   'LBL_SELECTED_MODULE' => 'Seçilen Modül:',
   'LBL_SELECTED_TEMPLATE' => 'Seçilen Şablon:',
-  'LBL_SELECT_ONE' => 'En azından bir kalem seçin.',
+  'LBL_SELECT_ONE' => 'Lütfen en az bir öğe seçin.',
   'LBL_START' => 'Devam Etmek için Buraya Tıklayınız',
   'LBL_STEP_1' => '1.Adım: Modül ve Şablon Seç',
   'LBL_STEP_2' => 'Adım 2: Birleştirmek için Nesneleri Seç',

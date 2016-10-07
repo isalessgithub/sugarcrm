@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Class allows us to use XHprof for profiling
@@ -30,9 +27,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * 'start' method registers 'end' method as shutdown function because of it call of 'end' method is unnecessary if you want profile all calls
  * Also 'start' method is called automatically in entryPoint.php file
  *
- * Names of generated files are prefix.microtime.module.action for modules and prefix.microtime.'entryPoint'.entryPoint for entry points
- * If you want to see reports you should install https://github.com/facebook/xhprof to some directory and run it as http://your.domain/path2xhprof/xhprof_html/?run=prefix.microtime&source=module.action
- * For 507bf986e44d9.1350302086.9285.Leads.listview.xhprof file url will be look like http://your.domain/path2xhprof/xhprof_html/?run=507bf986e44d9.1350302086.9285&source=Leads.listview
+ * Names of generated files are:
+ * --> prefix.microtime-module-action (for modules)
+ * --> prefix.microtime-'entryPoint'-entryPoint (for entry points)
+ *
+ * If you want to see reports you should install https://github.com/facebook/xhprof to some directory and run it as
+ * http://your.domain/path2xhprof/xhprof_html/?run=prefix&source=microtime-module-action
+ *
+ * For 507bf986e44d9.1350302086-9285-Leads-listview.xhprof file url will be look like
+ * http://your.domain/path2xhprof/xhprof_html/?run=507bf986e44d9&source=1350302086-9285-Leads-listview
  *
  * If you want to customize SugarXHprof you should create file in custom/include/SugarXHprof/ folder and name file as name of your custom class
  * Change $sugar_config['xhprof_config']['manager'] to be name of your custom class
@@ -90,32 +93,26 @@ class SugarXHprof
      */
     protected static function loadConfig()
     {
-        if (!empty($GLOBALS['sugar_config']['xhprof_config']))
-        {
-            foreach($GLOBALS['sugar_config']['xhprof_config'] as $k => $v)
-            {
-                if (isset($v) && property_exists(__CLASS__, $k))
-                {
-                    self::${$k} = $v;
+        if (!empty($GLOBALS['sugar_config']['xhprof_config'])) {
+            foreach ($GLOBALS['sugar_config']['xhprof_config'] as $k => $v) {
+                if (isset($v) && property_exists(self::$manager, $k)) {
+                    static::${$k} = $v;
                 }
             }
         }
 
         // disabling profiler if XHprof extension is not loaded
-        if (extension_loaded('xhprof') == false)
-        {
+        if (extension_loaded('xhprof') == false) {
             self::$enable = false;
         }
 
         // using default directory for profiler if it is not set
-        if (empty(self::$log_to))
-        {
+        if (empty(self::$log_to)) {
             self::$log_to = ini_get('xhprof.output_dir');
         }
 
         // disabling profiler if directory is not exist or is not writable
-        if (is_dir(self::$log_to) == false || is_writable(self::$log_to) == false)
-        {
+        if (is_dir(self::$log_to) == false || is_writable(self::$log_to) == false) {
             self::$enable = false;
         }
     }
@@ -127,29 +124,28 @@ class SugarXHprof
      */
     public static function getInstance()
     {
-        if (self::$instance != null)
-        {
+        if (self::$instance != null) {
             return self::$instance;
         }
 
-        self::loadConfig();
+        self::$manager = !empty($GLOBALS['sugar_config']['xhprof_config']['manager']) ?
+            $GLOBALS['sugar_config']['xhprof_config']['manager'] :
+            self::$manager;
 
-        if (is_file('custom/include/SugarXHprof/' . self::$manager . '.php'))
-        {
+        if (is_file('custom/include/SugarXHprof/' . self::$manager . '.php')) {
             require_once 'custom/include/SugarXHprof/' . self::$manager . '.php';
-        }
-        elseif (is_file('include/SugarXHprof/' . self::$manager . '.php'))
-        {
+        } elseif (is_file('include/SugarXHprof/' . self::$manager . '.php')) {
             require_once 'include/SugarXHprof/' . self::$manager . '.php';
         }
-        if (class_exists(self::$manager) && is_subclass_of(self::$manager, __CLASS__))
-        {
+
+        if (class_exists(self::$manager) && is_subclass_of(self::$manager, __CLASS__)) {
             self::$instance = new self::$manager();
-        }
-        else
-        {
+        } else {
             self::$instance = new self();
         }
+
+        self::$instance->loadConfig();
+
         return self::$instance;
     }
 
@@ -288,7 +284,7 @@ class SugarXHprof
         }
 
         $data = xhprof_disable();
-        $namespace = microtime(1) . self::detectAction();
+        $namespace = str_replace('.', '-', microtime(1) . self::detectAction());
 
         require_once 'include/SugarXHprof/xhprof_lib/utils/xhprof_runs.php';
         $xhprof_runs = new XHProfRuns_Default(self::$log_to);

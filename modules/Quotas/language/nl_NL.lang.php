@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Bedrag:',
-  'LBL_ASSIGNED_TO_USER' => 'Toegewezen aan Gebruiker',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Waarde Basisvaluta',
+  'LBL_ASSIGNED_TO_USER' => 'Toegewezen aan',
   'LBL_COMMIT' => 'Wijs toe:',
   'LBL_COMMITTED' => 'Toegewezen',
   'LBL_COMMIT_STATUS' => 'Wijs Status Toe',
+  'LBL_CREATED_BY' => 'Aangemaakt door',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_RATE' => 'Valutakoers',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Er zijn geen quotas in deze periode aan u toegewezen.',
   'LBL_CURRENT_USER_QUOTA' => 'Het voor deze periode aan u toegewezen quota:',
+  'LBL_DIRECT' => 'Direct',
   'LBL_DIRECT_REPORT' => 'Via Rapportering',
   'LBL_EDITLAYOUT' => 'Wijzig Lay-out',
   'LBL_LAST_MODIFIED' => 'Laatste Wijziging',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Er zijn geen aan u gerapporteerde quotas in deze periode ingegeven.',
   'LBL_QUOTA' => 'Quota:',
   'LBL_QUOTA_AMOUNT' => 'Quota Bedrag',
+  'LBL_QUOTA_TYPE' => 'Type',
+  'LBL_ROLLUP' => 'Rollup',
   'LBL_SELECT_TIME_PERIOD' => 'Selecteer Periode ...',
   'LBL_SELECT_USER' => 'Kies Gebruiker...',
   'LBL_TIMEPERIOD_ID' => 'Periode',
@@ -48,6 +50,6 @@ $mod_strings = array (
   'LNK_FORECAST_HISTORY' => 'Forecast Historie',
   'LNK_FORECAST_LIST' => 'Forecast',
   'LNK_QUOTA' => 'Quotas',
-  'LNK_UPD_FORECAST' => 'Forecast Werkblad',
+  'LNK_UPD_FORECAST' => 'Forecastwerkblad',
 );
 

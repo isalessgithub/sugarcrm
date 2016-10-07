@@ -1,32 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/templates/TemplateGroupChooser.php');
 
-
 class SavedSearch extends SugarBean {
-	var $db;
-    var $field_name_map;
-
 	// Stored fields
 	var $id;
 	var $date_entered;
@@ -38,7 +24,7 @@ class SavedSearch extends SugarBean {
 	var $team_name;
 	var $name;
 	var $description;
-	var $content;
+	var $contents;
 	var $search_module;
 
 	var $object_name = 'SavedSearch';
@@ -50,17 +36,25 @@ class SavedSearch extends SugarBean {
 
     var $columns;
 
-	function SavedSearch($columns = array(), $orderBy = null, $sortOrder = 'DESC') {
-		parent::SugarBean();
-        $this->columns = $columns;
-        $this->orderBy = $orderBy;
-        $this->sortOrder = $sortOrder;
+	public function __construct()
+	{
+		parent::__construct();
+	    $args = func_get_args();
+	    if(count($args) > 0) {
+	        // old ctor, pass to init
+	        call_user_func_array(array($this, "init"), $args);
+	    }
+	}
+
+	public function init($columns = array(), $orderBy = null, $sortOrder = 'DESC')
+	{
+		$this->columns = $columns;
+		$this->orderBy = $orderBy;
+		$this->sortOrder = $sortOrder;
 		$this->setupCustomFields('SavedSearch');
 		foreach ($this->field_defs as $field) {
 			$this->field_name_map[$field['name']] = $field;
 		}
-
-		//$this->team_id = 1; // make the item globally accessible
 	}
 
 	// Saved Search Form
@@ -150,7 +144,7 @@ class SavedSearch extends SugarBean {
 
         $json = getJSONobj();
 
-        return $sugarSmarty->fetch('modules/SavedSearch/SavedSearchForm.tpl');
+        return $sugarSmarty->fetchCustom('modules/SavedSearch/SavedSearchForm.tpl');
 	}
 
     function getSelect($module) {
@@ -236,7 +230,7 @@ class SavedSearch extends SugarBean {
 
 		global $current_user, $timedate;
 
-		$focus = new SavedSearch();
+		$focus = BeanFactory::getBean('SavedSearch');
 		if($id) $focus->retrieve($id);
 
 		if($useRequired && !checkRequired($prefix, array_keys($focus->required_fields))) {
@@ -332,11 +326,8 @@ class SavedSearch extends SugarBean {
 		global $app_list_strings;
 		// Fill in the assigned_user_name
 		$this->search_module = $app_list_strings['moduleList'][$this->contents['search_module']];
-		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-
-			$this->team_name = get_assigned_team_name($this->team_id);
+		$this->fill_in_additional_detail_fields();
 	}
-
 
     function retrieveSavedSearch($id) {
         parent::retrieve($id);
@@ -349,7 +340,7 @@ class SavedSearch extends SugarBean {
 
         if(isset($this->contents['search_module']))
         {
-           $searchModuleBean = loadBean($this->contents['search_module']);
+           $searchModuleBean = BeanFactory::getBean($this->contents['search_module']);
         }
 
         foreach($this->contents as $key=>$val){
@@ -383,5 +374,3 @@ class SavedSearch extends SugarBean {
 
     }
 }
-
-?>

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Jānorāda ieraksta numurs, lai dzēstu kontu.',
@@ -28,7 +25,7 @@ $mod_strings = array (
   'ERR_IE_FAILURE1' => '[Spiediet šeit, lai atgrieztos]',
   'ERR_IE_FAILURE2' => 'Problēma pieslēgties e-pasta kontam.  Pārbaudiet iestatījumus un mēģiniet vēlreiz.',
   'ERR_IE_MISSING_REQUIRED' => 'Ienākošo e-pastu iestatījumiem nav nepieciešamās informācijas. Pārbaudiet iestatījumus un mēģiniet vēlreiz.<br /><br />Izdzēsiet visus attiecīgās sadaļas laukus, ja ienākošo e-pastu konts netiek konfigurēts.',
-  'ERR_INVALID_PASSWORD' => 'Jums jānorāda derīgs lietotāja vārds un parole.',
+  'ERR_INVALID_PASSWORD' => 'Jums ir jānorāda derīgs lietotājvārds un parole',
   'ERR_LAST_ADMIN_1' => 'Lietotājs "',
   'ERR_LAST_ADMIN_2' => '" ir pēdējais lietotājs ar administratora piekļuvi. Vismaz vienam lietotājam jābūt administratoram.',
   'ERR_NO_LOGIN_MOBILE' => 'Pirmā pieteikšanās programmā jāveic ne no mobilās iekārtas vai arī normālā režīmā. Lūdzu atkārtojiet ar  pilnas funkcionalitātes pārlūku vai arī spiediet uz sekojošās normālā režīma saites. Atvainojamies par sagādātajām neērtībām.',
@@ -100,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Izveidoja',
   'LBL_CURRENCY' => 'Valūta',
   'LBL_CURRENCY_EXAMPLE' => 'Valūtas parādīšanas piemērs',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Parādīt vēlamo valūtu',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Konvertēt bāzes valūtu uz lietotāja vēlamo sarakstos un ieraksta skatos',
   'LBL_CURRENCY_SIG_DIGITS' => 'Valūtas zīmīgie cipari',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Valūtai rādāmās decimāldaļas precizitāte.',
   'LBL_CURRENCY_TEXT' => 'Norādiet valūtu, kas tiks norādīta pēc noklusējuma, veidojot jaunus ierakstus. Šajā valūtā tiks attēlotas arī darījuma iespēju summas sarakstā.',
@@ -162,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fakss',
   'LBL_FDOW' => 'Nedēļas pirmā diena',
   'LBL_FDOW_TEXT' => 'Nedēļas pirmā diena, kas redzama Nedēļu, Mēnešu un Gadu skatos',
+  'LBL_FILTER_USERS_REPORTS' => 'Lietotāja atskaites',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '</br>Meklē optimālās vērtības savienojumam.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Atrast optimālu konfigurāciju',
@@ -169,7 +169,8 @@ $mod_strings = array (
   'LBL_FORCE' => 'Uzspiest negatīvo',
   'LBL_FORCE_DESC' => 'Dažiem IMAP/POP3 serveriem nepieciešami īpaši slēdži. Atzīmējiet lai pārbaudītu negatīvo slēdzi (t.i., /notls)',
   'LBL_FORECASTS' => 'Prognozes',
-  'LBL_FOUND_OPTIMUM_MSG' => '<br>Optimālās vērtības atrastas.	Spiediet lai pielietotu atrastās vērtības e-pasta kontam.',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Šī iespēja pagaidām nav pieejama. Sazinieties ar administratoru.',
+  'LBL_FOUND_OPTIMUM_MSG' => '<br>Optimālās vērtības atrastas.	Spiediet lai pielietotu atrastās vērtības e-pasta kontam..',
   'LBL_GENERATE_PASSWORD' => 'Atiestatīt paroli',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
   'LBL_GENERATE_PASSWORD_BUTTON_LABEL' => 'Atiestatīt paroli',
@@ -276,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Manas darba grupas',
   'LBL_NAME' => 'Pilns vārds',
   'LBL_NAVIGATION_PARADIGM' => 'Navigācija',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Atzīmējiet lai atļautu attēlot moduļus navigācijas joslā izmantojot iepriekš definētās grupas',
   'LBL_NEW_FORM_TITLE' => 'Jauns lietotājs',
   'LBL_NEW_PASSWORD' => 'Jauna parole',
   'LBL_NEW_PASSWORD1' => 'Parole',
@@ -437,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Vadītājs',
   'LBL_REQUEST_SUBMIT' => 'Jūsu pieprasījumu ir nosūtīts.',
   'LBL_RESET_DASHBOARD' => 'Atiestatīt instrumentu paneli',
-  'LBL_RESET_HOMEPAGE' => 'Atiestatīt sākumlapu',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Vai tiešām vēlaties atiestatīt sākumlapu?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Vai tiešām vēlaties atiestatīt sākumlapu šim lietotājam?',
   'LBL_RESET_PREFERENCES' => 'Atcelt lietotāja izvēles',
   'LBL_RESET_PREFERENCES_WARNING' => 'Vai tiešām vēlaties atiestatīt visas lietotāja uzstādījumu izvēles? Brīdinājums: Ar šo jūs tiksiet izrakstīts arī no lietojumprogrammas.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Vai tiešām vēlaties atcelt visas lietotāja uzstādījumu izvēles?',
@@ -474,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Statuss',
   'LBL_SUBPANEL_LINKS' => 'Apakšpaneļa saites',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Detalizētajā skatā parādās apakšpaneļa īsinājumikonu saišu rinda.',
-  'LBL_SUBPANEL_TABS' => 'Apakšpaneļa cilnes',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Detalizētajā skatā apakšpaneļus grupēt cilnēs un  vienlaicīgi rādīt tikai vienu cilni.',
   'LBL_SUGAR_LOGIN' => 'Ir "Sugar" lietotājs',
   'LBL_SUPPORTED_THEME_ONLY' => 'Ietekmē tikai tās tēmas, kas atbalsta šo opciju.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Ja atzīmēta, rāda pēdējo apskatīto sānu joslā.  Citādi augšpusē.',
@@ -483,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Ja ir atzīmēta, augšpusē parāda īsinājumikonu joslu.  Citādi tā ir sānos.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Īsinājumikonas augšpusē',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Sistēmas ģenerēta parole',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Zīmju skaits aiz komata',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Zīmju skaits aiz komata, kas sistēmā tiek rādīts decimāldaļas un peldošā punkta skaitļos, tādos kā valūtas summas un vidējās vērtības atskaitēs',
   'LBL_TAB_TITLE_EMAIL' => 'E-pasta iestatījumi',
   'LBL_TAB_TITLE_USER' => 'Lietotāja iestatījumi',
   'LBL_TEAMS' => 'Darba grupas',

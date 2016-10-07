@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  returns HTML for client-side image map.
@@ -284,7 +281,7 @@ echo get_validate_chart_js();
 			$GLOBALS['log']->debug("user_id is: ");
 			$GLOBALS['log']->debug($user_id);
 			$GLOBALS['log']->debug("cache_file_name is: $cache_file_name");
-			$opp = new Opportunity;
+			$opp = BeanFactory::getBean('Opportunities');
 			$where="";
 			//build the where clause for the query that matches $user
 			$count = count($user_id);
@@ -341,8 +338,7 @@ echo get_validate_chart_js();
 			global $current_user;
 			if($current_user->getPreference('currency') ){
 
-				$currency = new Currency();
-				$currency->retrieve($current_user->getPreference('currency'));
+				$currency = BeanFactory::getBean('Currencies', $current_user->getPreference('currency'));
 				$div = $currency->conversion_rate;
 				$symbol = $currency->symbol;
 			}
@@ -538,7 +534,7 @@ $GLOBALS['log']->debug($datax);
 		}
 
 		$user_id = $ids;
-		$opp = new Opportunity;
+		$opp = BeanFactory::getBean('Opportunities');
 		$where="";
 		//build the where clause for the query that matches $user
 		$count = count($user_id);

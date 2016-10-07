@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,14 +46,14 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_4' => 'Организации със статус клиент',
   'DEFAULT_REPORT_TITLE_41' => 'Сесии на активните потребители (Последните 7 дни)',
   'DEFAULT_REPORT_TITLE_42' => 'User Sessions Summary (Последните 7 дни)',
-  'DEFAULT_REPORT_TITLE_43' => 'Customer Account Owners',
+  'DEFAULT_REPORT_TITLE_43' => 'Отговорници по клиенти',
   'DEFAULT_REPORT_TITLE_44' => 'Моите нови клиенти',
   'DEFAULT_REPORT_TITLE_45' => 'Възможности според етап на преговорите',
   'DEFAULT_REPORT_TITLE_46' => 'Възможности според техния тип',
   'DEFAULT_REPORT_TITLE_47' => 'Текущи обаждания',
   'DEFAULT_REPORT_TITLE_48' => 'Текущи срещи',
   'DEFAULT_REPORT_TITLE_49' => 'Текущи задачи',
-  'DEFAULT_REPORT_TITLE_5' => 'Call List By Last Date Contacted',
+  'DEFAULT_REPORT_TITLE_5' => 'Списък с обаждания според деня на последен контакт',
   'DEFAULT_REPORT_TITLE_50' => 'Сключени сделки по организации',
   'DEFAULT_REPORT_TITLE_51' => 'Сключени сделки по потребител',
   'DEFAULT_REPORT_TITLE_52' => 'Всички текущи преговори',
@@ -71,20 +68,22 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_9' => 'Поставени казуси по степентта на важност за избраните потребители',
   'DROPDOWN_SCHEDULE_INTERVALS' => 
   array (
-    3600 => 'На всеки час',
-    21600 => 'На всеки 6 часа',
-    43200 => 'На всеки 12 часа',
+    3600 => 'Всеки час',
+    21600 => 'Всеки 6 часа',
+    43200 => 'Всеки 12 часа',
     86400 => 'Ежедневно',
     604800 => 'Седмично',
-    1209600 => 'На всеки 2 седмици',
-    2419200 => 'На всеки 4 седмици',
+    1209600 => 'Всеки 2 седмици',
+    2419200 => 'Всеки 4 седмици',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Периодично изпълняваната справка "{0}" беше деактивирана',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Периодично изпълняваната справка беше деактивирана',
   'ERR_REPORT_INVALID' => 'Справката "{0}" съдържа невалидни полета: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Справката е невалидна',
   'ERR_SELECT_COLUMN' => 'Моля, изберете колона за показване.',
-  'LBL_1X2' => '1 X 2',
+  'LBL_1X2' => '1 Х 2',
   'LBL_1_REPORT_ON' => '1. Справка за',
-  'LBL_2X1' => '2 X 1',
+  'LBL_2X1' => '2 Х 1',
   'LBL_2_FILTER' => '2. Филтър',
   'LBL_3_CHOOSE' => '3. Изберете колони за показване',
   'LBL_3_GROUP' => '3. Група',
@@ -110,7 +109,7 @@ $mod_strings = array (
   'LBL_ALT_INFORMATION' => 'Информация',
   'LBL_ALT_SHOW' => 'Покажи',
   'LBL_AND' => 'и',
-  'LBL_ANY' => 'Всички',
+  'LBL_ANY' => 'Всеки',
   'LBL_ANY_ONE_OF' => 'Всеки един от',
   'LBL_ASCENDING' => 'Във възходящ ред',
   'LBL_ASSIGNED_TO_NAME' => 'Отговорник:',
@@ -176,7 +175,7 @@ $mod_strings = array (
   'LBL_DISPLAY_SUMMARIES' => 'Изберете колони за обобщаване',
   'LBL_DISPLAY_SUMMARY_HELP_DESC' => '<b>Избиране на колони за обобщаване:</b><br/><br/>1) Изберете модул от секция <b>Свързани модули</b> , за който да се обобщават данните в справката. По подразбиране е избран основният модул за справката (най-горе в структурата с модули).<br/><br/><br />	За избиране на свързан модул, натиснете върху заглавието на модула. За преглед на допълнителни модули, асоциирани със свързания, натиснете иконката до заглавието на модула. Избраният модул определя полетата, които да се визуализират в секция <b>Налични полета</b> .<br/><br/><br />	2) Изберете поле от секция <b>Налични полета</b> за обобщаване в справката. За търсене, въведете заглавие на полето във формата за търсене.<br/><br/><br />	Можете да избирате произволен брой допълнителни полета за обобщаване от повече от един модул, представени в секцията <b>Свързани модули</b> .<br/><br/>Matrix справката може да съдържа повече от едно поле за визуализиране на multiple values within a single cell.',
   'LBL_DOES_NOT_CONTAIN' => 'Не съдържа',
-  'LBL_DOES_NOT_EQUAL' => 'Е различно от',
+  'LBL_DOES_NOT_EQUAL' => 'Не е равно на',
   'LBL_DOWN' => 'Долу',
   'LBL_DO_ROUND' => 'Кръгло число, над 100000',
   'LBL_DO_ROUND_HELP' => 'Числа по-голени от 100000 ще бъдат закръглявани в графиките.<br>Пример: 350000 ще се визуализира като 350K.',
@@ -188,10 +187,10 @@ $mod_strings = array (
   'LBL_EDIT' => 'Редактирай',
   'LBL_EDITLAYOUT' => 'Редактиране на подредби',
   'LBL_EMAIL_REPORTS' => 'Справки към модул електронна поща',
-  'LBL_ENDS_WITH' => 'Завършва на',
+  'LBL_ENDS_WITH' => 'Завършва с',
   'LBL_END_DATE' => 'Крайна дата',
   'LBL_EQUALS' => 'Е равно на',
-  'LBL_EXACT' => 'Точен',
+  'LBL_EXACT' => 'Точнo',
   'LBL_EXPORT' => 'Експортиране',
   'LBL_FAILURE_REPORT' => 'Грешка: Справката',
   'LBL_FAVORITE' => 'Избран',
@@ -205,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'от следните филтри',
   'LBL_FILTERS_HELP_DESC' => '<b>Задаване на критерии за филтриране:</b><br/><br/>1) Изберете модул от секция <b>Свързани модули</b> , за който да се дефинират критерии за филтриране. По подразбиране е избран основният модул за справката (най-горе в структурата с модули). <br/><br/><br />	За избиране на свързан модул, натиснете върху заглавието на модула. За преглед на допълнителни модули, асоциирани със свързания, натиснете иконката до заглавието на модула . Избраният модул определя полетата, които да се визуализират в секция <b>Налични полета</b> .<br/><br/><br />	2) За добавяне на нови филтри, изберете поле от списъка с полетата в секция <b>Налични полета</b> . За търсене, въведете заглавие на полето във формата за търсене.<br/><br/><br />	Можете да избирате произволен брой полета за филтриране от повече от един модул, представени в секцията <b>Свързани модули</b> .<br/><br/><br />	3) Изберете <b>И</b> или <b>ИЛИ</b> съответно за включване на всички или само на избрани филтри за търсене на резултатите за справката.<br/><br/><br />	4) [Optional] За вмъкване на нови групи с филтри, натиснете <b>Добавяне на група за филтриране</b> . Броят на групите за филтриране, както и на филтрите в отделните групи е неограничен.<br/><br/><br />	5) [Optional] Изберете опцията Run-time за предоставяне на възможност на потребителите да използват филтъра за персонализиране на резултатите при преглед на справката.',
   'LBL_FILTER_AND' => 'И',
+  'LBL_FILTER_BY_MODULE' => 'По модул',
   'LBL_FILTER_CONDITIONS' => 'Изберете модул:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'До',
   'LBL_FILTER_DATE_RANGE_START' => 'Подател',
@@ -214,8 +214,8 @@ $mod_strings = array (
   'LBL_FORECAST_REPORTS' => 'Справки за прогнози',
   'LBL_FUNNEL' => 'Диаграма тип "Funnel"',
   'LBL_GRAND_TOTAL' => 'Стойност на офертата',
-  'LBL_GREATER_THAN' => 'По-големи от',
-  'LBL_GREATER_THAN_EQUAL' => 'По-голямо от',
+  'LBL_GREATER_THAN' => 'Е по-голямо от',
+  'LBL_GREATER_THAN_EQUAL' => 'Е по-голямо или равно от',
   'LBL_GROUP_BY' => 'Групиране по',
   'LBL_GROUP_BY_HELP_DESC' => '<b>Определяне на колони за групиране:</b><br></br>1) Изберете модул от секция <b>Свързани модули</b> , за който да се групират записите в справката. По подразбиране е избран основният модул за справката (най-горе в структурата с модули). <br/><br/><br />	За избиране на свързан модул, натиснете върху заглавието на модула. За преглед на допълнителни модули, асоциирани със свързания, натиснете иконката до заглавието на модула. Избраният модул определя полетата, които да се визуализират в секция <b>Налични полета</b> .<br/><br/><br />	2) Изберете поле от секция <b>Налични полета</b> ,с което да се групират записите в справката. За търсене, въведете заглавие на полето във формата за търсене.<br/><br/><br />	Можете да избирате произволен брой полета за групиране от повече от един модул, представени в секцията <b>Свързани модули</b> . Избирането на голям брой условия за групиране, може да доведе до проблеми при разчитането на справката.<br/><br/><br />	За промяна на поредността на полетата, преместете полето с влачене до желаната позиция.  Промени в подредбата се отразяват върху начина за визуализиране на резултатите.<br/><br/>  Matrix справката може да съдържа не повече от 3 условия за групиране.',
   'LBL_GROUP_BY_REQUIRED' => 'За визуализиране на графиката следва условията Групиране по и Колони за обобщаване да имат въведени стойности.<br>',
@@ -225,16 +225,17 @@ $mod_strings = array (
   'LBL_HIDE_SUMMARIES' => 'Скриване на колони за обобщаване',
   'LBL_HORIZ_BAR' => 'Диаграма тип "Horizontal Bar"',
   'LBL_IS' => 'Е',
-  'LBL_IS_BETWEEN' => 'В период',
-  'LBL_IS_EMPTY' => 'Е с празни стойности',
-  'LBL_IS_NOT' => 'Не е ли.',
-  'LBL_IS_NOT_EMPTY' => 'Е с въведени стойности',
-  'LBL_IS_NOT_ONE_OF' => 'Не е ли едно от',
+  'LBL_IS_BETWEEN' => 'Е в границите',
+  'LBL_IS_EMPTY' => 'Е с празна стойност',
+  'LBL_IS_NOT' => 'Не е',
+  'LBL_IS_NOT_EMPTY' => 'Е с въведена стойност',
+  'LBL_IS_NOT_ONE_OF' => 'Не е едно от',
   'LBL_IS_PUBLISHED' => 'Е публикувана',
   'LBL_LABEL' => 'Етикет',
   'LBL_LAST_30_DAYS' => 'Изминалите 30 дни',
   'LBL_LAST_7_DAYS' => 'Изминалите 7 дни',
   'LBL_LAST_MONTH' => 'Миналия месец',
+  'LBL_LAST_N_DAYS' => 'Последните # дни',
   'LBL_LAST_QUARTER' => 'Изминалото тримесечие',
   'LBL_LAST_WEEK' => 'Миналата седмица',
   'LBL_LAST_YEAR' => 'Миналата година',
@@ -242,8 +243,8 @@ $mod_strings = array (
   'LBL_LEADS' => 'Потенциални клиенти',
   'LBL_LEAD_REPORTS' => 'Справки към модул потенциални клиенти',
   'LBL_LEFT' => 'Наляво',
-  'LBL_LESS_THAN' => 'Е с по-малки стойности от',
-  'LBL_LESS_THAN_EQUAL' => 'По-малко от',
+  'LBL_LESS_THAN' => 'Е по-малко от',
+  'LBL_LESS_THAN_EQUAL' => 'Е по-малко или равно от',
   'LBL_LINE' => 'Диаграма тип "Line"',
   'LBL_LIST_FORM_TITLE' => 'Справки',
   'LBL_LIST_PUBLISHED' => 'Стартирал',
@@ -306,6 +307,7 @@ $mod_strings = array (
   'LBL_NEXT_FISCAL_QUARTER' => 'Следващо финансово тримесечие',
   'LBL_NEXT_FISCAL_YEAR' => 'Следваща финансова година',
   'LBL_NEXT_MONTH' => 'Следващия месец',
+  'LBL_NEXT_N_DAYS' => 'Следващите # дни',
   'LBL_NEXT_QUARTER' => 'Следващо тримесечие',
   'LBL_NEXT_RUN' => 'Седващ имейл',
   'LBL_NEXT_WEEK' => 'Следващата седмица',
@@ -323,7 +325,7 @@ $mod_strings = array (
   'LBL_NO_REPORTS' => 'Не са намерени резултати.',
   'LBL_OF' => 'за',
   'LBL_ON' => 'На',
-  'LBL_ONE_OF' => 'Е един от',
+  'LBL_ONE_OF' => 'Е едно от',
   'LBL_OPPORTUNITIES' => 'Възможности',
   'LBL_OPPORTUNITIES_BY_LEAD_SOURCE' => 'Възможности в зависимост от източника',
   'LBL_OPPORTUNITY' => 'Свързан с възможност:',
@@ -360,7 +362,7 @@ $mod_strings = array (
   'LBL_PUBLISHED_QUOTE_REPORTS' => 'Публикувани справки към модул квоти',
   'LBL_PUBLISHED_TASK_REPORTS' => 'Публикувани справки за Задачи',
   'LBL_QUARTER' => 'Тримесечие',
-  'LBL_QUARTER_ABBREVIATION' => 'Q',
+  'LBL_QUARTER_ABBREVIATION' => 'Я',
   'LBL_QUERY' => 'Заявка',
   'LBL_QUOTE_REPORTS' => 'Справки към модул оферти',
   'LBL_RELATED' => 'Свързани:',
@@ -384,10 +386,10 @@ $mod_strings = array (
   'LBL_REPORT_GROUP_BY' => 'Групиране по',
   'LBL_REPORT_HIDE_CHART' => 'Скриване на графиката',
   'LBL_REPORT_HIDE_DETAILS' => 'Скриване на допълнителна информация',
-  'LBL_REPORT_LAST_RUN_DATE' => 'Достъпен на',
+  'LBL_REPORT_LAST_RUN_DATE' => 'Достъпена на',
   'LBL_REPORT_MODIFIED_MESSAGE' => 'Справката е била модифицирана.',
   'LBL_REPORT_MODULES' => 'Модули',
-  'LBL_REPORT_MODULE_VIEWER_TITLE' => 'Report Viewer',
+  'LBL_REPORT_MODULE_VIEWER_TITLE' => 'Разглеждане на справки',
   'LBL_REPORT_NAME' => 'Име на справката',
   'LBL_REPORT_RESET_FILTER' => 'Рeдактиране',
   'LBL_REPORT_RESULTS' => 'Резултати:',
@@ -400,7 +402,7 @@ $mod_strings = array (
   'LBL_REPORT__ATT_TYPE' => 'Тип',
   'LBL_RIGHT' => 'Надясно',
   'LBL_ROLLOVER' => 'За детайли поставете мишката върху съответното място на графиката.',
-  'LBL_ROLLOVER_SQUARE' => 'Rollover a square for details.',
+  'LBL_ROLLOVER_SQUARE' => 'Преминете през квадрата за повече информация.',
   'LBL_ROLLOVER_WEDGE' => 'За детайли поставете мишката върху съответното място на графиката.',
   'LBL_ROWS_AND_COLUMNS_REPORT' => 'Списъчна справка',
   'LBL_ROWS_AND_COLUMNS_REPORT_DESC' => 'Създаване на справка за изброяване на стойности на избраните полета за записите въз основа на предварително зададени критерии.',
@@ -418,8 +420,8 @@ $mod_strings = array (
   'LBL_SCHEDULED_REPORT_MSG_INTRO' => 'Attached is an auto-generated report sent to you from the Sugar application.  Справката е създадена на',
   'LBL_SCHEDULE_ACTIVE' => 'Активен',
   'LBL_SCHEDULE_EMAIL' => 'Отложено изпълнение на',
-  'LBL_SCHEDULE_REPORT' => 'Отложено изпълнение на',
-  'LBL_SCHEDULE_TYPE' => 'Schedule Type',
+  'LBL_SCHEDULE_REPORT' => 'Регулярно изпълнение',
+  'LBL_SCHEDULE_TYPE' => 'Тип на периодично изпълнение',
   'LBL_SEARCH_FORM_TITLE' => 'Списък със справки',
   'LBL_SELECT' => 'Избери',
   'LBL_SELECT_GROUP_BY' => 'Определете колони за групиране',
@@ -432,12 +434,12 @@ $mod_strings = array (
   'LBL_SHOW_DETAILS' => 'Показване на допълнителна информация',
   'LBL_SHOW_QUERY' => 'Визуализация на заявката',
   'LBL_SORT' => 'Соритрай',
-  'LBL_STARTS_WITH' => 'По първата част от името',
+  'LBL_STARTS_WITH' => 'Започва с',
   'LBL_START_DATE' => 'Начална дата',
   'LBL_STATUS' => 'Статус',
   'LBL_SUBJECT' => 'Относно',
   'LBL_SUBMIT_QUERY' => 'Качи заявката',
-  'LBL_SUCCESS_REPORT' => 'SUCCESS: Справката',
+  'LBL_SUCCESS_REPORT' => 'Успех: Справката',
   'LBL_SUM' => 'Сума',
   'LBL_SUMMARY_COLUMNS' => 'Обобщаващи колони',
   'LBL_SUMMATION_REPORT' => 'Обобщаваща справка',
@@ -462,7 +464,7 @@ $mod_strings = array (
   'LBL_TO_PDF' => 'Запази в PDF-формат',
   'LBL_TYPE' => 'Тип',
   'LBL_UNTITLED' => 'неозаглавен',
-  'LBL_UN_PUBLISH' => 'непубликувай',
+  'LBL_UN_PUBLISH' => 'спри публикацията',
   'LBL_UP' => 'Горе',
   'LBL_UPDATE_SCHEDULE' => 'Актуализирай',
   'LBL_USER_EMPTY_HELP' => 'За да видите записите, без стойност в полето Отговорник, проверете квадратчето "Свързан Модул" в "Детайлите на справката", полето с отметка дали е празно. Това ще покаже всички записи, за които има някаква връзка с потребителите в системата.',
@@ -479,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'със средно',
   'LBL_WITH_A_TOTAL' => 'с обща',
   'LBL_WITH_DETAILS' => 'С детайли',
-  'LBL_WORKSHEET' => 'План',
   'LBL_YEAR' => 'Година',
   'LBL_YESTERDAY' => 'Вчера',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Не са намерени съхранени справки.',
+  'LNK_ADVANCED_REPORTING' => 'Управление на разширени справки',
   'LNK_NEW_ACCOUNT' => 'Въвеждане на организация',
   'LNK_NEW_CALL' => 'Планиране на обаждане',
   'LNK_NEW_CASE' => 'Въвеждане на казус',
@@ -495,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Не разполагате с необходимите права за достъп за редактиране на тази справка',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Грешка при публикуване. Налична е справка с аналогично название.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Грешка при отмяна на публикуване на справка, създадена от друг потребител. You own an Report by the same name.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'The Process Report Generation Task Scheduler is currently Inactive and Reports cannot be Scheduled. Please request that an Administrator User sets this Scheduler to Active and try again.',
 );
 

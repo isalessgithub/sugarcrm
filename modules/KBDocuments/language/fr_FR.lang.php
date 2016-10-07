@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Document créé',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Name du Document',
   'ERR_DOC_VERSION' => 'Version du Document',
   'ERR_FILENAME' => 'Nom du fichier',
+  'ERR_FILESIZE' => 'Le fichier est trop volumineux. Taille maximale de fichier :',
   'LBL_ACTIVE_DATE' => 'Date de publication',
   'LBL_AND' => 'et',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Application des tags sur les Articles ...',
@@ -41,7 +39,7 @@ $mod_strings = array (
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Prévisualistion impossible - Document non trouvé.',
   'LBL_ARTICLE_TITLE' => 'Titre:',
   'LBL_ATTACHMENTS' => 'Pièces Jointes:',
-  'LBL_CASE' => 'Ticket:',
+  'LBL_CASE' => 'Ticket :',
   'LBL_CASES' => 'Tickets',
   'LBL_CASES_SUBPANEL_TITLE' => 'Ticket liés',
   'LBL_CASE_ID' => 'Ticket (ID)',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Contrats',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Co,ntrats liés',
   'LBL_CONTRACT_NAME' => 'Nom du Contrat:',
+  'LBL_CONTRACT_STATUS' => 'Statut Contrat',
   'LBL_CREATED' => 'Créé par',
   'LBL_CREATED_BY' => 'Créer par',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'ID du Document',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDocument Numéro de version',
   'LBL_KBDOC_APPROVED_BY' => 'Approuvé par:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Nom de l&#39;approbateur',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Télécharger les Pièces Jointes:',
   'LBL_KBDOC_BODY' => 'Corps:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'ID de la dernière version',
   'LBL_LATEST_REVISION_NAME' => 'Nom de la dernière version',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Lancement de la navigation dans les Tags ...',
+  'LBL_LINKED_ID' => 'ID lié',
   'LBL_LIST_ACTIVE_DATE' => 'Date de Publication',
   'LBL_LIST_APPROVED_BY' => 'Approuvé par',
   'LBL_LIST_ARTICLES' => 'Articles',
@@ -152,7 +153,7 @@ $mod_strings = array (
   'LBL_MISMATCH_QUOTES_ERR' => 'Votre requète ne peut pas être executer tel quel. Il manque un double guillement de fermeture. Pour chercher un guillemet vous devez utiliser un \\ devant (").',
   'LBL_MODIFIED' => 'Modifié par (ID)',
   'LBL_MODIFIED_USER' => 'Modifié par',
-  'LBL_MODULE_NAME' => 'KBDocuments',
+  'LBL_MODULE_NAME' => 'Base de connaissances',
   'LBL_MODULE_NAME_SINGULAR' => 'Base de connaissances',
   'LBL_MODULE_TITLE' => 'Base de Connaissances - Article',
   'LBL_MOVE' => 'Déplacer',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Fichier invalide',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Type du Parent',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Vous pouvez filtrer la liste des articles en fournissant un terme de recherche.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Par exemple, vous pourriez l&#39;utiliser pour trouver un article sur un sujet auquel vous portez un intérêt particulier.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Le module de base de connaissances fonctionne avec des articles publiés. Utilisez les flèches ci-dessous pour effectuer un tour rapide.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Cette page affiche la liste des articles publiés.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'En cliquant ici vous pouvez revenir sur la base de connaissances à tout moment.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Recherches Sauvegardées:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editer ou Supprimer une Recherche Sauvegardée.',
   'LBL_PUBLISHED' => 'Publié:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Recherche Document',
   'LBL_SEARCH_TAG' => 'Rechercher',
   'LBL_SEARCH_WITHIN' => 'Recherche dans:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Nom du fichier de la révision sélectionné',
+  'LBL_SELECTED_REVISION_ID' => 'ID de la révision sélectionné',
   'LBL_SELECTED_REVISION_NAME' => 'Nom de la version sélectionnée',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Sélectionnez les articles à tagger',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Sélectionnez les Articles en premier',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Doit avoir le Tag:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Articles non taggés',
   'LBL_UPDATE' => 'Mise à jour',
+  'LBL_VIEWS_NUMBER' => 'Voir le numéro',
   'LNK_KBDOCUMENT_LIST' => 'Liste des Documents',
   'LNK_NEW_ARTICLE' => 'Créer un Article',
   'LNK_NEW_MAIL_MERGE' => 'Publipostage',

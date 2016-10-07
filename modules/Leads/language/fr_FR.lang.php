@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numéro d&#39;enregistrement doit être renseigné pour toute suppression.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adresse',
   'LBL_ADD_BUSINESSCARD' => 'Saisir carte de visite',
   'LBL_ALTERNATE_ADDRESS' => 'Adresse secondaire:',
-  'LBL_ALT_ADDRESS' => 'Autre adresse:',
   'LBL_ALT_ADDRESS_CITY' => 'Adresse secondaire - Ville',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Adresse secondaire - Pays',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Adresse secondaire - Code Postal',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Affaire convertie:',
   'LBL_CONVERTLEAD' => 'Convertir Lead',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Impossible de convertir le lead',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Vous avez converti le lead {{leadName}} avec succès, mais un problème est survenu durant l&#39;upload des pièces jointes d&#39;un ou plusieurs enregistrements',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Vous avez converti le lead {{leadName}} avec succès',
   'LBL_CONVERTLEAD_TITLE' => 'Convertir lead [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Attention : Le statut du lead que vous souhaitez convertir est "converti". Un contact et/ou un compte ont sans doute déja été créés à partir des informations de ce lead. Si vous souhaitez tout de même convertir ce lead, cliquez sur "sauvegarder". Sinon cliquez sur "annuler" pour retourner sur la page précédente.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Nous pensons que ce Lead a été converti vers ce contact :',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Vous n&#39;avez pas les droits d&#39;édition à l&#39;ensemble des modules nécessaire à la conversion de lead : {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Ajouter Module',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Lié avec {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Lier avec {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Retour aux doublons',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Convertir',
   'LBL_CONVERT_COPY' => 'Copier',
+  'LBL_CONVERT_CREATE_NEW' => 'Créer {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Supprimer',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} doublons trouvés',
   'LBL_CONVERT_EDIT' => 'Éditer',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Edition de la mise en page de conversion',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Recherche de doublon en cours...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignorer et créer un nouveau',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} lié',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Vous avez associé le lead avec l&#39;enregistrement {{recordName}} du module {{moduleNameLower}}  mais ce lien ne sera effectif qu&#39;à la fin de la conversion.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Vous avez effectué la liaison avec l&#39;enregistrement {{recordName}} du module {{moduleNameLower}} mais cette liaison ne sera effective qu&#39;une fois que vous aurez finit et sauvegardé la conversion.',
   'LBL_CONVERT_MODULE_NAME' => 'Module',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Module',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(optionnel)',
   'LBL_CONVERT_REQUIRED' => 'Requis',
+  'LBL_CONVERT_RESET_PANEL' => 'Réinitialiser',
   'LBL_CONVERT_SELECT' => 'Sélection',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Créer un nouveau',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Recherche',
   'LBL_COPY_TIP' => 'Si la case est cochée, les champs du lead seront copiés dans les champs ayant le même nom dans les enregistrements des modules de destination.',
   'LBL_COUNTRY' => 'Pays:',
   'LBL_CREATE' => 'Création',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Service:',
   'LBL_DESCRIPTION' => 'Description:',
   'LBL_DESCRIPTION_INFORMATION' => 'Description',
+  'LBL_DNB_BAL_PREVIEW' => 'Aperçu de leads',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Leads',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B : Information de lead',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID principal D&B',
   'LBL_DO_NOT_CALL' => 'Ne pas appeler:',
   'LBL_DUPLICATE' => 'Leads similaires',
   'LBL_EDITLAYOUT' => 'Editer la mise en page',
@@ -115,12 +134,39 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modifié par (ID)',
   'LBL_EXPORT_PHONE_MOBILE' => 'Portable',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Rapports sur les leads',
   'LBL_FIRST_NAME' => 'Prénom:',
   'LBL_FULL_NAME' => 'Nom Complet:',
+  'LBL_HELP_CONVERT' => 'Sugar vous permet de convertir des {{plural_module_name}} en {{contacts_module}}, {{accounts_module}},  ainsi que d&#39;autres modules une fois les critères de qualification de {{module_name}} sont remplis.
+
+Parcourez chaque module en modifiant les champs puis en confirmant les valeurs de la nouvelle fiche en cliquant sur chaque bouton associé. 
+
+Si Sugar détecte un enregistrement existant qui correspond à votre {{module_name}}, vous avez la possibilité de choisir un duplicata et confirmer la sélection avec le bouton associé ou de cliquer sur "Ignorer et créer" afin de continuer la création. 
+
+Après avoir confirmé chacun des modules souhaités, cliquez sur le bouton Enregistrer affin de finaliser la conversions.',
+  'LBL_HELP_CONVERT_TITLE' => 'Convertir un {{module_name}}',
+  'LBL_HELP_CREATE' => 'Le module {{plural_module_name}} permet de gérer les prospects qui ont montré un intérêt pour l&#39;un de vos produits ou bien l&#39;un de vos services. Une fois qu&#39;un enregistrement du module {{module_name}} et qu&#39;une vente/{{opportunities_singular_module}} semble en bonne voie, les enregistrements du module {{plural_module_name}} peuvent être converti en {{contacts_module}}, {{opportunities_module}}, et {{accounts_module}}.
+
+Pour créer un enregistrement du module {{module_name}}, les étapes suivantes sont nécessaires :
+1. Remplir les champs désirés.
+ - Les champs identifiés comme "Obligatoire" doivent être remplis avant de sauvegarder.
+ - Cliquer sur "Voir plus" pour afficher plus de champs de qualification.
+2. Cliquer sur "Sauvegarder" pour finaliser l&#39;enregistrement et retourner sur la page précédente.
+ - Cliquer sur "Sauvegarder et Afficher" Pour ouvrer la nouvelle {{module_name}}.
+ - Cliquer sur "Sauvegarder et Créer" pour créer immédiatement un autre enregistrement du module {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Le module {{plural_module_name}} permet de gérer les prospects qui ont montré un intérêt pour l&#39;un de vos produits ou bien l&#39;un de vos services.
+
+- Editer chaque champs en cliquant directement sur le champ concerné ou en cliquant sur le bouton Editer.
+- Voir ou modifier les liaisons avec les autres enregistrements via les sous-pannels.
+- Voir et participer aux commentaire et au flux d&#39;activité via le module {{activitystream_singular_module}} en cliquant sur le bouton "Flux d’activité".
+- Suivre ou mettre en favoris l&#39;enregistrement en utilisant les icônes prévues à cet effet à droite du nom de l&#39;enregistrement.
+- Des actions complémentaires sont disponibles dans la listes déroulantes des actions à droite du bouton Editer.',
+  'LBL_HELP_RECORDS' => 'Le module {{plural_module_name}} permet de gérer les prospects qui ont montré un intérêt pour l&#39;un de vos produits ou bien l&#39;un de vos services. Une fois qu&#39;un enregistrement du module {{module_name}} et qu&#39;une vente/{{opportunities_singular_module}} semble en bonne voie, les enregistrements du module {{plural_module_name}} peuvent être converti en {{contacts_module}}, {{opportunities_module}}, et {{accounts_module}}. Il y a plusieurs manière de créer des enregistrements dans le module  {{plural_module_name}} au sein de Sugar, comme par exemple via le module {{plural_module_name}} lui-même, en dupliquant un enregistrement existant, en utilisant la fonction d&#39;import du module {{plural_module_name}}, etc. Une fois l&#39;enregistrement créé dans le module {{module_name}}, vous pouvez afficher et modifier les informations directement via le module {{module_name}} en allant sur la vue Enregistrement du module {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historique et activités terminées',
   'LBL_HOME_PHONE' => 'Ligne directe:',
   'LBL_IMPORT_VCARD' => 'Importer vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Créer automatiquement un nouveau Lead par import de vcard depuis votre système.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Le lead a été importé avec succès depuis la vCard.',
   'LBL_INVALID_EMAIL' => 'Email non valide:',
   'LBL_INVITEE' => 'Rapports directs',
   'LBL_LAST_NAME' => 'Nom de famille:',
@@ -146,6 +192,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Fonction',
   'LBL_LOADING' => 'Chargement',
   'LBL_MESSAGE' => 'Veuillez entrer vos information ci-dessous. Informations et / ou un compte sera créé pour vous et sera en attente d&#39;approbation.',
+  'LBL_MKTO_ID' => 'ID du Lead dans Marketo',
+  'LBL_MKTO_LEAD_SCORE' => 'Score du Lead',
+  'LBL_MKTO_SYNC' => 'Synchronisé avec Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Téléphone mobile:',
   'LBL_MODIFIED' => 'Modifié par',
   'LBL_MODIFIED_ID' => 'Modifié par (ID)',
@@ -157,8 +206,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Nom:',
   'LBL_NEW_FORM_TITLE' => 'Nouveau Lead',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nouveau mot de Passe pour le portail:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Note: L&#39;écran de conversion de lead suivant contient des champs personnalisés. Lorsque vous personnalisez l&#39;écran de conversion de lead dans le studio pour la première fois, vous allez devoir ajouter vous même les champs personnalisés sur la vue. Les champs personnalisés n&#39;apparaitront plus automatiquement sur la vue comme cela était le cas auparavant.',
   'LBL_OFFICE_PHONE' => 'Téléphone:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Affaires',
   'LBL_OPPORTUNITY_AMOUNT' => 'Montant Affaire:',
   'LBL_OPPORTUNITY_ID' => 'Affaire (ID)',
   'LBL_OPPORTUNITY_NAME' => 'Nom Affaire:',
@@ -186,6 +237,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Adresse principale - Rue 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Adresse principale - Rue 3',
   'LBL_PROSPECT_LIST' => 'Lise des Leads',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Vous avez créé l&#39;enregistrement <a href="#{{buildRoute model=this}}">{{full_name}}</a> pour le module {{moduleSingularLower}}.',
   'LBL_REFERED_BY' => 'Fait référence à:',
   'LBL_REGISTRATION' => 'Enregistrement',
   'LBL_REPORTS_FROM' => 'Rend compte à :',
@@ -194,6 +246,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Les modules requis doivent être créés ou sélectionnés avant de convertir le lead.',
   'LBL_SALUTATION' => 'Civilité',
   'LBL_SAVED' => 'Merci de votre enregistrement. Votre compte a été créé et quelqu&#39;un vous contactera trés prochainement.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Sauvegarder et convertir',
   'LBL_SEARCH_FORM_TITLE' => 'Rechercher un Lead',
   'LBL_SELECT' => '<b>OU</b> Sélectionner',
   'LBL_SELECTION_TIP' => 'Les modules liés avec le module contacts pourront être sélectionnés plutôt que créés durant le processus de conversion de lead.',
@@ -210,6 +263,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Campagne réussie:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Merci. Votre inscription à bien été prise en compte.',
   'LBL_TITLE' => 'Fonction:',
+  'LBL_UNCONVERTED' => 'Non-converti',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Vue Lead',
   'LBL_WEBSITE' => 'Site web',
@@ -235,6 +289,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Créer une Affaire nécessite un Compte associé.\\n Merci de le créer ou de le sélectionner.',
   'NTC_REMOVE_CONFIRMATION' => 'Etes vous sûr de vouloir supprimer ce lead ?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Etes vous sûr de vouloir supprimer cet enregistrement en tant que rapport direct ?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

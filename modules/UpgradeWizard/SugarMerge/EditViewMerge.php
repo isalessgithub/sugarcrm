@@ -1,26 +1,23 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id$
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
- 
+
 /**
  * This is the base class that all other SugarMerge objects extend 
  *
@@ -119,7 +116,7 @@ class EditViewMerge{
 	 *
 	 * @var FILEPOINTER
 	 */
-	protected $fp = NULL;
+	protected $fp = null;
 	
 	
 	/**
@@ -172,11 +169,14 @@ class EditViewMerge{
             'Prospects' => array('created_by_name'=>'date_entered', 'modified_by_name'=>'date_modified'),
 	);
 
-    /**
-     * @var SugarMerge
+    /*
+     * In order to maintain changes to buttons, customcode, ect during upgrade
+     * we will now take existing custom values for useTabs, tabDefs and
+     * syncDetailEditViews for all modules. Everything else comes from the
+     * new viewdefs. - rgonzalez
      */
-    public $sugarMerge = null;
-
+    protected $templateMetaVarsToMerge = array('useTabs', 'tabDefs', 'syncDetailEditViews');
+	
 	/**
 	 * Clears out the values of the arrays so that the same object can be utilized
 	 *
@@ -496,22 +496,52 @@ class EditViewMerge{
 		return $panels;
 	}
 	
-	/**
-	 * Merge the templateMeta entry for the view defs.  Also assume that any changes made in the custom files should
-	 * have precedence since they must be changed manually, even over new files that may be provided in the upgarde
-	 * patch.
-	 *
-	 */
-	protected function mergeTemplateMeta()
-	{
-        //this is to handle the situation in Calls/Meetings where we updated the templateMeta and will fail if we don't update this.
-        //long term we should not do this and should provide a way for calls/meetings to update themselves.
-	    if( isset($this->customData[$this->module][$this->viewDefs][$this->templateMetaName]) && strcmp(strtolower($this->module), 'calls') != 0 && strcmp(strtolower($this->module), 'meetings') != 0 )
-	    {   
-	    	$this->newData[$this->module][$this->viewDefs][$this->templateMetaName] = $this->customData[$this->module][$this->viewDefs][$this->templateMetaName];
-	    }
+    /**
+     * Merge the templateMeta entry for the view defs.  Only merge studio accessible
+     * changes to the templateMeta. Upgrade entries should take precedence in all other
+     * cases.
+     */
+    protected function mergeTemplateMeta()
+    {
+        if (isset($this->customData[$this->module][$this->viewDefs][$this->templateMetaName])
+            && is_array($this->customData[$this->module][$this->viewDefs][$this->templateMetaName])
+        ) {
+            $custTM = &$this->customData[$this->module][$this->viewDefs][$this->templateMetaName];
+            $newTM = &$this->newData[$this->module][$this->viewDefs][$this->templateMetaName];
+            $oldTM = &$this->originalData[$this->module][$this->viewDefs][$this->templateMetaName];
+            foreach ($custTM as $key => $value) {
+                //Some sections we can always clone from custom to new
+                if (in_array($key, $this->templateMetaVarsToMerge)) {
+                    $newTM[$key] = $value;
+                }
+                //Check for entire sections that were removed and skip taking the custom version
+                else if (isset($oldTM[$key]) && !isset($newTM[$key])) {
+                    continue;
+                }
+                //3-way merge
+                else if (is_array($value)){
+                    $newTM[$key] = MergeUtils::deepMergeDef(
+                        isset($oldTM[$key]) ? $oldTM[$key] : array(),
+                        isset($newTM[$key]) ? $newTM[$key] : array(),
+                        $value
+                    );
+                }
+                //If the value didn't change, keep the custom version
+                else {
+                    if ((empty($newTM[$key]) && empty($oldTM[$key]))
+                        || (!empty($newTM[$key]) && !empty($oldTM[$key]) && $newTM[$key] == $oldTM[$key])
+                    ) {
+                        $newTM[$key] = $value;
+                    }
+                }
+            }
 
-	}
+        }
+
+
+    }
+
+
 	
 	/**
 	 * Sets the panel section for the meta-data after it has been merged
@@ -536,7 +566,6 @@ class EditViewMerge{
 		$this->customFields = $this->getFields($this->customData[$this->module][$this->viewDefs][$this->panelName]);
 		$this->customPanelIds = $this->getPanelIds($this->customData[$this->module][$this->viewDefs][$this->panelName]);		
 		$this->newFields = $this->getFields($this->newData[$this->module][$this->viewDefs][$this->panelName]);
-		//echo var_export($this->newFields, true);
 		$this->newPanelIds = $this->getPanelIds($this->newData[$this->module][$this->viewDefs][$this->panelName]);
 		$this->mergeFields();
 		$this->mergeTemplateMeta();
@@ -562,7 +591,7 @@ class EditViewMerge{
 		   } else {
 		   	  $panels = $panels[''];
 		   }
-		   $setDefaultPanel = true;   
+		   $setDefaultPanel = true;
 		}		
 		
 		if($this->scanForMultiPanel){
@@ -648,7 +677,7 @@ class EditViewMerge{
 		   } else {
 		   	  $panels = $panels[''];
 		   }
-		   $setDefaultPanel = true;   
+		   $setDefaultPanel = true;
 		}		
 		
 		if($this->scanForMultiPanel){

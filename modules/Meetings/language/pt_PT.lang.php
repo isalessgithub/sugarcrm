@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registo deve ser especificado para eliminar a reunião.',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Email de aviso enviado',
   'LBL_EMAIL_REMINDER_TIME' => 'Hora de envio do email de aviso',
   'LBL_EMPTY_SEARCH_RESULT' => 'Não foram encontrados resultados. Por favor criar um convidado abaixo.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Existe um erro ao executar esta reunião. Por favor contacte o Administrador.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID de Utilizador Atribuído',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nome de Utilizador Atribuído',
   'LBL_EXPORT_CREATED_BY' => 'ID do Utilizador que Criou',
@@ -80,6 +78,27 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Não é possível juntar-se a esta reunião porque não é um Convidado.',
   'LBL_EXTNOT_RECORD_LINK' => 'Ver Reunião',
   'LBL_FIRST_NAME' => 'Primeiro Nome',
+  'LBL_HELP_CREATE' => 'O módulo de {{plural_module_name}} é usado para seguir e gerir problemas relacionados com produtos ou serviços reportados pela sua organização ou clientes.
+
+
+
+Para criar um {{module_name}}:
+1. Fornecer valores para os campos como desejado.
+- Campos marcados como "Obrigatórios" deverão ser preenchidos antes de gravar.
+- Carregar "Mostrar mais" para mostrar campos adicionais se necessário.
+
+2. Carregar em "Gravar" para finalizar o novo registo e retornar à página anterior.
+- Escolher "Gravar e ver" para abrir o novo {{module_name}} na visualização do registo.
+- Escolher "Gravar e criar novo" para criar imediatamente outro novo {{module_name}}.',
+  'LBL_HELP_RECORD' => 'O módulo de {{plural_module_name}} é usado para seguir e gerir problemas relacionados com produtos ou serviços reportados pela sua organização ou clientes.
+
+- Edite os campos deste registo carregando em um campo individualmente ou no botão Editar.
+- Visualize ou modifique ligações para outros registos nos sub-paineis alterando o painel esquerdo do fundo para "Visaulização de Dados".
+- Crie e visualize comentários de utilizador e grande alterações do histórico no {{activitystream_singular_module}}  alterando o painel esquerdo do fundo para "Fluxo de Actividade".
+- Siga ou torne favorito este registo utilizando os ícones à direita do nome do registo.
+- Acções adicionais estão disponíveis no menu de selecção Acções à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O módulo de {{plural_module_name}} é usado para seguir e gerir problemas relacionados com produtos ou serviços reportados pela sua organização ou clientes. {{plural_module_name}} são tipicamente relacionados com um registo de uma {{accounts_singular_module}} e múltiplos {{plural_module_name}} poderão estar associados a um único {{accounts_singular_module}}. 
+Existem várias maneiras parar criar {{plural_module_name}} no Sugar, como por exemplo via o módulo de {{plural_module_name}}, importando {{plural_module_name}} ou convertendo-as a partir de um e-mail. Uma vez que o {{module_name}} é criado, poderá ver e editar a informação pertencente ao {{module_name}} via a visualização do registo do {{module_name}}. Cada registo de {{module_name}} poderá estar relacionado com outro registo no Sugar, como por exemplo: {{calls_module}}, {{contacts_module}}, {{bugs_module}}, e muitos outros.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notas ou Anexos',
   'LBL_HOST_EXT_MEETING' => 'Começar a Reunião',
   'LBL_HOST_URL' => 'URL de anfitrião',
@@ -87,6 +106,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(horas/minutos)',
   'LBL_INVITEE' => 'Convidados',
   'LBL_JOIN_EXT_MEETING' => 'Juntar à Reunião',
+  'LBL_JOIN_MEETING' => 'Juntar {{meetingType}}',
   'LBL_LAST_NAME' => 'Último Nome',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Utilizador',
@@ -105,6 +125,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Hora de Início',
   'LBL_LOCATION' => 'Local:',
   'LBL_MEETING' => 'Reunião:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Reuniões fechadas com sucesso.',
   'LBL_MEETING_INFORMATION' => 'Informação da Reunião',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Modificado por',
@@ -112,6 +133,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Reuniões',
   'LBL_MODULE_NAME_SINGULAR' => 'Reunião',
   'LBL_MODULE_TITLE' => 'Reuniões: Ecrã Principal',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Minhas Reuniões Programadas',
   'LBL_NAME' => 'Nome',
   'LBL_NEW_FORM_TITLE' => 'Criar Novo Compromisso',
   'LBL_NO_ACCESS' => 'Não tem permissões para criar $module',
@@ -120,6 +142,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Tipo de Origem',
   'LBL_PASSWORD' => 'Password de Reunião',
   'LBL_PHONE' => 'Telefone do Escritório',
+  'LBL_POPUP_REMINDER' => 'Popup Lembrete',
+  'LBL_POPUP_REMINDER_TIME' => 'Popup Lembrete',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Você criou com êxito o registo {{moduleSingularLower}} em {{formatDate date_start}}, mas não tem permissões para aceder a esse registo.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Criou com sucesso o registo {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> em {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Recorrência',
   'LBL_RECURRING_LIMIT_ERROR' => 'Esta reunião recorrente não pode ser agendada porque excede o limite $limit máximo permitido de ocorrências.',
   'LBL_RECURRING_SOURCE' => 'Fonte Recorrente',
@@ -130,6 +156,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Enviar email a todos os convidados',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Hora do Aviso',
+  'LBL_REMINDER_TITLE' => 'Reunião:',
   'LBL_REMOVE' => 'rem',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Remover Todas as Recorrências',
   'LBL_REPEAT_COUNT' => 'Contagem de Repetição',
@@ -142,6 +169,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Id do Parente da Repetição',
   'LBL_REPEAT_TYPE' => 'Tipo de Repetição',
   'LBL_REPEAT_UNTIL' => 'Repetir Até',
+  'LBL_REVENUELINEITEMS' => 'Itens de Linha de Receita',
   'LBL_SCHEDULING_FORM_TITLE' => 'Calendarização',
   'LBL_SEARCH_BUTTON' => 'Pesquisar',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Reuniões',
@@ -150,6 +178,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Enviar convites [Alt+I]',
   'LBL_SEND_INVITES' => 'Enviar convites',
   'LBL_SEQUENCE' => 'Sequência de actualização da Reunião',
+  'LBL_START_MEETING' => 'Começar {{meetingType}}',
   'LBL_STATUS' => 'Estado:',
   'LBL_SUBJECT' => 'Assunto:',
   'LBL_SYNCED_RECURRING_MSG' => 'Esta reunião é oriunda de outro sistema e foi sincronizada com o Sugar. Assim que esta reunião for editada no Sugar, irá deixar de ser possível sincronizar com outro sistema.',

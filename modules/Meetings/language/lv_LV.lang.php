@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Jānorāda ieraksta numurs, lai izdzēstu tikšanos.',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'E-pasta atgādinājums nosūtīts',
   'LBL_EMAIL_REMINDER_TIME' => 'E-pasta atgādinājuma laiks',
   'LBL_EMPTY_SEARCH_RESULT' => 'Atvainojiet, rezultāti netika atrasti. Lūdzu zemāk izveidojiet ielūgumu.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Radas kļūda palaižot tikšanos. Lūdzu sazinieties ar administratoru.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Piešķirts lietotājam ID',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Piešķirts lietotājam',
   'LBL_EXPORT_CREATED_BY' => 'Izveidoja ID',
@@ -80,6 +78,30 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Jūs nevariet pievienoties tikšanās, jo neesat ielūgts',
   'LBL_EXTNOT_RECORD_LINK' => 'Skatīt tikšanos',
   'LBL_FIRST_NAME' => 'Vārds',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module consists of {{meetings_module}} records logged by users in your organization. {{plural_module_name}} may be in a status of "Scheduled", "Held", or "Canceled". Sugar users as well as {{contacts_module}} and {{leads_module}} may be added as invitees.
+
+To create a {{meetings_singular_module}}:
+1. Provide values for the fields as desired.
+    - Fields marked "Required" must be completed prior to saving.
+    - Click "Show More" to expose additional fields if necessary.
+2. Add invitees to the {{meetings_singular_module}}.
+    - Click "Select an Attendee" to add an existing user, contact, or lead to the {{meetings_singular_module}}.
+    - Click the plus icon to the right of "Select an Attendee" to create a {{meetings_singular_module}} attendee as a new Sugar record.
+3. Click "Save" to finalize the new record and return to the previous page.
+    - Choose "Save and view" to open the new meeting in record view.
+    - Choose "Save and create new" to immediately create another new {{meetings_singular_module}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of {{meetings_singular_module}} records logged by users in your organization. {{plural_module_name}} may be in a status of "Scheduled", "Held", or "Canceled". Sugar users as well as {{contacts_module}} and {{leads_module}} may be added as invitees.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the activity stream by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of meeting records which may be in a status of "Scheduled", "Held", or "Canceled". Upcoming meetings scheduled within the next 24 hours show the start date highlighted in blue. Overdue meetings show the start date highlighted in red.
+
+From this {{plural_module_name}} list view, you can view and in-line edit meeting information. Additional actions are available in the menu at the end of each meeting&#39;s row. You can select "Close" from the menu on any scheduled meeting&#39;s row in order to mark it as held.
+
+Sugar users, contacts, and leads may be added as meeting invitees. {{plural_module_name}} may be created via the {{plural_module_name}} module, Calendar module, import, as well as via the Activities subpanel (for Legacy modules) or Planned Activities dashlet (for Sidecar modules) on related module records (e.g. Contacts, Accounts, etc.), which automatically creates a relationship between both records.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_HOST_EXT_MEETING' => 'Sākt tikšanos',
   'LBL_HOST_URL' => 'Bāzes URL',
@@ -87,6 +109,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(stundas/minūtes)',
   'LBL_INVITEE' => 'Dalībnieki',
   'LBL_JOIN_EXT_MEETING' => 'Pievienoties tikšanās',
+  'LBL_JOIN_MEETING' => 'Pieslēgties {{meetingType}}',
   'LBL_LAST_NAME' => 'Uzvārds',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Interesenti',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',
@@ -105,6 +128,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Sākuma laiks',
   'LBL_LOCATION' => 'Vieta:',
   'LBL_MEETING' => 'Tikšanās:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Tikšanās veiksmīgi aizvērta.',
   'LBL_MEETING_INFORMATION' => 'Apraksts',
   'LBL_MINSS_ABBREV' => 'm',
   'LBL_MODIFIED_BY' => 'Modificēja',
@@ -112,6 +136,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Tikšanās',
   'LBL_MODULE_NAME_SINGULAR' => 'Tikšanās',
   'LBL_MODULE_TITLE' => 'Tikšanās',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Manas plānotās tikšanās',
   'LBL_NAME' => 'Nosaukums',
   'LBL_NEW_FORM_TITLE' => 'Izveidot tikšanos:',
   'LBL_NO_ACCESS' => 'Jums nav tiesības veidot $moduli',
@@ -120,6 +145,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Vecāka tips',
   'LBL_PASSWORD' => 'Tikšanās parole',
   'LBL_PHONE' => 'Biroja tālrunis:',
+  'LBL_POPUP_REMINDER' => 'Izlecošais atgādinājums',
+  'LBL_POPUP_REMINDER_TIME' => 'Izlecošā atgādinājuma laiks',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Jūs ieplānojāt {{moduleSingularLower}} uz {{formatDate date_start}}, bet jums nav tiesību tam piekļūt.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Jūs ieplānojāt {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> uz {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Atkārtošanās',
   'LBL_RECURRING_LIMIT_ERROR' => 'Atkārtotās tikšanās nevar ieplānot, jo tās pārsniedz maksimāli atļauto atkārtojumu skaitu  $limit.',
   'LBL_RECURRING_SOURCE' => 'Atkārtošanas avots',
@@ -130,6 +159,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'E-pasts visiem dalībniekiem',
   'LBL_REMINDER_POPUP' => 'Uznirstošais atgādinājums',
   'LBL_REMINDER_TIME' => 'Atgādinājuma laiks',
+  'LBL_REMINDER_TITLE' => 'Tikšanās:',
   'LBL_REMOVE' => 'noņemt',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Dzēst visus atkārtojumus',
   'LBL_REPEAT_COUNT' => 'Atkārtošanās skaits',
@@ -142,6 +172,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Atkārtošanās vecāka ID',
   'LBL_REPEAT_TYPE' => 'Atkārtošanās veids',
   'LBL_REPEAT_UNTIL' => 'Atkārtot kamēr',
+  'LBL_REVENUELINEITEMS' => 'Ieņēmumu posteņi',
   'LBL_SCHEDULING_FORM_TITLE' => 'Plānošana',
   'LBL_SEARCH_BUTTON' => 'Meklēšana',
   'LBL_SEARCH_FORM_TITLE' => 'Tikšanās meklēšana',
@@ -150,6 +181,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Sūtīt uzaicinājumus [Alt+I]',
   'LBL_SEND_INVITES' => 'Sūtīt uzaicinājumus',
   'LBL_SEQUENCE' => 'Tikšanās atjaunināšanas secība',
+  'LBL_START_MEETING' => 'Sākt {{meetingType}}',
   'LBL_STATUS' => 'Statuss:',
   'LBL_SUBJECT' => 'Temats:',
   'LBL_SYNCED_RECURRING_MSG' => 'Šī tikšanās tika izveidota citā sistēmā un tā tika sinhronizēta ar Sugar. Lai veiktu izmaiņas, izmantojiet tikšanās avota sistēmu. Izmaiņas avota sistēmā var tikt sasinhronizētas ar šo ierakstu.',

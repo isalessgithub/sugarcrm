@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para eliminar a Conta.',
@@ -43,6 +40,9 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Mime Type',
   'LBL_FILE_URL' => 'URL do Arquivo',
   'LBL_FIRST_NAME' => 'Primeiro Nome',
+  'LBL_HELP_CREATE' => 'Para Criar o {{module_name}}: 1. Forneça valores para os campos conforme desejado. - Os campos marcados "necessária" deve ser preenchido antes de salvar. - Clique em "Mostrar mais" para expor campos adicionais, se necessário. 2 Clique em "Salvar" para finalizar o novo registro e retornar à página anterior. - Escolha a opção "Salvar e visualizar" para abrir o novo {{module_name}} tendo em vista o registro. - Escolha a opção "Salvar e criar novo" para criar imediatamente um outro novo {{module_name}}.',
+  'LBL_HELP_RECORD' => 'O {{plural_module_name}} Consiste de um modulo individual  {{plural_module_name}} que contêm texto ou um anexo pertinente ao registro relacionado. {{module_name}} registros podem estar relacionados a um registro na maioria dos módulos via o flex campo relacionam e também pode estar relacionada a um único {{contacts_singular_module}}. {{plural_module_name}} pode conter texto genérico sobre um registro ou mesmo um anexo relacionado com o registro. Existem várias maneiras que você pode criar {{plural_module_name}} no Sugar assim como via {{plural_module_name}} modulo, importando{{plural_module_name}}, Uma Vez que {{module_name}} registro é criado, você pode visualizar e editar as informações relativas à {{module_name}} via {{plural_module_name}} ver o registro. Cada {{module_name}} registro pode então relacionar com outros registros de açúcar, tais como {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, e muitos outros.',
+  'LBL_HELP_RECORDS' => 'O {{plural_module_name}} Consiste de um modulo individual  {{plural_module_name}} que contêm texto ou um anexo pertinente ao registro relacionado. {{module_name}} registros podem estar relacionados a um registro na maioria dos módulos via o flex campo relacionam e também pode estar relacionada a um único {{contacts_singular_module}}. {{plural_module_name}} pode conter texto genérico sobre um registro ou mesmo um anexo relacionado com o registro. Existem várias maneiras que você pode criar {{plural_module_name}} no Sugar assim como via {{plural_module_name}} modulo, importando{{plural_module_name}}, Uma Vez que {{module_name}} registro é criado, você pode visualizar e editar as informações relativas à {{module_name}} via {{plural_module_name}} ver o registro. Cada {{module_name}} registro pode então relacionar com outros registros de açúcar, tais como {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, e muitos outros.',
   'LBL_LAST_NAME' => 'Sobrenome',
   'LBL_LEAD_ID' => 'ID do Potencial',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Usuário',
@@ -79,6 +79,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'ID da Cotação',
   'LBL_RELATED_TO' => 'Referente a',
   'LBL_REMOVING_ATTACHMENT' => 'Removendo anexo...',
+  'LBL_REVENUELINEITEMS' => 'Receita Itens de Linha',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Notas ou Anexos',
   'LBL_SEND_ANYWAYS' => 'Este e-mail está sem assunto. Enviar / Gravar mesmo assim?',
   'LBL_STATUS' => 'Estado',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class SugarWidgetFieldEnum extends SugarWidgetReportField
 {
@@ -32,26 +29,21 @@ class SugarWidgetFieldEnum extends SugarWidgetReportField
         return "(coalesce(" . $this->reporter->db->convert($column, "length") . ",0) > 0 AND $column != '^^' )\n";
     }
 
-    public function queryFilteris($layout_def) {
-		$input_name0 = $layout_def['input_name0'];
-		if (is_array($layout_def['input_name0'])) {
-			$input_name0 = $layout_def['input_name0'][0];
-		}
+	public function queryFilteris($layout_def) {
+        $input_name0 = $this->getInputValue($layout_def);
 		return $this->_get_column_select($layout_def)." = ".$this->reporter->db->quoted($input_name0)."\n";
 	}
 
 	public function queryFilteris_not($layout_def) {
-		$input_name0 = $layout_def['input_name0'];
-		if (is_array($layout_def['input_name0'])) {
-			$input_name0 = $layout_def['input_name0'][0];
-		}
+        $input_name0 = $this->getInputValue($layout_def);
 		return $this->_get_column_select($layout_def)." <> ".$this->reporter->db->quoted($input_name0)."\n";
 	}
 
 	public function queryFilterone_of($layout_def) {
 		$arr = array ();
-		foreach ($layout_def['input_name0'] as $value) {
-			$arr[] = $this->reporter->db->quoted($value);
+		foreach ($layout_def['input_name0'] as $value)
+        {
+            $arr[] = $this->reporter->db->quoted($value);
 		}
 		$str = implode(",", $arr);
 		return $this->_get_column_select($layout_def)." IN (".$str.")\n";
@@ -59,10 +51,10 @@ class SugarWidgetFieldEnum extends SugarWidgetReportField
 
 	public function queryFilternot_one_of($layout_def) {
 		$arr = array ();
-		foreach ($layout_def['input_name0'] as $value) {
-			$arr[] = $this->reporter->db->quoted($value);
+		foreach ($layout_def['input_name0'] as $value)
+        {
+            $arr[] = $this->reporter->db->quoted($value);
 		}
-	    $reporter = $this->layout_manager->getAttribute("reporter");
 		$str = implode(",", $arr);
 		return $this->_get_column_select($layout_def)." NOT IN (".$str.")\n";
 	}
@@ -119,14 +111,19 @@ class SugarWidgetFieldEnum extends SugarWidgetReportField
 			if(isset($field_def['options'])){
 				$cell = translate($field_def['options'], $field_def['module'], $value);
 			}else if(isset($field_def['type']) && $field_def['type'] == 'enum' && isset($field_def['function'])){
-	            global $beanFiles;
-	            if(empty($beanFiles)) {
-	                include('include/modules.php');
-	            }
-	            $bean_name = get_singular_bean_name($field_def['module']);
-	            require_once($beanFiles[$bean_name]);
-	            $list = $field_def['function']();
-	            $cell = $list[$value];
+                if (isset($field_def['function_bean'])) {
+                    $bean = BeanFactory::getBean($field_def['function_bean']);
+                    $list = $bean->$field_def['function']();
+                } else {
+                    global $beanFiles;
+                    if (empty($beanFiles)) {
+                        include('include/modules.php');
+                    }
+                    $bean_name = get_singular_bean_name($field_def['module']);
+                    require_once($beanFiles[$bean_name]);
+                    $list = $field_def['function']();
+                }
+                $cell = $list[$value];
 	        }
 		if (is_array($cell)) {
 
@@ -159,9 +156,24 @@ class SugarWidgetFieldEnum extends SugarWidgetReportField
 		    if(empty($beanFiles)) {
 		        include('include/modules.php');
 		    }
-		    $bean_name = get_singular_bean_name($field_def['module']);
-		    require_once($beanFiles[$bean_name]);
-            $list = $field_def['function']();
+
+            $list = array();
+            $checkedFunction = false;
+            //use bean function if function and function bean have been specified
+            if (!empty($field_def['function_bean'])) {
+                $bean = BeanFactory::getBean($field_def['function_bean']);
+                if ( method_exists($bean, $field_def['function'])) {
+                    $list = $bean->$field_def['function']();
+                    $checkedFunction = true;
+                }
+            }
+
+            //if list was not filled through a bean function, try method
+            if(!$checkedFunction) {
+                $bean_name = get_singular_bean_name($field_def['module']);
+                require_once($beanFiles[$bean_name]);
+                $list = $field_def['function']();
+            }
         }
 		if (empty ($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a') {
 			$order_dir = "ASC";

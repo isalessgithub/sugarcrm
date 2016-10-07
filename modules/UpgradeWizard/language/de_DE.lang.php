@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Die folgenden Module wurden installiert:',
   'DESC_MODULES_QUEUED' => 'Die folgenden Module können installiert werden:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Die hochgeladene Datei ist nicht kompatibel mit dieser Sugar Edition (Community Edition, Professional oder Enterprise).:',
+  'ERROR_HT_NO_WRITE' => 'Datei: %s kann nicht geschrieben werden',
+  'ERROR_MANIFEST_TYPE' => 'Die Manifest-Datei muss den Typ der Anwendung spezifizieren.',
+  'ERROR_PACKAGE_TYPE' => 'Manifest-Datei spezifiziert einen unbekannten Anwendungstyp: %s',
+  'ERROR_UW_CONFIG_DB' => 'Fehler beim Abspeichern des Konfigurationswertes %s in die Datenbank (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Die geladene Datei ist nicht mit dieser Sugar Version kompatibel:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Ihre PHP Version wird von Sugar nicht unterstützt. Sie müssen eine kompatible Version installieren. Bitte überprüfen Sie dazu die Kompatibilitätsmatrix in den Release Notes. Ihre Version ist',
+  'ERR_NOT_ADMIN' => 'Nicht authorisierter Zugriff auf die Administration',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Sie haben nicht die entsprechenden Benutzerrechte um diese Seite zu sehen',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Gruppe kann nicht bestimmt werden',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Besitzer kann nicht bestimmt werden',
   'ERR_UW_CONFIG' => 'Bitte setzten Sie Schreibrechte für die config.php Datei und laden Sie diese Seite erneut.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Neustart',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Commit Upgrade im Gang',
   'LBL_CURRENT_PHP_VERSION' => '(Deine derweilige PHP Version ist',
+  'LBL_GLOBAL_TEAM_DESC' => 'Global sichtbar',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php Version 5 oder später wird benötigt.',
   'LBL_LANGPACKS' => 'Sprachpaket',

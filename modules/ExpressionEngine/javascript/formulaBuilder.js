@@ -1,19 +1,17 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 SUGAR.expressions.initFormulaBuilder=function(){var Dom=YAHOO.util.Dom,Connect=YAHOO.util.Connect,Msg=YAHOO.SUGAR.MessageBox;SUGAR.expressions.getFunctionList=function()
 {var typeMap=SUGAR.expressions.Expression.TYPE_MAP;var funcMap=SUGAR.FunctionMap;var funcList=[];for(var i in funcMap){if(typeof funcMap[i]=="function"&&funcMap[i].prototype){for(var j in typeMap){if(funcMap[i].prototype instanceof typeMap[j]){funcList[funcList.length]=[i,j];break;}}}}
 return funcList;};SUGAR.expressions.getDisplayFunctionList=function(){var functionsArray=SUGAR.expressions.getFunctionList();var usedClasses={};var ret=[];for(var i in functionsArray)
-{var fName=functionsArray[i][0];switch(fName){case"isValidTime":case"isAlpha":case"doBothExist":case"isValidPhone":case"isRequiredCollection":case"isNumeric":case"isValidDBName":case"isAlphaNumeric":case"stddev":case"charAt":case"formatName":case"sugarField":continue;break;}
+{var fName=functionsArray[i][0];switch(fName){case"isValidTime":case"isAlpha":case"doBothExist":case"isValidPhone":case"isRequiredCollection":case"isNumeric":case"isValidDBName":case"isAlphaNumeric":case"stddev":case"charAt":case"formatName":case"sugarField":case"currencyRate":continue;break;}
 if(functionsArray[i][1]=="time")
 continue;if(usedClasses[SUGAR.FunctionMap[fName].prototype.className])
 continue;if(functionsArray[i][1]=="number")
@@ -31,6 +29,7 @@ if(t.type=="function")
 {SUGAR.expressions.setReturnTypes(t.args[i],vMap);}
 var fMap=SUGAR.FunctionMap;if(typeof(fMap[t.name])=="undefined")
 throw(t.name+": No such function defined");for(var j in see.TYPE_MAP){if(fMap[t.name].prototype instanceof see.TYPE_MAP[j]){t.returnType=j;break;}}
+if(t.name=="ifElse"){var args=t.args;if(args[1].returnType==args[2].returnType){t.returnType=args[1].returnType;}}
 if(!t.returnType)
 throw(t.name+": No known return type!");}}
 SUGAR.expressions.validateReturnTypes=function(t)
@@ -48,16 +47,13 @@ else{for(var i=0;i<types.length;i++){if(!fMap[t.name].prototype.isProperType(new
 {SE.validateRelateFunctions(t.args[i]);}
 var relFuncs=["related","rollupAve","rollupMax","rollupMin","rollupSum"];if(SU.arrayIndexOf(relFuncs,t.name)==-1)
 return true;var url="index.php?"+SU.paramsToUrl({module:"ExpressionEngine",action:"validateRelatedField",tmodule:ModuleBuilder.module,package:ModuleBuilder.MBpackage,link:t.args[0].name,related:t.args[1].value});var resp=http_fetch_sync(url);var def=YAHOO.lang.JSON.parse(resp.responseText);if(typeof(def)=="string"){throw(t.name+": "+def);}
-if(def.calculated&&(typeof(def.calculated)!="string"||def.calculated.toLowerCase()!=="false"))
-{throw(t.name+": Cannot use calculated field "+t.args[1].value)}
 if(t.name!="related"&&def.type&&SU.arrayIndexOf(["decimal","int","float","currency"],def.type)==-1)
 {throw(t.name+": related field  "+t.args[1].value+" must be a number ");}
 return;}};SUGAR.expressions.validateCurrExpression=function(silent,matchType)
 {try{var varTypeMap={};for(var i=0;i<fieldsArray.length;i++){varTypeMap[fieldsArray[i][0]]=fieldsArray[i][1];}
-var expression=YAHOO.lang.trim(Dom.get('formulaInput').value);var tokens=new SUGAR.expressions.ExpressionParser().tokenize(expression);SUGAR.expressions.setReturnTypes(tokens,varTypeMap);SUGAR.expressions.validateReturnTypes(tokens);SUGAR.expressions.validateRelateFunctions(tokens);if(matchType&&matchType!=tokens.returnType)
-{Msg.show({title:SUGAR.language.get("ModuleBuilder","LBL_FORMULA_INVALID"),msg:SUGAR.language.get("ModuleBuilder","LBL_FORMULA_TYPE")+matchType});return false;}
+var expression=YAHOO.lang.trim(Dom.get('formulaInput').value);var tokens=new SUGAR.expressions.ExpressionParser().tokenize(expression);SUGAR.expressions.setReturnTypes(tokens,varTypeMap);SUGAR.expressions.validateReturnTypes(tokens);SUGAR.expressions.validateRelateFunctions(tokens);if(matchType&&matchType!=tokens.returnType){Msg.show({type:"alert",title:SUGAR.language.get("ModuleBuilder","LBL_FORMULA_INVALID"),msg:SUGAR.language.get("ModuleBuilder","LBL_FORMULA_TYPE")+matchType});return false;}
 if(typeof(silent)=='undefined'||!silent)
-Msg.show({msg:"Validation Sucessfull"});return true;}catch(e){Msg.show({title:SUGAR.language.get("ModuleBuilder","LBL_FORMULA_INVALID"),msg:YAHOO.lang.escapeHTML(e.message?e.message:e)});return false;}}
+Msg.show({msg:"Validation Sucessfull"});return true;}catch(e){Msg.show({type:"alert",title:SUGAR.language.get("ModuleBuilder","LBL_FORMULA_INVALID"),msg:YAHOO.lang.escapeHTML(e.message?e.message:e)});return false;}}
 SUGAR.expressions.saveCurrentExpression=function(target,returnType)
 {var expression=YAHOO.lang.trim(Dom.get('formulaInput').value);var res="";var quote=0;for(var i=0;i<expression.length;i++){var ch=expression.substr(i,1);if(ch=='"'){quote++;}
 if((quote%2)||ch!=" "){res+=ch;}}

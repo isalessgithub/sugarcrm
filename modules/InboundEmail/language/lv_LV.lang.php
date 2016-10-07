@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Pieteikšanās vārds vai parole nav pareiza',
   'ERR_BODY_TOO_LONG' => '\\r Ķermeņa teksts ir pārāk garš lai attēlotu PILNU e-pastu. Apgriezts.',
+  'ERR_DELETE_FOLDER' => 'Nevar izdzēst katalogu.',
   'ERR_INI_ZLIB' => 'Pagaidām nevar izslēgt "Zlib" kompresiju.  "Iestatījumu pārbaude" var neizdoties.',
   'ERR_MAILBOX_FAIL' => 'Nevar izgūt nevienu pasta kontu.',
   'ERR_NO_IMAP' => 'Nav atrastas IMAP bibliotēkas.  Atrisiniet šo problēmu pirms ienākošo e-pastu procedūras turpināšanas',
   'ERR_NO_OPTS_SAVED' => 'Ienākošo e-pastu konti nav saglabāti ar optimāliem iestatījumiem.  Pārbaudiet iestatījumus',
   'ERR_TEST_MAILBOX' => 'Pārbaudiet iestatījumus un mēģiniet vēlreiz.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Nevar atrakstīties no kataloga pirms dzēšanas.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Atļaut lietotājiem izmanto kā atbildes adresi sūtītāja vārdu un adresi',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Ja opcija tiks atzīmēta, tad lietotājiem, kuriem ir pieeja grupas e-pasta konta, veidojot jaunus e-pastu, kā sūtītāja vārds un adrese var tikt izmantots grupas parametros norādītais sūtītāja vārds un adrese.',
   'LBL_APPLY_OPTIMUMS' => 'Piemērot optimālos iestatījumus',

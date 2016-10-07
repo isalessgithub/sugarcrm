@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry)
 	die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 // User is used to store Forecast information.
 class KBDocument extends SugarBean {
 
@@ -73,13 +70,46 @@ class KBDocument extends SugarBean {
 		'lead_id' => 'leads'
 	 );
 
-	function KBDocument() {
-		parent :: SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function KBDocument()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		$this->setupCustomFields('KBDocuments'); //parameter is module name
 	}
 
+    /**
+     * @see SugarBean::populateFromRow
+     */
+    public function populateFromRow($row, $convert = false)
+    {
+        $row = parent::populateFromRow($row, $convert);
+
+        if (!empty($this->kbdocument_name) && empty($this->name)) {
+            $this->name = $this->kbdocument_name;
+        }
+
+        return $row;
+    }
+
+    public function save($check_notify = false)
+    {
+        if (empty($this->kbdocument_name) && !empty($this->name)) {
+            $this->kbdocument_name = $this->name;
+        }
+        return parent::save($check_notify);
+    }
+
 	function get_notification_recipients() {
-		$notify_user = new User();
+		$notify_user = BeanFactory::getBean('Users');
 		if ($this->status_id=='In Review') {
 			$notify_user->retrieve($this->kbdoc_approver_id);
 		} else {
@@ -97,8 +127,7 @@ class KBDocument extends SugarBean {
 	  function set_notification_body($xtpl, $kbdoc)
 	{
 		global $app_list_strings,$current_user,$mod_strings,$timedate;
-		$user = new User();
-		$user->retrieve($kbdoc->created_by);
+		$user = BeanFactory::getBean('Users', $kbdoc->created_by);
 		$user_name = '';
 
 		if($user->first_name != null){
@@ -149,9 +178,15 @@ class KBDocument extends SugarBean {
 		$row = $this->db->fetchByAssoc($result);
 		if(!empty($row)) {
 		   $this->kbarticle_author_id = $this->created_by;
-		   $this->kbarticle_author_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+            $this->kbarticle_author_name = $locale->formatName('Users', $row);
 		   $this->created_by = $this->kbarticle_author_name;
 		}
+        //populate name
+        if (isset($this->kbdocument_name)) {
+            $this->name = $this->kbdocument_name;
+        }
+        $this->body = html_entity_decode(KBDocument::get_kbdoc_body_without_incrementing_count($this->id));
+
 	}
 
 	function fill_in_additional_detail_fields() {
@@ -161,7 +196,6 @@ class KBDocument extends SugarBean {
 
 		parent::fill_in_additional_detail_fields();
 
-		$this->assigned_name = get_assigned_team_name($this->team_id);
 		$mod_strings = return_module_language($current_language, 'KBDocuments');
 
 		$query = "SELECT filename,revision,file_ext FROM kbdocument_revisions WHERE id='$this->kbdocument_revision_id'";
@@ -203,34 +237,13 @@ class KBDocument extends SugarBean {
 
 			$this->last_rev_create_date = $timedate->to_display_date_time($row['rev_date']);
 		}
+
+        $this->name = $this->kbdocument_name;
+        $this->body = html_entity_decode(KBDocument::get_kbdoc_body_without_incrementing_count($this->id), ENT_COMPAT|ENT_QUOTES, 'UTF-8');
 	}
 
 	function list_view_parse_additional_sections(& $list_form, $xTemplateSection) {
 		return $list_form;
-	}
-
-    function create_export_query(&$order_by, &$where, $relate_link_join='')
-    {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-        $custom_join['join'] .= $relate_link_join;
-		$query = "SELECT
-						kbdocuments.*";
-        $query .=  $custom_join['select'];
-		$query .= " FROM kbdocuments ";
-        $query .=  $custom_join['join'];
-		$where_auto = " kbdocuments.deleted = 0";
-
-		if ($where != "")
-			$query .= " WHERE $where AND ".$where_auto;
-		else
-			$query .= " WHERE ".$where_auto;
-
-		if ($order_by != "")
-			$query .= " ORDER BY $order_by";
-		else
-			$query .= " ORDER BY kbdocuments.kbdocument_name";
-
-		return $query;
 	}
 
     function create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false,$parentbean){
@@ -248,15 +261,42 @@ class KBDocument extends SugarBean {
         }
         $ret_array['from'] = " FROM kbdocuments left join kbdocuments_views_ratings kvr ON kbdocuments.id = kvr.kbdocument_id  LEFT JOIN  users jt0 ON jt0.id= kbdocuments.assigned_user_id AND jt0.deleted=0  LEFT JOIN  users jt1 ON jt1.id= kbdocuments.kbdoc_approver_id AND jt1.deleted=0 ";
         $ret_array['from'] .= $custom_join['join'];
-        if (!is_admin($current_user) && !$this->disable_row_level_security){
-            $this->add_team_security_where_clause($ret_array['from']);
+        $this->addVisibilityFrom($ret_array['from'], array('where_condition' => true));
+        $this->addVisibilityWhere($where, array('where_condition' => true));
+        $favorites = (!empty($params['favorites']))?$params['favorites']: 0;
+        if(!empty($favorites)){
+            $ret_array['select'] .= " , sfav.id my_favorite ";
+            if($favorites == 2){
+                $ret_array['from'] .= " INNER JOIN ";
+            }else{
+                $ret_array['from'] .= " LEFT JOIN ";
+            }
+
+        $ret_array['from'] .= " sugarfavorites sfav ON sfav.module ='{$this->module_dir}' AND sfav.record_id={$this->table_name}.id AND sfav.created_by='{$GLOBALS['current_user']->id}' AND sfav.deleted=0 ";
         }
+        // Bug 57679 - All KBDocs coming back, even deleted ones
+        $where_deleted = '';
+        if($show_deleted == 0)
+        {
+            $where_deleted = "$this->table_name.deleted=0";
+        }else if($show_deleted == 1)
+        {
+            $where_deleted = "$this->table_name.deleted=1";
+        }
+
         if(!empty($where) && trim($where) != '') {
+            // Add in the deleted
+            if (!empty($where_deleted)) {
+                $where .= ' AND ' . $where_deleted;
+            }
+
             // Strip leading AND or OR for bug 48173
-            $ret_array['where'] = ' WHERE '. preg_replace('#^\s*(AND)|(OR)\s+#i', '', $where);
+            $ret_array['where'] = ' WHERE '. preg_replace('#^\s*(AND|OR)\s+#i', '', $where);
         } else {
-            $ret_array['where'] = '';
+            // Handle deleted
+            $ret_array['where'] = empty($where_deleted) ? '' : ' WHERE ' . $where_deleted;
         }
+
         //if order by just has asc or des
         $temp_order = trim($order_by);
         $temp_order = strtolower($temp_order);
@@ -394,7 +434,7 @@ class KBDocument extends SugarBean {
         $ret['attachments'] = array();
 		while($a = $GLOBALS['db']->fetchByAssoc($result)) {
 			$fileLocation = "upload://{$a['id']}";
-			$note = new Note();
+			$note = BeanFactory::getBean('Notes');
 			$note->id = create_guid();
 			$note->new_with_id = true; // duplicating the note with files
 			//$note->parent_id = $this->id;
@@ -508,7 +548,7 @@ function get_tags($kbdoc_id){
 
 function get_kbdoc_tags_heirarchy($kbdoc_id,$screen){
         global $app_strings,$mod_strings;
-		$focus = new KBDocument();
+		$focus = BeanFactory::getBean('KBDocuments');
 		$kbtags_heirarchy=array();
 	    $kbtags = array();
 	    $kbdoctags = array();
@@ -593,7 +633,7 @@ function get_kbdoc_tags_heirarchy($kbdoc_id,$screen){
     * @param int $limit Optional, default -1
     * @return array
 	*/
-	function build_related_list($query, &$template, $row_offset = 0, $limit = -1)
+	function build_related_list($query, $template, $row_offset = 0, $limit = -1)
 	{
 		$GLOBALS['log']->info("Finding linked records $this->object_name: ".$query);
 
@@ -604,18 +644,12 @@ function get_kbdoc_tags_heirarchy($kbdoc_id,$screen){
 		}
 
 		$list = Array();
-		$isFirstTime = true;
-		$class = get_class($template);
 		$disable_security_flag = ($template->disable_row_level_security) ? true : false;
 		$authors = array();
 		while($row = $this->db->fetchByAssoc($result))
 		{
-			if(!$isFirstTime)
-			{
-				$template = new $class();
-				$template->disable_row_level_security = $disable_security_flag;
-			}
-			$isFirstTime = false;
+		    $template = $template->getCleanCopy();
+			$template->disable_row_level_security = $disable_security_flag;
 			$record = $template->retrieve($row['id']);
 
 			if($record != null)
@@ -684,7 +718,38 @@ function get_kbdoc_tags_heirarchy($kbdoc_id,$screen){
         return $modified_order_by_query;
     }
 
+    /**
+     * KBDocument specific file name getter
+     *
+     * @return string
+     */
+    public function getFileName() {
+        if (empty($this->id)) {
+            return '';
+        }
 
+        // Similar process to documents
+        $revision = BeanFactory::getBean('KBDocumentRevisions', $this->id);
+
+        // Start with checking if this is a KBDocRev id
+        if (!empty($revision)) {
+            $revision = BeanFactory::getBean('DocumentRevisions', $revision->document_revision_id);
+            if ($revision) {
+                return $revision->filename;
+            }
+        } else {
+            // Try the kbdoc revision
+            $revision = BeanFactory::getBean('KBDocumentRevisions', $this->kbdocument_revision_id);
+            if (!empty($revision)) {
+                $revision = BeanFactory::getBean('DocumentRevisions', $revision->document_revision_id);
+                if ($revision) {
+                    return $revision->filename;
+                }
+            }
+        }
+
+        return '';
+    }
 }
 
 

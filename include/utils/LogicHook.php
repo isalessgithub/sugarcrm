@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Predefined logic hooks
@@ -35,6 +32,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * login_failed
  * after_session_start
  * after_entry_point
+ * before_filter
  *
  * @api
  */
@@ -50,7 +48,7 @@ class LogicHook{
 	 *
 	 * @return unknown
 	 */
-	function initialize(){
+	static function initialize(){
 		if(empty($GLOBALS['logic_hook']))
 			$GLOBALS['logic_hook'] = new LogicHook();
 		return $GLOBALS['logic_hook'];
@@ -98,9 +96,10 @@ class LogicHook{
 
 	protected static $hooks = array();
 
-        static public function refreshHooks() {
-            self::$hooks = array();
-        }
+    static public function refreshHooks()
+    {
+        self::$hooks = array();
+    }
 
 	public function loadHooks($module_dir)
 	{
@@ -110,20 +109,14 @@ class LogicHook{
 	    } else {
 	        $custom = "custom/modules";
 	    }
-		if(file_exists("$custom/logic_hooks.php")){
+	    foreach(SugarAutoLoader::existing(
+		    "$custom/logic_hooks.php",
+	        SugarAutoLoader::loadExtension("logichooks", empty($module_dir)?"application":$module_dir)
+	    ) as $file) {
             if(isset($GLOBALS['log'])){
-	    	    $GLOBALS['log']->debug('Including module specific hook file for '.$custom);
+	    	    $GLOBALS['log']->debug('Including hook file: '.$file);
             }
-		    include("$custom/logic_hooks.php");
-		}
-		if(empty($module_dir)) {
-		    $custom = "custom/application";
-		}
-		if(file_exists("$custom/Ext/LogicHooks/logichooks.ext.php")) {
-            if(isset($GLOBALS['log'])){
-			    $GLOBALS['log']->debug('Including Ext hook file for '.$custom);
-            }
-			include("$custom/Ext/LogicHooks/logichooks.ext.php");
+		    include $file;
 		}
 		return $hook_array;
 	}
@@ -146,7 +139,14 @@ class LogicHook{
 	 * @param array $arguments
 	 * @param SugarBean $bean
 	 */
-	function call_custom_logic($module_dir, $event, $arguments = null){
+	function call_custom_logic($module_dir, $event, $arguments = array()){
+        $origBean = $this->bean;
+        if ($origBean === null) {
+            $bean = BeanFactory::getBean($module_dir);
+            if ($bean instanceOf SugarBean) {
+                $this->setBean($bean);
+            }
+        }
 		// declare the hook array variable, it will be defined in the included file.
 		$hook_array = null;
         if(isset($GLOBALS['log'])){
@@ -163,6 +163,9 @@ class LogicHook{
 		if(!empty($hooks)) {
 		    $this->process_hooks($hooks, $event, $arguments);
 		}
+        if ($origBean === null) {
+            $this->setBean($origBean);
+        }
 	}
 
 	/**
@@ -218,8 +221,13 @@ class LogicHook{
 					    $GLOBALS['log']->debug('Creating new instance of hook class '.$hook_class.' without parameters');
                     }
 					$class = new $hook_class();
-					if(!is_null($this->bean))
-						$class->$hook_function($this->bean, $event, $arguments);
+                    if (!is_null($this->bean)) {
+                        $callback = array($class, $hook_function);
+                        // & is here because of BR-1345 and old broken hooks
+                        // that use &$bean in args.
+                        $params = array_merge(array(&$this->bean, $event, $arguments), array_slice($hook_details, 5));
+                        call_user_func_array($callback, $params);
+                    }
 					else
 						$class->$hook_function($event, $arguments);
 				}

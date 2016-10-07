@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um einen Kontakt zu löschen, muss die Nummer des Datensatzes angegeben werden.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Abteilung:',
   'LBL_DESCRIPTION' => 'Beschreibung:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beschreibungsinformation',
+  'LBL_DNB_BAL_PREVIEW' => 'Vorschau Zielkontakte',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Zielkontakte',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Zielkontakt Information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => 'Nicht anrufen:',
   'LBL_DUPLICATE' => 'Möglicher doppelter Zielkontakt',
   'LBL_EDIT_ACCOUNT_NAME' => 'Firmenname:',
@@ -74,15 +75,26 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Andere E-Mail Adresse',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Bearbeiter:',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Interessenten Berichte',
   'LBL_FIRST_NAME' => 'Vorname:',
   'LBL_FULL_NAME' => 'Name',
+  'LBL_HELP_CREATE' => 'Das {{module_name}} Modul beeinhaltet alle Personen oder Firmen, die Interesse haben für die Produkte ihres Unternehmens. 1. Erfassen Sie alle relevanten Informationen. - Felder die als Pflichtfeld markiert sind müssen ausgefüllt werden um den Datensatz speichern zu können. - Klicken Sie auf "mehr zeigen" um weitere Felder zu erfassen. 2. Drücken Sie auf "Speichern" um den Datensatz verfügbar zu machen und um auf die letzte Seite zurück zu kommen. - Wählen Sie "Speichern und Öffnen" um den neuen {{module_name}} in der Datensatzansicht zu öffnen. - Wählen Sie "Speichern und neuen Datensatz erstellen" um sofort einen weiteren {{module_name}} Datensatz anzulegen.',
+  'LBL_HELP_RECORD' => 'Das {{module_name}} Modul beeinhaltet Personen oder Firmen zu denen einige Informationen existieren, welche aber noch kein vollqualifizierterer {{leads_singular_module}} ist.
+Bearbeiten Sie den Datensatz indem sie auf ein Feld klicken oder auf die Bearbeiten Schaltfläche.
+- Sehen Sie sich in der Vorschau Verknüpfungen zu anderen Datensätzen an. Klicken Sie im Subpanel entsprechend auf das Vorschausymbol klicken.
+- Erstellen oder sehen Sie sich Benutzerkommentare und die Änderungshistorie verschiedener Datensätze im  {{activitystream_singular_module}} an indem Sie die Sicht auf "Activity Stream" im unteren linken Bereich stellen. 
+- Folgen Sie favorisierten Einträgen indem Sie das Sternsymbol neben dem Namen oben anklicken. 
+- Weitere Aktionen finden Sie im Ausklappmenü auf der rechten Seite der Bearbeiten Schaltfläche.',
+  'LBL_HELP_RECORDS' => 'Das {{plural_module_name}} Modul zeigt Personen oder Firmen zu denen einige Informationen existieren, welche aber noch kein voll qualifizierter {{leads_singular_module}} ist. Informationen wie Name und E-mailaddresse für {{plural_module_name}} sind üblicherweise auf der Businesscards vorhanden, oder können über Messen, Konferenzen, etc. in Erfahrung gebracht werden. {{plural_module_name}} sind "alleinstehende" Datensätze, d.h. es ist nicht verknüpft mit dem {{contacts_module}}, {{leads_module}}, {{accounts_module}}, or {{opportunities_module}}. Es gibt verschiedene Möglichkeiten wie Sie {{plural_module_name}} in Sugar erstellen können, über das {{plural_module_name}} Modul, oder über den Import von {{plural_module_name}}, etc.. Sobald der {{module_name}} erstellt ist, können Informationen in der Datenansicht eingesehen und editiert werden.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Verlauf',
   'LBL_HOME_PHONE' => 'Privat:',
   'LBL_IMPORT_VCARD' => 'vCard importieren',
   'LBL_IMPORT_VCARDTEXT' => 'Durch Import einer vCard neuen Kontakt automatisch anlegen.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Ziel von vCard erfolgreich erstellt',
   'LBL_INVALID_EMAIL' => 'Ungültige E-Mail:',
   'LBL_INVITEE' => 'Direkt-Unterstellte',
   'LBL_LAST_NAME' => 'Nachname:',
+  'LBL_LEAD' => 'Interessent',
   'LBL_LEAD_ID' => 'Interessent-ID',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-Mail',
   'LBL_LIST_FIRST_NAME' => 'Vorname',
@@ -125,12 +137,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Kontaktliste',
   'LBL_PROSPECT_NAME' => 'Zielkontakt Name:',
   'LBL_PROSPECT_ROLE' => 'Beruf:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Datensatz {{first_name}} {{last_name}} wurde gespeichert.',
   'LBL_SALUTATION' => 'Anrede',
   'LBL_SAVE_PROSPECT' => 'Zielkontakt speichern',
   'LBL_SEARCH_FORM_TITLE' => 'Zielkontakte Suche',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Markierte Zielkontakte auswählen',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Markierte Zielkontakte auswählen',
   'LBL_STATE' => 'Bundesland:',
+  'LBL_STREET' => 'Straße',
   'LBL_TITLE' => 'Funktion:',
   'LBL_TRACKER_KEY' => 'Tracker-Schlüssel',
   'LNK_CAMPAIGN_LIST' => 'Kampagnen',
@@ -161,6 +175,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Zum erstellen einer Verkaufschance benötigen Sie eine Firma. Bitte erstellen Sie eine Firma oder wählen Sie eine existierende aus.',
   'NTC_REMOVE_CONFIRMATION' => 'Möchten Sie diesen Kontakt wirklich von diesem Ticket entfernen?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Möchten Sie diesen Eintrag wirklich als direkten Bericht entfernen?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

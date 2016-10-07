@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: non définit pour cette vue',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: non définit pour cette vue&#39;',
   'ERR_YEAR_BETWEEN' => 'Désolé, le calendrier ne peut pas afficher l&#039;année que vous avez demandée<br>Année doit être compris entre 1970 et 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Appliquer',
   'LBL_ASSIGNED_TO_NAME' => 'Assigné à',
   'LBL_BUSY' => 'Occupé',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'La nombre de récurrence de {0} a excédé les limites',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} n&#39;est pas une récurrence parente',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} n&#39;est pas un événement récurrent',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} n&#39;est pas reconnu comme un module gérant la récurrence',
   'LBL_CANCEL_BUTTON' => 'Annuler',
   'LBL_CLOSE_BUTTON' => 'Clôturer',
   'LBL_CONFIRM_REMOVE' => 'Etes vous sûr de vouloir supprimer cet enregistrement ?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Conflit',
   'LBL_CREATE_CALL' => 'Planifier Appel',
   'LBL_CREATE_MEETING' => 'Planifier Réunion',
+  'LBL_CREATE_NEW_CALL' => 'Créer Appel',
   'LBL_CREATE_NEW_RECORD' => 'Créer une activité',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Vous allez créer une Réunion. Souhaitiez vous <a href="javascript:void(0);" data-action="create-task">Créer une Tâche</a> u <a href="javascript:void(0);" data-action="schedule-call">Créer un Appel</a>',
   'LBL_DATE' => 'Date et Heure de début',
   'LBL_DATE_END_ERROR' => 'La date de fin est avant la date de début',
   'LBL_DATE_TIME' => 'Date et Heure',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Supprimer',
   'LBL_DURATION' => 'Durée',
   'LBL_EDIT_ALL_RECURRENCES' => 'Editer toutes les occurrences',
+  'LBL_EDIT_CALL' => 'Modifier Appel',
   'LBL_EDIT_RECORD' => 'Editer activité',
   'LBL_EDIT_USERLIST' => 'Liste des Utilisateurs',
   'LBL_ERROR_LOADING' => 'Erreur lors du chargement',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Sem. suivante',
   'LBL_NEXT_YEAR' => 'Année Suivante',
   'LBL_NO' => 'Non',
+  'LBL_NO_ACCESS' => 'Vous n&#39;avez pas accès',
   'LBL_NO_USER' => 'Aucune correspondance pour le champ : Assigné à',
   'LBL_PARTICIPANTS_TAB' => 'Participants',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Envoyer Invitations',
   'LBL_SETTINGS' => 'Paramètres',
   'LBL_SETTINGS_CALLS_SHOW' => 'Voir les appels :',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Voir les réunion, appels et tâches terminés :',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Afficher les créneaux horaires dans les vues Jour et Semaine:',
   'LBL_SETTINGS_TASKS_SHOW' => 'Voir les tâches :',
   'LBL_SETTINGS_TIME_ENDS' => 'Heure fin :',

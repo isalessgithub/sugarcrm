@@ -1,19 +1,16 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
-<script type="text/javascript" src="cache/include/javascript/sugar_grp_yui_widgets.js"></script>
+<script type="text/javascript" src="{sugar_getjspath file='cache/include/javascript/sugar_grp_yui_widgets.js'}"></script>
 <link rel="stylesheet" type="text/css" href="{sugar_getjspath file='modules/Connectors/tpls/tabs.css'}"/>
 <form name="enableWirelessModules" method="POST">
 	<input type="hidden" name="module" value="Administration">
@@ -46,38 +43,41 @@
                         </td>
                     </tr>
                     {/if}
-                    <tr>
-                        <td scope="row" nowrap="nowrap">{sugar_translate module='Configurator' label='LBL_WIRELESS_LIST_ENTRIES'}: </td>
-                        <td>
-                            <input type='text' size='4' id="max_list" name='wl_list_max_entries_per_page' value='{$config.wl_list_max_entries_per_page}'>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row" nowrap="nowrap">{sugar_translate module='Configurator' label='LBL_WIRELESS_SUBPANEL_LIST_ENTRIES'}: </td>
-                        <td>
-                            <input type='text' size='4' id="max_subs" name='wl_list_max_entries_per_subpanel' value='{$config.wl_list_max_entries_per_subpanel}'>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td colspan="2" white-space="wrap" style="font-style: italic;"><span>{sugar_translate label='LBL_WIRELESS_MODULES_ENABLE_DESC'}</span></td>
-                    </tr>
                 </td>
             </tr>
-		    <tr>
-				<td width='1%'>
-					<div id="enabled_div"></div>	
-				</td>
-				<td>
-					<div id="disabled_div"></div>
-				</td>
-			</tr>
-		</table>
-	</div>
+            <tr>
+                <td colspan="2" white-space="wrap" style="font-style: italic;"><span>{sugar_translate label='LBL_WIRELESS_MODULES_ENABLE_DESC2'}</span></td>
+            </tr>
+            <tr>
+                <td width='1%'>
+                    <div id="enabled_div"></div>
+                </td>
+                <td>
+                    <div id="disabled_div"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div  style="border: 1px solid gray; margin: 0 8px;">
+    <table width="100%" border="0" cellspacing="1" cellpadding="0" class="enableWirelessModules edit view" style="margin-bottom: 0;">
+        <tr>
+            <th align="left" scope="row" colspan="2">
+                <h4>{sugar_translate module='Administration' label='LBL_OFFLINE_SETTINGS'}</h4>
+            </th>
+        </tr>
+        <tr>
+            <td scope="row" style="width: 50%">
+                <label for="offline_enabled">{sugar_translate module='Administration' label='LBL_OFFLINE_ENABLED'}</label>
+            </td>
+            <td>
+                <input type='checkbox' id="offline_enabled" {if $config.offlineEnabled}checked{/if} />
+            </td>
+        </tr>
+    </table>
+    </div>
 	
 	<table border="0" cellspacing="1" cellpadding="1">
-	   <tr>
-	       <td colspan="2">{sugar_translate module='Configurator' label='LBL_MOBILE_MOD_REPORTS_RESTRICTION'}</td>
-	   </tr>
 		<tr>
 			<td>
 				<input title="{$APP.LBL_SAVE_BUTTON_LABEL}" class="button primary" onclick="SUGAR.saveMobileSettings();" type="button" name="button" value="{$APP.LBL_SAVE_BUTTON_LABEL}">
@@ -93,7 +93,6 @@
 	Connect.url = 'index.php';
     Connect.method = 'POST';
     Connect.timeout = 300000;
-	var get = YAHOO.util.Dom.get;
 
 	var enabled_modules = {$enabled_modules};
 	var disabled_modules = {$disabled_modules};
@@ -145,8 +144,7 @@
 				module: "Administration",
 				action: "updateWirelessEnabledModules",
 				enabled_modules: modules,
-				wl_list_max_entries_per_page : get('max_list').value,
-				wl_list_max_entries_per_subpanel : get('max_subs').value
+				offlineEnabled: $('#offline_enabled').is(':checked')
 			}) + "to_pdf=1"
         );
 		
@@ -155,13 +153,13 @@
 	SUGAR.saveCallBack = function(o)
 	{
 	   ajaxStatus.flashStatus(SUGAR.language.get('app_strings', 'LBL_DONE'));
-	   if (o.responseText == "true")
-	   {
+        var response = YAHOO.lang.trim(o.responseText);
+        if (response === "true") {
 	       window.location.assign('index.php?module=Administration&action=index');
 	   } 
 	   else 
 	   {
-	       YAHOO.SUGAR.MessageBox.show({msg:o.responseText});
+           YAHOO.SUGAR.MessageBox.show({msg: response});
 	   }
 	}	
 })();

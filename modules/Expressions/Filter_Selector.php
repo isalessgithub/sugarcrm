@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 global $app_list_strings;
 global $beanList;
 global $dictionary;
@@ -35,7 +32,7 @@ global $selector_meta_array;
 
 
 
-	$exp_object = new Expression();
+	$exp_object = BeanFactory::getBean('Expressions');
 
 
 
@@ -67,11 +64,17 @@ $xtpl->assign("MOD", $mod_strings);
 $xtpl->assign("APP", $app_strings);
 $xtpl->assign("RETURN_PREFIX", $exp_object->return_prefix);
 $xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
-if(!is_file(sugar_cached('jsLanguage/') . $GLOBALS['current_language'] . '.js')) {
-    require_once('include/language/jsLanguage.php');
-    jsLanguage::createAppStringsCache($GLOBALS['current_language']);
+
+require_once('include/language/jsLanguage.php');
+if (!is_file(sugar_cached('jsLanguage/') . $GLOBALS['current_language'] . '.js')) {
+	jsLanguage::createAppStringsCache($GLOBALS['current_language']);
+}
+if (!is_file(sugar_cached('jsLanguage/') . $exp_object->module_dir . '/' . $GLOBALS['current_language'] . '.js')) {
+	jsLanguage::createModuleStringsCache($exp_object->module_dir, $GLOBALS['current_language']);
 }
 $javascript_language_files = getVersionedScript("cache/jsLanguage/{$GLOBALS['current_language']}.js",  $GLOBALS['sugar_config']['js_lang_version']);
+$javascript_language_files .= "\n";
+$javascript_language_files .= getVersionedScript("cache/jsLanguage/{$exp_object->module_dir}/{$GLOBALS['current_language']}.js",  $GLOBALS['sugar_config']['js_lang_version']);
 $xtpl->assign("JAVASCRIPT_LANGUAGE_FILES", $javascript_language_files);
 
 insert_popup_header($theme);
@@ -91,7 +94,7 @@ $xtpl->assign('EXP_META_TYPE', $exp_meta_type);
 	$xtpl->assign('PARENT_TYPE', $exp_object->parent_type);
 $form_name = "FieldView";
 if(isset($exp_meta_array['select_field']) && $exp_meta_array['select_field']===true) {
-	$temp_module = get_module_info($exp_object->lhs_module);
+	$temp_module = BeanFactory::getBean($exp_object->lhs_module);
 	$temp_module->call_vardef_handler("normal_trigger");
 	$temp_module->vardef_handler->start_none = true;
 	$field_array = $temp_module->vardef_handler->get_vardef_array();
@@ -164,7 +167,7 @@ if($exp_object->lhs_field != ""){
 	$xtpl->out("main");
 
 	//rsmith
-	$temp_module = get_module_info($exp_object->lhs_module);
+	$temp_module = BeanFactory::getBean($exp_object->lhs_module);
 	$field = $exp_object->lhs_field;
 
 	//now build toggle js

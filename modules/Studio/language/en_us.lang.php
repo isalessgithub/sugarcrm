@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: en_us.lang.php 22115 2007-04-20 22:58:03Z clee $
 
 
 
@@ -64,7 +61,6 @@ $mod_strings = array (
 'LBL_SW_EDIT_DROPDOWNS'=>'Edit Drop Downs',
 'LBL_SW_EDIT_TABS'=>'Configure Tabs',
 'LBL_SW_RENAME_TABS'=>'Rename Tabs',
-'LBL_SW_EDIT_GROUPTABS'=>'Configure Group Tabs',
 'LBL_SW_EDIT_PORTAL'=>'Edit Portal',
 'LBL_SW_EDIT_WORKFLOW'=>'Edit Workflow',
 'LBL_SW_REPAIR_CUSTOMFIELDS'=>'Repair Custom Fields',
@@ -128,6 +124,7 @@ $mod_strings = array (
 'LBL_MODULES'=>'Modules',
 //nsingh: begin bug#15095 fix
 'LBL_MODULE_NAME' => 'Administration',
+'LBL_MODULE_NAME_SINGULAR' => 'Administration',
 'LBL_CONFIGURE_GROUP_TABS' => 'Configure Module Menu Filters',
  //end bug #15095 fix
 'LBL_GROUP_TAB_WELCOME'=>'The filters below will be displayed in the More list in the module menu for users to use to view groups of modules within the menu. Drag and drop modules to and from the filters. Note: Empty filters will not be displayed in the menu.',

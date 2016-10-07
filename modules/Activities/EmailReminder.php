@@ -1,24 +1,22 @@
 <?php
 if ( !defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
  
 require_once("modules/Meetings/Meeting.php");
 require_once("modules/Calls/Call.php");
 require_once("modules/Users/User.php");
 require_once("modules/Contacts/Contact.php");
 require_once("modules/Leads/Lead.php");
+require_once "modules/Mailer/MailerFactory.php"; // imports all of the Mailer classes that are needed
 
 /**
  * Class for sending email reminders of meetings and call to invitees
@@ -63,14 +61,12 @@ class EmailReminder
     public function process()
     {
 
-        $admin = new Administration();
-        $admin->retrieveSettings();
+        $admin = Administration::getSettings();
         
         $meetings = $this->getMeetingsForRemind();
         foreach($meetings as $id ) {
             $recipients = $this->getRecipients($id,'Meetings');
-            $bean = new Meeting();
-            $bean->retrieve($id);
+            $bean = BeanFactory::getBean('Meetings', $id);
             if ( $this->sendReminders($bean, $admin, $recipients) ) {
                 $bean->email_reminder_sent = 1;
                 $bean->save();
@@ -80,8 +76,7 @@ class EmailReminder
         $calls = $this->getCallsForRemind();
         foreach($calls as $id ) {
             $recipients = $this->getRecipients($id,'Calls');
-            $bean = new Call();
-            $bean->retrieve($id);
+            $bean = BeanFactory::getBean('Calls', $id);
             if ( $this->sendReminders($bean, $admin, $recipients) ) {
                 $bean->email_reminder_sent = 1;
                 $bean->save();
@@ -94,74 +89,68 @@ class EmailReminder
     /**
      * send reminders
      * @param SugarBean $bean
-     * @param Administration $admin
+     * @param Administration $admin *use is deprecated*
      * @param array $recipients
      * @return boolean
      */
-    protected function sendReminders(SugarBean $bean, Administration $admin, $recipients)
-    {
-        
-        if ( empty($_SESSION['authenticated_user_language']) ) {
-            $current_language = $GLOBALS['sugar_config']['default_language'];
-        }else{
-            $current_language = $_SESSION['authenticated_user_language'];
-        }            
-                
-                if ( !empty($bean->created_by) ) {
-            $user_id = $bean->created_by;
-        }else if ( !empty($bean->assigned_user_id) ) {
-            $user_id = $bean->assigned_user_id;
-        }else {
-            $user_id = $GLOBALS['current_user']->id;
+    protected function sendReminders(SugarBean $bean, Administration $admin, $recipients) {
+        if (!empty($_SESSION["authenticated_user_language"])) {
+            $currentLanguage = $_SESSION["authenticated_user_language"];
+        } else {
+            $currentLanguage = $GLOBALS["sugar_config"]["default_language"];
         }
-        $user = new User();
-        $user->retrieve($bean->created_by);
+
+        $user = BeanFactory::getBean('Users', $bean->created_by);
             
-        $OBCharset = $GLOBALS['locale']->getPrecedentPreference('default_email_charset');
-        require_once("include/SugarPHPMailer.php");
-        $mail = new SugarPHPMailer();
-        $mail->setMailerForSystem();
-        
-        if(empty($admin->settings['notify_send_from_assigning_user']))
-        {
-            $from_address = $admin->settings['notify_fromaddress'];
-            $from_name = $admin->settings['notify_fromname'] ? "" : $admin->settings['notify_fromname'];
-        }
-        else
-        {
-            $from_address = $user->emailAddress->getReplyToAddress($user);
-            $from_name = $user->full_name;
-        }
-
-        $mail->From = $from_address;
-        $mail->FromName = $from_name;
-        
-        $xtpl = new XTemplate(get_notify_template_file($current_language));
+        $xtpl = new XTemplate(get_notify_template_file($currentLanguage));
         $xtpl = $this->setReminderBody($xtpl, $bean, $user);
-        
-        $template_name = $GLOBALS['beanList'][$bean->module_dir].'Reminder';
-        $xtpl->parse($template_name);
-        $xtpl->parse($template_name . "_Subject");
-        
-        $mail->Body = from_html(trim($xtpl->text($template_name)));
-               $mail->Subject = from_html($xtpl->text($template_name . "_Subject"));
-               
-               $oe = new OutboundEmail();
-        $oe = $oe->getSystemMailerSettings();
-        if ( empty($oe->mail_smtpserver) ) {
-            $GLOBALS['log']->fatal("Email Reminder: error sending email, system smtp server is not set");
-            return;
+
+        $templateName = "{$GLOBALS["beanList"][$bean->module_dir]}Reminder";
+        $xtpl->parse($templateName);
+        $xtpl->parse("{$templateName}_Subject");
+
+        $mailTransmissionProtocol = "unknown";
+
+        try {
+            $mailer                   = MailerFactory::getSystemDefaultMailer();
+            $mailTransmissionProtocol = $mailer->getMailTransmissionProtocol();
+
+            // set the subject of the email
+            $subject = $xtpl->text("{$templateName}_Subject");
+            $mailer->setSubject($subject);
+
+            // set the body of the email
+            $body = trim($xtpl->text($templateName));
+            $textOnly = EmailFormatter::isTextOnly($body);
+            if ($textOnly) {
+                $mailer->setTextBody($body);
+            } else {
+                $textBody = strip_tags(br2nl($body)); // need to create the plain-text part
+                $mailer->setTextBody($textBody);
+                $mailer->setHtmlBody($body);
+            }
+
+            foreach ($recipients as $recipient) {
+                // reuse the mailer, but process one send per recipient
+                $mailer->clearRecipients();
+                $mailer->addRecipientsTo(new EmailIdentity($recipient["email"], $recipient["name"]));
+                $mailer->send();
+            }
+        } catch (MailerException $me) {
+            $message = $me->getMessage();
+
+            switch ($me->getCode()) {
+                case MailerException::FailedToConnectToRemoteServer:
+                    $GLOBALS["log"]->fatal("Email Reminder: error sending email, system smtp server is not set");
+                    break;
+                default:
+                    $GLOBALS["log"]->fatal("Email Reminder: error sending e-mail (method: {$mailTransmissionProtocol}), (error: {$message})");
+                    break;
+            }
+
+            return false;
         }
 
-        foreach($recipients as $r ) {
-            $mail->ClearAddresses();
-            $mail->AddAddress($r['email'],$GLOBALS['locale']->translateCharsetMIME(trim($r['name']), 'UTF-8', $OBCharset));    
-            $mail->prepForOutbound();
-            if ( !$mail->Send() ) {
-                $GLOBALS['log']->fatal("Email Reminder: error sending e-mail (method: {$mail->Mailer}), (error: {$mail->ErrorInfo})");
-            }
-        }
-    
         return true;
     }
     
@@ -272,8 +261,7 @@ class EmailReminder
         ";
         $re = $db->query($query);
         while($row = $db->fetchByAssoc($re) ) {
-            $user = new User();
-            $user->retrieve($row['user_id']);
+            $user = BeanFactory::getBean('Users', $row['user_id']);
             if ( !empty($user->email1) ) {
                 $arr = array(
                     'type' => 'Users',
@@ -287,8 +275,7 @@ class EmailReminder
         $query = "SELECT contact_id FROM {$field_part}s_contacts WHERE {$field_part}_id = '{$id}' AND accept_status != 'decline' AND deleted = 0";
         $re = $db->query($query);
         while($row = $db->fetchByAssoc($re) ) {
-            $contact = new Contact();
-            $contact->retrieve($row['contact_id']);
+            $contact = BeanFactory::getBean('Contacts', $row['contact_id']);
             if ( !empty($contact->email1) ) {
                 $arr = array(
                     'type' => 'Contacts',
@@ -302,8 +289,7 @@ class EmailReminder
         $query = "SELECT lead_id FROM {$field_part}s_leads WHERE {$field_part}_id = '{$id}' AND accept_status != 'decline' AND deleted = 0";
         $re = $db->query($query);
         while($row = $db->fetchByAssoc($re) ) {
-            $lead = new Lead();
-            $lead->retrieve($row['lead_id']);
+            $lead = BeanFactory::getBean('Leads', $row['lead_id']);
             if ( !empty($lead->email1) ) {
                 $arr = array(
                     'type' => 'Leads',

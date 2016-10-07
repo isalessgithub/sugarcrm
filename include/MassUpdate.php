@@ -1,20 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-require_once('include/EditView/EditView2.php');
+require_once 'include/EditView/EditView2.php';
+require_once 'modules/ActivityStream/Activities/Activity.php';
 
 /**
  * MassUpdate class for updating multiple records at once
@@ -31,6 +29,15 @@ class MassUpdate
 	 * where clauses used to filter rows that have to be updated
 	 */
 	var $where_clauses = '';
+
+    /**
+     * Constructor for Mass Update
+     */
+    public function __construct() {
+        //TODO: Creation of Activities are turned off for mass update.
+        //TODO: It will be turned on when job queue, asynchronous processing, activity Stream performance has been handled after 7.0
+        Activity::disable();
+    }
 
 	/**
 	  * set the sugar bean to its internal member
@@ -85,7 +92,7 @@ class MassUpdate
 		unset($_REQUEST['PHPSESSID']);
 		$query = base64_encode(serialize($_REQUEST));
 
-        $bean = loadBean($_REQUEST['module']);
+        $bean = BeanFactory::getBean($_REQUEST['module']);
        $order_by_name = $bean->module_dir.'2_'.strtoupper($bean->object_name).'_ORDER_BY' ;
        $lvso = isset($_REQUEST['lvso'])?$_REQUEST['lvso']:"";
        $request_order_by_name = isset($_REQUEST[$order_by_name])?$_REQUEST[$order_by_name]:"";
@@ -128,10 +135,11 @@ eoq;
 	  * @param displayname Name to display in the popup window
       * @param varname name of the variable
 	  */
-	function handleMassUpdate(){
+        function handleMassUpdate($fetch_only = false, $update_blank=false){
 
 		require_once('include/formbase.php');
 		global $current_user, $db, $disable_date_format, $timedate;
+        $retval = array();
 
 		foreach($_POST as $post=>$value){
 			if(is_array($value)){
@@ -139,10 +147,12 @@ eoq;
 					unset($_POST[$post]);
 				}
 			}elseif(strlen($value) == 0){
+                            if (!$update_blank) {
 				if( isset($this->sugarbean->field_defs[$post]) && $this->sugarbean->field_defs[$post]['type'] == 'radioenum' && isset($_POST[$post]) ){
 				  $_POST[$post] = '';
 				}else{
 				  unset($_POST[$post]);
+                                }
 			    }
             }
 
@@ -152,8 +162,7 @@ eoq;
 				 	))){
 				 		if(strcmp($value, '2') == 0)$_POST[$post] = 0;
 				 		if(!empty($this->sugarbean->field_defs[$post]['dbType']) && strcmp($this->sugarbean->field_defs[$post]['dbType'], 'varchar') == 0 ){
-				 			if(strcmp($value, '1') == 0 )$_POST[$post] = 'on';
-				 			if(strcmp($value, '2') == 0)$_POST[$post] = 'off';
+                            $_POST[$post] = strcmp($value, '1') == 0 ? 'on' : 'off';
 				 		}
     			}
 
@@ -184,7 +193,7 @@ eoq;
 		$old_value = $disable_date_format;
 		$disable_date_format = true;
 
-		if(!empty($_REQUEST['uid'])) $_POST['mass'] = explode(',', $_REQUEST['uid']); // coming from listview
+		if(!empty($_REQUEST['uid']) && !isset($_REQUEST['entire'])) $_POST['mass'] = explode(',', $_REQUEST['uid']); // coming from listview
 		elseif(isset($_REQUEST['entire']) && empty($_POST['mass'])) {
 			if(empty($order_by))$order_by = '';
 
@@ -200,12 +209,48 @@ eoq;
 			$_POST['mass'] = $new_arr;
 		}
 
+                if ($fetch_only) {
+                    return;
+                }
+
+        /*-- Is Request to Add or Delete  one or more Prospects from One or More Prospect Lists ?? --*/
+        if(isset($_POST['mass']) && is_array($_POST['mass']) &&
+            (!empty($_POST['add_to_prospect_lists']) || !empty($_POST['remove_from_prospect_lists']))){
+
+            if (!empty($_POST['remove_from_prospect_lists'])) {
+                $bean_name = $_POST['module'];
+                $prospect_list_ids = explode(',', $_POST['remove_from_prospect_lists']);
+                $uids = $_POST['mass'];
+                if (count($uids) > 0 && count($prospect_list_ids) > 0) {
+                    foreach($prospect_list_ids as $prospect_list_id) {
+                        $this->remove_prospects_from_prospect_list($bean_name, $prospect_list_id, $uids);
+                    }
+                }
+            } else if (!empty($_POST['add_to_prospect_lists'])) {
+                $bean_name = $_POST['module'];
+                $prospect_list_ids = explode(',', $_POST['add_to_prospect_lists']);
+                $uids = $_POST['mass'];
+                if (count($uids) > 0 && count($prospect_list_ids) > 0) {
+                    foreach($prospect_list_ids as $prospect_list_id) {
+                        $this->add_prospects_to_prospect_list($bean_name, $prospect_list_id, $uids);
+                    }
+                }
+            }
+
+            return;
+        }
+
 		if(isset($_POST['mass']) && is_array($_POST['mass'])  && $_REQUEST['massupdate'] == 'true'){
 			$count = 0;
 
 			if(isset($_SESSION['REASSIGN_TEAMS'])) {
 			   unset($_SESSION['REASSIGN_TEAMS']);
 			}
+
+            // should use 'User Type' to change this field
+            if ($this->sugarbean->object_name == 'User' && isset($_POST['is_admin'])) {
+                unset($_POST['is_admin']);
+            }
 
 			foreach($_POST['mass'] as $id){
                 if(empty($id)) {
@@ -226,7 +271,9 @@ eoq;
                         require_once('include/SugarSearchEngine/SugarSearchEngineFactory.php');
                         $searchEngine = SugarSearchEngineFactory::getInstance();
                         $searchEngine->delete($this->sugarbean);
-					}
+                    } else {
+                        $retval[] = $id;
+                    }
 				}
 				else {
 					if($this->sugarbean->object_name == 'Contact' && isset($_POST['Sync'])){ // special for contacts module
@@ -257,8 +304,7 @@ eoq;
 
 					if($count++ != 0) {
 					   //Create a new instance to clear values and handle additional updates to bean's 2,3,4...
-                       $className = get_class($this->sugarbean);
-                       $this->sugarbean = new $className();
+                       $this->sugarbean = $this->sugarbean->getCleanCopy();
 					}
 
 					$this->sugarbean->retrieve($id);
@@ -271,30 +317,46 @@ eoq;
 					//
 					////////////////////////
 
-					if($this->sugarbean->ACLAccess('Save')){
+					if($this->sugarbean->ACLAccess('Save', array("massupdate" => true))) {
 						$_POST['record'] = $id;
 						$_GET['record'] = $id;
 						$_REQUEST['record'] = $id;
 						$newbean=$this->sugarbean;
+
+                        // ACL check above should have blocked non-admin users
+                        if ($newbean->object_name == 'User') {
+                            //admin can't change his own status and user type
+                            if ($current_user->id == $id && (isset($_POST['UserType']) || isset($_POST['status']))) {
+                                continue;
+                            }
+                            if (isset($_POST['UserType'])) {
+                                if ($_POST['UserType'] == "Administrator") { 
+                                    $newbean->is_admin = 1;
+                                }
+                                else if ($_POST['UserType'] == "RegularUser") { 
+                                    $newbean->is_admin = 0;
+                                }
+                            }
+                        }
 
 						$old_reports_to_id = null;
 						if(!empty($_POST['reports_to_id']) && $newbean->reports_to_id != $_POST['reports_to_id']) {
 						   $old_reports_to_id = empty($newbean->reports_to_id) ? 'null' : $newbean->reports_to_id;
 						}
 
-						$check_notify = FALSE;
+						$check_notify = false;
 
 						if (isset( $this->sugarbean->assigned_user_id)) {
 							$old_assigned_user_id = $this->sugarbean->assigned_user_id;
 							if (!empty($_POST['assigned_user_id'])
 							&& ($old_assigned_user_id != $_POST['assigned_user_id'])
 							&& ($_POST['assigned_user_id'] != $current_user->id)) {
-								$check_notify = TRUE;
+								$check_notify = true;
 							}
 						}
 
 						//Call include/formbase.php, but do not call retrieve again
-                        populateFromPost('', $newbean, true, true);
+						populateFromPost('', $newbean, true);
 						$newbean->save_from_post = false;
 
 						if (!isset($_POST['parent_id'])) {
@@ -320,7 +382,6 @@ eoq;
 							} // if
 	                    } // if
 
-
 						$newbean->save($check_notify);
 						if (!empty($email_address_id)) {
 	    					$query = "UPDATE email_addresses SET opt_out = {$optout_flag_value} where id = '{$emailAddressRow['email_address_id']}'";
@@ -342,7 +403,102 @@ eoq;
 			}
 		}
 		$disable_date_format = $old_value;
+            return $retval;
 	}
+
+    public static function setMassUpdateFielddefs(Array $fielddefs, $moduleName) {
+        $banned = array('date_modified'=>1, 'date_entered'=>1, 'created_by'=>1, 'modified_user_id'=>1, 'deleted'=>1,'modified_by_name'=>1,);
+
+        foreach ($fielddefs as $name => $def) {
+            // Readonly fields are NOT be massupdatable
+            if (!empty($def['readonly'])) {
+                $def['massupdate'] = false;
+            // Calculated fields are NOT massupdatable
+            } elseif (isset($def['calculated'])) { 
+                // If calculated is set and is enforced and is some value of truthy...
+                if (self::isTrue($def['calculated']) && isset($def['enforced']) && self::isTrue($def['enforced'])) {
+                    // Then massupdate has to be false
+                    $def['massupdate'] = false;
+                }
+            } elseif (isset($def['massupdate'])) {
+                // The massupdate value has to be boolean so the client can properly 
+                // handle it. A "0" false renders as a true to the client.
+                if (self::isTrue($def['massupdate'])) {
+                    $def['massupdate'] = true;
+                } else {
+                    $def['massupdate'] = false;
+                }
+            } elseif(isset($def['type'])){
+                if(!isset($banned[$def['name']]) && (!isset($def['massupdate']) || !empty($def['massupdate']))) {
+                    switch($def['type']) {
+                        case "relate":
+                            if(isset($def['id_name'])) {
+                                $def['massupdate'] = true;
+                            }
+                            break;
+                        case "contact_id":
+                        case "assigned_user_name":
+                        case "account_id":
+                        case "account_name":
+                        case "bool":
+                        case "parent":
+                        case "enum":
+                        case "multienum":
+                        case "radioenum":
+                        case "datetime":
+                        case "date":
+                            $def['massupdate'] = true;
+                            break;
+                        case "int":
+                            if(!empty($field['massupdate']) && empty($field['auto_increment'])) {
+                                $def['massupdate'] = true;
+                            }
+                            break;
+                        case "inbound":
+                            if($moduleName == 'Emails') {
+                                //TODO:Archive emails
+                            }
+                            break;
+                    }
+
+                    if(isset($def['id_name']) && isset($fielddefs[$def['id_name']])) {
+                        $fielddefs[$def['id_name']]['massupdate'] = false;
+                    }
+                }
+            }
+            $fielddefs[$name] = $def;
+        }
+
+        if($moduleName == 'Contacts') {
+            $fielddefs['sync_contact']["massupdate"] = true;
+        } else if($moduleName == 'Employees') {
+            $fielddefs['employee_status']['massupdate'] = true;
+            $fielddefs['employee_status']['type'] = 'enum';
+            $fielddefs['employee_status']['options'] = 'employee_status_dom';
+        } else if($moduleName == 'InboundEmail') {
+            $fielddefs['status']['massupdate'] = true;
+            $fielddefs['status']['type'] = 'enum';
+            $fielddefs['status']['options'] = 'user_status_dom';
+        }
+
+        /*---------------------------------------------------------------
+        This is being taken off of the Menu as part of MAR-1421 until the support for it exists in the new MassUpdate Api
+        BR-823 was created to add the support in the New MassUpdate Api
+        ----------------------------------------------------------------*/
+        // if(in_array($moduleName, array("Contacts", "Accounts", "Leads", "Prospects"))) {
+        //     $fielddefs['optout_primary'] = array(
+        //         'name' => 'sync',
+        //         'type' => 'enum',
+        //         'label' => 'LBL_OPT_OUT_FLAG_PRIMARY',
+        //         'massupdate' => true,
+        //         'source' => 'non-db',
+        //         'options' => 'optout_dom',
+        //     );
+        // }
+
+        return $fielddefs;
+    }
+
 	/**
   	  * Displays the massupdate form
   	  */
@@ -353,8 +509,8 @@ eoq;
 		global $app_strings;
 		global $current_user;
 
-		if($this->sugarbean->bean_implements('ACL') && ( !ACLController::checkAccess($this->sugarbean->module_dir, 'edit', true) || !ACLController::checkAccess($this->sugarbean->module_dir, 'massupdate', true) ) ){
-			return '';
+		if(!$this->sugarbean->ACLAccess('edit', true) && !$this->sugarbean->ACLAccess('massupdate', true)) {
+		    return '';
 		}
 
 		$lang_delete = translate('LBL_DELETE');
@@ -391,14 +547,14 @@ eoq;
 
 		foreach($this->sugarbean->field_defs as $field)
 		{
-            if (ACLField::hasAccess(
-                $field['name'],
-                $this->sugarbean->module_dir,
-                $GLOBALS['current_user']->id,
-                true
-            ) < 2) {
+			   if(!$this->sugarbean->ACLFieldAccess($field['name'], 'edit')) {
 			   	  continue;
 			   }
+
+            if ($this->sugarbean->object_name == 'User' && $field['name'] == 'is_admin') {
+                // already have 'User Type'
+                continue;
+            }
 			 if(!isset($banned[$field['name']]) && (!isset($field['massupdate']) || !empty($field['massupdate'])))
 			 {
 				$newhtml = '';
@@ -458,7 +614,7 @@ eoq;
 							}else if(!empty($field['options'])) {
 								$even = !$even; $newhtml .= $this->addStatus($displayname,  $field["name"], translate($field["options"])); break;
 							}else if(!empty($field['function'])){
-								$functionValue = $this->getFunctionValue($this->sugarbean, $field);
+								$functionValue = getFunctionValue(isset($field['function_bean']) ? $field['function_bean'] : null, $field['function'], array($this->sugarbean, $field['name'], '', 'MassUpdate'));
 								$even = !$even; $newhtml .= $this->addStatus($displayname,  $field["name"], $functionValue); break;
 							}
 							break;
@@ -503,17 +659,22 @@ eoq;
 		    $field_count++;
 		}
 
-		if ($this->sugarbean->object_name == 'Contact' ||
-			$this->sugarbean->object_name == 'Account' ||
-			$this->sugarbean->object_name == 'Lead' ||
-			$this->sugarbean->object_name == 'Prospect') {
+        /*---------------------------------------------------------------
+        This is being taken off of the Menu as part of MAR-1421 until the support for it exists in the new MassUpdate Api
+        BR-823 was created to add the support in the New MassUpdate Api
+        ----------------------------------------------------------------*/
+        // if ($this->sugarbean->object_name == 'Contact' ||
+        //      $this->sugarbean->object_name == 'Account' ||
+        //  	$this->sugarbean->object_name == 'Lead' ||
+        //  	$this->sugarbean->object_name == 'Prospect') {
+        //
+        //      $html .= "<tr><td width='15%'  scope='row' class='dataLabel'>$lang_optout_primaryemail</td><td width='35%' class='dataField'><select name='optout_primary'><option value=''>{$GLOBALS['app_strings']['LBL_NONE']}</option><option value='false'>{$GLOBALS['app_list_strings']['checkbox_dom']['2']}</option><option value='true'>{$GLOBALS['app_list_strings']['checkbox_dom']['1']}</option></select></td></tr>";
+        //
+        // }
 
-			$html .= "<tr><td width='15%'  scope='row' class='dataLabel'>$lang_optout_primaryemail</td><td width='35%' class='dataField'><select name='optout_primary'><option value=''>{$GLOBALS['app_strings']['LBL_NONE']}</option><option value='false'>{$GLOBALS['app_list_strings']['checkbox_dom']['2']}</option><option value='true'>{$GLOBALS['app_list_strings']['checkbox_dom']['1']}</option></select></td></tr>";
+        $html .="</table>";
 
-			}
-		$html .="</table>";
-
-		 $html .= "<table cellpadding='0' cellspacing='0' border='0' width='100%'><tr><td class='buttons'><input onclick='return sListView.send_mass_update(\"selected\", \"{$app_strings['LBL_LISTVIEW_NO_SELECTED']}\")' type='submit' id='update_button' name='Update' value='{$lang_update}' class='button'>&nbsp;<input onclick='javascript:toggleMassUpdateForm();' type='button' id='cancel_button' name='Cancel' value='{$GLOBALS['app_strings']['LBL_CANCEL_BUTTON_LABEL']}' class='button'>";
+		$html .= "<table cellpadding='0' cellspacing='0' border='0' width='100%'><tr><td class='buttons'><input onclick='return sListView.send_mass_update(\"selected\", \"{$app_strings['LBL_LISTVIEW_NO_SELECTED']}\")' type='submit' id='update_button' name='Update' value='{$lang_update}' class='button'>&nbsp;<input onclick='javascript:toggleMassUpdateForm();' type='button' id='cancel_button' name='Cancel' value='{$GLOBALS['app_strings']['LBL_CANCEL_BUTTON_LABEL']}' class='button'>";
 		// TODO: allow ACL access for Delete to be set false always for users
 //		if($this->sugarbean->ACLAccess('Delete', true) && $this->sugarbean->object_name != 'User') {
 //			global $app_list_strings;
@@ -531,6 +692,11 @@ eoq;
 eoq;
 		}
 
+        if ($this->sugarbean->object_name == 'User' && ($current_user->is_admin || $current_user->isAdminForModule('Users'))) {
+            $html .=<<<eoq
+            <input type='hidden' name='current_admin_id' value="{$current_user->id}">
+eoq;
+        }
 		$html .= "</td></tr></table></div></div>";
 
 		$html .= <<<EOJS
@@ -553,23 +719,6 @@ EOJS;
 				$html .= $app_strings['LBL_NO_MASS_UPDATE_FIELDS_AVAILABLE'] . "</div>";
 			}
 			return $html;
-		}
-	}
-
-	function getFunctionValue($focus, $vardef){
-		$function = $vardef['function'];
-	    if(is_array($function) && isset($function['name'])){
-	    	$function = $vardef['function']['name'];
-	    }else{
-	       	$function = $vardef['function'];
-	    }
-		if(!empty($vardef['function']['returns']) && $vardef['function']['returns'] == 'html'){
-			if(!empty($vardef['function']['include'])){
-				require_once($vardef['function']['include']);
-			}
-			return call_user_func($function, $focus, $vardef['name'], '', 'MassUpdate');
-		}else{
-			return call_user_func($function, $focus, $vardef['name'], '', 'MassUpdate');
 		}
 	}
 
@@ -663,14 +812,14 @@ EOJS;
 			".SugarThemeRegistry::current()->getImage("id-ff-select", '', null, null, ".png", $app_strings['LBL_ID_FF_SELECT'])."
 			</button></span>";
 			$parent_type = $field['parent_type'];
-            $parent_types = $app_list_strings[$parent_type];
-            $disabled_parent_types = ACLController::disabledModuleList($parent_types,false, 'list');
+			$parent_types = $app_list_strings[$parent_type];
+            $disabled_parent_types = SugarACL::disabledModuleList($parent_types);
             foreach($disabled_parent_types as $disabled_parent_type) {
-			    unset($parent_types[$disabled_parent_type]);
+                unset($parent_types[$disabled_parent_type]);
             }
 			$types = get_select_options_with_id($parent_types, '');
 			//BS Fix Bug 17110
-			$pattern = "/\n<OPTION.*".$app_strings['LBL_NONE']."<\/OPTION>/";
+			$pattern = "#\n<OPTION.*".$app_strings['LBL_NONE'].'</OPTION>#';
 			$types = preg_replace($pattern, "", $types);
 			// End Fix
 
@@ -1008,20 +1157,18 @@ EOQ;
 		// cn: added "mass_" to the id tag to differentiate from the status id in StoreQuery
 		$html = '<td scope="row" width="15%">'.$displayname.'</td><td>';
 		if(is_array($options)){
-			if(!isset($options['']) && !isset($options['0'])){
+            if (!isset($options['']) && !isset($options['0'])) {
+                $emptyval = false;
 			   $new_options = array();
 			   $new_options[''] = '';
 			   foreach($options as $key=>$value) {
 			   	   $new_options[$key] = $value;
 			   }
 			   $options = $new_options;
-			}
-            $options = get_select_options_with_id_separate_key(
-                $options,
-                $options,
-                '__SugarMassUpdateClearField__',
-                true
-            );
+            } else {
+                $emptyval = true;
+            }
+            $options = get_select_options_with_id_separate_key($options, $options, '', $emptyval);
 			$html .= '<select id="mass_'.$varname.'" name="'.$varname.'">'.$options.'</select>';
 		}else{
 			$html .= $options;
@@ -1231,10 +1378,10 @@ EOQ;
 	}
 
     function generateSearchWhere($module, $query) {//this function is similar with function prepareSearchForm() in view.list.php
-        $seed = loadBean($module);
+        $seed = BeanFactory::getBean($module);
         $this->use_old_search = true;
-        if(file_exists('modules/'.$module.'/SearchForm.html')){
-            if(file_exists('modules/' . $module . '/metadata/SearchFields.php')) {
+        if(SugarAutoLoader::existing('modules/'.$module.'/SearchForm.html')){
+            if(SugarAutoLoader::existing('modules/' . $module . '/metadata/SearchFields.php')) {
                 require_once('include/SearchForm/SearchForm.php');
                 $searchForm = new SearchForm($module, $seed);
             }
@@ -1255,13 +1402,6 @@ EOQ;
         }
         else{
             $this->use_old_search = false;
-            require_once('include/SearchForm/SearchForm2.php');
-
-            if(file_exists('custom/modules/'.$module.'/metadata/metafiles.php')){
-                require('custom/modules/'.$module.'/metadata/metafiles.php');
-            }elseif(file_exists('modules/'.$module.'/metadata/metafiles.php')){
-                require('modules/'.$module.'/metadata/metafiles.php');
-            }
 
             $searchFields = $this->getSearchFields($module);
             $searchdefs = $this->getSearchDefs($module);
@@ -1271,12 +1411,12 @@ EOQ;
                return;
             }
 
-            $searchForm = new SearchForm($seed, $module);
+            $searchForm = $this->getSearchForm($seed, $module);
             $searchForm->setup($searchdefs, $searchFields, 'SearchFormGeneric.tpl');
         }
 	/* bug 31271: using false to not add all bean fields since some beans - like SavedReports
 	   can have fields named 'module' etc. which may break the query */
-        $query = sugar_unserialize(base64_decode($query));
+        $query = unserialize(base64_decode($query));
         $searchForm->populateFromArray($query, null, true);
         $this->searchFields = $searchForm->searchFields;
         $where_clauses = $searchForm->generateSearchWhere(true, $module);
@@ -1288,41 +1428,21 @@ EOQ;
         }
     }
 
-    protected function getSearchDefs($module, $metafiles = array())
+    protected function getSearchDefs($module)
     {
-        if (file_exists('custom/modules/'.$module.'/metadata/searchdefs.php'))
-        {
-            require('custom/modules/'.$module.'/metadata/searchdefs.php');
-        }
-        elseif (!empty($metafiles[$module]['searchdefs']))
-        {
-            require($metafiles[$module]['searchdefs']);
-        }
-        elseif (file_exists('modules/'.$module.'/metadata/searchdefs.php'))
-        {
-            require('modules/'.$module.'/metadata/searchdefs.php');
-        }
+     	$searchdefs_file = SugarAutoLoader::loadWithMetafiles($module, 'searchdefs');
+ 		if($searchdefs_file) {
+ 			require $searchdefs_file;
+ 		}
 
         return isset($searchdefs) ? $searchdefs : array();
     }
 
-    protected function getSearchFields($module, $metafiles = array())
+    protected function getSearchFields($module)
     {
-        if (file_exists('custom/modules/' . $module . '/metadata/SearchFields.php'))
-        {
-            require('custom/modules/' . $module . '/metadata/SearchFields.php');
-        }
-        elseif(!empty($metafiles[$module]['searchfields']))
-        {
-            require($metafiles[$module]['searchfields']);
-        }
-        elseif(file_exists('modules/'.$module.'/metadata/SearchFields.php'))
-        {
-            require('modules/'.$module.'/metadata/SearchFields.php');
-        }
-
-        return isset($searchFields) ? $searchFields : array();
+        return SugarAutoLoader::loadSearchFields($module);
     }
+
     /**
      * This is kinda a hack how it is implimented, but will tell us whether or not a focus has
      * fields for Mass Update
@@ -1333,14 +1453,7 @@ EOQ;
     {
         static $banned = array('date_modified'=>1, 'date_entered'=>1, 'created_by'=>1, 'modified_user_id'=>1, 'deleted'=>1,'modified_by_name'=>1,);
         foreach($this->sugarbean->field_defs as $field) {
-            if (ACLField::hasAccess(
-                $field['name'],
-                $this->sugarbean->module_dir,
-                $GLOBALS['current_user']->id,
-                true
-            ) < 2) {
-                continue;
-            }
+            if(!$this->sugarbean->ACLFieldAccess($field['name'], 'edit')) continue;
             if(!isset($banned[$field['name']]) && (!isset($field['massupdate']) || !empty($field['massupdate']))){
                 if(isset($field['type']) && $field['type'] == 'relate' && isset($field['id_name']) && $field['id_name'] == 'assigned_user_id')
                     $field['type'] = 'assigned_user_name';
@@ -1373,6 +1486,70 @@ EOQ;
         return false;
     }
 
+    /**
+     * @param $bean_name         - Type of 'bean' referenced by $uids
+     * @param $prospect_list_id  - Prospect List Id
+     * @param $uids              - Array of records of type '$bean_name' to be added
+     */
+    public function add_prospects_to_prospect_list($bean_name, $prospect_list_id, $uids)
+    {
+        $focus = BeanFactory::newBean($bean_name);
+
+        $relationship = '';
+        foreach($focus->get_linked_fields() as $field => $def) {
+            if ($focus->load_relationship($field)) {
+                if ( $focus->$field->getRelatedModuleName() == 'ProspectLists' ) {
+                    $relationship = $field;
+                    break;
+                }
+            }
+        }
+
+        if ($relationship == '') {
+            return false;
+        }
+        foreach ( $uids as $id) {
+            $focus = BeanFactory::retrieveBean($bean_name, $id);
+            $focus->load_relationship($relationship);
+            $focus->$relationship->add($prospect_list_id);
+        }
+
+        return true;
+    }
+
+
+    /**
+     * @param $bean_name         - Type of 'bean' referenced by $uids
+     * @param $prospect_list_id  - Prospect List Id
+     * @param $uids              - Array of records of type '$bean_name' to be removed from prospect_list
+     */
+    public function remove_prospects_from_prospect_list($bean_name, $prospect_list_id, $uids)
+    {
+        $focus = BeanFactory::newBean($bean_name);
+
+        $relationship = '';
+        foreach($focus->get_linked_fields() as $field => $def) {
+            if ($focus->load_relationship($field)) {
+                if ( $focus->$field->getRelatedModuleName() == 'ProspectLists' ) {
+                    $relationship = $field;
+                    break;
+                }
+            }
+        }
+        
+        if ( $relationship == '' ) {
+            return false;
+        }
+
+        foreach ($uids as $id) {
+            $focus = BeanFactory::retrieveBean($bean_name, $id);
+            $focus->load_relationship($relationship);
+            $focus->$relationship->delete($id, $prospect_list_id);
+        }
+        
+        return true;
+    }
+
      /**
      * Have to be overridden in children
      * @param string $displayname field label
@@ -1384,6 +1561,45 @@ EOQ;
     {
         return '';
     }
-}
 
-?>
+    /**
+     * Get search form - module specific, custom or default
+     * @param SugarBean $bean
+     * @param string $module
+     * @return SearchForm
+     */
+    protected function getSearchForm($bean, $module)
+    {
+        if (SugarAutoLoader::requireWithCustom("modules/$module/{$module}SearchForm.php")) {
+            $searchFormClass = SugarAutoLoader::customClass("{$module}SearchForm");
+        } else {
+            SugarAutoLoader::requireWithCustom('include/SearchForm/SearchForm2.php');
+            $searchFormClass = SugarAutoLoader::customClass('SearchForm');
+        }
+        return new $searchFormClass($bean, $module);
+    }
+    
+    /**
+     * Boolean converter that returns whether the value is boolean true. This is
+     * static because it is consumed from internal static methods.
+     * 
+     * @param mixed $val Value to check boolean on
+     * @return boolean 
+     */
+    protected static function isTrue($val) 
+    {
+        return $val === true || $val === 1 || $val === "true" || $val === "1";
+    }
+
+    /**
+     * Boolean converter that returns whether the value is boolean false. This is
+     * static because it is consumed from internal static methods.
+     * 
+     * @param mixed $val Value to check boolean on
+     * @return boolean 
+     */
+    protected static function isFalse($val) 
+    {
+        return $val === false || $val === 0 || $val === "false" || $val === "0";
+    }
+}

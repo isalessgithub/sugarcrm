@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 <script type="text/javascript" src="{sugar_getjspath file='cache/include/javascript/sugar_grp_yui_widgets.js'}"></script>
@@ -39,11 +36,19 @@ var SourceTabs = {
 			        dataSrc: {/literal}'index.php?module=Connectors&action=SourceProperties&source_id={$source.id}&to_pdf=true'{literal},
 			        cacheData: true,
 			        {/literal}
-			        {if $source_count == 1}
-			        active: true
-			        {else}
-			        active: false
-			        {/if}
+			        {if $ACTIVE_TAB}
+                        {if $ACTIVE_TAB == $source.id}
+                    active: true
+                        {else}
+                    active: false
+                        {/if}
+                    {else}
+                        {if $source_count == 1}
+                    active: true
+                        {else}
+                    active: false
+                        {/if}
+                    {/if}
 			        {literal}
 			    });
 			    {/literal}
@@ -82,7 +87,7 @@ var SourceTabs = {
 YAHOO.util.Event.onDOMReady(SourceTabs.init);
 </script>
 {/literal}
-<form name="ModifyProperties" method="POST">
+<form name="ModifyProperties" method="POST" action="index.php">
 <input type="hidden" name="modify" value="true">
 <input type="hidden" name="module" value="Connectors">
 <input type="hidden" name="action" value="SaveModifyProperties">

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Popup_picker.php 50752 2009-09-10 22:18:28Z dwong $
  * Description:  This file is used for all popups on this module
  * The popup_picker.html file is used for generating a list from which to find and
  * choose one instance.
@@ -38,8 +35,8 @@ global $urlPrefix;
 global $currentModule;
 
 //include tree view classes.
-require_once('include/ytree/Tree.php');
-require_once('include/ytree/Node.php');
+require_once('vendor/ytree/Tree.php');
+require_once('vendor/ytree/Node.php');
 
 require_once('modules/ProductCategories/TreeData.php');
 
@@ -61,7 +58,7 @@ class Popup_Picker
     {
         global $mod_strings, $app_strings, $currentModule,
                $seed_object, $sugar_version, $sugar_config;
-        $focus = new ProductCategory();
+        $focus = BeanFactory::getBean('ProductCategories');
 
         if (!isset($_REQUEST['html'])) {
             $xtpl =new XTemplate ('modules/ProductCategories/Popup_picker.html');
@@ -115,28 +112,43 @@ class Popup_Picker
         if (empty($_REQUEST['form']) || $_REQUEST['form'] == 'EditView' && $_REQUEST['tree'] == 'ProdCat')
         {
             $seed_object->show_products = FALSE;
-            $the_javascript  = "<script type='text/javascript' language='JavaScript'>\n";
-            $the_javascript .= "function set_return(treeid) { \n";
-            $the_javascript .= "    node=YAHOO.namespace(treeid).selectednode;
-                                    if (typeof window.opener.document.forms.search_form != 'undefined') //Search
-                                    {
-                                        var form = window.opener.document.forms.search_form;
-                                        var searchType = (form.searchFormTab.value == 'basic_search') ? 'basic' : 'advanced';
-                                        form['category_id_'   + searchType].value = node.data.id;
-                                        form['category_name_' + searchType].value = node.label;
-                                    }
-                                    else if(typeof window.opener.document.ReportsWizardForm != 'undefined') { // reports
-                                        window.opener.document.ReportsWizardForm['ProductCategories:name:id:1'].value = node.data.id;
-                                        window.opener.document.ReportsWizardForm['ProductCategories:name:name:1'].value = node.label;
-                                    }
-                                    else if(typeof window.opener.document.EditView != 'undefined'){
-                                        window.opener.document.EditView.category_id.value = node.data.id;\n";
-            $the_javascript .= "        window.opener.document.EditView.category_name.value = node.label;\n
-                                    }";
-            $the_javascript .="     window.close();\n";
-            $the_javascript .= "}\n";
-            $the_javascript .= "</script>\n";
-            $clear_button = "<input title='".$app_strings['LBL_CLEAR_BUTTON_TITLE']."' class='button' LANGUAGE=javascript onclick=\"window.opener.document.EditView.category_id.value = '';window.opener.document.EditView.category_name.value = ''; window.close()\" type='submit' name='button' value='  ".$app_strings['LBL_CLEAR_BUTTON_LABEL']."  '>\n";
+            $the_javascript = <<<END
+            <script type='text/javascript' language='JavaScript'>
+                var field_id = null;
+                var field_name = null;
+
+                function set_return(treeid) {
+
+                    if(typeof treeid != 'undefined') {
+                        node=YAHOO.namespace(treeid).selectednode;
+                    } else {
+                        node = {'data': {'id': ''}, 'label': ''};
+                    }
+
+                    if (typeof window.opener.document.forms.search_form != 'undefined' || window.opener.document.forms.popup_query_form != 'undefined') { // Search
+                        var form = (typeof window.opener.document.forms.search_form != 'undefined') ? window.opener.document.forms.search_form : window.opener.document.forms.popup_query_form;
+                        var searchType = (typeof form.searchFormTab != 'undefined' && form.searchFormTab.value == 'basic_search') ? 'basic' : 'advanced';
+
+                        field_id = form['category_id_'   + searchType];
+                        field_name = form['category_name_'   + searchType];
+                    } else if(typeof window.opener.document.ReportsWizardForm != 'undefined') { // reports
+                        field_id = window.opener.document.ReportsWizardForm['ProductCategories:name:id:1'];
+                        field_name = window.opener.document.ReportsWizardForm['ProductCategories:name:name:1'];
+                    } else if(typeof window.opener.document.EditView != 'undefined') {
+                        field_id = window.opener.document.EditView.category_id;
+                        field_name = window.opener.document.EditView.category_name;
+                    }
+
+                    if(field_id != null && field_name != null) {
+                        field_id.value = node.data.id;
+                        field_name.value = node.label;
+                    }
+
+                    window.close();
+                }
+            </script>
+END;
+            $clear_button = "<input title='".$app_strings['LBL_CLEAR_BUTTON_TITLE']."' class='button' LANGUAGE=javascript onclick=\"set_return()\" type='submit' name='button' value='  ".$app_strings['LBL_CLEAR_BUTTON_LABEL']."  '>\n";
             $cancel_button = "<input title='".$app_strings['LBL_CANCEL_BUTTON_TITLE']."' class='button' LANGUAGE=javascript onclick=\"window.close()\" type='submit' name='button' value='  ".$app_strings['LBL_CANCEL_BUTTON_LABEL']."  '>\n";
         }
 

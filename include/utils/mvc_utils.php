@@ -1,140 +1,39 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 function loadParentView($type)
 {
-    if(file_exists('custom/include/MVC/View/views/view.'.$type.'.php'))
-    {
-        require_once('custom/include/MVC/View/views/view.'.$type.'.php');
-    } else if(file_exists('include/MVC/View/views/view.'.$type.'.php')) {
-        require_once('include/MVC/View/views/view.'.$type.'.php');
-    }
+    SugarAutoLoader::requireWithCustom('include/MVC/View/views/view.'.$type.'.php');
 }
 
 
 function getPrintLink()
 {
-    if (isset($_REQUEST['action']) && $_REQUEST['action'] == "ajaxui")
-    {
-        return "javascript:SUGAR.ajaxUI.print();";
-    }
+//    if (isset($_REQUEST['action']) && $_REQUEST['action'] == "ajaxui")
+//    {
+//        return "javascript:SUGAR.ajaxUI.print();";
+//    }
     return "javascript:void window.open('index.php?{$GLOBALS['request_string']}',"
          . "'printwin','menubar=1,status=0,resizable=1,scrollbars=1,toolbar=0,location=1')";
 }
 
-
-function ajaxBannedModules(){
-    $bannedModules = array(
-        'Calendar',
-        'Reports',
-        'Emails',
-        'Campaigns',
-        'Documents',
-        'DocumentRevisions',
-        'Project',
-        'ProjectTask',
-        'EmailMarketing',
-        'CampaignLog',
-        'CampaignTrackers',
-        'Releases',
-        'Groups',
-        'EmailMan',
-        'ACLFields',
-        'ACLRoles',
-        'ACLActions',
-        'TrackerSessions',
-        'TrackerPerfs',
-        'TrackerQueries',
-        'Teams',
-        'TeamMemberships',
-        'TeamSets',
-        'TeamSetModules',
-        'Quotes',
-        'Products',
-        'ProductBundles',
-        'ProductBundleNotes',
-        'ProductTemplates',
-        'ProductTypes',
-        'ProductCategories',
-        'Manufacturers',
-        'Shippers',
-        'TaxRates',
-        'TeamNotices',
-        'TimePeriods',
-        'Forecasts',
-        'ForecastSchedule',
-        'Worksheet',
-        'ForecastOpportunities',
-        'Quotas',
-        'WorkFlow',
-        'WorkFlowTriggerShells',
-        'WorkFlowAlertShells',
-        'WorkFlowAlerts',
-        'WorkFlowActionShells',
-        'WorkFlowActions',
-        'Expressions',
-        'Contracts',
-        'KBDocuments',
-        'KBDocumentRevisions',
-        'KBTags',
-        'KBDocumentKBTags',
-        'KBContents',
-        'ContractTypes',
-        'Holidays',
-        'ProjectResources',
-        "Administration",
-        "ModuleBuilder",
-        'Schedulers',
-        'SchedulersJobs',
-        'DynamicFields',
-        'EditCustomFields',
-        'EmailTemplates',
-        'Users',
-        'Currencies',
-        'Trackers',
-        'Connectors',
-        'Import_1',
-        'Import_2',
-        'Versions',
-        'vCals',
-        'CustomFields',
-        'Roles',
-        'Audit',
-        'InboundEmail',
-        'SavedSearch',
-        'UserPreferences',
-        'MergeRecords',
-        'EmailAddresses',
-        'Relationships',
-        'Employees',
-        'Import',
-        'OAuthKeys'
-    );
-
-    if(!empty($GLOBALS['sugar_config']['addAjaxBannedModules'])){
-        $bannedModules = array_merge($bannedModules, $GLOBALS['sugar_config']['addAjaxBannedModules']);
-    }
-    if(!empty($GLOBALS['sugar_config']['overrideAjaxBannedModules'])){
-        $bannedModules = $GLOBALS['sugar_config']['overrideAjaxBannedModules'];
-    }
-
-    return $bannedModules;
-}
-
+/**
+ * @deprecated since 7.0
+ * @return the $url given
+ */
 function ajaxLink($url)
 {
+    return $url;
+    /*
     global $sugar_config;
     $match = array();
     $javascriptMatch = array();
@@ -156,6 +55,7 @@ function ajaxLink($url)
     {
         return "?action=ajaxui#ajaxUILoc=" . urlencode($url);
     }
+    */
 }
 
 ?>

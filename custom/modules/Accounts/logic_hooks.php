@@ -1,16 +1,3 @@
 <?php
-// Do not store anything in this file that is not part of the array or the hook version.  This file will	
-// be automatically rebuilt in the future. 
- $hook_version = 1; 
-$hook_array = Array(); 
-// position, file, function 
-$hook_array['after_ui_frame'] = Array(); 
-$hook_array['after_ui_frame'][] = Array(1, 'Accounts InsideView frame', 'modules/Connectors/connectors/sources/ext/rest/insideview/InsideViewLogicHook.php','InsideViewLogicHook', 'showFrame'); 
-$hook_array['process_record'] = Array(); 
-$hook_array['process_record'][] = Array(55, 'Log call for Contacts ListView', 'modules/ATC_Teleseller/ATC_CallLogger.php','CallLogger', 'ATCrenderLogCall'); 
-$hook_array['before_save'] = Array(); 
-$hook_array['before_save'][] = Array(1, 'workflow', 'include/workflow/WorkFlowHandler.php','WorkFlowHandler', 'WorkFlowHandler'); 
-
-
-
-?>
+$hook_array['process_record'][] = array(55,'Log call for Contacts ListView','modules/ATC_Teleseller/ATC_CallLogger.php','CallLogger','ATCrenderLogCall',);
+$hook_array['before_save'][] = array(1,'workflow','include/workflow/WorkFlowHandler.php','WorkFlowHandler','WorkFlowHandler',);

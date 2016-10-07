@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: QueueCampaign.php 51719 2009-10-22 17:18:00Z mitani $
  * Description: Schedules email for delivery. emailman table holds emails for delivery.
  * A cron job polls the emailman table and delivers emails when intended send date time is reached.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -30,8 +27,7 @@ global $timedate;
 global $current_user;
 global $mod_strings;
 
-$campaign = new Campaign();
-$campaign->retrieve($_REQUEST['record']);
+$campaign = BeanFactory::getBean('Campaigns', $_REQUEST['record']);
 $err_messages=array();
 
 $test=false;
@@ -63,8 +59,7 @@ foreach ($_POST['mass'] as $message_id) {
 	if (!class_exists('EmailMarketing')) require_once('modules/EmailMarketing/EmailMarketing.php');
 
 
-	$marketing = new EmailMarketing();
-	$marketing->retrieve($message_id);
+	$marketing = BeanFactory::getBean('EmailMarketing', $message_id);
 
 	//make sure that the marketing message has a mailbox.
 	//
@@ -138,21 +133,12 @@ foreach ($_POST['mass'] as $message_id) {
 //delete all entries from the emailman table that belong to the exempt list.
 //TODO:SM: may want to move this to query clause above instead
 if (!$test) {
-    $delete_query =  "
-    DELETE FROM emailman WHERE id IN (
-        SELECT em.id FROM (
-            SELECT emailman.id id
-            FROM emailman 
-            INNER JOIN prospect_lists_prospects plp
-            ON emailman.related_id =  plp.related_id AND emailman.related_type =  plp.related_type
-            INNER JOIN prospect_lists pl 
-            ON pl.id = plp.prospect_list_id 
-            INNER JOIN prospect_list_campaigns plc 
-            ON plp.prospect_list_id = plc.prospect_list_id 
-            WHERE plp.deleted = 0 AND plc.deleted = 0
-            AND pl.deleted = 0 AND pl.list_type = 'exempt'
-            AND plc.campaign_id = '{$campaign->id}') em
-    )";
+    $delete_query =  "DELETE FROM emailman WHERE emailman.campaign_id='{$campaign->id}' AND (emailman.related_id, emailman.related_type) IN
+    	(SELECT plp.related_id, plp.related_type FROM prospect_lists_prospects plp
+    		INNER JOIN prospect_lists pl ON pl.id = plp.prospect_list_id
+    		INNER JOIN prospect_list_campaigns plc ON plp.prospect_list_id = plc.prospect_list_id
+    		WHERE plp.deleted = 0 AND plc.deleted = 0 AND pl.deleted = 0 AND pl.list_type = 'exempt' AND  plc.campaign_id = '{$campaign->id}')
+    	";
     $campaign->db->query($delete_query);
 }
 

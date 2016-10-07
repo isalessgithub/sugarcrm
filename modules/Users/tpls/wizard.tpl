@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html {$langHeader}>
@@ -198,7 +195,7 @@ function disableReturnSubmission(e) {
                     </tr>
                     <tr>
                         <td width="17%" scope="row" nowrap="nowrap"><slot>
-                            {$MOD.LBL_CURRENCY_SIG_DIGITS}:
+                            {$MOD.LBL_SYSTEM_SIG_DIGITS}:
                         </slot></td>
                         <td ><slot>
                             <select id='sigDigits' onchange='setSigDigits(this.value);' name='default_currency_significant_digits'>{$sigDigits}</select>
@@ -421,7 +418,14 @@ var SugarWizard = new function()
                 {/if}
                 {literal}
                 break;
+            case 'locale':
+                if (document.getElementById("default_number_grouping_seperator").value == document.getElementById("default_decimal_seperator").value) {
+	            	alert(SUGAR.language.get('app_strings','ERR_DECIMAL_SEP_EQ_THOUSANDS_SEP'));
+		            isError = true
+                }
+                break
             }
+
             if (isError == true)
                 return false;
         }
@@ -459,7 +463,9 @@ function startOutBoundEmailSettingsTest()
     loader.addModule({
         name :"sugarwidgets",
         type : "js",
-        fullpath: "include/javascript/sugarwidgets/SugarYUIWidgets.js",
+{/literal}
+        fullpath: "{sugar_getjspath file='include/javascript/sugarwidgets/SugarYUIWidgets.js'}",
+{literal}
         varName: "YAHOO.SUGAR",
         requires: ["datatable", "dragdrop", "treeview", "tabview"]
     });
@@ -530,9 +536,10 @@ function sendTestEmail()
     	}
     };
     var smtpServer = document.getElementById('mail_smtpserver').value;
+    var smtppass = trim(document.getElementById('mail_smtppass').value);
     if(document.getElementById('mail_smtpuser') && document.getElementById('mail_smtppass'))
        {
-         var postDataString = 'mail_sendtype=SMTP&mail_smtpserver=' + smtpServer + "&mail_smtpport=" + mail_smtpport + "&mail_smtpssl=" + mail_smtpssl + "&mail_smtpauth_req=true&mail_smtpuser=" + trim(document.getElementById('mail_smtpuser').value) + "&mail_smtppass=" + trim(document.getElementById('mail_smtppass').value) + "&outboundtest_from_address=" + fromAddress;
+         var postDataString = 'mail_sendtype=SMTP&mail_smtpserver=' + smtpServer + "&mail_smtpport=" + mail_smtpport + "&mail_smtpssl=" + mail_smtpssl + "&mail_smtpauth_req=true&mail_smtpuser=" + trim(document.getElementById('mail_smtpuser').value) + "&mail_smtppass=" + encodeURIComponent(smtppass) + "&outboundtest_from_address=" + fromAddress;
         }
     else
        {

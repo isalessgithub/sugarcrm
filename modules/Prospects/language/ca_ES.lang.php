@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre per eliminar el contacte.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departament:',
   'LBL_DESCRIPTION' => 'Descripció:',
   'LBL_DESCRIPTION_INFORMATION' => 'Informació de Descripció',
+  'LBL_DNB_BAL_PREVIEW' => 'Vista prèvia de clients potencials',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Objectius',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informació d&#39;objectius',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID Principal de D&B',
   'LBL_DO_NOT_CALL' => 'No Trucar:',
   'LBL_DUPLICATE' => 'Possible Públic Objectiu Duplicat',
   'LBL_EDIT_ACCOUNT_NAME' => 'Nom de Compte:',
@@ -74,15 +75,26 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Altre direcció de correu electrònic',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat per ID',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Informe de l&#39;objectiu',
   'LBL_FIRST_NAME' => 'Nom:',
   'LBL_FULL_NAME' => 'Nom:',
+  'LBL_HELP_CREATE' => 'El mòdul {{plural_module_name}} consisteix en persones que no són prospectes qualificats i dels que teniu alguna informació, però encara no són clients potencials {{leads_singular_module}}. Per crear un {{module_name}}:. 1 Proporcioneu els valors desitjats per als camps. - Els camps marcats "Obligatori" s&#39;han de completar abans de desar. - Feu clic a "Mostra més" per exposar camps addicionals si és necessari. 2. Feu clic a "Desa" per finalitzar el nou registre i torneu a la pàgina anterior. - Seleccioneu l&#39;opció "Guarda i vegeu" per obrir el nou {{module_name}}  en vista de registre. - Seleccioneu "Guarda i crea nou" per crear un nou {{module_name}} immediatament.',
+  'LBL_HELP_RECORD' => 'El mòdul {{plural_module_name}} consisteix en persones que no són prospectes qualificats i dels que teniu alguna informació, però encara no són clients potencials {{leads_singular_module}}. 
+- Editeu els camps d&#39;aquest registre fent clic a un camp individual o amb el botó Edita.
+- Vegeu o modifiqueu enllaços a altres registres als subpanells mitjançant la commutació de la subfinestra inferior esquerra a la "Vista de dades".
+- Feu i vegeu comentaris d&#39;usuari i l&#39;historial de canvis del registre al {{activitystream_singular_module}} mitjançant la commutació de la subfinestra inferior esquerra al "Canal d&#39;activitat".
+- Feu el seguiment d&#39;aquest favorit o marqueu-lo com a favorit amb les icones que hi han a la dreta del nom del registre.
+- Hi han accions addicionals disponibles al menú desplegable d&#39;accions a la dreta del botó Edita.',
+  'LBL_HELP_RECORDS' => 'El mòdul {{plural_module_name}} consisteix en persones que no són prospectes qualificats i dels que teniu alguna informació, però encara no són clients potencials {{leads_singular_module}}. La informació (per exemple adreça de correu electrònic) d&#39;aquests {{plural_module_name}} normalment s&#39;aconsegueixen de targetes de presentació recollides a fires, conerències, etc. {{plural_module_name}} a Sugar son registres autònoms perquè no estan relacionats amb {{contacts_module}}, {{leads_module}}, {{accounts_module}} o {{opportunities_module}}. Hi han vàries maneres de crear un {{plural_module_name}} a Sugar, com ara amb el mòdul {{plural_module_name}}, importació de {{plural_module_name}}, etc. Quan es crea el registre del {{module_name}}, podeu veure i editar la informació que pertany al {{module_name}} mitjançant la vista de registres de {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historial',
   'LBL_HOME_PHONE' => 'Casa:',
   'LBL_IMPORT_VCARD' => 'Importar vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Crear un nou contacte automàticament important una vCard el seu sistema de fitxers.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Objectiu crear satisfactòriament des de vCard',
   'LBL_INVALID_EMAIL' => 'Correu No Vàlid:',
   'LBL_INVITEE' => 'Informa Directament',
   'LBL_LAST_NAME' => 'Cognom:',
+  'LBL_LEAD' => 'Client potencial',
   'LBL_LEAD_ID' => 'Id Client Potencial',
   'LBL_LIST_EMAIL_ADDRESS' => 'Correu',
   'LBL_LIST_FIRST_NAME' => 'Nom',
@@ -125,12 +137,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Públic Objectiu',
   'LBL_PROSPECT_NAME' => 'Nom del Públic Objectiu:',
   'LBL_PROSPECT_ROLE' => 'Rol:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ha creat satisfactòriament el {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Salutació',
   'LBL_SAVE_PROSPECT' => 'Guardar Públic Objectiu',
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Públic Objectiu',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Seleccioni Públic Objectiu Marcat',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Seleccioni Públic Objectiu Marcat',
   'LBL_STATE' => 'Província/Estat:',
+  'LBL_STREET' => 'Carrer',
   'LBL_TITLE' => 'Títol:',
   'LBL_TRACKER_KEY' => 'Clau de Seguiment',
   'LNK_CAMPAIGN_LIST' => 'Campanyes',
@@ -161,6 +175,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'La creació d´una oportunitat requereix un compte.n Si us plau, creï un compte nou o en seleccioni un existent.',
   'NTC_REMOVE_CONFIRMATION' => 'Està segur que desitja treure aquest contacte del cas?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Està segur que desitja treure aquest registre com un informador directe?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

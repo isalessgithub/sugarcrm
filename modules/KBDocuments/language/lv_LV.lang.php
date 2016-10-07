@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokuments izveidots',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Dokumenta nosaukums',
   'ERR_DOC_VERSION' => 'Dokumenta versija',
   'ERR_FILENAME' => 'Faila nosaukums',
+  'ERR_FILESIZE' => 'Pārāk liels fails. Maksimālais izmērs:',
   'LBL_ACTIVE_DATE' => 'Publicēšanas datums',
   'LBL_AND' => 'un',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Pievieno tagus rakstiem ...',
@@ -35,7 +33,7 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Autors:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Autors',
   'LBL_ARTICLE_BODY' => 'Raksta ķermenis:',
-  'LBL_ARTICLE_EXISTS' => 'Raksts jau eksistē',
+  'LBL_ARTICLE_EXISTS' => 'Raksts jau ir izviedots',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Raksts',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Priekšskatījums nav pieejams, dokuments eksistē, bet tā saturs pagaidām nav izveidots.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Priekšskatījums nav pieejams, dokumenta ieraksts nav atrasts.',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Līgumi',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Saistītie līgumi',
   'LBL_CONTRACT_NAME' => 'Līguma nosaukums:',
+  'LBL_CONTRACT_STATUS' => 'Līguma statuss',
   'LBL_CREATED' => 'Izveidoja',
   'LBL_CREATED_BY' => 'Izveidoja',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Dokumenta ID',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDokumenta versijas numurs',
   'LBL_KBDOC_APPROVED_BY' => 'Apstiprināja:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Apstiprinātāja vārds',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Lejupielādēt pielikumus:',
   'LBL_KBDOC_BODY' => 'Ķermenis:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Pēdējās versijas Id',
   'LBL_LATEST_REVISION_NAME' => 'Pēdējās versijas nosaukums',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Uzsāk taga pārlūkošanu...',
+  'LBL_LINKED_ID' => 'Saistītais ID',
   'LBL_LIST_ACTIVE_DATE' => 'Publicēšanas datums',
   'LBL_LIST_APPROVED_BY' => 'Apstiprināja',
   'LBL_LIST_ARTICLES' => 'Aplūkot rakstus',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Nav derīgs fails',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Vecāktips',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Jūs varat filtrēt rakstu sarakstu, ievadot meklēšanas frāzi.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Piemēram, Jūs varat izmantot šo, lai atrastu rakstu par noteiktu tēmu.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Zināšanu Bāzes modulis tiek lietots darbam ar publicētajiem rakstiem. Izmanto zemāk esošās bultas, lai ietu cauri ātrajai apskatei.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Šī lapa attēlo publicēto rakstu sarakstu.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Spiežot šeit jūs tiks atgriezts uz zināšanu bāzi jebkurā laikā.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Iepriekš saglabātas meklēšanas:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Rediģēt vai dzēst esošu saglabāto meklēšanu.',
   'LBL_PUBLISHED' => 'Publicēts:',
@@ -180,13 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Dokumenta meklēšana',
   'LBL_SEARCH_TAG' => 'Meklēšana',
   'LBL_SEARCH_WITHIN' => 'Meklēt robežās:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Izvēlētās versijas faila nosaukums',
+  'LBL_SELECTED_REVISION_ID' => 'Izvēlētās versijas ID',
   'LBL_SELECTED_REVISION_NAME' => 'Izvēlētās versijas nosaukums',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Izvēlieties rakstus, lai lietotu tagus',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Vispirms izvēlieties rakstus',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Vispirms izvēlieties rakstus',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Izveidot jaunu tagu',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'No koka izvēlnes izvēlieties tagu',
-  'LBL_SELECT_NODE' => 'Lūdzu norādiet mezglpunktu',
+  'LBL_SELECT_NODE' => 'Norādiet mezglpunktu',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'No koka izvēlnes izvēlieties priekšteča tagu',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Izvēlieties priekšteča tagu no koka izvēlnes',
   'LBL_SELECT_TAG' => 'Izvēlēties tagu',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Lieto šo tagu:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Raksts bez tagiem',
   'LBL_UPDATE' => 'Atjaunināt',
+  'LBL_VIEWS_NUMBER' => 'Skata numurs',
   'LNK_KBDOCUMENT_LIST' => 'Aplūkot dokumentus',
   'LNK_NEW_ARTICLE' => 'Izveidot rakstu',
   'LNK_NEW_MAIL_MERGE' => 'Pasta sapludināšana',

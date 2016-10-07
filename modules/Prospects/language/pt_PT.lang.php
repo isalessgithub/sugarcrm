@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registo deve ser especificado para excluir o contacto.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departamento:',
   'LBL_DESCRIPTION' => 'Descrição:',
   'LBL_DESCRIPTION_INFORMATION' => 'Informação de Descrição',
+  'LBL_DNB_BAL_PREVIEW' => 'Pré-visualização de Objectivos',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Objectivos',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informação de Objectivos',
+  'LBL_DNB_PRINCIPAL_ID' => 'Id Principal de D&B',
   'LBL_DO_NOT_CALL' => 'Não Telefonar:',
   'LBL_DUPLICATE' => 'Targets Possivelmente Duplicados',
   'LBL_EDIT_ACCOUNT_NAME' => 'Nome da Entidade:',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Outro Endereço de Email',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'ID do Utilizador que Modificou',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Relatórios de Objectivos',
   'LBL_FIRST_NAME' => 'Primeiro Nome:',
   'LBL_FULL_NAME' => 'Nome',
+  'LBL_HELP_CREATE' => 'O módulo {{module_name}} consiste em indivíduos que são prospectos não qualificados dos quais tem alguma informação, mas que ainda não são uma {{leads_singular_module}} qualificada.
+
+Para criar um {{module_name}}:
+1. Preencha os campos conforme seja necessário.
+ - Campos marcados como "Obrigatório" devem ser preenchidos antes de gravar.
+ - Clique em "Mostrar Mais" para mostrar os campos adicionais se necessário.
+2. Clique em "Gravar" para gravar o novo registo e voltar à página anterior.
+ - Seleccione "Gravar e visualizar" para abrir o novo {{module_name}} na vista de detalhe.
+ - Seleccione "Gravar e criar novo" para criar um novo {{module_name}}.',
+  'LBL_HELP_RECORD' => 'O módulo {{module_name}} consiste em indivíduos que são prospectos não qualificados dos quais tem alguma informação, mas que ainda não são uma {{leads_singular_module}} qualificada.
+
+- Edite os campos do registo ao clicar individualmente em cada campo ou no botão Editar.
+- Visualize ou modifique relacionamentos com outros registos nos subpainéis ao alternar o painel inferior esquerdo para "Visualização de dados".
+- Adicione e visualize os comentários de utilizadores e o histórico de alterações de registos de {{activitystream_singular_module}} ao alternar o painel inferior esquerdo para "Fluxo de Actividade".
+- Siga ou marque como favorito este registo utilizando os ícones à direita do nome do registo.
+- Mais acções estão disponíveis no menu dropdown Acções à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O módulo {{module_name}} consiste em indivíduos que são prospectos não qualificados dos quais tem alguma informação, mas que ainda não são uma {{leads_singular_module}} qualificada. Informação (e.g. nome, e-mail, morada) acerca destes {{plural_module_name}} normalmente são obtidos de business cards que recebe quando participa em feiras, conferências, etc. {{plural_module_name}} no Sugar são registos soltos porque não estão relacionados com {{contacts_module}}, {{leads_module}}, {{accounts_module}}, ou {{opportunities_module}}. Existem diversas maneiras que pode usar para criar {{plural_module_name}} no Sugar, por exemplo através do módulo de {{plural_module_name}}, importando {{plural_module_name}}, etc. Uma vez criado o registo do {{module_name}} pode visualizar ou editar a informação relativa ao {{module_name}} através da vista de detalhe de {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Histórico',
   'LBL_HOME_PHONE' => 'Telefone de Casa:',
   'LBL_IMPORT_VCARD' => 'Importar a partir de vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Criar novo contacto automaticamente ao importar um vCard dos seus ficheiros',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Objectivo criado com sucesso a partir de um vCard',
   'LBL_INVALID_EMAIL' => 'E-mail Inválido:',
   'LBL_INVITEE' => 'Relatórios Directos',
   'LBL_LAST_NAME' => 'Último Nome:',
+  'LBL_LEAD' => 'Lead',
   'LBL_LEAD_ID' => 'Id da Lead',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-mail',
   'LBL_LIST_FIRST_NAME' => 'Primeiro Nome',
@@ -125,12 +146,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Lista de Potenciais Clientes',
   'LBL_PROSPECT_NAME' => 'Nome do Target:',
   'LBL_PROSPECT_ROLE' => 'Função:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Registo {{first_name}} {{last_name}} foi gravado.',
   'LBL_SALUTATION' => 'Saudação',
   'LBL_SAVE_PROSPECT' => 'Gravar o Target',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Targets',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Seleccionar Targets Marcados',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Seleccionar Targets Marcados',
   'LBL_STATE' => 'Estado:',
+  'LBL_STREET' => 'Rua',
   'LBL_TITLE' => 'Cargo:',
   'LBL_TRACKER_KEY' => 'Tracker Key',
   'LNK_CAMPAIGN_LIST' => 'Campanhas',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Criar uma Oportunidade requer uma Entidade.\\n Por favor, cria uma nova ou seleccione uma existente.',
   'NTC_REMOVE_CONFIRMATION' => 'Tem a certeza de que pretende remover este contacto desta ocorrência?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Tem a certeza de que pretende remover este registo como um relatório directo?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Vai tiešām vēlaties izņemt šo uzņēmumu no projekta?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Zvani',
   'LBL_CAMPAIGNS' => 'Kampaņas',
   'LBL_CAMPAIGN_ID' => 'Kampaņas ID',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampaņas',
   'LBL_CASES_SUBPANEL_TITLE' => 'Pieteikumi',
   'LBL_CHARTS' => 'Diagrammas',
   'LBL_CITY' => 'Pilsēta:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Uzņēmumi',
   'LBL_DESCRIPTION' => 'Apraksts:',
   'LBL_DESCRIPTION_INFORMATION' => 'Apraksta informācija',
+  'LBL_DNB_BAL_PREVIEW' => 'Uzņēmuma apskate',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenti',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Iespējams uzņēmuma dublikāts',
   'LBL_EMAIL' => 'E-pasts:',
   'LBL_EMAIL_ADDRESSES' => 'E-pasta adreses',
@@ -72,6 +72,24 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Darbinieki:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Piešķirts lietotājam',
   'LBL_FAX' => 'Fakss:',
+  'LBL_FILENAME' => 'Pielikums',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Uzņēmumu atskaites',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulis satur uzņēmumus ar kuriem jūsu uzņēmumam ir darīšanas un galvenokārt tiek izmantots kā informācijas punkts no kura pārvaldīt un analizēt jūsu biznesu ar katru klientu.
+
+Lai izveidotu ierakstu:
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+- Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+- Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+- Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+- Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulis satur uzņēmumus ar kuriem jūsu uzņēmumam ir darīšanas un galvenokārt tiek izmantots kā informācijas punkts no kura pārvaldīt un analizēt jūsu biznesu ar katru klientu.
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulis satur uzņēmumus ar kuriem jūsu uzņēmumam ir darīšanas un galvenokārt tiek izmantots kā informācijas punkts no kura pārvaldīt un analizēt jūsu biznesu ar katru klientu. Ir vairāki veidi kā izveidot Sugar uzņēmuma ierakstu, caur Uzņēmumu moduli, dublicējot, importējot uzņēmumus, u.c.  Kad ieraksts ir izveidots jūs varat redzēt un rediģēt ar moduli saistīto informāciju ieraksta kartiņā. Katrs uzņēmuma ieraksts car būt saistīts ar citiem Sugar ierakstiem,  {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, un daudziem citiem.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_HOMEPAGE_TITLE' => 'Mani uzņēmumi',
   'LBL_INDUSTRY' => 'Nozare:',
@@ -98,6 +116,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Uzņēmumi: Sākums',
   'LBL_NAME' => 'Nosaukums:',
   'LBL_NEW_FORM_TITLE' => 'Jauns uzņēmums',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Iespējas',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Cits e-pasts:',
   'LBL_OTHER_PHONE' => 'Cits tālrunis:',
@@ -110,7 +129,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Fakss:',
   'LBL_PHONE_OFFICE' => 'Biroja tālrunis:',
   'LBL_POSTAL_CODE' => 'Pasta indekss:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkti',
   'LBL_PRODUCTS_TITLE' => 'Produkti',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekti',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekti',
@@ -121,6 +139,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Piegāžu izsūtīšana',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Piedāvājumi',
   'LBL_RATING' => 'Vērtējums:',
+  'LBL_REVENUELINEITEMS' => 'Ieņēmumu posteņi',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Ieņēmumu posteņi',
   'LBL_SAVE_ACCOUNT' => 'Saglabāt uzņēmumu',
   'LBL_SEARCH_FORM_TITLE' => 'Uzņēmumu meklēšana',
   'LBL_SHIPPING_ADDRESS' => 'Piegādes adrese:',
@@ -146,6 +166,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Mājas lapa:',
   'LNK_ACCOUNT_LIST' => 'Skatīt uzņēmumus',
   'LNK_ACCOUNT_REPORTS' => 'Skatīt uzņēmumu atskaites',
+  'LNK_CREATE' => 'Izveidot uzņēmumu',
   'LNK_IMPORT_ACCOUNTS' => 'Importēt uzņēmumus',
   'LNK_NEW_ACCOUNT' => 'Izveidot uzņēmumu',
   'MSG_DUPLICATE' => 'Veidojamais uzņēmuma ieraksts, iespējams, ir dublikāts jau esošam uzņēmuma ierakstam. Uzņēmumi ar līdzīgiem nosaukumiem ir uzskaitīti zemāk.<br>Spiediet Izveidot uzņēmumu, lai turpinātu veidot jaunu ierakstu, vai izvēlieties kādu no zemāk redzamajiem uzņēmumu nosaukumiem.',

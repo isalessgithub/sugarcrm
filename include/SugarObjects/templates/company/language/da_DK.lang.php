@@ -2,61 +2,62 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'LBL_FAX' => 'Fax:',
-  'LBL_TYPE' => 'Type:',
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på, at du vil fjerne denne virksomhed fra dette projekt?',
   'ERR_DELETE_RECORD' => 'Der skal angives et postnummer for at slette virksomheden.',
-  'LBL_ACCOUNT_NAME' => 'Firmanavn:',
   'LBL_ACCOUNT' => 'Firma:',
+  'LBL_ACCOUNT_INFORMATION' => 'Firmaoplysninger',
+  'LBL_ACCOUNT_NAME' => 'Firmanavn:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteter',
   'LBL_ADDRESS_INFORMATION' => 'Adresseoplysninger',
   'LBL_ANNUAL_REVENUE' => 'Årlig indtægt:',
   'LBL_ANY_ADDRESS' => 'Adresse:',
   'LBL_ANY_EMAIL' => 'E-mail:',
   'LBL_ANY_PHONE' => 'Telefon:',
-  'LBL_ASSIGNED_TO_NAME' => 'Tildelt til:',
-  'LBL_RATING' => 'Klassifikation',
   'LBL_ASSIGNED_TO' => 'Tildelt til:',
-  'LBL_ASSIGNED_USER' => 'Tildelt til:',
   'LBL_ASSIGNED_TO_ID' => 'Tildelt til:',
-  'LBL_BILLING_ADDRESS_CITY' => 'Faktureringsadresse, by:',
-  'LBL_BILLING_ADDRESS_COUNTRY' => 'Faktureringsadresse, land:',
-  'LBL_BILLING_ADDRESS_POSTALCODE' => 'Faktureringsadresse, postnummer:',
-  'LBL_BILLING_ADDRESS_STATE' => 'Faktureringsadresse, stat:',
-  'LBL_BILLING_ADDRESS_STREET_2' => 'Faktureringsadresse, gade 2',
-  'LBL_BILLING_ADDRESS_STREET_3' => 'Faktureringsadresse, gade 3',
-  'LBL_BILLING_ADDRESS_STREET_4' => 'Faktureringsadresse, gade 4',
-  'LBL_BILLING_ADDRESS_STREET' => 'Faktureringsadresse, gade:',
+  'LBL_ASSIGNED_TO_NAME' => 'Tildelt til:',
+  'LBL_ASSIGNED_USER' => 'Tildelt til:',
   'LBL_BILLING_ADDRESS' => 'Faktureringsadresse:',
-  'LBL_ACCOUNT_INFORMATION' => 'Firmaoplysninger',
+  'LBL_BILLING_ADDRESS_CITY' => 'Faktureringsadresse, By:',
+  'LBL_BILLING_ADDRESS_COUNTRY' => 'Faktureringsadresse, Land:',
+  'LBL_BILLING_ADDRESS_POSTALCODE' => 'Faktureringsadresse, Postnummer:',
+  'LBL_BILLING_ADDRESS_STATE' => 'Faktureringsadresse, Stat:',
+  'LBL_BILLING_ADDRESS_STREET' => 'Faktureringsadresse, Gade:',
+  'LBL_BILLING_ADDRESS_STREET_2' => 'Faktureringsadresse, Gade 2',
+  'LBL_BILLING_ADDRESS_STREET_3' => 'Faktureringsadresse, Gade 3',
+  'LBL_BILLING_ADDRESS_STREET_4' => 'Faktureringsadresse, Gade 4',
   'LBL_CITY' => 'By:',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakter',
   'LBL_COUNTRY' => 'Land:',
   'LBL_DATE_ENTERED' => 'Oprettet den:',
   'LBL_DATE_MODIFIED' => 'Ændret den:',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Virksomheder',
-  'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelsesoplysninger',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
+  'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelsesoplysninger',
   'LBL_DUPLICATE' => 'Mulig identisk virksomhed',
+  'LBL_EDIT_BUTTON' => 'Rediger',
   'LBL_EMAIL' => 'E-mail-adresse:',
+  'LBL_EMAIL_ADDRESS' => 'E-mail-adresse',
+  'LBL_EMAIL_ADDRESSES' => 'E-mail-adresser',
   'LBL_EMPLOYEES' => 'Medarbejdere:',
+  'LBL_FACEBOOK' => 'Facebook konto',
+  'LBL_FAX' => 'Fax:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_INDUSTRY' => 'Branche:',
+  'LBL_LINKEDIN' => 'Linkedin Virksomhed ID',
   'LBL_LIST_ACCOUNT_NAME' => 'Virksomhedsnavn',
   'LBL_LIST_CITY' => 'By',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-mail-adresse',
@@ -71,28 +72,30 @@ $mod_strings = array (
   'LBL_OTHER_PHONE' => 'Anden telefon:',
   'LBL_OWNERSHIP' => 'Ejer:',
   'LBL_PARENT_ACCOUNT_ID' => 'Overordnet virksomheds-id',
-  'LBL_PHONE_ALT' => 'Alternativ telefon:',
-  'LBL_PHONE_FAX' => 'Telefon "fax":',
-  'LBL_PHONE_OFFICE' => 'Telefon "arbejde":',
   'LBL_PHONE' => 'Telefon:',
-  'LBL_EMAIL_ADDRESS' => 'E-mail-adresse(r)',
-  'LBL_EMAIL_ADDRESSES' => 'E-mail-adresse(r)',
+  'LBL_PHONE_ALT' => 'Alternativ telefon:',
+  'LBL_PHONE_FAX' => 'Telefon fax:',
+  'LBL_PHONE_OFFICE' => 'Telefon arbejde:',
   'LBL_POSTAL_CODE' => 'Postnummer:',
   'LBL_PUSH_BILLING' => 'Skub fakturering',
   'LBL_PUSH_SHIPPING' => 'Skub forsendelse',
+  'LBL_RATING' => 'Klassifikation',
+  'LBL_REMOVE' => 'Fjern',
   'LBL_SAVE_ACCOUNT' => 'Gem virksomhed',
-  'LBL_SHIPPING_ADDRESS_CITY' => 'Leveringsadresse, by:',
-  'LBL_SHIPPING_ADDRESS_COUNTRY' => 'Leveringsadresse, land:',
-  'LBL_SHIPPING_ADDRESS_POSTALCODE' => 'Leveringsadresse, postnummer:',
-  'LBL_SHIPPING_ADDRESS_STATE' => 'Leveringsadresse, stat:',
-  'LBL_SHIPPING_ADDRESS_STREET_2' => 'Leveringsadresse, gade 2',
-  'LBL_SHIPPING_ADDRESS_STREET_3' => 'Leveringsadresse, gade 3',
-  'LBL_SHIPPING_ADDRESS_STREET_4' => 'Leveringsadresse, gade 4',
-  'LBL_SHIPPING_ADDRESS_STREET' => 'Leveringsadresse, gade:',
   'LBL_SHIPPING_ADDRESS' => 'Leveringsadresse:',
+  'LBL_SHIPPING_ADDRESS_CITY' => 'Leveringsadresse, By:',
+  'LBL_SHIPPING_ADDRESS_COUNTRY' => 'Leveringsadresse, Land:',
+  'LBL_SHIPPING_ADDRESS_POSTALCODE' => 'Leveringsadresse, Postnummer:',
+  'LBL_SHIPPING_ADDRESS_STATE' => 'Leveringsadresse, Stat:',
+  'LBL_SHIPPING_ADDRESS_STREET' => 'Leveringsadresse, Gade:',
+  'LBL_SHIPPING_ADDRESS_STREET_2' => 'Leveringsadresse, Gade 2',
+  'LBL_SHIPPING_ADDRESS_STREET_3' => 'Leveringsadresse, Gade 3',
+  'LBL_SHIPPING_ADDRESS_STREET_4' => 'Leveringsadresse, Gade 4',
   'LBL_STATE' => 'Tilstand:',
   'LBL_TEAMS_LINK' => 'Team',
   'LBL_TICKER_SYMBOL' => 'Fondskode:',
+  'LBL_TWITTER' => 'Twitter konto',
+  'LBL_TYPE' => 'Type:',
   'LBL_USERS_ASSIGNED_LINK' => 'Tildelte brugere',
   'LBL_USERS_CREATED_LINK' => 'Oprettet af brugere',
   'LBL_USERS_MODIFIED_LINK' => 'Ændrede brugere',

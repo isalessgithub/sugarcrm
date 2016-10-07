@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => '取引先ID',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => '作成者',
   'LBL_CURRENCY' => '通貨:',
   'LBL_CURRENCY_ID' => '通貨ID:',
+  'LBL_CURRENCY_RATE' => '通貨レート',
   'LBL_CUSTOMER_SIGNED_DATE' => '顧客担当者のサイン日:',
   'LBL_DAYS' => '日',
   'LBL_DESCRIPTION' => '詳細:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'ドキュメント',
   'LBL_END_DATE' => '終了日:',
   'LBL_EXPIRATION_NOTICE' => '失効通知:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'アサインされたユーザーID',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'アサインされたユーザー名',
+  'LBL_EXPORT_CREATED_BY' => '作成者ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
+  'LBL_EXPORT_TYPE_NAME' => 'タイプ名',
   'LBL_LIST_ACCOUNT_NAME' => '取引先',
   'LBL_LIST_ASSIGNED_TO_USER' => 'アサイン先',
   'LBL_LIST_CONTRACT_NAME' => '契約名',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'チーム',
   'LBL_MODIFIED_USER' => '更新者',
   'LBL_MODULE_NAME' => '契約',
+  'LBL_MODULE_NAME_SINGULAR' => '契約',
   'LBL_MODULE_TITLE' => '契約: ホーム',
   'LBL_NEW_FORM_TITLE' => '契約作成',
   'LBL_NONE' => 'なし',
   'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_OPPORTUNITY' => '商談名:',
-  'LBL_OPPORTUNITY_NAME' => '商談名',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => '商品',
+  'LBL_OPPORTUNITY_ID' => '商談ID',
   'LBL_QUOTES_SUBPANEL_TITLE' => '見積',
   'LBL_REFERENCE_CODE' => 'リファレンスコード:',
+  'LBL_RLI_SUBPANEL_TITLE' => '商談品目',
   'LBL_SEARCH_FORM_TITLE' => '契約検索',
   'LBL_SF_ACCOUNT_NAME' => '取引先:',
   'LBL_SF_ASSIGNED_TO' => 'アサイン先:',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => '契約価格:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => '契約価格（USD）:',
   'LBL_TYPE' => 'タイプ',
+  'LBL_TYPE_NAME' => 'タイプ名',
   'LBL_UNDEFINED' => '未定義',
   'LNK_CONTRACT_LIST' => '契約一覧',
   'LNK_IMPORT_CONTRACTS' => '契約をインポート',

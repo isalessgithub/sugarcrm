@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avançat',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Mostrar els temps de resposta del servidor',
   'ERR_ALERT_FILE_UPLOAD' => 'Error en pujar la imatge.',
   'ERR_DELETE_CORE_FILE' => 'ERROR: No és possible eliminar un fon principal del sistema.',
+  'ERR_EMPTY_SAML_CERT' => 'El certificat de SAML no pot estar buit',
+  'ERR_EMPTY_SAML_LOGIN' => 'L&#39;URL d&#39;inici de sessió a SAML no pot esta buida',
   'ERR_EZPDF_DISABLE' => 'Avís: La classe EZPDF ha estat dehabilitada a la taula de configuració i està establerta com la classe per a PDF. Si us palu, "Guardi" aquest formulari per a establir TCPDF com la Classe PDF i torni a un estat estable.',
   'ERR_FONT_ALREADY_EXIST' => 'ERROR: Aquesta font ja exixsteix. Tornar a l&#39;estat anterior...',
   'ERR_FONT_EMPTYFILE' => 'ERROR: Nom de l&#39;arxiu buit!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERROR: LA ruta de la font personalitzada no està disponible!',
   'ERR_NO_FONT_PATH' => 'ERROR: La ruta de la font no està disponible!',
   'ERR_PDF_NO_UPLOAD' => 'Error durant la pujada de l&#39;arxiu de font o de mètriques.',
+  'ERR_SAML_LOGIN_URL' => 'L&#39;URL d&#39;inici de sessió a SAML no és vàlida',
+  'ERR_SAML_SLO_URL' => 'L&#39;URL d&#39;SSO a SAML no és vàlida',
   'HEAD_MAGNIFICATION' => 'Augment de la Capçelera',
   'HEAD_MAGNIFICATION_INFO' => 'Coeficient d&#39;augment per a títols.',
   'IMAGES' => 'Logos',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Enrere',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Triï el seu proveïdor d&#39;Email:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Configuració del Sistema',
-  'LBL_CONFIG_AJAX' => 'Configurar la interfície d&#39;usuari AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Activar o desactivar l&#39;ús de la interfície d&#39;usuari AJAX per mòduls específics.',
   'LBL_DELETE' => 'Eliminar',
   'LBL_DISALBE_CONVERT_LEAD' => 'Desactivar l&#39;acció de convertir client potencial per a clients potencials convertits',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Si un client potencial s&#39;ha convertit ja, el que permet aquesta opció es eliminar l&#39;acció principal de conversió.',
   'LBL_DISPLAYING_LOG' => 'Mostrant Traça',
   'LBL_ENABLE_ACTION_MENU' => 'Mostrar accions als menus',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Seleccioneu per mostrar Vista de Detall i Subpanell dins d$#39;un menú desplegable. Si es deixa sense seleccionar, les accions es mostraràn com botons independents.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Mostra missatges de correu electrònic relacionats amb els contactes en el subpanel de històrial per mòduls',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Activar/desactivar emails de contactes relacionats (o linkats) per mostrar en el subpanel d&#39;emails.',
   'LBL_ENABLE_MAILMERGE' => 'Habilitar combinar correspondència?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Contrasenya d&#39;Exchange:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Paràmetres adicionals es poden posar per filtrar a l&#39;hora de autentificar ex.nis_sugar_user=1 or (is_sugar_user=1)(is_sales=1)',
   'LBL_LEAD_CONV_OPTION' => 'Opcions de conversió de client potencial',
   'LBL_LOADING' => 'Carregant ...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Aquest ajust s&#39;aplica als mòduls en la manera tradicional.',
   'LBL_LOGGER' => 'Configuració de Traça',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Format de data per defecte',
   'LBL_LOGGER_FILENAME' => 'Nom d´Arxiu de Traça',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Següent>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Direcció "De":',
   'LBL_NOTIFY_SUBJECT' => 'Assumpte de correu:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Evita canvis de noms per part d&#39;usuaris que actualitzen el seu nom d&#39;equip privat',
   'LBL_OC_STATUS' => 'Estat per defecte de Client Desconectat:',
   'LBL_OC_STATUS_DESC' => 'Aquí pot comprovar si desitja que qualsevol usuari pugui tenir accés a un Client Desconnectat. En un altre cas, pot configurar l´acess a nivell d´usuari.',
   'LBL_PDFMODULE_NAME' => 'Configuració PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'ERROR: LA font no ha estat afegida. Miri en el següent registre.',
   'LBL_STATUS_FONT_SUCCESS' => 'ÈXIT: La font ha estat afegida a SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Configuració del Sistema',
+  'LBL_TWEETTOCASE_ON' => 'Habilita Tweet&reg; per a l&#39;integració de casos',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Permet als usuaris que creen casos des de Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; a un cas',
   'LBL_USE_REAL_NAMES' => 'Mostrar nom complet (no id usuari)',
   'LBL_USE_REAL_NAMES_DESC' => 'Mostrar el nom complet dels usuaris en lloc dels seus Noms d&#39;usuari en els camps d&#39;assignació.',
   'LBL_VCAL_PERIOD' => 'Període de Temps per Actualizacions vCal:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nom del Sistema',
   'SYSTEM_NAME_HELP' => 'Aquest és el nom mostrat a la barra de títol del seu navegador.',
   'SYSTEM_NAME_WIZARD' => 'Nom:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Configuració recomanada està per sota de  {{listEntriesNum}} per als nivells de rendiment acceptables. A mesura que s&#39;afegeixen més camps a la vista de llista, aquest número ha d&#39;estar a l&#39;extrem inferior de la configuració recomanada.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Configuració recomanada està per sota de  {{subpanelEntriesNum}} per als nivells de rendiment acceptables. A mesura que s&#39;afegeixen més camps a la vista de llista, aquest número ha d&#39;estar a l&#39;extrem inferior de la configuració recomanada.',
   'UPLOAD_MAX_SIZE' => 'Tamany màxim per pujada d´arxius',
   'VERIFY_CLIENT_IP' => 'Validar direcció IP del usuari',
   'vCAL_HELP' => 'Faci servir aquesta opció per determinar el número de mesos per endavant sobre la data actual amb la que es pública l´informació relativa al estat de Disponible/Ocupat sobre trucades i reunions.</BR>Per desactivar la publicació del estat Disponible/Ocupat, posi "0".  El mínim es 1 mes; el màxim 12.',

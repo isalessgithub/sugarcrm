@@ -1,20 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
+require_once "modules/Mailer/MailerFactory.php"; // imports all of the Mailer classes that are needed
 
-require_once('include/SugarPHPMailer.php');
+global $current_user;
 
 $test=false;
 if (isset($_REQUEST['mode']) && $_REQUEST['mode']=='test') {
@@ -26,15 +25,18 @@ if (isset($_REQUEST['send_all']) && $_REQUEST['send_all']== true) {
 else  {
 	$send_all=false; //if set to true email delivery will continue..to run until all email have been delivered.
 }
+$GLOBALS['log'] = LoggerManager::getLogger('SugarCRM');
 
-if(!isset($GLOBALS['log']))
-{
-    $GLOBALS['log'] = LoggerManager::getLogger('SugarCRM');
+$mailer = null;
+
+try {
+    $mailer = MailerFactory::getSystemDefaultMailer();
+} catch (MailerException $me) {
+    $GLOBALS['log']->fatal("Email delivery error:" . $me->getMessage());
+    return;
 }
 
-$mail = new SugarPHPMailer();
-$admin = new Administration();
-$admin->retrieveSettings();
+$admin = Administration::getSettings();
 if (isset($admin->settings['massemailer_campaign_emails_per_run'])) {
 	$max_emails_per_run=$admin->settings['massemailer_campaign_emails_per_run'];
 }
@@ -49,11 +51,6 @@ if (isset($admin->settings['massemailer_email_copy'])) {
 
 $emailsPerSecond = 10;
 
-$mail->setMailerForSystem();
-$mail->From     = "no-reply@example.com";
-$mail->FromName = "no-reply";
-$mail->ContentType="text/html";
-
 $campaign_id=null;
 if (isset($_REQUEST['campaign_id']) && !empty($_REQUEST['campaign_id'])) {
 	$campaign_id=$_REQUEST['campaign_id'];
@@ -61,7 +58,7 @@ if (isset($_REQUEST['campaign_id']) && !empty($_REQUEST['campaign_id'])) {
 
 $db = DBManagerFactory::getInstance();
 $timedate = TimeDate::getInstance();
-$emailman = new EmailMan();
+$emailman = BeanFactory::getBean('EmailMan');
 
     if($test){
         //if this is in test mode, then
@@ -104,11 +101,11 @@ do {
 	$no_items_in_queue=true;
 
 	$result = $db->limitQuery($select_query,0,$max_emails_per_run);
-	global $current_user;
+
 	if(isset($current_user)){
 		$temp_user = $current_user;
 	}
-	$current_user = new User();
+	$current_user = BeanFactory::getBean('Users');
 	$startTime = microtime(true);
 
 	while(($row = $db->fetchByAssoc($result))!= null){
@@ -142,14 +139,12 @@ do {
             if (!class_exists('EmailMarketing')) {
 
             }
-            $current_emailmarketing=new EmailMarketing();
-            $current_emailmarketing->retrieve($row['marketing_id']);
+            $current_emailmarketing = BeanFactory::getBean('EmailMarketing', $row['marketing_id']);
 
             if (!class_exists('EmailTemplate')) {
 
             }
-            $current_emailtemplate= new EmailTemplate();
-            $current_emailtemplate->retrieve($current_emailmarketing->template_id);
+            $current_emailtemplate = BeanFactory::getBean('EmailTemplates', $current_emailmarketing->template_id);
 
         }
 
@@ -213,23 +208,26 @@ do {
 			}
 		}
 
-		if(!$emailman->sendEmail($mail,$massemailer_email_copy,$test)){
-			$GLOBALS['log']->fatal("Email delivery FAILURE:" . print_r($row,true));
-		} else {
-			$GLOBALS['log']->debug("Email delivery SUCCESS:" . print_r($row,true));
-	 	}
-		if($mail->isError()){
-			$GLOBALS['log']->fatal("Email delivery error:" . print_r($row,true). $mail->ErrorInfo);
-		}
+        try {
+            $emailman->sendEmail($mailer, $massemailer_email_copy, $test);
+            $GLOBALS['log']->debug("Email delivery SUCCESS:" . print_r($row,true));
+        } catch (MailerException $me) {
+            switch ($me->getCode()) {
+                case MailerException::FailedToSend:
+                    $GLOBALS['log']->fatal("Email delivery FAILURE:" . print_r($row,true));
+                    break;
+                default:
+                    break;
+            }
+
+            $GLOBALS['log']->fatal("Email delivery error:" . print_r($row,true). $me->getMessage());
+        }
 	}
 
 	$send_all=$send_all?!$no_items_in_queue:$send_all;
 
 }while ($send_all == true);
 
-if ($admin->settings['mail_sendtype'] == "SMTP") {
-	$mail->SMTPClose();
-}
 if(isset($temp_user)){
 	$current_user = $temp_user;
 }

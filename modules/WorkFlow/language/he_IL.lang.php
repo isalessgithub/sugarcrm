@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTION_ERROR' => 'This action cannot be executed. Edit the action so that all of the fields and field values are valid.',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_LIST_UP' => 'up',
   'LBL_MODULE_ID' => 'WorkFlow',
   'LBL_MODULE_NAME' => 'Workflow Definitions',
+  'LBL_MODULE_NAME_SINGULAR' => 'הגדרת זרימת עבודה',
   'LBL_MODULE_TITLE' => 'Workflow: Home',
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'Create Workflow Definition',
@@ -88,5 +86,6 @@ $mod_strings = array (
   'LNK_PROCESS_VIEW' => 'Workflow Sequence',
   'LNK_WORKFLOW' => 'List Workflow Definitions',
   'NTC_REMOVE_ALERT' => 'Are you sure you want to remove this workflow?',
+  'WARN_WORKFLOW_DEPRECATED_ERROR' => 'אזהרה: מודול זרימת עבודה מושן ויוסר בקרוב. אנא העבר תזרימי עבודה ל<a href="index.php?module=pmse_Project">תהליך מחבר</a> החדש.<br /><a target="_blank" href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/01_Sugar_Ultimate/Sugar_Ultimate_7.6/Administration_Guide/135_Process_Author/">למד עוד על תהליך מחב</a>.',
 );
 

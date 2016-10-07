@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -55,10 +52,12 @@ $mod_strings = array (
   'LBL_EMAIL' => 'E-Mail:',
   'LBL_EMAIL_ADDRESS' => 'E-Mail Adresse(n)',
   'LBL_EMAIL_ADDRESSES' => 'E-Mail Adresse(n)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Nicht primäre Email Adressen',
   'LBL_EMPLOYEES' => 'Mitarbeiter:',
+  'LBL_FACEBOOK' => 'Facebook Konto',
   'LBL_FAX' => 'Fax:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_INDUSTRY' => 'Branche:',
+  'LBL_LINKEDIN' => 'Linkedin Company ID',
   'LBL_LIST_ACCOUNT_NAME' => 'Firmenname',
   'LBL_LIST_CITY' => 'Stadt',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-Mail Adresse',
@@ -95,6 +94,7 @@ $mod_strings = array (
   'LBL_STATE' => 'Bundesland:',
   'LBL_TEAMS_LINK' => 'Teams',
   'LBL_TICKER_SYMBOL' => 'Wertpapier Kennnummer (WKN):',
+  'LBL_TWITTER' => 'Twitter Konto',
   'LBL_TYPE' => 'Typ:',
   'LBL_USERS_ASSIGNED_LINK' => 'Zugew. Benutzer',
   'LBL_USERS_CREATED_LINK' => 'Erstellt von Benutzern',

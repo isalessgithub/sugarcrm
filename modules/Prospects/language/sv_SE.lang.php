@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att kunna radera kontakten.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Avdelning:',
   'LBL_DESCRIPTION' => 'Beskrivning:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivande information',
+  'LBL_DNB_BAL_PREVIEW' => 'Mål Förhandsvisning',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Targets',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Target Information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Hoved Id',
   'LBL_DO_NOT_CALL' => 'Ring inte:',
   'LBL_DUPLICATE' => 'Möjlig kopia av targets',
   'LBL_EDIT_ACCOUNT_NAME' => 'Organisationsnamn:',
@@ -74,15 +75,27 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Annan Epostadress',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ändrad av ID',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Targets&#39; rapporter',
   'LBL_FIRST_NAME' => 'Förnamn:',
   'LBL_FULL_NAME' => 'Namn',
+  'LBL_HELP_CREATE' => '"{{modul}}modulen består av enskilda människor som är okvalificerade men du har någon information om, men är ännu inte ett kvalificerad {{leads_singular_module}}.
+Information (t.ex. namn, e-postadress) om dessa {{plural_module_name}} köps normalt från visitkort som du får samtidigt delta olika trades shower, konferenser etc.
+För att skapa en {{modul}}: 1 För in värden för fälten som önskat. - Fält markerade ""Required"" måste fyllas i innan du sparar.  - Klicka på ""Visa mer"" för att visa ytterligare fält vid behov. 2 Klicka på ""Spara"" för att spara och återgå till föregående sidan. - Välj ""Spara och visa"" för att öppna den nya {{modul}}. - Välj ""Spara och skapa ny"" för att omedelbart skapa en annan ny {{modul}}."',
+  'LBL_HELP_RECORD' => '"{{modul}}modulen består av enskilda människor som är okvalificerade men du har någon information om, men är ännu inte ett kvalificerad {{leads_singular_module}}.
+Information (t.ex. namn, e-postadress) om dessa {{plural_module_name}} köps normalt från visitkort som du får samtidigt delta olika trades shower, konferenser etc. 
+{{plural_module_name}} i Sugar är fristående dokument som inte är relaterade till {{contacts_module}}, {{leads_module}}, {{accounts_module}} eller {{opportunities_module}}. 
+Det finns olika sätt som du kan skapa {{plural_module_name}} i Sugar exempel via {{plural_module_name}} modul, duplicara, importera {{plural_module_name}}, etc. 
+När {{modul}} post skapas, kan du visa och redigera information som hänför sig till {{modul}} via {{plural_module_name}} vyn."',
+  'LBL_HELP_RECORDS' => '{{modul}}modulen består av enskilda människor som är okvalificerade men du har någon information om, men är ännu inte ett kvalificerad {{leads_singular_module}}. Information (t.ex. namn, e-postadress) om dessa {{plural_module_name}} köps normalt från visitkort som du får samtidigt delta olika trades shower, konferenser etc. {{plural_module_name}} i Sugar är fristående dokument som inte är relaterade till {{contacts_module}}, {{leads_module}}, {{accounts_module}} eller {{opportunities_module}}. När {{modul}}post skapas, kan du visa och redigera information som rör den {{modul}} via {{plural_module_name}} detaljvyn."',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_HOME_PHONE' => 'Hemtelefon:',
   'LBL_IMPORT_VCARD' => 'Importera vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Skapa en kontakt automatiskt vid import av vCard från ditt filsystem.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Target från vCard skapades utan problem',
   'LBL_INVALID_EMAIL' => 'Ogiltig e-postadress:',
   'LBL_INVITEE' => 'Direktrapporter',
   'LBL_LAST_NAME' => 'Efternamn:',
+  'LBL_LEAD' => 'Lead',
   'LBL_LEAD_ID' => 'Lead id',
   'LBL_LIST_EMAIL_ADDRESS' => 'Epost',
   'LBL_LIST_FIRST_NAME' => 'Förnamn',
@@ -98,6 +111,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Ändrad användare',
   'LBL_MODULE_ID' => 'Prospekts',
   'LBL_MODULE_NAME' => 'Prospekts',
+  'LBL_MODULE_NAME_SINGULAR' => 'Target',
   'LBL_MODULE_TITLE' => 'Targets: Hem',
   'LBL_MORE_INFORMATION' => 'Mer information',
   'LBL_NAME' => 'Namn:',
@@ -124,12 +138,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Prospek lista',
   'LBL_PROSPECT_NAME' => 'Namn på target:',
   'LBL_PROSPECT_ROLE' => 'Roll:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Du har skapat med framgång {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Hälsning:',
   'LBL_SAVE_PROSPECT' => 'Spara target',
   'LBL_SEARCH_FORM_TITLE' => 'Sök targets',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Välj markerade targets',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Välj markerade targets',
   'LBL_STATE' => 'Stat:',
+  'LBL_STREET' => 'Gata',
   'LBL_TITLE' => 'Titel:',
   'LBL_TRACKER_KEY' => 'Tracker nyckel',
   'LNK_CAMPAIGN_LIST' => 'Kampanjer',
@@ -160,6 +176,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'För att skapa en affärsmöjlighet krävs en organisation.\\n Var god skapa antingen en ny organisation eller välj en en existerande.',
   'NTC_REMOVE_CONFIRMATION' => 'Är du säker på att du vill ta bort kontakten från ärendet?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Är du säker på att du vill ta bort det här objektet som en direkt rapport?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

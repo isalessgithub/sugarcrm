@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: WorkFlowAlertShell.php 45763 2009-04-01 19:16:18Z majed $
  * Description:
  ********************************************************************************/
 
@@ -53,7 +50,7 @@ class WorkFlowAlertShell extends SugarBean {
 	var $table_name = "workflow_alertshells";
 	var $module_dir = "WorkFlowAlertShells";
 	var $object_name = "WorkFlowAlertShell";
-	
+
 	var $rel_workflow_table = 	"workflow";
 	var $rel_alerts_table = 		"workflow_alerts";
 
@@ -82,44 +79,35 @@ class WorkFlowAlertShell extends SugarBean {
 	var $list_fields = array('id', 'name', 'alert_type', 'custom_template_id', 'alert_text');
 
 	var $relationship_fields = Array();
-	
-	
+
+
 	// This is the list of fields that are required
 	var $required_fields =  array("name"=>1, 'alert_type'=>1);
 
-	function WorkFlowAlertShell() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function WorkFlowAlertShell()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 
 		$this->disable_row_level_security =true;
 
 	}
 
-	
+
 
 	function get_summary_text()
 	{
 		return "$this->name";
 	}
-
-
-
-
-	/** Returns a list of the associated product_templates
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved.
-	 * Contributor(s): ______________________________________..
-	*/
-
-
-
-
-
-        function create_export_query(&$order_by, &$where)
-        {
-
-        }
-
-
 
 	function save_relationship_changes($is_update)
     {
@@ -139,7 +127,7 @@ class WorkFlowAlertShell extends SugarBean {
 	{
 
 	}
-	
+
 
 
 	function get_list_view_data(){
@@ -147,11 +135,11 @@ class WorkFlowAlertShell extends SugarBean {
 		global $app_list_strings;
 		global $current_module_strings;
 		global $current_module_strings2;
-		
-		
+
+
 		global $current_user;
 		global $current_language;
-		
+
 		$temp_array = array();
 		$translated_type = $app_list_strings['wflow_source_type_dom'][$this->source_type];
 		$prepared_name = (($this->name == "") ? "<i>an alert</i>" : "<b><i>".$this->name."</b></i>");
@@ -177,13 +165,13 @@ class WorkFlowAlertShell extends SugarBean {
 			$table_html .= "<tr><td>";
 			$table_html .= "<li>$alert_prev_text</li>";
 			$table_html .= "</td></tr>";
-		    
+
 		}
 		$table_html .= "</table>";
 		//end - rsmith
-		
-			//this is an alert item	
-		
+
+			//this is an alert item
+
 			if($this->source_type == "Normal Message"){
 
 				$statement = $current_module_strings['STATEMENT_PART1']." ".$prepared_name." ".$current_module_strings['STATEMENT_PART2']." ".$translated_type;
@@ -193,10 +181,11 @@ class WorkFlowAlertShell extends SugarBean {
 				//end if normal message
 			} else {
 				//custom template message
-				
-				$template_object = new EmailTemplate();
-				if($this->custom_template_id!=""){
-					$template_object->retrieve($this->custom_template_id);
+
+				if(!empty($this->custom_template_id)) {
+				    $template_object = BeanFactory::getBean('EmailTemplates', $this->custom_template_id);
+				}
+				if(!empty($template_object)) {
 					$custom_template_name = $template_object->name;
 				} else {
 					$custom_template_name = "";
@@ -207,18 +196,18 @@ class WorkFlowAlertShell extends SugarBean {
 
 				//end else custom template message
 			}
-			
+
 		$temp_array['HREF_EDIT'] = 'index.php?action=EditView&module=WorkFlowAlertShells&module_tab=WorkFlow&record='.$this->id.'&workflow_id='.$this->parent_id;
 		$temp_array['HREF_DELETE'] = "index.php?action=Delete&module=WorkFlowAlertShells&module_tab=WorkFlow&record=".$this->id."";
 		$temp_array['TYPE'] = $current_module_strings['LBL_MODULE_NAME'];
 		$temp_array['DETAILS_TABLE'] = $table_html;
 		$temp_array['ID'] = $this->id;
-		
+
 		//Component information for either recipients or invitees (Meetings & Calls)
 		$recipient_icon =  SugarThemeRegistry::current()->getImage('Users','align="absmiddle" border="0"',null,null,'.gif',$app_strings['LNK_REMOVE']);
 		$temp_array['COMPONENT_HREF_EDIT'] = 'index.php?action=DetailView&module=WorkFlowAlertShells&module_tab=WorkFlow&record='.$this->id.'&workflow_id='.$this->parent_id;
 		$temp_array['COMPONENT_STATEMENT'] = $recipient_icon.$mod_strings['LBL_RECIPIENTS'];
-		
+
 		return $temp_array;
 	}
 	/**
@@ -243,27 +232,26 @@ class WorkFlowAlertShell extends SugarBean {
 
 	function get_workflow_object(){
 
-		$workflow_object = new WorkFlow();
-		$workflow_object->retrieve($this->parent_id);
-		return $workflow_object;	
-	
-	//end function get_workflow_type	
-	}	
-	
-	
-	
-	
+		$workflow_object = BeanFactory::getBean('WorkFlow', $this->parent_id);
+		return $workflow_object;
+
+	//end function get_workflow_type
+	}
+
+
+
+
 	function retrieve_meta_information(){
-		
+
 		require_once('modules/WorkFlowAlertShells/MetaArray.php');
 		$this->target_meta_array = $process_dictionary['AlertShellDetailView']['elements'][$this->alert_type];
-		
-	//end function retrieve_meta_information	
-	}	
-	
+
+	//end function retrieve_meta_information
+	}
+
 	function copy($parent_id){
 		$orig_id = $this->id;
-		$new_action_shell =& $this;
+		$new_action_shell = $this;
 		$new_action_shell->id = "";
 		$new_action_shell->parent_id = $parent_id;
         if (isset($new_action_shell->date_entered))  $new_action_shell->date_entered=null;
@@ -272,14 +260,14 @@ class WorkFlowAlertShell extends SugarBean {
 		$new_id = $new_action_shell->id;
 		$this->retrieve($orig_id);
 		$alertcomp_list = $this->get_linked_beans('alert_components','WorkFlowAlert');
-	
+
 		foreach($alertcomp_list as $comp){
-			$new_comp =& $comp;
+			$new_comp = $comp;
 			$new_comp->id = "";
 			$new_comp->parent_id = $new_id;
             if (isset($new_comp->date_entered))  $new_comp->date_entered=null;
             if (isset($new_comp->created_by))  $new_comp->created_by=null;
-            
+
   		$new_comp->save();
 		}
 	}
@@ -287,8 +275,8 @@ class WorkFlowAlertShell extends SugarBean {
 
 //Add a get_alert_contents function
 
-	
-//end class	
+
+//end class
 }
 
 ?>

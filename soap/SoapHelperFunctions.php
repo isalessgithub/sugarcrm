@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Retrieve field data for a provided SugarBean.
@@ -30,7 +27,10 @@ function get_field_list($value, $translate=true){
 	if(!empty($value->field_defs)){
 
 		foreach($value->field_defs as $var){
-			if(isset($var['source']) && ($var['source'] != 'db' && $var['source'] != 'custom_fields') && $var['name'] != 'email1' && $var['name'] != 'email2' && (!isset($var['type'])|| $var['type'] != 'relate'))continue;
+			if(isset($var['source']) && ($var['source'] != 'db' && $var['source'] != 'custom_fields') && $var['name'] != 'email1' && $var['name'] != 'email2' && (!isset($var['type'])|| $var['type'] != 'relate')
+               &&!(isset($var['type'])&&$var['type']=='id'&&isset($var['link']))) {
+                continue;
+            }
 			$required = 0;
 			$options_dom = array();
 			$options_ret = array();
@@ -68,9 +68,9 @@ function get_field_list($value, $translate=true){
 		} //foreach
 	} //if
 
-    if (isset($value->module_dir) && $value->module_dir == 'Bugs') {
+	if($value->module_dir == 'Bugs'){
 
-		$seedRelease = new Release();
+		$seedRelease = BeanFactory::getBean('Releases');
 		$options = $seedRelease->get_releases(TRUE, "Active");
 		$options_ret = array();
 		foreach($options as $name=>$value){
@@ -89,7 +89,7 @@ function get_field_list($value, $translate=true){
 			$list['release_name']['options'] = $options_ret;
 		}
 	}
-    if (isset($value->module_dir) && $value->module_dir == 'Emails') {
+    if($value->module_dir == 'Emails'){
         $fields = array('from_addr_name', 'reply_to_addr', 'to_addrs_names', 'cc_addrs_names', 'bcc_addrs_names');
         foreach($fields as $field){
             $var = $value->field_defs[$field];
@@ -188,7 +188,7 @@ function new_get_field_list($value, $translate=true) {
 
 	if($value->module_dir == 'Bugs'){
 
-		$seedRelease = new Release();
+		$seedRelease = BeanFactory::getBean('Releases');
 		$options = $seedRelease->get_releases(TRUE, "Active");
 		$options_ret = array();
 		foreach($options as $name=>$value){
@@ -271,29 +271,22 @@ function get_name_value($field,$value){
 }
 
 function get_user_module_list($user){
-	global $app_list_strings, $current_language, $beanList, $beanFiles;
-
-	$app_list_strings = return_app_list_strings_language($current_language);
-	$modules = query_module_access_list($user);
-	ACLController :: filterModuleList($modules, false);
-	global $modInvisList;
+	global $moduleList, $modInvisList, $beanList, $beanFiles;
+	$modules = array_flip(SugarACL::filterModuleList($moduleList, 'access', true)); // module names end up as keys
 
 	foreach($modInvisList as $invis){
 		$modules[$invis] = 'read_only';
 	}
 
-	$actions = ACLAction::getUserActions($user->id,true);
-	foreach($actions as $key=>$value){
-		if(isset($value['module']) && $value['module']['access']['aclaccess'] < ACL_ALLOW_ENABLED){
-			if ($value['module']['access']['aclaccess'] == ACL_ALLOW_DISABLED) {
-				unset($modules[$key]);
-			} else {
-				$modules[$key] = 'read_only';
-			} // else
-		} else {
-			$modules[$key] = '';
-		} // else
-	} // foreach
+	foreach($modules as $key=>$val) {
+        if(!SugarACL::checkAccess($key, 'edit', array("owner_override" => true))) {
+            // not accessible for write
+	        $modules[$key] = 'read_only';
+	    } else {
+	        // access ok
+	        if($modules[$key] != 'read_only') $modules[$key] = '';
+	    }
+	}
 
 	//Remove all modules that don't have a beanFiles entry associated with it
 	foreach($modules as $module_name=>$module)
@@ -347,7 +340,7 @@ function get_name_value_list($value, $returnDomValue = false){
 			$list['created_by_name'] = get_name_value('created_by_name', $value->created_by_name);
 		}
 		foreach($value->field_defs as $var){
-			if(isset($var['source']) && ($var['source'] != 'db' && $var['source'] != 'custom_fields') && $var['name'] != 'email1' && $var['name'] != 'email2' && (!isset($var['type'])|| $var['type'] != 'relate')){
+			if(isset($var['source']) && ($var['source'] != 'db' && $var['source'] != 'custom_fields') && $var['name'] != 'email1' && $var['name'] != 'email2' && (!isset($var['type'])|| $var['type'] != 'relate')&&!(isset($var['type'])&&$var['type']=='id'&&isset($var['link']))){
 
 					if($value->module_dir == 'Emails' && (($var['name'] == 'description') || ($var['name'] == 'description_html') || ($var['name'] == 'from_addr_name') || ($var['name'] == 'reply_to_addr') || ($var['name'] == 'to_addrs_names') || ($var['name'] == 'cc_addrs_names') || ($var['name'] == 'bcc_addrs_names') || ($var['name'] == 'raw_source'))) {
 
@@ -364,10 +357,6 @@ function get_name_value_list($value, $returnDomValue = false){
 					$val = substr($val, 0, 10);
 				}elseif(strcmp($type, 'enum') == 0 && !empty($var['options']) && $returnDomValue){
 					$val = $app_list_strings[$var['options']][$val];
-				}
-				elseif(strcmp($type, 'currency') == 0){
-					$params = array( 'currency_symbol' => false );
-					$val = currency_format_number($val, $params);
 				}
 
 				$list[$var['name']] = get_name_value($var['name'], $val);
@@ -389,8 +378,7 @@ function filter_fields($value, $fields) {
 		} // if
 		if (isset($value->field_defs[$field])) {
 			$var = $value->field_defs[$field];
-			if(isset($var['source']) && ($var['source'] != 'db' && $var['source'] != 'custom_fields') && $var['name'] != 'email1' && $var['name'] != 'email2' && (!isset($var['type'])|| $var['type'] != 'relate')) {
-
+			if(isset($var['source']) && ($var['source'] != 'db' && $var['source'] != 'custom_fields') && $var['name'] != 'email1' && $var['name'] != 'email2' && !(isset($var['type'])&&$var['type'] != 'relate')&&isset($var['link'])) {
 				continue;
 			}
 		} // if
@@ -505,7 +493,6 @@ function get_return_value_for_fields($value, $module, $fields) {
 }
 
 function getRelationshipResults($bean, $link_field_name, $link_module_fields) {
-	global  $beanList, $beanFiles;
 	$bean->load_relationship($link_field_name);
 	if (isset($bean->$link_field_name)) {
 		// get the query object for this link field
@@ -515,10 +502,8 @@ function getRelationshipResults($bean, $link_field_name, $link_module_fields) {
 
 		// get the related module name and instantiate a bean for that.
 		$submodulename = $bean->$link_field_name->getRelatedModuleName();
-		$submoduleclass = $beanList[$submodulename];
-		require_once($beanFiles[$submoduleclass]);
 
-		$submodule = new $submoduleclass();
+		$submodule = BeanFactory::getBean($submodulename);
 		$filterFields = filter_fields($submodule, $link_module_fields);
 		$relFields = $bean->$link_field_name->getRelatedFields();
 		$roleSelect = '';
@@ -602,23 +587,12 @@ function get_return_value_for_link_fields($bean, $module, $link_name_to_value_fi
  * @param Array $related_ids -- The array of ids for which we want to create relationships
  * @return true on success, false on failure
  */
-function new_handle_set_relationship($module_name, $module_id, $link_field_name, $related_ids) {
-    global  $beanList, $beanFiles;
-
-    if(empty($beanList[$module_name])) {
-        return false;
-    } // if
-    $class_name = $beanList[$module_name];
-    require_once($beanFiles[$class_name]);
-    $mod = new $class_name();
-    $mod->retrieve($module_id);
-	if(!$mod->ACLAccess('DetailView')){
+function new_handle_set_relationship($module_name, $module_id, $link_field_name, $related_ids)
+{
+    $mod = BeanFactory::getBean($module_name, $module_id);
+	if(empty($mod) || !$mod->ACLAccess('DetailView')){
 		return false;
 	}
-
-    foreach($related_ids as $ids) {
-    	$GLOBALS['log']->debug("ids = " . $ids );
-    }
 
 	if ($mod->load_relationship($link_field_name)) {
 		$mod->$link_field_name->add($related_ids);
@@ -629,18 +603,16 @@ function new_handle_set_relationship($module_name, $module_id, $link_field_name,
 }
 
 function new_handle_set_entries($module_name, $name_value_lists, $select_fields = FALSE) {
-	global $beanList, $beanFiles, $app_list_strings;
+	global $app_list_strings;
 	global $current_user;
 
 	$ret_values = array();
 
-	$class_name = $beanList[$module_name];
-	require_once($beanFiles[$class_name]);
 	$ids = array();
 	$count = 1;
 	$total = sizeof($name_value_lists);
 	foreach($name_value_lists as $name_value_list){
-		$seed = new $class_name();
+		$seed = BeanFactory::getBean($module_name);
 
 		$seed->update_vcal = false;
 		foreach($name_value_list as $value){
@@ -685,7 +657,7 @@ function new_handle_set_entries($module_name, $name_value_lists, $select_fields 
 			else{
 				//since we found a duplicate we should set the sync flag
 				if( $seed->ACLAccess('Save')){
-					$seed = new $class_name();
+					$seed = BeanFactory::getBean($module_name);
 					$seed->id = $duplicate_id;
 					$seed->contacts_users_id = $current_user->id;
 					$seed->save();
@@ -781,54 +753,31 @@ function get_report_value($seed){
 	$field_list = array();
 	$output_list = array();
 	$report = new Report(html_entity_decode($seed->content));
-    // For some reason $seed->content has summary for both detailed and summary report
-    $report->report_type = $seed->report_type;
-
  	$report->enable_paging = false;
 	$next_row_fn = 'get_next_row';
  	$report->plain_text_output = true;
-
-    $column_types = 'display_columns';
-    $headerType = 'header';
-
-    // If it's a summary report (detailed or normal)
-    if (strpos($report->report_type, 'summary') !== false) {
-        $report->run_summary_combo_query(true);
+ 	if($report->report_type == 'summary'){
+ 		$report->run_summary_query();
  		$header = $report->get_summary_header_row();
-        $headerType = 'groupheader';
  		$next_row_fn = 'get_summary_next_row';
-        $column_types = 'summary_columns';
-    } else {
+ 	}else{
 		$report->run_query();
  		$header = $report->get_header_row();
  	}
 
 	foreach($header as $key=>$value){
 		$field_list[$key] = array('name'=>$value,
-            'type' => $headerType,
+			'type'=>'header',
 			'label'=> $value,
 			'required'=>'0',
 			'options'=> array()
 		);
 	}
 
-    // Summary detail header columns
-    if ($report->report_type == 'detailed_summary') {
-        $header_details = $report->get_header_row();
-        foreach ($header_details as $key => $value) {
-            $field_list_details[$key] = array(
-                'name' => $value,
-                'type' => 'header',
-                'label' => $value,
-                'required' => '0',
-                'options' => array()
-            );
-        }
-        $field_list = array_merge($field_list, $field_list_details);
-    }
-
-    $index = 0;
-
+	$index = 0;
+	$column_types = 'display_columns';
+	if($report->report_type == 'summary')
+		$column_types = 'summary_columns';
 	while (( $row = $report->$next_row_fn('result', $column_types) ) != 0 ){
 		$row_list = array('id' => $index,
 			'module_name' => 'Reports',
@@ -841,34 +790,9 @@ function get_report_value($seed){
 												 );
 		}
 		$output_list[$index] = $row_list;
-
-        // Summary Detail rows
-        if ($report->report_type == 'detailed_summary') {
-            if ($row['count'] > 0) {
-                for ($i = 0; $i < $row['count']; $i++) {
-                    $newIndex = $index . '.' . $i;
-                    $row_list = array(
-                        'id' => $newIndex,
-                        'module_name' => 'Reports',
-                        'name_value_list' => array()
-                    );
-
-                    $row_details = $report->get_next_row('result', 'display_columns');
-                    foreach ($row_details['cells'] as $key => $value) {
-                        $row_list['name_value_list'][$key] = array(
-                            'name' => $key,
-                            'value' => $value
-                        );
-                    }
-
-                    $output_list[$newIndex] = $row_list;
-                }
-            }
-        }
-
-        $index++;
-    }
-
+		$index++;
+		$output_list[] = $row;
+	}
 	$result['output_list'] = $output_list;
 	$result['field_list'] = $field_list;
 	return $result;
@@ -981,11 +905,9 @@ function add_create_account($seed)
 	$assigned_user_id = $current_user->id;
 
 	// check if it already exists
-    $focus = new Account();
+    $focus = BeanFactory::getBean('Accounts');
     if( $focus->ACLAccess('Save')){
-		$class = get_class($seed);
-		$temp = new $class();
-		$temp->retrieve($seed->id);
+		$temp = BeanFactory::getBean($seed->module_dir, $seed->id);
 		if ((! isset($account_name) || $account_name == ''))
 		{
 			return;
@@ -999,33 +921,31 @@ function add_create_account($seed)
 			return;
 		}
 
-        // attempt to find by id first
-        $ret = $focus->retrieve($account_id, true, false);
+	    $arr = array();
 
-        // if it doesn't exist by id, attempt to find by name (non-deleted)
-        if (empty($ret))
-        {
-            $query = "select {$focus->table_name}.id, {$focus->table_name}.deleted from {$focus->table_name} ";
-            $focus->add_team_security_where_clause($query);
-            $query .= " WHERE name='".$seed->db->quote($account_name)."'";
-            $query .=" ORDER BY deleted ASC";
-            $result = $seed->db->query($query, true);
+	    $query = "select {$focus->table_name}.id, {$focus->table_name}.deleted from {$focus->table_name} ";
+	    $focus->add_team_security_where_clause($query);
+	    $query .= " WHERE name='".$seed->db->quote($account_name)."'";
+	    $query .=" ORDER BY deleted ASC";
+	    $result = $seed->db->query($query, true);
 
-            $row = $seed->db->fetchByAssoc($result, false);
+	    $row = $seed->db->fetchByAssoc($result, false);
 
-            if (!empty($row['id']))
-            {
-                $focus->retrieve($row['id']);
-            }
-        }
-        // if it exists by id but was deleted, just remove it entirely
-        else if ($focus->deleted)
-        {
-            $query2 = "delete from {$focus->table_name} WHERE id='". $seed->db->quote($focus->id) ."'";
-            $seed->db->query($query2, true);
-            // it was deleted, create new
-            $focus = BeanFactory::newBean('Accounts');
-        }
+		// we found a row with that id
+	    if (!empty($row['id']))
+	    {
+	    	// if it exists but was deleted, just remove it entirely
+	        if ( !empty($row['deleted']))
+	        {
+	            $query2 = "delete from {$focus->table_name} WHERE id='". $seed->db->quote($row['id'])."'";
+	            $result2 = $seed->db->query($query2, true);
+			}
+			// else just use this id to link the contact to the account
+	        else
+	        {
+	        	$focus->id = $row['id'];
+	        }
+	    }
 
 		// if we didnt find the account, so create it
 	    if (empty($focus->id))
@@ -1163,8 +1083,7 @@ function get_decoded($object){
 function decrypt_string($string){
 	if(function_exists('mcrypt_cbc')){
 
-		$focus = new Administration();
-		$focus->retrieveSettings();
+		$focus = Administration::getSettings();
 		$key = '';
 		if(!empty($focus->settings['ldap_enc_key'])){
 			$key = $focus->settings['ldap_enc_key'];

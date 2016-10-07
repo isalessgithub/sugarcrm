@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * DetailView - display single record
@@ -127,18 +124,11 @@ class DetailView extends ListView {
         //indicate that this is not the first time anymore
         $this->setLocalSessionVariable($html_varName, "IS_FIRST_VIEW",  false);
 
-        // All 3 databases require this because the limit query does a > db_offset comparison.
+        // All databases require this because the limit query does a > db_offset comparision.
 		$db_offset=$offset-1;
 
 		$this->populateQueryWhere($isFirstView, $html_varName);
-		if(ACLController::requireOwner($seed->module_dir, 'view')) {
-			global $current_user;
-			$seed->getOwnerWhere($current_user->id);
-       		if(!empty($this->query_where)) {
-       			$this->query_where .= ' AND ';
-       		}
-       		$this->query_where .= $seed->getOwnerWhere($current_user->id);
-		}
+		$seed->addVisibilityWhere($this->query_where);
 
         $order = $this->getLocalSessionVariable($seed->module_dir.'2_'.$html_varName, "ORDER_BY");
         $orderBy = '';

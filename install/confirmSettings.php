@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 global $sugar_config, $db, $app_strings;
@@ -269,11 +266,18 @@ $envString = '
 
 // mbstrings
 
-        $envString .='
+      // mbstring.func_overload
+        $mbStatus = $mod_strings['LBL_CHECKSYS_OK'];
+        $mb = ini_get('mbstring.func_overload');
+        if ($mb > 1) {
+            $mbStatus = "<b><span class=\"stop\">" . translate('ERR_UW_MBSTRING_FUNC_OVERLOAD', 'UpgradeWizard') . "</span></b>";
+            $ret['error_found'] = true;
+        }
+        $envString .= '
       <tr>
         <td></td>
-        <td><strong>'.$mod_strings['LBL_CHECKSYS_MBSTRING'].'</strong></td>
-        <td  >'.$mod_strings['LBL_CHECKSYS_OK'].'</td>
+        <td><strong>' . $mod_strings['LBL_CHECKSYS_MBSTRING'] . '</strong></td>
+        <td  >' . $mbStatus . '</td>
       </tr>';
 
 // config.php
@@ -362,10 +366,7 @@ if( $memory_limit == "" ){          // memory_limit disabled at compile time, no
     $memory_limit_int = intval($num);
     $SUGARCRM_MIN_MEM = (int) constant('SUGARCRM_MIN_MEM');
     if( $memory_limit_int < constant('SUGARCRM_MIN_MEM') ){
-        // Bug59667: The string ERR_CHECKSYS_MEM_LIMIT_2 already has 'M' in it,
-        // so we divide the constant by 1024*1024.
-        $min_mem_in_megs = constant('SUGARCRM_MIN_MEM')/(1024*1024);
-        $memory_msg = "<span class='stop'><b>$memory_limit{$mod_strings['ERR_CHECKSYS_MEM_LIMIT_1']}" . $min_mem_in_megs . "{$mod_strings['ERR_CHECKSYS_MEM_LIMIT_2']}</b></span>";
+        $memory_msg = "<span class='stop'><b>$memory_limit{$mod_strings['ERR_CHECKSYS_MEM_LIMIT_1']}" . constant('SUGARCRM_MIN_MEM') . "{$mod_strings['ERR_CHECKSYS_MEM_LIMIT_2']}</b></span>";
         $memory_msg = str_replace('$memory_limit', $mem_display, $memory_msg);
     } else {
         $memory_msg = "{$mod_strings['LBL_CHECKSYS_OK']} ({$memory_limit})";
@@ -405,23 +406,7 @@ if( $memory_limit == "" ){          // memory_limit disabled at compile time, no
             <td  >'.$zipStatus.'</td>
           </tr>';
 
-    // PCRE
-    if(defined('PCRE_VERSION')) {
-        if (version_compare(PCRE_VERSION, '7.0') < 0) {
-            $pcreStatus = "<span class='stop'><b>{$mod_strings['ERR_CHECKSYS_PCRE_VER']}</b></span>";
-        }
-        else {
-            $pcreStatus = "{$mod_strings['LBL_CHECKSYS_OK']}";
-        }
-    } else {
-        $pcreStatus = "<span class='stop'><b>{$mod_strings['ERR_CHECKSYS_PCRE']}</b></span>";
-    }
-            $envString .='
-          <tr>
-            <td></td>
-            <td><strong>'.$mod_strings['LBL_CHECKSYS_PCRE'].'</strong></td>
-            <td  >'.$pcreStatus.'</td>
-          </tr>';
+
 
     // imap
     if(function_exists('imap_open')) {

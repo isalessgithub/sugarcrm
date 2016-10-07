@@ -1,26 +1,24 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ConfigureTabs.php 54176 2010-02-01 23:07:34Z dwheeler $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
+require_once 'include/SugarObjects/LanguageManager.php';
 class ViewLanguages extends SugarView
 {
     /**
@@ -56,30 +54,13 @@ class ViewLanguages extends SugarView
         global $mod_strings;
         global $app_list_strings;
         global $app_strings;
-        global $sugar_config;
         
-        $disabled = array();
-        $disabled_list = array();
-        if ( isset($sugar_config['disabled_languages'])) {
-            if(!is_array($sugar_config['disabled_languages'])){
-                $disabled_list = array_flip(explode(',', $sugar_config['disabled_languages']));
-            }else{
-                 $disabled_list = array_flip($sugar_config['disabled_languages']);
-            }
-        }
-        foreach ($sugar_config['languages'] as $key=>$value)
-        {
-            if(isset($disabled_list[$key])) {
-                $disabled[] = array("module" => $key, 'label' => $value);
-            } else {
-                $enabled[] = array("module" => $key, 'label' => $value);
-            }
-        }
+        $languages = LanguageManager::getEnabledAndDisabledLanguages();
 
         $this->ss->assign('APP', $GLOBALS['app_strings']);
         $this->ss->assign('MOD', $GLOBALS['mod_strings']);
-        $this->ss->assign('enabled_langs', json_encode($enabled));
-        $this->ss->assign('disabled_langs', json_encode($disabled));
+        $this->ss->assign('enabled_langs', json_encode($languages['enabled']));
+        $this->ss->assign('disabled_langs', json_encode($languages['disabled']));
         $this->ss->assign('title',$this->getModuleTitle(false));
 
         echo $this->ss->fetch('modules/Administration/templates/Languages.tpl');

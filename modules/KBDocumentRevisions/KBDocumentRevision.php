@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: KBDocumentRevision.php 20511 2007-02-28 00:18:41 +0000 (Wed, 28 Feb 2007) vineet $
  * Description: TODO:  To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -85,10 +82,21 @@ class KBDocumentRevision extends SugarBean {
 		
 	var $required_fields = Array("revision");
 	
-	
 
-	function KBDocumentRevision() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function KBDocumentRevision()
+    {
+        self::__construct();
+    }
+
+
+	public function __construct() {
+		parent::__construct();
 		$this->setupCustomFields('KBDocumentRevisions');  //parameter is module name
 		$this->disable_row_level_security =true; //no direct access to this module. 
 	}
@@ -166,12 +174,11 @@ class KBDocumentRevision extends SugarBean {
 		if(!class_exists('Documents')) {
 			
 		}
-		$document = new Document();
+		$document = BeanFactory::getBean('Documents');
 		
 		// use passed revision ID
 		if(!empty($revId)) {
-			$tempDoc = new DocumentRevision();
-			$tempDoc->retrieve($revId);
+			$tempDoc = BeanFactory::getBean('DocumentRevisions', $revId);
 		} else {
 			$tempDoc = $this;
 		}
@@ -219,12 +226,12 @@ class KBDocumentRevision extends SugarBean {
 	function fill_document_name_revision($doc_id) {
 
 		//find the document name and current version.
-		$query = "SELECT documents.document_name, revision FROM documents, document_revisions where documents.id = '$doc_id'";
-		$query .= " AND document_revisions.id = documents.document_revision_id";
+		$query = "SELECT kbdocuments.kbdocument_name, revision FROM kbdocuments, kbdocument_revisions where kbdocuments.id = '$doc_id'";
+		$query .= " AND kbdocuments.id = kbdocument_revisions.kbdocument_id";
 		$result = $this->db->query($query,true,"Error fetching document details...:");
 		$row = $this->db->fetchByAssoc($result);
 		if ($row != null) {
-			$this->name = $row['document_name'];
+			$this->name = $row['kbdocument_name'];
 			$this->latest_revision = $row['revision'];	
 		}	
 	}
@@ -262,7 +269,7 @@ class KBDocumentRevision extends SugarBean {
 		if (empty($doc_id)) return $return_array;
 		
 		$db = DBManagerFactory::getInstance();				
-		$query="select id, revision from document_revisions where document_id='$doc_id' and deleted=0";
+		$query="select id, revision from kbdocument_revisions where kbdocument_id='$doc_id' and deleted=0";
 		$result=$db->query($query);
 		if (!empty($result)) {
 			while (($row=$db->fetchByAssoc($result)) != null) {
@@ -277,7 +284,7 @@ class KBDocumentRevision extends SugarBean {
 		if (empty($kbdocrev_id)) return $return_array;
 		
 		$db = DBManagerFactory::getInstance();				
-		$query="select id from documents where kbdocument_revision_id='$kbdocrev_id' and deleted=0";
+		$query="select id from kbdocuments where kbdocument_revision_id='$kbdocrev_id' and deleted=0";
 		$result=$db->query($query);
 		if (!empty($result)) {
 			while (($row=$db->fetchByAssoc($result)) != null) {
@@ -291,9 +298,13 @@ class KBDocumentRevision extends SugarBean {
 		$return_array= Array();
 		if (empty($kbdocrev_id)) return $return_array;
 		
-		$db = DBManagerFactory::getInstance();				
-		$query="select id from document_revisions where kbdocument_revision_id='$kbdocrev_id' and deleted=0";
+		$db = DBManagerFactory::getInstance();
+
+		$query = 'select document_revisions.id from document_revisions, kbdocument_revisions'; 
+		$query .= ' where document_revisions.id=kbdocument_revisions.document_revision_id AND document_revisions.id = ' . $db->quoted($kbdocrev_id);
+		$query .= ' and kbdocument_revisions.deleted = 0 and document_revisions.deleted = 0';
 		$result=$db->query($query);
+
 		if (!empty($result)) {
 			while (($row=$db->fetchByAssoc($result)) != null) {
 				$return_array[$row['id']]=$row['id'];
@@ -301,11 +312,5 @@ class KBDocumentRevision extends SugarBean {
 		}
 		return $return_array;
 	}	
-
-    public function bean_implements($interface) {
-        switch($interface) {
-            case 'FILE' : return true;
-        }
-        return parent::bean_implements($interface);
-    }
 }
+?>

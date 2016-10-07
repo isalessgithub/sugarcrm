@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -33,7 +30,7 @@ global $app_strings;
 global $app_list_strings;
 global $sugar_version, $sugar_config;
 
-$focus = new Campaign();
+$focus = BeanFactory::getBean('Campaigns');
 
 $detailView = new DetailView();
 $offset = 0;
@@ -74,13 +71,20 @@ if(!$focus->campaign_type == "NewsLetter"){
     $smarty->assign("TYPE", $app_list_strings['campaign_type_dom'][$focus->campaign_type]);
     $smarty->assign("START_DATE", $focus->start_date);
     $smarty->assign("END_DATE", $focus->end_date);
-    
-    $smarty->assign("BUDGET", $focus->budget);
-    $smarty->assign("ACTUAL_COST", $focus->actual_cost);
-    $smarty->assign("EXPECTED_COST", $focus->expected_cost);
-    $smarty->assign("EXPECTED_REVENUE", $focus->expected_revenue);
-    
-    
+
+    if (!empty($focus->budget)) {
+        $smarty->assign("BUDGET", SugarCurrency::formatAmountUserLocale($focus->budget, $focus->currency_id));
+    }
+    if (!empty($focus->actual_cost)) {
+        $smarty->assign("ACTUAL_COST", SugarCurrency::formatAmountUserLocale($focus->actual_cost, $focus->currency_id));
+    }
+    if (!empty($focus->expected_cost)) {
+        $smarty->assign("EXPECTED_COST", SugarCurrency::formatAmountUserLocale($focus->expected_cost, $focus->currency_id));
+    }
+    if (!empty($focus->expected_revenue)) {
+        $smarty->assign("EXPECTED_REVENUE", SugarCurrency::formatAmountUserLocale($focus->expected_revenue, $focus->currency_id));
+    }
+
     $smarty->assign("OBJECTIVE", nl2br($focus->objective));
     $smarty->assign("CONTENT", nl2br($focus->content));
     $smarty->assign("DATE_MODIFIED", $focus->date_modified);
@@ -105,8 +109,9 @@ $campaign_id = $focus->id;
                             ROUND((SUM(opp.amount) - SUM(camp.actual_cost))/(SUM(camp.actual_cost)), 2)*100 as ROI";	           
             $opp_query1 .= " from opportunities opp";
             $opp_query1 .= " right join campaigns camp on camp.id = opp.campaign_id";
-            $opp_query1 .= " where opp.sales_stage = 'Closed Won' and camp.id='$campaign_id'";
-            $opp_query1 .= " and opp.deleted=0";                                  
+            $opp_query1 .= " where opp.sales_stage = '".Opportunity::STAGE_CLOSED_WON;
+            $opp_query1 .= "' and camp.id='$campaign_id'";
+            $opp_query1 .= " and opp.deleted=0";
             $opp_query1 .= " group by camp.name";
             $opp_result1=$focus->db->query($opp_query1);              
             $opp_data1=$focus->db->fetchByAssoc($opp_result1);
@@ -128,9 +133,10 @@ $campaign_id = $focus->id;
    }
    else{
    	$cost_per_impression = format_number(0);
-   }       
-   $smarty->assign("COST_PER_IMPRESSION",currency_format_number($cost_per_impression));
-   if(empty($camp_data1['click_thru_link'])) $camp_data1['click_thru_link']=0;      
+   }
+   $smarty->assign("COST_PER_IMPRESSION", SugarCurrency::formatAmountUserLocale($cost_per_impression, $focus->currency_id));
+
+   if(empty($camp_data1['click_thru_link'])) $camp_data1['click_thru_link']=0;
    $click_thru_links = $camp_data1['click_thru_link'];
    
    if($click_thru_links >0){
@@ -138,11 +144,11 @@ $campaign_id = $focus->id;
    }
    else{
    	$cost_per_click_thru = format_number(0);
-   } 
-   $smarty->assign("COST_PER_CLICK_THROUGH",currency_format_number($cost_per_click_thru));
-    
-    
-    	$currency  = new Currency();
+   }
+   $smarty->assign("COST_PER_CLICK_THROUGH", SugarCurrency::formatAmountUserLocale($cost_per_click_thru, $focus->currency_id));
+
+
+    	$currency = BeanFactory::getBean('Currencies');
     if(isset($focus->currency_id) && !empty($focus->currency_id))
     {
     	$currency->retrieve($focus->currency_id);
@@ -191,4 +197,3 @@ $campaign_id = $focus->id;
 	$smarty->assign('chartResources', $resources);
 
 echo $smarty->fetch('modules/Campaigns/RoiDetailView.tpl');
-?>

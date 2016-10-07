@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /*
  * Created on Sep 10, 2007
@@ -21,7 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
  require_once('include/ListView/ListViewSmarty.php');
- 
+
 
  /**
   * A Facade to ListView and ListViewSmarty
@@ -61,38 +58,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
  	function build(){
  		//we will assume that if the ListView.html file exists we will want to use that one
- 		if(file_exists('modules/'.$this->module.'/ListView.html')){
+ 		if(SugarAutoLoader::fileExists('modules/'.$this->module.'/ListView.html')){
  			$this->type = 1;
  			$this->lv = new ListView();
  			$this->template = 'modules/'.$this->module.'/ListView.html';
- 		}else{
-			$metadataFile = null;
-        	$foundViewDefs = false;
-        	if(file_exists('custom/modules/' . $this->module. '/metadata/listviewdefs.php')){
-            	$metadataFile = 'custom/modules/' .  $this->module . '/metadata/listviewdefs.php';
-            	$foundViewDefs = true;
-        	}else{
-            	if(file_exists('custom/modules/'. $this->module.'/metadata/metafiles.php')){
-                	require_once('custom/modules/'. $this->module.'/metadata/metafiles.php');
-                	if(!empty($metafiles[ $this->module]['listviewdefs'])){
-                    	$metadataFile = $metafiles[ $this->module]['listviewdefs'];
-                    	$foundViewDefs = true;
-                	}
-            	}elseif(file_exists('modules/'. $this->module.'/metadata/metafiles.php')){
-                	require_once('modules/'. $this->module.'/metadata/metafiles.php');
-                	if(!empty($metafiles[ $this->module]['listviewdefs'])){
-                    	$metadataFile = $metafiles[ $this->module]['listviewdefs'];
-                    	$foundViewDefs = true;
-                	}
-            	}
-        	}
-	        if(!$foundViewDefs && file_exists('modules/'. $this->module.'/metadata/listviewdefs.php')){
-	                $metadataFile = 'modules/'. $this->module.'/metadata/listviewdefs.php';
-	        }
-	        require_once($metadataFile);
+ 		} else {
+ 		    $metadataFile = SugarAutoLoader::loadWithMetafiles($this->module, 'listviewdefs');
+            if($metadataFile) {
+ 		        require $metadataFile;
+            }
 
-			if($this->focus->bean_implements('ACL'))
-			ACLField::listFilter($listViewDefs[ $this->module], $this->module, $GLOBALS['current_user']->id ,true);
+			SugarACL::listFilter($this->module, $listViewDefs[ $this->module], array("owner_override" => true));
 
 			$this->lv = new ListViewSmarty();
 			$displayColumns = array();
@@ -103,10 +79,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 			    }
 			}
 			else {
-			    foreach($listViewDefs[$this->module] as $col => $params) {
-			        if(!empty($params['default']) && $params['default'])
-			            $displayColumns[$col] = $params;
-			    }
+                if (isset($listViewDefs[$this->module])) {
+                    foreach ($listViewDefs[$this->module] as $col => $params) {
+                        if (!empty($params['default']) && $params['default']) {
+                            $displayColumns[$col] = $params;
+                        }
+                    }
+                }
 			}
 			$this->lv->displayColumns = $displayColumns;
 			$this->type = 2;
@@ -136,7 +115,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 			$this->lv->mailMerge = false;
 			$this->lv->multiSelect = false;
  			$this->lv->setup($this->focus, $this->template, $where, $params, $offset, $limit,  $filter_fields, $id_field);
- 			
+
  		}
  	}
 

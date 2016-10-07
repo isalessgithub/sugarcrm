@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Specify the record number to delete the contact.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Address Information',
   'LBL_ADD_BUSINESSCARD' => 'Enter Business Card',
   'LBL_ALTERNATE_ADDRESS' => 'Other Address:',
-  'LBL_ALT_ADDRESS' => 'Other Address:',
   'LBL_ALT_ADDRESS_CITY' => 'Alternate Address Town/City:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Alternate Address Country:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Alternate Address Postal Code:',
@@ -77,11 +73,16 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Description:',
   'LBL_DESCRIPTION_INFORMATION' => 'Description Information',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Direct Reports',
+  'LBL_DNB_BAL_PREVIEW' => 'Contacts Preview',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Contacts',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Contact Information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
   'LBL_DO_NOT_CALL' => 'Do Not Call:',
   'LBL_DUPLICATE' => 'Possible Duplicate Contacts',
   'LBL_EMAIL_ADDRESS' => 'Email Address:',
   'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
+  'LBL_EMPTY_VCARD' => 'Please select a vCard file',
   'LBL_EXISTING_ACCOUNT' => 'Used an existing account',
   'LBL_EXISTING_CONTACT' => 'Used an existing contact',
   'LBL_EXISTING_OPPORTUNITY' => 'Used an existing opportunity',
@@ -91,21 +92,44 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modified By ID',
   'LBL_EXPORT_PHONE_HOME' => 'Home Phone',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobile Phone',
+  'LBL_FACEBOOK' => 'Facebook Account',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILENAME' => 'Attachment',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Contacts&#39; reports',
   'LBL_FIRST_NAME' => 'First Name:',
   'LBL_FULL_NAME' => 'Full Name:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module consists of individual people with whom your organisation has a relationship.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalise the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of individual people with whom your organisation has a relationship.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of individual people with whom your organisation has a relationship. {{module_name}} records are typically related to an {{accounts_singular_module}} record, and multiple {{plural_module_name}} may be associated to a single {{accounts_singular_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, converting {{leads_module}} to {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} record view. Each {{module_name}} record may then relate to other Sugar records such as {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, and many others, making the {{module_name}} record a hub for viewing and continuing your interaction with the individual.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'History',
   'LBL_HOMEPAGE_TITLE' => 'My Contacts',
   'LBL_HOME_PHONE' => 'Home:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'Import vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automatically create a new contact by importing a vCard from your file system.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Contact from vCard created succesfully',
   'LBL_INVALID_EMAIL' => 'Invalid Email:',
   'LBL_INVITEE' => 'Direct Reports',
   'LBL_LANG_PREF_TOOLTIP' => 'The Support Portal user interface is rendered in the language selected here',
   'LBL_LAST_NAME' => 'Last Name:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LEAD_SOURCE' => 'Lead Source:',
+  'LBL_LINKEDIN' => 'Linkedin Member Account',
   'LBL_LIST_ACCEPT_STATUS' => 'Accept Status',
   'LBL_LIST_ACCOUNT_NAME' => 'Account Name',
   'LBL_LIST_CITY' => 'Town/City',
@@ -120,6 +144,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Office Phone',
   'LBL_LIST_STATE' => 'County',
   'LBL_LIST_TITLE' => 'Title',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Score',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Mobile:',
   'LBL_MODIFIED' => 'Modified By:',
   'LBL_MODULE_NAME' => 'Contacts',
@@ -128,6 +155,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'New Contact',
   'LBL_NEW_PORTAL_PASSWORD' => 'New Portal Password:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_NOTE_SUBJECT' => 'Note Subject',
   'LBL_OFFICE_PHONE' => 'Office Phone:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Old Portal Password',
@@ -152,6 +180,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Portal Name:',
   'LBL_PORTAL_PASSWORD' => 'Portal Password',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Portal Password is Set:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Click here to edit your profile.',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'The Profile is where you can manage your contact information, password, and language preferences.',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Here is where you can set your preferred language.  This will change the language used by Sugar Portal.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'You can return to your Profile at any time using the User menu.',
   'LBL_POSTAL_CODE' => 'Postal Code:',
   'LBL_PRIMARY_ADDRESS' => 'Primary Address:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Primary Address Town/City:',
@@ -161,7 +193,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET' => 'Primary Address Street:',
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Primary Address Street 2:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Primary Address Street 3:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Products',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Quoted Line Items',
   'LBL_PRODUCTS_TITLE' => 'Products',
   'LBL_PROJECTS_RESOURCES' => 'Projects Resources',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projects',
@@ -170,10 +202,12 @@ $mod_strings = array (
   'LBL_QUOTES_BILL_TO' => 'Quotes (Bill To)',
   'LBL_QUOTES_SHIP_TO' => 'Quotes (Ship To)',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Quotes',
+  'LBL_RECORD_SAVED_SUCCESS' => 'You successfully created the {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Related Contacts',
   'LBL_REPORTS_TO' => 'Reports To:',
   'LBL_REPORTS_TO_ID' => 'Reports to ID:',
   'LBL_RESOURCE_NAME' => 'Resource Name',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Revenue Line Items',
   'LBL_SALUTATION' => 'Salutation:',
   'LBL_SAVE_CONTACT' => 'Save Contact',
   'LBL_SEARCH_FORM_TITLE' => 'Contact Search',
@@ -185,12 +219,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Campaigns (Target of) :',
   'LBL_TEAM_ID' => 'Team ID:',
   'LBL_TITLE' => 'Title:',
+  'LBL_TWITTER' => 'Twitter ID',
   'LBL_USER_PASSWORD' => 'Password:',
   'LBL_USER_SYNC' => 'User Sync',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Contact View',
   'LNK_CONTACT_LIST' => 'View Contacts',
   'LNK_CONTACT_REPORTS' => 'View Contact Reports',
+  'LNK_CREATE' => 'Create Person',
   'LNK_IMPORT_CONTACTS' => 'Import Contacts',
   'LNK_IMPORT_VCARD' => 'Create Contact From vCard',
   'LNK_NEW_ACCOUNT' => 'Create Account',
@@ -212,6 +248,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Creating an opportunity requires an account.\\n Please either create a new account or select an existing one.',
   'NTC_REMOVE_CONFIRMATION' => 'Are you sure you want to remove this contact from the case?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Are you sure you want to remove this record as a direct report?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

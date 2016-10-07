@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вы должны указать номер записи перед удалением.',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Email-напоминание отправлено',
   'LBL_EMAIL_REMINDER_TIME' => 'Время Email-напоминания',
   'LBL_EMPTY_SEARCH_RESULT' => 'Результатов нет. Создайте приглашенного ниже.',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'Произошла ошибка при запуске этой встречи. Обратитесь к администратору.',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Ответственный (ID)',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ответственный пользователь',
   'LBL_EXPORT_CREATED_BY' => 'Создано (ID)',
@@ -80,6 +78,26 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'Вы не можете принять участие в данной встрече, т.к. Вы не приглашены.',
   'LBL_EXTNOT_RECORD_LINK' => 'Обзор встречи',
   'LBL_FIRST_NAME' => 'Имя',
+  'LBL_HELP_CREATE' => 'Модуль {{plural_module_name}} состоит из записей {{meetings_module}}, зарегистрированных пользователями Вашей организации. {{plural_module_name}} могут находиться в статусе "Запланирована", "Состоялась", или "Отменена". Пользователи Sugar, также как {{contacts_module}} и {{leads_module}} могут быть добавлены в качестве приглашенных. 
+
+Для того, чтобы создать {{meetings_singular_module}}:
+1. Введите необходимые значения полей.
+    - Поля, отмеченные как "Обязательные" должны быть заполнены перед сохранением. 
+    - Нажмите "Показать больше" для открытия дополнительных полей при необходимости. 
+2. Добавить приглашенных к {{meetings_singular_module}}.
+    - Нажмите "Выбрать приглашенного", чтобы добавить существующего пользователя, контакт или предварительный контакт к {{calls_singular_module}}.
+    - Нажмите на значок плюс справа от "Выберите приглашенного" для того, чтобы создать участника встречи  {{meetings_singular_module}} как новую запись Sugar.
+3. Нажмите "Сохранить", чтобы завершить создание новой записи и вернуться на предыдущую страницу. 
+    - Выберите "Сохранить и посмотреть" для того, чтобы открыть новую {{meetings_singular_module}} в режиме просмотра записи.
+    - Выберите "Сохранить и создать новый" для того, чтобы сразу создать другую новую {{meetings_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Модуль {{plural_module_name}} состоит из записей {{meetings_singular_module}}, зарегистрированных пользователями Вашей организации. {{plural_module_name}} могут находиться в статусе "Запланирована", "Состоялась", или "Отменена". Пользователи Sugar, как {{contacts_module}} и {{leads_module}} могут быть добавлены в качестве приглашенных. 
+
+- Редактируйте данную запись, нажав на отдельное поле или кнопку Правка. 
+- Просматривайте или изменяйте связи с другими записями в субпанелях путем переключения нижней левой панели на "Режим детального просмотра записи". 
+- Создавайте и просматривайте комментарии пользователей и историю изменения записи в Ленте активностей путем переключения нижней левой панели на "Ленту активностей". 
+- Следите за записями или добавляйте записи в избранные с помощью значков справа от названия записи. 
+- Дополнительные действия доступны в выпадающем меню действий справа от кнопки Правка.',
+  'LBL_HELP_RECORDS' => 'Модуль {{plural_module_name}} состоит из записей {{meetings_singular_module}}, зарегистрированных пользователями Вашей организации. {{plural_module_name}} могут находиться в статусе "Запланирована", "Состоялась", или "Отменена". Из контекста списочного представления {{plural_module_name}}, Вы можете нажать кнопку Закрыть в действиях строки любой из запланированных {{meetings_singular_module}} для того, чтобы пометить ее как состоявшуюся. Пользователи Sugar, как {{contacts_module}} и {{leads_module}} могут быть добавлены в качестве приглашенных. Существуют различные способы создания {{meetings_module}} в Sugar, такие как через модуль {{plural_module_name}}, модуль {{calendar_module}}, импорт {{meetings_module}} и т.д. Пользователи также могут запланировать {{meetings_module}} через субпанель Активности (для предыдущих версий модулей) или дашлет Запланированные активности (для модулей Sidecar), в связанных записях модуля (например, {{contacts_module}}, {{accounts_module}}, {{leads_module}} и т.д.), который автоматически создает связь между обеими записями. После создания записи {{meetings_singular_module}}, Вы можете просматривать и редактировать информацию, касающуюся {{meetings_singular_module}} через режим детального просмотра {{module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Заметки',
   'LBL_HOST_EXT_MEETING' => 'Начать встречу',
   'LBL_HOST_URL' => 'URL хоста',
@@ -87,6 +105,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(часов:минут)',
   'LBL_INVITEE' => 'Приглашенные',
   'LBL_JOIN_EXT_MEETING' => 'Принять участие во встрече',
+  'LBL_JOIN_MEETING' => 'Присоединиться к/ко {{meetingType}}',
   'LBL_LAST_NAME' => 'Фамилия',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Предварительные контакты',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Ответственный (-ая)',
@@ -105,6 +124,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => 'Время начала',
   'LBL_LOCATION' => 'Место проведения:',
   'LBL_MEETING' => 'Встреча:',
+  'LBL_MEETING_CLOSE_SUCCESS' => 'Встреча завершена успешно.',
   'LBL_MEETING_INFORMATION' => 'Предварительный просмотр встречи',
   'LBL_MINSS_ABBREV' => 'мин.',
   'LBL_MODIFIED_BY' => 'Последнее изменение:',
@@ -112,6 +132,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Встречи',
   'LBL_MODULE_NAME_SINGULAR' => 'Встреча',
   'LBL_MODULE_TITLE' => 'Встречи - Главная',
+  'LBL_MY_SCHEDULED_MEETINGS' => 'Мои запланированные встречи',
   'LBL_NAME' => 'Название',
   'LBL_NEW_FORM_TITLE' => 'Новая встреча',
   'LBL_NO_ACCESS' => 'У Вас нет доступа к созданию $module',
@@ -120,16 +141,21 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => 'Тип изначальной записи',
   'LBL_PASSWORD' => 'Пароль встречи',
   'LBL_PHONE' => 'Тел. рабочий:',
+  'LBL_POPUP_REMINDER' => 'Всплывающее напоминание',
+  'LBL_POPUP_REMINDER_TIME' => 'Всплывающее окно напоминания времени',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Вы запланировали {{moduleSingularLower}} на {{formatDate date_start}}, но у Вас нет доступа к этой записи.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Вы запланировали {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> на {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Повторение',
   'LBL_RECURRING_LIMIT_ERROR' => 'Эта повторяющаяся встреча не может быть запланирована, т.к. она превышает максимально разрешенное повторение $limit.',
   'LBL_RECURRING_SOURCE' => 'Источник повторений',
-  'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Звонок с {{{this}}}',
+  'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Встреча с {{{this}}}',
   'LBL_RELATED_TO' => 'Относится к:',
   'LBL_REMINDER' => 'Напомнить:',
   'LBL_REMINDER_EMAIL' => 'E-mail',
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Отправить Email-сообщение всем приглашенным',
   'LBL_REMINDER_POPUP' => 'Всплывающее окно',
   'LBL_REMINDER_TIME' => 'Время напоминания',
+  'LBL_REMINDER_TITLE' => 'Встреча:',
   'LBL_REMOVE' => 'удал.',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Удалить все повторения',
   'LBL_REPEAT_COUNT' => 'Число повторений',
@@ -142,6 +168,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Родительский ID повторений',
   'LBL_REPEAT_TYPE' => 'Повторить тип',
   'LBL_REPEAT_UNTIL' => 'Повторять до',
+  'LBL_REVENUELINEITEMS' => 'Позиции продаж',
   'LBL_SCHEDULING_FORM_TITLE' => 'Планирование',
   'LBL_SEARCH_BUTTON' => 'Поиск',
   'LBL_SEARCH_FORM_TITLE' => 'Найти встречу',
@@ -150,9 +177,10 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => 'Отправить приглашение [Alt+I]',
   'LBL_SEND_INVITES' => 'Отправка приглашений',
   'LBL_SEQUENCE' => 'Порядок обновления встречи',
+  'LBL_START_MEETING' => 'Начать {{meetingType}}',
   'LBL_STATUS' => 'Статус',
   'LBL_SUBJECT' => 'Тема:',
-  'LBL_SYNCED_RECURRING_MSG' => 'Эта встреча изначально была создана в другой системе и синхронизирована в Sugar. Внести изменения можно в изначальной записи встречи в первой системе. Внесенные изменения можно синзронизировать в данную запись.',
+  'LBL_SYNCED_RECURRING_MSG' => 'Эта встреча изначально была создана в другой системе и синхронизирована в Sugar. Внести изменения можно в изначальной записи встречи в первой системе. Внесенные изменения можно синхронизировать в данную запись.',
   'LBL_TIME' => 'Время начала:',
   'LBL_TYPE' => 'Тип встречи',
   'LBL_URL' => 'Начать встречу/принять участие',

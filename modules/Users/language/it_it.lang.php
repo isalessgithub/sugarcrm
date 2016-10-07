@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Per eliminare l´azienda deve essere specificato il numero del record.',
@@ -78,7 +75,7 @@ $mod_strings = array (
   'LBL_ASSIGN_TO_USER' => 'Assegna all´Utente',
   'LBL_AUTHENTICATE_ID' => 'ID Autenticazione',
   'LBL_BASIC' => 'Impostazioni Posta in Arrivo',
-  'LBL_BUTTON_CREATE' => 'Nuovo',
+  'LBL_BUTTON_CREATE' => 'Crea',
   'LBL_BUTTON_EDIT' => 'Modifica',
   'LBL_CALENDAR_OPTIONS' => 'Opzioni Calendario',
   'LBL_CANCEL' => 'Annulla',
@@ -100,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Creato Da',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_EXAMPLE' => 'Esempio Aspetto Valuta',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Mostra Valuta Preferita',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Converti la valuta di base in quella preferita dell´utente nella vista di elenco e di dettaglio',
   'LBL_CURRENCY_SIG_DIGITS' => 'Cifre Decimali Significative',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Numero di cifre decimali da visualizzare',
   'LBL_CURRENCY_TEXT' => 'Scegli la valuta predefinita',
@@ -162,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Primo giorno della settimana',
   'LBL_FDOW_TEXT' => 'Primo giorno visualizzato nella vista Settimanale, Mensile o Annuale',
+  'LBL_FILTER_USERS_REPORTS' => 'Report Utenti',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Sto cercando le migliori impostazioni per la connessione.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Cerca la Configurazione Ottimale',
@@ -169,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forza disattivazione',
   'LBL_FORCE_DESC' => 'Alcuni server IMAP/POP3 richiedono impostazioni speciali. Questo forza la disattivazione di un´opzione (ad es. /notls)',
   'LBL_FORECASTS' => 'Previsioni',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Questo al momento non è disponibile. Si prega di contattare l´amministratore di sistema.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Impostazioni ottimali trovate. Premi il seguente pulsante per applicarle alla tua Casella di Posta.',
   'LBL_GENERATE_PASSWORD' => 'Azzera Password',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -276,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'I miei Gruppi',
   'LBL_NAME' => 'Nome Completo',
   'LBL_NAVIGATION_PARADIGM' => 'Paradigma di Navigazione',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Usa aree (Schede) raggruppate invece delle aree (Schede) dei moduli.',
   'LBL_NEW_FORM_TITLE' => 'Nuovo Utente',
   'LBL_NEW_PASSWORD' => 'Password Nuova',
   'LBL_NEW_PASSWORD1' => 'Password',
@@ -437,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Dipende da',
   'LBL_REQUEST_SUBMIT' => 'La tua richiesta è stata presentata.',
   'LBL_RESET_DASHBOARD' => 'Ripristina Dashboard Default',
-  'LBL_RESET_HOMEPAGE' => 'Riprista Pagina Iniziale',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Sicuro di voler ripristanare la pagina iniziale ?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Sei sicuro di voler azzerare la Homepage di questo utente?',
   'LBL_RESET_PREFERENCES' => 'Ripristina le preferenze iniziali',
   'LBL_RESET_PREFERENCES_WARNING' => 'Vuoi ripristinare i valori predefiniti per le preferenze ?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Sei sicuro di voler azzerare tutte le preferenze di questo utente?',
@@ -474,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Stato',
   'LBL_SUBPANEL_LINKS' => 'Collegamenti Sottopannello',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Nelle viste di dettaglio mostra una riga con i link del sotto-pannello.',
-  'LBL_SUBPANEL_TABS' => 'Schede del Sottopannello',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Nelle viste di dettaglio, raggruppa i sottopannelli in schede e mostra una scheda alla volta.',
   'LBL_SUGAR_LOGIN' => 'Utente Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'Applicabile solo ai temi che supportano questa opzione.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Se selezionato mostra l´elenco dei Dati Recenti a lato, altrimenti in alto.',
@@ -483,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Se selezionato mostra le scorciatoie in alto, altrimenti a lato.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Collegamenti in alto',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Password Generate dal Sistema',
+  'LBL_SYSTEM_SIG_DIGITS' => 'System Significant Digits',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Number of decimal places to show for decimals and floats throughout the system, such as currency and average in Reports.',
   'LBL_TAB_TITLE_EMAIL' => 'Impostazioni Posta',
   'LBL_TAB_TITLE_USER' => 'Impostazioni Utente',
   'LBL_TEAMS' => 'Gruppi',

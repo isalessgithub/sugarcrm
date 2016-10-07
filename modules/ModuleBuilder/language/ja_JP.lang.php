@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'エラー: フィールドが既に存在します',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => '利用可能',
   'LBL_AVAILABLE_OPTIONS' => '可能なオプション',
   'LBL_AVAILABLE_SUBPANELS' => '利用可能なサブパネル',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: ドキュメントの形成が良くありません',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: 不正な形式のドキュメント',
   'LBL_BASIC' => '基本',
   'LBL_BASIC_SEARCH' => '基本検索',
   'LBL_BLANK' => '-なし-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'キャンセル',
   'LBL_BTN_CLONE' => '複製',
   'LBL_BTN_CLOSE' => '閉じる',
+  'LBL_BTN_COPY' => 'コピー',
+  'LBL_BTN_COPY_FROM' => '以下からのコピー',
   'LBL_BTN_DELETE' => '削除',
   'LBL_BTN_DEPLOY' => '配置',
   'LBL_BTN_DONT_SAVE' => '変更を破棄',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => '元に戻す',
   'LBL_BTN_VIEW_FIELDS' => 'フィールドの表示',
   'LBL_BTN_VIEW_LAYOUTS' => 'レイアウトの表示',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'モジュールレイアウトを見る',
   'LBL_BTN_VIEW_RELATIONSHIPS' => '関連の表示',
   'LBL_BUG_TRACKER' => 'バグトラッカー',
   'LBL_CALCULATED' => '計算値',
   'LBL_CASES' => 'ケース',
   'LBL_CLEAR_EXTENSIONS' => 'エクステンションをクリア',
   'LBL_CLEAR_RELATIONSHIPS' => '関連をクリア',
+  'LBL_COMBO_FIELD_CONTAINS' => '以下を含む:',
   'LBL_COMPANY' => '会社',
   'LBL_CONFIG_PORTAL_URL' => 'カスタムロゴのURL。おすすめの解像度は163x18ピクセルです。',
   'LBL_CONFIRM_DONT_SAVE' => '最後に保存された状態から変更が加えられています。保存しますか？',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => '本当にこの関連を削除してよいですか？',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'この関連付けを永続化します。本当にこの関連付けを配置してよいですか？',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'この項目をドロップダウンリストからはずします。このドロップダウンを利用するすべてのフィールドでこの値が使えなくなり、表示もされなくなります。本当に継続してよいですか？',
+  'LBL_COPY_FROM' => '以下からのコピー',
   'LBL_COPY_FROM_EDITVIEW' => '編集ビューからコピー',
   'LBL_CREATE' => '作成',
   'LBL_CREATE_NEW' => '作成',
   'LBL_CURRENCY' => '通貨',
   'LBL_CURRENT_LAYOUT' => '現在のレイアウト',
   'LBL_CUSTOM' => 'カスタム',
-  'LBL_CUSTOMIZE_THEME' => 'カスタマイズのテーマ',
   'LBL_CUSTOM_FIELDS' => '* スタジオで作成されたフィールド',
   'LBL_CUSTOM_MODULE' => 'モジュール',
   'LBL_CUSTOM_RELATIONSHIPS' => '* スタジオもしくはモジュールビルダーで作成された関連',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => '依存',
   'LBL_DEPENDENCY' => '依存関係',
   'LBL_DEPENDENT_DROPDOWN_HELP' => '親オプションを選択した際に依存ドロップダウンのオプションを利用可能にするために、利用可能なオプションの左側のリストから右側のリストへオプションをドラッグしてください。項目が親オプションに１つもない場合、親オプションを選択すると依存ドロップダウンは表示されません。',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => '注意してください:ユーザはアップデートが反映されるためにモジュールレコードの編集画面を更新する必要があるかもしれません。',
   'LBL_DEPLOYE_COMPLETE' => '展開が完了',
   'LBL_DEPLOY_FAILED' => '展開中にエラーが発生しました。パッケージは正しくインストールされなかった可能性があります。',
   'LBL_DEPLOY_IN_PROGRESS' => 'パッケージの配置',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'ドロップダウン項目',
   'LBL_DROPDOWN_ITEM_LABEL' => '表示ラベル',
   'LBL_DROPDOWN_ITEM_NAME' => '項目名',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'キーは既にリストに存在します',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'キーは既にリスト内にあります',
   'LBL_DROPDOWN_LANGUAGE' => '言語',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'リストは少なくともひとつの有効なアイテムを含む必要があります',
   'LBL_DROPDOWN_TITLE_NAME' => '名称',
   'LBL_DROP_HERE' => '[ここにドロップ]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => '依存関係',
   'LBL_EC_AUTHOR' => '作成者:',
   'LBL_EC_CHECKERROR' => 'モジュールを選択してください。',
+  'LBL_EC_CUSTOMDROPDOWN' => 'カスタムドロップダウン',
   'LBL_EC_CUSTOMFIELD' => 'カスタマイズされたフィールド',
+  'LBL_EC_CUSTOMLABEL' => 'カスタマイズラベル',
   'LBL_EC_CUSTOMLAYOUT' => 'カスタマイズされたレイアウト',
   'LBL_EC_DESCRIPTION' => '詳細:',
   'LBL_EC_EMPTYCUSTOM' => 'はカスタマイズされていません。',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'フィールド',
   'LBL_FILE' => 'ファイル',
   'LBL_FILLER' => '(filler)',
+  'LBL_FILTER_SEARCH' => '検索',
   'LBL_FORMULA' => '計算式',
   'LBL_FORMULA_BUILDER' => '計算式ビルダー',
   'LBL_FORMULA_INVALID' => '不正な計算式です',
   'LBL_FORMULA_TYPE' => '計算式タイプは',
   'LBL_HCUSTOM' => 'カスタム',
   'LBL_HDEFAULT' => 'デフォルト',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'レイアウトからのコピー',
   'LBL_HIDDEN' => '非表示',
   'LBL_HIDEOPTIONS' => 'オプション非表示',
   'LBL_HIGH' => '高',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => '私の',
   'LBL_HOME_EDIT_DROPDOWNS' => 'ドロップダウンの編集',
   'LBL_ILLEGAL_FIELD_VALUE' => 'ドロップダウンのキーにクオーテーションを含むことはできません。',
+  'LBL_INDICATES_COMBO_FIELD' => '** は組み合わせフィールドを示しています。組み合わせフィールドは個々のフィールドの集まりです。例えば「住所」は組み合わせフィールドで、「番地」、「市区町村」、「郵便番号」、「県」、「国」を含みます。<br />組み合わせフィールドをダブルクリックして、どのフィールドを含むのかを見る事ができます。',
   'LBL_ISSUE' => 'ケース',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'この必要なドロップダウンリストアイテムを本当に削除しますか？これはアプリケーションの機能に影響する可能性があります。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'この失注セールスステージを本当に削除しますか？このステージを削除すると予算モジュールが正しく機能しなくなります。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'この受注済セールスステージを本当に削除しますか？このステージを削除すると、予算モジュールが正しく機能しなくなります。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => '進行中セールスステータスを本当に削除しますか？このステータスを削除すると商談モジュールの高収益商品ワークフローが正しく動かなくなる可能性があります。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => '新しいセールスステータスを本当に削除しますか？このステータスを削除すると商談モジュールの高収益商品ワークフローが正しく動かなくなる可能性があります。',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'このドロップダウンリストアイテムを本当に削除しますか？受注済もしくは失注ステージを削除すると、予算モジュールが正しく機能しなくなります。',
   'LBL_JS_DEPLOY_PACKAGE' => 'このモジュールを再度展開すると、スタジオで施したカスタマイズは失われます。本当に実行してよいですか？',
   'LBL_JS_REMOVE_MODULE' => '本当にこのモジュールをはずしてよいですか？ このパッケージに関連するファイルはすべて削除されます。',
   'LBL_JS_REMOVE_PACKAGE' => '本当にこのパッケージをはずしてよいですか？ このパッケージに関連するファイルはすべて削除されます。',
   'LBL_JS_VALIDATE_KEY' => 'キー - 空白を含まず英字から始まる英数字である必要があります',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'キー-英数字で、文字から始まる必要があります',
   'LBL_JS_VALIDATE_LABEL' => 'モジュールの表示名に利用するラベルを入力してください',
   'LBL_JS_VALIDATE_NAME' => 'パッケージ名 - 空白を含まず英字から始まる英数字である必要があります。',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'パッケージ名は既に存在します。',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'フィールドが見つかりません',
   'LBL_NO_FUNCS' => '関数が見つかりません',
   'LBL_NO_RELS' => '関連がありません',
-  'LBL_NO_SAVE_ACTION' => 'このビューに対する保存アクションは見つかりませんでした',
+  'LBL_NO_SAVE_ACTION' => 'このビューには保存アクションを見つけることはできませんでした。',
   'LBL_NUMBER' => '番号:',
   'LBL_ONETOMANY' => '1対多',
   'LBL_ONETOONE' => '1対1',
@@ -305,8 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => '編集するSugarポータルのレイアウトを選択します。',
   'LBL_QUICKCREATE' => 'クイック作成',
   'LBL_READ_ONLY' => '読み込みのみ',
+  'LBL_RECORDVIEW' => 'レコードビュー',
   'LBL_RELATED_FIELD' => '関連フィールド',
-  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} ({1}に関連するID)',
   'LBL_RELATE_TO' => '関連先',
   'LBL_RELATIONSHIPS' => '関連',
   'LBL_RELATIONSHIP_EDIT' => '関連の編集',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'モジュールをリセット',
   'LBL_RESTORE_DEFAULT' => 'デフォルトに戻す',
   'LBL_RHS_MODULE' => '関連するモジュール',
+  'LBL_ROLE' => '役割',
   'LBL_ROLLUP' => 'ロールアップ',
   'LBL_RSUB' => 'モジュールに表示されるサブパネルとなります',
   'LBL_SALE' => '商談',
-  'LBL_SAVE' => '保存',
   'LBL_SAVE_LAYOUT' => 'レイアウト保存',
   'LBL_SEARCH' => '検索',
   'LBL_SEARCH_FIELDS' => 'フィールドの検索中...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'サブパネル選択',
   'LBL_SELECT_FILE' => 'ファイル選択',
   'LBL_SELECT_SUBPANEL' => 'サブパネル選択',
+  'LBL_SINGULAR_LABEL' => '単数形ラベル',
   'LBL_SP_PREVIEW' => 'スタイルシートを適用した場合のSugarポータルのプレビューです。',
   'LBL_SP_UPLOADED' => 'アップロード済み',
   'LBL_SP_UPLOADSTYLE' => 'アップロードするスタイルシートを選択してください。<br> 次にポータルを同期するとスタイルシートが適用されます。',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => '<b>レイアウト</b>エリアには現在<b>編集画面</b>に表示されているフィールドが配置されます。<br/><br/><b>ツールボックス</b>には<b>ごみ箱</b>、レイアウトに追加可能なフィールドとレイアウト要素が含まれています。<br><br>要素とフィールドを<b>ツールボックス</b>と<b>レイアウト</b>の間をドラッグ＆ドロップしてレイアウトを変更します。<br><br>レイアウトからフィールドをはずすには、<b>ごみ箱</b>にフィールドをドラッグしてください。はずしたフィールドはツールボックスからレイアウトに追加できるようになります。<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>は、計算式によって表示非表示が設定される依存フィールドであることを示しています。<br/>は、計算式によって自動的に値が入力されるフィールドであることを示しています。',
       'defaultdetailview' => '<b>レイアウト</b>エリアには現在<b>詳細画面</b>に表示されているフィールドが配置されます。<br/><br/><b>ツールボックス</b>には<b>ごみ箱</b>、レイアウトに追加可能なフィールドとレイアウト要素が含まれています。<br><br>要素とフィールドを<b>ツールボックス</b>と<b>レイアウト</b>の間をドラッグ＆ドロップしてレイアウトを変更します。<br><br>レイアウトからフィールドをはずすには、<b>ごみ箱</b>にフィールドをドラッグしてください。はずしたフィールドはツールボックスからレイアウトに追加できるようになります。<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>は、計算式によって表示非表示が設定される依存フィールドであることを示しています。<br/>は、計算式によって自動的に値が入力されるフィールドであることを示しています。',
       'defaultquickcreate' => '<b>レイアウト</b>エリアには現在<b>クイック作成</b>フォームに表示されているフィールドが配置されます。<br><br>クイック作成フォームはサブパネルで対象モジュールの作成ボタンがクリックされたら表示されます。<br/><br/>ツールボックス</b>には<b>ごみ箱</b>、レイアウトに追加可能なフィールドとレイアウト要素が含まれています。<br><br>要素とフィールドを<b>ツールボックス</b>と<b>レイアウト</b>の間をドラッグ＆ドロップしてレイアウトを変更します。<br><br>レイアウトからフィールドをはずすには、<b>ごみ箱</b>にフィールドをドラッグしてください。はずしたフィールドはツールボックスからレイアウトに追加できるようになります。<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>は、計算式によって表示非表示が設定される依存フィールドであることを示しています。<br/>は、計算式によって自動的に値が入力されるフィールドであることを示しています。',
+      'defaultrecordview' => 'デフォルトレコードビュー<br />レイアウトエリアは、レコードビューで現在表示しているフィールドを含みます。<br />ツールボックスは、ゴミ箱とフィールドと、レイアウトに加えることのできるレイアウトエレメントを含みます。<br />ツールボックスとレイアウト間でエレメントをドラッグアンドドロップすることにより変更を加える事ができます。<br />レイアウトからフィールドを削除するには、フィールドをゴミ箱にドラッグします。フィールドはツールボックスの中でレイアウトに加える事ができるようになります。<br /><img src="themes/default/images/SugarLogic/icon_dependent.png"/>これは式の値に基づいて見えるもしくは見えない依存したフィールドを示しています。これは式に基づいて自動的に計算されるフィールドを示しています。',
       'delete' => 'レイアウトから要素をはずすには、ここにその要素をドラッグ＆ドロップしてください。',
       'historyBtn' => '<b>履歴</b>をクリックし、 以前に保存された履歴を閲覧およびリストアします。<br><br><b>履歴</b>に含まれる<b>リストア</b>で保存されたレイアウトをリストアします。フィールドラベルを変更するには各フィールドの編集アイコンをクリックしてください。',
       'historyDefault' => '<b>デフォルトに戻す</b>をクリックし、ビューをオリジナルのレイアウトに戻します。<br><br><b>デフォルトに戻す</b>はオリジナルレイアウトの配置のみを元に戻します。フィールドラベルを変更するには各フィールドの編集アイコンをクリックしてください。',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => '<b>セールス（Sale）</b>テンプレートタイプでは、リードソース、ステージ、合計、確度など、商談に必要なフィールドが用意されています。<br/><br/>標準の商談モジュールに似たモジュールを作成する場合に利用してください。',
       'viewfieldsbtn' => '<b>フィールドの表示</b>をクリックすると、このモジュールのフィールドを表示または編集したり、新たなフィールドを作成することができます。',
       'viewlayoutsbtn' => '<b>レイアウトの表示</b>をクリックすると、このモジュールのレイアウトを表示したり、新たに作成することができます。',
+      'viewmobilelayoutsbtn' => 'Viewモバイルレイアウトをクリックして、モジュールのモバイルレイアウトを表示したり、レイアウト内のフィールドの配置をカスタマイズします。',
       'viewrelsbtn' => '<b>関連の表示</b>をクリックすると、このモジュールの関連を表示したり、新たな関連を作成することができます。',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'このモジュールと既存モジュール、または、同じパッケージの他のモジュールとの間で関連を持たせることができます。<br/><br/>関連を新たに作成するためには<b>関連の追加</b>をクリックしてください。当該関連のプロパティが右側パネルに表示されます。<b>関連先</b>のドロップダウンから対象のモジュールを選択してください。<b>ラベル</b>は関連先のモジュールのサブパネルに表示される名前になります。<br/><br/>モジュール間の関連はサブパネルによって管理されますが、サブパネルはそれぞれのモジュールの詳細ビューの下に表示されます。<br/><br/>関連先のモジュールによってサブパネルの設定を変えることもできます。<br/><br/><b>保存</b>をクリックすると関連が作成されます。<b>削除</b>をクリックすると選択された関連が削除されます。<br/><br/>既存の関連を編集するためには、関連名をクリックし、右側パネルに表示されるプロパティを編集してください。',
       'searchBtn' => 'モジュールの<b>検索</b>レイアウトを編集',
       'searchHelp' => '編集する<b>検索レイアウト</b>を選択',
+      'studioBCHelp' => 'モジュールが下位互換のモジュールであることを示しています',
       'studioBtn' => '<b>スタジオ</b>を使ってインストール済みモジュールをカスタマイズします。',
       'studioHelp' => '<b>スタジオ</b>では、情報が表示されるレイアウトを変更したり、表示する情報を決定したり、<i>インストール済み</i>モジュール用にカスタムフィールドを作成したりします。',
       'subpanelBtn' => 'このモジュールの<b>サブパネル</b>に表示する情報を決定',

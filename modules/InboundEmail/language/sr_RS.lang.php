@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Netačno korisničko ime i lozinka',
   'ERR_BODY_TOO_LONG' => '\\r Tekst je predugačak za dohvatanje kompletnog email-a. Skraćeno.',
+  'ERR_DELETE_FOLDER' => 'Brisanje fascikle nije moguće.',
   'ERR_INI_ZLIB' => 'Ne mogu da trajno isključim Zlib kompresiju. "Test podešavanje" možda beće uspeti.',
   'ERR_MAILBOX_FAIL' => 'Nijedan email nalog ne može da se povrati.',
   'ERR_NO_IMAP' => 'Nisu nađene IMAP biblioteke. Molim, rešite ovaj problem pre nego što nastavite sa dolaznom e-poštom',
   'ERR_NO_OPTS_SAVED' => 'Optimalna podešavanja za Vaš nalog dolazne e-pošte nisu sačuvana. Molim, pregledajte podešavanja',
   'ERR_TEST_MAILBOX' => 'Molim, proverite Vaša podešavanja i pokušajte ponovo.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Nije moguće odjaviti se sa fascikle pre brisanja.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Dozvoli korisnicima da šalju email poruke koristeći ime i adresu "Pošiljaoca" kao odgovor na adresu.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Kada je izabrana ova opcija , Ime i Adresa "Pošiljaoca" povezanog sa ovim grupnim mail nalogom će se pojaviti kao opcija za polje "Od" pri sastavljanju email poruka za korisnike koji imaju pristupgrupnom mail nalogu.',
   'LBL_APPLY_OPTIMUMS' => 'Primeni optimalno',

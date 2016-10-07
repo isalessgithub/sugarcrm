@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Konton',
   'LBL_ASSIGNED_TO' => 'Tilldelad till',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampanjer',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakter',
   'LBL_COPY_PREFIX' => 'Kopia av',
   'LBL_CREATED' => 'Skapad av',
@@ -32,6 +30,12 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Inga mail tlll domänen',
   'LBL_DOMAIN_NAME' => 'Domännamn',
   'LBL_ENTRIES' => 'Totalt antal',
+  'LBL_HELP_CREATE' => 'En {{modul}} består av en samling individer eller organisationer som du vill inkludera eller exkludera i massmarknadsföring {{campaigns_singular_module}}. För att skapa en {{modul}}: 1. För in värden för fälten som önskat. - Fält markerade "Required" måste fyllas i innan du sparar. - Klicka på "Visa mer" för att visa ytterligare fält vid behov. 2. Klicka på "Spara" för att spara och återgå till föregående sidan. 
+- Välj "Spara och visa" för att öppna den nya {{module}}. - Välj "Spara och skapa ny" för att omedelbart skapa en annan ny {{modul}}. 3. När du har sparat, använd underpaneler för att lägga till {{campaigns_singular_module}} mottagare.',
+  'LBL_HELP_RECORD' => 'En {{modul}} består av en samling individer eller organisationer som du vill inkludera eller exkludera i massmarknadsföring {{campaigns_singular_module}}.  - Redigera denna postens fält genom att klicka ett enskilt fält eller på knappen Redigera. - Visa eller ändra länkar till andra poster i underpaneler, även {{campaigns_singular_module}} mottagare, genom att växla den nedre vänstra rutan till "Data View". 
+- Utför och se användarkommentarer och eller se förändringar i {{activitystream_singular_module}} genom att växla den nedre vänstra rutan på "Activity Stream". - Följ som favorit med hjälp av ikonerna till höger om namnet. - Ytterligare åtgärder finns i dropdown menyn Åtgärder till höger om knappen Redigera.',
+  'LBL_HELP_RECORDS' => 'En {{modul}} består av en samling individer eller organisationer som du vill inkludera eller exkludera i massmarknadsföring {{campaigns_singular_module}}. {{plural_module_name}} kan innehålla valfritt antal av {{contacts_module}}, {{leads_module}}, användare, och {{accounts_module}}. 
+Targets kan grupperas i en {{module}} efter ett antal förutbestämda kriterier såsom åldersgrupp, geografisk plats, eller utgiftervanor. {{plural_module_name}} används i e-postmarknadsföring {{campaigns_module}} som kan konfigureras i {{campaigns_module}}modul.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_DESCRIPTION' => 'Beskrivning',
   'LBL_LIST_END_DATE' => 'Slutdatum',
@@ -49,6 +53,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Redigerad av',
   'LBL_MODULE_ID' => 'Prospekt listor',
   'LBL_MODULE_NAME' => 'Prospekt listor',
+  'LBL_MODULE_NAME_SINGULAR' => 'Mållista',
   'LBL_MODULE_TITLE' => 'Mållista:Hem',
   'LBL_MORE_DETAIL' => 'Fler Detaljer',
   'LBL_NAME' => 'Namn',

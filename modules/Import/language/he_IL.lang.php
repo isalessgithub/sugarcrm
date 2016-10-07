@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'You cannot import a system administrator user',
@@ -210,6 +207,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'To proceed with importing the selected file, click OK. To upload a new file, click Try Again',
   'LBL_MISSING_HEADER_ROW' => 'No Header Row Found',
   'LBL_MODULE_NAME' => 'Import',
+  'LBL_MODULE_NAME_SINGULAR' => 'ייבא',
   'LBL_MY_PUBLISHED_HELP' => 'A published mapping specifies a previously used combination of a specific data source and a set of database fields to map to the fields in the import file.',
   'LBL_MY_SAVED' => 'My Saved Mappings:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Use this option to apply your pre-set import settings, including import properties, mappings, and any duplicate check settings, to this import.<br><br>Click <b>Publish</b> to make the mapping available to other users.<br>Click <b>Un-Publish</b> to make the mapping unavailable to other users.<br>Click <b>Delete</b> to delete a mapping for all users.',
@@ -225,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Now choose that file to import:',
   'LBL_NO_DATECHECK' => 'Skip date check (faster but will fail if any date is wrong)',
   'LBL_NO_EMAILS' => 'Do not send out Email notifications during this import',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Trying to handle email addresses in a Bean that doesn&#39;t support it.',
   'LBL_NO_ID' => 'ID Required',
   'LBL_NO_IMPORT_TO_UNDO' => 'There was no import to undo.',
   'LBL_NO_LINES' => 'There were no lines in your import file',
@@ -312,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Successfully imported',
   'LBL_SUCCESSFULLY_IMPORTED' => 'records created successfully',
   'LBL_SUMMARY' => 'Summary',
+  'LBL_SYSTEM_SIG_DIGITS' => 'ספרות משמעותיות במערכת',
   'LBL_TAB' => 'Tab delimited file',
   'LBL_TAB_NUM_1' => 'Launch the application and open the data file',
   'LBL_TAB_NUM_2' => 'Select the <b>Save As...</b> or <b>Export...</b> menu option',

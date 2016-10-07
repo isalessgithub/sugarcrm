@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Weet u zeker dat u deze organisatie wil verwijderen van dit project?',
-  'ERR_DELETE_RECORD' => 'U dient een recordnummer in te geven om de organisatie te kunnen verwijderen.',
+  'ERR_DELETE_RECORD' => 'U dient een recordnummer op te geven om de organisatie te kunnen verwijderen.',
   'LBL_ACCOUNT' => 'Bedrijf:',
   'LBL_ACCOUNT_INFORMATION' => 'Bedrijfsinformatie',
   'LBL_ACCOUNT_NAME' => 'Bedrijfsnaam:',
@@ -27,7 +24,7 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adres Informatie',
   'LBL_ANNUAL_REVENUE' => 'Jaarlijkse opbrengst:',
   'LBL_ANY_ADDRESS' => 'een Adres:',
-  'LBL_ANY_EMAIL' => 'een E-mailadres:',
+  'LBL_ANY_EMAIL' => 'E-mailadres:',
   'LBL_ANY_PHONE' => 'een Telefoonnummer:',
   'LBL_ASSIGNED_TO' => 'Toegewezen aan:',
   'LBL_ASSIGNED_TO_ID' => 'Toegewezen aan ID:',
@@ -46,19 +43,21 @@ $mod_strings = array (
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contactpersonen',
   'LBL_COUNTRY' => 'Land:',
   'LBL_DATE_ENTERED' => 'Datum ingevoerd:',
-  'LBL_DATE_MODIFIED' => 'Datum laatste wijziging:',
+  'LBL_DATE_MODIFIED' => 'Datum gewijzigd:',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Organisaties',
   'LBL_DESCRIPTION' => 'Beschrijving:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beschrijving Informatie',
   'LBL_DUPLICATE' => 'Mogelijk Dubbele Organisatie',
   'LBL_EDIT_BUTTON' => 'Wijzig',
   'LBL_EMAIL' => 'E-mailadres:',
-  'LBL_EMAIL_ADDRESS' => 'E-mailadres(sen)',
+  'LBL_EMAIL_ADDRESS' => 'E-mailadres',
   'LBL_EMAIL_ADDRESSES' => 'E-mailadres(sen)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Non Primary E-mails',
   'LBL_EMPLOYEES' => 'Werknemers:',
+  'LBL_FACEBOOK' => 'Facebook account',
   'LBL_FAX' => 'Fax:',
+  'LBL_GOOGLEPLUS' => 'Google+ ID',
   'LBL_INDUSTRY' => 'Branche:',
+  'LBL_LINKEDIN' => 'LinkedIn Bedrijfs ID',
   'LBL_LIST_ACCOUNT_NAME' => 'Organisatienaam',
   'LBL_LIST_CITY' => 'Stad',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-mailadres',
@@ -95,7 +94,7 @@ $mod_strings = array (
   'LBL_STATE' => 'Provincie:',
   'LBL_TEAMS_LINK' => 'Teams',
   'LBL_TICKER_SYMBOL' => 'Ticker Symbool:',
-  'LBL_TWITTER_ID' => 'Twitter gebruikersnaam',
+  'LBL_TWITTER' => 'Twitter account',
   'LBL_TYPE' => 'Type:',
   'LBL_USERS_ASSIGNED_LINK' => 'Toegewezen gebruikers',
   'LBL_USERS_CREATED_LINK' => 'Aangemaakt door gebruikers',

@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Urmatoarele module au fost instalate:',
   'DESC_MODULES_QUEUED' => 'Urmatoarele module sunt gata de instalare:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Fisierul incarcat nu este compatibil cu aceasta versiune Sugar (Editie Community, Professional sau Enterprise):',
+  'ERROR_HT_NO_WRITE' => 'Nu se poate scrie în fişierul: %s',
+  'ERROR_MANIFEST_TYPE' => 'Fişierul manifest trebuie să specifice tipul de pachet.',
+  'ERROR_PACKAGE_TYPE' => 'Fişierul manifest specifică un tip de pachet nerecunoscut: %s',
+  'ERROR_UW_CONFIG_DB' => 'Eroare la salvarea var config %s la db (cheie %s, valoare %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Fisierul incarcat nu este compatibil cu aceasta versiune Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Versiunea dumneavoastra de PHP nu este suportata de Sugar. Este necesar sa instalati o versiune compatibila cu aplicatia Sugar. Pentru Versiuni PHP suportate va rugam sa consultati Matricea de Compatibilitate din cadrul Notelor. Versiunea dumneavoastra este',
+  'ERR_NOT_ADMIN' => 'Acces neautorizat în zona de administrare.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Nu aveţi permisiunea de a accesa această pagină.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Nu se poate determina Grupul',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Nu se poate determina Detinatorul',
   'ERR_UW_CONFIG' => 'Va rugam setati fisierul config.php pentru scriere si reincarcati aceasta pagina.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Restart',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Commit Upgrade in cus de desfasurare',
   'LBL_CURRENT_PHP_VERSION' => 'Versiunea dvs. php actuala este',
+  'LBL_GLOBAL_TEAM_DESC' => 'Vizibilitate globală',
   'LBL_HOME_PAGE_4_NAME' => 'Urmaritor',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'versiunea php 5 sau cea anterioara este necesara',
   'LBL_LANGPACKS' => 'Pachete limba',

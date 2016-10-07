@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTIVITY_DATE' => 'Aktivitätsdatum',
@@ -35,7 +32,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_START_DATE' => 'Startdatum:',
   'LBL_CAMPAIGN_STATUS' => 'Status:',
   'LBL_CAMPAIGN_TYPE' => 'Typ:',
-  'LBL_CLICKED_URL_KEY' => 'URL Key angeklickt',
+  'LBL_CLICKED_URL_KEY' => 'URL angeklickt (Schlüssel)',
   'LBL_CREATED' => 'Erstellt von:',
   'LBL_CREATED_CONTACT' => 'Erstellte Kontaktperson',
   'LBL_CREATED_LEAD' => 'Erstellter Interessent',
@@ -43,15 +40,15 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Datum erstellt',
   'LBL_DATE_MODIFIED' => 'Geändert am',
   'LBL_DELETED' => 'Gelöscht',
-  'LBL_HITS' => 'Hits',
+  'LBL_HITS' => 'Klicks',
   'LBL_ID' => 'ID',
   'LBL_INVITEE' => 'Kontakte',
   'LBL_LIST_ACTIVITY_DATE' => 'Aktivitätsdatum',
   'LBL_LIST_CAMPAIGN_NAME' => 'Kampagne',
   'LBL_LIST_CAMPAIGN_OBJECTIVE' => 'Kampagnen Ziel',
   'LBL_LIST_END_DATE' => 'Enddatum',
-  'LBL_LIST_FORM_TITLE' => 'Gezielte Kampagnen',
-  'LBL_LIST_ID' => 'Zielkontakt Liste ID',
+  'LBL_LIST_FORM_TITLE' => 'Verknüpfte Kampagnen',
+  'LBL_LIST_ID' => 'Kontaktlisten-ID',
   'LBL_LIST_MARKETING_NAME' => 'Marketing ID',
   'LBL_LIST_RECIPIENT_EMAIL' => 'Empfänger E-Mail',
   'LBL_LIST_RECIPIENT_NAME' => 'Emfpänger Name',
@@ -66,10 +63,10 @@ $mod_strings = array (
   'LBL_RELATED_ID' => 'Verknüpfte ID',
   'LBL_RELATED_TYPE' => 'Verknüpfter Typ',
   'LBL_SENT_EMAIL' => 'Email gesendet',
-  'LBL_TARGETED_USER' => 'gesetzter Benutzer',
-  'LBL_TARGET_ID' => 'Ziel ID',
-  'LBL_TARGET_TRACKER_KEY' => 'Ziel Tracker Schlüssel',
-  'LBL_TARGET_TYPE' => 'Ziel Typ',
+  'LBL_TARGETED_USER' => 'Angeschriebener Benutzer',
+  'LBL_TARGET_ID' => 'Kontakt-ID',
+  'LBL_TARGET_TRACKER_KEY' => 'Tracker Schlüssel',
+  'LBL_TARGET_TYPE' => 'Kontakt-Typ',
   'LBL_TEAM' => 'Team:',
   'LBL_URL_CLICKED' => 'URL angeklickt',
 );

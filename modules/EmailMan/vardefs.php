@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['EmailMan'] = 
 array( 'table' => 'emailman', 'comment' => 'Email campaign queue', 'fields' => array(
 	'date_entered' => array(
@@ -41,6 +38,7 @@ array( 'table' => 'emailman', 'comment' => 'Email campaign queue', 'fields' => a
     	'type' => 'int',
     	'len' => '11',
     	'auto_increment'=>true,
+    	'readonly' => true,
     	'comment' => 'Unique identifier',
   	),	
 	'campaign_id' => array(
@@ -151,6 +149,8 @@ array( 'table' => 'emailman', 'comment' => 'Email campaign queue', 'fields' => a
 					array('name' => 'idx_eman_list', 'type' => 'index', 'fields' => array('list_id','user_id','deleted')),
 					array('name' => 'idx_eman_campaign_id', 'type' => 'index', 'fields' => array('campaign_id')),
 					array('name' => 'idx_eman_relid_reltype_id', 'type' => 'index', 'fields'=> array('related_id', 'related_type', 'campaign_id')),
+                    array('name' => 'idx_emailman_send_date_time', 'type' => 'index', 'fields' => array('send_date_time')),
+                    array('name' => 'idx_emailman_send_attempts', 'type' => 'index', 'fields' => array('send_attempts')),
 					)
 );
 ?>

@@ -1,6 +1,6 @@
 <?php
-$listViewDefs ['Opportunities'] = 
-array (
+// created: 2016-10-06 15:20:01
+$listViewDefs['Opportunities'] = array (
   'NAME' => 
   array (
     'width' => '30%',
@@ -122,4 +122,3 @@ array (
     'default' => false,
   ),
 );
-?>

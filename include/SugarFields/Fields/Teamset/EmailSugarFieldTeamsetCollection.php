@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * EmailSugarFieldTeamset.php
@@ -25,20 +22,16 @@ class EmailSugarFieldTeamsetCollection extends ViewSugarFieldTeamsetCollection {
 
 	var $user_id;
 
-    function EmailSugarFieldTeamsetCollection($bean, $field_defs, $customMethod="", $form_name='EditView') {
+    function EmailSugarFieldTeamsetCollection($bean, $field_defs, $customMethod="", $form_name='EditView')
+    {
         parent::ViewSugarFieldTeamsetCollection(false);
 
-    	if(file_exists('custom/include/SugarFields/Fields/Teamset/TeamsetCollectionEmailView.tpl')) {
-    	   $this->tpl_path = 'custom/include/SugarFields/Fields/Teamset/TeamsetCollectionEmailView.tpl';
-    	} else {
-    	   $this->tpl_path = 'include/SugarFields/Fields/Teamset/TeamsetCollectionEmailView.tpl';
-    	}
+    	$this->tpl_path = SugarAutoLoader::existingCustomOne('include/SugarFields/Fields/Teamset/TeamsetCollectionEmailView.tpl');
     	//$this->module_dir = $module;
         $this->bean_id = $bean->id;
         $this->form_name = $form_name;
         $this->customMethod = $customMethod;
 
-    	//$this->bean = loadBean($this->module_dir);
     	$this->bean = $bean;
 
     	if(empty($this->bean)) {
@@ -50,12 +43,6 @@ class EmailSugarFieldTeamsetCollection extends ViewSugarFieldTeamsetCollection {
 		$this->displayParams['formName'] = $this->form_name;
 		$this->displayParams['primaryChecked'] = true;
 
-    	//Attempt to retrieve the bean if _bean_id is set
-    	if(!empty($this->bean_id)) {
-    	   //$this->bean->retrieve($this->bean_id);
-    	}
-
-    	//$this->vardef = $this->bean->field_defs['team_name'];
     	$this->vardef = $field_defs['team_name'];
     	$this->name = $this->vardef['name'];
 		$this->related_module = 'Teams';
@@ -118,7 +105,6 @@ class EmailSugarFieldTeamsetCollection extends ViewSugarFieldTeamsetCollection {
         $this->ss->assign("USER_ID", (!empty($this->user_id) ? $this->user_id : ''));
         $this->ss->assign('quickSearchCode', $this->createQuickSearchCode());
 		$this->process();
-		//$this->init_tpl();
 		return $this->display();
     }
 

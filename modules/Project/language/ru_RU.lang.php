@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Вы уверены, что хотите удалить этот контакт из данного проекта?',
@@ -23,12 +20,13 @@ $mod_strings = array (
   'ERR_DURATION' => 'Длительность',
   'ERR_FINISH_DATE' => 'Дата окончания не может быть до даты начала.',
   'ERR_IS_EMPTY' => 'не может быть пустым.',
-  'ERR_PERCENT_COMPLETE' => '% выполнения должен иметь значение от 0 до 100',
+  'ERR_PERCENT_COMPLETE' => '% выполнение должен иметь значение от 0 до 100',
   'ERR_PREDECESSORS_INPUT' => 'Значения, внесенные в поле Предшествующие элементы, должны быть формы "1" или "1,2"',
   'ERR_PREDECESSORS_OUT_OF_RANGE' => 'Значение, указанное в поле Предшествующий элемент больше, чем количество строк.',
   'ERR_PREDECESSOR_CYCLE_FAIL' => 'Указанный предшествующий элемент вызывает цикл зависимости.',
   'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => 'Указанный предшествующий элемент не является ни исходной задачей, ни подзадачей.',
   'ERR_TASK_NAME_FOR_ROW' => 'Задача для ряда',
+  'ERR_TASK_VIEW_DETAILS' => 'Вы не можете просмотреть подробную информацию о задаче, которая еще не сохранена.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Контрагенты',
   'LBL_ACCOUNT_SUBPANEL_TITLE' => 'Контрагенты',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Действия',
@@ -135,7 +133,7 @@ $mod_strings = array (
   'LBL_PREDECESSORS' => 'Предшественники',
   'LBL_PREDECESSORS_WIDGET' => 'предшественники_',
   'LBL_PRIORITY' => 'Приоритет:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты коммерческого предложения',
   'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Ресурсы проекта',
   'LBL_PROJECTTASK_SUBPANEL_TITLE' => 'Задача по проекту',
   'LBL_PROJECT_HOLIDAYS' => 'Выходной',
@@ -160,6 +158,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => 'ресурс',
   'LBL_RESOURCE_REPORT' => 'Отчет по ресурсам',
   'LBL_RESOURCE_TYPE' => 'Тип',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Позиции продаж',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Сохранить как новый проект',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Сохранить как новый шаблон',
   'LBL_SAVE_AS_PROJECT' => 'Сохранить как проект',

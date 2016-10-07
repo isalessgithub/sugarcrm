@@ -1,34 +1,26 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
 require_once('include/contextMenus/contextMenu.php');
 require_once('modules/Reports/schedule/ReportSchedule.php');
 require_once('modules/Reports/ListViewReports.php');
-if(file_exists('custom/modules/Reports/metadata/listviewdefs.php')){
-    require_once('custom/modules/Reports/metadata/listviewdefs.php');
-}else{
-    require_once('modules/Reports/metadata/listviewdefs.php');
-}
-
 require_once('modules/Reports/SearchFormReports.php');
 require_once('include/ListView/ListViewSmarty.php');
 
+require SugarAutoLoader::loadWithMetafiles('Reports', 'listviewdefs');
 
 global $published_report_titles;
 global $my_report_titles;
@@ -38,7 +30,7 @@ global $mod_strings;
 global $module_map;
 global $report_modules;
 
-$savedReportsSeed = new SavedReport();
+$savedReportsSeed = BeanFactory::getBean('Reports');
 $lv = new ListViewReports();
 
 
@@ -53,7 +45,7 @@ if(isset($_REQUEST['Reports2_SAVEDREPORT_offset'])) {//if you click the paginati
         	$blockVariables[] = 'lvso';
         }
 
-        $current_query_by_page = sugar_unserialize(base64_decode($_REQUEST['current_query_by_page']));
+        $current_query_by_page = unserialize(base64_decode($_REQUEST['current_query_by_page']));
         foreach($current_query_by_page as $search_key=>$search_value) {
             if($search_key != 'Reports2_SAVEDREPORT_offset' && !in_array($search_key, $blockVariables)) {
                 //bug 48620
@@ -73,7 +65,7 @@ if(isset($_REQUEST['Reports2_SAVEDREPORT_offset'])) {//if you click the paginati
 
 if(!empty($_REQUEST['saved_search_select']) && $_REQUEST['saved_search_select']!='_none') {
     if(empty($_REQUEST['button']) && (empty($_REQUEST['clear_query']) || $_REQUEST['clear_query']!='true')) {
-        $saved_search = loadBean('SavedSearch');
+        $saved_search = BeanFactory::getBean('SavedSearch');
         $saved_search->retrieveSavedSearch($_REQUEST['saved_search_select']);
         $saved_search->populateRequest();
     }
@@ -107,15 +99,6 @@ $searchForm->tabs = array(array('title'  => $app_strings['LNK_BASIC_SEARCH'],
                           'key'    => $thisMod . '|advanced_search')
                     );
 
-// Backwards compatibility support for menu links from other modules
-if (!empty($_REQUEST['view']))
-{
-    // Overwrite the modules we are searching on
-    $_REQUEST['report_module'] = array(
-        0 => ucfirst($_REQUEST['view'])
-    );
-}
-
 $searchForm->populateFromRequest();
 $searchForm->searchFields['module'] = $searchForm->searchFields['report_module'];
 unset($searchForm->searchFields['report_module']);
@@ -148,6 +131,7 @@ if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only']) { // 
             $searchForm->setup();
 		    $searchForm->xtpl->assign('MODULES', get_select_options_with_id($reportModules,  (empty($_REQUEST['report_module']) ? '' : $_REQUEST['report_module'])));
 			$searchForm->xtpl->assign('USER_FILTER', get_select_options_with_id(get_user_array(FALSE), (empty($_REQUEST['assigned_user_id']) ? '' : $_REQUEST['assigned_user_id'])));
+			$searchForm->xtpl->assign('TEAM_FILTER', get_select_options_with_id(get_team_array(FALSE), (empty($_REQUEST['team_id']) ? '' : $_REQUEST['team_id'])));
 			$searchForm->xtpl->assign('REPORT_TYPES', get_select_options_with_id($app_list_strings['dom_report_types'], (empty($_REQUEST['report_type']) ? '' : $_REQUEST['report_type'])));
 		    $searchForm->xtpl->assign('FAVORITE', (isset($_REQUEST['favorite']) ? 'checked' : ''));
             $searchForm->displayBasic(false);
@@ -170,7 +154,9 @@ if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only']) { // 
     }
     return;
 }
-
+if(!empty($_REQUEST['view'])) { // backwards compatibility support for menu links from other modules
+    array_push($where_clauses, 'saved_reports.module = \'' . ucwords(clean_string($_REQUEST['view'])) . '\'');
+}
 if(!empty($_REQUEST['favorite'])) { // handle favorite requests
     foreach($where_clauses as $p_where => $single_where) {
         if(strpos($single_where, "saved_reports.favorite ") !==false) {
@@ -233,7 +219,7 @@ $params = array('massupdate' => true, 'handleMassupdate' => false);
 // handle add to favorites request
 $favoritesText = '';
 if((!empty($_POST['addtofavorites']) || !empty($_POST['delete'])) && !empty($_POST['mass'])) {
-    $report = new SavedReport();
+    $report = BeanFactory::getBean('Reports');
     if(isset($_POST['Delete'])) {
        	$couldNotDelete = 0;
         foreach($_POST['mass'] as $id) {
@@ -305,7 +291,7 @@ else { // display different ending (with remove from my favorites button);
 
 echo $lv->display();
 
-$savedSearch = new SavedSearch();
+$savedSearch = BeanFactory::getBean('SavedSearch');
 $json = getJSONobj();
 // fills in saved views select box on shortcut menu
 $savedSearchSelects = $json->encode(array($GLOBALS['app_strings']['LBL_SAVED_SEARCH_SHORTCUT'] . '<br>' . $savedSearch->getSelect('Reports')));

@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вам следует указать номер записи перед удалением.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Коммерческое предложение уже конвертировано в сделку',
   'LBL_ACCOUNT_ID' => 'Контрагент',
   'LBL_ACCOUNT_NAME' => 'Контрагент',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Мероприятия',
@@ -84,7 +82,7 @@ $mod_strings = array (
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Итоговая сумма',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Ответственный (-ая)',
   'LBL_LIST_COST_PRICE' => 'Стоимость',
-  'LBL_LIST_DATE_QUOTE_CLOSED' => 'Фактическая стоимость',
+  'LBL_LIST_DATE_QUOTE_CLOSED' => 'Фактическое закрытие',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Действительно до',
   'LBL_LIST_DEAL_TOT' => 'Скидка',
   'LBL_LIST_DISCOUNT_PRICE' => 'Цена за единицу',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Мои Коммерческие предложения',
   'LBL_LIST_PRICING_FACTOR' => 'Ценовой фактор',
   'LBL_LIST_PRICING_FORMULA' => 'Ценовая формула',
-  'LBL_LIST_PRODUCT_NAME' => 'Продукт',
+  'LBL_LIST_PRODUCT_NAME' => 'Продукт коммерческого предложения',
   'LBL_LIST_QUANTITY' => 'Количество',
   'LBL_LIST_QUOTE_NAME' => 'Тема',
   'LBL_LIST_QUOTE_NUM' => 'Номер',
@@ -123,9 +121,9 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Скидка',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Внешняя цена',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Цена по списку',
-  'LBL_PDF_ITEM_PRODUCT' => 'Продукт',
+  'LBL_PDF_ITEM_PRODUCT' => 'Продукт коммерческого предложения',
   'LBL_PDF_ITEM_QUANTITY' => 'Количество',
-  'LBL_PDF_ITEM_SELECT_DISCOUNT' => 'Выбрать скидку',
+  'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Цена за единицу',
   'LBL_PDF_NEW_SUB' => 'Общая сумма со скидкой:',
   'LBL_PDF_PART_NUMBER' => 'Номер части:',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Удалить комментарий',
   'LBL_REMOVE_ROW' => 'Удалить позицию',
   'LBL_RENAME_ERROR' => 'ОШИБКА: невозможно move_pdf в $destination. Попробуйте сделать директорию доступной для записи через веб-сервер.',
+  'LBL_REVENUELINEITEMS' => 'Позиции продаж',
   'LBL_SALES_STAGE' => 'Стадия коммерческого предложения:',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск коммерческого предложения',
   'LBL_SHIPPING' => 'Стоимость доставки:',

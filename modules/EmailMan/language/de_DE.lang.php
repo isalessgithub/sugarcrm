@@ -2,25 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_INT_ONLY_EMAIL_PER_RUN' => 'Nur Ganzzahlwerte zulässig für Anzahl E-Mails pro Batch.',
-  'LBL_ALLOW_DEFAULT_SELECTION' => 'Allow users to use this account for outgoing email:',
-  'LBL_ALLOW_DEFAULT_SELECTION_HELP' => 'When this option selected, all users will be able to send emails using the same outgoing<br> mail account used to send system notifications and alerts.  If the option is not selected,<br> users can still use the outgoing mail server after providing their own account information.',
+  'LBL_ALLOW_DEFAULT_SELECTION' => 'Dieses Konto soll auch von anderen Benutzern zum Versenden von Emails verwendet werden können:',
+  'LBL_ALLOW_DEFAULT_SELECTION_HELP' => 'Wenn diese Option ausgewählt wird, können alle Benutzer zum Versenden von Emails<br> das Konto zum Versenden von Email-Benachrichtigungen und Workflow-Alarmen verwenden<br> Wenn die Option nicht ausgewählt ist können die Benutzer nur dann Emails versenden<br> wenn sie ihre eigenen Kontodaten eingerichtet haben.',
   'LBL_ATTACHMENT_AUDIT' => 'wurde gesendet. Es wurde nicht lokal dupliziert um Speicher zu sparen.',
   'LBL_CAMP_MESSAGE_COPY' => 'Kopien der Kampagnen Nachrichten behalten:',
   'LBL_CAMP_MESSAGE_COPY_DESC' => 'Wollen Sie den kompletten Text <bold>JEDER</bold> gesendeten E-Mail für alle Kampagnen speichern? <bold>Wir empfehlen dies nicht zu tun (ist Standard)</bold>. Auf diese Art wird nur die Vorlage und die notwendigen Parameter gespeichert, um die individuelle Nachricht wiederherstellen zu können.',
@@ -38,7 +35,7 @@ $mod_strings = array (
   'LBL_EMAIL_DEFAULT_EDITOR' => 'E-Mail Nachrichten mit diesem Client erstellen',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Gmail Standardwerte füllen',
   'LBL_EMAIL_LINK_TYPE' => 'E-Mail Client',
-  'LBL_EMAIL_LINK_TYPE_HELP' => '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
+  'LBL_EMAIL_LINK_TYPE_HELP' => '<b>Sugar Mail Client:</b> Emails werden über den Email Client der Suagr Applikation verschickt.<br><b>Externer Mail Client:</b> Emails werden über einen Email Client außerhalb von Sugar verschickt, wie z.B. mit Microsoft Outlook.',
   'LBL_EMAIL_OUTBOUND_CONFIGURATION' => 'Ausgehende Email Konfiguration',
   'LBL_EMAIL_PER_RUN_REQ' => 'Anzahl der Mails gesendet pro Batch:',
   'LBL_EMAIL_SMTP_SSL' => 'SMTP über SSL aktivieren',
@@ -54,7 +51,7 @@ $mod_strings = array (
   'LBL_GMAIL_SMTPUSER' => 'Gmail Email Adresse',
   'LBL_HELP' => 'Hilfe',
   'LBL_ID' => 'ID',
-  'LBL_INVALID_ENTRY_POINT' => 'Kein gültiger Einsprungpunkt',
+  'LBL_INVALID_ENTRY_POINT' => 'Kein gültiger Entry Point',
   'LBL_IN_QUEUE' => 'In Warteschlange?',
   'LBL_IN_QUEUE_DATE' => 'Warteschlange Datum',
   'LBL_LIST_CAMPAIGN' => 'Kampagne',
@@ -92,7 +89,7 @@ $mod_strings = array (
   'LBL_NOTIFY_TITLE' => 'E-Mail Benachrichtigungs Optionen',
   'LBL_OLD_ID' => 'Alte ID',
   'LBL_OUTBOUND_EMAIL_TITLE' => 'Ausgehende E-Mail Optionen',
-  'LBL_OUTGOING_SECTION_HELP' => 'Configure the default outgoing mail server for sending email notifications, including workflow alerts.',
+  'LBL_OUTGOING_SECTION_HELP' => 'Konfiguration des Standard-Ausgangs-Mailservers zum Versenden von Email-Benachrichtigungen einschließlich der Workflow-Alarme.',
   'LBL_PREPEND_TEST' => '[Test]:',
   'LBL_RELATED_ID' => 'Verknüpfte ID',
   'LBL_RELATED_TYPE' => 'Verknüpfter Typ',

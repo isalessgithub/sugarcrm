@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class SugarWidgetFieldRelate extends SugarWidgetReportField
 {
@@ -60,23 +57,14 @@ class SugarWidgetFieldRelate extends SugarWidgetReportField
     private function displayInputQuery($layout_def)
     {
         $title = $layout_def['rname'];
-        $bean = isset($layout_def['module']) ? BeanFactory::getBean($layout_def['module']) : NULL;
-        $table = empty($bean) ? $layout_def['table'] : $bean->table_name;
-        $concat_fields = isset($layout_def['db_concat_fields']) ? $layout_def['db_concat_fields'] : '';
-
-        if (empty($concat_fields) && !empty($bean) && isset($bean->field_defs[$title]['db_concat_fields']))
-        {
-            $concat_fields = $bean->field_defs[$title]['db_concat_fields'];
-        }
-        if (!empty($concat_fields))
-        {
-            $title = $this->reporter->db->concat($table, $concat_fields);
+        if (isset($layout_def['db_concat_fields'])) {
+            $title = $this->reporter->db->concat($layout_def['table'], $layout_def['db_concat_fields']);
         }
 
         $query = "SELECT
                 id,
                 $title title
-            FROM $table
+            FROM {$layout_def['table']}
             WHERE deleted = 0
             ORDER BY title ASC";
         return $query;
@@ -93,13 +81,9 @@ class SugarWidgetFieldRelate extends SugarWidgetReportField
     {
         $ids = array();
 
-        $relation = new Relationship();
+        $relation = BeanFactory::getBean('Relationships');
         $relation->retrieve_by_name($layout_def['link']);
-
-        global $beanList;
-        $beanClass = $beanList[$relation->lhs_module];
-        $seed = new $beanClass();
-        $seed->retrieve($layout_def['input_name0']);
+        $seed = BeanFactory::getBean($relation->lhs_module, $layout_def['input_name0']);
 
         $link = new Link2($layout_def['link'], $seed);
         $sql = $link->getQuery();
@@ -122,25 +106,21 @@ class SugarWidgetFieldRelate extends SugarWidgetReportField
     public function queryFilterone_of($layout_def, $rename_columns = true)
     {
         $ids = array();
-        if (isset($layout_def['link'])) {
-            $relation = new Relationship();
-            $relation->retrieve_by_name($layout_def['link']);
-        }
-        $module = isset($layout_def['custom_module']) ? $layout_def['custom_module'] : $layout_def['module'];
-        $seed = BeanFactory::getBean($module);
+
+        $relation = BeanFactory::getBean('Relationships');
+        $relation->retrieve_by_name($layout_def['link']);
+
+        $seed = BeanFactory::getBean($relation->lhs_module);
 
         foreach($layout_def['input_name0'] as $beanId)
         {
-            if (!empty($relation->lhs_module) && !empty($relation->rhs_module)
-                && $relation->lhs_module == $relation->rhs_module) {
-                    $filter = array('id');
-            } else {
-                $filter = array('id', $layout_def['name']);
-            }
-            $where = $layout_def['id_name']."='$beanId' ";
-            $sql = $seed->create_new_list_query('', $where, $filter, array(), 0, '', false, $seed, true);
+            $seed->retrieve($beanId);
+
+            $link = new Link2($layout_def['link'], $seed);
+            $sql = $link->getQuery();
             $result = $this->reporter->db->query($sql);
-            while ($row = $this->reporter->db->fetchByAssoc($result)) {
+            while ($row = $this->reporter->db->fetchByAssoc($result))
+            {
                 $ids[] = $row['id'];
             }
         }

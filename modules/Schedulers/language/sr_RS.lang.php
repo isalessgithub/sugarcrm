@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Neispravna Cron sintaksa',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Svaki dan',
   'LBL_ALWAYS' => 'Uvek',
   'LBL_AND' => 'i',
+  'LBL_ASYNCMASSUPDATE' => 'Pokreni asinhrono masovno ažuriranje',
   'LBL_AT' => 'na',
   'LBL_AT_THE' => 'U',
   'LBL_BASIC_OPTIONS' => 'Osnovna podešavanja',
   'LBL_CATCH_UP' => 'Izvrši ako je propušteno',
   'LBL_CATCH_UP_WARNING' => 'Isključite ako je za izvršavanje ovoga potrebno više od nekoliko trenutaka.',
   'LBL_CLEANJOBQUEUE' => 'Red poslova čišćenja',
+  'LBL_CLEANOLDRECORDLISTS' => 'Očisti listu starih zapisa',
   'LBL_CRONTAB_EXAMPLES' => 'Iznad koristi standardnu crontab notaciju.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Molim navedite vreme izvršenja shodno tome.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Specifikacije cron-a rade u zavisnosti od vremenske zone servera (',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Pokreni noćne masovne Email kampanje',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Red poslova čišćenja',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Kreiraj Buduće Vremenske Periode',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar-ovi otkucaji srca',
   'LBL_OOTB_IE' => 'Proveri dolazno poštansko sanduče',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Autor Planiranog Poslovnog Procesa',
   'LBL_OOTB_PRUNE' => 'Smanji bazu prvog dana u mesecu',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Uklanjanje dokumenata iz fajl sistema',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Skrati listu starih zapisa',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Ukloniti fajlove alata za dijagnozu',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Ukloniti privremene PDF fajlove',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Ukloniti privremene fajlove',
   'LBL_OOTB_REPORTS' => 'Pokreni generisanje izveštaja o planiranim zadacima',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Pokreni email podsetnike',
-  'LBL_OOTB_SUGARFEEDS' => 'Smanji SugarFeed tabele',
   'LBL_OOTB_TRACKER' => 'Smanji tabele sistema za praćenje',
   'LBL_OOTB_WORKFLOW' => 'Pokreni zadatke radnog toka',
   'LBL_PERENNIAL' => 'neprekidan',
   'LBL_PERFORMFULLFTSINDEX' => 'Sistem indeksiranja za punu tekstualnu pretragu',
+  'LBL_PMSEENGINECRON' => 'Pokretač izrade procesa',
   'LBL_POLLMONITOREDINBOXES' => 'Proveri dolazne Email naloge',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Pokreni noćno procesiranje odbijenih email-ova kampanje',
   'LBL_PROCESSQUEUE' => 'Pokreni generisanje izveštaja o planiranim zadacima',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Smanji bazu prvog dana u mesecu',
   'LBL_RANGE' => 'do',
   'LBL_REFRESHJOBS' => 'Osveži zadatke',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Uklanjanje dokumenata iz fajl sistema',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Pokreni noćne masovne Email kampanje',
   'LBL_SAT' => 'Subota',
   'LBL_SCHEDULER' => 'Planer:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Pokreni slanje email podsetnika',
   'LBL_STATUS' => 'Status',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Kreiraj Buduće Vremenske Periode',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Nedelja',
   'LBL_THU' => 'Četvrtak',
   'LBL_TIME_FROM' => 'Aktivan od',
   'LBL_TIME_TO' => 'Aktivan do',
   'LBL_TOGGLE_ADV' => 'Prikaži Napredne Opcije',
   'LBL_TOGGLE_BASIC' => 'Prikaži osnovne opcije',
-  'LBL_TRIMSUGARFEEDS' => 'Smanji SugarFeed tabele',
   'LBL_TRIMTRACKER' => 'Smanji tabele sistema za praćenje',
   'LBL_TUE' => 'Utorak',
   'LBL_UPDATETRACKERSESSIONS' => 'Ažuriraj tabele sesija sistema za praćenje',

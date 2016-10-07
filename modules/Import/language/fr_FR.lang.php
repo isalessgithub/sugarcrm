@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Vous ne pouvez pas importer des utilisateurs de type administrateur',
@@ -226,9 +223,10 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Maintenant, choisir le fichier à importer:',
   'LBL_NO_DATECHECK' => 'Sauter la vérification de date (rend l&#39;import plus rapide mais le fera échouer si une date est mal formatée)',
   'LBL_NO_EMAILS' => 'Ne pas envoyer des emails de notification durant cet import',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Essaye de gérer les adresses e-mail dans un module qui ne le prend pas en charge',
   'LBL_NO_ID' => 'ID Requis',
   'LBL_NO_IMPORT_TO_UNDO' => 'Il n&#39;y a pas d&#39;import à annuler.',
-  'LBL_NO_LINES' => 'Aucune ligne dans votre fichier d\'import',
+  'LBL_NO_LINES' => 'Aucune ligne dans votre fichier d&#39;import',
   'LBL_NO_PRECHECK' => 'Mode : Format natif',
   'LBL_NO_RECORD' => 'Aucun enrgistrement avec cet ID n°a été mis à jour',
   'LBL_NO_WORKFLOW' => 'Ne pas lancer les workflows durant cet import',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'import(s) réussi(s)',
   'LBL_SUCCESSFULLY_IMPORTED' => 'enregistrement(s) créé(s) avec succès',
   'LBL_SUMMARY' => 'Résumé',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Nombre de chiffres significatifs',
   'LBL_TAB' => '&nbsp;Un fichier dont les champs sont délimités par des <b>tabulations</b>',
   'LBL_TAB_NUM_1' => 'Lancez l&#39;application et ouvrez le fichier de données à exporter',
   'LBL_TAB_NUM_2' => 'Selectionnez le menu <b>Enregistrer sous...</b> ou <b>Exporter...</b>',

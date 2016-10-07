@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Моля, отстранете грешките, преди да продължите',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Създадено от:',
   'LBL_CREATED_BY' => 'Създадено от:',
   'LBL_CREATED_USER' => 'Създаден потребител',
+  'LBL_CREATE_EMAIL' => 'Създай електронна поща',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Създай',
   'LBL_CREATE_MAILBOX' => 'Създаване на нова пощенска кутия',
   'LBL_CREATE_NEWSLETTER' => 'Създаване на бюлетин',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Създай уеб форма',
   'LBL_CURRENCY' => 'Валута:',
   'LBL_CURRENCY_ID' => 'Валута',
+  'LBL_CURRENCY_RATE' => 'Валутен курс',
   'LBL_CUSTOM_LOCATION' => 'Ръчна настройка',
   'LBL_DATE_CREATED' => 'Създадено на:',
   'LBL_DATE_ENTERED' => 'Създадено на',
@@ -107,7 +106,7 @@ $mod_strings = array (
   'LBL_DEFAULT_FROM_ADDR' => 'По подразбиране:',
   'LBL_DEFAULT_LEAD_SUBMIT' => 'Изпрати',
   'LBL_DEFAULT_LIST_ENTRIES_NOT_FOUND' => 'Няма намерени записи',
-  'LBL_DEFAULT_LIST_ENTRIES_WERE_PROCESSED' => 'Entries were Processed',
+  'LBL_DEFAULT_LIST_ENTRIES_WERE_PROCESSED' => 'Записа бяха обработени',
   'LBL_DEFAULT_LIST_NOT_FOUND' => 'Целева група от тип "По подразбиране" не бе намерена',
   'LBL_DEFAULT_LOCATION' => 'По подразбиране',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Кампании',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Стартиране на настройките на електронната поща',
   'LBL_EMAIL_SETUP_WIZARD' => 'Настройки на електронна поща',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Настройки на електронна поща за кампании',
+  'LBL_EMAIL_TITLE' => 'Кампании: Електронни писма',
+  'LBL_END_DATE' => 'Крайна дата',
   'LBL_FILTER_CHART_BY' => 'Филтриране по маркетингово послание:',
   'LBL_FINISH' => 'Край',
   'LBL_FROM_ADDR' => 'Адрес на подателя',
@@ -257,7 +258,7 @@ $mod_strings = array (
   'LBL_PROSPECTLISTS_SUBPANEL_TITLE' => 'Целева група',
   'LBL_PROSPECT_LIST_SUBPANEL_TITLE' => 'Целева група',
   'LBL_PROVIDE_WEB_TO_LEAD_FORM_FIELDS' => 'Моля, попълнете всички налични полета',
-  'LBL_QUEUE_BUTTON_KEY' => 'u',
+  'LBL_QUEUE_BUTTON_KEY' => 'у',
   'LBL_QUEUE_BUTTON_LABEL' => 'Изпращане на електронни писма',
   'LBL_QUEUE_BUTTON_TITLE' => 'Изпращане на електронни писма',
   'LBL_RECHECK_BTN' => 'Проверка на настройките',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Използване на SSL',
   'LBL_SSL_DESC' => 'Ако сървърът за електронна поща поддържа SSL, маркирането на тази опция ще активира SSL връзка при изтегляне на електронни писма.',
   'LBL_START' => 'Начало',
+  'LBL_START_DATE' => 'Начална дата:',
   'LBL_START_DATE_TIME' => 'Начална дата и час:',
+  'LBL_STATUS' => 'Статус',
   'LBL_STATUS_TEXT' => 'Статус:',
   'LBL_SUBSCRIPTION_LIST' => 'Списък с абонати',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Име на списъка с абонати:',
@@ -308,7 +311,7 @@ $mod_strings = array (
   'LBL_TARGET_TYPE' => 'Тип на списъка',
   'LBL_TEAM' => 'Екип:',
   'LBL_TEMPLATE' => 'Шаблон на електронно писмо:',
-  'LBL_TEST_BUTTON_KEY' => 'e',
+  'LBL_TEST_BUTTON_KEY' => 'е',
   'LBL_TEST_BUTTON_LABEL' => 'Изпращане на тестови съобщения',
   'LBL_TEST_BUTTON_TITLE' => 'Изпращане на тестови съобщения',
   'LBL_TEST_EMAILS_SENT' => 'Тестово изпращане',
@@ -317,7 +320,7 @@ $mod_strings = array (
   'LBL_TEST_TARGET_WIZARD_DESC' => 'Създаване на целева група за кампанията от тип Тестови.  <br>Служи за получаване на тестови писма от текущата кампания.  <br>При липса на група, ще се генерира празна такава автоматично.',
   'LBL_TEST_TYPE_NAME' => 'Тестов',
   'LBL_TIME_START' => 'Начален час',
-  'LBL_TODETAIL_BUTTON_KEY' => 'T',
+  'LBL_TODETAIL_BUTTON_KEY' => 'Т',
   'LBL_TODETAIL_BUTTON_LABEL' => 'Подробности за кампанията',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Подробности за кампанията',
   'LBL_TOP_CAMPAIGNS' => 'Най-успешните кампании',
@@ -326,7 +329,7 @@ $mod_strings = array (
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Приходи',
   'LBL_TOTAL_ENTRIES' => 'Записи',
   'LBL_TOTAL_TARGETED' => 'Общо адресирани',
-  'LBL_TO_WIZARD' => 'launch',
+  'LBL_TO_WIZARD' => 'зареди',
   'LBL_TO_WIZARD_TITLE' => 'Електронен помощник',
   'LBL_TRACKED_URLS' => 'Маркери',
   'LBL_TRACKED_URLS_SUBPANEL_TITLE' => 'Маркери',
@@ -335,15 +338,16 @@ $mod_strings = array (
   'LBL_TRACKER_KEY' => 'Маркер:',
   'LBL_TRACKER_TEXT' => 'Текст на препратка за проследяване:',
   'LBL_TRACKER_URL' => 'Маркер:',
-  'LBL_TRACK_BUTTON_KEY' => 'T',
+  'LBL_TRACK_BUTTON_KEY' => 'Т',
   'LBL_TRACK_BUTTON_LABEL' => 'Статус на кампанията',
   'LBL_TRACK_BUTTON_TITLE' => 'Статус на кампанията',
-  'LBL_TRACK_DELETE_BUTTON_KEY' => 'D',
+  'LBL_TRACK_DELETE_BUTTON_KEY' => 'Д',
   'LBL_TRACK_DELETE_BUTTON_LABEL' => 'Изтрий пробните записи',
   'LBL_TRACK_DELETE_BUTTON_TITLE' => 'Изтрий пробните записи',
   'LBL_TRACK_DELETE_CONFIRM' => 'Тази опция ще изтрие записи в дневника, създадени след изпращане на тестови съобщения. Продължи?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Track Queue',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Възвръщаемост',
+  'LBL_TYPE' => 'Тип',
   'LBL_UNSUBSCRIBED_HEADER' => 'Налични бюлетини',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Moving the newsletter to the Available Newsletters/Newsletters Unsubscribed To list will add the contact to the Unsubscription List for this newsletter.  It will not remove the contact from the original Subscription List or Target List.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Списък с прекратили абонамента',

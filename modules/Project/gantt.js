@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/<!--
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 SUGAR.gantt=function(){return{daysBetween:function(date1,date2){var DSTAdjust=0;oneMinute=1000*60;var oneDay=oneMinute*60*24;date1.setHours(0);date1.setMinutes(0);date1.setSeconds(0);date2.setHours(0);date2.setMinutes(0);date2.setSeconds(0);if(date2>date1){DSTAdjust=(date2.getTimezoneOffset()-date1.getTimezoneOffset())*oneMinute;}
 else{DSTAdjust=(date1.getTimezoneOffset()-date2.getTimezoneOffset())*oneMinute;}
 var diff=Math.abs(date2.getTime()-date1.getTime())-DSTAdjust;return Math.ceil(diff/oneDay);},compareToToday:function(date){var today=new Date();if((today.getMonth()==date.getMonth())&&(today.getDate()==date.getDate())&&(today.getFullYear()==date.getFullYear())){return true;}

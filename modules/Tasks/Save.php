@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Save.php 47378 2009-05-20 21:05:18Z jenny $
  * Description:  Saves an Account record and then redirects the browser to the
  * defined return URL.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -24,7 +21,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
 
-$focus = new Task();
+$focus = BeanFactory::getBean('Tasks');
 if (!isset($prefix)) $prefix='';
 
 global $timedate;
@@ -89,8 +86,7 @@ if(isset($_REQUEST['inbound_email_id']) && !empty($_REQUEST['inbound_email_id'])
 	// fake this case like it's already saved.
 	$focus->save();
 	
-	$email = new Email();
-	$email->retrieve($_REQUEST['inbound_email_id']);
+	$email = BeanFactory::getBean('Emails', $_REQUEST['inbound_email_id']);
 	$email->parent_type = 'Tasks';
 	$email->parent_id = $focus->id;
 	$email->assigned_user_id = $current_user->id;
@@ -119,13 +115,6 @@ if (!isset($GLOBALS['check_notify'])) {
 }
 $focus->save($GLOBALS['check_notify']);
 $return_id = $focus->id;
-
-if(!empty($_POST['is_ajax_call']))
-{
-	$json = getJSONobj();
-	echo $json->encode(array('status' => 'success', 'get' => ''));
-	exit;
-}
 
 handleRedirect($return_id,'Tasks');
 ?>

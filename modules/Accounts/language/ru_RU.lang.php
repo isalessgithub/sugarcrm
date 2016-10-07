@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Вы действительно хотите удалить этого контрагента из проекта?',
@@ -31,8 +28,8 @@ $mod_strings = array (
   'LBL_ANY_ADDRESS' => 'Адрес:',
   'LBL_ANY_EMAIL' => 'E-mail:',
   'LBL_ANY_PHONE' => 'Тел.:',
-  'LBL_ASSIGNED_TO_ID' => 'Ответственный(ая):',
-  'LBL_ASSIGNED_TO_NAME' => 'Ответственный(ая):',
+  'LBL_ASSIGNED_TO_ID' => 'Ответственный (ая):',
+  'LBL_ASSIGNED_TO_NAME' => 'Ответственный (ая):',
   'LBL_ASSIGNED_USER_NAME' => 'Ответственный(ая):',
   'LBL_BILLING_ADDRESS' => 'Юридический адрес',
   'LBL_BILLING_ADDRESS_CITY' => 'Юридический адрес - город:',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Звонки',
   'LBL_CAMPAIGNS' => 'Маркет. кампании',
   'LBL_CAMPAIGN_ID' => 'Маркетинговая кампания',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Журнал маркетинговых кампаний',
   'LBL_CASES_SUBPANEL_TITLE' => 'Обращения',
   'LBL_CHARTS' => 'Графики',
   'LBL_CITY' => 'Город:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Контрагенты',
   'LBL_DESCRIPTION' => 'Описание:',
   'LBL_DESCRIPTION_INFORMATION' => 'Описание',
+  'LBL_DNB_BAL_PREVIEW' => 'Предварительный просмотр контрагентов',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Документы',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Возможно дублирующий контрагент',
   'LBL_EMAIL' => 'E-mail:',
   'LBL_EMAIL_ADDRESSES' => 'Адреса E-mail',
@@ -72,6 +72,25 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Число сотрудников:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ответственный пользователь',
   'LBL_FAX' => 'Факс:',
+  'LBL_FILENAME' => 'Вложение',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Отчёты по контрагентам',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} модуль содержит перечень компаний, с которыми взаимодействует Ваша организация, и является узлом, где Вы можете управлять и анализировать Ваши активности с клиентами
+
+Чтобы создать {{module_name}}:
+1. Укажите значения полей.
+- Поля с пометкой "Обязательно" должны быть заполнены перед сохранением.
+- Нажмите "Показать больше", чтобы отобразить дополнительные поля при необходимости.
+2. Нажмите "Сохранить" для сохранения новой записи и возвращения на предыдущую страницу.
+- Выберите "Сохранить и просмотреть", чтобы открыть новый {{module_name}} в режиме просмотра записи.
+- Выберите "Сохранить и создать", чтобы сразу создать новый {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} модуль содержит перечень компаний, с которыми взаимодействует Ваша организация, и является узлом, где Вы можете управлять и анализировать Ваши активности с клиентами.
+
+- Чтобы редактировать поля данной записи, нажмите на самом поле или кликните по кнопке Редактировать.
+- Чтобы просмотреть или изменить ссылки, ведущие к другим записям, на субпанеле, переключите левую нижнюю панель на "Просмотр данных".
+- Чтобы оставлять и просматривать пользовательские комментарии, а также изменять историю в рамках одной записи в {{activitystream_singular_module}}, переключите левую нижнюю панель на "Лента активностей".
+- Чтобы подписаться или добавить в Избранное данную запись, используйте иконки справа от записи.
+- Дополнительные действия доступны в выпадающем меню Действий справа от кнопки Редактировать.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} модуль содержит перечень компаний, с которыми взаимодействует Ваша организация, и является узлом, где Вы можете управлять и анализировать Ваши активности с клиентами. Существует множество способов, с помощью которых Вы можете создать {{plural_module_name}} в Sugar, это возможно через {{plural_module_name}} модуль, дублирование, импорт {{plural_module_name}}, и т.п. Как только {{module_name}} создана запись, Вы можете просмотреть и редактировать информацию, касающуюся {{module_name}} в {{plural_module_name}} режиме просмотра записи. Каждая {{module_name}} запись может быть связана с другой записью Sugar, такой как {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, и многими другими записями в процессе развития отношений с клиентами.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_HOMEPAGE_TITLE' => 'Мои контрагенты',
   'LBL_INDUSTRY' => 'Отрасль:',
@@ -98,6 +117,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Контрагенты - Главная',
   'LBL_NAME' => 'Название:',
   'LBL_NEW_FORM_TITLE' => 'Новый контрагент',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Заметки',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Сделки',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Дополнительный электронный адрес:',
   'LBL_OTHER_PHONE' => 'Дополнительный тел.:',
@@ -110,7 +130,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Тел. (факс):',
   'LBL_PHONE_OFFICE' => 'Тел. (раб.):',
   'LBL_POSTAL_CODE' => 'Индекс:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты',
   'LBL_PRODUCTS_TITLE' => 'Продукты',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Проекты',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Проекты',
@@ -121,6 +140,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Push Shipping',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Коммерческие предложения',
   'LBL_RATING' => 'Рейтинг:',
+  'LBL_REVENUELINEITEMS' => 'Доход по продуктам',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Доход по продуктам',
   'LBL_SAVE_ACCOUNT' => 'Сохранение контрагента',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск контрагентов',
   'LBL_SHIPPING_ADDRESS' => 'Фактический адрес:',
@@ -132,7 +153,7 @@ $mod_strings = array (
   'LBL_SHIPPING_ADDRESS_STREET_2' => 'Фактический адрес - улица 2',
   'LBL_SHIPPING_ADDRESS_STREET_3' => 'Фактический адрес - улица 3',
   'LBL_SHIPPING_ADDRESS_STREET_4' => 'Фактический адрес - улица 4',
-  'LBL_SIC_CODE' => 'Идентификац. код:',
+  'LBL_SIC_CODE' => 'SIC код:',
   'LBL_STATE' => 'Область:',
   'LBL_TASKS_SUBPANEL_TITLE' => 'Задачи',
   'LBL_TEAMS_LINK' => 'Команды',
@@ -142,14 +163,15 @@ $mod_strings = array (
   'LBL_USERS_CREATED_LINK' => 'Создано пользователями',
   'LBL_USERS_MODIFIED_LINK' => 'Измененные пользователи',
   'LBL_UTILS' => 'Утилиты',
-  'LBL_VIEW_FORM_TITLE' => 'Обзор контрагента',
+  'LBL_VIEW_FORM_TITLE' => 'Просмотр контрагента',
   'LBL_WEBSITE' => 'Сайт:',
   'LNK_ACCOUNT_LIST' => 'Контрагенты',
   'LNK_ACCOUNT_REPORTS' => 'Просмотр отчёта по контрагентам',
+  'LNK_CREATE' => 'Создать кампанию',
   'LNK_IMPORT_ACCOUNTS' => 'Импорт контрагентов',
   'LNK_NEW_ACCOUNT' => 'Новый контрагент',
-  'MSG_DUPLICATE' => 'Создаваемый вами контрагент возможно дублирует уже имеющуюся запись. Похожие контрагенты показаны ниже. Нажмите кнопку "Сохранить"  для продолжения создания нового контрагента или кнопку "Отказаться" для возврата в модуль.',
-  'MSG_SHOW_DUPLICATES' => 'Создаваемый вами контрагент возможно дублирует уже имеющуюся запись. Похожие контрагенты показаны ниже. Нажмите кнопку "Сохранить"  для продолжения создания нового контрагента или кнопку "Отказаться" для возврата в модуль.',
+  'MSG_DUPLICATE' => 'Создаваемый Вами контрагент возможно дублирует уже имеющуюся запись. Похожие контрагенты показаны ниже. Нажмите кнопку "Сохранить"  для продолжения создания нового контрагента или кнопку "Отказаться" для возврата в модуль.',
+  'MSG_SHOW_DUPLICATES' => 'Создаваемый Вами контрагент возможно дублирует уже имеющуюся запись. Похожие контрагенты показаны ниже. Нажмите кнопку "Сохранить"  для продолжения создания нового контрагента или кнопку "Отказаться" для возврата в модуль.',
   'NTC_COPY_BILLING_ADDRESS' => 'Копировать юридический адрес в погрузочный',
   'NTC_COPY_BILLING_ADDRESS2' => 'Копировать в фактический адрес',
   'NTC_COPY_SHIPPING_ADDRESS' => 'Копировать фактический адрес в юридический',

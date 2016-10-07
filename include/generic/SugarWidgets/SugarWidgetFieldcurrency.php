@@ -1,42 +1,28 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-                                                                                       
-
+require_once 'include/generic/SugarWidgets/SugarWidgetFieldint.php';
 
 global $current_user;
-                                                                                       
+
 $global_currency_obj = null;
-                                                                                       
+
 function get_currency()
 {
-        global $current_user,$global_currency_obj;
+        global $global_currency_obj;
         if (empty($global_currency_obj))
         {
-        $global_currency_obj = new Currency();
-      //  $global_currency_symbol = '$';
-                                                                                       
-        if($current_user->getPreference('currency') )
-        {
-                $global_currency_obj->retrieve($current_user->getPreference('currency'));
-        }
-        else
-        {
-                $global_currency_obj->retrieve('-99');
-        }
+            $global_currency_obj = BeanFactory::getBean('Currencies')->getUserCurrency();
         }
         return $global_currency_obj;
 }
@@ -46,45 +32,46 @@ class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
 {
     function SugarWidgetFieldCurrency(&$layout_manager) {
         parent::__construct($layout_manager);
-        $this->reporter = $this->layout_manager->getAttribute('reporter');  
+        $this->reporter = $this->layout_manager->getAttribute('reporter');
     }
-    
+
 
     function & displayList($layout_def)
         {
-            global $locale;
-            $symbol = $locale->getPrecedentPreference('default_currency_symbol');
-            $currency_id = $locale->getPrecedentPreference('currency');
+            global $current_user;
 
-            // If it's not grouped, or if it's grouped around a system currency column, look up the currency symbol so we can display it next to the amount
-            if ( empty($layout_def['group_function']) || $this->isSystemCurrency($layout_def) ) {
-                $c = $this->getCurrency($layout_def);
-                if(!empty($c['currency_id']) && !empty($c['currency_symbol']))
-                {
-                    $symbol = $c['currency_symbol'];
-                    $currency_id = $c['currency_id'];
-                }
+            if (empty($layout_def['group_function'])) {
+                $currency = $this->getCurrency($layout_def);
+                $symbol = $currency['currency_symbol'];
+                $currency_id = $currency['currency_id'];
+            } else {
+                $currency = $current_user->getPreference('currency_show_preferred')
+                    ? SugarCurrency::getUserLocaleCurrency()
+                    : SugarCurrency::getBaseCurrency();
+                $currency_id = $currency->id;
+                $symbol = $currency->symbol;
             }
+
             $layout_def['currency_symbol'] = $symbol;
             $layout_def['currency_id'] = $currency_id;
             $display = $this->displayListPlain($layout_def);
             
         if(!empty($layout_def['column_key'])){
-            $field_def = $this->reporter->all_fields[$layout_def['column_key']];    
+            $field_def = $this->reporter->all_fields[$layout_def['column_key']];
         }else if(!empty($layout_def['fields'])){
             $field_def = $layout_def['fields'];
         }
         $record = '';
         if ($layout_def['table_key'] == 'self' && isset($layout_def['fields']['PRIMARYID']))
             $record = $layout_def['fields']['PRIMARYID'];
-        else if (isset($layout_def['fields'][strtoupper($layout_def['table_alias']."_id")])){ 
+        else if (isset($layout_def['fields'][strtoupper($layout_def['table_alias']."_id")])){
             $record = $layout_def['fields'][strtoupper($layout_def['table_alias']."_id")];
         }
         if (!empty($record)) {
 	        $field_name = $layout_def['name'];
 	        $field_type = $field_def['type'];
 	        $module = $field_def['module'];
-	
+
 	        $div_id = $module ."&$record&$field_name";
 	        $str = "<div id='$div_id'>".$display;
             global $sugar_config;
@@ -97,34 +84,41 @@ class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
         else
             return $display;
     }
-                             
-    function displayListPlain($layout_def) {
-        $value = currency_format_number(
-            parent::displayListPlain($layout_def),
-            array_merge(
-                array(
-                    'convert' => false,
-                ),
-                $this->getCurrency($layout_def)
-            )
-        );
-        return $value;
-    }                                                          
+
+    public function displayListPlain($layout_def)
+    {
+        $value = parent::displayListPlain($layout_def);
+        $row_currency = $this->getCurrency($layout_def);
+        $format_id = $row_currency['currency_id'];
+
+        global $current_user;
+        // when the group by function is empty, and we should show the user prefered currency, it should convert it
+        if (empty($layout_def['group_function']) && $current_user->getPreference('currency_show_preferred')) {
+            $user_currency = SugarCurrency::getUserLocaleCurrency();
+
+            if ($user_currency->id != $row_currency['currency_id']) {
+                $value = SugarCurrency::convertAmount($value, $row_currency['currency_id'], $user_currency->id);
+                $format_id = $user_currency->id;
+            }
+        }
+
+        return SugarCurrency::formatAmountUserLocale($value, $format_id);
+    }
  function queryFilterEquals(&$layout_def)
  {
      return $this->_get_column_select($layout_def)."=".$GLOBALS['db']->quote(unformat_number($layout_def['input_name0']))."\n";
  }
-                                                                                       
+
  function queryFilterNot_Equals(&$layout_def)
  {
      return $this->_get_column_select($layout_def)."!=".$GLOBALS['db']->quote(unformat_number($layout_def['input_name0']))."\n";
  }
-                                                                                       
+
  function queryFilterGreater(&$layout_def)
  {
      return $this->_get_column_select($layout_def)." > ".$GLOBALS['db']->quote(unformat_number($layout_def['input_name0']))."\n";
  }
-                                                                                       
+
  function queryFilterLess(&$layout_def)
  {
      return $this->_get_column_select($layout_def)." < ".$GLOBALS['db']->quote(unformat_number($layout_def['input_name0']))."\n";
@@ -132,6 +126,14 @@ class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
 
  function queryFilterBetween(&$layout_def){
      return $this->_get_column_select($layout_def)." > ".$GLOBALS['db']->quote(unformat_number($layout_def['input_name0'])). " AND ". $this->_get_column_select($layout_def)." < ".$GLOBALS['db']->quote(unformat_number($layout_def['input_name1']))."\n";
+ }
+ public function queryFilterGreater_Equal(&$layout_def)
+ {
+     return $this->_get_column_select($layout_def) . " >= " . $GLOBALS['db']->quote(unformat_number($layout_def['input_name0'])) . "\n";
+ }
+ public function queryFilterLess_Equal(&$layout_def)
+ {
+     return $this->_get_column_select($layout_def) . " <= " . $GLOBALS['db']->quote(unformat_number($layout_def['input_name0'])) . "\n";
  }
 
  function isSystemCurrency(&$layout_def)

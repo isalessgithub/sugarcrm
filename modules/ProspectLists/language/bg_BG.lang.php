@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Организации',
   'LBL_ASSIGNED_TO' => 'Отговорник',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Кампании',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Контакти',
   'LBL_COPY_PREFIX' => 'Копие на',
   'LBL_CREATED' => 'Създадено от',
@@ -32,6 +30,23 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Блокиран домейн:',
   'LBL_DOMAIN_NAME' => 'Име на домейн',
   'LBL_ENTRIES' => 'Брой записи в групата:',
+  'LBL_HELP_CREATE' => 'Записите в модула {{plural_module_name}} съдържат списъци с организации или лица, които могат да бъдат включвани в маркетинговата комуникация през модул {{campaigns_module}}.
+За да създадете нов запис в модул {{plural_module_name}}:
+1. Въведете стойности в отделните полета.
+ - Полетата маркирани като "Задължителни" се изисква да имат зададена стойнист преди да се пристъпи към съхраняване на записа.
+ - Натиснете върху "Покажи повече", за да бъдат визуализирани допълнителни полета ако е необходимо.
+2. Натиснете "Съхрани", за да запазите новия запис и да се върнете в предходната страница.
+ - Изберете "Съхрани и разгледай", за да отворите автоматично детайли за новия запис.
+ - Изберете "Съхрани и създай нов", за да пристъпите към създаване на друг нов запис в модул {{plural_module_name}}..
+ 3. След съхраняване на записа използвайте панелите за Целеви клиенти, Организации, Контакти, Потенциални клиенти и потребители, за да добавите записи към целевата група.',
+  'LBL_HELP_RECORD' => 'Записите в модула {{plural_module_name}} съдържат списъци с организации или лица, които могат да бъдат включвали в маркетинговата комуникация през модул {{campaigns_module}}.
+
+- Редактирайте текущия запис като натиснете конкретно поле или използвате бутона „Редактирай“.
+- Разгледайте или модифицирайте връзките с други записи в системата, като за целта визуализирате панела „Свързани записи“.
+- Поставете коментари към текущия запис и разгледайте история на извършените промени свързани с него, като преминете в панела „Хронология“.
+- Следвайте или харесайте текущия запис като използвате иконите, намиращи се в дясно от името му.
+- Можете да извършвате допълнителни действия със записа като използвате падащото меню в дясно на бутона „Редактирай“.',
+  'LBL_HELP_RECORDS' => 'Записите в модула {{plural_module_name}} съдържат списъци с организации или лица, които могат да бъдат включвани в маркетинговата комуникация през модул {{plural_campaign_module}}. Отделните {{plural_module_name}} могат да съдържат комбинация от {{contacts_module}}, {{leads_module}}, Потребители и {{accounts_module}}. Групирането на целевите клиенти може да се извършва според предефинирани критерии, в това число възрастова група, географски признак или история на сделките.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Потенциални клиенти',
   'LBL_LIST_DESCRIPTION' => 'Описание',
   'LBL_LIST_END_DATE' => 'Крайна дата',

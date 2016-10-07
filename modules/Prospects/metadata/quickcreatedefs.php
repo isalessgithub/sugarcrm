@@ -1,135 +1,138 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Prospects']['QuickCreate'] = array (
-  'templateMeta' => 
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+/*********************************************************************************
+ * $Id$
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+
+$viewdefs = array (
+  'Prospects' => 
   array (
-    'maxColumns' => '2',
-    'widths' => 
+    'QuickCreate' => 
     array (
-      0 => 
+      'templateMeta' => 
       array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      'LBL_PROSPECT_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      'LBL_EMAIL_ADDRESSES' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-      'LBL_ADDRESS_INFORMATION' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'LBL_PROSPECT_INFORMATION' => 
-    array (
-      0 => 
-      array (
-        0 => 
+        'maxColumns' => '2',
+        'widths' => 
         array (
-          'name' => 'first_name',
-        ),
-        1 => 
-        array (
-          'name' => 'phone_work',
-        ),
-      ),
-      1 => 
-      array (
-        0 => 
-        array (
-          'name' => 'last_name',
-          'displayParams' => 
+          0 => 
           array (
-            'required' => true,
+            'label' => '10',
+            'field' => '30',
+          ),
+          1 => 
+          array (
+            'label' => '10',
+            'field' => '30',
           ),
         ),
-        1 => 
-        array (
-          'name' => 'phone_mobile',
-        ),
       ),
-      2 => 
+      'panels' => 
       array (
-        0 => 
+        'LBL_PROSPECT_INFORMATION' => 
         array (
-          'name' => 'account_name',
+          0 => 
+          array (
+            0 => 
+            array (
+              'name' => 'first_name',
+            ),
+            1 => 
+            array (
+              'name' => 'phone_work',
+            ),
+          ),
+          1 => 
+          array (
+            0 => 
+            array (
+              'name' => 'last_name',
+              'displayParams'=>array('required'=>true)
+            ),
+            1 => 
+            array (
+              'name' => 'phone_mobile',
+            ),
+          ),
+          2 => 
+          array (
+            0 => 
+            array (
+              'name' => 'account_name',
+            ),
+            1 => 
+            array (
+              'name' => 'phone_fax',
+            ),
+          ),
+          3 => 
+          array (
+            0 => 
+            array (
+              'name' => 'title',
+            ),
+            1 => 
+            array (
+              'name' => 'department',
+            ),
+          ),
+          4 => 
+          array (
+            0 => 
+            array (
+              'name' => 'team_name',
+            ),
+            1 => 
+            array (
+              'name' => 'do_not_call',
+            ),
+          ),
+          5 => 
+          array (
+            0 => 
+            array (
+              'name' => 'assigned_user_name',
+            ),
+          ),
         ),
-        1 => 
+        'lbl_email_addresses' => 
         array (
-          'name' => 'phone_fax',
+          0 => 
+          array (
+            0 => 
+            array (
+              'name' => 'email1',
+            ),
+          ),
         ),
-      ),
-      3 => 
-      array (
-        0 => 
+        'LBL_ADDRESS_INFORMATION' => 
         array (
-          'name' => 'title',
-        ),
-        1 => 
-        array (
-          'name' => 'department',
-        ),
-      ),
-      4 => 
-      array (
-        0 => 
-        array (
-          'name' => 'team_name',
-        ),
-        1 => 
-        array (
-          'name' => 'do_not_call',
-        ),
-      ),
-      5 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-        ),
-      ),
-    ),
-    'lbl_email_addresses' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'email1',
-        ),
-      ),
-    ),
-    'LBL_ADDRESS_INFORMATION' => 
-    array (
-      0 => 
-      array (
-        0 => 
-        array (
-          'name' => 'primary_address_street',
-        ),
-        1 => 
-        array (
-          'name' => 'alt_address_street',
+          0 => 
+          array (
+            0 => 
+            array (
+              'name' => 'primary_address_street',
+            ),
+            1 => 
+            array (
+              'name' => 'alt_address_street',
+            ),
+          ),
         ),
       ),
     ),
   ),
 );
+?>

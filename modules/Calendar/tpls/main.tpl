@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <link type="text/css" href="{sugar_getjspath file="modules/Calendar/Cal.css"}" rel="stylesheet" />
 {sugar_getscript file="modules/Calendar/Cal.js"}
@@ -45,8 +42,8 @@
 		CAL.scroll_slot = {$scroll_slot};
 		CAL.basic.min_height = {$basic_min_height};
 
-		CAL.lbl_create_new = "{$MOD.LBL_CREATE_NEW_RECORD}";
-		CAL.lbl_edit = "{$MOD.LBL_EDIT_RECORD}";
+		CAL.lbl_create_new = "{$MOD.LBL_CREATE_NEW_CALL}";
+		CAL.lbl_edit = "{$MOD.LBL_EDIT_CALL}";
 		CAL.lbl_saving = "{$MOD.LBL_SAVING}";
 		CAL.lbl_loading = "{$MOD.LBL_LOADING}";
 		CAL.lbl_sending = "{$MOD.LBL_SENDING_INVITES}";
@@ -55,7 +52,8 @@
 		
 		CAL.lbl_error_saving = "{$MOD.LBL_ERROR_SAVING}";
 		CAL.lbl_error_loading = "{$MOD.LBL_ERROR_LOADING}";
-		CAL.lbl_repeat_limit_error = "{$MOD.LBL_REPEAT_LIMIT_ERROR}";
+		CAL.lbl_repeat_limit_error = "{$MOD.LBL_RECURRING_LIMIT_ERROR}";
+        CAL.lbl_no_access = "{$MOD.LBL_NO_ACCESS}";
 		
 		CAL.year = {$year};
 		CAL.month = {$month};
@@ -266,7 +264,9 @@ YAHOO.util.Event.onDOMReady(function(){
 	schedulerLoader.addModule({
 		name :"jsclass_scheduler",
 		type : "js",
-		fullpath: "modules/Meetings/jsclass_scheduler.js",
+{/literal}
+		fullpath: "{sugar_getjspath file='modules/Meetings/jsclass_scheduler.js'}",
+{literal}
 		varName: "global_rpcClient",
 		requires: []
 	});
@@ -275,8 +275,8 @@ YAHOO.util.Event.onDOMReady(function(){
 {/literal}	
 </script>
 	
-<script type="text/javascript" src="include/javascript/jsclass_base.js"></script>
-<script type="text/javascript" src="include/javascript/jsclass_async.js"></script>	
+<script type="text/javascript" src="{sugar_getjspath file='include/javascript/jsclass_base.js'}"></script>
+<script type="text/javascript" src="{sugar_getjspath file='include/javascript/jsclass_async.js'}"></script>	
 	
 <style type="text/css">
 {literal}
@@ -292,7 +292,8 @@ YAHOO.util.Event.onDOMReady(function(){
 <style type="text/css">
 {literal}
 	#cal-grid div.col, #cal-grid div.left_col{
-		border-top: 1px solid silver;	
+		border-top: 1px solid silver;
+		border-bottom: 1px solid silver;
 	}
 {/literal}
 </style>

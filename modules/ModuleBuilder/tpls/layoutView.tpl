@@ -1,18 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 
@@ -52,7 +48,7 @@
     {counter name='idCount' assign='idCount' start='1'}
     {foreach from=$available_fields item='col' key='id'}
         {assign var="field" value=$col.name}
-        <div class='le_field' id='{$idCount}'>
+        <div class='le_field' data-name="{$field}" id='{$idCount}'>
             {if ! $fromModuleBuilder && ($col.name != '(filler)')}
                 {capture assign="otherAttributes"}class="le_edit" style="float:right; cursor:pointer;" onclick="editFieldProperties('{$idCount}', '{$col.label}');"{/capture}
                 {sugar_getimage name="edit_inline" ext=".gif" other_attributes=$otherAttributes}
@@ -75,9 +71,13 @@
             {if !empty($translate) && !empty($col.label)}
                 {eval var=$col.label assign='newLabel'}
                 {if $from_mb}
-                {$current_mod_strings[$newLabel]}
+                    {if !empty($current_mod_strings[$newLabel])}
+                        {$current_mod_strings[$newLabel]}
+                    {else}
+                        {$col.label}
+                    {/if}
                 {else}
-                {sugar_translate label=$newLabel module=$language}
+                    {sugar_translate label=$newLabel module=$language}
                 {/if}
  			{else}
                 {assign var='label' value=$col.label} 
@@ -86,9 +86,27 @@
                 {else}
                 	{$label}
                 {/if}
-            {/if}</span>
+            {/if}{if !empty($col.fieldset)} **{/if}</span>
             <span class='field_name'>{$col.name}</span>
             <span class='field_label'>{$col.label}</span>
+            {if !empty($col.fieldset_fields)}
+            <span class='field_fieldset_fields' id='fieldset_{$idCount}'>
+                {foreach from=$col.fieldset_fields item='fsfield'}
+                    {eval var=$fsfield.label assign='fslabel'}
+                    {if !empty($translate) && !empty($fsfield.label)}
+                        {sugar_translate label=$fslabel module=$language}
+                    {else}
+                        {if !empty($current_mod_strings[$fslabel])}
+                            {$current_mod_strings[$fslabel]}
+                        {elseif !empty($mod[$fslabel])}
+                            {$mod[$fslabel]}
+                        {else}
+                            {$fslabel}
+                        {/if}
+                    {/if}<br>
+                {/foreach}
+            </span>
+            {/if}
             <span id='le_tabindex_{$idCount}' class='field_tabindex'>{$col.tabindex}</span>
         </div>
         {counter name='idCount' assign='idCount' print=false}
@@ -96,7 +114,7 @@
     </div>
 </div>
 
-<div id='panels' style='float:left; overflow-y:auto; overflow-x:hidden'>
+<div id='panels' style='float:left; overflow-y:auto; overflow-x:hidden' class="max-columns-{$maxColumns}">
 
 <h3>{$layouttitle}</h3>
 {counter name='idCounter' assign='idCounter' start='1'}
@@ -122,6 +140,7 @@
             {capture assign="otherAttributes"}class="le_edit" style="float:left; cursor:pointer;" onclick="editPanelProperties('{$idCount}');"{/capture}
             {sugar_getimage name="edit_inline" ext=".gif" other_attributes=$otherAttributes}
         {/if}
+
         <span id="le_paneltype_{$idCount}" style="float:left;">
         &nbsp;&nbsp;{sugar_translate label="LBL_TABDEF_TYPE" module="ModuleBuilder"}&nbsp;{sugar_help text=$mod.LBL_TABDEF_TYPE_OPTION_HELP}:
         {if $idCounter == 1}
@@ -137,7 +156,7 @@
         </select>
         </span>
         <span id="le_panelcollapse_{$idCount}" style="float:right;{if isset($tabDefs[$panel_upper].newTab) && $tabDefs[$panel_upper].newTab == true}display:none;{/if}">
-        &nbsp;{sugar_translate label="LBL_TABDEF_COLLAPSE" module="ModuleBuilder"}?
+        &nbsp;{sugar_translate label="LBL_TABDEF_COLLAPSE" module="ModuleBuilder"}{sugar_translate label="LBL_QUESTION_MARK"}
         <input type="checkbox" title="{sugar_translate label="LBL_TABDEF_COLLAPSE_HELP" module="ModuleBuilder"}" {if $tabDefs[$panel_upper].panelDefault == "collapsed"}checked="checked"{/if}
           onclick="{literal}if(this.checked) { document.forms.prepareForSave.tabDefs_{/literal}{$panelid}{literal}_panelDefault.value='collapsed'; } else { document.forms.prepareForSave.tabDefs_{/literal}{$panelid}{literal}_panelDefault.value='expanded';}{/literal}" />
         </span>
@@ -149,7 +168,7 @@
 
             {foreach from=$row item='col' key='cid'}
                 {assign var="field" value=$col.name}
-                <div class='le_field' id='{$idCount}'>
+                <div class='le_field' data-name="{$col.name}" id='{$idCount}'>
                     {if ! $fromModuleBuilder && ($col.name != '(filler)')}
                         {capture assign="otherAttributes"}class="le_edit" style="float:right; cursor:pointer;" onclick="editFieldProperties('{$idCount}', '{$col.label}');"{/capture}
                         {sugar_getimage name="edit_inline" ext=".gif" other_attributes=$otherAttributes}
@@ -181,9 +200,27 @@
 		                {else}
 		                	{$label}
 		                {/if}
-		            {/if}</span>
+		            {/if}{if !empty($col.fieldset)} **{/if}</span>
                     <span class='field_name'>{$col.name}</span>
                     <span class='field_label'>{$col.label}</span>
+                    {if !empty($col.fieldset_fields)}
+                    <span class='field_fieldset_fields' id='fieldset_{$idCount}'>
+                        {foreach from=$col.fieldset_fields item='fsfield'}
+                            {eval var=$fsfield.label assign='fslabel'}
+                            {if !empty($translate) && !empty($fsfield.label)}
+                                {sugar_translate label=$fslabel module=$language}
+                            {else}
+                                {if !empty($current_mod_strings[$fslabel])}
+                                    {$current_mod_strings[$fslabel]}
+                                {elseif !empty($mod[$fslabel])}
+                                    {$mod[$fslabel]}
+                                {else}
+                                    {$fslabel}
+                                {/if}
+                            {/if}<br>
+                        {/foreach}
+                    </span>
+                    {/if}
                     <span id='le_tabindex_{$idCount}' class='field_tabindex'>{$col.tabindex}</span>
                 </div>
                 {counter name='idCount' assign='idCount' print=false}
@@ -314,3 +351,4 @@ ModuleBuilder.package={if $fromModuleBuilder}"{$view_package}"{else}false{/if};
 
 ModuleBuilder.disablePopupPrompt = {if $syncDetailEditViews}{$syncDetailEditViews}{else}false{/if};
 </script>
+

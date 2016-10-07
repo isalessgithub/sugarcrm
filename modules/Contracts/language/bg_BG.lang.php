@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'LBL_ACCOUNT_ID' => 'Организация',
+  'LBL_ACCOUNT_ID' => 'Идентификатор на Организация',
   'LBL_ACCOUNT_NAME' => 'Организация:',
   'LBL_ASSIGNED_TO' => 'Отговорник:',
   'LBL_ASSIGNED_TO_NAME' => 'Отговорник:',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Създаден потребител',
   'LBL_CURRENCY' => 'Валута:',
   'LBL_CURRENCY_ID' => 'Валута:',
+  'LBL_CURRENCY_RATE' => 'Валутен курс',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Подписан от клиента на:',
   'LBL_DAYS' => 'Ден(дни)',
   'LBL_DESCRIPTION' => 'Описание:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Документи',
   'LBL_END_DATE' => 'Крайна дата:',
   'LBL_EXPIRATION_NOTICE' => 'Уведомление за изтичане на срока:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Идентификатор на орговорника',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Име на отговорника',
+  'LBL_EXPORT_CREATED_BY' => 'Създадено от ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Модифицирано от ID',
+  'LBL_EXPORT_TYPE_NAME' => 'Име',
   'LBL_LIST_ACCOUNT_NAME' => 'Oрганизация',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Потребител',
   'LBL_LIST_CONTRACT_NAME' => 'Име на договора',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Екип',
   'LBL_MODIFIED_USER' => 'Модифициран потребител',
   'LBL_MODULE_NAME' => 'Договори',
+  'LBL_MODULE_NAME_SINGULAR' => 'Договор',
   'LBL_MODULE_TITLE' => 'Договори',
   'LBL_NEW_FORM_TITLE' => 'Нов договор',
   'LBL_NONE' => 'Няма',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Бележки',
   'LBL_OPPORTUNITY' => 'Свързан с възможност:',
-  'LBL_OPPORTUNITY_NAME' => 'Възможност',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукти',
+  'LBL_OPPORTUNITY_ID' => 'Идентификатор на възможността',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Оферти',
   'LBL_REFERENCE_CODE' => 'Код:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Приходни позиции',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Договори"',
   'LBL_SF_ACCOUNT_NAME' => 'Организация:',
   'LBL_SF_ASSIGNED_TO' => 'Отговорник:',
@@ -75,9 +79,10 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Стойност:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Стойност (USD):',
   'LBL_TYPE' => 'Тип',
+  'LBL_TYPE_NAME' => 'Име',
   'LBL_UNDEFINED' => 'Недефинирано',
   'LNK_CONTRACT_LIST' => 'Списък с договори',
-  'LNK_IMPORT_CONTRACTS' => 'Импортиране на договори',
+  'LNK_IMPORT_CONTRACTS' => 'Импортирай договори',
   'LNK_NEW_CONTRACT' => 'Въвеждане на договор',
 );
 

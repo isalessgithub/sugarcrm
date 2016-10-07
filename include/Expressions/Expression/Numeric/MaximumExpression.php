@@ -1,62 +1,64 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+require_once 'include/Expressions/Expression/Numeric/NumericExpression.php';
 
-require_once("include/Expressions/Expression/Numeric/NumericExpression.php");
 /**
  * <b>max(Number num, ...)</b><br/>
  * Returns highest value number passed in<br>
  * ex: <i>max(-4, 2, 3)</i> = 3
  */
-class MaximumExpression extends NumericExpression {
-	/**
-	 * Returns the largest value in a set
-	 */
-	function evaluate() {
-		$params = $this->getParameters();
-		
-		$max = false;
-		foreach ( $this->getParameters() as $expr ) {
-			$val = $expr->evaluate();
-			if ($max === false || $val > $max)
-				$max = $val;
-		}
-		return $max;
-	}
+class MaximumExpression extends NumericExpression
+{
+    /**
+     * Returns the largest value in a set
+     */
+    public function evaluate()
+    {
+        $params = $this->getParameters();
 
-	/**
-	 * Returns the JS Equivalent of the evaluate function.
-	 */
-	static function getJSEvaluate() {
-		return <<<EOQ
+        $max = false;
+        foreach ($this->getParameters() as $expr) {
+            $val = $expr->evaluate();
+            if ($max === false || $val > $max) {
+                $max = $val;
+            }
+        }
+
+        return $max;
+    }
+
+    /**
+     * Returns the JS Equivalent of the evaluate function.
+     */
+    public static function getJSEvaluate()
+    {
+        return <<<EOQ
 			var params = this.getParameters();
 			var max = null;
-			for ( var i = 0; i < params.length; i++ )	
-			{
+			for (var i = 0; i < params.length; i++) {
 				var val = 	params[i].evaluate();
 				if(max == null || val > max)
 					max = val;
 			}
 			return max;
 EOQ;
-	}
+    }
 
-	/**
-	 * Returns the opreation name that this Expression should be
-	 * called by.
-	 */
-	static function getOperationName() {
-		return "max";
-	}
+    /**
+     * Returns the operation name that this Expression should be
+     * called by.
+     */
+    public static function getOperationName()
+    {
+        return "max";
+    }
 }
-?>

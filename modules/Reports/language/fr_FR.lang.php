@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -80,7 +77,7 @@ $mod_strings = array (
     2419200 => 'Toutes les 4 semaines',
   ),
   'ERR_REPORT_DEACTIVATED' => 'Le rapport planifié "{0}" a été désactivé',
-  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Les rapports planifiés ont été désactivés',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Les rapports planifiés ont été désactivé',
   'ERR_REPORT_INVALID' => 'La définition du rapport "{0}" contient des champs invalides : {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Rapport invalide',
   'ERR_SELECT_COLUMN' => 'Veuillez sélectionner une colonne à afficher.',
@@ -207,12 +204,13 @@ $mod_strings = array (
   'LBL_FILTERS_END' => '.',
   'LBL_FILTERS_HELP_DESC' => '<b>Pour définir des Filtres :</b><br/><br/>1) Sélectionnez le module dans l&#39;onglet <b>Modules liés</b> pour lequel vous souhaitez définir des filtres. Par défaut, c&#39;est le premier module (au sommet de l&#39;arborescence) qui est sélectionné. <br/><br/><br />	Vous pouvez sélectionner un sous module (noeud fils dans l&#39;arborescence) en cliquant sur le module. Déplier le noeud pour voir les modules additionnels concernant le module relatif. Le module sélectionné détermine quels seront les champs reportable qui apparaitront dans l&#39;onglet <b>Champs Disponibles</b>.<br/><br/><br />	2) Sélectionnez un champ dans l&#39;onglet <b>Champs Disponibles</b> pour l&#39;ajouter aux filtres. Vous pouvez aussi rechercher le champ en tapant directement son nom dans dans le champ de saisie de l&#39;onglet.<br/><br/><br />	Après avoir choisi le nombre de champs désiré dans le module sélectionné dans l&#39;onglet <b>Modules liés</b>, vous pouvez choisir un module différent duquel vous pouvez sélectionner autant de champ que nécessaire pour être utilisé comme filtre.<br/><br/><br />	3) Choisir <b>ET</b> ou bien <b>OU</b> pour choisir si tous les filtres ou bien n&#39;importe quel filtre, respectivement, sont utilisés pour rechercher les résultats dans le rapport.<br/><br/><br />	4) [Optionnel] Cliquez sur <b>Ajouter un groupe de filtre</b> pour créer un groupe de filtres. Vous pouvez créer autant de groupes de filtre et autant de filtres dans chaque groupe que vous le voulez.<br/><br/><br />	5) [Optionnel] Sélectionnez l&#39;option d&#39;interactif pour chaque filtre afin que l&#39;utilisateur puisse se servir de ce filtre pour personnaliser plus tard les résultats du rapport lors de la visualisation.',
   'LBL_FILTER_AND' => 'ET',
+  'LBL_FILTER_BY_MODULE' => 'Par module',
   'LBL_FILTER_CONDITIONS' => 'Sélectionner les opérateurs',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Pour',
   'LBL_FILTER_DATE_RANGE_START' => 'De',
   'LBL_FILTER_OR' => 'OU',
   'LBL_FISCAL_QUARTER' => 'Trimestre fiscal',
-  'LBL_FISCAL_YEAR' => 'Année fiscale',
+  'LBL_FISCAL_YEAR' => 'Année Fiscale',
   'LBL_FORECAST_REPORTS' => 'Rapports sur les Prévisions',
   'LBL_FUNNEL' => 'Entonnoir',
   'LBL_GRAND_TOTAL' => 'Total Général',
@@ -237,7 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => '30 derniers jours',
   'LBL_LAST_7_DAYS' => '7 derniers jours',
   'LBL_LAST_MONTH' => 'Mois Dernier',
-  'LBL_LAST_N_DAYS' => '# Derniers jours',
+  'LBL_LAST_N_DAYS' => '# Dernier jours',
   'LBL_LAST_QUARTER' => 'Dernier Trimestre',
   'LBL_LAST_WEEK' => 'Semaine Dernière',
   'LBL_LAST_YEAR' => 'Année Dernière',
@@ -309,7 +307,7 @@ $mod_strings = array (
   'LBL_NEXT_FISCAL_QUARTER' => 'Prochain trimestre fiscal',
   'LBL_NEXT_FISCAL_YEAR' => 'Prochaine année fiscale',
   'LBL_NEXT_MONTH' => 'Mois Prochain',
-  'LBL_NEXT_N_DAYS' => '# Prochains jours',
+  'LBL_NEXT_N_DAYS' => '# Prochain jours',
   'LBL_NEXT_QUARTER' => 'Trim. Suivant',
   'LBL_NEXT_RUN' => 'Prochain Email',
   'LBL_NEXT_WEEK' => 'Semaine Prochaine',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'avec une moyenne',
   'LBL_WITH_A_TOTAL' => 'avec un total',
   'LBL_WITH_DETAILS' => 'Avec détails',
-  'LBL_WORKSHEET' => 'Feuille de travail',
   'LBL_YEAR' => 'Année',
   'LBL_YESTERDAY' => 'Hier',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'You have no saved reports.',
+  'LNK_ADVANCED_REPORTING' => 'Reporting d&#39;entreprise',
   'LNK_NEW_ACCOUNT' => 'Créer Compte',
   'LNK_NEW_CALL' => 'Planifier Appel',
   'LNK_NEW_CASE' => 'Créer Ticket',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Vous n&#39;avez pas l&#39;autorisation d&#39;éditer ce rapport',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Impossible de publier. Il existe un autre rapport publié sous le même nom.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Impossible de dé-publier un rapport appartenant à un autre utilisateur. Vous disposez d&#39;un rapport avec le même nom.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'La tâche planifiée de génération des rapports est actuellement inactive donc aucun rapport ne peut être planifiés. Veuillez contacter un administrateur de l&#39;application afin qu&#39;il active cette tâche planifiée.',
 );
 

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the Account SugarBean Account entity with the necessary
@@ -60,13 +57,13 @@ class Account extends Company {
 	var $shipping_address_state;
 	var $shipping_address_country;
 	var $shipping_address_postalcode;
-    
+
     var $shipping_address_street_2;
     var $shipping_address_street_3;
     var $shipping_address_street_4;
-    
+
     var $campaign_id;
-    
+
 	var $sic_code;
 	var $ticker_symbol;
 	var $account_type;
@@ -120,18 +117,20 @@ class Account extends Company {
     var $push_billing;
     var $push_shipping;
 
-	function Account() {
-        parent::Company();
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function Account()
+    {
+        $GLOBALS['log']->deprecated('Calls to Account::Account() are deprecated.');
+        self::__construct();
+    }
 
-        $this->setupCustomFields('Accounts');
-
-		foreach ($this->field_defs as $field) 
-		{
-			if(isset($field['name']))
-			{
-				$this->field_name_map[$field['name']] = $field;
-			}
-		}
+	public function __construct() {
+        parent::__construct();
 
 		global $current_user;
 		if(!empty($current_user)) {
@@ -181,18 +180,6 @@ class Account extends Company {
 		*/
 	}
 
-	function fill_in_additional_list_fields()
-	{
-		parent::fill_in_additional_list_fields();
-	// Fill in the assigned_user_name
-	//	$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-
-        if (!empty($this->team_id) && empty($this->team_name)) {
-		    $this->assigned_name = get_assigned_team_name($this->team_id);
-            $this->team_name=$this->assigned_name;
-        }
-	}
-
 	function fill_in_additional_detail_fields()
 	{
         parent::fill_in_additional_detail_fields();
@@ -214,16 +201,17 @@ class Account extends Company {
 			{
 				$this->parent_name = '';
 			}
-        }		
-        
+        }
+
+
         // Set campaign name if there is a campaign id
-		if( !empty($this->campaign_id)){
-			
-			$camp = new Campaign();
-		    $where = "campaigns.id='{$this->campaign_id}'";
-		    $campaign_list = $camp->get_full_list("campaigns.name", $where, true);
-		    $this->campaign_name = $campaign_list[0]->name;
+		if(!empty($this->campaign_id)) {
+            $camp = BeanFactory::getBean("Campaigns", $this->campaign_id);
+            if(!empty($camp)) {
+                $this->campaign_name = $camp->name;
+            }
 		}
+
 	}
 
 	function get_list_view_data(){
@@ -242,9 +230,10 @@ class Account extends Company {
 		}
 		$temp_array["BILLING_ADDRESS_STREET"]  = $this->billing_address_street;
 		$temp_array["SHIPPING_ADDRESS_STREET"] = $this->shipping_address_street;
-    	
+
 		return $temp_array;
 	}
+
 	/**
 		builds a generic search based on the query string using or
 		do not include any $this-> because this is called on without having the class instantiated
@@ -268,47 +257,6 @@ class Account extends Company {
 
 	return $the_where;
 }
-
-
-        function create_export_query(&$order_by, &$where, $relate_link_join='')
-        {
-            $custom_join = $this->getCustomJoin(true, true, $where);
-            $custom_join['join'] .= $relate_link_join;
-                         $query = "SELECT
-                                accounts.*,
-                                email_addresses.email_address email_address,
-                                '' email_addresses_non_primary, " . // email_addresses_non_primary needed for get_field_order_mapping()
-                                "accounts.name as account_name,
-                                users.user_name as assigned_user_name ";
-						 $query .= ", teams.name AS team_name ";
-            $query .= $custom_join['select'];
-						 $query .= " FROM accounts ";
-								// We need to confirm that the user is a member of the team of the item.
-								$this->add_team_security_where_clause($query);
-                         $query .= "LEFT JOIN users
-	                                ON accounts.assigned_user_id=users.id ";
-						 $query .= getTeamSetNameJoin('accounts');
-
-						//join email address table too.
-						$query .=  ' LEFT JOIN  email_addr_bean_rel on accounts.id = email_addr_bean_rel.bean_id and email_addr_bean_rel.bean_module=\'Accounts\' and email_addr_bean_rel.deleted=0 and email_addr_bean_rel.primary_address=1 ';
-						$query .=  ' LEFT JOIN email_addresses on email_addresses.id = email_addr_bean_rel.email_address_id ' ;
-
-            $query .= $custom_join['join'];
-
-		        $where_auto = "( accounts.deleted IS NULL OR accounts.deleted=0 )";
-
-                if($where != "")
-                        $query .= "where ($where) AND ".$where_auto;
-                else
-                        $query .= "where ".$where_auto;
-
-        $order_by = $this->process_order_by($order_by);
-        if (!empty($order_by)) {
-            $query .= ' ORDER BY ' . $order_by;
-        }
-
-                return $query;
-        }
 
 	function set_notification_body($xtpl, $account)
 	{

@@ -1,32 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
-
-
-// EmailTemplate is used to store email email_template information.
+/**
+ *  EmailTemplate is used to store email email_template information.
+ */
 class EmailTemplate extends SugarBean {
 	var $field_name_map = array();
 	// Stored fields
@@ -93,13 +80,22 @@ class EmailTemplate extends SugarBean {
 		'accept_status_name',
 	);
 
-    /**
-     * @var array temp storage for template variables while cleanBean
-     */
     protected $storedVariables = array();
 
-	function EmailTemplate() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function EmailTemplate()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
+
 		global $current_user;
 		if(!empty($current_user)) {
 			$this->team_id = $current_user->default_team;	//default_team is a team id
@@ -117,15 +113,10 @@ class EmailTemplate extends SugarBean {
 	function generateFieldDefsJS() {
 		global $current_user;
 
-
-
-
-
-		$contact = new Contact();
-		$account = new Account();
-		$lead = new Lead();
-		$prospect = new Prospect();
-
+		$contact = BeanFactory::getBean('Contacts');
+		$account = BeanFactory::getBean('Accounts');
+		$lead = BeanFactory::getBean('Leads');
+		$prospect = BeanFactory::getBean('Prospects');
 
 		$loopControl = array(
 			'Contacts' => array(
@@ -159,8 +150,10 @@ class EmailTemplate extends SugarBean {
 						(in_array($field_def['name'], $this->badFields)) ) {
 				        continue;
 				    }
+
+                    // Set a label if it doesn't exist
 				    if(!isset($field_def['vname'])) {
-				    	//echo $key;
+				    	$field_def['vname'] = empty($field_def['name']) ? $key : $field_def['name'];
 				    }
 				    // valid def found, process
 				    $optionKey = strtolower("{$prefixes[$collectionKey]}{$key}");
@@ -189,25 +182,13 @@ class EmailTemplate extends SugarBean {
 		return "$this->name";
 	}
 
-	function create_export_query(&$order_by, &$where) {
-		return $this->create_new_list_query($order_by, $where);
-	}
-
-	function fill_in_additional_list_fields() {
-		$this->fill_in_additional_parent_fields();
-	}
-
 	function fill_in_additional_detail_fields() {
 	    if (empty($this->body) && !empty($this->body_html))
         {
             global $sugar_config;
             $this->body = strip_tags(html_entity_decode($this->body_html, ENT_COMPAT, $sugar_config['default_charset']));
         }
-		$this->created_by_name = get_assigned_user_name($this->created_by);
-		$this->modified_by_name = get_assigned_user_name($this->modified_user_id);
-        $this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-		$this->fill_in_additional_parent_fields();
-		$this->assigned_name = get_assigned_team_name($this->team_id);
+        parent::fill_in_additional_detail_fields();
 	}
 
 	function fill_in_additional_parent_fields() {
@@ -315,8 +296,8 @@ class EmailTemplate extends SugarBean {
 		global $beanFiles, $beanList, $app_list_strings;
 
 		// generate User instance that owns this "Contact" for contact_user_* macros
-		$user = new User();
-        if(isset($focus->assigned_user_id)  && !empty($focus->assigned_user_id)){
+		$user = BeanFactory::getBean('Users');
+        if(!empty($focus->assigned_user_id)){
 		  $user->retrieve($focus->assigned_user_id);
         }
 
@@ -450,10 +431,10 @@ class EmailTemplate extends SugarBean {
 		$repl_arr = array();
 
 		// cn: bug 9277 - create a replace array with empty strings to blank-out invalid vars
-		$acct = new Account();
-		$contact = new Contact();
-		$lead = new Lead();
-		$prospect = new Prospect();
+		$acct = BeanFactory::getBean('Accounts');
+		$contact = BeanFactory::getBean('Contacts');
+		$lead = BeanFactory::getBean('Leads');
+		$prospect = BeanFactory::getBean('Prospects');
 
 		foreach($lead->field_defs as $field_def) {
 			if(($field_def['type'] == 'relate' && empty($field_def['custom_type'])) || $field_def['type'] == 'assigned_user_name') {
@@ -533,8 +514,7 @@ class EmailTemplate extends SugarBean {
 			}
 
 			if(!empty($focus->assigned_user_id)) {
-				$user = new User();
-				$user->retrieve($focus->assigned_user_id);
+				$user = BeanFactory::getBean('Users', $focus->assigned_user_id);
 				$repl_arr = EmailTemplate::_parseUserValues($repl_arr, $user);
 			}
 		} elseif($bean_name == 'Users') {
@@ -659,14 +639,11 @@ class EmailTemplate extends SugarBean {
         return $data;
     }
 
-	function parse_template($string, &$bean_arr) {
+	function parse_template($string, $bean_arr) {
 		global $beanFiles, $beanList;
 
 		foreach($bean_arr as $bean_name => $bean_id) {
-			require_once($beanFiles[$beanList[$bean_name]]);
-
-			$focus = new $beanList[$bean_name];
-			$result = $focus->retrieve($bean_id);
+		    $focus = BeanFactory::getBean($bean_name, $bean_id);
 
 			if($bean_name == 'Leads' || $bean_name == 'Prospects') {
 				$bean_name = 'Contacts';
@@ -689,7 +666,7 @@ class EmailTemplate extends SugarBean {
 	}
 
     static function getTypeOptionsForSearch(){
-        $template = new EmailTemplate();
+        $template = BeanFactory::getBean('EmailTemplates');
         $optionKey = $template->field_defs['type']['options'];
         $options = $GLOBALS['app_list_strings'][$optionKey];
         if( ! is_admin($GLOBALS['current_user']) && isset($options['workflow']))
@@ -732,4 +709,3 @@ class EmailTemplate extends SugarBean {
         return $this->storedVariables[$text[0]];
     }
 }
-?>

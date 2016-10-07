@@ -1,27 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
-if(file_exists('custom/include/Sugarpdf/sugarpdf_config.php')){
-    require_once('custom/include/Sugarpdf/sugarpdf_config.php');
-} else {
-    require_once('include/Sugarpdf/sugarpdf_config.php');
-}
-
-require_once('include/tcpdf/tcpdf.php');
+SugarAutoLoader::requireWithCustom('include/Sugarpdf/sugarpdf_config.php');
+require_once('vendor/tcpdf/tcpdf.php');
 require_once('include/Sugarpdf/SugarpdfHelper.php');
 
 class Sugarpdf extends TCPDF
@@ -82,6 +73,15 @@ class Sugarpdf extends TCPDF
         if(!empty($_REQUEST["sugarpdf"])){
             $this->action = $_REQUEST["sugarpdf"];
         }
+    }
+
+    /**
+     * This function will log the error message, and then exit
+     * @param string $msg Error message
+     */
+    public function Error($msg) {
+        $GLOBALS['log']->fatal('TCPDF ERROR: ' . $msg);
+        return parent::Error($msg);
     }
 
     /**
@@ -178,7 +178,7 @@ class Sugarpdf extends TCPDF
      * This method is used to render the page header.
      * It is automatically called by AddPage().
      * @access public
-    * @see include/tcpdf/TCPDF#Header()
+    * @see vendor/tcpdf/TCPDF#Header()
      */
     public function Header() {
         $ormargins = $this->getOriginalMargins();
@@ -241,7 +241,7 @@ class Sugarpdf extends TCPDF
     * @param float $size Font size in points. The default value is the current size. If no size has been specified since the beginning of the document, the value taken is 12
     * @param string $fontfile The font definition file. By default, the name is built from the family and style, in lower case with no spaces.
     * @access public
-    * @see include/tcpdf/TCPDF#SetFont()
+    * @see vendor/tcpdf/TCPDF#SetFont()
     */
     public function SetFont($family, $style='', $size=0, $fontfile='') {
 
@@ -273,7 +273,7 @@ class Sugarpdf extends TCPDF
      * This method override the regular Cell() method to apply the prepare_string() function to
      * the string to print in the PDF.
      * The cell method is used by all the methods which print text (Write, MultiCell).
-     * @see include/tcpdf/TCPDF#Cell()
+     * @see vendor/tcpdf/TCPDF#Cell()
      */
     public function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0) {
         parent::Cell($w, $h, prepare_string($txt), $border, $ln, $align, $fill, $link, $stretch);
@@ -339,10 +339,6 @@ class Sugarpdf extends TCPDF
             // need to adjust the current page number
             // so the following output will not overlap the previous output
             if ($this->getNumPages() != $this->getPage()) {
-                if (!empty($this->currentY)) {
-                    $this->y = $this->currentY;
-                    $this->currentY = 0;
-                }
                 $this->setPage($this->getNumPages());
             }
             $firstcell = true;
@@ -435,7 +431,6 @@ class Sugarpdf extends TCPDF
         foreach ($item as $k=>$v){
             $even = !$even;
             $line="";
-
             if($even){
                 if (isset($options['evencolor']))
                 {

@@ -1,17 +1,14 @@
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 var groups_arr=new Array();
 var chartTypesHolder = []; // storage for removed chart items
@@ -129,6 +126,7 @@ function getSelectedLinkDefs(module) {
 		var selected = false;
 		var relationship = rel_defs[linked_field['relationship_name']];
 		var rel_type = get_rel_type(linked_field,relationship);
+        linked_field.table_name = full_table_list[links[i]].name;
 
 		new_links[links[i]] = linked_field;
 	}
@@ -364,9 +362,10 @@ function addModuleSelectFilter(cell,filter, row) {
 
 		var option_info = new Object();
 		option_info['value'] = i;
-		var label = linked_field['label'];
+		var label = linked_field['name'];
 		if ( i != 'self' ) {
 			label = full_table_list[full_table_list[i].parent].label + ' &gt; '+ label;
+            label = linked_field.table_name;
 		}
 		option_info['text'] = label;
 		option_info['selected'] = selected;
@@ -467,6 +466,9 @@ function getOrderedFieldDefArray(field_defs,show_id_field) {
 
 function addFilterQualify(cell, filter, row) {
 	var filter_row = filters_arr[filters_count_map[current_filter_id]];
+	if (!filter_row.column_select.options[filter_row.column_select.selectedIndex]){
+		return;
+	}
 	var field_key = filter_row.column_select.options[filter_row.column_select.selectedIndex].value;
 	var selectedLabel = '';
 	var field = new Object();
@@ -538,6 +540,9 @@ function refreshFilterInput(filter,index) {
 }
 function addFilterInput(cell,filter) {
 	var filter_row = filters_arr[filters_count_map[current_filter_id]];
+	if (!filter_row.qualify_select || !filter_row.qualify_select.options[filter_row.qualify_select.selectedIndex]) {
+		return;
+	}
 	var qualifier_name = filter_row.qualify_select.options[filter_row.qualify_select.selectedIndex].value;
 	var module_select = filter_row.module_select;
 	var table_key = module_select.options[module_select.selectedIndex].value;
@@ -577,10 +582,13 @@ function addFilterInput(cell,filter) {
 	} 
 	else if (qualifier_name == 'between_dates') {
 		addFilterInputDateBetween(row,filter);
-	} 
+	}
 	else if (qualifier_name == 'between_datetimes') {
 		addFilterInputDatetimesBetween(row,filter);
-	} 
+    }
+    else if (qualifier_name.indexOf("_n_days") != -1) {
+        addFilterInputText(row, filter);
+    }
 	else if (qualifier_name == 'empty' || qualifier_name == 'not_empty') {
 	    addFilterNoInput(row,filter);
  	}
@@ -618,7 +626,7 @@ function addFilterInput(cell,filter) {
 			addFilterInputText(row,filter);
 		}
 	}
-	else if ((field_type == 'user_name')||(field_type == 'assigned_user_name')) {
+	else if (field_type == 'username' || field_type == 'assigned_user_name') {
 		if(users_array=="") {
 			loadXML();
 		}
@@ -628,8 +636,7 @@ function addFilterInput(cell,filter) {
 		else {
 			addFilterInputSelectSingle(row,users_array,filter);
 		}
-	} 
-	else if (field_type == 'enum' || field_type == 'multienum' || field_type == 'parent_type' || field_type == 'currency_id') {
+	} else if (field_type == 'enum' || field_type == 'multienum' || field_type == 'parent_type' || field_type == 'timeperiod' || field_type == 'currency_id') {
 		if (qualifier_name == 'one_of' || qualifier_name == 'not_one_of') {
 			addFilterInputSelectMultiple(row,field.options,filter);
 		}
@@ -711,7 +718,7 @@ function addFilterInputDate(row,filter) {
 	Calendar.setup ({
 		inputFieldObj : new_input , 
 		buttonObj : img_element, 
-		ifFormat : cal_date_format, 
+		ifFormat : cal_date_format,
 		showsTime : false, 
 		singleClick : true, step : 1,
 		weekNumbers:false
@@ -863,6 +870,9 @@ function addFilterInputSelectMultiple(row,options,filter) {
 
 	var selected_map = new Object();
 	for (i=0;i < filter.input_name0.length;i++) {
+        if (filter.input_name0[i] == 'Current User') {
+            filter.input_name0[i] = current_user_id;
+        }
 		selected_map[filter.input_name0[i] ] = 1;
 	}
 
@@ -998,7 +1008,7 @@ function addFilterInputDateBetween(row,filter) {
 	new_input.size="12";
 	new_input.maxsize="255";
 	new_input.visible="true";
-	new_input.setAttribute('id','jscal_field'); 
+	new_input.setAttribute('id', 'jscal_field_' + current_filter_id);
 	cell.appendChild(new_input);
 	row.appendChild(cell);
 	filter_row.input_field1 = new_input;
@@ -1007,7 +1017,7 @@ function addFilterInputDateBetween(row,filter) {
 	cell.setAttribute('valign','middle'); 
 	var img_element = document.createElement("img");
 	img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif'); 
-	img_element.setAttribute('id','jscal_trigger'); 
+	img_element.setAttribute('id', 'jscal_trigger_' + current_filter_id);
 	cell.appendChild(img_element);
 	row.appendChild(cell);
 
@@ -1040,7 +1050,7 @@ function addFilterInputDateBetween(row,filter) {
 	new_input.size="12";
 	new_input.maxsize="255";
 	new_input.visible="true";
-	new_input.setAttribute('id','jscal_field2'); 
+	new_input.setAttribute('id', 'jscal_field2_' + current_filter_id);
 	cell.appendChild(new_input);
 	row.appendChild(cell);
 	filter_row.input_field1 = new_input;
@@ -1048,7 +1058,7 @@ function addFilterInputDateBetween(row,filter) {
 	var cell = document.createElement("td");
 	var img_element = document.createElement("img");
 	img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif'); 
-	img_element.setAttribute('id','jscal_trigger2'); 
+	img_element.setAttribute('id', 'jscal_trigger2_' + current_filter_id);
 	cell.appendChild(img_element);
 	row.appendChild(cell);
 	Calendar.setup ({ 
@@ -1078,13 +1088,13 @@ function addFilterInputDatetimesBetween(row,filter) {
 		new_input.size="12";
 		new_input.maxsize="255";
 		new_input.visible="true";
-		new_input.setAttribute('id','jscal_field'); 
+		new_input.setAttribute('id', 'jscal_field_' + current_filter_id);
 		div1.appendChild(new_input);
 		filter_row.input_field1 = new_input;
 	
 		var img_element = document.createElement("img");
 		img_element.setAttribute('src',"index.php?entryPoint=getImage&themeName=" + SUGAR.themes.theme_name + "&imageName=jscalendar.gif"); 
-		img_element.setAttribute('id','jscal_trigger'); 
+		img_element.setAttribute('id', 'jscal_trigger_' + current_filter_id);
 		img_element.setAttribute('style', 'vertical-align:bottom;padding-left:3px;padding-right:3px;');
 		div1.appendChild(img_element);
 		div1.appendChild(this.newSelectSpanElement('namestart', filter.input_name1));
@@ -1116,13 +1126,13 @@ function addFilterInputDatetimesBetween(row,filter) {
 		new_input.size="12";
 		new_input.maxsize="255";
 		new_input.visible="true";
-		new_input.setAttribute('id','jscal_field2'); 
+		new_input.setAttribute('id', 'jscal_field2_' + current_filter_id);
 		div3.appendChild(new_input);
 		filter_row.input_field1 = new_input;
 	
 		var img_element = document.createElement("img");
 		img_element.setAttribute('src',"index.php?entryPoint=getImage&themeName=" + SUGAR.themes.theme_name + "&imageName=jscalendar.gif"); 
-		img_element.setAttribute('id','jscal_trigger2'); 
+		img_element.setAttribute('id', 'jscal_trigger2_' + current_filter_id);
 		img_element.setAttribute('style', 'vertical-align:bottom;padding-left:3px;padding-right:3px;');
 		div3.appendChild(img_element);
 		Calendar.setup ({ 
@@ -1344,10 +1354,10 @@ function _sort_by_field_name(a,b) {
 		b['vname'] = b['name'];
 	}
 	
-	if ( a['type'] == 'name' ||  a['type'] == 'user_name' ) {
+	if ( a['type'] == 'name' ||  a['type'] == 'username' ) {
 		return -1;
 	} 
-	else if ( b['type'] == 'name' ||  b['type'] == 'user_name' ) {
+	else if ( b['type'] == 'name' ||  b['type'] == 'username' ) {
 		return 1;
 	} 
 	else { 

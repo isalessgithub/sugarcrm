@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -210,6 +207,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'For å fortsette importen av den valgte filen, klikk OK. For å laste opp en ny/annen fil, klikk Forsøk Igjen',
   'LBL_MISSING_HEADER_ROW' => 'Ingen Overskriftsrad Funnet',
   'LBL_MODULE_NAME' => 'Import',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importér',
   'LBL_MY_PUBLISHED_HELP' => 'En publisert mapping spesifiserer en tidligere brukt kombinasjon av en spesifikk datakilde og et sett med databasefelt for å kartlegge feltene i importertfilen.',
   'LBL_MY_SAVED' => 'Mine lagrede kilder:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Bruk dette valget for å velge dine allerede definerte importvalg, inkludert importegenskaper, koblinger, og eventuelle duplikatsjekker, for denne importen. <br><br>Klikk <b>Publisér</b> for å gjøre koblingen tilgjengelig for andre brukere.<br>Klikk <b>Av-Publisér</b> for å gjøre koblingen utilgjengelig for andre brukere. <br>Klikk <b>Slett</b> for å slette en kobling for alle brukere.',
@@ -225,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Velg filen som skal importeres.',
   'LBL_NO_DATECHECK' => 'Hopp over informasjonssjekk (raskere, men vil feile dersom noe av informasjonen er feil)',
   'LBL_NO_EMAILS' => 'Ikke send ut e-post varsler i løpet av denne importeringen',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Prøver å håndtere e-postadresser i en Bean som ikke støtter det.',
   'LBL_NO_ID' => 'ID kreves',
   'LBL_NO_IMPORT_TO_UNDO' => 'Det var ingen importeringer å åpne',
   'LBL_NO_LINES' => 'Det var ingen linjer i din importerte fil.',

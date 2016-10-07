@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -39,11 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Да не бъде търсен по телефон',
   'LBL_EDIT_BUTTON' => 'Редактирай',
   'LBL_EMAIL_ADDRESS' => 'Адрес(и)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Допълнителни адреси за електронна поща',
+  'LBL_FACEBOOK' => 'Facebook профил',
   'LBL_FAX_PHONE' => 'Факс',
   'LBL_FIRST_NAME' => 'Име',
+  'LBL_GOOGLEPLUS' => 'Google Plus идентификатор',
   'LBL_HOME_PHONE' => 'Домашен телефон',
+  'LBL_IMPORT_VCARDTEXT' => 'Автоматично създаване на контакт чрез импортиране на електронна визитка от системата.',
   'LBL_LAST_NAME' => 'Фамилия',
+  'LBL_LINKEDIN' => 'Идентификатор на компанията в Linkedin',
   'LBL_MOBILE_PHONE' => 'Мобилен номер',
   'LBL_NAME' => 'Име',
   'LBL_OFFICE_PHONE' => 'Телефон',
@@ -66,7 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Област',
   'LBL_STREET' => 'Друг адрес',
   'LBL_TITLE' => 'Заглавие',
+  'LBL_TWITTER' => 'Twitter профил',
   'LBL_WORK_PHONE' => 'Телефон',
   'LNK_IMPORT_VCARD' => 'Създаване от електронна визитка',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Копиране данните от алтернативния адрес върху основния адрес',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Копиране данните от основния адрес върху алтернативния адрес',
 );
 

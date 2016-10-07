@@ -1,28 +1,26 @@
 <?php
  if(!defined('sugarEntry'))define('sugarEntry', true);
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 //change directories to where this file is located.
-//this is to make sure it can find dce_config.php
 chdir(dirname(__FILE__));
-
+define('ENTRY_POINT_TYPE', 'api');
 require_once('include/entryPoint.php');
 
 $sapi_type = php_sapi_name();
 if (substr($sapi_type, 0, 3) != 'cli') {
     sugar_die("cron.php is CLI only.");
 }
+
+SugarMetric_Manager::getInstance()->setMetricClass('background')->setTransactionName('cron');
 
 if(empty($current_language)) {
 	$current_language = $sugar_config['default_language'];
@@ -32,18 +30,14 @@ $app_list_strings = return_app_list_strings_language($current_language);
 $app_strings = return_application_language($current_language);
 
 global $current_user;
-$current_user = new User();
+$current_user = BeanFactory::getBean('Users');
 $current_user->getSystemUser();
 
 $GLOBALS['log']->debug('--------------------------------------------> at cron.php <--------------------------------------------');
 $cron_driver = !empty($sugar_config['cron_class'])?$sugar_config['cron_class']:'SugarCronJobs';
 $GLOBALS['log']->debug("Using $cron_driver as CRON driver");
 
-if(file_exists("custom/include/SugarQueue/$cron_driver.php")) {
-   require_once "custom/include/SugarQueue/$cron_driver.php";
-} else {
-   require_once "include/SugarQueue/$cron_driver.php";
-}
+SugarAutoLoader::requireWithCustom("include/SugarQueue/$cron_driver.php");
 
 $jobq = new $cron_driver();
 $jobq->runCycle();

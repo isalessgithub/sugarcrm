@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activitati',
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_IS_READ' => 'Citit',
   'LBL_LIST_FORM_TITLE' => 'Lista notificari',
+  'LBL_LIST_RELATED_TO' => 'Asociat cu',
   'LBL_MODIFIED' => 'Modificata de',
   'LBL_MODIFIED_ID' => 'Modificata de ID',
   'LBL_MODIFIED_NAME' => 'Modificata de Nume',
@@ -43,10 +41,16 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Notificari',
   'LBL_NAME' => 'Nume',
   'LBL_NEW_FORM_TITLE' => 'Notificari noi',
+  'LBL_PARENT_ID' => 'ID Părinte',
+  'LBL_PARENT_TYPE' => 'Tip Părinte',
+  'LBL_READ' => 'Citit',
   'LBL_SEARCH_FORM_TITLE' => 'Cauta Notificari',
+  'LBL_SEVERITY' => 'Severitate',
+  'LBL_SHOW_NOTIFICATIONS' => 'Arata notificari',
   'LBL_TEAM' => 'Echipa',
   'LBL_TEAMS' => 'Echipe',
   'LBL_TEAM_ID' => 'Echipa ID',
+  'LBL_UNREAD' => 'Necitit',
   'LNK_LIST' => 'Notificari',
   'LNK_NEW_RECORD' => 'Creeaza Notificari Noi',
 );

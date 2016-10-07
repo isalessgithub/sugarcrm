@@ -23,3 +23,7 @@
 # Ignore the new upload directories.
 /upload/
 /upload_backup/
+.idea/*
+/.idea/*
+.idea
+/.idea

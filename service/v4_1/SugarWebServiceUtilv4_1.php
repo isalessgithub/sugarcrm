@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('service/v4/SugarWebServiceUtilv4.php');
 
 class SugarWebServiceUtilv4_1 extends SugarWebServiceUtilv4
@@ -38,8 +35,7 @@ class SugarWebServiceUtilv4_1 extends SugarWebServiceUtilv4
 
    				global $current_user;
    				require_once('modules/Users/User.php');
-   				$current_user = new User();
-   				$current_user->retrieve($_SESSION['user_id']);
+   				$current_user = BeanFactory::getBean('Users', $_SESSION['user_id']);
    				$this->login_success();
    				$GLOBALS['log']->info('Begin: SoapHelperWebServices->validate_authenticated - passed');
    				$GLOBALS['log']->info('End: SoapHelperWebServices->validate_authenticated');

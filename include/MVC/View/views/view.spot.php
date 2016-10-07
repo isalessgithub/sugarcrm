@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/MVC/View/views/view.ajax.php');
 require_once('modules/Home/UnifiedSearchAdvanced.php');
@@ -21,6 +18,16 @@ require_once('include/SugarSearchEngine/SugarSearchEngineFactory.php');
 
 class ViewSpot extends ViewAjax
 {
+    /**
+     * Constructor
+     *
+     * @see SugarView::SugarView()
+     */
+    public function ViewSpot() {
+        $this->options['show_header'] = true;
+        parent::SugarView();
+    }
+
     /**
      * @see SugarView::display()
      */
@@ -62,13 +69,9 @@ class ViewSpot extends ViewAjax
         $ss->assign('appStrings', $GLOBALS['app_strings']);
         $ss->assign('appListStrings', $GLOBALS['app_list_strings']);
         $ss->assign('queryEncoded', $query_encoded);
+        $ss->assign('test', "#bwc/index.php?module=Home&action=UnifiedSearch&search_form=false&advanced=false&query_string=".$query_encoded);
 
-        $template = 'include/SearchForm/tpls/SugarSpot.tpl';
-        if(file_exists('custom/include/SearchForm/tpls/SugarSpot.tpl'))
-        {
-            $template = 'custom/include/SearchForm/tpls/SugarSpot.tpl';
-        }
-        echo $ss->fetch($template);
+        echo $ss->fetch(SugarAutoLoader::existingCustomOne('include/SearchForm/tpls/SugarSpot.tpl'));
     }
 
 
@@ -77,6 +80,7 @@ class ViewSpot extends ViewAjax
         $displayResults = array();
         $displayMoreForModule = array();
         //$actions=0;
+        if($results == null) $results = array();
         foreach($results as $m=>$data)
         {
             if(empty($data['data']))

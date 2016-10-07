@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Per eliminare l´azienda è necessario fornire il numero del record.',
@@ -25,7 +22,7 @@ $mod_strings = array (
   'LBL_ACTIVITIES_REPORTS' => 'Report Attività',
   'LBL_ADD_BUTTON' => 'Aggiungi',
   'LBL_ADD_INVITEE' => 'Aggiungi Invitati',
-  'LBL_ASSIGNED_TO_ID' => 'Utente Assegnato:',
+  'LBL_ASSIGNED_TO_ID' => 'Assegnato a:',
   'LBL_ASSIGNED_TO_NAME' => 'Assegnato a:',
   'LBL_BLANK' => '-vuoto-',
   'LBL_CALL' => 'Chiamata:',
@@ -65,6 +62,30 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Collegato al Modulo',
   'LBL_EXPORT_REMINDER_TIME' => 'Promemoria (in minuti)',
   'LBL_FIRST_NAME' => 'Nome',
+  'LBL_HELP_CREATE' => 'Il modulo {{plural_module_name}} consiste in {{calls_singular_module}} registrate da utenti della tua organizzazione. Le {{plural_module_name}} possono essere in stato "Pianificata", "Effettuata" o "Non Effettuata". Gli utenti Sugar così come i contatti e i lead possono essere aggiunti come invitati.
+
+Per creare una {{calls_singular_module}}:
+1. Fornire i valori desiderati per i campi.
+    - I campi segnati come "Obbligatorio" devono essere compilati prima del salvataggio.
+    - Cliccare "Mostra più Moduli" per visualizzare ulteriori campi se necessario.
+2. Aggiungere invitati alla {{calls_singular_module}}.
+    - Clicca "Seleziona un invitato" per aggiungere un utente esistente, contatto e lead alla  {{calls_singular_module}}.
+    - Clicca l´icona Più a destra del pulsante "Seleziona un invitato" per inserire l´invitato della {{calls_singular_module}} come nuovo record in Sugar.
+3. Cliccare "Salva" per finalizzare il nuovo record e tornare alla pagina precedente..
+    - Scegliere "Salva e Visualizza" per aprire la nuova {{calls_singular_module}} nella vista record.
+    - Scegliere "Salva e crea nuovo" per creare subito una nuova  {{calls_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Il modulo {{plural_module_name}} consiste in un record {{calls_singular_module}} registrato dagli utenti della tua organizzazione. Le {{plural_module_name}} possono essere in stato "Pianificata", "Effettuata" o "Non Effettuata. Utenti Sugar così come {{contacts_module}} e {{leads_module}} possono essere aggiunti come invitati.
+
+- Modifica i campi del record cliccando un campo specifico o il pulsante Modifica.
+- Visualizza o modifica relazioni ad altri records nel sottopannello modificando il riquadro in basso a sinistra "Visualizza Dati".
+- Inserisci e visualizza i commenti e la cronologia delle modifiche nel modulo Activity Stream modificando il riquadro in basso a sinistra in "Activity Stream".
+- Segui o segna come preferito questo record utilizzando le icone sulla destra del nome del record.
+- Azioni aggiuntive sono disponibili nel menu a tendina Azioni a destra del pulsante Modica.',
+  'LBL_HELP_RECORDS' => 'Il modulo {{plural_module_name}} consiste in chiamate registrate che possono essere in stato "Pianificata", "Effettuata", o "Non Effettuata". Le chiamate pianificate nelle prossime 24 ore hanno la data di inizio evidenziata in blu. Le chiamate scadute hanno la data di inizio evidenziata in rosso.
+
+Dalla vista elenco del modulo {{plural_module_name}}, puoi visualizzare e modificare (tramite in-line editing) le informazioni relative ad una chiamata. Azioni aggiuntive sono disponibili nel menu alla fine di ogni riga di Chiamata. Puoi selezionare "Chiudi" dal menu nella riga di ogni chiamata pianificata per marcarla come completata. 
+
+Gli utenti Sugar, i contatti e leads possono essere aggiunti come invitati nelle chiamate. Le {{plural_module_name}} posso essere create dal modulo {{plural_module_name}}, dal modulo Calendario, tramite importazione, così come dal sottopannello Attività  (per i moduli Legacy) o dalla Dashlet Attività Pianificate (per i moduli Sidecar), in record di moduli relazionati (ad es. Contatti, Aziende, etc.), creando automaticamente una relazione tra i due records.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Note',
   'LBL_HOURS_ABBREV' => 'h',
   'LBL_HOURS_MINUTES' => '(ore/minuti)',
@@ -89,12 +110,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Chiamate',
   'LBL_MODULE_NAME_SINGULAR' => 'Chiamata',
   'LBL_MODULE_TITLE' => 'Chiamate: Home',
+  'LBL_MY_SCHEDULED_CALLS' => 'Le mie Chiamate Pianificate',
   'LBL_NAME' => 'Nome',
   'LBL_NEW_FORM_TITLE' => 'Nuovo Appuntamento',
   'LBL_NO_ACCESS' => 'Non hai i permessi di creare $module',
   'LBL_OUTLOOK_ID' => 'ID Outlook',
   'LBL_PARENT_ID' => 'ID Padre:',
   'LBL_PHONE' => 'Telefono',
+  'LBL_POPUP_REMINDER_TIME' => 'Orario Promemoria Popup',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Hai schedulato {{moduleSingularLower}} per {{formatDate date_start}}, ma non hai i permessi di accesso.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Hai schedulato {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> per {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Ricorrenza',
   'LBL_RECURRING_LIMIT_ERROR' => 'Questa chiamata ricorrente non può essere schedulata perchè supera il $limite di ricorrenza massima consentita.',
   'LBL_RECURRING_SOURCE' => 'Fonte Ricorrente',
@@ -105,6 +130,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Email a tutti gli invitati',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Tempo di Avviso',
+  'LBL_REMINDER_TITLE' => 'Chiamata:',
   'LBL_REMOVE' => 'Canc',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Cancella Tutte le Ricorrenze',
   'LBL_REPEAT_COUNT' => 'Ripetere Conteggio',
@@ -117,6 +143,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Ripetere ID Parent',
   'LBL_REPEAT_TYPE' => 'Tipo',
   'LBL_REPEAT_UNTIL' => 'Ripetere Fino',
+  'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
   'LBL_SCHEDULING_FORM_TITLE' => 'Gestione degli Invitati',
   'LBL_SEARCH_BUTTON' => 'Cerca',
   'LBL_SEARCH_FORM_TITLE' => 'Cerca Chiamata',
@@ -141,5 +168,5 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Seleziona Azienda',
   'NOTICE_DURATION_TIME' => 'La durata deve essere superiore a 0',
   'NTC_REMOVE_INVITEE' => 'Sei sicuro di voler togliere questo invitato dalla chiamata?',
+  'TPL_CALL_STATUS_CHANGED' => 'Chiamate impostate come {{status}}.',
 );
-

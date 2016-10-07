@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
@@ -47,7 +44,7 @@ class VarDefHandler {
 	//end function setup
 	}
 
-	function get_vardef_array($use_singular=false, $remove_dups = false, $use_field_name = false, $use_field_label = false){
+	function get_vardef_array($use_singular=false, $remove_dups = false, $use_field_name = false, $use_field_label = false, $visible_only = false){
 		global $dictionary;
 		global $current_language;
 		global $app_strings;
@@ -80,10 +77,20 @@ class VarDefHandler {
 		foreach($base_array as $key => $value_array){
 			$compare_results = $this->compare_type($value_array);
 
+			// Strict false check for visibility of a field based on vardef. This
+			// is used for mapped fields like tag_lower
+			if ($visible_only && isset($value_array['visible']) && $value_array['visible'] === false) {
+				continue;
+			}
+
 			if($compare_results == true){
 				 $label_name = '';
                  if($value_array['type'] == 'link' && !$use_field_label){
                  	$this->module_object->load_relationship($value_array['name']);
+                 	if(empty($this->module_object->$value_array['name'])) {
+                 	    $GLOBALS['log']->fatal("Failed to load relationship {$value_array['name']}");
+                 	    continue;
+                 	}
                     if(!empty($app_list_strings['moduleList'][$this->module_object->$value_array['name']->getRelatedModuleName()])){
                     	$label_name = $app_list_strings['moduleList'][$this->module_object->$value_array['name']->getRelatedModuleName()];
                     }else{
@@ -206,6 +213,3 @@ class VarDefHandler {
 
 //end class VarDefHandler
 }
-
-
-?>

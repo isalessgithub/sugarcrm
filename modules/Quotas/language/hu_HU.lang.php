@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Összeg:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Bázis pénznem összeg',
   'LBL_ASSIGNED_TO_USER' => 'Felhasználóhoz rendelve',
   'LBL_COMMIT' => 'Elkötelezés:',
   'LBL_COMMITTED' => 'Hozzárendelve',
   'LBL_COMMIT_STATUS' => 'Elkötelezés állapota',
+  'LBL_CREATED_BY' => 'Létrehozta:',
   'LBL_CURRENCY' => 'Pénznem:',
   'LBL_CURRENCY_RATE' => 'Árfolyam',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Még nem történt előírás erre az időszakra nézve.',
   'LBL_CURRENT_USER_QUOTA' => 'Előírás az időszakra:',
+  'LBL_DIRECT' => 'Közvetlen',
   'LBL_DIRECT_REPORT' => 'Közvetlen jelentés',
   'LBL_EDITLAYOUT' => 'Elrendezés szerkesztése',
   'LBL_LAST_MODIFIED' => 'Utolsó módosítás',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Ön nem rendelkezik előírásokkal ebben az időszakban.',
   'LBL_QUOTA' => 'Előírás:',
   'LBL_QUOTA_AMOUNT' => 'Előírás összege',
+  'LBL_QUOTA_TYPE' => 'Típus',
+  'LBL_ROLLUP' => 'Felgöngyölít',
   'LBL_SELECT_TIME_PERIOD' => 'Válasszon időszakot...',
   'LBL_SELECT_USER' => 'Válassz felhasználót...',
   'LBL_TIMEPERIOD_ID' => 'Időperiódus',

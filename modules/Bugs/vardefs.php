@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => 'Bugs are defects in products and services','duplicate_merge'=>true
-                               ,'unified_search' => true,'fields' => array (
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'activity_enabled' => true, 'comment' => 'Bugs are defects in products and services','duplicate_merge'=>true
+                               ,'unified_search' => true, 'unified_search_default_enabled' => true, 'fields' => array (
   'found_in_release'=>
   	array(
   	'name'=>'found_in_release',
@@ -26,11 +23,12 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
     'comment' => 'The software or service release that manifested the bug',
     'duplicate_merge' => 'disabled',
     'audited' =>true,
-    'studio' => array(
-        'fields' => 'false',  // tyoung bug 16442 - don't show in studio fields list
-        'listview' => false,
-        'wirelesslistview' => false,
-    ),
+  	'studio' => array(
+          'fields' => 'false',
+          'listview' => false,
+          // Bug 54507 - Add wireless and portal to exclude list
+          'wirelesslistview' => false,
+    ), // tyoung bug 16442 - don't show in studio fields list
     'massupdate' => true,
   	),
 'release_name'=>
@@ -44,16 +42,16 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
     'reportable'=>false,
     'source'=>'non-db',
     'table'=>'releases',
-    'merge_filter' => 'enabled', //bug 22994, we should use the release name to search, I have write codes to operate the cross table query. 
+    'merge_filter' => 'enabled', //bug 22994, we should use the release name to search, I have write codes to operate the cross table query.
     'id_name'=>'found_in_release',
     'module'=>'Releases',
     'link' => 'release_link',
     'massupdate' => false,
 	'studio' => array(
-       'editview' => false, 
+       'editview' => false,
        'detailview' => false,
-       'quickcreate' => false, 
-       'basic_search' => false, 
+       'quickcreate' => false,
+       'basic_search' => false,
        'advanced_search' => false,
 	   'wirelesseditview' => false,
 	   'wirelessdetailview' => false,
@@ -61,6 +59,7 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
 	   'wireless_basic_search' => false,
 	   'wireless_advanced_search' => false,
 	   ),
+      'exportable'=>true,
   ),
 
     'fixed_in_release'=>
@@ -73,11 +72,13 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
     'comment' => 'The software or service release that corrected the bug',
     'duplicate_merge' => 'disabled',
     'audited' =>true,
-    'studio' => array(
-        'fields' => 'false', // tyoung bug 16442 - don't show in studio fields list
-        'listview' => false,
-        'wirelesslistview' => false,
-    ),
+  	'studio' => array(
+          'fields' => 'false',
+          'listview' => false,
+          // Bug 54507 - Add wireless and portal to exclude list
+          'wirelesslistview' => false,
+      ), // tyoung bug 16442 - don't show in studio fields list
+
   	'massupdate' => true,
   	),
    'fixed_in_release_name'=>
@@ -97,10 +98,10 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
     'source'=>'non-db',
     'link' => 'fixed_in_release_link',
 	'studio' => array(
-       'editview' => false, 
+       'editview' => false,
        'detailview' => false,
-       'quickcreate' => false, 
-       'basic_search' => false, 
+       'quickcreate' => false,
+       'basic_search' => false,
        'advanced_search' => false,
        'wirelesseditview' => false,
        'wirelessdetailview' => false,
@@ -108,6 +109,7 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
        'wireless_basic_search' => false,
        'wireless_advanced_search' => false,
        ),
+      'exportable'=>true,
   ),
     'source' =>
   array (
@@ -125,7 +127,8 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
     'type' => 'enum',
     'options'=>'product_category_dom',
     'len' => 255,
-    'comment' => 'Where the bug was discovered (ex: Accounts, Contacts, Leads)'
+    'comment' => 'Where the bug was discovered (ex: Accounts, Contacts, Leads)',
+    'sortable' => true,
   ),
 
 
@@ -143,23 +146,23 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
     'type' => 'link',
     'relationship' => 'bug_notes',
     'source'=>'non-db',
-		'vname'=>'LBL_NOTES'
+		'vname'=>'LBL_NOTES',
   ),
-  'meetings' =>
-  array (
-  	'name' => 'meetings',
+   'meetings' => array(
+    'name' => 'meetings',
     'type' => 'link',
     'relationship' => 'bug_meetings',
-    'source'=>'non-db',
-		'vname'=>'LBL_MEETINGS'
+    'source' => 'non-db',
+    'vname' => 'LBL_MEETINGS',
+    'module' => 'Meetings',
   ),
-  'calls' =>
-  array (
-  	'name' => 'calls',
+  'calls' => array(
+    'name' => 'calls',
     'type' => 'link',
     'relationship' => 'bug_calls',
-    'source'=>'non-db',
-		'vname'=>'LBL_CALLS'
+    'source' => 'non-db',
+    'vname' => 'LBL_CALLS',
+    'module' => 'Calls',
   ),
   'emails' =>
   array (
@@ -249,16 +252,31 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
 	'bug_tasks' => array('lhs_module'=> 'Bugs', 'lhs_table'=> 'bugs', 'lhs_key' => 'id',
 							  'rhs_module'=> 'Tasks', 'rhs_table'=> 'tasks', 'rhs_key' => 'parent_id',
 							  'relationship_type'=>'one-to-many', 'relationship_role_column'=>'parent_type',
-							  'relationship_role_column_value'=>'Bugs')
-	,'bug_meetings' => array('lhs_module'=> 'Bugs', 'lhs_table'=> 'bugs', 'lhs_key' => 'id',
-							  'rhs_module'=> 'Meetings', 'rhs_table'=> 'meetings', 'rhs_key' => 'parent_id',
-							  'relationship_type'=>'one-to-many', 'relationship_role_column'=>'parent_type',
-							  'relationship_role_column_value'=>'Bugs')
-	,'bug_calls' => array('lhs_module'=> 'Bugs', 'lhs_table'=> 'bugs', 'lhs_key' => 'id',
-							  'rhs_module'=> 'Calls', 'rhs_table'=> 'calls', 'rhs_key' => 'parent_id',
-							  'relationship_type'=>'one-to-many', 'relationship_role_column'=>'parent_type',
-							  'relationship_role_column_value'=>'Bugs')
-	,'bug_emails' => array('lhs_module'=> 'Bugs', 'lhs_table'=> 'bugs', 'lhs_key' => 'id',
+							  'relationship_role_column_value'=>'Bugs'),
+
+        'bug_meetings' => array(
+            'lhs_module' => 'Bugs',
+            'lhs_table' => 'bugs',
+            'lhs_key' => 'id',
+            'rhs_module' => 'Meetings',
+            'rhs_table' => 'meetings',
+            'rhs_key' => 'parent_id',
+            'relationship_type' => 'one-to-many',
+            'relationship_role_column' => 'parent_type',
+            'relationship_role_column_value' => 'Bugs'
+        ),
+        'bug_calls' => array(
+            'lhs_module' => 'Bugs',
+            'lhs_table' => 'bugs',
+            'lhs_key' => 'id',
+            'rhs_module' => 'Calls',
+            'rhs_table' => 'calls',
+            'rhs_key' => 'parent_id',
+            'relationship_type' => 'one-to-many',
+            'relationship_role_column' => 'parent_type',
+            'relationship_role_column_value' => 'Bugs'
+        ),
+	'bug_emails' => array('lhs_module'=> 'Bugs', 'lhs_table'=> 'bugs', 'lhs_key' => 'id',
 							  'rhs_module'=> 'Emails', 'rhs_table'=> 'emails', 'rhs_key' => 'parent_id',
 							  'relationship_type'=>'one-to-many', 'relationship_role_column'=>'parent_type',
 							  'relationship_role_column_value'=>'Bugs')
@@ -289,10 +307,26 @@ $dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'comment' => '
    array('lhs_module'=> 'Releases', 'lhs_table'=> 'releases', 'lhs_key' => 'id',
    'rhs_module'=> 'Bugs', 'rhs_table'=> 'bugs', 'rhs_key' => 'fixed_in_release',
    'relationship_type'=>'one-to-many')
+),
 
-),         //This enables optimistic locking for Saves From EditView
+    'duplicate_check' => array(
+        'enabled' => true,
+        'FilterDuplicateCheck' => array(
+            'filter_template' => array(
+                array('$and' => array(
+                    array('name' => array('$starts' => '$name')),
+                    array('status' => array('$not_equals' => 'Closed')),
+                ))
+            ),
+            'ranking_fields' => array(
+                array('in_field_name' => 'name', 'dupe_field_name' => 'name'),
+            )
+        )
+    ),
+
+    //This enables optimistic locking for Saves From EditView
 	'optimistic_locking'=>true,
-                            );
+ );
 
 VardefManager::createVardef('Bugs','Bug', array('default', 'assignable',
 'team_security',

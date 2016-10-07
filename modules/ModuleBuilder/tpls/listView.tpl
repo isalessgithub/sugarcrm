@@ -1,20 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <form name='edittabs' id='edittabs' method='POST' action='index.php'>
 {literal}
@@ -34,7 +28,7 @@ studiotabs.reset();
 {/if}
 <input type='hidden' name='view_package' value='{$view_package}'>
 <input type='hidden' name='to_pdf' value='1'>
-<link rel="stylesheet" type="text/css" href="modules/ModuleBuilder/tpls/ListEditor.css"/>
+<link rel="stylesheet" type="text/css" href="{sugar_getjspath file='modules/ModuleBuilder/tpls/ListEditor.css'}"/>
 
 <table id="editor-content" class="list-editor">
 <tr><td colspan=3>{$buttons}</td></tr>
@@ -66,7 +60,7 @@ studiotabs.reset();
 
 {foreach from=$list key='key' item='value'}
 
-<li name="width={$value.width}%" id='subslot{$modCounter}' class='draggable' >
+<li name="width={$value.width}%" id='subslot{$modCounter}' class='draggable' data-name="{$key}">
     <table width='100%'>
         <tr>
             <td id='subslot{$modCounter}label' style="font-weight: bold;">
@@ -87,7 +81,7 @@ studiotabs.reset();
                 {/if}
                 {* END SUGARCRM flav=pro ONLY *}
                 <img src="{sugar_getimagepath file='edit_inline.gif'}" style="cursor: pointer;"
-				onclick="var value_label = document.getElementById('subslot{$modCounter}label').innerHTML.replace(/^\s+|\s+$/g,''); 
+				onclick="var value_label = document.getElementById('subslot{$modCounter}label').innerHTML.replace(/^\s+|\s+$/g,'');
 				    {if !($view|substr:-6 == "search") }
 					var value_width = document.getElementById('subslot{$modCounter}width').innerHTML;
 					{/if}
@@ -106,16 +100,16 @@ studiotabs.reset();
 					);"
 				>
             </td>
-            </tr>
-            <tr class='fieldValue'>
-                {if empty($hideKeys)}<td>[{$key}]</td>{/if}
-                <td align="right" colspan="2" class="percentage">
-					{if $view|substr:-6 == "search" }
-					<span style="display:none" id='subslot{$modCounter}width'>{$value.width}</span>	<span style="display:none">%</span>
-					{else}
-					<span id='subslot{$modCounter}width'>{$value.width}</span> <span>%</span>
-					{/if}
-				</td>
+        </tr>
+        <tr class='fieldValue'>
+            {if empty($hideKeys)}<td>[{$key}]</td>{/if}
+            <td align="right" colspan="2" class="percentage">
+                {if $view|substr:-6 == "search"}
+                <span style="display:none" id='subslot{$modCounter}width'>{$value.width}</span> <span style="display:none">{$value.units}</span>
+                {else}
+                <span id='subslot{$modCounter}width'>{$value.width}</span> <span>{$value.units}</span>
+                {/if}
+            </td>
         </tr>
     </table>
 </li>
@@ -178,7 +172,7 @@ resizeDDLists = function() {
 
 function countListFields() {
 	var count = 0;
-	var divs = document.getElementById( 'ul0' ).getElementsByTagName( 'li' ) ;		
+    var divs = document.getElementById('ul0').getElementsByTagName('li');
 	for ( var j=0;j<divs.length;j++) {
 		if (divs[j].className == 'draggable') count++;
 	}

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -39,11 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Nicht anrufen',
   'LBL_EDIT_BUTTON' => 'Bearbeiten',
   'LBL_EMAIL_ADDRESS' => 'E-Mail Adresse(n)',
-  'LBL_EMAIL_NON_PRIMARY' => 'Nicht primäre Email Adressen',
+  'LBL_FACEBOOK' => 'Facebook Konto',
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FIRST_NAME' => 'Vorname',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_HOME_PHONE' => 'Telefon privat',
+  'LBL_IMPORT_VCARDTEXT' => 'Durch Import einer vCard neuen Kontakt automatisch anlegen.',
   'LBL_LAST_NAME' => 'Nachname',
+  'LBL_LINKEDIN' => 'Linkedin Company ID',
   'LBL_MOBILE_PHONE' => 'Telefon mobil',
   'LBL_NAME' => 'Name',
   'LBL_OFFICE_PHONE' => 'Telefon Büro',
@@ -66,7 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Bundesland',
   'LBL_STREET' => 'Weitere Adresse',
   'LBL_TITLE' => 'Titel',
+  'LBL_TWITTER' => 'Twitter Konto',
   'LBL_WORK_PHONE' => 'Telefon Büro',
   'LNK_IMPORT_VCARD' => 'Vom vCard erstellen',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Weitere Adresse in Hauptadresse kopieren',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Hauptadresse in weitere Adresse kopieren',
 );
 

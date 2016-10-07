@@ -1,29 +1,19 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'Bugs',
-  'LBL_MODULE_TITLE' => 'Bugs: Home',
+  'LBL_MODULE_NAME_SINGULAR'	=> 'Bug',
+  'LBL_MODULE_TITLE' => 'Bug Tracker: Home',
   'LBL_MODULE_ID' => 'Bugs',
   'LBL_SEARCH_FORM_TITLE' => 'Bug Search',
   'LBL_LIST_FORM_TITLE' => 'Bug List',
@@ -52,7 +42,10 @@ $mod_strings = array (
   'LBL_RESOLUTION' => 'Resolution:',
   'LBL_RELEASE' => 'Release:',
   'LNK_NEW_BUG' => 'Report Bug',
+  'LNK_CREATE'  => 'Report Bug',
+  'LNK_CREATE_WHEN_EMPTY'    => 'Report a Bug now.',
   'LNK_BUG_LIST' => 'View Bugs',
+  'LBL_SHOW_MORE' => 'Show More Bugs',
   'NTC_REMOVE_INVITEE' => 'Are you sure you want to remove this contact from the bug?',
   'NTC_REMOVE_ACCOUNT_CONFIRMATION' => 'Are you sure you want to remove this bug from this account?',
   'ERR_DELETE_RECORD' => 'You must specify a record number in order to delete the bug.',
@@ -76,7 +69,7 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Phone',
   'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to remove this contact from this bug?',
 
-  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bugs',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bug Tracker',
   'LBL_ACTIVITIES_SUBPANEL_TITLE'=>'Activities',
   'LBL_HISTORY_SUBPANEL_TITLE'=>'History',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contacts',
@@ -102,5 +95,29 @@ $mod_strings = array (
     'LBL_EXPORT_CREATED_BY' => 'Created By ID',
 
 
-  );
-?>
+    'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
+
+    // Help Text
+    // List View Help Text
+    'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module is used to track and manage product related problems, commonly referred to as {{plural_module_name}} or defects, either found internally or reported by customers. The {{plural_module_name}} can be further triaged by tracking the found and fixed in release. The {{plural_module_name}} module gives users a way to quickly review all details of the {{module_name}} and the process being used to rectify it. Once a {{module_name}} is created or submitted, you can view and edit information pertaining to the {{module_name}} via the {{module_name}}\'s record view. Each {{module_name}} record may then relate to other Sugar records such as {{calls_module}}, {{contacts_module}}, {{cases_module}}, and many others.',
+
+    // Record View Help Text
+    'LBL_HELP_RECORD' => 'The {{plural_module_name}} module is used to track and manage product related problems, commonly referred to as {{plural_module_name}} or defects, either found internally or reported by customers.
+
+- Edit this record\'s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+
+    // Create View Help Text
+    'LBL_HELP_CREATE' => 'The {{plural_module_name}} module is used to track and manage product related problems, commonly referred to as {{plural_module_name}} or defects, either found internally or reported by customers.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+);

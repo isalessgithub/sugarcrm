@@ -1,27 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- *********************************************************************************/
-
-require_once("include/ytree/Tree.php");
-require_once("include/ytree/ExtNode.php");
+require_once("vendor/ytree/Tree.php");
+require_once("vendor/ytree/ExtNode.php");
 
 /**
  * Polymorphic buckets - place any item in a folder
@@ -70,6 +61,73 @@ class SugarFolder {
 
 	// private attributes
 	var $_depth;
+
+    /**
+     * Basic field metadata format.
+     * The metadata follows the basic SugarBean metadata format.
+     * Attention: This metadata does not accept the full metadata
+     * vardefs for dbTypes.
+     *
+     * @var array
+     */
+    private $fields = array(
+        'id' => array(
+            'name' => 'id',
+            'type' => 'id',
+        ),
+        'name' => array(
+            'name' => 'name',
+            'type' => 'varchar',
+        ),
+        'folder_type' => array(
+            'name' => 'folder_type',
+            'type' => 'varchar',
+        ),
+        'parent_folder' => array(
+            'name' => 'parent_folder',
+            'type' => 'link',
+        ),
+        'has_child' => array(
+            'name' => 'has_child',
+            'type' => 'tinyint',
+        ),
+        'is_group' => array(
+            'name' => 'is_group',
+            'type' => 'tinyint',
+        ),
+        'is_dynamic' => array(
+            'name' => 'is_dynamic',
+            'type' => 'tinyint',
+        ),
+        'dynamic_query' => array(
+            'name' => 'dynamic_query',
+            'type' => 'text',
+        ),
+        'assign_to_id' => array(
+            'name' => 'assign_to_id',
+            'type' => 'link',
+        ),
+        'team_set_id' => array(
+            'name' => 'team_set_id',
+            'type' => 'link',
+        ),
+        'team_id' => array(
+            'name' => 'team_id',
+            'type' => 'link',
+        ),
+        'created_by' => array(
+            'name' => 'created_by',
+            'type' => 'link',
+        ),
+        'modified_by' => array(
+            'name' => 'modified_by',
+            'type' => 'link',
+        ),
+        'deleted' => array(
+            'name' => 'deleted',
+            'type' => 'tinyint',
+        ),
+    );
 
 	/**
 	 * Sole constructor
@@ -294,17 +352,44 @@ ENDQ;
 		} else {
 			$ret = " AND emails.status NOT IN ('archived') AND emails.type NOT IN ('archived')";
 		}
-		$q = "SELECT emails.id , emails.name, emails.date_sent, emails.status, emails.type, emails.flagged, emails.reply_to_status, emails_text.from_addr, emails_text.to_addrs, 'Emails' polymorphic_module FROM emails" .
-								   $this->addTeamSecurityClause() .
-								   " JOIN emails_text on emails.id = emails_text.email_id
-                                   WHERE (type = '{$type}' OR status = '{$status}') AND assigned_user_id = '{$current_user->id}' AND emails.deleted=0";
+        $q = "SELECT
+                emails.id,
+                emails.name,
+                emails.date_sent,
+                emails.status,
+                emails.type,
+                emails.flagged,
+                emails.reply_to_status,
+                emails_text.from_addr,
+                emails_text.to_addrs,
+                'Emails' polymorphic_module
+            FROM
+                emails
+            JOIN
+                emails_text
+            on
+                emails.id = emails_text.email_id
+                " . $this->addTeamSecurityClause() . "
+            WHERE
+                (type = '{$type}' OR status = '{$status}')
+                AND assigned_user_id = '{$current_user->id}'
+                AND emails.deleted = 0"
+        ;
 		return $q . $ret;
 	} // fn
 
 	function addTeamSecurityClause() {
 		global $current_user;
 		if(!is_admin($current_user)) {
-			return " INNER JOIN	team_sets_teams tst	ON tst.team_set_id = emails.team_set_id	INNER JOIN team_memberships team_memberships ON tst.team_id = team_memberships.team_id AND team_memberships.user_id = '{$current_user->id}' AND team_memberships.deleted=0 ";
+            $dbResult = $this->db->query(
+                'SELECT team_id FROM team_memberships WHERE user_id=' .
+                $this->db->quoted($current_user->id) . ' AND deleted=0'
+            );
+            $teamsIds = array();
+            while ($team = $this->db->fetchByAssoc($dbResult)) {
+                $teamsIds[] = $this->db->quoted($team['team_id']);
+            }
+            return ' AND emails.team_id IN (' . implode(',', array_unique($teamsIds)) . ') ';
 		}
 	}
 
@@ -323,24 +408,48 @@ ENDQ;
 		$start = ($page - 1) * $pageSize;
 
 		$sort = (empty($sort)) ? $this->defaultSort : $sort;
-        if (!in_array(strtolower($direction), array('asc', 'desc'))) {
-            $direction = $this->defaultDirection;
-        }
+		if (!in_array(strtolower($direction), array('asc', 'desc'))) $direction = $this->defaultDirection;
 
-        if (!empty($this->hrSortLocal[$sort])) {
-            $order = " ORDER BY {$this->hrSortLocal[$sort]} {$direction}";
-        } else {
-            $order = "";
-        }
+		if (!empty($this->hrSortLocal[$sort]))
+		{
+			$order = " ORDER BY {$this->hrSortLocal[$sort]} {$direction}";
+		}
+		else
+		{
+			$order = "";
+		}
 
 		if($this->is_dynamic) {
 			$r = $this->db->limitQuery(from_html($this->generateSugarsDynamicFolderQuery() . $order), $start, $pageSize);
 		} else {
 			// get items and iterate through them
-			$q = "SELECT emails.id , emails.name, emails.date_sent, emails.status, emails.type, emails.flagged, emails.reply_to_status, emails_text.from_addr, emails_text.to_addrs, 'Emails' polymorphic_module FROM emails JOIN folders_rel ON emails.id = folders_rel.polymorphic_id" .
-								   $this->addTeamSecurityClause() .
-				  " JOIN emails_text on emails.id = emails_text.email_id
-                  WHERE folders_rel.folder_id = '{$folderId}' AND folders_rel.deleted = 0 AND emails.deleted = 0";
+            $q = "SELECT
+                    emails.id,
+                    emails.name,
+                    emails.date_sent,
+                    emails.status,
+                    emails.type,
+                    emails.flagged,
+                    emails.reply_to_status,
+                    emails_text.from_addr,
+                    emails_text.to_addrs,
+                    'Emails' polymorphic_module
+                FROM
+                    emails
+                JOIN
+                    folders_rel
+                ON
+                    emails.id = folders_rel.polymorphic_id
+                JOIN
+                    emails_text
+                on
+                    emails.id = emails_text.email_id
+                    " . $this->addTeamSecurityClause() . "
+                WHERE
+                    folders_rel.folder_id = '{$folderId}'
+                    AND folders_rel.deleted = 0
+                    AND emails.deleted = 0"
+            ;
 			if ($this->is_group) {
 				$q = $q . " AND (emails.assigned_user_id is null or emails.assigned_user_id = '')";
 			}
@@ -349,7 +458,7 @@ ENDQ;
 
 		$return = array();
 
-		$email = new Email(); //Needed for email specific functions.
+		$email = BeanFactory::getBean('Emails'); //Needed for email specific functions.
 
 		while($a = $this->db->fetchByAssoc($r)) {
 
@@ -395,9 +504,20 @@ ENDQ;
 	    	$r = $this->db->query ( from_html ( $modified_select_query )) ;
 		} else {
 			// get items and iterate through them
-			$q = "SELECT count(*) c FROM folders_rel JOIN emails ON emails.id = folders_rel.polymorphic_id" .
-								   $this->addTeamSecurityClause() .
-			" WHERE folder_id = '{$folderId}' AND folders_rel.deleted = 0 AND emails.deleted = 0" ;
+            $q = "SELECT
+                    count(*) c
+                FROM
+                    folders_rel
+                JOIN
+                    emails
+                ON
+                    emails.id = folders_rel.polymorphic_id
+                    " . $this->addTeamSecurityClause() . "
+                WHERE
+                    folder_id = '{$folderId}'
+                    AND folders_rel.deleted = 0
+                    AND emails.deleted = 0"
+            ;
 			if ($this->is_group) {
 				$q .= " AND (emails.assigned_user_id is null or emails.assigned_user_id = '')";
 			}
@@ -422,9 +542,20 @@ ENDQ;
 	    	$r = $this->db->query (from_html($modified_select_query) . " AND emails.status = 'unread'") ;
         } else {
             // get items and iterate through them
-            $q = "SELECT count(*) c FROM folders_rel fr JOIN emails on fr.folder_id = '{$folderId}' AND fr.deleted = 0 " .
-								   $this->addTeamSecurityClause() .
-               "AND fr.polymorphic_id = emails.id AND emails.status = 'unread' AND emails.deleted = 0" ;
+            $q = "SELECT
+                    count(*) c
+                FROM
+                    folders_rel fr
+                JOIN
+                    emails
+                on
+                    fr.folder_id = '{$folderId}'
+                    " . $this->addTeamSecurityClause() . "
+                    AND fr.deleted = 0
+                    AND fr.polymorphic_id = emails.id
+                    AND emails.status = 'unread'
+                    AND emails.deleted = 0"
+            ;
             if ($this->is_group) {
                 $q .= " AND (emails.assigned_user_id is null or emails.assigned_user_id = '')";
             }
@@ -499,7 +630,7 @@ ENDQ;
 		$return = array();
 
 		$found = array();
-		while($a = $this->db->fetchByAssoc($r)) {
+		while($a = $this->db->fetchByAssoc($r, false)) {
 			if ((($a['folder_type'] == $myEmailTypeString) ||
 				($a['folder_type'] == $myDraftsTypeString) ||
 				($a['folder_type'] == $mySentEmailTypeString)) &&
@@ -565,7 +696,7 @@ ENDQ;
 				$qGetChildren = $this->core.$this->coreWhere."AND parent_folder = '{$a['id']}'";
 				$rGetChildren = $this->db->query($qGetChildren);
 
-				while($aGetChildren = $this->db->fetchByAssoc($rGetChildren)) {
+				while($aGetChildren = $this->db->fetchByAssoc($rGetChildren, false)) {
 					if($a['is_group']) {
 						$this->_depth = 1;
 						$grp = $this->getFoldersChildForSettings($aGetChildren, $grp, $subscriptions);
@@ -684,8 +815,8 @@ ENDQ;
 				$qGetChildren = $this->core.$this->coreWhere."AND parent_folder = '{$a['id']}'";
 				$rGetChildren = $this->db->query($qGetChildren);
 
-				while($aGetChildren = $this->db->fetchByAssoc($rGetChildren)) {
-					if(in_array($aGetChildren['id'], $subscriptions)) {
+				while ($aGetChildren = $this->db->fetchByAssoc($rGetChildren, false)) {
+                    if (in_array($aGetChildren['id'], $subscriptions)) {
 						$folderNode->add_node($this->buildTreeNodeFolders($aGetChildren, $nodePath, $folderStates, $subscriptions));
 					}
 				}
@@ -774,7 +905,7 @@ ENDQ;
 			$qGetChildren = $this->core.$this->coreWhere."AND parent_folder = '{$a['id']}' ".$this->coreOrderBy;
 			$rGetChildren = $this->db->query($qGetChildren);
 
-			while($aGetChildren = $this->db->fetchByAssoc($rGetChildren)) {
+			while ($aGetChildren = $this->db->fetchByAssoc($rGetChildren, false)) {
 				$folderNode->add_node($this->buildTreeNodeFolders($aGetChildren, $nodePath, $folderStates, $subscriptions));
 			}
 		}
@@ -857,15 +988,111 @@ ENDQ;
 		//_pp($q3);_pp($qRel);_pp($qSub);
 	}
 
+    /**
+     * Outputs a correct string for the sql statement according to value.
+     *
+     * @param mixed $val Query value.
+     * @return Safe query string
+     */
+    public function massageValue($val, $fieldDef)
+    {
+        switch($fieldDef['type']) {
+            case 'varchar':
+                $val = $this->db->decodeHTML($val);
+                break;
+            case 'uint':
+            case 'tinyint':
+            case 'int':
+                return intval($val);
+        }
+        if (empty($val)) {
+            return 'NULL';
+        }
+        return $this->db->quoted($val);
+    }
+
+    /**
+     * Return the default mapping values.
+     *
+     * @return array Mapping key-value pairs.
+     */
+    protected function getFieldMapping()
+    {
+        global $current_user;
+        return array(
+            'created_by' => $current_user->id,
+            'modified_by' => $current_user->id,
+            'dynamic_query' => $this->dynamic_query,
+            'deleted' => 0,
+        );
+    }
+
+    /**
+     * Return the safe field value for query.
+     *
+     * @param string $field Name of field.
+     * @param array $fieldMapping Key-value pair for mapping default values.
+     * @return string Safe field value.
+     */
+    protected function getFieldValue($field, $fieldMapping) {
+        if (isset($this->$field)) {
+            return $this->massageValue($this->$field, $this->fields[$field]);
+        } elseif (isset($fieldMapping[$field])) {
+            return $this->massageValue($fieldMapping[$field], $this->fields[$field]);
+        }
+        return "NULL";
+    }
+
+    /**
+     * Generate insert SQL query command for SugarFolders.
+     *
+     * @param array $fieldNames Database field sets.
+     * @param array $fieldMapping Key-value pair for mapping default values.
+     * @return string Generated SQL query.
+     */
+    protected function getInsertQuery($fieldNames, $fieldMapping = array())
+    {
+        $values = array();
+        foreach ($fieldNames as $field) {
+            $values[] = $this->getFieldValue($field, $fieldMapping);
+        }
+        return "INSERT INTO folders (".implode(",", $fieldNames).") VALUES(".implode(",", $values).")";
+    }
+
+    /**
+     * Generate update SQL query command for SugarFolders.
+     *
+     * @param array $fieldNames Database field sets.
+     * @param array $fieldMapping Key-value pair for mapping default values.
+     * @return string Generated SQL query.
+     */
+    protected function getUpdateQuery($fieldNames, $fieldMapping = array())
+    {
+        $columns = array();
+        $where = "where id = '{$this->id}'";
+
+        foreach (array_filter($fieldNames, array($this, 'isNotId')) as $field) {
+            $columns[] = "{$field}=" . $this->getFieldValue($field, $fieldMapping);
+        }
+
+        return "UPDATE folders SET ".implode(",", $columns)." $where";
+    }
+
+    /**
+     * Return true if field is not id
+     *
+     * @param $field
+     * @return bool
+     */
+    private function isNotId($field) {
+        return $field !== "id";
+    }
 
 	/**
 	 * Saves folder
 	 * @return bool
 	 */
 	function save($addSubscriptions = TRUE) {
-		global $current_user;
-
-		$this->dynamic_query = $this->db->quote($this->dynamic_query);
 
 		if((empty($this->id) && $this->new_with_id == false) || (!empty($this->id) && $this->new_with_id == true))
 		{
@@ -876,17 +1103,7 @@ ENDQ;
 			    $this->id = $guid;
 		    }
 
-			$q = "INSERT INTO folders(id, name, folder_type, parent_folder, has_child, is_group, is_dynamic, dynamic_query, assign_to_id, ".
-				"team_set_id,".
-				"team_id,".
-				"created_by, modified_by, deleted)".
-
-				" VALUES('{$this->id}', '{$this->name}', '{$this->folder_type}', '{$this->parent_folder}', {$this->has_child}, {$this->is_group}, {$this->is_dynamic}, '{$this->dynamic_query}', '{$this->assign_to_id}', " .
-
-				"'{$this->team_set_id}', " .
-				"'{$this->team_id}', " .
-				"'{$current_user->id}', '{$current_user->id}', 0)";
-
+            $q = $this->getInsertQuery(array_keys($this->fields), $this->getFieldMapping());
 
 			if($addSubscriptions)
 			{
@@ -899,10 +1116,7 @@ ENDQ;
 			$r3 = $this->db->query($q3);
 		}
 		else {
-			$q = "UPDATE folders SET name = '{$this->name}', parent_folder = '{$this->parent_folder}', dynamic_query = '{$this->dynamic_query}', assign_to_id = '{$this->assign_to_id}', " .
-				"team_set_id = '{$this->team_set_id}', " .
-				"team_id = '{$this->team_id}', " .
-				"modified_by = '{$current_user->id}' WHERE id = '{$this->id}'";
+            $q = $this->getUpdateQuery(array_keys($this->fields), $this->getFieldMapping());
 		}
 
 		$this->db->query($q, true);
@@ -923,8 +1137,7 @@ ENDQ;
 	    if ($this->is_group)
 	    {
 	        require_once("modules/Teams/Team.php");
-	        $team = new Team();
-	        $team->retrieve($this->team_id);
+	        $team = BeanFactory::getBean('Teams', $this->team_id);
 	        $usersList = $team->get_team_members(true);
 	        foreach($usersList as $userObject)
 	           $this->createSubscriptionForUser($userObject->id);
@@ -977,10 +1190,15 @@ ENDQ;
 		$this->parent_folder = $parent_folder;
 		$this->team_id = $team_id;
 		$this->team_set_id = $team_set_id;
-		$q2 = "UPDATE folders SET name = '{$this->name}', parent_folder = '{$this->parent_folder}', 			dynamic_query = '{$this->dynamic_query}', " .
-			"team_set_id = '{$this->team_set_id}', " .
-			"team_id = '{$this->team_id}', " .
-			"modified_by = '{$current_user->id}' WHERE id = '{$this->id}'";
+
+        $q2 = $this->getUpdateQuery(array(
+                'dynamic_query',
+                'parent_folder',
+                'team_set_id',
+                'team_id',
+                'modified_by'
+            ), $this->getFieldMapping());
+
 		$r2 = $this->db->query($q2);
 		if (!empty($this->parent_folder)) {
 			$q3 = "UPDATE folders SET has_child = 1 WHERE id = '{$this->parent_folder}'";
@@ -993,7 +1211,7 @@ ENDQ;
 	function findAllChildren($folderId, &$childrenArray) {
 		$q = "SELECT * FROM folders WHERE id = '{$folderId}'";
 		$r = $this->db->query($q);
-		$a = $this->db->fetchByAssoc($r);
+		$a = $this->db->fetchByAssoc($r, false);
 
 		if($a['has_child'] == 1) {
 			$q2 = "SELECT id FROM folders WHERE deleted = 0 AND parent_folder = '{$folderId}'";
@@ -1029,4 +1247,32 @@ ENDQ;
 
 		return false;
 	}
+
+
+    /**
+     * Generates clause for excluding emails that are placed into non-dynamic child folders of a dynamic one
+     * @return string SQL 'NOT IN' clause
+     */
+    protected function addNonDynamicChildFoldersClause()
+    {
+        $allChildFolders = array();
+        $folders = array();
+        $this->findAllChildren($this->id, $allChildFolders);
+        foreach ($allChildFolders as $value) {
+            $folders[] = $this->db->quoted($value);
+        }
+        $foldersToExcludeString = implode($folders, ', ');
+        $clause = '';
+        if (!empty($foldersToExcludeString)) {
+            $clause = <<<SQL
+ AND emails.id NOT IN (
+ SELECT DISTINCT(folders_rel.polymorphic_id) FROM folders_rel
+  WHERE folders_rel.polymorphic_module = 'Emails' AND folders_rel.folder_id IN ({$foldersToExcludeString})
+  AND folders_rel.deleted = 0
+ )
+SQL;
+        }
+        return $clause;
+    }
+
 } // end class def

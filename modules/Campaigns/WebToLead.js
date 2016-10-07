@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 var grid2,grid3,grid4,grid3F,grid4F;var add_all_fields=SUGAR.language.get('app_strings','LBL_ADD_ALL_LEAD_FIELDS');var remove_all_fields=SUGAR.language.get('app_strings','LBL_REMOVE_ALL_LEAD_FIELDS');function addGrids(form_name){if(!check_form('WebToLeadCreation')){return false;}
 else{grid3=SUGAR_GRID_grid1;grid4=SUGAR_GRID_grid2;var webFormDiv=document.getElementById('webformfields');addCols(grid3,'colsFirst',webFormDiv);addCols(grid4,'colsSecond',webFormDiv);return true;}}
 function checkFields(REQUIRED_LEAD_FIELDS,LEAD_SELECT_FIELDS){grid2=SUGAR_GRID_grid0;grid3=SUGAR_GRID_grid1;grid4=SUGAR_GRID_grid2;var reqFields='';for(var i=0;i<grid2.getRecordSet().getLength();i++){if(grid2.getRecord(i).getData()[2]!=null){reqFields=reqFields+grid2.getRecord(i).getData()[0]+', ';}}

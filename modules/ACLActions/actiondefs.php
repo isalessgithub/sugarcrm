@@ -1,29 +1,26 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
- if(!defined('ACL_ALLOW_NONE')){   
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+ if(!defined('ACL_ALLOW_NONE')){
  	define('ACL_ALLOW_ADMIN_DEV', 100);
  	define('ACL_ALLOW_ADMIN', 99);
- 	define('ACL_ALLOW_ALL', 90);                        
+ 	define('ACL_ALLOW_DEV', 95);
+ 	define('ACL_ALLOW_ALL', 90);
  	define('ACL_ALLOW_ENABLED', 89);
  	define('ACL_ALLOW_OWNER', 75);
  	define('ACL_ALLOW_NORMAL', 1);
  	define('ACL_ALLOW_DEFAULT', 0);
  	define('ACL_ALLOW_DISABLED', -98);
  	define('ACL_ALLOW_NONE', -99);
- 	define('ACL_ALLOW_DEV', 95);
  }
  /**
   * $GLOBALS['ACLActionAccessLevels
@@ -60,14 +57,14 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_ACCESS',
 									'default'=>ACL_ALLOW_ENABLED,
 								),
-							
+
 						'view'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_VIEW',
 									'default'=>ACL_ALLOW_ALL,
 								),
-					
+
 						'list'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
@@ -79,14 +76,14 @@ $GLOBALS['ACLActions'] = array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_EDIT',
 									'default'=>ACL_ALLOW_ALL,
-									
+
 								),
 						'delete'=>
 							array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_DELETE',
 									'default'=>ACL_ALLOW_ALL,
-									
+
 								),
 						'import'=>
 							array(
@@ -106,8 +103,8 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_MASSUPDATE',
 									'default'=>ACL_ALLOW_ALL,
 								),
-						
-					
+
+
 				),),
 'Tracker'=>array('actions'=>
 						array(
@@ -123,14 +120,14 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_ACCESS',
 									'default'=>ACL_ALLOW_NONE,
 								),
-							
+
 						'view'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_VIEW',
 									'default'=>ACL_ALLOW_NONE,
 								),
-					
+
 						'list'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
@@ -142,14 +139,14 @@ $GLOBALS['ACLActions'] = array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_EDIT',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'delete'=>
 							array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_DELETE',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'import'=>
 							array(
@@ -169,9 +166,9 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_MASSUPDATE',
 									'default'=>ACL_ALLOW_ALL,
 								),
-							
+
 						),
-				),				
+				),
 'TrackerQuery'=>array('actions'=>
 						array(
 						'admin'=>
@@ -186,14 +183,14 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_ACCESS',
 									'default'=>ACL_ALLOW_NONE,
 								),
-							
+
 						'view'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_VIEW',
 									'default'=>ACL_ALLOW_NONE,
 								),
-					
+
 						'list'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
@@ -205,14 +202,14 @@ $GLOBALS['ACLActions'] = array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_EDIT',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'delete'=>
 							array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_DELETE',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'import'=>
 							array(
@@ -248,14 +245,14 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_ACCESS',
 									'default'=>ACL_ALLOW_NONE,
 								),
-							
+
 						'view'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_VIEW',
 									'default'=>ACL_ALLOW_NONE,
 								),
-					
+
 						'list'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
@@ -267,14 +264,14 @@ $GLOBALS['ACLActions'] = array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_EDIT',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'delete'=>
 							array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_DELETE',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'import'=>
 							array(
@@ -295,7 +292,7 @@ $GLOBALS['ACLActions'] = array(
 									'default'=>ACL_ALLOW_ALL,
 								),
 						),
-				),				
+				),
 'TrackerSession'=>array('actions'=>
 						array(
 						'admin'=>
@@ -310,14 +307,14 @@ $GLOBALS['ACLActions'] = array(
 									'label'=>'LBL_ACTION_ACCESS',
 									'default'=>ACL_ALLOW_NONE,
 								),
-							
+
 						'view'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_VIEW',
 									'default'=>ACL_ALLOW_NONE,
 								),
-					
+
 						'list'=>
 								array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
@@ -329,14 +326,14 @@ $GLOBALS['ACLActions'] = array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_EDIT',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'delete'=>
 							array(
 									'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_OWNER,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
 									'label'=>'LBL_ACTION_DELETE',
 									'default'=>ACL_ALLOW_NONE,
-									
+
 								),
 						'import'=>
 							array(

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att kunna radera organisationen.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Lägg till anteckning',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Buggar',
   'LBL_CASE' => 'Ärende:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Ärende översikt',
   'LBL_CASE_NUMBER' => 'Ärendenummer:',
   'LBL_CASE_SUBJECT' => 'Ärendeämne:',
@@ -53,8 +51,13 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ändrad av ID',
   'LBL_EXPORT_TEAM_COUNT' => 'Team Räknare',
   'LBL_FILENANE_ATTACHMENT' => 'Filbilaga',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}modulen används för att spåra och hantera produkten eller tjänsterelaterade problem som rapporteras till organisationen av kunderna. För att skapa en {{modul}}: 1. För in värden för fälten som önskat.  - Fält markerade "Required" måste fyllas i innan du sparar. - Klicka på "Visa mer" för att visa ytterligare fält vid behov. 2 Klicka på "Spara" för att spara och återgå till föregående sidan. - Välj "Spara och visa" för att öppna den nya {{module}}. - Välj "Spara och skapa ny" för att omedelbart skapa en annan ny {{module}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}modulen används för att spåra och hantera produkten eller tjänsterelaterade problem som rapporteras till organisationen av kunderna.  Redigera denna postens fält genom att klicka ett enskilt fält eller på knappen Redigera. - Visa eller ändra länkar till andra poster i underpaneler, även {{campaigns_singular_module}} mottagare, genom att växla den nedre vänstra rutan till "Data View". 
+- Utför och se användarkommentarer och eller se förändringar i {{activitystream_singular_module}} genom att växla den nedre vänstra rutan på "Activity Stream". - Följ som favorit med hjälp av ikonerna till höger om namnet. - Ytterligare åtgärder finns i dropdown menyn Åtgärder till höger om knappen Redigera.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}-modulen används för att spåra och hantera produkten eller tjänsterelaterade problem som rapporteras till organisationen av kunderna. {{plural_module_name}} är vanligtvis relaterad till en {{accounts_singular_module}}post, och flera {{plural_module_name}} kan associeras till ett {{accounts_singular_module}}. Det finns olika sätt som du kan skapa {{plural_module_name}} i Sugar exempel via {{plural_module_name}} modul, importera {{plural_module_name}}, eller konverteras från e-post. När {{module}} har skapats kan du visa och redigera information som rör den {{module}} via {{module}}ens vy. Varje {{module}}post kan då avse andra Sugar dokument såsom {{calls_module}}, {{contacts_module}}, {{bugs_module}}, och många andra.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_INVITEE' => 'Kontakter',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Kunskapsbas',
   'LBL_LIST_ACCOUNT_NAME' => 'Organisationsnamn',
   'LBL_LIST_ASSIGNED' => 'Tilldelad till',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Tilldelad användare',
@@ -78,7 +81,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Ärende',
   'LBL_MODULE_TITLE' => 'Ärenden: Hem',
   'LBL_NEW_FORM_TITLE' => 'Nytt ärende',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anteckningar',
   'LBL_NUMBER' => 'Nummer:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Om du har en ny support case du vill skicka in kan du klicka här för att skicka in ett nytt case.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrera ner i listan över Cases genom att tillhandahålla en sökterm.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Till exempel kan du använda detta för att hitta en fråga som tidigare har lämnats in.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Case modulen är för att hantera supportfrågor som påverkar ditt konto. Använd pilarna nedan för att gå igenom en snabbtur.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denna sida visar en lista över befintliga Cases är kopplade till ditt konto.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Genom att klicka här kommer du tillbaka till den här vyn när som helst.',
   'LBL_PORTAL_VIEWABLE' => 'Portabel Visning Möjlig',
   'LBL_PRIORITY' => 'Prioritet:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekt',
@@ -87,6 +97,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Sök ärende',
   'LBL_SHOW_IN_PORTAL' => 'Visa i portal',
   'LBL_SHOW_MORE' => 'Visa Fler Ärenden',
+  'LBL_SOURCE' => 'Källa:',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Ämne',
   'LBL_SYSTEM_ID' => 'System ID',

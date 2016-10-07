@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: SugarAuthenticateUser.php 54098 2010-01-28 18:15:47Z jmertic $
 
 /**
  * This file is where the user authentication occurs. No redirection should happen in this file.
@@ -34,7 +31,7 @@ class SugarAuthenticateUser{
 	function authenticateUser($name, $password, $fallback=false)
 	{
 	    $row = User::findUserPassword($name, $password, "(portal_only IS NULL OR portal_only !='1') AND (is_group IS NULL OR is_group !='1') AND status !='Inactive'");
-    
+
 	    // set the ID in the seed user.  This can be used for retrieving the full user record later
 		//if it's falling back on Sugar Authentication after the login failed on an external authentication return empty if the user has external_auth_disabled for them
 		if (empty ($row) || !empty($row['external_auth_only'])) {
@@ -98,9 +95,8 @@ class SugarAuthenticateUser{
 		}
 
 		if(!empty($_SESSION['authenticated_user_id']) || !empty($user_id)){
-			$GLOBALS['current_user'] = new User();
+			$GLOBALS['current_user'] = BeanFactory::getBean('Users');
 			if($GLOBALS['current_user']->retrieve($_SESSION['authenticated_user_id'])){
-
 				return true;
 			}
 		}
@@ -110,4 +106,4 @@ class SugarAuthenticateUser{
 
 }
 
-?>
+

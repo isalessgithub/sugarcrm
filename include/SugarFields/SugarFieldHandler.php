@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Handle Sugar fields
@@ -35,14 +34,17 @@ class SugarFieldHandler
                case 'tinyint':
                     $field = 'int';
                     break;
-               case 'date':
-                    $field = 'datetime';
-                    break;
                case 'url':
                		$field = 'link';
                		break;
+               case 'link':
+                   $field = 'relateLink';
+                   break;
                case 'varchar':
                     $field = 'base';
+                    break;
+                case 'team_list':
+                    $field = 'teamset';
                     break;
             }
 
@@ -52,7 +54,9 @@ class SugarFieldHandler
     /**
      * return the singleton of the SugarField
      *
-     * @param field string field type
+     * @param string $field Field type
+     * @param boolean $returnNullIfBase
+     * @return SugarFieldBase
      */
     static function getSugarField($field, $returnNullIfBase=false) {
         static $sugarFieldObjects = array();
@@ -62,18 +66,14 @@ class SugarFieldHandler
 
         if(!isset($sugarFieldObjects[$field])) {
         	//check custom directory
-        	if(file_exists('custom/include/SugarFields/Fields/' . $field . '/SugarField' . $field. '.php')){
-        		$file = 'custom/include/SugarFields/Fields/' . $field . '/SugarField' . $field. '.php';
+        	$file = SugarAutoLoader::existingCustomOne("include/SugarFields/Fields/{$field}/SugarField{$field}.php");
+
+        	if($file) {
                 $type = $field;
-			//else check the fields directory
-			}else if(file_exists('include/SugarFields/Fields/' . $field . '/SugarField' . $field. '.php')){
-           		$file = 'include/SugarFields/Fields/' . $field . '/SugarField' . $field. '.php';
-                $type = $field;
-        	}else{
+        	} else {
                 // No direct class, check the directories to see if they are defined
         		if( $returnNullIfBase &&
-                    !is_dir('custom/include/SugarFields/Fields/'.$field) &&
-                    !is_dir('include/SugarFields/Fields/'.$field) ) {
+        		    !SugarAutoLoader::existing('include/SugarFields/Fields/'.$field)) {
                     return null;
                 }
         		$file = 'include/SugarFields/Fields/Base/SugarFieldBase.php';
@@ -81,14 +81,9 @@ class SugarFieldHandler
         	}
 			require_once($file);
 
-			$class = 'SugarField' . $type;
+			$class = SugarAutoLoader::customClass('SugarField' . $type);
 			//could be a custom class check it
-			$customClass = 'Custom' . $class;
-        	if(class_exists($customClass)){
-        		$sugarFieldObjects[$field] = new $customClass($field);
-        	}else{
-        		$sugarFieldObjects[$field] = new $class($field);
-        	}
+       		$sugarFieldObjects[$field] = new $class($field);
         }
         return $sugarFieldObjects[$field];
     }
@@ -129,6 +124,3 @@ class SugarFieldHandler
         return $string;
     }
 }
-
-
-?>

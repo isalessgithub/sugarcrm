@@ -49,7 +49,7 @@ SUGAR.quickCompose = function() {
 	               var divTag = document.createElement("div");
 	               divTag.innerHTML = responseData.divData;
 	               divTag.id = 'quickCompose';
-	               YAHOO.util.Dom.insertBefore(divTag, 'footer');
+	               YAHOO.util.Dom.insertAfter(divTag, 'content');
 
 	               //Set the flag that we loaded the compose package.
 	               SUGAR.quickCompose.frameLoaded = true;
@@ -182,8 +182,7 @@ SUGAR.quickCompose = function() {
 			         language : tinyConfig.language,
 			         extended_valid_elements : tinyConfig.extended_valid_elements,
 			         mode: tinyConfig.mode,
-			         strict_loading_mode : true,
-			         gecko_spellcheck : tinyConfig.gecko_spellcheck
+			         strict_loading_mode : true
 		    	 });
 				SQ.tinyLoaded = true;
 			}
@@ -261,14 +260,14 @@ SUGAR.quickCompose = function() {
 				    name :"tinymce",
 				    type : "js",
 				    varName: "TinyMCE",
-				    fullpath: "include/javascript/tiny_mce/tiny_mce.js"
+                    fullpath: "include/javascript/tiny_mce/tiny_mce.js?v=" + (SUGAR.VERSION_MARK || "")
 				});
 
 				//Load the Sugar widgets with dependancies on the yui library.
 				loader.addModule({
 				    name :"sugarwidgets",
 				    type : "js",
-				    fullpath: "include/javascript/sugarwidgets/SugarYUIWidgets.js",
+                    fullpath: "include/javascript/sugarwidgets/SugarYUIWidgets.js?v=" + (SUGAR.VERSION_MARK || ""),
 				    varName: "YAHOO.SUGAR",
 				    requires: ["datatable", "dragdrop", "treeview", "tabview"]
 				});
@@ -279,14 +278,14 @@ SUGAR.quickCompose = function() {
 				    type : "js",
 				    varName: "SUGAR.email2.complexLayout",
 				    requires: ["layout", "sugarwidgets", "tinymce"],
-				    fullpath: "cache/include/javascript/sugar_grp_quickcomp.js"
+                    fullpath: "cache/include/javascript/sugar_grp_quickcomp.js?v=" + (SUGAR.VERSION_MARK || "")
 				});
 
 				//Load the css needed for the quickCompose.
 				loader.addModule({
 				    name :"sugarquickcomposecss",
 				    type : "css",
-				    fullpath: "modules/Emails/EmailUI.css"
+                    fullpath: "modules/Emails/EmailUI.css?v=" + (SUGAR.VERSION_MARK || "")
 				});
 
 				loader.insert();

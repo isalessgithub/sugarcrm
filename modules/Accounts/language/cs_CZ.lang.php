@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Opravdu chcete odstranit tento účet z tohoto projektu?',
@@ -27,7 +24,7 @@ $mod_strings = array (
   'LBL_ACCOUNT_TYPE' => 'Typ společnosti',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktivity',
   'LBL_ADDRESS_INFORMATION' => 'Adresa',
-  'LBL_ANNUAL_REVENUE' => 'Roční obrat:',
+  'LBL_ANNUAL_REVENUE' => 'Roční tržba:',
   'LBL_ANY_ADDRESS' => 'Ostatní adresa:',
   'LBL_ANY_EMAIL' => 'Email:',
   'LBL_ANY_PHONE' => 'Telefon:',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Volání',
   'LBL_CAMPAIGNS' => 'Kampaně',
   'LBL_CAMPAIGN_ID' => 'ID kampaně',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Log kampaně',
   'LBL_CASES_SUBPANEL_TITLE' => 'Případy',
   'LBL_CHARTS' => 'Grafy',
   'LBL_CITY' => 'Město:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Společnosti',
   'LBL_DESCRIPTION' => 'Popis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Popis',
+  'LBL_DNB_BAL_PREVIEW' => 'Náhled smlouvy',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenty',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Možný duplicitní účet',
   'LBL_EMAIL' => 'Email:',
   'LBL_EMAIL_ADDRESSES' => 'Emailové adresy',
@@ -72,6 +72,25 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Zaměstnanci:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Přiřazený uživatel',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Příloha',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Reporty společností',
+  'LBL_HELP_CREATE' => 'Modul Společnosti obsahuje firmy, se kterými má vaše společnost nějaký vztah a je obecně chápán jako centrum pro správu a analýzu vašich obchodních interakcí s každým zákazníkem.
+
+K vytvoření poznámky:
+1. Vyplňte hodnoty do polí dle potřeby.
+ - Pole označená jako "požadovaná" musí být vyplněna před uložením.
+ - Případně klikněte na "Zobrazit více" pro odhalení dalších polí.
+2. Klikněte na "Uložit" k dokončení nového záznamu a návratu na předchozí stránku.
+ - Vyberte "Uložit a zobrazit" k otevření nové společnosti v pohledu na záznam.
+ - Vyberte "Uložit a vytvořit novou" k bezprostřednímu vytvoření další nové společnosti.',
+  'LBL_HELP_RECORD' => 'Modul Společnosti obsahuje firmy, se kterými má vaše společnost nějaký vztah a je obecně chápán jako centrum pro správu a analýzu vašich obchodních interakcí s každým zákazníkem.
+
+- Upravte pole tohoto záznamu kliknutím na jednotlivá pole nebo na tlačítko Upravit.
+- Zobrazte nebo upravte vazby na ostatní záznamy v subpanelech přepnutím levého spodního panelu na "Datový pohled".
+- Vytvořte a zobrazte uživatelské komentáře a historii změn záznamu v modulu {{activitystream_singular_module}} přepnutím spodního levého panelu na "Tok aktivit" .
+- Sledujte nebo označte záznam jako oblíbený pomocí ikon vpravo od názvu záznamu.
+- Další akce jsou dostupné v rozbalovacím menu Akce vpravo od tlačítka Upravit.',
+  'LBL_HELP_RECORDS' => 'Modul Společnosti obsahuje firmy, se kterými má vaše společnost nějaký vztah a je obecně vnímán jako centrum pro správu a analýzu vašich obchodních interakcí s každým zákazníkem. Je mnoho různých způsobů, jak můžete vytvořit společnost v Sugaru, jako například prostřednictvím modulu Společnosti, duplikací, importem společností atd. Jakmile je záznam vytvořen, můžete v okně záznamu prohlížet a upravovat informace náležící ke společnosti. Každá společnost může být navázána na ostatní záznamy Sugaru, jako například kontakty, schůzky, případy, obchody a mnoho dalších, jak se vztah s klientem vyvíjí.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_HOMEPAGE_TITLE' => 'Společnosti',
   'LBL_INDUSTRY' => 'Odvětví:',
@@ -98,6 +117,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Společnosti',
   'LBL_NAME' => 'Název:',
   'LBL_NEW_FORM_TITLE' => 'Přidat účet',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Poznámky',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Obchody',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Další email:',
   'LBL_OTHER_PHONE' => 'Další telefon:',
@@ -110,7 +130,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Fax práce:',
   'LBL_PHONE_OFFICE' => 'Telefon práce:',
   'LBL_POSTAL_CODE' => 'PSČ:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkty',
   'LBL_PRODUCTS_TITLE' => 'Produkty',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekty',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekty',
@@ -121,6 +140,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Ověřit doručení',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Nabídky',
   'LBL_RATING' => 'Hodnocení:',
+  'LBL_REVENUELINEITEMS' => 'Řádky tržeb',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Řádky tržeb',
   'LBL_SAVE_ACCOUNT' => 'Uložit účet',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledávání společností',
   'LBL_SHIPPING_ADDRESS' => 'Zasílací adresa:',
@@ -146,6 +167,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'WWW stránky:',
   'LNK_ACCOUNT_LIST' => 'Společnosti',
   'LNK_ACCOUNT_REPORTS' => 'Zobrazit reporty Společností',
+  'LNK_CREATE' => 'Vytvořit společnost',
   'LNK_IMPORT_ACCOUNTS' => 'Importovat Společnost',
   'LNK_NEW_ACCOUNT' => 'Přidat společnost',
   'MSG_DUPLICATE' => 'Vytvoření tohoto kontaktu může potenciálně duplicitní kontakt. Můžete buď zvolit účet ze seznamu níže nebo kliknout na Přidat účet - v tom případě bude vytvořen nový účet se zadanými údaji.',

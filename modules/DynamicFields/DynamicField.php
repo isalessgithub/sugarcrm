@@ -2,26 +2,53 @@
 if (! defined ( 'sugarEntry' ) || ! sugarEntry)
     die ( 'Not A Valid Entry Point' ) ;
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+require_once 'include/MetaDataManager/MetaDataManager.php';
 
 class DynamicField {
 
+    public $module_dir = 'DynamicFields';
     var $use_existing_labels = false; // this value is set to true by install_custom_fields() in ModuleInstaller.php; everything else expects it to be false
     var $base_path = "";
 
-    function DynamicField($module = '') {
+    const TYPE_SIGNED = 'signed';
+    const TYPE_UNSIGNED = 'unsigned';
+
+    public static $fieldTypeRangeValue = array(
+        'int32' => array(
+            self::TYPE_SIGNED  => array(
+                'max' => 2147483647,
+                'min' => -2147483648,
+            ),
+            self::TYPE_UNSIGNED => array(
+                'max' => 4294967295,
+                'min' => 0,
+            ),
+        ),
+    );
+
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function DynamicField($module = '')
+    {
+        self::__construct($module);
+    }
+
+
+    public function __construct($module = '') {
         $this->module = (! empty ( $module )) ? $module :( (isset($_REQUEST['module']) && ! empty($_REQUEST['module'])) ? $_REQUEST ['module'] : '');
         $this->base_path = "custom/Extension/modules/{$this->module}/Ext/Vardefs";
     }
@@ -173,9 +200,7 @@ class DynamicField {
                 //if it's still not loaded we really don't have anything useful to cache
                 if(empty($GLOBALS['dictionary'][$object]['fields']))return;
             }
-            if (!isset($GLOBALS['dictionary'][$object]['custom_fields'])) {
-                $GLOBALS['dictionary'][$object]['custom_fields'] = false;
-            }
+            $GLOBALS ['dictionary'] [$object] ['custom_fields'] = false;
             if (! empty ( $GLOBALS ['dictionary'] [$object] )) {
                 if (! empty ( $result )) {
                     // First loop to add
@@ -204,10 +229,9 @@ class DynamicField {
                 }
             }
 
-            $manager = new VardefManager();
             if($saveCache)
             {
-                $manager->saveCache ($this->module, $object);
+                VardefManager::saveCache ($this->module, $object);
             }
 
             // Everything works off of vardefs, so let's have it save the users vardefs
@@ -215,7 +239,7 @@ class DynamicField {
             // the scenes
             if ($module == 'Users')
             {
-                $manager->loadVardef('Employees', 'Employee', true);
+                VardefManager::loadVardef('Employees', 'Employee');
                 return;
             }
 
@@ -283,22 +307,21 @@ class DynamicField {
 
     }
 
-   function getRelateJoin($field_def, $joinTableAlias, $withIdName = true) {
-        if (empty($field_def['type']) || $field_def['type'] != "relate") {
-            return false;
-        }
-        global $beanFiles, $beanList, $module;
-        $rel_module = $field_def['module'];
-        if(empty($beanFiles[$beanList[$rel_module]])) {
+   public function getRelateJoin($field_def, $joinTableAlias, $withIdName = true) {
+        if (empty($field_def['type']) || $field_def['type'] != "relate" || empty($field_def['module'])) {
             return false;
         }
 
-        require_once($beanFiles[$beanList[$rel_module]]);
-        $rel_mod = new $beanList[$rel_module]();
+        $rel_mod = BeanFactory::getBean($field_def['module']);
+        if(empty($rel_mod)) {
+            return false;
+        }
+
         $rel_table = $rel_mod->table_name;
         if (isset($rel_mod->field_defs['name']))
         {
             $name_field_def = $rel_mod->field_defs['name'];
+
             if(isset($name_field_def['db_concat_fields']))
             {
                 $name_field = db_concat($joinTableAlias, $name_field_def['db_concat_fields']);
@@ -315,11 +338,22 @@ class DynamicField {
         }
         $tableName = isset($field_def['custom_module']) ? "{$this->bean->table_name}_cstm" : $this->bean->table_name ;
         $relID = $field_def['id_name'];
-        $ret_array['rel_table'] = $rel_table;
+
+        $select = '';
+        if ($withIdName) {
+            $select .= ', ' . $tableName . '.' . $relID;
+        }
+
+        $relate_query = $rel_mod->getRelateFieldQuery($field_def, $joinTableAlias);
+        if ($relate_query['select']) {
+            $select .= ', ' . $relate_query['select'];
+        }
+
+        $ret_array['rel_table'] = $rel_table = $rel_mod->table_name;
         $ret_array['name_field'] = $name_field;
-        $ret_array['select'] = ($withIdName ? ", {$tableName}.{$relID}" : "") . ", {$name_field} {$field_def['name']} ";
+        $ret_array['select'] = $select;
         $ret_array['from'] = " LEFT JOIN $rel_table $joinTableAlias ON $tableName.$relID = $joinTableAlias.id"
-                            . " AND $joinTableAlias.deleted=0 ";
+                            . " AND $joinTableAlias.deleted=0 " . $relate_query['join'];
         return $ret_array;
    }
 
@@ -327,7 +361,7 @@ class DynamicField {
     * Fills in all the custom fields of type relate relationships for an object
     *
     */
-   function fill_relationships(){
+   public function fill_relationships(){
         global $beanList, $beanFiles;
         if(!empty($this->bean->relDepth)) {
             if($this->bean->relDepth > 1)return;
@@ -341,16 +375,12 @@ class DynamicField {
                 $name = $field['name'];
                 if (empty($this->bean->$name)) { //Don't load the relationship twice
                     $id_name = $field['id_name'];
-                    if(isset($beanList[ $related_module])){
-                        $class = $beanList[$related_module];
+                    $mod = BeanFactory::getBean($related_module);
 
-                        if(file_exists($beanFiles[$class]) && isset($this->bean->$name)){
-                            require_once($beanFiles[$class]);
-                            $mod = new $class();
+                    if(!empty($mod) && isset($this->bean->$name)){
                             $mod->relDepth = $this->bean->relDepth + 1;
                             $mod->retrieve($this->bean->$id_name);
                             $this->bean->$name = $mod->name;
-                        }
                     }
                 }
             }
@@ -362,7 +392,7 @@ class DynamicField {
      *
      * @param boolean $isUpdate
      */
-     function save($isUpdate){
+     public function save($isUpdate){
 
         if($this->bean->hasCustomFields() && isset($this->bean->id)){
 
@@ -442,7 +472,7 @@ class DynamicField {
      * Use the widgets get_db_modify_alter_table() method to get the table sql - some widgets do not need any custom table modifications
      * @param STRING $name - field name
      */
-    function deleteField($widget){
+    public function deleteField($widget){
         require_once('modules/DynamicFields/templates/Fields/TemplateField.php');
         global $beanList;
         if (!($widget instanceof TemplateField)) {
@@ -466,7 +496,9 @@ class DynamicField {
         $this->removeVardefExtension($widget);
         VardefManager::clearVardef();
         VardefManager::refreshVardefs($this->module, $object_name);
-
+        MetaDataManager::refreshModulesCache(array($this->module));
+        // @TODO: Is this really necessary?
+        //MetaDataManager::refreshSectionCache(array(MetaDataManager::MM_LABELS));
     }
 
     /*
@@ -503,12 +535,12 @@ class DynamicField {
      * @param Field Object $field
      * @return boolean
      */
-    function addFieldObject(&$field){
+    public function addFieldObject(&$field){
         $GLOBALS['log']->debug('adding field');
         $object_name = $this->module;
         $db_name = $field->name;
 
-        $fmd = new FieldsMetaData();
+        $fmd = BeanFactory::getBean('EditCustomFields');
         $id =  $fmd->retrieve($object_name.$db_name,true, false);
         $is_update = false;
         $label = strtoupper( $field->label );
@@ -574,19 +606,26 @@ class DynamicField {
             $fmd->save();
             $this->buildCache($this->module);
             $this->saveExtendedAttributes($field, array_keys($fmd->field_defs));
+            MetaDataManager::refreshModulesCache(array($this->module));
+            MetaDataManager::refreshSectionCache(
+                array(
+                    MetaDataManager::MM_LABELS,
+                    MetaDataManager::MM_ORDEREDLABELS,
+                )
+            );
         }
 
         return true;
     }
 
-    function saveExtendedAttributes($field, $column_fields)
+    public function saveExtendedAttributes($field, $column_fields)
     {
-            require_once ('modules/ModuleBuilder/parsers/StandardField.php') ;
-            require_once ('modules/DynamicFields/FieldCases.php') ;
-            global $beanList;
+        require_once ('modules/ModuleBuilder/parsers/StandardField.php') ;
+        require_once ('modules/DynamicFields/FieldCases.php') ;
+        global $beanList;
 
-            $to_save = array();
-            $base_field = get_widget ( $field->type) ;
+        $to_save = array();
+        $base_field = get_widget ( $field->type) ;
         foreach ($field->vardef_map as $property => $fmd_col){
             //Skip over attribes that are either the default or part of the normal attributes stored in the DB
             if (!isset($field->$property) || in_array($fmd_col, $column_fields) || in_array($property, $column_fields)
@@ -606,6 +645,11 @@ class DynamicField {
 
     protected function isDefaultValue($property, $value, $baseField)
     {
+        if (isset($baseField->$property))
+        {
+            return $baseField->$property === $value;
+        }
+
         switch ($property) {
             case "importable":
             case "reportable":
@@ -621,11 +665,6 @@ class DynamicField {
                 return ($value == "");
             case "duplicate_merge":
                 return ( $value === 'false' || $value === '0' || $value === false || $value === 0 || $value === "disabled"); break;
-        }
-
-        if (isset($baseField->$property))
-        {
-            return $baseField->$property == $value;
         }
 
         return false;
@@ -871,7 +910,7 @@ class DynamicField {
         {
             return $cached_results[$name];
         }
-        $exclusions = array('parent_type', 'parent_id', 'currency_id', 'parent_name');
+        $exclusions = array('parent_type', 'parent_id', 'currency_id', 'parent_name', 'base_rate');
         // Remove any non-db friendly characters
         $return_value = preg_replace("/[^\w]+/","_",$name);
         if($_C == true && !in_array($return_value, $exclusions) && substr($return_value, -2) != '_c'){
@@ -892,8 +931,30 @@ class DynamicField {
 
     }
 
-    /////////////////////////BACKWARDS COMPATABILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    ////////////////////////////END BACKWARDS COMPATABILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    /**
+     * Get maximum system value based on type
+     * @param $type
+     * @param $signed
+     * @param string $bits
+     * @return value or false
+     */
+    public static function getFieldRangeValueByType($type, $signed=self::TYPE_SIGNED, $bits='32') {
+        $fieldType = $type.$bits;
+        $types = self::$fieldTypeRangeValue;
+
+        if (!isset($types[$fieldType])) {
+            return false;
+        }
+
+        if (isset($types[$fieldType][$signed])) {
+            return $types[$fieldType][$signed];
+        }
+        
+        return false;
+    }
+
+    /////////////////////////BACKWARDS COMPATIBILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    ////////////////////////////END BACKWARDS COMPATIBILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     /**
      *
@@ -914,9 +975,13 @@ class DynamicField {
             return false;
         }
 
-        $query = "SELECT * FROM ".$this->bean->table_name."_cstm WHERE id_c='".$this->bean->id."'";
-        $result = $GLOBALS['db']->query($query);
-        $row = $GLOBALS['db']->fetchByAssoc($result);
+        // Don't use $GLOBALS use the Factory Instance instead
+        $db = DBManagerFactory::getInstance();
+
+        $table = $this->bean->table_name . "_cstm";
+        $query = "SELECT {$table}.* FROM {$table} WHERE id_c='{$this->bean->id}'";
+        $result = $db->query($query);
+        $row = $db->fetchByAssoc($result);
 
         if($row)
         {
@@ -981,7 +1046,7 @@ class DynamicField {
         return $results;
     }
 
-    ////////////////////////////END BACKWARDS COMPATABILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    ////////////////////////////END BACKWARDS COMPATIBILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
 
 ?>

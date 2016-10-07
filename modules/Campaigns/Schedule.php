@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Schedule.php 45763 2009-04-01 19:16:18Z majed $
  * Description: 
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -59,8 +56,7 @@ if ($test)  {
 $campaign_id = isset($_REQUEST['record']) ? $_REQUEST['record'] : false;
 
 if (!empty($campaign_id)) {
-	$campaign = new Campaign();
-	$campaign->retrieve($campaign_id);
+	$campaign = BeanFactory::getBean('Campaigns', $campaign_id);
 }
 
 if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
@@ -71,7 +67,7 @@ if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
 
 	$ss->display('modules/Campaigns/tpls/campaign-inactive.tpl');
 } else {
-	$focus = new EmailMarketing();
+	$focus = BeanFactory::getBean('EmailMarketing');
 	if($campaign_id)
 	{
 		$where_clauses = Array();
@@ -107,11 +103,11 @@ if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
 	$ListView->show_select_menu = false;
 	$ListView->show_delete_button = false;
 	$ListView->setDisplayHeaderAndFooter(false);
-	$ListView->xTemplateAssign("RETURN_MODULE",$_POST['return_module']);
-	$ListView->xTemplateAssign("RETURN_ACTION",$_POST['return_action']);
-	$ListView->xTemplateAssign("RETURN_ID",$_POST['record']);
+	$ListView->xTemplateAssign("RETURN_MODULE", isset($_POST['return_module']) ? $_POST['return_module'] : false);
+	$ListView->xTemplateAssign("RETURN_ACTION", isset($_POST['return_action']) ? $_POST['return_action'] : false);
+	$ListView->xTemplateAssign("RETURN_ID", isset($_POST['record']) ? $_POST['record'] : false);
 	$ListView->setHeaderTitle($current_module_strings['LBL_LIST_FORM_TITLE']);
-	$ListView->setQuery($where, "", "date_modified desc", "EMAILMARKETING", false);
+	$ListView->setQuery($where, "", "name", "EMAILMARKETING");
 
 	if ($test) {
 			$ListView->xTemplateAssign("MODE",$_POST['mode']);
@@ -135,8 +131,7 @@ if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
 			$result=$focus->db->query($query);
 			while(($row=$focus->db->fetchByAssoc($result)) != null) {
 
-				$bean = new EmailMarketing();
-				$bean->retrieve($row['email_marketing_id']);
+				$bean = BeanFactory::getBean('EmailMarketing', $row['email_marketing_id']);
 				$bean->mode='test';	
 				$seed[]=$bean;
 			}
@@ -148,8 +143,7 @@ if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
 			$result=$focus->db->query($query);
 			while(($row=$focus->db->fetchByAssoc($result)) != null) {
 
-				$bean = new EmailMarketing();
-				$bean->retrieve($row['email_marketing_id']);
+				$bean = BeanFactory::getBean('EmailMarketing', $row['email_marketing_id']);
 				$bean->mode='test';	
 				$seed[]=$bean;
 			}

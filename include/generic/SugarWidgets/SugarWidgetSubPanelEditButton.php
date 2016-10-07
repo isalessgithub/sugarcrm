@@ -1,23 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
-
-
-//TODO Rename this to edit link
 class SugarWidgetSubPanelEditButton extends SugarWidgetField
 {
     protected static $defs = array();
@@ -33,7 +26,7 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
 		global $app_strings;
         global $subpanel_item_count;
 		$unique_id = $layout_def['subpanel_id']."_edit_".$subpanel_item_count; //bug 51512
-
+        $onclick ='';
 		$formname = $this->getFormName($layout_def);
 
 		$onclick = "document.forms['{$formname}'].record.value='{$layout_def['fields']['ID']}';";
@@ -43,32 +36,24 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
 			. "', '" . $layout_def['subpanel_id'] . "');";
 		$onclick .= "document.forms['{$formname}'].record.value='';retValz;return false;";
 
-
 		if($layout_def['EditView'] && $this->isQuickCreateValid($layout_def['module'],$layout_def['subpanel_id'])){
 			return '<a href="#" class="listViewTdToolsS1" id="'.$unique_id .'" onclick="' . $onclick . '">' .
                       $app_strings['LNK_EDIT'] .'</a>';
 		}else
-        if ($layout_def['EditView']) {
-
-            // @see SugarWidgetSubPanelTopButtonQuickCreate::get_subpanel_relationship_name()
-            $relationship_name = '';
-            if (!empty($layout_def['linked_field'])) {
-                $relationship_name = $layout_def['linked_field'];
-                $bean = BeanFactory::getBean($layout_def['module']);
-                if (!empty($bean->field_defs[$relationship_name]['relationship'])) {
-                    $relationship_name = $bean->field_defs[$relationship_name]['relationship'];
-                }
+        if($layout_def['EditView']) {
+            if (isModuleBWC($layout_def['module'])) {
+                $label = $app_strings['LNK_EDIT'];
+            } else {
+                //TODO:SP-1618 can't nav to inline edit in sidecar
+                $label = $app_strings['LNK_VIEW'];
             }
-
-            $handler = 'subp_nav(\'' . $layout_def['module'] . '\', \'' . $layout_def['fields']['ID'] . '\', \'e\', this';
-            if (!empty($relationship_name)) {
-                $handler .= ', \'' . $relationship_name . '\'';
-            }
-            $handler .= ');';
-
-            return '<a href="#" onmouseover="' . $handler . '" onfocus="' . $handler .
-                '" class="listViewTdToolsS1" id="' . $unique_id . '">' . $app_strings['LNK_EDIT'] . '</a>';
-        }
+			return "<a href='#' onMouseOver=\"javascript:subp_nav('".$layout_def['module']."', '".$layout_def['fields']['ID']."', 'e', this"
+			. (empty($layout_def['linked_field']) ? "" : ", '{$layout_def['linked_field']}'") . ");\""
+			. " onFocus=\"javascript:subp_nav('".$layout_def['module']."', '".$layout_def['fields']['ID']."', 'e', this"
+			. (empty($layout_def['linked_field']) ? "" : ", '{$layout_def['linked_field']}'") . ");\""
+            . " onClick=\"javascript:subp_nav_sidecar('".$layout_def['module']."', '".$layout_def['fields']['ID']."', 'e');\""
+			. " class='listViewTdToolsS1' id=\"$unique_id\">". $label .'</a>';
+		}
 
         return '';
     }
@@ -77,11 +62,14 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
     protected function getSubpanelDefs($module_dir)
     {
         if(!isset(self::$defs[$module_dir])) {
-            if (file_exists ( "modules/$module_dir/metadata/subpaneldefs.php" ))
-                require "modules/$module_dir/metadata/subpaneldefs.php";
-
-            if (file_exists ( "custom/modules/$module_dir/Ext/Layoutdefs/layoutdefs.ext.php" ))
-                require "custom/modules/$module_dir/Ext/Layoutdefs/layoutdefs.ext.php";
+            $defs = SugarAutoLoader::loadWithMetafiles($module_dir, 'subpaneldefs');
+            if($defs) {
+                require $defs;
+            }
+            $defs = SugarAutoLoader::loadExtension("layoutdefs", $module_dir);
+            if($defs) {
+            	require $defs;
+            }
 
             if(!isset($layout_defs))
             {
@@ -102,6 +90,12 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
         $isValid = false;
         $layout_defs = $this->getSubpanelDefs($_REQUEST['module']);
 
+        //For Sidecar modules return false as we want caller to add an
+        //onClick routed to the SubPanelTiles.js subp_nav_sidecar function
+        if (!isModuleBWC($module)) {
+            return false;
+        }
+
         //lets check to see if the subpanel buttons are defined, and if they extend quick create
         //If no buttons are defined, then the default ones are used which do NOT use quick create
         if (!empty($panel_id) && !empty($layout_defs) && is_array($layout_defs)
@@ -118,10 +112,8 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
                 }
                 //include the button class and see if it extends quick create
                 $className = 'SugarWidget'.$buttonClass;
-                $widgetClass = get_custom_file_if_exists('include/generic/SugarWidgets/'.$className.'.php');
-                if (file_exists($widgetClass)){
-                    include_once($widgetClass);
-                    if (class_exists($className,true)){
+                if (SugarAutoLoader::requireWithCustom('include/generic/SugarWidgets/'.$className.'.php')) {
+                    if (class_exists($className)){
                         $button = new $className();
                         //set valid flag to true if this class extends quickcreate button
                         if($button instanceof SugarWidgetSubPanelTopButtonQuickCreate){
@@ -139,7 +131,7 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
         }
 
         //So our create buttons are defined, now lets check for the proper quick create meta files
-        if(file_exists('custom/modules/'.$module.'/metadata/quickcreatedefs.php') || file_exists('modules/'.$module.'/metadata/quickcreatedefs.php')){
+        if(SugarAutoLoader::existingCustomOne('modules/'.$module.'/metadata/quickcreatedefs.php')) {
             return true;
         }
 
@@ -170,7 +162,7 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
 
 
 		if(empty($this->bean)) {
-            $this->bean = new $beanList[$layout_def['module']]();
+            $this->bean = BeanFactory::getBean($layout_def['module']);
 		}
 
         //load the bean relationships for the next check
@@ -185,7 +177,7 @@ class SugarWidgetSubPanelEditButton extends SugarWidgetField
 
         } else {
             //if the relationship was not found on the subpanel bean, then see if the relationship is defined on the parent bean
-	        $parentBean = new $beanList[$mod]();
+	        $parentBean = BeanFactory::getBean($mod);
             $subpanelMod = strtolower($layout_def['module']);
             if(!empty($parentBean->field_name_map[$subpanelMod]) && !empty($parentBean->field_name_map[$subpanelMod]['relationship'])){
                 //return relationship name

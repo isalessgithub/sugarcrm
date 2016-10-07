@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
 * Description:  Includes the functions for Customer module specific charts.
@@ -44,7 +41,7 @@ class campaign_charts {
 			$GLOBALS['log']->debug("user_id is: ");
 			$GLOBALS['log']->debug("cache_file_name is: $xmlFile");
 
-			$focus = new Campaign();
+			$focus = BeanFactory::getBean('Campaigns');
 
 			$query = "SELECT activity_type,target_type, count(*) hits ";
 			$query.= " FROM campaign_log ";
@@ -168,8 +165,7 @@ class campaign_charts {
 			$GLOBALS['log']->debug("user_id is: ");
 			$GLOBALS['log']->debug("cache_file_name is: $cache_file_name");
 
-			$focus = new Campaign();
-            $focus->retrieve($campaign_id);
+			$focus = BeanFactory::getBean('Campaigns', $campaign_id);
 			$opp_count=0;
 			$opp_query  = "select count(*) opp_count,sum(" . db_convert("amount_usdollar","IFNULL",array(0)).")  total_value";
             $opp_query .= " from opportunities";
@@ -186,7 +182,8 @@ class campaign_charts {
 			$opp_query1  = "select SUM(opp.amount) as revenue";
             $opp_query1 .= " from opportunities opp";
             $opp_query1 .= " right join campaigns camp on camp.id = opp.campaign_id";
-            $opp_query1 .= " where opp.sales_stage = 'Closed Won'and camp.id='$campaign_id' and opp.deleted=0";
+            $opp_query1 .= " where opp.sales_stage = '".Opportunity::STAGE_CLOSED_WON;
+            $opp_query1 .= "' and camp.id='$campaign_id' and opp.deleted=0";
             $opp_query1 .= " group by camp.name";
 
             $opp_result1=$focus->db->query($opp_query1);
@@ -263,8 +260,7 @@ class campaign_charts {
         $currency_symbol = $sugar_config['default_currency_symbol'];
         if(!empty($currency_id)){
 
-            $cur = new Currency();
-            $cur->retrieve($currency_id);
+            $cur = BeanFactory::getBean('Currencies', $currency_id);
             $currency_symbol = $cur->symbol;
         }
 
@@ -272,6 +268,10 @@ class campaign_charts {
 		$sugarChart = SugarChartFactory::getInstance();
 		$sugarChart->is_currency = true;
         $sugarChart->currency_symbol = $currency_symbol;
+
+        // campaign charts should not convert currency values
+        // see SugarChart::convertCurrency()
+        $sugarChart->div = 1;
 
 		if ($not_empty)
 	 		$sugarChart->setData($opp_data1);

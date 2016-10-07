@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/Expressions/Expression/Generic/GenericExpression.php');
 /**
  * <b>related(Relationship <i>link</i>, String <i>field</i>)</b><br>
@@ -29,15 +26,10 @@ class RelatedFieldExpression extends GenericExpression
         $linkField = $params[0]->evaluate();
         $relfield = $params[1]->evaluate();
 
-        //return blank if the field is empty or a non-array type with the exception of string type
-        if ((empty($linkField)||!is_array($linkField)) && !is_string($linkField)) {
+        if (empty($linkField)) {
             return "";
         }
-        //if LinkedField value is a string, then return the string value
-        if (is_string($linkField)) {
-            return $linkField;
-        }
-
+        
         foreach($linkField as $id => $bean)
         {
             if (!empty($bean->field_defs[$relfield]) && isset($bean->$relfield))
@@ -48,10 +40,10 @@ class RelatedFieldExpression extends GenericExpression
                     if ($bean->field_defs[$relfield]['type'] == "date")
                     {
                         $ret = $timedate->fromDbDate($bean->$relfield);
-                        if (!$ret)
+                        if (!$ret) {
                             $ret = $timedate->fromUserDate($bean->$relfield);
-                        if($ret)
-                        {
+                        }
+                        if ($ret) {
                             $ret->isDate = true;
                         }
                         return $ret;
@@ -71,6 +63,22 @@ class RelatedFieldExpression extends GenericExpression
                         else
                             return BooleanExpression::$FALSE;
                     }
+                    //Currency values need to be converted to the current currency when the related value
+                    //doesn't match this records currency
+                    if ($bean->field_defs[$relfield]['type'] == "currency") {
+                        if (!isset($this->context)) {
+                            $this->setContext();
+                        }
+                        if (isset($this->context->base_rate) && isset($bean->base_rate) &&
+                            $this->context->base_rate != $bean->base_rate
+                        ) {
+                            return SugarCurrency::convertWithRate(
+                                $bean->$relfield,
+                                $bean->base_rate,
+                                $this->context->base_rate
+                            );
+                        }
+                    }
                 }
                 return $bean->$relfield;
             }
@@ -86,34 +94,11 @@ class RelatedFieldExpression extends GenericExpression
 		return <<<EOQ
 		    var params = this.getParameters(),
 			    linkField = params[0].evaluate(),
-			    relField = params[1].evaluate(),
-			    AH = SUGAR.forms.AssignmentHandler;
-
-
+			    relField = params[1].evaluate();
 
 			if (typeof(linkField) == "string" && linkField != "")
 			{
-                //We just have a field name, assume its the name of a link field
-                //and the parent module is the current module.
-                //Try and get the current module and record ID
-                var module = AH.getValue("module");
-                var record = AH.getValue("record");
-                var linkDef = AH.getLink(linkField);
-                var linkId = false, url = "index.php?";
-                
-                if (linkDef && linkDef.id_name && linkDef.module) {
-                    var idField = document.getElementById(linkDef.id_name);
-                    if (idField && (idField.tagName == "INPUT" || idField.hasAttribute("data-id-value")))
-                    {
-                        linkId = AH.getValue(linkDef.id_name, false, true);
-                        module = linkDef.module;
-                    }
-                    //Clear the cache for this link if the id has changed
-                    if (linkDef.relId && linkDef.relId != linkId)
-                        AH.clearRelatedFieldCache(linkField);
-                }
-
-                return AH.getRelatedField(linkField, 'related', relField);
+                return this.context.getRelatedField(linkField, 'related', relField);
 			} else if (typeof(rel) == "object") {
 			    //Assume we have a Link object that we can delve into.
 			    //This is mostly used for n level dives through relationships.

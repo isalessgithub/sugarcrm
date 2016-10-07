@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Error: El Campo Ya Existe',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponible',
   'LBL_AVAILABLE_OPTIONS' => 'Opciones',
   'LBL_AVAILABLE_SUBPANELS' => 'Subpaneles Disponibles',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: documento mal constituido',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: documento creado erróneamente',
   'LBL_BASIC' => 'Básica',
   'LBL_BASIC_SEARCH' => 'Búsqueda Básica',
   'LBL_BLANK' => '-vacío-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Cancelar',
   'LBL_BTN_CLONE' => 'Clonar',
   'LBL_BTN_CLOSE' => 'Cerrar',
+  'LBL_BTN_COPY' => 'Copiar',
+  'LBL_BTN_COPY_FROM' => 'Copiar desde...',
   'LBL_BTN_DELETE' => 'Eliminar',
   'LBL_BTN_DEPLOY' => 'Desplegar',
   'LBL_BTN_DONT_SAVE' => 'Descartar Cambios',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Deshacer',
   'LBL_BTN_VIEW_FIELDS' => 'Ver Campos',
   'LBL_BTN_VIEW_LAYOUTS' => 'Ver Diseños',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Ver diseños móviles',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Ver Relaciones',
   'LBL_BUG_TRACKER' => 'Seguimiento de Incidencias',
   'LBL_CALCULATED' => 'Valor Calculado',
   'LBL_CASES' => 'Casos',
   'LBL_CLEAR_EXTENSIONS' => 'Limpiar Extensiones',
   'LBL_CLEAR_RELATIONSHIPS' => 'Limpiar Relaciones',
+  'LBL_COMBO_FIELD_CONTAINS' => 'contiene:',
   'LBL_COMPANY' => 'Compañía',
   'LBL_CONFIG_PORTAL_URL' => 'URL a la imagen de logo personalizado. Las dimensiones recomendadas del logotipo son 163 × 18 píxeles.',
   'LBL_CONFIRM_DONT_SAVE' => 'Hay cambios pendientes de ser guardados, ¿desea guardarlos ahora?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => '¿Está seguro de que desea eliminar esta relación?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Esto hará la relación permantente. ¿Está seguro de que desea desplegar esta relación?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Está seleccionando este elemento para su eliminación de la lista desplegable. Cualquier campo desplegable que use esta lista con este elemento como valor ya no mostrará dicho valor, y el valor ya no podrá ser seleccionado en los campos desplegables. ¿Está seguro de que desea continuar?',
+  'LBL_COPY_FROM' => 'Copiar desde',
   'LBL_COPY_FROM_EDITVIEW' => 'Copiar de la Vista de Edición',
   'LBL_CREATE' => 'Crear',
   'LBL_CREATE_NEW' => 'Crear Nuevo',
   'LBL_CURRENCY' => 'Moneda',
   'LBL_CURRENT_LAYOUT' => 'Diseño',
   'LBL_CUSTOM' => 'Personalizado',
-  'LBL_CUSTOMIZE_THEME' => 'Personalizar Diseño Temático',
   'LBL_CUSTOM_FIELDS' => 'campo creado en Estudio',
   'LBL_CUSTOM_MODULE' => 'Módulo',
   'LBL_CUSTOM_RELATIONSHIPS' => '* relación creada en el Estudio',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Dependiente',
   'LBL_DEPENDENCY' => 'Dependencia',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Arrastre los elementos de la lista de opciones disponibles a la izquierda para una de las listas de la derecha para hacer que la opción está disponible cuando la opción del padre dada se seleccione.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Por favor considere: Es posible que se necesite refrescar el registro del módulo Edit View para poder visualizar las actualizaciones',
   'LBL_DEPLOYE_COMPLETE' => 'Despliegue completado',
   'LBL_DEPLOY_FAILED' => 'Ha ocurrido un error durante el proceso de despliegue. Es posible que su paquete no haya sido instalado correctamente',
   'LBL_DEPLOY_IN_PROGRESS' => 'Desplegando Paquete',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Elementos de Lista',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Etiqueta de Visualización',
   'LBL_DROPDOWN_ITEM_NAME' => 'Nombre del Elemento',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'Clave ya existe en la lista',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'La Clave ya existe en el listado',
   'LBL_DROPDOWN_LANGUAGE' => 'Idioma',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'La lista debe contener al menos un elemento habilitado',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nombre',
   'LBL_DROP_HERE' => '[Soltar Aquí]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dependiente',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Por favor, seleccione un módulo.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'desplegable(s) personalizados',
   'LBL_EC_CUSTOMFIELD' => 'campos personalizados',
+  'LBL_EC_CUSTOMLABEL' => 'etiqueta(s) personalizada(s)',
   'LBL_EC_CUSTOMLAYOUT' => 'diseño personalizados',
   'LBL_EC_DESCRIPTION' => 'Descripción:',
   'LBL_EC_EMPTYCUSTOM' => 'tiene vacías las personalizaciones.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Campos',
   'LBL_FILE' => 'Archivo',
   'LBL_FILLER' => '(relleno)',
+  'LBL_FILTER_SEARCH' => 'Buscar',
   'LBL_FORMULA' => 'Formula',
   'LBL_FORMULA_BUILDER' => 'Constructor de Fórmulas',
   'LBL_FORMULA_INVALID' => 'Fórmula No Válida',
   'LBL_FORMULA_TYPE' => 'La fórmula debe ser del tipo',
   'LBL_HCUSTOM' => 'PERSONALIZADO',
   'LBL_HDEFAULT' => 'POR DEFECTO',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Copiar del diseño',
   'LBL_HIDDEN' => 'Oculto',
   'LBL_HIDEOPTIONS' => 'Ocultar Opciones',
   'LBL_HIGH' => 'Alta',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Mi',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Editor de Listas Desplegables',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Las claves de un desplegable no pueden contener comillas.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indica un campo combinado. Un campo combinado es un conjunto de campos individuales. Por ejemplo, "Dirección" es un campo combinado que contiene "Calle", "Ciudad", "Código Postal", "Provincia/Estado", y "País".<br><br>Haz doble clic en el campo combinado para ver que campos contiene.',
   'LBL_ISSUE' => 'Incidencia',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => '¿Está seguro que desea eliminar la lista desplegable? Esto puede afectar la funcionalidad de tu aplicación.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => '¿Está seguro que desea eliminar el estado Cerrado Perdido?  Eliminar este estado puede provocar que el módulo de Previsión de Ventas no funcione adecuadamente',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => '¿Está seguro que desea eliminar el estado Cerrado Ganado?  Eliminar este estado puede provocar que el módulo de Previsión de Ventas no funcione adecuadamente',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Estás seguro que quieres eliminar el estado de Venta en Proceso?  Puede provocar problemas en el flujo de trabajo de Lineas de Ingreso en el módulo Oportunidades.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Estás seguro que quieres eliminar el estado de Nueva Venta?  Puede provocar problemas en el flujo de trabajo de Lineas de Ingreso en el módulo Oportunidades.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => '¿Está seguro que desea eliminar la lista desplegable? Eliminar el estado Cerrado Ganado o Cerrado Perdido puede provocar que el módulo de Previsión de Ventas no funcione adecuadamente',
   'LBL_JS_DEPLOY_PACKAGE' => 'Cualquier personalización que haya realizado en el Estudio será sobrescrita cuando este módulo sea desplegado de nuevo. ¿Está seguro de que desea proceder?',
   'LBL_JS_REMOVE_MODULE' => '¿Está seguro de que desea quitar este módulo? Esto eliminará permanentemente todos los archivos asociados con este módulo.',
   'LBL_JS_REMOVE_PACKAGE' => '¿Está seguro de que desea quitar este paquete? Esto eliminará permanentemente todos los archivos asociados con este paquete.',
   'LBL_JS_VALIDATE_KEY' => 'Clave - Debe ser alfanumérica',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Clave - Tiene que ser alfanumérica y empezar por una letra.',
   'LBL_JS_VALIDATE_LABEL' => 'Por favor, introduzca la etiqueta que se utilizará como Nombre Visible de este módulo',
   'LBL_JS_VALIDATE_NAME' => 'Nombre - Debe ser alfanumérico, sin espacios y comenzando por letra',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'El Nombre del Paquete ya existe',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'No se han encontrado Campos',
   'LBL_NO_FUNCS' => 'No se han encontrado Funciones',
   'LBL_NO_RELS' => 'Sin Relaciones',
-  'LBL_NO_SAVE_ACTION' => 'No se ha podido encontrar la opción de guardar para esta vista.',
+  'LBL_NO_SAVE_ACTION' => 'No se encontró la acción guardar para esta vista.',
   'LBL_NUMBER' => 'Número:',
   'LBL_ONETOMANY' => 'Uno a Muchos',
   'LBL_ONETOONE' => 'Uno a Uno',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Seleccione el diseño de Portal de Sugar a editar.',
   'LBL_QUICKCREATE' => 'Creación Rápida',
   'LBL_READ_ONLY' => 'Sólo Lectura',
+  'LBL_RECORDVIEW' => 'Vista de Registro',
   'LBL_RELATED_FIELD' => 'Campo relacionado',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (relacionado {1} ID)',
   'LBL_RELATE_TO' => 'Relacionado Con',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Restablecer Módulo',
   'LBL_RESTORE_DEFAULT' => 'Restaurar Vista Por Defecto',
   'LBL_RHS_MODULE' => 'Módulo Relacionado',
+  'LBL_ROLE' => 'Función',
   'LBL_ROLLUP' => 'Rollup',
   'LBL_RSUB' => 'Este es el subpanel que se mostrará en su módulo',
   'LBL_SALE' => 'Venta',
-  'LBL_SAVE' => 'Guardar',
   'LBL_SAVE_LAYOUT' => 'Guardar Diseño',
   'LBL_SEARCH' => 'Buscar',
   'LBL_SEARCH_FIELDS' => 'Buscar Campos...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Seleccione un Subpanel',
   'LBL_SELECT_FILE' => 'Seleccionar Archivo',
   'LBL_SELECT_SUBPANEL' => 'Seleccione Subpanel',
+  'LBL_SINGULAR_LABEL' => 'Etiqueta Individual',
   'LBL_SP_PREVIEW' => 'Aquí tiene una vista preliminar de la apariencia que tendrá el Portal de Sugar usando la hoja de estilos.',
   'LBL_SP_UPLOADED' => 'Subido',
   'LBL_SP_UPLOADSTYLE' => 'Seleccione la hoja de estilos a subir desde su equipo.<br> La hoja de estilos será utilizada en el Portal de Sugar la próxima vez que realice una sincronización.',
@@ -518,7 +533,7 @@ $mod_strings = array (
   array (
     'dropdowns' => 
     array (
-      'default' => 'Todos los <b>Despligues</b>para la aplicación están listados aquí.<br><br>Se puede usar los despliegues para campos en cualquier módulo.<br><br>Para realizar cambios en un despliegue ya existente, haga clic en el nombre del despliegue.<br><br>Click <b>Añadir Despliegue</b> para crear uno nuevo.',
+      'default' => '',
       'editdropdown' => '',
     ),
     'exportcustom' => 
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => '',
       'defaultdetailview' => '',
       'defaultquickcreate' => '',
+      'defaultrecordview' => '',
       'delete' => '',
       'historyBtn' => '',
       'historyDefault' => '',
@@ -589,13 +605,14 @@ $mod_strings = array (
       'studio' => 'Al marcar esta casilla permitirá a los administradores personalizar este módulo dentro de Studio.',
       'team_security' => 'Compruebe la casilla de <b> equipo de seguridad </ b> que permitirá la seguridad por equipo para este módulo. <br/><br/> Si el equipo de seguridad está activado, el campo de selección del equipo aparecerá dentro de los registros en el módulo',
       'type_basic' => 'La plantilla <b> básica </ b> cuenta con campos básicos, como el nombre, Asignado a, Equipo, Fecha de creación y los campos de Descripción.',
-      'type_company' => 'El tipo de plantilla de la <b>Empresa</b> dispone de campos específicos a la organización, como por ejemplo Nombre de la Empresa, Sector, Dirección Fiscal. <br /><br />Utilice esta plantilla para crear módulos que son similares a los módulos estándares de Cuentas.',
-      'type_file' => 'El tipo de plantilla de <b>Archivo<b> dispone de campos específicos de Documentos, como por ejemplo, Nombre del Archivo, tipo de Documento, y Fecha de Publicación. <br /><br />Utilice esta plantilla para crear módulos que son similares a los módules estándares de Documentos.',
-      'type_issue' => 'El tipo de plantilla de <b>Problemas</b> disponde de campos específicos a incidencias y casos internos, como por ejemplo, Número, Estado, Prioridad, Descripción. <br /><br />Utilice esta plantilla para crear módulos que son similares a los módulos estándares de Incidencias y Seguimiento de Casos Internos.',
-      'type_person' => 'El tipo de plantilla de <b>Persona</b> disponde de campos específicos al contacto, como por ejemplo, Greeting, Título, Nombre, Dirección, Número de Teléfono.  <br /><br />Utilice esta plantilla para crear módulos que son similares a los módulos estándares de Contactos y Potenciales.',
-      'type_sale' => 'El tipo de plantilla de <b>Venta</b> dispone de campos específicos a las oportunidades, como por ejemplo, Origen del Potencial, Fase, Cantidad, y Probabilidad.<br /><br />Utilice esta plantilla para crear módulos que son similares a los módulos estándares de las Oportunidades.',
+      'type_company' => 'El tipo de plantilla <b>Compañía</b> ofrece campos específicos según la organización, como por ejemplo Nombre de la compañía, Sector y Dirección de facturación.<br/><br/>Utilice esta plantilla para crear módulos similares a los módulos estándar de contabilidad.',
+      'type_file' => '',
+      'type_issue' => 'El tipo de plantilla <b>Asunto</b> ofrece campos específicos según los casos y errores, como por ejemplo Número, Estado, Prioridad y Descripción.<br/><br/>Utilice esta plantilla para crear módulos similares a los módulos estándar de seguimiento de casos y errores.',
+      'type_person' => 'El tipo de plantilla <b>Persona</b> ofrece campos específicos para individuos, como por ejemplo Saludo, Título, Nombre, Dirección y Número de teléfono.<br/><br/>Utilice esta plantilla para crear módulos similares a los módulos estándar de Contactos y Clientes potenciales.',
+      'type_sale' => '',
       'viewfieldsbtn' => 'Haga clic en <b> Ver Campos </ b> para ver los campos asociados con el módulo y para crear y editar los campos personalizados.',
       'viewlayoutsbtn' => 'Haga clic en <b> Ver Diseños </ b> para ver los diseños para el módulo y para personalizar la organización de campo dentro de los diseños.',
+      'viewmobilelayoutsbtn' => 'Haga clic en <b>Ver diseños móviles</b> para ver los diseños móviles de módulos y personalizar la distribución de campos en dichos diseños.',
       'viewrelsbtn' => 'Haga clic en <b> Ver Relaciones </ b> para ver las relaciones asociadas con este módulo y crear nuevas relaciones.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => '',
       'searchBtn' => '',
       'searchHelp' => '',
+      'studioBCHelp' => '',
       'studioBtn' => '',
       'studioHelp' => '',
       'subpanelBtn' => '',

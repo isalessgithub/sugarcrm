@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => '高级',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => '显示服务器反应时间',
   'ERR_ALERT_FILE_UPLOAD' => '上传图片发生错误。',
   'ERR_DELETE_CORE_FILE' => '错误: 不能删除核心字体。',
+  'ERR_EMPTY_SAML_CERT' => 'SAML证书不可以留空',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML登入链接不可以留空',
   'ERR_EZPDF_DISABLE' => '警告:EZPDF在配置表中被禁用.请单击"保存"以设置TCPDF作为PDF输出类。',
   'ERR_FONT_ALREADY_EXIST' => '错误 : 字体已存在。正在回滚...',
   'ERR_FONT_EMPTYFILE' => '错误: 文件名为空!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => '错误: 自定义字体路径不可用!',
   'ERR_NO_FONT_PATH' => '错误: 字体路径不可用！',
   'ERR_PDF_NO_UPLOAD' => '字体文件上传过程中发生错误。',
+  'ERR_SAML_LOGIN_URL' => 'SAML登入链接无效',
+  'ERR_SAML_SLO_URL' => 'SAML SLO链接无效',
   'HEAD_MAGNIFICATION' => '标题放大因子',
   'HEAD_MAGNIFICATION_INFO' => '标题放大因子',
   'IMAGES' => '标识',
@@ -73,23 +74,21 @@ $mod_strings = array (
   'LBL_ALLOW_DEFAULT_SELECTION_HELP' => '选中这个选项时，所有用户将能够使用相同的发送电子邮件帐户发送系统通知和警报。如果选项未选中，用户仍然可以使用自己的账户信息设置自己的邮件发送服务器。',
   'LBL_ALLOW_USER_TABS' => '允许用户配置标签',
   'LBL_BACK' => '返回',
-  'LBL_CHOOSE_EMAIL_PROVIDER' => '请选择邮件提供商:',
+  'LBL_CHOOSE_EMAIL_PROVIDER' => '请选择邮件提供商：',
   'LBL_CONFIGURE_SETTINGS_TITLE' => '系统设置',
-  'LBL_CONFIG_AJAX' => '设置AJAX用户界面',
-  'LBL_CONFIG_AJAX_DESC' => '在特定的模块中启用或禁用AJAX用户界面.',
   'LBL_DELETE' => '删除',
   'LBL_DISALBE_CONVERT_LEAD' => '对于线索转化禁用转化操作',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => '如果一个线索已经被转化，使用这个选项将移出转化线索操作。',
   'LBL_DISPLAYING_LOG' => '显示日志中',
   'LBL_ENABLE_ACTION_MENU' => '在菜单内显示行为',
   'LBL_ENABLE_ACTION_MENU_DESC' => '选择在下拉菜单中来显示细节是图和子面板的星文。如未选，行为则会显示未单独的按钮。',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => '在历史记录的子面板中显示相关的联系人的电子邮件模块',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => '在Email子面板，允许/关闭相关或相连的联系人的邮件。',
   'LBL_ENABLE_MAILMERGE' => '启用邮件合并？',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
-  'LBL_EXCHANGE_SMTPPASS' => 'Exchange 密码:',
-  'LBL_EXCHANGE_SMTPPORT' => 'Exchange 服务器端口:',
+  'LBL_EXCHANGE_SMTPPASS' => 'Exchange密码:',
+  'LBL_EXCHANGE_SMTPPORT' => 'Exchange服务器端口:',
   'LBL_EXCHANGE_SMTPSERVER' => 'Exchange 服务器:',
-  'LBL_EXCHANGE_SMTPUSER' => 'Exchange 用户名:',
+  'LBL_EXCHANGE_SMTPUSER' => 'Exchange用户名:',
   'LBL_FONTMANAGER_BUTTON' => 'PDF 字体管理',
   'LBL_FONTMANAGER_TITLE' => 'PDF 字体管理',
   'LBL_FONT_BOLD' => '粗体',
@@ -115,8 +114,8 @@ $mod_strings = array (
   'LBL_FONT_TYPE_TRUETYPEU' => 'TrueTypeUnicode',
   'LBL_FONT_TYPE_TYPE1' => '类型1',
   'LBL_GMAIL_LOGO' => 'Gmail 标志',
-  'LBL_GMAIL_SMTPPASS' => 'Gmail 密码:',
-  'LBL_GMAIL_SMTPUSER' => 'Gmail 邮箱地址:',
+  'LBL_GMAIL_SMTPPASS' => 'Gmail密码:',
+  'LBL_GMAIL_SMTPUSER' => 'Gmail邮箱地址:',
   'LBL_IGNORE_SELF' => '忽略自身:',
   'LBL_IMG_RESIZED' => '((改变大小)',
   'LBL_IMPORT_MAX_RECORDS' => '导入-行数最大值:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => '验证用户是，可以使用任何任何附加的过滤参数。例如: <em>is_sugar_user=1 或 (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => '线索转换选项',
   'LBL_LOADING' => '连载中...',
+  'LBL_LOCK_SUBPANELS_DESC' => '此设置适用于模块在传统模式下。',
   'LBL_LOGGER' => '日志记录设定',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => '缺省日期格式',
   'LBL_LOGGER_FILENAME' => '日志文件名',
@@ -175,9 +175,9 @@ $mod_strings = array (
   'LBL_MAIL_SMTPPASS' => 'SMTP 密码:',
   'LBL_MAIL_SMTPPORT' => 'SMTP 端口:',
   'LBL_MAIL_SMTPSERVER' => 'SMTP 服务器:',
-  'LBL_MAIL_SMTPTYPE' => 'SMTP 服务器类型:',
+  'LBL_MAIL_SMTPTYPE' => 'SMTP服务器类型：',
   'LBL_MAIL_SMTPUSER' => 'SMTP 用户名:',
-  'LBL_MAIL_SMTP_SETTINGS' => 'SMTP 服务器规格',
+  'LBL_MAIL_SMTP_SETTINGS' => 'SMTP服务器规格',
   'LBL_MARKING_WHERE_START_LOGGING' => '标记开始日志的位置',
   'LBL_MARK_POINT' => '标记要点',
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => '仪表盘自动刷新最小时间间隔',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => '下一个>>',
   'LBL_NOTIFY_FROMADDRESS' => '“发件人”地址::',
   'LBL_NOTIFY_SUBJECT' => '电子邮件主题:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => '防止要更新私人团队名称的用户变更名称',
   'LBL_OC_STATUS' => '默认离线客户端的状态',
   'LBL_OC_STATUS_DESC' => '如果您要任何用户都可以访问离线客户端，请点击这儿。否则，在用户级别中配置访问权限。',
   'LBL_PDFMODULE_NAME' => 'PDF 设置',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => '错误 : 字体添加失败. 详情请参见下列日志。',
   'LBL_STATUS_FONT_SUCCESS' => '成功 : 字体文件成功添加到Sugar.',
   'LBL_SYSTEM_SETTINGS' => '系统设置',
+  'LBL_TWEETTOCASE_ON' => '允许Tweet®与案例反馈集成',
+  'LBL_TWEETTOCASE_ON_DESC' => '允许用户从Twitter创建案例反馈',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet®到案例反馈',
   'LBL_USE_REAL_NAMES' => '显示全名(不是登录名)',
   'LBL_USE_REAL_NAMES_DESC' => '显示用户全名来代替用户名',
   'LBL_VCAL_PERIOD' => '日历闲忙信息更新时间范围:',
@@ -235,7 +239,7 @@ $mod_strings = array (
   'LBL_WIRELESS_LIST_ENTRIES' => '每页的列表视图项目(无线)',
   'LBL_WIRELESS_SERVER_URL' => 'Sugar 移动增值服务',
   'LBL_WIRELESS_SUBPANEL_LIST_ENTRIES' => '每页的子面板项目',
-  'LBL_WIZARD_BACK_BUTTON' => '< 退后',
+  'LBL_WIZARD_BACK_BUTTON' => '<退后',
   'LBL_WIZARD_CONTINUE_BUTTON' => '继续',
   'LBL_WIZARD_FINISH' => '点击<b>继续</b>配置你的用户设置。<br />配置额外的系统配置，请点击<a href="index.php?module=Administration&action=index" target="_blank">这里</a>',
   'LBL_WIZARD_FINISH_BUTTON' => '完成',
@@ -252,7 +256,7 @@ $mod_strings = array (
   'LBL_WIZARD_WELCOME_TAB' => '欢迎',
   'LBL_WIZARD_WELCOME_TITLE' => '欢迎来到 Sugar!',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail 密码:',
-  'LBL_YAHOOMAIL_SMTPUSER' => 'Yahoo! 电邮 ID:',
+  'LBL_YAHOOMAIL_SMTPUSER' => 'Yahoo! Mail ID:',
   'LBL_YAHOO_MAIL' => 'Yahoo邮件',
   'LBL_YOUR_IP_ADDRESS' => '你的IP地址是',
   'LBL_YOUR_PROCESS_ID' => '你的进程编号',
@@ -287,7 +291,7 @@ $mod_strings = array (
   'PDF_HEADER_LOGO_WIDTH' => '大图标的宽度',
   'PDF_HEADER_LOGO_WIDTH_INFO' => '大图标图像宽度。 (只针对 TCPDF)',
   'PDF_HEADER_STRING' => '文件头字符串',
-  'PDF_HEADER_STRING_INFO' => '文件头部用于描述的字符串',
+  'PDF_HEADER_STRING_INFO' => '文件页首的描述字符串',
   'PDF_HEADER_TITLE' => '文件头标题',
   'PDF_HEADER_TITLE_INFO' => '文档头部用于打印的标题',
   'PDF_IMAGE_SCALE_RATIO' => '图片缩放比例',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => '系统名称:',
   'SYSTEM_NAME_HELP' => '这是显示在您的浏览器的标题栏的名称。',
   'SYSTEM_NAME_WIZARD' => '姓名:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => '以下是推荐设置{{listEntriesNum}} 。额外字段会被加入到列表视图，这个数字应该在推荐设置的底端。',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => '以下是推荐设置 {{subpanelEntriesNum}} 。额外字段会被加入到列表视图，这个数字应该在推荐设置的底端。',
   'UPLOAD_MAX_SIZE' => '最大上传文件大小',
   'VERIFY_CLIENT_IP' => '验证用户IP地址',
   'vCAL_HELP' => '此设置用来决定电话和会议的闲忙信息更新时间范围.</BR>关闭闲忙信息更新请输入"0".  最小值1个月; 最大值12个月.',

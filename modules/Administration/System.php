@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -28,6 +25,7 @@ class System extends SugarBean {
     var $new_schema = true;
     var $table_name = "systems";
     var $object_name = "System";
+    var $module_name = "System";
     var $module_dir = 'Administration';
     // Stored fields
     var $system_id;
@@ -50,8 +48,8 @@ class System extends SugarBean {
     * Since system does not have teams, we will disable row_level_security
     * return                  an instance of System
     */
-    function System() {
-        parent::SugarBean();
+    public function __construct() {
+        parent::__construct();
         $this->disable_row_level_security =true;
     }
 
@@ -64,8 +62,7 @@ class System extends SugarBean {
         //obtain the number of Offline Client licenses
         global $current_user;
 
-        $admin = new Administration();
-        $admin->retrieveSettings();
+        $admin = Administration::getSettings();
         $system_id = $admin->settings['system_system_id'];
         $num_lic_oc = $admin->settings['license_num_lic_oc'];
         if(!$system_id){
@@ -230,8 +227,7 @@ class System extends SugarBean {
         $temp_array = $this->get_list_view_array();
 
 
-        $user = new User();
-        $user->retrieve($this->user_id);
+        $user = BeanFactory::getBean('Users', $this->user_id);
         $temp_array['USER_NAME'] = $user->user_name;
         $temp_array['LBL_DISABLE'] = $mod_strings['LNK_DISABLE'];
         $temp_array['NTC_DISABLE_ALERT'] = $mod_strings['NTC_DISABLE_OFFLINE_CLIENT_ALERT'];
@@ -307,11 +303,9 @@ class System extends SugarBean {
     * return   true if if we can add the user, false otherwise
     */
     function canAddUser($user_id){
-        $admin = new Administration();
-        $admin->retrieveSettings('system');
+        $admin = Administration::getSettings('system');
         if(!isset($admin->settings['system_oc_active']) || $admin->settings['system_oc_active'] != 'true'){
-            $user = new User();
-            $user->retrieve($user_id);
+            $user = BeanFactory::getBean('Users', $user_id);
             $status = $user->getPreference('OfflineClientStatus');
             return ($status == 'Active');
         }else{

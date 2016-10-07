@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge produsul',
@@ -72,15 +69,16 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Creeaza item',
   'LBL_PERCENTAGE' => 'Procentaj(%):',
   'LBL_POINTS' => 'Puncte',
+  'LBL_POINTS_ABBR' => 'Pcte',
   'LBL_PRICING_FACTOR' => 'Factor de pret:',
   'LBL_PRICING_FORMULA' => 'Formula preturilor implicita',
-  'LBL_PRODUCT' => 'Produs',
+  'LBL_PRODUCT' => 'Produs:',
   'LBL_PRODUCT_CATEGORIES' => 'Categorii de Produse',
   'LBL_PRODUCT_ID' => 'Identitate produs:',
   'LBL_PRODUCT_TYPES' => 'Tipuri Produse',
   'LBL_QTY_IN_STOCK' => 'Stoc',
   'LBL_QUANTITY' => 'Cantitate in stoc:',
-  'LBL_RELATED_PRODUCTS' => 'Produs inrudit',
+  'LBL_RELATED_PRODUCTS' => 'Elemente din ofertă relaţionate',
   'LBL_SEARCH_FORM_TITLE' => 'Cautare Catalog Produse',
   'LBL_STATUS' => 'Disponibilitate',
   'LBL_SUPPORT_CONTACT' => 'Suport contact:',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Site Web',
   'LBL_WEIGHT' => 'Greutate:',
   'LNK_IMPORT_PRODUCTS' => 'Importa produse',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'Importă intrări în catalogul de produse',
   'LNK_NEW_MANUFACTURER' => 'Producatori',
   'LNK_NEW_PRODUCT' => 'Creeaza produs pentru catalog',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Categorii de Produse',

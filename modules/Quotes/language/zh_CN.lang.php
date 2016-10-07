@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '必须指定记录编号才能删除报价。',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => '报价已转为商业机会',
   'LBL_ACCOUNT_ID' => '客户编号',
   'LBL_ACCOUNT_NAME' => '客户名称:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => '活动',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => '成本',
   'LBL_LIST_DATE_QUOTE_CLOSED' => '实际关闭',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => '有效期至',
-  'LBL_LIST_DEAL_TOT' => '折扣',
+  'LBL_LIST_DEAL_TOT' => '总折扣',
   'LBL_LIST_DISCOUNT_PRICE' => '单价',
   'LBL_LIST_FORM_TITLE' => '报价列表',
   'LBL_LIST_GRAND_TOTAL' => '总计',
@@ -108,14 +106,14 @@ $mod_strings = array (
   'LBL_NAME' => '报价名称',
   'LBL_NEW_FORM_TITLE' => '新增报价',
   'LBL_NEW_SUB' => '折扣小计:',
-  'LBL_NEXT_STEP' => '下个步驟:',
+  'LBL_NEXT_STEP' => '下个步驟：',
   'LBL_NON_TAXABLE' => '无税的',
-  'LBL_OPPORTUNITY_NAME' => '商业机会名称:',
+  'LBL_OPPORTUNITY_NAME' => '商业机会名称：',
   'LBL_ORDER_STAGE' => '定单阶段',
-  'LBL_ORIGINAL_PO_DATE' => '原始签订日期:',
+  'LBL_ORIGINAL_PO_DATE' => '原始签订日期：',
   'LBL_PAYMENT_TERMS' => '付款条件:',
   'LBL_PDF_BILLING_ADDRESS' => '付款商',
-  'LBL_PDF_CURRENCY' => '货币:',
+  'LBL_PDF_CURRENCY' => '货币：',
   'LBL_PDF_DISCOUNT' => '折扣:',
   'LBL_PDF_GRAND_TOTAL' => '总计',
   'LBL_PDF_INVOICE_NUMBER' => '发票编号',
@@ -129,9 +127,9 @@ $mod_strings = array (
   'LBL_PDF_ITEM_UNIT_PRICE' => '单价',
   'LBL_PDF_NEW_SUB' => '折扣小计:',
   'LBL_PDF_PART_NUMBER' => '参与人数',
-  'LBL_PDF_QUOTE_CLOSE' => '有效期至:',
-  'LBL_PDF_QUOTE_DATE' => '日期:',
-  'LBL_PDF_QUOTE_NUMBER' => '报价编号:',
+  'LBL_PDF_QUOTE_CLOSE' => '有效期至：',
+  'LBL_PDF_QUOTE_DATE' => '日期：',
+  'LBL_PDF_QUOTE_NUMBER' => '报价编号：',
   'LBL_PDF_QUOTE_TITLE' => '报价',
   'LBL_PDF_SALES_PERSON' => '销售人员:',
   'LBL_PDF_SHIPPING' => '运费:',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => '移除注释',
   'LBL_REMOVE_ROW' => '移除行',
   'LBL_RENAME_ERROR' => '错误:不能move_pdf到$destination。您应该确定文件目录在服务器上是可写的。',
+  'LBL_REVENUELINEITEMS' => '收入线项目',
   'LBL_SALES_STAGE' => '报价阶段:',
   'LBL_SEARCH_FORM_TITLE' => '查找报价',
   'LBL_SHIPPING' => '运费:',

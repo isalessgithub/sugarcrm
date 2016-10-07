@@ -12,7 +12,7 @@ array (
 		 'rel_module_type' => 'all', 
 	 'basic' => array ( 
 
-		 'left_company_c' => 'bool_true', 
+		 'left_company_c' => stripslashes('bool_true'),
 	 ), 
 
 	 'basic_ext' => array ( 

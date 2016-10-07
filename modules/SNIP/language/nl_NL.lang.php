@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,49 +20,50 @@ $mod_strings = array (
   'ERROR_REQUEST_FAILED' => 'Could not contact the server',
   'LBL_CANCEL_BUTTON_TITLE' => 'Annuleren',
   'LBL_CONFIGURE_SNIP' => 'E-mail Archivering',
-  'LBL_CONTACT_SUPPORT' => 'Please try again or contact SugarCRM Support.',
+  'LBL_CONTACT_SUPPORT' => 'Probeer opnieuw of neem contact op met SugarCRM Support.',
   'LBL_DISABLE_SNIP' => 'Uitschakelen',
-  'LBL_REGISTER_SNIP_FAIL' => 'Failed to contact Email Archiving service: %s!<br>',
+  'LBL_MODULE_NAME' => 'E-mail Archivering',
+  'LBL_REGISTER_SNIP_FAIL' => 'Verbinding met E-mail archiveringsdienst mislukt: %s!<br>',
   'LBL_SNIP_ACCOUNT' => 'Account',
   'LBL_SNIP_AGREE' => 'I agree to the above terms and the <a href="http://www.sugarcrm.com/crm/TRUSTe/privacy.html" target="_blank">privacy agreement</a>.',
   'LBL_SNIP_APPLICATION_UNIQUE_KEY' => 'Application Unique Key',
-  'LBL_SNIP_BUTTON_DISABLE' => 'Disable Email Archiving',
-  'LBL_SNIP_BUTTON_ENABLE' => 'Enable Email Archiving',
-  'LBL_SNIP_BUTTON_RETRY' => 'Try Connecting Again',
-  'LBL_SNIP_CALLBACK_URL' => 'Email Archiving service URL',
-  'LBL_SNIP_DESCRIPTION' => 'Email Archiving service is an automatic email archiving system',
-  'LBL_SNIP_DESCRIPTION_SUMMARY' => 'It allows you to see emails that were sent to or from your contacts inside SugarCRM, without you having to manually import and link the emails',
-  'LBL_SNIP_EMAIL' => 'Email Archiving Adress',
-  'LBL_SNIP_ERROR_DISABLING' => 'An error occured while attempting to communicate with the Email Archiving server, and the service could not be disabled',
-  'LBL_SNIP_ERROR_ENABLING' => 'An error occured while attempting to communicate with the Email Archiving server, and the service could not be enabled',
-  'LBL_SNIP_GENERIC_ERROR' => 'The Email Archiving service is currently unavailable.  Either the service is down or the connection to this Sugar instance failed.',
-  'LBL_SNIP_KEY_DESC' => 'Email Archiving OAuth key. Used for acessing this instance for purposes of importing emails.',
-  'LBL_SNIP_LAST_SUCCESS' => 'Last successful run',
-  'LBL_SNIP_MOUSEOVER_EMAIL' => 'This is the Email Archiving email address to send to in order to import emails into Sugar.',
-  'LBL_SNIP_MOUSEOVER_INSTANCE_URL' => 'This is webservices URL of your Sugar instance. The Email Archiving server will connect to your server through this URL.',
-  'LBL_SNIP_MOUSEOVER_SERVICE_URL' => 'This is the URL of the Email Archiving server. All requests, such as enabling and disabling the Email Archiving service, will be relayed through this URL.',
-  'LBL_SNIP_MOUSEOVER_STATUS' => 'This is the status of the Email Archiving service on your instance. The status reflects whether the connection between the Email Archiving server and your Sugar instance is successful.',
+  'LBL_SNIP_BUTTON_DISABLE' => 'Schakel E-mail Archivering <b>uit</b>',
+  'LBL_SNIP_BUTTON_ENABLE' => 'Schakel E-mail Archivering <b>in</b>',
+  'LBL_SNIP_BUTTON_RETRY' => 'Probeer opnieuw verbinding te maken',
+  'LBL_SNIP_CALLBACK_URL' => 'URL van de E-mail Archiveringsdienst',
+  'LBL_SNIP_DESCRIPTION' => 'E-mail Archiveringsdienst is een automatisch e-mailarchiveringssysteem.',
+  'LBL_SNIP_DESCRIPTION_SUMMARY' => 'Het stelt u in staat om verstuurde e-mail naar of van uw contacten binnen SugarCRM in te zien, zonder deze handmatig te importeren en te koppelen.',
+  'LBL_SNIP_EMAIL' => 'E-mail Archiveringsadres',
+  'LBL_SNIP_ERROR_DISABLING' => 'Er is een fout opgetreden tijdens het maken van een verbinding met de E-mail Archiveringsserver en de dienst kon niet worden uitgeschakeld.',
+  'LBL_SNIP_ERROR_ENABLING' => 'Er is een fout opgetreden tijdens het maken van een verbinding met de E-mail Archiveringsserver en de dienst kon niet worden ingeschakeld.',
+  'LBL_SNIP_GENERIC_ERROR' => 'De e-mailarchiveringsdienst is nu niet beschikbaar. De dienst is offline of de verbinding kon niet met deze Sugar instantie tot stand worden gebracht.',
+  'LBL_SNIP_KEY_DESC' => 'E-mail Archivering OAuth key. Gebruikt voor toegang naar de instantie om e-mails te importeren.',
+  'LBL_SNIP_LAST_SUCCESS' => 'Laatste keer voltooid',
+  'LBL_SNIP_MOUSEOVER_EMAIL' => 'Dit is het E-mail Archiveringsadres dat gebruikt moet worden voor het importeren van e-mails in uw instantie van SugarCRM.',
+  'LBL_SNIP_MOUSEOVER_INSTANCE_URL' => 'Dit is het webservices URL van uw Sugar instantie. De E-mail Archiveringsserver zal verbinding maken via deze URL.',
+  'LBL_SNIP_MOUSEOVER_SERVICE_URL' => 'Dit is de URL van de E-mail Archiveringsserver. Alle verzoeken, zoals het in-/uitschakelen van het archiveren, zullen via deze URL doorgegeven worden.',
+  'LBL_SNIP_MOUSEOVER_STATUS' => 'Dit is de status van de E-mail Archiveringsdienst voor uw instantie. De status geeft weer of de verbinding tussen de E-mail Archiveringsdienst en uw instantie tot stand is gebracht.',
   'LBL_SNIP_NEVER' => 'Nooit',
   'LBL_SNIP_PRIVACY' => 'privacy agreement',
-  'LBL_SNIP_PURCHASE' => 'Click here to purchase',
-  'LBL_SNIP_PURCHASE_SUMMARY' => 'In order to use Email Archiving, you must purchase a license for your SugarCRM instance',
-  'LBL_SNIP_PWD' => 'Email Archiving Password',
+  'LBL_SNIP_PURCHASE' => 'Klik hier om aan te schaffen',
+  'LBL_SNIP_PURCHASE_SUMMARY' => 'Om de E-mail Archivering te gebruiken, dient u een licentie aan te schaffen voor uw SugarCRM instantie.',
+  'LBL_SNIP_PWD' => 'E-mail Archiveringswachtwoord',
   'LBL_SNIP_STATUS' => 'Status',
   'LBL_SNIP_STATUS_ERROR' => 'Fout',
-  'LBL_SNIP_STATUS_ERROR_SUMMARY' => 'This instance has a valid Email Archiving server license, but the server returned the following error message:',
-  'LBL_SNIP_STATUS_FAIL' => 'Cannot register with Email Archiving server',
-  'LBL_SNIP_STATUS_FAIL_SUMMARY' => 'The Email Archiving service is currently unavailable.  Either the service is down or the connection to this Sugar instance failed.',
+  'LBL_SNIP_STATUS_ERROR_SUMMARY' => 'Deze instantie heeft een geldige E-mail Archiveringslicentie, maar de server heeft de volgened foutmelding doorgegeven:',
+  'LBL_SNIP_STATUS_FAIL' => 'Registratie bij de E-mail Archiveringsserver kon niet worden voltooid',
+  'LBL_SNIP_STATUS_FAIL_SUMMARY' => 'De e-mailarchiveringsdienst is nu niet beschikbaar. De dienst is offline of de verbinding kon niet met deze Sugar instantie tot stand worden gebracht.',
   'LBL_SNIP_STATUS_OK' => 'Ingeschakeld',
-  'LBL_SNIP_STATUS_OK_SUMMARY' => 'This Sugar instance is successfully connected to the Email Archiving server.',
+  'LBL_SNIP_STATUS_OK_SUMMARY' => 'Deze Sugar instantie is succesvol verbonden met de E-mail Archiveringsserver.',
   'LBL_SNIP_STATUS_PINGBACK_FAIL' => 'Pingback failed',
-  'LBL_SNIP_STATUS_PINGBACK_FAIL_SUMMARY' => 'The Email Archiving server is unable to establish a connection with your Sugar instance. Please try again or <a href="http://www.sugarcrm.com/crm/case-tracker/submit.html?lsd=supportportal&tmpl=" target="_blank">contact customer support</a>.',
+  'LBL_SNIP_STATUS_PINGBACK_FAIL_SUMMARY' => 'De E-mail Archiveringsserver kan geen verbinding met uw Sugar instantie tot stand brengen. Probeer opnieuw of <a href="http://www.sugarcrm.com/crm/case-tracker/submit.html?lsd=supportportal&tmpl=" target="_blank">neem contact op met customer support</a>.',
   'LBL_SNIP_STATUS_PROBLEM' => 'Problem: %s',
-  'LBL_SNIP_STATUS_RESET' => 'Not run yet',
-  'LBL_SNIP_STATUS_SUMMARY' => 'Email Archiving service status:',
-  'LBL_SNIP_SUGAR_URL' => 'This Sugar instance URL',
-  'LBL_SNIP_SUMMARY' => 'Email Archiving is an automatic importing service that allows users to import emails into Sugar by sending them from any mail client or service to a Sugar-provided email address. Each Sugar instance has its own unique email address. To import emails, a user sends to the provided email address using the TO, CC, BCC fields. The Email Archiving service will import the email into the Sugar instance. The service imports the email, along with any attachments, images and Calendar events, and creates records within the application that are associated with existing records based on matching email addresses.<br />    <br><br>Example: As a user, when I view an Account, I will be able to see all the emails that are  associated with the Account based on the email address in the Account record.  I will also be able to see emails that are associated with Contacts related to the Account.<br />    <br><br>Accept the terms below and click Enable to start using the service. You will be able to disable the service at any time. Once the service is enabled, the email address to use for the service will be displayed.<br />    <br><br>',
-  'LBL_SNIP_SUPPORT' => 'Please contact SugarCRM Support for assistance.',
-  'LBL_SNIP_USER' => 'Email Archiving User',
-  'LBL_SNIP_USER_DESC' => 'Email Archiving user',
+  'LBL_SNIP_STATUS_RESET' => 'Nog niet uitgevoerd',
+  'LBL_SNIP_STATUS_SUMMARY' => 'Status van E-mail Archiveringsdienst:',
+  'LBL_SNIP_SUGAR_URL' => 'URL van deze Sugar instantie',
+  'LBL_SNIP_SUMMARY' => 'E-mail Archivering is een automatische import voorziening die gebruikers in staat stelt om e0mail in Sugar te importeren door ze vanaf een willekeurige e-mail client naar een Sugar e-mailadres te versturen. Elke Sugar instantie heeft een eigen uniek e-mailadres. Om e-mails te importeren, verstuurt een gebruiker e-mails naar het opgegeven e-mailadres door gebruik te maken van het &#39;Aan&#39;, &#39;CC&#39; en/of &#39;BCC&#39; velden. De E-mail Archiveringsdienst zal de e-mail importeren in de Sugar instantie. De e-mail wordt incl. bijlagen, afbeeldingen en kalenderitems geïmporteerd en maakt nieuwe records aan in de applicatie die gekoppeld zijn met bestaande records gebaseerd op de e-mailadressen.<br /><br><br /><br><br />Voorbeeld: Als gebruiker, als ik een Organisatie bekijk, zal ik alle e-mail die horen bij die Organisatie gebaseerd op het bijbehorende e-mailadres van de Organisatie. Ik zal tevens e-mails zien die horen bij de (Contact)Personen van de Organisatie.<br /><br><br /><br><br />Accepteer de voorwaarden hieronder en klik op &#39;Instellen&#39; om de dienst te gebruiken. U kunt de dienst op elk gewenst tijdstip stopzetten en activeren. Als de dienst geactiveerd is, zal het e-mailadres voor het archiveren getoond worden.<br /><br><br /><br>',
+  'LBL_SNIP_SUPPORT' => 'Neem contact op met SugarCRM Support voor assistentie.',
+  'LBL_SNIP_USER' => 'E-mail Archiveringsgebruiker',
+  'LBL_SNIP_USER_DESC' => 'E-mail Archiveringsgebruiker',
 );
 

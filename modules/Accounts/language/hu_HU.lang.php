@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Biztosan el akarja távolítani ezt az klienset a projektből?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Hívások',
   'LBL_CAMPAIGNS' => 'Kampányok',
   'LBL_CAMPAIGN_ID' => 'Kampány azonosító',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampányok',
   'LBL_CASES_SUBPANEL_TITLE' => 'Esetek',
   'LBL_CHARTS' => 'Diagramok',
   'LBL_CITY' => 'Város:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Kliensek',
   'LBL_DESCRIPTION' => 'Leírás:',
   'LBL_DESCRIPTION_INFORMATION' => 'Információ részletezése',
+  'LBL_DNB_BAL_PREVIEW' => 'Számla Előnézete',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumentumok',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Lehet, hogy többszörösen előforduló kliens!',
   'LBL_EMAIL' => 'Email cím:',
   'LBL_EMAIL_ADDRESSES' => 'Email címek',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Munkatársak:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Felelős felhasználó neve',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Melléklet',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Kliensek jelentései',
+  'LBL_HELP_CREATE' => 'A {{plural_module_name}} modul azokat a cégeket listázza, amelyekkel az Ön cége kapcsolatban áll. {{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi nézetre való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása" paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul azokat a cégeket listázza, amelyekkel az Ön cége kapcsolatban áll. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul azokat a cégeket listázza, amelyekkel az Ön cége kapcsolatban áll. Új tételek létrehozása történhet kettőzéssel, importálással, illetve egyéb módokon is. Az új bejegyzések adatait rekord nézetben van lehetősége szerkeszteni. Minden egyes bejegyzés hozzákapcsolódhat egy sor másik Sugar rekordhoz, így kapcsolati, találkozóra vonatkozó, esetekről, vagy lehetőségekről szóló bejegyzésekhez is.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_HOMEPAGE_TITLE' => 'Klienseim',
   'LBL_INDUSTRY' => 'Ágazat:',
@@ -98,6 +103,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Kliensek: Főoldal',
   'LBL_NAME' => 'Név:',
   'LBL_NEW_FORM_TITLE' => 'Új kliens',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Feljegyzések',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Lehetőségek',
   'LBL_OTHER_EMAIL_ADDRESS' => 'További email:',
   'LBL_OTHER_PHONE' => 'További telefon:',
@@ -110,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Fax:',
   'LBL_PHONE_OFFICE' => 'Iroda telefon:',
   'LBL_POSTAL_CODE' => 'Irányítószám:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Termékek',
   'LBL_PRODUCTS_TITLE' => 'Termékek',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projektek',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projektek',
@@ -121,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Szállítás kényszerítése',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Árajánlatok',
   'LBL_RATING' => 'Értékelés:',
+  'LBL_REVENUELINEITEMS' => 'Bevételi sor tételek',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Bevétel sorok',
   'LBL_SAVE_ACCOUNT' => 'Kliens mentése',
   'LBL_SEARCH_FORM_TITLE' => 'Kliens keresése',
   'LBL_SHIPPING_ADDRESS' => 'Szállítási cím:',
@@ -146,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Honlap:',
   'LNK_ACCOUNT_LIST' => 'Kliensek megtekintése',
   'LNK_ACCOUNT_REPORTS' => 'Kliensjelentések megtekintése',
+  'LNK_CREATE' => 'Cég létrehozása',
   'LNK_IMPORT_ACCOUNTS' => 'Kliensek importálása',
   'LNK_NEW_ACCOUNT' => 'Kliens hozzáadása',
   'MSG_DUPLICATE' => 'A kliens, amit létre kíván hozni, elképzelhető, hogy másolt változata egy már létező kliensnek. A hasonló nevű bejegyzések alább láthatók. Kattintson a Kliens létrehozása gombra, ha folytatni kívánja a kliens létrehozását, vagy válasszon egyet a lenti listáról!',

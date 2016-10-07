@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'COLUMN_DISABLE_NUMBER_FORMAT' => 'בטל פורמט',
@@ -53,8 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'ברירת מחדל URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S. פורמט',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'שם שדה כבר קיים',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'שם השדה יכול להכיל רק את התווים הבאים: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'לא נכלל מודול. לא ניתן לשמור',
   'ERR_RESERVED_FIELD_NAME' => 'מילות מפתח שמורות',
   'ERR_SELECT_FIELD_TYPE' => 'בחר בבקשה סוג שדה',
+  'LBL_ADDING_COLUMN' => 'מוסיף עמודה {0} ל',
   'LBL_ADD_FIELD' => 'הוסף שדות:',
   'LBL_AUDITED' => 'Audited',
   'LBL_BTN_ADD' => 'הוסף',
@@ -66,10 +66,15 @@ $mod_strings = array (
   'LBL_DEPENDENT' => 'Dependent',
   'LBL_DEPENDENT_CHECKBOX' => 'תלוי ב',
   'LBL_DEPENDENT_TRIGGER' => 'טריגר',
+  'LBL_DONE' => 'בוצע',
+  'LBL_DROPPING_COLUMN' => 'מוחק עמודה {0} מתוך {1}עבור מודול',
   'LBL_DROP_DOWN_LIST' => 'רשימה נגללת',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'תלוי ב',
   'LBL_EDIT_VIS' => 'Edit Visibility',
   'LBL_ENFORCED' => 'Enforced',
+  'LBL_EXE_NON_SIM_MODE' => 'בצע מצב שאינו סימולציה',
+  'LBL_FIELD_MISSING' => 'חסרים שדות מ',
+  'LBL_FIX_COLUMN_TYPE' => 'מתקן סוג עמודה עבור {0} משנה את {1} ל',
   'LBL_FORMULA' => 'נוסחא',
   'LBL_GENERATE_URL' => 'צור URL',
   'LBL_HAS_PARENT' => 'Has Parent',
@@ -85,7 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Parent Dropdown',
   'LBL_RADIO_FIELDS' => 'שדה כפתור רדיו',
   'LBL_REPORTABLE' => 'יופיע בדוחות',
+  'LBL_SCAN_MODULE' => 'סורק',
   'LBL_SEARCH_FORM_TITLE' => 'חפש מודול',
+  'LBL_SIMULATION_MODE' => 'SIMULATION MODE - NO CHANGES WILL BE MADE EXCEPT CLEARING CACHE',
   'LBL_VISIBLE_IF' => 'Visible If',
   'LNK_CALL_LIST' => 'שיחות',
   'LNK_EMAIL_LIST' => 'דואר אלקטרוני',

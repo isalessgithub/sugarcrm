@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -99,10 +96,18 @@ function checkDBSettings($silent=false) {
         }
 
         // Bug 29855 - Check to see if given db name is valid
-        if (preg_match("![\"'*/\\?:<>-]+!i", $_SESSION['setup_db_database_name']) ) {
-            $errors['ERR_DB_MSSQL_DB_NAME'] = $mod_strings['ERR_DB_MSSQL_DB_NAME_INVALID'];
-            installLog("ERROR::  {$errors['ERR_DB_MSSQL_DB_NAME']}");
+        if($_SESSION['setup_db_type'] == 'oci8') {
+            if (preg_match("![\"'*\\?<>-]+!i", $_SESSION['setup_db_database_name'])) {
+                $errors['ERR_DB_OCI8_DB_NAME'] = $mod_strings['ERR_DB_OCI8_DB_NAME_INVALID'];
+                installLog("ERROR::  {$errors['ERR_DB_OCI8_DB_NAME']}");
+            }
         }
+        else {
+            if (preg_match("![\"'*/\\?:<>-]+!i", $_SESSION['setup_db_database_name']) ) {
+                $errors['ERR_DB_MSSQL_DB_NAME'] = $mod_strings['ERR_DB_MSSQL_DB_NAME_INVALID'];
+                installLog("ERROR::  {$errors['ERR_DB_MSSQL_DB_NAME']}");
+            }
+         }
 
         // test the account that will talk to the db if we're not creating it
         if( $_SESSION['setup_db_sugarsales_user'] != '' && !$_SESSION['setup_db_create_sugarsales_user'] ){
@@ -148,13 +153,9 @@ function checkDBSettings($silent=false) {
                 } else {
                     if($db_selected) {
                         installLog("DB Selected, will reuse {$_SESSION['setup_db_database_name']}");
-                        if($db->tableExists('config')) {
-                           include('sugar_version.php');
-                           $versions = $db->getOne("SELECT COUNT(*) FROM config WHERE category='info' AND name='sugar_version' AND VALUE LIKE '$sugar_db_version'");
-                           if($versions > 0 && $silent==false) {
-                               $errors['ERR_DB_EXISTS_WITH_CONFIG'] = $mod_strings['ERR_DB_EXISTS_WITH_CONFIG'];
-                               installLog("ERROR:: {$errors['ERR_DB_EXISTS_WITH_CONFIG']}");
-                           }
+                        if($silent == false && $db->tableExists('config')) {
+                            $errors['ERR_DB_EXISTS_WITH_CONFIG'] = $mod_strings['ERR_DB_EXISTS_WITH_CONFIG'];
+                            installLog("ERROR:: {$errors['ERR_DB_EXISTS_WITH_CONFIG']}");
                         }
                     } else {
                         installLog("DB not selected, will create {$_SESSION['setup_db_database_name']}");
@@ -183,12 +184,13 @@ function checkDBSettings($silent=false) {
         }
 
         //Test FTS Settings
-        if(!empty($_SESSION['setup_fts_type']))
-        {
-            if(! checkFTSSettings() )
-            {
+        if (empty($_SESSION['setup_fts_type'])) {
+            installLog("ERROR:: Elastic Search is required.");
+            $errors['ERR_FTS'] = $mod_strings['LBL_FTS_REQUIRED'];
+        } else {
+            if (!checkFTSSettings()) {
                 installLog("ERROR:: Unable to connect to FTS." . $_SESSION['setup_fts_type']);
-                $errors['ERR_FTS'] =  $mod_strings['LBL_FTS_ERROR'];
+                $errors['ERR_FTS'] = $mod_strings['LBL_FTS_ERROR'];
             }
         }
 

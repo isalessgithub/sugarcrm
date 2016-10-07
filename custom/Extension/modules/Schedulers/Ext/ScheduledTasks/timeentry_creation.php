@@ -1,4 +1,4 @@
- <?php
+<?php
  array_push($job_strings, 'timeentry_creation');
  function timeentry_creation(){
  	$db = DBManagerFactory::GetInstance();

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre a eliminar.',
@@ -65,6 +62,30 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Relacionat al mòdul',
   'LBL_EXPORT_REMINDER_TIME' => 'Temps de recordatori (en minuts)',
   'LBL_FIRST_NAME' => 'Nom',
+  'LBL_HELP_CREATE' => 'El  mòdul {{plural_module_name}} consisteix en registres {{calls_singular_module}} registrats per usuaris a la seva organització. Potser {{plural_module_name}} tindrà l&#39;estat "Programat", "Celebrat" o "Cancel·lat". Els usuaris de Sugar, així com els contactes i clients potencials es poden afegir com a convidats.
+
+Per crear un {{calls_singular_module}}:
+1. Proporcioni els valors desitjats per als camps.
+    - Els camps marcats "Necessari" s&#39;han de completar abans de desar-los.
+    - Feu clic a "Mostra més" per exposar camps addicionals si és necessari.
+2. Afegiu convidats a {{calls_singular_module}}.
+    - Feu clic a "Selecciona un convidat" per afegir un usuari, contacte o client potencial al {{calls_singular_module}}.
+    - Feu clic a la icona "més" a la dreta de "Selecciona un convidat" per crear un convidat de {{calls_singular_module}} com a nou registre de Sugar.
+3. Feu clic a "Desar" per finalitzar el nou registre i tornar a la pàgina anterior.
+    - Trieu "Desa i veu" per obrir el nou {{calls_singular_module}} a la vista de registres.
+    - Trieu "Desa i crea nou" per crear un altre {{calls_singular_module}} nou immediatament.',
+  'LBL_HELP_RECORD' => 'El mòdul {{plural_module_name}} consisteix en registres de {{calls_singular_module}} registrats per usuaris de la vostra organització. Potser {{plural_module_name}} tindrà un estat de "Programat", "Celebrat" o "Cancel·lat". Usuaris de Sugar, així com {{contacts_module}} i {{leads_module}} es poden afegir com convidats.
+
+- Editeu aquests camps del registre fent clic a un camp individual o al botó Edita.
+- Vegeu o modifiqueu enllaços a altres registres en els subpanells commutant la subfinestra inferior esquerra a "Vista de dades".
+- Feu i vegeu comentaris d&#39;usuari i registreu l&#39;historial de canvis al canal d&#39;activitat mitjançant la commutació de la subfinestra inferior esquerra a "Canal d&#39;activitat".
+- Feu el seguiment d&#39;aquest registre o marqueu-lo com a favorit amb les icones que hi han a la dreta del nom del registre.
+- Hi han accions addicional disponibles al menú d&#39;accions desplegable a la dreta del botó Edita.',
+  'LBL_HELP_RECORDS' => 'El mòdul {{plural_module_name}} consisteix en uns registres de trucades que poden tenir l&#39;estat "Programades", "Celebrades" o "Cancel·lades". Les trucades vinents programades per a les pròximes 24 hores mostren la data d&#39;inici marcada en blau. Les trucades vençudes mostren la data d&#39;inici marcada en vermell.
+
+Des d&#39;aquesta vista de llista {{plural_module_name}}, podeu veure i editar en línia la informació de la trucada. Hi han accions addicionals disponibles al menú del final de cada fila de trucada. Podeu seleccionar "Tanca" al menú de qualsevol fila de trucada programada per marcar-la com celebrada.
+
+Es poden afegir usuaris de Sugar, contactes i clients potencials com a convidats a la trucada. {{plural_module_name}} es pot crear mitjançant el mòdul {{plural_module_name}}, mòdul del calendari, importa, així com amb el subpanell d&#39;Activitats (per a mòduls heretats) o amb el dashlet d&#39;activitats planificades (per a mòduls Sidecar) a registres de mòduls relacionats (per exemple, contactes, comptes, etc.), la qual cosa crearà automàticament una relació entre ambdós registres..',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notas',
   'LBL_HOURS_ABBREV' => 'h',
   'LBL_HOURS_MINUTES' => '(hores/minuts)',
@@ -89,12 +110,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Trucades',
   'LBL_MODULE_NAME_SINGULAR' => 'Trucada',
   'LBL_MODULE_TITLE' => 'Trucades: Inici',
+  'LBL_MY_SCHEDULED_CALLS' => 'Les meves trucades programades',
   'LBL_NAME' => 'Nom',
   'LBL_NEW_FORM_TITLE' => 'Crear Cita',
   'LBL_NO_ACCESS' => 'No té accés per crear $module',
   'LBL_OUTLOOK_ID' => 'ID Outlook',
   'LBL_PARENT_ID' => 'ID Pare',
   'LBL_PHONE' => 'Telèfon',
+  'LBL_POPUP_REMINDER_TIME' => 'Hora de recordatori emergent',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Heu programat {{moduleSingularLower}} per al {{formatDate date_start}}, però no teniu permís per accedir-hi.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Heu programat {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> per al {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Reaparició',
   'LBL_RECURRING_LIMIT_ERROR' => 'La recurrència de no es pot programar pel fet que excedeix el màxim permès de recurrència $limit.',
   'LBL_RECURRING_SOURCE' => 'Font periódico',
@@ -105,6 +130,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Enviar correu electrònic a tots els convidats',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Hora Avís',
+  'LBL_REMINDER_TITLE' => 'Truqui:',
   'LBL_REMOVE' => 'treure',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Eliminar totes les recurrències',
   'LBL_REPEAT_COUNT' => 'Nombre de repeticions',
@@ -117,6 +143,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Repetiu l&#39;ID principal',
   'LBL_REPEAT_TYPE' => 'Repetició',
   'LBL_REPEAT_UNTIL' => 'Repetiu fins que',
+  'LBL_REVENUELINEITEMS' => 'Línia d&#39;impostos articles',
   'LBL_SCHEDULING_FORM_TITLE' => 'Planificació',
   'LBL_SEARCH_BUTTON' => 'Buscar',
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Trucades',
@@ -141,5 +168,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Seleccionar Compte',
   'NOTICE_DURATION_TIME' => 'El temps de durada te que ser major que 0',
   'NTC_REMOVE_INVITEE' => 'Està segur que desitja treure aquest participant de la trucada?',
+  'TPL_CALL_STATUS_CHANGED' => 'Trucada marcada com {{status}}.',
 );
 

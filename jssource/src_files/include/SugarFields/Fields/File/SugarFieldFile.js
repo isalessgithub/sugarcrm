@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
         
 if ( typeof(SUGAR.field) == 'undefined' ) {
     SUGAR.field = new Object();
@@ -183,8 +180,13 @@ if ( typeof(SUGAR.field.file) == 'undefined' ) {
             var sff = SUGAR.field.file; //Scope is set to element.
             var fileEl = document.getElementById(obj.fileEl);
             var fileName = fileEl.value;
-            
             var isValid = sff.isFileExtensionValid(fileName);
+            // If the errorpannel already exist with length 1, we remove it
+            // before it overlaps with the old one
+            var popupExist = $(".container-close").length;
+            if (popupExist) {
+                $(".yui-panel-container.yui-dialog.yui-simple-dialog.yui-overlay-hidden").remove();
+            }
             if( !isValid && fileName != '' ){
                 var errorPannel = new YAHOO.widget.SimpleDialog('sugarMsgWindow', {
         			width: '240px',visible: true, fixedcenter: true,constraintoviewport: true,

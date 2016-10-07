@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,23 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Mime тип',
   'LBL_FILE_URL' => 'Адрес на файла (URL)',
   'LBL_FIRST_NAME' => 'Име',
+  'LBL_HELP_CREATE' => 'Модулът {{plural_module_name}} съхранява текстова информация и прикачени файлове, които са свързани с конкретен запис в системата.
+
+За да създадете нов запис в модул {{plural_module_name}}:
+1. Въведете стойности в отделните полета.
+ * Полетата маркирани като "Задължителни" се изисква да имат зададена стойнист преди да се пристъпи към съхраняване на записа.
+ * Натиснете върху "Покажи повече", за да бъдат визуализирани допълнителни полета ако е необходимо.
+2. Натиснете "Съхрани", за да запазите новия запис и да се върнете към списъка със записи към модула {{plural_module_name}}.
+ * Изберете "Съхрани и разгледай", за да отворите автоматично детайли за новия запис.
+ * Изберете "Съхрани и създай нов", за да пристъпите към създаване на още един нов запис в модул  {{plural_module_name}}.',
+  'LBL_HELP_RECORD' => 'Модулът {{plural_module_name}} съхранява текстова информация и прикачени файлове, които са свързани с конкретен запис в системата.
+
+- Редактирайте текущия запис като натиснете конкретно поле или използвате бутона „Редактирай“.
+- Разгледайте или модифицирайте връзките с други записи в системата, като за целта визуализирате панела „Свързани записи“.
+- Поставете коментари към текущия запис и разгледайте история на извършените промени свързани с него, като преминете в панела „Хронология“.
+- Следвайте или харесайте текущия запис като използвате иконите, намиращи се в дясно от името му.
+- Можете да извършвате допълнителни действия със записа като използвате падащото меню в дясно на бутона „Редактирай“.',
+  'LBL_HELP_RECORDS' => 'Модулът {{plural_module_name}} съхранява текстова информация и прикачени файлове, които са свързани с конкретен запис в системата. Съществуват различни начини да създадете {{plural_module_name}} в SugarCRM, като за целта можете да използвате опциите на модула {{plural_module_name}}, да импортирате  {{plural_module_name}} през панела „История“ и други. След като дадена {{module_name}} е въведена в системата, можете да разгледате и редактирате информацията за нея през изгледа „Детайли за записа“. Всяка {{module_name}} може да бъде свързана с други записи в Sugar, в това число {{accounts_module}}, {{contacts_module}}, {{opportunities_module}} и много други.',
   'LBL_LAST_NAME' => 'Фамилия',
   'LBL_LEAD_ID' => 'Потенциален клиент:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Отговорник',
@@ -79,6 +93,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'Оферта:',
   'LBL_RELATED_TO' => 'Свързано със:',
   'LBL_REMOVING_ATTACHMENT' => 'Изтриване на приложението...',
+  'LBL_REVENUELINEITEMS' => 'Приходни позиции',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Бележки"',
   'LBL_SEND_ANYWAYS' => 'Това писмо няма дефинирана тема.  Изпрати и запази?',
   'LBL_STATUS' => 'Статус',

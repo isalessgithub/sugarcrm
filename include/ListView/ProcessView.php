@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -498,7 +495,7 @@ class ProcessView {
 
         if($option_array['type']=="dropdown"){
 
-            $expression_object = new Expression();
+            $expression_object = BeanFactory::getBean('Expressions');
 
             $select_options = $expression_object->get_selector_array("dom_array", $this->target_bean->$option_array['value'], $option_array['dom_name'], false);
             return "<select id='".$option_array['value']."' name='".$option_array['value']."' tabindex='1'>".$select_options."</select>";
@@ -606,7 +603,7 @@ class ProcessView {
         }
 
         if($type=="special_exp"){
-            $expression_object = new Expression();
+            $expression_object = BeanFactory::getBean('Expressions');
 
             $text_array = $expression_object->get_selector_array($exp_type, "", $dom_name, true);
 
@@ -671,7 +668,7 @@ class ProcessView {
 
     function build_filter_output($prefix, $vardef_name){
 
-        $filter_object = new Expression();
+        $filter_object = BeanFactory::getBean('Expressions');
         //only try to retrieve if there is a base object set
         if(isset($this->target_bean->id) && $this->target_bean->id!="") {
             $filter_list = $this->target_bean->get_linked_beans($vardef_name,'Expression');
@@ -716,20 +713,20 @@ class ProcessView {
 
         $workflow_object = $action_shell->get_workflow_object();
         if($action_shell->action_type=="update"){
-            $temp_module = get_module_info($workflow_object->base_module);
+            $temp_module = BeanFactory::getBean($workflow_object->base_module);
             $meta_filter = "action_filter";
             $action_processed = true;
         }
         if($action_shell->action_type=="update_rel"){
             $rel_module = $workflow_object->get_rel_module($action_shell->rel_module);
-            $temp_module = get_module_info($rel_module);
+            $temp_module = BeanFactory::getBean($rel_module);
             $meta_filter = "action_filter";
             $action_processed = true;
         }
 
         if($action_shell->action_type=="new"){
             $rel_module = $workflow_object->get_rel_module($action_shell->action_module);
-            $temp_module = get_module_info($rel_module);
+            $temp_module = BeanFactory::getBean($rel_module);
             $meta_filter = "action_filter";
             $action_processed = true;
         }
@@ -806,8 +803,7 @@ class ProcessView {
 
                 $action_id = $action_shell->get_action_id($key);
                 if($action_id!==false){
-                    $action_object = new WorkFlowAction();
-                    $action_object->retrieve($action_id);
+                    $action_object = BeanFactory::getBean('WorkFlowActions', $action_id);
                     $act_action_value = $action_object->value;
                     $start_display = "none";
                     $act_id = $action_object->id;
@@ -844,6 +840,18 @@ class ProcessView {
                 $act_ext2 = "";
                 $act_ext3 = "";
             }
+
+            // get the label for the field
+            $field = $temp_module->getFieldDefinition($value);
+            $field_label = $value;
+            if(is_array($field) && isset($field['vname'])) {
+                // lets get the correct label
+                $mod_strings = return_module_language($GLOBALS['current_language'], $temp_module->module_name);
+                if (isset($mod_strings[$field['vname']])) {
+                    $field_label = str_replace(':', '', $mod_strings[$field['vname']]);
+                }
+            }
+
             $sub_array = array();
             $sub_array["ACTION_VALUE"] = $act_action_value;
             $sub_array["ACTION_ACTION_ID"] = $act_id;
@@ -852,7 +860,7 @@ class ProcessView {
             $sub_array["START_DISPLAY"] = $start_display;
             $sub_array["FIELD_NUM"] = $field_count;
             $sub_array["FIELD_VALUE"] = $key;
-            $sub_array["FIELD_NAME"] = $value;
+            $sub_array["FIELD_NAME"] = $field_label;
             $sub_array["ACTION_DISPLAY_TEXT"] = get_display_text($temp_module, $key, $act_action_value, $act_adv_type, $act_ext1, array('for_action_display' => true));
             $sub_array["ACTION_ADV_VALUE"] = $act_adv_value;
             $sub_array["ACTION_EXT1"] = $act_ext1;
@@ -874,8 +882,8 @@ class ProcessView {
     function get_list_display_text_compare_specific($trigger_shell)
     {
         global $app_list_strings;
-        $temp_module = get_module_info($this->workflow_object->base_module);
-        $future_object = new Expression();
+        $temp_module = BeanFactory::getBean($this->workflow_object->base_module);
+        $future_object = BeanFactory::getBean('Expressions');
         $future_list = $trigger_shell->get_linked_beans('future_triggers','Expression');
         if(!empty($future_list[0])) {
             $future_id = $future_list[0]->id;
@@ -924,7 +932,7 @@ class ProcessView {
         $tmp_mod_strings=return_module_language($current_language,'workflow');
         if(isset($trigger_shell->id) && $trigger_shell->id!="")
         {
-            $filter1_object = new Expression();
+            $filter1_object = BeanFactory::getBean('Expressions');
             $filter_list = $trigger_shell->get_linked_beans('expressions','Expression');
             if(isset($filter_list[0]) && $filter_list[0]!= null)
             {
@@ -937,9 +945,9 @@ class ProcessView {
                 //Check if a relate object id is
                 if ($filter1_object->exp_type == 'relate')
                 {
-                	$wfseed = get_module_info($filter1_object->lhs_module);
+                	$wfseed = BeanFactory::getBean($filter1_object->lhs_module);
                 	$field_def = $wfseed->field_defs[$filter1_object->lhs_field];
-                	$rel_seed = get_module_info($field_def['module']);
+                	$rel_seed = BeanFactory::getBean($field_def['module']);
                 	$rel_seed->retrieve($filter1_object->rhs_value);
                 	if (empty($rel_seed->id))
                 	{
@@ -1005,7 +1013,7 @@ class ProcessView {
 
     function get_js_exception_fields()
     {
-        return array("char", "varchar", "name", "phone", "email", "enum", "assigned_user_name");
+        return array("char", "varchar", "text", "name", "phone", "email", "enum", "assigned_user_name");
     }
     //end class ProcessView
 }

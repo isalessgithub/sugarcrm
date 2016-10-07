@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokument kreiran',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Naziv dokumenta:',
   'ERR_DOC_VERSION' => 'Verzija dokumenta',
   'ERR_FILENAME' => 'Naziv fajla',
+  'ERR_FILESIZE' => 'Fajl je prevše velik. Maksimalna veličina fajla:',
   'LBL_ACTIVE_DATE' => 'Datum objave',
   'LBL_AND' => 'i',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Primenjujem oznake na artikle...',
@@ -35,16 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Autor:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Autor',
   'LBL_ARTICLE_BODY' => 'Artikal:',
-  'LBL_ARTICLE_EXISTS' => 'Artikal već postoji',
+  'LBL_ARTICLE_EXISTS' => 'Članak već postoji',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artikl',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Kratki pregled nije moguć, dokument postoji, ali je još uvek bez sadržaja.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Kratki pregled nije moguć, zapis dokumenta nije pronađen.',
   'LBL_ARTICLE_TITLE' => 'Naslov:',
   'LBL_ATTACHMENTS' => 'Prilozi:',
-  'LBL_CASE' => 'Slučaj:',
+  'LBL_CASE' => 'Slučaj',
   'LBL_CASES' => 'Slučajevi',
   'LBL_CASES_SUBPANEL_TITLE' => 'Povezani slučajevi',
-  'LBL_CASE_ID' => 'ID broj slučaja:',
+  'LBL_CASE_ID' => 'ID broj slučaja',
   'LBL_CATEGORY' => 'Kategorija',
   'LBL_CATEGORY_VALUE' => 'Kategorija:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Neodređena',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Ugovori',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Povezani ugovori',
   'LBL_CONTRACT_NAME' => 'Naziv ugovora',
+  'LBL_CONTRACT_STATUS' => 'Status ugovora',
   'LBL_CREATED' => 'Autor',
   'LBL_CREATED_BY' => 'Autor',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'ID broj dokumenta',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Broj revizije KBdokumenta',
   'LBL_KBDOC_APPROVED_BY' => 'Odobrio:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Ime odobrioca',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Preuzmi priloge:',
   'LBL_KBDOC_BODY' => 'Tekst:',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'ID poslednje revizije',
   'LBL_LATEST_REVISION_NAME' => 'Naziv poslednje revizije',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Pokrećem pretragu oznaka...',
+  'LBL_LINKED_ID' => 'Povezani id broj',
   'LBL_LIST_ACTIVE_DATE' => 'Datum objave',
-  'LBL_LIST_APPROVED_BY' => 'Odobrio:',
+  'LBL_LIST_APPROVED_BY' => 'Odobrio',
   'LBL_LIST_ARTICLES' => 'Pregled artikala',
   'LBL_LIST_CATEGORY' => 'Kategorija',
   'LBL_LIST_DOCUMENT' => 'Dokument',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Fajl nije validan',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Matični tip',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Možete filtrirati listu članaka ukucavanjem pojma za pretragu.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Na primer, možete ovo iskoristiti da pronađete članak na određenu temu koja vas interesuje.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modul Baza znanja služi za rad sa objavljenim člancima. Koristite strelice ispod za brzi obilazak.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Ova strana prikazuje listu objavljenih članaka.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Klikom ovde se u bilo koje vreme vraćate na Bazu znanja.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Prethodno sačuvane pretrage:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Izmeni ili obriši postojeću sačuvanu pretragu.',
   'LBL_PUBLISHED' => 'Objavljen:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga dokumenata',
   'LBL_SEARCH_TAG' => 'Pretraga',
   'LBL_SEARCH_WITHIN' => 'Pretraži unutar:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Fajl izabrane revizije',
+  'LBL_SELECTED_REVISION_ID' => 'Id izabrane revizije',
   'LBL_SELECTED_REVISION_NAME' => 'Naziv odabrane revizije',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Izaberite artikle da bi primenili oznake',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Izaberite prvo artikle',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Koristi ovu oznaku:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Neobeleženi artikli',
   'LBL_UPDATE' => 'Ažuriraj',
+  'LBL_VIEWS_NUMBER' => 'Broj pregleda',
   'LNK_KBDOCUMENT_LIST' => 'Prikaži dokumente',
   'LNK_NEW_ARTICLE' => 'Kreiraj artikal',
   'LNK_NEW_MAIL_MERGE' => 'Spajanje Email-ova',

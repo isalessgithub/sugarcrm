@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once 'modules/ModuleBuilder/parsers/relationships/AbstractRelationship.php' ;
 
@@ -72,14 +69,10 @@ class OneToManyRelationship extends AbstractRelationship
             return array () ;
         
         $source = "";
-        if ($this->rhs_module == $this->lhs_module)
-        {
-        	$source = $this->getJoinKeyLHS();
-        }
- 
+
         return array( 
         	$this->lhs_module => $this->getSubpanelDefinition ( 
-        		$this->relationship_name, $this->rhs_module, $this->rhs_subpanel , $this->getRightModuleSystemLabel() , $source
+        		$this->relationship_name, $this->rhs_module, $this->rhs_subpanel , $this->getRightModuleSystemLabel()
         	) 
         );
     }
@@ -90,10 +83,6 @@ class OneToManyRelationship extends AbstractRelationship
             return array () ;
 
         $source = "";
-        if ($this->rhs_module == $this->lhs_module)
-        {
-        	$source = $this->getJoinKeyLHS();
-        }
 
         return array(
         	$this->lhs_module => $this->getWirelessSubpanelDefinition (
@@ -107,24 +96,95 @@ class OneToManyRelationship extends AbstractRelationship
      */
 	function buildVardefs ( )
     {
-        $vardefs = array ( ) ;
-        
-        $vardefs [ $this->rhs_module ] [] = $this->getLinkFieldDefinition ( $this->lhs_module, $this->relationship_name, false,
+        $leftLink = $this->getLinkFieldDefinition ( 
+            $this->rhs_module, 
+            $this->relationship_name, 
+            false,
             'LBL_' . strtoupper ( $this->relationship_name . '_FROM_' . $this->getLeftModuleSystemLabel() ) . '_TITLE',
             $this->relationship_only ? false : $this->getIDName( $this->lhs_module )
-        ) ;
+        );
+
+        $rightLink = $this->getLinkFieldDefinition (
+            $this->lhs_module,
+            $this->relationship_name,
+            true,
+            'LBL_' . strtoupper ( $this->relationship_name . '_FROM_' . $this->getRightModuleSystemLabel()  ) . '_TITLE'
+        );
+
+        if (! $this->relationship_only) {
+            $relateNameField = $this->getRelateFieldDefinition ( 
+                $this->lhs_module, 
+                $this->relationship_name,
+                $this->getLeftModuleSystemLabel()
+            );
+            $relateIdField = $this->getLink2FieldDefinition (
+                $this->lhs_module,
+                $this->relationship_name,
+                true,
+                'LBL_' . strtoupper ( $this->relationship_name . '_FROM_' . $this->getRightModuleSystemLabel()  ) . '_TITLE'
+            );
+            
+        }
+
+        $rightLink['link-type'] = 'one';
+        $rightLink['side'] = 'right';
+        $leftLink['link-type'] = 'many';
+        $leftLink['side'] = 'left';
+
+        //$rightLink['id_name'] = $this->getJoinKeyRHS();
+        
+        if ( $this->rhs_module == $this->lhs_module ) {
+            $rightLink['name'] = $rightLink['name'].'_right';
+            $leftLink['id_name'] = $this->getJoinKeyRHS();
+        }
+
+        if ( !$this->relationship_only ) {
+            $relateNameField['id_name'] = $rightLink['id_name'];
+            $relateIdField['id_name'] = $rightLink['id_name'];
+            $relateNameField['link'] = $rightLink['name'];
+            $relateIdField['link'] = $rightLink['name'];
+        }
+
+        $vardefs = array ( ) ;
+        
+        $vardefs [ $this->lhs_module ] [] = $leftLink;
+        $vardefs [ $this->rhs_module ] [] = $rightLink;
+
+        if (! $this->relationship_only) {
+            $vardefs [ $this->rhs_module ] [] = $relateNameField;
+            $vardefs [ $this->rhs_module ] [] = $relateIdField;
+        }
+        /*
         if ($this->rhs_module != $this->lhs_module )
         {
-        	$vardefs [ $this->lhs_module ] [] = $this->getLinkFieldDefinition ( $this->rhs_module, $this->relationship_name, true,
+        	$vardefs [ $this->lhs_module ] [] = 
+        }
+        else
+        {
+            $rightLink = $this->getLinkFieldDefinition ( $this->rhs_module, $this->relationship_name, true,
                 'LBL_' . strtoupper ( $this->relationship_name . '_FROM_' . $this->getRightModuleSystemLabel()  ) . '_TITLE');
         }
+
         if (! $this->relationship_only)
         {
-            $vardefs [ $this->rhs_module ] [] = $this->getRelateFieldDefinition ( $this->lhs_module, $this->relationship_name, $this->getLeftModuleSystemLabel() ) ;
-            $vardefs [ $this->rhs_module ] [] = $this->getLink2FieldDefinition ( $this->lhs_module, $this->relationship_name, true,
-                'LBL_' . strtoupper ( $this->relationship_name . '_FROM_' . $this->getRightModuleSystemLabel()  ) . '_TITLE');
+            $relateField = 
+            $link2Field = 
+
+            if ( $this->rhs_module == $this->lhs_module ) {
+                // We need to fix up the links to use the alternate link
+                $relateField['link'] .= '_right';
+                $link2Field['link'] .= '_right';
+                $link2Field['side'] = 'right';
+                
+                $relateField['id_name'] = $this->getJoinKeyRHS();
+                $link2Field['id_name'] = $this->getJoinKeyRHS();
+                $link2Field['name'] = $this->getJoinKeyRHS();
+            } else {
+                unset($link2Field['id_name']);
+            }
+
         }
-        
+        */
         return $vardefs ;
     }
     
@@ -146,6 +206,16 @@ class OneToManyRelationship extends AbstractRelationship
     function buildRelationshipMetaData ()
     {
         return array( $this->lhs_module => $this->getRelationshipMetaData ( MB_ONETOMANY ) ) ;
+    }
+
+    public function buildSidecarSubpanelDefinitions()
+    {
+        return $this->buildSubpanelDefinitions();
+    }
+
+    public function buildSidecarMobileSubpanelDefinitions()
+    {
+        return $this->buildWirelessSubpanelDefinitions();
     }
 
 }

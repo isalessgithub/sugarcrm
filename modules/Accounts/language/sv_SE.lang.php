@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Är du säker på att du vill ta bort den här organisationen från projektet?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Telefonsamtal',
   'LBL_CAMPAIGNS' => 'Kampanjer',
   'LBL_CAMPAIGN_ID' => 'Kampanj ID',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampanjlogg',
   'LBL_CASES_SUBPANEL_TITLE' => 'Ärenden',
   'LBL_CHARTS' => 'Diagram',
   'LBL_CITY' => 'Stad:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Organisationer',
   'LBL_DESCRIPTION' => 'Beskrivning',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivande information',
+  'LBL_DNB_BAL_PREVIEW' => 'Accounts förhandsvisning',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokument',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Möjlig kopia av organisationen',
   'LBL_EMAIL' => 'Epost:',
   'LBL_EMAIL_ADDRESSES' => 'Epostadresser',
@@ -72,6 +72,15 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Anställda:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Tilldelat Användarnamn',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Bilaga',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Accounts&#39; rapporter',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}-modulen består av företag med vilka organisationen har en relation och allmänt ses som navet för att hantera och analysera ditt företags interaktioner med varje kund. För att skapa en {{module_name}}: 1 Lägg in de värden i de fält som önskas. - Fält markerade "Required" måste fyllas i innan du sparar. - Klicka på "Visa mer" för att visa ytterligare fält. 2 Klicka på "Spara" för att spara den nya posten och återgå till föregående sida. - Välj "Spara och visa" för att öppna det nya {{module_name}} i rekordvyn. - Välj "Spara och skapa ny" att omedelbart skapa en ny {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}-modulen består av företag med vilka organisationen har en relation och kan allmänt ses som navet för att hantera och analysera ditt företags interaktioner med varje kund. - Redigera denna postens fält genom att klicka på ett enskilt fält eller på knappen Redigera. - Visa eller ändra länkar till andra poster i underpanelerna genom att växla den nedre vänstra rutan till "Data View". 
+- Lägg till eller se användarkommentarer samt se förändringar i en post i {{activitystream_singular_module}} genom att växla till den nedre vänstra rutan på "Activity Stream". 
+- Följ eller markera posten som favorit med hjälp av ikonerna till höger om postens namn. - Ytterligare åtgärder finns i dropdown-menyn till höger om knappen Redigera."',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}-modulen består av företag med vilka din organisation har en relation till och kan allmänt ses som navet för att hantera och analysera ditt företags interaktioner med varje kund. 
+Det finns olika sätt som du kan skapa {{plural_module_name}} i Sugar. Till exempel via {{plural_module_name}}-modul, duplicara, importera {{plural_module_name}}, etc. 
+När {{modul}}post skapas, kan du visa och redigera information som hänför sig till {{modul}} via {{plural_module_name}} registervy. Varje {{modul}} kan relatera till andra moduler såsom {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, och många andra eftersom relationen till kunden mognar.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_HOMEPAGE_TITLE' => 'Mina organisationer',
   'LBL_INDUSTRY' => 'Bransch:',
@@ -94,9 +103,11 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Redigerad av Id',
   'LBL_MODULE_ID' => 'Organisationer',
   'LBL_MODULE_NAME' => 'Organisationer',
+  'LBL_MODULE_NAME_SINGULAR' => 'Account',
   'LBL_MODULE_TITLE' => 'Organisationer:Hem',
   'LBL_NAME' => 'Namn:',
   'LBL_NEW_FORM_TITLE' => 'Ny organisation',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anteckningar',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Affärsmöjligheter',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Annan epost:',
   'LBL_OTHER_PHONE' => 'Annan telefon:',
@@ -109,7 +120,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Telefon fax:',
   'LBL_PHONE_OFFICE' => 'Telefon kontor:',
   'LBL_POSTAL_CODE' => 'Postnummer:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PRODUCTS_TITLE' => 'Produkter',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekt',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekt',
@@ -120,6 +130,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Leverera',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Offerter',
   'LBL_RATING' => 'Prioritet',
+  'LBL_REVENUELINEITEMS' => 'Intäktsposter',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Intäktsposter',
   'LBL_SAVE_ACCOUNT' => 'Spara organisation',
   'LBL_SEARCH_FORM_TITLE' => 'Sök organisation',
   'LBL_SHIPPING_ADDRESS' => 'Leveransadress:',
@@ -145,6 +157,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Webbsida',
   'LNK_ACCOUNT_LIST' => 'Organisationer',
   'LNK_ACCOUNT_REPORTS' => 'Organisationsrapporter',
+  'LNK_CREATE' => 'Skapa företag',
   'LNK_IMPORT_ACCOUNTS' => 'Importera konton',
   'LNK_NEW_ACCOUNT' => 'Skapa organistaion',
   'MSG_DUPLICATE' => 'Organisationen du är på väg att skapa kan vara en kopia av en befintlig organisation. Organisationer som innehåller liknande namn är listade nedan.<br>Välj Spara för att fortsätta skapa den nya organisationen eller välj Avbryt för att återgå till modulen utan att skapa organisationen.',

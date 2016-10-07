@@ -1,21 +1,21 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarSearchEngine/SugarSearchEngineFullIndexer.php');
 require_once('include/SugarSearchEngine/SugarSearchEngineMetadataHelper.php');
+require_once('include/SugarSearchEngine/SugarSearchEngineFactory.php');
+require_once('include/SugarSearchEngine/SugarSearchEngineAbstractBase.php');
+require_once('modules/Administration/Administration.php');
 
 class AdministrationViewGlobalsearchsettings extends SugarView
 {
@@ -47,7 +47,7 @@ class AdministrationViewGlobalsearchsettings extends SugarView
     {
     	require_once('modules/Home/UnifiedSearchAdvanced.php');
 		$usa = new UnifiedSearchAdvanced();
-        global $mod_strings, $app_strings, $app_list_strings;
+        global $mod_strings, $app_strings, $app_list_strings, $current_user;
 
         $sugar_smarty = new Sugar_Smarty();
         $sugar_smarty->assign('APP', $app_strings);
@@ -58,55 +58,69 @@ class AdministrationViewGlobalsearchsettings extends SugarView
 
         $sugar_smarty->assign('enabled_modules', json_encode($modules['enabled']));
         $sugar_smarty->assign('disabled_modules', json_encode($modules['disabled']));
-        //FTS Options
-        $schedulerID = SugarSearchEngineFullIndexer::isFTSIndexScheduled();
-        if(isset($GLOBALS['sugar_config']['full_text_engine']) &&
-           is_array($GLOBALS['sugar_config']['full_text_engine']))
-        {
-            $defaultEngine = SugarSearchEngineFactory::getFTSEngineNameFromConfig();
-            $config = $GLOBALS['sugar_config']['full_text_engine'][$defaultEngine];
-        }
-        else
-        {
-            $defaultEngine = '';
-            $config = array('host' => '','port' => '');
-        }
 
-        $justRequestedAScheduledIndex = !empty($_REQUEST['sched']) ? TRUE : FALSE;
-
-        $scheduleDisableButton = empty($defaultEngine) ? 'disabled' : '';
-        $schedulerID = SugarSearchEngineFullIndexer::isFTSIndexScheduled();
-        $schedulerCompleted = SugarSearchEngineFullIndexer::isFTSIndexScheduleCompleted($schedulerID);
-        $hide_fts_config = isset( $GLOBALS['sugar_config']['hide_full_text_engine_config'] ) ? $GLOBALS['sugar_config']['hide_full_text_engine_config'] : FALSE;
-
-        $showSchedButton = ($defaultEngine != '' && $this->isFTSConnectionValid()) ? TRUE : FALSE;
+        $defaultEngine = SugarSearchEngineFactory::getFTSEngineNameFromConfig();
+        $config = $GLOBALS['sugar_config']['full_text_engine'][$defaultEngine];
+        $justRequestedAScheduledIndex = !empty($_REQUEST['sched']) ? true : false;
+        $hide_fts_config = isset( $GLOBALS['sugar_config']['hide_full_text_engine_config'] ) ? $GLOBALS['sugar_config']['hide_full_text_engine_config'] : false;
+        $showSchedButton = ($defaultEngine != '' && $this->isFTSConnectionValid()) ? true : false;
 
         $sugar_smarty->assign("showSchedButton", $showSchedButton);
         $sugar_smarty->assign("hide_fts_config", $hide_fts_config);
         $sugar_smarty->assign("fts_type", get_select_options_with_id($app_list_strings['fts_type'], $defaultEngine));
-        $sugar_smarty->assign("fts_host", empty($config['host']) ? 'localhost' : $config['host']);
-        $sugar_smarty->assign("fts_port", empty($config['port']) ? '9200' : $config['port']);
-        $sugar_smarty->assign("scheduleDisableButton", $scheduleDisableButton);
+        $sugar_smarty->assign("fts_host", $config['host']);
+        $sugar_smarty->assign("fts_port", $config['port']);
         $sugar_smarty->assign("fts_scheduled", !empty($schedulerID) && !$schedulerCompleted);
         $sugar_smarty->assign('justRequestedAScheduledIndex', $justRequestedAScheduledIndex);
         //End FTS
-        $tpl = 'modules/Administration/templates/GlobalSearchSettings.tpl';
-        if(file_exists('custom/' . $tpl))
+        if (is_admin($current_user))
         {
-           $tpl = 'custom/' . $tpl;
+            if (!empty($GLOBALS['sugar_config']['fts_disable_notification']))
+            {
+                displayAdminError(translate('LBL_FTS_DISABLED', 'Administration'));
+            }
+
+            // if fts indexing is done, show the notification to admin
+            $admin = Administration::getSettings();
+            if (!empty($admin->settings['info_fts_index_done'])) {
+                displayAdminError(translate('LBL_FTS_INDEXING_DONE', 'Administration'));
+                // reset flag
+                $admin->saveSetting('info', 'fts_index_done', 0);
+            }
         }
-        echo $sugar_smarty->fetch($tpl);
+
+        echo $sugar_smarty->fetch(SugarAutoLoader::existingCustomOne('modules/Administration/templates/GlobalSearchSettings.tpl'));
 
     }
 
     protected function isFTSConnectionValid()
     {
-        require_once('include/SugarSearchEngine/SugarSearchEngineFactory.php');
         $searchEngine = SugarSearchEngineFactory::getInstance();
         $result = $searchEngine->getServerStatus();
-        if($result['valid'])
+        if($result['valid']) {
+            $this->setFTSUp();
             return TRUE;
-        else
+        }
+        else {
             return FALSE;
+        }
+    }
+
+    /**
+     * This method sets the full text search to available when a scheduled FTS Index occurs.  
+     * An indexing can only occur with a valid connection
+     * 
+     * TODO: XXX Fix this to use admin settings not config options
+     * @return bool
+     */
+    protected function setFTSUp() {
+        $cfg = new Configurator();
+        $cfg->config['fts_disable_notification'] = false;
+        $cfg->handleOverride();
+        // set it up
+        SugarSearchEngineAbstractBase::markSearchEngineStatus(false);
+        $admin = BeanFactory::newBean('Administration');
+        $admin->retrieveSettings(FALSE, TRUE);
+        return TRUE;
     }
 }

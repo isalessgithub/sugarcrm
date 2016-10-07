@@ -1,26 +1,23 @@
 <?php
 if (!defined('sugarEntry') || !sugarEntry)
 	die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once ('modules/Forecasts/Common.php');
 
 require_once ('modules/Forecasts/ForecastDirectReports.php');
 
 require_once ('include/JSON.php');
-global $theme, $mod_strings;
+global $theme, $mod_strings, $current_language;
 
 
 global $href_string;
@@ -37,8 +34,7 @@ function get_worksheet_defintion($user_id, $forecast_type, $timeperiod_id, $allo
     global $mod_strings;
     
 
-    $sel_user = new User();
-    $sel_user->retrieve($user_id);
+    $sel_user = BeanFactory::getBean('Users', $user_id);
 
 	$json = new JSON(JSON_LOOSE_TYPE);
 
@@ -52,7 +48,7 @@ function get_worksheet_defintion($user_id, $forecast_type, $timeperiod_id, $allo
 	$hhelper->set_current_user($user_id);
 	$hhelper->setup();
 
-	$seedForecastOpportunities = new ForecastOpportunities();
+	$seedForecastOpportunities = BeanFactory::getBean('ForecastOpportunities');
 	if (strtolower($forecast_type) == 'direct') {
 
 		require_once ('include/ListView/ListViewXTPL.php');
@@ -64,7 +60,7 @@ function get_worksheet_defintion($user_id, $forecast_type, $timeperiod_id, $allo
 		$where .= " AND opportunities.assigned_user_id = '$user_id'";
 		$where .= " AND opportunities.date_closed >= timeperiods.start_date";
 		$where .= " AND opportunities.date_closed <= timeperiods.end_date";
-        $where .= " AND opportunities.sales_stage != 'Closed Lost'";
+        $where .= " AND opportunities.sales_stage != '".Opportunity::STAGE_CLOSED_LOST."'";
 		$where .= " AND timeperiods.id = '$timeperiod_id'";
 
 		$hhelper->get_timeperiod_start_end_date($timeperiod_id);
@@ -121,7 +117,7 @@ function get_worksheet_defintion($user_id, $forecast_type, $timeperiod_id, $allo
         //assign the qota amount.
         $lv->ss->assign("QUOTA_VALUE", $seedForecastOpportunities->get_quota());
         global $listViewDefs;
-		include ('modules/Forecasts/metadata/OpportunityForecastlistviewdefs.php');
+		include ('modules/Forecasts/metadata/listviewdefs.php');
 		$lv->displayColumns = $listViewDefs['ForecastOpportunities'];
 
 		//disable some features.
@@ -359,7 +355,7 @@ function upsert_worksheet_record($owner_id, $timeperiod_id, $forecast_type, $wk_
 
     if ($convert_to_basecurrency) {
         
-        $currency = new Currency();
+        $currency = BeanFactory::getBean('Currencies');
         if (isset($current_user)) {
            $currency->retrieve($current_user->getPreference('currency'));
         }else{
@@ -379,7 +375,7 @@ function upsert_worksheet_record($owner_id, $timeperiod_id, $forecast_type, $wk_
 	$row = $GLOBALS['db']->fetchByAssoc($resource);
 	if (empty ($row)) {
 		//_pp('inserting');
-		$wk = new Worksheet();
+		$wk = BeanFactory::getBean('Worksheet');
 
 		$wk->user_id = $owner_id;
 		$wk->timeperiod_id = $timeperiod_id;
@@ -419,8 +415,7 @@ function processnavigation($url_string, $json = null) {
  */
 function user_owns_opps($user_id = null, $user = null) {
 	if (empty ($user)) {
-		$user = new User();
-		$user->retrieve($user_id);
+		$user = BeanFactory::getBean('Users', $user_id);
 	}
 	$pref_no_opps = $user->getPreference('no_opps', 'global');
 	if ($pref_no_opps == 'on') {
@@ -435,8 +430,7 @@ function user_owns_opps($user_id = null, $user = null) {
 function get_chart_for_user($user=null,$user_id=null,$forecast_type='Direct') {
 
     if (empty($user)) {
-        $user = new User();
-        $user->retrieve($user_id);
+        $user = BeanFactory::getBean('Users', $user_id);
     }
     require_once('modules/Forecasts/Charts.php');
     $chart= new forecast_charts();

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para excluir uma conta',
@@ -100,8 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Criado por',
   'LBL_CURRENCY' => 'Moeda',
   'LBL_CURRENCY_EXAMPLE' => 'Exemplo de exibição Moeda',
-  'LBL_CURRENCY_SHOW_PREFERRED' => 'Exibir preferência de Moeda',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Converter a moeda base para preferencia do usuário na lista e registrar visualizações',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Exibir Moeda Prefrencial',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Converter a moeda base para preferencial na lista de usuários e registrar visualizações',
   'LBL_CURRENCY_SIG_DIGITS' => 'Dígitos Significativos da Moeda',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Número de casas decimais para mostrar para moeda',
   'LBL_CURRENCY_TEXT' => 'Selecione a moeda que será exibida por padrão quando você criar novos registros. Esta é também a moeda que será exibida nas colunas quantidade no ListView Oportunidades.',
@@ -131,7 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Editar Tabs',
   'LBL_EMAIL' => 'Endereço de Email',
   'LBL_EMAILS' => 'Emails',
-  'LBL_EMAIL_ADDRESS' => 'Email Address',
+  'LBL_EMAIL_ADDRESS' => 'E-mail',
   'LBL_EMAIL_CHARSET' => 'Conjunto de caracteres de saída',
   'LBL_EMAIL_EDITOR_OPTION' => 'Compor Formato',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Preencher Padrões de Gmail',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => '1o Dia da Semana',
   'LBL_FDOW_TEXT' => '1o Dia exibido nas visualizações de Semana, Mês e Ano',
+  'LBL_FILTER_USERS_REPORTS' => 'Relatório dos usuários',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => 'A procurar as variáveis ideais da conexão.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Procurar a Configuração Ideal',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forçar Negativo',
   'LBL_FORCE_DESC' => 'Alguns servidores IMAP e POP3 exigem switches especiais. Tenta forçar o switch negativo para conetar (ou seja, /notls)',
   'LBL_FORECASTS' => 'Previsões',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Não está habilitado. Por favor, contate o administrador.',
   'LBL_FOUND_OPTIMUM_MSG' => 'Encontrei a configuração ideal. Clique o botão para a aplicar na sua caixa de e-mail.',
   'LBL_GENERATE_PASSWORD' => 'Redefinir Senha',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'Criar Chave do botão de senha',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Minhas Equipes',
   'LBL_NAME' => 'Nome Completo',
   'LBL_NAVIGATION_PARADIGM' => 'Navegação',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Selecione para poder visualizar módulos na barra de navegação com base em grupos pré-definidos. Quando selecionado, o "Menu Filtrar por" recurso aparecerá no menu "Mais".',
   'LBL_NEW_FORM_TITLE' => 'Novo Usuário',
   'LBL_NEW_PASSWORD' => 'Nova Senha',
   'LBL_NEW_PASSWORD1' => 'Senha',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Reporta a:',
   'LBL_REQUEST_SUBMIT' => 'Sua requisição foi submetida',
   'LBL_RESET_DASHBOARD' => 'Restabelecer Dashboard',
-  'LBL_RESET_HOMEPAGE' => 'Restabelecer página principal',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Você tem certeza que deseja restabelecer sua página principal?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Você tem certeza que deseja restabelecer a página principal deste usuário?',
   'LBL_RESET_PREFERENCES' => 'Restaurar preferencias de usuário',
   'LBL_RESET_PREFERENCES_WARNING' => 'Tem certeza que deseja restabelecer todas as suas preferencias de usuário? Advertência: Isto irá também realizar o log out do sistema',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Você tem certeza que deseja restabelecer todas as preferências deste usuário?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Links de Sub-Painéis',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Na visualização de detalhes, exibir uma linha com links de atalho para sub-painel.',
-  'LBL_SUBPANEL_TABS' => 'Sub-Painéis das Guias',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Na visualização de detalhes, grupos de SubPaineis nas abas e mostrar uma guia de cada vez.',
   'LBL_SUGAR_LOGIN' => 'É usuário Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'Afeta apenas temas que suportam essa opção.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Exibir a barra da última visualização ao lado após verificado. Caso contrário, ele vai para o topo.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Exibir a barra de atalhos no topo se verificado. Caso contrário, ele vai para o lado.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Atalhos no topo',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'senha Gerada pelo Sistema',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Dígitos Notáveis do Sistema',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'O número de casas decimais mostrados para decimais e flutuações em todo o sistema, como moeda e média em Relatórios.',
   'LBL_TAB_TITLE_EMAIL' => 'Configuração de E-mail',
   'LBL_TAB_TITLE_USER' => 'Configurações de Usuários',
   'LBL_TEAMS' => 'Equipes',

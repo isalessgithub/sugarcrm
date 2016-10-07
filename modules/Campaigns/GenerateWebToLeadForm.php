@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -84,14 +81,14 @@ if(isset($_REQUEST['team_name']) && !empty($_REQUEST['team_name'])){
 	$teamIds = $sf->getTeamsFromRequest('team_name');
 	$web_team_user = $sf->getPrimaryTeamIdFromRequest('team_name', $_POST);
 	
-	$teamSet = new TeamSet();
+	$teamSet = BeanFactory::getBean('TeamSets');
 	$web_team_set_id_user = $teamSet->addTeams($teamIds);
 	require_once('modules/Teams/TeamSetManager.php');
 	TeamSetManager::add($web_team_set_id_user, 'leads');
 }
 
- $lead = new Lead();
- $fieldsMetaData = new FieldsMetaData();
+ $lead = BeanFactory::getBean('Leads');
+ $fieldsMetaData = BeanFactory::getBean('EditCustomFields');
  $xtpl=new XTemplate ('modules/Campaigns/WebToLeadForm.html');
  $xtpl->assign("MOD", $mod_strings);
  $xtpl->assign("APP", $app_strings);
@@ -99,7 +96,6 @@ if(isset($_REQUEST['team_name']) && !empty($_REQUEST['team_name'])){
  $Web_To_Lead_Form_html .='<link rel="stylesheet" type="text/css" media="all" href="' . getJSPath(SugarThemeRegistry::current()->getCSSURL('calendar-win2k-cold-1.css')) . '">';
 
  $Web_To_Lead_Form_html .= "<script type=\"text/javascript\" src='" . getJSPath($site_url.'/cache/include/javascript/sugar_grp1.js') . "'></script>";
- $Web_To_Lead_Form_html .= '<script type="text/javascript" src="' . getJSPath($site_url.'/cache/include/javascript/calendar.js') . '"></script>';
 
  $Web_To_Lead_Form_html .="<form action='$web_post_url' name='WebToLeadForm' method='POST' id='WebToLeadForm'>";
  $Web_To_Lead_Form_html .= "<table width='100%' style='border-top: 1px solid;

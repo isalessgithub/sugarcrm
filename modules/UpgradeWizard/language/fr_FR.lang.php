@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Les modules suivant ont été installés:',
   'DESC_MODULES_QUEUED' => 'Les modules suivant sont prêts à être installé:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Le fichier uploadé n&#39; est pas compatible avec cette version (Community Edition, Professional, ou Enterprise) de SugarCRM :',
+  'ERROR_HT_NO_WRITE' => 'Impossible d&#39;écrire dans le fichier : %s',
+  'ERROR_MANIFEST_TYPE' => 'Le fichier Manifest doit spécifier le type du package.',
+  'ERROR_PACKAGE_TYPE' => 'Le fichier Manifest spécifie un type de package non reconnu: %s',
+  'ERROR_UW_CONFIG_DB' => 'Erreur lors de la sauvegarde de la variable de configuration %s en base de donnée (clé %s, valeur %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Le fichier uploadé n&#39; est pas compatible avec cette version de Sugar :',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Votre version de PHP n&#39; est pas supportée par SugarCRM. Vous devez installer une version de PHP compatible avec SugarCRM. Merci de consulter la matrice de compatibilté disponible dans le document "Release Notes" pour voir quelle versions de PHP sont supportées par SugarCRM. Votre version actuelle est',
+  'ERR_NOT_ADMIN' => 'Accès non autorisé à l&#39;administration.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Vous n&#39;avez pas le droit d&#39;accès à cette page.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Impossible de définir le Groupe',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Impossible de définir le Propriétaire',
   'ERR_UW_CONFIG' => 'Merci de mettre des droits d&#39;écriture sur votre fichier config.php file writable et raffraîchir cette page.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Redémarrer',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Envoi de la mise à jour en cours',
   'LBL_CURRENT_PHP_VERSION' => '(Votre version courrante de PHP est la',
+  'LBL_GLOBAL_TEAM_DESC' => 'Equipe comprenant tous les utilisateurs',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php version 5 ou supérieur est requis.',
   'LBL_LANGPACKS' => 'Packages de langue',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'Paramètre PHP : Memory Limit',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Version minimale de MySQL',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'Version PCRE',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Chemin du fichier php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Version minimale de PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Paramètre PHP : Safe Mode',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Lai dzēstu iespēju, jānorāda ieraksta numurs.',
@@ -23,16 +20,12 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Uzņēmuma ID',
   'LBL_ACCOUNT_NAME' => 'Uzņēmuma nosaukums:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Darbības',
-  'LBL_AMOUNT' => 'Summa:',
-  'LBL_AMOUNT_USDOLLAR' => 'Summa:',
   'LBL_ASSIGNED_TO_ID' => 'Piešķirts lietotājam:',
   'LBL_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam:',
-  'LBL_BEST_CASE' => 'Labākā prognoze',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'Labākās prognozes bāzes valūta',
-  'LBL_BEST_CASE_WORKSHEET' => 'Labākā prognoze (precizēts)',
   'LBL_CAMPAIGN' => 'Kampaņa:',
   'LBL_CAMPAIGN_LINK' => 'Kampaņas saite',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampaņas',
+  'LBL_CLOSED_RLIS' => '# no slēgtajiem ieņēmumu posteņiem',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Aizvērtās izcīnītās iespējas',
   'LBL_COMMITTED' => 'Iesniegts',
   'LBL_COMMIT_STAGE' => 'Iesniegt posmu',
@@ -48,8 +41,9 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => 'Valūtas nosaukums',
   'LBL_CURRENCY_RATE' => 'Valūtas kurss',
   'LBL_CURRENCY_SYMBOL' => 'Valūtas simbols',
-  'LBL_DATE_CLOSED' => 'Paredzēts slēgšanas datums:',
-  'LBL_DATE_CLOSED_TIMESTAMP' => 'Paredzētā slēgšanas datuma laikspiedols',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Top 10 Pārdošanas iespējas',
+  'LBL_DATE_CLOSED' => 'Plānotais slēgšanas datums:',
+  'LBL_DATE_CLOSED_TIMESTAMP' => 'Plānotā slēgšanas datuma laikspiedols',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Iespējas',
   'LBL_DESCRIPTION' => 'Apraksts:',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenti',
@@ -61,22 +55,42 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Izveidotāja ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_EXPORT_NAME' => 'Nosaukums',
+  'LBL_FILENAME' => 'Pielikums',
   'LBL_FORECAST' => 'Iekļatu prognozē',
+  'LBL_HELP_CONFIG_OPPS' => 'After you initiate this change, the Revenue Line Item summarization notes will be built in the background. When the notes are complete and available, a notification will be sent to the email address on your user profile. If your instance is set up for {{forecasts_module}}, Sugar will also send you a notification when your {{module_name}} records are synced to the {{forecasts_module}} module and available for new {{forecasts_module}}. Please note that your instance must be configured to send email via Admin > Email Settings in order for the notifications to be sent.',
+  'LBL_HELP_CONFIG_RLIS' => 'After you initiate this change, Revenue Line Item records will be created for each existing {{module_name}} in the background. When the Revenue Line Items are complete and available, a notification will be sent to the email address on your user profile. Please note that your instance must be configured to send email via Admin > Email Settings in order for the notification to be sent.',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulis ļauj jums sekot atsevišķām pārdošanām. Katrs {{module_name}}s ieraksts ir galvene ieņēmumu posteņu grupai kā arī ir saistīta ar citiem svarīgiem ierakstiem kā {{quotes_module}}, {{contacts_module}}, u.c.
+
+Lai izveidotu ierakstu:
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+ - Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+ - Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+ - Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+ - Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.
+3. Pēc saglabāšanas izmantojiet apakšpaneli {{revenuelineitems_module}} lai pievienoti rindas {{module_name}}i.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulis ļauj jums sekot atsevišķām pārdošanām. Katrs {{module_name}}s ieraksts ir galvene ieņēmumu posteņu grupai kā arī ir saistīta ar citiem svarīgiem ierakstiem kā {{quotes_module}}, {{contacts_module}}, u.c.
+
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulis ļauj jums sekot atsevišķām pārdošanām. Katrs {{module_name}}s ieraksts ir galvene ieņēmumu posteņu grupai kā arī ir saistīta ar citiem svarīgiem ierakstiem kā {{quotes_module}}, {{contacts_module}}, u.c. Katrs ieņēmumu postenis ir potenciāla pārdošana kādam produktam un ietver atbilstošu pārdošanas informāciju. Katrs ieņēmumu postenis ieziet caur vairākiem pārdošanas posmiem, kamēr tiek atzīmēts kā Uzvarēts vai Zaudēts. {{module_name}}s ieraksts atspoguļo iekļauto ieņēmumu posteņu summu un plānoto slēgšanas datumu. {{plural_module_name}} un {{revenuelineitems_module}} dati var tikt pārsūtīti tālāk uz prognožu moduli lai saprastu un paredzētu pārdošanas virzību kā āri fokusēties uz pārdošanas kvotas sasniegšanu.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_INVITEE' => 'Kontaktpersonas',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Interesenti',
   'LBL_LEAD_SOURCE' => 'Interesenta avots:',
-  'LBL_LIKELY_CASE' => 'Ticamākā prognoze',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Ticamākās prognozes bāzes valūta',
-  'LBL_LIKELY_CASE_WORKSHEET' => 'Ticamākā prognoze (precizēts)',
   'LBL_LIST_ACCOUNT_NAME' => 'Uzņēmuma nosaukums',
-  'LBL_LIST_AMOUNT' => 'Iespējas Summa',
-  'LBL_LIST_AMOUNT_USDOLLAR' => 'Summa',
+  'LBL_LIST_AMOUNT' => 'Ticamākā',
+  'LBL_LIST_AMOUNT_USDOLLAR' => 'Kopsumma',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',
   'LBL_LIST_DATE_CLOSED' => 'Aizvērt',
   'LBL_LIST_FORM_TITLE' => 'Iespēju saraksts',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Nosaukums',
   'LBL_LIST_SALES_STAGE' => 'Pārdošanas posms',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MODIFIED_ID' => 'Modificētāja ID',
   'LBL_MODIFIED_NAME' => 'Modificēja lietotājs',
   'LBL_MODIFIED_USER' => 'Modificēja lietotājs',
@@ -87,36 +101,58 @@ $mod_strings = array (
   'LBL_NAME' => 'Iespējas nosaukums',
   'LBL_NEW_FORM_TITLE' => 'Izveidot iespēju',
   'LBL_NEXT_STEP' => 'Nākamais solis:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_OPPORTUNITY' => 'Iespēja:',
   'LBL_OPPORTUNITY_NAME' => 'Iespējas nosaukums:',
+  'LBL_OPPORTUNITY_ROLE' => 'Iespējas loma',
   'LBL_OPPORTUNITY_TYPE' => 'Iespējas tips',
+  'LBL_OPPS_CONFIG_ALERT' => 'Spiežot apstiprināt tiks izdzēsti VISI prognožu dati un mainīts jūsu Pārdošanas iespēju skats. Ja tas nav, tas ko vēlaties, spiediet Atcelt un atgriezties pie iepriekšējiem uzstādījumiem.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Ja visas ieņēmumu rindas ir aizvērtas un vismaz viena vinnēta,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'iespējas pārdošanas fāze tiek iestatīta uz "Aizvērts - iegūts"',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Ja visas ieņēmumu rindas ir statusā Aizvērts zaudēts',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'iespējas pārdošanas fāze tiek iestatīta uz "Aizvērts - zaudēts"',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Ja visas ieņēmumu rindas ir joproijām atvērtas,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'iespējas pārdošanas fāze tiek iestatīta uz zemāko pieejamo',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Iespēju ierakstos plānoto slēgšanas datumu uzstādiet tā lai tie atbilst esošo ieņēmumu rindu agrākajam vai vēlākajam slēgšanas datumam.',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Iespējas hierarhija',
+  'LBL_PIPELINE_TOTAL_IS' => 'Piltuves kopsumma ir',
   'LBL_PRIMARY_QUOTE_ID' => 'Sākotnējais piedāvājums',
   'LBL_PROBABILITY' => 'Varbūtība (%):',
   'LBL_PRODUCTS' => 'Produkti',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => 'Produktu saraksts',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Piedāvājuma rindas',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekti',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekti',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Piedāvājumi',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Piedāvājumi',
   'LBL_RAW_AMOUNT' => 'Neapstrādāta summa',
+  'LBL_RLI' => 'Ieņēmumu posteņi',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Ieņēmumu posteņi',
   'LBL_SALES_STAGE' => 'Pārdošanas posms:',
+  'LBL_SALES_STATUS' => 'Statuss',
   'LBL_SEARCH_FORM_TITLE' => 'Iespēju meklēšana',
   'LBL_TEAM_ID' => 'Darba grupas ID',
   'LBL_TIMEPERIODS' => 'Laika periodi',
   'LBL_TIMEPERIOD_ID' => 'Laika perioda ID',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Attēlo 10 labākas iespējas burbuļu diagrammā.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Manas Iespējas',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Manas darba grupas iespējas',
   'LBL_TOP_OPPORTUNITIES' => 'Manas top atvērtās iespējas',
   'LBL_TOTAL_OPPORTUNITIES' => 'Iespēju kopskaits',
+  'LBL_TOTAL_RLIS' => '# no visiem ieņēmumu posteņiem',
   'LBL_TYPE' => 'Veids:',
   'LBL_VIEW_FORM_TITLE' => 'Iespēju skatījums',
   'LBL_WORKSHEET' => 'Darblapa',
-  'LBL_WORST_CASE' => 'Sliktākā prognoze',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'Sliktākās prognozes bāzes valūta',
+  'LNK_CREATE' => 'Izveidot darījumu',
   'LNK_IMPORT_OPPORTUNITIES' => 'Importēt iespējas',
   'LNK_NEW_OPPORTUNITY' => 'Jauna iespēja',
   'LNK_OPPORTUNITY_LIST' => 'Aplūkot iespējas',
   'LNK_OPPORTUNITY_REPORTS' => 'Aplūkot iespēju atskaites',
   'MSG_DUPLICATE' => 'Veidojamā iespēja varbūt ir dublikāts citai iespējai. Līdzīgi nosauktās iespējas uzskaitītas zemāk.<br>Klikšķiniet saglabāt, lai turpinātu veidot šo iespēju, vai klikšķiniet Atcelt, lai atgrieztos modulī, neveidojot iespēju.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Jūs nevarat dzēst iespējas, kuras satur aizvērtus ieņēmumu posteņus',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Vai jūs tiešām vēlaties izņemt šo kontaktpersonu no iespējas?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Vai jūs vēlāties izņemt šo iespēju no projekta?',
+  'TPL_RLI_CREATE' => 'Iespējai jābūt piesaistītam Ieņēmumu postenim. <a href="javascript:void(0);" id="createRLI"Izveidot Ieņēmumu posteni</a>.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Izveidot ieņēmumu posteni.',
   'UPDATE' => 'Iespēja - Atjaunināt valūtu',
   'UPDATE_BUGFOUND_COUNT' => 'Atrastās kļūdas:',
   'UPDATE_BUG_COUNT' => 'Kļūdas atrastas, un mēģinātas izlabot:',
@@ -142,5 +178,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Jaunā summa:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Jaunā valūta:',
   'UPDATE_VERIFY_TXT' => 'Pārbauda vai iespēju summu vērtības ir derīgi decimālie skaitļi, kuri satur tikai ciparus0-9) un decimālos punktus(.)',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'Viens vai vairāki no atlasītajiem ierakstiem satur aizvērtus ieņēmumu posteņus un nevar tikt dzēsti.',
 );
 

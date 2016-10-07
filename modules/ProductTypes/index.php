@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: index.php 55059 2010-03-03 20:44:54Z roger $
  * Description:
  ********************************************************************************/
 
@@ -29,7 +26,7 @@ if (!is_admin($current_user) && (!is_admin_for_module($GLOBALS['current_user'],'
    sugar_die("Unauthorized access to administration.");
 }
 
-$focus = new ProductType();
+$focus = BeanFactory::getBean('ProductTypes');
 echo getClassicModuleTitle($focus->module_dir, array($mod_strings['LBL_MODULE_NAME']), true);
 
 $is_edit = false;
@@ -70,7 +67,7 @@ if((is_admin($current_user)||is_admin_for_module($GLOBALS['current_user'],'Produ
 $ListView->initNewXTemplate( 'modules/ProductTypes/ListView.html',$mod_strings);
 $ListView->xTemplateAssign("DELETE_INLINE_PNG",  SugarThemeRegistry::current()->getImage('delete_inline','align="absmiddle" border="0"',null,null,'.gif',$app_strings['LNK_DELETE']));
 
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $action_button = smarty_function_sugar_action_menu(array(
     'id' => 'manufacturer_create_button',
     'buttons' => array($button),
@@ -80,6 +77,7 @@ $ListView->setHeaderTitle($header_text.$action_button);
 
 $ListView->show_export_button = false;
 $ListView->show_mass_update = false;
+$ListView->show_delete_button = false;
 $ListView->setQuery("", "", "list_order", "PRODUCTTYPE");
 $ListView->processListView($focus, "main", "PRODUCTTYPE");
 

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -37,11 +34,16 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Land',
   'LBL_DEPARTMENT' => 'Afdeling',
   'LBL_DO_NOT_CALL' => 'Ring ikke',
+  'LBL_EDIT_BUTTON' => 'Rediger',
   'LBL_EMAIL_ADDRESS' => 'E-mail-adresse"r"',
+  'LBL_FACEBOOK' => 'Facebook konto',
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FIRST_NAME' => 'Fornavn',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
   'LBL_HOME_PHONE' => 'Telefon "privat"',
+  'LBL_IMPORT_VCARDTEXT' => 'Opret automatisk en ny kontakt ved at importere et vCard fra filsystemet.',
   'LBL_LAST_NAME' => 'Efternavn',
+  'LBL_LINKEDIN' => 'Linkedin medlemskonto',
   'LBL_MOBILE_PHONE' => 'Mobiltelefon',
   'LBL_NAME' => 'Navn',
   'LBL_OFFICE_PHONE' => 'Telefon "arbejde"',
@@ -59,11 +61,15 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Primær adresse, gade 2:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Primær adresse, gade 3:',
   'LBL_PRIMARY_STREET' => 'Adresse',
+  'LBL_REMOVE' => 'Fjern',
   'LBL_SALUTATION' => 'Tiltaleform',
   'LBL_STATE' => 'Tilstand',
   'LBL_STREET' => 'Anden adresse',
   'LBL_TITLE' => 'Titel',
+  'LBL_TWITTER' => 'Twitter konto',
   'LBL_WORK_PHONE' => 'Telefon "arbejde"',
   'LNK_IMPORT_VCARD' => 'Opret fra vCard',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Kopiér alternativ adresse til primær adresse',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Kopiér primær adresse til alternativ adresse',
 );
 

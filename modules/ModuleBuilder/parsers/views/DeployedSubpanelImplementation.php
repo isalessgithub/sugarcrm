@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*
  * Changes to AbstractSubpanelImplementation for DeployedSubpanels
  * The main differences are in the load and save of the definitions
@@ -45,8 +42,9 @@ class DeployedSubpanelImplementation extends AbstractMetaDataImplementation impl
         $this->_subpanelName = $subpanelName ;
         $this->_moduleName = $moduleName ;
 
+        $module = BeanFactory::getBean($moduleName);
         // BEGIN ASSERTIONS
-        if (! isset ( $GLOBALS [ 'beanList' ] [ $moduleName ] ))
+        if (empty($module))
         {
             sugar_die ( get_class ( $this ) . ": Modulename $moduleName is not a Deployed Module" ) ;
         }
@@ -54,8 +52,6 @@ class DeployedSubpanelImplementation extends AbstractMetaDataImplementation impl
 
         $this->historyPathname = 'custom/history/modules/' . $moduleName . '/subpanels/' . $subpanelName . '/' . self::HISTORYFILENAME ;
         $this->_history = new History ( $this->historyPathname ) ;
-
-        $module = get_module_info ( $moduleName ) ;
 
         require_once ('include/SubPanel/SubPanelDefinitions.php') ;
         // retrieve the definitions for all the available subpanels for this module from the subpanel
@@ -65,15 +61,15 @@ class DeployedSubpanelImplementation extends AbstractMetaDataImplementation impl
         // Get the fields lists from an aSubPanel object describing this subpanel from the SubPanelDefinitions object
         $this->_viewdefs = array ( ) ;
         $this->_fielddefs = array ( ) ;
-        $this->_language = '' ;    
+        $this->_language = '' ;
         if (! empty ( $spd->layout_defs ))
             if (array_key_exists ( strtolower ( $subpanelName ), $spd->layout_defs [ 'subpanel_setup' ] ))
             {
                 //First load the original defs from the module folder
                 $originalSubpanel = $spd->load_subpanel( $subpanelName , false, true);
-                $this->_fullFielddefs = $originalSubpanel->get_list_fields ();
+                $this->_fullFielddefs = $originalSubpanel ? $originalSubpanel->get_list_fields () : array();
                 $this->_mergeFielddefs ( $this->_fielddefs , $this->_fullFielddefs ) ;
-                
+
                 $this->_aSubPanelObject = $spd->load_subpanel ( $subpanelName ) ;
                 // now check if there is a restored subpanel in the history area - if there is, then go ahead and use it
                 if (file_exists ( $this->historyPathname ))
@@ -111,7 +107,7 @@ class DeployedSubpanelImplementation extends AbstractMetaDataImplementation impl
                         }
                     }
                 }
-                
+
                 $this->_mergeFielddefs ( $this->_fielddefs , $this->_viewdefs ) ;
             }
 
@@ -138,7 +134,11 @@ class DeployedSubpanelImplementation extends AbstractMetaDataImplementation impl
         $subpanel = new SubPanel ( $this->_moduleName, 'fab4', $this->_subpanelName , $this->_aSubPanelObject ) ;
 
         $subpanel->saveSubPanelDefOverride ( $this->_aSubPanelObject, 'list_fields', $defs ) ;
+
         // now clear the cache so that the results are immediately visible
+        MetaDataFiles::clearModuleClientCache($this->_aSubPanelObject->template_instance->module_name, 'view');
+        MetaDataFiles::clearModuleClientCache($this->_moduleName, 'layout');
+
         include_once ('include/TemplateHandler/TemplateHandler.php') ;
         TemplateHandler::clearCache ( $this->_moduleName ) ;
 

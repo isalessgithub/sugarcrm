@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Contas',
   'LBL_ASSIGNED_TO' => 'Atribuído a:',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campanhas',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatos',
   'LBL_COPY_PREFIX' => 'Cópia de',
   'LBL_CREATED' => 'Criado por:',
@@ -32,6 +30,9 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Não enviar para este Domínio:',
   'LBL_DOMAIN_NAME' => 'Nome do Domínio',
   'LBL_ENTRIES' => 'Total de Entradas:',
+  'LBL_HELP_CREATE' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. Para criar uma {{}} module_name: 1. Fornecer valores para os campos conforme desejado. - Os campos marcados "necessária" deve ser preenchido antes de salvar. - Clique em "Ver Mais" para expor campos adicionais, se necessário. 2. Clique em "Salvar" para finalizar o novo álbum e voltar para a página anterior. - Escolha "Salvar e visualizar" para abrir a nova {{}} module_name no modo de registro. - Escolha "Salvar e criar novo" para criar imediatamente um outro novo {{}} module_name.',
+  'LBL_HELP_RECORD' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. - Editar campos deste registo, clicando em um campo individual ou no botão Editar. - Exibir ou modificar as ligações a outros registros nos subpainéis alternando no painel esquerdo inferior para "Ver dados". - Fazer e ver comentários de usuários e histórico de alterações de registro no {{}} activitystream_singular_module alternando no painel esquerdo inferior para "Atividade Stream". - Siga ou favorito este registro usando os ícones à direita do nome do registro. - Estão disponíveis ações adicionais no menu Ações suspensas à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. Isto permite uma maior granularidade quando se trabalha {{opportunities_module}} e {{forecasts_singular_module}} ing uma vez que cada item de linha dentro de uma {{opportunities_singular_module}} pode ter sua fase de vendas própria e probabilidade, além de ser incluídos ou excluídos de um usuário {{forecasts_singular_module}} {{ing worksheet_module}} individualmente. Cada {{}} module_name pode estar relacionado a um produto de sua empresa Catálogo de Produtos. Isso fará com que os valores do produto para preencher automaticamente os campos correspondentes no {{}} module_name.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potenciais',
   'LBL_LIST_DESCRIPTION' => 'Descrição',
   'LBL_LIST_END_DATE' => 'Data Final',
@@ -58,7 +59,7 @@ $mod_strings = array (
   'LBL_PROSPECT_LISTS_SUBPANEL_TITLE' => 'Listas de Targets',
   'LBL_PROSPECT_LIST_NAME' => 'Lista de Targets:',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Lista de Targets',
-  'LBL_TEAM' => 'Equipa:',
+  'LBL_TEAM' => 'Equipe:',
   'LBL_TYPE' => 'Tipo',
   'LBL_USERS_SUBPANEL_TITLE' => 'Usuários',
   'LNK_CAMPAIGN_LIST' => 'Campanhas',

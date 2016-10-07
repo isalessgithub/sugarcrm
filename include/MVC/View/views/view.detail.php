@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/DetailView/DetailView2.php');
 
@@ -26,22 +25,35 @@ class ViewDetail extends SugarView
      * @see SugarView::$type
      */
     public $type = 'detail';
-	
+
     /**
-     * @var DetailView2 object 
+     * @var DetailView2 object
      */
     public $dv;
-	
+
     /**
      * Constructor
      *
      * @see SugarView::SugarView()
      */
-    public function ViewDetail()
+    public function __construct($bean = null, $view_object_map = array())
     {
-        parent::SugarView();
+        parent::__construct($bean, $view_object_map);
     }
-	
+
+    /**
+     * Constructor
+     *
+     * @deprecated Use the PHP 5.x style __construct instead
+     * @see SugarView::SugarView()
+     */
+    public function ViewDetail($bean = null, $view_object_map = array())
+    {
+        parent::SugarView($bean, $view_object_map);
+    }
+
+
+
     /**
      * @see SugarView::preDisplay()
      */
@@ -49,10 +61,10 @@ class ViewDetail extends SugarView
     {
  	    $metadataFile = $this->getMetaDataFile();
  	    $this->dv = new DetailView2();
- 	    $this->dv->ss =&  $this->ss;
- 	    $this->dv->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('include/DetailView/DetailView.tpl'));
-    } 	
- 	
+ 	    $this->dv->ss = $this->ss;
+ 	    $this->dv->setup($this->module, $this->bean, $metadataFile, SugarAutoLoader::existingCustomOne('include/DetailView/DetailView.tpl'));
+    }
+
     /**
      * @see SugarView::display()
      */
@@ -60,7 +72,7 @@ class ViewDetail extends SugarView
     {
         if(empty($this->bean->id)){
             sugar_die($GLOBALS['app_strings']['ERROR_NO_RECORD']);
-        }				
+        }
         $this->dv->process();
         echo $this->dv->display();
     }

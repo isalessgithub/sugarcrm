@@ -1,62 +1,117 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-
-/**
- * Notify report owner of invalid report definition
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * @param SavedReport $saved_report
- * @param int $report_id
- * @param Report $report
+ * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-function notify_of_invalid_report($saved_report, $report_id, $report)
+
+require_once "modules/Mailer/MailerFactory.php"; // imports all of the Mailer classes that are needed
+
+class ReportsUtilities
 {
-    $report_owner = new User;
-    $report_owner->retrieve($saved_report->assigned_user_id);
+    private $user;
+    private $language;
 
-    $emails = array($report_owner->email1, $report_owner->email2);
-    $emails = array_filter($emails);
+    public function __construct() {
+        global $current_user,
+               $current_language;
 
-    // report owner has no email address
-    if (0 == count($emails))
-    {
-        return;
+        $this->user     = $current_user;
+        $this->language = $current_language;
     }
 
-    $emailObj = new Email();
-    $defaults = $emailObj->getSystemDefaultEmail();
+    /**
+     * Notify the report owner of an invalid report definition.
+     *
+     * @param User   $recipient required
+     * @param string $message   required
+     * @throws MailerException Allows exceptions to bubble up for the caller to report if desired.
+     */
+    public function sendNotificationOfInvalidReport($recipient, $message) {
+        $mod_strings = return_module_language($this->language, "Reports");
+        $subject = $mod_strings["ERR_REPORT_INVALID_SUBJECT"];
+        $this->sendNotificationOfReport($recipient, $subject, $message);
+    }
 
-    require_once('include/SugarPHPMailer.php');
-    $mailer = new SugarPHPMailer();
-    $mailer->setMailerForSystem();
-    $mailer->From = $defaults['email'];
-    $mailer->FromName = $defaults['name'];
+    /**
+     * Notify the report owner of deactivated report schedule.
+     *
+     * @param int  $report_id
+     * @param User $owner
+     * @param User $subscriber
+     *
+     * @throws MailerException Allows exceptions to bubble up for the caller to report if desired.
+     */
+    public function sendNotificationOfDisabledReport($report_id, User $owner = null, User $subscriber = null)
+    {
+        $recipients = array($owner, $subscriber);
+        $recipients = array_filter($recipients);
 
-    // retrieve first non-empty email address
-    $email = array_shift($emails);
-    $mailer->AddAddress($email);
+        // return early in case there are no recipients specified
+        if (!$recipients) {
+            return;
+        }
 
-    global $current_language;
-    $mod_strings = return_module_language($current_language, 'Reports');
-    $mailer->Subject = $mod_strings['ERR_REPORT_INVALID_SUBJECT'];
+        $mod_strings = return_module_language($this->language, 'Reports');
+        $subject = $mod_strings['ERR_REPORT_DEACTIVATED_SUBJECT'];
 
-    $invalid_fields = $report->get_invalid_fields();
-    $mailer->Body = string_format($mod_strings['ERR_REPORT_INVALID'], array(
-        $report_id, implode(', ', $invalid_fields)
-    ));
+        $body = string_format($mod_strings['ERR_REPORT_DEACTIVATED'], array($report_id));
 
-    $mailer->prepForOutbound();
-    $mailer->Send();
+        // make sure that the same user doesn't receive the notification twice
+        $unique = array();
+        foreach ($recipients as $recipient) {
+            $unique[$recipient->id] = $recipient;
+        }
+
+        foreach ($unique as $recipient) {
+            $this->sendNotificationOfReport($recipient, $subject, $body);
+        }
+    }
+
+    /**
+     * Notifies the given user of a report problem
+     *
+     * @param User   $recipient Message recipient
+     * @param string $subject   Message subject
+     * @param string $body      Message body
+     */
+    protected function sendNotificationOfReport(User $recipient, $subject, $body)
+    {
+        $mailer = MailerFactory::getSystemDefaultMailer();
+
+        // set the subject of the email
+        $mailer->setSubject($subject);
+
+        // set the body of the email...
+        $textOnly = EmailFormatter::isTextOnly($body);
+        if ($textOnly) {
+            $mailer->setTextBody($body);
+        } else {
+            $textBody = strip_tags(br2nl($body)); // need to create the plain-text part
+            $mailer->setTextBody($textBody);
+            $mailer->setHtmlBody($body);
+        }
+
+        // add the recipient...
+
+        // first get all email addresses known for this recipient
+        $recipientEmailAddresses = array($recipient->email1, $recipient->email2);
+        $recipientEmailAddresses = array_filter($recipientEmailAddresses);
+
+        // then retrieve first non-empty email address
+        $recipientEmailAddress = array_shift($recipientEmailAddresses);
+
+        // a MailerException is raised if $email is invalid, which prevents the call to send below
+        $mailer->addRecipientsTo(new EmailIdentity($recipientEmailAddress));
+
+        // send the email
+        $mailer->send();
+    }
 }

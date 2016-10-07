@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once ('include/JSON.php');
 require_once('modules/MailMerge/modules_array.php');
@@ -53,8 +50,7 @@ if(!isset($_SESSION["MAILMERGE_DOCUMENT_ID"]))
 	}
 }
 $document_id = $_SESSION["MAILMERGE_DOCUMENT_ID"];
-$document = new Document();
-$document->retrieve($document_id);
+$document = BeanFactory::getBean('Documents', $document_id);
 $_SESSION["MAILMERGE_TEMPLATE"] = $document->document_name;
 
 if(!empty($_POST['selected_objects']))
@@ -93,10 +89,7 @@ $xtpl->assign("STEP3_HEADER", "Set ".get_singular_bean_name($relModule)." Associ
 
 
 $select = "Select id, name from contacts";
-global $beanList, $beanFiles;
-$class_name = $beanList[$relModule];
-require_once($beanFiles[$class_name]);
-$seed = new $class_name();
+$seed = BeanFactory::getBean($relModule);
 
 if(isset($_SESSION['MAILMERGE_SKIP_REL']) && $_SESSION['MAILMERGE_SKIP_REL'])
 {
@@ -124,7 +117,7 @@ foreach($sel_obj as $key => $value)
 	$contact_id = '';
 	if($row = $seed->db->fetchByAssoc($result, 0)) {
 			if($relModule == "Contacts") {
-			    $full_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+                $full_name = $locale->formatName('Contacts', $row);
 			} else {
 				$full_name = $row['name'];
 			}

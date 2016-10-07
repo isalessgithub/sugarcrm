@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -118,7 +115,6 @@ $mod_strings = array (
   'LBL_NAME' => 'Nom de Document',
   'LBL_NEW_FORM_TITLE' => 'Nou Document',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Oportunitats',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Productes',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Pressuposts',
   'LBL_RELATED_DOCUMENT_ID' => 'ID de Document Relacionat',
   'LBL_RELATED_DOCUMENT_REVISION_ID' => 'ID de Versió de Document Relacionat',
@@ -127,6 +123,7 @@ $mod_strings = array (
   'LBL_REVISIONS_PANEL' => 'Detell de la Versió',
   'LBL_REVISIONS_SUBPANEL' => 'Versions',
   'LBL_REVISION_NAME' => 'Número de Versió',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Línia d&#39;impostos articles',
   'LBL_SEARCH_EXTERNAL_DOCUMENT' => 'Nom d´arxiu',
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Documents',
   'LBL_SELECTED_REVISION_FILENAME' => 'Nom de l&#39;arxiu de versió seleccionada',

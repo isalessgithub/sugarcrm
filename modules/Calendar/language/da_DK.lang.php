@@ -2,22 +2,76 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
+$mod_list_strings = array (
+  'dom_cal_month' => 
+  array (
+    0 => '',
+    1 => 'Jan',
+    2 => 'Feb',
+    3 => 'Mar',
+    4 => 'Apr',
+    5 => 'Maj',
+    6 => 'Jun',
+    7 => 'Jul',
+    8 => 'Aug',
+    9 => 'Sep',
+    10 => 'Okt',
+    11 => 'Nov',
+    12 => 'Dec',
+  ),
+  'dom_cal_month_long' => 
+  array (
+    0 => '',
+    1 => 'Januar',
+    2 => 'Februar',
+    3 => 'Marts',
+    4 => 'April',
+    5 => 'Maj',
+    6 => 'Juni',
+    7 => 'Juli',
+    8 => 'August',
+    9 => 'September',
+    10 => 'Oktober',
+    11 => 'November',
+    12 => 'December',
+  ),
+  'dom_cal_weekdays' => 
+  array (
+    0 => '0<br />Sun',
+    1 => 'Man',
+    2 => 'Tir',
+    3 => 'Ons',
+    4 => 'Tor',
+    5 => 'Fre',
+    6 => 'Lør',
+  ),
+  'dom_cal_weekdays_long' => 
+  array (
+    0 => '0<br />Søndag',
+    1 => 'Mandag',
+    2 => 'Tirsdag',
+    3 => 'Onsdag',
+    4 => 'Torsdag',
+    5 => 'Fredag',
+    6 => 'Lørdag',
+  ),
+);
+
 $mod_strings = array (
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: ikke defineret for denne visning',
+  'ERR_YEAR_BETWEEN' => 'Beklager, kalender kan ikke håndtere det år, du har anmodet <br />År skal være mellem 1970 og 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Anvend',
   'LBL_ASSIGNED_TO_NAME' => 'Tildelt til',
@@ -55,6 +109,7 @@ $mod_strings = array (
   'LBL_LOADING' => 'Indlæser ...',
   'LBL_MINS_ABBREV' => 'm',
   'LBL_MODULE_NAME' => 'Kalender',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kalender',
   'LBL_MODULE_TITLE' => 'Kalender',
   'LBL_MONTH' => 'Måned',
   'LBL_NEXT_DAY' => 'Næste dag',
@@ -63,6 +118,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Næste uge',
   'LBL_NEXT_YEAR' => 'Næste år',
   'LBL_NO' => 'Nej',
+  'LBL_NO_ACCESS' => 'Du har ikke adgang',
   'LBL_NO_USER' => 'Intet match for felt: Tildelt til',
   'LBL_PARTICIPANTS_TAB' => 'Deltagere',
   'LBL_PM' => 'PM',
@@ -120,56 +176,5 @@ $mod_strings = array (
   'LNK_TASK_LIST' => 'Opgaver',
   'LNK_VIEW_CALENDAR' => 'I dag',
   'NOTICE_DURATION_TIME' => 'Varigheden skal være større end 0',
-);
-
-$mod_list_strings = array (
-  'dom_cal_month' => 
-  array (
-    1 => 'Jan',
-    2 => 'Feb',
-    3 => 'Mar',
-    4 => 'Apr',
-    5 => 'Maj',
-    6 => 'Jun',
-    7 => 'Jul',
-    8 => 'Aug',
-    9 => 'Sep',
-    10 => 'Okt',
-    11 => 'Nov',
-    12 => 'Dec',
-  ),
-  'dom_cal_month_long' => 
-  array (
-    1 => 'Januar',
-    2 => 'Februar',
-    3 => 'Marts',
-    4 => 'April',
-    5 => 'Maj',
-    6 => 'Juni',
-    7 => 'Juli',
-    8 => 'August',
-    9 => 'September',
-    10 => 'Oktober',
-    11 => 'November',
-    12 => 'December',
-  ),
-  'dom_cal_weekdays' => 
-  array (
-    1 => 'Man',
-    2 => 'Tir',
-    3 => 'Ons',
-    4 => 'Tor',
-    5 => 'Fre',
-    6 => 'Lør',
-  ),
-  'dom_cal_weekdays_long' => 
-  array (
-    1 => 'Mandag',
-    2 => 'Tirsdag',
-    3 => 'Onsdag',
-    4 => 'Torsdag',
-    5 => 'Fredag',
-    6 => 'Lørdag',
-  ),
 );
 

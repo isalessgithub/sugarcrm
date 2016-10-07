@@ -1,43 +1,27 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 <div id="tourStart">
     <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
-    <h3>{$mod.LBL_TOUR_WELCOME}</h3>
+    <h3>{$APP.LBL_TOUR_WELCOME}</h3>
     </div>
-    
-	<div class="modal-body">
-		<div style="float: left;"> 
-			<div class="well" style="float: left; width: 500px; margin-right: 20px;">
-                <object class="movieBox" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" height="281" id="single1" name="single1" width="500">
-                    <param name="autostart" value="0">
-                    <param name="movie" value="http://d2owqhhe2x3j50.cloudfront.net/media.sugarcrm.com/player.swf" />
-                    <param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" />
-                    <param name="wmode" value="transparent" />
-                    <param name="flashvars" value="file=media.sugarcrm.com/sugar65demos/whatsnewin65_RC3.mp4&amp;streamer=rtmp://s1j4a097o1arx2.cloudfront.net/cfx/st&amp;provider=rtmp&amp;image=include/images/tour/FirstFrame.png&amp;autostart=false" />
-                    <embed autostart="false" allowfullscreen="true" allowscriptaccess="always" bgcolor="transparent" class="movieBox" flashvars="file=media.sugarcrm.com/sugar65demos/whatsnewin65_RC3.mp4&amp;streamer=rtmp://s1j4a097o1arx2.cloudfront.net/cfx/st&amp;provider=rtmp&amp;image=include/images/tour/FirstFrame.png&amp;autostart=false" height="281" id="single2" name="single2" src="http://d2owqhhe2x3j50.cloudfront.net/media.sugarcrm.com/player.swf" width="500" wmode="transparent">
-                    </embed>
-                </object>
-                <div class="caption">{$mod.LBL_TOUR_WATCH}</div>
-			</div>
-			<div style="float: left; width: 300px;" >
-				{$mod.LBL_TOUR_FEATURES}
-				<p>{$mod.LBL_TOUR_VISIT} <a href="javascript:void window.open('http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/{$APP.documentation.$sugarFlavor}')">{$mod.LNK_TOUR_DOCUMENTATION}</a>.</p>
+
+	<div class="modal-body" {if $view_calendar_url}style="overflow: auto;"{/if}>
+        <div style="float: left;">
+            <div style="float: left; width: 300px;">
+				{$APP.LBL_TOUR_FEATURES_670}
+				<p>{$APP.LBL_TOUR_VISIT} <a href="javascript:void window.open('http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/{$appList.documentation.$sugarFlavor}')">{$APP.LNK_TOUR_DOCUMENTATION}</a>.</p>
 
                 {if $view_calendar_url}
                 <div style="border-top: 1px solid #F5F5F5;padding-top: 3px;" >
@@ -45,11 +29,11 @@
                 </div>
                 {/if}
 
-			</div>
-		</div>
-	</div>
-    <div class="clear"></div>
-    
+            </div>
+            <div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="{sugar_getjspath file='themes/default/images/pt-screen0-thumb.png'}" width="220" id="thumbnail_0" class="thumb"></div>
+        </div>
+        </div>
+        <div class="clear"></div>
     <div class="modal-footer">
     <a href="#" class="btn btn-primary">{$APP.LBL_TOUR_TAKE_TOUR}</a>
     <a href="#" class="btn btn-invisible">{$APP.LBL_TOUR_SKIP}</a>
@@ -58,26 +42,38 @@
 <div id="tourEnd" style="display: none;">
     <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
-    <h3><i class="icon-ok icon-md"></i> {$mod.LBL_TOUR_DONE}</h3>
+    <h3>{$APP.LBL_TOUR_DONE}</h3>
     </div>
-    
+
 	<div class="modal-body">
-		<div style="float: left;"> 
-			<div style="float: left; width: 290px; margin-right: 40px;">
+		<div style="float: left;">
+			<div style="float: left; width: 360px; margin-right: 50px;">
 			<p>
-			{$mod.LBL_TOUR_REFERENCE_1} <a href="javascript:void window.open('http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/{$APP.documentation.$sugarFlavor}')">{$mod.LNK_TOUR_DOCUMENTATION}</a> {$mod.LBL_TOUR_REFERENCE_2}
+			{$APP.LBL_TOUR_REFERENCE_1} <a href="javascript:void window.open('http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/{$appList.documentation.$sugarFlavor}')">{$APP.LNK_TOUR_DOCUMENTATION}</a> {$APP.LBL_TOUR_REFERENCE_2}
 <br>
-				<i class="icon-arrow-right icon-lg" style="float: right; position: relative; right: -72px; top: -26px;"></i>
+				<i class="fa fa-arrow-right fa-lg" style="float: right; position: relative; right: -33px; top: -30px;"></i>
 			</p>
 			</div>
 			<div style="float: left">
-				<img src="include/images/tour/profile_link.png" width="168" height="247">
+				<img src="{sugar_getjspath file='themes/default/images/pt-profile-link.png'}" width="152" height="221">
 			</div>
 		</div>
 	</div>
     <div class="clear"></div>
-    
+
     <div class="modal-footer">
-    <a href="#" class="btn btn-primary">Close</a>
+    <a href="#" class="btn btn-primary">{$APP.LBL_TOUR_BTN_DONE}</a>
+    <a href="#" class="btn">{$APP.LBL_TOUR_BACK}</a>
+
     </div>
 </div>
+
+<script type="text/javascript">
+    {literal}
+    $('#thumbnail_0').live("click", function(){
+        $("#tour_screenshot .modal-header h3").html("{/literal}{$APP.LBL_TOUR_WELCOME}{literal}");
+        $("#tour_screenshot .modal-body").html("<img src='themes/default/images/pt-screen0-full.png' width='600'>");
+        $("#tour_screenshot").modal("show");
+    });
+    {/literal}
+</script>

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /*********************************************************************************
 * Description:
@@ -23,10 +20,47 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once('include/connectors/sources/ext/rest/rest.php');
 
 class ext_rest_twitter extends ext_rest {
+
+    protected $_has_testing_enabled = true;
+
     public function __construct(){
         parent::__construct();
         $this->_enable_in_wizard = false;
         $this->_enable_in_hover = true;
+    }
+
+    /**
+     * test
+     * This method is called from the administration interface to run a test of the service
+     * It is up to subclasses to implement a test and set _has_testing_enabled to true so that
+     * a test button is rendered in the administration interface
+     *
+     * @return result boolean result of the test function
+     */
+    public function test() {
+        require_once 'vendor/Zend/Oauth/Consumer.php';
+
+        $api = ExternalAPIFactory::loadAPI('Twitter', true);
+
+        if ($api) {
+            $properties = $this->getProperties();
+            $config = array(
+                'callbackUrl' => 'http://www.sugarcrm.com',
+                'siteUrl' => $api->getOauthRequestURL(),
+                'consumerKey' => $properties['oauth_consumer_key'],
+                'consumerSecret' => $properties['oauth_consumer_secret']
+            );
+            try {
+                $consumer = new Zend_Oauth_Consumer($config);
+                $consumer->getRequestToken();
+                return true;
+            } catch (Exception $e) {
+                $GLOBALS['log']->error("Error getting request token for twitter:".$e->getMessage());
+                return false;
+            }
+        }
+        
+        return false;
     }
 
     /*

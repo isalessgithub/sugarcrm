@@ -2,37 +2,34 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTION_ERROR' => 'Die Aktion kann nicht durchgeführt werden. Editieren Sie die Aktion und überprüfen Sie alle Felder und Feldwerte.',
   'LBL_ACTION_ERRORS' => 'Notiz: Ein oder mehrere Aktionen sind fehlerhaft',
   'LBL_ALERT_ERROR' => 'Diese Meldung kann nicht durchgeführt werden. Editieren Sie die Meldung und überprüfen Sie die Einstellungen.',
   'LBL_ALERT_ERRORS' => 'Notiz: Ein oder mehrere Meldungen enthalten Fehler.',
-  'LBL_ALERT_SUBJECT' => 'WORKFLOW ALERT',
-  'LBL_ALERT_TEMPLATES' => 'Warnungsvorlagen',
+  'LBL_ALERT_SUBJECT' => 'WORKFLOW ALARM',
+  'LBL_ALERT_TEMPLATES' => 'Meldungsvorlagen',
   'LBL_ANY_FIELD' => 'irgendein Feld',
   'LBL_AS' => 'als',
-  'LBL_BASE_MODULE' => 'Ziel Modul:',
+  'LBL_BASE_MODULE' => 'Zielmodul:',
   'LBL_BODY' => 'Text:',
-  'LBL_CREATE_ALERT_TEMPLATE' => 'Neue Warnungsvorlage',
+  'LBL_CREATE_ALERT_TEMPLATE' => 'Neue Meldungsvorlage',
   'LBL_DESCRIPTION' => 'Beschreibung:',
   'LBL_DOWN' => 'nach unten',
   'LBL_EDITLAYOUT' => 'Layout bearbeiten',
-  'LBL_EDIT_ALT_TEXT' => 'Alt Text',
+  'LBL_EDIT_ALT_TEXT' => 'Alternativer Text',
   'LBL_EMAILTEMPLATES_TYPE' => 'Typ:',
   'LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW' => 
   array (
@@ -44,9 +41,9 @@ $mod_strings = array (
   'LBL_HIDE' => 'Ausblenden',
   'LBL_INSERT' => 'Einfügen',
   'LBL_INVITEES' => 'Teilnehmer',
-  'LBL_INVITEE_NOTICE' => 'Achtung, Sie müssen zumindest einen Teilnehmer auswählen um das zu erstellen.',
+  'LBL_INVITEE_NOTICE' => 'Beachten Sie, es muss zumindest ein Teilnehmer ausgewählt werden.',
   'LBL_INVITE_LINK' => 'Meeting/Anruf Einladungslink',
-  'LBL_LACK_OF_NOTIFICATIONS_ON' => 'Bemerkung: Um Warnungen zu senden müssen Benachrichtigungen in Admin &gt; Email Einstellungen auf ja gesetzt sein.',
+  'LBL_LACK_OF_NOTIFICATIONS_ON' => 'Bemerkung: Um Meldungen zu senden müssen Benachrichtigungen in Admin &gt; Email Einstellungen auf ja gesetzt sein.',
   'LBL_LACK_OF_TRIGGER_ALERT' => 'Bemerkung: Sie müssen einen Trigger erstellen damit dieses Workflow Objekt funktioniert',
   'LBL_LINK_RECORD' => 'Verknüpfung zu Eintrag',
   'LBL_LIST_BASE_MODULE' => 'Ziel Modul:',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_LIST_STATUS' => 'Status',
   'LBL_LIST_TYPE' => 'Durchführung findet statt:',
   'LBL_LIST_UP' => 'up',
-  'LBL_MODULE_ID' => 'WorkFlow',
+  'LBL_MODULE_ID' => 'Workflow',
   'LBL_MODULE_NAME' => 'Workflow Definitionen:',
   'LBL_MODULE_NAME_SINGULAR' => 'Workflow Definition',
   'LBL_MODULE_TITLE' => 'Workflow: Home',
@@ -84,10 +81,11 @@ $mod_strings = array (
   'LBL_TYPE' => 'Durchführung findet statt:',
   'LBL_UP' => 'nach oben',
   'LBL__S' => '&#039;s',
-  'LNK_ALERT_TEMPLATES' => 'Warnung E-Mail Vorlagen',
+  'LNK_ALERT_TEMPLATES' => 'Meldungs E-Mail Vorlagen',
   'LNK_NEW_WORKFLOW' => 'Workflow Definition erstellen',
   'LNK_PROCESS_VIEW' => 'Workflow Reihenfolge',
   'LNK_WORKFLOW' => 'Liste Workflow Definitionen',
-  'NTC_REMOVE_ALERT' => 'Sind Sie sicher, dass Sie diesen Trigger entfernen wollen?',
+  'NTC_REMOVE_ALERT' => 'Sind Sie sicher, dass Sie diesen Workflow entfernen wollen?',
+  'WARN_WORKFLOW_DEPRECATED_ERROR' => '<b>Warnung:</b> Das Workflow-Modul ist demnächst veraltet und wird entfernt. Bitte übertragen Sie Workflows an den neuen <a href="index.php?module=pmse_Project">Process Author</a>.<span style="width: 1em; display: inline-block;">&nbsp;</span><a target="_blank" href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/01_Sugar_Ultimate/Sugar_Ultimate_7.6/Administration_Guide/135_Process_Author/">Erfahren Sie mehr über Process Author</a>.',
 );
 

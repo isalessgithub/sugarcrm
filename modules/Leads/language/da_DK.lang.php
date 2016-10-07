@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Der skal angives et postnummer for at slette kundeemnet.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adresseoplysninger',
   'LBL_ADD_BUSINESSCARD' => 'Tilføj visitkort',
   'LBL_ALTERNATE_ADDRESS' => 'Anden adresse:',
-  'LBL_ALT_ADDRESS' => 'Anden adresse:',
   'LBL_ALT_ADDRESS_CITY' => 'Alternativ adresse, by',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Alternativ adresse, land',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Alternativ adresse, postnummer',
@@ -68,17 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Konverteret salgsmulighed:',
   'LBL_CONVERTLEAD' => 'Konverter kundeemne',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Kunne ikke konvertere Leadet',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Du har med succes konverteret Leadet {{leadName}}, men der var et problem at uploade vedhæftede filer på en eller flere poster',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Du har med succes konverteret Leadet {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Konverter kundeemne [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Advarsel: Status på kundeemnet som du er ved at konvertere er "konverteret". Kontakt og/eller virksomheden er muligvis allerede oprettet fra kundeemnet. Hvis du ønsker at fortsætte med konverteringen, tryk Gem. For at gå tilbage til kundeemnet uden at konvertere, tryk Annullere.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Mulig kontakt:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Du mangler redigering adgang til de moduler, der kræves for at konvertere et lead: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Tilføj modul',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Tilknyttet {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Tilknyttet {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Tilbage til dubletter',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Konverter',
   'LBL_CONVERT_COPY' => 'Kopier data',
+  'LBL_CONVERT_CREATE_NEW' => 'Ny {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Slet',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplikateksemplar}} dubletter fundet',
   'LBL_CONVERT_EDIT' => 'Rediger',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Rediger konverter layout',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Søger efter dubletter...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignorer og skabe ny',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Tilknyttet',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Du har forbundet {{moduleNameLower}} {{rekord Name}} men det vil ikke blive oprettet indtil du har afsluttet og gemt.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Du forbandt {{moduleNameLower}} {{recordName}} men det vil ikke være knyttet indtil du er færdig og gemme.',
   'LBL_CONVERT_MODULE_NAME' => 'Modul',
+  'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Modul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(valgfrit)',
   'LBL_CONVERT_REQUIRED' => 'Obligatorisk',
+  'LBL_CONVERT_RESET_PANEL' => 'Nulstille',
   'LBL_CONVERT_SELECT' => 'Tillad valg',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Opret ny',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Søg',
   'LBL_COPY_TIP' => 'Hvis markeret, vil felter fra kundeemnet blive kopieret til felter med samme navn i de nyoprettede poster.',
   'LBL_COUNTRY' => 'Land:',
   'LBL_CREATE' => 'Opret',
@@ -96,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Afdeling:',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelsesoplysninger',
+  'LBL_DNB_BAL_PREVIEW' => 'Leads visning',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Leads',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Lead information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => 'Ring ikke:',
   'LBL_DUPLICATE' => 'Lignende kundeemner',
   'LBL_EDITLAYOUT' => 'Rediger layout',
@@ -114,12 +134,19 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Ændret af id',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobiltelefon',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Lead rapporter',
   'LBL_FIRST_NAME' => 'Fornavn:',
   'LBL_FULL_NAME' => 'Fulde navn:',
+  'LBL_HELP_CONVERT' => 'Sugar giver dig mulighed for at konvertere {{plural_module_name}} til {{contacts_module}}, {{accounts_module}}, og andre moduler, når {{MODULE_NAME}} opfylder dine kvalifikationskriterier. Gå trinvist gennem de enkelte moduler ved at ændre felter derefter bekræfter den nye posts værdier ved at klikke på hvert associeret knap. Hvis Sugar registrerer en eksisterende post, der matcher din {{MODULE_NAME}}s oplysninger, har du mulighed for at vælge en kopi, og bekræft valget med Associate knappen eller for at klikke på "Ignorer og skabe nye" og fortsætte normalt. Efter bekræftelse hver enkelt påkrævet, og ønskede modul, skal du klikke på Gem og Konverter knappen øverst til at færdiggøre konverteringen.',
+  'LBL_HELP_CONVERT_TITLE' => 'Konverter en {{MODULE_NAME}}',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modul består af individuelle udsigter, der kan være interesseret i et produkt eller service din organisation tilbyder. Når {{MODULE_NAME}} er kvalificeret som en salgs {{opportunities_singular_module}}, kan det blive konverteret til en {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}} eller anden post. For at oprette en {{MODULE_NAME}}:. 1. Give værdier for felterne som ønsket. - Felter mærket "Required" skal være afsluttet, før du gemmer. - Klik på "Vis mere" for at eksponere yderligere felter, hvis det er nødvendigt. 2.. Klik på "Gem" for at færdiggøre den nye post og vende tilbage til den forrige side. - Vælg "Gem og se" for at åbne den nye {{MODULE_NAME}} på liste visning. - Vælg "Gem og skabe nye" til straks at oprette et nyt {{MODULE_NAME}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består af individuelle udsigter, der kan være interesseret i et produkt eller service din organisation tilbyder. - Rediger denne posts felter ved at klikke på et enkelt felt eller på knappen Rediger. - Se eller ændre links til andre poster i underpanelet ved at skifte den nederste venstre rude til "Data View". - Skab og vis brugernes kommentarer og post ændring historie i {{activitystream_singular_module}} ved at skifte det nederste venstre rude til "Activity Stream". - Følg eller favorit denne post med ikonerne til højre for posten navn. - Yderligere handlinger er tilgængelige i dropdown menuen Handlinger til højre for knappen Rediger.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består af individuelle udsigter, der kan være interesseret i et produkt eller service din organisation giver. Når {{module_name}}  kvalificere som et salg {{opportunities_singular_module}}, {{plural_module_name}} blive konverteret til {{contacts_module}}, {{opportunities_module}} og {{accounts_module}}. Der er forskellige måder, du kan oprette {{plural_module_name}} i Sugar som et eksempel via  {{plural_module_name}}  modul, duplikering, import {{plural_module_name}} osv. Når  {{module_name}} post er oprettet, kan du se og redigere information relateret til {{module_name}}  af {{plural_module_name}}  listevisning.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_HOME_PHONE' => 'Telefon "privat":',
   'LBL_IMPORT_VCARD' => 'Importér vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Opret automatisk et nyt kundeemne ved at importere et vCard fra filsystemet.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Lead fra vCard blev oprettet med succes',
   'LBL_INVALID_EMAIL' => 'Ugyldig e-mail:',
   'LBL_INVITEE' => 'Direkte rapporter',
   'LBL_LAST_NAME' => 'Efternavn:',
@@ -145,18 +172,24 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Titel',
   'LBL_LOADING' => 'Indlæser ...',
   'LBL_MESSAGE' => 'Angiv dine oplysninger nedenfor. Oplysninger og/eller en virksomhed oprettes og afventer din godkendelse.',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Resultat',
+  'LBL_MKTO_SYNC' => 'Synkroniser til Marketo®',
   'LBL_MOBILE_PHONE' => 'Mobiltelefon:',
   'LBL_MODIFIED' => 'Ændret af',
   'LBL_MODIFIED_ID' => 'Ændret af id',
   'LBL_MODIFIED_USER' => 'Ændret bruger',
   'LBL_MODULE_NAME' => 'Kundeemner',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tilbud produkter',
   'LBL_MODULE_TIP' => 'Modulet til at oprette en ny post i.',
   'LBL_MODULE_TITLE' => 'Kundeemner: Startside',
   'LBL_NAME' => 'Navn:',
   'LBL_NEW_FORM_TITLE' => 'Nyt kundeemne',
   'LBL_NEW_PORTAL_PASSWORD' => 'Ny portaladgangskode:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Noter',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Bemærk: Det viste konverter kundeemne skærmbillede indeholder tilpassede felter. Når du tilpasser konverter kundeemne skærmbilledet i Studio første gang, skal du tilføje tilpassede felter til layoutet, som nødvendigt. De tilpassede felter vil ikke automatisk blive vist i layoutet, som de gjorde tidligere.',
   'LBL_OFFICE_PHONE' => 'Telefon "arbejde":',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Salgsmuligheder',
   'LBL_OPPORTUNITY_AMOUNT' => 'Salgsmulighedsbeløb:',
   'LBL_OPPORTUNITY_ID' => 'Salgsmuligheds-id',
   'LBL_OPPORTUNITY_NAME' => 'Salgsmuligheds navn:',
@@ -184,6 +217,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Primær adresse, gade 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Primær adresse, gade 3',
   'LBL_PROSPECT_LIST' => 'Liste over potentielle kunder',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Du har med succes skabt den {{moduleSingularLower}} {{fulde navn}}.',
   'LBL_REFERED_BY' => 'Henvist af:',
   'LBL_REGISTRATION' => 'Registrering',
   'LBL_REPORTS_FROM' => 'Rapporter fra:',
@@ -192,6 +226,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Nødvendige moduler skal oprettes eller vælges før kundeemnet kan konverteres.',
   'LBL_SALUTATION' => 'Tiltaleform',
   'LBL_SAVED' => 'Tak for din registrering. Din virksomhed oprettes, og en person kontakter dig snarest.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Gem og konverter',
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter kundeemne',
   'LBL_SELECT' => 'Vælg',
   'LBL_SELECTION_TIP' => 'Moduler med et relateret felt i kontakter kan vælges i stedet for skabt i løbet af konverter kundeemne processen.',
@@ -208,6 +243,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Succesfuld kampagne:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Tak for din indsendelse.',
   'LBL_TITLE' => 'Titel:',
+  'LBL_UNCONVERTED' => 'Uomdannede',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Kundeemnevisning',
   'LBL_WEBSITE' => 'Websted',
@@ -225,14 +261,16 @@ $mod_strings = array (
   'LNK_NEW_NOTE' => 'Opret note',
   'LNK_NEW_OPPORTUNITY' => 'Opret salgsmulighed',
   'LNK_NEW_TASK' => 'Opret opgave',
-  'LNK_SELECT_ACCOUNT' => 'Vælg virksomhed',
   'LNK_SELECT_ACCOUNTS' => 'Vælg virksomhed',
+  'LNK_SELECT_CONTACTS' => 'ELLER Vælg kontakt',
   'NTC_COPY_ALTERNATE_ADDRESS' => 'Kopiér alternativ adresse til primær adresse',
   'NTC_COPY_PRIMARY_ADDRESS' => 'Kopiér primær adresse til alternativ adresse',
   'NTC_DELETE_CONFIRMATION' => 'Er du sikker på, at du vil slette denne post?',
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Oprettelse af en salgsmulighed kræver en virksomhed.\\n Opret en ny virksomhed, eller vælg en eksisterende.',
   'NTC_REMOVE_CONFIRMATION' => 'Er du sikker på, at du vil fjerne dette kundeemne fra denne sag?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Er du sikker på, at du vil fjerne denne post som en direkte rapport?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

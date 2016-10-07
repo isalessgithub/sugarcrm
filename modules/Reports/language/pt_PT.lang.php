@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,8 +76,8 @@ $mod_strings = array (
     1209600 => 'De 2 em 2 Semanas',
     2419200 => 'De 4 em 4 Semanas',
   ),
-  'ERR_REPORT_DEACTIVATED' => 'O relatório agendado "{0}" foi desactivado',
-  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Os relatórios agendados foram desactivados',
+  'ERR_REPORT_DEACTIVATED' => 'O relatório agendado "{0}" foi desactivado.',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'O relatório agendado foi desactivado.',
   'ERR_REPORT_INVALID' => 'A definição do relatório "{0}" contém campos inválidos: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'O relatório é inválido',
   'ERR_SELECT_COLUMN' => 'Por favor seleccione primeiro uma coluna para exibir',
@@ -156,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Novo Relatório Personalizado',
   'LBL_CREATE_REPORT' => 'Novo Relatório',
   'LBL_CSV_TIMESTAMP' => 'A_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre Fiscal Actual',
-  'LBL_CURRENT_FISCAL_YEAR' => 'Ano Fiscal Actual',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre Fiscal Corrente',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Ano Fiscal Corrente',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Negócios Registados do Trimestre Actual',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Previsão Actual do Trimestre',
   'LBL_CURRENT_USER' => 'Utilizador Actual',
@@ -207,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'dos seguintes filtros.',
   'LBL_FILTERS_HELP_DESC' => '<b>Etapas para Definir Filtros</b><br/><br/>1) Clique no Módulo no painel <b>Módulos Relacionados</b> que pretende utilizar para definir filtros. Por defeito, o módulo primário (nó do topo na vista de árvore) é seleccionado. <br/><br/>Você pode seleccionar um módulo relacionado (nó descendente na vista de árvore) clicando no módulo. Expanda o nó para visualizar módulos adicionais relacionados com o módulo correspondente. O módulo que você seleccionar determina quais os campos reportáveis a aparecer no painel <b>Campos Disponíveis</b><br/><br/>2) Clique num Campo no painel <b>Campos Disponíveis</b> para adicioná-lo aos filtros. Você pode também procurar o campo, digitando-o na caixa de texto no painel.<br/><br/> Após seleccionar um número qualquer de campos a partir do módulo seleccionado no painel <b>Módulos Relacionados</b>, você pode escolher um módulo diferente a partir do qual pode seleccionar quaisquer campos a serem utilizados como filtros.<br/><br/> 3) Escolha <b>E</b> ou <b>OU</b> para designar se todos ou alguns filtros, respectivamente, são utilizados para procurar respostas para o relatório.<br/><br/> 4) [Opcional] Clique em <b>Adicionar Grupo de Filtro</b> para criar grupos de filtros. Você pode ter um número qualquer de grupos de filtros e de filtros dentro dos grupos para criar filtros encapsulados. <br/> <br/> 5) [Opcional] Seleccione a opção Run-time para um Filtro para permitir aos utilizadores usarem-no para personalizar ainda mais os resultados dos relatórios enquanto visualizam o relatório.',
   'LBL_FILTER_AND' => 'TODOS',
+  'LBL_FILTER_BY_MODULE' => 'Por módulo',
   'LBL_FILTER_CONDITIONS' => 'Seleccione registos que satisfaçam',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Para',
   'LBL_FILTER_DATE_RANGE_START' => 'De',
@@ -237,7 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Os Últimos 30 Dias',
   'LBL_LAST_7_DAYS' => 'Os Últimos 7 Dias',
   'LBL_LAST_MONTH' => 'O Mês Passado',
-  'LBL_LAST_N_DAYS' => 'Ultimos # Dias',
+  'LBL_LAST_N_DAYS' => 'Últimos # Dias',
   'LBL_LAST_QUARTER' => 'O Trimestre Passado',
   'LBL_LAST_WEEK' => 'A Semana Passada',
   'LBL_LAST_YEAR' => 'O Ano Passado',
@@ -321,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Não pode aceder a este relatório devido a restrições de permissões.',
   'LBL_NO_CHART' => 'Não tem Gráfico',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Gráfico não pode ser gerado devido à insuficiência de dados',
-  'LBL_NO_EXPORT_ACCESS' => 'Exportações desactivadas',
+  'LBL_NO_EXPORT_ACCESS' => 'Exportações Desactivadas',
   'LBL_NO_FILTERS' => 'não tem filtros.',
   'LBL_NO_IMAGE' => 'Nenhuma Imagem',
   'LBL_NO_REPORTS' => 'Nenhuns resultados.',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'com uma média',
   'LBL_WITH_A_TOTAL' => 'com um total',
   'LBL_WITH_DETAILS' => 'Com detalhes',
-  'LBL_WORKSHEET' => 'Folha de Cálculo',
   'LBL_YEAR' => 'Ano',
   'LBL_YESTERDAY' => 'Ontem',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Não tem relatórios gravados.',
+  'LNK_ADVANCED_REPORTING' => 'Gerir Relatórios Avançados',
   'LNK_NEW_ACCOUNT' => 'Nova Entidade',
   'LNK_NEW_CALL' => 'Nova Chamada Telefónica',
   'LNK_NEW_CASE' => 'Nova Ocorrência',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Não tem permissões para editar este Relatório',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Não é possível publicar. Já existe um outro Relatório publicado com o mesmo nome.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Não é possível despublicar um Relatório que pertence a outro Utilizador. Você tem um Relatório com o mesmo nome.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'O Agendamento de Tarefas de Geração de Relatórios de Processos está inactivo de momento e os Relatórios não podem ser Agendados. Por favor peça a um utilizador Administrador para que active este Agendamento e tente de novo.',
 );
 

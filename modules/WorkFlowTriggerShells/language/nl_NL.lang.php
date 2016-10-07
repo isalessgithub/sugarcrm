@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
-  'ERR_DELETE_EMPTY' => 'Het record is al verwijderd of bestaat niet.',
-  'ERR_DELETE_RECORD' => 'Er moet een recordnummer zijn gespecificeerd om deze opportunity te verwijderen.',
+  'ERR_DELETE_EMPTY' => 'Het record is reeds verwijderd of bestaat niet.',
+  'ERR_DELETE_RECORD' => 'U dient een recordnummer op te geven om het record te kunnen verwijderen',
   'LBL_ALERT_TEMPLATES' => 'Waarschuwing sjablonen',
   'LBL_APOSTROPHE_S' => '&#39;s',
   'LBL_COMPARE_ANY_TIME_PART2' => 'verandert niet voor',
@@ -59,7 +56,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Voorwaarden',
   'LBL_MODULE_NAME_SINGULAR' => 'Voorwaarde',
   'LBL_MODULE_SECTION_TITLE' => 'Wanneer aan deze voorwaarden is voldaan',
-  'LBL_MODULE_TITLE' => 'Workflow Triggers: Home',
+  'LBL_MODULE_TITLE' => 'Workflow Triggers: Start',
   'LBL_MUST_SELECT_VALUE' => 'U moet een waarde kiezen voor dit veld',
   'LBL_NAME' => 'Trigger Naam:',
   'LBL_NEW_FILTER_BUTTON_KEY' => 'F',
@@ -95,6 +92,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Workflow Triggers',
   'LNK_WORKFLOW' => 'Workflow Objecten',
   'NTC_REMOVE_TRIGGER' => 'Weet u zeker dat u deze trigger wil verwijderen?',
-  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Verwijderen van een primaire trigger zal alle triggers verwijderen',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Als u de primaire trigger verwijderd, zullen alle triggers worden verwijderd.',
 );
 

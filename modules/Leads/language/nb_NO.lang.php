@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'en_us A record number must be specified to delete the lead.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adresseinformasjon',
   'LBL_ADD_BUSINESSCARD' => 'Legg til visittkort',
   'LBL_ALTERNATE_ADDRESS' => 'Annen adresse:',
-  'LBL_ALT_ADDRESS' => 'Annen adresse:',
   'LBL_ALT_ADDRESS_CITY' => 'Alt. adresseby',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Alt. adresseland',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Alt. postnummer',
@@ -68,17 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Konvertert mulighet:',
   'LBL_CONVERTLEAD' => 'Konverter Lead',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Kan ikke konvertere leadet',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Du konvertere leadet med hell {{leadName}}, men det var et problem å laste opp vedlegg på en eller flere poster',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Du konvertere leadet med hell {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Konverter Lead [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Advarsel: Status for det Lead du er i ferd med å konvertere er "konvertert". Kontakt og / eller Bedrift poster kan allerede ha blitt opprettet fra Lead. Hvis du ønsker å fortsette med å konvertere Lead, klikker du Lagre. For å gå tilbake til Lead uten å konvertere den, klikker du Avbryt.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Mulig Kontakt:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Du mangler redigeringstilgang til de modulene som kreves for å konvertere et Lead: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Legg til Modul',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Tilknyttet {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Knytte {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Tilbake til duplikater',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Konverter',
   'LBL_CONVERT_COPY' => 'Kopier data',
+  'LBL_CONVERT_CREATE_NEW' => 'Ny {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Slett',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} duplikater funnet found',
   'LBL_CONVERT_EDIT' => 'Rediger',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Rediger konvertert layout',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Søker etter duplikater...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignorer og opprett ny',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Tilknyttet',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Du tilknyttet {{moduleNameLower}} {{recordName}} men det vil ikke bli opprettet før du avslutter og lagrer.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Du tilknyttet {{moduleNameLower}} {{recordName}} men det vil ikke bli linket før du avslutter og lagrer.',
   'LBL_CONVERT_MODULE_NAME' => 'Modul',
+  'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Modul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(valgfri)',
   'LBL_CONVERT_REQUIRED' => 'Nødvendig',
+  'LBL_CONVERT_RESET_PANEL' => 'Reset',
   'LBL_CONVERT_SELECT' => 'Tillat markering',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Skap ny',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Søk',
   'LBL_COPY_TIP' => 'Hvis merket, vil feltene fra Lead bli kopiert til felt med samme navn i de nyopprettede postene.',
   'LBL_COUNTRY' => 'Land:',
   'LBL_CREATE' => 'Opprett',
@@ -96,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Avdeling:',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelseinformasjon',
+  'LBL_DNB_BAL_PREVIEW' => 'Leads forhåndsvisning',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Leads',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Lead informasjon',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Hoved ID',
   'LBL_DO_NOT_CALL' => 'Ikke ring:',
   'LBL_DUPLICATE' => 'Lignende leads:',
   'LBL_EDITLAYOUT' => 'Redigér Oppsett',
@@ -114,12 +134,19 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Endret av ID',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobiltelefon',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Lead rapporter',
   'LBL_FIRST_NAME' => 'Fornavn:',
   'LBL_FULL_NAME' => 'Fullt navn:',
+  'LBL_HELP_CONVERT' => 'Sugar gir deg muligheten til å konvertere {{plural_module_name}} til {{contacts_module}}, {{accounts_module}}, og andre moduler når {{module_name}} oppfyller dine kvalifikasjonskriteriene. Gå gjennom hver modul ved å endre felt, deretter bekrefte den nye postens verdier ved å klikke på hver Associate knappen. Hvis Sugar oppdager en eksisterende post som matcher din {{module_name}}&#39;s informasjon, har du muligheten til å velge et duplikat og bekreft valget med Associate knappen eller til å klikke "Ignorer og skape ny" og fortsette som normalt. Etter å ha bekreftet hver obligatorisk og ønsket modul, klikker du Lagre og konvertere knappen øverst for å fullføre konverteringen.',
+  'LBL_HELP_CONVERT_TITLE' => 'Konvertere en {{module_name}}',
+  'LBL_HELP_CREATE' => 'Den {{plural_module_name}} modul består av individuelle prospekter som kan være interessert i et produkt eller en tjeneste organisasjonen gtilbyr. Når {{module_name}} er kvalifisert som et salg {{opportunities_singular_module}}, kan det bli konvertert til et {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}}, eller annen post. For å opprette et {{module_name}}: 1. Gi verdier til feltene som ønsket. - Felt som er merket "Obligatorisk" må fullføres før du lagrer. - Klikk "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Klikk "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne den nye {{module_name}} i postvisning. - Velg "Lagre og skape ny" for umiddelbart å opprette en ny {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Den {{plural_module_name}} modul består av individuelle prospekter som kan være interessert i et produkt eller en tjeneste organisasjonen tilbyr. - Rediger dette posts felt ved å klikke på et enkelt felt eller Rediger-knappen. - Vis eller endre lenker til andre poster i underpaneler ved veksling av nedre  venstre rute til "Data View". - Lag og vis bruker kommentarer og postendringshistorie i {{activitystream_singular_module}} ved veksling av nedre venstre rute til "Activity Stream". - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for posten navn. - Ytterligere tiltak er tilgjengelig i dropdown menyen Handlinger til høyre på Rediger-knappen.',
+  'LBL_HELP_RECORDS' => 'Den {{plural_module_name}} modul består av individuelle prospekter som kan være interessert i et produkt eller en tjeneste organisasjonen gir. Når {{module_name}} er kvalifisert som et salg {{opportunities_singular_module}}, {{plural_module_name}} kan bli konvertert til {{contacts_module}}, {{opportunities_module}}, og {{accounts_module}}. Det finnes ulike måter du kan opprette {{plural_module_name}} i Sugar eksempel via {{plural_module_name}} modul, duplisering, import {{plural_module_name}}, osv. Når {{module_name}} posten er opprettet, kan du se på og redigere informasjon knyttet til {{module_name}} via {{plural_module_name}} postvisning.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historikk',
   'LBL_HOME_PHONE' => 'Hustelefonnummer:',
   'LBL_IMPORT_VCARD' => 'Importer vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Opprett en ny lead automatisk når du importerer et vCard fra filsystemet.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Lead fra vCard er nå opprettet',
   'LBL_INVALID_EMAIL' => 'Ugyldig e-post:',
   'LBL_INVITEE' => 'Direkterapporter',
   'LBL_LAST_NAME' => 'Etternavn:',
@@ -145,18 +172,24 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Tittel',
   'LBL_LOADING' => 'Laster',
   'LBL_MESSAGE' => 'Vennligst fyll inn informasjonen under. Informasjon og/ eller en konto vil bli opprettet for din ventende godkjenning.',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Score',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo®',
   'LBL_MOBILE_PHONE' => 'Mobiltelefonnummer:',
   'LBL_MODIFIED' => 'Endret av',
   'LBL_MODIFIED_ID' => 'Endret av ID',
   'LBL_MODIFIED_USER' => 'Endret bruker',
   'LBL_MODULE_NAME' => 'Leads',
+  'LBL_MODULE_NAME_SINGULAR' => 'Lead',
   'LBL_MODULE_TIP' => 'Modulen til å opprette en ny post i',
   'LBL_MODULE_TITLE' => 'Leads: Hjem',
   'LBL_NAME' => 'Navn:',
   'LBL_NEW_FORM_TITLE' => 'Ny lead',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nytt portalpassord',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notater',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Merknad: Dette Konverter Lead oppsettet inneholder egendefinerte felt. Når du for første gang tilpasser Konverter Lead oppsettet i Studio må du legge til egendefinerte felt etter behov. Egendefinerte felt vil ikke vises automatisk i oppsettet slik de ble gjort tidligere.',
   'LBL_OFFICE_PHONE' => 'Telefonnummer til kontor:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Salgsmuligheter',
   'LBL_OPPORTUNITY_AMOUNT' => 'Mulighetsmengde:',
   'LBL_OPPORTUNITY_ID' => 'Mulighets-ID:',
   'LBL_OPPORTUNITY_NAME' => 'Mulighetsnavn:',
@@ -184,6 +217,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Hovedadresse gate 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Hovedadresse gate 3',
   'LBL_PROSPECT_LIST' => 'Prospect liste',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Du lykkes i å opprette {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Henvist av:',
   'LBL_REGISTRATION' => 'Registrering',
   'LBL_REPORTS_FROM' => 'Rapporterer Fra:',
@@ -192,6 +226,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Nødvendige moduler må opprettes eller velges før Lead kan bli konvertert.',
   'LBL_SALUTATION' => 'Hilsen',
   'LBL_SAVED' => 'Takk for at du registrer deg! Din konto vil bli opprettet og noen vil kontakte deg innen kort tid.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Lagre og konverter',
   'LBL_SEARCH_FORM_TITLE' => 'Søk lead',
   'LBL_SELECT' => 'ELLER Velg',
   'LBL_SELECTION_TIP' => 'Moduler med et tilsvarende felt i Kontakter kan velges i stedet for å opprettes under konverter Lead prosessen.',
@@ -208,6 +243,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Suksessrike kampanjer',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Takk for din innlevering.',
   'LBL_TITLE' => 'Tittel:',
+  'LBL_UNCONVERTED' => 'Ukonvertert',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Lead-visning',
   'LBL_WEBSITE' => 'Nettsted',
@@ -225,14 +261,16 @@ $mod_strings = array (
   'LNK_NEW_NOTE' => 'Opprett notat eller vedlegg',
   'LNK_NEW_OPPORTUNITY' => 'Opprett mulighet',
   'LNK_NEW_TASK' => 'Opprett Oppgave',
-  'LNK_SELECT_ACCOUNT' => 'Velg bedrift',
   'LNK_SELECT_ACCOUNTS' => 'ELLER velg Bedrift',
+  'LNK_SELECT_CONTACTS' => 'ELLER Velg kontakt',
   'NTC_COPY_ALTERNATE_ADDRESS' => 'Kopier alternativ adresse til hovedadresse',
   'NTC_COPY_PRIMARY_ADDRESS' => 'Kopier hovedadresse til alternativ adresse',
   'NTC_DELETE_CONFIRMATION' => 'Er du sikker på at du vil slette denne oppføringen?',
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'For å opprette en mulighet kreves en bedrift.\\n Vennligst opprett en ny bedrift eller velg en som allerede finnes.',
   'NTC_REMOVE_CONFIRMATION' => 'Er du sikker på at du vil fjerne lead fra denne sak?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Er du sikker på at du vil fjerne denne oppføringen som en direkterapport?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

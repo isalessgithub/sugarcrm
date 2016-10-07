@@ -1,30 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- *********************************************************************************/
-
-require_once("include/entryPoint.php");
-
-if (!is_admin($GLOBALS['current_user'])) {
-    sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
-}
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $json = getJSONObj();
 $out = "";
@@ -39,15 +25,15 @@ switch($_REQUEST['adminAction']) {
             $target = $_REQUEST['bean'];
         }
 
-        $count = 0;
+		$count = 0;
 		$toRepair = array();
-		
+
 		if($target == 'all') {
 			$hide = array('Activities', 'Home', 'iFrames', 'Calendar', 'Dashboard');
-		
+
 			sort($moduleList);
 			$options = array();
-			
+
 			foreach($moduleList as $module) {
 				if(!in_array($module, $hide)) {
 					$options[$module] = $module;
@@ -55,23 +41,15 @@ switch($_REQUEST['adminAction']) {
 			}
 
 			foreach($options as $module) {
-				if(!isset($beanFiles[$beanList[$module]]))
-					continue;
-				
-				$file = $beanFiles[$beanList[$module]];
-				
-				if(!file_exists($file))
-					continue;
-					
-				require_once($file);
-				$bean = new $beanList[$module]();
-				
+			    $bean = BeanFactory::getBean($module);
+			    if(empty($bean)) continue;
+
 				$q = "SELECT count(*) as count FROM {$bean->table_name}";
 				$r = $bean->db->query($q);
 				$a = $bean->db->fetchByAssoc($r);
-				
+
 				$count += $a['count'];
-				
+
 				// populate to_repair array
 				$q2 = "SELECT id FROM {$bean->table_name}";
 				$r2 = $bean->db->query($q2);
@@ -82,14 +60,13 @@ switch($_REQUEST['adminAction']) {
 				$toRepair[$module] = $ids;
 			}
 		} elseif(in_array($target, $moduleList)) {
-			require_once($beanFiles[$beanList[$target]]);
-			$bean = new $beanList[$target]();
+		    $bean = BeanFactory::getBean($target);
 			$q = "SELECT count(*) as count FROM {$bean->table_name}";
 			$r = $bean->db->query($q);
 			$a = $bean->db->fetchByAssoc($r);
-			
+
 			$count += $a['count'];
-			
+
 			// populate to_repair array
 			$q2 = "SELECT id FROM {$bean->table_name}";
 			$r2 = $bean->db->query($q2);
@@ -99,39 +76,36 @@ switch($_REQUEST['adminAction']) {
 			}
 			$toRepair[$target] = $ids;
 		}
-		
+
 		$out = array('count' => $count, 'target' => $target, 'toRepair' => $toRepair);
 	break;
-	
+
 	case "repairXssExecute":
-		if(isset($_REQUEST['bean']) && !empty($_REQUEST['bean']) && isset($_REQUEST['id']) && !empty($_REQUEST['id'])) {
-			include("include/modules.php"); // provide $moduleList
+		if(!empty($_REQUEST['bean']) && !empty($_REQUEST['id'])) {
 			$target = $_REQUEST['bean'];
-			require_once($beanFiles[$beanList[$target]]);
-			
 			$ids = $json->decode(from_html($_REQUEST['id']));
 			$count = 0;
 			foreach($ids as $id) {
 				if(!empty($id)) {
-					$bean = new $beanList[$target]();
-					$bean->retrieve($id,true,false);
+				    $bean = BeanFactory::getBean($target, $id);
 					$bean->new_with_id = false;
 					$bean->save(); // cleanBean() is called on save()
 					$count++;
 				}
 			}
-			
+
 			$out = array('msg' => "success", 'count' => $count);
 		} else {
-			$out = array('msg' => "failure: bean or ID not defined");
+			$mod_strings = return_module_language($GLOBALS['current_language'], 'Administration');
+			$out = array('msg' => $mod_strings['LBL_REPAIRXSSEXECUTE_FAILED']);
 		}
 	break;
 	////	END REPAIRXSS
 	///////////////////////////////////////////////////////////////////////////
-	
+
 	default:
 		die();
-	break;	
+	break;
 }
 
 $ret = $json->encode($out, true);

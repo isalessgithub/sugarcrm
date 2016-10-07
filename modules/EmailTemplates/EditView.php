@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description: TODO:  To be written.
@@ -32,7 +29,7 @@ if (!isset($_REQUEST['campaign_id']) || empty($_REQUEST['campaign_id'])) {
 if (!isset($_REQUEST['inboundEmail']) || empty($_REQUEST['inboundEmail'])) {
     $inboundEmail=false;
 }
-$focus = new EmailTemplate();
+$focus = BeanFactory::getBean('EmailTemplates');
 
 if(isset($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
@@ -106,11 +103,16 @@ $xtpl->assign("APP", $app_strings);
 $xtpl->assign("LBL_ACCOUNT",$app_list_strings['moduleList']['Accounts']);
 $xtpl->parse("main.variable_option");
 
+$returnModule='';
+if(isset($_REQUEST['return_module'])) {
+    $returnModule=$_REQUEST['return_module'];
+    $xtpl->assign("RETURN_MODULE", $returnModule);
+}
+
 $returnAction = 'index';
-if(isset($_REQUEST['return_module'])) $xtpl->assign("RETURN_MODULE", $_REQUEST['return_module']);
 if(isset($_REQUEST['return_action'])){
-	$xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
-	$returnAction = $_REQUEST['return_action'];
+    $xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
+    $returnAction = $_REQUEST['return_action'];
 }
 if(isset($_REQUEST['return_id'])) $xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
 // handle Create $module then Cancel
@@ -121,10 +123,10 @@ if(empty($_REQUEST['return_id'])) {
 if ($has_campaign || $inboundEmail ) {
     $cancel_script="window.close();";
 }else {
-    $cancel_script="this.form.action.value='{$returnAction}'; this.form.module.value='{$_REQUEST['return_module']}';
+    $cancel_script="this.form.action.value='{$returnAction}'; this.form.module.value='{$returnModule}';
     this.form.record.value=";
     if(empty($_REQUEST['return_id'])) {
-        $cancel_script="this.form.action.value='index'; this.form.module.value='{$_REQUEST['return_module']}';this.form.name.value='';this.form.description.value=''";
+        $cancel_script="this.form.action.value='index'; this.form.module.value='{$returnModule}';this.form.name.value='';this.form.description.value=''";
     } else {
         $cancel_script.="'{$_REQUEST['return_id']}'";
     }
@@ -300,7 +302,7 @@ if(true) {
 	    $etid = $old_id;
 	}
 	if(!empty($etid)) {
-	    $note = new Note();
+	    $note = BeanFactory::getBean('Notes');
 	    $where = "notes.parent_id='{$etid}' AND notes.filename IS NOT NULL";
 	    $notes_list = $note->get_full_list("", $where,true);
 

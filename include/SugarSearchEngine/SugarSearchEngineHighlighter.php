@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 /**
@@ -23,8 +20,8 @@ class SugarSearchEngineHighlighter
 {
     protected $_module;
 
-    public static $preTag = '<span class="highlight">';
-    public static $postTag = '</span>';
+    public static $preTag = '<strong>';
+    public static $postTag = '</strong>';
     public static $fragmentSize = 20;
     public static $fragmentNumber = 2;
 
@@ -33,7 +30,7 @@ class SugarSearchEngineHighlighter
     }
 
     /**
-     * Setter for module name
+     * Setter for module name.
      *
      * @param $module
      */
@@ -42,22 +39,17 @@ class SugarSearchEngineHighlighter
         $this->_module = $module;
     }
 
-    public function processHighlightText($resultArray)
+    public function processHighlightText(array $resultArray)
     {
         $ret = array();
-        foreach ($resultArray as $field=>$fragments)
-        {
-            $field = $this->translateFieldName($field);
+        foreach ($resultArray as $field => $fragments) {
+            $ret[$field] = array('text' => '', 'module' => $this->_module, 'label' => $this->getLabel($field));
             $first = true;
-            foreach ($fragments as $frament)
-            {
-                if (!$first)
-                {
-                    $ret[$field] .= '...' . $frament;
-                }
-                else
-                {
-                    $ret[$field] = $frament;
+            foreach ($fragments as $fragment) {
+                if (!$first) {
+                    $ret[$field]['text'] .= '...' . $fragment;
+                } else {
+                    $ret[$field]['text'] = $fragment;
                 }
                 $first = false;
             }
@@ -66,33 +58,19 @@ class SugarSearchEngineHighlighter
         return $ret;
     }
 
-    public function translateFieldName($field)
+    public function getLabel($field)
     {
-        if(empty($this->_module))
-        {
+        if (empty($this->_module)) {
             return $field;
-        }
-        else
-        {
-            $tmpBean = BeanFactory::getBean($this->_module, null);
+        } else {
+            $tmpBean = BeanFactory::getBean($this->_module);
             $field_defs = $tmpBean->field_defs;
-            $field_def = isset($field_defs[$field]) ? $field_defs[$field] : FALSE;
-            if($field_def === FALSE || !isset($field_def['vname']))
+            $field_def = isset($field_defs[$field]) ? $field_defs[$field] : false;
+            if ($field_def === false || (!isset($field_def['vname']) && !isset($field_def['label']))) {
                 return $field;
+            }
 
-            $module_lang = return_module_language($GLOBALS['current_language'], $this->_module);
-            if(isset($module_lang[$field_def['vname']]))
-            {
-                $label = $module_lang[$field_def['vname']];
-                if( substr($label,-1) == ':')
-                    return (substr($label, 0, -1));
-                else
-                    return $label;
-            }
-            else
-            {
-                return $field;
-            }
+            return (isset($field_def['label'])) ? $field_def['label'] : $field_def['vname'];
         }
     }
 }

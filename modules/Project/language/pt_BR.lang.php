@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Tem certeza de que pretende eliminar este contato do Projeto?',
@@ -29,6 +26,7 @@ $mod_strings = array (
   'ERR_PREDECESSOR_CYCLE_FAIL' => 'O precedente especificado causa um ciclo de dependência.',
   'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => 'O precendente especificado é uma tarefa principal ou uma sub-tarefa.',
   'ERR_TASK_NAME_FOR_ROW' => 'Nome de Tarefa para Fila',
+  'ERR_TASK_VIEW_DETAILS' => 'Não é possível visualizar os detalhes de uma tarefa que ainda não foi salva.',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Contas',
   'LBL_ACCOUNT_SUBPANEL_TITLE' => 'Contas',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Atividades',
@@ -37,7 +35,7 @@ $mod_strings = array (
   'LBL_ASSIGNED_USER_ID' => 'Atribuído a:',
   'LBL_ASSIGNED_USER_NAME' => 'Atribuído a:',
   'LBL_BIWEEK_BUTTON' => '2 Semanas',
-  'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
+  'LBL_BUGS_SUBPANEL_TITLE' => 'Bug Tracker',
   'LBL_CASES_SUBPANEL_TITLE' => 'Ocorrências',
   'LBL_COLLAPSE_ALL_BUTTON' => 'Compactar Tudo',
   'LBL_CONTACTS_RESOURCE' => 'Recurso do Contato',
@@ -160,6 +158,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => 'recurso',
   'LBL_RESOURCE_REPORT' => 'Relatório de Recurso',
   'LBL_RESOURCE_TYPE' => 'Tipo',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Receita Itens de Linha',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Gravar como Novo Projeto',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Gravar como Novo Modelo',
   'LBL_SAVE_AS_PROJECT' => 'Gravar como Projeto',

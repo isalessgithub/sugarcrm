@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Debe especificar un número de registro para eliminar el presupuesto.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Oferta ya convertida en Oportunidad',
   'LBL_ACCOUNT_ID' => 'Id Cuenta',
   'LBL_ACCOUNT_NAME' => 'Nombre de Cuenta:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Actividades',
@@ -37,7 +35,7 @@ $mod_strings = array (
   'LBL_BILLING_ADDRESS' => 'Dirección de Facturación:',
   'LBL_BILLING_ADDRESS_CITY' => 'Ciudad de facturación',
   'LBL_BILLING_ADDRESS_COUNTRY' => 'País de facturación',
-  'LBL_BILLING_ADDRESS_POSTAL_CODE' => 'Código Postal de Facturación',
+  'LBL_BILLING_ADDRESS_POSTAL_CODE' => 'Código postal de facturación',
   'LBL_BILLING_ADDRESS_STATE' => 'Estado/Provincia de facturación',
   'LBL_BILLING_ADDRESS_STREET' => 'Dirección de Facturación',
   'LBL_BILLING_CONTACT' => 'Contacto:',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Coste',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Cierre Real',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Válido Hasta',
-  'LBL_LIST_DEAL_TOT' => 'Descuento',
+  'LBL_LIST_DEAL_TOT' => 'Total de Descuento',
   'LBL_LIST_DISCOUNT_PRICE' => 'Precio Unitario',
   'LBL_LIST_FORM_TITLE' => 'Lista de Presupuestos',
   'LBL_LIST_GRAND_TOTAL' => 'Totales',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Mis presupuestos',
   'LBL_LIST_PRICING_FACTOR' => 'Factor',
   'LBL_LIST_PRICING_FORMULA' => 'Fórmula de Valoración',
-  'LBL_LIST_PRODUCT_NAME' => 'Producto',
+  'LBL_LIST_PRODUCT_NAME' => 'Línea de la Oferta',
   'LBL_LIST_QUANTITY' => 'Cantidad',
   'LBL_LIST_QUOTE_NAME' => 'Asunto',
   'LBL_LIST_QUOTE_NUM' => 'Número',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Descuento',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Precio Ext.',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Precio de Lista',
-  'LBL_PDF_ITEM_PRODUCT' => 'Producto',
+  'LBL_PDF_ITEM_PRODUCT' => 'Línea de la Oferta',
   'LBL_PDF_ITEM_QUANTITY' => 'Cantidad',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => 'Descuento seleccionado',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Precio Unitario',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Quitar Comentario',
   'LBL_REMOVE_ROW' => 'Quitar Fila',
   'LBL_RENAME_ERROR' => 'ERROR: no puede moverse el archivo PDF a $destination. Intente dar permisos de escritura al servidor web para ese directorio',
+  'LBL_REVENUELINEITEMS' => 'Líneas de Ingreso',
   'LBL_SALES_STAGE' => 'Etapa del Presupuesto',
   'LBL_SEARCH_FORM_TITLE' => 'Búsquedas de Presupuestos',
   'LBL_SHIPPING' => 'Envío:',
@@ -165,7 +164,7 @@ $mod_strings = array (
   'LBL_SHIPPING_ADDRESS' => 'Dirección de Envío:',
   'LBL_SHIPPING_ADDRESS_CITY' => 'Ciudad de envío',
   'LBL_SHIPPING_ADDRESS_COUNTRY' => 'País de envío',
-  'LBL_SHIPPING_ADDRESS_POSTAL_CODE' => 'Código Postal de Envío',
+  'LBL_SHIPPING_ADDRESS_POSTAL_CODE' => 'Código postal de envío',
   'LBL_SHIPPING_ADDRESS_STATE' => 'Estado/Provincia de envío',
   'LBL_SHIPPING_ADDRESS_STREET' => 'Dirección de envío',
   'LBL_SHIPPING_CONTACT' => 'Contacto:',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description: TODO:  To be written.
@@ -62,7 +59,6 @@ class Employee extends Person {
 	var $messenger_type;
 	var $employee_status;
 	var $error_string;
-    public $person_id;
 
 	var $module_dir = "Employees";
 
@@ -82,11 +78,22 @@ class Employee extends Person {
 
 	var $new_schema = true;
 
-	function Employee() {
-		parent::Person();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Employee()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		$this->setupCustomFields('Users');
 		$this->disable_row_level_security =true;
-		$this->emailAddress = new SugarEmailAddress();
+		$this->emailAddress = BeanFactory::getBean('EmailAddresses');
 	}
 
 
@@ -110,21 +117,15 @@ class Employee extends Person {
 
 		if($row != null)
 		{
-			$this->reports_to_name = stripslashes($locale->getLocaleFormattedName($row['first_name'], $row['last_name']));
+            $this->reports_to_name = $locale->formatName($this->module_name, $row);
 		}
 		else
 		{
 			$this->reports_to_name = '';
 		}
+		parent::fill_in_additional_detail_fields();
 	}
 
-	function retrieve_employee_id($employee_name)
-	{
-		$query = "SELECT id from users where user_name='$user_name' AND deleted=0";
-		$result  = $this->db->query($query, false,"Error retrieving employee ID: ");
-		$row = $this->db->fetchByAssoc($result);
-		return $row['id'];
-	}
 
 	/**
 	 * @return -- returns a list of all employees in the system.
@@ -166,48 +167,9 @@ class Employee extends Person {
 	function update_team_memberships($old_reports_to_id)
 	{
 
-		$team = new Team();
+		$team = BeanFactory::getBean('Teams');
 		$team->user_manager_changed($this->id, $old_reports_to_id, $this->reports_to_id);
 	}
-
-	function create_export_query($order_by, $where) {
-		include('modules/Employees/field_arrays.php');
-
-		$cols = '';
-		foreach($fields_array['Employee']['export_fields'] as $field) {
-			$cols .= (empty($cols)) ? '' : ', ';
-			$cols .= $field;
-		}
-
-		$query = "SELECT {$cols} FROM users ";
-
-		$where_auto = " users.deleted = 0";
-
-		if($where != "")
-			$query .= " WHERE $where AND " . $where_auto;
-		else
-			$query .= " WHERE " . $where_auto;
-
-		if($order_by != "")
-			$query .= " ORDER BY $order_by";
-		else
-			$query .= " ORDER BY users.user_name";
-
-		return $query;
-	}
-
-	//use parent class
-	/**
-	 * Generate the name field from the first_name and last_name fields.
-	 */
-	/*
-	function _create_proper_name_field() {
-        global $locale;
-        $full_name = $locale->getLocaleFormattedName($this->first_name, $this->last_name);
-        $this->name = $full_name;
-        $this->full_name = $full_name;
-	}
-	*/
 
 	function preprocess_fields_on_save(){
 		parent::preprocess_fields_on_save();
@@ -255,19 +217,41 @@ class Employee extends Person {
      * @param boolean $return_array Optional, default false, response as array
      * @param object $parentbean creating a subquery for this bean.
      * @param boolean $singleSelect Optional, default false.
+     * @param boolean $ifListForExport Optional, default false.
      * @return String select query string, optionally an array value will be returned if $return_array= true.
      */
-    function create_new_list_query($order_by, $where, $filter=array(), $params=array(), $show_deleted=0, $join_type='', $return_array=false, $parentbean=null, $singleSelect=false)
-    {
+    public function create_new_list_query(
+        $order_by,
+        $where,
+        $filter = array(),
+        $params = array(),
+        $show_deleted = 0,
+        $join_type = '',
+        $return_array = false,
+        $parentbean = null,
+        $singleSelect = false,
+        $ifListForExport = false
+    ) {
         //create the filter for portal only users, as they should not be showing up in query results
         if(empty($where)){
             $where = ' users.portal_only = 0 ';
         }else{
             $where .= ' and users.portal_only = 0 ';
         }
-
+        $where .= ' and users.show_on_employees = 1 ';
         //return parent method, specifying for array to be returned
-        return parent::create_new_list_query($order_by, $where, $filter,$params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect);
+        return parent::create_new_list_query(
+            $order_by,
+            $where,
+            $filter,
+            $params,
+            $show_deleted,
+            $join_type,
+            $return_array,
+            $parentbean,
+            $singleSelect,
+            $ifListForExport
+        );
     }
 
     /*
@@ -293,6 +277,7 @@ class Employee extends Person {
         //return result of search for custom fields
         return $userCustomfields;
     }
+
 }
 
 ?>

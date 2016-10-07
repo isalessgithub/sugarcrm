@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/externalAPI/Base/ExternalAPIBase.php');
 require_once('include/externalAPI/Base/WebMeeting.php');
@@ -137,8 +134,9 @@ class ExtAPIWebEx extends ExternalAPIBase implements WebMeeting {
             $xp = new DOMXPath($join_reply['responseXML']);
             $bean->join_url = $xp->query('/serv:message/serv:body/serv:bodyContent/meet:joinMeetingURL')->item(0)->nodeValue;
             // Strip out the name parts of the join URL, make them type them in. Since we are storing the join_url per meeting
-            // we can't really use one first and last name for the whole site.
+            // we can't really use one name for the whole site. Handles FN/LN or AN if returned in the join_url.
             $bean->join_url = preg_replace('/&FN=.*&LN=.*/','',$bean->join_url);
+            $bean->join_url = preg_replace('/&AN=.*/','',$bean->join_url);
             $GLOBALS['log']->debug('Join URL: '.print_r($bean->join_url,true));
 
 

@@ -1,35 +1,18 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry)
-    die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/ListView/ListViewSmarty.php');
-require_once('modules/Project/metadata/listviewdefs.php'); // always load this as the listviewdefs for ProjectTemplates are currently only found in this file, not in any customized version
-if(file_exists('custom/modules/Project/metadata/listviewdefs.php')){
-    require_once('custom/modules/Project/metadata/listviewdefs.php');  
-}
+require SugarAutoLoader::loadWithMetafiles('Project', 'projecttemplate_listviewdefs');
 
 require_once('include/SearchForm/SearchForm.php');
 
@@ -52,14 +35,14 @@ global $current_user;
 global $focus_list;
 
 // clear the display columns back to default when clear query is called
-if(!empty($_REQUEST['clear_query']) && $_REQUEST['clear_query'] == 'true')  
+if(!empty($_REQUEST['clear_query']) && $_REQUEST['clear_query'] == 'true')
     $current_user->setPreference('ListViewDisplayColumns', array(), 0, $currentModule);
 
 //$savedDisplayColumns = $current_user->getPreference('ListViewDisplayColumns', $currentModule); // get user defined display columns
 
 $json = getJSONobj();
 
-$seedProject = new Project(); // seed bean
+$seedProject = BeanFactory::getBean('Project'); // seed bean
 $searchForm = new SearchForm('Project', $seedProject); // new searchform instance
 
 // setup listview smarty
@@ -69,11 +52,11 @@ $displayColumns = array();
 // check $_REQUEST if new display columns from post
 if(!empty($_REQUEST['displayColumns'])) {
     foreach(explode('|', $_REQUEST['displayColumns']) as $num => $col) {
-        if(!empty($listViewDefs['ProjectTemplates'][$col])) 
+        if(!empty($listViewDefs['ProjectTemplates'][$col]))
             $displayColumns[$col] = $listViewDefs['ProjectTemplates'][$col];
-    }    
+    }
 }
-/*elseif(!empty($savedDisplayColumns)) { // use user defined display columns from preferences 
+/*elseif(!empty($savedDisplayColumns)) { // use user defined display columns from preferences
     $displayColumns = $savedDisplayColumns;
 }*/
 else { // use columns defined in listviewdefs for default display columns
@@ -81,7 +64,7 @@ else { // use columns defined in listviewdefs for default display columns
         if(!empty($params['default']) && $params['default'])
             $displayColumns[$col] = $params;
     }
-} 
+}
 $params = array('massupdate' => true); // setup ListViewSmarty params
 if(!empty($_REQUEST['orderBy'])) { // order by coming from $_REQUEST
     $params['orderBy'] = $_REQUEST['orderBy'];
@@ -110,9 +93,50 @@ if(!empty($_REQUEST['search_form_only']) && $_REQUEST['search_form_only']) { // 
 
 // use the stored query if there is one
 if (!isset($where)) $where = "";
+require_once('modules/MySettings/StoreQuery.php');
+$storeQuery = new StoreQuery();
+if(!isset($_REQUEST['query'])){
+    $storeQuery->loadQuery($currentModule);
+    $storeQuery->populateRequest();
+}else{
+    $storeQuery->saveFromGet($currentModule);
+}
+if(isset($_REQUEST['query']))
+{
+    // we have a query
+    // first save columns
+    $current_user->setPreference('ListViewDisplayColumns', $displayColumns, 0, $currentModule);
+    $searchForm->populateFromRequest(); // gathers search field inputs from $_REQUEST
+    $where_clauses = $searchForm->generateSearchWhere(true, "Project"); // builds the where clause from search field inputs
+
+    //if (count($where_clauses) > 0 )$where = implode(' and ', $where_clauses);
+    $GLOBALS['log']->info("Here is the where clause for the list view: $where");
+}
 
 // list only the Project Templates
 $where .= 'is_template = 1 ';
+
+// start display
+// which tab of search form to display
+/*if(!isset($_REQUEST['search_form']) || $_REQUEST['search_form'] != 'false') {
+
+    $searchForm->setup();
+
+	if(isset($_REQUEST['searchFormTab']) && $_REQUEST['searchFormTab'] == 'advanced_search') {
+        $searchForm->displayAdvanced();
+    }
+    elseif(isset($_REQUEST['searchFormTab']) && $_REQUEST['searchFormTab'] == 'saved_views'){
+        $searchForm->displaySavedViews($listViewDefs, $lv);
+    }
+    else {
+        $searchForm->displayBasic();
+    }
+}
+*/
+
+//_pp($mod_strings);
+
+$seedProject->create_action = 'ProjectTemplatesEditView';
 
 // awu: Bug 11452 - removing export for non-admin users without a mass update form
 if (!is_admin($current_user)){
@@ -124,19 +148,19 @@ else{
 }
 $lv->setup($seedProject, 'include/ListView/ListViewGeneric.tpl', $where, $params);
 
-// Bug 49610 
+// Bug 49610
 for ($i = 0; $i < count($lv->data['data']); $i++) {
     $lv->data['data'][$i]['OFFSET'] = $i + 1;
 }
 
-$lv->ss->assign('act','pte');
+$lv->ss->assign('act','ProjectTemplatesEditView');
 
 $savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . $_REQUEST['saved_search_select_name']);
 echo get_form_header($current_module_strings['LBL_LIST_FORM_TITLE'] . $savedSearchName, '', false);
 
 echo $lv->display();
 
-$savedSearch = new SavedSearch();
+$savedSearch = BeanFactory::getBean('SavedSearch');
 $json = getJSONobj();
 // fills in saved views select box on shortcut menu
 $savedSearchSelects = $json->encode(array($GLOBALS['app_strings']['LBL_SAVED_SEARCH_SHORTCUT'] . '<br>' . $savedSearch->getSelect('Project')));
@@ -147,9 +171,9 @@ echo $str;
 
 // awu: Bug 11452 - removing export for non-admin users without a mass update form
 // faking a massupdate form, which is expected on page load
-if (!is_admin($current_user)){    
+if (!is_admin($current_user)){
 $form = "<form action='index.php' id='MassUpdate' method='post' name='MassUpdate'><textarea id='uid' name='uid'></textarea><input name='action' value='index' /><input name='module' value='Project'></form>";
-echo $form;   
+echo $form;
 $hide_form = "<script>
 document.getElementById('MassUpdate').style.display = 'none';
 </script>";

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: Delete.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
  * Description:  Deletes an Account record and then redirects the browser to the
  * defined return URL.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -26,8 +23,7 @@ global $sugar_config;
 
 if(!isset($_REQUEST['record']))
 	sugar_die($mod_strings['ERR_DELETE_RECORD']);
-$focus = new KBDocument();
-$focus->retrieve($_REQUEST['record']);
+$focus = BeanFactory::getBean('KBDocuments', $_REQUEST['record']);
 if(!$focus->ACLAccess('Delete')){
 	ACLController::displayNoAccess(true);
 	sugar_cleanup(true);
@@ -38,13 +34,11 @@ $kbdocrevs = KBDocument::get_kbdocument_revisions($_REQUEST['record']);
 //Loop through kbdocument revisions and delete one by one.
 if (!empty($kbdocrevs) && is_array($kbdocrevs)) {
 	foreach($kbdocrevs as $key=>$thiskbid) {
-		$thiskbversion = new KBDocumentRevision();
-		$thiskbversion->retrieve($thiskbid);
+		$thiskbversion = BeanFactory::getBean('KBDocumentRevisions', $thiskbid);
 		//Check for related documentrevision and delete.
         if($thiskbversion->document_revision_id != null){
 	        $docrev_id = $thiskbversion->document_revision_id;
-			$thisdocrev = new DocumentRevision();
-			$thisdocrev->retrieve($docrev_id);
+			$thisdocrev = BeanFactory::getBean('DocumentRevisions', $docrev_id);
 
            	UploadFile::unlink_file($docrev_id,$thisdocrev->filename);
            	UploadFile::unlink_file($docrev_id);
@@ -53,10 +47,7 @@ if (!empty($kbdocrevs) && is_array($kbdocrevs)) {
         }
         //Also check for related kbcontent and delete.
         if($thiskbversion->kbcontent_id != null){
-	        $kbcont_id = $thiskbversion->kbcontent_id;
-			$thiskbcont = new KBContent();
-			$thiskbcont->retrieve($kbcont_id);
-			$thiskbcont->mark_deleted($kbcont_id);
+			BeanFactory::deleteBean('KBContents', $thiskbversion->kbcontent_id);
         }
 		//Finally delete the kbdocument revision.
 	   $thiskbversion->mark_deleted($thiskbversion->id);

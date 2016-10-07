@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 class FormulaHelper
@@ -25,7 +22,6 @@ class FormulaHelper
      */
     public static function cleanFields($fieldDef, $includeLinks = true, $forRelatedField = false, $returnKeys = false)
     {
-
         $fieldArray = array();
         foreach ($fieldDef as $fieldName => $def) {
             if (!is_array($def) || $fieldName == 'deleted' || $fieldName == 'email1' || empty($def['type']))
@@ -55,7 +51,13 @@ class FormulaHelper
                 case "url":
                 case "encrypt":
                 case "enum":
+                case "radioenum":
                     $fieldArray[$fieldName] = array($fieldName, 'string');
+                    break;
+                case 'fullname':
+                    if ($forRelatedField) {
+                        $fieldArray[$fieldName] = array($fieldName, 'string');
+                    }
                     break;
                 case "date":
                 case "datetime":
@@ -65,14 +67,6 @@ class FormulaHelper
                 case "link":
                     if ($includeLinks)
                         $fieldArray[$fieldName] = array($fieldName, 'relate');
-                    break;
-                case "radioenum":
-                    $fieldArray[$fieldName] = array($fieldName, 'string');
-                    break;
-                case "relate":
-                    if ($forRelatedField){
-                        $fieldArray[$fieldName] = array($fieldName, 'relate');
-                    }
                     break;
                 default:
                     //Do Nothing

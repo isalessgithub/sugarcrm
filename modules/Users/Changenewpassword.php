@@ -1,25 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 global $app_language, $sugar_config;
 global $app_strings;
 global $current_language;
@@ -33,10 +24,9 @@ $mod_strings=return_module_language('','Users');
 ////	RECAPTCHA CHECK ONLY
 
 if(isset($_REQUEST['recaptcha_challenge_field']) && isset($_REQUEST['recaptcha_response_field'])){
-	require_once('include/reCaptcha/recaptchalib.php');
+	require_once('vendor/reCaptcha/recaptchalib.php');
 
-	$admin=new Administration();
-	$admin->retrieveSettings('captcha');
+	$admin = Administration::getSettings('captcha');
 	if($admin->settings['captcha_on']=='1' && !empty($admin->settings['captcha_private_key'])){
 		$privatekey = $admin->settings['captcha_private_key'];
 	}else
@@ -137,11 +127,10 @@ if (isset($_REQUEST['guid']))
  		}
  	}
 
-if ($redirect!='0')
-	{
-	header('location:index.php?action=Login&module=Users');
+if ($redirect!='0') {
+	header('location: ' . $sugar_config['site_url']);
 	exit ();
-	}
+}
 
 ////	PASSWORD GENERATED LINK CHECK USING
 ///////////////////////////////////////////////////////////////////////////////
@@ -153,8 +142,7 @@ if ($redirect!='0')
 
 	$sugar_smarty = new Sugar_Smarty();
 
-	$admin = new Administration();
-	$admin->retrieveSettings('captcha');
+	$admin = Administration::getSettings('captcha');
 	$add_captcha = 0;
 	$captcha_privatekey = "";
 	$captcha_publickey="";
@@ -231,6 +219,7 @@ $sugar_smarty->assign("APP", $app_strings);
 $sugar_smarty->assign("INSTRUCTION", $app_strings['NTC_LOGIN_MESSAGE']);
 $sugar_smarty->assign("USERNAME_FIELD", '<td scope="row" width="30%">'.$mod_strings['LBL_USER_NAME'].':</td><td width="70%"><input type="text" size="20" tabindex="1" id="user_name" name="user_name"  value=""</td>');
 $sugar_smarty->assign('PWDSETTINGS', $GLOBALS['sugar_config']['passwordsetting']);
+$sugar_smarty->assign('SITE_URL', $GLOBALS['sugar_config']['site_url']);
 
 
 $rules = "'" . $GLOBALS["sugar_config"]["passwordsetting"]["minpwdlength"]
@@ -245,4 +234,3 @@ $sugar_smarty->assign('SUBMIT_BUTTON','<input title="'.$mod_strings['LBL_LOGIN_B
 if(!empty($_REQUEST['guid'])) $sugar_smarty->assign("GUID", $_REQUEST['guid']);
 $sugar_smarty->display('modules/Users/Changenewpassword.tpl');
 $view->displayFooter();
-?>

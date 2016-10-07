@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Die Nummer eines Eintrages muss angegeben werden um einen Kontakt zu löschen!',
+  'ERR_DELETE_RECORD' => 'Bitte geben Sie die Datensatznummer an, um den Kontakt zu löschen!',
   'LBL_ACCOUNT_ID' => 'Firma ID',
   'LBL_ACCOUNT_NAME' => 'Firmenname:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktivitäten',
@@ -26,14 +23,13 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Adressinformation',
   'LBL_ADD_BUSINESSCARD' => 'Eingabe Visitenkarte',
   'LBL_ALTERNATE_ADDRESS' => 'Weitere Adresse:',
-  'LBL_ALT_ADDRESS' => 'Andere Adressen',
   'LBL_ALT_ADDRESS_CITY' => '2. Adresse Stadt:',
   'LBL_ALT_ADDRESS_COUNTRY' => '2. Adresse Land:',
   'LBL_ALT_ADDRESS_POSTALCODE' => '2. Adresse PLZ:',
   'LBL_ALT_ADDRESS_STATE' => '2. Adresse Bundesland:',
-  'LBL_ALT_ADDRESS_STREET' => '2. Adresse Strasse:',
-  'LBL_ALT_ADDRESS_STREET_2' => '2. Adresse Strasse 2:',
-  'LBL_ALT_ADDRESS_STREET_3' => '2. Adresse Strasse 3:',
+  'LBL_ALT_ADDRESS_STREET' => '2. Adresse Straße:',
+  'LBL_ALT_ADDRESS_STREET_2' => '2. Adresse Straße 2:',
+  'LBL_ALT_ADDRESS_STREET_3' => '2. Adresse Straße 3:',
   'LBL_ANY_ADDRESS' => 'Irgendeine Adresse:',
   'LBL_ANY_EMAIL' => 'Irgendeine E-Mail:',
   'LBL_ANY_PHONE' => 'Irgendeine Telefonnummer:',
@@ -63,8 +59,8 @@ $mod_strings = array (
   'LBL_CONTACT_ROLE' => 'Beruf:',
   'LBL_CONTRACTS' => 'Verträge',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Verträge',
-  'LBL_COPY_ADDRESS_CHECKED_ALT' => 'nach Andereadresse kopieren',
-  'LBL_COPY_ADDRESS_CHECKED_PRIMARY' => 'nach Hauptadresse kopieren',
+  'LBL_COPY_ADDRESS_CHECKED_ALT' => 'zur anderen Adresse kopieren',
+  'LBL_COPY_ADDRESS_CHECKED_PRIMARY' => 'zu Hauptadresse kopieren',
   'LBL_COUNTRY' => 'Land:',
   'LBL_CREATED_ACCOUNT' => 'Neue Firma angelegt',
   'LBL_CREATED_CALL' => 'Neuer Anruf angelegt',
@@ -77,6 +73,10 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Beschreibung:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beschreibungsinformation',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Direkt-Unterstellte',
+  'LBL_DNB_BAL_PREVIEW' => 'Vorschau Kontakte',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Kontakte',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Kontaktinformationen',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumente',
   'LBL_DO_NOT_CALL' => 'Nicht anrufen:',
   'LBL_DUPLICATE' => 'Mögliche doppelte Kontakte',
@@ -92,21 +92,34 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Bearbeiter',
   'LBL_EXPORT_PHONE_HOME' => 'Telefon privat:',
   'LBL_EXPORT_PHONE_MOBILE' => 'Telefon mobil',
+  'LBL_FACEBOOK' => 'Facebook Konto',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILENAME' => 'Anlage',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Kontakte Berichte',
   'LBL_FIRST_NAME' => 'Vorname:',
   'LBL_FULL_NAME' => 'Ganzer Name:',
+  'LBL_GOOGLEPLUS' => 'Google Plus ID',
+  'LBL_HELP_CREATE' => 'Das {{plural_module_name}} Modul zeigt alle Personen mit denen Ihr Unternehmen in Verbindung steht. Um einen {{module_name}} zu erstellen: 1. Erfassen Sie alle relevanten Informationen. - Felder die als Pflichtfeld markiert sind müssen ausgefüllt werden um den Datensatz speichern zu können. - Klicken Sie auf "mehr zeigen" um weitere Felder zu erfassen. 2. Drücken Sie auf "Speichern" um den Datensatz verfügbar zu machen und um auf die letzte Seite zurück zu kommen. - Wählen Sie "Speichern und Öffnen" um den neuen {{module_name}} in der Datensatzansicht zu öffnen. - Wählen Sie "Speichern und neuen Datensatz erstellen" um sofort einen weiteren {{module_name}} Datensatz anzulegen.',
+  'LBL_HELP_RECORD' => 'Das {{plural_module_name}} Modul zeigt alle Personen mit denen Ihr Unternehmen in Verbindung steht.
+- Bearbeiten Sie den Datensatz indem Sie auf ein Feld oder auf die Schaltfläche Bearbeiten klicken.
+- Erstellen oder sehen Sie sich Benutzerkommentare und die Änderungshistorie verschiedener Datensätze im  {{activitystream_singular_module}} an indem Sie die Sicht auf "Activity Stream" im unteren linken Bereich stellen. 
+- Folgen Sie favorisierten Einträgen indem Sie das Sternsymbol neben dem Namen oben anklicken. 
+- Weitere Aktionen finden Sie im Ausklappmenü auf der rechten Seite der Bearbeiten Schaltfläche.',
+  'LBL_HELP_RECORDS' => 'Das {{plural_module_name}} Modul zeigt alle Personen an, mit denen Ihr Unternehmen in Verbindung steht. {{module_name}} sind typischerweise mit  {{accounts_singular_module}} verknüpft und mehrere {{plural_module_name}} können einer {{accounts_singular_module}} zugewiesen sein. Es gibt verschiedene Möglichkeiten wie Sie {{plural_module_name}} in Sugar erstellen können z. B. Importieren, Konvertieren von {{leads_module}} zu {{plural_module_name}}, etc.. Sobald der {{module_name}} erstellt ist, können Informationen in der Datenansicht eingesehen und editiert werden. Jeder {{module_name}} Datensatz kann mit anderen Sugardatensätzen verknüpft werden wie z. B. {{meetings_module}}, {{cases_module}}, {{opportunities_module}} und viele andere.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Verlauf',
   'LBL_HOMEPAGE_TITLE' => 'Meine Kontakte',
   'LBL_HOME_PHONE' => 'Privat:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'vCard importieren',
   'LBL_IMPORT_VCARDTEXT' => 'Durch Import einer vCard neuen Kontakt automatisch anlegen.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Kontakt von vCard erfolgreich erstellt',
   'LBL_INVALID_EMAIL' => 'Ungültige E-Mail:',
   'LBL_INVITEE' => 'Direkt-Unterstellte',
   'LBL_LANG_PREF_TOOLTIP' => 'Das Userinterface des Support Portals wird in der hier gewählten Sprache angezeigt.',
   'LBL_LAST_NAME' => 'Nachname:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Interessenten',
   'LBL_LEAD_SOURCE' => 'Quelle:',
+  'LBL_LINKEDIN' => 'Linkedin Mitglieder Konto',
   'LBL_LIST_ACCEPT_STATUS' => 'Status',
   'LBL_LIST_ACCOUNT_NAME' => 'Firmenname',
   'LBL_LIST_CITY' => 'Stadt',
@@ -121,6 +134,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Telefon Büro',
   'LBL_LIST_STATE' => 'Bundesland',
   'LBL_LIST_TITLE' => 'Funktion',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Interessenten Wertung',
+  'LBL_MKTO_SYNC' => 'Sync mit Marketo®',
   'LBL_MOBILE_PHONE' => 'Mobiltelefon:',
   'LBL_MODIFIED' => 'Geändert von:',
   'LBL_MODULE_NAME' => 'Kontakte',
@@ -129,6 +145,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'Neuer Kontakt',
   'LBL_NEW_PORTAL_PASSWORD' => 'Neues Portal Passwort:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notizen',
   'LBL_NOTE_SUBJECT' => 'Betreff Notiz',
   'LBL_OFFICE_PHONE' => 'Bürotelefon:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Altes Portal Passwort',
@@ -139,12 +156,13 @@ $mod_strings = array (
   'LBL_OPP_NAME' => 'Verkaufschance Name:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Weitere E-Mail:',
   'LBL_OTHER_PHONE' => 'Weiteres Telefon:',
-  'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Passwort Änderung',
+  'LBL_PARENT_ID' => 'Parent-ID',
+  'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Passwort ändern',
   'LBL_PHONE' => 'Telefon:',
   'LBL_PHONE_FAX' => 'Telefon/Fax:',
   'LBL_PHONE_HOME' => 'Telefon privat',
-  'LBL_PHONE_MOBILE' => 'Handy',
-  'LBL_PHONE_OTHER' => 'Anderes Telefon',
+  'LBL_PHONE_MOBILE' => 'Telefon mobil',
+  'LBL_PHONE_OTHER' => 'Weiteres Telefon',
   'LBL_PHONE_WORK' => 'Telefon Büro',
   'LBL_PORTAL_ACTIVE' => 'Portal Aktiv:',
   'LBL_PORTAL_APP' => 'Portal Anwendung',
@@ -152,14 +170,18 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Portal Name:',
   'LBL_PORTAL_PASSWORD' => 'Portal Passwort',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Portal Password ist gesetzt:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Bitte klicken Sie hier um Ihr Profil zu bearbeiten.',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'Im Profil können Sie Ihre Kontaktdaten, Ihr Passwort und Ihre Spracheinstellung verwalten.',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Hier können Sie ihre bevorzugte Sprache einstellen. Damit andern Sie die Sprache, die vom Sugar Portal genutzt wird.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Über das Benutzermenü können Sie jederzeit zu Ihren Profil zurückkehren.',
   'LBL_POSTAL_CODE' => 'PLZ:',
   'LBL_PRIMARY_ADDRESS' => 'Hauptadresse:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Hauptadresse Stadt:',
   'LBL_PRIMARY_ADDRESS_COUNTRY' => 'Hauptadresse Land:',
   'LBL_PRIMARY_ADDRESS_POSTALCODE' => 'Hauptadresse PLZ:',
   'LBL_PRIMARY_ADDRESS_STATE' => 'Hauptadresse Bundesland:',
-  'LBL_PRIMARY_ADDRESS_STREET' => 'Hauptadresse Strasse:',
-  'LBL_PRIMARY_ADDRESS_STREET_2' => 'Hauptadresse Strasse 2:',
+  'LBL_PRIMARY_ADDRESS_STREET' => 'Hauptadresse Straße:',
+  'LBL_PRIMARY_ADDRESS_STREET_2' => 'Hauptadresse Straße 2:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Hauptadresse Strasse 3:',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkte',
   'LBL_PRODUCTS_TITLE' => 'Produkte',
@@ -170,10 +192,12 @@ $mod_strings = array (
   'LBL_QUOTES_BILL_TO' => 'Angebote (Rechnung an)',
   'LBL_QUOTES_SHIP_TO' => 'Angebote liefern an',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Angebote',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Datensatz {{first_name}} {{last_name}} wurde gespeichert.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Verknüpfte Kontakte',
   'LBL_REPORTS_TO' => 'Berichtet an:',
   'LBL_REPORTS_TO_ID' => 'Berichtet an ID',
   'LBL_RESOURCE_NAME' => 'Ressourcenname',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Umsatzposten',
   'LBL_SALUTATION' => 'Anrede:',
   'LBL_SAVE_CONTACT' => 'Kontakt speichern',
   'LBL_SEARCH_FORM_TITLE' => 'Kontakte Suche',
@@ -185,12 +209,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Kampagnen (Ziele von):',
   'LBL_TEAM_ID' => 'Team ID',
   'LBL_TITLE' => 'Funktion:',
+  'LBL_TWITTER' => 'Twitter Konto',
   'LBL_USER_PASSWORD' => 'Passwort:',
   'LBL_USER_SYNC' => 'Benutzer Synchronisation',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Kontakt Ansicht',
   'LNK_CONTACT_LIST' => 'Kontakte',
-  'LNK_CONTACT_REPORTS' => 'Kontakt Berichte',
+  'LNK_CONTACT_REPORTS' => 'Zeige Kontakt Berichte',
+  'LNK_CREATE' => 'Erstellen',
   'LNK_IMPORT_CONTACTS' => 'Kontakte importieren',
   'LNK_IMPORT_VCARD' => 'vCard importieren',
   'LNK_NEW_ACCOUNT' => 'Neue Firma',
@@ -209,13 +235,15 @@ $mod_strings = array (
   'NTC_COPY_ALTERNATE_ADDRESS' => 'Weitere Adresse in Hauptadresse kopieren',
   'NTC_COPY_PRIMARY_ADDRESS' => 'Hauptadresse in weitere Adresse kopieren',
   'NTC_DELETE_CONFIRMATION' => 'Sind Sie sicher, dass Sie diesen Eintrag löschen wollen?',
-  'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Zum erstellen einer Verkaufschance benötigen Sie eine Firma. Bitte erstellen Sie eine Firma oder wählen Sie eine existierende aus.',
+  'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Zum erstellen einer Verkaufschance benötigen Sie eine Firma. Bitte erstellen Sie eine Firma oder wählen Sie eine existierende Firma aus.',
   'NTC_REMOVE_CONFIRMATION' => 'Möchten Sie diesen Kontakt wirklich von diesem Ticket entfernen?',
-  'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Möchten Sie diesen Eintrag wirklich als direkten Bericht entfernen?',
+  'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Möchten Sie diesen Kontakt wirklich entfernen?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'Email',
-  'db_email2' => 'andere Email',
+  'db_email2' => 'Andere Email',
   'db_first_name' => 'Vorname',
-  'db_last_name' => 'Name',
+  'db_last_name' => 'Nachname',
   'db_title' => 'Titel',
 );
 

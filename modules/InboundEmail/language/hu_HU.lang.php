@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Hibás login vagy jelszó',
   'ERR_BODY_TOO_LONG' => '\\rA főszöveg túl hosszú a megjelenítéshez. Le lett rövidítve.',
+  'ERR_DELETE_FOLDER' => 'A mappa törlése sikertelen.',
   'ERR_INI_ZLIB' => 'Átmenetileg nem lehet kikapcsolni a Zlib tömörítést. A "Teszt beállítás" végkimenetele sikertelen lehet.',
   'ERR_MAILBOX_FAIL' => 'Nem sikerült letölteni mail fiókot.',
   'ERR_NO_IMAP' => 'Nem található IMAP könyvtár. Kérem, orvosolja a problémát, mielőtt folytatná a bejövő emailek fogadását.',
   'ERR_NO_OPTS_SAVED' => 'Nincsenek optimális értékek mentve bejövő email fiókjához. Kérem, ellenőrizze a beállításokat',
   'ERR_TEST_MAILBOX' => 'Kérem, ellenőrizze a beállításait és próbálja újra!',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Nem sikerült leiratkozni a mappáról törlés előtt.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Engedélyezze a felhasználók számára, hogy a küldő nevét és email címét használják később válasz címként',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Az opció kiválasztása esetén a csoporttal azonosított feladó név és email cím kiválasztható lesz a csoporttagok számára email írása során.',
   'LBL_APPLY_OPTIMUMS' => 'Optimumok alkalmazása',

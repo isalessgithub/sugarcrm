@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,7 +50,8 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Výchozí URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U. S. Formát',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Název pole již existuje',
-  'ERR_NO_MODULE_INCLUDED' => 'Nebyl vybrán modul. Nebylo možné uložit',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Název pole by měl obsahovat pouze následující znaky: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Žádný zahrnutý modul nebylo možné uložit',
   'ERR_RESERVED_FIELD_NAME' => 'Rezervovaná klávesa',
   'ERR_SELECT_FIELD_TYPE' => 'Prosím vyberte typ pole',
   'LBL_ADDING_COLUMN' => 'Přidávání sloupce {0} do',
@@ -74,8 +72,8 @@ $mod_strings = array (
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Závisející',
   'LBL_EDIT_VIS' => 'Upravit viditelnost',
   'LBL_ENFORCED' => 'Vynucené',
-  'LBL_EXE_NON_SIM_MODE' => 'Provést nesimulační mód',
-  'LBL_FIELD_MISSING' => 'pole chybějící z',
+  'LBL_EXE_NON_SIM_MODE' => 'Vyvolat nesimulační mód',
+  'LBL_FIELD_MISSING' => 'Pole chybějící z',
   'LBL_FIX_COLUMN_TYPE' => 'Opravování typu sloupce pro {0} změnou {1} na',
   'LBL_FORMULA' => 'Výraz',
   'LBL_GENERATE_URL' => 'Generovat URL',
@@ -94,7 +92,7 @@ $mod_strings = array (
   'LBL_REPORTABLE' => 'Reportovatelný',
   'LBL_SCAN_MODULE' => 'Prohledávání',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat modul',
-  'LBL_SIMULATION_MODE' => 'SIMULAČNÍ MÓD - ŽÁDNÉ ZMĚNY NEBUDOU PROVEDENY KROMĚ VYČIŠTĚNÍ CACHE',
+  'LBL_SIMULATION_MODE' => 'SIMULAČNÍ MÓD - ŽÁDNÉ ZMĚNY NEBUDOU PROVEDENY VYJMA VYČIŠTĚNÍ CACHE',
   'LBL_VISIBLE_IF' => 'Viditelný pokud',
   'LNK_CALL_LIST' => 'Hovory',
   'LNK_EMAIL_LIST' => 'Pošta',

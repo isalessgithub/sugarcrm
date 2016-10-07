@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Compte (ID)',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Créé par',
   'LBL_CURRENCY' => 'Devise:',
   'LBL_CURRENCY_ID' => 'Devise:',
+  'LBL_CURRENCY_RATE' => 'Taux de change',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Date de Signature du Client:',
   'LBL_DAYS' => 'Jour(s)',
   'LBL_DESCRIPTION' => 'Description:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
   'LBL_END_DATE' => 'Date de fin:',
   'LBL_EXPIRATION_NOTICE' => 'Date d&#39;expiration:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Assigné à (ID)',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Assigné à utilisateur',
+  'LBL_EXPORT_CREATED_BY' => 'Créé par (ID)',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modifié par (ID)',
+  'LBL_EXPORT_TYPE_NAME' => 'Nom du type',
   'LBL_LIST_ACCOUNT_NAME' => 'Nom Compte',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Assigné à',
   'LBL_LIST_CONTRACT_NAME' => 'Nom du Contrat',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Equipe',
   'LBL_MODIFIED_USER' => 'Modifié par',
   'LBL_MODULE_NAME' => 'Contrats',
+  'LBL_MODULE_NAME_SINGULAR' => 'Contrat',
   'LBL_MODULE_TITLE' => 'Contrats',
   'LBL_NEW_FORM_TITLE' => 'Nouveau Contrat',
   'LBL_NONE' => 'Indéfini',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_OPPORTUNITY' => 'Nom de l&#39;Affaire:',
-  'LBL_OPPORTUNITY_NAME' => 'Nom Affaire',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produits',
+  'LBL_OPPORTUNITY_ID' => 'Affaire (ID)',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Devis',
   'LBL_REFERENCE_CODE' => 'Code de Référence:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Lignes de revenu',
   'LBL_SEARCH_FORM_TITLE' => 'Recherche de Contrat',
   'LBL_SF_ACCOUNT_NAME' => 'Nom du Compte:',
   'LBL_SF_ASSIGNED_TO' => 'Assigné à :',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Montant du Contrat:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Montant du Contrat (devise par défaut):',
   'LBL_TYPE' => 'Type',
+  'LBL_TYPE_NAME' => 'Nom du type',
   'LBL_UNDEFINED' => 'Indéfini',
   'LNK_CONTRACT_LIST' => 'Liste des Contrats',
   'LNK_IMPORT_CONTRACTS' => 'Import Contrat',

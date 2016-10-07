@@ -1,21 +1,14 @@
 <!--
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 -->
 
 <!-- BEGIN: embeded -->
@@ -41,7 +34,18 @@ function update_filter_select(){
 				}
 					this.document.getElementById(field_value).style.display='none'
 				}
-			
+
+            // Hide "0 Hours" from time dropdown for "Is Less Then" operator
+            if ($('#time_int').length && $('#future_trigger__operator').length) {
+                if ($('#future_trigger__operator option:selected').val() == 'Less Than') {
+                    $("#time_int option[value='0']").hide();
+                    if ($("#time_int option:selected").val() == 0) {
+                        $('#time_int').prop('selectedIndex', 1);
+                    }
+                } else {
+                    $("#time_int option[value='0']").show();
+                }
+            }
 		}
 function toggleFieldDisplayDiv(thediv){
 					this.document.getElementById(thediv).style.display='inline'
@@ -70,14 +74,14 @@ function return_filter_values(){
 		window.opener.document.getElementById(return_prefix + '_rhs_value').value = new_value;
 		var field_value_inner_text = parse_multi_array_text(this.document.getElementById(parent_type + '__field_value_multi'));
 		if(document.getElementById(parent_type + '__operator').value=='not_in'){
-			selected_text += ' is not one of ';
+			selected_text += ' ' + SUGAR.language.get('app_strings', 'LBL_OPERATOR_NOT_IN_TEXT') + ' ';
 		}else{
-			selected_text += ' is one of ';
+			selected_text += ' ' + SUGAR.language.get('app_strings', 'LBL_OPERATOR_IN_TEXT') + ' ';
 		}
 	} else {
 		window.opener.document.getElementById(return_prefix + '_rhs_value').value = get_value(parent_type + '__field_value');
 		var field_value_inner_text = get_inner_text(parent_type + '__field_value');
-		selected_text += ' ' + get_inner_text(parent_type + '__operator') + ' ';
+		selected_text += ' ' + get_inner_text(parent_type + '__operator') + ' ' + field_value_inner_text + ' ';
 	}
 	
 	var windowOpenerOperator = window.opener.document.getElementById(return_prefix + '_operator');
@@ -117,7 +121,7 @@ function return_filter_values(){
 			selected_text += ' ' + get_inner_text('time_int') + ' ' + time_suffix;
 			
 		} else {
-			selected_text += ' for at least ' + get_inner_text('time_int');
+			selected_text += ' ' + SUGAR.language.get('Expressions', 'LBL_TIME_INT') + ' ' + get_inner_text('time_int');
 		}		
 	}
 	

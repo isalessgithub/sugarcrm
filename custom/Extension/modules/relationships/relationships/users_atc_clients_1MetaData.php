@@ -1,87 +1,51 @@
 <?php
-// created: 2013-09-04 13:19:47
-$dictionary["users_atc_clients_1"] = array (
-  'true_relationship_type' => 'one-to-many',
-  'from_studio' => true,
-  'relationships' => 
-  array (
-    'users_atc_clients_1' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'ATC_Clients',
-      'rhs_table' => 'atc_clients',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'users_atc_clients_1_c',
-      'join_key_lhs' => 'users_atc_clients_1users_ida',
-      'join_key_rhs' => 'users_atc_clients_1atc_clients_idb',
-    ),
-  ),
-  'table' => 'users_atc_clients_1_c',
-  'fields' => 
-  array (
-    0 => 
-    array (
-      'name' => 'id',
-      'type' => 'varchar',
-      'len' => 36,
-    ),
-    1 => 
-    array (
-      'name' => 'date_modified',
-      'type' => 'datetime',
-    ),
-    2 => 
-    array (
-      'name' => 'deleted',
-      'type' => 'bool',
-      'len' => '1',
-      'default' => '0',
-      'required' => true,
-    ),
-    3 => 
-    array (
-      'name' => 'users_atc_clients_1users_ida',
-      'type' => 'varchar',
-      'len' => 36,
-    ),
-    4 => 
-    array (
-      'name' => 'users_atc_clients_1atc_clients_idb',
-      'type' => 'varchar',
-      'len' => 36,
-    ),
-  ),
-  'indices' => 
-  array (
-    0 => 
-    array (
-      'name' => 'users_atc_clients_1spk',
-      'type' => 'primary',
-      'fields' => 
-      array (
-        0 => 'id',
-      ),
-    ),
-    1 => 
-    array (
-      'name' => 'users_atc_clients_1_ida1',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'users_atc_clients_1users_ida',
-      ),
-    ),
-    2 => 
-    array (
-      'name' => 'users_atc_clients_1_alt',
-      'type' => 'alternate_key',
-      'fields' => 
-      array (
-        0 => 'users_atc_clients_1atc_clients_idb',
-      ),
-    ),
-  ),
-);
+ // created: 2016-10-07 09:56:08
+$dictionary['users_atc_clients_1']['name'] = 'users_atc_clients_1';
+$dictionary['users_atc_clients_1']['true_relationship_type'] = 'one-to-many';
+$dictionary['users_atc_clients_1']['from_studio'] = true;
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['lhs_module'] = 'Users';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['lhs_table'] = 'users';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['lhs_key'] = 'id';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['rhs_module'] = 'ATC_Clients';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['rhs_table'] = 'atc_clients';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['rhs_key'] = 'id';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['relationship_type'] = 'many-to-many';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['join_table'] = 'users_atc_clients_1_c';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['join_key_lhs'] = 'users_atc_clients_1users_ida';
+$dictionary['users_atc_clients_1']['relationships']['users_atc_clients_1']['join_key_rhs'] = 'users_atc_clients_1atc_clients_idb';
+$dictionary['users_atc_clients_1']['table'] = 'users_atc_clients_1_c';
+$dictionary['users_atc_clients_1']['fields'][0]['name'] = 'id';
+$dictionary['users_atc_clients_1']['fields'][0]['type'] = 'varchar';
+$dictionary['users_atc_clients_1']['fields'][0]['len'] = 36;
+$dictionary['users_atc_clients_1']['fields'][1]['name'] = 'date_modified';
+$dictionary['users_atc_clients_1']['fields'][1]['type'] = 'datetime';
+$dictionary['users_atc_clients_1']['fields'][2]['name'] = 'deleted';
+$dictionary['users_atc_clients_1']['fields'][2]['type'] = 'bool';
+$dictionary['users_atc_clients_1']['fields'][2]['len'] = '1';
+$dictionary['users_atc_clients_1']['fields'][2]['default'] = '0';
+$dictionary['users_atc_clients_1']['fields'][2]['required'] = true;
+$dictionary['users_atc_clients_1']['fields'][3]['name'] = 'users_atc_clients_1users_ida';
+$dictionary['users_atc_clients_1']['fields'][3]['type'] = 'varchar';
+$dictionary['users_atc_clients_1']['fields'][3]['len'] = 36;
+$dictionary['users_atc_clients_1']['fields'][4]['name'] = 'users_atc_clients_1atc_clients_idb';
+$dictionary['users_atc_clients_1']['fields'][4]['type'] = 'varchar';
+$dictionary['users_atc_clients_1']['fields'][4]['len'] = 36;
+$dictionary['users_atc_clients_1']['indices'][0]['name'] = 'users_atc_clients_1spk';
+$dictionary['users_atc_clients_1']['indices'][0]['type'] = 'primary';
+$dictionary['users_atc_clients_1']['indices'][0]['fields'][0] = 'id';
+$dictionary['users_atc_clients_1']['indices'][1]['name'] = 'users_atc_clients_1_ida1';
+$dictionary['users_atc_clients_1']['indices'][1]['type'] = 'index';
+$dictionary['users_atc_clients_1']['indices'][1]['fields'][0] = 'users_atc_clients_1users_ida';
+$dictionary['users_atc_clients_1']['indices'][2]['name'] = 'users_atc_clients_1_alt';
+$dictionary['users_atc_clients_1']['indices'][2]['type'] = 'alternate_key';
+$dictionary['users_atc_clients_1']['indices'][2]['fields'][0] = 'users_atc_clients_1atc_clients_idb';
+$dictionary['users_atc_clients_1']['lhs_module'] = 'Users';
+$dictionary['users_atc_clients_1']['lhs_table'] = 'users';
+$dictionary['users_atc_clients_1']['lhs_key'] = 'id';
+$dictionary['users_atc_clients_1']['rhs_module'] = 'Employees';
+$dictionary['users_atc_clients_1']['rhs_table'] = 'atc_clients';
+$dictionary['users_atc_clients_1']['rhs_key'] = 'id';
+$dictionary['users_atc_clients_1']['relationship_type'] = 'many-to-many';
+$dictionary['users_atc_clients_1']['join_table'] = 'users_atc_clients_1_c';
+$dictionary['users_atc_clients_1']['join_key_lhs'] = 'users_atc_clients_1users_ida';
+$dictionary['users_atc_clients_1']['join_key_rhs'] = 'users_atc_clients_1atc_clients_idb';

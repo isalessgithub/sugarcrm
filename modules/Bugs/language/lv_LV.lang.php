@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,23 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Izlabots laidienā:',
   'LBL_FOUND_IN_RELEASE' => 'Atrasts laidienā:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Atrasts laidienā:',
+  'LBL_HELP_CREATE' => 'Kļūdu modulis tiek izmantots lai reģistrētu un pārvaldītu ar produktu saistītās problēmas, kas parasti tiek reģistrētas kā kļūdas vai defekti, gan pašu atrastas gan klientu pieteiktās.
+
+Lai izveidotu kļūdas pieteikumu:
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+- Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+- Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+- Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+- Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulis tiek izmantos lai reģistrētu un pārvaldītu ar produktu saistītās problēmas, kas parasti tiek ziņotas kā  {{plural_module_name}} vei defekti, gan pašu atrastas gan klientu pieteiktas.
+
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => 'Kļūdu modulis tiek izmantots lai reģistrētu un pārvaldītu ar produktu saistītās problēmas, kas parasti tiek reģistrētas kā kļūdas vai defekti, gan pašu atrastas gan klientu pieteiktās. Reģistrētās {{plural_module_name}} vēlāk var izmantot lai fiksētu versijā atrastās un izlabotās kļūdas.Kļūdu modulis ļauj lietotājiem ātri caurskatīt kļūdu informāciju un veikt to labojumus. Kad kļūda ir reģistrēta to var aplūkot un rediģēt ieraksta kartiņā.Katrs {{module_name}}s ieraksts ar būt pakārtot citiem Sugar ierakstiem, tādoiem kā  {{calls_module}}, {{contacts_module}}, {{cases_module}}, un daudziem citiem.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_INVITEE' => 'Kontaktpersonas',
   'LBL_LIST_ACCOUNT_NAME' => 'Uzņēmuma nosaukums',
@@ -69,7 +83,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Kļūda',
   'LBL_MODULE_TITLE' => 'Kļūdu sekotājs: Sākums',
   'LBL_NEW_FORM_TITLE' => 'Jauna kļūda',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_NUMBER' => 'Numurs:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Ja Jūs esat atradis jaunu Kļūdu, par kuru vēlaties ziņot, klikšķiniet šeit lai ziņotu par jaunu Kļūdu.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Jūs varat filtrēt Kļūdu sarakstu, ievadot meklēšanas frāzi.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Piemēram, Jūs varat izmantot šo, lai atrastu iepriekš ziņotu kļūdu.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Zināšanu Bāzes modulis tiek lietots darbam ar publicētajiem rakstiem. Izmantojiet zemāk esošās bultas, lai ietu cauri ātrajai apskatei.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Šajā lapā ir attēlots esošo Kļūdu saraksts.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Spiežot šeit jūs tiksiet atgriezts šajā skatījumā jebkurā laikā.',
   'LBL_PORTAL_VIEWABLE' => 'Redzams portālā',
   'LBL_PRIORITY' => 'Prioritāte:',
   'LBL_PRODUCT_CATEGORY' => 'Kategorija:',

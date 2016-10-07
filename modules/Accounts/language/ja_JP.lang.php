@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => '本当にプロジェクトからこの取引先をはずしてよいですか？',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => '電話',
   'LBL_CAMPAIGNS' => 'キャンペーン',
   'LBL_CAMPAIGN_ID' => 'キャンペーンID',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'キャンペーン',
   'LBL_CASES_SUBPANEL_TITLE' => 'ケース',
   'LBL_CHARTS' => 'チャート',
   'LBL_CITY' => '市区町村:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => '取引先',
   'LBL_DESCRIPTION' => '詳細:',
   'LBL_DESCRIPTION_INFORMATION' => '詳細情報',
+  'LBL_DNB_BAL_PREVIEW' => '取引先プレビュー',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'ドキュメント',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => '重複の可能性がある取引先',
   'LBL_EMAIL' => 'Eメール:',
   'LBL_EMAIL_ADDRESSES' => 'Eメールアドレス',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => '従業員:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'アサイン先',
   'LBL_FAX' => 'ファックス:',
+  'LBL_FILENAME' => '添付ファイル',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => '取引先のレポート',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、組織の関係があり、一般的に管理し、それぞれの顧客とあなたのビジネスの相互作用を分析するためのハブとして見られている人と企業で構成されています。{{module_name}}作成するには：1.必要に応じてフィールドの値を指定します。 - 「必須」フィールドは保存前に入力完了しなければならない。 - 必要に応じて、追加のフィールドを展開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 「保存して表示」を選択し、レコードビューに{{module_name}}を開きます。 - すぐに別の新しい{{module_name}}を作成するには「保存して新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、組織に関係があり、一般的に管理し、それぞれの顧客とあなたのビジネスの相互作用を分析するためのハブとして見られている人と企業で構成されています。 - 個々のフィールドまたは「編集」ボタンをクリックして、このレコードのフィールドを編集します。 - 左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示または変更してください。 - 左下ペインに「アクティビティストリーム」を切り替えることにより、{{activitystream_singular_module}}内のレコードの変更履歴やユーザーのコメントを作成し表示してください。 - レコード名の右にあるアイコンを使用して、このレコードをフォローするかお気に入りにしてください。 - 追加のアクションは、「編集」ボタンの右にあるドロップダウンの「操作」メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、組織に関係があり、それぞれの顧客とビジネスの相互作用を分析するためのハブとして見られている人と企業で構成されています。 Sugarで{{plural_module_name}}レコードを作成するには様々な方法があり、{{plural_module_name}}モジュール経由、複製すること、{{plural_module_name}}をインポートすることによりできます。{{module_name}}レコードが作成されたら、{{plural_module_name}}レコードの表示を経由して{{module_name}} に関連する情報を表示したり、編集することができます。顧客との関係が成熟していくにつれ、それぞれの{{module_name}} レコードは{{contacts_module}}、{{meetings_module}}、{{cases_module}}、{{opportunities_module}}などの他のSugarの記録、および多くの他の人に関係させることができるようになります。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_HOMEPAGE_TITLE' => '私の取引先',
   'LBL_INDUSTRY' => '業界:',
@@ -98,6 +103,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => '取引先: ホーム',
   'LBL_NAME' => '名前:',
   'LBL_NEW_FORM_TITLE' => '取引先作成',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => '商談',
   'LBL_OTHER_EMAIL_ADDRESS' => 'その他のEメール:',
   'LBL_OTHER_PHONE' => 'その他の電話:',
@@ -110,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => '会社ファックス:',
   'LBL_PHONE_OFFICE' => '会社電話:',
   'LBL_POSTAL_CODE' => '郵便番号:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => '商品',
   'LBL_PRODUCTS_TITLE' => '商品',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'プロジェクト',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'プロジェクト',
@@ -121,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => '出荷する',
   'LBL_QUOTES_SUBPANEL_TITLE' => '見積',
   'LBL_RATING' => '格付:',
+  'LBL_REVENUELINEITEMS' => '商談品目',
+  'LBL_RLI_SUBPANEL_TITLE' => '商談品目',
   'LBL_SAVE_ACCOUNT' => '取引先保存',
   'LBL_SEARCH_FORM_TITLE' => '取引先検索',
   'LBL_SHIPPING_ADDRESS' => '出荷先住所:',
@@ -146,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Webサイト:',
   'LNK_ACCOUNT_LIST' => '取引先一覧',
   'LNK_ACCOUNT_REPORTS' => '取引先レポート',
+  'LNK_CREATE' => '会社を作成',
   'LNK_IMPORT_ACCOUNTS' => '取引先のインポート',
   'LNK_NEW_ACCOUNT' => '取引先作成',
   'MSG_DUPLICATE' => '作成しようとしている取引先は既存の取引先と重複する可能性があります。類似の取引先は以下に表示されています。<br>取引先作成をクリックして新たに取引先を作成するか、以下のリストから既存の取引先を選択してください。',

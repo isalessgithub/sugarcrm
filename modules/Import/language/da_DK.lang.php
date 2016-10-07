@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -210,6 +207,7 @@ $mod_strings = array (
   'LBL_MIME_TYPE_ERROR_2' => 'For at importere den valgte fil, skal du klikke på OK. For at uploade en ny fil, klik på Prøv igen',
   'LBL_MISSING_HEADER_ROW' => 'Ingen kolonneoverskrift fundet',
   'LBL_MODULE_NAME' => 'Importér',
+  'LBL_MODULE_NAME_SINGULAR' => 'Importér',
   'LBL_MY_PUBLISHED_HELP' => 'En udgivet tilknytning angiver en tidligere anvendt kombination af en bestemt datakilde og et sæt databasefelter, der skal knyttes felterne i importfilen.',
   'LBL_MY_SAVED' => 'Mine gemte tilknytninger:',
   'LBL_MY_SAVED_ADMIN_HELP' => 'Brug denne indstilling for at anvende de pre-konfigurerede import indstillinger, herunder import egenskaber, mappings og dublet kontrol indstillinger, for at denne import. <br>Klik på <b>Udgiv</b> for at gøre mappingen tilgængelig for andre brugere. <br>Klik på <b>Annuller udgivelse</b> for at gøre mapning utilgængelig for andre brugere. <br>Klik på <b>Slet</b> for at slette en kortlægning for alle brugere.',
@@ -225,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Nu skal du vælge den fil, der skal importeres:',
   'LBL_NO_DATECHECK' => 'Spring over datokontrol "hurtigere, men virker ikke, hvis en dato er forkert"',
   'LBL_NO_EMAILS' => 'Undlad at sende e-mail-beskeder under denne import',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Forsøger at håndtere e-mail-adresser i en Bean, der ikke understøtter det.',
   'LBL_NO_ID' => 'Id påkrævet',
   'LBL_NO_IMPORT_TO_UNDO' => 'Der var ingen import at fortryde.',
   'LBL_NO_LINES' => 'Der var ingen linjer i din importfil',

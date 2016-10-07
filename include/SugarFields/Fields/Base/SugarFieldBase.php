@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * SugarFieldBase translates and displays fields from a vardef definition into different formats
@@ -19,13 +18,26 @@
  *
  */
 class SugarFieldBase {
+    /**
+     * A simple error property to be accessed by calling code for child object
+     * methods that process data rather than just manipulate it (like SugarFieldFile
+     * and SugarFieldImage when uploading)
+     *
+     * @var string
+     */
+    public $error;
     var $ss; // Sugar Smarty Object
     var $hasButton = false;
+    protected static $base = array();
+    public $needsSecondaryQuery = false;
+
     function SugarFieldBase($type) {
     	$this->type = $type;
         $this->ss = new Sugar_Smarty();
     }
-    function fetch($path){
+
+    function fetch($path)
+    {
     	$additional = '';
     	if(!$this->hasButton && !empty($this->button)){
     		$additional .= '<input type="button" class="button" ' . $this->button . '>';
@@ -42,6 +54,24 @@ class SugarFieldBase {
     	return $this->ss->fetch($path) . $additional;
     }
 
+    /**
+     * Get base view - cache it since base view is the same for all fields
+     * @param string $view
+     * @return string Base view filename
+     */
+    protected function getBase($view)
+    {
+        if(!isset(self::$base[$view])) {
+            if(!empty($GLOBALS['current_language'])) {
+            	self::$base[$view] = SugarAutoLoader::existingCustomOne("include/SugarFields/Fields/Base/{$GLOBALS['current_language']}.$view.tpl");
+            }
+            if(empty(self::$base[$view])) {
+            	self::$base[$view] = SugarAutoLoader::existingCustomOne("include/SugarFields/Fields/Base/$view.tpl");
+            }
+        }
+        return self::$base[$view];
+    }
+
     function findTemplate($view){
         static $tplCache = array();
 
@@ -54,28 +84,24 @@ class SugarFieldBase {
         while ( $lastClass = get_parent_class($lastClass) ) {
             $classList[] = str_replace('SugarField','',$lastClass);
         }
+        array_pop($classList); // remove this class - $base handles that
 
         $tplName = '';
+        global $current_language;
         foreach ( $classList as $className ) {
-            global $current_language;
             if(isset($current_language)) {
-                $tplName = 'include/SugarFields/Fields/'. $className .'/'. $current_language . '.' . $view .'.tpl';
-                if ( file_exists('custom/'.$tplName) ) {
-                    $tplName = 'custom/'.$tplName;
-                    break;
-                }
-                if ( file_exists($tplName) ) {
+                $tplName = SugarAutoLoader::existingCustomOne('include/SugarFields/Fields/'. $className .'/'. $current_language . '.' . $view .'.tpl');
+                if ($tplName) {
                     break;
                 }
             }
-            $tplName = 'include/SugarFields/Fields/'. $className .'/'. $view .'.tpl';
-            if ( file_exists('custom/'.$tplName) ) {
-                $tplName = 'custom/'.$tplName;
+            $tplName = SugarAutoLoader::existingCustomOne('include/SugarFields/Fields/'. $className .'/'. $view .'.tpl');
+            if ($tplName) {
                 break;
             }
-            if ( file_exists($tplName) ) {
-                break;
-            }
+        }
+        if(empty($tplName)) {
+            $tplName = $this->getBase($view);
         }
 
         $tplCache[$this->type][$view] = $tplName;
@@ -86,6 +112,52 @@ class SugarFieldBase {
     public function formatField($rawField, $vardef){
         // The base field doesn't do any formatting, so override it in subclasses for more specific actions
         return $rawField;
+    }
+
+    /**
+     * Formats a field for the Sugar API
+     *
+     * @param array     $data
+     * @param SugarBean $bean
+     * @param array     $args
+     * @param string    $fieldName
+     * @param array     $properties
+     * @param array     $fieldList
+     * @param ServiceBase $service
+     */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
+
+        if (isset($bean->$fieldName)) {
+            $data[$fieldName] = $bean->$fieldName;
+        } else {
+            $data[$fieldName] = '';
+        }
+    }
+
+    /**
+     * Ensures that necessary arguments of apiFormatField() are passed
+     *
+     * @param array $fieldList The $fieldList argument of apiFormatField()
+     * @param ServiceBase $service The $service argument of apiFormatField()
+     */
+    protected function ensureApiFormatFieldArguments(array $fieldList = null, ServiceBase $service = null)
+    {
+        if ($fieldList === null) {
+            trigger_error('$fieldList argument of apiFormatField() is missing', E_USER_DEPRECATED);
+        }
+
+        if ($service === null) {
+            trigger_error('$service argument of apiFormatField() is missing', E_USER_DEPRECATED);
+        }
     }
 
     function getWirelessSmartyView($parentFieldArray, $vardef, $displayParams, $tabindex = -1, $view){
@@ -108,7 +180,7 @@ class SugarFieldBase {
 
     function getListViewSmarty($parentFieldArray, $vardef, $displayParams, $col) {
         $tabindex = 1;
-        //fixing bug #46666: don't need to format enum and radioenum fields 
+        //fixing bug #46666: don't need to format enum and radioenum fields
         //because they are already formated in SugarBean.php in the function get_list_view_array() as fix of bug #21672
         if ($this->type != 'Enum' && $this->type != 'Radioenum')
         {
@@ -118,7 +190,7 @@ class SugarFieldBase {
         {
         	$vardef['name'] = strtoupper($vardef['name']);
         }
-        
+
     	$this->setup($parentFieldArray, $vardef, $displayParams, $tabindex, false);
 
         $this->ss->left_delimiter = '{';
@@ -163,7 +235,7 @@ class SugarFieldBase {
 	// If readonly is set in displayParams, the vardef will be displayed as in DetailView.
 	if (isset($displayParams['readonly']) && $displayParams['readonly']) {
 		return $this->getSmartyView($parentFieldArray, $vardef, $displayParams, $tabindex, 'DetailView');
-	}	
+	}
 	// ~ jpereira@dri - #Bug49513 - Readonly type not working as expected
        return $this->getSmartyView($parentFieldArray, $vardef, $displayParams, $tabindex, 'EditView');
     }
@@ -209,13 +281,29 @@ class SugarFieldBase {
         return $this->formatField($inputField,$vardef);
     }
 
-    function displayFromFunc( $displayType, $parentFieldArray, $vardef, $displayParams, $tabindex = 0 ) {
+    /**
+     * Calls defined function to display the field.
+     *
+     * @param string $displayType View name.
+     * @param array $parentFieldArray Name of the variable in the parent template
+     * @param array $vardef Field definition.
+     * @param array $displayParams Parameters for display.
+     * @param int $tabindex
+     * @return string
+     */
+    public function displayFromFunc($displayType, $parentFieldArray, $vardef, $displayParams, $tabindex = 0)
+    {
 
         if ( ! is_array($vardef['function']) ) {
             $funcName = $vardef['function'];
             $includeFile = '';
             $onListView = false;
             $returnsHtml = false;
+            if (isset($vardef['function']) && $vardef['function'] == 'getCurrencies') {
+                // there is more hacks in this code to allow this to happen since we moved the values to the rest
+                // way for getting the values
+                $returnsHtml = true;
+            }
         } else {
             $funcName = $vardef['function']['name'];
             $includeFile = '';
@@ -466,17 +554,47 @@ class SugarFieldBase {
      * This should be called when the bean is saved. The bean itself will be passed by reference
      * @param SugarBean bean - the bean performing the save
      * @param array params - an array of paramester relevant to the save, most likely will be $_REQUEST
+     * @param string $field - The name of the field to save (the vardef name, not the form element name)
+     * @param array $properties - Any properties for this field
      */
     public function save($bean, $params, $field, $properties, $prefix = '') {
-         if ( isset($params[$prefix.$field]) ) {
-             if(isset($properties['len']) && isset($properties['type']) && $this->isTrimmable($properties['type'])){
-                 $bean->$field = trim($this->unformatField($params[$prefix.$field], $properties));
-             }
-             else {
-                 $bean->$field = $this->unformatField($params[$prefix.$field], $properties);
-         	 }
-         }
-     }
+        if (isset($params[$prefix.$field])) {
+            if (isset($properties['len']) && isset($properties['type']) && $this->isTrimmable($properties['type'])) {
+                $bean->$field = trim($this->unformatField($params[$prefix.$field], $properties));
+            } else {
+                $bean->$field = $this->unformatField($params[$prefix.$field], $properties);
+            }
+        }
+    }
+
+    /**
+     * This should be called when the bean is saved from the API. Most fields can just use default, which calls the field's individual ->save() function instead.
+     * @param SugarBean $bean - the bean performing the save
+     * @param array $params - an array of paramester relevant to the save, which will be an array passed up to the API
+     * @param string $field - The name of the field to save (the vardef name, not the form element name)
+     * @param array $properties - Any properties for this field
+     */
+    public function apiSave(SugarBean $bean, array $params, $field, $properties) {
+        if (isset($params[$field])) {
+            if (isset($properties['len']) && isset($properties['type']) && $this->isTrimmable($properties['type'])) {
+                $bean->$field = trim($this->apiUnformatField($params[$field], $properties));
+            } else {
+                $bean->$field = $this->apiUnformatField($params[$field], $properties);
+            }
+        }
+    }
+
+    /**
+     * This should be called when the bean is mass updated from the API. Most fields can just use default, which calls the field's individual ->apiSave() function instead
+     *
+     * @param SugarBean $bean - the bean performing the mass update
+     * @param array $params - an array of paramester relevant to the save, which will be an array passed up to the API
+     * @param string $field - The name of the field to save (the vardef name, not the form element name)
+     * @param array $properties - Any properties for this field
+     */
+    public function apiMassUpdate(SugarBean $bean, array $params, $field, $properties) {
+        return $this->apiSave($bean, $params, $field, $properties);
+    }
 
      /**
       * Check if the field is allowed to be trimmed
@@ -509,6 +627,21 @@ class SugarFieldBase {
             $value = sugar_substr($value, $vardef['len']);
         }
 
+        return $value;
+    }
+
+    /**
+     * Handles export field sanitizing for field type
+     *
+     * @param $value string value to be sanitized
+     * @param $vardef array representing the vardef definition
+     * @param $focus SugarBean object
+     * @param $row Array of a row of data to be exported
+     *
+     * @return string sanitized value
+     */
+    public function exportSanitize($value, $vardef, $focus, $row=array())
+    {
         return $value;
     }
 
@@ -556,5 +689,215 @@ class SugarFieldBase {
         return $parentFieldArray;
     }
 
+    /**
+     * Gets normalized values for defs. Used by the MetaDataManager at first for
+     * API responses, but can be used througout the app.
+     *
+     * @param array $vardef
+     * @param array $defs Full vardefs for the same module
+     * @return array A transformed vardef with normalizations applied
+     */
+    public function getNormalizedDefs($vardef, $defs) {
+        // Bug 57802 - REST API Metadata: vardef len property must be number, not string
+        // Some vardefs set len and size as strings. Custom fields do the same
+        // so clean that up here before the metadata is returned.
+        if (isset($vardef['len'])) {
+            $vardef['len'] = $this->normalizeNumeric($vardef['len']);
+        }
+
+        if (isset($vardef['size'])) {
+            $vardef['size'] = $this->normalizeNumeric($vardef['size']);
+        }
+
+        // Bug 57890 - Required values should be boolean
+        if (isset($vardef['required'])) {
+            $vardef['required'] = $this->normalizeBoolean($vardef['required']);
+        }
+
+        // Handle normalizations that need to be applied
+        if (isset($vardef['default'])) {
+            $vardef['default'] = $this->normalizeDefaultValue($vardef['default']);
+        }
+
+        if (isset($vardef['default_value'])) {
+            $vardef['default_value'] = $this->normalizeDefaultValue($vardef['default_value']);
+        }
+
+        return $vardef;
+    }
+
+    /**
+     * Normalizes a default value
+     *
+     * @param mixed $value The value to normalize
+     * @return string
+     */
+    public function normalizeDefaultValue($value) {
+        return $value;
+    }
+
+    /**
+     * Normalizes numeric def values. For non numeric values, returns null
+     *
+     * @param mixed $value
+     * @return int|null
+     */
+    public function normalizeNumeric($value) {
+        if (is_numeric($value)) {
+            return intval($value);
+        }
+
+        return null;
+    }
+
+    public function normalizeBoolean($value) {
+        // If the value is already boolean, send it back
+        if ($value === true || $value === false) {
+            return $value;
+        }
+
+        // Check against known values of booleans
+        $bools = array(
+            0 => false,
+            '0' => false,
+            'no' => false,
+            'off' => false,
+            'false' => false,
+            1 => true,
+            '1' => true,
+            'yes' => true,
+            'on' => true,
+            'true' => true,
+        );
+
+        if (isset($bools[$value])) {
+            return $bools[$value];
+        }
+
+        // Just send it back
+        return $value;
+    }
+
+    /**
+     * Overloaded in field specific classes
+     * @param $value
+     * @return mixed
+     */
+    public function convertFieldForDB($value)
+    {
+        return $value;
+    }
+
+    /**
+     * Unformat a value from an API format.
+     *
+     * Note: this method will be removed in a later API version. apiUnformatField() is the correct
+     * method to use. apiUnformat() is being deprecated and continued to be used by the endpoints
+     * to avoid breaking any code that extends it.
+     *
+     * @deprecated
+     * @see apiUnformatField()
+     * @param $value - the value that needs unformatted
+     * @return string - the unformatted value
+     */
+    public function apiUnformat($value)
+    {
+        return $this->apiUnformatField($value);
+    }
+
+
+    /**
+     * Unformat a value from an API format
+     * @param $value - the value that needs unformatted
+     * @return string - the unformatted value
+     */
+    public function apiUnformatField($value)
+    {
+        return $value;
+    }
+
+    /**
+     * Fix a value(s) for a Filter statement
+     * @param $value - the value that needs fixing
+     * @param $fieldName - the field we are fixing
+     * @param SugarBean $bean - the Bean
+     * @param SugarQuery $q - the Query
+     * @param SugarQuery_Builder_Where $where - the Where statement
+     * @param $op - the filter operand
+     * @return bool - true if everything can pass as normal, false if new filters needed to be added to override the existing $op
+     */
+    public function fixForFilter(&$value, $fieldName, SugarBean $bean, SugarQuery $q, SugarQuery_Builder_Where $where, $op)
+    {
+        return true;
+    }
+
+    /**
+     * Does this field need to have a secondary query
+     * @param string $fieldName - the field we are fixing
+     * @param SugarBean $bean - the Bean
+     * @return bool - True if the field needs to run a secondary query to fetch data
+     */
+    public function fieldNeedsSecondaryQuery($fieldName, SugarBean $bean)
+    {
+        return $this->needsSecondaryQuery;
+    }
+
+    /**
+     * Run a secondary query and populate the results into the array of beans
+     * @param string $fieldName - the field we are fixing
+     * @param SugarBean $seed - The seed bean to run the query off of
+     * @param Array $beans - An array of SugarBeans keyed by the ID.
+     */
+    public function runSecondaryQuery($fieldName, SugarBean $seed, array $beans)
+    {
+        return;
+    }
+
+    /**
+     * Adds field to the list of fields to be selected
+     *
+     * @param string $field
+     * @param array $fields
+     */
+    public function addFieldToQuery($field, array &$fields)
+    {
+        $fields[] = $field;
+    }
+
+    /**
+     * Processes layout field by collecting its display parameters and processing nested fields
+     *
+     * @param MetaDataManager $metaDataManager Metadata manager
+     * @param array $field The field being processed
+     * @param array $fieldDefs Field definitions of the module the layout belongs to
+     * @param array $fields Resulting set of fields
+     * @param array $displayParams Resulting display parameters
+     */
+    public function processLayoutField(
+        MetaDataManager $metaDataManager,
+        array $field,
+        array $fieldDefs,
+        array &$fields,
+        array &$displayParams
+    ) {
+        $isNamedField = isset($field['name']);
+        if ($isNamedField) {
+            $displayParams[$field['name']] = $field;
+            unset($displayParams[$field['name']]['name']);
+        }
+
+        $fieldAttributes = array('fields', 'related_fields');
+        foreach ($fieldAttributes as $attribute) {
+            if (isset($field[$attribute]) && is_array($field[$attribute])) {
+                $fields = array_merge($fields, $metaDataManager->getFieldNames(
+                    $field[$attribute],
+                    $fieldDefs,
+                    $displayParams
+                ));
+                if ($isNamedField) {
+                    unset($displayParams[$field['name']][$attribute]);
+                }
+            }
+        }
+    }
 }
-?>

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('soap/SoapRelationshipHelper.php');
 define('DISABLE_ROW_LEVEL_SECURITY', true);
 
@@ -33,23 +30,21 @@ if(!function_exists("get_encoded")){
 }
 
 function clean_for_sync( $module_name){
-	$name = strtolower($module_name);
-	global  $beanList, $beanFiles;
-	$class_name = $beanList[$module_name];
-	require_once($beanFiles[$class_name]);
-	$seed = new $class_name();
+    $db = DBManagerFactory::getInstance();
+	$seed = BeanFactory::getBean($module_name);
 	$table_name = $seed->table_name;
-	//$seed->db->query("DELETE FROM $table_name WHERE 1=1");
-	$seed->db->query("TRUNCATE TABLE $table_name");
+    $db->commit();
+    $db->query($db->truncateTableSQL($table_name));
 	//clean up custom fields
 	if($seed->hasCustomFields()){
-		$seed->db->query("TRUNCATE TABLE ".$table_name."_cstm");
+        $db->commit();
+        $db->query($db->truncateTableSQL($table_name . '_cstm'));
 	}
 }
 
 function clean_relationships_for_sync($module_name,  $related_module){
 	if(strtolower($related_module) != 'emailaddresses'){
-		global  $beanList, $beanFiles, $dictionary;
+		global  $beanList, $dictionary;
 		$result_list = array();
 		if(empty($beanList[$module_name]) || empty($beanList[$related_module])){
 			return false;
@@ -68,18 +63,16 @@ function clean_relationships_for_sync($module_name,  $related_module){
 			$module_1 = $related_module;
 		}
 		$table = $row['join_table'];
-		$class_name = $beanList[$module_1];
-		require_once($beanFiles[$class_name]);
-		$mod = new $class_name();
-		$clear_query = "TRUNCATE TABLE $table";
-		$result = $mod->db->query($clear_query);
+		$mod = BeanFactory::getBean($module_1);
+        $db = DBManagerFactory::getInstance();
+        $db->commit();
+        $db->query($db->truncateTableSQL($table));
 	}
 	return true;
 }
 
 function get_altered( $module_name,$from_date,$to_date){
 	$name = strtolower($module_name);
-	global  $beanList, $beanFiles;
 	global $disable_date_format;
 	$disable_date_format = true;
 
@@ -87,9 +80,7 @@ function get_altered( $module_name,$from_date,$to_date){
 	//$sugar_config['list_max_entries_per_page'] = 1000;
 
 
-	$class_name = $beanList[$module_name];
-	require_once($beanFiles[$class_name]);
-	$seed = new $class_name();
+	$seed = BeanFactory::getBean($module_name);
 	$table_name = $seed->table_name;
 
 	$removeAutoIncrementFields = false;
@@ -104,7 +95,10 @@ function get_altered( $module_name,$from_date,$to_date){
 	//by the server and synced down.
 	$seed->disable_row_level_security = DISABLE_ROW_LEVEL_SECURITY;
 
-	$response = $seed->get_list('', "$table_name.date_modified > ".db_convert("'".$GLOBALS['db']->quote($from_date)."'",'datetime')." && $table_name.date_modified <= ".db_convert("'".$GLOBALS['db']->quote($to_date)."'",'datetime'), 0,-1,-1, 2);
+    $db = DBManagerFactory::getInstance();
+    $where = "{$table_name}.date_modified > {$db->convert($db->quoted($from_date), 'datetime')}";
+    $where .= " AND {$table_name}.date_modified <= {$db->convert($db->quoted($to_date), 'datetime')}";
+    $response = $seed->get_list('', $where, 0, -1, -1, 2);
 
 	$list = $response['list'];
 	$output_list = array();
@@ -135,11 +129,7 @@ function get_altered( $module_name,$from_date,$to_date){
 }
 
 function execute_query($module_name, $query){
-	global  $beanList, $beanFiles;
-	global $sugar_config;
-	$class_name = $beanList[$module_name];
-	require_once($beanFiles[$class_name]);
-	$seed = new $class_name();
+	$seed = BeanFactory::getBean($module_name);
 	$seed->db->query($query);
 }
 
@@ -151,15 +141,13 @@ function save_altered($module_name, $list){
 
 
 
-	$class_name = $beanList[$module_name];
-	require_once($beanFiles[$class_name]);
 	$add = 0;
 	$modify = 0;
 	if(!empty($list)){
 		foreach($list as $record)
 		{
 
-			$cur = new $class_name();
+			$cur = BeanFactory::getBean($module_name);
 			$cur->disable_row_level_security = true;
 			$cur->set_created_by = false;
 			if(isset($record['name_value_list'])){
@@ -198,8 +186,10 @@ function save_altered($module_name, $list){
 function get_altered_relationships( $module_name,$related_module,$from_date,$to_date){
 	global $disable_date_format;
 	$disable_date_format = true;
-
-	$results = retrieve_relationships($module_name,  $related_module, "rt.date_modified > " . db_convert("'".$GLOBALS['db']->quote($from_date)."'", 'datetime'). " AND rt.date_modified <= ". db_convert("'".$GLOBALS['db']->quote($to_date)."'", 'datetime'), 2, 0, -99);
+    $db = DBManagerFactory::getInstance();
+    $where = "rt.date_modified > {$db->convert($db->quoted($from_date), 'datetime')}";
+    $where .= " AND rt.date_modified <= {$db->convert($db->quoted($to_date), 'datetime')}";
+    $results = retrieve_relationships($module_name, $related_module, $where, 2, 0, -99);
 	$list = $results['result'];
 	$output_list = array();
 	foreach($list as $value)
@@ -358,12 +348,9 @@ function display_conflicts($conflicts_encoded){
 
 function display_conflict($conflict){
 	global $beanList, $beanFiles, $disable_date_format, $odd_bg, $even_bg, $locale;
-	$module_name = $conflict['module_name'];
-	$class_name = $beanList[$module_name];
-	require_once($beanFiles[$class_name]);
-	$cur = new $class_name();
+
 	$disable_date_format = true;
-	$cur->retrieve($conflict['id']);
+	$cur = BeanFactory::getBean($conflict['module_name'],$conflict['id']);
 
 	$title = '<tr><td >&nbsp;</td>';
 	$server= '<tr class="oddListRowS1" bgcolor="'.$odd_bg.'"><td><b>Server</b></td>';
@@ -394,7 +381,7 @@ function display_conflict($conflict){
 
 	}
 	if($module_name == 'Contacts'){
-		$name = $locale->getLocaleFormattedName($cur->first_name, $cur->last_name);
+        $name = $locale->formatName($cur);
 	}else{
 		if(isset($cur->name)){
 			$name = $cur->name;
@@ -536,13 +523,12 @@ function sync_users($soapclient, $session, $clean = false, $is_conversion = fals
 					if($clean){
 						//now save the admin account/current user back if it's a clean sync just so we can make sure they still exist
 
-						$temp_user = new User();
-
-						if(!isset($current_user)){
+						if(empty($current_user->id)){
 							//retrieve the admin user
-							$current_user = new User();
-							$current_user->retrieve(1);
+							$current_user = BeanFactory::getBean('Users', '1');
 						}
+					    $temp_user = BeanFactory::getBean('Users');
+
 						if(!$temp_user->retrieve($current_user->id)){
 							$current_user->new_with_id = true;
 							$current_user->team_exists = true;
@@ -560,7 +546,7 @@ function sync_users($soapclient, $session, $clean = false, $is_conversion = fals
 			if($clean){
 			//now save the admin account/current user back if it's a clean sync just so we can make sure they still exist
 
-			$temp_user = new User();
+			$temp_user = BeanFactory::getBean('Users');
 			if(!$temp_user->retrieve($current_user->id)){
 				$current_user->new_with_id = true;
 				$current_user->team_exists = true;

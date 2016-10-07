@@ -1,24 +1,23 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/connectors/sources/SourceFactory.php');
 require_once('include/connectors/ConnectorFactory.php');
 require_once('include/MVC/Controller/SugarController.php');
 
 class ConnectorsController extends SugarController {
+
+	protected $action_remap = array('index'=>'ConnectorSettings');
 
 	var $admin_actions = array('ConnectorSettings', 'DisplayProperties', 'MappingProperties', 'ModifyMapping', 'ModifyDisplay', 'ModifyProperties',
 	                           'ModifySearch', 'SearchProperties', 'SourceProperties',
@@ -138,7 +137,7 @@ class ConnectorsController extends SugarController {
 		    require_once('include/connectors/utils/ConnectorUtils.php');
             $searchdefs = ConnectorUtils::getSearchDefs();
 			$merge_module = $_REQUEST['merge_module'];
-			$seed = loadBean($merge_module);
+			$seed = BeanFactory::getBean($merge_module);
 			$_searchDefs = isset($searchdefs) ? $searchdefs : array();
 			$_trueFields = array();
 			$source = $_REQUEST['source_id'];
@@ -290,8 +289,7 @@ class ConnectorsController extends SugarController {
 	    //Error checking
 
 	    //Load bean
-	    $bean = loadBean($module);
-	    $bean->retrieve($id);
+	    $bean = BeanFactory::getBean($module, $id);
 
 	    require_once('include/connectors/ConnectorFactory.php');
 	    $component = ConnectorFactory::getInstance($source_id);
@@ -336,6 +334,7 @@ class ConnectorsController extends SugarController {
 				    	}
 					}
 					$source = SourceFactory::getSource($source_id);
+
 					if(!empty($properties)) {
 					    $source->setProperties($properties);
 					    $source->saveConfig();
@@ -345,6 +344,13 @@ class ConnectorsController extends SugarController {
 
 		require_once('include/connectors/utils/ConnectorUtils.php');
 		ConnectorUtils::updateMetaDataFiles();
+
+        // refresh connector
+        require_once('include/connectors/ConnectorManager.php');
+        $cm = new ConnectorManager();
+        $connectors = $cm->buildConnectorsMeta();
+
+
 	    // BEGIN SUGAR INT
 	    if(empty($_REQUEST['from_unit_test'])) {
 	    // END SUGAR INT
@@ -473,15 +479,15 @@ class ConnectorsController extends SugarController {
 
 		    //Clear mapping file if needed (this happens when all modules are removed from a source
 			foreach($sources as $id) {
-		    	    if(empty($sources_modules[$source])) {
+		    	    if(empty($sources_modules[$source]) &&  isset($connectors[$id])) {
 		    	        //Now write the new mapping entry to the custom folder
 					    $dir = $connectors[$id]['directory'];
 						if(!preg_match('/^custom\//', $dir)) {
 						   $dir = 'custom/' . $dir;
 						}
 
-					    if(!file_exists("{$dir}")) {
-			       		   mkdir_recursive("{$dir}");
+					    if(!file_exists($dir)) {
+			       		   mkdir_recursive($dir);
 			    		}
 
                         $fakeMapping = array('beans'=>array());
@@ -489,7 +495,9 @@ class ConnectorsController extends SugarController {
 					       $GLOBALS['log']->fatal("Cannot write file {$dir}/mapping.php");
 					    }
                         $s = SourceFactory::getSource($id);
-                        $s->saveMappingHook($fakeMapping);
+                        if (isset($s)) {
+                            $s->saveMappingHook($fakeMapping);
+                        }
 		    	    } //if
 		    } //foreach
 
@@ -524,14 +532,15 @@ class ConnectorsController extends SugarController {
 
                     } //foreach
 
+                    if (!isset( $connectors[$id]['directory'])) continue;
 				    //Now write the new mapping entry to the custom folder
 				    $dir = $connectors[$id]['directory'];
 					if(!preg_match('/^custom\//', $dir)) {
 					   $dir = 'custom/' . $dir;
 					}
 
-				    if(!file_exists("{$dir}")) {
-		       		   mkdir_recursive("{$dir}");
+				    if(!file_exists($dir)) {
+		       		   mkdir_recursive($dir);
 		    		}
 
 				    if(!write_array_to_file('mapping', $mapping, "{$dir}/mapping.php")) {
@@ -551,6 +560,12 @@ class ConnectorsController extends SugarController {
 		    ConnectorUtils::saveConnectors($connectors);
 
 		    ConnectorUtils::updateMetaDataFiles();
+
+
+            // refresh connector cache
+            require_once('include/connectors/ConnectorManager.php');
+            $cm = new ConnectorManager();
+            $connectors = $cm->buildConnectorsMeta();
 		    // BEGIN SUGAR INT
 		    if(empty($_REQUEST['from_unit_test'])) {
 		    // END SUGAR INT
@@ -607,6 +622,11 @@ class ConnectorsController extends SugarController {
 	    if (isset($_SESSION['searchDefs'])) {
 		    unset($_SESSION['searchDefs']);
 	    }
+
+        // refresh connector cache
+        require_once('include/connectors/ConnectorManager.php');
+        $cm = new ConnectorManager();
+        $connectors = $cm->buildConnectorsMeta();
 
 	    // BEGIN SUGAR INT
 		if(empty($_REQUEST['from_unit_test'])) {
@@ -672,8 +692,8 @@ class ConnectorsController extends SugarController {
 				   $dir = 'custom/' . $dir;
 				}
 
-			    if(!file_exists("{$dir}")) {
-	       		   mkdir_recursive("{$dir}");
+			    if(!file_exists($dir)) {
+	       		   mkdir_recursive($dir);
 	    		}
 
 			    if(!write_array_to_file('mapping', $mapping, "{$dir}/mapping.php")) {
@@ -684,6 +704,11 @@ class ConnectorsController extends SugarController {
 
 		//Rewrite the metadata files
 		ConnectorUtils::updateMetaDataFiles();
+
+        // refresh connectors
+        require_once('include/connectors/ConnectorManager.php');
+        $cm = new ConnectorManager();
+        $connectors = $cm->buildConnectorsMeta();
 
 	    // BEGIN SUGAR INT
 		if(empty($_REQUEST['from_unit_test'])) {
@@ -735,7 +760,7 @@ class ConnectorsController extends SugarController {
 	function action_RetrieveSources() {
 		require_once('include/connectors/utils/ConnectorUtils.php');
 		$this->view = 'ajax';
-		$sources = ConnectorUtils:: getConnectors();
+		$sources = ConnectorUtils::getConnectors();
 		$results = array();
 		foreach($sources as $id=>$entry) {
 			    $results[$id] = !empty($entry['name']) ? $entry['name'] : $id;

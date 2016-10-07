@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -24,11 +21,11 @@ $mod_strings = array (
   'ERR_INVALID_REQUIRED_FIELDS' => 'Campo requerido no válido',
   'ERR_MISSING_CREDENTIALS' => 'error: faltan credenciales',
   'ERR_MISSING_REQUIRED_FIELDS' => 'Falta campo requerido',
-  'ERR_MSG_FAILED' => 'Mensaje Nº : {0} fallido. Motivo : Mensaje ya importado',
+  'ERR_MSG_FAILED' => 'Mensaje Nº : {0} fallido. Motivo: Mensaje ya importado',
   'ERR_NOT_ADDRESSED' => 'Error: El Email debe tener una dirección Para, CC o CCO',
   'ERR_NO_IEID' => 'error: no ieID',
   'ERR_NO_UID' => 'error: no UID',
-  'ERR_RCD_NUM_TO_DEL' => 'Es necesario especificar un número de registro para eliminar este email.',
+  'ERR_RCD_NUM_TO_DEL' => 'Debe especificar un número de registro para eliminar este email.',
   'ERR_TIME_SENT' => 'Hora de envío',
   'ERR_TIME_START' => 'Hora de inicio',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Cuentas',
@@ -56,8 +53,10 @@ $mod_strings = array (
   'LBL_ASSIGN_WARN' => 'Asegúrese de que las dos opciones están seleccionadas.',
   'LBL_ATTACHMENT' => 'Adjunto',
   'LBL_ATTACHMENTS' => 'Adjuntos:',
+  'LBL_ATTACH_SUGAR_DOC' => 'Adjuntar Documento de Sugar',
   'LBL_BACK_TO_GROUP' => 'Volver a Bandeja de Entrada de Grupo',
   'LBL_BCC' => 'CCO:',
+  'LBL_BCC_BUTTON' => 'Cco',
   'LBL_BODY' => 'Cuerpo:',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Incidencias',
   'LBL_BUTTON_CHECK' => 'Comprobar Correo',
@@ -84,7 +83,8 @@ $mod_strings = array (
   'LBL_BUTTON_REPLY_TITLE' => 'Responder [Alt+R]',
   'LBL_CASES_SUBPANEL_TITLE' => 'Casos',
   'LBL_CC' => 'CC:',
-  'LBL_CHECKEMAIL' => 'Revisar el Correo Electrónico',
+  'LBL_CC_BUTTON' => 'Cc',
+  'LBL_CHECKEMAIL' => 'Revisar el correo electrónico',
   'LBL_CHECKING_ACCOUNT' => 'Comprobando Cuenta',
   'LBL_CHECK_ATTACHMENTS' => 'Por favor, compruebe los archivos adjuntos.',
   'LBL_CHECK_INLINE' => 'Correcto',
@@ -92,6 +92,7 @@ $mod_strings = array (
   'LBL_CLOSE' => 'Cerrar',
   'LBL_COLON' => ':',
   'LBL_COMPOSEEMAIL' => 'Redactar Email',
+  'LBL_COMPOSE_ADDRESSBOOK' => 'Libreta de Direcciones',
   'LBL_COMPOSE_MODULE_NAME' => 'Redactar Email',
   'LBL_COMPOSE_MODULE_NAME_SINGULAR' => 'Redactar Email',
   'LBL_CONFIRM_DELETE' => '¿Está seguro de que desea eliminar esta carpeta?',
@@ -116,14 +117,17 @@ $mod_strings = array (
   'LBL_DATE_CREATED' => 'Fecha de creación',
   'LBL_DATE_MODIFIED' => 'Fecha de modificación',
   'LBL_DATE_SENT' => 'Fecha Envío:',
+  'LBL_DEFAULT_SIGNATURE_TITLE' => 'Firma por Defecto',
   'LBL_DELETE_FROM_SERVER' => 'Eliminar mensaje del servidor',
   'LBL_DELETE_INLINE' => 'Eliminar',
   'LBL_DESCRIPTION' => 'Descripción',
   'LBL_DIST_TITLE' => 'Asignación',
+  'LBL_DRAFT_SAVED' => 'Borrador guardado',
+  'LBL_DRAFT_SAVING' => 'Guardando borrador',
   'LBL_EDIT_ALT_TEXT' => 'Editar Texto Plano',
   'LBL_EDIT_LAYOUT' => 'Editar diseño',
   'LBL_EDIT_MY_SETTINGS' => 'Editar Mi Configuración',
-  'LBL_EMAIL' => 'Correo Electrónico:',
+  'LBL_EMAIL' => 'Correo electrónico:',
   'LBL_EMAILSETTINGS' => 'Configuración de Email',
   'LBL_EMAILS_ACCOUNTS_REL' => 'Emails:Cuentas',
   'LBL_EMAILS_BUGS_REL' => 'Emails:Incidencias',
@@ -134,10 +138,12 @@ $mod_strings = array (
   'LBL_EMAILS_NOTES_REL' => 'Emails:Notas',
   'LBL_EMAILS_NO_PRIMARY_TEAM_SPECIFIED' => 'No se ha especificado un Equipo Principal',
   'LBL_EMAILS_OPPORTUNITIES_REL' => 'Emails:Oportunidades',
+  'LBL_EMAILS_PRODUCTS_REL' => 'Emails:Productos',
   'LBL_EMAILS_PROJECT_REL' => 'Emails:Proyecto',
-  'LBL_EMAILS_PROJECT_TASK_REL' => 'Emails:Tareas de proyecto',
+  'LBL_EMAILS_PROJECT_TASK_REL' => 'Emails:ProjectoTarea',
   'LBL_EMAILS_PROSPECT_REL' => 'Emails:Público objetivo',
   'LBL_EMAILS_QUOTES_REL' => 'Emails:Presupuestos',
+  'LBL_EMAILS_REVENUELINEITEMS_REL' => 'Emails:Línea de Ingresos',
   'LBL_EMAILS_TASKS_REL' => 'Emails:Tareas',
   'LBL_EMAILS_USERS_REL' => 'Emails:Usuarios',
   'LBL_EMAILTEMPLATE_MESSAGE_CLEAR_MSG' => 'Al seleccionar "--Ninguno--" se limpiará cualquier información ya introducida en el cuerpo del correo. ¿Desea continuar?',
@@ -146,6 +152,7 @@ $mod_strings = array (
   'LBL_EMAILTEMPLATE_MESSAGE_SHOW_TITLE' => '¡Por favor, compruebe los siguiente!',
   'LBL_EMAILTEMPLATE_MESSAGE_WARNING_TITLE' => 'Aviso',
   'LBL_EMAIL_ACCOUNTS_INBOUND' => 'Propiedades de Cuenta de Correo',
+  'LBL_EMAIL_ARCHIVING' => 'Email archivado',
   'LBL_EMAIL_ATTACHMENT' => 'Archivo Adjunto',
   'LBL_EMAIL_DEFAULT_DESCRIPTION' => 'Este es el presupuesto que solicitó (Puede cambiar el texto)',
   'LBL_EMAIL_DETAIL_VIEW_MORE' => 'más',
@@ -153,11 +160,15 @@ $mod_strings = array (
   'LBL_EMAIL_EDITOR_OPTION' => 'Enviar correo HTML',
   'LBL_EMAIL_FLAGGED' => 'Etiquetado:',
   'LBL_EMAIL_INBOUND_TYPE_HELP' => '<b>Personal</b>: Cuenta de correo accesible por usted. Sólo usted puede administrar e importar correos desde esta cuenta.<br><b>Grupo</b>: Cuenta de correo accesible por miembros de equipos específicos. Los miembros de equipos pueden administrar e importar correos de esta cuenta.<br><b>Grupo - auto-importación</b>: Cuenta de correo accesible por miembros de equipos específicos. Los correos son importados como registros de forma automática.',
+  'LBL_EMAIL_INVALID_SYSTEM_CONFIGURATION' => 'El servidor SMTP predeterminado del sistema no está configurado. Por favor, póngase en contacto con el administrador del sistema para obtener más ayuda.',
+  'LBL_EMAIL_INVALID_USER_CONFIGURATION' => 'La configuración del correo electrónico no está correctamente configurada para enviar emails. Un servidor SMTP debe ser configurado en <a href="#bwc/index.php?module=Users">Configuración de email del perfil del usuario</a>.',
   'LBL_EMAIL_QUOTE_FOR' => 'Presupuesto para:',
   'LBL_EMAIL_RELATE' => 'Relacionado con',
   'LBL_EMAIL_REPLY_TO_STATUS' => 'Estado de Responder A:',
   'LBL_EMAIL_SELECTOR_CLEAR' => 'Limpiar',
   'LBL_EMAIL_SELECTOR_SELECT' => 'Seleccionar',
+  'LBL_EMAIL_SENDING' => 'Enviando email',
+  'LBL_EMAIL_SENT' => 'Email enviado.',
   'LBL_EMAIL_SETTINGS_INBOUND' => 'Correo Entrante',
   'LBL_EMAIL_SETTINGS_INBOUND_ACCOUNTS' => 'Cuentas de Correo',
   'LBL_EMAIL_SETTINGS_OUTBOUND' => 'Correo Saliente',
@@ -177,6 +188,7 @@ $mod_strings = array (
   'LBL_EXCHANGE_SMTPPORT' => 'Puerto de Servidor Exchange:',
   'LBL_EXCHANGE_SMTPSERVER' => 'Servidor Exchange:',
   'LBL_EXCHANGE_SMTPUSER' => 'Nombre de usuario de Exchange:',
+  'LBL_FAILED_TO_CONNECT' => 'No es posible conectarse al servidor. Por favor, asegúrese que la configuración de email se ha realizado de forma correcta.',
   'LBL_FILTER_BY_RELATED_BEAN' => 'Sólo mostrar destinatarios relacionados',
   'LBL_FORWARD_HEADER' => 'Inicio de mensaje reenviado:',
   'LBL_FROM' => 'De:',
@@ -188,11 +200,21 @@ $mod_strings = array (
   'LBL_HAS_ATTACHMENT' => '¿Tiene Adjunto?:',
   'LBL_HAS_ATTACHMENTS' => 'Este email ya tiene archivos adjuntos. ¿Desea preservarlos?',
   'LBL_HELP' => 'Ayuda',
+  'LBL_HELP_COMPOSE' => 'Redactar un correo electrónico, proporcionando un asunto y cuerpo del correo electrónico. Haga clic en "Enviar" para enviar el email o seleccione "Guardar borrador" desde el menú de acciones para guardar el correo electrónico en la carpeta de borradores del módulo de Emails y poder editarlo más tarde.
+
+Usted puede aplicar una plantilla predefinida mediante el botón Plantilla o incluir una de sus firmas pulsando el botón Firma. Utilice el botón Subir Nuevo para adjuntar un archivo al correo electrónico.',
+  'LBL_HELP_COMPOSE_TITLE' => 'Redacte un email',
   'LBL_HTML_BODY' => 'Cuerpo de HTML',
-  'LBL_ID_MISMATCH' => 'ID discordante',
+  'LBL_ID_MISMATCH' => 'NOOP: no coincide el ID',
   'LBL_IMPORT_STATUS_TITLE' => 'Estado',
   'LBL_INBOUND_TITLE' => 'Correo Entrante',
   'LBL_INTENT' => 'Intento',
+  'LBL_INTERNAL_ERROR' => 'Se ha producido un error interno en el servidor. Por favor, inténtelo de nuevo.',
+  'LBL_INVALID_ATTACHMENT' => 'No se puede adjuntar el archivo proporcionado. Por favor, inténtelo de nuevo.',
+  'LBL_INVALID_CONFIGURATION' => 'El email no ha sido configurado de forma correcta. Por favor, configúrelo de forma correcta.',
+  'LBL_INVALID_EMAIL' => 'Por favor, facilite una dirección de correo electrónico válido.',
+  'LBL_INVALID_HEADER' => 'Por favor, facilite toda la información requerida.',
+  'LBL_INVALID_MAILAPI_STATUS' => 'El estado del email no válido fue enviado en la solicitud. Por favor introduce un estado válido.',
   'LBL_INVALID_OPS' => 'Operación Inválida',
   'LBL_INVALID_TYPE' => 'NOOP: tipo inválido',
   'LBL_INVITEE' => 'Destinatarios',
@@ -212,7 +234,6 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'Lista de Emails',
   'LBL_LIST_FROM_ADDR' => 'De',
   'LBL_LIST_LEAD' => 'Clientes Potenciales',
-  'LBL_LIST_RELATED_TO' => 'Tipo de Destinatario',
   'LBL_LIST_STATUS' => 'Estado',
   'LBL_LIST_SUBJECT' => 'Asunto',
   'LBL_LIST_TASK' => 'Tareas',
@@ -226,6 +247,10 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tipo',
   'LBL_LOCK_FAIL_DESC' => 'El elemento elegido no está disponible actualmente.',
   'LBL_LOCK_FAIL_USER' => 'ha tomado posesión.',
+  'LBL_MAILAPI_INVALID_ARGUMENT_FIELD' => '{0} motivo - campo inválido o ausente: {1}',
+  'LBL_MAILAPI_INVALID_ARGUMENT_FORMAT' => '{0} motivo - formato inválido',
+  'LBL_MAILAPI_INVALID_ARGUMENT_VALUE' => '{0} motivo - inválido o ausente',
+  'LBL_MAILAPI_NO_RECIPIENTS' => 'ningún destinatario especificado',
   'LBL_MAILBOX_TYPE_GROUP' => 'Grupo',
   'LBL_MAILBOX_TYPE_GROUP_FOLDER' => 'Grupo - Auto-Importación',
   'LBL_MAILBOX_TYPE_PERSONAL' => 'Personal',
@@ -240,7 +265,8 @@ $mod_strings = array (
   'LBL_MEMBER_OF' => 'Padre',
   'LBL_MESSAGE_ID' => 'ID Mensaje',
   'LBL_MESSAGE_SENT' => 'Mensaje Enviado',
-  'LBL_MESSAGE_UID' => 'Mensaje UID',
+  'LBL_MESSAGE_UID' => 'UID del Mensaje',
+  'LBL_MISSING_CONFIGURATION' => 'No se ha especificado la configuración de correo electrónico. Por favor, establezca una configuración de correo electrónico válida.',
   'LBL_MISSING_DEFAULT_OUTBOUND_SMTP_SETTINGS' => 'El administrador aún no ha configurado la cuenta saliente por defecto.  No es posible enviar un correo de prueba.',
   'LBL_MODIFIED_BY' => 'Modificado Por',
   'LBL_MODULE_NAME' => 'Todos los Emails',
@@ -249,7 +275,6 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR_NEW' => 'Archivar Email',
   'LBL_MODULE_TITLE' => 'Emails: Inicio',
   'LBL_MORE_OPTIONS' => 'Más',
-  'LBL_MOVE_TO_BCC' => 'Mover a Bcc',
   'LBL_MY_EMAILS' => 'Mis Emails',
   'LBL_NEW' => 'Nuevo',
   'LBL_NEW_FORM_TITLE' => 'Guardar Email',
@@ -258,11 +283,13 @@ $mod_strings = array (
   'LBL_NOTES_SUBPANEL_TITLE' => 'Datos Adjuntos',
   'LBL_NOTE_SEMICOLON' => 'Nota: Utilice una coma o un punto y coma como separadores de múltiples direcciones de email.',
   'LBL_NOT_SENT' => 'Error de Envío',
-  'LBL_NOT_SUGAR_FOLDER' => 'NOOP - no es una carpeta en Sugar',
+  'LBL_NOT_SUGAR_FOLDER' => 'NOOP - no es una carpeta de Sugar',
+  'LBL_NO_BODY_SEND_ANYWAYS' => 'Este email no tiene cuerpo. Enviar/guardar de todas modos?',
   'LBL_NO_FOLDER_TYPE' => 'NOOP: tipo de carpeta no definido',
   'LBL_NO_GRAB_DESC' => 'No hay elementos disponibles. Inténtelo más tarde.',
-  'LBL_NO_SEARCH_CRITERIA' => 'NOOP: no se encuentra ningún criterio de búsqueda',
+  'LBL_NO_SEARCH_CRITERIA' => 'NOOP: criterio de búsqueda no encontrado',
   'LBL_NO_SUBJECT' => '(sin asunto)',
+  'LBL_NO_SUBJECT_NO_BODY_SEND_ANYWAYS' => 'Este email no tiene ni asunto ni cuerpo. Enviar/guardar de todas modos?',
   'LBL_OF' => 'de',
   'LBL_OPPORTUNITY_SUBPANEL_TITLE' => 'Oportunidades',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Proyectos',
@@ -289,8 +316,12 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_DRAFTS_TITLE' => 'Buscar Borradores',
   'LBL_SEARCH_FORM_SENT_TITLE' => 'Buscar Emails Enviados',
   'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Emails',
-  'LBL_SEE_LOG' => 'NOOP: error ver registro',
+  'LBL_SEARCH_IMPORTED_EMAIL' => 'Buscar Email Importado',
+  'LBL_SEE_LOG' => 'NOOP: error ver log',
   'LBL_SELECTED_ADDR' => 'Seleccionado',
+  'LBL_SELECTED_RECIPIENTS' => 'Destinatarios Seleccionados',
+  'LBL_SELECT_FROM_SENDER' => 'Escoja una Cuenta de Correo Electrónico',
+  'LBL_SELECT_SIGNATURE_TITLE' => 'Elija la Firma',
   'LBL_SELECT_TEAM' => 'Seleccionar Equipos',
   'LBL_SEND' => 'ENVIAR',
   'LBL_SEND_ANYWAYS' => 'Este correo no tiene asunto. ¿Enviar/guardar de todas formas?',
@@ -302,6 +333,8 @@ $mod_strings = array (
   'LBL_SENT_MODULE_NAME' => 'Emails Enviados',
   'LBL_SENT_MODULE_NAME_SINGULAR' => 'Email Enviado',
   'LBL_SHOW_ALT_TEXT' => 'Mostrar Texto Plano',
+  'LBL_SHOW_MORE_RECIPIENTS' => 'Mas Destinatarios...',
+  'LBL_SHOW_MORE_SIGNATURES' => 'Más Firmas...',
   'LBL_SIGNATURE' => 'Firma',
   'LBL_SIGNATURE_PREPEND' => 'Firma sobre la respuesta',
   'LBL_SMTP_SERVER_HELP' => 'Este Servidor de Correo SMTP puede utilizarse para correo saliente. Proporcione el nombre de usuario y la contraseña de su cuenta de correo para usar el servidor de correo.',
@@ -321,6 +354,7 @@ $mod_strings = array (
   'LBL_UNKNOWN' => 'Desconocido',
   'LBL_UNREAD' => 'No leído',
   'LBL_UNREAD_HOME' => 'Emails no leídos',
+  'LBL_UPLOAD_ATTACHMENT' => 'Subir Nuevo',
   'LBL_USE' => 'Asignar:',
   'LBL_USERS' => 'Usuarios',
   'LBL_USERS_SUBPANEL_TITLE' => 'Usuarios',

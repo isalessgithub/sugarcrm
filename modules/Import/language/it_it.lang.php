@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Non è possibile importare un utente amministratore del sistema.',
@@ -54,20 +51,20 @@ $mod_strings = array (
   'LBL_CONTACTS_NOTE_1' => 'Devi mappare o il Cognome o il Nome completo.',
   'LBL_CONTACTS_NOTE_2' => 'Se mappi il Nome completo, allora Nome e Cognome vengono ignorati.',
   'LBL_CONTACTS_NOTE_3' => 'Se mappi il Nome completo, allora i dati in questo campo verranno separati in Nome e Cognome  durante inserimento nel database.',
-  'LBL_CONTACTS_NOTE_4' => 'I campi Indirizzo 2 e Indirizzo 3 sono concatenati assieme a Indirizzo durante l´ inserimento nel database.',
+  'LBL_CONTACTS_NOTE_4' => 'I campi Indirizzo 2 e Indirizzo 3 sono concatenati assieme a Indirizzo durante l´inserimento nel database.',
   'LBL_CREATED_TAB' => 'Record creati',
   'LBL_CREATE_BUTTON_HELP' => 'Per creare nuovi record usare questa opzione. Nota: le righe nel file di importazione contenenti valori che corrispondono all´ID di record esistenti non verranno importanti se i valori sono mappati al campo ID.',
-  'LBL_CSV' => 'File con valori separati da Virgola',
+  'LBL_CSV' => 'File con valori separati da virgola',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_SIG_DIGITS' => 'Cifre decimali significative',
   'LBL_CUSTOM' => 'Personalizzato',
-  'LBL_CUSTOM_CSV' => 'File con valori separati da Virgola',
+  'LBL_CUSTOM_CSV' => 'File con valori separati da virgola',
   'LBL_CUSTOM_DELIMITED' => 'File con valori separati da altri simboli',
   'LBL_CUSTOM_DELIMITER' => 'Campi separati da:',
   'LBL_CUSTOM_ENCLOSURE' => 'Campi qualificati da:',
   'LBL_CUSTOM_NUM_1' => 'Esegui applicazione e apri il file di dati',
   'LBL_CUSTOM_NUM_2' => 'Seleziona il <b>Salva con Nome...</b> o opzione di menu <b>Esporta...</b>',
-  'LBL_CUSTOM_NUM_3' => 'Salva il file in formato <b>CSV</b> o <b>Valori Separati da Virgola (Comma Separated Values)</b>',
+  'LBL_CUSTOM_NUM_3' => 'Salva il file in formato <b>CSV</b> o <b>Valori Separati da virgola (Comma Separated Values)</b>',
   'LBL_CUSTOM_TAB' => 'File con valori separati da Tab',
   'LBL_DATABASE_FIELD' => 'Campi del database',
   'LBL_DATABASE_FIELD_HELP' => 'Seleziona un campo dall´elenco di tutti i campi esistenti nel database per il modulo.',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Ora scegli il file da importare:',
   'LBL_NO_DATECHECK' => 'Salva il controllo della data (più veloce ma non andrà a buon fine se la data è sbagliata)',
   'LBL_NO_EMAILS' => 'Non inviare notifiche e-mail nel corso di questa importazione',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Gestione indirizzi email all´interno di un modulo che non supporta la funzionalità.',
   'LBL_NO_ID' => 'ID Richiesto',
   'LBL_NO_IMPORT_TO_UNDO' => 'Non ci sono importazioni da annullare.',
   'LBL_NO_LINES' => 'Non sono state rilevate righe nel tuo file di importazione. Assicurarsi che non ci siano righe vuote nel tuo file e riprovare.',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Importazione riuscita',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Record creati con successo',
   'LBL_SUMMARY' => 'Sommario',
+  'LBL_SYSTEM_SIG_DIGITS' => 'System Significant Digits',
   'LBL_TAB' => 'File con valori separati da Tab',
   'LBL_TAB_NUM_1' => 'Eseguire applicazione e apri il file di dati',
   'LBL_TAB_NUM_2' => 'Selezionare il <b>Salva con Nome...</b> o opzione di menu <b>Esporta...</b>',
@@ -339,4 +338,3 @@ $mod_strings = array (
   'LNK_ERROR_LIST' => 'Scarica l´elenco degli errori',
   'LNK_RECORDS_SKIPPED_DUE_TO_ERROR' => 'Scarica i record che non possono essere importati.',
 );
-

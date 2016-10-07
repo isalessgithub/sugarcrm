@@ -1,21 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SubPanel/SubPanel.php');
-require_once('include/SubPanel/SubPanelTilesTabs.php');
 require_once('include/SubPanel/SubPanelDefinitions.php');
 
 /**
@@ -30,7 +26,7 @@ class SubPanelTiles
 	var $start_on_field;
 	var $layout_manager;
 	var $layout_def_key;
-	var $show_tabs = false;
+//	var $show_tabs = false;
 
 	var $subpanel_definitions;
 
@@ -46,114 +42,39 @@ class SubPanelTiles
 		$this->subpanel_definitions=new SubPanelDefinitions($focus, $layout_def_key, $layout_def_override);
 	}
 
-	/*
-	 * Return the current selected or requested subpanel tab
-	 * @return	string	The identifier for the selected subpanel tab (e.g., 'Other')
-	 */
-    function getSelectedGroup()
-    {
-        global $current_user;
-
-        if(isset($_REQUEST['subpanelTabs']))
-            $_SESSION['subpanelTabs'] = $_REQUEST['subpanelTabs'];
-
-        // include/tabConfig.php in turn includes the customized file at custom/include/tabConfig.php
-        require 'include/tabConfig.php';
-
-        $subpanelTabsPref = $current_user->getPreference('subpanel_tabs');
-        if(!isset($subpanelTabsPref)) $subpanelTabsPref = $GLOBALS['sugar_config']['default_subpanel_tabs'];
-        if(!empty($GLOBALS['tabStructure']) && (!empty($_SESSION['subpanelTabs']) || !empty($sugar_config['subpanelTabs']) || !empty($subpanelTabsPref)))
-        {
-            // Determine selected group
-            if(!empty($_REQUEST['subpanel']))
-            {
-                $selected_group = $_REQUEST['subpanel'];
-            }
-            elseif(!empty($_COOKIE[$this->module.'_sp_tab']))
-            {
-                $selected_group = $_COOKIE[$this->module.'_sp_tab'];
-            }
-            elseif(!empty($_SESSION['parentTab']) && !empty($GLOBALS['tabStructure'][$_SESSION['parentTab']]) && in_array($this->module, $GLOBALS['tabStructure'][$_SESSION['parentTab']]['modules']))
-            {
-                $selected_group = $_SESSION['parentTab'];
-            }
-            else
-            {
-                $selected_group = '';
-                foreach($GLOBALS['tabStructure'] as $mainTab => $group)
-                {
-                    if(in_array($this->module, $group['modules']))
-                    {
-                        $selected_group = $mainTab;
-                        break;
-                    }
-                }
-                if(!$selected_group)
-                {
-                    $selected_group = 'All';
-                }
-            }
-        }
-        else
-        {
-        	$selected_group = '';
-        }
-        return $selected_group;
-    }
-
     /*
-     * Determine which subpanels should be shown within the selected tab group (e.g., 'Other');
-     * @param boolean $showTabs		True if we should call the code to render each visible tab
-     * @param string $selectedGroup	The requested tab group
+     * Return all subpanels available (order by user preference)
+     *
      * @return array Visible tabs
      */
-    function getTabs($showTabs = true, $selectedGroup='')
+    function getTabs()
     {
+        // Check if the user has a custom subpanel layout.
         global $current_user;
+        $user_layout = $current_user->getPreference('subpanelLayout', $this->module);
 
-        //get all the "tabs" - this actually means all the subpanels available for display within a tab
-        $tabs = $this->subpanel_definitions->get_available_tabs();
+        // Fetch the global subpanel layout.
+        $layout = $this->subpanel_definitions->get_available_tabs();
 
-        if(!empty($selectedGroup))
-        {
-            // Bug #44344 : Custom relationships under same module only show once in subpanel tabs
-            // use object property instead new object to have ability run unit test (can override subpanel_definitions)
-            $objSubPanelTilesTabs = new SubPanelTilesTabs($this->focus);
-            $tabs = $objSubPanelTilesTabs->getTabs($tabs, $showTabs, $selectedGroup);
-            unset($objSubPanelTilesTabs);
-            return $tabs;
-	    }
-        else
-        {
-            // see if user current user has custom subpanel layout
-            $tabs = SubPanelTilesTabs::applyUserCustomLayoutToTabs($tabs);
+        // If the user has a custom subpanel layout, merge the global layout onto the
+        // end then pull out the unique values to ensure the users defined subpanel
+        // layout is taken into account first and any others are appended to the end.
+        if (!empty($user_layout)) {
 
-            /* Check if the preference is set now,
-             * because there's no point in executing this code if
-             * we aren't going to render anything.
-             */
-            $subpanelLinksPref = $current_user->getPreference('subpanel_links');
-            if(!isset($subpanelLinksPref)) $subpanelLinksPref = $GLOBALS['sugar_config']['default_subpanel_links'];
-
-            if($showTabs && $subpanelLinksPref){
-               require_once('include/SubPanel/SugarTab.php');
-               $sugarTab = new SugarTab();
-
-               $displayTabs = array();
-
-               foreach($tabs as $tab){
-    	           $displayTabs []= array('key'=>$tab, 'label'=>translate($this->subpanel_definitions->layout_defs['subpanel_setup'][$tab]['title_key']));
-    	           //echo '<td nowrap="nowrap"><a class="subTabLink" href="#' . $tab . '">' .  translate($this->subpanel_definitions->layout_defs['subpanel_setup'][$tab]['title_key']) .  '</a></td><td> | </td>';
-    	       }
-               $sugarTab->setup(array(),array(),$displayTabs);
-               $sugarTab->display();
+            // Check if any of the panels the user has saved in their layout
+            // preference are now hidden. If they are, remove them from the list.
+            foreach ($user_layout as $key => $value) {
+                if (!in_array($value, $layout)) {
+                    unset($user_layout[$key]);
+                }
             }
-            //echo '<td width="100%">&nbsp;</td></tr></table>';
-        }
-	    return $tabs;
 
+            $layout = array_values(array_unique(array_merge($user_layout, $layout)));
+        }
+
+        return $layout;
 	}
-	function display($showContainer = true, $forceTabless = false)
+	function display($showContainer = true)
 	{
 		global $layout_edit_mode, $sugar_version, $sugar_config, $current_user, $app_strings;
 		if(isset($layout_edit_mode) && $layout_edit_mode){
@@ -175,7 +96,6 @@ if(document.DetailView != null &&
 </script>
 <?php
 
-		$tabs = array();
 		$default_div_display = 'inline';
 		if(!empty($sugar_config['hide_subpanels_on_login'])){
 			if(!isset($_SESSION['visited_details'][$this->focus->module_dir])){
@@ -188,43 +108,7 @@ if(document.DetailView != null &&
 		}
 		$div_cookies = get_sub_cookies($this->focus->module_dir . '_divs');
 
-
-		//Display the group header. this section is executed only if the tabbed interface is being used.
-		$current_key = '';
-		if (! empty($this->show_tabs))
-		{
-			require_once('include/tabs.php');
-    		$tab_panel = new SugarWidgetTabs($tabs, $current_key, 'showSubPanel');
-			echo get_form_header('Related', '', false);
-			echo "<br />" . $tab_panel->display();
-		}
-
-        if(empty($_REQUEST['subpanels']))
-        {
-            $selected_group = $forceTabless?'':$this->getSelectedGroup();
-            $usersLayout = $current_user->getPreference('subpanelLayout', $this->focus->module_dir);
-
-            // we need to use some intelligence here when restoring the user's layout, as new modules with new subpanels might have been installed since the user's layout was recorded
-            // this means that we can't just restore the old layout verbatim as the new subpanels would then go walkabout
-            // so we need to do a merge while attempting as best we can to preserve the sense of the specified order
-            // this is complicated by the different ordering schemes used in the two sources for the panels: the user's layout uses an ordinal layout, the panels from getTabs have an explicit ordering driven by the 'order' parameter
-            // it's not clear how to best reconcile these two schemes; so we punt on it, and add all new panels to the end of the user's layout. At least this will give them a clue that something has changed...
-            // we also now check for tabs that have been removed since the user saved his or her preferences.
-
-            $tabs = $this->getTabs($showContainer, $selected_group) ;
-
-            if(!empty($usersLayout))
-            {
-                $availableTabs = $tabs ;
-                $tabs = array_intersect ( $usersLayout , $availableTabs ) ; // remove any tabs that have been removed since the user's layout was saved
-                foreach (array_diff ( $availableTabs , $usersLayout ) as $tab)
-                    $tabs [] = $tab ;
-            }
-        }
-        else
-        {
-        	$tabs = explode(',', $_REQUEST['subpanels']);
-        }
+        $tabs = $this->getTabs();
 
         $tab_names = array();
 
@@ -237,7 +121,7 @@ if(document.DetailView != null &&
         	if (!class_exists('Relationship')) {
         		require('modules/Relationships/Relationship.php');
         	}
-        	$rel= new Relationship();
+        	$rel = BeanFactory::getBean('Relationships');
 	        $rel->load_relationship_meta();
         }
 
@@ -251,6 +135,10 @@ if(document.DetailView != null &&
 			$thisPanel=$this->subpanel_definitions->load_subpanel($tab);
             if ($thisPanel === false)
                 continue;
+            // Check ACLs for the subpanel
+            if(!$this->focus->ACLAccess("subpanel", array("subpanel" => $thisPanel))) {
+                continue;
+            }
 			//this if-block will try to skip over ophaned subpanels. Studio/MB are being delete unloaded modules completely.
 			//this check will ignore subpanels that are collections (activities, history, etc)
 			if (!isset($thisPanel->_instance_properties['collection_list']) and isset($thisPanel->_instance_properties['get_subpanel_data']) ) {
@@ -301,7 +189,7 @@ if(document.DetailView != null &&
 			{
 				$div_display = 'none';
 			}
-				
+
 			if(isset($div_cookies[$cookie_name])){
 				//If defaultSubPanelExpandCollapse is set, ignore the cookie that remembers whether the panel is expanded or collapsed.
 				//To be used with the above 'collapsed' metadata setting so they will always be set the same when the page is loaded.
@@ -460,20 +348,23 @@ EOQ;
 			$widget_data['subpanel_definition'] = $thisPanel;
 			$widget_contents .= '<td class="buttons">' . "\n";
 
+            // don't render subpanel top quick create buttons they don't work
+            if (isset($widget_data['widget_class']) && $widget_data['widget_class'] == 'SubPanelTopButtonQuickCreate'
+                && $widget_data['module'] == 'Users') {
+                continue;
+            }
+
 			if(empty($widget_data['widget_class']))
 			{
 				$buttons[] = "widget_class not defined for top subpanel buttons";
 			}
 			else
 			{
-                $button = $layout_manager->widgetDisplay($widget_data);
-                if ($button) {
-                    $buttons[] = $button;
-                }
+				$buttons[] = $layout_manager->widgetDisplay($widget_data);
 			}
 
         }
-        require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+        require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
         $widget_contents = smarty_function_sugar_action_menu(array(
             'buttons' => $buttons,
             'class' => 'clickMenu fancymenu',

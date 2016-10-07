@@ -2,31 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activiteiten',
   'LBL_ASSIGNED_TO_ID' => 'Toegewezen aan ID',
-  'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan Naam',
+  'LBL_ASSIGNED_TO_NAME' => 'Toegewezen aan',
   'LBL_ASX_NOTIFICATIONS_SUBPANEL_TITLE' => 'Notificaties',
   'LBL_CREATED' => 'Aangemaakt door',
   'LBL_CREATED_ID' => 'Gemaakt door ID',
   'LBL_CREATED_USER' => 'Gemaakt door Gebruiker',
-  'LBL_DATE_ENTERED' => 'Datum Aangemaakt',
-  'LBL_DATE_MODIFIED' => 'Laatste wijziging',
+  'LBL_DATE_ENTERED' => 'Datum aangemaakt',
+  'LBL_DATE_MODIFIED' => 'Datum gewijzigd',
   'LBL_DELETED' => 'Verwijderd',
   'LBL_DESCRIPTION' => 'Beschrijving',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Bekijk Historie',
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_ID' => 'ID',
   'LBL_IS_READ' => 'Gelezen',
   'LBL_LIST_FORM_TITLE' => 'Notificatie Lijst',
+  'LBL_LIST_RELATED_TO' => 'Gerelateerd aan',
   'LBL_MODIFIED' => 'Gewijzigd door',
   'LBL_MODIFIED_ID' => 'Gewijzigd door ID',
   'LBL_MODIFIED_NAME' => 'Gewijzigd door Naam',
@@ -43,10 +41,16 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Notificaties',
   'LBL_NAME' => 'Naam',
   'LBL_NEW_FORM_TITLE' => 'Nieuwe Notificaties',
+  'LBL_PARENT_ID' => 'Parent ID:',
+  'LBL_PARENT_TYPE' => 'Parent Type',
+  'LBL_READ' => 'Gelezen',
   'LBL_SEARCH_FORM_TITLE' => 'Zoek Notificaties',
+  'LBL_SEVERITY' => 'Ernst',
+  'LBL_SHOW_NOTIFICATIONS' => 'Toon notificaties',
   'LBL_TEAM' => 'Team',
   'LBL_TEAMS' => 'Teams',
   'LBL_TEAM_ID' => 'Team Id',
+  'LBL_UNREAD' => 'Ongelezen',
   'LNK_LIST' => 'Notificaties',
   'LNK_NEW_RECORD' => 'Nieuwe Notificaties',
 );

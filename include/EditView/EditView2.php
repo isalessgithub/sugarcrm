@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 require_once('include/TemplateHandler/TemplateHandler.php');
@@ -67,7 +64,7 @@ class EditView
     function setup($module, $focus = null, $metadataFile = null, $tpl = 'include/EditView/EditView.tpl', $createFocus = true)
     {
         $this->th = $this->getTemplateHandler();
-        $this->th->ss =& $this->ss;
+        $this->th->ss = $this->ss;
         $this->tpl = $tpl;
         $this->module = $module;
         $this->focus = $focus;
@@ -90,44 +87,8 @@ class EditView
            $this->showVCRControl = !$GLOBALS['sugar_config']['disable_vcr'];
         }
 
-        if (!empty($this->metadataFile) && file_exists($this->metadataFile))
-        {
+        if (!empty($this->metadataFile) && SugarAutoLoader::existing($this->metadataFile)) {
             include($this->metadataFile);
-        }
-        else
-        {
-            //If file doesn't exist we create a best guess
-            if (!file_exists("modules/$this->module/metadata/editviewdefs.php")
-                && file_exists("modules/$this->module/EditView.html"))
-            {
-                require_once('include/SugarFields/Parsers/EditViewMetaParser.php');
-
-                global $dictionary;
-
-                $htmlFile = "modules/" . $this->module . "/EditView.html";
-                $parser = new EditViewMetaParser();
-                if (!file_exists('modules/'.$this->module.'/metadata'))
-                {
-                   sugar_mkdir('modules/'.$this->module.'/metadata');
-                }
-
-                $fp = sugar_fopen('modules/'.$this->module.'/metadata/editviewdefs.php', 'w');
-                fwrite($fp, $parser->parse($htmlFile, $dictionary[$focus->object_name]['fields'], $this->module));
-                fclose($fp);
-            }
-
-            //Flag an error... we couldn't create the best guess meta-data file
-            if (!file_exists("modules/$this->module/metadata/editviewdefs.php"))
-            {
-                global $app_strings;
-
-                $error = str_replace("[file]", "modules/$this->module/metadata/editviewdefs.php", $app_strings['ERR_CANNOT_CREATE_METADATA_FILE']);
-                $GLOBALS['log']->fatal($error);
-                echo $error;
-                die();
-            }
-
-            require("modules/$this->module/metadata/editviewdefs.php");
         }
 
         $this->defs = $viewdefs[$this->module][$this->view];
@@ -136,15 +97,10 @@ class EditView
 
     function createFocus()
     {
-        global $beanList, $beanFiles;
-
-        if (empty($beanList[$this->module])) return;
         if(!$this->focus )
         {
-           $bean = $beanList[$this->module];
-           require_once($beanFiles[$bean]);
-           $obj = new $bean();
-           $this->focus = $obj;
+           $this->focus = BeanFactory::getBean($this->module);
+           if(empty($this->focus)) return;
         }
 
         //If there is no idea, assume we are creating a new instance
@@ -156,6 +112,7 @@ class EditView
 
             $this->focus->fill_in_additional_detail_fields();
             $this->focus->assigned_user_id = $current_user->id;
+            $this->focus->assigned_user_name = $current_user->full_name;
         }
     }
 
@@ -163,11 +120,7 @@ class EditView
     {
         if (!empty($_REQUEST['record']) && $this->populateBean)
         {
-           global $beanList;
-
-           $bean = $beanList[$this->module];
-           $obj = new $bean();
-           $this->focus = $obj->retrieve($_REQUEST['record']);
+            $this->focus = BeanFactory::getBean($this->module, $_REQUEST['record']);
         }
         else
         {
@@ -403,11 +356,6 @@ class EditView
         {
             global $current_user;
 
-            if (!empty($this->focus->assigned_user_id))
-            {
-                $this->focus->assigned_user_name = get_assigned_user_name($this->focus->assigned_user_id);
-            }
-
             if (!empty($this->focus->job) && $this->focus->job_function == '')
             {
                 $this->focus->job_function = $this->focus->job;
@@ -415,12 +363,12 @@ class EditView
 
             if (empty($this->focus->team_id)) {
                 $this->focus->team_id = $current_user->default_team;
+                $this->focus->team_name = $current_user->default_team_name;
+            } else {
+                if(empty($this->focus->team_name)) {
+                    $this->focus->team_name = Team::getTeamName($this->focus->team_id);
+                }
             }
-
-            $this->focus->team_name = (empty($this->focus->team_name) && !empty($this->focus->team_id))
-                ? Team::getTeamName($this->focus->team_id)
-                : Team::getTeamName($current_user->default_team);
-
             foreach ($this->focus->toArray() as $name => $value)
             {
                 $valueFormatted = false;
@@ -454,28 +402,31 @@ class EditView
                 if(isset($this->fieldDefs[$name]['options']) && is_array($this->fieldDefs[$name]['options']) && isset($this->fieldDefs[$name]['default_empty']) && !isset($this->fieldDefs[$name]['options'][$this->fieldDefs[$name]['default_empty']])) {
                     $this->fieldDefs[$name]['options'] = array_merge(array($this->fieldDefs[$name]['default_empty']=>$this->fieldDefs[$name]['default_empty']), $this->fieldDefs[$name]['options']);
                 }
-                                
+
 	       	 	if(isset($this->fieldDefs[$name]['function'])) {
-	       	 		$function = $this->fieldDefs[$name]['function'];
-	       			if(is_array($function) && isset($function['name'])){
-	       				$function = $this->fieldDefs[$name]['function']['name'];
-	       			}else{
-	       				$function = $this->fieldDefs[$name]['function'];
-	       			}
+                    $functionBean = isset($this->fieldDefs[$name]['function_bean']) ? $this->fieldDefs[$name]['function_bean'] : null;
+                    $function = $this->fieldDefs[$name]['function'];
+                    $functionArgs = array($this->focus, $name, $value, $this->view);
 
-                    if(isset($this->fieldDefs[$name]['function']['include']) && file_exists($this->fieldDefs[$name]['function']['include']))
-                    {
-                  		require_once($this->fieldDefs[$name]['function']['include']);
-                  	}
+                    // since we are on the old edit view, we need to revert to the old way to get the currency
+                    // drop down and not the new fancy way that REST needs to get it.
+                    $setValueFormatted = false;
+                    if($function == 'getCurrencies' && $functionBean == 'Currencies') {
+                        $function = array('returns' => 'html', 'name' => 'getCurrencyDropDown');
+                        $functionBean = array();
+                        $setValueFormatted = true;
+                    }
 
-	       	 		if(!empty($this->fieldDefs[$name]['function']['returns']) && $this->fieldDefs[$name]['function']['returns'] == 'html'){
-						if(!empty($this->fieldDefs[$name]['function']['include'])){
-								require_once($this->fieldDefs[$name]['function']['include']);
-						}
-						$value = call_user_func($function, $this->focus, $name, $value, $this->view);
+                    $value = getFunctionValue($functionBean, $function, $functionArgs);
+
+
+	       	 		if($setValueFormatted ||
+                        (!empty($this->fieldDefs[$name]['function']['returns']) &&
+                            $this->fieldDefs[$name]['function']['returns'] == 'html')
+                    ){
 						$valueFormatted = true;
 					}else{
-						$this->fieldDefs[$name]['options'] = call_user_func($function, $this->focus, $name, $value, $this->view);
+						$this->fieldDefs[$name]['options'] = $value;
 					}
 	       	 	}
 
@@ -492,12 +443,6 @@ class EditView
                 if (empty($this->fieldDefs[$name]['value']))
                 {
                     $this->fieldDefs[$name]['value'] = $value;
-                }
-
-                if ($this->focus->bean_implements('ACL')) {
-                    $this->fieldDefs[$name]['acl'] =  ACLField::hasAccess($name, $this->focus->module_dir,$GLOBALS['current_user']->id, $is_owner);
-                } else {
-                    $this->fieldDefs[$name]['acl'] = 4;
                 }
 
                 //This code is used for QuickCreates that go to Full Form view.  We want to overwrite the values from the bean
@@ -524,10 +469,13 @@ class EditView
                        && isset($this->focus->field_defs[$name][ 'module' ])
                        && $this->focus->field_defs[$name][ 'module' ] == $this->returnModule)
                    {
-                       if (isset( $this->fieldDefs[$name]['id_name'])
+                       if ((isset( $this->fieldDefs[$name]['id_name'])
                            && !empty($this->returnRelationship)
                            && isset($this->focus->field_defs[$this->fieldDefs[$name]['id_name']]['relationship'])
                            && ($this->returnRelationship == $this->focus->field_defs[$this->fieldDefs[$name]['id_name']]['relationship']))
+                       || (!empty($this->fieldDefs[$name]['custom_module'])
+                               && !empty($this->focus->module_dir)
+                               && $this->focus->module_dir == $this->fieldDefs[$name]['custom_module']))
                        {
                            $this->fieldDefs[$name]['value'] =  $this->returnName ;
                            // set the hidden id field for this relate field to the correct value i.e., return_id
@@ -536,6 +484,7 @@ class EditView
                    }
                 }
             }
+            $this->focus->ACLFilterFieldList($this->fieldDefs, array(), array("add_acl" => true));
         }
 
         if (isset($this->focus->additional_meta_fields))
@@ -554,7 +503,7 @@ class EditView
         }
     }
 
-    
+
     /**
      * display
      * This method makes the Smarty variable assignments and then displays the
@@ -668,8 +617,7 @@ class EditView
         $this->th->ss->assign('includes', isset($this->defs['templateMeta']['includes']) ? $this->defs['templateMeta']['includes'] : null);
         $this->th->ss->assign('view', $this->view);
 
-        $admin = new Administration();
-        $admin->retrieveSettings();
+        $admin = Administration::getSettings();
         if (isset($admin->settings['portal_on']) && $admin->settings['portal_on'])
         {
            $this->th->ss->assign("PORTAL_ENABLED", true);
@@ -710,8 +658,14 @@ class EditView
         $this->th->ss->assign('TIME_SEPARATOR', $time_separator);
 
         $seps = get_number_seperators();
-        $this->th->ss->assign('NUM_GRP_SEP', $seps[0]);
-        $this->th->ss->assign('DEC_SEP', $seps[1]);
+
+        if (!isset($this->th->ss->_tpl_vars['NUM_GRP_SEP'])) {
+            $this->th->ss->assign('NUM_GRP_SEP', $seps[0]);
+        }
+
+        if (!isset($this->th->ss->_tpl_vars['DEC_SEP'])) {
+            $this->th->ss->assign('DEC_SEP', $seps[1]);
+        }
 
         if ($this->view == 'EditView')
         {

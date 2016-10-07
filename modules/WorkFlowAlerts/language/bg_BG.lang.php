@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -36,28 +33,28 @@ $mod_strings = array (
   'LBL_ALERT_SPECIFIC_ROLE_TITLE' => 'Всички потребители с определена роля',
   'LBL_ALERT_SPECIFIC_TEAM' => 'Всички потребители, включени в определен',
   'LBL_ALERT_SPECIFIC_TEAM_TARGET' => 'All users that belong to the team(s) asscoiated with the target module',
-  'LBL_ALERT_SPECIFIC_TEAM_TARGET_TITLE' => 'Members of the team associated with target module',
+  'LBL_ALERT_SPECIFIC_TEAM_TARGET_TITLE' => 'Членовете на екипа асоцииран с целевия модул',
   'LBL_ALERT_SPECIFIC_TEAM_TITLE' => 'Всички потребители, включени в определен екип',
   'LBL_ALERT_SPECIFIC_USER' => 'Определен',
   'LBL_ALERT_SPECIFIC_USER_TITLE' => 'Определен потребител',
   'LBL_ALERT_TRIG_USER_CUSTOM' => 'Получател, асоцииран с избрания модул',
   'LBL_ALERT_TRIG_USER_CUSTOM_TITLE' => 'Получател, асоцииран с избрания модул',
   'LBL_AND' => 'и Name Field:',
-  'LBL_ARRAY_TYPE' => 'Action Type:',
+  'LBL_ARRAY_TYPE' => 'Тип на действието:',
   'LBL_BLANK' => '',
-  'LBL_CUSTOM_USER' => 'Custom User:',
+  'LBL_CUSTOM_USER' => 'Зададен потребител:',
   'LBL_EDITLAYOUT' => 'Редактиране на подредби',
   'LBL_FIELD' => 'Поле',
   'LBL_FIELD_VALUE' => 'Избран потребител:',
   'LBL_FILTER_BY' => '(Additional Filter) Filter related module by',
   'LBL_FILTER_CUSTOM' => '(Additional Filter) Filter related module by specific',
-  'LBL_LIST_ADDRESS_TYPE' => 'Address Type',
-  'LBL_LIST_ARRAY_TYPE' => 'Action Type',
+  'LBL_LIST_ADDRESS_TYPE' => 'Тип на адреса',
+  'LBL_LIST_ARRAY_TYPE' => 'Тип на действието',
   'LBL_LIST_FIELD_VALUE' => 'Потребител',
   'LBL_LIST_FORM_TITLE' => 'Списък с получатели',
-  'LBL_LIST_RELATE_TYPE' => 'Relate Type',
+  'LBL_LIST_RELATE_TYPE' => 'Тип на връзката',
   'LBL_LIST_REL_MODULE1' => 'Свързан модул',
-  'LBL_LIST_REL_MODULE2' => 'Related Related Module',
+  'LBL_LIST_REL_MODULE2' => 'Свързан модул към свързания модул',
   'LBL_LIST_STATEMENT' => 'Получатели:',
   'LBL_LIST_STATEMENT_CONTENT' => 'Изпращане на известяване до следните получатели:',
   'LBL_LIST_STATEMENT_INVITE' => 'Покани за срещи/обаждания:',
@@ -79,8 +76,8 @@ $mod_strings = array (
   'LBL_REL_CUSTOM3' => 'Поле',
   'LBL_REL_CUSTOM_STRING' => 'Изберете custom email and name fields',
   'LBL_REL_MODULE1' => 'Свързан модул:',
-  'LBL_REL_MODULE2' => 'Related Related Module:',
-  'LBL_ROLE' => 'role',
+  'LBL_REL_MODULE2' => 'Модул свързан със свързания модул:',
+  'LBL_ROLE' => 'роля',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул получатели на известяването',
   'LBL_SELECT_EMAIL' => 'Необходимо е да изберете a custom e-mail field',
   'LBL_SELECT_FILTER' => 'Необходимо е да изберете поле за филтриране',
@@ -101,7 +98,7 @@ $mod_strings = array (
   'LBL_USER_TYPE' => 'Тип потребител:',
   'LBL_WHERE_FILTER' => 'Статус:',
   'LNK_NEW_WORKFLOW' => 'Дефиниране на процес',
-  'LNK_WORKFLOW' => 'Workflow Objects',
+  'LNK_WORKFLOW' => 'Обекти',
   'NTC_REMOVE_ALERT_USER' => 'Сигурни ли сте че искате да премахнете този получател?',
 );
 

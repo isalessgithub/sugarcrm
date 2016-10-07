@@ -1,19 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-    require_once 'Zend/Oauth/Consumer.php';
+    require_once 'vendor/Zend/Oauth/Consumer.php';
     // use ZF oauth
     /**
      * Sugar Oauth consumer
@@ -21,6 +18,9 @@
      */
     class SugarOAuth extends Zend_Oauth_Consumer
     {
+
+        public $token;
+
         protected $_last = '';
         protected $_oauth_config = array();
 
@@ -68,8 +68,12 @@
         public function makeRequestToken()
         {
             $token = new Zend_Oauth_Token_Request();
-            $token->setToken($this->token[0]);
-            $token->setTokenSecret($this->token[1]);
+            if (isset($this->token[0])) {
+                $token->setToken($this->token[0]);
+            }
+            if (isset($this->token[1])) {
+                $token->setTokenSecret($this->token[1]);
+            }
             return $token;
         }
 
@@ -80,9 +84,47 @@
         public function makeAccessToken()
         {
             $token = new Zend_Oauth_Token_Access();
-            $token->setToken($this->token[0]);
-            $token->setTokenSecret($this->token[1]);
+            if (isset($this->token[0])) {
+                $token->setToken($this->token[0]);
+            }
+            if (isset($this->token[1])) {
+                $token->setTokenSecret($this->token[1]);
+            }
             return $token;
+        }
+
+        /**
+         * Retrieve URL and params array from URL string
+         * @param string $url
+         * @return array
+         */
+        protected function parseUrl($url)
+        {
+            $urlString = '';
+            $query = array();
+            $components = parse_url($url);
+
+            $urlString .= $components['scheme'] . '://';
+
+            if (isset($components['user'])) {
+                $urlString .= $components['user'];
+                if (isset($components['pass'])) {
+                    $urlString .= ':' . $components['pass'];
+                }
+                $urlString .= '@';
+            }
+
+            $urlString .= $components['host'];
+
+            if (isset($components['path'])) {
+                $urlString .= $components['path'];
+            }
+
+            if (isset($components['query'])) {
+                parse_str($components['query'], $query);
+            }
+
+            return array($urlString, $query);
         }
 
         /**
@@ -98,17 +140,17 @@
             if(!empty($callback)) {
                 $this->setCallbackUrl($callback);
             }
-            list($clean_url, $query) = explode('?', $url);
-            if($query) {
-                $url = $clean_url;
-                parse_str($query, $query_params);
-                $params = array_merge($params, $query_params);
-            }
+
+            list($url, $query_params) = $this->parseUrl($url);
+            $params = array_merge($params, $query_params);
+
             $this->setRequestTokenUrl($url);
             try{
                 $this->_last = $token = parent::getRequestToken($params);
                 return array('oauth_token' => $token->getToken(), 'oauth_token_secret' => $token->getTokenSecret());
             }catch(Zend_Oauth_Exception $e){
+                //print out the exception message to the logs and return blank array
+                $GLOBALS['log']->fatal("code {$e->getCode()} : {$e->getMessage()}" );
                 return array('oauth_token' => '', 'oauth_token_secret' => '');
             }
         }
@@ -134,42 +176,36 @@
         * @param array $headers HTTP headers
         * @return string
         */
-        
-        public function fetch($url, $params = null, $method = 'GET', $headers = null)
+
+        public function fetch($url, $params = array(), $method = 'GET', $headers = null)
         {
             $acc = $this->makeAccessToken();
-            if ( strpos($url,'?') ) {
-               list($clean_url, $query) = explode('?', $url);
-               if($query) {
-                   $url = $clean_url;
-                   parse_str($query, $query_params);
-                   $params = array_merge($params?$params:array(), $query_params);
-               }
-            }
+            list($url, $query_params) = $this->parseUrl($url);
+            $params = array_merge($params, $query_params);
+            
             $client = $acc->getHttpClient($this->_oauth_config, $url);
-            
+
             Zend_Loader::loadClass('Zend_Http_Client_Adapter_Proxy');
-            $proxy_config = SugarModule::get('Administration')->loadBean();
-            $proxy_config->retrieveSettings('proxy');
-            
-            if( !empty($proxy_config) && 
+            $proxy_config = Administration::getSettings('proxy');
+
+            if( !empty($proxy_config) &&
                 !empty($proxy_config->settings['proxy_on']) &&
                 $proxy_config->settings['proxy_on'] == 1) {
-                
-                $proxy_settings = array();                
+
+                $proxy_settings = array();
                 $proxy_settings['proxy_host'] = $proxy_config->settings['proxy_host'];
                 $proxy_settings['proxy_port'] = $proxy_config->settings['proxy_port'];
-    
+
                 if(!empty($proxy_config->settings['proxy_auth'])){
                     $proxy_settings['proxy_user'] = $proxy_config->settings['proxy_username'];
                     $proxy_settings['proxy_pass'] = $proxy_config->settings['proxy_password'];
                 }
-                
+
                 $adapter = new Zend_Http_Client_Adapter_Proxy();
                 $adapter->setConfig($proxy_settings);
-                $client->setAdapter($adapter);            
+                $client->setAdapter($adapter);
             }
-            
+
             $client->setMethod($method);
             if(!empty($headers)) {
                 $client->setHeaders($headers);

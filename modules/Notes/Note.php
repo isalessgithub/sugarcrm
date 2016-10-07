@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -68,9 +65,20 @@ class Note extends SugarBean {
 	var $additional_column_fields = Array('contact_name', 'contact_phone', 'contact_email', 'parent_name','first_name','last_name');
 
 
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Note()
+    {
+        self::__construct();
+    }
 
-	function Note() {
-		parent::SugarBean();
+
+	public function __construct() {
+		parent::__construct();
 	}
 
 	function safeAttachmentName() {
@@ -155,39 +163,6 @@ class Note extends SugarBean {
 		return "$this->name";
 	}
 
-    function create_export_query(&$order_by, &$where, $relate_link_join='')
-    {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-        $custom_join['join'] .= $relate_link_join;
-		$query = "SELECT notes.*, contacts.first_name, contacts.last_name, users.user_name as assigned_user_name ";
-
-        $query .= $custom_join['select'];
-
-    	$query .= " FROM notes ";
-		// We need to confirm that the user is a member of the team of the item.
-		$this->add_team_security_where_clause($query);
-
-		$query .= "	LEFT JOIN contacts ON notes.contact_id=contacts.id ";
-        	$query .= "  LEFT JOIN users ON notes.assigned_user_id=users.id ";
-	
-        $query .= $custom_join['join'];
-
-		$where_auto = " notes.deleted=0 AND (contacts.deleted IS NULL OR contacts.deleted=0)";
-
-        if($where != "")
-			$query .= "where $where AND ".$where_auto;
-        else
-			$query .= "where ".$where_auto;
-
-        $order_by = $this->process_order_by($order_by);
-        if (empty($order_by)) {
-            $order_by = 'notes.name';
-        }
-        $query .= ' ORDER BY ' . $order_by;
-
-		return $query;
-	}
-
 	function fill_in_additional_list_fields() {
 		$this->fill_in_additional_detail_fields();
 	}
@@ -198,13 +173,12 @@ class Note extends SugarBean {
 		$this->getRelatedFields('Contacts', $this->contact_id, array('name'=>'contact_name', 'phone_work'=>'contact_phone') );
 		if(!empty($this->contact_name)){
 
-			$emailAddress = new SugarEmailAddress();
+			$emailAddress = BeanFactory::getBean('EmailAddresses');
 			$this->contact_email = $emailAddress->getPrimaryAddress(false, $this->contact_id, 'Contacts');
 		}
 
 		if(isset($this->contact_id) && $this->contact_id != '') {
-		    $contact = new Contact();
-		    $contact->retrieve($this->contact_id);
+		    $contact = BeanFactory::getBean('Contacts', $this->contact_id);
 		    if(isset($contact->id)) {
 		        $this->contact_name = $contact->full_name;
 		    }
@@ -232,8 +206,7 @@ class Note extends SugarBean {
             }
         }
         if(isset($this->contact_id) && $this->contact_id != '') {
-			$contact = new Contact();
-			$contact->retrieve($this->contact_id);
+			$contact = BeanFactory::getBean('Contacts', $this->contact_id);
 			if(isset($contact->id)) {
 			    $this->contact_name = $contact->full_name;
 			}
@@ -249,6 +222,22 @@ class Note extends SugarBean {
 
 		return $note_fields;
 	}
+
+    /**
+     * Assigns message variables to email template
+     *
+     * @param XTemplate $xtpl Email template
+     * @param Note      $note Source note
+     *
+     * @return XTemplate
+     */
+    public function set_notification_body(XTemplate $xtpl, Note $note)
+    {
+        $xtpl->assign('NOTE_SUBJECT', $note->name);
+        $xtpl->assign('NOTE_DESCRIPTION', $note->description);
+
+        return $xtpl;
+    }
 
 	function listviewACLHelper() {
 		$array_assign = parent::listviewACLHelper();
@@ -286,7 +275,6 @@ class Note extends SugarBean {
 	function bean_implements($interface) {
 		switch($interface) {
 			case 'ACL':return true;
-            case 'FILE' : return true;
 		}
 		return false;
 	}

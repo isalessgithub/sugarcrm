@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Клиенты',
   'LBL_ASSIGNED_TO' => 'Ответственный (-ая)',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Маркетинговые кампании',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Контакты',
   'LBL_COPY_PREFIX' => 'Копия',
   'LBL_CREATED' => 'Создано',
@@ -32,6 +30,24 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Нет e-mail-сообщений для домена',
   'LBL_DOMAIN_NAME' => 'Доменное имя',
   'LBL_ENTRIES' => 'Количество адресов',
+  'LBL_HELP_CREATE' => '{{module_name}} содержит список контактов и контрагентов, которых Вы хотите включить в маркетинговую кампанию или исключить из нее {{campaigns_singular_module}}.
+
+Чтобы создать {{module_name}}:
+1. Укажите значения полей.
+ - Поля с пометкой "Обязательно" должны быть заполнены перед сохранением.
+ - Нажмите "Показать больше", чтобы отобразить дополнительные поля при необходимости.
+2. Нажмите "Сохранить" для сохранения новой записи и возвращения на предыдущую страницу.
+ - Выберите "Сохранить и просмотреть", чтобы открыть новый {{module_name}} в режиме просмотра записи. 
+ - Выберите "Сохранить и создать", чтобы сразу создать новый {{module_name}}.
+3. После сохранения на субпанелях, которые доступны в режиме просмотра целевой записи, Вы можете добавить {{campaigns_singular_module}} пользователей.',
+  'LBL_HELP_RECORD' => '{{module_name}} содержит список контактов и контрагентов, которых Вы хотите включить в маркетинговую кампанию или исключить из нее {{campaigns_singular_module}}.
+
+- Чтобы редактировать поля этой записи, кликните на самом поле или нажмите кнопку Редактировать.
+- Чтобы просмотреть или изменить ссылки, ведущие к другим записям, на субпанеле, включая  {{campaigns_singular_module}}  получателей, переключите левую нижнюю панель на "Просмотр данных".
+- Чтобы оставлять и просматривать пользовательские комментарии и изменять историю в рамках одной записи в {{activitystream_singular_module}}, переключите левую нижнюю панель на "Лента активностей". 
+- Чтобы подписаться или добавить в Избранное эту запись, используйте иконку справа от записи.
+- Дополнительные действия доступны в выпадающем меню Действий справа от кнопки Редактировать.',
+  'LBL_HELP_RECORDS' => '{{module_name}} содержит список контактов и контрагентов, которых Вы хотите включить в маркетинговую кампанию или исключить из нее {{campaigns_singular_module}}. {{plural_module_name}} могут содержать любое количество и любую группу Целевых контактов, {{contacts_module}}, {{leads_module}}, Пользователей, и {{accounts_module}}. Целевые контакты могут быть сгруппированы в {{module_name}} согласно набору предопределенных критериев, таких как возраст, географическое месторасположение или привычки. {{plural_module_name}} используются в массовых e-mail кампаниях {{campaigns_module}}, которые могут быть настроены в {{campaigns_module}} модуле.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Предварительные контакты',
   'LBL_LIST_DESCRIPTION' => 'Описание',
   'LBL_LIST_END_DATE' => 'Дата окончания',

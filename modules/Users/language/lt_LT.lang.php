@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -275,7 +272,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Mano komandos',
   'LBL_NAME' => 'Pilnas vardas',
   'LBL_NAVIGATION_PARADIGM' => 'Naršymo metodas',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Naudoti sugrupuotas korteles vietoj atskirų modulių kortelių.',
   'LBL_NEW_FORM_TITLE' => 'Naujas vartotojas',
   'LBL_NEW_PASSWORD' => 'Naujas slaptažodis',
   'LBL_NEW_PASSWORD1' => 'Slaptažodis',
@@ -436,9 +432,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Yra pavaldus kam',
   'LBL_REQUEST_SUBMIT' => 'Jūsų užklausimas buvo išsiųstas.',
   'LBL_RESET_DASHBOARD' => 'Atstatyti pardavimų ataskaitas',
-  'LBL_RESET_HOMEPAGE' => 'Atstatyti pradinį puslapį',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Ar tikrai norite atstatyti iš naujo Pradžios puslapį?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Ar Jūs tikrai norite atstatyti pradinį vartotojo puslapį?',
   'LBL_RESET_PREFERENCES' => 'Atstatyti vartotojo nustatymus',
   'LBL_RESET_PREFERENCES_WARNING' => 'Ar tikrai norite atstatyti iš naujo savo nustatymus?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Ar tikrai norite atstatyti iš naujo visus vartotojo nustatymus?',
@@ -473,8 +466,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Statusas',
   'LBL_SUBPANEL_LINKS' => 'Subpanelio nuorodos',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'Detalus vaizdavimas parodo subpanelių trumpų kelių nuorodas.',
-  'LBL_SUBPANEL_TABS' => 'Subpanelių kortelės',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'Detalus rodymas, grupės subpanelis vaizduojamas vienoje kortelėje.',
   'LBL_SUGAR_LOGIN' => 'Yra Sugar vartotojas',
   'LBL_SUPPORTED_THEME_ONLY' => 'Paveikia tik tas temas, kurios palaiko šį pasirinkimą.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Parodo paskutinį žiūrėtą. Kita vertus eina į viršų.',

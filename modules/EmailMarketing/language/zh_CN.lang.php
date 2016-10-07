@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -60,7 +57,7 @@ $mod_strings = array (
   'LBL_SCHEDULE_BUTTON_TITLE' => '发送',
   'LBL_SCHEDULE_MESSAGE_EMAILS' => '请选择您要计划在特定时间发送的市场活动消息:',
   'LBL_SCHEDULE_MESSAGE_TEST' => '请选择您要发送测试的市场活动消息:',
-  'LBL_SPECIFY_RECORD_NUM' => '必须是一个创纪录的数字指定要删除的营销活动。',
+  'LBL_SPECIFY_RECORD_NUM' => '必须指定一个记录号来删除该市场营销活动。',
   'LBL_START_DATE_TIME' => '开始日期和时间:',
   'LBL_STATUS' => '状态',
   'LBL_STATUS_TEXT' => '状态:',

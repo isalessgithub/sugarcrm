@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'en_us A record number must be specified to delete the lead.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Address Information',
   'LBL_ADD_BUSINESSCARD' => 'Add Business Card',
   'LBL_ALTERNATE_ADDRESS' => 'Other Address:',
-  'LBL_ALT_ADDRESS' => 'Other Address:',
   'LBL_ALT_ADDRESS_CITY' => 'Alt Address Town/City',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Alt Address Country',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Alt Address Postalcode',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Converted Opportunity:',
   'LBL_CONVERTLEAD' => 'Convert Lead',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Unable to convert the lead',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'You successfully converted the lead {{leadName}}, but there was a problem uploading attachments on one or more records',
+  'LBL_CONVERTLEAD_SUCCESS' => 'You successfully converted the lead {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Convert Lead [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Warning: The status of the Lead you are about to convert is "Converted". Contact and/or Account records may already have been created from the Lead. If you wish to continue with converting the Lead, click Save. To go back to the Lead without converting it, click Cancel.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Possible Contact:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'You are missing edit access to the modules required to convert a lead: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Add Module',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Associated {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Associate {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Back to duplicates',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Convert',
   'LBL_CONVERT_COPY' => 'Copy Data',
+  'LBL_CONVERT_CREATE_NEW' => 'New {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Delete',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} duplicates found',
   'LBL_CONVERT_EDIT' => 'Edit',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Edit Convert Layout',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Searching for duplicates...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignore and create new',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Associated',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'You associated the {{moduleNameLower}} {{recordName}} but it will not be created until you finish and save.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'You associated the {{moduleNameLower}} {{recordName}} but it will not be linked until you finish and save.',
   'LBL_CONVERT_MODULE_NAME' => 'Module',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Module',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(optional)',
   'LBL_CONVERT_REQUIRED' => 'Required',
+  'LBL_CONVERT_RESET_PANEL' => 'Reset',
   'LBL_CONVERT_SELECT' => 'Allow Selection',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Create New',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Search',
   'LBL_COPY_TIP' => 'If checked, fields from the lead will be copied to fields with the same name in the newly created records.',
   'LBL_COUNTRY' => 'Country:',
   'LBL_CREATE' => 'Create',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Department:',
   'LBL_DESCRIPTION' => 'Description:',
   'LBL_DESCRIPTION_INFORMATION' => 'Description Information',
+  'LBL_DNB_BAL_PREVIEW' => 'Leads Preview',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Leads',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Lead Information',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => 'Do Not Call:',
   'LBL_DUPLICATE' => 'Similar Leads',
   'LBL_EDITLAYOUT' => 'Edit Layout',
@@ -115,12 +134,39 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modified By ID',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobile Phone',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Leads&#39; reports',
   'LBL_FIRST_NAME' => 'First Name:',
   'LBL_FULL_NAME' => 'Full Name:',
+  'LBL_HELP_CONVERT' => 'Sugar enables you to convert {{plural_module_name}} into {{contacts_module}}, {{accounts_module}}, and other modules once the {{module_name}} meets your qualification criteria.
+
+Step through each module by modifying fields then confirming the new record’s values by clicking each Associate button.
+
+If Sugar detects an existing record that matches your {{module_name}}’s information, you have the option to choose a duplicate and confirm the selection with the Associate button or to click "Ignore and create new" and proceed normally.
+
+After confirming each required and desired module, click the Save and Convert button at the top to finalise the conversion.',
+  'LBL_HELP_CONVERT_TITLE' => 'Convert a {{module_name}}',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module consists of individual prospects who may be interested in a product or service your organisation provides. Once the {{module_name}} is qualified as a sales {{opportunities_singular_module}}, it can be converted into a {{contacts_singular_module}}, {{accounts_singular_module}}, {{opportunities_singular_module}}, or other record.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of individual prospects who may be interested in a product or service your organisation provides.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of individual prospects who may be interested in a product or service your organisation provides. Once the {{module_name}} is qualified as a sales {{opportunities_singular_module}}, {{plural_module_name}} can be converted into {{contacts_module}}, {{opportunities_module}}, and {{accounts_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, duplication, importing {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} record view.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'History',
   'LBL_HOME_PHONE' => 'Home Phone:',
   'LBL_IMPORT_VCARD' => 'Import vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automatically create a new lead by importing a vCard from your file system.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Lead from vCard created succesfully',
   'LBL_INVALID_EMAIL' => 'Invalid Email:',
   'LBL_INVITEE' => 'Direct Reports',
   'LBL_LAST_NAME' => 'Last Name:',
@@ -146,6 +192,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Title',
   'LBL_LOADING' => 'Loading',
   'LBL_MESSAGE' => 'Please enter your information below. Information and/or an account will be created for you pending approval.',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Score',
+  'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Mobile:',
   'LBL_MODIFIED' => 'Modified By',
   'LBL_MODIFIED_ID' => 'Modified By Id',
@@ -157,8 +206,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'New Lead',
   'LBL_NEW_PORTAL_PASSWORD' => 'New Portal Password:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Notice: The current Convert Lead screen contains custom fields. When you customise the Convert Lead screen in Studio for the first time, you will need to add custom fields to the layout, as necessary. The custom fields will not automatically appear in the layout, as they did previously.',
   'LBL_OFFICE_PHONE' => 'Office Phone:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Opportunities',
   'LBL_OPPORTUNITY_AMOUNT' => 'Opportunity Amount:',
   'LBL_OPPORTUNITY_ID' => 'Opportunity ID',
   'LBL_OPPORTUNITY_NAME' => 'Opportunity Name:',
@@ -186,6 +237,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Primary Address Street 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Primary Address Street 3',
   'LBL_PROSPECT_LIST' => 'Prospect List',
+  'LBL_RECORD_SAVED_SUCCESS' => 'You successfully created the {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Referred By:',
   'LBL_REGISTRATION' => 'Registration',
   'LBL_REPORTS_FROM' => 'Reports From:',
@@ -194,6 +246,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Required modules must be created or selected before the lead can be converted.',
   'LBL_SALUTATION' => 'Salutation',
   'LBL_SAVED' => 'Thank you for registering. Your account will be created and someone will contact you shortly.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Save and Convert',
   'LBL_SEARCH_FORM_TITLE' => 'Lead Search',
   'LBL_SELECT' => '<b>OR</b> Select',
   'LBL_SELECTION_TIP' => 'Modules with a relate field in Contacts can be selected rather than created during the convert lead process.',
@@ -210,6 +263,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Successful Campaign:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Thank You For Your Submission.',
   'LBL_TITLE' => 'Title:',
+  'LBL_UNCONVERTED' => 'Unconverted',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Lead View',
   'LBL_WEBSITE' => 'Website',
@@ -235,6 +289,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Creating an opportunity requires an account.\\n Please either create a new one or select an existing one.',
   'NTC_REMOVE_CONFIRMATION' => 'Are you sure you want to remove this lead from this case?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Are you sure you want to remove this record as a direct report?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

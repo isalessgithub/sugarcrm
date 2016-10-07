@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Sistem Yöneticisi kullanıcısını yükleyemezsiniz',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Şimdi Veri Yükleme için dosya seçiniz:',
   'LBL_NO_DATECHECK' => 'Tarih kontrolünü atla (daha hızlı olmasına rağmen yanlış tarih durumunda hata oluşacak)',
   'LBL_NO_EMAILS' => 'E-Posta bilgilendirmelerini Veri Yükleme sırasında gönderme',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => '"Bean" desteklemediği halde, e-mail adreslerini yönetilmesine çalışılıyor',
   'LBL_NO_ID' => 'ID Zorunlu',
   'LBL_NO_IMPORT_TO_UNDO' => 'Geri alınacak herhangi bir yükleme yok.',
   'LBL_NO_LINES' => 'Yüklediğiniz dosyada satır yok',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Veriler Başarıyla Yüklendi',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Kayıt başarıyla oluşturuldu',
   'LBL_SUMMARY' => 'Özet',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Sistem anlamlı dijit sayısı',
   'LBL_TAB' => 'Sekme ile ayrılmış dosya',
   'LBL_TAB_NUM_1' => 'Uygulamayı başlatın ve veri dosyasını açın',
   'LBL_TAB_NUM_2' => '<b>Farklı Kaydet...</b> veya <b>Dışarı Aktar...</b> menü adımını seçin',

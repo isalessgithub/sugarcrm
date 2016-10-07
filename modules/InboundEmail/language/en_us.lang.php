@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -34,6 +31,8 @@ $mod_strings = array(
 	'ERR_NO_IMAP'			=> 'No IMAP libraries found.  Please resolve this before continuing with Inbound Email',
 	'ERR_NO_OPTS_SAVED'		=> 'No optimums were saved with your Inbound Email account.  Please review the settings',
 	'ERR_TEST_MAILBOX'		=> 'Please check your settings and try again.',
+    'ERR_DELETE_FOLDER' => 'Could not delete folder.',
+    'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Could not unsubscribe from folder before deletion.',
 
 	'LBL_APPLY_OPTIMUMS'	=> 'Apply Optimums',
 	'LBL_ASSIGN_TO_USER'	=> 'Assign To User',
@@ -102,9 +101,11 @@ $mod_strings = array(
 	'LBL_MAX_AUTO_REPLIES'	=> 'Number of Auto-responses',
 	'LBL_MAX_AUTO_REPLIES_DESC'	=> 'Set the maximum number of auto-responses to send to a unique email address during a period of 24 hours.',
 	'LBL_PERSONAL_MODULE_NAME' => 'Personal Mail Account',
+	'LBL_PERSONAL_MODULE_NAME_SINGULAR' => 'Personal Mail Account',
 	'LBL_CREATE_CASE'      => 'Create Case from Email',
 	'LBL_CREATE_CASE_HELP'  => 'Select to automatically create case records in Sugar from incoming emails.',
-	'LBL_MODULE_NAME'		=> 'Group Mail Account',
+	'LBL_MODULE_NAME'		=> 'Inbound Email',
+	'LBL_MODULE_NAME_SINGULAR' => 'Inbound Email',
 	'LBL_BOUNCE_MODULE_NAME' => 'Bounce Handling Mailbox',
 	'LBL_MODULE_TITLE'		=> 'Inbound Email',
 	'LBL_NAME'				=> 'Name',
@@ -163,7 +164,6 @@ $mod_strings = array(
 	'LNK_LIST_TEST_IMPORT'	=> 'Test Email Import',
 	'LNK_NEW_QUEUES'		=> 'Create New Queue',
 	'LNK_SEED_QUEUES'		=> 'Seed Queues From Teams',
-	'LBL_IS_PERSONAL'       => 'Personal Mail Account',
 	'LBL_GROUPFOLDER_ID'	=> 'Group Folder Id',
 	'LBL_ASSIGN_TO_GROUP_FOLDER' => 'Assign To Group Folder',
     'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Allow users to send emails using the "From" Name and Address as the reply to address',

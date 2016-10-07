@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $connector_strings = array (
-  'LBL_LICENSING_INFO' => 'Obtener la clave API de Citrix Online GoToMeeting por registrar una nueva aplicación.<br /><br />Pasos para crear una aplicación para la instancia:<br /><br />1. Entar en su cuenta desarrollador de Citrix Online: https://developer.citrixonline.com/<br />2. Haga clic en Apply for Developer Key<br />3. En Product API, seleccione GoToMeeting, y introduzca la URL de su instancia en Application URL<br />4. Verá una columna que se llama API Key en Your Applications<br />5. Copiar y pegar a continuación.',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Obtener la clave API de Citrix Online GoToMeeting registrándose a la nueva aplicación.<br><br />&nbsp;<br><br />Pasos para registrar su instancia:<br><br />&nbsp;<br><br /><ol><br /><li>Inicie sesión a su cuenta de desarrollador de Citrix Online: https://developer.citrixonline.com/</li><br /><li>Haga clic en Solicitar clave de desarrollador</li><br /><li>En la API de Producto seleccione GoToMeeting, e inserte la URL de su instancia en la Aplicación URL</li><br /><li>Verá una columna llamada Clave API bajo sus aplicaciones</li><br /><li>Cópielo debajo.</li><br /></ol><br /></td></tr></table>',
   'oauth_consumer_key' => 'Clave API',
 );
 

@@ -1,19 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
+// $Id: UpgradeWizard_commit.php 55931 2010-04-09 18:25:11Z jmertic $
 require_once('modules/Administration/UpgradeWizardCommon.php');
 require_once('modules/Configurator/Configurator.php');
 function UWrebuild() {
@@ -80,6 +78,41 @@ function UWrebuild() {
 	$db->query($query);
 }
 
+/**
+ * Returns manifest patch from user request
+ *
+ * @param array $request
+ * @return array
+ */
+function UW_get_patch_from_request(array $request)
+{
+    if (isset($request['patch'])) {
+        return $request['patch'];
+    }
+
+    return array();
+}
+
+/**
+ * Returns manifest patch from upgrade history of the given install file
+ *
+ * @param string $install_file
+ * @return array
+ */
+function UW_get_patch_for_file($install_file)
+{
+    $history = new UpgradeHistory();
+    $md5 = md5_file($install_file);
+    $matches = $history->findByMd5($md5);
+    $history = array_shift($matches);
+
+    if ($history && $history->patch) {
+        return unserialize(base64_decode($history->patch));
+    }
+
+    return array();
+}
+
 unset($_SESSION['rebuild_relationships']);
 unset($_SESSION['rebuild_extensions']);
 
@@ -131,6 +164,10 @@ if(isset($_REQUEST['id_name'])){
 $s_manifest = '';
 if(isset($_REQUEST['s_manifest'])){
  $s_manifest = $_REQUEST['s_manifest'];
+}
+$s_patch = null;
+if (isset($_REQUEST['patch'])) {
+    $s_patch = base64_encode(serialize($_REQUEST['patch']));
 }
 $previous_version = '';
 if(isset($_REQUEST['previous_version'])){
@@ -324,6 +361,8 @@ switch( $install_type ){
         $mi = new ModuleInstaller();
         switch( $mode ){
             case "Install":
+                $patch = UW_get_patch_from_request($_REQUEST);
+                $mi->setPatch($patch);
             //here we can determine if this is an upgrade or a new version
             	if(!empty($previous_version)){
             		$mi->install( "$unzip_dir", true, $previous_version);
@@ -344,6 +383,8 @@ switch( $install_type ){
                 	$GLOBALS['mi_remove_tables'] = false;
                 else
                 	$GLOBALS['mi_remove_tables'] = true;
+                $patch = UW_get_patch_for_file($install_file);
+                $mi->setPatch($patch);
                 $mi->uninstall( "$unzip_dir" );
                 break;
              case "Disable":
@@ -351,6 +392,8 @@ switch( $install_type ){
                 	$GLOBALS['mi_overwrite_files'] = false;
                 else
                 	$GLOBALS['mi_overwrite_files'] = true;
+                $patch = UW_get_patch_for_file($install_file);
+                $mi->setPatch($patch);
                 $mi->disable( "$unzip_dir" );
                 break;
              case "Enable":
@@ -358,6 +401,8 @@ switch( $install_type ){
                 	$GLOBALS['mi_overwrite_files'] = false;
                 else
                 	$GLOBALS['mi_overwrite_files'] = true;
+                $patch = UW_get_patch_for_file($install_file);
+                $mi->setPatch($patch);
                 $mi->enable( "$unzip_dir" );
                 break;
             default:
@@ -438,6 +483,7 @@ switch( $mode ){
         $new_upgrade->description   = $description;
         $new_upgrade->id_name		= $id_name;
         $new_upgrade->manifest		= $s_manifest;
+        $new_upgrade->patch         = $s_patch;
         $new_upgrade->save();
 
         //Check if we need to show a page for the user to finalize their install with.
@@ -463,6 +509,7 @@ switch( $mode ){
         		}
         	}
         }
+        $shouldClearCache = false;
     break;
     case "Uninstall":
         $file_action = "removed";
@@ -475,6 +522,7 @@ switch( $mode ){
         foreach( $md5_matches as $md5_match ){
             $md5_match->delete();
         }
+        $shouldClearCache = true;
         break;
     case "Disable":
         $file_action = "disabled";
@@ -488,6 +536,7 @@ switch( $mode ){
              $md5_match->enabled = 0;
             $md5_match->save();
         }
+        $shouldClearCache = true;
         break;
     case "Enable":
         $file_action = "enabled";
@@ -501,13 +550,19 @@ switch( $mode ){
             $md5_match->enabled = 1;
             $md5_match->save();
         }
+        $shouldClearCache = true;
         break;
+}
+
+// present list to user
+if ($shouldClearCache) {
+    MetaDataManager::clearAPICache();
 }
 
 // present list to user
 ?>
 <form action="<?php print( $form_action ); ?>" method="post">
-
+<input type="hidden" name="reloadMetadata" value="true" />
 
 <?php
 echo "<div>";

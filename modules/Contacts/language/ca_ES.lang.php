@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre a eliminar.',
@@ -26,7 +23,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Direccions',
   'LBL_ADD_BUSINESSCARD' => 'Nova Targeta de Visita',
   'LBL_ALTERNATE_ADDRESS' => 'Direcció alternativa:',
-  'LBL_ALT_ADDRESS' => 'Altre Direcció:',
   'LBL_ALT_ADDRESS_CITY' => 'Ciutat de direcció alternativa:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'País de direcció alternativa:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'CP de direcció alternativa:',
@@ -77,11 +73,16 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Descripció:',
   'LBL_DESCRIPTION_INFORMATION' => 'Informació addicional',
   'LBL_DIRECT_REPORTS_SUBPANEL_TITLE' => 'Informadors Directes',
+  'LBL_DNB_BAL_PREVIEW' => 'Vista prèvia de contactes',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Contactes',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informació de contacte',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID Principal de la D&B',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
   'LBL_DO_NOT_CALL' => 'No trucar:',
   'LBL_DUPLICATE' => 'Possible contacte duplicat',
   'LBL_EMAIL_ADDRESS' => 'Correu:',
   'LBL_EMAIL_OPT_OUT' => 'Refusar Correu:',
+  'LBL_EMPTY_VCARD' => 'Si us plau, sel·leccioni un arxiu vCard',
   'LBL_EXISTING_ACCOUNT' => 'Usat compte existent',
   'LBL_EXISTING_CONTACT' => 'Usat contacte existent',
   'LBL_EXISTING_OPPORTUNITY' => 'Usada oportunitat existent',
@@ -91,21 +92,36 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat per ID',
   'LBL_EXPORT_PHONE_HOME' => 'Telèfon de casa',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mòbil',
+  'LBL_FACEBOOK' => 'Compte de Facebook',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILENAME' => 'Adjunt',
+  'LBL_FILTER_CONTACTS_REPORTS' => 'Informes de contactes',
   'LBL_FIRST_NAME' => 'Nom:',
   'LBL_FULL_NAME' => 'Nom complert:',
+  'LBL_GOOGLEPLUS' => 'ID de Google Plus',
+  'LBL_HELP_CREATE' => 'La {{plural_module_name}} mòdul està format per persones individuals amb les que la seva organització té una relació. Per crear un {{module_name}}:. 1 Proporcionar valors per als camps com es desitgi. - Els camps marcats "Obligatori" ha de ser completat per desar. - Feu clic a "Mostra més" per exposar camps addicionals si és necessari. 2. Feu clic a "Desa" per finalitzar el nou disc i tornar a la pàgina anterior. - Seleccioneu l&#39;opció "Guardar i veure" per obrir el nou {{module_name}}  en vista de registre. - Seleccioneu l&#39;opció "Guardar i crear nou" per crear immediatament una altra nova {{module_name}}.',
+  'LBL_HELP_RECORD' => 'El mòdul {{plural_module_name}} consisteix en persones amb qui la seva organització té una relació.
+
+- Editeu els camps d&#39;aquest registre fent clic a un camp individual o amb el botó Edita.
+- Vegeu o modifiqueu enllaços a altres registres als subpanells mitjançant la commutació de la subfinestra inferior esquerra a la "Vista de dades".
+- Feu i vegeu comentaris d&#39;usuari i l&#39;historial de canvis del registre al {{activitystream_singular_module}} mitjançant la commutació de la subfinestra inferior esquerra al "Canal d&#39;activitat".
+- Feu el seguiment d&#39;aquest favorit o marqueu-lo com a favorit amb les icones que hi han a la dreta del nom del registre.
+- Hi han accions addicionals disponibles al menú desplegable d&#39;accions a la dreta del botó Edita.',
+  'LBL_HELP_RECORDS' => 'El mòdul {{plural_module_name}} consisteix en persones amb qui la seva organització té una relació. El registres de {{module_name}} normalment estan relacionats amb un registre {{accounts_singular_module}} i diversos {{plural_module_name}} es poden associar a un {{accounts_singular_module}} individual. Hi han vàries maneres de crear un {{plural_module_name}} a Sugar, com ara amb el mòdul {{plural_module_name}}, importació de {{plural_module_name}}, conversió de {{leads_module}} a {{plural_module_name}}, etc. Quan es crea el registre del {{module_name}}, podeu veure i editar la informació que pertany al {{module_name}} mitjançant la vista de registres de {{plural_module_name}}. Cada registre de {{module_name}} es pot relacionar a altres registres de Sugar, com ara {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, i molts altres, pel que el registre de {{module_name}} es converteix en un centre per veure i continuar la seva interacció amb la persona.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Històrial',
   'LBL_HOMEPAGE_TITLE' => 'Els Meus Contactes',
   'LBL_HOME_PHONE' => 'Tel. casa:',
   'LBL_ID' => 'ID:',
   'LBL_IMPORT_VCARD' => 'Importar vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Crea automáticamente un nou contacte a partir d´una vCard.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Contacte creat satisfactòriament des de vCard',
   'LBL_INVALID_EMAIL' => 'Correu no vàlid:',
   'LBL_INVITEE' => 'Informadors',
   'LBL_LANG_PREF_TOOLTIP' => 'El portal d&#39;assistència fara servi l&#39;interfície d&#39;usuari que es representa en l&#39;idioma seleccionat',
   'LBL_LAST_NAME' => 'Cognoms:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Clients Potencials',
   'LBL_LEAD_SOURCE' => 'Presa de contacte:',
+  'LBL_LINKEDIN' => 'Compte de Membre de Linkedin',
   'LBL_LIST_ACCEPT_STATUS' => 'Estat d´Acceptació',
   'LBL_LIST_ACCOUNT_NAME' => 'Compte',
   'LBL_LIST_CITY' => 'Ciutat',
@@ -120,6 +136,9 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Telèfon',
   'LBL_LIST_STATE' => 'Estat/Província',
   'LBL_LIST_TITLE' => 'Càrreg',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Puntuació del potencial',
+  'LBL_MKTO_SYNC' => 'Sincronitzar a Marketo®',
   'LBL_MOBILE_PHONE' => 'Mòbil:',
   'LBL_MODIFIED' => 'Modificat per:',
   'LBL_MODULE_NAME' => 'Contactes',
@@ -128,6 +147,7 @@ $mod_strings = array (
   'LBL_NAME' => 'Nom:',
   'LBL_NEW_FORM_TITLE' => 'Nou Contacte',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nova Clau de pas del Portal:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_NOTE_SUBJECT' => 'Assumpte de Nota',
   'LBL_OFFICE_PHONE' => 'Tel. oficina:',
   'LBL_OLD_PORTAL_PASSWORD' => 'Contrasenya de portal antiga',
@@ -138,7 +158,7 @@ $mod_strings = array (
   'LBL_OPP_NAME' => 'Nom oportunitat:',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Correu alternatiu:',
   'LBL_OTHER_PHONE' => 'Tel. alternatiu:',
-  'LBL_PARENT_ID' => 'ID Pare',
+  'LBL_PARENT_ID' => 'ID Padre:',
   'LBL_PASSWORD_CHANGE_FORM_TITLE' => 'Canviar contrasenya',
   'LBL_PHONE' => 'Telèfon:',
   'LBL_PHONE_FAX' => 'Fax',
@@ -152,6 +172,10 @@ $mod_strings = array (
   'LBL_PORTAL_NAME' => 'Nom del Portal:',
   'LBL_PORTAL_PASSWORD' => 'Clau de pas del Portal',
   'LBL_PORTAL_PASSWORD_ISSET' => 'Clau de pas de Portal Fixada:',
+  'LBL_PORTAL_TOUR_PROFILE_EDIT' => 'Clic aquí per editar el seu perfil.',
+  'LBL_PORTAL_TOUR_PROFILE_INTRO' => 'El Perfil és on pot gestionar l&#39;informació de Contacte, contrassenya i preferències d&#39;idioma',
+  'LBL_PORTAL_TOUR_PROFILE_LANGUAGE' => 'Aquí és on pot establir el seu llenguatge preferit. Això canviarà el llenguatge utilitzat pel Portal de Sugar.',
+  'LBL_PORTAL_TOUR_PROFILE_RETURN' => 'Pot tornar al seu Perfil a qualsevol moment utilitzant el menú d&#39;Usuari.',
   'LBL_POSTAL_CODE' => 'Codi postal:',
   'LBL_PRIMARY_ADDRESS' => 'Direcció principal:',
   'LBL_PRIMARY_ADDRESS_CITY' => 'Ciutat de direcció principal:',
@@ -161,19 +185,21 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET' => 'Carrer de direcció principal:',
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Carrer de direcció principal 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Carrer de direcció principal 3',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Productes',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Elements de línies d&#39;oferta',
   'LBL_PRODUCTS_TITLE' => 'Productes',
-  'LBL_PROJECTS_RESOURCES' => 'Projectes de recursos',
+  'LBL_PROJECTS_RESOURCES' => 'Recursos de Projectes',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projectes',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projectes',
   'LBL_PROSPECT_LIST' => 'Públic Objectiu',
   'LBL_QUOTES_BILL_TO' => 'Pressupostos (Facturat a)',
   'LBL_QUOTES_SHIP_TO' => 'Pressupostos (enviats a)',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Pressupostos',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ha creat satisfactòriament el {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_RELATED_CONTACTS_TITLE' => 'Contactes Relacionats',
   'LBL_REPORTS_TO' => 'Informa a:',
   'LBL_REPORTS_TO_ID' => 'Informa a ID:',
   'LBL_RESOURCE_NAME' => 'Nom de Recurs',
+  'LBL_REVENUELINEITEMS_TITLE' => 'Línia d&#39;impostos articles',
   'LBL_SALUTATION' => 'Salutacio',
   'LBL_SAVE_CONTACT' => 'Guardar Contacte',
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Contactes',
@@ -185,12 +211,14 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Campanyes (Objectiu de) :',
   'LBL_TEAM_ID' => 'ID d´equip',
   'LBL_TITLE' => 'Càrrec:',
+  'LBL_TWITTER' => 'Twitter ID',
   'LBL_USER_PASSWORD' => 'Clau de pas:',
   'LBL_USER_SYNC' => 'User Sync',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Vista de Contactes',
   'LNK_CONTACT_LIST' => 'Contactes',
   'LNK_CONTACT_REPORTS' => 'Informes de Contactes',
+  'LNK_CREATE' => 'Crear Persona',
   'LNK_IMPORT_CONTACTS' => 'Importar Contactes',
   'LNK_IMPORT_VCARD' => 'Importar vCard',
   'LNK_NEW_ACCOUNT' => 'Nou Compte',
@@ -212,6 +240,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'La creació d´una oportunitat requereix una compte. Si us plau, creï un nou compte o en seleccioni una existent.',
   'NTC_REMOVE_CONFIRMATION' => 'Està segur que desitja eliminar aquest contacte del cas?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Està segur que desitja treure aquest registre com a informador directe?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

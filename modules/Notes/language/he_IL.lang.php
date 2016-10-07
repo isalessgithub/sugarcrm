@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the account.',
@@ -43,6 +40,21 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Mime Type',
   'LBL_FILE_URL' => 'לינק לקובץ',
   'LBL_FIRST_NAME' => 'שם פרטי:',
+  'LBL_HELP_CREATE' => 'To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of individual {{plural_module_name}} that contain text or an attachment pertinent to the related record.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of individual {{plural_module_name}} that contain text or an attachment pertinent to the related record. {{module_name}} records can be related to one record in most modules via the flex relate field and can also be related to a single {{contacts_singular_module}}. {{plural_module_name}} can hold generic text about a record or even an attachment related to the record. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, via History subpanels, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} record view. Each {{module_name}} record may then relate to other Sugar records such as {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, and many others.',
   'LBL_LAST_NAME' => 'שם משפחה:',
   'LBL_LEAD_ID' => 'זהות ליד:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'משתמש שהוקצה',
@@ -58,8 +70,10 @@ $mod_strings = array (
   'LBL_MEMBER_OF' => 'חבר ב:',
   'LBL_MODIFIED_BY' => 'שונה על ידי',
   'LBL_MODULE_NAME' => 'פתקים',
+  'LBL_MODULE_NAME_SINGULAR' => 'פתק',
   'LBL_MODULE_TITLE' => 'פתקים: דף הבית',
   'LBL_MY_NOTES_DASHLETNAME' => 'הפתקים שלי',
+  'LBL_NEW_FORM_BTN' => 'הוסף פתק',
   'LBL_NEW_FORM_TITLE' => 'צור פתק או צרופה',
   'LBL_NOTE' => 'פתק:',
   'LBL_NOTES_SUBPANEL_TITLE' => 'צרופות',
@@ -77,6 +91,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'זהות הצעת מחיר:',
   'LBL_RELATED_TO' => 'קשור אל:',
   'LBL_REMOVING_ATTACHMENT' => 'מסיר צרופה...',
+  'LBL_REVENUELINEITEMS' => 'שורות פרטי הכנסה',
   'LBL_SEARCH_FORM_TITLE' => 'חיפוש פתק',
   'LBL_SEND_ANYWAYS' => 'להודעה זו אין נושא.  לשלוח/לשמור בכל זאת?',
   'LBL_STATUS' => 'סטאטוס',

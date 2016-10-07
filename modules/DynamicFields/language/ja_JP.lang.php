@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,7 +40,7 @@ $mod_strings = array (
   'COLUMN_TITLE_LABEL_ROWS' => '行',
   'COLUMN_TITLE_LABEL_VALUE' => 'ラベル値',
   'COLUMN_TITLE_MASS_UPDATE' => '一括更新',
-  'COLUMN_TITLE_MAX_SIZE' => '最大値',
+  'COLUMN_TITLE_MAX_SIZE' => '最大長',
   'COLUMN_TITLE_MAX_VALUE' => '最大値',
   'COLUMN_TITLE_MIN_VALUE' => '最小値',
   'COLUMN_TITLE_NAME' => 'フィールド名',
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'デフォルトURL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S.フォーマット',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'フィールド名は既に存在します',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'フィールド名には以下の文字だけを使用してください　: a-zA-Z_',
   'ERR_NO_MODULE_INCLUDED' => 'モジュールは保存されませんでした',
   'ERR_RESERVED_FIELD_NAME' => '予約語',
   'ERR_SELECT_FIELD_TYPE' => 'フィールドタイプを選択',
-  'LBL_ADDING_COLUMN' => '{0}に欄を追加します',
+  'LBL_ADDING_COLUMN' => 'カラム{0}を追加しています',
   'LBL_ADD_FIELD' => 'フィールド追加:',
   'LBL_AUDITED' => '監査',
   'LBL_BTN_ADD' => '追加',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => '依存',
   'LBL_DEPENDENT_TRIGGER' => 'トリガ',
   'LBL_DONE' => '完了',
-  'LBL_DROPPING_COLUMN' => 'モジュールのためのDropping Column {0} から{1}',
+  'LBL_DROPPING_COLUMN' => 'モジュールの{1} からドロップしたカラム{0}',
   'LBL_DROP_DOWN_LIST' => 'ドロップダウンリスト',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => '依存',
   'LBL_EDIT_VIS' => '表示の編集',
   'LBL_ENFORCED' => '強制',
   'LBL_EXE_NON_SIM_MODE' => '非シミュレーションモードを実行します',
-  'LBL_FIELD_MISSING' => 'フィールドがありません',
-  'LBL_FIX_COLUMN_TYPE' => '{0} から{1} へコラムタイプの修正',
+  'LBL_FIELD_MISSING' => 'フィールドが以下から欠落',
+  'LBL_FIX_COLUMN_TYPE' => '{0}のカラムタイプを{1} から変更して修正',
   'LBL_FORMULA' => '公式',
   'LBL_GENERATE_URL' => 'URLを生成',
   'LBL_HAS_PARENT' => '親がある',
@@ -94,7 +92,7 @@ $mod_strings = array (
   'LBL_REPORTABLE' => 'レポート可',
   'LBL_SCAN_MODULE' => 'スキャン中',
   'LBL_SEARCH_FORM_TITLE' => 'モジュール検索',
-  'LBL_SIMULATION_MODE' => 'シミュレーションモード - キャッシュをクリアする以外の変更は行われません',
+  'LBL_SIMULATION_MODE' => 'シミュレーションモード - キャッシュをクリアする以外には何も変更されません',
   'LBL_VISIBLE_IF' => '明示',
   'LNK_CALL_LIST' => '電話',
   'LNK_EMAIL_LIST' => 'Eメール',

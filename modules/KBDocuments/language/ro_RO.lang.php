@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Creaza Document',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Nume Document',
   'ERR_DOC_VERSION' => 'Versiune document',
   'ERR_FILENAME' => 'Nume Fisier',
+  'ERR_FILESIZE' => 'Fişierul este prea mare. Dimensiunea max. a fişierului:',
   'LBL_ACTIVE_DATE' => 'Data Publicarii',
   'LBL_AND' => 'si',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Aplica etichete pe articole...',
@@ -35,7 +33,7 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Autor:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Autor:',
   'LBL_ARTICLE_BODY' => 'Corp articol:',
-  'LBL_ARTICLE_EXISTS' => 'Articolul  există deja',
+  'LBL_ARTICLE_EXISTS' => 'Articolul există deja',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Articol',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Examinarea nu este disponibilă, documentul există, dar nu de conţinut a fost creat încă.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Examinarea nu este disponibilă, documentul de înregistrare nu a fost găsit.',
@@ -44,7 +42,7 @@ $mod_strings = array (
   'LBL_CASE' => 'Caz:',
   'LBL_CASES' => 'Cazuri',
   'LBL_CASES_SUBPANEL_TITLE' => 'Cazuri',
-  'LBL_CASE_ID' => 'Identitate caseta:',
+  'LBL_CASE_ID' => 'ID caz',
   'LBL_CATEGORY' => 'Categorie',
   'LBL_CATEGORY_VALUE' => 'Categorie',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Nespecificat',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Contracte',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Contracte inrudite',
   'LBL_CONTRACT_NAME' => 'Nume contract:',
+  'LBL_CONTRACT_STATUS' => 'Stare contract',
   'LBL_CREATED' => 'Creeat de',
   'LBL_CREATED_BY' => 'Creeat de',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Identitate document',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Numar Revizie DocumentKB',
   'LBL_KBDOC_APPROVED_BY' => 'Aprobat de:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Numele persoanei care aprobă',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Descarca atasamente:',
   'LBL_KBDOC_BODY' => 'Corp:',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'ID Ultima Revizie',
   'LBL_LATEST_REVISION_NAME' => 'Numele ultimei revizii',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Lansare Cautare Etichete...',
+  'LBL_LINKED_ID' => 'ID Linked',
   'LBL_LIST_ACTIVE_DATE' => 'Data Publicarii',
-  'LBL_LIST_APPROVED_BY' => 'Aprobat de:',
+  'LBL_LIST_APPROVED_BY' => 'Aprobat de',
   'LBL_LIST_ARTICLES' => 'Vezi articole',
   'LBL_LIST_CATEGORY' => 'Categorie',
   'LBL_LIST_DOCUMENT' => 'Document',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Nu este un fisier valid',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Tip Parinte',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Puteţi filtra prin lista de articole, introducând un termen de căutare.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'De exemplu, puteţi utiliza asta pentru a găsi un articol pe un anumit subiect de interes.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modulul Knowledge Base (Bază cunoaştere) este pentru utilizarea articolelor publicate. Utilizaţi săgeţile de mai jos pentru a face un tur scurt.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Această pagină afişează lista articolelor publicate.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Făcând clic aici veţi reveni la Knowledge Base în orice moment.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Cautari Salvate anterioare:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editeaza sau stege o cautare salvata',
   'LBL_PUBLISHED' => 'Publicat',
@@ -180,13 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Cautare document',
   'LBL_SEARCH_TAG' => 'Cauta',
   'LBL_SEARCH_WITHIN' => 'Cauta in:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Nume fişier revizie selectat',
+  'LBL_SELECTED_REVISION_ID' => 'ID revizie selectat',
   'LBL_SELECTED_REVISION_NAME' => 'Numele reviziei selectate',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Selectati articole pentru a aproba etichete',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Selectati articolele prima data',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Selectati articolele prima oara',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Creaza Eticheta Noua',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Selectati eticheta din copac',
-  'LBL_SELECT_NODE' => 'Vă rugăm să selectați un nod',
+  'LBL_SELECT_NODE' => 'Vă rugăm selectaţi un nod',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Selectati eticheta parinte pentru radacina copacului',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Selectati eticheta parinte, pentru copac',
   'LBL_SELECT_TAG' => 'Selecteaza eticheta',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Folosind acest tag:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Articole neetichetate',
   'LBL_UPDATE' => 'Actualizeaza',
+  'LBL_VIEWS_NUMBER' => 'Număr vizualizări',
   'LNK_KBDOCUMENT_LIST' => 'Vezi documente',
   'LNK_NEW_ARTICLE' => 'Creeaza articol',
   'LNK_NEW_MAIL_MERGE' => 'Îmbinare corespondenţă',

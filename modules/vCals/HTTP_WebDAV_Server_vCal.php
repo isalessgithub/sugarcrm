@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+ /*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -20,7 +17,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 require_once 'modules/Calendar/Calendar.php';
 
-require_once 'include/HTTP_WebDAV_Server/Server.php';
+require_once 'vendor/HTTP_WebDAV_Server/Server.php';
 
 
     /**
@@ -46,8 +43,8 @@ require_once 'include/HTTP_WebDAV_Server/Server.php';
 
         function HTTP_WebDAV_Server_vCal()
         {
-           $this->vcal_focus = new vCal();
-           $this->user_focus = new User();
+           $this->vcal_focus = BeanFactory::getBean('vCals');
+           $this->user_focus = BeanFactory::getBean('Users');
         }
 
 
@@ -165,11 +162,13 @@ require_once 'include/HTTP_WebDAV_Server/Server.php';
                 $this->user_focus->retrieve($query_arr['user_id']);
             }
 
-            // if we haven't found a user, then return 404
+            // if we haven't found a user, then return 401
             if ( empty($this->user_focus->id) || $this->user_focus->id == -1)
             {
+                //set http status
                 $this->http_status('401 Unauthorized');
-                if (!isset($query_arr['noAuth'])) {
+                //send authenticate header only if this is not a freebusy request
+                if (empty($_REQUEST['type']) || $_REQUEST['type'] != 'vfb'){
                     header('WWW-Authenticate: Basic realm="'.($this->http_auth_realm).'"');
                 }
                 return;

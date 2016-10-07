@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -51,6 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Tilgjengelig',
   'LBL_AVAILABLE_OPTIONS' => 'Tilgjengelige Valg',
   'LBL_AVAILABLE_SUBPANELS' => 'Tilgjengelige underpanel',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: dårlig dannet dokument',
   'LBL_BASIC' => 'Grunnleggende',
   'LBL_BASIC_SEARCH' => 'Grunnleggende søk',
   'LBL_BLANK' => '-blank-',
@@ -88,11 +86,12 @@ $mod_strings = array (
   'LBL_BTN_VIEW_FIELDS' => 'Vis felt',
   'LBL_BTN_VIEW_LAYOUTS' => 'Vis oppsett',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Vis forhold',
-  'LBL_BUG_TRACKER' => 'Bugs',
+  'LBL_BUG_TRACKER' => 'Bug Tracker',
   'LBL_CALCULATED' => 'Kalkulert verdi',
   'LBL_CASES' => 'Saker',
   'LBL_CLEAR_EXTENSIONS' => 'Fjern utvidelser',
   'LBL_CLEAR_RELATIONSHIPS' => 'Entydig sammenheng',
+  'LBL_COMBO_FIELD_CONTAINS' => 'inneholder:',
   'LBL_COMPANY' => 'Selskap',
   'LBL_CONFIG_PORTAL_URL' => 'URL til tilpasset logo. Anbefalt logo-størrelse er 163 × 18 piksler.',
   'LBL_CONFIRM_DONT_SAVE' => 'Endringer har blitt gjort siden din siste lagring, vil du lagre?',
@@ -134,6 +133,7 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Dropdown objekter',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Display Label',
   'LBL_DROPDOWN_ITEM_NAME' => 'Objektnavn',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Nøkkelen finnes allerede i listen',
   'LBL_DROPDOWN_LANGUAGE' => 'Dropdown Språk',
   'LBL_DROPDOWN_TITLE_NAME' => 'Dropdown Navn',
   'LBL_DROP_HERE' => '[Slipp her]',
@@ -141,6 +141,7 @@ $mod_strings = array (
   'LBL_EC_AUTHOR' => 'Forfatterr:',
   'LBL_EC_CHECKERROR' => 'Vennligst velg en modul.',
   'LBL_EC_CUSTOMFIELD' => 'customized field(s)',
+  'LBL_EC_CUSTOMLABEL' => 'tilpasset etikett(er)',
   'LBL_EC_CUSTOMLAYOUT' => 'customized layout(s)',
   'LBL_EC_DESCRIPTION' => 'Beskrivelse:',
   'LBL_EC_EMPTYCUSTOM' => 'has empty customizations.',
@@ -164,6 +165,7 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Felt',
   'LBL_FILE' => 'Fil',
   'LBL_FILLER' => '(filler)',
+  'LBL_FILTER_SEARCH' => 'Søk',
   'LBL_FORMULA' => 'Formel',
   'LBL_FORMULA_BUILDER' => 'Formeloppsett',
   'LBL_FORMULA_INVALID' => 'Ugyldig formel',
@@ -180,11 +182,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Min',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Rediger nedtrekk meny',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Drop down-tasten kan ikke inneholde sitater.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indikerer et kombinasjonsfelt. Et kombinasjonsfelt er en samling av enkeltfelter. For eksempel er "Addresse" et kombinasjonsfelt som inneholder "Gateadresse", "By", "Postnummer", "Stat" og "Land".<br /><br />Dobbeltklikk et kombinasjonsfelt for å se hvilke felt det inneholder.',
   'LBL_ISSUE' => 'utgave',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Er du sikker på at du vil slette dette påkrevde rullegardin listeelement? Dette kan påvirke funksjonaliteten i programmet.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Er du sikker på at du ønsker å slette Lukket Mistet salgstrinnet? Sletting av dette trinnet vil føre til at Prognose modulen ikke vil fungere ordentlig.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Er du sikker på at du vil slette Lukket Vunnet salgsstrinnet? Sletting av dette trinnet vil føre til at Prognose modulen ikke vil fungere ordentlig.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Er du sikker på at du vil slette I fremdrift salgsstatus? Sletting av denne satus vil føre til at Salgsmuligheter modulen Omsetnings likjeelement ikke vil fungere ordentlig.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Er du sikker på at du vil slette den nye salgsstatus? Sletting av denne statusen vil føre til at Salgsmulighet modulen Omsetnings linjeelement arbeidsflyt ikke vil fungere ordentlig.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Er du sikker på at du vil slette dette påkrevde rullegardin listeelement? Sletting av Lukket Vunnet eller Lukket Mistet stadiene vil føre til prognosemodulen ikke vil fungere ordentlig',
   'LBL_JS_DEPLOY_PACKAGE' => 'Alle tilpasninger som er gjort i Studio vil bli overskrevet når denne modulen blir gjenbrukt. Er du sikker på at du vil fortsette?',
   'LBL_JS_REMOVE_MODULE' => 'Er du sikker på at du vil fjerne denne modulen? Det vil slette alle filer knyttet til denne modulen.',
   'LBL_JS_REMOVE_PACKAGE' => 'Er du sikker på at du vil fjerne pakken? Dette vil permanent slette alle filer i tilknytning til denne pakken.',
   'LBL_JS_VALIDATE_KEY' => 'Nøkkel - Må være alfanumerisk',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Nøkkel - Må være alfanumerisk og begynne med en bokstav.',
   'LBL_JS_VALIDATE_LABEL' => 'Please enter a label that will be used as the Display Name for this module',
   'LBL_JS_VALIDATE_NAME' => 'Name - Must be alphanumeric with no spaces and starting with a letter',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Pakkenavnet finnes allerede',
@@ -223,6 +233,7 @@ $mod_strings = array (
   'LBL_MODULES' => 'Modules:',
   'LBL_MODULE_DEPLOYED' => 'Module has been deployed.',
   'LBL_MODULE_NAME' => 'Modulnavn:',
+  'LBL_MODULE_NAME_SINGULAR' => 'Entall modulnavn:',
   'LBL_MODULE_TITLE' => 'Studio',
   'LBL_MSUB' => 'This is the subpanel that your module provides to the related module for display',
   'LBL_MY_ACCOUNT' => 'Min konto',
@@ -238,6 +249,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Ingen felt funnet',
   'LBL_NO_FUNCS' => 'Ingen fuksjoner funnet',
   'LBL_NO_RELS' => 'Ingen forhold',
+  'LBL_NO_SAVE_ACTION' => 'Kunne ikke finne lagre handlingen for denne visningen.',
   'LBL_NUMBER' => 'Nummer:',
   'LBL_ONETOMANY' => 'En til mange',
   'LBL_ONETOONE' => 'En til en',
@@ -277,6 +289,7 @@ $mod_strings = array (
   'LBL_PORTAL_LOGO_URL' => 'URL til logo',
   'LBL_PORTAL_ROLE_DESC' => 'Ikke slett denne rollen. Customer Self-Service Portal-rollen er en systemgenerert rolle opprettet under Sugar Portal-aktiveringsprosessen. Bruk Tilgangskontroller innenfor denne rollen for å aktivere og / eller deaktivere Feil, Saker eller Kunnskapsbase-moduler i Sugar Portal. Ikke endre andre tilgangskontroller for denne rollen, for å unngå ukjent og uforutsigbar systematferd. I tilfelle av utilsiktet sletting av denne rollen, gjenskap den ved å deaktivere og aktivere Sugar Portal.',
   'LBL_PORTAL_SEARCH_RESULT_NUMBER' => 'Antall resultater som skal vises i Globalt søl',
+  'LBL_PORTAL_SITE_URL' => 'Din portal er tilgjengelig på:',
   'LBL_PORTAL_THEME' => 'Tema for Portal',
   'LBL_POWERED_BY_SUGAR' => 'Utviklet av SugarCRM',
   'LBL_PRIORITY' => 'Prioritet:',
@@ -298,7 +311,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Velg en Sugar Portal layout til redigering.',
   'LBL_QUICKCREATE' => 'QuickCreate',
   'LBL_READ_ONLY' => 'Read Only',
+  'LBL_RECORDVIEW' => 'Listevisning',
   'LBL_RELATED_FIELD' => 'Relatert Felt',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
   'LBL_RELATE_TO' => 'Sett i forbindelse med',
   'LBL_RELATIONSHIPS' => 'Forhold',
   'LBL_RELATIONSHIP_EDIT' => 'Rediger forhold',
@@ -345,6 +360,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Velg et underpanel',
   'LBL_SELECT_FILE' => 'Velg fil',
   'LBL_SELECT_SUBPANEL' => 'Velg underpanel',
+  'LBL_SINGULAR_LABEL' => 'Enkel etikett',
   'LBL_SP_PREVIEW' => 'Her er en forhåndsvisning på hvordan Sugar Portal vil se ut ved å bruke style sheet.',
   'LBL_SP_UPLOADED' => 'Lastet opp',
   'LBL_SP_UPLOADSTYLE' => 'Select a style sheet to upload from your computer.<br> The style sheet will be implemented in the Sugar Portal the next time you perform a sync.',
@@ -423,13 +439,63 @@ $mod_strings = array (
     ),
     'listViewEditor' => 
     array (
+      'Available' => '',
+      'Default' => '',
+      'Hidden' => '',
+      'modify' => '',
       'savebtn' => 'Klikk <b>Lagre </b> for å lagre endringene og gjøre dem aktive.',
+    ),
+    'main' => 
+    array (
+      'studioWelcome' => '',
+      'welcome' => '',
+    ),
+    'module' => 
+    array (
+      'afterSave' => '',
+      'create' => '',
+      'editView' => '',
+      'existingModule' => '',
+      'labels' => '',
+      'somemodules' => '',
+      'viewfields' => '',
+      'viewlayouts' => '',
+      'viewrelationships' => '',
+    ),
+    'package' => 
+    array (
+      'afterSave' => '',
+      'create' => '',
+      'nopackages' => '',
+      'somepackages' => '',
     ),
     'searchViewEditor' => 
     array (
       'Default' => '<b>Default</b>-felter vises i Søket.',
       'Hidden' => '<b>Skjulte felt vil ikke vises i Søk.</b>',
+      'modify' => '',
       'savebtn' => 'Klikk <b>Lagre og Ta i bruk</b> for å lagre endringene du har gjort, og for å gjøre dem aktive',
+    ),
+    'studioWizard' => 
+    array (
+      'appBtn' => '',
+      'backBtn' => '',
+      'exportBtn' => '',
+      'fieldsBtn' => '',
+      'labelsBtn' => '',
+      'layoutsBtn' => '',
+      'layoutsHelp' => '',
+      'mainHelp' => '',
+      'mbBtn' => '',
+      'mbHelp' => '',
+      'moduleBtn' => '',
+      'moduleHelp' => '',
+      'newPackage' => '',
+      'searchHelp' => '',
+      'studioBtn' => '',
+      'studioHelp' => '',
+      'subpanelBtn' => '',
+      'subpanelHelp' => '',
     ),
   ),
   'fieldTypes' => 
@@ -464,14 +530,44 @@ $mod_strings = array (
     ),
     'exportcustom' => 
     array (
+      'author' => 'Dette er forfatteren som vises under installasjon som navn på foretaket som opprettet pakken. Forfatteren kan være enten en person eller et selskap.',
+      'description' => 'Dette er en beskrivelse av den pakke som er vist under installasjon.',
       'exportCustomBtn' => 'Klikk Eksportér for å skape en .zip-fil for pakken som inneholder tilpasningene du ønsker å eksportere.',
+      'exportHelp' => '',
+      'name' => 'Dette er navnet på pakken. Dette navnet vil bli vist under installasjonen.',
+    ),
+    'fieldsEditor' => 
+    array (
+      'addField' => '',
+      'default' => '',
+      'editField' => 'Egenskapene for dette feltet kan tilpasses.<br /><br />Klikk Klon å opprette et nytt felt med de samme egenskaper.',
+      'mbDefault' => '',
+      'mbeditField' => '',
+    ),
+    'fieldsHelp' => 
+    array (
+      'default' => '',
+    ),
+    'labelsHelp' => 
+    array (
+      'default' => '',
+      'publishBtn' => '',
+      'saveBtn' => '',
     ),
     'layoutEditor' => 
     array (
+      'default' => '',
       'defaultdetailview' => '<b>Utseende</ b>-området inneholder feltene som for øyeblikket vises i <b>Detaljvisning</b>.<br /><br/><b>Verktøykassa</b> inneholder <b>Papirkurven</b> og felt- og utseende-elementer som kan legges til utseendet.<br /><br>Gjør endringer i oppsettet ved å dra og slippe elementer og felt mellom <b>Verktøykassa</b> og <b>Utseende</b> og innenfor utseendet selv.<br /><br>For å fjerne et felt fra bordet, drar du feltet til <b>Papirkurven</b>. Feltet vil da være tilgjengelig i verktøykassen for å legge til utseende-oppsettet.<br /><br/><- Not_in_theme -> <img src = "themes / default / images / SugarLogic / icon_dependent.png" / > Viser til et Avhengig-felt som kan eller ikke kan være synlig basert på verdien av en formel.<br /><br/>Indikerer et kalkulert felt der verdien automatisk vil bli fastsatt basert på en formel.',
       'defaultquickcreate' => '<b>Utseende</b>-området inneholder feltene som for øyeblikket vises i <b>OpprettRaskt</b>skjemaet.<br /><br>OpprettRaskt-skjemaet vises i underpaneler i modulen når Opprett-knappen er klikket.<br /><br/><b>Verktøykassa</b> inneholder <b>Papirkurven</b> og felt- og utseende-elementer som kan legges til oppsettet.<br /><br>Gjør endringer i oppsettet ved å dra og slippe elementer og felt mellom <b>Verktøykassa</b> og <b> utseende </b> og innenfor utseendet selv.<br /><br>For å fjerne et felt fra utseendet, dra feltet til <b>Papirkurven</b>. Feltet vil da være tilgjengelig i verktøykassen for å legge til utseendet<br /><br/><- Not_in_theme -> <img src = "themes / default / images / SugarLogic / icon_dependent.png" / > Viser til et Avhengig-felt som kan eller ikke kan være synlig basert på verdien av en formel.<br /><br/>Indikerer et kalkulert felt der verdien automatisk vil bli fastsatt basert på en formel.',
+      'defaultrecordview' => '',
+      'delete' => 'Dra og slipp ethvert element her for å fjerne det fra layouten',
       'historyBtn' => 'Klikk <b>Vis Historikk</b> for å vise og gjenopprette et tidligere lagret oppsett fra historien.<br /><br/><b>Gjenopprett</b> innenfor <b>Vis historikk</b> gjenoppretter feltplasseringen innen tidligere lagrede oppsett. For å endre feltetiketter, klikker du på Redigér-ikonet ved siden av hvert felt.',
       'historyDefault' => 'Klikk <b>Gjenopprett standard</b> for å gjenopprette en visning til sitt opprinnelige oppsett.<br/><b>Gjenopprett standard</b> gjenoppretter bare feltplasseringen i det opprinnelige oppsettet. For å endre feltetiketter, klikker du på Redigér-ikonet ved siden av hvert felt.',
+      'panels' => '',
+      'property' => 'Rediger etiketten for dette feltet. <br />Tab Order styrer i hvilken rekkefølge Tab-tasten skifter mellom felt.',
+      'publishBtn' => 'Klikk Lagre og Distribuer for å lagre alle endringer du har gjort i oppsettet siden forrige gang du lagret den, og for å gjøre endringene aktive i modulen. <br /><br />Utformingen vil umiddelbart bli vist i modulen.',
+      'saveBtn' => 'Klikk Lagre for å lagre endringene du har gjort i oppsettet siden forrige gang du lagret den. <br /><br />Endringene vil ikke bli vist i modulen før du distribuerer de lagrede endringene.',
+      'toolbox' => '',
     ),
     'listViewEditor' => 
     array (
@@ -541,6 +637,20 @@ $mod_strings = array (
     array (
       'default' => '',
     ),
+    'portalStyle' => 
+    array (
+      'default' => '',
+    ),
+    'portalSync' => 
+    array (
+      'default' => '',
+    ),
+    'relationshipsHelp' => 
+    array (
+      'addRelationship' => '',
+      'addrelbtn' => '',
+      'default' => '',
+    ),
     'searchViewEditor' => 
     array (
       'Default' => '<b>Default</b>-felter vises i Søket.',
@@ -549,6 +659,56 @@ $mod_strings = array (
       'historyDefault' => 'Klikk <b>Gjenopprett standard</b> for å gjenopprette en visning til sitt opprinnelige oppsett.<br/><b>Gjenopprett standard</b> gjenoppretter bare feltplasseringen i det opprinnelige oppsettet. For å endre feltetiketter, klikker du på Redigér-ikonet ved siden av hvert felt.',
       'modify' => 'Alle feltene som kan vises i <b>Listevisning</b> vises her.<br /><br/><br><b>Standard</b>-kolonnen inneholder feltene som vises i listevisningen som standard.<br /><br/><br><b>Skjult</ b>-kolonnen inneholder felter som du som admin kal legge til Søkefeltet.<br /><br/><br/><br/><br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/> Indikerer et avhengig felt som kan eller ikke kan være synlig basert på verdien av en formel.<br /><br/><br/><br/> Indikerer et kalkulert felt der verdien automatisk vil bli fastsatt basert på en formel.',
       'savebtn' => 'Klikk <b>Lagre og Ta i bruk</b> for å lagre endringene du har gjort, og for å gjøre dem aktive',
+    ),
+    'studioWizard' => 
+    array (
+      'AdvancedSearchBtn' => '',
+      'BasicSearchBtn' => '',
+      'DashletListViewBtn' => '',
+      'DashletSearchViewBtn' => '',
+      'Layouts' => '',
+      'PopupListViewBtn' => '',
+      'PopupSearchViewBtn' => '',
+      'SPSync' => '',
+      'SPUploadCSS' => '',
+      'addDropDownBtn' => '',
+      'appBtn' => 'Applikasjon modus er der du kan tilpasse forskjellige egenskaper av programmet, for eksempel hvor mange TPS rapporter som skal vises på hjemmesiden',
+      'backBtn' => 'Gå tilbake til forrige trinn.',
+      'convertLeadHelp' => '',
+      'dashletHelp' => '',
+      'dropDownEditorBtn' => 'Bruk Dropdown Editor for å legge til og redigere de globale rullegardinlistene for rullegardinfelt.',
+      'editDropDownBtn' => '',
+      'exportBtn' => '',
+      'fieldsBtn' => '',
+      'labelsBtn' => '',
+      'layoutsBtn' => '',
+      'layoutsHelp' => '',
+      'mainHelp' => 'Velkommen til Developer Tools området. <br /><br />Bruk verktøyene innenfor dette området for å opprette og administrere standard og tilpassede moduler og felt.',
+      'mbBtn' => 'Bruk Modul Builder til å lage nye moduler.',
+      'mbHelp' => '',
+      'moduleBtn' => '',
+      'moduleHelp' => '',
+      'newPackage' => '',
+      'popupHelp' => '',
+      'portalBtn' => '',
+      'portalHelp' => '',
+      'portalLayoutHelp' => '',
+      'relationshipHelp' => '',
+      'relationshipsBtn' => '',
+      'relationshipsHelp' => '',
+      'searchBtn' => '',
+      'searchHelp' => '',
+      'studioBCHelp' => '',
+      'studioBtn' => 'Bruk Studio for å tilpasse utplasserte moduler.',
+      'studioHelp' => '',
+      'subpanelBtn' => '',
+      'subpanelHelp' => '',
+      'sugarPortalBtn' => 'Bruk Sugar Portal Editor for å administrere og tilpasse Sugar Portal.',
+      'viewBtnDashlet' => '',
+      'viewBtnDetailView' => '',
+      'viewBtnEditView' => '',
+      'viewBtnListView' => '',
+      'viewBtnQuickCreate' => '',
     ),
     'subPanelEditor' => 
     array (
@@ -559,6 +719,11 @@ $mod_strings = array (
       'modify' => 'Alle feltene som kan vises i <b>underpanelet</b> vises her. <br> <b>Standard</ b>-kolonnen inneholder feltene som vises i underpanelet. <Br/> <br/> <b>Skjult</ b>-kolonnen inneholder felt som kan legges til standard kolonnen.<br/><br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/> Indikerer et avhengig felt som kan eller ikke kan være synlig basert på verdien av en formel. <br/> Indikerer et kalkulert felt der verdien automatisk vil bli fastsatt basert på en formel.',
       'savebtn' => 'Klikk <b> Lagre og Ta i bruk </b> for å lagre endringene du har gjort, og for å gjøre dem aktive i modulen.',
     ),
+  ),
+  'labelTypes' => 
+  array (
+    '' => 'Ofte brukte etiketter',
+    'all' => 'Alle etiketter',
   ),
   'parent' => 'Flex forbindelse',
 );

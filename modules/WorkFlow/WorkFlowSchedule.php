@@ -1,26 +1,21 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/workflow/workflow_utils.php');
 require_once('include/workflow/action_utils.php');
 
-// WorkFlowSchedule is used to process workflow time cron objects
+/**
+ *  WorkFlowSchedule is used to process workflow time cron objects
+ */
 class WorkFlowSchedule extends SugarBean {
     var $field_name_map;
     // Stored fields
@@ -43,6 +38,7 @@ class WorkFlowSchedule extends SugarBean {
     var $table_name = "workflow_schedules";
     var $module_dir = "WorkFlow";
     var $object_name = "WorkFlowSchedule";
+    var $module_name = 'WorkFlowSchedule';
     var $disable_custom_fields = true;
 
     var $rel_triggershells_table = 	"workflow_triggershells";
@@ -81,21 +77,26 @@ class WorkFlowSchedule extends SugarBean {
     // This is the list of fields that are required
     var $required_fields =  array("module"=>1, 'bean_id'=>1, 'workflow_id'=>1);
 
-    function WorkFlowSchedule() {
+    var $disable_row_level_security = true;
+
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function WorkFlowSchedule()
+    {
+        self::__construct();
+    }
+
+    public function __construct() {
         global $dictionary;
         if(isset($this->module_dir) && isset($this->object_name) && !isset($dictionary[$this->object_name])){
-            if(file_exists('custom/metadata/workflow_schedulesMetaData.php')) {
-            require('custom/metadata/workflow_schedulesMetaData.php');
-            } else {
-            require('metadata/workflow_schedulesMetaData.php');
-            }
+            require SugarAutoLoader::existingCustomOne('metadata/workflow_schedulesMetaData.php');
         }
 
-
-        parent::SugarBean();
-
-        $this->disable_row_level_security =true;
-
+        parent::__construct();
     }
 
 
@@ -104,22 +105,6 @@ class WorkFlowSchedule extends SugarBean {
     {
         return "$this->module";
     }
-
-
-
-
-    /** Returns a list of the associated product_templates
-    * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-    * All Rights Reserved.
-    * Contributor(s): ______________________________________..
-    */
-
-        function create_export_query(&$order_by, &$where)
-        {
-
-        }
-
-
 
     function save_relationship_changes($is_update)
     {
@@ -241,67 +226,70 @@ class WorkFlowSchedule extends SugarBean {
         return get_expiry_date("datetime", $time_interval, false, $is_update, $target_stamp);
     }
 
-function process_scheduled(){
-    global $app_strings;
-    global $app_list_strings;
-    global $mod_strings;
-    global $current_user;
-    global $beanList;
+    function process_scheduled() {
+        $current_stamp = $this->db->now();
 
-    if(empty($beanList)) {
-        require('include/modules.php');
-    }
+        $query = "SELECT *
+                    FROM $this->table_name
+                    WHERE $this->table_name.date_expired < " . $current_stamp . "
+                    AND $this->table_name.deleted = 0
+                    ORDER BY $this->table_name.id, $this->table_name.workflow_id";
 
-    $current_stamp = TimeDate::getInstance()->nowDb();
+        $result = $this->db->query(
+            $query,
+            true,
+            " Error checking scheduled triggers to process: "
+        );
 
-    $query = "	SELECT *
-                FROM $this->table_name
-                WHERE $this->table_name.date_expired < '".$current_stamp."'
-                AND $this->table_name.deleted=0";
-    $result = $this->db->query($query,true," Error checking scheduled triggers to process: ");
-
-    // Print out the calculation column info
-    while($row = $this->db->fetchByAssoc($result)){
-        $temp_module = get_module_info($row['target_module']);
-        $_SESSION['workflow_cron'] = "Yes";
-        $_SESSION['workflow_id_cron'] = $row['workflow_id'];
-
-        //Set the extension variables in case we need them
-        $_SESSION['workflow_parameters'] = $row['parameters'];
-        //////////////////////////////////////////////////
-
-        $temp_module->retrieve($row['bean_id']);
-
-        if($temp_module->fetched_row['deleted'] == '0'){
-            $temp_module->save();
+        // Collect workflows related to the same bean_id, and process them together
+        $removeExpired = array();
+        $beans = array();
+        while ($row = $this->db->fetchByAssoc($result)) {
+            if (!isset($beans[$row['bean_id']])) {
+                $beans[$row['bean_id']] = array(
+                    'id' => $row['bean_id'],
+                    'module' => $row['target_module'],
+                    'workflows' => array($row['workflow_id']),
+                    'parameters' => array(
+                        $row['workflow_id'] => $row['parameters']
+                    ),
+                );
+            } else {
+                $beans[$row['bean_id']]['workflows'][] = $row['workflow_id'];
+                $beans[$row['bean_id']]['parameters'][$row['workflow_id']] = $row['parameters'];
+            }
+            $removeExpired[] = $row['id'];
         }
 
-        unset($_SESSION['workflow_cron']);
-        unset($_SESSION['workflow_id_cron']);
+        foreach ($beans as $bean) {
+            $_SESSION['workflow_cron'] = "Yes";
+            $_SESSION['workflow_id_cron'] = $bean['workflows'];
+            // Set the extension variables in case we need them
+            $_SESSION['workflow_parameters'] = $bean['parameters'];
 
-        //remove this expired process
-        $this->remove_expired($row['id']);
+            $tempBean = BeanFactory::getBean($bean['module'], $bean['id']);
 
-    //end while processing
+            if ($tempBean->fetched_row['deleted'] == '0') {
+                $tempBean->update_date_modified = false;
+                $tempBean->save();
+            }
+
+            unset($_SESSION['workflow_cron']);
+            unset($_SESSION['workflow_id_cron']);
+            unset($_SESSION['workflow_parameters']);
+        }
+
+        $this->remove_expired($removeExpired);
     }
-////Remove any expired schedules/////
-//end function process_scheduled
+
+    function remove_expired($ids) {
+        $removeQuery = "DELETE FROM $this->table_name
+                        WHERE $this->table_name.id IN ('" . implode("', '", $ids) . "')";
+
+        $this->db->query(
+            $removeQuery,
+            true,
+            " Error remove expired process: "
+        );
+    }
 }
-
-function remove_expired($id){
-
-        $remove_query = "	DELETE FROM $this->table_name
-                            WHERE $this->table_name.id = '".$id."'";
-
-        $remove_results = $this->db->query($remove_query,true," Error remove expired process: ");
-
-
-//end function remove_expired
-}
-
-
-
-//end class
-}
-
-?>

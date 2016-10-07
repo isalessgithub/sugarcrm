@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Expression/Boolean/BooleanExpression.php");
 
 /**
@@ -36,12 +33,10 @@ class IsValidEmailExpression extends BooleanExpression {
 		// validate it
 		$emailArr = preg_split('/[,;]/', $emailStr);
 		for ( $i = 0; $i < sizeof($emailArr) ; $i++) {
-			$emailAddress = $emailArr[$i];
-			if (trim($emailAddress) != '') {
-				if (!preg_match('/^\s*[\w.%+\-]+@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[A-Z]{2,}\s*$/i', $emailAddress) &&
-				    !preg_match('/^.*<[A-Z0-9._%+\-]+?@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[A-Z]{2,}>\s*$/i', $emailAddress) )
-					return AbstractExpression::$FALSE;
-			}
+            $emailAddress = trim($emailArr[$i]);
+            if ($emailAddress != '' && !SugarEmailAddress::isValidEmail($emailAddress)) {
+                return AbstractExpression::$FALSE;
+            }
 		}
 
 		return AbstractExpression::$TRUE;
@@ -49,6 +44,10 @@ class IsValidEmailExpression extends BooleanExpression {
 
 	/**
 	 * Returns the JS Equivalent of the evaluate function.
+     *
+     * Only performs a very basic validation because the complexity of the server-side regular expression is too great
+     * to mirror on the client, both in terms of maintenance and difficulty in porting to a different engine. Even if
+     * the light-weight validation passes, the server-side validation may fail.
 	 */
 	static function getJSEvaluate() {
 		return <<<EOQ
@@ -66,11 +65,9 @@ class IsValidEmailExpression extends BooleanExpression {
 		for (var i = 0; i < emailArr.length; i++) {
 			var emailAddress = emailArr[i];
 			emailAddress = emailAddress.replace(/^\s+|\s+$/g,"");
-			if ( emailAddress != '') {
-				if(!/^\s*[\w.%+\-]+@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[A-Z]{2,}\s*$/i.test(emailAddress) &&
-				   !/^.*<[A-Z0-9._%+\-]+?@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[A-Z]{2,}>\s*$/i.test(emailAddress))
-				   return SUGAR.expressions.Expression.FALSE;
-			}
+            if (emailAddress != '' && !/^.+@.+$/ig.test(emailAddress)) {
+                return SUGAR.expressions.Expression.FALSE;
+            }
 		}
 
 		return SUGAR.expressions.Expression.TRUE;
@@ -105,4 +102,3 @@ EOQ;
 	function toString() {
 	}
 }
-?>

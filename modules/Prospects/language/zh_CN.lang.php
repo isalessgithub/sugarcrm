@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '您必须指定一个记录编号才可删除此联系人。',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => '部门:',
   'LBL_DESCRIPTION' => '说明:',
   'LBL_DESCRIPTION_INFORMATION' => '说明信息',
+  'LBL_DNB_BAL_PREVIEW' => '目标预览',
+  'LBL_DNB_BAL_RSLT_CNT' => '目标',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: 目标信息',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => '谢绝来电:',
   'LBL_DUPLICATE' => '可能重复的目标',
   'LBL_EDIT_ACCOUNT_NAME' => '客户名称:',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => '其它电子邮件地址',
   'LBL_EXPORT_MODIFIED_USER_ID' => '修改人ID',
   'LBL_FAX_PHONE' => '传真:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => '目标报告',
   'LBL_FIRST_NAME' => '名:',
   'LBL_FULL_NAME' => '名称',
+  'LBL_HELP_CREATE' => '{{module_name}} 模块包含未经确定的潜在目标的个人，您只收到信息，但尚未能列为{{leads_singular_module}}。
+
+要创建{{module_name}}：
+1. 按需要提供字段的值。
+ - 标记"必须"的字段必须在保存前填写完毕。
+ - 若有必要，单击"显示更多"显示额外字段。
+2. 单击"保存"完成新记录并返回上一页。
+ - 选择"保存并查看"以便在记录视图内打开新{{module_name}}。
+ - 选择"保存并新增"以便立即另一新{{module_name}}。',
+  'LBL_HELP_RECORD' => '{{module_name}} 模块包含未经确定的潜在目标的个人，您只收到信息，但尚未能列为{{leads_singular_module}}。
+
+－若要编辑记录字段，单击有关的字段或“编辑”按钮。
+－若要查看或修改子面板内其他记录的链接，请将左下框切换为“数据视图“。
+－若要在{{activitystream_singular_module}}建造并查看活动流的用户备注和记录变更，请将左下框切换为“活动流“。
+－使用记录名称右侧的图标跟踪或收藏此记录。
+－“编辑”按钮右侧的下拉动作菜单内有额外动作可用。',
+  'LBL_HELP_RECORDS' => '{{module_name}} 模块包含未经确定的潜在目标的个人，您只收到信息，但尚未能列为{{leads_singular_module}}。关于这些 {{plural_module_name}}的信息(例如名字和电子邮件地址)一般取自在各种展览会、会议等收集的名片，Sugar内的{{plural_module_name}}是独立的记录，与{{contacts_module}}、{{leads_module}}、{{accounts_module}}或{{opportunities_module}}等无关。有多种方法可在Sugar内创建{{plural_module_name}}，例如通过{{plural_module_name}}模块，导入{{plural_module_name}}等。一旦{{module_name}}记录经过创建，您可以通过{{plural_module_name}}的记录视图查看并编辑关于{{module_name}}的信息。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '历史活动',
   'LBL_HOME_PHONE' => '家庭电话:',
   'LBL_IMPORT_VCARD' => '导入vCard',
   'LBL_IMPORT_VCARDTEXT' => '从您的文件系统里通过导入vCard自动生成一个联系人。',
+  'LBL_IMPORT_VCARD_SUCCESS' => '从电子名片成功的创建目标',
   'LBL_INVALID_EMAIL' => '无效的电子邮件:',
   'LBL_INVITEE' => '直接报告',
   'LBL_LAST_NAME' => '姓:',
+  'LBL_LEAD' => '潜在客户',
   'LBL_LEAD_ID' => '潜在用户编号',
   'LBL_LIST_EMAIL_ADDRESS' => '电子邮件',
   'LBL_LIST_FIRST_NAME' => '名',
@@ -99,7 +120,7 @@ $mod_strings = array (
   'LBL_MODULE_ID' => '目标',
   'LBL_MODULE_NAME' => '目标',
   'LBL_MODULE_NAME_SINGULAR' => '目标',
-  'LBL_MODULE_TITLE' => '目标: 主页',
+  'LBL_MODULE_TITLE' => '目标: 首页',
   'LBL_MORE_INFORMATION' => '更多信息',
   'LBL_NAME' => '名称:',
   'LBL_NEW_FORM_TITLE' => '新增目标',
@@ -120,17 +141,19 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_POSTALCODE' => '主要住址邮政编码:',
   'LBL_PRIMARY_ADDRESS_STATE' => '主要住址省份:',
   'LBL_PRIMARY_ADDRESS_STREET' => '主要住址街道:',
-  'LBL_PROSPECT' => '目标:',
+  'LBL_PROSPECT' => '目标：',
   'LBL_PROSPECT_INFORMATION' => '目标信息',
   'LBL_PROSPECT_LIST' => '潜在客户列表',
   'LBL_PROSPECT_NAME' => '目标名称:',
   'LBL_PROSPECT_ROLE' => '角色:',
+  'LBL_RECORD_SAVED_SUCCESS' => '您成功创建 {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => '称谓',
   'LBL_SAVE_PROSPECT' => '保存目标',
-  'LBL_SEARCH_FORM_TITLE' => '目标查找',
+  'LBL_SEARCH_FORM_TITLE' => '目标搜索',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => '选择选中的目标',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => '选择选中的目标',
   'LBL_STATE' => '省份:',
+  'LBL_STREET' => '街道',
   'LBL_TITLE' => '职称:',
   'LBL_TRACKER_KEY' => '目标索引',
   'LNK_CAMPAIGN_LIST' => '市场活动',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => '创建新的商业机会需要客户\\n 您可以创建一个新的客户或在已有客户中选择。.',
   'NTC_REMOVE_CONFIRMATION' => '您确定想要将此联系人从此案例里中移除吗?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => '您确定将此直接报告人的记录移除吗?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

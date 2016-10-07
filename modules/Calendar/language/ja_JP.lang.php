@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: このビューでは定義されていません',
-  'ERR_YEAR_BETWEEN' => 'カレンダーはあなたのリクエストした年を入力できません。<br />年は1970から2037である必要があります',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: このビューでは設定されていません',
+  'ERR_YEAR_BETWEEN' => 'すみません。カレンダーはリクエストされた年を扱う事ができません。<br />年は1970から2037までである必要があります。',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => '適用',
   'LBL_ASSIGNED_TO_NAME' => 'アサイン先',
   'LBL_BUSY' => '予定あり',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => '定期的な{0}イベントカウントが制限を超えました',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0}元の再発ではない',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0}定期的なイベントではありません',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0}は定期的なイベントモジュールとして認識されていません',
   'LBL_CANCEL_BUTTON' => 'キャンセル',
   'LBL_CLOSE_BUTTON' => '完了',
   'LBL_CONFIRM_REMOVE' => '本当にこのレコードをはずしてよいですか？',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => '他のスケジュールと重複',
   'LBL_CREATE_CALL' => '電話作成',
   'LBL_CREATE_MEETING' => '会議作成',
+  'LBL_CREATE_NEW_CALL' => '訪問を作成',
   'LBL_CREATE_NEW_RECORD' => '活動作成',
+  'LBL_CREATING_NEW_ACTIVITY' => '新しい会議を作成しています。<a href="javascript:void(0);" data-action="create-task">Create a task</a> もしくは<a href="javascript:void(0);" data-action="schedule-call">Schedule a call</a>したいですか',
   'LBL_DATE' => '開始日時',
   'LBL_DATE_END_ERROR' => '最終日が開始日より前です',
   'LBL_DATE_TIME' => '日時',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => '削除',
   'LBL_DURATION' => '時間',
   'LBL_EDIT_ALL_RECURRENCES' => '定期的な予定をすべて編集',
+  'LBL_EDIT_CALL' => '訪問を編集',
   'LBL_EDIT_RECORD' => '活動編集',
   'LBL_EDIT_USERLIST' => 'ユーザ',
   'LBL_ERROR_LOADING' => '読み込み中にエラー',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => '翌週',
   'LBL_NEXT_YEAR' => '翌年',
   'LBL_NO' => 'いいえ',
+  'LBL_NO_ACCESS' => 'アクセスできません。',
   'LBL_NO_USER' => 'フィールドにマッチしません: アサイン先',
   'LBL_PARTICIPANTS_TAB' => '参加者',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => '保存＆招待送信',
   'LBL_SETTINGS' => '設定',
   'LBL_SETTINGS_CALLS_SHOW' => '電話を表示',
-  'LBL_SETTINGS_COMPLETED_SHOW' => '完了したミーティング、コールとタスクを表示する',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => '日、週ビューにタイムスロットを表示',
   'LBL_SETTINGS_TASKS_SHOW' => 'タスクを表示',
   'LBL_SETTINGS_TIME_ENDS' => '終了時:',
@@ -145,7 +149,7 @@ $mod_list_strings = array (
   ),
   'dom_cal_month_long' => 
   array (
-    0 => '',
+    0 => ' ',
     1 => '1月',
     2 => '2月',
     3 => '3月',

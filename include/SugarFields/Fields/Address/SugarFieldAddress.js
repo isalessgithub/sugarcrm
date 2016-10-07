@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 (function(){var Dom=YAHOO.util.Dom,Event=YAHOO.util.Event;SUGAR.AddressField=function(checkId,fromKey,toKey){this.fromKey=fromKey;this.toKey=toKey;Event.onAvailable(checkId,this.testCheckboxReady,this);}
 SUGAR.AddressField.prototype={elems:["address_street","address_city","address_state","address_postalcode","address_country"],tHasText:false,syncAddressCheckbox:true,originalBgColor:'#FFFFFF',testCheckboxReady:function(obj){for(var x in obj.elems){var f=obj.fromKey+"_"+obj.elems[x];var t=obj.toKey+"_"+obj.elems[x];var e1=Dom.get(t);var e2=Dom.get(f);if(e1!=null&&typeof e1!="undefined"&&e2!=null&&typeof e2!="undefined"){if(!obj.tHasText&&YAHOO.lang.trim(e1.value)!=""){obj.tHasText=true;}
 if(e1.value!=e2.value)

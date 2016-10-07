@@ -8,7 +8,7 @@ $dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1"] = arra
   'vname' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
   'id_name' => 'atc_isscampaigns_prospectlists_1atc_isscampaigns_ida',
 );
-$dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1_name"] = array (
+$dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1_name"]=array (
   'name' => 'atc_isscampaigns_prospectlists_1_name',
   'type' => 'relate',
   'source' => 'non-db',
@@ -20,12 +20,30 @@ $dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1_name"] =
   'module' => 'ATC_ISSCampaigns',
   'rname' => 'name',
 );
-$dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1atc_isscampaigns_ida"] = array (
+
+$dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1atc_isscampaigns_ida"]=array (
   'name' => 'atc_isscampaigns_prospectlists_1atc_isscampaigns_ida',
+  'type' => 'id',
+  'source' => 'non-db',
+  'vname' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_PROSPECTLISTS_TITLE',
+  'id_name' => 'atc_isscampaigns_prospectlists_1atc_isscampaigns_ida',
+  'link' => 'atc_isscampaigns_prospectlists_1',
+  'table' => 'atc_isscampaigns',
+  'module' => 'ATC_ISSCampaigns',
+  'rname' => 'id',
+  'reportable' => false,
+  'massupdate' => false,
+  'duplicate_merge' => 'disabled',
+  'hideacl' => true,
+);
+$dictionary["ProspectList"]["fields"]["atc_isscampaigns_prospectlists_1_right"]=array (
+  'name' => 'atc_isscampaigns_prospectlists_1_right',
   'type' => 'link',
   'relationship' => 'atc_isscampaigns_prospectlists_1',
   'source' => 'non-db',
-  'reportable' => false,
-  'side' => 'right',
   'vname' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_PROSPECTLISTS_TITLE',
+  'id_name' => '_idb',
+  'side' => 'right',
+  'link-type' => 'many',
 );
+

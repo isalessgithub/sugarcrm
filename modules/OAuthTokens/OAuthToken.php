@@ -1,21 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
-
-require_once 'Zend/Oauth/Provider.php';
+require_once 'vendor/Zend/Oauth/Provider.php';
 require_once 'modules/OAuthKeys/OAuthKey.php';
 
 /**
@@ -45,12 +42,26 @@ class OAuthToken extends SugarBean
     const ACCESS = 2;
     const INVALID = 3;
 
-    function __construct($token='', $secret='')
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function OAuthToken($token = '', $secret = '')
+    {
+        self::__construct($token, $secret);
+    }
+
+    public function __construct($token='', $secret='')
 	{
-	    parent::SugarBean();
+	    parent::__construct();
         $this->token = $token;
         $this->secret = $secret;
         $this->setState(self::REQUEST);
+        if(!empty($GLOBALS['current_user']->id)) {
+            $this->addVisibilityStrategy('OwnerVisibility');
+        }
 	}
 
 	/**
@@ -120,17 +131,18 @@ class OAuthToken extends SugarBean
     /**
      * Load token by ID
      * @param string $token
+     * @param string $oauth_type Either "oauth1" or "oauth2", defaults to "oauth1"
 	 * @return OAuthToken
      */
-    static function load($token)
+    static function load($token,$oauth_type="oauth1")
 	{
 	    $ltoken = new self();
 	    $ltoken->retrieve($token);
         if(empty($ltoken->id)) return null;
         $ltoken->token = $ltoken->id;
         if(!empty($ltoken->consumer)) {
-            $ltoken->consumer_obj = BeanFactory::getBean("OAuthKeys", $ltoken->consumer);
-            if(empty($ltoken->consumer_obj->id)) {
+            $ltoken->consumer_obj = BeanFactory::getBean('OAuthKeys',$ltoken->consumer);
+            if(empty($ltoken->consumer_obj->id) || $ltoken->consumer_obj->oauth_type != $oauth_type ) {
                 return null;
             }
         }
@@ -209,11 +221,55 @@ class OAuthToken extends SugarBean
     static public function cleanup()
 	{
 	    global $db;
-	    // delete invalidated tokens older than 1 day
-	    $db->query("DELETE FROM oauth_tokens WHERE tstate = ".self::INVALID." AND token_ts < ".(time()-60*60*24));
-	    // delete request tokens older than 1 day
-	    $db->query("DELETE FROM oauth_tokens WHERE tstate = ".self::REQUEST." AND token_ts < ".(time()-60*60*24));
+	    $cleanup_start = microtime(true);
+        $sugarConfig = SugarConfig::getInstance();
+        // delete invalidated/request tokens older than oauth_token_life config value
+        $db->query("DELETE FROM oauth_tokens WHERE tstate IN (".self::INVALID.",".self::REQUEST.") AND token_ts < ".(time()-$sugarConfig->get('oauth_token_life',60*60*24)));
+        // delete expired access tokens
+        $db->query("DELETE FROM oauth_tokens WHERE tstate = ".self::ACCESS." AND expire_ts <> -1 AND expire_ts < ".(time()-$sugarConfig->get('oauth_token_expiry',0)));
+
+	    $GLOBALS['log']->info(sprintf("OAuthToken::cleanup() Cleaning up old tokens took: %.03f ms",microtime(true)-$cleanup_start));
+
 	}
+
+    /**
+     * Clean up extra tokens for a user
+     * @param int $limit How many user tokens should be allowed
+     */
+    public function cleanupOldUserTokens($limit = 1)
+    {
+        global $db;
+
+        $ids = array($db->quote($this->id));
+
+        if ($limit > 1) {
+            // Find request tokens that are under the limit but still not this token
+            $ret = $db->limitQuery(
+                "SELECT id FROM oauth_tokens WHERE "
+                ." tstate = ".self::ACCESS
+                ." AND id <> '".$db->quote($this->id)."' "
+                ." AND platform = '".$db->quote($this->platform)."' "
+                ." AND assigned_user_id = '".$db->quote($this->assigned_user_id)."' "
+                ." AND contact_id = '".$db->quote($this->contact_id)."' "
+                ." ORDER BY expire_ts DESC ",
+                0, $limit - 1, true
+            );
+
+            while ($row = $db->fetchByAssoc($ret)) {
+                $ids[] = $db->quote($row['id']);
+            }
+        }
+
+        // delete request tokens from this user on this platform that aren't for this user
+        $db->query(
+            "DELETE FROM oauth_tokens WHERE "
+            ." tstate = ".self::ACCESS
+            ." AND id NOT IN ('".implode("', '",$ids)."') "
+            ." AND platform = '".$db->quote($this->platform)."' "
+            ." AND assigned_user_id = '".$db->quote($this->assigned_user_id)."' "
+            ." AND contact_id = '".$db->quote($this->contact_id)."' "
+        );
+    }
 
 	/**
 	 * Check if the nonce is valid
@@ -278,6 +334,8 @@ function displayDateFromTs($focus, $field, $value, $view='ListView')
 {
     $field = strtoupper($field);
     if(!isset($focus[$field])) return '';
+    // No date, don't return anything
+    if($focus[$field]==-1) return '';
     global $timedate;
     return $timedate->asUser($timedate->fromTimestamp($focus[$field]));
 }

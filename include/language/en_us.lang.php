@@ -1,26 +1,14 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 //the left value is the key stored in the db and the right value is ie display value
 //to translate, only modify the right value in each key/value pair
 $app_list_strings = array (
@@ -41,22 +29,26 @@ $app_list_strings = array (
     'Calendar' => 'Calendar',
     'Leads' => 'Leads',
     'Currencies' => 'Currencies',
+    'Project' => 'Project',
     'Contracts'=>'Contracts',
     'Quotes' => 'Quotes',
-    'Products' => 'Products',
+    'Products' => 'Quoted Line Items',
+    'WebLogicHooks' => 'Web Logic Hooks',
     'ProductCategories' => 'Product Categories',
     'ProductTypes' => 'Product Types',
     'ProductTemplates' => 'Product Catalog',
     'Reports' => 'Reports',
-    'Reports_1'=>'Reports',
     'Forecasts' => 'Forecasts',
-    'ForecastSchedule'=>'Forecast Schedule',
+    'ForecastWorksheets' => 'Forecast Worksheets',
+    'ForecastManagerWorksheets' => 'Forecast Manager Worksheets',
     'MergeRecords'=>'Merge Records',
     'Quotas' => 'Quotas',
     'Teams' => 'Teams',
     'TeamNotices' => 'Team Notices',
     'Manufacturers' => 'Manufacturers',
     'Activities' => 'Activities',
+    'Comments' => 'Comments',
+    'Subscriptions' => 'Subscriptions',
     'Bugs' => 'Bugs',
     'Feeds' => 'RSS',
     'iFrames'=>'My Sites',
@@ -68,6 +60,7 @@ $app_list_strings = array (
     'ProjectTask'=>'Project Tasks',
     'Campaigns'=>'Campaigns',
     'CampaignLog'=>'Campaign Log',
+    'CampaignTrackers'=>'Campaign Trackers',
     'Documents'=>'Documents',
     'DocumentRevisions'=>'Document Revisions',
     'Connectors'=>'Connectors',
@@ -76,6 +69,7 @@ $app_list_strings = array (
     'Sync'=>'Sync',
     'WorkFlow' => 'Workflow Definitions',
     'EAPM' => 'External Accounts',
+    'Worksheet' => 'Worksheet',
     'Users' => 'Users',
     'Employees' => 'Employees',
     'Administration' => 'Administration',
@@ -96,18 +90,34 @@ $app_list_strings = array (
     'TrackerQueries' => 'Tracker Queries',
     'FAQ' => 'FAQ',
     'Newsletters' => 'Newsletters',
-    'SugarFeed'=>'Sugar Feed',
     'KBDocuments' => 'Knowledge Base',
-  'SugarFavorites'=>'Favorites',
+  	'SugarFavorites'=>'Favorites',
+	'PdfManager' => 'PDF Manager',
 
     'OAuthKeys' => 'OAuth Consumer Keys',
     'OAuthTokens' => 'OAuth Tokens',
+    'Filters' => 'Filters',
+    'UserSignatures' => 'User Signatures',
+    'Shippers' => 'Shipping Providers',
+    'Styleguide' => 'Styleguide',
+    'Feedbacks' => 'Feedbacks',
   ),
+
+    'moduleIconList' =>
+    array(
+        'Calls' => 'Cl',
+        'Cases' => 'Cs',
+        'Campaigns' => 'Ca',
+        'Notes' => 'Nt',
+        'Quotas' => 'Fo',
+        'Tasks' => 'Ts'
+    ),
 
   'moduleListSingular' =>
   array (
     'Home' => 'Home',
     'Dashboard' => 'Dashboard',
+    'Styleguide' => 'Styleguide',
     'Contacts' => 'Contact',
     'Accounts' => 'Account',
     'Opportunities' => 'Opportunity',
@@ -119,41 +129,110 @@ $app_list_strings = array (
     'Tasks' => 'Task',
     'Calendar' => 'Calendar',
     'Leads' => 'Lead',
+    'Manufacturers' => 'Manufacturer',
     'Contracts'=>'Contract',
     'Quotes' => 'Quote',
-    'Products' => 'Product',
+    'Products' => 'Quoted Line Item',
+    'ProductCategories' => 'Product Category',
+    'RevenueLineItems' => 'Revenue Line Item',
+    'WebLogicHooks' => 'Web Logic Hook',
     'Reports' => 'Report',
     'Forecasts' => 'Forecast',
-    'ForecastSchedule'=>'Forecast Schedule',
+    'ForecastWorksheets' => 'Forecast Worksheet',
+    'ForecastManagerWorksheets' => 'Forecast Manager Worksheet',
     'Quotas' => 'Quota',
+    'MergeRecords'=>'Merge Record',
     'Teams' => 'Team',
+    'TeamNotices' => 'Team Notice',
     'Activities' => 'Activity',
+    'ActivityStream' => 'Activity Stream',
     'Bugs' => 'Bug',
-    'KBDocuments' => 'KBDocument',
+    'KBDocuments' => 'Knowledge Base Document',
     'Feeds' => 'RSS',
     'iFrames'=>'My Sites',
     'TimePeriods'=>'Time Period',
+    'TaxRates'=>'Tax Rate',
+    'ContractTypes' => 'Contract Type',
+    'Schedulers'=>'Scheduler',
+    'Campaigns'=>'Campaign',
+    'CampaignLog'=>'Campaign Log',
     'Project'=>'Project',
     'ProjectTask'=>'Project Task',
     'Prospects' => 'Target',
+    'ProspectLists' => 'Target List',
     'Campaigns'=>'Campaign',
+    'CampaignTrackers'=>'Campaign Tracker',
     'Documents'=>'Document',
-    'SugarFollowing'=>'SugarFollowing',
+    'DocumentRevisions'=>'Document Revision',
+    'Connectors'=>'Connector',
+    'Roles'=>'Role',
+    'Notifications'=>'Notification',
     'Sync'=>'Sync',
+    'PdfManager' => 'PDF Manager',
     'WorkFlow' => 'Workflow',
     'EAPM' => 'External Account',
+    'Worksheet' => 'Worksheet',
     'Users' => 'User',
-  'SugarFavorites'=>'SugarFavorites'
+    'SugarFavorites'=>'SugarFavorites',
+    'Employees' => 'Employee',
+    'Administration' => 'Administration',
+    'ACLRoles' => 'Role',
+    'InboundEmail' => 'Inbound Email',
+    'Releases' => 'Release',
+    'Queues' => 'Queue',
+    'EmailMarketing' => 'Email Marketing',
+    'EmailTemplates' => 'Email Template',
+    'SNIP' => "Email Archiving",
+    'SavedSearch' => 'Saved Search',
+    'UpgradeWizard' => 'Upgrade Wizard',
+    'Trackers' => 'Tracker',
+    'TrackerPerfs' => 'Tracker Performance',
+    'TrackerSessions' => 'Tracker Session',
+    'TrackerQueries' => 'Tracker Query',
+    'FAQ' => 'FAQ',
+    'Newsletters' => 'Newsletter',
+    'OAuthKeys' => 'OAuth Consumer Key',
+    'OAuthTokens' => 'OAuth Token',
+    'Filters' => 'Filter',
+    'Comments' => 'Comment',
+    'Currencies' => 'Currency',
+    'Project' => 'Project',
+    'ProductTemplates' => 'Product Template',
+    'ProductCategories' => 'Product Category',
+    'ProductTypes' => 'Product Type',
+    'Shippers' => 'Shipping Provider',
+    'Subscriptions' => 'Subscription',
+    'UserSignatures' => 'User Signature',
+    'Feedbacks' => 'Feedback',
+),
 
-        ),
-
+/*
+ * @deprecated as of 7.2.0 since it is only used on massupdate in BWC mode.
+ * @see `filter_checkbox_dom` and `checkbox_massupdate_dom` for sidecar-compatibility.
+ */
   'checkbox_dom'=> array(
     ''=>'',
     '1'=>'Yes',
     '2'=>'No',
   ),
 
-  //e.g. en franï¿½ais 'Analyst'=>'Analyste',
+    'checkbox_massupdate_dom' => array(
+        0 => 'No',
+        1 => 'Yes',
+    ),
+
+    'notifications_status_dom' => array(
+        0 => 'Unread',
+        1 => 'Read',
+    ),
+
+  'optout_dom' => array(
+      '' => '-none-',
+      'false' => 'No',
+      'true' => 'Yes',
+  ),
+
+  //e.g. en français 'Analyst'=>'Analyste',
   'account_type_dom' =>
   array (
     '' => '',
@@ -168,7 +247,7 @@ $app_list_strings = array (
     'Reseller' => 'Reseller',
     'Other' => 'Other',
   ),
-  //e.g. en espaï¿½ol 'Apparel'=>'Ropa',
+  //e.g. en español 'Apparel'=>'Ropa',
   'industry_dom' =>
   array (
     '' => '',
@@ -268,8 +347,7 @@ $app_list_strings = array (
   ),
   'sales_stage_default_key' => 'Prospecting',
   'fts_type' => array (
-      '' => '',
-      'Elastic' => 'elasticsearch'
+      'Elastic' => 'ElasticSearch',
   ),
   'sales_stage_dom' =>
   array (
@@ -284,6 +362,32 @@ $app_list_strings = array (
     'Closed Won' => 'Closed Won',
     'Closed Lost' => 'Closed Lost',
   ),
+    'sales_status_with_quote_dom' => array(
+        'New' => 'New',
+        'In Progress' => 'In Progress',
+        'Closed Won' => 'Closed Won',
+        'Closed Lost' => 'Closed Lost',
+        'Converted to Quote' => 'Converted to Quote'
+    ),
+    'sales_status_dom' => array(
+        'New' => 'New',
+        'In Progress' => 'In Progress',
+        'Closed Won' => 'Closed Won',
+        'Closed Lost' => 'Closed Lost',
+    ),
+
+  'commit_stage_binary_dom' => array (
+    'include' => 'Include',
+    'exclude' => 'Exclude',
+  ),
+  'commit_stage_dom' =>
+  array (
+    'include' => 'Include',
+    'upside'  => 'Upside',
+    'exclude' => 'Exclude',
+  ),
+
+
   'in_total_group_stages' => array (
     'Draft' => 'Draft',
     'Negotiation' => 'Negotiation',
@@ -326,7 +430,9 @@ $app_list_strings = array (
       ),
   //time is in seconds; the greater the time the longer it takes;
   'reminder_max_time' => 90000,
-  'reminder_time_options' => array( 60=> '1 minute prior',
+  'reminder_time_options' => array(
+      '-1' => 'None',
+      60=> '1 minute prior',
                                   300=> '5 minutes prior',
                                   600=> '10 minutes prior',
                                   900=> '15 minutes prior',
@@ -357,9 +463,9 @@ $app_list_strings = array (
   'meeting_status_default' => 'Planned',
   'meeting_status_dom' =>
   array (
-    'Planned' => 'Planned',
+    'Planned' => 'Scheduled',
     'Held' => 'Held',
-    'Not Held' => 'Not Held',
+    'Not Held' => 'Canceled',
   ),
   'extapi_meeting_password' =>
   array (
@@ -373,9 +479,9 @@ $app_list_strings = array (
   'call_status_default' => 'Planned',
   'call_status_dom' =>
   array (
-    'Planned' => 'Planned',
+    'Planned' => 'Scheduled',
     'Held' => 'Held',
-    'Not Held' => 'Not Held',
+    'Not Held' => 'Canceled',
   ),
   'call_direction_default' => 'Outbound',
   'call_direction_dom' =>
@@ -491,20 +597,15 @@ $app_list_strings = array (
     'Cases' => 'Case',
     'Leads' => 'Lead',
     'Contacts' => 'Contacts', // cn (11/22/2005) added to support Emails
-    'ProductTemplates' => 'Product',
+    'Products' => 'Quoted Line Item',
     'Quotes' => 'Quote',
-
-
-
     'Bugs' => 'Bug',
     'Project' => 'Project',
 
     'Prospects' => 'Target',
     'ProjectTask' => 'Project Task',
 
-
     'Tasks' => 'Task',
-
   ),
 
   'record_type_display_notes' =>
@@ -515,7 +616,7 @@ $app_list_strings = array (
     'Tasks' => 'Task',
     'ProductTemplates' => 'Product Catalog',
     'Quotes' => 'Quote',
-    'Products' => 'Product',
+    'Products' => 'Quoted Line Item',
     'Contracts' => 'Contract',
     'Emails' => 'Email',
 
@@ -536,14 +637,10 @@ $app_list_strings = array (
     'Contacts' => 'Contact',
     'Tasks' => 'Task',
     'Opportunities' => 'Opportunity',
-
-
-
-    'Products' => 'Product',
-
+    'Products' => 'Quoted Line Item',
     'Quotes' => 'Quote',
 
-    'Bugs' => 'Bug',
+    'Bugs' => 'Bugs',
     'Cases' => 'Case',
     'Leads' => 'Lead',
 
@@ -558,9 +655,10 @@ $app_list_strings = array (
   'product_status_quote_key' => 'Quotes',
   'product_status_dom' =>
   array (
-    'Quotes' => 'Quoted',
-    'Orders' => 'Ordered',
-    'Ship' => 'Shipped',
+      '' => '',
+      'Quotes' => 'Quoted',
+      'Orders' => 'Ordered',
+      'Ship' => 'Shipped',
   ),
 
 
@@ -694,14 +792,12 @@ $app_list_strings = array (
     'Pending' => 'Pending',
     'Rejected' => 'Rejected',
   ),
-   'bug_type_default_key' => 'Bug',
-  'bug_type_dom' =>
-  array (
+  'bug_type_default_key' => 'Bug',
+  'bug_type_dom' => array (
     'Defect' => 'Defect',
     'Feature' => 'Feature',
   ),
- 'case_type_dom' =>
-  array (
+ 'case_type_dom' => array (
     'Administration' => 'Administration',
     'Product' => 'Product',
     'User' => 'User',
@@ -714,7 +810,8 @@ $app_list_strings = array (
     'Internal' => 'Internal',
     'Forum' => 'Forum',
     'Web' => 'Web',
-    'InboundEmail' => 'Email'
+    'InboundEmail' => 'Email',
+    'Twitter' => 'Twitter'
   ),
 
   'product_category_default_key' => '',
@@ -723,7 +820,7 @@ $app_list_strings = array (
     '' => '',
     'Accounts' => 'Accounts',
     'Activities' => 'Activities',
-    'Bugs' => 'Bugs',
+    'Bug Tracker' => 'Bug Tracker',
     'Calendar' => 'Calendar',
     'Calls' => 'Calls',
     'Campaigns' => 'Campaigns',
@@ -743,7 +840,8 @@ $app_list_strings = array (
     'Opportunities' => 'Opportunities',
     'Outlook Plugin' => 'Outlook Plugin',
     'Product Catalog' => 'Product Catalog',
-    'Products' => 'Products',
+    'Products' => 'Quoted Line Items',
+    'RevenueLineItems' => 'Revenue Line Items',
     'Projects' => 'Projects',
     'Quotes' => 'Quotes',
     'Releases' => 'Releases',
@@ -839,6 +937,15 @@ $app_list_strings = array (
                 '6'=>"Fri",
                 '7'=>"Sat",
         ),
+    'dom_cal_day_of_week' => array(
+        '0' => 'Sun',
+        '1' => 'Mon',
+        '2' => 'Tue',
+        '3' => 'Wed',
+        '4' => 'Thu',
+        '5' => 'Fri',
+        '6' => 'Sat',
+    ),
     'dom_meridiem_lowercase'=>array(
                 'am'=>"am",
                 'pm'=>"pm"
@@ -933,11 +1040,6 @@ $app_list_strings = array (
         'min' => 'Minutes',
         'hour' => 'Hours',
         ),
-    'forecast_schedule_status_dom' =>
-    array (
-    'Active' => 'Active',
-    'Inactive' => 'Inactive',
-  ),
     'forecast_type_dom' =>
     array (
     'Direct' => 'Direct',
@@ -989,6 +1091,7 @@ $app_list_strings = array (
     'tentative' => 'Tentative',
     'none'      => 'None',
   ),
+
   'query_calc_oper_dom' =>
       array (
     '+' => '(+) Plus',
@@ -1181,6 +1284,39 @@ $app_list_strings = array (
         'Yearly' => 'year(s)',
     ),
 
+    'repeat_interval_number' => array(
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5',
+        6 => '6',
+        7 => '7',
+        8 => '8',
+        9 => '9',
+        10 => '10',
+        11 => '11',
+        12 => '12',
+        13 => '13',
+        14 => '14',
+        15 => '15',
+        16 => '16',
+        17 => '17',
+        18 => '18',
+        19 => '19',
+        20 => '20',
+        21 => '21',
+        22 => '22',
+        23 => '23',
+        24 => '24',
+        25 => '25',
+        26 => '26',
+        27 => '27',
+        28 => '28',
+        29 => '29',
+        30 => '30',
+    ),
+
     'duration_dom' => array(
     	'' => 'None',
     	'900' => '15 minutes',
@@ -1283,7 +1419,6 @@ $app_list_strings = array (
         'gm'=>'Grouped Modules',
   ),
 
-
     // Contracts module enums
 
     'contract_status_dom' => array (
@@ -1346,6 +1481,23 @@ $app_list_strings = array (
         'print'       => 'Print',
         'pieWedgeName'      => 'sections',
     ),
+    'd3_chart_types' => array (
+        'pie chart'            => 'Pie Chart',
+        'bar chart'            => 'Vertical Bar Chart',
+        'group by chart'       => 'Vertical Bar Grouped Chart',
+        'horizontal bar chart' => 'Horizontal Bar Chart',
+        'horizontal group by chart' => 'Horizontal Bar Grouped Chart',
+        'line chart'           => 'Line Chart',
+        'funnel chart 3D'      => 'Funnel Chart',
+    ),
+    'd3_value_placement' => array (
+        '0'            => 'None',
+        '1'            => 'Default',
+        'start'            => 'Start',
+        'middle'       => 'Middle',
+        'end' => 'End',
+        'top' => 'Top',
+    ),
     'pipeline_chart_dom' => array (
         'fun'   => 'Funnel',
         'hbar'  => 'Horizontal Bar',
@@ -1392,6 +1544,15 @@ $app_list_strings = array (
         '300'   => 'Every 5 minutes',
         '600'   => 'Every 10 minutes',
     ),
+    'sugar7_dashlet_reports_auto_refresh_options' =>
+    array (
+        '0'  => 'None',
+        '15' => 'Every 15 Minutes',
+        '30' => 'Every 30 Minutes',
+        '45' => 'Every 45 Minutes',
+        '60' => 'Every Hour',
+        '120' => 'Every 2 Hours',
+    ),
   'dashlet_auto_refresh_options_admin' =>
     array (
         '-1'  => 'Never',
@@ -1400,6 +1561,29 @@ $app_list_strings = array (
         '180'   => 'Every 3 minutes',
         '300'   => 'Every 5 minutes',
         '600'   => 'Every 10 minutes',
+    ),
+    'sugar7_dashlet_auto_refresh_options' =>
+    array (
+        '0'  => 'None',
+        '1' => 'Every 1 Minutes',
+        '5' => 'Every 5 Minutes',
+        '10' => 'Every 10 Minutes',
+        '15' => 'Every 15 Minutes',
+        '30' => 'Every 30 Minutes',
+    ),
+    'dashlet_limit_options' =>
+    array(
+        5 => 5,
+        10 => 10,
+        15 => 15,
+        20 => 20,
+    ),
+    'dashlet_webpage_limit_options' =>
+    array(
+        1 => 1,
+        3 => 3,
+        5 => 5,
+        10 => 10,
     ),
   'date_range_search_dom' =>
   array(
@@ -1419,6 +1603,19 @@ $app_list_strings = array (
     'next_year' => 'Next Year',
     'between' => 'Is Between',
   ),
+    'date_range_operator_dom' =>
+    array(
+        'last_year' => 'Last Year',
+        'last_month' => 'Last Month',
+        'last_30_days' => 'Last 30 Days',
+        'last_7_days' => 'Last 7 Days',
+        'this_month' => 'This Month',
+        'this_year' => 'This Year',
+        'next_7_days' => 'Next 7 Days',
+        'next_30_days' => 'Next 30 Days',
+        'next_month' => 'Next Month',
+        'next_year' => 'Next Year',
+    ),
   'numeric_range_search_dom' =>
   array(
     '=' => 'Equals',
@@ -1429,20 +1626,82 @@ $app_list_strings = array (
     'less_than_equals' => 'Less Than Or Equal To',
     'between' => 'Is Between',
   ),
+
+    'filter_checkbox_dom' => array(
+        0 => 'False',
+        1 => 'True',
+    ),
+
+  'opportunity_metrics_dom' => array(
+      'won' => 'Won',
+      'lost' => 'Lost',
+      'active' => 'Active',
+  ),
+
+  'sweetspot_theme_options' => array(
+      'default' => 'Default',
+      'light' => 'Light',
+      'dark' => 'Dark',
+  ),
+
   'lead_conv_activity_opt' =>
   array(
         'copy' => 'Copy',
         'move' => 'Move',
         'donothing' => 'Do Nothing'
   ),
+    'forecasts_chart_options_group' => array(
+        'forecast' => 'In Forecast',
+        'sales_stage' => 'Sales Stage',
+        'probability' => 'Probability'
+    ),
+    'forecasts_options_dataset' => array(
+        'likely' => 'Likely',
+        'best' => 'Best',
+        'worst' => 'Worst'
+    ),
+    'webLogicHookList' => array(
+        'after_save' => 'After Save',
+        'after_delete' => 'After Delete',
+        'after_relationship_add' => 'After Relationship Add',
+        'after_relationship_delete' => 'After Relationship Delete',
+        'after_login' => 'After Login',
+        'after_logout' => 'After Logout',
+        'after_login_failed' => 'After Login Failed',
+    ),
+    'process_definition_status_dom' => array(
+        'ACTIVE' => 'Enabled',
+        'INACTIVE' => 'Disabled',
+    ),
 );
 
 $app_strings = array (
+  'LBL_RECORD_HEADER' => 'Record Header', // Studio editing of record views
+  'LBL_RECORD_BODY' => 'Business Card', // Studio editing of record views
+  'LBL_RECORD_SHOWMORE' => 'Show More', // Studio editing of record views
+  'LBL_FAVORITE' => 'Favorite', // Record view header panel element
+  'LBL_FOLLOW' => 'Follow', // Record view header panel element
+  'LBL_FOLLOW_LINK' => 'Follow Link',
+  'LBL_TOGGLE_VISIBILITY' => 'Toggle Visibility', // Record view header panel element
+  'LBL_ACTIVITIES' => 'Activity Stream',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2015 SugarCRM Inc. All Rights Reserved.',
+  'LBL_TRADEMARK' => 'SugarCRM is a trademark of SugarCRM, Inc. All other company and product names may be trademarks of the respective companies with which they are associated.',
+  'LBL_TRADEMARK2' => 'SugarCRM ®, Sugar Enterprise™ and Sugar™ are trademarks of SugarCRM Inc.',
+  'LBL_SEND_INVITE' => 'Send invite',
+  'LBL_INVITEES' => 'Guests',
+  'LBL_SELECT_ACTION_LABEL' => 'Select Action',
+  'LBL_TOGGLE_DRAWER' => 'Toggle Drawer',
   'LBL_TOUR_NEXT' => 'Next',
   'LBL_TOUR_SKIP' => 'Skip',
   'LBL_TOUR_BACK' => 'Back',
   'LBL_TOUR_CLOSE' => 'Close',
+  'LBL_TOUR_BTN_DONE' => 'Done',
   'LBL_TOUR_TAKE_TOUR' => 'Take the tour',
+  'LBL_TOUR_FULL_TOUR' => 'Full Tour',
+  'LBL_TOUR_MODULE' => 'Tour this Page',
+  'LBL_TOUR_END_TOUR' => 'End Tour',
+  'LBL_TOUR_OVERVIEW' => 'Page Overview',
+  'LBL_TOUR_REVISIT' => 'Click here to show the tour at any time.',
   'LBL_MY_AREA_LINKS' => 'My area links: ' /*for 508 compliance fix*/,
   'LBL_GETTINGAIR' => 'Getting Air' /*for 508 compliance fix*/,
   'LBL_WELCOMEBAR' => 'Welcome' /*for 508 compliance fix*/,
@@ -1451,6 +1710,7 @@ $app_strings = array (
   'LBL_EDIT_INLINE' => 'Edit Inline' /*for 508 compliance fix*/,
   'LBL_VIEW_INLINE' => 'View' /*for 508 compliance fix*/,
   'LBL_BASIC_SEARCH' => 'Search' /*for 508 compliance fix*/,
+  'LBL_BASIC_QUICK_SEARCH' => 'Search...' /*for 508 compliance fix*/,
   'LBL_PROJECT_MINUS' => 'Remove' /*for 508 compliance fix*/,
   'LBL_PROJECT_PLUS' => 'Add' /*for 508 compliance fix*/,
   'LBL_Blank' => ' ' /*for 508 compliance fix*/,
@@ -1464,29 +1724,30 @@ $app_strings = array (
   'LBL_PLUS_INLINE' => 'Add' /*for 508 compliance fix*/,
   'LBL_ID_FF_CLEAR' => 'Clear' /*for 508 compliance fix*/,
   'LBL_ID_FF_VCARD' => 'vCard' /*for 508 compliance fix*/,
-  'LBL_ID_FF_REMOVE' => 'Remove' /*for 508 compliance fix*/,
+  'LBL_ID_FF_REMOVE' => 'Unlink' /*for 508 compliance fix*/,
   'LBL_ADD' => 'Add' /*for 508 compliance fix*/,
   'LBL_COMPANY_LOGO' => 'Company logo' /*for 508 compliance fix*/,
   'LBL_JS_CALENDAR' => 'Calendar' /*for 508 compliance fix*/,
     'LBL_ADVANCED' => 'Advanced',
     'LBL_BASIC' => 'Basic',
-    'LBL_MODULE_FILTER' => 'Filter By',
+    'LBL_MODULE_FILTER' => 'Filter by...',
     'LBL_CONNECTORS_POPUPS'=>'Connectors Popups',
     'LBL_CLOSEINLINE'=>'Close',
-    'LBL_MOREDETAIL'=>'More Detail',
     'LBL_EDITINLINE'=>'Edit',
     'LBL_VIEWINLINE'=>'View',
     'LBL_INFOINLINE'=>'Info',
     'LBL_POWERED_BY_SUGARCRM' => "Powered by SugarCRM",
     'LBL_PRINT' => "Print",
     'LBL_HELP' => "Help",
+    'LBL_TOUR' => "Tour",
+    'LBL_MOBILE' => "Mobile",
     'LBL_ID_FF_SELECT' => "Select",
     'DEFAULT'                              => 'Basic',
     'LBL_SORT'                              => 'Sort',
     'LBL_OUTBOUND_EMAIL_ADD_SERVER'         => 'Add Server...',
     'LBL_EMAIL_SMTP_SSL_OR_TLS'         => 'Enable SMTP over SSL or TLS?',
     'LBL_NO_ACTION'                         => 'There is no action by that name.',
-    'LBL_NO_DATA'                           => 'No Data',
+    'LBL_NO_DATA'                           => 'No data',
     'LBL_ROUTING_ADD_RULE'                  => 'Add Rule',
     'LBL_ROUTING_ALL'                       => 'At Least',
     'LBL_ROUTING_ANY'                       => 'Any',
@@ -1538,8 +1799,8 @@ $app_strings = array (
     'LBL_ROUTING_TO'                        => 'to',
     'LBL_ROUTING_TO_ADDRESS'                => 'to address',
     'LBL_ROUTING_WITH_TEMPLATE'             => 'with template',
-  'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'This record currently contains values in the Office Phone and Address fields. To overwrite these values with the following Office Phone and Address of the Account that you selected, click "OK". To keep the current values, click "Cancel".',
-  'LBL_DROP_HERE' => '[Drop Here]',
+    'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM'   => 'This record currently contains values in the Office Phone and Address fields. To overwrite these values with the following Office Phone and Address of the Account that you selected, click "OK". To keep the current values, click "Cancel".',
+    'LBL_DROP_HERE' => '[Drop Here]',
     'LBL_EMAIL_ACCOUNTS_EDIT'               => 'Edit',
     'LBL_EMAIL_ACCOUNTS_GMAIL_DEFAULTS'     => 'Prefill Gmail&#153; Defaults',
     'LBL_EMAIL_ACCOUNTS_NAME'               => 'Name',
@@ -1556,10 +1817,10 @@ $app_strings = array (
     'LBL_EMAIL_ACCOUNTS_SMTPUSER_REQD'      => 'SMTP Username is required',
     'LBL_EMAIL_ACCOUNTS_SMTPPASS_REQD'      => 'SMTP Password is required',
     'LBL_EMAIL_ACCOUNTS_TITLE'              => 'Mail Account Management',
-    'LBL_EMAIL_POP3_REMOVE_MESSAGE'     => 'Mail Server Protocol of type POP3 will not be supported in the next release. Only IMAP will be supported.',
-  'LBL_EMAIL_ACCOUNTS_SUBTITLE'           => 'Set up Mail Accounts to view incoming emails from your email accounts.',
-  'LBL_EMAIL_ACCOUNTS_OUTBOUND_SUBTITLE'  => 'Provide SMTP mail server information to use for outgoing email in Mail Accounts.',
-    'LBL_EMAIL_ADD'                         => 'Add Address',
+    'LBL_EMAIL_POP3_REMOVE_MESSAGE'         => 'Mail Server Protocol of type POP3 will not be supported in the next release. Only IMAP will be supported.',
+    'LBL_EMAIL_ACCOUNTS_SUBTITLE'           => 'Set up Mail Accounts to view incoming Emails from your Email accounts.',
+    'LBL_EMAIL_ACCOUNTS_OUTBOUND_SUBTITLE'  => 'Provide SMTP mail server information to use for outgoing Email in Mail Accounts.',
+    'LBL_EMAIL_ADD'                         => 'Add email',
 
     'LBL_EMAIL_ADDRESS_BOOK_ADD'            => 'Done',
     'LBL_EMAIL_ADDRESS_BOOK_CLEAR'          => 'Clear',
@@ -1569,7 +1830,7 @@ $app_strings = array (
     'LBL_EMAIL_ADDRESS_BOOK_ADRRESS_TYPE'   => 'To/Cc/Bcc',
     'LBL_EMAIL_ADDRESS_BOOK_ADD_LIST'       => 'New List',
     'LBL_EMAIL_ADDRESS_BOOK_EMAIL_ADDR'     => 'Email Address',
-    'LBL_EMAIL_ADDRESS_BOOK_ERR_NOT_CONTACT'=> 'Only Contact editting is supported at this time.',
+    'LBL_EMAIL_ADDRESS_BOOK_ERR_NOT_CONTACT'=> 'Only Contact editing is supported at this time.',
     'LBL_EMAIL_ADDRESS_BOOK_FILTER'         => 'Filter',
     'LBL_EMAIL_ADDRESS_BOOK_FIRST_NAME'     => 'First Name/Account Name',
     'LBL_EMAIL_ADDRESS_BOOK_LAST_NAME'      => 'Last Name',
@@ -1582,9 +1843,7 @@ $app_strings = array (
     'LBL_EMAIL_ADDRESS_BOOK_SELECT_TITLE'   => 'Select Email Recipients',
     'LBL_EMAIL_ADDRESS_BOOK_TITLE'          => 'Address Book',
     'LBL_EMAIL_REPORTS_TITLE'               => 'Reports',
-    'LBL_EMAIL_ADDRESS_BOOK_TITLE_ICON'     => SugarThemeRegistry::current()->getImage('icon_email_addressbook', "", null, null, ".gif", 'Address Book').' Address Book',
-    'LBL_EMAIL_ADDRESS_BOOK_TITLE_ICON_SHORT'     => SugarThemeRegistry::current()->getImage('icon_email_addressbook', 'align=absmiddle border=0', 14, 14, ".gif", ''),
-    'LBL_EMAIL_REMOVE_SMTP_WARNING'         => 'Warning! The outbound account you are trying to delete is associated to an existing inbound account.  Are you sure you want to continue?',
+    'LBL_EMAIL_REMOVE_SMTP_WARNING'         => 'Warning! The outbound Account you are trying to delete is associated to an existing inbound Account.  Are you sure you want to continue?',
     'LBL_EMAIL_ADDRESSES'                   => 'Email',
     'LBL_EMAIL_ADDRESS_PRIMARY'             => 'Email Address',
     'LBL_EMAIL_ADDRESSES_TITLE'             => 'Email Addresses',
@@ -1598,6 +1857,8 @@ $app_strings = array (
     'LBL_EMAIL_ATTACHMENTS_FILE'            => 'File',
     'LBL_EMAIL_ATTACHMENTS_DOCUMENT'        => 'Document',
     'LBL_EMAIL_ATTACHMENTS_EMBEDED'         => 'Embeded',
+    'LBL_EMAIL_ATTACHMENT_UPLOAD_FAILED'    => 'Attachment failed to upload',
+    'LBL_REMOVING_ATTACHMENT'               => 'Removing attachment...',
     'LBL_EMAIL_BCC'                         => 'BCC',
     'LBL_EMAIL_CANCEL'                      => 'Cancel',
     'LBL_EMAIL_CC'                          => 'CC',
@@ -1666,7 +1927,7 @@ $app_strings = array (
     'LBL_EMAIL_ERROR_MESSAGE_DELETED'       => 'Message Removed from Server',
     'LBL_EMAIL_ERROR_IMAP_MESSAGE_DELETED'  => 'Either message Removed from Server or moved to a different folder',
     'LBL_EMAIL_ERROR_MAILSERVERCONNECTION'  => 'Connection to the mail server failed. Please contact your Administrator',
-    'LBL_EMAIL_ERROR_MOVE'                  => 'Moving email between servers and/or mail accounts is not supported at this time.',
+    'LBL_EMAIL_ERROR_MOVE'                  => 'Moving Email between servers and/or mail accounts is not supported at this time.',
     'LBL_EMAIL_ERROR_MOVE_TITLE'            => 'Move Error',
     'LBL_EMAIL_ERROR_NAME'                  => 'A name is required.',
     'LBL_EMAIL_ERROR_FROM_ADDRESS'          => 'From Address is required.  Please enter a valid email address.',
@@ -1683,8 +1944,7 @@ $app_strings = array (
     'LBL_EMAIL_ERROR_TRASH_FOLDER'          => 'Trash Folder is required.',
     'LBL_EMAIL_ERROR_VIEW_RAW_SOURCE'       => 'This information is not available',
     'LBL_EMAIL_ERROR_NO_OUTBOUND'           => 'No outgoing mail server specified.',
-    'LBL_EMAIL_FOLDERS'                     => SugarThemeRegistry::current()->getImage('icon_email_folder', 'align=absmiddle border=0', null, null, ".gif", '').'Folders',
-    'LBL_EMAIL_FOLDERS_SHORT'               => SugarThemeRegistry::current()->getImage('icon_email_folder', 'align=absmiddle border=0', null, null, ".gif", ''),
+    'LBL_EMAIL_FOLDERS'                     => 'Folders',
     'LBL_EMAIL_FOLDERS_ACTIONS'             => 'Move To',
     'LBL_EMAIL_FOLDERS_ADD'                 => 'Add',
     'LBL_EMAIL_FOLDERS_ADD_DIALOG_TITLE'    => 'Add New Folder',
@@ -1692,16 +1952,15 @@ $app_strings = array (
     'LBL_EMAIL_FOLDERS_ADD_NEW_FOLDER'      => 'Save',
     'LBL_EMAIL_FOLDERS_ADD_THIS_TO'         => 'Add this folder to',
     'LBL_EMAIL_FOLDERS_CHANGE_HOME'         => 'This folder cannot be changed',
-    'LBL_EMAIL_FOLDERS_DELETE_CONFIRM'      => 'Are you sure you would like to delete this folder?\nThis process cannot be reversed.\nFolder deletions will cascade to all contained folders.',
+    'LBL_EMAIL_FOLDERS_DELETE_CONFIRM'      => 'Are you sure you would like to delete this folder? This process cannot be reversed. Folder deletions will cascade to all contained folders.',
     'LBL_EMAIL_FOLDERS_NEW_FOLDER'          => 'New Folder Name',
     'LBL_EMAIL_FOLDERS_NO_VALID_NODE'       => 'Please select a folder before performing this action.',
     'LBL_EMAIL_FOLDERS_TITLE'               => 'Folder Management',
     'LBL_EMAIL_FOLDERS_USING_GROUP_USER'    => 'Using Group',
     'LBL_EMAIL_FOLDERS_USING_TEAM'          => 'Assign to Team',
-
     'LBL_EMAIL_FORWARD'                     => 'Forward',
     'LBL_EMAIL_DELIMITER'                   => '::;::',
-    'LBL_EMAIL_DOWNLOAD_STATUS'             => 'Downloaded [[count]] of [[total]] emails',
+    'LBL_EMAIL_DOWNLOAD_STATUS'             => 'Downloaded [[count]] of [[total]] Emails',
     'LBL_EMAIL_FOUND'                       => 'Found',
     'LBL_EMAIL_FROM'                        => 'From',
     'LBL_EMAIL_GROUP'                       => 'group',
@@ -1717,6 +1976,7 @@ $app_strings = array (
     'LBL_EMAIL_IMPORT_EMAIL'                => 'Import to Sugar',
     'LBL_EMAIL_IMPORT_SETTINGS'                => 'Import Settings',
     'LBL_EMAIL_INVALID'                     => 'Invalid',
+    'LBL_EMAIL_LINK_RECORD'                 => 'Click Here',
     'LBL_EMAIL_LIST_RENAME_TITLE'           => 'Rename Mailing List',
     'LBL_EMAIL_LIST_RENAME_DESC '           => 'Enter a new name for this mailing list',
     'LBL_EMAIL_CONFIRM_DELETE_LIST'         => 'Remove these entries from your mailing lists?',
@@ -1769,13 +2029,13 @@ $app_strings = array (
     'LBL_EMAIL_MULTISELECT'                 => '<b>Ctrl-Click</b> to select multiples<br />(Mac users use <b>CMD-Click</b>)',
 
     'LBL_EMAIL_NO'                          => 'No',
-    'LBL_EMAIL_NOT_SENT'                    => 'System is unable to process your request. Please contact the system administrator.',
+    'LBL_EMAIL_NOT_SENT'                    => 'There was a problem sending the request email. Please contact the system administrator.',
 
     'LBL_EMAIL_OK'                          => 'OK',
     'LBL_EMAIL_ONE_MOMENT'                  => 'One moment please...',
     'LBL_EMAIL_OPEN_ALL'                    => 'Open Multiple Messages',
     'LBL_EMAIL_OPTIONS'                     => 'Options',
-    'LBL_EMAIL_QUICK_COMPOSE'       => 'Quick Compose',
+    'LBL_EMAIL_QUICK_COMPOSE'               => 'Quick Compose',
     'LBL_EMAIL_OPT_OUT'                     => 'Opted Out',
     'LBL_EMAIL_OPT_OUT_AND_INVALID'         => 'Opted Out and Invalid',
     'LBL_EMAIL_PAGE_AFTER'                  => 'of {0}',
@@ -1795,7 +2055,7 @@ $app_strings = array (
     'LBL_EMAIL_REBUILDING_FOLDERS'          => 'Rebuilding Folders',
     'LBL_EMAIL_RELATE_TO'                   => 'Relate',
     'LBL_EMAIL_VIEW_RELATIONSHIPS'          => 'View Relationships',
-    'LBL_EMAIL_RECORD'                => 'Email Record',
+    'LBL_EMAIL_RECORD'                      => 'Email Record',
     'LBL_EMAIL_REMOVE'                      => 'Remove',
     'LBL_EMAIL_REPLY'                       => 'Reply',
     'LBL_EMAIL_REPLY_ALL'                   => 'Reply All',
@@ -1815,8 +2075,6 @@ $app_strings = array (
     'LBL_EMAIL_SAVE_DRAFT'                  => 'Save Draft',
 
     'LBL_EMAIL_SEARCHING'                   => 'Conducting Search',
-    'LBL_EMAIL_SEARCH'                      => SugarThemeRegistry::current()->getImage('Search', 'align=absmiddle border=0', null, null, ".gif", ''),
-    'LBL_EMAIL_SEARCH_SHORT'                => SugarThemeRegistry::current()->getImage('Search', 'align=absmiddle border=0', null, null, ".gif", ''),
     'LBL_EMAIL_SEARCH_ADVANCED'             => 'Advanced Search',
     'LBL_EMAIL_SEARCH_DATE_FROM'            => 'Date From',
     'LBL_EMAIL_SEARCH_DATE_UNTIL'           => 'Date Until',
@@ -1867,7 +2125,8 @@ $app_strings = array (
     'LBL_EMAIL_SETTINGS_REQUIRE_REFRESH'    => 'Select the number of emails per page in the Inbox. This setting might require a page refresh in order to take effect.',
     'LBL_EMAIL_SETTINGS_RETRIEVING_ACCOUNT' => 'Retrieving Mail Account',
     'LBL_EMAIL_SETTINGS_RULES'              => 'Rules',
-    'LBL_EMAIL_SETTINGS_SAVED'              => 'The settings have been saved.\n\nYou must reload the page for the new settings to take effect.',
+    'LBL_EMAIL_SETTINGS_SAVED'              => 'The settings have been saved.',
+    'LBL_EMAIL_SETTINGS_MUST_RELOAD'        => 'You must reload the page for the new settings to take effect.',
     'LBL_EMAIL_SETTINGS_SEND_EMAIL_AS'      => 'Send Plain Text Emails Only',
     'LBL_EMAIL_SETTINGS_SHOW_IN_FOLDERS'    => 'Active',
     'LBL_EMAIL_SETTINGS_SHOW_NUM_IN_LIST'   => 'Emails per Page',
@@ -1877,8 +2136,8 @@ $app_strings = array (
     'LBL_EMAIL_SETTINGS_TOGGLE_ADV'         => 'Show Advanced',
     'LBL_EMAIL_SETTINGS_USER_FOLDERS'       => 'Available User Folders',
     'LBL_EMAIL_ERROR_PREPEND'               => 'Error:',
-  'LBL_EMAIL_INVALID_PERSONAL_OUTBOUND' => 'The outbound mail server selected for the mail account you are using is invalid.  Check the settings or select a different mail server for the mail account.',
-  'LBL_EMAIL_INVALID_SYSTEM_OUTBOUND' => 'An outgoing mail server is not configured to send emails. Please configure an outgoing mail server or select an outgoing mail server for the mail account that you are using in Settings >> Mail Account.',
+    'LBL_EMAIL_INVALID_PERSONAL_OUTBOUND'   => 'The outbound mail server selected for the mail account you are using is invalid.  Check the settings or select a different mail server for the mail account.',
+    'LBL_EMAIL_INVALID_SYSTEM_OUTBOUND'     => 'An outgoing mail server is not configured to send emails. Please configure an outgoing mail server or select an outgoing mail server for the mail account that you are using in Settings >> Mail Account.',
     'LBL_EMAIL_SHOW_READ'                   => 'Show All',
     'LBL_EMAIL_SHOW_UNREAD_ONLY'            => 'Show Unread Only',
     'LBL_EMAIL_SIGNATURES'                  => 'Signatures',
@@ -1892,7 +2151,6 @@ $app_strings = array (
     'LBL_EMAIL_SPACER_MAIL_SERVER'          => '[ Remote Folders ]',
     'LBL_EMAIL_SPACER_LOCAL_FOLDER'         => '[ Sugar Folders ]',
     'LBL_EMAIL_SUBJECT'                     => 'Subject',
-    'LBL_EMAIL_TO'                        => 'To',
     'LBL_EMAIL_SUCCESS'                     => 'Success',
     'LBL_EMAIL_SUGAR_FOLDER'                => 'SugarFolder',
     'LBL_EMAIL_TEAMS'                       => 'Assign to Teams',
@@ -1915,13 +2173,6 @@ $app_strings = array (
     'LBL_EMAIL_YES'                         => 'Yes',
     'LBL_EMAIL_TEST_OUTBOUND_SETTINGS'      => 'Send Test Email',
     'LBL_EMAIL_TEST_OUTBOUND_SETTINGS_SENT' => 'Test Email Sent',
-    'LBL_EMAIL_CHECK_INTERVAL_DOM'          => array(
-        '-1' => "Manually",
-        '5' => 'Every 5 minutes',
-        '15' => 'Every 15 minutes',
-        '30' => 'Every 30 minutes',
-        '60' => 'Every hour'
-    ),
 
 
     'LBL_EMAIL_MESSAGE_NO'                  => 'Message No',
@@ -1941,13 +2192,17 @@ $app_strings = array (
     'LBL_LIST_TEAM' => 'Team',
     'LBL_TEAM' => 'Team:',
     'LBL_TEAMS' =>'Teams',
-    'LBL_TEAM_ID'=>'Team ID:',
     'LBL_TEAM_SET_ID' => 'Team Set ID',
-    'LBL_EXPORT_TEAM_SET_ID' => 'Teams',
     'LBL_TEAM_SET'=>'Team Set',
     'LBL_SEARCH_UNAVAILABLE' => 'Search unavailable, please try again later.',
     'ERR_NO_PRIMARY_TEAM_SPECIFIED' => 'No Primary Team specified',
     'LBL_REMOVE_PRIMARY_TEAM_ERROR' => 'Error attempting to remove primary team id [{0}] for [{1}] module with id [{2}]',
+    'LBL_TEAM_ADD' => 'Add&nbsp;Team',
+    'LBL_TEAM_REMOVE' => 'Remove Team',
+    'LBL_TEAM_PRIMARY' => 'Set as Primary Team',
+
+    'LBL_CLOSE_BUTTON_LABEL' => 'Close',
+    'TPL_STATUS_CHANGE_SUCCESS' => '{{moduleSingular}} marked as {{status}}.',
 
 
     'ERR_AJAX_LOAD'     => 'An error has occurred:',
@@ -1955,7 +2210,7 @@ $app_strings = array (
     'ERR_AJAX_LOAD_FOOTER' => 'If this error persists, please have your administrator disable Ajax for this module',
     'ERR_CREATING_FIELDS' => 'Error filling in additional detail fields: ',
     'ERR_CREATING_TABLE' => 'Error creating table: ',
-    'ERR_DECIMAL_SEP_EQ_THOUSANDS_SEP'  => "The decimal separator cannot use the same character as the thousands separator.\\n\\n  Please change the values.",
+    'ERR_DECIMAL_SEP_EQ_THOUSANDS_SEP'  => "The decimal separator cannot use the same character as the thousands separator. Please change one of the values.",
     'ERR_DELETE_RECORD' => 'A record number must be specified to delete the contact.',
     'ERR_EXPORT_DISABLED' => 'Exports Disabled.',
     'ERR_EXPORT_TYPE' => 'Error exporting ',
@@ -1978,8 +2233,9 @@ $app_strings = array (
     'ERR_NO_SUCH_FILE' =>'File does not exist on system',
     'ERR_NO_SINGLE_QUOTE' => 'Cannot use the single quotation mark for ',
     'ERR_NOTHING_SELECTED' =>'Please make a selection before proceeding.',
-    'ERR_OPPORTUNITY_NAME_DUPE' => 'An opportunity with the name %s already exists.  Please enter another name below.',
-    'ERR_OPPORTUNITY_NAME_MISSING' => 'An opportunity name was not entered.  Please enter an opportunity name below.',
+    'ERR_OPPORTUNITY_NAME_DUPE' => 'An Opportunity with the name %s already exists.  Please enter another name below.',
+    'ERR_OPPORTUNITY_NAME_MISSING' => 'An Opportunity name was not entered.  Please enter an Opportunity name below.',
+    'ERR_QUOTE_CONVERTED' => 'This Quote has already been converted to an Opportunity.',
     'ERR_POTENTIAL_SEGFAULT' => 'A potential Apache segmentation fault was detected.  Please notify your system administrator to confirm this problem and have her/him report it to SugarCRM.',
     'ERR_SELF_REPORTING' => 'User cannot report to him or herself.',
     'ERR_SINGLE_QUOTE'  => 'Using the single quote is not supported for this field.  Please change the value.',
@@ -1987,6 +2243,7 @@ $app_strings = array (
     'ERR_SQS_NO_MATCH' =>'No Match',
     'ERR_ADDRESS_KEY_NOT_SPECIFIED' => 'Please specify \'key\' index in displayParams attribute for the Meta-Data definition',
     'ERR_EXISTING_PORTAL_USERNAME'=>'Error: The Portal Name is already assigned to another contact.',
+    'ERR_PORTAL_NAME_CHECK' => 'Unable to verify that Portal user name is unique',
     'ERR_COMPATIBLE_PRECISION_VALUE' => 'Field value is not compatible with precision value',
     'ERR_EXTERNAL_API_SAVE_FAIL' => 'An error occurred when trying to save to the external account.',
     'ERR_EXTERNAL_API_UPLOAD_FAIL' => 'An error occurred while uploading.  Please ensure the file you are uploading is not empty.',
@@ -1995,9 +2252,78 @@ $app_strings = array (
     'ERR_EXTERNAL_API_403' => 'Permission Denied. File type is not supported.',
     'ERR_EXTERNAL_API_NO_OAUTH_TOKEN' => 'OAuth Access Token is missing.',
     'ERR_DB_VERSION' => 'Sugar CRM {0} Files May Only Be Used With A Sugar CRM {1} Database.',
+    'ERR_DB_QUERY' => '{0}: query failed: {1}',
+    'ERR_UW_RETIRED' => 'Upgrade Wizard is not available in this version.',
+
+
+    'EXCEPTION_CREATE_MODULE_NOT_AUTHORIZED' => 'You are not authorized to create {moduleName}. Contact your administrator if you need access.',
+    'EXCEPTION_CHANGE_MODULE_CONFIG_NOT_AUTHORIZED' => 'Current User not authorized to change {moduleName} configuration settings',
+    'EXCEPTION_ACCESS_MODULE_CONFIG_NOT_AUTHORIZED' => 'Current User not authorized to change {moduleName} configuration settings',
+    'EXCEPTION_FAVORITE_MODULE_NOT_AUTHORIZED' => 'You are not authorized to favorite {moduleName}. Contact your administrator if you need access.',
+    'EXCEPTION_SUBSCRIBE_MODULE_NOT_AUTHORIZED' => 'You are not authorized to subscribe to {moduleName}. Contact your administrator if you need access.',
+
+    // Default SugarApiException error messages
+    'EXCEPTION_UNKNOWN_EXCEPTION'       => 'Your request failed due to an unknown exception.',
+    'EXCEPTION_FATAL_ERROR'             => 'Your request failed to complete.  A fatal error occurred.  Check logs for more details.',
+    'EXCEPTION_NEED_LOGIN'              => 'You need to be logged in to perform this action.',
+    'EXCEPTION_INVALID_TOKEN'           => 'Your authentication token is invalid.',
+    'EXCEPTION_NOT_AUTHORIZED'          => 'You are not authorized to perform this action. Contact your administrator if you need access.',
+    'EXCEPTION_INACTIVE_PORTAL_USER'    => 'You cannot access Portal because your portal account is inactive. Please contact customer support if you need access.',
+    'EXCEPTION_PORTAL_NOT_CONFIGURED'   => 'Portal is not configured properly.  Contact your Portal Administrator for assistance.',
+    'EXCEPTION_NO_METHOD'               => 'Your request was not supported. Could not find the HTTP method of your request for this path.',
+    'EXCEPTION_NOT_FOUND'               => 'Your requested resource was not found.  Could not find a handler for the path specified in the request.',
+    'EXCEPTION_MISSING_PARAMTER'        => 'A required parameter in your request was missing.',
+    'EXCEPTION_INVALID_PARAMETER'       => 'A parameter in your request was invalid.',
+    'EXCEPTION_REQUEST_FAILURE'         => 'Your request failed to complete.',
+    'EXCEPTION_METADATA_OUT_OF_DATE'    => 'Your metadata or user hash did not match the server. Please resync your metadata.',
+    'EXCEPTION_REQUEST_TOO_LARGE'       => 'Your request is too large to process.',
+    'EXCEPTION_EDIT_CONFLICT'           => 'Edit conflict, please reload the record data.',
+    'EXCEPTION_METADATA_CONFLICT'       => 'Metadata conflict, please reload the metadata.',
+    'EXCEPTION_CLIENT_OUTDATED'         => 'Your software is out of date, please update your client before attempting to connect again.',
+    'EXCEPTION_CONNECTOR_RESPONSE'      => 'A connector or an integration request resulted in a failed response.',
+    'EXCEPTION_MAINTENANCE'             => 'SugarCRM is in maintenance mode. Only admins can login. Please contact your administrator for details.',
+
+    // Default SugarApiException descriptions, used in the exceptions help endpoint
+    'EXCEPTION_UNKNOWN_EXCEPTION_DESC'     => 'A condition was encountered because of a general failure or error. The reasons for this exception range but generally fall outside the scope of a more specific API exception.',
+    'EXCEPTION_FATAL_ERROR_DESC'           => 'The request could not be processed as presented or there was an error with the response. This generally means a fatal error occurred and that the specific failure can be identified in the application log.',
+    'EXCEPTION_INCORRECT_VERSION_DESC'     => 'The version of the API you are using is not correct for the current request.',
+    'EXCEPTION_NEED_LOGIN_DESC'            => 'The requested endpoint requires authentication and the requesting consumer has not yet authenticated.',
+    'EXCEPTION_INVALID_TOKEN_DESC'         => 'Indicates that the authentication token presented with the request is invalid. This generally happens due to the token expiring but could also be because the token is malformed or is incorrect.',
+    'EXCEPTION_NOT_AUTHORIZED_DESC'        => 'Indicates that the requested consumer is not authorized to perform the requested action.',
+    'EXCEPTION_INACTIVE_PORTAL_USER_DESC'  => 'The portal account associated with the logged in user is not currently active. This requires action on the part of the customer support.',
+    'EXCEPTION_PORTAL_NOT_CONFIGURED_DESC' => 'Indicates that the portal application is not properly configured and cannot be used. This requires action on the part of the portal administrator.',
+    'EXCEPTION_NO_METHOD_DESC'             => 'The endpoint does not support the HTTP request type being made. This might happen when a POST request is made to an endpoint designed for a GET request for example.',
+    'EXCEPTION_NOT_FOUND_DESC'             => 'The endpoint could not locate a resource for the request or does not have a handler for the request.',
+    'EXCEPTION_EDIT_CONFLICT_DESC'         => 'Indicates that there may have been concurrent edits of a record taking place and the current request to edit the record would impact a previous edit of the record.',
+    'EXCEPTION_METADATA_OUT_OF_DATE_DESC'  => 'Indicates that the metadata on the server does not match the metadata the client is currently using. This could occur after a change to system settings, changes to modules in Studio or the deployment of new modules, among other system changes.',
+    'EXCEPTION_REQUEST_TOO_LARGE_DESC'     => 'The request is too large to be handled by the server.',
+    'EXCEPTION_MISSING_PARAMTER_DESC'      => 'Indicates a require parameter of the request is missing.',
+    'EXCEPTION_INVALID_PARAMETER_DESC'     => 'Indicates a parameter sent in the request is invalid.',
+    'EXCEPTION_REQUEST_FAILURE_DESC'       => 'The request failed to complete.',
+    'EXCEPTION_CLIENT_OUTDATED_DESC'       => 'Indicates the client consuming the API is out of date and must be updated before further consumption of the API can take place.',
+    'EXCEPTION_CONNECTOR_RESPONSE_DESC'    => 'Indicates that a request made through the API to another service, endpoint or URI  has failed or could not be handled by the server.',
+    'EXCEPTION_MAINTENANCE_DESC'           => 'The instance of SugarCRM that is serving the API is in maintenance mode. Access to the API is restricted to administrators only.',
 
     //Lotus Live specific error messages
     'ERR_EXTERNAL_API_LOTUS_LIVE_CONFLICT' => 'A file with the same name already exists in the system.',
+
+    //Forecast specific error messages
+    'ERR_TIMEPERIOD_UNDEFINED_FOR_DATE' => 'Error Timeperiod undefined for date {0}',
+    'ERR_TIMEPERIOD_ALREADY_HAS_LEAVES' => 'This TimePeriod already has sub-periods',
+    'ERR_TIMEPERIOD_ALREADY_LEAF' => 'Sub Time Periods cannot have sub-periods',
+    'ERR_TIMEPERIOD_TYPE_DOES_NOT_EXIST' => 'Unable to retrieve any Time Periods of type: {0}',
+    'LBL_CURRENT_TIMEPERIOD' => 'Current Time Period',
+    'LBL_PREVIOUS_TIMEPERIOD' => 'Previous Time Period',
+    'LBL_NEXT_TIMEPERIOD' => 'Next Time Period',
+    'LBL_PREVIOUS_CURRENT_NEXT_TIMEPERIODS' => 'Previous,Current,Next',
+
+    'NOTICE_NO_DELETE_CLOSED_STAGE' => 'You cannot delete records that have a closed sales stage.',
+    'NOTICE_NO_DELETE_CLOSED_STATUS' => 'You cannot delete records that have a closed sales status.',
+
+    'WARNING_NO_DELETE_SELECTED_STAGE' => 'One or more of the selected records has a sales stage of Closed Won or Closed Lost and cannot be deleted.',
+    'WARNING_NO_DELETE_SELECTED_STATUS' => 'One or more of the selected records has a status of Closed Won or Closed Lost and cannot be deleted.',
+    'WARNING_NO_DELETE_CLOSED_SELECTED_STATUS' => 'One or more of the selected records has a RLI with status of ' .
+        'Closed Won or Closed Lost and cannot be deleted.',
 
     'LBL_ACCOUNT'=>'Account',
     'LBL_OLD_ACCOUNT_LINK'=>'Old Account',
@@ -2023,11 +2349,14 @@ $app_strings = array (
     'LBL_ASSIGNED_TO_USER'=>'Assigned to User',
     'LBL_ASSIGNED_TO' => 'Assigned to:',
     'LBL_BACK' => 'Back',
+    'LBL_BASE_RATE'=>'Base Rate',
     'LBL_BILL_TO_ACCOUNT'=>'Bill to Account',
     'LBL_BILL_TO_CONTACT'=>'Bill to Contact',
     'LBL_BILLING_ADDRESS'=>'Billing Address',
     'LBL_QUICK_CREATE_TITLE' => 'Quick Create',
     'LBL_BROWSER_TITLE' => 'SugarCRM - Commercial Open Source CRM',
+    'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+    'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if name}}{{name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
     'LBL_BUGS'=>'Bugs',
     'LBL_BY' => 'by',
     'LBL_CALLS'=>'Calls',
@@ -2072,8 +2401,14 @@ $app_strings = array (
     'LBL_CREATED_USER'=>'Created by User',
     'LBL_CREATED_ID' => 'Created By Id',
     'LBL_CREATED' => 'Created by',
+    'LBL_CREATE_NEW_TARGET_LIST' => 'Create new target list',
     'LBL_CURRENT_USER_FILTER' => 'My Items:',
     'LBL_CURRENCY'=>'Currency:',
+    'LBL_CURRENCIES' => 'Currencies',
+    'LBL_CURRENCY_NAME'=>'Currency Name',
+    'LBL_CURRENCY_SYMBOL'=>'Currency Symbol',
+    'LBL_CURRENCY_RATE' => 'Base Rate:',
+    'LBL_CURRENCY_ID' => 'Currency ID',
     'LBL_DOCUMENTS'=>'Documents',
     'LBL_DATE_ENTERED' => 'Date Created:',
     'LBL_DATE_MODIFIED' => 'Date Modified:',
@@ -2090,12 +2425,27 @@ $app_strings = array (
     'LBL_EDIT_AS_NEW_BUTTON_LABEL' => 'Edit As New',
     'LBL_EDIT_AS_NEW_BUTTON_TITLE' => 'Edit As New',
     'LBL_FAVORITES' => 'Favorites',
+    'LBL_FILTER' => 'Filter',
     'LBL_FILTER_MENU_BY' => 'Filter Menu By',
+    'LBL_FILTER_SELECT_FIELD' => 'Select field...',
+    'LBL_FILTER_SELECT_OPERATOR' => 'Select operator...',
+    'LBL_FILTER_CREATE_NEW' => 'Create',
+    'LBL_FILTER_ALL_RECORDS' => 'All Records',
+    'TPL_FILTER_SAVE' => 'You successfully created the filter {{name}}.',
+    'LBL_FILTER_BETWEEN_FROM' => 'From',
+    'LBL_FILTER_BETWEEN_TO' => 'To',
+    'LBL_FILTER_DATEBETWEEN_FROM' => 'Start date',
+    'LBL_FILTER_DATEBETWEEN_TO' => 'End date',
+    'LBL_FOLLOWING' => 'Following',
+    'LBL_UNFOLLOW' => 'Unfollow',
     'LBL_VCARD' => 'vCard',
+    'LBL_VCARD_DOWNLOAD' => 'Download vCard',
     'LBL_EMPTY_VCARD' => 'Please select a vCard file',
-    'LBL_EMPTY_REQUIRED_VCARD' => 'vCard does not have all the required fields for this module. Please refer to sugarcrm.log for details.',
+    'LBL_IMAGE' => 'Image',
+    'LBL_EMPTY_REQUIRED_VCARD' => 'vCard does not have all the required fields for this module.',
     'LBL_VCARD_ERROR_FILESIZE' => 'The uploaded file exceeds the 30000 bytes size limit which was specified in the HTML form.',
-    'LBL_VCARD_ERROR_DEFAULT' => 'There was an error uploading the vCard file. Please refer to sugarcrm.log for details.',
+    'LBL_VCARD_ERROR_DEFAULT' => 'There was an error uploading the vCard file.',
+    'TPL_IMPORT_VCARD_FAILURE' => 'Failed to create {{module}} from vCard',
     'LBL_IMPORT_VCARD' => 'Import vCard:',
     'LBL_IMPORT_VCARD_BUTTON_KEY' => 'I',
     'LBL_IMPORT_VCARD_BUTTON_LABEL' => 'Import vCard',
@@ -2107,12 +2457,16 @@ $app_strings = array (
     'LBL_EMAIL_PDF_BUTTON_KEY' => 'M',
     'LBL_EMAIL_PDF_BUTTON_LABEL' => 'Email as PDF',
     'LBL_EMAIL_PDF_BUTTON_TITLE' => 'Email as PDF',
+    'LBL_EMAIL' => 'Email',
     'LBL_EMAILS'=>'Emails',
     'LBL_EMPLOYEES' => 'Employees',
     'LBL_ENTER_DATE' => 'Enter Date',
     'LBL_EXPORT_ALL' => 'Export All',
     'LBL_EXPORT' => 'Export',
     'LBL_FAVORITES_FILTER' => 'My Favorites:',
+    'LBL_GLOBAL_SEARCH' => 'Global Search',
+    'LBL_GLOBAL_SEARCH_MODULE_FILTER' => 'Global Search Module Filter',
+    'LBL_GLOBAL_SEARCH_RUN' => 'Run Global Search',
     'LBL_GO_BUTTON_LABEL' => 'Go',
     'LBL_GS_HELP' => 'The fields in this module used in this search appear above.  The highlighted text matches your search criteria.',
     'LBL_HIDE'=>'Hide',
@@ -2121,8 +2475,13 @@ $app_strings = array (
     'LBL_IMPORT_STARTED' => 'Import Started: ',
     'LBL_MISSING_CUSTOM_DELIMITER' => 'Must specify a custom delimiter.',
     'LBL_LAST_VIEWED' => 'Recently Viewed',
-    'LBL_SHOW_LESS' => 'Show Less',
-    'LBL_SHOW_MORE' => 'Show More',
+    'LBL_SHOW_LESS' => 'Show less',
+    'LBL_SHOW_MORE' => 'Show more',
+    'LBL_SHOW_MORE_MODULE' => 'More {{{module}}}...',
+    'LBL_SHOW_MORE_RECENTS' => 'More recents...',
+    'LBL_SHOW_LESS_RECENTS' => 'Less recents',
+    'TPL_SHOW_MORE_MODULE' => 'More {{module}}...',
+    'LBL_SHOW_MORE_GENERIC' => 'More {{name}}...',
     'LBL_TODAYS_ACTIVITIES' => 'Today\'s Activities',
     'LBL_LEADS'=>'Leads',
     'LBL_LESS' => 'less',
@@ -2131,7 +2490,6 @@ $app_strings = array (
     'LBL_CAMPAIGNLOG' => 'CampaignLog',
     'LBL_CAMPAIGN_CONTACT'=>'Campaigns',
     'LBL_CAMPAIGN_ID'=>'campaign_id',
-    'LBL_SITEMAP'=>'Sitemap',
     'LBL_THEME'=>'Theme:',
     'LBL_THEME_PICKER'=>'Page Style',
     'LBL_THEME_PICKER_IE6COMPAT_CHECK' => 'Warning: Internet Explorer 6 is not supported for the selected theme. Click OK to select it anyways or Cancel to select a different theme.',
@@ -2153,11 +2511,49 @@ $app_strings = array (
     'LBL_LISTVIEW_TWO_REQUIRED' => 'Please select at least 2 records to proceed.',
     'LBL_LISTVIEW_LESS_THAN_TEN_SELECT' => 'Please select less than 10 records to proceed.',
     'LBL_LISTVIEW_ALL' => 'All',
+    'LBL_DUPECHECK_FILTER_DEFAULT' => 'All duplicates',
     'LBL_LISTVIEW_NONE' => 'Deselect All',
     'LBL_LISTVIEW_OPTION_CURRENT' => 'Select This Page',
     'LBL_LISTVIEW_OPTION_ENTIRE' => 'Select All',
     'LBL_LISTVIEW_OPTION_SELECTED' => 'Selected Records',
     'LBL_LISTVIEW_SELECTED_OBJECTS' => 'Selected: ',
+    'LBL_LISTVIEW_SELECTED_CLEAR' => 'Clear selections.',
+    'LBL_LISTVIEW_SELECT_ALL_RECORDS' => 'Select all records',
+    'TPL_LISTVIEW_SELECTED_FIRST_OFFSET' => 'There are more than {{num}} records in the result set. You have selected the first {{num}} records.',
+    'TPL_LISTVIEW_SELECTED_ALL' => 'You have selected all {{num}} records in the result set.',
+    'TPL_LISTVIEW_SELECT_ALL_RECORDS' => 'You have selected all {{num}} records in this view. {{link}} in the result set.',
+    'TPL_MASSUPDATE_PROGRESS_STATUS' => 'Updating {{num}} of {{total}}.',
+    'TPL_MASSUPDATE_DURATION_FORMAT' => '(about {{time}} {{unit}} left)',
+    'TPL_MASSUPDATE_FAIL_TO_ATTEMPT' => 'Mass Update failed. Initiating new attempt ({{num}} of {{total}}).',
+    'TPL_MASSUPDATE_WARNING_CLOSE' => 'Mass Update incomplete. {{num}} record(s) remain unchanged.',
+    'TPL_MASSUPDATE_WARNING_INCOMPLETE' => 'Mass Update incomplete. {{num}} record(s) remain unchanged.',
+    'TPL_MASSUPDATE_WARNING_PERMISSION' => '{{remain}} record(s) were ignored due to the permission.',
+    'TPL_MASSUPDATE_SUCCESS' => '{{num}} record(s) were updated successfully.',
+    'TPL_MASSUPDATE_TITLE' => '{{module}} Mass Update',
+    'TPL_MASSDELETE_PROGRESS_STATUS' => 'Deleting {{num}} of {{total}}.',
+    'TPL_MASSDELETE_DURATION_FORMAT' => '(about {{time}} {{unit}} left)',
+    'TPL_MASSDELETE_FAIL_TO_ATTEMPT' => 'Mass Delete failed. Initiating new attempt ({{num}} of {{total}}).',
+    'TPL_MASSDELETE_WARNING_CLOSE' => 'Mass Delete incomplete. {{num}} record(s) remain.',
+    'TPL_MASSDELETE_WARNING_INCOMPLETE' => 'Mass Delete incomplete. {{num}} record(s) remain.',
+    'TPL_MASSDELETE_SUCCESS' => '{{num}} record(s) were deleted successfully.',
+    'TPL_MASSDELETE_TITLE' => '{{module}} Mass Delete',
+    'TPL_MASSADDTOLIST_PROGRESS_STATUS' => 'Adding {{num}} of {{total}}.',
+    'TPL_MASSADDTOLIST_DURATION_FORMAT' => '(about {{time}} {{unit}} left)',
+    'TPL_MASSADDTOLIST_FAIL_TO_ATTEMPT' => 'Mass Add to Target List failed. Initiating new attempt ({{num}} of {{total}}).',
+    'TPL_MASSADDTOLIST_WARNING_CLOSE' => 'Mass Add to Target List incomplete. {{num}} records not added.',
+    'TPL_MASSADDTOLIST_WARNING_INCOMPLETE' => 'Mass Add to Target List incomplete. {{num}} records not added.',
+    'TPL_MASSADDTOLIST_SUCCESS' => '{{num}} records were added successfully.',
+    'TPL_MASSADDTOLIST_TITLE' => '{{module}} Mass Add to Target List',
+    'TPL_MASSLINK_PROGRESS_STATUS' => 'Linking {{num}} of {{total}}.',
+    'TPL_MASSLINK_DURATION_FORMAT' => '(about {{time}} {{unit}} left)',
+    'TPL_MASSLINK_FAIL_TO_ATTEMPT' => 'Mass Link failed. Initiating new attempt ({{num}} of {{total}}).',
+    'TPL_MASSLINK_WARNING_CLOSE' => 'Mass Link incomplete. {{num}} records not added.',
+    'TPL_MASSLINK_WARNING_INCOMPLETE' => 'Mass Link incomplete. {{num}} records not added.',
+    'TPL_MASSLINK_SUCCESS' => '{{num}} records were linked successfully.',
+    'TPL_MASSLINK_TITLE' => '{{module}} Mass Link',
+
+    'LBL_LISTVIEW_SELECT_AND_EDIT' => 'Select',
+    'LBL_LISTVIEW_ACTIONS' => 'Actions',
 
     'LBL_LOCALE_NAME_EXAMPLE_FIRST' => 'David',
     'LBL_LOCALE_NAME_EXAMPLE_LAST' => 'Livingstone',
@@ -2169,26 +2565,39 @@ $app_strings = array (
     'LBL_MAILMERGE_KEY' => 'M',
     'LBL_MAILMERGE' => 'Mail Merge',
     'LBL_MASS_UPDATE' => 'Mass Update',
+    'LBL_MASS_UPDATE_ADD_FIELD' => 'Add Field',
+    'LBL_MASS_UPDATE_REMOVE_FIELD' => 'Remove Field',
+    'LBL_GENERATE_QUOTE' => 'Generate Quote',
     'LBL_NO_MASS_UPDATE_FIELDS_AVAILABLE' => 'There are no fields available for the Mass Update operation',
+    'LBL_MASS_UPDATE_JOB_QUEUED' => 'Your request for mass update has been scheduled.',
+    'LBL_MASS_UPDATE_SUCCESS' => 'All records were updated successfully.',
+    'TPL_MASS_ADD_TO_LIST_SUCCESS' => 'Selected records were added to the <a href="{{listUrl}}">{{listName}}</a> target list.',
+    'TPL_MASS_ADD_TO_LIST_QUEUED' => 'Your request to add selected records to the <a href="{{listUrl}}">{{listName}}</a> target list has been scheduled.',
+    'LBL_MASS_UPDATE_EMPTY_VALUES' => 'The update will remove the following values: ',
+    'LBL_MASS_UPDATE_EMPTY_CONFIRM' => 'Cancel to keep existing values. Confirm to remove the values.',
     'LBL_OPT_OUT_FLAG_PRIMARY' => 'Opt out Primary Email',
     'LBL_MEETINGS'=>'Meetings',
     'LBL_MEETING'=>'Meeting',
-    'LBL_MEETING_GO_BACK'=>'Go back to the meeting',
+    'LBL_MEETING_GO_BACK'=>'Go back to the Meeting',
     'LBL_MEMBERS'=>'Members',
     'LBL_MEMBER_OF'=>'Member Of',
     'LBL_MODIFIED_BY_USER'=>'Modified by User',
     'LBL_MODIFIED_USER'=>'Modified by User',
     'LBL_MODIFIED' => 'Modified by',
-    'LBL_MODIFIED_NAME'=>'Modified By Name',
+    'LBL_MODIFIED_NAME'=>'Modified By',
     'LBL_MODIFIED_ID'=>'Modified By Id',
     'LBL_MORE' => 'More',
+    'LBL_MORE_MODULES' => 'More Modules',
     'LBL_MY_ACCOUNT' => 'My Settings',
+    'LBL_SYSTEM_DEFAULT_OUTBOUND_EMAIL_CONFIGURATION' => 'system default',
+    'LBL_USER_DEFAULT_OUTBOUND_EMAIL_CONFIGURATION' => 'user default',
+    'LBL_USER_OUTBOUND_EMAIL_ACCOUNT_CONFIGURATION' => 'user account',
+    'LBL_GROUP_EMAIL_ACCOUNT_CONFIGURATION' => 'group account',
     'LBL_NAME' => 'Name',
     'LBL_NEW_BUTTON_KEY' => 'N',
     'LBL_NEW_BUTTON_LABEL' => 'Create',
     'LBL_NEW_BUTTON_TITLE' => 'Create',
     'LBL_NEXT_BUTTON_LABEL' => 'Next',
-    'LBL_NONE' => '--None--',
     'LBL_NOTES'=>'Notes',
     'LBL_OPENALL_BUTTON_KEY' => 'O',
     'LBL_OPENALL_BUTTON_LABEL' => 'Open All',
@@ -2203,10 +2612,11 @@ $app_strings = array (
     'LBL_LOWER_OR' => 'or',
     'LBL_PANEL_ASSIGNMENT' => 'Other',
     'LBL_PANEL_ADVANCED' => 'More Information',
+    'LBL_PANEL_BODY' => 'Overview',
     'LBL_PARENT_TYPE' => 'Parent Type',
     'LBL_PERCENTAGE_SYMBOL' => '%',
     'LBL_PHASE' => 'Range',
-    'LBL_PICTURE_FILE' => 'Picture',
+    'LBL_PICTURE_FILE' => 'Avatar',
     'LBL_POSTAL_CODE' => 'Postal Code:',
     'LBL_PRIMARY_ADDRESS_CITY' => 'Primary Address City:',
     'LBL_PRIMARY_ADDRESS_COUNTRY' => 'Primary Address Country:',
@@ -2221,21 +2631,62 @@ $app_strings = array (
 	'LBL_SHIPPING_STREET'=> 'Street:',
 
     'LBL_PRODUCT_BUNDLES'=>'Product Bundles',
-    'LBL_PRODUCT_BUNDLES'=>'Product Bundles',
     'LBL_PRODUCTS'=>'Products',
     'LBL_PROJECT_TASKS'=>'Project Tasks',
+    'LBL_PRODUCT_TEMPLATES' => 'Product Templates',
     'LBL_PROJECTS'=>'Projects',
-    'LBL_PROJECTS'=>'Projects',
+    'LBL_PROSPECTS' => 'Targets',
+    'LBL_QUICK_CREATE_MENU' => 'Quick Create Menu',
     'LBL_QUOTE_TO_OPPORTUNITY_KEY' => 'O',
     'LBL_QUOTE_TO_OPPORTUNITY_LABEL' => 'Create Opportunity from Quote',
     'LBL_QUOTE_TO_OPPORTUNITY_TITLE' => 'Create Opportunity from Quote',
     'LBL_QUOTES_SHIP_TO'=>'Quotes Ship to',
     'LBL_QUOTES'=>'Quotes',
 
+    'LBL_FORECAST_WORKSHEETS' => 'Forecast Worksheets',
+    'LBL_FORECAST_WORKSHEET' => 'Forecast Worksheet',
+
+    // Strings for Instance Picker Widget
+    'LBL_INVITE' => 'Invite',
+    'LBL_INVITED' => 'Invited',
+    'LBL_RECOMMENDED_INVITES' => 'Recommended Invites',
+    'LBL_INSTANCES' => 'Instances',
+    'LBL_YOUR_INSTANCES' => 'Your Instances',
+    'LBL_INSTANCE_USERS' => 'Instance Users',
+    'LBL_SWITCH_INSTANCE' => 'Switch to this instance',
+    'LBL_LAST_LOGIN' => 'last login',
+    'LBL_ENTER_EMAIL' => 'Enter invitee email...',
+    'LBL_INSTANCE_IN_USE' => 'Instance In Use',
+    'LBL_INSTANCE_ACTIVE' => 'You are already using this instance!',
+    'LBL_INSTANCE_INVITE_SENT' => 'Invite sent to',
+    'LBL_INSTANCE_SWITCH_FAILED' => 'Failed to switch instances',
+
+    // Strings for Reminder Widget
+    'LBL_REMINDERS' => 'Reminders',
+    'LBL_REMINDERS_OVERDUE' => 'Overdue',
+    'LBL_REMINDERS_UPCOMING' => 'Upcoming',
+    'LBL_REMINDERS_NONE_FOUND' => 'No reminders found.',
+    'LBL_REMINDERS_FINISHED' => 'Finished!',
+
+    // Strings for Opportunity Metrics dashlet
+    'LBL_OPPORTUNITY_METRICS' => 'Opportunity Metrics',
+
+    'LBL_SWEETSPOT' => 'Sweet Spot',
+    'LBL_SWEETSPOT_CONFIG' => 'Sweet Spot Configuration Panel',
+    'LBL_SWEETSPOT_CONFIG_HOTKEYS' => 'Hotkeys',
+    'LBL_SWEETSPOT_CONFIG_ERR' => 'Failed to update configuration preferences: {{errorMsg}}',
+    'LBL_SWEETSPOT_ACTION' => 'Sweet Spot Action',
+    'LBL_SWEETSPOT_KEY' => 'Keyword',
+    'LBL_SWEETSPOT_REMOVE' => 'Remove action',
+    'LBL_SWEETSPOT_KEYWORDS_SECTION' => 'Hotkeys',
+    'LBL_SWEETSPOT_ACTIONS_SECTION' => 'Actions',
+    'LBL_SWEETSPOT_RECORDS_SECTION' => 'Records',
+    'LBL_SWEETSPOT_THEME' => 'Theme',
+    'LBL_SWEETSPOT_THEME_SELECT' => 'Select theme',
+
     'LBL_RELATED' => 'Related',
     'LBL_RELATED_INFORMATION' => 'Related Information',
     'LBL_RELATED_RECORDS' => 'Related Records',
-    'LBL_REMOVE' => 'Remove',
     'LBL_REPORTS_TO' => 'Reports To',
     'LBL_REQUIRED_SYMBOL' => '*',
     'LBL_REQUIRED_TITLE' => 'Indicates required field',
@@ -2258,13 +2709,17 @@ $app_strings = array (
     'LBL_SEARCH_TIPS_2' => "Press the search button or click enter to get an exact match for",
     'LBL_SEARCH_MORE' => 'more',
     'LBL_SEE_ALL' => 'See All',
+    'LBL_SEARCH_LOAD_MORE' => 'LOAD MORE',
     'LBL_UPLOAD_IMAGE_FILE_INVALID' => 'Invalid file format, only image file can be uploaded.',
+    'LBL_UPLOAD_IMAGE_FILE_NOT_SUPPORTED' => 'Image format {0} is no longer supported.',
     'LBL_SELECT_BUTTON_KEY' => 'T',
     'LBL_SELECT_BUTTON_LABEL' => 'Select',
     'LBL_SELECT_BUTTON_TITLE' => 'Select',
     'LBL_SELECT_TEAMS_KEY' => 'Z',
     'LBL_SELECT_TEAMS_LABEL' => 'Add Team(s)',
     'LBL_SELECT_TEAMS_TITLE' => 'Add Teams(s)',
+    'LBL_SELECT_APPEND_TEAMS' => 'Append Team(s)',
+    'LBL_SELECT_APPEND_VALUES' => 'Append value(s)',
     'LBL_BROWSE_DOCUMENTS_BUTTON_KEY' => 'B',
     'LBL_BROWSE_DOCUMENTS_BUTTON_LABEL' => 'Browse Documents',
     'LBL_BROWSE_DOCUMENTS_BUTTON_TITLE' => 'Browse Documents',
@@ -2344,35 +2799,64 @@ $app_strings = array (
 
     'LBL_INBOUNDEMAIL_ID' => 'Inbound Email ID',
 
-    /* The following version of LBL_SUGAR_COPYRIGHT is intended for Sugar Open Source only. */
-
-    'LBL_SUGAR_COPYRIGHT' => '&copy; 2004-2013 SugarCRM Inc. The Program is provided AS IS, without warranty.  Licensed under <a href="LICENSE.txt" target="_blank" class="copyRightLink">AGPLv3</a>.<br />SugarCRM is a trademark of SugarCRM, Inc. All other company and product names may be trademarks of the respective companies with which they are associated.',
-
-
-
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
-    'LBL_SUGAR_COPYRIGHT_SUB' => '&copy; 2004-2013 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> All Rights Reserved.<br />SugarCRM is a trademark of SugarCRM, Inc. All other company and product names may be trademarks of the respective companies with which they are associated.',
+    'LBL_SUGAR_COPYRIGHT_SUB' => '&copy; 2004-2015 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> All Rights Reserved.<br />SugarCRM is a trademark of SugarCRM, Inc. All other company and product names may be trademarks of the respective companies with which they are associated.',
+    'LBL_SUGAR_COPYRIGHT_NAME_AND_RIGHTS' => 'SugarCRM Inc. All Rights Reserved.',
+    'LBL_SUGAR7_COPYRIGHT' => '&copy; 2004-2015 <a href="http://www.sugarcrm.com" target="_blank">SugarCRM Inc.</a>',
 
 
-    'LBL_SYNC' => 'Sync',
-    'LBL_SYNC' => 'Sync',
-    'LBL_TABGROUP_ALL' => 'All',
-    'LBL_TABGROUP_ACTIVITIES' => 'Activities',
-    'LBL_TABGROUP_COLLABORATION' => 'Collaboration',
+    // GENERIC JOB NOTIFICATIONS LABELS
+    'LBL_JOB_NOTIFICATION_SUBJECT_GENERIC' => 'Scheduled Job Completed',
+    'LBL_JOB_NOTIFICATION_BODY_GENERIC' => 'The Scheduled Job has successfully ran',
+
+    'LBL_JOB_NOTIFICATION_OPPS_WITH_RLIS_SUBJECT' => 'Revenue Line Items Are Now Enabled in Your Sugar Instance',
+    'LBL_JOB_NOTIFICATION_OPPS_WITH_RLIS_BODY' => 'Revenue Line Items are now enabled in your Sugar instance, and all existing Opportunity data has been processed. Your instance is now ready to be used with Revenue Line Items. For more information about the changes which have been made, please refer to the {{doc_url}}.
+
+Sincerely, SugarCRM',
+
+    'LBL_JOB_NOTIFICATION_OPP_FORECAST_SYNC_SUBJECT' => 'Forecasts Module is Now Ready for Use With Opportunities in Your Sugar Instance',
+    'LBL_JOB_NOTIFICATION_OPP_FORECAST_SYNC_BODY' => 'The Forecasts module in your Sugar instance is now available for use with opportunities. All previous Revenue Line Item forecast commit data has been removed, and the instance is ready for forecasts to be created and committed with opportunities. For more information about the changes which have been made, please refer to the {{doc_url}}.
+
+Sincerely, SugarCRM',
+
+    'LBL_JOB_NOTIFICATION_RLI_NOTE_SUBJECT' => 'Revenue Line Items Are Now Disabled in Your Sugar Instance',
+    'LBL_JOB_NOTIFICATION_RLI_NOTE_BODY' => 'Revenue line Items are now disabled in your Sugar instance, and all existing Revenue Line Item data has been processed. Your instance is now ready to be used with Opportunities. For more information about the changes which have been made, please refer to the {{doc_url}}.
+
+Sincerely, SugarCRM',
+
+    'LBL_JOB_NOTIFICATION_DOC_LINK_TEXT' => 'Opportunities Configuration documentation',
+
+    // LOGIN PAGE STRINGS
+    'LBL_LOGIN_BUTTON_KEY' => 'L',
+    'LBL_LOGIN_BUTTON_TITLE' => 'Log In',
+    'LBL_LOGIN_WELCOME_TO' => 'Welcome to',
+    'LBL_LOGIN_OPTIONS' => 'Options',
+    'LBL_LOGIN_FORGOT_PASSWORD' => 'Forgot Password?',
+    'LBL_LOGIN_SUBMIT' => 'Submit',
+    'LBL_LOGIN_ATTEMPTS_OVERRUN' => 'Too many failed login attempts.',
+    'LBL_LOGIN_LOGIN_TIME_ALLOWED' => 'You can try logging in again in ',
+    'LBL_LOGIN_LOGIN_TIME_DAYS' => 'days.',
+    'LBL_LOGIN_LOGIN_TIME_HOURS' => 'h.',
+    'LBL_LOGIN_LOGIN_TIME_MINUTES' => 'min.',
+    'LBL_LOGIN_LOGIN_TIME_SECONDS' => 'sec.',
+    'LBL_LOGIN_ADMIN_CALL' => 'Please contact the system administrator.',
+    'LBL_LOGIN_USERNAME' => 'Username',
+    'LBL_LOGIN_PASSWORD' => 'Password',
+    'LBL_LOGGED_OUT' => 'You have been logged out.',
+    'LBL_LOGIN_FORM_LABEL' => 'Show log in form',
+    // END LOGIN PAGE STRINGS
+
     'LBL_TABGROUP_HOME' => 'Dashboard',
-    'LBL_TABGROUP_MARKETING' => 'Marketing',
-    'LBL_TABGROUP_MY_PORTALS' => 'My Sites',
-    'LBL_TABGROUP_OTHER' => 'Other',
-    'LBL_TABGROUP_REPORTS' => 'Reports',
-    'LBL_TABGROUP_SALES' => 'Sales',
-    'LBL_TABGROUP_SUPPORT' => 'Support',
-    'LBL_TABGROUP_TOOLS' => 'Tools',
+    'LBL_SYNC' => 'Sync',
     'LBL_TASKS'=>'Tasks',
     'LBL_TEAMS_LINK'=>'Teams',
     'LBL_THEME_COLOR'=>'Color',
     'LBL_THEME_FONT'=>'Font',
     'LBL_THOUSANDS_SYMBOL' => 'K',
+    'LBL_SCHEDULE_MEETING_BUTTON_TITLE' => 'Schedule Meeting',
+    'LBL_SCHEDULE_MEETING_BUTTON_KEY'   => 'M',
+    'LBL_SCHEDULE_MEETING_BUTTON_LABEL' => 'Schedule Meeting',
     'LBL_TRACK_EMAIL_BUTTON_KEY' => 'K',
     'LBL_TRACK_EMAIL_BUTTON_LABEL' => 'Archive Email',
     'LBL_TRACK_EMAIL_BUTTON_TITLE' => 'Archive Email',
@@ -2384,6 +2868,7 @@ $app_strings = array (
     'LBL_UNSYNC' => 'Unsync',
     'LBL_UPDATE' => 'Update',
     'LBL_USER_LIST' => 'User List',
+    'LBL_USER_MENU' => 'User Menu',
     'LBL_USERS_SYNC'=>'Users Sync',
     'LBL_USERS'=>'Users',
     'LBL_VERIFY_EMAIL_ADDRESS'=>'Checking for existing email entry...',
@@ -2397,6 +2882,7 @@ $app_strings = array (
     'LNK_ABOUT' => 'About',
     'LNK_ADVANCED_SEARCH' => 'Advanced Search',
     'LNK_BASIC_SEARCH' => 'Basic Search',
+    'LNK_SEARCH_NO_RESULTS' => 'No results were found.',
     'LNK_SEARCH_FTS_VIEW_ALL' => 'View all results',
     'LNK_SEARCH_NONFTS_VIEW_ALL' => 'Show All',
     'LNK_CLOSE' => 'close',
@@ -2405,10 +2891,12 @@ $app_strings = array (
     'LNK_DELETE_ALL' => 'del all',
     'LNK_DELETE' => 'delete',
     'LNK_EDIT' => 'edit',
+    'LNK_VIEW' => 'view',
     'LNK_GET_LATEST'=>'Get latest',
     'LNK_GET_LATEST_TOOLTIP'=>'Replace with latest version',
     'LNK_HELP' => 'Help',
     'LNK_CREATE' => 'Create',
+    'LNK_CREATE_WHEN_EMPTY' => 'Create a record now.',
     'LNK_LIST_END' => 'End',
     'LNK_LIST_NEXT' => 'Next',
     'LNK_LIST_PREVIOUS' => 'Previous',
@@ -2430,9 +2918,16 @@ $app_strings = array (
     'NTC_TEMPLATE_IS_USED' => 'The template is used in at least one email marketing record. Are you sure you want to delete it?',
     'NTC_TEMPLATES_IS_USED' => "The following templates are used in email marketing records. Are you sure you want to delete them?\n",
     'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to delete this record?',
+    'NTC_DELETE_CONFIRMATION_FORMATTED' => 'Are you sure you want to delete the {0}?',
     'NTC_DELETE_CONFIRMATION_NUM' => 'Are you sure you want to delete the ',
     'NTC_UPDATE_CONFIRMATION_NUM' => 'Are you sure you want to update the ',
     'NTC_DELETE_SELECTED_RECORDS' =>' selected record(s)?',
+    'LBL_DELETE_FILTER_CONFIRMATION' => 'This filter will be removed from all views; this may include data configuration for dashlets. Are you sure you want to delete this filter?',
+    'TPL_DELETE_FILTER_SUCCESS' => 'You deleted the filter {{name}}.',
+    'NTC_DELETE_SUCCESS' => 'You deleted the {0}.',
+    'NTC_UNLINK_CONFIRMATION' => 'Are you sure you want to unlink this record?',
+    'NTC_UNLINK_CONFIRMATION_FORMATTED' => 'Are you sure you want to unlink the {0}?',
+    'NTC_UNLINK_SUCCESS' => 'You unlinked the {0}.',
     'NTC_LOGIN_MESSAGE' => 'Please enter your user name and password.',
     'NTC_NO_ITEMS_DISPLAY' => 'none',
     'NTC_REMOVE_CONFIRMATION' => 'Are you sure you want to remove this relationship? Only the relationship will be removed. The record will not be deleted.',
@@ -2442,27 +2937,62 @@ $app_strings = array (
     'NTC_WELCOME' => 'Welcome',
     'NTC_YEAR_FORMAT' => '(yyyy)',
     'LOGIN_LOGO_ERROR'=> 'Please replace the SugarCRM logos.',
-    'ERROR_LICENSE_FULLY_EXPIRED'=> "Your Company's Subscription to the SugarCRM Product has expired and needs to be renewed. Only admins may login when a Subscription has expired. If you have any questions, please contact your administrator.",
-    'ERROR_LICENSE_EXPIRED'=> "Your company's license for SugarCRM needs to be updated. Only admins may login",
-    'ERROR_LICENSE_VALIDATION'=> "Your company's license for SugarCRM needs to be validated. Only admins may login",
-    'WARN_BROWSER_VERSION_WARNING' => "<b>Warning:</b> Your browser version is no longer supported or you are using an unsupported browser.<p></p>The following browser versions are recommended:<p></p><ul><li>Internet Explorer 10 (compatibility view not supported)<li>Firefox 39.0<li>Safari 6.0<li>Chrome 43</ul>",
+    'FATAL_LICENSE_ALTERED' => "Your license has been altered since the last time it was validated.",
+    'ERROR_FULLY_EXPIRED'=> "Your company's license for SugarCRM has expired for more than 7 days and needs to be brought up to date. Only admins may login.",
+    'ERROR_LICENSE_EXPIRED'=> "Your company's license for SugarCRM needs to be updated. Only admins may login.",
+    'WARN_LICENSE_EXPIRED'=> "Your company's license for SugarCRM will expire soon.",
+    'ERROR_LICENSE_VALIDATION'=> "Your company's license for SugarCRM needs to be validated. Only admins may login.",
+    'WARN_LICENSE_VALIDATION'=> "Your company's license for SugarCRM needs to be validated soon.",
+    'ERROR_EXCEEDING_OC_LICENSES' =>"The number of enabled Offline Clients currently exceeds the number specified in your license.",
+    'WARN_BROWSER_VERSION_WARNING' => "<b>Warning:</b> Your browser version is no longer supported or you are using an unsupported browser.<p></p>The following browser versions are recommended:<p></p><ul><li>Internet Explorer 11 (compatibility view not supported)<li>Firefox 38<li>Safari 7.1<li>Chrome 42</ul>",
     'WARN_BROWSER_IE_COMPATIBILITY_MODE_WARNING' => "<b>Warning:</b> Your browser is in IE compatibility view which is not supported.",
     'WARN_LICENSE_SEATS'=>  "Warning: The number of active users is already the maximum number of licenses allowed.",
     'WARN_LICENSE_SEATS_MAXED'=>  "Warning: The number of active users exceeds the maximum number of licenses allowed.",
     'WARN_ONLY_ADMINS'=> "Only admins may log in.",
     'WARN_UNSAVED_CHANGES'=> "You are about to leave this record without saving any changes you may have made to the record. Are you sure you want to navigate away from this record?",
+    'LBL_WARN_UNSAVED_CHANGES' => 'You have unsaved changes. Are you sure you want to leave page and discard changes?',
+    'LBL_NAVIGATE_TO_REPORTS' => 'You are moving to the Reports module. Your changes to dashlet will not be saved. Continue?',
     'ERROR_NO_RECORD' => 'Error retrieving record.  This record may be deleted or you may not be authorized to view it.',
     'ERROR_TYPE_NOT_VALID' => 'Error. This type is not valid.',
-    'ERROR_NO_BEAN' => 'Failed to get bean.', 
+    'ERROR_MAX_FIELD_LENGTH' => 'Error. The max length of this field is {{this}}.',
+    'ERROR_MIN_FIELD_LENGTH' => 'Error. The min length of this field is {{this}}.',
+    'ERROR_EMAIL' => 'Error. Invalid Email Address: {{#each this}}{{{this}}} {{/each}}',
+    'ERROR_PRIMARY_EMAIL' => 'Error. At least one primary address should be set.',
+    'ERROR_DUPLICATE_EMAIL' => 'Error. Duplicate Email Address: {{#each this}}{{this}} {{/each}}',
+    'ERROR_FIELD_REQUIRED' => 'Error. This field is required.',
+    'ERROR_MINVALUE' => 'Error. The minimum value of this field is {{this}}.',
+    'ERROR_MAXVALUE' => 'Error. The maximum value of this field is {{this}}.',
+    'ERROR_IS_GREATER_THAN' => 'Error. The value of this field must be greater than {{this}}.',
+    'ERROR_IS_LESS_THAN' => 'Error. The value of this field must be less than {{this}}.',
+    'ERROR_DATETIME' => 'Error. This field requires a valid date.',
+    'ERROR_IS_BEFORE' => 'Error. The date of this field must be before date of {{this}} field.',
+    'ERROR_IS_AFTER' => 'Error. The date of this field must be after date of {{this}} field.',
+    'ERROR_NUMBER' => 'Error. This field requires a valid number.',
+    'ERROR_NO_BEAN' => 'Failed to get bean.',
+    'ERROR_ACCESS_MODULE' => 'You do not have access to this module.',
+    'ERROR_MAX_FILESIZE_EXCEEDED' => 'Error. The attachment is too large.',
+    'ERROR_UPLOAD_FAILED' => 'Error. The file failed to upload.',
+    'ERROR_UPLOAD_ACCESS_PD' => 'You do not have permission to create [process definitions] for this module.',
+    'ERROR_UPLOAD_ACCESS_BR' => 'You do not have permission to create [business rules] for this module.',
+    'ERROR_UPLOAD_ACCESS_ET' => 'You do not have permission to create [email templates] for this module.',
+    'ERROR_PA_FILTER_UNSUPPORTED_OPERATOR' => 'Error. You entered an unsupported operator.',
+    'ERROR_PA_FILTER_INVALID_OPERATOR' => 'Error. You entered an invalid operator.',
+    'ERROR_PA_FILTER_UNSUPPORTED_FILTER' => 'Error. You entered an invalid filter.',
     'LBL_DUP_MERGE'=>'Find Duplicates',
     'LBL_MANAGE_SUBSCRIPTIONS'=>'Manage Subscriptions',
     'LBL_MANAGE_SUBSCRIPTIONS_FOR'=>'Manage Subscriptions for ',
     'LBL_SUBSCRIBE'=>'Subscribe',
     'LBL_UNSUBSCRIBE'=>'Unsubscribe',
+    'LBL_CREATE_LINK_RECORD' => 'Create and Link Record',
+    'LBL_CREATE_LINK_BUTTON_LABEL' => 'Create and Link Record',
+    'LBL_LINK_FROM_REPORT_SUCCESS' => '{{reportCount}} records have been linked.',
+    'LBL_LINK_FROM_REPORT_NO_DATA' => 'No records to link.',
+    'LBL_LINK_FROM_REPORT_WRONG_MODULE' => 'The report selected is not based on the correct module type.',
+    'ERROR_EMPTY_LINK_MODULE' => 'Please select the relationship first.',
     // Ajax status strings
-    'LBL_LOADING' => 'Loading ...',
+    'LBL_LOADING' => 'Loading...',
     'LBL_SEARCHING' => 'Searching...',
-    'LBL_SAVING_LAYOUT' => 'Saving Layout ...',
+    'LBL_SAVING_LAYOUT' => 'Saving Layout...',
     'LBL_SAVED_LAYOUT' => 'Layout has been saved.',
     'LBL_SAVED' => 'Saved',
     'LBL_SAVING' => 'Saving',
@@ -2477,41 +3007,37 @@ $app_strings = array (
     'LBL_OC_STATUS' => 'Offline Client Status',
     'LBL_OC_STATUS_TEXT' => 'Indicates whether or not the current user is able to use an Offline Client.',
     'LBL_OC_DEFAULT_STATUS' => 'Inactive',
-    'LBL_MERGE_DUPLICATES'  => 'Merge',
+    'LBL_SEARCH_PARENT_RELATED_ITEM' => 'Search ...',
     'LBL_SAVED_SEARCH_SHORTCUT' => 'Saved Searches',
     'LBL_SEARCH_POPULATE_ONLY'=> 'Perform a search using the search form above',
+    'LBL_SEARCH_NO_RESULTS' => 'No results found for ',
+    'LBL_SEARCH_FOR' => 'Search for ',
+    'LBL_SEARCH_FOR_MORE' => 'Search for more...',
+    'LBL_SEARCH_SELECT' => 'Select...',
+    'LBL_SEARCH_SELECT_MODULE' => 'Select {{module}}...',
     'LBL_DETAILVIEW'=>'Detail View',
     'LBL_LISTVIEW'=>'List View',
     'LBL_EDITVIEW'=>'Edit View',
     'LBL_SEARCHFORM'=>'Search Form',
     'LBL_SAVED_SEARCH_ERROR' => 'Please provide a name for this view.',
     'LBL_DISPLAY_LOG' => 'Display Log',
-    'ERROR_JS_ALERT_SYSTEM_CLASS' => 'System',
-    'ERROR_JS_ALERT_TIMEOUT_TITLE' => 'Session Timeout',
-    'ERROR_JS_ALERT_TIMEOUT_MSG_1' => 'Your session is about to timeout in 2 minutes. Please save your work.',
-    'ERROR_JS_ALERT_TIMEOUT_MSG_2' =>'Your session has timed out.',
-    'MSG_JS_ALERT_MTG_REMINDER_AGENDA' => "\nAgenda: ",
-    'MSG_JS_ALERT_MTG_REMINDER_MEETING' => 'Meeting',
-    'MSG_JS_ALERT_MTG_REMINDER_CALL' => 'Call',
-    'MSG_JS_ALERT_MTG_REMINDER_TIME' => 'Time: ',
     'MSG_JS_ALERT_MTG_REMINDER_LOC' => 'Location: ',
     'MSG_JS_ALERT_MTG_REMINDER_DESC' => 'Description: ',
-    'MSG_JS_ALERT_MTG_REMINDER_STATUS' => 'Status: ',
-    'MSG_JS_ALERT_MTG_REMINDER_RELATED_TO' => 'Related To: ',
-    'MSG_JS_ALERT_MTG_REMINDER_CALL_MSG' => "\nClick OK to view this call or click Cancel to dismiss this message.",
-  	'MSG_JS_ALERT_MTG_REMINDER_MEETING_MSG' => "\nClick OK to view this meeting or click Cancel to dismiss this message.",
- 	'MSG_LIST_VIEW_NO_RESULTS_BASIC' => "No results found.",
-	'MSG_LIST_VIEW_NO_RESULTS' => "No results found for <item1>",
- 	'MSG_LIST_VIEW_NO_RESULTS_SUBMSG' => "Create <item1> as a new <item2>",
-	'MSG_EMPTY_LIST_VIEW_NO_RESULTS' => "You currently have no records saved. <item2> or <item3> one now.",
-	'MSG_EMPTY_LIST_VIEW_NO_RESULTS_SUBMSG' =>	"<item4> to learn more about the <item1> module. In order to access more information, use the user menu drop down located on the main navigation bar to access Help.",
+    'MSG_JS_ALERT_MTG_REMINDER_START' => 'starting',
+    'MSG_JS_ALERT_MTG_REMINDER_CALL_MSG' => "Click OK to view this Call or click Cancel to dismiss this message.",
+    'MSG_JS_ALERT_MTG_REMINDER_MEETING_MSG' => "Click OK to view this Meeting or click Cancel to dismiss this message.",
+    'MSG_LIST_VIEW_NO_RESULTS_BASIC' => "No results found.",
+    'MSG_LIST_VIEW_NO_RESULTS' => "No results found for <item1>",
+    'MSG_LIST_VIEW_NO_RESULTS_SUBMSG' => "Create <item1> as a new <item2>",
+    'MSG_EMPTY_LIST_VIEW_NO_RESULTS' => "You currently have no <item1> records saved. <item2> or <item3> one now.",
+    'MSG_EMPTY_LIST_VIEW_NO_RESULTS_NO_IMPORT' => "You currently have no <item1> records saved. <item2> one now.",
+    'MSG_EMPTY_LIST_VIEW_GO_TO_PARENT' => "You can create <item1> from a <item2>. <item3> <item2> list.",
 
     'LBL_CLICK_HERE' => "Click here",
     // contextMenu strings
     'LBL_ADD_TO_FAVORITES' => 'Add to My Favorites',
     'LBL_MARK_AS_FAVORITES' => 'Mark as Favorite',
     'LBL_CREATE_CONTACT' => 'Create Contact',
-    'LBL_CREATE_CASE' => 'Create Case',
     'LBL_CREATE_NOTE' => 'Create Note',
     'LBL_CREATE_OPPORTUNITY' => 'Create Opportunity',
     'LBL_SCHEDULE_CALL' => 'Log Call',
@@ -2524,16 +3050,20 @@ $app_strings = array (
 
     'LBL_PLEASE_SELECT' => 'Please Select',
     'LBL_REDIRECT_URL'=>'Redirect URL',
-    'LBL_RELATED_CAMPAIGN' =>'Related campaign',
+    'LBL_RELATED_CAMPAIGN' =>'Related Campaign',
     'LBL_ADD_ALL_LEAD_FIELDS' => 'Add All Fields',
     'LBL_REMOVE_ALL_LEAD_FIELDS' => 'Remove All Fields',
     'LBL_ONLY_IMAGE_ATTACHMENT' => 'Only the following supported image type attachments can be embedded: JPG, PNG.',
     'LBL_REMOVE' => 'Remove',
     'LBL_TRAINING' => 'Support',
     'ERR_DATABASE_CONN_DROPPED'=>'Error executing a query. Possibly, your database dropped the connection. Please refresh this page, you may need to restart you web server.',
+    'ERR_DATABSE_RELATIONSHIP_QUERY'=>'Error setting {0} relationship: {1}',
     'ERR_MSSQL_DB_CONTEXT' =>'Changed database context to',
   'ERR_MSSQL_WARNING' =>'Warning:',
 
+    //Import vCard
+    'ERR_VCARD_FILE_PARSE' => 'Failed to Parse vCard format',
+    'ERR_VCARD_FILE_MISSING' =>'vcf file is missing',
     //Meta-Data framework
     'ERR_MISSING_VARDEF_NAME' => 'Warning: field [[field]] does not have a mapped entry in [moduleDir] vardefs.php file',
     'ERR_CANNOT_CREATE_METADATA_FILE' => 'Error: File [[file]] is missing.  Unable to create because no corresponding HTML file was found.',
@@ -2543,11 +3073,15 @@ $app_strings = array (
     'ERR_SMARTY_MISSING_DISPLAY_PARAMS' => 'Missing index in displayParams Array for: ',
 
     /* MySugar Framework (for Home and Dashboard) */
+    'LBL_DASHLET' => 'Dashlet',
     'LBL_DASHLET_CONFIGURE_GENERAL' => 'General',
     'LBL_DASHLET_CONFIGURE_FILTERS' => 'Filters',
     'LBL_DASHLET_CONFIGURE_MY_ITEMS_ONLY' => 'Only My Items',
+    'LBL_DASHLET_CONFIGURE_MY_FAVORITES_ONLY' => 'Only My Favorites',
     'LBL_DASHLET_CONFIGURE_TITLE' => 'Title',
     'LBL_DASHLET_CONFIGURE_DISPLAY_ROWS' => 'Display Rows',
+    'LBL_DASHLET_CONFIGURE_INTELLIGENT' => 'Relate to current record',
+    'LBL_DASHLET_CONFIGURE_LINKED' => 'Linked field',
 
     // MySugar status strings
     'LBL_CREATING_NEW_PAGE' => 'Creating New Page ...',
@@ -2559,8 +3093,655 @@ $app_strings = array (
     'LBL_ADDING_DASHLET' => 'Adding Sugar Dashlet ...',
     'LBL_ADDED_DASHLET' => 'Sugar Dashlet Added',
     'LBL_REMOVE_DASHLET_CONFIRM' => 'Are you sure you want to remove the Sugar Dashlet?',
+    'LBL_REMOVE_DASHLET_ROW_CONFIRM' => 'Are you sure you want to remove the row?',
     'LBL_REMOVING_DASHLET' => 'Removing Sugar Dashlet ...',
     'LBL_REMOVED_DASHLET' => 'Sugar Dashlet Removed',
+    'LBL_MAXIMUM_OF' => 'Maximum of ',
+    'LBL_COLUMNS_CAN_BE_DISPLAYED' => ' columns can be displayed.',
+
+    /* Sugar7 Dashboard */
+    'LBL_DASHBOARD_BWC' => 'My Legacy Dashboard',
+    'LBL_DEFAULT_DASHBOARD_TITLE' => 'My Dashboard',
+    'LBL_DEFAULT_HELP_DASHBOARD_TITLE' => 'Help Dashboard',
+    'LBL_DEFAULT_HELP_DASHLET_TITLE' => 'Help Dashlet',
+    'LBL_DEFAULT_HELP_DASHLET_DESC' => 'Help Dashlet provides module and view-specific help.',
+    'LBL_COLLAPSE_ALL' => 'Collapse All',
+    'LBL_EXPAND_ALL' => 'Expand All',
+    'LBL_DASHLET_CONFIG_EDIT_LABEL' => 'Edit',
+    'LBL_DASHLET_REFRESH_LABEL' => 'Refresh',
+    'LBL_DASHLET_REMOVE_LABEL' => 'Remove',
+    'LBL_DASHLET_DROP_HERE' => 'Drop here',
+    'LBL_DASHLET_MINIMIZE_ALL' => 'Close All',
+    'LBL_DASHLET_MAXIMIZE_ALL' => 'Open All',
+    'LBL_DASHLET_MINIMIZE' => 'Close',
+    'LBL_DASHLET_MAXIMIZE' => 'Open',
+    'LBL_DASHLET_CONFIGURE' => 'Configure',
+    'LBL_DASHLET_TOGGLE' => 'Open/Close',
+    'LBL_DASHBOARD_TOGGLE' => 'Open/Close Dashboard',
+
+    'LBL_DASHLET_LISTVIEW_NAME' => 'List View',
+    'LBL_DASHLET_LISTVIEW_DESCRIPTION' => 'Lists records from a particular module according to criteria you define.',
+    'LBL_DASHLET_MODULE_UNAVAILABLE' => 'Data not available. You do not have permission to access this module.' .
+        " \nPlease update or remove this dashlet.",
+    'TPL_DASHLET_MY_MODULE' => 'My {{module}}',
+
+    'LBL_DASHLET_NEWS_NAME' => 'News',
+    'LBL_DASHLET_NEWS_DESCRIPTION' => 'Google News feed for Related Account',
+
+    'LBL_DASHLET_OPPORTUNITY_NAME' => 'Opportunity Metrics',
+    'LBL_DASHLET_OPPORTUNITY_DESCRIPTION' => 'Opportunity Metrics for Related Account.  Requires D&B subscription.',
+    /*DNB Account Create Dashlet*/
+    'LBL_DNB_ACC_CRT' => 'D&B Account Create',
+    'LBL_DNB_ACC_CRT_DESC' => 'Create accounts using D&B. Requires D&B subscription.',
+    'LBL_DNB_SRCH_RES' => 'D&B: Search Results',
+    'LBL_DNB_SRCH_LOAD' => 'Searching D&B',
+    'LBL_DNB_COMP_INFO' => 'D&B: Company Information',
+    'LBL_DNB_COMP_INFO_LOAD' => 'Retrieving D&B company information',
+    'LBL_DNB_CI_CITY' => 'City',
+    'LBL_DNB_CI_STATE' => 'State',
+    'LBL_DNB_CI_STREET' => 'Street',
+    'LBL_DNB_CI_CTRY' => 'Country',
+    'LBL_DNB_CI_POSTAL_CD' => 'Postal Code',
+    'LBL_DNB_BACK_TO_SRCH' => 'Back to D&B search results',
+    'LBL_DNB_CI_SRCH' => 'D&B: Company Search',
+    'LBL_DNB_CI_SRCH_HINT' => 'Enter company name to search D&B',
+
+    /*DNB Company Info Dashlet*/
+    'LBL_DASHLET_COMPANY_INFO' => 'D&B: Import and Enrich',
+    'LBL_DASHLET_COMPANY_INFO_DESC' => 'Enrich existing account with D&B Data. Requires D&B subscription.',
+    'LBL_DASHLET_COMPANY_INFO_LONG_DESC' => 'Keep your account information up-to-date with D&B import and enrich Feature.',
+    'LBL_DNB_NAME'=>'Name',
+    'LBL_DNB_ADDRESS'=>'Address',
+    'LBL_DNB_URL'=>'URL',
+    'LBL_DNB_FOUNDATION_YEAR'=>'Foundation Year',
+    'LBL_DNB_SIC'=>'SIC Code',
+    'LBL_DNB_NAICS'=>'NAICS',
+    'LBL_DNB_OWNERSHIP_TYPE'=>'Ownership Type',
+    'LBL_DNB_LINE_OF_BUSINESS'=>'Line Of Business',
+    'LBL_DNB_FINANCIAL_PERIOD'=>'Financial Period',
+    'LBL_DNB_SALES_REVENUE'=>'Sales Revenue',
+    'LBL_DNB_OVERVIEW'=>'Overview',
+    'LBL_DNB_FINANCIALS'=>'Financials',
+    'LBL_DNB_CM_LOADING' => 'Invoking D&B cleanse match ...',
+    'LBL_DNB_MATCH_GRADE' => 'Match Grade',
+    'LBL_DNB_CONFIDENCE' => 'Confidence',
+    'LBL_DNB_KEYWORD_SEARCH_HINT' => 'Click here to search for company by company name only',
+    'LBL_DNB_COMPANY_INFO_LOADING' => 'Loading company information from D&B ...',
+    'LBL_DNB_SEARCH_LOADING' => 'Searching D&B ...',
+    'LBL_DNB_COUNTRY' => 'Country',
+    'LBL_DNB_STATE' => 'State / Province / Region',
+    'LBL_DNB_CM_MATCH' => 'Match',
+    'LBL_DNB_OUTOFDATE' => 'Out Of Date',
+    'LBL_DNB_OUTOFDATE_MSG' => 'Company information is out of date',
+    'LBL_DNB_UPTODATE_MSG' => 'Company information is up to date',
+    'LBL_DNB_RFR_HINT' => 'Refresh now',
+    'LBL_DNB_UPTODATE' => 'Up to date',
+    'LBL_DNB_RFR_LOADING' => 'D&B refresh check in progress',
+    'LBL_DNB_RFR' => 'Refresh',
+    'LBL_DNB_HIGH_CONF' => 'High Confidence',
+    'LBL_DNB_MED_CONF' => 'Medium Confidence',
+    'LBL_DNB_LOW_CONF' => 'Low Confidence',
+    'LBL_DNB_BACK_TO_IMPORT_ENRICH' => 'Back To Import & Enrich',
+
+    /*DNB Competitors Dashlet*/
+    'LBL_DNB_COMPETITORS'=>'D&B: Competitors',
+    'LBL_DNB_COMPETITORS_LONG_DESC' => 'Find competitors to the current account in order expand your prospects.
+                                        A top competitor designation is assigned by D&B based on analysis of the company and industry in which it operates.
+                                        Public companies frequently identify top competitors in their public filings, which is also taken into consideration. Requires D&B subscription.',
+    'LBL_DNB_LOCATION'=>'Location',
+    'LBL_DNB_SALES'=>'Sales',
+    'LBL_DNB_COMPETITORS_DESC'=>'Competitor information from D&B. Requires D&B subscription.',
+    'LBL_DNB_COMPETITORS_LOADING' => 'Loading competitors from D&B ...',
+    'LBL_DNB_COMPETITORS_TOP' => 'Top Competitor',
+    'LBL_DNB_COMPETITORS_LIST' => 'Back To D&B Competitors List',
+
+    'LBL_DASHLET_NO_RECORDS' => 'No records were found at this time.',
+    'LBL_DASHLET_CASES_SUMMARY_NAME' => 'Case Summary',
+    'LBL_DASHLET_NEWS_FEED_NAME' => 'News Feed',
+    'LBL_DASHLET_ITERACTIONS_NAME' => 'Interactions',
+    'LBL_DASHLET_ATTACHMENTS_NAME' => 'Notes & Attachments',
+    'LBL_DASHLET_ATTACHMENTS_DESCRIPTION' => 'Notes & Attachments belongs to the record',
+    'LBL_DASHLET_PIPLINE_NAME' => 'Pipeline',
+
+    'LBL_DASHLET_RECENT_TWEETS_SUGARCRM_NAME' => 'Recent Tweets - @{{twitter}}',
+
+    'LBL_DASHBOARD_NO_RECORDS' => 'No saved dashboards',
+
+    /*DNB General*/
+    'LBL_DNB_ADMIN_CONFIG' => 'Configure D&B connector',
+    'LBL_DNB_CONFIG' => 'Contact your Administrator to configure D&B connector',
+    'LBL_DNB_NO_DATA' => 'No data available',
+    'LBL_DNB_NO_DUNS' => 'No identifying DUNS',
+    'LBL_DNB_NO_DUNS_FIELD' => 'Warning: The DUNS field is currently not included in the record view layout. Contact your administrator to add it.',
+    'LBL_DNB_NO_SIC_FIELD' => 'Warning: The SIC field is currently not included in the record view layout. Contact your administrator to add it.',
+    'LBL_DNB_NO_INDUSTRY' => 'No linked industry code',
+    'LBL_DNB_SVC_ERR' => 'D&B service error',
+    'LBL_DNB_NOT_CONFIGURED' => 'D&B connector not configured. Please configure the connector.',
+    'LBL_DNB_CONNECTOR_ERR' => 'D&B connector not configured. Contact administrator',
+    'LBL_DNB_DATA_OVERRIDE_SINGLE_FIELD' => 'Do you want to overwrite {{fieldName}} with {{value}} ?',
+    'LBL_DNB_DATA_OVERRIDE_TWO_FIELDS' => 'Do you want to overwrite {{fields}} ?',
+    'LBL_DNB_DATA_OVERRIDE_MULTIPLE_FIELDS' => 'Do you want to overwrite {{fields}} and other field(s) ?',
+    'LBL_DNB_WITH' => ' with ',
+    'LBL_DNB_AND' => 'and',
+    'LBL_DNB_IN' => 'in',
+    'LBL_DNB_FROM' => 'from',
+    'LBL_DNB_OTHER_FIELDS' => ' other field(s)',
+    'LBL_DNB_OTHER' => 'Other',
+    'LBL_DNB_OVERRIDE_SUCCESS' => 'D&B data imported successfully',
+    'LBL_DNB_SHOW_LESS' => 'Show Less',
+    'LBL_DNB_SHOW_MORE' => 'Show More',
+    'LBL_DNB_IMPORT' => 'Import',
+    'LBL_DNB_DUPLICATE' => 'Duplicate',
+    'LBL_DNB_UPLOAD' => 'Upload',
+    'LBL_DNB_MORE_SRCH_RES' => 'Show More D&B Search Results',
+    'LBL_DNB_PRIMARY' => 'Primary',
+    'LBL_DNB_PREMIUM' => 'Premium',
+    'LBL_DNB_DATA_ERR' => 'D&B data not available',
+    'LBL_DNB_SRCH' => 'Search',
+    'LBL_DNB_MILLION' => 'M',
+    'LBL_DNB_CLEAR' => 'Clear',
+    'LBL_DNB_PAGESZ' => 'Page Size',
+    'LBL_DNB_SLCT_STATE' => 'Select A State',
+    'LBL_DNB_SLCT_CTRY' => 'Select A Country',
+    'LBL_DNB_COMPINFO_LONG_DESC' => 'The most efficient way to gain basic marketing information about a potential prospect such as business name, address,
+                                     D&B® D-U-N-S® Number, fax, phone and trade style.
+                                     Includes business intelligence such as executive names and titles, financials, number of employees,
+                                     import or export code, branch indicator, and more. Requires D&B Subscription.',
+    /* For bulk import*/
+    'LBL_DNB_BI_YOU_ADD' => 'You added ',
+    'LBL_DNB_BI_NEW_ACCT' => ' new accounts.',
+    'LBL_DNB_VIEW_ACCT' => 'View Accounts',
+    'LBL_DNB_BI_DUP_MSG' => ' accounts were duplicates and not added',
+    'LBL_DNB_BI_LOADING' => 'Importing D&B Accounts',
+    'LBL_DNB_BI_REC_LIMIT' => 'Maximum of 20 records can be selected to import',
+    'LBL_DNB_BI_ERR' => 'No records were imported.',
+    'LBL_DNB_BI_API_ERR' => 'Error importing records.',
+    'LBL_DNB_BI_NO_SLCT' => 'No Records Selected.',
+
+    /*DNB Errors */
+    'LBL_DNB_ERROR_CURL_RESOLVE_PROXY' => 'Could not resolve proxy. The given proxy host could not be resolved. Please check proxy settings.',
+    'LBL_DNB_ERROR_CURL_RESOLVE_HOST' => 'Could not resolve host. The given remote host was not resolved.',
+    'LBL_DNB_ERROR_CURL_CONNECTION_FAIL' => 'Failed to connect to host or proxy. Please check proxy settings.',
+    'LBL_DNB_ERROR_CURL_NETWORK_FAIL' => 'Failure with receiving network data.' ,
+    'LBL_DNB_UNKNOWN_ERROR' => 'Unknown error. Please check the logs for more details.',
+    'LBL_DNB_EMPTY_PARAM' => 'Empty parameter passed to D&B Duplicate Check API',
+    'LBL_DNB_INVALID_MODULE_NAME' => 'Invalid module name passed to D&B Duplicate Check API',
+    'LBL_DNB_API_ERR' => 'D&B API Error',
+
+    /*DNB Financial Dashlet*/
+    'LBL_DNB_FINANCIAL'=>'D&B: Financial Information',
+    'LBL_DNB_FINANCIAL_DESC'=>'Financial information from D&B. Requires D&B subscription.',
+    'LBL_DNB_FINANCIAL_LONG_DESC' => 'Assess a company’s financial strength with data such as sales volumes, net worth, assets and liabilities. Requires D&B subscription.',
+    'LBL_DNB_FINANCIAL_LOADING' => 'Loading financials from D&B',
+    'LBL_DNB_REC_MARK_ANALYSIS' => 'Recent Market Analysis',
+    'LBL_DNB_FIN_STMT' => 'Annual Income Statements',
+    'LBL_DNB_BASIC_FIN_INF' => 'Basic Financial Information',
+    'LBL_DNB_FIN_COMP_TYPE' => 'Company Type',
+    'LBL_DNB_FIN_STCK_EXCH' => 'Stock Exchange',
+    'LBL_DNB_FIN_STCK_SYM' => 'Stock Ticker Symbol',
+
+    /*DNB Family Tree Dashlet*/
+    'LBL_DNB_FAMILY_TREE'=>'D&B: Family Tree',
+    'LBL_DNB_FAMILY_TREE_DESC'=>'Family tree from D&B. Requires D&B subscription.',
+    'LBL_DNB_FAMILY_TREE_LOADING' => 'Loading family tree from D&B',
+    'LBL_DNB_FAMILY_TREE_BACK' => 'Back To D&B Family Tree',
+
+    /*DNB Industry Info Dashlet*/
+    'LBL_DNB_INDUSTRY_INFO'=>'D&B: Industry Information',
+    'LBL_DNB_INDUSTRY_INFO_DESC'=>'Industry information from D&B. Requires D&B subscription.',
+    'LBL_DNB_INDUSTRY_INFO_LONG_DESC'=>'Stay up-to-date on key trends and opportunities within 900 industry segments. Each industry profile contains analysis, statistics, and forecasts to help you engage prospects, coach clients, and deepen customer relationships.',
+    'LBL_DNB_IND_INF_LOAD' => 'Loading industry information from D&B',
+    'LBL_DNB_INF_INF_OVERVIEW' => 'Overview',
+
+    /*DNB Contacts Dashlet*/
+    'LBL_DNB_CONTACT' => 'D&B: Contact Information',
+    'LBL_DNB_CNTCT_LOADING' => 'Loading contacts from D&B',
+    'LBL_DNB_CONTACT_DESC' => 'Displays contacts from D&B. Requires D&B subscription.',
+    'LBL_DNB_CONTACT_LONG_DESC' => 'D&B Contacts gives you access to over 100M contacts. Search by first name, last name and job title',
+    'LBL_DNB_CONTACT_LOADING' => 'Loading contact details for ',
+    'LBL_DNB_CONTACT_NAME' => 'Name',
+    'LBL_DNB_CONTACT_FNAME' => 'First Name',
+    'LBL_DNB_CONTACT_LNAME' => 'Last Name',
+    'LBL_DNB_CONTACT_JOBTITLE' => 'Job Title',
+    'LBL_DNB_CONTACT_FROM' => 'From',
+    'LBL_DNB_CONTACT_TO' => 'To',
+    'LBL_DNB_CONTACT_EMAIL' => 'Email',
+    'LBL_DNB_CONTACT_PHONE' => 'Phone',
+    'LBL_DNB_CONTACT_RESP' => 'Managment Responsibility',
+    'LBL_DNB_CONTACT_BIO' => 'Bio',
+    'LBL_DNB_CONTACT_JOB_HIST' => 'Job History',
+    'LBL_DNB_CONTACT_COMP_HIST' => 'Compensation History',
+    'LBL_DNB_CONTACT_EMP_PROF' => 'Employee Profile',
+    'LBL_DNB_CONTACT_LIST' => 'Back To D&B Contacts List',
+    'LBL_DNB_CONTACT_SHOW_MORE' => 'Show More D&B Contacts',
+
+    /* D&B Subject Header */
+    'LBL_DNB_SUBJ_HEADER' => 'Subject Header',
+    'LBL_DNB_COMP_SUMM' => 'Company Description',
+    'LBL_DNB_INQ_CNT' => 'Total Inquiries Count',
+    'LBL_DNB_TRNS_DUNS' => 'Transferred DUNS Number',
+    'LBL_DNB_LAST_UPD_DATE' => 'Last Updated Date',
+    'LBL_DNB_MARKET_IND' => 'Marketability Indicator',
+    'LBL_DNB_DUNSSELF_IND' => 'DUNS Self Request Indicator',
+    'LBL_DNB_NONMARK_REAS_TXT' => 'Non Marketable Reason Text',
+    'LBL_DNB_SUBJ_HEADER_DESC' => 'Records high level information about the subject such as the primary language of the subject and the primary currency in which this subject trades. When the subject is an organizantion, this may also include details such as DUNS Number',
+    'LBL_DNB_COMP_SUMM_DESC' => 'Text that records a brief statement or account of this organization',
+    'LBL_DNB_INQ_CNT_DESC' => 'The number of unique subscriber inquiries registered against the subject over the last 12 months',
+    'LBL_DNB_TRNS_DUNS_DESC' => 'This is the D-U-N-S number of the subject that is deleted from the host database',
+    'LBL_DNB_LAST_UPD_DATE_DESC' => "The date when the subject's record was last updated on D&B's system",
+    'LBL_DNB_MARKET_IND_DESC' => 'When true (set to 1) this indicates that the record satisfies D&B marketability rules',
+    'LBL_DNB_DUNSSELF_IND_DESC' => 'Value TRUE indicates that the D-U-N-S Number for this subject was created at the request of the subject',
+    'LBL_DNB_NONMARK_REAS_TXT_DESC' => "Text specifying the reason why the subject's data is not considered marketable by D&B",
+
+    /* D&B Telecommunication */
+    'LBL_DNB_TELECOMM' => 'Telecommunication',
+    'LBL_DNB_PHONE' => 'Phone',
+    'LBL_DNB_FAX' => 'Fax',
+    'LBL_DNB_WEBPAGE' => 'Web Page',
+    'LBL_DNB_TELECOMM_DESC' => 'Records information about the different modes of Telecommunication addresses used by a subject for external contact purposes. The modes of communication include telephone, fax, e-mail, web address',
+    'LBL_DNB_PHONE_DESC' => 'Organization Phone Number',
+    'LBL_DNB_FAX_DESC' => 'Organization Fax Number',
+    'LBL_DNB_WEBPAGE_DESC' => 'Organization Web Page',
+
+    /* D&B Location */
+    'LBL_DNB_LOC' => 'Location',
+    'LBL_DNB_PRIM_STREET' => 'Primary Street Line',
+    'LBL_DNB_PRIM_CITY' => 'Primary City / Town',
+    'LBL_DNB_PRIM_STATE_ABBR' => 'Primary Territory Abbr',
+    'LBL_DNB_PRIM_STATE' => 'Primary Territory',
+    'LBL_DNB_PRIM_CEN_CD' => 'Census Code',
+    'LBL_DNB_PRIM_CTRY_GRP' => 'Country Group',
+    'LBL_DNB_PRIM_ZIP' => 'Primary Zip Code',
+    'LBL_DNB_PRIM_COUNTY_NAME' => 'County Name',
+    'LBL_DNB_PRIM_CTRY_CD' => 'Primary Country Code',
+    'LBL_DNB_MAIL_STREET' => 'Mailing Street Line',
+    'LBL_DNB_MAIL_CITY' => 'Mailing City / Town',
+    'LBL_DNB_MAIL_STATE_ABBR' => 'Mailing Territory Abbr',
+    'LBL_DNB_MAIL_ZIP' => 'Mailing Zip Code',
+    'LBL_DNB_MAIL_CTRY_CD' => 'Mailing Country Code',
+    'LBL_DNB_LAT' => 'Latitude',
+    'LBL_DNB_LONG' => 'Longitude',
+    'LBL_DNB_LOC_DESC' => 'Records the address details for a subject. An address is the designation of a place where a subject can be located or may be communicated with',
+    'LBL_DNB_PRIM_STREET_DESC' => 'Text that records the street address components as it would be presented on an address label',
+    'LBL_DNB_PRIM_CITY_DESC' => 'The name of the town or city recognized by the Postal Authority for delivering mail',
+    'LBL_DNB_PRIM_STATE_ABBR_DESC' => 'The shortened name of the locally governed area which forms part of a centrally governed nation',
+    'LBL_DNB_PRIM_STATE_DESC' => 'The name of the locally governed area which forms part of a centrally governed nation',
+    'LBL_DNB_PRIM_CTRY_CD_DESC' => 'The two-letter country code, defined in the ISO 3166-1 scheme published by International Organization for Standardization (ISO), identifying the country for this address.',
+    'LBL_DNB_PRIM_CTRY_GRP_DESC' => 'Country Group Identifier, eg. North America',
+    'LBL_DNB_PRIM_ZIP_DESC' => 'An identifier used by the local country Postal Authority to identify a particular geographic location',
+    'LBL_DNB_PRIM_COUNTY_NAME_DESC' => 'County Official Name, eg. Michigan',
+    'LBL_DNB_PRIM_CEN_CD_DESC' => 'A Geographical Region with a relatively high population density at its core and close economic ties throughout the area',
+    'LBL_DNB_LAT_DESC' => 'Latitude Coordinate',
+    'LBL_DNB_LONG_DESC' => 'Longitude Coordinate',
+
+
+    /* D&B Organization Name */
+    'LBL_DNB_ORG_NAME' => 'Organization Name',
+    'LBL_DNB_PRIM_NAME' => 'Name',
+    'LBL_DNB_TRD_NAME' => 'Trade Name',
+    'LBL_DNB_ORG_NAME_DESC' => 'Records the different names of the organization by which it is known',
+    'LBL_DNB_PRIM_NAME_DESC' => 'Text recording a name of this organization',
+    'LBL_DNB_TRD_NAME_DESC' => 'Recording of a name which an organization trades under for commercial purposes',
+
+
+    /* D&B Organization Details */
+    'LBL_DNB_ORG_DET' => 'Organization Details',
+    'LBL_DNB_LOCATION_TYPE' => 'Location Type',
+    'LBL_DNB_CNTRL_OWN_DATE' => 'Control Ownership Date',
+    'LBL_DNB_CNTRL_TYP_TEXT' => 'Control Ownership Type',
+    'LBL_DNB_OPERL_STA_TEXT' => 'Operating Status',
+    'LBL_DNB_BONE_ORG_IND' => 'Boneyard Organization Indicator',
+    'LBL_DNB_ORGS_STRT_YEAR' => 'Organization Start Year',
+    'LBL_DNB_FRAN_TYP_TEXT' => 'Franchise Operation Type',
+    'LBL_DNB_ORG_DET_DESC' => 'Records fundamental information about an organization which may vary over time',
+    'LBL_DNB_LOCATION_TYPE_DESC' => 'Text describing the part that the Subject plays as a member of an ownership structured family tree, e.g., a branch, division, a parent, headquarters, subsidiary, global ultimate, domestic ultimate.',
+    'LBL_DNB_CNTRL_OWN_DATE_DESC' => 'The date when the current owners took over this business.',
+    'LBL_DNB_CNTRL_TYP_TEXT_DESC' => 'Text that describes the type of controlling ownership, e.g., publicly owned, privately owned, state owned',
+    'LBL_DNB_OPERL_STA_TEXT_DESC' => "Text describing this organization's functional state / trading status, e.g. active, out of business, dormant",
+    'LBL_DNB_BONE_ORG_IND_DESC' => "When ON (set to 1) it indicates that data on the company is no longer collected and was covered by Hoover's Editorial staff before getting acquired or going out of business",
+    'LBL_DNB_ORGS_STRT_YEAR_DESC' => 'The year when operations undertaken by the organization commenced',
+    'LBL_DNB_FRAN_TYP_TEXT_DESC' => 'Text that denotes whether the franchise rights are operated by a company or directly by the franchisee; i.e. franchisee, franchisor',
+
+    /* D&B Regsitration Details */
+    'LBL_DNB_REG_DET_HED' => 'Registered Details',
+    'LBL_DNB_REG_DET_HED_DESC' => 'Records the constitutional status of a subject as defined under the laws of a country E.g.; Limited Company, Partnership, co-operative Society and the Stock Equity or share structure employed by a business according to the legal form and rules of incorporation. The owners of the stock or shares are the owners of the business.',
+    'LBL_DNB_ORG_ID' => 'Organization Identification Number',
+    'LBL_DNB_ORG_ID_DESC' => 'A number assigned by an external body or by D&B which either uniquely identifies or helps to identify an organization. The issuing organization may be a Registration Authority, Government Department or Commercial Enterprise E.g. Chamber of Commerce numbers, VAT numbers, etc.',
+
+    /* D&B Activities And Operations */
+    'LBL_DNB_ACT_OPER' => 'Activities And Operations',
+    'LBL_DNB_LOB' => 'Line Of Business',
+    'LBL_DNB_IMP_IND' => 'Import Indicator',
+    'LBL_DNB_EXP_IND' => 'Export Indicator',
+    'LBL_DNB_AGENT_IND' => 'Agent Indicator',
+    'LBL_DNB_OPER_TEXT' => 'Operations Text',
+    'LBL_DNB_ACT_OPER_DESC' => 'Records the description of operations continued by a business including market information such as the number of customers, agency details and import/export details',
+    'LBL_DNB_LOB_DESC' => 'Records the textual description of operations continued by a business',
+    'LBL_DNB_IMP_IND_DESC' => 'When true (set to 1) it indicates that the subject company imports a quantity of goods from other countries',
+    'LBL_DNB_EXP_IND_DESC' => 'When true (set to 1) it indicates that the subject company exports a quantity of goods to other countries',
+    'LBL_DNB_AGENT_IND_DESC' => 'When true (set to 1) it indicates that the subject acts as an agent promoting the goods or services of another organization, e.g., Sales Agent, Purchasing Agent',
+    'LBL_DNB_OPER_TEXT_DESC' => 'Text that describes detailed information regarding a business operation',
+
+    /* D&B Employee Information */
+    'LBL_DNB_EMP_INF' => 'Employee Information',
+    'LBL_DNB_IND_EMP_CNT' => 'Individual Employee Count',
+    'LBL_DNB_CON_EMP_CNT' => 'Consolidated Employee Count',
+    'LBL_DNB_EMP_DET' => 'Senior Employee Details',
+    'LBL_DNB_EMP_INF_DESC' => 'Employee information on Organizations like employee count and details of the principal management',
+    'LBL_DNB_IND_EMP_CNT_DESC' => 'Records current employee data to the individual entity. If the organization is classified by D&B as a business',
+    'LBL_DNB_CON_EMP_CNT_DESC' => 'Records current employee data which includes all employees who are engaged in the operations of the legal entity (including employees located at branch locations) as well as all employees who are engaged in the operations of every direct descendant in its family tree (based on controlling interest). I.e. Subsidiaries',
+    'LBL_DNB_EMP_DET_DESC' => 'Details of the Principals (e.g., President, Vice President, Directors) and Managers responsible for the business strategy, decision making and day to day running of the subjects operations. This includes names, addresses and identification numbers of the principals. Whilst a principal will usually be an individual in some countries it is legally acceptable for a registered business entity to act as a principal in another business. This excludes shareholders and similar owners who are not responsible for the management of the organization but includes proprietors and partners who, whilst owners, are also generally the principals running the business.',
+    /* D&B Assesment */
+    'LBL_DNB_ASSESSMENT' => 'Assessment',
+    'LBL_DNB_HIST_RAT' => 'History Rating',
+    'LBL_DNB_CCS' => 'Pre Screen Score',
+    'LBL_DNB_USPAT_SCR' => 'US Patriot Act Compliance Risk Score',
+    'LBL_DNB_TPA' => 'Third Party Assesment',
+    'LBL_DNB_ASSESMENT_DESC' => 'Records insightful and value added information on organizations, such as: - recommendations on how much credit to extend to them, - assessments of their liquidity, - concise evaluations of their performance and behavior, - predictions on the risk of conducting business with them. The predictive scores are usually calculated and assigned by D&B, but such assessments may also be recorded when assigned by third parties.',
+    'LBL_DNB_HIST_RAT_DESC' => 'Text that specifies if D&B has any information that may reflect unfavorably on this organization, e.g., clear, incomplete, management, business.',
+    'LBL_DNB_CCS_DESC' => 'Recording of the most recent risk scores that are assigned to this organization on a given date/time using a scoring model that help predict the likelihood that the organization will pay its bills in a severely delinquent manner (90+ days past due) over the next 12 months',
+    'LBL_DNB_USPAT_SCR_DESC' => 'The compliance risk index is intended to provide organisations subject to the USA Patriot Act with an additional tool in performing compliance risk based assessment of trading partners. The Index is a numeric value that represents an aggregation of weighted risk flags, assigned through a proprietary rules based algorithm. Values range form 0 to ~255. Higher Index values represent a higher perceived level of risk',
+    'LBL_DNB_TPA_DESC' => 'Appraisals/opinions assigned to this Subject by an entity other than the D&B Worldwide Network (WWN)',
+
+    /* D&B Socio Economic Identification */
+    'LBL_DNB_SOCIO_IND' => 'Socioeconomic Identification',
+    'LBL_DNB_MIN_IND' => 'Minority Owned Indicator',
+    'LBL_DNB_SMB_IND' => 'Small Business Indicator',
+    'LBL_DNB_ETHN' => 'Owner Ethnicity',
+    'LBL_DNB_FEM_IND' => 'Female Owned Indicator',
+    'LBL_DNB_SMBDISADV_IND' => 'Small Disadvantaged Business',
+    'LBL_DNB_ALASNAT_IND' => 'Alaskan Native Indicator',
+    'LBL_DNB_SMB_CERT' => 'Certified Small Business Indicator',
+    'LBL_DNB_MIN_COLL' => 'Minority College Indicator',
+    'LBL_DNB_DISAB_IND' => 'Disabled Indicator',
+    'LBL_DNB_SVC_DISAB_VET' => 'Service Disabled Veteran Indicator',
+    'LBL_DNB_VIET_VET' => 'Vietnam Veteran Indicator',
+    'LBL_DNB_AIRPRT_DISADV_ENT' => 'Airport Concession Disadvantaged Business Enterprise Indicator',
+    'LBL_DNB_DISAB_VET_ENT' => 'Disabled Veteran Enterprise Indicator',
+    'LBL_DNB_DISADV_ENT' => 'Disadvantaged Enterprise Indicator',
+    'LBL_DNB_DISADV_VET_ENT' => 'Disadvantaged Veteran Enterprise Indicator',
+    'LBL_DNB_MIN_ENT' => 'Minority Enterprise Indicator',
+    'LBL_DNB_FEM_ENT' => 'Female Enterprise Indicator',
+    'LBL_DNB_HUB_CRT' => 'Hub Zone Certified Indicator',
+    'LBL_DNB_EIGHTA_CRT' => 'Eight A Certified Indicator',
+    'LBL_DNB_VET_IND' => 'Veteran Indicator',
+    'LBL_DNB_LS_IND' => 'Labor Surplus Indicator',
+    'LBL_DNB_VET_ENT' => 'Veteran Enterprise Indicator',
+    'LBL_DNB_SOCIO_IND_DESC' => "Records information about subjects' categorization into Socio Economic or Statistical groups",
+    'LBL_DNB_MIN_IND_DESC' => 'Value TRUE indicates that this organization is certified as a business that is greater than 50% owned by, and whose management and daily business operations are controlled by, one or more minority group members',
+    'LBL_DNB_SMB_IND_DESC' => 'Value TRUE indicates that this organization is certified as a small business. A small business is an entity that is usually privately owned and operated, with a small number of employees and relatively low volume of sales. Small businesses are normally privately owned corporations, partnerships, or sole proprietorships. The legal definition of small" varies by country and by industry',
+    'LBL_DNB_ETHN_DESC' => "Uniquely identifies the ethnic classification that's applied to this organization based on the racial, national, tribal, or cultural group that describes a majority of its ownership, e.g., Asian, Hispanic, African American (Black)",
+    'LBL_DNB_FEM_IND_DESC' => 'Value TRUE indicates that this organization is certified as a business that is greater than 50% owned by, and whose management and daily business operations are controlled by, one or more female persons',
+    'LBL_DNB_SMBDISADV_IND_DESC' => 'Value TRUE indicates that this organization is certified as a business that is greater than 50% owned by, and whose management and daily business operations are controlled by, socially and economically disadvantaged persons',
+    'LBL_DNB_ALASNAT_IND_DESC' => 'Value TRUE indicates that the tribe is an Alaskan Native Corporation',
+    'LBL_DNB_SMB_CERT_DESC' => 'Value TRUE indicates that the business is small, certified by a federal, state or local government agency or organization as having met all of the government standards that award eligibility',
+    'LBL_DNB_MIN_COLL_DESC' => "Value TRUE indicates that this organization is a college or university where the profile of the majority of students is of minority ethnicity. For example, if maximum percentage of students in a college or university are from black ethnicity, this would be a 'Minority College' with black ethnicity type",
+    'LBL_DNB_DISAB_IND_DESC' => 'Value TRUE indicates that this organization is certified as a business that is greater than 50% owned by, and whose management and daily business operations are controlled by, one or more persons who have a condition which prevents the person from performing all usual physical or mental functions',
+    'LBL_DNB_SVC_DISAB_VET_DESC' => 'Value TRUE indicates that the business is at least 51% owned by one or more veterans with a disability that is service connected. The term “service connected” means, with respect to disability or death, that such disability was incurred or aggravated, in the line of duty in the active military, naval or air service',
+    'LBL_DNB_VIET_VET_DESC' => 'Value TRUE indicates that the business is a least 51% owned by one or more Vietnam Veterans who served between 1/1/59 and 5/7/75 and have control and operate the business. Control in this context means exercising the power to make policy decisions and operate means to be actively involved in the day-to-day management of the business',
+    'LBL_DNB_AIRPRT_DISADV_ENT_DESC' => "Value TRUE indicates that the business operates as a concessionaire at one of the nation's airports and meets the ownership eligibility requirements as set forth by the regulations outlined in 49 CFR Part 23",
+    'LBL_DNB_DISAB_VET_ENT_DESC' => "Value TRUE indicates that the business is recognized by the state of California, meaning a veteran of the U.S. military, naval, or air service, with a service-connected disability of at least 10% or more and who is a California resident; where at least 51% is owned by disabled veteran/s and conducts daily business management and control. The home office can not be a branch or subsidiary of a foreign corporation, foreign firm or other foreign-based business",
+    'LBL_DNB_DISADV_ENT_DESC' => "Value TRUE indicates that the business is certified by a federal, state or local government agency as having met all of the government standards that award eligibility, but may include women, minority, disabled and other disadvantaged businesses as a result of economic disadvantages with respect to education, employment, residence or business location or social disadvantage and lack of business training",
+    'LBL_DNB_DISADV_VET_ENT_DESC' => "Value TRUE indicates that the business is a small business concern owned and controlled by veterans, where not less than 51% is owned controlled and managed by veterans",
+    'LBL_DNB_MIN_ENT_DESC' => 'Value TRUE indicates that the business is certified by a federal, state or local government agency through an application and/or premise visit process as having met all of the government standards and requirements',
+    'LBL_DNB_FEM_ENT_DESC' => 'Value TRUE indicates the business is certified by a federal, state or local government agency as having met all of the government standards and requirements',
+    'LBL_DNB_HUB_CRT_DESC' => "Value TRUE indicates that this organization is certified by the US Small Business Administration as being a recipient of the HUB Zone program. A small business must meet all of the following criteria to qualify for the HUB Zone program: It must be located in a 'historically underutilized business zone'. It must be owned and controlled by one or more U.S Citizens. Greater than 35% of its employees must reside in a HUBZone. A HUBZone (Historically Underutilized Business Zone) is an area that is located in one or more of the following - a) A qualified census tract (as defined in section 42(d)(5)(C)(i)(I) of the Internal Revenue Code of 1986). b) A qualified 'non-metropolitan county' (as defined in section 143(k)(2)(B) of the Internal Revenue Code of 1986) with a median household income of less than 80% of the State median household income or with an unemployment rate of not less than 140% of the statewide average, based on U.S. Department of Labor recent data. c) Lands within the boundaries of federally recognized Indian reservations",
+    'LBL_DNB_EIGHTA_CRT_DESC' => 'Value TRUE indicates that this organization is certified by the US Small Business Administration as being a recipient of the 8(a) Business Development Program, a business development program created to help small disadvantaged businesses compete in the American economy and access the federal procurement market',
+    'LBL_DNB_VET_IND_DESC' => 'Value TRUE indicates that this organization is certified as a business that is greater than 50% owned by, and whose management and daily business operations are controlled by, one or more veterans. A veteran refers to a person who served in the active military, naval, or air service, and who was discharged or released therefrom under conditions other than dishonorable',
+    'LBL_DNB_LS_IND_DESC' => 'Value TRUE indicates that this organization is certified as a business that operates in a labor surplus area. A labor surplus area is a geographical area identified by the Department of Labor, as an area of concentrated unemployment or underemployment or an area of labor surplus',
+    'LBL_DNB_VET_ENT_DESC' => 'Value TRUE indicates that the business falls under SBA Guidelines Small Business Act (PL 85-536), which as amended states: Small Business Concerns owned and controlled by veterans not less than 51% owned by one or more veterans and in the case of a publicly owned business not less than 51% of the stock is owned by one or more veterans',
+
+    /* D&B Industry Information */
+    'LBL_DNB_IND_CD_HED' => 'Industry Information',
+    'LBL_DNB_IND_CD' => 'Industry Codes',
+    'LBL_DNB_IND_CD_HED_DESC' => 'Records the business activities in which an organization is actively engaged using standardized coding schemes such as European NACE and U.S. Standard Industry Classifications (SIC). Examples of business activities are: commercial printing, legal services, drug store, sheet metalwork fabricator',
+    'LBL_DNB_IND_CD_DESC' => 'An alphanumeric value identifying a business activity based on the scheme specified by the typeText. For instance, 1611 represents the highway and street construction industry in the U.S. SIC (Standard Industrial Classification) system. Clarification Note: These are generally external codes created by an external authoritative body, like the U.S. Office of Management and Budget (OMB), but D&B may have created extensions to more precisely define an activity, as in the case of the SIC 2+2 (the last 4 digits of an 8-digit SIC)',
+
+
+    /* D&B Company Information Basic */
+    'LBL_DNB_LITE_COMPANY_INFO' => 'D&B: Company Information - Basic',
+    'LBL_DNB_LITE_COMPANY_INFO_DESC' => 'Basic company information from D&B. Requires D&B subscription.',
+    'LBL_DNB_ANNUAL_SALES_US_DOLLAR' => 'Annual Sales',
+    'LBL_DNB_GEOGRAPHICAL_NAME' => 'Geographical Precision Text',
+    'LBL_DNB_METROPOLITAN_STAT_CODE' => 'Metropolitan Statistical Area US Census Code',
+    'LBL_DNB_LITE_COMPANY_INFO_LOADING' => 'Loading basic company information from D&B...',
+
+    /*DNB Standard Company Info Dashlet*/
+    'LBL_DNB_STD_COMPANY_INFO_LOADING' => 'Loading standard company information from D&B ...',
+    'LBL_DNB_STD_COMPANY_INFO'=>'D&B: Company Information - Standard',
+    'LBL_DNB_STD_COMPANY_INFO_DESC'=>'Standard company information From D&B. Requires D&B subscription.',
+    'LBL_DNB_DUNS' => 'DUNS',
+    'LBL_DNB_TF_DUNS' => 'Transfered DUNS Number',
+    'LBL_DNB_TOTAL_INQUIRY_COUNT' => 'Total Inquiry Count',
+    'LBL_DNB_MARKETABILITY_INDICATOR' => 'Marketability Indicator',
+    'LBL_DNB_NON_MARKETABILITY_INDICATOR' => 'NonMarketable Reason Text',
+    'LBL_DNB_LAST_UPDATE' => 'Last Update',
+    'LBL_DNB_SUMMARY' => 'Summary',
+    'LBL_DNB_STREET_ADDRESSLINE' => 'Street Addressline',
+    'LBL_DNB_TERRITORY_ABBREVIATED_NAME' => 'Territory Abbreviated Name',
+    'LBL_DNB_FACSIMILE_NUMBER' => 'FacsimileNumber Number',
+    'LBL_DNB_INT_DIALLING_CODE' => 'Int Dialling Code',
+    'LBL_DNB_ORGANISATION_IDENTIFICATION_NUMBER' => 'Organisation Identification Number',
+    'LBL_DNB_ORGANISATION_IDENTIFICATION_START_DATE' => 'Organisation Identification Start Date',
+    'LBL_DNB_STOCK_EXCHANGE_COUNTRY_ISO_ALPHA_CODE' => 'Stock Exchange Country ISO Alpha Code',
+    'LBL_DNB_IMPORT_DETAILS_' => 'Import Details ',
+    'LBL_DNB_AGENT_INDICATOR' => 'Agent Indicator',
+    'LBL_DNB_REGISTERED_ADDRESS_INDICATOR' => 'Registered Address Indicator',
+    'LBL_DNB_DNB_CODE_VALUE' => 'DNB Code Value',
+    'LBL_DNB_FILLING_ORGANISATION_NAME' => 'Filling Organisation Name',
+    'LBL_DNB_IMPORT_DETAILS_INDICATOR' => 'Import Details Indicator',
+    'LBL_DNB_ASSOCIATE' => 'Associate',
+    'LBL_DNB_SENIOR_PRINCIPAL' => 'Senior Member',
+    'LBL_DNB_RATING' => 'Rating',
+    'LBL_DNB_SOCIO_INDICATOR' => 'Socio Economic Indicator',
+    'LBL_DNB_ASSESMENT' => 'D&B Assesment',
+
+    /*DNB Company Premium Info */
+    'LBL_DNB_PREMIUM_COMPANY_INFO_LOADING' => 'Loading premium company information from D&B ...',
+    'LBL_DNB_PREMIUM_COMPANY_INFO'  =>  'D&B: Company Information - Premium',
+    'LBL_DNB_PREMIUM_COMPANY_INFO_DESC'  =>  'D&B premium company information. Requires D&B subscription.',
+    'LBL_DNB_TRANSFERRED_FROM_DUNS_NUMBER' => 'Transferred From DUNS Number',
+    'LBL_DNB_TOTAL_ENQUIERY_COUNT' => 'Total Enquiry Count',
+    'LBL_DNB_LAST_UPDATE_DATE' => 'Last Update Date',
+    'LBL_DNB_SELF_REQUEST_INDICATOR' => 'Self Request Indicator',
+    'LBL_DNB_PRIMARY_TOWN' => 'Primary Town',
+    'LBL_DNB_COUNTRY_OFFICIAL_NAME' => 'Country Official Name',
+    'LBL_DNB_PRIMARY_ADDRESS_POSTAL_CODE' => 'Primary Address Postal Code',
+    'LBL_DNB_TERRITORY_OFFICIAL_NAME' => 'Territory Official Name',
+    'LBL_DNB_TERRITORY_ABBREVATIVE_NAME' => 'Territory Abbrevative Name',
+    'LBL_DNB_UNDELIVERABLE_INDICATOR' => 'Undeliverable Indicator',
+    'LBL_DNB_ADDRESS_TENURE_DETAILS' => 'Address Tenure Details',
+    'LBL_DNB_RESIDENTIAL_ADDRESS_INDICATOR' => 'Residential Address Indicator',
+    'LBL_DNB_COUNTRY_GROUP_NAME' => 'Country Group Name',
+    'LBL_DNB_PREMISES_AREA_MEASUREMENT' => 'Premises Area Measurement',
+    'LBL_DNB_MEASUREMENT_RELIABILITY_TEXT' => 'Measurement Reliability Text',
+    'LBL_DNB_MEASUREMENT_UNIT_TEXT' => 'Measurement Unit Text',
+    'LBL_DNB_LATITUDE_MEASUREMENT' => 'Latitude Measurement',
+    'LBL_DNB_LONGITUDE_MEASUREMENT' => 'Longitude Measurement',
+    'LBL_DNB_TELECOMMUNICATION_NUMBER' => 'Telecommunication Number',
+    'LBL_DNB_INTERNATIONAL_DIALLING_CODE' => 'International Dialling Code',
+    'LBL_DNB_UNREACHABLE_INDICATOR' => 'Unreachable Indicator',
+    'LBL_DNB_WEBPAGE_ADDRESS' => 'Webpage Address',
+    'LBL_DNB_CURRENCY_ISO_ALPHA_CODE' => 'Currency ISO Alpha Code',
+    'LBL_DNB_SALES_REVENUE_AMOUNT' => 'Sales Revenue Amount',
+    'LBL_DNB_EMPLOYEE_QUANTITY_GROWTH' => 'Employee Quantity Growth',
+    'LBL_DNB_FINANCIAL_DESCRIPTION' => 'Financial Description',
+    'LBL_DNB_FINANCIAL_RATIO' => 'Financial Ratio',
+    'LBL_DNB_ORGANIZATION_NAME' => 'Organization Name',
+    'LBL_DNB_TRADE_STYLE_NAME' => 'Trade Style Name',
+    'LBL_DNB_FAMILY_TREE_MEMBER_ROLE_TEXT' => 'Family Tree Member Role Text',
+    'LBL_DNB_STAND_ALONE_ORGANIZATION_INDICATOR' => 'Stand Alone Organization Indicator',
+    'LBL_DNB_CONTROL_OWNERSHIP_DATE' => 'Control Ownership Date',
+    'LBL_DNB_CONTROL_OWNERSHIP_TYPE_TEXT' => 'Control Ownership Type Text',
+    'LBL_DNB_OPERATING_STATUS_TEXT' => 'Operating Status Text',
+    'LBL_DNB_ORGANIZATION_START_DATE' => 'Organization Start Date',
+    'LBL_DNB_INCORPORATION_YEAR' => 'Incorporation Year',
+    'LBL_DNB_ORGANIZATION_IDENTIFICATION_NUMBER' => 'Organization Identification Number',
+    'LBL_DNB_STREET_ADDRESS_LINE_TEXT' => 'Street Address Line Text',
+    'LBL_DNB_PRIMARY_TOWN_NAME' => 'Primary Town Name',
+    'LBL_DNB_REGISTRATION_LOCATION_POSTAL_CODE' => 'Registration Location Postal Code',
+    'LBL_DNB_ORGANIZATION_FILLING_NAME' => 'Organization Filling Name',
+    'LBL_DNB_REGISTRATION_ISSUER_NAME' => 'Registration Issuer Name',
+    'LBL_DNB_ORGANIZATION_DISPLAY_SEQUENCE' => 'Organization Display Sequence',
+    'LBL_DNB_ASSIGNMENT_METHOD_TEXT' => 'Assignment Method Text',
+    'LBL_DNB_STOCK_EXCHANGE_NAME' => 'Stock Exchange Name',
+    'LBL_DNB_STOCK_EXCHANGE_TICKER_NAME' => 'Stock Exchange Ticker Name',
+    'LBL_DNB_INDUSTRY_CODE' => 'Industry Code',
+    'LBL_DNB_STOCK_EXCHANGE_ISO_CODE' => 'Stock Exchange ISO Code',
+    'LBL_DNB_INDUSTRY_CODE_DESCRIPTION' => 'Industry Code Description',
+    'LBL_DNB_INDUSTRY_CODE_DISPLAY_SEQUENCE' => 'Industry Code Display Sequence',
+    'LBL_DNB_LINE_OF_BUSINESS_DESCRIPTION' => 'Line of Business Description',
+    'LBL_DNB_IMPORT_DETAILS_INDICATOR' => 'Import Details Indicator',
+    'LBL_DNB_EXPORT_DETAILS_INDICATOR' => 'Export Details Indicator',
+    'LBL_DNB_SUBAGENT_INDICATOR' => 'Subagent Indicator',
+    'LBL_DNB_TOTAL_EMPLOYEE_QUANTITY' => 'Total Employee Quantity',
+    'LBL_DNB_RELIABILITY_TEXT' => 'Reliability Text',
+    'LBL_DNB_HISTORY_RATING_TEXT' => 'History Rating',
+    'LBL_DNB_RISK_CLASS' => 'Risk Class',
+    'LBL_DNB_PRINCIPAL_IDENTIFICATION_NUMBER' => 'Principal Identification Number',
+    'LBL_DNB_JOB_TITLE_TEXT' => 'Job Title',
+    'LBL_DNB_CURRENT_PRINCIPAL_IDENTIFICATION_NUMBER' => 'Current Principal Identification Number',
+    'LBL_DNB_CURRENT_PRINCIPAL_FULL_NAME' => 'Current Principal Full Name',
+    'LBL_DNB_CURRENT_PRINCIPAL_JOB_TITLE' => 'Current Principal Job Title',
+    'LBL_DNB_MINORITY_OWNER_INDICATOR' => 'Minority Owned',
+    'LBL_DNB_SMALL_BUSINESS_INDICATOR' => 'Small Business',
+    'LBL_DNB_ETHNICITY_TYPE_TEXT' => 'Ethnicity Type Text',
+    'LBL_DNB_ASSESMENT_VALUE' => 'Assesment Value',
+    'LBL_DNB_ASSESMENT_TYPE_VALUE' => 'Assesment Type Value',
+    'LBL_DNB_FAMILY_TREE_MEMBER_ROLE' => 'Family Tree Member Role Text',
+
+    /*D&B News Dashlet*/
+    'LBL_DNB_NEWS_AND_MEDIA' => 'D&B: News',
+    'LBL_DNB_NEWS' => 'News',
+    'LBL_DNB_SOCIAL' => 'Social Media',
+    'LBL_DNB_NEWS_AND_MEDIA_DESC' => 'Fetches news from D&B Sservices. Requires D&B subscription.',
+    'LBL_DNB_NEWS_AND_MEDIA_LONG_DESC' => 'Get the complete view of your client with D&B News and Social! Use the power of the DUNSright process to ensure that you are pulling from the right news sources and social handles. Requires D&B Subscription.',
+    'LBL_DNB_NEWS_AND_MEDIA_LOADING' => 'Loading news and social media from D&B',
+    'LBL_DNB_NEWS_AND_MEDIA_MORE' => 'Read More',
+    'LBL_DNB_NEWS_FACEBOOK' => 'Facebook',
+    'LBL_DNB_NEWS_TWITTER' => 'Twitter',
+    'LBL_DNB_NEWS_YOUTUBE' => 'YouTube',
+    'LBL_DNB_NEWS_WIKI' => 'Wikipedia',
+
+    /* D&B Build A List */
+    'LBL_DNB_BAL_RSLT' => 'D&B: Build A List Preview',
+    'LBL_BAL' => 'Build A List',
+    'LBL_DNB_BAL' => 'D&B Build A List',
+    'LBL_DNB_BAL_ACCT_HEADER' => 'Accounts',
+    'LBL_DNB_BAL_LIST' => 'Back To D&B Build A List Results',
+    'LBL_DNB_BAL_HINT' => 'Choose crtieria to build a list',
+    'LBL_DNB_BAL_PARAM_COMP' => 'Company Location',
+    'LBL_DNB_BAL_PARAM_STATES' => 'States',
+    'LBL_DNB_BAL_LOAD' => 'Building list',
+    'LBL_DNB_BAL_LTE' => 'Less than or Equal to',
+    'LBL_DNB_BAL_GTE' => 'Greater than or Equal to',
+    'LBL_DNB_BAL_BTW' => 'Between',
+    'LBL_DNB_BAL_PARAM_COMP_SZ' => 'Company Size',
+    'LBL_DNB_BAL_PARAM_ANNL_SALES' => 'Annual Sales',
+    'LBL_DNB_BAL_PARAM_NUM_EMP' => 'Employee Count',
+    'LBL_DNB_BAL_PARAM_EMP_GRWT' => 'Total Employee Growth %',
+    'LBL_DNB_BAL_PARAM_MRKT_CAP' => 'Market Cap',
+    'LBL_DNB_BAL_PARAM_LIMIT_ERR' => 'Maximum criteria limit reached. Please clear previously entered parameters',
+    'LBL_DNB_BAL_PARAM_EMP_CNT' => 'Number of Employees',
+    'LBL_DNB_BAL_SINGLE_SITE' => 'Single Site',
+    'LBL_DNB_BAL_ALL_SITE' => 'All Sites',
+    'LBL_DNB_BAL_PARAM_EMP_GRWTH' => 'Total Employee Growth %',
+    'LBL_DNB_BAL_PARAM_MKT_CAP' => 'Market Cap',
+    'LBL_DNB_BAL_AREA_CODE' => 'Area Code',
+    'LBL_DNB_BAL_POSTAL_CODE' => 'Zip/Postal Code',
+    'LBL_DNB_BAL_PARAM_COMP_INFORMATION' => 'Company Information',
+    'LBL_DNB_BAL_YEAR_OF_FOUNDING' => 'Year of Founding',
+    'LBL_DNB_BAL_DUNS' => 'DUNS',
+    'LBL_DNB_BAL_UK_REG_NO' => 'UK Reg. No.',
+    'LBL_DNB_BAL_UK_VAT_NO' => 'UK VAT No.',
+    'LBL_DNB_BAL_INDUSTRY' => 'Industry',
+    'LBL_DNB_BAL_IND_CODE_TYPE' => 'Industry Code Type',
+    'LBL_DNB_BAL_SIC' => 'SIC Code',
+    'LBL_DNB_BAL_NAICS' => 'NAICS Code',
+    'LBL_DNB_BAL_SIC_NAICS_EXAMPLE' => 'Ex: SIC Codes :  5734 ->  Computer & Software Stores , 3711 -> Automobile Manufacturing ',
+    'LBL_DNB_BAL_IND_CODE_TYPE_PRI_SEC' => 'Include Primary/Secondary',
+    'LBL_DNB_BAL_PRIMARY_ONLY' => 'Primary Only',
+    'LBL_DNB_BAL_PRIMARY_SECONDARY' => 'Primary and Secondary',
+    'LBL_DNB_BAL_FINANCIAL_INFO' => 'Financial Information',
+    'LBL_DNB_BAL_NET_INCOME' => 'Net Income',
+    'LBL_DNB_BAL_NET_INCOME_GROWTH' => 'Net Income Growth',
+    'LBL_DNB_BAL_ASSETS' => 'Assets',
+    'LBL_DNB_BAL_IPO_DATA' => 'IPO Data',
+    'LBL_DNB_BAL_IPO_OFFER_AMT' => 'IPO Offer Amount',
+    'LBL_DNB_BAL_IPO_PRICE_RANGE' => 'IPO Price Range',
+    'LBL_DNB_IPO_DATE' => 'IPO Date',
+    'LBL_DNB_BAL_BEFORE' => 'Before',
+    'LBL_DNB_BAL_AFTER' => 'After',
+    'LBL_DNB_BAL_FILING_DATE' => 'Filing Date',
+    'LBL_DNB_BAL_TRADING_DATE' => 'Trading Date',
+    'LBL_DNB_BAL_INDUSTRY_WARN' => 'Switching industry types will clear previously selected industry criteria. Do you want to change the Industry Code Type ?',
+    'LBL_DNB_BAL_RADIUS_SRCH' => 'Radius Search',
+    'LBL_DNB_BAL_DISTANCE' => 'Distance',
+    'LBL_DNB_BAL_MILES' => 'Miles',
+    'LBL_DNB_BAL_KM' => 'KM',
+    'LBL_DNB_BAL_ZIP' => 'ZIP',
+    'LBL_DNB_BAL_PARAM_PEOPLE' => 'People',
+    'LBL_DNB_BAL_PARAM_JOB_FN' => 'Job Function',
+    'LBL_DNB_BAL_PARAM_KEYWORD' => 'Keyword',
+    'LBL_DNB_BAL_TITLE' => 'Title',
+    'LBL_DNB_BAL_BIO' => 'Bio',
+    'LBL_DNB_BAL_BOTH' => 'Both',
+    'LBL_DNB_BAL_PRESCREEN_SCORE' => 'D&B Prescreen Score',
+    'LBL_DNB_BAL_LOW' => 'Low',
+    'LBL_DNB_BAL_MED' => 'Medium',
+    'LBL_DNB_BAL_HIGH' => 'High',
+    'LBL_DNB_BAL_ORG_ID' => 'Organization Identification #',
+    'LBL_DNB_BAL_JOBCD_PH' => 'Select Job Function',
+    'LBL_DNB_BAL_ORG_NAME' => 'Organization Name',
+    'LBL_DNB_BAL_IMPORT_AS' => 'Import As:',
+    'LBL_DNB_BAL_ORG_NAME' => 'Company Name',
+
+    /*Tool tips for BAL*/
+    'LBL_TT_DNB_BAL_MILLIONS' => 'in $USD Millions',
+    'LBL_TT_DNB_BAL_STATES' => 'State/Province/Region',
+    'LBL_TT_DNB_BAL_AREA_CODE' => 'US and Canadian phone area codes. Example: 512 or 732 or 973',
+    'LBL_TT_DNB_BAL_POSTAL_CODE' => 'US ZIP code ranges are supported.  Examples: 78701 or SW1P 1JA or SWW1, or 78701-78752',
+    'LBL_TT_DNB_BAL_RADIUS_SRCH' => 'Search for results within a given distance of a single ZIP/Postal Code',
+    'LBL_TT_DNB_BAL_IND_CODE' => '2 to 8 digit SIC codes are supported OR 2 to 6 digit NAICS codes are supported.  Separate multiple codes by comma.',
+    'LBL_TT_DNB_BAL_CODE_TYPE' => 'Select industry code type: SIC or NAICS',
+    'LBL_TT_DNB_BAL_YEAR_OF_FOUNDING' => 'Examples: 1964 or 2009. Only one Year of Founding can be added.',
+    'LBL_TT_DNB_BAL_PRESCREEN_SCORE' => 'Select risk level: High, Medium, or Low',
+    'LBL_TT_DNB_BAL_DUNS' => 'Enter 9 digit DUNS® number.  Example:  060704780, 047897855',
+    'LBL_TT_DNB_BAL_ORGID' => 'Registration #. Example: 130871985, 160468020',
+    'LBL_TT_DNB_BAL_MILLIONS_EX' => 'In $USD Millions. Example: 100 or 4.3',
+    'LBL_TT_DNB_BAL_NET_INCOME_GROWTH' => 'Percentage (%)',
+    'LBL_TT_DNB_BAL_IPO_PRICE_RANGE' => 'In $USD. Example: IPO Price Range 2.00 to 2.50',
+    'LBL_TT_DNB_BAL_ORG_NAME' => 'Enter Company Name',
+
+    /* D&B BAL Validation Messages */
+    'ERR_DNB_BAL_COMPARISON' => 'Error. Lower limit must be less than upper limit',
+
+    /* Twitter Dashlet */
+    'LBL_TWITTER_REPLY' => 'Reply',
+    'LBL_TWITTER_RETWEET' => 'Retweet',
+    'LBL_TWITTER_FAVORITE' => 'Favorite',
+    'LBL_TWITTER_FOLLOW' => 'Follow',
+    'LBL_TWITTER_DESCRIPTION' => 'See matching twitter user\'s bio and tweets, retweet, and reply to tweets',
+    'LBL_TWITTER_ID' =>  'Twitter ID',
+    'LBL_TWITTER_DISPLAY_ROWS' => 'Display Rows',
+    'LBL_TWITTER_MY_ACCOUNT' => 'My Account',
+    'LBL_TWITTER_NAME' => 'Twitter',
+    'LBL_TWITTER_SOURCE' => 'Source Tweet:',
+
+    /* Learning Resources Dashlet */
+    'LBL_LEARNING_RESOURCES_TITLE' => 'Learning Resources',
+    'LBL_LEARNING_RESOURCES_DESC' => 'SugarCRM Learning Resources',
+    'LBL_LEARNING_RESOURCES_NAME' => 'Learning Resources',
+    'LBL_LEARNING_RESOURCES_SUGAR_UNIVERSITY_LINK' => 'Sugar University',
+    'LBL_LEARNING_RESOURCES_SUGAR_UNIVERSITY_TEASER' => 'Become a Sugar expert with upgrade training, videos, classes, webinars, and certification.',
+    'LBL_LEARNING_RESOURCES_COMMUNITY_LINK' => 'Community Forums',
+    'LBL_LEARNING_RESOURCES_COMMUNITY_TEASER' => 'Join the discussion, problem solve, and share ideas with other users.',
+    'LBL_LEARNING_RESOURCES_SUPPORT_LINK' => 'Documentation & Support',
+    'LBL_LEARNING_RESOURCES_SUPPORT_TEASER' => 'Learn the details of how Sugar works and engage with support.',
+
+    /* Country Chart Dashlet */
+    'LBL_DASHLET_COUNTRY_CHART_NAME' => 'Sales by Country',
+    'LBL_DASHLET_COUNTRY_CHART_DESCRIPTION' => 'Displays the sales chart by country map.',
 
     // MySugar Menu Options
     'LBL_ADD_PAGE' => 'Add Page',
@@ -2595,6 +3776,7 @@ $app_strings = array (
     'LBL_NO_IMAGE' => 'No Image',
 
     'LBL_MODULE' => 'Module',
+    'LBL_RELATIONSHIP' => 'Relationship',
 
     //adding a label for address copy from left
     'LBL_COPY_ADDRESS_FROM_LEFT' => 'Copy address from left:',
@@ -2613,10 +3795,11 @@ $app_strings = array (
     'ERR_STORE_FILE_MISSING' => 'Error: Unable to find Store implementation file',
 
     'LBL_MONITOR_ID' => 'Monitor Id',
-    'LBL_TEAM_ID' => 'Team id',
+    'LBL_TEAM_ID' => 'Team ID',
     'LBL_SELECT_MODULE' => 'Select a module:',
     'LBL_USER_ID' => 'User Id',
     'LBL_MODULE_NAME' => 'Module Name',
+    'LBL_MODULE_ALL' => 'All',
     'LBL_ITEM_ID' => 'Item Id',
     'LBL_ITEM_SUMMARY' => 'Item Summary',
     'LBL_ACTION' => 'Action',
@@ -2687,8 +3870,6 @@ $app_strings = array (
     'LBL_MASSUPDATE_DATE' => 'Select Date',
 
     'LBL_VALIDATE_RANGE' => 'is not within the valid range',
-    'LBL_CHOOSE_START_AND_END_DATES' => 'Please choose both a starting and ending date range',
-    'LBL_CHOOSE_START_AND_END_ENTRIES' => 'Please choose both starting and ending range entries',
 
     //jchi #  20776
     'LBL_DROPDOWN_LIST_ALL' => 'All',
@@ -2701,12 +3882,19 @@ $app_strings = array (
     'ERR_CONNECTOR_FILL_BEANS_SIZE_MISMATCH' => 'Error: The Array count of the bean parameter does not match the Array count of the results.',
   'ERR_MISSING_MAPPING_ENTRY_FORM_MODULE' => 'Error: Missing mapping entry for module.',
   'ERROR_UNABLE_TO_RETRIEVE_DATA' => 'Error: Unable to retrieve data for {0} Connector.  The service may currently be inaccessible or the configuration settings may be invalid.  Connector error message: ({1}).',
+  'ERROR_CONNECTOR_CONFIGURE' => 'Unable to retrieve data.  The service may currently be inaccessible or the configuration settings may be invalid.',
+  'LBL_CONNECT_TWITTER'=>'Connect to Twitter',
+  'LBL_ERROR_CANNOT_FIND_TWITTER'=>'Can not find valid timeline for Twitter ID: ',
+  'LBL_CONNECT_TWITTER_FOR_ADMIN'=>'Configure Twitter Connector',
+  'LBL_CONNECT_TEST_FAIL'=>'Error: The connector configuration settings may be invalid. Please contact your administrator.',
+  'LBL_CONFIGURE_TWITTER'=>'Contact your administrator to configure Twitter',
   'LBL_MERGE_CONNECTORS' => 'Get Data',
+  'LBL_NO_DATA_AVAILABLE' => 'No data available.',
   'LBL_MERGE_CONNECTORS_BUTTON_KEY' => '[D]',
   'LBL_REMOVE_MODULE_ENTRY' => 'Are you sure you want to disable connector integration for this module?',
 
-    // fastcgi checks
-    'LBL_FASTCGI_LOGGING'      => 'For optimal experience using IIS/FastCGI sapi, set fastcgi.logging to 0 in your php.ini file.',
+    //Elastic
+    'ERR_ELASTIC_TEST_FAILED' => 'Failed to connect to Elastic server',
 
     //cma
     'LBL_MASSUPDATE_DELETE_GLOBAL_TEAM'=> 'The Global team cannot be deleted.',
@@ -2754,6 +3942,7 @@ $app_strings = array (
     'LBL_DURATION_DAYS' => 'days',
     'LBL_DURATION_HOURS' => 'hours',
     'LBL_DURATION_MINUTES' => 'minutes',
+    'LBL_DURATION_SECONDS' => 'seconds',
 
     //Calendar widget labels
     'LBL_CHOOSE_MONTH' => 'Choose Month',
@@ -2789,6 +3978,7 @@ $app_strings = array (
     //External API Error Messages
     'ERR_GOOGLE_API_415' => 'Google Docs does not support the file format you provided.',
 
+    'LBL_BLANK_VALUE' => '<empty>',
     'LBL_EMPTY' => 'Empty',
     'LBL_IS_EMPTY' => 'Is empty',
     'LBL_IS_NOT_EMPTY' => 'Is not empty',
@@ -2846,6 +4036,7 @@ $app_strings = array (
     'LBL_SELECT_THIS_ROW_TITLE' => 'Select this row',
     'LBL_TEAM_SELECTED_TITLE' => 'Team Selected ',
     'LBL_TEAM_SELECT_AS_PRIM_TITLE' => 'Select to make this team primary',
+    'LBL_SEARCH_AND_SELECT' => 'Search and Select {{module}}',
 
     //for upload errors
     'UPLOAD_ERROR_TEXT'          => 'ERROR: There was an error during upload. Error code: {0} - {1}',
@@ -2854,14 +4045,13 @@ $app_strings = array (
     'UPLOAD_MAXIMUM_EXCEEDED'    => 'Size of Upload ({0} bytes) Exceeded Allowed Maximum: {1} bytes',
     'UPLOAD_REQUEST_ERROR'    => 'An error has occured. Please refresh your page and try again.',
 
-
     //508 used Access Keys
     'LBL_EDIT_BUTTON_KEY' => 'i',
     'LBL_EDIT_BUTTON_LABEL' => 'Edit',
     'LBL_EDIT_BUTTON_TITLE' => 'Edit',
     'LBL_DUPLICATE_BUTTON_KEY' => 'u',
-    'LBL_DUPLICATE_BUTTON_LABEL' => 'Duplicate',
-    'LBL_DUPLICATE_BUTTON_TITLE' => 'Duplicate',
+    'LBL_DUPLICATE_BUTTON_LABEL' => 'Copy',
+    'LBL_DUPLICATE_BUTTON_TITLE' => 'Copy',
     'LBL_DELETE_BUTTON_KEY' => 'd',
     'LBL_DELETE_BUTTON_LABEL' => 'Delete',
     'LBL_DELETE_BUTTON_TITLE' => 'Delete',
@@ -2870,20 +4060,1076 @@ $app_strings = array (
     'LBL_SAVE_BUTTON_TITLE' => 'Save',
     'LBL_CANCEL_BUTTON_KEY' => 'l',
     'LBL_CANCEL_BUTTON_LABEL' => 'Cancel',
+    'LBL_CANCEL_BUTTON_LABEL_CONT' => 'to stop.',
+    'LBL_CANCEL_BUTTON_LABEL_UNSAVED_CONT' => 'to stay on page.',
     'LBL_CANCEL_BUTTON_TITLE' => 'Cancel',
+    'LBL_SHARE_BUTTON_KEY' => 'r',
+    'LBL_SHARE_BUTTON_LABEL' => 'Share',
+    'LBL_SHARE_BUTTON_TITLE' => 'Share',
+    'LBL_START_BUTTON_LABEL' => 'Start',
+    'LBL_START_BUTTON_TITLE' => 'Start',
+    'LBL_FINISH_BUTTON_LABEL' => 'Finish',
+    'LBL_FINISH_BUTTON_TITLE' => 'Finish',
+    'LBL_CONFIRM_BUTTON_LABEL' => 'Confirm',
+    'LBL_CONFIRM_BUTTON_LABEL_CONT' => 'to continue.',
+    'LBL_CONFIRM_BUTTON_LABEL_UNSAVED_CONT' => 'to leave page and discard changes.',
     'LBL_FIRST_INPUT_EDIT_VIEW_KEY' => '7',
     'LBL_ADV_SEARCH_LNK_KEY' => '8',
     'LBL_FIRST_INPUT_SEARCH_KEY' => '9',
     'LBL_GLOBAL_SEARCH_LNK_KEY' => '0',
     'LBL_KEYBOARD_SHORTCUTS_HELP_TITLE' => 'Keyboard Shortcuts',
-    'LBL_KEYBOARD_SHORTCUTS_HELP' => '<p><strong>Form Functionality - Alt+</strong><br/> I = ed<b>I</b>t (detailview)<br/> U = d<b>U</b>plicate (detailview)<br/> D = <b>D</b>elete (detailview)<br/> A = s<b>A</b>ve (editview)<br/> L = cance<b>L</b> (editview) <br/><br/></p><p><strong>Search and Navigation  - Alt+</strong><br/> 7 = first input on Edit form<br/> 8 = Advanced Search link<br/> 9 = First Search Form input<br/> 0 = Unified search input<br></p>' ,
+    'LBL_KEYBOARD_SHORTCUTS_HELP' => '<p><strong>Form Functionality - Alt+</strong><br/> I = ed<b>I</b>t (detailview)<br/> U = d<b>U</b>plicate (detailview)<br/> D = <b>D</b>elete (detailview)<br/> R = Sha<b>R</b>e (detailview)<br/> A = s<b>A</b>ve (editview)<br/> L = cance<b>L</b> (editview) <br/><br/></p><p><strong>Search and Navigation  - Alt+</strong><br/> 7 = first input on Edit form<br/> 8 = Advanced Search link<br/> 9 = First Search Form input<br/> 0 = Unified search input<br></p>' ,
+
+    // Share feature on record
+    'LBL_RECORD_SHARE_BUTTON' => 'Share',
+    'TPL_RECORD_SHARE_SUBJECT' => 'Shared {{module}} {{name}} from {{appId}}',
+    'TPL_RECORD_SHARE_BODY' => 'Please checkout {{module}} {{name}} from {{appId}}',
 
     'ERR_CONNECTOR_NOT_ARRAY' => 'connector array in {0} been defined incorrectly or is empty and could not be used.',
+    'LBL_PDF_VIEW' => 'Download PDF',
+    'LBL_PDF_EMAIL' => 'Email PDF',
+    'LBL_NO_PDF_TEMPLATE' => 'No PDF template found.',
+
     'ERR_SUHOSIN' => 'Upload stream is blocked by Suhosin, please add &quot;upload&quot; to suhosin.executor.include.whitelist (See sugarcrm.log for more information)',
+
+    //for sidecar
+    'LBL_TIME_AGO_NOW' => 'right now',
+    'LBL_TIME_AGO_SECONDS' => 'less than a minute ago',
+    'LBL_TIME_AGO_MINUTE' => 'about 1 minute ago',
+    'LBL_TIME_AGO_MINUTES' => '{{this}} minutes ago',
+    'LBL_TIME_AGO_HOUR' => 'about an hour ago',
+    'LBL_TIME_AGO_HOURS' => '{{this}} hours ago',
+    'LBL_TIME_AGO_DAY' => 'yesterday',
+    'LBL_TIME_AGO_DAYS' => '{{this}} days ago',
+    'LBL_TIME_AGO_YEAR' => 'over a year ago',
+    'LBL_TIME_UNTIL_SECONDS' => 'in less than a minute',
+    'LBL_TIME_UNTIL_MINUTE' => 'in about 1 minute',
+    'LBL_TIME_UNTIL_MINUTES' => 'in {{this}} minutes',
+    'LBL_TIME_UNTIL_HOUR' => 'in about an hour',
+    'LBL_TIME_UNTIL_HOURS' => 'in {{this}} hours',
+    'LBL_TIME_UNTIL_DAY' => 'tomorrow',
+    'LBL_TIME_UNTIL_DAYS' => 'in {{this}} days',
+    'LBL_TIME_UNTIL_YEAR' => 'in over a year',
+    'LBL_TIME_RELATIVE' => 'Posted {{relativetime}} on {{date}} at {{time}}',
+    'LBL_LAST_TOUCHED' => 'Last touched {{relativetime}} on {{date}} at {{time}}',
+    'LBL_LAST_COMMIT' => 'Last Commit: ',
+    'LBL_LISTVIEW_NO_RECORDS' => 'No data available.',
+    'LBL_DETAILVIEW_NO_RECORDS' => 'This record could not be rendered at this time.',
+    'LBL_REFINE_LIST' => 'Refine list',
+    'LBL_SEARCH_BY' => 'Search by',
+    'LBL_PREVIEW' => 'Preview',
+    'LBL_COLUMNS' => 'Columns',
+    'LBL_PREVIEW_DISABLED_NO_RECORD' => 'Preview disabled: No data available',
+    'LBL_PREVIEW_DISABLED_NO_ACCESS' => 'Preview disabled: No access to record',
+    'LBL_PREVIEW_DISABLED_ATTACHMENT' => 'Preview disabled: No data available',
+    'LBL_PREVIEW_DISABLED_SAME_RECORD' => 'Preview disabled: In view as current record',
+    'LBL_PREVIEW_DISABLED_DELETED_OR_NO_ACCESS' => 'Preview disabled: Record removed or no access to record',
+    'LBL_STREAM_NO_RECORDS' => 'This record has no notes at this time. Please add a note by clicking on the add note link.',
+    'LBL_DUPLICATES_FOUND' => '{{duplicateCount}} duplicates found.',
+    'LBL_RESET_DEFAULT_VIEW' => 'Reset default view',
+    'LBL_RESET_DEFAULT_WIDTHS' => 'Reset default widths',
+
+    'LBL_SUCCESS' => 'Success',
+    'LBL_ERROR' => 'Error',
+
+    //Merge Duplicates
+    'LBL_MERGE_DUPLICATES' => 'Merge Duplicates',
+    'LBL_MERGE_DUPLICATES_PROCEED' => 'Do you want to proceed? Cancel to abort. Confim to delete records.',
+    'LBL_MERGE_DUPLICATES_CONFIRM' => 'This action will delete following record(s):',
+    'LBL_MERGE'  => 'Merge',
+    'TPL_MERGING_RECORDS'  => 'Merging {{mergeCount}} Records',
+    'TPL_MERGE_INVALID_NUMBER_RECORDS' =>
+        'Invalid number of records passed. The valid range is from {{minRecords}} to {{maxRecords}} records.',
+    'LBL_MERGE_NO_ACCESS' =>
+        'You have no access to perform this action. At least one record must be editable.',
+    'LBL_MERGE_NO_ACCESS_TO_A_FEW_RECORDS' =>
+        'One or more selected records cannot be deleted. ' .
+        'Those records have been removed from the list to merge.',
+    'LBL_MERGE_UNSAVED_CHANGES'=>
+        'All changes will be discarded when you switch to a new primary record. Are you sure you want to switch?',
+    'LBL_MERGE_DUPLICATES_TITLE' => 'Merge Related Records',
+    'TPL_MERGE_DUPLICATES_PROGRESS_STATUS' => 'Merged: {{percent}}%.',
+    'TPL_MERGE_DUPLICATES_FAIL_TO_ATTEMPT' =>
+        'Merge Related {{objectName}} failed. Initiating new attempt ({{num}} of {{total}}).',
+    'TPL_MERGE_DUPLICATES_FAIL' =>
+        'Merge Related {{objectName}} failed.',
+    'LBL_MERGE_DUPLICATES_WARNING_CLOSE' =>
+        'Merge Related Records incomplete. Some records remain unmerged.',
+    'LBL_MERGE_DUPLICATES_FAIL_PROCESS' =>
+        'Some related records did not merge properly. Cancel to abort. Confirm to continue merge.',
+    'TPL_MERGE_DUPLICATES_STAT' =>
+        '{{#with stat}}{{records}} records were merged successfully. ' .
+        '{{total}} related records were added.{{/with}}',
+    'TPL_MERGE_DUPLICATES_IDENTICAL' =>
+        'All related records will be moved to the Primary record.',
+    'LBL_MERGE_DUPLICATES_REMOVE'  =>
+        'Are you sure you want to remove this record from merge?',
+    'LBL_MERGE_DUPLICATES_REMOVE_TOOLTIP'  => 'Remove record from merge',
+
+    //for sugar7 errors
+    'LBL_INVALID_CREDS' => 'The username/password combination provided is incorrect, please try again.',
+    'LBL_INVALID_CREDS_TITLE' => 'Invalid Credentials',
+    'LBL_INVALID_GRANT' => 'Your token is invalid or has expired. Please login again.',
+    'LBL_INVALID_GRANT_TITLE' => 'Token Expired',
+    'LBL_AUTH_FAILED' => 'Client authentication failed.',
+    'LBL_AUTH_FAILED_TITLE' => 'Invalid Client',
+    'LBL_INVALID_REQUEST' => 'The request made is invalid or malformed. Please contact technical support.',
+    'LBL_INVALID_REQUEST_TITLE' => 'Invalid Request',
+    'LBL_REQUEST_TIMEOUT' => 'The request timed out.',
+    'LBL_REQUEST_TIMEOUT_TITLE' => 'Request timeout',
+    'LBL_UNAUTHORIZED' =>'We\'re sorry, but it appears you are unauthorized to access this resource.',
+    'LBL_UNAUTHORIZED_TITLE' =>'Unauthorized',
+    'LBL_RESOURCE_UNAVAILABLE' => 'Resource not available.',
+    'LBL_RESOURCE_UNAVAILABLE_TITLE' => 'Forbidden',
+    'LBL_METHOD_NOT_ALLOWED' => 'HTTP method not allowed for this resource. Please contact technical support.',
+    'LBL_METHOD_NOT_ALLOWED_TITLE' => 'Method Not Allowed',
+    'LBL_PRECONDITION_MISSING' => 'Request failure, or, missing/invalid parameter. Please contact technical support',
+    'LBL_PRECONDITION_MISSING_TITLE' => 'Error: ',
+    'LBL_INVALID_412_RESPONSE' => 'A request is failing that makes the application unusable. Please contact technical support.',
+
+    //SugarApiExceptionNotAuthorized language string
+    'SUGAR_API_EXCEPTION_NOT_AUTHORIZED' => 'Not allowed to edit field {0} in module: {1}',
+    'SUGAR_API_EXCEPTION_RECORD_NOT_AUTHORIZED' => 'Not allowed to perform action "{0}" on this record',
+    'LBL_LOGIN_BUTTON_LABEL' => 'Log In',
+    'LBL_ACTIVITY_VIEW_TOUR' => 'Activity View Tour',
+    'LNK_TOUR' => 'Tour',
+    'LNK_MOBILE' => 'Mobile',
+    'LBL_FEEDBACK' => 'Feedback',
+    'LBL_SUPPORT' => 'Support',
+    'LBL_LANGUAGE' => 'Language / Sprache / Idioma',
+    'LBL_PREFERRED_LANGUAGE' => 'Preferred Language:',
+    'LBL_LOADING_LANGUAGE' => 'Loading language pack',
+    'LBL_UPLOADING' => 'Uploading',
+    'LBL_IMAGE_DELETE_CONFIRM' => 'Are you sure you want to delete this image?',
+    'LBL_FILE_DELETE_CONFIRM' => "Are you sure you want to delete this file? This cannot be undone.",
+    'LBL_FILE_DELETED' => 'File was successfully deleted',
+
+    //theme roller
+    'LBL_PORTAL_THEME' => 'Portal Theme',
+    'LBL_COFIGURE_PORTAL_THEME' => 'Configure Portal Theme',
+    'LBL_THEME_PREVIEW' => 'Theme Preview',
+    'LBL_LOADING_PREVIEW' => 'Loading Preview',
+    'LBL_RESET' => 'Reset',
+    'LBL_COLORS' => 'Colors',
+    'BorderColor' => 'Border Color',
+    'NavigationBar' => 'Navigation Bar',
+    'PrimaryButton' => 'Primary Button',
+    'LBL_SAVE_AND_DEPLOY_BTN' => 'Save & Deploy',
+    'LBL_RESET_THEME_LNK' => 'Restore Default Theme',
+    'LBL_RESET_THEME_MODAL_INFO' => 'Are you sure you want to discard your theme customizations and replace with default theme?',
+    'LBL_RESET_THEME_PROCESS' => 'Restoring default theme...',
+    'LBL_SAVE_THEME_PROCESS' => 'Saving theme...',
+
+    // image loader
+    'LBL_SELECT_PHOTO' => 'Select a Photo',
+
+    //in app tour
+    'LBL_TOUR_SCREEN_1_TITLE_670' => 'Enhanced forecasting functionality in Sugar',
+    'LBL_TOUR_SCREEN_1_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="fa fa-check">Setup your forecasting parameters</li><li class="fa fa-check">Easily track projected sales and pipeline health</li><li class="fa fa-check">Forecast based on projected sales from your sales team</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen1-thumb.png" width="220" id="thumbnail_1" class="thumb"></div></div><div class="clear"></div>',
+    'LBL_TOUR_SCREEN_2_TITLE_670' => 'Setup your forecasting parameters',
+    'LBL_TOUR_SCREEN_2_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="fa fa-check">Choose fiscal year start date</li><li class="fa fa-check">Setup Time Periods to be either yearly or quarterly</li><li class="fa fa-check">Decide how many past and future Time Periods need to be visible in the worksheet</li><li class="fa fa-check">Select Forecast ranges to tag Opportunities as Include, Exclude or Upside</li><li class="fa fa-check">Select Forecast scenarios to identify Likely, Best and Worst forecast</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen2-thumb.png" width="220" id="thumbnail_2" class="thumb"></div></div><div class="clear"></div>',
+    'LBL_TOUR_SCREEN_3_TITLE_670' => 'Manage your Sales Team\'s Projected Sales',
+    'LBL_TOUR_SCREEN_3_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="fa fa-check">Select the Time Period to review the Forecast</li><li class="fa fa-check">View your sales team members’ worksheets and provide adjusted forecasts</li><li class="fa fa-check">See alert on worksheet when a sales team member commits a new Forecast</li><li class="fa fa-check">Save the Forecast worksheet as a draft version or commit the Forecast to your manager</li><li class="fa fa-check">View history of previous commits</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen3-thumb.png" width="220" id="thumbnail_3" class="thumb"></div></div><div class="clear"></div>',
+    'LBL_TOUR_SCREEN_4_TITLE_670' => 'Manage your Sales Team\'s Projected Sales',
+    'LBL_TOUR_SCREEN_4_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="fa fa-check">View Pareto chart for pipeline analysis across all your sales team members\' forecasts</li><li class="fa fa-check">Choose to visualize projected sales by Likely, Best or Worst forecast</li><li class="fa fa-check">View projected sales and how close you are to make your team Quota</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen4-thumb.png" width="220" id="thumbnail_4" class="thumb"></div></div><div class="clear"></div>',
+    'LBL_TOUR_SCREEN_5_TITLE_670' => 'Manage your own Projected Sales',
+    'LBL_TOUR_SCREEN_5_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="fa fa-check">Select the Time Period for your Forecast</li><li class="fa fa-check">Review and in-line edit amounts and Win Probability for a quick what-if analysis</li><li class="fa fa-check">Save the Forecast worksheet as a draft version or commit the Forecast to your manager</li><li class="fa fa-check">View history of previous commits</li><li class="fa fa-check">Commit Forecast to Manager and view History of previous Commits</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen5-thumb.png" width="220" id="thumbnail_5" class="thumb"></div></div><div class="clear"></div>',
+    'LBL_TOUR_SCREEN_6_TITLE_670' => 'Manage your own Projected Sales',
+    'LBL_TOUR_SCREEN_6_DESCRIPTION_670' => '<div style="float: left;"><div style="float: left; width: 300px;"><ul><li class="fa fa-check">View Pareto chart for pipeline analysis over time for your Opportunities</li><li class="fa fa-check">Choose to visualize pipeline distribution by Sales Stage or Win Probability</li><li class="fa fa-check">View projected sales and how close you are to make your assigned Quota</li></ul></div><div class="well" style="float: left; width: 220px; margin-left: 20px;"><img src="themes/default/images/pt-screen6-thumb.png" width="220" id="thumbnail_6" class="thumb"></div></div><div class="clear"></div>',
+    'LBL_TOUR_WELCOME' => 'What\'s New in Sugar',
+    'LBL_TOUR_WATCH' => 'Watch What\'s New in Sugar',
+    'LBL_TOUR_FEATURES_670' => '<ul style=""><li class="fa fa-check">Improved look and feel – now with a new modern theme.</li><li class="fa fa-check">Enhanced Forecasts module – now with intuitive user interface and new data visualization</li></ul>',
+    'LBL_TOUR_VISIT' => 'For more information please visit our application',
+    'LBL_TOUR_DONE' => 'You\'re Done!',
+    'LBL_TOUR_REFERENCE_1' => 'You can always reference our',
+    'LBL_TOUR_REFERENCE_2' => 'through the "Support" link under the profile menu.',
+    'LNK_TOUR_DOCUMENTATION' => 'documentation',
+    'LBL_TOUR_CALENDAR_URL_1' => 'Do you share your SugarCRM calendar with 3rd party applications, such as Microsoft Outlook or Exchange? If so, you have a new URL. This new, more secure URL includes a personal key which will prevent unauthorized publishing of your calendar.',
+    'LBL_TOUR_CALENDAR_URL_2' => 'Retrieve your new shared calendar URL.',
+    'LBL_TOUR_CUBE' => 'Access Dashboards and Activity Stream',
+    'LBL_TOUR_NAV_BAR' => 'Access all modules in the Navigation menu and take actions',
+    'LBL_TOUR_NOTIFICATIONS' => 'Click to see Notifications',
+    'LBL_TOUR_SEARCH' => 'Select one or more modules and search',
+    'LBL_TOUR_AVATAR' => 'Get more details about the application or Logout',
+    'LBL_TOUR_ADD' => 'Create a record from here',
+    'LBL_TOUR_LIST_INT_TOGGLE' => 'Click to close or open the intelligence pane',
+    'LBL_TOUR_LIST_ACTIVTYSTREAMLIST_TOGGLE' => 'Choose to see activities or list of records',
+    'LBL_TOUR_LIST_FILTER1' => 'Filter bar enables search for this module',
+    'LBL_TOUR_LIST_FILTER2' => 'Choose predefined filter or create new',
+    'LBL_TOUR_LIST_FILTER_SEARCH' => 'Type here to search based on name',
+    'LBL_TOUR_LIST_FILTER_PREVIEW' => 'Choose to edit the row or preview details',
+    'LBL_TOUR_RECORD_ACTIONS' => 'Take actions on the record',
+    'LBL_TOUR_RECORD_INLINEEDIT' => 'Record name can be updated in place',
+    'LBL_TOUR_RECORD_STATUS' => 'Find record level status here',
+    'LBL_TOUR_RECORD_SHOWMORE' => 'Click to see more data for the record',
+    'LBL_TOUR_RECORD_TOGGLEACTIVITIES' => 'Choose to see activities or related records',
+    'LBL_TOUR_RECORD_INLINEEDITRECORD' => 'Click to edit each field inline',
+    'LBL_TOUR_RECORD_DASHBOARDACTIONS' => 'Create new groups of Dashlets',
+    'LBL_TOUR_RECORD_DASHBOARDNAME' => 'Assign a name to the group of Dashlets',
+    'LBL_TOUR_RECORD_DASHLETCOG' => 'Choose to remove Dashlet or to change settings',
+    'LBL_TOUR_INTRO' =>'<h4>Welcome to Sugar</h4> We\'d like to walk you through some of the features.  Use the < and > arrows on the bottom of the screen to take a tour.<ul class="resource-list"><li class="resource"><a href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/" target="_blank"><span class="label label-module label-module-md pull-left blue"><i class="fa fa-2x fa-magic"></i></span></a><div class="resource-info"><a href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/" target="_blank">What\'s New</a><p class="details">Find out the key changes between releases.</p></div></li><li class="resource"><a href="http://university.sugarcrm.com/" target="_blank"><span class="label label-module label-module-md pull-left green"><i class="fa fa-2x fa-book"></i></span></a><div class="resource-info"><a href="http://university.sugarcrm.com/" target="_blank">Find out more about Sugar</a><p class="details">A robust library of eLearning, live and virtual classroom training, webinars and video tutorials.</p></div></li><li class="resource"><a href="http://support.sugarcrm.com/" target="_blank"><span class="label label-module label-module-md pull-left red"><i class="fa fa-2x fa-question-circle"></i></span></a><div class="resource-info"><a href="http://support.sugarcrm.com/" target="_blank">Get Support</a><p class="details">Need help, have a issue or want to suggest how to make Sugar better?</p></div></li></ul>',
+    'LBL_TOUR_LIST_INTRO' =>'View a list of records and take actions records.',
+    'LBL_TOUR_RECORD_INTRO' =>'View details on this record and see all data related to it.',
+    'LBL_TOUR_FORECAST_INTRO' =>'Manage pipeline and Forecast.',
+    'LBL_TOUR_FORECASTS_TIMEPERIODS' =>'Choose a Time Period to see the corresponding Forecast',
+    'LBL_TOUR_FORECASTS_COMMITS' =>'Click to see previous commits',
+    'LBL_TOUR_FORECASTS_INLINEEDIT' =>'Click to edit data inline',
+    'LBL_TOUR_FORECASTS_PROGRESS' =>'Review distance to Quota',
+    'LBL_TOUR_FORECASTS_CHART' =>'Review Forecast distribution',
+    'LBL_TOUR_TOUR' => 'Access Tour at any time',
+
+
+    'LBL_FUTURE' => 'Future',
+    'LBL_REQUIRED_FIELD' => 'Required',
+    // for nomad mobile
+    'LBL_OPTIONAL' => 'Optional',
+    'LBL_RELATED_MODULE' => 'Related {{{this}}}',
+    'LBL_RELATED_MODULE_PLURAL' => 'Related {{{this}}}',
+    'LBL_CREATE_MODULE' => 'Create {{{this}}}',
+    'LBL_EDIT' => 'Edit {{{this}}}',
+    'LBL_ASSOC' => 'Link {{{this}}}',
+    'LBL_ASSIGN' => 'Select {{{this}}}',
+    'LBL_EDIT_RELATED' => 'Edit Related {{{this}}}',
+    'LBL_CREATE_RELATED' => 'Create Related {{{this}}}',
+    'LBL_ASSOC_EXISTING' => 'Link Existing {{{this}}}',
+    'LBL_SEARCH_ALL' => 'Search all {{{this}}}...',
+    'LBL_SEARCH_ALL_RECORDS' => 'Search all records...',
+    'LBL_SEARCH_ALL_MODULES' => 'Search all',
+    'LBL_OK' => 'OK',
+    'LBL_YES' => 'Yes',
+    'LBL_NO' => 'No',
+    'LBL_CALL_BUTTON' => 'Call',
+    'LBL_SMS_BUTTON' => 'SMS',
+    'LBL_EMAIL_BUTTON' => 'Email',
+    'LBL_HONEYPOT' => 'If you are a real person do not fill this out.',
+    'LBL_LINK_BUTTON' => 'Link',
+    'LBL_UNLINK_BUTTON' => 'Unlink',
+    'LBL_MAP_BUTTON' => 'Map',
+    'LBL_FILE_BUTTON' => 'File',
+    'LBL_URL_BUTTON' => 'Web',
+    'LBL_WARNING' => 'Warning',
+    'LBL_CONFIRM' => 'Confirm',
+    'LBL_NO_ACCESS' => '(No Access)',
+    'LBL_NO_ACCESS_LOWER' => 'No access',
+    'LBL_NO_FIELD_ACCESS' => 'No access',
+    'LBL_CREATE_RELATED_RECORD' => 'Create Related Record',
+    'LBL_ASSOC_RELATED_RECORD' => 'Link Existing Record',
+    'LBL_CHOOSE_LINK' => 'Choose Link Type',
+    'LBL_CHOOSE_PARENT_TYPE' => 'Choose Parent Type',
+    'LBL_HOME' => 'Home',
+    'ERR_NO_DOCS' => 'No Documents Available',
+    'ERR_NO_RECORDS_SELECTED' => 'You haven\'t selected any records.',
+    'LBL_DELETING' => 'Deleting...',
+    'LBL_UNLINKING' => 'Unlinking...',
+    'LBL_UNLINKED' => 'Unlinked',
+    'LBL_LEGAL' => 'Legal',
+    'LBL_UPCOMING' => 'My Upcoming Events',
+    'LBL_RECENTLY_UPDATED' => 'Recently Updated',
+    'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
+    'LBL_MEETINGS_SUBPANEL_TITLE' => 'Meetings',
+    'LBL_TASKS_SUBPANEL_TITLE' => 'Tasks',
+    'LBL_CALLS_SUBPANEL_TITLE' => 'Calls',
+    'LBL_EMAILS_SUBPANEL_TITLE' => 'Emails',
+    'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Quoted Line Items',
+    'LNK_SETTINGS' => 'Settings',
+    'LBL_MOBILE_SUPPORT' => 'Support',
+    'LBL_MOBILE_SHOW_MORE' => 'Show more...',
+    'LBL_MOBILE_SHOW_MORE_TOP' => 'Show more...',
+    'LBL_MOBILE_NO_RECORDS' => 'No records found',
+    'LBL_MOBILE_SEARCH_TEAMS' => 'Search teams...',
+    'LBL_MOBILE_SELECT_TEAMS' => 'Select Teams',
+    'LBL_MOBILE_WAIT' => 'Please wait...',
+    'LBL_MOBILE_LOGING_OUT' => 'Please wait while logging out...',
+    'LBL_MOBILE_RELOGIN_BUTTON' => 'Re-login',
+    'LBL_MOBILE_META_SYNC_FAILED' => 'Unable to sync with server.',
+    'LBL_MOBILE_META_SYNC_FAILED_RETRY' => 'Unable to sync with server. Retry?',
+    'LBL_MOBILE_PRIVACY_TERMS_CONDITIONS' => 'Privacy, Terms, & Conditions',
+    'LBL_MOBILE_APP_VERSION' => 'App Version',
+    'LBL_MOBILE_SERVER_VERSION' => 'Server Version',
+    'LBL_MOBILE_SERVER_URL' => 'Server URL',
+    'LBL_MOBILE_PTR_PULL' => 'Pull down to refresh...',
+    'LBL_MOBILE_PTR_RELEASE' => 'Release to refresh...',
+    'LBL_MOBILE_EDIT_REL' => 'Edit Relationship',
+    'LBL_MOBILE_DESKTOP' => 'Desktop Version',
+    'LBL_MOBILE_DELETE_CONFIRM' => 'Are you sure you want to delete this record?',
+    'LBL_MOBILE_UNLINK_CONFIRM' => 'Are you sure you want to unlink this record?',
+    'LBL_MOBILE_LOG_CALL_CONFIRM' => 'Would you like to log your last Call?',
+    'LBL_MOBILE_CHOOSE_RECIPIENT' => 'Choose recepient',
+    'LBL_MOBILE_CHOOSE_PHONE' => 'Choose phone number',
+    'LBL_MOBILE_CHOOSE_URL' => 'Choose URL',
+    'LBL_MOBILE_CHOOSE_DOC' => 'Choose document',
+    'LBL_MOBILE_CHOOSE_LOCATION' => 'Choose location',
+    'LBL_MOBILE_NO_ACTIONS_AVAILABLE' => 'No Actions Available',
+    'LBL_MOBILE_FEEDBACK' => 'Feedback',
+    'LBL_MOBILE_DOC' => 'Document',
+    'LBL_MOBILE_DOWNLOAD_STARTED' => 'Download started: {{{this}}}',
+    'LBL_MOBILE_DOWNLOAD_COMPLETED' => 'Download completed: {{{this}}}',
+    'LBL_MOBILE_UPLOAD_IN_PROGRESS' => 'Uploading file...',
+    'LBL_MOBILE_UPLOAD_SUCCESS' => 'File successfully uploaded',
+    'LBL_MOBILE_PROCESSING_IMAGE' => 'Preparing Image...',
+    'LBL_CLOSE_SAVE_BUTTON' => 'Close task and save',
+    'LBL_LATER' => 'Later',
+    'LBL_USE_HTTPS' => 'Use secure connection',
+    'LBL_LOADING_FILES' => 'Still loading document list. Please try again later',
+    'LBL_NEW_WEB_VERSION' => 'A new version of this application is available. Would you like to update?',
+    'LBL_SET_FONTSIZE' => 'Font size',
+    'LBL_FONTSIZE_TINY' => 'Tiny',
+    'LBL_FONTSIZE_SMALL' => 'Small',
+    'LBL_FONTSIZE_NORMAL' => 'Normal (default)',
+    'LBL_FONTSIZE_LARGE' => 'Large',
+    'LBL_FONTSIZE_LARGER' => 'Larger',
+    'LBL_FONTSIZE_HUGE' => 'Huge',
+    'LBL_FONTSIZE_EXTRA_HUGE' => 'Extra huge',
+    'LBL_MOBILE_DOWNLOAD_FAILED' => 'Download failed\r\n{{{this}}}',
+    'LBL_MOBILE_DETAIL_SHOW_MORE' => 'More...',
+    'LBL_MOBILE_DETAIL_SHOW_LESS' => '...Less',
+    'LBL_OFFLINE_MODE' => 'Offline Mode',
+    'LBL_OFFLINE_DELETED' => 'Record not found.',
+    'LBL_OFFLINE_DELETED_RELATED' => 'Related record not found. It was probably deleted or unlinked.',
+    'LBL_OFFLINE_PREFETCH_PROMPT' => 'Downloading your assigned, favorited, and followed records for offline access may take some time to complete. A fast connection is recommended. Would you like to proceed?',
+    'LBL_OFFLINE_PREFETCH_FIRST_PROMPT' => 'Do you want your assigned, favorited, and followed records to be downloaded now for offline access? A fast connection is recommended as this operation may take some time. You may download later from Main Menu > Offline.',
+    'LBL_OFFLINE_PREFETCH_SUCCESS' => 'Records downloaded successfully',
+    'LBL_OFFLINE_PREFETCH_ACTION' => 'Download your records...',
+    'LBL_OFFLINE_PREFETCH_ERROR' => 'Error while downloading records',
+    'LBL_OFFLINE_PREFETCHING' => 'Loading records...',
+    'LBL_OFFLINE_PREFETCHING_MODULE' => 'Loading {{module}} {{progressValue}}...',
+    'LBL_OFFLINE_PREFETCHING_EST_TIME' => 'Time left is about {{estimatedTime}}s...',
+    'LBL_OFFLINE_PREFETCHING_MODULE_COMPLETE' => 'Loading {{module}} completed',
+    'LBL_OFFLINE_DB_CLEANING_IN_PROGRESS' => 'Cleaning storage...',
+    'LBL_OFFLINE_DB_CLEANING_COMPLETED' => 'Clean-up completed',
+    'LBL_OFFLINE_ROLLBACK_PROMPT'  => 'Do you want to rollback this change?',
+    'LBL_OFFLINE_ROLLBACK_SUCCESS' => 'Rollback completed',
+    'LBL_OFFLINE_ROLLBACK_FAILED' => 'Rollback failed',
+    'LBL_OFFLINE_CLEAR_DB' => 'Clear Storage...',
+    'LBL_OFFLINE_COMPACT_DB' => 'Compact Storage...',
+    'LBL_OFFLINE_CLEAN_UP_PROMPT' => 'This action will delete records you haven\'t accessed in a while. Proceed?',
+    'LBL_OFFLINE_CLEAR_DB_PROMPT' => 'Do you want to delete all records from the local storage?',
+    'LNK_OFFLINE_SETTINGS' => 'Offline',
+    'LBL_OFFLINE_SETTINGS' => 'Debug settings',
+    'LBL_OFFLINE_STATUS_NO_PENDING_TX' => 'No changes pending synchronization.',
+    'LBL_OFFLINE_STATUS_PENDING_TX' => 'Changes are pending synchronization.',
+    'LBL_OFFLINE_STATUS_ONLINE' => 'Device is online.',
+    'LBL_OFFLINE_STATUS_OFFLINE' => 'Device is offline.',
+    'LBL_OFFLINE_STATUS_BAD_NETWORK' => 'Unable to reach the server.',
+    'LBL_OFFLINE_STATUS_SYNC_FAILED' => 'Last synchronization attempt failed. Check the transaction log.',
+    'LBL_OFFLINE_SYNC_IN_PROGRESS' => 'Synchronization in progress...',
+    'LBL_OFFLINE_TRANSACTION_SYNCED' => 'Transaction synchronized.',
+    'LBL_OFFLINE_ENABLE_PROMPT' => 'Are you sure you want to turn on offline support?',
+    'LBL_OFFLINE_DISABLE_PROMPT' => 'Do you want to turn off offline support? All changes pending synchronization will be lost.',
+    'LBL_OFFLINE_ENABLED' => 'Offline mode enabled',
+    'LBL_OFFLINE_DISABLED' => 'Offline mode disabled',
+    'LBL_OFFLINE_STATS' => 'Storage statistics',
+    'LBL_OFFLINE_SERVER_FETCH'  => 'Fetching from server...',
+    'LBL_OFFLINE_MERGE_DATA_CONFIRM' => 'Someone has edited the same record on the server. Confirm to auto-merge your changes or reject to discard them.',
+    'LBL_OFFLINE_LAST_SYNC_TS' => 'Last synchronization attempt: {{ts}}',
+    'LBL_ACTION_UPDATE' => 'UPDATE',
+    'LBL_ACTION_CREATE' => 'CREATE',
+    'LBL_ACTION_DELETE' => 'DELETE',
+    'LBL_ACTION_LINK' => 'LINK',
+    'LBL_ACTION_UNLINK' => 'UNLINK',
+    'LBL_ACTION_FAVORITE' => 'FAVORITE',
+    'LBL_ACTION_FOLLOW' => 'FOLLOW',
+    'LBL_ACTION_CREATE_EXPLANATION' => 'Created {{module}} "{{name}}"',
+    'LBL_ACTION_UPDATE_EXPLANATION' => 'Updated {{module}} "{{name}}"',
+    'LBL_ACTION_DELETE_EXPLANATION' => 'Deleted {{module}} "{{name}}"',
+    'LBL_ACTION_LINK_EXPLANATION' => 'Linked {{module}} "{{name}}" to {{relatedModule}} "{{relatedName}}"',
+    'LBL_ACTION_UNLINK_EXPLANATION' => 'Unlinked {{module}} "{{name}}" from {{relatedModule}} "{{relatedName}}"',
+    'LBL_ACTION_FOLLOW_EXPLANATION' => 'Followed {{module}} "{{name}}"',
+    'LBL_ACTION_UNFOLLOW_EXPLANATION' => 'Unfollowed {{module}} "{{name}}"',
+    'LBL_ACTION_FAVORITE_EXPLANATION' => 'Favorited {{module}} "{{name}}"',
+    'LBL_ACTION_UNFAVORITE_EXPLANATION' => 'Unfavorited {{module}} "{{name}}"',
+    'LBL_ACTION_CREATE_RELATED_EXPLANATION' => 'Created {{module}} "{{name}}" related to {{relatedModule}} "{{relatedName}}"',
+    'LBL_EMAIL_ACTION_SET_PRIMARY' => 'Primary',
+    'LBL_EMAIL_ACTION_SET_OPT_OUT' => 'Opt-out',
+    'LBL_EMAIL_ACTION_SET_OPT_IN' => 'Opt-in',
+    'LBL_EMAIL_ACTION_SET_VALID' => 'Valid',
+    'LBL_EMAIL_ACTION_SET_INVALID' => 'Invalid',
+    'LBL_ROLLBACK_BUTTON' => 'Rollback',
+    'LBL_TX_LOG' => 'Transaction Log',
+    'LBL_TX_LOG_DETAIL' => 'Transaction Detail',
+    'LBL_RECORD_DELETED' => '(Record deleted)',
+    'LBL_NOT_AVAILABLE' => 'N/A',
+    'LBL_FILE_SIZE_UNITS_B' => 'Bytes',
+    'LBL_FILE_SIZE_UNITS_KB' => 'kB',
+    'LBL_FILE_SIZE_UNITS_MB' => 'MB',
+    'LBL_CHOOSE_ITEMS' => 'Choose items',
+    'LBL_OFFLINE_DB_SIZE' => 'Database size',
+    'LBL_OFFLINE_RECORDS_PER_MODULE' => 'Records per module',
+    'LBL_OFFLINE_TOTAL_RECORDS_COUNT' => 'Total number of records',
+    'LBL_RECORD_NOT_FOUND' => 'Record not found.',
+    'LBL_RELATED_RECORD_NOT_FOUND' => 'Related record not found.',
+    'LBL_NOT_AUTHORIZED' => 'You are not authorized to view this record.',
+    'LBL_MOBILE_PROCESSING_FILE' => 'Preparing file...',
+    'LNK_THIRD_PARTY_SOFTWARE' => 'Third Party Software',
+    'LNK_TERMS_OF_USE' => 'Terms of Use',
+    'LNK_PRIVACY_POLICY' => 'Privacy Policy',
+    'LBL_EXTERNAL_LOGIN_BUTTON_TITLE' => 'Single Sign-On',
+    'LBL_RECENTS' => 'Recents',
+    'LBL_SHOWING_CACHED_DATA' => 'Unable to reach the server. Showing latest available data ({{lastFetched}})',
+    'LBL_CLOSE_AND_SAVE_BUTTON' => 'Close {{moduleSingular}} and save',
+    'LBL_MOBILE_SPECIFIC_DASHBOARD' => 'Specific Dashboard',
+    'LBL_MOBILE_SPECIFIC_MODULE' => 'Specific Module',
+    'LBL_MOBILE_DEFAULT_VIEW' => 'Start Screen',
+    'LBL_MOBILE_DEFAULT_MODULE' => 'Selected Module',
+    'LBL_MOBILE_DEFAULT_DASHBOARD' => 'Selected Dashboard',
+    'LBL_MOBILE_DEFAULT_DASHLET' => 'Selected Dashlet',
+    'LBL_ALL_DASHLETS' => 'All Dashlets',
+    'LBL_MOBILE_GLOBAL_SEARCH' => 'Global Search',
+    'LBL_MOBILE_ACTIVITYSTREAM_POST_PLACEHOLDER' => 'Type @ to mention a user. Type # to reference a record.',
+    'LBL_MOBILE_NEW_COMMENT' => 'New comment',
+    'LBL_RECENTLY_VIEWED' => 'Recently Viewed',
+
+    'ERR_SYNC_FAILED' => 'Unable to sync with server.',
+    'ERR_MOBILE_SSO_NOT_CONFIGURED' => 'SSO login is unavailable. Ensure the instance is on Sugar 7.5 or greater and configured for SSO.',
+    'ERR_MOBILE_NOT_AUTHORIZED' => 'Access not authorized.',
+    'ERR_MOBILE_INVALID_CREDS' => 'Invalid username or password.',
+    'ERR_MOBILE_SESSION_EXPIRED' => 'Your session expired.',
+    'ERR_MOBILE_NOT_FOUND' => 'Resource not found.',
+    'ERR_MOBILE_TIMEOUT' => 'Server is not responding.',
+    'ERR_MOBILE_CONNECTION_FAILED' => 'Can\'t reach the server.',
+    'ERR_MOBILE_NOT_FOUND_LOGIN' => 'No {{{brandName}}} server found at the given URL.',
+    'ERR_MOBILE_TIMEOUT_LOGIN' => 'Server is not responding at the given URL.',
+    'ERR_MOBILE_CONNECTION_FAILED_LOGIN' => 'Server unavailable at the given URL.',
+    'ERR_MOBILE_INTERNET_UNAVAILABLE' => 'Internet connection unavailable.',
+    'ERR_MOBILE_INTERNAL' => 'Internal error ({{{code}}}). Please try again later.',
+    'ERR_MOBILE_VALIDATION' => 'Record is invalid',
+    'ERR_SERVER_FLAVOR_INCOMPATIBLE' => 'Incompatible server flavor: {{{flavor}}}. Supported flavors: {{{supportedFlavors}}}.',
+    'ERR_SERVER_VERSION_INCOMPATIBLE' => 'Incompatible server version: {{{version}}}. Minimum required version: {{{minVersion}}}.',
+    'ERR_MOBILE_EMAIL' => 'Error. Invalid Email Address.',
+    'ERR_MOBILE_FILE_NOT_SUPPORTED' => 'This document type is unsupported.',
+    'ERR_MOBILE_BROWSER_NOT_AUTHORIZED' => 'Authentication failed.',
+    'ERR_MOBILE_BROWSER_PAGE_NOT_FOUND' => 'Requested resource not found.',
+    'ERR_MOBILE_BROWSER_INTERNAL_SERVER_ERROR' => 'Internal server error.',
+    'ERR_MOBILE_BROWSER_FORBIDDEN' => 'Forbidden.',
+    'ERR_MOBILE_BROWSER_SERVICE_UNAVAILABLE' => 'Service unavailable.',
+    'ERR_MOBILE_GENERIC_NATIVE_ERROR' => 'An unexpected error has occurred.',
+    'ERR_MOBILE_UPLOAD' => 'Error during file upload',
+    'ERR_MOBILE_FILE_PROCESSING' => 'File processing error',
+    'ERR_MOBILE_STORAGE_UNAVAILABLE' => 'Device storage is unavailable',
+    'ERR_MOBILE_INCOMPATIBLE_CLIENT_VERSION' => 'Your app is outdated and is no longer compatible with the {{{brandName}}} instance you are connecting to. Do you want to download the new version from App Store?',
+    'ERR_MOBILE_METADATA_CHANGED_RELOAD' => 'Server configuration has changed and reload is required. Proceed?',
+    'ERR_MOBILE_CONFLICT' => 'Someone has edited the same record on the server. Confirm to auto-merge your changes or reject to discard them.',
+    'ERR_MOBILE_METADATA_CHANGED' => 'Server configuration has changed.',
+    'ERR_MOBILE_FILE_READ' => 'Failed to read the file',
+    'ERR_MOBILE_FILE_NOT_FOUND' => 'File not found',
+    'ERR_MOBILE_FILE_NOT_READABLE' => 'File not readable',
+    'ERR_MOBILE_FILE_ABORTED' => 'Read operation was aborted',
+    'ERR_MOBILE_FILE_SECURITY' => 'File is locked',
+    'ERR_MOBILE_VIEW_NOT_SUPPORTED' => 'Mobile version does not support this functionality. Do you want to open the desktop version?',
+    'ERR_MOBILE_FILE_SIZE_LIMIT_EXCEEDED' => 'File is too big. Maximum allowed size is {{size}}',
+    'ERR_OFFLINE' => 'Offline error',
+    'ERR_OFFLINE_STORAGE_UNAVAILABLE' => 'Failed to open local storage',
+    'ERR_OFFLINE_STORAGE_CREATE' => 'Failed to create local storage',
+    'ERR_OFFLINE_START_FAILED_OUT_OF_SPACE' => 'Failed to create local storage: you\'ve run out of space.',
+    'ERR_OFFLINE_OUT_OF_SPACE' => 'You\'ve run out of space for local storage.',
+    'ERR_OFFLINE_DB_CLEANING_ERROR' => 'Database clean-up failed',
+    'ERR_OFFLINE_CLEAN_UP_CONFIRMATION' => 'You\'ve run out of space for offline storage. Storage clean-up is recommended. Do you want to perform it now?',
+    'ERR_OFFLINE_PREFETCH_FAILED' => 'Failed to prefetch records from server',
+    'ERR_OFFLINE_SYNC_ERROR' => 'Synchronization error',
+    'ERR_OFFLINE_SYNC_CONFLICT' => 'Synchronization conflict',
+    'ERR_OFFLINE_SERVERTIME_UNAVAILABLE' => 'Failed to get server time',
+    'ERR_OFFLINE_NO_CONNECTION_ENABLE_ERROR' => 'Failed to enable offline mode. Unable to reach the server.',
+
+    // Nomad Tutorial
+    'LBL_MOBILE_TUTORIAL_HOME_INTRO' => 'Welcome to {{{brandName}}}.<br/><br/> Allow us to highlight some new features...',
+    'LBL_MOBILE_TUTORIAL_HOME_LOGO' => 'Main menu navigation.',
+    'LBL_MOBILE_TUTORIAL_HOME_CREATE' => 'Available actions per view.',
+    'LBL_MOBILE_TUTORIAL_HOME_SEARCH' => 'Global search for records.',
+    'LBL_MOBILE_TUTORIAL_HOME_FAVORITES_BTN' => 'Filter the list to show my favorite records.',
+    'LBL_MOBILE_TUTORIAL_HOME_MY_ITEMS_BTN' => 'Filter the list to show records assigned to me.',
+    'LBL_MOBILE_TUTORIAL_HOME_FAVORITES_ICON' => 'Mark record as a favorite.',
+    'LBL_MOBILE_TUTORIAL_HOME_UPCOMING' => 'My upcoming events starting today.',
+    'LBL_MOBILE_TUTORIAL_HOME_RECENT' => 'Most recently modified records.',
+    'LBL_MOBILE_TUTORIAL_HOME_GRIP' => 'Available actions on a record.',
+    'LBL_MOBILE_TUTORIAL_HOME_END' => 'Enjoy all the new features!',
+
+    'LBL_MOBILE_TUTORIAL_PLUS_MENU_INTRO' => 'This is the plus menu.',
+    'LBL_MOBILE_TUTORIAL_PLUS_MENU_CREATE' => 'Close the plus menu.',
+    'LBL_MOBILE_TUTORIAL_PLUS_MENU_ACTIONS' => 'Select the specific action to view to perform.',
+
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_INTRO' => 'This is the home menu.',
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_LOGO' => 'Close the home menu.',
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_MODULES' => 'View a specific module.',
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_SETTINGS' => 'Customize the application.',
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_DESKTOP' => 'Open Sugar in the web browser.',
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_PROFILE' => 'View your profile.',
+
+    'LBL_MOBILE_TUTORIAL_DETAIL_INTRO' => 'This is the detail page.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_CARD' => 'The most important information about a record.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_RIGHT_ACTION' => 'View additional information or edit a record.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_RECORD_ACTIONS' => 'Available actions on a record.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_BACK' => 'Go to the previous page.',
+
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_TOUR' => 'Access Tour at any time.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_BACK_TABLET' => 'Go back.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_RELATE_LINK' => 'Click to open a related record.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_FOLLOW' => 'Follow/Unfollow a record.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_SHOW_MORE' => 'Click to expand a detail information.',
+
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_INTRO_TITLE' => 'Main menu view.',
+    'LBL_MOBILE_TUTORIAL_HOME_MENU_INTRO_TEXT' => 'The main menu opens on the left side of your screen.',
+    'LBL_MOBILE_TUTORIAL_DETAIL_INTRO_TITLE' => 'Detail View',
+    'LBL_MOBILE_TUTORIAL_DETAIL_INTRO_TEXT' => 'The detail view opens on the right side of your screen.',
+    'LBL_MOBILE_TUTORIAL_CONTROL_PANEL' => 'Use the arrows below for a quick tour through the key components of this menu.',
+
+    //begin portal
+
+    //First time login wizard
+    'LBL_WIZ_USER_PROFILE_TITLE' => 'User Profile',
+    'LBL_WIZ_COMPLETE_TITLE' => 'Setup Complete',
+    'LBL_SETUP_COMPLETE_INFO' => 'Start using Sugar!',
+    'LBL_SETUP_USER_INFO' => 'Setup your user information',
+    'LBL_WIZ_USER_LOCALE_TITLE' => 'User Locale Settings',
+    'LBL_SETUP_USER_LOCALE_INFO' => 'Set your time zone, date, and name formats',
+    'LBL_WIZ_START_SUGAR' => 'Start Sugar',
+    'LBL_WIZ_FIRST_NAME' => 'First name',
+    'LBL_WIZ_LAST_NAME' => 'Last name',
+    'LBL_WIZ_EMAIL' => 'Email',
+    'LBL_WIZ_TIMEZONE' => 'Time Zone',
+    'LBL_WIZ_TIMEFORMAT' => 'Time Format',
+    'LBL_WIZ_DATE_FORMAT' => 'Date Format',
+    'LBL_WIZ_NAME_FORMAT' => 'Name Format',
+    'LBL_SETUP_PROGRESS' => 'Setup progress',
+    //User wizard links
+    'LBL_WIZ_SUGAR_TRAINING' => 'Sugar Training',
+    'LBL_WIZ_DOCUMENTATION' => 'Documentation',
+    'LBL_WIZ_KNOWLEDGE_BASE' => 'Knowledge Base',
+    'LBL_WIZ_FORUMS' => 'Forums',
+    'TPL_TIMEZONE_DIFFERENT' => 'Your browser\'s timezone does not match your saved timezone {{link}}',
+    'LBL_TIMEZONE_DIFFERENT_LINK' => 'Adjust Your Timezone.',
+    //Admin wizard links
+    'LBL_WIZ_SYSTEM_LOCALE_SETTINGS' => 'Locale Settings',
+    'LBL_WIZ_EMAIL_SETTINGS' => 'Email Settings',
+    'LBL_WIZ_IMPORT_DATA' => 'Import Data',
+    'LBL_WIZ_CREATE_USERS' => 'Create Users',
+    'LBL_WIZ_APPLICATION_SETTINGS' => 'System Settings',
+    'LBL_WIZ_CONFIGURE_APPLICATION' => 'Studio',
+
+    // For passwordmodal widget
+    'LBL_PASSWORD'						=> 'Password',
+    'LBL_CURRENT_PASSWORD'				=> 'Current Password',
+    'LBL_SET_NEW_PASSWORD'              => 'Enter Password',
+    'LBL_NEW_PASSWORD1'                 => 'New Password',
+    'LBL_NEW_PASSWORD2'                 => 'Confirm Password',
+    'ERR_ENTER_CONFIRMATION_PASSWORD'	=> 'Please enter your password confirmation.',
+    'ERR_ENTER_NEW_PASSWORD'			=> 'Please enter your new password.',
+    'ERR_ENTER_OLD_PASSWORD'			=> 'Please enter your current password.',
+    'ERR_REENTER_PASSWORDS' => 'The passwords must match.',
+    'ERR_PASSWORD_MISMATCH' => 'Password entered does not match that in our system.',
+    'LBL_NEW_USER_PASSWORD_1' => 'Your password has been successfully updated.',
+    'LBL_CANNOT_SEND_PASSWORD' => 'Cannot send password',
+    'LBL_REQUEST_PASSWORD' => 'Request Password',
+    'LBL_PASSWORD_UPDATE_GENERIC_ISSUE' => 'Error: There was a problem updating password for this user.',
+    'LBL_INCORRECT_PASSWORD' => 'Error: Incorrect password.',
+
+    'LBL_PREFERRED_LANGUAGE' => 'Language Preference:',
+
+    //Saved Reports
+    'LBL_REPORT_SELECT' => 'Select a Report',
+    'LBL_REPORT_AUTO_REFRESH' => 'Auto Refresh',
+    'LBL_REPORT_EDIT' => 'Edit Selected Report',
+
+    //sidecar errors
+    'ERR_HTTP_DEFAULT_TYPE' => 'Unknown',
+    'ERR_HTTP_DEFAULT_TITLE' => 'Unknown Error',
+    'ERR_HTTP_DEFAULT_TEXT' => 'Unknown error.',
+    'ERR_HTTP_DEFAULT_ACTION' => 'Go back to previous page.',
+
+    'ERR_HTTP_400_TYPE' => '400',
+    'ERR_HTTP_400_TITLE' => 'Error: Invalid Request',
+    'ERR_HTTP_400_TEXT_LINE1' => 'Your browser sent a request that the server could not understand.',
+    'ERR_HTTP_400_TEXT_LINE2' => 'Please contact your Sugar Administrator for more details.',
+    'ERR_HTTP_400_ACTION' => 'Go back to previous page.',
+
+    'ERR_HTTP_404_TYPE' => '404',
+    'ERR_HTTP_404_TITLE' => 'Data not available',
+    'ERR_HTTP_404_TEXT' => 'Page does not exist or you do not have permission to access this page.',
+    'ERR_HTTP_404_ACTION' => 'Go back to previous page.',
+
+    'ERR_HTTP_500_TYPE' => '500',
+    'ERR_HTTP_500_TITLE' => 'HTTP: 500 Internal Server Error',
+    'ERR_HTTP_500_TEXT' => 'There was an error on the server.',
+    'ERR_HTTP_500_ACTION' => 'Please contact technical support.',
+
+    'ERR_RENDER_FAILED_TITLE' => 'View Render Failed',
+    'ERR_RENDER_FAILED_MSG' => 'Failed to render a view',
+    'ERR_RENDER_FIELD_FAILED_TITLE' => 'Field Render Failed',
+    'ERR_RENDER_FIELD_FAILED_MSG' => 'Unable to render the {0} field.',
+
+    'ERR_NO_VIEW_ACCESS_TITLE' => 'Access Denied',
+    'ERR_NO_VIEW_ACCESS_REASON' => 'You do not have permission to access this page.',
+    'ERR_NO_VIEW_ACCESS_ACTION' => 'Contact your administrator to request access.',
+    'ERR_NO_VIEW_ACCESS_MSG' => 'Contact your Support Administrator to get access to this view for {0} module.',
+
+    'ERR_LAYOUT_RENDER_TITLE' => 'Layout render failed',
+    'ERR_LAYOUT_RENDER_MSG' => 'Oops! We are not able to render anything. Please try again later or contact support.',
+    'ERR_INTERNAL_ERR_MSG' => 'Internal error',
+    'ERR_GENERIC_TITLE' => 'Error',
+    'ERR_CONTACT_TECH_SUPPORT' => 'Please contact technical support.',
+
+    'LBL_SYNCED_RECURRING_MSG' => 'You cannot edit this record because it was synced from an external client.',
+    'LBL_EXISTING' => 'Existing',
+    'LBL_PANEL_DEFAULT' => 'Default',
     'ERR_BAD_RESPONSE_FROM_SERVER' => 'Bad response from the server',
-    );
+
+    //These are for the timeperiod name formats
+    'LBL_ANNUAL_TIMEPERIOD_FORMAT' => 'Year {0}',
+    'LBL_QUARTER_TIMEPERIOD_FORMAT' => '{1} Q{0}',
+    'LBL_MONTH_TIMEPERIOD_FORMAT' => '{0}',
+
+    'LBL_MORE_ACTION' => 'More Actions',
+
+    //quickcreate modal dialog
+    'LBL_MESSAGE_BOX_TITLE' => 'Alert',
+    'LBL_IGNORE_DUPLICATE_AND_SAVE' => 'Ignore Duplicate and Save',
+    'LBL_SAVE_AND_CREATE_ANOTHER' => 'Save and create new',
+    'LBL_SAVE_AND_VIEW' => 'Save and view',
+    'LBL_RESTORE' => 'Reset to Original',
+
+    // RSS Feed dashlet
+    'LBL_RSS_FEED_DASHLET' => 'RSS Feed',
+    'LBL_RSS_FEED_DASHLET_DESCRIPTION' => 'Stay current by adding an external RSS or Blog Feed.',
+    'LBL_RSS_FEED_URL' => 'Feed URL',
+    'LBL_RSS_FEED_AUTHOR' => 'Author:',
+    'LBL_RSS_FEED_ENTRIES_COUNT' => 'Number of entries to show',
+    'LBL_ERR_LOADING_RSS_FEED' => 'Failed loading RSS Feed',
+
+    // tabbed dashlet
+    'TPL_TABBED_DASHLET_USER_BUTTON_LABEL' => 'My Items',
+    'TPL_TABBED_DASHLET_GROUP_BUTTON_LABEL' => 'Team Items',
+
+    // history dashlet
+    'LBL_HISTORY_DASHLET' => 'History',
+    'LBL_HISTORY_DASHLET_DESCRIPTION' => 'The History dashlet displays Meetings held, Calls logged, Emails received and Emails sent.',
+    'LBL_HISTORY_DASHLET_EMAIL_SINGULAR' => 'Email',
+    'LBL_HISTORY_DASHLET_EMAIL_PLURAL' => 'Emails',
+    'LBL_HISTORY_DASHLET_USER_BUTTON_LABEL' => 'My History',
+    'LBL_HISTORY_DASHLET_GROUP_BUTTON_LABEL' => 'Team History',
+    'LBL_UNASSIGNED' => 'Unassigned',
+    'LBL_ARCHIVE_EMAIL' => 'Archive Email',
+    'LBL_EMAIL_ARCHIVED' => 'Email archived',
+
+    // planned activities dashlet
+    'LBL_PLANNED_ACTIVITIES_DASHLET' => 'Planned Activities',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_DESCRIPTION' => 'The Planned Activities dashlet displays scheduled Meetings and Calls.',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_TODAY_BUTTON_LABEL' => 'Today',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_FUTURE_BUTTON_LABEL' => 'Future',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_USER_BUTTON_LABEL' => 'My Activities',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_GROUP_BUTTON_LABEL' => 'Team Activities',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_HELD_ACTIVITY' => 'Held',
+    'LBL_PLANNED_ACTIVITIES_DASHLET_CONFIRM_CLOSE' => 'Are you sure you want to mark {0} as closed?',
+
+    // active tasks dashlet
+    'LBL_ACTIVE_TASKS_DASHLET' => 'Active Tasks',
+    'LBL_ACTIVE_TASKS_DASHLET_DESCRIPTION' => 'The Active Tasks dashlet displays due now, upcoming and to do Tasks.',
+    'LBL_ACTIVE_TASKS_DASHLET_DUE_NOW' => 'Due Now',
+    'LBL_ACTIVE_TASKS_DASHLET_UPCOMING' => 'Upcoming',
+    'LBL_ACTIVE_TASKS_DASHLET_TODO' => 'To Do',
+    'LBL_ACTIVE_TASKS_DASHLET_COMPLETE_TASK' => 'Completed',
+    'LBL_ACTIVE_TASKS_DASHLET_CONFIRM_CLOSE' => 'Are you sure you want to close the {0} as completed?',
+    'LBL_ACTIVE_TASKS_DASHLET_USER_BUTTON_LABEL' => 'My Tasks',
+    'LBL_ACTIVE_TASKS_DASHLET_GROUP_BUTTON_LABEL' => 'Team Tasks',
+    'LBL_LIST_REMOVE_EMAIL_INFO' => 'There was an additional email on the record you are modifying. It is now the primary and has been populated below.',
+    // inactive tasks dashlet
+    'LBL_INACTIVE_TASKS_DASHLET' => 'Inactive Tasks',
+    'LBL_INACTIVE_TASKS_DASHLET_DESCRIPTION' => 'The Tasks dashlet displays deferred and completed Tasks.',
+    'LBL_INACTIVE_TASKS_DASHLET_DEFERRED' => 'Deferred',
+    'LBL_INACTIVE_TASKS_DASHLET_COMPLETED' => 'Completed',
+    'TPL_INACTIVE_TASKS_DASHLET_TIME_RELATIVE' => 'last modified {{relativetime}} on {{date}} at {{time}}',
+    'LBL_INACTIVE_TASKS_DASHLET_USER_BUTTON_LABEL' => 'My Tasks',
+    'LBL_INACTIVE_TASKS_DASHLET_GROUP_BUTTON_LABEL' => 'Team Tasks',
+
+    //common chart strings
+    'LBL_CHART' => 'Chart',
+    'LBL_CHART_NO_DATA' => 'No data available.',
+    'LBL_CHART_LEGEND_CLOSE' => 'Hide legend',
+    'LBL_CHART_LEGEND_OPEN' => 'Show legend',
+    'LBL_CHART_CONTROLS_CLOSE' => 'Hide controls',
+    'LBL_CHART_CONTROLS_OPEN' => 'Show controls',
+    'LBL_CHART_UNDEFINED' => 'Undefined',
+
+    //common chart config field labels
+    'LBL_CHART_CONFIG_CHART_TYPE' => 'Chart type',
+    'LBL_CHART_CONFIG_SHOW_TITLE' => 'Show title',
+    'LBL_CHART_CONFIG_SHOW_XAXIS_LABEL' => 'Show x-axis label',
+    'LBL_CHART_CONFIG_SHOW_YAXIS_LABEL' => 'Show y-axis label',
+    'LBL_CHART_CONFIG_TICK_DISPLAY' => 'Tick display methods',
+    'LBL_CHART_CONFIG_TICK_WRAP' => 'Wrap ticks',
+    'LBL_CHART_CONFIG_TICK_STAGGER' => 'Stagger ticks',
+    'LBL_CHART_CONFIG_TICK_ROTATE' => 'Rotate ticks',
+    'LBL_CHART_CONFIG_VALUE_PLACEMENT' => 'Bar chart value placement',
+    'LBL_CHART_CONFIG_BAR_CHART_OPTIONS' => 'Bar chart display options',
+    'LBL_CHART_CONFIG_ALLOW_SCROLLING' => 'Allow scrolling',
+    'LBL_CHART_CONFIG_STACK_DATA' => 'Stack data series',
+    'LBL_CHART_CONFIG_HIDE_EMPTY_GROUPS' => 'Hide empty groups',
+
+
+    // interactions chart dashlet
+    'LBL_EMAIL_SENT' => 'sent',
+    'LBL_EMAIL_RECV' => 'rec',
+
+    //record save
+    'LBL_RECORD_SAVED' => 'Record saved.', // use when there is no information about the record
+    'LBL_RECORD_SAVED_SUCCESS' => 'You successfully created the {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a>.', // use when a model is available
+    'LBL_RECORD_SAVED_ACCESS_DENIED' => 'You successfully created this record, but you do not have permission to access this record.', // use when user has no access to the model
+    'LBL_VALIDATING' => 'Validating...',
+
+    //for sidecar alert view
+    'LBL_ALERT_TITLE_SUCCESS' => 'Success:',
+    'LBL_ALERT_TITLE_WARNING' => 'Warning:',
+    'LBL_ALERT_TITLE_NOTICE' => 'Notice:',
+    'LBL_ALERT_TITLE_ERROR' => 'Error:',
+    'LBL_ALERT_TITLE_LOADING' => 'Loading',
+    'LBL_ALERT_BROWSER_NOT_SUPPORTED' => 'Your browser version is no longer supported or you are using an unsupported browser.',
+    'LBL_ALERT_BROWSER_SUPPORT' => 'The following browser versions are recommended: <ul><li>Internet Explorer 11</li><li>Firefox 38</li><li>Safari 7.1</li><li>Chrome 42</li></ul>',
+
+    //opportunity chart
+    'TPL_OVERWRITE_POPULATED_DATA_CONFIRM' => 'The selected record will overwrite the following values: {{values}}. Cancel to keep existing values. Confirm to overwrite with new values.',
+    'TPL_OVERWRITE_POPULATED_DATA_CONFIRM_WITH_MODULE_SINGULAR' => 'The selected {{moduleSingularLower}} has related values: {{values}}. Cancel to keep existing values. Confirm to overwrite with new values.',
+    'LBL_OVERWRITE_POPULATED_DATA_FROM' => 'From:',
+    'LBL_OVERWRITE_POPULATED_DATA_TO' => 'To:',
+
+    //organization chart
+    'LBL_ORG_CHART' => 'Organization Chart',
+    'LBL_ORG_CHART_DESC' => 'Displays the employee structure of your organization.',
+    'LBL_ORG_CHART_TOOLTIP_TOGGLE'=> 'Toggle orientation',
+    'LBL_ORG_CHART_TOOLTIP_NODES'=> 'Show all nodes',
+    'LBL_ORG_CHART_TOOLTIP_ZOOM'=> 'Zoom to fit',
+
+
+    //cases summary chart
+    'LBL_CASE_SUMMARY_CHART' => 'Case Summary',
+    'LBL_CASE_SUMMARY_CHART_DESC' => 'Shows an overview of related Cases.',
+    'LBL_DASHLET_CASESSUMMARY_SUMMARY' => 'Summary',
+    'LBL_DASHLET_CASESSUMMARY_CLOSE_CASES' => 'Closed Cases',
+    'LBL_DASHLET_CASESSUMMARY_OPEN_CASES' => 'Open Cases',
+
+    //top 10 opportunities chart
+    // these are the generic ones, the module specific ones are in the modules language files
+    'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Top 10 Sales',
+    'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Displays top ten sales in a bubble chart.',
+    'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'My Items',
+    'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => "My Team's Items",
+    'LBL_TOP10_OPPORTUNITIES_FILTER_DURATIONS' => 'Default date filter',
+    'LBL_TOP10_OPPORTUNITIES_DEFAULT_DATASET' => 'Default dataset',
+
+
+    // Activity stream
+    'LBL_TIME_RELATIVE_ACTIVITIES' => '{{relativetime}} on {{date}} at {{time}}',
+    'LBL_ACTIVITYSTREAM_POST_PLACEHOLDER' => 'Type a note or drag and drop an attachment. Type @ to mention a user. Type # to reference a record.',
+    'LBL_ACTIVITYSTREAM_COMMENT_PLACEHOLDER' => 'Add your comment&hellip; Type @ to mention a user. Type # to reference a record.',
+    'LBL_ACTIVITY_STREAM' => 'Activity Stream',
+    'LBL_ACTIVITY_STREAM_DISABLED' => 'Activity Stream is not enabled',
+    'LBL_ACTIVITY_STREAM_DISABLED_MODULE' => 'Activity Stream is not enabled for this module',
+    'LBL_ACTIVTY_STREAM_SHOW_MORE' => 'More posts...',
+    'LBL_ACTIVITYSTREAM_RELATIVETIME_ON' => ' on ',
+    'LBL_ACTIVITY_STREAM_DASHLET_NAME' => 'My Activity Stream',
+    'LBL_ACTIVITY_STREAM_DASHLET_DESCRIPTION' => 'View a list of activities performed on records and create and post comments.',
+
+    'LBL_DATA_VIEW' => 'Data View',
+    'LBL_COMMENT' => 'Comment',
+
+    //application error messages
+    'ERR_GENERIC_SERVER_ERROR' => 'There was an error while connecting to the server. Please try again.',
+    'ERR_RESOLVE_ERRORS' => 'Please resolve any errors before proceeding.',
+
+    // Textarea field.
+    'LBL_TEXTAREA_MORE' => 'more',
+    'LBL_TEXTAREA_LESS' => 'less',
+
+    //attachments dashlet
+    'LBL_MODULE_ATTACHMENTS_TITLE' => '{{module}} attachments',
+    'LBL_CREATE_ATTACHMENT' => 'Create attachment',
+    'LBL_DASHLET_REFRESH' => 'Refresh',
+    'LBL_DASHLET_MOVE' => 'Move',
+    'LBL_DASHLET_CLOSE' => 'Close',
+
+    'LBL_DASHLET_FORECAST_NAME' => 'In Forecast',
+    'LBL_DASHLET_FORECASTS_CHART_NAME' => 'Forecast Bar Chart',
+    'LBL_DASHLET_FORECAST_PARETO_CHART_NAME' => 'Forecast Bar Chart',
+    'LBL_DASHLET_FORECASTS_FOR_CHART_NAME' => 'Forecast for',
+    'LBL_DASHLET_FORECASTS_CHART_DESC' => 'Displays the Forecast Bar Chart for a specific Time Period',
+    'LBL_DASHLET_FORECASTS_GROUPBY' => 'Group By',
+    'LBL_DASHLET_FORECASTS_DATASET' => 'Dataset',
+    'LBL_DASHLET_FORECASTS_DETAILS' => 'Forecasts Details',
+    'LBL_DASHLET_FORECASTS_DETAILS_DESC' => 'Displays current Forecast details.',
+
+    'LBL_DASHLET_SAVED_REPORTS_CHART' => 'Saved Reports Chart Dashlet',
+    'LBL_DASHLET_SAVED_REPORTS_CHART_DESC' => 'Displays any chart from a saved report.',
+    'LBL_QUESTION_MARK' => '?',
+
+    // Historical Summary
+    'LBL_HISTORICAL_SUMMARY' => 'Historical Summary',
+    'TPL_HISTORICAL_SUMMARY' => 'Historical Summary for {{name}}',
+    'LBL_MORE_HISTORY' => 'More history...',
+    'LBL_RELATED_CONTACT' => 'Related Contact',
+    'LBL_MODULE_TYPE' => 'Type',
+    'LBL_HISTORICAL_SUMMARY_EMAIL_TO' => 'Email To',
+    'LBL_HISTORICAL_SUMMARY_EMAIL_FROM' => 'Email From',
+    'LBL_PREVIEW_BWC_TOOLTIP' => 'Legacy modules cannot be previewed',
+
+    //SFA
+    'LBL_BEST' => 'Best',
+    'LBL_WORST' => 'Worst',
+    'LBL_LIKELY' => 'Likely',
+    'LBL_BEST_ADJUSTED' => 'Best (Adjusted)',
+    'LBL_WORST_ADJUSTED' => 'Worst (Adjusted)',
+    'LBL_LIKELY_ADJUSTED' => 'Likely (Adjusted)',
+    'LBL_AMOUNT_USDOLLAR' => 'Converted Amount',
+    'LBL_OVERDUE' => 'Overdue',
+
+    'LBL_PASSWORD_REQUEST_SENT' => 'Your request has been submitted.',
+    'LBL_PASSWORD_REQUEST_ERROR' => 'There was a problem retrieving your username and email combination.',
+
+    'LBL_REMINDER_TITLE' => 'Reminder',
+    'LBL_CLICK_TO_DRILLDOWN' => 'Click to drilldown',
+
+    'LBL_CAN_NOT_DISABLE_ALL_LANG' => 'You can not disable all languages.',
+
+    'LBL_UPDATE_CALC_FIELDS' => 'Recalculate Values',
+
+    //Optimistic Locking
+    'LBL_YOU' => 'You',
+    'LBL_RESOLVE_CONFLICT' => 'Resolve Conflict for {{name}}',
+
+    // Generic Help Strings
+    'LBL_HELP_MORE_INFO' => 'For more information, refer to the {{{more_info_url}}} {{plural_module_name}} documentation.{{{more_info_url_close}}}',
+    'LBL_HELP_NO_HELP' => 'No Data Available',
+
+    // Dashlet Preview Help String
+    'LBL_HELP_PREVIEW' => 'The help dashlet provides specific information pertaining to the module you are currently viewing along with a link to the corresponding documentation (e.g. Leads documentation) in the Application guide for more information.',
+
+    // list view (AKA Records)
+    'LBL_HELP_RECORDS_TITLE' => 'List View Help',
+    'LBL_HELP_RECORDS' => "A module's list view displays all records meeting the current search criteria and to which users have access. You can view the basic details of each record within the field columns of the list view or click the record's name to open the record view.",
+
+    // record view (AKA Detail View)
+    'LBL_HELP_RECORD_TITLE' => 'Record View Help',
+    'LBL_HELP_RECORD' => 'This record view provides thorough information about an individual record as well as some details of the records linked to it.
+
+- Edit this record\'s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Interact with user comments and view record change history by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+
+    // create view
+    'LBL_HELP_CREATE_TITLE' => '{{module_name}} Creation',
+    'LBL_HELP_CREATE' => 'To create {{plural_module_name}}:
+1. Provide values for the fields as desired.
+ * Fields marked "Required" must be completed prior to saving.
+ * Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the {{plural_module_name}} list view.
+ * Choose "Save and view" to open the new {{module_name}} in record view.
+ * Choose "Save and create new" to immediately create another new {{module_name}}.',
+
+    // duplicate view
+    'LBL_HELP_DUPLICATE_TITLE' => 'Potential Duplicate Detected',
+    'LBL_HELP_DUPLICATE' => 'Sugar has detected that the record you are trying to create may already exist.
+
+To modify an existing record rather than creating a new one, click "Select and edit" to the right of the desired record. Any blank fields on the existing record will be filled in with the values you have just entered. Click "Save" to make these changes to the existing record.
+
+If, instead, you wish to use the values you have just entered instead of the values on the existing record, click "Reset to original". The values you entered will then be applied to the existing record, and you may now provide any additional changes and click "Save" to finalize modifications to the existing record.
+
+To create a new record using the values you have entered, click "Ignore Duplicate and Save" at the top right of the screen.',
+
+    'LBL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_SUBJECT' => 'Missing SMTP Server settings',
+    'TPL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_DESCRIPTION' => 'To send record assignment notifications, an SMTP server must be configured in {{emailSettingsUrl}}.',
+    'LBL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_LINK_TEXT' => 'Email Settings',
+
+    // shortcut keys help
+    'LBL_SHORTCUT_KEYS_HELP_ABOUT' => 'SugarCRM enables power users to quickly perform certain tasks with keyboard shortcuts to increase productivity. The tables on the right describe available shortcuts along with the keys and the actions they perform.',
+    'LBL_GLOBAL_SHORTCUTS' => 'Global Shortcuts',
+    'LBL_CONTEXTUAL_SHORTCUTS' => 'Contextual Shortcuts',
+    'LBL_SHORTCUT_KEY_KEY' => 'Key',
+    'LBL_SHORTCUT_FUNCTION' => 'Function',
+    'LBL_SHORTCUT_HELP' => 'Show shortcuts help page',
+    'LBL_SHORTCUT_QUICK_CREATE' => 'Toggle the quick create menu',
+    'LBL_SHORTCUT_SEARCH' => 'Focus on global search field',
+    'LBL_SHORTCUT_SIDEBAR_TOGGLE' => 'Toggle sidebar',
+    'LBL_SHORTCUT_CREATE_RECORD' => 'Create new record',
+    'LBL_SHORTCUT_NAVIGATE_DOWN' => 'Select next record on the list',
+    'LBL_SHORTCUT_NAVIGATE_UP' => 'Select previous record on the list',
+    'LBL_SHORTCUT_SCROLL_LEFT' => 'Scroll list left',
+    'LBL_SHORTCUT_SCROLL_RIGHT' => 'Scroll list right',
+    'LBL_SHORTCUT_OPEN' => 'Open selected record on the list',
+    'LBL_SHORTCUT_EDIT_SELECTED' => 'Edit selected record on the list',
+    'LBL_SHORTCUT_RECORD_DELETE' => 'Delete record',
+    'LBL_SHORTCUT_CANCEL_INLINE_EDIT' => 'Exit out of list inline edit mode without saving',
+    'LBL_SHORTCUT_RECORD_SAVE' => 'Save record',
+    'LBL_SHORTCUT_RECORD_CANCEL' => 'Clear out any changes to the record',
+    'LBL_SHORTCUT_FAVORITE_RECORD' => 'Mark record as favorite',
+    'LBL_SHORTCUT_FOLLOW_RECORD' => 'Follow record',
+    'LBL_SHORTCUT_PREVIEW_SELECTED' => 'Preview record',
+    'LBL_SHORTCUT_MARK_SELECTED' => 'Mark record as selected',
+    'LBL_SHORTCUT_SELECT_ALL' => 'Select all',
+    'LBL_SHORTCUT_OPEN_MASS_ACTION' => 'Open mass action dropdown menu',
+    'LBL_SHORTCUT_FILTER_SEARCH' => 'Focus on list filter field',
+    'LBL_SHORTCUT_FILTER_CREATE' => 'Create a new list filter',
+    'LBL_SHORTCUT_FILTER_EDIT' => 'Edit current list filter',
+    'LBL_SHORTCUT_FILTER_SHOW' => 'Open list filter menu',
+    'LBL_SHORTCUT_RECORD_EDIT' => 'Edit record',
+    'LBL_SHORTCUT_RECORD_PREVIOUS' => 'Open previous record',
+    'LBL_SHORTCUT_RECORD_NEXT' => 'Open next record',
+    'LBL_SHORTCUT_COPY_RECORD' => 'Copy current record',
+    'LBL_SHORTCUT_OPEN_MORE_ACTION' => 'Open primary action dropdown menu',
+    'LBL_SHORTCUT_CLOSE_DRAWER' => 'Close drawer',
+    'LBL_SHORTCUT_FILTER_ADD' => 'Add additional criteria to filter',
+    'LBL_SHORTCUT_FILTER_REMOVE' => 'Remove last criteria from filter',
+    'LBL_SHORTCUT_FILTER_CLOSE' => 'Close filter',
+    'LBL_SHORTCUT_FILTER_SAVE' => 'Save filter',
+    'LBL_SHORTCUT_FILTER_DELETE' => 'Delete filter',
+    'LBL_SHORTCUT_FILTER_RESET' => 'Reset filter',
+    'LBL_SHORTCUT_MASS_UPDATE_ADD' => 'Add row',
+    'LBL_SHORTCUT_MASS_UPDATE_REMOVE' => 'Remove row',
+    'LBL_SHORTCUT_MASS_UPDATE_CANCEL' => 'Close mass update',
+    'LBL_SHORTCUT_MASS_UPDATE_SAVE' => 'Update records',
+    'LBL_SHORTCUT_ALERT_CONFIRM' => 'Confirm',
+    'LBL_SHORTCUT_ALERT_CANCEL' => 'Cancel',
+    'LBL_SHORTCUT_SWEETSPOT' => 'Toggle the Sweet Spot bar',
+
+    // config drawer
+    'LBL_CONFIG_TITLE_MODULE_SETTINGS' => '{{module}} Settings',
+    'LBL_CONFIG_MODULE_SETTINGS_SAVED' => '{{module}} configuration settings have been saved.',
+    'LBL_CONFIG_BLOCKED_TITLE' => '{{module}} Configuration Error',
+    'LBL_CONFIG_BLOCKED_DESC_NO_CONFIG_METADATA' => '{{module}} does not have any configuration settings',
+    'LBL_CONFIG_BLOCKED_DESC_USER_ACCESS' => 'User does not have access to {{module}}',
+    'LBL_CONFIG_BLOCKED_DESC_MODULE_ACCESS' => 'User does not have access to configure {{module}} settings',
+    'LBL_CONFIG_BLOCKED_DESC_CONFIG_ACCESS' => 'Database settings for {{module}} need to be fixed',
+
+    // duration field
+    'LBL_START_AND_END_DATE' => '{{start}} - {{end}} ({{duration}})',
+    'LBL_START_AND_END_DATE_SAME_DAY' => '{{date}} {{start}} - {{end}} ({{duration}})',
+    'LBL_START_AND_END_DATE_TO' => 'to',
+    'LBL_START_AND_END_DATE_DETAIL_VIEW' => 'Start & End Date',
+
+    'LBL_CALENDAR_START_DATE' => "Start Date",
+    'LBL_CALENDAR_END_DATE' => "End Date",
+    'LBL_CALENDAR_DURATION' => "Duration",
+    'LBL_CALENDAR_RECURRENCE' => "Recurrence",
+    'LBL_CALENDAR_REMINDERS' => "Reminders",
+
+    'LBL_CALENDAR_REPEAT_TYPE' => "Repeat Type",
+    'LBL_CALENDAR_REPEAT_INTERVAL' => "Repeat Interval",
+    'LBL_CALENDAR_REPEAT_DOW' => "Repeat on Days of Week",
+    'LBL_CALENDAR_REPEAT_UNTIL_DATE' => "Repeat Until",
+    'LBL_CALENDAR_REPEAT_COUNT' => "Repeat Occurrences",
+
+    'ERR_CALENDAR_CANNOT_UPDATE_FROM_CHILD' => 'Recurrence changes must be made using the first record in the series.',
+
+    'LBL_CALENDAR_EVENT_RESPONSE_ACCEPT' => 'Attending',
+    'LBL_CALENDAR_EVENT_RESPONSE_DECLINE' => 'Declined',
+    'LBL_CALENDAR_EVENT_RESPONSE_TENTATIVE' => 'Tentative',
+    'LBL_CALENDAR_EVENT_RESPONSE_NONE' => 'No Reply',
+    'LBL_CALENDAR_EVENT_SCHEDULE_UNAVAILABLE' => 'Schedule Unavailable',
+
+    'LBL_ERROR_RETRIEVING_FREE_BUSY' => 'Error occurred while retrieving schedule.',
+
+    'LBL_SAVE_AND_SEND_INVITES_BUTTON' => 'Save and Send Invites',
+
+
+    // Javascript enable string
+    'LBL_ENABLE_JAVASCRIPT' => 'Sugar 7 requires javascript. Please enable Javascript in your browser to use Sugar 7.',
+);
+
+$app_list_strings['interactions_options'] = array (
+    '7' => 'Last 7 Days',
+    '30' => 'Last 30 Days',
+    '90' => 'Last Quarter',
+    'favorites' => 'Favorites',
+    'custom' => 'My Custom Filter',
+);
+
+$app_list_strings['activity_user_options'] = array (
+    '7' => 'Last 7 Days',
+    '30' => 'Last 30 Days',
+    '90' => 'Last Quarter',
+);
+
+$app_list_strings['planned_activities_filter_options'] = array (
+    'today' => 'Today',
+    'future' => 'Future',
+);
+
+$app_list_strings['planned_activities_limit_options'] = array (
+    5 => 5,
+    10 => 10,
+    15 => 15,
+    20 => 20,
+);
+
+$app_list_strings['planned_activities_visibility_options'] = array (
+    'user' => 'Yes',
+    'group' => 'No',
+);
+
+$app_list_strings['history_filter_options'] = array (
+    7 => 'Last 7 Days',
+    30 => 'Last 30 Days',
+    90 => 'Last Quarter',
+);
+
+$app_list_strings['history_limit_options'] = array (
+    5 => 5,
+    10 => 10,
+    15 => 15,
+    20 => 20,
+);
+
+$app_list_strings['history_visibility_options'] = array (
+    'user' => 'Yes',
+    'group' => 'No',
+);
+
+$app_list_strings['tasks_limit_options'] = array (
+    5 => 5,
+    10 => 10,
+    15 => 15,
+    20 => 20,
+);
+
+$app_list_strings['tasks_visibility_options'] = array (
+    'user' => 'Yes',
+    'group' => 'No',
+);
+
+$app_list_strings['list_visibility_options'] = array(
+    '1' => 'Yes',
+    '0' => 'No',
+);
+
+$app_list_strings['generic_timeperiod_options'] = array (
+    'current' => 'This Quarter',
+    'next' => 'Next Quarter',
+    'year' => 'This Year',
+);
+
+// see sugarcrm/clients/base/views/bubblechart/bubblechart.php
+$app_list_strings['top10_opportunities_visibility_options'] = array (
+    'user' => 'My Records',
+    'group' => 'Group Records'
+);
+$app_list_strings['forecast_pipeline_visibility_options'] = array (
+    'user' => 'My Pipeline',
+    'group' => 'My Team\'s Pipeline',
+);
+$app_list_strings['forecast_pareto_visibility_options'] = array (
+    'user' => 'My Forecast',
+    'group' => 'My Team\'s Forecast',
+);
+
+$app_list_strings['opps_config_view_by_options_dom'] = array(
+    'Opportunities' => 'Opportunities',
+    'RevenueLineItems' => 'Opportunities and Revenue Line Items'
+);
+
+$app_list_strings['opps_config_view_by_closedate_rollup_dom'] = array(
+    'latest' => 'Latest Close Date',
+    'earliest' => 'Earliest Close Date'
+);
 
 $app_list_strings['moduleList']['Library'] = 'Library';
+$app_list_strings['moduleListSingular']['Library'] = 'Library';
 $app_list_strings['library_type'] = array('Books'=>'Book', 'Music'=>'Music', 'DVD'=>'DVD', 'Magazines'=>'Magazines');
 $app_list_strings['moduleList']['EmailAddresses'] = 'Email Address';
 $app_list_strings['project_priority_default'] = 'Medium';
@@ -2892,6 +5138,8 @@ $app_list_strings['project_priority_options'] = array (
     'Medium' => 'Medium',
     'Low' => 'Low',
 );
+$app_list_strings['moduleListSingular']['EmailAddresses'] = 'Email Address';
+
 
 
 $app_list_strings['kbdocument_status_dom'] = array (
@@ -2922,7 +5170,8 @@ $app_list_strings['kbdocument_status_dom'] = array (
         'name' => 'Specify Name',
     );
 
-  $app_list_strings['moduleList']['KBDocuments'] = 'Knowledge Base';
+  $app_list_strings['moduleList']['Words'] = 'Words';
+  $app_list_strings['moduleListSingular']['Words'] = 'Word';
   $app_strings['LBL_CREATE_KB_DOCUMENT'] = 'Create Article';
   $app_list_strings['kbdocument_viewing_frequency_dom'] =
   array(
@@ -3201,6 +5450,60 @@ $app_list_strings['kbdocument_status_dom'] = array (
         'ZAMBIA' => 'ZAMBIA',
         'ZIMBABWE' => 'ZIMBABWE',
     );
+
+$app_list_strings['state_dom'] = array(
+    'AL' => 'Alabama',
+    'AK' => 'Alaska',
+    'AZ' => 'Arizona',
+    'AR' => 'Arkansas',
+    'CA' => 'California',
+    'CO' => 'Colorado',
+    'CT' => 'Connecticut',
+    'DE' => 'Delaware',
+    'DC' => 'District Of Columbia',
+    'FL' => 'Florida',
+    'GA' => 'Georgia',
+    'HI' => 'Hawaii',
+    'ID' => 'Idaho',
+    'IL' => 'Illinois',
+    'IN' => 'Indiana',
+    'IA' => 'Iowa',
+    'KS' => 'Kansas',
+    'KY' => 'Kentucky',
+    'LA' => 'Louisiana',
+    'ME' => 'Maine',
+    'MD' => 'Maryland',
+    'MA' => 'Massachusetts',
+    'MI' => 'Michigan',
+    'MN' => 'Minnesota',
+    'MS' => 'Mississippi',
+    'MO' => 'Missouri',
+    'MT' => 'Montana',
+    'NE' => 'Nebraska',
+    'NV' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'OH' => 'Ohio',
+    'OK' => 'Oklahoma',
+    'OR' => 'Oregon',
+    'PA' => 'Pennsylvania',
+    'RI' => 'Rhode Island',
+    'SC' => 'South Carolina',
+    'SD' => 'South Dakota',
+    'TN' => 'Tennessee',
+    'TX' => 'Texas',
+    'UT' => 'Utah',
+    'VT' => 'Vermont',
+    'VA' => 'Virginia ',
+    'WA' => 'Washington',
+    'WV' => 'West Virginia',
+    'WI' => 'Wisconsin',
+    'WY' => 'Wyoming'
+);
 
   $app_list_strings['charset_dom'] = array(
     'BIG-5'     => 'BIG-5 (Taiwan and Hong Kong)',
@@ -3613,6 +5916,7 @@ $app_list_strings['kbdocument_status_dom'] = array (
   );
 
   $app_list_strings['moduleList']['Sugar_Favorites'] = 'Favorites';
+  $app_list_strings['moduleListSingular']['Sugar_Favorites'] = 'Favorite';
   $app_list_strings['eapm_list']= array(
     'Sugar'=>'Sugar',
     'WebEx'=>'WebEx',
@@ -3624,16 +5928,24 @@ $app_list_strings['kbdocument_status_dom'] = array (
     'Twitter'=>'Twitter',
   );
   $app_list_strings['eapm_list_import']= array(
-    'Google' => 'Google Contacts',
+  	'Google' => 'Google Contacts',
   );
-  $app_list_strings['eapm_list_documents']= array(
-    'Google' => 'Google Drive',
+$app_list_strings['eapm_list_documents']= array(
+  	'Google' => 'Google Docs',
   );
 	$app_list_strings['token_status'] = array(
         1 => 'Request',
         2 => 'Access',
         3 => 'Invalid',
     );
+$app_list_strings['oauth_type_dom'] = array(
+    'oauth1' => 'OAuth 1.0',
+    'oauth2' => 'OAuth 2.0',
+);
+$app_list_strings['oauth_client_type_dom'] = array(
+    'user' => 'Sugar User',
+    'support_portal' => 'Support Portal',
+);
 
 $app_list_strings ['emailTemplates_type_list'] = array (
     '' => '' ,
@@ -3652,12 +5964,120 @@ $app_list_strings ['emailTemplates_type_list_no_workflow'] = array (
     'campaign' => 'Campaign' ,
     'email' => 'Email',
   );
-$app_strings ['documentation'] = array (
+$app_list_strings ['documentation'] = array (
     'LBL_DOCS' => 'Documentation',
-    'ULT' => '02_Sugar_Ultimate',
-	'ENT' => '02_Sugar_Enterprise',
-	'CORP' => '03_Sugar_Corporate',
-	'PRO' => '04_Sugar_Professional',
-	'COM' => '05_Sugar_Community_Edition'
+    'ULT' => '01_Sugar_Ultimate',
+    'ENT' => '02_Sugar_Enterprise',
+    'CORP' => '03_Sugar_Corporate',
+    'PRO' => '04_Sugar_Professional',
+    'COM' => '05_Sugar_Community_Edition'
 );
-?>
+
+$app_list_strings['forecasts_config_ranges_options_dom'] = array(
+    'show_binary' => 'Two Ranges',
+    'show_buckets' => 'Three Ranges',
+);
+$app_list_strings['forecasts_timeperiod_types_dom'] = array(
+    'chronological' => 'Date Based Year',
+);
+$app_list_strings['forecasts_timeperiod_options_dom'] = array(
+    'Annual' => 'Yearly (Quarterly sub-periods)',
+    'Quarter' => 'Quarterly (Monthly sub-periods)',
+);
+$app_list_strings['forecasts_config_worksheet_layout_forecast_by_options_dom'] = array(
+    'RevenueLineItems' => 'Revenue Line Items',
+    'Opportunities' => 'Opportunities',
+);
+
+$app_list_strings['forecast_fiscal_year_options'] = array(
+    'current_year' => '{{year}}',
+    'next_year' => '{{year}}'
+);
+
+$app_list_strings ['pdfmanager_yes_no_list'] = array (
+    'yes' => 'Yes' ,
+    'no' => 'No',
+);
+
+$app_list_strings['notifications_severity_list'] = array(
+    'alert' => 'Alert',
+    'information' => 'Info',
+    'other' => 'Other',
+    'success' => 'Success',
+    'warning' => 'Warning',
+);
+
+$app_list_strings['web_hook_request_method_list'] = array(
+    'POST' => 'POST',
+    'GET' => 'GET',
+    'PUT' => 'PUT',
+    'DELETE' => 'DELETE',
+);
+
+$app_list_strings['email_check_interval_dom'] = array(
+    '-1' => "Manually",
+    '5' => 'Every 5 minutes',
+    '15' => 'Every 15 minutes',
+    '30' => 'Every 30 minutes',
+    '60' => 'Every hour'
+);
+
+$app_list_strings['dnb_bal_after_before_btw'] = array(
+    'gte' => 'After',
+    'lte' => 'Before',
+    'btw' => 'Between'
+);
+
+$app_list_strings['dnb_bal_filing_trading_option'] = array(
+    'filingdate' => 'Filing Date',
+    'tradingdate' => 'Trading Date'
+);
+
+$app_list_strings['dnb_bal_gte_lte_btw'] = array(
+    'gte' => 'Greater than or Equal to',
+    'lte' => 'Lesser than or Equal to',
+    'btw' => 'Between'
+);
+
+$app_list_strings['dnb_bal_prescreen_options'] = array(
+    '10925' => 'Low',
+    '10926' => 'Medium',
+    '10927' => 'High'
+);
+
+$app_list_strings['dnb_bal_primary_secondary'] = array(
+    'true' => 'Primary Only',
+    'false' => 'Primary and Secondary'
+);
+
+$app_list_strings['dnb_bal_miles_km'] = array(
+    '3353' => 'Miles',
+    '3349' => 'KM'
+);
+
+$app_list_strings['dnb_bal_single_all'] = array(
+    'singlesite' => 'Single Site',
+    'allsites' => 'All Sites'
+);
+
+$app_list_strings['dnb_countries_radius_iso'] = array(
+    "US" => "United States",
+    "CA" => "Canada"
+);
+
+$app_list_strings['dnb_sic_naics_code'] = array(
+    "3599" => "SIC Code",
+    "700" => "NAICS Code"
+);
+
+$app_list_strings['dnb_contact_types'] = array(
+    'Contacts' => 'Contacts',
+    'Leads' => 'Leads',
+    'Prospects' => 'Targets',
+);
+
+$app_list_strings['dnb_contact_kw_scope'] = array(
+    'Title' => 'Title',
+    'Bio' => 'Bio',
+    'Both' => 'Both'
+);

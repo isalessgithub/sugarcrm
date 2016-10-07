@@ -1,29 +1,28 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Actions/AbstractAction.php");
 
 /**
  * SugarLogic action factory
  * @api
  */
-class ActionFactory {
+class ActionFactory
+{
 	static $exclude_files = array("ActionFactory.php", "AbstractAction.php");
 	static $action_directory = "include/Expressions/Actions";
 	static $loaded_actions = array();
 
-	static function loadFunctionList() {
+	static function loadFunctionList()
+	{
 	    $cachefile = sugar_cached("Expressions/actions_cache.php");
 		if (!is_file($cachefile))
 		{
@@ -35,7 +34,8 @@ class ActionFactory {
 		}
 	}
 
-	static function buildActionCache($silent = true) {
+	static function buildActionCache($silent = true)
+	{
 		if (!is_dir(ActionFactory::$action_directory))
             return false;
 
@@ -43,24 +43,17 @@ class ActionFactory {
         $entries = array();
         $actions = array();
 		$javascript = "";
-		foreach(array("", "custom/") as $prefix) {
-			if (!is_dir($prefix . ActionFactory::$action_directory)) continue;
-			$directory = opendir($prefix . ActionFactory::$action_directory);
-            if ( !$directory )  continue;
-			while( $entry = readdir($directory) )
-	        {
-	            if (strtolower(substr($entry, -4)) != ".php" || in_array($entry, ActionFactory::$exclude_files))
-	                continue;
+		foreach(SugarAutoLoader::getFilesCustom(ActionFactory::$action_directory) as $path) {
+		    $entry = basename($path);
+		    if (strtolower(substr($entry, -4)) != ".php" || in_array($entry, ActionFactory::$exclude_files))
+		    	continue;
+		    require_once($path);
 
-	            $path = $prefix . ActionFactory::$action_directory . "/" . $entry;
-	            require_once($path);
-
-				$className = substr($entry, 0, strlen($entry) - 4);
-	            $actionName = call_user_func(array($className, "getActionName"));
-	            $actions[$actionName] = array('class' => $className, 'file' => $path);
-				$javascript .= call_user_func(array($className, "getJavascriptClass"));
-				if (!$silent) echo "added action $actionName <br/>";
-	        }
+		    $className = substr($entry, 0, strlen($entry) - 4);
+		    $actionName = call_user_func(array($className, "getActionName"));
+		    $actions[$actionName] = array('class' => $className, 'file' => $path);
+		    $javascript .= call_user_func(array($className, "getJavascriptClass"));
+		    if (!$silent) echo "added action $actionName <br/>";
 		}
 
 		if (empty($actions)) return "";

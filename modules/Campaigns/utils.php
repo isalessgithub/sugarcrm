@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -276,7 +273,7 @@ function campaign_log_lead_or_contact_entry($campaign_id, $parent_bean,$child_be
     //create campaign tracker id and retrieve related bio bean
      $tracker_id = create_guid();
     //create new campaign log record.
-    $campaign_log = new CampaignLog();
+    $campaign_log = BeanFactory::getBean('CampaignLog');
     $campaign_log->campaign_id = $campaign_id;
     $campaign_log->target_tracker_key = $tracker_id;
     $campaign_log->related_id = $parent_bean->id;
@@ -317,11 +314,10 @@ function get_subscription_lists_query($focus, $additional_fields = null) {
 
     // We need to confirm that the user is a member of the team of the item.
     global $current_user;
-    $focus->disable_row_level_security = false;
+    $bean = BeanFactory::getBean('Campaigns');
 
 
-	$focus->add_team_security_where_clause($all_news_type_pl_query, 'c');
-	$focus->disable_row_level_security = true;
+    $bean->add_team_security_where_clause($all_news_type_pl_query, 'c');
 
 	$all_news_type_pl_query .= "where plc.campaign_id = c.id ";
     $all_news_type_pl_query .= "and plc.prospect_list_id = pl.id ";
@@ -560,7 +556,7 @@ function process_subscriptions($subscription_string_to_parse) {
                         //--if we are in here then user is subscribing to a list in which they are exempt.
                         // we need to remove the user from this unsubscription list.
                         //Begin by retrieving unsubscription prospect list
-                        $exempt_subscription_list = new ProspectList();
+                        $exempt_subscription_list = BeanFactory::getBean('ProspectLists');
 
 
                         $exempt_result = $exempt_subscription_list->retrieve($exempt_id);
@@ -589,7 +585,7 @@ function process_subscriptions($subscription_string_to_parse) {
                 //do nothing, user is already subscribed
             }else{
                 //user is not subscribed already, so add to subscription list
-                $subscription_list = new ProspectList();
+                $subscription_list = BeanFactory::getBean('ProspectLists');
                 $subs_result = $subscription_list->retrieve($prospect_list);
                 if($subs_result == null)
                 {//error happened while retrieving this list, iterate and continue
@@ -650,8 +646,7 @@ function process_subscriptions($subscription_string_to_parse) {
         //unsubscribe subscripted newsletter
         foreach($pl_arr as $subscription_list){
 			//create a new instance of the prospect list
-        	$exempt_list = new ProspectList();
-        	$exempt_list->retrieve($subscription_list['id']);
+        	$exempt_list = BeanFactory::getBean('ProspectLists', $subscription_list['id']);
         	$exempt_list->load_relationship($relationship);
 			//if list type is default, then delete the relationship
             //if list type is exempt, then add the relationship to unsubscription list
@@ -698,8 +693,7 @@ function process_subscriptions($subscription_string_to_parse) {
         $msg = " <table class='detail view small' width='100%'><tr><td> ".$mod_strings['LNK_CAMPAIGN_DIGNOSTIC_LINK']."</td></tr>";
         //Start with email components
         //monitored mailbox section
-        $focus = new Administration();
-        $focus->retrieveSettings(); //retrieve all admin settings.
+        $focus = Administration::getSettings(); //retrieve all admin settings.
 
 
         //run query for mail boxes of type 'bounce'
@@ -810,8 +804,7 @@ function process_subscriptions($subscription_string_to_parse) {
  */
  function campaign_log_mail_merge($campaign_id, $targets) {
 
-    $campaign= new Campaign();
-    $campaign->retrieve($campaign_id);
+    $campaign = BeanFactory::getBean('Campaigns', $campaign_id);
 
     if (empty($campaign->id)) {
         $GLOBALS['log']->debug('set_campaign_merge: Invalid campaign id'. $campaign_id);
@@ -915,7 +908,7 @@ function write_mail_merge_log_entry($campaign_id,$pl_row) {
                      $rel_bean->retrieve($id);
 
                     //create new campaign log record.
-                    $campaign_log = new CampaignLog();
+                    $campaign_log = BeanFactory::getBean('CampaignLog');
                     $campaign_log->campaign_id = $campaign_id;
                     $campaign_log->target_tracker_key = $tracker_id;
                     $campaign_log->target_id = $rel_bean->id;

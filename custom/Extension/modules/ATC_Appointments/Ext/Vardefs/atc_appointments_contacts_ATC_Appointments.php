@@ -1,5 +1,5 @@
 <?php
-// created: 2013-08-06 14:59:59
+
 $dictionary["ATC_Appointments"]["fields"]["atc_appointments_contacts"] = array (
   'name' => 'atc_appointments_contacts',
   'type' => 'link',
@@ -18,7 +18,7 @@ $dictionary["ATC_Appointments"]["fields"]["atc_appointments_contacts_name"] = ar
   'link' => 'atc_appointments_contacts',
   'table' => 'contacts',
   'module' => 'Contacts',
-  'rname' => 'name',
+  'rname' => 'full_name',
   'db_concat_fields' => 
   array (
     0 => 'first_name',
@@ -27,10 +27,12 @@ $dictionary["ATC_Appointments"]["fields"]["atc_appointments_contacts_name"] = ar
 );
 $dictionary["ATC_Appointments"]["fields"]["atc_appointments_contactscontacts_ida"] = array (
   'name' => 'atc_appointments_contactscontacts_ida',
-  'type' => 'link',
+  'type' => 'id',
   'relationship' => 'atc_appointments_contacts',
   'source' => 'non-db',
   'reportable' => false,
   'side' => 'right',
   'vname' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_ATC_APPOINTMENTS_TITLE',
+  'link' => 'atc_appointments_contacts',
+  'rname' => 'id',
 );

@@ -2,32 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $dashletStrings = array (
   'JotPadDashlet' => 
   array (
-    'LBL_CONFIGURE_HEIGHT' => '高度（1 - 300）',
+    'LBL_CONFIGURE_HEIGHT' => '高度(1 - 300)',
     'LBL_CONFIGURE_TITLE' => '标题',
-    'LBL_DBLCLICK_HELP' => '双击下面区域进入编辑',
+    'LBL_DBLCLICK_HELP' => '双击下方即可编辑',
     'LBL_DEFAULT_TEXT' => '',
-    'LBL_DESCRIPTION' => '保留记录的新增栏',
-    'LBL_SAVED' => '已保存',
-    'LBL_SAVING' => '保存记事本中...',
-    'LBL_TITLE' => '记事本',
+    'LBL_DESCRIPTION' => '一个写笔记的dashlet',
+    'LBL_SAVED' => '保存完毕',
+    'LBL_SAVING' => 'JotPad保存中...',
+    'LBL_TITLE' => 'JotPad',
   ),
 );
 

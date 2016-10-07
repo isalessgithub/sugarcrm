@@ -1,23 +1,25 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Actions/AbstractAction.php");
 
 class SetOptionsAction extends AbstractAction{
 	protected $keysExpression =  "";
 	protected $labelsExpressions =  "";
-	
+
+    /**
+     * array Array of actions on which the Expression Action is not allowed
+     */
+    protected $disallowedActions = array('view');
+
 	function SetOptionsAction($params) {
         $this->params = $params;
 		$this->targetField = $params['target'];
@@ -33,6 +35,12 @@ class SetOptionsAction extends AbstractAction{
 	static function getJavascriptClass() {
 		return  "
 		SUGAR.forms.SetOptionsAction = function(target, keyExpr, labelExpr) {
+			this.afterRender = true;
+			if (_.isObject(target)){
+				labelExpr = target.labels;
+				keyExpr = target.keys;
+				target = target.target
+			}
 			this.keyExpr = keyExpr;
 			this.labelExpr = labelExpr;
 			this.target = target;
@@ -40,92 +48,130 @@ class SetOptionsAction extends AbstractAction{
 				
 		SUGAR.util.extend(SUGAR.forms.SetOptionsAction, SUGAR.forms.AbstractAction, {
 			exec: function(context) {
-			    if (typeof(context) == 'undefined')
-                    context = this.context;
-                view = false;
-                if (typeof(context.formName) != 'undefined')
-                    view = context.formName; 
-				var field = SUGAR.forms.AssignmentHandler.getElement(this.target, view);
-				if ( field == null )	return null;		
-				
-				var keys = this.evalExpression(this.keyExpr, context);
-				var labels = this.evalExpression(this.labelExpr, context);
-				var selected = '';
-				
-				if (keys instanceof Array && field.options != null) 
-				{
-					// get the options of this select
-					var options = field.options;
-					
-					for (var i = 0; i < options.length; i++) {
-					    if (options[i].selected)
-					    	selected = options[i].value;
-					}
-					
-					// empty the options
-					while (options.length > 0) {
-						field.remove(options[0]);
-					}
+				if (typeof(context) == 'undefined')
+					context = this.context;
 
-					if (typeof(labels) == 'string') //get translated values from Sugar Language
-					{
-					    var fullSet = SUGAR.language.get('app_list_strings', labels);
-					    labels = [];
-					    for (var i in keys)
-					    {
-					        labels[i] = fullSet[keys[i]];
-					    }
+				var keys = this.evalExpression(this.keyExpr, context),
+					labels = this.evalExpression(this.labelExpr, context),
+					empty = (_.size(keys) === 0 || _.size(keys) === 1) && (keys[0] == undefined || keys[0] === '');
+					selected = '';
+
+				if (context.view)
+				{
+					var field = context.getField(this.target);
+					//Cannot continue if the field does not exist on this view
+					if (!field) {
+					    return;
 					}
-					
-					var new_opt;
-					for (var i in keys) {
-						if (labels instanceof Array)
-						{
-							if (typeof keys[i] == 'string')
-							{
-								if (typeof labels[i] == 'string') {
-									new_opt = options[options.length] = new Option(labels[i], keys[i], keys[i] == selected);
-								}
-								else 
-								{
-									new_opt = options[options.length] = new Option(keys[i], keys[i], keys[i] == selected);
-								}
-							}
-						}
-						else //Use the keys as labels
-						{
-							if (typeof keys[0] == 'undefined') {
-								if (typeof(keys[i]) == 'string') {
-									new_opt = options[options.length] = new Option(keys[i], i);
-								}
-							} else {
-								if (typeof(value[i]) == 'string') {
-									new_opt = options[options.length] = new Option(keys[i], keys[i]);
-								}
-							}
-						}
-						if (keys[i] == selected)
-							new_opt.selected = true;
-					
-					}
-					
-					if(field.value != selected)
-						SUGAR.forms.AssignmentHandler.assign(this.target, field.value);
-					
-					//Hide fields with empty lists
-					var empty =  field.options.length == 1 && field.value == '';
-					var visAction = new SUGAR.forms.VisibilityAction(this.target, (empty ? 'false' : 'true'), '');
+					if (_.isString(labels))
+						field.items = _.pick(App.lang.getAppListStrings(labels), keys);
+					else
+						field.items = _.object(keys, labels);
+
+					slContext = context;
+
+					field.model.fields[this.target].options = field.items;
+
+					var visAction = new SUGAR.forms.SetVisibilityAction(this.target, (empty ? 'false' : 'true'), '');
 					visAction.setContext(context);
 					visAction.exec();
-					
-					if ( SUGAR.forms.AssignmentHandler.ANIMATE && !empty)
-						SUGAR.forms.FlashField(field);
+
+					//Remove from the selected options those options that are no longer available to select
+					selected = _.filter([].concat(field.model.get(this.target)), function(key) {
+					    return _.contains(keys, key);
+					});
+
+					if (selected.length == 0 && field.model.fields[field.name].type != 'multienum') {
+					    selected = selected.concat(empty ? '' : keys[0]);
+					}
+
+					context.setValue(this.target, selected);
 				}
-				//Check if we are on a detailview and just need to hide the field
-				else if (keys instanceof Array && (keys.length == 0 || (keys.length == 1 && keys[0] == ''))){
-				    //Use a normal visibility action to hide the field
-				    var va = new SUGAR.forms.VisibilityAction(this.target, 'false', '');
-				    va.exec(context);
+				else {
+					var field = context.getElement(this.target);
+					if ( field == null )	return null;
+
+
+					if (keys instanceof Array && field.options != null)
+					{
+						// get the options of this select
+						var options = field.options;
+						selected = [];
+
+						for (var i = 0; i < options.length; i++) {
+							if (options[i].selected)
+								selected = selected.concat(options[i].value);
+						}
+
+						// empty the options
+						while (options.length > 0) {
+							field.remove(options[0]);
+						}
+
+						if (typeof(labels) == 'string') //get translated values from Sugar Language
+						{
+							var fullSet = SUGAR.language.get('app_list_strings', labels);
+							labels = [];
+							for (var i in keys)
+							{
+								labels[i] = fullSet[keys[i]];
+							}
+						}
+
+						var new_opt;
+						for (var i in keys) {
+							if (labels instanceof Array)
+							{
+								if (typeof keys[i] == 'string')
+								{
+									if (typeof labels[i] == 'string') {
+										new_opt = options[options.length] = new Option(labels[i], keys[i], keys[i] == selected);
+									}
+									else
+									{
+										new_opt = options[options.length] = new Option(keys[i], keys[i], keys[i] == selected);
+									}
+								}
+							}
+							else //Use the keys as labels
+							{
+								if (typeof keys[0] == 'undefined') {
+									if (typeof(keys[i]) == 'string') {
+										new_opt = options[options.length] = new Option(keys[i], i);
+									}
+								} else {
+									if (typeof(value[i]) == 'string') {
+										new_opt = options[options.length] = new Option(keys[i], keys[i]);
+									}
+								}
+							}
+							if (_.indexOf(selected, keys[i]) > -1) {
+								new_opt.selected = true;
+							}
+
+						}
+
+						if(!field.multiple && field.value != selected) {
+							SUGAR.forms.AssignmentHandler.assign(this.target, field.value);
+						}
+
+						//Hide fields with empty lists
+
+						var empty = (field.multiple && field.options.length == 0)
+						 || (!field.multiple && field.options.length <= 1 && field.value == '');
+						var visAction = new SUGAR.forms.SetVisibilityAction(this.target, (empty ? 'false' : 'true'), '');
+						visAction.setContext(context);
+						visAction.exec();
+
+						if ( SUGAR.forms.AssignmentHandler.ANIMATE && !empty)
+							SUGAR.forms.FlashField(field);
+					}
+					//Check if we are on a detailview and just need to hide the field
+					else if (keys instanceof Array && (keys.length == 0 || (keys.length == 1 && keys[0] == ''))){
+						//Use a normal visibility action to hide the field
+						var va = new SUGAR.forms.SetVisibilityAction(this.target, 'false', '');
+						va.exec(context);
+					}
 				}
 			}
 		});";

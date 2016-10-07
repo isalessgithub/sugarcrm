@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Неверный логин или пароль',
   'ERR_BODY_TOO_LONG' => '\\rТекст письма слишком длинный. Часть текста удалена.',
+  'ERR_DELETE_FOLDER' => 'Не удалось удалить папку.',
   'ERR_INI_ZLIB' => 'Невозможно временно отключить Zlib-сжатие. Тестирование установок может закончиться неудачно.',
   'ERR_MAILBOX_FAIL' => 'Невозможно получить ни одной учетной записи.',
   'ERR_NO_IMAP' => 'Не найдены библиотеки IMAP. Пожалуйста, решите эту проблему перед тем, как продолжить работу с входящей почтой',
   'ERR_NO_OPTS_SAVED' => 'Оптимальные настройки не были сохранены для входящих писем. Пожалуйста, проверьте соответствующие настройки',
   'ERR_TEST_MAILBOX' => 'Пожалуйста, проверьте Ваши настройки и попробуйте еще раз.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Не удалось отписаться от папки перед удалением.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Разрешить пользователям отправлять e-mail-сообщения, используя в качестве адреса для ответа имя и e-mail-адрес из поля "От"',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'При выборе этой опции, будет возможна опция выбора информации для полей "От: Имя" и "От: E-mail-адрес", ассоциированной с этой групповой учетной почтовой записью, в случае если e-mail составляется пользователем, у которого есть доступ к групповой учетной почтовой записи.',
   'LBL_APPLY_OPTIMUMS' => 'Применить оптимальные настройки',

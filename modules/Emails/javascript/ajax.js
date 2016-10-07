@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if (typeof console == "undefined")
 	console = { log: function(o) {alert(o)} };
@@ -109,7 +106,7 @@ var AjaxObject = {
 	 */
     handleFailure : function(o) {
 		// Failure handler
-		SUGAR.showMessageBox('Exception occurred...', o.statusText, 'alert');
+		SUGAR.showMessageBox(mod_strings.LBL_EXCEPTION, o.statusText, 'alert');
 		if(document.getElementById('saveButton')) {
 			document.getElementById('saveButton').disabled = false;
 		}
@@ -320,7 +317,18 @@ var AjaxObject = {
 
 	ieSendSuccess : function(o) {
 		SUGAR.hideMessageBox();
-		SUGAR.showMessageBox(app_strings.LBL_EMAIL_TEST_OUTBOUND_SETTINGS_SENT, app_strings.LBL_EMAIL_TEST_NOTIFICATION_SENT, 'plain');
+		var ret = YAHOO.lang.JSON.parse(o.responseText);
+		if (ret.status == false) {
+		    if (ret.errorMessage) {
+		        SUGAR.showMessageBox(app_strings.LBL_EMAIL_TEST_OUTBOUND_SETTINGS, ret.errorMessage, 'plain');
+		    }
+		    else {
+		        SUGAR.showMessageBox(app_strings.LBL_EMAIL_TEST_OUTBOUND_SETTINGS, app_strings.LBL_EMAIL_INVALID_SYSTEM_OUTBOUND, 'plain');
+		    }
+		}
+		else {
+		    SUGAR.showMessageBox(app_strings.LBL_EMAIL_TEST_OUTBOUND_SETTINGS_SENT, app_strings.LBL_EMAIL_TEST_NOTIFICATION_SENT, 'plain');
+		}
 	},
 
 	/**
@@ -688,13 +696,12 @@ AjaxObject.detailView = {
         		this.body.style.overflow = "auto";
             }, SED.quickCreateDialog);
 
-            SED.quickCreateDialog.hideEvent.subscribe(function(){
-				var qsFields = YAHOO.util.Dom.getElementsByClassName('.sqsEnabled', null, this.body);
-				/*for(var qsField in qsFields){
-					if (typeof QSFieldsArray[qsFields[qsField].id] != 'undefined')
-					Ext.getCmp('combobox_'+qsFields[qsField].id).destroy();
-				}*/
-			});
+            // dialog contents may override current drag-n-drop mode
+            // so restore it when the dialog is hidden (bug #49330)
+            var mode = YAHOO.util.DDM.mode;
+            SED.quickCreateDialog.hideEvent.subscribe(function() {
+                YAHOO.util.DDM.mode = mode;
+            });
             SED.quickCreateDialog.setHeader(app_strings.LBL_EMAIL_QUICK_CREATE);
 		} // end lazy load
 		if (ret.html) {
@@ -856,7 +863,7 @@ AjaxObject.detailView = {
 		if(!SED.quickCreateDialog) {
 			SED.quickCreateDialog = new YAHOO.widget.Dialog("emailDetailDialog", {
 				modal:true,
-				visible:true,
+				visible:false,
             	//fixedcenter:true,
             	constraintoviewport: true,
             	draggable: true,
@@ -875,6 +882,13 @@ AjaxObject.detailView = {
         		this.body.style.height = (viewHeight - 75 > contH ? (contH + 10) : (viewHeight - 75)) + "px";
         		this.center();
             }, SED.quickCreateDialog);
+
+            // dialog contents may override current drag-n-drop mode
+            // so restore it when the dialog is hidden (bug #49330)
+            var mode = YAHOO.util.DDM.mode;
+            SED.quickCreateDialog.hideEvent.subscribe(function() {
+                YAHOO.util.DDM.mode = mode;
+            });
 		}
 		SED.quickCreateDialog.setHeader(app_strings.LBL_EMAIL_RECORD);
 		SED.quickCreateDialog.setBody(ret.html);
@@ -1405,7 +1419,7 @@ var callbackAssignmentAction = {
 		SE.listView.refreshGrid();
 		SUGAR.hideMessageBox();
 		if(o.responseText != '') {
-	       SUGAR.showMessageBox('Assignment action result', o.responseText, 'alert');
+	       SUGAR.showMessageBox(mod_strings.LBL_ASSIGNMNT_ACT_RESULT, o.responseText, 'alert');
 	    } // if
 	} ,
 	failure	: AjaxObject.handleFailure,

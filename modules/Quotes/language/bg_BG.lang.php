@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Трябва да определите номер на записа, за да изтриете тази оферта.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Офертата е вече преобразувана във Възможност',
   'LBL_ACCOUNT_ID' => 'Организация',
   'LBL_ACCOUNT_NAME' => 'Организация:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Дейности',
@@ -90,12 +88,12 @@ $mod_strings = array (
   'LBL_LIST_DISCOUNT_PRICE' => 'Единична цена',
   'LBL_LIST_FORM_TITLE' => 'Списък с оферти:',
   'LBL_LIST_GRAND_TOTAL' => 'Стойност на офертата',
-  'LBL_LIST_LIST_PRICE' => 'Списък',
+  'LBL_LIST_LIST_PRICE' => 'Цена по каталог',
   'LBL_LIST_MANUFACTURER_PART_NUM' => 'Партиден No.',
   'LBL_LIST_MY_QUOTES' => 'Моите оферти',
   'LBL_LIST_PRICING_FACTOR' => 'Фактор',
   'LBL_LIST_PRICING_FORMULA' => 'Формула за ценообразуване',
-  'LBL_LIST_PRODUCT_NAME' => 'Продукт',
+  'LBL_LIST_PRODUCT_NAME' => 'Оферирана позиция',
   'LBL_LIST_QUANTITY' => 'Количество',
   'LBL_LIST_QUOTE_NAME' => 'Относно',
   'LBL_LIST_QUOTE_NUM' => 'Номер',
@@ -121,9 +119,9 @@ $mod_strings = array (
   'LBL_PDF_INVOICE_NUMBER' => 'Номер на фактура',
   'LBL_PDF_INVOICE_TITLE' => 'Фактура',
   'LBL_PDF_ITEM_DISCOUNT' => 'Отстъпка',
-  'LBL_PDF_ITEM_EXT_PRICE' => 'Ext. Price',
+  'LBL_PDF_ITEM_EXT_PRICE' => 'Външна цена',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Каталожна цена',
-  'LBL_PDF_ITEM_PRODUCT' => 'Продукт',
+  'LBL_PDF_ITEM_PRODUCT' => 'Оферирана позиция',
   'LBL_PDF_ITEM_QUANTITY' => 'Количество',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => 'Избиране на точка за отстъпка',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Единична цена',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Изтриване на коментар',
   'LBL_REMOVE_ROW' => 'Изтриване на ред',
   'LBL_RENAME_ERROR' => 'Грешка: can&#39;t move_pdf to $destination. You should try making the directory writable by the webserver',
+  'LBL_REVENUELINEITEMS' => 'Приходни позиции',
   'LBL_SALES_STAGE' => 'Етап:',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Оферти"',
   'LBL_SHIPPING' => 'Транспорт:',
@@ -191,12 +190,12 @@ $mod_strings = array (
   'LNK_QUOTE_REPORTS' => 'Справки за оферти',
   'MSG_DUPLICATE' => 'Създаването на тази оферта може да доведе до създаване на дублираща оферта. Можете или да изберете оферта от списъка долу, или да съхраните записа с вече въведените данни чрез натискане на бутон "Запази"..',
   'NTC_COPY_BILLING_ADDRESS' => 'Копиране данните от данъчния адрес върху адреса за кореспонденция',
-  'NTC_COPY_BILLING_ADDRESS2' => 'Copy to shipping',
+  'NTC_COPY_BILLING_ADDRESS2' => 'Копирай в адрес за кореспонденция',
   'NTC_COPY_SHIPPING_ADDRESS' => 'Копиране данните от адреса за кореспонденция върху данъчния адрес',
-  'NTC_COPY_SHIPPING_ADDRESS2' => 'Copy to billing',
+  'NTC_COPY_SHIPPING_ADDRESS2' => 'Копирай в данъчен адрес',
   'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'Този запис има вече въведени данни за адрес. За презапишете тези данни с адреса на избраната от Вас Организацията, натиснете "ОК". Ако искате да запазите въведените данни, натиснете "Отмени"',
   'NTC_REMOVE_COMMENT_CONFIRMATION' => 'Сигурни ли сте, че искате да изтриете този коментар от офертата?',
-  'NTC_REMOVE_GROUP_CONFIRMATION' => 'Сигурни ли сте, че желаете да премахнете тази група от офертата?',
+  'NTC_REMOVE_GROUP_CONFIRMATION' => 'Сифурни ли сте, че желаете да премахнете тази група от офертата?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'Сигурни ли сте, че искате да изтриете този обект от офертата?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'Сигурни ли сте, че искате да изтриете този контакт от офертата?',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'Сигурни ли сте, че искате да изтриете тази оферта от проекта?',

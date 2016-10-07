@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once("include/Expressions/Actions/AbstractAction.php");
 
 class PanelVisibilityAction extends AbstractAction{
@@ -19,24 +16,44 @@ class PanelVisibilityAction extends AbstractAction{
 	protected $expression = "";
 	
 	function PanelVisibilityAction($params) {
-		$this->targetPanel = $params['target'];
-		$this->expression = str_replace("\n", "",$params['value']);
-	}
+        $this->params = $params;
+        if (is_array($params)) {
+            if (isset($params['target'])) {
+                $this->targetPanel = $params['target'];
+            }
+            if (isset($params['value'])) {
+                $this->expression = str_replace("\n", "", $params['value']);
+            }
+        }
+    }
 	
 	/**
-	 * Returns the javascript class equavalent to this php class
+	 * Returns the javascript class equivalent to this php class
 	 *
 	 * @return string javascript.
 	 */
 	static function getJavascriptClass() {
-		return <<<EOQ
+		return <<<'EOQ'
 /**
- * Comepetely hide or show a panel
+ * Completely hide or show a panel
  */
-SUGAR.forms.PanelVisibilityAction = function(target, expr)
+SUGAR.forms.SetPanelVisibilityAction = function(target, expr)
 {
-    var targetElement = YAHOO.util.Dom.getAncestorByTagName(target, "div");
-    this.target = YAHOO.util.Dom.getAttribute(targetElement, "id");
+    this.afterRender = true;
+
+    if (_.isObject(target)){
+        expr = target.value;
+        target = target.target;
+    }
+    //BWC
+    if (_.isString(target) && _.isUndefined(SUGAR.App)) {
+       var parents = $('#' + target).parents('div');
+       if(parents.length) {
+          target = parents.attr('id');
+       }
+    }
+
+    this.target = target;
     this.expr   = 'cond(' + expr + ', "", "none")';
 }
 
@@ -44,9 +61,9 @@ SUGAR.forms.PanelVisibilityAction = function(target, expr)
 /**
  * Triggers this dependency to be re-evaluated again.
  */
-SUGAR.util.extend(SUGAR.forms.PanelVisibilityAction, SUGAR.forms.AbstractAction, {
+SUGAR.util.extend(SUGAR.forms.SetPanelVisibilityAction, SUGAR.forms.AbstractAction, {
     hideChildren: function() {
-        if (typeof(SUGAR.forms.PanelVisibilityAction.hiddenFields) == "undefined")
+        if (typeof(SUGAR.forms.SetPanelVisibilityAction.hiddenFields) == "undefined")
         {
             this.createFieldBin();
         }
@@ -55,7 +72,7 @@ SUGAR.util.extend(SUGAR.forms.PanelVisibilityAction, SUGAR.forms.AbstractAction,
         if (field_table != null) 
         {
             field_table.id = this.target + "_tbl";
-            SUGAR.forms.PanelVisibilityAction.hiddenFields.appendChild(field_table);
+            SUGAR.forms.SetPanelVisibilityAction.hiddenFields.appendChild(field_table);
         }
     },
     
@@ -71,7 +88,7 @@ SUGAR.util.extend(SUGAR.forms.PanelVisibilityAction, SUGAR.forms.AbstractAction,
         tmpElem.id = 'panelHiddenFields';
         tmpElem.style.display = 'none';
         document.body.appendChild(tmpElem);
-        SUGAR.forms.PanelVisibilityAction.hiddenFields = tmpElem;
+        SUGAR.forms.SetPanelVisibilityAction.hiddenFields = tmpElem;
     },
     
     /**
@@ -81,6 +98,9 @@ SUGAR.util.extend(SUGAR.forms.PanelVisibilityAction, SUGAR.forms.AbstractAction,
     {
         if (typeof(context) == 'undefined')
             context = this.context;
+
+        if (context.view)
+            return this.sidecarExec(context);
         try {
             var visibility = this.evalExpression(this.expr, context);
             var target = document.getElementById(this.target);
@@ -108,6 +128,67 @@ SUGAR.util.extend(SUGAR.forms.PanelVisibilityAction, SUGAR.forms.AbstractAction,
                 target.style.display = visibility;
             }
         } catch (e) {if (console && console.log) console.log(e);}
+    },
+    sidecarExec : function(context) {
+        var hide = (this.evalExpression(this.expr, context) === 'none'),
+            tab = context.view.$(".tab." + this.target),
+            panel = context.view.$("div.record-panel[data-panelname='" + this.target + "']"),
+            isActive = tab && tab.hasClass("active");
+
+        //If we can't find a tab, just look for a panel
+        if (!tab || !tab.length) {
+            //Hide/show a panel (No need to worry about the active tab)
+            if (panel.length > 0) {
+                if (hide) {
+                    panel.hide();
+                } else {
+                    panel.show();
+                }
+                this.triggerFieldsVisibility(context, this.target, hide);
+            } else {
+                //If we got here it means the panel name/id was probably invalid.
+                console.log("unable to find panel " + this.target);
+            }
+        } else {
+            //Hide/show tabs
+            if (hide) {
+                tab.hide();
+                //If we are hiding the active tab, show the first visible tab instead.
+                if (isActive) {
+                    var tabs = context.view.$("li.tab:visible");
+                    if (tabs.length > 0 && context.view.setActiveTab) {
+                        //setActiveTab currently expects an event. This may change in the future
+                        context.view.setActiveTab({currentTarget:tabs[0].children[0]});
+                        context.view.handleActiveTab();
+                    }
+                }
+            } else {
+                tab.show();
+            }
+            this.triggerFieldsVisibility(context, this.target, hide);
+        }
+
+    },
+    triggerFieldsVisibility : function(context, target, hide) {
+
+        _.each(this.getPanelFieldNames(context, target), function(fieldName) {
+            var field = context.view.getField(fieldName);
+            if (field && _.isUndefined(field.wasRequired)) {
+                field.wasRequired = field.def.required;
+            }
+            context.setFieldDisabled(fieldName, hide);
+            if (field.wasRequired === true)
+                context.setFieldRequired(fieldName, !hide);
+
+        });
+
+    },
+    getPanelFieldNames : function(context, panelName) {
+      var panel = _.find(context.view.meta.panels, function(panel) {
+        return panel.name === panelName;
+      });
+
+      return _.pluck(panel.fields, 'name');
     }
 });
 
@@ -160,26 +241,30 @@ EOQ;
 	 * @return string javascript.
 	 */
 	function getJavascriptFire() {
-		return "new SUGAR.forms.PanelVisibilityAction('{$this->targetPanel}','{$this->expression}')";
+		return "new SUGAR.forms.SetPanelVisibilityAction('{$this->targetPanel}','{$this->expression}')";
 	}
 	
-	/**
-	 * Applies the Action to the target.
-	 *
-	 * @param SugarBean $target
-	 * 
-	 * Should only be fired when saving from an edit view.
-	 */
-	function fire(&$target) {
-		require_once ('modules/ModuleBuilder/parsers/ParserFactory.php') ;
-        require_once 'modules/ModuleBuilder/parsers/constants.php' ;
-        
-        $parser = ParserFactory::getParser ( MB_EDITVIEW, $target->module_dir);
-        $fields = $parser->getFieldsInPanel($this->targetPanel);
-        foreach($fields as $field){
-        	unset($target->$field);
+    /**
+    * Applies the Action to the target.
+    *
+    * @param SugarBean $target
+    *
+    * Should only be fired when saving from an edit view and the expression is false.
+    */
+    public function fire(&$target)
+    {
+        $result = Parser::evaluate($this->expression, $target)->evaluate();
+        if ($result === AbstractExpression::$FALSE) {
+            require_once 'modules/ModuleBuilder/parsers/ParserFactory.php';
+            require_once 'modules/ModuleBuilder/parsers/constants.php';
+            $view = isModuleBWC($target->module_name) ? MB_EDITVIEW : MB_RECORDVIEW;
+            $parser = ParserFactory::getParser($view, $target->module_dir);
+            $fields = $parser->getFieldsInPanel($this->targetPanel);
+            foreach ($fields as $field) {
+                unset($target->$field);
+            }
         }
-	}
+    }
 	
 	static function getActionName() {
 		return "SetPanelVisibility";

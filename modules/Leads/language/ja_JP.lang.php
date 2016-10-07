@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'リードを削除するにはレコード番号を指定する必要があります。',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => '住所情報',
   'LBL_ADD_BUSINESSCARD' => '名刺から追加',
   'LBL_ALTERNATE_ADDRESS' => '別の住所:',
-  'LBL_ALT_ADDRESS' => '別の住所:',
   'LBL_ALT_ADDRESS_CITY' => '別の市区町村',
   'LBL_ALT_ADDRESS_COUNTRY' => '別の国',
   'LBL_ALT_ADDRESS_POSTALCODE' => '別の郵便番号',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'コンバート済み商談:',
   'LBL_CONVERTLEAD' => 'リードのコンバート',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'リードをコンバートできません',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'リード{{leadName}}のコンバートに成功しましたが、 一つかそれ以上のレコードの添付をアップロードするのに問題がありました。',
+  'LBL_CONVERTLEAD_SUCCESS' => 'リード {{leadName}}のコンバートに成功しました',
   'LBL_CONVERTLEAD_TITLE' => 'リードのコンバート [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => '警告: コンバートしようとしているリードのステータスは「コンバート済み」になっています。取引先担当者や取引先のレコードが既に作成されている可能性があります。コンバートを継続する場合は保存ボタンをクリックしてください。',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => '重複の可能性がある取引先担当者:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'リードをコンバートする必要があるモジュールへの編集アクセスがありません: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'モジュール追加',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => '関連付けられた{{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => '{{moduleName}}を関連付ける',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => '複製に戻る',
+  'LBL_CONVERT_BUTTON_LABEL' => 'コンバート',
   'LBL_CONVERT_COPY' => 'データをコピー',
+  'LBL_CONVERT_CREATE_NEW' => '新規 {{moduleName}}',
   'LBL_CONVERT_DELETE' => '削除',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} 複製が見つかりました',
   'LBL_CONVERT_EDIT' => '編集',
   'LBL_CONVERT_EDIT_LAYOUT' => 'コンバートレイアウト編集',
+  'LBL_CONVERT_FINDING_DUPLICATES' => '複製を検索しています...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => '無視して新規作成',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} 関連付けられた',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => '{{moduleNameLower}} {{recordName}}を関連付けましたが、完了して保存するまで新規作成されません。',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => '{{moduleNameLower}} {{recordName}}を関連付けましたが、完了して保存するまでリンクされません。',
   'LBL_CONVERT_MODULE_NAME' => 'モジュール',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'モジュール',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(オプション)',
   'LBL_CONVERT_REQUIRED' => '必須',
+  'LBL_CONVERT_RESET_PANEL' => 'リセット',
   'LBL_CONVERT_SELECT' => '選択を許可',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => '新規作成',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => '検索',
   'LBL_COPY_TIP' => 'チェックすると、リードのフィールドの内容は同じ名前を持つフィールドにコピーされます。',
   'LBL_COUNTRY' => '国:',
   'LBL_CREATE' => '作成',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => '部署:',
   'LBL_DESCRIPTION' => '詳細:',
   'LBL_DESCRIPTION_INFORMATION' => '詳細情報',
+  'LBL_DNB_BAL_PREVIEW' => 'リードプレビュー',
+  'LBL_DNB_BAL_RSLT_CNT' => 'リード',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: リード情報',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B プリンシパルID',
   'LBL_DO_NOT_CALL' => '電話不可:',
   'LBL_DUPLICATE' => '類似のリード',
   'LBL_EDITLAYOUT' => 'レイアウト編集',
@@ -115,12 +134,19 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
   'LBL_EXPORT_PHONE_MOBILE' => '携帯電話',
   'LBL_FAX_PHONE' => 'ファックス:',
+  'LBL_FILTER_LEADS_REPORTS' => 'リードのレポート',
   'LBL_FIRST_NAME' => '名:',
   'LBL_FULL_NAME' => 'フルネーム:',
+  'LBL_HELP_CONVERT' => 'Sugarは {{module_name}}があなたの資格基準を満たした後には、{{plural_module_name}}を{{contacts_module}}、{{accounts_module}}、および他のモジュールに変換することが可能になります。 各[関連付け]ボタンをクリックして、新しいレコードの値を確認するフィールドを変更することで、各モジュールをステップ実行します。 Sugarがあなたの{{module_name}}の情報と一致する既存のレコードを検出した場合は、複製を選択し、[関連付け]ボタンで選択を確定するか、「無視して新規作成」をクリックして正常に進行するようにするオプションがあります。必要なモジュールを確認した後、上部にある「保存して変換」ボタンをクリックし、変換を確定します。',
+  'LBL_HELP_CONVERT_TITLE' => '{{module_name}}をコンバート',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、組織が提供する製品やサービスに興味がある可能性がある、個々の見込み客で構成されています。{{module_name}}は販売{{opportunities_singular_module}}として認定されると、{{opportunities_singular_module}}、{{contacts_singular_module}}、{{accounts_singular_module}}、または他のレコードに変換ができます。{{module_name}}作成するには：1。必要に応じてフィールドの値を指定します。 - フィールドが「必須」と記された前の保存に完了しなければなりません。 - 必要に応じて、追加のフィールドを展開する「詳細を表示」をクリックします。 2。新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 選択し"保存して表示し、「レコードビューに{{module_name}}を開きます。 - すぐに別の新規作成をするには{{module_name}}、「保存して、新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、組織が提供する製品やサービスに興味がある可能性がある、個々の見込み客で構成されています。 - 個々のフィールドまたは[編集]ボタンをクリックして、このレコードのフィールドを編集します。 - 表示または左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを変更します。 - 左下ペインに「アクティビティストリーム」を切り替えることにより、{{activitystream_singular_module}}内のレコードの変更したり表示することができます。 - レコード名の右にあるアイコンを使用して、このレコードをフォローするか、お気に入りにしてください。 - 追加のアクションは、[編集]ボタンの右にあるドロップダウンの操作]メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、組織が提供する製品やサービスに興味がある可能性がある、個々の見込み客で構成されています。 {{module_name}}}は営業{{opportunities_singular_module}}として認定されると、{{plural_module_name}}{{opportunities_module}}、{{contacts_module}}、{{accounts_module}}に変換することができます。  {{module_name}}レコードが作成されたら、閲覧することができ、{{plural_module_name}}をインポートするような{{plural_module_name}}モジュール、コピーなどを通して、Sugarに{{plural_module_name}}を作成することができ、様々な方法で{{plural_module_name}}レコードの表示を経由して {{module_name}}に関連する情報を編集します。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_HOME_PHONE' => '自宅電話:',
   'LBL_IMPORT_VCARD' => 'vCardのインポート',
   'LBL_IMPORT_VCARDTEXT' => 'vCardをインポートすることによって新規リードを作成します。',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'vCardからリードの作成に成功しました',
   'LBL_INVALID_EMAIL' => '無効なEメール:',
   'LBL_INVITEE' => '直属の部下',
   'LBL_LAST_NAME' => '姓:',
@@ -146,6 +172,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => '職位',
   'LBL_LOADING' => '読み込み中',
   'LBL_MESSAGE' => '以下の情報を入力してください。承認待ちのアカウントが作成されます。',
+  'LBL_MKTO_ID' => 'Marketoリード ID',
+  'LBL_MKTO_LEAD_SCORE' => 'リードソース',
+  'LBL_MKTO_SYNC' => 'Marketo®に同期する',
   'LBL_MOBILE_PHONE' => '携帯電話:',
   'LBL_MODIFIED' => '更新者',
   'LBL_MODIFIED_ID' => '更新者ID',
@@ -157,8 +186,10 @@ $mod_strings = array (
   'LBL_NAME' => '名前:',
   'LBL_NEW_FORM_TITLE' => 'リード作成',
   'LBL_NEW_PORTAL_PASSWORD' => '新しいポータルパスワード:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'メモ',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => '注意: 現在の「リードのコンバート」画面にはカスタムフィールドが含まれています。初めてスタジオで当該画面をカスタマイズする時は、必要に応じてカスタムフィールドを配置する必要があります。カスタムフィールドは自動的に配置されません。',
   'LBL_OFFICE_PHONE' => '会社電話:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => '商談',
   'LBL_OPPORTUNITY_AMOUNT' => '商談規模:',
   'LBL_OPPORTUNITY_ID' => '商談ID',
   'LBL_OPPORTUNITY_NAME' => '商談名:',
@@ -186,6 +217,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => '主となる住所 2:',
   'LBL_PRIMARY_ADDRESS_STREET_3' => '主となる住所 3:',
   'LBL_PROSPECT_LIST' => 'ターゲットリスト',
+  'LBL_RECORD_SAVED_SUCCESS' => '作成に成功しました {{moduleSingularLower}} {{full_name}}.',
   'LBL_REFERED_BY' => '紹介元:',
   'LBL_REGISTRATION' => '登録',
   'LBL_REPORTS_FROM' => '以下からのレポート:',
@@ -194,6 +226,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'リードをコンバートする前に、必要なモジュールが作成されている必要があります。',
   'LBL_SALUTATION' => '敬称',
   'LBL_SAVED' => 'ご登録ありがとうございます。担当者からアカウント情報をお知らせいたしますのでしばらくお待ちください。',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => '保存してコンバート',
   'LBL_SEARCH_FORM_TITLE' => 'リード検索',
   'LBL_SELECT' => '<b>または</b>選択',
   'LBL_SELECTION_TIP' => 'リードのコンバート処理中は、取引先担当者への関連フィールドが選択可能となります。',
@@ -210,6 +243,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => '成功したキャンペーン:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => '購読頂きありがとうございます。',
   'LBL_TITLE' => '職位:',
+  'LBL_UNCONVERTED' => '未コンバート',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'リードビュー',
   'LBL_WEBSITE' => 'Webサイト',
@@ -235,6 +269,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => '商談を作成するためには取引先が必要です。\\n新しい取引先を作成するか、既存の取引先を選択してください。',
   'NTC_REMOVE_CONFIRMATION' => '本当にこのリードをこのケースからはずしてよいですか？',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => '本当にこのレコードを直属の部下としてはずしてよいですか？',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  base form for account
@@ -26,8 +23,8 @@ class AccountFormBase{
 
 function checkForDuplicates($prefix){
 	require_once('include/formbase.php');
-	
-	$focus = new Account();
+
+	$focus = BeanFactory::getBean('Accounts');
 	$query = '';
 	$baseQuery = 'select id, name, website, billing_address_city  from accounts where deleted!=1 and ';
 	if(!empty($_POST[$prefix.'name'])){
@@ -153,7 +150,7 @@ function buildTableForm($rows, $mod='Accounts'){
 				if($key != 'id'){
                     if(isset($_POST['popup']) && $_POST['popup']==true){
                         $form .= "<td scope='row'><a  href='javascript:void(0)' onclick=\"window.opener.location='index.php?module=Accounts&action=DetailView&record=${row['id']}'\">$value</a></td>\n";
-                    }   
+                    }
                     else
 					    $form .= "<td><a target='_blank' href='index.php?module=Accounts&action=DetailView&record=${row['id']}'>$value</a></td>\n";
 
@@ -172,8 +169,8 @@ function buildTableForm($rows, $mod='Accounts'){
 	if ($action == 'ShowDuplicates') {
 		$return_action = 'ListView'; // cn: bug 6658 - hardcoded return action break popup -> create -> duplicate -> cancel
 		$return_action = (isset($_REQUEST['return_action']) && !empty($_REQUEST['return_action'])) ? $_REQUEST['return_action'] : $return_action;
-		$form .= "<input type='hidden' name='selectedAccount' id='selectedAccount' value=''><input title='${app_strings['LBL_SAVE_BUTTON_TITLE']}' class='button' onclick=\"this.form.action.value='Save';\" type='submit' name='button' value='  ${app_strings['LBL_SAVE_BUTTON_LABEL']}  '>\n";
-	    
+		$form .= "<input type='hidden' name='selectedAccount' id='selectedAccount' value=''><input title='${app_strings['LBL_SAVE_BUTTON_TITLE']}' accessKey='${app_strings['LBL_SAVE_BUTTON_KEY']}' class='button' onclick=\"this.form.action.value='Save';\" type='submit' name='button' value='  ${app_strings['LBL_SAVE_BUTTON_LABEL']}  '>\n";
+
         if (!empty($_REQUEST['return_module']) && !empty($_REQUEST['return_action']) && !empty($_REQUEST['return_id']))
             $form .= "<input title='${app_strings['LBL_CANCEL_BUTTON_TITLE']}' class='button' onclick=\"this.form.module.value='".$_REQUEST['return_module']."';this.form.action.value='".$_REQUEST['return_action']."';this.form.record.value='".$_REQUEST['return_id']."'\" type='submit' name='button' value='  ${app_strings['LBL_CANCEL_BUTTON_LABEL']}  '>";
         else if (!empty($_POST['return_module']) && !empty($_POST['return_action']))
@@ -252,13 +249,13 @@ $user_id = $current_user->id;
 			<input type="hidden" name="assigned_user_id" value='${user_id}'>
 			<input type="hidden" name="action" value="Save">
 EOQ;
-if(ACLField::hasAccess('name','Accounts', $user_id, true) > 1){
+if(SugarACL::checkField('Accounts', 'name', 'edit', array("owner_override" => true))) {
 	$form .= "$lbl_account_name&nbsp;<span class='required'>$lbl_required_symbol</span><br><input name='name' type='text' value=''><br>";
 }
-if(ACLField::hasAccess('phone_office','Accounts', $user_id, true) > 1){
+if(SugarACL::checkField('Accounts', 'phone_office', 'edit', array("owner_override" => true))) {
 	$form .= "$lbl_phone<br><input name='phone_office' type='text' value=''><br>";
 }
-if(ACLField::hasAccess('website','Accounts', $user_id, true) > 1){
+if(SugarACL::checkField('Accounts', 'website', 'edit', array("owner_override" => true))) {
 		$form .= "$lbl_website<br><input name='website' type='text' value='http://'><br>";
 }
 $form .='</p>';
@@ -267,7 +264,7 @@ $form .='</p>';
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Account());
+$javascript->setSugarBean(BeanFactory::getBean('Accounts'));
 $javascript->addRequiredFields($prefix);
 $form .=$javascript->getScript();
 $mod_strings = $temp_strings;
@@ -280,9 +277,9 @@ function getWideFormBody($prefix, $mod='',$formname='',  $contact=''){
 	if(!ACLController::checkAccess('Accounts', 'edit', true)){
 		return '';
 	}
-	
+
 	if(empty($contact)){
-		$contact = new Contact();
+		$contact = BeanFactory::getBean('Contacts');
 	}
 global $mod_strings;
 $temp_strings = $mod_strings;
@@ -292,7 +289,7 @@ if(!empty($mod)){
 }
 global $app_strings;
 global $current_user;
-$account = new Account();
+$account = BeanFactory::getBean('Accounts');
 
 $lbl_required_symbol = $app_strings['LBL_REQUIRED_SYMBOL'];
 $lbl_account_name = $mod_strings['LBL_ACCOUNT_NAME'];
@@ -305,7 +302,7 @@ if (isset($contact->assigned_user_id)) {
 }
 
 	//Retrieve Email address and set email1, email2
-	$sugarEmailAddress = new SugarEmailAddress();
+	$sugarEmailAddress = BeanFactory::getBean('EmailAddresses');
 	$sugarEmailAddress->handleLegacyRetrieve($contact);
  	 if(!isset($contact->email1)){
     	$contact->email1 = '';
@@ -361,17 +358,17 @@ if (isset($contact->team_id)) {
 		</tr>
 EOQ;
 	//carry forward custom lead fields common to accounts during Lead Conversion
-	$tempAccount = new Account();
+	$tempAccount = BeanFactory::getBean('Accounts');
 	if (method_exists($contact, 'convertCustomFieldsForm')) $contact->convertCustomFieldsForm($form, $tempAccount, $prefix);
 	unset($tempAccount);
 $form .= <<<EOQ
 		</TABLE>
 EOQ;
-	
+
 
 $javascript = new javascript();
 $javascript->setFormName($formname);
-$javascript->setSugarBean(new Account());
+$javascript->setSugarBean(BeanFactory::getBean('Accounts'));
 $javascript->addRequiredFields($prefix);
 $form .=$javascript->getScript();
 $mod_strings = $temp_strings;
@@ -380,11 +377,11 @@ $mod_strings = $temp_strings;
 
 
 function handleSave($prefix,$redirect=true, $useRequired=false){
-	
-    
+
+
 	require_once('include/formbase.php');
 
-	$focus = new Account();
+	$focus = BeanFactory::getBean('Accounts');
 
 	if($useRequired &&  !checkRequired($prefix, array_keys($focus->required_fields))){
 		return null;
@@ -411,7 +408,7 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
 			if(isset($_POST['relate_id']) && !empty($_POST['relate_id'])) {
 				$get .= '&Accountsrelate_id='.$_POST['relate_id'];
 			}
-			
+
 			//add all of the post fields to redirect get string
 			foreach ($focus->column_fields as $field)
 			{
@@ -428,25 +425,25 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
 					$get .= "&Accounts$field=".urlencode($focus->$field);
 				}
 			}
-            
-			
+
+
 			if($focus->hasCustomFields()) {
-				foreach($focus->field_defs as $name=>$field) {	
+				foreach($focus->field_defs as $name=>$field) {
 					if (!empty($field['source']) && $field['source'] == 'custom_fields')
 					{
 						$get .= "&Accounts$name=".urlencode($focus->$name);
-					}			    
+					}
 				}
 			}
-			
-			
-			
-			$emailAddress = new SugarEmailAddress();
+
+
+
+			$emailAddress = BeanFactory::getBean('EmailAddresses');
 			$get .= $emailAddress->getFormBaseURL($focus);
 
 			$get .= get_teams_url('Accounts');
-			
-			
+
+
 			//create list of suspected duplicate account id's in redirect get string
 			$i=0;
 			foreach ($duplicateAccounts as $account)
@@ -465,23 +462,10 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
 			$get .= "&".http_build_query($urlData);
 
 			$_SESSION['SHOW_DUPLICATES'] = $get;
-			//now redirect the post to modules/Accounts/ShowDuplicates.php
-            if (!empty($_POST['is_ajax_call']) && $_POST['is_ajax_call'] == '1')
-            {
-            	ob_clean();
-                $json = getJSONobj();
-                echo $json->encode(array('status' => 'dupe', 'get' => $location));
+            if (!empty($_POST['to_pdf'])) {
+                $location .= '&to_pdf='.urlencode($_POST['to_pdf']);
             }
-            else if(!empty($_REQUEST['ajax_load']))
-            {
-                echo "<script>SUGAR.ajaxUI.loadContent('index.php?$location');</script>";
-            }
-            else {
-                if(!empty($_POST['to_pdf']))
-                    $location .= '&to_pdf='.urlencode($_POST['to_pdf']);
-                header("Location: index.php?$location");
-            }
-			return null;
+            header("Location: index.php?$location");
 		}
 	}
 	if(!$focus->ACLAccess('Save')){
@@ -491,7 +475,7 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
 
 	$focus->save($check_notify);
     $return_id = $focus->id;
-    
+
 	$GLOBALS['log']->debug("Saved record with id of ".$return_id);
 
 
@@ -501,14 +485,14 @@ function handleSave($prefix,$redirect=true, $useRequired=false){
                                  'get' => ''));
    	 	$trackerManager = TrackerManager::getInstance();
         $timeStamp = TimeDate::getInstance()->nowDb();
-        if($monitor = $trackerManager->getMonitor('tracker')){ 
+        if($monitor = $trackerManager->getMonitor('tracker')){
 	        $monitor->setValue('team_id', $GLOBALS['current_user']->getPrivateTeamID());
 	        $monitor->setValue('action', 'detailview');
 	        $monitor->setValue('user_id', $GLOBALS['current_user']->id);
 	        $monitor->setValue('module_name', 'Accounts');
 	        $monitor->setValue('date_modified', $timeStamp);
 	        $monitor->setValue('visible', 1);
-	
+
 	        if (!empty($this->bean->id)) {
 	            $monitor->setValue('item_id', $return_id);
 	            $monitor->setValue('item_summary', $focus->get_summary_text());

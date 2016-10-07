@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 /*********************************************************************************
@@ -26,7 +23,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 * Contributor(s): ______________________________________..
 ********************************************************************************/
 global $dictionary;
-require_once("data/Relationships/RelationshipFactory.php");
+require_once("data/Link.php");
 
 /**
  * Represents a relationship from a single beans perspective.
@@ -34,6 +31,9 @@ require_once("data/Relationships/RelationshipFactory.php");
  */
 class Link2 {
 
+    /**
+     * @var SugarRelationship relationship
+     */
     protected $relationship; //relationship object this link is tied to.
     protected $focus;  //SugarBean this link uses as the context for its calls.
     protected $def;  //Field def for this link
@@ -103,7 +103,8 @@ class Link2 {
 
         if (!$this->loadedSuccesfully())
         {
-            $GLOBALS['log']->fatal("{$this->name} for {$this->def['relationship']} failed to load\n");
+            global $app_strings;
+            $GLOBALS['log']->error(string_format($app_strings['ERR_DATABSE_RELATIONSHIP_QUERY'], array($this->name, $this->def['relationship'])));
         }
         //Following behavior is tied to a property(ignore_role) value in the vardef. It alters the values of 2 properties, ignore_role_filter and add_distinct.
         //the property values can be altered again before any requests are made.
@@ -113,6 +114,9 @@ class Link2 {
                     $this->ignore_role_filter=true;
                     $this->add_distinct=true;
                 }
+            }
+            if (!empty($this->def['primary_only'])) {
+                $this->relationship->primaryOnly = true;
             }
         }
     }
@@ -140,6 +144,13 @@ class Link2 {
     }
 
     /**
+     * Resets the loaded flag on this link so that it must reload the next time it is used
+     */
+    public function resetLoaded() {
+        $this->loaded = false;
+    }
+
+    /**
      *  Perform a query on this relationship.
      *
      * @param array $params An array that can contain the following parameters:<br/>
@@ -155,6 +166,8 @@ class Link2 {
          )</pre>
      *  </li>
      * <li><b>limit:</b> The maximum number of rows</li>
+     * <li><b>offset:</b> Offset to pass to the database query when loading.</li>
+     * <li><b>order_by:</b> field to order the result set by</li>
      * <li><b>deleted:</b> If deleted is set to 1, only deleted records related to the current record will be returned.</li></ul>
      */
     public function query($params){
@@ -213,16 +226,7 @@ class Link2 {
      */
     public function getType()
     {
-        switch ($this->relationship->type)
-        {
-            case REL_MANY_MANY:
-                return "many";
-            case REL_ONE_ONE:
-                return "one";
-            case REL_ONE_MANY:
-                return $this->getSide() == REL_LHS ? "many" : "one";
-        }
-        return "many";
+        return $this->relationship->getType($this->getSide());
     }
 
     /**
@@ -275,7 +279,6 @@ class Link2 {
         ){
             return REL_RHS;
         }
-
         //Next try the vardef
         if (!empty($this->def['side']))
         {
@@ -299,6 +302,19 @@ class Link2 {
         }
 
         $GLOBALS['log']->error("Unable to get proper side for link {$this->name}");
+    }
+
+
+    /**
+     * @return String name of link field that maps to this relationship on the other side
+     */
+    public function getLinkForOtherSide()
+    {
+        if ($this->getSide() == REL_LHS) {
+            return $this->relationship->getRHSLink();
+        } else {
+            return $this->relationship->getLHSLink();
+        }
     }
 
     /**
@@ -326,6 +342,16 @@ class Link2 {
     function getJoin($params, $return_array =false)
     {
         return $this->relationship->getJoin($this, $params, $return_array);
+    }
+
+    /**
+     * Build a Relationship Join with a SugarQuery Object
+     * @param SugarQuery $sugar_query
+     * @return SugarQuery
+     */
+    function buildJoinSugarQuery($sugar_query, $options = array())
+    {
+        return $this->relationship->buildJoinSugarQuery($this, $sugar_query, $options);
     }
 
     /**
@@ -370,6 +396,8 @@ class Link2 {
          )</pre>
      *  </li>
      * <li><b>limit:</b> The maximum number of beans to load.</li>
+     * <li><b>offset:</b> Offset to pass to the database query when loading.</li>
+     * <li><b>order_by:</b> field to order the result set by</li>
      * <li><b>deleted:</b> If deleted is set to 1, only deleted records related to the current record will be returned.</li></ul>
      * @return array of SugarBeans related through this link.
      */
@@ -404,27 +432,107 @@ class Link2 {
                 $this->tempBeans = array();
             }
 
+            //If there are any relationship fields, we need to figure out the mapping from the relationship fields to the
+            //fields in the related module
+            $relationshipFields = array();
+            $seed = BeanFactory::getBean($rel_module);
+            if($seed !== false)
+            {
+                // Deprecated: This format of relationship fields will be removed
+                // please use the rname_link format instead
+                $relationshipFields = $this->getRelationshipFieldMapping($seed);
+                if (!empty($this->def['rel_fields']))
+                {
+                    //Find the field in the related module that maps to this
+                    foreach($this->def['rel_fields'] as $rfName => $rfDef)
+                    {
+                        //This is pretty badly designed, but there is no mapping stored for fields in the relationship table
+                        //to the fields to be populated in the related record.
+                        foreach($seed->field_defs as $f => $d)
+                        {
+                            if (!empty($d['relationship_fields'][$rfName])){
+                                $relationshipFields[$rfName] = $d['relationship_fields'][$rfName];
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if ($seed && is_array($seed->field_defs)) {
+                    foreach ($seed->field_defs as $fieldName => $def) {
+                        if (empty($def['rname_link'])) {
+                            continue;
+                        }
+                        $relationshipFields[$def['rname_link']] = $fieldName;
+                    }
+                }
+            }
+
             //now load from the rows
             foreach ($rows as $id => $vals)
             {
                 if (empty($this->beans[$id]))
                 {
-                    $tmpBean = BeanFactory::getBean($rel_module, $id);
-                    if($tmpBean !== FALSE)
+                    $tmpBean = BeanFactory::retrieveBean($rel_module, $id);
+                    if ($tmpBean) {
                         $result[$id] = $tmpBean;
+                    }
                 } else {
                     $result[$id] = $this->beans[$id];
+                }
+                //Populate any relationship fields
+                foreach($relationshipFields as $rfName => $field) {
+                    if (isset($vals[$rfName]))
+                    {
+                        if (!empty($result[$id])) {
+                            $result[$id]->$field = $vals[$rfName];
+                        }
+                    }
                 }
             }
 
             //If we did a compelte load, cache the result in $this->beans
-            if (empty($params))
+            if (empty($params)) {
                 $this->beans = $result;
-        } else {
+                foreach($result as $id => $bean)
+                {
+                    if (!isset($this->rows[$id]))
+                        $this->rows[$id] = array("id" => $id);
+                }
+            }
+        }
+        else {
             $result = $this->beans;
         }
 
         return $result;
+    }
+
+    /***
+     * If there are any relationship fields, we need to figure out the mapping from the relationship fields to the
+     * fields in the module vardefs
+     */
+    public function getRelationshipFieldMapping(SugarBean $seed = null){
+        if ($seed == null)
+            $seed = $this->focus;
+        $relationshipFields = array();
+        if (!empty($this->def['rel_fields']))
+        {
+            //Find the field in the related module that maps to this
+            foreach($this->def['rel_fields'] as $rfName => $rfDef)
+            {
+                //This is pretty badly designed, but there is no mapping stored for fields in the relationship table
+                //to the fields to be populated in the related record.
+                foreach($seed->field_defs as $f => $d)
+                {
+                    if (!empty($d['relationship_fields'][$rfName])){
+                        $relationshipFields[$rfName] = $d['relationship_fields'][$rfName];
+                        break;
+                    }
+                }
+            }
+        }
+        return $relationshipFields;
     }
 
     /**
@@ -441,7 +549,7 @@ class Link2 {
      * the function also allows for setting of values for additional field in the table being
      * updated to save the relationship, in case of many-to-many relationships this would be the join table.
      *
-     * @param array $rel_keys array of ids or SugarBean objects. If you have the bean in memory, pass it in.
+     * @param string|SugarBean|string[]|SugarBean[] $rel_keys array of ids or SugarBean objects. If you have the bean in memory, pass it in.
      * @param array $additional_values the values should be passed as key value pairs with column name as the key name and column value as key value.
      *
      * @return boolean|array          Return true if all relationships were added.  Return an array with the failed keys if any of them failed.
@@ -463,21 +571,27 @@ class Link2 {
                 }
             }
 
+            //If there are any relationship fields set on the related object, we should try to use them
+            //$addition_values should override what we find in the record though
+            $relationshipFields = $this->getRelationshipFieldMapping($key);
+            foreach($relationshipFields as $rfName => $field) {
+                if (!empty($key->$field) && !isset($additional_values[$rfName])){
+                    $additional_values[$rfName] = $key->$field;
+                }
+            }
+
             if(empty($key->id) || empty($this->focus->id))
                 return false;
 
-            if ($this->getSide() == REL_LHS) {
-                $success = $this->relationship->add($this->focus, $key, $additional_values);
-            }
-            else {
-                $success = $this->relationship->add($key, $this->focus, $additional_values);
-            }
+            $lhs = $this->getSide() == REL_LHS ? $this->focus : $key;
+            $rhs = $this->getSide() == REL_LHS ? $key : $this->focus;
+
+            $success = $this->relationship->add($lhs, $rhs, $additional_values);
 
             if($success == false) {
                 $failures[] = $key->id;
             }
         }
-
         if(!empty($failures)) {
             return $failures;
         }
@@ -566,9 +680,11 @@ class Link2 {
         if (!is_array($this->beans))
         {
             $this->tempBeans[$bean->id] = $bean;
+            $this->rows[$bean->id] = array("id" => $bean->id);
         }
         else {
             $this->beans[$bean->id] = $bean;
+            $this->rows[$bean->id] = array("id" => $bean->id);
         }
 
     }

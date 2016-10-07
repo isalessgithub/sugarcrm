@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -43,6 +40,21 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Tipo MIME',
   'LBL_FILE_URL' => 'URL de Archivo',
   'LBL_FIRST_NAME' => 'Nombre',
+  'LBL_HELP_CREATE' => 'Para crear un {{module_name}}:
+1. Proporcione valores para los campos que desee.
+ - Los campos marcados como "Obligatorio" se deben completar antes de guardar.
+ - Haga clic en "Mostrar Más" para ver los campos adicionales si es necesario.
+2. Haga clic en "Guardar" para finalizar el nuevo registro y volver a la página previa. 
+ - Seleccione la opción "Guardar y ver" para abrir el nuevo {{module_name}} como vista de registro.
+ - Seleccione la opción "Guardar y crear nuevo" para crear un nuevo {{module_name}} inmediatamente.',
+  'LBL_HELP_RECORD' => 'El módulo {{plural_module_name}} consisten en {{plural_module_name}} individuales que contienen texto o un adjunto que pertenece al registro relacionado. 
+
+- Edita el registro haciendo clic en el campo individual o el botón Editar. 
+- Ver o modificar enlaces a otros registros en los subpanales yendo a la pestaña "Ver Datos".
+- Comentar o ver otros comentarios de usuarios y ver el historial del registro en {{activitystream_singular_module}} yendo a "Actividades Recientes".
+- Seguir o guardar como favorito el registro utilizando los iconos a la izquierda del nombre del registro. 
+- Acciones adicionales están disponibles en el botón desplegable Acciones.',
+  'LBL_HELP_RECORDS' => 'El módulo {{plural_module_name}}  consta de {{plural_module_name}} individuales que contienen texto o adjuntos pertenecientes al registro relacionado. Los registros {{module_name}} pueden estar relacionados con un registro en la mayoría de los módulos a través de campos flexibles relacionados y también pueden ser relacionados con un/a {{contact_module}}. {{plural_module_name}} pueden contener texto genérico sobre un registro o incluso un archivo adjunto en relación con el registro. Hay varias formas de crear {{plural_module_name}} en Sugar como por ejemplo a través del módulo {{plural_module_name}}, importando {{plural_module_name}}, vía los subpaneles del Histórico, etc. Una vez el registro {{module_name}} se ha creado, usted podrá ver y editar la información relacionada con el módulo {{module_name}} via {{plural_module_name}} vista de registro. Cada registro de {{module_name}} puede entonces relacionarse con otros registros de Sugar, tales como {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, y otros muchos.',
   'LBL_LAST_NAME' => 'Apellidos',
   'LBL_LEAD_ID' => 'ID Cliente Potencial:',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Usuario Asignado',
@@ -79,6 +91,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'ID Presupuesto:',
   'LBL_RELATED_TO' => 'Relacionado con:',
   'LBL_REMOVING_ATTACHMENT' => 'Quitando adjunto...',
+  'LBL_REVENUELINEITEMS' => 'Líneas de Ingreso',
   'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Notas',
   'LBL_SEND_ANYWAYS' => 'Este correo no tiene asunto. ¿Enviar/guardar de todas formas?',
   'LBL_STATUS' => 'Estado',

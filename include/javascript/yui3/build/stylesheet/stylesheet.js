@@ -1,11 +1,10 @@
 /*
- Copyright (c) 2010, Yahoo! Inc. All rights reserved.
- Code licensed under the BSD License:
- http://developer.yahoo.com/yui/license.html
- version: 3.3.0
- build: 3167
- */
-YUI.add('stylesheet',function(Y){var d=Y.config.doc,p=d.createElement('p'),workerStyle=p.style,isString=Y.Lang.isString,selectors={},sheets={},floatAttr=('cssFloat'in workerStyle)?'cssFloat':'styleFloat',_toCssText,_unsetOpacity,_unsetProperty,OPACITY='opacity',FLOAT='float',EMPTY='';_unsetOpacity=(OPACITY in workerStyle)?function(style){style.opacity=EMPTY;}:function(style){style.filter=EMPTY;};workerStyle.border="1px solid red";workerStyle.border=EMPTY;_unsetProperty=workerStyle.borderLeft?function(style,prop){var p;if(prop!==floatAttr&&prop.toLowerCase().indexOf(FLOAT)!=-1){prop=floatAttr;}
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('stylesheet',function(Y,NAME){var d=Y.config.doc,p=d.createElement('p'),workerStyle=p.style,isString=Y.Lang.isString,selectors={},sheets={},floatAttr=('cssFloat'in workerStyle)?'cssFloat':'styleFloat',_toCssText,_unsetOpacity,_unsetProperty,OPACITY='opacity',FLOAT='float',EMPTY='';_unsetOpacity=(OPACITY in workerStyle)?function(style){style.opacity=EMPTY;}:function(style){style.filter=EMPTY;};workerStyle.border="1px solid red";workerStyle.border=EMPTY;_unsetProperty=workerStyle.borderLeft?function(style,prop){var p;if(prop!==floatAttr&&prop.toLowerCase().indexOf(FLOAT)!=-1){prop=floatAttr;}
 if(isString(style[prop])){switch(prop){case OPACITY:case'filter':_unsetOpacity(style);break;case'font':style.font=style.fontStyle=style.fontVariant=style.fontWeight=style.fontSize=style.lineHeight=style.fontFamily=EMPTY;break;default:for(p in style){if(p.indexOf(prop)===0){style[p]=EMPTY;}}}}}:function(style,prop){if(prop!==floatAttr&&prop.toLowerCase().indexOf(FLOAT)!=-1){prop=floatAttr;}
 if(isString(style[prop])){if(prop===OPACITY){_unsetOpacity(style);}else{style[prop]=EMPTY;}}};function StyleSheet(seed,name){var head,node,sheet,cssRules={},_rules,_insertRule,_deleteRule,i,r,sel;if(!(Y.instanceOf(this,StyleSheet))){return new StyleSheet(seed,name);}
 if(seed){if(Y.Node&&seed instanceof Y.Node){node=seed._node;}else if(seed.nodeName){node=seed;}else if(isString(seed)){if(seed&&sheets[seed]){return sheets[seed];}
@@ -34,4 +33,4 @@ catch(ex){}}}
 return workerStyle.cssText;};Y.mix(StyleSheet,{toCssText:((OPACITY in workerStyle)?_toCssText:function(css,cssText){if(OPACITY in css){css=Y.merge(css,{filter:'alpha(opacity='+(css.opacity*100)+')'});delete css.opacity;}
 return _toCssText(css,cssText);}),register:function(name,sheet){return!!(name&&sheet instanceof StyleSheet&&!sheets[name]&&(sheets[name]=sheet));},isValidSelector:function(sel){var valid=false;if(sel&&isString(sel)){if(!selectors.hasOwnProperty(sel)){selectors[sel]=!/\S/.test(sel.replace(/\s+|\s*[+~>]\s*/g,' ').replace(/([^ ])\[.*?\]/g,'$1').replace(/([^ ])::?[a-z][a-z\-]+[a-z](?:\(.*?\))?/ig,'$1').replace(/(?:^| )[a-z0-6]+/ig,' ').replace(/\\./g,EMPTY).replace(/[.#]\w[\w\-]*/g,EMPTY));}
 valid=selectors[sel];}
-return valid;}},true);Y.StyleSheet=StyleSheet;},'3.3.0');
+return valid;}},true);Y.StyleSheet=StyleSheet;},'3.15.0',{"requires":["yui-base"]});

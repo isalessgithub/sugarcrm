@@ -1,21 +1,14 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 <script type='text/javascript' src='{sugar_getjspath file='include/javascript/popup_helper.js'}'></script>
@@ -49,14 +42,21 @@
 	<div class="list view listViewEmpty">
     {if $displayEmptyDataMesssages}
         {if strlen($query) == 0}
-                {capture assign="createLink"}<a href="?module={$pageData.bean.moduleDir}&action=EditView&return_module={$pageData.bean.moduleDir}&return_action=DetailView">{$APP.LBL_CREATE_BUTTON_LABEL}</a>{/capture}
-                {capture assign="importLink"}<a href="?module=Import&action=Step1&import_module={$pageData.bean.moduleDir}&return_module={$pageData.bean.moduleDir}&return_action=index">{$APP.LBL_IMPORT}</a>{/capture}
+                {if $pageData.bean.parentModuleDir}
+                    {assign var="currentModule" value = $pageData.bean.parentModuleDir}
+                {/if}
+                {capture assign="createLink"}<a href="?module={$currentModule}&action={$pageData.bean.createAction}&return_module={$currentModule}&return_action=DetailView">{$APP.LBL_CREATE_BUTTON_LABEL}</a>{/capture}
+                {capture assign="importLink"}<a href="?module=Import&action=Step1&import_module={$currentModule}&return_module={$currentModule}&return_action=index">{$APP.LBL_IMPORT}</a>{/capture}
+                {capture assign="viewLink"}<a href="?module={$currentModule}&action=index">{$APP.LBL_VIEW_BUTTON_LABEL}</a>{/capture}
                 {capture assign="helpLink"}<a target="_blank" href='?module=Administration&action=SupportPortal&view=documentation&version={$sugar_info.sugar_version}&edition={$sugar_info.sugar_flavor}&lang=&help_module={$currentModule}&help_action=&key='>{$APP.LBL_CLICK_HERE}</a>{/capture}
                 <p class="msg">
-                    {$APP.MSG_EMPTY_LIST_VIEW_NO_RESULTS|replace:"<item2>":$createLink|replace:"<item3>":$importLink}
-                </p>
-                <p class="submsg">
-                    {$APP.MSG_EMPTY_LIST_VIEW_NO_RESULTS_SUBMSG|replace:"<item1>":$moduleName|replace:"<item4>":$helpLink}
+                    {if $pageData.bean.showLink == true}
+                        {$APP.MSG_EMPTY_LIST_VIEW_GO_TO_PARENT|replace:"<item1>":$pageData.bean.moduleTitle|replace:"<item2>":$pageData.bean.parentTitle|replace:"<item3>":$viewLink}
+                    {elseif $pageData.bean.importable == true}
+                        {$APP.MSG_EMPTY_LIST_VIEW_NO_RESULTS|replace:"<item2>":$createLink|replace:"<item3>":$importLink}
+                    {else}
+                        {$APP.MSG_EMPTY_LIST_VIEW_NO_RESULTS_NO_IMPORT|replace:"<item1>":$pageData.bean.parentTitle|replace:"<item2>":$createLink}
+                    {/if}
                 </p>
         {elseif $query == "-advanced_search"}
             <p class="msg">
@@ -67,12 +67,14 @@
                 {capture assign="quotedQuery"}"{$query}"{/capture}
                 {$APP.MSG_LIST_VIEW_NO_RESULTS|replace:"<item1>":$quotedQuery}
             </p>
-            <p class = "submsg">
-                <a href="?module={$pageData.bean.moduleDir}&action=EditView&return_module={$pageData.bean.moduleDir}&return_action=DetailView">
-                    {$APP.MSG_LIST_VIEW_NO_RESULTS_SUBMSG|replace:"<item1>":$quotedQuery|replace:"<item2>":$singularModule}
-                </a>
+            {if $displaySubMessage}
+                <p class = "submsg">
+                    <a href="?module={$currentModule}&action=EditView&return_module={$currentModule}&return_action=DetailView">
+                        {$APP.MSG_LIST_VIEW_NO_RESULTS_SUBMSG|replace:"<item1>":$quotedQuery|replace:"<item2>":$singularModule}
+                    </a>
 
-            </p>
+                </p>
+            {/if}
         {/if}
     {else}
         <p class="msg">
@@ -114,9 +116,9 @@
 	                        <a href='{$pageData.urls.orderBy}{$params.orderBy|default:$colHeader|lower}' class='listViewThLinkS1'>
 	                    {else}
 	                        {if $params.orderBy|default:$colHeader|lower == $pageData.ordering.orderBy}
-	                            <a href='javascript:sListView.order_checks("{$pageData.ordering.sortOrder|default:ASCerror}", "{$params.orderBy|default:$colHeader|lower}" , "{$pageData.bean.moduleDir}{"2_"}{$pageData.bean.objectName|upper}{"_ORDER_BY"}")' class='listViewThLinkS1'>
+	                            <a href='#' onClick='sListView.order_checks("{$pageData.ordering.sortOrder|default:ASCerror}", "{$params.orderBy|default:$colHeader|lower}" , "{$pageData.bean.moduleDir}{"2_"}{$pageData.bean.objectName|upper}{"_ORDER_BY"}");return false;' class='listViewThLinkS1'>
 	                        {else}
-	                            <a href='javascript:sListView.order_checks("ASC", "{$params.orderBy|default:$colHeader|lower}" , "{$pageData.bean.moduleDir}{"2_"}{$pageData.bean.objectName|upper}{"_ORDER_BY"}")' class='listViewThLinkS1'>
+	                            <a href='#' onClick='sListView.order_checks("ASC", "{$params.orderBy|default:$colHeader|lower}" , "{$pageData.bean.moduleDir}{"2_"}{$pageData.bean.objectName|upper}{"_ORDER_BY"}");return false;' class='listViewThLinkS1'>
 	                        {/if}
 	                    {/if}
 	                    {sugar_translate label=$params.label module=$pageData.bean.moduleDir}
@@ -173,13 +175,13 @@
 					<td>{$rowData.star}</td>
 				{/if}
 				{if !empty($quickViewLinks)}
-	            {capture assign=linkModule}{if $params.dynamic_module}{$rowData[$params.dynamic_module]}{else}{$pageData.bean.moduleDir}{/if}{/capture}
+	            {capture assign=linkModule}{$pageData.bean.moduleDir}{/capture}
 	            {capture assign=action}{if $act}{$act}{else}EditView{/if}{/capture}
 				<td width='2%' nowrap>
 	                {if $pageData.rowAccess[$id].edit}
 	                <a title='{$editLinkString}' id="edit-{$rowData.ID}"
 	href="index.php?module={$linkModule}&offset={$offset}&stamp={$pageData.stamp}&return_module={$linkModule}&action={$action}&record={$rowData.ID}"
-	data-record='{$rowData.ID}' data-module='{if $params.dynamic_module}{$rowData[$params.dynamic_module]}{else}{$pageData.bean.moduleDir}{/if}'
+	data-record='{$rowData.ID}' data-module='{$pageData.bean.moduleDir}'
 	 data-list = 'true' class="quickEdit"
 	                >
 	                    {capture name='tmp1' assign='alt_edit'}{sugar_translate label="LNK_EDIT"}{/capture}
@@ -195,7 +197,14 @@
 						{if $col == 'NAME' || $params.bold}<b>{/if}
 					    {if $params.link && !$params.customCode}
 	{capture assign=linkModule}{if $params.dynamic_module}{$rowData[$params.dynamic_module]}{else}{$params.module|default:$pageData.bean.moduleDir}{/if}{/capture}
-	{capture assign=action}{if $act}{$act}{else}DetailView{/if}{/capture}
+                            {capture assign=action}
+                                {if $act}
+                                    {if $act == 'ReportsWizard' && $linkModule == 'Employees'}
+                                        DetailView
+                                    {else}
+                                        {$act}
+                                    {/if}
+                                {else}DetailView{/if}{/capture}
 	{capture assign=record}{$rowData[$params.id]|default:$rowData.ID}{/capture}
 	{capture assign=url}index.php?module={$linkModule}&offset={$offset}&stamp={$pageData.stamp}&return_module={$linkModule}&action={$action}&record={$record}{/capture}
 	                        <{$pageData.tag.$id[$params.ACLTag]|default:$pageData.tag.$id.MAIN} href="{sugar_ajax_url url=$url}">

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:	Defines the English language pack for the base application.
@@ -82,23 +79,25 @@ $mod_strings = array (
 	'ERR_SERVER_STATUS'					=> 'Your server status',
 	'ERR_SERVER_SMTP_EMPTY'				=> 'The system is unable to send an email to the user. Please check the Outgoing Mail Configuration in <a href="index.php?module=EmailMan&action=config">Email Settings</a>.',
 
+    'LBL_EMAIL_ADDRESS'                 => 'Email Address',
+
 	'LBL_ADDRESS_CITY'					=> 'Address City',
 	'LBL_ADDRESS_COUNTRY'				=> 'Address Country',
 	'LBL_ADDRESS_INFORMATION'			=> 'Address Information',
 	'LBL_ADDRESS_POSTALCODE'			=> 'Address Postal Code',
 	'LBL_ADDRESS_STATE'					=> 'Address State',
 	'LBL_ADDRESS_STREET'				=> 'Address Street',
+	'LBL_ADDRESS_STREET_2'				=> 'Address Street 2',
+	'LBL_ADDRESS_STREET_3'				=> 'Address Street 3',
 	'LBL_ADDRESS'						=> 'Address',
 	'LBL_ADMIN_USER'					=> 'System Administrator User',
-
-
 
 	'LBL_ADMIN_DESC'					=> 'User can access the Administration page all records, regardless of team security.',
 	'LBL_REGULAR_DESC'					=> 'User can access modules and records based on team security and roles.',
 	'LBL_ADMIN'							=> 'System Administrator',
 	'LBL_ADVANCED'                     => 'Advanced',
     'LBL_ANY_ADDRESS'                  => 'Any Address:',
-	'LBL_ANY_EMAIL'						=> 'Any Email',
+	'LBL_ANY_EMAIL'						=> 'Email',
 	'LBL_ANY_PHONE'						=> 'Any Phone',
 	'LBL_BUTTON_CREATE'					=> 'Create',
 	'LBL_BUTTON_EDIT'					=> 'Edit',
@@ -117,11 +116,13 @@ $mod_strings = array (
 	'LBL_CONFIRM_PASSWORD'				=> 'Confirm Password',
 	'LBL_CONFIRM_REGULAR_USER'			=> 'You have changed the user type from System Administrator User to Regular User.  After saving this change, the user will no longer have system administrator privileges.\n\nClick OK to proceed.\nClick Cancel to return to the record.',
 	'LBL_COUNTRY'						=> 'Country',
-	'LBL_CURRENCY_TEXT'					=> 'Select the currency that will be displayed by default when you create new records. This is also the currency that will be displayed in the Amount columns in the Opportunities ListView.',
-	'LBL_CURRENCY'						=> 'Currency',
+	'LBL_CURRENCY_TEXT'					=> 'This is the currency used in list and record views if Show Preferred Currency is enabled. This is also your default currency for new records.',
+	'LBL_CURRENCY'						=> 'Preferred Currency',
 	'LBL_CURRENCY_EXAMPLE'				=> 'Currency Display Example',
-	'LBL_CURRENCY_SIG_DIGITS'			=> 'Currency Significant Digits',
-	'LBL_CURRENCY_SIG_DIGITS_DESC'		=> 'Number of decimal places to show for currency',
+	'LBL_SYSTEM_SIG_DIGITS'				=> 'System Significant Digits',
+	'LBL_SYSTEM_SIG_DIGITS_DESC' 		=> 'Number of decimal places to show for decimals and floats throughout the system, such as currency and average in Reports.',
+    'LBL_CURRENCY_SHOW_PREFERRED'       => 'Show Preferred Currency',
+    'LBL_CURRENCY_SHOW_PREFERRED_TEXT'  => 'Convert base currency to user preferred in list and record views',
 	'LBL_NUMBER_GROUPING_SEP'			=> '1000s separator',
 	'LBL_NUMBER_GROUPING_SEP_TEXT'		=> 'Character used to separate thousands',
 	'LBL_DECIMAL_SEP'					=> 'Decimal Symbol',
@@ -150,7 +151,7 @@ $mod_strings = array (
 	'LBL_EMAIL_GMAIL_DEFAULTS'			=> 'Prefill Gmail&#153; Defaults',
 	'LBL_EMAIL_LINK_TYPE'				=> 'Email Client',
 
-    'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
+    'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br>This option is only available if the system email settings have been set up correctly by the Administrator.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
 
     'LBL_EMAIL_NOT_SENT'                => 'System is unable to process your request. Please contact the system administrator.',
     'LBL_EMAIL_PROVIDER'               => 'Email Provider',
@@ -205,7 +206,7 @@ $mod_strings = array (
 	'LBL_LOCALE_DESC_LAST'				=> '[Last]',
 	'LBL_LOCALE_DESC_SALUTATION'		=> '[Salutation]',
 	'LBL_LOCALE_DESC_TITLE'				=> '[Title]',
-	'LBL_PICTURE_FILE'					=> 'Picture',
+	'LBL_PICTURE_FILE'					=> 'Avatar',
 	'LBL_LOCALE_EXAMPLE_NAME_FORMAT'	=> 'Example',
 	'LBL_LOCALE_NAME_FORMAT_DESC'		=> 'Set how names will be displayed.',
 	'LBL_LOCALE_NAME_FORMAT_DESC_2'	=> '<i>"s" Salutation<br>"f" First Name<br>"l" Last Name</i>',
@@ -233,8 +234,6 @@ $mod_strings = array (
 	'LBL_MAIL_FROMNAME'					=> 'Reply-to name',
 	'LBL_MAIL_OPTIONS_TITLE'			=> 'Email Settings',
 	'LBL_MAIL_SENDTYPE'					=> 'Mail transfer agent',
-	'LBL_MAIL_SMTPAUTH_REQ'				=> 'Use SMTP Authentication?',
-	'LBL_MAIL_SMTPPORT'					=> 'SMTP Port',
 	'LBL_MAILMERGE_TEXT'				=> 'Enable Mail Merge (Mail Merge must also be enabled by the system administrator in Configure Settings)',
 	'LBL_MAILMERGE'						=> 'Mail Merge',
 	'LBL_MAX_TAB'						=> 'Maximum Number of Modules',
@@ -248,11 +247,11 @@ $mod_strings = array (
 	'LBL_CREATED_BY_NAME' => 'Created By', //bug 48978
     'LBL_MODIFIED_BY_ID'               =>'Modified By ID',
     'LBL_MODULE_NAME'					=> 'Users',
+    'LBL_MODULE_NAME_SINGULAR'				=> 'User',
 	'LBL_MODULE_TITLE'					=> 'Users: Home',
     'LBL_NAME'							=> 'Full Name',
     'LBL_SIGNATURE_NAME'                                        =>  'Name',
     'LBL_NAVIGATION_PARADIGM'           => 'Navigation',
-    'LBL_NAVIGATION_PARADIGM_DESCRIPTION'   => 'Select to be able to view modules in the navigation bar based on pre-defined groups. When selected, the "Filter Menu By" feature will appear in the "More" menu.',
     'LBL_USE_GROUP_TABS'                => 'Module Menu Filters',
 	'LBL_NEW_FORM_TITLE'				=> 'New User',
 	'LBL_NEW_PASSWORD'					=> 'New Password',
@@ -287,9 +286,13 @@ $mod_strings = array (
 	'LBL_PRIMARY_ADDRESS'				=> 'Primary Address',
 	'LBL_PROMPT_TIMEZONE_TEXT'			=> 'Select to have new users go through the New User Wizard upon first login.',
 	'LBL_PROMPT_TIMEZONE'				=> 'User Wizard Prompt',
-	'LBL_PROVIDE_USERNAME_AND_EMAIL' 	=> 'Provide both a User Name and an Email Address.',
+	'LBL_PROVIDE_USERNAME_AND_EMAIL' 	=> 'Provide both a valid User Name and an Email Address.',
+    'LBL_FORGOTPASSORD_NOT_ENABLED' 	=> 'This is currently not enabled. Please contact your administrator.',
 	'LBL_PUBLISH_KEY'					=> 'Publish Key',
 
+    'LBL_QUOTAS'                        => 'Quotas',
+    'LBL_FORECASTS'                     => 'Forecasts',
+    'LBL_WORKSHEETS'                    => 'Worksheets',
 	'LBL_RECAPTCHA_NEW_CAPTCHA'         => 'Get another CAPTCHA',
 	'LBL_RECAPTCHA_SOUND'				=> 'Switch to Sound',
 	'LBL_RECAPTCHA_IMAGE'				=> 'Switch to Image',
@@ -318,10 +321,7 @@ $mod_strings = array (
 	'LBL_RESET_PREFERENCES'				=> 'Reset User Preferences',
     'LBL_RESET_PREFERENCES_WARNING'     => 'Are you sure you want reset all of your user preferences? Warning: This will also log you out of the application.',
     'LBL_RESET_PREFERENCES_WARNING_USER' => 'Are you sure you want reset all of the preferences for this user?',
-    'LBL_RESET_HOMEPAGE'                => 'Reset Homepage',
     'LBL_RESET_DASHBOARD'               => 'Reset Dashboard',
-    'LBL_RESET_HOMEPAGE_WARNING'        => 'Are you sure you want reset your Homepage?',
-    'LBL_RESET_HOMEPAGE_WARNING_USER'   => 'Are you sure you want reset the Homepage for this user?',
 	'LBL_SALUTATION'                    => 'Salutation',
     'LBL_ROLES_SUBPANEL_TITLE'			=> 'Roles',
 	'LBL_SEARCH_FORM_TITLE'				=> 'User Search',
@@ -339,8 +339,6 @@ $mod_strings = array (
 	'LBL_STATUS'						=> 'Status',
     'LBL_SUBPANEL_LINKS'                => 'Subpanel Links',
     'LBL_SUBPANEL_LINKS_DESCRIPTION'    => 'In Detail Views, display a row of Subpanel shortcut links.',
-    'LBL_SUBPANEL_TABS'                 => 'Subpanel Tabs',
-    'LBL_SUBPANEL_TABS_DESCRIPTION'     => 'In Detail Views, group Subpanels into tabs and display one tab at a time.',
     'LBL_SUGAR_LOGIN'					=> 'Is Sugar User',
     'LBL_SUPPORTED_THEME_ONLY'          => 'Only affects themes that support this option.',
     'LBL_SWAP_LAST_VIEWED_DESCRIPTION'  => 'Display the Last Viewed bar on the side if checked.  Otherwise it goes on top.',
@@ -527,9 +525,6 @@ $mod_strings = array (
 	'LBL_PDF_FONT_SIZE_DATA'  =>  'Data Font Size',
 	'LBL_PDF_FONT_SIZE_DATA_TEXT'  =>  '',
 	'LBL_LAST_ADMIN_NOTICE' => 'You have selected yourself. You cannot change the User Type or Status of yourself.',
-	'LBL_MAIL_SMTPUSER'	=> 'Username',
-	'LBL_MAIL_SMTPPASS'	=> 'Password',
-	'LBL_MAIL_SMTPSERVER' => 'SMTP Mail Server',
 	'LBL_SMTP_SERVER_HELP' => 'This SMTP Mail Server can be used for outgoing mail. Provide a username and password for your email account in order to use the mail server.',
     'LBL_MISSING_DEFAULT_OUTBOUND_SMTP_SETTINGS' => 'The administator has not yet configured the default outbound account.  Unable to send test email.',
     'LBL_MAIL_SMTPAUTH_REQ'				=> 'Use SMTP Authentication?',
@@ -627,6 +622,9 @@ $mod_strings = array (
     'LBL_DELETED' => 'Deleted',
     'LBL_HIDEOPTIONS' => 'Hide Options',
     'LBL_SHOWOPTIONS' => 'Show Options',
+
+    'LBL_FILTER_USERS_REPORTS' => 'Users\' reports',
+    'LBL_CONTACTS_SYNC' => 'Contacts',
 
 ); // END STRINGS DEFS
 

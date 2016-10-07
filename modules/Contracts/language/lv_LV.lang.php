@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Uzņēmuma ID:',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Izveidoja lietotājs',
   'LBL_CURRENCY' => 'Valūta:',
   'LBL_CURRENCY_ID' => 'Valūtas ID:',
+  'LBL_CURRENCY_RATE' => 'Valūtas kurss',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Klienta parakstīšanas datums:',
   'LBL_DAYS' => 'Diena(s)',
   'LBL_DESCRIPTION' => 'Apraksts:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenti',
   'LBL_END_DATE' => 'Beigu datums:',
   'LBL_EXPIRATION_NOTICE' => 'Izbeigšanās paziņojums:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Piešķirts lietotājam ID',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Piešķirts lietotājam',
+  'LBL_EXPORT_CREATED_BY' => 'Izveidotāja ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificētāja ID',
+  'LBL_EXPORT_TYPE_NAME' => 'Veida nosaukums',
   'LBL_LIST_ACCOUNT_NAME' => 'Uzņēmums',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Piešķirts lietotājam',
   'LBL_LIST_CONTRACT_NAME' => 'Līguma nosaukums',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Darba grupa',
   'LBL_MODIFIED_USER' => 'Modificēja lietotājs',
   'LBL_MODULE_NAME' => 'Līgumi',
+  'LBL_MODULE_NAME_SINGULAR' => 'Līgums',
   'LBL_MODULE_TITLE' => 'Līgumi: Sākums',
   'LBL_NEW_FORM_TITLE' => 'Jauns līgums',
   'LBL_NONE' => 'Nav',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_OPPORTUNITY' => 'Iespēja',
-  'LBL_OPPORTUNITY_NAME' => 'Iespējas nosaukums:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkti',
+  'LBL_OPPORTUNITY_ID' => 'Iespējas ID',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Piedāvājumi',
   'LBL_REFERENCE_CODE' => 'Atsauces kods:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Ieņēmumu posteņi',
   'LBL_SEARCH_FORM_TITLE' => 'Līgumu meklēšana',
   'LBL_SF_ACCOUNT_NAME' => 'Uzņēmuma nosaukums:',
   'LBL_SF_ASSIGNED_TO' => 'Piešķirts lietotājam:',
@@ -75,6 +79,7 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Līguma summa:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Līguma summa (pamatvalūtā):',
   'LBL_TYPE' => 'Tips',
+  'LBL_TYPE_NAME' => 'Veida nosaukums',
   'LBL_UNDEFINED' => 'Nav noteikts',
   'LNK_CONTRACT_LIST' => 'Aplūkot līgumus',
   'LNK_IMPORT_CONTRACTS' => 'Līgumu imports',

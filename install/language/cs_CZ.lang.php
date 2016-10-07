@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Zadejte heslo pro administrátorského uživatele Sugaru.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Zadejte uživatelské jméno pro administrátorského uživatele Sugaru.',
   'ERR_CHECKSYS' => 'Chyby byly zjištěny při kontrole kompatibility. Aby se vaše SugarCRM instalace mohla správně fungovat, prosim, vykonejte správné kroky k řešení problémů uvedených níže, a pak pokračujte stisknutím tlačítka překontrolovat, nebo zkuste nainstalovat znovu.',
+  'ERR_CHECKSYS_BCMATH' => 'Nebyla nalezena podpora pro BCMATH: SugarCRM potřebuje BCMATH pro výpočty v libovolné přesnosti.',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass Reference is On (this should be set to Off in php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Konfigurační soubor existuje, ale není zapisovatelný. Prosím, podniknete nezbytné kroky, aby se do souboru dalo zapisovat. V závislosti na používaném operačním systému, mohlo by to vyžadovat změnu oprávnění spuštěním chmod 766, nebo klikněte pravým tlačítkem myši na název souboru pro přístup k vlastnostem a odškrtněte volbu jen pro čtení.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Soubor config override existuje, ale není zapisovatelný. Proveďte prosím nezbytné kroky k tomu, aby byl soubor zapisovatelný. V závislosti na Vašem OS bude třeba změnit práva buď spuštěním chmod 766 nebo pravoklikem na soubor přejít na Vlastnosti a vypnout možnost Pouze pro čtení.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Zjistili jsme, že nepoužívate handler FastCGI mapování pro PHP. Budete si muset nainstalovat / configurovat verzi, která je kompatibilní s aplikací Sugar. Naleznete podporované verze v Tabulke Kompatibility v poznámkách k vydání Sugar. Podívejte se prosím http://www.iis.net/php/ pro podrobnosti',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Pro optimální vzužití pomocí IIS / FastCGI SAPI, nastavte fastcgi.logging na 0 v souboru php.ini.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Soubory nebo adresáře uvedené níže nejsou zapisovatelné nebo chybí, a nemůžou být vytvořeny. V závislosti na používaném operačním systému, oprava může vyžadovat změnu oprávnění na soubory, nebo nadřazeného adresáře (chmod 766), nebo klikněte pravým tlačítkem na nadřazený adresář a zrušte zatržení &#39;pouze pro čtení&#39; možnost a aplikovat ji na všechny podsložky.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test .htaccess zápisů selhal. Toto obvykle znamená, že nemáte nastavená práva AllowOverride ke složce Sugaru.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Sugar nepodoruje Vaši verzi IIS. Budete si muset nainstalovat verzi, která je kompatibilní s aplikací Sugar. Naleznete podporované verze IIS v Tabulke Kompatibility v poznámkách k vydání Sugar.',
   'ERR_CHECKSYS_IMAP' => 'Nenaleyeno: Prichodzí Email a kampaně (e-mail) vyžadují IMAP knihovny. Ani jedno nebude funkční.',
   'ERR_CHECKSYS_MBSTRING' => 'Funkce spojené s Multibyte Strings PHP rozšířením (mbstring), které jsou potřebné pro aplikaci Sugar nebyly nalezeny.<br /><br />Obecně platí, že je modul mbstring není povolen ve výchozím nastavení v PHP a musí být aktivován pomocí - enable-mbstring, když je compilovaný binární PHP. Podívejte se do vašeho PHP Manuálu pro více informací o tom, jak povolit mbstring podporu.',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Není platný adresář',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Upozornění: nelze zapisovat',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Minimální verze 4.1.2 - Nalezeno:',
-  'ERR_CHECKSYS_PCRE' => 'Knihovna PCRE nebyla nalezena: SugarCRM potřebuje knihovnu PCRE ke zpracování Perl stylu porovnání vzorů pomocí regulárních výrazů.',
-  'ERR_CHECKSYS_PCRE_VER' => 'Verze knihovny PCRE: SugarCRM potřebuje knihovnu PCRE verze 7.0 nebo vyšší ke zpracování Perl stylu porovnání vzorů pomocí regulárních výrazů.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Tvoje verze PHP není kompatibilní s SugarCRM. Postupuj prosím dle požadovaných parametrů pro systém. Vaše verze je',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Nepodporovaná PHP verze nainstalovaná: (ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Safe Mode je zapnutý (možná budete chtít zakázat v php.ini)',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Základní typ',
   'LBL_CANCEL' => 'Zrušit',
   'LBL_CHECKSYS_1' => 'Aby Vaše SugarCRM instalace správně fungovala, prosím zkontrolujte všechny položky systému, zda-li jsou zelené. Pokud některé z nich jsou červené, prosím, proveďte kroky nezbytné k nápravě.<BR><BR> Pro nápovědu k těmto vlastnostem můžete využít <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Modul Výpočty v libovolné přesnosti',
   'LBL_CHECKSYS_CACHE' => 'Zapisovatelná Cache podadresářů',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference Turned Off',
   'LBL_CHECKSYS_COMPONENT' => 'Komponenta',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Prosím, před pokračováním, opravte následující soubory a adresáře:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Prosím, před pokračováním, opravte následující adresáře a soubory modulů:',
+  'LBL_CHECKSYS_HTACCESS' => 'Nastavení AllowOverride pro .htaccess',
   'LBL_CHECKSYS_IISVER' => 'Verze IIS',
   'LBL_CHECKSYS_IMAP' => 'IMAP modul',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings Module',
@@ -156,14 +155,13 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'Verze MySQL',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Není dostupné',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'Knihovna PCRE',
   'LBL_CHECKSYS_PHPVER' => 'Verze PHP',
   'LBL_CHECKSYS_PHP_INI' => 'Lokalizace PHP konfiguračního souboru (php.ini):',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
   'LBL_CHECKSYS_RECHECK' => 'Znova zkontrolovat',
   'LBL_CHECKSYS_SAFE_MODE' => 'PHP Safe Mode vypnut',
   'LBL_CHECKSYS_SESSION' => 'Writable Session Save Path (',
-  'LBL_CHECKSYS_SESSION_SAVE_PATH' => 'Session Save Path Setting',
+  'LBL_CHECKSYS_SESSION_SAVE_PATH' => 'Nastavení ukládání cesty relace',
   'LBL_CHECKSYS_STATUS' => 'Stav',
   'LBL_CHECKSYS_TITLE' => 'Systémová kontorla',
   'LBL_CHECKSYS_UPLOAD' => 'Zapisovatelná složka Upload',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Full-textové vyhledávání není nainstalováno.',
   'LBL_FTS_INSTALLED_ERR2' => 'Můžete pokračovat v instalaci, ale nemůžete používat full-textové vyhledávání. Nahlédněte do databázové příručky, nebo kontaktujte Vašeho administrátora.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search je požadován.',
   'LBL_FTS_TABLE_TITLE' => 'Poskytuje nastavení full-textového vyhledávání',
   'LBL_FTS_TYPE' => 'Typ vyhledávače',
   'LBL_HELP' => 'Nápověda',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Vyčistit frontu úloh',
   'LBL_OOTB_IE' => 'Kontrola poštovních schránek pro příchozí poštu',
   'LBL_OOTB_PRUNE' => 'Provést údržbu databáze každého prvního v měsíci',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Odstranění dokumentů ze systému souborů',
   'LBL_OOTB_REPORTS' => 'Spustit Report Generation Scheduled Tasks --generování reportů dle naplánovaných úkolů--',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Spustit emailové upomínky',
-  'LBL_OOTB_SUGARFEEDS' => 'Pročistit tabulky SugarFeed',
   'LBL_OOTB_TRACKER' => 'omezení uživatelské historie k 1. v měsíci',
   'LBL_OOTB_WORKFLOW' => 'Zpracování úkolů workflow',
   'LBL_OPP' => 'Obchodní Set Dat',

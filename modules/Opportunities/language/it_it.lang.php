@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Per eliminare questa opportunità deve essere specificato un numero del record.',
@@ -23,16 +20,12 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'ID Azienda',
   'LBL_ACCOUNT_NAME' => 'Nome Azienda:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Attività',
-  'LBL_AMOUNT' => 'Importo Opportunità:',
-  'LBL_AMOUNT_USDOLLAR' => 'Importo:',
-  'LBL_ASSIGNED_TO_ID' => 'Utente Assegnato:',
+  'LBL_ASSIGNED_TO_ID' => 'Assegnato a:',
   'LBL_ASSIGNED_TO_NAME' => 'Assegnato a:',
-  'LBL_BEST_CASE' => 'Caso Migliore',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'Caso migliore con valuta di base',
-  'LBL_BEST_CASE_WORKSHEET' => 'Caso Migliore (',
   'LBL_CAMPAIGN' => 'Campagna:',
   'LBL_CAMPAIGN_LINK' => 'Link Campagna',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Campagne',
+  'LBL_CLOSED_RLIS' => '# Elementi dell´Opportunità Chiusi',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Oppurtunità Chiuse Vinte',
   'LBL_COMMITTED' => 'Confermato',
   'LBL_COMMIT_STAGE' => 'Fase di Conferma',
@@ -48,6 +41,7 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => 'Nome Valuta',
   'LBL_CURRENCY_RATE' => 'Tasso di Valuta',
   'LBL_CURRENCY_SYMBOL' => 'Simbolo Valuta',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Top 10 Opportunità',
   'LBL_DATE_CLOSED' => 'Data Chiusura Prevista:',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Data Chiusura Prevista Timestamp',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Opportunità',
@@ -61,22 +55,27 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Creato da ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificato da ID',
   'LBL_EXPORT_NAME' => 'Nome',
+  'LBL_FILENAME' => 'Allegato',
   'LBL_FORECAST' => 'Includi nella Previsione',
+  'LBL_HELP_CONFIG_OPPS' => 'Dopo aver avviato questa modifica, le note di riepilogo degli Elementi dell´Opportunità saranno costruiti in background. Quando le note sono complete e disponibili, sarà inviata una notifica all´indirizzo email del tuo profilo utente. Se la tua istanza è stata impostata per il modulo {{forecasts_module}}, Sugar ti invierà una notifica quando i records del modulo {{module_name}} saranno sincronizzati al modulo {{forecasts_module}} e disponibili per nuove {{forecasts_module}}. Si prega di notare che la tua istanza deve essere configurata per inviare email via Admin > Impostazioni Email in modo tale che le notifiche vengano inviate.',
+  'LBL_HELP_CONFIG_RLIS' => 'Dopo aver avviato questa modifica, gli Elementi dell´Opportunità saranno creati per ogni {{module_name}} esistente in background. Quando gli Elementi dell´Opportunità sono completi e disponibili, sarà inviata una notifica all´indirizzo email del tuo profilo utente. Si prega di notare che la tua istanza deve essere configurata per inviare email via Admin > Impostazioni Email in modo tale che le notifiche vengano inviate.',
+  'LBL_HELP_CREATE' => 'Il modulo {{plural_module_name}} consente di tracciare le singole vendite e i relativi elementi dell´opportunità dall´inizio alla fine. Ogni record del modulo {{module_name}} rappresenta la testata per un gruppo di {{revenuelineitems_module}} oltre ad essere relazionato ad altri importanti records, ad esempio {{quotes_module}}, {{contacts_module}}, ecc. Per creare un {{module_name}}: 1. Fornire i valori desiderati per i campi. - I campi segnati come "Obbligatorio" devono essere compilati prima del salvataggio. - Cliccare "Mostra più" per visualizzare ulteriori campi se necessario. 2. Cliccare "Salva" per finalizzare il nuovo record e tornare alla pagina precedente. - Scegliere "Salva e Visualizza" per aprire la vista elenco del nuovo {{module_name}}. - Scegliere "Salva e crea nuovo" per creare immediatamente un altro nuovo {{module_name}}. 3. Dopo aver salvato, usare il sottopannello {{revenuelineitems_module}} per aggiungere elementi dell´opportunità a {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Il modulo {{plural_module_name}} consente di tracciare le singole vendite e i relativi elementi dell´opportunità dall´inizio alla fine. Ogni record del modulo {{module_name}} rappresenta la testata per un gruppo di {{revenuelineitems_module}} oltre ad essere relazionato ad altri importanti records, ad esempio {{quotes_module}}, {{contacts_module}}, ecc. - Modificare i campi di questi records cliccando il singolo campo o il pulsante Modifica. - Visualizza o modifica i link agli altri records nei sottopannelli , incluso {{revenuelineitems_module}}, agendo sul pulsante "Visualizza Dati" in basso a sinistra. - Creare e visualizzare i commenti degli utenti e la cronologia delle modifiche dei records nel modulo {{activitystream_singular_module}} agendo sul pulsante "Activity Stream" in basso a sinistra. - Seguire o impostare come preferito questo record usando le icone alla destra del nome del record. - Azioni aggiuntive sono disponibili nel menù a tendina delle Azioni alla destra del pulsante Modifica.',
+  'LBL_HELP_RECORDS' => 'Il modulo {{plural_module_name}} consente di tracciare le singole vendite e i relativi elementi dell´opportunità dall´inizio alla fine. Ogni record del modulo {{module_name}} rappresenta la testata per un gruppo di {{revenuelineitems_module}} oltre ad essere relazionato ad altri importanti records, ad esempio {{quotes_module}}, {{contacts_module}}, ecc. Ogni {{revenuelineitems_singular_module}} è la prospettiva di vendita di un particolare prodotto e include dati di vendita rilevanti. Ogni {{revenuelineitems_singular_module}} avanzerà tipicamente attraverso molteplici Fasi di Vendita fino a quando diventerà marcato come "Chiuso Vinto" o "Chiuso Perso". L´{{module_name}} riflette l´importo e la data di chiusura attesa del suo {{revenuelineitems_module}}. {{plural_module_name}} e {{revenuelineitems_module}} possono essere influenzate soprattutto usando il modulo {{forecasts_singular_module}}ing di Sugar per comprendere e prevederegli andamenti delle vendite in base all´obiettivo di raggiungere il budget di vendita.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Cronologia',
   'LBL_INVITEE' => 'Contatti',
-  'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
+  'LBL_LEADS_SUBPANEL_TITLE' => 'Lead',
   'LBL_LEAD_SOURCE' => 'Fonte del Lead:',
-  'LBL_LIKELY_CASE' => 'Caso Probabile',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Caso probabile con valuta di base',
-  'LBL_LIKELY_CASE_WORKSHEET' => 'Caso Probabile (',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome Azienda',
-  'LBL_LIST_AMOUNT' => 'Importo Opportunità',
+  'LBL_LIST_AMOUNT' => 'Importo',
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Importo',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Utente Assegnato',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Assegnato a',
   'LBL_LIST_DATE_CLOSED' => 'Chiusa',
   'LBL_LIST_FORM_TITLE' => 'Elenco Opportunità',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Nome',
   'LBL_LIST_SALES_STAGE' => 'Fase di Vendita',
+  'LBL_MKTO_ID' => 'ID Lead Marketo',
+  'LBL_MKTO_SYNC' => 'Sincronizza con Marketo®',
   'LBL_MODIFIED_ID' => 'Modificato da ID',
   'LBL_MODIFIED_NAME' => 'Modificato da Nome Utente',
   'LBL_MODIFIED_USER' => 'Utente Modificato',
@@ -87,36 +86,58 @@ $mod_strings = array (
   'LBL_NAME' => 'Nome Opportunità',
   'LBL_NEW_FORM_TITLE' => 'Nuova Opportunità',
   'LBL_NEXT_STEP' => 'Prossimo Passo:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Note',
   'LBL_OPPORTUNITY' => 'Opportunità:',
   'LBL_OPPORTUNITY_NAME' => 'Nome Opportunità:',
+  'LBL_OPPORTUNITY_ROLE' => 'Ruolo Opportunità',
   'LBL_OPPORTUNITY_TYPE' => 'Tipo Opportunità',
+  'LBL_OPPS_CONFIG_ALERT' => 'Cliccando Conferma, cancellerai TUTTI i dati delle previsioni e modificherai la Vista Opportunità. Se non  è questo che intendi fare, clicca annulla per ritornare alle impostazioni precedenti.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Se tutte gli Elementi dell´Opportunità sono chiusi o almeno uno è stato vinto,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'la Fase di Vendita dell´Opportunità è "Chiuso Vinto".',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Se tutti gli Elementi dell´Opportunità sono in Fase di vendita "Chiuso Perso",',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'la Fase di Vendita dell´Opportunità è impostata in "Chiuso Perso".',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Se ci sono Elementi dell´Opportunità ancora aperti,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'l´Opportunità verrà contrassegnata con la Fase di Vendita meno avanzata.',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Imposta la Data di Chiusura Prevista nelle seguenti Opportunità che sarà la prima o l´ultima data di chiusura degli Elementi dell´Opportunità esistenti.',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Gerarchia Opportunità',
+  'LBL_PIPELINE_TOTAL_IS' => 'Pipeline Totale',
   'LBL_PRIMARY_QUOTE_ID' => 'Offerta Primaria',
   'LBL_PROBABILITY' => 'Probabilità (%):',
   'LBL_PRODUCTS' => 'Prodotti',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => 'Elementi Linea Prodotto',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Prodotti',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Progetti',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Progetti',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Offerte',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Offerte',
   'LBL_RAW_AMOUNT' => 'Importo Riga',
+  'LBL_RLI' => 'Elemento dell´Opportunità',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Elementi dell´Opportunità',
   'LBL_SALES_STAGE' => 'Fase di Vendita:',
+  'LBL_SALES_STATUS' => 'Stato',
   'LBL_SEARCH_FORM_TITLE' => 'Cerca Opportunità',
   'LBL_TEAM_ID' => 'ID Gruppo',
   'LBL_TIMEPERIODS' => 'Archi Temporali',
   'LBL_TIMEPERIOD_ID' => 'ID Arco Temporale',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Visualizza le 10 migliori Opportunità in un grafico a bolle.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Le mie Opportunità',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Le Opportunità del mio Gruppo',
   'LBL_TOP_OPPORTUNITIES' => 'Le mie 10 migliori Opportunità',
   'LBL_TOTAL_OPPORTUNITIES' => 'Totale Oppurtunità',
+  'LBL_TOTAL_RLIS' => '# Elementi dell´Opportunità Totali',
   'LBL_TYPE' => 'Tipo:',
   'LBL_VIEW_FORM_TITLE' => 'Vista Opportunità',
   'LBL_WORKSHEET' => 'Matrice',
-  'LBL_WORST_CASE' => 'Caso Peggiore',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'Caso peggiore con valuta di base',
+  'LNK_CREATE' => 'Crea Trattativa',
   'LNK_IMPORT_OPPORTUNITIES' => 'Importa Oppurtunità',
   'LNK_NEW_OPPORTUNITY' => 'Nuova Opportunità',
   'LNK_OPPORTUNITY_LIST' => 'Visualizza Opportunità',
   'LNK_OPPORTUNITY_REPORTS' => 'Visualizza Report Opportunità',
   'MSG_DUPLICATE' => 'L´opportunità che stai creando potrebbe generare un duplicato. L´opportunità ha un nome simile rispetto a quelle elencate qui sotto. Clicca Salva per continuare con la creazione di questa nuova opportunità, o clicca Annulla per ritornare al modulo senza creare l´opportunità.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Non si possono cancellare Opportunità con Elementi dell´Opportunità chiusi',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Sei sicuro di voler eliminare il contatto da questa opportunità?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Sei sicuro di rimuovere questa opportunità dal progetto?',
+  'TPL_RLI_CREATE' => 'Un´Opportunità deve avere una Elemento dell´Opportunità associato. <a href="javascript:void(0);" id="createRLI">Creare un Elemento dell´Opportunità</a>.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Crea un Elemento dell´Opportunità.',
   'UPDATE' => 'Aggiornamento Opportunità - Valuta',
   'UPDATE_BUGFOUND_COUNT' => 'Bugs Trovati:',
   'UPDATE_BUG_COUNT' => 'Bugs trovati e in attesa di essere risolti:',
@@ -142,5 +163,5 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Nuovo Importo:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Nuova Valuta:',
   'UPDATE_VERIFY_TXT' => 'Verifica che gli importi nelle opportunità siano numeri decimali validi composti soltanto da caratteri numerici (0-9) e da decimali (.)',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'Uno o più record tra quelli selezionati contiene Elementi dell´Opportunità chiusi e non può essere cancellato.',
 );
-

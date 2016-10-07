@@ -1,23 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 global $theme;
 
 ////////////////////Maybe move to separate function////////////////////
@@ -32,17 +24,26 @@ global $sugar_version, $sugar_config;
 global $urlPrefix;
 global $currentModule;
 
+//close window and refresh parent if needed
+if(!empty($_REQUEST['special_action']) && $_REQUEST['special_action'] == "refresh"){
+    echo "<script>
+              window.opener.document.DetailView.action.value = 'DetailView';
+              window.opener.document.DetailView.submit();
+              window.close();
+          </script>";
+    return;
+}
 
-$workflow_object = new WorkFlow();
-if(isset($_REQUEST['workflow_id']) && isset($_REQUEST['workflow_id'])) {
-    $workflow_object->retrieve($_REQUEST['workflow_id']);
-} else {
+if(!empty($_REQUEST['workflow_id'])) {
+    $workflow_object = BeanFactory::retrieveBean('WorkFlow', $_REQUEST['workflow_id']);
+}
+if(empty($workflow_object)) {
 	sugar_die("You shouldn't be here");
 }
 
-$focus = new WorkFlowTriggerShell();
+$focus = BeanFactory::getBean('WorkFlowTriggerShells');
 
-if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 }
 
@@ -50,6 +51,8 @@ if(isset($_REQUEST['record']) && isset($_REQUEST['record'])) {
 // Start the output
 ////////////////////////////////////////////////////////
 	$form =new XTemplate ('modules/WorkFlowTriggerShells/CreateStep1.html');
+$js_include = getVersionedScript('cache/include/javascript/sugar_grp1.js')
+    . getVersionedScript('include/workflow/jutils.js');
 	$GLOBALS['log']->debug("using file modules/WorkFlowTriggerShells/CreateStep1.html");
 //Bug 12335: We need to include the javascript language file first.
         if(!is_file(sugar_cached('jsLanguage/') . $GLOBALS['current_language'] . '.js')) {
@@ -78,6 +81,7 @@ if(!empty($plugin_array)){
 //END - WFLOW PLUGINS INFORMATION//////
 
 	$form->assign("MOD", $mod_strings);
+$form->assign('JS_INCLUDE', $js_include);
 	$form->assign("APP", $app_strings);
 	$form->assign("JAVASCRIPT_LANGUAGE_FILES", $javascript_language_files);
 	$form->assign("MODULE_NAME", $currentModule);
@@ -128,15 +132,6 @@ $form->out("embeded");
 	$form->assign("BOTTOM_BLOCK", $ProcessView->bottom_block);
 
 
-//close window and refresh parent if needed
-
-if(!empty($_REQUEST['special_action']) && $_REQUEST['special_action'] == "refresh"){
-
-	$special_javascript = "window.opener.document.DetailView.action.value = 'DetailView'; \n";
-	$special_javascript .= "window.opener.document.DetailView.submit(); \n";
-	$special_javascript .= "window.close();";
-	$form->assign("SPECIAL_JAVASCRIPT", $special_javascript);
-}
 if(!empty($_REQUEST['frame_type']) && $_REQUEST['frame_type']=="Secondary"){
 			echo getClassicModuleTitle($mod_strings['LBL_FILTER_FORM_TITLE'], array($mod_strings['LBL_FILTER_FORM_TITLE'],$mod_strings['LBL_FILTER_FORM_TITLE']), false);
 		} else {

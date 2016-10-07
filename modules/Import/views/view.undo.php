@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: view.undo.php 31561 2008-02-04 18:41:10Z jmertic $
  * Description: view handler for undo step of the import process
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -44,7 +41,7 @@ class ImportViewUndo extends ImportView
         // reset old ones afterwards
         $mod_strings = $old_mod_strings;
         
-        $last_import = new UsersLastImport();
+        $last_import = BeanFactory::getBean('Import_2');
         $this->ss->assign('UNDO_SUCCESS',$last_import->undo($_REQUEST['import_module']));
         $this->ss->assign("JAVASCRIPT", $this->_getJS());
         $content = $this->ss->fetch('modules/Import/tpls/undo.tpl');
@@ -59,10 +56,17 @@ class ImportViewUndo extends ImportView
     {
         return <<<EOJAVASCRIPT
 
-document.getElementById('finished').onclick = function(){
-    document.getElementById('importundo').module.value = document.getElementById('importundo').import_module.value;
-    document.getElementById('importundo').action.value = 'index';
-}
+document.getElementById('finished').onclick = function() {
+    var form = $(this).closest('form'),
+        module = form.find('input[name=import_module]').val(),
+        action = 'index';
+    form.find('input[name=module]').val(module);
+    form.find('input[name=action]').val(action);
+
+    parent.SUGAR.App.metadata.getModule(module).isBwcEnabled ?
+        form.submit() :
+        parent.SUGAR.App.router.navigate(module, {trigger: true});
+};
 EOJAVASCRIPT;
     }
 }

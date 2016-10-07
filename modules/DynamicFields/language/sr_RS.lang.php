@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Podrazumevani URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'Američki Format',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Naziv polja već postoji',
-  'ERR_NO_MODULE_INCLUDED' => 'Nije sadržan ni jedan modul. Čuvanje nije moguće',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Polje ime može sadržati samo sledeće karaktere: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Ni jedan modul nije uključen, nemoguće je čuvanje',
   'ERR_RESERVED_FIELD_NAME' => 'Rezervisana ključna reč',
   'ERR_SELECT_FIELD_TYPE' => 'Molimo odaberite tip polja',
-  'LBL_ADDING_COLUMN' => 'Dodavanje Kolone {0} u',
+  'LBL_ADDING_COLUMN' => 'Dodavanje kolone {0} u',
   'LBL_ADD_FIELD' => 'Dodaj polje:',
   'LBL_AUDITED' => 'Praćenje promena',
   'LBL_BTN_ADD' => 'Dodaj',
@@ -69,14 +67,14 @@ $mod_strings = array (
   'LBL_DEPENDENT_CHECKBOX' => 'Zavisno',
   'LBL_DEPENDENT_TRIGGER' => 'Okidač',
   'LBL_DONE' => 'Završeno',
-  'LBL_DROPPING_COLUMN' => 'Brisanje kolone {0} iz {1} za modul',
+  'LBL_DROPPING_COLUMN' => 'Uklanjanje kolone {0} iz {1} za modul',
   'LBL_DROP_DOWN_LIST' => 'Padajuća lista',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Zavisno',
   'LBL_EDIT_VIS' => 'Izmeni vidljivost',
   'LBL_ENFORCED' => 'Prinudno',
   'LBL_EXE_NON_SIM_MODE' => 'Izvršavanje ne-simulacionog moda',
-  'LBL_FIELD_MISSING' => 'nedostaju polja iz',
-  'LBL_FIX_COLUMN_TYPE' => 'Izmena tipa kolone za {0} promenom {1} u',
+  'LBL_FIELD_MISSING' => 'polje(a) nedostaju iz',
+  'LBL_FIX_COLUMN_TYPE' => 'Ispravka tipa kolone za {0} promenom {1} u',
   'LBL_FORMULA' => 'Formula',
   'LBL_GENERATE_URL' => 'Generiši URL',
   'LBL_HAS_PARENT' => 'Ima nadređenog',
@@ -94,7 +92,7 @@ $mod_strings = array (
   'LBL_REPORTABLE' => 'Dostupno u izveštajima',
   'LBL_SCAN_MODULE' => 'Skeniranje',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga modula',
-  'LBL_SIMULATION_MODE' => 'SIMULACIJA - NEĆE BITI PROMENA OSIM BRISANJA KEŠ MEMORIJE',
+  'LBL_SIMULATION_MODE' => 'SIMULACIONI MOD - OSIM BRISANJA KEŠA NEĆE BITI DRUGIH PROMENA',
   'LBL_VISIBLE_IF' => 'Vidljivo ako',
   'LNK_CALL_LIST' => 'Pozivi',
   'LNK_EMAIL_LIST' => 'Email-ovi',

@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Accounts',
   'LBL_ASSIGNED_TO' => 'Assigned to',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campaigns',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contacts',
   'LBL_COPY_PREFIX' => 'Copy of',
   'LBL_CREATED' => 'Created by',
@@ -32,6 +30,24 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'No emails to Domain',
   'LBL_DOMAIN_NAME' => 'Domain Name',
   'LBL_ENTRIES' => 'Total Entries',
+  'LBL_HELP_CREATE' => 'A {{module_name}} consists of a collection of individuals or organisations you want to include or exclude in a mass marketing {{campaigns_singular_module}}.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalise the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.
+3. After saving, use the subpanels available on the target&#39;s record view to add {{campaigns_singular_module}} recipients.',
+  'LBL_HELP_RECORD' => 'A {{module_name}} consists of a collection of individuals or organisations you want to include or exclude in a mass marketing {{campaigns_singular_module}}.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels, including {{campaigns_singular_module}} recipeints, by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'A {{module_name}} consists of a collection of individuals or organisations you want to include or exclude in a mass marketing {{campaigns_singular_module}}. {{plural_module_name}} can contain any number and any combination of Targets, {{contacts_module}}, {{leads_module}}, Users, and {{accounts_module}}. Targets can be grouped into a {{module_name}} according to a set of predetermined criteria such as age group, geographic location, or spending habits. {{plural_module_name}} are used in mass email marketing {{campaigns_module}} that can be configured in the {{campaigns_module}} module.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_DESCRIPTION' => 'Description',
   'LBL_LIST_END_DATE' => 'End Date',

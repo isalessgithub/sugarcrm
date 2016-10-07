@@ -1,23 +1,20 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 global $theme;
 
 
-$GLOBALS['displayListView'] = true; 
+$GLOBALS['displayListView'] = true;
 
 require_once('modules/Reports/templates/templates_reports.php');
 require_once('modules/Reports/templates/templates_reports_index.php');
@@ -26,7 +23,7 @@ require_once('modules/Reports/templates/templates_export.php');
 require_once('modules/Reports/templates/templates_chart.php');
 
 require_once('modules/Reports/config.php');
-global $current_language, $report_modules, $modules_report;
+global $current_language, $report_modules, $modules_report, $mod_strings;
 
 
 
@@ -43,9 +40,9 @@ $args = array();
 //}
 if ($_REQUEST['action'] == 'index') {
 if ( isset($_REQUEST['id'])) {
-	$saved_report_seed = new SavedReport();
+	$saved_report_seed = BeanFactory::getBean('Reports');
 	$saved_report_seed->disable_row_level_security = true;
-	
+
 	$saved_report_seed->retrieve($_REQUEST['id'], false);
 
 	$args['reporter'] = new Report($saved_report_seed->content);
@@ -56,7 +53,7 @@ if ( isset($_REQUEST['id'])) {
 		list($new_filter['table_name'],$new_filter['name']) = explode(':',$_REQUEST['filter_key']);
 		$new_filter['qualifier_name'] = 'is';
 		$new_filter['input_name0'] = array($_REQUEST['filter_value']);
-		
+
 		if ( ! is_array($args['reporter']->report_def['filters_def'])) {
 			$args['reporter']->report_def['filters_def'] = array();
 		}
@@ -64,7 +61,7 @@ if ( isset($_REQUEST['id'])) {
 		$args['reporter']->report_def['chart_type'] = 'none';
 		$args['reporter']->chart_type = 'none';
 	}
-	
+
 	$args['reporter']->is_saved_report = true;
 	$args['reporter']->saved_report_id = $saved_report_seed->id;
 
@@ -90,9 +87,11 @@ if(! empty($_REQUEST['to_pdf']) && empty($_REQUEST['search_form_only'])){
 	return;
 }
 if(! empty($_REQUEST['to_csv'])){
-	if($sugar_config['disable_export'] || (!empty($sugar_config['admin_export_only']) && !(is_admin($current_user) || (ACLController::moduleSupportsACL($args['reporter']->module) && ACLAction::getUserAccessLevel($current_user->id,$args['reporter']->module, 'access') == ACL_ALLOW_ENABLED && ACLAction::getUserAccessLevel($current_user->id, $args['reporter']->module, 'admin') == ACL_ALLOW_ADMIN)))){
-		die("Exports Disabled");
-	}
+    //check to see if exporting is allowed
+    if(!hasExportAccess($args)){
+        //die if one of the above conditions has been met
+        sugar_die($mod_strings['LBL_NO_EXPORT_ACCESS']);
+    }
 	template_handle_export($args['reporter']);
 	return;
 }
@@ -142,7 +141,7 @@ if ( empty($_REQUEST['search_form_only']) ) {
     echo getClassicModuleTitle("Reports", $params, true, '', $createURL) . "<div class='clear'></div>";
 }
 
-include(get_custom_file_if_exists("modules/Reports/ListView.php"));
+include SugarAutoLoader::existingCustomOne("modules/Reports/ListView.php");
 }
 
 }
@@ -150,31 +149,20 @@ function checkACLForEachColInArr ($arr, $full_table_list, $is_owner = 1){
 	foreach ($arr as $column) {
 		$col_module = $full_table_list[$column['table_key']]['module'];
 		//todo: check the last param of this call (is_owner)
-		if (ACLField::hasAccess($column['name'], $col_module, $GLOBALS['current_user']->id, $is_owner) == 0) {
+		if(!SugarACL::checkField($col_module, $column['name'], 'access', $is_owner?array("owner_override" => true):array())) {
 			return false;
 		}
 	}
-	return true;	
+	return true;
 }
 
 function checkACLForEachColInArrForFilterDef($arr, $full_table_list, $is_owner = 1){
-	$hasAccess = checkACLForEachColForFilter($arr, $full_table_list, $is_owner, true);
-	return $hasAccess;
-	/*
-	foreach ($arr as $column) {
-		$col_module = $full_table_list[$column['table_key']]['module'];
-		//todo: check the last param of this call (is_owner)
-		if (ACLField::hasAccess($column['name'], $col_module, $GLOBALS['current_user']->id, $is_owner) == 0) {
-			return false;
-		}
-	}
-	return true;	
-	*/
+	return checkACLForEachColForFilter($arr, $full_table_list, $is_owner, true);
 }
 
 function checkACLForEachColForFilter($filters, $full_table_list, $is_owner, $hasAccess) {
 	if (!$hasAccess) {
-		return $hasAccess;
+		return false;
 	} // if
 	$i = 0;
 	while (isset($filters[$i])) {
@@ -185,12 +173,18 @@ function checkACLForEachColForFilter($filters, $full_table_list, $is_owner, $has
 				return $hasAccess;
 			} // if
 		}
-		else {
+		else if(!empty($full_table_list[$current_filter['table_key']]['module'])){
 			$col_module = $full_table_list[$current_filter['table_key']]['module'];
-			if (ACLField::hasAccess($current_filter['name'], $col_module, $GLOBALS['current_user']->id, $is_owner) == 0) {
-			//if(isset($current_filter['runtime']) && $current_filter['runtime'] == 1) {
-				$hasAccess = false;
-				return $hasAccess;
+
+            if (
+                !SugarACL::checkField(
+                    $col_module,
+                    $current_filter['name'],
+                    'detail',
+                    $is_owner ? array('owner_override' => true) : array()
+                )
+            ) {
+				return false;
 			} // if
 		}
 		$i++;
@@ -208,32 +202,37 @@ function checkSavedReportACL(&$reporter,&$args) {
 		$group_defs = $reporter->report_def['group_defs'];
 		if (!empty($reporter->report_def['order_by']))
 			$order_by = $reporter->report_def['order_by'];
-		else 
+		else
 			$order_by = array();
 
 		$summary_columns = $reporter->report_def['summary_columns'];
 		$full_table_list = $reporter->report_def['full_table_list'];
 
-		if (!checkACLForEachColInArr($display_columns, $full_table_list) || 
-			!checkACLForEachColInArrForFilterDef($filters_def, $full_table_list) || 
-			!checkACLForEachColInArr($group_defs, $full_table_list) || 
-			!checkACLForEachColInArr($order_by, $full_table_list) || 
+		if (!checkACLForEachColInArr($display_columns, $full_table_list) ||
+			!checkACLForEachColInArrForFilterDef($filters_def, $full_table_list) ||
+			!checkACLForEachColInArr($group_defs, $full_table_list) ||
+			!checkACLForEachColInArr($order_by, $full_table_list) ||
 			!checkACLForEachColInArr($summary_columns, $full_table_list)) {
 			sugar_die($mod_strings['LBL_NO_ACCESS']);
 		}
-		
+
 		//Check for List view permissions
 		$hashModules = array();
 		foreach ($display_columns as $column) {
 			$col_module = $full_table_list[$column['table_key']]['module'];
             $ACLenabled = false;
 			if(!isset($hashModules[$col_module])) {
-               $b = loadBean($col_module);
-               $ACLenabled = $b->bean_implements('ACL');
+               $b = BeanFactory::getBean($col_module);
+                // If the Module doesn't exist, just continue, and allow Report to show invalid field
+                if (empty($b)) {
+                    continue;
+                }
+			   $ACLenabled = $b->bean_implements('ACL');
                $hashModules[$col_module] = !empty($b) ? $b->acltype : 'module';
 			}
 			$type = $hashModules[$col_module];
 			//todo: check the last param of this call (is_owner)
+
             if (
                  (
                      $ACLenabled == true
@@ -249,6 +248,7 @@ function checkSavedReportACL(&$reporter,&$args) {
                  && $col_module != 'Releases'
                  && $col_module != 'Teams'
                  && $col_module != 'CampaignLog'
+                 && $col_module != 'Manufacturers'
              )
              {
                  sugar_die($mod_strings['LBL_NO_ACCESS']);
@@ -258,7 +258,7 @@ function checkSavedReportACL(&$reporter,&$args) {
 		// Check Report module Permissions
 		$is_owner =  true;
 		global $current_user;
-		if (isset($args['reporter']->saved_report) && $args['reporter']->saved_report->assigned_user_id != $current_user->id) 
+		if (isset($args['reporter']->saved_report) && $args['reporter']->saved_report->assigned_user_id != $current_user->id)
 			$is_owner = false;
 		if(!ACLController::checkAccess('Reports', 'list', $is_owner) || !ACLController::checkAccess('Reports', 'view', $is_owner))  {
 			sugar_die($mod_strings['LBL_NO_ACCESS']);
@@ -270,8 +270,7 @@ function checkSavedReportACL(&$reporter,&$args) {
 function check_report_perms($report_id)
 {
 	global $current_user;
-	$saved = new SavedReport();
-	$saved->retrieve($report_id);
+	$saved = BeanFactory::getBean('Reports', $report_id);
 	if (! is_admin($current_user) && $saved->assigned_user_id != $current_user->id)
 	{
 		return false;
@@ -316,8 +315,7 @@ function control(&$args)
 					return;
 				}
 
-        $saved_report = new SavedReport();
-        $saved_report->mark_deleted($_REQUEST['delete_report_id']);
+        BeanFactory::deleteBean('Reports', $_REQUEST['delete_report_id']);
   }
 
   if (isset($_REQUEST['publish']) )
@@ -328,7 +326,7 @@ function control(&$args)
 					return;
 				}
 
-        $saved_report = new SavedReport();
+        $saved_report = BeanFactory::getBean('Reports');
         $result = 0;
 
         $saved_report = $saved_report->retrieve($_REQUEST['publish_report_id'], false);

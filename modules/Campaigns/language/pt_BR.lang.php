@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Por favor corrija os seguintes erros antes de prosseguir',
@@ -57,7 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Receita Esperada',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frequência',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Impressões',
-  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Campanha &#39;{0}&#39; tem o  status &#39;Inactive&#39;. Você deve ajustar a campanha para o status &#39;Active&#39;.',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Campanha &#39;{0}&#39; Tem status &#39;Inativa&#39;. Você deve ajustar a Campanha para Status &#39;Ativa&#39;',
   'LBL_CAMPAIGN_INFORMATION' => 'Informação da Campanha',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Leads',
   'LBL_CAMPAIGN_NAME' => 'Nome',
@@ -88,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Criada por',
   'LBL_CREATED_BY' => 'Criado por',
   'LBL_CREATED_USER' => 'Usuário Criado',
+  'LBL_CREATE_EMAIL' => 'Criar E-mail',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'Criar',
   'LBL_CREATE_MAILBOX' => 'Criar Nova Caixa de Correio',
   'LBL_CREATE_NEWSLETTER' => 'Criar Newsletter',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Criar Formulário WebToLead',
   'LBL_CURRENCY' => 'Moeda',
   'LBL_CURRENCY_ID' => 'ID da Moeda',
+  'LBL_CURRENCY_RATE' => 'Taxa Moeda',
   'LBL_CUSTOM_LOCATION' => 'Permitir Selecionar',
   'LBL_DATE_CREATED' => 'Data da Criação',
   'LBL_DATE_ENTERED' => 'Data da Criação',
@@ -146,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Lançar Configuração de E-mail.',
   'LBL_EMAIL_SETUP_WIZARD' => 'Configuração do E-mail',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Configuração de E-mail para Campanhas',
+  'LBL_EMAIL_TITLE' => 'Campanhas: E-mails',
+  'LBL_END_DATE' => 'Data Final',
   'LBL_FILTER_CHART_BY' => 'Filtrar Gráfico Por:',
   'LBL_FINISH' => 'Concluir',
   'LBL_FROM_ADDR' => 'Endereço "De"',
@@ -294,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Utilizar SSL',
   'LBL_SSL_DESC' => 'se o seu servidor de e-mail suporta ligações de socket seguras, a ativação irá forçar as ligações SSL ao importar o e-mail.',
   'LBL_START' => 'Iniciar',
+  'LBL_START_DATE' => 'Data de início:',
   'LBL_START_DATE_TIME' => 'Data e Hora de Início:',
+  'LBL_STATUS' => 'Status',
   'LBL_STATUS_TEXT' => 'Status:',
   'LBL_SUBSCRIPTION_LIST' => 'Lista de Subscrição',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Nome da Lista de Subscrição:',
@@ -344,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Esta opção excluirá registos criados pelo envio de teste. Continuar?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Fila de Track',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Ver ROI',
+  'LBL_TYPE' => 'Tipo',
   'LBL_UNSUBSCRIBED_HEADER' => 'Disponíveis/Newsletters Não Subscritas',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Movendo a newsletter para a lista Newsletters Disponíveis/Newsletters Não Subscritas irá adicionar o contato à Lista de Não Subscrição para esta newsletter. Não irá remover o contato da Lista de Subscrição original ou da Lista de Targets.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Lista de Não Subscrição',

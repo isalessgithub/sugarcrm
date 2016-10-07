@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -26,37 +23,27 @@ if(!empty($_REQUEST['identifier'])) {
 
     //user is most likely not defined, retrieve admin user so that team queries are bypassed
     if(empty($current_user) || empty($current_user->id)){
-            $current_user = new User();
-            $current_user->retrieve('1');
+            $current_user = BeanFactory::getBean('Users', '1');
     }
-    
+
     $keys=log_campaign_activity($_REQUEST['identifier'],'removed');
     global $current_language;
     $mod_strings = return_module_language($current_language, 'Campaigns');
 
-    
+
     if (!empty($keys) && $keys['target_type'] == 'Users'){
         //Users cannot opt out of receiving emails, print out warning message.
-        echo $mod_strings['LBL_USERS_CANNOT_OPTOUT'];       
+        echo $mod_strings['LBL_USERS_CANNOT_OPTOUT'];
      }elseif(!empty($keys) && isset($keys['campaign_id']) && !empty($keys['campaign_id'])){
         //we need to unsubscribe the user from this particular campaign
-        $beantype = $beanList[$keys['target_type']];
-        require_once($beanFiles[$beantype]);
-        $focus = new $beantype();
-        $tmp_security = $focus->disable_row_level_security;
-        $focus->disable_row_level_security = 1;
-        $focus->retrieve($keys['target_id']);
-        $focus->disable_row_level_security = $tmp_security;   
-        unsubscribe($keys['campaign_id'], $focus); 
-    
+        $focus = BeanFactory::getBean($keys['target_type'], $keys['target_id']
+        , array('disable_row_level_security' => true)
+        );
+        unsubscribe($keys['campaign_id'], $focus);
+
     }elseif(!empty($keys)){
 		$id = $keys['target_id'];
-		$module = trim($keys['target_type']);
-		$class = $beanList[$module];
-		require_once($beanFiles[$class]);
-		$mod = new $class();
 		$db = DBManagerFactory::getInstance();
-
 		$id = $db->quote($id);
 
 		//no opt out for users.
@@ -71,7 +58,7 @@ if(!empty($_REQUEST['identifier'])) {
     }
 		//Print Confirmation Message.
 		echo $mod_strings['LBL_ELECTED_TO_OPTOUT'];
-	
+
 }
 sugar_cleanup();
 ?>

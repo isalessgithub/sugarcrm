@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the account.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Attach Note',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
   'LBL_CASE' => 'Case:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Overview',
   'LBL_CASE_NUMBER' => 'Case Number:',
   'LBL_CASE_SUBJECT' => 'Case Subject:',
@@ -53,6 +51,23 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modified By ID',
   'LBL_EXPORT_TEAM_COUNT' => 'Team Count',
   'LBL_FILENANE_ATTACHMENT' => 'File Attachment',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organisation by customers.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+ - Fields marked "Required" must be completed prior to saving.
+ - Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalise the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organisation by customers.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organisation by customers. {{plural_module_name}} are typically related to an {{accounts_singular_module}} record, and multiple {{plural_module_name}} may be associated to a single {{accounts_singular_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, or converted from email. Once the {{module_name}} is created, you can view and edit information pertaining to the {{module_name}} via the {{module_name}}&#39;s record view. Each {{module_name}} record may then relate to other Sugar records such as {{calls_module}}, {{contacts_module}}, {{bugs_module}}, and many others.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'History',
   'LBL_INVITEE' => 'Contacts',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
@@ -79,7 +94,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Case',
   'LBL_MODULE_TITLE' => 'Cases: Home',
   'LBL_NEW_FORM_TITLE' => 'New Case',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_NUMBER' => 'Number:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'If you have a new support Case you would like to submit, you can click here to submit a new Case.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'You can filter down the list of Cases by providing a search term.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'For example, you might use this to find an issue that has been previously submitted.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'The Cases module is for managing support issues that affect your Account.  Use the arrows below to go through a quick tour.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'This page shows the list of existing Cases associated with your Account.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Clicking here will return you to this view at any time.',
   'LBL_PORTAL_VIEWABLE' => 'Portal Viewable',
   'LBL_PRIORITY' => 'Priority:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projects',
@@ -88,6 +110,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Case Search',
   'LBL_SHOW_IN_PORTAL' => 'Show in Portal',
   'LBL_SHOW_MORE' => 'Show More Cases',
+  'LBL_SOURCE' => 'Source:',
   'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Subject:',
   'LBL_SYSTEM_ID' => 'System ID',

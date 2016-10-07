@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć kontakt.',
@@ -24,14 +21,14 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Informacje adresowe',
   'LBL_ADD_BUSINESSCARD' => 'Wprowadź wizytówkę',
   'LBL_ALTERNATE_ADDRESS' => 'Adres dodatkowy:',
-  'LBL_ALT_ADDRESS_CITY' => 'Miejscowość (adres alternatywny):',
+  'LBL_ALT_ADDRESS_CITY' => 'Miasto (adres alternatywny):',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Kraj (adres alternatywny):',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Kod pocztowy (adres alternatywny):',
   'LBL_ALT_ADDRESS_STATE' => 'Woj. (adres alternatywny):',
   'LBL_ALT_ADDRESS_STREET' => 'Ulica (adres alternatywny):',
   'LBL_ANY_ADDRESS' => 'Adres:',
   'LBL_ANY_EMAIL' => 'Dodatkowy adres e-mail:',
-  'LBL_ANY_PHONE' => 'Inny telefon:',
+  'LBL_ANY_PHONE' => 'Dowolny telefon:',
   'LBL_ASSIGNED_TO_ID' => 'Przydzielono do:',
   'LBL_ASSIGNED_TO_NAME' => 'Przydzielono do',
   'LBL_ASSISTANT' => 'Asystent:',
@@ -43,7 +40,7 @@ $mod_strings = array (
   'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampanie',
   'LBL_CAMPAIGN_ID' => 'Kampania',
   'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Log kampanii',
-  'LBL_CITY' => 'Miejscowość:',
+  'LBL_CITY' => 'Miasto:',
   'LBL_CONVERTED_LEAD' => 'Przekształcone namiary',
   'LBL_CONVERTPROSPECT' => 'Przekształć odbiorcę',
   'LBL_CONVERT_BUTTON_KEY' => 'V',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Dział:',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Dodatkowe informacje',
+  'LBL_DNB_BAL_PREVIEW' => 'Podgląd odbiorców',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Odbiorcy',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Informacje o odbiorcy',
+  'LBL_DNB_PRINCIPAL_ID' => 'Główne ID D&B',
   'LBL_DO_NOT_CALL' => 'Nie dzwonić:',
   'LBL_DUPLICATE' => 'Możliwe zduplikowanie odbiorców',
   'LBL_EDIT_ACCOUNT_NAME' => 'Nazwa kontrahenta:',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Adres e-mail',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Zmodyfikowane przez',
   'LBL_FAX_PHONE' => 'Faks:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Raporty Odbiorców',
   'LBL_FIRST_NAME' => 'Imię:',
   'LBL_FULL_NAME' => 'Nazwa',
+  'LBL_HELP_CREATE' => 'Moduł {{plural_module_name}} składa się z osób, które są niekwalifikowanymi prospektami, o których posiadasz pewne informacje, ale nie są to jeszcze kwalifikowane namiary.
+
+Aby utworzyć Odbiorcę:
+1. Wprowadź odpowiednie wartości do pól.
+ - Pola oznaczone jako "Wymagane" muszą zostać uzupełnione.
+ - Kliknij "Pokaż więcej", aby wyświetlić więcej pól.
+2. Kliknij "Zapisz", aby zapisać nowy rekord i powrócić do poprzedniej strony.
+ - Wybierz "Zapisz i pokaż", aby otworzyć rekord widoku {{plural_module_name}} w nowym oknie.
+ - Wybierz "Zapisz i utwórz nowy", aby bez zwłoki utworzyć nowego Odbiorcę.',
+  'LBL_HELP_RECORD' => 'Moduł {{plural_module_name}} składa się z osób, które są niekwalifikowanymi prospektami, o których posiadasz pewne informacje, ale nie są to jeszcze kwalifikowane namiary.
+
+- Edytuj pola tego rekordu poprzez kliknięcie na odpowiednie pole lub na przycisk Edytuj.
+- Przeglądaj lub modyfikuj powiązania z innymi rekordami w subpanelach poprzez przełączenie widoku dolnego lewego panelu na “Widok danych”.
+- Dodawaj i przeglądaj komentarze użytkowników i historię zmian rekordu w Panelu aktywności poprzez przełączenie widoku dolnego lewego panelu na „Panel aktywności”.
+- Obserwuj lub dodaj do ulubionych ten rekord za pomocą ikon znajdujących się z prawej strony nazwy rekordu.
+- Dodatkowe działania dostępne są w liście rozwijalnej menu Działania po prawej stronie przycisku Edytuj.',
+  'LBL_HELP_RECORDS' => 'Moduł {{plural_module_name}} składa się z osób, które są niekwalifikowanymi prospektami, o których posiadasz pewne informacje, ale nie są to jeszcze kwalifikowane namiary. Informacje (np. imię i nazwisko, adres e-mail) na temat {{plural_module_name}} pochodzą zwykle z wizytówek otrzymanych podczas uczęszczania na różnego rodzaju konferencje itp. {{plural_module_name}} są niezależnymi rekordami w Sugar, ponieważ nie są powiązane z Kontaktami, Namiarami, Kontrahentami ani Szansami. Istnieje kilka sposobów utworzenia {{plural_module_name}} w Sugar: poprzez moduł {{plural_module_name}}, importowanie {{plural_module_name}} itp. Kiedy {{module_name}} zostanie utworzony, możesz oglądać oraz edytować informacje dotyczące {{plural_module_name}} poprzez widoku rekordu w module {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historia',
   'LBL_HOME_PHONE' => 'Telefon domowy:',
   'LBL_IMPORT_VCARD' => 'Importuj vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automatycznie utwórz nowy kontakt poprzez import vCard z pliku systemowego.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Tworzenie odbiorcy z vCard zakończyło się powodzeniem',
   'LBL_INVALID_EMAIL' => 'Niewłaściwy adres e-mail:',
   'LBL_INVITEE' => 'Zwierzchnik',
   'LBL_LAST_NAME' => 'Nazwisko:',
+  'LBL_LEAD' => 'Namiar',
   'LBL_LEAD_ID' => 'ID namiaru',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-mail',
   'LBL_LIST_FIRST_NAME' => 'Imię',
@@ -115,27 +136,29 @@ $mod_strings = array (
   'LBL_PHONE_WORK' => 'Telefon służbowy',
   'LBL_POSTAL_CODE' => 'Kod pocztowy:',
   'LBL_PRIMARY_ADDRESS' => 'Adres główny:',
-  'LBL_PRIMARY_ADDRESS_CITY' => 'Miejscowość (adres główny):',
+  'LBL_PRIMARY_ADDRESS_CITY' => 'Miasto (adres główny):',
   'LBL_PRIMARY_ADDRESS_COUNTRY' => 'Kraj (adres główny):',
   'LBL_PRIMARY_ADDRESS_POSTALCODE' => 'Kod pocztowy (adres główny):',
   'LBL_PRIMARY_ADDRESS_STATE' => 'Woj. (adres główny):',
   'LBL_PRIMARY_ADDRESS_STREET' => 'Ulica (adres główny):',
   'LBL_PROSPECT' => 'Odbiorca:',
   'LBL_PROSPECT_INFORMATION' => 'Informacje ogólne',
-  'LBL_PROSPECT_LIST' => 'Lista prospektów',
+  'LBL_PROSPECT_LIST' => 'Lista odbiorców',
   'LBL_PROSPECT_NAME' => 'Nazwa odbiorcy:',
   'LBL_PROSPECT_ROLE' => 'Rola:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Tworzenie odbiorcy <a href="#{{buildRoute model=this}}">{{full_name}}</a> zakończyło się powodzeniem.',
   'LBL_SALUTATION' => 'Forma grzecznościowa',
   'LBL_SAVE_PROSPECT' => 'Zapisz odbiorcę',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukaj odbiorców',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Wybierz zaznaczonych odbiorców',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Wybierz zaznaczonych odbiorców',
   'LBL_STATE' => 'Woj.:',
+  'LBL_STREET' => 'Ulica',
   'LBL_TITLE' => 'Stanowisko:',
   'LBL_TRACKER_KEY' => 'Klucz śledzenia',
   'LNK_CAMPAIGN_LIST' => 'Kampanie',
   'LNK_IMPORT_PROSPECT' => 'Import odbiorców',
-  'LNK_IMPORT_PROSPECTS' => 'Import prospektów',
+  'LNK_IMPORT_PROSPECTS' => 'Import odbiorców',
   'LNK_IMPORT_VCARD' => 'Utwórz z vCard',
   'LNK_NEW_ACCOUNT' => 'Utwórz kontrahenta',
   'LNK_NEW_APPOINTMENT' => 'Dodaj spotkanie',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Utworzenie szansy wymaga kontrahenta.\\n Utwórz nowego kontrahenta lub skorzystaj z już istniejącego.',
   'NTC_REMOVE_CONFIRMATION' => 'Czy na pewno usunąć ten kontakt z zadania?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Czy na pewno chcesz usunąć ten rekord?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

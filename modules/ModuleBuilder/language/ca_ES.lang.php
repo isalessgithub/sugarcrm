@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Error: El Camp Ja Existeix',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponible',
   'LBL_AVAILABLE_OPTIONS' => 'Opcions',
   'LBL_AVAILABLE_SUBPANELS' => 'Subpanells Disponibles',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2: establishLocation: document mal format',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: Document mal format',
   'LBL_BASIC' => 'Bàsica',
   'LBL_BASIC_SEARCH' => 'Recerca Bàsica',
   'LBL_BLANK' => '-buit-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Cancelar',
   'LBL_BTN_CLONE' => 'Clonar',
   'LBL_BTN_CLOSE' => 'Tancar',
+  'LBL_BTN_COPY' => 'Copia',
+  'LBL_BTN_COPY_FROM' => 'Copia de...',
   'LBL_BTN_DELETE' => 'Eliminar',
   'LBL_BTN_DEPLOY' => 'Desplegar',
   'LBL_BTN_DONT_SAVE' => 'Descartar Canvis',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Desfee',
   'LBL_BTN_VIEW_FIELDS' => 'Veure Camps',
   'LBL_BTN_VIEW_LAYOUTS' => 'Veure Dissenys',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Veure dissenys mòbils',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Veure Relacions',
   'LBL_BUG_TRACKER' => 'Seguiment d&#39;Incidències',
   'LBL_CALCULATED' => 'Valor calculat',
   'LBL_CASES' => 'Casos',
   'LBL_CLEAR_EXTENSIONS' => 'Netejar extensions',
   'LBL_CLEAR_RELATIONSHIPS' => 'Netejar Relacions',
+  'LBL_COMBO_FIELD_CONTAINS' => 'conté:',
   'LBL_COMPANY' => 'Companyia',
   'LBL_CONFIG_PORTAL_URL' => 'URL a la imatge de logo personalitzat. Les dimensions del logotip recomanats són 163×18 píxels.',
   'LBL_CONFIRM_DONT_SAVE' => 'Hi ha canvis pendents de ser guardats, desitja guardar-los ara?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Està segur que desitja eliminar aquesta relació?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Això farà la relació permanent. Està segur que desitja desplegar aquesta relació?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Està seleccionant aquest element per la seva eliminació de la llista despleglable. Qualsevol camp despleglable que utilitzi aquesta llista amb aquest element com a valor ja no mostrarà aquest valor, i el valor ja no podrà ser seleccionat als camps despleglables. Està segur que desitja continuar?',
+  'LBL_COPY_FROM' => 'Copia de',
   'LBL_COPY_FROM_EDITVIEW' => 'Còpia de EditView',
   'LBL_CREATE' => 'Crear',
   'LBL_CREATE_NEW' => 'Crear Nou',
   'LBL_CURRENCY' => 'Moneda',
   'LBL_CURRENT_LAYOUT' => 'Disseny',
   'LBL_CUSTOM' => 'Personalitzat',
-  'LBL_CUSTOMIZE_THEME' => 'Personalitzar tema',
   'LBL_CUSTOM_FIELDS' => '* camp creat a Studio',
   'LBL_CUSTOM_MODULE' => 'Mòdul',
   'LBL_CUSTOM_RELATIONSHIPS' => '* relació creada a l&#39;Estudi o en el Constructor de Mòduls',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Dependent',
   'LBL_DEPENDENCY' => 'Dependència',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'Arrossegueu els elements de la llista d&#39;opcions disponibles a l&#39;esquerra per una de les llistes de la dreta per fer que l&#39;opció està disponible quan l&#39;opció dels pares donat se selecciona.',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'A tenir en compte: Els usuaris poden haver d&#39;actualitzar el registre del mòdul Edita vista perquè les actualitzacions siguin visibles',
   'LBL_DEPLOYE_COMPLETE' => 'Desplegament completat',
   'LBL_DEPLOY_FAILED' => 'Hi ha hagut un error durant el procés de desplegament. És possible que el seu paquet no hagi estat instal·lat correctament',
   'LBL_DEPLOY_IN_PROGRESS' => 'Desplegant Paquet',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Elements de Llista',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Etiqueta de Visualizació',
   'LBL_DROPDOWN_ITEM_NAME' => 'Nom de l&#39;Element',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'La clau ja existeix a la llista',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Clau existent al llistat.',
   'LBL_DROPDOWN_LANGUAGE' => 'Idioma',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'La llista ha de contenir al menys un element habilitat',
   'LBL_DROPDOWN_TITLE_NAME' => 'Nom',
   'LBL_DROP_HERE' => '[Deixar anar Aquí]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Dependent',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Si us Plau, seleccioni un mòdul.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'desplegable(s) personalitzats',
   'LBL_EC_CUSTOMFIELD' => 'camps personalitzats',
+  'LBL_EC_CUSTOMLABEL' => 'Etiquetes editades',
   'LBL_EC_CUSTOMLAYOUT' => 'disseny personalitzats',
   'LBL_EC_DESCRIPTION' => 'Descripció:',
   'LBL_EC_EMPTYCUSTOM' => 'té buides les personalitzacions.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Camps',
   'LBL_FILE' => 'Arxiu',
   'LBL_FILLER' => '(farcit)',
+  'LBL_FILTER_SEARCH' => 'Cerca',
   'LBL_FORMULA' => 'Fórmula',
   'LBL_FORMULA_BUILDER' => 'Fórmula Builder',
   'LBL_FORMULA_INVALID' => 'Fórmula no vàlida',
   'LBL_FORMULA_TYPE' => 'La fórmula ha de ser del tipus',
   'LBL_HCUSTOM' => 'PERSONALITZAT',
   'LBL_HDEFAULT' => 'PER DEFECTE',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Copia del disseny',
   'LBL_HIDDEN' => 'Ocult',
   'LBL_HIDEOPTIONS' => 'Amaga opcions',
   'LBL_HIGH' => 'Alta',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Meu',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Editor de Llistes Desplegables',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Les claus d&#39;un despleglable no poden contenir cometes.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Indica un camp combinat.Un camp combinat es una col·leció de camps individuals.Per exemple, "Direcció" es un camp combinat que conté "Carrer", "Ciutat", "Codi Postal", "Estat" i "País". <br><br> Pot fer doble clic en un camp combinat per veure quins camps conté.',
   'LBL_ISSUE' => 'Incidència',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Està segur de que vol eliminar aquest element requerit del llistat desplegable? Això pot afectar la funcionalitat de la seva aplicació.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Està segur de que vol eliminar la etapa de ventes Perduda Tancada. Eliminant aquesta estapa causarà que el mòdul de Previsió no funcioni correctament.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Està segur de que vol eliminar la etapa de Guanyada Tancada? Eliminant aquesta estapa causarà que el mòdul de Previsió no funcioni correctament.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Esteu segur que voleu suprimir l&#39;estat de "En progres" de l&#39;oportunitat? La supressió d&#39;aquest estat farà que el mòdul de línies d&#39;ingressos de les oportunitats, no funcioni correctament.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Esteu segur que voleu suprimir l&#39;estat de "Nou" de l&#39;oportunitat? La supressió d&#39;aquest estat farà que el mòdul de línies d&#39;ingressos de les oportunitats, no funcioni correctament.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Està segur de que vol eliminar aquest element del llistat desplegable? Eliminant les etapes Guanyada Tancada o Perduda Tancada causarà que el mòdul de Previsió no funcioni correctament.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Qualsevol personalització que hagi realitzat en l&#39;Estudi serà sobreescrita quan aquest mòdul sigui desplegat de nou. Està segur que desitja procedir?',
   'LBL_JS_REMOVE_MODULE' => 'Està segur que desitja treure aquest mòdul? Això eliminarà permanentment tots els arxius associats amb aquest mòdul.',
   'LBL_JS_REMOVE_PACKAGE' => 'Està segur que desitja treure aquest paquet? Això eliminarà permanentment tots els arxius associats amb aquest paquet.',
   'LBL_JS_VALIDATE_KEY' => 'Clau - Ha de ser alfanumèrica, sense espais i començat per lletra',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Clau - Ha de ser alfanumèrica i començar amb una lletra.',
   'LBL_JS_VALIDATE_LABEL' => 'Si us Plau, introdueixi l&#39;etiqueta que s&#39;utilizarà com a Nom Visible d&#39;aquest mòdul',
   'LBL_JS_VALIDATE_NAME' => 'Nom - Ha de ser alfanumèric, sense espais i començant per lletra',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Nom del paquet ja existeix',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'No en trobat camps',
   'LBL_NO_FUNCS' => 'No en trobat funcions',
   'LBL_NO_RELS' => 'Sense Relacions',
-  'LBL_NO_SAVE_ACTION' => 'No s&#39;ha pogut trobar l&#39;acció de guardar per a aquest fi.',
+  'LBL_NO_SAVE_ACTION' => 'No s&#39;ha trobat l&#39;acció de guardar per aquesta vista.',
   'LBL_NUMBER' => 'Número:',
   'LBL_ONETOMANY' => 'Un a Molts',
   'LBL_ONETOONE' => 'Un a Un',
@@ -305,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Seleccioni el disseny de Portal de Sugar a editar.',
   'LBL_QUICKCREATE' => 'Creació Ràpida',
   'LBL_READ_ONLY' => 'Només lectura',
+  'LBL_RECORDVIEW' => 'Vista del Registre',
   'LBL_RELATED_FIELD' => 'Camp relacionat',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (relacionat {1} ID)',
   'LBL_RELATE_TO' => 'Relatiu A',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Restablir Mòdul',
   'LBL_RESTORE_DEFAULT' => 'Restaurar vista per Defecte',
   'LBL_RHS_MODULE' => 'Mòdul Relacionat',
+  'LBL_ROLE' => 'Funció',
   'LBL_ROLLUP' => 'Rollup',
   'LBL_RSUB' => 'Aquest és el subpanell que es mostrarà al seu mòdul',
   'LBL_SALE' => 'Venta',
-  'LBL_SAVE' => 'Guardar',
   'LBL_SAVE_LAYOUT' => 'Guardar Disseny',
   'LBL_SEARCH' => 'Cercar',
   'LBL_SEARCH_FIELDS' => 'Cercar de camps...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Seleccioni un Subpanell',
   'LBL_SELECT_FILE' => 'Seleccionar Arxiu',
   'LBL_SELECT_SUBPANEL' => 'Seleccioni Subpanell',
+  'LBL_SINGULAR_LABEL' => 'Etiqueta singular',
   'LBL_SP_PREVIEW' => 'Aquí té una vista preliminar de l&#39;aparència que tindrà el Portal de Sugar utilitzant la fulla d&#39;estils.',
   'LBL_SP_UPLOADED' => 'Pujat',
   'LBL_SP_UPLOADSTYLE' => 'Seleccioni la fulla d&#39;estils a pujar des del seu equip.<br> La fulla d&#39;estils serà utilitzada al Portal de Sugar la propera vegada que realitzi una sincroniztació.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => 'L&#39;àrea de <b>Disseny</b> conté els camps que actualment estan éssent mostrats a la <b>Vista d&#39;Edició</b>.<br/><br/>La <b>Caixa d&#39;Eines</b> conté la <b>Paperera de Reciclatge</b> i els camps i elements del disseny que poden ser afegits al mateix.<br><br>Faci canvis al disseny arrossegant i deixant anat elements i camps entre la <b>Caixa d&#39;Eines</b> i el <b>Disseny</b> així com dins del mateix disseny.<br><br>Per treure un camp del disseny, arrossegui el camp a la <b>Paperera de Reciclatge</b>. El camp passarà a estar disponible a la Caixa d&#39;Eines per a ser afegit al disseny.',
       'defaultdetailview' => 'L&#39;àrea de <b>Disseny</b> conté els camps que actualment estan sent mostrats a la <b>Vista de Detall</b>.<br/><br/>La <b>Caixa d&#39;Eines</b> conté la <b>Paperera de Reciclatge</b> i els camps i elements del disseny que poden ser agregats al mateix.<br><br>Faci canvis al disseny arrossegant i deixant anar  elements i camps entre la <b>Caixa d&#39;Eines</b> i el <b>Disseny</b> així com dins del mateix disseny.<br><br>Per a treure un camp del disseny, arrossegui el camp a la <b>Paperera de Reciclatge</b>. El camp passarà a estar disponible a la Caixa d&#39;Eines per ser afegit al disseny.',
       'defaultquickcreate' => 'L&#39;àrea de <b>Disseny</b> conté els camps que actualment estan éssent mostrats en el formulari de <b>Creació Ràpida</b>.<br><br>El formulari de Creació Ràpida apareix als  subpanells d&#39;un mòdul quan el botó Crear és pulsat.<br/><br/>La <b>Caixa d&#39;Eines</b> conté la <b>Paperera de Reciclatge</b> i els camps i elements del disseny que poden ser afegits al mateix.<br><br>Faci canvis al disseny arrossegant i Deixant anar elements i camps entre la <b>Caixa d&#39;Eines</b> i el <b>Disseny</b> així com dins del mateix disseny.<br><br>Per treure un camp del disseny, arrossegui el camp a la <b>Paperera de Reciclatge</b>. El camp passarà a estar disponible a la Caixa d&#39;Eines per a ser afegit al disseny.',
+      'defaultrecordview' => 'L&#39;area de Disseny conté els camps que estàn actualment mostrats dins de la <b>Vista de Registre</b>.<br /><br/><br/>El "ToolBox" conté la Paperera de Reciclatge i els camps i elements de disseny que poden ser afegits al disseny. <br><br>Pot fer canvis al Disseny arrossegant elements i camps entre el "ToolBox" i el Disseny dins la mateixa disposició.<br><br> Per eliminar un camp del layout, arrossegui el camp a la paperera de reciclatge. El camp passarà a estar disponible desde el ToolBox per afegir-lo al layout.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indica un camp dependent que ha o no ha de ser visible basat en el valor de la fòrmula.<br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_calculated.png" /> Indica un camp calculat el qual el seu valor serà automàticament determinat basat en una fòrmula.',
       'delete' => 'Arrossegui i deixi anar qualsevol element aquí per a treure&#39;l  del disseny',
       'historyBtn' => 'Faci clic a <b>Veure Historial</b> per a veure i restaurar de l&#39;historial un disseny previament guardat.',
       'historyDefault' => 'Faci clic a <b> Restaurar Vista Per Defecte</b> per a restaurar el disseny original d&#39;una vista.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => 'El tipus de plantilla <b>Ventes</b> proporciona camps específics d&#39;una oportunitat, com la Presa de Contacte, Etapa, Quantitat i Probabilitat.<br/><br/>Utilitzi aquesta plantilla per crear mòduls que siguin similars al mòdul estàndar d&#39;Oportunitats.',
       'viewfieldsbtn' => 'Faci clic a <b>Veure Camps</b> per veure els camps associats amb el mòdul i crear i editar camps personalitzats.',
       'viewlayoutsbtn' => 'Faci clic a <b>Veure Dissenys</b> per a veure els dissenys d&#39;aquest mòdul i personalitzar la disposició dels camps dins dels dissenys.',
+      'viewmobilelayoutsbtn' => 'Feu clic a <b>Veure dissenys mòbils</b> per veure els dissenys mòbils del mòdul i per personalitzar la distribució de camps dins dels dissenys.',
       'viewrelsbtn' => 'Faci clic a <b>Veure Relacions</b> per a veure les relacions associades amb aquest mòdul i crear noves relacions.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Totes les <b>Relacions</b> que existeixen entre el mòdul i altres mòduls desplegats apareixen aquí.<br><br>El <b>Nom</b> de la relació és un nom generat per el sistema per la relació.<br><br>El <b>Mòdul Principal</b> és el mòdul que poseeix les relacions.  Per exemple, totes les propietats de les relacions per les que el mòdul de Comptes és el mòdul principal s&#39;emmagatzemen a les taules de base de dades de Comptes.<br><br>El <b>Tipus</b> és el tipus de relació existent entre el Mòdul Principal i el <b>Mòdul Relacionat</b>.<br><br>Faci clic al títol d&#39;una columna per ordenar per la columna.<br><br>Faci clic a una fila de la taula de la relació per veure i editar les propietats associades amb la relació.<br><br>Faci clic a <b>Agregar Relació</b> per crear una nova relació.<br><br>Es poden crear relacions entre dos mòduls desplegats qualssevol.',
       'searchBtn' => 'Personalitzar els dissenys de <b>Recerca</b> del mòdul.<br><br>Determina quins camps poden ser utilitzats per a filtrar els registres que apareixen a la Vista de Llista.',
       'searchHelp' => 'Els formularis de <b>Recerca</b> que poden ser personalitzats apareixen aquí. <br><br>Els formularis de recerca contenen camps per filtrar registres.<br><br>Faci clic a una icona per a seleccionar el disseny de recerca a editar.',
+      'studioBCHelp' => 'Indica que el mòdul es un mòdul compatible.',
       'studioBtn' => 'Utilitzi l&#39; <b>Estudi</b> per personalitzar els mòduls desplegats.',
       'studioHelp' => 'Utilitzi l&#39;<b>Estudi</b> per establir quina informació del mòdul es mostra i com ho fa.',
       'subpanelBtn' => 'Determina quins camps apareixen als <b>Subpanells</b> del mòdul.',

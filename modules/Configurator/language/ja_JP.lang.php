@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => '高度な設定',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'サーバ応答時間の表示',
   'ERR_ALERT_FILE_UPLOAD' => '画像をアップロード中にエラーが発生しました。',
   'ERR_DELETE_CORE_FILE' => 'エラー: コアフォントは削除できません。',
+  'ERR_EMPTY_SAML_CERT' => 'SAML認証は空白であってはなりません',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAMLログインURLは空白であってはなりません',
   'ERR_EZPDF_DISABLE' => '警告: EZPDFクラスはconfigテーブルで無効にされています。このフォームを保存してTCPDFをPDFクラスとし、安定な状態に戻してください。',
   'ERR_FONT_ALREADY_EXIST' => 'エラー: 当該フォントは既に存在します。元に戻しています...',
   'ERR_FONT_EMPTYFILE' => 'エラー: ファイル名が空白です。',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'エラー: カスタムフォントパスが不正です。',
   'ERR_NO_FONT_PATH' => 'エラー: フォントパスが不正です。',
   'ERR_PDF_NO_UPLOAD' => 'フォントもしくはメトリックファイルのアップロード中にエラーが発生しました。',
+  'ERR_SAML_LOGIN_URL' => 'SAMLログインURLが有効ではありません',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URLが有効ではありません',
   'HEAD_MAGNIFICATION' => 'ヘッダの拡大率',
   'HEAD_MAGNIFICATION_INFO' => 'ヘッダの拡大率',
   'IMAGES' => 'ロゴ',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => '戻る',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Eメールプロバイダを選択:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'システム設定',
-  'LBL_CONFIG_AJAX' => 'AJAX ユーザインターフェース設定',
-  'LBL_CONFIG_AJAX_DESC' => '指定したモジュールでAJAX UIの利用を有効化、無効化できます。',
   'LBL_DELETE' => '削除',
   'LBL_DISALBE_CONVERT_LEAD' => 'コンバート済みリードのコンバートを無効化',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'リードが既にコンバート済みの場合は、リードのコンバートを非表示にします。',
   'LBL_DISPLAYING_LOG' => 'ログの表示',
   'LBL_ENABLE_ACTION_MENU' => 'メニュー内でアクションを表示',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'ドロップダウンで表示する詳細画面とサブパネルのアクションを選択します。選択を解除するとアクションは個別のボタンで表示されます。',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'モジュールの履歴サブパネルで関係する連絡先のEメールを表示する',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Eメールサブパネルで表示する、関連する（もしくはリンクする）コンタクトからのEメールを有効/無効にする。',
   'LBL_ENABLE_MAILMERGE' => 'メールマージを有効化',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchangeパスワード:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'ユーザを認証する際に用いる追加のパラメタ 例<em>is_sugar_user=1 もしくは (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'リードコンバージョンオプション',
   'LBL_LOADING' => '読み込み中...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'この設定はレガシーモードでモジュールに適用されます。',
   'LBL_LOGGER' => 'ログ設定',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'デフォルト日付フォーマット',
   'LBL_LOGGER_FILENAME' => 'ログファイル名',
@@ -183,7 +183,7 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'ダッシュレットの最小更新間隔',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'ダッシュレットが自動的に更新する最小の間隔を指定します。「なし」に設定すると更新を行いません。',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* レポートモジュールはSugar Mobileのネイティブクライアントのみで有効です。',
-  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* レポートモジュールはブラウザベースのモバイルビューでは利用不可です。',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '*レポートモジュールはブラウザベースのモバイルビューでは使用できません。',
   'LBL_MODULE_FAVICON' => 'モジュ－ルのアイコンをfaviconとして表示',
   'LBL_MODULE_FAVICON_HELP' => 'アイコンを持つモジュール内で操作している場合、テーマのfavconではなく、モジュールのアイコンをfaviconとして使います。',
   'LBL_MODULE_ID' => 'コンフィグレータ',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => '次へ>>',
   'LBL_NOTIFY_FROMADDRESS' => 'From（アドレス）:',
   'LBL_NOTIFY_SUBJECT' => 'Eメール件名:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'プライベートチーム名を更新するために、ユーザーによる名前変更を防止します',
   'LBL_OC_STATUS' => 'デフォルトのオフラインクライアントステータス',
   'LBL_OC_STATUS_DESC' => 'オフラインクライアントへのアクセスをユーザに許可する場合はここをクリックします。この設定が無効の場合、ユーザごとに設定を行う必要があります。',
   'LBL_PDFMODULE_NAME' => 'PDF設定',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'エラー: フォントは追加されませんでした。以下のログを参照してください。',
   'LBL_STATUS_FONT_SUCCESS' => '成功: フォントがSugarCRMに追加されました。',
   'LBL_SYSTEM_SETTINGS' => 'システム設定',
+  'LBL_TWEETTOCASE_ON' => 'ツイートtoケース統合を有効にする',
+  'LBL_TWEETTOCASE_ON_DESC' => 'ツイートからケースを作成できるようにする',
+  'LBL_TWEETTOCASE_TITLE' => 'ツイートtoケース',
   'LBL_USE_REAL_NAMES' => 'フルネームの表示',
   'LBL_USE_REAL_NAMES_DESC' => 'アサイン先にユーザ名ではなくユーザのフルネームを表示します。',
   'LBL_VCAL_PERIOD' => 'vCal更新の周期:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'システム名:',
   'SYSTEM_NAME_HELP' => 'この名称はブラウザのタイトルバーに表示されます。',
   'SYSTEM_NAME_WIZARD' => '名前:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => '許容可能なパフォーマンスレベルでの推奨設定は下記です{{listEntriesNum}}。追加のフィールドがリストビューに加えられており、この数字は推奨される設定の下限です。',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => '許容可能なパフォーマンスレベルでの推奨設定は下記です{{subpanelEntriesNum}} 追加のフィールドがリストビューに加えられており、この数字は推奨される設定の下限です。',
   'UPLOAD_MAX_SIZE' => '最大アップロードサイズ',
   'VERIFY_CLIENT_IP' => 'ユーザのIPアドレスの正当性を確認',
   'vCAL_HELP' => 'この設定は、現在の日付から何カ月先までの電話および会議の空き状況を公開するかを決定する際に利用されます。</BR>空き状況を公開しない場合は、「0」を入力してください。最短期間は1カ月、最長期間は12カ月です。',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Prilikom brisanja naloga morate da navedete broj zapisa.',
@@ -100,8 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Autor',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_EXAMPLE' => 'Primer prikaza valute',
-  'LBL_CURRENCY_SHOW_PREFERRED' => 'Prikazati željenu valutu',
-  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Konvertovati originalnu valutu u željenu valutu korisnika u prikazu zapisa i tabela',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Prikaži preferiranu valutu',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Pretvori osnovnu valutu u korisnikovu preferiranu valutu u pogledu na liste i zapise',
   'LBL_CURRENCY_SIG_DIGITS' => 'Značajne cifre valute',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Broj decimalnih mesta koji su prikazani za valutu',
   'LBL_CURRENCY_TEXT' => 'Izaberite valutu koja će biti prikazana kao podrzumevana kada napravite novi zapis. Ova valuta će takođe biti prikazana u koloni Količina u pregledu u vidu liste Prodajnih prilika.',
@@ -164,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Faks:',
   'LBL_FDOW' => 'Prvi dan u nedelji',
   'LBL_FDOW_TEXT' => 'Prvi dan prikazan u pogledu nedelje, meseca i godine',
+  'LBL_FILTER_USERS_REPORTS' => 'Korisnički izveštaji',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br><br>Tražim optimalne parametre za uspostavljanje veze.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Nađi optimalnu konfiguraciju',
@@ -171,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forsiraj negativno',
   'LBL_FORCE_DESC' => 'Neki IMAP/POP3 serveri zahtevaju specijalne prekidače. Odaberite da bi forsirali negativan prekidač kada se konektujete (i.e., /notls)',
   'LBL_FORECASTS' => 'Prognoze',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Ova funkcionalnost trenutno nije omogućena. Molimo vas kontaktirajte vašeg administratora.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br><br>Nađena optimalna podešavanja. Pritisnite dugme ispod da bi se primenila na Vaše Email sanduče.',
   'LBL_GENERATE_PASSWORD' => 'Resetovanje lozinke',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -278,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Moji timovi',
   'LBL_NAME' => 'Puno ime',
   'LBL_NAVIGATION_PARADIGM' => 'Navigacija',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Izaberite da vidite kartice modula u delu za navigaciju na osnovu unapred definisane grupe . Ako ova opcija nije izabrana, svi moduli će se pojaviti u delu za navigaciju.',
   'LBL_NEW_FORM_TITLE' => 'Novi korisnik',
   'LBL_NEW_PASSWORD' => 'Nova lozinka',
   'LBL_NEW_PASSWORD1' => 'Lozinka',
@@ -439,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Nadređeni',
   'LBL_REQUEST_SUBMIT' => 'Vaš zahtev je podnet.',
   'LBL_RESET_DASHBOARD' => 'Resetujte kontrolnu tablu',
-  'LBL_RESET_HOMEPAGE' => 'Resetujte početnu stranu',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Da li ste sigurni da želite da resetujete Vašu početnu stranu?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Da li ste sigurni da želite da resetujete početnu stranu za ovog korisnika?',
   'LBL_RESET_PREFERENCES' => 'Resetuj na podrazumevana podešavanja',
   'LBL_RESET_PREFERENCES_WARNING' => 'Da li ste sigurni da želite da resetujete sva korisnička podešavanja? Upozorenje: Ovim postupkom ćete biti odjavljeni iz aplikacije.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Da li ste sigurni da želite da resetujete sva podešavanja za ovog korisnika?',
@@ -476,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Linkovi podpanela',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'U detaljnim pregledima, prikaži red sa prečicama podpanela.',
-  'LBL_SUBPANEL_TABS' => 'Kartice podpanela',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'U detaljnim pregledima, grupiši podpanele u jedu karticu i prikazuj samo po jednu karticu.',
   'LBL_SUGAR_LOGIN' => 'Je Sugar korisnik',
   'LBL_SUPPORTED_THEME_ONLY' => 'Utiče samo na teme koje podržavaju ovu opciju',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Prikazuje meni Poslednje pregledano sa strane ako je odabrano. U suprotnom ide na vrh.',
@@ -485,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Prikazuje meni Prečice na vrh ako je odabrano. U suprotnom ide sa strane.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Prečice na vrh',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Sistemski generisana lozinka',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Značajne sistemske cifre',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Broj decimalnih mesta za prikaz decimala varira kroz sistem, poput valuta i proseka u Izveštajima.',
   'LBL_TAB_TITLE_EMAIL' => 'Email podešavanja',
   'LBL_TAB_TITLE_USER' => 'Podešavanja korisnika',
   'LBL_TEAMS' => 'Timovi',

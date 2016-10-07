@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class ACLRole extends SugarBean{
     var $module_dir = 'ACLRoles';
@@ -27,8 +24,20 @@ class ACLRole extends SugarBean{
 
     var $created_by;
 
-    function ACLRole(){
-        parent::SugarBean();
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function ACLRole()
+    {
+        $GLOBALS['log']->deprecated('Calls to ACLRole::ACLRole() are deprecated.');
+        self::__construct();
+    }
+
+    public function __construct(){
+        parent::__construct();
         $this->disable_row_level_security =true;
     }
 
@@ -38,6 +47,9 @@ class ACLRole extends SugarBean{
         return "$this->name";
     }
 
+    public function clearCaches() {
+        sugar_cache_clear('ACL');
+    }
 
 /**
  * function setAction($role_id, $action_id, $access)
@@ -62,8 +74,8 @@ function setAction($role_id, $action_id, $access){
  * @param GUID $user_id
  * @return a list of ACLRole objects
  */
-function getUserRoles($user_id, $getAsNameArray = true){
-
+public static function getUserRoles($user_id, $getAsNameArray = true)
+{
         //if we don't have it loaded then lets check against the db
         $additional_where = '';
         $query = "SELECT acl_roles.* ".
@@ -76,7 +88,7 @@ function getUserRoles($user_id, $getAsNameArray = true){
         $user_roles = array();
 
         while($row = $GLOBALS['db']->fetchByAssoc($result) ){
-            $role = new ACLRole();
+            $role = BeanFactory::getBean('ACLRoles');
             $role->populateFromRow($row);
             if($getAsNameArray)
                 $user_roles[] = $role->name;
@@ -136,7 +148,7 @@ function getAllRoles($returnAsArray = false){
         $roles = array();
 
         while($row = $db->fetchByAssoc($result) ){
-            $role = new ACLRole();
+            $role = BeanFactory::getBean('ACLRoles');
             $role->populateFromRow($row);
             if($returnAsArray){
                 $roles[] = $role->toArray();
@@ -178,7 +190,7 @@ function getRoleActions($role_id, $type='module'){
         $role_actions = array();
 
         while($row = $db->fetchByAssoc($result) ){
-            $action = new ACLAction();
+            $action = BeanFactory::getBean('ACLActions');
             $action->populateFromRow($row);
             if(!empty($row['access_override'])){
                 $action->aclaccess = $row['access_override'];
@@ -263,5 +275,3 @@ function mark_relationships_deleted($id){
         }
     }
 }
-
-?>

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /*
  ARGS:
@@ -25,20 +22,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 require_once 'include/formbase.php';
 
-global $beanFiles,$beanList;
-$bean_name = $beanList[$_REQUEST['module']];
-require_once($beanFiles[$bean_name]);
-$focus = new $bean_name();
+$focus = BeanFactory::getBean($_REQUEST['module']);
 
 $uids = array();
 if($_REQUEST['select_entire_list'] == '1'){
-	$order_by = '';
-
 	require_once('include/MassUpdate.php');
 	$mass = new MassUpdate();
 	$mass->generateSearchWhere($_REQUEST['module'], $_REQUEST['current_query_by_page']);
-	$ret_array = create_export_query_relate_link_patch($_REQUEST['module'], $mass->searchFields, $mass->where_clauses);
-	$query = $focus->create_export_query($order_by, $ret_array['where'], $ret_array['join']);
+    $query = $focus->create_new_list_query('', $mass->where_clauses, $mass->searchFields);
 	$result = $GLOBALS['db']->query($query,true);
 	$uids = array();
 	while($val = $GLOBALS['db']->fetchByAssoc($result,false))

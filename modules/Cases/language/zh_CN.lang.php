@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '必须指定记录编号才能删除客户。',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => '附加备忘录',
   'LBL_BUGS_SUBPANEL_TITLE' => '缺陷',
   'LBL_CASE' => '客户反馈:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => '推特',
   'LBL_CASE_INFORMATION' => '概览',
   'LBL_CASE_NUMBER' => '客户反馈编号:',
   'LBL_CASE_SUBJECT' => '客户反馈主题:',
@@ -53,6 +51,9 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => '修改ID',
   'LBL_EXPORT_TEAM_COUNT' => '团队数量',
   'LBL_FILENANE_ATTACHMENT' => '附加文件',
+  'LBL_HELP_CREATE' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers. To create a {{module_name}}: 1. Provide values for the fields as desired. - Fields marked "Required" must be completed prior to saving. - Click "Show More" to expose additional fields if necessary. 2. Click "Save" to finalize the new record and return to the previous page. - Choose "Save and view" to open the new {{module_name}} in record view. - Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers. {{plural_module_name}} are typically related to an {{accounts_singular_module}} record, and multiple {{plural_module_name}} may be associated to a single {{accounts_singular_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, or converted from email. Once the {{module_name}} is created, you can view and edit information pertaining to the {{module_name}} via the {{module_name}}&#39;s record view. Each {{module_name}} record may then relate to other Sugar records such as {{calls_module}}, {{contacts_module}}, {{bugs_module}}, and many others.',
+  'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module is used to track and manage product or service related problems reported to your organization by customers. {{plural_module_name}} are typically related to an {{accounts_singular_module}} record, and multiple {{plural_module_name}} may be associated to a single {{accounts_singular_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, or converted from email. Once the {{module_name}} is created, you can view and edit information pertaining to the {{module_name}} via the {{module_name}}&#39;s record view. Each {{module_name}} record may then relate to other Sugar records such as {{calls_module}}, {{contacts_module}}, {{bugs_module}}, and many others.',
   'LBL_HISTORY_SUBPANEL_TITLE' => '历史记录',
   'LBL_INVITEE' => '联系人',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => '知识库',
@@ -79,15 +80,23 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => '客户反馈',
   'LBL_MODULE_TITLE' => '客户反馈: 首页',
   'LBL_NEW_FORM_TITLE' => '新增客户反馈',
+  'LBL_NOTES_SUBPANEL_TITLE' => '备注',
   'LBL_NUMBER' => '编号:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => '如果您想报告已经找到了新的问题，您可以点击这里举报一个新的问题。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => '您可以通过提供一个搜索条件来过滤文章列表',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => '例如，您可以使用它来找到一篇感兴趣的关于某个特定话题的文章。',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => '该的知识库模块的用于处理发表的文章。使用下面的箭头开始快速的游览',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => '此页显示发表的文章列表。',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => '点击此处您将随时返回到知识库。',
   'LBL_PORTAL_VIEWABLE' => '可视门户站点',
   'LBL_PRIORITY' => '优先级:',
-  'LBL_PROJECTS_SUBPANEL_TITLE' => '工程',
+  'LBL_PROJECTS_SUBPANEL_TITLE' => '项目',
   'LBL_PROJECT_SUBPANEL_TITLE' => '项目',
   'LBL_RESOLUTION' => '分析:',
   'LBL_SEARCH_FORM_TITLE' => '查找客户反馈',
   'LBL_SHOW_IN_PORTAL' => '显示在门户中',
   'LBL_SHOW_MORE' => '显示更多反馈',
+  'LBL_SOURCE' => '来源:',
   'LBL_STATUS' => '状态:',
   'LBL_SUBJECT' => '主题:',
   'LBL_SYSTEM_ID' => '系统编号',

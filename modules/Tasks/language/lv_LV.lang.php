@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -49,6 +46,23 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_EXPORT_PARENT_ID' => 'Attiecas uz ID',
   'LBL_EXPORT_PARENT_TYPE' => 'Attiecas uz moduli',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulis satur dažādas darbības, uzdevumus vai cita veida aktivitātes, kuras ir jāaizpilda.
+
+Lai izveidotu ierakstu:
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+ - Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+ - Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+ - Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+ - Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulis satur dažādas darbības, uzdevumus vai cita veida aktivitātes, kuras ir jāaizpilda.
+
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulis satur dažādas darbības, uzdevumus vai cita veida aktivitātes, kuras ir jāaizpilda. {{module_name}} ieraksti var būt pakārtoti vienam ierakstam vairākos moduļos caur elastīgās saites lauku un vienam kontaktpersonas ierakstam. Ir vairāki veidi kā izveidot Sugar  uzdevumus, caur uzdevumu moduli, dublējot, importējot uzdevumus, u.c. Kad uzdevums ir saglabāts jūs variet redzēt un rediģēt ar  uzdevumu saistīto informāciju uzdevuma ieraksta kartiņā. Atkarībā no uzdevumā norādītās informācijas jūs variet redzēt un rediģēt uzdevuma informāciju arī caur kalendāra moduli.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Piešķirts lietotājam',
   'LBL_LIST_CLOSE' => 'Slēgt',
@@ -75,11 +89,12 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Izveidot uzdevumu',
   'LBL_NEW_TIME_FORMAT' => '(24:00)',
   'LBL_NONE' => 'Neviens',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Piezīmes',
   'LBL_PARENT_ID' => 'Priekšteča ID:',
   'LBL_PARENT_NAME' => 'Priekšteča tips:',
   'LBL_PHONE' => 'Tālrunis:',
   'LBL_PRIORITY' => 'Prioritāte:',
-  'LBL_RELATED_TO' => 'Saistīts ar:',
+  'LBL_REVENUELINEITEMS' => 'Ieņēmumu posteņi',
   'LBL_SEARCH_FORM_TITLE' => 'Meklēt uzdevumus',
   'LBL_START_DATE' => 'Sākuma datums:',
   'LBL_START_DATE_AND_TIME' => 'Sākuma datums un laiks:',
@@ -87,6 +102,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'Statuss:',
   'LBL_SUBJECT' => 'Temats:',
   'LBL_TASK' => 'Uzdevumi:',
+  'LBL_TASK_CLOSE_SUCCESS' => 'Uzdevums veiksmīgi aizvērts.',
   'LBL_TASK_INFORMATION' => 'Pārskats',
   'LNK_IMPORT_TASKS' => 'Importēt uzdevumus',
   'LNK_NEW_TASK' => 'Izveidot uzdevumu',

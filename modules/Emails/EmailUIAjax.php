@@ -1,36 +1,33 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
- /*********************************************************************************
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-  * Description:
-  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-  * Reserved. Contributor(s): ______________________________________..
-  *********************************************************************************/
-  //increate timeout for phpo script execution
-  ini_set('max_execution_time',300);
+//increate timeout for phpo script execution
+  if (ini_get('max_execution_time') > 0 && ini_get('max_execution_time') < 300) {
+      ini_set('max_execution_time', 300);
+  }
   //ajaxInit();
 
 
   require_once("include/OutboundEmail/OutboundEmail.php");
-  require_once("include/ytree/Tree.php");
-  require_once("include/ytree/ExtNode.php");
+  require_once("vendor/ytree/Tree.php");
+  require_once("vendor/ytree/ExtNode.php");
+  global $mod_strings;
 
-  $email = new Email();
+  $email = BeanFactory::getBean('Emails');
   $email->email2init();
-  $ie = new InboundEmail();
+  $ie = BeanFactory::getBean('InboundEmail');
+  $ie->disable_row_level_security = true;
   $ie->email = $email;
   $json = getJSONobj();
 
@@ -115,24 +112,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     case "sendEmail":
         $GLOBALS['log']->debug("********** EMAIL 2.0 - Asynchronous - at: sendEmail");
 
-
-        $sea = new SugarEmailAddress();
-
-        $email->type = 'out';
-        $email->status = 'sent';
-
+        if (!isset($_REQUEST['saveDraft'])) {
+            $email->type = 'out';
+            $email->status = 'sent';
+        }
         if(isset($_REQUEST['email_id']) && !empty($_REQUEST['email_id'])) {// && isset($_REQUEST['saveDraft']) && !empty($_REQUEST['saveDraft'])) {
             $email->retrieve($_REQUEST['email_id']); // uid is GUID in draft cases
         }
         if (isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])) {
         	$email->uid = $_REQUEST['uid'];
         }
-
-        if ($email->email2Send($_REQUEST)) {
+        $sendResult = false;
+        try {
+            $sendResult = $email->email2Send($_REQUEST);
+        } catch (Exception $e) {
+            ob_clean();
+            echo($app_strings['LBL_EMAIL_ERROR_PREPEND']. " " . $e->getMessage());
+        }
+        if ($sendResult) {
             $ret = array(
                 'composeLayoutId'  => $_REQUEST['composeLayoutId'],
             );
-	        $out = $json->encode($ret, true);
+            $out = $json->encode($ret, true);
             echo $out; // async call to close the proper compose tab
         }
     break;
@@ -175,8 +176,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 			    $sigs[$k] = $v;
 			}
         }
+
+        $configArray=array();
+        $configs = OutboundEmailConfigurationPeer::listMailConfigurations($current_user);
+        foreach ($configs as $config) {
+            $config_id = $config->getInboxId();
+            if (empty($config_id)) {
+                $config_id = $config->getConfigId();
+            }
+            $configItem = array(
+                "value" => $config_id,
+                "text"  => $config->getDisplayName()
+            );
+            $configArray[] = $configItem;
+        }
+
         $out['signatures'] = $sigs;
-        $out['fromAccounts'] = $email->et->getFromAccountsArray($ie);
+        // $out['fromAccounts']  = $email->et->getFromAccountsArray($ie);
+        $out['fromAccounts'] = $configArray;
         $out['errorArray'] = array();
 
         $oe = new OutboundEmail();
@@ -209,9 +226,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     case "deleteSignature":
         $GLOBALS['log']->debug("********** EMAIL 2.0 - Asynchronous - at: deleteSignature");
         if(isset($_REQUEST['id'])) {
-  			require_once("modules/Users/UserSignature.php");
-        	$us = new UserSignature();
-        	$us->mark_deleted($_REQUEST['id']);
+  			require_once("modules/UserSignatures/UserSignature.php");
+
+  			BeanFactory::deleteBean('UserSignatures', $_REQUEST['id']);
             $signatureArray = $current_user->getSignaturesArray();
 	        // clean "none"
 	        foreach($signatureArray as $k => $v) {
@@ -223,7 +240,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 	                $sigs[$k] = $v;
 	            }
 	        }
-	        $out['signatures'] = $signatureArray;
+	        $out['signatures'] = $sigs;
             $ret = $json->encode($out);
             echo $ret;
         } else {
@@ -237,7 +254,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
             $where = "parent_id='{$_REQUEST['parent_id']}'";
             $order = "";
-            $seed = new Note();
+            $seed = BeanFactory::getBean('Notes');
             $fullList = $seed->get_full_list($order, $where, '');
             $all_fields = array_merge($seed->column_fields, $seed->additional_column_fields);
 
@@ -439,8 +456,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     	    $mod = strtolower($_REQUEST['parent_type']);
     	    $modId = $_REQUEST['parent_id'];
     	    foreach($uids as $id) {
-    	        $email = new Email();
-                $email->retrieve($id);
+    	        $email = BeanFactory::getBean('Emails', $id);
     	        $email->parent_id = $modId;
                 $email->parent_type = $_REQUEST['parent_type'];
                 $email->status = 'read';
@@ -696,10 +712,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
                 $ie->deleteMessageFromCache($_REQUEST['uid']);
             } else {
                 $GLOBALS['log']->debug("*** ERROR: tried to delete an email for an account for which {$current_user->full_name} is not the owner!");
-                echo "NOOP: error see log";
+                echo $mod_strings['LBL_SEE_LOG'];
             }
         } else {
-            echo "error: missing credentials";
+            echo $mod_strings['ERR_MISSING_CREDENTIALS'];
         }
         break;
 
@@ -712,7 +728,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
             echo $json->encode($out);
         } else {
-            echo "error: no UID";
+            echo $mod_strings['ERR_NO_UID'];
         }
         break;
 
@@ -765,7 +781,7 @@ eoq;
                 echo $json->encode($out);
             }
         } else {
-            echo "error: no UID";
+            $mod_strings['ERR_NO_UID'];
         }
         break;
 
@@ -790,7 +806,7 @@ eoq;
             }
             echo $json->encode($out);
         } else {
-            echo "error: no UID";
+            echo $mod_strings['ERR_NO_UID'];
         }
         break;
 
@@ -801,8 +817,7 @@ eoq;
             $out = array();
 
             foreach($exIds as $id) {
-                $e = new Email();
-                $e->retrieve($id);
+                $e = BeanFactory::getBean('Emails', $id);
                 $e->description_html = from_html($e->description_html);
                 $ie->email = $e;
                 $out[] = $ie->displayOneEmail($id, $_REQUEST['mbox']);
@@ -849,7 +864,7 @@ eoq;
             ob_end_flush();
             //die();
         } else {
-            echo "error: no ieID";
+            echo $mod_strings['ERR_NO_IEID'];
         }
         break;
 
@@ -897,20 +912,15 @@ eoq;
             $metalist = $email->et->folder->getListItemsForEmailXML($_REQUEST['ieId'], $page,
             $emailSettings['showNumInList'], $sort, $direction);
             $count = $email->et->folder->getCountItems($_REQUEST['ieId']);
-
-            if (!empty($_REQUEST['getUnread'])) {
-                $out = $email->et->jsonOuput($metalist, 'Email', $count, false);
-            } else {
-                $unread = $email->et->folder->getCountUnread($_REQUEST['ieId']);
-                $out = $email->et->jsonOuput($metalist, 'Email', $count, false, $unread);
-            }
+            $unread = $email->et->folder->getCountUnread($_REQUEST['ieId']);
+            $out = $email->et->jsonOuput($metalist, 'Email', $count, false, $unread);
 
             @ob_end_clean();
             ob_start();
             echo $out;
             ob_end_flush();
         } else {
-            echo "error: no ieID";
+            echo $mod_strings['ERR_NO_IEID'];
         }
         break;
         ////    END LIST VIEW
@@ -988,7 +998,7 @@ eoq;
                     break;
             }
         } else {
-            echo "NOOP: no folderType defined";
+            echo $mod_strings['LBL_NO_FOLDER_TYPE'];
         }
         break;
 
@@ -1037,7 +1047,7 @@ eoq;
             }
         } else {
         	$return['status'] = false;
-        	$return['errorMessage'] =  "NOOP: no folderType defined";
+        	$return['errorMessage'] =  $mod_strings['LBL_NO_FOLDER_TYPE'];
         }
         $out = $json->encode($return);
         echo $out;
@@ -1055,7 +1065,7 @@ eoq;
                 $email->et->folder->name = $_REQUEST['newFolderName'];
                 $email->et->folder->save();
             } else {
-                echo "NOOP - not a Sugar Folder";
+                echo $mod_strings['LBL_NOT_SUGAR_FOLDER'];
             }
         }
     case "moveFolder":
@@ -1071,7 +1081,7 @@ eoq;
                     "team_set_id"       => $email->et->folder->team_set_id,
                 ));
             } else {
-                echo "NOOP - not a Sugar Folder";
+                echo $mod_strings['LBL_NOT_SUGAR_FOLDER'];
             }
         }
         break;
@@ -1219,7 +1229,8 @@ eoq;
    		global $current_user;
     	$GLOBALS['log']->debug("********** EMAIL 2.0 - Asynchronous - at: saveDefaultOutbound");
     	$outbound_id = empty($_REQUEST['id']) ? "" : $_REQUEST['id'];
-    	$ie = new InboundEmail();
+    	$ie = BeanFactory::getBean('InboundEmail');
+        $ie->disable_row_level_security = true;
    		$ie->setUsersDefaultOutboundServerId($current_user, $outbound_id);
     	break;
     case "testOutbound":
@@ -1355,7 +1366,7 @@ eoq;
 
     case "getIeAccount":
         $GLOBALS['log']->debug("********** EMAIL 2.0 - Asynchronous - at: getIeAccount");
-        $ie->retrieve($_REQUEST['ieId']);
+        $ie->retrieve($_REQUEST['ieId'], false);
         if($ie->group_id == $current_user->id) {
             $ret = array();
 
@@ -1383,7 +1394,7 @@ eoq;
 
             $out = $json->encode($ret);
         } else {
-            $out = "NOOP: ID mismatch";
+            $out = $mod_strings['LBL_ID_MISMATCH'];
         }
         echo $out;
         break;
@@ -1410,7 +1421,7 @@ eoq;
             ob_end_flush();
             die();
         } else {
-            echo "NOOP: no search criteria found";
+            echo $mod_strings['LBL_NO_SEARCH_CRITERIA'];
         }
         break;
 
@@ -1604,7 +1615,7 @@ eoq;
             $person = array();
             $person['id'] = $a['id'];
             $person['module'] = $a['module'];
-            $person['full_name'] = $locale->getLocaleFormattedName($a['first_name'], $a['last_name'],'');
+            $person['full_name'] = $locale->formatName($a['module'], $a);
             $person['email_address'] = $a['email_address'];
             $out[] = $person;
         }
@@ -1667,7 +1678,7 @@ eoq;
 	            $person = array();
 	            $person['bean_id'] = $a['id'];
 	            $person['bean_module'] = $a['module'];
-	            $person['name'] = $locale->getLocaleFormattedName($a['first_name'], $a['last_name'],'');
+	            $person['name'] = $locale->formatName($a['module'], $a);
 	            $person['email'] = $a['email_address'];
 	            $out[] = $person;
 	        }

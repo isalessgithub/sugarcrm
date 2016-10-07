@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Homepage dashlet manager
@@ -32,25 +29,14 @@ class MySugar{
 				&& (!in_array('Activities', $GLOBALS['moduleList']))){
 			$displayDashlet = false;
 		}
-		elseif (ACLController::moduleSupportsACL($this->type) ) {
-		    $bean = SugarModule::get($this->type)->loadBean();
-		    if ( !ACLController::checkAccess($this->type,'list',true,$bean->acltype)) {
-		        $displayDashlet = false;
-		    }
-		    $displayDashlet = true;
-		}
-		else{
-			$displayDashlet = true;
+		else {
+		    $displayDashlet = SugarACL::checkAccess($this->type, 'list', array("owner_override" => true));
 		}
 
 		return $displayDashlet;
     }
 
 	function addDashlet(){
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return;
-        }
-
 		if(!is_file(sugar_cached('dashlets/dashlets.php'))) {
             require_once('include/Dashlets/DashletCacheBuilder.php');
 
@@ -68,14 +54,16 @@ class MySugar{
 
 		    $guid = create_guid();
 			$options = array();
-            if (isset($_POST['type'], $_POST['type_module']) && $_POST['type'] == 'web') {
+		    if (isset($_REQUEST['type']) && $_REQUEST['type'] == 'web') {
 				$dashlet_module = 'Home';
 				require_once('include/Dashlets/DashletRssFeedTitle.php');
-                $options['url'] = $_POST['type_module'];
+				$options['url'] = $_REQUEST['type_module'];
 				$webDashlet = new DashletRssFeedTitle($options['url']);
 				$options['title'] = $webDashlet->generateTitle();
-            } elseif (!empty($_POST['type_module'])) {
-                $dashlet_module = $_POST['type_module'];
+				unset($webDashlet);
+		    }
+			elseif (!empty($_REQUEST['type_module'])) {
+				$dashlet_module = $_REQUEST['type_module'];
 			}
 			elseif (isset($dashletsFiles[$_REQUEST['id']]['module'])) {
 				$dashlet_module = $dashletsFiles[$_REQUEST['id']]['module'];
@@ -449,14 +437,10 @@ EOJS;
 	function saveLayout(){
 		global $current_user;
 
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return;
-        }
-
-        if (!empty($_POST['layout'])) {
+		if(!empty($_REQUEST['layout'])) {
 		    $newColumns = array();
 
-            $newLayout = explode('|', $_POST['layout']);
+		    $newLayout = explode('|', $_REQUEST['layout']);
 
 			$pages = $current_user->getPreference('pages', $this->type);
 
@@ -530,7 +514,8 @@ EOJS;
 		$newPage = array();
 		$newPage['columns'] = $columns;
 
-        $newPageName = $_REQUEST['pageName'];
+		$json = getJSONobj();
+		$newPageName = $json->decode(html_entity_decode($_REQUEST['pageName']));
 
         $newPageName = SugarCleaner::stripTags(from_html($newPageName), false);
 
@@ -679,7 +664,7 @@ EOJS;
 
 							$chartsArray[$id] = array();
 							$chartsArray[$id]['id'] = $id;
-							$chartsArray[$id]['xmlFile'] = sugar_cached("xml/") . $GLOBALS['current_user']->getUserPrivGuid() . '_' . $dashlets[$id]['reportId'] . '_saved_chart.xml';
+							$chartsArray[$id]['xmlFile'] = sugar_cached("xml/") . $dashlets[$id]['reportId'] . '_saved_chart.xml';
 							$chartsArray[$id]['width'] = '100%';
 							$chartsArray[$id]['height'] = '480';
 							$chartsArray[$id]['styleSheet'] = $chartStyleCSS;
@@ -762,7 +747,7 @@ EOJS;
 		$scriptResponse['newDashletsToReg'] = $dashletIds;
 		$scriptResponse['numCols'] = sizeof($pages[$selectedPage]['columns']);
 		//custom chart code
-		$scriptResponse['chartsArray'] = $sugarChart->chartArray($chartsArray);
+		$scriptResponse['chartsArray'] = $chartsArray;
 		$scriptResponse['trackerScript'] = $trackerScript . (strpos($trackerScriptArray,',') ? (substr($trackerScriptArray, 0, strlen($trackerScriptArray)-1) . ']; </script>') : $trackerScriptArray . ']; </script>');
 		$scriptResponse['toggleHeaderToolsetScript'] = "<script>".$toggleHeaderToolsetScript."</script>";
 
@@ -912,7 +897,8 @@ EOJS;
 
 		$pages = $current_user->getPreference('pages', $this->type);
 
-        $newPageName = $_REQUEST['newPageTitle'];
+		$json = getJSONobj();
+		$newPageName = $json->decode(html_entity_decode($_REQUEST['newPageTitle']));
 
 		$pages[$_REQUEST['pageId']]['pageTitle'] = SugarCleaner::stripTags(from_html($newPageName), false);
 		$current_user->setPreference('pages', $pages, 0, $this->type);

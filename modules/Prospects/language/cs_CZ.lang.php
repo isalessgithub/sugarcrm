@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Pro smazání kontaktu musí být zadáno číslo záznamu.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Oddělení:',
   'LBL_DESCRIPTION' => 'Popis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Popis',
+  'LBL_DNB_BAL_PREVIEW' => 'Náhled cílů',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Cíle',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Kontaktní informace',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B hlavní Id',
   'LBL_DO_NOT_CALL' => 'Nevolat:',
   'LBL_DUPLICATE' => 'Možní duplicitní adresáti',
   'LBL_EDIT_ACCOUNT_NAME' => 'Název společnosti:',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Jiná email. adresa',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Upraveno podle ID',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Reporty adresátů',
   'LBL_FIRST_NAME' => 'Křestní jméno:',
   'LBL_FULL_NAME' => 'Název',
+  'LBL_HELP_CREATE' => 'Modul Prospekti obsahuje individuální lidi, kteří jsou kvalifikovaní jako nadějní, ke kterým máte nějaké informace, ale ještě nejsou kvalifikovaní jako zájemci.
+
+K vytvoření produktu:
+1. Zadejte dle potřeby hodnoty do polí.
+ - Pole označená jako povinná musejí být vyplněna před uložením.
+ - Klikněte na tlačítko Zobrazit více pro odhalení dalších polí, pokud je potřeba.
+2. Klikněte “Uložit” k dokončení nového záznamu a návrat na předchozí stránku.
+ - Vyberte “Uložit a zobrazit” k otevření nového produktu v detailním okně.
+ - Vyberte “Uložit a vytvořit nový” k bezprostřednímu vytvoření dalšího nového produktu.',
+  'LBL_HELP_RECORD' => 'Modul Prospekti obsahuje individuální lidi, kteří jsou kvalifikovaní jako nadějní, ke kterým máte nějaké informace, ale ještě nejsou kvalifikovaní jako zájemci.
+
+- Upravte pole tohoto záznamu kliknutím na jednotlivé pole nebo tlačítko Upravit.
+- Zobrazte nebo změňte vazby na ostatní záznamy v podřízených panelech přepnutím spodního pole na Data..
+- Vytvořte a prohlédněte si uživatelské komentáře a historii změn záznamu v modulu {{activitystream_singular_module}} přepnutím spodního levého pole na Tok aktivity.
+- Sledujte nebo označte tento záznam jako oblíbený pomocí ikon vpravo od názvu záznamu.
+- Další akce jsou dostupné ve výběrovém menu Akce vpavo od talčítka Upravit.',
+  'LBL_HELP_RECORDS' => 'Modul Prospekti obsahuje individuální lidi, kteří jsou kvalifikovaní jako nadějní, ke kterým máte nějaké informace, ale ještě nejsou kvalifikovaní jako zájemci. Informace (např. jméno, e-mailová adresa), vztahující se k těmto prospektům, jsou obvykle získávány z vizitek, které jste obdrželi během účasti na různých obchodních akcích, konferencích atd. Prospekti v Sugaru jsou samostatnými záznamy, protože nemají vazbu na kontakty, zájemce, společnosti nebo obchody. Existují různé způsoby, kterými můžete vytvořit prospekty v Sugaru, jako například prostřednictvím modulu Prospekti, importem prospektů atd. Jakmile je záznam prospekta vytvořen, můžete zobrazit nebo upravit informacepříslušející k prospektu prostřednictvím detailního okna modulu.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_HOME_PHONE' => 'Domácí telefon:',
   'LBL_IMPORT_VCARD' => 'Importovat vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automaticky přidat nový kontakt importováním vCard z vašeho souborového systému.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Kontakt byl z vCard úspěšně vytvořen',
   'LBL_INVALID_EMAIL' => 'Neplatný email:',
   'LBL_INVITEE' => 'Přímé Reporty',
   'LBL_LAST_NAME' => 'Příjmení:',
+  'LBL_LEAD' => 'Iniciativa',
   'LBL_LEAD_ID' => 'ID příležitosti',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-mail',
   'LBL_LIST_FIRST_NAME' => 'Jméno',
@@ -98,7 +119,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Změnit uživatele',
   'LBL_MODULE_ID' => 'Seznam adresátů',
   'LBL_MODULE_NAME' => 'Seznam adresátů',
-  'LBL_MODULE_NAME_SINGULAR' => 'Cíl',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kontakt',
   'LBL_MODULE_TITLE' => 'Adresáti: Hlavní stránka',
   'LBL_MORE_INFORMATION' => 'Více informací',
   'LBL_NAME' => 'Název:',
@@ -125,12 +146,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Prospekt List',
   'LBL_PROSPECT_NAME' => 'Název adresáta:',
   'LBL_PROSPECT_ROLE' => 'Role:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Úspěšně jste vytvořili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Oslovení',
   'LBL_SAVE_PROSPECT' => 'Uložit adresáta',
   'LBL_SEARCH_FORM_TITLE' => 'Vyhledat adresáty',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Zvolit označené adresáty',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Zvolit označené adresáty',
   'LBL_STATE' => 'Stát:',
+  'LBL_STREET' => 'Ulice',
   'LBL_TITLE' => 'Titul:',
   'LBL_TRACKER_KEY' => 'Klíč stopaře',
   'LNK_CAMPAIGN_LIST' => 'Kampaně',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Pro vytvoření nového obchodu je třeba zadat účet. Prosím zvolte existující nebo přidejte nový.',
   'NTC_REMOVE_CONFIRMATION' => 'Opravdu chcete kontakt vyjmout z případu?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Opravdu chcete odstranit tento záznam z Přímých reportů?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

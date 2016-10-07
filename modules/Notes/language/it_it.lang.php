@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Per eliminare l´azienda deve essere specificato il numero del record.',
@@ -43,9 +40,23 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Tipo Mime',
   'LBL_FILE_URL' => 'URL File',
   'LBL_FIRST_NAME' => 'Nome',
+  'LBL_HELP_CREATE' => 'Per creare un {{module_name}}: 
+  1. Compila i campi con i valori desiderati. 
+  - I campi segnati come "Obbligatorio" devono essere compilati prima del salvataggio. 
+  - Clicca "Mostra più Moduli" per visualizzare ulteriori campi se necessario. 
+  2. Cliccare "Salva" per salvare il nuovo record e tornare alla pagina precedente. 
+  - Scegli "Salva e Visualizza" per aprire la scheda della nuova {{module_name}}. 
+  - Scegli "Salva e crea nuovo" per creare subit una nuova {{module_name}}.',
+  'LBL_HELP_RECORD' => 'Il modulo {{plural_module_name}} consiste in singole {{plural_module_name}} che contengono un testo o un allegato collegato al record relazionato. 
+  - Puoi modificare i campi di questi records cliccando il singolo campo o il pulsante Modifica. 
+  - Puoi visualizzare o modificare i collegamenti agli altri records nei sottopannelli agendo sul pulsante "Visualizza Dati" in basso a sinistra. 
+  - Puoi creare e visualizzare i commenti degli utenti e la cronologia delle modifiche dei records nel modulo {{activitystream_singular_module}} agendo sul pulsante "Activity Stream" in basso a sinistra. 
+  - Puoi seguire o impostare come preferito questo record usando le icone alla destra del nome del record. 
+  - Azioni aggiuntive sono disponibili nel menù a tendina delle Azioni alla destra del pulsante Modifica.',
+  'LBL_HELP_RECORDS' => 'Il modulo {{plural_module_name}} consiste in singole {{plural_module_name}} che contengono un testo o un allegato collegato al record relazionato. I records {{module_name}} possono essere relazionati ad un record in più moduli attraverso il campo flex relate, e essere relazioni ad un singolo {{contacts_singular_module}}. Le {{plural_module_name}} possono contenere un testo generico o un allegato relativo al record. Esistono vari modi per creare una {{plural_module_name}} in Sugar, ad esempio attraverso il modulo {{plural_module_name}} , attraverso l´importazione di {{plural_module_name}}, attraverso il sottopannello Cronologia ecc. Una volta che il record {{module_name}} è stato creato, puoi visualizzare e modificare informazioni relative al modulo {{module_name}} attraverso la vista elenco delle {{plural_module_name}}. Ogni {{module_name}} potrebbe essere relazionata ad un record di Sugar come {{accounts_module}}, {{contacts_module}}, {{opportunities_module}} e molti altri.',
   'LBL_LAST_NAME' => 'Cognome',
   'LBL_LEAD_ID' => 'ID Lead:',
-  'LBL_LIST_ASSIGNED_TO_NAME' => 'Utente Assegnato',
+  'LBL_LIST_ASSIGNED_TO_NAME' => 'Assegnato a',
   'LBL_LIST_CONTACT' => 'Contatto',
   'LBL_LIST_CONTACT_NAME' => 'Contatto',
   'LBL_LIST_DATE_MODIFIED' => 'Ultima Modifica',
@@ -53,7 +64,7 @@ $mod_strings = array (
   'LBL_LIST_FILENAME' => 'Allegato',
   'LBL_LIST_FORM_TITLE' => 'Elenco Note',
   'LBL_LIST_RELATED_TO' => 'Relativo A',
-  'LBL_LIST_STATUS' => 'Status',
+  'LBL_LIST_STATUS' => 'Stato',
   'LBL_LIST_SUBJECT' => 'Oggetto',
   'LBL_MEMBER_OF' => 'Membro di:',
   'LBL_MODIFIED_BY' => 'Modificato Da',
@@ -79,9 +90,10 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'ID Offerta:',
   'LBL_RELATED_TO' => 'Riferito A:',
   'LBL_REMOVING_ATTACHMENT' => 'Rimozione allegato...',
+  'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
   'LBL_SEARCH_FORM_TITLE' => 'Cerca Nota',
   'LBL_SEND_ANYWAYS' => 'Questa email non ha un oggetto. Inviare/Salvare ugualmente?',
-  'LBL_STATUS' => 'Status',
+  'LBL_STATUS' => 'Stato',
   'LBL_SUBJECT' => 'Oggetto:',
   'LNK_IMPORT_NOTES' => 'Importa Note',
   'LNK_NEW_NOTE' => 'Nuova Nota o Allegato',

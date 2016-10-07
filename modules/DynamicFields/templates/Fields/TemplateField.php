@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $GLOBALS['studioReadOnlyFields'] = array('date_entered'=>1, 'date_modified'=>1, 'created_by'=>1, 'id'=>1, 'modified_user_id'=>1);
 class TemplateField{
 	/*
@@ -42,7 +39,20 @@ class TemplateField{
 	var $audited= 0;
 	var $massupdate = 0;
 	var $importable = 'true' ;
-	var $duplicate_merge=0;
+
+    /**
+     * "duplicate_merge" attribute is considered enabled, if not specified
+     * "merge_filter" attribute is considered disabled, if not specified
+     *
+     * @var int
+     *
+     * @see get_dup_merge_def()
+     * @see modules/MergeRecords/Step1.php
+     * @see show_field()
+     * @see MergeDuplicatesView#_isDuplicateMergeEnabled
+     */
+    public $duplicate_merge = 1;
+
 	var $new_field_definition;
 	var $reportable = true;
 	var $label_value = '';
@@ -50,6 +60,10 @@ class TemplateField{
 	var $formula = '';
     var $unified_search = 0;
     var $supports_unified_search = false;
+    // Bug 58560 - Allow fields to be "grouped", like address fields
+    // THIS NEEDS TO BE NULL UNLESS IT IS TO BE USED SO IT DOESN'T SAVE AS AN EMPTY
+    // VALUE IN DynamicField::saveExtendedAttributes() WHICH USES isset() RATHER THAN empty()
+    var $group = null;
 	var $vardef_map = array(
 		'name'=>'name',
 		'label'=>'vname',
@@ -57,8 +71,6 @@ class TemplateField{
 		'default_value'=>'default',
 		'default'=>'default_value',
 		'display_default'=>'default_value',
-	//		'default_value'=>'default_value',
-	//		'default'=>'default_value',
 		'len'=>'len',
 		'required'=>'required',
 		'type'=>'type',
@@ -78,10 +90,14 @@ class TemplateField{
         'labelValue' => 'label_value',
 		'unified_search'=>'unified_search',
         'full_text_search'=>'full_text_search',
+        // Bug 58560 - Add a group index here so it gets written to the custom vardefs
+        // for cases such as address fields
+        'group' => 'group',
 		'calculated' => 'calculated',
         'formula' => 'formula',
         'enforced' => 'enforced',
         'dependency' => 'dependency',
+        'related_fields' => 'related_fields',
 	);
     // Bug #48826
     // fields to decode from post request
@@ -313,7 +329,8 @@ class TemplateField{
 			'name'=>$this->name,
 			'vname'=>$this->vname,
 			'type'=>$this->type,
-			'massupdate'=>$this->massupdate,
+            // This needs to be a boolean value so clients know how to handle it
+			'massupdate'=>$this->convertBooleanValue($this->massupdate),
 			'default'=>$this->default,
             'no_default'=> !empty($this->no_default),
 			'comments'=> (isset($this->comments)) ? $this->comments : '',
@@ -326,6 +343,9 @@ class TemplateField{
             'unified_search'=>$this->convertBooleanValue($this->unified_search),
             'merge_filter' => empty($this->merge_filter) ? "disabled" : $this->merge_filter
 		);
+        if (isset($this->studio)) {
+            $array['studio'] = $this->convertBooleanValue($this->studio);
+        }
         if (isset($this->full_text_search)) {
             $array['full_text_search'] = $this->full_text_search;
         }
@@ -333,6 +353,14 @@ class TemplateField{
             $array['calculated'] = $this->calculated;
             $array['formula'] = html_entity_decode($this->formula);
             $array['enforced'] = !empty($this->enforced) && $this->enforced == true;
+            if ($array['calculated'] && $array['enforced']) {
+                $array['default'] = null;
+                $array['massupdate'] = false;
+                // Need to set it on the object as well, since some child classes 
+                // use that instead of the return of this method
+                $this->default = null;
+                $this->massupdate = false;
+            }
         } else {
             $array['calculated'] = false;
         }
@@ -345,6 +373,10 @@ class TemplateField{
 		if(!empty($this->size)){
 			$array['size'] = $this->size;
 		}
+        // Bug 61736 - Address fields in undeployed modules do not have a group property
+        if (!empty($this->group)) {
+            $array['group'] = $this->group;
+        }
 
         $this->get_dup_merge_def($array);
 
@@ -440,30 +472,33 @@ class TemplateField{
 		}
 	}
 
-	/**
-	 * populateFromRow
-	 * This function supports setting the values of all TemplateField instances.
-	 * @param $row The Array key/value pairs from fields_meta_data table
-	 */
-	function populateFromRow($row=array()) {
-		$fmd_to_dyn_map = array('comments' => 'comment', 'require_option' => 'required', 'label' => 'vname',
-							    'mass_update' => 'massupdate', 'max_size' => 'len', 'default_value' => 'default', 'id_name' => 'ext3');
-		if(!is_array($row)) {
-			$GLOBALS['log']->error("Error: TemplateField->populateFromRow expecting Array");
-		}
-		//Bug 24189: Copy fields from FMD format to Field objects and vice versa
-		foreach ($fmd_to_dyn_map as $fmd_key => $dyn_key) {
+    /**
+     * This function supports setting the values of all TemplateField instances.
+     * 
+     * @param $row The Array key/value pairs from fields_meta_data table
+     */
+    function populateFromRow($row=array()) {
+        if (!is_array($row)) {
+            // Make it an array so as to prevent issues later on in this method
+            $row = (array) $row;
+            $GLOBALS['log']->error("Error: TemplateField->populateFromRow expecting Array");
+        }
+
+        //Bug 24189: Copy fields from FMD format to Field objects and vice versa
+        $fmd_to_dyn_map = $this->getFieldMetaDataMapping();
+        foreach ($fmd_to_dyn_map as $fmd_key => $dyn_key) {
             if (isset($row[$dyn_key])) {
                 $this->$fmd_key = $row[$dyn_key];
             }
             if (isset($row[$fmd_key])) {
-				$this->$dyn_key = $row[$fmd_key];
-			}
-		}
-		foreach($row as	$key=>$value) {
-			$this->$key = $value;
-		}
-	}
+                $this->$dyn_key = $row[$fmd_key];
+            }
+        }
+
+        foreach($row as $key => $value) {
+            $this->$key = $value;
+        }
+    }
 
 	function populateFromPost(){
 		foreach($this->vardef_map as $vardef=>$field){
@@ -497,17 +532,25 @@ class TemplateField{
 
 	}
 
-	protected function applyVardefRules()
-	{
-		if (!empty($this->calculated) && !empty($this->formula)
-		      && is_string($this->formula) && !empty($this->enforced) && $this->enforced)
-		{
-				$this->importable = 'false';
-				$this->duplicate_merge = 0;
-				$this->duplicate_merge_dom_value = 0;
+    /**
+     * Applies rules for type specific fields vardefs. This can be overridden in 
+     * child classes.
+     */
+    protected function applyVardefRules()
+    {
+        if (!empty($this->calculated) && !empty($this->formula)
+            && is_string($this->formula) && !empty($this->enforced) && $this->enforced)
+        {
+            $this->importable = 'false';
+            $this->duplicate_merge = 0;
+            $this->duplicate_merge_dom_value = 0;
+        }
 
-		}
-	}
+        if(!empty($this->full_text_search))
+        {
+            $this->full_text_search['enabled'] = ($this->full_text_search['boost'] != 0);
+        }
+    }
 
 	function get_additional_defs(){
 		return array();
@@ -529,7 +572,7 @@ class TemplateField{
      */
     protected function get_field_name($module, $name)
     {
-       $bean = loadBean($module);
+       $bean = BeanFactory::getBean($module);
        if(empty($bean) || is_null($bean))
        {
        	  return $name;
@@ -563,7 +606,26 @@ class TemplateField{
         }
 	}
 
+    /**
+     * Gets mapping of fields_meta_data to DynamicField properties. This can be 
+     * overridden or extended in child classes.
+     * 
+     * @return array
+     */
+    public function getFieldMetaDataMapping()
+    {
+        return array(
+            'comments' => 'comment',
+            'require_option' => 'required',
+            'label' => 'vname',
+            'mass_update' => 'massupdate',
+            'max_size' => 'len',
+            'default_value' => 'default',
+            'id_name' => 'ext3',
+        );
+    }
+
 }
 
 
-?>
+

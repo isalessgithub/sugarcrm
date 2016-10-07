@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_BAD_RESULT' => 'Некорректная ошибка сервиса',
@@ -25,9 +22,10 @@ $mod_strings = array (
   'LBL_CONFIGURE_SNIP' => 'Архивация Email',
   'LBL_CONTACT_SUPPORT' => 'Попробуйте еще раз или обратитесь в поддержку SugarCRM.',
   'LBL_DISABLE_SNIP' => 'Отключить',
+  'LBL_MODULE_NAME' => 'Email архивация',
   'LBL_REGISTER_SNIP_FAIL' => 'Неудачная попытка соединения с сервисом архивации Email: %s!',
   'LBL_SNIP_ACCOUNT' => 'Контрагент',
-  'LBL_SNIP_AGREE' => 'Я принимаю вышеуказанные условия и соглашаюсь с <a href=$#39;http://www.sugarcrm.com/crm/TRUSTe/privacy.html$#39; target=$#39;_blank$#39;>соглашением конфиденциальности</a>.',
+  'LBL_SNIP_AGREE' => 'Я принимаю вышеуказанные условия и соглашаюсь с <a href=&#39;http://www.sugarcrm.com/crm/TRUSTe/privacy.html&#39; target=&#39;_blank&#39;>соглашением конфиденциальности</a>.',
   'LBL_SNIP_APPLICATION_UNIQUE_KEY' => 'Уникальный ключ приложения',
   'LBL_SNIP_BUTTON_DISABLE' => 'Выключить архивацию Email',
   'LBL_SNIP_BUTTON_ENABLE' => 'Включить архивацию Email',
@@ -42,7 +40,7 @@ $mod_strings = array (
   'LBL_SNIP_KEY_DESC' => 'Ключ OAuth для архивации Email. Используется для доступа к данной системе с целью импорта email-сообщений.',
   'LBL_SNIP_LAST_SUCCESS' => 'Последний успешный запуск:',
   'LBL_SNIP_MOUSEOVER_EMAIL' => 'Это email-адрес Email архивации, на который должна быть осуществлена отправка для импорта постовых сообщений в Sugar.',
-  'LBL_SNIP_MOUSEOVER_INSTANCE_URL' => 'Это URL вебсервисов вашей системы Sugar. Сервер архивации Email будет осуществлять подключение к вашему серверу через этот URL.',
+  'LBL_SNIP_MOUSEOVER_INSTANCE_URL' => 'Это URL веб-сервисов вашей системы Sugar. Сервер архивации Email будет осуществлять подключение к вашему серверу через этот URL.',
   'LBL_SNIP_MOUSEOVER_SERVICE_URL' => 'Это URL сервера архивации Email. Все запросы, такие как активация или отключение сервиса архивации Email, будут проходить через этот URL.',
   'LBL_SNIP_MOUSEOVER_STATUS' => 'Это статус сервиса архивации Email в вашей системе. Этот статус показывает, было ли успешным соединение между сервером архивации Email и вашей системой Sugar.',
   'LBL_SNIP_NEVER' => 'Никогда',

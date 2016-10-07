@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CHART_COUNT_PATTERN' => '{count} {module} unde {group_label} este {group_text}',
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => 'La fiecare 2 Saptamani',
     2419200 => 'La fiecare 4 Saptamani',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Raportul programat "{0}" a fost dezactivat',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Raportul programat a fost dezactivat',
   'ERR_REPORT_INVALID' => 'Definiţia de raport "{0}", conţine câmpurile invalide: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Raport invalid',
   'ERR_SELECT_COLUMN' => 'Va rugam sa selectati o coloana afisata mai intai',
@@ -103,7 +102,7 @@ $mod_strings = array (
   'LBL_ADD_RELATE' => 'Adauga Relationat',
   'LBL_ADVANCED_FILTERS' => 'Filtre Avansate',
   'LBL_AFTER' => 'Dupa',
-  'LBL_ALERT_CANT_ADD' => 'Nu puteti adauga un modul relationat pana nu selectati un tabel cu care sa-l relationati.\\nSelectati un modul in lista derulanta stanga a butonului \"Adauga Relationat\" pe care ati dat click.',
+  'LBL_ALERT_CANT_ADD' => 'Nu puteti adauga un modul relationat pana nu selectati un tabel cu care sa-l relationati.\\nSelectati un modul in lista derulanta stanga a butonului \'Adauga Relationat\' pe care ati dat click.',
   'LBL_ALL' => 'Cel putin',
   'LBL_ALL_PUBLISHED_REPORTS' => 'Toate Rapoartele publicate',
   'LBL_ALL_REPORTS' => 'Vizualizeaza Rapoarte',
@@ -122,6 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Inainte',
   'LBL_BUG_REPORTS' => 'Rapoarte bug',
   'LBL_BY_DAY' => 'Dupa Zi',
+  'LBL_BY_FISCAL_QUARTER' => 'Pe trimestru fiscal',
+  'LBL_BY_FISCAL_YEAR' => 'Pe an fiscal',
   'LBL_BY_MONTH' => 'Dupa Luna',
   'LBL_BY_QUARTER' => 'Dupa Trimestru',
   'LBL_BY_YEAR' => 'Dupa An',
@@ -152,6 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Vrajitorul de Rapoarte',
   'LBL_CREATE_REPORT' => 'Creeaza Raport',
   'LBL_CSV_TIMESTAMP' => 'A_l_z_O_m_s',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestrul fiscal curent',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Anul fiscal curent',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Afaceri Lansate ale Trimestrului Curent',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Previziune pentru Trimestrul Curent',
   'LBL_CURRENT_USER' => 'Utilizator Curent',
@@ -201,10 +204,13 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'din urmatoarele filtre.',
   'LBL_FILTERS_HELP_DESC' => 'Pasi pentru a Defini Filtre:<br /><br />1) Da click pe Modul in cadrul panoului Module Relationate pe care doresti sa-l utilizezi in definirea filtrelor. In mod implicit, modulul primar (nodul din partea de sus a vizualizarii arborescente) este selectat.<br /><br />Puteti selecta un modul relationat (nodul-copil in vizualizarea arborescenta) dand click pe modul. Extindeti nodul pentru a vizualiza module aditionale relationate cu modulul relationat respectiv. Modulul selectat determina care campuri raportabile apar in panoul Campuri Disponibile.<br /><br />2) Dati click pe un Camp in cadrul panoului Campuri Disponibile pentru a-l adauga la filtre. Poti de asemenea sa cauti campul tastand in caseta de text din cadrul panoului.<br /><br />Dupa ce ati selectionat orice numar de campuri din modulul selectat in cadrul panoului Module Relationate, puteti alege un modul diferit din care puteti selectiona orice numar de campuri pentru a fi utilizate ca filtre.<br /><br />3) Alegeti SI ori SAU pentru a desemna daca toate filtrele sau, respectiv oricare din filtre, sunt utilizate pentru a gasi rezultate pentru raport.<br /><br />4) [Optional] Da click pe Adauga Grup de Filtre pentru a crea grupuri de filtre. Poti avea orice numar de grupuri de filtre si orice numar de de filtre in cadrul grupului pentru a crea filtre cuibarite.<br /><br />5) [Optional] Selecteaza optiunea Ruleaza-Timp pentru un Filtru, pentru a permite utilizatorilor sa foloseasca filtrul in vederea particularizarii ulterioare ale rezultatelor rapoartelor, in timp ce vizualizeaza raportul.',
   'LBL_FILTER_AND' => 'SI',
+  'LBL_FILTER_BY_MODULE' => 'Pe modul',
   'LBL_FILTER_CONDITIONS' => 'Selectati Operator:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'La',
   'LBL_FILTER_DATE_RANGE_START' => 'De la',
   'LBL_FILTER_OR' => 'SAU',
+  'LBL_FISCAL_QUARTER' => 'Trimestru fiscal',
+  'LBL_FISCAL_YEAR' => 'An fiscal',
   'LBL_FORECAST_REPORTS' => 'Raport Previziune',
   'LBL_FUNNEL' => 'Palnie',
   'LBL_GRAND_TOTAL' => 'Total Mare',
@@ -229,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Ultimele 30 Zile',
   'LBL_LAST_7_DAYS' => 'Ultimele 7 Zile',
   'LBL_LAST_MONTH' => 'Ultima Luna',
+  'LBL_LAST_N_DAYS' => 'Ultimele # zile',
   'LBL_LAST_QUARTER' => 'Ultimul Trimestru',
   'LBL_LAST_WEEK' => 'Ultima Saptamana',
   'LBL_LAST_YEAR' => 'Ultimul An',
@@ -297,7 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'Urmatorul>',
   'LBL_NEXT_30_DAYS' => 'Urmatoarele 30 Zile',
   'LBL_NEXT_7_DAYS' => 'Urmatoarele 7 Zile',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Următorul trimestru fiscal',
+  'LBL_NEXT_FISCAL_YEAR' => 'Următorul an fiscal',
   'LBL_NEXT_MONTH' => 'Luna urmatoare',
+  'LBL_NEXT_N_DAYS' => 'Următoarele # zile',
   'LBL_NEXT_QUARTER' => 'Trimestrul Urmator',
   'LBL_NEXT_RUN' => 'Urmatorul Email',
   'LBL_NEXT_WEEK' => 'Saptamana urmatoare',
@@ -309,6 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Nu poti accesa acest raport din cauza restrictiilor de permisiune.',
   'LBL_NO_CHART' => 'Nu exista Diagrama',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Grafic imposibil de schitat din cauza datelor insuficiente',
+  'LBL_NO_EXPORT_ACCESS' => 'Dezactivare exporturi',
   'LBL_NO_FILTERS' => 'nu are filtre.',
   'LBL_NO_IMAGE' => 'Fara Imagine',
   'LBL_NO_REPORTS' => 'Fara rezultate',
@@ -329,6 +340,8 @@ $mod_strings = array (
   'LBL_PIE' => 'Placinta',
   'LBL_PREVIEW_REPORT' => 'Previzualizare',
   'LBL_PREVIOUS' => '<Inapoi',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestrul fiscal anterior',
+  'LBL_PREVIOUS_FISCAL_YEAR' => 'Anul fiscal anterior',
   'LBL_PROJECT_TASK_REPORTS' => 'Rapoarte de Sarcini de Proiect',
   'LBL_PROSPECT_REPORTS' => 'Rapoarte Tinta',
   'LBL_PUBLISH' => 'publica',
@@ -468,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'cu o medie',
   'LBL_WITH_A_TOTAL' => 'cu un total',
   'LBL_WITH_DETAILS' => 'Cu Detalii',
-  'LBL_WORKSHEET' => 'Foaie de lucru',
   'LBL_YEAR' => 'An',
   'LBL_YESTERDAY' => 'Ieri',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Nu aveti rapoarte salvate.',
+  'LNK_ADVANCED_REPORTING' => 'Administrează Rapoartele avansate',
   'LNK_NEW_ACCOUNT' => 'Creeaza Cont',
   'LNK_NEW_CALL' => 'Jurnal Apeluri',
   'LNK_NEW_CASE' => 'Creaza Caz',

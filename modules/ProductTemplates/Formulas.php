@@ -1,31 +1,22 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 // We suggest that if you wish to modify an existing formula, copy & paste the existing formula file to a new file
 // this will prevent conflicts with future upgrades.
 
-// To add a new formula, you will need to register the new file below and in the pricing_formula_dom array 
+// To add a new formula, you will need to register the new file below and in the pricing_formula_dom array
 // in modules/ProductTemplates/language/<lang>.lang.php
-// FG - No more need to change local file. Added inclusion of custom/modules/ProductTemplates/formulas/*.php 
+// FG - No more need to change local file. Added inclusion of custom/modules/ProductTemplates/formulas/*.php
 //global $price_formulas;
 
 function refresh_price_formulas()
@@ -75,7 +66,7 @@ function get_formula_details($pricing_factor) {
 }
 
 function get_edit($formulas, $formula) {
-	$the_script = '';	
+	$the_script = '';
 	//begin by creating all the divs for each formula's price factor
 	foreach ($formulas as $name=>$content) {
 		if ($name == $formula) {
@@ -92,13 +83,13 @@ function get_edit($formulas, $formula) {
 	foreach ($formulas as $name=>$content) {
 		$the_script .= "	this.document.getElementById('edit_$name').style.display='none'; \n";
 	}
-	
-	//then turn on a new pricing factor div based on the selected formula 
+
+	//then turn on a new pricing factor div based on the selected formula
 	$the_script .= "	switch(this.document.forms.EditView.pricing_formula.value) { \n";
 	foreach ($formulas as $name=>$content) {
-		$the_script .= "		case '$name': \n"; 
+		$the_script .= "		case '$name': \n";
 		$the_script .= "			this.document.getElementById('edit_$name').style.display='inline'; \n";
-		$the_script .= "		  	return true; \n"; 
+		$the_script .= "		  	return true; \n";
 	}
 	$the_script .= "		} \n";
 	$the_script .= "} \n";
@@ -109,20 +100,20 @@ function get_edit($formulas, $formula) {
 		$the_script .= "		case '$name': \n";
 		$the_script .= "			${content['formula_js']} \n";
 		$the_script .= "			form.pricing_factor.value = form.pricing_factor_$name.value; \n";
-		$the_script .= "		  	return true; \n"; 
+		$the_script .= "		  	return true; \n";
 }
 	$the_script .= "		} \n";
 	$the_script .= "} \n";
     $the_script .= "if ( typeof document.forms.EditView != 'undefined' ) { set_discount_price(document.forms.EditView); }\n";
 
 	$the_script .= "//  End -->\n</script> \n\n";
-	
+
 	return $the_script;
-}  
+}
 
 function get_detail($formula, $factor) {
 	global $mod_strings, $price_formulas;
-	if (isset($price_formulas[$formula])) 
+	if (isset($price_formulas[$formula]))
 	{
 		require_once($price_formulas[$formula]);
 		$focus = new $formula;

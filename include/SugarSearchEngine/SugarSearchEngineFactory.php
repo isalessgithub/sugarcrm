@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Search Engines drivers factory class
@@ -69,67 +66,38 @@ class SugarSearchEngineFactory
      * @static
      * @param string $name
      * @param array $config
-     * @return bool
+     * @return mixed (bool|SugarSearchEngineInterface)
      */
     protected static function setupEngine($name = '', $config = array())
     {
-        if( empty($name) )
-        {
-            //if the name is empty then let's try to see if we have one configured in the config
-            if(!empty($GLOBALS['sugar_config']['full_text_engine']))
-            {
-                $name = self::getFTSEngineNameFromConfig();
-                $config = !empty($config) ? $config : $GLOBALS['sugar_config']['full_text_engine'][$name];
-            }
+        // if name is empty set name and config
+        if(empty($name) && !empty($GLOBALS['sugar_config']['full_text_engine'])) {
+            $name = self::getFTSEngineNameFromConfig();
+            $config = $GLOBALS['sugar_config']['full_text_engine'][$name];
         }
 
-        $defaultTemplateLocation = "include/SugarSearchEngine/%s/SugarSearchEngine%s.php";
+        // if config is empty set config
+        if(empty($config) && !empty($GLOBALS['sugar_config']['full_text_engine'][$name])) {
+            $config = $GLOBALS['sugar_config']['full_text_engine'][$name];
+        }
 
-        $searchEngineLocations = array(
-            "custom" . DIRECTORY_SEPARATOR . sprintf($defaultTemplateLocation, $name,$name),
-            sprintf($defaultTemplateLocation, $name,$name),
-            "custom" . DIRECTORY_SEPARATOR . sprintf($defaultTemplateLocation, '',''),
-            sprintf($defaultTemplateLocation, '','')
+        $paths = array(
+            "include/SugarSearchEngine/{$name}/SugarSearchEngine{$name}.php" => $name,
+            // fallback to base engine if unknown engine name
+            "include/SugarSearchEngine/SugarSearchEngine.php" => '',
         );
 
-        foreach($searchEngineLocations as $engineLocation)
-        {
-            $engineInstance = self::loadSearchEngineFromLocation($engineLocation, $config);
-            if($engineInstance !== FALSE)
-            {
-                $GLOBALS['log']->debug("Found Sugar Search Engine: " . get_class($engineInstance));
-                return $engineInstance;
+        // object loader using custom override
+        foreach ($paths as $path => $baseClass) {
+            if (SugarAutoLoader::requireWithCustom($path, true)) {
+                $engineClass = SugarAutoLoader::customClass("SugarSearchEngine{$baseClass}");
+                $engineInstance = new $engineClass($config);
+                if ($engineInstance instanceof SugarSearchEngineInterface) {
+                    $GLOBALS['log']->info("Found Sugar Search Engine: " . get_class($engineInstance));
+                    return $engineInstance;
+                }
             }
         }
-    }
-
-    /**
-     * @static
-     * @param $filePath
-     * @return bool
-     */
-    protected static function loadSearchEngineFromLocation($filePath, $config)
-    {
-        $filePath = realpath($filePath);
-        if( is_file($filePath) )
-        {
-            require_once($filePath);
-            $engineClass = basename($filePath, ".php");
-            $engineInstance = new $engineClass($config);
-
-            if ($engineInstance instanceof SugarSearchEngineInterface )
-            {
-                return $engineInstance;
-            }
-            else
-            {
-                return FALSE;
-            }
-        }
-        else
-        {
-            return FALSE;
-        }
+        return false;
     }
 }
-

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Un numéro d&#39;enregistrement doit être spécifié pour toute suppression.',
@@ -72,15 +69,16 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Nouvel élément',
   'LBL_PERCENTAGE' => 'Pourcentage(%)',
   'LBL_POINTS' => 'Points',
+  'LBL_POINTS_ABBR' => 'Pts.',
   'LBL_PRICING_FACTOR' => 'Quotient:',
   'LBL_PRICING_FORMULA' => 'Calcul du prix remisé:',
-  'LBL_PRODUCT' => 'Produit:',
+  'LBL_PRODUCT' => 'Produit :',
   'LBL_PRODUCT_CATEGORIES' => 'Catégories de produits',
   'LBL_PRODUCT_ID' => 'Produit (ID)',
   'LBL_PRODUCT_TYPES' => 'Types de Produit',
   'LBL_QTY_IN_STOCK' => 'Quantité en stock',
   'LBL_QUANTITY' => 'Quantité en stock:',
-  'LBL_RELATED_PRODUCTS' => 'Produit lié',
+  'LBL_RELATED_PRODUCTS' => 'Ligne de devis liée',
   'LBL_SEARCH_FORM_TITLE' => 'Rechercher un Produit',
   'LBL_STATUS' => 'Disponibilité:',
   'LBL_SUPPORT_CONTACT' => 'Contact Support:',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Site Web:',
   'LBL_WEIGHT' => 'Poids:',
   'LNK_IMPORT_PRODUCTS' => 'Import Produits',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'Importer des Produits dans le Catalogue Produits',
   'LNK_NEW_MANUFACTURER' => 'Fabricants',
   'LNK_NEW_PRODUCT' => 'Nouveau Produit',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Catégories de produit',

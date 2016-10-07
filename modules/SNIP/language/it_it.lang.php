@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -25,6 +22,7 @@ $mod_strings = array (
   'LBL_CONFIGURE_SNIP' => 'Archiviazione Email',
   'LBL_CONTACT_SUPPORT' => 'Si prega di riprovare o contattare il supporto della SugarCRM.',
   'LBL_DISABLE_SNIP' => 'Disabilitare',
+  'LBL_MODULE_NAME' => 'Archiviazione Email',
   'LBL_REGISTER_SNIP_FAIL' => 'Impossibile contattare il servizio di archiviazione email: %s!',
   'LBL_SNIP_ACCOUNT' => 'Azienda',
   'LBL_SNIP_AGREE' => "Accetto i termini sopra indicati e <a href='http://www.sugarcrm.com/crm/TRUSTe/privacy.html' target='_blank'>l´accordo di riservatezza</a>.",
@@ -58,7 +56,7 @@ $mod_strings = array (
   'LBL_SNIP_STATUS_OK' => 'Attivato',
   'LBL_SNIP_STATUS_OK_SUMMARY' => 'Questa istanza di Sugar è stata collegata con successo al server per l´archiviazione delle email.',
   'LBL_SNIP_STATUS_PINGBACK_FAIL' => 'Pingback fallito',
-  'LBL_SNIP_STATUS_PINGBACK_FAIL_SUMMARY' => 'Il server per l´archiviazione email non è in grado di stabilire una connessione con la tua istanza Sugar. Si prega di riprovare o <a href="http://www.sugarcrm.com/crm/case-tracker/submit.html?lsd=supportportal&amp;amp;tmpl=" target="_blank">contatta l´assistenza clienti </a>.',
+  'LBL_SNIP_STATUS_PINGBACK_FAIL_SUMMARY' => 'Il server per l´archiviazione email non è in grado di stabilire una connessione con la tua istanza Sugar. Si prega di riprovare o <a href="http://www.sugarcrm.com/crm/case-tracker/submit.html?lsd=supportportal&tmpl=" target="_blank">contatta l´assistenza clienti </a>.',
   'LBL_SNIP_STATUS_PROBLEM' => 'Problema: %s',
   'LBL_SNIP_STATUS_RESET' => 'Non ancora eseguito',
   'LBL_SNIP_STATUS_SUMMARY' => 'Stato del servizio per l´archiviazione delle email:',
@@ -68,4 +66,3 @@ $mod_strings = array (
   'LBL_SNIP_USER' => 'Utente per l´archiviazione email',
   'LBL_SNIP_USER_DESC' => 'Utente per l´archiviazione email',
 );
-

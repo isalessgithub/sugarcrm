@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -29,7 +26,7 @@ $mod_strings = array (
   'LBL_ALERT_REL1' => 'Gerelateerde Module:',
   'LBL_ALERT_REL2' => 'Gerelateerde Gerelateerde Module:',
   'LBL_ALERT_REL_USER' => 'Een gebruiker geassocieerd met een gerelateerde',
-  'LBL_ALERT_REL_USER_CUSTOM' => 'Ontvanger geassocieerd met een gerelateerde',
+  'LBL_ALERT_REL_USER_CUSTOM' => 'Ontvanger geassocieerd met een gerelateerd(e)',
   'LBL_ALERT_REL_USER_CUSTOM_TITLE' => 'Ontvanger geassocieerd met een gerelateerde module',
   'LBL_ALERT_REL_USER_TITLE' => 'Een gebruiker geassocieerd met een gerelateerde module',
   'LBL_ALERT_SPECIFIC_ROLE' => 'Alle gebruikers in een specifiek',
@@ -38,8 +35,8 @@ $mod_strings = array (
   'LBL_ALERT_SPECIFIC_TEAM_TARGET' => 'Alle gebruikers behorende bij team(s) geassocieerd met de doelmodule.',
   'LBL_ALERT_SPECIFIC_TEAM_TARGET_TITLE' => 'Leden van het team geassocieerd met de doelmodule',
   'LBL_ALERT_SPECIFIC_TEAM_TITLE' => 'Alle gebruikers in een specifiiek team',
-  'LBL_ALERT_SPECIFIC_USER' => 'Een Gespecificeerde',
-  'LBL_ALERT_SPECIFIC_USER_TITLE' => 'Een Gespecificeerde gebruiker',
+  'LBL_ALERT_SPECIFIC_USER' => 'Een gespecificeerde',
+  'LBL_ALERT_SPECIFIC_USER_TITLE' => 'Een gespecificeerde gebruiker',
   'LBL_ALERT_TRIG_USER_CUSTOM' => 'Ontvanger geassocieerd met de doelmodule',
   'LBL_ALERT_TRIG_USER_CUSTOM_TITLE' => 'Ontvanger geassocieerd met de doelmodule',
   'LBL_AND' => 'en Naam veld:',
@@ -60,7 +57,7 @@ $mod_strings = array (
   'LBL_LIST_REL_MODULE2' => 'Gerelateerde Gerelateerde Module',
   'LBL_LIST_STATEMENT' => 'Notificatie ontvanger :',
   'LBL_LIST_STATEMENT_CONTENT' => 'Stuur een notificatie naar de volgende ontvanger:',
-  'LBL_LIST_STATEMENT_INVITE' => 'Afspraken / Telefoongesprek Genodigden',
+  'LBL_LIST_STATEMENT_INVITE' => 'Genodigden (Afspraken / Telefoongesprek):',
   'LBL_LIST_USER_TYPE' => 'Type Gebruiker',
   'LBL_LIST_WHERE_FILTER' => 'Status',
   'LBL_MODULE_NAME' => 'Notificatie ontvanger lijst',
@@ -97,7 +94,7 @@ $mod_strings = array (
   'LBL_USER3b' => 'van het systeem.',
   'LBL_USER4' => 'die het record is toegewezen',
   'LBL_USER5' => 'die het record was toegewezen.',
-  'LBL_USER_MANAGER' => 'gebruikers manager',
+  'LBL_USER_MANAGER' => 'gebruiker&#39;s manager',
   'LBL_USER_TYPE' => 'Type Gebruiker:',
   'LBL_WHERE_FILTER' => 'Status:',
   'LNK_NEW_WORKFLOW' => 'Nieuwe Workflow',

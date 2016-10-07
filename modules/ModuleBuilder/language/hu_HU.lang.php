@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Hiba: Mező már létezik',
@@ -51,7 +48,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Elérhető',
   'LBL_AVAILABLE_OPTIONS' => 'Elérhető lehetőségek',
   'LBL_AVAILABLE_SUBPANELS' => 'Elérhető alpanelek',
-  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: rossz formátumú dokumentum',
+  'LBL_BADLY_FORMED_DOCUMENT' => 'Studio2:establishLocation: hibás formátumú dokumentum',
   'LBL_BASIC' => 'Egyszerű',
   'LBL_BASIC_SEARCH' => 'Egyszerű keresés',
   'LBL_BLANK' => '-üres-',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Mégsem',
   'LBL_BTN_CLONE' => 'Klónozás',
   'LBL_BTN_CLOSE' => 'Bezár',
+  'LBL_BTN_COPY' => 'Másolás',
+  'LBL_BTN_COPY_FROM' => 'Másolás innen...',
   'LBL_BTN_DELETE' => 'Törlés',
   'LBL_BTN_DEPLOY' => 'Alkalmaz',
   'LBL_BTN_DONT_SAVE' => 'Módosítások elvetése',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Visszavon',
   'LBL_BTN_VIEW_FIELDS' => 'Mezők megtekintése',
   'LBL_BTN_VIEW_LAYOUTS' => 'Elrendezések megtekintése',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Mobil Elrendezési Nézet',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Kapcsolatok megtekintése',
   'LBL_BUG_TRACKER' => 'Hibakövető',
   'LBL_CALCULATED' => 'Számított érték',
   'LBL_CASES' => 'Esetek',
   'LBL_CLEAR_EXTENSIONS' => 'Kiterjesztések törlése',
   'LBL_CLEAR_RELATIONSHIPS' => 'Kapcsolatok törlése',
+  'LBL_COMBO_FIELD_CONTAINS' => 'tartalma:',
   'LBL_COMPANY' => 'Cég',
   'LBL_CONFIG_PORTAL_URL' => 'URL az egyedi logo képhez. Az ajánlott méret 163 x 18 pixel.',
   'LBL_CONFIRM_DONT_SAVE' => 'Változások történtek, mióta utoljára mentett. Szeretne menteni?',
@@ -103,13 +104,13 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Biztosan törölni akarja ezt a kapcsolatot?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'A kapcsolat ezzel állandóvá válik. Biztos benne, hogy állandósítja a kapcsolatot?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Ön törölni kívánja ezt a tételt a legördülő listából. A tétel minden legördülő listából törlődik és nem lesz elérhető a legördülő mezőkben sem. Biztos benne, hogy folytatja?',
+  'LBL_COPY_FROM' => 'Másolás innen',
   'LBL_COPY_FROM_EDITVIEW' => 'Másolás Szerkesztési nézetből',
   'LBL_CREATE' => 'Új létrehozása',
   'LBL_CREATE_NEW' => 'Új létrehozás',
   'LBL_CURRENCY' => 'Pénznem',
   'LBL_CURRENT_LAYOUT' => 'Elrendezés',
   'LBL_CUSTOM' => 'Egyedi',
-  'LBL_CUSTOMIZE_THEME' => 'Téma testreszabása',
   'LBL_CUSTOM_FIELDS' => '* a Stúdióban létrehozott mező',
   'LBL_CUSTOM_MODULE' => 'Modul',
   'LBL_CUSTOM_RELATIONSHIPS' => '* Studióban létrehozott kapcsolat',
@@ -124,7 +125,6 @@ $mod_strings = array (
   'LBL_DEPENDANT' => 'Függő',
   'LBL_DEPENDENCY' => 'Függőség',
   'LBL_DEPENDENT_DROPDOWN_HELP' => 'A baloldali lista elemeit húzza át jobboldalra, amennyiben az elemeket elérhetővé kívánja tenni a szülő opció kiválasztásánál!',
-  'LBL_DEPENDENT_DROPDOWN_HELP_NOTICE' => 'Vegye figyelembe: a változások megjelenítéséhez elképzelhető, hogy a felhasználóknak frissíteniük kell a modul szerkesztési nézetét',
   'LBL_DEPLOYE_COMPLETE' => 'Az alkalmazás megtörtént',
   'LBL_DEPLOY_FAILED' => 'Hiba lépett fel az alkalmazás során, így elképzelhető, hogy a csomag nem lett rendesen telepítve',
   'LBL_DEPLOY_IN_PROGRESS' => 'Csomag telepítése',
@@ -137,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Lista elemek',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Megjelenített címke',
   'LBL_DROPDOWN_ITEM_NAME' => 'Elem neve',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'A kulcs már létezik',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'A kulcs már létezik a listában',
   'LBL_DROPDOWN_LANGUAGE' => 'Nyelv',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'A listának legalább egy engedélyezett elemet kell tartalmaznia.',
   'LBL_DROPDOWN_TITLE_NAME' => 'Név',
   'LBL_DROP_HERE' => '[Húzza ide]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Függő',
   'LBL_EC_AUTHOR' => 'Szerző:',
   'LBL_EC_CHECKERROR' => 'Kérem, válasszon egy modult!',
+  'LBL_EC_CUSTOMDROPDOWN' => 'Testreszabott legördülő menű(k)',
   'LBL_EC_CUSTOMFIELD' => 'egyedi mező(k)',
+  'LBL_EC_CUSTOMLABEL' => 'személyre szabott címkék',
   'LBL_EC_CUSTOMLAYOUT' => 'egyedi elrendezés(ek)',
   'LBL_EC_DESCRIPTION' => 'Leírás:',
   'LBL_EC_EMPTYCUSTOM' => 'üresen lett testre szabva.',
@@ -168,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Mezők',
   'LBL_FILE' => 'Fájl',
   'LBL_FILLER' => '(töltelék)',
+  'LBL_FILTER_SEARCH' => 'Keresés',
   'LBL_FORMULA' => 'Szabály',
   'LBL_FORMULA_BUILDER' => 'Szabálykészítő',
   'LBL_FORMULA_INVALID' => 'Érvénytelen képlet',
   'LBL_FORMULA_TYPE' => 'A képlet típusa',
   'LBL_HCUSTOM' => 'Szokásos',
   'LBL_HDEFAULT' => 'Alapértelmezett',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Másolás az elrendezésből',
   'LBL_HIDDEN' => 'Rejtett',
   'LBL_HIDEOPTIONS' => 'Lehetőségek elrejtése',
   'LBL_HIGH' => 'Magas',
@@ -184,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Saját',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Legördülő szerkesztő',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Legördülő kulcs nem tartalmazhat idézőjelet.',
+  'LBL_INDICATES_COMBO_FIELD' => '** Kombinált mezőt jelöl. A kombinált mezők több külön mező összevonásával jönnek léte. A "Cím" például kombinált mező, amely magába foglalja az "Utca", "Város", "Irányítószám", "Megye" és "Állam" mezők összességét.<br /><br />Ahhoz, hogy megtekintse, egy kombinált mező mely másik mezőket foglalja magába, kattintson duplán a mező nevére!',
   'LBL_ISSUE' => 'Eset',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Biztos benne, hogy törölni kívánja ezt a kötelező legördülő lista elemet? Ez megzavarhatja az alkalmazás működését.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Biztos benne, hogy törölni kívánja a "Lezárt, elvesztett" értékesítési fázist? Az opció törlése kihatással van az Előrejelzések modul helyes működésére.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Biztos benne, hogy törölni kívánja a "Lezárt, megnyert" értékesítési fázist? Az opció törlése kihatással van az Előrejelzések modul helyes működésére.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Valóban törölni kívánja a "folyamatban" értékesítési státuszt? A státusz törlése kihatással van a Lehetőségek modul bevételi sor tételeire.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Valóban törölni kívánja az "új" értékesítési státuszt? A státusz törlése kihatással van a Lehetőségek modul bevételi sor tételeire.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Biztos benne, hogy törölni kívánja ezt a legördülő lista elemet? A "Lezárt, megnyert" és "Lezárt, elvesztett" opciók törlése kihatással van az Előrejelzések modul helyes működésére.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Minden Stúdióból származó testreszabás felülíródik a modul frissítésénél. Biztos benne, hogy folytatni szeretné?',
   'LBL_JS_REMOVE_MODULE' => 'Biztosan el szeretné távolítani ezt a modult? A művelet végleg törli a modulhoz társított összes fájlt.',
   'LBL_JS_REMOVE_PACKAGE' => 'Biztosan el szeretné távolítani ezt a csomagot? A művelet végleg törli a csomaghoz társított összes fájlt.',
   'LBL_JS_VALIDATE_KEY' => 'Kulcs - csak alfanumerikus karakterek, szóköz nélkül, szókezdő betűvel',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Kulcs - alfanumerikusnak kell lennie és betűvel kell kezdődnie.',
   'LBL_JS_VALIDATE_LABEL' => 'Kérem, adja meg a címkét, amelyet ez a modul megjelenő névként fog használni!',
   'LBL_JS_VALIDATE_NAME' => 'Név - csak alfanumerikus karakterek, szóköz nélkül, szókezdő betűvel',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Csomagnév már létezik',
@@ -243,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Nincsenek elérhető mezők',
   'LBL_NO_FUNCS' => 'Nincsenek elérhető funkciók',
   'LBL_NO_RELS' => 'Nincs összefüggés',
-  'LBL_NO_SAVE_ACTION' => 'A nézet nem menthető.',
+  'LBL_NO_SAVE_ACTION' => 'A nézethez nem található mentési művelet.',
   'LBL_NUMBER' => 'Szám:',
   'LBL_ONETOMANY' => 'Egy a sokhoz',
   'LBL_ONETOONE' => 'Egy az egyhez',
@@ -305,8 +318,9 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Válassza ki a szerkesztendő Sugar Portál elrendezést!',
   'LBL_QUICKCREATE' => 'Gyors létrehozás',
   'LBL_READ_ONLY' => 'Csak olvasható',
+  'LBL_RECORDVIEW' => 'Rekord nézet',
   'LBL_RELATED_FIELD' => 'Kapcsolódó mezők',
-  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (kapcsolódó {1} azonosító)',
+  'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (kapcsolódó {1} azon.)',
   'LBL_RELATE_TO' => 'Kapcsolja ehhez:',
   'LBL_RELATIONSHIPS' => 'Kapcsolatok',
   'LBL_RELATIONSHIP_EDIT' => 'Kapcsolat szerkesztése',
@@ -326,10 +340,10 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Modul visszaállítása',
   'LBL_RESTORE_DEFAULT' => 'Alapértelmezett értékek visszaállítása',
   'LBL_RHS_MODULE' => 'Kapcsolódó modul',
+  'LBL_ROLE' => 'Szerepkör',
   'LBL_ROLLUP' => 'Felgöngyölít',
   'LBL_RSUB' => 'Ez az alpanel lesz látható az Ön moduljában',
   'LBL_SALE' => 'Értékesítés',
-  'LBL_SAVE' => 'Mentés',
   'LBL_SAVE_LAYOUT' => 'Elrendezés mentése',
   'LBL_SEARCH' => 'Keresés',
   'LBL_SEARCH_FIELDS' => 'Mezők keresése...',
@@ -354,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Válasszon ki egy alpanelt',
   'LBL_SELECT_FILE' => 'Válasszon egy fájlt',
   'LBL_SELECT_SUBPANEL' => 'Alpanel kiválasztása',
+  'LBL_SINGULAR_LABEL' => 'Egyesszám',
   'LBL_SP_PREVIEW' => 'Ez egy előnézet, amely a Sugar Portál megjelenését mutatja a stíluslap alkalmazása után.',
   'LBL_SP_UPLOADED' => 'Feltöltött',
   'LBL_SP_UPLOADSTYLE' => 'Válassza ki a feltöltendő stíluslapot a számítógépéről!<br />Szinkronizálás után a Sugar Portál már az új stíluslappal fog megjelenni.',
@@ -552,6 +567,7 @@ $mod_strings = array (
       'default' => 'Az elrendezési felület azokat a mezőket tartalmazza, amelyek megjelennek a Szerkesztési nézetben.<br /><br />Az eszköztár tartalmazza a Szemetest, továbbá azokat a mezőket és elemeket, amelyek hozzáadhatók az elrendezéshez.<br /><br />Az elrendezésben az elemek helye áthúzással módosítható, új elemek hozzáadása pedig az Eszköztárból való kihúzással valósítható meg.<br /><br />Amennyiben el kíván távolítani egy elemet, húzza be azt a Szemetesbe! Az elem ismét bekerül az Eszköztárba, ha mégis szeretné használni.<br /><br />Függő mezőt jelez, amely lehet látható, vagy láthatatlan a képlet értékén alapulva.<br />Számított mezőt jelez, aminek az értéke automatikusan meghatározódik a képlet alapján.',
       'defaultdetailview' => 'Az elrendezési felület azokat a mezőket tartalmazza, amelyek megjelennek a Részletes nézetben.<br /><br />Az eszköztár tartalmazza a Szemetest, továbbá azokat a mezőket és elemeket, amelyek hozzáadhatók az elrendezéshez.<br /><br />Az elrendezésben az elemek helye áthúzással módosítható, új elemek hozzáadása pedig az Eszköztárból való kihúzással valósítható meg.<br /><br />Amennyiben el kíván távolítani egy elemet, húzza be azt a Szemetesbe! Az elem ismét bekerül az Eszköztárba, ha mégis szeretné használni.<br /><br />Függő mezőt jelez, amely lehet látható, vagy láthatatlan a képlet értékén alapulva.<br />Számított mezőt jelez, aminek az értéke automatikusan meghatározódik a képlet alapján.',
       'defaultquickcreate' => 'Az elrendezési felület azokat a mezőket tartalmazza, amelyek megjelennek a Gyors létrehozás nézetben<br /><br />A Gyors létrehozás űrlap minden modulban megjelenik, ha a Létrehozás gomb be van kapcsolva.<br /><br />Az eszköztár tartalmazza a Szemetest, továbbá azokat a mezőket és elemeket, amelyek hozzáadhatók az elrendezéshez.<br /><br />Az elrendezésben az elemek helye áthúzással módosítható, új elemek hozzáadása pedig az Eszköztárból való kihúzással valósítható meg.<br /><br />Amennyiben el kíván távolítani egy elemet, húzza be azt a Szemetesbe! Az elem ismét bekerül az Eszköztárba, ha mégis szeretné használni.<br /><br />Függő mezőt jelez, amely lehet látható, vagy láthatatlan a képlet értékén alapulva.<br />Számított mezőt jelez, aminek az értéke automatikusan meghatározódik a képlet alapján.',
+      'defaultrecordview' => 'A <b>megjelenési</b> terület tartalmazza azokat a mezőket, amelyek jelenleg láthatók a <b>rekord nézetben</b>.<br/><br/> Az <b>eszköztár</b> tartalmazza a <b>lomtárat</b>, illetve azokat a mezőket és megjelenési elemeket, amelyek hozzáadhatók az elrendezéshez.<br><br> Változtasson az elrendezésen az elemek átmozgatásával!<br><br>Mező törléséhez húzza be azt a <b>lomtárba</b>! A mező ekkor visszakerül az eszköztárba, ahonnan ismét hozzá lehet majd adni az elrendezéshez.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/> függő mezőt jelöl, amely a képletnek megfelelően látható, vagy rejtett.<br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_calculated.png" /> számított mezőt jelöl, amelynek értéke a képletnek megfelelően alakul.',
       'delete' => 'Húzza be ide az elemeket az elrendezésből való törléshez!',
       'historyBtn' => 'Kattintson az Előzmények megtekintése gombra az előzőleg mentett elrendezések megtekintéséhez és visszaállításához.<br /><br />A Visszaállítás gomb megnyomásával az elrendezés visszaáll a korábban mentett állapotba. A mezőcímkék szerkesztéséhez kattintson a Szerkesztés ikonra a mezők mellett.',
       'historyDefault' => 'Kattintson az Alapértelmezett értékek visszaállítása gombra az eredeti elrendezés visszaállításhoz!<br /><br />Az Alapértelmezett értékek visszaállítása csupán az elrendezést állítja vissza. A mezőcímkék szerkesztéséhez kattintson a Szerkesztés ikonra a mezők mellett.',
@@ -596,6 +612,7 @@ $mod_strings = array (
       'type_sale' => 'Az Eladás sablon lehetőségspecifikus mezőket tartalmaz, mint az Ajánlás Forrása, a Szint, az Összeg és a Valószínűség.<br />Használja ezt a sablont a Lehetőségek modulhoz hasonló modulok létrehozásához.',
       'viewfieldsbtn' => 'Kattintson a Mező nézetre a modulhoz kapcsolódó mezők megjelenítéséhez, továbbá az egyedi mezők létrehozásához és szerkesztéséhez!',
       'viewlayoutsbtn' => 'Kattintson az Elrendezés nézetre a modulra vonatkozó elrendezés megtekintéséhez és a mezők elrendezésének testreszabásához.',
+      'viewmobilelayoutsbtn' => 'Kattintson a Mobil Elrendezési Nézet gombra, hogy megtekinthesse a modul mobile elrendezéseit és hogy testre tudja szabni az adatmező elrendezést az objektumon belül.',
       'viewrelsbtn' => 'Kattintson a Kapcsolatok nézetre a modulra vonatkozó kapcsolatok megtekintéséhez és további kapcsolatok kialakításához.',
     ),
     'package' => 
@@ -690,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'Az összes modulhoz tartozó Kapcsolat itt jelenik meg.<br /><br />A Kapcsolat nevét a rendszer generálta.<br /><br />Az Elsődleges modul az a modul, amelyhez a kapcsolatok tartoznak. Például a Kliensek modul kapcsolatainak összes tulajdonsága lesz az az elsődleges modul, amely a Kliensek adatbázis táblájában van eltárolva.<br /><br />A Típus a kapcsolat típusa, amely az Elsődleges modul és a Kapcsolódó modul között fennáll.<br /><br />Kattintson az oszlop címére a rekordok oszlop szerinti sorba rendezéséhez. <br /><br />Kattintson egy sorra a kapcsolat táblában, hogy megtekinthesse annak tulajdonságait.<br /><br />Kattintson a Kapcsolat hozzáadása gombra egy új kapcsolat létrehozásához.<br /><br />Kapcsolatokat létrehozhat bármely két létező modul között.',
       'searchBtn' => 'A modul Keresési elrendezésének testreszabása.<br />Határozza meg, milyen mezőket lehet használni az adatok szűrésére, amelyek megjelennek a Lista nézetben.',
       'searchHelp' => 'A Keresés feltételeit itt adhatja meg.<br /><br />A keresési formák szűrési mezőket tartalmaznak.<br /><br />Kattintson a megfelelő ikonra az elrendezés szerkesztéséhez.',
+      'studioBCHelp' => 'azt jelöli, hogy a modul visszafele kompatibilis',
       'studioBtn' => 'Használja a Studiót a telepített modulok testreszabásához.',
       'studioHelp' => 'A Stúdió segítségével adja meg, hogy milyen információk jelenjenek meg a modulokban, illetve milyen formában.',
       'subpanelBtn' => 'Határozza meg, hogy milyen mezők jelenjenek meg a modulban az Alpanelen.',

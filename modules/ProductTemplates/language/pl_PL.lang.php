@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć ten produkt.',
@@ -31,13 +28,13 @@ $mod_strings = array (
   'LBL_CURRENCY' => 'Waluta:',
   'LBL_CURRENCY_SYMBOL_NAME' => 'Symbol waluty:',
   'LBL_DATE_AVAILABLE' => 'Data dostępności:',
-  'LBL_DATE_COST_PRICE' => 'Data-koszt-cena:',
+  'LBL_DATE_COST_PRICE' => 'Obowiązuje od:',
   'LBL_DESCRIPTION' => 'Opis:',
-  'LBL_DISCOUNT_PRICE' => 'Cena rabatowa:',
+  'LBL_DISCOUNT_PRICE' => 'Cena jednostkowa:',
   'LBL_DISCOUNT_PRICE_DATE' => 'Data obniżki ceny:',
   'LBL_DISCOUNT_USDOLLAR' => 'Cena rabatowa (PLN):',
-  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Przydzielono do',
-  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Przydzielono do',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Przydzielony użytkownik (ID)',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Przydzielony użytkownik',
   'LBL_EXPORT_COST_PRICE' => 'Cena kosztów własnych',
   'LBL_EXPORT_CREATED_BY' => 'Utworzone przez (ID)',
   'LBL_EXPORT_CURRENCY' => 'Waluta',
@@ -47,7 +44,7 @@ $mod_strings = array (
   'LBL_LIST_CATEGORY_ID' => 'ID kategorii:',
   'LBL_LIST_COST_PRICE' => 'Koszt:',
   'LBL_LIST_DISCOUNT_PRICE' => 'Cena:',
-  'LBL_LIST_FORM_TITLE' => 'Lista Katalogu produktów',
+  'LBL_LIST_FORM_TITLE' => 'Lista Katalogów produktów',
   'LBL_LIST_LBL_MFT_PART_NUM' => 'Symbol producenta',
   'LBL_LIST_LIST_PRICE' => 'Cena katalogowa',
   'LBL_LIST_MANUFACTURER' => 'Producent',
@@ -64,7 +61,7 @@ $mod_strings = array (
   'LBL_MANUFACTURER_ID' => 'ID producenta',
   'LBL_MANUFACTURER_NAME' => 'Nazwa producenta:',
   'LBL_MFT_PART_NUM' => 'Nr kat. wg producenta:',
-  'LBL_MODULE_ID' => 'Wzór produktu',
+  'LBL_MODULE_ID' => 'Produkt',
   'LBL_MODULE_NAME' => 'Katalog produktów',
   'LBL_MODULE_NAME_SINGULAR' => 'Katalog produktów',
   'LBL_MODULE_TITLE' => 'Katalog produktów: Strona główna',
@@ -72,15 +69,16 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Utwórz przedmiot',
   'LBL_PERCENTAGE' => 'Procent (%)',
   'LBL_POINTS' => 'Punktów',
-  'LBL_PRICING_FACTOR' => 'Współczynnik ceny:',
+  'LBL_POINTS_ABBR' => 'pkt.',
+  'LBL_PRICING_FACTOR' => 'Czynnik wyceny:',
   'LBL_PRICING_FORMULA' => 'Domyślna formuła ustalania ceny:',
-  'LBL_PRODUCT' => 'Produkt:',
+  'LBL_PRODUCT' => 'Produkt',
   'LBL_PRODUCT_CATEGORIES' => 'Kategorie produktów',
   'LBL_PRODUCT_ID' => 'ID produktu:',
   'LBL_PRODUCT_TYPES' => 'Typy produktów',
   'LBL_QTY_IN_STOCK' => 'Ilość w magazynie',
   'LBL_QUANTITY' => 'Ilość na magazynie:',
-  'LBL_RELATED_PRODUCTS' => 'Powiązane produkty',
+  'LBL_RELATED_PRODUCTS' => 'Powiązane pozycje szansy',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukiwanie w katalogu produktów',
   'LBL_STATUS' => 'Dostępność:',
   'LBL_SUPPORT_CONTACT' => 'Kontakt do gwaranta:',
@@ -96,6 +94,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Strona www',
   'LBL_WEIGHT' => 'Waga:',
   'LNK_IMPORT_PRODUCTS' => 'Importuj produkty',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'Importuj wpisy Katalogu produktów',
   'LNK_NEW_MANUFACTURER' => 'Producenci',
   'LNK_NEW_PRODUCT' => 'Uwórz produkt',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Kategorie produktów',

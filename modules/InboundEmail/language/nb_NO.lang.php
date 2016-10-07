@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Ugyldig brukernavn eller passord.',
   'ERR_BODY_TOO_LONG' => '\\rBrødteksten er for lang for FULLSTENDIG e-post. Ble trimmet.',
+  'ERR_DELETE_FOLDER' => 'Kunne ikke slette mappen.',
   'ERR_INI_ZLIB' => 'Kan ikke slå av Zlib-komprimering midlertidig. "Test-innstillinger" kan feile.',
   'ERR_MAILBOX_FAIL' => 'Klarte ikke hente noen av e-postkontoene.',
   'ERR_NO_IMAP' => 'Fant ingen IMAP-biblioteker. Løs dette problemet før du fortsetter med Innkommet e-post.',
   'ERR_NO_OPTS_SAVED' => 'Ingen optimums ble lagret med din Innkommet e-post-konto. Kontrollér innstillingene.',
   'ERR_TEST_MAILBOX' => 'Kontrollér innstillingene og prøv igjen.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Kunne ikke stoppe abonnementet fra mappen før sletting.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Tillat brukere å sende e-postmeldinger med "Fra" navn og adresse som svaradresse.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Velges dette alternativet vil Fra Navn og Fra E-postadressen tilknyttet denne gruppens mail konto vises som et alternativ i Fra-feltet når brukere som har tilgang til denne e-postkontoen skriver e-postmeldinger.',
   'LBL_APPLY_OPTIMUMS' => 'Bruk optimumer',
@@ -100,6 +99,7 @@ $mod_strings = array (
   'LBL_MAX_AUTO_REPLIES' => 'Antall auto-svar',
   'LBL_MAX_AUTO_REPLIES_DESC' => 'Bestem høyeste antall auto-svar som kan sendes til en enkelt e-postadresse i løpet av et døgn.',
   'LBL_MODULE_NAME' => 'Innstillinger for innkommende e-post',
+  'LBL_MODULE_NAME_SINGULAR' => 'Innkommende e-post',
   'LBL_MODULE_TITLE' => 'Innkommende e-post',
   'LBL_NAME' => 'Navn',
   'LBL_NONE' => 'Ingen',
@@ -112,6 +112,7 @@ $mod_strings = array (
   'LBL_PASSWORD' => 'Passord',
   'LBL_PASSWORD_CHECK' => 'Sjekk passord',
   'LBL_PERSONAL_MODULE_NAME' => 'Personlig e-postkonto',
+  'LBL_PERSONAL_MODULE_NAME_SINGULAR' => 'Personlig e-postkonto',
   'LBL_POP3_SUCCESS' => 'Testtilkoblingen til POP3 var vellykket.',
   'LBL_POPUP_FAILURE' => 'Testtilkoblingen mislyktes. Feilen vises nedenfor.',
   'LBL_POPUP_SUCCESS' => 'Testtilkoblingen var vellykket. Dine innstillinger virker.',

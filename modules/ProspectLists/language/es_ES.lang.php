@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Cuentas',
   'LBL_ASSIGNED_TO' => 'Asignada a',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campañas',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contactos',
   'LBL_COPY_PREFIX' => 'Copia de',
   'LBL_CREATED' => 'Creada por',
@@ -32,6 +30,24 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'No hay correos para este dominio',
   'LBL_DOMAIN_NAME' => 'Nombre de Dominio',
   'LBL_ENTRIES' => 'Total de Entradas',
+  'LBL_HELP_CREATE' => 'Una {{module_name}} consiste en un conjunto de individuos u organizaciones que desea incluir o excluir en una {{campaign_module}} de marketing masivo.
+
+Para crear un {{module_name}}:
+1. Proporcione valores para los campos que desee.
+ - Los campos marcados "Obligatorio" se deben completar antes de guardar.
+ - Haga clic en "Mostrar más" para ver los campos adicionales si es necesario.
+2. Haga clic en "Guardar" para finalizar el nuevo registro y volver a la página inicial.
+ - Seleccione la opción "Guardar y ver" para abrir el nuevo {{module_name}} como vista de registro.
+ - Seleccione la opción "Guardar y crear nuevo" para un nuevo {{module_name}} inmediatamente. 
+3. Después de guardar, use los subpaneles disponibles en la vista del registro de Público Objetivo para añadir destinatarios {{campaign_module}} .',
+  'LBL_HELP_RECORD' => 'El módulo {{plural_module_name}} consiste en un grupo de individuos u organizaciones que quieres incluir o excluir en una {{campaigns_singular_module}} masiva de marketing.
+
+- Edita el registro haciendo clic en el campo individual o el botón Editar. 
+- Ver o modificar enlaces a otros registros en los subpanales yendo a la pestaña "Ver Datos".
+- Comentar o ver otros comentarios de usuarios y ver el historial del registro en {{activitystream_singular_module}} yendo a "Actividades Recientes".
+- Seguir o guardar como favorito el registro utilizando los iconos a la izquierda del nombre del registro. 
+- Acciones adicionales están disponibles en el botón desplegable Acciones.',
+  'LBL_HELP_RECORDS' => 'Una {{module_name}} consiste en un conjunto de individuos u organizaciones que desea incluir o excluir en una {{campaign_module}} de marketing masivo. {{plural_module_name}} puede contener cualquier cantidad y cualquier combinación de Público Objetivo, {{contacts_module}}, {{leads_module}}, Usuarios, y {{accounts_module}}. El Público Objetivo puede ser agrupado en {{module_name}} en función de los criterios de segmentación como puede ser la edad del grupo, localización geográfica, o hábitos de consumo. {{plural_module_name}} son utilizados en {{campaigns_module}} de email marketing masivo, que pueden ser configurados desde el módulo {{campaigns_module}} .',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Clientes Potenciales',
   'LBL_LIST_DESCRIPTION' => 'Descripción',
   'LBL_LIST_END_DATE' => 'Fecha Fin',

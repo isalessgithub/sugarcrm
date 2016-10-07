@@ -1,29 +1,28 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-$dictionary['KBDocument'] = array('table' => 'kbdocuments',
-								  'unified_search' => true,
-								  'full_text_search' => true,
-               					  'comment' => 'Knowledge Document management and FTS',
-               					  'fields' => array (
+$dictionary['KBDocument'] = array(
+  'table' => 'kbdocuments',
+  'favorites' => false,
+  'unified_search' => true,
+  'full_text_search' => true,
+  'comment' => 'Knowledge Document management and FTS',
+  'fields' => array (
   'id' =>
   array (
     'name' => 'id',
     'vname' => 'LBL_ID',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
     'required'=>true,
     'reportable'=>true,
@@ -37,13 +36,13 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'required'=>true,
     'importable' => 'required',
   	'unified_search' => true,
-  	'full_text_search' => array('boost' => 3),
+  	'full_text_search' => array('enabled' => true, 'boost' => 3),
+    'sortable' => true,
   ),
 
 'name' =>
 	array (
 	'name' => 'name',
-	'rname' => 'name',
 	'vname' => 'LBL_NAME',
 	'type' => 'varchar',
 	'fields' => array('kbdocument_name'),
@@ -53,13 +52,22 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
 	'db_concat_fields'=> array(0=>'kbdocument_name'),
     'importable' => 'false',
 	),
-	
+    'body' =>
+        array(
+            'name' => 'body',
+            'vname' => 'LBL_KBDOC_BODY',
+            'type' => 'html',
+            'default'=> '',
+            'studio'=>'false',
+            'source' => 'non-db',
+        ),
 'active_date' =>
   array (
     'name' => 'active_date',
     'vname' => 'LBL_DOC_ACTIVE_DATE',
     'type' => 'date',
     'importable' => 'required',
+    'sortable' => true,
   ),
 
 'exp_date' =>
@@ -67,6 +75,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'name' => 'exp_date',
     'vname' => 'LBL_DOC_EXP_DATE',
     'type' => 'date',
+    'sortable' => true,
   ),
 
   'status_id' =>
@@ -84,6 +93,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'name' => 'date_entered',
     'vname' => 'LBL_DATE_ENTERED',
     'type' => 'datetime',
+    'readonly' => true,
   ),
 
   'date_modified' =>
@@ -91,6 +101,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'name' => 'date_modified',
     'vname' => 'LBL_DATE_MODIFIED',
     'type' => 'datetime',
+    'readonly' => true,
   ),
 
   'deleted' =>
@@ -101,7 +112,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'default'=> 0,
     'reportable'=>false,
   ),
-  
+
   'is_external_article' =>
   array (
     'name' => 'is_external_article',
@@ -130,22 +141,6 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'reportable'=>true,
     'dbType' => 'id'
   ),
-  'modified_user_name' =>
-  array (
-     'name' => 'modified_user_name',
-     'rname' => 'id',
-     'id_name' => 'user_id',
-     'vname' => 'LBL_MODIFIED_USER',
-     'join_name'=>'users',
-     'type' => 'relate',
-     'link' => 'users',
-     'table' => 'users',
-     'isnull' => 'true',
-     'module' => 'Users',
-     'dbType' => 'varchar',
-     'len' => '255',
-     'source' => 'non-db'
-  ),
   'created_by' =>
   array (
     'name' => 'created_by',
@@ -161,7 +156,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
   array (
     'name' => 'kbdocument_revision_id',
     'vname' => 'LBL_LATEST_REVISION',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
     'reportable'=>false,
   ),
@@ -181,12 +176,12 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'type' => 'link',
     'relationship' => 'kbdocument_revisions',
     'source'=>'non-db',
-    'vname'=>'LBL_REVISIONS',
-    'studio' => false
+     'vname'=>'LBL_REVISIONS',
   ),
   'latest_revision' =>
   array (
     'name' => 'latest_revision',
+    'vname' => 'LBL_LATEST_REVISION',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
@@ -236,14 +231,6 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'source' => 'non-db',
     'vname' => 'LBL_CONTRACTS',
   ),
-  //todo remove
-  'leads' => array (
-    'name' => 'leads',
-    'type' => 'link',
-    'relationship' => 'leads_documents',
-    'source' => 'non-db',
-    'vname' => 'LBL_LEADS',
-  ),
   'created_by_link' =>
   array (
         'name' => 'created_by_link',
@@ -273,7 +260,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'vname' => 'LBL_RELATED_DOCUMENT_ID',
     'reportable'=>false,
     'dbType' => 'id',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
   ),
   'related_doc_rev_id' =>
@@ -282,7 +269,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'vname' => 'LBL_RELATED_DOCUMENT_REVISION_ID',
     'reportable'=>false,
     'dbType' => 'id',
-    'type' => 'varchar',
+    'type' => 'id',
     'len' => '36',
   ),
   'is_template' =>
@@ -322,6 +309,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
   'contract_status' =>
   array (
     'name' => 'contract_status',
+    'vname' => 'LBL_CONTRACT_STATUS',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
@@ -337,6 +325,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
   'linked_id'=>
   array (
     'name' => 'linked_id',
+    'vname' => 'LBL_LINKED_ID',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
@@ -344,6 +333,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
   'selected_revision_id'=>
   array (
     'name' => 'selected_revision_id',
+    'vname' => 'LBL_SELECTED_REVISION_ID',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
@@ -351,6 +341,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
   'latest_revision_id'=>
   array (
     'name' => 'latest_revision_id',
+    'vname' => 'LBL_LATEST_REVISION',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
@@ -358,6 +349,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
   'selected_revision_filename'=>
   array (
     'name' => 'selected_revision_filename',
+    'vname' => 'LBL_SELECTED_REVISION_FILENAME',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
@@ -368,7 +360,10 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
     'vname' => 'LBL_KEYWORDS',
     'type' => 'relate',
     'reportable'=>false,
-    'source'=>'non-db'
+    'source'=>'non-db',
+    // Bug 55154 - Keywords field throwing errors when added to layouts
+    // Remove keywords from studio editor since it is not a valid studio field
+    'studio' => false,
   ),
 //END fields used for contract documents subpanel.
 
@@ -392,20 +387,21 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
  'kbdoc_approver_name'=>
   array (
     'name' => 'kbdoc_approver_name',
+    'vname' => 'LBL_KBDOC_APPROVER_NAME',
     'type' => 'varchar',
     'reportable'=>false,
-    'source'=>'non-db'
+    'source'=>'non-db',
+    'table' => 'users',
+    'id_name' => 'kbdoc_approver_id',
+    'module' => 'Users',
+    'link' => 'kbdoc_approver_link',
   ),
  'assigned_user_id' => array (
     'name' => 'assigned_user_id',
-    'rname' => 'user_name',
-    'id_name' => 'assigned_user_id',
     'vname' => 'LBL_ASSIGNED_TO',
-    'type' => 'assigned_user_name',
-    'table' => 'users',
+    'type' => 'id',
     'isnull' => 'false',
-    'reportable'=>true,
-    'dbType' => 'id',
+    'reportable'=>false,
     'audited'=>true,
     'comment' => 'User ID assigned to record'
     ),
@@ -449,11 +445,21 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
  'views_number'=>
   array (
     'name' => 'views_number',
+    'vname' => 'LBL_VIEWS_NUMBER',
     'type' => 'varchar',
     'reportable'=>false,
     'source'=>'non-db'
   ),
-
+  // Add a fake field as a placeholder for the API to populate with related data
+  'attachment_list'=>
+  array (
+      'name' => 'attachment_list',
+      'type' => 'text',
+      'source' => 'non-db',
+      'reportable' => false,
+      'read-only' => true,
+      'studio' => false,
+  ),
   'parent_id' =>
   array (
     'name' => 'parent_id',
@@ -479,6 +485,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
         'module'          => 'Cases',
         'massupdate'      => false,
         'duplicate_merge' => 'disabled',
+        'reportable'      => false,
     ),
 
     'case_name' => array(
@@ -486,7 +493,7 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
         'rname'           => 'name',
         'vname'           => 'LBL_CASE',
         'type'            => 'relate',
-        'link'            => 'case_kbdocuments',
+        'link'            => 'revisions',
         'isnull'          => 'true',
         'reportable'      => false,
         'source'          => 'non-db',
@@ -496,9 +503,10 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
         'duplicate_merge' => 'disabled',
 ),
 ),
- 'indices' => array (
-       array('name' =>'kbdocumentspk', 'type' =>'primary', 'fields'=>array('id')),
-       ),
+    'indices' => array(
+        array('name' => 'kbdocumentspk', 'type' => 'primary', 'fields' => array('id')),
+        array('name' => 'idx_kbdocument_date_entered', 'type' => 'index', 'fields' => array('date_entered')),
+    ),
  'relationships' => array (
     'kbdocument_revisions' => array('lhs_module'=> 'KBDocuments', 'lhs_table'=> 'kbdocuments', 'lhs_key' => 'id',
                               'rhs_module'=> 'KBDocumentRevisions', 'rhs_table'=> 'kbdocument_revisions', 'rhs_key' => 'kbdocument_id',
@@ -537,4 +545,4 @@ $dictionary['KBDocument'] = array('table' => 'kbdocuments',
 VardefManager::createVardef('KBDocuments','KBDocument', array(
 'team_security',
 ));
-?>
+

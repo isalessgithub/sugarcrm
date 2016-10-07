@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Da li ste sigurni da želite da obrišete ovu kompaniju iz projekta?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Pozivi',
   'LBL_CAMPAIGNS' => 'Kampanje',
   'LBL_CAMPAIGN_ID' => 'ID kampanje',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Log kampanje',
   'LBL_CASES_SUBPANEL_TITLE' => 'Slučajevi',
   'LBL_CHARTS' => 'Dijagrami',
   'LBL_CITY' => 'Grad:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Kompanije',
   'LBL_DESCRIPTION' => 'Opis:',
   'LBL_DESCRIPTION_INFORMATION' => 'Opisne informacije',
+  'LBL_DNB_BAL_PREVIEW' => 'Pregled kompanija.',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenta',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Moguća duplirana kompanija',
   'LBL_EMAIL' => 'Email adresa:',
   'LBL_EMAIL_ADDRESSES' => 'Email adrese',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Zaposlenih:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ime dodeljenog korisnika',
   'LBL_FAX' => 'Faks:',
+  'LBL_FILENAME' => 'Prilog',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Izveštaji računa',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}  modul se sastoji od kompanija ka kojima vaša organizacija ima veze i deneralno je viđena kao čvorna za upravljanje i analizu vašeg poslovnog komuniciranja sa svakim klijentom. Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '•	{{plural_module_name}}  modul se sastoji od kompanija ka kojima vaša organizacija ima veze i deneralno je viđena kao čvorna za upravljanje i analizu vašeg poslovnog komuniciranja sa svakim klijentom. - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '•	{{plural_module_name}}  modul se sastoji od kompanija ka kojima vaša organizacija ima veze i deneralno je viđena kao čvorna za upravljanje i analizu vašeg poslovnog komuniciranja sa svakim klijentom. Postoji nekoliko načina da se kreira {{plural_module_name}} u Sugar-u kao što su preko {{plural_module_name}} modula, dupliranjem, uvozom {{plural_module_name}}, itd. Jednom kada je {{module_name}} zapis kreiran, moguć je pregled i izmena podataka koji se tiču {{module_name}} preko {{plural_module_name}} pregleda zapisa. Svaki {{module_name}} zapis onda može da ukazuje na zapis Sugar-a kao što su {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, i mnogi drugi kako odnos sa klijentom sazreva.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Istorija',
   'LBL_HOMEPAGE_TITLE' => 'Moje kompanije',
   'LBL_INDUSTRY' => 'Industrija',
@@ -98,6 +103,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Kompanije: Početna strana',
   'LBL_NAME' => 'Naziv:',
   'LBL_NEW_FORM_TITLE' => 'Nova kompanija',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Beleške',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Prodajne prilike',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Drugi Email:',
   'LBL_OTHER_PHONE' => 'Drugi telefon:',
@@ -110,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Telefax:',
   'LBL_PHONE_OFFICE' => 'Kancelarijski telefon:',
   'LBL_POSTAL_CODE' => 'Poštanski broj:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Proizvodi',
   'LBL_PRODUCTS_TITLE' => 'Proizvodi',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekti',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekti',
@@ -121,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Prosledi',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Ponude',
   'LBL_RATING' => 'Rang:',
+  'LBL_REVENUELINEITEMS' => 'Stavke prihoda',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Stavke prihoda',
   'LBL_SAVE_ACCOUNT' => 'Sačuvaj kompaniju',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga kompanije',
   'LBL_SHIPPING_ADDRESS' => 'Adresa dostave:',
@@ -146,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Web stranica:',
   'LNK_ACCOUNT_LIST' => 'Prikaži kompanije',
   'LNK_ACCOUNT_REPORTS' => 'Prikaži izveštaje kompanije',
+  'LNK_CREATE' => 'Napravite kompaniju',
   'LNK_IMPORT_ACCOUNTS' => 'Uvezi kompanije',
   'LNK_NEW_ACCOUNT' => 'Kreiraj kompaniju',
   'MSG_DUPLICATE' => 'Zapis kompanije koju kreirate možda je duplikat zapisa kompanije koji već postoji. Zapisi kompanije koji sadrže slična imena izlistani su ispod.<br>Kliknite Kreiraj kompaniju da bi nastavili sa kreiranjem ovog nove kompanije, ili odaberite postojeću kompaniju sa liste ispod.',

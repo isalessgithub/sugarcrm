@@ -1,39 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Case is used to store customer information.
+// aCase is used to store case information.
 class aCase extends Basic {
         var $field_name_map = array();
 	// Stored fields
@@ -66,7 +44,6 @@ class aCase extends Basic {
 	var $call_id;
 	var $email_id;
 	var $assigned_user_name;
-	var $account_name1;
 	var $team_name;
 	var $system_id;
 
@@ -89,10 +66,21 @@ class aCase extends Basic {
 									'meeting_id'=>'meetings', 'call_id'=>'calls', 'email_id'=>'emails',
 									);
 
-	function aCase() {
-		parent::SugarBean();
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function aCase()
+    {
+        self::__construct();
+    }
+
+	public function __construct() {
+		parent::__construct();
 		global $sugar_config;
-		if(!$sugar_config['require_accounts']){
+		if(empty($sugar_config['require_accounts'])){
 			unset($this->required_fields['account_name']);
 		}
 
@@ -149,28 +137,9 @@ class aCase extends Basic {
 		$this->contacts->add($contact_id,array('contact_role'=>$default));
 	}
 
-	function fill_in_additional_list_fields()
-	{
-		parent::fill_in_additional_list_fields();
-		/*// Fill in the assigned_user_name
-		//$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-		$this->assigned_name = get_assigned_team_name($this->team_id);
-
-		$account_info = $this->getAccount($this->id);
-		$this->account_name = $account_info['account_name'];
-		$this->account_id = $account_info['account_id'];*/
-	}
-
 	function fill_in_additional_detail_fields()
 	{
 		parent::fill_in_additional_detail_fields();
-		// Fill in the assigned_user_name
-		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
-		$this->assigned_name = get_assigned_team_name($this->team_id);
-        $this->team_name=$this->assigned_name;
-
-		$this->created_by_name = get_assigned_user_name($this->created_by);
-		$this->modified_by_name = get_assigned_user_name($this->modified_user_id);
 
         if(!empty($this->id)) {
 		    $account_info = $this->getAccount($this->id);
@@ -183,10 +152,7 @@ class aCase extends Basic {
 
 
 	/** Returns a list of the associated contacts
-	 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc..
-	 * All Rights Reserved..
-	 * Contributor(s): ______________________________________..
-	*/
+	 */
 	function get_contacts()
 	{
 		$this->load_relationship('contacts');
@@ -200,7 +166,7 @@ class aCase extends Basic {
 			$query.=' '.$qstring;
 		}
 	    $temp = Array('id', 'first_name', 'last_name', 'title', 'email1', 'phone_work', 'case_role', 'case_rel_id');
-		return $this->build_related_list2($query, new Contact(), $temp);
+		return $this->build_related_list2($query, BeanFactory::getBean('Contacts'), $temp);
 	}
 
 	function get_list_view_data(){
@@ -269,8 +235,7 @@ class aCase extends Basic {
 		if(!isset($this->system_id) || empty($this->system_id))
 		{
 
-			$admin = new Administration();
-			$admin->retrieveSettings();
+			$admin = Administration::getSettings();
 			$system_id = $admin->settings['system_system_id'];
 			if(!isset($system_id)){
 				$system_id = 1;

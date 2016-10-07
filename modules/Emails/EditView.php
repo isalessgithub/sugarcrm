@@ -1,25 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $GLOBALS['log']->info("Email edit view");
 
 require_once('include/SugarTinyMCE.php');
-
-
-
 
 global $theme;
 global $app_strings;
@@ -31,10 +24,10 @@ global $timedate;
 
 ///////////////////////////////////////////////////////////////////////////////
 ////	PREPROCESS BEAN DATA FOR DISPLAY
-$focus = new Email();
+$focus = BeanFactory::getBean('Emails');
 $email_type = 'archived';
 
-if(isset($_REQUEST['record'])) {
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 }
 if(!empty($_REQUEST['type'])) {
@@ -51,10 +44,8 @@ if(isset($_REQUEST['contact_name']) && is_null($focus->contact_name)) {
 }
 
 if(!empty($_REQUEST['load_id']) && !empty($beanList[$_REQUEST['load_module']])) {
-	$class_name = $beanList[$_REQUEST['load_module']];
-	require_once($beanFiles[$class_name]);
-	$contact = new $class_name();
-	if($contact->retrieve($_REQUEST['load_id'])) {
+    $contact = BeanFactory::retrieveBean($_REQUEST['load_module'], $_REQUEST['load_id']);
+	if(!empty($contact)) {
     	$link_id = $class_name . '_id';
     	$focus->$link_id = $_REQUEST['load_id'];
     	$focus->contact_name = (isset($contact->full_name)) ? $contact->full_name : $contact->name;
@@ -63,14 +54,16 @@ if(!empty($_REQUEST['load_id']) && !empty($beanList[$_REQUEST['load_module']])) 
         //Retrieve the email address.
         //If Opportunity or Case then Oppurtinity/Case->Accounts->(email_addr_bean_rel->email_addresses)
         //If Contacts, Leads etc.. then Contact->(email_addr_bean_rel->email_addresses)
-    	$sugarEmailAddress = new SugarEmailAddress();
-    	if($class_name == 'Opportunity' || $class_name == 'aCase'){
-    		$account = new Account();
-    		if($contact->account_id != null && $account->retrieve($contact->account_id)){
-    			$sugarEmailAddress->handleLegacyRetrieve($account);
-    		    if(isset($account->email1)){
-	    			$focus->to_addrs_emails = $account->email1;
-	    			$focus->to_addrs = "$focus->contact_name <$account->email1>";
+    	$sugarEmailAddress = BeanFactory::getBean('EmailAddresses');
+    	if($contact->object_name == 'Opportunity' || $contact->object_name == 'aCase'){
+    	    if(!empty($contact->account_id)) {
+    		    $account = BeanFactory::retrieveBean('Accounts', $contact->account_id);
+    		    if(!empty($account)){
+        			$sugarEmailAddress->handleLegacyRetrieve($account);
+        		    if(isset($account->email1)){
+    	    			$focus->to_addrs_emails = $account->email1;
+    	    			$focus->to_addrs = "$focus->contact_name <$account->email1>";
+        		    }
     		    }
     		}
     	}
@@ -158,9 +151,9 @@ if($email_type == 'archived') {
 		$return_id = $_REQUEST['return_module'];
 	}
 	$replyType = "reply";
-    if ($_REQUEST['type'] == 'forward' || $_REQUEST['type'] == 'replyAll') {
-        $replyType = $_REQUEST['type'];
-    }
+	if (!empty($_REQUEST['type']) && ($_REQUEST['type'] == 'forward' || $_REQUEST['type'] == 'replyAll')) {
+		$replyType = $_REQUEST['type'];
+	}
 
 	header("Location: index.php?module=Emails&action=Compose&record=$focus->id&replyForward=true&reply=$replyType");
 	return;
@@ -191,8 +184,7 @@ if(isset($_REQUEST['email_name'])) {
 	$name = str_replace('_',' ',$_REQUEST['email_name']);
 }
 if(isset($_REQUEST['inbound_email_id'])) {
-	$ieMail = new Email();
-	$ieMail->retrieve($_REQUEST['inbound_email_id']);
+	$ieMail = BeanFactory::getBean('Emails', $_REQUEST['inbound_email_id']);
 
 	$quoted = '';
 	// cn: bug 9725: replies/forwards lose real content
@@ -248,8 +240,7 @@ if(isset($_REQUEST['inbound_email_id'])) {
 		// "Read" flag for InboundEmail
 		if($ieMail->status == 'unread') {
 			// creating a new instance here to avoid data corruption below
-			$e = new Email();
-			$e->retrieve($ieMail->id);
+			$e = BeanFactory::getBean('Emails', $ieMail->id);
 			$e->status = 'read';
 			$e->save();
 			$email_type = $e->status;
@@ -258,8 +249,8 @@ if(isset($_REQUEST['inbound_email_id'])) {
 
 	///////////////////////////////////////////////////////////////////////////
 	////	PRIMARY PARENT LINKING
-	if(empty($focus->parent_type) && empty($focus->parent_id)) {
-		$focus->fillPrimaryParentFields();
+	if (!empty($focus->parent_type) && empty($focus->parent_id)) {
+		$focus->fillPrimaryParentFields($focus->parent_type);
 	}
 	////	END PRIMARY PARENT LINKING
 	///////////////////////////////////////////////////////////////////////////
@@ -305,8 +296,7 @@ if(!empty($_REQUEST['parent_id']) && !empty($_REQUEST['parent_type'])) {
 if(!empty($focus->parent_id) && !empty($focus->parent_type)) {
 	if($focus->parent_type == 'Cases') {
 
-		$myCase = new aCase();
-		$myCase->retrieve($focus->parent_id);
+		$myCase = BeanFactory::getBean('Cases', $focus->parent_id);
 		$myCaseMacro = $myCase->getEmailSubjectMacro();
 		if(isset($ieMail->name) && !empty($ieMail->name)) { // if replying directly to an InboundEmail
 			$oldEmailSubj = $ieMail->name;
@@ -460,7 +450,7 @@ $xtpl->assign('TIME_START', substr($focus->time_start,0,5));
 $xtpl->assign('TIME_MERIDIEM', $timedate->AMPMMenu('',$focus->time_start));
 
 $parent_types = $app_list_strings['record_type_display'];
-$disabled_parent_types = ACLController::disabledModuleList($parent_types,false, 'list');
+$disabled_parent_types = SugarACL::disabledModuleList($parent_types);
 
 foreach($disabled_parent_types as $disabled_parent_type){
 	if($disabled_parent_type != $focus->parent_type){
@@ -610,7 +600,7 @@ if(!empty($focus->id) || (!empty($_REQUEST['record']) && $_REQUEST['type'] == 'f
 	$ids = '';
 
 	$focusId = empty($focus->id) ? $_REQUEST['record'] : $focus->id;
-	$note = new Note();
+	$note = BeanFactory::getBean('Notes');
 	$where = "notes.parent_id='{$focusId}' AND notes.filename IS NOT NULL";
 	$notes_list = $note->get_full_list("", $where,true);
 
@@ -690,7 +680,7 @@ if($parse_open) {
 ///////////////////////////////////////////////////////////////////////////////
 ////	EMAIL TEMPLATES
 if(ACLController::checkAccess('EmailTemplates', 'list', true) && ACLController::checkAccess('EmailTemplates', 'view', true)) {
-	$et = new EmailTemplate();
+	$et = BeanFactory::getBean('EmailTemplates');
 	$etResult = $focus->db->query($et->create_new_list_query('','',array(),array(),''));
 	$email_templates_arr[] = '';
 	while($etA = $focus->db->fetchByAssoc($etResult)) {

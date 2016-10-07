@@ -2,56 +2,53 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => '必须指定记录编号才能删除客户。',
-  'ERR_EMAIL_INCORRECT' => '请提供一个有效的电子邮件地址用以生成和发送密码.',
-  'ERR_EMAIL_NOT_SENT_ADMIN' => '系统无法处理您的请求. 请检查:',
-  'ERR_EMAIL_NO_OPTS' => '不能找到进往邮箱的最佳设置。',
+  'ERR_DELETE_RECORD' => '必须指定记录编号才能删除帐户。',
+  'ERR_EMAIL_INCORRECT' => '请提供有效的电子邮件地址以便生成密码发送给您。',
+  'ERR_EMAIL_NOT_SENT_ADMIN' => '系统无法处理您的请求。请检查：',
+  'ERR_EMAIL_NO_OPTS' => '找不到收入电子邮件的最佳设置。',
   'ERR_ENTER_CONFIRMATION_PASSWORD' => '请输入确认密码。',
-  'ERR_ENTER_NEW_PASSWORD' => '请输入新密码',
-  'ERR_ENTER_OLD_PASSWORD' => '请输入旧密码',
+  'ERR_ENTER_NEW_PASSWORD' => '请输入新密码。',
+  'ERR_ENTER_OLD_PASSWORD' => '请输入现有密码。',
   'ERR_IE_FAILURE1' => '[点击这儿返回]',
-  'ERR_IE_FAILURE2' => '连接电子邮件帐户存在问题。请检查您的设置，再试一次。',
-  'ERR_IE_MISSING_REQUIRED' => '内部邮件的设置丢失了需要的信息。请查看您的设置后重试。如果您没有设置内部邮件, 请清除这个段的所有字段.',
+  'ERR_IE_FAILURE2' => '无法连接电子邮件帐户。请检查您的设置后再试一次。',
+  'ERR_IE_MISSING_REQUIRED' => '收件邮箱的设置尚缺必须信息。请查看您的设置后重试。如果您不要设置收件邮箱，请清除这个段的所有字段。',
   'ERR_INVALID_PASSWORD' => '您必须指定一个有效的用户名和密码。',
   'ERR_LAST_ADMIN_1' => '用户名“',
-  'ERR_LAST_ADMIN_2' => '”是最后一个具有管理员权限的员工。至少有一个员工必须是管理员。',
-  'ERR_NO_LOGIN_MOBILE' => '您第一次登录本系统必须使用非移动浏览器或者使用常规模式. 请使用全能浏览器或者点击下面的常规链接. 由此造成的不便我们深表歉意.',
-  'ERR_PASSWORD_CHANGE_FAILED_1' => '用户密码更改失败因为',
+  'ERR_LAST_ADMIN_2' => '”是最后一个具有管理员权限的用户。至少有一个用户必须是管理员。',
+  'ERR_NO_LOGIN_MOBILE' => '您第一次登录本系统必须使用非移动浏览器或者使用常规模式。请使用全能浏览器或者单击下面的常规链接。为此造成不便，我们深表歉意。',
+  'ERR_PASSWORD_CHANGE_FAILED_1' => '用户密码更改失败为',
   'ERR_PASSWORD_CHANGE_FAILED_2' => '失败。必须设置新密码。',
-  'ERR_PASSWORD_CHANGE_FAILED_3' => '.新密码无效。',
-  'ERR_PASSWORD_INCORRECT_OLD_1' => '用户的旧密码不正确',
+  'ERR_PASSWORD_CHANGE_FAILED_3' => '。新密码无效。',
+  'ERR_PASSWORD_INCORRECT_OLD_1' => '用户的现有密码不正确',
   'ERR_PASSWORD_INCORRECT_OLD_2' => '。重新输入密码信息。',
-  'ERR_PASSWORD_LINK_EXPIRED' => '您的链接已过期, 请生成一个新的链接',
+  'ERR_PASSWORD_LINK_EXPIRED' => '您的链接已过期，请生成一个新链接',
   'ERR_PASSWORD_MISMATCH' => '密码不匹配。',
-  'ERR_PASSWORD_USERNAME_MISSMATCH' => '您必须指定一个有效的用户名和电子邮件地址.',
+  'ERR_PASSWORD_USERNAME_MISSMATCH' => '您必须指定一个有效的用户名和电子邮件地址。',
   'ERR_REASS_DIFF_USERS' => '请选择一个分配给的用户，与从用户中指派不同.',
   'ERR_REASS_SELECT_MODULE' => '请退回并至少选择一个模块.',
   'ERR_RECIPIENT_EMAIL' => '收件人电子邮件地址',
-  'ERR_REENTER_PASSWORDS' => '请重新输入密码。“新密码”和“确认密码”不匹配。',
-  'ERR_REPORT_LOOP' => '系统检测到一个汇报循环。用户不可以向自己汇报，用户的经理也不可以汇报给他们。',
-  'ERR_RULES_NOT_MET' => '您输入的密码不符合密码的要求. 请再试一遍.',
-  'ERR_SERVER_SMTP_EMPTY' => '系统无法发送邮件到该用户. 请检查系统发信设置.',
+  'ERR_REENTER_PASSWORDS' => '“新密码”和“确认密码”不匹配。',
+  'ERR_REPORT_LOOP' => '系统检测到一个汇报循环。用户不可以向自己汇报，用户的经理也不可以向他们汇报。',
+  'ERR_RULES_NOT_MET' => '您输入的密码不符合密码的要求，请再试一遍。',
+  'ERR_SERVER_SMTP_EMPTY' => '系统无法发送邮件给用户。请到 <a href="index.php?module=EmailMan&action=config">电子邮件设置</a>检查系统发信配置.',
   'ERR_SERVER_STATUS' => '您的服务器状态',
-  'ERR_SMTP_URL_SMTP_PORT' => 'SMTP服务器地址与端口',
-  'ERR_SMTP_USERNAME_SMTP_PASSWORD' => 'SMTP用户名与密码',
+  'ERR_SMTP_URL_SMTP_PORT' => 'SMTP服务器URL和端口',
+  'ERR_SMTP_USERNAME_SMTP_PASSWORD' => 'SMTP用户名和密码',
   'ERR_USER_INFO_NOT_FOUND' => '未找到用户信息',
-  'ERR_USER_IS_LOCKED_OUT' => '当前用户已被锁定, 不能使用现有密码登录. 欲尝试再次登录Sugar, 请点击发送新密码按钮.',
+  'ERR_USER_IS_LOCKED_OUT' => '当前用户已被锁在Sugar系统外，无法使用现有密码登录。',
   'ERR_USER_NAME_EXISTS_1' => '用户名',
   'ERR_USER_NAME_EXISTS_2' => '已存在。用户名不可以重复。用户名必须是唯一的。',
   'LBL_ACCOUNT_NAME' => '客户名称',
@@ -62,11 +59,11 @@ $mod_strings = array (
   'LBL_ADDRESS_POSTALCODE' => '邮编',
   'LBL_ADDRESS_STATE' => '省份',
   'LBL_ADDRESS_STREET' => '街道',
-  'LBL_ADDRESS_STREET_2' => '第二地址/街道',
-  'LBL_ADDRESS_STREET_3' => '第三地址/街道',
+  'LBL_ADDRESS_STREET_2' => '地址/街道第2行',
+  'LBL_ADDRESS_STREET_3' => '地址/街道第3行',
   'LBL_ADMIN' => '管理员',
   'LBL_ADMIN_DESC' => '用户可以跳过团队安全和角色权限访问所有模块和记录.',
-  'LBL_ADMIN_USER' => '系统管理员',
+  'LBL_ADMIN_USER' => '系统管理员用户',
   'LBL_ADVANCED' => '高级',
   'LBL_AFFECTED' => '条记录',
   'LBL_ANY_ADDRESS' => '任何地址:',
@@ -100,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => '由创建',
   'LBL_CURRENCY' => '货币',
   'LBL_CURRENCY_EXAMPLE' => '货币显示实例',
+  'LBL_CURRENCY_SHOW_PREFERRED' => '显示首选货币',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => '转换基准货币，以用户首选列表和记录意见',
   'LBL_CURRENCY_SIG_DIGITS' => '货币精确度',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => '显示货币小数的个数',
   'LBL_CURRENCY_TEXT' => '选择默认的货币',
@@ -109,15 +108,15 @@ $mod_strings = array (
   'LBL_DATE_MODIFIED' => '修改日期',
   'LBL_DECIMAL_SEP' => '小数符号',
   'LBL_DECIMAL_SEP_TEXT' => '分隔小数部分的字符',
-  'LBL_DEFAULT_PRIMARY_TEAM' => '默认主要团队',
+  'LBL_DEFAULT_PRIMARY_TEAM' => '默认主团队',
   'LBL_DEFAULT_SUBPANEL_TITLE' => '用户',
   'LBL_DEFAULT_TEAM' => '默认团队',
-  'LBL_DEFAULT_TEAM_TEXT' => '新记录的默认团队',
+  'LBL_DEFAULT_TEAM_TEXT' => '纪录上默认显示的团队是您是其成员的团队。',
   'LBL_DELETED' => '删除',
-  'LBL_DELETE_GROUP_CONFIRM' => '是否确认删除组用户?点击OK删除此用户。<br/>在点击OK后，你将有权限把分配给此组用户的记录重指向到其他用户。',
-  'LBL_DELETE_PORTAL_CONFIRM' => '是否确认删除此平台API用户?点击OK删除此用户。',
+  'LBL_DELETE_GROUP_CONFIRM' => '您是否确定删除此组用户？单击OK即可删除用户纪录。<br/>在点击OK后，您将有权限把指派给组用户的纪录另指派给另一用户。',
+  'LBL_DELETE_PORTAL_CONFIRM' => '您是否确定删除此平台API用户？单击OK即可删除用户纪录。',
   'LBL_DELETE_USER' => '删除用户',
-  'LBL_DELETE_USER_CONFIRM' => '当用户记录被删除，相应的员工记录也将被删除。 用户被删除后，任何与此用户相关的工作流的定义和报可能需要更新。<br/><br/>点击ok删除用户记录',
+  'LBL_DELETE_USER_CONFIRM' => '删除用户纪录的同时也删除了对应的员工纪录。 用户一经删除，任何与此用户相关的工作流定义和报表可能需要更新。<br/><br/>删除用户纪录的动作不可解除。',
   'LBL_DEPARTMENT' => '部门',
   'LBL_DESCRIPTION' => '说明',
   'LBL_DISPLAY_TABS' => '显示标签',
@@ -129,7 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => '编辑标签',
   'LBL_EMAIL' => '电子邮件地址',
   'LBL_EMAILS' => '电邮',
-  'LBL_EMAIL_ADDRESS' => '电子邮件:',
+  'LBL_EMAIL_ADDRESS' => '电子邮件地址',
   'LBL_EMAIL_CHARSET' => '发件箱字符集',
   'LBL_EMAIL_EDITOR_OPTION' => '撰写格式',
   'LBL_EMAIL_GMAIL_DEFAULTS' => '预先填入Gmail默认值',
@@ -162,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => '传真',
   'LBL_FDOW' => '一周首日',
   'LBL_FDOW_TEXT' => '显示在每周，每月和每年的首日',
+  'LBL_FILTER_USERS_REPORTS' => '用户报告',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>寻找最佳连接变量。',
   'LBL_FIND_OPTIMUM_TITLE' => '寻找最佳配置',
@@ -169,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => '强制否定',
   'LBL_FORCE_DESC' => '一些IMAP/POP3服务器需要特殊的交换机。当连接失败的时候，请检查交换机(比如 /notls)',
   'LBL_FORECASTS' => '销售预测',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => '目前未启用。请联系您的系统管理员',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>发现最优设置。点击下面的按钮来提交他们到您的邮箱。',
   'LBL_GENERATE_PASSWORD' => '重设密码',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -276,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => '我的团队',
   'LBL_NAME' => '全名',
   'LBL_NAVIGATION_PARADIGM' => '导航范例',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => '使用分组标签来代替模块标签。',
   'LBL_NEW_FORM_TITLE' => '新增用户',
   'LBL_NEW_PASSWORD' => '新密码',
   'LBL_NEW_PASSWORD1' => '密码',
@@ -355,7 +355,7 @@ $mod_strings = array (
   'LBL_PORTAL_ONLY_USER' => '门户专用用户',
   'LBL_POSTAL_CODE' => '邮编',
   'LBL_PRIMARY_ADDRESS' => '主要地址',
-  'LBL_PRIVATE_TEAM_FOR' => '私有团队',
+  'LBL_PRIVATE_TEAM_FOR' => '私有团队属于',
   'LBL_PROCESSING' => '正在处理',
   'LBL_PROMPT_TIMEZONE' => '时区提示',
   'LBL_PROMPT_TIMEZONE_TEXT' => '检查并提示用户在登录时确认时区。',
@@ -437,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => '经理',
   'LBL_REQUEST_SUBMIT' => '您的请求已提交.',
   'LBL_RESET_DASHBOARD' => '统计图',
-  'LBL_RESET_HOMEPAGE' => '重新设置默认主页',
-  'LBL_RESET_HOMEPAGE_WARNING' => '您确定要重新设置您的主页吗?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => '你确定要重置该用户的主页吗？',
   'LBL_RESET_PREFERENCES' => '恢复默认值',
   'LBL_RESET_PREFERENCES_WARNING' => '您确定要重新设置您所有的参数?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => '你确定要重置该用户的偏好设置吗？',
@@ -474,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => '状态',
   'LBL_SUBPANEL_LINKS' => '面板链接',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => '在详细视图中，显示一行面板的快速链接。',
-  'LBL_SUBPANEL_TABS' => '面板标签',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => '在详细视图中，把面板分组到标签中，并且一次显示一个标签。',
   'LBL_SUGAR_LOGIN' => '是sugar用户',
   'LBL_SUPPORTED_THEME_ONLY' => '只有影响主题才支持这个选项。',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => '如果选中，在边上显示最近查看栏。否则的话，它会在顶部显示。',
@@ -483,11 +478,13 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => '如果选中，在顶部显示快捷方式栏。否则的话，它会在边上显示。',
   'LBL_SWAP_SHORTCUT_POSITION' => '顶部显示快捷方式',
   'LBL_SYSTEM_GENERATED_PASSWORD' => '系统生成密码',
+  'LBL_SYSTEM_SIG_DIGITS' => '系统重要数字',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => '全系统所用十进制和浮点应采用的十进制小数位数，例如报表内的货币和平均值。',
   'LBL_TAB_TITLE_EMAIL' => '电子邮件设置',
   'LBL_TAB_TITLE_USER' => '用户设置',
   'LBL_TEAMS' => '团队',
   'LBL_TEAM_MEMBERSHIP' => '团队成员',
-  'LBL_TEAM_SET' => '团队列表',
+  'LBL_TEAM_SET' => '团队设置',
   'LBL_TEAM_UPLINE' => '成员汇报给',
   'LBL_TEAM_UPLINE_EXPLICIT' => '成员',
   'LBL_TEST_BUTTON_KEY' => 't',
@@ -574,6 +571,6 @@ $mod_strings = array (
   'LNK_NEW_USER' => '新增用户',
   'LNK_REASSIGN_RECORDS' => '重新分配记录',
   'LNK_USER_LIST' => '用户',
-  'NTC_REMOVE_TEAM_MEMBER_CONFIRMATION' => '您确定要移除这个用户的成员关系吗?',
+  'NTC_REMOVE_TEAM_MEMBER_CONFIRMATION' => '您是否确定要移除这个用户的成员关系？',
 );
 

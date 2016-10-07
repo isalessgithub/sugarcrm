@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 global $timedate;
@@ -30,11 +27,22 @@ class CalendarGrid {
 	protected $date_time_format; // user date time format
 	protected $scroll_height; // height of scrollable div
 
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function CalendarGrid(Calendar $cal)
+    {
+        self::__construct($cal);
+    }
+
 	/**
 	 * constructor
 	 * @param Calendar $cal
 	 */
-	function __construct(Calendar $cal){
+	public function __construct(Calendar $cal){
 		global $current_user;
 		$this->cal = $cal;
 		$today = $GLOBALS['timedate']->getNow(true)->get_day_begin();
@@ -53,7 +61,7 @@ class CalendarGrid {
 
 		$this->scrollable = false;
         if (!($this->cal->isPrint() && $this->cal->view == 'day')) {
-            if(in_array($this->cal->view,array('day','week'))){
+            if (in_array($this->cal->view, array('day', 'week', 'shared'))) {
                $this->scrollable = true;
                if($this->cal->time_step < 30)
                     $this->scroll_height = 480;
@@ -362,7 +370,7 @@ class CalendarGrid {
 		$str .= "<div id='cal-grid' style='visibility: hidden;'>";
 		$user_number = 0;
 
-		$shared_user = new User();
+		$shared_user = BeanFactory::getBean('Users');
 		foreach($this->cal->shared_ids as $member_id){
 
 			$user_number_str = "_".$user_number;
@@ -374,6 +382,7 @@ class CalendarGrid {
 
 			$str .= $this->get_basic_row($week_start_ts,7,$user_number_str);
 			if(!$basic){
+                $str .= "<div id='cal-scrollable' style='height: ".$this->scroll_height."px;'>";
 				$str .= $this->get_time_column($week_start_ts);
 					$str .= "<div class='week'>";
 					for($d = 0; $d < 7; $d++){
@@ -381,9 +390,11 @@ class CalendarGrid {
 						$str .= $this->get_day_column($curr_time,$d,$user_number_str);
 					}
 					$str .= "</div>";
-				$str .= "</div>";
+                $str .= "<div style='clear: left;'></div>";
+                $str .= "</div>";
 			}
 			$user_number++;
+            $str .= "</div>";
 		}
 		$str .= "</div>";
 

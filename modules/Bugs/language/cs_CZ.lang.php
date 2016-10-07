@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,23 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Opraveno ve verzi:',
   'LBL_FOUND_IN_RELEASE' => 'Nalezeno ve verzi:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Nalezeno v',
+  'LBL_HELP_CREATE' => 'Modul Chyby se používá ke sledování a správě problémů souvisejících s produktem, obecně nazývaných Chyby nebo Nedostatky, jak nalezených interně nebo nahlášených klienty.
+
+K zaznamenání chyby:
+1. Zadejte dle potřeby hodnoty do polí.
+- Pole označená jako povinná musejí být vyplněna před uložením.
+- Klikněte na tlačítko Zobrazit více pro odhalení dalších polí, pokud je potřeba.
+2. Klikněte “Uložit” k dokončení nového záznamu a návrat na předchozí stránku.
+- Vyberte “Uložit a zobrazit” k otevření nové chyby v detailním okně.
+- Vyberte “Uložit a vytvořit novou” k bezprostřednímu vytvoření další nové chyby.',
+  'LBL_HELP_RECORD' => 'Modul Chyby se používá ke sledování a správě problémů souvisejících s produktem, obecně zmiňovaný jako chyby, jak nalezené interně nebo nahlášené zákazníky.
+
+- Upravte pole tohoto záznamu kliknutím na jednotlivé pole nebo tlačítko Upravit.
+- Zobrazte nebo změňte vazby na ostatní záznamy v podřízených panelech přepnutím spodního pole na Data..
+- Vytvořte a prohlédněte si uživatelské komentáře a historii změn záznamu v modulu {{activitystream_singular_module}} přepnutím spodního levého pole na Tok aktivity.
+- Sledujte nebo označte tento záznam jako oblíbený pomocí ikon vpravo od názvu záznamu.
+- Další akce jsou dostupné ve výběrovém menu Akce vpavo od talčítka Upravit.',
+  'LBL_HELP_RECORDS' => 'Modul Chyby se používá ke sledování a správě problémů souvisejících s produktem, obecně zmiňovaný jako chyby, jak nalezené interně nebo nahlášené zákazníky. Chyby mohou být dále vybrány sledováním vydání, ve kterém byly nalezeny a opraveny. Modul Chyby dává uživatelům způsob, jak rychle prohlédnout všechny detaily chyby a proces, použitý k opravě. Jakmile je chyba vytvořena a uložena, můžete si prohlédnout a upravit informace příslušející k chybě promocí pohledu na záznam chyby. Každý záznam chyby může souviset s jinými záznamy Sugaru, jako například {{calls_module}}, {{contacts_module}}, {{cases_module}}, a mnohé další.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historie',
   'LBL_INVITEE' => 'Kontakty',
   'LBL_LIST_ACCOUNT_NAME' => 'Název společnosti',
@@ -69,7 +83,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Chyba:',
   'LBL_MODULE_TITLE' => 'Sledování chyb',
   'LBL_NEW_FORM_TITLE' => 'Nová chyba',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Poznámky',
   'LBL_NUMBER' => 'Číslo:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Pokud jste našli novou chybu, kterou byste chtěli nahlásit, můžete tak učinit kliknutím zde.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Můžete omezit seznam chyb zadáním podmínek hledání.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Můžete například použít toto k vyhledání chyby, která byla předtím nahlášena.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Modul Chyby slouží k zobrazení a nahlašování chyb. Použijte šipky níže k projití rychlým průvodcem.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Tato stránka zobrazuje seznam nahlášených chyb.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Kliknutím zde se kdykoliv vrátíte do tohoto pohledu.',
   'LBL_PORTAL_VIEWABLE' => 'Portál aktivní',
   'LBL_PRIORITY' => 'Priorita:',
   'LBL_PRODUCT_CATEGORY' => 'Kategorie:',

@@ -1,25 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: TODO:  To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /** @var AuthenticationController $authController */
 $authController->authController->pre_login();
 
@@ -50,11 +40,11 @@ global $app_language, $sugar_config;
 global $current_language;
 
 // Get the login page image
-if ( sugar_is_file('custom/include/images/sugar_md.png') ) {
-    $login_image = '<IMG src="custom/include/images/sugar_md.png" alt="Sugar" width="340" height="25">';
+if ( SugarAutoLoader::existing('custom/include/images/sugar_md.png') ) {
+    $login_image = '<IMG src="'.getJSPath('custom/include/images/sugar_md.png').'" alt="Sugar" width="340" height="25">';
 }
 else {
-    $login_image = '<IMG src="include/images/sugar_md.png" alt="Sugar" width="340" height="25">';
+    $login_image = '<IMG src="'.getJSPath('include/images/sugar_md.png').'" alt="Sugar" width="340" height="25">';
 }
 $sugar_smarty->assign('LOGIN_IMAGE',$login_image);
 
@@ -84,7 +74,7 @@ if(!isset($_SESSION['LICENSE_EXPIRES_IN'])){
 }
 
 if(!ocLicense() && isset($_SESSION['LICENSE_EXPIRES_IN']) && $_SESSION['LICENSE_EXPIRES_IN'] != 'valid' && $_SESSION['LICENSE_EXPIRES_IN'] < -1 ) {
-	echo  " <p align='center' class='error' >". $GLOBALS['app_strings']['ERROR_LICENSE_FULLY_EXPIRED']. "</p>";
+	echo  " <p align='center' class='error' >". $GLOBALS['app_strings']['ERROR_FULLY_EXPIRED']. "</p>";
 } elseif(!ocLicense() && isset($_SESSION['VALIDATION_EXPIRES_IN']) && $_SESSION['VALIDATION_EXPIRES_IN'] != 'valid' && $_SESSION['VALIDATION_EXPIRES_IN'] < -1 ) {
 	echo "<p align='center' class='error' > ". $GLOBALS['app_strings']['ERROR_LICENSE_EXPIRED']. "</p>";
 }
@@ -98,8 +88,7 @@ if((isset($sugar_flavor) && $sugar_flavor != null) &&
 	global $db;
 	$result = $db->query($query, true, "Error filling in user array: ");
 	$row = $db->fetchByAssoc($result);
-   	$admin = new Administration();
-    $admin->retrieveSettings();
+   	$admin = Administration::getSettings();
     $license_users = $admin->settings['license_users'];
     $license_seats_needed = $row['total'] - $license_users;
     if( $license_seats_needed > 0 ){
@@ -170,8 +159,7 @@ if ( !empty($logindisplay) )
 
 // RECAPTCHA
 
-	$admin = new Administration();
-	$admin->retrieveSettings('captcha');
+	$admin = Administration::getSettings('captcha');
 	$captcha_privatekey = "";
 	$captcha_publickey="";
 	$captcha_js = "";

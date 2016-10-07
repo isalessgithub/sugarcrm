@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Angiv adgangskoden til Sugar-administratorbrugeren.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Angiv brugernavnet for Sugar-administratorbrugeren.',
   'ERR_CHECKSYS' => 'Der er fundet fejl under kompatibilitetskontrol. For at din SugarCRM-installation kan fungere korrekt, skal du sørge for at løse problemerne nedenfor og enten trykke på knappen Tjek igen eller prøve at udføre installationen igen.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH support ikke fundet: SugarCRM har behov for BCMATH support til vilkårlig præcision matematik.',
   'ERR_CHECKSYS_CALL_TIME' => 'Tillad overførsel af opkaldstid som reference er aktiveret "Til" "den skal være deaktiveret "Fra" i php.ini"',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Filen config findes, men den er ikke skrivbar. Sørg for at gøre filen skrivbar. Afhængigt af operativsystemet skal du måske ændre tilladelserne ved at køre chmod 766 eller højreklikke på filnavnet for at få adgang til egenskaberne og fjerne markeringen af indstillingen Skrivebeskyttet.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Konfigurationstilsidesætningsfil eksisterer, men er ikke skrivbar. Venligst gør filen skrivbar. Afhængigt af dit operativsystem, kan det kræve, at du ændre tilladelserne ved at køre chmod 766, eller at højreklikke på filnavnet for at få adgang til egenskaber og fjerne markeringen af ​​skrivebeskyttet tilstand.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => '"Vi har registeret, at du ikke bruger en FastCGI-handlertilknytning til PHP. Du skal installere eller konfigurere en version, der er kompatibel med Sugar-programmet. Se kompatibilitetsmatrixen "Compatibility Matrix" i produktbemærkningerne "Release Notes" for understøttede versioner. Se <a href=""http://www.iis.net/php/"" target=""_blank"">http://www.iis.net/php/</a> for at få detaljerede oplysninger "',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Du kan få den optimale oplevelse med IIS/FastCGI sapi ved at angive fastcgi.logging til 0 i filen php.ini.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Filerne eller mapperne nedenfor er ikke skrivbare eller mangler og kan ikke oprettes. Afhængigt af operativsystemet skal du måske ændre tilladelserne til filerne eller den overordnede mappe "chmod 766" eller højreklikke på den overordnede mappe og fjerne markeringen af indstillingen Skrivebeskyttet og anvende den til alle undermapper.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test for. htaccess omskrivning mislykkedes. Dette betyder normalt, at du ikke har AllowOverride sat op for Sugar bibliotek.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Din version af IIS understøttes ikke af Sugar. Du skal installere en version, der er kompatibel med Sugar-programmet. Se kompatibilitetsmatrixen "Compatibility Matrix" i produktbemærkningerne "Release Notes" for understøttede IIS-versioner. Din version er',
   'ERR_CHECKSYS_IMAP' => 'Blev ikke fundet: InboundEmail og Kampagner "e-mail" kræver IMAP-bibliotekerne. Ingen af dem fungerer.',
   'ERR_CHECKSYS_MBSTRING' => 'Funktioner knyttet til udvidelsen Multibyte Strings PHP "mbstring", som skal bruges af Sugar-programmet, blev ikke fundet. <br/><br/>Normalt er mbstring-modulet ikke aktiveret som standard i PHP og skal aktiveres med -aktivér-mbstring, når den binære PHP-fil bygges. Du kan finde flere oplysninger om, hvordan du aktiverer mbstring-understøttelse, i PHP-vejledningen.',
@@ -130,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Grundlæggende type',
   'LBL_CANCEL' => 'Annuller',
   'LBL_CHECKSYS_1' => '"For at din SugarCRM-installation kan fungere korrekt, skal du sikre, at alle systemkontrolposterne nedenfor er markeret med grønt. Hvis nogen af dem er røde, skal du sørge for at rette dem.<BR><BR> Du kan få hjælp til disse systemkontroller på <a href=""http://www.sugarcrm.com/crm/installation"" target=""_blank"">Sugar Wiki</a>."',
+  'LBL_CHECKSYS_BCMATH' => 'Vilkårlig Precision Matematik Module',
   'LBL_CHECKSYS_CACHE' => 'Skrivbare cacheundermapper',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP - Tillad overførsel af opkaldstid som reference er deaktiveret',
   'LBL_CHECKSYS_COMPONENT' => 'Komponent',
@@ -143,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Ret følgende filer eller mapper, før du fortsætter:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Ret følgende modulmapper og filerne under dem, før du fortsætter:',
+  'LBL_CHECKSYS_HTACCESS' => 'AllowOverride opsætning for. htaccess',
   'LBL_CHECKSYS_IISVER' => 'IIS-version',
   'LBL_CHECKSYS_IMAP' => 'IMAP-modul',
   'LBL_CHECKSYS_MBSTRING' => 'Modulet MB-strenge',
@@ -235,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Fuldtekstsøgning er ikke installeret.',
   'LBL_FTS_INSTALLED_ERR2' => 'Du kan stadig installere, men vil ikke være i stand til at bruge fuldtekstsøgefunktionaliteten. Se din database server installationsguide for hvordan du gør dette, eller kontakt din administrator.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search er påkrævet.',
   'LBL_FTS_TABLE_TITLE' => 'Indtast fultekstsøgningsindstillinger',
   'LBL_FTS_TYPE' => 'Søgemaskinetype',
   'LBL_HELP' => 'Hjælp',

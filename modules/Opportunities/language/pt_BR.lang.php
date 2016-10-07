@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Um número de Registro deve ser especificado para eliminar a oportunidade.',
@@ -23,16 +20,12 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'ID da Conta',
   'LBL_ACCOUNT_NAME' => 'Nome da Conta',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Atividades',
-  'LBL_AMOUNT' => 'Valor da Oportunidade',
-  'LBL_AMOUNT_USDOLLAR' => 'Valor USD',
   'LBL_ASSIGNED_TO_ID' => 'Atribuído a',
   'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
-  'LBL_BEST_CASE' => 'Melhor Cenário',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'Melhor taxa de moeda',
-  'LBL_BEST_CASE_WORKSHEET' => 'Melhor cenário (ajustado)',
   'LBL_CAMPAIGN' => 'Campanha',
   'LBL_CAMPAIGN_LINK' => 'link Campanha',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Campanha',
+  'LBL_CLOSED_RLIS' => '# de Receitas de Itens de Linha fechados',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Oportunidades Fechadas Ganhas',
   'LBL_COMMITTED' => 'Comprometido',
   'LBL_COMMIT_STAGE' => 'Fase comprometimento',
@@ -48,6 +41,7 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => 'Nome da Moeda',
   'LBL_CURRENCY_RATE' => 'Taxa Moeda',
   'LBL_CURRENCY_SYMBOL' => 'Símbolo da Moeda',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => '10 Principais Oportunidades de Vendas',
   'LBL_DATE_CLOSED' => 'Data Prevista',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Data prevista de fechamento',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Oportunidades',
@@ -61,22 +55,27 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Criado pelo ID',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificado Por ID',
   'LBL_EXPORT_NAME' => 'Nome',
+  'LBL_FILENAME' => 'Anexo',
   'LBL_FORECAST' => 'Incluir na Previsão',
+  'LBL_HELP_CONFIG_OPPS' => 'Depois de iniciar esta alteração, as notas de resumo do Item de Linha de Receita serão criadas em segundo plano. Quando as notas estiverem concluídas e disponíveis, uma notificação será enviada para o endereço de e-mail em seu perfil de usuário. Se sua instância estiver configurada para {{forecasts_module}}, o Sugar também enviará uma notificação quando seus registros de {{module_name}} forem sincronizados com o módulo {{forecasts_module}} e estiverem disponíveis para o novo {{forecasts_module}}. Observe que sua instância deve ser configurada pra enviar um e-mail por meio do Administrador > Configurações de E-mail para que a notificação seja enviada.',
+  'LBL_HELP_CONFIG_RLIS' => 'Depois de iniciar esta alteração, os registros do Item de Linha de Receita serão criados para cada {{module_name}} exigente em segundo plano. Quando os Itens de Linha de Receita estiverem concluídos e disponíveis, uma notificação será enviado ao endereço de e-mail em seu perfil de usuário. Observe que sua instância deve ser configurada pra enviar um e-mail por meio do Administrador > Configurações de E-mail para que a notificação seja enviada.',
+  'LBL_HELP_CREATE' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. Para criar uma {{}} module_name: 1. Fornecer valores para os campos conforme desejado. - Os campos marcados "necessária" deve ser preenchido antes de salvar. - Clique em "Ver Mais" para expor campos adicionais, se necessário. 2. Clique em "Salvar" para finalizar o novo álbum e voltar para a página anterior. - Escolha "Salvar e visualizar" para abrir a nova {{}} module_name no modo de registro. - Escolha "Salvar e criar novo" para criar imediatamente um outro novo {{}} module_name.',
+  'LBL_HELP_RECORD' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. - Editar campos deste registo, clicando em um campo individual ou no botão Editar. - Exibir ou modificar as ligações a outros registros nos subpainéis alternando no painel esquerdo inferior para "Ver dados". - Fazer e ver comentários de usuários e histórico de alterações de registro no {{}} activitystream_singular_module alternando no painel esquerdo inferior para "Atividade Stream". - Siga ou favorito este registro usando os ícones à direita do nome do registro. - Estão disponíveis ações adicionais no menu Ações suspensas à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O {{}} plural_module_name módulo é composto por itens de linha individuais de negócio que estão incluídos em um {{}} opportunities_singular_module registro e rastreados através do ciclo de vida de vendas. O {{}} opportunities_singular_module registro atua como um cabeçalho para um ou mais {{}} MODULE_NAME registros. Isto permite uma maior granularidade quando se trabalha {{opportunities_module}} e {{forecasts_singular_module}} ing uma vez que cada item de linha dentro de uma {{opportunities_singular_module}} pode ter sua fase de vendas própria e probabilidade, além de ser incluídos ou excluídos de um usuário {{forecasts_singular_module}} {{ing worksheet_module}} individualmente. Cada {{}} module_name pode estar relacionado a um produto de sua empresa Catálogo de Produtos. Isso fará com que os valores do produto para preencher automaticamente os campos correspondentes no {{}} module_name.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Histórico',
   'LBL_INVITEE' => 'Contatos',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potenciais',
   'LBL_LEAD_SOURCE' => 'Origem do Potencial',
-  'LBL_LIKELY_CASE' => 'Cenário Mais Provável:',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Taxa de moeda desejável',
-  'LBL_LIKELY_CASE_WORKSHEET' => 'Cenário mais provável ( ajustado)',
   'LBL_LIST_ACCOUNT_NAME' => 'Nome da Conta',
-  'LBL_LIST_AMOUNT' => 'Valor da Oportunidade',
-  'LBL_LIST_AMOUNT_USDOLLAR' => 'Valor',
+  'LBL_LIST_AMOUNT' => 'Desejável',
+  'LBL_LIST_AMOUNT_USDOLLAR' => 'Valor Total',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Usuário',
   'LBL_LIST_DATE_CLOSED' => 'Data Prevista',
   'LBL_LIST_FORM_TITLE' => 'Lista de Oportunidades',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Oportunidade',
   'LBL_LIST_SALES_STAGE' => 'Fase da Venda',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Sincronizar com Marketo®',
   'LBL_MODIFIED_ID' => 'Modificado por',
   'LBL_MODIFIED_NAME' => 'Modificado pelo Nome do Usuário',
   'LBL_MODIFIED_USER' => 'Usuário Modificado',
@@ -87,36 +86,58 @@ $mod_strings = array (
   'LBL_NAME' => 'Nome da Oportunidade',
   'LBL_NEW_FORM_TITLE' => 'Nova Oportunidade',
   'LBL_NEXT_STEP' => 'Próximo Passo',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anotaçãoes:',
   'LBL_OPPORTUNITY' => 'Oportunidade:',
   'LBL_OPPORTUNITY_NAME' => 'Nome da Oportunidade',
+  'LBL_OPPORTUNITY_ROLE' => 'Perfil de Oportunidade',
   'LBL_OPPORTUNITY_TYPE' => 'Tipo de oportunidade',
+  'LBL_OPPS_CONFIG_ALERT' => 'Ao clicar em Confirmar, você estará apagando TODOS os dados de Previsões e alterando sua Visualização de Oportunidades. Se isso não é o que você quer fazer, clique em Cancelar para retornar às configurações anteriores.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Se todos os Itens da Linha de Receita estiverem fechados e pelo menos um tiver vencido,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'o Estágio de Vendas da Oportunidade é configurado para "Vitória Fechada".',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Set todos os Itens da Linha de Receita estiverem no Estágio de Vendas "Perda Fechada",',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'o Estágio de Vendas da Oportunidade é configurado para "Perda Fechada".',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Se algum Item da Linha de Receita ainda estiver aberto,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'a Oportunidade será marcada com o Estágio de Vendas menos avançado.',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Configure o campo Data de Fechamento Esperada nos registros de Oportunidade resultantes para que sejam as primeiras ou últimas datas de fechamento dos Itens da Linha de Receita existentes',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Hierarquia da Oportunidade',
+  'LBL_PIPELINE_TOTAL_IS' => 'Total do Funil',
   'LBL_PRIMARY_QUOTE_ID' => 'Primeira Cotação',
   'LBL_PROBABILITY' => 'Probabilidade (%)',
   'LBL_PRODUCTS' => 'Produtos',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => 'Produtos de linha itens',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produtos',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projetos',
-  'LBL_PROJECT_SUBPANEL_TITLE' => 'Projectos',
+  'LBL_PROJECT_SUBPANEL_TITLE' => 'Projetos',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotações',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Cotações',
   'LBL_RAW_AMOUNT' => 'Valor Bruto',
+  'LBL_RLI' => 'Receita Itens de Linha',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Receita Itens de Linha',
   'LBL_SALES_STAGE' => 'Fase da Venda',
+  'LBL_SALES_STATUS' => 'Status',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Oportunidades',
   'LBL_TEAM_ID' => 'ID da Equipe',
   'LBL_TIMEPERIODS' => 'Períodos',
   'LBL_TIMEPERIOD_ID' => 'Período',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Exibe as dez principais Oportunidades em um gráfico de bolhas.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Minhas Oportunidades',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Minhas Oportunidades da Equipe',
   'LBL_TOP_OPPORTUNITIES' => 'As Minhas Melhores Oportunidades',
   'LBL_TOTAL_OPPORTUNITIES' => 'Oportunidades Totais',
+  'LBL_TOTAL_RLIS' => '# do total de receita de itens de linha',
   'LBL_TYPE' => 'Tipo',
   'LBL_VIEW_FORM_TITLE' => 'Visualizar Oportunidades',
   'LBL_WORKSHEET' => 'Planilha',
-  'LBL_WORST_CASE' => 'Pior Cenário',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'Pior taxa de moeda',
+  'LNK_CREATE' => 'Criar Negociação',
   'LNK_IMPORT_OPPORTUNITIES' => 'Importar Oportunidades',
   'LNK_NEW_OPPORTUNITY' => 'Nova Oportunidade',
   'LNK_OPPORTUNITY_LIST' => 'Oportunidades',
   'LNK_OPPORTUNITY_REPORTS' => 'Relatório de Oportunidades',
   'MSG_DUPLICATE' => 'Ao criar esta oportunidade pode duplicar uma oportunidade. Você pode selecionar uma oportunidade da lista abaixo ou clicar em Nova Oportunidade para continuar a criar com os dados entrados previamente.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Vicê não pode excluir Oportunidades que contém Receitas de itens de Linha Fechados',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Tem certeza de que pretende eliminar este contato desta oportunidade?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Tem certeza que deseja remover essa oportunidade deste projeto?',
+  'TPL_RLI_CREATE' => 'Uma oportunidade deve ser associada a receitas de itens de linha. Criar Receita de item de Linha',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Criar Receita de item de linha',
   'UPDATE' => 'Oportunidade - Atualizar Moeda',
   'UPDATE_BUGFOUND_COUNT' => 'Bugs Encontrados',
   'UPDATE_BUG_COUNT' => 'Encontrados Bugs e Tentativas de Resolver',
@@ -142,5 +163,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Novo Valor',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Nova Moeda',
   'UPDATE_VERIFY_TXT' => 'Verifica se os valores nas oportunidades são válidos com apenas dados numéricos (0-9) e ponto decimal (.)',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'Um ou mais dos registros selecionados contém Receitas de itens de linha e não podem ser deletados',
 );
 

@@ -1,49 +1,33 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 $dashletStrings = array (
   'RSSDashlet' => 
   array (
-    'LBL_TITLE' => 'Ленты новостей',
-    'LBL_DESCRIPTION' => 'Ленты новостей',
-    'LBL_SAVING' => 'Сохранение...',
-    'LBL_SAVED' => 'Готово',
+    'ERR_LOADING_FEED' => 'Не удалось загрузить RSS-канал',
     'LBL_AUTO_SCROLL' => 'Автоматическая прокрутка',
-    'LBL_SCROLL_SPEED' => 'Скорость прокрутки (%)',
-    'LBL_CONFIGURE_TITLE' => 'Заголовок',
     'LBL_CONFIGURE_HEIGHT' => 'Высота (1 - 300)',
     'LBL_CONFIGURE_RSSURL' => 'RSS Url',
-    'LBL_DBLCLICK_HELP' => ' ',
-    'ERR_LOADING_FEED' => 'Не удалось загрузить RSS Feed',
+    'LBL_CONFIGURE_TITLE' => 'Заголовок',
+    'LBL_DBLCLICK_HELP' => '',
+    'LBL_DESCRIPTION' => 'Ленты новостей',
+    'LBL_SAVED' => 'Готово',
+    'LBL_SAVING' => 'Обработка ...',
+    'LBL_SCROLL_SPEED' => 'Скорость прокрутки (%)',
+    'LBL_TITLE' => 'Ленты новостей',
   ),
 );
 

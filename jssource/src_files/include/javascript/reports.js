@@ -1,18 +1,15 @@
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 function set_offset(offset) {
@@ -266,28 +263,29 @@ SUGAR.reports = function() {
 
 		loadFilters:function(filters, parentId) {
 			var operator = filters.operator;
-			panels = SUGAR.FiltersWidget.getPanels(); 
+			panels = SUGAR.FiltersWidget.getPanels();
 			if (panels.length > 0) {
 				SUGAR.FiltersWidget.addGroupToPanel(parentId + "_body_div", parentId, operator);
 			}
 			else {
 				SUGAR.FiltersWidget.addGroupToPanel('filter_designer_div', SUGAR.language.get('Reports','LBL_FILTER'), operator);
 			}
-			if (document.getElementById('inlineFiltersHelpTable')) 
+			if (document.getElementById('inlineFiltersHelpTable'))
 				document.getElementById(SUGAR.language.get('Reports','LBL_FILTER') + ".1_body_div").innerHTML = "";
-		
+
 			panelId = String(panels[panels.length - 1].id);
 			var id = String(panelId);
-			var i = 0;
-			while (filters[i]) {
+			for (var i in filters) {
+				if (!_.isObject(filters[i])) {
+					continue;
+				}
 				current_filter = filters[i];
 				if (current_filter.operator) {
-					SUGAR.reports.loadFilters(current_filter, id);	
+					SUGAR.reports.loadFilters(current_filter, id);
 				}
 				else {
 					SUGAR.reports.addFilterOnLoad(current_filter, id + "_table");
 				}
-				i++;
 			}
 		},
 
@@ -1798,24 +1796,33 @@ SUGAR.reports = function() {
 			
 			return true;
 		},
-		saveReport: function() {
-			if (!SUGAR.reports.saveCurrentStep())			
-				return false;
-			if (SUGAR.reports.checkReportDetails()) {
-				document.ReportsWizardForm.save_report.value = 'on';
-				document.ReportsWizardForm.current_step.value = currEditorDiv;
-				if (SUGAR.reports.prepareReportForProcessing()) 
-					document.ReportsWizardForm.submit();
-			}
-		},		
-		deleteReport: function() {
-			if (confirm(SUGAR.language.get('app_strings','NTC_DELETE_CONFIRMATION'))) {
-				document.ReportsWizardForm.is_delete.value="1";
-				document.ReportsWizardForm.submit();
-			}
-		},
+        saveReport: function() {
+            if (!SUGAR.reports.saveCurrentStep())
+                return false;
+            if (SUGAR.reports.checkReportDetails()) {
+                document.ReportsWizardForm.save_report.value = 'on';
+                document.ReportsWizardForm.current_step.value = currEditorDiv;
+                if (SUGAR.reports.prepareReportForProcessing()) {
+                    document.ReportsWizardForm.submit();
+                    var dashletEdit = this.getWindowLocationParameterByName('dashletEdit', window.location.search);
+                    if (dashletEdit) {
+                        parent.$(parent).trigger('dashletEdit');
+                    }
+                }
+            }
+        },
+        deleteReport: function() {
+            if (confirm(SUGAR.language.get('app_strings', 'NTC_DELETE_CONFIRMATION'))) {
+                document.ReportsWizardForm.is_delete.value = '1';
+                document.ReportsWizardForm.submit();
+                var dashletEdit = this.getWindowLocationParameterByName('dashletEdit', window.location.search);
+                if (dashletEdit) {
+                    parent.$(parent).trigger('dashletEdit');
+                }
+            }
+        },
 		runReport: function() {
-			if (!SUGAR.reports.saveCurrentStep())			
+			if (!SUGAR.reports.saveCurrentStep())
 				return false;
 			if (SUGAR.reports.checkReportDetails()) {
 				document.ReportsWizardForm.save_report.value = 'on';
@@ -1825,7 +1832,7 @@ SUGAR.reports = function() {
 			}
 		},
 		previewReport: function() {
-			if (!SUGAR.reports.saveCurrentStep())			
+			if (!SUGAR.reports.saveCurrentStep())
 				return false;
 			document.ReportsWizardForm.run_query.value = 1;
 			SUGAR.reports.saveFilters();
@@ -1833,6 +1840,27 @@ SUGAR.reports = function() {
 				document.ReportsWizardForm.submit();
 			}
 		},
+        cancelReport: function() {
+            var dashletEdit = this.getWindowLocationParameterByName('dashletEdit', window.location.search);
+            if (dashletEdit) {
+                parent.$(parent).trigger('dashletEdit');
+            } else {
+                window.location.href = 'index.php?module=Reports&action=index&query=true&clear_query=true';
+            }
+        },
+        /**
+         * gets window location parameters by name regardless of case
+         * @param {String} name name of parameter being searched for
+         * @param {String} queryString
+         * @returns {String}
+         */
+        getWindowLocationParameterByName: function(name, queryString) {
+            if (parent.App && parent.App.utils && parent.App.utils.getWindowLocationParameterByName) {
+                return parent.App.utils.getWindowLocationParameterByName(name, queryString);
+            } else {
+                return '';
+            }
+        },
 		orderBySelected: function(rowNum, sortDir) {
 			if (displayColOrderBySelectedRow != -1 && (document.getElementById("orderByDirectionDiv_" + displayColOrderBySelectedRow))) {
 				document.getElementById("orderByDirectionDiv_" + displayColOrderBySelectedRow).style.display = 'none';
@@ -2957,6 +2985,10 @@ SUGAR.reports = function() {
 			if ( typeof ( qualifier_name) == 'undefined' ||  qualifier_name == '') {
 				qualifier_name='equals';
 			}
+
+			if (typeof (filter.qualifier_name) == 'undefined' ||  filter.qualifier_name == '') {
+				filter.qualifier_name = qualifier_name;
+			}
 		
 			var field_type = field.type;
 
@@ -2984,10 +3016,14 @@ SUGAR.reports = function() {
 			else if (qualifier_name == 'empty' || qualifier_name == 'not_empty') {
 			    SUGAR.reports.addFilterNoInput(row,filter);
 				SUGAR.reports.addRunTimeCheckBox(row,filter,rowId);	
-				if (((field_type == 'user_name')||(field_type == 'assigned_user_name')) && qualifier_name == 'empty' && typeof(filter.name) =='undefined') {
+				if ((field_type == 'username' || field_type == 'assigned_user_name') && qualifier_name == 'empty' && typeof(filter.name) =='undefined') {
 					alert(SUGAR.language.get("Reports", 'LBL_USER_EMPTY_HELP'));							
 				}
 		 	}
+            else if (qualifier_name.indexOf("_n_days") != -1) {
+                SUGAR.reports.addFilterInputText(row, filter);
+                SUGAR.reports.addRunTimeCheckBox(row, filter, rowId);
+            }
 			else if (field_type == 'date' || field_type == 'datetime') {
 				if (qualifier_name.indexOf('tp_') == 0) {
 					SUGAR.reports.addFilterInputEmpty(row,filter);
@@ -3031,7 +3067,7 @@ SUGAR.reports = function() {
 				}
 				
 			}
-			else if ((field_type == 'user_name')||(field_type == 'assigned_user_name')) {
+			else if (field_type == 'username' || field_type == 'assigned_user_name') {
 				if(users_array=="") {
 					SUGAR.reports.loadXML();
 				}
@@ -3043,8 +3079,8 @@ SUGAR.reports = function() {
 					SUGAR.reports.addFilterInputSelectSingle(row,users_array,filter,rowId);
 					SUGAR.reports.addRunTimeCheckBox(row,filter,rowId);		
 				}
-			} 
-			else if (field_type == 'enum' || field_type == 'multienum'  || field_type == 'radioenum' || field_type == 'parent_type' || field_type == 'currency_id') {
+			} else if (field_type == 'enum' || field_type == 'multienum'  || field_type == 'radioenum' || field_type == 'parent_type' || field_type == 'timeperiod' || field_type == 'currency_id') {
+
 				if (qualifier_name == 'one_of' || qualifier_name == 'not_one_of') {
 					SUGAR.reports.addFilterInputSelectMultiple(row,field.options,filter,rowId);
 					SUGAR.reports.addRunTimeCheckBox(row,filter,rowId);		
@@ -4212,7 +4248,6 @@ YAHOO.extend(SUGAR.reports.reportDDProxy, YAHOO.util.DDProxy, {
 		var Dom = YAHOO.util.Dom;
         var target = Dom.get(targetId);
         this.lastTarget = target;
-        //target.addClass('dd-over');
 	    var dragEl = this.getDragEl();
 	    var el = this.getEl();
 	    if(this.lastTarget && this.lastTarget.id!= 'displayColsTable' && this.lastTarget.id!= 'displaySummariesTable'
@@ -4227,8 +4262,6 @@ YAHOO.extend(SUGAR.reports.reportDDProxy, YAHOO.util.DDProxy, {
 			} else {
 	        	YAHOO.util.Dom.insertBefore(el, destElem);
 			}
-	        //Dom.setStyle(el, "position", "");
-	        //Dom.setStyle(el, "width", '');
 	        //If we move a groupBy row, we need to move the corresponding display summary row as well.
 	        if (el.id.substring(0,12) == 'group_by_row') {
 		        var destElem = document.getElementById('display_summaries_row_' + this.lastTarget.id);
@@ -4241,38 +4274,11 @@ YAHOO.extend(SUGAR.reports.reportDDProxy, YAHOO.util.DDProxy, {
 	    }
 	},
 	onDragOut: function(e, targetId) {
-        //var target = Ext.get(targetId);
         this.lastTarget = null;
-        //target.removeClass('dd-over');
-	},    
+	},
 	endDrag: function() {
 		var Dom = YAHOO.util.Dom;											
 	    var dragEl = this.getDragEl();
 	    var el = this.getEl();
-	    /*
-	    if(this.lastTarget && this.lastTarget.id!= 'displayColsTable' && this.lastTarget.id!= 'displaySummariesTable'
-	    	&& this.lastTarget.id!= 'groupByTable') {	        
-	        var destElem = document.getElementById(this.lastTarget.id);
-			var dragPosition = YAHOO.util.Dom.getY(dragEl);
-			var midEl = YAHOO.util.Dom.getY(el) + (el.clientHeight / 2);	    
-			if (dragPosition > midEl) {
-	        	destElem.parentNode.insertBefore(el.nextSibling, destElem);
-			} else {
-	        	destElem.parentNode.insertBefore(el, destElem);
-			}
-	        //destElem.parentNode.insertBefore(document.getElementById(el.id), destElem);
-	        //Dom.setStyle(el, "position", "");
-	        //Dom.setStyle(el, "width", '');
-	        //If we move a groupBy row, we need to move the corresponding display summary row as well.
-	        if (el.id.substring(0,12) == 'group_by_row') {
-		        var destElem = document.getElementById('display_summaries_row_' + this.lastTarget.id);
-		        destElem.parentNode.insertBefore(document.getElementById('display_summaries_row_' +el.id), destElem);
-	        } // if
-
-	    } // if
-	    */
-	} // fn
-	
-    
-	
+	}
 });

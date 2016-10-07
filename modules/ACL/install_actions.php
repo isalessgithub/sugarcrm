@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -30,14 +27,13 @@ $GLOBALS['db']->query("UPDATE acl_actions set acltype = 'TrackerQuery' where cat
 if(is_admin($current_user)){
     foreach($ACLbeanList as $module=>$class){
 
-        if(empty($installed_classes[$class]) && isset($beanFiles[$class]) && file_exists($beanFiles[$class])){
+        if(empty($installed_classes[$class]) && isset($beanFiles[$class])){
             if($class == 'Tracker'){
                 ACLAction::addActions('Trackers', 'Tracker');
             } else {
-                require_once($beanFiles[$class]);
-                $mod = new $class();
+                $mod = BeanFactory::newBeanByName($class);
                 $GLOBALS['log']->debug("DOING: $class");
-                if($mod->bean_implements('ACL') && empty($mod->acl_display_only)){
+                if($mod instanceof SugarBean && $mod->bean_implements('ACL') && empty($mod->acl_display_only)){
                     // BUG 10339: do not display messages for upgrade wizard
                     if(!isset($_REQUEST['upgradeWizard'])){
                         echo translate('LBL_ADDING','ACL','') . $mod->module_dir . '<br>';
@@ -59,7 +55,7 @@ if(is_admin($current_user)){
 $installActions = false;
 $missingAclRolesActions = false;
 
-$role1 = new ACLRole();
+$role1 = BeanFactory::getBean('ACLRoles');
 
 $result = $GLOBALS['db']->query("SELECT id FROM acl_roles where name = 'Tracker'");
 $role_id = $GLOBALS['db']->fetchByAssoc($result);
@@ -110,7 +106,7 @@ $installActions = false;
 $missingAclRolesActions = false;
 
 
-$role1 = new ACLRole();
+$role1 = BeanFactory::getBean('ACLRoles');
 
 $result = $GLOBALS['db']->query("SELECT id FROM acl_roles where name = 'Sales Administrator'");
 $role_id = $GLOBALS['db']->fetchByAssoc($result);
@@ -135,7 +131,6 @@ if($installActions || $missingAclRolesActions) {
          'Accounts'=>array('admin'=>100, 'access'=>89),
          'Contacts'=>array('admin'=>100, 'access'=>89),
          'Forecasts'=>array('admin'=>100, 'access'=>89),
-         'ForecastSchedule'=>array('admin'=>100, 'access'=>89),
          'Leads'=>array('admin'=>100, 'access'=>89),
          'Opportunities'=>array('admin'=>100, 'access'=>89),
          'Quotes'=>array('admin'=>100, 'access'=>89),
@@ -161,8 +156,8 @@ if($installActions || $missingAclRolesActions) {
 
 
     foreach($mlaRoles as $roleName=>$role){
-        $ACLField = new ACLField();
-        $role1= new ACLRole();
+        $ACLField = BeanFactory::getBean('ACLFields');
+        $role1 = BeanFactory::getBean('ACLRoles');
         $role1->name = $roleName;
         $role1->description = $roleName." Role";
         $role1_id=$role1->save();

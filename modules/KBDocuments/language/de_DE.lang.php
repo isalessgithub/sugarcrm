@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokument erstellt:',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Dokument Name',
   'ERR_DOC_VERSION' => 'Dokument-Version',
   'ERR_FILENAME' => 'Dateiname',
+  'ERR_FILESIZE' => 'Datei ist zu groß. Max. Dateigröße:',
   'LBL_ACTIVE_DATE' => 'Veröffentlichungsdatum',
   'LBL_AND' => 'und',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Tags auf Artikel anwenden...',
@@ -35,14 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Autor:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Autor',
   'LBL_ARTICLE_BODY' => 'Artikel Inhalt:',
-  'LBL_ARTICLE_EXISTS' => 'Der Artikel existiert bereits',
+  'LBL_ARTICLE_EXISTS' => 'Beitrag existiert bereits',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artikel',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Vorschau nicht verfügbar, Dokument existiert aber es wurde noch kein Inhalt generiert.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Vorschau nicht verfügbar, Dokument Datensatz nicht gefunden.',
   'LBL_ARTICLE_TITLE' => 'Titel:',
   'LBL_ATTACHMENTS' => 'Anhänge:',
+  'LBL_CASE' => 'Ticket:',
   'LBL_CASES' => 'Tickets',
   'LBL_CASES_SUBPANEL_TITLE' => 'Verknüpfte Tickets',
+  'LBL_CASE_ID' => 'Ticket ID:',
   'LBL_CATEGORY' => 'Kategorie',
   'LBL_CATEGORY_VALUE' => 'Kategorie',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Unspezifisch',
@@ -55,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Verträge',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Verknüpfte Kontakte',
   'LBL_CONTRACT_NAME' => 'Vertragsname:',
+  'LBL_CONTRACT_STATUS' => 'Vertragsstatus:',
   'LBL_CREATED' => 'Erstellt von:',
   'LBL_CREATED_BY' => 'Erstellt von:',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -103,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Dokument ID',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDocument Versions Nummer',
   'LBL_KBDOC_APPROVED_BY' => 'Bestätigt vom:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Authorisiert von',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Anhänge downloaden:',
   'LBL_KBDOC_BODY' => 'Body:',
@@ -112,16 +114,18 @@ $mod_strings = array (
   'LBL_KB_PUBLISHED_REQUEST' => 'hat Ihnen ein Dokument zwecks Genehmigung und Veröffentlichung zugewiesen.',
   'LBL_KB_STATUS_BACK_TO_DRAFT' => 'Dokumentstatus wurde auf &#039;Entwurf&#039; zurückgeändert',
   'LBL_KEYWORDS' => 'Schlüsselwörter:',
-  'LBL_KNOWLEDGE_BASE_ADMIN' => 'WISSENSBASIS ADMIN',
-  'LBL_KNOWLEDGE_BASE_ADMIN_MENU' => 'Wissensbasis Admin',
-  'LBL_KNOWLEDGE_BASE_SEARCH' => 'WISSENSBASIS',
+  'LBL_KNOWLEDGE_BASE_ADMIN' => 'Wissensdatenbank ADMIN',
+  'LBL_KNOWLEDGE_BASE_ADMIN_MENU' => 'Wissensdatenbank Admin',
+  'LBL_KNOWLEDGE_BASE_SEARCH' => 'Wissensdatenbank',
   'LBL_LAST_REV_CREATE_DATE' => 'Erstellungsdatum Letzte Version',
   'LBL_LAST_REV_CREATOR' => 'Version erstellt von:',
   'LBL_LAST_REV_DATE' => 'Versionsdatum:',
   'LBL_LATEST_REVISION' => 'Latest Revision Id',
   'LBL_LATEST_REVISION_NAME' => 'Latest Revision Name',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Tag Browsing starten ...',
+  'LBL_LINKED_ID' => 'verknüpfte ID',
   'LBL_LIST_ACTIVE_DATE' => 'Veröffentlichungsdatum',
+  'LBL_LIST_APPROVED_BY' => 'Freigegeben von:',
   'LBL_LIST_ARTICLES' => 'Artikel',
   'LBL_LIST_CATEGORY' => 'Kategorie',
   'LBL_LIST_DOCUMENT' => 'Dokument',
@@ -149,9 +153,9 @@ $mod_strings = array (
   'LBL_MISMATCH_QUOTES_ERR' => 'Ihre Abfrage wird so nicht funktionieren. Für jedes öffnende doppelte Hochkomma muss auch ein schließendes existieren. Wenn Sie nach einer Zeichenkette suchen wollen die ein Hochkomma enthält, dann stellen Sie einen Backslash voran (\\&quot;)',
   'LBL_MODIFIED' => 'Geändert von ID',
   'LBL_MODIFIED_USER' => 'Geändert von',
-  'LBL_MODULE_NAME' => 'KBDocuments',
-  'LBL_MODULE_NAME_SINGULAR' => 'Wissensbasis',
-  'LBL_MODULE_TITLE' => 'Wissensbasis Artikel',
+  'LBL_MODULE_NAME' => 'Wissensdatenbank',
+  'LBL_MODULE_NAME_SINGULAR' => 'Wissensdatenbank Dokument',
+  'LBL_MODULE_TITLE' => 'Wissensdatenbank Artikel',
   'LBL_MOVE' => 'Verschieben',
   'LBL_MOVING_ARTICLES_TO_TAG' => 'Artikel zu Tag verschieben...',
   'LBL_NAME' => 'Dokument Name:',
@@ -160,7 +164,12 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Keine gültige Datei',
   'LBL_NUMBER' => 'Nummer',
   'LBL_PARENT_TYPE' => 'Eltern-Typ',
-  'LBL_PREVIOUS_SAVED_SEARCH' => 'Früher gespeicherte Suchen:',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Sie können ein Filter setzen wen Sie einen Suchbegriff eingeben.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Zum Beispiel können Sie hiermit einen Beitrag finden der Sie interessieren könnte.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Die Knowledge Base dient zum Arbeiten mit veröffentlichten Beiträgen. Verwenden Sie die Pfeiltasten um an einer kurzen Tour teil zu nehmen.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Diese Seite zeigt eine Liste von veröffentlichten Artikeln.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Hier Klicken führt Sie jederzeit zurück zur Wissensdatenbank.',
+  'LBL_PREVIOUS_SAVED_SEARCH' => 'Letzte gespeicherte Suche:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Eine bestehende Gespeicherte Suche bearbeiten oder löschen.',
   'LBL_PUBLISHED' => 'Veröffentlicht:',
   'LBL_RELATED_DOCUMENT_ID' => 'Verknüpfte Dokument ID',
@@ -171,19 +180,21 @@ $mod_strings = array (
   'LBL_ROOT_TAG_CAN_NOT_BE_RENAMED' => 'Root Tag kann nicht umbenannt werden',
   'LBL_ROOT_TAG_MESSAGE' => 'Root Tag kann nicht gewählt / mit einem Artikel verbunden werden',
   'LBL_SAVE_SEARCH_AS' => 'Diese Suche speichern als:',
-  'LBL_SAVE_SEARCH_AS_HELP' => 'Dies speichert Ihre definierten Einträge als Gespeicherte Suche Filter für die Wissensbasis.',
+  'LBL_SAVE_SEARCH_AS_HELP' => 'Speichern der Einträge als Gespeicherte Suche in der Wissensdatenbank.',
   'LBL_SAVING_THE_TAG' => 'Speichere den Tag...',
   'LBL_SEARCH' => 'Suchen',
   'LBL_SEARCH_FORM_TITLE' => 'Dokumente Suche',
   'LBL_SEARCH_TAG' => 'Suchen',
   'LBL_SEARCH_WITHIN' => 'Suche in:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Ausgewählter Revision Dateiname',
+  'LBL_SELECTED_REVISION_ID' => 'ausgewählte RevisionsID',
   'LBL_SELECTED_REVISION_NAME' => 'Selected Revision Name',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Wählen Sie Artikel für Tags',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Zuerst Artikel auswählen',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Zuerst Artikel auswählen',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Einen neuen Tag erstellen',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Wählen Sie einen Tag aus der Baumstruktur',
-  'LBL_SELECT_NODE' => 'Bitte einen Knoten auswählen',
+  'LBL_SELECT_NODE' => 'Bitte wählen Sie einen Knoten',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Wählen Sie den übergeordneten Tag aus dem Baum',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Eltern Tag vom Baum auswählen',
   'LBL_SELECT_TAG' => 'Tag auswählen',
@@ -207,7 +218,7 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBCATEGORY' => 'Unterkategorie',
   'LBL_SUBCATEGORY_VALUE' => 'Unterkategorie:',
-  'LBL_SYNTAX_CHEAT_SHEET' => '&lt;B&gt;Abfrage Syntax Hilfe:&lt;/b&gt;&lt;P&gt; &lt;ol&gt; &lt;li&gt;Das Plus (+) Zeichen bedeutet, dass die Resultate diesen Begriff beinhalten müssen.&lt;/li&gt; &lt;li&gt;Das Minus (-) Zeichen bedeutet, dass die Resultate diesen Begriff nicht beinhalten sollen. Das Minus (-) Zeichen ist nicht notwendig, wenn Sie das Textfeld für &lt;br&gt;auszuschließende Worte verwenden.&lt;/li&gt; &lt;li&gt;Mehrere Wörter in doppelten Hochkommas  (&quot;Beispiel1 Beispiel2&quot;) werden als ein Suchbegriff betrachtet. Allerdings muss es ein öffnendes und ein schließendes Hochkomma geben, &lt;br&gt;ansonsten wird die Suche nicht durchgeführt. Wenn Sie nach einem Hochkomma als Text suchen wollen, stellen Sie einen Backslash voran (&quot;)&lt;/li&gt; &lt;li&gt;Ein einfaches Hochkomma (&#039;) wird nicht als Gruppierungszeichen verwendet sondern als ganz normales Zeichen.&lt;/li&gt;&lt;/ol&gt; &lt;/p&gt; &lt;p&gt;&lt;b&gt;Beispiel: &lt;/b&gt;&lt;br&gt;&lt;br&gt; Um nach allen Artikeln zu suchen die &quot;Sugar&quot; oder &quot;CRM&quot; enthalten, und die die Wörter &quot;Wissensbasis&quot; und &quot;cool&quot; enthalten sollen, allerdings nicht &quot;Demo&quot; oder &quot;Vergangenheit&quot; geben &lt;br&gt;Sie folgendes ein: Sugar CRM +&quot;Wissensbasis&quot; +cool -Demo -&quot;Vergangenheit&quot;&lt;br&gt;&lt;br&gt;&lt;B&gt;Bemerkung:&lt;/b&gt;&lt;P&gt; &lt;ol&gt; &lt;li&gt;Groß- und Kleinschreibung macht keinen Unterschied.&lt;/li&gt; &lt;li&gt;Sowohl Kommas als auch Leerzeichen trennen Begriffe&lt;/li&gt; &lt;li&gt;Bitte kein Leerzeichen zwischen (+) bzw (-) und dem Suchwort.&lt;/li&gt;',
+  'LBL_SYNTAX_CHEAT_SHEET' => '&lt;B&gt;Abfrage Syntax Hilfe:&lt;/b&gt;&lt;P&gt; &lt;ol&gt; &lt;li&gt;Das Plus (+) Zeichen bedeutet, dass die Resultate diesen Begriff beinhalten müssen.&lt;/li&gt; &lt;li&gt;Das Minus (-) Zeichen bedeutet, dass die Resultate diesen Begriff nicht beinhalten sollen. Das Minus (-) Zeichen ist nicht notwendig, wenn Sie das Textfeld für &lt;br&gt;auszuschließende Worte verwenden.&lt;/li&gt; &lt;li&gt;Mehrere Wörter in doppelten Hochkommas  (&quot;Beispiel1 Beispiel2&quot;) werden als ein Suchbegriff betrachtet. Allerdings muss es ein öffnendes und ein schließendes Hochkomma geben, &lt;br&gt;ansonsten wird die Suche nicht durchgeführt. Wenn Sie nach einem Hochkomma als Text suchen wollen, stellen Sie einen Backslash voran (&quot;)&lt;/li&gt; &lt;li&gt;Ein einfaches Hochkomma (&#039;) wird nicht als Gruppierungszeichen verwendet sondern als ganz normales Zeichen.&lt;/li&gt;&lt;/ol&gt; &lt;/p&gt; &lt;p&gt;&lt;b&gt;Beispiel: &lt;/b&gt;&lt;br&gt;&lt;br&gt; Um nach allen Artikeln zu suchen die &quot;Sugar&quot; oder &quot;CRM&quot; enthalten, und die die Wörter &quot;Wissensdatenbank&quot; und &quot;cool&quot; enthalten sollen, allerdings nicht &quot;Demo&quot; oder &quot;Vergangenheit&quot; geben &lt;br&gt;Sie folgendes ein: Sugar CRM +&quot;Wissensdatenbank&quot; +cool -Demo -&quot;Vergangenheit&quot;&lt;br&gt;&lt;br&gt;&lt;B&gt;Bemerkung:&lt;/b&gt;&lt;P&gt; &lt;ol&gt; &lt;li&gt;Groß- und Kleinschreibung macht keinen Unterschied.&lt;/li&gt; &lt;li&gt;Sowohl Kommas als auch Leerzeichen trennen Begriffe&lt;/li&gt; &lt;li&gt;Bitte kein Leerzeichen zwischen (+) bzw (-) und dem Suchwort.&lt;/li&gt;',
   'LBL_TAB_ADVANCED' => 'Erweitert',
   'LBL_TAB_BROWSE' => 'Durchsuchen',
   'LBL_TAB_SEARCH' => 'Suchen',
@@ -230,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Mit diesem Tag:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Unge&#039;taggte&#039; Artikel',
   'LBL_UPDATE' => 'Aktualisieren',
+  'LBL_VIEWS_NUMBER' => 'Zugriffe Anzahl',
   'LNK_KBDOCUMENT_LIST' => 'Dokumente Liste',
   'LNK_NEW_ARTICLE' => 'Artikel erstellen',
   'LNK_NEW_MAIL_MERGE' => 'Serienbrief',

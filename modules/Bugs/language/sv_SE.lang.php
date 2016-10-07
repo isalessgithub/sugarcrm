@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att radera buggen.',
@@ -45,6 +42,9 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => 'Åtgärdad i release:',
   'LBL_FOUND_IN_RELEASE' => 'Hittad i release:',
   'LBL_FOUND_IN_RELEASE_NAME' => 'Hittad i Publicerat Namn',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}-modulen används för att spåra och hantera produktrelaterade problem, som vanligtvis kallas {{plural_module_name}} eller defekter, antingen hittat internt eller rapporteras av kunder.För att skapa en {{modul}}: 1. För in värden för fälten som önskat. - Fält markerade "Required" måste fyllas i innan du sparar. - Klicka på "Visa mer" för att visa ytterligare fält vid behov. 2. Klicka på "Spara" för att spara och återgå till föregående sidan. - Välj "Spara och visa" för att öppna den nya {{modul}}. - Välj "Spara och skapa ny" för att omedelbart skapa en annan ny {{module}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}-modulen används för att spåra och hantera produktrelaterade problem, som vanligtvis kallas {{plural_module_name}} eller defekter, antingen hittat internt eller rapporteras av kunder.  Redigera denna postens fält genom att klicka ett enskilt fält eller på knappen Redigera. - Visa eller ändra länkar till andra poster i underpaneler, även {{campaigns_singular_module}} mottagare, genom att växla den nedre vänstra rutan till "Data View". - Utför och se användarkommentarer och eller se förändringar i {{activitystream_singular_module}} genom att växla den nedre vänstra rutan på "Activity Stream". - Följ som favorit med hjälp av ikonerna till höger om namnet. - Ytterligare åtgärder finns i dropdown menyn Åtgärder till höger om knappen Redigera.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}-modulen används för att spåra och hantera produktrelaterade problem, som vanligtvis kallas {{plural_module_name}} eller defekter, antingen hittat internt eller rapporteras av kunder. {{plural_module_name}} kan ytterligare gallras genom att spåra och hittas problem som löses i en viss release. {{plural_module_name}}modulen ger användarna ett sätt att snabbt se över alla detaljer i {{modul}} och den process som används för att rätta till det.  När en {{module}} skapas eller lämnas, kan du visa och redigera information som rör den {{module}}. Varje {{module}}post kan då avse andra Sugar dokument såsom {{calls_module}}, {{contacts_module}}, {{cases_module}}, och många andra.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historik',
   'LBL_INVITEE' => 'Kontakter',
   'LBL_LIST_ACCOUNT_NAME' => 'Organisationsnamn',
@@ -69,7 +69,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Bugg',
   'LBL_MODULE_TITLE' => 'Bugg tracker: Hem',
   'LBL_NEW_FORM_TITLE' => 'Ny bugg',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Anteckningar',
   'LBL_NUMBER' => 'Nummer:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Om du har hittat en ny bugg som du vill rapportera, kan du klicka här för att rapportera en ny bugg.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrera ner i listan över buggar genom att tillhandahålla en sökterm.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Till exempel kan du använda detta för att hitta en bugg som har rapporterats tidigare.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Bugg modulen är för visning och rapportering buggar. Använd pilarna nedan för att gå igenom en snabbtur.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denna sida visar en lista av befintlig publicerade buggar.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Genom att klicka här kommer du tillbaka till den här vyn när som helst.',
   'LBL_PORTAL_VIEWABLE' => 'Portabel Visning Möjlig',
   'LBL_PRIORITY' => 'Prioritet:',
   'LBL_PRODUCT_CATEGORY' => 'Kategori:',

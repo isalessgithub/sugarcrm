@@ -1,17 +1,14 @@
 <!--
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 -->
 
 
@@ -285,3 +282,57 @@ Descrizione: {KBDOCUMENT_DESCRIPTION}
 Potete visualizzare il documento qui:
 <{URL}>
 <!-- END: KBDocument -->
+
+<!-- BEGIN: MeetingReminder_Subject -->
+Promemoria Riunione - {MEETING_SUBJECT}
+<!-- END: MeetingSpecial_Subject -->
+<!-- BEGIN: MeetingReminder -->
+Titolo: {MEETING_SUBJECT}
+Quando: {MEETING_STARTDATE}
+Dove: {MEETING_LOCATION}
+Creato da: {MEETING_CREATED_BY}
+Descrizione: {MEETING_DESCRIPTION}
+<!-- END: MeetingReminder -->
+
+<!-- BEGIN: Note_Subject -->
+SugarCRM Note - {NOTE_SUBJECT}
+<!-- END: Note_Subject -->
+<!-- BEGIN: Note -->
+{ASSIGNER} ha assegnato una Nota a {ASSIGNED_USER}.
+
+Oggetto: {NOTE_SUBJECT}
+Descrizione: {NOTE_DESCRIPTION}
+
+Puoi rivedere questa nota all´indirizzo:
+<{URL}>
+<!-- END: Note -->
+
+<!-- BEGIN: Contract_Subject -->
+Contratto SugarCRM - {CONTRACT_NAME}
+<!-- END: Contract_Subject -->
+<!-- BEGIN: Contract-->
+
+{ASSIGNER} ha assegnato un contratto a {ASSIGNED_USER}.
+
+Potete visualizzare il record qui:
+<{URL}>
+<!-- END:Contract-->
+
+<!-- BEGIN: ContractSpecial_Subject -->
+Contratto SugarCRM - {CONTRACT_NAME}
+<!-- END: ContractSpecial_Subject -->
+<!-- BEGIN: ContractSpecial -->
+
+Il suo Contratto: {CONTRACT_NAME} scade il giorno {CONTRACT_END_DATE}.
+
+Potete vedere questo Contratto qui:
+<{URL}>
+<!-- END:ContractSpecial-->
+<!-- BEGIN: CallReminder_Subject -->
+Promemoria Chiamata - {CALL_SUBJECT}
+<!-- END: CallReminder_Subject -->
+<!-- BEGIN: CallReminder -->
+Oggetto: {CALL_SUBJECT}
+Quando: {CALL_STARTDATE}
+Creato da: {CALL_CREATED_BY}
+<!-- END: CallReminder -->

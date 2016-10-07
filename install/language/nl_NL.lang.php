@@ -2,28 +2,25 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'De geuploade file is niet compatibel met de versie van Sugar (Community Edition, Professional, or Enterprise)',
   'ERROR_LICENSE_EXPIRED' => 'Error: Uw licentie is verlopen',
   'ERROR_LICENSE_EXPIRED2' => 'dag(en) geleden. Ga naar <a href="index.php?action=LicenseSettings&module=Administration">"License Management"</a>  in het Admin-scherm om een nieuwe liceniesleutel op te voeren. U dient binnen 30 dagen na het verlopen van de licentie een nieuwe op te voeren anders kunt u niet meer inloggen.',
-  'ERROR_MANIFEST_TYPE' => 'Manifest file moet het pakkettype specficeren.',
-  'ERROR_PACKAGE_TYPE' => 'Manifest file bevat een onbekend pakkettype',
+  'ERROR_MANIFEST_TYPE' => 'Het manifest bestand moet het type van dit package aangeven.',
+  'ERROR_PACKAGE_TYPE' => 'Het manifest bestand geeft een onbekend package type aan',
   'ERROR_SPRITE_SUPPORT' => 'Currently we are not able to locate the GD library, as a result you will not be able to use the CSS Sprite functionality.',
   'ERROR_VALIDATION_EXPIRED' => 'Error: Uw validatiesleutel verliep',
   'ERROR_VALIDATION_EXPIRED2' => 'dag(en) geleden. Ga naar <a href="index.php?action=LicenseSettings&module=Administration">"License Management"</a>  in het Admin-scherm om een nieuwe validatiesleutel op te voeren. U dient binnen 30 dagen na het verlopen van de validatie een nieuwe op te voeren anders kunt u niet meer inloggen.',
@@ -31,14 +28,16 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Vul het wachtwoord in van de Sugar Admin gebruiker.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Geef de gebruikersnaam van de Sugar admin gebruiker',
   'ERR_CHECKSYS' => 'Er zijn fouten ontdekt tijdens de compatibiliteitscheck. Om uw SugarCRM installatie goed te laten functioneren, dienen onderstaande issues te worden opgelost, druk daarna op de recheck-button of probeer opnieuw te installeren.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH support not found: SugarCRM needs BCMATH support for arbitrary precision math.',
   'ERR_CHECKSYS_CALL_TIME' => 'Parameter &#39;Allow Call Time Pass Reference&#39; heeft de waarde &#39;On&#39;  en deze moet &#39;Off&#39; zijn de php.ini',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Het config bestand bestaat wel, maar is niet schrijfbaar.  Maak dit bestand schrijfbaar door chmod 766 of via de rechtermuisknop, afhankelijk van uw besturingssysteem.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'The config override file exists but is not writeable.  Please take the necessary steps to make the file writeable.  Depending on your Operating system, this might require you to change the permissions by running chmod 766, or to right click on the filename to access the properties and uncheck the read only option.',
-  'ERR_CHECKSYS_CURL' => 'Niet gevonden: Sugar Scheduler zal alleen met beperkte functionaliteit draaien.',
+  'ERR_CHECKSYS_CURL' => 'Niet gevonden: Sugar taakplanner zal alleen met beperkte functionaliteit draaien.',
   'ERR_CHECKSYS_CUSTOM_NOT_WRITABLE' => 'De Custom Directory bestaat wel, maar is niet schrijfbaar.  Maak deze map schrijfbaar door chmod 766 of via de rechtermuisknop, afhankelijk van uw besturingssysteem.',
   'ERR_CHECKSYS_FASTCGI' => 'Er is geconstateerd dat u geen &#39;FastCGI handler mapping&#39;  voor PHP gebruikt. U dient een versie te installeren/configureren die verenigbaar is met Sugar.  Raadpleeg de Compatibility Matrix in de Release Notes voor de ondersteunde versies.  Bekijk <a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a> voor meer informatie.',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Voor een optimale ervaring met IIS / FastCGI sapi, stel fastcgi.logging op 0 in je php.ini bestand.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Onderstaande bestanden of mappen zijn niet schrijfbaar cq aanwezig. afhankelijk van uw besturingssysteem dient u de permissie te wijzigen van het bestand of de bovenliggende map, middels chmod 766 of via de rechtermuisknop (read-only optie uitvinken) en dit ook toepassen op alle subfolders',
+  'ERR_CHECKSYS_HTACCESS' => 'Test voor .htaccess rewrites mislukt. Dit betekent doorgaand dat je niet AllowOverride hebt ingesteld voor de Sugar directory.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Uw versie van IIS wordt niet ondersteund door Sugar. Het moet een versie zijn die compatibel is met het te installeren Sugar programma. Raadpleeg de Compatibility Matrix in de Release Notes voor de ondersteunde IIS-versies. Uw versie is',
   'ERR_CHECKSYS_IMAP' => 'Niet gevonden: Inkomende E-mail en Campagnes (E-mail) vereisen de IMAP-bibliotheken. Geen van beiden zullen functioneel zijn.',
   'ERR_CHECKSYS_MBSTRING' => 'Functies behorende bij "Multibyte Strings PHP Extension" benodigd door SugarCRM zijn niet gevonden. N.B. Standaard wordt de module niet geinstalleerd in PHP, om deze alsnog te activeren dient deze met "--enable-mbstring" te worden meegegeven als de PHP Binary wordt opgebouwd. Raadpleeg de PHP handleiding voor meer informatie.',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Geen geldige directory',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Waarschuwing: Niet Schrijfbaar',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Schrijven en Lezen van sessie variabelen is mislukt. Onmogelijk verder te gaan met de installatie.',
-  'ERR_CHECKSYS_PCRE' => 'PCRE library not found: SugarCRM needs PCRE library in order to process Perl style of regular expression pattern matching.',
-  'ERR_CHECKSYS_PCRE_VER' => 'PCRE library version: SugarCRM needs PCRE library 7.0 or above to process Perl style of regular expression pattern matching.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Uw versie van PHP wordt niet ondersteund door Sugar. Het moet een versie zijn die compatibel is met het te installeren Sugar programma. Raadpleeg de Compatibility Matrix in de Release Notes voor de ondersteunde PHP-versies. Uw versie is',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Niet ondersteunde PHP versie geinstalleerd: ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Safe Mode staat aan. Het kan wenselijk zijn dit uit te schakelen in de php.ini',
@@ -94,7 +91,7 @@ $mod_strings = array (
   'ERR_LANG_MISSING_FILE' => 'Kan bestand niet vinden:',
   'ERR_LANG_NO_LANG_FILE' => 'Er is geen taalpakket gevonden in include/language:',
   'ERR_LANG_UPLOAD_1' => 'Er is een fout opgetreden bij het uploaden. Probeer het a.u.b. opnieuw.',
-  'ERR_LANG_UPLOAD_2' => 'Taalpakket moet een zip-bestand zijn',
+  'ERR_LANG_UPLOAD_2' => 'Taalpakket moet een ZIP-bestand zijn',
   'ERR_LANG_UPLOAD_3' => 'PHP kon de temp niet verplaatsen naar de upgrade directory',
   'ERR_LICENSE_MISSING' => 'Verplichte velden ontbreken',
   'ERR_LICENSE_NOT_FOUND' => 'Licentie bestand niet gevonden!',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Basaal Type',
   'LBL_CANCEL' => 'Annuleer',
   'LBL_CHECKSYS_1' => 'Om uw Sugar installatie correct te laten functioneren dienen alle systeemchecks hier beneden groen te zijn. Als er rode bij zijn, onderneem dan de noodzakelijke stappen om ze op te lossen. <BR><BR> Hulp nodig? <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Arbitrary Precision Math Module',
   'LBL_CHECKSYS_CACHE' => 'S§chrijfbare Cache Sub-Directories',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference staat uitgeschakeld',
   'LBL_CHECKSYS_COMPONENT' => 'Component',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Bevestig de volgende bestanden en directories voor verder te gaan:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Bevestig de volgende module directories en de bestanden in deze directories voor verder te gaan:',
+  'LBL_CHECKSYS_HTACCESS' => 'AllowOverride setup voor .htaccess',
   'LBL_CHECKSYS_IISVER' => 'IIS Versie',
   'LBL_CHECKSYS_IMAP' => 'IMAP Module',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings Module',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQL Versie',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Niet Beschikbaar',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'PCRE Library',
   'LBL_CHECKSYS_PHPVER' => 'PHP Versie',
   'LBL_CHECKSYS_PHP_INI' => '<b>Opmerking:</b> Uw PHP configuratiebestand (php.ini) staat hier:',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Full Text Search capability is not installed.',
   'LBL_FTS_INSTALLED_ERR2' => 'You can still install but will not be able to use Full Text Search functionality.  Please refer to your database server install guide on how to do this, or contact your Administrator.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search is vereist.',
   'LBL_FTS_TABLE_TITLE' => 'Provide Full-Text Search Settings',
   'LBL_FTS_TYPE' => 'Search Engine Type',
   'LBL_HELP' => 'Help',
@@ -260,7 +259,7 @@ $mod_strings = array (
   'LBL_LANG_BUTTON_UNINSTALL' => 'De-Installeer',
   'LBL_LANG_BUTTON_UPLOAD' => 'Uploaden',
   'LBL_LANG_NO_PACKS' => 'geen',
-  'LBL_LANG_PACK_INSTALLED' => 'De volgende taalpakketten zijn geinstalleerd:',
+  'LBL_LANG_PACK_INSTALLED' => 'De volgende taalpakketten zijn geïnstalleerd:',
   'LBL_LANG_PACK_READY' => 'De volgende taalpakketten staan klaar om te worden geinstalleerd:',
   'LBL_LANG_SUCCESS' => 'Het taalpakket is succesvol geinstalleerd.',
   'LBL_LANG_TITLE' => 'Taalpakket',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
   'LBL_OOTB_IE' => 'Binnenkomende Mailboxen controleren.',
   'LBL_OOTB_PRUNE' => 'Database opschonen op de 1e van de maand',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Verwijderen van documenten van het filesystem',
   'LBL_OOTB_REPORTS' => 'Het rapport uitvoeren van de geplande taken',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Run E-mail Reminder Notificaties',
-  'LBL_OOTB_SUGARFEEDS' => 'Prune SugarFeed Tables',
   'LBL_OOTB_TRACKER' => 'Opschoon trackter tabellen',
   'LBL_OOTB_WORKFLOW' => 'Uitvoeren van de taken van de Workflow',
   'LBL_OPP' => 'Opportunity Gegevens Set',
@@ -359,9 +356,9 @@ $mod_strings = array (
   'LBL_PERFORM_CONFIG_PHP' => 'Aanmaken Sugar configuratie bestand',
   'LBL_PERFORM_CREATE_DB_1' => '<b>Aanmaken van de database</b>',
   'LBL_PERFORM_CREATE_DB_2' => '<b>van</b>',
-  'LBL_PERFORM_CREATE_DB_USER' => 'Aanmaken van de database gebruikersnaam en wachtwoord ...',
-  'LBL_PERFORM_CREATE_DEFAULT' => 'Het creëren van standaard Sugar gegevens ...',
-  'LBL_PERFORM_CREATE_LOCALHOST' => 'Aanmaken van de database gebruikersnaam en wachtwoord voor localhost ...',
+  'LBL_PERFORM_CREATE_DB_USER' => 'Aanmaken van de database gebruikersnaam en wachtwoord...',
+  'LBL_PERFORM_CREATE_DEFAULT' => 'Het creëren van standaard Sugar gegevens',
+  'LBL_PERFORM_CREATE_LOCALHOST' => 'Aanmaken van de database gebruikersnaam en wachtwoord voor localhost...',
   'LBL_PERFORM_CREATE_RELATIONSHIPS' => 'Het creëren van Sugar relatie tabellen',
   'LBL_PERFORM_CREATING' => 'aanmaken /',
   'LBL_PERFORM_DEFAULT_REPORTS' => 'Het creëren van standaard rapporten',
@@ -472,15 +469,15 @@ $mod_strings = array (
   'REQUIRED_SYS_COMP_MSG' => 'Controleer of de versies van de volgende systeemcomponenten worden ondersteunt door SugarCRM, voordat u begint:<br><br />                      <ul><br />                      <li> Database/Database Management System (Voorbeelden: MySQL, SQL Server, Oracle)</li><br />                      <li> Web Server (Apache, IIS)</li><br />                      </ul><br />                      Raadpleeg de compatibiliteit Matrix in de Release Notes voor de versies van de <br />                      systeemcomponenten die voor deze Sugar-versie ondersteund worden.<br>',
   'advanced_password_forgot_password_email' => 
   array (
-    'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>You recently requested on $contact_user_pwd_last_changed to be able to reset your account password. </p><p>Click on the link below to reset your password:</p><p> $contact_user_link_guid </p>  </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
+    'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>U heeft op $contact_user_pwd_last_changed een verzoek ingediend om uw wachtwoord te wijzigen. </p><p>Klik op de onderstaande link om uw wachtwoord opnieuw in te stellen:</p><p> $contact_user_link_guid </p>  </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
     'description' => 'This template is used to send a user a link to click to reset the user&#39;s account password.',
-    'name' => 'Forgot Password email',
-    'subject' => 'Reset your account password',
+    'name' => 'Vergeten wachtwoord e-mail',
+    'subject' => 'Stel wachtwoord opnieuw in',
     'txt_body' => 'U heeft recentelijk aangevraagd op $contact_user_pwd_last_changed om uw wachtwoord opnieuw te kunnen instellen.<br /><br />Klik op de link om uw wachtwoord te kunnen wijzigen:<br /><br />$contact_user_link_guid',
   ),
   'advanced_password_new_account_email' => 
   array (
-    'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>Here is your account username and temporary password:</p><p>Username : $contact_user_user_name </p><p>Password : $contact_user_user_hash </p><br><p>$config_site_url</p><br><p>After you log in using the above password, you may be required to reset the password to one of your own choice.</p>   </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
+    'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>Hier is uw gebruikersnaam en tijdelijke wachtwoord:</p><p>Gebruikersnaam : $contact_user_user_name </p><p>Wachtwoord : $contact_user_user_hash </p><br><p>$config_site_url</p><br><p>Als u ingelogd bent, kan u mogelijk verplicht worden om het wachtwoord te wijzigen naar een persoonlijk wachtwoord.</p>   </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
     'description' => 'This template is used when the System Administrator sends a new password to a user.',
     'name' => 'System-generated password email',
     'subject' => 'New account information',

@@ -2,23 +2,20 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $connector_strings = array (
-  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Verkrijg een API Key van Citrix Online GoToMeeting door een nieuwe applicatie te registreren.<br><br />&nbsp;<br><br />Stappen om uw instantie te registreren:<br><br />&nbsp;<br><br /><ol><br /><li>Ga naar uw Citrix Online developer account: https://developer.citrixonline.com/</li><br /><li>Klik op Apply for Developer Key</li><br /><li>Kies bij Product API GoToMeeting, en voer de URL van uw instantie in bij Application URL</li><br /><li>Een kolom "API Key" zal bij Your Applications getoond worden</li><br /><li>Kopieer deze waarde hieronder.</li><br /></ol><br /></td></tr></table>',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Verkrijg een API Key van Citrix Online GoToMeeting door een nieuwe applicatie te registreren.<br><br />&nbsp;<br><br />Volg de volgende stappen om uw instantie te registreren:<br><br />&nbsp;<br><br /><ol><br /><li>Log in bij uw Citrix Online developer account: https://developer.citrixonline.com/</li><br /><li>Klik op &#39;Apply for Developer Key&#39;</li><br /><li>Kies GoToMeeting bij Product API, en voer de URL van uw instantie in bij &#39;Application URL&#39;</li><br /><li>U zult een kolom zien met de naam &#39;API Key&#39; bij &#39;Your Applications&#39;</li><br /><li>Kopieer de Key hieronder.</li><br /></ol><br /></td></tr></table>',
   'oauth_consumer_key' => 'API Key',
 );
 

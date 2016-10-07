@@ -1,24 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description: view handler for step 3 of the import process
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Import/views/ImportView.php');
 require_once('modules/Import/sources/ImportFile.php');
 require_once('modules/Import/ImportFileSplitter.php');
@@ -27,6 +18,9 @@ require_once('modules/Import/ImportDuplicateCheck.php');
 
 require_once('include/upload_file.php');
 
+/**
+ * Description: view handler for step 3 of the import process
+ */
 class ImportViewStep3 extends ImportView
 {
 
@@ -48,7 +42,7 @@ class ImportViewStep3 extends ImportView
         $this->ss->assign("CURRENT_STEP", $this->currentStep);
         // attempt to lookup a preexisting field map
         // use the custom one if specfied to do so in step 1
-        $mapping_file = new ImportMap();
+        $mapping_file = BeanFactory::getBean('Import_1');
         $field_map = $mapping_file->set_get_import_wizard_fields();
         $default_values = array();
 		$ignored_fields = array();
@@ -56,8 +50,7 @@ class ImportViewStep3 extends ImportView
         if ( !empty( $_REQUEST['source_id']))
         {
             $GLOBALS['log']->fatal("Loading import map properties.");
-            $mapping_file = new ImportMap();
-            $mapping_file->retrieve( $_REQUEST['source_id'],false);
+            $mapping_file = BeanFactory::getBean('Import_1',  $_REQUEST['source_id'],array("encode" => false));
             $_REQUEST['source'] = $mapping_file->source;
             $has_header = $mapping_file->has_header;
             if (isset($mapping_file->delimiter))
@@ -90,7 +83,7 @@ class ImportViewStep3 extends ImportView
         }
 
         $delimiter = $this->getRequestDelimiter();
-        
+
         $this->ss->assign("CUSTOM_DELIMITER", $delimiter);
         $this->ss->assign("CUSTOM_ENCLOSURE", ( !empty($_REQUEST['custom_enclosure']) ? $_REQUEST['custom_enclosure'] : "" ));
 
@@ -105,8 +98,6 @@ class ImportViewStep3 extends ImportView
             $this->_showImportError($mod_strings['LBL_CANNOT_OPEN'],$_REQUEST['import_module'],'Step2');
             return;
         }
-
-        $charset = $importFile->autoDetectCharacterSet();
 
         // retrieve first 3 rows
         $rows = array();
@@ -135,7 +126,7 @@ class ImportViewStep3 extends ImportView
             $this->_showImportError($mod_strings['LBL_NO_LINES'],$_REQUEST['import_module'],'Step2');
             return;
         }
-        
+
         // save first row to send to step 4
         $this->ss->assign("FIRSTROW", base64_encode(serialize($rows[0])));
 
@@ -245,9 +236,14 @@ class ImportViewStep3 extends ImportView
                 if ( isset($properties['type'])
                         && isset($mod_strings['LBL_IMPORT_FIELDDEF_' . strtoupper($properties['type'])]) )
                     $fieldtype = ' [' . $mod_strings['LBL_IMPORT_FIELDDEF_' . strtoupper($properties['type'])] . '] ';
-                if ( isset($properties['comment']) )
-                    $fieldtype .= ' - ' . $properties['comment'];
-                $options[$displayname.$fieldname] = '<option value="'.$fieldname.'" title="'. $displayname . htmlentities($fieldtype) . '"'
+
+                $comment = isset($properties['comments']) ? $properties['comments'] : (isset($properties['comment']) ? $properties['comment'] : '');
+                if (!empty($comment)) {
+                    $fieldtype .= ' - ' . $comment;
+                }
+
+                $options[$displayname.$fieldname] = '<option value="'.$fieldname.'" title="'. $displayname
+                    . htmlentities($fieldtype, null, 'UTF-8') . '"'
                     . $selected . $req_class . '>' . $displayname . $req_mark . '</option>\n';
             }
 
@@ -267,13 +263,6 @@ class ImportViewStep3 extends ImportView
 
             // Bug 27046 - Sort the column name picker alphabetically
             ksort($options);
-
-            // to be displayed in UTF-8 format
-            if (!empty($charset) && $charset != 'UTF-8') {
-                if (isset($rows[1][$field_count])) {
-                    $rows[1][$field_count] = $locale->translateCharset($rows[1][$field_count], $charset);
-                }
-            }
 
             $cellOneData = isset($rows[0][$field_count]) ? $rows[0][$field_count] : '';
             $cellTwoData = isset($rows[1][$field_count]) ? $rows[1][$field_count] : '';
@@ -322,10 +311,15 @@ class ImportViewStep3 extends ImportView
                     if ( isset($properties['type'])
                             && isset($mod_strings['LBL_IMPORT_FIELDDEF_' . strtoupper($properties['type'])]) )
                         $fieldtype = ' [' . $mod_strings['LBL_IMPORT_FIELDDEF_' . strtoupper($properties['type'])] . '] ';
-                    if ( isset($properties['comment']) )
-                        $fieldtype .= ' - ' . $properties['comment'];
-                    $options[$displayname.$fieldname] = '<option value="'.$fieldname.'" title="'. $displayname . $fieldtype . '"' . $selected . $req_class . '>'
-                        . $displayname . $req_mark . '</option>\n';
+
+                    $comment = isset($properties['comments']) ? $properties['comments'] : (isset($properties['comment']) ? $properties['comment'] : '');
+                    if (!empty($comment)) {
+                        $fieldtype .= ' - ' . $comment;
+                    }
+
+                    $options[$displayname.$fieldname] = '<option value="'.$fieldname.'" title="'. $displayname
+                        . htmlentities($fieldtype, null, 'UTF-8') . '"'
+                        . $selected . $req_class . '>' . $displayname . $req_mark . '</option>\n';
                 }
 
                 // get default field value
@@ -429,20 +423,15 @@ class ImportViewStep3 extends ImportView
        $name = 'ImportMap' . $source;
        $customName = 'ImportMapCustom' . $source;
 
-       if (file_exists("custom/modules/Import/maps/{$customName}.php"))
-       {
-           require_once("custom/modules/Import/maps/{$customName}.php");
+       if (SugarAutoLoader::requireWithCustom("modules/Import/maps/{$customName}.php") ) {
            return $customName;
-       } else if (file_exists("custom/modules/Import/maps/{$name}.php")) {
-           require_once("custom/modules/Import/maps/{$name}.php");
-       } else if (file_exists("modules/Import/maps/{$name}.php")) {
-           require_once("modules/Import/maps/{$name}.php");
-       } else if (file_exists('custom/modules/Import/maps/ImportMapOther.php')) {
-           require_once('custom/modules/Import/maps/ImportMapOther.php');
-           return 'ImportMapOther';
+       }
+       if(SugarAutoLoader::requireWithCustom("modules/Import/maps/{$name}.php") ) {
+           return $name;
        }
 
-       return $name;
+       SugarAutoLoader::requireWithCustom("modules/Import/maps/ImportMapOther.php");
+       return 'ImportMapOther';
     }
 
 
@@ -458,7 +447,7 @@ class ImportViewStep3 extends ImportView
             case '\t':
                 $delimiter = "\t";
                 break;
-        }       
+        }
         return $delimiter;
     }
 

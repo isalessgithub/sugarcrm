@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 /**
@@ -62,18 +59,14 @@ class SugarFieldAddress extends SugarFieldBase {
     }
     
     function getEditViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) {
+        $this->setup($parentFieldArray, $vardef, $displayParams, $tabindex);        
         global $app_strings;
-
         if(!isset($displayParams['key'])) {
            $GLOBALS['log']->debug($app_strings['ERR_ADDRESS_KEY_NOT_SPECIFIED']);	
            $this->ss->trigger_error($app_strings['ERR_ADDRESS_KEY_NOT_SPECIFIED']);
            return;
         }
-
-        $displayParams['fields'] = $this->getDisplayParamsForFields($displayParams['key'], $displayParams['module']);
-
-        $this->setup($parentFieldArray, $vardef, $displayParams, $tabindex);
-
+        
         //Allow for overrides.  You can specify a Smarty template file location in the language file.
         if(isset($app_strings['SMARTY_ADDRESS_EDITVIEW'])) {
            $tplCode = $app_strings['SMARTY_ADDRESS_EDITVIEW'];
@@ -82,21 +75,6 @@ class SugarFieldAddress extends SugarFieldBase {
 
         return $this->fetch($this->findTemplate('EditView'));      
     }
-
-    /**
-     * @param $key - Address group field key (primary, billing, shipping, ...)
-     * @return array - array of fields included in Address group and their vardefs
-     */
-    private function getDisplayParamsForFields($key, $module)
-    {
-        $bean = BeanFactory::getBean($module);
-
-        return array(
-            'street' => $bean->field_defs[$key . '_address_street'],
-            'city' => $bean->field_defs[$key . '_address_city'],
-            'state' => $bean->field_defs[$key . '_address_state'],
-            'postalcode' => $bean->field_defs[$key . '_address_postalcode'],
-            'country' => $bean->field_defs[$key . '_address_country'],
-        );
-    }
+    
 }
+?>

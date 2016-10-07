@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_FIX_MESSAGES' => 'Please correct the following errors before proceeding',
@@ -24,8 +21,10 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'No Email Marketing message found for this target list',
   'ERR_NO_EMAIL_MARKETING' => 'There must be at least one active Email Marketing message associated with the campaign.',
   'ERR_NO_MAILBOX' => 'The following marketing messages do not have a mail account associated with them.<BR>Please correct that before proceeding.',
+  'ERR_NO_OPTS_SAVED' => 'לא נשמרו מיקסומים לדואר הנכנס שלך',
   'ERR_NO_TARGET_LISTS' => 'There must be at least one Target List associated with the campaign.',
   'ERR_NO_TEST_TARGET_LISTS' => 'There must be at least one Target List of type Test associated with the campaign.',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'אנא בדוק הגדרות של דואר נכנס',
   'ERR_SENDING_NOW' => 'Messages are being delivered , please try this later.',
   'LBL_ACCOUNTS' => 'חשבונות',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'חשבונות',
@@ -55,6 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'רווח צפוי:',
   'LBL_CAMPAIGN_FREQUENCY' => 'תדירות:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'רשמים:',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'לקמפיין {0} יש סטטוס לא פעיל. יש לשנות סטטוס קמפיין לפעיל.',
   'LBL_CAMPAIGN_INFORMATION' => 'סקירת קמפיין',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'לידים',
   'LBL_CAMPAIGN_NAME' => 'שם:',
@@ -85,6 +85,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'נוצר על ידי:',
   'LBL_CREATED_BY' => 'נוצר על ידי:',
   'LBL_CREATED_USER' => 'משתמשים שנוצרו',
+  'LBL_CREATE_EMAIL' => 'צור מייל',
   'LBL_CREATE_EMAIL_TEMPLATE' => 'צור',
   'LBL_CREATE_MAILBOX' => 'Create New Mail Account',
   'LBL_CREATE_NEWSLETTER' => 'צור עלון חדשות',
@@ -93,6 +94,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'CreateWebToLeadForm',
   'LBL_CURRENCY' => 'מטבע:',
   'LBL_CURRENCY_ID' => 'זהות מטבע',
+  'LBL_CURRENCY_RATE' => 'שער מטבע',
   'LBL_CUSTOM_LOCATION' => 'User Defined',
   'LBL_DATE_CREATED' => 'נוצר בתאריך:',
   'LBL_DATE_ENTERED' => 'נוצר בתאריך',
@@ -143,6 +145,8 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Launch Email Setup',
   'LBL_EMAIL_SETUP_WIZARD' => 'סדר דואר אלקטרוני',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'Email Setup for Campaigns',
+  'LBL_EMAIL_TITLE' => 'קמפיינים: מיילים',
+  'LBL_END_DATE' => 'תאריך סיום',
   'LBL_FILTER_CHART_BY' => 'סנן תרשים על פי:',
   'LBL_FINISH' => 'סיום',
   'LBL_FROM_ADDR' => '"From" Address',
@@ -214,6 +218,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'שונה על ידי:',
   'LBL_MODIFIED_USER' => 'משתמשים ששונו',
   'LBL_MODULE_NAME' => 'קמפיינים',
+  'LBL_MODULE_NAME_SINGULAR' => 'קמפיין:',
   'LBL_MODULE_TITLE' => 'קמפיינים: דף ראשי',
   'LBL_MONTH' => 'חודש',
   'LBL_MORE_DETAILS' => 'פרטים נוספים',
@@ -290,7 +295,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Use SSL',
   'LBL_SSL_DESC' => 'If your mail server supports secure socket connections, enabling this will force SSL connections when importing email.',
   'LBL_START' => 'Start',
+  'LBL_START_DATE' => 'תאריך התחלה:',
   'LBL_START_DATE_TIME' => 'תאריך ושעת התחלה:',
+  'LBL_STATUS' => 'סטטוס',
   'LBL_STATUS_TEXT' => 'סטאטוס:',
   'LBL_SUBSCRIPTION_LIST' => 'Subscription List',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Subscription List Name:',
@@ -317,6 +324,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'צפה בפרטים',
   'LBL_TODETAIL_BUTTON_TITLE' => 'צפה בפרטים',
   'LBL_TOP_CAMPAIGNS' => 'קמפיינים ראשיים',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'קמפיינים מצטיינים לפי הכנסה',
   'LBL_TOP_CAMPAIGNS_NAME' => 'שם קמפיין',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'רווח',
   'LBL_TOTAL_ENTRIES' => 'Entries',
@@ -339,6 +347,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'This option will delete log entries created by the test run. Continue?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'מעקב אחר תורים',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'צפה ב -  ROI',
+  'LBL_TYPE' => 'סוג',
   'LBL_UNSUBSCRIBED_HEADER' => 'זמינים/עלוני חדשות לשאינם מנועים אל',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Moving the newsletter to the Available Newsletters/Newsletters Unsubscribed To list will add the contact to the Unsubscription List for this newsletter.  It will not remove the contact from the original Subscription List or Target List.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Unsubscription List',

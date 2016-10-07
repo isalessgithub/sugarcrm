@@ -1,28 +1,33 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 
 <form name="exportcustom" id="exportcustom">
 <input type='hidden' name='module' value='ModuleBuilder'>
 <input type='hidden' name='action' value='ExportCustom'>
 <div align="left">
-<input type="submit" class="button" name="exportCustomBtn" value="{$mod_strings.LBL_EC_EXPORTBTN}" onclick="return check_form('exportcustom');">
+{if !$nb_mod}
+    <input type="button" class="button" name="exportCustomBtn" value="{$mod_strings.LBL_BTN_BACK}" onclick="ModuleBuilder.getContent('module=ModuleBuilder&action=wizard')">
+    <input disabled="disabled" type="submit" class="button" name="exportCustomBtn" value="{$mod_strings.LBL_EC_EXPORTBTN}">
+{else}
+    <input type="submit" class="button" name="exportCustomBtn" value="{$mod_strings.LBL_EC_EXPORTBTN}" onclick="return check_form('exportcustom');">
+{/if}
 </div>
+
+{if !$nb_mod}
+    <br>
+    <h3 class="required">{$mod_strings.LBL_EC_NOCUSTOM}</h3>
+{/if}
+
 <br>
     <table class="mbTable">
     <tbody>
@@ -57,12 +62,12 @@
     </tbody>
 	</table>
 	
-    <table border="0" CELLSPACING="15" WIDTH="100%">
-        <TR><input type="hidden" name="hiddenCount"></TR>
+    <table border="0" CELLSPACING="15" WIDTH="100%" class="checkboxset">
+        <TR><TD><input type="hidden" name="hiddenCount"></TD></TR>
         {foreach from=$modules key=k item=i}
         
         <TR>
-            <TD><h3 style='margin-bottom:20px;'>{if $i != ""}<INPUT onchange="updateCount(this);" type="checkbox" name="modules[]" value={$k}>{/if}{$moduleList[$k]}</h3></TD>
+            <TD><h3 style='margin-bottom:20px;'>{if $i != ""}<INPUT type="checkbox" name="modules[]" value={$k}>{/if}{$moduleList[$k]}</h3></TD>
             <TD VALIGN="top">
             {foreach from=$i item=j}
             {$j}<br>
@@ -75,19 +80,10 @@
     <br> 
 </form>
 
-{literal}
 <script type="text/javascript">
-var boxChecked = 0;
-
-function updateCount(box) {
-   boxChecked = box.checked == true ? ++boxChecked : --boxChecked;
-   document.exportcustom.hiddenCount.value = (boxChecked == 0 ? "" : "CHECKED");
-}
-{/literal}
 ModuleBuilder.helpRegister('exportcustom');
 ModuleBuilder.helpSetup('exportcustom','exportHelp');
-addToValidate('exportcustom', 'hiddenCount', 'varchar', true, '{$mod_strings.LBL_EC_CHECKERROR}');
-addToValidate('exportcustom', 'name', 'varchar', true, '{$mod_strings.LBL_PACKAGE_NAME}'{literal});
+addToValidate('exportcustom', 'modules[]', 'checkboxset', true, '{$mod_strings.LBL_EC_CHECKERROR}');
+addToValidate('exportcustom', 'name', 'varchar', true, '{$mod_strings.LBL_PACKAGE_NAME}');
 </script>
-{/literal}
 {include file='modules/ModuleBuilder/tpls/assistantJavascript.tpl'}

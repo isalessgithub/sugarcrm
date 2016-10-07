@@ -1,105 +1,104 @@
 <?php
-// created: 2016-10-06 15:20:10
-$viewdefs['Accounts']['QuickCreate'] = array (
-  'templateMeta' => 
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+/*********************************************************************************
+
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+ 
+
+$viewdefs ['Accounts'] = 
+array (
+  'QuickCreate' => 
   array (
-    'form' => 
+    'templateMeta' => 
     array (
-      'buttons' => 
+      'form' => 
       array (
-        0 => 'SAVE',
-        1 => 'CANCEL',
-      ),
-    ),
-    'maxColumns' => '2',
-    'widths' => 
-    array (
-      0 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-      1 => 
-      array (
-        'label' => '10',
-        'field' => '30',
-      ),
-    ),
-    'includes' => 
-    array (
-      0 => 
-      array (
-        'file' => 'modules/Accounts/Account.js',
-      ),
-    ),
-    'tabDefs' => 
-    array (
-      'DEFAULT' => 
-      array (
-        'newTab' => false,
-        'panelDefault' => 'expanded',
-      ),
-    ),
-  ),
-  'panels' => 
-  array (
-    'default' => 
-    array (
-      0 => 
-      array (
-        0 => 
+        'buttons' => 
         array (
-          'name' => 'name',
-          'displayParams' => 
+          'SAVE',
+          'CANCEL',
+        ),
+      ),
+      'maxColumns' => '2',
+      'widths' => 
+      array (
+        array (
+          'label' => '10',
+          'field' => '30',
+        ),
+        array (
+          'label' => '10',
+          'field' => '30',
+        ),
+      ),
+      'includes' => 
+      array (
+        array (
+          'file' => 'modules/Accounts/Account.js',
+        ),
+      ),
+    ),
+    'panels' => 
+    array (
+      'default' => 
+      array (
+        array (
           array (
-            'required' => true,
+            'name' => 'name',
+            'displayParams' => 
+            array (
+              'required' => true,
+            ),
           ),
         ),
-      ),
-      1 => 
-      array (
-        0 => 
         array (
-          'name' => 'website',
+          array (
+            'name' => 'website',
+          ),
+          array (
+            'name' => 'phone_office',
+          ),
         ),
-        1 => 
         array (
-          'name' => 'phone_office',
+          array (
+            'name' => 'email1',
+          ),
+          array (
+            'name' => 'phone_fax',
+          ),
         ),
-      ),
-      2 => 
-      array (
-        0 => 
         array (
-          'name' => 'email1',
+          array (
+            'name' => 'industry',
+          ),
+          array (
+            'name' => 'account_type',
+          ),
         ),
-        1 => 
         array (
-          'name' => 'phone_fax',
-        ),
-      ),
-      3 => 
-      array (
-        0 => 
-        array (
-          'name' => 'industry',
-        ),
-        1 => 
-        array (
-          'name' => 'account_type',
-        ),
-      ),
-      4 => 
-      array (
-        0 => 
-        array (
-          'name' => 'assigned_user_name',
-        ),
-        1 => 
-        array (
-          'name' => 'team_name',
+            array (
+              'name' => 'assigned_user_name',
+            ),
+            array (
+              'name' => 'team_name',
+            ),
         ),
       ),
     ),
   ),
-);
+); 
+ 
+?>

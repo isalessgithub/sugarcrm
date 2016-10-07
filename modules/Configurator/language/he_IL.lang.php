@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Advanced',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Display server response times',
   'ERR_ALERT_FILE_UPLOAD' => 'Error during the upload of the image.',
   'ERR_DELETE_CORE_FILE' => 'ERROR: It is not possible to delete a core font.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML certificate can not be empty',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL can not be empty',
   'ERR_EZPDF_DISABLE' => 'Warning : The EZPDF class is disabled from the config table and it set as the PDF class. Please "Save" this form to set TCPDF as the PDF Class and return in a stable state.',
   'ERR_FONT_ALREADY_EXIST' => 'ERROR : This font already exist. Rollback...',
   'ERR_FONT_EMPTYFILE' => 'ERROR: Empty filename!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERROR: No custom font path available!',
   'ERR_NO_FONT_PATH' => 'ERROR: No font path available!',
   'ERR_PDF_NO_UPLOAD' => 'Error during the upload of the font or metric file.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL is not valid',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL is not valid',
   'HEAD_MAGNIFICATION' => 'Head Magnification',
   'HEAD_MAGNIFICATION_INFO' => 'Magnification factor for titles.',
   'IMAGES' => 'Logos',
@@ -75,14 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Back',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Choose your Email provider:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'System Settings',
-  'LBL_CONFIG_AJAX' => 'Configure AJAX User Interface',
-  'LBL_CONFIG_AJAX_DESC' => 'Enable or disable the use of the AJAX UI for specific modules.',
   'LBL_DELETE' => 'מחק',
   'LBL_DISALBE_CONVERT_LEAD' => 'Disable convert lead action for converted leads',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'If a lead has already been converted, enabling this option will remove the convert lead action.',
   'LBL_DISPLAYING_LOG' => 'Displaying Log',
   'LBL_ENABLE_ACTION_MENU' => 'Display actions within menus',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Select to display DetailView and subpanel actions within a dropdown menu. If un-selected, the actions will display as separate buttons.',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'אפשר/אל תאפשר מיילים מרשימת אנשי קשר קשורים לצפיה בלוח מחוונים משני של מיילים',
   'LBL_ENABLE_MAILMERGE' => 'Enable mail merge?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange Password:',
@@ -157,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Any additional filter params to apply when authenticating users e.g.<em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Lead Conversion Options',
   'LBL_LOADING' => 'טוען...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'הגדרה זו מתייחסת למודולים במצב לגאסי',
   'LBL_LOGGER' => 'Logger Settings',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Default date format',
   'LBL_LOGGER_FILENAME' => 'Log File Name',
@@ -182,14 +183,17 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Minimum Dashlet Auto-Refresh Interval',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'This is the minimum value one can choose to have dashlets auto-refresh. Setting to &#39;Never&#39; disables auto-refreshing of dashlets entirely.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* The Reports module is only available for the Sugar Mobile native clients',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* מודול דוחות אינו זמין לתצוגת דפדפן במובייל',
   'LBL_MODULE_FAVICON' => 'Display module icon as favicon',
   'LBL_MODULE_FAVICON_HELP' => 'If you are in a module with an icon, use the module&#39;s icon as the favicon, instead of the theme&#39;s favicon, in the browser tab.',
   'LBL_MODULE_ID' => 'Configurator',
   'LBL_MODULE_NAME' => 'System Settings',
+  'LBL_MODULE_NAME_SINGULAR' => 'הגדרות מערכת',
   'LBL_MODULE_TITLE' => 'User Interface',
   'LBL_NEXT_' => 'Next>>',
   'LBL_NOTIFY_FROMADDRESS' => '"From" Address:',
   'LBL_NOTIFY_SUBJECT' => 'Email subject:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'מנע שינוי שמות על ידי משתמשים לעדכון שם הצוות הפרטי שלהם',
   'LBL_OC_STATUS' => 'Default Offline Client Status',
   'LBL_OC_STATUS_DESC' => 'Check here if you would like any user to have access to Offline Client.  Otherwise you can configure access at the user level.',
   'LBL_PDFMODULE_NAME' => 'PDF Settings',
@@ -218,12 +222,16 @@ $mod_strings = array (
   'LBL_REMOVE' => 'rem',
   'LBL_RESTORE_BUTTON_LABEL' => 'Restore',
   'LBL_SEARCH' => 'Search:',
+  'LBL_SESSION_TIMEOUT_TOOLTIP' => 'The Portal Session Timeout is for legacy versions of Sugar Portal available in 6.5 and older.',
   'LBL_SKYPEOUT_ON' => 'Enable SkypeOut&reg; integration',
   'LBL_SKYPEOUT_ON_DESC' => 'Allows users to click on phone numbers to call using SkypeOut&reg;. The numbers must be formatted properly to make use of this feature. That is, it must be "+"  "The Country Code" "The Number", like +1 (555) 555-1234. For more information, see the Skype FAQ at <a href="http://www.skype.com/help/faq/skypeout.html#calling" target="skype">skype&reg; faq</a>',
   'LBL_SKYPEOUT_TITLE' => 'SkypeOut&reg;',
   'LBL_STATUS_FONT_ERROR' => 'ERROR : The font has not been added. Look at the log below.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUCCESS : The font has been added to SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'System Settings',
+  'LBL_TWEETTOCASE_ON' => 'אפשר טוויט® לאינטגרציה של קריאת שירות',
+  'LBL_TWEETTOCASE_ON_DESC' => 'מאפשר למשתמשים לפתוח קריאת שירות',
+  'LBL_TWEETTOCASE_TITLE' => 'טוויט® לקריאת שירות',
   'LBL_USE_REAL_NAMES' => 'Show Full Names',
   'LBL_USE_REAL_NAMES_DESC' => 'Display users&#39; full names instead of their User Names in assignment fields.',
   'LBL_VCAL_PERIOD' => 'vCal Updates Time Period:',
@@ -264,6 +272,7 @@ $mod_strings = array (
   'MAX_DASHLETS' => 'Maximum number of Sugar Dashlets on Homepage',
   'NEW_LOGO' => 'Select Logo:',
   'NEW_LOGO_HELP' => 'The image file format can be either .png or .jpg.<BR>The recommended size is 212x40 px.',
+  'NEW_LOGO_HELP_NO_SPACE' => 'The image file format can be either .png or .jpg. The maximum height is 24px, and the maximum width is 450px. Any image uploaded that is larger in any direction will be scaled to these max dimensions. Image file name must not contain a space character.',
   'NEW_QUOTE_LOGO' => 'Upload new Quotes logo',
   'NEW_QUOTE_LOGO_HELP' => 'The required image file format is .jpg.<BR>The recommended size is 867x74 px.',
   'PDF_ACL_ACCESS' => 'Access Control',
@@ -308,7 +317,7 @@ $mod_strings = array (
   'PDF_SMALL_HEADER_LOGO_WIDTH_INFO' => 'Change the scale of the uploaded image that appears in Reports PDF Documents. (TCPDF only)',
   'PDF_SUBJECT' => 'Subject',
   'PDF_SUBJECT_INFO' => 'The Subject appears in the document properties.',
-  'PDF_TITLE' => 'Title',
+  'PDF_TITLE' => 'כותרת',
   'PDF_TITLE_INFO' => 'The Title appears in the document properties.',
   'PDF_UNIT' => 'Unit',
   'PDF_UNIT_INFO' => 'document unit of measure',
@@ -327,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'System Name:',
   'SYSTEM_NAME_HELP' => 'This is the name that displays in the title bar of your browser.',
   'SYSTEM_NAME_WIZARD' => 'Name:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'הגדרות מומלצות מופיעות למטה  {{listEntriesNum}} לרמות ביצוע רגילים. כשמוסיפים רשומות לרשימה זו, המספר צריך להיות בקצה הנמוך של ההגדרות המומלצות.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Recommended setting is below {{subpanelEntriesNum}} for acceptable performance levels. As additional fields are added to the listview, this number should be at the lower end of the recommended setting.',
   'UPLOAD_MAX_SIZE' => 'Maximum upload size',
   'VERIFY_CLIENT_IP' => 'Validate user IP address',
   'vCAL_HELP' => 'Use this setting to determine the number of months in advance of the current date that Free/Busy information for calls and meetings is published.<BR>To turn Free/Busy publishing off, enter "0".  The minimum is 1 month; the maximum is 12 months.',

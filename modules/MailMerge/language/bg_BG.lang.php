@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -32,14 +29,14 @@ $mod_strings = array (
   'LBL_FINISH' => 'Стартиране на сливането',
   'LBL_FORM_SELECT_TEMPLATE' => 'Моля изберете шаблон.',
   'LBL_LIST_NAME' => 'Име',
-  'LBL_LIST_RELATIONSHIP' => 'Set Contact Relationship',
+  'LBL_LIST_RELATIONSHIP' => 'Задайте връзки за контакта',
   'LBL_MAILMERGE_MODULE' => 'Избиране на модул:',
   'LBL_MAILMERGE_OBJECTS' => 'Избиране на обекти:',
   'LBL_MAILMERGE_SELECTED_MODULE' => 'Избрани модули:',
   'LBL_MAILMERGE_TEMPLATES' => 'Избиране на шаблон:',
   'LBL_MERGED_FILE' => 'Файл за сливане:',
   'LBL_NEXT' => 'Продължи >',
-  'LBL_RELATED_INFO_SELECTION' => 'Use the selections below to identify the related information you would like to display in your merged document. Skip this step if your template document contains no related information.',
+  'LBL_RELATED_INFO_SELECTION' => 'Използвайте опциите за маркиране по-долу, за да посочите свързаната информация, която да бъде визуализирана в слетия запис. Можете да пропуснете тази стъпка, в случай че използваният шаблон на документ не съдържа свързана информация.',
   'LBL_REMOVE' => 'Премахни запис(и)',
   'LBL_SELECTED' => 'Маркирани',
   'LBL_SELECTED_ITEMS' => 'Избрани записи:',
@@ -49,7 +46,7 @@ $mod_strings = array (
   'LBL_START' => 'Натиснете за да продължите',
   'LBL_STEP_1' => 'Стъпка 1: Избиране на модул и шаблон',
   'LBL_STEP_2' => 'Стъпка 2: Избиране на обекти за сливане',
-  'LBL_STEP_3' => 'Set Contact Association',
+  'LBL_STEP_3' => 'Задайте асоциации за контакта',
   'LBL_STEP_4' => 'Преглед и финализиране',
   'LBL_STEP_5' => 'Сливането на писма е завършено',
   'LBL_TEMPLATE_NOTICE' => 'Шаблоните са Microsoft Word документи, съдържащи слети полета, заредени и съхранени в модул "Документи".',

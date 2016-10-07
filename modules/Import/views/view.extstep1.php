@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description: view handler for step 1 of the import process
@@ -21,7 +18,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 require_once('modules/Import/views/view.step3.php');
 require_once('modules/Import/ImportCacheFiles.php');
-        
+
 class ImportViewExtStep1 extends ImportViewStep3
 {
 
@@ -30,7 +27,7 @@ class ImportViewExtStep1 extends ImportViewStep3
     protected $previousAction = 'Step1';
     protected $nextAction = 'extdupcheck';
 
- 	/** 
+ 	/**
      * @see SugarView::display()
      */
  	public function display()
@@ -38,9 +35,9 @@ class ImportViewExtStep1 extends ImportViewStep3
         $source = !empty($_REQUEST['external_source']) ? $_REQUEST['external_source'] : '';
         $importModule = $_REQUEST['import_module'];
         global $mod_strings, $app_strings, $current_user, $sugar_config;
-        
+
         // Clear out this user's last import
-        $seedUsersLastImport = new UsersLastImport();
+        $seedUsersLastImport = BeanFactory::getBean('Import_2');
         $seedUsersLastImport->mark_deleted_by_user_id($current_user->id);
         ImportCacheFiles::clearCacheFiles();
 
@@ -132,8 +129,12 @@ class ImportViewExtStep1 extends ImportViewStep3
                 if ( isset($properties['type'])
                         && isset($mod_strings['LBL_IMPORT_FIELDDEF_' . strtoupper($properties['type'])]) )
                     $fieldtype = ' [' . $mod_strings['LBL_IMPORT_FIELDDEF_' . strtoupper($properties['type'])] . '] ';
-                if ( isset($properties['comment']) )
-                    $fieldtype .= ' - ' . $properties['comment'];
+
+                $comment = isset($properties['comments']) ? $properties['comments'] : (isset($properties['comment']) ? $properties['comment'] : '');
+                if (!empty($comment)) {
+                    $fieldtype .= ' - ' . $comment;
+                }
+
                 $options[$displayname.$fieldname] = '<option value="'.$fieldname.'" title="'. $displayname . htmlentities($fieldtype) . '"'
                     . $selected . $req_class . '>' . $displayname . $req_mark . '</option>\n';
             }
@@ -168,13 +169,11 @@ class ImportViewExtStep1 extends ImportViewStep3
     private function getMappingFile($source)
     {
         $classname = 'ImportMap' . ucfirst(strtolower($source));
-
-        if ( file_exists("modules/Import/maps/{$classname}.php") )
-            require_once("modules/Import/maps/{$classname}.php");
-        elseif ( file_exists("custom/modules/Import/maps/{$classname}.php") )
-            require_once("custom/modules/Import/maps/{$classname}.php");
-        else
-            return null;
+        if (! SugarAutoLoader::requireWithCustom("modules/Import/maps/{$classname}.php") ) {
+        	SugarAutoLoader::requireWithCustom("modules/Import/maps/ImportMapOther.php");
+        	$classname = 'ImportMapOther';
+        	$importSource = 'other';
+        }
 
         if ( class_exists($classname) )
         {

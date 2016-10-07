@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 global $mod_strings;
 global $app_strings;
@@ -23,8 +20,7 @@ if (!$GLOBALS['current_user']->isAdminForModule('Users')) sugar_die("Unauthorize
 $error_message = '';
 
 if(isset($_REQUEST['team_id']) && isset($_REQUEST['teams'])) {
-	$new_team = new Team();
-	$new_team->retrieve($_REQUEST['team_id']);
+	$new_team = BeanFactory::getBean('Teams', $_REQUEST['team_id']);
 	
 	//Grab the list of teams to reassign
 	$old_teams = explode(",", $_REQUEST['teams']);
@@ -37,13 +33,13 @@ if(isset($_REQUEST['team_id']) && isset($_REQUEST['teams'])) {
 		
 		//Redirect to listview
 		header("Location: index.php?module=Teams&action=index");
-		sugar_die();	   
+		return;
 	}
 	$error_message = string_format($mod_strings['ERR_INVALID_TEAM_REASSIGNMENT'], array(Team::getDisplayName($new_team->name, $new_team->name_2, false)));
 }
 	
 $teams = array();
-$focus = new Team();
+$focus = BeanFactory::getBean('Teams');
 
 if(isset($_SESSION['REASSIGN_TEAMS'])) {
   foreach($_SESSION['REASSIGN_TEAMS'] as $team_id) {

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/Dashlets/Dashlet.php');
 
@@ -28,21 +25,22 @@ class iFrameDashlet extends Dashlet {
         parent::Dashlet($id);
         $this->isConfigurable = true;
 
-        if (empty($this->title)) {
-            $this->title = translate('LBL_DASHLET_TITLE', 'Home');
+        if(!empty($options['titleLabel'])) {
+        	$this->title = translate($options['titleLabel'], 'Home');
+        } else {
+	        if(empty($options['title'])) {
+	            $this->title = translate('LBL_DASHLET_TITLE', 'Home');
+	        } else {
+	            $this->title = $options['title'];
+	        }
         }
-
-        if (!empty($options['titleLabel'])) {
-            $this->title = translate($options['titleLabel'], 'Home');
-        } elseif (!empty($options['title'])) {
-            $this->title = $options['title'];
-        }
-
         if(empty($options['url'])) {
             $this->url = $this->defaultURL;
         } else {
             $this->url = $options['url'];
         }
+
+        $this->checkURL();
 
         if(empty($options['height']) || (int)$options['height'] < 1 ) {
             $this->height = 315;
@@ -58,9 +56,7 @@ class iFrameDashlet extends Dashlet {
         $scheme = parse_url($this->url, PHP_URL_SCHEME);
         if(!in_array($scheme, $this->allowed_schemes)) {
             $this->url = 'about:blank';
-            return false;
         }
-        return true;
     }
 
     function displayOptions() {
@@ -81,8 +77,8 @@ class iFrameDashlet extends Dashlet {
 			$ss->assign('autoRefreshOptions', $this->getAutoRefreshOptions());
 			$ss->assign('autoRefreshSelect', $this->autoRefresh);
 		}
-
-        return  $ss->fetch($this->configureTpl);
+        
+        return  $ss->fetch('modules/Home/Dashlets/iFrameDashlet/configure.tpl');        
     }
 
     function saveOptions($req) {
@@ -114,13 +110,6 @@ class iFrameDashlet extends Dashlet {
         if(empty($title)){
             $title = 'empty';
         }
-
-        $result = parent::display();
-        if ($this->checkURL()) {
-            $result .= "<iframe class='teamNoticeBox' title='{$title}' src='{$out_url}' height='{$this->height}px'></iframe>";
-        } else {
-            $result .= '<table cellpadding="0" cellspacing="0" width="100%" border="0" class="list view"><tr height="20"><td colspan="11"><em>' . translate('LBL_DASHLET_INCORRECT_URL', 'Home') . '</em></td></tr></table>';
-        }
-        return $result;
+        return parent::display() . "<iframe class='teamNoticeBox' title='{$title}' src='{$out_url}' height='{$this->height}px'></iframe>";
     }
 }

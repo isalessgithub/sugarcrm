@@ -1,21 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/Dashlets/Dashlet.php');
-require_once('include/Sugar_Smarty.php');
 
 class RSSDashlet extends Dashlet
 {
@@ -123,7 +119,6 @@ class RSSDashlet extends Dashlet
     {
         // suppress XML errors
         libxml_use_internal_errors(true);
-        $data = file_get_contents($url);
         $urlparse = parse_url($url);
         if (empty($urlparse['scheme']) || empty($urlparse['host'])) {
             return $this->dashletStrings['ERR_LOADING_FEED'];
@@ -131,7 +126,8 @@ class RSSDashlet extends Dashlet
         if ($urlparse['scheme'] != 'http' && $urlparse['scheme'] != 'https') {
             return $this->dashletStrings['ERR_LOADING_FEED'];
         }
-        if(!$data) {
+        $data = file_get_contents($url);
+        if (!$data) {
             return $this->dashletStrings['ERR_LOADING_FEED'];
         }
         libxml_disable_entity_loader(true);
@@ -145,14 +141,11 @@ class RSSDashlet extends Dashlet
             foreach ( $rssdoc->channel as $channel ) {
                 if ( isset($channel->item ) ) {
                     foreach ( $channel->item as $item ) {
-                        $link = htmlspecialchars($item->link, ENT_QUOTES, 'UTF-8');
-                        $title = htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8');
-                        $description = htmlspecialchars($item->description, ENT_QUOTES, 'UTF-8');
                         $output .= <<<EOHTML
 <tr>
 <td>
-    <h3><a href="{$link}" target="_child">{$title}</a></h3>
-    {$description}
+    <h3><a href="{$item->link}" target="_child">{$item->title}</a></h3>
+    {$item->description}
 </td>
 </tr>
 EOHTML;
@@ -166,14 +159,11 @@ EOHTML;
                 if ( empty($link) ) {
                     $link = $entry->link[0]['href'];
                 }
-                $link = htmlspecialchars($link, ENT_QUOTES, 'UTF-8');
-                $title = htmlspecialchars($entry->title, ENT_QUOTES, 'UTF-8');
-                $summary = htmlspecialchars($entry->summary, ENT_QUOTES, 'UTF-8');
                 $output .= <<<EOHTML
 <tr>
 <td>
-    <h3><a href="{$link}" target="_child">{$title}</a></h3>
-    {$summary}
+    <h3><a href="{$link}" target="_child">{$entry->title}</a></h3>
+    {$entry->summary}
 </td>
 </tr>
 EOHTML;

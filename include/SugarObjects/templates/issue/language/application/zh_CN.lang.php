@@ -1,56 +1,50 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
 /*
- * Created on Aug 14, 2007
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
+ * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$object_name = strtolower($object_name);
- $app_list_strings = array (
 
-  $object_name.'_type_dom' =>
-  array (
-  	'Administration' => '管理员',
-    'Product' => '产品',
-    'User' => '用户',
-  ),
-   $object_name.'_status_dom' =>
-  array (
-    'New' => '新建',
-    'Assigned' => '已分配',
-    'Closed' => '已关闭',
-    'Pending Input' => '等待输入',
-    'Rejected' => '已拒绝',
-    'Duplicate' => '重复',
-  ),
-  $object_name.'_priority_dom' =>
+
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_priority_dom' => 
   array (
     'P1' => '高',
     'P2' => '中',
     'P3' => '低',
   ),
-  $object_name.'_resolution_dom' =>
+  $object_name.'_resolution_dom' => 
   array (
-  	'' => '',
-  	'Accepted' => '已接受',
-    'Duplicate' => '重复',
+    '' => '[-空白-]',
+    'Accepted' => '已接受',
     'Closed' => '已关闭',
-    'Out of Date' => '已过期',
+    'Duplicate' => '复制',
     'Invalid' => '无效',
+    'Out of Date' => '已过期',
   ),
-  );
-?>
+  $object_name.'_status_dom' => 
+  array (
+    'Assigned' => '已指派',
+    'Closed' => '已关闭',
+    'Duplicate' => '复制',
+    'New' => '新建',
+    'Pending Input' => '等待输入',
+    'Rejected' => '已拒绝',
+  ),
+  $object_name.'_type_dom' => 
+  array (
+    'Administration' => '系统管理',
+    'Product' => '产品',
+    'User' => '用户',
+  ),
+);
+

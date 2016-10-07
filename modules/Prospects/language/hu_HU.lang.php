@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót a kapcsolat törléséhez!',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Osztály:',
   'LBL_DESCRIPTION' => 'Leírás:',
   'LBL_DESCRIPTION_INFORMATION' => 'Részletes információ:',
+  'LBL_DNB_BAL_PREVIEW' => 'Célok Előnézete',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Célok',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Cél-Információ',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Elsődleges Azonosító',
   'LBL_DO_NOT_CALL' => 'Nem szabad felhívni:',
   'LBL_DUPLICATE' => 'Lehet, hogy duplikált cél',
   'LBL_EDIT_ACCOUNT_NAME' => 'Kliens neve:',
@@ -74,15 +75,21 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'További email címek',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Módosító azonosítója',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Célok jelentései',
   'LBL_FIRST_NAME' => 'Keresztnév:',
   'LBL_FULL_NAME' => 'Név',
+  'LBL_HELP_CREATE' => 'A {{module_name}} modul olyan emberek adatait tartalmazza, akikkel kapcsolatban Ön rendelkezik némi információval, de mégsem számítanak Ajánlásnak. {{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi nézetre való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása"  paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik. 3. Mentés után az alpanelek segítségével jelölje ki a címzetteket.',
+  'LBL_HELP_RECORD' => 'A {{module_name}} modul olyan emberek adatait tartalmazza, akikkel kapcsolatban Ön rendelkezik némi információval, de mégsem számítanak Ajánlásnak. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{module_name}} modul olyan emberek adatait tartalmazza, akikkel kapcsolatban Ön rendelkezik némi információval, de mégsem számítanak Ajánlásnak. Ezek az információk (pl. név, email cím, stb.) rendszerint olyan névjegykártyákról származnak, amelyeket Ön kiállításokon, konferenciákon, stb. szerzett, s tulajdonosuk nem kapcsolódik egyetlen aktuális Sugar modulhoz sem (Kapcsolatok, Ajánlások, Kliensek, vagy Lehetőségek). Új tétel létrehozása történhet hozzáadással, kettőzéssel, importálással, illetve egyéb módokon is. Az új bejegyzések adatait rekord nézetben van lehetősége szerkeszteni.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_HOME_PHONE' => 'Otthoni telefon:',
   'LBL_IMPORT_VCARD' => 'vCard importálása',
   'LBL_IMPORT_VCARDTEXT' => 'Új kontakt automatikus létrehozása vCard importálásával az Ön nyilvántartásából.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Cél sikeresen létrehozva vCard alapján',
   'LBL_INVALID_EMAIL' => 'Érvénytelen email:',
   'LBL_INVITEE' => 'Közvetlen jelentések',
   'LBL_LAST_NAME' => 'Vezetéknév:',
+  'LBL_LEAD' => 'Ajánlás',
   'LBL_LEAD_ID' => 'Ajánlás azonosító',
   'LBL_LIST_EMAIL_ADDRESS' => 'Email',
   'LBL_LIST_FIRST_NAME' => 'Keresztnév',
@@ -125,12 +132,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Lehetséges vevő lista',
   'LBL_PROSPECT_NAME' => 'Cél neve:',
   'LBL_PROSPECT_ROLE' => 'Szerep:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Létrehozás sikeres: {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Megszólítás',
   'LBL_SAVE_PROSPECT' => 'Cél mentése',
   'LBL_SEARCH_FORM_TITLE' => 'Cél keresése',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Ellenőrzött célok kiválasztása',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Válasszon az ellenőrzött célok közül',
   'LBL_STATE' => 'Állam:',
+  'LBL_STREET' => 'Utca',
   'LBL_TITLE' => 'Titulus:',
   'LBL_TRACKER_KEY' => 'Követő kulcs',
   'LNK_CAMPAIGN_LIST' => 'Kampányok',
@@ -161,6 +170,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'A lehetőségek létrehozása klienshez kötött.\\n Kérem, hozzon létre egy klienst, vagy válasszon a meglévők közül!',
   'NTC_REMOVE_CONFIRMATION' => 'Biztosan el akarja távolítani ezt a kapcsolatot az esetről?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Biztosan el akarja távolítani ezt tételt, mint közvetlen jelentést?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'Email',
   'db_email2' => 'További email',
   'db_first_name' => 'Keresztnév',

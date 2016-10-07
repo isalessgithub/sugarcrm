@@ -39,5 +39,3 @@ $popupMeta = array('moduleMain' => $module_name,
 								  
 							),
 						);
-?>
- 

@@ -1,19 +1,15 @@
-<!--
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+* Your installation or use of this SugarCRM file is subject to the applicable
+* terms available at
+* http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+* If you do not agree to all of the applicable terms or do not have the
+* authority to bind the entity as an authorized representative, then do not
+* install or use this SugarCRM file.
+*
+* Copyright (C) SugarCRM Inc. All rights reserved.
+*/
 
--->
-
+<!-- $Id: Popup_picker.html 54495 2010-02-12 00:42:10Z clee $ -->
 <!-- BEGIN: main -->
 <!-- BEGIN: SearchHeader -->
 <table cellpadding="0" cellspacing="0" border="0" width="100%" class="edit view">
@@ -39,9 +35,9 @@
 <input type="hidden" name="record_id" value="" />
 <input type="submit" name="button" class="button"
     id="search_form_submit"
-	title="{APP.LBL_SEARCH_BUTTON_TITLE}"
-	accessKey="{APP.LBL_SEARCH_BUTTON_KEY}"
-	value="{APP.LBL_SEARCH_BUTTON_LABEL}" />
+    title="{APP.LBL_SEARCH_BUTTON_TITLE}"
+    accessKey="{APP.LBL_SEARCH_BUTTON_KEY}"
+    value="{APP.LBL_SEARCH_BUTTON_LABEL}" />
 </td>
 </tr>
 </table>
@@ -58,63 +54,63 @@
 
 <script>
 function select_kbdocument(treeid) {
-	var node=YAHOO.namespace(treeid).selectednode;
-	send_back('KBDocuments',node.data.id);
+    var node=YAHOO.namespace(treeid).selectednode;
+    send_back('KBDocuments',node.data.id);
 }
 
 function populate_parent_search(treeid) {
-	var node=YAHOO.namespace(treeid).selectednode;
-		
-	if (node.depth==1) {
-		new_subcategory_id=node.data.id;
-		if (new_subcategory_id == 'null') new_subcategory_id='';
-		new_category_id=node.parent.data.id;
-		if (new_category_id == 'null') new_category_id='';
-	} else {
-		new_category_id=node.data.id;
-		if (new_category_id == 'null') new_category_id='';
-		new_subcategory_id='';	
-	}
+    var node=YAHOO.namespace(treeid).selectednode;
+        
+    if (node.depth==1) {
+        new_subcategory_id=node.data.id;
+        if (new_subcategory_id == 'null') new_subcategory_id='';
+        new_category_id=node.parent.data.id;
+        if (new_category_id == 'null') new_category_id='';
+    } else {
+        new_category_id=node.data.id;
+        if (new_category_id == 'null') new_category_id='';
+        new_subcategory_id='';  
+    }
 
-	if(!window.opener.document.getElementById('KBDocumentsadvanced_searchSearchForm')) {
-		window.opener.location = 'index.php?searchFormTab=advanced_search&module=KBDocuments&action=index&query=true&category_id_advanced' +'='+escape(new_category_id)+'&subcategory_id_advanced='+escape(new_subcategory_id);
-	} else {
-		var searchTab = (window.opener.document.getElementById('KBDocumentsadvanced_searchSearchForm').style.display == '') ? 'advanced' : 'basic';
-		window.opener.location = 'index.php?searchFormTab='+searchTab+'_search&module=KBDocuments&action=index&query=true&category_id_'+searchTab+'='+escape(new_category_id)+'&subcategory_id_'+searchTab+'='+escape(new_subcategory_id);
-	}
-	window.close();
+    if(!window.opener.document.getElementById('KBDocumentsadvanced_searchSearchForm')) {
+        window.opener.location = 'index.php?searchFormTab=advanced_search&module=KBDocuments&action=index&query=true&category_id_advanced' +'='+escape(new_category_id)+'&subcategory_id_advanced='+escape(new_subcategory_id);
+    } else {
+        var searchTab = (window.opener.document.getElementById('KBDocumentsadvanced_searchSearchForm').style.display == '') ? 'advanced' : 'basic';
+        window.opener.location = 'index.php?searchFormTab='+searchTab+'_search&module=KBDocuments&action=index&query=true&category_id_'+searchTab+'='+escape(new_category_id)+'&subcategory_id_'+searchTab+'='+escape(new_subcategory_id);
+    }
+    window.close();
 }
 
 function populate_search(treeid) {
-	var node=YAHOO.namespace(treeid).selectednode;
+    var node=YAHOO.namespace(treeid).selectednode;
 
-	if (node.depth==1) {
-		new_subcategory_id=node.data.id;
-		if (new_subcategory_id == 'null') new_subcategory_id='';
-		new_category_id=node.parent.data.id;
-		if (new_category_id == 'null') new_category_id='';
-	} else {
-		new_category_id=node.data.id;
-		if (new_category_id == 'null') new_category_id='';
-		new_subcategory_id='';	
-	}
+    if (node.depth==1) {
+        new_subcategory_id=node.data.id;
+        if (new_subcategory_id == 'null') new_subcategory_id='';
+        new_category_id=node.parent.data.id;
+        if (new_category_id == 'null') new_category_id='';
+    } else {
+        new_category_id=node.data.id;
+        if (new_category_id == 'null') new_category_id='';
+        new_subcategory_id='';  
+    }
 
 
-	document.popup_query_form.subcategory_id.value=new_subcategory_id;
-	document.popup_query_form.category_id.value=new_category_id;
-	
-	document.popup_query_form.submit();
+    document.popup_query_form.subcategory_id.value=new_subcategory_id;
+    document.popup_query_form.category_id.value=new_category_id;
+    
+    document.popup_query_form.submit();
 }
 </script>
 
 <table cellpadding="0" cellspacing="0" style="border-left:1px solid; border-right:1px solid; border-bottom:1px solid" width="100%" class="edit view">
 
 <tr>
-	<td width="100%" valign="top" style="border-right: 1px">
-		<div id="doctree">
-			{TREEINSTANCE}
-		</div>
-	</td>
+    <td width="100%" valign="top" style="border-right: 1px">
+        <div id="doctree">
+            {TREEINSTANCE}
+        </div>
+    </td>
 </tr>
 </table>
 <!-- END: TreeView -->

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Ugyldig Cron-syntaks',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Hver dag',
   'LBL_ALWAYS' => 'Altid',
   'LBL_AND' => 'og',
+  'LBL_ASYNCMASSUPDATE' => 'Udfør Asynchronous masse opdateringer',
   'LBL_AT' => 'på',
   'LBL_AT_THE' => 'På',
   'LBL_BASIC_OPTIONS' => 'Basiskonfiguration',
   'LBL_CATCH_UP' => 'Udfør hvis ubesvaret',
   'LBL_CATCH_UP_WARNING' => 'Fjern markeringen, hvis dette job må tage mere end et øjeblik at køre.',
   'LBL_CLEANJOBQUEUE' => 'Rens job kø',
+  'LBL_CLEANOLDRECORDLISTS' => 'Oprydning i gamle rekord lister',
   'LBL_CRONTAB_EXAMPLES' => 'Ovennævnte bruger standard crontab-notation.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Specificer venligst Planlægger eksekverings tid tilsvarende.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Cron specifikationer køre ud på serveren tidszone (',
@@ -67,6 +66,7 @@ $mod_strings = array (
   'LBL_MINUTES' => 'minutter',
   'LBL_MIN_MARK' => 'minutmærke',
   'LBL_MODULE_NAME' => 'Sugar-planlægger',
+  'LBL_MODULE_NAME_SINGULAR' => 'Sugar-planlægger',
   'LBL_MODULE_TITLE' => 'Planlæggere',
   'LBL_MON' => 'Mandag',
   'LBL_MONTH' => 'måned',
@@ -80,8 +80,11 @@ $mod_strings = array (
   'LBL_OOTB_BOUNCE' => 'Kør hver nat proces med afviste kampagne-e-mails',
   'LBL_OOTB_CAMPAIGN' => 'Kør hver nat kampagner med masse-e-mails',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Rens job kø',
+  'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Opret fremtidige tidsperioder',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Tjek indgående postkasser',
   'LBL_OOTB_PRUNE' => 'Beskær databasen den 1. i måneden',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Kort af gamle rekord lister',
   'LBL_OOTB_REPORTS' => 'Kør planlagte opgaver til rapportgenerering',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Kør e-mail påmindelses notfikationer',
   'LBL_OOTB_TRACKER' => 'Beskær sporingstabeller',
@@ -101,6 +104,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Søg efter planlægger',
   'LBL_SENDEMAILREMINDERS' => 'Kør e-mail påmindelses afsendelse',
   'LBL_STATUS' => 'Status',
+  'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Opret fremtidige tidsperioder',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Søndag',
   'LBL_THU' => 'Torsdag',
   'LBL_TIME_FROM' => 'Aktiv fra',

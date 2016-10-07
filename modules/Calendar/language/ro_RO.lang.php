@@ -2,28 +2,29 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
-  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nu este definit pentru acest punct de vedere',
-  'ERR_YEAR_BETWEEN' => 'Ne pare rău, calendarulnu se poate ocupa de anul  solicitat<br />Anul trebuie să fie între 1970 și 2037',
+  'ERR_NEIGHBOR_DATE' => 'get_neighbor_date_str: nedefinit pentru această fereastră de vizualizare',
+  'ERR_YEAR_BETWEEN' => 'Ne pare rău, calendarul nu conţine anul solicitat<br />Anul trebuie să fie între 1970 şi 2037',
   'LBL_AM' => 'AM',
   'LBL_APPLY_BUTTON' => 'Aplica',
   'LBL_ASSIGNED_TO_NAME' => 'Atrbuit lui',
   'LBL_BUSY' => 'Ocupat',
+  'LBL_CALENDAR_EVENT_LIMIT_EXCEEDED' => 'Numărul evenimentelor {0} recurente a depăşit limita',
+  'LBL_CALENDAR_EVENT_NOT_A_PARENT_OCCURRENCE' => '{0} nu este o recurenţă principală',
+  'LBL_CALENDAR_EVENT_NOT_A_RECURRING_EVENT' => '{0} nu este un eveniment recurent',
+  'LBL_CALENDAR_EVENT_RECURRENCE_MODULE_NOT_SUPPORTED' => '{0} nu este recunoscut drept un modul de evenimente recurente',
   'LBL_CANCEL_BUTTON' => 'Anulare',
   'LBL_CLOSE_BUTTON' => 'Inchide:',
   'LBL_CONFIRM_REMOVE' => 'Sunteţi sigur că doriţi să eliminaţi înregistrarea?',
@@ -31,7 +32,9 @@ $mod_strings = array (
   'LBL_CONFLICT' => 'Conflict',
   'LBL_CREATE_CALL' => 'Jurnal Apeluri',
   'LBL_CREATE_MEETING' => 'Programeaza Intalnire',
+  'LBL_CREATE_NEW_CALL' => 'Creare apel',
   'LBL_CREATE_NEW_RECORD' => 'Creaza activitate',
+  'LBL_CREATING_NEW_ACTIVITY' => 'Creaţi o nouă întâlnire. Aţi dorit să selectaţi <a href="javascript:void(0);" data-action="create-task">Creare sarcină</a> sau <a href="javascript:void(0);" data-action="schedule-call">Programare apel</a>',
   'LBL_DATE' => 'Data si Timp Inceput:',
   'LBL_DATE_END_ERROR' => 'Data de sfârşit este înainte de data începerii',
   'LBL_DATE_TIME' => 'Data si timpul de start',
@@ -39,6 +42,7 @@ $mod_strings = array (
   'LBL_DELETE_BUTTON' => 'Sterge',
   'LBL_DURATION' => 'Durata',
   'LBL_EDIT_ALL_RECURRENCES' => 'Editare toate repetarile',
+  'LBL_EDIT_CALL' => 'Editare apel',
   'LBL_EDIT_RECORD' => 'Editeaza activitate',
   'LBL_EDIT_USERLIST' => 'Lista Utilizatori',
   'LBL_ERROR_LOADING' => 'Eroare in timpul incarcarii',
@@ -66,6 +70,7 @@ $mod_strings = array (
   'LBL_NEXT_WEEK' => 'Saptamana urmatoare',
   'LBL_NEXT_YEAR' => 'Anul urmator',
   'LBL_NO' => 'Nu',
+  'LBL_NO_ACCESS' => 'Nu aveţi acces',
   'LBL_NO_USER' => 'Nu se potrivesc pentru domeniul: Alocate de',
   'LBL_PARTICIPANTS_TAB' => 'Invitat',
   'LBL_PM' => 'PM',
@@ -95,7 +100,6 @@ $mod_strings = array (
   'LBL_SEND_INVITES' => 'Trimite invitatii',
   'LBL_SETTINGS' => 'Setari',
   'LBL_SETTINGS_CALLS_SHOW' => 'Arata apeluri',
-  'LBL_SETTINGS_COMPLETED_SHOW' => 'Arata Întâlniri finalizate, apelurile și sarcini:',
   'LBL_SETTINGS_DISPLAY_TIMESLOTS' => 'Afisare sloturi de timp i zile si saptamanai',
   'LBL_SETTINGS_TASKS_SHOW' => 'Arata Sarcini',
   'LBL_SETTINGS_TIME_ENDS' => 'Ora de terminare',

@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'יש לציין מספר רשומה על מנת למחוק הצעת מחיר זו.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'ההצעה כבר הומרה להזדמנות',
   'LBL_ACCOUNT_ID' => 'זהות חשבון',
   'LBL_ACCOUNT_NAME' => 'שם חשבון:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'פעילויות',
@@ -58,6 +56,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'מדינה:',
   'LBL_CREATED_BY' => 'נוצר על ידי',
   'LBL_CURRENCY' => 'מטבע:',
+  'LBL_CURRENCY_RATE' => 'שער מטבע',
   'LBL_DATE_QUOTE_CLOSED' => 'תאריך סגירה בפועל:',
   'LBL_DATE_QUOTE_EXPECTED_CLOSED' => 'בתוקף עד:',
   'LBL_DEAL_TOT' => 'סך-הכל הנחה',
@@ -85,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'עלות',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'סגירה בפועל',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'בתוקף עד',
-  'LBL_LIST_DEAL_TOT' => 'הנחה',
+  'LBL_LIST_DEAL_TOT' => 'סך הכל הנחה',
   'LBL_LIST_DISCOUNT_PRICE' => 'מחיר יחידה',
   'LBL_LIST_FORM_TITLE' => 'רשימת הצעות מחיר',
   'LBL_LIST_GRAND_TOTAL' => 'סכום כולל',
@@ -94,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'My Quotes',
   'LBL_LIST_PRICING_FACTOR' => 'פקטור',
   'LBL_LIST_PRICING_FORMULA' => 'נוסחת תימחור',
-  'LBL_LIST_PRODUCT_NAME' => 'מוצר',
+  'LBL_LIST_PRODUCT_NAME' => 'שורת פריט מצוטט',
   'LBL_LIST_QUANTITY' => 'כמות',
   'LBL_LIST_QUOTE_NAME' => 'נושא',
   'LBL_LIST_QUOTE_NUM' => 'מספר',
@@ -102,6 +101,7 @@ $mod_strings = array (
   'LBL_LIST_TAXCLASS' => 'סוג מס',
   'LBL_MODIFIED_BY' => 'שונה על ידי',
   'LBL_MODULE_NAME' => 'הצעות מחיר',
+  'LBL_MODULE_NAME_SINGULAR' => 'ציטוט',
   'LBL_MODULE_TITLE' => 'הצעות מחיר: דף הבית',
   'LBL_NAME' => 'שם הצעת המחיר',
   'LBL_NEW_FORM_TITLE' => 'צור הצעת מחיר',
@@ -121,9 +121,9 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'הנחה',
   'LBL_PDF_ITEM_EXT_PRICE' => 'סך-בכל מחיר',
   'LBL_PDF_ITEM_LIST_PRICE' => 'מחיר מחירון',
-  'LBL_PDF_ITEM_PRODUCT' => 'מוצר',
+  'LBL_PDF_ITEM_PRODUCT' => 'שורת פריט מצוטט',
   'LBL_PDF_ITEM_QUANTITY' => 'כמות',
-  'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
+  'LBL_PDF_ITEM_SELECT_DISCOUNT' => 'בחר הנחה',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'מחיר יחידה',
   'LBL_PDF_NEW_SUB' => 'סיכום ביניים להנחה:',
   'LBL_PDF_PART_NUMBER' => 'מספר החלק:',
@@ -155,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'הסר הערות',
   'LBL_REMOVE_ROW' => 'הסר שורה',
   'LBL_RENAME_ERROR' => 'ERROR: can&#39;t move_pdf to $destination. You should try making the directory writable by the webserver',
+  'LBL_REVENUELINEITEMS' => 'שורת פריט הכנסה',
   'LBL_SALES_STAGE' => 'שלב בהצעת המחיר:',
   'LBL_SEARCH_FORM_TITLE' => 'חיפוש הצעת מחיר',
   'LBL_SHIPPING' => 'משלוח:',
@@ -197,7 +198,6 @@ $mod_strings = array (
   'NTC_REMOVE_GROUP_CONFIRMATION' => 'אתה בטוח שברצונך להסיר קבוצה זו מהצעת המחיר?',
   'NTC_REMOVE_PRODUCT_CONFIRMATION' => 'אתה בטוח שברצונך להסיר שורת הפריט הזה מהצעת המחיר?',
   'NTC_REMOVE_QUOTE_CONFIRMATION' => 'אתה בטוב שברצונך להסיר איש קשר זה מהצעת המחיר?',
-  'PDF_FORMAT' => 'PDF Format:',
   'QUOTE_REMOVE_PROJECT_CONFIRM' => 'אתה בטוח שברצונך להסיר הצעת מחיר זו מהפרוייקט?',
 );
 

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_EDIT_ALT_TEXT' => 'Redigér vanlig tekst',
   'LBL_EDIT_LAYOUT' => 'Redigér Oppsett',
   'LBL_EMAIL_ATTACHMENT' => 'E-postvedlegg',
+  'LBL_FILTER_EMAIL_TYPE_TEMPLATES' => 'Maler for E-post',
   'LBL_FROM_ADDRESS' => 'Fra-adresse',
   'LBL_FROM_NAME' => 'Fra-navn',
   'LBL_HIDE_ALT_TEXT' => 'Skjul ren tekst',
@@ -49,6 +47,8 @@ $mod_strings = array (
   'LBL_LIST_FORM_TITLE' => 'E-postmalliste',
   'LBL_LIST_NAME' => 'Navn',
   'LBL_MODULE_NAME' => 'E-postmaler',
+  'LBL_MODULE_NAME_SINGULAR' => 'E-post mal',
+  'LBL_MODULE_NAME_SINGULAR_WORKFLOW' => 'Arbeidsflyt E-post mal',
   'LBL_MODULE_NAME_WORKFLOW' => 'Workflow E-post mal',
   'LBL_MODULE_TITLE' => 'E-postmaler: Hovedside',
   'LBL_NAME' => 'Navn:',
@@ -64,6 +64,7 @@ $mod_strings = array (
   'LBL_SHOW_ALT_TEXT' => 'Vis vanlig tekst',
   'LBL_SUBJECT' => 'Emne:',
   'LBL_SUGAR_DOCUMENT' => 'Sugar-dokument',
+  'LBL_TEAM' => 'Teams',
   'LBL_TEAMS' => 'Team:',
   'LBL_TEAMS_LINK' => 'Team',
   'LBL_TEXT_BODY' => 'Brødtekst',

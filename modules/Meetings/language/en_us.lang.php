@@ -1,29 +1,16 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $mod_strings = array (
-	'ERR_DELETE_RECORD' => 'A record number must be specified to delete the meeting.',
-
+	'ERR_DELETE_RECORD' => 'A record number must be specified to delete the Meeting.',
 	'LBL_ACCEPT_THIS'=>'Accept?',
 	'LBL_ADD_BUTTON'=> 'Add',
 	'LBL_ADD_INVITEE' => 'Add Invitees',
@@ -43,6 +30,7 @@ $mod_strings = array (
 	'LBL_DURATION_MINUTES' => 'Duration Minutes:',
 	'LBL_DURATION' => 'Duration:',
 	'LBL_EMAIL' => 'Email',
+  'LBL_ACCOUNT_NAME' => 'Account',
 	'LBL_FIRST_NAME' => 'First Name',
 	'LBL_HISTORY_SUBPANEL_TITLE' => 'Notes',
 	'LBL_HOURS_ABBREV' => 'h',
@@ -59,6 +47,7 @@ $mod_strings = array (
 	'LBL_LIST_DUE_DATE'=>'Due Date',
 	'LBL_LIST_FORM_TITLE' => 'Meeting List',
 	'LBL_LIST_MY_MEETINGS' => 'My Meetings',
+    'LBL_MY_SCHEDULED_MEETINGS' => 'My Scheduled Meetings',
 	'LBL_LIST_RELATED_TO' => 'Related to',
 	'LBL_LIST_STATUS'=>'Status',
 	'LBL_LIST_SUBJECT' => 'Subject',
@@ -69,6 +58,7 @@ $mod_strings = array (
 	'LBL_MINSS_ABBREV' => 'm',
 	'LBL_MODIFIED_BY'=>'Modified by',
 	'LBL_MODULE_NAME' => 'Meetings',
+	'LBL_MODULE_NAME_SINGULAR' => 'Meeting',
 	'LBL_MODULE_TITLE' => 'Meetings: Home',
 	'LBL_NAME' => 'Name',
 	'LBL_NEW_FORM_TITLE' => 'Create Appointment',
@@ -81,6 +71,8 @@ $mod_strings = array (
 	'LBL_REMINDER_POPUP' => 'Popup',
 	'LBL_REMINDER_EMAIL' => 'Email',
     'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Email all invitees',
+    'LBL_POPUP_REMINDER' => 'Popup Reminder',
+    'LBL_POPUP_REMINDER_TIME' => 'Popup Reminder Time',
     'LBL_EMAIL_REMINDER' => 'Email Reminder',
     'LBL_EMAIL_REMINDER_TIME' => 'Email Reminder Time',
     'LBL_REMOVE' => 'rem',
@@ -109,7 +101,7 @@ $mod_strings = array (
 	'LNK_NEW_MEETING'=>'Schedule Meeting',
 	'LNK_IMPORT_MEETINGS' => 'Import Meetings',
 
-	'NTC_REMOVE_INVITEE' => 'Are you sure you want to remove this invitee from the meeting?',
+	'NTC_REMOVE_INVITEE' => 'Are you sure you want to remove this invitee from the Meeting?',
     'LBL_CREATED_USER' => 'Created User',
     'LBL_MODIFIED_USER' => 'Modified User',
     'NOTICE_DURATION_TIME' => 'Duration time must be greater than 0',
@@ -117,17 +109,20 @@ $mod_strings = array (
 	'LBL_LIST_JOIN_MEETING' => 'Join Meeting',
 	'LBL_JOIN_EXT_MEETING' => 'Join Meeting',
 	'LBL_HOST_EXT_MEETING' => 'Start Meeting',
+    'LBL_JOIN_MEETING' => 'Join {{meetingType}}',
+    'LBL_START_MEETING' => 'Start {{meetingType}}',
     'LBL_ACCEPT_STATUS' => 'Accept Status',
     'LBL_ACCEPT_LINK' => 'Accept Link',
+    'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'There was an error launching this meeting. Please contact your Administrator.',
     // You are not invited to the meeting messages
     'LBL_EXTNOT_HEADER' => 'Error: Not Invited',
-    'LBL_EXTNOT_MAIN' => 'You are not able to join this meeting because you are not an Invitee.',
+    'LBL_EXTNOT_MAIN' => 'You are not able to join this Meeting because you are not an Invitee.',
     'LBL_EXTNOT_RECORD_LINK' => 'View Meeting',
     'LBL_EXTNOT_GO_BACK' => 'Go back to the previous record',
 
     //cannot start messages
     'LBL_EXTNOSTART_HEADER' => 'Error: Cannot Start Meeting',
-    'LBL_EXTNOSTART_MAIN' => 'You cannot start this meeting because you are not an Administrator or the owner of the meeting.',
+    'LBL_EXTNOSTART_MAIN' => 'You cannot start this Meeting because you are not an Administrator or the owner of the Meeting.',
 
   //For export labels
     'LBL_EXPORT_JOIN_URL' => 'Join Url',
@@ -146,7 +141,7 @@ $mod_strings = array (
     'LBL_EXPORT_REMINDER_TIME' =>'Reminder Time (in minutes)',
 
     // create invitee functionallity
-    'LBL_CREATE_INVITEE' => 'Create an invitee',
+    'LBL_CREATE_INVITEE' => 'Create an Invitee',
     'LBL_CREATE_CONTACT' => 'As Contact',
     'LBL_CREATE_LEAD' => 'As Lead',
     'LBL_CREATE_AND_ADD' => 'Create & Add',
@@ -154,15 +149,67 @@ $mod_strings = array (
     'LBL_EMPTY_SEARCH_RESULT' => 'Sorry, no results were found. Please create an invitee below.',
     'LBL_NO_ACCESS' => 'You have no access to create $module',
     
-    'LBL_REPEAT_TYPE' => 'Repeat Type',
-    'LBL_REPEAT_INTERVAL' => 'Repeat Interval',
-    'LBL_REPEAT_DOW' => 'Repeat Dow',
+    'LBL_REPEAT_TYPE' => 'Repeat',
+    'LBL_REPEAT_INTERVAL' => 'Every',
+    'LBL_REPEAT_END' => 'End',
+    'LBL_REPEAT_END_AFTER' => 'After',
+    'LBL_REPEAT_OCCURRENCES' => 'recurrences',
+    'LBL_REPEAT_END_BY' => 'By',
+    'LBL_REPEAT_DOW' => 'On',
     'LBL_REPEAT_UNTIL' => 'Repeat Until',
-    'LBL_REPEAT_COUNT' => 'Repeat Count',
+    'LBL_REPEAT_COUNT' => 'Number of recurrences',
+    'LBL_RECURRING_LIMIT_ERROR' => 'This recurring Meeting cannot be scheduled because it exceeds the maximum allowed recurrence of $limit.',
+    'LBL_EDIT_ALL_RECURRENCES' => 'Edit All Recurrences',
+    'LBL_REMOVE_ALL_RECURRENCES' => 'Delete All Recurrences',
+    'LBL_DATE_END_ERROR' => 'End date is before start date',
     'LBL_REPEAT_PARENT_ID' => 'Repeat Parent ID',
     'LBL_RECURRING_SOURCE' => 'Recurring Source',
+    'LBL_CONFIRM_REMOVE_ALL_RECURRENCES' => 'Are you sure you want to remove all recurring records?',
+    'LBL_RECURRENCE' => 'Recurrence',
     
-    'LBL_SYNCED_RECURRING_MSG' => 'This meeting originated in another system and was synced to Sugar. To make changes, go to the original meeting within the other system. Changes made in the other system can be synced to this record.',
+    'LBL_SYNCED_RECURRING_MSG' => 'This Meeting originated in another system and was synced to Sugar. To make changes, go to the original Meeting within the other system. Changes made in the other system can be synced to this record.',
     'LBL_RELATED_TO' => 'Related to:',
+    'LBL_CREATE_MODULE' => 'Schedule Meeting',
+    'LBL_RELATED_RECORD_DEFAULT_NAME' => 'Meeting with {{{this}}}',
+    'LBL_SEND_INVITES' => 'Send Invites',
+    'LBL_REMINDER_TITLE' => 'Meeting:',
+
+    'LBL_REVENUELINEITEMS' => 'Revenue Line Items',
+
+    'LBL_MEETING_CLOSE_SUCCESS' => 'Meeting closed successfully.',
+
+    //record save
+    'LBL_RECORD_SAVED_SUCCESS' => 'You scheduled the {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> for {{formatDate date_start}}.',
+    'LBL_RECORD_SAVED_ACCESS_DENIED' => 'You scheduled the {{moduleSingularLower}} for {{formatDate date_start}}, but you do not have permission to access it.',
+
+    // Help Text
+    // List View Help Text
+    'LBL_HELP_RECORDS' => 'The {{plural_module_name}} module consists of meeting records which may be in a status of "Scheduled", "Held", or "Canceled". Upcoming meetings scheduled within the next 24 hours show the start date highlighted in blue. Overdue meetings show the start date highlighted in red.
+
+From this {{plural_module_name}} list view, you can view and in-line edit meeting information. Additional actions are available in the menu at the end of each meeting\'s row. You can select "Close" from the menu on any scheduled meeting\'s row in order to mark it as held.
+
+Sugar users, contacts, and leads may be added as meeting invitees. {{plural_module_name}} may be created via the {{plural_module_name}} module, Calendar module, import, as well as via the Activities subpanel (for Legacy modules) or Planned Activities dashlet (for Sidecar modules) on related module records (e.g. Contacts, Accounts, etc.), which automatically creates a relationship between both records.',
+
+    // Record View Help Text
+    'LBL_HELP_RECORD' => 'The {{plural_module_name}} module consists of {{meetings_singular_module}} records logged by users in your organization. {{plural_module_name}} may be in a status of "Scheduled", "Held", or "Canceled". Sugar users as well as {{contacts_module}} and {{leads_module}} may be added as invitees.
+
+- Edit this record\'s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the activity stream by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+
+    // Create View Help Text
+    'LBL_HELP_CREATE' => 'The {{plural_module_name}} module consists of {{meetings_module}} records logged by users in your organization. {{plural_module_name}} may be in a status of "Scheduled", "Held", or "Canceled". Sugar users as well as {{contacts_module}} and {{leads_module}} may be added as invitees.
+
+To create a {{meetings_singular_module}}:
+1. Provide values for the fields as desired.
+    - Fields marked "Required" must be completed prior to saving.
+    - Click "Show More" to expose additional fields if necessary.
+2. Add invitees to the {{meetings_singular_module}}.
+    - Click "Select an Attendee" to add an existing user, contact, or lead to the {{meetings_singular_module}}.
+    - Click the plus icon to the right of "Select an Attendee" to create a {{meetings_singular_module}} attendee as a new Sugar record.
+3. Click "Save" to finalize the new record and return to the previous page.
+    - Choose "Save and view" to open the new meeting in record view.
+    - Choose "Save and create new" to immediately create another new {{meetings_singular_module}}.',
 );
-?>

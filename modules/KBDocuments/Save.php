@@ -1,26 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  Base Form For Notes
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/formbase.php');
 require_once('include/upload_file.php');
 require_once('modules/KBDocuments/Forms.php');
@@ -31,8 +20,8 @@ $mod_strings = return_module_language($current_language, 'KBDocuments');
 $prefix='';
 $do_final_move = 0;
 
-$KBDocument = new KBDocument();
-$KBRevision = new KBDocumentRevision();
+$KBDocument = BeanFactory::getBean('KBDocuments');
+$KBRevision = BeanFactory::getBean('KBDocumentRevisions');
 if (isset($_REQUEST['record'])) {
 	$KBDocument->retrieve($_REQUEST['record']);
 }
@@ -55,8 +44,7 @@ if (!empty($KBDocument->case_id)) {
 if (isset($KBDocument->id)) {
     //retrieve the existing document before saving the current
     $old_Id = $KBDocument->id;
-    $oldKB = new KBDocument();
-    $oldKB->retrieve($old_Id);
+    $oldKB = BeanFactory::getBean('KBDocuments', $old_Id);
     //check if status has changed
     if($oldKB->status_id != $KBDocument->status_id){
        //check if status was draft or in review
@@ -94,8 +82,7 @@ if (isset($KBDocument->id)) {
   $return_id = $KBDocument->id;
   $KBRevision->retrieve($KBDocument->kbdocument_revision_id);
   //update the content
-  $KBContent   = new KBContent();
-  $KBContent->retrieve($KBRevision->kbcontent_id);
+  $KBContent = BeanFactory::getBean('KBContents', $KBRevision->kbcontent_id);
   $KBContent->team_id = $KBDocument->team_id;
   if(strpos(getenv('HTTP_USER_AGENT'), 'MSIE')){
       $KBContent->kbdocument_body = $_REQUEST['body_html'];
@@ -111,7 +98,7 @@ if (isset($KBDocument->id)) {
 	if(isset($_REQUEST['docTagIds'])  && $_REQUEST['docTagIds'] != null){
 		for($i=0;$i<count($_REQUEST['docTagIds']);$i++){
 			if(isset($_REQUEST['docTagIds'][$i]) && !empty($_REQUEST['docTagIds'][$i])) {
-	           $KBDocumentKBTag = new KBDocumentKBTag();
+	           $KBDocumentKBTag = BeanFactory::getBean('KBDocumentKBTags');
 			   $KBDocumentKBTag->kbtag_id = $_REQUEST['docTagIds'][$i];
 			   $KBDocumentKBTag->kbdocument_id = $KBDocument->id;
 			   $KBDocumentKBTag->team_id = $KBDocument->team_id;
@@ -121,7 +108,7 @@ if (isset($KBDocument->id)) {
 	}
 
 	//also update the already saved kbdocuments_kbtags team_id
-	$KBDocumentKBTag = new KBDocumentKBTag();
+	$KBDocumentKBTag = BeanFactory::getBean('KBDocumentKBTags');
 	$q = 'UPDATE kbdocuments_kbtags SET team_id = \''.$KBDocument->team_id.'\' WHERE kbdocument_id = \''.$KBDocument->id.'\'';
 	$KBDocumentKBTag->db->query($q);
 }
@@ -160,7 +147,7 @@ else {
 		if(isset($_REQUEST['docTagIds']) && $_REQUEST['docTagIds'] != null){
 			for($i=0;$i<count($_REQUEST['docTagIds']);$i++){
 				if(isset($_REQUEST['docTagIds'][$i]) && !empty($_REQUEST['docTagIds'][$i])) {
-		           $KBDocumentKBTag = new KBDocumentKBTag();
+		           $KBDocumentKBTag = BeanFactory::getBean('KBDocumentKBTags');
 				   $KBDocumentKBTag->kbtag_id = $_REQUEST['docTagIds'][$i];
 				   $KBDocumentKBTag->kbdocument_id = $kb_id;
 				   $KBDocumentKBTag->team_id = $KBDocument->team_id;
@@ -169,12 +156,10 @@ else {
 			}
 		}
 		if($_REQUEST['body_html'] != null){
-			//$Document    = new Document();
-		    $DocRevision = new DocumentRevision();
-			$KBContent   = new KBContent();
+		    $DocRevision = BeanFactory::getBean('DocumentRevisions');
+			$KBContent = BeanFactory::getBean('KBContents');
 			//relate doc revision and kbdoc revision
 			$DocRevision->filename = $KBDocument->kbdocument_name;
-			//$DocRevision->kbdocument_revision_id = $KBRevision->id;
 			$DocRevision->save();
 		    //relate doc revision to kbcontent
 			$KBContent->document_revision_id = $DocRevision->id;
@@ -239,7 +224,7 @@ for($i = 0; $i < $file_uploaded_count; $i++) {
 		if($upload_file == null || $_FILES['kbdoc_attachment'.$i]['size']==0) {
 			continue;
 		}
-	    $DocRevision = new DocumentRevision();
+	    $DocRevision = BeanFactory::getBean('DocumentRevisions');
 	    if(isset($_FILES['kbdoc_attachment'.$i]) && $upload_file->confirm_upload()) {
 
 		     //prepare document revision
@@ -249,7 +234,7 @@ for($i = 0; $i < $file_uploaded_count; $i++) {
 		 	$DocRevision->save();
 
 		 	//save kbrvision
-		    $KBRevisionAtts = new KBDocumentRevision();
+		    $KBRevisionAtts = BeanFactory::getBean('KBDocumentRevisions');
 		 	$KBRevisionAtts->change_log = $mod_strings['DEF_CREATE_LOG'];
 		    $KBRevisionAtts->revision = $KBDocument->revision;
 		    $KBRevisionAtts->kbdocument_id = $KBDocument->id;
@@ -279,7 +264,7 @@ if(isset($_REQUEST['removed_tags']) && !empty($_REQUEST['removed_tags'])){
 	foreach($tags as $tag_id){
 		$tag_id= trim($tag_id);
 		if(!empty($tag_id)){
-			$KBDocumentKBTag = new KBDocumentKBTag();
+			$KBDocumentKBTag = BeanFactory::getBean('KBDocumentKBTags');
 			$q = 'UPDATE kbdocuments_kbtags SET deleted = \''.$deleted.'\' WHERE kbtag_id = \''.$tag_id.'\' and kbdocument_id = \''.$KBDocument->id.'\'';
 			$KBDocumentKBTag->db->query($q);
 		}
@@ -292,7 +277,7 @@ if(isset($_REQUEST['removed_attachments']) && !empty($_REQUEST['removed_attachme
 	foreach($atts as $docrev_id){
 		$docrev_id = trim($docrev_id);
 		if(!empty($docrev_id)){
-			$DocumentRevision = new DocumentRevision();
+			$DocumentRevision = BeanFactory::getBean('DocumentRevisions');
 			$q = 'UPDATE document_revisions SET deleted = '.$deleted.' WHERE id = \''.$docrev_id.'\'';
 			$DocumentRevision->db->query($q);
 		}

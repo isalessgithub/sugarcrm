@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'Não pode importar um Usuário administrador do sistema',
@@ -106,7 +103,7 @@ $mod_strings = array (
   'LBL_ERROR_INVALID_NUM' => 'Valor numérico inválido',
   'LBL_ERROR_INVALID_PHONE' => 'Número de telefone inválido',
   'LBL_ERROR_INVALID_RELATE' => 'Campo relacional inválido',
-  'LBL_ERROR_INVALID_TEAM' => 'Nome de equipa ou ID inválido',
+  'LBL_ERROR_INVALID_TEAM' => 'Nome de equipe ou ID inválido',
   'LBL_ERROR_INVALID_TIME' => 'Hora inválida',
   'LBL_ERROR_INVALID_USER' => 'Nome de Usuário ou ID inválido',
   'LBL_ERROR_INVALID_VARCHAR' => 'String muito extensa para caber no campo',
@@ -171,7 +168,7 @@ $mod_strings = array (
   'LBL_IMPORT_FIELDDEF_NUM' => 'Numérico (Não Decimal)',
   'LBL_IMPORT_FIELDDEF_PHONE' => 'Número de Telefone',
   'LBL_IMPORT_FIELDDEF_RELATE' => 'Nome ou ID',
-  'LBL_IMPORT_FIELDDEF_TEAM_LIST' => 'Nome de Equipa ou ID',
+  'LBL_IMPORT_FIELDDEF_TEAM_LIST' => 'Nome de Equipe ou ID',
   'LBL_IMPORT_FIELDDEF_TEXT' => 'Qualquer Texto',
   'LBL_IMPORT_FIELDDEF_TIME' => 'Hora',
   'LBL_IMPORT_FIELDDEF_VARCHAR' => 'Qualquer Texto',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Agora escolha o Arquivo a importar:',
   'LBL_NO_DATECHECK' => 'Ignorar verificação da data (mais rápida mas irá falhar se alguma data estiver errada)',
   'LBL_NO_EMAILS' => 'Não enviar notificações de E-mail durante esta importação',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Tentando lidar com endereços de e-mail em um Bean que não suporta.',
   'LBL_NO_ID' => 'ID Necessário',
   'LBL_NO_IMPORT_TO_UNDO' => 'Não há importação para desfazer.',
   'LBL_NO_LINES' => 'Não há linhas (Registros) no seu Arquivo de importação',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Importados com Sucesso',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Registros criados com sucesso',
   'LBL_SUMMARY' => 'Resumo',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Dígitos Notáveis do Sistema',
   'LBL_TAB' => 'Arquivo Delimitado por TAB',
   'LBL_TAB_NUM_1' => 'Execute a aplicação e abra o Arquivo de dados',
   'LBL_TAB_NUM_2' => 'selecione a opção do menu <b>Gravar Como...</b> ou <b>Exportar...</b>',

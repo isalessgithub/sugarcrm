@@ -1,27 +1,53 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Base/SugarFieldBase.php');
 
 class SugarFieldFullname extends SugarFieldBase
 {
-	function getDetailViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) 
+    /**
+     * {@inheritDoc}
+     */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        global $locale;
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
+
+        $data[$fieldName] = $locale->formatName($bean);
+    }
+
+    function getDetailViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex)
 	{
         $this->setup($parentFieldArray, $vardef, $displayParams, $tabindex);
         return $this->fetch($this->findTemplate('DetailView'));
     }
-    
+
+    public function getNormalizedDefs($vardef, $defs)
+    {
+         $vardef = parent::getNormalizedDefs($vardef, $defs);
+         if(!empty($defs['name_format_map'])) {
+             $vardef['fields'] = array_unique(array_values($defs['name_format_map']));
+         }
+         return $vardef;
+    }
+
     /**
      * @see SugarFieldBase::importSanitize()
      */
@@ -32,21 +58,28 @@ class SugarFieldFullname extends SugarFieldBase
         ImportFieldSanitize $settings
         )
     {
-        if ( property_exists($focus,'first_name') && property_exists($focus,'last_name') ) {
+        // TODO: figure out how we can parse arbitrary imports
+        if(empty($focus->name_format_map)) {
+            $fn = 'first_name';
+            $ln = 'last_name';
+        } else {
+            $fn = $focus->name_format_map['f'];
+            $ln = $focus->name_format_map['l'];
+        }
+        if ( property_exists($focus, $fn) && property_exists($focus, $ln) ) {
             $name_arr = preg_split('/\s+/',$value);
-    
             if ( count($name_arr) == 1) {
-                $focus->last_name = $value;
+                $focus->$ln = $value;
             }
             else {
                 // figure out what comes first, the last name or first name
                 if ( strpos($settings->default_locale_name_format,'l') > strpos($settings->default_locale_name_format,'f') ) {
-                    $focus->first_name = array_shift($name_arr);
-                    $focus->last_name = join(' ',$name_arr);
+                    $focus->$fn = array_shift($name_arr);
+                    $focus->$ln = join(' ',$name_arr);
                 }
                 else {
-                    $focus->last_name = array_shift($name_arr);
-                    $focus->first_name = join(' ',$name_arr);
+                    $focus->$ln = array_shift($name_arr);
+                    $focus->$fn = join(' ',$name_arr);
                 }
             }
         }

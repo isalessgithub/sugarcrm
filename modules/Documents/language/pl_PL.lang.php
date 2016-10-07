@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -42,7 +39,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Umowy',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Powiązane umowy',
   'LBL_CONTRACT_NAME' => 'Nazwa umowy:',
-  'LBL_CONTRACT_STATUS' => 'Status kontaktu:',
+  'LBL_CONTRACT_STATUS' => 'Status umowy:',
   'LBL_CREATED' => 'Utworzono przez',
   'LBL_CREATED_BY' => 'Utworzono przez',
   'LBL_CREATED_USER' => 'Użytkownik tworzący',
@@ -110,7 +107,7 @@ $mod_strings = array (
   'LBL_LIST_VIEW_DOCUMENT' => 'Podgląd',
   'LBL_MAIL_MERGE_DOCUMENT' => 'Szablon scalania poczty:',
   'LBL_MIME' => 'Typ mime',
-  'LBL_MODIFIED' => 'Zmodyfikowany przez ID',
+  'LBL_MODIFIED' => 'Zmodyfikowany przez',
   'LBL_MODIFIED_USER' => 'Zmodyfikowany przez',
   'LBL_MODULE_NAME' => 'Dokumenty',
   'LBL_MODULE_NAME_SINGULAR' => 'Dokument',
@@ -118,7 +115,6 @@ $mod_strings = array (
   'LBL_NAME' => 'Nazwa dokumentu',
   'LBL_NEW_FORM_TITLE' => 'Dodaj dokument',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Szanse',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkty',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Oferty',
   'LBL_RELATED_DOCUMENT_ID' => 'ID dokumentów powiązanych',
   'LBL_RELATED_DOCUMENT_REVISION_ID' => 'ID wersji dokumentów powiązanych',
@@ -127,6 +123,7 @@ $mod_strings = array (
   'LBL_REVISIONS_PANEL' => 'Szczegóły wersji',
   'LBL_REVISIONS_SUBPANEL' => 'Wersje',
   'LBL_REVISION_NAME' => 'Numer wersji',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Pozycje szansy',
   'LBL_SEARCH_EXTERNAL_DOCUMENT' => 'Nazwa pliku',
   'LBL_SEARCH_FORM_TITLE' => 'Wyszukaj dokument',
   'LBL_SELECTED_REVISION_FILENAME' => 'Nazwa pliku zaznaczonej wersji',

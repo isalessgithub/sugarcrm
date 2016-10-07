@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="edit view">
 <tr>
@@ -96,16 +93,6 @@
 <input type='hidden' id='product_count' name='product_count' value='0'>
 <input type="hidden" name="quote_type" value="Quotes">
 
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="edit view">
-<tr><td>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr><th align="left" scope="row" colspan="2" scope="row"><h4>{$MOD.LBL_DESCRIPTION_INFORMATION}</h4></th></tr>
-		<tr><td width="15%" valign="top" scope="row">{$MOD.LBL_DESCRIPTION}</td><td width="85%" ><textarea name='description' id='description' cols="60" rows="8">{$fields.description.value}</textarea></td></tr>
-    </table>
-</td></tr>
-</table>
-
 <script type="text/javascript">
 Calendar.setup ({literal} { {/literal}
 	inputField : "jscal_field", daFormat : "{$CALENDAR_DATEFORMAT}", ifFormat : "{$CALENDAR_DATEFORMAT}", showsTime : false, button : "jscal_trigger", singleClick : true, step : 1, weekNumbers:false
@@ -126,8 +113,10 @@ Calendar.setup ({literal} { {/literal}
 <script type="text/javascript" src="{sugar_getjspath file='modules/Quotes/EditView.js'}"></script>
 <script type="text/javascript">
 {literal}
-YUI().use('node', function(Y){
-quotesManager = new QuotesEditManager(Y);
+var QUOTE_Y = YUI({comboBase:'index.php?entryPoint=getYUIComboFile&'}).use('node', function(Y){
+    return Y;
+});
+quotesManager = new QuotesEditManager(QUOTE_Y);
 if(!document.getElementById('calc_grand_total').checked){
 	document.getElementById('grand_tally').style.display = 'none';
 }
@@ -168,14 +157,11 @@ quotesManager.deleteCommentName = "{$MOD.LBL_REMOVE_COMMENT}";
 quotesManager.deleteCommentValue = "{$MOD.LBL_REMOVE_COMMENT}";
 quotesManager.deleteCommentConfirm = "{$MOD.NTC_REMOVE_COMMENT_CONFIRMATION}";
 
-{$ADD_ROWS}
+    {$ADD_ROWS}
+</script>
 
+<script type="text/javascript" language="Javascript">
 {$SETUP_SCRIPT}
-
-{$CALCULATE_FUNCTION}
-
-{$SAVED_SEARCH_SELECTS}
-});
 {literal}
 YAHOO.util.Event.onDOMReady(function()
 {
@@ -184,4 +170,10 @@ YAHOO.util.Event.onDOMReady(function()
 {/literal}
 </script>
 
+{$CALCULATE_FUNCTION}
+
+{$SAVED_SEARCH_SELECTS}
+
+{{if !isset($exclude_default_footer)}}
 {{include file='include/EditView/footer.tpl'}}
+{{/if}}

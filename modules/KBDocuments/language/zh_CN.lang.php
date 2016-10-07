@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => '已创建文档',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => '文档名称',
   'ERR_DOC_VERSION' => '文档版本',
   'ERR_FILENAME' => '文件名称',
+  'ERR_FILESIZE' => '文件过大。最大文件大小：',
   'LBL_ACTIVE_DATE' => '发版日期',
   'LBL_AND' => '和',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => '在文章上应用标签 ...',
@@ -44,7 +42,7 @@ $mod_strings = array (
   'LBL_CASE' => '客户反馈:',
   'LBL_CASES' => '客户反馈信息',
   'LBL_CASES_SUBPANEL_TITLE' => '相关客户反馈',
-  'LBL_CASE_ID' => '客户反馈编号：',
+  'LBL_CASE_ID' => '客户反馈编号',
   'LBL_CATEGORY' => '类别',
   'LBL_CATEGORY_VALUE' => '分类:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => '未指定',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => '合同',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => '相关合同',
   'LBL_CONTRACT_NAME' => '合同名称:',
+  'LBL_CONTRACT_STATUS' => '合同状况:',
   'LBL_CREATED' => '创建人',
   'LBL_CREATED_BY' => '创建人',
   'LBL_CREATED_BY_NAME' => 'LBL_由名字创建',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => '文档ID',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => '知识库文档修改编号',
   'LBL_KBDOC_APPROVED_BY' => '审核人：',
+  'LBL_KBDOC_APPROVER_NAME' => '审核人姓名',
   'LBL_KBDOC_ATTACHMENT' => '知识库文件福建',
   'LBL_KBDOC_ATTS_TITLE' => '下载附件:',
   'LBL_KBDOC_BODY' => '主体:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => '最新版本编号',
   'LBL_LATEST_REVISION_NAME' => '最新一次变更',
   'LBL_LAUNCHING_TAG_BROWSING' => '展开标签浏览...',
+  'LBL_LINKED_ID' => '链接标识',
   'LBL_LIST_ACTIVE_DATE' => '发版日期',
   'LBL_LIST_APPROVED_BY' => '审核人：',
   'LBL_LIST_ARTICLES' => '文章',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => '无效文件',
   'LBL_NUMBER' => '号码',
   'LBL_PARENT_TYPE' => '父结点类型',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => '您可以通过提供一个搜索条件来过滤文章列表',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => '例如，您可以使用它来找到一篇感兴趣的关于某个特定话题的文章。',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => '该的知识库模块的用于处理发表的文章。使用下面的箭头开始快速的游览',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => '此页显示发表的文章列表。',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => '点击此处您将随时返回到知识库。',
   'LBL_PREVIOUS_SAVED_SEARCH' => '以前保存的查找:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => '编辑或者删除一个存在的保存的查找.',
   'LBL_PUBLISHED' => '发版:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => '文档查找',
   'LBL_SEARCH_TAG' => '搜索',
   'LBL_SEARCH_WITHIN' => '查找界于:',
+  'LBL_SELECTED_REVISION_FILENAME' => '选中版本文件名',
+  'LBL_SELECTED_REVISION_ID' => '选中版本的编号',
   'LBL_SELECTED_REVISION_NAME' => '已选修改名称',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => '选择文章来应用标签',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => '首先选择文章',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => '使用这个标签:',
   'LBL_UNTAGGED_ARTICLES_NODE' => '未标签的文章',
   'LBL_UPDATE' => '更新',
+  'LBL_VIEWS_NUMBER' => '浏览次数',
   'LNK_KBDOCUMENT_LIST' => '文档列表',
   'LNK_NEW_ARTICLE' => '新建文章',
   'LNK_NEW_MAIL_MERGE' => '邮件合并',

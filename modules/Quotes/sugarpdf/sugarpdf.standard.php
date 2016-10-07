@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('modules/Quotes/sugarpdf/sugarpdf.quotes.php');
 
@@ -103,8 +100,7 @@ class QuotesSugarpdfStandard extends QuotesSugarpdfQuotes{
         //retrieve the sales person's first name
         global $beanFiles;
         require_once($beanFiles['User']);
-        $rep = new User;
-        $rep->retrieve($this->bean->assigned_user_id);
+        $rep = BeanFactory::getBean('Users', $this->bean->assigned_user_id);
 
         $quote[0]['TITLE'] = $mod_strings['LBL_PDF_QUOTE_NUMBER'];
         $quote[1]['TITLE'] = $mod_strings['LBL_PDF_QUOTE_DATE'];
@@ -166,7 +162,7 @@ class QuotesSugarpdfStandard extends QuotesSugarpdfQuotes{
         $this->writeHTMLTable($addressBS, false, $this->addressOptions);
 
         require_once('modules/Currencies/Currency.php');
-        $currency = new Currency();
+        $currency = BeanFactory::getBean('Currencies');
         ////    settings
         $format_number_array = array(
             'currency_symbol' => true,
@@ -175,20 +171,14 @@ class QuotesSugarpdfStandard extends QuotesSugarpdfQuotes{
             'charset_convert' => true, /* UTF-8 uses different bytes for Euro and Pounds */
         );
         $currency->retrieve($this->bean->currency_id);
-        //kbrill Bug#11569 - When Quotes are printed as Proposals or Invoices, multiple product groups are out of order from the original quote
-        //$product_bundle_list = $this->bean->get_product_bundles();
-        $product_bundle_list = $this->bean->get_linked_beans('product_bundles','ProductBundle');
+
+        $this->bean->load_relationship('product_bundles');
+        $product_bundle_list = $this->bean->product_bundles->getBeans();
+        usort($product_bundle_list, array('ProductBundle', 'compareProductBundlesByIndex'));
 
         if(is_array($product_bundle_list)){
-            $ordered_bundle_list = array();
-            foreach ($product_bundle_list as $id => $bean)
-            {
-                $index = $bean->get_index($this->bean->id);
-				$ordered_bundle_list[(int)$index[0]['bundle_index']] = $bean;
-			} //for
-			ksort($ordered_bundle_list);
 
-            foreach ($ordered_bundle_list as $product_bundle) {
+            foreach ($product_bundle_list as $product_bundle) {
 
                 if(isset($this->bean->show_line_nums) && $this->bean->show_line_nums == 1){
                     //$options['showRowCount']=1;
@@ -204,7 +194,7 @@ class QuotesSugarpdfStandard extends QuotesSugarpdfQuotes{
                             while (list($key, $line_item) = each ($bundle_list)) {
 
                                 if ($line_item->object_name == "Product") {
-                                    $item[$count][$mod_strings['LBL_PDF_ITEM_QUANTITY']] = format_number_sugarpdf($line_item->quantity, 0, 0);
+                                    $item[$count][$mod_strings['LBL_PDF_ITEM_QUANTITY']] = format_number_sugarpdf($line_item->quantity, $locale->getPrecision(), $locale->getPrecision());
                                     $item[$count][$mod_strings['LBL_PDF_PART_NUMBER']] = $line_item->mft_part_num;
                                     $item[$count][$mod_strings['LBL_PDF_ITEM_PRODUCT']] = stripslashes($line_item->name);
                                     if(!empty($line_item->description)){

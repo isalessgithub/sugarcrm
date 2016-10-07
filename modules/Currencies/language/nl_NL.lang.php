@@ -2,24 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ADD' => 'Toevoegen',
-  'LBL_ADMIN_ONLY' => 'Alleen Administrators',
+  'LBL_ADMIN_ONLY' => 'Alleen voor Administrators',
   'LBL_BELOW_MIN' => 'Koers moet boven de 0 zijn.',
   'LBL_CREATED_BY' => 'Aangemaakt door',
   'LBL_CURRENCY' => 'Valuta',
@@ -42,7 +39,7 @@ $mod_strings = array (
   'LNK_NEW_ACCOUNT' => 'Nieuwe Organisatie',
   'LNK_NEW_CALL' => 'Nieuw Telefoongesprek',
   'LNK_NEW_CASE' => 'Nieuwe Case',
-  'LNK_NEW_CONTACT' => 'Nieuw Contactpersoon',
+  'LNK_NEW_CONTACT' => 'Nieuw Persoon',
   'LNK_NEW_EMAIL' => 'Nieuwe E-mail',
   'LNK_NEW_MEETING' => 'Nieuwe Afspraak',
   'LNK_NEW_NOTE' => 'Nieuwe Notitie of Bijlage',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERROR_ALREADY_EXISTS' => 'Fehler: Feld bereits vorhanden',
@@ -67,6 +64,8 @@ $mod_strings = array (
   'LBL_BTN_CANCEL' => 'Abbrechen',
   'LBL_BTN_CLONE' => 'Klonen',
   'LBL_BTN_CLOSE' => 'Schließen',
+  'LBL_BTN_COPY' => 'Kopieren',
+  'LBL_BTN_COPY_FROM' => 'Kopieren von...',
   'LBL_BTN_DELETE' => 'Löschen',
   'LBL_BTN_DEPLOY' => 'Veröffentlichen',
   'LBL_BTN_DONT_SAVE' => 'Änderungen verwerfen',
@@ -88,12 +87,14 @@ $mod_strings = array (
   'LBL_BTN_UNDO' => 'Rückgängig',
   'LBL_BTN_VIEW_FIELDS' => 'Felder anzeigen',
   'LBL_BTN_VIEW_LAYOUTS' => 'Layouts anzeigen',
+  'LBL_BTN_VIEW_MOBILE_LAYOUTS' => 'Mobile Layouts anzeigen',
   'LBL_BTN_VIEW_RELATIONSHIPS' => 'Beziehungen anzeigen',
   'LBL_BUG_TRACKER' => 'Fehlerverfolgung',
   'LBL_CALCULATED' => 'Berechnet',
   'LBL_CASES' => 'Tickets',
   'LBL_CLEAR_EXTENSIONS' => 'Erweiterungen löschen',
   'LBL_CLEAR_RELATIONSHIPS' => 'Relationen löschen',
+  'LBL_COMBO_FIELD_CONTAINS' => 'enthält:',
   'LBL_COMPANY' => 'Firma',
   'LBL_CONFIG_PORTAL_URL' => 'URL zu einem benutzerdefinierten Logo. Die empfohlene Auflösung ist 163 x 18 Pixel',
   'LBL_CONFIRM_DONT_SAVE' => 'Seit dem letzten Speichern wurden Änderungen vorgenommen. Möchten Sie jetzt speichern?',
@@ -103,6 +104,7 @@ $mod_strings = array (
   'LBL_CONFIRM_RELATIONSHIP_DELETE' => 'Sind Sie sicher dass Sie diese Beziehung löschen wollen?',
   'LBL_CONFIRM_RELATIONSHIP_DEPLOY' => 'Dies macht diese Verknüpfung permanent. Sind Sie sicher dass Sie die Beziehung veröffentlichen wollen?',
   'LBL_CONFIRM_SAVE_DROPDOWN' => 'Sie haben einen Eintrag zum Löschen aus der Wertehilfe selektiert. Jede Wertehilfe, die diese Liste und Wert enhält kann den Wert nicht mehr anzeigen und ist daher nicht mehr verfügbar. Sind Sie sicher fortzufahren?',
+  'LBL_COPY_FROM' => 'Kopieren von',
   'LBL_COPY_FROM_EDITVIEW' => 'Kopieren von der Bearbeitungsansicht',
   'LBL_CREATE' => 'Erstellen',
   'LBL_CREATE_NEW' => 'Erstellen',
@@ -135,14 +137,17 @@ $mod_strings = array (
   'LBL_DROPDOWN_ITEMS' => 'Listelemente',
   'LBL_DROPDOWN_ITEM_LABEL' => 'Anzeigebezeichnung',
   'LBL_DROPDOWN_ITEM_NAME' => 'Elementname',
-  'LBL_DROPDOWN_KEY_EXISTS' => 'Der Schlüssel existiert bereits in der Liste',
+  'LBL_DROPDOWN_KEY_EXISTS' => 'Dieser Schlüssel wird in dieser Liste bereits verwendet',
   'LBL_DROPDOWN_LANGUAGE' => 'Sprache',
+  'LBL_DROPDOWN_LIST_EMPTY' => 'Die Liste muss mindestens einen aktivierten Artikel enthalten',
   'LBL_DROPDOWN_TITLE_NAME' => 'Name',
   'LBL_DROP_HERE' => '[Hierher ziehen]',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Abhängig',
   'LBL_EC_AUTHOR' => 'Autor:',
   'LBL_EC_CHECKERROR' => 'Wählen Sie ein Modul aus.',
+  'LBL_EC_CUSTOMDROPDOWN' => 'Angepasste Dropdowns',
   'LBL_EC_CUSTOMFIELD' => 'Angepasste Feld(er)',
+  'LBL_EC_CUSTOMLABEL' => 'customized label(s)',
   'LBL_EC_CUSTOMLAYOUT' => 'Angepasstes Layout(s)',
   'LBL_EC_DESCRIPTION' => 'Beschreibung:',
   'LBL_EC_EMPTYCUSTOM' => 'hat keine Anpassungen.',
@@ -166,12 +171,14 @@ $mod_strings = array (
   'LBL_FIELDS' => 'Felder',
   'LBL_FILE' => 'Datei',
   'LBL_FILLER' => '(filler)',
+  'LBL_FILTER_SEARCH' => 'Suchen',
   'LBL_FORMULA' => 'Formel',
   'LBL_FORMULA_BUILDER' => 'Formel Assistent',
   'LBL_FORMULA_INVALID' => 'Ungültige Formel',
   'LBL_FORMULA_TYPE' => 'Die Formel muss von Typ',
   'LBL_HCUSTOM' => 'Benutzerdefiniert',
   'LBL_HDEFAULT' => 'Standard',
+  'LBL_HEADER_COPY_FROM_LAYOUT' => 'Von Layout kopieren',
   'LBL_HIDDEN' => 'Verborgen',
   'LBL_HIDEOPTIONS' => 'Optionen verstecken',
   'LBL_HIGH' => 'Hoch',
@@ -182,11 +189,19 @@ $mod_strings = array (
   'LBL_HOMEPAGE_PREFIX' => 'Mein',
   'LBL_HOME_EDIT_DROPDOWNS' => 'Auswahllisten bearbeiten',
   'LBL_ILLEGAL_FIELD_VALUE' => 'Der Wertehilfe Schlüssel darf keine Anführungszeichen enthalten',
+  'LBL_INDICATES_COMBO_FIELD' => '** Ein Kombinationsfeld. Ein Kombinationsfeld ist eine Zusammenstellung von einzelnen Feldern. Zum Beispiel: "Adresse" ist eine Kombination aus "Straße", "Stadt", "PLZ", "Bundesland" und "Land".<br><br>Doppelklicken sie ein Kombinationsfeld, um zu sehen aus welchen Feldern es besteht.',
   'LBL_ISSUE' => 'Problem',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM' => 'Sind Sie sicher, dass Sie diese benötigte Auswahl entfernen möchten? Die Funktionalität Ihres Systems könnte beeinträchtigt werden.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_LOST' => 'Sind Sie sicher, dass Sie die "Verloren" Auswahl entfernen möchten? Dies wird die Prognosen Funktionalität beeinträchtigen.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_CLOSED_WON' => 'Sind Sie sicher, dass Sie die "Gewonnen" Auswahl entfernen möchten? Dies wird die Prognosen Funktionalität beeinträchtigen.',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_IN_PROGRESS' => 'Das Löschen des Wertes In Bearbeitung führt dazu, dass die Umsatzposten nicht mehr richtig funktionieren. Möchten Sie den Wert In Bearbeitung wirklich löschen?',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_NEW' => 'Das Löschen des Wertes Neu führt dazu, dass die Umsatzposten nicht mehr richtig funktionieren. Möchten Sie den Wert Neu wirklich löschen?',
+  'LBL_JS_DELETE_REQUIRED_DDL_ITEM_SALES_STAGE_DOM' => 'Sind Sie sicher, dass Sie diese Auswahl entfernen möchten? Das Löschen der "Gewonnen" oder "Verloren" Auswahlen beeinträchtigt die Prognosen Funktionalität.',
   'LBL_JS_DEPLOY_PACKAGE' => 'Jegliche Änderung im Studio wird überschrieben wenn diese Modul wieder verteilt wird. Sind Sie sicher fortzufahren?',
   'LBL_JS_REMOVE_MODULE' => 'Sind Sie sich sicher, dass sie dieses Modul löschen wollen? Alle Dateien, welches mit dem Paket verbunden sind werden gelöscht',
   'LBL_JS_REMOVE_PACKAGE' => 'Sind Sie sicher das Sie diese Paket löschen wollen? Dies löscht dauerhaft alle Dateien die mit diesem Paket verbunden sind.',
   'LBL_JS_VALIDATE_KEY' => 'Schlüssel - Muss alphanumerisch ohne Leerzeichen sein und mit einem Buchstaben beginnen.',
+  'LBL_JS_VALIDATE_KEY_WITH_SPACE' => 'Key - Must be alphanumeric and begin with a letter.',
   'LBL_JS_VALIDATE_LABEL' => 'Bitte geben Sie eine Bezeichnung ein die als Anzeigenamen für dies Modul verwendet wird.',
   'LBL_JS_VALIDATE_NAME' => 'Name – Muss alphanumerisch ohne Leerzeichen sein und mit einem Buchstaben beginnen.',
   'LBL_JS_VALIDATE_PACKAGE_NAME' => 'Paketname existiert bereits',
@@ -241,7 +256,7 @@ $mod_strings = array (
   'LBL_NO_FIELDS' => 'Keine Felder gefunden',
   'LBL_NO_FUNCS' => 'Keine Funktionen gefunden',
   'LBL_NO_RELS' => 'Keine Beziehungen',
-  'LBL_NO_SAVE_ACTION' => 'Keine Save-Action in dieser View',
+  'LBL_NO_SAVE_ACTION' => 'Speicher Aktion konnte für diese Ansicht nicht gefunden werden.',
   'LBL_NUMBER' => 'Nummer:',
   'LBL_ONETOMANY' => 'Eins zu Viele',
   'LBL_ONETOONE' => 'Eins zu Eins',
@@ -303,6 +318,7 @@ $mod_strings = array (
   'LBL_QUESTION_SUGAR_PORTAL' => 'Auswahl des Sugar Portals Layouts zum editieren',
   'LBL_QUICKCREATE' => 'Schnellerstellung',
   'LBL_READ_ONLY' => 'Nur Lesen',
+  'LBL_RECORDVIEW' => 'Datensatz Ansicht',
   'LBL_RELATED_FIELD' => 'Verknüptes Feld',
   'LBL_RELATED_FIELD_ID_NAME_LABEL' => '{0} (related {1} ID)',
   'LBL_RELATE_TO' => 'Verbinden mit',
@@ -324,6 +340,7 @@ $mod_strings = array (
   'LBL_RESET_MODULE' => 'Modul zurücksetzen',
   'LBL_RESTORE_DEFAULT' => 'Restore Default',
   'LBL_RHS_MODULE' => 'Verknüpfte Module',
+  'LBL_ROLE' => 'Rolle',
   'LBL_ROLLUP' => 'Rollup',
   'LBL_RSUB' => 'Das ist das Subpanel das in Ihrem Modul angezeigt wird',
   'LBL_SALE' => 'Verkauf',
@@ -351,6 +368,7 @@ $mod_strings = array (
   'LBL_SELECT_A_SUBPANEL' => 'Ein Subpanel auswählen',
   'LBL_SELECT_FILE' => 'Datei auswählen',
   'LBL_SELECT_SUBPANEL' => 'Subpanel auswählen',
+  'LBL_SINGULAR_LABEL' => 'Einfache Bezeichnung',
   'LBL_SP_PREVIEW' => 'Hier ist ein Entwurf, wie Ihr Style Sheet aussehen wird',
   'LBL_SP_UPLOADED' => 'Hochgeladen',
   'LBL_SP_UPLOADSTYLE' => 'Bitte ein Style Sheet von Ihrem Computer auswählen.<br> Wenn Sie das nächste Mal mit dem Portal synchronisieren, wird das Style Sheet übertragen.',
@@ -443,7 +461,7 @@ $mod_strings = array (
     'module' => 
     array (
       'afterSave' => 'Customize the module to suit your needs by editing and creating fields, establishing relationships with other modules and arranging the fields within the layouts.<br/><br/>To view the template fields and manage custom fields within the module, click <b>View Fields</b>.<br/><br/>To create and manage relationships between the module and other modules, whether modules already in the application or other custom modules within the same package, click <b>View Relationships</b>.<br/><br/>To edit the module layouts, click <b>View Layouts</b>. You can change the Detail View, Edit View and List View layouts for the module just as you would for modules already in the application within Studio.<br/><br/> To create a module with the same properties as the current module, click <b>Duplicate</b>.  You can further customize the new module.',
-      'create' => 'When choosing the type of <b>Type</b> of module that you wish to create, keep in mind the types of fields you would like to have within the module. <br/><br/>Each module template contains a set of fields pertaining to the type of module described by the title.<br/><br/><b>Basic</b> - Provides basic fields that appear in standard modules, such as the Name, Assigned to, Team, Date Created and Description fields.<br/><br/> <b>Company</b> - Provides organization-specific fields, such as Company Name, Industry and Billing Address.  Use this template to create modules that are similar to the standard Accounts module.<br/><br/> <b>Person</b> - Provides individual-specific fields, such as Salutation, Title, Name, Address and Phone Number.  Use this template to create modules that are similar to the standard Contacts and Leads modules.<br/><br/><b>Issue</b> - Provides case- and bug-specific fields, such as Number, Status, Priority and Description.  Use this template to create modules that are similar to the standard Cases and Bugs modules.<br/><br/>Note: After you create the module, you can edit the labels of the fields provided by the template, as well as create custom fields to add to the module layouts.',
+      'create' => 'When choosing the type of <b>Type</b> of module that you wish to create, keep in mind the types of fields you would like to have within the module. <br/><br/>Each module template contains a set of fields pertaining to the type of module described by the title.<br/><br/><b>Basic</b> - Provides basic fields that appear in standard modules, such as the Name, Assigned to, Team, Date Created and Description fields.<br/><br/> <b>Company</b> - Provides organization-specific fields, such as Company Name, Industry and Billing Address.  Use this template to create modules that are similar to the standard Accounts module.<br/><br/> <b>Person</b> - Provides individual-specific fields, such as Salutation, Title, Name, Address and Phone Number.  Use this template to create modules that are similar to the standard Contacts and Leads modules.<br/><br/><b>Issue</b> - Provides case- and bug-specific fields, such as Number, Status, Priority and Description.  Use this template to create modules that are similar to the standard Cases and Bug Tracker modules.<br/><br/>Note: After you create the module, you can edit the labels of the fields provided by the template, as well as create custom fields to add to the module layouts.',
       'editView' => 'Here you can edit the existing fields. You can remove any of the existing fields or add available fields in the left panel.',
       'existingModule' => 'After creating and customizing this module, you can create additional modules or return to the package to <b>Publish</b> or <b>Deploy</b> the package.<br><br>To create additional modules, click <b>Duplicate</b> to create a module with the same properties as the current module, or navigate back to the package, and click <b>New Module</b>.<br><br> If you are ready to <b>Publish</b> or <b>Deploy</b> the package containing this module, navigate back to the package to perform these functions. You can publish and deploy packages containing at least one module.',
       'labels' => 'The labels of the standard fields as well as custom fields can be changed.  Changing field labels will not affect the data stored in the fields.',
@@ -495,10 +513,10 @@ $mod_strings = array (
     'currency' => 'Währung',
     'date' => 'Datum',
     'datetimecombo' => 'Datum/Zeit',
-    'decimal' => 'Dezimal',
+    'decimal' => 'Dezimalzahl',
     'encrypt' => 'Verschlüsselt',
     'enum' => 'Auswahlliste',
-    'float' => 'Dezimalzahl',
+    'float' => 'Fließkommalzahl',
     'html' => 'HTML',
     'iframe' => 'IFrame',
     'image' => 'Bild',
@@ -549,6 +567,7 @@ $mod_strings = array (
       'default' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>EditView</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.<br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indicates a Dependent field that may or may not be visible based on the value of a formula.<br/><img src="themes/default/images/SugarLogic/icon_calculated.png"/>Indicates a Calculated field whose value will be automatically determined based on a formula.',
       'defaultdetailview' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>DetailView</b>.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.<br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indicates a Dependent field that may or may not be visible based on the value of a formula.<br/><img src="themes/default/images/SugarLogic/icon_calculated.png"/>Indicates a Calculated field whose value will be automatically determined based on a formula.',
       'defaultquickcreate' => 'The <b>Layout</b> area contains the fields that are currently displayed within the <b>QuickCreate</b> form.<br><br>The QuickCreate form appears in the subpanels for the module when the Create button is clicked.<br/><br/>The <b>Toolbox</b> contains the <b>Recycle Bin</b> and the fields and layout elements that can be added to the layout.<br><br>Make changes to the layout by dragging and dropping elements and fields between the <b>Toolbox</b> and the <b>Layout</b> and within the layout itself.<br><br>To remove a field from the layout, drag the field to the <b>Recycle Bin</b>. The field will then be available in the Toolbox to add to the layout.<br/><br/><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Indicates a Dependent field that may or may not be visible based on the value of a formula.<br/><img src="themes/default/images/SugarLogic/icon_calculated.png"/>Indicates a Calculated field whose value will be automatically determined based on a formula.',
+      'defaultrecordview' => 'Der <b>Layout</b> Bereich enthält Felder die zurzeit in der <b>Datensatz Ansicht</b> angezeigt werden.<br/><br/>Die <b>Werkzeugkiste</b> enthält den <b>Papierkorb</b>, die Felder und Layoutelemente die der Ansicht hizugefügt werden können.<br><br>Durch Drag und Drop können Sie Felder und Elemente mit der <b>Werkzeugkiste</b> dem <b>Layout</b> hinzufügen.<br><br>Um Felder zu entfernen Ziehen Sie sie auf den <b>Papierkorb</b>. So entfernte Felder befinden sich dann wieder in der Werkzeugkiste.<br/><br/><!--not_in_theme!--><img src="themes/default/images/SugarLogic/icon_dependent.png"/>Ein Abhängiges Feld, dass auf Grund einer Formel unsichtbar sein könnte.<br/>Ein berechnetes Feld dessen Wert von einer Formel abhängig ist.',
       'delete' => 'Drag and drop any element here to remove it from the layout',
       'historyBtn' => 'Click <b>View History</b> to view and restore a previously saved layout from the history.',
       'historyDefault' => 'Click <b>Restore Default</b> to restore a view to its original layout.',
@@ -588,11 +607,12 @@ $mod_strings = array (
       'type_basic' => 'The <b>Basic</b> template type provides basic fields, such as the Name, Assigned to, Team, Date Created and Description fields.',
       'type_company' => 'The <b>Company</b> template type provides organization-specific fields, such as Company Name, Industry and Billing Address.<br/><br/>Use this template to create modules that are similar to the standard Accounts module.',
       'type_file' => 'The <b>File</b> template provides Document specific fields, such as File Name, Document type, and Publish Date.<br><br>Use this template to create modules that are similar to the standard Documents module.',
-      'type_issue' => 'The <b>Issue</b> template type provides case- and bug-specific fields, such as Number, Status, Priority and Description.<br/><br/>Use this template to create modules that are similar to the standard Cases and Bugs modules.',
+      'type_issue' => 'The <b>Issue</b> template type provides case- and bug-specific fields, such as Number, Status, Priority and Description.<br/><br/>Use this template to create modules that are similar to the standard Cases and Bug Tracker modules.',
       'type_person' => 'The <b>Person</b> template type provides individual-specific fields, such as Salutation, Title, Name, Address and Phone Number.<br/><br/>Use this template to create modules that are similar to the standard Contacts and Leads modules.',
       'type_sale' => 'The <b>Sale</b> template type provides opportunity specific fields, such as Lead Source, Stage, Amount and Probability. <br/><br/>Use this template to create modules that are similar to the standard Opportunities module.',
       'viewfieldsbtn' => 'Click <b>View Fields</b> to view the fields associated with the module and to create and edit custom fields.',
       'viewlayoutsbtn' => 'Click <b>View Layouts</b> to view the layouts for the module and to customize the field arrangement within the layouts.',
+      'viewmobilelayoutsbtn' => 'Klicken Sie auf <b>Mobile Layouts anzeigen</b>, um die mobilen Layouts für das Modul anzuzeigen und um die Feldanordnung in den Layouts anzupassen.',
       'viewrelsbtn' => 'Click <b>View Relationships</b> to view the relationships associated with this module and to create new relationships.',
     ),
     'package' => 
@@ -687,6 +707,7 @@ $mod_strings = array (
       'relationshipsHelp' => 'All of the <b>Relationships</b> that exist between the module and other deployed modules appear here.<br><br>The relationship <b>Name</b> is the system-generated name for the relationship.<br><br>The <b>Primary Module</b> is the module that owns the relationships.  For example, all of the properties of the relationships for which the Accounts module is the primary module are stored in the Accounts database tables.<br><br>The <b>Type</b> is the type of relationship exists between the Primary module and the <b>Related Module</b>.<br><br>Click a column title to sort by the column.<br><br>Click a row in the relationship table to view the properties associated with the relationship.<br><br>Click <b>Add Relationship</b> to create a new relationship.<br><br>Relationships can be created between any two deployed modules.',
       'searchBtn' => 'Customize the module&#39;s <b>Search</b> layouts.<br><br>Determine what fields can be used to filter records that appear in the ListView.',
       'searchHelp' => 'The <b>Search</b> forms that can be customized appear here.<br><br>Search forms contain fields for filtering records.<br><br>Click an icon to select the search layout to edit.',
+      'studioBCHelp' => 'Zeigt an, ob das Modul rückwärtskompatibel ist',
       'studioBtn' => 'Use <b>Studio</b> to customize deployed modules.',
       'studioHelp' => 'Use <b>Studio</b> to determine what and how information is displayed in the modules.',
       'subpanelBtn' => 'Determine which fields appear in the <b>Subpanels</b> in the module.',

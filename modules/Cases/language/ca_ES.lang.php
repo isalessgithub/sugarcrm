@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre a eliminar.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Adjuntar Nota',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Incidències',
   'LBL_CASE' => 'Cas:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tuit',
   'LBL_CASE_INFORMATION' => 'Visió General',
   'LBL_CASE_NUMBER' => 'Número:',
   'LBL_CASE_SUBJECT' => 'Assumpte:',
@@ -53,6 +51,14 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat per usuari ID',
   'LBL_EXPORT_TEAM_COUNT' => 'Comte l&#39;equip',
   'LBL_FILENANE_ATTACHMENT' => 'Arxivar Adjunt',
+  'LBL_HELP_CREATE' => 'El mòdul {{plural_module_name}} es fa servir per seguir i controlar problemes relacionats amb productes o serveis dels que els clients han informat a la vostra organització. Per crear un {{module_name}}:. 1 Proporcioneu els valors desitjats per als camps. - Els camps marcats "Obligatori" s&#39;han de completar abans de desar. - Feu clic a "Mostra més" per exposar camps addicionals si és necessari. 2. Feu clic a "Desa" per finalitzar el nou registre i torneu a la pàgina anterior. - Seleccioneu l&#39;opció "Guarda i vegeu" per obrir el nou {{module_name}}  en vista de registre. - Seleccioneu "Guarda i crea nou" per crear un nou {{module_name}} immediatament.',
+  'LBL_HELP_RECORD' => 'El mòdul {{plural_module_name}} es fa servir per seguir i controlar problemes relacionats amb productes o serveis dels que els clients han informat a la vostra organització. 
+- Editeu els camps d&#39;aquest registre fent clic a un camp individual o amb el botó Edita.
+- Vegeu o modifiqueu enllaços a altres registres als subpanells mitjançant la commutació de la subfinestra inferior esquerra a la "Vista de dades".
+- Feu i vegeu comentaris d&#39;usuari i l&#39;historial de canvis del registre al {{activitystream_singular_module}} mitjançant la commutació de la subfinestra inferior esquerra al "Canal d&#39;activitat".
+- Feu el seguiment d&#39;aquest favorit o marqueu-lo com a favorit amb les icones que hi han a la dreta del nom del registre.
+- Hi han accions addicionals disponibles al menú desplegable d&#39;accions a la dreta del botó Edita.',
+  'LBL_HELP_RECORDS' => 'El mòdul {{plural_module_name}} es fa servir per seguir i gestionar problemes relacionats amb productes o serveis declarats pels clients a la seva organització. {{plural_module_name}} normalment estan relacionats amb un registre de {{accounts_singular_module}}, i {{plural_module_name}} múltiples poden estar relacionats amb un {{accounts_singular_module}} individual. Hi han vàries maneres de crear {{plural_module_name}} a Sugar com ara, mitjançant el mòdul {{plural_module_name}}, importació de {{plural_module_name}} o convertint de correu electrònic. Quan ja s&#39;ha creat el {{module_name}}, podeu veure i editar la informació que pertany al {{module_name}} a la vista de registre de {{module_name}}. A continuació cada registre de {{module_name}} es pot relacionar amb altres registres de Sugar, com ara {{calls_module}}, {{contacts_module}}, {{bugs_module}} i molts altres.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Històrial',
   'LBL_INVITEE' => 'Contactes',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Base de coneixement',
@@ -79,7 +85,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Cas',
   'LBL_MODULE_TITLE' => 'Casos: Inici',
   'LBL_NEW_FORM_TITLE' => 'Nou Cas',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes',
   'LBL_NUMBER' => 'Número:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Si vostè té un nou cas del suport que voleu enviar, pot fer clic aquí per afegir un nou cas.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Pot realitzar un filtrat cap avall la llista de casos, proporcionant un terme de cerca.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Per exemple, podeu usar això per trobar un tema que ha estat presentada amb anterioritat.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'El mòdul per a la gestió de casos és problemes de suport que afecten al seu Compte. Utilitzeu les fletxes de sota per anar a través d&#39;una visita ràpida.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Aquesta pàgina mostra la llista de casos existents associats al seu Compte.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'En fer clic aquí, tornarà a aquest punt de vista en qualsevol moment.',
   'LBL_PORTAL_VIEWABLE' => 'Visible portal',
   'LBL_PRIORITY' => 'Prioritat:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projectes',
@@ -88,6 +101,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Casos',
   'LBL_SHOW_IN_PORTAL' => 'Mostrar en Portal',
   'LBL_SHOW_MORE' => 'Mostra més casos',
+  'LBL_SOURCE' => 'Origen:',
   'LBL_STATUS' => 'Estat:',
   'LBL_SUBJECT' => 'Assumpte:',
   'LBL_SYSTEM_ID' => 'ID Sistema',

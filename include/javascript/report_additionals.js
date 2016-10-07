@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 var groups_arr=new Array();var chartTypesHolder=[];var groups_count=-1;var filters_arr=new Array();var filters_count_map=new Object();var filters_count=-1;var current_filter_id=-1;var groups_count_map=new Object();var current_group_id=-1;var join_refs=new Array();var group_field=null;var has_group=null;var global_report_def=null;var goto_anchor='';var all_fields=new Object();var full_table_list=new Object();full_table_list.self=new Object();full_table_list.self.parent='';full_table_list.self.value=document.EditView.self.options[document.EditView.self.options.selectedIndex].value;full_table_list.self.module=document.EditView.self.options[document.EditView.self.options.selectedIndex].value;full_table_list.self.label=document.EditView.self.options[document.EditView.self.options.selectedIndex].text;full_table_list.self.children=new Object();function hideCheckGroups(){document.getElementById('checkGroups').style.display='none';}
 function table_changed(obj){if(document.EditView.report_type[1].checked){if(typeof hideCheckGroupsTimeout!='undefined')clearTimeout(hideCheckGroupsTimeout);document.getElementById('checkGroups').style.display='';hideCheckGroupsTimeout=window.setTimeout('hideCheckGroups()',6000);}
 current_module=document.EditView.self.options[document.EditView.self.options.selectedIndex].value;if(obj.options[obj.selectedIndex].value==''){delete_this_join(obj.id);return;}
@@ -87,15 +85,16 @@ var column_name=filter_row.column_select.options[filter_row.column_select.select
 var field=all_fields[column_name].field_def;var field_type=field.type;if(typeof(field.custom_type)!='undefined'){field_type=field.custom_type;}
 cell.innerHTML="<table><tr></tr></table>";var row=cell.getElementsByTagName("tr")[0];if(qualifier_name=='between'){addFilterInputTextBetween(row,filter);}
 else if(qualifier_name=='between_dates'){addFilterInputDateBetween(row,filter);}
+else if(qualifier_name.indexOf("_n_days")!=-1){addFilterInputText(row,filter);}
 else if(qualifier_name=='empty'||qualifier_name=='not_empty'){addFilterNoInput(row,filter);}
 else if(field_type=='date'||field_type=='datetime'){if(qualifier_name.indexOf('tp_')==0){addFilterInputEmpty(row,filter);}
 else{addFilterInputDate(row,filter);}}
 else if(field_type=='id'||field_type=='name'){if(qualifier_name=='is'){addFilterInputRelate(row,field,filter);}
 else{addFilterInputText(row,filter);}}
-else if((field_type=='user_name')||(field_type=='assigned_user_name')){if(users_array==""){loadXML();}
+else if(field_type=='username'||field_type=='assigned_user_name'){if(users_array==""){loadXML();}
 if(qualifier_name=='one_of'){addFilterInputSelectMultiple(row,users_array,filter);}
 else{addFilterInputSelectSingle(row,users_array,filter);}}
-else if(field_type=='enum'||field_type=='multienum'){if(qualifier_name=='one_of'){addFilterInputSelectMultiple(row,field.options,filter);}
+else if(field_type=='enum'||field_type=='multienum'||field_type=='timeperiod'){if(qualifier_name=='one_of'){addFilterInputSelectMultiple(row,field.options,filter);}
 else{addFilterInputSelectSingle(row,field.options,filter);}}
 else if(field_type=='bool'){var no=new Object();no['value']='yes';no['text']=SUGAR.language.languages.app_list_strings.checkbox_dom[1];var yes=new Object();yes['value']='no';yes['text']=SUGAR.language.languages.app_list_strings.checkbox_dom[2];var options=[yes,no];addFilterInputSelectSingle(row,options,filter);}
 else{addFilterInputText(row,filter);}
@@ -135,8 +134,8 @@ function addFilterInputTextBetween(row,filter){var filter_row=filters_arr[filter
 new_input.value=filter.input_name0;cell.appendChild(new_input);row.appendChild(cell);filter_row.input_field0=new_input;var cell=document.createElement('td');var new_text=document.createTextNode(lbl_and);cell.appendChild(new_text);row.appendChild(cell);var cell=document.createElement('td');var new_input=document.createElement("input");new_input.type="text";if(typeof(filter.input_name1)=='undefined'){filter.input_name1='';}
 new_input.value=filter.input_name1;cell.appendChild(new_input);row.appendChild(cell);filter_row.input_field1=new_input;}
 function addFilterInputDateBetween(row,filter){var filter_row=filters_arr[filters_count_map[current_filter_id]];var cell=document.createElement("td");cell.setAttribute('valign','middle');var new_input=document.createElement("input");new_input.type="text";if(typeof(filter.input_name0)=='undefined'){filter.input_name0='';}
-new_input.value=to_display_date(filter.input_name0);new_input.name="text_input";new_input.size="12";new_input.maxsize="255";new_input.visible="true";new_input.setAttribute('id','jscal_field');cell.appendChild(new_input);row.appendChild(cell);filter_row.input_field1=new_input;var cell=document.createElement("td");cell.setAttribute('valign','middle');var img_element=document.createElement("img");img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif');img_element.setAttribute('id','jscal_trigger');cell.appendChild(img_element);row.appendChild(cell);Calendar.setup({inputFieldObj:new_input,buttonObj:img_element,ifFormat:cal_date_format,showsTime:false,singleClick:true,weekNumbers:false,step:1});var cell=document.createElement('td');cell.setAttribute('valign','middle');var new_text=document.createTextNode(lbl_and);cell.appendChild(new_text);row.appendChild(cell);var cell=document.createElement("td");cell.setAttribute('valign','middle');var new_input=document.createElement("input");new_input.type="text";if(typeof(filter.input_name1)=='undefined'){filter.input_name1='';}
-new_input.value=to_display_date(filter.input_name1);new_input.name="text_input";new_input.size="12";new_input.maxsize="255";new_input.visible="true";new_input.setAttribute('id','jscal_field2');cell.appendChild(new_input);row.appendChild(cell);filter_row.input_field1=new_input;var cell=document.createElement("td");var img_element=document.createElement("img");img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif');img_element.setAttribute('id','jscal_trigger2');cell.appendChild(img_element);row.appendChild(cell);Calendar.setup({inputFieldObj:new_input,buttonObj:img_element,ifFormat:cal_date_format,showsTime:false,singleClick:true,weekNumbers:false,step:1});}
+new_input.value=to_display_date(filter.input_name0);new_input.name="text_input";new_input.size="12";new_input.maxsize="255";new_input.visible="true";new_input.setAttribute('id','jscal_field_'+current_filter_id);cell.appendChild(new_input);row.appendChild(cell);filter_row.input_field1=new_input;var cell=document.createElement("td");cell.setAttribute('valign','middle');var img_element=document.createElement("img");img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif');img_element.setAttribute('id','jscal_trigger_'+current_filter_id);cell.appendChild(img_element);row.appendChild(cell);Calendar.setup({inputFieldObj:new_input,buttonObj:img_element,ifFormat:cal_date_format,showsTime:false,singleClick:true,weekNumbers:false,step:1});var cell=document.createElement('td');cell.setAttribute('valign','middle');var new_text=document.createTextNode(lbl_and);cell.appendChild(new_text);row.appendChild(cell);var cell=document.createElement("td");cell.setAttribute('valign','middle');var new_input=document.createElement("input");new_input.type="text";if(typeof(filter.input_name1)=='undefined'){filter.input_name1='';}
+new_input.value=to_display_date(filter.input_name1);new_input.name="text_input";new_input.size="12";new_input.maxsize="255";new_input.visible="true";new_input.setAttribute('id','jscal_field2_'+current_filter_id);cell.appendChild(new_input);row.appendChild(cell);filter_row.input_field1=new_input;var cell=document.createElement("td");var img_element=document.createElement("img");img_element.setAttribute('src','index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=jscalendar.gif');img_element.setAttribute('id','jscal_trigger2_'+current_filter_id);cell.appendChild(img_element);row.appendChild(cell);Calendar.setup({inputFieldObj:new_input,buttonObj:img_element,ifFormat:cal_date_format,showsTime:false,singleClick:true,weekNumbers:false,step:1});}
 var current_parent='';var current_parent_id='';function set_current_parent(name,value){current_parent.value=name;current_parent_id.value=value;}
 function getModuleInFilter(filter){var selected_module=current_module;current_prefix='self';var view_join=filter.module_cell.getElementsByTagName('select')[0];var selected_option=view_join.options[view_join.selectedIndex].value;if(selected_option!='self'){selected_module=full_table_list[selected_option].module;}
 return selected_module;}

@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Aziende',
   'LBL_ASSIGNED_TO' => 'Assegnato a',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Campagne',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatti',
   'LBL_COPY_PREFIX' => 'Copia di',
   'LBL_CREATED' => 'Creato da:',
@@ -32,6 +30,9 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Nessuna email di Dominio:',
   'LBL_DOMAIN_NAME' => 'Nome Dominio',
   'LBL_ENTRIES' => 'Voci Totali',
+  'LBL_HELP_CREATE' => 'Una {{module_name}} consiste in un insieme di soggetti o aziende che vuoi includere o escludere in una {{campaigns_singular_module}} massiva di marketing. Per creare un {{module_name}}: 1. Fornire i valori desiderati per i campi. - I campi segnati come "Obbligatorio" devono essere compilati prima del salvataggio. - Cliccare "Mostra più" per visualizzare ulteriori campi se necessario. 2. Cliccare "Salva" per finalizzare il nuovo record e tornare alla pagina precedente. - Scegliere "Salva e Visualizza" per aprire la vista elenco del nuovo {{module_name}}. - Scegliere "Salva e crea nuovo" per creare subito un altro nuovo {{module_name}}. 3. Dopo il salvataggio, usare il sottopannello disponibile nella vista di dettaglio degli obiettivi per aggiungere destinatari alla {{campaigns_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Una {{module_name}} consiste in un insieme di soggetti o aziende che vuoi includere o escludere in una {{campaigns_singular_module}} massiva di marketing.  - Modificare i campi di questi records cliccando il singolo campo o il pulsante Modifica. - Visualizza o modifica i link agli altri records nei sottopannelli, inclusi i destinatari delle {{campaigns_singular_module}}, agendo sul pulsante "Visualizza Dati" in basso a sinistra. - Creare e visualizzare i commenti degli utenti e la cronologia delle modifiche dei records nel modulo {{activitystream_singular_module}} agendo sul pulsante "Activity Stream" in basso a sinistra. - Seguire o impostare come preferito questo record usando le icone alla destra del nome del record. - Azioni aggiuntive sono disponibili nel menù a tendina delle Azioni alla destra del pulsante Modifica.',
+  'LBL_HELP_RECORDS' => 'Una {{module_name}} consiste in un insieme di soggetti o aziende che vuoi includere o escludere in una {{campaigns_singular_module}} massiva di marketing. {{plural_module_name}} può contenere qualsiasi numero e combinazione di Obiettivi, {{contacts_module}}, {{leads_module}}, Utenti e {{accounts_module}}. Gli obiettivi possono essere raggruppati in una {{module_name}} in accordo con una serie di criteri predeterminati come età del gruppo, zona geografica o abitudini di spesa. {{plural_module_name}} sono utilizzate nelle email di {{campaigns_module}} massive di marketing che possono essere configurate nel modulo {{campaigns_module}}.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Lead',
   'LBL_LIST_DESCRIPTION' => 'Descrizione',
   'LBL_LIST_END_DATE' => 'Data Fine',

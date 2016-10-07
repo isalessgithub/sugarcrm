@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Bedrifter',
   'LBL_ASSIGNED_TO' => 'Tildelt',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampanjer',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakter',
   'LBL_COPY_PREFIX' => 'Kopi av',
   'LBL_CREATED' => 'Opprettet av',
@@ -32,6 +30,9 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Ingen e-postmeldinger til domene',
   'LBL_DOMAIN_NAME' => 'Navn på domene',
   'LBL_ENTRIES' => 'Totalt antall oppføringer',
+  'LBL_HELP_CREATE' => 'En {{module_name}} består av en samling av enkeltpersoner eller organisasjoner du ønsker å inkludere eller ekskludere i en masse-markedsføring {{campaigns_singular_module}}. For å opprette en {{module_name}}: 1. Gi verdier til feltene som ønsket. - Felt som er merket "kreves" må fullføres før du lagrer. - Klikk "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Klikk "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne den nye {{module_name}} i postvisning. - Velg "Lagre og skape nye" til umiddelbart å opprette en ny {{module_name}}. 3. Etter lagring, bruke de tilgjengelige underpaneler fra målets postvisning for å legge til {{campaigns_singular_module}} mottakere.',
+  'LBL_HELP_RECORD' => 'En {{module_name}} består av en samling av enkeltpersoner eller organisasjoner du ønsker å inkludere eller ekskludere i en masse-markedsføring {{campaigns_singular_module}}. - Rediger denne posts felter ved å klikke på et enkelt felt eller Rediger-knappen. - Vis eller endre lenker til andre poster i underpaneler, inkludert {{campaigns_singular_module}} mottakere, ved å veksle nedre venstre rute til  "Data View". - Lag og vis brukerkommentarer og postendringshistorie i {{activitystream_singular_module}} ved å veksle nedre venstre rute til "Activity Stream". - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for registrering navn. - Ytterligere tiltak er tilgjengelig i dropdown-menyen Handlinger til høyre for Rediger-knappen.',
+  'LBL_HELP_RECORDS' => 'En {{module_name}} består av en samling av enkeltpersoner eller organisasjoner du ønsker å inkludere eller ekskludere i en masse-markedsføring {{campaigns_singular_module}}. {{plural_module_name}} kan inneholde hvilket som helst antall og hvilken som helst kombinasjon av Mål, {{contacts_module}}, {{leads_module}}, Brukere, og {{accounts_module}}. Mål kan grupperes i en {{module_name}} i henhold til et sett med forhåndsbestemte kriterier som aldersgruppe, geografisk plassering, eller forbruksvaner. {{plural_module_name}} brukes i masse e-post markedsføring {{campaigns_module}} som kan konfigureres i {{campaigns_module}} modulen.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Leads',
   'LBL_LIST_DESCRIPTION' => 'Beskrivelse',
   'LBL_LIST_END_DATE' => 'Sluttdato',
@@ -49,6 +50,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Endret av',
   'LBL_MODULE_ID' => 'Prospektlister',
   'LBL_MODULE_NAME' => 'Prospektlister',
+  'LBL_MODULE_NAME_SINGULAR' => 'Målliste',
   'LBL_MODULE_TITLE' => 'Mållister: Hjem',
   'LBL_MORE_DETAIL' => 'Flere Detaljer',
   'LBL_NAME' => 'Navn',

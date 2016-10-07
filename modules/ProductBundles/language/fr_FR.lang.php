@@ -2,26 +2,26 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
+  'EXCEPTION_INVALID_QUOTE_ID' => 'ID Devis manquant dans la charge',
+  'EXCEPTION_NOT_FOUND_QUOTE' => 'Le Devis demandé n&#39;a pas été trouvé',
   'LBL_BUNDLE_STAGE' => 'Etat du Groupe:',
   'LBL_DEAL_TOT' => 'Remise totale',
   'LBL_DEAL_TOT_USDOLLAR' => 'Remise totale (devise par défaut)',
   'LBL_NEW_SUB' => 'Sous-Total remisé:',
+  'LBL_QUOTE_BUNDLE_POSITION' => 'Position du groupe de Devis',
   'LBL_SHIPPING' => 'Frais de Port:',
   'LBL_SHIPPING_USDOLLAR' => 'Livraison (devise par défaut)',
   'LBL_SUBTOTAL' => 'Sous-total:',

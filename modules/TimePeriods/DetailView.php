@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -34,10 +31,10 @@ global $app_list_strings;
 global $current_user;
 
 //exit if the logged in user does not have admin rights.
-if (!is_admin($current_user) && !is_admin_for_module($current_user,'Forecasts')&& !is_admin_for_module($current_user,'ForecastSchedule')) sugar_die("Unauthorized access to administration.");
+if (!is_admin($current_user) && !is_admin_for_module($current_user,'Forecasts')) sugar_die("Unauthorized access to administration.");
 
 global $focus;
-$focus = new TimePeriod();
+$focus = BeanFactory::getBean('TimePeriods');
 
 $GLOBALS['log']->info("in detail view");
 
@@ -84,28 +81,3 @@ if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($
 }
 $xtpl->parse("main");
 $xtpl->out("main");
-
-
-echo "<BR>\n";
-$sub_xtpl = $xtpl;
-
-$old_contents = ob_get_contents();
-ob_end_clean();
-if($sub_xtpl->var_exists('subpanel', 'FORECASTSCHEDULE')){
-
-ob_start();
-
-include('modules/ForecastSchedule/SubPanelViewForecastSchedule.php');
-
-$forecastschedulepanel = ob_get_contents();
-ob_end_clean();
-}
-ob_start();
-
-echo $old_contents;
-if(!empty($forecastschedulepanel))$sub_xtpl->assign('FORECASTSCHEDULE', $forecastschedulepanel);
-
-$sub_xtpl->parse("subpanel");
-$sub_xtpl->out("subpanel");
-
-?>

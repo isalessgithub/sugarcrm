@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/utils/array_utils.php');
 require_once('include/utils/sugar_file_utils.php');
@@ -36,10 +33,38 @@ function clean_path( $path )
     return( $appendpath.$path );
 }
 
+/**
+ * Checks if the given path is a valid destination for package files
+ *
+ * @param string $path
+ * @return bool
+ */
+function isValidCopyPath($path)
+{
+    $path = str_replace('\\', '/', $path);
+
+    // check if path is absolute
+    if ($path === '' || $path[0] === '/') {
+        return false;
+    }
+
+    // additionally check if path starts with a drive letter for Windows
+    if (is_windows() && preg_match('/^[a-z]:/i', $path)) {
+        return false;
+    }
+
+    // check if path contains reference to parent directory
+    if (preg_match('/(^|\/)\.\.(\/|$)/', $path)) {
+        return false;
+    }
+
+    return true;
+}
+
 function create_cache_directory($file)
 {
     $paths = explode('/',$file);
-    $dir = rtrim($GLOBALS['sugar_config']['cache_dir'], '/\\');
+    $dir = rtrim(sugar_cached(""), '/');
     if(!file_exists($dir))
     {
         sugar_mkdir($dir, 0775);
@@ -55,6 +80,11 @@ function create_cache_directory($file)
     return $dir . '/'. $paths[sizeof($paths) - 1];
 }
 
+/**
+ * @deprecated
+ * Use ModuleInstaller::getModuleDirs
+ * @return string
+ */
 function get_module_dir_list()
 {
 	$modules = array();
@@ -105,7 +135,14 @@ function write_array_to_file( $the_name, $the_array, $the_file, $mode="w", $head
                     var_export_helper( $the_array ) .
                     ";";
 
-    return sugar_file_put_contents($the_file, $the_string, LOCK_EX) !== false;
+    if(sugar_file_put_contents_atomic($the_file, $the_string) !== false) {
+        if(substr($the_file, 0, 7) === 'custom/') {
+            // record custom writes to file map
+            SugarAutoLoader::addToMap($the_file);
+        }
+        return true;
+    }
+    return false;
 }
 
 function write_encoded_file( $soap_result, $write_to_dir, $write_to_file="" )
@@ -290,13 +327,17 @@ function readfile_chunked($filename,$retbytes=true)
 function sugar_rename( $old_filename, $new_filename){
 	if (empty($old_filename) || empty($new_filename)) return false;
 	$success = false;
-	if(file_exists($new_filename)) {
-    	unlink($new_filename);
+	if(SugarAutoLoader::fileExists($new_filename)) {
+    	SugarAutoLoader::unlink($new_filename);
     	$success = rename($old_filename, $new_filename);
 	}
 	else {
 		$success = rename($old_filename, $new_filename);
 	}
+
+    if ($success) {
+        SugarAutoLoader::addToMap($new_filename);
+    }
 
 	return $success;
 }
@@ -428,7 +469,9 @@ if (!isset(\$hook_array) || !is_array(\$hook_array)) {
 if (!isset(\$hook_array['after_save']) || !is_array(\$hook_array['after_save'])) {
     \$hook_array['after_save'] = array();
 }
-\$hook_array['after_save'][] = array(1, 'fts', 'include/SugarSearchEngine/SugarSearchEngineQueueManager.php', 'SugarSearchEngineQueueManager', 'populateIndexQueue');
+\$managerClassPath = SugarAutoLoader::requireWithCustom('include/SugarSearchEngine/SugarSearchEngineQueueManager.php');
+\$managerClassName = SugarAutoLoader::customClass('SugarSearchEngineQueueManager');
+\$hook_array['after_save'][] = array(1, 'fts', \$managerClassPath, \$managerClassName, 'populateIndexQueue');
 CIA;
 
     fwrite($fp,$contents);
@@ -451,3 +494,76 @@ function cleanDirName($name)
     return str_replace(array("\\", "/", "."), "", $name);
 }
 
+/**
+ * Attempts to use PHPs mime type getters, where available, to get the content
+ * type of a file. Checks existence of the file
+ *
+ * @param string $file The filepath to get the mime type for
+ * @param string $default An optional mimetype string to return if one cannot be found
+ * @return string The string content type of the file or false if the file does
+ *                not exist
+ */
+function get_file_mime_type($file, $default = false)
+{
+    // If the file is readable then use it
+    if (is_readable($file)) {
+        $file = UploadFile::realpath($file);
+        // Default the return
+        $mime = '';
+
+        // Check first for the finfo functions needed to use built in functions
+        // Suppressing warnings since some versions of PHP are choking on
+        // getting the mime type by reading the file contents even though the
+        // file is readable
+        if (mime_is_detectable_by_finfo()) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            if ($finfo) {
+                $mime = @finfo_file($finfo, $file);
+                finfo_close($finfo);
+            }
+        } else  {
+            // Fall back to our regular way of doing it
+            if (function_exists('mime_content_type')) {
+                $mime = @mime_content_type($file);
+            } elseif (function_exists('ext2mime')) {
+                $mime = @ext2mime($file);
+            }
+        }
+
+        // If mime is empty, set it manually... this can happen from either not
+        // being able to detect the mime type using core PHP functions or in the
+        // case of a failure of one of the core PHP functions for some reason
+        if (empty($mime)) {
+            $mime = 'application/octet-stream';
+        }
+
+        return $mime;
+    }
+
+    return $default;
+}
+
+/**
+ * Helper function to determine whether the functions needed to fetch a mime type
+ * natively with PHP exist.
+ *
+ * @return bool
+ */
+function mime_is_detectable()
+{
+    $fallback = function_exists('mime_content_type') || function_exists('ext2mime');
+    return mime_is_detectable_by_finfo() || $fallback;
+}
+
+/**
+ * Helper function to determine whether the native PHP FileInfo functions are
+ * available. FileInfo is now included with PHP 5.3+. Prior to that it was a
+ * PECL extension.
+ * http://us2.php.net/manual/en/fileinfo.installation.php
+ *
+ * @return bool
+ */
+function mime_is_detectable_by_finfo()
+{
+    return function_exists('finfo_open') && function_exists('finfo_file') && function_exists('finfo_close');
+}

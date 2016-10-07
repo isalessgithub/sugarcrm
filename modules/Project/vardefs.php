@@ -1,27 +1,25 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
 $dictionary['Project'] = array(
-	'table' => 'project',
-	'unified_search' => true,
-	'full_text_search' => true,
-	'unified_search_default_enabled' => false,
-	'comment' => 'Project',
+    'table' => 'project',
+    'favorites' => false,
+    'unified_search' => true,
+    'full_text_search' => true,
+    'unified_search_default_enabled' => false,
+    'comment' => 'Project',
 	'fields' => array(
 		'id' => array(
 			'name' => 'id',
@@ -38,6 +36,7 @@ $dictionary['Project'] = array(
 			'comment' => 'Date record created',
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
+            'readonly' => true,
 		),
 		'date_modified' => array(
 			'name' => 'date_modified',
@@ -46,19 +45,15 @@ $dictionary['Project'] = array(
 			'comment' => 'Date record last modified',
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
+            'readonly' => true,
 		),
 		'assigned_user_id' => array(
 			'name' => 'assigned_user_id',
-			'rname' => 'user_name',
-			'id_name' => 'assigned_user_id',
-			'type' => 'assigned_user_name',
+            'type' => 'id',
 			'vname' => 'LBL_ASSIGNED_USER_ID',
 			'required' => false,
-			'len' => 36,
-			'dbType' => 'id',
-			'table' => 'users',
 			'isnull' => false,
-			'reportable'=>true,
+			'reportable'=>false,
 			'comment' => 'User assigned to this record'
 		),
 		'modified_user_id' => array(
@@ -73,20 +68,20 @@ $dictionary['Project'] = array(
 			'reportable'=>true,
 			'comment' => 'User who last modified record'
 		),
-		'modified_by_name' => 
+		'modified_by_name' =>
 	  array (
 	    'name' => 'modified_by_name',
 	    'vname' => 'LBL_MODIFIED_NAME',
 	    'type' => 'relate',
 	    'reportable'=>false,
 	    'source'=>'non-db',
-	    'rname'=>'user_name',
+        'rname' => 'full_name',
 	    'table' => 'users',
 	    'id_name' => 'modified_user_id',
 	    'module'=>'Users',
 	    'link'=>'modified_user_link',
-	    'duplicate_merge'=>'disabled' 
-	  ),  
+	    'duplicate_merge'=>'disabled'
+	  ),
 		'created_by' => array(
 			'name' => 'created_by',
 			'rname' => 'user_name',
@@ -98,14 +93,14 @@ $dictionary['Project'] = array(
 			'dbType' => 'id',
 			'comment' => 'User who created record',
 		),
-		'created_by_name' => 
+		'created_by_name' =>
 	  array (
 	    'name' => 'created_by_name',
 		'vname' => 'LBL_CREATED',
 		'type' => 'relate',
 		'reportable'=>false,
 	    'link' => 'created_by_link',
-	    'rname' => 'user_name',
+        'rname' => 'full_name',
 		'source'=>'non-db',
 		'table' => 'users',
 		'id_name' => 'created_by',
@@ -121,7 +116,7 @@ $dictionary['Project'] = array(
 			'type' => 'name',
 			'len' => 50,
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 3),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
 			'comment' => 'Project name',
 			'importable' => 'required',
             'required' => true,
@@ -152,6 +147,7 @@ $dictionary['Project'] = array(
             'importable' => 'required',
             'required' => true,
             'enable_range_search' => true,
+            'options' => 'date_range_search_dom',
         ),
         'estimated_end_date' =>
         array(
@@ -162,6 +158,7 @@ $dictionary['Project'] = array(
             'importable' => 'required',
             'required' => true,
             'enable_range_search' => true,
+            'options' => 'date_range_search_dom',
         ),
         'status' =>
         array(
@@ -220,6 +217,7 @@ $dictionary['Project'] = array(
     		'ignore_role'=>true,
 				'vname'=>'LBL_QUOTES',
   		),
+
 		'contacts' =>
   		array (
   			'name' => 'contacts',
@@ -322,16 +320,18 @@ $dictionary['Project'] = array(
         'assigned_user_name' =>
         array (
         	'name' => 'assigned_user_name',
-        	'rname' => 'user_name',
+        	'rname' => 'full_name',
         	'id_name' => 'assigned_user_id',
         	'vname' => 'LBL_ASSIGNED_USER_NAME',
         	'type' => 'relate',
         	'table' => 'users',
         	'module' => 'Users',
         	'dbType' => 'varchar',
-        	'link'=>'users',
+        	'link'=>'assigned_user_link',
         	'len' => '255',
         	'source'=>'non-db',
+            'exportable'=> true,
+            'sort_on' => array('last_name'),
         	),
         'cases' =>
             array (
@@ -359,6 +359,15 @@ $dictionary['Project'] = array(
             'side' => 'right',
             'source'=>'non-db',
             'vname'=>'LBL_PRODUCTS',
+        ),
+        'revenuelineitems' =>
+            array (
+            'name' => 'revenuelineitems',
+            'type' => 'link',
+            'relationship' => 'projects_revenuelineitems',
+            'source'=>'non-db',
+            'vname'=>'LBL_REVENUELINEITEMS',
+            'workflow' => false
         ),
 		'user_resources' =>
   			array (
@@ -395,6 +404,10 @@ $dictionary['Project'] = array(
 			'type' =>'primary',
 			'fields'=>array('id')
 		),
+        array('name' => 'idx_project_name', 'type' => 'index', 'fields' => array('name')),
+        array('name' => 'idx_project_estimated_start_date', 'type' => 'index', 'fields' => array('estimated_start_date')),
+        array('name' => 'idx_project_estimated_end_date', 'type' => 'index', 'fields' => array('estimated_end_date')),
+        array('name' => 'idx_project_status', 'type' => 'index', 'fields' => array('status')),
 	),
 	'relationships' => array(
 		'projects_notes' => array(
@@ -477,6 +490,8 @@ $dictionary['Project'] = array(
             'rhs_table'         => 'holidays',
             'rhs_key'           => 'related_module_id',
             'relationship_type' => 'one-to-many',
+            'relationship_role_column'=>'related_module',
+            'relationship_role_column_value'=>'Project',
         ),
 
 	),

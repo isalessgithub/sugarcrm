@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => 'Cada 2 setmanes',
     2419200 => 'Cada 4 setmanes',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Informe planificat "{0}" ha sigut desactivat',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Informe planificat ha sigut desactivat',
   'ERR_REPORT_INVALID' => 'La definició de l&#39;informe "{0}" conté camps no vàlids: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'L&#39;informe no és vàlid',
   'ERR_SELECT_COLUMN' => 'Si us plau, seleccioni primer una columna de visualització.',
@@ -154,8 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'Assistent d´Informes',
   'LBL_CREATE_REPORT' => 'Nou Informe',
   'LBL_CSV_TIMESTAMP' => 'Y_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre de l&#39;any fiscal actual',
-  'LBL_CURRENT_FISCAL_YEAR' => 'Exercici actual',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'Trimestre fiscal actual',
+  'LBL_CURRENT_FISCAL_YEAR' => 'Any fiscal actual',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'Acords Tancats en el Trimestre Actual',
   'LBL_CURRENT_QUARTER_FORECAST' => 'Objectiu de Trimestre Actual',
   'LBL_CURRENT_USER' => 'Usuari Actual',
@@ -205,11 +204,12 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'dels següents filtres.',
   'LBL_FILTERS_HELP_DESC' => '<b>Passos per a la Definició de Filtres:</b><br/><br/>1) Faci clic en un Mòdul del plafó <b>Mòduls Relacionats</b> que desitja utilitzar per definir el filtre. Per defecte, el mòdul principal (el node arrel en l&#39;arbre) està seleccionat. <Br/><br/> Pot seleccionar un mòdul relacionat (node fill en l&#39;arbre) fent clic en el mòdul. Pot expandir el node per veure mòduls addicionals relacionats amb el mòdul. El mòdul que seleccioni determina els camps utilitzables en un informe que apareixen al plafó <b>Camps Disponibles</b>.<br/><br/> 2) Faci clic en un Camp del plafó <b>Camps Disponibles</b> per agregar-lo als filtres. També pot buscar un camp usant el quadre de text del panel.<br/><br/> Després de seleccionar un conjunt de camps del mòdul seleccionat al plafó <b>Mòdulos Relacionats</b>, pot seleccionar un mòdul diferent del qual vulgui seleccionar camps addicionals per ser utilitzats com a filtre.<br/><br/> 3) Seleccioni <b>Y</b> o <b>O</b> per establir si tots els filtres o qualsevol d&#39;ells, respectivament, s&#39;utilitzaran per obtenir els resultats del informe.<br/><br/> 4) [Opcional] Faci clic en <b>Afegir Grup de Filtres</b> per crear grups de filtres. Pot tenir tants grups de filtres i tants filtres en un grup com desitgi per crear filtres anidats.<br/><br/> 5) [Opcional] Seleccioni l&#39;opció de Temps d&#39;execució d&#39;un Filtre per permetre que els usuaris utilitzin el filtre per personalitzar els resultats dels informes mentre veuen l&#39;informe.',
   'LBL_FILTER_AND' => 'I',
+  'LBL_FILTER_BY_MODULE' => 'Per Mòdul',
   'LBL_FILTER_CONDITIONS' => 'Seleccioni Operador',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Fins',
   'LBL_FILTER_DATE_RANGE_START' => 'Des de',
   'LBL_FILTER_OR' => 'O',
-  'LBL_FISCAL_QUARTER' => 'Trimestre fiscal',
+  'LBL_FISCAL_QUARTER' => 'Trimestre Fiscal',
   'LBL_FISCAL_YEAR' => 'Any Fiscal',
   'LBL_FORECAST_REPORTS' => 'Informes d´Objectius',
   'LBL_FUNNEL' => 'Embut',
@@ -235,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Últims 30 Dies',
   'LBL_LAST_7_DAYS' => '7 Dies Anteriors',
   'LBL_LAST_MONTH' => 'Últim Mes',
+  'LBL_LAST_N_DAYS' => 'Últims # díes',
   'LBL_LAST_QUARTER' => 'Últim Trimestre',
   'LBL_LAST_WEEK' => 'Última Setmana',
   'LBL_LAST_YEAR' => 'Últim Any',
@@ -303,9 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'Següent >',
   'LBL_NEXT_30_DAYS' => '30 Dies Següents',
   'LBL_NEXT_7_DAYS' => '7 Dies Següents',
-  'LBL_NEXT_FISCAL_QUARTER' => 'Següent trimestre fiscal',
-  'LBL_NEXT_FISCAL_YEAR' => 'Pròxim Any Fiscal',
+  'LBL_NEXT_FISCAL_QUARTER' => 'Trimestre fiscal próxim',
+  'LBL_NEXT_FISCAL_YEAR' => 'Any fiscal próxim',
   'LBL_NEXT_MONTH' => 'Mes Següent',
+  'LBL_NEXT_N_DAYS' => 'Próxims # díes',
   'LBL_NEXT_QUARTER' => 'Següent Trimestre',
   'LBL_NEXT_RUN' => 'Correu Següent',
   'LBL_NEXT_WEEK' => 'Setmana Següent',
@@ -317,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'No pot accedir a aquest informe perquè no té els permisos adequats.',
   'LBL_NO_CHART' => 'Sense Gràfic',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'No hi ha dades suficients per mostrar el gràfic',
-  'LBL_NO_EXPORT_ACCESS' => 'Exportacions deshabilitades',
+  'LBL_NO_EXPORT_ACCESS' => 'Exportació deshabilitada',
   'LBL_NO_FILTERS' => 'no te filtres.',
   'LBL_NO_IMAGE' => 'Sense Imatge',
   'LBL_NO_REPORTS' => 'Sense resultats.',
@@ -338,7 +340,7 @@ $mod_strings = array (
   'LBL_PIE' => 'Cercle',
   'LBL_PREVIEW_REPORT' => 'Vista Preliminar',
   'LBL_PREVIOUS' => '< Enrera',
-  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestre de l&#39;any fiscal anterior',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'Trimestre fiscal anterior',
   'LBL_PREVIOUS_FISCAL_YEAR' => 'Any fiscal anterior',
   'LBL_PROJECT_TASK_REPORTS' => 'Informes de Tasques de Projectes',
   'LBL_PROSPECT_REPORTS' => 'Informes de Públic Objectiu',
@@ -479,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'amb una mitja de',
   'LBL_WITH_A_TOTAL' => 'amb un total de',
   'LBL_WITH_DETAILS' => 'Amb detalls',
-  'LBL_WORKSHEET' => 'Full de càlcul',
   'LBL_YEAR' => 'Any',
   'LBL_YESTERDAY' => 'Ahir',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'No té informes emmagatzemats.',
+  'LNK_ADVANCED_REPORTING' => 'Informes Empresarials',
   'LNK_NEW_ACCOUNT' => 'Nou Compte',
   'LNK_NEW_CALL' => 'Programar Trucada',
   'LNK_NEW_CASE' => 'Nou Cas',
@@ -495,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'No té permisos per editar aquest informe',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Impossible realitzar la publicació. Ja hi ha un altre Informe publicat amb el mateix nom.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Impossible retirar un Informe propietat d´un altre usuari. Vostè posseeix un altre Informe amb el mateix nom.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'La planificació de generació d&#39;informes programats està inactiu i els informes no es poden programar. Si us plau, demani al usuari administrador estableix aquest planificador en actiu i torneu a intentar.',
 );
 

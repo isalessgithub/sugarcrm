@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the account.',
@@ -24,11 +21,11 @@ $mod_strings = array (
   'ERR_LAST_ADMIN_1' => 'The employee name "',
   'ERR_LAST_ADMIN_2' => '" is the last employee with administrator access.  At least one employee must be an administrator.',
   'LBL_ADDRESS' => 'Address:',
-  'LBL_ADDRESS_CITY' => 'Address City',
+  'LBL_ADDRESS_CITY' => 'Address Town/City',
   'LBL_ADDRESS_COUNTRY' => 'Address Country',
   'LBL_ADDRESS_INFORMATION' => 'Address Information',
   'LBL_ADDRESS_POSTALCODE' => 'Address Postal Code',
-  'LBL_ADDRESS_STATE' => 'Address State',
+  'LBL_ADDRESS_STATE' => 'Address County',
   'LBL_ADDRESS_STREET' => 'Address Street',
   'LBL_ADMIN' => 'Administrator:',
   'LBL_ANY_ADDRESS' => 'Any Address:',

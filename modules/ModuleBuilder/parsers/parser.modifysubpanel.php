@@ -1,25 +1,22 @@
 <?php
 if (! defined ( 'sugarEntry' ) || ! sugarEntry)
     die ( 'Not A Valid Entry Point' ) ;
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+// $Id: SubpanelParser.php 20826 2007-03-09 20:18:29Z clee $
 /*
  * Modify an exising Subpanel
  * Typically called from Studio for a deployed (OOB or installed custom module)
- * 
+ *
  * Uses the listview editor to modify the subpanel
  * Uses SubPanelDefinitions to load the definitions for the subpanel, and SubPanel to save them, using the unique SubPanel override mechanism
  * There are two relevant modules for every subpanel - the module whose detailview this subpanel will appear in ($module_name), and the module that is the source of the data for the subpanel ($subPanelParentModule)
@@ -29,30 +26,29 @@ require_once ('modules/ModuleBuilder/parsers/parser.modifylistview.php') ;
 
 class ParserModifySubPanel extends ParserModifyListView
 {
-    
+
     var $listViewDefs = false ;
     var $defaults = array ( ) ;
     var $additional = array ( ) ;
     var $available = array ( ) ;
     var $columns = array ( 'LBL_DEFAULT' => 'getDefaultFields' , 'LBL_HIDDEN' => 'getAvailableFields' ) ;
-    
+
     function init ($module_name , $subPanelName)
     {
         $GLOBALS [ 'log' ]->debug ( "in ParserModifySubPanel: module_name={$module_name} child_module={$subPanelName}" ) ;
         $this->moduleName = $module_name ;
         $this->subPanelName = $subPanelName ;
-        global $beanList, $beanFiles ;
-        
+        global $beanList ;
+
         // Sometimes we receive a module name which is not in the correct CamelCase, so shift to lower case for all beanList lookups
         $beanListLower = array_change_key_case ( $beanList ) ;
-        
+
         // Retrieve the definitions for all the available subpanels for this module
-        $class = $beanListLower [ strtolower ( $this->moduleName ) ] ;
-        require_once ($beanFiles [ $class ]) ;
-        $module = new $class ( ) ;
+        $module = BeanFactory::newBeanByName($beanListLower[ strtolower( $this->moduleName )]);
+
         require_once ('include/SubPanel/SubPanelDefinitions.php') ;
         $spd = new SubPanelDefinitions ( $module ) ;
-        
+
         // Get the lists of fields already in the subpanel and those that can be added in
         // Get the fields lists from an aSubPanel object describing this subpanel from the SubPanelDefinitions object
         $this->originalListViewDefs = array ( ) ;
@@ -62,25 +58,20 @@ class ParserModifySubPanel extends ParserModifyListView
             $this->originalListViewDefs = $originalPanel->get_list_fields () ;
             $this->panel = $spd->load_subpanel ( $subPanelName, false ) ;
             $this->listViewDefs = $this->panel->get_list_fields () ;
-            
+
             // Retrieve a copy of the bean for the parent module of this subpanel - so we can find additional fields for the layout
             $subPanelParentModuleName = $this->panel->get_module_name () ;
             $this->subPanelParentModule = null ;
 
             if (! empty ( $subPanelParentModuleName ) && isset($beanListLower[strtolower($subPanelParentModuleName)]))
             {
-                $class = $beanListLower[strtolower($subPanelParentModuleName)];
-                if (isset($beanFiles [ $class ]))
-                {
-                    require_once ($beanFiles [ $class ]) ;
-                    $this->subPanelParentModule = new $class ( ) ;
-                }
+                $this->subPanelParentModule = BeanFactory::newBeanByName($beanListLower[strtolower($subPanelParentModuleName)]);
             }
         }
-        
+
         $this->language_module = $this->panel->template_instance->module_dir ;
     }
-    
+
     /**
      * Return a list of the fields that will be displayed in the subpanel
      */
@@ -97,7 +88,7 @@ class ParserModifySubPanel extends ParserModifyListView
         }
         return $this->defaults ;
     }
-    
+
     /**
      * Return a list of fields that are not currently included in the subpanel but that are available for use
      */
@@ -129,10 +120,10 @@ class ParserModifySubPanel extends ParserModifyListView
                 }
             }
         }
-        
+
         return $this->availableFields ;
     }
-    
+
     function getField ($fieldName)
     {
         foreach ( $this->listViewDefs as $key => $def )
@@ -161,31 +152,31 @@ class ParserModifySubPanel extends ParserModifyListView
         }
         return array ( ) ;
     }
-    
+
     /*
      * Save the modified definitions for a subpanel
      * Obtains the field definitions from a _REQUEST array, and merges them with the other fields from the original definitions
-     * Uses the subpanel override mechanism from SubPanel to save them 
+     * Uses the subpanel override mechanism from SubPanel to save them
      */
     function handleSave ()
     {
         $GLOBALS [ 'log' ]->debug ( "in ParserModifySubPanel->handleSave()" ) ;
         require_once ('include/SubPanel/SubPanel.php') ;
         $subpanel = new SubPanel ( $this->moduleName, 'fab4', $this->subPanelName, $this->panel ) ;
-        
+
         $newFields = array ( ) ;
         foreach ( $this->listViewDefs as $name => $field )
         {
             if (! isset ( $field [ 'usage' ] ) || $field [ 'usage' ] != 'query_only')
             {
                 $existingFields [ $name ] = $field ;
-            
+
             } else
             {
                 $newFields [ $name ] = $field ;
             }
         }
-        
+
         // Loop through all of the fields defined in the 'Default' group of the ListView data in $_REQUEST
         // Replace the field specification in the originalListViewDef with this new updated specification
         foreach ( $_REQUEST [ 'group_0' ] as $field )
@@ -195,7 +186,7 @@ class ParserModifySubPanel extends ParserModifyListView
                 $newFields [ $field ] = $this->originalListViewDefs [ $field ] ;
             } else
             {
-                
+
                 $vname = '' ;
                 if (isset ( $this->panel->template_instance->field_defs [ $field ] ))
                 {
@@ -209,7 +200,7 @@ class ParserModifySubPanel extends ParserModifyListView
                     $newFields [ $field ] = array ( 'name' => $field , 'vname' => $vname ) ;
                 }
             }
-            
+
             // Now set the field width if specified in the $_REQUEST data
             if (isset ( $_REQUEST [ strtolower ( $field ) . 'width' ] ))
             {
@@ -228,7 +219,7 @@ class ParserModifySubPanel extends ParserModifyListView
             }
         }
         $subpanel->saveSubPanelDefOverride ( $this->panel, 'list_fields', $newFields ) ;
-    
+
     }
 
 }

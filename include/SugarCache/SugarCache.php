@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 /**
  * Sugar Cache manager
@@ -37,27 +34,22 @@ class SugarCache
     protected static function _init()
     {
         $lastPriority = 1000;
-        $locations = array('include/SugarCache','custom/include/SugarCache');
+        $locations = SugarAutoLoader::getFilesCustom('include/SugarCache');
+        if(empty($locations)) {
+            $locations = array('include/SugarCache/SugarCacheMemory.php');
+        }
  	    foreach ( $locations as $location ) {
-            if (sugar_is_dir($location) && $dir = opendir($location)) {
-                while (($file = readdir($dir)) !== false) {
-                    if ($file == ".."
-                            || $file == "."
-                            || !is_file("$location/$file")
-                            )
-                        continue;
-                    require_once("$location/$file");
-                    $cacheClass = basename($file, ".php");
-                    if ( class_exists($cacheClass) && is_subclass_of($cacheClass,'SugarCacheAbstract') ) {
-                        $GLOBALS['log']->debug("Found cache backend $cacheClass");
-                        $cacheInstance = new $cacheClass();
-                        if ( $cacheInstance->useBackend()
-                                && $cacheInstance->getPriority() < $lastPriority ) {
-                            $GLOBALS['log']->debug("Using cache backend $cacheClass, since ".$cacheInstance->getPriority()." is less than ".$lastPriority);
-                            self::$_cacheInstance = $cacheInstance;
-                            $lastPriority = $cacheInstance->getPriority();
-                        }
-                    }
+            $cacheClass = basename($location, ".php");
+            if($cacheClass == 'SugarCache') continue;
+ 	        require_once $location;
+            if ( class_exists($cacheClass) && is_subclass_of($cacheClass,'SugarCacheAbstract') ) {
+                $GLOBALS['log']->debug("Found cache backend $cacheClass");
+                $cacheInstance = new $cacheClass();
+                if ( $cacheInstance->useBackend()
+                        && $cacheInstance->getPriority() < $lastPriority ) {
+                    $GLOBALS['log']->debug("Using cache backend $cacheClass, since ".$cacheInstance->getPriority()." is less than ".$lastPriority);
+                    self::$_cacheInstance = $cacheInstance;
+                    $lastPriority = $cacheInstance->getPriority();
                 }
             }
         }

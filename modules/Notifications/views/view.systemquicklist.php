@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('modules/Notifications/views/view.quicklist.php');
 
 class ViewSystemQuicklist extends ViewQuickList{
@@ -28,5 +25,25 @@ class ViewSystemQuicklist extends ViewQuickList{
 		$sv->includeClassicFile('modules/Administration/DisplayWarnings.php');
 	    
 		echo $this->_formatNotificationsForQuickDisplay($GLOBALS['system_notification_buffer'], "modules/Notifications/tpls/systemQuickView.tpl");
+
+        $this->clearFTSFlags();
 	}
+    /**
+     * After the notification is displayed, clear the fts flags
+     * @return null
+     */
+    protected function clearFTSFlags() {
+        if (is_admin($GLOBALS['current_user']))
+        {
+            $admin = Administration::getSettings();
+            if (!empty($settings->settings['info_fts_index_done']))
+            {
+                $admin->saveSetting('info', 'fts_index_done', 0);
+            }
+            // remove notification disabled notification
+            $cfg = new Configurator();
+            $cfg->config['fts_disable_notification'] = false;
+            $cfg->handleOverride();
+        }        
+    }
 }

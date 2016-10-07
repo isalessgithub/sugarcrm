@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'De volgende modules zijn geïnstalleerd:',
   'DESC_MODULES_QUEUED' => 'De volgende modules staan klaar om te worden geïnstalleerd:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Dit bestand is niet compatible met deze editie van Sugar:',
+  'ERROR_HT_NO_WRITE' => 'Kan niet schrijven naar het bestand: %s',
+  'ERROR_MANIFEST_TYPE' => 'Het Manifest bestand moet het type van dit package aangeven',
+  'ERROR_PACKAGE_TYPE' => 'Het manifest bestand geeft een onbekend package type aan: %s',
+  'ERROR_UW_CONFIG_DB' => 'Fout bij opslaan %s config var naar de db (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Dit bestand is niet compatible met deze versie van Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Uw versie van PHP wordt niet ondersteund door Sugar. U moet een versie hebben die compatibel is. Raadpleeg de Compatibility Matrix in de Release Notes voor de ondersteunde PHP-versies. Uw versie is',
+  'ERR_NOT_ADMIN' => 'Ongeoorloofde toegang tot beheer.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'U heeft geen toegang tot deze pagina',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Kan de groep niet bepalen',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Kan de eigenaar niet bepalen',
   'ERR_UW_CONFIG' => 'Maak uw config.php bestand schrijfbaar en laad deze pagina opnieuw.',
@@ -41,9 +44,9 @@ $mod_strings = array (
   'ERR_UW_NO_CREATE_TMP_DIR' => 'Kan de temp directory niet aanmaken. Controleer bestandspermissies.',
   'ERR_UW_NO_FILES' => 'Een fout is opgetreden. Er zijn geen bestanden gevonden om te controleren.',
   'ERR_UW_NO_FILE_UPLOADED' => 'Geeft een bestand op en probeer opnieuw!',
-  'ERR_UW_NO_MANIFEST' => 'In het Zip-bestand ontbreekt een manifest.php bestand. Kan daarom niet doorgaan.',
+  'ERR_UW_NO_MANIFEST' => 'In het zip-bestand ontbreekt een manifest.php bestand. Kan daarom niet doorgaan.',
   'ERR_UW_NO_VIEW' => 'Ongeldige view gespecificeerd.',
-  'ERR_UW_NO_VIEW2' => 'View niet gedefinieerd. Ga a.u.b. naar de Administratorpagina om naar deze pagina te navigeren.',
+  'ERR_UW_NO_VIEW2' => 'View niet gedefinieerd. Ga a.u.b. naar de beheerpagina om naar deze pagina te navigeren.',
   'ERR_UW_OCI8_VERSION' => 'Uw versie van Oracle wordt niet ondersteund door Sugar.  U dient een compatibele versie te installeren met de Sugar applicatie. Raadpleeg aub de Compatibility Matrix in de Release Notes voor de Oracle Versies welke worden ondersteund.',
   'ERR_UW_ONLY_PATCHES' => 'U kunt alleen patches uploaden op deze pagina.',
   'ERR_UW_PHP_FILE_ERRORS' => 
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Opnieuw',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Commit Upgrade in progress',
   'LBL_CURRENT_PHP_VERSION' => '(Uw huidige php versie is',
+  'LBL_GLOBAL_TEAM_DESC' => 'Zichtbaar voor iedereen',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php versie 5 of later is vereist',
   'LBL_LANGPACKS' => 'Language Packs',
@@ -97,7 +101,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Upgrade Wizard',
   'LBL_PATCHUPGRADES' => 'Patch Upgrades',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Preflight Check in progress',
-  'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Bezig met het kopiëren van bestanden ...',
+  'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Bezig met het kopiëren van bestanden',
   'LBL_PROCESSING' => 'Verwerken',
   'LBL_RECOMMENDED_PHP_VERSION' => '.Aanbevolen php versie is 5.2.1 of hoger)',
   'LBL_SELECT_FILE' => 'Selecteer bestand',
@@ -107,12 +111,12 @@ $mod_strings = array (
   'LBL_UPGRADE' => 'Upgrade',
   'LBL_UPGRADE_CANCEL_IN_PROGRESS' => 'Upgrade Cancel and Cleanup in progress',
   'LBL_UPGRADE_IN_PROGRESS' => 'Bezig',
-  'LBL_UPGRADE_SCRIPTS_IN_PROGRESS' => 'Bezig met het uitvoeren van de upgrade scripts ...',
+  'LBL_UPGRADE_SCRIPTS_IN_PROGRESS' => 'Bezig met het uitvoeren van de upgrade scripts',
   'LBL_UPGRADE_SUMMARY_IN_PROGRESS' => 'Upgrade Summary in progress',
   'LBL_UPGRADE_TAKES_TIME_HAVE_PATIENCE' => 'Upgrade kan enige tijd in beslag nemen',
   'LBL_UPGRADE_TIME_ELAPSED' => 'Verstreken Tijd',
   'LBL_UPLOADE_UPGRADE_IN_PROGRESS' => 'Upload checks in progress',
-  'LBL_UPLOADING_UPGRADE_PACKAGE' => 'Uploading upgrade package...',
+  'LBL_UPLOADING_UPGRADE_PACKAGE' => 'Uploading upgrade package',
   'LBL_UPLOAD_FILE_NOT_FOUND' => 'Upload bestand niet gevonden',
   'LBL_UPLOAD_SUCCESS' => 'Upgrade pakket succesvol geüpload. Klik op Volgende om een laatste controle uit te voeren.',
   'LBL_UPLOAD_UPGRADE' => 'Upload an upgrade',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP Setting: Memory Limit',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Minimale MySQL Versie',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE Version',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Locatie van de php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Minimale PHP Versie',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'PHP Setting: Safe Mode',
@@ -238,7 +241,7 @@ $mod_strings = array (
   'LBL_UW_SKIPPING_FILE_OVERWRITE' => 'Overschrijven Bestanden wordt overgeslagen - Handmatig Samenvoegen is geselecteerd',
   'LBL_UW_SQL_RUN' => 'Controleer of SQL handmatig is uitgevoerd',
   'LBL_UW_START_DESC' => 'Welcome to the SugarCRM Upgrade Wizard. This wizard is designed to assist administrators when upgrading their SugarCRM instances.  Please follow the instructions carefully.',
-  'LBL_UW_START_DESC2' => 'We highly recommend that you perform the upgrade on a cloned instance of your production server first.  Please backup the database and the system files (all of the files in the SugarCRM folder) before performing this operation.',
+  'LBL_UW_START_DESC2' => 'Let op: We raden u aan om een kopie te maken van uw Sugar database en systeembestanden (alle bestanden in de SugarCRM map) voordat u uw productieomgeving bijwerkt naar de laatste versie. We raden ten strengste aan om eerst een proef uit te voeren op uw gekopieerde omgeving.',
   'LBL_UW_START_DESC3' => 'Klik op Volgende om een systeemcheck uit te voeren. De systeemcheck controleert  bestandspermissies, database voorrechten en server-instellingen.',
   'LBL_UW_START_UPGRADED_UW_DESC' => 'De nieuwe Upgrade Wizard zal nu het upgrade proces hervatten. Ga dan verder met uw upgrade.',
   'LBL_UW_START_UPGRADED_UW_TITLE' => 'Welkom bij de nieuwe Upgrade Wizard',

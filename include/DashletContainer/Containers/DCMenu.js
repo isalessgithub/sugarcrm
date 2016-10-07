@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 var DCMenu=YUI({debug:false,combine:true,timeout:10000,base:"include/javascript/yui3/build/",comboBase:"index.php?entryPoint=getYUIComboFile&"}).use('event','dd-plugin','anim','cookie','json','node-menunav','io-base','io-form','io-upload-iframe',"overlay",function(Y){var requests={};var overlays=[];var overlayDepth=0;var menuFunctions={};var lastIconChange=null;var isRTL=(typeof(rtl)!="undefined")?true:false;function getOverlay(depth,modal){if(!depth)depth=0;if(typeof overlays[depth]=='undefined'){overlays[depth]=new Y.Overlay({bodyContent:"",zIndex:21+depth,shim:false,visibility:false});overlays[depth].after('render',function(e){this.get('boundingBox').plug(Y.Plugin.Drag,{handles:['.hd']});});overlays[depth].show=function(){this.visible=true;this.get('boundingBox').setStyle('position','absolute');this.get('boundingBox').setStyle('visibility','visible');if(Y.one('#dcboxbody')){Y.one('#dcboxbody').setStyle('display','');Y.one('#dcboxbody').setStyle('visibility','hidden');}}
 overlays[depth].hide=function(){this.visible=false;this.get('boundingBox').setStyle('visibility','hidden');if(this.get("modal"))
 this.toggleModal();}
@@ -26,8 +24,8 @@ DCMenu.menu=function(module,title,modal){if(typeof(lastLoadedMenu)!='undefined'&
 lastLoadedMenu=module;if(typeof menuFunctions[module]=='undefined'){loadView(module,'index.php?source_module='+this.module+'&record='+this.record+'&action=Quickcreate&module='+module,null,null,title,{modal:modal?true:false});}}
 DCMenu.displayModuleMenu=function(obj,module){loadView(module,'index.php?module='+module+'&action=ajaxmenu',0,'moduleTabLI_'+module);}
 DCMenu.closeTopOverlay=function(){overlays[overlays.length-1].hide();}
-DCMenu.closeOverlay=function(depth){DCMenu.closeQView();var i=0;while(i<overlays.length){if(!depth||i>=depth){if(i==depth&&!overlays[i].visible){overlays[i].show();}else{if(typeof(overlays[i].bodyNode)!='undefined'&&typeof(overlays[i].bodyNode._node)!='undefined'&&typeof(overlays[i].bodyNode._node.getElementsByTagName('form')[0])!='undefined'){var warnMsg=onUnloadEditView(overlays[i].bodyNode._node.getElementsByTagName('form')[0]);if(warnMsg!=null){if(confirm(warnMsg)){disableOnUnloadEditView(overlays[i].bodyNode._node.getElementsByTagName('form')[0]);}else{i++;continue;}}}
-overlays[i].hide();overlays[i].set('bodyContent',"");}}
+DCMenu.closeOverlay=function(depth,parentid){DCMenu.closeQView();var i=0;while(i<overlays.length){if(!depth||i>=depth){if(i==depth&&!overlays[i].visible){overlays[i].show();}else{if(typeof(overlays[i].bodyNode)!='undefined'&&typeof(overlays[i].bodyNode._node)!='undefined'&&typeof(overlays[i].bodyNode._node.getElementsByTagName('form')[0])!='undefined'){var warnMsg=onUnloadEditView(overlays[i].bodyNode._node.getElementsByTagName('form')[0]);if(warnMsg!=null){if(confirm(warnMsg)){disableOnUnloadEditView(overlays[i].bodyNode._node.getElementsByTagName('form')[0]);}else{i++;continue;}}}
+overlays[i].hide();overlays[i].set('bodyContent',"");if(parentid){$('#'+parentid).removeClass("focused");}}}
 i++;}
 DCMenu.hideQEPanel();}
 DCMenu.minimizeOverlay=function(){Y.one('#dcboxbody').setStyle('display','none');Y.one('#dcboxbody').setStyle('width','750px;');}
@@ -38,12 +36,12 @@ return false;DCMenu.closeOverlay(depth);var overlay=getOverlay(depth,params.moda
 var style='position:fixed';if(parentid){overlay.set("align",{node:"#"+parentid,points:[Y.WidgetPositionAlign.TL,Y.WidgetPositionAlign.BL]});overlay.set('y',42);}
 var content='';if(false&&depth==0){content+='<div id="dcboxtitle">'
 if(typeof data.title!='undefined'){content+='<div style="float:left"><a href="'+data.url+'">'+data.title+'</a></div>';}
-content+='<div class="close"><a id="dcmenu_close_link" href="#" onclick="DCMenu.closeOverlay(); return false;">[x]</a><a href="#" onclick="DCMenu.minimizeOverlay(); return false;">[-]</a></div></div>';}
+content+='<div class="close"><a id="dcmenu_close_link" href="#" onclick="DCMenu.closeOverlay(\'\',\''+parentid+'\'); return false;">[x]</a><a href="#" onclick="DCMenu.minimizeOverlay(); return false;">[-]</a></div></div>';}
 content+='<div style="'+style+'"><div id="dcboxbody"  class="'+parentid+'"><div class="dashletPanel dc"><div class="hd" id="dchead">';if(title!==undefined)
 content+='<div id="dctitle">'+title+'</div>';else
 if(typeof type!='undefined')
 content+='<div id="dctitle">'+type+'</div>';content+='<div class="close">';if(typeof(extraButton)=="string"){content+=extraButton}
-content+='<a id="dcmenu_close_link" href="#" onclick="lastLoadedMenu=undefined;DCMenu.closeOverlay(); return false;"><img src="index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=close_button_24.png"></a></div></div><div class="bd"><div class="dccontent">'+data.html+'</div></div></div>';if(typeof(resetEvalBool)!='undefined'&&resetEvalBool==true){resetEvalBool=false;evalHappened=false;}
+content+='<a id="dcmenu_close_link" href="#" onclick="lastLoadedMenu=undefined;DCMenu.closeOverlay(\'\',\''+parentid+'\'); return false;"><i class="fa fa-times fa-sm"></i></a></div></div><div class="bd"><div class="dccontent">'+data.html+'</div></div></div>';if(typeof(resetEvalBool)!='undefined'&&resetEvalBool==true){resetEvalBool=false;evalHappened=false;}
 content='<script> var evalHappened = true; var resetEvalBool=true; </script>'+content;overlay.set('bodyContent',content);if(typeof(data.eval)!='undefined'&&data.eval&&(typeof(evalHappened)=='undefined'||evalHappened==false)){SUGAR.util.evalScript(content);}
 evalHappened=false;overlay.show();return overlay;}
 DCMenu.showView=function(data,parent_id){setBody(data,0,parent_id);}
@@ -70,7 +68,7 @@ DCMenu.spotZoom=function(q,module,offset){quickRequest('spot','index.php?append_
 fullResults=function(id,data){var resultsDiv=document.getElementById('sugar_full_search_results');resultsDiv.style.display='block';resultsDiv.innerHTML=data.responseText;ajaxStatus.hideStatus();}
 spotResults=function(id,data){document.getElementById('sugar_spot_search').className='searching';var resultsDiv=document.getElementById('sugar_spot_search_results');resultsDiv.style.display='block';resultsDiv.innerHTML=data.responseText;ajaxStatus.hideStatus();}
 DCMenu.showQELoadingPanel=function(){if(!DCMenu.qePanel)
-{DCMenu.qePanel=new YAHOO.widget.Panel('quickEditWindow',{width:"100%",draggable:true,close:true,constraintoviewport:true,fixedcenter:false,script:true,modal:true});}
+{DCMenu.qePanel=new YAHOO.widget.Panel('quickEditWindow',{width:"1050px",draggable:true,close:true,constraintoviewport:true,fixedcenter:false,script:true,modal:true});}
 var p=DCMenu.qePanel;p.setHeader(SUGAR.language.get('app_strings','LBL_EMAIL_PERFORMING_TASK'));p.setBody(SUGAR.language.get('app_strings','LBL_EMAIL_ONE_MOMENT'));p.render(document.body);p.show();p.center();}
 DCMenu.miniDetailView=function(module,id){DCMenu.showQELoadingPanel();YAHOO.util.Connect.asyncRequest('GET','index.php?to_pdf=1&module='+module+'&action=quick&record='+id,{success:DCMenu.miniDetailViewResults});}
 DCMenu.miniEditView=function(module,id,refreshListID,refreshDashletID){DCMenu.showQELoadingPanel();YAHOO.util.Connect.asyncRequest('GET','index.php?to_pdf=1&module='+module+'&action=Quickedit&record='+id,{success:DCMenu.miniDetailViewResults});if(typeof(refreshListID)!='undefined'&&refreshListID!=''){DCMenu.qe_refresh='SUGAR.ajaxUI.loadContent("index.php?module='+module+'&action=index&ignore='+new Date().getTime()+'");';}
@@ -96,7 +94,8 @@ if(isRTL){overlay.set('x',dcmenuSugarCubeX-dcboxbodyWidth);}
 if(!DCMenu.jsEvalled)
 SUGAR.util.evalScript(data.responseText);setTimeout("enableQS();",1000);}},failure:function(id,data){}}});requests[id.id]={type:type,url:url,parentid:parentid,depth:depth,extraButton:extraButton};}
 var loadView=Y.loadView;DCMenu.notificationsList=function(q){quickRequest('notifications','index.php?to_pdf=1&module=Notifications&action=quicklist',notificationsListDisplay);}
-notificationsListDisplay=function(id,data){var overlay=setBody(data.responseText,0,'dcmenuSugarCube');var dcmenuSugarCube=Y.one('#dcmenuSugarCube');var dcboxbody=Y.one('#dcboxbody');Y.one('#dcboxbody').setStyle('visibility','visible');var dcmenuSugarCubeX=dcmenuSugarCube.get('offsetLeft');var dcmenuSugarCubeWidth=dcmenuSugarCube.get('offsetWidth');var dcboxbodyWidth=dcboxbody.get('offsetWidth');overlay.set('x',(dcmenuSugarCubeX+dcmenuSugarCubeWidth)-dcboxbodyWidth);}
+notificationsListDisplay=function(id,data){var overlay=setBody(data.responseText,0,'dcmenuSugarCube',"",SUGAR.language.get('app_strings','LBL_NOTIFICATIONS'));var dcmenuSugarCube=Y.one('#dcmenuSugarCube');var dcboxbody=Y.one('#dcboxbody');Y.one('#dcboxbody').setStyle('visibility','visible');var dcmenuSugarCubeX=dcmenuSugarCube.get('offsetLeft');var dcmenuSugarCubeWidth=dcmenuSugarCube.get('offsetWidth');var dcboxbodyWidth=dcboxbody.get('offsetWidth');if(isRTL){overlay.set('x',(dcmenuSugarCubeX));}else{overlay.set('x',(dcmenuSugarCubeX+dcmenuSugarCubeWidth)-dcboxbodyWidth);}
+$('#dcmenuSugarCube').addClass("focused");}
 DCMenu.viewMiniNotification=function(id){quickRequest('notifications','index.php?to_pdf=1&module=Notifications&action=quickView&record='+id,notificationDisplay);}
 notificationDisplay=function(id,data){var jData=Y.JSON.parse(data.responseText);setBody(jData.contents,0);decrementUnreadNotificationCount();}
 decrementUnreadNotificationCount=function(){var oldValue=parseInt(document.getElementById('notifCount').innerHTML);document.getElementById('notifCount').innerHTML=oldValue-1;}
@@ -115,7 +114,7 @@ else
 {var dcgscontent=Y.one('#dcgscontent');dcgscontent.set('innerHTML','<div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif"/></div>');if(!overlays[qvDepth].visible)
 {overlays[qvDepth].show();}
 return;}
-content='<div id="dcboxbodyqv" class="sugar_spot_search" style="position: fixed;"><div class="dashletPanel dc"><div class="hd"><div class="tl"></div><div><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()"><img src="index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=close_button_24.png"></a></div></div><div class="tr"></div><div class="bd"><div class="ml"></div><div class="bd-center"><div class="dccontent" id="dcgscontent"><br><div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif"/><br></div></div></div></div><div class="ft"><div class="bl"></div><div class="ft-center"></div><div class="br"></div></div></div></div></div></div></div></div></div>';overlays[qvDepth].set("bodyContent",content);overlays[qvDepth].set("align",{node:"#dcboxbody",points:[Y.WidgetPositionExt.TR,Y.WidgetPositionExt.TR]});overlays[qvDepth].visible=true;overlays[qvDepth].show=function()
+content='<div id="dcboxbodyqv" class="sugar_spot_search" style="position: fixed;"><div class="dashletPanel dc"><div class="hd"><div><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()"><i class="fa fa-times fa-sm"></i></a></div></div><div class="bd"><div class="bd-center"><div class="dccontent" id="dcgscontent"><br><div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif"/><br></div></div></div></div><div class="ft"><div class="bl"></div><div class="ft-center"></div><div class="br"></div></div></div></div></div></div></div></div></div>';overlays[qvDepth].set("bodyContent",content);overlays[qvDepth].set("align",{node:"#dcboxbody",points:[Y.WidgetPositionExt.TR,Y.WidgetPositionExt.TR]});overlays[qvDepth].visible=true;overlays[qvDepth].show=function()
 {this.visible=true;this.get('boundingBox').setStyle('visibility','visible');var shim=10;var animX=this.get("x")-this.get("width")-shim;var animY=this.get("y");var animDCcont=new Y.Anim({node:this.get("boundingBox"),to:{xy:[animX,animY],height:500}});animDCcont.set('duration',.5);animDCcont.set('easing',Y.Easing.easeOut);animDCcont.run();}
 overlays[qvDepth].after('render',function(e){this.show();});overlays[qvDepth].render();}
 DCMenu.showQuickView=function(module,recordID)
@@ -123,7 +122,7 @@ DCMenu.showQuickView=function(module,recordID)
 {overlays[qvDepth]=new Y.Overlay({bodyContent:'',zIndex:100,height:boxBody._node.clientHeight,width:320,shim:false,visibility:true});}
 var q=document.getElementById('sugar_spot_search').value;url='index.php?module='+module+'&action=gs&record='+recordID+'&q='+encodeURIComponent(q);quickRequest('showGAView','index.php?module='+module+'&action=gs&record='+recordID+'&q='+encodeURIComponent(q),function(id,data)
 {var content='<div id="dcboxbodyqv" class="sugar_spot_search" style="position: fixed;">';content+='<div class="dashletPanel dc"><div class="hd">';if(SUGAR.themes.theme_name=='RTL')
-{content+='<div><div style="float:right"><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()">';content+='<img src="index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=close_button_24.png">';content+='</a></div></div></div><div class="tr"></div><div class="bd">';}else{content+='<div><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()">';content+='<img src="index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=close_button_24.png">';content+='</a></div></div><div class="tr"></div><div class="bd">';}
+{content+='<div><div style="float:right"><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()">';content+='<i class="fa fa-times fa-sm"></i>';content+='</a></div></div></div><div class="tr"></div><div class="bd">';}else{content+='<div><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()">';content+='<i class="fa fa-times fa-sm"></i>';content+='</a></div></div><div class="tr"></div><div class="bd">';}
 content+='<div><div class="dccontent" id="dcgscontent">'+data.responseText;content+='</div></div></div>';content+='</div></div></div></div></div></div></div></div>';overlays[qvDepth].set("bodyContent",content);overlays[qvDepth].set("align",{node:"#SpotResults",points:[Y.WidgetPositionAlign.TR,Y.WidgetPositionAlign.TR]});overlays[qvDepth].visible=true;overlays[qvDepth].show=function()
 {this.visible=true;this.get('boundingBox').setStyle('visibility','visible');var spotLeft=$("#sugar_spot_search_results").offset().left;var spotWidth=$("#sugar_spot_search_results").width();var shim=35;var animX=(SUGAR.themes.theme_name=='RTL')?spotLeft+spotWidth+shim+5:spotLeft-this.get("width")-shim;var animY=42;var animDCcont=new Y.Anim({node:this.get("boundingBox"),to:{xy:[animX,animY]}});animDCcont.set('duration',.25);animDCcont.set('easing',Y.Easing.easeOut);animDCcont.run();}
 overlays[qvDepth].after('render',function(e){this.show();});overlays[qvDepth].render();});}});

@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'ログインIDかパスワードが不正です',
   'ERR_BODY_TOO_LONG' => '\\r本文が長すぎてメール全体を取り込めません。整形されました。',
+  'ERR_DELETE_FOLDER' => 'フォルダを削除できませんでした',
   'ERR_INI_ZLIB' => 'Zlibコンプレッションを一時的に無効にできませんでした。設定テストが失敗する可能性があります。',
   'ERR_MAILBOX_FAIL' => 'メールアカウントを検索できませんでした。',
   'ERR_NO_IMAP' => 'IMAPライブラリが見つかりませんでした。インバウンドメールを継続する前に解決してください。',
   'ERR_NO_OPTS_SAVED' => 'あなたのインバウンドメールアカウントに最適な条件は１つも保存されませんでした。設定を見直してください。',
   'ERR_TEST_MAILBOX' => '設定を確認して再試行してください。',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => '削除の前にフォルダをサブスクライブ解除できませんでした。',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'ユーザがメールを送信する際に「From」の名前とアドレスをReply Toに利用することを許可する。',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'このオプションが選択された場合、このグループアカウントに関連付けられたFromの名前とアドレスは送信元の選択リストに表示されます。',
   'LBL_APPLY_OPTIMUMS' => '最適設定を実行',

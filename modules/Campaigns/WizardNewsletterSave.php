@@ -1,31 +1,21 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * Description:  TODO: To be written.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/formbase.php');
 
 global $mod_strings;
 
     //create new campaign bean and populate
-    $campaign_focus = new Campaign();
+    $campaign_focus = BeanFactory::getBean('Campaigns');
     if(isset($_REQUEST['record'])) {
         $campaign_focus->retrieve($_REQUEST['record']);
     }
@@ -93,8 +83,7 @@ global $mod_strings;
 
                 if(!empty($target_values[0])){
                     //this is a selected target, as the id is already populated, retrieve and link
-                    $trgt_focus = new ProspectList();
-                    $trgt_focus->retrieve($target_values[0]);
+                    $trgt_focus = BeanFactory::getBean('ProspectLists', $target_values[0]);
 
                     //load relationship and add to the list
                     $campaign_focus->load_relationship('prospectlists');
@@ -102,7 +91,7 @@ global $mod_strings;
                 }else{
 
                     //this is a new target, as the id is not populated, need to create and link
-                    $trgt_focus = new ProspectList();
+                    $trgt_focus = BeanFactory::getBean('ProspectLists');
                     $trgt_focus->name = $target_values[1];
                     $trgt_focus->list_type = $target_values[2];
                     $trgt_focus->save();
@@ -142,8 +131,7 @@ global $mod_strings;
         $tracker_strings = explode(",", $_REQUEST['wiz_list_of_existing_trackers']);
         foreach($tracker_strings as $trkr_string){
             $tracker_values = explode("@@", $trkr_string);
-            $ct_focus = new CampaignTracker();
-            $ct_focus->retrieve($tracker_values[0]);
+            $ct_focus = BeanFactory::getBean('CampaignTrackers', $tracker_values[0]);
             if(!empty($ct_focus->tracker_name)){
                 $ct_focus->tracker_name = $tracker_values[1];
                 $ct_focus->is_optout = $tracker_values[2];
@@ -164,7 +152,7 @@ global $mod_strings;
         foreach($tracker_strings as $trkr_string){
             $tracker_values = explode("@@", $trkr_string);
             if(count($tracker_values)==3){
-                $ct_focus = new CampaignTracker();
+                $ct_focus = BeanFactory::getBean('CampaignTrackers');
                 $ct_focus->tracker_name = $tracker_values[0];
                 $ct_focus->is_optout = $tracker_values[1];
                 $ct_focus->tracker_url = $tracker_values[2];
@@ -231,7 +219,7 @@ function process_subscriptions_from_request($campaign_name){
 
     //process default target list
     $create_new = true;
-    $pl_subs = new ProspectList($campaign_name);
+    $pl_subs = BeanFactory::getBean('ProspectLists');
     if(!empty($_REQUEST['wiz_step3_subscription_list_id'])){
         //if subscription list is specified then attach
         $pl_subs->retrieve($_REQUEST['wiz_step3_subscription_list_id']);
@@ -259,7 +247,7 @@ function process_subscriptions_from_request($campaign_name){
 
     //process exempt target list
     $create_new = true;
-    $pl_un_subs = new ProspectList();
+    $pl_un_subs = BeanFactory::getBean('ProspectLists');
     if(!empty($_REQUEST['wiz_step3_unsubscription_list_id'])){
         //if unsubscription list is specified then attach
         $pl_un_subs->retrieve($_REQUEST['wiz_step3_unsubscription_list_id']);
@@ -286,7 +274,7 @@ function process_subscriptions_from_request($campaign_name){
     }
 
     //process test target list
-    $pl_test = new ProspectList();
+    $pl_test = BeanFactory::getBean('ProspectLists');
     $create_new = true;
     if(!empty($_REQUEST['wiz_step3_test_list_id'])){
         //if test list is specified then attach

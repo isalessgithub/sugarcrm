@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Następujący moduł został zainstalowany:',
   'DESC_MODULES_QUEUED' => 'Następujące moduły są przygotowane do Instalacji:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Dodany plik nie jest kompatybilny z edycją (Community, Professional lub Enterprise) aplikacji Sugar:',
+  'ERROR_HT_NO_WRITE' => 'Nie można zapisać do pliku: %s',
+  'ERROR_MANIFEST_TYPE' => 'Plik Manifest musi określać typ pakietu.',
+  'ERROR_PACKAGE_TYPE' => 'Plik Manifest wskazuje niesklasyfikowany typ pakietu: %s',
+  'ERROR_UW_CONFIG_DB' => 'Błąd zapisywania %s config var do bazy danych (klucz %s, wartość %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Dodany plik nie jest kompatybilny z wersją aplikacji Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Twoja wersja PHP nie jest wspierana przez SugarCRM.  Musisz zainstalować wersję, która jest kompatybilna z aplikacją Sugar.  Sprawdź Macierz kompatybilności w Notatkach o wydaniu (Release Notes) w celu sprawdzenia, które wersje for PHP są wspierane. Twoja wersja to',
+  'ERR_NOT_ADMIN' => 'Nieautoryzowany dostęp do modułu administracyjnego.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Nie posiadasz uprawnień dostępu do tej strony.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Nie można określić grupy',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'NIe można określić właściciela',
   'ERR_UW_CONFIG' => 'Uczyń plik config.php zapisywalnym i załaduj ponownie tę stronę.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Restartuj',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Trwa wykonywanie aktualizaji',
   'LBL_CURRENT_PHP_VERSION' => '(Twoja aktualna wersja PHP to',
+  'LBL_GLOBAL_TEAM_DESC' => 'Widoczne dla wszystkich',
   'LBL_HOME_PAGE_4_NAME' => 'Śledzenie',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'PHP w wersji nie niższej niż 5 jest wymagane',
   'LBL_LANGPACKS' => 'Pakiety językowe',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'Ustawienia PHP: Limit pamięci',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server i PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Minimalna wersja MySQL',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'Wersja PCRE',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Położenie pliku php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Minimalna wersja PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Ustawienia PHP: Tryb bezpieczny',
@@ -151,7 +154,7 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_ZIPARCHIVE' => 'Wsparcie Zip',
   'LBL_UW_CONFIRM_LAYOUTS' => 'Zatwierdź widoki',
   'LBL_UW_CONFIRM_LAYOUT_RESULTS' => 'Zatwierdź wyniki widoków',
-  'LBL_UW_CONFIRM_LAYOUT_RESULTS_DESC' => 'Następujące widoki zostały połączone:',
+  'LBL_UW_CONFIRM_LAYOUT_RESULTS_DESC' => 'Następujące widoki zostały scalone:',
   'LBL_UW_CONTINUE_CONFIRMATION' => 'Nowa wersja Sugar zawiera nową umowę licencyjną. Czy chcesz kontynuować?',
   'LBL_UW_CONVERT_THE_LICENSE' => 'Przekształć licencję',
   'LBL_UW_COPIED_FILES_TITLE' => 'Pliki zostały skopiowane pomyślnie',

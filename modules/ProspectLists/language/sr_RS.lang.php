@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kompanije',
   'LBL_ASSIGNED_TO' => 'Dodeljeno',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampanje',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kontakti',
   'LBL_COPY_PREFIX' => 'Kopija',
   'LBL_CREATED' => 'Autor',
@@ -32,6 +30,9 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Nema email poruka na domenu',
   'LBL_DOMAIN_NAME' => 'Naziv domena',
   'LBL_ENTRIES' => 'Ukupno unosa',
+  'LBL_HELP_CREATE' => '•	{{modul_name}} se sastoji od skupa individua ili organizacija  koje želite da uključite ili isključite u masovnu kampanju {{campaigns_singular_module}}. Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}. 3. Posle čuvanja, koristiti podformu dostupnu na pregledu ciljanog zapisa za dodavanje {{campaigns_singular_module}} korisnika.',
+  'LBL_HELP_RECORD' => '•	{{modul_name}} se sastoji od skupa individua ili organizacija  koje želite da uključite ili isključite u masovnu kampanju {{campaigns_singular_module}}. - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "To Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '•	{{modul_name}} se sastoji od skupa individua ili organizacija  koje želite da uključite ili isključite u masovnu kampanju {{campaigns_singular_module}}. {{plural_module_name}} može da sadrži bilo koji broj i bilo koju kombinaciju Ciljeva, {{contacts_module}}, {{leads_module}}, Korisnika, i {{accounts_module}}. Ciljevi mogu biti grupisani u {{module_name}} prema swetu predefinisanih kriterijuma kao što su starost grupe, geografska lokacija, ili potrošačke navike. {{plural_module_name}} se koriste u masovnom e-mail marketingu {{campaigns_module}} koji mogu biti konfigurisani u {{campaigns_module}} modulu.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Potencijalni klijenti',
   'LBL_LIST_DESCRIPTION' => 'Opis',
   'LBL_LIST_END_DATE' => 'Datum završetka',

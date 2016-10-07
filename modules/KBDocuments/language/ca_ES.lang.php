@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Document Creat',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Nom del Document',
   'ERR_DOC_VERSION' => 'Versió del Document',
   'ERR_FILENAME' => 'Nom d´Arxiu',
+  'ERR_FILESIZE' => 'L&#39;arxiu és massa gran. Max mida del fitxer:',
   'LBL_ACTIVE_DATE' => 'Data de Publicació',
   'LBL_AND' => 'i',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Aplicant etiquetes a articles ...',
@@ -41,10 +39,10 @@ $mod_strings = array (
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'La vista preliminar no està disponible, no s´ha trobat el registre del Document.',
   'LBL_ARTICLE_TITLE' => 'Títol:',
   'LBL_ATTACHMENTS' => 'Adjunts:',
-  'LBL_CASE' => 'Cas',
+  'LBL_CASE' => 'Cas:',
   'LBL_CASES' => 'Casos',
   'LBL_CASES_SUBPANEL_TITLE' => 'Casos Relacionats',
-  'LBL_CASE_ID' => 'ID Cas',
+  'LBL_CASE_ID' => 'ID de cas',
   'LBL_CATEGORY' => 'Categoria',
   'LBL_CATEGORY_VALUE' => 'Categoria:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Sense Especificar',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Contractes',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Contractes Relacionats',
   'LBL_CONTRACT_NAME' => 'Nom de Contracte:',
+  'LBL_CONTRACT_STATUS' => 'Estat del contracte',
   'LBL_CREATED' => 'Creat per',
   'LBL_CREATED_BY' => 'Creat per',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Id de Document',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Número de Versió KBDocument',
   'LBL_KBDOC_APPROVED_BY' => 'Aprovat Per:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Nom del Aprobador',
   'LBL_KBDOC_ATTACHMENT' => 'Document Adjunt',
   'LBL_KBDOC_ATTS_TITLE' => 'Descargar Adjunts:',
   'LBL_KBDOC_BODY' => 'Cos:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Id Última Versió',
   'LBL_LATEST_REVISION_NAME' => 'Nom de l´Última Versió',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Llançant Explorador d´Etiquetes ...',
+  'LBL_LINKED_ID' => 'Id enllaç',
   'LBL_LIST_ACTIVE_DATE' => 'Data de Publicació',
   'LBL_LIST_APPROVED_BY' => 'Aprovat per',
   'LBL_LIST_ARTICLES' => 'Articles',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'No es un arxiu vàlid',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Tipus de Padre',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Pot realitzar un filtrat cap avall la llista de casos, proporcionant un terme de cerca.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Per exemple, podeu usar això per trobar un tema que ha estat presentada amb anterioritat.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Benvingut al Portal Sugar. Utilitzi les fletxes d&#39;abaix per anar pel "Quick Tour".',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Aquesta pàgina mostra la llista d&#39;articles publicats.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'En fer clic aquí, tornarà a aquest punt de vista en qualsevol moment.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Recercas Guardades Anteriors:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editar o Esborrar una Recerca Guardada existent.',
   'LBL_PUBLISHED' => 'Publicat:',
@@ -180,13 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Documents',
   'LBL_SEARCH_TAG' => 'Recerca',
   'LBL_SEARCH_WITHIN' => 'Buscar en:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Nom de l&#39;arxiu de versió seleccionada',
+  'LBL_SELECTED_REVISION_ID' => 'Id de versió seleccionada',
   'LBL_SELECTED_REVISION_NAME' => 'Nom de la Versió Seleccionada',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Seleccioni Articles als que Aplicar Etiquetes',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Seleccioni Articles Primer',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Seleccioni Articles Primer',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Crear Nova Etiqueta',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Seleccioni una Etiqueta del Arbre',
-  'LBL_SELECT_NODE' => 'Si us plau, seleccioneu un node',
+  'LBL_SELECT_NODE' => 'Seleccioneu un node',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Seleccioni l´etiqueta padre del arbre',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Seleccioni la etiqueta pare, del arbre',
   'LBL_SELECT_TAG' => 'Seleccionar Etiqueta',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Usant aquesta etiqueta:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Articles sense Etiquetar',
   'LBL_UPDATE' => 'Actualitzar',
+  'LBL_VIEWS_NUMBER' => 'Nombre de Visites',
   'LNK_KBDOCUMENT_LIST' => 'Llista de Documents',
   'LNK_NEW_ARTICLE' => 'Crear Article',
   'LNK_NEW_MAIL_MERGE' => 'Combinar Correspondència',

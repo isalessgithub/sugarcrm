@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,7 +20,9 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Date de création',
   'LBL_DATE_MODIFIED' => 'Date de modification',
   'LBL_DELETED' => 'Supprimée',
+  'LBL_DROPDOWN_TOOLTIP' => '{{start}} à {{end}}',
   'LBL_EDITLAYOUT' => 'Editer la mise en page',
+  'LBL_LEAF_CYCLE' => 'Période',
   'LBL_LIST_FORM_TITLE' => 'Périodes',
   'LBL_LIST_WARNING' => 'Veuillez noter que toute modification réalisée dans ce module peut potentiellement créer un dysfonctionnement sur le module {0}. Les modifications liés à {1} doivent être réalisées par la paramétrage de <a style="text-decoration:none;" href="index.php?module=Forecasts&action=#config">{0}</a>.',
   'LBL_MODULE_NAME' => 'Périodes',

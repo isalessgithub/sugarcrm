@@ -1,36 +1,41 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 {if strlen({{sugarvar key='value' string=true}}) <= 0}
 {assign var="value" value={{sugarvar key='default_value' string=true}} }
 {else}
 {assign var="value" value={{sugarvar key='value' string=true}} }
 {/if}
-<form name="vcard" action="index.php" style="display: inline;">
 <span id='{{sugarvar key='name'}}'>{{sugarvar key='value'}}</span>
 &nbsp;&nbsp;
-<input type="hidden" name="action" value="vCard" />
-<input type="hidden" name="record" value="{$fields.id.value}" />
-<input type="hidden" name="module" value="{$module}" />
-<input type="hidden" name="to_pdf" value="true" />
 <span class="id-ff">
-<button type="submit" name="vCardButton" id="btn_vCardButton" value="{$APP.LBL_VCARD}" title="{$APP.LBL_VCARD}" class="button">{sugar_getimage alt=$app_strings.LBL_ID_FF_VCARD name="id-ff-vcard" ext=".png" other_attributes=''}</button>
+    <a id="btn_vCardButton" title="{$APP.LBL_VCARD}" href="#">{sugar_getimage alt=$app_strings.LBL_ID_FF_VCARD name="id-ff-vcard" ext=".png"}</a>
 </span>
-</form>
 {{if !empty($displayParams.enableConnectors)}}
 {if !empty($value)}
 {{sugarvar_connector view='DetailView'}}
 {/if}
 {{/if}}
+
+{literal}
+<script type="text/javascript">
+    $("#btn_vCardButton").click(function(e){
+        {/literal}
+        window.location.assign('index.php?module={$module}&action=vCard&record={$fields.id.value}&to_pdf=true');
+        {literal}
+
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+    });
+</script>
+{/literal}

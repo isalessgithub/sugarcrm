@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på at du vil slette denne kontakten fra det valgte prosjektet?',
@@ -108,6 +105,7 @@ $mod_strings = array (
   'LBL_MARK_AS_MILESTONE_BUTTON' => 'Markér som Milepæl',
   'LBL_MODIFIED_USER_ID' => 'Endret av bruker-ID:',
   'LBL_MODULE_NAME' => 'Prosjekt',
+  'LBL_MODULE_NAME_SINGULAR' => 'Prosjekt',
   'LBL_MODULE_TITLE' => 'Prosjekter: Hjem',
   'LBL_MONTH_BUTTON' => 'Måned',
   'LBL_MORE' => 'Mer...',
@@ -159,6 +157,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => 'ressurs',
   'LBL_RESOURCE_REPORT' => 'Ressursrapport',
   'LBL_RESOURCE_TYPE' => 'Type',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Omsetning linjeelementer',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Lagre som nytt prosjekt',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Lagre som ny mal',
   'LBL_SAVE_AS_PROJECT' => 'Lagre som prosjekt',

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 define('CONNECTOR_DISPLAY_CONFIG_FILE', 'custom/modules/Connectors/metadata/display_config.php');
 require_once('include/connectors/ConnectorFactory.php');
 
@@ -128,10 +125,9 @@ class ConnectorUtils
               continue;
            }
 
-           if(file_exists('custom/' . $ds['directory'] . '/mapping.php')) {
-             require('custom/' . $ds['directory'] . '/mapping.php');
-           } else if(file_exists($ds['directory'] . '/mapping.php')) {
-             require($ds['directory'] . '/mapping.php');
+           $map = SugarAutoLoader::existingCustomOne($ds['directory'] . '/mapping.php');
+           if(!empty($map)) {
+               require $map;
            }
 
            if(!empty($mapping['beans'])) {
@@ -166,9 +162,7 @@ class ConnectorUtils
      * @param boolean $refresh boolean value to manually refresh the mergeview definitions
      * @return mixed $mergedefs Array of the merge definitions
      */
-    public static function getMergeViewDefs(
-        $refresh = false
-        )
+    public static function getMergeViewDefs($refresh = false)
     {
         if($refresh || !file_exists('custom/modules/Connectors/metadata/mergeviewdefs.php')) {
 
@@ -178,23 +172,22 @@ class ConnectorUtils
             $view_defs = array();
             foreach($connectors as $id=>$ds) {
 
-               if(file_exists('custom/' . $ds['directory'] . '/mapping.php')) {
-                 require('custom/' . $ds['directory'] . '/mapping.php');
-               } else if(file_exists($ds['directory'] . '/mapping.php')) {
-                 require($ds['directory'] . '/mapping.php');
-               }
+                $map = SugarAutoLoader::existingCustomOne($ds['directory'] . '/mapping.php');
+                if(!empty($map)) {
+                    require $map;
+                }
 
-               if(!empty($mapping['beans'])) {
-                  foreach($mapping['beans'] as $module=>$map) {
-                     if(!empty($modules_sources[$module][$id])) {
-                         if(!empty($view_defs['Connector']['MergeView'][$module])) {
-                            $view_defs['Connector']['MergeView'][$module] = array_merge($view_defs['Connector']['MergeView'][$module], array_flip($map));
-                         } else {
-                            $view_defs['Connector']['MergeView'][$module] = array_flip($map);
-                         }
-                     }
-                  }
-               }
+                if(!empty($mapping['beans'])) {
+                    foreach($mapping['beans'] as $module=>$map) {
+                        if(!empty($modules_sources[$module][$id])) {
+                            if(!empty($view_defs['Connector']['MergeView'][$module])) {
+                                $view_defs['Connector']['MergeView'][$module] = array_merge($view_defs['Connector']['MergeView'][$module], array_flip($map));
+                             } else {
+                                $view_defs['Connector']['MergeView'][$module] = array_flip($map);
+                             }
+                        }
+                    }
+                }
             }
 
             if(!empty($view_defs['Connector']['MergeView'])) {
@@ -226,9 +219,7 @@ class ConnectorUtils
      * @param boolean $refresh boolean flag indicating whether or not to force rewriting the file; defaults to false
      * @returns mixed $connectors Array of the connector entries found
      */
-    public static function getConnectors(
-        $refresh = false
-        )
+    public static function getConnectors($refresh = false)
     {
         if (inDeveloperMode()) {
             $refresh = true;
@@ -242,16 +233,9 @@ class ConnectorUtils
         $src2 = 'custom/modules/Connectors/connectors/sources';
         $src3 = 'custom/modules/Connectors/metadata';
         $src4 = 'custom/modules/Connectors/metadata/connectors.php';
+        $connectors = array();
 
-        //if this is a templated environment, then use utilities to get the proper paths
-        if(defined('TEMPLATE_URL')){
-            $src1 = SugarTemplateUtilities::getFilePath($src1);
-            $src2 = SugarTemplateUtilities::getFilePath($src2);
-            $src3 = SugarTemplateUtilities::getFilePath($src3);
-            $src4 = SugarTemplateUtilities::getFilePath($src4);
-        }
-
-        if($refresh || !file_exists($src4)) {
+        if($refresh || !SugarAutoLoader::existing($src4)) {
 
           $sources = array_merge(self::getSources($src1), self::getSources($src2));
           if(!file_exists($src3)) {
@@ -262,7 +246,6 @@ class ConnectorUtils
 
             //define connectors if it doesn't exist or is not an array
             if (!isset($connectors) || !is_array($connectors)){
-                $connectors = array();
                 $err_str = string_format($GLOBALS['app_strings']['ERR_CONNECTOR_NOT_ARRAY'],array($src4));
                 $GLOBALS['log']->error($err_str);
             }
@@ -290,9 +273,6 @@ class ConnectorUtils
     {
         if(empty($toFile)) {
             $toFile = 'custom/modules/Connectors/metadata/connectors.php';
-            if(defined('TEMPLATE_URL')) {
-                $toFile = SugarTemplateUtilities::getFilePath($toFile);
-            }
         }
 
         if(!is_array($connectors))
@@ -315,11 +295,9 @@ class ConnectorUtils
      * @param String $directory The directory to search
      * @return mixed $sources An Array of source entries
      */
-    private static function getSources(
-        $directory = 'modules/Connectors/connectors/sources'
-        )
+    private static function getSources($directory = 'modules/Connectors/connectors/sources')
     {
-          if(file_exists($directory)) {
+          if(SugarAutoLoader::fileExists($directory)) {
 
               $files = array();
               $files = findAllFiles($directory, $files, false, 'config\.php');
@@ -337,6 +315,10 @@ class ConnectorUtils
                       $order = isset($config['order']) ? $config['order'] : 99; //default to end using 99 if no order set
 
                       $instance = ConnectorFactory::getInstance($source['id']);
+                      if(empty($instance)) {
+                          $GLOBALS['log']->fatal("Failed to load source {$source['id']}");
+                          continue;
+                      }
                       $source['eapm'] = empty($config['eapm'])?false:$config['eapm'];
                       $mapping = $instance->getMapping();
                       $modules = array();
@@ -367,7 +349,7 @@ class ConnectorUtils
         $refresh = false
         )
     {
-        if(!file_exists(CONNECTOR_DISPLAY_CONFIG_FILE) || $refresh) {
+        if(!SugarAutoLoader::fileExists(CONNECTOR_DISPLAY_CONFIG_FILE) || $refresh) {
             $sources = self::getConnectors();
             $modules_sources = array();
 
@@ -519,6 +501,10 @@ class ConnectorUtils
            $GLOBALS['log']->debug(var_export($modules_sources, true));
            if(!empty($modules_sources)) {
               foreach($modules_sources as $module=>$mapping) {
+                     if(!isModuleBWC($module)) {
+                         // this is done only for BWC modules
+                         continue;
+                     }
                      $metadata_file = file_exists("custom/modules/{$module}/metadata/detailviewdefs.php") ? "custom/modules/{$module}/metadata/detailviewdefs.php" : "modules/{$module}/metadata/detailviewdefs.php";
 
 
@@ -806,19 +792,30 @@ class ConnectorUtils
         $language = ''
         )
     {
-        $lang = empty($language) ? $GLOBALS['current_language'] : $language;
-        $lang .= '.lang.php';
+        global $locale;
         $dir = str_replace('_', '/', $source_id);
-        if(file_exists("custom/modules/Connectors/connectors/sources/{$dir}/language/{$lang}")) {
-            require("custom/modules/Connectors/connectors/sources/{$dir}/language/{$lang}");
-            return !empty($connector_strings) ? $connector_strings : array();
-        } else if(file_exists("modules/Connectors/connectors/sources/{$dir}/language/{$lang}")){
-            require("modules/Connectors/connectors/sources/{$dir}/language/{$lang}");
-            return !empty($connector_strings) ? $connector_strings : array();
-        } else {
-            $GLOBALS['log']->error("Unable to locate language string file for source {$source_id}");
-            return array();
+        $strings = array();
+
+        $defaultLanguage = $GLOBALS['sugar_config']['default_language'] . '.lang.php';
+        $files = array("modules/Connectors/connectors/sources/{$dir}/language/{$defaultLanguage}");
+
+        if ($language != $defaultLanguage) {
+            $currentLanguage = (empty($language) ? $locale->getAuthenticatedUserLanguage() : $language) . '.lang.php';
+            $files[] = "modules/Connectors/connectors/sources/{$dir}/language/{$currentLanguage}";
         }
+
+        foreach (SugarAutoLoader::existingCustom($files) as $file) {
+            require $file;
+            if (isset($connector_strings) && is_array($connector_strings)) {
+                $strings = sugarLangArrayMerge($strings, $connector_strings);
+            }
+        }
+
+        if (empty($strings)) {
+            $GLOBALS['log']->error("Unable to locate language strings for source {$source_id}");
+        }
+
+        return $strings;
     }
 
      /**
@@ -839,11 +836,16 @@ class ConnectorUtils
         $lang .= '.lang.php';
         $dir = str_replace('_', '/', $source_id);
 
-      if (!write_array_to_file("connector_strings", $connector_strings, "custom/modules/Connectors/connectors/sources/{$dir}/language/{$lang}")) {
+        $langPath = "custom/modules/Connectors/connectors/sources/{$dir}/language";
+        $path = "{$langPath}/{$lang}";
+
+        if (!sugar_mkdir($langPath, 755, true) || !write_array_to_file("connector_strings", $connector_strings, $path)) {
            //Log error and return empty array
-           $GLOBALS['log']->fatal("Cannot write connectory_strings to file custom/modules/Connectors/connectors/sources/{$dir}/language/{$lang}");
+           $GLOBALS['log']->fatal("Cannot write connectory_strings to file {$path}");
            return false;
         }
+
+        return true;
     }
 
     /**
@@ -907,7 +909,18 @@ class ConnectorUtils
         }
 
         //Remove the source from the connectors.php file
-        self::getConnectors(true);
+        $connectorsFile = 'custom/modules/Connectors/metadata/connectors.php';
+        if (file_exists($connectorsFile)) {
+            require($connectorsFile);
+            if (isset($connectors[$source])) {
+                unset($connectors[$source]);
+                if (!write_array_to_file('connectors', $connectors, $connectorsFile)) {
+                   //Log error and return empty array
+                   $GLOBALS['log']->fatal("Cannot write connectors to file");
+                   return false;
+                }
+            }
+        }
 
         //Update the display_config.php file to remove this source
         $modules_sources = array();

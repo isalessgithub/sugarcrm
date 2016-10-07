@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 SUGAR.routing={actions:new Object(),rules:new Object(),strings:new Object(),editRule:function(id){this.xhr.startRequest(callback.editRule,this.xhr.urlStandard+"&routingAction=getRule&rule_id="+id+"&bean=InboundEmail");},removeRule:function(id){alert('implement SUGAR.routing.removeRule() pls.');},getStrings:function(){this.xhr.startRequest(callback.strings,this.xhr.urlStandard+"&routingAction=getStrings");},getDependentDropdowns:function(){this.xhr.startRequest(callback.dd,this.xhr.urlStandard+"&routingAction=getActions");}}
 SUGAR.routing.handleDependentDropdown=function(el,focusDD){if(SUGAR.dependentDropdown.debugMode)SUGAR.dependentDropdown.utils.debugStack('handleDependentDropdown');var index=el.id.slice(el.id.indexOf("::")+2,el.id.indexOf(":::"));var actionIndex=index / 100;var elementRow=el.parentNode;var elementIndex=el.id.slice(el.id.indexOf(":::")+3,el.id.indexOf(":-:"));SUGAR.dependentDropdown.currentAction=SUGAR.routing.rules.InboundEmail[SUGAR.routing.currentRuleId][focusDD][actionIndex];elementIndex++;var elementKey="element"+elementIndex;var focusElement=SUGAR.dependentDropdown.dropdowns[focusDD].elements[elementKey];if(focusElement){if(focusElement.handlers){try{focusElement=focusElement.handlers[el.value];}catch(e){if(SUGAR.dependentDropdown.dropdowns.debugMode){debugger;}}}
 SUGAR.dependentDropdown.generateElement(focusElement,elementRow,index,elementIndex);}else{}}

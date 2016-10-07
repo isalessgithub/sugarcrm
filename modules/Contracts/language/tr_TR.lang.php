@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Müşteri ID',
@@ -32,6 +29,7 @@ $mod_strings = array (
   'LBL_CREATED_USER' => 'Oluşturan Kullanıcı',
   'LBL_CURRENCY' => 'Para Birimi:',
   'LBL_CURRENCY_ID' => 'Para Birimi ID:',
+  'LBL_CURRENCY_RATE' => 'Döviz Kuru',
   'LBL_CUSTOMER_SIGNED_DATE' => 'Müşterinin İmzaladığı Tarih:',
   'LBL_DAYS' => 'Gün(ler)',
   'LBL_DESCRIPTION' => 'Tanım:',
@@ -39,6 +37,11 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokümanlar',
   'LBL_END_DATE' => 'Bitiş Tarihi:',
   'LBL_EXPIRATION_NOTICE' => 'Sona Erme Bildirimi:',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'Atanan Kullanıcı ID',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Atanan Kullanıcı İsmi',
+  'LBL_EXPORT_CREATED_BY' => 'Oluşturan ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Değiştiren ID',
+  'LBL_EXPORT_TYPE_NAME' => 'Tip İsmi',
   'LBL_LIST_ACCOUNT_NAME' => 'Müşteri İsmi',
   'LBL_LIST_ASSIGNED_TO_USER' => 'Kullanıcı',
   'LBL_LIST_CONTRACT_NAME' => 'Kontrat İsmi',
@@ -51,15 +54,16 @@ $mod_strings = array (
   'LBL_LIST_TEAM_NAME' => 'Takım',
   'LBL_MODIFIED_USER' => 'Değiştiren Kullanıcı',
   'LBL_MODULE_NAME' => 'Kontratlar',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kontrat',
   'LBL_MODULE_TITLE' => 'Kontratlar : Ana Sayfa',
   'LBL_NEW_FORM_TITLE' => 'Yeni Kontrat',
   'LBL_NONE' => 'Yok',
   'LBL_NOTES_SUBPANEL_TITLE' => 'Notlar',
   'LBL_OPPORTUNITY' => 'Fırsat',
-  'LBL_OPPORTUNITY_NAME' => 'Fırsat İsmi',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Ürünler',
+  'LBL_OPPORTUNITY_ID' => 'Fırsat ID',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Teklifler',
   'LBL_REFERENCE_CODE' => 'Referans Kodu:',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Gelir Kalemleri',
   'LBL_SEARCH_FORM_TITLE' => 'Kontrat Arama',
   'LBL_SF_ACCOUNT_NAME' => 'Müşteri İsmi:',
   'LBL_SF_ASSIGNED_TO' => 'Atanan Kişi:',
@@ -75,9 +79,10 @@ $mod_strings = array (
   'LBL_TOTAL_CONTRACT_VALUE' => 'Kontrat Değeri:',
   'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Kontrat Değeri (USD):',
   'LBL_TYPE' => 'Tipi',
+  'LBL_TYPE_NAME' => 'Tip İsmi',
   'LBL_UNDEFINED' => 'Tanımlanmamış',
   'LNK_CONTRACT_LIST' => 'Kontratları Görüntüle',
-  'LNK_IMPORT_CONTRACTS' => 'Kontrat Verilerini Yükle',
+  'LNK_IMPORT_CONTRACTS' => 'Sözleşmeleri İçeri Aktar',
   'LNK_NEW_CONTRACT' => 'Kontrat Oluştur',
 );
 

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CHART_COUNT_PATTERN' => '{count} {module} where {group_label} is {group_text}',
@@ -46,15 +43,7 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_3' => 'רשימת חשבונות שותפים',
   'DEFAULT_REPORT_TITLE_31' => 'רשומות שלי ששונו לאחרונה (בשלושים הימים האחרונים)',
   'DEFAULT_REPORT_TITLE_32' => 'רשומות ששונו באמצעות דוחות ישירים שלי (בשלושים הימים האחרונים)',
-  'DEFAULT_REPORT_TITLE_33' => 'שימוש בתבניות',
-  'DEFAULT_REPORT_TITLE_34' => 'משתמשים פעילים לפי ימים (בשבעת הימים האחרונים)',
-  'DEFAULT_REPORT_TITLE_35' => 'בקשות ליום (בשבעת הימים האחרונים)',
-  'DEFAULT_REPORT_TITLE_36' => 'לוגאין ליום (בשבעת הימים האחרונים)',
-  'DEFAULT_REPORT_TITLE_37' => 'שאילתות ליום (בשבעת הימים האחרונים)',
-  'DEFAULT_REPORT_TITLE_38' => 'קבצים ליום (בשבעת הימים האחרונים)',
-  'DEFAULT_REPORT_TITLE_39' => 'משתמשים ליום (בשבעת הימים האחרונים)',
   'DEFAULT_REPORT_TITLE_4' => 'רשימת חשבונות לקוחות',
-  'DEFAULT_REPORT_TITLE_40' => 'שימוש בזיכרון ליום (בשבעת הימים האחרונים)',
   'DEFAULT_REPORT_TITLE_41' => 'המשתמשים הפעילים ביותר על המערכת (בשבעת הימים האחרונים)',
   'DEFAULT_REPORT_TITLE_42' => 'תקציר המשתמשים הפעילים המערכת (בשבעת הימים האחרונים)',
   'DEFAULT_REPORT_TITLE_43' => 'בעלים של חשבונות לקוח',
@@ -69,6 +58,10 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_51' => 'הזדמנויות מוצלחות לפי משתמש',
   'DEFAULT_REPORT_TITLE_52' => 'כל ההזדמנויות שפתוחות',
   'DEFAULT_REPORT_TITLE_53' => 'כל ההזדמנויות שסגורות',
+  'DEFAULT_REPORT_TITLE_56' => 'התפלגות הזדמנויות מוצרים לתקופת זמן בעבר, בהווה, בעתיד לפי חודשים',
+  'DEFAULT_REPORT_TITLE_57' => 'התפלגות הזדמנויות מכירות לתקופת זמן בעבר, בהווה, בעתיד לפי חודשים',
+  'DEFAULT_REPORT_TITLE_58' => 'תחזית רבעונית הקודמת/הנוכחית/הבאה',
+  'DEFAULT_REPORT_TITLE_59' => 'הזדמנויות לפי שלבי מכירה עבור דוחות בתקופה הנוכחית',
   'DEFAULT_REPORT_TITLE_6' => 'הזדמנויות ממוינות לפי מקור הליד',
   'DEFAULT_REPORT_TITLE_7' => 'פתח מקרה ממוין לפי משתמש ולפי הסטאטוס',
   'DEFAULT_REPORT_TITLE_8' => 'פתח אירועים לפי חודש ולפי משתמש',
@@ -83,6 +76,8 @@ $mod_strings = array (
     1209600 => 'דו שבועי',
     2419200 => 'כל 4 שבועות',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'דוח מתוזמן "{0}" אינו פעיל',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'דוחות מתוזמנים אינם פעילים',
   'ERR_REPORT_INVALID' => 'Definition of report "{0}" contains invalid fields: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Report is invalid',
   'ERR_SELECT_COLUMN' => 'בחר בבקשה להציג קודם עמודות.',
@@ -126,6 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => 'לפני',
   'LBL_BUG_REPORTS' => 'דוחות על באגים',
   'LBL_BY_DAY' => 'לפי יום',
+  'LBL_BY_FISCAL_QUARTER' => 'לפי רבעון כספים',
+  'LBL_BY_FISCAL_YEAR' => 'לפי שנת כספים',
   'LBL_BY_MONTH' => 'לפי חודש',
   'LBL_BY_QUARTER' => 'לפי רבעון',
   'LBL_BY_YEAR' => 'לפי שנה',
@@ -133,6 +130,7 @@ $mod_strings = array (
   'LBL_CALL_REPORTS' => 'דוחות על שיחות טלפון',
   'LBL_CANCEL' => 'בטל',
   'LBL_CANNOT_BE_EMPTY' => 'לא יכול להיות ריק.',
+  'LBL_CANNOT_DISPLAY_CHART_MESSAGE' => 'לא ניתן להציג את התרשים בגלל ההגדרות שלו',
   'LBL_CASE_REPORTS' => 'דוחות על אירועים',
   'LBL_CHANGE' => 'שנה',
   'LBL_CHART_DATA_HELP' => 'בחר תקציר שיוצ בתרשים.',
@@ -155,6 +153,8 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'אשף דוחות',
   'LBL_CREATE_REPORT' => 'צור דוח',
   'LBL_CSV_TIMESTAMP' => 'd_m_y_H_i_s',
+  'LBL_CURRENT_FISCAL_QUARTER' => 'רבעון כספים נוכחי',
+  'LBL_CURRENT_FISCAL_YEAR' => 'שנת כספים נוכחית',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => 'עיסקאות שבוצעו ברבעון הנכחי',
   'LBL_CURRENT_QUARTER_FORECAST' => 'תחזית לרבעון הנכחי',
   'LBL_CURRENT_USER' => 'משתמש נוכחי',
@@ -162,7 +162,6 @@ $mod_strings = array (
   'LBL_DATE' => 'תאריך התחלה',
   'LBL_DATE_BASED_FILTERS' => '<i>Date filters are relative to the time zone of the report&#39;s <b>Assigned To</b> user</i>',
   'LBL_DAY' => 'יום',
-  'LBL_DCE_LICENSING_REPORT' => 'דוח רישיונות',
   'LBL_DEFINE_FILTERS' => 'הגדר פילטרים',
   'LBL_DELETE' => 'מחק',
   'LBL_DELETED_FIELD_IN_REPORT1' => 'The following field in this report is no longer valid:',
@@ -205,14 +204,18 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'מאחד המסננים הבאים.',
   'LBL_FILTERS_HELP_DESC' => '<b>Steps to Define Filters:</b><br/><br/>1) Click on the Module in the <b>Related Modules</b> pane that you would like to use to define filters. By default, the primary module (top node in the tree view) is selected. <br/><br/><br />	You can select a related module (child node in the tree view) by clicking on the module. Expand the node to view additional modules related to the related module. The module that you select determines which reportable fields appear in the <b>Available Fields</b> pane.<br/><br/><br />	2) Click on a Field in the <b>Available Fields</b> pane to add it to the filters. You can also search for the field by typing in the text box in the pane.<br/><br/><br />	After selecting any number of fields from the module selected in the <b>Related Modules</b> pane, you can choose a different module from which you can select any number of fields to use as filters.<br/><br/><br />	3) Choose <b>AND</b> or <b>OR</b> to designate whether all filters or any filters, respectively, are used to find results for the report.<br/><br/><br />	4) [Optional] Click on <b>Add Filter Group</b> to create groups of filters. You can have any number of filter groups and any number of filters in a group to create nested filters.<br/><br/><br />	5) [Optional] Select the Run-time option for a Filter to allow users to use the filter to further customize the results of the reports while viewing the report.',
   'LBL_FILTER_AND' => 'וגם',
+  'LBL_FILTER_BY_MODULE' => 'לפי מודול',
   'LBL_FILTER_CONDITIONS' => 'בחר מפעיל:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'אל',
   'LBL_FILTER_DATE_RANGE_START' => 'מאת',
   'LBL_FILTER_OR' => 'או',
+  'LBL_FISCAL_QUARTER' => 'רבעון כספים',
+  'LBL_FISCAL_YEAR' => 'שנת כספים',
   'LBL_FORECAST_REPORTS' => 'דוחות תחזית',
   'LBL_FUNNEL' => 'משפך',
   'LBL_GRAND_TOTAL' => 'סך-הכל כללי',
   'LBL_GREATER_THAN' => 'גדול מ',
+  'LBL_GREATER_THAN_EQUAL' => 'יותר או שווה ל-',
   'LBL_GROUP_BY' => 'ממוין על ידי',
   'LBL_GROUP_BY_HELP_DESC' => '<b>Steps to Define Group By:</b><br></br>1) Click on a Module in the <b>Related Modules</b> pane that you would like to use to group records in your report. By default, the primary module (top node in the tree view) is selected. <br/><br/><br />	You can select a related module (child node in the tree view) by clicking on the module. Expand the node to view additional modules related to the related module. The module that you select determines which reportable fields appear in the <b>Available Fields</b> pane.<br/><br/><br />	2) Click on the Field in the <b>Available Fields</b> pane to group records by the field in your report. You can also search for the field by typing in the text box in the pane.<br/><br/><br />	After selecting any number of fields from the module selected in the <b>Related Modules</b> pane, you can choose a different module from which you can select any number of fields to group records. However, the report becomes less readable when you group by more than several fields.<br/><br/><br />	You can change the order of the fields by dragging and dropping them to the desired position.  Changing the order affects the way the results are displayed.<br/><br/>  For Matrix Reports, you can use a maximum of three fields to group records.',
   'LBL_GROUP_BY_REQUIRED' => 'At least one Group By and one Summary column are required to render a chart.<br>',
@@ -232,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'בשלושים הימים האחרונים',
   'LBL_LAST_7_DAYS' => 'בשבעת הימים האחרונים',
   'LBL_LAST_MONTH' => 'בחודש שעבר',
+  'LBL_LAST_N_DAYS' => 'מספר ימים אחרונים',
   'LBL_LAST_QUARTER' => 'ברבעון שעבר',
   'LBL_LAST_WEEK' => 'בשבוע שעבר',
   'LBL_LAST_YEAR' => 'בשנה שעברה',
@@ -240,6 +244,7 @@ $mod_strings = array (
   'LBL_LEAD_REPORTS' => 'הטען דוחות',
   'LBL_LEFT' => 'שמאל',
   'LBL_LESS_THAN' => 'פחות מ',
+  'LBL_LESS_THAN_EQUAL' => 'פחות או שווה ל-',
   'LBL_LINE' => 'שורה',
   'LBL_LIST_FORM_TITLE' => 'דוחות',
   'LBL_LIST_PUBLISHED' => 'פורסם',
@@ -258,6 +263,7 @@ $mod_strings = array (
   'LBL_MODULE_CHANGE_PROMPT' => 'Changing the selected module will result in a loss of filters, display columns, etc. Do you still wish to continue?',
   'LBL_MODULE_NAME' => 'דוחות',
   'LBL_MODULE_NAME_SAVED' => 'שם המודול',
+  'LBL_MODULE_NAME_SINGULAR' => 'דוח',
   'LBL_MODULE_TITLE' => 'דוחות: דף ראשי',
   'LBL_MODULE_VIEWER_TITLE' => 'צפייה בדוחות: דף ראשי',
   'LBL_MONTH' => 'חודש',
@@ -298,7 +304,10 @@ $mod_strings = array (
   'LBL_NEXT' => 'הבא >',
   'LBL_NEXT_30_DAYS' => 'בשלושים הימים הבאים',
   'LBL_NEXT_7_DAYS' => 'בשבעת הימים הבאים',
+  'LBL_NEXT_FISCAL_QUARTER' => 'רבעון כספים הבא',
+  'LBL_NEXT_FISCAL_YEAR' => 'שנת כספים הבאה',
   'LBL_NEXT_MONTH' => 'בחוד הבא',
+  'LBL_NEXT_N_DAYS' => 'מספר הימים הבאים',
   'LBL_NEXT_QUARTER' => 'ברבעון הבא',
   'LBL_NEXT_RUN' => 'הודעת הדואר הבאה',
   'LBL_NEXT_WEEK' => 'בשבוע הבא',
@@ -310,6 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'בשל מגבלת הרשאה אינך יכול לגשת לדוח המבוקש.',
   'LBL_NO_CHART' => 'אין טבלה',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Chart not able to be drawn because of insufficient data',
+  'LBL_NO_EXPORT_ACCESS' => 'ייצוא אינו פעיל',
   'LBL_NO_FILTERS' => 'ללא מסננים.',
   'LBL_NO_IMAGE' => 'ללא תמונה',
   'LBL_NO_REPORTS' => 'אין תוצאות.',
@@ -330,6 +340,8 @@ $mod_strings = array (
   'LBL_PIE' => 'פאי',
   'LBL_PREVIEW_REPORT' => 'תצוגה מקדימה',
   'LBL_PREVIOUS' => '< הקודם',
+  'LBL_PREVIOUS_FISCAL_QUARTER' => 'רבעון כספים קודם',
+  'LBL_PREVIOUS_FISCAL_YEAR' => 'שנת כספים קודמת',
   'LBL_PROJECT_TASK_REPORTS' => 'דוח על משימות בפרויקט',
   'LBL_PROSPECT_REPORTS' => 'דוחות על מטרות',
   'LBL_PUBLISH' => 'פרסם',
@@ -346,6 +358,7 @@ $mod_strings = array (
   'LBL_PUBLISHED_OPPORTUNITY_REPORTS' => 'פורסם דוח על הזדמנויות',
   'LBL_PUBLISHED_PROJECT_TASK_REPORTS' => 'פרסם דוח על משימות בפרויקט שלי',
   'LBL_PUBLISHED_PROSPECT_REPORTS' => 'פורסם דוח על מטרות',
+  'LBL_PUBLISHED_QUOTA_REPORTS' => 'דוחות מכסה מפורסמים',
   'LBL_PUBLISHED_QUOTE_REPORTS' => 'פורסם דוח על הצעות מחיר',
   'LBL_PUBLISHED_TASK_REPORTS' => 'פורסם דוח על משימות',
   'LBL_QUARTER' => 'רבעון',
@@ -361,6 +374,7 @@ $mod_strings = array (
   'LBL_REMOVE_BTN_HELP' => 'קליק על מנת להסיר קבוצת מסננים זו.',
   'LBL_REMOVE_GROUP' => 'הסר קבוצת מסננים',
   'LBL_REPORTS' => 'דוחות',
+  'LBL_REPORTS_TO' => 'מדווח אל',
   'LBL_REPORT_ATT_MODULES' => 'מודולים',
   'LBL_REPORT_ATT_NAME' => 'שם',
   'LBL_REPORT_COLLAPSE_ALL' => 'פתח הכל',
@@ -398,7 +412,7 @@ $mod_strings = array (
   'LBL_RUN_REPORT_BUTTON_KEY' => 'R',
   'LBL_RUN_REPORT_BUTTON_LABEL' => 'הרץ דוח',
   'LBL_RUN_TIME_LABEL' => 'זמן-ריצה',
-  'LBL_SAVED_SEARCH' => 'שמור חיפוז ותצורתו',
+  'LBL_SAVED_SEARCH' => 'שמור חיפוש ותצורתו',
   'LBL_SAVE_AS' => 'שמור בשם',
   'LBL_SAVE_RUN' => 'שמור והפעל',
   'LBL_SCHEDULED_REPORT_MSG_BODY1' => 'ושמור בשם "',
@@ -470,6 +484,7 @@ $mod_strings = array (
   'LBL_YEAR' => 'שנה',
   'LBL_YESTERDAY' => 'אתמול',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'אין לך דוחות שמורים.',
+  'LNK_ADVANCED_REPORTING' => 'נהל דוחות מתקדמים',
   'LNK_NEW_ACCOUNT' => 'צור חשבון',
   'LNK_NEW_CALL' => 'יומן שיחת טלפון',
   'LNK_NEW_CASE' => 'צור אירוע',

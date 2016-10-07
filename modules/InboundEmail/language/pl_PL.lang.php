@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Nieprawidłowe hasło lub login',
   'ERR_BODY_TOO_LONG' => '\\rTekst jest za długi, aby pobrać CAŁĄ wiadomość. Przycięto.',
+  'ERR_DELETE_FOLDER' => 'Folder nie mógł zostać usunięty.',
   'ERR_INI_ZLIB' => 'Nie można czasowo wyłączyć kompresji Zlib. Testowanie ustawień może się nie powieść.',
   'ERR_MAILBOX_FAIL' => 'Nie można sprawdzić żadnych skrzynek pocztowych.',
   'ERR_NO_IMAP' => 'Nie znaleziono bibliotek IMAP.  Rozwiąż ten problem przed kontynuowaniem konfiguracji poczty przychodzącej',
   'ERR_NO_OPTS_SAVED' => 'Nie zapisano właściwych ustawień dla Twojego konta poczty przychodzącej. Sprawdź te ustawienia jeszcze raz.',
   'ERR_TEST_MAILBOX' => 'Sprawdź ustawienia i spróbuj jeszcze raz.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Nie udało się usunąć subskrypcji z folderu przed usunięciem.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Zezwól użytkownikom na odpowiadanie na wiadomość przy użyciu nazwy i adresu "Od"',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Jeśli ta opcja jest zaznaczona, pola z nazwą i adresem nadawcy wiadomości, powiązane z kontem pocztowym tej grupy, pojawią się jako opcja dla pola “Od” podczas tworzenia wiadomości przez użytkowników, którzy mają dostęp do konta pocztowego grupy.',
   'LBL_APPLY_OPTIMUMS' => 'Zastosuj ustawienia',

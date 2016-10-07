@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: ConfigureTabs.php 54176 2010-02-01 23:07:34Z dwheeler $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -64,7 +61,13 @@ class ViewConfiguretabs extends SugarView
         require_once("modules/MySettings/TabController.php");
         $controller = new TabController();
         $tabs = $controller->get_tabs_system();
-        
+        // Remove Home module from UI.  We add it back to front of display tab list on save.
+        if (isset($tabs[0]['Home'])) {
+            unset($tabs[0]['Home']);
+        }
+        if (isset($tabs[1]['Home'])) {
+            unset($tabs[1]['Home']);
+        }
         $enabled= array();
         foreach ($tabs[0] as $key=>$value)
         {
@@ -102,8 +105,12 @@ class ViewConfiguretabs extends SugarView
         //now create array of subpanels to hide for use in Drag and Drop widget
         $disabled = array();
         foreach ($hidpanels_arr as $key) {
-            if(empty($key)) continue;
+            if (empty($key)) continue;
             $key = strtolower($key);
+            // we need this here for with RLI's are disabled as they shouldn't be seen in the list
+            if ($key == 'revenuelineitems' && in_array('RevenueLineItems', $GLOBALS['modInvisList'])) {
+                continue;
+            }
             $disabled[] =  array("module" => $key, "label" => $mod_list_strings_key_to_lower[$key]);
         }
         

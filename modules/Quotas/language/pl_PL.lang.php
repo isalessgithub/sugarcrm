@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Kwota:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Kwota waluty podstawowej',
   'LBL_ASSIGNED_TO_USER' => 'Przydzielono do użytkownika',
   'LBL_COMMIT' => 'Wykonaj:',
   'LBL_COMMITTED' => 'Przydzielono',
   'LBL_COMMIT_STATUS' => 'Zatwierdź status',
+  'LBL_CREATED_BY' => 'Utworzone przez',
   'LBL_CURRENCY' => 'Waluta:',
   'LBL_CURRENCY_RATE' => 'Stawka waluty',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Nie masz przydzielonej kwoty dla tego przedziału czasu.',
   'LBL_CURRENT_USER_QUOTA' => 'Twoja przydzielona kwota dla tego przedziału czasu to:',
+  'LBL_DIRECT' => 'Bezpośrednia',
   'LBL_DIRECT_REPORT' => 'Raporty bezpośrednie',
   'LBL_EDITLAYOUT' => 'Edytuj widok',
   'LBL_LAST_MODIFIED' => 'Ostatnia modyfikacja',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Nie wprowadzono kwot dla raportowania bezpośredniego dla tego przedziału czasu.',
   'LBL_QUOTA' => 'Kwota:',
   'LBL_QUOTA_AMOUNT' => 'Wielkość kwoty',
+  'LBL_QUOTA_TYPE' => 'Typ',
+  'LBL_ROLLUP' => 'Łączna',
   'LBL_SELECT_TIME_PERIOD' => 'Wybierz przedział czasu...',
   'LBL_SELECT_USER' => 'Wybierz użytkownika...',
   'LBL_TIMEPERIOD_ID' => 'Przedział czasu',

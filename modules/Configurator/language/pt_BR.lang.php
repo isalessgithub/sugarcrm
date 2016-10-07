@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avançado',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Mostrar o tempo de resposta do servidor',
   'ERR_ALERT_FILE_UPLOAD' => 'Erro durante o carregamento da imagem.',
   'ERR_DELETE_CORE_FILE' => 'ERRO: Não é possível eliminar uma fonte nuclear.',
+  'ERR_EMPTY_SAML_CERT' => 'O certificado SAML não pode ficar vazio',
+  'ERR_EMPTY_SAML_LOGIN' => 'A URL de Login do SAML não pode ficar vazia',
   'ERR_EZPDF_DISABLE' => 'Aviso: A classe EZPDF está desativada na tabela de configuração e foi definida como a classe PDF. Por favor "Grave" este formulário para definir TCPDF como a Classe PDF e retornar num estado estável.',
   'ERR_FONT_ALREADY_EXIST' => 'ERRO : Esta fonte já existe. Retroceder...',
   'ERR_FONT_EMPTYFILE' => 'ERRO: Nome de arquivo vazio!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERRO: Nenhum path de fonte personalizado disponível!',
   'ERR_NO_FONT_PATH' => 'ERRO: Nenhum path de fonte disponível!',
   'ERR_PDF_NO_UPLOAD' => 'Erro durante o carregamento da fonte ou arquivo métrico.',
+  'ERR_SAML_LOGIN_URL' => 'A URL de Login do SAML não é válida',
+  'ERR_SAML_SLO_URL' => 'A URL de SLO do SAML não é válida',
   'HEAD_MAGNIFICATION' => 'Ampliação do Cabeçalho',
   'HEAD_MAGNIFICATION_INFO' => 'Fator de ampliação para títulos.',
   'IMAGES' => 'Logotipos',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Voltar',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Escolha o seu fornecedor de e-mail',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Configuração do Sistema',
-  'LBL_CONFIG_AJAX' => 'Configurar Interface de usuário AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Habilitar ou desabilitar a utilização do AJAX UI para módulos especificos',
   'LBL_DELETE' => 'Deletar',
   'LBL_DISALBE_CONVERT_LEAD' => 'Desativar a$#39;ção de conversão de Leads para Leads Convertidos',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Se um Lead já foi convertido, habilitar esta opção irá remover a ação de conversão de Leads',
   'LBL_DISPLAYING_LOG' => 'Exibindo Registo',
   'LBL_ENABLE_ACTION_MENU' => 'Visualizar ações dentro do Menu',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Selecione para exibir DetailView e ações do subpainel dentro de um menu suspenso. Se não  selecionados, as ações serão exibidas como botões separados.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Mostrar e-mails dos contatos relacionados no histórico do sub painel para módulos',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Ativar / Desativar e-mails de contatos relacionados (ou ligados) para mostrar no e-mail Subpainel.',
   'LBL_ENABLE_MAILMERGE' => 'Ativar o Mail Merge?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Senha Exchange',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Quaisquer parâmetros de filtro adicionais a aplicar quando da autenticação de Usuários ex:<em>is_sugar_user=1 ou (is_sugar_user=1)(is_sales=1)</em>;',
   'LBL_LEAD_CONV_OPTION' => 'Opções Conversão de Leads',
   'LBL_LOADING' => 'Carregando...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Esta definição aplica-se aos módulos no modo legado.',
   'LBL_LOGGER' => 'Configurações de Logger',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Formato padrão da data',
   'LBL_LOGGER_FILENAME' => 'Nome do arquivo Log',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Próximo >>',
   'LBL_NOTIFY_FROMADDRESS' => 'Endereço"De":',
   'LBL_NOTIFY_SUBJECT' => 'Assunto do E-mail:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Evita alterações de nome por usuários para atualizar seu Nome de Equipe Privado',
   'LBL_OC_STATUS' => 'Estado do Cliente Off-line por defeito',
   'LBL_OC_STATUS_DESC' => 'Seleccione esta opção se pretender que qualquer Usuário tenha acesso ao Cliente Off-line. Caso contrário poderá configurar isto ao nível de cada Usuário.',
   'LBL_PDFMODULE_NAME' => 'Definições de PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'ERRO: A fonte não foi adicionada. Consulte o registo abaixo.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUCESSO: A fonte foi adicionada ao SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Definições de Sistema',
+  'LBL_TWEETTOCASE_ON' => 'Habilitar Ocorrência Tweet&reg;',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Permitir usuários criarem casos a partir de Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; Ocorrências',
   'LBL_USE_REAL_NAMES' => 'Mostrar o Nome Completo (não login)',
   'LBL_USE_REAL_NAMES_DESC' => 'Mostrar o nome completo dos Usuários ao invés do nome de Usuário',
   'LBL_VCAL_PERIOD' => 'Período de Tempo das atualizações vCal',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nome do Sistema',
   'SYSTEM_NAME_HELP' => 'Nome que aparece na barra de título do seu navegador.',
   'SYSTEM_NAME_WIZARD' => 'Nome:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Configuração recomendada está abaixo {{listEntriesNum}} para níveis de desempenho aceitáveis. Como campos adicionais são adicionados ao listview, este número deve ser na extremidade inferior do valor recomendado.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Configuração recomendada está abaixo {{subpanelEntriesNum }}  para níveis de desempenho aceitáveis. Como campos adicionais são adicionados ao listview, este número deve ser na extremidade inferior do valor recomendado.',
   'UPLOAD_MAX_SIZE' => 'Tamanho máximo de Arquivos a carregar',
   'VERIFY_CLIENT_IP' => 'Validar o IP do Usuário',
   'vCAL_HELP' => 'Utilize esta configuração para determinar o número de meses em antecedência à atual data em que a informação Free/Busy para chamadas telefônicas e reuniões é publicada.</BR>Para desligar a publicação Free/Busy, introduza "0". O mínimo é 1 mês; o máximo são 12 meses.',

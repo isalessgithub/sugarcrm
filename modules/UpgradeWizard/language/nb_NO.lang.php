@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'De følgende modulene har blitt installert:',
   'DESC_MODULES_QUEUED' => 'De følgende modulene har allerede blitt installert:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Den opplastede filen er ikke kompatibel med denne versjon (Communty Edition, Professional eller Enterprise) av Sugar:',
+  'ERROR_HT_NO_WRITE' => 'Kan ikke skrive til filen:% s',
+  'ERROR_MANIFEST_TYPE' => 'Manifest-filen må angi pakketypen.',
+  'ERROR_PACKAGE_TYPE' => 'Manifestfilen spesifiserer en ukjent pakketype:%s',
+  'ERROR_UW_CONFIG_DB' => 'Feil ved lagring av %s konfig var til db (nøkkel% s, verdi%s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Den opplastede filen er ikke kompatibel med denne versjon av Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Din versjon av PHP er ikke supportert av Sugar. Du må installere en versjon som er kompatibel med Sugar. Vennligst sjekk Compatibility Matrix i Release Notes for støttede PHP versjoner. Din versjon er',
+  'ERR_NOT_ADMIN' => 'Uautorisert tilgang til administrasjon.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Du har ikke tillatelse til å få tilgang til denne siden.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Kan ikke bestemme Gruppe',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Kan ikke bestemme Eier',
   'ERR_UW_CONFIG' => 'Vennligst forsikre deg om at din config.php-fil er endringsbar og last deretter opp siden på nytt.',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Start på nytt',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Gjennomfør oppdatering i progresjon',
   'LBL_CURRENT_PHP_VERSION' => '(Din nåværende php versjon er',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globalt synlig',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php versjon 5 eller nyere er nødvendig.',
   'LBL_LANGPACKS' => 'Språkpakker',
@@ -94,6 +98,7 @@ $mod_strings = array (
   'LBL_ML_VERSION' => 'Versjon',
   'LBL_MODULELOADER' => 'Modul-opplaster',
   'LBL_MODULE_NAME' => 'Oppgraderingsveiviser',
+  'LBL_MODULE_NAME_SINGULAR' => 'Oppgraderingsveiviser',
   'LBL_PATCHUPGRADES' => 'Oppgraderinger',
   'LBL_PREFLIGHT_CHECK_IN_PROGRESS' => 'Forhåndstest i progresjon',
   'LBL_PREFLIGHT_FILE_COPYING_PROGRESS' => 'Filkopiering pågår',
@@ -161,16 +166,7 @@ $mod_strings = array (
   'LBL_UW_DB_ISSUES' => 'Database-utstedelser',
   'LBL_UW_DB_ISSUES_PERMS' => 'Database-rettigheter',
   'LBL_UW_DB_METHOD' => 'Oppdateringsmetode for database',
-  'LBL_UW_DB_NO_ADD_COLUMN' => 'ENDRE TABELL [tabell] LEGG TIL KOLONNE [kolonne]',
-  'LBL_UW_DB_NO_CHANGE_COLUMN' => 'ENDRE TABELL [tabell] BYTT KOLONNE [kolonne]',
-  'LBL_UW_DB_NO_CREATE' => 'OPPRETT TABELL [tabell]',
-  'LBL_UW_DB_NO_DELETE' => 'SLETT FRA [tabell]',
-  'LBL_UW_DB_NO_DROP_COLUMN' => 'ENDRE TABELL [tabell] SLIPP KOLONNE [kolonne]',
-  'LBL_UW_DB_NO_DROP_TABLE' => 'SLIPP TABELL [tabell]',
   'LBL_UW_DB_NO_ERRORS' => 'Alle tilgjengelige rettigheter',
-  'LBL_UW_DB_NO_INSERT' => 'SETT INN I [tabell]',
-  'LBL_UW_DB_NO_SELECT' => 'VELG [x] FRA [tabell]',
-  'LBL_UW_DB_NO_UPDATE' => 'OPPDATER [tabell]',
   'LBL_UW_DB_PERMS' => 'Nødvendige rettigheter',
   'LBL_UW_DESC_MODULES_INSTALLED' => 'De følgende oppdateringene har blitt installert:',
   'LBL_UW_DORP_THE_OLD_SCHMEA' => 'Vil du at Sugar skal droppe 451-skjemaet?',

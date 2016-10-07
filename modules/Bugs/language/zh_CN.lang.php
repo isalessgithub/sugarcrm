@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -45,6 +42,23 @@ $mod_strings = array (
   'LBL_FIXED_IN_RELEASE' => '在现有版本上修复:',
   'LBL_FOUND_IN_RELEASE' => '在现有版本上创建:',
   'LBL_FOUND_IN_RELEASE_NAME' => '在显示名称中查到',
+  'LBL_HELP_CREATE' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}.
+
+To create a {{module_name}}:
+1. Provide values for the fields as desired.
+- Fields marked "Required" must be completed prior to saving.
+- Click "Show More" to expose additional fields if necessary.
+2. Click "Save" to finalize the new record and return to the previous page.
+- Choose "Save and view" to open the new {{module_name}} in record view.
+- Choose "Save and create new" to immediately create another new {{module_name}}.',
+  'LBL_HELP_RECORD' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}.
+
+- Edit this record&#39;s fields by clicking an individual field or the Edit button.
+- View or modify links to other records in the subpanels by toggling the bottom left pane to "Data View".
+- Make and view user comments and record change history in the {{activitystream_singular_module}} by toggling the bottom left pane to "Activity Stream".
+- Follow or favorite this record using the icons to the right of the record name.
+- Additional actions are available in the dropdown Actions menu to the right of the Edit button.',
+  'LBL_HELP_RECORDS' => 'The {{module_name}} module consists of individual people who are unqualified prospects that you have some information on, but is not yet a qualified {{leads_singular_module}}. Information (e.g. name, email address) regarding these {{plural_module_name}} are normally acquired from business cards you receive while attending various trades shows, conferences, etc. {{plural_module_name}} in Sugar are stand-alone records as they are not related to {{contacts_module}}, {{leads_module}}, {{accounts_module}}, or {{opportunities_module}}. There are various ways you can create {{plural_module_name}} in Sugar such as via the {{plural_module_name}} module, importing {{plural_module_name}}, etc. Once the {{module_name}} record is created, you can view and edit information pertaining to the {{module_name}} via the {{plural_module_name}} Record view.',
   'LBL_HISTORY_SUBPANEL_TITLE' => '历史记录',
   'LBL_INVITEE' => '联系人',
   'LBL_LIST_ACCOUNT_NAME' => '客户名称',
@@ -69,7 +83,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => '缺陷追踪',
   'LBL_MODULE_TITLE' => '缺陷追踪: 首页',
   'LBL_NEW_FORM_TITLE' => '新增缺陷',
+  'LBL_NOTES_SUBPANEL_TITLE' => '记录',
   'LBL_NUMBER' => '编号:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => '如果您想报告已经找到了新的问题，您可以点击这里举报一个新的问题。',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => '您可以通过提供一个搜索条件来过滤文章列表',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => '例如，您可以使用它来找到一篇感兴趣的关于某个特定话题的文章。',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => '该的知识库模块的用于处理发表的文章。使用下面的箭头开始快速的游览',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => '此页显示发表的文章列表。',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => '点击此处您将随时返回到知识库。',
   'LBL_PORTAL_VIEWABLE' => '可视门户站点',
   'LBL_PRIORITY' => '优先级:',
   'LBL_PRODUCT_CATEGORY' => '类别:',

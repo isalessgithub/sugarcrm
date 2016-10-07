@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: view.step1.php 31561 2008-02-04 18:41:10Z jmertic $
  * Description: view handler for step 1 of the import process
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -54,15 +51,14 @@ class ImportViewDupcheck extends ImportView
 
         $content = $this->ss->fetch('modules/Import/tpls/dupcheck.tpl');
         $this->ss->assign("CONTENT", $content);
-        $this->ss->display('modules/Import/tpls/wizardWrapper.tpl');
+        $this->ss->display($this->getCustomFilePathIfExists('modules/Import/tpls/wizardWrapper.tpl'));
     }
 
-    private function getImportMap()
+    protected function getImportMap()
     {
         if( !empty($_REQUEST['source_id']) )
         {
-            $import_map_seed = new ImportMap();
-            $import_map_seed->retrieve($_REQUEST['source_id'], false);
+            $import_map_seed = BeanFactory::getBean('Import_1', $_REQUEST['source_id'], array("encode" => false));
 
             return $import_map_seed->getMapping();
         }
@@ -75,7 +71,7 @@ class ImportViewDupcheck extends ImportView
     /**
      * Returns JS used in this view
      */
-    private function _getJS()
+    protected function _getJS()
     {
         global $mod_strings, $sugar_config;
 
@@ -178,10 +174,6 @@ ProcessImport = new function()
         YAHOO.util.Connect.asyncRequest('POST', 'index.php',
             {
                 success: function(o) {
-                    if (o.responseText.replace(/^\s+|\s+$/g, '') != '') {
-                        this.failure(o);
-                    }
-                    else {
                         var locationStr = "index.php?module=Import"
                             + "&action=Last"
                             + "&current_step=" + document.getElementById("importstepdup").current_step.value
@@ -197,7 +189,6 @@ ProcessImport = new function()
                             ProcessImport.fileCount++;
                             ProcessImport.submit();
                         }
-                    }
                 },
                 failure: function(o) {
                 	YAHOO.SUGAR.MessageBox.minWidth = 500;

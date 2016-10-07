@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Müşteriyi silmek için bir kayıt numarası girmelisiniz.',
@@ -43,6 +40,15 @@ $mod_strings = array (
   'LBL_FILE_MIME_TYPE' => 'Mime Tipi',
   'LBL_FILE_URL' => 'Dosya URL',
   'LBL_FIRST_NAME' => 'İsim',
+  'LBL_HELP_CREATE' => '{{module_name}} oluşturmak için:<br />1. İstendiği şekilde alanlar için değerler giriniz.<br /> - "Zorunlu" olarak belirtilmiş alanların kaydetme öncesinde girilmesi gereklidir.<br /> - Gerek duyulursa "Daha Fazlasına" tıklayarak ek alanların görülmesi sağlanabilir.<br />2. "Kaydet" tuşuna basarak yeni kayıt oluşturma işlemini tamamlayınız ve öncesi sayfaya geçiniz.<br /> - "Kaydet ve görüntüle" tuşuna basarak yeni {{module_name}}  kaydını görüntü modunda açabilirsiniz.<br /> - "Kaydet ve yeni oluştur" tuşuna basarak hemen yeni bir {{module_name}} oluşturma ekranına geçebilirsiniz.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü, ilişkili kayıta ait metin veya ek dosya {{plural_module_name}} kayıtlarından oluşur.
+
+- Kaydın alanlarını, herhangi bir alana veya "Değiştir" tuşuna tıklayarak değiştirin.
+- Alt solda yer alan paneli "Kayıt Görünümü" olarak değiştirerek, diğer kayıtlar ile olan bağlantıları görün veya değiştirin.
+- Kaydın isminin sağındaki ikonlara tıklayarak kaydı izleyiniz veya favori olarak işaretleyiniz.
+- Alt solda yer alan paneli "Aktivite Akışı" olarak değiştirerek, kullanıcı yorumları görün, oluşturun ve  {{activitystream_singular_module}}  kayıtındaki değişiklik tarihçesini görün.
+- Daha fazla aksiyon, Değiştir tuşunun sağındaki Aksiyonlar seçimli menüde yer almaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü, ilişkili kayıta ait metin veya döküman barındıran {{plural_module_name}} kayıtlarından oluşur. {{module_name}} kayıtları, pek çok modülde, esnek ilişki alanları ile ilişkilendirilmiştir, ayrıca tek bir {{contacts_singular_module}} ile ilişki tanımlanması da mümkündür. {{plural_module_name}} bir kayıt hakkında genel bilgi veya ek içerebilir. {{plural_module_name}} kayıdı oluşturmak için Sugar içinde farklı yöntemler bulunmaktadır, örneğin {{plural_module_name}} modülü ile, dışarıdan {{plural_module_name}} içeri yükleyerek, veya Tarihçe altpaneli üzerinden, vb. {{module_name}} kaydı oluşturulduğunda, {{module_name}} modülündeki eksik bilgileri {{plural_module_name}} kayıt izleme ekranından görebilir ve düzeltebilirsiniz. Her {{module_name}} kaydı, {{accounts_module}}, {{contacts_module}}, {{opportunities_module}}, ve diğer Sugar kayıtları ile ilişkilendirilebilir.',
   'LBL_LAST_NAME' => 'Soyisim',
   'LBL_LEAD_ID' => 'Talep ID :',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Atanan Kullanıcı',
@@ -79,6 +85,7 @@ $mod_strings = array (
   'LBL_QUOTE_ID' => 'Teklif ID:',
   'LBL_RELATED_TO' => 'İlişkili:',
   'LBL_REMOVING_ATTACHMENT' => 'Eki Siliyor...',
+  'LBL_REVENUELINEITEMS' => 'Gelir Satır Öğeleri',
   'LBL_SEARCH_FORM_TITLE' => 'Not Arama',
   'LBL_SEND_ANYWAYS' => 'Bu E-Postanı konu bölümü boş. Yine de gönderilsin/kaydedilsin mi?',
   'LBL_STATUS' => 'Durum',

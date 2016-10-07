@@ -1,64 +1,91 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once("include/Expressions/Actions/AbstractAction.php");
 
-class ReadOnlyAction extends AbstractAction{
-	protected $expression =  "";
+class ReadOnlyAction extends AbstractAction
+{
+    protected $expression = "";
 
-	function ReadOnlyAction($params) {
-		$this->targetField = $params['target'];
-		$this->expression = str_replace("\n", "",$params['value']);
-	}
+    /*
+     * array Array of actions on which the Expression Action is not allowed
+     */
+    protected $disallowedActions = array('view');
 
-/**
-	 * Returns the javascript class equavalent to this php class
-	 *
-	 * @return string javascript.
-	 */
-	static function getJavascriptClass() {
-		return  "
-		SUGAR.forms.ReadOnlyAction = function(target, expr) {
-			this.target = target;
-			this.expr = expr;
-		}
+    public function ReadOnlyAction($params)
+    {
+        $this->params = $params;
+        $this->targetField = $params['target'];
+        $this->expression = str_replace("\n", "", $params['value']);
+    }
 
-		SUGAR.util.extend(SUGAR.forms.ReadOnlyAction, SUGAR.forms.AbstractAction, {
-			/**
-			 * Triggers the style dependencies.
-			 */
-			exec: function(context)
-			{
-				if (typeof(context) == 'undefined') context = this.context;
-				
-				var el = SUGAR.forms.AssignmentHandler.getElement(this.target);
-				if (!el)
-				    return;
+    /**
+     * Returns the javascript class equavalent to this php class
+     *
+     * @return string javascript.
+     */
+    public static function getJavascriptClass()
+    {
+        return "
+        SUGAR.forms.ReadOnlyAction = function(target, expr) {
+            this.afterRender = true;
+            if (_.isObject(target)){
+                expr = target.value;
+                target = target.target
+            }
+            this.target = target;
+            this.expr = expr;
+        }
 
-				var val = this.evalExpression(this.expr, context);
-				var set = val == SUGAR.expressions.Expression.TRUE;
-				this.setReadOnly(el, set);
-				this.setDateField(el, set);
-			},
+        SUGAR.util.extend(SUGAR.forms.ReadOnlyAction, SUGAR.forms.AbstractAction, {
+            /**
+             * Triggers the style dependencies.
+             */
+            exec: function(context) {
+                if (typeof(context) == 'undefined') context = this.context;
+                var val = this.evalExpression(this.expr, context),
+                    readOnly = val == SUGAR.expressions.Expression.TRUE;
+                
+                if (context.view) {
+                    //We may get triggered before the view has rendered with the full field list.
+                    //If that occurs wait for the next render to apply.
+                    if (_.isEmpty(context.view.fields)) {
+                        context.view.once('render', function(){this.exec(context);}, this);
+                        return;
+                    }
 
-			setReadOnly: function(el, set)
-			{
-			    var D = YAHOO.util.Dom;
-			    var property = el.type == 'checkbox' || 'select' ? 'disabled' : 'readonly';
-			    el[property] = set;
-			    if (set)
-			    {
+                    context.setFieldDisabled(this.target, readOnly);
+                } else {
+                    this.bwcExec(context, readOnly);
+                }
+
+            },
+
+            bwcExec: function(context, readonly) {
+                var el = SUGAR.forms.AssignmentHandler.getElement(this.target);
+                if (!el) {
+                    return;
+                }
+                this.setReadOnly(el, readonly);
+                this.setDateField(el, readonly);
+            },
+
+            setReadOnly: function(el, set)
+            {
+                var D = YAHOO.util.Dom;
+                var property = el.type == 'checkbox' || 'select' ? 'disabled' : 'readonly';
+                el[property] = set;
+                if (set)
+                {
                     D.setStyle(el, 'background-color', '#EEE');
                     if (!SUGAR.isIE)
                        D.setStyle(el, 'color', '#22');
@@ -68,10 +95,10 @@ class ReadOnlyAction extends AbstractAction{
                         if (!SUGAR.isIE)
                             D.setStyle(el, 'color', '');
                 }
-			},
+            },
 
-		    setDateField: function(el, set)
-		    {
+            setDateField: function(el, set)
+            {
                 var D = YAHOO.util.Dom, id = el.id, trig = D.get(id + '_trigger');
                 if(!trig) return;
                 var fields = [
@@ -88,30 +115,32 @@ class ReadOnlyAction extends AbstractAction{
                     D.setStyle(trig, 'display', 'none');
                 else
                     D.setStyle(trig, 'display', '');
-		    }
-		});";
-	}
+            }
+        });";
+    }
 
-	/**
-	 * Returns the javascript code to generate this actions equivalent.
-	 *
-	 * @return string javascript.
-	 */
-	function getJavascriptFire() {
-		return "new SUGAR.forms.ReadOnlyAction('{$this->targetField}','{$this->expression}')";
-	}
+    /**
+     * Returns the javascript code to generate this actions equivalent.
+     *
+     * @return string javascript.
+     */
+    public function getJavascriptFire()
+    {
+        return "new SUGAR.forms.ReadOnlyAction('{$this->targetField}','{$this->expression}')";
+    }
 
-	/**
-	 * Applies the Action to the target.
-	 *
-	 * @param SugarBeam $target
-	 */
-	function fire(&$target) {
-		//This is a no-op under PHP
-	}
+    /**
+     * Applies the Action to the target.
+     *
+     * @param SugarBeam $target
+     */
+    public function fire(&$target)
+    {
+        //This is a no-op under PHP
+    }
 
-	static function getActionName() {
-		return "ReadOnly";
-	}
-
+    public static function getActionName()
+    {
+        return "ReadOnly";
+    }
 }

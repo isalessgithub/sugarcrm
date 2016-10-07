@@ -2,30 +2,27 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_DELETE_EMPTY' => 'Rekord został już usunięty lub nie istnieje.',
-  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby usunąć szansę.',
+  'ERR_DELETE_RECORD' => 'Musisz podać numer rekordu, aby go usunąć.',
   'LBL_ALERT_TEMPLATES' => 'Szablony powiadomień',
   'LBL_APOSTROPHE_S' => ' ',
   'LBL_COMPARE_ANY_TIME_PART2' => 'nie zmienia się od',
   'LBL_COMPARE_ANY_TIME_PART3' => 'określonego okresu czasu',
   'LBL_COMPARE_ANY_TIME_TITLE' => 'Pole nie zmienia się od określonego okresu czasu',
-  'LBL_COMPARE_CHANGE_PART' => 'zmiana',
+  'LBL_COMPARE_CHANGE_PART' => 'zmieni się',
   'LBL_COMPARE_CHANGE_TITLE' => 'Jeżeli pole w module głównym zmieni się',
   'LBL_COMPARE_COUNT_TITLE' => 'Warunek określonego wyniku',
   'LBL_COMPARE_SPECIFIC_PART' => 'zmieni się na lub z określonej wartości',
@@ -71,7 +68,7 @@ $mod_strings = array (
   'LBL_NEW_TRIGGER_BUTTON_TITLE' => 'Utwórz warunek',
   'LBL_PAST_TRIGGER' => 'Określ poprzednią wartość',
   'LBL_RECORD' => 'moduły',
-  'LBL_SEARCH_FORM_TITLE' => 'Wyszukaj Warunki Workflow',
+  'LBL_SEARCH_FORM_TITLE' => 'Wyszukaj warunki Workflow',
   'LBL_SELECT_1ST_FILTER' => 'Musisz wybrać właściwe pierwsze pole filtru',
   'LBL_SELECT_2ND_FILTER' => 'Musisz wybrać właściwe drugie pole filtru',
   'LBL_SELECT_AMOUNT' => 'Musisz określić wartość',
@@ -95,6 +92,6 @@ $mod_strings = array (
   'LNK_TRIGGER' => 'Warunki Workflow',
   'LNK_WORKFLOW' => 'Workflow',
   'NTC_REMOVE_TRIGGER' => 'Czy na pewno chcesz usunąć ten warunek?',
-  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Usunięcie podstawowego warunku spowoduje usunięcie wszystkich warunków.',
+  'NTC_REMOVE_TRIGGER_PRIMARY' => 'Usunięcie podstawowego wyzwalacza usunie wszystkie pozostałe.',
 );
 

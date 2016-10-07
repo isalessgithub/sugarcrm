@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Kullanıcı Adı veya Şifre Hatalı',
   'ERR_BODY_TOO_LONG' => '\\rBÜTÜN e-postanın alınması için, İçerik metni çok uzun. Kesildi.',
+  'ERR_DELETE_FOLDER' => 'Klasör silinemedi.',
   'ERR_INI_ZLIB' => 'Zlib sıkıştırması geçici süre durdurulamadı.  "Test Ayarları" çalışmayabilir.',
   'ERR_MAILBOX_FAIL' => 'Herhangi bir posta hesabı getirilemedi.',
   'ERR_NO_IMAP' => 'IMAP kütüphanesi bulunamadı.  Gelen Posta ile devam etmeden önce, bu problemi çözün',
   'ERR_NO_OPTS_SAVED' => 'Gelen E-Posta hesabınız için optimum değerler kaydedilmedi.  Lütfen ayarlarınızı gözden geçirin',
   'ERR_TEST_MAILBOX' => 'Lütfen ayarlarınızı kontrol edip, tekrar deneyiniz.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Silmeden önce klasörden abonelik kaldırılamadı.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Kullanıcıların, "Kimden" İsim ve Adresini kullanarak E-Posta cevaplamalarına izin ver',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Bu seçenek seçili ise, grup E-Posta hesabına erişen kullanıcılar için E-Posta oluşturulurken, Grup ile ilişkili Kimden İsmi ve Adresi Kime alanında bir seçenek olarak çıkacaktır.',
   'LBL_APPLY_OPTIMUMS' => 'Optimum Değerleri Uygula',

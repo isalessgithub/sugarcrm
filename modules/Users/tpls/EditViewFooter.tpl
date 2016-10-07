@@ -1,17 +1,14 @@
 {*
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
 <!-- END METADATA GENERATED CONTENT -->
 
@@ -39,7 +36,7 @@
                                     {$MOD.LBL_EMAIL_LINK_TYPE}:&nbsp;{sugar_help text=$MOD.LBL_EMAIL_LINK_TYPE_HELP WIDTH=450}
                                 </td>
                                 <td>
-                                    <select id="email_link_type" name="email_link_type" tabindex='410'>
+                                    <select id="email_link_type" name="email_link_type" {if $DISABLE_SUGAR_CLIENT} data-sugarclientdisabled="true"{/if} tabindex='410'>
                                     {$EMAIL_LINK_TYPE}
                                     </select>
                                 </td>
@@ -94,9 +91,8 @@
                                 </th>
                             </tr>
                         </table>
-                            <!-- hide field if user is admin that is not editing themselves -->
-                            <div id='generate_password_old_password' {if ($IS_ADMIN && !$ADMIN_EDIT_SELF)} style='display:none' {/if}>
-
+                            <!-- hide field if user is admin -->
+                            <div id='generate_password_old_password' {if ($IS_ADMIN)} style='display:none' {/if}>
                                  <table width='100%' cellspacing='0' cellpadding='0' border='0' >
                                     <tr>
                                         <td width='35%' scope="row">
@@ -228,20 +224,9 @@
                         <tr>
                             <td scope="row" valign="top"><slot>{$MOD.LBL_USE_REAL_NAMES}:</slot>&nbsp;{sugar_help text=$MOD.LBL_USE_REAL_NAMES_DESC }</td>
                             <td ><slot><input tabindex='12' type="checkbox" name="use_real_names" {$USE_REAL_NAMES}></slot></td>
-                            <td scope="row" valign="top">
-                            <slot>{$MOD.LBL_MAILMERGE}:</slot>&nbsp;{sugar_help text=$MOD.LBL_MAILMERGE_TEXT }
-                            </td>
-                            <td valign="top"  nowrap>
-                            <slot><input tabindex='12' name='mailmerge_on' class="checkbox" type="checkbox" {$MAILMERGE_ON}></slot>
-                            </td>
+                            <td scope="row"></td>
+                            <td></td>
                         </tr>
-                        <!-- BEGIN: pro_oc -->
-                        <tr>
-                            <td scope="row" valign="top"><slot>{$MOD.LBL_OWN_OPPS}:</slot>&nbsp;{sugar_help text=$MOD.LBL_OWN_OPPS_DESC }</td>
-                            <td ><slot><input tabindex='12' type="checkbox" name="no_opps" {$NO_OPPS}></slot></td>
-                        </tr>
-                        <!-- END: pro_oc -->
-                        <!-- BEGIN: pro -->
                         <tr>
                             {if !empty($SHOW_TEAM_SELECTION)}
                             <td width="20%" scope="row"><slot>{$MOD.LBL_DEFAULT_TEAM}:</slot>&nbsp;{sugar_help text=$MOD.LBL_DEFAULT_TEAM_TEXT }</td>
@@ -250,7 +235,6 @@
                             <td scope="row"></td>
                             <td></td>
                         </tr>
-                        <!-- END: pro -->
                         <!--{if !empty($EXTERNAL_AUTH_CLASS) && !empty($IS_ADMIN)}-->
                             <tr>
                                 {capture name=SMARTY_LBL_EXTERNAL_AUTH_ONLY}&nbsp;{$MOD.LBL_EXTERNAL_AUTH_ONLY} {$EXTERNAL_AUTH_CLASS_1}{/capture}
@@ -268,10 +252,6 @@
                 <tr>
                     <th align="left" scope="row" colspan="4"><h4>{$MOD.LBL_LAYOUT_OPTIONS}</h4></th>
                 </tr>
-							<tr id="use_group_tabs_row" style="display: {$DISPLAY_GROUP_TAB};">
-                                <td scope="row"><span>{$MOD.LBL_USE_GROUP_TABS}:</span>&nbsp;{sugar_help text=$MOD.LBL_NAVIGATION_PARADIGM_DESCRIPTION }</td>
-                                <td colspan="3"><input name="use_group_tabs" type="hidden" value="m"><input id="use_group_tabs" type="checkbox" name="use_group_tabs" {$USE_GROUP_TABS} tabindex='12' value="gm"></td>
-                            </tr>
                             <tr>
                                 <td colspan="4">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -281,10 +261,6 @@
                                         </tr>
                                     </table>
                                 </td>
-                            </tr>
-							<tr>
-                                <td width="17%" scope="row"><span>{$MOD.LBL_SUBPANEL_TABS}:</span>&nbsp;{sugar_help text=$MOD.LBL_SUBPANEL_TABS_DESCRIPTION }</td>
-                                <td width="83%" colspan="3"><input type="checkbox" name="user_subpanel_tabs" {$SUBPANEL_TABS} tabindex='13'></td>
                             </tr>
                         </table>
         </div>
@@ -307,11 +283,21 @@
                             <!-- END: currency -->
                         </tr>
                         <tr>
+                            <td scope="row"><slot></td>
+                            <td scope="row"><slot></td>
+                            <!-- BEGIN: show preferred currency -->
+                            <td width="17%" scope="row"><slot>{$MOD.LBL_CURRENCY_SHOW_PREFERRED}:</slot>&nbsp;{sugar_help text=$MOD.LBL_CURRENCY_SHOW_PREFERRED_TEXT }</td>
+                            <td ><slot>
+                                    <input id="currency_show_preferred" type="checkbox" name="currency_show_preferred" value="YES" {if $currency_show_preferred}checked="checked"{/if}>
+                                </slot></td>
+                            <!-- END: show preferred currency -->
+                        </tr>
+                        <tr>
                             <td scope="row"><slot>{$MOD.LBL_TIME_FORMAT}:</slot>&nbsp;{sugar_help text=$MOD.LBL_TIME_FORMAT_TEXT }</td>
                             <td ><slot><select tabindex='14' name='timeformat'>{$TIMEOPTIONS}</select></slot></td>
                             <!-- BEGIN: currency -->
                             <td width="17%" scope="row"><slot>
-                                {$MOD.LBL_CURRENCY_SIG_DIGITS}:
+                                {$MOD.LBL_SYSTEM_SIG_DIGITS}:
                             </slot></td>
                             <td ><slot>
                                 <select id='sigDigits' onchange='setSigDigits(this.value);' name='default_currency_significant_digits'>{$sigDigits}</select>
@@ -463,6 +449,18 @@ $(document).ready(function() {
     	checkKey($(this).val());
     });
     checkKey($('#calendar_publish_key').val());
+
+    {/literal}
+    {if $mail_haspass}
+    {literal}
+    if(window.addEventListener){
+        window.addEventListener("load", function() { SUGAR.util.setEmailPasswordDisplay('mail_smtppass', {/literal}{$mail_haspass}{literal}); }, false);
+    }else{
+        window.attachEvent("onload", function() { SUGAR.util.setEmailPasswordDisplay('mail_smtppass', {/literal}{$mail_haspass}{literal}); });
+    }
+    {/literal}
+    {/if}
+    {literal}
 });
 {/literal}
 </script>
@@ -473,10 +471,11 @@ $(document).ready(function() {
 {$getNameJs}
 {$getNumberJs}
 currencies = {$currencySymbolJSON};
+{{if $themeGroupListJSON}}
 themeGroupList = {$themeGroupListJSON};
+{{/if}}
 
 onUserEditView();
-
 
 </script>
 

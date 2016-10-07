@@ -1,27 +1,21 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
 
-/*********************************************************************************
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): ______________________________________..
- *********************************************************************************/
 require_once("include/SugarRouting/SugarRouting.php");
 
-$ie = new InboundEmail();
+$ie = BeanFactory::getBean('InboundEmail');
+$ie->disable_row_level_security = true;
 $json = getJSONobj();
 $rules = new SugarRouting($ie, $current_user);
 
@@ -29,68 +23,61 @@ switch($_REQUEST['routingAction']) {
 	case "setRuleStatus":
 		$rules->setRuleStatus($_REQUEST['rule_id'], $_REQUEST['status']);
 	break;
-	
+
 	case "saveRule":
 		$rules->save($_REQUEST);
 	break;
-	
+
 	case "deleteRule":
 		$rules->deleteRule($_REQUEST['rule_id']);
 	break;
-	
+
 	/* returns metadata to construct actions */
 	case "getActions":
 		require_once("include/SugarDependentDropdown/SugarDependentDropdown.php");
-		
+
 		$sdd = new SugarDependentDropdown();
 		$sdd->init("include/SugarDependentDropdown/metadata/dependentDropdown.php");
 		$out = $json->encode($sdd->metadata, true);
 		echo $out;
 	break;
-	
+
 	/* returns metadata to construct a rule */
 	case "getRule":
 		$ret = '';
 		if(isset($_REQUEST['rule_id']) && !empty($_REQUEST['rule_id']) && isset($_REQUEST['bean']) && !empty($_REQUEST['bean'])) {
-			if(!isset($beanList))
-				include("include/modules.php");
-			
-			$class = $beanList[$_REQUEST['bean']];
-			//$beanList['Groups'] = 'Group';
-			if(isset($beanList[$_REQUEST['bean']])) {
-				require_once("modules/{$_REQUEST['bean']}/{$class}.php");
-				$bean = new $class();
-				
+		    $bean = BeanFactory::getBean($_REQUEST['bean']);
+            if(!empty($bean)) {
 				$rule = $rules->getRule($_REQUEST['rule_id'], $bean);
-				
+
 				$ret = array(
 					'bean' => $_REQUEST['bean'],
 					'rule' => $rule
 				);
 			}
 		} else {
-			$bean = new SugarBean();
+			$bean = BeanFactory::getBean('Empty');
 			$rule = $rules->getRule('', $bean);
-			
+
 			$ret = array(
 				'bean' => $_REQUEST['bean'],
 				'rule' => $rule
 			);
 		}
-		
+
 		//_ppd($ret);
-		
+
 		$out = $json->encode($ret, true);
 		echo $out;
 	break;
-	
+
 	case "getStrings":
 		$ret = $rules->getStrings();
 		$out = $json->encode($ret, true);
 		echo $out;
 	break;
 
-	
+
 	default:
 		echo "NOOP";
 }

@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 54394 2010-02-09 20:38:34Z roger $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -22,10 +19,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_ID'=>'ID',
   'LBL_CREATED_ID'=>'Created By Id',
   'LBL_MODIFIED_ID'=>'Modified By Id',
   'LBL_MODULE_NAME' => 'Manufacturers',
+  'LBL_MODULE_NAME_SINGULAR' => 'Manufacturer',
   'LBL_MODULE_TITLE' => 'Manufacturers: Home',
   'LBL_SEARCH_FORM_TITLE' => 'Manufacturer Search',
   'LBL_LIST_FORM_TITLE' => 'Manufacturer List',
@@ -42,10 +39,11 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status:',
   'LNK_PRODUCT_LIST' => 'View Product Catalog',
   'LNK_NEW_PRODUCT' => 'Create Product for Catalog',
-  'LNK_NEW_MANUFACTURER' => 'Manufacturers',
+  'LNK_NEW_MANUFACTURER' => 'View Manufacturers',
   'LNK_NEW_SHIPPER' => 'Shipping Providers',
-  'LNK_NEW_PRODUCT_CATEGORY' => 'Product Categories',
-  'LNK_NEW_PRODUCT_TYPE' => 'Product Types',
+  'LNK_NEW_PRODUCT_CATEGORY' => 'View Product Categories',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Import Product Categories',
+  'LNK_NEW_PRODUCT_TYPE' => 'View Product Types',
   'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to delete this record?',
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the manufacturer.',
   'NTC_STATUS' => 'Set status to Inactive to remove this manufacturer from the Manufacturer dropdown lists',
@@ -57,6 +55,7 @@ $mod_strings = array (
 ),
   'LNK_IMPORT_MANUFACTURERS'=>'Import Manufacturers',
 	'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
+  'LBL_REVENUELINEITEMS' => 'Revenue Line Items',
 );
 
 

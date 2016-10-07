@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ki kell jelölni egy rekordot a lehetőség törléséhez.',
@@ -23,16 +20,12 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Kliens azonosító',
   'LBL_ACCOUNT_NAME' => 'Kliens neve:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Tevékenységek',
-  'LBL_AMOUNT' => 'Lehetőség összege:',
-  'LBL_AMOUNT_USDOLLAR' => 'Összeg:',
   'LBL_ASSIGNED_TO_ID' => 'Hozzárendelt felhasználó:',
   'LBL_ASSIGNED_TO_NAME' => 'Felelős:',
-  'LBL_BEST_CASE' => 'Legjobb eset',
-  'LBL_BEST_CASE_BASE_CURRENCY' => 'Legjobb alap árfolyam',
-  'LBL_BEST_CASE_WORKSHEET' => 'Korrigált legjobb eset',
   'LBL_CAMPAIGN' => 'Kampány:',
   'LBL_CAMPAIGN_LINK' => 'Kampány link',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Kampányok',
+  'LBL_CLOSED_RLIS' => '# lezárt bevételi sor',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Lezárt, megnyert lehetőségek',
   'LBL_COMMITTED' => 'Hozzárendelve',
   'LBL_COMMIT_STAGE' => 'Elköteleződés szintje',
@@ -48,6 +41,7 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => 'Pénznem neve',
   'LBL_CURRENCY_RATE' => 'Árfolyam',
   'LBL_CURRENCY_SYMBOL' => 'Pénznem szimbólum',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Tíz legjobb Eladási Lehetőség Termékei',
   'LBL_DATE_CLOSED' => 'Várható lezárása dátuma:',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Lezárás várható dátuma időbélyegző',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Lehetőségek',
@@ -61,22 +55,27 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Létrehozó azonosítója',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Módosító azonosítója',
   'LBL_EXPORT_NAME' => 'Név',
+  'LBL_FILENAME' => 'Melléklet',
   'LBL_FORECAST' => 'Belefoglal az előjelzésbe',
+  'LBL_HELP_CONFIG_OPPS' => 'Ha Ön kezdeményezi ezt a változtatást, a Bevételi Sortételek összefoglaló megjegyzései a háttérben megjelennek. Ha a megjegyzések készen vannak és rendelkezésre állnak a rendszer értesítést küld az Ön felhasználói profiljának e-mail címére. Ha az Ön példánya a {{forecasts_module}} modulra van beállítva, a Sugar akkor is küld Önnek értesítést, ha az Ön {{module_name}} adatai a {{forecasts_module}} modullal szinkronizálásra kerültek és az új {{forecasts_module}} modul számára elérhetők. Kérjük, vegye figyelembe, hogy a példánya úgy kell legyen konfigurálva, hogy tudjon e-mailt küldeni az Admin > Email Beállításokon keresztül, hogy az értesítés elküldhető legyen.',
+  'LBL_HELP_CONFIG_RLIS' => 'Miután Ön kezdeményezi ezt a változtatást, a Bevételi Sortételek adatai minden meglévő {{module_name}} modulra vonatkozóan a háttérben megjelennek. Ha a Bevételi Sortételek adatai készen vannak és rendelkezésre állnak a rendszer értesítést küld az Ön felhasználói profiljának e-mail címére. Kérjük, vegye figyelembe, hogy a példánya úgy kell legyen konfigurálva, hogy tudjon e-mailt küldeni az Admin > Email Beállításokon keresztül, hogy az értesítés elküldhető legyen.',
+  'LBL_HELP_CREATE' => 'A {{plural_module_name}} modul az eladásokkal foglalkozik. A bejegyzések {{revenuelineitems_module}} csoportokat tartalmaznak, amelyek többek között tételeket listáznak az árajánlat, vagy a kapcsolati modulokból. {{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi nézetre való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása" paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul az eladásokkal foglalkozik. A bejegyzések {{revenuelineitems_module}} csoportokat tartalmaznak, amelyek többek között tételeket listáznak az árajánlat, vagy a kapcsolati modulokból. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul az eladásokkal foglalkozik. A bejegyzések {{revenuelineitems_module}} csoportokat tartalmaznak, amelyek többek között tételeket listáznak az árajánlat, vagy a kapcsolati modulokból. Minden {{revenuelineitems_module}} egy önálló értékesítési lehetőséget szimbolizál, magába foglalva a releváns adatokat. Minden {{revenuelineitems_module}} élettartam a "Lezárt, megnyert", vagy a "Lezárt, elvesztett" címke eléréséig tart. A várható zárás dátumát egy {{module_name}} rekord tartalmazza. A származtatott adatok feldolgozhatók az Előrejelzések modulban is.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_INVITEE' => 'Kapcsolatok',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Ajánlások',
   'LBL_LEAD_SOURCE' => 'Ajánlás forrása:',
-  'LBL_LIKELY_CASE' => 'Valószínű eset',
-  'LBL_LIKELY_CASE_BASE_CURRENCY' => 'Valószínű alap árfolyam',
-  'LBL_LIKELY_CASE_WORKSHEET' => 'Korrigált valószínű eset',
   'LBL_LIST_ACCOUNT_NAME' => 'Kliens neve',
-  'LBL_LIST_AMOUNT' => 'Lehetőség összege',
-  'LBL_LIST_AMOUNT_USDOLLAR' => 'Összeg',
+  'LBL_LIST_AMOUNT' => 'Valószínű',
+  'LBL_LIST_AMOUNT_USDOLLAR' => 'Teljes összeg',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Felelős felhasználó',
   'LBL_LIST_DATE_CLOSED' => 'Zárás',
   'LBL_LIST_FORM_TITLE' => 'Lehetőségek listája',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Név',
   'LBL_LIST_SALES_STAGE' => 'Eladási szint:',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Sznkronizálás ehhez: Marketo®',
   'LBL_MODIFIED_ID' => 'Módosítva azonosító alapján',
   'LBL_MODIFIED_NAME' => 'Módosítva felhasználó neve szerint',
   'LBL_MODIFIED_USER' => 'Módosított felhasználó',
@@ -87,36 +86,58 @@ $mod_strings = array (
   'LBL_NAME' => 'Lehetőség neve',
   'LBL_NEW_FORM_TITLE' => 'Lehetőség létrehozása',
   'LBL_NEXT_STEP' => 'Következő lépés:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Feljegyzések',
   'LBL_OPPORTUNITY' => 'Lehetőség:',
   'LBL_OPPORTUNITY_NAME' => 'Lehetőség neve:',
+  'LBL_OPPORTUNITY_ROLE' => 'Lehetőség szerepe',
   'LBL_OPPORTUNITY_TYPE' => 'Lehetőség típusa',
+  'LBL_OPPS_CONFIG_ALERT' => 'A Visszaigazolás gombra kattintva Ön ki fog törölni MINDEN Előrejelző adatot a Lehetőségek Nézetéből. Ha Ön nem ezt akarta, kattintson a Vissza gombra, hogy visszatérhessen az előző oldal beállításaihoz.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Ha minden Bevételi Sortétel be van zárva és legalább egy megnyert tétel van,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'a Lehetőségi Eladások Státusza a "Bezárva Megnyerve" értéket veszi fel.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Ha minden Bevételi Sortétel Eladási Státusza a "Bezárva Elveszítve" értéket veszi fel,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'akkor a Lehetőségi Eladások Státuszát a "Bezárva Elveszítve" értékre kell állítani.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Ha minden Bevételi Sortétel még nyitva van,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'akkor a Lehetőség az Eladások legutolsó előremeneteli Állapotával lesz jelezve.',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Adja meg a Várható Zárási Dátummezőt az ebből következő Lehetőségi adatban, úgy hogy az a legkorábban, legkésőbb legyen a meglévő Bevételi Sortételek zárási dátumaihoz',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Lehetőségek hierarchiája',
+  'LBL_PIPELINE_TOTAL_IS' => 'A pipeline teljes értéke',
   'LBL_PRIMARY_QUOTE_ID' => 'Elsődleges ajánlat',
   'LBL_PROBABILITY' => 'Valószínűség (%):',
   'LBL_PRODUCTS' => 'Termékek',
-  'LBL_PRODUCT_LINES_SUBPANEL_TITLE' => 'Termékcsalád tételek',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Megajánlott Tételek',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projektek',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projektek',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Árajánlatok',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Árajánlatok',
   'LBL_RAW_AMOUNT' => 'Nyers összeg',
+  'LBL_RLI' => 'Bevétel sorok',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Bevétel sorok',
   'LBL_SALES_STAGE' => 'Eladási szint:',
+  'LBL_SALES_STATUS' => 'Állapot',
   'LBL_SEARCH_FORM_TITLE' => 'Lehetőségek keresése',
   'LBL_TEAM_ID' => 'Csoport azonosító',
   'LBL_TIMEPERIODS' => 'Időperiódusok',
   'LBL_TIMEPERIOD_ID' => 'Időperiódus azonosítója',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'A tíz legjobb Eladási Lehetőség Termékeit jeleníti meg egy diagramon.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Lehetőségeim',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Csoportom Lehetőségei',
   'LBL_TOP_OPPORTUNITIES' => 'Legjobb nyitott lehetőségeim',
   'LBL_TOTAL_OPPORTUNITIES' => 'Lehetőségek összesen',
+  'LBL_TOTAL_RLIS' => '# összes bevételi sor',
   'LBL_TYPE' => 'Típus:',
   'LBL_VIEW_FORM_TITLE' => 'Lehetőségek megtekintése',
   'LBL_WORKSHEET' => 'Munkalap',
-  'LBL_WORST_CASE' => 'Legrosszabb eset',
-  'LBL_WORST_CASE_BASE_CURRENCY' => 'Legrosszabb alap árfolyam',
+  'LNK_CREATE' => 'Megegyezés létrehozása',
   'LNK_IMPORT_OPPORTUNITIES' => 'Lehetőségek importálása',
   'LNK_NEW_OPPORTUNITY' => 'Lehetőség létrehozása',
   'LNK_OPPORTUNITY_LIST' => 'Lehetőségek megtekintése',
   'LNK_OPPORTUNITY_REPORTS' => 'Lehetőségek jelentéseinek megtekintése',
   'MSG_DUPLICATE' => 'A lehetőség bejegyzés, amit épp létrehozni kíván, elképzelhető, hogy egy korábbi bejegyzés ismétlése. A hasonló névvel szereplő bejegyzések lentebb láthatók. Kattintson a Mentés gombra, ha folytatni kívánja a lehetőség létrehozását, vagy kattintson a Mégsem gombra, hogy visszatérjen a lehetőség létrehozása nélkül a modulba.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Azok a lehetőségek, amelyekhez lezárt bevételi sorok kapcsolódnak, nem törölhetők.',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Biztosan el akarja távolítani ezt a személyt a lehetőségtől?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Biztosan el akarja távolítani ezt a lehetőséget a projekttől?',
+  'TPL_RLI_CREATE' => 'Minden lehetőségnek kapcsolódnia kell egy bevételi sorhoz. <a href="javascript:void(0);" id="createRLI">Bevételi sor létrehozása</a>.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Bevételi sor tétel létrehozása.',
   'UPDATE' => 'Lehetőség - Pénznem frissítése',
   'UPDATE_BUGFOUND_COUNT' => 'Talált hibák:',
   'UPDATE_BUG_COUNT' => 'Talált hibák, amelyeket a rendszer megpróbált kijavítani:',
@@ -142,5 +163,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Új összeg:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Új pénznem:',
   'UPDATE_VERIFY_TXT' => 'Ellenőrzi, hogy az összegek érvényes decimális(,) vagy numerikus(0-9) karakterek-e.',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'A kijelölt rekordok közül, egy vagy több bejegyzés lezárt bevételi sort tartalmaz, ezért nem lehet törölni.',
 );
 

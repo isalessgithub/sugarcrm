@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót az árajánlat törléséhez!',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Az Ajánlat Már Lehetőséggé Lett Átalakítva',
   'LBL_ACCOUNT_ID' => 'Kliensazonosító',
   'LBL_ACCOUNT_NAME' => 'Kliensnév:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Tevékenységek',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Költség',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Aktuális zárás',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Érvényesség tartama:',
-  'LBL_LIST_DEAL_TOT' => 'Kedvezmény',
+  'LBL_LIST_DEAL_TOT' => 'Teljes Engedmény',
   'LBL_LIST_DISCOUNT_PRICE' => 'Egységár',
   'LBL_LIST_FORM_TITLE' => 'Árajánlat lista',
   'LBL_LIST_GRAND_TOTAL' => 'Végösszeg',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Árajánlataim',
   'LBL_LIST_PRICING_FACTOR' => 'Faktor',
   'LBL_LIST_PRICING_FORMULA' => 'Árképzési forma',
-  'LBL_LIST_PRODUCT_NAME' => 'Termék',
+  'LBL_LIST_PRODUCT_NAME' => 'Megajánlott Tétel',
   'LBL_LIST_QUANTITY' => 'Mennyiség',
   'LBL_LIST_QUOTE_NAME' => 'Tárgy',
   'LBL_LIST_QUOTE_NUM' => 'Szám',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'Kedvezmény:',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Kibővített ár',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Listaár:',
-  'LBL_PDF_ITEM_PRODUCT' => 'Termék',
+  'LBL_PDF_ITEM_PRODUCT' => 'Megajánlott Tétel',
   'LBL_PDF_ITEM_QUANTITY' => 'Mennyiség',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => ' ',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Egységár',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Hozzászólás eltávolítása',
   'LBL_REMOVE_ROW' => 'Sor törlése',
   'LBL_RENAME_ERROR' => 'HIBA: a PDF nem mozgatható a megadott helyre. Ellenőrizze, hogy a könyvtár írható-e a webszerveren',
+  'LBL_REVENUELINEITEMS' => 'Bevételi sor tételek',
   'LBL_SALES_STAGE' => 'Árajánlat állapota:',
   'LBL_SEARCH_FORM_TITLE' => 'Árajánlat keresése',
   'LBL_SHIPPING' => 'Szállítás:',

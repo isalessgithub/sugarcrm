@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Informatii Adresa',
@@ -39,10 +36,14 @@ $mod_strings = array (
   'LBL_DO_NOT_CALL' => 'Nu sunati',
   'LBL_EDIT_BUTTON' => 'Editeaza',
   'LBL_EMAIL_ADDRESS' => 'adresa email',
+  'LBL_FACEBOOK' => 'Cont Facebook',
   'LBL_FAX_PHONE' => 'Fax:',
   'LBL_FIRST_NAME' => 'Prenume',
+  'LBL_GOOGLEPLUS' => 'ID Google Plus',
   'LBL_HOME_PHONE' => 'Telefon Acasa:',
+  'LBL_IMPORT_VCARDTEXT' => 'Crează automat o nouă înregistrare prin importarea unui vCard din sistemul dvs. de fişiere.',
   'LBL_LAST_NAME' => 'Nume',
+  'LBL_LINKEDIN' => 'Cont Membru Linkedin',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_NAME' => 'Nume',
   'LBL_OFFICE_PHONE' => 'Telefon Birou',
@@ -65,7 +66,10 @@ $mod_strings = array (
   'LBL_STATE' => 'Stat:',
   'LBL_STREET' => 'Alta adresa',
   'LBL_TITLE' => 'Titlu:',
+  'LBL_TWITTER' => 'Cont Twitter',
   'LBL_WORK_PHONE' => 'Telefon Serviciu:',
   'LNK_IMPORT_VCARD' => 'Creaza din vCard',
+  'NTC_COPY_ALTERNATE_ADDRESS' => 'Copiază adresa alternativă la adresa principală',
+  'NTC_COPY_PRIMARY_ADDRESS' => 'Copiază adresa principală la adresa alternativă',
 );
 

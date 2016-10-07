@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Adjon meg egy azonosítót az ajánlás törléséhez!',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Cím információ',
   'LBL_ADD_BUSINESSCARD' => 'Névjegykártya hozzáadása',
   'LBL_ALTERNATE_ADDRESS' => 'Egyéb cím:',
-  'LBL_ALT_ADDRESS' => 'Egyéb cím:',
   'LBL_ALT_ADDRESS_CITY' => 'Másodlagos cím, város:',
   'LBL_ALT_ADDRESS_COUNTRY' => 'Másodlagos cím, ország:',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'Másodlagos cím, irányítószám:',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Konvertált lehetőség:',
   'LBL_CONVERTLEAD' => 'Ajánlás konvertálása',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'Ajánlás konvertálása sikertelen',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Ön sikeresen konvertálta az alábbi ajánlást: {{leadName}}, ugyanakkor probléma lépett fel a mellékletek feltöltése során.',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Ön sikeresen konvertálta az alábbi ajánlást: {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Ajánlás konvertálása',
   'LBL_CONVERTLEAD_WARNING' => 'Figyelem: a konvertálni kívánt ajánlás állapota jelenleg is konvertált. Elképzelhető, hogy az ajánlásból kapcsolati vagy kliens adatokat tárolt el a rendszer. Ha így is folytatni szeretné a konvertálás folyamatát, kattintson a Mentés gombra! Az ajánláshoz való visszatéréshez nyomja meg a Mégsem gombot.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Lehetséges kapcsolat:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'Önnek nincs megfelelő hozzáférése a modulokhoz az ajánlások konvertálásához: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Modul hozzáadása',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Kapcsolt {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => '{{moduleName}} összekapcsolása',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Vissza a többszörös előfordulásokhoz',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Konvertálás',
   'LBL_CONVERT_COPY' => 'Adat másolása',
+  'LBL_CONVERT_CREATE_NEW' => 'Új {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Törlés',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} többszörös előfordulás található',
   'LBL_CONVERT_EDIT' => 'Szerkeszt',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Konvertálási felület szerkesztése',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Többszörös előfordulások keresése...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Figyelmen kívül hagy és új létrehozása',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} összekapcsolva',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Ön sikeresen összekapcsolta az alábbiakat: {{moduleNameLower}} {{recordName}. A létrehozás csak mentés után történik meg.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Ön sikeresen összekapcsolta az alábbiakat: {{moduleNameLower}} {{recordName}. Az összekapcsolás csak mentés után lép életbe.',
   'LBL_CONVERT_MODULE_NAME' => 'Modul',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Modul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(opcionális)',
   'LBL_CONVERT_REQUIRED' => 'Szükséges',
+  'LBL_CONVERT_RESET_PANEL' => 'Visszaállás az alapbeállításokra',
   'LBL_CONVERT_SELECT' => 'Kiválasztás engedélyezése',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Új létrehozása',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Keresés',
   'LBL_COPY_TIP' => 'Ha be van jelölve, a rendszer az ajánlásokban lévő mezőkről készít egy másolatot ugyanazzal a névvel az újonnan létrehozott rekordokban.',
   'LBL_COUNTRY' => 'Ország:',
   'LBL_CREATE' => 'Létrehoz',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Részleg:',
   'LBL_DESCRIPTION' => 'Leírás:',
   'LBL_DESCRIPTION_INFORMATION' => 'Leírás információ',
+  'LBL_DNB_BAL_PREVIEW' => 'Ajánlások Előnézete',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Ajánlások',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Ajánlási Információ',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Elsődleges Azonosító',
   'LBL_DO_NOT_CALL' => 'Nem hívható:',
   'LBL_DUPLICATE' => 'Hasonló ajánlások',
   'LBL_EDITLAYOUT' => 'Elrendezés szerkesztése',
@@ -115,12 +134,19 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Módosító azonosítója',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mobiltelefon',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Ajánlások jelentései',
   'LBL_FIRST_NAME' => 'Keresztnév:',
   'LBL_FULL_NAME' => 'Teljes név:',
+  'LBL_HELP_CONVERT' => 'A Sugar lehetővé teszi, hogy a {{plural_module_name}} modul elemeit kapcsolatokká, vagy kliensekké konvertáljuk, amennyiben elegendő információval rendelkezünk. Ha a Hozzárendelés gomb megnyomása után a Sugar úgy találja, hogy a rendszer már tartalmaz bejegyzést a megadott névvel, Önnek lehetősége van a továbbiakban másolattal dolgozni, de létrehozhat új tételt is a "Mentés és konvertálás" opció kiválasztásával.',
+  'LBL_HELP_CONVERT_TITLE' => '{{module_name}} konvertálása',
+  'LBL_HELP_CREATE' => 'A {{plural_module_name}} modul olyan személyeket listáz, akik érdekeltek lehetnek az Ön cége által nyújtott szolgáltatásokban, vagy termékekben. Amennyiben a bejegyzés értékesítési lehetőségnek minősül, a tétel konvertálható a Kapcsolatok, Lehetőségek vagy Kliensek modul egyikébe.{{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi nézetre való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása" paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik.',
+  'LBL_HELP_RECORD' => 'A {{plural_module_name}} modul olyan személyeket listáz, akik érdekeltek lehetnek az Ön cége által nyújtott szolgáltatásokban, vagy termékekben. - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{plural_module_name}} modul olyan személyeket listáz, akik érdekeltek lehetnek az Ön cége által nyújtott szolgáltatásokban, vagy termékekben. Amennyiben a bejegyzés értékesítési lehetőségnek minősül, a tétel konvertálható a Kapcsolatok, Lehetőségek vagy Kliensek modul egyikébe. Új tétel létrehozása történhet hozzáadással, kettőzéssel, importálással, illetve egyéb módokon is. Az új bejegyzések adatait rekord nézetben van lehetősége szerkeszteni.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Előzmények',
   'LBL_HOME_PHONE' => 'Otthoni telefon:',
   'LBL_IMPORT_VCARD' => 'vCard betöltése',
   'LBL_IMPORT_VCARDTEXT' => 'Automatikusan hozzon létre egy ajánlást vCard fájlrendszerből történő importálása során.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Ajánlás sikeresen létrehozva vCard alapján',
   'LBL_INVALID_EMAIL' => 'Érvénytelen email:',
   'LBL_INVITEE' => 'Közvetlen jelentések',
   'LBL_LAST_NAME' => 'Vezetéknév:',
@@ -146,6 +172,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Beosztás',
   'LBL_LOADING' => 'Betöltés',
   'LBL_MESSAGE' => 'Kérjük, adja meg az alábbi adatokat! Az információk/kliens véglegesítéséhez szükség lesz az Ön jóváhagyására.',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Lead Score',
+  'LBL_MKTO_SYNC' => 'Sznkronizálás ehhez: Marketo&reg;',
   'LBL_MOBILE_PHONE' => 'Mobil:',
   'LBL_MODIFIED' => 'Módosította',
   'LBL_MODIFIED_ID' => 'Módosító azonosítója',
@@ -157,8 +186,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Név:',
   'LBL_NEW_FORM_TITLE' => 'Új ajánlás',
   'LBL_NEW_PORTAL_PASSWORD' => 'Új portál jelszó:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Feljegyzések',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Megjegyzés: az aktuális ajánlás konvertálása-nézet egyéni mezőket tartalmaz. Amikor ezt a megjelenítést szerkeszti a Stúdióban, egyéni mezőket kell hozzáadnia. A korábbiakkal ellentétben, ezek a mezők nem fognak automatikusan megjelenni az elrendezésben.',
   'LBL_OFFICE_PHONE' => 'Irodai telefon:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Lehetőségek',
   'LBL_OPPORTUNITY_AMOUNT' => 'Lehetőség összege:',
   'LBL_OPPORTUNITY_ID' => 'Lehetőség azonosítója',
   'LBL_OPPORTUNITY_NAME' => 'Lehetőség neve:',
@@ -186,6 +217,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Elsődleges cím, utca 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Elsődleges cím, utca 3',
   'LBL_PROSPECT_LIST' => 'Lehetséges vevő lista',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Létrehozás sikeres: {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Hivatkozva:',
   'LBL_REGISTRATION' => 'Regisztráció',
   'LBL_REPORTS_FROM' => 'Jelentés innen:',
@@ -194,6 +226,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'A kötelező modulokat létre kell hozni vagy a meglévőkből ki kell választani, mielőtt az ajánlást konvertálni lehetne.',
   'LBL_SALUTATION' => 'Megszólítás',
   'LBL_SAVED' => 'Köszönjük a regisztrációt! Fiókját hamarosan létrehozzuk és felvesszük Önnel a kapcsolatot.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Mentés és konvertálás',
   'LBL_SEARCH_FORM_TITLE' => 'Ajánlás keresése',
   'LBL_SELECT' => 'VAGY válassza ki',
   'LBL_SELECTION_TIP' => 'A kapcsolati információkkal rendelkező modulokat az ajánlás konvertálása során ki lehet választani; azokat nem kell létrehozni.',
@@ -210,6 +243,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Sikeres kampány',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Köszönjük az ajánlat beküldését.',
   'LBL_TITLE' => 'Beosztás:',
+  'LBL_UNCONVERTED' => 'Nem konvertált',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Ajánlás nézet',
   'LBL_WEBSITE' => 'Honlap',
@@ -235,6 +269,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Ajánlás létrehozásához rendelkezni kell egy klienssel.\\n Kérem, hozzon létre egy új klienst, vagy válasszon a meglévők közül!',
   'NTC_REMOVE_CONFIRMATION' => 'Biztosan el akarja távolítani az ajánlást az esettől?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Biztosan el akarja távolítani ezt a közvetlen jelentést?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',

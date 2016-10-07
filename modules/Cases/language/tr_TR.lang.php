@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Müşteriyi silmek için bir kayıt numarası girmelisiniz.',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'LBL_ATTACH_NOTE' => 'Not Ekle',
   'LBL_BUGS_SUBPANEL_TITLE' => 'Hatalar',
   'LBL_CASE' => 'Talep:',
+  'LBL_CASE_FROM_TWITTER_TITLE' => 'Tweet',
   'LBL_CASE_INFORMATION' => 'Genel Bilgi',
   'LBL_CASE_NUMBER' => 'Talep Numarası:',
   'LBL_CASE_SUBJECT' => 'Talep Konusu:',
@@ -53,6 +51,24 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Değiştiren ID',
   'LBL_EXPORT_TEAM_COUNT' => 'Takım Sayısı',
   'LBL_FILENANE_ATTACHMENT' => 'Dosya Eki',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modülü, müşteriler tarafından ürün veya servisler için bildirilen problemleri takip ve yönetmek için kullanılmaktadır.
+
+{{module_name}} kaydı oluşturmak için:
+1. İstenen şekilde alanlara değer giriniz.
+ - "Zorunlu" olarak işaretlenmiş alanların kayıt öncesinde girilmesi gerekmektedir.
+- Gerektiğinde, "Daha Fazlası" seçeneği ile ek alanları gösteriniz.
+2. "Kaydet" tuşuna basarak yeni kaydınızı tamamlayın ve önceki sayfaya dönün.
+- Yeni {{module_name}} kaydını görüntüleme modunda açmak için Kaydet ve Görüntüle seçeneğini kullanın.
+- "Kaydet ve yenisini oluştur" seçeneği ile, kayıt sonrasında, hemen yeni bir {{module_name}} kaydı oluşturun.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modülü, müşteriler tarafından ürün veya servisler için bildirilen problemleri takip ve yönetmek için kullanılmaktadır.
+
+- Kaydın alanlarını, herhangi bir alana veya "Değiştir" tuşuna tıklayarak değiştirin.
+- Alt solda yer alan paneli "Kayıt Görünümü" olarak değiştirerek, diğer kayıtlar ile olan bağlantıları görün veya değiştirin.
+- Kaydın isminin sağındaki ikonlara tıklayarak kaydı izleyiniz veya favori olarak işaretleyiniz.
+- Alt solda yer alan paneli "Aktivite Akışı" olarak değiştirerek, kullanıcı yorumları görün, oluşturun ve  {{activitystream_singular_module}}  kayıtındaki değişiklik tarihçesini görün.
+- Daha fazla aksiyon, Değiştir tuşunun sağındaki Aksiyonlar seçimli menüde yer almaktadır.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modülü, organizasyonunuza müşterileriniz tarafından bildirilen ürün veya servis ile ilgili problemleri takip etmek için kullanılmaktadır. {{module_name}} kayıtları tipik olarak bir  {{accounts_singular_module}} kaydı ile ilişkilidir, ve birden fazla {{plural_module_name}} kaydı tek bir {{accounts_singular_module}} ile ilişkili olabilir. 
+Sugar içinde {{plural_module_name}} kaydı oluşturmak için farklı yöntemler bulunmaktadır, örneğin {{plural_module_name}} modülü ile,  {{plural_module_name}} kayıtlarını içeri yükleyerek, e-posta&#39;dan dönüştürerek, vb. {{module_name}} kaydı oluşturulduktan sonra, {{plural_module_name}} kayıt görüntüleme ekranını kullanarak {{module_name}} kaydındaki eksiklikleri ekleyebilirsiniz. Her {{module_name}} kaydı bu işlem sonrasında diğer Sugar kayıtları ile (örneğin {{calls_module}}, {{contacts_module}}, {{bugs_module}}, ve diğerleri) ilişkilendirilebilir.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Tarihçe',
   'LBL_INVITEE' => 'Kontaklar',
   'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Bilgi Tabanı',
@@ -79,7 +95,14 @@ $mod_strings = array (
   'LBL_MODULE_NAME_SINGULAR' => 'Talep',
   'LBL_MODULE_TITLE' => 'Talepler: Ana Sayfa',
   'LBL_NEW_FORM_TITLE' => 'Yeni Talep',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notlar',
   'LBL_NUMBER' => 'Numara:',
+  'LBL_PORTAL_TOUR_RECORDS_CREATE' => 'Eğer göndermek istediğiniz yeni bir destek Talebiniz varsa, yeni bir Talep göndermek için buraya tıklayabilirsiniz.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Bir arama terimi sağlayarak Talep listesini filtreleyebilirsiniz.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Örneğin, daha önce paylaşılmış olan bir problemi bulmak için bunu kullanabilirsiniz.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Talepler modülü Müşterileri etkileyen destek sorunlarını yönetmek içindir. Hızlı bir tur atmak için aşağıdaki okları kullanın.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Bu sayfa Müşterinizle ilişkili olan Taleplerin listesini gösterir.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Buraya tıkladığınızda, istediğiniz zaman bu görünüme dönebileceksiniz.',
   'LBL_PORTAL_VIEWABLE' => 'Görülebilir Portal',
   'LBL_PRIORITY' => 'Öncelik:',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projeler',
@@ -88,6 +111,7 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Talep Arama',
   'LBL_SHOW_IN_PORTAL' => 'Portal da göster',
   'LBL_SHOW_MORE' => 'Daha Fazla Talep Göster',
+  'LBL_SOURCE' => 'Kaynak:',
   'LBL_STATUS' => 'Durum:',
   'LBL_SUBJECT' => 'Konusu:',
   'LBL_SYSTEM_ID' => 'Sistem ID',

@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Iznos:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Iznos u osnovnoj valuti',
   'LBL_ASSIGNED_TO_USER' => 'Dodeljeno korisniku',
   'LBL_COMMIT' => 'Izvrši:',
   'LBL_COMMITTED' => 'Dodeljeno',
   'LBL_COMMIT_STATUS' => 'Status izvršenja',
+  'LBL_CREATED_BY' => 'Autor',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_RATE' => 'Kursna Lista',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Nije Vam dodeljena kvota za ovaj vremenski period.',
   'LBL_CURRENT_USER_QUOTA' => 'Vaša dodeljena kvota za ovaj vremenski period je:',
+  'LBL_DIRECT' => 'Direktan',
   'LBL_DIRECT_REPORT' => 'Direktni izveštaj',
   'LBL_EDITLAYOUT' => 'Izmeni raspored',
   'LBL_LAST_MODIFIED' => 'Poslednja izmena',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Nema unetih kvota za direktne izveštaje za ovaj vremenski period.',
   'LBL_QUOTA' => 'Kvota:',
   'LBL_QUOTA_AMOUNT' => 'Iznos kvote',
+  'LBL_QUOTA_TYPE' => 'Tip',
+  'LBL_ROLLUP' => 'Udružen',
   'LBL_SELECT_TIME_PERIOD' => 'Odaberite vremenski period...',
   'LBL_SELECT_USER' => 'Odaberi korisnika...',
   'LBL_TIMEPERIOD_ID' => 'Vremenski period',

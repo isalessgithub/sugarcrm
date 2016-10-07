@@ -1,22 +1,27 @@
 {*
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 *}
+{literal}
+<style>
+    .company_logo_image_container {
+        height: 24px;
+        width: 180px;
+    }
+    #company_logo_image {
+        max-height: 100%;
+        max-width: 100%;
+    }
+</style>
+{/literal}
 <form name="ConfigureSettings" enctype='multipart/form-data' method="POST" action="index.php" onSubmit="return (add_checks(document.ConfigureSettings) && check_form('ConfigureSettings'));">
 <input type='hidden' name='action' value='SaveConfig'/>
 <input type='hidden' name='module' value='Configurator'/>
@@ -26,7 +31,7 @@
 
 	<td>
 		<input title="{$APP.LBL_SAVE_BUTTON_TITLE}" accessKey="{$APP.LBL_SAVE_BUTTON_KEY}" class="button primary" id="ConfigureSettings_save_button" type="submit"  name="save" value="  {$APP.LBL_SAVE_BUTTON_LABEL}  " >
-		&nbsp;<input title="{$MOD.LBL_SAVE_BUTTON_TITLE}"  id="ConfigureSettings_restore_button"  class="button"  type="submit" name="restore" value="  {$MOD.LBL_RESTORE_BUTTON_LABEL}  " >
+		<!-- &nbsp;<input title="{$MOD.LBL_SAVE_BUTTON_TITLE}"  id="ConfigureSettings_restore_button"  class="button"  type="submit" name="restore" value="  {$MOD.LBL_RESTORE_BUTTON_LABEL}  " > -->
 		&nbsp;<input title="{$MOD.LBL_CANCEL_BUTTON_TITLE}" id="ConfigureSettings_cancel_button"   onclick="document.location.href='index.php?module=Administration&action=index'" class="button"  type="button" name="cancel" value="  {$APP.LBL_CANCEL_BUTTON_LABEL}  " > </td>
 	</tr>
 </table>
@@ -38,51 +43,13 @@
 </tr>
 
 	<tr>
-		<td  scope="row">{$MOD.LIST_ENTRIES_PER_LISTVIEW}: </td>
+		<td  scope="row">{$MOD.LIST_ENTRIES_PER_LISTVIEW}: {sugar_help text=$list_entries_per_listview_help}</td>
 		<td  >
 			<input type='text' size='4' id='ConfigureSettings_list_max_entries_per_page' name='list_max_entries_per_page' value='{$config.list_max_entries_per_page}'>
 		</td>
-		<td  scope="row">{$MOD.LIST_ENTRIES_PER_SUBPANEL}: </td>
+		<td  scope="row">{$MOD.LIST_ENTRIES_PER_SUBPANEL}: {sugar_help text=$list_entries_per_subpanel_help}</td>
 		<td  >
 			<input type='text' size='4' id='ConfigureSettings_list_max_entries_per_subpanel' name='list_max_entries_per_subpanel' value='{$config.list_max_entries_per_subpanel}'>
-		</td>
-	</tr>
-	<tr>
-		<td  scope="row">{$MOD.LOCK_HOMEPAGE}: </td>
-		<td  >
-			{if !empty($config.lock_homepage)}
-				{assign var='lock_homepage_checked' value='CHECKED'}
-			{else}
-				{assign var='lock_homepage_checked' value=''}
-			{/if}
-			<input type='hidden' name='lock_homepage' value='false'>
-			<input type='checkbox' name='lock_homepage' value='true' {$lock_homepage_checked}>
-		</td>
-		<td  scope="row">{$MOD.LOCK_SUBPANELS}: </td>
-		<td  >
-			{if !empty($config.lock_subpanels)}
-				{assign var='lock_subpanels_checked' value='CHECKED'}
-			{else}
-				{assign var='lock_subpanels_checked' value=''}
-			{/if}
-			<input type='hidden' name='lock_subpanels' value='false'>
-			<input type='checkbox' name='lock_subpanels' value='true' {$lock_subpanels_checked}>
-		</td>
-	</tr>
-	<tr>
-		<td  scope="row" nowrap>{$MOD.MAX_DASHLETS}: </td>
-		<td>
-			<input type='text' size='4' name='max_dashlets_homepage' value='{$config.max_dashlets_homepage}'>
-		</td>
-		<td  scope="row" nowrap>{$MOD.LBL_USE_REAL_NAMES}: &nbsp;{sugar_help text=$MOD.LBL_USE_REAL_NAMES_DESC}</td>
-		{if !empty($config.use_real_names)}
-			{assign var='use_real_names' value='CHECKED'}
-		{else}
-			{assign var='use_real_names' value=''}
-		{/if}
-		<td >
-			<input type='hidden' name='use_real_names' value='false'>
-			<input name='use_real_names'  type="checkbox" value="true" {$use_real_names}>
 		</td>
 	</tr>
 	<tr>
@@ -109,17 +76,28 @@
 		<td width='35%'>
 			<input type='text' name='system_name' value='{$settings.system_name}'>
 		</td>
-		<td scope="row" width='15%' nowrap>{$MOD.LBL_MIN_AUTO_REFRESH_INTERVAL} &nbsp;{sugar_help text=$MOD.LBL_MIN_AUTO_REFRESH_INTERVAL_HELP} </td>
-		<td width='35%'>
-		    <select name='dashlet_auto_refresh_min' id='dashlet_auto_refresh_min'>{$AUTO_REFRESH_INTERVAL_OPTIONS}</select>
-		</td>
+    
+        
+        <td  scope="row" nowrap>{$MOD.LBL_USE_REAL_NAMES}: &nbsp;{sugar_help text=$MOD.LBL_USE_REAL_NAMES_DESC}</td>
+        {if !empty($config.use_real_names)}
+            {assign var='use_real_names' value='CHECKED'}
+        {else} 
+            {assign var='use_real_names' value=''}
+        {/if}  
+        <td >  
+            <input type='hidden' name='use_real_names' value='false'>
+            <input name='use_real_names'  type="checkbox" value="true" {$use_real_names}>
+        </td>  
     </tr>
     <tr>
         <td  scope="row" width='12%' nowrap>
         {$MOD.CURRENT_LOGO}&nbsp;{sugar_help text=$MOD.CURRENT_LOGO_HELP}
         </td>
-        <td width='35%' >
-            <img id="company_logo_image" src='{$company_logo}' alt=$mod_strings.LBL_LOGO>
+        <td width="35%">
+            <div class="company_logo_image_container">
+                <img id="company_logo_image" src="{$company_logo}"
+                     alt="{$mod_strings.LBL_LOGO}" onload="init_logo()">
+            </div>
         </td>
         <td  scope="row"> {$MOD.SHOW_DOWNLOADS_TAB}: &nbsp;{sugar_help text=$MOD.SHOW_DOWNLOADS_TAB_HELP} </td>
 		{if !isset($config.show_download_tab) || !empty($config.show_download_tab)}
@@ -135,29 +113,9 @@
         </td>
         <td  width='35%'>
             <div id="container_upload"></div>
-            <input type='text' id='company_logo' name='company_logo' style="display:none">
+            <input type='text' id='company_logo' name='company_logo' style="display:none;">
         </td>
     </tr>
-    <tr>
-            <td scope="row">{$MOD.LBL_LEAD_CONV_OPTION}:&nbsp;{sugar_help text=$MOD.LEAD_CONV_OPT_HELP}</td>
-            <td> <select name="lead_conv_activity_opt">{$lead_conv_activities}</select></td>
-            <td><a href="./index.php?module=Administration&action=ConfigureAjaxUI" id="configure_ajax">{$MOD.LBL_CONFIG_AJAX}</a>&nbsp;{sugar_help text=$MOD.LBL_CONFIG_AJAX_DESC}</td>
-    </tr>
-
-    <tr>
-        <td  scope="row" nowrap>{$MOD.LBL_DISALBE_CONVERT_LEAD}: &nbsp;{sugar_help text=$MOD.LBL_DISALBE_CONVERT_LEAD_DESC}</td>
-        {if !empty($config.disable_convert_lead)}
-            {assign var='disable_convert_lead' value='CHECKED'}
-        {else}
-            {assign var='disable_convert_lead' value=''}
-        {/if}
-        <td>
-            <input type='hidden' name='disable_convert_lead' value='false'>
-            <input name='disable_convert_lead'  type="checkbox" value="true" {$disable_convert_lead}>
-        </td>
-        <td colspan="2">&nbsp;</td>
-    </tr>
-
     <tr>
         <td  scope="row" nowrap>{$MOD.LBL_ENABLE_ACTION_MENU}: &nbsp;{sugar_help text=$MOD.LBL_ENABLE_ACTION_MENU_DESC}</td>
     {if isset($config.enable_action_menu) && $config.enable_action_menu != "true" }
@@ -169,12 +127,18 @@
             <input type='hidden' name='enable_action_menu' value='false'>
             <input name='enable_action_menu'  type="checkbox" value="true" {$enable_action_menu}>
         </td>
-        <td colspan="2">&nbsp;</td>
+        
+        <td  scope="row">{$MOD.LOCK_SUBPANELS}: &nbsp;{sugar_help text=$MOD.LBL_LOCK_SUBPANELS_DESC}</td>
+        <td  >
+            {if !empty($config.lock_subpanels)}
+                {assign var='lock_subpanels_checked' value='CHECKED'}
+            {else}
+                {assign var='lock_subpanels_checked' value=''}
+            {/if}
+            <input type='hidden' name='lock_subpanels' value='false'>
+            <input type='checkbox' name='lock_subpanels' value='true' {$lock_subpanels_checked}>
+        </td>
     </tr>
-
-
-
-
 </table>
 
 <table width="100%" border="0" cellspacing="1" cellpadding="0" class="edit view">
@@ -239,20 +203,19 @@
 	</tr>
  </table>
 
-
 <table width="100%" border="0" cellspacing="1" cellpadding="0" class="edit view">
-	<tr>
-	<th align="left" scope="row" colspan="4"><h4>{$MOD.LBL_MAILMERGE}</h4></th>
-	</tr>
-	<tr>
-	<td width="25%" scope="row" valign='middle'>{$MOD.LBL_ENABLE_MAILMERGE}&nbsp{sugar_help text=$MOD.LBL_MAILMERGE_DESC WIDTH=400}</td>
-	{if !empty($settings.system_mailmerge_on)}
-		{assign var='system_mailmerge_on_checked' value='CHECKED'}
-	{else}
-		{assign var='system_mailmerge_on_checked' value=''}
-	{/if}
-	<td width="75%" align="left"  valign='middle'><input type='hidden' name='system_mailmerge_on' value='0'><input name="system_mailmerge_on" id="system_mailmerge" value="1" class="checkbox" type="checkbox" {$system_mailmerge_on_checked}></td>
-	</tr>
+    <tr>
+        <th align="left" scope="row" colspan="4"><h4>{$MOD.LBL_TWEETTOCASE_TITLE}</h4></th>
+    </tr>
+    <tr>
+        <td width="25%" scope="row" valign='middle'>{$MOD.LBL_TWEETTOCASE_ON}&nbsp{sugar_help text=$MOD.LBL_TWEETTOCASE_ON_DESC WIDTH=400}</td>
+        {if !empty($settings.system_tweettocase_on)}
+            {assign var='system_tweettocase_on_checked' value='CHECKED'}
+        {else}
+            {assign var='system_tweettocase_on_checked' value=''}
+        {/if}
+        <td width="75%" align="left"  valign='middle'><input type='hidden' name='system_tweettocase_on' value='0'><input name="system_tweettocase_on" value="1" class="checkbox" tabindex='1' type="checkbox" {$system_tweettocase_on_checked}></td>
+    </tr>
 </table>
 
 <table width="100%" border="0" cellspacing="1" cellpadding="0" class="edit view">
@@ -329,6 +292,16 @@
 		</td>
 
 	</tr>
+    <tr>
+        <td  scope="row">{$MOD.LBL_NO_PRIVATE_TEAM_UPDATE}: </td>
+        {if !empty($config.noPrivateTeamUpdate)}
+            {assign var='noPrivateTeamUpdateChecked' value='CHECKED'}
+        {else}
+            {assign var='noPrivateTeamUpdateChecked' value=''}
+        {/if}
+        <td ><input type='hidden' name='noPrivateTeamUpdate' value='false'><input name='noPrivateTeamUpdate'  type="checkbox" value='true' {$noPrivateTeamUpdateChecked}></td>
+    </tr>
+
 
 
 
@@ -368,7 +341,7 @@
 
 <div style="padding-top: 2px;">
 <input title="{$APP.LBL_SAVE_BUTTON_TITLE}" class="button primary"  type="submit" name="save" value="  {$APP.LBL_SAVE_BUTTON_LABEL}  " class="button primary"/>
-		&nbsp;<input title="{$MOD.LBL_SAVE_BUTTON_TITLE}"  class="button"  type="submit" name="restore" value="  {$MOD.LBL_RESTORE_BUTTON_LABEL} " />
+		<!-- &nbsp;<input title="{$MOD.LBL_SAVE_BUTTON_TITLE}"  class="button"  type="submit" name="restore" value="  {$MOD.LBL_RESTORE_BUTTON_LABEL} " /> -->
 		&nbsp;<input title="{$MOD.LBL_CANCEL_BUTTON_TITLE}"  onclick="document.location.href='index.php?module=Administration&action=index'" class="button"  type="button" name="cancel" value="  {$APP.LBL_CANCEL_BUTTON_LABEL}  " />
 </div>
 {$JAVASCRIPT}
@@ -380,11 +353,6 @@
         {sugar_getimage name="sqsWait" ext=".gif" alt=$mod_strings.LBL_LOADING other_attributes='id="loading_img_company" style="display:none" '}
     </form>
 </div>
-{if $error.company_logo}
-<script type='text/javascript'>
-{literal}$(function(){alert('{/literal}{$error.company_logo}{literal}');});{/literal}
-</script>
-{/if}
 {literal}
 <script type='text/javascript'>
 function init_logo(){
@@ -449,6 +417,5 @@ function toggleDisplay_2(div_string){
         YAHOO.util.Connect.asyncRequest('POST', 'index.php', callback, postData);
     }
 }
-
 </script>
 {/literal}

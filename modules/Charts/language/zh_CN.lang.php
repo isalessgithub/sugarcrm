@@ -2,35 +2,32 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_NO_OPPS' => '请新增商业机会以显示商业机会图表。',
   'LBL_ALL_OPPORTUNITIES' => '所有商业机会的总金额',
   'LBL_CAMPAIGN_ROI_TITLE_DESC' => '按投资回投显示市场活动反应。',
-  'LBL_CHART_ACTION' => '行动报表',
-  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE行动类型（本月）',
-  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => '按线索来源统计收入',
-  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => '我使用过的模块（最近30天）',
+  'LBL_CHART_ACTION' => '活动',
+  'LBL_CHART_DCE_ACTIONS_MONTH' => 'DCE活动类型（当前月）',
+  'LBL_CHART_LEAD_SOURCE_BY_OUTCOME' => '线索来源',
+  'LBL_CHART_MODULES_USED_DIRECT_REPORTS_30_DAYS' => '被我的直接报表使用的模块（最近30天）',
   'LBL_CHART_MY_MODULES_USED_30_DAYS' => '我使用过的模块（最近30天）',
-  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => '我的销售管道报表',
-  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => '本季度销售机会报表',
-  'LBL_CHART_OUTCOME_BY_MONTH' => '月收入统计报表',
-  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => '按线索来源统计销售机会报表',
-  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => '销售阶段统计',
+  'LBL_CHART_MY_PIPELINE_BY_SALES_STAGE' => '销售阶段管道',
+  'LBL_CHART_OPPORTUNITIES_THIS_QUARTER' => '本季度销售机会',
+  'LBL_CHART_OUTCOME_BY_MONTH' => '按月统计成果',
+  'LBL_CHART_PIPELINE_BY_LEAD_SOURCE' => '线索来源管道',
+  'LBL_CHART_PIPELINE_BY_SALES_STAGE' => '销售阶段',
   'LBL_CHART_PIPELINE_BY_SALES_STAGE_FUNNEL' => '销售阶段漏斗',
   'LBL_CHART_TYPE' => '图表类型:',
   'LBL_CLOSE_DATE_END' => '预计截止日期 - 终止:',

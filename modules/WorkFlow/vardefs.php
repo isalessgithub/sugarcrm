@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['WorkFlow'] = array('table' => 'workflow'
                                ,'fields' => array (
   'id' => 
@@ -175,12 +172,14 @@ $dictionary['WorkFlow'] = array('table' => 'workflow'
     'bean_name'=>'WorkFlowActionShell',
     'source'=>'non-db',
   ),
-  
-)
-  , 'indices' => array (
+),
+'acls' => array('SugarACLDeveloperOrAdmin' => true),
+'indices' => array (
        array('name' =>'workflow_k', 'type' =>'primary', 'fields'=>array('id')),
        array('name' =>'idx_workflow', 'type'=>'index', 'fields'=>array('name','deleted')),
-                                                      )
+       array('name' => 'idx_workflow_type', 'type' => 'index', 'fields' => array('type')),
+       array('name' => 'idx_workflow_base_module', 'type' => 'index', 'fields' => array('base_module')),
+    )
 
 , 'relationships' => array (
 		'workflow_triggers' => array('lhs_module'=> 'WorkFlow', 'lhs_table'=> 'workflow', 'lhs_key' => 'id',
@@ -201,4 +200,3 @@ $dictionary['WorkFlow'] = array('table' => 'workflow'
   
                                                       
                             );
-?>

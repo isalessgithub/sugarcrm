@@ -1,15 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
 function set_return_teams_for_editview(popup_reply_data){var form_name=popup_reply_data.form_name;var field_name=popup_reply_data.field_name;teams=popup_reply_data.teams;var team_values=Array();var isFirstFieldEmpty=collection[form_name+'_'+field_name].clean_up();var index=0;for(team_id in teams){if(teams[team_id]['team_id']){var temp_array=[];temp_array['name']=teams[team_id]['team_name'];temp_array['name']=replaceHTMLChars(temp_array['name']);temp_array['id']=teams[team_id]['team_id'];if(isFirstFieldEmpty&&index==0){collection[form_name+'_'+field_name].replace_first(temp_array);}else{collection[form_name+'_'+field_name].add(temp_array);}
 index++;}}
 if(collection[form_name+'_'+field_name].more_status){collection[form_name+'_'+field_name].js_more();collection[form_name+'_'+field_name].show_arrow_label(true);}}

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CHART_COUNT_PATTERN' => '{count} {module} где {group_label} является {group_text}',
@@ -61,10 +58,10 @@ $mod_strings = array (
   'DEFAULT_REPORT_TITLE_51' => 'Успешно закрытые сделки по Пользователю',
   'DEFAULT_REPORT_TITLE_52' => 'Все открытые сделки',
   'DEFAULT_REPORT_TITLE_53' => 'Все закрытые сделки',
-  'DEFAULT_REPORT_TITLE_56' => 'Разбивка продуктов продажи по месяцам согласно прошлому, текущему и будущему временному периоду',
-  'DEFAULT_REPORT_TITLE_57' => '',
-  'DEFAULT_REPORT_TITLE_58' => '',
-  'DEFAULT_REPORT_TITLE_59' => '',
+  'DEFAULT_REPORT_TITLE_56' => 'Разбивка продаж по продуктам за прошедший, текущий, следущий временной период за месяц',
+  'DEFAULT_REPORT_TITLE_57' => 'Стадии продаж за прошедший, текущий, следущий временной период за месяц',
+  'DEFAULT_REPORT_TITLE_58' => 'Прогноз за прошедший/текущий/следующий квартал',
+  'DEFAULT_REPORT_TITLE_59' => 'Продажи по стадиям продаж за текущий период',
   'DEFAULT_REPORT_TITLE_6' => 'Сделки по источнику Предварительного контакта',
   'DEFAULT_REPORT_TITLE_7' => 'Открытые Обращения по Пользователю и Статусу',
   'DEFAULT_REPORT_TITLE_8' => 'Открытые Обращения по месяцам и по работавшим пользователям',
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => 'Раз в 2 недели',
     2419200 => 'Раз в 4 недели',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Запланированный отчет "{0}" был деактивирован',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Запланированный отчет был деактивирован',
   'ERR_REPORT_INVALID' => 'Определение отчета "{0}" содержит недействительные поля: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Отчет недействителен',
   'ERR_SELECT_COLUMN' => 'Сначала выберите столбец для отображения.',
@@ -131,7 +130,7 @@ $mod_strings = array (
   'LBL_CALL_REPORTS' => 'Отчеты по по звонку',
   'LBL_CANCEL' => 'Отмена',
   'LBL_CANNOT_BE_EMPTY' => 'не может быть пустым.',
-  'LBL_CANNOT_DISPLAY_CHART_MESSAGE' => 'Невозможно отобразить график через настройки конфигурации.',
+  'LBL_CANNOT_DISPLAY_CHART_MESSAGE' => 'График не может быть отображен через настройки конфигурации',
   'LBL_CASE_REPORTS' => 'Отчеты по обращению',
   'LBL_CHANGE' => 'Изменить',
   'LBL_CHART_DATA_HELP' => 'Выберите итог который будет показан в таблице.',
@@ -205,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'из следующих фильтров.',
   'LBL_FILTERS_HELP_DESC' => 'Шаги для определения фильтров:<br /><br />1) В разделе "Связанные модули" щёлкните на модуле, для которого хотите задать фильтры. По умолчанию будет выбран основной модуль (верхний узел в древовидном отображении).<br /><br />Вы можете выбрать связанный модуль (дочерний узел в древовидном отображении) путём нажатия на модуле. Разверните узел для просмотра дополнительных модулей, связанных с зависимым модулем.<br /><br />2) Щёлкните на поле в разделе  "Доступные поля" чтобы добавить его к фильтрам. Вы также может производить поиск поля, набирая текст в окошке данного раздела.<br /><br />После выделения любого количества полей в модуле, выбранном в разделе "Связанные модули", Вы можете выбрать другой модуль и отметить в нём неограниченное количество полей для использования в качестве фильтров.<br /><br />3) Выберите логический оператор И или ИЛИ, чтобы определить, будут ли для создания отчёта использоваться все фильтры либо же любые фильтры, соответственно.<br /><br />4) [Выборочно] Щёлкните на "Добавить группу фильтров" для создания группы фильтров. Вы можете иметь неограниченное количество групп фильтров, а также неограниченное количество фильтров в каждой группе, чтобы создавать вложенные фильтры.<br /><br />5) [Выборочно] Выберите опцию фильтра "Во время работы", чтобы позволить пользователям использовать фильтр и настраивать отображение результатов непосредственно во время просмотра.',
   'LBL_FILTER_AND' => 'И',
+  'LBL_FILTER_BY_MODULE' => 'По модулю',
   'LBL_FILTER_CONDITIONS' => 'Выберите тип условия:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Кому',
   'LBL_FILTER_DATE_RANGE_START' => 'От',
@@ -215,7 +215,7 @@ $mod_strings = array (
   'LBL_FUNNEL' => 'Воронка',
   'LBL_GRAND_TOTAL' => 'Итого',
   'LBL_GREATER_THAN' => 'Больше, чем',
-  'LBL_GREATER_THAN_EQUAL' => '',
+  'LBL_GREATER_THAN_EQUAL' => 'Больше чем равно',
   'LBL_GROUP_BY' => 'Группировать по',
   'LBL_GROUP_BY_HELP_DESC' => 'Шаги для определения групп:<br /><br />1) В разделе "Связанные модули" щелкните на модуле, который вы хотели бы использовать для группировки записей в вашем отчёте. По умолчанию, будет выбран основной модуль  (верхний узел в древовидном отображении).<br /><br />Вы можете выбрать связанный модуль (дочерний узел в древовидном отображении) путём нажатия на модуле. Разверните узел для просмотра дополнительных модулей, связанных с зависимым модулем. Выбранный вами модуль определяет, какие поля, доступные для создания отчёта, появятся в разделе "Доступные поля".<br /><br />2) Щёлкните на поле в разделе "Доступны поля" чтобы сгруппировать записи по этому полю в вашем отчёте. Вы также может производить поиск поля, набирая текст в окне данного раздела.<br /><br />После выделения любого количества полей в модуле, выбранном в разделе "Связанные модули", Вы можете выбрать другой модуль и отметить в нём неограниченное количество полей для группирования записей. Однако, отчёт становится менее читаемым, если Вы используете большое количество полей для группировки. <br /><br />Вы можете изменять порядок полей путём перетаскивания их на желаемую позицию. Изменение порядка влияет на отображаемые результаты. <br /><br />Для сводных отчётов вы можете использовать максимум три фильтра для группировки записей.',
   'LBL_GROUP_BY_REQUIRED' => 'По крайней мере один параметр группировки и один столбец итогов требуются для создания диаграммы.',
@@ -235,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Прошедшие 30 дней',
   'LBL_LAST_7_DAYS' => 'Прошедшие 7 дней',
   'LBL_LAST_MONTH' => 'Прошлый месяц',
+  'LBL_LAST_N_DAYS' => 'Последние # дней',
   'LBL_LAST_QUARTER' => 'Прошлый квартал',
   'LBL_LAST_WEEK' => 'Прошлая неделя',
   'LBL_LAST_YEAR' => 'Прошлый год',
@@ -243,7 +244,7 @@ $mod_strings = array (
   'LBL_LEAD_REPORTS' => 'Отчеты по предварительному контакту',
   'LBL_LEFT' => 'Слева',
   'LBL_LESS_THAN' => 'Меньше, чем',
-  'LBL_LESS_THAN_EQUAL' => '',
+  'LBL_LESS_THAN_EQUAL' => 'Меньше чем равно',
   'LBL_LINE' => 'Линия',
   'LBL_LIST_FORM_TITLE' => 'Отчеты',
   'LBL_LIST_PUBLISHED' => 'Опубликовано',
@@ -306,6 +307,7 @@ $mod_strings = array (
   'LBL_NEXT_FISCAL_QUARTER' => 'Следующий финансовый квартал',
   'LBL_NEXT_FISCAL_YEAR' => 'Следующий финансовый год',
   'LBL_NEXT_MONTH' => 'Следующий месяц',
+  'LBL_NEXT_N_DAYS' => 'Следующие # дней',
   'LBL_NEXT_QUARTER' => 'Следующий квартал',
   'LBL_NEXT_RUN' => 'Следующий E-mail',
   'LBL_NEXT_WEEK' => 'Следующая неделя',
@@ -317,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'У Вас нет доступа к данной странице. Свяжитесь с вашим системным администратором для получения соответствующих прав.',
   'LBL_NO_CHART' => 'Нет диаграммы',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Недостаточно данных для построения диаграммы',
-  'LBL_NO_EXPORT_ACCESS' => '',
+  'LBL_NO_EXPORT_ACCESS' => 'Запрещенный экспорт',
   'LBL_NO_FILTERS' => 'не имеет фильтров',
   'LBL_NO_IMAGE' => 'Нет изображения',
   'LBL_NO_REPORTS' => 'Нет результатов.',
@@ -356,7 +358,7 @@ $mod_strings = array (
   'LBL_PUBLISHED_OPPORTUNITY_REPORTS' => 'Опубликованные отчеты по Сделкам',
   'LBL_PUBLISHED_PROJECT_TASK_REPORTS' => 'Опубликованные отчеты по Проектным задачам',
   'LBL_PUBLISHED_PROSPECT_REPORTS' => 'Опубликованные отчёты по Адресатам',
-  'LBL_PUBLISHED_QUOTA_REPORTS' => 'Отчеты по Квоте',
+  'LBL_PUBLISHED_QUOTA_REPORTS' => 'Опубликованные отчеты по квоте',
   'LBL_PUBLISHED_QUOTE_REPORTS' => 'Опубликованные отчеты по коммерческим предложениям',
   'LBL_PUBLISHED_TASK_REPORTS' => 'Опубликованные отчеты по Задачам',
   'LBL_QUARTER' => 'Квартал',
@@ -479,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'со средним значением',
   'LBL_WITH_A_TOTAL' => 'с итоговым значением',
   'LBL_WITH_DETAILS' => 'С подробностями',
-  'LBL_WORKSHEET' => 'Планшет',
   'LBL_YEAR' => 'Год',
   'LBL_YESTERDAY' => 'Вчера',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'У Вас нет сохраненных отчетов.',
+  'LNK_ADVANCED_REPORTING' => 'Управление расширенными отчетами',
   'LNK_NEW_ACCOUNT' => 'Новый контрагент',
   'LNK_NEW_CALL' => 'Журнал звонков',
   'LNK_NEW_CASE' => 'Новое обращение',
@@ -495,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'У Вас нет прав редактировать этот отчет.',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Невозможно опубликовать. Отчёт с таким именем уже опубликован.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Невозможно отменить публикацию отчёта другого пользователя. У вас есть отчёт с таким же именем.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => '',
 );
 

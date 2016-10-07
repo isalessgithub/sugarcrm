@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => '2週間ごと',
     2419200 => '4週間ごと',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'スケジュールレポート"{0}" は無効にされました',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'スケジュールレポートは無効にされました',
   'ERR_REPORT_INVALID' => 'レポート 「{0}」の定義には不正なフィールドが含まれています: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'レポートが不正です',
   'ERR_SELECT_COLUMN' => '最初に、表示するカラムを選択してください',
@@ -122,8 +121,8 @@ $mod_strings = array (
   'LBL_BEFORE' => '以下の日より前',
   'LBL_BUG_REPORTS' => 'バグレポート',
   'LBL_BY_DAY' => '日次',
-  'LBL_BY_FISCAL_QUARTER' => '会計四半期ごと',
-  'LBL_BY_FISCAL_YEAR' => '会計年度ごと',
+  'LBL_BY_FISCAL_QUARTER' => '会計四半期毎',
+  'LBL_BY_FISCAL_YEAR' => '会計年度毎',
   'LBL_BY_MONTH' => '月で',
   'LBL_BY_QUARTER' => '四半期で',
   'LBL_BY_YEAR' => '年で',
@@ -154,7 +153,7 @@ $mod_strings = array (
   'LBL_CREATE_CUSTOM_REPORT' => 'カスタムレポート作成',
   'LBL_CREATE_REPORT' => 'カスタムレポート作成',
   'LBL_CSV_TIMESTAMP' => 'Y_m_d_H_i_s',
-  'LBL_CURRENT_FISCAL_QUARTER' => '現会計四半期',
+  'LBL_CURRENT_FISCAL_QUARTER' => '前会計四半期',
   'LBL_CURRENT_FISCAL_YEAR' => '現会計年度',
   'LBL_CURRENT_QUARTER_COMMITTED_DEALS' => '今四半期確定商談',
   'LBL_CURRENT_QUARTER_FORECAST' => '現四半期',
@@ -205,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => '以下の絞込みのうち',
   'LBL_FILTERS_HELP_DESC' => '<b>フィルタ定義の手順:</b><br/><br/>1) <b>関連するモジュール</b>領域からフィルタに利用したいモジュールをクリックしてください。デフォルトでは、主モジュール(ツリービューのトップノード)が選択されています。 <br/><br/><br />	モジュール(ツリービューの子ノード)をクリックすることにより、関連モジュールを選択することができます。ノードを開き、関連するモジュールに関連する追加のモジュールを表示します。選択したモジュールにあわせて<b>利用可能なフィールド</b>領域にレポート可能なフィールドが表示されます。<br/><br/><br />	2) <b>利用可能なフィールド</b>領域のフィールドをクリックしてそのフィールドをフィルタに追加します。その領域のテキストボックスにフィールド名を入力することによりフィールドを検索することもできます。<br/><br/><br />	<b>関連するモジュール</b>領域から選択したモジュールのいくつかのフィールドを選択後、他のモジュールのフィールドを選択してフィルタとして利用することもできます。<br/><br/><br />	3) <b>AND</b>か<b>OR</b>を選択し、すべてかその中の１つのフィルタがレポートの結果を検索するために満たさなければいけないかを決定します。<br/><br/><br />	4) [任意] <b>フィルタグループの追加</b>をクリックし、フィルタのグループを作成します。フィルタグループやグループの中に含まれるフィルタはいくつでも作成できます。<br/><br/><br />	5) [任意] ランタイム オプションを選択し、レポートを閲覧するときにレポートの結果をカスタマイズするためにフィルタをユーザが変更できるようにします。',
   'LBL_FILTER_AND' => 'すべての条件を満たす',
+  'LBL_FILTER_BY_MODULE' => 'モジュールごと',
   'LBL_FILTER_CONDITIONS' => '以下を満たすレコードを選択してください。',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'まで',
   'LBL_FILTER_DATE_RANGE_START' => 'から',
@@ -235,7 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => '過去30日',
   'LBL_LAST_7_DAYS' => '過去7日間',
   'LBL_LAST_MONTH' => '先月',
-  'LBL_LAST_N_DAYS' => '過去 # 日',
+  'LBL_LAST_N_DAYS' => '最近#日',
   'LBL_LAST_QUARTER' => '先四半期',
   'LBL_LAST_WEEK' => '先週',
   'LBL_LAST_YEAR' => '昨年',
@@ -307,7 +307,7 @@ $mod_strings = array (
   'LBL_NEXT_FISCAL_QUARTER' => '次会計四半期',
   'LBL_NEXT_FISCAL_YEAR' => '次会計年度',
   'LBL_NEXT_MONTH' => '翌月',
-  'LBL_NEXT_N_DAYS' => 'これから # 日',
+  'LBL_NEXT_N_DAYS' => '次の # 日',
   'LBL_NEXT_QUARTER' => '次四半期',
   'LBL_NEXT_RUN' => '次の配信日時',
   'LBL_NEXT_WEEK' => '翌週',
@@ -319,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => '権限がないのでこのレポートにアクセスできません。',
   'LBL_NO_CHART' => 'チャートなし',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'データが不十分なのでグラフは表示されません。',
-  'LBL_NO_EXPORT_ACCESS' => 'エキスポート不可能です',
+  'LBL_NO_EXPORT_ACCESS' => 'エキスポートは無効にされました',
   'LBL_NO_FILTERS' => 'にはフィルタがありません。',
   'LBL_NO_IMAGE' => '画像がありません',
   'LBL_NO_REPORTS' => 'なし',
@@ -481,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => '平均あり',
   'LBL_WITH_A_TOTAL' => '合計あり',
   'LBL_WITH_DETAILS' => '詳細付き',
-  'LBL_WORKSHEET' => 'ワークシート',
   'LBL_YEAR' => '年',
   'LBL_YESTERDAY' => '昨日',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => '保存されたレポートはありません',
+  'LNK_ADVANCED_REPORTING' => 'アドバンスドレポートを管理する',
   'LNK_NEW_ACCOUNT' => '取引先作成',
   'LNK_NEW_CALL' => '電話作成',
   'LNK_NEW_CASE' => 'ケース作成',
@@ -497,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'このレポートを編集する権限がありません',
   'MSG_UNABLE_PUBLISH_ANOTHER' => '公開できません。同じ名前で別のレポートが公開されています。',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => '別のユーザのレポートを非公開にできません。あなたは同じ名前で別のレポートを所有しています。',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'プロセスレポートジェネレーション　タスクスケジューラーは現在機能しておらずレポートはスケジュールできません。管理者ユーザにスケジューラーをアクティブにするようにリクエストし、再度試行してください。',
 );
 

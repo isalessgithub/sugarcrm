@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '会議を削除するにはレコード番号を指定する必要があります。',
@@ -59,6 +56,7 @@ $mod_strings = array (
   'LBL_EMAIL_REMINDER_SENT' => 'Eメールリマインダ送信済み',
   'LBL_EMAIL_REMINDER_TIME' => 'Eメールリマインダ',
   'LBL_EMPTY_SEARCH_RESULT' => '見つかりませんでした。以下より参加者を作成してください。',
+  'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'この会議を開始するのにエラーがありました。管理者に連絡してください。',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'アサイン先ID',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'アサイン先',
   'LBL_EXPORT_CREATED_BY' => '作成者ID',
@@ -80,6 +78,9 @@ $mod_strings = array (
   'LBL_EXTNOT_MAIN' => 'あなたは招待されていないのでこの会議に参加できません。',
   'LBL_EXTNOT_RECORD_LINK' => '会議を閲覧',
   'LBL_FIRST_NAME' => '名',
+  'LBL_HELP_CREATE' => '{{plural_module_name}}モジュールは、組織内のユーザーによって記録された{{meetings_module}}レコードで構成されます。 {{plural_module_name}}は「スケジュール」、「開催」、または「キャンセル」の状態であってもよいです。Sugarユーザならびに{contacts_module}}と{{leads_module}}が招待として追加してもよいです。 {{meetings_singular_module}}作成するには：必要に応じて1.フィールドに値を提供します。 - フィールドはマークされた「必須」とは、保存する前に完了する必要があります。 - 「詳細を表示」をクリックし、必要に応じて追加のフィールドを公開する。 2に参加者を追加{{meetings_singular_module}}。 - 既存のユーザー、連絡先を追加するには、「参加者の選択」をクリックするか、につながる{{meetings_singular_module}}。 - の右側にあるプラスアイコンをクリックして新しいSugarレコードと{{meetings_singular_module}}出席者を作成するには、「参加者の選択」。 3.「保存」新しいレコードを確定し、前のページに戻ります。 - 選択して「保存して表示「レコードビューで新しい会議を開き、すぐに作成することを選択し、保存して、別の新しい{{meetings_singular_module}}を新規作成します。',
+  'LBL_HELP_RECORD' => '{{plural_module_name}}モジュールは、組織内のユーザーによって記録された{{meetings_singular_module}}レコードで構成されます。 {{plural_module_name}}は「スケジュール」、「開催」、または「キャンセル」の状態であってもよいです。Sugarユーザならびに{contacts_module}}と{{leads_module}}が招待として追加してもよいです。 - 個々のフィールドまたは[編集]ボタンをクリックして、このレコードのフィールドを編集。 - 表示または左下のペインに「データビュー」を切り替えることで、サブパネル内の他のレコードへのリンクを変更します。 - 作成し、左下のペインに「アクティビティストリーム」を切り替えて、アクティビティストリームのビューのユーザーのコメントやレコードの変更履歴を表示します。 - レコード名の右にあるアイコンを使用してこのレコードをフォローもしくはお気に入りにします。 - 追加のアクションは[編集]ボタンの右にあるドロップダウンの操作]メニューで利用できます。',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}}モジュールは、「スケジュール」、「開催」、または「キャンセル」の状態であってもよい記録を満たすもので構成されています。次の24時間以内にスケジュールされている今後会議の開始日が青でハイライト表示されます。延滞会議は開始日が赤で強調表示されます。この{{plural_module_name}}リストビューからインライン編集会議情報を表示することができます。追加のアクションは、各会議の行の最後にあるメニューでご利用いただけます。開催されているようにそれをマークするために、「閉じる」をすべてのスケジュールされた会議の行のメニューから選択することができます。Sugarのユーザー、連絡先、およびリードが会議招待として追加するのも可能です。 {{plural_module_name}} {{plural_module_name}}モジュール、カレンダーモジュール、インポートだけでなく、関連モジュールのレコード上の（サイドカーモジュール用）計画された活動ダッシュレット（レガシーモジュール用）の活動サブパネル経由（例えばコンタクトから作成することができ、自動的に両方のレコードとの関係を作成するアカウントなど）でも可能です。',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'メモ',
   'LBL_HOST_EXT_MEETING' => '会議を開始',
   'LBL_HOST_URL' => 'ホストURL',
@@ -87,6 +88,7 @@ $mod_strings = array (
   'LBL_HOURS_MINS' => '(時/分)',
   'LBL_INVITEE' => '参加者',
   'LBL_JOIN_EXT_MEETING' => '会議に参加',
+  'LBL_JOIN_MEETING' => '参加 {{meetingType}}',
   'LBL_LAST_NAME' => '姓',
   'LBL_LEADS_SUBPANEL_TITLE' => 'リード',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'アサイン先',
@@ -105,6 +107,7 @@ $mod_strings = array (
   'LBL_LIST_TIME' => '開始時間',
   'LBL_LOCATION' => '場所:',
   'LBL_MEETING' => '会議:',
+  'LBL_MEETING_CLOSE_SUCCESS' => '会議はクローズされました。',
   'LBL_MEETING_INFORMATION' => '会議の概要',
   'LBL_MINSS_ABBREV' => '分',
   'LBL_MODIFIED_BY' => '更新者',
@@ -112,6 +115,7 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => '会議',
   'LBL_MODULE_NAME_SINGULAR' => '会議',
   'LBL_MODULE_TITLE' => '会議: ホーム',
+  'LBL_MY_SCHEDULED_MEETINGS' => '私のスケジュールされた会議',
   'LBL_NAME' => '名前',
   'LBL_NEW_FORM_TITLE' => 'アポイント作成',
   'LBL_NO_ACCESS' => '$moduleを作成する権限がありません。',
@@ -120,6 +124,10 @@ $mod_strings = array (
   'LBL_PARENT_TYPE' => '親タイプ',
   'LBL_PASSWORD' => '会議パスワード',
   'LBL_PHONE' => '会社電話:',
+  'LBL_POPUP_REMINDER' => 'ポップアップリマインダー',
+  'LBL_POPUP_REMINDER_TIME' => 'リマインダ時間をポップアップ',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => '以下をスケジュールしましたが、{{moduleSingularLower}} for {{formatDate date_start}},アクセスする権限はありません。',
+  'LBL_RECORD_SAVED_SUCCESS' => 'スケジュールしました {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> for {{formatDate date_start}}.',
   'LBL_RECURRENCE' => '定期的な予定',
   'LBL_RECURRING_LIMIT_ERROR' => '重複できる上限 $limit を超えたため、この会議をスケジュールすることはできません。',
   'LBL_RECURRING_SOURCE' => '循環ソース',
@@ -130,6 +138,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'すべての招待者にメール',
   'LBL_REMINDER_POPUP' => 'ポップアップ',
   'LBL_REMINDER_TIME' => 'リマインダ時間',
+  'LBL_REMINDER_TITLE' => '会議:',
   'LBL_REMOVE' => 'はずす',
   'LBL_REMOVE_ALL_RECURRENCES' => '定期的な予定をすべて削除',
   'LBL_REPEAT_COUNT' => 'リピート数',
@@ -142,6 +151,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => '関連親ID',
   'LBL_REPEAT_TYPE' => 'リピートタイプ',
   'LBL_REPEAT_UNTIL' => '以下まで繰り返し',
+  'LBL_REVENUELINEITEMS' => '商談品目',
   'LBL_SCHEDULING_FORM_TITLE' => 'スケジューリング',
   'LBL_SEARCH_BUTTON' => '検索',
   'LBL_SEARCH_FORM_TITLE' => '会議検索',
@@ -150,6 +160,7 @@ $mod_strings = array (
   'LBL_SEND_BUTTON_TITLE' => '保存＆招待送信 [Alt+I]',
   'LBL_SEND_INVITES' => '招待送信',
   'LBL_SEQUENCE' => '会議の更新順',
+  'LBL_START_MEETING' => '開始 {{meetingType}}',
   'LBL_STATUS' => 'ステータス:',
   'LBL_SUBJECT' => '件名:',
   'LBL_SYNCED_RECURRING_MSG' => 'この会議は他のシステムからSugarに同期されています。Sugarでこの会議を編集した場合は他のシステムへ同期できません。',

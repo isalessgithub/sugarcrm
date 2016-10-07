@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 include_once('include/database/MssqlManager.php');
 
@@ -24,6 +21,8 @@ class FreeTDSManager extends MssqlManager
     public $dbName = 'FreeTDS SQL Server';
     public $variant = 'freetds';
     public $label = 'LBL_MSSQL2';
+
+    public $priority = 10;
 
     protected $capabilities = array(
         "affected_rows" => true,
@@ -66,7 +65,7 @@ class FreeTDSManager extends MssqlManager
 	        'decimal_tpl' => 'decimal(%d, %d)',
     );
 
-    public function query($sql, $dieOnError = false, $msg = '', $suppress = false, $keepResult = false)
+    public function query($sql, $dieOnError = false, $msg = '', $suppress = true, $keepResult = false)
     {
 		global $app_strings;
         if(is_array($sql)) {
@@ -84,5 +83,42 @@ class FreeTDSManager extends MssqlManager
     public function valid()
     {
         return function_exists("mssql_connect") && DBManagerFactory::isFreeTDS();
+    }
+
+    public function appendN($sql)
+    {
+        return $this->_appendN($sql);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function checkConnection()
+    {
+        $this->last_error = '';
+        if (!isset($this->database) || !is_resource($this->database)) {
+            $this->database = null;
+            $this->connect();
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function checkError($msg = '', $dieOnError = false)
+    {
+        $result = parent::checkError($msg, $dieOnError);
+        if ($result) {
+            $this->disconnect();
+        }
+        return $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getGuidSQL()
+    {
+        return 'convert(varchar(36), NEWID())';
     }
 }

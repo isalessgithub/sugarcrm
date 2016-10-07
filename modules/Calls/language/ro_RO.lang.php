@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge contul',
@@ -65,6 +62,13 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Legat de modul',
   'LBL_EXPORT_REMINDER_TIME' => 'Reminder Time (in minutes)',
   'LBL_FIRST_NAME' => 'Prenume',
+  'LBL_HELP_CREATE' => 'Modulul {{plural_module_name}} este format din înregistrări {{calls_singular_module}} introduse de utilizatorii din organizaţia dvs. {{plural_module_name}} poate fi în starea "Programat", "În aşteptare" sau "Anulat". Utilizatorii Sugar, precum şi contactele şi responsabilii pot fi adăugaţi ca invitaţi.
+Pentru a crea {{calls_singular_module}}: 1. Completează valori în câmpurile dorite. - Câmpurile marcate "Obligatoriu" trebuie să fie completate înainte de a salva. - Apasă butonul "Afişează mai mult" pentru a vedea câmpuri adiţionale dacă este necesar. 2. Adaugă invitaţi la  {{calls_singular_module}}. - Apasă "Selectează un participant" pentru a adăuga un utilizator, contact sau responsabil existent la {{calls_singular_module}}. -Apasă pictograma plus din dreapta "Selectează un participant" pentru a crea un participant {{calls_singular_module}} ca înregistrare Sugar noură. 3. Apasă "Salvează" pentru a finaliza noua înregistrare şi pentru a reveni la pagina anterioară. - Apasă "Salvează şi vizualizează" pentru a deschide noul (noua) {{calls_singular_module}} în fereastra de vizualizare a înregistrărilor. - Apasă "Salvează şi creează o înregistrare nouă" pentru a crea imediat un nou (o nouă) {{calls_singular_module}}.',
+  'LBL_HELP_RECORD' => 'Modulul {{plural_module_name}} este format din înregistrări {{calls_singular_module}} introduse de utilizatorii din organizaţia dvs. {{plural_module_name}} poate fi în starea "Programat", "În aşteptare" sau "Anulat". Utilizatorii Sugar, precum şi {{contacts_module}} şi {{leads_module}} pot fi adăugaţi ca invitaţi. - Editează câmpurile acestei înregistrări apăsând pe fiecare câmp individual sau pe butonul Editare. - Vizualizează sau modifică linkuri către alte înregistrări in panourile secundare, trecând fereastra din stânga jos în stadiul "Vizualizare Date". - Creează şi vizualizează comentariile altor utilizatori şi istoricul modificărilor în {{activitystream_singular_module}} trecând fereastra din stânga jos în stadiul "Flux de activitate". - Urmăreşte sau marchează ca favorit această înregistrare folosind pictogramele din dreapta numelui înregistrării. - Sunt disponibile acţiuni suplimentare în meniul cu listă derulantă Acţiuni din dreapta butonului Editare.',
+  'LBL_HELP_RECORDS' => 'Modulul {{plural_module_name}} este format din înregistrări de apeluri care pot avea starea "Programat", "În aşteptare" sau "Anulat". Apelurile de intrare programate în următoarele 24 de ore au data de începere subliniată cu albastru. Apelurile restante au data de începere subliniată cu roşu.
+
+Din această fereastră de vizualizare a listelor {{plural_module_name}}, puteţi vizualiza şi edita în linie informaţiile despre apeluri. Sunt disponibile acţiuni suplimentare în meniu, la capătul fiecărui rând de apel. Puteţi selecta "Închidere" din meniul de pe oricare rând de apeluri programate pentru a-l marca în aşteptare.
+Utilizatorii, contactele şi responsabilii Sugar pot fi adăugaţi ca invitaţi la apel. {{plural_module_name}} poate fi creat prin modulul {{plural_module_name}}, modulul Calendar, importare, precum şi prin panoul secundar Activităţi (pentru modulele Legacy) sau componenta Activităţi planificate (pentru modulele Sidecar) în înregistrări de module relaţionate (de ex. Contacte, Conturi etc.), ceea ce creează imediat o relaţie între ambele înregistrări.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Notite',
   'LBL_HOURS_ABBREV' => 'h',
   'LBL_HOURS_MINUTES' => 'ore/minute',
@@ -89,12 +93,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Apeluri',
   'LBL_MODULE_NAME_SINGULAR' => 'Apel',
   'LBL_MODULE_TITLE' => 'Apeluri: Acasa',
+  'LBL_MY_SCHEDULED_CALLS' => 'Apelurile mele programate',
   'LBL_NAME' => 'Nume:',
   'LBL_NEW_FORM_TITLE' => 'Creeaza Intalnire',
   'LBL_NO_ACCESS' => 'Nu poti accesa acest raport din cauza restrictiilor de permisiune.',
   'LBL_OUTLOOK_ID' => 'Identitate Outlook',
   'LBL_PARENT_ID' => 'parent id',
   'LBL_PHONE' => 'Telefon',
+  'LBL_POPUP_REMINDER_TIME' => 'Fereastră pop-up memento',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Ai programat {{moduleSingularLower}} pentru {{formatDate date_start}}, dar nu ai permisiunea de acces.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ai programat {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> pentru {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Repetare',
   'LBL_RECURRING_LIMIT_ERROR' => 'Această recurentă $ titlu modul nu poate fi programat, deoarece depășește reapariția maximă permisă de $ limită.',
   'LBL_RECURRING_SOURCE' => 'Sursa periodica',
@@ -105,6 +113,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Trimite email tuturor invitatilor',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Timpul Mementoului',
+  'LBL_REMINDER_TITLE' => 'Apel',
   'LBL_REMOVE' => 'Sterge',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Sterge toate repetarile',
   'LBL_REPEAT_COUNT' => 'numarul de repetari',
@@ -117,6 +126,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Repeat Parent ID',
   'LBL_REPEAT_TYPE' => 'Repeta',
   'LBL_REPEAT_UNTIL' => 'Repeta inainte',
+  'LBL_REVENUELINEITEMS' => 'Elemente venit',
   'LBL_SCHEDULING_FORM_TITLE' => 'Programare',
   'LBL_SEARCH_BUTTON' => 'Cauta',
   'LBL_SEARCH_FORM_TITLE' => 'Cautare Apel',
@@ -141,5 +151,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Selecteaza Cont',
   'NOTICE_DURATION_TIME' => 'Durata timpului trebuie sa fie mai mare ca 0',
   'NTC_REMOVE_INVITEE' => 'Sunteţi sigur că doriţi să eliminaţi acest invitat din apel?',
+  'TPL_CALL_STATUS_CHANGED' => 'Apel marcat ca {{status}}.',
 );
 

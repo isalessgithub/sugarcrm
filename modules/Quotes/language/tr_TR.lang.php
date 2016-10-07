@@ -2,23 +2,21 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Teklifi silmek için bir kayıt numarası belirlemelisiniz.',
+  'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Teklif zaten fırsata dönüştü',
   'LBL_ACCOUNT_ID' => 'Hesap ID',
   'LBL_ACCOUNT_NAME' => 'Müşteri İsmi:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteler',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_LIST_COST_PRICE' => 'Maliyet',
   'LBL_LIST_DATE_QUOTE_CLOSED' => 'Asıl Kapanış',
   'LBL_LIST_DATE_QUOTE_EXPECTED_CLOSED' => 'Geçerlilik Tarihi:',
-  'LBL_LIST_DEAL_TOT' => 'İndirim',
+  'LBL_LIST_DEAL_TOT' => 'Toplam İndirim',
   'LBL_LIST_DISCOUNT_PRICE' => 'Birim Fiyatı',
   'LBL_LIST_FORM_TITLE' => 'Teklif Listesi',
   'LBL_LIST_GRAND_TOTAL' => 'Genel Toplam',
@@ -95,7 +93,7 @@ $mod_strings = array (
   'LBL_LIST_MY_QUOTES' => 'Tekliflerim',
   'LBL_LIST_PRICING_FACTOR' => 'Faktör',
   'LBL_LIST_PRICING_FORMULA' => 'Fiyat Formülü',
-  'LBL_LIST_PRODUCT_NAME' => 'Ürün',
+  'LBL_LIST_PRODUCT_NAME' => 'Teklif Kalemi',
   'LBL_LIST_QUANTITY' => 'Miktar',
   'LBL_LIST_QUOTE_NAME' => 'Konu',
   'LBL_LIST_QUOTE_NUM' => 'Numara',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_PDF_ITEM_DISCOUNT' => 'İndirim',
   'LBL_PDF_ITEM_EXT_PRICE' => 'Tutar',
   'LBL_PDF_ITEM_LIST_PRICE' => 'Liste Fiyatı',
-  'LBL_PDF_ITEM_PRODUCT' => 'Ürün',
+  'LBL_PDF_ITEM_PRODUCT' => 'Teklif Kalemi',
   'LBL_PDF_ITEM_QUANTITY' => 'Miktar',
   'LBL_PDF_ITEM_SELECT_DISCOUNT' => 'LBL_PDF_ITEM_SELECT_DISCOUNT',
   'LBL_PDF_ITEM_UNIT_PRICE' => 'Birim Fiyatı',
@@ -157,6 +155,7 @@ $mod_strings = array (
   'LBL_REMOVE_COMMENT' => 'Yorumu Kaldır',
   'LBL_REMOVE_ROW' => 'Satırı Sil',
   'LBL_RENAME_ERROR' => 'HATA: _pdf dosyası $destination  dizinine taşınamıyor. Web sunucusunda bu dizini yazılabilir hale getirmeyi deneyin',
+  'LBL_REVENUELINEITEMS' => 'Gelir Kalemleri',
   'LBL_SALES_STAGE' => 'Teklif Aşaması:',
   'LBL_SEARCH_FORM_TITLE' => 'Teklif Arama',
   'LBL_SHIPPING' => 'Nakliyat:',

@@ -182,3 +182,42 @@ $GLOBALS['app_list_strings']['appointment_status']=array (
   'Reschedule' => 'Reschedule',
   'Nurture' => 'Nurture',
 );
+
+$app_list_strings['industry_dom']=array (
+  'AgricultureandMining' => 'Agriculture & Mining',
+  'ArchitectureandEngineeringServices' => 'Architecture and Engineering Services',
+  'Banking' => 'Banking',
+  'BusinessServices' => 'Business Services',
+  'Chemicals' => 'Chemicals',
+  'ComputersandElectronics' => 'Computers & Electronics ',
+  'ConsumerProducts' => 'Consumer Products ',
+  'ConsumerServices' => 'Consumer Services ',
+  'Education' => 'Education',
+  'EnergyandUtilities' => 'Energy & Utilities ',
+  'FinancialServices' => 'Financial Services',
+  'FoodandBeverage' => 'Food & Beverage ',
+  'Government' => 'Government',
+  'HealthcarePharmaceuticalsandBiotech' => 'Healthcare, Pharmaceuticals, & Biotech ',
+  'Insurance' => 'Insurance',
+  'Manufacturing' => 'Manufacturing',
+  'MediaandEntertainment' => 'Media & Entertainment ',
+  'Not For Profit' => 'Not For Profit',
+  'NetworkingEquipmentandSystems' => 'Networking Equipment and Systems ',
+  'Other' => 'Other ',
+  'RealEstateandConstruction' => 'Real Estate & Construction ',
+  'Retail' => 'Retail',
+  'SoftwareandInternet' => 'Software & Internet ',
+  'Telecommunications' => 'Telecommunications ',
+  'TransportationandStorage' => 'Transportation & Storage ',
+  'TravelRecreationandLeisure' => 'Travel, Recreation and Leisure',
+  'WholesaleandDistribution' => 'Wholesale & Distribution ',
+  'Client_or_Reseller' => 'Client or Reseller',
+  'Quickbooks_Client' => 'Quickbooks Client',
+);
+
+$app_list_strings['payment_terms']=array (
+  '' => '',
+  'Net 15' => 'Net 15',
+  'Net 30' => 'Net 30',
+  'Net_60' => 'Net 60',
+);

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/EditView/EditView2.php');
 /**
  * Quick create form in the subpanel
@@ -37,35 +34,18 @@ class SubpanelQuickCreate{
             $this->viewType = 'QuickCreate';
         }
 
-        // Get the viewdefs source file, called here to ensure proper viewType setting
-        $source = $this->getModuleViewDefsSourceFile($module, $this->viewType);
-
-		// locate the best viewdefs to use: 1. custom/module/quickcreatedefs.php 2. module/quickcreatedefs.php 3. custom/module/editviewdefs.php 4. module/editviewdefs.php
-		$base = 'modules/' . $module . '/metadata/';
-		$source = 'custom/' . $base . strtolower($view) . 'defs.php';
-		if (!file_exists( $source))
-		{
-			$source = $base . strtolower($view) . 'defs.php';
-			if (!file_exists($source))
-			{
-				//if our view does not exist default to EditView
-				$view = 'EditView';
-				$source = 'custom/' . $base . 'editviewdefs.php';
-				if (!file_exists($source))
-				{
-					$source = $base . 'editviewdefs.php';
-				}
-			}
-		}
-
+		// locate the best viewdefs to use: 1. custom/module/quickcreatedefs.php 2. module/quickcreatedefs.php 3. editviewdefs as in metafile
+		$source = SugarAutoLoader::existingCustomOne("modules/{$module}/metadata/quickcreatedefs.php");
+		if(!$source) {
+            $source = SugarAutoLoader::loadWithMetafiles($module, "editviewdefs");
+            $this->viewType = 'EditView';
+        }
         $this->ev = $this->getEditView();
 		$this->ev->view = $this->viewType;
 		$this->ev->ss = new Sugar_Smarty();
-		//$_REQUEST['return_action'] = 'SubPanelViewer';
 
-        $class = $GLOBALS['beanList'][$module];
-        $bean = new $class();
-        if(!empty($_REQUEST['record'])) {
+		$bean = BeanFactory::getBean($module);
+        if($bean && !empty($_REQUEST['record'])) {
             $bean->retrieve($_REQUEST['record']);
         }
 		$this->ev->setup($module, $bean, $source);
@@ -89,19 +69,11 @@ class SubpanelQuickCreate{
         //Load the parent view class if it exists.  Check for custom file first
         loadParentView('edit');
 
-		$viewEditSource = 'modules/'.$module.'/views/view.edit.php';
-		if (file_exists('custom/'. $viewEditSource)) {
-			$viewEditSource = 'custom/'. $viewEditSource;
-		}
+		$viewEditSource = SugarAutoLoader::existingCustomOne('modules/'.$module.'/views/view.edit.php');
 
-		if(file_exists($viewEditSource) && !$proccessOverride) {
-            include($viewEditSource);
-            $c = $module . 'ViewEdit';
-
-            $customClass = 'Custom' . $c;
-            if(class_exists($customClass)) {
-                $c = $customClass;
-            }
+		if(!empty($viewEditSource) && !$proccessOverride) {
+            require_once $viewEditSource;
+            $c = SugarAutoLoader::customClass($module . 'ViewEdit');
 
             if(class_exists($c)) {
 	            $view = new $c;
@@ -109,18 +81,13 @@ class SubpanelQuickCreate{
 	            	$this->defaultProcess = false;
 
 	            	// Check if we should use the module's QuickCreate.tpl file.
-	            	if($view->useModuleQuickCreateTemplate && file_exists('modules/'.$module.'/tpls/QuickCreate.tpl')) {
+	            	if($view->useModuleQuickCreateTemplate && SugarAutoLoader::fileExists('modules/'.$module.'/tpls/QuickCreate.tpl')) {
 	            	   $this->ev->defs['templateMeta']['form']['headerTpl'] = 'modules/'.$module.'/tpls/QuickCreate.tpl';
 	            	}
 
-		            $view->ev = & $this->ev;
-		            $view->ss = & $this->ev->ss;
-					$class = $GLOBALS['beanList'][$module];
-					if(!empty($GLOBALS['beanFiles'][$class])){
-						require_once($GLOBALS['beanFiles'][$class]);
-						$bean = new $class();
-						$view->bean = $bean;
-					}
+		            $view->ev = $this->ev;
+		            $view->ss = $this->ev->ss;
+		            $view->bean = BeanFactory::getBean($module);
 					$this->ev->formName = 'form_Subpanel'.$this->ev->view .'_'.$module;
 					$view->showTitle = false; // Do not show title since this is for subpanel
 		            $view->display();
@@ -164,20 +131,13 @@ class SubpanelQuickCreate{
      * @param $view
      * @return string The path to the viewdefs file to use
      */
-    public function getModuleViewDefsSourceFile($module, $view) {
-        $base = 'modules/' . $module . '/metadata/';
-		$source = 'custom/' . $base . strtolower($view) . 'defs.php';
-		if (!file_exists($source)) {
-			$source = $base . strtolower($view) . 'defs.php';
-			if (!file_exists($source)) {
-				//if our view does not exist default to EditView
-				$this->viewType = 'EditView';
-				$source = 'custom/' . $base . 'editviewdefs.php';
-				if (!file_exists($source)) {
-					$source = $base . 'editviewdefs.php';
-				}
-			}
-		}
+    public function getModuleViewDefsSourceFile($module, $view)
+    {
+    	$source = SugarAutoLoader::existingCustomOne("modules/{$module}/metadata/".strtolower($view)."defs.php");
+		if(!$source) {
+            $source = SugarAutoLoader::loadWithMetafiles($module, "editviewdefs");
+            $this->viewType = 'EditView';
+        }
 
         return $source;
     }

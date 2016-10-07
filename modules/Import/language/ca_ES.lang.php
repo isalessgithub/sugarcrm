@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_IMPORT_SYSTEM_ADMININSTRATOR' => 'No pot importar un usuari administtrador del sistema',
@@ -226,6 +223,7 @@ $mod_strings = array (
   'LBL_NOW_CHOOSE' => 'Ara triï l´arxiu a importar:',
   'LBL_NO_DATECHECK' => 'Saltar comprobació de data (més ràpid però fallarà si la data es incorrecta)',
   'LBL_NO_EMAILS' => 'No enviar notificacions de Correu durant la importació',
+  'LBL_NO_EMAIL_DEFS_IN_MODULE' => 'Tractant de manejar adreces de correu a un registre que no les suporta.',
   'LBL_NO_ID' => 'ID Requerit',
   'LBL_NO_IMPORT_TO_UNDO' => 'No hi ha importació per desfer.',
   'LBL_NO_LINES' => 'No hi ha línies en el seu arxiu d´importació',
@@ -313,6 +311,7 @@ $mod_strings = array (
   'LBL_SUCCESSFULLY' => 'Importat amb Èxit',
   'LBL_SUCCESSFULLY_IMPORTED' => 'Registres creats amb èxit',
   'LBL_SUMMARY' => 'Resum',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Digits significatius del sistema',
   'LBL_TAB' => 'Arxiu Delimitat per Tabulacions',
   'LBL_TAB_NUM_1' => 'Llanci l´aplicació i Obri l´arxiu de dades',
   'LBL_TAB_NUM_2' => 'Seleccioni l´opció de menú <b>Guardar com...</b> o <b>Exportar...</b>',

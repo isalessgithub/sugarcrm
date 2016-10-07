@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokument skapat',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Dokumentnamn',
   'ERR_DOC_VERSION' => 'Dokumentversion',
   'ERR_FILENAME' => 'Filnamn',
+  'ERR_FILESIZE' => 'Filen är för stor. Max filstorlek:',
   'LBL_ACTIVE_DATE' => 'Publiceringsdatum',
   'LBL_AND' => 'och',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Associerar Tagar till artiklar...',
@@ -35,13 +33,16 @@ $mod_strings = array (
   'LBL_ARTICLE_AUTHOR' => 'Författare:',
   'LBL_ARTICLE_AUTHOR_LIST' => 'Författare',
   'LBL_ARTICLE_BODY' => 'Artikel meddelande',
+  'LBL_ARTICLE_EXISTS' => 'Artikel finns redan',
   'LBL_ARTICLE_IN_TREE_HOVER' => 'Artikel',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_CONTENT' => 'Förhandsgranskning är ej möjligt, dokumentet finns, men saknar än så länge innehåll.',
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Förhandsgranskning är ej möjligt, dokumentposten hittades inte.',
   'LBL_ARTICLE_TITLE' => 'Titel;',
   'LBL_ATTACHMENTS' => 'Bilagor:',
+  'LBL_CASE' => 'Ärende:',
   'LBL_CASES' => 'Ärenden',
   'LBL_CASES_SUBPANEL_TITLE' => 'Relaterade ärenden',
+  'LBL_CASE_ID' => 'Ärende ID',
   'LBL_CATEGORY' => 'Kategori',
   'LBL_CATEGORY_VALUE' => 'Kategori:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Ospecificerad',
@@ -54,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Kontrakt',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Relaterade kontrakt',
   'LBL_CONTRACT_NAME' => 'Kontraktsnamn:',
+  'LBL_CONTRACT_STATUS' => 'Kontrakt status',
   'LBL_CREATED' => 'Skapad av',
   'LBL_CREATED_BY' => 'Skapad av',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -62,6 +64,7 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'Skapatdatum',
   'LBL_DATE_MODIFIED' => 'Redigeringsdatum',
   'LBL_DEFAULT_ADMIN_MESSAGE' => 'Välj en åtgärd från dropdown menyn',
+  'LBL_DEFAULT_LINK_TEXT' => 'Standard länk-text.',
   'LBL_DELETE' => 'Radera',
   'LBL_DELETED' => 'Raderad',
   'LBL_DELETE_TAG' => 'Radera tag',
@@ -101,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Dokument Id',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDokument revisions nummer',
   'LBL_KBDOC_APPROVED_BY' => 'Godkänd av:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Namn på godkännare',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Ladda ner bilagor:',
   'LBL_KBDOC_BODY' => 'Meddelande:',
@@ -119,7 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Senaste revision Id',
   'LBL_LATEST_REVISION_NAME' => 'Senaste reviderings namn',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Laddar tag browsing',
+  'LBL_LINKED_ID' => 'Länkat id',
   'LBL_LIST_ACTIVE_DATE' => 'Publiceringsdatum',
+  'LBL_LIST_APPROVED_BY' => 'Godkänd av',
   'LBL_LIST_ARTICLES' => 'Artiklar',
   'LBL_LIST_CATEGORY' => 'Kategori',
   'LBL_LIST_DOCUMENT' => 'Dokument',
@@ -158,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Ej giltig fil',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Föräldrartyp',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Du kan filtrera nedåt i listan över artiklar genom att tillhandahålla en sökterm.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Till exempel kan du använda detta för att hitta en artikel om ett visst intresse.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Kunskapsbasmodulen är för att arbeta med publicerade artiklar. Använd pilarna nedan för att gå igenom en snabbtur.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Denna sida visar en lista över publicerade artiklar.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Genom att klicka här kommer du tillbaka till kunskapsbasen när som helst.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Tidigare sparade sökningar:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Redigera eller radera befintlig sparad sökning',
   'LBL_PUBLISHED' => 'Publicerad:',
@@ -175,12 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Sök dokument',
   'LBL_SEARCH_TAG' => 'Sök',
   'LBL_SEARCH_WITHIN' => 'Sök inom:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Valt reviderings filnamn',
+  'LBL_SELECTED_REVISION_ID' => 'Valt reviderings id',
   'LBL_SELECTED_REVISION_NAME' => 'Valt reviderings namn:',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Välj artiklar som ska kopplas till tagar',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Välj artiklar först',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Välj artiklar först',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Skapa ny Tag',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Välj en Tag från trästrukturen',
+  'LBL_SELECT_NODE' => 'Välj en nod',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Välj föräldratagen från trädstrukturen',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Välj huvud tag, från trädet',
   'LBL_SELECT_TAG' => 'Välj tag',
@@ -227,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Använd den här Tagen:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Otaggade artiklar',
   'LBL_UPDATE' => 'Uppdatera',
+  'LBL_VIEWS_NUMBER' => 'Översiktsnummer',
   'LNK_KBDOCUMENT_LIST' => 'Lista dokument',
   'LNK_NEW_ARTICLE' => 'Skapa artikel',
   'LNK_NEW_MAIL_MERGE' => 'Epost merge',

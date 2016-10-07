@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Sintaxis de Cron inválida',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Todos los días',
   'LBL_ALWAYS' => 'Siempre',
   'LBL_AND' => 'y',
+  'LBL_ASYNCMASSUPDATE' => 'Realizar Actualizaciones Asíncronas Masivas',
   'LBL_AT' => 'en',
   'LBL_AT_THE' => 'El',
   'LBL_BASIC_OPTIONS' => 'Configuración Básica',
   'LBL_CATCH_UP' => 'Ejecutar Si Falla',
   'LBL_CATCH_UP_WARNING' => 'Desmarque si la ejecución de esta tarea puede durar más de un momento.',
   'LBL_CLEANJOBQUEUE' => 'Liberador de la Cola de Trabajos',
+  'LBL_CLEANOLDRECORDLISTS' => 'Limpiar las Listas de Récords Antiguos',
   'LBL_CRONTAB_EXAMPLES' => 'Lo arriba mostrado utiliza notación estándar de crontab.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Por favor, especifique el tiempo de ejecución del planificador en consecuencia.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Las especificaciones del cron para que se ejecute es sobre la base de la zona horaria del servidor (',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Ejecutar Proceso Nocturno de Campañas de Email Masivo',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Limpiar Cola de Trabajos',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Nuevos Períodos de Tiempo Futuros',
+  'LBL_OOTB_HEARTBEAT' => 'Control Automático de Usuarios de Sugar',
   'LBL_OOTB_IE' => 'Comprobar Bandejas de Entrada',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Trabajo programado del Autor de procesos',
   'LBL_OOTB_PRUNE' => 'Truncar Base de datos al Inicio del Mes',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Extracción de documentos del sistema de archivos',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Recortar las Listas de Récords Antiguos',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Eliminar archivos de la herramienta de diagnósticos',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Eliminar archivos PDF temporales',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Eliminar archivos temporales',
   'LBL_OOTB_REPORTS' => 'Ejecutar Tareas Programadas de Generación de Informes',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Ejecutar Envío de Emails de Recordatorios',
-  'LBL_OOTB_SUGARFEEDS' => 'Modelar Tablas de SugarFeed',
   'LBL_OOTB_TRACKER' => 'Truncar Tablas de Monitorización',
   'LBL_OOTB_WORKFLOW' => 'Procesar Tareas de Workflow',
   'LBL_PERENNIAL' => 'continuo',
   'LBL_PERFORMFULLFTSINDEX' => 'Búsqueda de texto completo Sistema de Índice',
+  'LBL_PMSEENGINECRON' => 'Programador del Autor de procesos',
   'LBL_POLLMONITOREDINBOXES' => 'Comprobar Cuentas de Correo Entrante',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Ejecutar Proceso Nocturno de Correos Rebotados en Campañas',
   'LBL_PROCESSQUEUE' => 'Ejecutar Tareas Planificadas de Generación de Informes',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Truncar Base de Datos el 1º de cada Mes',
   'LBL_RANGE' => 'a',
   'LBL_REFRESHJOBS' => 'Actualizar Trabajos',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Extracción de documentos del sistema de archivos',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Ejecutar Campañas de Correo Masivo Nocturnas',
   'LBL_SAT' => 'Sábado',
   'LBL_SCHEDULER' => 'Planificador:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Ejecutar recordatorios por correo electrónico',
   'LBL_STATUS' => 'Estado',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Nuevos Períodos de Tiempo Futuros',
+  'LBL_SUGARJOBHEARTBEAT' => 'Control Automático de Usuarios de Sugar',
   'LBL_SUN' => 'Domingo',
   'LBL_THU' => 'Jueves',
   'LBL_TIME_FROM' => 'Activo Desde',
   'LBL_TIME_TO' => 'Activo Hasta',
   'LBL_TOGGLE_ADV' => 'Mostrar Opciones Avanzadas',
   'LBL_TOGGLE_BASIC' => 'Mostrar Opciones Básicas',
-  'LBL_TRIMSUGARFEEDS' => 'Modelar Tablas de SugarFeed',
   'LBL_TRIMTRACKER' => 'Truncar Tablas de Monitorización',
   'LBL_TUE' => 'Martes',
   'LBL_UPDATETRACKERSESSIONS' => 'Actualizar Tablas de Sesión de Monitorización',

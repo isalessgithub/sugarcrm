@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Adja meg a jelszót a SugarCRM admin felhasználóhoz!',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Adja meg a felhasználónevet a Sugar admin felhasználóhoz!',
   'ERR_CHECKSYS' => 'A kompatibilitás ellenőrzése során a rendszer hibákat talált. A hibátlan telepítés érdekében kérem, tekintse át az alább felsorolt problémákat és orvosolja őket, majd ellenőrizze az elemeket újra, esetleg ismételje meg a telepítést!',
+  'ERR_CHECKSYS_BCMATH' => 'Nem található BCMATH támogatás: BCMATH támogatás szükséges a tetszőleges pontosságú matematika alkalmazásához.',
   'ERR_CHECKSYS_CALL_TIME' => 'Hívásidő referencia engedélyezése bekapcsolva (kikapcsolása a php.ini fájlban történik)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'A konfigurációs fájl létezik, de nem írható. Kérem, tegye meg a szükséges lépéseket annak érdekében, hogy írható legyen! Az operációs rendszerének függvényében ez igényelheti a chmod 766 futtatása során a jogosultságok megváltoztatását, vagy a jobboldali egérgomb lekattintásával a fájl tulajdonságai menüben a "csak olvasható" tiltás kikapcsolását.',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'A config felülíró fájl létezik, de nem írható. Kérem, tegye meg a szükséges lépéseket annak érdekében, hogy írható legyen! Az operációs rendszerének függvényében ez igényelheti a chmod 766 futtatása során a jogosultságok megváltoztatását, vagy a jobboldali egérgomb lekattintásával a fájl tulajdonságai menüben a "csak olvasható" tiltás kikapcsolását.',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'A program észlelése szerint Ön nem használja a FastCGI kezelőt a PHP-hez. Installálnia kell egy olyan verziót, amely megfelel a rendszer számára. Kérem, olvassa el a kompatibilitási mátrixot a kiadásokra vonatkozó jegyzetekben! Az Ön verziója A részletekről itt olvashat: http://www.iis.net/php/',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Az optimális élmény érdekében használjon IIS/FastCGI sapi-t; állítsa 0-ra a fastcgi.logging paramétert a php.ini fájl-ban!',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Az alább felsorolt fájlok vagy mappák nem léteznek és nem is lehet létrehozni őket, illetőleg ha léteznek, nem írhatók. Operációs rendszerének függvényében a javításhoz futtassa a chmod 766 parancsot és módosítsa a fájlok vagy szülő könyvtárak engedélyeit, vagy a jobboldali egérgomb lekattintásával a szülő könyvtár tulajdonságai menüben kapcsolja ki a "csak olvasható" tiltást.',
+  'ERR_CHECKSYS_HTACCESS' => 'A .htaccess teszt sikertelen. Ez általában azt jelenti, hogy a Sugar könyvtárra vonatkozó AllowOverride beállítások hiányosak.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Az Ön IIS verzióját nem támogatja a Sugar. Installálnia kell egy olyan verziót, amely megfelel a rendszer számára. Kérem, olvassa el a kompatibilitási mátrixot a kiadásokra vonatkozó jegyzetekben! Az Ön verziója',
   'ERR_CHECKSYS_IMAP' => 'Nincs találat: a bejövő emailek és az email kampányok megkövetelik az IMAP könyvtárak használatát. Egyik sem fog működni.',
   'ERR_CHECKSYS_MBSTRING' => 'Egyes Multibyte Strings (mbstring) PHP kiterjesztéshez kapcsolódó funkciók, amelyek szükségesek a SugarCRM-hez, nem találhatók. <br /><br />Az alapértelmezett beállítások szerint az mbstring modul le van tiltva a PHP-ben, amit aktiválni kell az --enable-mbstring kifejezéssel. Kérem, olvasson utána a PHP felhasználói kézikönyvében, hogy lehet bekapcsolni az mbstring támogatást!',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Érvénytelen könyvtár',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Figyelem: nem írható',
   'ERR_CHECKSYS_NO_SESSIONS' => 'A munkafolyamat változók olvasása és írása során hiba lépett fel. Kezdje újra a telepítést!',
-  'ERR_CHECKSYS_PCRE' => 'Nem található PCRE könyvtár: a SugarCRM-nek szüksége van PCRE könyvtárra a regex kifejezések egyeztetéséhez.',
-  'ERR_CHECKSYS_PCRE_VER' => 'PCRE könyvtár verzió: a SugarCRM-nek minimum 7.0-ás PCRE könyvtárra van szüksége a regex kifejezések egyeztetéséhez.',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Az Ön PHP verzióját nem támogatja a Sugar. Installálnia kell egy olyan verziót, amely megfelel a rendszer számára. Kérem, olvassa el a kompatibilitási mátrixot a kiadásokra vonatkozó jegyzetekben! Az Ön verziója',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Nem támogatott PHP verzió van telepítve: (ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Biztonsági mód bekapcsolva (kikapcsolható a php.ini fájlban)',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Egyszerű',
   'LBL_CANCEL' => 'Mégsem',
   'LBL_CHECKSYS_1' => 'Annak érdekében, hogy a SugarCRM telepítés megfelelően működjön, kérem, győződjön meg arról, hogy az alábbiakban felsorolt tételek zöldek. Piros előfordulása esetén tegye meg a szükséges lépéseket javítás céljából.<BR><BR> Ha segítségre van szüksége, látogasson el a <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a> oldalra!',
+  'LBL_CHECKSYS_BCMATH' => 'Tetszőleges pontosságú matematikai modul',
   'LBL_CHECKSYS_CACHE' => 'Írható ideiglenes alkönyvtárak',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Hívásidő pass referencia ellenőrző ki van kapcsolva',
   'LBL_CHECKSYS_COMPONENT' => 'Összetevők',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Kérem, javítsa ki a következő fájlokat vagy könyvtárakat a továbblépéshez:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Kérem, javítsa ki az alábbi modul könyvtárakat és fájlokat a továbblépés előtt:',
+  'LBL_CHECKSYS_HTACCESS' => 'AllowOverride beállítás .htaccesshez',
   'LBL_CHECKSYS_IISVER' => 'IIS verzió',
   'LBL_CHECKSYS_IMAP' => 'IMAP modul',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings modul',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQL verzió',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Nem érhető el',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'PCRE könyvtár',
   'LBL_CHECKSYS_PHPVER' => 'PHP verzió',
   'LBL_CHECKSYS_PHP_INI' => 'Az Ön PHP konfigurációs fájljának helye (php.ini):',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'A teljes szövegre mutató keresési funkció nincs telepítve.',
   'LBL_FTS_INSTALLED_ERR2' => 'Telepíthet, de nem lesz képes a teljes szövegre mutató keresés használatára. Kérem, ennek nézzen utána az adatbázis szerver telepítésére vonatkozó útmutatóban vagy lépjen kapcsolatba adminisztrátorával!',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Elastic Search szükséges.',
   'LBL_FTS_TABLE_TITLE' => 'Teljes szövegre vonatkozó keresési beállítások megadása',
   'LBL_FTS_TYPE' => 'Keresőmotor típusa',
   'LBL_HELP' => 'Segítség',
@@ -276,9 +275,9 @@ $mod_strings = array (
   'LBL_LICENSE_EXPIRY' => 'Lejárat dátuma',
   'LBL_LICENSE_I_ACCEPT' => 'Elfogadom',
   'LBL_LICENSE_NUM_USERS' => 'Felhasználók száma',
-  'LBL_LICENSE_OC' => 'Offline kliens licencek',
+  'LBL_LICENSE_OC' => 'Offline ügyfél licencek',
   'LBL_LICENSE_OC_DIRECTIONS' => 'Kérem, adja meg a megvásárolt offline kliensek számát!',
-  'LBL_LICENSE_OC_NUM' => 'Offline kliens licencek száma',
+  'LBL_LICENSE_OC_NUM' => 'Offline ügyfél licencek száma',
   'LBL_LICENSE_PRINTABLE' => 'Nyomtatási nézet',
   'LBL_LICENSE_REDIRECT' => 'Átirányítás ennyi idő múlva:',
   'LBL_LICENSE_TITLE' => 'Licenc információ',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Munkalista törlése',
   'LBL_OOTB_IE' => 'Bejövő postaládák ellenőrzése',
   'LBL_OOTB_PRUNE' => 'Adatbázis vágása a hónap első napján',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Dokumentumok eltávolítása a fájlrendszerből',
   'LBL_OOTB_REPORTS' => 'Ütemezett jelentések létrehozása',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Email emlékeztető figyelmeztetések futtatása',
-  'LBL_OOTB_SUGARFEEDS' => 'SugarFeed táblák metszése',
   'LBL_OOTB_TRACKER' => 'Követő táblázatok vágása',
   'LBL_OOTB_WORKFLOW' => 'Munkafolyamat feladatainak végrehajtása',
   'LBL_OPP' => 'Lehetőségek adatbeállítása',

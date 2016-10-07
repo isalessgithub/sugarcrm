@@ -1,39 +1,27 @@
 <?php
-
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+
+
 $mod_strings = array (
-   'LBL_YOURS' => 'Yours',
-   'LBL_IN_DATABASE' => 'In Database',
-   'LBL_CONFLICT_EXISTS' => 'A Conflict Exists For - ',
-   'LBL_ACCEPT_DATABASE' => 'Accept Database',
-   'LBL_ACCEPT_YOURS' => 'Accept Yours',
-   'LBL_RECORDS_MATCH' => 'Records Match',
-   'LBL_NO_LOCKED_OBJECTS' => 'No Locked Objects',
+  'LBL_ACCEPT_DATABASE' => 'Accept Database',
+  'LBL_ACCEPT_YOURS' => 'Accept Yours',
+  'LBL_BUNDLE_NOTE_POSITION' => 'Pozice produktového balíku',
+  'LBL_CONFLICT_EXISTS' => 'A Conflict Exists For - ',
+  'LBL_IN_DATABASE' => 'In Database',
+  'LBL_NO_LOCKED_OBJECTS' => 'No Locked Objects',
+  'LBL_RECORDS_MATCH' => 'Records Match',
+  'LBL_YOURS' => 'Yours',
 );
-?>
+

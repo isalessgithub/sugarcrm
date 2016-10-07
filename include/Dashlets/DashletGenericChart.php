@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/Dashlets/Dashlet.php');
 require_once('include/generic/LayoutManager.php');
 
@@ -115,18 +112,10 @@ abstract class DashletGenericChart extends Dashlet
     	$additionalTitle = '';
         if($this->isRefreshable)
 
-            $additionalTitle .= '<a href="#" onclick="SUGAR.mySugar.retrieveDashlet(\''
-                . $this->id
-                . '\',\'predefined_chart\'); return false;"><!--not_in_theme!-->'
-                . SugarThemeRegistry::current()->getImage(
-                    'dashlet-header-refresh',
-                    'border="0" align="absmiddle" title="'. translate('LBL_DASHLET_REFRESH', 'Home') . '"',
-                    null,
-                    null,
-                    '.gif',
-                    translate('LBL_DASHLET_REFRESH', 'Home')
-                )
-                . '</a>';
+            $additionalTitle .= '<a href="#" onclick="SUGAR.mySugar.retrieveDashlet(\'' 
+                                . $this->id . '\',\'predefined_chart\'); return false;"><!--not_in_theme!--><img border="0" title="' . translate('LBL_DASHLET_REFRESH', 'Home') . '" alt="' . translate('LBL_DASHLET_REFRESH', 'Home') . '" src="'
+                                . SugarThemeRegistry::current()->getImageURL('dashlet-header-refresh.png').'"/></a>';    	
+
         return $additionalTitle;
     }
 
@@ -263,7 +252,7 @@ abstract class DashletGenericChart extends Dashlet
     protected function getSeedBean()
     {
         if ( !($this->_seedBean instanceof SugarBean) )
-            $this->_seedBean = SugarModule::get($this->_seedName)->loadBean();
+            $this->_seedBean = BeanFactory::getBean($this->_seedName);
 
         return $this->_seedBean;
     }
@@ -326,7 +315,13 @@ abstract class DashletGenericChart extends Dashlet
         $autoRefreshSS->assign('dashletOffset', $dashletOffset);
         $autoRefreshSS->assign('dashletId', $this->id);
         $autoRefreshSS->assign('strippedDashletId', str_replace("-","",$this->id)); //javascript doesn't like "-" in function names
-        $autoRefreshSS->assign('dashletRefreshInterval', $this->getAutoRefresh());
+        if ( empty($this->autoRefresh) ) {
+            $this->autoRefresh = 0;
+        }
+        elseif ( !empty($sugar_config['dashlet_auto_refresh_min']) && $sugar_config['dashlet_auto_refresh_min'] > $this->autoRefresh ) {
+            $this->autoRefresh = $sugar_config['dashlet_auto_refresh_min'];
+        }
+        $autoRefreshSS->assign('dashletRefreshInterval', $this->autoRefresh * 1000);
         $autoRefreshSS->assign('url', "predefined_chart");
         $tpl = 'include/Dashlets/DashletGenericAutoRefresh.tpl';
         if ( $_REQUEST['action'] == "DynamicAction" ) {

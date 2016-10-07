@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Вы должны указать номер записи перед удалением сделки.',
@@ -23,16 +20,15 @@ $mod_strings = array (
   'LBL_ACCOUNT_ID' => 'Контрагент',
   'LBL_ACCOUNT_NAME' => 'Контрагент:',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Мероприятия',
-  'LBL_AMOUNT' => 'Сумма сделки:',
-  'LBL_AMOUNT_USDOLLAR' => 'Сумма:',
   'LBL_ASSIGNED_TO_ID' => 'Ответственный (-ая):',
   'LBL_ASSIGNED_TO_NAME' => 'Ответственный (-ая):',
-  'LBL_BEST_CASE' => 'Оптимистичный прогноз',
   'LBL_CAMPAIGN' => 'Маркетинговая кампания:',
   'LBL_CAMPAIGN_LINK' => 'Ссылка кампании',
   'LBL_CAMPAIGN_OPPORTUNITY' => 'Маркетинговые кампании',
+  'LBL_CLOSED_RLIS' => '# закрытого дохода по продуктам',
   'LBL_CLOSED_WON_OPPORTUNITIES' => 'Успешно закрытые сделки',
   'LBL_COMMITTED' => 'Назначен',
+  'LBL_COMMIT_STAGE' => 'Стадия совершения продажи',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Контакты',
   'LBL_CONTACT_HISTORY_SUBPANEL_TITLE' => 'Email-сообщения соответствующих контактов',
   'LBL_CONTRACTS' => 'Контракты',
@@ -45,6 +41,7 @@ $mod_strings = array (
   'LBL_CURRENCY_NAME' => 'Валюта',
   'LBL_CURRENCY_RATE' => 'Валютный курс',
   'LBL_CURRENCY_SYMBOL' => 'Символ валюты',
+  'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Тип 10 продаж',
   'LBL_DATE_CLOSED' => 'Предполагаемая дата закрытия:',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Ожидаемая дата закрытия',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Сделки',
@@ -58,20 +55,70 @@ $mod_strings = array (
   'LBL_EXPORT_CREATED_BY' => 'Создано (ID)',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Изменено (ID)',
   'LBL_EXPORT_NAME' => 'Имя',
+  'LBL_FILENAME' => 'Вложение',
   'LBL_FORECAST' => 'Включить в прогноз',
+  'LBL_HELP_CONFIG_OPPS' => 'Продажи и прогнозирование будут отслеживаться через {{plural_module_name}}, а {{revenuelineitems_module}} не будут доступны.
+
+Изменение параметра с «{{plural_module_name}} и {{revenuelineitems_module}} " на "{{plural_module_name}}" приведет к изменению, добавлению, удалению существующих данных, а именно:
+
+- В дополнение к информации, уже обобщенной в каждом {{module_name}}, в {{module_name}} будет сохранена следующая информация {{revenuelineitems_module}} :
+    - Если все {{revenuelineitems_module}} на стадии продажи "Потеряна", {{module_name}} будет отмечена как "Потеряна"
+    - Если закрыты все {{revenuelineitems_module}}, и по крайней мере один выигран, {{module_name}} будет отмечена как "Успешно закрытая"
+    - Если какой-либо из {{revenuelineitems_module}} по-прежнему открыт, {{module_name}} будет отмечена с более ранним этапом продаж.
+- Будет создана запись {{Notes_singular_module}} и связана с {{module_name}} для сохранения индивидуальных значений {{revenuelineitems_module}} следующих полей:
+    - Ожидаемый доход, Лучший доход, Худший доход
+    - Ожидаема дата закрытия
+    - Следующий шаг
+    - Этап продажи
+    - Вероятность
+    - Обратите внимание: Кастомные поля в {{revenuelineitems_module}} не будут сохранены.
+- Все {{revenuelineitems_module}} будут удалены из системы.
+- Все данные {{forecasts_singular_module}} будут удалены и прогнозирование начинается заново.',
+  'LBL_HELP_CONFIG_RLIS' => 'Продажи будут отслеживаться через {{plural_module_name}} с {{revenuelineitems_module}}. {{Module_name}} состоит из одного или более {{revenuelineitems_module}}. Это позволяет продажам предоставлять более подробную информацию в отдельных пунктах, и обобщать в {{module_name}}. {{forecasts_module}} будут создаваться с помощью {{revenuelineitems_module}}.
+
+Изменение параметра с "{{plural_module_name}}" на "{{plural_module_name}} и {{revenuelineitems_module}}" приведет к изменению, добавлению и удалению существующих данных, а именно:
+
+- У каждой из Ваших существующих {{plural_module_name}} будет создан один {{revenuelineitems_singular_module}} и прикреплен к {{module_name}}.
+- Следующие поля и значения будут дублироваться из существующих записей {{module_name}} в новые записи {{revenuelineitems_singular_module}}:
+   - Вероятная доход, Лучший доход, Худший доход
+   - Ожидаемая дата закрытия
+   - Следующий шаг
+- Следующие поля и значения будут удалены из существующих записей {{module_name}} в новые записи {{revenuelineitems_singular_module}}:
+   - Этап продажи
+   - Вероятность
+   - Все данные {{forecasts_singular_module}} будут удалены и прогнозирование начинается заново.',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} модуль позволяет вам отслеживать отдельные продажи и позиции, относящиеся к тем продажам, от начала и до конца. Каждая {{module_name}} запись представляет собой название для группы {{revenuelineitems_module}} и относится к другим важным записям, таким как {{quotes_module}}, {{contacts_module}}, и т.п.
+
+Чтобы создать {{module_name}}:
+1. Укажите значения полей.
+ - Поля с пометкой "Обязательно" должны быть заполнены перед сохранением.
+ - Нажмите "Показать больше", чтобы отобразить дополнительные поля при необходимости.
+2. Нажмите "Сохранить" для сохранения новой записи и возвращения на предыдущую страницу.
+ - Выберите "Сохранить и просмотреть", чтобы открыть новый {{module_name}} в режиме просмотра записи.
+ - Выберите "Сохранить и создать", чтобы сразу создать новый {{module_name}}.
+3. После сохранения, используйте {{revenuelineitems_module}} субпанель, чтобы добавить позиции продаж в {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} модуль позволяет вам отслеживать отдельные продажи и позиции, относящиеся к тем продажам, от начала и до конца. Каждая {{module_name}} запись представляет собой название для группы {{revenuelineitems_module}} и относится к другим важным записям, таким как {{quotes_module}}, {{contacts_module}}, и т.п.
+
+- Чтобы редактировать поля данной записи, нажмите на самом поле или кликните на кнопку Редактировать.
+- Чтобы просмотреть или изменить ссылки, ведущие к другим записям, на субпанеле, включая {{revenuelineitems_module}}, переключите левую нижнюю панель на "Просмотр данных".
+- Чтобы оставлять и просматривать пользовательские комментарии, а также изменять историю в рамках одной записи в {{activitystream_singular_module}} переключите левую нижнюю панель на "Лента активностей".
+- Чтобы подписаться или добавить в Избранное данную запись, используйте иконки справа от записи.
+- Дополнительные действия доступны в выпадающем меню Действий справа от кнопки Редактировать.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} модуль позволяет вам отслеживать отдельные продажи и позиции, относящиеся к тем продажам, от начала и до конца. Каждая {{module_name}} запись представляет собой название для группы {{revenuelineitems_module}} и относится к другим важным записям, таким как {{quotes_module}}, {{contacts_module}}, и т.п. Каждый {{revenuelineitems_singular_module}} является перспективной сделкой по конкретному продукту и содержит релевантные данные по продаже. Каждый {{revenuelineitems_singular_module}} будет проходить несколько Стадий Продаж до тех пор, пока не приобретет статус "Успешно Закрыта" или "Проиграна". {{module_name}} запись отражает сумму и предполагаемую дату закрытия {{revenuelineitems_module}}. {{plural_module_name}} и {{revenuelineitems_module}} могут быть использованы более выгодно с помощью Sugar {{forecasts_singular_module}} модуля для понимания и прогнозирования тенденций продаж, и сосредоточения работы на достижении установленных квот.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_INVITEE' => 'Контакты',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Предварительные контакты',
   'LBL_LEAD_SOURCE' => 'Источник предварительного контакта:',
-  'LBL_LIKELY_CASE' => 'Реалистичный прогноз',
   'LBL_LIST_ACCOUNT_NAME' => 'Контрагент',
-  'LBL_LIST_AMOUNT' => 'Сумма по сделке:',
+  'LBL_LIST_AMOUNT' => 'Вероятно',
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Сумма',
   'LBL_LIST_ASSIGNED_TO_NAME' => 'Ответственный (-ая)',
   'LBL_LIST_DATE_CLOSED' => 'Дата закрытия',
   'LBL_LIST_FORM_TITLE' => 'Список сделок',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Название',
   'LBL_LIST_SALES_STAGE' => 'Стадия продажи',
+  'LBL_MKTO_ID' => 'Marketo Lead ID',
+  'LBL_MKTO_SYNC' => 'Синхронизироваться с Marketo®',
   'LBL_MODIFIED_ID' => 'Изменено пользователем',
   'LBL_MODIFIED_NAME' => 'Изменено',
   'LBL_MODIFIED_USER' => 'Изменено пользователем',
@@ -82,33 +129,58 @@ $mod_strings = array (
   'LBL_NAME' => 'Сделка:',
   'LBL_NEW_FORM_TITLE' => 'Новая сделка',
   'LBL_NEXT_STEP' => 'Следующий шаг:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Заметки',
   'LBL_OPPORTUNITY' => 'Сделка:',
   'LBL_OPPORTUNITY_NAME' => 'Сделка:',
+  'LBL_OPPORTUNITY_ROLE' => 'Роль продажи',
   'LBL_OPPORTUNITY_TYPE' => 'Тип сделки',
+  'LBL_OPPS_CONFIG_ALERT' => 'Нажав кнопку Подтвердить, Вы сотрете все данные Прогнозов и измените представление Ваших продаж. Если это не то, что Вы хотели, нажмите кнопку Отмена, чтобы вернуться к предыдущим настройкам.',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1a' => 'Если все записи Доходов по продажам закрыты и, по крайней мере, одна запись была выиграна,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_1b' => 'если стадия продажи Сделки установлена в значение "Успешно закрытая"',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2a' => 'Если все записи Доходов по продажам находятся на стадии продажи "Потеряна",',
+  'LBL_OPPS_CONFIG_SALES_STAGE_2b' => 'этап продажи Сделки установлен в значение "Потеряна"',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3a' => 'Если любая запись Дохода по продажам все еще открыта,',
+  'LBL_OPPS_CONFIG_SALES_STAGE_3b' => 'Продажа будет отмечена с более ранним этапом продажи.',
+  'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Значения Доходов по продажам высчитаны для Продаж',
+  'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Структура сделки',
+  'LBL_PIPELINE_TOTAL_IS' => 'Сумма воронки',
   'LBL_PRIMARY_QUOTE_ID' => 'Инзначальное ценовое предложение',
   'LBL_PROBABILITY' => 'Вероятность (%):',
   'LBL_PRODUCTS' => 'Продукты',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукты',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Проекты',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Проекты',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Коммерческие предложения',
+  'LBL_QUOTE_SUBPANEL_TITLE' => 'Коммерческие предложения',
   'LBL_RAW_AMOUNT' => 'Сырой объем',
+  'LBL_RLI' => 'Доход по продуктам',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Доход по продуктам',
   'LBL_SALES_STAGE' => 'Стадия продажи:',
+  'LBL_SALES_STATUS' => 'Статус',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск сделки',
   'LBL_TEAM_ID' => 'Команда',
   'LBL_TIMEPERIODS' => 'Временные промежутки',
   'LBL_TIMEPERIOD_ID' => 'ID временного промежутка',
+  'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Отображает топ 10 продаж в кружковой диаграмме.',
+  'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'Мои продажи',
+  'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'Продажи моей команды',
   'LBL_TOP_OPPORTUNITIES' => 'Мои основные открытые сделки',
   'LBL_TOTAL_OPPORTUNITIES' => 'Все сделки',
+  'LBL_TOTAL_RLIS' => '# суммарного дохода по продуктам',
   'LBL_TYPE' => 'Тип:',
   'LBL_VIEW_FORM_TITLE' => 'Обзор сделки',
-  'LBL_WORST_CASE' => 'Пессимистичный прогноз',
+  'LBL_WORKSHEET' => 'Лист прогнозов',
+  'LNK_CREATE' => 'Завести сделку',
   'LNK_IMPORT_OPPORTUNITIES' => 'Импорт сделок',
   'LNK_NEW_OPPORTUNITY' => 'Новая сделка',
   'LNK_OPPORTUNITY_LIST' => 'Просмотр сделок',
   'LNK_OPPORTUNITY_REPORTS' => 'Просмотр отчета по сделкам',
   'MSG_DUPLICATE' => 'Запись, которую Вы создаете, возможно, дублирует уже имеющуюся запись. Похожие сделки показаны ниже. Нажмите кнопку "Сохранить"  для продолжения создания новой сделки или кнопку "Отмена" для возврата в модуль без создания сделки.',
+  'NOTICE_NO_DELETE_CLOSED_RLIS' => 'Вы не можете удалить продажи, которые содержат закрытый доход по продукту',
   'NTC_REMOVE_OPP_CONFIRMATION' => 'Вы действительно хотите удалить этот контакт из сделки?',
   'OPPORTUNITY_REMOVE_PROJECT_CONFIRM' => 'Вы действительно хотите удалить данную сделку из проекта',
+  'TPL_RLI_CREATE' => 'Продажа должна быть привязана к продукту.',
+  'TPL_RLI_CREATE_LINK_TEXT' => 'Создать новую позицию продажи.',
   'UPDATE' => 'Сделка - обновление валюты',
   'UPDATE_BUGFOUND_COUNT' => 'Найдены ошибки:',
   'UPDATE_BUG_COUNT' => 'Количество найденных ошибок и попыток их решения:',
@@ -134,5 +206,6 @@ $mod_strings = array (
   'UPDATE_VERIFY_NEWAMOUNT' => 'Новая сумма:',
   'UPDATE_VERIFY_NEWCURRENCY' => 'Новая валюта:',
   'UPDATE_VERIFY_TXT' => 'Проверьте, что суммы в сделках имеют правильные значения, используются только цифры (0-9) и знак разряда (.)',
+  'WARNING_NO_DELETE_CLOSED_SELECTED' => 'Одна или более выбранных записей содержат закрытый доход по продуктам и не могут быть удалены',
 );
 

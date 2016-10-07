@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_ENABLE' => 'Ingeschakeld',
@@ -26,7 +23,7 @@ $mod_strings = array (
   'LBL_TRACKER_HELP' => 'Track de bekeken pagina&#39;s van de gebruiker (modules en records gebruikt) en opgeslagen records',
   'LBL_TRACKER_PERF_DESC' => 'Tracker Performance',
   'LBL_TRACKER_PERF_HELP' => 'Track database round-trips, gebruikte bestanden en geheugengebruik',
-  'LBL_TRACKER_PRUNE_INTERVAL' => 'Aantal dagen van Tracjer gegevens om te bewaren als de Planner de tabellen opschoont.',
+  'LBL_TRACKER_PRUNE_INTERVAL' => 'Het aantal dagen dat van Tracker gegevens bewaard moet worden, als de taakplanner de tabellen opschoont.',
   'LBL_TRACKER_PRUNE_RANGE' => 'Aantal dagen',
   'LBL_TRACKER_QUERIES_DESC' => 'Tracker Queries',
   'LBL_TRACKER_QUERIES_HELP' => 'Track SQL Statements wanneer "Log slow queries &#39;is ingeschakeld en de query-uitvoertijd de parameter "Slow query time threshold" overschrijdt.',
@@ -56,7 +53,7 @@ $mod_strings = array (
   'top_module' => 'Meest Bezochte Module',
   'total_count' => 'Totaal aantal pageviews',
   'total_login_time' => 'Tijd (hh:mm:ss)',
-  'user_name' => 'Gebruiksersnaam',
+  'user_name' => 'Gebruikersnaam',
   'users' => 'Gebruikers',
 );
 

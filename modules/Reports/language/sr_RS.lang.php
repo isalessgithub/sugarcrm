@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -207,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'od navedenih filtera.',
   'LBL_FILTERS_HELP_DESC' => '<b>Koraci za definiciju filtera:</b><br/><br/>1) Kliknite na Modul na okno <b>Srodni Moduli</b> koji bi ste želeli da koristite za definiciju filtera. Standardno, primarni modul (gornja tačka u hijerarhijskom prikazu) je izabran. <br/><br/>Možete da izaberete srodni modul (pomoćna tačka u hijerarhijskom prikazu) klikom na modul. Proširite čvorište da vidite dodatne module povezane sa srodnim modulom. Modul koji izaberete određuje koje se polje povezano sa izveštajima prikazuje <b>Dostupna Polja</b> okno.<br/><br/>2) Kliknite na polje u oknu <b>Dostupna Polja</b> da ga dodate u filtere. Takođe možete da tražite polje u tekstualnom polju koje se nalazi u oknu.<br/><br/>Posle odabira bilo kog broja polja iz modula izabranog u oknu <b>Srodni Moduli</b>možete da izaberete drugi modul iz kog možete da izaberete bilo koji broj polja da koristite kao filtere <br/><br/>3) Izaberite <b>I</b> ili <b>ILI</b> da odredite da li se koriste svi ili bilo koji filteri da se pronađu rezultati za izveštaj.<br/><br/>4) [Opciono] Kliknite na <b>Dodaj grupu filtera</b> da kreirate grupu filtera. Možete da imate bilo koji broj grupa filtera i bilo kroji broj filtera u grupi da kreirate ugnezđene filtere.<br/><br/>5) [Opciono] Izaberite opciju U Toku Izvršavanja za Filter da omogućite korisnicima da koriste filter da dalje prilagode rezultate izveštaja dok gledaju izveštaj.',
   'LBL_FILTER_AND' => 'AND',
+  'LBL_FILTER_BY_MODULE' => 'Po Modulu',
   'LBL_FILTER_CONDITIONS' => 'Izaberite operator:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'Do',
   'LBL_FILTER_DATE_RANGE_START' => 'Od',
@@ -237,7 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Poslednjih 30 dana',
   'LBL_LAST_7_DAYS' => 'Poslednjih 7 dana',
   'LBL_LAST_MONTH' => 'Prošli mesec',
-  'LBL_LAST_N_DAYS' => 'Poslednjih # dana',
+  'LBL_LAST_N_DAYS' => 'Posladnjih # Dana',
   'LBL_LAST_QUARTER' => 'Poslednji kvartal',
   'LBL_LAST_WEEK' => 'Prošle nedelje',
   'LBL_LAST_YEAR' => 'Prošla godina',
@@ -309,7 +307,7 @@ $mod_strings = array (
   'LBL_NEXT_FISCAL_QUARTER' => 'Sledeći fiskalni kvartal',
   'LBL_NEXT_FISCAL_YEAR' => 'Sledeća fiskalna godina',
   'LBL_NEXT_MONTH' => 'Sledeći mesec',
-  'LBL_NEXT_N_DAYS' => 'Sledećih # dana',
+  'LBL_NEXT_N_DAYS' => 'Sledećih # Dana',
   'LBL_NEXT_QUARTER' => 'Sledećeg kvartala',
   'LBL_NEXT_RUN' => 'Sledeći Email',
   'LBL_NEXT_WEEK' => 'Sledeće nedelje',
@@ -321,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Ne možete da pristupite ovom izveštaju zbog ograničene dozvole pristupanja.',
   'LBL_NO_CHART' => 'Nema dijagrama',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Dijagram ne može da bude nacrtan jer nema dovoljno podataka',
-  'LBL_NO_EXPORT_ACCESS' => 'Eksportovanje isključeno',
+  'LBL_NO_EXPORT_ACCESS' => 'Izvoz je onemogućen',
   'LBL_NO_FILTERS' => 'nema filtere.',
   'LBL_NO_IMAGE' => 'Nema slike',
   'LBL_NO_REPORTS' => 'Nema rezultata.',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'u proseku',
   'LBL_WITH_A_TOTAL' => 'sve ukupno',
   'LBL_WITH_DETAILS' => 'Sa detaljima',
-  'LBL_WORKSHEET' => 'Radna lista',
   'LBL_YEAR' => 'Godina',
   'LBL_YESTERDAY' => 'Juče',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Nemate sačuvanih izveštaja.',
+  'LNK_ADVANCED_REPORTING' => 'Upravljaj Naprednim Izveštajima',
   'LNK_NEW_ACCOUNT' => 'Kreiraj kompaniju',
   'LNK_NEW_CALL' => 'Evidentiraj poziv',
   'LNK_NEW_CASE' => 'Kreiraj slučaj',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Nemate dozvolu da menjate ovaj izveštaj',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Ne može da se objavi. Postoji već objavljeni izveštaj sa istim imenom.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Ne može da se poništi objava izveštaja drugog korisnika. Imate izveštaj sa istim imenom.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'Mehanizam za zakazivanje procesa generisanja izveštaja je trenutno neaktivan i izveštaji se ne mogu zakazati. Molimo Vas, uputite zahtev Vašem sistem administratoru za aktiviranje mehanizma zakazivanja izveštaja',
 );
 

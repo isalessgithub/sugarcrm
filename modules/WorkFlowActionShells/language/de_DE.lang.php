@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -38,7 +35,7 @@ $mod_strings = array (
   'LBL_FILTER_RELATED' => 'Verknüpfte filtern',
   'LBL_INVITEES' => 'Teilnehmer',
   'LBL_LIST_ACTION_DESCRIPTION' => 'Durchzuführende Aktionen:',
-  'LBL_LIST_EVAL' => 'Ausw:',
+  'LBL_LIST_EVAL' => 'Ausw.:',
   'LBL_LIST_FIELD' => 'Feld:',
   'LBL_LIST_FORM_TITLE' => 'Aktionsliste',
   'LBL_LIST_NAME' => 'Triggerbezeichnung:',
@@ -54,7 +51,7 @@ $mod_strings = array (
   'LBL_RECORD' => 'Eintrag',
   'LBL_RELATED_RECORD' => 'Eintrag',
   'LBL_SEARCH_FORM_TITLE' => 'Workflow Trigger Suche',
-  'LBL_SELECT_CHECKED_FIELDS' => 'Sie müssen einen Wert für alle gecheckten Felder auswählen',
+  'LBL_SELECT_CHECKED_FIELDS' => 'Sie müssen einen Wert für alle markierten Felder auswählen',
   'LBL_SELECT_MODULE' => 'Sie müssen ein Modul auswählen.',
   'LBL_SELECT_RELATED_MODULE' => 'Sie müssen ein verknüpftes Modul auswählen.',
   'LBL_SELECT_VALUE' => 'Sie müssen eine gültigen Wert auswählen.',

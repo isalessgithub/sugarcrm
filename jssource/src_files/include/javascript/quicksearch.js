@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -131,7 +128,6 @@ function enableQS(noReload){
                     	generateRequest : function(sQuery) {
                             //preprocess values
                             var item_id = this.inputElement.form_id + '_' + this.inputElement.name;
-                            this.sqs = updateSqsFromQSFieldsArray(item_id, this.sqs);
                             if (QSCallbacksArray[item_id]) {
                                 QSCallbacksArray[item_id](this.sqs);
                             }
@@ -140,7 +136,7 @@ function enableQS(noReload){
 	                            module: 'Home',
 	                            action: 'quicksearchQuery',
 	                            data: YAHOO.lang.JSON.stringify(this.sqs),
-	                            query: decodeURIComponent(sQuery)
+	                            query: sQuery
 	                    	});
 	                    	return out;
 	                    },
@@ -262,9 +258,9 @@ function enableQS(noReload){
                     }
                     
                     
-                    if ( typeof(SUGAR.config.quicksearch_querydelay) != 'undefined' ) {
-                        search.queryDelay = Number(SUGAR.config.quicksearch_querydelay);
-                    }
+//                    if ( typeof(SUGAR.config.quicksearch_querydelay) != 'undefined' ) {
+//                        search.queryDelay = SUGAR.config.quicksearch_querydelay;
+//                    }
                     
                     //fill in the data fields on selection
                     search.itemSelectEvent.subscribe(function(e, args){
@@ -347,16 +343,4 @@ if(typeof QSFieldsArray == 'undefined') {
    QSFieldsArray = new Array();
    QSProcessedFieldsArray = new Array();
    QSCallbacksArray = new Array();
-}
-// Updates this.sqs of the Autocomplete instance with actual value from QSFieldsArray
-function updateSqsFromQSFieldsArray(sqsId, sqsToUpdate)
-{
-    if (typeof(QSFieldsArray[sqsId]) != 'undefined' && sqsToUpdate != QSFieldsArray[sqsId].sqs)
-    {
-        return QSFieldsArray[sqsId].sqs;
-    }
-    else
-    {
-        return sqsToUpdate;
-    }
 }

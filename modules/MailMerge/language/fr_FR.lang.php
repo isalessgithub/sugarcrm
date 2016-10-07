@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -23,7 +20,7 @@ $mod_strings = array (
   'LBL_AVAILABLE' => 'Disponible',
   'LBL_BACK' => '< Retour',
   'LBL_BROWSER_NOTICE' => 'Vous devez disposer d&#39;Internet Explorer 6.0 ou supérieur pour effectuer le publipostage.',
-  'LBL_BROWSER_REQUIREMENT' => 'Navigateur IE 6.0 ou supérieur pour Windows.',
+  'LBL_BROWSER_REQUIREMENT' => 'Cette application requiert IE 6.0 ou supérieur pour Windows.',
   'LBL_CONTAINS_CONTACT_INFO' => 'Le modèle sélectionné contient des informations liés à des .',
   'LBL_DOC_DESCRIPTION' => 'Description:',
   'LBL_DOC_NAME' => 'Nom du Document:',
@@ -39,9 +36,9 @@ $mod_strings = array (
   'LBL_MAILMERGE_TEMPLATES' => 'Modèle utilisé pour le Publipostage:',
   'LBL_MERGED_FILE' => 'Fichier publiposté:',
   'LBL_NEXT' => 'Suivant >',
-  'LBL_RELATED_INFO_SELECTION' => 'Utiliser la sélection ci-dessous pour identifier les informations liées que vous souhaitez afficher dans votre document fusionné. Sauter cette étape si votre modèle de document ne contient aucune informations liées.',
+  'LBL_RELATED_INFO_SELECTION' => 'Utiliser les sélections ci-dessous pour identifier les informations liées que vous souhaitez voir apparaître dans le document fusionné. Passer cette étape si votre modèle de document ne contient pas de relation.',
   'LBL_REMOVE' => 'Supprimer',
-  'LBL_SELECTED' => 'Sélectionné(s)',
+  'LBL_SELECTED' => 'Sélectionné',
   'LBL_SELECTED_ITEMS' => 'Elements selectionnés:',
   'LBL_SELECTED_MODULE' => 'Module Sélectionné:',
   'LBL_SELECTED_TEMPLATE' => 'Modèle sélectionné:',

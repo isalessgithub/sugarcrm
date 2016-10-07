@@ -1,16 +1,15 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('include/SugarFields/Fields/Base/SugarFieldBase.php');
 
@@ -47,7 +46,7 @@ class SugarFieldDatetimecombo extends SugarFieldBase {
         $displayParams['showFormats'] = true;
         return $this->getEditViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex);
     }
-	
+
     function getSearchViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) {
 
     	 if($this->isRangeSearchView($vardef)) {
@@ -66,10 +65,6 @@ class SugarFieldDatetimecombo extends SugarFieldBase {
            $this->ss->assign('id_range_start', "start_range_{$id}");
            $this->ss->assign('id_range_end', "end_range_{$id}");
            $this->ss->assign('id_range_choice', "{$id}_range_choice");
-           if(file_exists('custom/include/SugarFields/Fields/Datetimecombo/RangeSearchForm.tpl'))
-           {
-              return $this->fetch('custom/include/SugarFields/Fields/Datetimecombo/RangeSearchForm.tpl');
-           }
            return $this->fetch('include/SugarFields/Fields/Datetimecombo/RangeSearchForm.tpl');
         }
 
@@ -136,8 +131,9 @@ class SugarFieldDatetimecombo extends SugarFieldBase {
         }
         return TimeDate::getInstance()->to_display_date_time($inputField, true, true, $user);
     }
-    
-    public function save(&$bean, &$inputData, &$field, &$def, $prefix = '') {
+
+    public function save($bean, $inputData, $field, $def, $prefix = '')
+    {
         global $timedate;
         if ( !isset($inputData[$prefix.$field]) ) {
             //$bean->$field = '';
@@ -207,10 +203,115 @@ class SugarFieldDatetimecombo extends SugarFieldBase {
 
         try {
             $date = SugarDateTime::createFromFormat($format, $value, new DateTimeZone($settings->timezone));
+            if ((int) $date->year < 100) {
+                return false;
+            }
         } catch(Exception $e) {
             return false;
         }
         return $date->asDb();
     }
+
+
+    /**
+     * Handles export field sanitizing for field type
+     *
+     * @param $value string value to be sanitized
+     * @param $vardef array representing the vardef definition
+     * @param $focus SugarBean object
+     * @param $row Array of a row of data to be exported
+     *
+     * @return string sanitized value
+     */
+    public function exportSanitize($value, $vardef, $focus, $row=array())
+    {
+        $timedate =  TimeDate::getInstance();
+        $db = DBManagerFactory::getInstance();
+        //If it's in ISO format, convert it to db format
+        if(preg_match('/(\d{4})\-?(\d{2})\-?(\d{2})T(\d{2}):?(\d{2}):?(\d{2})\.?\d*([Z+-]?)(\d{0,2}):?(\d{0,2})/i', $value)) {
+           $value = $timedate->fromIso($value)->asDb();
+        }
+        $value = $timedate->to_display_date_time($db->fromConvert($value, 'datetime'));
+        return preg_replace('/([pm|PM|am|AM]+)/', ' \1', $value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function apiFormatField(
+        array &$data,
+        SugarBean $bean,
+        array $args,
+        $fieldName,
+        $properties,
+        array $fieldList = null,
+        ServiceBase $service = null
+    ) {
+        global $timedate;
+        $this->ensureApiFormatFieldArguments($fieldList, $service);
+
+        if(empty($bean->$fieldName)) {
+            $data[$fieldName] = '';
+            return;
+        }
+
+
+        $date = $timedate->fromDb($bean->$fieldName);
+        if ( $date == null ) {
+            // The bean's date is not in db format, let's try user format
+            $date = $timedate->fromUser($bean->$fieldName);
+            if ( $date == null ) {
+                // Can't parse this date..
+                return;
+            }
+        }
+        $data[$fieldName] = $timedate->asIso($date);
+    }
+
+    /**
+     * @see SugarFieldBase::apiSave
+     */
+    public function apiSave(SugarBean $bean, array $params, $field, $properties) {
+        global $timedate;
+
+        if ( empty($params[$field]) ) {
+            $bean->$field = '';
+            return;
+        }
+
+        $date = $timedate->fromIso($params[$field]);
+        if ( !$date ) {
+            require_once('include/api/SugarApiException.php');
+            throw new SugarApiExceptionInvalidParameter("Did not recognize $field as a date/time, it looked like {$params[$field]}");
+        }
+        $bean->$field = $date->asDb();
+    }
+
+
+    /**
+     * Unformat a value from an API Format
+     * @param $value - the value that needs unformatted
+     * @return string - the unformatted value
+     */
+    public function apiUnformatField($value)
+    {
+        $sugarField = SugarFieldHandler::getSugarField('datetime');
+        return $sugarField->apiUnformatField($value);
+    }
+
+    /**
+     * Fix a value(s) for a Filter statement
+     * @param $value - the value that needs fixing
+     * @param $fieldName - the field we are fixing
+     * @param SugarBean $bean - the Bean
+     * @param SugarQuery $q - the Query
+     * @param SugarQuery_Builder_Where $where - the Where statement
+     * @param $op - the filter operand
+     * @return bool - true if everything can pass as normal, false if new filters needed to be added to override the existing $op
+     */
+    public function fixForFilter(&$value, $fieldName, SugarBean $bean, SugarQuery $q, SugarQuery_Builder_Where $where, $op)
+    {
+        $sugarField = SugarFieldHandler::getSugarField('datetime');
+        return $sugarField->fixForFilter($value, $fieldName, $bean, $q, $where, $op);
+    }
 }
-?>

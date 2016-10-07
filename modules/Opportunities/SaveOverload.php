@@ -1,27 +1,41 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
+/**
+ * @param Opportunity $focus        The Current Opportunity we are working with
+ */
+function perform_save($focus)
+{
+    global $app_list_strings, $timedate, $current_language;
+    $app_list_strings = return_app_list_strings_language($current_language);
 
-function perform_save(&$focus){
+    /* @var $admin Administration */
+    $admin = BeanFactory::getBean('Administration');
+    $settings = $admin->getConfigForModule('Forecasts');
+
+    // if any of the case fields are NULL or an empty string set it to the amount from the main opportunity
+    if (is_null($focus->best_case) || strval($focus->best_case) === "") {
+        $focus->best_case = $focus->amount;
+    }
+
+    if (is_null($focus->worst_case) || strval($focus->worst_case) === "") {
+        $focus->worst_case = $focus->amount;
+    }
+
     // Bug49495: amount may be a calculated field
     $focus->updateCalculatedFields();
-	//US DOLLAR
-	if(isset($focus->amount) && !number_empty($focus->amount)){
-		$currency = new Currency();
-		$currency->retrieve($focus->currency_id);
-		$focus->amount_usdollar = $currency->convertToDollar($focus->amount);
-	}	
+
+    //Store the base currency value
+    if (isset($focus->amount) && !number_empty($focus->amount)) {
+        $focus->amount_usdollar = SugarCurrency::convertWithRate($focus->amount, $focus->base_rate);
+    }
 }
-?>

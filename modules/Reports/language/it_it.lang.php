@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -79,6 +76,8 @@ $mod_strings = array (
     1209600 => 'Ogni 2 settimane',
     2419200 => 'Ogni 4 settimane',
   ),
+  'ERR_REPORT_DEACTIVATED' => 'Il report schedulato "{0}" è stato disattivato',
+  'ERR_REPORT_DEACTIVATED_SUBJECT' => 'Il report schedulato è stato disattivato',
   'ERR_REPORT_INVALID' => 'La definizione del report "{0}" contiene campi non validi: {1}',
   'ERR_REPORT_INVALID_SUBJECT' => 'Il report non è valido',
   'ERR_SELECT_COLUMN' => 'Si prega prima di selezionare una colonna da visualizzare.',
@@ -122,7 +121,7 @@ $mod_strings = array (
   'LBL_BEFORE' => 'Prima',
   'LBL_BUG_REPORTS' => 'Reports Bugs',
   'LBL_BY_DAY' => 'Da giorno',
-  'LBL_BY_FISCAL_QUARTER' => 'Per Trimestre',
+  'LBL_BY_FISCAL_QUARTER' => 'Per Trimestre Fiscale',
   'LBL_BY_FISCAL_YEAR' => 'Per Anno Fiscale',
   'LBL_BY_MONTH' => 'Da mese',
   'LBL_BY_QUARTER' => 'Da Trimestre',
@@ -205,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'dei seguenti filtri.',
   'LBL_FILTERS_HELP_DESC' => '<b>Steps per Definire i Filtri:</b><br/><br/>1) Clicca sul Modulo che vuoi utilizzare per definire i filtri nel riquadro <b>Moduli Correlati</b>. Di default, viene selezionato il modulo principale (livello superiore nella visuallizzazione ad albero). <br/><br/>	Puoi selezionare un modulo relazionato (livello inferiore nella visualizzazione ad albero) cliccando sul modulo stesso. Espandi il livello per visualizzare i moduli aggiuntivi correlati al modulo relazionato. Il modulo che selezioni determina quali campi saranno riportati nel riquadro <b>Campi Disponibili</b>.<br/><br/>	2) Click on a Field in the <b>Available Fields</b> pane to add it to the filters. You can also search for the field by typing in the text box in the pane.<br/><br/>	After selecting any number of fields from the module selected in the <b>Related Modules</b> pane, you can choose a different module from which you can select any number of fields to use as filters.<br/><br/>	3) Choose <b>AND</b> or <b>OR</b> to designate whether all filters or any filters, respectively, are used to find results for the report.<br/><br/>	4) [Optional] Click on <b>Add Filter Group</b> to create groups of filters. You can have any number of filter groups and any number of filters in a group to create nested filters.<br/><br/>	5) [Optional] Select the Run-time option for a Filter to allow users to use the filter to further customize the results of the reports while viewing the report.',
   'LBL_FILTER_AND' => 'E',
+  'LBL_FILTER_BY_MODULE' => 'Per modulo',
   'LBL_FILTER_CONDITIONS' => 'Seleziona Operatore:',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'A',
   'LBL_FILTER_DATE_RANGE_START' => 'Da',
@@ -235,6 +235,7 @@ $mod_strings = array (
   'LBL_LAST_30_DAYS' => 'Ultimi 30 Giorni',
   'LBL_LAST_7_DAYS' => 'Ultimi 7 giorni',
   'LBL_LAST_MONTH' => 'Ultimo Mese',
+  'LBL_LAST_N_DAYS' => 'Ultimi # giorni',
   'LBL_LAST_QUARTER' => 'Ultimo Trimestre',
   'LBL_LAST_WEEK' => 'Ultima settimana',
   'LBL_LAST_YEAR' => 'Anno Precedente',
@@ -304,8 +305,9 @@ $mod_strings = array (
   'LBL_NEXT_30_DAYS' => 'Prossimi 30 Giorni',
   'LBL_NEXT_7_DAYS' => 'Prossimi 7 giorni',
   'LBL_NEXT_FISCAL_QUARTER' => 'Trimestre Fiscale Successivo',
-  'LBL_NEXT_FISCAL_YEAR' => 'Anno Fiscale Successvo',
+  'LBL_NEXT_FISCAL_YEAR' => 'Anno Fiscale Successivo',
   'LBL_NEXT_MONTH' => 'Mese Successivo',
+  'LBL_NEXT_N_DAYS' => 'Prossimi # giorni',
   'LBL_NEXT_QUARTER' => 'Prossimo Trimestre',
   'LBL_NEXT_RUN' => 'Prossima Email',
   'LBL_NEXT_WEEK' => 'Settimana Successiva',
@@ -317,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Non sei in grado di accedere a questo report a causa delle restrizioni dei permessi.',
   'LBL_NO_CHART' => 'Nessuna tabella',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Non è possibile costruire la tabella in quanto non ci sono dati sufficienti',
-  'LBL_NO_EXPORT_ACCESS' => 'Esportazioni Disabilitate',
+  'LBL_NO_EXPORT_ACCESS' => 'Esportazione disabilitata',
   'LBL_NO_FILTERS' => 'non ha filtri.',
   'LBL_NO_IMAGE' => 'Nessuna Immagine',
   'LBL_NO_REPORTS' => 'Nessun risultato.',
@@ -361,7 +363,7 @@ $mod_strings = array (
   'LBL_PUBLISHED_TASK_REPORTS' => 'Reports Compito Pubblicati',
   'LBL_QUARTER' => 'Trimestre',
   'LBL_QUARTER_ABBREVIATION' => 'Q',
-  'LBL_QUERY' => 'Ricerca',
+  'LBL_QUERY' => 'Query',
   'LBL_QUOTE_REPORTS' => 'Reports Offerte',
   'LBL_RELATED' => 'Correlato:',
   'LBL_RELATED_MODULES' => 'Moduli Correlati',
@@ -430,7 +432,7 @@ $mod_strings = array (
   'LBL_SELECT_REPORT_TYPE_ICON' => 'Selezionare il Tipo Report',
   'LBL_SHOW' => 'Mostra',
   'LBL_SHOW_DETAILS' => 'Mostra Dettagli',
-  'LBL_SHOW_QUERY' => 'Mostra Ricerca',
+  'LBL_SHOW_QUERY' => 'Mostra Query',
   'LBL_SORT' => 'Tipo',
   'LBL_STARTS_WITH' => 'Parte con',
   'LBL_START_DATE' => 'Data Inizio',
@@ -479,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'con una media',
   'LBL_WITH_A_TOTAL' => 'con un totale',
   'LBL_WITH_DETAILS' => 'Con dettagli',
-  'LBL_WORKSHEET' => 'Matrice',
   'LBL_YEAR' => 'Anno',
   'LBL_YESTERDAY' => 'Ieri',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Non ci sono report salvati.',
+  'LNK_ADVANCED_REPORTING' => 'Gestisci Reports Avanzati',
   'LNK_NEW_ACCOUNT' => 'Nuova Azienda',
   'LNK_NEW_CALL' => 'Log Chiamata',
   'LNK_NEW_CASE' => 'Nuovo Reclamo',
@@ -495,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Non hai il permesso per modificare questo report',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Impossibile pubblicare. E´ presente un altro report pubblicato con lo stesso nome.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Impossibile annullare la pubblicazione di un report di un altro utente. Presente un altro report pubblicato con lo stesso nome.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'L´utility per schedulare il processo di generazione dei reports non è attualmente attiva e i reports non possono essere schedulati. Si prega di richiedere ad un utente amministratore per l´attivazione dell´utility di schedulazione e riprovare.',
 );
 

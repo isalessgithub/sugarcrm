@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Dokumentum létrehozva',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Dokumentum neve',
   'ERR_DOC_VERSION' => 'Dokumentum verziója',
   'ERR_FILENAME' => 'Fájlnév',
+  'ERR_FILESIZE' => 'A fájl túl nagy. Megengedett fájlméret:',
   'LBL_ACTIVE_DATE' => 'Közzététel dátuma',
   'LBL_AND' => 'és',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Cikkek címkézése...',
@@ -44,7 +42,7 @@ $mod_strings = array (
   'LBL_CASE' => 'Eset:',
   'LBL_CASES' => 'Esetek',
   'LBL_CASES_SUBPANEL_TITLE' => 'Kapcsolódó esetek',
-  'LBL_CASE_ID' => 'Eset azonosító:',
+  'LBL_CASE_ID' => 'Eset azonosító',
   'LBL_CATEGORY' => 'Kategória',
   'LBL_CATEGORY_VALUE' => 'Kategória:',
   'LBL_CAT_OR_SUBCAT_UNSPEC' => 'Nincs részletezve',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Szerződések',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Kapcsolódó szerződések',
   'LBL_CONTRACT_NAME' => 'Szerződés neve:',
+  'LBL_CONTRACT_STATUS' => 'Szerződés státusza',
   'LBL_CREATED' => 'Létrehozta',
   'LBL_CREATED_BY' => 'Létrehozta',
   'LBL_CREATED_BY_NAME' => 'CIMKE_NEV',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Dokumentum azonosító:',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Tud.Báz.Dokumentum felülvizsgálat száma',
   'LBL_KBDOC_APPROVED_BY' => 'Jóváhagyta:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Jóváhagyó neve',
   'LBL_KBDOC_ATTACHMENT' => 'Csatolmányok',
   'LBL_KBDOC_ATTS_TITLE' => 'Mellékletek letöltése:',
   'LBL_KBDOC_BODY' => 'Törzs:',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Utolsó felülvizsgálat azonosító',
   'LBL_LATEST_REVISION_NAME' => 'Utolsó felülvizsgálat neve',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Címke tallózásának betöltése...',
+  'LBL_LINKED_ID' => 'Kapcsolódó azonosító',
   'LBL_LIST_ACTIVE_DATE' => 'Közzététel dátuma',
-  'LBL_LIST_APPROVED_BY' => 'Jóváhagyta:',
+  'LBL_LIST_APPROVED_BY' => 'Jóváhagyta',
   'LBL_LIST_ARTICLES' => 'Cikkek áttekintése',
   'LBL_LIST_CATEGORY' => 'Kategória',
   'LBL_LIST_DOCUMENT' => 'Dokumentum',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Nem érvényes fájl',
   'LBL_NUMBER' => 'Száma',
   'LBL_PARENT_TYPE' => 'Szülő típus',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Keresendő kifejezés megadásával szűrheti a cikkek listáját.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Ez hasznos lehet, ha például egy speciális témában keres cikkeket.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'A Tudásbázis modul a közzétett cikkeket tartalmazza. Alább a nyilak használatával megismerkedhet a modullal.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Az oldal a közzétett cikkek listáját tartalmazza.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Ide kattintva azonnal visszatér a Tudásbázishoz.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Korábbi mentett keresések:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Mentett keresés szerkesztése vagy törlése.',
   'LBL_PUBLISHED' => 'Közzétéve:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Dokumentum keresése',
   'LBL_SEARCH_TAG' => 'Keres',
   'LBL_SEARCH_WITHIN' => 'Keresés ebben:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Kiválasztott módosítás fájlneve',
+  'LBL_SELECTED_REVISION_ID' => 'Kiválasztott módosítás azonosítója',
   'LBL_SELECTED_REVISION_NAME' => 'Kiválasztott felülvizsgálat neve',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Válassza ki a cikkeket a címke alkalmazásához',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Először válassza ki a cikkeket',
@@ -212,7 +220,7 @@ $mod_strings = array (
   'LBL_SUBCATEGORY_VALUE' => 'Alkategória:',
   'LBL_SYNTAX_CHEAT_SHEET' => 'Keresési segítség:<br /><br />1. A plusz (+) jel azokat a kifejezéseket jelöli, amelyeket az eredményeknek tartalmazniuk kell.<br />2. A mínusz (-) jel azokat a kifejezéseket jelöli, amelyeket az eredményeknek nem szabad tartalmazniuk. A mínusz (-) jel használata nem feltétlen szükséges, ha kitölti a kihagyni kívánt szavak mezőjét.<br />3. Idézőjelek között szereplő kifejezések ("példa1 példa2") egyetlen keresési kifejezésként értelmeződnek. Az idézőjeleknek párban kell szerepelniük, ellenkező esetben a keresés nem fog futni.<br />4. Az aposztróf ($#39;) kereshető karakterként viselkedik; nem csoportosítja a kifejezéseket.<br /><br />Példa: ha olyan találatokat szeretne, amelyek tartalmazzák opcionálisan a "Sugar" vagy a "CRM" szavakat, kötelezően a "tudásbázis cikk" és "nagyszerű" megjelöléseket, ugyanakkor nem tartalmazzák a "demo" és "múlt idő" kifejezéseket, akkor az alábbi keresési kifejezéseket kell megadnia: Sugar CRM +"tudásbázis cikk" +nagyszerű -demo -"múlt idő"<br /><br />Megjegyzés:<br /><br />1. A rendszer nem tesz különbséget a kis- és nagybetűk között.<br />2. A kereső felismeri a vesszők és szünetek használatát a tagolásnál.<br />3. Ne tegyen szünetet a plusz (+) és mínusz (-) jelek és a hozzájuk kapcsolódó szavak közé!',
   'LBL_TAB_ADVANCED' => 'Összetett keresés',
-  'LBL_TAB_BROWSE' => 'Tallózás',
+  'LBL_TAB_BROWSE' => 'Tallózzás',
   'LBL_TAB_SEARCH' => 'Keresés',
   'LBL_TAGS' => 'Címkék:',
   'LBL_TAGS_ROOT_LABEL' => 'Címkék',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Használja ezt a cimkét:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Címkézetlen cikkek.',
   'LBL_UPDATE' => 'Frissítés',
+  'LBL_VIEWS_NUMBER' => 'Megtekintések száma',
   'LNK_KBDOCUMENT_LIST' => 'Dokumentumok megtekintése',
   'LNK_NEW_ARTICLE' => 'Új cikk létrehozása',
   'LNK_NEW_MAIL_MERGE' => 'Körlevél',

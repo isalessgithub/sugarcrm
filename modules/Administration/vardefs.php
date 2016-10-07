@@ -1,20 +1,20 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$dictionary['Administration'] = array('table' => 'config', 'comment' => 'System table containing system-wide definitions'
-                               ,'fields' => array (
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$dictionary['Administration'] = array(
+    'table' => 'config',
+    'comment' => 'System table containing system-wide definitions',
+    'hidden_to_role_assignment' => true,
+    'fields' => array (
   'category' =>
   array (
     'name' => 'category',
@@ -38,8 +38,16 @@ $dictionary['Administration'] = array('table' => 'config', 'comment' => 'System 
     'type' => 'text',
     'comment' => 'The value given to the setting'
   ),
-
-), 'indices'=>array( array('name'=>'idx_config_cat', 'type'=>'index',  'fields'=>array('category')),)
+  'platform' =>
+  array (
+    'name' => 'platform',
+    'vname' => 'LBL_LIST_PLATFORM',
+    'type' => 'varchar',
+    'len' => '32',
+    'comment' => 'Which platform to send this back with vai the api'
+  ),
+), 'indices'=>array( array('name'=>'idx_config_cat', 'type'=>'index',  'fields'=>array('category')), array('name'=>'idx_config_platform', 'type'=>'index',  'fields'=>array('platform'))),
+'acls' => array('SugarACLDeveloperForAny' => true, 'SugarACLStatic' => false),
                             );
 
 $dictionary['UpgradeHistory'] = array(
@@ -68,7 +76,7 @@ $dictionary['UpgradeHistory'] = array(
                 'name' => 'type',
                 'type' => 'varchar',
                 'len' => '30',
-    		    'comment' => 'The upgrade type (module, patch, theme, etc)'
+    		    'comment' => 'The upgrade type (module, patch, etc)'
         ),
         'status' => array (
                 'name' => 'status',
@@ -101,6 +109,11 @@ $dictionary['UpgradeHistory'] = array(
                 'name' => 'manifest',
                 'type' => 'longtext',
     		    'comment' => 'A serialized copy of the manifest file.'
+        ),
+        'patch' => array (
+            'name' => 'patch',
+            'type' => 'text',
+            'comment' => 'A serialized copy of the patch applied to the package during installation'
         ),
         'date_entered' => array (
                 'name' => 'date_entered',

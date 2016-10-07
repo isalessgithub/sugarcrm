@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Sintaxis de Cron invàlida',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Tots els dies',
   'LBL_ALWAYS' => 'Sempre',
   'LBL_AND' => 'i',
+  'LBL_ASYNCMASSUPDATE' => 'Fer actualitzacions massives asíncrones',
   'LBL_AT' => 'en',
   'LBL_AT_THE' => 'El',
   'LBL_BASIC_OPTIONS' => 'Configuració Bàsica',
   'LBL_CATCH_UP' => 'Executar Si Falla',
   'LBL_CATCH_UP_WARNING' => 'Desmarqui si l´execució d´aquesta tasca pot durar més d´un moment.',
   'LBL_CLEANJOBQUEUE' => 'Alliberar espai en cua de treball',
+  'LBL_CLEANOLDRECORDLISTS' => 'Netejar antigues llistes de registres',
   'LBL_CRONTAB_EXAMPLES' => 'Lo a dalt mostrat utilitza notació estàndard de crontab.',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Si us plau, especifiqui el temps d&#39;execució del planificador en conseqüència',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Les especificacions que cron s&#39;executi sobre la base de la zona horària del servidor (',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Executar Procés Nocturn de Campanyes de Correu Massiu',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Netejar cua de treball',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Crear períodes futurs de temps',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Comprovar Safates d´Entrada',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Tasca programada de l&#39;Autor de processos',
   'LBL_OOTB_PRUNE' => 'Truncar Base de dades al Inici del Mes',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Eliminació de documents del sistema de fitxers',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Netejar antigues llistes de registres',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Esborra arxius d&#39;eines de diagnòstic',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Esborra arxius PDF temporals',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Esborra arxius temporals',
   'LBL_OOTB_REPORTS' => 'Executar Tasques Programades de Generació d´Informes',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Executar Notificacions de recordatori per correu electrònic',
-  'LBL_OOTB_SUGARFEEDS' => 'Buidar taules SugarFeed',
   'LBL_OOTB_TRACKER' => 'Truncar Històrial d´Usuari al Inici del Mes',
   'LBL_OOTB_WORKFLOW' => 'Processar Tasques de Workflow',
   'LBL_PERENNIAL' => 'continu',
   'LBL_PERFORMFULLFTSINDEX' => 'Cerca de text complet Sistema d&#39;Índex',
+  'LBL_PMSEENGINECRON' => 'Processa el programador d&#39;autors',
   'LBL_POLLMONITOREDINBOXES' => 'Comprovar Comptes de Correu Entrant',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Executar Procés Nocturn de Correus Rebotats en Campanyes',
   'LBL_PROCESSQUEUE' => 'Executar Tasques Planificades de Generació d&#39;Informes',
@@ -99,7 +103,6 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Truncar Base de Dades el 1º de cada Mes',
   'LBL_RANGE' => 'a',
   'LBL_REFRESHJOBS' => 'Actualitzar Treballs',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Eliminació de documents del sistema de fitxers',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Executar campanyes de Correu Massiu Nocturnes',
   'LBL_SAT' => 'Dissabte',
   'LBL_SCHEDULER' => 'Planificador:',
@@ -107,13 +110,13 @@ $mod_strings = array (
   'LBL_SENDEMAILREMINDERS' => 'Executar Envia recordatoris per correu electrònic',
   'LBL_STATUS' => 'Estat',
   'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Crear períodes futurs de temps',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Diumenge',
   'LBL_THU' => 'Dijous',
   'LBL_TIME_FROM' => 'Actiu Desde',
   'LBL_TIME_TO' => 'Actiu Fins a',
   'LBL_TOGGLE_ADV' => 'Opcions Avançades',
   'LBL_TOGGLE_BASIC' => 'Opcions Bàsiques',
-  'LBL_TRIMSUGARFEEDS' => 'Buidar taules SugarFeed',
   'LBL_TRIMTRACKER' => 'Truncar Taules de Monitorització',
   'LBL_TUE' => 'Dimarts',
   'LBL_UPDATETRACKERSESSIONS' => 'Actualitzar Taules de Sessió de Monitorització',

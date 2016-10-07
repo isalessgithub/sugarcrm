@@ -1,32 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
 /*
- * Created on Oct 4, 2005
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
+ * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-
-
-
-
-
-
-
 global $app_strings;
 global $app_list_strings;
 global $mod_strings;
@@ -42,10 +25,7 @@ if(!empty($_POST['document_id']))
 	$_SESSION['MAILMERGE_DOCUMENT_ID'] = $_POST['document_id'];
 }
 $document_id = $_SESSION['MAILMERGE_DOCUMENT_ID'];
-$revision = new DocumentRevision();
-$revision->retrieve($document_id);
-//$document = new Document();
-//$document->retrieve($document_id);
+$revision = BeanFactory::getBean('DocumentRevisions', $document_id);
 
 if(!empty($_POST['selected_objects']))
 {
@@ -75,14 +55,10 @@ foreach($sel_obj as $key=>$value)
 $builtArray = array();
 if(count($relArray) > 0)
 {
-$_SESSION['MAILMERGE_RELATED_CONTACTS'] = $relArray;
+    $_SESSION['MAILMERGE_RELATED_CONTACTS'] = $relArray;
 
-$relModule = $_SESSION['MAILMERGE_CONTAINS_CONTACT_INFO'];
-global $beanList, $beanFiles;
-$class_name = $beanList[$relModule ];
-require_once($beanFiles[$class_name]);
-
-	$seed = new $class_name();
+    $relModule = $_SESSION['MAILMERGE_CONTAINS_CONTACT_INFO'];
+	$seed = BeanFactory::getBean($relModule);
 	foreach($sel_obj as $key=>$value)
 	{
 		$builtArray[$key] = $value;
@@ -91,7 +67,7 @@ require_once($beanFiles[$class_name]);
 			$seed->retrieve($relArray[$key]);
 			$name = "";
 			if($relModule  == "Contacts"){
-				$name = $locale->getLocaleFormattedName($seed->first_name,$seed->last_name);
+                $name = $locale->formatName($seed);
 			}
 			else{
 				$name = $seed->name;

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Gelişmiş',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Sunucu yanıt verme zamanlarını göster',
   'ERR_ALERT_FILE_UPLOAD' => 'Görüntü yükleme sırasında hata.',
   'ERR_DELETE_CORE_FILE' => 'HATA: Ana yazı tipini silmek imkansızdır.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML sertifika boş olamaz',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML bağlantı URL boş olamaz',
   'ERR_EZPDF_DISABLE' => 'Uyarı: EZPDF sınıfı yapılandırma tablosunda devre dışı bırakılmış ve PDF sınıfı olarak ayarlanmış durumda. Lütfen TCPDF PDF Sınıfı olarak ayarlamak ve tutarlı aşamaya geçmek için "Kaydet" butonuna basın.',
   'ERR_FONT_ALREADY_EXIST' => 'HATA: Bu yazı tipi zaten mevcut. Geri dön...',
   'ERR_FONT_EMPTYFILE' => 'HATA: Boş dosya ismi!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'HATA: Mevcut Özel Yazı Tipi dizini yok!',
   'ERR_NO_FONT_PATH' => 'HATA: Mevcut Yazı tipi yolu !',
   'ERR_PDF_NO_UPLOAD' => 'Yazı tipi veya dosya ölçüsü yükleme işlemi esnasında hata oluştu.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Bağlantı URL geçerli değil',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL geçerli değil',
   'HEAD_MAGNIFICATION' => 'Konu Başlığı Büyütme',
   'HEAD_MAGNIFICATION_INFO' => 'Başlıklar için Büyütme Faktörü.',
   'IMAGES' => 'Logolar',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Geri',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'E-posta Servis sağlayıcınızı seçiniz:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Sistem Ayarları',
-  'LBL_CONFIG_AJAX' => 'AJAX Kullanıcı Ara yüzünü yapılandırın',
-  'LBL_CONFIG_AJAX_DESC' => 'Belirlenmiş modüller için AJAX UI kullanımını etkinleştirin veya devre dışı bırakın.',
   'LBL_DELETE' => 'Sil',
   'LBL_DISALBE_CONVERT_LEAD' => 'Dönüştürülmüş potansiyeller için potansiyel dönüştürme aksiyonunu devre dışı bırakın',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Eğer bir potansiyel daha önceden dönüştürülmüş ise, bu seçeneği etkinleştirmeden potansiyel dönüştürme işlemini kaldırın.',
   'LBL_DISPLAYING_LOG' => 'Log görüntülüyor',
   'LBL_ENABLE_ACTION_MENU' => 'Menülerin içinde aksiyonları göster',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Açılır-liste menüsü içinde DetaylıGörünüm ve Alt panel aksiyonlarını görüntülemek için seçin. Seçili değilse, aksiyonlar ayrı butonlar olarak gösterecektir.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Modüllerin Tarihçe alt-panelinde ilişkili kişilerin e-postalarını göster',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'İlişkili (veya bağlantılı) kontakların e-postalarını altpanelde görmek için Aktif Ediniz/Kapatınız.',
   'LBL_ENABLE_MAILMERGE' => 'E-Posta Birleştirme Etkinleştirilsin mi?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange Şifresi:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Kullanıcıları onaylarken herhangi bir filtre parametresi uygulamak için örn.<em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Potansiyel Dönüştürme Seçenekleri',
   'LBL_LOADING' => 'Yüklüyor...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Bu ayar, eski kipteki modüller için geçerlidir.',
   'LBL_LOGGER' => 'Kaydedici Ayarları',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Varsayılan Tarih Formatı',
   'LBL_LOGGER_FILENAME' => 'Log Dosya İsmi',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Sonraki>>',
   'LBL_NOTIFY_FROMADDRESS' => '"Gönderen" Adres:',
   'LBL_NOTIFY_SUBJECT' => 'E-Posta konusu:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Kullanıcıların Kişisel Takım İsimlerinin güncellenmesini engeller',
   'LBL_OC_STATUS' => 'Çevrimdışı İstemci Durumu',
   'LBL_OC_STATUS_DESC' => 'Herhangi bir kullanıcının Çevrimdışı İstemciye erişim sahibi olması için buraya tıklayınız. Ya da bu değişikliği kullanıcı seviyesinde gerçekleştirebilirsiniz.',
   'LBL_PDFMODULE_NAME' => 'PDF Ayarları',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'HATA: Yazı tipi eklenemedi. Aşağıdaki log kaydına bak.',
   'LBL_STATUS_FONT_SUCCESS' => 'BAŞARI: Yazı tipi SugarCRM e eklendi.',
   'LBL_SYSTEM_SETTINGS' => 'Sistem Ayarları',
+  'LBL_TWEETTOCASE_ON' => 'Talep entegrasyonu için Tweet&reg; etkinleştirin',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Kullanıcıların Tweets üzerinden talep oluşturmalarına olanak sağlar',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; talebe',
   'LBL_USE_REAL_NAMES' => 'İsim - Soyisim göster',
   'LBL_USE_REAL_NAMES_DESC' => 'Atanan alanlardaki Kullanıcı İsmi yerine Kullanıcıların tam ismini göster.',
   'LBL_VCAL_PERIOD' => 'vCal Güncelleme Zamanı Periyodu:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Sistem İsmi:',
   'SYSTEM_NAME_HELP' => 'Tarayıcınızın başlık çubuğunda görünen isim budur.',
   'SYSTEM_NAME_WIZARD' => 'İsim:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Kabul edilebilir performans değerlerine erişmek için, önerilen değer {{listEntriesNum}} altıdır. Liste görünümüne yeni alanlar eklendikçe, bu değer önerilen ayarların küçük değerine yaklaşmalıdır.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Kabul edilebilir performans değerlerine erişmek için, önerilen değer {{subpanelEntriesNum}} altıdır. Liste görünümüne yeni alanlar eklendikçe, bu değer önerilen ayarların küçük değerine yaklaşmalıdır.',
   'UPLOAD_MAX_SIZE' => 'Maksimum karşıya yükleme boyutu',
   'VERIFY_CLIENT_IP' => 'Kullanıcı IP adresini doğrula',
   'vCAL_HELP' => 'Bu ayarı bildirilen toplantılar ve telefon aramaları konusunda kaç ay öncesinden Uygun/Meşgul durumunun belirlenmesi kullanın.<BR>Uygun/Meşgul bildirisini kapatmak için "0" girin. Minimum 1 ay; maksimum 12 Ay.',

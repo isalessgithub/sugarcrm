@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Trebuie sa specifici un numar de inregistrare pentru a sterge contul',
@@ -28,7 +25,7 @@ $mod_strings = array (
   'ERR_IE_FAILURE1' => 'Clic aici pt intoarcere',
   'ERR_IE_FAILURE2' => 'Este o problema cu conectarea la adresa de mail.Va rugam verificati setarile si incercati din nou.',
   'ERR_IE_MISSING_REQUIRED' => 'In setările de email Inbound lipsesc informaţiile solicitate. Vă rugăm să verificaţi setările şi încercaţi din nou. Dacă nu setati Email Inbound, vă rugăm să stergeti toate câmpurile din această secţiune.',
-  'ERR_INVALID_PASSWORD' => 'Trebuie să specificaţi un nume de utilizator valid şi o parolă.',
+  'ERR_INVALID_PASSWORD' => 'Trebuie sa specificati un nume de utilizator valid si parola corespunzatoare.',
   'ERR_LAST_ADMIN_1' => 'Numele angajatului "',
   'ERR_LAST_ADMIN_2' => '" este ultimul angajat cu acces de administrator. Cel putin un angajat trebuie sa fie administrator',
   'ERR_NO_LOGIN_MOBILE' => 'Prima dvs. conectare la această aplicatie trebuie să fie completata cu un browser non-mobil sau în modul normal. Vă rugăm să reveniţi cu un browser complet sau faceţi clic pe link-ul normal de mai jos. Ne cerem scuze pentru orice neplăcere.',
@@ -100,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Creeata de',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_EXAMPLE' => 'Exemplu Valută Display',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Afişează moneda preferată',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Schimbă moneda de bază în cea preferată de utilizator în ferestrele de vizualizare liste şi înregistrări',
   'LBL_CURRENCY_SIG_DIGITS' => 'Cifre semnificative a valutei',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Numărul de zecimale pentru a arăta moneda',
   'LBL_CURRENCY_TEXT' => 'Selectaţi moneda in care vor fi afişate în mod implicit atunci când creaţi noi inregistrari. Aceasta este, de asemenea, moneda care va fi afişata în coloanele Suma în Vedere Lista Oportunităţi.',
@@ -129,7 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Editeaza fila',
   'LBL_EMAIL' => 'Adresa Email:',
   'LBL_EMAILS' => 'Email-uri',
-  'LBL_EMAIL_ADDRESS' => 'Adresa Email:',
+  'LBL_EMAIL_ADDRESS' => 'Adresă Email',
   'LBL_EMAIL_CHARSET' => 'Outbound Setul de caractere',
   'LBL_EMAIL_EDITOR_OPTION' => 'Compuneţi format',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Preincarca setariel implicite ale GmailTM',
@@ -162,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax:',
   'LBL_FDOW' => 'Prima zi din saptamana',
   'LBL_FDOW_TEXT' => 'Prima zi din saptamana,luna,an',
+  'LBL_FILTER_USERS_REPORTS' => 'Rapoarte utilizator',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => 'Cautare variabile de conexiune optima.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Cauta Configurare Optima',
@@ -169,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Fortare Negativ',
   'LBL_FORCE_DESC' => 'Unele servere IMAP/POP3 necesita comutatoare speciale. Verificati daca fortati un comutator negativ atunci cand va conectati (adica, /notls)',
   'LBL_FORECASTS' => 'Previziuni',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Momentan această funcţie nu este activată. Vă rugăm să contactaţi administratorul.',
   'LBL_FOUND_OPTIMUM_MSG' => 'S-au gasit setarile optime. Apasati butonul de mai jos pentru a le aplica la contul dumneavoastra de email.',
   'LBL_GENERATE_PASSWORD' => 'Resetare parolă',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -276,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Echiplele mele',
   'LBL_NAME' => 'Nume intreg:',
   'LBL_NAVIGATION_PARADIGM' => 'Navigare',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Selectaţi pentru a vizualiza filele module in bara de navigare pe grupe de pre-definite. Dacă această funcţie nu este selectata, toate modulele vor apărea în bara de navigare.',
   'LBL_NEW_FORM_TITLE' => 'Utilizator nou',
   'LBL_NEW_PASSWORD' => 'Parola noua',
   'LBL_NEW_PASSWORD1' => 'Parola:',
@@ -437,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Raporteaza catre',
   'LBL_REQUEST_SUBMIT' => 'Cererea dvs. a fost înaintată.',
   'LBL_RESET_DASHBOARD' => 'Resetare Tabloul de bord',
-  'LBL_RESET_HOMEPAGE' => 'Resetare Pagina de start',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Esti sigur ca vrei resetaţi pagina dvs. de pornire?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Esti sigur ca vrei resetaţi Pagina de start pentru acest utilizator?',
   'LBL_RESET_PREFERENCES' => 'Revenire la setarile initiale',
   'LBL_RESET_PREFERENCES_WARNING' => 'Esti sigur ca vrei resetaţi toate preferinţele dumneavoastră de utilizator? Avertisment: Acest jurnal, de asemenea, va va scoate din cererii.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Esti sigur ca vrei resetaţi toate preferinţele pentru acest utilizator?',
@@ -474,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Statut',
   'LBL_SUBPANEL_LINKS' => 'Link-uri Subpanou',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'În Vizualizări Detaliu, afişeaza un rând de link-uri de comenzi rapide subpanou.',
-  'LBL_SUBPANEL_TABS' => 'File Subpanou',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'În Vizualizări Detaliu, grupeaza Subpanou în file şi afişeaza cate o filă.',
   'LBL_SUGAR_LOGIN' => 'Este Utilizator Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'afectează numai teme care acceptă această opţiune.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Afişează bara Ultimele afişate pe laterale, în cazul verificarii. Altfel, se pune deasupra.',
@@ -483,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Afişează bara de comenzi rapide în partea de sus, dacă au fost verificate. În caz contrar, se merge pe o parte.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Comenzi rapide în partea de sus',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Parola generata de sistem',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Cifre semnificative pentru sistem',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Numărul de zecimale de afişat pentru zecimale şi numere float în sistem, precum moneda şi media în Rapoarte.',
   'LBL_TAB_TITLE_EMAIL' => 'Setari Email',
   'LBL_TAB_TITLE_USER' => 'Setarile utilizatorului',
   'LBL_TEAMS' => 'Echipe',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Er du sikker på at du vil slette denne Bedrift fra prosjektet?',
@@ -24,7 +21,7 @@ $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Bedrifter',
   'LBL_ACCOUNT_INFORMATION' => 'Bedriftinformasjon',
   'LBL_ACCOUNT_NAME' => 'Bedriftnavn:',
-  'LBL_ACCOUNT_TYPE' => 'Kontotype',
+  'LBL_ACCOUNT_TYPE' => 'Bedriftstype',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Aktiviteter',
   'LBL_ADDRESS_INFORMATION' => 'Adresseinformasjon',
   'LBL_ANNUAL_REVENUE' => 'Årlig omsetning:',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Samtaler',
   'LBL_CAMPAIGNS' => 'Kampanjer',
   'LBL_CAMPAIGN_ID' => 'Kampanje-ID',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampanjelogg',
   'LBL_CASES_SUBPANEL_TITLE' => 'Saker',
   'LBL_CHARTS' => 'Diagrammer',
   'LBL_CITY' => 'By:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Bedrifter',
   'LBL_DESCRIPTION' => 'Beskrivelse:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beskrivelsesinformasjon',
+  'LBL_DNB_BAL_PREVIEW' => 'Bedrifter forhåndsvisning',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenter',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Mulig dublett Bedrift',
   'LBL_EMAIL' => 'E-post:',
   'LBL_EMAIL_ADDRESSES' => 'E-postadresser',
@@ -72,6 +72,11 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Antall ansatte:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Tildelt Brukernavn',
   'LBL_FAX' => 'Faks:',
+  'LBL_FILENAME' => 'Vedlegg',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Bedriftsrapporter',
+  'LBL_HELP_CREATE' => '{{plural_module_name}} modulen består av bedrifter som din organisasjon har en relasjon til, og er generelt sett på som et knutepunkt for administrasjon og analyse av bedriftens interaksjoner med hver enkelt kunde. For å opprette en {{module_name}}: 1. Gi verdier til feltene som ønsket. - Felt som er merket "kreves" må fullføres før du lagrer. - Klikk "Vis mer" for å avsløre flere felt hvis det er nødvendig. 2. Klikk "Lagre" for å sluttføre den nye posten og gå tilbake til forrige side. - Velg "Lagre og vis" for å åpne den nye {{module_name}} i postvisning. - Velg "Lagre og opprette nye" til umiddelbart å opprette en ny {{module_name}}.',
+  'LBL_HELP_RECORD' => '{{plural_module_name}} modulen består av bedrifter som din organisasjon har en relasjon til, og er generelt sett på som et knutepunkt for administrasjon og analyse av bedriftens interaksjoner med hver enkelt kunde. - Rediger dette registreringsfelt ved å klikke på et enkelt felt eller Rediger-knappen. - Vis eller endre lenker til andre poster i underpaneler ved å veksle nederste venstre rute til "Data View". - Lag og vis brukerkommentarer og postendrings historie i {{activitystream_singular_module}} ved veksling av nederste venstre rute til "Activity Stream". - Følg eller favoritt denne posten ved hjelp av ikonene til høyre for registreringsnavn. - Ytterligere tiltak er tilgjengelig i dropdown menyen Handlinger til høyre på Rediger-knappen.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modulen består av bedrifter som din organisasjon har en relasjon til, og er generelt sett på som et knutepunkt for administrasjon og analyse av bedriftens interaksjoner med hver enkelt kunde. Det finnes ulike måter du kan opprette {{plural_module_name}} i Sugar eksempel via {{plural_module_name}} modul, duplisering, import {{plural_module_name}} osv. Når {{module_name}} registreringen er opprettet, kan du vise og redigere informasjon knyttet til {{module_name}} via {{plural_module_name}} postvisning. Hver {{module_name}} registrering kan da forholde seg til andre Sugar poster som {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, og mange andre ettersom kundens forhold modnes.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historikk',
   'LBL_HOMEPAGE_TITLE' => 'Mine Bedrifter',
   'LBL_INDUSTRY' => 'Bransje:',
@@ -94,9 +99,11 @@ $mod_strings = array (
   'LBL_MODIFIED_ID' => 'Endret av ID',
   'LBL_MODULE_ID' => 'Bedrifter',
   'LBL_MODULE_NAME' => 'Bedrifter',
+  'LBL_MODULE_NAME_SINGULAR' => 'Bedrift',
   'LBL_MODULE_TITLE' => 'Bedrifter: Hovedside',
   'LBL_NAME' => 'Navn:',
   'LBL_NEW_FORM_TITLE' => 'Ny Bedrift',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notater',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Muligheter',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Alternativ e-post:',
   'LBL_OTHER_PHONE' => 'Alternativ telefon:',
@@ -109,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Faks:',
   'LBL_PHONE_OFFICE' => 'Kontortelefon:',
   'LBL_POSTAL_CODE' => 'Postnummer:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkter',
   'LBL_PRODUCTS_TITLE' => 'Produkter',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Prosjekter',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Prosjekter',
@@ -120,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Fremskynd forsendelse',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Tilbud',
   'LBL_RATING' => 'Rangering:',
+  'LBL_REVENUELINEITEMS' => 'Omsetning linjeelementer',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Omsetning linjeelementer',
   'LBL_SAVE_ACCOUNT' => 'Lagre Bedrift',
   'LBL_SEARCH_FORM_TITLE' => 'Bedriftsøk',
   'LBL_SHIPPING_ADDRESS' => 'Leveringsadresse',
@@ -145,6 +153,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Nettsted:',
   'LNK_ACCOUNT_LIST' => 'Bedrifter',
   'LNK_ACCOUNT_REPORTS' => 'Vis Bedriftsrapporter',
+  'LNK_CREATE' => 'Opprett firma',
   'LNK_IMPORT_ACCOUNTS' => 'Importer Bedrifter',
   'LNK_NEW_ACCOUNT' => 'Opprett Bedrift',
   'MSG_DUPLICATE' => 'Bedriftoppføringen som du er iferd med å opprette kan være en dublett av en eksisterende bedriftoppføring. Bedriftoppføringer som inneholder lignende navn listes nedenfor.<br>Klikk "Lagre" for å fortsette med den nye oppføringen, eller klikk "Avbryt" for å gå tilbake uten å opprette en ny bedrift.',

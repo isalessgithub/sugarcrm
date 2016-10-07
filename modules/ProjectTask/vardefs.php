@@ -1,25 +1,23 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 $dictionary['ProjectTask'] = array('audited'=>true,
-	'table' => 'project_task',
-	'unified_search' => true,
-	'full_text_search' => true,
-	'unified_search_default_enabled' => false,
+    'table' => 'project_task',
+    'favorites' => false,
+    'unified_search' => true,
+    'full_text_search' => true,
+    'unified_search_default_enabled' => false,
 	'fields' => array(
 		'id' => array(
 			'name' => 'id',
@@ -34,6 +32,7 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 			'type' => 'datetime',
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
+            'readonly' => true,
 		),
 		'date_modified' => array(
 			'name' => 'date_modified',
@@ -41,6 +40,7 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 			'type' => 'datetime',
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
+            'readonly' => true,
 		),
         'project_id' => array(
             'name' => 'project_id',
@@ -67,7 +67,7 @@ $dictionary['ProjectTask'] = array('audited'=>true,
             'type' => 'name',
             'len' => 50,
             'unified_search' => true,
-            'full_text_search' => array('boost' => 3),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
             'importable' => 'required',
             'required' => true,
         ),
@@ -186,15 +186,11 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 
 		'assigned_user_id' => array(
 			'name' => 'assigned_user_id',
-			'rname' => 'user_name',
-			'id_name' => 'assigned_user_id',
-			'type' => 'assigned_user_name',
+            'type' => 'id',
 			'vname' => 'LBL_ASSIGNED_USER_ID',
 			'required' => false,
-			'dbType' => 'id',
-			'table' => 'users',
 			'isnull' => false,
-			'reportable'=>true,
+			'reportable'=>false,
 			'audited'=>true,
 		),
 		'modified_user_id' => array(
@@ -215,7 +211,7 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 	    'type' => 'relate',
 	    'reportable'=>false,
 	    'source'=>'non-db',
-	    'rname'=>'user_name',
+        'rname' => 'full_name',
 	    'table' => 'users',
 	    'id_name' => 'modified_user_id',
 	    'module'=>'Users',
@@ -246,7 +242,7 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 		'type' => 'relate',
 		'reportable'=>false,
 	    'link' => 'created_by_link',
-	    'rname' => 'user_name',
+        'rname' => 'full_name',
 		'source'=>'non-db',
 		'table' => 'users',
 		'id_name' => 'created_by',
@@ -421,9 +417,10 @@ array (
 	'table' => 'users',
 	'module' => 'Users',
 	'dbType' => 'varchar',
-	'link'=>'users',
+    'link'=>'assigned_user_link',
 	'len' => '255',
 	'source'=>'non-db',
+    'exportable'=> true,
 	),
 
 	),

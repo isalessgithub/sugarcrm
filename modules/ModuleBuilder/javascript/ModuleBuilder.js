@@ -1,16 +1,13 @@
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 function treeinit() {}
 
 if(typeof('console') == 'undefined'){
@@ -49,14 +46,24 @@ function addChildNodes(parentNode, parentData) {
 
 if (typeof(ModuleBuilder) == 'undefined') {
 	ModuleBuilder = {
+		/**
+		 * Elements of the request being sent either through {@see submitForm} or
+		 * {@see asyncRequest}. This holds certain elements of the request for use
+		 * in {@see resendRequest} when studio goes stale and the parent window
+		 * session cookie is refreshed but the system does not expose the session
+		 * cookie name to the client.
+		 * 
+		 * @type {Object}
+		 */
+		requestElements: {},
+		/**
+		 * Flag that indicates to the process whether this is a request that is
+		 * in the process of being resent because of a stale session id.
+		 * 
+		 * @type {Boolean}
+		 */
+		isResend: false,
 	    init: function(){
-            //Check if we shoudln't be in studio and need to load the normal ajaxUI
-            var aRegex = /#.*ajaxUILoc=([^&]*)/.exec(window.location);
-            var ajaxLoc = aRegex ? aRegex[1] : false;
-            if (ajaxLoc) {
-                window.location = "index.php?action=ajaxui#ajaxUILoc=" + ajaxLoc;
-                return;
-            }
 			//Setup the basic ajax request settings
 			Connect.extraParams = {
 				to_pdf: true
@@ -114,12 +121,6 @@ if (typeof(ModuleBuilder) == 'undefined') {
 					minWidth: 200,
 					resize: true,
 					collapse: true
-				},{
-					header: SUGAR.util.getAndRemove("footerHTML").innerHTML,
-					position: 'bottom',
-					id: 'mbfooter',
-					height: 30,
-					border: false
 				}]
 			});
 			mp.render();
@@ -167,7 +168,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			});
 			mp.resize(true);
 			Event.on(window, 'resize', ModuleBuilder.autoSetLayout, this, true);
-			
+
 			var tree = ModuleBuilder.tree = createTreePanel(TREE_DATA, {
 				id: 'mbTree'
 			});
@@ -217,7 +218,6 @@ if (typeof(ModuleBuilder) == 'undefined') {
             //We need to add ID's to the collapse buttons for automated testing
             Dom.getElementsByClassName("collapse", "div", mp.getUnitByPosition('left').header)[0].id = "collapse_tree";
             Dom.getElementsByClassName("collapse", "div", mp.getUnitByPosition('right').header)[0].id = "collapse_help";
-
 		},
 		//Empty layout manager
 		layoutValidation: {
@@ -255,7 +255,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				}   
 				if (!ModuleBuilder.history.popup_window) {
 					ModuleBuilder.history.popup_window = new YAHOO.SUGAR.AsyncPanel('histWindow', {
-						width: 300,
+						width: "400px",
 						draggable: true,
 						close: true,
 						constraintoviewport: true,
@@ -276,7 +276,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 					view_package: ModuleBuilder.MBpackage,
 					view_module: module,
 					view: layout,
-					subpanel: subpanel
+                    subpanel: subpanel
 				};
 				ModuleBuilder.history.popup_window.load(ModuleBuilder.paramsToUrl(ModuleBuilder.history.params));
 				ModuleBuilder.history.popup_window.show();
@@ -293,7 +293,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 						view_module: module,
 						view: layout,
 						sid: id,
-						subpanel: subpanel
+                        subpanel: subpanel
 					};
 					prevPanel = new YAHOO.SUGAR.ClosableTab({
 						dataSrc: Connect.url + "&" + ModuleBuilder.paramsToUrl(ModuleBuilder.history.params),
@@ -310,10 +310,10 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				}
 				
 			},
-			revert: function(module, layout, id, subpanel){
+            revert: function(module, layout, id, subpanel, isDefault) {
 				var prevTab = ModuleBuilder.tabPanel.getTabIndex("preview:" + id);
 				if(prevTab) ModuleBuilder.tabPanel.removeTab(prevTab);
-				
+
 				ModuleBuilder.history.params = {
 					module: 'ModuleBuilder',
 					histAction: 'restore',
@@ -322,12 +322,21 @@ if (typeof(ModuleBuilder) == 'undefined') {
 					view_module: module,
 					view: layout,
 					sid: id,
-					subpanel: subpanel
-				}
+                    subpanel: subpanel
+				};
 				ModuleBuilder.asyncRequest(ModuleBuilder.history.params, function(){
 					ModuleBuilder.history.reverted = true;
-					ModuleBuilder.getContent(ModuleBuilder.contentURL);
-					ModuleBuilder.state.isDirty = true;
+                    ModuleBuilder.getContent(ModuleBuilder.paramsToUrl({
+                        module: "ModuleBuilder",
+                        action: "editLayout",
+                        view: layout,
+                        view_module: module,
+                        subpanel: subpanel,
+                        view_package: ModuleBuilder.MBpackage
+                    }), function(content) {
+                        ModuleBuilder.updateContent(content);
+                            ModuleBuilder.state.markAsDirty();
+                    });
 				});
 			},
 			cleanup: function() {
@@ -351,6 +360,12 @@ if (typeof(ModuleBuilder) == 'undefined') {
 		},
 		state: {
 			isDirty: false,
+            markAsDirty: function() {
+                ModuleBuilder.state.isDirty = true;
+            },
+            markAsClean: function() {
+                ModuleBuilder.state.isDirty = false;
+            },
 			saving: false,
             hideFailedMesage: false,
 			intended_view: {
@@ -372,7 +387,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				//set dirty = false
 				//call the save method of the current view.
 				//call the intended action.
-				ModuleBuilder.state.isDirty = false;
+                ModuleBuilder.state.markAsClean();
 				var saveBtn = document.getElementById("saveBtn");
 				if (!saveBtn) {
 					var mbForm = document.forms[1];
@@ -397,11 +412,13 @@ if (typeof(ModuleBuilder) == 'undefined') {
 					eval(saveBtn.getAttributeNode('onclick').value);
 				}
 				ModuleBuilder.state.popup_window.hide();
+
+				ModuleBuilder.getContent(ModuleBuilder.state.intended_view.url, ModuleBuilder.state.intended_view.successCall);
 			},
 			onDontSaveClick: function(){
 				//set dirty to false
 				//call the intended action.
-				ModuleBuilder.state.isDirty = false;
+                ModuleBuilder.state.markAsClean();
 				ModuleBuilder.history.cleanup();
 				ModuleBuilder.getContent(ModuleBuilder.state.intended_view.url, ModuleBuilder.state.intended_view.successCall);
 				ModuleBuilder.state.popup_window.hide();
@@ -428,6 +445,9 @@ if (typeof(ModuleBuilder) == 'undefined') {
                         isDefault:true,
                         handler: function(){
                             ModuleBuilder.state.popup_window.hide()
+                            if (ModuleBuilder.state.intended_view.cancelCall) {
+                                ModuleBuilder.state.intended_view.cancelCall();
+                            }
                         }
                      },{
                         text: SUGAR.language.get('ModuleBuilder', 'LBL_BTN_SAVE_CHANGES'),
@@ -443,12 +463,19 @@ if (typeof(ModuleBuilder) == 'undefined') {
                 }
 			}
 		},
+        handleFieldEditToggling: function() {
+            // Handle calculated field check box controlling
+            var calculatedCheckbox = Dom.get('calculated');
+            if (calculatedCheckbox && calculatedCheckbox.checked) {
+                ModuleBuilder.disableCalculatedControlledElems(true);
+            }
+        },
         copyFromView: function(module, layout){
             var url = ModuleBuilder.contentURL;
             ModuleBuilder.getContent(url+"&copyFromEditView=true");
              ModuleBuilder.contentURL = url;
             ModuleBuilder.state.intended_view.url = url;
-            ModuleBuilder.state.isDirty = true;
+            ModuleBuilder.state.markAsDirty();
         },
 		//AJAX Navigation Functions
 		navigate : function(url) {
@@ -457,7 +484,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				ModuleBuilder.getContent(url);
 			}
 		},
-		getContent: function(url, successCall){
+        getContent: function(url, successCall, cancelCall) {
 			if (!url) return;
 			
 			if (url.substring(0, 11) == "javascript:")
@@ -465,25 +492,23 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				eval(url.substring(11));
 				return;
 			}
-			
+
 			//save a pointer to intended action
 			ModuleBuilder.state.intended_view.url = url;
 			ModuleBuilder.state.intended_view.successCall = successCall;
+            ModuleBuilder.state.intended_view.cancelCall = cancelCall;
 			if(ModuleBuilder.state.isDirty){ //prompt to save current data.
 				//check if we are editing a property of the current view (such views open up in new tabs)
 				//if so we leave the state dirty and return
-				temp_url = url.toLowerCase();
-				if(null == temp_url.match(/&action=editproperty/)){
-					ModuleBuilder.state.popup();
-					ModuleBuilder.state.popup_window.show();
-					return;
-				}
 
+				ModuleBuilder.state.popup();
+				ModuleBuilder.state.popup_window.show();
+				return;
 			}else{
 				ModuleBuilder.state.current_view.url = url;
 				ModuleBuilder.state.current_view.successCall = successCall;
 			}
-			
+			ModuleBuilder.centerContentURL = ModuleBuilder.contentURL || url;
 			ModuleBuilder.contentURL =  url;
 			if (typeof(successCall) != 'function') {
 				if (ModuleBuilder.callInProgress)
@@ -491,12 +516,38 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				ModuleBuilder.callInProgress = true;
 				successCall = ModuleBuilder.updateContent;
 			}
-			ModuleBuilder.asyncRequest(url, successCall);
+
+            var requestUrl = url;
+
+            ModuleBuilder.asyncRequest(requestUrl, successCall);
 		},
+
+        /**
+         * Checks if the layout corresponding to the given URL is the same as current one
+         *
+         * @param {String} url The URL to be requested
+         * @returns {Boolean}
+         */
+        isLayoutTheSame: function(url) {
+            var params = ["view_module", "view"];
+            var values = ModuleBuilder.urlToParams(url);
+            var currentValues = ModuleBuilder.urlToParams(ModuleBuilder.centerContentURL);
+            for (var i = 0, param; i < params.length; i++) {
+                param = params[i];
+                if (values[param] && currentValues[param] && values[param] != currentValues[param]) {
+                    return false;
+                }
+            }
+
+            return true;
+        },
+
 		updateContent: function(o){
+
 			ModuleBuilder.callInProgress = false;
 			//Check if a save action was called and now we need to move-on
 			if (ModuleBuilder.state.saving) {
+				ModuleBuilder.toggleButtons();
 				ModuleBuilder.state.loadOnSaveComplete();
 				return;
 			}
@@ -507,11 +558,16 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			try {
 			var ajaxResponse = YAHOO.lang.JSON.parse((o.responseText));
 			} catch (err) {
-				YAHOO.SUGAR.MessageBox.show({
-                    title: SUGAR.language.get('ModuleBuilder', 'ERROR_GENERIC_TITLE'),
-                    msg: o.responseText,
-                    width: 500
-                });
+				// If this is a login redirect and the request is in the process
+				// of resending then we do not want to render the alert box since
+				// the request will eventually finish and render what was asked for.
+				if (!(ModuleBuilder.isResend && ModuleBuilder.isLogoutRedirect(o.responseText))) {
+					YAHOO.SUGAR.MessageBox.show({
+	                    title: SUGAR.language.get('ModuleBuilder', 'ERROR_GENERIC_TITLE'),
+	                    msg: o.responseText,
+	                    width: 500
+	                });
+				}
 				return false;
 			}
 			
@@ -522,6 +578,11 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				ModuleBuilder.tabPanel.getTab(0).set(t.exec(ajaxResponse.data));
 				SUGAR.util.evalScript(t.exec(ajaxResponse.data));
 				return true;
+			}
+			// If the center panel isn't being updated, revert the content URL since we only care about the center panel
+			// for reload purposes
+			if (!ajaxResponse.center) {
+				ModuleBuilder.contentURL = ModuleBuilder.centerContentURL;
 			}
 			
 			for (var maj in ajaxResponse) {
@@ -564,12 +625,13 @@ if (typeof(ModuleBuilder) == 'undefined') {
 						ModuleBuilder.tabPanel.set("activeTab", comp);
 						ModuleBuilder.tabPanel.addTab(comp);
 						//Text if the browser automatically evaluated the content's script tags or not. If not, manually evaluate them.
-						if (!ModuleBuilder.scriptTest)
+						if (!ModuleBuilder.scriptTest) {
 							SUGAR.util.evalScript(ajaxResponse[maj].content);
+						}
 					} else {
 						//Store Center pane changes in browser history
-						YAHOO.util.History.navigate('mbContent', ModuleBuilder.contentURL);
 						if (name == 'mbcenter') {
+							YAHOO.util.History.navigate('mbContent', ModuleBuilder.contentURL);
 							ModuleBuilder.closeAllTabs();
 							comp = ModuleBuilder.tabPanel.getTab(0);
 						}
@@ -581,24 +643,56 @@ if (typeof(ModuleBuilder) == 'undefined') {
 					}
 				}
 				ModuleBuilder.history.update();
+				ModuleBuilder.handleFieldEditToggling();
 			}
 		},
 		checkForErrors: function(o){
 			if (SUGAR.util.isLoginPage(o.responseText))
 				return true;
 			if (o.responseText.substr(0, 1) == "<") {
-                YAHOO.SUGAR.MessageBox.show({
-					title: SUGAR.language.get('ModuleBuilder', 'ERROR_GENERIC_TITLE'),
-					msg: o.responseText,
-					width: 500
-				});
-				return true;
+				// If the response indicates a login redirect then the session id
+				// has gone stale and needs to be updated. 
+				if (ModuleBuilder.isLogoutRedirect(o.responseText)) {
+					// This means a bwc redirect, so attempt to login and carry on
+					ModuleBuilder.isResend = true;
+					parent.SUGAR.App.bwc.login(null, ModuleBuilder.resendRequest);
+					return false;
+				}
+				
+				// Only show the error alert box if this is not a resend request
+				if (!ModuleBuilder.isResend) {
+	                YAHOO.SUGAR.MessageBox.show({
+						title: SUGAR.language.get('ModuleBuilder', 'ERROR_GENERIC_TITLE'),
+						msg: o.responseText,
+						width: 500
+					});
+					return true;
+				}
             }
 			
 			
 			return false;
 		},
+		refreshMetadata: function() {
+			// Get the parent api object
+			var api = parent.SUGAR.App.api;
+
+			// Call the ping api
+			api.call('read', api.buildURL('ping'));
+		},
+        /**
+         * toggles save and cancel buttons
+         */
+        toggleButtons: function() {
+            if ($.fn.toggle) {
+                $('#popup_form_id [name="cancelbtn"]').toggle();
+                $('#popup_form_id [name="fsavebtn"]').toggle();
+            }
+        },
 		submitForm: function(formname, successCall){
+			// Make sure the session cookie is always fresh
+			ModuleBuilder.ensureSessionCookie();
+            ModuleBuilder.toggleButtons();
 			ajaxStatus.showStatus(SUGAR.language.get('ModuleBuilder', 'LBL_AJAX_LOADING'));
 			if (typeof(successCall) == 'undefined') {
 				successCall = ModuleBuilder.updateContent;
@@ -606,11 +700,14 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			else {
 				ModuleBuilder.callLock = true;
 			}
-			Connect.setForm(document.getElementById(formname) || document.forms[formname]);
+			
+			// Capture aspects of the request in case the need to resend arises
+			ModuleBuilder.requestElements.fields = Connect.setForm(document.getElementById(formname) || document.forms[formname]);
+			ModuleBuilder.requestElements.callbacks = {success: successCall, failure: ModuleBuilder.failed};
 			Connect.asyncRequest(
 			    Connect.method, 
 			    Connect.url, 
-			    {success: successCall, failure: ModuleBuilder.failed}
+			    ModuleBuilder.requestElements.callbacks
 			);
 		},
 		setMode: function(reqMode){
@@ -723,6 +820,34 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				}
 			}
 		},
+		/**
+		 * Sets up the popup events for fieldset fields when double clicked
+		 */
+		helpSetupFieldsets: function() {
+			var fieldsetElems = document.getElementsByClassName('field_fieldset_fields'),
+				fieldElem;
+			
+			for (var i = 0; i < fieldsetElems.length; i++) {
+				if (fieldsetElems[i].id != 'undefined') {
+					// Get the div that contains the box that contains the field
+					fieldElem = document.getElementById(fieldsetElems[i].id.replace('fieldset_', ''));
+					if (fieldElem) {
+						// Add a double click event that shows what field a combo
+						// field contains
+						fieldElem.ondblclick = function() {
+							// Use jQuery DOM element selection since different
+							// browsers handle content differently. This fixes an
+							// issue where FF was not rendering the popup.
+							YAHOO.SUGAR.MessageBox.show({
+			                    title: $('#le_label_' + this.id).text().replace(" **", "") + " " + SUGAR.language.get("ModuleBuilder", "LBL_COMBO_FIELD_CONTAINS"),
+			                    msg: $('#fieldset_' + this.id).html(),
+			                    width: 500
+			                });
+						};
+					}
+				}
+			}
+		},
 		helpSetup: function(group, def, panel){
 			if (!ModuleBuilder.panelHelp) ModuleBuilder.panelHelp = [];
 			
@@ -739,6 +864,9 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			} 
 			
 			ModuleBuilder.helpToggle('default');
+			
+			// Add fieldset help handling
+			ModuleBuilder.helpSetupFieldsets();
 		},
 		helpLoad: function(panelId){
 			if (!ModuleBuilder.panelHelp) return;
@@ -753,15 +881,29 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			}
 		},
 		helpToggle: function(name){
-			if (name == 'default')
+			// Handling for combo field help text being appended to record view
+			// help text. The areas this applies to are the toolbox, the panels
+			// area and the default area when the layout editor loads for record
+			// view.
+			var newHelpText;
+			var appendComboFieldIndicator = name == 'default' || name == 'panels' || name == 'toolbox';
+			var isRecordView = ModuleBuilder.helpDefault == 'defaultrecordview';
+			if (name == 'default') {
 				name = ModuleBuilder.helpDefault;
+			}
+			
 			if (ModuleBuilder.helpLang != null && typeof(ModuleBuilder.helpLang[name]) != 'undefined') {
-				document.getElementById('mbhelp').innerHTML = ModuleBuilder.helpLang[name];
+				newHelpText = ModuleBuilder.helpLang[name];
+				if (isRecordView && appendComboFieldIndicator) {
+					// Add the notification of combo fields
+					newHelpText += "<br><br>" + SUGAR.language.get('ModuleBuilder', 'LBL_INDICATES_COMBO_FIELD');
+				}
+				document.getElementById('mbhelp').innerHTML = newHelpText;
 			}
 		},
 		handleSave: function(form, callBack){
 			if (check_form(form)) {
-				ModuleBuilder.state.isDirty=false;
+                ModuleBuilder.state.markAsClean();
 				ModuleBuilder.submitForm(form, callBack);
 			}
 		},
@@ -851,6 +993,10 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			
 			ModuleBuilder.failed = function(){};
             ModuleBuilder.state.hideFailedMesage = true;
+
+			// Reset the metadata on the client so that new modules are shown immediately
+			ModuleBuilder.refreshMetadata();
+			
 			//Reload the page
 			window.setTimeout("window.location.assign(window.location.href.split('#')[0])", 2000);
 			
@@ -955,13 +1101,28 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				SUGAR.util.evalScript(o.responseText);
 			});
 		},
-		moduleDropDown: function(name, field){
-			ModuleBuilder.getContent('module=ModuleBuilder&action=dropdown&view_package=' + ModuleBuilder.MBpackage + '&view_module=' + ModuleBuilder.module + '&dropdown_name=' + name + '&field=' + field);
+		inFieldCreate: function() {
+			// See if this is a new field. Used for dropdown fields only when
+			// creating a dropdown while creating a field. This keeps the field
+			// name editable to prevent overwriting OOTB fields.
+			var theform = document.forms[0];
+			return theform.is_new !== undefined && theform.is_new.value == "1";
+		},
+		moduleDropDown: function(name, field) {
+			// If this request is made in the middle of creating a new field then
+			// we need to let the dropdown field know that so when the request
+			// comes back it handles the field naming properly
+			var isNew = ModuleBuilder.inFieldCreate() ? '&is_new_field=1' : '';
+			ModuleBuilder.getContent('module=ModuleBuilder&action=dropdown&view_package=' + ModuleBuilder.MBpackage + '&view_module=' + ModuleBuilder.module + '&dropdown_name=' + name + '&field=' + field + isNew);
 		},
 		moduleViewLayouts: function(o){
 			ModuleBuilder.callLock = false;
 			ModuleBuilder.getContent('module=ModuleBuilder&MB=1&action=wizard&view_package=' + ModuleBuilder.MBpackage + '&view_module=' + ModuleBuilder.module);
 		},
+        moduleViewMobileLayouts: function(o){
+            ModuleBuilder.callLock = false;
+            ModuleBuilder.getContent('module=ModuleBuilder&MB=1&action=wizard&view=wirelesslayouts&view_package=' + ModuleBuilder.MBpackage + '&view_module=' + ModuleBuilder.module);
+        },
 		findTabById : function(id) {
 			var tabs = ModuleBuilder.tabPanel.get("tabs");
 			for (var i = 0; i < tabs.length; i++) {
@@ -971,11 +1132,17 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			return null;
 		}, 
 		autoSetLayout: function(){
-			var mp = ModuleBuilder.mainPanel;
-			var c = Dom.get("mblayout");
-			mp.set("height", Dom.getViewportHeight() - Dom.getY(c) - 30);
-			mp.set("width", Dom.getViewportWidth() - 40);
-			mp.resize(true);
+			var mp = ModuleBuilder.mainPanel,
+                c = Dom.get('mblayout'),
+                width = Dom.getViewportWidth() - 40,
+                height = Dom.getViewportHeight() - Dom.getY(c) - 30;
+            if (SUGAR.util.isTouchScreen()) {
+                width = parent.SUGAR.App.controller.layout.$el.width() - 40;
+                height = parent.SUGAR.App.controller.layout.$el.height() - 60;
+            }
+            mp.set('height', height);
+            mp.set('width', width);
+            mp.resize(true);
 			var tabEl = ModuleBuilder.tabPanel.get("element");
 			Dom.setStyle(tabEl.firstChild.nextSibling, "overflow-y", "auto");
 			Dom.setStyle(tabEl.firstChild.nextSibling, "height", tabEl.offsetHeight - ModuleBuilder.tabPanel.get("element").firstChild.offsetHeight - 5 + "px");
@@ -990,18 +1157,107 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			}
 			return url;
 		},
+        urlToParams: function(url) {
+            var params = {};
+            for (var pairs = url.split("&"), parts, i = 0, length = pairs.length; i < length; i++) {
+                parts = pairs[i].split("=", 2);
+                params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+            }
+            return params;
+        },
+		/**
+		 * Indicates whether the text presented shows that the request failed and
+		 * is requiring a login via redirect.
+		 * 
+		 * @param {String} text The response text from a previous asyncRequest
+		 * @return {Boolean} True if the provided text string contains a redirect indication
+		 */
+		isLogoutRedirect: function(text) {
+			return text.substr(0,8) == "<script>" && text.indexOf("App.bwc.login") != -1;
+		},
+		/**
+		 * Resends the last request. This will be used in cases where the session 
+		 * id has gone stale and a request through BWC login has fetched a new
+		 * one. 
+		 * 
+		 * @return {Void}
+		 */
+		resendRequest: function() {
+			var method = ModuleBuilder.requestElements.method || Connect.method,
+				url    = ModuleBuilder.requestElements.url || Connect.url;
+			
+			// Reset the isResend flag so that if this request fails it can fail
+			// legitimately
+			ModuleBuilder.isResend = false;
+			
+			// Since this is only set on submitForm, check for it before just
+			// throwing it into the Connect object
+			if (ModuleBuilder.requestElements.fields) {
+				Connect.setForm(ModuleBuilder.requestElements.fields);
+			}
+			
+			Connect.asyncRequest(
+			    method, 
+			    url, 
+			    ModuleBuilder.requestElements.callbacks
+			);
+		},
+		/**
+		 * Makes sure the session cookie is up to date. This supports being in 
+		 * studio and being idle while the main app refreshes the oauth token. 
+		 * This also eliminates the need to a BWC login while in studio.
+		 */
+		ensureSessionCookie: function() {
+			var sessionName = parent.SUGAR.App.cache.get("SessionName"),
+			    cookiePattern = "(" + sessionName + "=)([a-f0-9\-]*)",
+			    matches = document.cookie.match(cookiePattern),
+			    matched = false,
+			    currentSID = parent.SUGAR.App.cache.get("AuthAccessToken");
+			    
+			// If there is a current session id cookie (which would happen for
+			// bwc logins) but it does not match the current auth token then 
+			// update the document cookie to the auth token to allow studio to 
+			// continue to function
+			if (matches) {
+				for (var i in matches) {
+					if (matches[i] == currentSID) {
+						matched = true;
+						break;
+					}
+				}
+				
+				// There is a session cookie but it doesn't match the auth token
+				if (!matched) {
+					document.cookie = sessionName + "=" + currentSID;
+				}
+			}
+		},
 		asyncRequest : function(params, callback) {
-			var url;
+			// Used to normalize request arguments needed for the async request
+			// as well as for setting into the requestElements object
+			var url,
+				cUrl = Connect.url,
+				cMethod = Connect.method;
+			
 			if (typeof params == "object") {
 				url = ModuleBuilder.paramsToUrl(params);
 			} else {
 				url = params;
 			}
+			
+			cUrl += '&' + url;
+			
+			ModuleBuilder.requestElements.method = cMethod;
+			ModuleBuilder.requestElements.url = cUrl;
+			ModuleBuilder.requestElements.callbacks = {success: callback, failure: ModuleBuilder.failed};
+			
+			// Make sure the session cookie is always fresh if that is possible
+			ModuleBuilder.ensureSessionCookie();
 			ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE'));
 			Connect.asyncRequest(
-			    Connect.method, 
-			    Connect.url + '&' + url, 
-			    {success: callback, failure: ModuleBuilder.failed}
+			    ModuleBuilder.requestElements.method, 
+			    ModuleBuilder.requestElements.url, 
+			    ModuleBuilder.requestElements.callbacks
 			);
 		},
 		refreshGlobalDropDown: function(o){
@@ -1010,11 +1266,25 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			ModuleBuilder.updateContent(o);
 		},
 		refreshDropDown: function(){
-			ModuleBuilder.callLock = false;
-			document.popup_form.action.value = 'RefreshField';
-			document.popup_form.new_dropdown.value = ModuleBuilder.refreshDD_name;
-			SimpleList.refreshDD_name = '';
-			ModuleBuilder.submitForm("popup_form");
+            var selected = ModuleBuilder.refreshDD_name;
+            ModuleBuilder.asyncRequest(
+                'module=ModuleBuilder&action=refreshDropDown&view_package=' + ModuleBuilder.MBpackage
+                    + '&view_module=' + ModuleBuilder.module,
+                function (xhr) {
+                    var options = JSON.parse(xhr.responseText);
+                    var $dropdown = $("#options").empty();
+                    $.each(options, function(_, option) {
+                        var $option = $("<option/>").val(option).text(option);
+                        if (option == selected) {
+                            $option.prop("selected", true);
+                        }
+                        $dropdown.append($option);
+                    });
+                    $dropdown.change();
+                    ModuleBuilder.tabPanel.get("activeTab").close();
+                    ajaxStatus.hideStatus();
+                }
+            );
 		},
 		dropdownChanged: function(value){
 			var select = document.getElementById('default[]').options;
@@ -1138,6 +1408,40 @@ if (typeof(ModuleBuilder) == 'undefined') {
             win.show();
             win.center();
         },
+        disableCalculatedControlledElems: function(disable) {
+        	// Get the massupdate chechbox if its available
+        	var massupdate  = Dom.get('massupdate');
+			//Getting the default value field is tricky as it can have multiple different ID's
+			var defaultVal = false;
+			for(var i in {'default':"", 'int_default':"", 'default[]':""}) {
+				if (Dom.get(i)) {
+					defaultVal = Dom.get(i); 
+					break;
+				}
+			}
+			
+			// Turn massupdate off now
+			if (massupdate) {
+				// Uncheck the massupdate checkbox
+				massupdate.checked = false;
+				massupdate.disabled = disable;
+
+				// Unset the default value
+				if (defaultVal) {
+					// Handle "unsetting" of default values
+					if (defaultVal.tagName == 'SELECT') {
+						defaultVal.selectedIndex = 0;
+					} else if (defaultVal.tagName == 'INPUT') {
+						if (defaultVal.type == 'checkbox') {
+							defaultVal.checked = false;
+						} else {
+							defaultVal.value = '';
+						}
+					}
+					defaultVal.disabled = disable;
+				}
+			}
+        },
         toggleParent: function(enable){
             if (typeof(enable) == 'undefined') {
                 enable = Dom.get('has_parent').checked;
@@ -1166,12 +1470,6 @@ if (typeof(ModuleBuilder) == 'undefined') {
             var reportable = Dom.get('reportable');
             var importable = Dom.get('importable');
             var duplicate  = Dom.get('duplicate_merge');
-			var massupdate  = Dom.get('massupdate');
-			//Getting the default value field is tricky as it can have multiple different ID's
-			var defaultVal = false;
-			for(var i in {'default':"", 'int_default':"", 'default[]':""})
-				if (Dom.get(i)){defaultVal = Dom.get(i); break;}
-
             var disable = enable ? true : "";
             if (reportable) reportable.disabled = disable;
             if(enable)
@@ -1182,9 +1480,10 @@ if (typeof(ModuleBuilder) == 'undefined') {
             }
             if (importable)importable.disabled = disable;
             if (duplicate)duplicate.disabled = disable;
-			if (massupdate)massupdate.disabled = disable;
 			this.toggleDateTimeDefalutEnabled(disable);
-			if (defaultVal) defaultVal.disabled = disable;
+			// This handles both massupdate and default values for calculated 
+			// checkbox checks
+			ModuleBuilder.disableCalculatedControlledElems(disable);
             if(Dom.get("enforced")){
                 Dom.get("enforced").value = enable;
             }

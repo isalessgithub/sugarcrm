@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,16 +28,16 @@ $mod_strings = array (
   'LBL_ACTION_UPDATE_TITLE' => 'Актуализиране на полета в избрания модул',
   'LBL_AS' => 'като',
   'LBL_ASSOCIATED_WITH' => 'associated with a related',
-  'LBL_BY' => 'by',
+  'LBL_BY' => 'от',
   'LBL_DETAILS' => 'Допълнителна информация',
-  'LBL_EVAL' => 'Trigger Evaluation:',
+  'LBL_EVAL' => 'Предизвикай оценка:',
   'LBL_FIELD' => 'Поле:',
-  'LBL_FILTER_RELATED' => 'Filter Related',
+  'LBL_FILTER_RELATED' => 'Филтрирай свързаните записи',
   'LBL_INVITEES' => 'Поканени потребители',
   'LBL_LIST_ACTION_DESCRIPTION' => 'Действия:',
-  'LBL_LIST_EVAL' => 'Eval:',
+  'LBL_LIST_EVAL' => 'Оценка:',
   'LBL_LIST_FIELD' => 'Поле:',
-  'LBL_LIST_FORM_TITLE' => 'Action List',
+  'LBL_LIST_FORM_TITLE' => 'Списък с действия',
   'LBL_LIST_NAME' => 'Тригер:',
   'LBL_LIST_STATEMENT' => 'Описание:',
   'LBL_LIST_TYPE' => 'Категория:',
@@ -60,8 +57,8 @@ $mod_strings = array (
   'LBL_SELECT_VALUE' => 'Необходимо е да изберете валидна стойност.',
   'LBL_SET' => 'Записване на',
   'LBL_SHOW' => 'Покажи',
-  'LBL_SHOW_PAST' => 'Modify Past Value:',
-  'LBL_TITLE_ADVANCED' => 'Advanced Related Module Options',
+  'LBL_SHOW_PAST' => 'Модифицирай предишната стойност:',
+  'LBL_TITLE_ADVANCED' => 'Допълнителни опции за свързания модул',
   'LBL_TYPE' => 'Категория:',
   'LBL__S' => 's',
   'LNK_NEW_TRIGGER' => 'Създаване на тригер',

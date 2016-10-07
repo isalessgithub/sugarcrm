@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Avançado',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Mostrar o tempo de resposta do servidor',
   'ERR_ALERT_FILE_UPLOAD' => 'Erro durante o carregamento da imagem.',
   'ERR_DELETE_CORE_FILE' => 'ERRO: Não é possível eliminar uma fonte nuclear.',
+  'ERR_EMPTY_SAML_CERT' => 'O certificado SAML não pode ser vazio',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL não pode ser vazio',
   'ERR_EZPDF_DISABLE' => 'Aviso: A classe EZPDF está desactivada na tabela de configuração e foi definida como a classe PDF. Por favor "Grave" este formulário para definir TCPDF como a Classe PDF e retornar num estado estável.',
   'ERR_FONT_ALREADY_EXIST' => 'ERRO : Esta fonte já existe. Retroceder...',
   'ERR_FONT_EMPTYFILE' => 'ERRO: Nome de ficheiro vazio!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERRO: Nenhum path de fonte personalizado disponível!',
   'ERR_NO_FONT_PATH' => 'ERRO: Nenhum path de fonte disponível!',
   'ERR_PDF_NO_UPLOAD' => 'Erro durante o carregamento da fonte ou ficheiro métrico.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL não é válido',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL não é válido',
   'HEAD_MAGNIFICATION' => 'Ampliação do Cabeçalho',
   'HEAD_MAGNIFICATION_INFO' => 'Factor de ampliação para títulos.',
   'IMAGES' => 'Logótipos',
@@ -63,7 +64,7 @@ $mod_strings = array (
   'LBL_ADDFONT_TITLE' => 'Adicionar uma Fonte PDF',
   'LBL_ADD_FONT' => 'Adicionar uma fonte',
   'LBL_ADD_FONT_BUTTON' => 'Adicionar',
-  'LBL_ADMIN_WIZARD' => 'Wizard de Administração',
+  'LBL_ADMIN_WIZARD' => 'Assistente de Administração',
   'LBL_ALERT_JPG_IMAGE' => 'O formato do ficheiro da imagem deve ser JPEG. Carregue um novo ficheiro com a extensão .jpg.',
   'LBL_ALERT_SIZE_RATIO' => 'A proporção do aspecto da imagem deve estar entre 1:1 e 10:1. A imagem será redimensionada.',
   'LBL_ALERT_SIZE_RATIO_QUOTES' => 'A proporção do aspecto da imagem deve estar entre 3:1 e 20:1. Carregue um novo ficheiro com esta proporção.',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Voltar',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Escolha o seu fornecedor de e-mail',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Configuração do Sistema',
-  'LBL_CONFIG_AJAX' => 'Configurar o Interface do Utilizador AJAX',
-  'LBL_CONFIG_AJAX_DESC' => 'Habilitar ou desabilitar o uso do UI de AJAX para módulos específicos',
   'LBL_DELETE' => 'Eliminar',
   'LBL_DISALBE_CONVERT_LEAD' => 'Desactivar a acção de converter a lead para leads convertidas',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Se uma lead já foi convertida, activando esta opção irá remover a acção de conversão da lead.',
   'LBL_DISPLAYING_LOG' => 'Exibindo Registo',
   'LBL_ENABLE_ACTION_MENU' => 'Mostrar acções dentro dos menus',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Seleccione para mostrar as acções da DetailView e subpainel dentro de um menu. Se não estiver seleccionado, as acções serão apresentadas como botões separados.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Mostrar emails dos contactos relacionados nos sub-paneis Histórico para módulos',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Permitir/Inabilitar que apareçam emails de contactos relacionados (ou ligados) no Sub-painel E-mail.',
   'LBL_ENABLE_MAILMERGE' => 'Activar o Mail Merge?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Palavra-passe Exchange',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Quaisquer parâmetros de filtro adicionais a aplicar aquando da autenticação de utilizadores ex:<em>is_sugar_user=1 ou (is_sugar_user=1)(is_sales=1)</em>;',
   'LBL_LEAD_CONV_OPTION' => 'Opções de Conversão da Lead',
   'LBL_LOADING' => 'A carregar...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Esta definição aplica-se aos módulos em modo legacy.',
   'LBL_LOGGER' => 'Configurações de Logger',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Formato padrão da data',
   'LBL_LOGGER_FILENAME' => 'Nome do Ficheiro Log',
@@ -166,7 +166,7 @@ $mod_strings = array (
   'LBL_LOGGER_LOG_LEVEL' => 'Nível do Log',
   'LBL_LOGGER_MAX_LOGS' => 'Número máximo de logs (antes do rolling)',
   'LBL_LOGGER_MAX_LOG_SIZE' => 'Tamanho máximo do log',
-  'LBL_LOGO' => 'Logo',
+  'LBL_LOGO' => 'Logótipo',
   'LBL_LOGVIEW' => 'Configurar as definições do Log',
   'LBL_LOG_NOT_CHANGED' => 'Registo não se alterou',
   'LBL_MAILMERGE' => 'Mail Merge',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Próximo >>',
   'LBL_NOTIFY_FROMADDRESS' => 'Endereço"De":',
   'LBL_NOTIFY_SUBJECT' => 'Assunto do E-mail:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Impedir alterações do nome por utilizadores que actualizaram o Nome da Equipa Privada',
   'LBL_OC_STATUS' => 'Estado do Cliente Off-line por defeito',
   'LBL_OC_STATUS_DESC' => 'Seleccione esta opção se pretender que qualquer Utilizador tenha acesso ao Cliente Off-line. Caso contrário poderá configurar isto ao nível de cada Utilizador.',
   'LBL_PDFMODULE_NAME' => 'Definições de PDF',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'ERRO: A fonte não foi adicionada. Consulte o registo abaixo.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUCESSO: A fonte foi adicionada ao SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Definições de Sistema',
+  'LBL_TWEETTOCASE_ON' => 'Habilitar a integração de Tweets com Ocorrências',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Permite que os utilizadores criem Ocorrências a partir de Tweets',
+  'LBL_TWEETTOCASE_TITLE' => 'Ocorrências com base em Tweets',
   'LBL_USE_REAL_NAMES' => 'Mostrar o Nome Completo (não login)',
   'LBL_USE_REAL_NAMES_DESC' => 'Mostrar o nome completo dos Utilizadores ao invés do nome de utilizador',
   'LBL_VCAL_PERIOD' => 'Período de Tempo das Actualizações vCal',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Nome do Sistema',
   'SYSTEM_NAME_HELP' => 'Nome que aparece na barra de título do seu navegador.',
   'SYSTEM_NAME_WIZARD' => 'Nome:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'A definição recomendada de {{listEntriesNum}} está abaixo do nível aceitável para uma boa performance. À medida que são adicionados mais campo à listagem, o seu número deverá ser sempre inferior ao recomendado.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'A definição recomendada de {{subpanelEntriesNum}} está abaixo do nível aceitável para uma boa performance. À medida que são adicionados mais campo à listagem, o seu número deverá ser sempre inferior ao recomendado.',
   'UPLOAD_MAX_SIZE' => 'Tamanho máximo de ficheiros a carregar',
   'VERIFY_CLIENT_IP' => 'Validar o IP do Utilizador',
   'vCAL_HELP' => 'Utilize esta configuração para determinar o número de meses em antecedência à actual data em que a informação Free/Busy para chamadas telefónicas e reuniões é publicada.</BR>Para desligar a publicação Free/Busy, introduza "0". O mínimo é 1 mês; o máximo são 12 meses.',

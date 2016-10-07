@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Broj zapisa mora biti naveden pri brisanju naloga.',
@@ -65,6 +62,9 @@ $mod_strings = array (
   'LBL_EXPORT_PARENT_TYPE' => 'Povezano sa Modulom',
   'LBL_EXPORT_REMINDER_TIME' => 'Vreme podsetnika (u minutima)',
   'LBL_FIRST_NAME' => 'Ime',
+  'LBL_HELP_CREATE' => 'Da bi  {{module_name}} bio kreiran: 1. Obezbediti vrednost za polja po želji. - Polja označena kao "Obavezna" moraju biti uneta pre čuvanja podataka. - Klik na "Pokaži više" za prikaz dodatnih polja ako je potrebno. 2. Klik na "Sačuvaj" da dovršimo novi zapis i povratak na predhodnu stranu. - Izaberi "Sačuvaj i pregledaj" za otvaranje novog {{module_name}} u pogledu zapisa. - Izaberi "Sačuvaj i kreiraj novi" za momentalno kreiranje novog {{module_name}}.',
+  'LBL_HELP_RECORD' => '•	{{plural_module_name}} modul se sastoji od svih proizvoda koji su već prodati ili su u procesu prodaje klijentu. - Izmena polja ovog zapisa klikom na pojedinačno polje ili pritiskom na dugme Izmena. - Pregled ili izmena linkova ka drugim zapisima u podformama, uključujući {{campaigns_singular_module}} korisnike, prebacivanjem donjeg levog okvira na "Pregled Podataka". - Kreiraj i pregledaj korisničke komentare i snimi istoriju izmena u {{activitystream_singular_module}} prebacivanjem donjeg levog okvira na "Tok Aktivnosti". - Prati ili favorizuj ovaj zapis koristeći ikone desno od imena zapisa. - Dodatne akcije su dostupne u padajućem Akcija meniju desno od dugmeta Izmena.',
+  'LBL_HELP_RECORDS' => '{{plural_module_name}} modul se sastoji od svih proizvoda koji su već prodati ili su u procesu prodaje klijentu. Lista proizvoda koja je prodala vaša organizacija je smeštena u Admin : Proizvodni Katalog i administratori imaju mogućnost dodavanja proizvoda po potrebi. Kada kreirate {{plural_module_name}}, imate opciju ili da odaberete proizvod iz kataloga ili da kreirate novi proizvod preko {{plural_module_name}} modula. Postoji nekoliko načina da se kreira {{plural_module_name}} u Sugar-u kao što su preko {{plural_module_name}} modula, {{quotes_module_name}} modul, uvozom {{plural_module_name}}, itd.  Jednom kada je {{module_name}} kreiran, moguće je pregledati i izmeniti informacije koji se tiču {{module_name}} kroz {{module_name}}-og pregleda zapisa.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Beleške',
   'LBL_HOURS_ABBREV' => 's',
   'LBL_HOURS_MINUTES' => '(sati/minuta)',
@@ -89,12 +89,16 @@ $mod_strings = array (
   'LBL_MODULE_NAME' => 'Pozivi',
   'LBL_MODULE_NAME_SINGULAR' => 'Poziv',
   'LBL_MODULE_TITLE' => 'Pozivi: Početna strana',
+  'LBL_MY_SCHEDULED_CALLS' => 'Moji Zakazani Pozivi',
   'LBL_NAME' => 'Ime',
   'LBL_NEW_FORM_TITLE' => 'Zakaži sastanak',
   'LBL_NO_ACCESS' => 'Nemate pristup ovom delu. Kontaktirajte administratora vašeg sajta kako biste dobili pristup.',
   'LBL_OUTLOOK_ID' => 'Outlook ID',
   'LBL_PARENT_ID' => 'Matični ID broj:',
   'LBL_PHONE' => 'Telefon',
+  'LBL_POPUP_REMINDER_TIME' => 'Iskačući vremenski podsetnik',
+  'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Uspešno ste napravili zapis  {{moduleSingularLower}} za  {{formatDate date_start}}, ali nemate dovoljna ovlašćenja da pristupite zapisu.',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Uspešno ste napravili {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> za  {{formatDate date_start}}.',
   'LBL_RECURRENCE' => 'Ponavljanje',
   'LBL_RECURRING_LIMIT_ERROR' => 'Nije moguće zakazati ponavljajući poziv zato što prelazi maksimalni broj ponavljanja - $limit',
   'LBL_RECURRING_SOURCE' => 'Izvor ponavljanja',
@@ -105,6 +109,7 @@ $mod_strings = array (
   'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Pošaljite email svim pozvanima.',
   'LBL_REMINDER_POPUP' => 'Popup',
   'LBL_REMINDER_TIME' => 'Vreme podsetnika',
+  'LBL_REMINDER_TITLE' => 'Poziv:',
   'LBL_REMOVE' => 'Ukloni',
   'LBL_REMOVE_ALL_RECURRENCES' => 'Obriši sva ponavljanja',
   'LBL_REPEAT_COUNT' => 'Broj ponavljanja',
@@ -117,6 +122,7 @@ $mod_strings = array (
   'LBL_REPEAT_PARENT_ID' => 'Matični ID ponavljanja',
   'LBL_REPEAT_TYPE' => 'Ponavlja se',
   'LBL_REPEAT_UNTIL' => 'Ponavlja se do',
+  'LBL_REVENUELINEITEMS' => 'Stavke prihoda',
   'LBL_SCHEDULING_FORM_TITLE' => 'Zakazivanje',
   'LBL_SEARCH_BUTTON' => 'Pretraga',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga poziva',
@@ -141,5 +147,6 @@ $mod_strings = array (
   'LNK_SELECT_ACCOUNT' => 'Izaberi kompaniju',
   'NOTICE_DURATION_TIME' => 'Vreme trajanja mora biti veće od 0',
   'NTC_REMOVE_INVITEE' => 'Da li sigurno želite da uklonite ovog pozvanog iz ovog poziva?',
+  'TPL_CALL_STATUS_CHANGED' => 'Poziv obeležen kao {{status}}.',
 );
 

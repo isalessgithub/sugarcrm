@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -34,7 +31,7 @@ $mod_strings = array (
   'LBL_ANY_ADDRESS' => 'Адрес:',
   'LBL_ANY_EMAIL' => 'Електронна поща:',
   'LBL_ANY_PHONE' => 'Телефон:',
-  'LBL_AUTHENTICATE_ID' => 'Authentication Id',
+  'LBL_AUTHENTICATE_ID' => 'Id на аутектикация',
   'LBL_CITY' => 'Град:',
   'LBL_COUNTRY' => 'Държава:',
   'LBL_CREATED_BY_NAME' => 'Създадено от',
@@ -53,7 +50,7 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Отдел:',
   'LBL_DESCRIPTION' => 'Описание',
   'LBL_EMAIL' => 'Електронна поща:',
-  'LBL_EMAIL_ADDRESS' => 'Адрес на ел. поща',
+  'LBL_EMAIL_ADDRESS' => 'Електронна поща',
   'LBL_EMAIL_LINK_TYPE' => 'Пощенски клиент',
   'LBL_EMAIL_LINK_TYPE_HELP' => '<b>Sugar Mail Client:</b> Потребителят изпраща електронни съобщения като използва клиента за електронна поща в SugarCRM.<br><b>External Mail Client:</b> Потребителят изпраща електронни съобщения, използвайки външен за системата клиент за електронна поща като Microsoft Outlook.',
   'LBL_EMPLOYEE' => 'Служители:',
@@ -62,7 +59,7 @@ $mod_strings = array (
   'LBL_EMPLOYEE_SETTINGS' => 'Настройки',
   'LBL_EMPLOYEE_STATUS' => 'Статус на служителя:',
   'LBL_ERROR' => 'Грешка:',
-  'LBL_EXT_AUTHENTICATE' => 'External Authentication',
+  'LBL_EXT_AUTHENTICATE' => 'Външна аутентикация',
   'LBL_FAVORITE_COLOR' => 'Любим цвят:',
   'LBL_FAX' => 'Факс:',
   'LBL_FAX_PHONE' => 'Факс',
@@ -94,7 +91,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Модифицирано от',
   'LBL_MODIFIED_BY_ID' => 'Модифицирано от',
   'LBL_MODULE_NAME' => 'Служители',
-  'LBL_MODULE_NAME_SINGULAR' => 'Служител',
+  'LBL_MODULE_NAME_SINGULAR' => 'Служители',
   'LBL_MODULE_TITLE' => 'Служители',
   'LBL_MY_TEAMS' => 'Моите екипи',
   'LBL_NAME' => 'Име:',
@@ -123,7 +120,7 @@ $mod_strings = array (
   'LBL_SAVED_SEARCH' => 'Настройки на подредби',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Служители"',
   'LBL_SELECT' => 'Избери',
-  'LBL_SHOW_ON_EMPLOYEES' => 'Display Employee Record',
+  'LBL_SHOW_ON_EMPLOYEES' => 'Покажи профила на служителя',
   'LBL_STATE' => 'Област:',
   'LBL_STATUS' => 'Статус',
   'LBL_SUGAR_LOGIN' => 'е потребител на Sugar:',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_INT_ONLY_EMAIL_PER_RUN' => 'Только целые значения разрешены для указания количества писем, отправляемых одновременно при пакетной рассылке',
@@ -29,13 +26,13 @@ $mod_strings = array (
   'LBL_CONFIGURE_SETTINGS' => 'Системные установки E-mail',
   'LBL_CUSTOM_LOCATION' => 'Задается пользователем',
   'LBL_DEFAULT_LOCATION' => 'По умолчанию',
-  'LBL_DISCLOSURE_TEXT_SAMPLE' => 'Уведомление: Это электронное письмо предназначается сугубо указанным получателям и может содержать конфиденциальную информацию. Любой неразрешенный просмотр, использование, разглашение или распространение запрещено. Если Вы не являетесь получателем, которому письмо изначально адресовано, уничтожьте, пожалуйста, все копии этого сокращения и уведомите отправителя, чтобы мы смогли внести изменения в адресную книгу. Спасибо!',
+  'LBL_DISCLOSURE_TEXT_SAMPLE' => 'Уведомление: Это электронное письмо предназначается сугубо указанным получателям и может содержать конфиденциальную информацию. Любой неразрешенный просмотр, использование, разглашение или распространение запрещено. Если Вы не являетесь получателем, которому письмо изначально адресовано, уничтожьте, пожалуйста, все копии исходного сообщения и уведомите отправителя, чтобы мы смогли внести изменения в адресную книгу. Спасибо!',
   'LBL_DISCLOSURE_TEXT_TITLE' => 'Содержание сообщения о конфиденциальности письма',
   'LBL_DISCLOSURE_TITLE' => 'Добавлять сообщение о конфиденциальности письма к каждому E-mail-сообщению.',
   'LBL_EMAILS_PER_RUN' => 'Количество писем, отправляемых одновременно при пакетной рассылке:',
   'LBL_EMAIL_DEFAULT_CHARSET' => 'Создать сообщения электронной почты в данной кодировке',
   'LBL_EMAIL_DEFAULT_DELETE_ATTACHMENTS' => 'Удалять соответствующие заметки и вложения при удалении E-mail-сообщений',
-  'LBL_EMAIL_DEFAULT_EDITOR' => 'Создать e-mail-сообщение используя этот клиент',
+  'LBL_EMAIL_DEFAULT_EDITOR' => 'Создать e-mail-сообщение используя этого клиента',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Использовать настройки Gmail™',
   'LBL_EMAIL_LINK_TYPE' => 'E-mail-клиент',
   'LBL_EMAIL_LINK_TYPE_HELP' => '<b>Почтовый клиент Sugar</b> - отправка электронных писем при помощи встроенного в Sugar почтового клиента.<br><br /><b>Внешний почтовый клиент</b> - любой другой почтовый клиент, например Microsoft Outlook.',
@@ -54,7 +51,7 @@ $mod_strings = array (
   'LBL_GMAIL_SMTPUSER' => 'Gmail - учетная запись почты',
   'LBL_HELP' => 'Справка',
   'LBL_ID' => 'ID',
-  'LBL_INVALID_ENTRY_POINT' => 'Не действительная точка входа',
+  'LBL_INVALID_ENTRY_POINT' => 'Недействительная точка входа',
   'LBL_IN_QUEUE' => 'В процессе',
   'LBL_IN_QUEUE_DATE' => 'Дата помещения в очередь',
   'LBL_LIST_CAMPAIGN' => 'Маркетинговая кампания',
@@ -70,7 +67,7 @@ $mod_strings = array (
   'LBL_LIST_SEND_DATE_TIME' => 'Отправить',
   'LBL_LIST_USER_NAME' => 'Имя пользователя',
   'LBL_LOCATION_ONLY' => 'Место',
-  'LBL_LOCATION_TRACK' => 'Расположение файлов трекера маркетинговых кампаний (campaign_trackerv2.php, removeme.php и image.php)',
+  'LBL_LOCATION_TRACK' => 'Расположение файлов отслеживания маркетинговой кампании (как campaign_tracker.php)',
   'LBL_MAIL_SENDTYPE' => 'Отправка почты с помощью',
   'LBL_MAIL_SMTPAUTH_REQ' => 'SMTP-сервер требует авторизацию',
   'LBL_MAIL_SMTPPASS' => 'SMTP-пароль:',

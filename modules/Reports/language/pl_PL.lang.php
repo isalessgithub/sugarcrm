@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -207,6 +204,7 @@ $mod_strings = array (
   'LBL_FILTERS_END' => 'z następujących filtrów.',
   'LBL_FILTERS_HELP_DESC' => '<b>Kroki definiujące filtry</b><br/><br/>1) Kliknij na moduł w <b>Modułach powiązanych</b>, którego zamierzasz użyć w filtrach. Domyślnie, jest wybrany pierwszy moduł (najwyższy listek w widoku drzewa). <br/><br/>Możesz wybrać powiązane moduły (katalogi podrzędne w widoku drzewa) poprzez jednokrotne kliknięcie na odpowiednią nazwę. Kliknij w folderz na drzewie relacji, aby zobaczyć dodatkowe moduły powiązane ze sobą. Moduł, który wybierzesz określa które pola  raportowalne pojąwią się w tabeli <b>Dostępne pola</b>.<br/><br/>	2) Kliknij na pole w tabeli <b>Dostępnych pól</b>, aby dodać je do filtru. Możesz również wyszukać pola poprzez wpisanie tekstu w wyszukiwarce.<br/>	Po wybraniu dowolnej liczby pól z wybranego w tabeli <b>Modułów powiązanych</b> modułu, możesz wybrać inny moduł z którego możesz wybrać dowolną liczbę pól do użycia w filtrowaniu.<br/><br/>	3) Wybierz <b>I</b> lub <b>LUB</b>, aby wskazać czy wszystkie (I) lub dowolne (LUB) kryteria muszą zostać spełnione przez dane wyświetlone jako wyniki raportu.<br/><br/>	4) [Opcjonalnie] Kliknij na <b>Dodaj grupę filtrów</b>, aby utworzyć grupę filtrów. Możesz stworzyć dowolną liczbę grup filtrów, a także grupy zagnieżdżone.<br/><br/>	5) [Opcja] Zaznacz opcję Edycje dla wybranego filtra, aby pozwolić innym użytkownikom na modyfikację kryteriów w chwili wykonywania raportu.',
   'LBL_FILTER_AND' => 'I',
+  'LBL_FILTER_BY_MODULE' => 'Wg modułów',
   'LBL_FILTER_CONDITIONS' => 'Wybierz operator',
   'LBL_FILTER_DATE_RANGE_FINISH' => 'do',
   'LBL_FILTER_DATE_RANGE_START' => 'Od',
@@ -321,7 +319,7 @@ $mod_strings = array (
   'LBL_NO_ACCESS' => 'Twoje uprawnienia nie pozwalają na podgląd tego raportu.',
   'LBL_NO_CHART' => 'Brak wykresu',
   'LBL_NO_CHART_DRAWN_MESSAGE' => 'Wykres nie może zostać wygenerowany z powodu braku danych',
-  'LBL_NO_EXPORT_ACCESS' => 'Eksportowanie wyłączone',
+  'LBL_NO_EXPORT_ACCESS' => 'Eksport nieaktywny',
   'LBL_NO_FILTERS' => 'brak filtrów.',
   'LBL_NO_IMAGE' => 'Brak pliku graficznego',
   'LBL_NO_REPORTS' => 'Brak wyników.',
@@ -483,10 +481,10 @@ $mod_strings = array (
   'LBL_WITH_AN_AVERAGE' => 'ze średnią',
   'LBL_WITH_A_TOTAL' => 'z sumą',
   'LBL_WITH_DETAILS' => 'szczegółowy',
-  'LBL_WORKSHEET' => 'Arkusz roboczy',
   'LBL_YEAR' => 'Rok',
   'LBL_YESTERDAY' => 'Wczoraj',
   'LBL_YOU_HAVE_NO_SAVED_REPORTS.' => 'Brak zapisanych raportów.',
+  'LNK_ADVANCED_REPORTING' => 'Zarządzaj zaawansowanymi raportami',
   'LNK_NEW_ACCOUNT' => 'Utwórz kontrahenta',
   'LNK_NEW_CALL' => 'Dodaj rozmowę tel.',
   'LNK_NEW_CASE' => 'Utwórz zgłoszenie',
@@ -499,6 +497,5 @@ $mod_strings = array (
   'MSG_NO_PERMISSIONS' => 'Nie masz uprawnień do edycji tego raportu',
   'MSG_UNABLE_PUBLISH_ANOTHER' => 'Nie można opublikować. Jest inny opublikowany Raport o tej samej nazwie.',
   'MSG_UNABLE_PUBLISH_YOU_OWN' => 'Nie można cofnąć publikację raportu należącego do innego użytkownika.',
-  'REPORT_SCHEDULER_ACTIVE_ERROR' => 'Harmonogram Process Report Generation Task jest w tej chwili nieaktywny i raporty nie mogą zostać zaplanowane. Poproś Administratora o ustawienie tego Harmonogramu na aktywny i spróbuj ponownie.',
 );
 

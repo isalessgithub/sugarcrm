@@ -1,33 +1,30 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class EmailManController extends SugarController
 {
-	function action_Save(){
-
-        
+    function action_Save()
+    {
         require_once('include/OutboundEmail/OutboundEmail.php');
         require_once('modules/Configurator/Configurator.php');
 
         $configurator = new Configurator();
         global $sugar_config;
-        global $current_user;
-        if ( !is_admin($current_user)
+        global $current_user, $mod_strings;
+        if (!is_admin($current_user)
                 && !is_admin_for_module($GLOBALS['current_user'],'Emails')
-                && !is_admin_for_module($GLOBALS['current_user'],'Campaigns') ){
-        sugar_die("Unauthorized access to administration.");
+                && !is_admin_for_module($GLOBALS['current_user'],'Campaigns')
+        ){
+            sugar_die($mod_strings['LBL_UNAUTH_ACCESS']);
         }
 
         //Do not allow users to spoof for sendmail if the config flag is not set.
@@ -41,9 +38,7 @@ class EmailManController extends SugarController
             $oe->saveSystem();
         }
 
-
-
-        $focus = new Administration();
+        $focus = BeanFactory::getBean('Administration');
 
         if(isset($_POST['tracking_entities_location_type'])) {
             if ($_POST['tracking_entities_location_type'] != '2') {
@@ -55,19 +50,17 @@ class EmailManController extends SugarController
         if( !isset($_POST['mail_smtpauth_req']) )
         {
             $_POST['mail_smtpauth_req'] = 0;
-		if (empty($_POST['campaignConfig'])) {
-			$_POST['notify_allow_default_outbound'] = 0; // If smtp auth is disabled ensure outbound is disabled.
-		}
-        }
-
-        if( !empty($_POST['notify_allow_default_outbound']) )
-        {
-            $oe = new OutboundEmail();
-            if( !$oe->isAllowUserAccessToSystemDefaultOutbound() )
-                $oe->removeUserOverrideAccounts();
+            if (empty($_POST['campaignConfig'])) {
+                $_POST['notify_allow_default_outbound'] = 0; // If smtp auth is disabled ensure outbound is disabled.
+            }
         }
 
         $focus->saveConfig();
+
+        // mark user metadata changed so the user preferences get refreshed
+        // (user preferences contain email client preference)
+        $mm = MetadataManager::getManager();
+        $mm->setUserMetadataHasChanged($current_user);
 
         // save User defaults for emails
         $configurator->config['email_default_delete_attachments'] = (isset($_REQUEST['email_default_delete_attachments'])) ? true : false;
@@ -98,9 +91,5 @@ class EmailManController extends SugarController
         ksort($sugar_config);
 
         $configurator->handleOverride();
-
-
     }
-
 }
-?>

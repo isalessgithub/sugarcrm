@@ -1,20 +1,14 @@
 <!--
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
- * {APP.LBL_CURRENCY_SYM}Header: /cvsroot/sugarcrm/sugarcrm/modules/Notes/ListView.html,v 1.1 2004/07/01 08:31:12 sugarclint Exp {APP.LBL_CURRENCY_SYM}
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 -->
 
 <!-- BEGIN: main -->
@@ -35,7 +29,11 @@
     	<td valign=TOP><slot>{EMAIL_TEMPLATE.BASE_MODULE}</slot></td>
 		<td valign=TOP><slot>{EMAIL_TEMPLATE.DESCRIPTION}</slot></td>
     	<td nowrap valign=TOP><slot>{EMAIL_TEMPLATE.DATE_MODIFIED}</slot></td>
-    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a class="listViewTdToolsS1" onclick="return confirm('{NTC_REMOVE_ALERT}')" href="{URL_PREFIX}index.php?module=EmailTemplates&action=Delete&record={EMAIL_TEMPLATE.ID}{RETURN_URL}">{DELETE_INLINE_PNG}&nbsp;{APP.LNK_REMOVE}</a></slot></td>
+        <td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>
+            <form id="{EMAIL_TEMPLATE.ID}" method="post" action="{URL_PREFIX}index.php?&module=EmailTemplates&action=Delete&record={EMAIL_TEMPLATE.ID}{RETURN_URL}">
+                <a class="listViewTdToolsS1" href="javascript:void(0);" onclick="if (confirm('{NTC_REMOVE_ALERT}')) document.getElementById('{EMAIL_TEMPLATE.ID}').submit();">{DELETE_INLINE_PNG}&nbsp;{APP.LNK_REMOVE}</a>
+            </form>
+        </slot></td>
 </tr>
 
 <!-- END: row -->

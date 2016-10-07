@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_CRON_SYNTAX' => 'Неверный Cron-синтаксис',
@@ -24,12 +21,14 @@ $mod_strings = array (
   'LBL_ALL' => 'Каждый день',
   'LBL_ALWAYS' => 'Всегда',
   'LBL_AND' => 'и',
+  'LBL_ASYNCMASSUPDATE' => 'Произвести асинхронные массовые обновления',
   'LBL_AT' => 'в',
   'LBL_AT_THE' => 'В',
   'LBL_BASIC_OPTIONS' => 'Основные параметры',
   'LBL_CATCH_UP' => 'Выполнить, если пропущена',
   'LBL_CATCH_UP_WARNING' => 'Снять метку, если работу можно выполнить не только единожды.',
   'LBL_CLEANJOBQUEUE' => 'Очистка списка задач',
+  'LBL_CLEANOLDRECORDLISTS' => 'Очистить списки со старыми записями',
   'LBL_CRONTAB_EXAMPLES' => 'Значения представлены в стандартной crontab-нотации',
   'LBL_CRONTAB_SERVER_TIME_POST' => '). Учитывайте это при использовании планировщика.',
   'LBL_CRONTAB_SERVER_TIME_PRE' => 'Команды планировщика cron запускаются в соответствии с настройками часового пояса сервера (',
@@ -82,16 +81,21 @@ $mod_strings = array (
   'LBL_OOTB_CAMPAIGN' => 'Запускать ночью массовую рассылку писем',
   'LBL_OOTB_CLEANUP_QUEUE' => 'Очистить список задач',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Создать будущие временные промежутки',
+  'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
   'LBL_OOTB_IE' => 'Проверять входящие письма',
+  'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Запустить запланированое задание',
   'LBL_OOTB_PRUNE' => 'Сжимать базу данных первого числа каждого месяца',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Удаление документов из файловой системы',
+  'LBL_OOTB_PRUNE_RECORDLISTS' => 'Удалить списки со старыми записями',
+  'LBL_OOTB_REMOVE_DIAGNOSTIC_FILES' => 'Удалить файлы средств диагностики',
+  'LBL_OOTB_REMOVE_PDF_FILES' => 'Удалить временные PDF файлы',
+  'LBL_OOTB_REMOVE_TMP_FILES' => 'Удалить временные файлы',
   'LBL_OOTB_REPORTS' => 'Выполнять запланированные задачи создания отчетов',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Запустить оповещения о Email-уведомлениях',
-  'LBL_OOTB_SUGARFEEDS' => 'Очистка таблиц SugarFeed',
   'LBL_OOTB_TRACKER' => 'Очищать историю последних просмотров первого числа каждого месяца',
   'LBL_OOTB_WORKFLOW' => 'Обработать задачи Рабочего процесса',
   'LBL_PERENNIAL' => 'Бессрочно',
   'LBL_PERFORMFULLFTSINDEX' => 'Полнотекстовая Индекс-система поиска',
+  'LBL_PMSEENGINECRON' => 'Запустить планировщика',
   'LBL_POLLMONITOREDINBOXES' => 'Проверять почтовые ящики для входящей почты',
   'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Запускать ночью проверку почтовых ящиков для возвращаемых писем',
   'LBL_PROCESSQUEUE' => 'Выполнять запланированные задачи создания отчетов',
@@ -99,21 +103,20 @@ $mod_strings = array (
   'LBL_PRUNEDATABASE' => 'Сжимать базу данных первого числа каждого месяца',
   'LBL_RANGE' => 'до',
   'LBL_REFRESHJOBS' => 'Обновить задания',
-  'LBL_REMOVEDOCUMENTSFROMFS' => 'Удаление документов из файловой системы',
   'LBL_RUNMASSEMAILCAMPAIGN' => 'Запускать ночью массовую рассылку писем',
   'LBL_SAT' => 'Суббота',
   'LBL_SCHEDULER' => 'задание:',
   'LBL_SEARCH_FORM_TITLE' => 'Поиск задания',
   'LBL_SENDEMAILREMINDERS' => 'Запустить рассылку Email-уведомлений',
   'LBL_STATUS' => 'Статус',
-  'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Создать будущие временные периоды',
+  'LBL_SUGARJOBCREATENEXTTIMEPERIOD' => 'Создать будущие временные промежутки',
+  'LBL_SUGARJOBHEARTBEAT' => 'Sugar Heartbeat',
   'LBL_SUN' => 'Воскресенье',
   'LBL_THU' => 'Четверг',
   'LBL_TIME_FROM' => 'Выполнять действие с',
   'LBL_TIME_TO' => 'Выполнять действие до',
   'LBL_TOGGLE_ADV' => 'Показать дополнительные настройки',
   'LBL_TOGGLE_BASIC' => 'Показать основные параметры',
-  'LBL_TRIMSUGARFEEDS' => 'Очистка таблиц SugarFeed',
   'LBL_TRIMTRACKER' => 'Очищать таблицы трекера',
   'LBL_TUE' => 'Вторник',
   'LBL_UPDATETRACKERSESSIONS' => 'Обновлять таблицы сессий трекера',
@@ -128,6 +131,6 @@ $mod_strings = array (
   'NTC_DELETE_CONFIRMATION' => 'Вы действительно хотите удалить эту запись?',
   'NTC_LIST_ORDER' => 'Установка последовательности, в которой задания появятся в списке',
   'NTC_STATUS' => 'Установите статус "Не активна" для удаления этой задачи из списка заданий',
-  'SOCK_GREETING' => 'Это интерфейс сервиса планировщика заданий. [ Доступные команды: start|restart|shutdown|status ] Для выхода наберите &#39;quit&#39;. Для выкючения сервиса: &#39;shutdown&#39;.',
+  'SOCK_GREETING' => 'Это интерфейс сервиса планировщика заданий. [ Доступные команды: start|restart|shutdown|status ] Для выхода наберите &#39;quit&#39;. Для выключения сервиса: &#39;shutdown&#39;.',
 );
 

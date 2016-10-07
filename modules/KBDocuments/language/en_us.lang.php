@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -24,30 +21,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
 	//module
 	'LBL_MODULE_NAME' => 'Knowledge Base',
+    'LBL_MODULE_NAME_SINGULAR' => 'KBDocument',
 	'LBL_MODULE_TITLE' => 'Knowledge Base Article',
 	'LNK_NEW_ARTICLE' => 'Create Article',
 	'LNK_KBDOCUMENT_LIST'=> 'View Documents',
 	'LBL_DOC_REV_HEADER' => 'Document Revisions',
 	'LBL_SEARCH_FORM_TITLE'=> 'Document Search',
-	'LBL_KBDOC_TAGS' => 'Article Tags:',
-	'LBL_KBDOC_BODY' => 'Article Body:',
-	'LBL_KBDOC_APPROVED_BY' =>'Approver:',
-	'LBL_KBDOC_ATTACHMENT' =>'Kbdoc_attachment',
-	'LBL_KBDOC_ATTS_TITLE' =>'Download Attachments:',	
 	'LBL_SEND_EMAIL'  => 'Send Email',
 	'LBL_SELECT_TAG_BUTTON_TITLE' => 'Select',
-	'LBL_ATTACHMENTS' => 'Attachments:',
 	'LBL_EMBEDED_IMAGES' => 'Embedded Images:',
+	'LBL_SHOW_MORE' => 'Show More Articles',
 	'LBL_SHOW_ARTICLE_DETAILS' => 'Show More Details',
 	'LBL_HIDE_ARTICLE_DETAILS' => 'Hide Details',
 	'LBL_TAGS' => 'Tags:',
 	'LBL_NOT_AN_ADMIN_USER' => 'Not an admin user',
 	'LBL_NOT_A_VALID_FILE' => 'Not a valid file',
 	
-	//Tag tree related labels    
-    'LBL_SELECT_A_NODE_FROM_TREE' => 'Select a node from tree',
+	//Tag tree related labels
     'LBL_SELECT_A_NODE_FROM_TREE' => 'Create New Tag',
-    'LBL_SEARCH'  =>'Search',
     'LBL_NEW_TAG_NAME' => 'New Tag Name:',
 	
 	//vardef labels	
@@ -79,6 +70,9 @@ $mod_strings = array (
     'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
     'LBL_TAG_ID' => 'LBL_TAG_ID',
     'LBL_KBDOCUMENTS_KBTAGS_ID' => 'LBL_KBDOCUMENTS_KBTAGS_ID',
+    'LBL_CONTRACT_STATUS'=>'Contract Status',
+    'LBL_LINKED_ID'=>'Linked Id',
+    'LBL_VIEWS_NUMBER'=>'Views Number',
 
 	'LBL_REVISION_NAME' => 'Revision Number',
 	'LBL_KBDOCUMENT_REVISION_NUMBER' => 'KBDocument Revision Number',
@@ -88,16 +82,13 @@ $mod_strings = array (
 	'LBL_LATEST_REVISION' => 'Latest Revision Id',
     'LBL_LATEST_REVISION_NAME' => 'Latest Revision Name',
     'LBL_SELECTED_REVISION_NAME' => 'Selected Revision Name',
+    'LBL_SELECTED_REVISION_ID' => 'Selected Revision Id',
+    'LBL_SELECTED_REVISION_FILENAME' => 'Selected Revision File Name',
 	'LBL_CHANGE_LOG'=> 'Change Log',
 	'LBL_ACTIVE_DATE'=> 'Publish Date',
 	'LBL_EXPIRATION_DATE' => 'Expiration Date',
 	'LBL_FILE_EXTENSION'  => 'File Extension',
-
-    'LBL_KBDOC_TAGS' => 'Document Tags:',
-	'LBL_KBDOC_BODY' => 'Document Body:',
-	'LBL_KBDOC_APPROVED_BY' =>'Approved By:',
-	'LBL_KBDOC_ATTACHMENT' =>'Kbdoc_attahment',
-	'LBL_KBDOC_ATTS_TITLE' =>'Download Attachments:',
+    'LBL_KBDOC_APPROVER_NAME' => 'Approver Name',
 
     'LBL_KNOWLEDGE_BASE_SEARCH' => 'Knowledge Base',
 	'LBL_KNOWLEDGE_BASE_ADMIN' => 'Knowledge Base Admin',
@@ -228,6 +219,7 @@ $mod_strings = array (
 	'ERR_DELETE_LATEST_VERSION'=> 'You are not allowed to delete the latest revision of a document.',
 	'LNK_NEW_MAIL_MERGE' => 'Mail Merge',
 	'LBL_MAIL_MERGE_DOCUMENT' => 'Mail Merge Template:',
+	'ERR_FILESIZE' => 'File is too big. Max filesize:',
 
 	'LBL_TREE_TITLE' => 'Documents',
 	//sub-panel vardefs.
@@ -264,7 +256,6 @@ $mod_strings = array (
     'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Select Articles First ',
     'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Select Articles To Apply Tags',
     'LBL_SELECT_ARTICLES_TO_DELETE'  => 'Select Articles First ',
-    'LBL_SELECT_TAGS_TO_DELETE'  => 'Select Tags To Delete',
     'LBL_SELECT_A_TAG_FROM_TREE' => 'Select A Tag From Tree',
     'LBL_SELECT_TAGS_FROM_TREE'  => 'Select Tags From Tree',
     'LBL_MOVING_ARTICLES_TO_TAG' =>'Moving articles to tag...',
@@ -297,9 +288,11 @@ $mod_strings = array (
 	'LBL_CLICK_APPLY_TAG' => 'Click Apply Tag',	
 	'LBL_HEAD_TAGS' => 'Tags',
 	'LBL_REMOVE' => 'Remove' /*for 508 compliance fix*/,
-	'LBL_EDIT_INLINE' => 'Edit' /*for 508 compliance fix*/,
-	'LBL_DEFAULT_LINK_TEXT' => 'Default link text.',
-	'LBL_SELECT_NODE' => 'Please select a node',
-	'LBL_ARTICLE_EXISTS' => 'Article already exists',
+    'LBL_EDIT_INLINE' => 'Edit' /*for 508 compliance fix*/,
+    'LBL_DEFAULT_LINK_TEXT' => 'Default link text.',
+    'LBL_SELECT_NODE' => 'Please select a node',
+    'LBL_ARTICLE_EXISTS' => 'Article already exists',
+
+
 );
 ?>

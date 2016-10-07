@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Сигурни ли сте, че желаете да премахнете организацията от този проект?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Обаждания',
   'LBL_CAMPAIGNS' => 'Кампании',
   'LBL_CAMPAIGN_ID' => 'Кампания',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Дневник на събития на кампанията',
   'LBL_CASES_SUBPANEL_TITLE' => 'Казуси',
   'LBL_CHARTS' => 'Графики',
   'LBL_CITY' => 'Град:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Организации',
   'LBL_DESCRIPTION' => 'Описание:',
   'LBL_DESCRIPTION_INFORMATION' => 'Допълнителна информация',
+  'LBL_DNB_BAL_PREVIEW' => 'Преглед на организациите',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Документи',
+  'LBL_DUNS_NUM' => 'D&B номер:',
   'LBL_DUPLICATE' => 'Възможно е дублиране',
   'LBL_EMAIL' => 'Електронна поща:',
   'LBL_EMAIL_ADDRESSES' => 'Адреси',
@@ -72,6 +72,25 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Служители:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Отговорник',
   'LBL_FAX' => 'Факс:',
+  'LBL_FILENAME' => 'Прикачен документ',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Справки за организации',
+  'LBL_HELP_CREATE' => 'Модулът {{plural_module_name}} съдържа данни за компании, с които поддържате бизнес взаимоотношения. Той може да се използва като централно място от където да управлявани и анализирани контактите с всеки клиент.
+
+За да създадете нов запис в модул {{plural_module_name}}:
+1. Въведете стойности в отделните полета.
+- Полетата маркирани като "Задължителни" се изисква да имат зададена стойнист преди да се пристъпи към съхраняване на записа.
+- Натиснете върху "Покажи повече", за да бъдат визуализирани допълнителни полета ако е необходимо.
+2. Натиснете "Съхрани", за да запазите новия запис и да се върнете в предходната страница.
+- Изберете "Съхрани и разгледай", за да отворите автоматично детайли за новия запис.
+- Изберете "Съхрани и създай нов", за да пристъпите към създаване на друг нов запис в модул  {{plural_module_name}}.',
+  'LBL_HELP_RECORD' => 'Модулът {{plural_module_name}} съдържа данни за компании, с които поддържате бизнес взаимоотношения. Той може да се използва като централно място от където да управлявани и анализирани контактите с всеки клиент.
+
+- Редактирайте текущия запис като натиснете конкретно поле или използвате бутона „Редактирай“.
+- Разгледайте или модифицирайте връзките с други записи в системата, като за целта визуализирате панела „Свързани записи“.
+- Поставете коментари към текущия запис и разгледайте история на извършените промени свързани с него, като преминете в панела „Хронология“.
+- Следвайте или харесайте текущия запис като използвате иконите, намиращи се в дясно от името му.
+- Можете да извършвате допълнителни действия със записа като използвате падащото меню в дясно на бутона „Редактирай“.',
+  'LBL_HELP_RECORDS' => 'Модулът {{plural_module_name}} съдържа данни за компании, с които поддържате бизнес взаимоотношения. Той може да се използва като централно място от където да управлявани и анализирани контактите с всеки клиент. Съществуват различни начини да създадете {{plural_module_name}} в SugarCRM, като за целта можете да използвате опциите на модула {{plural_module_name}}, да дублирате съществуващ запис, да импортирате {{plural_module_name}} и други. След като дадена {{module_name}} е въведена в системата, можете да разгледате и редактирате информацията за нея през изгледа „Детайли за записа“. Всяка {{module_name}} може да бъде свързана с други записи в Sugar, в това число {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}} и много други, които се използват за съхранение на историята на взаимоотношенията с клиенти.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'История',
   'LBL_HOMEPAGE_TITLE' => 'Моите организации',
   'LBL_INDUSTRY' => 'Отрасъл:',
@@ -98,6 +117,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Организации',
   'LBL_NAME' => 'Име:',
   'LBL_NEW_FORM_TITLE' => 'Нова организация',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Бележки',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Възможности',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Алтернативна електронна поща:',
   'LBL_OTHER_PHONE' => 'Алтернативен телефонен номер:',
@@ -110,7 +130,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Телефон / Факс:',
   'LBL_PHONE_OFFICE' => 'Служебен телефон:',
   'LBL_POSTAL_CODE' => 'Пощенски код:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Продукти',
   'LBL_PRODUCTS_TITLE' => 'Продукти',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Проекти',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Проекти',
@@ -121,6 +140,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Копирай основния адрес:',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Оферти',
   'LBL_RATING' => 'Рейтинг:',
+  'LBL_REVENUELINEITEMS' => 'Приходни позиции',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Приходни позиции',
   'LBL_SAVE_ACCOUNT' => 'Запазване на организация',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Организации"',
   'LBL_SHIPPING_ADDRESS' => 'Адрес за кореспонденция:',
@@ -146,6 +167,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Сайт:',
   'LNK_ACCOUNT_LIST' => 'Списък с организации',
   'LNK_ACCOUNT_REPORTS' => 'Справки за организации',
+  'LNK_CREATE' => 'Въвеждане на компания',
   'LNK_IMPORT_ACCOUNTS' => 'Импортиране на организации',
   'LNK_NEW_ACCOUNT' => 'Въвеждане на организация',
   'MSG_DUPLICATE' => 'Създаването на тази организация може да доведе до създаване на дублираща организация. Можете или да изберете организация от списъка долу, или да съхраните записа с вече въведените данни чрез натискане на бутон "Въвеждане на организация".',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => 'Weet je zeker dat je de relatie tussen deze Persoon en dit Project wilt verwijderen?',
@@ -37,7 +34,7 @@ $mod_strings = array (
   'LBL_ASSIGNED_USER_ID' => 'Toegewezen aan:',
   'LBL_ASSIGNED_USER_NAME' => 'Toegewezen aan:',
   'LBL_BIWEEK_BUTTON' => '2 Weken',
-  'LBL_BUGS_SUBPANEL_TITLE' => 'Defecten',
+  'LBL_BUGS_SUBPANEL_TITLE' => 'Bugs',
   'LBL_CASES_SUBPANEL_TITLE' => 'Cases',
   'LBL_COLLAPSE_ALL_BUTTON' => 'Alles openklappen',
   'LBL_CONTACTS_RESOURCE' => 'Contactpersoon Resource',
@@ -50,7 +47,7 @@ $mod_strings = array (
   'LBL_DATE' => 'Datum:',
   'LBL_DATE_END' => 'Einddatum:',
   'LBL_DATE_ENTERED' => 'Ingevoerd:',
-  'LBL_DATE_MODIFIED' => 'Laatste wijziging:',
+  'LBL_DATE_MODIFIED' => 'Datum gewijzigd:',
   'LBL_DATE_START' => 'Startdatum:',
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Projecten',
   'LBL_DELETED' => 'Verwijderd:',
@@ -135,7 +132,7 @@ $mod_strings = array (
   'LBL_PREDECESSORS' => 'Voorgangers',
   'LBL_PREDECESSORS_WIDGET' => 'Voorgangers',
   'LBL_PRIORITY' => 'Prioriteit:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Producten',
+  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Geoffreerde producten',
   'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => 'Project Resources',
   'LBL_PROJECTTASK_SUBPANEL_TITLE' => 'Project Taak',
   'LBL_PROJECT_HOLIDAYS' => 'Vakantie- Feestdag',
@@ -160,6 +157,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => 'Resource',
   'LBL_RESOURCE_REPORT' => 'Rapportage Resources',
   'LBL_RESOURCE_TYPE' => 'Type Resource',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Opportunityregels',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => 'Opslaan als nieuw Project',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => 'Opslaan als nieuw sjabloon',
   'LBL_SAVE_AS_PROJECT' => 'Opslaan als Project',

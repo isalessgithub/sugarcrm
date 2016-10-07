@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: SubPanelView.php 50983 2009-09-21 20:45:37Z ajay $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -49,7 +46,6 @@ echo $the_title;
 
 $buttons = array(
     "<input title='".$app_strings['LBL_NEW_BUTTON_TITLE']."' class='button' type='submit' name='NewWorkFlowAlertShells' id='NewWorkFlowAlertShells' value='  ".$app_strings['LBL_NEW_BUTTON_LABEL']."  '>\n",
-    "<input type='button' name='SelectWorkFlowAlertShells' id='SelectWorkFlowAlertShells' class='button' title='".$app_strings['LBL_SELECT_BUTTON_TITLE']."' value='".$app_strings['LBL_SELECT_BUTTON_LABEL']."' onclick='window.open(\"index.php?module=WorkFlowAlertShells&action=Popup&workflow_id=$focus->id\",\"new\",\"width=400,height=500,resizable=1,scrollbars=1\");'/>",
 );
 
 $button  = "<form  action='index.php' method='post' name='form' id='form'>\n";
@@ -61,7 +57,7 @@ $button .= "<input type='hidden' name='return_action' value='".$action."'>\n";
 $button .= "<input type='hidden' name='return_id' value='".$focus->id."'>\n";
 $button .= "<input type='hidden' name='action' value='EditView';>\n";
 
-require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
 $button .= smarty_function_sugar_action_menu(array(
     'id' => 'ACLRoles_EditView_action_menu',
     'buttons' => $buttons,
@@ -73,8 +69,7 @@ $button .= smarty_function_sugar_action_menu(array(
 $button .= "</form>";
 
 
-	$admin = new Administration();
-	$admin->retrieveSettings();
+	$admin = Administration::getSettings();
 	$mail_server = trim($admin->settings['mail_smtpserver']);
 
 	if (empty($mail_server) && !empty($focus_alerts_list)) {

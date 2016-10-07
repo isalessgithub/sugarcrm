@@ -1,19 +1,16 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry)
 	die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once ('include/upload_file.php');
 
 
@@ -72,14 +69,81 @@ class Document extends SugarBean {
 		'contract_id'=>'contracts',
 	 );
 
+    /**
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
+     * @see __construct
+     * @deprecated
+     */
+    public function Document()
+    {
+        self::__construct();
+    }
 
-	function Document() {
-		parent :: SugarBean();
+
+	public function __construct() {
+		parent::__construct();
 		$this->setupCustomFields('Documents'); //parameter is module name
 		$this->disable_row_level_security = false;
 	}
+    /**
+     * @see SugarBean::populateFromRow
+     */
+    function populateFromRow($row, $convert = false)
+    {
+        $row = parent::populateFromRow($row, $convert);
+
+        if (!empty($this->document_name) && empty($this->name)) {
+            $this->name = $this->document_name;
+        }
+
+        return $row;
+    }
+
+    /**
+     * Create a revision bean for current document
+     * @return DocumentRevision
+     */
+    public function createRevisionBean()
+    {
+        $Revision = BeanFactory::getBean('DocumentRevisions');
+        //save revision.
+        $Revision->in_workflow = true;
+        $Revision->not_use_rel_in_req = true;
+        $Revision->new_rel_id = $this->id;
+        $Revision->new_rel_relname = 'Documents';
+        $Revision->change_log = translate('DEF_CREATE_LOG','Documents');
+        $Revision->revision = $this->revision;
+        $Revision->document_id = $this->id;
+        $Revision->filename = $this->filename;
+
+        if(isset($this->file_ext))
+        {
+            $Revision->file_ext = $this->file_ext;
+        }
+
+        if(isset($this->file_mime_type))
+        {
+            $Revision->file_mime_type = $this->file_mime_type;
+        }
+
+        $Revision->doc_type = $this->doc_type;
+        if ( isset($this->doc_id) ) {
+            $Revision->doc_id = $this->doc_id;
+        }
+        if ( isset($this->doc_url) ) {
+            $Revision->doc_url = $this->doc_url;
+        }
+
+        $Revision->id = create_guid();
+        $Revision->new_with_id = true;
+        return $Revision;
+    }
 
 	function save($check_notify = false) {
+        if (empty($this->document_name) && !empty($this->name)) {
+            $this->document_name = $this->name;
+        }
 
         if (empty($this->doc_type)) {
 			$this->doc_type = 'Sugar';
@@ -98,37 +162,7 @@ class Document extends SugarBean {
                 $isDuplicate = false;
             }
 
-            $Revision = new DocumentRevision();
-            //save revision.
-            $Revision->in_workflow = true;
-            $Revision->not_use_rel_in_req = true;
-            $Revision->new_rel_id = $this->id;
-            $Revision->new_rel_relname = 'Documents';
-            $Revision->change_log = translate('DEF_CREATE_LOG','Documents');
-            $Revision->revision = $this->revision;
-            $Revision->document_id = $this->id;
-            $Revision->filename = $this->filename;
-
-            if(isset($this->file_ext))
-            {
-            	$Revision->file_ext = $this->file_ext;
-            }
-
-            if(isset($this->file_mime_type))
-            {
-            	$Revision->file_mime_type = $this->file_mime_type;
-            }
-
-            $Revision->doc_type = $this->doc_type;
-            if ( isset($this->doc_id) ) {
-                $Revision->doc_id = $this->doc_id;
-            }
-            if ( isset($this->doc_url) ) {
-                $Revision->doc_url = $this->doc_url;
-            }
-
-            $Revision->id = create_guid();
-            $Revision->new_with_id = true;
+            $Revision = $this->createRevisionBean();
 
             $createRevision = false;
             //Move file saved during populatefrompost to match the revision id rather than document id
@@ -137,8 +171,7 @@ class Document extends SugarBean {
                 $createRevision = true;
             } else if ( $isDuplicate && ( empty($this->doc_type) || $this->doc_type == 'Sugar' ) ) {
                 // Looks like we need to duplicate a file, this is tricky
-                $oldDocument = new Document();
-                $oldDocument->retrieve($_REQUEST['duplicateId']);
+                $oldDocument = BeanFactory::getBean('Documents', $_REQUEST['duplicateId']);
                 $old_name = "upload://{$oldDocument->document_revision_id}";
                 $new_name = "upload://{$Revision->id}";
                 $GLOBALS['log']->debug("Attempting to copy from $old_name to $new_name");
@@ -172,7 +205,7 @@ class Document extends SugarBean {
             }
         }
 
-		return parent :: save($check_notify);
+		return parent::save($check_notify);
 	}
 	function get_summary_text() {
 		return "$this->document_name";
@@ -249,7 +282,7 @@ class Document extends SugarBean {
 
 		//get last_rev_by user name.
 		if (!empty ($row)) {
-			$this->last_rev_created_name = $locale->getLocaleFormattedName($row['first_name'], $row['last_name']);
+            $this->last_rev_created_name = $locale->formatName('Users', $row);
 
 			$this->last_rev_create_date = $timedate->to_display_date_time($this->db->fromConvert($row['rev_date'], 'datetime'));
 			$this->last_rev_mime_type = $row['file_mime_type'];
@@ -268,31 +301,6 @@ class Document extends SugarBean {
 
 	function list_view_parse_additional_sections(& $list_form, $xTemplateSection) {
 		return $list_form;
-	}
-
-    function create_export_query(&$order_by, &$where, $relate_link_join='')
-    {
-        $custom_join = $this->getCustomJoin(true, true, $where);
-        $custom_join['join'] .= $relate_link_join;
-		$query = "SELECT
-						documents.*";
-        $query .=  $custom_join['select'];
-		$query .= " FROM documents ";
-        $query .=  $custom_join['join'];
-
-		$where_auto = " documents.deleted = 0";
-
-		if ($where != "")
-			$query .= " WHERE $where AND ".$where_auto;
-		else
-			$query .= " WHERE ".$where_auto;
-
-		if ($order_by != "")
-			$query .= " ORDER BY $order_by";
-		else
-			$query .= " ORDER BY documents.document_name";
-
-		return $query;
 	}
 
 	function get_list_view_data() {
@@ -359,7 +367,7 @@ class Document extends SugarBean {
 		if (empty($doc_id)) return null;
 
 		$db = DBManagerFactory::getInstance();
-		$query="select document_name from documents where id='$doc_id'  and deleted=0";
+		$query="select document_name from documents where id='$doc_id'";
 		$result=$db->query($query);
 		if (!empty($result)) {
 			$row=$db->fetchByAssoc($result);
@@ -369,6 +377,34 @@ class Document extends SugarBean {
 		}
 		return null;
 	}
+
+    /**
+     * Document specific file name getter
+     *
+     * @return string
+     */
+    public function getFileName() {
+        if (empty($this->id)) {
+            return '';
+        }
+
+        // Documents store their file information in DocumentRevisions
+        $revision = BeanFactory::getBean('DocumentRevisions', $this->id);
+
+        // Check if the id was for a revision
+        if (!empty($revision)) {
+            return $revision->filename;
+        } else {
+            // The id is not a revision id, try the actual document revision id
+            $revision = BeanFactory::getBean('DocumentRevisions', $this->document_revision_id);
+
+            if ($revision) {
+                return $revision->filename;
+            }
+        }
+
+        return '';
+    }
 }
 
 require_once('modules/Documents/DocumentExternalApiDropDown.php');

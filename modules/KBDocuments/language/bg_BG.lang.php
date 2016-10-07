@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Създаден документ',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Име на документа',
   'ERR_DOC_VERSION' => 'Версия на документа',
   'ERR_FILENAME' => 'Име на файла',
+  'ERR_FILESIZE' => 'Файлът е прекалено голям. Максимално допустим размер на файла:',
   'LBL_ACTIVE_DATE' => 'Публикувано на',
   'LBL_AND' => 'и',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'Включване на материали към темата ...',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Договори',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Договори по темата',
   'LBL_CONTRACT_NAME' => 'Име на договора:',
+  'LBL_CONTRACT_STATUS' => 'Статус на договрора',
   'LBL_CREATED' => 'Създадено от',
   'LBL_CREATED_BY' => 'Създадено от',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Документ',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Номер на ревизия на документа',
   'LBL_KBDOC_APPROVED_BY' => 'Одобрен от:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Одобрен от',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Зареждане на приложения:',
   'LBL_KBDOC_BODY' => 'Съдържание:',
@@ -123,6 +123,7 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Последна ревизия',
   'LBL_LATEST_REVISION_NAME' => 'Име на последната ревизия',
   'LBL_LAUNCHING_TAG_BROWSING' => 'Launching Tag Browsing ...',
+  'LBL_LINKED_ID' => 'Свързан идентификатор',
   'LBL_LIST_ACTIVE_DATE' => 'Публикувано на',
   'LBL_LIST_APPROVED_BY' => 'Одобрен от',
   'LBL_LIST_ARTICLES' => 'Списък със статии',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Невалиден файл',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Parent тип',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Можете да филтрирате списъка със статии като задавате критерии за търсене.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Можете да използвате това например, за да намерите конкретна статия или тема, които представляват интерес за вас.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'Модулът База от знания работи с публикувани статии. Използвайте стрелките отдолу, за лратък преглед на възможностите.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Страницата визуализира списък с публикувани статии.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Натискайки с мишката тук можете да се върнете в модула База от знания по всяко време.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Предишни съхранени критерии за търсене:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Редактиране или изтриване на съществуващи съхранени критерии за търсене.',
   'LBL_PUBLISHED' => 'Публикуван:',
@@ -180,6 +186,8 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Документи"',
   'LBL_SEARCH_TAG' => 'Търси',
   'LBL_SEARCH_WITHIN' => 'Търсене в:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Име на файла на избраната ревизия',
+  'LBL_SELECTED_REVISION_ID' => 'Идентификатор на избраната ревизия',
   'LBL_SELECTED_REVISION_NAME' => 'Име на маркираната ревизия',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Изберете материали за включване към теми',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Изберете материали',
@@ -204,7 +212,7 @@ $mod_strings = array (
   'LBL_SHOW_ARTICLE_DETAILS' => 'Показване на допълнителна информация',
   'LBL_SHOW_MORE' => 'Покажи повече',
   'LBL_SHOW_OPTIONS' => 'Допълнителни опции',
-  'LBL_SHOW_SYNTAX_HELP' => 'Syntax Help',
+  'LBL_SHOW_SYNTAX_HELP' => 'Помощ',
   'LBL_SHOW_TAGS' => 'Показване на други теми',
   'LBL_SOURCE_AND_TARGET_TAGS_ARE_SAME' => 'Първоначалната и исканата тема за включване на материала съвпадат',
   'LBL_STATUS' => 'Статус',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Включени в тема:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Други материали',
   'LBL_UPDATE' => 'Актуализирай',
+  'LBL_VIEWS_NUMBER' => 'Views Number',
   'LNK_KBDOCUMENT_LIST' => 'Списък с документи',
   'LNK_NEW_ARTICLE' => 'Добавяне на статия',
   'LNK_NEW_MAIL_MERGE' => 'Сливане на писма',

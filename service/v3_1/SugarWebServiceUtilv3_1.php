@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('service/v3/SugarWebServiceUtilv3.php');
 class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
 {
@@ -87,10 +84,8 @@ class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
      */
     function get_visible_mobile_modules($availModules)
     {
-        foreach ( array ( '','custom/') as $prefix)
-        {
-        	if(file_exists($prefix.'include/MVC/Controller/wireless_module_registry.php'))
-        		require $prefix.'include/MVC/Controller/wireless_module_registry.php' ;
+        foreach(SugarAutoLoader::existingCustom('include/MVC/Controller/wireless_module_registry.php') as $file) {
+            require $file;
         }
         return $this->getModulesFromList($wireless_module_registry, $availModules);
     }
@@ -133,16 +128,7 @@ class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
         $manager->loadVardef( $moduleName , $beanName ) ;
 
         // obtain the field definitions used by generateSearchWhere (duplicate code in view.list.php)
-        if(file_exists('custom/modules/'.$moduleName.'/metadata/metafiles.php')){
-            require('custom/modules/'.$moduleName.'/metadata/metafiles.php');
-        }elseif(file_exists('modules/'.$moduleName.'/metadata/metafiles.php')){
-            require('modules/'.$moduleName.'/metadata/metafiles.php');
-        }
-
-        if(!empty($metafiles[$moduleName]['searchfields']))
-            require $metafiles[$moduleName]['searchfields'] ;
-        elseif(file_exists("modules/{$moduleName}/metadata/SearchFields.php"))
-            require "modules/{$moduleName}/metadata/SearchFields.php" ;
+        $searchFields = SugarAutoLoader::loadSearchFields($moduleName);
 
         $fields = array();
         foreach ( $dictionary [ $beanName ][ 'fields' ] as $field => $def )
@@ -279,7 +265,7 @@ class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
 
 		if($value->module_dir == 'Bugs'){
 			require_once('modules/Releases/Release.php');
-			$seedRelease = new Release();
+			$seedRelease = BeanFactory::getBean('Releases');
 			$options = $seedRelease->get_releases(TRUE, "Active");
 			$options_ret = array();
 			foreach($options as $name=>$value){
@@ -345,56 +331,6 @@ class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
 	    return $contents;
 	}
 
-	function get_module_view_defs($module_name, $type, $view){
-        require_once('include/MVC/View/SugarView.php');
-        $metadataFile = null;
-        $results = array();
-        $view = strtolower($view);
-        switch (strtolower($type)){
-            case 'wireless':
-                if( $view == 'list'){
-                    require_once('include/SugarWireless/SugarWirelessListView.php');
-                    $GLOBALS['module'] = $module_name; //WirelessView keys off global variable not instance variable...
-                    $v = new SugarWirelessListView();
-                    $results = $v->getMetaDataFile();
-                }
-                elseif ($view == 'subpanel')
-                    $results = $this->get_subpanel_defs($module_name, $type);
-                else{
-                    require_once('include/SugarWireless/SugarWirelessView.php');
-                    $v = new SugarWirelessView();
-                    $v->module = $module_name;
-                    $fullView = ucfirst($view) . 'View';
-                    $meta = $v->getMetaDataFile('Wireless' . $fullView);
-                    $metadataFile = $meta['filename'];
-                    require($metadataFile);
-                    //Wireless detail metadata may actually be just edit metadata.
-                    $results = isset($viewdefs[$meta['module_name']][$fullView] ) ? $viewdefs[$meta['module_name']][$fullView] : $viewdefs[$meta['module_name']]['EditView'];
-                }
-
-                break;
-            case 'default':
-            default:
-                if ($view == 'subpanel')
-                    $results = $this->get_subpanel_defs($module_name, $type);
-                else
-                {
-                    $v = new SugarView(null,array());
-                    $v->module = $module_name;
-                    $v->type = $view;
-                    $fullView = ucfirst($view) . 'View';
-                    $metadataFile = $v->getMetaDataFile();
-                    require_once($metadataFile);
-                    if($view == 'list')
-                        $results = $listViewDefs[$module_name];
-                    else
-                        $results = $viewdefs[$module_name][$fullView];
-                }
-        }
-
-        return $results;
-    }
-
     /**
      * Equivalent of get_list function within SugarBean but allows the possibility to pass in an indicator
      * if the list should filter for favorites.  Should eventually update the SugarBean function as well.
@@ -409,18 +345,7 @@ class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
 		}
 		$order_by=$seed->process_order_by($order_by, null);
 
-		if($seed->bean_implements('ACL') && ACLController::requireOwner($seed->module_dir, 'list') )
-		{
-			global $current_user;
-			$owner_where = $seed->getOwnerWhere($current_user->id);
-			if(!empty($owner_where)){
-				if(empty($where)){
-					$where = $owner_where;
-				}else{
-					$where .= ' AND '.  $owner_where;
-				}
-			}
-		}
+		$seed->addVisibilityWhere($where);
 		$params = array();
 		if($favorites)
 		  $params['favorites'] = true;

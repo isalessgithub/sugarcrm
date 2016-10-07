@@ -1,21 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-require_once('include/Sugar_Smarty.php');
 require_once('include/externalAPI/ExternalAPIFactory.php');
 
 
@@ -36,7 +32,7 @@ class DocumentsViewExtdoc extends SugarView
         } else {
             $file_search = '';
         }
-        
+
         if ( !isset($_REQUEST['apiName']) ) {
             $apiName = 'IBMSmartCloud';
         } else {
@@ -82,10 +78,9 @@ class DocumentsViewExtdoc extends SugarView
          if (!$validSession || empty($eapmBean))
          {
              // Bug #49987 : Documents view.extdoc.php doesn't allow custom override
-             $tpl_file = get_custom_file_if_exists('include/externalAPI/'.$apiName.'/'.$apiName.'Signup.'.$GLOBALS['current_language'].'.tpl');
+             $tpl_file = SugarAutoLoader::existingCustomOne('include/externalAPI/'.$apiName.'/'.$apiName.'Signup.'.$GLOBALS['current_language'].'.tpl');
 
-             if (file_exists($tpl_file))
-             {
+             if ($tpl_file) {
                  $smarty = new Sugar_Smarty();
                  echo $smarty->fetch($tpl_file);
              } else  {
@@ -118,7 +113,7 @@ class DocumentsViewExtdoc extends SugarView
                 foreach ( $row as $key => $value ) {
                     $newRow[strtoupper($key)] = $value;
                 }
-                
+
                 if ( $isPopup ) {
                     // We are running as a popup window, we need to replace the direct url with some javascript
                     $newRow['DOC_URL'] = "javascript:window.opener.SUGAR.field.file.populateFromPopup('".addslashes($_REQUEST['elemBaseName'])."','".addslashes($newRow['ID'])."','".addslashes($newRow['NAME'])."','".addslashes($newRow['URL'])."','".addslashes($newRow['URL'])."'); window.close();";
@@ -150,7 +145,7 @@ class DocumentsViewExtdoc extends SugarView
         $ss->assign('displayColumns',$displayColumns);
         $ss->assign('imgPath',SugarThemeRegistry::current()->getImageURL($apiName.'_image_inline.png'));
 
-        if ( $isPopup ) { 
+        if ( $isPopup ) {
             $ss->assign('linkTarget','');
             $ss->assign('isPopup',1);
             $ss->assign('elemBaseName',$_REQUEST['elemBaseName']);
@@ -169,14 +164,14 @@ class DocumentsViewExtdoc extends SugarView
             insert_popup_header($GLOBALS['theme'], false);
             $output_html = ob_get_contents();
             ob_end_clean();
-            
+
             $output_html .= get_form_header(translate('LBL_SEARCH_FORM_TITLE','Documents'), '', false);
-            
+
             echo($output_html);
         }
 
         $ss->display('modules/Documents/tpls/view.extdoc.tpl');
-        
+
         if ( $isPopup ) {
             // Close the dccontent div
             echo('</div>');

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'Unesite lozinku za Sugar admin korisnika.',
   'ERR_ADMIN_USER_NAME_BLANK' => 'Unesite korisničko ime za Sugar admin korisnika.',
   'ERR_CHECKSYS' => 'Pronađene su greške u toku provere kompatibilnosti. Kako bi Vaša SugarCRM instalacija pravilno funkcionisala, molim preduzmite odgovarajuće korake vezane za dole navedene stavke i pritisnite dugme Ponovna provera, ili pokrenite ponovo instalaciju.',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATH podrška nije pronađena: SugarCRM zahteva BCMATH podršku za matematiku arbitarne preciznosti.',
   'ERR_CHECKSYS_CALL_TIME' => 'Opcija Allow Call Time Pass Reference je uključena (trebalo bi da je isključena u php.ini)',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'Konfiguracioni fajl postoji ali u njega nije dozvoljen upis. Molimo, preduzmite neophodne korake da bi u njega bio dozoljen upis. U zavisnosti od vašeg operativnog sistema moraćete da promenite dozvole nad fajlom pokretanjem opcije chmod 766, ili desnim klikom na ime fajla pristupiti svojstvima i isključiti opciju "read only".',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'Datoteka za prepisivanje konfiguracije postoji ali je u nju nemoguće pisati. Molimo preuzmite neophodne korake kako bi se u ovu datoteku moglo pisati. U zavisnosti od Vašeg operativnog sistema, možda će biti potrebno da promenite dozvole pokretanjem komande "chmod 776" ili desnim klikom na ime datoteke pristupite svojstvima i sklonite odabir opcije "read only".',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'Detektovano je da ne koristite FastCGI hendler mapiranja za PHP. Moraćete da instalirate/konfigurišete verziju koja je kompatibilna sa Sugar aplikacijom.  Konsultujte Matricu Kompatibilnosti u Beleškama O Izdanju u vezi sa podržnim verzijama. Pogledajte <a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a> za detalje',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'Za optimalno iskustvo korišćenja IIS/FastCGI sapi, podesite fastcgi.logging na 0 u php.ini fajlu.',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => 'Fajlovi i direktorijumi izlistani ispod nisu upisivi ili nedostaju i ne mogu biti kreirani U zavisnosti od vašeg operativnog sistema moraćete da promenite dozvole nad fajlom pokretanjem opcije chmod 766, ili desnim klikom na osnovni folder i isključiti opciju "read only" i primeniti to na sve podfoldere.',
+  'ERR_CHECKSYS_HTACCESS' => 'Test za izmenu .htaccess nije uspeo. To najčešće znači da nemate podešenu opciju AllowOverride za Sugar direktorijum.',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'Sugar ne podržava Vašu verziju IIS-a. Treba da instalirate verziju koja kompatibilina sa Sugar aplikacijom. Konsultujte Matricu Kompatibilnosti u Beleškama O Izdanju u vezi sa podržnom verzijom IIS-a. Vaša verzija je',
   'ERR_CHECKSYS_IMAP' => 'Nije nađeno: Dolazne email poruke i Kampanje (Email) zahtevaju IMAP biblioteke. Ni jedna od navedenih funkcija neće raditi.',
   'ERR_CHECKSYS_MBSTRING' => 'Funkcije koje zavise od Multibyte Strings PHP ekstenzije (mbstring), a koje su neophodne za ispravan rad Sugar aplikacije, nisu pronađene. <br/><br/>Generalno, mbstring modul podrazumevano nije omogućen u PHP-u i mora se posebno aktivirati uključivanjem opcije --enable-mbstring za vreme bildovanja PHP binarnog fajla. Za više informacija, molimo konsultujte vašu PHP dokumentaciju.',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => 'Folder nije validan',
   'ERR_CHECKSYS_NOT_WRITABLE' => 'Upozorenje: Nije upisivo',
   'ERR_CHECKSYS_NO_SESSIONS' => 'Neuspešno pisanje i čitanje vrednosti sesije. Ne mogu da nastavim instalaciju.',
-  'ERR_CHECKSYS_PCRE' => 'PCRE Biblioteka nije pronadjena: PCRE biblioteka je neophodna kako bi SugarCRM obradio regularne izraze pisane Perl stilom',
-  'ERR_CHECKSYS_PCRE_VER' => 'Verzija PCRE Biblioteke: Verzija PCRE Biblioteke 7.0 ili viša je neophodna kako bi SugarCRM obradio regularne izraze pisane Perl stilom',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Sugar ne podržava Vašu verziju PHP-a. Treba da instalirate verziju koja kompatibilina sa Sugar aplikacijom. Konsultujte Matricu Kompatibilnosti u Beleškama O Izdanju u vezi sa podržnom verzijom PHP-a. Vaša verzija je',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'Instalirana PHP verzija nije podržana : ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Uključen je siguran način rada (mozda biste želeli da ga onemogućite u php.ini)',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => 'Osnovni tiš',
   'LBL_CANCEL' => 'Otkaži',
   'LBL_CHECKSYS_1' => 'Da bi Vaša Sugar CRM instalacija radila, molim proverite da li su sve opcije koje je sistem označio markirane zeleno. Ako je neka markirana crveno preduzmite neophodne korake da to ispravite.<BR><BR> za više informacija o proverenim opcijama posetite <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.',
+  'LBL_CHECKSYS_BCMATH' => 'Modul matematike arbitarne preciznosti',
   'LBL_CHECKSYS_CACHE' => 'Podfolderi keša sa mogućnošću upisa',
   'LBL_CHECKSYS_CALL_TIME' => 'PHP Allow Call Time Pass Reference opcija je isključena',
   'LBL_CHECKSYS_COMPONENT' => 'Komponenta',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => 'Molim ,popravite sledeće fajlove ili foldere pre nego što nastavite:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => 'Molimo da ppravite sledeće foldere modula i fajlove u njima pre nego što nastavite dalje:',
+  'LBL_CHECKSYS_HTACCESS' => 'AllowOverride podešavanje za .htaccess',
   'LBL_CHECKSYS_IISVER' => 'IIS verzija',
   'LBL_CHECKSYS_IMAP' => 'IMAP Modul',
   'LBL_CHECKSYS_MBSTRING' => 'MB Strings Modul',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQL verzija',
   'LBL_CHECKSYS_NOT_AVAILABLE' => 'Nije raspoloživo',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'PCRE Biblioteka',
   'LBL_CHECKSYS_PHPVER' => 'PHP verzija',
   'LBL_CHECKSYS_PHP_INI' => 'Vaš php konfiguracioni fajl (php.ini) lociran je u:',
   'LBL_CHECKSYS_PHP_OK' => 'U redu (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'Mogućnosti pune tekstualne pretrage nisu instalirane.',
   'LBL_FTS_INSTALLED_ERR2' => 'Još uvek je moguće instalirati ali ne i koristiti funkcionalnost pune tekstualne pretrage. Molimo pogledajte u vodič za instalaciju servera baze podataka, kako biste saznali kako da ovo izvedete ili kontaktirajte Vašeg administratora.',
   'LBL_FTS_PORT' => 'Port',
+  'LBL_FTS_REQUIRED' => 'Potrebna je elastična pretraga.',
   'LBL_FTS_TABLE_TITLE' => 'Omogućiti podešavanja pune tekstualne pretrage',
   'LBL_FTS_TYPE' => 'Tip sistema',
   'LBL_HELP' => 'Pomoć',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Red poslova čišćenja',
   'LBL_OOTB_IE' => 'Proveri dolazne Email naloge',
   'LBL_OOTB_PRUNE' => 'Smanji bazu prvog dana u mesecu',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'Uklanjanje dokumenata iz fajl sistema',
   'LBL_OOTB_REPORTS' => 'Pokreni generisanje izveštaja o planiranim zadacima',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Pokreni email podsetnike',
-  'LBL_OOTB_SUGARFEEDS' => 'Smanji SugarFeed tabele',
   'LBL_OOTB_TRACKER' => 'Smanji tabele sistema za praćenje',
   'LBL_OOTB_WORKFLOW' => 'Pokreni zadatke radnog toka',
   'LBL_OPP' => 'Skup podataka prodajnih prilika',

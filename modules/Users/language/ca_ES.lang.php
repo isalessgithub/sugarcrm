@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre a esborrar.',
@@ -100,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Creat per',
   'LBL_CURRENCY' => 'Moneda',
   'LBL_CURRENCY_EXAMPLE' => 'Exemple de Visualització de Moneda',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Mostra la moneda preferida',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Converteix la moneda base a la preferida de l&#39;usuari en el llistat i vistes de registre.',
   'LBL_CURRENCY_SIG_DIGITS' => 'Dígits Significatius en Moneda',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Número de decimals a visualitzar per la moneda',
   'LBL_CURRENCY_TEXT' => 'Estableix la moneda per defecte',
@@ -129,7 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Editar Pestanyes',
   'LBL_EMAIL' => 'Direcció de correu:',
   'LBL_EMAILS' => 'Emails',
-  'LBL_EMAIL_ADDRESS' => 'Adresses de correu(s)',
+  'LBL_EMAIL_ADDRESS' => 'Direcció de correu',
   'LBL_EMAIL_CHARSET' => 'Joc de Caràcters per el Correu Sortint',
   'LBL_EMAIL_EDITOR_OPTION' => 'Format de correu',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Omplir prèviament valors per defecte per a Gmail',
@@ -162,6 +161,7 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Primer dia de la setmana',
   'LBL_FDOW_TEXT' => 'Primer dia de mostra per les vistes de setmana, mes i any',
+  'LBL_FILTER_USERS_REPORTS' => 'Reports d&#39;usuari',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Buscant variables òptimes de connexió.',
   'LBL_FIND_OPTIMUM_TITLE' => 'Buscar Configuració Òptima',
@@ -169,6 +169,7 @@ $mod_strings = array (
   'LBL_FORCE' => 'Forçar Negatiu',
   'LBL_FORCE_DESC' => 'Alguns servidors IMAP/POP3 requereixen opcions especials. Marqui per forçar una opció negativa en connectar (ej., /notls)',
   'LBL_FORECASTS' => 'Previsions',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Això actualment no està habilitat. Si us plau, poseu-vos en contacte amb l&#39;administrador.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Opcions òptimes trobades.	Pressioni el següent botó per aplicar-les a la seva safata de correu.',
   'LBL_GENERATE_PASSWORD' => 'Restablir Contrasenya',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -276,7 +277,6 @@ $mod_strings = array (
   'LBL_MY_TEAMS' => 'Els Meus Equips',
   'LBL_NAME' => 'Nom i Cognoms',
   'LBL_NAVIGATION_PARADIGM' => 'Navegació',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Veure mòduls en pestanyes agrupades per categories, o veure mòduls en diferentes pestanyes per cada mòdul',
   'LBL_NEW_FORM_TITLE' => 'Nou Usuari',
   'LBL_NEW_PASSWORD' => 'Nova clau de pas',
   'LBL_NEW_PASSWORD1' => 'Clau de pas',
@@ -437,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Informa a',
   'LBL_REQUEST_SUBMIT' => 'La seva petició ha estat enviada',
   'LBL_RESET_DASHBOARD' => 'Gràfic',
-  'LBL_RESET_HOMEPAGE' => 'Pàgina d´Inici',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Està segur de que vol reiniciar el seu Gràfic?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Està segur que desitja restablir la Pàgina d&#39;Inici d&#39;aquest usuari?',
   'LBL_RESET_PREFERENCES' => 'Preferències d´Usuari',
   'LBL_RESET_PREFERENCES_WARNING' => 'Està segur de que vol reiniciar totes les seves preferencies? Advertència: La seva sessío actual serà tancada.',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Està segur que desitja restablir totes les preferències d&#39;aquest usuari?',
@@ -474,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Estat',
   'LBL_SUBPANEL_LINKS' => 'Enllaços de Subpanell',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'En les Vistes de Detall, mostra una fila amb enllaços a dreceres del Subpanell.',
-  'LBL_SUBPANEL_TABS' => 'Pestanyes del Subpanell',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'En les Vistes de Detall, agrupa els Subpanells en pestanyes i mostra només una pestanya a la vegada.',
   'LBL_SUGAR_LOGIN' => 'Es Usuari de Sugar',
   'LBL_SUPPORTED_THEME_ONLY' => 'Només afecta a temes que suporten aquesta opció.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Mostra la barra de Recents en el lateral, si està marcat.  Per defecte la barra es mostrada en la part superior.',
@@ -483,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Mostra la barra de Dreceres en la part superior, si està marcat.  Per defecte la barra es mostrada en el lateral.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Dreceres en la part superior',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Contrasenya Generada per el Sistema',
+  'LBL_SYSTEM_SIG_DIGITS' => 'Digits significatius del sistema',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Nombre de llocs decimals que es mostrarán per a decimals i punts flotants al sistema, com ara moneda i mitjanes a informes.',
   'LBL_TAB_TITLE_EMAIL' => 'Opcions de correu',
   'LBL_TAB_TITLE_USER' => 'Opcions d´usuari',
   'LBL_TEAMS' => 'Equips',

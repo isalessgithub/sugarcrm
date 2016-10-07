@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Tem a certeza que quer excluir esta entidade deste projecto?',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Chamadas',
   'LBL_CAMPAIGNS' => 'Campanhas',
   'LBL_CAMPAIGN_ID' => 'ID Campanha',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Campanhas',
   'LBL_CASES_SUBPANEL_TITLE' => 'Ocorrências',
   'LBL_CHARTS' => 'Gráficos',
   'LBL_CITY' => 'Cidade:',
@@ -64,7 +62,9 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Entidades',
   'LBL_DESCRIPTION' => 'Descrição:',
   'LBL_DESCRIPTION_INFORMATION' => 'Informação de Descrição',
+  'LBL_DNB_BAL_PREVIEW' => 'Pré-visualização de Contas',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
+  'LBL_DUNS_NUM' => 'DUNS:',
   'LBL_DUPLICATE' => 'Possível Entidade Duplicada',
   'LBL_EMAIL' => 'E-mail:',
   'LBL_EMAIL_ADDRESSES' => 'Endereço(s) de E-mail',
@@ -72,6 +72,26 @@ $mod_strings = array (
   'LBL_EMPLOYEES' => 'Nº de Funcionários:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nome de Utilizador Atribuído',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Anexo',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Relatórios de Contas',
+  'LBL_HELP_CREATE' => 'O módulo de {{plural_module_name}} consiste em companhias com quem a sua organização tem uma relação e geralmente é visto como um eixo para a gestão e analise das interacções do seu negocio com cada cliente.
+
+Para criar um {{module_name}}:
+1. Fornecer valores para os campos como desejado.
+- Campos marcados como "Obrigatórios" deverão ser preenchidos antes de gravar.
+- Carregar "Mostrar mais" para mostrar campos adicionais se necessário.
+
+2. Carregar em "Gravar" para finalizar o novo registo e retornar à página anterior.
+- Escolher "Gravar e ver" para abrir o novo {{module_name}} na visualização do registo.
+- Escolher "Gravar e criar novo" para criar imediatamente outro novo {{module_name}}.',
+  'LBL_HELP_RECORD' => 'O módulo de {{plural_module_name}} consiste em companhias com quem a sua organização tem uma relação e geralmente é visto como um eixo para a gestão e analise das interacções do seu negocio com cada cliente.
+
+Edite os campos deste registo carregando em um campo individualmente ou no botão Editar.
+- Visualize ou modifique ligações para outros registos nos sub-paineis alterando o painel esquerdo do fundo para "Visaulização de Dados".
+- Crie e visualize comentários de utilizador e grande alterações do histórico no {{activitystream_singular_module}}  alterando o painel esquerdo do fundo para "Fluxo de Actividade".
+- Siga ou torne favorito este registo utilizando os ícones à direita do nome do registo.
+- Acções adicionais estão disponíveis no menu de selecção Acções à direita do botão Editar.',
+  'LBL_HELP_RECORDS' => 'O módulo de {{plural_module_name}} consiste em companhias com quem a sua organização tem uma relação e geralmente é visto como um eixo para a gestão e analise das interacções do seu negocio com cada cliente. Existem várias maneiras que poderá criar {{plural_module_name}} no Sugar, via o módulo de {{plural_module_name}}, duplicação, importação de {{plural_module_name}}, etc. Assim que a {{module_name}} é criada, poderá visualizar e editar a informação pertencente à {{module_name}} via a visualização de registos de {{plural_module_name}}. Cada registo de {{module_name}} poderá estar relacionado com outros registos do Sugar, como {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}, e muitos outros à medida que as relações do cliente amadurece.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Histórico',
   'LBL_HOMEPAGE_TITLE' => 'As Minhas Entidades',
   'LBL_INDUSTRY' => 'Negócio:',
@@ -98,6 +118,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Entidades: Ecrã Principal',
   'LBL_NAME' => 'Nome:',
   'LBL_NEW_FORM_TITLE' => 'Nova Entidade',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notas',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Oportunidades',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Outro E-mail:',
   'LBL_OTHER_PHONE' => 'Outro Telefone:',
@@ -110,7 +131,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Fax:',
   'LBL_PHONE_OFFICE' => 'Telefone do Escritório:',
   'LBL_POSTAL_CODE' => 'Código Postal:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produtos',
   'LBL_PRODUCTS_TITLE' => 'Produtos',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projectos',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projectos',
@@ -121,6 +141,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Ordenar Entrega',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotações',
   'LBL_RATING' => 'Avaliação:',
+  'LBL_REVENUELINEITEMS' => 'Rúbricas de Receita',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Itens de Linha de Receita',
   'LBL_SAVE_ACCOUNT' => 'Gravar Entidade',
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Entidades',
   'LBL_SHIPPING_ADDRESS' => 'Endereço de Entrega:',
@@ -146,6 +168,7 @@ $mod_strings = array (
   'LBL_WEBSITE' => 'Site de Internet:',
   'LNK_ACCOUNT_LIST' => 'Entidades',
   'LNK_ACCOUNT_REPORTS' => 'Relatórios sobre Entidades',
+  'LNK_CREATE' => 'Criar Companhia',
   'LNK_IMPORT_ACCOUNTS' => 'Importar Entidades',
   'LNK_NEW_ACCOUNT' => 'Nova Entidade',
   'MSG_DUPLICATE' => 'Ao criar esta entidade pode estar a duplicar a mesma, seleccione uma entidade da lista abaixo ou clique em Nova Entidade para continuar a criação com os dados introduzidos previamente.',

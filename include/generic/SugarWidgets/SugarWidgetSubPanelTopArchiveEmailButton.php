@@ -1,60 +1,42 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-
-
-
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 class SugarWidgetSubPanelTopArchiveEmailButton extends SugarWidgetSubPanelTopButton
 {
-	function display($defines)
-	{
-		if((ACLController::moduleSupportsACL($defines['module'])  && !ACLController::checkAccess($defines['module'], 'edit', true) ||
-			$defines['module'] == "History" & !ACLController::checkAccess("Emails", 'edit', true))){
-			$temp = '';
-			return $temp;
-		}
-		
-		global $app_strings;
-		global $mod_strings;
-		global $currentModule;
+    function display($defines)
+    {
+        global $app_strings;
 
-		$title = $app_strings['LBL_TRACK_EMAIL_BUTTON_TITLE'];
-		$value = $app_strings['LBL_TRACK_EMAIL_BUTTON_LABEL'];
-		$this->module = 'Emails';
+        if((ACLController::moduleSupportsACL($defines['module']) && !ACLController::checkAccess($defines['module'], 'edit', true) ||
+            $defines['module'] == "History" & !ACLController::checkAccess("Emails", 'edit', true))){
+            $temp = '';
+            return $temp;
+        }
 
-		$additionalFormFields = array();
-		$additionalFormFields['type'] = 'archived';
-		// cn: bug 5727 - must override the parents' parent for contacts (which could be an Account)
-		$additionalFormFields['parent_type'] = $defines['focus']->module_dir; 
-		$additionalFormFields['parent_id'] = $defines['focus']->id;
-		$additionalFormFields['parent_name'] = $defines['focus']->name;
+        // if module is hidden or subpanel for the module is hidden - doesn't show quick create button
+        if (SugarWidget::isModuleHidden('Emails')) {
+            return '';
+        }
 
-		if(isset($defines['focus']->email1))
-		{
-			$additionalFormFields['to_email_addrs'] = $defines['focus']->email1;
-		}
-		if(ACLController::moduleSupportsACL($defines['module'])  && !ACLController::checkAccess($defines['module'], 'edit', true)){
-			$button = "<input id='".preg_replace('[ ]', '', $value)."_button'  title='$title' class='button' type='button' name='".preg_replace('[ ]', '', strtolower($value))."_button' value='$value' disabled/>\n";
-			return $button;
-		}
-		$button = $this->_get_form($defines, $additionalFormFields);
-		$button .= "<input id='".preg_replace('[ ]', '', $value)."_button' title='$title' class='button' type='submit' name='".preg_replace('[ ]', '', strtolower($value))."_button' value='$value'/>\n";
-		$button .= "</form>";
-		return $button;
-	}
+        $title = $app_strings['LBL_TRACK_EMAIL_BUTTON_TITLE'];
+        $value = $app_strings['LBL_TRACK_EMAIL_BUTTON_LABEL'];
+        $this->module = 'Emails';
+
+        if (ACLController::moduleSupportsACL($defines['module'])  && !ACLController::checkAccess($defines['module'], 'edit', true)){
+            $button = "<input id='".preg_replace('[ ]', '', $value)."_button'  title='$title' class='button' type='button' name='".preg_replace('[ ]', '', strtolower($value))."_button' value='$value' disabled/>\n";
+        } else {
+            $button = "<input id='".preg_replace('[ ]', '', $value)."_button' title='$title' class='button' type='button' onClick=\"javascript:subp_archive_email();\" name='".preg_replace('[ ]', '', strtolower($value))."_button' value='$value'/>\n";
+        }
+        return $button;
+    }
 }
-?>

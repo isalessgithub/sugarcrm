@@ -14,7 +14,7 @@
 	  $contacts = $account->get_linked_beans('contacts','Contact');
           // load the target list
           $targetlist= BeanFactory::getBean('ProspectLists', $arguments['id']);
-//	  $GLOBALS['log']->fatal(var_dump($account->contacts));
+//	  $GLOBALS['log']->fatal(sugar_upgrade_var_dump($account->contacts));
           foreach($contacts as $contact){
 //$GLOBALS['log']->fatal("Inside foreach");
              $targetlist->load_relationship('contacts');
@@ -38,7 +38,7 @@
           $contacts = $account->get_linked_beans('contacts','Contact');
           // load the target list
           $targetlist= BeanFactory::getBean('ProspectLists', $arguments['id']);
-          $GLOBALS['log']->fatal(var_dump($account->contacts));
+          $GLOBALS['log']->fatal(sugar_upgrade_var_dump($account->contacts));
           foreach($contacts as $contact){
 	     if($contact->id != ''){
 	     $GLOBALS['log']->fatal("Inside foreach");
@@ -51,4 +51,3 @@
     }
 
 ?>
-

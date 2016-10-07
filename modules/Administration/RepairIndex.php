@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 ///////////////////////////////////////////////////////////////////////////////
 ////	LOCAL UTILITY
@@ -100,7 +97,7 @@ $processed_tables=array();
 
 foreach ($beanFiles as $beanname=>$beanpath) {
 	require_once($beanpath);
-	$focus= new $beanname();
+	$focus = BeanFactory::newBeanByName($beanname);
 
 	//skips beans based on same tables. user, employee and group are an example.
 	if(empty($focus->table_name) || isset($processed_tables[$focus->table_name])) {
@@ -173,7 +170,7 @@ if((count($drop_index) > 0 or count($add_index) > 0 or count($change_index) > 0)
 		echo ($_REQUEST['silent']) ? "" : "<a href='index.php?module=Administration&action=RepairIndex&mode=execute'>Execute Script</a>";
 	}
 
-	$focus = new Account();
+	$focus = BeanFactory::getBean('Accounts');
 	if(count($drop_index) > 0) {
 		if(isset($_REQUEST['mode']) and $_REQUEST['mode']=='execute') {
 			echo ($_REQUEST['silent']) ? "" : $mod_strings['LBL_REPAIR_INDEX_DROPPING'];

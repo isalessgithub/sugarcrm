@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Lai dzēstu kontaktpersonu, jānorāda ieraksta numurs.',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Nodaļa:',
   'LBL_DESCRIPTION' => 'Apraksts:',
   'LBL_DESCRIPTION_INFORMATION' => 'Apraksta informācija',
+  'LBL_DNB_BAL_PREVIEW' => 'Mērķa apskate',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Mērķi',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: mērķa informācija',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B Principal Id',
   'LBL_DO_NOT_CALL' => 'Nezvanīt:',
   'LBL_DUPLICATE' => 'Iespējami mērķu dublikāti',
   'LBL_EDIT_ACCOUNT_NAME' => 'Uzņēmuma nosaukums:',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Cits e-pasts',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificētāja ID',
   'LBL_FAX_PHONE' => 'Fakss:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Mērķu atsaites',
   'LBL_FIRST_NAME' => 'Vārds:',
   'LBL_FULL_NAME' => 'Nosaukums',
+  'LBL_HELP_CREATE' => 'Mērķu modulis satur individuālas personas, kuri ir nekvalificēti interesenti par kuriem jums ir kaut kāda informācija, bet tie vēl nav kvalificēti par Interesentiem.
+
+Lai izveidotu mērķi:
+1. Ievadiet atbilstošos laukos prasītās vērtības.
+ - Lauki saglabātu ierakstu ir jāaizpilda lauki kas atzīmēti kā obligāti.
+ - Ja nepieciešams redzēt papildus laukus spiediet uz "Rādīt vairāk".
+2. Spiediet "Saglabāt" lai pabeigtu jauna ierakst veidošanu un atgrieztos iepriekšējā lapā.
+ - Izvēlieties "Saglabāt un apskatīt" lai atvērtu jauno kļūdu ierakstu skata logā.
+ - Izvēlieties "Saglabāt un veidot jaunu" lai uzreiz izveidotu vēl vienu jaunu kļūdas pieteikumu.',
+  'LBL_HELP_RECORD' => 'Mērķu modulis satur individuālas personas, kuri ir nekvalificēti interesenti par kuriem jums ir kaut kāda informācija, bet tie vēl nav kvalificēti par Interesentiem.
+
+- Rediģējiet ieraksta laukus klikšķinot uz laukiem vai pogas Rediģēt.
+- Apskatiet vai rediģējiet saites uz cietiem ierakstiem apakšpaneļos ieslēdzot datu skatu kreisajā apakšējā panelī.
+- Veidojiet un apskaties lietotāju komentārus un ierakstu izmaiņu vēsturi darbību plūsmas panelī ieslēdzot darbību plūsmas skatu kreisajā apakšējā panelī.
+- Sekojiet vai izceliet šo ierakstu izmantojot ikonas pa labi no ieraksta nosaukuma.
+- Papildus darbības pieejamas izkrītošajā darbību izvēlnē pa labi no Rediģēšanas pogas.',
+  'LBL_HELP_RECORDS' => 'Mērķu modulis satur individuālas personas, kuri ir nekvalificēti interesenti par kuriem jums ir kaut kāda informācija, bet tie vēl nav kvalificēti par Interesentiem. Informācija (kas ir vārds, e-pasta adrese) kas attiecas uz  mērķiem parasti tiek iegūta no vizītkartēm, kas iegūtas apmeklējot dažādas konferences, preznetācijas utt. {{plural_module_name}} Sugar ir atsevišķi ieraksti jo nav saistīti moduļiem {{contacts_module}}, {{leads_module}}, {{accounts_module}}, vai {{opportunities_module}}. Ir vairāki veido kā izveidot {{plural_module_name}} Sugar, caur {{plural_module_name}} moduli, importējot {{plural_module_name}}, u.c.. Tiklīdz ieraksts ir izveidots to var aplūkot un rediģēt ar moduli saistīto informāciju ieraksta kartiņā.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Vēsture',
   'LBL_HOME_PHONE' => 'Mājas tālrunis:',
   'LBL_IMPORT_VCARD' => 'Importēt vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automātiski izveidot jaunu kontaktpersonu, importējot vizītkarti no jūsu failu sistēmas.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Mērķis no vCard veiksmīgi izveidots',
   'LBL_INVALID_EMAIL' => 'Nederīgs e-pasts:',
   'LBL_INVITEE' => 'Tiešie ziņotāji',
   'LBL_LAST_NAME' => 'Uzvārds:',
+  'LBL_LEAD' => 'Interesents',
   'LBL_LEAD_ID' => 'Interesenta ID',
   'LBL_LIST_EMAIL_ADDRESS' => 'E-pasts',
   'LBL_LIST_FIRST_NAME' => 'Vārds',
@@ -125,12 +146,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Mērķu saraksts',
   'LBL_PROSPECT_NAME' => 'Mērķa nosaukums:',
   'LBL_PROSPECT_ROLE' => 'Loma:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Jūs veiksmīgi izveidojāt {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Sveiciens',
   'LBL_SAVE_PROSPECT' => 'Saglabāt mērķi',
   'LBL_SEARCH_FORM_TITLE' => 'Mērķu meklēšana',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Atlasīt atzīmētos mērķus',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Atlasīt atzīmētos mērķus',
   'LBL_STATE' => 'Novads:',
+  'LBL_STREET' => 'Iela',
   'LBL_TITLE' => 'Amats:',
   'LBL_TRACKER_KEY' => 'Sekotāja atslēga',
   'LNK_CAMPAIGN_LIST' => 'Kampaņas',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'Lai izveidotu iespēju, nepieciešams uzņēmums.<br /> Izveidojiet jaunu uzņēmumu vai izvēlieties no esošajiem.',
   'NTC_REMOVE_CONFIRMATION' => 'Vai tiešām vēlaties izņemt šo kontaktu no pieteikuma?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Vai tiešām vēlaties izņemt šo ierakstu no tiešiem ziņotājiem?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

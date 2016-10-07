@@ -1,22 +1,21 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarSearchEngine/SugarSearchEngineAbstractBase.php');
 require_once('include/SugarSearchEngine/Elastic/SugarSearchEngineElasticResultSet.php');
 require_once('include/SugarSearchEngine/SugarSearchEngineMetadataHelper.php');
 require_once('include/SugarSearchEngine/SugarSearchEngineHighlighter.php');
+require_once('include/SugarSearchEngine/Elastic/Facets/FacetHandler.php');
+require_once('include/SugarSearchEngine/Elastic/SugarSearchEngineElasticIndexStrategyFactory.php');
+SugarAutoLoader::requireWithCustom('include/SugarSearchEngine/Elastic/SugarSearchEngineElasticMapping.php');
 
 /**
  * Engine implementation for ElasticSearch
@@ -25,26 +24,102 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
 {
     private $_config = array();
     private $_client = null;
-    private $_indexName = "";
 
     const DEFAULT_INDEX_TYPE = 'SugarBean';
     const WILDCARD_CHAR = '*';
 
     private $_indexType = 'SugarBean';
 
+    /**
+     *
+     * Force asynchronous indexing using fts_queue
+     * Defaults to false unless configured
+     *
+     * @see $sugar_config['search_engine']['force_async_index']
+     * @var boolean
+     */
+    protected $forceAsyncIndex = false;
+
+    /**
+     *
+     * Ignored elastic field types which are incompatible
+     * with current elastic query construction
+     * @var array
+     */
+    protected $ignoreSearchTypes = array(
+        'date',
+        'integer',
+    );
+
+    /**
+     *
+     * Elastic Mapping object
+     * @var SugarSearchEngineElasticMapping
+     */
+    protected $mapper;
+
+    /**
+     *
+     * Facet handler
+     * @var FacetHandler
+     */
+    protected $facetHandler;
+
+    /**
+     *
+     * Index strategy object
+     *
+     * @var SugarSearchEngineIndexStrategy
+     */
+    protected $indexStrategy;
+
     public function __construct($params = array())
     {
+        // Setup Elastica Client object
         $this->_config = $params;
-        $this->_indexName = strtolower($GLOBALS['sugar_config']['unique_key']);
 
-        //Elastica client uses own auto-load schema similar to ZF.
-        spl_autoload_register(array($this, 'loader'));
-        if (empty($this->_config['timeout']))
-        {
+        // this timeout can be overriden at $sugar_config['full_text_engine']['Elastic']['timeout']
+        if (empty($this->_config['timeout'])) {
             $this->_config['timeout'] = 15;
         }
-        $this->_client = new Elastica_Client($this->_config);
+        $this->setClient(new \Elastica\Client($this->_config));
+
+        // Setup index strategy
+        $this->indexStrategy = SugarSearchEngineElasticIndexStrategyFactory::getinstance();
+
+        // Asynchronous indexing through fts_queue table
+        $this->forceAsyncIndex = SugarConfig::getInstance()->get('search_engine.force_async_index', false);
+
+        // Elastic mapping
+        $mappingClass = SugarAutoLoader::customClass('SugarSearchEngineElasticMapping');
+        $this->mapper = new $mappingClass($this);
+
+        // Facet handler
+        $this->facetHandler = new FacetHandler();
+
         parent::__construct();
+    }
+
+    /**
+     * Setter forceAsyncIndex
+     * @param boolean $value
+     */
+    public function setForceAsyncIndex($value)
+    {
+        $this->forceAsyncIndex = $value;
+    }
+
+    /**
+     * setter connection timeout
+     * @param integer $value CURLOPT_TIMEOUT for http elastica backend
+     */
+    public function setTimeout($value)
+    {
+        $this->_config['timeout'] = $value;
+        $this->_client->setConfigValue('timeout', $value);
+        foreach ($this->_client->getConnections() as $connection) {
+            $connection->setTimeout($value);
+        }
     }
 
     /**
@@ -54,8 +129,7 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      */
     protected function checkException($e)
     {
-        if ($e instanceof Elastica_Exception_Client)
-        {
+        if ($e instanceof \Elastica\Exception\Connection\HttpException) {
             $error = $e->getError();
             switch ($error) {
                 case CURLE_UNSUPPORTED_PROTOCOL:
@@ -79,21 +153,26 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      * @param $bean SugarBean object to be indexed
      * @param $batch boolean whether to do batch index
      */
-    public function indexBean($bean, $batch = TRUE)
+    public function indexBean($bean, $batch = true)
     {
-        if(!$this->isModuleFtsEnabled($bean->module_dir) )
+        if (!$this->isModuleFtsEnabled($bean->module_dir)) {
             return;
+        }
 
-        if(!$batch) {
-            if (self::isSearchEngineDown())
-            {
-                $this->addRecordsToQueue(array('bean_id'=>$bean->id, 'bean_module'=>get_class($bean)));
+        if (!$batch) {
+            if (self::isSearchEngineDown() || $this->forceAsyncIndex) {
+                $this->addRecordsToQueue(
+                    array(
+                        array(
+                            'bean_id' => $bean->id,
+                            'bean_module' => $bean->module_dir,
+                        )
+                    )
+                );
                 return;
             }
             $this->indexSingleBean($bean);
-        }
-        else
-        {
+        } else {
             $this->logger->info("Adding bean to doc list with id: {$bean->id}");
 
             //Create and store our document index which will be bulk inserted later, do not store beans as they are heavy.
@@ -111,96 +190,101 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      */
     protected function getIndexType($bean)
     {
-        if(!empty($bean->module_dir))
+        if (!empty($bean->module_dir)) {
             return $bean->module_dir;
-        else
+        } else {
             return self::DEFAULT_INDEX_TYPE;
-    }
-
-    /**
-     *
-     * @param SugarBean $bean
-     * @return String owner, or null if no owner found
-     */
-    protected function getOwnerField($bean)
-    {
-        // when running full indexing, $bean may be a stdClass and not a SugarBean
-        if ($bean instanceof SugarBean)
-        {
-            return $bean->getOwnerField();
         }
-        else if (isset($bean->assigned_user_id))
-        {
-            return $bean->assigned_user_id;
-        }
-        else if (isset($bean->created_by))
-        {
-            return $bean->created_by;
-        }
-        return null;
     }
 
     /**
      *
      * @param SugarBean $bean
      * @param $searchFields
-     * @return Elastica_Document|null
+     * @return mixed(\Elastica\Document|null)
      */
     public function createIndexDocument($bean, $searchFields = null)
     {
-        if($searchFields == null)
+        if ($searchFields == null) {
             $searchFields = SugarSearchEngineMetadataHelper::retrieveFtsEnabledFieldsPerModule($bean);
+        }
+
+        if (!empty($searchFields['email1']) && empty($bean->email1)) {
+            $emailAddress = BeanFactory::getBean('EmailAddresses');
+            $bean->email1 = $emailAddress->getPrimaryAddress($bean);
+        }
+
+        $bean->beforeSseIndexing();
 
         $keyValues = array();
-        foreach($searchFields as $fieldName => $fieldDef)
-        {
+        foreach ($searchFields as $fieldName => $fieldDef) {
+            // when creating a new bean, the auto_increment field can be null, even after save
+            if (!isset($bean->$fieldName) && !empty($fieldDef['auto_increment'])) {
+                $bean->$fieldName = $this->getFieldValue($fieldName, $bean);
+            }
+
             //All fields have already been formatted to db values at this point so no further processing necessary
-            if( !empty($bean->$fieldName) )
-            {
+            if (!empty($bean->$fieldName)) {
                 // 1. elasticsearch does not handle multiple types in a query very well
                 // so let's use only strings so it won't be indexed as other types
                 // 2. for some reason, bean fields are encoded, decode them first
-                $keyValues[$fieldName] = strval(html_entity_decode($bean->$fieldName,ENT_QUOTES));
+                // We are handling date range search for Meetings which is type datetimecombo
+                if (!isset($fieldDef['type']) || $fieldDef['type'] != 'datetimecombo') {
+                    //$keyValues[$fieldName] = strval(html_entity_decode($bean->$fieldName,ENT_QUOTES));
+                    // NOTE Bug 53394 resulted in the decoding scheme above. This needs to be reevaluated in the context of using the right analyzers.
+                    $keyValues[$fieldName] = $bean->$fieldName;
+                } elseif (isset($fieldDef['type']) && $fieldDef['type'] == 'datetimecombo') {
+                    // dates have to be in ISO-8601 without the : in the TZ
+                    global $timedate;
+
+                    $date = $timedate->fromUser($bean->$fieldName);
+                    if (empty($date)) {
+                        $date = $timedate->fromDb($bean->$fieldName);
+                    }
+
+                    if ($date instanceof SugarDateTime) {
+                        $keyValues[$fieldName] = $timedate->asIso($date, null, array('stripTZColon' => true));
+                    } else {
+                        $GLOBALS['log']->error("TimeDate Conversion Failed for " . get_class($bean) . "->{$fieldName}");
+                    }
+                } else {
+                    $keyValues[$fieldName] = $bean->$fieldName;
+                }
             }
         }
 
         //Always add our module
         $keyValues['module'] = $bean->module_dir;
-        $keyValues['team_set_id'] = str_replace("-", "",$bean->team_set_id);
 
-        // to index owner
-        $ownerField = $this->getOwnerField($bean);
-        if ($ownerField)
-        {
-            $keyValues['doc_owner'] = str_replace('-', '', strval($ownerField));
-        }
-
-        if( empty($keyValues) )
+        if( empty($keyValues) ) {
             return null;
-        else
-            return new Elastica_Document($bean->id, $keyValues, $this->getIndexType($bean));
+        } else {
+            //base document
+            $document = new \Elastica\Document($bean->id, $keyValues, $this->getIndexType($bean));
+            return $document;
+        }
     }
 
     /**
      * This indexes one single bean to Elastic Search engine
      * @param SugarBean $bean
      */
-    protected function indexSingleBean($bean)
+    public function indexSingleBean($bean)
     {
         $this->logger->info("Preforming single bean index");
-        try
-        {
-            $index = new Elastica_Index($this->_client, $this->_indexName);
-            $type = new Elastica_Type($index, $this->getIndexType($bean));
+        try {
+            $indexName = $this->getWriteIndexForBean($bean);
+            $this->logger->debug("Writing bean {$bean->id} to index $indexName");
+
+            $index = new \Elastica\Index($this->_client, $indexName);
+            $type = new \Elastica\Type($index, $this->getIndexType($bean));
             $doc = $this->createIndexDocument($bean);
-            if($doc != null)
+            if ($doc != null) {
                 $type->addDocument($doc);
-        }
-        catch(Exception $e)
-        {
+            }
+        } catch (Exception $e) {
             $this->reportException("Unable to index bean", $e);
-            if ($this->checkException($e))
-            {
+            if ($this->checkException($e)) {
                 $recordsToBeQueued = $this->getRecordsFromDocs(array($doc));
                 $this->addRecordsToQueue($recordsToBeQueued);
             }
@@ -214,22 +298,21 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      */
     public function delete(SugarBean $bean)
     {
-        if (self::isSearchEngineDown())
-        {
+        if (self::isSearchEngineDown()) {
             return;
         }
-        if(empty($bean->id))
+        if (empty($bean->id)) {
             return;
+        }
 
-        try
-        {
-            $this->logger->info("Going to delete {$bean->id}");
-            $index = new Elastica_Index($this->_client, $this->_indexName);
-            $type = new Elastica_Type($index, $this->getIndexType($bean));
+        try {
+            $indexName = $this->getWriteIndexForBean($bean);
+            $this->logger->debug("Going to delete {$bean->id} on index $indexName");
+
+            $index = new \Elastica\Index($this->_client, $indexName);
+            $type = new \Elastica\Type($index, $this->getIndexType($bean));
             $type->deleteById($bean->id);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $this->reportException("Unable to delete index", $e);
             $this->checkException($e);
         }
@@ -241,44 +324,55 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      */
     public function bulkInsert(array $docs)
     {
-        if (self::isSearchEngineDown())
-        {
+        if (self::isSearchEngineDown()) {
             $recordsToBeQueued = $this->getRecordsFromDocs($docs);
             $this->addRecordsToQueue($recordsToBeQueued);
             return false;
         }
 
-        try
-        {
-            $index = new Elastica_Index($this->_client, $this->_indexName);
+        try {
             $batchedDocs = array();
             $x = 0;
-            foreach($docs as $singleDoc)
-            {
-                if($x != 0 && $x % self::MAX_BULK_THRESHOLD == 0)
-                {
-                    $index->addDocuments($batchedDocs);
-                    $batchedDocs = array();
-                }
-                else
-                {
-                   $batchedDocs[] = $singleDoc;
+
+            $bulk = $this->newElasticaBulk();
+
+            /* If we use a single index we can put it directly in the url
+             * of our request. This will make the bulk request smaller and
+             * allows the usage of the ES security parameters
+             * "rest.action.multi.allow_explicit_index: false" to be able
+             * to perform URL based access control.
+             */
+            if ($this->useSingleIndex()) {
+                $bulk->setIndex($this->getWriteIndexName());
+                $singleIndex = true;
+            }
+
+            foreach ($docs as $singleDoc) {
+
+                // Only put the index name on the document directly if we
+                // are not using a single index (see above)
+                if (empty($singleIndex)) {
+                    $indexName = $this->getWriteIndexForElasticaDocument($singleDoc);
+                    $singleDoc->setIndex($indexName);
                 }
 
+                if ($x != 0 && $x % $this->max_bulk_doc_threshold == 0) {
+                    $bulk->addDocuments($batchedDocs);
+                    $bulk->send();
+                    $batchedDocs = array();
+                }
+                $batchedDocs[] = $singleDoc;
                 $x++;
             }
 
             //Commit the stragglers
-            if(count($batchedDocs) > 0)
-            {
-                $index->addDocuments($batchedDocs);
+            if (count($batchedDocs) > 0) {
+                $bulk->addDocuments($batchedDocs);
+                $bulk->send();
             }
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $this->reportException("Error performing bulk update operation", $e);
-            if ($this->checkException($e))
-            {
+            if ($this->checkException($e)) {
                 $recordsToBeQueued = $this->getRecordsFromDocs($batchedDocs);
                 $this->addRecordsToQueue($recordsToBeQueued);
             }
@@ -286,6 +380,26 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
         }
 
         return true;
+    }
+
+    /**
+     * Get new Elastica Bulk object
+     * @param \Elastica\Client $client
+     * @return \Elastica\Bulk
+     */
+    protected function newElasticaBulk(\Elastica\Client $client = null)
+    {
+        $client = $client ?: $this->_client;
+        return new \Elastica\Bulk($client);
+    }
+
+    /**
+     * Check if we are using a single index
+     * @return boolean
+     */
+    protected function useSingleIndex()
+    {
+        return ($this->indexStrategy instanceof SugarSearchEngineElasticIndexStrategySingle);
     }
 
     /**
@@ -297,8 +411,7 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
     {
         $records = array();
         $i = 0;
-        foreach ($docs as $doc)
-        {
+        foreach ($docs as $doc) {
             $records[$i]['bean_id'] = $doc->getId();
             $records[$i]['bean_module'] = BeanFactory::getBeanName($doc->getType());
             $i++;
@@ -311,59 +424,79 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      */
     public function getServerStatus()
     {
-        $isValid = FALSE;
+        global $app_strings, $sugar_config;
+        $isValid = false;
         $displayText = "";
-        $timeOutValue = $this->_client->getConfig('timeout');
-        try
-        {
-            $this->_client->setConfigValue('timeout', 2);
-            $results = $this->_client->request('', Elastica_Request::GET)->getData();
-            if (!empty($results['status']) && $results['status'] === 200) {
+        try {
+            $response = $this->_client->request('', \Elastica\Request::GET);
+            if ($response->isOk()) {
                 $isValid = true;
                 if (!empty($GLOBALS['app_strings'])) {
-                    $displayText = $GLOBALS['app_strings']['LBL_EMAIL_SUCCESS'];
+                    $displayText = $app_strings['LBL_EMAIL_SUCCESS'];
                 } else {
                     //Fix a notice error during install when we verify the Elastic Search settings
                     $displayText = 'Success';
                 }
             } else {
-                $displayText = $results;
+                $displayText = $app_strings['ERR_ELASTIC_TEST_FAILED'];
             }
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $this->reportException("Unable to get server status", $e);
             $displayText = $e->getMessage();
         }
-        //Reset previous timeout value.
-        $this->_client->setConfigValue('timeout', $timeOutValue);
         return array('valid' => $isValid, 'status' => $displayText);
     }
 
     /**
      * This function returns an array of fields that can be passed to search engine.
      * @param Array $options
+     * @param boolean $prefixed Add module name prefix (i.e. Contacts.first_name)
      * @return Array array of fields
      */
-    protected function getSearchFields($options)
+    protected function getSearchFields($options, $prefixed = true)
     {
         $fields = array();
-        if(!empty($options['moduleFilter'])) {
-            foreach ($options['moduleFilter'] as $mod) {
-                $fieldDef = SugarSearchEngineMetadataHelper::retrieveFtsEnabledFieldsPerModule($mod);
-                foreach ($fieldDef as $fieldName => $def) {
-                    if (!in_array($fieldName, $fields)) {
-                        $fields[] = $fieldName;
-                    }
-                }
+
+        // determine list of modules/fields
+        $allFieldDefs = array();
+        if (!empty($options['moduleFilter'])) {
+            foreach ($options['moduleFilter'] as $module) {
+                $allFieldDefs[$module] = SugarSearchEngineMetadataHelper::retrieveFtsEnabledFieldsPerModule($module);
             }
         } else {
-            $allFieldDef = SugarSearchEngineMetadataHelper::retrieveFtsEnabledFieldsForAllModules();
-            foreach ($allFieldDef as $fieldDef) {
-                foreach ($fieldDef as $fieldName => $def) {
-                    if (!in_array($fieldName, $fields)) {
-                        $fields[] = $fieldName;
+            $allFieldDefs = SugarSearchEngineMetadataHelper::retrieveFtsEnabledFieldsForAllModules();
+        }
+
+        // build list of fields with optional boost values (i.e. Accouns.name^3)
+        foreach ($allFieldDefs as $module => $fieldDefs) {
+            foreach ($fieldDefs as $fieldName => $fieldDef) {
+
+                // skip non-supported field types
+                $ftsType = $this->mapper->getFtsTypeFromDef($fieldDef);
+                if (!$ftsType || in_array($ftsType['type'], $this->ignoreSearchTypes)) {
+                    $this->logger->debug("Elastic: Ignoring unsupported type in query for $module/$fieldName");
+                    continue;
+                }
+
+                // base field name
+                if ($prefixed) {
+                    $fieldName = $module . '.' . $fieldName;
+                }
+
+                // To enable a field for user search we require a boost value. There may be other fields
+                // we index into Elastic but which should not be user searchable. We use the boost value
+                // being set or not to distinguish between both scenarios. For example for extended facets
+                // and related fields we can store additional fields or non analyzed data. While we need
+                // those fields being indexed, we do not want the user to be able to hit those when
+                // performing a search.
+                if (empty($fieldDef['full_text_search']['boost'])) {
+                    $this->logger->debug("Elastic: skipping $module/$fieldName for search field (no boost set)");
+                    continue;
+                } else {
+                    if (!empty($options['addSearchBoosts'])) {
+                        $fieldName .= '^' . $fieldDef['full_text_search']['boost'];
                     }
+                    $fields[] = $fieldName;
                 }
             }
         }
@@ -376,50 +509,37 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      * search engine.
      * @param SugarBean $bean
      * @param $searchFields
-     * @return Elastica_Document|null
+     * @return mixed(\Elastica\Document|null)
      */
     protected function constructHighlightArray($fields, $options)
     {
-        if (isset($options['preTags']))
-        {
+        if (isset($options['preTags'])) {
             $preTags = $options['preTags'];
-        }
-        else
-        {
+        } else {
             $preTags = SugarSearchEngineHighlighter::$preTag;
         }
 
-        if (isset($options['postTags']))
-        {
+        if (isset($options['postTags'])) {
             $postTags = $options['postTags'];
-        }
-        else
-        {
+        } else {
             $postTags = SugarSearchEngineHighlighter::$postTag;
         }
 
         $fieldArray = array();
         $highlightProperties = new stdClass();
-        if (isset($options['fragmentSize']))
-        {
+        if (isset($options['fragmentSize'])) {
             $highlightProperties->fragment_size = $options['fragmentSize'] + strlen($preTags) + strlen($postTags);
-        }
-        else
-        {
+        } else {
             $highlightProperties->fragment_size = SugarSearchEngineHighlighter::$fragmentSize + strlen($preTags) + strlen($postTags);
         }
 
-        if (isset($options['fragmentNumber']))
-        {
+        if (isset($options['fragmentNumber'])) {
             $highlightProperties->number_of_fragments = $options['fragmentNumber'];
-        }
-        else
-        {
+        } else {
             $highlightProperties->number_of_fragments = SugarSearchEngineHighlighter::$fragmentNumber;
         }
 
-        foreach ($fields as $field)
-        {
+        foreach ($fields as $field) {
             $fieldArray[$field] = $highlightProperties;
         }
 
@@ -440,29 +560,27 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
     protected function canAppendWildcard($queryString)
     {
         $queryString = trim(html_entity_decode($queryString, ENT_QUOTES));
-        if( substr($queryString, -1) ===  self::WILDCARD_CHAR) {
+        if (substr($queryString, -1) ===  self::WILDCARD_CHAR) {
             return false;
         }
 
         // for fuzzy search, do not append wildcard
-        if( strpos($queryString, '~') !==  false) {
+        if (strpos($queryString, '~') !==  false) {
             return false;
         }
 
         // for range searches, do not append wildcard
-        if (preg_match('/\[.*TO.*\]/', $queryString) || preg_match('/{.*TO.*}/', $queryString))
-        {
+        if (preg_match('/\[.*TO.*\]/', $queryString) || preg_match('/{.*TO.*}/', $queryString)) {
             return false;
         }
 
         // for group searches, do not append wildcard
-        if (preg_match('/\(.*\)/', $queryString))
-        {
+        if (preg_match('/\(.*\)/', $queryString)) {
             return false;
         }
 
         // when using double quotes, do not append wildcard
-        if( strpos($queryString, '"') !==  false) {
+        if (strpos($queryString, '"') !==  false) {
             return false;
         }
 
@@ -481,36 +599,30 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
     /**
      * This function constructs and returns team filter for elasticsearch query.
      *
-     * @return Elastica_Filter_Or
+     * @return \Elastica\Filter\Terms
      */
-    protected function constructTeamFilter()
+    public function getTeamTermFilter()
     {
-        $teamFilter = new Elastica_Filter_Or();
-
-        $teamIDS = TeamSet::getTeamSetIdsForUser($GLOBALS['current_user']->id);
-
-        //TODO: Determine why term filters aren't working with the hyphen present.
-        //Term filters dont' work for terms with '-' present so we need to clean
-        $teamIDS = array_map(array($this,'cleanTeamSetID'), $teamIDS);
-
-        foreach ($teamIDS as $teamID)
-        {
-            $termFilter = new Elastica_Filter_Term();
-            $termFilter->setTerm('team_set_id',$teamID);
-            $teamFilter->addFilter($termFilter);
+        global $current_user;
+        if(empty($current_user)) {
+            // This condition should never happen, but just to be consistent with the SQl side of the house, we are adding a filter that is false for this module
+            $termFilter = new \Elastica\Filter\Terms('team_set_id', array('Non existing team_set_id to fake search term that is always false'));
+        } else {
+            $teamIDS = TeamSet::getTeamSetIdsForUser($current_user->id);
+            $termFilter = new \Elastica\Filter\Terms('team_set_id', $teamIDS);
         }
 
-        return $teamFilter;
+        return $termFilter;
     }
 
     /**
      * This function constructs and returns type term filter for elasticsearch query.
      *
-     * @return Elastica_Filter_Term
+     * @return \Elastica\Filter\Term
      */
     protected function getTypeTermFilter($module)
     {
-        $typeTermFilter = new Elastica_Filter_Term();
+        $typeTermFilter = new \Elastica\Filter\Term();
         $typeTermFilter->setTerm('_type', $module);
 
         return $typeTermFilter;
@@ -519,12 +631,12 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
     /**
      * This function constructs and returns owner term filter for elasticsearch query.
      *
-     * @return Elastica_Filter_Term
+     * @return \Elastica\Filter\Term
      */
-    protected function getOwnerTermFilter()
+    public function getOwnerTermFilter()
     {
-        $ownerTermFilter = new Elastica_Filter_Term();
-        $ownerTermFilter->setTerm('doc_owner', str_replace('-', '', $GLOBALS['current_user']->id));
+        $ownerTermFilter = new \Elastica\Filter\Term();
+        $ownerTermFilter->setTerm('doc_owner', $GLOBALS['current_user']->id);
 
         return $ownerTermFilter;
     }
@@ -532,77 +644,94 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
     /**
      * This function constructs and returns module level filter for elasticsearch query.
      *
-     * @return Elastica_Filter_And
+     * @return \Elastica\Filter\BoolAnd
      */
-    protected function constructModuleLevelFilter($module)
+    protected function constructModuleLevelFilter($module, $options = array())
     {
-        $requireOwner = ACLController::requireOwner($module, 'list');
+        $moduleFilter = new \Elastica\Filter\Bool();
+        $typeTermFilter = $this->getTypeTermFilter($module);
+        $moduleFilter->addMust($typeTermFilter);
 
-        $class = $GLOBALS['beanList'][$module];
-        $seed = new $class();
-        $hasAdminAccess = $GLOBALS['current_user']->isAdminForModule($seed->getACLCategory());
+        $seed = BeanFactory::newBean($module);
+        $moduleFilter = $seed->addSseVisibilityFilter($this, $moduleFilter);
 
-        if ($hasAdminAccess)
-        {
-            // user has admin access for this module, skip team filter
-            if ($requireOwner)
-            {
-                // need to be document owner to view
-                $moduleFilter = new Elastica_Filter_And();
-
-                // type term filter
-                $typeTermFilter = $this->getTypeTermFilter($module);
-                $moduleFilter->addFilter($typeTermFilter);
-
-                // owner term filter
-                $ownerTermFilter = $this->getOwnerTermFilter();
-                $moduleFilter->addFilter($ownerTermFilter);
-            }
-            else
-            {
-                // do not need to be document owner to view
-                // a single type term filter is all we need
-                $moduleFilter = $this->getTypeTermFilter($module);
-            }
-        }
-        else
-        {
-            // user does not have admin access, need team filter
-            $moduleFilter = new Elastica_Filter_And();
-
-            // team filter
-            $teamFilter = $this->constructTeamFilter();
-            $moduleFilter->addFilter($teamFilter);
-
-            // type term filter
-            $typeTermFilter = $this->getTypeTermFilter($module);
-            $moduleFilter->addFilter($typeTermFilter);
-
-            if ($requireOwner)
-            {
-                // need to be document owner to view, owner term filter
-                $ownerTermFilter = $this->getOwnerTermFilter();
-                $moduleFilter->addFilter($ownerTermFilter);
-            }
-        }
         return $moduleFilter;
     }
 
     /**
      * This function constructs and returns main filter for elasticsearch query.
      *
-     * @return Elastica_Filter_Or
+     * @return \Elastica\Filter\BoolOr
      */
-    protected function constructMainFilter($finalTypes)
+    protected function constructMainFilter($finalTypes, $options = array())
     {
-        $mainFilter = new Elastica_Filter_Or();
-        foreach ($finalTypes as $module)
-        {
-            $moduleFilter = $this->constructModuleLevelFilter($module);
-            $mainFilter->addFilter($moduleFilter);
+        $mainFilter = new \Elastica\Filter\Bool();
+        foreach ($finalTypes as $module) {
+            $moduleFilter = $this->constructModuleLevelFilter($module, $options);
+            // if we want myitems add more to the module filter
+            if(isset($options['my_items']) && $options['my_items'] !== false) {
+                $moduleFilter = $this->constructMyItemsFilter($moduleFilter);
+            }
+            if (isset($options['filter']) && $options['filter']['type'] == 'range') {
+                $moduleFilter = $this->constructRangeFilter($moduleFilter, $options['filter']);
+            }
+
+            // we only want JUST favorites if the option is 2
+            // if the option is 1 that means we want all including favorites,
+            // which in FTS is a normal search parameter
+            if (isset($options['favorites']) && $options['favorites'] == 2) {
+                $moduleFilter = $this->constructMyFavoritesFilter($moduleFilter);
+            }
+
+            $mainFilter->addShould($moduleFilter);
+
         }
 
         return $mainFilter;
+    }
+
+
+
+    /**
+     * Construct a favorites filter
+     * @param object $moduleFilter
+     * @return \Elastica\Filter\Term $moduleFilter
+     */
+
+    protected function constructMyFavoritesFilter($moduleFilter)
+    {
+        $ownerTermFilter = new \Elastica\Filter\Term();
+        // same bug as team set id, looking into a fix in elastic search to allow -'s without tokenizing
+
+        $ownerTermFilter->setTerm('user_favorites', $GLOBALS['current_user']->id);
+        $moduleFilter->addMust($ownerTermFilter);
+
+        return $moduleFilter;
+    }
+
+    /**
+     * Construct a Range Filter to
+     * @param object $moduleFilter
+     * @param array $filter
+     * @return object $moduleFilter
+     */
+    protected function constructRangeFilter($moduleFilter, $filter)
+    {
+        $filter = new \Elastica\Filter\Range($filter['fieldname'], $filter['range']);
+        $moduleFilter->addMust($filter);
+        return $moduleFilter;
+    }
+
+    /**
+     * Add a Owner Filter For MyItems to the current module
+     * @param object $moduleFilter
+     * @return object
+     */
+    protected function constructMyItemsFilter($moduleFilter)
+    {
+        $ownerTermFilter = $this->getOwnerTermFilter();
+        $moduleFilter->addMust($ownerTermFilter);
+        return $moduleFilter;
     }
 
     /**
@@ -613,180 +742,169 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
      */
     public function search($queryString, $offset = 0, $limit = 20, $options = array())
     {
-        if (self::isSearchEngineDown())
-        {
+        if (self::isSearchEngineDown()) {
             return null;
         }
 
         $appendWildcard = false;
-        if( !empty($options['append_wildcard']) && $this->canAppendWildcard($queryString) )
-        {
+        if (!empty($options['append_wildcard']) && $this->canAppendWildcard($queryString)) {
             $appendWildcard = true;
         }
-        $queryString = sql_like_string($queryString, self::WILDCARD_CHAR, self::WILDCARD_CHAR, $appendWildcard);
+        $queryString = DBManagerFactory::getInstance()->sqlLikeString(
+            $queryString,
+            self::WILDCARD_CHAR,
+            $appendWildcard
+        );
 
         $this->logger->info("Going to search with query $queryString");
         $results = null;
-        try
-        {
-            $qString = html_entity_decode($queryString, ENT_QUOTES);
-            $queryObj = new Elastica_Query_QueryString($qString);
-            $queryObj->setAnalyzeWildcard(true);
-            $queryObj->setAutoGeneratePhraseQueries(false);
-            if( !empty($options['append_wildcard']) ) {
-                // see https://github.com/elasticsearch/elasticsearch/issues/1186 for details
-                $queryObj->setRewrite('top_terms_5');
-
-                // bug_54567: whitespace analyzer is only used for query that searches email address now
-                // it makes whitespace the divider for the query keyword
-                if (preg_match('/@/', $qString)) {
-                    $queryObj->setAnalyzer('whitespace');
-                }
-            }
-
-            // set query string fields
-            $fields = $this->getSearchFields($options);
-            $queryObj->setFields($fields);
-
-            $s = new Elastica_Search($this->_client);
-            //Only search across our index.
-            $index = new Elastica_Index($this->_client, $this->_indexName);
-            $s->addIndex($index);
+        try {
+            $queryObj = $this->buildQueryObject($queryString, $options);
+            $s = new \Elastica\Search($this->_client);
 
             $finalTypes = array();
-            if(!empty($options['moduleFilter']))
-            {
-                if( is_admin($GLOBALS['current_user']) ) {
-                    $finalTypes = $options['moduleFilter'];
-                }
-                else
-                {
-                    foreach ($options['moduleFilter'] as $moduleName)
-                    {
-                        $class = $GLOBALS['beanList'][$moduleName];
-                        $seed = new $class();
-                        // only add the module to the list if it can be viewed
-                        if ($seed->ACLAccess('ListView'))
-                        {
-                            $finalTypes[] = $moduleName;
-                        }
+            if (!empty($options['moduleFilter'])) {
+                foreach ($options['moduleFilter'] as $moduleName) {
+                    // only add the module to the list if it can be viewed
+                    if ($this->checkAccess($moduleName)) {
+                        $finalTypes[] = $moduleName;
                     }
                 }
-                if (!empty($finalTypes))
-                {
+                if (!empty($finalTypes)) {
                     $s->addTypes($finalTypes);
                 }
             }
 
-            if( !is_admin($GLOBALS['current_user']) )
-            {
-                // main filter
-                $mainFilter = $this->constructMainFilter($finalTypes);
+            $s->addIndices($this->getReadIndices($finalTypes));
 
-                $query = new Elastica_Query($queryObj);
-                $query->setFilter($mainFilter);
+            // main filter
+            $mainFilter = $this->constructMainFilter($finalTypes, $options);
+
+            $query = new \Elastica\Query($queryObj);
+            $query->setFilter($mainFilter);
+
+            if (isset($options['sort']) && is_array($options['sort'])) {
+                foreach ($options['sort'] as $sort) {
+                    $query->addSort($sort);
+                }
             }
-            else
-            {
-                $query = new Elastica_Query($queryObj);
-            }
-            $query->setParam('from',$offset);
+
+            $query->setParam('from', $offset);
 
             // set query highlight
-            $fields = $this->getSearchFields($options);
+            $fields = $this->getSearchFields($options, false);
             $highlighArray = $this->constructHighlightArray($fields, $options);
             $query->setHighlight($highlighArray);
 
-            //Add a type facet so we can see how our results are grouped.
-            if( !empty($options['apply_module_facet']) )
-            {
-                $typeFacet = new Elastica_Facet_Terms('_type');
-                $typeFacet->setField('_type');
-                // need to add filter for facet too
-                if (isset($mainFilter))
-                {
-                    $typeFacet->setFilter($mainFilter);
-                }
-                $query->addFacet($typeFacet);
-            }
+            // add facets
+            $this->addFacets($query, $options, $mainFilter);
 
             $esResultSet = $s->search($query, $limit);
             $results = new SugarSeachEngineElasticResultSet($esResultSet);
-
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $this->reportException("Unable to perform search", $e);
             $this->checkException($e);
             return null;
         }
-
         return $results;
     }
 
     /**
-     * Remove the '-' from our team sets.
-     *
-     * @param $teamSetID
-     * @return mixed
+     * @param string $queryString
+     * @param array $options
+     * @return \Elastica\Query
      */
-    protected function cleanTeamSetID($teamSetID)
+    protected function buildQueryObject($queryString, $options)
     {
-        return str_replace("-", "", $teamSetID);
+        // trying to match everything, make a MatchAll query
+        if ($queryString == '*') {
+            $queryObj = new \Elastica\Query\MatchAll();
+
+        } else {
+            $qString = html_entity_decode($queryString, ENT_QUOTES);
+
+            // we need to escape slash for lucene query_string query
+            $qString = str_replace('/', '\\/', $qString);
+
+            $queryObj = new \Elastica\Query\QueryString($qString);
+            $queryObj->setAnalyzeWildcard(true);
+            $queryObj->setAutoGeneratePhraseQueries(false);
+
+            // set query string fields
+            $options['addSearchBoosts'] = true;
+            $fields = $this->getSearchFields($options);
+            $options['addSearchBoosts'] = false;
+            if (!empty($options['searchFields'])) {
+                $queryObj->setFields($options['searchFields']);
+            } else {
+                $queryObj->setFields($fields);
+            }
+        }
+        return $queryObj;
     }
 
     /**
-     * This function loads the desired file/class from Elastic directory.
      *
-     * @param $teamSetID
-     * @return mixed
+     * Add facets on elastic query object
+     * @param \Elastica\Query $query
+     * @param array $options
+     * @param \Elastica\Filter\AbstractFilter $mainFilter
      */
-    protected function loader($className)
-    {
-        // FIXME: convert to use autoloader
-        $fileName = str_replace('_', '/', $className);
-        $path = 'include/SugarSearchEngine/Elastic/' . $fileName . '.php';
-        if( file_exists($path) )
-            require_once($path);
-        else
-            return FALSE;
+    protected function addFacets(
+        \Elastica\Query $query,
+        $options = array(),
+        \Elastica\Filter\AbstractFilter $mainFilter = null
+    ) {
+        // module facet (note: would be less confusing to give another name instead of _type)
+        if (!empty($options['apply_module_facet'])) {
+            $typeFacet = new \Elastica\Facet\Terms('_type');
+            $typeFacet->setField('_type');
+            // need to add filter for facet too
+            if (isset($mainFilter)) {
+                $typeFacet->setFilter($mainFilter);
+            }
+            $query->addFacet($typeFacet);
+        }
+
+        // handle secondary facets
+        $this->facetHandler->addFacets($query, $options, $mainFilter);
     }
 
     /**
      * Create the index and mapping.
      *
      * @param boolean $recreate OPTIONAL Deletes index first if already exists (default = false)
+     * @param array   $modules  OPTIONAL list of modules to create an index for
      *
      */
-    public function createIndex($recreate = false)
+    public function createIndex($recreate = false, $modules = array())
     {
-        if (self::isSearchEngineDown())
-        {
+        if (self::isSearchEngineDown()) {
             return;
         }
 
-        try
-        {
-            // create an elastic index
-            $index = new Elastica_Index($this->_client, $this->_indexName);
-            $index->create(array(), $recreate);
-
-             // create field mappings
-            require_once('include/SugarSearchEngine/Elastic/SugarSearchEngineElasticMapping.php');
-            $elasticMapping = new SugarSearchEngineElasticMapping($this);
-            $elasticMapping->setFullMapping();
-        }
-        catch(Exception $e)
-        {
+        try {
+            $this->indexStrategy->createIndex($this->_client, $modules, $this->mapper, $this->_config, $recreate);
+        } catch (Exception $e) {
             $this->reportException("Unable to create index", $e);
             $this->checkException($e);
         }
+    }
 
+    /**
+     * Checks whether the user has access to view the module being searched.
+     * @param  string $moduleName
+     * @return bool
+     */
+    protected function checkAccess($moduleName)
+    {
+        $seed = BeanFactory::newBean($moduleName);
+        return $seed->ACLAccess('ListView');
     }
 
     /**
      * Get Elastica client
-     * @return Elastica_Client
+     * @return \Elastica\Client
      */
     public function getClient()
     {
@@ -794,11 +912,92 @@ class SugarSearchEngineElastic extends SugarSearchEngineAbstractBase
     }
 
     /**
-     * Get the name of the index
+     * Set Elasttica client
+     * @param \Elastica\Client $client
+     */
+    public function setClient(\Elastica\Client $client)
+    {
+        $this->_client = $client;
+    }
+
+    /**
+     * this defines the field types that can be enabled for full text search
+     * @var array
+     */
+    protected static $ftsEnabledFieldTypes = array('name', 'user_name', 'varchar', 'decimal', 'float', 'int', 'phone', 'text', 'url', 'relate');
+
+    /**
+     *
+     * Given a field type, determine whether this type can be enabled for full text search.
+     *
+     * @param string $type Sugar field type
+     *
+     * @return boolean whether the field type can be enabled for full text search
+     */
+    public function isTypeFtsEnabled($type)
+    {
+        return in_array($type, self::$ftsEnabledFieldTypes);
+    }
+
+    /**
+     * @param array $modules
+     * @return mixed
+     */
+    protected function getReadIndices($modules = array())
+    {
+        return $this->indexStrategy->getReadIndices($this->_client, $modules);
+    }
+
+    /**
+     * Get the name of the index for reading
+     *
+     * @param arary $module array of module names for reading (optional)
      * @return string
      */
-    public function getIndexName()
+    public function getReadIndexName($moduleNames = array())
     {
-        return $this->_indexName;
+        return $this->indexStrategy->getReadIndexName($moduleNames);
+    }
+
+    /**
+     * Get the name of the index for writing
+     *
+     * @param string $module name of the module for writing (optional)
+     * @return string
+     */
+    public function getWriteIndexName($params = array())
+    {
+        return $this->indexStrategy->getWriteIndexName($params);
+    }
+
+    /**
+     * Get the name of the index for writing
+     *
+     * @param string $module name of the module for writing (optional)
+     * @return string
+     */
+    public function getAllIndexes($moduleName = '')
+    {
+        return $this->indexStrategy->getAllIndexes($moduleName);
+    }
+
+    /**
+     * Returns the Elastic module index name for a bean
+     * @param SugarBean $bean
+     * @returns string module name
+     */
+    public function getWriteIndexForBean($bean)
+    {
+        return $this->indexStrategy->getWriteIndexName(array('context' => $bean));
+    }
+
+    /**
+     * Returns the Elastic module index name for an elastic document ready to be indexed
+     * @param Elastica_Document $doc
+     * @returns string module name
+     */
+    public function getWriteIndexForElasticaDocument($doc)
+    {
+        return $this->indexStrategy->getWriteIndexName(array('context' => $doc));
     }
 }

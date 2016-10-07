@@ -1,17 +1,14 @@
 <?PHP
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('data/SugarBean.php');
 require_once('include/SugarObjects/templates/basic/Basic.php');
 require_once('include/externalAPI/ExternalAPIFactory.php');
@@ -61,7 +58,7 @@ class EAPM extends Basic {
    {
        global $current_user;
 
-       $eapmBean = new EAPM();
+       $eapmBean = BeanFactory::getBean('EAPM');
 
        if ( isset($_SESSION['EAPM'][$application]) && !$includeInactive ) {
            if ( is_array($_SESSION['EAPM'][$application]) ) {
@@ -74,8 +71,8 @@ class EAPM extends Basic {
            if ( !$includeInactive ) {
                $queryArray['validated'] = 1;
            }
-           $eapmBean = $eapmBean->retrieve_by_string_fields($queryArray, false);
-           
+           $eapmBean = $eapmBean->retrieve_by_string_fields($queryArray);
+
            // Don't cache the include inactive results
            if ( !$includeInactive ) {
                if ( $eapmBean != null ) {
@@ -88,28 +85,49 @@ class EAPM extends Basic {
        }
 
        if(isset($eapmBean->password)){
-           require_once("include/utils/encryption_utils.php");
-           $eapmBean->password = blowfishDecode(blowfishGetKey('encrypt_field'),$eapmBean->password);;
+           $eapmBean->password = $eapmBean->decrypt_after_retrieve($eapmBean->password);
        }
 
        return $eapmBean;
     }
 
-    function create_new_list_query($order_by, $where,$filter=array(),$params=array(), $show_deleted = 0,$join_type='', $return_array = false,$parentbean=null, $singleSelect = false) {
+    public function create_new_list_query(
+        $order_by,
+        $where,
+        $filter = array(),
+        $params = array(),
+        $show_deleted = 0,
+        $join_type = '',
+        $return_array = false,
+        $parentbean = null,
+        $singleSelect = false,
+        $ifListForExport = false
+    ) {
         global $current_user;
 
         if ( !is_admin($GLOBALS['current_user']) ) {
             // Restrict this so only admins can see other people's records
             $owner_where = $this->getOwnerWhere($current_user->id);
-            
+
             if(empty($where)) {
                 $where = $owner_where;
             } else {
                 $where .= ' AND '.  $owner_where;
             }
         }
-        
-        return parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted,$join_type, $return_array, $parentbean, $singleSelect);
+
+        return parent::create_new_list_query(
+            $order_by,
+            $where,
+            $filter,
+            $params,
+            $show_deleted,
+            $join_type,
+            $return_array,
+            $parentbean,
+            $singleSelect,
+            $ifListForExport
+        );
     }
 
    function save($check_notify = FALSE ) {
@@ -118,7 +136,7 @@ class EAPM extends Basic {
            $this->assigned_user_id = $GLOBALS['current_user']->id;
        }
 
-       if (!empty($this->password) && $this->password == self::$passwordPlaceholder) {
+       if (!empty($this->password) && $this->password == static::$passwordPlaceholder) {
            $this->password = empty($this->fetched_row['password']) ? '' : $this->fetched_row['password'];
        }
 
@@ -129,6 +147,9 @@ class EAPM extends Basic {
            unset($_SESSION['EAPM'][$this->application]);
        }
 
+       // Nuke the Meetings type dropdown cache
+       sugar_cache_clear('meetings_type_drop_down');
+
        return $parentRet;
    }
 
@@ -138,7 +159,7 @@ class EAPM extends Basic {
        if ( isset($_SESSION['EAPM'][$this->application]) ) {
            unset($_SESSION['EAPM'][$this->application]);
        }
-       
+
        return parent::mark_deleted($id);
    }
 

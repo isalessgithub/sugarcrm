@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
 
  * Description:  TODO: To be written.
@@ -43,12 +40,13 @@ class SessionManager extends SugarBean {
     var $table_name = "session_active";
     var $history_table_name = "session_history";
     var $object_name = "SessionManager";
+    var $module_name = 'SessionManager';
     var $module_dir = 'Administration';
     var $disable_custom_fields = true;
      var $column_fields = Array( "id", "session_id", "last_request_time");
 
-    function SessionManager() {
-        parent::SugarBean();
+    public function __construct() {
+        parent::__construct();
         $this->disable_row_level_security =true;
     }
 
@@ -91,8 +89,9 @@ class SessionManager extends SugarBean {
 
             $num = $num_users;
 
-            if(file_exists('modules/Administration/ncc_config.php')){
-                require('modules/Administration/ncc_config.php');
+            $config = SugarAutoLoader::existingCustomOne('modules/Administration/ncc_config.php');
+            if($config){
+                require $config;
                 $num = $ncc_config['value'];
             }
 
@@ -166,11 +165,11 @@ class SessionManager extends SugarBean {
      * return @string
      */
     function getTimeDiff(){
-        $admin = new Administration();
-        $admin->retrieveSettings('system');
+        $admin = Administration::getSettings('system');
 
-        $session_timeout = abs($admin->settings['system_session_timeout']);
-        if(!isset($session_timeout)){
+        if(isset($admin->settings['system_session_timeout'])){
+            $session_timeout = abs($admin->settings['system_session_timeout']);
+        } else {
             $session_timeout = abs(ini_get('session.gc_maxlifetime'));
         }
         $GLOBALS['log']->debug("System Session Timeout: ".$session_timeout);
@@ -185,8 +184,10 @@ class SessionManager extends SugarBean {
      * as defined by the license
      */
     function getNumPortalUsers(){
-        $admin = new Administration();
-        $admin->retrieveSettings('license');
+        $admin = Administration::getSettings('license');
+        if (!isset($admin->settings['license_num_portal_users'])) {
+            return 0;
+        }
         return $admin->settings['license_num_portal_users'];
     }
 
@@ -195,8 +196,7 @@ class SessionManager extends SugarBean {
      *
      */
     function getEnforcePortalUserLimit() {
-        $admin = new Administration();
-        $admin->retrieveSettings('license');
+        $admin = Administration::getSettings('license');
         return isset($admin->settings['license_enforce_portal_user_limit']) && $admin->settings['license_enforce_portal_user_limit'] == '1' ? true : false;
     }
 

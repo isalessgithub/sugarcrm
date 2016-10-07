@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/SugarSearchEngine/Interface.php');
 require_once('include/SugarSearchEngine/SugarSearchEngineMetadataHelper.php');
 
@@ -28,9 +25,9 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
     protected $_documents = array();
 
     /**
-     * The max number of documents to bulk insert at a time
+     * @var The max number of documents to bulk insert at a time
      */
-    const MAX_BULK_THRESHOLD = 100;
+    protected $max_bulk_doc_threshold = 100;
 
     /**
      * Logger to use to report problems
@@ -38,11 +35,17 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
      */
     public $logger;
 
+    /**
+     *
+     * Ctor
+     */
     public function __construct()
     {
-
+        $this->max_bulk_doc_threshold = SugarConfig::getInstance()
+            ->get('search_engine.max_bulk_doc_threshold', $this->max_bulk_doc_threshold);
         $this->logger = $GLOBALS['log'];
     }
+
     /**
      * Determine if a module is FTS enabled.
      *
@@ -52,7 +55,6 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
     protected function isModuleFtsEnabled($module)
     {
         return SugarSearchEngineMetadataHelper::isModuleFtsEnabled($module);
-
     }
 
     /**
@@ -89,9 +91,11 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
         self::markSearchEngineStatus(true);
 
         // notification
-        $cfg = new Configurator();
-        $cfg->config['fts_disable_notification'] = true;
-        $cfg->handleOverride();
+        if(empty($GLOBALS['sugar_config']['fts_disable_notification'])) {
+            $cfg = new Configurator();
+            $cfg->config['fts_disable_notification'] = true;
+            $cfg->handleOverride();
+        }
     }
 
     /**
@@ -105,22 +109,58 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
         $db = DBManagerFactory::getInstance('fts');
         $db->resetQueryCount();
 
-        foreach ($records as $rec)
-        {
-            if (empty($rec['bean_id']) || empty($rec['bean_module']))
-            {
+        foreach ($records as $rec) {
+            if (!is_array($rec) || empty($rec['bean_id']) || empty($rec['bean_module'])) {
                 $this->logger->error('Error populating fts_queue. Empty bean_id or bean_module.');
                 continue;
             }
-            $query = "INSERT INTO fts_queue (bean_id,bean_module) values ('{$rec['bean_id']}', '{$rec['bean_module']}')";
-            $db->query($query, true, "Error populating index queue for fts");
+
+            // support multiple values for 'processed'
+            $rec['processed'] = empty($rec['processed']) ? 0 : $rec['processed'];
+
+            $query = sprintf(
+                "SELECT id, processed FROM fts_queue WHERE bean_id = %s AND bean_module = %s",
+                $db->quoted($rec['bean_id']),
+                $db->quoted(BeanFactory::getBeanName($rec['bean_module']))
+            );
+
+            $res = $db->query($query, true, "Error get records from queue for fts");
+            if ($item = $db->fetchRow($res)) {
+                if ($item['processed'] != $rec['processed'] && $item['processed'] != 0) {
+                    $query = sprintf(
+                        "UPDATE fts_queue SET processed = %s, date_modified = current_timestamp WHERE id = %s",
+                        $db->quoted($rec['processed']),
+                        $db->quoted($item['id'])
+                    );
+                    $db->query($query, true, "Error update record in queue for fts");
+                }
+            } else {
+                $beanName = BeanFactory::getBeanName($rec['bean_module']);
+                if (empty($beanName)) {
+                    $GLOBALS['log']->error("Full indexer: Failed to get bean name for module: {$rec['bean_module']}");
+                    continue;
+                }
+                $query = sprintf(
+                    "INSERT INTO fts_queue (id, bean_id, bean_module, processed, date_created)
+                        values (%s, %s, %s, %s, %s)",
+                    $db->quoted(create_guid()),
+                    $db->quoted($rec['bean_id']),
+                    $db->quoted($beanName),
+                    $db->quoted($rec['processed']),
+                    $db->now()
+                );
+                $db->query($query, true, "Error populating index queue for fts");
+            }
         }
 
-        // create a cron job consumer to digest the beans
-        require_once('include/SugarSearchEngine/SugarSearchEngineSyncIndexer.php');
-        $indexer = new SugarSearchEngineSyncIndexer();
-        $indexer->removeExistingFTSSyncConsumer();
-        $indexer->createJobQueueConsumer();
+        /*
+         * The full indexer jobs should already be present when a full reindex
+         * has been scheduled earler on. Those are presistent jobs and will
+         * remain in the job queue to process new reocrds from the fts_queue.
+         *
+         * If a full indexer job is manually removed, scheduling again a full
+         * reindex will trigger restoration of the full indexer jobs where needed.
+         */
     }
 
     /**
@@ -128,10 +168,9 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
      *
      * @return Boolean
      */
-    static public function isSearchEngineDown()
+    public static function isSearchEngineDown()
     {
-        $admin = new Administration();
-        $settings = $admin->retrieveSettings();
+        $settings = Administration::getSettings();
         if (!empty($settings->settings['info_fts_down'])) {
             return true;
         }
@@ -143,36 +182,10 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
      *
      * @param Boolean $isDown
      */
-    static public function markSearchEngineStatus($isDown = true)
+    public static function markSearchEngineStatus($isDown = true)
     {
-        $admin = new Administration();
-        $admin->saveSetting('info', 'fts_down', $isDown? 1 : 0);
-    }
-
-    /**
-     * Check for current FTS server status, update config (fts_down)
-     * and return the status
-     *
-     * @return boolean - server status
-     */
-    public function updateFTSServerStatus()
-    {
-        $GLOBALS['log']->debug('Going to check and update FTS Server status.');
-
-        // Check FTS Server Status
-        $result = $this->getServerStatus();
-
-        // Update the server state
-        SugarSearchEngineAbstractBase::markSearchEngineStatus(!$result['valid']);
-
-        // Update notification flag
-        $cfg = new Configurator();
-        $cfg->config['fts_disable_notification'] = !$result['valid'];
-        $cfg->handleOverride();
-
-        $GLOBALS['log']->debug('FTS Server status set to ' . $result['status'] . '.');
-
-        return $result['valid'];
+        $admin = BeanFactory::getBean('Administration');
+        $admin->saveSetting('info', 'fts_down', $isDown? 1: 0);
     }
 
     protected function reportException($message, $e)
@@ -181,5 +194,47 @@ abstract class SugarSearchEngineAbstractBase implements SugarSearchEngineInterfa
         if($this->logger->wouldLog('error')) {
             $this->logger->error($e->getMessage());
         }
+    }
+
+    /**
+     * This function queries db to get the value of a field.
+     * @param String $fieldName field name
+     * @param String $bean SugarBean
+     * @return Mix field value
+     */
+    protected function getFieldValue($fieldName, $bean)
+    {
+        $value = null;
+
+        if (!empty($bean->table_name) && !empty($fieldName) && !empty($bean->id)) {
+            $db = DBManagerFactory::getInstance('fts');
+            $sql = "SELECT {$fieldName} from {$bean->table_name} where id = " . $db->quoted($bean->id);
+            $value = $db->getOne($sql, false, 'Error getting field value in fts');
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param SugarBean $bean
+     */
+    public function delete(SugarBean $bean)
+    {
+        $this->deleteFromQueue($bean);
+    }
+
+    /**
+     * Delete record from fts_queue table
+     *
+     * @param SugarBean $bean
+     */
+    protected function deleteFromQueue($bean)
+    {
+        $query = sprintf(
+            "DELETE FROM fts_queue WHERE bean_id = %s AND bean_module = %s",
+            $bean->db->quoted($bean->id),
+            $bean->db->quoted($bean->object_name)
+        );
+        $bean->db->query($query);
     }
 }

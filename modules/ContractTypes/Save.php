@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id$
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -27,9 +24,7 @@ require_once('include/formbase.php');
 
 
 
-$focus = new ContractType();
-
-$focus->retrieve($_POST['record']);
+$focus = BeanFactory::getBean('ContractTypes', $_POST['record']);
 if(!$focus->ACLAccess('Save')){
 	ACLController::displayNoAccess(true);
 	sugar_cleanup(true);
@@ -52,8 +47,7 @@ foreach($focus->additional_column_fields as $field) {
 }
 $return_id=$focus->save($check_notify);
 $GLOBALS['log']->debug("Saved record with id of ".$return_id);
-$location="Location: index.php?action=".$_REQUEST['return_action']."&module=".$_REQUEST['return_module']."&record=".$return_id;
-if (isset($_REQUEST['edit'])) $location.="&edit=".$_REQUEST['edit'];
-if (isset($_REQUEST['isDuplicate'])) $location.="&isDuplicate=".$_REQUEST['isDuplicate'];
-
-handleRedirect($return_id, $_REQUEST['return_module']);
+$url = buildRedirectURL($return_id, 'ContractTypes');
+if (isset($_REQUEST['edit'])) $url.="&edit=".$_REQUEST['edit'];
+if (isset($_REQUEST['isDuplicate'])) $url.="&isDuplicate=".$_REQUEST['isDuplicate'];
+SugarApplication::redirect($url);

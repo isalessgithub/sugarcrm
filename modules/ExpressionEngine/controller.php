@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once ('modules/ModuleBuilder/MB/ModuleBuilder.php') ;
 require_once ('modules/ModuleBuilder/parsers/ParserFactory.php') ;
 require_once ('modules/ExpressionEngine/formulaHelper.php');
@@ -121,16 +118,40 @@ class ExpressionEngineController extends SugarController
      * Used by the dependency manager to pre-load all the related fields required
      * to load an entire view.
      */
-    function action_getRelatedValues(){
+    public function action_getRelatedValues()
+    {
+        /** @var LoggerManager */
+        global $log;
+
+        $ret = array();
+
         if (empty($_REQUEST['tmodule']) || empty($_REQUEST['fields']))
             return;
+
         $fields = json_decode(html_entity_decode($_REQUEST['fields']), true);
+        if (!is_array($fields)) {
+            $log->fatal('"fields" is not a valid JSON string');
+            $this->display($ret);
+            return;
+        }
+
         $module = $_REQUEST['tmodule'];
         $id = empty($_REQUEST['record_id']) ? null : $_REQUEST['record_id'];
-        $focus = BeanFactory::getBean($module, $id);
-        $ret = array();
+        $focus = BeanFactory::retrieveBean($module, $id);
+
+        if (!$focus) {
+            $log->fatal('Unable to load bean');
+            $this->display($ret);
+            return;
+        }
+
         foreach($fields as $rfDef)
         {
+            if (!isset($rfDef['link'], $rfDef['type'])) {
+                $log->fatal('At least one of "link" and "type" attributes is not specified');
+                continue;
+            }
+
             $link = $rfDef['link'];
             $type = $rfDef['type'];
             if (!isset($ret[$link]))
@@ -141,6 +162,11 @@ class ExpressionEngineController extends SugarController
             switch($type){
                 //The Related function is used for pulling a sing field from a related record
                 case "related":
+                    if (!isset($rfDef['relate'])) {
+                        $log->fatal('"relate" attribute of related expression is not specified');
+                        break;
+                    }
+
                     //Default it to a blank value
                     $ret[$link]['related'][$rfDef['relate']] = "";
 
@@ -191,6 +217,11 @@ class ExpressionEngineController extends SugarController
                 case "rollupMin":
                 case "rollupMax":
                 //If we are going to calculate one rollup, calculate all the rollups since there is so little cost
+                if (!isset($rfDef['relate'])) {
+                    $log->fatal('"relate" attribute of rollup expression is not specified');
+                    break;
+                }
+
                 $rField = $rfDef['relate'];
                 if(!empty($id) && $focus->load_relationship($link))
                 {
@@ -238,8 +269,18 @@ class ExpressionEngineController extends SugarController
                 break;
             }
         }
-        echo json_encode($ret);
-        $this->view = "";
+
+        $this->display($ret);
+    }
+
+    /**
+     * Displays result and disables further rendering
+     *
+     * @param mixed $result
+     */
+    protected function display($result)
+    {
+        $this->view = '';
+        echo json_encode($result);
     }
 }
-?>

@@ -1,21 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$dictionary['SavedReport'] = array ( 'table' => 'saved_reports'
-    ,'favorites'=>true
-    , 'fields' => array (
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$dictionary['SavedReport'] = array ( 'table' => 'saved_reports',
+    'visibility' => array('ReportVisibility' => true),
+    'favorites'=>true,
+    'fields' => array (
   'id' =>
   array (
     'name' => 'id',
@@ -36,17 +34,17 @@ $dictionary['SavedReport'] = array ( 'table' => 'saved_reports'
   array (
     'name' => 'module',
     'vname' => 'LBL_MODULE',
-    'type' => 'varchar',
-    'len'=>'36',
-    'required'=>true,
+    'type' => 'enum',
+    'function' => 'getModulesDropdown',
+    'required' => true,
   ),
   'report_type' =>
   array (
   	'name' => 'report_type',
     'vname' => 'LBL_REPORT_TYPE',
-    'type' => 'varchar',
-    'len'=>'36',
-    'required'=>true,
+    'type' => 'enum',
+    'options' => 'dom_report_types',
+    'required' => true,
   ),
   'content' =>
   array (
@@ -79,13 +77,9 @@ $dictionary['SavedReport'] = array ( 'table' => 'saved_reports'
   'assigned_user_id' =>
   array (
     'name' => 'assigned_user_id',
-    'rname' => 'user_name',
-    'id_name' => 'assigned_user_id',
     'vname' => 'LBL_ASSIGNED_TO',
-    'type' => 'assigned_user_name',
-    'table' => 'users',
+      'type' => 'id',
     'isnull' => 'false',
-    'dbType' => 'id',
     'massupdate' => false,
     'reportable'=>false,
   ),
@@ -107,11 +101,13 @@ $dictionary['SavedReport'] = array ( 'table' => 'saved_reports'
     'vname' => 'LBL_ASSIGNED_TO_NAME',
     'type' => 'relate',
 	'link' => 'assigned_user_link',
+    'rname' => 'name',
     'reportable'=>false,
     'source'=>'non-db',
     'table' => 'users',
     'id_name' => 'assigned_user_id',
     'module'=>'Users',
+    'exportable'=> true,
   ),
   'assigned_user_link' =>
    array (
@@ -157,7 +153,7 @@ $dictionary['SavedReport'] = array ( 'table' => 'saved_reports'
     'dbType' => 'datetime',
 	'table' => 'report_cache',
 	'isnull' => 'true',
-	'module' => 'Report',
+	'module' => 'Reports',
 	'reportable'=>false,
 	'source' => 'non-db',
 	'massupdate' => false,
@@ -194,6 +190,8 @@ $dictionary['SavedReport'] = array ( 'table' => 'saved_reports'
 'indices' => array (
        array('name' =>'save_reportspk', 'type' =>'primary', 'fields'=>array('id')),
        array('name' =>'idx_rep_owner_module_name', 'type'=>'index', 'fields'=>array('assigned_user_id','name','deleted')),
+       array('name' => 'idx_savedreport_module', 'type' => 'index', 'fields' => array('module')),
+       array('name' => 'idx_savedreport_date_entered', 'type' => 'index', 'fields' => array('date_entered')),
 ),
 'relationships'=>array(
     /*

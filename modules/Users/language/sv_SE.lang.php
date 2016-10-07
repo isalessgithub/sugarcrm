@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ett objektnummer måste specificeras för att kunna radera organisationen.',
@@ -62,6 +59,8 @@ $mod_strings = array (
   'LBL_ADDRESS_POSTALCODE' => 'Adress postnummer',
   'LBL_ADDRESS_STATE' => 'Adress stat',
   'LBL_ADDRESS_STREET' => 'Adress gata',
+  'LBL_ADDRESS_STREET_2' => 'Adress gata 2',
+  'LBL_ADDRESS_STREET_3' => 'Adress gata 3',
   'LBL_ADMIN' => 'Administratör',
   'LBL_ADMIN_DESC' => 'Användare kan komma åt administrations sidan för alla poster, oavsett team säkerheten.',
   'LBL_ADMIN_USER' => 'Administratörsanvändare',
@@ -98,6 +97,8 @@ $mod_strings = array (
   'LBL_CREATED_BY_NAME' => 'Skapad av',
   'LBL_CURRENCY' => 'Valuta',
   'LBL_CURRENCY_EXAMPLE' => 'Visa valuta exempel',
+  'LBL_CURRENCY_SHOW_PREFERRED' => 'Visa föredragna valuta',
+  'LBL_CURRENCY_SHOW_PREFERRED_TEXT' => 'Konvertera basvaluta till användars föredragna i listan och post visningar',
   'LBL_CURRENCY_SIG_DIGITS' => 'Signifikanta Siffror för Valuta',
   'LBL_CURRENCY_SIG_DIGITS_DESC' => 'Antal decimaler att visa för Valuta',
   'LBL_CURRENCY_TEXT' => 'Välj en standard valuta',
@@ -127,6 +128,7 @@ $mod_strings = array (
   'LBL_EDIT_TABS' => 'Redigera flikar',
   'LBL_EMAIL' => 'Epostadress',
   'LBL_EMAILS' => 'Eposts',
+  'LBL_EMAIL_ADDRESS' => 'Epostadress',
   'LBL_EMAIL_CHARSET' => 'Utgående teckenuppsättning',
   'LBL_EMAIL_EDITOR_OPTION' => 'Skapande format',
   'LBL_EMAIL_GMAIL_DEFAULTS' => 'Fyll i Gmail inställningar',
@@ -159,12 +161,15 @@ $mod_strings = array (
   'LBL_FAX_PHONE' => 'Fax',
   'LBL_FDOW' => 'Första Dagen av Veckan',
   'LBL_FDOW_TEXT' => 'Första Dagen visas i Vecko, Månad och Års vyer',
+  'LBL_FILTER_USERS_REPORTS' => 'Användarnas rapporter',
   'LBL_FIND_OPTIMUM_KEY' => 'f',
   'LBL_FIND_OPTIMUM_MSG' => '<br>Söker optimala anslutningsvärden',
   'LBL_FIND_OPTIMUM_TITLE' => 'Sök optimal konfiguration',
   'LBL_FIRST_NAME' => 'Förnamn',
   'LBL_FORCE' => 'Tvinga Negativ',
   'LBL_FORCE_DESC' => 'Vissa IMAP/POP3 servrar kräver speciella parametrar. Kryssa i för att tvinga negativ parameter vid uppkoppling (/notls)',
+  'LBL_FORECASTS' => 'Prognoser',
+  'LBL_FORGOTPASSORD_NOT_ENABLED' => 'Detta är för närvarande inte aktiverat. Kontakta administratören.',
   'LBL_FOUND_OPTIMUM_MSG' => '<br>Hittade optimala inställningar. Klicka på knappen nedan för att applicera dem på din Inkorg.',
   'LBL_GENERATE_PASSWORD' => 'Återställ lösenord',
   'LBL_GENERATE_PASSWORD_BUTTON_KEY' => 'G',
@@ -267,11 +272,11 @@ $mod_strings = array (
   'LBL_MODIFIED_BY_ID' => 'Ändrad av ID',
   'LBL_MODIFIED_USER_ID' => 'Ändrad Användar ID',
   'LBL_MODULE_NAME' => 'Användare',
+  'LBL_MODULE_NAME_SINGULAR' => 'Användare',
   'LBL_MODULE_TITLE' => 'Användare:Hem',
   'LBL_MY_TEAMS' => 'Mina team',
   'LBL_NAME' => 'Hela namnet',
   'LBL_NAVIGATION_PARADIGM' => 'Navigering',
-  'LBL_NAVIGATION_PARADIGM_DESCRIPTION' => 'Visa moduler grupperade under flikkategorier eller visa moduler som separata flikar för varje modul.',
   'LBL_NEW_FORM_TITLE' => 'Ny användare',
   'LBL_NEW_PASSWORD' => 'Nytt lösenord',
   'LBL_NEW_PASSWORD1' => 'Lösenord',
@@ -358,6 +363,7 @@ $mod_strings = array (
   'LBL_PROVIDE_USERNAME_AND_EMAIL' => 'Ange både användarnamn och en epostadress.',
   'LBL_PSW_MODIFIED' => 'lösenord senast ändrat',
   'LBL_PUBLISH_KEY' => 'Publicerings nyckel',
+  'LBL_QUOTAS' => 'Offerter',
   'LBL_REASS_ASSESSING' => 'Uppskatta',
   'LBL_REASS_BUTTON_CLEAR' => 'Rensa',
   'LBL_REASS_BUTTON_CONTINUE' => 'Fortsätt',
@@ -431,9 +437,6 @@ $mod_strings = array (
   'LBL_REPORTS_TO_NAME' => 'Rapporterar till',
   'LBL_REQUEST_SUBMIT' => 'Din begäran har skickats.',
   'LBL_RESET_DASHBOARD' => 'Återställ till standard dashboards',
-  'LBL_RESET_HOMEPAGE' => 'Återställ till standard hemsidan',
-  'LBL_RESET_HOMEPAGE_WARNING' => 'Är du säker på att du vill återställa din hemsida?',
-  'LBL_RESET_HOMEPAGE_WARNING_USER' => 'Är du säker på att du vill återställa hemsidan för denna användare?',
   'LBL_RESET_PREFERENCES' => 'Återställ till standardvärden',
   'LBL_RESET_PREFERENCES_WARNING' => 'Är du säker på att du vill återställa alla inställningar?',
   'LBL_RESET_PREFERENCES_WARNING_USER' => 'Är du säger på att du vill återställa alla egenskaper för denna användare?',
@@ -468,8 +471,6 @@ $mod_strings = array (
   'LBL_STATUS' => 'Status',
   'LBL_SUBPANEL_LINKS' => 'Subpanel länkar',
   'LBL_SUBPANEL_LINKS_DESCRIPTION' => 'I detaljerad vy, visa en rad med länkar med genvägar till subpaneler.',
-  'LBL_SUBPANEL_TABS' => 'Subpanelsflikar',
-  'LBL_SUBPANEL_TABS_DESCRIPTION' => 'I detaljerad vy, gruppera subpanelerna till flikar och visa en flik åt gången.',
   'LBL_SUGAR_LOGIN' => 'Är Sugar användare',
   'LBL_SUPPORTED_THEME_ONLY' => 'Påverkas endast av teman som supportar detta alternativ.',
   'LBL_SWAP_LAST_VIEWED_DESCRIPTION' => 'Visa senast visade-menyn på sidan om ikryssad. Annars visas den högst upp.',
@@ -477,6 +478,8 @@ $mod_strings = array (
   'LBL_SWAP_SHORTCUT_DESCRIPTION' => 'Visar genvägsmenyn högst upp om ikryssad. Annars visas den på sidan.',
   'LBL_SWAP_SHORTCUT_POSITION' => 'Genvägar högst upp',
   'LBL_SYSTEM_GENERATED_PASSWORD' => 'Systemgenererat lösenord',
+  'LBL_SYSTEM_SIG_DIGITS' => 'System Antal Decimaler',
+  'LBL_SYSTEM_SIG_DIGITS_DESC' => 'Antal decimaler att visa i systemet, såsom valutafält och genomsnittliga värden i Rapporter.',
   'LBL_TAB_TITLE_EMAIL' => 'Epost inställningar',
   'LBL_TAB_TITLE_USER' => 'Användarinställningar',
   'LBL_TEAMS' => 'Team',
@@ -555,6 +558,7 @@ $mod_strings = array (
   'LBL_WIZARD_WELCOME_NOSMTP' => 'Klicka på <b>Nästa</b> för att konfigurera grundinställningarna i Sugar.',
   'LBL_WIZARD_WELCOME_TAB' => 'Välkommen',
   'LBL_WIZARD_WELCOME_TITLE' => 'Välkommen till Sugar!',
+  'LBL_WORKSHEETS' => 'Arbetsark',
   'LBL_WORK_PHONE' => 'Kontorstelefon',
   'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail Lösenord',
   'LBL_YAHOOMAIL_SMTPUSER' => 'Yahoo! Mail ID',

@@ -1,20 +1,18 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 $vardefs = array(
-'fields' => array(
+  'visibility' => array('TeamSecurity' => true),
+  'fields' => array(
 	'team_id' =>
 		array (
 			'name' => 'team_id',
@@ -27,7 +25,8 @@ $vardefs = array(
 			/*
 			'source' => 'non-db',
 			*/
-			'comment' => 'Team ID for the account'
+            'duplicate_on_record_copy' => 'always',
+            'comment' => 'Team ID for the account'
 		),
 		'team_set_id' =>
 		array (
@@ -39,7 +38,9 @@ $vardefs = array(
 		    'audited' => true,
 		    'studio' => 'false',
 			'dbType' => 'id',
-		),
+            'duplicate_on_record_copy' => 'always',
+            'full_text_search' => array('enabled' => true),
+        ),
 		'team_count' =>
 		array (
 			'name' => 'team_count',
@@ -60,14 +61,15 @@ $vardefs = array(
 			'importable' => 'false',
 			'reportable'=>false,
 		    'duplicate_merge' => 'disabled',
-			'studio' => 'false',
+            'duplicate_on_record_copy' => 'always',
+            'studio' => 'false',
 		    'hideacl' => true,
 		),
 		'team_name' =>
 		array (
 			'name' => 'team_name',
 			'db_concat_fields'=> array(0=>'name', 1=>'name_2'),
-		    'sort_on' => 'team_name',
+		    'sort_on' => 'tj.name',
 		    'join_name' => 'tj',
 			'rname' => 'name',
 			'id_name' => 'team_id',
@@ -78,25 +80,32 @@ $vardefs = array(
 			'isnull' => 'true',
 			'module' => 'Teams',
 			'link' => 'team_link',
-			'massupdate' => false,
+			'massupdate' => true,
 			'dbType' => 'varchar',
 			'source' => 'non-db',
 			'len' => 36,
 			'custom_type' => 'teamset',
-		),
-		'team_link' => 
+            'studio' => array(
+                   // Bug 56832 - Exclude list/detail/edit view from portal
+                   'portallistview' => false,
+                   'portalrecordview' => false,
+               ), // don't show in studio fields list
+            'duplicate_on_record_copy' => 'always',
+            'exportable'=>true,
+        ),
+		'team_link' =>
 	    array (
 	      'name' => 'team_link',
 	      'type' => 'link',
 	      'relationship' => strtolower($module). '_team',
-	      'vname' => 'LBL_DEFAULT_PRIMARY_TEAM',
+	      'vname' => 'LBL_TEAMS_LINK',
 	      'link_type' => 'one',
 	      'module' => 'Teams',
 	      'bean_name' => 'Team',
 	      'source' => 'non-db',
 	      'duplicate_merge' => 'disabled',
 	      'studio' => 'false',
-	    ),
+        ),
 	    'team_count_link' =>
   			array (
   			'name' => 'team_count_link',
@@ -109,7 +118,7 @@ $vardefs = array(
 		    'duplicate_merge' => 'disabled',
   			'reportable'=>false,
   			'studio' => 'false',
-  		),
+            ),
   		'teams' =>
 		array (
 		'name' => 'teams',
@@ -123,24 +132,17 @@ $vardefs = array(
 		'link_file' => 'modules/Teams/TeamSetLink.php',
 		'studio' => 'false',
 		'reportable'=>false,
-	),
-    'team_sets' => array(
-        'name' => 'team_sets',
-        'type' => 'link',
-        'relationship' => strtolower($module) . '_team_sets',
-        'source' => 'non-db',
-        'vname' => 'LBL_TEAM_SET',
-    ),
-), 
+        ),
+),
 
 'relationships'=>array(
 	strtolower($module).'_team_count_relationship' =>
 		 array(
 		 	'lhs_module'=> 'Teams',
-		 	'lhs_table'=> 'team_sets', 
+		 	'lhs_table'=> 'team_sets',
 		 	'lhs_key' => 'id',
-    		'rhs_module'=> $module, 
-    		'rhs_table'=> $table_name, 
+    		'rhs_module'=> $module,
+    		'rhs_table'=> $table_name,
     		'rhs_key' => 'team_set_id',
    			'relationship_type'=>'one-to-many'
 		 ),
@@ -161,24 +163,11 @@ $vardefs = array(
    array('lhs_module'=> 'Teams', 'lhs_table'=> 'teams', 'lhs_key' => 'id',
     'rhs_module'=> $module, 'rhs_table'=> $table_name, 'rhs_key' => 'team_id',
    'relationship_type'=>'one-to-many'),
-
-    strtolower($module) . '_team_sets' => array (
-        'lhs_module'        => 'Teams',
-        'lhs_table'         => 'teams',
-        'lhs_key'           => 'id',
-        'rhs_module'        => $module,
-        'rhs_table'         => $table_name,
-        'rhs_key'           => 'team_set_id',
-        'relationship_type' => 'many-to-many',
-        'join_table'        => 'team_sets_teams',
-        'join_key_lhs'      => 'team_id',
-        'join_key_rhs'      => 'team_set_id',
-    ),
 ),
 'indices' => array(
-		array(
+		'team_set_'.strtolower($table_name) => array(
 			'name' => 'idx_'.strtolower($table_name).'_tmst_id',
-			'type' => 'index', 
+			'type' => 'index',
 			'fields' => array('team_set_id')
 		),
 	)

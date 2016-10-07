@@ -2,24 +2,22 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Kliensek',
   'LBL_ASSIGNED_TO' => 'Felelős',
+  'LBL_CAMPAIGNS_SUBPANEL_TITLE' => 'Kampányok',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Kapcsolatok',
   'LBL_COPY_PREFIX' => 'Másolata',
   'LBL_CREATED' => 'Létrehozta',
@@ -32,6 +30,9 @@ $mod_strings = array (
   'LBL_DOMAIN' => 'Nincsenek emailek a domainhez',
   'LBL_DOMAIN_NAME' => 'Domain név',
   'LBL_ENTRIES' => 'Összes bejegyzés',
+  'LBL_HELP_CREATE' => 'A {{module_name}} modul olyan személyeket és szervezeteket listáz, akiket meg lehet célozni marketing kampánnyal ({{campaigns_singular_module}}). {{module_name}} létrehozásához: 1. töltse ki a mezőket! A kötelező mezők kitöltése nélkül mentés nem lehetséges. Ha Önnek hiányzó mezőt talál, kattintson a "Több mutatása" opcióra a ráadás mezők felfedéséhez! 2. Kattintson a "Mentés" gombra a rekord mentéséhez és a korábbi nézetre való visszatéréshez! Amennyiben a "Mentés és megjelenítés" opciót választja, a {{module_name}} rekordnézetben fog megjelenni. A "Mentés és új létrehozása"  paranccsal közvetlen új {{module_name}} létrehozatali oldalára továbbítódik. 3. Mentés után az alpanelek segítségével jelölje ki a címzetteket.',
+  'LBL_HELP_RECORD' => 'A {{module_name}} modul olyan személyeket és szervezeteket listáz, akiket meg lehet célozni marketing kampánnyal ({{campaigns_singular_module}}). - Szerkessze ennek a rekordnak a mezőit külön-külön, vagy kattintson a Szerkesztés gombra! Tekintse meg, vagy szerkessze a linkeket a bal alsó "Adatnézet" kapcsoló használatával! Olvassa el, vagy írjon felhasználói hozzászólásokat a "Tevékenységfolyam" opcióval! A rekord neve mellett található ikonok segítségével jelölje be kedvencének a tartalmat, vagy kövesse annak utóéletét! Egyéb tevékenységek a Szerkesztés gombtól jobbra szereplő műveleti gomb legördülő menüjében találhatók.',
+  'LBL_HELP_RECORDS' => 'A {{module_name}} modul olyan személyeket és szervezeteket listáz, akiket meg lehet célozni marketing kampánnyal ({{campaigns_singular_module}}). A modul jelölteket, kapcsolatokat ({{contacts_module}}), leadeket ({{leads_module}}) és klienseket ({{accounts_module}}) tartalmaz, akiket igény szerint csoportosít a rendszer, pl. életkor, földrajzi elhelyezkedés, vagy költési szokások alapján. Az email marketing kampányokat a {{campaigns_module}} modulban lehet konfigurálni.',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Ajánlások',
   'LBL_LIST_DESCRIPTION' => 'Leírás',
   'LBL_LIST_END_DATE' => 'Befejezés dátuma',

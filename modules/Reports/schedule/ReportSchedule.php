@@ -1,24 +1,22 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
 class ReportSchedule{
 
 var $table_name='report_schedules';
+    /** @var DBManager */
 var $db;
 function ReportSchedule(){
 	$this->db = DBManagerFactory::getInstance();
@@ -39,9 +37,14 @@ function drop_tables ()
 
 function save_schedule($id, $user_id, $report_id, $date_start, $interval, $active, $schedule_type){
 	global $timedate;
-	$time = time();
 	$origDateStart = $date_start;
-	$date_start_str = "";
+    $date_modified = $timedate->nowDb();
+    if (strlen(trim($origDateStart)) == 0) {
+        $date_start_str = 'NULL';
+    } else {
+        $date_start_str = $this->db->quoted($origDateStart);
+    }
+
 	if(empty($id))
 	{
 		$id = create_guid();
@@ -49,29 +52,43 @@ function save_schedule($id, $user_id, $report_id, $date_start, $interval, $activ
 		if( empty($date_start) )
 		    $date_start = $timedate->nowDb();
 
-        $next_run_date = $this->getNextRunDate($date_start, $interval);
+        $next_run_date = $this->getNextRunDate($date_start, 0);
 
-	    if(strlen(trim($origDateStart))==0)
-	        $date_start_str = " NULL ";
-	    else
-	        $date_start_str = " '$origDateStart' ";
-
-		$query = "INSERT INTO $this->table_name (id, user_id, report_id, date_start,next_run, time_interval, active, schedule_type) VALUES ('$id', '$user_id', '$report_id', $date_start_str , '$next_run_date', '$interval', '$active', '$schedule_type')";
+        $query = <<<QUERY
+INSERT INTO {$this->table_name} (
+    id, user_id, report_id, date_start, next_run, time_interval, active, date_modified, schedule_type
+)
+VALUES (
+    {$this->db->quoted($id)},
+    {$this->db->quoted($user_id)},
+    {$this->db->quoted($report_id)},
+    $date_start_str,
+    {$this->db->quoted($next_run_date)},
+    {$this->db->quoted($interval)},
+    {$this->db->quoted($active)},
+    {$this->db->quoted($date_modified)},
+    {$this->db->quoted($schedule_type)}
+)
+QUERY;
 	}
 	else
 	{
-	    if(strlen(trim($origDateStart))==0)
-	       $date_start_str = " date_start = NULL, ";
-	    else
-	       $date_start_str = " date_start = '$origDateStart', ";
-
-		$query = "UPDATE $this->table_name  SET time_interval=$interval, ".$date_start_str." active=$active, schedule_type='".$schedule_type."'";
+        $query = <<<QUERY
+UPDATE
+    $this->table_name
+SET
+    time_interval = {$this->db->quoted($interval)},
+    date_start = $date_start_str,
+    active = {$this->db->quoted($active)},
+    date_modified = {$this->db->quoted($date_modified)},
+    schedule_type = {$this->db->quoted($schedule_type)}
+QUERY;
 		if(!empty($date_start) && $active)
 		{
 		    $next_run_date = $this->getNextRunDate($date_start, $interval);
-			$query .= ", next_run='$next_run_date'";
+            $query .= ", next_run = " . $this->db->quoted($next_run_date);
 		}
-		$query .= " WHERE id='$id'";
+        $query .= " WHERE id = " . $this->db->quoted($id);
 	}
 	$this->db->query($query, true, "error saving schedule");
 
@@ -154,6 +171,81 @@ function get_report_schedule($report_id){
 	return $return_array;
 }
 
+    /**
+     * Handles failed reports by deactivating them and sending email notifications to owner and subscribed user
+     */
+    public function handleFailedReports()
+    {
+        /** @var LoggerManager */
+        global $log;
+
+        $schedules_to_deactivate = $this->getSchedulesToDeactivate();
+        foreach ($schedules_to_deactivate as $schedule) {
+            $log->info('Deactivating report schedule ' . $schedule['id']);
+            $this->deactivate($schedule['id']);
+
+            $owner = BeanFactory::retrieveBean('Users', $schedule['owner_id']);
+            $subscriber = BeanFactory::retrieveBean('Users', $schedule['subscriber_id']);
+
+            require_once 'modules/Reports/utils.php';
+            $utils = new ReportsUtilities();
+            $utils->sendNotificationOfDisabledReport($schedule['report_id'], $owner, $subscriber);
+        }
+    }
+
+    /**
+     * Finds scheduled reports to be deactivated due to previous failure
+     *
+     * @return array
+     */
+    protected function getSchedulesToDeactivate()
+    {
+        $failure = SchedulersJob::JOB_FAILURE;
+
+        $query = <<<QUERY
+SELECT
+    rs.id,
+    rs.report_id,
+    r.assigned_user_id owner_id,
+    rs.user_id subscriber_id
+FROM
+    $this->table_name rs
+    INNER JOIN (
+        SELECT jq.job_group report_id, jq.execute_time
+        FROM job_queue jq
+        INNER JOIN (
+            SELECT
+                max(execute_time) mt,
+                job_group
+            FROM job_queue
+            WHERE target = 'class::SugarJobSendScheduledReport'
+            GROUP BY job_group
+        ) last
+        ON last.mt = jq.execute_time AND last.job_group = jq.job_group
+        WHERE resolution = '{$failure}'
+    ) j
+    ON j.report_id = rs.report_id AND j.execute_time > rs.date_modified
+        INNER JOIN saved_reports r
+        ON r.id = rs.report_id
+            INNER JOIN users u
+            ON u.id = rs.user_id
+WHERE
+    r.deleted = 0
+        AND rs.deleted = 0
+        AND rs.active = 1
+        AND u.status = 'Active'
+        AND u.deleted = 0
+QUERY;
+
+        $reports = array();
+        $result = $this->db->query($query);
+        while ($row = $this->db->fetchByAssoc($result)) {
+            $reports[] = $row;
+        }
+
+        return $reports;
+    }
+
 function get_reports_to_email($user_id= '', $schedule_type="pro"){
     global $timedate;
 	$where = '';
@@ -220,6 +312,17 @@ function update_next_run_time($schedule_id, $next_run, $interval){
 
 }
 
+    /**
+     * Deactivates the given schedule
+     *
+     * @param string $id Schedule ID
+     */
+    public function deactivate($id)
+    {
+        $query = "UPDATE $this->table_name SET active = 0 WHERE id = " . $this->db->quoted($id);
+        $this->db->query($query);
+    }
+
 function mark_deleted($id){
     $query = "UPDATE {$this->table_name} SET deleted = '1' WHERE id = '{$id}'";
     $GLOBALS['db']->query($query);
@@ -245,5 +348,22 @@ function mark_deleted($id){
         return !empty($scheduler);
     }
 
+    /**
+     * Returns report schedule properties
+     *
+     * @param string $id Report schedule ID
+     *
+     * @return array
+     */
+    public function getInfo($id)
+    {
+        $query = "SELECT report_id, next_run, time_interval
+        FROM {$this->table_name}
+        WHERE id = " . $this->db->quoted($id);
+        $result = $this->db->query($query);
+        $row = $this->db->fetchByAssoc($result);
+        $row = $this->fromConvertReportScheduleDBRow($row);
+
+        return $row;
+    }
 }
-?>

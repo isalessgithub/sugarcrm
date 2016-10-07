@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 ?>
 <form action='index.php' method="POST">
 <input type='hidden' name='action' value='updateTimezonePrefs'>
@@ -19,6 +16,7 @@
 
 <table>
 <?php
+global $mod_strings;
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $prompt_users = 'checked';
 if(isset($_POST['preview']) && !isset($_POST['prompt_users'])){
@@ -40,9 +38,9 @@ while ($row = $db->fetchByAssoc($result)) {
 		$adjustment = $_POST[$row['id'].'adjust'];
 	}
 	
-		$string = "Preview";
-		if($execute)$string = "Updating";
-        echo "<tr><td> $string timezone preferences for user <b>{$row['user_name']}</b>...</td><td>";
+		$string = $mod_strings['LBL_UPDATE_TIMEZONE_PREVIEW'];
+		if($execute)$string = $mod_strings['LBL_UPDATE_TIMEZONE_UPDATE'];
+        echo "<tr><td> $string ".$mod_strings['LBL_UPDATE_TIMEZONE_PRE_USER']." <b>{$row['user_name']}</b>...</td><td>";
 		
         
         $prefs = array();
@@ -110,7 +108,7 @@ while ($row = $db->fetchByAssoc($result)) {
 		}
         echo "</td><td>";
         if(!empty($setTo)){
-        	echo "Adjust: ";
+        	echo $mod_strings['LBL_UPDATE_TIMEZONE_ADJUST'].": ";
         if($execute){
 			if(isset($_POST[$row['id'].'adjust'])){
 				echo  $adjustment;
@@ -122,7 +120,7 @@ while ($row = $db->fetchByAssoc($result)) {
 			echo '</select>';
 
 		}
-		echo ' hour';
+		echo ' '.$mod_strings['LBL_UPDATE_TIMEZONE_HOUR'];
         }
 		echo ' </td><td>';
         echo "</tr>";
@@ -138,10 +136,10 @@ while ($row = $db->fetchByAssoc($result)) {
 echo "</table>";
 
 if($execute){
-	echo "<br>All timezone preferences updated!<br><br>";
+	echo "<br>".$mod_strings['LBL_UPDATE_TIMEZONE_UPDATED']."!<br><br>";
 	
 }else{
-	echo "Prompt users on login to confirm:<input type='checkbox' name='prompt_users' value='1' $prompt_users><br>";
+	echo $mod_strings['LBL_UPDATE_TIMEZONE_PROMPT_USERS_CONFIRM'].":<input type='checkbox' name='prompt_users' value='1' $prompt_users><br>";
 	echo "<input class='button' type='submit' name='execute' value='Execute'>&nbsp; <input class='button' type='submit' name='preview' value='Preview'>";
 	
 }

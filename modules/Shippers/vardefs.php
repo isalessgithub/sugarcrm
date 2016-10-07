@@ -1,20 +1,19 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-$dictionary['Shipper'] = array('table' => 'shippers'
-                               ,'fields' => array (
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+$dictionary['Shipper'] = array(
+  'table' => 'shippers',
+  'favorites' => false,
+  'fields' => array (
   'id' =>
   array (
     'name' => 'id',
@@ -87,6 +86,28 @@ $dictionary['Shipper'] = array('table' => 'shippers'
     'len' => '4',
     'importable' => 'required',
   ),
+  'default_cost' =>
+  array (
+      'name' => 'default_cost',
+      'vname' => 'LBL_DEFAULT_COST',
+      'type' => 'currency',
+      'len' => '26,6',
+      'audited'=>true,
+      'comment' => 'Default cost (Shown)',
+      ),
+  'default_cost_usdollar' =>
+  array (
+      'name' => 'default_cost_usdollar',
+      'vname' => 'LBL_DEFAULT_COST_USDOLLAR',
+      'type' => 'decimal',
+      'len' => '26,6',
+      'studio' => array(
+        'editview' => false,
+        'mobile' => false,
+      ),
+      'readonly' => true,
+      'is_base_currency' => true,
+  ),
   'status' =>
   array (
     'name' => 'status',
@@ -105,8 +126,9 @@ $dictionary['Shipper'] = array('table' => 'shippers'
     	'vname' => 'LBL_QUOTES',
     	'source'=>'non-db',
   ),
-)
-                                                      , 'indices' => array (
+),
+'acls' => array('SugarACLDeveloperOrAdmin' => array('aclModule' => 'Products', 'allowUserRead' => true)),
+'indices' => array (
        array('name' =>'shipperspk', 'type' =>'primary', 'fields'=>array('id')),
        array('name' =>'idx_shippers', 'type'=>'index', 'fields'=>array('name','deleted')),
                                                       )

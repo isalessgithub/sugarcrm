@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEFAULT_CHARSET' => 'UTF-8',
@@ -31,6 +28,7 @@ $mod_strings = array (
   'ERR_ADMIN_PASS_BLANK' => 'SugarCRM管理者のパスワードを入力してください。',
   'ERR_ADMIN_USER_NAME_BLANK' => 'SugarCRM管理者のユーザIDを入力してください。',
   'ERR_CHECKSYS' => '整合性チェックの際にエラーが検出されました。SugarCRMを正常に動作させるため、以下にリストされた問題を解決し、再チェックボタンをクリックするか、インストールをやり直してください。',
+  'ERR_CHECKSYS_BCMATH' => 'BCMATHサポートは見つかりません: SugarCRMは任意精度演算のためにBCMATHサポートが必要です。',
   'ERR_CHECKSYS_CALL_TIME' => 'Allow Call Time Pass ReferenceがOnになっています（php.iniでOffに設定してください）',
   'ERR_CHECKSYS_CONFIG_NOT_WRITABLE' => 'configファイルは存在しますが、書き込みできません。ファイルに書き込み権限を与えてください。OSに拠りますが、chmod 766などのパーミッションを変更するコマンドを実行したり、当該ファイルのプロパティで読み取り専用のチェックをはずす必要があります。',
   'ERR_CHECKSYS_CONFIG_OVERRIDE_NOT_WRITABLE' => 'config overrideファイルは存在しますが、書き込みできません。ファイルに書き込み権限を与えてください。OSに拠りますが、chmod 766などのパーミッションを変更するコマンドを実行したり、当該ファイルのプロパティで読み取り専用のチェックをはずす必要があります。',
@@ -39,6 +37,7 @@ $mod_strings = array (
   'ERR_CHECKSYS_FASTCGI' => 'PHP用のFastCGIマッピングが使用されていません。SugarCRMがサポートするバージョンをインストールし設定する必要があります。サポートされるバージョンについてはリリースノートなどのサポートプラットフォーム一覧を参照ください。詳細については<a href="http://www.iis.net/php/" target="_blank">http://www.iis.net/php/</a>をご覧ください。',
   'ERR_CHECKSYS_FASTCGI_LOGGING' => 'IIS/FastCGI SAPIを適切に使用するためには、php.iniファイルで fastcgi.logging を 0 に設定してください。',
   'ERR_CHECKSYS_FILES_NOT_WRITABLE' => '以下にリストされたディレクトリまたはファイルは書き込み権限がないか存在しないか作成できません。書き込みが可能になるように処理をしてください。OSに拠りますが、chmod 766などのパーミッションを変更するコマンドを実行したり、当該ファイルのプロパティで読み取り専用のチェックをはずす必要があります。',
+  'ERR_CHECKSYS_HTACCESS' => '.htaccessの再書き込みテストに失敗しました。これは通常SugarディレクトリのためのAllowOverride設定が無いことを意味します。',
   'ERR_CHECKSYS_IIS_INVALID_VER' => 'このIISのバージョンはサポートされません。SugarCRMがサポートするバージョンをインストールしてください。サポートされるISSバージョンについてはリリースノートなどのサポートプラットフォーム一覧を参照ください。このIISバージョンは',
   'ERR_CHECKSYS_IMAP' => '見つかりません: インバウンドメールとキャンペーンメールを利用するためにはIMAPライブラリが必要です。この２つは動作しません。',
   'ERR_CHECKSYS_MBSTRING' => 'マルチバイトストリングをサポートするエクステンション（mbstring）が見つかりません。エクステンションがインストールされていないか、PHPがコンパイルされる際にmbstringモジュールが有効になっていない可能性があります。mbstringを有効にする方法についてはPHPのマニュアルを参照ください。',
@@ -50,8 +49,6 @@ $mod_strings = array (
   'ERR_CHECKSYS_NOT_VALID_DIR' => '正しいディレクトリではありません',
   'ERR_CHECKSYS_NOT_WRITABLE' => '警告: 書き込み不可',
   'ERR_CHECKSYS_NO_SESSIONS' => 'セッション変数の読み込みと書き込みに失敗しました。インストールを続けることができません。',
-  'ERR_CHECKSYS_PCRE' => 'PCREライブラリが見つかりません:SugerCRMは正規表現パターンマッチングのPerlスタイルを処理するためにPCREライブラリが必要です。',
-  'ERR_CHECKSYS_PCRE_VER' => 'PCREライブラリバージョン:SugerCRMは正規表現パターンマッチングのPerlスタイルを処理するためにPCREライブラリ7.0以上が必要です。',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'このPHPのバージョンはサポートされません。SugarCRMがサポートするバージョンをインストールしてください。リリースノートなどのサポートプラットフォーム一覧を参照ください。このPHPのバージョンは',
   'ERR_CHECKSYS_PHP_UNSUPPORTED' => 'このPHPのバージョンはサポート外です:  ( ver',
   'ERR_CHECKSYS_SAFE_MODE' => 'Safe ModeがOnになっています（php.iniでOffに設定することができます）',
@@ -132,6 +129,7 @@ $mod_strings = array (
   'LBL_BASIC_TYPE' => '基本タイプ',
   'LBL_CANCEL' => 'キャンセル',
   'LBL_CHECKSYS_1' => '正しくSugarCRMをインストールするために以下のチェック項目がすべて緑になっているかどうかを確認してください。赤い項目がある場合は設定を修正してください。',
+  'LBL_CHECKSYS_BCMATH' => '任意精度演算モジュール',
   'LBL_CHECKSYS_CACHE' => 'Cacheサブディレクトリへの書き込み',
   'LBL_CHECKSYS_CALL_TIME' => 'PHPのAllow Call Time Pass ReferenceをOffに設定',
   'LBL_CHECKSYS_COMPONENT' => 'コンポーネント',
@@ -145,6 +143,7 @@ $mod_strings = array (
   'LBL_CHECKSYS_FASTCGI' => 'FastCGI',
   'LBL_CHECKSYS_FIX_FILES' => '進める前に以下のファイルやディレクトリを確定してください:',
   'LBL_CHECKSYS_FIX_MODULE_FILES' => '処理を進める前に、以下のモジュール内のディレクトリとファイルの問題を修正してください。:',
+  'LBL_CHECKSYS_HTACCESS' => '.htaccessのためのAllowOverride設定',
   'LBL_CHECKSYS_IISVER' => 'IISバージョン',
   'LBL_CHECKSYS_IMAP' => 'IMAPモジュール',
   'LBL_CHECKSYS_MBSTRING' => 'MB Stringsモジュール',
@@ -156,7 +155,6 @@ $mod_strings = array (
   'LBL_CHECKSYS_MYSQL_VERSION' => 'MySQLバージョン',
   'LBL_CHECKSYS_NOT_AVAILABLE' => '問題あり',
   'LBL_CHECKSYS_OK' => 'OK',
-  'LBL_CHECKSYS_PCRE' => 'PCREライブラリ',
   'LBL_CHECKSYS_PHPVER' => 'PHPバージョン',
   'LBL_CHECKSYS_PHP_INI' => '<b>備考: </b> PHP設定ファイル (php.ini) は以下の場所にあります:',
   'LBL_CHECKSYS_PHP_OK' => 'OK (ver',
@@ -238,6 +236,7 @@ $mod_strings = array (
   'LBL_FTS_INSTALLED_ERR1' => 'フルテキスト検索がインストールされていません。',
   'LBL_FTS_INSTALLED_ERR2' => 'インストールは可能ですが、フルテキスト検索は機能しません。どのように設定するかわからない場合はデータベースのインストールガイドを参照するか、管理者に確認してください。',
   'LBL_FTS_PORT' => 'ポート',
+  'LBL_FTS_REQUIRED' => 'Elastic Searchが必要です。',
   'LBL_FTS_TABLE_TITLE' => 'フルテキスト検索設定の入力',
   'LBL_FTS_TYPE' => '検索エンジンタイプ',
   'LBL_HELP' => 'ヘルプ',
@@ -301,8 +300,8 @@ $mod_strings = array (
   'LBL_LOCALE_NAMEF' => '名前フォーマット',
   'LBL_LOCALE_NAMEF_DESC' => 's = 敬称<br />f = 名<br />l = 姓',
   'LBL_LOCALE_NAME_FIRST' => '太郎',
-  'LBL_LOCALE_NAME_LAST' => 'デモ',
-  'LBL_LOCALE_NAME_SALUTATION' => 'Dr.',
+  'LBL_LOCALE_NAME_LAST' => '佐藤',
+  'LBL_LOCALE_NAME_SALUTATION' => '様',
   'LBL_LOCALE_TIMEF' => '時間フォーマット',
   'LBL_LOCALE_TITLE' => 'ロケール設定',
   'LBL_LOCALE_UI' => 'ユーザインターフェース',
@@ -339,10 +338,8 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'ジョブキューの削除',
   'LBL_OOTB_IE' => 'インバウンドメール受信箱の確認',
   'LBL_OOTB_PRUNE' => '月初め（1日）に不要なデータベースのデータを削除',
-  'LBL_OOTB_REMOVE_DOCUMENTS_FROM_FS' => 'ファイルシステムからドキュメントの削除',
   'LBL_OOTB_REPORTS' => 'レポート生成の時間指定タスクを実行',
   'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Eメールリマインダ通知を送信',
-  'LBL_OOTB_SUGARFEEDS' => 'SugarFeedテーブルを選定する',
   'LBL_OOTB_TRACKER' => '月始め（1日）に不要なトラッカーテーブルを削除',
   'LBL_OOTB_WORKFLOW' => 'ワークフロータスク実行',
   'LBL_OPP' => '商談データセット',

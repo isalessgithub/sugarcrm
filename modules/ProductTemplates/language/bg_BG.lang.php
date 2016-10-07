@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Трябва да определите номер на записа, за да изтриете този продукт.',
@@ -34,15 +31,15 @@ $mod_strings = array (
   'LBL_DATE_COST_PRICE' => 'Дата-Себестойност-Цена:',
   'LBL_DESCRIPTION' => 'Описание:',
   'LBL_DISCOUNT_PRICE' => 'Единична цена:',
-  'LBL_DISCOUNT_PRICE_DATE' => 'Discount Price Date:',
+  'LBL_DISCOUNT_PRICE_DATE' => 'Дата на отстъпка:',
   'LBL_DISCOUNT_USDOLLAR' => 'Цена след отстъпка USD:',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Идентификатор на отговорника',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Отговорник',
   'LBL_EXPORT_COST_PRICE' => 'Доставна цена',
-  'LBL_EXPORT_CREATED_BY' => 'Създадено от',
+  'LBL_EXPORT_CREATED_BY' => 'Създадено от ID',
   'LBL_EXPORT_CURRENCY' => 'Валута',
   'LBL_EXPORT_CURRENCY_ID' => 'Валута',
-  'LBL_EXPORT_MODIFIED_USER_ID' => 'Модифицирано от',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Модифицирано от ID',
   'LBL_LIST_CATEGORY' => 'Категория:',
   'LBL_LIST_CATEGORY_ID' => 'Категория:',
   'LBL_LIST_COST_PRICE' => 'Себестойност:',
@@ -72,6 +69,7 @@ $mod_strings = array (
   'LBL_NEW_FORM_TITLE' => 'Създаване на запис',
   'LBL_PERCENTAGE' => 'Процент(%)',
   'LBL_POINTS' => 'Точки',
+  'LBL_POINTS_ABBR' => 'т.',
   'LBL_PRICING_FACTOR' => 'Ценообразуващ фактор:',
   'LBL_PRICING_FORMULA' => 'Метод за ценообразуване:',
   'LBL_PRODUCT' => 'Продукт:',
@@ -80,7 +78,7 @@ $mod_strings = array (
   'LBL_PRODUCT_TYPES' => 'Типове продукти',
   'LBL_QTY_IN_STOCK' => 'Складова наличност',
   'LBL_QUANTITY' => 'Количество на склад:',
-  'LBL_RELATED_PRODUCTS' => 'Свързан продукт',
+  'LBL_RELATED_PRODUCTS' => 'Свързани приходни позиции',
   'LBL_SEARCH_FORM_TITLE' => 'Търсене в модул "Продуктов каталог"',
   'LBL_STATUS' => 'Наличност:',
   'LBL_SUPPORT_CONTACT' => 'Отговорник по поддръжка:',
@@ -89,13 +87,14 @@ $mod_strings = array (
   'LBL_SUPPORT_TERM' => 'Период на поддръжка:',
   'LBL_TAX_CLASS' => 'Форма на данъчно облагане:',
   'LBL_TYPE' => 'Категория:',
-  'LBL_TYPE_ID' => 'Type ID',
+  'LBL_TYPE_ID' => 'Идентификатор на типа',
   'LBL_TYPE_NAME' => 'Име',
   'LBL_URL' => 'URL на продукта:',
   'LBL_VENDOR_PART_NUM' => 'Партиден номер(доставчик):',
   'LBL_WEBSITE' => 'Сайт',
   'LBL_WEIGHT' => 'Тегло:',
   'LNK_IMPORT_PRODUCTS' => 'Импортиране на продукти',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'Импортирай записи в продуктов каталог',
   'LNK_NEW_MANUFACTURER' => 'Производители',
   'LNK_NEW_PRODUCT' => 'Въвеждане на продукт',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Продуктови категории',

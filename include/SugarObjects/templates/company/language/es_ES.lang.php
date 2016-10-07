@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -55,10 +52,12 @@ $mod_strings = array (
   'LBL_EMAIL' => 'Correo Electrónico:',
   'LBL_EMAIL_ADDRESS' => 'Dirección(es) de Email',
   'LBL_EMAIL_ADDRESSES' => 'Direcciones de Email',
-  'LBL_EMAIL_NON_PRIMARY' => 'Correo Electrónico No Principal',
   'LBL_EMPLOYEES' => 'Empleados:',
+  'LBL_FACEBOOK' => 'Cuenta Facebook',
   'LBL_FAX' => 'Fax:',
+  'LBL_GOOGLEPLUS' => 'ID de Google Plus',
   'LBL_INDUSTRY' => 'Industria:',
+  'LBL_LINKEDIN' => 'ID de la Empresa en Linkedin',
   'LBL_LIST_ACCOUNT_NAME' => 'Nombre',
   'LBL_LIST_CITY' => 'Ciudad',
   'LBL_LIST_EMAIL_ADDRESS' => 'Email',
@@ -95,7 +94,7 @@ $mod_strings = array (
   'LBL_STATE' => 'Estado/Provincia:',
   'LBL_TEAMS_LINK' => 'Equipos',
   'LBL_TICKER_SYMBOL' => 'Símbolo Ticker:',
-  'LBL_TWITTER_ID' => 'Usuario Twitter',
+  'LBL_TWITTER' => 'Cuenta Twitter',
   'LBL_TYPE' => 'Tipo:',
   'LBL_USERS_ASSIGNED_LINK' => 'Usuarios Asignados',
   'LBL_USERS_CREATED_LINK' => 'Creado por Usuarios',

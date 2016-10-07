@@ -2,29 +2,28 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'ERR_BAD_LOGIN_PASSWORD' => 'Utilisateur ou mot de passe incorrect',
   'ERR_BODY_TOO_LONG' => '\\rLe Corps du message est trop long pour le récupérer dans sa totalité. Message tronqué.',
+  'ERR_DELETE_FOLDER' => 'Impossible de supprimer le dossier.',
   'ERR_INI_ZLIB' => 'Impossible de désactiver temporairement la compression Zlib. "Tester Paramétrage" peut échouer.',
   'ERR_MAILBOX_FAIL' => 'Ne peux accéder à aucune boîte email.',
   'ERR_NO_IMAP' => 'Livrairie IMAP non trouvée. Merci de résoudre le problème avant de poursuivre le paramétrage des emails entrants',
   'ERR_NO_OPTS_SAVED' => 'Pas de paramètres optimaux sauvegardés avec votre boîte email entrante. Merci de revoir les paramétrages',
   'ERR_TEST_MAILBOX' => 'Merci de vérifier vos Paramètres et essayer à nouveau.',
+  'ERR_UNSUBSCRIBE_FROM_FOLDER' => 'Impossible de se désabonner à ce dossier avant de le supprimer.',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE' => 'Autoriser les utilisateurs à envoyer des emails en utilisant les informations du "From" nom et adresse en adresse de réponse (reply-to).',
   'LBL_ALLOW_OUTBOUND_GROUP_USAGE_DESC' => 'Lorsque cette option est sélectionnée, les informations "From" nom et adresse associée avec ce compte email de groupe apparaitront en option pour le champ "From" lorsque les utilisateurs qui ont accès à cette boite composeront un email.',
   'LBL_APPLY_OPTIMUMS' => 'Appliquer les paramètres optimaux',

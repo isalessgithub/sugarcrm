@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -55,10 +52,12 @@ $mod_strings = array (
   'LBL_EMAIL' => 'Електронна поща:',
   'LBL_EMAIL_ADDRESS' => 'Адрес(и)',
   'LBL_EMAIL_ADDRESSES' => 'Електронна поща',
-  'LBL_EMAIL_NON_PRIMARY' => 'Допълнителни адреси за електронна поща',
   'LBL_EMPLOYEES' => 'Служители:',
+  'LBL_FACEBOOK' => 'Facebook профил',
   'LBL_FAX' => 'Факс:',
+  'LBL_GOOGLEPLUS' => 'Google Plus идентификатор',
   'LBL_INDUSTRY' => 'Отрасъл:',
+  'LBL_LINKEDIN' => 'Идентификатор на компанията в Linkedin',
   'LBL_LIST_ACCOUNT_NAME' => 'Oрганизация',
   'LBL_LIST_CITY' => 'Град',
   'LBL_LIST_EMAIL_ADDRESS' => 'Адрес на ел. поща',
@@ -95,6 +94,7 @@ $mod_strings = array (
   'LBL_STATE' => 'Област:',
   'LBL_TEAMS_LINK' => 'Екип',
   'LBL_TICKER_SYMBOL' => 'Борсов код:',
+  'LBL_TWITTER' => 'Twitter профил',
   'LBL_TYPE' => 'Категория:',
   'LBL_USERS_ASSIGNED_LINK' => 'Отговорни лица',
   'LBL_USERS_CREATED_LINK' => 'Създаден от',
@@ -106,9 +106,9 @@ $mod_strings = array (
   'MSG_DUPLICATE' => 'Създаването на тази организация може да доведе до създаване на дублираща организация. Можете или да изберете организация от списъка долу, или да съхраните записа с вече въведените данни чрез натискане на бутон "Запази".',
   'MSG_SHOW_DUPLICATES' => 'Създаването на тази организация може да доведе до създаване на дублираща организация. Можете или да изберете организация от списъка долу, или да съхраните записа с вече въведените данни чрез натискане на бутон "Запази".',
   'NTC_COPY_BILLING_ADDRESS' => 'Копиране данните от данъчния адрес върху адреса за кореспонденция',
-  'NTC_COPY_BILLING_ADDRESS2' => 'Copy to shipping',
+  'NTC_COPY_BILLING_ADDRESS2' => 'Копирай в адрес за кореспонденция',
   'NTC_COPY_SHIPPING_ADDRESS' => 'Копиране данните от адреса за кореспонденция върху данъчния адрес',
-  'NTC_COPY_SHIPPING_ADDRESS2' => 'Copy to billing',
+  'NTC_COPY_SHIPPING_ADDRESS2' => 'Копирай в данъчен адрес',
   'NTC_DELETE_CONFIRMATION' => 'Сигурни ли сте, че желаете да изтриете този запис?',
   'NTC_REMOVE_ACCOUNT_CONFIRMATION' => 'Сигурни ли сте, че искате да изтриете тази организация?',
   'NTC_REMOVE_MEMBER_ORG_CONFIRMATION' => 'Сигурни ли сте, че искате да изтриете този запис като дъщерно дружество?',

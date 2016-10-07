@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Erweitert',
@@ -29,7 +26,7 @@ $mod_strings = array (
   'DEFAULT_DECIMAL_SEP' => 'Dezimalzeichen',
   'DEFAULT_LANGUAGE' => 'Standardsprache',
   'DEFAULT_NUMBER_GROUPING_SEP' => '1000er Trennzeichen',
-  'DEFAULT_OC_STATUS' => 'Enable Offline Client by default',
+  'DEFAULT_OC_STATUS' => 'Aktiviere Offline Client als Voreinstellung',
   'DEFAULT_SYSTEM_SETTINGS' => 'Benutzer Interface',
   'DEFAULT_THEME' => 'Standarddesign',
   'DEFAULT_TIME_FORMAT' => 'Standard Zeitformat',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Server Antwortzeiten anzeigen',
   'ERR_ALERT_FILE_UPLOAD' => 'Fehler während des Hochladens des Bildes.',
   'ERR_DELETE_CORE_FILE' => 'ERROR: It is not possible to delete a core font.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML-Zertifikat darf nicht leer sein',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login-URL darf nicht leer sein',
   'ERR_EZPDF_DISABLE' => 'Warning : The EZPDF class is disabled from the config table and it set as the PDF class. Please "Save" this form to set TCPDF as the PDF Class and return in a stable state.',
   'ERR_FONT_ALREADY_EXIST' => 'ERROR : This font already exist. Rollback...',
   'ERR_FONT_EMPTYFILE' => 'ERROR: Empty filename!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'ERROR: No custom font path available!',
   'ERR_NO_FONT_PATH' => 'ERROR: No font path available!',
   'ERR_PDF_NO_UPLOAD' => 'Error during the upload of the font or metric file.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login-URL ist ungültig',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL ist ungültig',
   'HEAD_MAGNIFICATION' => 'Head Magnification',
   'HEAD_MAGNIFICATION_INFO' => 'Magnification factor for titles.',
   'IMAGES' => 'Logos',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Zurück',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Wählen Sie Ihren Email Anbieter',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Systemeinstellungen',
-  'LBL_CONFIG_AJAX' => 'AJAX Benutzeroberfläche konfigurieren',
-  'LBL_CONFIG_AJAX_DESC' => 'AJAX UI für bestimmte Module aktivieren oder deaktivieren.',
   'LBL_DELETE' => 'Löschen',
   'LBL_DISALBE_CONVERT_LEAD' => 'Interessentenumwandlungsfunktion für umgewadelten Interessenten deaktivieren',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Wenn ein Interessent bereits umgewandelt ist, wird diese Funktion entfernt',
   'LBL_DISPLAYING_LOG' => 'Log anzeigen',
   'LBL_ENABLE_ACTION_MENU' => 'Aktionen in Menues anzeigen.',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Auswählen, um Detail Ansicht und Subpanel Aktionen in einem Dropdown menue anzuzeigen. Wenn diese Option nicht ausgewählt ist, werden Detail Ansicht und Subpanel Aktionen als seperate Buttons angezeigt',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Zeige die Emails der verknüpften Kontakte im Subpanel Verlauf',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Aktiviere/Deaktivere E-Mails vom verknüpften Kontakt um es im E-Mail Subpanel zu zeigen',
   'LBL_ENABLE_MAILMERGE' => 'Serienbriefe aktivieren?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange Passwort',
@@ -127,7 +126,7 @@ $mod_strings = array (
   'LBL_LDAP_ADMIN_USER' => 'Authentifizierter Benutzer:',
   'LBL_LDAP_ADMIN_USER_DESC' => 'Wird verwendet um nach dem Sugar Benutzer zu suchen. [Muss u.U. voll qualifiziert werden] Falls nicht angegeben wird anonym verbunden.',
   'LBL_LDAP_AUTHENTICATION' => 'Authentication:',
-  'LBL_LDAP_AUTHENTICATION_DESC' => 'Bind to the LDAP server using a specific users credentials',
+  'LBL_LDAP_AUTHENTICATION_DESC' => 'Verbinden Sie zum LDAP server mit spezifischen Benutzer Ameldedaten',
   'LBL_LDAP_AUTO_CREATE_USERS' => 'Benutzer autom. erstellen:',
   'LBL_LDAP_AUTO_CREATE_USERS_DESC' => 'Falls ein authentifizierter Benuzter nicht existiert, wird einer in Sugar erstellt.',
   'LBL_LDAP_BIND_ATTRIBUTE' => 'Bind Attribute:',
@@ -135,17 +134,17 @@ $mod_strings = array (
   'LBL_LDAP_ENABLE' => 'LDAP aktiveren',
   'LBL_LDAP_ENC_KEY' => 'Kodierungsschlüssel:',
   'LBL_LDAP_ENC_KEY_DESC' => 'Für SOAP Authentifizierung bei Benutzung von LDAP.',
-  'LBL_LDAP_GROUP_ATTR' => 'Group Attribute:',
-  'LBL_LDAP_GROUP_ATTR_DESC' => 'The attribute of the Group that will be used to filter against the User Attribute Example: <em>memberUid</em>',
+  'LBL_LDAP_GROUP_ATTR' => 'Gruppeneigenschaft:',
+  'LBL_LDAP_GROUP_ATTR_DESC' => 'Die Eigenschaft der Gruppe, die verwendet wird, um nach den Benutzereigenschaften zu filtern. Beispiel: <em>memberUid</em>',
   'LBL_LDAP_GROUP_DN' => 'Gruppen DN:',
   'LBL_LDAP_GROUP_DN_DESC' => 'Beispiel: <em>ou=groups,dc=example,dc=com</em>',
-  'LBL_LDAP_GROUP_MEMBERSHIP' => 'Group Membership:',
-  'LBL_LDAP_GROUP_MEMBERSHIP_DESC' => 'Users must be a member of a specific group',
+  'LBL_LDAP_GROUP_MEMBERSHIP' => 'Gruppenmitgliedschaft:',
+  'LBL_LDAP_GROUP_MEMBERSHIP_DESC' => 'Benutzer müssen Mitglied einer spezifischen Gruppe sein',
   'LBL_LDAP_GROUP_NAME' => 'Gruppen Name:',
   'LBL_LDAP_GROUP_NAME_DESC' => 'Beispiel cn=sugarcrm',
-  'LBL_LDAP_GROUP_USER_ATTR' => 'User Attribute:',
-  'LBL_LDAP_GROUP_USER_ATTR_DESC' => 'The unique identifier of the person that will be used to check if they are a member of the group Example: <em>uid</em>',
-  'LBL_LDAP_LOGIN_ATTRIBUTE' => 'Login Attribute:',
+  'LBL_LDAP_GROUP_USER_ATTR' => 'Benutzereigenschaft:',
+  'LBL_LDAP_GROUP_USER_ATTR_DESC' => 'Die eindeutige Kennzeichnung der Person, die verwendet wird, um zu prüfen, ob sie Mitglied der Gruppe sind. Beispiel: <em>uid</em>',
+  'LBL_LDAP_LOGIN_ATTRIBUTE' => 'Login Eigenschaft:',
   'LBL_LDAP_LOGIN_ATTRIBUTE_DESC' => 'Um die LDAP Benutzerbeispiele zu suchen:[<b>AD:</b> userPrincipalName] [<b>openLDAP:</b> dn] [<b>Mac OS X:</b> dn]',
   'LBL_LDAP_SERVER_HOSTNAME' => 'Server:',
   'LBL_LDAP_SERVER_HOSTNAME_DESC' => 'Beispiel: ldap.example.com',
@@ -155,9 +154,10 @@ $mod_strings = array (
   'LBL_LDAP_USER_DN' => 'Bneutzer DN:',
   'LBL_LDAP_USER_DN_DESC' => 'Beispiel: ou=people,dc=example,dc=com',
   'LBL_LDAP_USER_FILTER' => 'Benutzer Filter:',
-  'LBL_LDAP_USER_FILTER_DESC' => 'Any additional filter params to apply when authenticating users e.g.<em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
+  'LBL_LDAP_USER_FILTER_DESC' => 'Zusätzliche Filter, die verwendet werden, um Benutzer zu authentifizieren, z.B. <em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Interessenten Umwandlungsoptionen',
   'LBL_LOADING' => 'Laden. Bitte warten...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Diese Einstellung betrifft Module in legacy mode.',
   'LBL_LOGGER' => 'Logger Einstellungen',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Standard Datumsformat',
   'LBL_LOGGER_FILENAME' => 'Name der Logdatei',
@@ -183,7 +183,7 @@ $mod_strings = array (
   'LBL_MIN_AUTO_REFRESH_INTERVAL' => 'Minimum Dashlet Auto-Aktualisieren Intervalle',
   'LBL_MIN_AUTO_REFRESH_INTERVAL_HELP' => 'Dieser Wert ist den kleinste "Auto-Aktualisieren" Wert. Bitte &#39;Nie&#39; definieren und die Funktion Auto-Aktualisieren zu deaktivieren.',
   'LBL_MOBILE_MOD_REPORTS_RESTRICTION' => '* das Berichtsmodul ist nur über Standard Sugar Mobil Clients verfügbar.',
-  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Der Modul "Reports" ist in der browserbasierten mobilen Ansicht nicht verfügbar',
+  'LBL_MOBILE_MOD_REPORTS_RESTRICTION2' => '* Das Reports Modul ist nicht verfügbar für die browserbasierte Mobile Ansicht',
   'LBL_MODULE_FAVICON' => 'Modul-Ikone als Favicon anzeigen',
   'LBL_MODULE_FAVICON_HELP' => 'If you are in a module with an icon, use the module&#39;s icon as the favicon, instead of the theme&#39;s favicon, in the browser tab.',
   'LBL_MODULE_ID' => 'Konfigurator',
@@ -193,8 +193,9 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Weiter>>',
   'LBL_NOTIFY_FROMADDRESS' => '&#39;Von&#39; Adresse:',
   'LBL_NOTIFY_SUBJECT' => 'E-Mail Betreff:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Namensänderungen durch Benutzer verhindern, um ihren privaten Teamnamen zu aktualisieren',
   'LBL_OC_STATUS' => 'Default Offline Client Status',
-  'LBL_OC_STATUS_DESC' => 'Check here if you would like any user to have access to Offline Client.  Otherwise you can configure access at the user level.',
+  'LBL_OC_STATUS_DESC' => 'Markieren Sie hier, wenn Sie jedem Benutzer Zugriff zum Offline Client gewähren möchten. Anderenfalls können Sie Zugriff auf Benutzerebene konfigurieren.',
   'LBL_PDFMODULE_NAME' => 'PDF Einstellungen',
   'LBL_PDF_ENCODING_TABLE' => 'Encoding Table',
   'LBL_PDF_ENCODING_TABLE_INFO' => 'Name of the encoding table.<br>This option is ignored for TrueType Unicode, OpenType Unicode and symbolic fonts.<br>The encoding defines the association between a code (from 0 to 255) and a character contained in the font.<br>The first 128 are fixed and correspond to ASCII.',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'ERROR : The font has not been added. Look at the log below.',
   'LBL_STATUS_FONT_SUCCESS' => 'SUCCESS : The font has been added to SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Systemeinstellungen',
+  'LBL_TWEETTOCASE_ON' => 'Aktiviere Tweet&reg; zu Ticket Integration',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Erlaubt Benutzern, Tickets aus Tweets zu erstellen.',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; zu Ticket',
   'LBL_USE_REAL_NAMES' => 'Vollständigen Namen anzeigen (nicht Benutzername)',
   'LBL_USE_REAL_NAMES_DESC' => 'Display users&#39; full names instead of their User Names in assignment fields.',
   'LBL_VCAL_PERIOD' => 'vCal Updates Zeitperiode:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Systemname',
   'SYSTEM_NAME_HELP' => 'Dieser Wert wird im Titel Ihres Browsers dargestellt.',
   'SYSTEM_NAME_WIZARD' => 'Name_',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Die empfohlene Einstellung für eine aktzeptable Geschwindigkeit {{listEntriesNum}}. Beim Hinzufügen von weiteren Feldern zur Listenansicht, sollte diese Zahl am unteren Ende der empfohlenen Einstellung sein.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Die empfohlene Einstellung für eine aktzeptable Geschwindigkeit {{subpanelEntriesNum}}. Beim Hinzufügen von weiteren Feldern zur Listenansicht, sollte diese Zahl am unteren Ende der empfohlenen Einstellung sein.',
   'UPLOAD_MAX_SIZE' => 'Maximale Dateigröße beim Upload',
   'VERIFY_CLIENT_IP' => 'Benutzer IP Adresse validieren',
   'vCAL_HELP' => 'Use this setting to determine the number of months in advance of the current date that Free/Busy information for calls and meetings is published.<BR>To turn Free/Busy publishing off, enter "0".  The minimum is 1 month; the maximum is 12 months.',

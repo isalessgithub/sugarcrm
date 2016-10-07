@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/EditView/SugarVCR.php');
 /**
  * ListView - list of many objects
@@ -114,18 +111,15 @@ function processListView($seed, $xTemplateSection, $html_varName)
     //mass update turned off?
     if(!$this->show_mass_update) $this->shouldProcess = false;
     if(is_subclass_of($seed, "SugarBean")) {
-        if($seed->bean_implements('ACL')) {
-            if(!ACLController::checkAccess($seed->module_dir,'list',true)) {
+        if(!$seed->ACLAccess('list', true)) {
                 if($_REQUEST['module'] != 'Home') {
                     ACLController::displayNoAccess();
                 }
                 return;
-            }
-            if(!ACLController::checkAccess($seed->module_dir,'export',true)) {
+         }
+         if(!$seed->ACLAccess('export', true)) {
                 $sugar_config['disable_export']= true;
-            }
-
-        }
+         }
     }
 
     //force mass update form if requested.
@@ -202,6 +196,45 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
         if(isset($list_data['query'])) {
             return ($list_data['query']);
         }
+    }
+
+    /**
+     * @param $linked_field field to get relationsip name from
+     * @param $aItem sugar bean to check against
+     * @param $parentBean parent bean
+     * @return bool
+     */
+    protected function checkUnlinkPermission($linked_field, $aItem, $parentBean)
+    {
+        if (!empty($parentBean)) {
+
+            $parentBean->load_relationship($linked_field);
+
+            if (isset($parentBean->$linked_field) && isset($parentBean->$linked_field->def['relationship'])) {
+
+                $relObj = $parentBean->$linked_field->getRelationshipObject();
+
+                if (!empty($relObj)) {
+                    // relationship def
+                    $relDef = $relObj->def;
+
+                    $fieldsToCheck = array();
+                    foreach (array('rhs_key', 'relationship_role_column') as $field) {
+                        if (!empty($relDef[$field])) {
+                            $fieldsToCheck[] = $relDef[$field];
+                        }
+                    }
+
+                    // check if the field is editable, if any field is not, return false
+                    foreach ($fieldsToCheck as $field) {
+                        if (!empty($field) && !($aItem->ACLFieldAccess($field, 'edit'))) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 /**
@@ -300,10 +333,8 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
             $aItem->updateDependentField();
         }
         $fields = $aItem->get_list_view_data();
-        if($aItem->bean_implements('ACL')){
-            ACLField::listFilter($fields,$aItem->module_dir,$GLOBALS['current_user']->id, $aItem->isOwner($GLOBALS['current_user']->id));
 
-        }
+        $aItem->ACLFilterFieldList($fields);
         if(isset($processed_ids[$aItem->id])) {
             continue;
 
@@ -370,6 +401,7 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
         $field_acl['ListView'] = $aItem->ACLAccess('ListView');
         $field_acl['EditView'] = $aItem->ACLAccess('EditView');
         $field_acl['Delete'] = $aItem->ACLAccess('Delete');
+        $field_acl['field_edit_relate'] = $this->checkUnlinkPermission($linked_field, $aItem, $thepanel->parent_bean);
         foreach($thepanel->get_list_fields() as $field_name=>$list_field)
         {
             //add linked field attribute to the array.
@@ -377,17 +409,7 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
             $list_field['linked_field_set']=$linked_field_set;
 
             $usage = empty($list_field['usage']) ? '' : $list_field['usage'];
-            if($usage == 'query_only' && !empty($list_field['force_query_only_display'])){
-                //if you are here you have column that is query only but needs to be displayed as blank.  This is helpful
-                //for collections such as Activities where you have a field in only one object and wish to show it in the subpanel list
-                $count++;
-                $widget_contents = '&nbsp;';
-                $this->xTemplate->assign('CLASS', "");
-                $this->xTemplate->assign('CELL_COUNT', $count);
-                $this->xTemplate->assign('CELL', $widget_contents);
-                $this->xTemplate->parse($xtemplateSection.".row.cell");
-
-            }else if($usage != 'query_only')
+            if($usage != 'query_only')
             {
                 $list_field['name']=$field_name;
 
@@ -409,7 +431,9 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
                 $list_field['start_link_wrapper'] = $this->start_link_wrapper;
                 $list_field['end_link_wrapper'] = $this->end_link_wrapper;
                 $list_field['subpanel_id'] = $this->subpanel_id;
-                $list_field += $field_acl;
+                $list_field['parent_bean'] = $aItem;
+                $list_field = array_merge($list_field, $field_acl);
+
                 if ( isset($aItem->field_defs[strtolower($list_field['name'])])) {
                     require_once('include/SugarFields/SugarFieldHandler.php');
                     // We need to see if a sugar field exists for this field type first,
@@ -466,14 +490,10 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
 		                $this->xTemplate->assign('CELL', $widget_contents);
 		                $this->xTemplate->parse($xtemplateSection.".row.cell");
                 	} elseif (preg_match("/button/i", $list_field['name'])) {
-                        if ((($list_field['name'] === 'edit_button' && $field_acl['EditView']) || ($list_field['name'] === 'close_button' && $field_acl['EditView']) || ($list_field['name'] === 'remove_button' && $field_acl['Delete'])) && '' != ($_content = $layout_manager->widgetDisplay($list_field)) )
+                        if ((($list_field['name'] === 'edit_button' && $field_acl['EditView']) || ($list_field['name'] === 'close_button' && $field_acl['EditView']) || ($list_field['name'] === 'remove_button' && $field_acl['field_edit_relate'])) && '' != ($_content = $layout_manager->widgetDisplay($list_field)) )
                         {
                             $button_contents[] = $_content;
                             unset($_content);
-                        }
-                        else
-                        {
-                            $button_contents[] = '';
                         }
                 	} else {
                			$count++;
@@ -492,32 +512,23 @@ function process_dynamic_listview($source_module, $sugarbean,$subpanel_def)
 
         // Make sure we have at least one button before rendering a column for
         // the action buttons in a list view. Relevant bugs: #51647 and #51640.
-        if(!empty($button_contents))
-        {
-            $button_contents = array_filter($button_contents);
-            if (!empty($button_contents))
-            {
+        if(isset($button_contents[0])) {
             // this is for inline buttons on listviews
             // bug#51275: smarty widget to help provide the action menu functionality as it is currently sprinkled throughout the app with html
-                require_once('include/Smarty/plugins/function.sugar_action_menu.php');
-                $tempid = create_guid();
-                array_unshift($button_contents, "<div style='display: inline' id='$tempid'>" . array_shift($button_contents) . "</div>");
-                $action_button = smarty_function_sugar_action_menu(array(
-                    'id' => $tempid,
-                    'buttons' => $button_contents,
-                    'class' => 'clickMenu subpanel records fancymenu button',
-                    'flat' => false //assign flat value as false to display dropdown menu at any other preferences.
-                ), $this->xTemplate);
-            }
-            else
-            {
-                $action_button = '';
-            }
+            require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
+            $tempid = create_guid();
+            $button_contents[0] = "<div style='display: inline' id='$tempid'>".$button_contents[0]."</div>";
+            $action_button = smarty_function_sugar_action_menu(array(
+                'id' => $tempid,
+                'buttons' => $button_contents,
+                'class' => 'clickMenu subpanel records fancymenu button',
+                'flat' => false //assign flat value as false to display dropdown menu at any other preferences.
+            ), $this->xTemplate);
             $this->xTemplate->assign('CLASS', "inlineButtons");
             $this->xTemplate->assign('CELL_COUNT', ++$count);
             //Bug#51275 for beta3 pre_script is not required any more
             $this->xTemplate->assign('CELL', $action_button);
-            $this->xTemplate->parse($xtemplateSection . ".row.cell");
+            $this->xTemplate->parse($xtemplateSection.".row.cell");
         }
 
 
@@ -1065,7 +1076,7 @@ function getUserVariable($localVarName, $varName) {
             $response =& $this->response;
             echo 'cached';
         }else{
-            $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1, $this->records_per_page,$this->query_limit,$subpanel_def);
+            $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1,-1,$this->query_limit,$subpanel_def);
             $this->response =& $response;
         }
         $list = $response['list'];
@@ -1084,7 +1095,7 @@ function getUserVariable($localVarName, $varName) {
         static $cache = array();
 
         if(!empty($cache[$html_varName]))return $cache[$html_varName];
-        $blockVariables = array('mass', 'uid', 'massupdate', 'delete', 'merge', 'selectCount','current_query_by_page');
+        $blockVariables = array('mass', 'uid', 'massupdate', 'delete', 'merge', 'selectCount','current_query_by_page', 'bwcFrame');
         if(!empty($this->base_URL)) {
             return $this->base_URL;
         }
@@ -1326,7 +1337,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
                     "<a  name='selectall' id='button_select_all' class='menuItem' onmouseover='hiliteItem(this,\"yes\");' onmouseout='unhiliteItem(this);' onclick='sListView.check_entire_list(document.MassUpdate, \"mass[]\",true,{$total});' href='#'>{$app_strings['LBL_LISTVIEW_OPTION_ENTIRE']}&nbsp;&#x28;{$total_label}&#x29;&#x200E;</a>",
                     "<a name='deselect' id='button_deselect' class='menuItem' onmouseover='hiliteItem(this,\"yes\");' onmouseout='unhiliteItem(this);' onclick='sListView.clear_all(document.MassUpdate, \"mass[]\", false);' href='#'>{$app_strings['LBL_LISTVIEW_NONE']}</a>",
                 );
-                require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+                require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
                 $select_link = smarty_function_sugar_action_menu(array(
                     'class' => 'clickMenu selectmenu',
                     'id' => 'selectLink',
@@ -1347,8 +1358,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
                 $delete_link = '&nbsp;';
             }
 
-            $admin = new Administration();
-            $admin->retrieveSettings('system');
+            $admin = Administration::getSettings('system');
 
             $user_merge = $current_user->getPreference('mailmerge_on');
             if($user_merge == 'on' && isset($admin->settings['system_mailmerge_on']) && $admin->settings['system_mailmerge_on']) {
@@ -1380,14 +1390,9 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
 
             if($_REQUEST['module'] == 'Home' || $this->local_current_module == 'Import'
                 || $this->show_export_button == false
-                || (!empty($sugar_config['disable_export']))
-                || (!empty($sugar_config['admin_export_only'])
-                && !(
-                        is_admin($current_user)
-                        || (ACLController::moduleSupportsACL($_REQUEST['module'])
-                            && ACLAction::getUserAccessLevel($current_user->id,$_REQUEST['module'], 'access') == ACL_ALLOW_ENABLED
-                            && (ACLAction::getUserAccessLevel($current_user->id, $_REQUEST['module'], 'admin') == ACL_ALLOW_ADMIN ||
-                                ACLAction::getUserAccessLevel($current_user->id, $_REQUEST['module'], 'admin') == ACL_ALLOW_ADMIN_DEV)))))
+                || !empty($sugar_config['disable_export'])
+                || (!empty($sugar_config['admin_export_only']) && !$current_user->isAdminForModule($_REQUEST['module']))
+            )
             {
                 if ($_REQUEST['module'] != 'InboundEmail' && $_REQUEST['module'] != 'EmailMan' && $_REQUEST['module'] != 'iFrames') {
                     $selected_objects_span = '';
@@ -1419,7 +1424,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
                     if(!empty($this->response)){
                         $response =& $this->response;
                     }else{
-                        $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1, $this->records_per_page,$this->query_limit,$subpanel_def);
+                        $response = SugarBean::get_union_related_list($sugarbean,$this->sortby, $this->sort_order, $this->query_where, $current_offset, -1,-1,$this->query_limit,$subpanel_def);
                         $this->response = $response;
                     }
                     //if query is present, then pass it in as parameter
@@ -1612,14 +1617,9 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
             {
     //AED -- some modules do not have their additionalDetails.php established. Add a check to ensure require_once does not fail
     // Bug #2786
-                if($this->_additionalDetails && $aItem->ACLAccess('DetailView') && (file_exists('modules/' . $aItem->module_dir . '/metadata/additionalDetails.php') || file_exists('custom/modules/' . $aItem->module_dir . '/metadata/additionalDetails.php'))) {
-
-                    $additionalDetailsFile = 'modules/' . $aItem->module_dir . '/metadata/additionalDetails.php';
-                    if(file_exists('custom/modules/' . $aItem->module_dir . '/metadata/additionalDetails.php')){
-                        $additionalDetailsFile = 'custom/modules/' . $aItem->module_dir . '/metadata/additionalDetails.php';
-                    }
-
-                    require_once($additionalDetailsFile);
+                $additionalDetailsFile = SugarAutoLoader::existingCustomOne('modules/' . $aItem->module_dir . '/metadata/additionalDetails.php');
+                if($this->_additionalDetails && $aItem->ACLAccess('DetailView') && !empty($additionalDetailsFile)) {
+                    require_once $additionalDetailsFile;
                     $ad_function = (empty($this->additionalDetailsFunction) ? 'additionalDetails' : $this->additionalDetailsFunction) . $aItem->object_name;
                     $results = $ad_function($fields);
                     $results['string'] = str_replace(array("&#039", "'"), '\&#039', $results['string']); // no xss!
@@ -1629,13 +1629,20 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
                 }
 
                 if($aItem->ACLAccess('Delete')) {
-                    $delete = '<a class="listViewTdToolsS1" onclick="return confirm(\''.$this->local_app_strings['NTC_DELETE_CONFIRMATION'].'\')" href="'.'index.php?action=Delete&module='.$aItem->module_dir.'&record='.$fields['ID'].'&return_module='.$aItem->module_dir.'&return_action=index&return_id=">'.$this->local_app_strings['LBL_DELETE_INLINE'].'</a>';
-                    require_once('include/Smarty/plugins/function.sugar_action_menu.php');
+                    $delete  = "<form border='0' action='index.php' method='post' name='form'>\n";
+                    $delete .= "<input type='hidden' name='module' value='" . $aItem->module_dir . "'>\n";
+                    $delete .= "<input type='hidden' name='action' value='Delete'>\n";
+                    $delete .= "<input type='hidden' name='return_module' value='" . $aItem->module_dir . "'>\n";
+                    $delete .= "<input type='hidden' name='return_action' value='index'>\n";
+                    $delete .= "<input type='hidden' name='return_id' value=''>\n";
+                    $delete .= "<input type='hidden' name='record' value='" . $fields['ID']. "'>\n";
+                    $delete .= "<input class='listViewTdToolsS1 button secondary' name='Delete' onclick='javascript: return confirm(\"" . $this->local_app_strings['NTC_DELETE_CONFIRMATION']. "\")' type='submit' value='" . $this->local_app_strings['LBL_DELETE_INLINE'] . "'>\n";
+                    $delete .= "</form>\n";
+                    require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
                     $fields['DELETE_BUTTON'] = smarty_function_sugar_action_menu(array(
                         'id' => $aItem->module_dir.'_'.$fields['ID'].'_create_button',
                         'buttons' => array($delete),
                     ), $this);
-
                 }
 
                 $this->xTemplate->assign($html_varName, $fields);
@@ -1724,7 +1731,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
         foreach($subpanel_def->get_list_fields() as $column_name=>$widget_args)
         {
             $usage = empty($widget_args['usage']) ? '' : $widget_args['usage'];
-            if($usage != 'query_only' || !empty($widget_args['force_query_only_display']))
+            if($usage != 'query_only')
             {
                 $imgArrow = '';
 
@@ -1747,7 +1754,8 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
 	                $cell_width = empty($widget_args['width']) ? '' : $widget_args['width'];
 	                $this->xTemplate->assign('HEADER_CELL', $widget_contents);
 	                static $count;
-	            if(!isset($count))$count = 0; else $count++;
+                    $count = !isset($count) ? 0 : $count++;
+
 	                $this->xTemplate->assign('CELL_COUNT', $count);
 	                $this->xTemplate->assign('CELL_WIDTH', $cell_width);
 	                $this->xTemplate->parse('dyn_list_view.header_cell');

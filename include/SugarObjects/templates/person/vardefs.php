@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $vardefs =array(
 'fields'=> array(
 'salutation' =>
@@ -22,7 +19,8 @@ $vardefs =array(
 			'options' => 'salutation_dom',
 			'massupdate' => false,
 			'len' => '255',
-			'comment' => 'Contact salutation (e.g., Mr, Ms)'            
+            'duplicate_on_record_copy' => 'always',
+			'comment' => 'Contact salutation (e.g., Mr, Ms)'
 		),
 'first_name' =>
 		array (
@@ -31,10 +29,11 @@ $vardefs =array(
 			'type' => 'varchar',
 			'len' => '100',
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 3),
+            'duplicate_on_record_copy' => 'always',
+			'full_text_search' => array('enabled' => true, 'boost' => 3),
 			'comment' => 'First name of the contact',
-            'merge_filter' => 'selected',     
-            
+            'merge_filter' => 'selected',
+
 		),
 	'last_name' =>
 		array (
@@ -42,8 +41,9 @@ $vardefs =array(
 			'vname' => 'LBL_LAST_NAME',
 			'type' => 'varchar',
 			'len' => '100',
-			'unified_search' => true, 
-			'full_text_search' => array('boost' => 3),
+			'unified_search' => true,
+            'duplicate_on_record_copy' => 'always',
+			'full_text_search' => array('enabled' => true, 'boost' => 3),
 			'comment' => 'Last name of the contact',
             'merge_filter' => 'selected',
             'required'=>true,
@@ -54,15 +54,15 @@ $vardefs =array(
 			'name' => 'name',
 			'rname' => 'name',
 			'vname' => 'LBL_NAME',
-			'type' => 'name',
-			'link' => true, // bug 39288 
-			'fields' => array('first_name', 'last_name'),
+			'type' => 'fullname',
+			'link' => true, // bug 39288
+			'fields' => array('first_name', 'last_name', 'salutation', 'title'),
 			'sort_on' => 'last_name',
 			'source' => 'non-db',
 			'group'=>'last_name',
-			'len' => '255',
 			'db_concat_fields'=> array(0=>'first_name', 1=>'last_name'),
             'importable' => 'false',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'full_name' =>
 		array (
@@ -70,13 +70,14 @@ $vardefs =array(
 			'rname' => 'full_name',
 			'vname' => 'LBL_NAME',
 			'type' => 'fullname',
-			'fields' => array('first_name', 'last_name'),
+		    'link' => true, // bug 39288
+			'fields' => array('first_name', 'last_name', 'salutation', 'title'),
 			'sort_on' => 'last_name',
 			'source' => 'non-db',
 			'group'=>'last_name',
-			'len' => '510',
 			'db_concat_fields'=> array(0=>'first_name', 1=>'last_name'),
 			'studio' => array('listview' => false),
+            'duplicate_on_record_copy' => 'always',
 		),
 	'title' =>
 		array (
@@ -84,14 +85,43 @@ $vardefs =array(
 			'vname' => 'LBL_TITLE',
 			'type' => 'varchar',
 			'len' => '100',
+            'duplicate_on_record_copy' => 'always',
 			'comment' => 'The title of the contact'
 		),
+    'facebook' =>
+    array (
+        'name' => 'facebook',
+        'vname' => 'LBL_FACEBOOK',
+        'type' => 'varchar',
+        'len' => '100',
+        'duplicate_on_record_copy' => 'always',
+        'comment' => 'The facebook name of the user'
+    ),
+    'twitter' =>
+    array (
+        'name' => 'twitter',
+        'vname' => 'LBL_TWITTER',
+        'type' => 'varchar',
+        'len' => '100',
+        'duplicate_on_record_copy' => 'always',
+        'comment' => 'The twitter name of the user'
+    ),
+    'googleplus' =>
+    array (
+        'name' => 'googleplus',
+        'vname' => 'LBL_GOOGLEPLUS',
+        'type' => 'varchar',
+        'len' => '100',
+        'duplicate_on_record_copy' => 'always',
+        'comment' => 'The google plus id of the user'
+    ),
 	'department' =>
 		array (
 			'name' => 'department',
 			'vname' => 'LBL_DEPARTMENT',
 			'type' => 'varchar',
 			'len' => '255',
+            'duplicate_on_record_copy' => 'always',
 			'comment' => 'The department of the contact',
             'merge_filter' => 'enabled',
 		),
@@ -102,6 +132,7 @@ $vardefs =array(
 			'type' => 'bool',
 			'default' => '0',
 			'audited'=>true,
+            'duplicate_on_record_copy' => 'always',
 			'comment' => 'An indicator of whether contact can be called'
 		),
 	'phone_home' =>
@@ -111,25 +142,11 @@ $vardefs =array(
 			'type' => 'phone',
 			'dbType' => 'varchar',
 			'len' => 100,
-			'unified_search' => true, 
-			'full_text_search' => array('boost' => 1),
+            'duplicate_on_record_copy' => 'always',
+			'unified_search' => true,
+			'full_text_search' => array('enabled' => true, 'boost' => 1),
 			'comment' => 'Home phone number of the contact',
             'merge_filter' => 'enabled',
-		),
-		//bug 42902
-		'email'=> array(
-			'name' => 'email',
-			'type' => 'email',
-			'query_type' => 'default',
-			'source' => 'non-db',
-			'operator' => 'subquery',
-			'subquery' => 'SELECT eabr.bean_id FROM email_addr_bean_rel eabr JOIN email_addresses ea ON (ea.id = eabr.email_address_id) WHERE eabr.deleted=0 AND ea.email_address LIKE',
-			'db_field' => array(
-				'id',
-			),
-			'vname' =>'LBL_ANY_EMAIL',
-			'studio' => array('visible'=>false, 'searchview'=>true),
-            'importable' => false,
 		),
 	'phone_mobile' =>
 		array (
@@ -139,9 +156,10 @@ $vardefs =array(
 			'dbType' => 'varchar',
 			'len' => 100,
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 1),
+			'full_text_search' => array('enabled' => true, 'boost' => 1),
 			'comment' => 'Mobile phone number of the contact',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'phone_work' =>
 		array (
@@ -152,9 +170,10 @@ $vardefs =array(
 			'len' => 100,
 			'audited'=>true,
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 1),
+			'full_text_search' => array('enabled' => true, 'boost' => 1),
 			'comment' => 'Work phone number of the contact',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'phone_other' =>
 		array (
@@ -164,9 +183,10 @@ $vardefs =array(
 			'dbType' => 'varchar',
 			'len' => 100,
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 1),
+			'full_text_search' => array('enabled' => true, 'boost' => 1),
 			'comment' => 'Other phone number for the contact',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'phone_fax' =>
 		array (
@@ -176,65 +196,22 @@ $vardefs =array(
 			'dbType' => 'varchar',
 			'len' => 100,
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 1),
+			'full_text_search' => array('enabled' => true, 'boost' => 1),
 			'comment' => 'Contact fax number',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
-	'email1' => 
-		array(
-			'name'		=> 'email1',
-			'vname'		=> 'LBL_EMAIL_ADDRESS',
-			'type'		=> 'varchar',
-			'function'	=> array(
-				'name'		=> 'getEmailAddressWidget',
-				'returns'	=> 'html'),
-			'source'	=> 'non-db',
-			'group'=>'email1',
-            'merge_filter' => 'enabled',
-		    'studio' => array('editview' => true, 'editField' => true, 'searchview' => false, 'popupsearch' => false), // bug 46859 
-		    'full_text_search' => array('boost' => 3, 'analyzer' => 'whitespace'), //bug 54567
-		),
-	'email2' => 
-		array(
-			'name'		=> 'email2',
-			'vname'		=> 'LBL_OTHER_EMAIL_ADDRESS',
-			'type'		=> 'varchar',
-			'function'	=> array(
-				'name'		=> 'getEmailAddressWidget',
-				'returns'	=> 'html'),
-			'source'	=> 'non-db',
-			'group'=>'email2',
-            'merge_filter' => 'enabled',
-		    'studio' => 'false',
-		),
-    'invalid_email' => 
-		array(
-			'name'		=> 'invalid_email',
-			'vname'     => 'LBL_INVALID_EMAIL',
-			'source'	=> 'non-db',
-			'type'		=> 'bool',
-		    'massupdate' => false,
-		    'studio' => 'false',
-		),    
-    'email_opt_out' => 
-		array(
-			'name'		=> 'email_opt_out',
-			'vname'     => 'LBL_EMAIL_OPT_OUT',
-			'source'	=> 'non-db',
-			'type'		=> 'bool',
-		    'massupdate' => false,
-			'studio'=>'false',
-		),
-		
 	'primary_address_street' =>
 		array (
 			'name' => 'primary_address_street',
 			'vname' => 'LBL_PRIMARY_ADDRESS_STREET',
-			'type' => 'varchar',
+			'type' => 'text',
+			'dbType' => 'varchar',
 			'len' => '150',
-			'group'=>'primary_address',
-			'comment' => 'Street address for primary address',
-            'merge_filter' => 'enabled',
+			'comment' => 'The street address used for primary address',
+			'group' => 'primary_address',
+			'merge_filter' => 'enabled',
+			'duplicate_on_record_copy' => 'always',
 		),
 	'primary_address_street_2' =>
 		array (
@@ -243,6 +220,7 @@ $vardefs =array(
 			'type' => 'varchar',
 			'len' => '150',
 			'source' => 'non-db',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'primary_address_street_3' =>
 		array (
@@ -251,7 +229,8 @@ $vardefs =array(
 			'type' => 'varchar',
 			'len' => '150',
 			'source' => 'non-db',
-		),		
+            'duplicate_on_record_copy' => 'always',
+		),
 	'primary_address_city' =>
 		array (
 			'name' => 'primary_address_city',
@@ -261,6 +240,7 @@ $vardefs =array(
 			'group'=>'primary_address',
 			'comment' => 'City for primary address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'primary_address_state' =>
 		array (
@@ -271,6 +251,7 @@ $vardefs =array(
 			'group'=>'primary_address',
 			'comment' => 'State for primary address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'primary_address_postalcode' =>
 		array (
@@ -281,7 +262,8 @@ $vardefs =array(
 			'group'=>'primary_address',
 			'comment' => 'Postal code for primary address',
             'merge_filter' => 'enabled',
-            
+            'duplicate_on_record_copy' => 'always',
+
 		),
 	'primary_address_country' =>
 		array (
@@ -291,16 +273,19 @@ $vardefs =array(
 			'group'=>'primary_address',
 			'comment' => 'Country for primary address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'alt_address_street' =>
 		array (
 			'name' => 'alt_address_street',
 			'vname' => 'LBL_ALT_ADDRESS_STREET',
-			'type' => 'varchar',
+			'type' => 'text',
+			'dbType' => 'varchar',
 			'len' => '150',
 			'group'=>'alt_address',
 			'comment' => 'Street address for alternate address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'alt_address_street_2' =>
 		array (
@@ -309,6 +294,7 @@ $vardefs =array(
 			'type' => 'varchar',
 			'len' => '150',
 			'source' => 'non-db',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'alt_address_street_3' =>
 		array (
@@ -317,7 +303,8 @@ $vardefs =array(
 			'type' => 'varchar',
 			'len' => '150',
 			'source' => 'non-db',
-		),			
+            'duplicate_on_record_copy' => 'always',
+		),
 	'alt_address_city' =>
 		array (
 			'name' => 'alt_address_city',
@@ -327,6 +314,7 @@ $vardefs =array(
 			'group'=>'alt_address',
 			'comment' => 'City for alternate address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'alt_address_state' =>
 		array (
@@ -337,6 +325,7 @@ $vardefs =array(
 			'group'=>'alt_address',
 			'comment' => 'State for alternate address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'alt_address_postalcode' =>
 		array (
@@ -347,6 +336,7 @@ $vardefs =array(
 			'group'=>'alt_address',
 			'comment' => 'Postal code for alternate address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'alt_address_country' =>
 		array (
@@ -356,6 +346,7 @@ $vardefs =array(
 			'group'=>'alt_address',
 			'comment' => 'Country for alternate address',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 		'assistant' =>
 		array (
@@ -364,9 +355,10 @@ $vardefs =array(
 			'type' => 'varchar',
 			'len' => '75',
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 2),
+			'full_text_search' => array('enabled' => true, 'boost' => 2),
 			'comment' => 'Name of the assistant of the contact',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
 	'assistant_phone' =>
 		array (
@@ -377,42 +369,11 @@ $vardefs =array(
 			'len' => 100,
 			'group'=>'assistant',
 			'unified_search' => true,
-			'full_text_search' => array('boost' => 1),
+			'full_text_search' => array('enabled' => true, 'boost' => 1),
 			'comment' => 'Phone number of the assistant of the contact',
             'merge_filter' => 'enabled',
+            'duplicate_on_record_copy' => 'always',
 		),
-		
-	'email_addresses_primary' => 
-		array (
-            'name' => 'email_addresses_primary',
-            'type' => 'link',
-            'relationship' => strtolower($object_name).'_email_addresses_primary',
-            'source' => 'non-db',
-            'vname' => 'LBL_EMAIL_ADDRESS_PRIMARY',
-            'duplicate_merge' => 'disabled',
-		),
-    'email_addresses' =>
-		array (
-            'name' => 'email_addresses',
-            'type' => 'link',
-            'relationship' => strtolower($object_name).'_email_addresses',
-            'source' => 'non-db',
-            'vname' => 'LBL_EMAIL_ADDRESSES',
-            'reportable'=>false,
-            'unified_search' => true,
-            'rel_fields' => array('primary_address' => array('type'=>'bool')),
-        ),
-    // Used for non-primary mail import
-    'email_addresses_non_primary'=>
-        array(
-            'name' => 'email_addresses_non_primary',
-            'type' => 'email',
-            'source' => 'non-db',
-            'vname' =>'LBL_EMAIL_NON_PRIMARY',
-            'studio' => false,
-            'reportable'=>false,
-            'massupdate' => false,
-        ),
 	'picture' =>
 		array(
 			'name' => 'picture',
@@ -421,31 +382,38 @@ $vardefs =array(
 			'dbtype' => 'varchar',
 		    'massupdate' => false,
 		    'reportable' => false,
-			'comment' => 'Picture file',
+			'comment' => 'Avatar',
             'len' => '255',
-            'width' => '120',
-            'height' => '',
-            'border' => '',					
+            'width' => '42',
+            'height' => '42',
+            'border' => '',
+            'duplicate_on_record_copy' => 'always',
 		),
-), 
+),
+     'name_format_map' => array(
+        'f' => 'first_name',
+        'l' => 'last_name',
+        's' => 'salutation',
+        't' => 'title',
+    ),
+'uses' => array(
+    'email_address',
+),
 'relationships'=>array(
-    strtolower($module).'_email_addresses' => 
-    array(
-        'lhs_module'=> $module, 'lhs_table'=> strtolower($module), 'lhs_key' => 'id',
-        'rhs_module'=> 'EmailAddresses', 'rhs_table'=> 'email_addresses', 'rhs_key' => 'id',
-        'relationship_type'=>'many-to-many',
-        'join_table'=> 'email_addr_bean_rel', 'join_key_lhs'=>'bean_id', 'join_key_rhs'=>'email_address_id', 
-        'relationship_role_column'=>'bean_module',
-        'relationship_role_column_value'=>$module
+),
+'duplicate_check' => array(
+    'enabled' => true,
+    'FilterDuplicateCheck' => array(
+        'filter_template' => array(
+            array('$and' => array(
+                array('first_name' => array('$starts' => '$first_name')),
+                array('last_name' => array('$starts' => '$last_name')),
+            )),
+        ),
+        'ranking_fields' => array(
+            array('in_field_name' => 'last_name', 'dupe_field_name' => 'last_name'),
+            array('in_field_name' => 'first_name', 'dupe_field_name' => 'first_name'),
+        )
     ),
-    strtolower($module).'_email_addresses_primary' => 
-    array('lhs_module'=> $module, 'lhs_table'=> strtolower($module), 'lhs_key' => 'id',
-        'rhs_module'=> 'EmailAddresses', 'rhs_table'=> 'email_addresses', 'rhs_key' => 'id',
-        'relationship_type'=>'many-to-many',
-        'join_table'=> 'email_addr_bean_rel', 'join_key_lhs'=>'bean_id', 'join_key_rhs'=>'email_address_id', 
-        'relationship_role_column'=>'primary_address', 
-        'relationship_role_column_value'=>'1'
-    ),
-)
+),
 );
-?>

@@ -1,22 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['CampaignLog'] = array ('audited'=>false,
 	'comment' => 'Tracks items of interest that occurred after you send an email campaign',
 	'table' => 'campaign_log',
-
 	'fields' => array (
 		'id' => array (
 			'name' => 'id',
@@ -44,7 +40,7 @@ $dictionary['CampaignLog'] = array ('audited'=>false,
 		'target_id' => array (
 			'name' => 'target_id',
 			'vname' => 'LBL_TARGET_ID',
-			'type' => 'varchar',
+			'type' => 'id',
 			'len' => '36',
 			'comment' => 'Identifier of target record',
             'reportable' => false,
@@ -73,7 +69,7 @@ $dictionary['CampaignLog'] = array ('audited'=>false,
 		'related_id' => array (
 			'name' => 'related_id',
 			'vname' => 'LBL_RELATED_ID',
-			'type' => 'varchar',
+			'type' => 'id',
 			'len' => '36',
             'reportable' => false,
 			),
@@ -227,6 +223,34 @@ $dictionary['CampaignLog'] = array ('audited'=>false,
             'relationship' => 'campaignlog_targeted_users',
             'source'       => 'non-db',
         ),
+        'account_campaign_log' => array(
+            'name' => 'account_campaign_log',
+            'vname'=>'LBL_CAMPAIGNLOG',
+            'type' => 'link',
+            'relationship' => 'account_campaign_log',
+            'source'=>'non-db',
+        ),
+        'contact_campaign_log' => array(
+            'name' => 'contact_campaign_log',
+            'vname'=>'LBL_CAMPAIGNLOG',
+            'type' => 'link',
+            'relationship' => 'contact_campaign_log',
+            'source'=>'non-db',
+        ),
+        'lead_campaign_log' => array(
+            'name' => 'lead_campaign_log',
+            'vname'=>'LBL_CAMPAIGNLOG',
+            'type' => 'link',
+            'relationship' => 'lead_campaign_log',
+            'source'=>'non-db',
+        ),
+        'prospect_campaign_log' => array(
+            'name' => 'prospect_campaign_log',
+            'vname'=>'LBL_CAMPAIGNLOG',
+            'type' => 'link',
+            'relationship' => 'prospect_campaign_log',
+            'source'=>'non-db',
+        ),
         'sent_email'    => array(
             'name'         => 'sent_email',
             'vname'        => 'LBL_SENT_EMAIL',
@@ -248,14 +272,12 @@ $dictionary['CampaignLog'] = array ('audited'=>false,
 			'type' =>'index',
 			'fields'=>array('target_tracker_key')
 		),
-
 		array (
 			'name' =>'idx_camp_campaign_id',
 
 			'type' =>'index',
 			'fields'=>array('campaign_id')
 		),
-
 		array (
 			'name' =>'idx_camp_more_info',
 
@@ -274,8 +296,6 @@ $dictionary['CampaignLog'] = array ('audited'=>false,
 			'type' =>'index',
 			'fields'=>array('target_id','deleted')
 		),
-
-
 	),
 	'relationships' => array (
         'campaignlog_contact' => array( 'lhs_module'=> 'CampaignLog',
@@ -319,6 +339,15 @@ $dictionary['CampaignLog'] = array ('audited'=>false,
             'rhs_key' => 'id',
             'relationship_type'=>'one-to-many'
         ),
+        'account_campaign_log' => array(
+            'lhs_module' => 'Accounts',
+            'lhs_table'=> 'accounts',
+            'lhs_key'=> 'id',
+            'rhs_module'=> 'CampaignLog',
+            'rhs_table'=>'campaign_log',
+            'rhs_key'=> 'target_id',
+            'relationship_type'   =>'one-to-many'
+        ),
     )
 );
-?>
+

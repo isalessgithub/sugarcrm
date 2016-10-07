@@ -1,21 +1,18 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-class CalendarUtils {
-
+class CalendarUtils
+{
 	/**
 	 * Find first day of week according to user's settings
 	 * @param SugarDateTime $date
@@ -96,8 +93,8 @@ class CalendarUtils {
 	 * @param SugarBean $bean
 	 * @return array
 	 */
-	static function get_sendback_array(SugarBean $bean){
-
+	static function getBeanDataArray(SugarBean $bean)
+	{
 			if(isset($bean->parent_name) && isset($_REQUEST['parent_name']))
 				$bean->parent_name = $_REQUEST['parent_name'];
 
@@ -152,18 +149,20 @@ class CalendarUtils {
 	 * @param SugarBean $bean
 	 * @return array
 	 */
-	 static function get_sendback_repeat_data(SugarBean $bean){
+	 static function getRepeatData(SugarBean $bean, $editAllRecurrences = false, $dateStart = false)
+	 {
 	 	if ($bean->module_dir == "Meetings" || $bean->module_dir == "Calls") {
-	 		if(!empty($bean->repeat_parent_id) || (!empty($bean->repeat_type) && empty($_REQUEST['edit_all_recurrences']))){
-				if(!empty($bean->repeat_parent_id))
+	 		if (!empty($bean->repeat_parent_id) || (!empty($bean->repeat_type) && empty($editAllRecurrences))) {
+				if (!empty($bean->repeat_parent_id)) {
 					$repeat_parent_id = $bean->repeat_parent_id;
-				else
+				} else {
 					$repeat_parent_id = $bean->id;
+				}
 	 			return array("repeat_parent_id" => $repeat_parent_id);
 	 		}
 
 	 		$arr = array();
-	 		if(!empty($bean->repeat_type)){
+	 		if (!empty($bean->repeat_type)) {
 	 			$arr = array(
 	 				'repeat_type' => $bean->repeat_type,
 	 				'repeat_interval' => $bean->repeat_interval,
@@ -173,17 +172,18 @@ class CalendarUtils {
 	 			);
 	 		}
 
-	 		// TODO CHECK DATETIME VARIABLE
-	 		if(!empty($_REQUEST['date_start'])){
-	 			$date_start = $_REQUEST['date_start'];
-	 		}else
-	 			$date_start = $bean->date_start;
+	 		if (empty($dateStart)) {
+	 			$dateStart = $bean->date_start;
+	 		}
 
-	 		$date = SugarDateTime::createFromFormat($GLOBALS['timedate']->get_date_time_format(),$date_start);
-		 	$arr = array_merge($arr,array(
-		 		'current_dow' => $date->format("w"),
-		 		'default_repeat_until' => $date->get("+1 Month")->format($GLOBALS['timedate']->get_date_format()),
-		 	));
+            $date = SugarDateTime::createFromFormat($GLOBALS['timedate']->get_date_time_format(), $dateStart);
+            if (empty($date)) {
+                $date = $GLOBALS['timedate']->getNow(true);
+            }
+            $arr = array_merge($arr,array(
+                'current_dow' => $date->format("w"),
+                'default_repeat_until' => $date->get("+1 Month")->format($GLOBALS['timedate']->get_date_format()),
+            ));
 
 		 	return $arr;
 		}
@@ -196,8 +196,8 @@ class CalendarUtils {
 	 * @param array $params
 	 * @return array
 	 */
-	static function build_repeat_sequence($date_start,$params){
-
+	static function buildRecurringSequence($date_start, $params)
+	{
 		$arr = array();
 
 		$type = $params['type'];
@@ -228,17 +228,18 @@ class CalendarUtils {
 		 * @var SugarDateTime $start Recurrence start date.
 		 */
 		$start = SugarDateTime::createFromFormat($GLOBALS['timedate']->get_date_time_format(),$date_start);
+        $current = clone $start;
+
 		/** 
 		 * @var SugarDateTime $end Recurrence end date. Used if recurrence ends by date.
+         * To Make the RepeatUntil Date Inclusive, we need to Add 1 Day to End
 		 */
-		 
 		if (!empty($params['until'])) {
 			$end = SugarDateTime::createFromFormat($GLOBALS['timedate']->get_date_format(), $until);
-			$end->modify("+1 Day");
+            $end->setTime(23, 59, 59);   // inclusive
 		} else {
 			$end = $start;
 		}
-		$current = clone $start;
 
 		$i = 1; // skip the first iteration
 		$w = $interval; // for week iteration
@@ -246,7 +247,7 @@ class CalendarUtils {
 
 		$limit = SugarConfig::getInstance()->get('calendar.max_repeat_count',1000);
 
-		while($i < $count || ($count == 0 && $current->format("U") < $end->format("U"))){
+		while($i < $count || ($count == 0 && $current->format("U") <= $end->format("U"))){
 			$skip = false;
 			switch($type){
 				case "Daily":
@@ -284,7 +285,7 @@ class CalendarUtils {
 			if($skip)
 				continue;
 
-			if(($i < $count || $count == 0 && $current->format("U") < $end->format("U"))  ){
+			if ($i < $count || ($count == 0 && $current->format("U") <= $end->format("U"))) {
 				$arr[] = $current->format($GLOBALS['timedate']->get_date_time_format());
 			}
 			$i++;
@@ -298,16 +299,16 @@ class CalendarUtils {
 	/**
 	 * Save repeat activities
 	 * @param SugarBean $bean
-	 * @param array $time_arr array of datetimes
+	 * @param array $timeArray array of datetimes
 	 * @return array
 	 */
-	static function save_repeat_activities(SugarBean $bean,$time_arr){
-
+	static function saveRecurring(SugarBean $bean, $timeArray)
+	{
 		// Here we will create single big inserting query for each invitee relationship
 		// rather than using relationships framework due to performance issues.
 		// Relationship framework runs very slowly
 
-		global $db;
+		$db = $GLOBALS['db'];
 		$id = $bean->id;
 		$date_modified = $GLOBALS['timedate']->nowDb();
 		$lower_name = strtolower($bean->object_name);
@@ -315,43 +316,46 @@ class CalendarUtils {
 		$qu = "SELECT * FROM {$bean->rel_users_table} WHERE deleted = 0 AND {$lower_name}_id = '{$id}'";
 		$re = $db->query($qu);
 		$users_rel_arr = array();
-		while($ro = $db->fetchByAssoc($re))
-			$users_rel_arr[] = $ro['user_id'];
-		$qu_users = "
-				INSERT INTO {$bean->rel_users_table}
-				(id,user_id,{$lower_name}_id,date_modified)
-				VALUES
-		";
-		$users_filled = false;
+		// If the bean has a users_arr then related records for those ids will have
+		// already been created. This prevents duplicates of those records for 
+		// users, contacts and leads (handled below)
+		$exclude_users = empty($bean->users_arr) ? array() : array_flip($bean->users_arr);
+		
+		while($ro = $db->fetchByAssoc($re)) {
+			if (!isset($exclude_users[$ro['user_id']])) {
+				$users_rel_arr[] = $ro['user_id'];
+			}
+		}
 
 		$qu = "SELECT * FROM {$bean->rel_contacts_table} WHERE deleted = 0 AND {$lower_name}_id = '{$id}'";
 		$re = $db->query($qu);
 		$contacts_rel_arr = array();
-		while($ro = $db->fetchByAssoc($re))
+		while($ro = $db->fetchByAssoc($re)) {
 			$contacts_rel_arr[] = $ro['contact_id'];
-		$qu_contacts = "
-				INSERT INTO {$bean->rel_contacts_table}
-				(id,contact_id,{$lower_name}_id,date_modified)
-				VALUES
-		";
-		$contacts_filled = false;
+		}
 
 		$qu = "SELECT * FROM {$bean->rel_leads_table} WHERE deleted = 0 AND {$lower_name}_id = '{$id}'";
 		$re = $db->query($qu);
 		$leads_rel_arr = array();
-		while($ro = $db->fetchByAssoc($re))
+		while($ro = $db->fetchByAssoc($re)) {
 			$leads_rel_arr[] = $ro['lead_id'];
-		$qu_leads = "
-				INSERT INTO {$bean->rel_leads_table}
-				(id,lead_id,{$lower_name}_id,date_modified)
-				VALUES
-		";
-		$leads_filled = false;
+		}
 
+		$qu_contacts = array();
+		$qu_users = array();
+		$qu_leads = array();
 		$arr = array();
 		$i = 0;
-		foreach($time_arr as $date_start){
-			$clone = $bean;	// we don't use clone keyword cause not necessary
+		
+        Activity::disable();
+
+		$clone = clone $bean;
+
+        //this is a new bean being created - so throw away cloned fetched_row
+        //attribute that incorrectly makes it look like an existing bean
+        $clone->fetched_row = false;
+
+		foreach ($timeArray as $date_start) {
 			$clone->id = "";
 			$clone->date_start = $date_start;
 			// TODO CHECK DATETIME VARIABLE
@@ -366,22 +370,28 @@ class CalendarUtils {
 
 			if($clone->id){
 				foreach($users_rel_arr as $user_id){
-					if($users_filled)
-						$qu_users .= ",".PHP_EOL;
-					$qu_users .= "('".create_guid()."','{$user_id}','{$clone->id}','{$date_modified}')";
-					$users_filled = true;
+                    $qu_users[] = array(
+                        'id' => create_guid(),
+                        'user_id' => $user_id,
+                        $lower_name . '_id' => $clone->id,
+                        'date_modified' => $date_modified,
+                    );
 				}
 				foreach($contacts_rel_arr as $contact_id){
-					if($contacts_filled)
-						$qu_contacts .= ",".PHP_EOL;
-					$qu_contacts .= "('".create_guid()."','{$contact_id}','{$clone->id}','{$date_modified}')";
-					$contacts_filled = true;
+                    $qu_contacts[] = array(
+                        'id' => create_guid(),
+                        'contact_id' => $contact_id,
+                        $lower_name . '_id' => $clone->id,
+                        'date_modified' => $date_modified,
+                    );
 				}
 				foreach($leads_rel_arr as $lead_id){
-					if($leads_filled)
-						$qu_leads .= ",".PHP_EOL;
-					$qu_leads .= "('".create_guid()."','{$lead_id}','{$clone->id}','{$date_modified}')";
-					$leads_filled = true;
+                    $qu_leads[] = array(
+                        'id' => create_guid(),
+                        'lead_id' => $lead_id,
+                        $lower_name . '_id' => $clone->id,
+                        'date_modified' => $date_modified,
+                    );
 				}
 				if($i < 44){
 					$clone->date_start = $date_start;
@@ -392,15 +402,41 @@ class CalendarUtils {
 			}
 		}
 		
-		if ($users_filled) {
-			$db->query($qu_users);
-		}
-		if ($contacts_filled) {
-			$db->query($qu_contacts);
-		}		
-		if ($leads_filled) {
-			$db->query($qu_leads);
-		}
+        Activity::enable();
+
+        if (!empty($qu_users)) {
+            $fields = array(
+                'id' => array('name' => 'id', 'type' => 'id'),
+                'user_id' => array('name' => 'user_id', 'type' => 'id'),
+                $lower_name . '_id' => array('name' => $lower_name . '_id', 'type' => 'id'),
+                'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
+            );
+            foreach ($qu_users as $qu_user) {
+                $db->insertParams($bean->rel_users_table, $fields, $qu_user);
+            }
+        }
+        if (!empty($qu_contacts)) {
+            $fields = array(
+                'id' => array('name' => 'id', 'type' => 'id'),
+                'contact_id' => array('name' => 'contact_id', 'type' => 'id'),
+                $lower_name . '_id' => array('name' => $lower_name . '_id', 'type' => 'id'),
+                'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
+            );
+            foreach ($qu_contacts as $qu_contact) {
+                $db->insertParams($bean->rel_contacts_table, $fields, $qu_contact);
+            }
+        }
+        if (!empty($qu_leads)) {
+            $fields = array(
+                'id' => array('name' => 'id', 'type' => 'id'),
+                'lead_id' => array('name' => 'lead_id', 'type' => 'id'),
+                $lower_name . '_id' => array('name' => $lower_name . '_id', 'type' => 'id'),
+                'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
+            );
+            foreach ($qu_leads as $qu_lead) {
+                $db->insertParams($bean->rel_leads_table, $fields, $qu_lead);
+            }
+        }
 		
 		vCal::cache_sugar_vcal($GLOBALS['current_user']);
 		return $arr;
@@ -426,10 +462,10 @@ class CalendarUtils {
 		while( $ro = $db->fetchByAssoc($re)) {
 			$id = $ro['id'];
 			$date_modified = $GLOBALS['timedate']->nowDb();
-			$db->query("UPDATE {$bean->table_name} SET deleted = 1, date_modified = '{$date_modified}', modified_user_id = '{$modified_user_id}' WHERE id = '{$id}'");
-			$db->query("UPDATE {$bean->rel_users_table} SET deleted = 1, date_modified = '{$date_modified}' WHERE {$lower_name}_id = '{$id}'");
-			$db->query("UPDATE {$bean->rel_contacts_table} SET deleted = 1, date_modified = '{$date_modified}' WHERE {$lower_name}_id = '{$id}'");
-			$db->query("UPDATE {$bean->rel_leads_table} SET deleted = 1, date_modified = '{$date_modified}' WHERE {$lower_name}_id = '{$id}'");
+			$db->query("UPDATE {$bean->table_name} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . ", modified_user_id = '{$modified_user_id}' WHERE id = '{$id}'");
+			$db->query("UPDATE {$bean->rel_users_table} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE {$lower_name}_id = '{$id}'");
+			$db->query("UPDATE {$bean->rel_contacts_table} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE {$lower_name}_id = '{$id}'");
+			$db->query("UPDATE {$bean->rel_leads_table} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE {$lower_name}_id = '{$id}'");
 		}
 		vCal::cache_sugar_vcal($GLOBALS['current_user']);
 	}
@@ -442,18 +478,24 @@ class CalendarUtils {
 	static function correctRecurrences(SugarBean $bean, $beanId)
 	{
 		global $db;
-		
+
+        if (empty($beanId) || trim($beanId) == '') {
+            return;
+        }
+
 		$qu = "SELECT id FROM {$bean->table_name} WHERE repeat_parent_id = '{$beanId}' AND deleted = 0 ORDER BY date_start";
 		$re = $db->query($qu);
+		
+		$date_modified = $GLOBALS['timedate']->nowDb();
 
 		$i = 0;
 		while ($ro = $db->fetchByAssoc($re)) {
 			$id = $ro['id'];
 			if($i == 0){
 				$new_parent_id = $id;
-				$qu = "UPDATE {$bean->table_name} SET repeat_parent_id = '' AND recurring_source = '' WHERE id = '{$id}'";
+				$qu = "UPDATE {$bean->table_name} SET repeat_parent_id = NULL, recurring_source = NULL, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE id = '{$id}'";
 			}else{
-				$qu = "UPDATE {$bean->table_name} SET repeat_parent_id = '{$new_parent_id}' WHERE id = '{$id}'";
+				$qu = "UPDATE {$bean->table_name} SET repeat_parent_id = '{$new_parent_id}', date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE id = '{$id}'";
 			}
 			$db->query($qu);
       		$i++;

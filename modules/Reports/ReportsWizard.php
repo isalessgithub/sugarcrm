@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once('modules/Reports/config.php');
 
@@ -20,18 +17,18 @@ require_once('modules/Reports/config.php');
 require_once('modules/Reports/Report.php');
 require_once('modules/Reports/templates/templates_reports.php');
 
-$is_owner =  true;
-global $current_user;
-if (isset($args['reporter']->saved_report) && $args['reporter']->saved_report->assigned_user_id != $current_user->id) {
-	$is_owner = false;
+if(!empty($args['reporter']->saved_report)) {
+    $context = array("bean" => $args['reporter']->saved_report);
+} else {
+    $context = array();
 }
 
-if(!(ACLController::checkAccess('Reports', 'edit', $is_owner)))
+if(!SugarACL::checkAccess('Reports', 'edit', $context))
 {
     ACLController::displayNoAccess(true);
     sugar_cleanup(true);
 }
-global $mod_strings, $ACLAllowedModules, $current_language, $app_list_strings, $app_strings, $sugar_config, $sugar_version;
+global $current_user, $mod_strings, $ACLAllowedModules, $current_language, $app_list_strings, $app_strings, $sugar_config, $sugar_version;
 
 $params = array();
 $params[] = $mod_strings['LBL_CREATE_CUSTOM_REPORT'];
@@ -46,7 +43,7 @@ require_once("modules/MySettings/TabController.php");
 $controller = new TabController();
 $tabs = $controller->get_user_tabs($current_user, $type='display');
 //$ACLAllowedModulesAdded = array();
-require_once('include/Smarty/plugins/function.sugar_help.php');
+require_once('include/SugarSmarty/plugins/function.sugar_help.php');
 $sugar_smarty = new Sugar_Smarty();
 
 $help_img = smarty_function_sugar_help(array("text"=>$mod_strings['LBL_OPTIONAL_HELP']),$sugar_smarty);
@@ -68,8 +65,11 @@ foreach ($tabs as $tabModuleKey=>$tabModuleKeyValue)
 */
 // Add the remaining modules.
 foreach ($ACLAllowedModules as $module=>$singular) {
-	//if (!isset($ACLAllowedModulesAdded[$module])) {
-	    if($module == 'Currencies') continue;
+    $fullModuleList = array_merge($GLOBALS['moduleList'], $GLOBALS['modInvisList']);
+    if ($module == 'Currencies' ||
+    (!isset($app_list_strings['moduleList'][$module]) && !in_array($module, $fullModuleList))) {
+        continue;
+    }
         $icon_name = _getIcon($module."_32");
         if (empty($icon_name)){
             $icon_name = _getIcon($module);
@@ -78,7 +78,6 @@ foreach ($ACLAllowedModules as $module=>$singular) {
             $icon_name = "icon_A1_newmod.gif";
         }
         $buttons[] = array('name'=>$app_list_strings['moduleList'][$module], 'img'=> $icon_name, 'key'=>$module);
-	//}
 }
 
 $user_array = get_user_array(FALSE);
@@ -99,6 +98,12 @@ $sugar_smarty->assign("do_round_help", $do_round_help);
 $sugar_smarty->assign("js_custom_version", $sugar_config['js_custom_version']);
 $sugar_smarty->assign("sugar_version", $sugar_version);
 
+// Set fiscal start date
+$admin = BeanFactory::getBean('Administration');
+$config = $admin->getConfigForModule('Forecasts', 'base');
+if (!empty($config['is_setup']) && !empty($config['timeperiod_start_date'])) {
+    $sugar_smarty->assign("fiscalStartDate", $config['timeperiod_start_date']);
+}
 
 $chart_types = array(
 	'none'=>$mod_strings['LBL_NO_CHART'],
@@ -117,7 +122,7 @@ require_once('include/SugarCharts/SugarChartFactory.php');
 $sugarChart = SugarChartFactory::getInstance();
 $resources = $sugarChart->getChartResources();
 $sugar_smarty->assign('chartResources', $resources);
-	
+
 if (isset($_REQUEST['run_query']) && ($_REQUEST['run_query'] == 1))
 	$sugar_smarty->assign("RUN_QUERY", '1');
 else
@@ -148,6 +153,7 @@ if (isset($_REQUEST['run_query']) && ($_REQUEST['run_query'] == 1)) {
 		$panels_def = html_entity_decode($_REQUEST['panels_def']);
 		$filters_def = html_entity_decode($_REQUEST['filters_defs']);
 	   	$args['reporter'] =  new Report($report_def, $filters_def, $panels_def);
+        $args['reporter']->removeInvalidFilters();
 		$sugar_smarty->assign('report_def_str', $args['reporter']->report_def_str);
 	}
 	if (isset($_REQUEST['id']))
@@ -198,16 +204,17 @@ else if (isset($_REQUEST['save_report']) && ($_REQUEST['save_report'] == 'on')) 
 	}
 
 	if (!empty($_REQUEST['id'])) {
-		$saved_report_seed = new SavedReport();
+		$saved_report_seed = BeanFactory::getBean('Reports');
 		$saved_report_seed->disable_row_level_security = true;
 		$saved_report_seed->retrieve($_REQUEST['id'], false);
-//		$args['reporter'] = new Report($saved_report_seed->content);
 	   	$args['reporter'] =  new Report($report_def, $filters_def, $panels_def);
 		$args['reporter']->saved_report = &$saved_report_seed;
 		$args['reporter']->is_saved_report = true;
 		$args['reporter']->saved_report_id = $saved_report_seed->id;
+        $args['reporter']->removeInvalidFilters();
 	} else {
 	   	$args['reporter'] =  new Report($report_def, $filters_def, $panels_def);
+        $args['reporter']->removeInvalidFilters();
 	}
 	$sugar_smarty->assign('report_def_str', $args['reporter']->report_def_str);
 	$sugar_smarty->assign('current_step', $_REQUEST['current_step']);
@@ -222,11 +229,7 @@ else if (isset($_REQUEST['save_report']) && ($_REQUEST['save_report'] == 'on')) 
 	$newArray = array();
 	$newArray['filters_def'] = $args['reporter']->report_def['filters_def'];
 	$encodedFilterData = $global_json->encode($newArray);
-	if ($newReport) {
-		saveReportFilters($args['reporter']->saved_report->id, $encodedFilterData);
-	} else {
-		updateReportAccessDate($args['reporter']->saved_report_id, $encodedFilterData);
-	} // else
+    saveReportFilters($args['reporter']->saved_report->id, $encodedFilterData);
 
 	if (isset($_REQUEST['save_and_run_query']) && ($_REQUEST['save_and_run_query'] == 'on')) {
 		header('location:index.php?action=ReportCriteriaResults&module=Reports&page=report&id='.$args['reporter']->saved_report->id);
@@ -269,8 +272,7 @@ else if (isset($_REQUEST['save_report']) && ($_REQUEST['save_report'] == 'on')) 
 	}
 }
 else if (isset($_REQUEST['is_delete']) && ($_REQUEST['is_delete'] == '1')) {
-    $report = new SavedReport();
-    $report->retrieve($_REQUEST['id']);
+    $report = BeanFactory::getBean('Reports', $_REQUEST['id']);
     if($report->ACLAccess('Delete')){
         $report->mark_deleted($_REQUEST['id']);
 		header('location:index.php?action=index&module=Reports');
@@ -278,13 +280,14 @@ else if (isset($_REQUEST['is_delete']) && ($_REQUEST['is_delete'] == '1')) {
 
 }
 else if (!empty($_REQUEST['id'])) {
-	$saved_report_seed = new SavedReport();
+	$saved_report_seed = BeanFactory::getBean('Reports');
 	$saved_report_seed->disable_row_level_security = true;
 	$saved_report_seed->retrieve($_REQUEST['id'], false);
 	$args['reporter'] = new Report($saved_report_seed->content);
 	$args['reporter']->saved_report = &$saved_report_seed;
 	$args['reporter']->is_saved_report = true;
 	$args['reporter']->saved_report_id = $saved_report_seed->id;
+	$args['reporter']->removeInvalidFilters();
 	$sugar_smarty->assign('report_def_str', $args['reporter']->report_def_str);
 	if (!isset($args['reporter']->report_def['do_round']) || $args['reporter']->report_def['do_round'] == 1)
 			$sugar_smarty->assign("do_round", 1);
@@ -331,6 +334,7 @@ else if (!empty($_REQUEST['id'])) {
 
 
 			$args['reporter'] = new Report($global_json->encode($report_def));
+            $args['reporter']->removeInvalidFilters();
 			$sugar_smarty->assign('report_def_str', $args['reporter']->report_def_str);
 		}
 	}
@@ -409,7 +413,7 @@ function setSortByInfo(&$reporter, &$smarty) {
 
 	if ( ! empty($reporter->report_def['summary_order_by'][0]['group_function']) && $reporter->report_def['summary_order_by'][0]['group_function'] == 'count') {
 
-        $summary_sort_by = $reporter->report_def['summary_order_by'][0]['table_key'].":".'count';
+            $summary_sort_by = $reporter->report_def['summary_order_by'][0]['table_key'].":".'count';
 	} else if ( isset($reporter->report_def['summary_order_by'][0]['name'])) {
 		$summary_sort_by = $reporter->report_def['summary_order_by'][0]['table_key'].":".$reporter->report_def['summary_order_by'][0]['name'];
 

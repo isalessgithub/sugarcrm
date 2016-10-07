@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /**
  * DCMetaDataParser handles both the loading and saving of meta-data for Dashlet Containers.
  * It also provides the API for adding and removing Dashlets from a layout.
@@ -62,16 +59,12 @@ class DCMetaDataParser
 	 *
 	 * If the file path is not found or if the meta-data is invalid it will throw an error and return false
 	 *
-	 * @throws FileNotFound and InvalidMetaData errors
-	 * @param $filePath - path to the meta data
-	 * @return bool - success or failure of load
+	 * @param string $filePath path to the meta data
+	 * @return bool success or failure of load
 	 */
-	public function load(
-	    $filePath
-	    )
+	public function load($filePath)
 	{
-		if(file_exists('custom/'. $filePath))
-		    $filePath = 'custom/'. $filePath;
+	    $filePath = SugarAutoLoader::existingCustomOne($filePath);
 
 		$dashletdefs = array();
 		include($filePath);
@@ -105,9 +98,9 @@ class DCMetaDataParser
 	 * This function will be called in conjunction with addDashlet in the Dashlet Container Layout (DCL) with the DCL handling
 	 * layout specific positioning of a dashlet.
 	 *
-	 * @param $dashletID - id of the dashlet (not the instance id of the dashlet)
-	 * @param $group - group it should be added to
-	 * @param $position - position in the group
+	 * @param string $dashletID - id of the dashlet (not the instance id of the dashlet)
+	 * @param string $group - group it should be added to
+	 * @param int $position - position in the group
 	 * @return bool - success or failure of add
 	 */
 	public function addDashlet(
@@ -121,7 +114,7 @@ class DCMetaDataParser
 	/**
 	 * Handles the removing of a dashlet from the meta-data based on an instance id of a dashlet
 	 *
-	 * @param $id - instance id of a dashlet
+	 * @param string $id - instance id of a dashlet
 	 * @return bool - success or failure of remove
 	 */
 	public function removeDashlet(
@@ -133,9 +126,9 @@ class DCMetaDataParser
 	/**
 	 * Allows for moving a dashlet to either a new position in the same group or a new group entirely
 	 *
-	 * @param $id - instance id of a dashlet
-	 * @param $group - group it should be added to
-	 * @param $position - position in the group
+	 * @param string $id - instance id of a dashlet
+	 * @param string $group - group it should be added to
+	 * @param int $position - position in the group
 	 * @return bool - success or failure
 	 */
 	public function moveDashlet(

@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 
@@ -31,7 +28,6 @@ class Calendar {
 	
 	public $show_tasks = true;
 	public $show_calls = true;
-	public $show_completed = true;
 	public $enable_repeat = true;	
 
 	public $time_step = 60; // time step of each slot in minutes
@@ -54,15 +50,27 @@ class Calendar {
      * @var bool $print Whether is print mode.
      */
     private $print = false;
-		
+
+    /**
+     * This is a deprecated method, please start using __construct() as this
+     * method will be removed in a future version.
+     *
+     * @deprecated since 7.0.0. Use __construct() instead.
+     */
+    public function Calendar($view = 'day', $time_arr = array())
+    {
+        $GLOBALS['log']->deprecated('Calls to Calendar::Calendar() are deprecated.');
+        self::__construct($view, $time_arr);
+    }
+
 	/**
 	 * constructor
 	 * @param string $view 
 	 * @param array $time_arr 
 	 */	
-	function __construct($view = "day", $time_arr = array()){
+	public function __construct($view = "day", $time_arr = array()){
 		global $current_user, $timedate, $current_language;
-		
+
 		$this->view = $view;		
 
 		if(!in_array($this->view,array('day','week','month','year','shared')))
@@ -111,22 +119,14 @@ class Calendar {
 		
 		$current_date_db = $date_arr['year']."-".str_pad($date_arr['month'],2,"0",STR_PAD_LEFT)."-".str_pad($date_arr['day'],2,"0",STR_PAD_LEFT);
 		$this->date_time = $GLOBALS['timedate']->fromString($current_date_db);	
-        
+				
 		$this->show_tasks = $current_user->getPreference('show_tasks');
 		if(is_null($this->show_tasks))
-			$this->show_tasks = SugarConfig::getInstance()->get('calendar.show_tasks_by_default',true);
-        
+			$this->show_tasks = SugarConfig::getInstance()->get('calendar.show_tasks_by_default',true);		
 		$this->show_calls = $current_user->getPreference('show_calls');
 		if(is_null($this->show_calls))
 			$this->show_calls = SugarConfig::getInstance()->get('calendar.show_calls_by_default',true);
-        
-		// Show completed Meetings, Calls, Tasks
-        $this->show_completed = $current_user->getPreference('show_completed');
-        if(is_null($this->show_completed))
-        {
-            $this->show_completed = SugarConfig::getInstance()->get('calendar.show_completed_by_default', true);
-        }
-        
+			
 		$this->enable_repeat = SugarConfig::getInstance()->get('calendar.enable_repeat',true);	
 
 		if(in_array($this->view,array('month','year'))){
@@ -216,11 +216,7 @@ class Calendar {
 
                     if (!empty($act->sugar_bean->parent_type) && !empty($act->sugar_bean->parent_id)) {
                         $focus = BeanFactory::getBean($act->sugar_bean->parent_type, $act->sugar_bean->parent_id);
-                        // If the bean wasn't loaded, e.g. insufficient permissions
-                        if (!empty($focus))
-                        {
-                            $item['related_to'] = $focus->name;
-                        }
+                        $item['related_to'] = $focus->name;
                     }
 
 					if(!isset($item['duration_hours']) || empty($item['duration_hours']))
@@ -313,13 +309,10 @@ class Calendar {
 		$start_date_time = $start_date_time->get("-5 days"); // 5 days step back to fetch multi-day activities that
 
 		$acts_arr = array();
-	    	if($type == 'vfb')
-	    	{
+	    	if($type == 'vfb'){
 				$acts_arr = CalendarActivity::get_freebusy_activities($user, $start_date_time, $end_date_time);
-	    	}
-	    	else
-	    	{
-				$acts_arr = CalendarActivity::get_activities($user->id, $this->show_tasks, $start_date_time, $end_date_time, $this->view, $this->show_calls, $this->show_completed);
+	    	}else{
+				$acts_arr = CalendarActivity::get_activities($user->id, $this->show_tasks, $start_date_time, $end_date_time, $this->view,$this->show_calls);
 	    	}
 	    	
 	    	$this->acts_arr[$user->id] = $acts_arr;	 

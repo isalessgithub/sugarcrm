@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Header$
  * Description: TODO:  To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -28,8 +25,6 @@ if (!is_admin($current_user) && empty($workflow_modules))
    sugar_die("Unauthorized access to WorkFlow.");
 }
 
-
-
 ///////////Show related config option
 //Set to true - show related dynamic fields
 //Set to false - do not show related dynamic fields
@@ -39,7 +34,7 @@ global $app_strings;
 global $app_list_strings;
 global $mod_strings;
 
-$focus = new EmailTemplate();
+$focus = BeanFactory::getBean('EmailTemplates');
 
 if(isset($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
@@ -91,6 +86,7 @@ $GLOBALS['log']->info("EmailTemplate detail view");
 $xtpl=new XTemplate ('modules/WorkFlow/WorkFlowEditView.html');
 $xtpl->assign("MOD", $mod_strings);
 $xtpl->assign("APP", $app_strings);
+$xtpl->assign("MOD_EMAILS", return_module_language($GLOBALS['current_language'], 'EmailTemplates'));
 
 $xtpl->assign("TYPEDROPDOWN", get_select_options_with_id($mod_strings['LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW'],'workflow'));
 
@@ -103,8 +99,7 @@ $xtpl->assign("ID", $focus->id);
 if (isset($focus->name)) $xtpl->assign("NAME", $focus->name); else $xtpl->assign("NAME", "");
 if (isset($focus->description)) $xtpl->assign("DESCRIPTION", $focus->description); else $xtpl->assign("DESCRIPTION", "");
 if (isset($focus->subject)) $xtpl->assign("SUBJECT", $focus->subject); else $xtpl->assign("SUBJECT", "");
-$admin = new Administration();
-$admin->retrieveSettings();
+$admin = Administration::getSettings();
 if ($focus->from_name != "") $xtpl->assign("FROM_NAME", $focus->from_name); else $xtpl->assign("FROM_NAME",$admin->settings['notify_fromname']);
 if ($focus->from_address != "") $xtpl->assign("FROM_ADDRESS", $focus->from_address); else $xtpl->assign("FROM_ADDRESS",$admin->settings['notify_fromaddress']);
 if ( $focus->published == 'on')
@@ -112,6 +107,37 @@ if ( $focus->published == 'on')
 $xtpl->assign("PUBLISHED","CHECKED");
 }
 
+///////////////////////////////////////
+////    ATTACHMENTS
+$attachments = '';
+if (!empty($focus->id)) {
+    $etid = $focus->id;
+} elseif(!empty($old_id)) {
+    $xtpl->assign('OLD_ID', $old_id);
+    $etid = $old_id;
+}
+if(!empty($etid)) {
+    $note = BeanFactory::getBean('Notes');
+    $notes_list = $note->get_full_list("", "notes.parent_id=" . $GLOBALS['db']->quoted($etid) . " AND notes.filename IS NOT NULL", true);
+    if (!empty($notes_list)) {
+        for ($i = 0; $i < count($notes_list); $i++) {
+            $the_note = $notes_list[$i];
+            if (empty($the_note->filename)) {
+                continue;
+            }
+            $secureLink = 'index.php?entryPoint=download&id=' . $the_note->id . '&type=Notes';
+            $attachments .= '<input type="checkbox" name="remove_attachment[]" value="' . $the_note->id . '"> ' . $app_strings['LNK_REMOVE'] . '&nbsp;&nbsp;';
+            $attachments .= '<a href="' . $secureLink . '" target="_blank">' . $the_note->filename . '</a><br>';
+        }
+    }
+}
+$attJs  = '<script type="text/javascript">';
+$attJs .= 'var lnk_remove = "'.$app_strings['LNK_REMOVE'].'";';
+$attJs .= '</script>';
+$xtpl->assign('ATTACHMENTS', $attachments);
+$xtpl->assign('ATTACHMENTS_JAVASCRIPT', $attJs);
+////    END ATTACHMENTS
+///////////////////////////////////////
 
 /////////////////////////Workflow Area/////////////////////////////
 
@@ -158,23 +184,12 @@ $tiny->defaultConfig['apply_source_formatting']=true;
 $tiny->defaultConfig['cleanup_on_startup']=true;
 $tiny->defaultConfig['relative_urls']=false;
 $tiny->defaultConfig['convert_urls']=false;
-$ed = $tiny->getInstance('body_html');
+$ed = $tiny->getInstance('body_text');
 $xtpl->assign("tiny", $ed);
 $edValue = $focus->body_html ;
 $xtpl->assign("HTMLAREA",$edValue);
 $xtpl->parse("main.htmlarea");
 //////////////////////////////////
-
- echo <<<EOQ
-	  <SCRIPT>
-	  function insert_variable_html(text) {
-        var inst = tinyMCE.getInstanceById('body_html');
-        if (inst)
-                    inst.getWin().focus();
-        inst.execCommand('mceInsertContent', false, text);
-      }
-	  </SCRIPT>
-EOQ;
 
 //Add Custom Fields
 require_once('modules/DynamicFields/templates/Files/EditView.php');

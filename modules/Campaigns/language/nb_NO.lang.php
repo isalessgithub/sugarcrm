@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -24,8 +21,10 @@ $mod_strings = array (
   'ERR_MESS_NOT_FOUND_FOR_LIST' => 'Ingen e-postmarkedsføringsmeldinger funnet i mållisten.',
   'ERR_NO_EMAIL_MARKETING' => 'Det må väre minst en aktiv e-postmarkedsføringsmelding tilknyttet kampanjen.',
   'ERR_NO_MAILBOX' => 'Følgende markedsføringsmeldinger har ingen mailkonto i tilknytning til seg. <BR> Vennligst rett dette før du fortsetter.',
+  'ERR_NO_OPTS_SAVED' => 'Ingen optimums ble lagret med din Innkommet e-post-konto.',
   'ERR_NO_TARGET_LISTS' => 'Det må väre minst en målliste tilknyttet kampanjen.',
   'ERR_NO_TEST_TARGET_LISTS' => 'Det må väre minst en test- målliste tilknyttet kampanjen.',
+  'ERR_REVIEW_EMAIL_SETTINGS' => 'Vennligts se gjennom inngående e-postinnstillinger.',
   'ERR_SENDING_NOW' => 'Meldinger blir nå levert, vennligst prøv igjen senere.',
   'LBL_ACCOUNTS' => 'Bedrifter',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Bedrifter',
@@ -55,6 +54,7 @@ $mod_strings = array (
   'LBL_CAMPAIGN_EXPECTED_REVENUE' => 'Forventet omsetning:',
   'LBL_CAMPAIGN_FREQUENCY' => 'Frekvens:',
   'LBL_CAMPAIGN_IMPRESSIONS' => 'Sidevisninger:',
+  'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => 'Kampanjen &#39;{0}&#39; har status "Inaktiv". Du må sette kampanje statusen til "Aktiv".',
   'LBL_CAMPAIGN_INFORMATION' => 'Kampanje oversikt',
   'LBL_CAMPAIGN_LEAD_SUBPANEL_TITLE' => 'Leads',
   'LBL_CAMPAIGN_NAME' => 'Navn:',
@@ -93,6 +93,7 @@ $mod_strings = array (
   'LBL_CREATE_WEB_TO_LEAD_FORM' => 'Opprett web til førerskjemaet',
   'LBL_CURRENCY' => 'Valuta:',
   'LBL_CURRENCY_ID' => 'Valuta-ID',
+  'LBL_CURRENCY_RATE' => 'Valutakurs',
   'LBL_CUSTOM_LOCATION' => 'Tillat velger',
   'LBL_DATE_CREATED' => 'Opprettet:',
   'LBL_DATE_ENTERED' => 'Lagt inn',
@@ -143,6 +144,7 @@ $mod_strings = array (
   'LBL_EMAIL_SETUP_WIZ' => 'Start e-post innstillinger',
   'LBL_EMAIL_SETUP_WIZARD' => 'E-post innstillinger',
   'LBL_EMAIL_SETUP_WIZARD_TITLE' => 'E- post innstillinger for kampanjen',
+  'LBL_END_DATE' => 'Sluttdato',
   'LBL_FILTER_CHART_BY' => 'Filterdiagram av:',
   'LBL_FINISH' => 'Avslutt',
   'LBL_FROM_ADDR' => 'Fra-adresse:',
@@ -214,6 +216,7 @@ $mod_strings = array (
   'LBL_MODIFIED_BY' => 'Endret av:',
   'LBL_MODIFIED_USER' => 'Endret bruker',
   'LBL_MODULE_NAME' => 'Kampanjer',
+  'LBL_MODULE_NAME_SINGULAR' => 'Kampanje',
   'LBL_MODULE_TITLE' => 'Kampanjer: Hovedside',
   'LBL_MONTH' => 'Måned',
   'LBL_MORE_DETAILS' => 'Flere detaljer',
@@ -290,7 +293,9 @@ $mod_strings = array (
   'LBL_SSL' => 'Anvend SSL',
   'LBL_SSL_DESC' => 'Hvis din e-postserver støtter sikre holdertilkoblinger, vil denne muliggjøringen av dette tvinge frem SSL-tilkoblinger ved import av e-post.',
   'LBL_START' => 'Start',
+  'LBL_START_DATE' => 'Startdato',
   'LBL_START_DATE_TIME' => 'Startdato & -tidspunkt',
+  'LBL_STATUS' => 'Status',
   'LBL_STATUS_TEXT' => 'Status:',
   'LBL_SUBSCRIPTION_LIST' => 'Subscription List',
   'LBL_SUBSCRIPTION_LIST_NAME' => 'Subscription Listenavn:',
@@ -317,6 +322,7 @@ $mod_strings = array (
   'LBL_TODETAIL_BUTTON_LABEL' => 'Vis detaljer',
   'LBL_TODETAIL_BUTTON_TITLE' => 'Vis detaljer',
   'LBL_TOP_CAMPAIGNS' => 'Topp kampanjer',
+  'LBL_TOP_CAMPAIGNS_DESCRIPTION' => 'Topp utførte kampanjer etter omsetning',
   'LBL_TOP_CAMPAIGNS_NAME' => 'Kampanje navn',
   'LBL_TOP_CAMPAIGNS_REVENUE' => 'Inntekter',
   'LBL_TOTAL_ENTRIES' => 'Elementer',
@@ -339,6 +345,7 @@ $mod_strings = array (
   'LBL_TRACK_DELETE_CONFIRM' => 'Dette alternativet vil slette log elementene dannet under testkjøringen. Fortsette?',
   'LBL_TRACK_QUEUE_SUBPANEL_TITLE' => 'Spor køen',
   'LBL_TRACK_ROI_BUTTON_LABEL' => 'Vis avkastning (ROI)',
+  'LBL_TYPE' => 'Type',
   'LBL_UNSUBSCRIBED_HEADER' => 'Tilgjengelige nyhetsbrev',
   'LBL_UNSUBSCRIBED_HEADER_EXPL' => 'Flyttes nyhetsbrevet til listen "Tilgjengelige Nyhetsbrev / Nyhetsbrev uten abonnement" vil kontakten bli flyttet til avmeldingslisten for dette nyhetsbrevet. Det vil ikke fjerne kontakten fra den opprinnelige abonnementslisten eller Målisten.',
   'LBL_UNSUBSCRIPTION_LIST' => 'Unsubscription List',

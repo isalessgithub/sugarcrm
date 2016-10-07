@@ -1,18 +1,15 @@
 <?php
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $dictionary['Document'] = array('table' => 'documents',
     'unified_search' => true,
     'full_text_search' => true,
@@ -22,19 +19,21 @@ $dictionary['Document'] = array('table' => 'documents',
         'document_name' =>
         array(
             'name' => 'document_name',
-            'vname' => 'LBL_NAME',
+            'vname' => 'LBL_DOCUMENT_NAME',
             'type' => 'varchar',
             'len' => '255',
             'required' => true,
             'importable' => 'required',
             'unified_search' => true,
-            'full_text_search' => array('boost' => 3),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
         ),
         'name' => array(
             'name' => 'name',
             'vname' => 'LBL_NAME',
             'source' => 'non-db',
-            'type' => 'varchar'
+            'type' => 'varchar',
+            'fields' => array('document_name'),
+            'sort_on' => 'name',
         ),
         'doc_id' =>
         array(
@@ -85,6 +84,7 @@ $dictionary['Document'] = array('table' => 'documents',
             'docType' => 'doc_type',
             'docUrl' => 'doc_url',
             'docId' => 'doc_id',
+            'sort_on' => array('document_name'),
         ),
 
         'active_date' =>
@@ -127,7 +127,7 @@ $dictionary['Document'] = array('table' => 'documents',
         'status_id' =>
         array(
             'name' => 'status_id',
-            'vname' => 'LBL_DOC_STATUS',
+            'vname' => 'LBL_DOC_STATUS_ID',
             'type' => 'enum',
             'len' => 100,
             'options' => 'document_status_dom',
@@ -146,8 +146,8 @@ $dictionary['Document'] = array('table' => 'documents',
         'document_revision_id' =>
         array(
             'name' => 'document_revision_id',
-            'vname' => 'LBL_LATEST_REVISION',
-            'type' => 'varchar',
+            'vname' => 'LBL_DOCUMENT_REVISION_ID',
+            'type' => 'id',
             'len' => '36',
             'reportable' => false,
         ),
@@ -159,6 +159,15 @@ $dictionary['Document'] = array('table' => 'documents',
             'relationship' => 'document_revisions',
             'source' => 'non-db',
             'vname' => 'LBL_REVISIONS',
+        ),
+
+        'latest_document_revision_link' =>
+        array(
+            'name' => 'latest_document_revision_link',
+            'type' => 'link',
+            'relationship' => 'latest_document_revision',
+            'source' => 'non-db',
+            'vname' => 'LBL_LATEST_REVISION',
         ),
 
         'revision' =>
@@ -202,9 +211,10 @@ $dictionary['Document'] = array('table' => 'documents',
         'last_rev_create_date' =>
         array(
             'name' => 'last_rev_create_date',
-            'type' => 'date',
+            'type' => 'relate',
             'table' => 'document_revisions',
-            'link' => 'revisions',
+            'link' => 'latest_document_revision_link',
+            'id_name' => 'document_revision_id',
             'join_name' => 'document_revisions',
             'vname' => 'LBL_LAST_REV_CREATE_DATE',
             'rname' => 'date_entered',
@@ -218,13 +228,12 @@ $dictionary['Document'] = array('table' => 'documents',
             'source' => 'non-db',
             'vname' => 'LBL_CONTRACTS',
         ),
-        //todo remove
-        'leads' => array(
-            'name' => 'leads',
+        'contracttypes' => array(
+            'name' => 'contracttypes',
             'type' => 'link',
-            'relationship' => 'leads_documents',
+            'relationship' => 'contracttype_documents',
             'source' => 'non-db',
-            'vname' => 'LBL_LEADS',
+            'vname' => 'LBL_CONTRACTTYPES',
         ),
         // Links around the world
         'accounts' =>
@@ -283,13 +292,22 @@ $dictionary['Document'] = array('table' => 'documents',
             'source' => 'non-db',
             'vname' => 'LBL_PRODUCTS_SUBPANEL_TITLE',
         ),
+        'revenuelineitems' =>
+        array(
+            'name' => 'revenuelineitems',
+            'type' => 'link',
+            'relationship' => 'documents_revenuelineitems',
+            'source' => 'non-db',
+            'vname' => 'LBL_RLI_SUBPANEL_TITLE',
+            'workflow' => false
+        ),
         'related_doc_id' =>
         array(
             'name' => 'related_doc_id',
             'vname' => 'LBL_RELATED_DOCUMENT_ID',
             'reportable' => false,
             'dbType' => 'id',
-            'type' => 'varchar',
+            'type' => 'id',
             'len' => '36',
         ),
 
@@ -299,7 +317,9 @@ $dictionary['Document'] = array('table' => 'documents',
             'vname' => 'LBL_DET_RELATED_DOCUMENT',
             'type' => 'relate',
             'table' => 'documents',
+            'link' => 'related_docs',
             'id_name' => 'related_doc_id',
+            'rname' => 'document_name',
             'module' => 'Documents',
             'source' => 'non-db',
             'comment' => 'The related document name for Meta-Data framework',
@@ -308,20 +328,30 @@ $dictionary['Document'] = array('table' => 'documents',
         'related_doc_rev_id' =>
         array(
             'name' => 'related_doc_rev_id',
+            'type' => 'relate',
+            'link' => 'related_docs',
+            'rname' => 'document_revision_id',
+            'id_name' => 'related_doc_id',
             'vname' => 'LBL_RELATED_DOCUMENT_REVISION_ID',
             'reportable' => false,
             'dbType' => 'id',
-            'type' => 'varchar',
+            'type' => 'id',
             'len' => '36',
         ),
 
         'related_doc_rev_number' =>
         array(
             'name' => 'related_doc_rev_number',
+            'type' => 'relate',
+            'link' => 'revisions',
+            'rname' => 'revision',
+            'id_name' => 'related_doc_rev_id',
+            'table' => 'document_revisions',
+            'join_name' => 'document_revisions',
             'vname' => 'LBL_DET_RELATED_DOCUMENT_VERSION',
-            'type' => 'varchar',
             'source' => 'non-db',
             'comment' => 'The related document version number for Meta-Data framework',
+            'module' => 'DocumentRevisions', // If the module is not set, sidecar should look at the link to determine the module. This is just temp solution.
         ),
 
         'is_template' =>
@@ -407,16 +437,33 @@ $dictionary['Document'] = array('table' => 'documents',
             'reportable' => false,
             'source' => 'non-db'
         ),
+        'related_docs' => array(
+            'name' => 'related_docs',
+            'type' => 'link',
+            'relationship' => 'related_documents',
+            'source' => 'non-db',
+            'vname' => 'LBL_DET_RELATED_DOCUMENT',
+        ),
 //END fields used for contract documents subpanel.
 
     ),
     'indices' => array(
         array('name' => 'idx_doc_cat', 'type' => 'index', 'fields' => array('category_id', 'subcategory_id')),
+        array('name' => 'idx_document_doc_type', 'type' => 'index', 'fields' => array('doc_type')),
+        array('name' => 'idx_document_exp_date', 'type' => 'index', 'fields' => array('exp_date')),
     ),
     'relationships' => array(
-        'document_revisions' => array('lhs_module' => 'Documents', 'lhs_table' => 'documents', 'lhs_key' => 'id',
+        'related_documents' => array('lhs_module' => 'Documents', 'lhs_table' => 'documents', 'lhs_key' => 'id',
+            'rhs_module' => 'Documents', 'rhs_table' => 'documents', 'rhs_key' => 'related_doc_id',
+            'relationship_type' => 'one-to-many')
+    ,  'document_revisions' => array('lhs_module' => 'Documents', 'lhs_table' => 'documents', 'lhs_key' => 'id',
             'rhs_module' => 'DocumentRevisions', 'rhs_table' => 'document_revisions', 'rhs_key' => 'document_id',
             'relationship_type' => 'one-to-many')
+    ,  'latest_document_revision' => array(
+            'lhs_module' => 'Documents', 'lhs_table' => 'documents', 'lhs_key' => 'document_revision_id',
+            'rhs_module' => 'DocumentRevisions', 'rhs_table' => 'document_revisions', 'rhs_key' => 'id',
+            'relationship_type' => 'one-to-one'
+        )
 
     , 'documents_modified_user' =>
         array('lhs_module' => 'Users', 'lhs_table' => 'users', 'lhs_key' => 'id',

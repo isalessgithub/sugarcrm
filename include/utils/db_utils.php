@@ -1,19 +1,16 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-
-
+ // $Id: db_utils.php 56343 2010-05-10 21:18:10Z jenny $
 
 /**
  * @deprecated use DBManager::convert() instead.
@@ -39,15 +36,6 @@ function from_db_convert($string, $type)
     return $GLOBALS['db']->fromConvert($string, $type);
 	}
 
-$toHTML = array(
-	'"' => '&quot;',
-	'<' => '&lt;',
-	'>' => '&gt;',
-	"'" => '&#039;',
-);
-$GLOBALS['toHTML_keys'] = array_keys($toHTML);
-$GLOBALS['toHTML_values'] = array_values($toHTML);
-$GLOBALS['toHTML_keys_set'] = implode("", $GLOBALS['toHTML_keys']);
 /**
  * Replaces specific characters with their HTML entity values
  * @param string $string String to check/replace
@@ -60,57 +48,34 @@ $GLOBALS['toHTML_keys_set'] = implode("", $GLOBALS['toHTML_keys']);
  * Bug 49489 - removed caching of to_html strings as it was consuming memory and
  * never releasing it
  */
-function to_html($string, $encode=true){
-	if (empty($string)) {
+function to_html($string, $encode=true)
+{
+	if (empty($string) || !$encode) {
 		return $string;
 	}
-
-	global $toHTML;
-
-	if($encode && is_string($string)){
-		/*
-		 * cn: bug 13376 - handle ampersands separately
-		 * credit: ashimamura via bug portal
-		 */
-		//$string = str_replace("&", "&amp;", $string);
-
-        if(is_array($toHTML))
-        { // cn: causing errors in i18n test suite ($toHTML is non-array)
-            $string = str_ireplace($GLOBALS['toHTML_keys'],$GLOBALS['toHTML_values'],$string);
-		}
-	}
-
-    return $string;
+    if(defined('ENTRY_POINT_TYPE') && constant('ENTRY_POINT_TYPE') == 'api') {
+        return $string;
+    }
+    return htmlspecialchars($string, ENT_QUOTES, "UTF-8");
 }
 
 
 /**
  * Replaces specific HTML entity values with the true characters
  * @param string $string String to check/replace
- * @param bool $encode Default true
+ * @param bool $decode Default true
  * @return string
  */
-function from_html($string, $encode=true) {
-    if (!is_string($string) || !$encode) {
+function from_html($string, $decode=true)
+{
+    if (!is_string($string) || !$decode) {
+        return $string;
+    }
+    if(defined('ENTRY_POINT_TYPE') && constant('ENTRY_POINT_TYPE') == 'api') {
         return $string;
     }
 
-	global $toHTML;
-    static $toHTML_values = null;
-    static $toHTML_keys = null;
-    static $cache = array();
-    if (!empty($toHTML) && is_array($toHTML) && (!isset($toHTML_values) || !empty($GLOBALS['from_html_cache_clear']))) {
-        $toHTML_values = array_values($toHTML);
-        $toHTML_keys = array_keys($toHTML);
-    }
-
-    // Bug 36261 - Decode &amp; so we can handle double encoded entities
-	$string = str_ireplace("&amp;", "&", $string);
-
-    if (!isset($cache[$string])) {
-        $cache[$string] = str_ireplace($toHTML_values, $toHTML_keys, $string);
-    }
-    return $cache[$string];
+    return htmlspecialchars_decode($string, ENT_QUOTES);
 }
 
 /*

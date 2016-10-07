@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,8 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'Standard URL',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'U.S. format',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Feltnavn finnes allerede',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Feltnavn skal kun inneholde følgende tegn: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Ingen modul inkludert Kunne ikke lagres',
   'ERR_RESERVED_FIELD_NAME' => 'Reservert nøkkelord',
   'ERR_SELECT_FIELD_TYPE' => 'Velg en felttype',
+  'LBL_ADDING_COLUMN' => 'Legge til kolonne {0} til',
   'LBL_ADD_FIELD' => 'Legg til felt:',
   'LBL_AUDITED' => 'Revidert',
   'LBL_BTN_ADD' => 'Legg til',
@@ -66,10 +66,15 @@ $mod_strings = array (
   'LBL_DEPENDENT' => 'Avhengig',
   'LBL_DEPENDENT_CHECKBOX' => 'Avhengig',
   'LBL_DEPENDENT_TRIGGER' => 'Trigger',
+  'LBL_DONE' => 'Ferdig',
+  'LBL_DROPPING_COLUMN' => 'Droppe kolonne {0} fra {1} for modul',
   'LBL_DROP_DOWN_LIST' => 'Nedtrekksliste',
   'LBL_DYNAMIC_VALUES_CHECKBOX' => 'Avhengig',
   'LBL_EDIT_VIS' => 'Rediger Synlighet',
   'LBL_ENFORCED' => 'Forsterket',
+  'LBL_EXE_NON_SIM_MODE' => 'Utfør ikke-simuleringsmodus',
+  'LBL_FIELD_MISSING' => 'felt(er) mangler fra',
+  'LBL_FIX_COLUMN_TYPE' => 'Fikse kolonnetype for {0} skifte {1} til',
   'LBL_FORMULA' => 'Formel',
   'LBL_GENERATE_URL' => 'Skape URL',
   'LBL_HAS_PARENT' => 'Har Overordnet',
@@ -85,7 +90,9 @@ $mod_strings = array (
   'LBL_PARENT_DROPDOWN' => 'Overordnet Nedtrekksmeny',
   'LBL_RADIO_FIELDS' => 'Radio felter',
   'LBL_REPORTABLE' => 'Kan rapporteres',
+  'LBL_SCAN_MODULE' => 'Skanning',
   'LBL_SEARCH_FORM_TITLE' => 'Modul søk',
+  'LBL_SIMULATION_MODE' => 'SIMULERINGSMODUS - INGEN ENDRINGER VIL BLI GJORT MED UNNTAK AV Å TØMME NETTLESERENS BUFFER',
   'LBL_VISIBLE_IF' => 'Vises dersom',
   'LNK_CALL_LIST' => 'Oppringninger',
   'LNK_EMAIL_LIST' => 'E-post',

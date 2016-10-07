@@ -2,27 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Následující moduly byly nainstalovány:',
   'DESC_MODULES_QUEUED' => 'Následující aktualizace jsou připraveny k instalaci:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'Nahraný soubor není kompatibilní s Vaší verzí SugarCRM (Community Edition, Professional, or Enterprise) :',
+  'ERROR_HT_NO_WRITE' => 'Není možné zapisovat do souboru: %s',
+  'ERROR_MANIFEST_TYPE' => 'Soubor manifestu musí specifikovat typ balíčku.',
+  'ERROR_PACKAGE_TYPE' => 'Soubor manifestu specifikuje neznámý typ balíčku: %s',
+  'ERROR_UW_CONFIG_DB' => 'Chyba při ukládání %s proměnné konfigurace do databáze (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'Nahraný soubor není kompatibilní s Vaší verzí SugarCRM:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'Tvoje verze PHP není kompatibilní s SugarCRM. Postupuj prosím dle požadovaných parametrů pro systém. Vaše verze je',
+  'ERR_NOT_ADMIN' => 'Neoprávněný přístup do administrace',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Nemáte oprávnění vstoupit na tuto stránku.',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Nelze určit skupinu',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Nelze určit vlastníka',
   'ERR_UW_CONFIG' => 'Prosím  umožněte zápis do config.php a znovu načtěte tuto stránku',
@@ -73,6 +76,7 @@ $mod_strings = array (
   'LBL_BUTTON_RESTART' => 'Restart',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Potvrzené upgrady v procesu',
   'LBL_CURRENT_PHP_VERSION' => '(Tvoje php verze is',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globálně viditelný',
   'LBL_HOME_PAGE_4_NAME' => 'Traker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'Php verze 5 nebo vyšší je vyžadována.',
   'LBL_LANGPACKS' => 'Jazykové balíčky',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'PHP nastavení: Omezení  paměti [Memory Limit]',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP magické uvozovky',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Minimální MySQL verze',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'PCRE verze',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Umístění php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Minimální verze PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Nastavení PHP: Safe mode - bezpečný režim',

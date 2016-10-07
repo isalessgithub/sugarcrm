@@ -1,18 +1,15 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 function email_layout ($layout) {
@@ -27,7 +24,7 @@ function email_layout ($layout) {
 
 
 	//First Create e-mail draft
-	$email_object = new Email();
+	$email_object = BeanFactory::getBean('Emails');
 	// set the id for relationships
 	$email_object->id = create_guid();
 	$email_object->new_with_id = true;
@@ -53,8 +50,7 @@ function email_layout ($layout) {
 	if(!empty($focus->billing_contact_id) && $focus->billing_contact_id!="") {
 		global $beanFiles;
 		require_once($beanFiles['Contact']);
-		$contact = new Contact;
-		$contact->retrieve($focus->billing_contact_id);
+		$contact = BeanFactory::getBean('Contacts', $focus->billing_contact_id);
 
 		if(!empty($contact->email1) || !empty($contact->email2)) {
 			//contact email is set
@@ -75,8 +71,7 @@ function email_layout ($layout) {
 		}//end if contact name is set
 	} elseif(isset($focus->billing_account_id) && !empty($focus->billing_account_id)) {
 
-		$acct = new Account();
-		$acct->retrieve($focus->billing_account_id);
+		$acct = BeanFactory::getBean('Accounts', $focus->billing_account_id);
 
 		if(!empty($acct->email1) || !empty($acct->email2)) {
 			//acct email is set
@@ -111,7 +106,7 @@ function email_layout ($layout) {
 
 	//Handle PDF Attachment
 	$file_name = get_quote_pdf($layout);
-	$note = new Note();
+	$note = BeanFactory::getBean('Notes');
 	$note->filename = $file_name;
 	$note->team_id = "";
 	$note->file_mime_type = "application/pdf";

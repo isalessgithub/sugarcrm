@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 require_once ('include/externalAPI/Base/ExternalAPIPlugin.php');
 require_once ('include/externalAPI/Base/ExternalOAuthAPIPlugin.php');
@@ -113,11 +110,10 @@ abstract class ExternalAPIBase implements ExternalAPIPlugin
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        
-        $proxy_config = SugarModule::get('Administration')->loadBean();
-        $proxy_config->retrieveSettings('proxy');
-        
-        if( !empty($proxy_config) && 
+
+        $proxy_config = Administration::getSettings('proxy');
+
+        if( !empty($proxy_config) &&
             !empty($proxy_config->settings['proxy_on']) &&
             $proxy_config->settings['proxy_on'] == 1) {
 
@@ -126,8 +122,8 @@ abstract class ExternalAPIBase implements ExternalAPIPlugin
             if (!empty($proxy_settings['proxy_auth'])) {
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxy_settings['proxy_username'] . ':' . $proxy_settings['proxy_password']);
             }
-        }   
-        
+        }
+
         if ( ( is_array($postfields) && count($postfields) == 0 ) ||
              empty($postfields) ) {
             curl_setopt($ch, CURLOPT_POST, false);
@@ -236,6 +232,6 @@ abstract class ExternalAPIBase implements ExternalAPIPlugin
      */
     public function isMimeDetectionAvailable()
 	{
-	    return ( function_exists('mime_content_type') || function_exists( 'ext2mime' ) );
+	    return mime_is_detectable();
 	}
 }

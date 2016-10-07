@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 56786 2010-06-02 18:29:56Z jenny $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -22,13 +19,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_FROM_ADDR' => '"From" Address: ',
   'LBL_REPLY_ADDR' => '"Reply-to" Address: ',
   'LBL_REPLY_NAME' => '"Reply-to" Name: ',
 
   'LBL_MODULE_NAME' => 'Campaigns',
-  'LBL_MODULE_TITLE' => 'Campaigns: Home',
+    'LBL_MODULE_NAME_SINGULAR'	=> 'Campaign',
+    'LBL_MODULE_TITLE' => 'Campaigns: Home',
   'LBL_NEWSLETTER_TITLE'=>'Campaigns: Newsletters',
+  'LBL_EMAIL_TITLE'=>'Campaigns: Emails',
   'LBL_SEARCH_FORM_TITLE' => 'Campaign Search',
   'LBL_LIST_FORM_TITLE' => 'Campaign List',
   'LBL_NEWSLETTER_LIST_FORM_TITLE' => 'Newsletter List',
@@ -64,6 +62,11 @@ $mod_strings = array (
   'LBL_CAMPAIGN_OBJECTIVE' => 'Objective: ',
   'LBL_CAMPAIGN_CONTENT' => 'Description: ',
   'LBL_CAMPAIGN_DAYS_REMAIN' => 'Days Remaining',
+  'LBL_CURRENCY_RATE' => 'Currency Rate',
+  'LBL_START_DATE' => 'Start Date',
+  'LBL_END_DATE' => 'End Date',
+  'LBL_STATUS' => 'Status',
+  'LBL_TYPE' => 'Type',
   'LBL_CAMPAIGN_INACTIVE_SCHEDULE' => "Campaign '{0}' has status 'Inactive'. You have to set campaign status to 'Active'.",
   'LNK_NEW_CAMPAIGN' => 'Create Campaign (Classic)',
   'LNL_NEW_CAMPAIGN_WIZARD' => 'Create Campaign (Wizard)',
@@ -150,6 +153,7 @@ $mod_strings = array (
   'LBL_NEWSLETTER_FORENTRY'=>'NewsLetter',
   'LBL_MORE_DETAILS' => 'More Details',
   'LBL_CREATE_NEWSLETTER'=>'Create Newsletter',
+  'LBL_CREATE_EMAIL'=>'Create Email',
   'LBL_LIST_NAME' => 'Name',
   'LBL_STATUS_TEXT' =>  'Status:' ,
   'LBL_FROM_MAILBOX_NAME'=>'Use Mail Account:',
@@ -214,7 +218,6 @@ $mod_strings = array (
   'LBL_NAVIGATION_MENU_MARKETING' => 'Marketing',
   'LBL_NAVIGATION_MENU_SEND_EMAIL' => 'Send Email',
   'LBL_NAVIGATION_MENU_SUBSCRIPTIONS' => 'Subscriptions',
-  'LBL_NAVIGATION_MENU_SUMMARY' => 'Summary',
   'LBL_SUBSCRIPTION_TARGET_WIZARD_DESC' =>  'This will define the target list of type Subscription for this campaign.<br>  This target list will be used to send out emails for this campaign.  <br>If you do not have a list ready, an empty list will be created for you.',
   'LBL_UNSUBSCRIPTION_TARGET_WIZARD_DESC' => 'This will define the target list of type Unsubscription for this campaign.  <br>This target list will contain names of people who have opted out of your campaign and should not be contacted through email.  <br>If you do not have a list ready, an empty list will be created for you.',
   'LBL_TEST_TARGET_WIZARD_DESC' => 'This will define the target list of type Test for this campaign.  <br>This target list will be used to send out test emails for this campaign.  <br>If you do not have a list ready, an empty list will be created for you.',

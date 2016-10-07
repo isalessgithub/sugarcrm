@@ -1,23 +1,20 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 
 require_once('include/formbase.php');
 
-$focus = new Holiday();
+$focus = BeanFactory::getBean('Holidays');
 global $current_user;
 
 $focus->disable_row_level_security = true;	
@@ -25,19 +22,30 @@ $focus->retrieve($_POST['record']);
 
 $focus = populateFromPost('', $focus);
 
-if ($_REQUEST['return_module'] != 'Project'){
-	$focus->person_id = $_REQUEST['relate_id'];
-	$focus->person_type = "Users";
+if ($focus->id != $_REQUEST['relate_id']) {
+    if ($_REQUEST['return_module'] != 'Project') {
+        $focus->person_id = $_REQUEST['relate_id'];
+        $focus->person_type = "Users";
+    } elseif ($_REQUEST['return_module'] == 'Project') {
+        $focus->related_module = 'Project';
+        $focus->related_module_id = $_REQUEST['relate_id'];
+    }
 }
-else if ($_REQUEST['return_module'] == 'Project'){
-	$focus->related_module = 'Project';
-	$focus->related_module_id = $_REQUEST['relate_id'];
+
+if (!$focus->id && !empty($_REQUEST['duplicateId'])) {
+    $original_focus = BeanFactory::getBean('Holidays');
+    $original_focus->retrieve($_REQUEST['duplicateId']);
+
+    $focus->person_id = $original_focus->person_id;
+    $focus->person_type = $original_focus->person_type;
+    $focus->related_module = $original_focus->related_module;
+    $focus->related_module_id = $original_focus->related_module_id;
 }
 
 $check_notify = FALSE;
 
 $focus->save($check_notify);
-$return_id = $Document->id;
+$return_id = $focus->id;
 
 if(isset($_POST['return_module']) && $_POST['return_module'] != "") $return_module = $_POST['return_module'];
 else $return_module = "Holidays";

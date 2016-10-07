@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'CONTACT_REMOVE_PROJECT_CONFIRM' => '您确定从此项目中移除此联系人吗？',
@@ -29,13 +26,14 @@ $mod_strings = array (
   'ERR_PREDECESSOR_CYCLE_FAIL' => '前一次的声明引起循环依赖.',
   'ERR_PREDECESSOR_IS_PARENT_OR_CHILD_FAIL' => '前一次声明不是父任务就是子任务.',
   'ERR_TASK_NAME_FOR_ROW' => '行任务名称',
+  'ERR_TASK_VIEW_DETAILS' => '你无法查看未经保存的任务的详情。',
   'LBL_ACCOUNTS_SUBPANEL_TITLE' => '客户',
   'LBL_ACCOUNT_SUBPANEL_TITLE' => '客户',
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => '活动',
   'LBL_ACTIVITIES_TITLE' => '活动',
   'LBL_ACTUAL_DURATION' => '实际持续时间',
-  'LBL_ASSIGNED_USER_ID' => '指派给:',
-  'LBL_ASSIGNED_USER_NAME' => '指派给:',
+  'LBL_ASSIGNED_USER_ID' => '指派给：',
+  'LBL_ASSIGNED_USER_NAME' => '指派给：',
   'LBL_BIWEEK_BUTTON' => '2 周',
   'LBL_BUGS_SUBPANEL_TITLE' => '缺陷',
   'LBL_CASES_SUBPANEL_TITLE' => '客户反馈',
@@ -44,25 +42,25 @@ $mod_strings = array (
   'LBL_CONTACTS_SUBPANEL_TITLE' => '联系人',
   'LBL_CONTACT_SUBPANEL_TITLE' => '联系人',
   'LBL_COPY_BUTTON' => '复制',
-  'LBL_CREATED_BY' => '创建者:',
+  'LBL_CREATED_BY' => '创建者：',
   'LBL_CUT_BUTTON' => '剪切',
   'LBL_DAILY_REPORT' => '每日报表',
   'LBL_DATE' => '日期',
-  'LBL_DATE_END' => '结束日期:',
-  'LBL_DATE_ENTERED' => '创建日期:',
-  'LBL_DATE_MODIFIED' => '修改日期:',
-  'LBL_DATE_START' => '开始日期:',
+  'LBL_DATE_END' => '结束日期：',
+  'LBL_DATE_ENTERED' => '创建日期：',
+  'LBL_DATE_MODIFIED' => '修改日期：',
+  'LBL_DATE_START' => '开始日期：',
   'LBL_DEFAULT_SUBPANEL_TITLE' => '项目',
-  'LBL_DELETED' => '删除:',
+  'LBL_DELETED' => '已删除：',
   'LBL_DELETE_BUTTON' => '删除',
-  'LBL_DESCRIPTION' => '说明:',
+  'LBL_DESCRIPTION' => '说明：',
   'LBL_DURATION' => '持续时间',
   'LBL_DURATION_WIDGET' => '持续时间',
   'LBL_EDITLAYOUT' => '编辑布局',
   'LBL_EDIT_PROJECT_TASKS_TITLE' => '编辑项目任务',
   'LBL_EXPAND_ALL_BUTTON' => '全部展开',
   'LBL_EXPORT_TO_MS_PROJECT' => '导出到 MS项目',
-  'LBL_EXPORT_TO_PDF' => '导出到PDF',
+  'LBL_EXPORT_TO_PDF' => '导出为PDF',
   'LBL_FILTER_ALL_TASKS' => '全部任务',
   'LBL_FILTER_COMPLETED_TASKS' => '全部任务',
   'LBL_FILTER_DATE_RANGE' => '在日期范围内的任务',
@@ -86,7 +84,7 @@ $mod_strings = array (
   'LBL_HOLIDAY' => '假期',
   'LBL_HOLIDAYS_SUBPANEL_TITLE' => '假期',
   'LBL_HOLIDAYS_TITLE' => '假期',
-  'LBL_ID' => '编号:',
+  'LBL_ID' => 'ID：',
   'LBL_INDENT_BUTTON' => '缩进',
   'LBL_INSERTROWS' => '插入行',
   'LBL_INSERT_BUTTON' => '插入行',
@@ -98,7 +96,7 @@ $mod_strings = array (
   'LBL_LIST_FILTER_VIEW' => '显示:',
   'LBL_LIST_FORM_TITLE' => '项目列表',
   'LBL_LIST_NAME' => '名称',
-  'LBL_LIST_OPEN_CASES' => '公开的客户反馈',
+  'LBL_LIST_OPEN_CASES' => '待处理的客户反馈',
   'LBL_LIST_OVERDUE_TASKS' => '过期任务',
   'LBL_LIST_RESOURCE' => '资源:',
   'LBL_LIST_TEAM_ID' => '团队',
@@ -106,16 +104,16 @@ $mod_strings = array (
   'LBL_LIST_TOTAL_ESTIMATED_EFFORT' => '估算总时间(小时)',
   'LBL_LIST_UPCOMING_TASKS' => '预约的任务 (1 周)',
   'LBL_MARK_AS_MILESTONE_BUTTON' => '标记为里程碑',
-  'LBL_MODIFIED_USER_ID' => '更改人编号:',
-  'LBL_MODULE_NAME' => '项目管理',
+  'LBL_MODIFIED_USER_ID' => '修改用户ID：',
+  'LBL_MODULE_NAME' => '项目',
   'LBL_MODULE_NAME_SINGULAR' => '项目',
-  'LBL_MODULE_TITLE' => '项目管理: 主页',
+  'LBL_MODULE_TITLE' => '项目: 首页',
   'LBL_MONTH_BUTTON' => '月',
   'LBL_MORE' => '更多...',
   'LBL_MY_PROJECTS' => '我的项目',
   'LBL_MY_PROJECTS_DASHBOARD' => '我的项目统计图',
   'LBL_MY_PROJECT_TASKS' => '我的项目任务',
-  'LBL_NAME' => '名称:',
+  'LBL_NAME' => '名称：',
   'LBL_NEW_FORM_TITLE' => '新项目',
   'LBL_NEXT_WEEK' => '下一步',
   'LBL_OPPORTUNITIES' => '商业机会',
@@ -123,7 +121,7 @@ $mod_strings = array (
   'LBL_OPPORTUNITY_SUBPANEL_TITLE' => '商业机会',
   'LBL_OUTDENT_BUTTON' => '减少缩进',
   'LBL_PASTE_BUTTON' => '粘贴',
-  'LBL_PDF_PROJECT_NAME' => '项目名称:',
+  'LBL_PDF_PROJECT_NAME' => '项目名称：',
   'LBL_PERCENT_BUSY' => '% 忙',
   'LBL_PERCENT_COMPLETE' => '% 完成',
   'LBL_PERCENT_COMPLETE_WIDGET' => '完成百分比',
@@ -134,7 +132,7 @@ $mod_strings = array (
   'LBL_POPUP_RESOURCE_NAME' => '资源名称:',
   'LBL_PREDECESSORS' => '前任',
   'LBL_PREDECESSORS_WIDGET' => '前任',
-  'LBL_PRIORITY' => '优先级:',
+  'LBL_PRIORITY' => '优先级：',
   'LBL_PRODUCTS_SUBPANEL_TITLE' => '产品',
   'LBL_PROJECTRESOURCES_SUBPANEL_TITLE' => '项目资源',
   'LBL_PROJECTTASK_SUBPANEL_TITLE' => '项目任务',
@@ -147,7 +145,7 @@ $mod_strings = array (
   'LBL_PROJECT_TASK_SUBPANEL_TITLE' => '项目任务',
   'LBL_PROJECT_TEMPLATE' => '项目模版',
   'LBL_PROJECT_TEMPLATES_LIST' => '项目模版列表',
-  'LBL_PROJECT_TEMPLATES_TITLE' => '项目模版: 主页',
+  'LBL_PROJECT_TEMPLATES_TITLE' => '项目模版: 首页',
   'LBL_PROJECT_TEMPLATE_NAME' => '模版名称:',
   'LBL_QUICK_NEW_PROJECT' => '新项目',
   'LBL_QUOTES_SUBPANEL_TITLE' => '报价',
@@ -160,6 +158,7 @@ $mod_strings = array (
   'LBL_RESOURCE_NAMES_WIDGET' => '资源',
   'LBL_RESOURCE_REPORT' => '资源报表',
   'LBL_RESOURCE_TYPE' => '类型',
+  'LBL_RLI_SUBPANEL_TITLE' => '收入线项目',
   'LBL_SAVE_AS_NEW_PROJECT_BUTTON' => '保存为新项目',
   'LBL_SAVE_AS_NEW_TEMPLATE_BUTTON' => '保存为新模版',
   'LBL_SAVE_AS_PROJECT' => '保存为项目',
@@ -171,16 +170,16 @@ $mod_strings = array (
   'LBL_SHOW_OPTIONAL_COLUMNS_BUTTON' => '显示列选项',
   'LBL_START' => '开始',
   'LBL_START_WIDGET' => '开始时间',
-  'LBL_STATUS' => '状态:',
-  'LBL_TASK_ID' => '编号',
+  'LBL_STATUS' => '状态：',
+  'LBL_TASK_ID' => 'ID',
   'LBL_TASK_ID_WIDGET' => '编号',
   'LBL_TASK_NAME' => '任务名称',
   'LBL_TASK_NAME_WIDGET' => '说明',
-  'LBL_TEAM_ID' => '团队:',
+  'LBL_TEAM_ID' => '团队：',
   'LBL_TEMPLATE_NAME' => '模版名称:',
-  'LBL_TOTAL_ACTUAL_EFFORT' => '实际总时间 (小时):',
-  'LBL_TOTAL_ESTIMATED_EFFORT' => '估算总时间(小时):',
-  'LBL_UNMARK_AS_MILESTONE_BUTTON' => '撤消-标记为里程碑',
+  'LBL_TOTAL_ACTUAL_EFFORT' => '实际总时间 (小时)：',
+  'LBL_TOTAL_ESTIMATED_EFFORT' => '估算总时间(小时)：',
+  'LBL_UNMARK_AS_MILESTONE_BUTTON' => '撤消里程碑的标记',
   'LBL_USER_RESOURCE' => '用户资源',
   'LBL_VIEW_GANTT_TITLE' => '查看甘特图',
   'LBL_VIEW_TASK_DETAILS_BUTTON' => '显示任务细节',

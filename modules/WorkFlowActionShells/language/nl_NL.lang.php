@@ -2,33 +2,30 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
   'LBL_ACTION_ERROR' => 'Deze actie bevat fouten en kan daarom niet worden uitgevoerd.',
-  'LBL_ACTION_NEW' => 'Maak een nieuwe',
-  'LBL_ACTION_NEW_REL' => 'Maak een nieuwe',
+  'LBL_ACTION_NEW' => 'Maak een nieuw(e)',
+  'LBL_ACTION_NEW_REL' => 'Maak een nieuw(e)',
   'LBL_ACTION_NEW_REL_TITLE' => 'Maak een record in een module die gerelateerd is met de doelmodule',
   'LBL_ACTION_NEW_TITLE' => 'Maak een record in de module behorend bij de doelmodule',
-  'LBL_ACTION_UPDATE' => 'Update velden in doel',
-  'LBL_ACTION_UPDATE_REL' => 'Update velden in gerelateerd',
+  'LBL_ACTION_UPDATE' => 'Update velden in de doel',
+  'LBL_ACTION_UPDATE_REL' => 'Update velden in een gerelateerd',
   'LBL_ACTION_UPDATE_REL_PART2' => 'alle',
   'LBL_ACTION_UPDATE_REL_PART3' => 'gerelateerde',
-  'LBL_ACTION_UPDATE_REL_TITLE' => 'Update velden in een gerelateerde module',
-  'LBL_ACTION_UPDATE_TITLE' => 'Update velden in de doelmodule',
+  'LBL_ACTION_UPDATE_REL_TITLE' => 'Werk velden in een gerelateerde module bij',
+  'LBL_ACTION_UPDATE_TITLE' => 'Werk velden in de doelmodule bij',
   'LBL_AS' => 'als',
   'LBL_ASSOCIATED_WITH' => 'in verband met een gerelateerde',
   'LBL_BY' => 'door',
@@ -36,11 +33,11 @@ $mod_strings = array (
   'LBL_EVAL' => 'Trigger Evaluatie:',
   'LBL_FIELD' => 'Veld:',
   'LBL_FILTER_RELATED' => 'Filter gerelateerde',
-  'LBL_INVITEES' => 'Genodigden',
+  'LBL_INVITEES' => 'Uitgenodigden',
   'LBL_LIST_ACTION_DESCRIPTION' => 'Acties die moeten worden uitgevoerd:',
   'LBL_LIST_EVAL' => 'Eval:',
   'LBL_LIST_FIELD' => 'Veld:',
-  'LBL_LIST_FORM_TITLE' => 'Actie Lijst',
+  'LBL_LIST_FORM_TITLE' => 'Acties lijst',
   'LBL_LIST_NAME' => 'Trigger Naam:',
   'LBL_LIST_STATEMENT' => 'Gebeurtenis Beschrijving:',
   'LBL_LIST_TYPE' => 'Type:',

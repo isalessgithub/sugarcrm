@@ -1,20 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 /*********************************************************************************
-
+ * $Id$
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -51,8 +48,7 @@ class ViewAdminwizard extends SugarView
         
         $configurator = new Configurator();
         $sugarConfig = SugarConfig::getInstance();
-        $focus = new Administration();
-        $focus->retrieveSettings();
+        $focus = Administration::getSettings();
         
         $ut = $GLOBALS['current_user']->getPreference('ut');
         if(empty($ut))
@@ -76,7 +72,7 @@ class ViewAdminwizard extends SugarView
         $this->ss->assign('getNameJs', $locale->getNameJs());
         $this->ss->assign('NAMEFORMATS', $locale->getUsableLocaleNameOptions($sugar_config['name_formats']));
         $this->ss->assign('JAVASCRIPT',get_set_focus_js(). get_configsettings_js());
-        $this->ss->assign('company_logo', SugarThemeRegistry::current()->getImageURL('company_logo.png'));
+        $this->ss->assign('company_logo', SugarThemeRegistry::current()->getImageURL('company_logo.png', true, true));
         $this->ss->assign('mail_smtptype', $focus->settings['mail_smtptype']);
         $this->ss->assign('mail_smtpserver', $focus->settings['mail_smtpserver']);
         $this->ss->assign('mail_smtpport', $focus->settings['mail_smtpport']);

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Debe especificar un número de registro para eliminar el contacto.',
@@ -61,10 +58,14 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departamento:',
   'LBL_DESCRIPTION' => 'Descripción:',
   'LBL_DESCRIPTION_INFORMATION' => 'Información de Descripción',
+  'LBL_DNB_BAL_PREVIEW' => 'Vista Previa de Targets',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Targets',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: Información de Target',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID Principal de D&B',
   'LBL_DO_NOT_CALL' => 'No Llamar:',
   'LBL_DUPLICATE' => 'Posible Público Objetivo Duplicado',
   'LBL_EDIT_ACCOUNT_NAME' => 'Nombre de Cuenta:',
-  'LBL_EMAIL_ADDRESS' => 'Correo Electrónico:',
+  'LBL_EMAIL_ADDRESS' => 'Correo electrónico:',
   'LBL_EMAIL_OPT_OUT' => 'Rehusar Email:',
   'LBL_EXISTING_ACCOUNT' => 'Usada una cuenta existente',
   'LBL_EXISTING_PROSPECT' => 'Usado un contacto existente',
@@ -74,15 +75,35 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'Otra dirección de Email',
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificado por ID',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'Informes de Targets',
   'LBL_FIRST_NAME' => 'Nombre:',
   'LBL_FULL_NAME' => 'Nombre Completo:',
+  'LBL_HELP_CREATE' => 'El módulo {{plural_module_name}} se compone de personas individuales que son clientes potenciales no cualificados de los que dispone alguna información sobre ellos, pero aún no están calificados {{leads_singular_module}}.
+
+Para crear un {{module_name}}:
+1. Proporcione valores para los campos que desee.
+ * Los campos marcados "Obligatorio" se deben completar antes de guardar.
+ * Haga clic en "Mostrar más" para ver los campos adicionales si es necesario.
+2. Haga clic en "Guardar" para finalizar el nuevo registro y volver a la vista en lista de {{plural_module_name}} .
+ * Seleccione la opción "Guardar y ver" para abrir el nuevo {{module_name}} como vista de registro.
+ * Seleccione la opción "Guardar y crear nuevo" para un nuevo {{module_name}} inmediatamente.',
+  'LBL_HELP_RECORD' => 'El módulo {{plural_module_name}} consiste en personas individuales que son prospectos no cualificados de las que dispones de cierta información, pero todavía no están cualificados como {{leads_singular_module}}.
+
+- Edita el registro haciendo clic en el campo individual o el botón Editar. 
+- Ver o modificar enlaces a otros registros en los subpanales yendo a la pestaña "Ver Datos".
+- Comentar o ver otros comentarios de usuarios y ver el historial del registro en {{activitystream_singular_module}} yendo a "Actividades Recientes".
+- Seguir o guardar como favorito el registro utilizando los iconos a la izquierda del nombre del registro. 
+- Acciones adicionales están disponibles en el botón desplegable Acciones.',
+  'LBL_HELP_RECORDS' => 'El módulo {{module_name}} se compone de personas individuales que son clientes potenciales no cualificados de las que se tiene cierta información, pero todavía no ha sido un {{lead_module}} cualificado. La información (ej. nombre, dirección de email) con respecto a estos {{plural_module_name}} normalmente se adquieren a partir de tarjetas de visita que recibe por la participación en eventos, conferencias, etc. {{plural_module_name}} en Sugar son registros independientes, ya que no tienen relación con {{contacts_module}}, {{leads_module}}, {{accounts_module}}, o {{opportunities_module}}. Hay varias maneras de crear {{plural_module_name}} en Sugar como por ejemplo a través del módulo {{plural_module_name}}, importando {{plural_module_name}}, etc. Cuando el registro {{module_name}} se ha creado, podrá ver y editar la información relacionada con el {{module_name}} vía {{plural_module_name}} Ver registro.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Historial',
   'LBL_HOME_PHONE' => 'Casa:',
   'LBL_IMPORT_VCARD' => 'Importar vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Crear un nuevo contacto automáticamente importando una vCard su sistema de ficheros.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Se ha creado de forma correcta el Públic Objetivo desde la vCard',
   'LBL_INVALID_EMAIL' => 'Email No Válido:',
   'LBL_INVITEE' => 'Informa Directamente',
   'LBL_LAST_NAME' => 'Apellido:',
+  'LBL_LEAD' => 'Cliente potencial',
   'LBL_LEAD_ID' => 'Id Cliente Potencial',
   'LBL_LIST_EMAIL_ADDRESS' => 'Email',
   'LBL_LIST_FIRST_NAME' => 'Nombre',
@@ -125,12 +146,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'Público Objetivo',
   'LBL_PROSPECT_NAME' => 'Nombre del Público Objetivo:',
   'LBL_PROSPECT_ROLE' => 'Rol:',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ha creado de forma correcta el {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_SALUTATION' => 'Saludo',
   'LBL_SAVE_PROSPECT' => 'Guardar Público Objetivo',
   'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Público Objetivo',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Seleccione Público Objetivo Marcado',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Seleccione Público Objetivo Marcado',
   'LBL_STATE' => 'Provincia/Estado:',
+  'LBL_STREET' => 'Calle',
   'LBL_TITLE' => 'Título:',
   'LBL_TRACKER_KEY' => 'Clave de Seguimiento',
   'LNK_CAMPAIGN_LIST' => 'Campañas',
@@ -161,6 +184,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'La creación de una oportunidad requiere una cuenta.\\n Por favor, cree una cuenta nueva o seleccione una existente.',
   'NTC_REMOVE_CONFIRMATION' => '¿Está seguro de que desea quitar este contacto del caso?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => '¿Está seguro de que desea quitar este registro como un informador directo?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_OTHER_EMAIL_ADDRESS',
   'db_first_name' => 'LBL_LIST_FIRST_NAME',

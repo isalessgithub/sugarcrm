@@ -2,26 +2,23 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Möchten Sie diese Firma wirklich aus dem Projekt entfernen?',
   'ERR_DELETE_RECORD' => 'Es muss die Datensatznummer angegeben werden, um diesen Datensatz löschen zu können.',
   'LBL_ACCOUNT' => 'Firma:',
-  'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Accounts',
+  'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Firmen',
   'LBL_ACCOUNT_INFORMATION' => 'Firmeninformation',
   'LBL_ACCOUNT_NAME' => 'Firmenname:',
   'LBL_ACCOUNT_TYPE' => 'Firmentyp',
@@ -48,6 +45,7 @@ $mod_strings = array (
   'LBL_CALLS_SUBPANEL_TITLE' => 'Anrufe',
   'LBL_CAMPAIGNS' => 'Kampagnen',
   'LBL_CAMPAIGN_ID' => 'Kampagnen ID',
+  'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Kampagnen',
   'LBL_CASES_SUBPANEL_TITLE' => 'Tickets',
   'LBL_CHARTS' => 'Diagramme',
   'LBL_CITY' => 'Stadt:',
@@ -64,14 +62,21 @@ $mod_strings = array (
   'LBL_DEFAULT_SUBPANEL_TITLE' => 'Firmen',
   'LBL_DESCRIPTION' => 'Beschreibung:',
   'LBL_DESCRIPTION_INFORMATION' => 'Beschreibungsinformation',
+  'LBL_DNB_BAL_PREVIEW' => 'Vorschau Firmen',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumente',
-  'LBL_DUPLICATE' => 'Firma möglicherweise doppelt',
+  'LBL_DUNS_NUM' => 'DUNS:',
+  'LBL_DUPLICATE' => 'Mögliche Dublette entdeckt',
   'LBL_EMAIL' => 'E-Mail:',
   'LBL_EMAIL_ADDRESSES' => 'E-Mail Adresse(n)',
   'LBL_EMAIL_OPT_OUT' => 'Keine E-Mails senden:',
   'LBL_EMPLOYEES' => 'Mitarbeiter:',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Zugewiesen Benutzer',
   'LBL_FAX' => 'Fax:',
+  'LBL_FILENAME' => 'Anlage',
+  'LBL_FILTER_ACCOUNTS_REPORTS' => 'Firmen Berichte',
+  'LBL_HELP_CREATE' => 'Das {{plural_module_name}} Modul zeigt alle Firmen mit denen Ihr Unternehmen in Verbindung steht. Dieses Modul ist der Dreh- und Angelpunkt um alle bereits stattgefunden oder auch zukünftigen Interaktionen mit einer Firma zu planen oder anzuzeigen. Um eine {{module_name}} zu erstellen: 1. Erfassen Sie alle relevanten Informationen. - Felder die als Pflichtfeld markiert sind müssen ausgefüllt werden um den Datensatz speichern zu können. - Klicken Sie auf "mehr zeigen" um weitere Felder zu erfassen. 2. Drücken Sie auf "Speichern" um den Datensatz verfügbar zu machen und um auf die letzte Seite zurück zu kommen. - Wählen Sie "Speichern und Öffnen" um den neuen {{module_name}} in der Datensatzansicht zu öffnen. - Wählen Sie "Speichern und neuen Datensatz erstellen" um sofort einen weiteren {{module_name}} Datensatz anzulegen.',
+  'LBL_HELP_RECORD' => 'Das {{plural_module_name}} Modul zeigt alle Firmen mit denen Ihr Unternehmen in Verbindung steht. Dieses Modul ist der Dreh- und Angelpunkt um alle bereits stattgefunden oder auch zukünftigen Interaktionen mit einer Firma zu planen oder anzuzeigen. Editieren Sie den Datensatz in dem Sie ein einzelnes Feld anklicken oder indem Sie auf die Bearbeiten Schaltfläche drücken. Sehen Sie sich in der Vorschau Verknüpfungen zu anderen Datensätzen an. Klicken Sie im Subpanel entsprechend auf das Vorschausymbol klicken. Erstellen oder sehen Sie sich Benutzerkommentare und die Änderungshistorie verschiedener Datensätze im  {{activitystream_singular_module}} an indem Sie die Sicht auf "Activity Stream" im unteren linken Bereich stellen. Folgen Sie favorisierten Einträgen indem Sie das Sternsymbol neben dem Namen oben anklicken. Weitere Aktionen finden Sie im Ausklappmenü auf der rechten Seite der Bearbeiten Schaltfläche.',
+  'LBL_HELP_RECORDS' => 'Das {{plural_module_name}} Modul zeigt alle Firmen mit denen Ihr Unternehmen in Verbindung steht. Dieses Modul ist der Dreh- und Angelpunkt um alle bereits stattgefunden oder auch zukünftigen Interaktionen mit einer Firma zu planen oder anzuzeigen. Es gibt verschiedene Möglichkeiten wie Sie {{plural_module_name}} in Sugar erstellen können z. B. importieren, duplizieren, etc.. Sobald der {{module_name}} erstellt ist, können Informationen in der Datenansicht eingesehen und editiert werden. Jeder {{module_name}} Datensatz kann mit anderen Sugardatensätzen verknüpft werden wie z. B. {{contacts_module}}, {{meetings_module}}, {{cases_module}}, {{opportunities_module}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Verlauf',
   'LBL_HOMEPAGE_TITLE' => 'Meine Firmen',
   'LBL_INDUSTRY' => 'Branche:',
@@ -86,7 +91,7 @@ $mod_strings = array (
   'LBL_LIST_PHONE' => 'Telefon',
   'LBL_LIST_STATE' => 'Bundesland',
   'LBL_LIST_WEBSITE' => 'Webseite',
-  'LBL_MEETINGS_SUBPANEL_TITLE' => 'Meetings',
+  'LBL_MEETINGS_SUBPANEL_TITLE' => 'Termine',
   'LBL_MEMBER_OF' => 'Mitglied von:',
   'LBL_MEMBER_ORG_FORM_TITLE' => 'Mitgliedsorganisationen',
   'LBL_MEMBER_ORG_SUBPANEL_TITLE' => 'Mitgliedsorganisationen',
@@ -98,6 +103,7 @@ $mod_strings = array (
   'LBL_MODULE_TITLE' => 'Firmen: Home',
   'LBL_NAME' => 'Name:',
   'LBL_NEW_FORM_TITLE' => 'Neue Firma',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notizen',
   'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Verkaufschancen',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Weitere E-Mail:',
   'LBL_OTHER_PHONE' => 'Weiteres Telefon:',
@@ -110,7 +116,6 @@ $mod_strings = array (
   'LBL_PHONE_FAX' => 'Telefon/Fax:',
   'LBL_PHONE_OFFICE' => 'Telefon Büro:',
   'LBL_POSTAL_CODE' => 'PLZ:',
-  'LBL_PRODUCTS_SUBPANEL_TITLE' => 'Produkte',
   'LBL_PRODUCTS_TITLE' => 'Produkte',
   'LBL_PROJECTS_SUBPANEL_TITLE' => 'Projekte',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projekte',
@@ -121,6 +126,8 @@ $mod_strings = array (
   'LBL_PUSH_SHIPPING' => 'Versandinfos',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Angebote',
   'LBL_RATING' => 'Einstufung:',
+  'LBL_REVENUELINEITEMS' => 'Umsatzposten',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Umsatzposten',
   'LBL_SAVE_ACCOUNT' => 'Firma speichern',
   'LBL_SEARCH_FORM_TITLE' => 'Firmen Suche',
   'LBL_SHIPPING_ADDRESS' => 'Lieferadresse:',
@@ -138,14 +145,15 @@ $mod_strings = array (
   'LBL_TEAMS_LINK' => 'Teams',
   'LBL_TICKER_SYMBOL' => 'Wertpapier Kennnummer (WKN):',
   'LBL_TYPE' => 'Typ:',
-  'LBL_USERS_ASSIGNED_LINK' => 'Zugew. Benutzer',
-  'LBL_USERS_CREATED_LINK' => 'Erstellt von Benutzern',
-  'LBL_USERS_MODIFIED_LINK' => 'Bearbeitet von Benutzern',
+  'LBL_USERS_ASSIGNED_LINK' => 'Zugewiesener Benutzer',
+  'LBL_USERS_CREATED_LINK' => 'Erstellt von Benutzer',
+  'LBL_USERS_MODIFIED_LINK' => 'Bearbeitet von Benutzer',
   'LBL_UTILS' => 'Werkzeuge',
   'LBL_VIEW_FORM_TITLE' => 'Firmen Listenansicht',
   'LBL_WEBSITE' => 'Webseite:',
   'LNK_ACCOUNT_LIST' => 'Firmen',
   'LNK_ACCOUNT_REPORTS' => 'Firmen Berichte',
+  'LNK_CREATE' => 'Neue Firma',
   'LNK_IMPORT_ACCOUNTS' => 'Firmen importieren',
   'LNK_NEW_ACCOUNT' => 'Neue Firma',
   'MSG_DUPLICATE' => 'Die Firma die Sie gerade erstellen, könnte eine Dublette einer bereits bestehenden Firma sein. Firmen mit ähnlichen Namen sind unten aufgeführt.<br>Drücken Sie auf Speichern um fortzusetzen oder auf Abbrechen um zum Modul zurückzukehren ohne die Firma zu speichern.',

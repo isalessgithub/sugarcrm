@@ -2,31 +2,31 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'LBL_AMOUNT' => 'Daudzums:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Summa bāzes valūtā',
   'LBL_ASSIGNED_TO_USER' => 'Piešķirts lietotājam',
   'LBL_COMMIT' => 'Nodot:',
   'LBL_COMMITTED' => 'Nodota',
   'LBL_COMMIT_STATUS' => 'Nodošanas datums',
+  'LBL_CREATED_BY' => 'Izveidoja',
   'LBL_CURRENCY' => 'Valūta:',
   'LBL_CURRENCY_RATE' => 'Valūtas kurss',
   'LBL_CURRENT_USER_NO_QUOTA' => 'Jums nav bijusi piešķirta kvota šim laika posmam.',
   'LBL_CURRENT_USER_QUOTA' => 'Jūsu kvota šim laika posmam ir:',
+  'LBL_DIRECT' => 'Tiešs',
   'LBL_DIRECT_REPORT' => 'Tiešā atskaite',
   'LBL_EDITLAYOUT' => 'Rediģēt izkārtojumu',
   'LBL_LAST_MODIFIED' => 'Pēdējoreiz modificēts',
@@ -40,6 +40,8 @@ $mod_strings = array (
   'LBL_NO_QUOTAS_TIMEPERIOD' => 'Šajā laika periodā nav ievadītas Jūsu tiešo atskaišu kvotas.',
   'LBL_QUOTA' => 'Kvota:',
   'LBL_QUOTA_AMOUNT' => 'Kvotas daudzums',
+  'LBL_QUOTA_TYPE' => 'Tips',
+  'LBL_ROLLUP' => 'Apkopojums',
   'LBL_SELECT_TIME_PERIOD' => 'Izvēlēties laika posmu...',
   'LBL_SELECT_USER' => 'Izvēlieties lietotāju...',
   'LBL_TIMEPERIOD_ID' => 'Laika posms',

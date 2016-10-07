@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => '取引先担当者を削除するにはレコード番号を指定する必要があります。',
@@ -61,6 +58,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => '部署:',
   'LBL_DESCRIPTION' => '詳細:',
   'LBL_DESCRIPTION_INFORMATION' => '詳細情報',
+  'LBL_DNB_BAL_PREVIEW' => 'ターゲットプレビュー',
+  'LBL_DNB_BAL_RSLT_CNT' => 'ターゲット',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B:ターゲット情報',
+  'LBL_DNB_PRINCIPAL_ID' => 'D&B プリンシパルID',
   'LBL_DO_NOT_CALL' => '電話不可:',
   'LBL_DUPLICATE' => 'ターゲットの複製候補',
   'LBL_EDIT_ACCOUNT_NAME' => '取引先:',
@@ -74,15 +75,22 @@ $mod_strings = array (
   'LBL_EXPORT_EMAIL2' => 'その他のEメール',
   'LBL_EXPORT_MODIFIED_USER_ID' => '更新者ID',
   'LBL_FAX_PHONE' => 'ファックス:',
+  'LBL_FILTER_PROSPECTS_REPORTS' => 'ターゲットのレポート',
   'LBL_FIRST_NAME' => '名:',
   'LBL_FULL_NAME' => '名前',
+  'LBL_HELP_CREATE' => '{{module_name}}モジュールは、いくつかの情報を持っている確定していない見込である個々の人々で構成されていますが、まだ確定した{{leads_singular_module}}ではありません。{{module_name}}を作成するには: 1. フィールドに任意の値を入力する -  "必須"のフィールドは保存前に入力完了してある必要があります。 - 必要なら"更に表示"をクリックしフィールドを展開してください。
+2. 新しいレコードを確定し、前のページに戻るには「保存」をクリックします。 - 選択し"保存して表示"、レコードビューに {{module_name}}を開きます。 - すぐに別の新規作成するには {{module_name}}「保存して、新規作成」を選択してください。',
+  'LBL_HELP_RECORD' => '{{module_name}}モジュールは、いくつかの情報を持っている確定していない見込である個々の人々で構成されていますが、まだ確定した{{leads_singular_module}}ではありません。 - 個々のフィールドまたは[編集]ボタンをクリックして、このレコードのフィールドを編集します。 - 左下のペインに「データビュー」をトグルしてサブパネル内の他のレコードへのリンクを表示したり変更します。 - 左下ペインに「アクティビティストリーム」を切り替えることにより、{{activitystream_singular_module}}内のレコードのユーザーのコメントしたり表示してください。 - レコード名の右にあるアイコンを使用して、このレコードをフォローするかお気に入りに入れてください。 - 追加のアクションは、[編集]ボタンの右にあるドロップダウンの操作メニューにあります。',
+  'LBL_HELP_RECORDS' => '{{module_name}}モジュールは、いくつかの情報を持っている確定していない見込である個々の人々で構成されていますが、まだ確定した{{leads_singular_module}}ではありません。 これら{{plural_module_name}}に関する情報は（例えば名前やEメールアドレス）通常様々な展示会や会議などに参加された際に受け取った名刺などから得たものです。Sugarにおける{{plural_module_name}}はスタンドアローンのレコードであり、 {{contacts_module}}, {{leads_module}}, {{accounts_module}}, もしくは{{opportunities_module}}などとは関連がありません。Sugarにおいて{{plural_module_name}}を作成する方法はたくさんあり、例えば{{plural_module_name}}モジュールを通して、{{plural_module_name}}をインポートすることによりできます。{{module_name}}レコードが作成されたなら、{{plural_module_name}}レコード表示を通して{{module_name}}を得て情報を表示したり編集したりすることができます。',
   'LBL_HISTORY_SUBPANEL_TITLE' => '履歴',
   'LBL_HOME_PHONE' => '自宅電話:',
   'LBL_IMPORT_VCARD' => 'vCardのインポート',
   'LBL_IMPORT_VCARDTEXT' => 'vCardをインポートすることによって新規取引先担当者を作成します。',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'vCardからターゲットの作成に成功しました',
   'LBL_INVALID_EMAIL' => '無効なEメール:',
   'LBL_INVITEE' => '直属の部下',
   'LBL_LAST_NAME' => '姓:',
+  'LBL_LEAD' => 'リード',
   'LBL_LEAD_ID' => 'リードID',
   'LBL_LIST_EMAIL_ADDRESS' => 'Eメール',
   'LBL_LIST_FIRST_NAME' => '名',
@@ -125,12 +133,14 @@ $mod_strings = array (
   'LBL_PROSPECT_LIST' => 'ターゲットリスト',
   'LBL_PROSPECT_NAME' => 'ターゲット名:',
   'LBL_PROSPECT_ROLE' => '役割:',
+  'LBL_RECORD_SAVED_SUCCESS' => '作成に成功しました {{moduleSingularLower}} {{full_name}}.',
   'LBL_SALUTATION' => '敬称',
   'LBL_SAVE_PROSPECT' => 'ターゲット保存',
   'LBL_SEARCH_FORM_TITLE' => 'ターゲット検索',
   'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'チェックしたターゲットの選択',
   'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'チェックしたターゲットの選択',
   'LBL_STATE' => '都道府県:',
+  'LBL_STREET' => '番地',
   'LBL_TITLE' => '職位:',
   'LBL_TRACKER_KEY' => 'トラッカーキー',
   'LNK_CAMPAIGN_LIST' => 'キャンペーン',
@@ -161,6 +171,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => '商談の作成には取引先が必要です。\\n 取引先を新しく作るか、既存の取引先を選択してください。',
   'NTC_REMOVE_CONFIRMATION' => '本当にこの取引先担当者をケースからはずしてよいですか？',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => '本当にこのレコードを部下からはずしてよいですか？',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_email1' => 'Eメール',
   'db_email2' => 'その他のEメール',
   'db_first_name' => '名',

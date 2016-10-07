@@ -1,23 +1,16 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point'); 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 global $sugar_config;
-//global $modListHeader;
 global $app_list_strings;
 global $beanFiles;
 
@@ -32,7 +25,7 @@ function getAllowedReportModules(&$local_modListHeader, $skipCache = false) {
 	if(isset($reports_mod) && !$skipCache) {
 		return $reports_mod;
 	}
-	
+
 	require_once("modules/MySettings/TabController.php");
 	$controller = new TabController();
 	$tabs = $controller->get_tabs_system();
@@ -40,13 +33,13 @@ function getAllowedReportModules(&$local_modListHeader, $skipCache = false) {
 	if(!is_array($all_modules)) {
 		return array();
 	}
-	
+
 	global $report_map, $beanList, $report_include_modules;
-	
+
 	if(empty($beanList)) {
 		require('include/modules.php');
 	}
-	
+
 	$report_modules = array();
 
 	$subModuleCheckArray = array("Tasks", "Calls", "Meetings", "Notes");
@@ -54,7 +47,7 @@ function getAllowedReportModules(&$local_modListHeader, $skipCache = false) {
 	$subModuleProjectArray = array("ProjectTask");
  
 	foreach($beanList as $key=>$value) {
-		
+
 		if(isset($all_modules[$key])) {
 			$report_modules[$key] = $value;
 		}
@@ -78,42 +71,39 @@ function getAllowedReportModules(&$local_modListHeader, $skipCache = false) {
             $report_modules[$key] = $value;
         }
 
-
-		if($key=='Releases' || $key == 'CampaignLog') {
+		if($key=='Releases' || $key == 'CampaignLog' || $key == 'Manufacturers') {
 			$report_modules[$key] = $value;
 		}
-
 
 	}
 
 	global $beanFiles;
-	
+
 	// Bug 38864 - Parse the reportmoduledefs.php file for a list of modules we should include or disclude from this list
 	//             Provides contents of $exemptModules and $additionalModules arrays
 	$exemptModules     = array();
 	$additionalModules = array();
-	
-	include('modules/Reports/metadata/reportmodulesdefs.php');
-    if (file_exists('custom/modules/Reports/metadata/reportmodulesdefs.php')) {
-        include('custom/modules/Reports/metadata/reportmodulesdefs.php');
-    }
+
+	foreach(SugarAutoLoader::existingCustom('modules/Reports/metadata/reportmodulesdefs.php') as $file) {
+	    include $file;
+	}
 
     foreach ( $report_modules as $module => $class_name ) {
 		if ( !isset($beanFiles[$class_name]) || in_array($module, $exemptModules) ) {
 			unset($report_modules[$module]);
-		}	
+		}
 	}
-	
+
 	foreach ( $additionalModules as $module ) {
         if ( isset($beanList[$module]) ) {
             $report_modules[$module] = $beanList[$module];
         }
     }
-	
+
 	if ( should_hide_iframes() && isset($report_modules['iFrames']) ) {
 	    unset($report_modules['iFrames']);
 	}
-	
+
 	return $report_modules;
 }
 
@@ -130,13 +120,16 @@ $module_map = array(
 	'prospects'		=> 'Prospects',
 	'quotes'		=> 'Quotes',
 	'calls'			=> 'Calls',
-	'cases'			=> 'Cases',						
+	'cases'			=> 'Cases',
 	'contacts'		=> 'Contacts',
 	'emails'		=> 'Emails',
 	'meetings'		=> 'Meetings',
 	'opportunities'	=> 'Opportunities',
 	'tasks'			=> 'Tasks',
-	'contracts'		=> 'Contracts',	
+	'contracts'		=> 'Contracts',
+    'timeperiods'   => 'TimePeriods',
+    'quotas'        => 'Quotas',
+
 );
 
 $my_report_titles = array(
@@ -159,7 +152,7 @@ $my_report_titles = array(
 
 
 
-	'Contracts'		=> $local_mod_strings['LBL_MY_CONTRACT_REPORTS'],	
+	'Contracts'		=> $local_mod_strings['LBL_MY_CONTRACT_REPORTS'],
 );
 
 $my_team_report_titles = array(
@@ -180,7 +173,7 @@ $my_team_report_titles = array(
     'Tasks'         => $local_mod_strings['LBL_MY_TEAM_TASK_REPORTS'],
     'Emails'        => $local_mod_strings['LBL_MY_TEAM_EMAIL_REPORTS'],
 
-    'Contracts'     => $local_mod_strings['LBL_MY_TEAM_CONTRACT_REPORTS'],   
+    'Contracts'     => $local_mod_strings['LBL_MY_TEAM_CONTRACT_REPORTS'],
 );
 
 $published_report_titles = array(
@@ -202,6 +195,6 @@ $published_report_titles = array(
 	'Emails'		=> $local_mod_strings['LBL_PUBLISHED_EMAIL_REPORTS'],
 
 
-	'Contracts'		=> $local_mod_strings['LBL_PUBLISHED_CONTRACT_REPORTS'],	
+	'Contracts'		=> $local_mod_strings['LBL_PUBLISHED_CONTRACT_REPORTS'],
 );
 ?>

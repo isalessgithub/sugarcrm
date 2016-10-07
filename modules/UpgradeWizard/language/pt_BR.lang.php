@@ -2,31 +2,34 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DESC_MODULES_INSTALLED' => 'Os seguintes Módulos foram instalados:',
   'DESC_MODULES_QUEUED' => 'Os seguintes Módulos estão prontos para serem instalados:',
   'ERROR_FLAVOR_INCOMPATIBLE' => 'O arquivo carregado não é compatível com esta versão (Community Edition, Professional ou Enterprise) do Sugar:',
+  'ERROR_HT_NO_WRITE' => 'Não é possível escrever o arquivo.  %s',
+  'ERROR_MANIFEST_TYPE' => 'arquivo manifesto deve especificar o tipo de pacote.',
+  'ERROR_PACKAGE_TYPE' => 'arquivo manifesto especifica um tipo de pacote não reconhecido',
+  'ERROR_UW_CONFIG_DB' => 'Error saving %s config var to the db (key %s, value %s).',
   'ERROR_VERSION_INCOMPATIBLE' => 'O arquivo carregado não é compatível com esta versão do Sugar:',
   'ERR_CHECKSYS_PHP_INVALID_VER' => 'A sua versão de PHP não é suportada pelo Sugar. Necessita de instalar uma versão que seja compatível com a aplicação Sugar. Por favor consulte a Matriz de Compatibilidade nas Notas de Lançamento para Versões de PHP suportadas. A sua versão é',
+  'ERR_NOT_ADMIN' => 'Acesso não autorizado para administração.',
+  'ERR_NO_VIEW_ACCESS_REASON' => 'Você não tem permissão para acessar esta página',
   'ERR_UW_CANNOT_DETERMINE_GROUP' => 'Não pode determinar o Grupo',
   'ERR_UW_CANNOT_DETERMINE_USER' => 'Não pode determinar o proprietário (Owner)',
   'ERR_UW_CONFIG' => 'Por favor certifique-se que o seu arquivo config.php pode ser escrito e recarregue esta página.',
-  'ERR_UW_CONFIG_WRITE' => 'Erro ao actualizar o arquivo config.php com a nova informação da versão.',
+  'ERR_UW_CONFIG_WRITE' => 'Erro ao atualizar o arquivo config.php com a nova informação da versão.',
   'ERR_UW_DIR_NOT_WRITABLE' => 'Diretório sem permissões de escrita.',
   'ERR_UW_FILE_NOT_COPIED' => 'arquivo não foi copiado',
   'ERR_UW_FILE_NOT_DELETED' => 'Problema ao remover o pacote',
@@ -72,7 +75,8 @@ $mod_strings = array (
   'LBL_BUTTON_RECHECK' => 'Verificar novamente',
   'LBL_BUTTON_RESTART' => 'Reiniciar',
   'LBL_COMMIT_UPGRADE_IN_PROGRESS' => 'Commit Upgrade em progresso',
-  'LBL_CURRENT_PHP_VERSION' => '(A sua versão PHP actual é',
+  'LBL_CURRENT_PHP_VERSION' => '(A sua versão PHP atual é',
+  'LBL_GLOBAL_TEAM_DESC' => 'Globalmente visíveis',
   'LBL_HOME_PAGE_4_NAME' => 'Tracker',
   'LBL_INCOMPATIBLE_PHP_VERSION' => 'É necessário PHP versão 5 ou acima',
   'LBL_LANGPACKS' => 'Language Packs',
@@ -140,7 +144,6 @@ $mod_strings = array (
   'LBL_UW_COMPLIANCE_MEMORY' => 'Configurações PHP: Limite de Memória',
   'LBL_UW_COMPLIANCE_MSSQL_MAGIC_QUOTES' => 'MS SQL Server & PHP Magic Quotes GPC',
   'LBL_UW_COMPLIANCE_MYSQL' => 'Versão mínima do MySQL',
-  'LBL_UW_COMPLIANCE_PCRE_VERSION' => 'Versão PCRE',
   'LBL_UW_COMPLIANCE_PHP_INI' => 'Localização do php.ini',
   'LBL_UW_COMPLIANCE_PHP_VERSION' => 'Versão mínima do PHP',
   'LBL_UW_COMPLIANCE_SAFEMODE' => 'Definições do PHP: Modo Seguro',

@@ -1,19 +1,16 @@
 <?php
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
 if(!ACLController::checkAccess('Calendar', 'list', true)){
 	ACLController::displayNoAccess(true);
@@ -27,16 +24,8 @@ global $cal_strings, $current_language;
 $cal_strings = return_module_language($current_language, 'Calendar');
 
 if(empty($_REQUEST['view'])){
-    if (isset($_SESSION['CALENDAR_VIEW']) && in_array($_SESSION['CALENDAR_VIEW'], array("day","week","month","year","shared")))
-    {
-        $_REQUEST['view'] = $_SESSION['CALENDAR_VIEW'];
-    }
-    else
-    {
-        $_REQUEST['view'] = SugarConfig::getInstance()->get('calendar.default_view','week');
-    }
+	$_REQUEST['view'] = SugarConfig::getInstance()->get('calendar.default_view','week');
 }
-$_SESSION['CALENDAR_VIEW'] = $_REQUEST['view'];
 
 $cal = new Calendar($_REQUEST['view']);
 
@@ -45,7 +34,7 @@ if(in_array($cal->view,array('day','week','month'))){
 }else if($cal->view == 'shared'){
 	$cal->init_shared();	
 	global $shared_user;				
-	$shared_user = new User();	
+	$shared_user = BeanFactory::getBean('Users');	
 	foreach($cal->shared_ids as $member){
 		$shared_user->retrieve($member);
 		$cal->add_activities($shared_user);

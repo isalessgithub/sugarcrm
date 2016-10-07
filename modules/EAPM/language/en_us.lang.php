@@ -1,17 +1,14 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 $mod_strings = array (
   'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
   'LBL_ASSIGNED_TO_NAME' => 'Sugar User',
@@ -34,6 +31,7 @@ $mod_strings = array (
   'LBL_TEAM_ID' => 'Team Id',
   'LBL_LIST_FORM_TITLE' => 'External Account List',
   'LBL_MODULE_NAME' => 'External Account',
+  'LBL_MODULE_NAME_SINGULAR' => 'External Account',
   'LBL_MODULE_TITLE' => 'External Accounts',
   'LBL_HOMEPAGE_TITLE' => 'My External Accounts',
   'LNK_NEW_RECORD' => 'Create External Account',
@@ -85,9 +83,10 @@ $mod_strings = array (
   'LBL_OAUTH_SAVE_NOTICE' => 'Click <b>Connect</b> to be directed to a page to provide your account information and to authorize access to the account by Sugar. After connecting, you will be directed back to Sugar.',
   'LBL_BASIC_SAVE_NOTICE' => 'Click <b>Connect</b> to connect this account to Sugar.',
   'LBL_ERR_FACEBOOK' => 'Facebook returned an error, and the feed cannot be displayed.',
-    'LBL_ERR_OAUTH_FACEBOOK_1' => 'Facebook authentication was not successful. To attempt authentication, please',
+    'LBL_ERR_OAUTH_FACEBOOK_1' => 'Facebook session is expired. To get stream, please',
     'LBL_ERR_OAUTH_FACEBOOK_2' => 'login to Facebook again',
   'LBL_ERR_NO_RESPONSE' => 'An error occurred when trying to connect to this account.',
   'LBL_ERR_TWITTER' => 'Twitter returned an error, and the feed cannot be displayed.',
-  'LBL_ERR_POPUPS_DISABLED' => 'Please enable browser popup windows or add an exception for website "{0}" to the exceptions list in order to connect.'
+  'LBL_ERR_POPUPS_DISABLED' => 'Please enable browser popup windows or add an exception for website "{0}" to the exceptions list in order to connect.',
+  'LBL_SUCCESS' => 'SUCCESS',
 );

@@ -2,19 +2,16 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 	
 
 $mod_strings = array (
@@ -53,10 +50,11 @@ $mod_strings = array (
   'COLUMN_TITLE_URL' => 'URL Predefinito',
   'COLUMN_TITLE_VALIDATE_US_FORMAT' => 'Formato U.S.',
   'ERR_FIELD_NAME_ALREADY_EXISTS' => 'Nome Campo già esistente',
-  'ERR_NO_MODULE_INCLUDED' => 'Nessun Modulo Incluso. Impossibile Salvare.',
+  'ERR_FIELD_NAME_NON_DB_CHARS' => 'Il nome del campo deve contenere soltanto i seguenti caratteri: a-zA-Z_',
+  'ERR_NO_MODULE_INCLUDED' => 'Nessun Modulo Incluso Impossibile Salvare',
   'ERR_RESERVED_FIELD_NAME' => 'Parola chiave riservata',
   'ERR_SELECT_FIELD_TYPE' => 'Si prega di selezionare un Tipo Campo',
-  'LBL_ADDING_COLUMN' => 'Adding Column {0} to',
+  'LBL_ADDING_COLUMN' => 'Aggiunta Colonna {0} a',
   'LBL_ADD_FIELD' => 'Aggiugi Campo:',
   'LBL_AUDITED' => 'Verifica',
   'LBL_BTN_ADD' => 'Aggiungi',
@@ -75,7 +73,7 @@ $mod_strings = array (
   'LBL_EDIT_VIS' => 'Modifica visibilità',
   'LBL_ENFORCED' => 'Impostato',
   'LBL_EXE_NON_SIM_MODE' => 'Eseguire modalità non-simulazione',
-  'LBL_FIELD_MISSING' => 'field(s) missing from',
+  'LBL_FIELD_MISSING' => 'campo(i) mancante(i) da',
   'LBL_FIX_COLUMN_TYPE' => 'Fixing Column Type for {0} changing {1} to',
   'LBL_FORMULA' => 'Formula',
   'LBL_GENERATE_URL' => 'Crea URL',
@@ -94,7 +92,7 @@ $mod_strings = array (
   'LBL_REPORTABLE' => 'Riportabile',
   'LBL_SCAN_MODULE' => 'Scansione',
   'LBL_SEARCH_FORM_TITLE' => 'Cerca Modulo',
-  'LBL_SIMULATION_MODE' => 'MODALITA´ SIMULAZIONE - NON SARANNO APPORTATE MODIFICHE AD ECCEZIONE DELLA CANCELLAZIONE DELLA CACHE',
+  'LBL_SIMULATION_MODE' => 'MODALITA´ SIMULAZIONE - NESSUN CAMBIAMENTO VERRA´ APPORTATO TRANNE LA PULIZIA DELLA CACHE',
   'LBL_VISIBLE_IF' => 'Visibile se',
   'LNK_CALL_LIST' => 'Chiamate',
   'LNK_EMAIL_LIST' => 'Email',
@@ -112,3 +110,4 @@ $mod_strings = array (
   'POPUP_EDIT_HEADER_TITLE' => 'Modifica Campo Personalizzato',
   'POPUP_INSERT_HEADER_TITLE' => 'Aggiungi Campo Personalizzato',
 );
+

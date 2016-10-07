@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'DEF_CREATE_LOG' => 'Documento Criado',
@@ -26,6 +23,7 @@ $mod_strings = array (
   'ERR_DOC_NAME' => 'Nome do Documento',
   'ERR_DOC_VERSION' => 'Versão do Documento',
   'ERR_FILENAME' => 'Nome do ficheiro',
+  'ERR_FILESIZE' => 'Ficheiro é muito grande. Tamanho de ficheiro máximo:',
   'LBL_ACTIVE_DATE' => 'Data de Publicação',
   'LBL_AND' => 'e',
   'LBL_APPLYING_TAGS_TO_ARTICLES' => 'A aplicar etiquetas em artigos ...',
@@ -41,7 +39,7 @@ $mod_strings = array (
   'LBL_ARTICLE_PREVEW_UNAVAILABLE_NO_DOCUMENT' => 'Previsão não está disponível, registo do Documento não foi encontrado.',
   'LBL_ARTICLE_TITLE' => 'Título:',
   'LBL_ATTACHMENTS' => 'Anexos:',
-  'LBL_CASE' => 'Ocorrência:',
+  'LBL_CASE' => 'Ocorrência',
   'LBL_CASES' => 'Casos',
   'LBL_CASES_SUBPANEL_TITLE' => 'Casos Relacionados',
   'LBL_CASE_ID' => 'ID da Ocorrência',
@@ -57,6 +55,7 @@ $mod_strings = array (
   'LBL_CONTRACTS' => 'Contratos',
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Contratos Relacionados',
   'LBL_CONTRACT_NAME' => 'Nome do Contrato:',
+  'LBL_CONTRACT_STATUS' => 'Estado do Contrato',
   'LBL_CREATED' => 'Criado por',
   'LBL_CREATED_BY' => 'Criado por',
   'LBL_CREATED_BY_NAME' => 'LBL_CREATED_BY_NAME',
@@ -105,6 +104,7 @@ $mod_strings = array (
   'LBL_KBDOCUMENT_ID' => 'Id Documento',
   'LBL_KBDOCUMENT_REVISION_NUMBER' => 'Número de Revisão do KBDocument',
   'LBL_KBDOC_APPROVED_BY' => 'Aprovado Por:',
+  'LBL_KBDOC_APPROVER_NAME' => 'Nome do Aprovador',
   'LBL_KBDOC_ATTACHMENT' => 'Kbdoc_attahment',
   'LBL_KBDOC_ATTS_TITLE' => 'Download de Anexos:',
   'LBL_KBDOC_BODY' => 'Corpo:',
@@ -123,8 +123,9 @@ $mod_strings = array (
   'LBL_LATEST_REVISION' => 'Id Última Revisão',
   'LBL_LATEST_REVISION_NAME' => 'Nome da Última Revisão',
   'LBL_LAUNCHING_TAG_BROWSING' => 'A lançar Procura de Etiquetas ...',
+  'LBL_LINKED_ID' => 'Id ligado',
   'LBL_LIST_ACTIVE_DATE' => 'Data de Publicação',
-  'LBL_LIST_APPROVED_BY' => 'Aprovado Por:',
+  'LBL_LIST_APPROVED_BY' => 'Aprovado Por',
   'LBL_LIST_ARTICLES' => 'Artigos',
   'LBL_LIST_CATEGORY' => 'Categoria',
   'LBL_LIST_DOCUMENT' => 'Documento',
@@ -163,6 +164,11 @@ $mod_strings = array (
   'LBL_NOT_A_VALID_FILE' => 'Não é um ficheiro válido',
   'LBL_NUMBER' => 'LBL_NUMBER',
   'LBL_PARENT_TYPE' => 'Tipo de Origem',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER' => 'Poderá filtrar a lista de artigos fornecendo um termo de pesquisa.',
+  'LBL_PORTAL_TOUR_RECORDS_FILTER_EXAMPLE' => 'Por exemplo, poderá usar isto para encontrar um artigo sobre um tópico de interesse em particular.',
+  'LBL_PORTAL_TOUR_RECORDS_INTRO' => 'O módulo de Base de Conhecimento serve para trabalhar com artigos publicados. Use as setas abaixo para ver uma pequena tour.',
+  'LBL_PORTAL_TOUR_RECORDS_PAGE' => 'Esta página mostra a lista de artigos publicado.',
+  'LBL_PORTAL_TOUR_RECORDS_RETURN' => 'Carregar aqui irá retorna-lo à Base de Conhecimento em qualquer altura.',
   'LBL_PREVIOUS_SAVED_SEARCH' => 'Pesquisas Anteriormente Gravadas:',
   'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editar ou Eliminar uma Pesquisa Gravada existente.',
   'LBL_PUBLISHED' => 'Publicado:',
@@ -180,13 +186,15 @@ $mod_strings = array (
   'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Documentos',
   'LBL_SEARCH_TAG' => 'Pesquisar',
   'LBL_SEARCH_WITHIN' => 'Pesquisar em:',
+  'LBL_SELECTED_REVISION_FILENAME' => 'Nome do ficheiro da revisão seleccionada',
+  'LBL_SELECTED_REVISION_ID' => 'Id da revisão seleccionada',
   'LBL_SELECTED_REVISION_NAME' => 'Nome da Revisão Seleccionada',
   'LBL_SELECT_ARTICLES_TO_APPLY_TAGS' => 'Seleccione Artigos Para Aplicar Etiquetas',
   'LBL_SELECT_ARTICLES_TO_BE_MOVED_TO_OTHER_TAG' => 'Seleccione Artigos Primeiro',
   'LBL_SELECT_ARTICLES_TO_DELETE' => 'Seleccione Artigos Primeiro',
   'LBL_SELECT_A_NODE_FROM_TREE' => 'Nova Etiqueta',
   'LBL_SELECT_A_TAG_FROM_TREE' => 'Seleccione uma Etiqueta da Árvore',
-  'LBL_SELECT_NODE' => 'Por favor selecione um nó',
+  'LBL_SELECT_NODE' => 'Por favor escolher um nó',
   'LBL_SELECT_PARENT_TAG_MESSAGE' => 'Seleccione a etiqueta de origem da árvore',
   'LBL_SELECT_PARENT_TREE_NOTICE' => 'Seleccione a etiqueta raiz, da árvore',
   'LBL_SELECT_TAG' => 'Seleccionar Etiqueta',
@@ -233,6 +241,7 @@ $mod_strings = array (
   'LBL_UNDER_THIS_TAG' => 'Utilizando Esta Etiqueta:',
   'LBL_UNTAGGED_ARTICLES_NODE' => 'Artigos Sem Etiqueta',
   'LBL_UPDATE' => 'Actualizar',
+  'LBL_VIEWS_NUMBER' => 'Número de Visualizações',
   'LNK_KBDOCUMENT_LIST' => 'Lista de Documentos',
   'LNK_NEW_ARTICLE' => 'Novo Artigo',
   'LNK_NEW_MAIL_MERGE' => 'Mail Merge',

@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ADVANCED' => 'Papildus',
@@ -37,6 +34,8 @@ $mod_strings = array (
   'DISPLAY_RESPONSE_TIME' => 'Rādīt servera atbildes laikus',
   'ERR_ALERT_FILE_UPLOAD' => 'Kļūda augšupielādējot attēlu.',
   'ERR_DELETE_CORE_FILE' => 'KĻŪDA: Nav iespējams dzēst pamata fontu.',
+  'ERR_EMPTY_SAML_CERT' => 'SAML certificate can not be empty',
+  'ERR_EMPTY_SAML_LOGIN' => 'SAML Login URL can not be empty',
   'ERR_EZPDF_DISABLE' => 'Uzmanību: EZPDF klase ir atslēgta konfigurācijas tabulā un ir uzstādīta kā PDF klase. Saglabājiet šo formu lai uzstādītu TCPDF kā PDF klasi un atgrieztos stabilā stāvoklī.',
   'ERR_FONT_ALREADY_EXIST' => 'KĻŪDA : Šis fonts jau eksistē. Atcelt ...',
   'ERR_FONT_EMPTYFILE' => 'KĻŪDA: Nav ievadīts faila nosaukums!',
@@ -49,6 +48,8 @@ $mod_strings = array (
   'ERR_NO_CUSTOM_FONT_PATH' => 'KĻŪDA: Pielāgoto fontu ceļš nav atrasts!',
   'ERR_NO_FONT_PATH' => 'KĻŪDA: Fontu ceļš nav atrasts',
   'ERR_PDF_NO_UPLOAD' => 'Kļūda augšupielādējot fontu vai metric failu.',
+  'ERR_SAML_LOGIN_URL' => 'SAML Login URL is not valid',
+  'ERR_SAML_SLO_URL' => 'SAML SLO URL is not valid',
   'HEAD_MAGNIFICATION' => 'Galvenes palielināšana',
   'HEAD_MAGNIFICATION_INFO' => 'Palielināšanas faktors virsrakstiem',
   'IMAGES' => 'Logotipi',
@@ -75,15 +76,13 @@ $mod_strings = array (
   'LBL_BACK' => 'Atpakaļ',
   'LBL_CHOOSE_EMAIL_PROVIDER' => 'Izvēlieties e-pasta pakalpojumu sniedzēju:',
   'LBL_CONFIGURE_SETTINGS_TITLE' => 'Sistēmas iestatījumi',
-  'LBL_CONFIG_AJAX' => 'Konfigurēt AJAX izmantošanu saskarnē',
-  'LBL_CONFIG_AJAX_DESC' => 'Aktivizēt vai deaktivizēt AJAX izmantošanu saskarnē noteiktos moduļos',
   'LBL_DELETE' => 'Dzēst',
   'LBL_DISALBE_CONVERT_LEAD' => 'Aizliegt konvertēšanu jau konvertētiem interesentu ierakstiem',
   'LBL_DISALBE_CONVERT_LEAD_DESC' => 'Ja interesenta ieraksts jau ir konvertēts, tad konvertēšanas aizlieguma uzstādījums noņems konvertēšanas darbību interesenta ierakstam',
   'LBL_DISPLAYING_LOG' => 'Žurnāla parādīšana',
   'LBL_ENABLE_ACTION_MENU' => 'Darbības rādīt izvēlnēs',
   'LBL_ENABLE_ACTION_MENU_DESC' => 'Atzīmējiet lai rādītu detalizētā skata un apakšpaneļu darbības kā izkrītošās izvēlnēs. Ja nav atzīmēts, tad darbības tiks attēlotas kā atsevišķas komandpogas.',
-  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Rādīt saistīto kontaktpersonu e-pastus darbību vēstures panelī moduļos',
+  'LBL_ENABLE_HISTORY_CONTACTS_EMAILS' => 'Iespējot/Atspējot e-pastus no pakārtotiem (vai saistītajiem) kontaktiem ko rādīt e-pastu apakšpanelī',
   'LBL_ENABLE_MAILMERGE' => 'Atļaut pasta sapludināšanu?',
   'LBL_EXCHANGE_LOGO' => 'Exchange',
   'LBL_EXCHANGE_SMTPPASS' => 'Exchange parole:',
@@ -158,6 +157,7 @@ $mod_strings = array (
   'LBL_LDAP_USER_FILTER_DESC' => 'Papildus parametri, kuri tiks izmantoti lietotāju autentifikācijā piem.<em>is_sugar_user=1 or (is_sugar_user=1)(is_sales=1)</em>',
   'LBL_LEAD_CONV_OPTION' => 'Interesenta konvertēšanas opcijas',
   'LBL_LOADING' => 'Notiek ielāde ...',
+  'LBL_LOCK_SUBPANELS_DESC' => 'Šie uzstādījumi attiecas uz moduļiem, kas darbojas sākotnējā (vēsturiskā) režīmā.',
   'LBL_LOGGER' => 'Žurnāla iestatījumi',
   'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Noklusētais datuma formāts',
   'LBL_LOGGER_FILENAME' => 'Žurnāla faila nosaukums',
@@ -193,6 +193,7 @@ $mod_strings = array (
   'LBL_NEXT_' => 'Nākamais>>',
   'LBL_NOTIFY_FROMADDRESS' => 'Sūtītāja adrese:',
   'LBL_NOTIFY_SUBJECT' => 'E-pasta temats:',
+  'LBL_NO_PRIVATE_TEAM_UPDATE' => 'Neļauj lietotājiem mainīt vārdu lai mainītu privātās darba grupas nosaukumu',
   'LBL_OC_STATUS' => 'Noklusētais bezsaistes klienta statuss',
   'LBL_OC_STATUS_DESC' => 'Atzīmējiet lai atļautu visiem lietotājiem pieeju bezsaistes klientam. Citādi pieeja jākonfigurē katram lietotājam atsevišķi.',
   'LBL_PDFMODULE_NAME' => 'PDF uzstādījumi',
@@ -228,6 +229,9 @@ $mod_strings = array (
   'LBL_STATUS_FONT_ERROR' => 'KĻŪDA: Fonts nav pievienots. Skatiet sistēmas žurnālu.',
   'LBL_STATUS_FONT_SUCCESS' => 'VEIKSMĪGS: fonts ir pievienots SugarCRM.',
   'LBL_SYSTEM_SETTINGS' => 'Sistēmas iestatījumi',
+  'LBL_TWEETTOCASE_ON' => 'Iespējot Tweet&reg; par pieteikumu integrāciju',
+  'LBL_TWEETTOCASE_ON_DESC' => 'Ļaus lietotājiem veidot pieteikumus Tvītiem',
+  'LBL_TWEETTOCASE_TITLE' => 'Tweet&reg; par pieteikumu',
   'LBL_USE_REAL_NAMES' => 'Rādīt lietotāja pilno vārdu',
   'LBL_USE_REAL_NAMES_DESC' => 'Piešķiršanas laukos rādīt lietotāju pilno vārdu, nevis lietotājvārdu.',
   'LBL_VCAL_PERIOD' => 'vCal atjaunināšanas laika intervāls:',
@@ -332,6 +336,8 @@ $mod_strings = array (
   'SYSTEM_NAME' => 'Sistēmas nosaukums:',
   'SYSTEM_NAME_HELP' => 'Šis nosaukums parādās pārlūkprogrammas nosaukuma joslā.',
   'SYSTEM_NAME_WIZARD' => 'Nosaukums:',
+  'TPL_LIST_ENTRIES_PER_LISTVIEW_HELP' => 'Ieteicamie uzstādījumi ir mazāki par {{listEntriesNum}} priekš pieņemama veiktspējas līmeņa. Tā kā sarakstam ir pievienoti papildus lauki, skaitam jābūt pie ieteicamo uzstādījumu mazākās robežas.',
+  'TPL_LIST_ENTRIES_PER_SUBPANEL_HELP' => 'Ieteicamie uzstādījumi ir mazāk par {{subpanelEntriesNum}} priekš pieņemama veiktspējas līmeņa. Tā kā sarakstam ir pievienoti papildus lauki, skaitam jābūt pie ieteicamo uzstādījumu mazākās robežas.',
   'UPLOAD_MAX_SIZE' => 'Maksimālais augšupielādes faila izmērs',
   'VERIFY_CLIENT_IP' => 'Apstiprināt lietotāja IP adresi',
   'vCAL_HELP' => 'Izmantojiet šo parametru lai noteiktu cik mēnešus uz priekš no šodienas, tiks parādīta kalendāra brīvā/aizņemtā laika informācija.<BR>Lai to atslēgtu ievadiet "0".  Parametrā var norādīt no 1 līdz 12 mēnešiem.',

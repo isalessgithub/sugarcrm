@@ -1,29 +1,17 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
-/*********************************************************************************
-
- * $Description: TODO: To be written. Portions created by SugarCRM are Copyright
- * (C) SugarCRM, Inc. All Rights Reserved. Contributor(s):
- * ______________________________________..
- * *******************************************************************************/
-
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 require_once('include/utils/zip_utils.php');
-
 require_once('include/upload_file.php');
-
 
 ////////////////
 ////  GLOBAL utility
@@ -762,28 +750,31 @@ function handleSugarConfig() {
     $sugar_config['log_dir']                        = $setup_site_log_dir;
     $sugar_config['log_file']                       = $setup_site_log_file;
 
-    // Setup FTS
+    // It is possible to hide the Full Text Search Engine config form
+    if (isset($_SESSION['setup_fts_hide_config'])) {
+        $sugar_config['hide_full_text_engine_config'] = $_SESSION['setup_fts_hide_config'];
+    }
+
+    // Setup FTS settings
     if (!empty($_SESSION['setup_fts_type'])) {
         $sugar_config['full_text_engine'] = array(
             $_SESSION['setup_fts_type'] => getFtsSettings()
         );
-        if (isset($_SESSION['setup_fts_hide_config'])) {
-            $sugar_config['hide_full_text_engine_config'] = $_SESSION['setup_fts_hide_config'];
-        }
     }
 
-	/*nsingh(bug 22402): Consolidate logger settings under $config['logger'] as liked by the new logger! If log4pphp exists,
-		these settings will be overwritten by those in log4php.properties when the user access admin->system settings.*/
-    $sugar_config['logger']	=
-    	array ('level'=>$setup_site_log_level,
-    	 'file' => array(
-			'ext' => '.log',
-			'name' => 'sugarcrm',
-			'dateFormat' => '%c',
-			'maxSize' => '10MB',
-			'maxLogs' => 10,
-			'suffix' => ''), // bug51583, change default suffix to blank for backwards comptability
-  	);
+    /* nsingh(bug 22402): Consolidate logger settings under $config['logger'] as liked by the new logger! If log4pphp exists,
+       these settings will be overwritten by those in log4php.properties when the user access admin->system settings. */
+    $sugar_config['logger']	= array(
+        'level' => $setup_site_log_level,
+        'file' => array(
+            'ext' => '.log',
+            'name' => 'sugarcrm',
+            'dateFormat' => '%c',
+            'maxSize' => '10MB',
+            'maxLogs' => 10,
+            'suffix' => '',
+        ), // bug51583, change default suffix to blank for backwards comptability
+    );
 
     $sugar_config['session_dir']                    = $setup_site_session_path;
     $sugar_config['site_url']                       = $setup_site_url;
@@ -796,8 +787,9 @@ function handleSugarConfig() {
         $sugar_config['unique_key'] = $setup_site_guid;
     }
     if(empty($sugar_config['unique_key'])){
-        $sugar_config['unique_key'] = md5( create_guid() );
+        $sugar_config['unique_key'] = get_unique_key();
     }
+
     // add installed langs to config
     // entry in upgrade_history comes AFTER table creation
     if(isset($_SESSION['INSTALLED_LANG_PACKS']) && is_array($_SESSION['INSTALLED_LANG_PACKS']) && !empty($_SESSION['INSTALLED_LANG_PACKS'])) {
@@ -845,8 +837,8 @@ function handleSugarConfig() {
        require_once('modules/UpgradeWizard/uw_utils.php');
        merge_config_si_settings(false, 'config.php', 'config_si.php');
     }
-
-
+    require_once 'ModuleInstall/ModuleInstaller.php';
+    ModuleInstaller::handleBaseConfig();
     ////    END $sugar_config
     ///////////////////////////////////////////////////////////////////////////////
     return $bottle;
@@ -882,48 +874,80 @@ function getFtsSettings()
     return $ftsSettings;
 }
 
+
+function handleSidecarConfig()
+{
+    require_once 'ModuleInstall/ModuleInstaller.php';
+    return ModuleInstaller::handleBaseConfig();
+}
+
 /**
- * (re)write the .htaccess file to prevent browser access to the log file
+ * Set up proper .htaccess content
  */
-function handleHtaccess(){
-global $mod_strings;
-global $sugar_config;
-$ignoreCase = (substr_count(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache/2') > 0)?'(?i)':'';
-$htaccess_file   = ".htaccess";
-$contents = '';
-$basePath = parse_url($sugar_config['site_url'], PHP_URL_PATH);
-if(empty($basePath)) $basePath = '/';
-$restrict_str = <<<EOQ
+function getHtaccessData($htaccess_file)
+{
+    global $sugar_config;
+    if(!empty($_SERVER['SERVER_SOFTWARE'])) {
+        $ignoreCase = (substr_count(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache/2') > 0)?'(?i)':'';
+    } else {
+        $ignoreCase = '';
+    }
+    $contents = '';
+
+    // Adding RewriteBase path for vhost and alias configurations
+    $basePath = parse_url($sugar_config['site_url'], PHP_URL_PATH);
+    if(empty($basePath)) $basePath = '/';
+
+    $restrict_str = <<<EOQ
 
 # BEGIN SUGARCRM RESTRICTIONS
 
 EOQ;
-if (ini_get('suhosin.perdir') !== false && strpos(ini_get('suhosin.perdir'), 'e') !== false)
-{
-    $restrict_str .= "php_value suhosin.executor.include.whitelist upload\n";
-}
-$restrict_str .= <<<EOQ
+    if (ini_get('suhosin.perdir') !== false && strpos(ini_get('suhosin.perdir'), 'e') !== false)
+    {
+        $restrict_str .= "php_value suhosin.executor.include.whitelist upload\n";
+    }
+    $restrict_str .= <<<EOQ
 RedirectMatch 403 {$ignoreCase}.*\.log$
 RedirectMatch 403 {$ignoreCase}/+not_imported_.*\.txt
 RedirectMatch 403 {$ignoreCase}/+(soap|cache|xtemplate|data|examples|include|log4php|metadata|modules)/+.*\.(php|tpl)
 RedirectMatch 403 {$ignoreCase}/+emailmandelivery\.php
-RedirectMatch 403 {$ignoreCase}/+upload
+RedirectMatch 403 {$ignoreCase}/+upload/
 RedirectMatch 403 {$ignoreCase}/+custom/+blowfish
 RedirectMatch 403 {$ignoreCase}/+cache/+diagnostic
 RedirectMatch 403 {$ignoreCase}/+files\.md5$
-# END SUGARCRM RESTRICTIONS
-EOQ;
+RedirectMatch 403 {$ignoreCase}/+composer\.(json|lock)
+RedirectMatch 403 {$ignoreCase}/+vendor/composer/
+RedirectMatch 403 {$ignoreCase}.*/\.git
 
-$cache_headers = <<<EOQ
+# Fix mimetype for logo.svg (SP-1395)
+AddType     image/svg+xml     .svg
+AddType     application/json  .json
+AddType     application/javascript  .js
 
 <IfModule mod_rewrite.c>
     Options +FollowSymLinks
     RewriteEngine On
     RewriteBase {$basePath}
-    RewriteRule ^cache/jsLanguage/(.._..).js$ index.php?entryPoint=jslang&module=app_strings&lang=$1 [L,QSA]
-    RewriteRule ^cache/jsLanguage/(\w*)/(.._..).js$ index.php?entryPoint=jslang&module=$1&lang=$2 [L,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^rest/(.*)$ api/rest.php?__sugar_url=$1 [L,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^cache/api/metadata/lang_(.._..)_(.*)_public(_ordered)?\.json$ rest/v10/lang/public/$1?platform=$2&ordered=$3 [N,QSA,DPI]
+
+    RewriteRule ^cache/api/metadata/lang_(.._..)_([^_]*)(_ordered)?\.json$ rest/v10/lang/$1?platform=$2&ordered=$3 [N,QSA,DPI]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^cache/Expressions/functions_cache(_debug)?.js$ rest/v10/ExpressionEngine/functions?debug=$1 [N,QSA,DPI]
+    RewriteRule ^cache/jsLanguage/(.._..).js$ index.php?entryPoint=jslang&module=app_strings&lang=$1 [L,QSA,DPI]
+    RewriteRule ^cache/jsLanguage/(\w*)/(.._..).js$ index.php?entryPoint=jslang&module=$1&lang=$2 [L,QSA,DPI]
 </IfModule>
-<FilesMatch "\.(jpg|png|gif|js|css|ico)$">
+
+<IfModule mod_mime.c>
+    AddType application/x-font-woff .woff
+</IfModule>
+<FilesMatch "\.(jpg|png|gif|js|css|ico|woff|svg)$">
         <IfModule mod_headers.c>
                 Header set ETag ""
                 Header set Cache-Control "max-age=2592000"
@@ -937,24 +961,40 @@ $cache_headers = <<<EOQ
         ExpiresByType image/gif "access plus 1 month"
         ExpiresByType image/jpg "access plus 1 month"
         ExpiresByType image/png "access plus 1 month"
+        ExpiresByType application/x-font-woff "access plus 1 month"
+        ExpiresByType image/svg "access plus 1 month"
 </IfModule>
-EOQ;
-    if(file_exists($htaccess_file)){
-        $fp = fopen($htaccess_file, 'r');
-        $skip = false;
-        while($line = fgets($fp)){
+# END SUGARCRM RESTRICTIONS
 
-            if(preg_match("/\s*#\s*BEGIN\s*SUGARCRM\s*RESTRICTIONS/i", $line))$skip = true;
-            if(!$skip)$contents .= $line;
-            if(preg_match("/\s*#\s*END\s*SUGARCRM\s*RESTRICTIONS/i", $line))$skip = false;
+EOQ;
+        if(file_exists($htaccess_file)){
+            $fp = fopen($htaccess_file, 'r');
+            $skip = false;
+            while($line = fgets($fp)){
+
+                if(preg_match("/\s*#\s*BEGIN\s*SUGARCRM\s*RESTRICTIONS/i", $line))$skip = true;
+                if(!$skip)$contents .= $line;
+                if(preg_match("/\s*#\s*END\s*SUGARCRM\s*RESTRICTIONS/i", $line))$skip = false;
+            }
         }
-    }
-    $status =  file_put_contents($htaccess_file, $contents . $restrict_str . $cache_headers);
-    if( !$status ) {
-        echo "<p>{$mod_strings['ERR_PERFORM_HTACCESS_1']}<span class=stop>{$htaccess_file}</span> {$mod_strings['ERR_PERFORM_HTACCESS_2']}</p>\n";
-        echo "<p>{$mod_strings['ERR_PERFORM_HTACCESS_3']}</p>\n";
-        echo $restrict_str;
-    }
+
+        return $contents . $restrict_str;
+}
+
+/**
+ * (re)write the .htaccess file to set up proper protections and redirections
+ */
+function handleHtaccess()
+{
+    global $mod_strings;
+    $htaccess_file   = ".htaccess";
+    $status =  file_put_contents(".htaccess", getHtaccessData($htaccess_file));
+        if( !$status ) {
+            echo "<p>{$mod_strings['ERR_PERFORM_HTACCESS_1']}<span class=stop>{$htaccess_file}</span> {$mod_strings['ERR_PERFORM_HTACCESS_2']}</p>\n";
+            echo "<p>{$mod_strings['ERR_PERFORM_HTACCESS_3']}</p>\n";
+            echo $restrict_str;
+        }
+
     return $status;
 }
 
@@ -988,27 +1028,70 @@ function handleWebConfig()
     $prefix = $setup_site_log_dir.empty($setup_site_log_dir)?'':'/';
 
 
-    $config_array = array(
+    $redirect_config_array = array(
     array('1'=> $prefix.str_replace('.','\\.',$setup_site_log_file).'\\.*' ,'2'=>'log_file_restricted.html'),
-    array('1'=> $prefix.'install.log' ,'2'=>'log_file_restricted.html'),
-    array('1'=> $prefix.'upgradeWizard.log' ,'2'=>'log_file_restricted.html'),
-    array('1'=> $prefix.'emailman.log' ,'2'=>'log_file_restricted.html'),
-    array('1'=>'not_imported_.*.txt' ,'2'=>'log_file_restricted.html'),
-    array('1'=>'XTemplate/(.*)/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'data/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'examples/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'include/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'include/(.*)/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'log4php/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'log4php/(.*)/(.*)' ,'2'=>'index.php'),
-    array('1'=>'metadata/(.*)/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'modules/(.*)/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'soap/(.*).php' ,'2'=>'index.php'),
-    array('1'=>'emailmandelivery.php' ,'2'=>'index.php'),
-    array('1'=>'cron.php' ,'2'=>'index.php'),
+    array('1'=> $prefix.'install\.log' ,'2'=>'log_file_restricted.html'),
+    array('1'=> $prefix.'upgradeWizard\.log' ,'2'=>'log_file_restricted.html'),
+    array('1'=> $prefix.'emailman\.log' ,'2'=>'log_file_restricted.html'),
+    array('1'=>'not_imported_.*\.txt' ,'2'=>'log_file_restricted.html'),
+    array('1'=>'vendor/XTemplate/(.*)/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'data/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'examples/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'include/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'include/(.*)/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'vendor/log4php/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'vendor/log4php/(.*)/(.*)' ,'2'=>'index.php'),
+    array('1'=>'metadata/(.*)/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'modules/(.*)/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'soap/(.*)\.php$' ,'2'=>'index.php'),
+    array('1'=>'emailmandelivery\.php' ,'2'=>'index.php'),
+    array('1'=>'cron\.php' ,'2'=>'index.php'),
     array('1'=> $sugar_config['upload_dir'].'.*' ,'2'=>'index.php'),
+    array('1' => '^portal$', '2' => 'portal/'),
     );
 
+    $rewrite_config_array = array(
+        array(
+            '1' => '^cache/api/metadata/lang_(.._..)_(.*)_public(_ordered)?\.json',
+            '2' => 'rest/v10/lang/public/{R:1}?platform={R:2}&ordered={R:3}',
+            'rule_params' => array(
+                'stopProcessing' => 'false',
+            ),
+            'action_params' => array(
+                'appendQueryString' => 'false',
+            ),
+            'skip_file' => true
+        ),
+        array(
+            '1' => '^cache/api/metadata/lang_(.._..)_([^_]*)(_ordered)?\.json',
+            '2' => 'rest/v10/lang/{R:1}?platform={R:2}&ordered={R:3}',
+            'rule_params' => array(
+                'stopProcessing' => 'false',
+            ),
+            'action_params' => array(
+                'appendQueryString' => 'false',
+            ),
+            'skip_file' => true
+        ),
+        array(
+            '1' => '^cache/Expressions/functions_cache(_debug)?.js$',
+            '2' => 'rest/v10/ExpressionEngine/functions?debug={R:1}',
+            'rule_params' => array(
+                'stopProcessing' => 'false',
+            ),
+            'action_params' => array(
+                'appendQueryString' => 'false',
+            ),
+        ),
+        array(
+            '1' => '^portal/(.*)$',
+            '2' => 'portal2/{R:1}',
+        ),
+        array(
+            '1' => 'rest/(.*)$',
+            '2' => 'api/rest.php?__sugar_url={R:1}',
+        ),
+    );
 
     $xmldoc = new XMLWriter();
     $xmldoc->openURI('web.config');
@@ -1017,19 +1100,65 @@ function handleWebConfig()
     $xmldoc->startDocument('1.0','UTF-8');
     $xmldoc->startElement('configuration');
         $xmldoc->startElement('system.webServer');
+            $xmldoc->startElement('security');
+                $xmldoc->startElement('requestFiltering');
+                    $xmldoc->startElement('requestLimits');
+                        $xmldoc->writeAttribute('maxAllowedContentLength', 104857600);
+                    $xmldoc->endElement();
+                $xmldoc->endElement();
+            $xmldoc->endElement();
             $xmldoc->startElement('rewrite');
                 $xmldoc->startElement('rules');
-                for ($i = 0; $i < count($config_array); $i++) {
+                for ($i = 0; $i < count($redirect_config_array); $i++) {
                     $xmldoc->startElement('rule');
                         $xmldoc->writeAttribute('name', "redirect$i");
                         $xmldoc->writeAttribute('stopProcessing', 'true');
                         $xmldoc->startElement('match');
-                            $xmldoc->writeAttribute('url', $config_array[$i]['1']);
+                            $xmldoc->writeAttribute('url', $redirect_config_array[$i]['1']);
                         $xmldoc->endElement();
                         $xmldoc->startElement('action');
                             $xmldoc->writeAttribute('type', 'Redirect');
-                            $xmldoc->writeAttribute('url', $config_array[$i]['2']);
+                            $xmldoc->writeAttribute('url', $redirect_config_array[$i]['2']);
                             $xmldoc->writeAttribute('redirectType', 'Found');
+                        $xmldoc->endElement();
+                    $xmldoc->endElement();
+                }
+                for ($i = 0; $i < count($rewrite_config_array); $i++) {
+                    $xmldoc->startElement('rule');
+                        $xmldoc->writeAttribute('name', "rewrite$i");
+                        $xmldoc->writeAttribute('patternSyntax', 'ECMAScript');
+                        if(!empty($rewrite_config_array[$i]['rule_params'])) {
+                            foreach($rewrite_config_array[$i]['rule_params'] as $ruleAttrName => $ruleAttrValue) {
+                                $xmldoc->writeAttribute($ruleAttrName, $ruleAttrValue);
+                            }
+                        }
+                        $xmldoc->startElement('match');
+                            $xmldoc->writeAttribute('url', $rewrite_config_array[$i]['1']);
+                            $xmldoc->writeAttribute('ignoreCase', 'true');
+                        $xmldoc->endElement();
+                        if (empty($rewrite_config_array[$i]['skip_file'])) {
+                            $xmldoc->startElement('conditions');
+                               $xmldoc->startElement('add');
+                                   $xmldoc->writeAttribute('input', '{REQUEST_FILENAME}');
+                                   $xmldoc->writeAttribute('matchType', 'IsFile');
+                                   $xmldoc->writeAttribute('negate', 'true');
+                               $xmldoc->endElement();
+                               $xmldoc->startElement('add');
+                                   $xmldoc->writeAttribute('input', '{REQUEST_FILENAME}');
+                                   $xmldoc->writeAttribute('matchType', 'IsDirectory');
+                                   $xmldoc->writeAttribute('negate', 'true');
+                               $xmldoc->endElement();
+                            $xmldoc->endElement();
+                        }
+
+                        $xmldoc->startElement('action');
+                            $xmldoc->writeAttribute('type', 'Rewrite');
+                            $xmldoc->writeAttribute('url', $rewrite_config_array[$i]['2']);
+                            if(!empty($rewrite_config_array[$i]['action_params'])) {
+                                foreach($rewrite_config_array[$i]['action_params'] as $actionAttrName => $actionAttrValue) {
+                                    $xmldoc->writeAttribute($actionAttrName, $actionAttrValue);
+                                }
+                            }
                         $xmldoc->endElement();
                     $xmldoc->endElement();
                 }
@@ -1165,14 +1294,13 @@ function insert_default_settings(){
     */
     $db->query("INSERT INTO config (category, name, value) VALUES ('info', 'sugar_version', '" . $sugar_db_version . "')");
     $db->query("INSERT INTO config (category, name, value) VALUES ('MySettings', 'tab', '')");
-    $db->query("INSERT INTO config (category, name, value) VALUES ('portal', 'on', '0')");
+    $db->query("INSERT INTO config (category, name, value, platform) VALUES ('portal', 'on', '0', 'support')");
 
 
     // license info
     $db->query( "INSERT INTO config (category, name, value) VALUES ( 'license', 'users',        '0' )" );
     $db->query( "INSERT INTO config (category, name, value) VALUES ( 'license', 'expire_date',  '' )" );
     $db->query( "INSERT INTO config (category, name, value) VALUES ( 'license', 'key',          '' )" );
-
 
 
     //insert default tracker settings
@@ -1194,6 +1322,7 @@ function insert_default_settings(){
 
 
     $db->query( "INSERT INTO config (category, name, value) VALUES ( 'system', 'skypeout_on', '1')" );
+    $db->query( "INSERT INTO config (category, name, value) VALUES ( 'system', 'tweettocase_on', '0')" );
 
 }
 
@@ -1502,6 +1631,7 @@ function pullSilentInstallVarsIntoSession() {
     global $mod_strings;
     global $sugar_config;
 
+
     if( file_exists('config_si.php') ){
         require_once('config_si.php');
     }
@@ -1535,13 +1665,40 @@ function pullSilentInstallVarsIntoSession() {
     if(isset($sugar_config_si['install_method']))
         $derived['install_method'] = $sugar_config_si['install_method'];
 
-    $needles = array('setup_db_create_database','setup_db_create_sugarsales_user','setup_license_key_users',
-                     'setup_license_key_expire_date','setup_license_key', 'setup_num_lic_oc',
-                     'default_currency_iso4217', 'default_currency_name', 'default_currency_significant_digits',
-                     'default_currency_symbol',  'default_date_format', 'default_time_format', 'default_decimal_seperator',
-                     'default_export_charset', 'default_language', 'default_locale_name_format', 'default_number_grouping_seperator',
-                     'export_delimiter', 'cache_dir', 'setup_db_options',
-                     'setup_fts_type', 'setup_fts_host', 'setup_fts_port', 'setup_fts_index_settings'. 'setup_fts_transport');
+    $needles = array(
+        'setup_db_create_database',
+        'setup_db_create_sugarsales_user',
+        'setup_license_key_users',
+        'setup_license_key_expire_date',
+        'setup_license_key',
+        'setup_num_lic_oc',
+        'default_currency_iso4217',
+        'default_currency_name',
+        'default_currency_significant_digits',
+        'default_currency_symbol',
+        'default_date_format',
+        'default_time_format',
+        'default_decimal_seperator',
+        'default_export_charset',
+        'default_language',
+        'default_locale_name_format',
+        'default_number_grouping_seperator',
+        'export_delimiter',
+        'cache_dir',
+        'setup_db_options',
+
+        // Base Elastic settings
+        'setup_fts_type',
+        'setup_fts_host',
+        'setup_fts_port',
+
+        // Optional Elastic settings only supported through silent installer
+        'setup_fts_curl',
+        'setup_fts_transport',
+        'setup_fts_index_settings',
+        'setup_fts_index_strategy',
+
+    );
     copyFromArray($sugar_config_si, $needles, $derived);
     $all_config_vars = array_merge( $config_subset, $sugar_config_si, $derived );
 
@@ -1552,6 +1709,11 @@ function pullSilentInstallVarsIntoSession() {
 
     foreach( $all_config_vars as $key => $value ){
         $_SESSION[$key] = $value;
+    }
+
+    // for silent install
+    if (empty($_SESSION['setup_fts_type'])) {
+        installLog("ERROR::  {$mod_strings['LBL_FTS_REQUIRED']}");
     }
 }
 
@@ -1831,7 +1993,7 @@ function langPackUnpack($unpack_type, $full_file)
     }
     $manifest_file = extractManifest($full_file, $base_tmp_upgrade_dir);
     if($unpack_type == 'module')
-        $license_file = extractFile($full_file, 'LICENSE.txt', $base_tmp_upgrade_dir);
+        $license_file = extractFile($full_file, 'LICENSE', $base_tmp_upgrade_dir);
 
     if(is_file($manifest_file)) {
 
@@ -2084,7 +2246,8 @@ function create_past_date()
 {
     global $timedate;
     $now = $timedate->getNow(true);
-    $day=$now->day-mt_rand(1, 365);
+    $day_of_year = date('z') + 1;
+    $day=$now->day-mt_rand(1, $day_of_year);
     return $timedate->asDbDate($now->get_day_begin($day));
 }
 
@@ -2115,8 +2278,8 @@ function post_install_modules(){
 }
 
 function get_help_button_url(){
-    $help_url = 'http://www.sugarcrm.com/docs/Administration_Guides/CommunityEdition_Admin_Guide_5.0/toc.html';
-    $help_url = 'http://www.sugarcrm.com/docs/Administration_Guides/Professional_Admin_Guide_5.0/toc.html';
+    $help_url = 'http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/05_Sugar_Community_Edition';
+    $help_url = 'http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/04_Sugar_Professional';
 
     return $help_url;
 }
@@ -2164,23 +2327,9 @@ function addDefaultRoles($defaultRoles = array()) {
     }
 }
 
-/**
- * Fully enable SugarFeeds, enabling the user feed and all available modules that have SugarFeed data.
- */
-function enableSugarFeeds()
-{
-    $admin = new Administration();
-    $admin->saveSetting('sugarfeed','enabled','1');
-
-    foreach ( SugarFeed::getAllFeedModules() as $module )
-        SugarFeed::activateModuleFeed($module);
-
-    check_logic_hook_file('Users','after_login', array(1, 'SugarFeed old feed entry remover', 'modules/SugarFeed/SugarFeedFlush.php', 'SugarFeedFlush', 'flushStaleEntries'));
-}
-
 function create_writable_dir($dirname)
 {
-    if ((is_dir($dirname)) || @sugar_mkdir($dirname,0755)) {
+    if ((is_dir($dirname)) || @sugar_mkdir($dirname,0755, true)) {
         $ok = make_writable($dirname);
     }
     if(empty($ok)) {
@@ -2206,4 +2355,47 @@ function enableInsideViewConnector()
 
     // $mapping is brought in from the mapping.php file above
     $source->saveMappingHook($mapping);
+}
+
+/**
+ * If `mail_smtpserver` setting is missing on system mailer settings, a
+ * notification is created and assigned to system user.
+ */
+function handleMissingSmtpServerSettingsNotifications()
+{
+    require_once 'include/OutboundEmail/OutboundEmail.php';
+
+    $oe = new OutboundEmail();
+    $settings = $oe->getSystemMailerSettings();
+
+    if (!empty($settings->mail_smtpserver)) {
+        return;
+    }
+
+    $user = \BeanFactory::getBean('Users');
+    $user->getSystemUser();
+
+    if (empty($user)) {
+        return;
+    }
+
+    $app_strings = return_application_language($GLOBALS['current_language']);
+
+    $emailSettingsUrl = sprintf(
+        '<a href="#bwc/index.php?module=EmailMan&action=config">%s</a>',
+        $app_strings['LBL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_LINK_TEXT']
+    );
+
+    $description = str_replace(
+        '{{emailSettingsUrl}}',
+        $emailSettingsUrl,
+        $app_strings['TPL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_DESCRIPTION']
+    );
+
+    $notification = \BeanFactory::getBean('Notifications');
+    $notification->name = $app_strings['LBL_MISSING_SMPT_SERVER_SETTINGS_NOTIFICATION_SUBJECT'];
+    $notification->description = $description;
+    $notification->severity = 'warning';
+    $notification->assigned_user_id = $user->id;
+    $notification->save();
 }

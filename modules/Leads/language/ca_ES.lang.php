@@ -2,20 +2,17 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
  *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
 
-	
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre a eliminar.',
@@ -30,7 +27,6 @@ $mod_strings = array (
   'LBL_ADDRESS_INFORMATION' => 'Direccions',
   'LBL_ADD_BUSINESSCARD' => 'Afegir Targeta de Visita',
   'LBL_ALTERNATE_ADDRESS' => 'Direcció alternativa:',
-  'LBL_ALT_ADDRESS' => 'Altre direcció:',
   'LBL_ALT_ADDRESS_CITY' => 'Ciutat de direcció alternativa',
   'LBL_ALT_ADDRESS_COUNTRY' => 'País de direcció alternativa',
   'LBL_ALT_ADDRESS_POSTALCODE' => 'CP de direcció alternativa',
@@ -68,18 +64,37 @@ $mod_strings = array (
   'LBL_CONVERTED_OPP' => 'Oportunitat Convertida:',
   'LBL_CONVERTLEAD' => 'Convertir Client Potencial',
   'LBL_CONVERTLEAD_BUTTON_KEY' => 'V',
+  'LBL_CONVERTLEAD_ERROR' => 'No es pot convertir el Potencial',
+  'LBL_CONVERTLEAD_FILE_WARN' => 'Ha convertit amb èxit el Potencial {{leadName}}, pero hi havia un problema al pujar arxius adjunts en un o més registres.',
+  'LBL_CONVERTLEAD_SUCCESS' => 'Ha convertit amb èxit el Potencial {{leadName}}',
   'LBL_CONVERTLEAD_TITLE' => 'Convertir Client Potencial [Alt+V]',
   'LBL_CONVERTLEAD_WARNING' => 'Avís: Aquest estat del Client Potencial que està a punt de convertir és "Convertit". És possible que s&#39;hagi creat algún registre de tipus Contacte y/o Compte a partir d&#39;aquest Client Potencial. Si desitja continuar amb la conversió del Client Potencial, facio clic a Guardar. Per tornar al Client Potencial sense realitzar la conversió, faci clic a Cancelar.',
   'LBL_CONVERTLEAD_WARNING_INTO_RECORD' => 'Possible Contacte:',
+  'LBL_CONVERT_ACCESS_DENIED' => 'No te permisos per editar als mòduls necessaris per convertir el potencial: {{requiredModulesMissing}}',
   'LBL_CONVERT_ADD_MODULE' => 'Agregar Mòdul',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Relacionat amb {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Relacionar {{moduleName}}',
+  'LBL_CONVERT_BACK_TO_DUPLICATES' => 'Tornar als duplicats',
+  'LBL_CONVERT_BUTTON_LABEL' => 'Convertir',
   'LBL_CONVERT_COPY' => 'Copiar Dades',
+  'LBL_CONVERT_CREATE_NEW' => 'Nou {{moduleName}}',
   'LBL_CONVERT_DELETE' => 'Eliminar',
+  'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} duplicats trobats',
   'LBL_CONVERT_EDIT' => 'Editar',
   'LBL_CONVERT_EDIT_LAYOUT' => 'Editar Disseny de Conversió',
+  'LBL_CONVERT_FINDING_DUPLICATES' => 'Búsqueda de duplicados...',
+  'LBL_CONVERT_IGNORE_DUPLICATES' => 'Ignorar i crea nou',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Relacionat',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'Vosté ha relacionat el {{moduleNameLower}} {{recordName}} però no es crearà fins que ho acabi i ho guardi.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'Vosté ha relacionat el {{moduleNameLower}} {{recordName}} però no es crearà fins que ho acabi i ho guardi.',
   'LBL_CONVERT_MODULE_NAME' => 'Mòdul',
   'LBL_CONVERT_MODULE_NAME_SINGULAR' => 'Módul',
+  'LBL_CONVERT_PANEL_OPTIONAL' => '(opcional)',
   'LBL_CONVERT_REQUIRED' => 'Requerit',
+  'LBL_CONVERT_RESET_PANEL' => 'Restablir',
   'LBL_CONVERT_SELECT' => 'Permetre Selecció',
+  'LBL_CONVERT_SWITCH_TO_CREATE' => 'Crear nou',
+  'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Cercar',
   'LBL_COPY_TIP' => 'Si està seleccionat, els camps del client potencial seran copiets a camps amb el mateix nom en els registres recent creats.',
   'LBL_COUNTRY' => 'País:',
   'LBL_CREATE' => 'Crear',
@@ -97,6 +112,10 @@ $mod_strings = array (
   'LBL_DEPARTMENT' => 'Departament:',
   'LBL_DESCRIPTION' => 'Descripció:',
   'LBL_DESCRIPTION_INFORMATION' => 'Informació addicional',
+  'LBL_DNB_BAL_PREVIEW' => 'Vista prèvia de clients potencials',
+  'LBL_DNB_BAL_RSLT_CNT' => 'Clients potencials',
+  'LBL_DNB_BAL_RSLT_HEADER' => 'D&B: informació de clients potencials',
+  'LBL_DNB_PRINCIPAL_ID' => 'ID Principal de D&B',
   'LBL_DO_NOT_CALL' => 'No trucar:',
   'LBL_DUPLICATE' => 'Clients potencials similares',
   'LBL_EDITLAYOUT' => 'Editar disseny',
@@ -115,12 +134,31 @@ $mod_strings = array (
   'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat per ID',
   'LBL_EXPORT_PHONE_MOBILE' => 'Mòbil',
   'LBL_FAX_PHONE' => 'Fax:',
+  'LBL_FILTER_LEADS_REPORTS' => 'Informes de potencials',
   'LBL_FIRST_NAME' => 'Nom:',
   'LBL_FULL_NAME' => 'Nom Complert:',
+  'LBL_HELP_CONVERT' => 'Sugar us permet convertir {{plural_module_name}} en {{contacts_module}}, {{accounts_module}}, i altres mòduls quan el {{module_name}} compleix els seus criteris definits.
+
+Passeu per cada mòdul modificant els camps i a continuació confirmeu els valors dels nous registres fent clic a cada botó associat.
+
+Si Sugar detecta que un registre existent coincideix amb la informació del {{module_name}}, teniu l&#39;opció de triar un duplicat, confirmar la selecció amb el botó associat o fer clic a "Ignora i crea nou" i continuar com és habitual.
+
+Després de confirmar cada mòdul necessari i desitjat, feu clic al botó Desa i converteix a la part superior per finalitzar la conversió.',
+  'LBL_HELP_CONVERT_TITLE' => 'Convertir a',
+  'LBL_HELP_CREATE' => 'El mòdul {{plural_module_name}} consisteix en clients potencials individuals que potser estaran interessats en un producte o servei que proporciona la seva organització. Quan el {{module_name}} es classifica com a {{opportunities_singular_module}}, es pot convertir en {{contacts_singular_module}}, {{opportunities_singular_module}} i {{accounts_singular_module}}. Per crear un {{module_name}}:. 1 Proporcioneu els valors desitjats per als camps. - Els camps marcats "Obligatori" s&#39;han de completar abans de desar. - Feu clic a "Mostra més" per exposar camps addicionals si és necessari. 2. Feu clic a "Desa" per finalitzar el nou registre i torneu a la pàgina anterior. - Seleccioneu l&#39;opció "Guarda i vegeu" per obrir el nou {{module_name}}  en vista de registre. - Seleccioneu "Guarda i crea nou" per crear un nou {{module_name}} immediatament.',
+  'LBL_HELP_RECORD' => 'El mòdul {{plural_module_name}} consisteix en clients potencials individuals que potser estaran interessats en un producte o servei que proporciona la seva organització.
+
+- Editeu els camps d&#39;aquest registre fent clic a un camp individual o amb el botó Edita.
+- Vegeu o modifiqueu enllaços a altres registres als subpanells mitjançant la commutació de la subfinestra inferior esquerra a la "Vista de dades".
+- Feu i vegeu comentaris d&#39;usuari i l&#39;historial de canvis del registre al {{activitystream_singular_module}} mitjançant la commutació de la subfinestra inferior esquerra al "Canal d&#39;activitat".
+- Feu el seguiment d&#39;aquest favorit o marqueu-lo com a favorit amb les icones que hi han a la dreta del nom del registre.
+- Hi han accions addicionals disponibles al menú desplegable d&#39;accions a la dreta del botó Edita.',
+  'LBL_HELP_RECORDS' => 'El mòdul {{plural_module_name}} consisteix en clients potencials individuals que potser estaran interessats en un producte o servei que proporciona la seva organització. Quan el {{module_name}} es classifica com a {{opportunities_singular_module}}, {{plural_module_name}} es pot convertir en {{contacts_module}}, {{opportunities_module}} i {{accounts_module}}. Hi han vàries maneres de crear un {{plural_module_name}} a Sugar, com ara amb el mòdul {{plural_module_name}}, duplicació, importació de {{plural_module_name}}, etc. Quan es crea el registre del {{module_name}}, podeu veure i editar la informació que pertany al {{module_name}} mitjançant la vista de registres de {{plural_module_name}}.',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Històrial',
   'LBL_HOME_PHONE' => 'Tel. casa:',
   'LBL_IMPORT_VCARD' => 'Importar vCard',
   'LBL_IMPORT_VCARDTEXT' => 'Automaticàmente crea un nou client potencial important una vCard.',
+  'LBL_IMPORT_VCARD_SUCCESS' => 'Objectiu crear satisfactòriament des de vCard',
   'LBL_INVALID_EMAIL' => 'Correu No Vàlid:',
   'LBL_INVITEE' => 'Informadors',
   'LBL_LAST_NAME' => 'Cognoms:',
@@ -146,6 +184,9 @@ $mod_strings = array (
   'LBL_LIST_TITLE' => 'Carrèg',
   'LBL_LOADING' => 'Carregant ...',
   'LBL_MESSAGE' => 'Si us plau, introdueixi les seves dades a continuació. Es crearà la informació i/o compte per a vostè, pendent d´aprovació.',
+  'LBL_MKTO_ID' => 'Marketo Potencial ID',
+  'LBL_MKTO_LEAD_SCORE' => 'Puntuació del potencial',
+  'LBL_MKTO_SYNC' => 'Sincronitzar a Marketo®',
   'LBL_MOBILE_PHONE' => 'Mòbil:',
   'LBL_MODIFIED' => 'Modificat per',
   'LBL_MODIFIED_ID' => 'Modificat per Id',
@@ -157,8 +198,10 @@ $mod_strings = array (
   'LBL_NAME' => 'Nom:',
   'LBL_NEW_FORM_TITLE' => 'Nou Client Potencial',
   'LBL_NEW_PORTAL_PASSWORD' => 'Nova Clau de pas del Portal:',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notes:',
   'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'Avís: La pantalla actual de Convertir Client Potencial conté camps personalitzats. Quan  personalitzi per primera vegada la pantalla de Convertir Client potencial en l&#39;Estudi, haurà d¡afegir en els camps personalitzats al disseny, segons sigui necessari. Els camps personalitzats no apareixeran automàticament en el disseny com ho feien abans.',
   'LBL_OFFICE_PHONE' => 'Tel. oficina:',
+  'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Oportunitats',
   'LBL_OPPORTUNITY_AMOUNT' => 'Quantitat de l´oportunitat:',
   'LBL_OPPORTUNITY_ID' => 'ID Oportunitat',
   'LBL_OPPORTUNITY_NAME' => 'Nom de l´oportunitat:',
@@ -186,6 +229,7 @@ $mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STREET_2' => 'Carrer de direcció principal 2',
   'LBL_PRIMARY_ADDRESS_STREET_3' => 'Carrer de direcció principal 3',
   'LBL_PROSPECT_LIST' => 'Públic Objetivo',
+  'LBL_RECORD_SAVED_SUCCESS' => 'Ha creat satisfactòriament el {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{full_name}}</a>.',
   'LBL_REFERED_BY' => 'Referit per:',
   'LBL_REGISTRATION' => 'Registre',
   'LBL_REPORTS_FROM' => 'Informes des de:',
@@ -194,6 +238,7 @@ $mod_strings = array (
   'LBL_REQUIRED_TIP' => 'Ha de seleccionar o crear els mòduls requerits abans que el client potencial pugui ser convertit.',
   'LBL_SALUTATION' => 'Salutació',
   'LBL_SAVED' => 'Gràcies per registrar-se. El seu compte serà creat i es posaran en contacte amb vostè en breu.',
+  'LBL_SAVE_CONVERT_BUTTON_LABEL' => 'Guardar y convertir',
   'LBL_SEARCH_FORM_TITLE' => 'Recerca de Clients Potencials',
   'LBL_SELECT' => 'Sseleccionar',
   'LBL_SELECTION_TIP' => 'Els mòduls amb un camp relacionat en Contactes poden ser seleccionats en lloc de creats durant el procés de conversió del client potencial.',
@@ -210,6 +255,7 @@ $mod_strings = array (
   'LBL_TARGET_OF_CAMPAIGNS' => 'Campanya Existosa:',
   'LBL_THANKS_FOR_SUBMITTING_LEAD' => 'Gràcies per la informació.',
   'LBL_TITLE' => 'Carrèg:',
+  'LBL_UNCONVERTED' => 'No convertit',
   'LBL_VCARD' => 'vCard',
   'LBL_VIEW_FORM_TITLE' => 'Vista de Clients Potencials',
   'LBL_WEBSITE' => 'Lloc Web',
@@ -235,6 +281,8 @@ $mod_strings = array (
   'NTC_OPPORTUNITY_REQUIRES_ACCOUNT' => 'La creació d´una oportunitat requereix una compte. Si us plau, o bé creï una nova o en seleccioni una existent.',
   'NTC_REMOVE_CONFIRMATION' => 'Està segur que desitja treure aquest client potencial del cas?',
   'NTC_REMOVE_DIRECT_REPORT_CONFIRMATION' => 'Està segur que vol treure aquest registre com a informador?',
+  'TPL_BROWSER_SUGAR7_RECORDS_TITLE' => '{{module}} &raquo; {{appId}}',
+  'TPL_BROWSER_SUGAR7_RECORD_TITLE' => '{{#if last_name}}{{#if first_name}}{{first_name}} {{/if}}{{last_name}} &raquo; {{/if}}{{module}} &raquo; {{appId}}',
   'db_account_name' => 'LBL_LIST_ACCOUNT_NAME',
   'db_email1' => 'LBL_LIST_EMAIL_ADDRESS',
   'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',
