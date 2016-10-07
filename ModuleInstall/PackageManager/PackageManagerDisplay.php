@@ -25,11 +25,18 @@ class PackageManagerDisplay{
      * @param String form1 - the form to display for manual downloading
      * @param String hidden_fields - the hidden fields related to downloading a package
      * @param String form_action - the form_action to be used when downloading from the server
-     * @param String types - the types of objects we will request from the server
+     * @param array types - the types of objects we will request from the server
      * @param String active_form - the form to display first
      * @return String - a string of html which will be used to display the forms
      */
-    function buildPackageDisplay($form1, $hidden_fields, $form_action, $types = array('module'), $active_form = 'form1', $install = false){
+    public static function buildPackageDisplay(
+        $form1,
+        $hidden_fields,
+        $form_action,
+        $types = array('module'),
+        $active_form = 'form1',
+        $install = false
+    ) {
         global $current_language, $app_strings;
 
         $app_strings = return_application_language($current_language);
@@ -54,7 +61,7 @@ class PackageManagerDisplay{
         }
 
         $tree = PackageManagerDisplay::buildTreeView('treeview', $isAlive);
-        $tree->tree_style = 'vendor/ytree/TreeView/css/check/tree.css';
+        $tree->tree_style = getVersionedPath('vendor/ytree/TreeView/css/check/tree.css');
         $ss->assign('TREEHEADER', $tree->generate_header());
 
         $ss->assign('installation', ($install ? 'true' : 'false'));
@@ -89,11 +96,17 @@ class PackageManagerDisplay{
      * @param String form1 - the form to display for manual downloading
      * @param String hidden_fields - the hidden fields related to downloading a package
      * @param String form_action - the form_action to be used when downloading from the server
-     * @param String types - the types of objects we will request from the server
+     * @param array types - the types of objects we will request from the server
      * @param String active_form - the form to display first
      * @return String - a string of html which will be used to display the forms
      */
-    function buildPatchDisplay($form1, $hidden_fields, $form_action, $types = array('module'), $active_form = 'form1'){
+    public static function buildPatchDisplay(
+        $form1,
+        $hidden_fields,
+        $form_action,
+        $types = array('module'),
+        $active_form = 'form1'
+    ) {
     	global $current_language;
         $mod_strings = return_module_language($current_language, "Administration");
         $ss = new Sugar_Smarty();
@@ -161,7 +174,7 @@ class PackageManagerDisplay{
         	//return false;
         }
         $tree = PackageManagerDisplay::buildTreeView('treeview', $isAlive);
-        $tree->tree_style= 'vendor/ytree/TreeView/css/check/tree.css';
+        $tree->tree_style= getVersionedPath('vendor/ytree/TreeView/css/check/tree.css');
         $ss->assign('TREEHEADER',$tree->generate_header());
 		$ss->assign('module_load', 'false');
 		$ss->assign('MODULE_SELECTOR', PackageManagerDisplay::buildGridOutput($tree, $mod_strings, $isAlive, $show_login));
@@ -278,7 +291,7 @@ class PackageManagerDisplay{
      * @param String modify_field - the field to update when the radio button is changed
      * @return String - a form used to display the license
      */
-    function getLicenseDisplay($license_file, $form_action, $next_step, $zipFile, $type, $manifest, $modify_field){
+    public static function getLicenseDisplay($license_file, $form_action, $next_step, $zipFile, $type, $manifest, $modify_field){
     	global $current_language;
         $mod_strings = return_module_language($current_language, "Administration");
         $contents = sugar_file_get_contents($license_file);
@@ -447,7 +460,8 @@ class PackageManagerDisplay{
     *  This method is meant to be used to display the license agreement inline on the page
     *  if the system would like to perform the installation on the same page via an Ajax call
     */
-    function buildLicenseOutput($file){
+    public static function buildLicenseOutput($file)
+    {
     	global $current_language;
 
         $mod_strings = return_module_language($current_language, "Administration");
@@ -463,7 +477,8 @@ class PackageManagerDisplay{
         return $str;
     }
 
-    function getHeader(){
+    public static function getHeader()
+    {
     	global $current_language;
 
         $mod_strings = return_module_language($current_language, "Administration");

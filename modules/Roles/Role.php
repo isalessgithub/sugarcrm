@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: Role.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:
  ********************************************************************************/
 
@@ -44,10 +44,7 @@ class Role extends SugarBean {
 	var $new_schema = true;
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Role()
     {

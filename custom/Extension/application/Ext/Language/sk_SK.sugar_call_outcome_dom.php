@@ -1,0 +1,31 @@
+<?php
+ // created: 2016-10-07 12:37:54
+
+$app_list_strings['call_outcome_dom']=array (
+  'Call' => 'Call',
+  'Not Interested' => 'Not Interested',
+  'Left company' => 'Left company',
+  'Admin Blocking' => 'Admin Blocking',
+  'Lead Generated' => 'Lead Generated',
+  'Long term call back' => 'Long term call back',
+  'Hot call back' => 'Hot call back',
+  'Referral To' => 'Referral To',
+  'Reschedule' => 'Reschedule',
+  'Cancelled' => 'Cancelled',
+  'WrongContact' => 'Wrong Contact',
+  'WrongNumber' => 'Wrong number',
+  'Bookedcolleague' => 'Booked Colleague',
+  'suggestedcolleague' => 'Suggested Colleague',
+  'Existing_Customer' => 'Existing Customer',
+  'Does_Not_Qualify' => 'Does Not Qualify',
+  'Outsourced' => 'Outsourced',
+  'EmailandVM2' => 'Email&VM2',
+  'EmailandVM3' => 'Email & VM3',
+  'EmailandVM4' => 'Email & VM4',
+  'Invite_Sent' => 'Invite Sent',
+  'EmailandVM1' => 'Email and VM1',
+  'Contact_Sales_Rep' => 'Contact Sales Rep',
+  'New_Contact' => 'New Contac',
+  'Short_Term_Call_Back' => 'Short Term Call Back',
+  'Remove_from_TL' => 'Remove Co. from TL',
+);

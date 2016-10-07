@@ -65,11 +65,14 @@ class SugarUpgradeRenameModules extends UpgradeScript
                 $shouldUpdateSingular = false;
                 if (
                     empty($app_list_strings['moduleListSingular'][$moduleId])
+                    && isset($strings['moduleListSingular'][$moduleId])
+                    && isset($default['moduleListSingular'][$moduleId])
                     && $strings['moduleListSingular'][$moduleId] != $default['moduleListSingular'][$moduleId]
                 ) {
                     $shouldUpdateSingular = true;
                 } elseif (
                     !empty($app_list_strings['moduleListSingular'][$moduleId])
+                    && isset($strings['moduleListSingular'][$moduleId])
                     && $strings['moduleListSingular'][$moduleId] != $app_list_strings['moduleListSingular'][$moduleId]
                 ) {
                     $shouldUpdateSingular = true;
@@ -78,6 +81,7 @@ class SugarUpgradeRenameModules extends UpgradeScript
                 $shouldUpdatePlural = false;
                 if (
                     empty($app_list_strings['moduleList'][$moduleId])
+                    && isset($default['moduleListSingular'][$moduleId])
                     && $strings['moduleList'][$moduleId] != $default['moduleList'][$moduleId]
                 ) {
                     $shouldUpdatePlural = true;
@@ -148,7 +152,7 @@ class SugarUpgradeRenameModules extends UpgradeScript
      */
     protected function getAppListStrings($lang)
     {
-        return return_app_list_strings_language($lang);
+        return return_app_list_strings_language($lang, false);
     }
 
     /**

@@ -47,10 +47,7 @@ class Manufacturer extends SugarBean {
 	var $additional_column_fields = Array();
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Manufacturer()
     {
@@ -101,7 +98,7 @@ class Manufacturer extends SugarBean {
 		return $list;
 	}
 
-	function save_relationship_changes($is_update)
+    public function save_relationship_changes($is_update, $exclude = array())
     {
 
     }
@@ -153,7 +150,28 @@ class Manufacturer extends SugarBean {
 	return $the_where;
 }
 
+    /**
+     * Indicate this module implements ACL.
+     * @param string $interface the interface name
+     * @return bool
+     */
+    public function bean_implements($interface)
+    {
+        switch($interface)
+        {
+            case 'ACL':
+                return true;
+        }
+        return false;
+    }
 
+	/**
+	 *  override default behavior
+	 * {@inheritDoc}
+	 */
+	public function isACLRoleEditable(){
+		return false;
+	}
 }
 
 ?>

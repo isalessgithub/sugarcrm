@@ -12,6 +12,7 @@
 *}
 
 <form name="exportcustom" id="exportcustom">
+{sugar_csrf_form_token}
 <input type='hidden' name='module' value='ModuleBuilder'>
 <input type='hidden' name='action' value='ExportCustom'>
 <div align="left">
@@ -84,6 +85,6 @@
 ModuleBuilder.helpRegister('exportcustom');
 ModuleBuilder.helpSetup('exportcustom','exportHelp');
 addToValidate('exportcustom', 'modules[]', 'checkboxset', true, '{$mod_strings.LBL_EC_CHECKERROR}');
-addToValidate('exportcustom', 'name', 'varchar', true, '{$mod_strings.LBL_PACKAGE_NAME}');
+addToValidate('exportcustom', 'name', 'DBName', true, '{$mod_strings.LBL_JS_PACKAGE_NAME}');
 </script>
 {include file='modules/ModuleBuilder/tpls/assistantJavascript.tpl'}

@@ -36,7 +36,7 @@ class ViewModulefields extends SugarView
         $bak_mod_strings=$mod_strings;
         $smarty->assign('mod_strings', $mod_strings);
 
-        $module_name = $_REQUEST['view_module'];
+        $module_name = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
 
         global $current_language;
         $module_strings = return_module_language($current_language, $module_name);
@@ -108,8 +108,9 @@ class ViewModulefields extends SugarView
         } else {
             require_once('modules/ModuleBuilder/MB/ModuleBuilder.php');
             $mb = new ModuleBuilder();
-            $mb->getPackage($_REQUEST['view_package']);
-            $package = $mb->packages[$_REQUEST['view_package']];
+            $packName = $this->request->getValidInputRequest('view_package', 'Assert\ComponentName');
+            $mb->getPackage($packName);
+            $package = $mb->packages[$packName];
 
             $package->getModule($module_name);
             $this->mbModule = $package->modules[$module_name];
@@ -245,8 +246,9 @@ class ViewModulefields extends SugarView
         }
     	if (empty($def ['source']) || $def ['source'] == 'db' || $def ['source'] == 'custom_fields')
 		{
-    		if ($def ['type'] != 'id' && (empty($def ['dbType']) || $def ['dbType'] != 'id'))
-		  return true;
+            if (strtolower($def['type']) != 'id' && (empty($def ['dbType']) || $def ['dbType'] != 'id')) {
+                return true;
+            }
 		}
 
 		return false;

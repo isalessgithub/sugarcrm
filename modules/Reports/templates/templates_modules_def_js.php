@@ -85,6 +85,18 @@ var link_defs_<?php echo $module_name; ?> = new Object();
             $vname = $linked_field['vname'];
         }
 
+        //if the relationship module does not match the current module and a relationship side is defined
+        //then use the linked field module title if available.
+        $relationship_module = isset($linked_field['module']) ? $linked_field['module'] : '' ;
+        $relateFieldLabel = strtoupper('LBL_' . $field . '_FROM_' . $relationship_module . '_TITLE');
+        if ((!empty($relationship_module) && !empty($field)) &&
+            $currentModule != $relationship_module &&
+            !empty($linked_field['side']) &&
+            !empty($mod_strings[$relateFieldLabel])
+        ) {
+            $vname = $mod_strings[$relateFieldLabel];
+        }
+
         // In order to get the correct label, we have to track down and see if there is a name field and use that for the label.
         foreach ($module->field_defs as $idx => $fieldDef) {
             if (!isset($fieldDef['link'])) {
@@ -371,6 +383,7 @@ module_defs['<?php echo $module_name; ?>'].label = "<?php echo addslashes(
 	$max = translate('LBL_MAX');
 	$min = translate('LBL_MIN');
 	$day = translate('LBL_DAY');
+	$week = translate('LBL_WEEK');
 	$month = translate('LBL_MONTH');
 	$year = translate('LBL_YEAR');
     $quarter = translate('LBL_QUARTER');
@@ -378,6 +391,7 @@ module_defs['<?php echo $module_name; ?>'].label = "<?php echo addslashes(
 var summary_types = {sum:'<?php echo $sum; ?>',avg:'<?php echo $avg; ?>',max:'<?php echo $max; ?>',min:'<?php echo $min; ?>'};
     var date_summary_types = {
         day:'<?php echo $day; ?>',
+        week:'<?php echo $week; ?>',
         month:'<?php echo $month; ?>',
         year:'<?php echo $year; ?>',
         quarter:'<?php echo $quarter; ?>'
@@ -640,6 +654,7 @@ filter_defs['bool'] = qualifiers;
 
 var date_group_defs =  new Array();
 date_group_defs[date_group_defs.length] = {name:'day', value:'<?php echo $mod_strings['LBL_BY_DAY']; ?>'};
+date_group_defs[date_group_defs.length] = {name:'week', value:'<?php echo $mod_strings['LBL_BY_WEEK']; ?>'};
 date_group_defs[date_group_defs.length] = {name:'month', value:'<?php echo $mod_strings['LBL_BY_MONTH']; ?>'};
 date_group_defs[date_group_defs.length] = {name:'year', value:'<?php echo $mod_strings['LBL_BY_YEAR']; ?>'};
 date_group_defs[date_group_defs.length] = {name:'quarter', value:'<?php echo $mod_strings['LBL_BY_QUARTER']; ?>'};
@@ -649,6 +664,14 @@ qualifiers[qualifiers.length] = {name:'any',value:'<?php echo $mod_strings['LBL_
 qualifiers[qualifiers.length] = {name:'all',value:'<?php echo $mod_strings['LBL_ALL']; ?>'};
 qualifiers[qualifiers.length] = {name:'exact',value:'<?php echo $mod_strings['LBL_EXACT']; ?>'};
 filter_defs['team_set_id'] = qualifiers;
+
+// Dropdown for filtering on basis of tag name in the Tags module
+var qualifiers = new Array();
+qualifiers[qualifiers.length] = {name:'equals',value:'<?php echo $mod_strings['LBL_EQUALS']; ?>'};
+qualifiers[qualifiers.length] = {name:'not_equals_str',value:'<?php echo $mod_strings['LBL_DOES_NOT_EQUAL']; ?>'};
+qualifiers[qualifiers.length] = {name:'contains',value:'<?php echo $mod_strings['LBL_CONTAINS']; ?>'};
+qualifiers[qualifiers.length] = {name:'does_not_contain',value:'<?php echo $mod_strings['LBL_DOES_NOT_CONTAIN']; ?>'};
+filter_defs['Tags:name'] = qualifiers;
 
     filter_defs['file'] = [
         {name:'empty',value:'<?php echo $mod_strings['LBL_IS_EMPTY']; ?>'},

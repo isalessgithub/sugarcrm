@@ -23,7 +23,17 @@ class TemplateHandler {
     var $cacheDir;
     var $templateDir = 'modules/';
     var $ss;
-    function TemplateHandler() {
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function TemplateHandler()
+    {
+        self::__construct();
+    }
+
+    public function __construct()
+    {
       $this->cacheDir = sugar_cached('');
     }
 
@@ -39,7 +49,8 @@ class TemplateHandler {
      * Helper function to remove all .tpl files in the cache directory
      *
      */
-    function clearAll() {
+    public static function clearAll()
+    {
     	global $beanList;
 		foreach($beanList as $module_dir =>$object_name){
                 TemplateHandler::clearCache($module_dir);
@@ -54,7 +65,8 @@ class TemplateHandler {
      * @param String $module The module directory to clear
      * @param String $view Optional view value (DetailView, EditView, etc.)
      */
-    function clearCache($module, $view=''){
+    public static function clearCache($module, $view = '')
+    {
         $cacheDir = create_cache_directory('modules/'. $module . '/');
         $d = dir($cacheDir);
         while($e = $d->read()){
@@ -86,6 +98,10 @@ class TemplateHandler {
         $this->ss->assign('module', $module);
         $this->ss->assign('built_in_buttons', array('CANCEL', 'DELETE', 'DUPLICATE', 'EDIT', 'SHARE', 'FIND_DUPLICATES', 'SAVE', 'CONNECTOR'));
         $contents = $this->ss->fetch($tpl);
+        if ($view == "PMSEDetailView"){
+            $view = 'EditView';
+            $processAutorDefs = true;
+        }
         //Insert validation and quicksearch stuff here
         if($view == 'EditView' || strpos($view,'QuickCreate') || $ajaxSave || $view == "ConvertLead") {
 
@@ -93,6 +109,22 @@ class TemplateHandler {
             $mod = BeanFactory::getObjectName($module);
             $defs = $dictionary[$mod]['fields'];
             $defs2 = array();
+            if (!empty($processAutorDefs)){
+                if(!empty($this->ss->_tpl_vars['readOnlyFields'])){
+                    foreach ($this->ss->_tpl_vars['readOnlyFields'] as $readOnlyField) {
+                        if (!empty($defs[$readOnlyField])){
+                            $defs[$readOnlyField]['readonly'] = true;
+                        }
+                    }
+                }
+                if(!empty($this->ss->_tpl_vars['requiredFields'])){
+                    foreach ($this->ss->_tpl_vars['requiredFields'] as $requiredField) {
+                        if (!empty($defs[$requiredField])){
+                            $defs[$requiredField]['required'] = true;
+                        }
+                    }
+                }
+            }
             //Retrieve all panel field definitions with displayParams Array field set
             $panelFields = array();
 

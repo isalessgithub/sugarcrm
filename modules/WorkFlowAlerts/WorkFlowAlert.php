@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: WorkFlowAlert.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:
  ********************************************************************************/
 
@@ -99,10 +99,7 @@ class WorkFlowAlert extends SugarBean {
 	var $required_fields =  array('user_type'=>1);
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function WorkFlowAlert()
     {
@@ -116,7 +113,7 @@ class WorkFlowAlert extends SugarBean {
 
 	}
 
-	function save_relationship_changes($is_update)
+    public function save_relationship_changes($is_update, $exclude = array())
     {
     }
 

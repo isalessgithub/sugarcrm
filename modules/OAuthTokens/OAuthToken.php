@@ -104,7 +104,9 @@ class OAuthToken extends SugarBean
 	 */
 	protected static function randomValue()
 	{
-	    return bin2hex(Zend_Oauth_Provider::generateToken(6));
+        $provider = new Zend_Oauth_Provider();
+        $token = $provider->generateToken(6);
+        return bin2hex($token);
 	}
 
 	/**
@@ -118,14 +120,14 @@ class OAuthToken extends SugarBean
         return new self($t, $s);
     }
 
-    public function save()
+    public function save($check_notify = false)
     {
         $this->token_ts = time();
         if(!isset($this->id)) {
             $this->new_with_id = true;
             $this->id = $this->token;
         }
-        parent::save();
+        parent::save($check_notify);
     }
 
     /**
@@ -261,14 +263,17 @@ class OAuthToken extends SugarBean
         }
 
         // delete request tokens from this user on this platform that aren't for this user
-        $db->query(
-            "DELETE FROM oauth_tokens WHERE "
+        $query = "DELETE FROM oauth_tokens WHERE "
             ." tstate = ".self::ACCESS
             ." AND id NOT IN ('".implode("', '",$ids)."') "
             ." AND platform = '".$db->quote($this->platform)."' "
-            ." AND assigned_user_id = '".$db->quote($this->assigned_user_id)."' "
-            ." AND contact_id = '".$db->quote($this->contact_id)."' "
-        );
+            ." AND assigned_user_id = '".$db->quote($this->assigned_user_id)."' ";
+
+            if (!empty($this->contact_id)) {
+                $query .= " AND contact_id = '".$db->quote($this->contact_id)."' ";
+            }
+            
+        $db->query($query);
     }
 
 	/**

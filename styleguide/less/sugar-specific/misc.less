@@ -42,8 +42,9 @@ dl.list {
 }
 
 .more, .less {
-    border: none !important;
-    padding-left: 0;
+  border: none !important;
+  padding-left: 0;
+  margin: 0;
   &.padded {
     padding: 8px 6px;
     display: inline-block;
@@ -244,10 +245,6 @@ hr.soften {
 .bwc.layout {
   height: 100%;
 }
-.touch .bwc.layout {
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
 
 #tutorial {
   position: absolute;
@@ -422,8 +419,6 @@ hr.soften {
 .touch .bwc-frame {
   display: block;
   border: 1px solid transparent;
-  -webkit-overflow-scrolling: touch;
-  overflow: scroll;
   width: 100%;
 }
 
@@ -436,15 +431,6 @@ hr.soften {
     right: 0;
     bottom: 34px;
     left: inherit;
-  }
-}
-
-.full-width {
-  > .label {
-    width: 100%;
-    max-width: 80px;
-    text-align: center;
-    box-sizing: border-box;
   }
 }
 
@@ -542,9 +528,3 @@ hr.soften {
     text-align: justify;
   }
 }
-
-/* tmp hack TY-276 */
-*::-ms-backdrop, [data-action="feedback"] {
-    display: none;
-}
-

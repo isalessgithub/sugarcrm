@@ -5,4 +5,13 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-YUI.add("json-parse",function(e,t){var n=e.config.global.JSON;e.namespace("JSON").parse=function(e,t,r){return n.parse(typeof e=="string"?e:e+"",t,r)}},"3.15.0",{requires:["yui-base"]});
+YUI.add('json-parse', function (Y, NAME) {
+
+var _JSON = Y.config.global.JSON;
+
+Y.namespace('JSON').parse = function (obj, reviver, space) {
+    return _JSON.parse((typeof obj === 'string' ? obj : obj + ''), reviver, space);
+};
+
+
+}, '3.15.0', {"requires": ["yui-base"]});

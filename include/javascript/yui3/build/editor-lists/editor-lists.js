@@ -5,4 +5,125 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-YUI.add("editor-lists",function(e,t){var n=function(){n.superclass.constructor.apply(this,arguments)},r="li",i="ol",s="ul",o="host";e.extend(n,e.Base,{_onNodeChange:function(t){var u=this.get(o).getInstance(),a,f,l,c,h=!1,p,d=!1;t.changedType==="tab"&&(t.changedNode.test(r+", "+r+" *")&&(t.changedEvent.halt(),t.preventDefault(),a=t.changedNode,l=t.changedEvent.shiftKey,c=a.ancestor(i+","+s),p=s,c.get("tagName").toLowerCase()===i&&(p=i),a.test(r)||(a=a.ancestor(r)),l?a.ancestor(r)&&(a.ancestor(r).insert(a,"after"),h=!0,d=!0):a.previous(r)&&(f=u.Node.create("<"+p+"></"+p+">"),a.previous(r).append(f),f.append(a),h=!0)),h&&(a.test(r)||(a=a.ancestor(r)),a.all(n.REMOVE).remove(),e.UA.ie&&(a=a.append(n.NON).one(n.NON_SEL)),(new u.EditorSelection).selectNode(a,!0,d)))},initializer:function(){this.get(o).on("nodeChange",e.bind(this._onNodeChange,this))}},{NON:'<span class="yui-non">&nbsp;</span>',NON_SEL:"span.yui-non",REMOVE:"br",NAME:"editorLists",NS:"lists",ATTRS:{host:{value:!1}}}),e.namespace("Plugin"),e.Plugin.EditorLists=n},"3.15.0",{requires:["editor-base"]});
+YUI.add('editor-lists', function (Y, NAME) {
+
+
+    /**
+     * Handles list manipulation inside the Editor. Adds keyboard manipulation and execCommand support.
+     * Adds overrides for the <a href="Plugin.ExecCommand.html#method_COMMANDS.insertorderedlist">insertorderedlist</a>
+     * and <a href="Plugin.ExecCommand.html#method_COMMANDS.insertunorderedlist">insertunorderedlist</a> execCommands.
+     * @class Plugin.EditorLists
+     * @constructor
+     * @extends Base
+     * @module editor
+     * @submodule editor-lists
+     */
+
+    var EditorLists = function() {
+        EditorLists.superclass.constructor.apply(this, arguments);
+    }, LI = 'li', OL = 'ol', UL = 'ul', HOST = 'host';
+
+    Y.extend(EditorLists, Y.Base, {
+        /**
+        * Listener for host's nodeChange event and captures the tabkey interaction only when inside a list node.
+        * @private
+        * @method _onNodeChange
+        * @param {Event} e The Event facade passed from the host.
+        */
+        _onNodeChange: function(e) {
+            var inst = this.get(HOST).getInstance(), li,
+                newList, sTab, par, moved = false, tag, focusEnd = false;
+
+            if (e.changedType === 'tab') {
+                if (e.changedNode.test(LI + ', ' + LI + ' *')) {
+                    e.changedEvent.halt();
+                    e.preventDefault();
+                    li = e.changedNode;
+                    sTab = e.changedEvent.shiftKey;
+                    par = li.ancestor(OL + ',' + UL);
+                    tag = UL;
+
+                    if (par.get('tagName').toLowerCase() === OL) {
+                        tag = OL;
+                    }
+
+                    if (!li.test(LI)) {
+                        li = li.ancestor(LI);
+                    }
+                    if (sTab) {
+                        if (li.ancestor(LI)) {
+                            li.ancestor(LI).insert(li, 'after');
+                            moved = true;
+                            focusEnd = true;
+                        }
+                    } else {
+                        //li.setStyle('border', '1px solid red');
+                        if (li.previous(LI)) {
+                            newList = inst.Node.create('<' + tag + '></' + tag + '>');
+                            li.previous(LI).append(newList);
+                            newList.append(li);
+                            moved = true;
+                        }
+                    }
+                }
+                if (moved) {
+                    if (!li.test(LI)) {
+                        li = li.ancestor(LI);
+                    }
+                    li.all(EditorLists.REMOVE).remove();
+                    if (Y.UA.ie) {
+                        li = li.append(EditorLists.NON).one(EditorLists.NON_SEL);
+                    }
+                    //Selection here..
+                    (new inst.EditorSelection()).selectNode(li, true, focusEnd);
+                }
+            }
+        },
+        initializer: function() {
+            this.get(HOST).on('nodeChange', Y.bind(this._onNodeChange, this));
+        }
+    }, {
+        /**
+        * The non element placeholder, used for positioning the cursor and filling empty items
+        * @property NON
+        * @static
+        */
+        NON: '<span class="yui-non">&nbsp;</span>',
+        /**
+        * The selector query to get all non elements
+        * @property NONSEL
+        * @static
+        */
+        NON_SEL: 'span.yui-non',
+        /**
+        * The items to removed from a list when a list item is moved, currently removes BR nodes
+        * @property REMOVE
+        * @static
+        */
+        REMOVE: 'br',
+        /**
+        * editorLists
+        * @property NAME
+        * @static
+        */
+        NAME: 'editorLists',
+        /**
+        * lists
+        * @property NS
+        * @static
+        */
+        NS: 'lists',
+        ATTRS: {
+            host: {
+                value: false
+            }
+        }
+    });
+
+    Y.namespace('Plugin');
+
+    Y.Plugin.EditorLists = EditorLists;
+
+
+
+}, '3.15.0', {"requires": ["editor-base"]});

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: WorkFlowAction.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:
  ********************************************************************************/
 
@@ -91,10 +91,7 @@ class WorkFlowAction extends SugarBean {
 	var $required_fields =  array();
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function WorkflowAction()
     {
@@ -115,7 +112,7 @@ class WorkFlowAction extends SugarBean {
 		return "$this->name";
 	}
 
-	function save_relationship_changes($is_update)
+    public function save_relationship_changes($is_update, $exclude = array())
     {
     }
 

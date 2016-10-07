@@ -11,7 +11,7 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
+// $Id: alert_utils.php 54289 2010-02-05 14:08:48Z jmertic $
 
 include_once('include/workflow/workflow_utils.php');
 include_once('include/workflow/field_utils.php');
@@ -77,7 +77,7 @@ function get_user_alert_details(& $focus, $user_meta_array, & $address_array){
 		if($user_meta_array['array_type'] == 'past'){
 			$target_user_id = $focus->fetched_row[$user_meta_array['field_value']];
 		} else {
-			$target_user_id = $focus->$user_meta_array['field_value'];
+            $target_user_id = $focus->{$user_meta_array['field_value']};
 		}
 	//END Bug Fix
 		//Get user's manager id?
@@ -577,7 +577,7 @@ function compile_rel_user_info($target_object, $user_meta_array, &$address_array
 		//compile user address info based on target object
 
 		if($user_meta_array['rel_email_value']==""){
-			$target_user_id = $target_object->$user_meta_array['field_value'];
+            $target_user_id = $target_object->{$user_meta_array['field_value']};
 			//Get user's manager id?
 			if($user_meta_array['relate_type'] != "Self"){
 				$target_user_id = get_manager_info($target_user_id);
@@ -586,11 +586,11 @@ function compile_rel_user_info($target_object, $user_meta_array, &$address_array
 			$user_array = get_alert_recipient($target_user_id);
 		} else {
 			//use the custom fields
-			if($target_object->$user_meta_array['rel_email_value']==""){
+            if ($target_object->{$user_meta_array['rel_email_value']} == '') {
 				//no address;
 				return;
 			} else {
-				$notify_address = $target_object->$user_meta_array['rel_email_value'];
+                $notify_address = $target_object->{$user_meta_array['rel_email_value']};
 			}
 			$notify_name = check_special_fields($user_meta_array['field_value'], $target_object);
 			$user_array['address'] = $notify_address;
@@ -845,8 +845,18 @@ function reconstruct_target_body($focus, $target_body, $component_array, $notify
 							//Create href link to target record
 							$replacement_value = get_invite_link($rel_object, $notify_user_id);
 						} else {
-							//use future always for rel because fetched should always be the same
-							$replacement_value = check_special_fields($field_array['name'], $rel_object, false, array());
+                            //with the exception of date fields,
+                            //use future always for rel because fetched should always be the same
+                            if(($rel_object->field_defs[$field_array['name']]['type'] == 'datetime')
+                                || (isset($rel_object->field_defs[$field_array['name']]['dbType'])
+                                    && $rel_object->field_defs[$field_array['name']]['dbType'] == 'datetime')
+                            ) {
+                                //this is a date field on a related object so use the fetched row
+                                $replacement_value = check_special_fields($field_array['name'], $rel_object, true, array());
+                            } else {
+                                //use the future value on the related object
+                                $replacement_value = check_special_fields($field_array['name'], $rel_object, false, array());
+                            }
 						}
 					} else {
 						$replacement_value = "Invalid Value";

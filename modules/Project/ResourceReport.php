@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -11,7 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 global $timedate;
 global $app_strings;
@@ -35,7 +36,6 @@ $sugar_smarty = new Sugar_Smarty();
 ///
 $sugar_smarty->assign('MOD', $mod_strings);
 $sugar_smarty->assign('APP', $app_strings);
-$sugar_smarty->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 $sugar_smarty->assign("BG_COLOR", $hilite_bg);
 $sugar_smarty->assign("CALENDAR_DATEFORMAT", $timedate->get_cal_date_format());
 $sugar_smarty->assign("DATE_FORMAT", $timedate->get_date_format());
@@ -45,10 +45,12 @@ $sugar_smarty->assign("CALENDAR_LANG_FILE", getJSPath('jscalendar/lang/calendar-
 
 $focus = BeanFactory::getBean('Project');
 
+$request = InputValidation::getService();
 if(!empty($_REQUEST['record']))
 {
-    $focus->retrieve($_REQUEST['record']);
-    $sugar_smarty->assign('ID', $_REQUEST['record']);
+    $id = $request->getValidInputRequest('record', 'Assert\Guid');
+    $focus->retrieve($id);
+    $sugar_smarty->assign('ID', $id);
 }
 
 $userBean = BeanFactory::getBean('Users');
@@ -77,9 +79,9 @@ $projectBean = BeanFactory::getBean('Project');
 $dateRangeArray = array();
 
 if (!empty($_REQUEST['resource'])) {
-    $sugar_smarty->assign("DATE_START", $_REQUEST['date_start']);
-    $sugar_smarty->assign("DATE_FINISH", $_REQUEST['date_finish']);
-    $sugar_smarty->assign("SELECTED_RESOURCE", $_REQUEST['resource']);
+    $sugar_smarty->assign('DATE_START', $request->getValidInputRequest('date_start'));
+    $sugar_smarty->assign('DATE_FINISH', $request->getValidInputRequest('date_finish'));
+    $sugar_smarty->assign('SELECTED_RESOURCE', $request->getValidInputRequest('resource'));
 
     $dateStartDb = $timedate->to_db_date($_REQUEST['date_start'], false);
     $dateFinishDb = $timedate->to_db_date($_REQUEST['date_finish'], false);

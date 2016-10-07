@@ -46,24 +46,6 @@ $dictionary['Quote'] = array(
             'vname' => 'LBL_SHIPPING_PROVIDER',
             'source' => 'non-db',
         ),
-        'currency_id' => array(
-            'name' => 'currency_id',
-            'vname' => 'LBL_CURRENCY_ID',
-            'type' => 'id',
-            'required' => false,
-            'do_report' => false,
-            'reportable' => false,
-            'default' => '-99',
-            'function' => 'getCurrencies',
-            'function_bean' => 'Currencies',
-        ),
-        'base_rate' => array(
-            'name' => 'base_rate',
-            'vname' => 'LBL_BASE_RATE',
-            'type' => 'decimal',
-            'len' => '26,6',
-            'studio' => false
-        ),
         'taxrate_id' => array(
             'name' => 'taxrate_id',
             'vname' => 'LBL_TAXRATE_ID',
@@ -97,15 +79,20 @@ $dictionary['Quote'] = array(
             'type' => 'name',
             'len' => '50',
             'unified_search' => true,
-            'full_text_search' => array('enabled' => true, 'boost' => 3),
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'boost' => 1.61,
+            ),
             'importable' => 'required',
             'required' => true,
         ),
         'quote_type' => array(
             'name' => 'quote_type',
             'vname' => 'LBL_QUOTE_TYPE',
-            'type' => 'varchar',
-            'len' => 100,
+            'type' => 'radioenum',
+            'dbtype' => 'varchar',
+            'options' => 'quote_type_dom',
         ),
         'date_quote_expected_closed' => array(
             'name' => 'date_quote_expected_closed',
@@ -167,12 +154,22 @@ $dictionary['Quote'] = array(
             'audited' => true,
             'importable' => 'required',
             'required' => true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+            ),
         ),
         'purchase_order_num' => array(
             'name' => 'purchase_order_num',
             'vname' => 'LBL_PURCHASE_ORDER_NUM',
             'type' => 'varchar',
             'len' => '50',
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'type' => 'exact',
+                'boost' => 1.19,
+            ),
         ),
         'quote_num' => array(
             'name' => 'quote_num',
@@ -182,7 +179,12 @@ $dictionary['Quote'] = array(
             'readonly' => true,
             'required' => true,
             'unified_search' => true,
-            'full_text_search' => array('enabled' => true, 'boost' => 3),
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'type' => 'exact',
+                'boost' => 1.17,
+            ),
             'disable_num_format' => true,
             'enable_range_search' => true,
             'options' => 'numeric_range_search_dom',
@@ -322,7 +324,7 @@ $dictionary['Quote'] = array(
         ),
         'new_sub_usdollar' => array(
             'name' => 'new_sub_usdollar',
-            'vname' => 'LBL_NEW_SUB',
+            'vname' => 'LBL_NEW_SUB_USDOLLAR',
             'dbType' => 'decimal',
             'type' => 'currency',
             'currency_id'=> '-99',
@@ -428,6 +430,11 @@ $dictionary['Quote'] = array(
             'dbType' => 'varchar',
             'group' => 'billing_address',
             'len' => '150',
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'boost' => 0.24,
+            ),
         ),
         'billing_address_city' => array(
             'name' => 'billing_address_city',
@@ -464,6 +471,11 @@ $dictionary['Quote'] = array(
             'dbType' => 'varchar',
             'group' => 'shipping_address',
             'len' => '150',
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'boost' => 0.23,
+            ),
         ),
         'shipping_address_city' => array(
             'name' => 'shipping_address_city',
@@ -558,7 +570,11 @@ $dictionary['Quote'] = array(
             'module' => 'Accounts',
             'source' => 'non-db',
             'massupdate' => false,
-            'studio' => 'false',
+            'studio' => array(
+                'edit' => 'false',
+                'detail' => 'false',
+                'list' => 'false',
+            )
         ),
         'account_id' => array(
             'name' => 'account_id',
@@ -939,5 +955,9 @@ VardefManager::createVardef(
         'default',
         'assignable',
         'team_security',
+        'currency'
     )
 );
+
+//boost value for full text search
+$dictionary['Quote']['fields']['description']['full_text_search']['boost'] = 0.57;

@@ -14,11 +14,15 @@ var os = require('os');
 module.exports = function(grunt) {
     grunt.loadTasks('grunt/tasks');
     grunt.loadNpmTasks('grunt-jsduck');
+    grunt.loadNpmTasks('grunt-gjslint');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     var path = grunt.option('path');
     path = path && path.replace(/\/+$/, '') + '/' || os.tmpdir();
 
     grunt.initConfig({
+        // FIXME SC-4937: replace this hardcoded list with webpack
+        files: grunt.file.readJSON('grunt/assets/files.json'),
         karma: {
             options: {
                 assetsDir: 'grunt/assets',
@@ -32,15 +36,16 @@ module.exports = function(grunt) {
                 browsers: ['Chrome'],
                 singleRun: false
             },
+            sauce: {
+                browsers: ['sl_safari'],
+                reporters: ['dots', 'saucelabs'],
+                singleRun: true
+            },
             coverage: {
                 coverageReporter: {
                     reporters: [
-                        {type: 'html', dir: path + 'karma/sidecar/coverage-html'},
-                        // TODO: dir should not be needed if we want the output
-                        // on screen only - though if we don't specify it is
-                        // created. This is probably an issue and we should
-                        // report it.
-                        {type: 'text', dir: path + 'karma/sidecar/coverage'}
+                        {type: 'html', dir: path + '/karma/sidecar/coverage-html'},
+                        {type: 'text', dir: path + '/karma/sidecar/coverage'}
                     ]
                 },
                 reporters: [
@@ -50,7 +55,9 @@ module.exports = function(grunt) {
             },
             ci: {
                 junitReporter: {
-                    outputFile: path + 'karma/test-results.xml'
+                    outputDir: path,
+                    outputFile: '/karma/sidecar/test-results.xml',
+                    useBrowserName: false
                 },
                 reporters: [
                     'dots',
@@ -59,13 +66,25 @@ module.exports = function(grunt) {
             },
             'ci-coverage': {
                 coverageReporter: {
+                    subdir: '',
                     reporters: [
-                        {type: 'cobertura', dir: path + 'karma/sidecar/coverage-xml', file: 'cobertura-coverage.xml'},
-                        {type: 'html', dir: path + 'karma/sidecar/coverage-html'}
+                        {
+                            type: 'cobertura',
+                            dir: path + '/karma/sidecar/coverage-xml',
+                            file: 'cobertura-coverage.xml',
+                            subdir: function() {return '';}
+                        },
+                        {
+                            type: 'html',
+                            dir: path + '/karma/sidecar/coverage-html',
+                            subdir: function() {return '';}
+                        }
                     ]
                 },
                 junitReporter: {
-                    outputFile: path + 'karma/sidecar/test-results.xml'
+                    outputDir: path,
+                    outputFile: '/karma/sidecar/test-results.xml',
+                    useBrowserName: false
                 },
                 reporters: [
                     'coverage',
@@ -94,6 +113,30 @@ module.exports = function(grunt) {
                     'external': 'jQuery'
                 }
             }
+        },
+        gjslint: {
+            options: {
+                flags: [
+                    '--max_line_length=120',
+                    '--disable 200' // ignore jsdoc errors, since we use jsduck
+                ],
+                reporter: {
+                    name: 'console'
+                },
+                pythonPath: 'python2', // some Linux distros make "python" Python 3 by default
+                force: false
+            },
+            lite: {
+                src: ['<%= files.buildFiles.sidecar.lite %>', '!lib/**/*.min.js']
+            }
+        },
+        jshint: {
+            options: {
+                force: true, // FIXME SC-4939: once all of our code is compliant, this should be set to false
+            },
+            lite: '<%= gjslint.lite.src %>'
         }
     });
+
+    grunt.registerTask('lint', ['jshint', 'gjslint']);
 };

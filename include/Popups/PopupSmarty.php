@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,6 +9,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Util\Files\FileLoader;
+
 require_once('include/ListView/ListViewSmarty.php');
 
 require_once('include/TemplateHandler/TemplateHandler.php');
@@ -42,8 +44,17 @@ class PopupSmarty extends ListViewSmarty{
     var $module;
     var $massUpdateData = '';
 
-	function PopupSmarty($seed, $module){
-		parent::ListViewSmarty();
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function PopupSmarty($seed, $module)
+    {
+        self::__construct($seed, $module);
+    }
+
+    public function __construct($seed, $module)
+    {
+        parent::__construct();
 		$this->th = new TemplateHandler();
 		$this->th->loadSmarty();
 		$this->seed = $seed;
@@ -239,7 +250,7 @@ class PopupSmarty extends ListViewSmarty{
 
 	    if(isset($this->_popupMeta)){
 			if(isset($this->_popupMeta['create']['formBase'])) {
-				require_once('modules/' . $this->seed->module_dir . '/' . $this->_popupMeta['create']['formBase']);
+				require_once FileLoader::validateFilePath('modules/' . $this->seed->module_dir . '/' . $this->_popupMeta['create']['formBase']);
 				$this->_create = true;
 			}
 		}
@@ -291,6 +302,7 @@ class PopupSmarty extends ListViewSmarty{
 		$lv->displayColumns = $displayColumns;
         $this->searchForm->lv = $lv;
         $this->searchForm->displaySavedSearch = false;
+
 
 		SugarACL::listFilter($this->module, $this->searchForm->fieldDefs, array("owner_override" => true),
 		    array("use_value" => true, "suffix" => '_advanced', "add_acl" => true));
@@ -380,6 +392,7 @@ class PopupSmarty extends ListViewSmarty{
                 }
             }
         }
+
         //check for team_set_count
         if(!empty($this->filter_fields['team_name']) && empty($this->filter_fields['team_count'])){
         	$this->filter_fields['team_count'] = true;
@@ -529,4 +542,3 @@ EOQ;
 		return $qc->process($this->module);
 	}
 }
-?>

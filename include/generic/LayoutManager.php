@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
+// $Id: LayoutManager.php 56115 2010-04-26 17:08:09Z kjing $
 
 
 
@@ -27,7 +27,15 @@ class LayoutManager
 	var $default_widget_name = 'Field';
 	var $DBHelper;
 
-	function LayoutManager()
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function LayoutManager()
+    {
+        self::__construct();
+    }
+
+    public function __construct()
 	{
 		// set a sane default for context
 		$this->defs['context'] = 'Detail';
@@ -352,4 +360,3 @@ class LayoutManager
 	}
 
 }
-?>

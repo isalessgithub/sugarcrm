@@ -37,9 +37,9 @@
 
     /**
      * Find callOnFocus value for the given key in the shortcuts object.
-     * @param {Object} shortcuts - shortcuts object
-     * @param {String} key - shortcut key combination or sequence
-     * @returns {Boolean}
+     * @param {Object} shortcuts Shortcuts object.
+     * @param {string} key Shortcut key combination or sequence.
+     * @return {boolean}
      */
     var findCallOnFocus = function(shortcuts, key) {
         var callOnFocus = false,
@@ -268,7 +268,7 @@
 
         /**
          * Is shortcuts enabled?
-         * @returns {boolean}
+         * @return {boolean}
          */
         isEnabled: function() {
             return this._enable;
@@ -276,7 +276,7 @@
 
         /**
          * Get the current shortcut session.
-         * @returns {ShortcutSession}
+         * @return {ShortcutSession}
          */
         getCurrentSession: function() {
             return this._currentSession;
@@ -284,7 +284,7 @@
 
         /**
          * Get the last saved shortcut session.
-         * @returns {ShortcutSession}
+         * @return {ShortcutSession}
          */
         getLastSavedSession: function() {
             return _.last(this._savedSessions);
@@ -313,7 +313,7 @@
 
         /**
          * Get global shortcut IDs and keys.
-         * @returns {Array}
+         * @return {Array}
          */
         getRegisteredGlobalShortcuts: function() {
             return _.map(this._globalShortcuts, function(shortcut, id) {
@@ -326,8 +326,8 @@
 
         /**
          * Should this key be called when on focus?
-         * @param {String} key
-         * @returns {Boolean}
+         * @param {string} key
+         * @return {boolean}
          */
         shouldCallOnFocus: function(key) {
             var shouldCall = false;
@@ -346,7 +346,7 @@
         /**
          * Get the shortcut session that is tied to component.
          * @param {View.Component} component - component that the shortcut keys are registered from
-         * @returns {ShortcutSession}
+         * @return {ShortcutSession}
          * @private
          */
         _getShortcutSessionForComponent: function(component) {
@@ -371,7 +371,7 @@
         /**
          * Are any of these keys a global shortcut key?
          * @param {Array} keys - an array of strings of shortcut key combinations and sequences
-         * @returns {boolean}
+         * @return {boolean}
          * @private
          */
         _isGlobalShortcutKey: function(keys) {
@@ -431,7 +431,7 @@
 
         /**
          * Is this session active?
-         * @returns {Boolean}
+         * @return {boolean}
          */
         isActive: function() {
             return this._active;
@@ -478,7 +478,7 @@
 
         /**
          * Get shortcut IDs and keys in this session.
-         * @returns {Array}
+         * @return {Array}
          */
         getRegisteredShortcuts: function() {
             var registeredShortcuts = [];
@@ -497,8 +497,8 @@
 
         /**
          * Should this key be called when on focus?
-         * @param {String} key
-         * @returns {Boolean}
+         * @param {string} key
+         * @return {boolean}
          */
         shouldCallOnFocus: function(key) {
             var shouldCall = false;
@@ -538,7 +538,7 @@
 
         /**
          * Allow shortcut in this session.
-         * @param {String} id - unique ID of the shortcut
+         * @param {string} id Unique ID of the shortcut.
          * @private
          */
         _allowShortcut: function(id) {
@@ -547,8 +547,8 @@
 
         /**
          * Is shortcut allowed to be in this session?
-         * @param {String} id - unique ID of the shortcut
-         * @returns {Boolean}
+         * @param {string} id Unique ID of the shortcut.
+         * @return {boolean}
          * @private
          */
         _isShortcutAllowed: function(id) {
@@ -558,7 +558,7 @@
         /**
          * Is the component in a dashlet or a dashboard?
          * @param {View.Component} component
-         * @returns {Boolean}
+         * @return {boolean}
          * @private
          */
         _isInDashboard: function(component) {

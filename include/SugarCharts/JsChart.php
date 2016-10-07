@@ -67,7 +67,7 @@ class JsChart extends SugarChart {
 		$chartConfig = array();
         try {
 		    $xmlStr = $this->processXML($this->xmlFile);
-		    $json = $this->buildJson($xmlStr);
+		    $json = $this->buildJson($xmlStr, true);
         }
         catch(Exception $e) {
             $GLOBALS['log']->fatal("Unable to return chart data, invalid xml for file {$this->xmlFile}");
@@ -689,7 +689,7 @@ class JsChart extends SugarChart {
 		$pattern = array();
 		$content = file_get_contents($xmlFile);
 		$content = $GLOBALS['locale']->translateCharset($content,'UTF-16LE', 'UTF-8');
-		$pattern[] = '/\<link\>([a-zA-Z0-9#?&%.;\[\]\/=+_-\s]+)\<\/link\>/';
+            $pattern[] = '/\<link\>([a-zA-Z0-9#?&%.;\[\]\/=+_\-\s]+)\<\/link\>/';
 
 		return preg_replace_callback($pattern, function($m) {
 			return '<link>'.urlencode($m[1]).'</link>';

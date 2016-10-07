@@ -28,10 +28,7 @@ class CalendarGrid {
 	protected $scroll_height; // height of scrollable div
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function CalendarGrid(Calendar $cal)
     {
@@ -378,7 +375,7 @@ class CalendarGrid {
 			$shared_user->retrieve($member_id);
 			$str .= "<div style='clear: both;'></div>";
 			$str .= "<div class='monthCalBody'><h5 class='calSharedUser'>".$shared_user->full_name."</h5></div>";
-			$str .= "<div user_id='".$member_id."' user_name='".$shared_user->user_name."'>";
+			$str .= "<div user_id='".$member_id."' user_name='".$shared_user->user_name."' user_full_name='".$shared_user->full_name."'>";
 
 			$str .= $this->get_basic_row($week_start_ts,7,$user_number_str);
 			if(!$basic){

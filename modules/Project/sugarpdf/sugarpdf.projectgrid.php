@@ -11,7 +11,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 require_once('include/Sugarpdf/Sugarpdf.php');
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 class ProjectSugarpdfProjectgrid extends Sugarpdf{
      /**
@@ -103,10 +106,11 @@ class ProjectSugarpdfProjectgrid extends Sugarpdf{
         $grid[2]['TITLE'] = $mod_strings['LBL_DATE_END'];
         $grid[3]['TITLE'] = $mod_strings['LBL_LIST_FILTER_VIEW'];
         $grid[4]['TITLE'] = $mod_strings['LBL_DATE'];
-        
-        $grid[0]['VALUE']['value'] = $_REQUEST['project_name'];
-        $grid[1]['VALUE']['value'] = $_REQUEST['project_start'];
-        $grid[2]['VALUE']['value'] = $_REQUEST['project_end'];
+
+        $request = InputValidation::getService();
+        $grid[0]['VALUE']['value'] = $request->getValidInputRequest('project_name');
+        $grid[1]['VALUE']['value'] = $request->getValidInputRequest('project_start');
+        $grid[2]['VALUE']['value'] = $request->getValidInputRequest('project_end');
         if ($_REQUEST['selected_view'] == '0' || $_REQUEST['selected_view'] == '1')
             $grid[3]['VALUE']['value'] = $mod_strings['LBL_FILTER_ALL_TASKS'];
         else if ($_REQUEST['selected_view'] == '2')
@@ -164,7 +168,7 @@ class ProjectSugarpdfProjectgrid extends Sugarpdf{
                     if ($_REQUEST['is_milestone_' . $i])  
                         $item[$actualRow][$mod_strings['LBL_TASK_ID']] .= '*';
                     $item[$actualRow][$mod_strings['LBL_PERCENT_COMPLETE']] = $_REQUEST['percent_complete_' . $i]; 
-                    $taskName =  str_replace("&nbsp;"," ",$_REQUEST['description_divlink_input_' . $i]);
+                    $taskName =  str_replace("&amp;nbsp;"," ",$_REQUEST['description_divlink_input_' . $i]);
                     $item[$actualRow][$mod_strings['LBL_TASK_NAME']] = $taskName;
                     $item[$actualRow][$mod_strings['LBL_DURATION']]['value'] = $_REQUEST["duration_" . $i] . " " . $app_list_strings['project_duration_units_dom'][$_REQUEST["duration_unit_hidden_" . $i]]; 
                     $item[$actualRow][$mod_strings['LBL_DURATION']]['options']=array("align"=>"R");

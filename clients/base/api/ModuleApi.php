@@ -18,6 +18,7 @@ class ModuleApi extends SugarApi {
 
     /** @var RelateRecordApi */
     protected $relateRecordApi;
+    private $aclCheckOptions = array('source' => 'module_api');
 
     public function registerApiRest() {
         return array(
@@ -109,19 +110,13 @@ class ModuleApi extends SugarApi {
         $cache_age = 0;
 
         if(isset($vardef['function'])) {
-            if ( isset($vardef['function']['returns']) && $vardef['function']['returns'] == 'html' ) {
-                throw new SugarApiExceptionError('html dropdowns are not supported');
-            }
-
-            $value = getFunctionValue(isset($vardef['function_bean']) ? $vardef['function_bean'] : null, $vardef['function']);
             $cache_age = 60;
-        }
-        else {
-            if(!isset($GLOBALS['app_list_strings'][$vardef['options']])) {
-                throw new SugarApiExceptionNotFound('options not found');
-            }
-            $value =  $GLOBALS['app_list_strings'][$vardef['options']];
+        } else {
             $cache_age = 3600;
+        }
+        $value = getOptionsFromVardef($vardef);
+        if ($value === false) {
+            throw new SugarApiExceptionNotFound('options not found');
         }
         // If a particular field has an option list that is expensive to calculate and/or rarely changes,
         // set the cache_setting property on the vardef to the age in seconds you want browsers to wait before refreshing
@@ -171,7 +166,7 @@ class ModuleApi extends SugarApi {
         $bean = BeanFactory::newBean($args['module']);
 
         // TODO: When the create ACL goes in to effect, add it here.
-        if (!$bean->ACLAccess('save')) {
+        if (!$bean->ACLAccess('save', $this->aclCheckOptions)) {
             // No create access so we construct an error message and throw the exception
             $moduleName = null;
             if(isset($args['module'])){
@@ -203,15 +198,22 @@ class ModuleApi extends SugarApi {
         $bean->id = $args['id'];
         $bean->new_with_id = true;
 
+        $additionalProperties['additional_rel_values'] = $this->getRelatedFields($args, $bean);
+
+        // register newly created bean so that it could be accessible by related beans before it's saved
+        BeanFactory::registerBean($bean);
+
         foreach ($additionalProperties as $property => $value) {
             $bean->$property = $value;
         }
+
+        // populate parent bean before saving related ones
+        $this->populateBean($bean, $api, $args);
 
         // If we uploaded files during the record creation, move them from
         // the temporary folder to the configured upload folder.
         // FIXME Moving temporary files will be handled better in BR-2059.
         $this->moveTemporaryFiles($args, $bean);
-        $id = $this->updateBean($bean, $api, $args);
 
         $relateArgs = $this->getRelatedRecordArguments($bean, $args, 'add');
         $this->linkRelatedRecords($api, $bean, $relateArgs, 'create', 'view');
@@ -219,7 +221,10 @@ class ModuleApi extends SugarApi {
         $relateArgs = $this->getRelatedRecordArguments($bean, $args, 'create');
         $this->createRelatedRecords($api, $bean, $relateArgs);
 
-        $args['record'] = $id;
+        // finally save parent bean
+        $this->saveBean($bean, $api, $args);
+
+        $args['record'] = $bean->id;
 
         $this->processAfterCreateOperations($args, $bean);
 
@@ -230,7 +235,7 @@ class ModuleApi extends SugarApi {
         $api->action = 'view';
         $this->requireArgs($args,array('module','record'));
 
-        $bean = $this->loadBean($api, $args, 'save');
+        $bean = $this->loadBean($api, $args, 'save', $this->aclCheckOptions);
         $api->action = 'save';
 
         // If we uploaded files during the record update, move them from
@@ -257,7 +262,7 @@ class ModuleApi extends SugarApi {
         $bean = $this->loadBean($api, $args, 'view');
         
         // formatBean is soft on view so that creates without view access will still work
-        if (!$bean->ACLAccess('view')) {
+        if (!$bean->ACLAccess('view', $this->aclCheckOptions)) {
             throw new SugarApiExceptionNotAuthorized('SUGAR_API_EXCEPTION_RECORD_NOT_AUTHORIZED',array('view'));
         }
 
@@ -271,7 +276,7 @@ class ModuleApi extends SugarApi {
     public function deleteRecord($api, $args) {
         $this->requireArgs($args,array('module','record'));
 
-        $bean = $this->loadBean($api, $args, 'delete');
+        $bean = $this->loadBean($api, $args, 'delete', $this->aclCheckOptions);
         $bean->mark_deleted($args['record']);
 
         return array('id'=>$bean->id);
@@ -281,7 +286,7 @@ class ModuleApi extends SugarApi {
         $this->requireArgs($args, array('module', 'record'));
         $bean = $this->loadBean($api, $args, 'view');
 
-        if (!$bean->ACLAccess('view')) {
+        if (!$bean->ACLAccess('view', $this->aclCheckOptions)) {
             // No create access so we construct an error message and throw the exception
             $moduleName = null;
             if (isset($args['module'])) {
@@ -306,7 +311,7 @@ class ModuleApi extends SugarApi {
         $this->requireArgs($args, array('module', 'record'));
         $bean = $this->loadBean($api, $args, 'view');
 
-        if (!$bean->ACLAccess('view')) {
+        if (!$bean->ACLAccess('view', $this->aclCheckOptions)) {
             // No create access so we construct an error message and throw the exception
             $moduleName = null;
             if (isset($args['module'])) {
@@ -325,6 +330,25 @@ class ModuleApi extends SugarApi {
         $api->action = 'view';
         $data = $this->formatBean($api, $args, $bean);
         return $data;
+    }
+
+    /**
+     * Gets an array of additional related fields, to be set during bean relationship save
+     *
+     * @param array $args The request arguments.
+     * @param SugarBean $bean The bean associated.
+     * @return array Array of additional related fields
+     */
+    protected function getRelatedFields($args, SugarBean $bean)
+    {
+        $additional_rel_fields = array();
+
+        foreach ($bean->field_defs as $fieldName => $fieldDef) {
+            if (isset($fieldDef['rname_link']) && !empty($args[$fieldDef['name']])) {
+                $additional_rel_fields[$fieldDef['rname_link']] = $args[$fieldDef['name']];
+            }
+        }
+        return $additional_rel_fields;
     }
 
     /**

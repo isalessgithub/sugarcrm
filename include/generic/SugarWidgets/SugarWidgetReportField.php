@@ -26,8 +26,17 @@ class SugarWidgetReportField extends SugarWidgetField
      */
     protected $reporter;
 
-	function SugarWidgetReportField(&$layout_manager) {
-        parent::SugarWidgetField($layout_manager);
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function SugarWidgetReportField(&$layout_manager)
+    {
+        self::__construct($layout_manager);
+    }
+
+    public function __construct(&$layout_manager)
+    {
+        parent::__construct($layout_manager);
         $this->reporter = $this->layout_manager->getAttribute("reporter");
     }
 
@@ -48,7 +57,7 @@ class SugarWidgetReportField extends SugarWidgetField
 	}
 
 
- function display($layout_def)
+    public function display($layout_def)
  {
         $obj = $this->getSubClass($layout_def);
 
@@ -153,31 +162,45 @@ class SugarWidgetReportField extends SugarWidgetField
  }
 
 
- function queryOrderBy($layout_def)
- {
-	if(!empty($this->reporter->all_fields[$layout_def['column_key']])) $field_def = $this->reporter->all_fields[$layout_def['column_key']];
-
-    if (!empty($layout_def['group_function']))
+    /**
+     * Returns ORDER BY for given layout_def
+     *
+     * @param $layout_def
+     * @return string
+     */
+    public function queryOrderBy($layout_def)
     {
-        $order_by = $this->_get_column_alias($layout_def);
-    }
-    elseif (!empty($field_def['sort_on']))
-	{
-			$order_by = $layout_def['table_alias'].".".$field_def['sort_on'];
-            if(!empty($field_def['sort_on2']))
-                $order_by .= ', ' . $layout_def['table_alias'].".".$field_def['sort_on2'];
-    }
-	else {
-		$order_by = $this->_get_column_alias($layout_def)." \n";
-	}
+        if (!empty($this->reporter->all_fields[$layout_def['column_key']])) {
+            $field_def = $this->reporter->all_fields[$layout_def['column_key']];
+        }
 
-			if ( empty($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a')
-			{
-				return $order_by." ASC";
-			} else {
-				return $order_by." DESC";
-			}
- }
+        if (empty($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a') {
+            $direction = " ASC";
+        } else {
+            $direction = " DESC";
+        }
+
+        $orderBy = array();
+
+        if (!empty($field_def['sort_on'])) {
+            $orderBy[] = $layout_def['table_alias'] . "." . $field_def['sort_on'];
+            if (!empty($field_def['sort_on2'])) {
+                $orderBy[] = $layout_def['table_alias'] . "." . $field_def['sort_on2'];
+            }
+        } else {
+            $orderBy[] = $this->_get_column_alias($layout_def);
+        }
+
+        array_walk(
+            $orderBy,
+            function (&$order, $key, $direction) {
+                $order = $order . $direction;
+            },
+            $direction
+        );
+
+        return implode(', ', $orderBy);
+    }
 
 
  function queryFilter($layout_def)

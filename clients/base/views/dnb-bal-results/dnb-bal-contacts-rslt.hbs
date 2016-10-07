@@ -73,6 +73,12 @@
                                                                                 {{str "LBL_DNB_PREMIUM"}}
                                                                             </span>
                                                                         {{/eq}}
+                                                                        {{#if this.emailInd}}
+                                                                            <i class="fa fa-envelope-o pull-right"></i>
+                                                                        {{/if}}
+                                                                        {{#if this.phoneInd}}
+                                                                            <i class="fa fa-phone pull-right"></i>
+                                                                        {{/if}}
                                                                     </div>
                                                                     <div class='dnb-company-label'>
                                                                         {{this.companyName}}
@@ -107,12 +113,7 @@
                                                 <button data-action="show-more" class="btn btn-link btn-invisible more">
                                                     {{str "LBL_DNB_MORE_SRCH_RES"}}
                                                 </button>
-                                                <div class="loading">
-                                                    {{str "LBL_ALERT_TITLE_LOADING"}}
-                                                    <i class="l1 fa fa-circle"></i>
-                                                    <i class="l2 fa fa-circle"></i>
-                                                    <i class="l3 fa fa-circle"></i>
-                                                </div>
+                                                {{loading 'LBL_ALERT_TITLE_LOADING'}}
                                             </div>
                                             <div class="swappable-dashlet fa-download-alt"></div>
                                         </div>

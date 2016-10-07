@@ -67,12 +67,8 @@ class Campaign extends SugarBean {
 
 	var $new_schema = true;
 
-
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Campaign()
     {
@@ -256,7 +252,7 @@ class Campaign extends SugarBean {
 			$type[0]='targeted';
 
 		$query_array['select'] ="SELECT campaign_log.* ";
-		$query_array['where'] = $query_array['where']. " AND activity_type='{$type[0]}' AND archived=0";
+		$query_array['where'] = $query_array['where']. " AND activity_type='{$type[0]}' AND archived=0 AND target_id IS NOT NULL";
         //add filtering by marketing id, if it exists
         if (!empty($mkt_id)) $query_array['where'] = $query_array['where']. " AND marketing_id ='$mkt_id' ";
 

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
+// $Id: UserDemoData.php 55581 2010-03-25 12:36:48Z jmertic $
 
 class UserDemoData {
 	var $_user;
@@ -34,10 +34,18 @@ class UserDemoData {
 	*/
 	);
 
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function UserDemoData($seed_user, $large_scale_test = false)
+    {
+        self::__construct($seed_user, $large_scale_test);
+    }
+
 	/**
 	 * Constructor for creating user demo data
 	 */
-	function UserDemoData($seed_user, $large_scale_test = false)
+    public function __construct($seed_user, $large_scale_test = false)
 	{
 		// use a seed user so it does not have to be known which file to
 		// include the User class from
@@ -85,7 +93,6 @@ class UserDemoData {
 		$u->employee_status = 'Active';
 		$u->is_admin = $is_admin;
         $u->is_group = 0;
-		//$u->user_password = $u->encrypt_password($user_name);
 		$u->user_hash = User::getPasswordHash($user_name);
 		$u->reports_to_id = $reports_to;
 		$u->reports_to_name = $reports_to_name;
@@ -166,7 +173,8 @@ class UserDemoData {
 		}
 	}
 
-	function _copy_user_image($id) {
+    public static function _copy_user_image($id)
+    {
 		global $sugar_config;
 		$picture_file = create_guid();
 		$file = "include/images/".$id.".gif";
@@ -180,4 +188,3 @@ class UserDemoData {
 	}
 
 }
-?>

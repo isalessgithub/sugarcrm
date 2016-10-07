@@ -12,7 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: ImportDuplicateCheck.php 31561 2008-02-04 18:41:10Z jmertic $
+
  * Description: Handles getting a list of fields to duplicate check and doing the duplicate checks
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -186,6 +186,12 @@ class ImportDuplicateCheck
                 return false;
             }
             unset($_focus);
+        }
+
+        //force duplicate check on certain indexes defined in vardefs
+        global $dictionary;
+        if (isset($dictionary[$this->_focus->object_name]['required_import_indexes'])) {
+            $indexlist = array_merge($dictionary[$this->_focus->object_name]['required_import_indexes'], $indexlist);
         }
 
         //lets strip the indexes of the name field in the value and leave only the index name

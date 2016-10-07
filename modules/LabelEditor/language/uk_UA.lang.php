@@ -1,7 +1,5 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,12 +10,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-
-$mod_strings = array (
-  'LBL_KEY' => 'Ключ:',
-  'LBL_MODULE_NAME' => 'Редактор лейблів',
-  'LBL_MODULE_NAME_SINGULAR' => 'Редактор лейблів',
-  'LBL_VALUE' => 'Значення:',
+$mod_strings = array(
+'LBL_MODULE_NAME'=>'Редактор лейблів',
+'LBL_MODULE_NAME_SINGULAR' => 'Редактор лейблів',
+'LBL_KEY'=>'Ключ:',
+'LBL_VALUE'=>'Значення:',
 );
 
+?>

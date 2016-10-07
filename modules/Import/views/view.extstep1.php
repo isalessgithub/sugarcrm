@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -32,8 +33,9 @@ class ImportViewExtStep1 extends ImportViewStep3
      */
  	public function display()
     {
-        $source = !empty($_REQUEST['external_source']) ? $_REQUEST['external_source'] : '';
-        $importModule = $_REQUEST['import_module'];
+
+        $source = $this->request->getValidInputRequest('external_source', null, '');
+        $importModule = $this->request->getValidInputRequest('import_module', 'Assert\Mvc\ModuleName', '');
         global $mod_strings, $app_strings, $current_user, $sugar_config;
 
         // Clear out this user's last import
@@ -43,7 +45,7 @@ class ImportViewExtStep1 extends ImportViewStep3
 
         $mappingFile = $this->getMappingFile($source);
         if ( $mappingFile == null ) {
-            $this->_showImportError($mod_strings['ERR_MISSING_MAP_NAME'],$_REQUEST['import_module'],'Step1');
+            $this->_showImportError($mod_strings['ERR_MISSING_MAP_NAME'], $importModule,'Step1');
             return;
         }
         $extSourceToSugarFieldMapping = $mappingFile->getMapping($importModule);

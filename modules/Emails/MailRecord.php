@@ -174,10 +174,10 @@ class MailRecord
         );
 
         if (!empty($this->html_body)) {
-            $request["sendDescription"] = urldecode($this->html_body);
+            $request["sendDescription"] = from_html($this->html_body);
             $request["setEditor"] = "1";
         } elseif (!empty($this->text_body)) {
-            $request["sendDescription"] = urldecode($this->text_body);
+            $request["sendDescription"] = from_html($this->text_body);
         }
 
         $requestKeys = array(
@@ -208,8 +208,15 @@ class MailRecord
             $request["teamIds"] = implode(",", $teamIds);
         }
 
-        if ($status == "draft") {
+        if ($status === 'draft') {
             $request["saveDraft"] = "true"; // send ("ready") is the default behavior
+        } elseif ($status === 'archived') {
+            if (!empty($this->date_sent)) {
+                $request['dateSent'] = $this->date_sent;
+            }
+            if (!empty($this->assigned_user_id)) {
+                $request['assignedUser'] = $this->assigned_user_id;
+            }
         }
 
         $request["MAIL_RECORD_STATUS"] = $status;

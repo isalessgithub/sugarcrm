@@ -118,14 +118,10 @@ class Account extends Company {
     var $push_shipping;
 
     /**
-     * This is a deprecated method, please start using __construct() as this
-     * method will be removed in a future version.
-     *
-     * @deprecated since 7.0.0. Use __construct() instead.
+     * @deprecated Use __construct() instead
      */
     public function Account()
     {
-        $GLOBALS['log']->deprecated('Calls to Account::Account() are deprecated.');
         self::__construct();
     }
 
@@ -135,6 +131,7 @@ class Account extends Company {
 		global $current_user;
 		if(!empty($current_user)) {
 			$this->team_id = $current_user->default_team;	//default_team is a team id
+			$this->team_set_id = $current_user->team_set_id;
 		} else {
 			$this->team_id = 1; // make the item globally accessible
 		}
@@ -188,10 +185,7 @@ class Account extends Company {
         //is empty then go ahead and fill it.
         if(empty($this->parent_name) && !empty($this->id)){
 			$query = "SELECT a1.name from accounts a1, accounts a2 where a1.id = a2.parent_id and a2.id = '$this->id' and a1.deleted=0";
-			$result = $this->db->query($query,true," Error filling in additional detail fields: ");
-
-			// Get the id and the name.
-			$row = $this->db->fetchByAssoc($result);
+			$row = $this->db->fetchOne($query,true," Error filling in additional detail fields: ");
 
 			if($row != null)
 			{

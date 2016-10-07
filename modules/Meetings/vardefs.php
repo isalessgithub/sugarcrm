@@ -22,7 +22,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'type' => 'name',
     'dbType' => 'varchar',
 	'unified_search' => true,
-	'full_text_search' => array('enabled' => true, 'boost' => 3),
+    'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 1.43),
     'len' => '50',
     'comment' => 'Meeting name',
     'importable' => 'required',
@@ -50,7 +50,8 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'vname' => 'LBL_LOCATION',
     'type' => 'varchar',
     'len' => '50',
-    'comment' => 'Meeting location'
+    'comment' => 'Meeting location',
+    'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.36),
   ),
   'password' =>
   array (
@@ -115,18 +116,20 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'name' => 'duration_hours',
     'vname' => 'LBL_DURATION_HOURS',
     'type' => 'int',
-    'len' => '3',
     'comment' => 'Duration (hours)',
     'importable' => 'required',
     'required' => true,
     'massupdate' => false,
     'studio' => false,
+    'processes' => true,
+    'default' => 0,
   ),
   'duration_minutes' =>
   array (
     'name' => 'duration_minutes',
     'vname' => 'LBL_DURATION_MINUTES',
     'type' => 'enum',
+    'dbType' => 'int',
     'options' => 'duration_intervals',
     'group'=>'duration_hours',
     'len' => '2',
@@ -134,6 +137,8 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'required' => true,
     'massupdate' => false,
     'studio' => false,
+    'processes' => true,
+    'default' => 0,
   ),
   'date_start' =>
   array (
@@ -148,7 +153,8 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'enable_range_search' => true,
     'options' => 'date_range_search_dom',
     'validation' => array('type' => 'isbefore', 'compareto' => 'date_end', 'blank' => false),
-    'studio' => array('recordview' => false),
+    'studio' => array('recordview' => false, 'wirelesseditview'=>false),
+    'full_text_search' => array('enabled' => true, 'searchable' => false),
   ),
 
   'date_end' =>
@@ -163,6 +169,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'options' => 'date_range_search_dom',
     'studio' => array('recordview' => false, 'wirelesseditview'=>false), // date_end is computed by the server from date_start and duration
 	'readonly' => true,
+    'full_text_search' => array('enabled' => true, 'searchable' => false),
   ),
   'parent_type' =>
   array (
@@ -186,6 +193,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'comment' => 'Meeting status (ex: Planned, Held, Not held)',
     'default' => 'Planned',
     'duplicate_on_record_copy' => 'no',
+    'full_text_search' => array('enabled' => true, 'searchable' => false),
   ),
   'type' =>
    array (
@@ -285,7 +293,8 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'type' => 'varchar',
     'len' => '255',
     'reportable' => false,
-    'comment' => 'When the Sugar Plug-in for Microsoft Outlook syncs an Outlook appointment, this is the Outlook appointment item ID'
+      'comment' => 'When the Sugar Plug-in for Microsoft Outlook syncs an Outlook appointment, this is the Outlook appointment item ID',
+      'studio' => false,
   ),
    'sequence' =>
   array (
@@ -295,14 +304,9 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'len' => '11',
     'reportable' => false,
     'default'=>0,
-    'comment' => 'Meeting update sequence for meetings as per iCalendar standards',
-      'studio' => array(
-          'related' => false,
-          'formula' => false,
-          'rollup' => false,
-      ),
+    'comment' => 'Meeting update sequence for meetings as per iCalendar standards', 
+      'studio' => false,
   ),
-
   'contact_name' =>
   array (
     'name' => 'contact_name',
@@ -328,6 +332,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
   array (
   	'name' => 'contacts',
     'type' => 'link',
+    'module' => 'Contacts',
     'relationship' => 'meetings_contacts',
     'source'=>'non-db',
 		'vname'=>'LBL_CONTACTS',
@@ -343,7 +348,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
 		'group'=>'parent_name',
 		'source'=>'non-db',
 		'options'=> 'parent_type_display',
-    'studio' => true,
+        'studio' => true,
 		),
   'users' =>
   array (
@@ -409,6 +414,13 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'source'=>'non-db',
         'vname'=>'LBL_LEADS',
   ),
+  'project'=> array (
+    'name' => 'project',
+    'type' => 'link',
+    'relationship' => 'projects_meetings',
+    'source' => 'non-db',
+    'vname' => 'LBL_PROJECTS'
+  ),
   'opportunity' =>
   array (
   	'name' => 'opportunity',
@@ -433,7 +445,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
       'relationship' => 'quote_meetings',
       'source'=>'non-db',
       'vname'=>'LBL_QUOTES',
-  ),    
+  ),
   'cases' =>
   array (
   	'name' => 'cases',
@@ -457,6 +469,7 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
         'type' => 'relate',
         'link' => 'contacts',
         'rname' => 'id',
+        'vname' => 'LBL_CONTACT_ID',
 		'source' => 'non-db',
         'studio' => false,
 	),
@@ -594,6 +607,14 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
         'source' => 'non-db',
         'reportable' => false
     ),
+        'kbcontents_parent' => array(
+            'name' => 'kbcontents_parent',
+            'type' => 'link',
+            'relationship' => 'kbcontent_meetings',
+            'source' => 'non-db',
+            'vname' => 'LBL_KBDOCUMENTS',
+            'reportable' => false,
+        ),
 ),
  'relationships' => array (
 	  'meetings_assigned_user' =>
@@ -640,9 +661,12 @@ $dictionary['Meeting'] = array('table' => 'meetings','activity_enabled'=>true,
     'duplicate_check' => array(
         'enabled' => false
     ),
-                            );
+);
 
 VardefManager::createVardef('Meetings','Meeting', array('default', 'assignable',
 'team_security',
 ));
-?>
+
+//boost value for full text search
+$dictionary['Meeting']['fields']['description']['full_text_search']['boost'] = 0.55;
+

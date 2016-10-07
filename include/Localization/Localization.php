@@ -64,10 +64,19 @@ class Localization {
      */
     protected $parsedFormats = array();
 
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function Localization()
+    {
+        self::__construct();
+    }
+
 	/**
 	 * sole constructor
 	 */
-	function Localization() {
+    public function __construct()
+    {
 		global $sugar_config;
 		$this->localeNameFormatDefault = empty($sugar_config['locale_name_format_default']) ? 's f l' : $sugar_config['default_name_format'];
 		$this->loadCurrencies();
@@ -341,9 +350,10 @@ class Localization {
 	 * @param string fromCharset the charset the string is currently in
 	 * @param string toCharset the charset to translate into (defaults to UTF-8)
 	 * @param bool   forceIconv force using the iconv library instead of mb_string
+     * @param bool   addBOM prepends BOM to the encoded string to be translated
 	 * @return string the translated string
 	 */
-    function translateCharset($string, $fromCharset, $toCharset='UTF-8', $forceIconv = false)
+    public function translateCharset($string, $fromCharset, $toCharset = 'UTF-8', $forceIconv = false, $addBOM = false)
     {
         $GLOBALS['log']->debug("Localization: translating [{$string}] from {$fromCharset} into {$toCharset}");
 
@@ -368,7 +378,12 @@ class Localization {
 
         if($isMb)
         {
-            return mb_convert_encoding($string, $toCharset, $fromCharset);
+            global $sugar_config;
+            if (!empty($sugar_config['export_excel_compatible']) && $addBOM === true) {
+                return chr(255) . chr(254) . mb_convert_encoding($string, 'UTF-16LE', $fromCharset);
+            } else {
+                return mb_convert_encoding($string, $toCharset, $fromCharset);
+            }
         }
         elseif($isIconv)
         {
@@ -701,22 +716,21 @@ eoq;
     {
         global $app_list_strings;
 
-        $result = '';
         $bean = $this->getBean($beanOrModuleName);
         if (!$bean) {
-            return $result;
+            return '';
         }
 
         $format = $this->getLocaleFormatMacro();
         $tokens = $this->parseLocaleFormatMacro($format);
 
-        $isEmpty = true;
+        $result = array();
         foreach ($tokens as $token) {
             if ($token['is_field']) {
                 $alias = $token['field_alias'];
+                $value = '';
                 if (isset($bean->name_format_map[$alias])) {
                     $field = $bean->name_format_map[$alias];
-                    $value = '';
                     if ($data === null) {
                         if (isset($bean->$field)) {
                             $value = $bean->$field;
@@ -727,40 +741,67 @@ eoq;
                         }
                     }
 
-                    if ($value != '') {
-                        if (isset($bean->field_defs[$field])) {
-                            $field_defs = $bean->field_defs[$field];
-                            if (isset($field_defs['type'])) {
-                                switch ($field_defs['type']) {
-                                    case 'enum':
-                                    case 'multienum':
-                                        if (isset($field_defs['options'])) {
-                                            $options = $field_defs['options'];
-                                            if (isset($app_list_strings[$options][$value])) {
-                                                $value = $app_list_strings[$options][$value];
-                                            }
+                    if (isset($bean->field_defs[$field])) {
+                        $field_defs = $bean->field_defs[$field];
+                        if (isset($field_defs['type'])) {
+                            switch ($field_defs['type']) {
+                                case 'enum':
+                                case 'multienum':
+                                    if (isset($field_defs['options'])) {
+                                        $options = $field_defs['options'];
+                                        if (isset($app_list_strings[$options][$value])) {
+                                            $value = $app_list_strings[$options][$value];
                                         }
-                                        break;
-                                }
+                                    }
+                                    break;
                             }
                         }
-
-                        $isEmpty = false;
-                        $result .= $value;
                     }
                 }
+
+                $result[] = array(
+                    'value' => $value,
+                    'is_field' => $token['is_field'],
+                );
             } else {
-                $result .= $token['value'];
+                $result[] = $token;
             }
         }
 
-        if ($isEmpty) {
-            return '';
+        $result = $this->trim($result, 'reset', 'array_shift');
+        $result = $this->trim($result, 'end', 'array_pop');
+
+        return implode('', array_map(function ($token) {
+            return $token['value'];
+        }, $result));
+    }
+
+    /**
+     * Trims delimiters and empty values until non-empty value token is found
+     *
+     * @param array $tokens Tokens
+     * @param callable $next Function to get next token
+     * @param callable $remove Function to remove token
+     * @return array
+     */
+    protected function trim(array $tokens, $next, $remove)
+    {
+        $fieldRemoved = false;
+        while ($tokens) {
+            $token = $next($tokens);
+            if ($token['is_field'] && strcmp($token['value'], '') != 0) {
+                break;
+            }
+
+            if ($token['is_field'] || $fieldRemoved) {
+                $remove($tokens);
+                $fieldRemoved |= $token['is_field'];
+            } else {
+                break;
+            }
         }
 
-        $result = trim($result);
-
-        return $result;
+        return $tokens;
     }
 
     /**
@@ -1000,5 +1041,3 @@ eoq;
         return $GLOBALS['sugar_config']['default_language'];
     }
 } // end class def
-
-?>

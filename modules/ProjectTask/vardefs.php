@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
+// $Id: vardefs.php 56510 2010-05-17 18:54:49Z jenny $
 $dictionary['ProjectTask'] = array('audited'=>true,
     'table' => 'project_task',
     'favorites' => false,
@@ -33,6 +33,15 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
             'readonly' => true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+                'aggregations' => array(
+                    'date_entered' => array(
+                        'type' => 'DateRange',
+                    ),
+                ),
+            ),
 		),
 		'date_modified' => array(
 			'name' => 'date_modified',
@@ -41,6 +50,15 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
             'readonly' => true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+                'aggregations' => array(
+                    'date_modified' => array(
+                        'type' => 'DateRange',
+                    ),
+                ),
+            ),
 		),
         'project_id' => array(
             'name' => 'project_id',
@@ -57,7 +75,6 @@ $dictionary['ProjectTask'] = array('audited'=>true,
             'required' => false,
             'type' => 'int',
             'reportable' => false,
-
         ),
         'name' => array(
             'name' => 'name',
@@ -67,7 +84,11 @@ $dictionary['ProjectTask'] = array('audited'=>true,
             'type' => 'name',
             'len' => 50,
             'unified_search' => true,
-            'full_text_search' => array('enabled' => true, 'boost' => 3),
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'boost' => 0.81,
+            ),
             'importable' => 'required',
             'required' => true,
         ),
@@ -78,12 +99,21 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 			'required' => false,
 			'options' => 'project_task_status_options',
 			'audited'=>true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+            ),
 		),
         'description' => array(
             'name' => 'description',
             'vname' => 'LBL_DESCRIPTION',
             'required' => false,
             'type' => 'text',
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+                'boost' => 0.45,
+            ),
         ),
         'resource_id' => array(
             'name' => 'resource_id',
@@ -97,7 +127,11 @@ $dictionary['ProjectTask'] = array('audited'=>true,
             'vname' => 'LBL_RESOURCE',
             'required' => false,
             'type' => 'text',
-            'source' => 'non-db',
+            'source' => 'function',
+            'function_class' => 'ProjectTask',
+            'function_name' => 'getResourceName',
+            'function_params' => array('resource_id'),
+            'function_params_source' => 'this',
         ),
         'predecessors' => array(
             'name' => 'predecessors',
@@ -192,6 +226,16 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 			'isnull' => false,
 			'reportable'=>false,
 			'audited'=>true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+                'aggregations' => array(
+                    'assigned_user_id' => array(
+                        'type' => 'MyItems',
+                        'label' => 'LBL_AGG_ASSIGNED_TO_ME',
+                    ),
+                ),
+            ),
 		),
 		'modified_user_id' => array(
 			'name' => 'modified_user_id',
@@ -203,6 +247,17 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 			'isnull' => 'false',
 			'dbType' => 'id',
 			'reportable'=>true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+                'type' => 'id',
+                'aggregations' => array(
+                    'modified_user_id' => array(
+                        'type' => 'MyItems',
+                        'label' => 'LBL_AGG_MODIFIED_BY_ME',
+                    ),
+                ),
+            ),
 		),
 		'modified_by_name' =>
 	  array (
@@ -234,6 +289,17 @@ $dictionary['ProjectTask'] = array('audited'=>true,
 			'isnull' => 'false',
 			'dbType' => 'id',
 			'reportable'=>true,
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => false,
+                'type' => 'id',
+                'aggregations' => array(
+                    'created_by' => array(
+                        'type' => 'MyItems',
+                        'label' => 'LBL_AGG_CREATED_BY_ME',
+                    ),
+                ),
+            ),
 		),
 		'created_by_name' =>
 	  array (
@@ -474,4 +540,3 @@ array (
 VardefManager::createVardef('ProjectTask','ProjectTask', array(
 'team_security',
 ));
-?>

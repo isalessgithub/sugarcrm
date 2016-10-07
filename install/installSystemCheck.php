@@ -31,6 +31,18 @@ if(!defined('SUGARCRM_MIN_MEM')) {
 $error_found = false;
 $error_txt = '';
 
+    try {
+        random_bytes(4);
+    } catch (Exception $e) {
+        $message = $e->getMessage();
+        installLog($mod_strings['ERR_CHECKSYS_CSPRNG'].': '.$message);
+        $error_found = true;
+        $error_txt .= '
+            <tr>
+                <td><b>'.$mod_strings['LBL_CHECKSYS_CSPRNG'].'</b></td>
+                <td ><span class="error">'.$message.'</span></td>
+            </tr>';
+    }
 
 // check IIS and FastCGI
 $server_software = $_SERVER["SERVER_SOFTWARE"];
@@ -162,6 +174,26 @@ if(!function_exists('mb_strlen')) {
       </tr>';
 }else{
     installLog("MBString Support Found");
+}
+
+// mcrypt extension check
+if (!extension_loaded('mcrypt')) {
+    $error_found = true;
+    installLog(sprintf('ERROR:: %s', $mod_strings['ERR_CHECKSYS_MCRYPT']));
+    $error_txt .= sprintf(
+        '<tr>
+        <td>
+            <strong>%s</strong>
+        </td>
+        <td class="error">
+            <b><span class="stop">%s</font></b>
+        </td>
+    </tr>',
+        $mod_strings['LBL_CHECKSYS_MCRYPT'],
+        $mod_strings['ERR_CHECKSYS_MCRYPT']
+    );
+} else {
+    installLog("MCrypt is loaded");
 }
 
 // zip

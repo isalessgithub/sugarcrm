@@ -47,6 +47,14 @@ class Link {
 	var $_duplicate_key;
 	var $_duplicate_where;
 
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function Link($_rel_name, &$_bean, $fieldDef, $_table_name = '', $_key_name = '')
+    {
+        self::__construct($_rel_name, $_bean, $fieldDef, $_table_name, $_key_name);
+    }
+
 	/* Parameters:
 	 * 		$_rel_name: use this relationship key.
 	 * 		$_bean: reference of the bean that instantiated this class.
@@ -54,7 +62,8 @@ class Link {
 	 * 		$_table_name: optional, fetch from the bean's table name property.
 	 * 		$_key_name: optional, name of the primary key column for _table_name
 	 */
-	function Link($_rel_name, &$_bean, $fieldDef, $_table_name='', $_key_name=''){
+    public function __construct($_rel_name, &$_bean, $fieldDef, $_table_name='', $_key_name='')
+    {
 		global $dictionary;
         require_once("modules/TableDictionary.php");
         $GLOBALS['log']->debug("Link Constructor, relationship name: ".$_rel_name);
@@ -64,8 +73,7 @@ class Link {
         $this->_relationship_name=$_rel_name;
 		$this->relationship_fields = (!empty($fieldDef['rel_fields']))?$fieldDef['rel_fields']: array();
 		$this->_bean = $_bean;
-		$this->_relationship = BeanFactory::getBean("Relationships");
-		$this->_relationship->retrieve_by_name($this->_relationship_name);
+		$this->_relationship = SugarRelationshipFactory::getInstance()->getRelationship($this->_relationship_name);
 
 		$this->_db = DBManagerFactory::getInstance();
 
@@ -118,7 +126,7 @@ class Link {
 	}
 
     function loadedSuccesfully() {
-        return !empty($this->_relationship->id);
+        return !empty($this->_relationship);
     }
 
 	/* This method will return the following based on cardinality of the relationship.
@@ -220,6 +228,23 @@ class Link {
 		}
 		return false;
 	}
+
+    /**
+     * Return "many" if multiple records can be related through this link
+     * or "one" if at most, one record can be related.
+     * @return string
+     */
+    public function getType()
+    {
+        if ($this->_relationship->relationship_type == 'one-to-one' ||
+            ($this->_relationship->relationship_type == 'many-to-one' && $this->_get_bean_position()) ||
+            ($this->_relationship->relationship_type == 'one-to-many' && !$this->_get_bean_position())) {
+            return REL_TYPE_ONE;
+        }
+        else {
+            return REL_TYPE_MANY;
+        }
+    }
 
 	function getJoin($params, $return_array =false)
 	{
@@ -987,8 +1012,7 @@ class Link {
 
 		$GLOBALS['log']->debug("relationship_exists query(".$query.')');
 
-		$result=$this->_db->query($query, true);
-		$row = $this->_db->fetchByAssoc($result);
+		$row = $this->_db->fetchOne($query, true);
 
 		if ($row == null) {
 			return false;
@@ -1005,7 +1029,7 @@ class Link {
 	 */
 	function _get_alternate_key_fields($table_name) {
 		$alternateKey=null;
-		$indices=Link::_get_link_table_definition($table_name,'indices');
+        $indices = $this->_get_link_table_definition($table_name, 'indices');
 		if (!empty($indices)) {
 			foreach ($indices as $index) {
                 if ( isset($index['type']) && $index['type'] == 'alternate_key' ) {
@@ -1013,7 +1037,7 @@ class Link {
                 }
 			}
 		}
-		$relationships=Link::_get_link_table_definition($table_name,'relationships');
+        $relationships = $this->_get_link_table_definition($table_name, 'relationships');
 		if (!empty($relationships)) {//bug 32623, when the relationship is built in old version, there is no alternate_key. we have to use join_key_lhs and join_key_lhs.
 			if(!empty($relationships[$this->_relationship_name]) && !empty($relationships[$this->_relationship_name]['join_key_lhs']) && !empty($relationships[$this->_relationship_name]['join_key_rhs'])) {
 				return array($relationships[$this->_relationship_name]['join_key_lhs'], $relationships[$this->_relationship_name]['join_key_rhs']);
@@ -1021,9 +1045,12 @@ class Link {
 		}
 	}
 
-	/*
-	 */
-	function _get_link_table_definition($table_name,$def_name)
+    function _get_link_table_definition($table_name, $def_name)
+    {
+        return self::get_link_table_definition($table_name, $this->_relationship_name, $def_name);
+    }
+
+    public static function get_link_table_definition($table_name, $relationshipName, $def_name)
 	{
 	    global $dictionary;
 
@@ -1033,9 +1060,10 @@ class Link {
             return $dictionary[$table_name][$def_name];
         }
 
-		if (isset($dictionary[$this->_relationship_name][$def_name])) {
-			return ($dictionary[$this->_relationship_name][$def_name]);
+        if ($relationshipName && isset($dictionary[$relationshipName][$def_name])) {
+            return $dictionary[$relationshipName][$def_name];
 		}
+
         // custom metadata is found in custom/metadata (naturally) and the naming follows the convention $relationship_name_c, and $relationship_name = $table_name
         $relationshipName = preg_replace( '/_c$/' , '' , $table_name ) ;
 
@@ -1070,4 +1098,3 @@ class Link {
 
 
 }
-?>

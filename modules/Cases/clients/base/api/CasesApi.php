@@ -31,8 +31,7 @@ class CasesApi extends ModuleApi
     /**
      * Create the case record and optionally perform post-save actions for Portal
      */
-
-    public function createRecord($api, $args)
+    public function createRecord(ServiceBase $api, array $args)
     {
         //create the case using the ModuleApi
 
@@ -43,8 +42,8 @@ class CasesApi extends ModuleApi
             if (!empty($contact)) {
                 $args['assigned_user_id'] = $contact->assigned_user_id;
                 $args['account_id']       = $contact->account_id;
-                $args['team_id']     = $contact->fetched_row['team_id'];
-                $args['team_set_id'] = $contact->fetched_row['team_set_id'];
+                $args['team_id'] = $contact->team_id;
+                $args['team_set_id'] = $contact->team_set_id;
             }
         }
 

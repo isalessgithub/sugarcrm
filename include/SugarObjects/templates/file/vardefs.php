@@ -25,13 +25,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     'name' => 'document_name',
     'vname' => 'LBL_NAME',
     'type' => 'name',
-  	'link' => true, // bug 39288
 	'dbType' => 'varchar',
     'len' => '255',
     'required'=>true,
     'unified_search' => true,
     'duplicate_on_record_copy' => 'always',
-    'full_text_search' => array('enabled' => true, 'boost' => 3),
+    'full_text_search' => array(
+        'enabled' => true,
+        'searchable' => true,
+        'boost' => 0.82,
+    ),
   ),
 
 'name'=>
@@ -148,6 +151,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     'duplicate_on_record_copy' => 'always',
     'Comment' => 'Document status for Meta-Data framework',
   ),
+ ),
+ 'uses' => array(
+     'taggable',
  ),
  'duplicate_check' => array(
      'enabled' => true,

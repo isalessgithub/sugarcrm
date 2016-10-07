@@ -21,12 +21,13 @@
 .filter-view {
   border: @inputBorder;
   //display: table-row;
+  position: relative;
   white-space: nowrap;
   margin-left: 0;
   background-color: @white;
   margin-bottom: 0;
   overflow: hidden;
-  height: 28px;
+  min-height: 28px;
   .box-sizing(border-box);
   .table-cell {
     vertical-align: top;
@@ -52,7 +53,7 @@
     margin-top: 0;
     font-size: @fontSizeSmall;
     font-weight: bold;
-    line-height: 13px;
+    line-height: 11px;
     .choice-filter-label {
       vertical-align: top;
       margin-right: 2px;
@@ -81,6 +82,7 @@
   .choice-filter {
     background: @gray;
     color: @white;
+    cursor: text;
   }
   // select2 filter pills
   .select2-container {
@@ -97,7 +99,7 @@
       }
     }
     .select2-choices {
-      padding: 1px 4px 2px 0;
+      padding: 2px 4px 1px 0;
       border: none;
       background-image: none;
       background-color: transparent;
@@ -121,6 +123,8 @@
         display: inline-block;
         margin-right: 0;
         font-weight: 600;
+        vertical-align: top;
+        line-height: 11px;
       }
       .select2-arrow {
         display: none;
@@ -166,7 +170,9 @@
       }
     }
     &.select2-container-multi.select2-choices-pills-close .select2-search-choice {
-      padding: 3px 4px 2px 6px !important;
+      padding: 1px 0 0 4px !important;
+      height: 23px;
+      margin: 0;
       .box-sizing(border-box);
       div {
         span.select2-choice-type {
@@ -226,7 +232,7 @@
   // clear search text
   .add-on.fa-times {
     position: absolute;
-    right: 65px;
+    right: 0;
     top: 0;
     padding: 7px 10px;
     color: @gray;
@@ -500,12 +506,13 @@
 }
 
 .drawer .dashablelist-filter {
-  > div >.search-filter::before {
-    content: "Default Data Filter";
+  > label {
     position: relative;
     left: 20px;
     font-size: 11px;
     color: @grayLight;
+    cursor: text;
+    margin-bottom: 0;
   }
   .search-filter {
     .control-group {

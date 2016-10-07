@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: en_us.lang.php 26868 2007-09-18 20:46:08Z sujata $
+
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -37,6 +37,7 @@ $mod_strings = array (
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the release.',
   'NTC_STATUS' => 'Set status to Inactive to remove this release from the Release dropdown lists',
   'NTC_LIST_ORDER' => 'Set the order this release will appear in the Release dropdown lists',
+  'LBL_ACTIVE_RELEASES' => 'Active releases',
   'release_status_dom' =>
   array (
     'Active' => 'Active',

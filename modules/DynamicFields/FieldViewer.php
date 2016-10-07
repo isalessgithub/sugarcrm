@@ -22,9 +22,14 @@ class FieldViewer{
         'date_entered', 'date_modified'
     );
 
-	public function FieldViewer(){
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function FieldViewer()
+    {
         self::__construct();
     }
+
     public function __construct() {
 		$this->ss = new Sugar_Smarty();
 	}
@@ -106,6 +111,9 @@ class FieldViewer{
 				return get_body($this->ss, $vardef);
 			case 'phone':
 				require_once('modules/DynamicFields/templates/Fields/Forms/phone.php');
+				return get_body($this->ss, $vardef);
+			case 'pricing-formula':
+				require_once('modules/DynamicFields/templates/Fields/Forms/enum2.php');
 				return get_body($this->ss, $vardef);
 			default:
 			    if(SugarAutoLoader::requireWithCustom('modules/DynamicFields/templates/Fields/Forms/'. $vardef['type'] . '.php')) {

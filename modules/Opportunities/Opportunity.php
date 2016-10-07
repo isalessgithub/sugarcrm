@@ -118,16 +118,12 @@ class Opportunity extends SugarBean
     );
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Opportunity()
     {
         self::__construct();
     }
-
 
     public function __construct()
     {
@@ -140,6 +136,7 @@ class Opportunity extends SugarBean
         global $current_user;
         if (!empty($current_user)) {
             $this->team_id = $current_user->default_team; //default_team is a team id
+            $this->team_set_id = $current_user->team_set_id;
         } else {
             $this->team_id = 1; // make the item globally accessible
         }
@@ -420,7 +417,7 @@ class Opportunity extends SugarBean
         return parent::save($check_notify);
     }
 
-    public function save_relationship_changes($is_update)
+    public function save_relationship_changes($is_update, $exclude = array())
     {
         //if account_id was replaced unlink the previous account_id.
         //this rel_fields_before_value is populated by sugarbean during the retrieve call.

@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:36:52
 $viewdefs['Calls']['base']['view']['record'] = array (
   'buttons' => 
   array (
@@ -9,6 +10,10 @@ $viewdefs['Calls']['base']['view']['record'] = array (
       'label' => 'LBL_CANCEL_BUTTON_LABEL',
       'css_class' => 'btn-invisible btn-link',
       'showOn' => 'edit',
+      'events' => 
+      array (
+        'click' => 'button:cancel_button:click',
+      ),
     ),
     1 => 
     array (
@@ -350,6 +355,11 @@ $viewdefs['Calls']['base']['view']['record'] = array (
         array (
           'name' => 'atc_isscampaigns_calls_1_name',
           'label' => 'LBL_ATC_ISSCAMPAIGNS_CALLS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
+        ),
+        14 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
         ),
       ),
     ),

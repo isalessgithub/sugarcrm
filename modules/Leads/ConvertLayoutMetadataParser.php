@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
@@ -33,7 +34,6 @@ class ConvertLayoutMetadataParser extends GridLayoutMetaDataParser
 
     protected $excludedModules = array(
         'Activities',
-        'KBDocuments',
         'Products',
         'ProductTemplates',
         'Leads',

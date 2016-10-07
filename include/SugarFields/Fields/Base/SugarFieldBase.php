@@ -31,9 +31,51 @@ class SugarFieldBase {
     protected static $base = array();
     public $needsSecondaryQuery = false;
 
-    function SugarFieldBase($type) {
+    /**
+     * The name of the module the field belongs to
+     *
+     * @var string
+     */
+    protected $module;
+
+    /**
+     * Field options
+     *
+     * @var array
+     */
+    protected $options = array();
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function SugarFieldBase($type)
+    {
+        self::__construct($type);
+    }
+
+    public function __construct($type)
+    {
     	$this->type = $type;
         $this->ss = new Sugar_Smarty();
+    }
+
+    /**
+     * Sets the field options
+     *
+     * @param $options
+     */
+    public function setOptions($options) {
+        $this->options = $options;
+    }
+
+    /**
+     * Sets the field module
+     *
+     * @param $module
+     */
+    public function setModule($module)
+    {
+        $this->module = $module;
     }
 
     function fetch($path)
@@ -72,19 +114,24 @@ class SugarFieldBase {
         return self::$base[$view];
     }
 
-    function findTemplate($view){
+    protected function findTemplate($view, $formName = '')
+    {
         static $tplCache = array();
 
         if ( isset($tplCache[$this->type][$view]) ) {
             return $tplCache[$this->type][$view];
         }
 
-        $lastClass = get_class($this);
-        $classList = array($this->type,str_replace('SugarField','',$lastClass));
-        while ( $lastClass = get_parent_class($lastClass) ) {
-            $classList[] = str_replace('SugarField','',$lastClass);
+        if (isset($this->formTemplateMap[$formName])) {
+            $classList = array($this->formTemplateMap[$formName]);
+        } else {
+            $lastClass = get_class($this);
+            $classList = array($this->type, str_replace('SugarField', '', $lastClass));
+            while ($lastClass = get_parent_class($lastClass)) {
+                $classList[] = str_replace('SugarField', '', $lastClass);
+            }
+            array_pop($classList); // remove this class - $base handles that
         }
-        array_pop($classList); // remove this class - $base handles that
 
         $tplName = '';
         global $current_language;
@@ -165,7 +212,6 @@ class SugarFieldBase {
         return $this->fetch($this->findTemplate($view));
     }
 
-
     public function unformatField($formattedField, $vardef){
         // The base field doesn't do any formatting, so override it in subclasses for more specific actions
         return $formattedField;
@@ -174,8 +220,8 @@ class SugarFieldBase {
     function getSmartyView($parentFieldArray, $vardef, $displayParams, $tabindex = -1, $view){
     	$this->setup($parentFieldArray, $vardef, $displayParams, $tabindex);
 
-
-    	return $this->fetch($this->findTemplate($view));
+        $formName = isset($displayParams['formName']) ? $displayParams['formName'] : '';
+        return $this->fetch($this->findTemplate($view, $formName));
     }
 
     function getListViewSmarty($parentFieldArray, $vardef, $displayParams, $col) {
@@ -585,6 +631,19 @@ class SugarFieldBase {
     }
 
     /**
+     * Validates submitted data
+     * @param SugarBean $bean
+     * @param array $params
+     * @param string $field
+     * @param array $properties
+     * @return boolean
+     */
+    public function apiValidate(SugarBean $bean, array $params, $field, $properties) 
+    {
+        return true;
+    }
+
+    /**
      * This should be called when the bean is mass updated from the API. Most fields can just use default, which calls the field's individual ->apiSave() function instead
      *
      * @param SugarBean $bean - the bean performing the mass update
@@ -865,39 +924,32 @@ class SugarFieldBase {
     }
 
     /**
-     * Processes layout field by collecting its display parameters and processing nested fields
+     * Processes view field by calling callbacks with its attributes and iterating over nested fields
      *
-     * @param MetaDataManager $metaDataManager Metadata manager
-     * @param array $field The field being processed
-     * @param array $fieldDefs Field definitions of the module the layout belongs to
-     * @param array $fields Resulting set of fields
-     * @param array $displayParams Resulting display parameters
+     * @param ViewIterator $iterator View iterator
+     * @param array $field The view definition of the field being processed
+     * @param callable $callback Iterator callback
      */
-    public function processLayoutField(
-        MetaDataManager $metaDataManager,
+    public function iterateViewField(
+        ViewIterator $iterator,
         array $field,
-        array $fieldDefs,
-        array &$fields,
-        array &$displayParams
+        /* callable */ $callback
     ) {
-        $isNamedField = isset($field['name']);
-        if ($isNamedField) {
-            $displayParams[$field['name']] = $field;
-            unset($displayParams[$field['name']]['name']);
+        $fieldSetAttributes = array('fields', 'related_fields');
+        $fieldSets = array();
+        foreach ($fieldSetAttributes as $attribute) {
+            if (isset($field[$attribute]) && is_array($field[$attribute])) {
+                $fieldSets[] = $field[$attribute];
+                unset($field[$attribute]);
+            }
         }
 
-        $fieldAttributes = array('fields', 'related_fields');
-        foreach ($fieldAttributes as $attribute) {
-            if (isset($field[$attribute]) && is_array($field[$attribute])) {
-                $fields = array_merge($fields, $metaDataManager->getFieldNames(
-                    $field[$attribute],
-                    $fieldDefs,
-                    $displayParams
-                ));
-                if ($isNamedField) {
-                    unset($displayParams[$field['name']][$attribute]);
-                }
-            }
+        if (isset($field['name'])) {
+            $callback($field);
+        }
+
+        foreach ($fieldSets as $fieldSet) {
+            $iterator->apply($fieldSet, $callback);
         }
     }
 }

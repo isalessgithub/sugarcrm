@@ -14,6 +14,8 @@ if (! defined ( 'sugarEntry' ) || ! sugarEntry)
  */
 require_once 'include/MetaDataManager/MetaDataManager.php';
 
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+
 class DynamicField {
 
     public $module_dir = 'DynamicFields';
@@ -22,6 +24,11 @@ class DynamicField {
 
     const TYPE_SIGNED = 'signed';
     const TYPE_UNSIGNED = 'unsigned';
+
+    /**
+     * @var SugarBean
+     */
+    public $bean;
 
     public static $fieldTypeRangeValue = array(
         'int32' => array(
@@ -37,19 +44,20 @@ class DynamicField {
     );
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function DynamicField($module = '')
     {
         self::__construct($module);
     }
 
-
     public function __construct($module = '') {
-        $this->module = (! empty ( $module )) ? $module :( (isset($_REQUEST['module']) && ! empty($_REQUEST['module'])) ? $_REQUEST ['module'] : '');
+        $this->request = InputValidation::getService();
+        if (!empty($module)) {
+            $this->module = $module;
+        } else {
+            $this->module = $this->request->getValidInputRequest('module', 'Assert\ComponentName', '');
+        }
         $this->base_path = "custom/Extension/modules/{$this->module}/Ext/Vardefs";
     }
 
@@ -66,9 +74,9 @@ class DynamicField {
         return null ;
     }
 
-    function deleteCache(){
+    public static function deleteCache()
+    {
     }
-
 
     /**
     * This will add the bean as a reference in this object as well as building the custom field cache if it has not been built
@@ -104,9 +112,21 @@ class DynamicField {
     * @return unknown
     */
     function buildCache($module = false, $saveCache=true) {
-        //We can't build the cache while installing as the required database tables may not exist.
-        if (!empty($GLOBALS['installing']) && $GLOBALS['installing'] == true|| empty($GLOBALS['db']))
-            return false;
+        global $db;
+
+        static $tableFieldsMetaDataExists = false; // for performance purpose, don't need to call tableExists('fields_meta_data') thousands times.
+
+        // this method may be called before database connection established and `fields_meta_data` table created
+
+        if (!$tableFieldsMetaDataExists) {
+            if (!$db || !$db->tableExists('fields_meta_data')) { // this call could be repeated thousands times
+                return false;
+            }
+            else {
+                $tableFieldsMetaDataExists = true;
+            }
+        }
+
         if($module == '../data')return false;
 
         static $results = array ( ) ;
@@ -393,79 +413,80 @@ class DynamicField {
      * @param boolean $isUpdate
      */
      public function save($isUpdate){
+         $hasCustomFields = false;
+         $db = DBManagerFactory::getInstance();
+         if ($this->bean->hasCustomFields() && isset($this->bean->id)) {
+             $fields = array('id_c' => array('name' =>'id_c', 'type' => 'id'));
+             $values = array('id_c' => $this->bean->id);
+             foreach ($this->bean->field_defs as $name => $field) {
 
-        if($this->bean->hasCustomFields() && isset($this->bean->id)){
+                 if (empty($field['source']) || $field['source'] != 'custom_fields') {
+                     continue;
+                 }
+                 if ($field['type'] == 'html' || $field['type'] == 'parent') {
+                     continue;
+                 }
+                 if (isset($this->bean->$name)) {
+                     //Change the field to be marked as a db field instead of custom for the scope of this query
+                     $fields[$name] = array_merge($field, array('source' => 'db'));
+                     $hasCustomFields = true;
 
-            if($isUpdate){
-                $query = "UPDATE ". $this->bean->table_name. "_cstm SET ";
-            }
-            $queryInsert = "INSERT INTO ". $this->bean->table_name. "_cstm (id_c";
-            $values = "('".$this->bean->id."'";
-            $first = true;
-            foreach($this->bean->field_defs as $name=>$field){
+                     if (in_array($field['type'], array(
+                             'int', 'float', 'double', 'uint', 'ulong', 'long', 'short', 'tinyint', 'currency',
+                             'decimal'
+                         )
+                     )) {
+                         if (!isset($this->bean->$name) || !is_numeric($this->bean->$name)) {
+                             if ($field['required']) {
+                                 $this->bean->$name = 0;
+                             }
+                         }
+                     }
+                     if ($field['type'] == 'bool') {
+                         if ($this->bean->$name === false) {
+                             $this->bean->$name = '0';
+                         } elseif ($this->bean->$name === true) {
+                             $this->bean->$name = '1';
+                         }
+                     }
 
-                if(empty($field['source']) || $field['source'] != 'custom_fields')continue;
-                if($field['type'] == 'html' || $field['type'] == 'parent')continue;
-                if(isset($this->bean->$name)){
-                    $quote = "'";
-
-                    if(in_array($field['type'], array('int', 'float', 'double', 'uint', 'ulong', 'long', 'short', 'tinyint', 'currency', 'decimal'))) {
-                        $quote = '';
-                        if(!isset($this->bean->$name) || !is_numeric($this->bean->$name) ){
-                            if($field['required']){
-                                $this->bean->$name = 0;
-                            }else{
-                                $this->bean->$name = 'NULL';
-                            }
-                        }
-                    }
-                    if ( $field['type'] == 'bool' ) {
-                        if ( $this->bean->$name === FALSE )
-                            $this->bean->$name = '0';
-                        elseif ( $this->bean->$name === TRUE )
-                            $this->bean->$name = '1';
-                    }
-
-                    $val = $this->bean->$name;
-					if(($field['type'] == 'date' || $field['type'] == 'datetimecombo') && (empty($this->bean->$name )|| $this->bean->$name == '1900-01-01')){
-                    	$quote = '';
-                        $val = 'NULL';
-                        $this->bean->$name = ''; // do not set it to string 'NULL'
-                    }
-                    if($isUpdate){
-                        if($first){
-                            $query .= " $name=$quote".$GLOBALS['db']->quote($val)."$quote";
-
-                        }else{
-                            $query .= " ,$name=$quote".$GLOBALS['db']->quote($val)."$quote";
-                        }
-                    }
-                    $first = false;
-                    $queryInsert .= " ,$name";
-                    $values .= " ,$quote". $GLOBALS['db']->quote($val). "$quote";
-                }
-            }
-            if($isUpdate){
-                $query.= " WHERE id_c='" . $this->bean->id ."'";
-
-            }
-
-            $queryInsert .= " ) VALUES $values )";
-
-            if(!$first){
-                if(!$isUpdate){
-                    $GLOBALS['db']->query($queryInsert);
-                }else{
-                    $checkquery = "SELECT id_c FROM {$this->bean->table_name}_cstm WHERE id_c = '{$this->bean->id}'";
-                    if ( $GLOBALS['db']->getOne($checkquery) ) {
-                        $result = $GLOBALS['db']->query($query);
-                    } else {
-                        $GLOBALS['db']->query($queryInsert);
-                    }
-                }
-            }
-        }
-
+                     if (($field['type'] == 'date' || $field['type'] == 'datetimecombo') && (empty($this->bean->$name) || $this->bean->$name == '1900-01-01')) {
+                         $this->bean->$name = ''; // do not set it to string 'NULL'
+                     }
+                     $values[$name] = $this->bean->$name;
+                 }
+             }
+             if (!$hasCustomFields) {
+                 return null;
+             }
+             //Verify if this record has an existing entry in the custom table
+             if ($isUpdate) {
+                 $checkquery = "SELECT id_c FROM {$this->bean->table_name}_cstm WHERE id_c = '{$this->bean->id}'";
+                 if (!$GLOBALS['db']->getOne($checkquery)) {
+                     $isUpdate = false;
+                 }
+             }
+             if ($isUpdate) {
+                 $db->updateParams(
+                     $this->bean->table_name . "_cstm",
+                     $fields,
+                     $values,
+                     array('id_c' => $values['id_c']),
+                     null,
+                     true,
+                     $db->usePreparedStatements
+                 );
+             } else {
+                 $db->insertParams(
+                     $this->bean->table_name . "_cstm",
+                     $fields,
+                     $values,
+                     null,
+                     true,
+                     $db->usePreparedStatements
+                 );
+             }
+         }
     }
     /**
      * Deletes the field from fields_meta_data and drops the database column then it rebuilds the cache
@@ -638,7 +659,7 @@ class DynamicField {
             $to_save[$property] =
                 is_string($field->$property) ? htmlspecialchars_decode($field->$property, ENT_QUOTES) : $field->$property;
         }
-        $bean_name = $beanList[$this->module];
+        $bean_name = BeanFactory::getObjectName($this->module);
 
         $this->writeVardefExtension($bean_name, $field, $to_save);
     }
@@ -889,9 +910,14 @@ class DynamicField {
                 $count++;
             }
         }
-        $selMod = (!empty($_REQUEST['view_module'])) ? $_REQUEST['view_module'] : $this->module;
+
+        $selMod = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
+        if (empty($selMod)) {
+            $selMod = $this->module;
+        }
+        $viewPackage = $this->request->getValidInputRequest('view_package', 'Assert\ComponentName', null);
         require_once 'modules/ModuleBuilder/parsers/parser.label.php' ;
-        $parser = new ParserLabel ( $selMod , isset ( $_REQUEST [ 'view_package' ] ) ? $_REQUEST [ 'view_package' ] : null ) ;
+        $parser = new ParserLabel ( $selMod , $viewPackage) ;
         $parser->handleSave ( array('label_'. $systemLabel => $displayLabel ) , $GLOBALS [ 'current_language' ] ) ;
 
         return $systemLabel;
@@ -983,17 +1009,9 @@ class DynamicField {
         $result = $db->query($query);
         $row = $db->fetchByAssoc($result);
 
-        if($row)
-        {
-            foreach($row as $name=>$value)
-            {
-                // originally in pre-r30895 we checked if this field was in avail_fields i.e., in fields_meta_data and not deleted
-                // with the removal of avail_fields post-r30895 we have simplified this - we now retrieve every custom field even if previously deleted
-                // this is considered harmless as the value although set in the bean will not otherwise be used (nothing else works off the list of fields in the bean)
-                $this->bean->$name = $value;
-            }
+        if ($row) {
+            $this->bean->populateFromRow($row, true);
         }
-
     }
 
    function populateXTPL($xtpl, $view) {
@@ -1048,5 +1066,3 @@ class DynamicField {
 
     ////////////////////////////END BACKWARDS COMPATIBILITY MODE FOR PRE 5.0 MODULES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
-
-?>

@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -48,7 +49,7 @@ if(file_exists($file)) {
  * @return bool
  */
 function delete_bean($action, $bean) {
-	$bean->mark_deleted();
+    $bean->mark_deleted($bean->id);
 	return true;
 }
 ////	END SUGARBEAN RULES

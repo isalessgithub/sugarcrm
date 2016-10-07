@@ -1,36 +1,52 @@
 <?php
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+
 if(!defined('sugarEntry'))define('sugarEntry', true);
+
+if (!defined('SUGAR_BASE_DIR')) {
+    define('SUGAR_BASE_DIR', str_replace('\\', '/', dirname(__DIR__)));
+}
 
 $minifyUtils = null;
 
 //assumes jsmin.php is in same directory
-if(isset($_REQUEST['root_directory'])){
-    require_once('jssource/minify_utils.php');
-}else{
-    require_once('minify_utils.php');
+if (isset($_REQUEST['root_directory'])) {
+    require_once 'jssource/minify_utils.php';
+} else {
+    require_once 'minify_utils.php';
 }
 
 //if we are coming from browser
 
 if(isset($_REQUEST['root_directory'])){
-	if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
     require_once('include/utils/sugar_file_utils.php');
 
-    //get the root directory to process
-    $from = $_REQUEST['root_directory'];
-    $forceReb = false;
-    //make sure that the rebuild option has been chosen
-    if(isset($_REQUEST['js_rebuild_concat'])){
-        if($_REQUEST['js_rebuild_concat'] == 'rebuild'){
+    // get the root directory to process
+    $inputValidation = InputValidation::getService();
+    $from = $inputValidation->getValidInputRequest('root_directory', 'Assert\File');
+    $forceReb = !empty($_REQUEST['force_rebuild']);
+    // make sure that the rebuild option has been chosen
+    if (isset($_REQUEST['js_rebuild_concat'])){
+        if (!$forceReb && $_REQUEST['js_rebuild_concat'] == 'rebuild') {
             //rebuild if files have changed
             $js_groupings = array();
-            if(isset($_REQUEST['root_directory'])){
-                require('jssource/JSGroupings.php');
-                require_once('jssource/minify_utils.php');
-            }else{
-                require('JSGroupings.php');
-                require_once('minify_utils.php');
+            if (isset($_REQUEST['root_directory'])) {
+                require 'jssource/JSGroupings.php';
+            } else {
+                require 'JSGroupings.php';
             }
 
             //iterate through array of grouped files
@@ -38,6 +54,7 @@ if(isset($_REQUEST['root_directory'])){
 
             //for each item in array, concatenate the source files
             foreach($grp_array as $grp){
+                // check if we have to do a rebuild by comparing JS file timestamps
                 foreach($grp as $original =>$concat){
 
                     // if the original file doesn't exist, skip it (so does the build util)
@@ -49,8 +66,8 @@ if(isset($_REQUEST['root_directory'])){
 
                     // make sure concatenated file is still valid
                     if (is_file($concat)) {
-                        //if individual file has been modifed date later than modified date of
-                        //concatenated file, then force a rebuild
+                        // if individual file has been modified date later than modified date of
+                        // concatenated file, then force a rebuild
                         if(filemtime($original) > filemtime($concat)){
                             $forceReb = true;
                             //no need to continue, we will rebuild
@@ -67,14 +84,13 @@ if(isset($_REQUEST['root_directory'])){
 
         }
         //if boolean has been set, concatenate files
-        if($forceReb){
+        if ($forceReb) {
             $minifyUtils = new SugarMinifyUtils();
             $minifyUtils->ConcatenateFiles("$from");
         }
 
     }else{
         //We are only allowing rebuilding of concat files from browser.
-
     }
     return;
 }else{
@@ -178,4 +194,3 @@ if(isset($_REQUEST['root_directory'])){
         unlink($fileMap);
 }
 
-?>

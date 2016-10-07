@@ -22,6 +22,16 @@ if(ini_get('zlib.output_compression') == 1) { // ini_get() returns 1/0, not valu
 	}
 }
 
+global $current_user;
+
+if (SugarConfig::getInstance()->get("disable_user_email_config", false)
+        && !$current_user->isAdminForModule("Emails")
+) {
+    ACLController::displayNoAccess(false);
+    sugar_cleanup(true);
+}
+
+
 // hack to allow "&", "%" and "+" through a $_GET var
 // set by ie_test_open_popup() javascript call
 foreach($_REQUEST as $k => $v) {
@@ -78,6 +88,9 @@ $ie = BeanFactory::getBean('InboundEmail');
 if(!empty($_REQUEST['ie_id'])) {
     $ie->disable_row_level_security = true;
     $ie->retrieve($_REQUEST['ie_id']);
+    if (!empty($ie->email_password)) {
+        $ie->email_password = html_entity_decode($ie->email_password, ENT_QUOTES);
+    }
 }
 $ie->email_user     = $_REQUEST['email_user'];
 $ie->server_url     = $_REQUEST['server_url'];

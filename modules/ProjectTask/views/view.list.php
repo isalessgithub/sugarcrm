@@ -26,6 +26,7 @@ class ProjectTaskViewList extends ViewList
  	    $metadataFile = SugarAutoLoader::loadWithMetafiles($module, 'listviewdefs');
         require_once($metadataFile);
 
+
 		$this->bean->ACLFilterFieldList($listViewDefs[$module], array("owner_override" => true));
 		$seed = $this->bean;
         if(!empty($this->bean->object_name) && isset($_REQUEST[$module.'2_'.strtoupper($this->bean->object_name).'_offset'])) {//if you click the pagination button, it will populate the search criteria here
@@ -35,7 +36,10 @@ class ProjectTaskViewList extends ViewList
 		        	$blockVariables[] = 'lvso';
 		        }
 
-                $current_query_by_page = unserialize(base64_decode($_REQUEST['current_query_by_page']));
+                $current_query_by_page = $this->request->getValidInputRequest(
+                    'current_query_by_page',
+                    array('Assert\PhpSerialized' => array('base64Encoded' => true))
+                );
                 foreach($current_query_by_page as $search_key=>$search_value) {
                     if($search_key != $module.'2_'.strtoupper($this->bean->object_name).'_offset' && !in_array($search_key, $blockVariables)) {
                         if (!is_array($search_value)) {

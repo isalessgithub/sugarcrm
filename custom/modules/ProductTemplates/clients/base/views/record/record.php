@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:36:52
 $viewdefs['ProductTemplates']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -158,7 +159,116 @@ $viewdefs['ProductTemplates']['base']['view']['record'] = array (
         30 => 'date_cost_price',
         31 => 'discount_usdollar',
         32 => 'list_usdollar',
+        33 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
+        ),
       ),
+    ),
+  ),
+  'buttons' => 
+  array (
+    0 => 
+    array (
+      'type' => 'button',
+      'name' => 'cancel_button',
+      'label' => 'LBL_CANCEL_BUTTON_LABEL',
+      'css_class' => 'btn-invisible btn-link',
+      'showOn' => 'edit',
+      'events' => 
+      array (
+        'click' => 'button:cancel_button:click',
+      ),
+    ),
+    1 => 
+    array (
+      'type' => 'rowaction',
+      'event' => 'button:save_button:click',
+      'name' => 'save_button',
+      'label' => 'LBL_SAVE_BUTTON_LABEL',
+      'css_class' => 'btn btn-primary',
+      'showOn' => 'edit',
+      'acl_action' => 'edit',
+    ),
+    2 => 
+    array (
+      'type' => 'actiondropdown',
+      'name' => 'main_dropdown',
+      'primary' => true,
+      'showOn' => 'view',
+      'buttons' => 
+      array (
+        0 => 
+        array (
+          'type' => 'rowaction',
+          'event' => 'button:edit_button:click',
+          'name' => 'edit_button',
+          'label' => 'LBL_EDIT_BUTTON_LABEL',
+          'acl_action' => 'edit',
+        ),
+        1 => 
+        array (
+          'type' => 'shareaction',
+          'name' => 'share',
+          'label' => 'LBL_RECORD_SHARE_BUTTON',
+          'acl_action' => 'view',
+        ),
+        2 => 
+        array (
+          'type' => 'pdfaction',
+          'name' => 'download-pdf',
+          'label' => 'LBL_PDF_VIEW',
+          'action' => 'download',
+          'acl_action' => 'view',
+        ),
+        3 => 
+        array (
+          'type' => 'pdfaction',
+          'name' => 'email-pdf',
+          'label' => 'LBL_PDF_EMAIL',
+          'action' => 'email',
+          'acl_action' => 'view',
+        ),
+        4 => 
+        array (
+          'type' => 'divider',
+        ),
+        5 => 
+        array (
+          'type' => 'rowaction',
+          'event' => 'button:find_duplicates_button:click',
+          'name' => 'find_duplicates_button',
+          'label' => 'LBL_DUP_MERGE',
+          'acl_action' => 'edit',
+        ),
+        6 => 
+        array (
+          'type' => 'rowaction',
+          'event' => 'button:duplicate_button:click',
+          'name' => 'duplicate_button',
+          'label' => 'LBL_DUPLICATE_BUTTON_LABEL',
+          'acl_module' => 'ProductTemplates',
+          'acl_action' => 'create',
+        ),
+        7 => 
+        array (
+          'type' => 'divider',
+        ),
+        8 => 
+        array (
+          'type' => 'rowaction',
+          'event' => 'button:delete_button:click',
+          'name' => 'delete_button',
+          'label' => 'LBL_DELETE_BUTTON_LABEL',
+          'acl_action' => 'delete',
+        ),
+      ),
+    ),
+    3 => 
+    array (
+      'name' => 'sidebar_toggle',
+      'type' => 'sidebartoggle',
     ),
   ),
   'templateMeta' => 

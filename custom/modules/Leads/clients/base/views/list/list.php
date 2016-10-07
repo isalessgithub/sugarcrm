@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 10:01:06
+// created: 2016-10-07 12:36:52
 $viewdefs['Leads']['base']['view']['list'] = array (
   'panels' => 
   array (
@@ -19,7 +19,6 @@ $viewdefs['Leads']['base']['view']['list'] = array (
             2 => 'last_name',
           ),
           'link' => true,
-          'css_class' => 'full-name',
           'label' => 'LBL_LIST_NAME',
           'enabled' => true,
           'default' => true,

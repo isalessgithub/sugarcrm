@@ -11,14 +11,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: SaveUserRelationship.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
-
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 
 
@@ -27,8 +27,8 @@ $focus = BeanFactory::getBean('Roles', $_REQUEST['record']);
 
 $focus->set_user_relationship($focus->id, $_REQUEST['mass']);
 
-
-$header_URL = $sugar_config["site_url"] . "/index.php?action=PopupUsers&form=UsersForm&module=Users&record={$_REQUEST['record']}";
+$record = InputValidation::getService()->getValidInputRequest('record', 'Assert\Guid', '');
+$header_URL = $sugar_config["site_url"] . "/index.php?action=PopupUsers&form=UsersForm&module=Users&record={$record}";
 $GLOBALS['log']->debug("about to post header URL of: $header_URL");
 
 echo "<script language=javascript>\n";

@@ -77,7 +77,8 @@ class SugarFieldCollection extends SugarFieldBase {
      * @param SugarBean bean - the bean performing the save
      * @param array params - an array of paramester relevant to the save, most likely will be $_REQUEST
      */
-	public function save(&$bean, $params, $field, $properties, $prefix = ''){
+    public function save($bean, $params, $field, $properties, $prefix = '')
+    {
         if(isset($_POST["primary_" . $field . "_collection"])){
             $save = false;
             $value_name = $field . "_values";
@@ -252,17 +253,21 @@ class SugarFieldCollection extends SugarFieldBase {
     /**
      * {@inheritDoc}
      *
-     * Only populates display params since collection field cannot have nested fields
+     * Applies the callback only to the given field and does not iterate over "fields" since they mean collection fields
+     * to be retrieved, not nested fields as in base field. Does iterate over "related_fields" since those will not
+     * interfere with collection fields and it allows for related data to be retrieved when necessary.
      */
-    public function processLayoutField(
-        MetaDataManager $metaDataManager,
-        array $field,
-        array $fieldDefs,
-        array &$fields,
-        array &$displayParams
-    ) {
-        $displayParams[$field['name']] = $field;
-        unset($displayParams[$field['name']]['name']);
+    public function iterateViewField(ViewIterator $iterator, array $field, /* callable */ $callback)
+    {
+        $fieldSet = null;
+        if (isset($field['related_fields']) && is_array($field['related_fields'])) {
+            $fieldSet = $field['related_fields'];
+            unset($field['related_fields']);
+        }
+        $callback($field);
+        if ($fieldSet) {
+            $iterator->apply($fieldSet, $callback);
+        }
     }
 
     /**
@@ -301,8 +306,8 @@ class SugarFieldCollection extends SugarFieldBase {
     protected function getCollectionApi()
     {
         if (!$this->collectionApi) {
-            require_once 'clients/base/api/CollectionApi.php';
-            $this->collectionApi = new CollectionApi();
+            require_once 'clients/base/api/RelateCollectionApi.php';
+            $this->collectionApi = new RelateCollectionApi();
         }
 
         return $this->collectionApi;

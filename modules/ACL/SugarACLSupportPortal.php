@@ -108,7 +108,8 @@ class SugarACLSupportPortal extends SugarACLStatic
                  && $bean->module_dir != 'Notes'
                  && $bean->module_dir != 'Contacts' 
                  && $bean->module_dir != 'Bugs'
-                 && $bean->module_dir != 'KBDocuments'
+                 && $bean->module_dir != 'KBContents'
+                 && $bean->module_dir != 'Categories'
                  && $bean->module_dir != 'DocumentRevisions' ) {
                 return false;
             }
@@ -176,6 +177,7 @@ class SugarACLSupportPortal extends SugarACLStatic
         }
 
         if( !isset($accessGranted) ) {
+            $module = ($module == 'Categories') ? 'KBContents' : $module;
             $accessGranted = parent::fieldACL($module, $action, $context);
         }
 
@@ -193,6 +195,7 @@ class SugarACLSupportPortal extends SugarACLStatic
         $accessGranted = $this->portalAccess($module, $action, $context);
 
         if( !isset($accessGranted) ) {
+            $module = ($module == 'Categories') ? 'KBContents' : $module;
             $accessGranted = parent::beanACL($module, $action, $context);
         }
 

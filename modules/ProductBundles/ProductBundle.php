@@ -88,10 +88,7 @@ class ProductBundle extends SugarBean
     }
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function ProductBundle()
     {
@@ -495,8 +492,8 @@ class ProductBundle extends SugarBean
      */
     protected static function compareProductOrNoteIndexAsc($obj1, $obj2)
     {
-        $firstValue = ($obj1 instanceof Product) ? $obj1->product_index : $obj1->note_index;
-        $secondValue = ($obj2 instanceof Product) ? $obj2->product_index : $obj2->note_index;
+        $firstValue = $obj1->position;
+        $secondValue = $obj2->position;
 
         if ($firstValue == $secondValue) {
             return 0;

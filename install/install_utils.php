@@ -13,6 +13,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once('include/utils/zip_utils.php');
 require_once('include/upload_file.php');
 
+use Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+use Sugarcrm\Sugarcrm\Util\Files\FileLoader;
+
 ////////////////
 ////  GLOBAL utility
 /**
@@ -84,9 +88,11 @@ function commitLanguagePack($uninstall=false) {
     global $base_upgrade_dir;
     global $base_tmp_upgrade_dir;
 
+    $request = InputValidation::getService();
+
     $errors         = array();
-    $manifest       = urldecode($_REQUEST['manifest']);
-    $zipFile        = urldecode($_REQUEST['zipFile']);
+    $manifest       = urldecode($request->getValidInputRequest('manifest'));
+    $zipFile        = urldecode($request->getValidInputRequest('zipFile'));
     $version        = "";
     $show_files     = true;
     $unzip_dir      = mk_temp_dir( $base_tmp_upgrade_dir );
@@ -94,7 +100,7 @@ function commitLanguagePack($uninstall=false) {
     $zip_to_dir     = ".";
     $zip_force_copy = array();
 
-    if($uninstall == false && isset($_SESSION['INSTALLED_LANG_PACKS']) && in_array($zipFile, $_SESSION['INSTALLED_LANG_PACKS'])) {
+    if($uninstall == false && isset($_SESSION['INSTALLED_LANG_PACKS']) && ArrayFunctions::in_array_access($zipFile, $_SESSION['INSTALLED_LANG_PACKS'])) {
         return;
     }
 
@@ -166,7 +172,7 @@ function commitLanguagePack($uninstall=false) {
         }
 
         // remove session entry
-        if(isset($_SESSION['INSTALLED_LANG_PACKS']) && is_array($_SESSION['INSTALLED_LANG_PACKS'])) {
+        if(isset($_SESSION['INSTALLED_LANG_PACKS']) && ArrayFunctions::is_array_access($_SESSION['INSTALLED_LANG_PACKS'])) {
             foreach($_SESSION['INSTALLED_LANG_PACKS'] as $k => $langPack) {
                 if($langPack == $zipFile) {
                     unset($_SESSION['INSTALLED_LANG_PACKS'][$k]);
@@ -377,8 +383,14 @@ function removeLanguagePack() {
     global $sugar_config;
 
     $errors = array();
-    $manifest = urldecode($_REQUEST['manifest']);
-    $zipFile = urldecode($_REQUEST['zipFile']);
+    installLog("remove language pack being called......");
+    // Safe $_REQUEST['manifest'] and $_REQUEST['zipFile']
+    $inputValidation = InputValidation::getService();
+    $manifestURL = $inputValidation->getValidInputRequest('manifest');
+    $zipFileURL = $inputValidation->getValidInputRequest('zipFile');
+
+    $manifest = urldecode($manifestURL);
+    $zipFile = urldecode($zipFileURL);
 
     if(isset($manifest) && !empty($manifest)) {
         if(is_file($manifest)) {
@@ -453,7 +465,7 @@ function uninstallLangPack() {
  */
 if ( !function_exists('getLanguagePackName') ) {
 function getLanguagePackName($the_file) {
-    require_once( "$the_file" );
+    $app_list_strings = FileLoader::varFromInclude($the_file, 'app_list_strings');
     if( isset( $app_list_strings["language_pack_name"] ) ){
         return( $app_list_strings["language_pack_name"] );
     }
@@ -792,7 +804,7 @@ function handleSugarConfig() {
 
     // add installed langs to config
     // entry in upgrade_history comes AFTER table creation
-    if(isset($_SESSION['INSTALLED_LANG_PACKS']) && is_array($_SESSION['INSTALLED_LANG_PACKS']) && !empty($_SESSION['INSTALLED_LANG_PACKS'])) {
+    if(isset($_SESSION['INSTALLED_LANG_PACKS']) && ArrayFunctions::is_array_access($_SESSION['INSTALLED_LANG_PACKS']) && !empty($_SESSION['INSTALLED_LANG_PACKS'])) {
         foreach($_SESSION['INSTALLED_LANG_PACKS'] as $langZip) {
             $lang = getSugarConfigLanguageArray($langZip);
             if(!empty($lang)) {
@@ -917,7 +929,9 @@ RedirectMatch 403 {$ignoreCase}/+custom/+blowfish
 RedirectMatch 403 {$ignoreCase}/+cache/+diagnostic
 RedirectMatch 403 {$ignoreCase}/+files\.md5$
 RedirectMatch 403 {$ignoreCase}/+composer\.(json|lock)
-RedirectMatch 403 {$ignoreCase}/+vendor/composer/
+RedirectMatch 403 {$ignoreCase}/+vendor/(?!ytree.*\.(css|js|gif|png))
+RedirectMatch 403 {$ignoreCase}/+bin/
+RedirectMatch 403 {$ignoreCase}/+src/
 RedirectMatch 403 {$ignoreCase}.*/\.git
 
 # Fix mimetype for logo.svg (SP-1395)
@@ -1000,10 +1014,12 @@ function handleHtaccess()
 
 /**
  * (re)write the web.config file to prevent browser access to the log file
+ *
+ * @param bool $iisCheck If upgrade running from CLI IIS_UrlRewriteModule not set. So for CliUpgrader can skip it
  */
-function handleWebConfig()
+function handleWebConfig($iisCheck = true)
 {
-    if ( !isset($_SERVER['IIS_UrlRewriteModule']) ) {
+    if (!isset($_SERVER['IIS_UrlRewriteModule']) && $iisCheck) {
         return;
     }
 
@@ -1095,11 +1111,15 @@ function handleWebConfig()
 
     $xmldoc = new XMLWriter();
     $xmldoc->openURI('web.config');
+    echo "<p>Begin rebuilding web.config</p>\n";
     $xmldoc->setIndent(true);
     $xmldoc->setIndentString(' ');
     $xmldoc->startDocument('1.0','UTF-8');
+    echo "<p>Rebuilding UTF-8 document</p>\n";
     $xmldoc->startElement('configuration');
+    echo "<p>Rebuilding configuration element</p>\n";
         $xmldoc->startElement('system.webServer');
+        echo "<p>Rebuilding system.webServer element</p>\n";
             $xmldoc->startElement('security');
                 $xmldoc->startElement('requestFiltering');
                     $xmldoc->startElement('requestLimits');
@@ -1108,6 +1128,7 @@ function handleWebConfig()
                 $xmldoc->endElement();
             $xmldoc->endElement();
             $xmldoc->startElement('rewrite');
+            echo "<p>Rebuilding rewrite element</p>\n";
                 $xmldoc->startElement('rules');
                 for ($i = 0; $i < count($redirect_config_array); $i++) {
                     $xmldoc->startElement('rule');
@@ -1165,6 +1186,7 @@ function handleWebConfig()
                 $xmldoc->endElement();
             $xmldoc->endElement();
             $xmldoc->startElement('caching');
+            echo "<p>Rebuilding caching element</p>\n";
                 $xmldoc->startElement('profiles');
                     $xmldoc->startElement('remove');
                         $xmldoc->writeAttribute('extension', ".php");
@@ -1172,6 +1194,7 @@ function handleWebConfig()
                 $xmldoc->endElement();
             $xmldoc->endElement();
             $xmldoc->startElement('staticContent');
+            echo "<p>Rebuilding staticContent element</p>\n";
                 $xmldoc->startElement("clientCache");
                     $xmldoc->writeAttribute('cacheControlMode', 'UseMaxAge');
                     $xmldoc->writeAttribute('cacheControlMaxAge', '30.00:00:00');
@@ -1181,6 +1204,7 @@ function handleWebConfig()
     $xmldoc->endElement();
     $xmldoc->endDocument();
     $xmldoc->flush();
+    echo "<p>web.config is rebuilt</p>\n";
 }
 
 /**
@@ -1320,9 +1344,8 @@ function insert_default_settings(){
     $system_id = $system->retrieveNextKey(false, true);
     $db->query( "INSERT INTO config (category, name, value) VALUES ( 'system', 'system_id', '" . $system_id . "')" );
 
-
     $db->query( "INSERT INTO config (category, name, value) VALUES ( 'system', 'skypeout_on', '1')" );
-    $db->query( "INSERT INTO config (category, name, value) VALUES ( 'system', 'tweettocase_on', '0')" );
+    $db->query( "INSERT INTO config (category, name, value) VALUES ( 'system', 'tweettocase_on', '0' )");
 
 }
 
@@ -2303,7 +2326,6 @@ function addDefaultRoles($defaultRoles = array()) {
 
 
     foreach($defaultRoles as $roleName=>$role){
-        $ACLField = new ACLField();
         $role1= new ACLRole();
         $role1->name = $roleName;
         $role1->description = $roleName." Role";
@@ -2312,7 +2334,7 @@ function addDefaultRoles($defaultRoles = array()) {
             foreach($actions as $name=>$access_override){
                 if($name=='fields'){
                     foreach($access_override as $field_id=>$access){
-                        $ACLField->setAccessControl($category, $role1_id, $field_id, $access);
+                        ACLField::setAccessControl($category, $role1_id, $field_id, $access);
                     }
                 }else{
                     $queryACL="SELECT id FROM acl_actions where category='$category' and name='$name'";
@@ -2398,4 +2420,15 @@ function handleMissingSmtpServerSettingsNotifications()
     $notification->severity = 'warning';
     $notification->assigned_user_id = $user->id;
     $notification->save();
+}
+
+/**
+ * Formats license text as HTML
+ *
+ * @param string $text Text
+ * @return string HTML
+ */
+function formatLicense($text)
+{
+    return preg_replace('/https?:\/\/\S*(?<!\.)/', '<a href="${0}" target="_blank">${0}</a>', $text);
 }

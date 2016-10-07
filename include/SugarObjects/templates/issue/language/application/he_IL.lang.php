@@ -9,13 +9,6 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
- * Hebrew vertion by:
- * Menahem Lurie Consultancy and IT Management,SugarCRM partner - Israel
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * *******************************************************************************/
-
 /*
  * Created on Aug 14, 2007
  *
@@ -27,18 +20,18 @@ $object_name = strtolower($object_name);
 
   $object_name.'_type_dom' =>
   array (
-  	'Administration' => 'ניהול מערכת',
+  	'Administration' => 'Administration',
     'Product' => 'מוצר',
     'User' => 'משתמש',
   ),
    $object_name.'_status_dom' =>
   array (
     'New' => 'חדש',
-    'Assigned' => 'הוקצה',
+    'Assigned' => 'הוקצו',
     'Closed' => 'נסגר',
     'Pending Input' => 'קלט תלוי ועומד',
     'Rejected' => 'נדחה',
-    'Duplicate' => 'שוכפל',
+    'Duplicate' => 'שכפל',
   ),
   $object_name.'_priority_dom' =>
   array (
@@ -50,10 +43,10 @@ $object_name = strtolower($object_name);
   array (
   	'' => '',
   	'Accepted' => 'התקבל',
-    'Duplicate' => 'שוכפל',
+    'Duplicate' => 'שכפל',
     'Closed' => 'נסגר',
     'Out of Date' => 'לא רלוונטי',
-    'Invalid' => 'לא חוקי',
+    'Invalid' => 'לא תקין',
   ),
   );
-
+?>

@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-06 15:20:01
+// created: 2016-10-07 09:55:44
 $listViewDefs['Quotes'] = array (
   'QUOTE_NUM' => 
   array (
@@ -82,5 +82,15 @@ $listViewDefs['Quotes'] = array (
     array (
       0 => 'team_id',
     ),
+  ),
+  'TOTAL' => 
+  array (
+    'width' => '10',
+    'label' => 'LBL_LIST_AMOUNT',
+    'link' => false,
+    'default' => false,
+    'currency_format' => true,
+    'align' => 'right',
+    'sortable' => false,
   ),
 );

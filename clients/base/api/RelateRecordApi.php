@@ -175,7 +175,7 @@ class RelateRecordApi extends SugarApi
     function getRelatedRecord($api, $args) {
         $primaryBean = $this->loadBean($api, $args);
         
-        list($linkName, $relatedBean) = $this->checkRelatedSecurity($api, $args, $primaryBean, 'view','view');
+        list($linkName, $relatedBean) = $this->checkRelatedSecurity($api, $args, $primaryBean, 'view', 'view');
 
         $related = array_values($primaryBean->$linkName->getBeans(array(
             'where' => array(
@@ -184,12 +184,19 @@ class RelateRecordApi extends SugarApi
                 'rhs_value' => $args['remote_id'],
             )
         )));
-        if ( empty($related[0]->id) ) {
-            // Retrieve failed, probably doesn't have permissions
-            throw new SugarApiExceptionNotFound('Could not find the related bean');
+
+        if (!empty($related[0]->id)) {
+            $relatedBean = $related[0];
+        } else {
+            // fall back to manual retrieval in case if the newly created bean is not related to the primary one
+            if (!$relatedBean->retrieve($args['remote_id'])) {
+                // Retrieve failed, probably doesn't have permissions
+                throw new SugarApiExceptionNotFound('Could not find the related bean');
+            }
+
         }
 
-        return $this->formatBean($api, $args, $related[0]);
+        return $this->formatBean($api, $args, $relatedBean);
         
     }
 
@@ -219,17 +226,7 @@ class RelateRecordApi extends SugarApi
 
         $args['remote_id'] = $relatedBean->id;
 
-        // bypass ACL and team security check in order to be able to return the result
-        $relatedBean = $this->loadBean($api, array(
-            'module' => $relatedBean->module_name,
-            'record' => $relatedBean->id,
-        ), 'view', array(
-            'use_cache' => false,
-            'disable_row_level_security' => true,
-        ));
-        $relatedArray = $this->formatBean($api, $args, $relatedBean, array(
-            'display_acl' => true,
-        ));
+        $relatedArray = $this->getRelatedRecord($api, $args);
 
         return $this->formatNearAndFarRecords($api, $args, $primaryBean, $relatedArray);
     }
@@ -350,7 +347,9 @@ class RelateRecordApi extends SugarApi
         BeanFactory::registerBean($relatedBean);
 
         // updateBean may remove the relationship. see PAT-337 for details
-        $id = $this->updateBean($relatedBean, $api, $args);
+        $this->updateBean($relatedBean, $api, $args);
+        $relatedBean->retrieve($args['remote_id']);
+
         $relatedArray = array();
 
         // Make sure there is a related object
@@ -371,6 +370,14 @@ class RelateRecordApi extends SugarApi
                 $relatedData = $this->getRelatedFields($api, $args, $primaryBean, $linkName, $relatedBean);
                 // This function add() is actually 'addOrUpdate'. Here we use it for update only.
                 $primaryBean->$linkName->add(array($relatedBean),$relatedData);
+
+                // BR-2964, related objects are not populated
+                $primaryBean->$linkName->refreshRelationshipFields($relatedBean);
+
+                // BR-2937 The edit view cache issue for relate documents of a module
+                // nomad still needs this related array
+
+                $relatedArray = $this->formatBean($api, $args, $relatedBean);
             }
             // If the relationship has been removed, we don't need to update the relationship fields
             else {

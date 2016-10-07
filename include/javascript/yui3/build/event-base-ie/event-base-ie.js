@@ -5,6 +5,306 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-(function(){var e,t=YUI.Env,n=YUI.config,r=n.doc,i=r&&r.documentElement,s="onreadystatechange",o=n.pollInterval||40;i.doScroll&&!t._ieready&&(t._ieready=function(){t._ready()},
+(function() {
+
+var stateChangeListener,
+    GLOBAL_ENV   = YUI.Env,
+    config       = YUI.config,
+    doc          = config.doc,
+    docElement   = doc && doc.documentElement,
+    EVENT_NAME   = 'onreadystatechange',
+    pollInterval = config.pollInterval || 40;
+
+if (docElement.doScroll && !GLOBAL_ENV._ieready) {
+    GLOBAL_ENV._ieready = function() {
+        GLOBAL_ENV._ready();
+    };
+
 /*! DOMReady: based on work by: Dean Edwards/John Resig/Matthias Miller/Diego Perini */
-self!==self.top?(e=function(){r.readyState=="complete"&&(t.remove(r,s,e),t.ieready())},t.add(r,s,e)):t._dri=setInterval(function(){try{i.doScroll("left"),clearInterval(t._dri),t._dri=null,t._ieready()}catch(e){}},o))})(),YUI.add("event-base-ie",function(e,t){function n(){e.DOM2EventFacade.apply(this,arguments)}function r(t){var n=e.config.doc.createEventObject(t),i=r.prototype;return n.hasOwnProperty=function(){return!0},n.init=i.init,n.halt=i.halt,n.preventDefault=i.preventDefault,n.stopPropagation=i.stopPropagation,n.stopImmediatePropagation=i.stopImmediatePropagation,e.DOM2EventFacade.apply(n,arguments),n}var i=e.config.doc&&e.config.doc.implementation,s=e.config.lazyEventFacade,o={0:1,4:2,2:3},u={mouseout:"toElement",mouseover:"fromElement"},a=e.DOM2EventFacade.resolve,f={init:function(){n.superclass.init.apply(this,arguments);var t=this._event,r,i,s,u,f,l;this.target=a(t.srcElement),"clientX"in t&&!r&&0!==r&&(r=t.clientX,i=t.clientY,s=e.config.doc,u=s.body,f=s.documentElement,r+=f.scrollLeft||u&&u.scrollLeft||0,i+=f.scrollTop||u&&u.scrollTop||0,this.pageX=r,this.pageY=i),t.type=="mouseout"?l=t.toElement:t.type=="mouseover"&&(l=t.fromElement),this.relatedTarget=a(l||t.relatedTarget),this.which=this.button=t.keyCode||o[t.button]||t.button},stopPropagation:function(){this._event.cancelBubble=!0,this._wrapper.stopped=1,this.stopped=1},stopImmediatePropagation:function(){this.stopPropagation(),this._wrapper.stopped=2,this.stopped=2},preventDefault:function(e){this._event.returnValue=e||!1,this._wrapper.prevented=1,this.prevented=1}};e.extend(n,e.DOM2EventFacade,f),e.extend(r,e.DOM2EventFacade,f),r.prototype.init=function(){var e=this._event,t=this._wrapper.overrides,n=r._define,i=r._lazyProperties,s;this.altKey=e.altKey,this.ctrlKey=e.ctrlKey,this.metaKey=e.metaKey,this.shiftKey=e.shiftKey,this.type=t&&t.type||e.type,this.clientX=e.clientX,this.clientY=e.clientY,this.keyCode=this.charCode=e.keyCode,this.which=this.button=e.keyCode||o[e.button]||e.button;for(s in i)i.hasOwnProperty(s)&&n(this,s,i[s]);this._touch&&this._touch(e,this._currentTarget,this._wrapper)},r._lazyProperties={target:function(){return a(this._event.srcElement)},relatedTarget:function(){var e=this._event,t=u[e.type]||"relatedTarget";return a(e[t]||e.relatedTarget)},currentTarget:function(){return a(this._currentTarget)},wheelDelta:function(){var e=this._event;if(e.type==="mousewheel"||e.type==="DOMMouseScroll")return e.detail?e.detail*-1:Math.round(e.wheelDelta/80)||(e.wheelDelta<0?-1:1)},pageX:function(){var t=this._event,n=t.pageX,r,i,s;return n===undefined&&(r=e.config.doc,i=r.body&&r.body.scrollLeft,s=r.documentElement.scrollLeft,n=t.clientX+(s||i||0)),n},pageY:function(){var t=this._event,n=t.pageY,r,i,s;return n===undefined&&(r=e.config.doc,i=r.body&&r.body.scrollTop,s=r.documentElement.scrollTop,n=t.clientY+(s||i||0)),n}},r._define=function(e,t,n){function r(r){var i=arguments.length?r:n.call(this);return delete e[t],Object.defineProperty(e,t,{value:i,configurable:!0,writable:!0}),i}Object.defineProperty(e,t,{get:r,set:r,configurable:!0})};if(i&&!i.hasFeature("Events","2.0")){if(s)try{Object.defineProperty(e.config.doc.createEventObject(),"z",{})}catch(l){s=!1}e.DOMEventFacade=s?r:n}},"3.15.0",{requires:["node-base"]});
+// Internet Explorer: use the doScroll() method on the root element.
+// This isolates what appears to be a safe moment to manipulate the
+// DOM prior to when the document's readyState suggests it is safe to do so.
+    if (self !== self.top) {
+        stateChangeListener = function() {
+            if (doc.readyState == 'complete') {
+                GLOBAL_ENV.remove(doc, EVENT_NAME, stateChangeListener);
+                GLOBAL_ENV.ieready();
+            }
+        };
+        GLOBAL_ENV.add(doc, EVENT_NAME, stateChangeListener);
+    } else {
+        GLOBAL_ENV._dri = setInterval(function() {
+            try {
+                docElement.doScroll('left');
+                clearInterval(GLOBAL_ENV._dri);
+                GLOBAL_ENV._dri = null;
+                GLOBAL_ENV._ieready();
+            } catch (domNotReady) { }
+        }, pollInterval);
+    }
+}
+
+})();
+YUI.add('event-base-ie', function (Y, NAME) {
+
+/*
+ * Custom event engine, DOM event listener abstraction layer, synthetic DOM
+ * events.
+ * @module event
+ * @submodule event-base
+ */
+
+function IEEventFacade() {
+    // IEEventFacade.superclass.constructor.apply(this, arguments);
+    Y.DOM2EventFacade.apply(this, arguments);
+}
+
+/*
+ * (intentially left out of API docs)
+ * Alternate Facade implementation that is based on Object.defineProperty, which
+ * is partially supported in IE8.  Properties that involve setup work are
+ * deferred to temporary getters using the static _define method.
+ */
+function IELazyFacade(e) {
+    var proxy = Y.config.doc.createEventObject(e),
+        proto = IELazyFacade.prototype;
+
+    // TODO: necessary?
+    proxy.hasOwnProperty = function () { return true; };
+
+    proxy.init = proto.init;
+    proxy.halt = proto.halt;
+    proxy.preventDefault           = proto.preventDefault;
+    proxy.stopPropagation          = proto.stopPropagation;
+    proxy.stopImmediatePropagation = proto.stopImmediatePropagation;
+
+    Y.DOM2EventFacade.apply(proxy, arguments);
+
+    return proxy;
+}
+
+
+var imp = Y.config.doc && Y.config.doc.implementation,
+    useLazyFacade = Y.config.lazyEventFacade,
+
+    buttonMap = {
+        0: 1, // left click
+        4: 2, // middle click
+        2: 3  // right click
+    },
+    relatedTargetMap = {
+        mouseout: 'toElement',
+        mouseover: 'fromElement'
+    },
+
+    resolve = Y.DOM2EventFacade.resolve,
+
+    proto = {
+        init: function() {
+
+            IEEventFacade.superclass.init.apply(this, arguments);
+
+            var e = this._event,
+                x, y, d, b, de, t;
+
+            this.target = resolve(e.srcElement);
+
+            if (('clientX' in e) && (!x) && (0 !== x)) {
+                x = e.clientX;
+                y = e.clientY;
+
+                d = Y.config.doc;
+                b = d.body;
+                de = d.documentElement;
+
+                x += (de.scrollLeft || (b && b.scrollLeft) || 0);
+                y += (de.scrollTop  || (b && b.scrollTop)  || 0);
+
+                this.pageX = x;
+                this.pageY = y;
+            }
+
+            if (e.type == "mouseout") {
+                t = e.toElement;
+            } else if (e.type == "mouseover") {
+                t = e.fromElement;
+            }
+
+            // fallback to t.relatedTarget to support simulated events.
+            // IE doesn't support setting toElement or fromElement on generic
+            // events, so Y.Event.simulate sets relatedTarget instead.
+            this.relatedTarget = resolve(t || e.relatedTarget);
+
+            // which should contain the unicode key code if this is a key event.
+            // For click events, which is normalized for which mouse button was
+            // clicked.
+            this.which = // chained assignment
+            this.button = e.keyCode || buttonMap[e.button] || e.button;
+        },
+
+        stopPropagation: function() {
+            this._event.cancelBubble = true;
+            this._wrapper.stopped = 1;
+            this.stopped = 1;
+        },
+
+        stopImmediatePropagation: function() {
+            this.stopPropagation();
+            this._wrapper.stopped = 2;
+            this.stopped = 2;
+        },
+
+        preventDefault: function(returnValue) {
+            this._event.returnValue = returnValue || false;
+            this._wrapper.prevented = 1;
+            this.prevented = 1;
+        }
+    };
+
+Y.extend(IEEventFacade, Y.DOM2EventFacade, proto);
+
+Y.extend(IELazyFacade, Y.DOM2EventFacade, proto);
+IELazyFacade.prototype.init = function () {
+    var e         = this._event,
+        overrides = this._wrapper.overrides,
+        define    = IELazyFacade._define,
+        lazyProperties = IELazyFacade._lazyProperties,
+        prop;
+
+    this.altKey   = e.altKey;
+    this.ctrlKey  = e.ctrlKey;
+    this.metaKey  = e.metaKey;
+    this.shiftKey = e.shiftKey;
+    this.type     = (overrides && overrides.type) || e.type;
+    this.clientX  = e.clientX;
+    this.clientY  = e.clientY;
+    this.keyCode  = // chained assignment
+    this.charCode = e.keyCode;
+    this.which    = // chained assignment
+    this.button   = e.keyCode || buttonMap[e.button] || e.button;
+
+    for (prop in lazyProperties) {
+        if (lazyProperties.hasOwnProperty(prop)) {
+            define(this, prop, lazyProperties[prop]);
+        }
+    }
+
+    if (this._touch) {
+        this._touch(e, this._currentTarget, this._wrapper);
+    }
+};
+
+IELazyFacade._lazyProperties = {
+    target: function () {
+        return resolve(this._event.srcElement);
+    },
+    relatedTarget: function () {
+        var e = this._event,
+            targetProp = relatedTargetMap[e.type] || 'relatedTarget';
+
+        // fallback to t.relatedTarget to support simulated events.
+        // IE doesn't support setting toElement or fromElement on generic
+        // events, so Y.Event.simulate sets relatedTarget instead.
+        return resolve(e[targetProp] || e.relatedTarget);
+    },
+    currentTarget: function () {
+        return resolve(this._currentTarget);
+    },
+
+    wheelDelta: function () {
+        var e = this._event;
+
+        if (e.type === "mousewheel" || e.type === "DOMMouseScroll") {
+            return (e.detail) ?
+                (e.detail * -1) :
+                // wheelDelta between -80 and 80 result in -1 or 1
+                Math.round(e.wheelDelta / 80) || ((e.wheelDelta < 0) ? -1 : 1);
+        }
+    },
+
+    pageX: function () {
+        var e = this._event,
+            val = e.pageX,
+            doc, bodyScroll, docScroll;
+
+        if (val === undefined) {
+            doc = Y.config.doc;
+            bodyScroll = doc.body && doc.body.scrollLeft;
+            docScroll = doc.documentElement.scrollLeft;
+
+            val = e.clientX + (docScroll || bodyScroll || 0);
+        }
+
+        return val;
+    },
+    pageY: function () {
+        var e = this._event,
+            val = e.pageY,
+            doc, bodyScroll, docScroll;
+
+        if (val === undefined) {
+            doc = Y.config.doc;
+            bodyScroll = doc.body && doc.body.scrollTop;
+            docScroll = doc.documentElement.scrollTop;
+
+            val = e.clientY + (docScroll || bodyScroll || 0);
+        }
+
+        return val;
+    }
+};
+
+
+/**
+ * Wrapper function for Object.defineProperty that creates a property whose
+ * value will be calulated only when asked for.  After calculating the value,
+ * the getter wll be removed, so it will behave as a normal property beyond that
+ * point.  A setter is also assigned so assigning to the property will clear
+ * the getter, so foo.prop = 'a'; foo.prop; won't trigger the getter,
+ * overwriting value 'a'.
+ *
+ * Used only by the DOMEventFacades used by IE8 when the YUI configuration
+ * <code>lazyEventFacade</code> is set to true.
+ *
+ * @method _define
+ * @param o {DOMObject} A DOM object to add the property to
+ * @param prop {String} The name of the new property
+ * @param valueFn {Function} The function that will return the initial, default
+ *                  value for the property.
+ * @static
+ * @private
+ */
+IELazyFacade._define = function (o, prop, valueFn) {
+    function val(v) {
+        var ret = (arguments.length) ? v : valueFn.call(this);
+
+        delete o[prop];
+        Object.defineProperty(o, prop, {
+            value: ret,
+            configurable: true,
+            writable: true
+        });
+        return ret;
+    }
+    Object.defineProperty(o, prop, {
+        get: val,
+        set: val,
+        configurable: true
+    });
+};
+
+if (imp && (!imp.hasFeature('Events', '2.0'))) {
+    if (useLazyFacade) {
+        // Make sure we can use the lazy facade logic
+        try {
+            Object.defineProperty(Y.config.doc.createEventObject(), 'z', {});
+        } catch (e) {
+            useLazyFacade = false;
+        }
+    }
+
+    Y.DOMEventFacade = (useLazyFacade) ? IELazyFacade : IEEventFacade;
+}
+
+
+}, '3.15.0', {"requires": ["node-base"]});

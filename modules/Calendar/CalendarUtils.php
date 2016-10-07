@@ -298,6 +298,7 @@ class CalendarUtils
 
 	/**
 	 * Save repeat activities
+     * Invites are sent once for a Recurring Series (only when the Parent was saved)
 	 * @param SugarBean $bean
 	 * @param array $timeArray array of datetimes
 	 * @return array
@@ -346,8 +347,12 @@ class CalendarUtils
 		$qu_leads = array();
 		$arr = array();
 		$i = 0;
-		
+
         Activity::disable();
+
+        $calendarEvents = new CalendarEvents();
+        $bean->load_relationship('tag_link');
+        $parentTagBeans = $bean->tag_link->getBeans();
 
 		$clone = clone $bean;
 
@@ -366,9 +371,12 @@ class CalendarUtils
 			$clone->recurring_source = "Sugar";
 			$clone->repeat_parent_id = $id;
 			$clone->update_vcal = false;
+            $clone->send_invites = false;
 			$clone->save(false);
 
 			if($clone->id){
+                $clone->load_relationship('tag_link');
+                $calendarEvents->reconcileTags($parentTagBeans, $clone);
 				foreach($users_rel_arr as $user_id){
                     $qu_users[] = array(
                         'id' => create_guid(),

@@ -5,4 +5,52 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-YUI.add("datatype-xml-parse",function(e,t){e.mix(e.namespace("XML"),{parse:function(t){var n=null,r;return typeof t=="string"&&(r=e.config.win,r.ActiveXObject!==undefined?(n=new ActiveXObject("Microsoft.XMLDOM"),n.async=!1,n.loadXML(t)):r.DOMParser!==undefined?n=(new DOMParser).parseFromString(t,"text/xml"):r.Windows!==undefined&&(n=new Windows.Data.Xml.Dom.XmlDocument,n.loadXml(t))),n===null||n.documentElement===null||n.documentElement.nodeName==="parsererror",n}}),e.namespace("Parsers").xml=e.XML.parse,e.namespace("DataType"),e.DataType.XML=e.XML},"3.15.0");
+YUI.add('datatype-xml-parse', function (Y, NAME) {
+
+/**
+ * Parse XML submodule.
+ *
+ * @module datatype-xml
+ * @submodule datatype-xml-parse
+ * @for XML
+ */
+
+Y.mix(Y.namespace("XML"), {
+    /**
+     * Converts data to type XMLDocument.
+     *
+     * @method parse
+     * @param data {String} Data to convert.
+     * @return {XMLDocument} XML Document.
+     */
+    parse: function(data) {
+        var xmlDoc = null, win;
+        if (typeof data === "string") {
+            win = Y.config.win;
+            if (win.ActiveXObject !== undefined) {
+                xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                xmlDoc.async = false;
+                xmlDoc.loadXML(data);            
+            } else if (win.DOMParser !== undefined) {
+                xmlDoc = new DOMParser().parseFromString(data, "text/xml");            
+            } else if (win.Windows !== undefined) {
+                xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+                xmlDoc.loadXml(data);            
+            }
+        }
+
+        if (xmlDoc === null || xmlDoc.documentElement === null || xmlDoc.documentElement.nodeName === "parsererror") {
+        }
+
+        return xmlDoc;
+    }
+});
+
+// Add Parsers shortcut
+Y.namespace("Parsers").xml = Y.XML.parse;
+
+Y.namespace("DataType");
+Y.DataType.XML = Y.XML;
+
+
+}, '3.15.0');

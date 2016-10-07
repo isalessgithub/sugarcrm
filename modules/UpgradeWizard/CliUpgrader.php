@@ -77,9 +77,21 @@ class CliUpgrader extends UpgradeDriver
      */
     public function runStage($stage)
     {
-        $cmd = "{$this->context['php']} -f {$this->context['script']} -- " . $this->buildArgString(
-                array('stage' => $stage, 'all' => true)
-            );
+        $scriptPathInfo = pathinfo($this->context['script']);
+
+        $argsToBeIncludedInCommand = $this->buildArgString( array('stage' => $stage, 'all' => true) );
+
+        //Check if we're executing from a phar, if so we need to adjust the command executed
+        if(substr($scriptPathInfo['dirname'] , 0, strlen('phar://')) === 'phar://') {
+
+            $pharPath = substr($scriptPathInfo['dirname'] , strlen('phar://'));
+
+            $cmd = "{$this->context['php']} {$pharPath}" . $argsToBeIncludedInCommand;
+        }
+        else {
+            $cmd = "{$this->context['php']} -f {$this->context['script']} -- " . $argsToBeIncludedInCommand;
+        }
+
         $this->log("Running $cmd");
         passthru($cmd, $retcode);
         return ($retcode == self::STOP_SIGNAL) ? self::STOP_SIGNAL : ($retcode == 0);
@@ -230,8 +242,10 @@ eoq2;
             $this->context['autoconfirm'] = false;
         }
         $this->context['sendlog'] = !empty($this->context['sendlog']);
-        if ($this->context['zip_as_dir']) {
+        if ($this->context['zip_as_dir'] && !isset($this->context['extract_dir'])) {
             $this->context['extract_dir'] = $this->context['zip'];
+            $this->context['health_check_path'] =
+                realpath($this->context['extract_dir']) . self::DEFAULT_HEALTHCHECK_PATH;
         }
     }
 
@@ -259,6 +273,7 @@ eoq2;
             if (!file_exists("$zip/manifest.php")) {
                 return $this->error("$zip does not contain manifest.php");
             }
+            $this->context['extract_dir'] = $zip;
             $this->log("Using $zip as extracted ZIP directory");
             return true;
         }
@@ -404,7 +419,8 @@ eoq2;
     public function start()
     {
         global $argv;
-        $upgrader = new self();
+        $class = get_class($this);
+        $upgrader = new $class();
         $upgrader->parseArgs($argv);
         $upgrader->verifyArguments($argv);
         $upgrader->init();
@@ -574,9 +590,17 @@ eoq2;
         if (file_exists(dirname(__FILE__).'/SugarSystemInfo.php') && version_compare($sugar_version, '7.2.2', '<')) {
             require_once 'SugarSystemInfo.php';
         }
-        require_once 'SugarHeartbeatClient.php';
-        require_once 'HealthCheckClient.php';
-        require_once 'HealthCheckHelper.php';
+        
+        if (!class_exists('SugarHeartbeatClient')) {
+            require_once 'SugarHeartbeatClient.php';
+        }
+        if (!class_exists('HealthCheckClient')) {
+            require_once 'HealthCheckClient.php';
+        }
+        if (!class_exists('HealthCheckHelper')) {
+            require_once 'HealthCheckHelper.php';
+        }
+
         return HealthCheckHelper::getInstance();
     }
 

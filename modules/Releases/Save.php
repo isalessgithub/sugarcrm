@@ -11,11 +11,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: Save.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:
  ********************************************************************************/
 
-
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 
 
@@ -26,7 +26,7 @@ foreach($focus->column_fields as $field)
 {
 	if(isset($_REQUEST[$field]))
 	{
-		$focus->$field = $_REQUEST[$field];
+		$focus->$field = InputValidation::getService()->getValidInputRequest($field);
 
 	}
 }
@@ -35,8 +35,7 @@ foreach($focus->additional_column_fields as $field)
 {
 	if(isset($_REQUEST[$field]))
 	{
-		$value = $_REQUEST[$field];
-		$focus->$field = $value;
+		$focus->$field = InputValidation::getService()->getValidInputRequest($field);
 
 	}
 }

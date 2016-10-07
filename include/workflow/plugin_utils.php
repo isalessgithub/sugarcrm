@@ -11,8 +11,7 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
+// $Id: plugin_utils.php 51719 2009-10-22 17:18:00Z mitani $
 
 require_once('include/workflow/workflow_utils.php');
 	//workflow plugin utility functions
@@ -169,7 +168,7 @@ class SugarWorkflowPluginList
 			require_once $file;
 			if(class_exists($plugin_array["class"])) {
 				$plugin_class = new $plugin_array["class"]();
-			    return $plugin_class->$plugin_array["function"]($opt);
+                return $plugin_class->{$plugin_array['function']}($opt);
 			}
 		}
 		return null;

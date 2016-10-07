@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
@@ -24,7 +25,7 @@ class ViewEditConvert extends SugarView
 
     function __construct()
     {
-        parent::SugarView();
+        parent::__construct();
         global $current_user;
         if (!$current_user->isDeveloperForModule("Leads")) {
             die("Unauthorized Access to Administration");
@@ -96,6 +97,8 @@ class ViewEditConvert extends SugarView
                 $moduleDefaults[$mod] = $this->parser->getDefaultDefForModule($mod);
             }
         }
+
+        asort($displayModules);
         $smarty->assign('availableModules', $displayModules);
         $smarty->assign('moduleDefaults', $this->jsonHelper->encode($moduleDefaults));
 

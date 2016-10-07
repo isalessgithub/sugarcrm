@@ -13,6 +13,8 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once('modules/Reports/config.php');
 require_once('include/api/SugarApiException.php');
 
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+
 class Report
 {
     var $result;
@@ -96,6 +98,9 @@ class Report
     // this is a var not in metadata that is set to bypass the sugar_die calls used throughout this class
     public $fromApi = false;
 
+    // an empty bean
+    protected $moduleBean;
+
     /**
      *
      * Default visibility options
@@ -141,13 +146,35 @@ class Report
      */
     protected $group_order_by_arr = array();
 
-    function Report($report_def_str = '', $filters_def_str = '', $panels_def_str = '')
+    /**
+     *
+     * SugarBeans in JOIN
+     * @var array
+     */
+    public $extModules = array();
+
+    /**
+     * @var \Sugarcrm\Sugarcrm\Security\InputValidation\Request
+     */
+    protected $request;
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function Report()
+    {
+        self::__construct();
+    }
+
+    public function __construct($report_def_str = '', $filters_def_str = '', $panels_def_str = '')
     {
         global $current_user, $current_language, $app_list_strings;
         if (!isset($current_user) || empty($current_user)) {
 
             $current_user = BeanFactory::getBean('Users', '1');
         }
+
+        $this->request = InputValidation::getService();
 
         //Scheduled reports don't have $_REQUEST.
         if ((!isset($_REQUEST['module']) || $_REQUEST['module'] == 'Reports') && !defined('SUGAR_PHPUNIT_RUNNER')) {
@@ -159,7 +186,8 @@ class Report
 
         $this->report_max = (!empty($GLOBALS['sugar_config']['list_report_max_per_page']))
                 ? $GLOBALS['sugar_config']['list_report_max_per_page'] : 100;
-        $this->report_offset = (!empty($_REQUEST['report_offset'])) ? $_REQUEST['report_offset'] : 0;
+        $this->report_offset = (int) $this->request->getValidInputRequest('report_offset', null, 0);
+
         if ($this->report_offset < 0) $this->report_offset = 0;
         $this->time_date_obj = new TimeDate();
         $this->name = $mod_strings['LBL_UNTITLED'];
@@ -192,6 +220,7 @@ class Report
         }
         if (!empty($this->report_def['module'])) {
             $this->module = $this->report_def['module'];
+            $this->moduleBean = BeanFactory::getBean($this->module);
         }
         if (!empty($this->report_def['report_type'])) {
             $this->report_type = $this->report_def['report_type'];
@@ -829,11 +858,7 @@ class Report
     {
         // FIXME: needs DB-independent code here
         if ($limit) {
-            $start_offset = $this->report_offset;
-            if (!$this->db->supports('select_rows')) {
-                if ($start_offset > 0) $start_offset++;
-            }
-            $this->$result_name = $this->db->limitQuery($this->$query_name, $start_offset, $this->report_max, true,
+            $this->$result_name = $this->db->limitQuery($this->$query_name, $this->report_offset, $this->report_max, true,
                                                         "Error executing query ");
         } else {
             $this->$result_name = $this->db->query($this->$query_name, true, "Error executing query ");
@@ -1071,6 +1096,11 @@ class Report
         }
 
         $layout_def['type'] = $field_def['type'];
+
+        if (isset($field_def['precision'])) {
+            $layout_def['precision'] = $field_def['precision'];
+        }
+
         if (isset($field_def['rel_field'])) {
             $layout_def['rel_field'] = $field_def['rel_field'];
         }
@@ -1208,6 +1238,7 @@ class Report
         // Bug63958 Go back to using where clause team restrictions instead of INNER JOINS for performance reasons on SugarInternal
         $options = $this->visibilityOpts;
         $options['where_condition'] = true;
+        $options['action'] = 'list';
         $where_clause = $this->focus->addVisibilityWhere($where_clause, $options);
         $this->where = $where_clause;
     }
@@ -1456,8 +1487,7 @@ class Report
                         $do_id = 1;
                     }
                     // Bug 45019: don't add ID column if this column is the ID column
-                    // PAT-1008: add id column to select for summation query to make name column linkable
-                    if ($field_list_name != 'total_select_fields' && ($field_list_name != 'summary_select_fields' || $display_column['type'] == 'name') && $do_id) {
+                    if (($field_list_name != 'total_select_fields' && $field_list_name != 'summary_select_fields') && $do_id) {
                         $id_column['name'] = 'id';
                         $id_column['type'] = 'id';
                         $id_column['table_key'] = $display_column['table_key'];
@@ -1471,12 +1501,6 @@ class Report
                         $select_piece = $this->layout_manager->widgetQuery($id_column);
                         if (!$this->select_already_defined($select_piece, $field_list_name)) {
                             array_push($this->$field_list_name, $select_piece);
-                            // PAT-1008: add id column to group by since it's added to select for summation query. Required by non-mysql dbs
-                            if ($field_list_name == 'summary_select_fields') {
-                                $this->layout_manager->setAttribute('context', 'GroupBy');
-                                $this->group_by_arr[] = $this->layout_manager->widgetQuery($id_column);
-                                $this->layout_manager->setAttribute('context', 'Select');
-                            }
                         }
                     }
                 }
@@ -1872,6 +1896,13 @@ class Report
         $query .= $this->from . "\n";
 
         $where_auto = " " . $this->focus->table_name . ".deleted=0 \n";
+
+        foreach($this->extModules as $tableAlias => $extModule) {
+            if (isset($extModule->deleted)) {
+               $where_auto .= " AND " . $tableAlias . ".deleted=0 \n";             
+            }            
+        }
+        
         // Start ACL check
         global $current_user, $mod_strings;
         if (!is_admin($current_user)) {
@@ -2351,12 +2382,10 @@ class Report
                     }
                 } // if
                 
-                $module_bean = BeanFactory::getBean($this->module);
-                if (is_array($module_bean->field_defs)) {
-                    if (isset($module_bean->field_defs[$display_column['type']])) {
-                        if (isset($module_bean->field_defs[$display_column['type']]['options'])) {
-                            
-                            $trans_options = translate($module_bean->field_defs[$display_column['type']]['options']);
+                if (is_array($this->moduleBean->field_defs)) {
+                    if (isset($this->moduleBean->field_defs[$display_column['type']])) {
+                        if (isset($this->moduleBean->field_defs[$display_column['type']]['options'])) {
+                            $trans_options = translate($this->moduleBean->field_defs[$display_column['type']]['options']);
                                                         
                             if (isset($trans_options[$display_column['fields'][$field_name]])) {
                                 $display = $trans_options[$display_column['fields'][$field_name]];
@@ -2465,16 +2494,15 @@ class Report
             } // else
         }
 
-        if (empty($_REQUEST['record'])) {
-            $_REQUEST['record'] = -1;
-        }
+        $record = $this->request->getValidInputRequest('record', 'Assert\Guid', -1) ?: -1;
+        $assignedUserId = $this->request->getValidInputRequest('assigned_user_id', 'Assert\Guid');
 
         require_once('include/formbase.php');
         populateFromPost('', $saved_report);
 
         $result = $saved_report->save_report(
-            $_REQUEST['record'],
-            $_REQUEST['assigned_user_id'],
+            $record,
+            $assignedUserId,
             $report_name,
             $this->module,
             $report_type,
@@ -2488,6 +2516,19 @@ class Report
             $_REQUEST['record'] = $this->saved_report->id;
         }
         return $result;
+    }
+
+    /**
+     * Delete files cached by cache_modules_js()
+     * @param $user all if null
+     */
+    public static function clearCaches($user = null)
+    {
+        $md5 = !empty($user) ? '_'.md5($user->id) : '';
+
+        foreach (glob(sugar_cached('modules').'/modules_def_*'.$md5.'.js') as $file) {
+            unlink($file);
+        }
     }
 
     function cache_modules_def_js()
@@ -2505,7 +2546,7 @@ class Report
             $fileName = $file[0];
             $function = $file[1];
 
-            if (!isset($_SESSION['reports_cache']) || !file_exists($fileName)) {
+            if (!file_exists($fileName)) {
                 require_once('modules/Reports/templates/templates_modules_def_js.php');
 
                 ob_start();
@@ -2514,13 +2555,6 @@ class Report
 
                 if (is_writable(sugar_cached('modules/'))) {
                     file_put_contents($fileName, $data);
-                }
-
-                // Only set this if we're not being called from the home page.
-                // Charts on the home page go through this code as well and
-                // _SESSION hasn't been initialized completely and this causes errors with global vars.
-                if (!isset($_REQUEST['module']) || $_REQUEST['module'] != 'Home') {
-                    $_SESSION['reports_cache'] = true;
                 }
             }
         }
@@ -2609,6 +2643,8 @@ class Report
         } else if (!empty($this->selected_loaded_custom_links) && !empty($this->selected_loaded_custom_links[$field_def['secondary_table']])) {
             $secondaryTableAlias = $this->selected_loaded_custom_links[$field_def['secondary_table']]['join_table_alias'];
         }
+
+        $this->extModules[$secondaryTableAlias] = $extModule;
 
         if (isset($extModule->field_defs['name']['db_concat_fields'])) {
             $select_piece = db_concat($secondaryTableAlias, $extModule->field_defs['name']['db_concat_fields']);

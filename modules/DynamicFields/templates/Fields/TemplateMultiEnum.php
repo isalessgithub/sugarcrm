@@ -11,7 +11,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 require_once('modules/DynamicFields/templates/Fields/TemplateEnum.php');
-require_once('include/utils/array_utils.php');
 class TemplateMultiEnum extends TemplateEnum{
 	var $type = 'text';
 
@@ -119,7 +118,8 @@ class TemplateMultiEnum extends TemplateEnum{
 		return $def;
 	}
 
-	function get_db_default(){
+    public function get_db_default($modify = false)
+    {
     	return '';
 	}
 

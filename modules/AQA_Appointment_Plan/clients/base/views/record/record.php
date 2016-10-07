@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['AQA_Appointment_Plan']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -62,6 +63,11 @@ $viewdefs['AQA_Appointment_Plan']['base']['view']['record'] = array (
         array (
           'name' => 'appointment_qty',
           'label' => 'LBL_APPOINTMENT_QTY',
+        ),
+        5 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
         ),
       ),
     ),

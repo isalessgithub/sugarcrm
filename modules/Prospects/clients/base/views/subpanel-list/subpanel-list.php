@@ -24,7 +24,6 @@ $viewdefs['Prospects']['base']['view']['subpanel-list'] = array(
                 'last_name',
             ),
             'link' => true,
-          'css_class' => 'full-name',
           'label' => 'LBL_LIST_NAME',
           'enabled' => true,
           'default' => true,

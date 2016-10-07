@@ -17,7 +17,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 class SugarWidgetSubPanelEmailLink extends SugarWidgetField {
 
-	function displayList(&$layout_def) {
+    public function displayList($layout_def)
+    {
 		global $current_user;
 		global $beanList;
 		global $focus;
@@ -75,9 +76,9 @@ class SugarWidgetSubPanelEmailLink extends SugarWidgetField {
 			    );
                 if(isset($layout_def['fields']['FULL_NAME'])){
                     $composeData['parent_name'] = $layout_def['fields']['FULL_NAME'];
-                    $composeData['to_email_addrs'] = sprintf("%s <%s>", $layout_def['fields']['FULL_NAME'], $layout_def['fields']['EMAIL1']);
+                    $composeData['to_email_addrs'] = sprintf("%s <%s>", $layout_def['fields']['FULL_NAME'], $layout_def['fields']['EMAIL']);
                 } else {
-                    $composeData['to_email_addrs'] = $layout_def['fields']['EMAIL1'];
+                    $composeData['to_email_addrs'] = $layout_def['fields']['EMAIL'];
                 }
                 require_once('modules/Emails/EmailUI.php');
                 $eUi = new EmailUI();

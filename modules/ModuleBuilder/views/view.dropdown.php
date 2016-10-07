@@ -23,6 +23,7 @@ class ViewDropdown extends SugarView
         'view_module' => '',
         'dropdown_lang' => '',
         'dropdown_name' => '',
+        'dropdown_role' => '',
         'field' => '',
         'new' => false
     );
@@ -45,7 +46,18 @@ class ViewDropdown extends SugarView
     function display()
     {
         $ajax = new AjaxCompose();
-        $params = $this->parseArguments($_REQUEST);
+
+        $args = array(
+            'view_package' => $this->request->getValidInputRequest('view_package', 'Assert\ComponentName'),
+            'view_module' => $this->request->getValidInputRequest('view_module', 'Assert\ComponentName'),
+            'dropdown_lang' => $this->request->getValidInputRequest('dropdown_lang', 'Assert\Language'),
+            'dropdown_name' => $this->request->getValidInputRequest('dropdown_name', 'Assert\ComponentName'),
+            'dropdown_role' => $this->request->getValidInputRequest('dropdown_role', 'Assert\Guid'),
+            'field' => $this->request->getValidInputRequest('field'),
+            'new' => $this->request->getValidInputRequest('new'),
+        );
+
+        $params = $this->parseArguments($args);
         $smarty = $this->generateSmarty($params);
 
         if (isset($_REQUEST['refreshTree'])) {
@@ -137,14 +149,20 @@ class ViewDropdown extends SugarView
             $smarty->assign('options', $selected_dropdown);
         } else {
             $smarty->assign('ul_list', 'list = {}');
-            //we should try to find a name for this dropdown based on the field name.
-            //ensure this dropdown name does not already exist
-            $use_name = $params['field'] . '_list';
-            $i = 0;
-            while (isset($my_list_strings[$use_name])) {
-                $use_name = $params['field'] . '_' . ++$i;
+
+            if ($params['dropdown_name']) {
+                $dropdown_name = $params['dropdown_name'];
+            } else {
+                //we should try to find a name for this dropdown based on the field name.
+                //ensure this dropdown name does not already exist
+                $dropdown_name = $params['field'] . '_list';
+                $i = 0;
+                while (isset($my_list_strings[$dropdown_name])) {
+                    $dropdown_name = $params['field'] . '_' . ++$i;
+                }
             }
-            $smarty->assign('prepopulated_name', $use_name);
+
+            $smarty->assign('dropdown_name', $dropdown_name);
         }
 
         $smarty->assign('required_items', json_encode($required_items));
@@ -152,6 +170,8 @@ class ViewDropdown extends SugarView
         $smarty->assign('selected_lang', $params['dropdown_lang']);
         $smarty->assign('available_languages', get_languages());
         $smarty->assign('package_name', $package_name);
+        $smarty->assign('new', !empty($params['new']));
+
         return $smarty;
     }
 
@@ -163,9 +183,11 @@ class ViewDropdown extends SugarView
             $params['dropdown_lang'] = $GLOBALS['locale']->getAuthenticatedUserLanguage();
         }
 
-        if (empty($params['dropdown_name']) && !empty($params['field'])) {
-            $params['dropdown_name'] = $params['field'] . '_list';
+        if (empty($params['dropdown_name'])) {
             $params['new'] = true;
+            if (!empty($params['field'])) {
+                $params['dropdown_name'] = $params['field'] . '_list';
+            }
         }
 
         return $params;

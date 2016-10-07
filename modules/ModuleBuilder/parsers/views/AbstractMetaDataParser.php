@@ -69,6 +69,10 @@ abstract class AbstractMetaDataParser
         return $this->_paneldefs;
     }
 
+    public function getModuleName() {
+        return $this->_moduleName;
+    }
+
     function removeField ($fieldName)
     {
     	return false;
@@ -120,7 +124,9 @@ abstract class AbstractMetaDataParser
 		  ) // db and custom fields that aren't ID fields
           ||
           // exclude fields named *_name (just convention) and email1 regardless of their type
-          (isset($def['name']) && ($def['name'] === 'email1' || substr($def['name'], -5) === '_name')));
+          (isset($def['name']) && ($def['name'] === 'email1' || substr($def['name'], -5) === '_name'))
+            || (isset($def['type']) && ($def['type'] == 'file'))
+        );
     }
 
 	protected function _standardizeFieldLabels ( &$fielddefs )

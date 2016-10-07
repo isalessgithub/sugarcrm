@@ -60,7 +60,8 @@ var resources = new Array();
 <tr>
 <td>
 
-<form name="EditViewGrid" id="EditViewGrid" method="post" action="index.php" data-disablebwchaschanged="true">
+<form name="EditView" id="EditView" method="post" action="index.php">
+{sugar_csrf_form_token}
 <input type="hidden" name="module" value="Project" />
 <input type="hidden" name="record" value="{$ID}" />
 <input type="hidden" name="team_id" value="{$TEAM}" />
@@ -108,7 +109,7 @@ var resources = new Array();
 		<a title="{$MOD.LBL_MONTH_BUTTON}">{sugar_getimage name="ProjectMonth" ext=".gif" other_attributes="$attributes"}</img></a>
 	</span>
 
-	<input type="hidden" name="selected_view" id="selected_view" value="{$SELECTED_VIEW}" />
+    <input type="hidden" name="selected_view" id="selected_view" value="{$SELECTED_VIEW|escape:'html':'UTF-8'}" />
 	<select id="gridViewSelect" onChange="SUGAR.grid.changeView()">
 		<option value=0>{$MOD.LBL_FILTER_VIEW}...</option>
 		<option value=1>{$MOD.LBL_FILTER_ALL_TASKS}</option>
@@ -124,12 +125,12 @@ var resources = new Array();
 		<option value=11>{$MOD.LBL_FILTER_MY_UPCOMING_TASKS}</option>
 
 	</select>
-	<input {if $SELECTED_VIEW != 5 }style="display:none" {/if} type="input" {if $SELECTED_VIEW == 5} value="{$VIEW_FILTER_RESOURCE}"{/if} name="view_filter_resource" id="view_filter_resource" value="" />
+	<input {if $SELECTED_VIEW != 5 }style="display:none" {/if} type="input" {if $SELECTED_VIEW == 5} value="{$VIEW_FILTER_RESOURCE|escape:'html':'UTF-8'}"{/if} name="view_filter_resource" id="view_filter_resource" value="" />
 
 	<span id="view_filter_6_start_span" {if $SELECTED_VIEW != 6}style="display:none"{/if}>{$MOD.LBL_FILTER_DATE_RANGE_START}:</span>
-	<input name="view_filter_date_start" id="view_filter_date_start" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW != 6 } style="display:none" {/if} type="input" tabindex='2' size='11' maxlength='10' value='{$VIEW_FILTER_DATE_START}' />
+    <input name="view_filter_date_start" id="view_filter_date_start" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW != 6 } style="display:none" {/if} type="input" tabindex="2" size="11" maxlength="10" value="{$VIEW_FILTER_DATE_START|escape:'html':'UTF-8'}" />
 	<span id="view_filter_6_finish_span" {if $SELECTED_VIEW != 6}style="display:none"{/if}>{$MOD.LBL_FILTER_DATE_RANGE_FINISH}: </span>
-	<input name="view_filter_date_finish" id="view_filter_date_finish" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW !=  6 } style="display:none" {/if} type="input" tabindex='2' size='11' maxlength='10' value='{$VIEW_FILTER_DATE_FINISH}'/>
+    <input name="view_filter_date_finish" id="view_filter_date_finish" onblur="parseDate(this, '{$CALENDAR_DATEFORMAT}');" {if $SELECTED_VIEW !=  6 } style="display:none" {/if} type="input" tabindex="2" size="11" maxlength="10" value="{$VIEW_FILTER_DATE_FINISH|escape:'html':'UTF-8'}" />
 
 	{if $SELECTED_VIEW == 6}
 		<script type="text/javascript">
@@ -141,7 +142,7 @@ var resources = new Array();
 	{/if}
 	<span id="view_filter_button_span"></span>
 	{if $SELECTED_VIEW == 5 || $SELECTED_VIEW == 6}
-		<input class="button" type=button id="view_filter_button" value="{$MOD.LBL_FILTER_VIEW}" onclick="document.forms['EditViewGrid'].action.value='EditGridView';document.forms['EditViewGrid'].to_pdf.value	= '0';document.getElementById('EditViewGrid').submit();" />
+		<input class="button" type=button id="view_filter_button" value="{$MOD.LBL_FILTER_VIEW}" onclick="document.forms['EditView'].action.value='EditGridView';document.forms['EditView'].to_pdf.value	= '0';document.getElementById('EditView').submit();" />
 	{/if}
 	<span id="exportToPDFSpan">
 		<input class="button" type="button" name="button" value="{$MOD.LBL_EXPORT_TO_PDF}" onclick="SUGAR.grid.exportToPDF();"/>

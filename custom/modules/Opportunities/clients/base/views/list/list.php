@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:36:52
 $viewdefs['Opportunities']['base']['view']['list'] = array (
   'panels' => 
   array (
@@ -161,6 +162,12 @@ $viewdefs['Opportunities']['base']['view']['list'] = array (
           'readonly' => true,
           'sortable' => true,
           'width' => '5%',
+        ),
+        15 => 
+        array (
+          'name' => 'commit_stage',
+          'enabled' => true,
+          'default' => true,
         ),
       ),
     ),

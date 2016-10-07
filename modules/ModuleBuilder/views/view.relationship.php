@@ -35,11 +35,15 @@ class ViewRelationship extends SugarView
     {
         require_once 'modules/ModuleBuilder/parsers/relationships/AbstractRelationship.php';
         foreach ( AbstractRelationship::$definitionKeys as $key ) {
-            if (!empty($_REQUEST['ajaxLoad']) && in_array($key, array('label', 'rhs_label', 'lhs_label'))) {
-                continue;
-            }
             if (!empty($_REQUEST[$key])) {
-                $definition[$key] = $_REQUEST[$key];
+                $reqVal = $this->request->getValidInputRequest($key);
+                if (in_array($key, array('label', 'rhs_label', 'lhs_label'))) {
+                    if (empty($_REQUEST['ajaxLoad'])) {
+                        $definition[$key] = htmlspecialchars_decode($reqVal, ENT_QUOTES);
+                    }
+                } else {
+                    $definition[$key] = $reqVal;
+                }
             }
         }
         return $definition ;
@@ -50,39 +54,36 @@ class ViewRelationship extends SugarView
 
         global $locale;
 
-        if (!empty($_REQUEST['relationship_lang'])) {
-            $selected_lang = $_REQUEST['relationship_lang'];
-        } else {
+        $selected_lang = $this->request->getValidInputRequest('relationship_lang');
+        if (empty($selected_lang)) {
             $selected_lang = $locale->getAuthenticatedUserLanguage();
         }
+        $viewModule = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
+        $viewPackage = $this->request->getValidInputRequest('view_package', 'Assert\ComponentName');
 
         $this->smarty = new Sugar_Smarty();
         $ac = new AjaxCompose();
-        $this->fromModuleBuilder = isset($_REQUEST['MB']) || (!empty($_REQUEST['view_package']) && $_REQUEST['view_package'] != 'studio');
+        $this->fromModuleBuilder = isset($_REQUEST['MB']) || (!empty($viewPackage) && $viewPackage != 'studio');
         $this->smarty->assign ( 'fromModuleBuilder', $this->fromModuleBuilder );
 
         if (!$this->fromModuleBuilder) {
-            $module = StudioModuleFactory::getStudioModule($_REQUEST['view_module']);
-            $moduleName = $_REQUEST['view_module'];
+            $module = StudioModuleFactory::getStudioModule($viewModule);
+            $moduleName = $viewModule;
             $fields = $module->fields;
             require_once 'modules/ModuleBuilder/parsers/relationships/DeployedRelationships.php';
             $relatableModules = DeployedRelationships::findRelatableModules();
-            $appStrings = return_app_list_strings_language( $selected_lang);
-            $modStrings = return_module_language($selected_lang, $_REQUEST['view_module'], true );
-            $appStrings = $appStrings['moduleList'];
         } else {
             $mb = new ModuleBuilder();
             $mb->getPackages();
             //display the latest module name rather than what is in or not in the loaded app_list_strings.
-            $mb->getPackage($_REQUEST['view_package'])->loadModuleTitles();
-            $module = $mb->getPackageModule($_REQUEST['view_package'], $_REQUEST['view_module']);
+            $mb->getPackage($viewPackage)->loadModuleTitles();
+            $module = $mb->getPackageModule($viewPackage, $viewModule);
             $moduleName = empty($module->key_name) ? $module->getModuleName() : $module->key_name;
-            $this->smarty->assign('view_package', $_REQUEST['view_package']);
+            $this->smarty->assign('view_package', $viewPackage);
             $mbvardefs = $module->getVardefs();
             $fields = $mbvardefs['fields'];
             require_once 'modules/ModuleBuilder/parsers/relationships/UndeployedRelationships.php';
             $relatableModules = UndeployedRelationships::findRelatableModules();
-            $appStrings = $module->getModStrings($selected_lang);
         }
 
         ksort($relatableModules);
@@ -107,12 +108,13 @@ class ViewRelationship extends SugarView
             unset($cardinality[MB_MANYTOONE]);
         }
 
-        $relationships = $module->getRelationships();
+        $relationshipName = $this->request->getValidInputRequest('relationship_name', 'Assert\ComponentName');
+        $relationships = $module->getRelationships($relationshipName);
 
         // if a description for this relationship already exists, then load it so it can be modified
-        if (!empty($_REQUEST['relationship_name'])) {
-            $relationship = $relationships->get($_REQUEST['relationship_name']);
-            $relationship->setName($_REQUEST['relationship_name']);
+        if (!empty($relationshipName)) {
+            $relationship = $relationships->get($relationshipName);
+            $relationship->setName($relationshipName);
             $definition = $relationship->getDefinition();
             if (!$this->fromModuleBuilder) {
                 $modStrings = return_module_language($selected_lang, $relationship->rhs_module, true);
@@ -129,9 +131,10 @@ class ViewRelationship extends SugarView
                     $definition['rhs_label'] = isset($modStrings[$relationship->getTitleKey(true)])?$modStrings[$relationship->getTitleKey(true)] : $relationship->rhs_module;
                 }
             } else {
+                $reqRhsModule = $this->request->getValidInputRequest('rhs_module', 'Assert\ComponentName');
                 #30624
-                if (!empty($_REQUEST['rhs_module'])) {
-                    $definition['rhs_label'] = $_REQUEST['rhs_module'];
+                if (!empty($reqRhsModule)) {
+                    $definition['rhs_label'] = $reqRhsModule;
                 }
             }
         } else {
@@ -162,15 +165,14 @@ class ViewRelationship extends SugarView
         // list, then sort, and finally array_unshift it back on.
         natcasesort($rhs_subpanels);
 
-        if (empty($_REQUEST['relationship_name'])) {
+        if (empty($relationshipName)) {
             // tidy up the options for the view based on the modules participating 
             // in the relationship and the cardinality some modules 
-            // (e.g., Knowledge Base/KBDocuments) lack subpanels. That means they 
+            // (e.g., Knowledge Base/KBOLDDocuments) lack subpanels. That means they 
             // can't be the lhs of a 1-many or many-many, or the rhs of a 
             // many-many for example
 
             // fix up the available cardinality options
-            $relationship_type = $relationship->getType();
             if (count($lhs_subpanels) == 0 || count($rhs_subpanels) == 0) {
                 unset($cardinality[MB_MANYTOMANY]);
             }
@@ -210,7 +212,7 @@ class ViewRelationship extends SugarView
 
         // now enforce the relationship_only requirement - that is, only construct the underlying relationship and link fields, and not the UI, if the subpanel code will have troubles displaying the UI
         $relationships->enforceRelationshipOnly($relationship);
-        $this->smarty->assign('view_module', $_REQUEST['view_module']);
+        $this->smarty->assign('view_module', $viewModule);
         $this->smarty->assign('rel', $relationship->getDefinition());
         $this->smarty->assign('mod_strings', $GLOBALS['mod_strings']);
         $this->smarty->assign('module_key', $relationship->lhs_module);
@@ -223,7 +225,6 @@ class ViewRelationship extends SugarView
             // Clean up the relatable module name
             $relatable[$name] = $this->getModuleName($name);
         }
-        unset($relatable['KBDocuments']);
         natcasesort($relatable);
         $this->smarty->assign('relatable', array_keys($relatable));
         $this->smarty->assign('translated_relatable', $relatable);

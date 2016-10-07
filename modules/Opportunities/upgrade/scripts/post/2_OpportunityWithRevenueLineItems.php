@@ -15,9 +15,14 @@ class SugarUpgradeOpportunityWithRevenueLineItems extends UpgradeScript
 {
     public $order = 2050;
     public $version = "7.6.0.0";
-    public $type = self::UPGRADE_CORE;
 
     protected $validFlavors = array('ent', 'ult');
+
+    public function __construct($upgrader)
+    {
+        $this->type = self::UPGRADE_CUSTOM | self::UPGRADE_DB;
+        parent::__construct($upgrader);
+    }
 
     public function run()
     {
@@ -34,6 +39,7 @@ class SugarUpgradeOpportunityWithRevenueLineItems extends UpgradeScript
             StudioModuleFactory::clearModuleCache('Opportunities');
             // in the upgrade, we only want to do the metadata conversion
             $converter = new OpportunityWithRevenueLineItem();
+            $converter->setIsUpgrade(true);
             $converter->doMetadataConvert();
 
             // just on the off chance that the formula got put into a custom file, we need to make sure it contains
@@ -108,8 +114,8 @@ class SugarUpgradeOpportunityWithRevenueLineItems extends UpgradeScript
                                     WHEN rli.sales_stage = 'Closed Lost' THEN 0
                                     ELSE (rli.best_case/rli.base_rate)
                                   END AS best_case
-                           FROM   revenue_line_items AS rli
-                           WHERE  rli.deleted = 0) AS t
+                           FROM   revenue_line_items rli
+                           WHERE  rli.deleted = 0) t
                    GROUP  BY t.opportunity_id";
 
         $results = $this->db->query($sql);
@@ -118,7 +124,7 @@ class SugarUpgradeOpportunityWithRevenueLineItems extends UpgradeScript
                         amount=(%f*base_rate),
                         best_case=(%f*base_rate),
                         worst_case=(%f*base_rate)
-                    WHERE id = '%s'";
+                    WHERE id = '%s' and total_revenue_line_items != closed_revenue_line_items";
         while ($row = $this->db->fetchRow($results)) {
             $this->db->query(
                 sprintf(

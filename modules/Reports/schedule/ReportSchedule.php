@@ -18,19 +18,30 @@ class ReportSchedule{
 var $table_name='report_schedules';
     /** @var DBManager */
 var $db;
-function ReportSchedule(){
-	$this->db = DBManagerFactory::getInstance();
 
-}
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function ReportSchedule()
+    {
+        self::__construct();
+    }
+
+    public function __construct()
+    {
+        $this->db = DBManagerFactory::getInstance();
+    }
 
 /**
- * @deprecated deprecated since this syntax is only supported by MySQL
+ * This is deprecated since 7.7.0 and will be removed in 7.9.0.
+ * Please use SugarBean::drop_tables() instead.
  * @return void
- * TODO THIS FUNCTIONALITY SHOULD BE REMOVED AFTER CONVERSION TO SUGARBEAN USE
+ * @deprecated 7.7.0
+ * @see SugarBean::drop_tables
  */
-function drop_tables ()
+function drop_tables()
 {
-    // TODO This code should never be used
+    // FIXME TY-793: This code should never be used
     $query = 'DROP TABLE IF EXISTS '.$this->table_name;
     $this->db->query($query);
 }

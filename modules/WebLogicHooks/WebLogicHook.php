@@ -56,7 +56,7 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
         return array(1, $this->name, 'modules/WebLogicHooks/WebLogicHook.php', 'WebLogicHook', 'dispatchRequest', $this->id);
     }
 
-    public function save()
+    public function save($check_notify = false)
     {
         $hook = $this->getActionArray();
         if (!empty($this->fetched_row)) {
@@ -65,7 +65,7 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
             $oldhook[3] = 'WebLogicHook';
             remove_logic_hook($this->webhook_target_module, $this->trigger_event, $oldhook);
         }
-        parent::save();
+        parent::save($check_notify);
         $hook[5] = $this->id;
         check_logic_hook_file($this->webhook_target_module, $this->trigger_event, $hook);
     }
@@ -96,6 +96,7 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
         $job->status = SchedulersJob::JOB_STATUS_QUEUED;
         $job->target = 'class::' . get_class($this);
         $job->data = serialize($jobData);
+        $job->execute_time = $GLOBALS['timedate']->nowDb();
         $job->save();
     }
 
@@ -166,6 +167,8 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
 
     private function formatRequestData(SugarBean $bean, $event, array $arguments)
     {
+        global $current_user;
+
         $data = array();
         $sfh = new SugarFieldHandler();
 
@@ -183,6 +186,7 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
             ));
 
             $service = new RestService();
+            $service->user = $current_user;
             foreach ($fieldList as $fieldName => $properties) {
                 $fieldType = !empty($properties['custom_type']) ? $properties['custom_type'] : $properties['type'];
                 $field = $sfh->getSugarField($fieldType);
@@ -192,10 +196,25 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
             }
         }
 
-        $arguments['data'] = $data;
+        $arguments['data'] = $this->decodeHTML($data);
+        $arguments['dataChanges'] = $this->decodeHTML($arguments['dataChanges']);
         $arguments['event'] = $event;
 
         return $arguments;
     }
 
+    private function decodeHTML($data)
+    {
+        $returnData = array();
+
+        $db = DBManagerFactory::getInstance();
+        foreach ($data as $key => $value) {
+            $returnData[$key] = $db->decodeHTML($value);
+            if (is_array($value)) {
+                $returnData[$key] = $this->decodeHTML($value);
+            }
+        }
+
+        return $returnData;
+    }
 }

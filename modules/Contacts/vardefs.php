@@ -128,6 +128,7 @@ $dictionary['Contact'] = array(
             'options' => 'opportunity_relationship_type_dom',
             'link' => 'opportunities',
             'rname_link' => 'contact_role',
+            'massupdate' => false
         ),
         'reports_to_id' => array(
             'name' => 'reports_to_id',
@@ -271,8 +272,7 @@ $dictionary['Contact'] = array(
         'products' => array(
             'name' => 'products',
             'type' => 'link',
-            'link_file' => 'modules/Products/AccountLink.php',
-            'link_class' => 'AccountLink',
+            'rname' => array('first_name', 'last_name'),
             'relationship' => 'contact_products',
             'source' => 'non-db',
             'vname' => 'LBL_PRODUCTS_TITLE',
@@ -816,3 +816,16 @@ VardefManager::createVardef(
     'Contacts',
     'Contact'
 );
+
+//boost value for full text search
+$dictionary['Contact']['fields']['first_name']['full_text_search']['boost'] = 1.99;
+$dictionary['Contact']['fields']['last_name']['full_text_search']['boost'] = 1.97;
+$dictionary['Contact']['fields']['email']['full_text_search']['boost'] = 1.95;
+$dictionary['Contact']['fields']['phone_home']['full_text_search']['boost'] = 1.10;
+$dictionary['Contact']['fields']['phone_mobile']['full_text_search']['boost'] = 1.09;
+$dictionary['Contact']['fields']['phone_work']['full_text_search']['boost'] = 1.08;
+$dictionary['Contact']['fields']['phone_other']['full_text_search']['boost'] = 1.07;
+$dictionary['Contact']['fields']['phone_fax']['full_text_search']['boost'] = 1.06;
+$dictionary['Contact']['fields']['description']['full_text_search']['boost'] = 0.71;
+$dictionary['Contact']['fields']['primary_address_street']['full_text_search']['boost'] = 0.33;
+$dictionary['Contact']['fields']['alt_address_street']['full_text_search']['boost'] = 0.32;

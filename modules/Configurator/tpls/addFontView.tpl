@@ -15,7 +15,8 @@
 {$MODULE_TITLE}
 </p>
 <form name="addFontView" enctype='multipart/form-data' method="POST" action="index.php?action=addFont&module=Configurator" onSubmit="return (check_form('addFontView'));">
-<span class='error'>{$error}</span>
+{sugar_csrf_form_token}
+<span class='error'>{$error|escape:'html':'UTF-8'}</span>
 <br>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
     <tr>

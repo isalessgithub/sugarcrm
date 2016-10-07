@@ -10,6 +10,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
+
 $GLOBALS['studioReadOnlyFields'] = array('date_entered'=>1, 'date_modified'=>1, 'created_by'=>1, 'id'=>1, 'modified_user_id'=>1);
 class TemplateField{
 	/*
@@ -99,6 +103,24 @@ class TemplateField{
         'dependency' => 'dependency',
         'related_fields' => 'related_fields',
 	);
+
+    /**
+     * Optional custom validation for fields being used by
+     * `TemplateField::populateFromPost`. By default no explicit constraint is
+     * used which implies scalar values for every post field. Every template
+     * can attach their own validators for fields which require more specific
+     * validation or where the default validation does not apply.
+     *
+     * @var array
+     */
+    protected $vardefMapValidation = array(
+        'full_text_search' => array(
+            'Assert\All' => array(
+                'constraints' => array('Assert\Type' => array('type' => 'string')),
+            ),
+        ),
+    );
+
     // Bug #48826
     // fields to decode from post request
     var $decode_from_request_fields_map = array('formula', 'dependency');
@@ -275,48 +297,34 @@ class TemplateField{
 		return $req;
 	}
 
-	/*	function get_db_required($modify=false){
-		$GLOBALS['log']->debug('get_db_required required='.$this->required." and ".(($modify)?"true":"false")." and ".print_r($this->new_field_definition,true));
-		if ($modify) {
-		if (!empty($this->new_field_definition['required'])) {
-		if ($this->required and $this->new_field_definition['required'] != $this->required) {
-		return " null ";
-		}
-		return "";
-		}
-		}
-		if (empty($this->new_field_definition['required']) or $this->new_field_definition['required'] != $this->required ) {
-		if(!empty($this->required) && $this->required){
-		return " NOT NULL";
-		}
-		}
-		return '';
-		}
-		*/
-	/**
-	 * Oracle Support: do not set required constraint if no default value is supplied.
-	 * In this case the default value will be handled by the application/sugarbean.
-	 */
-	function get_db_add_alter_table($table)
-	{
-		return $GLOBALS['db']->getHelper()->addColumnSQL($table, $this->get_field_def(), true);
-	}
+    /**
+     * Oracle Support: do not set required constraint if no default value is supplied.
+     * In this case the default value will be handled by the application/sugarbean.
+     */
+    public function get_db_add_alter_table($table)
+    {
+        $db = DBManagerFactory::getInstance();
+        return $db->addColumnSQL($table, $this->get_field_def(), true);
+    }
 
-	function get_db_delete_alter_table($table)
-	{
-		return $GLOBALS['db']->getHelper()->dropColumnSQL(
-		$table,
-		$this->get_field_def()
-		);
-	}
+    public function get_db_delete_alter_table($table)
+    {
+        $db = DBManagerFactory::getInstance();
+        return $db->dropColumnSQL(
+            $table,
+            $this->get_field_def()
+        );
+    }
 
-	/**
-	 * mysql requires the datatype caluse in the alter statment.it will be no-op anyway.
-	 */
-	function get_db_modify_alter_table($table){
-		return $GLOBALS['db']->alterColumnSQL($table, $this->get_field_def());
-	}
-
+    /**
+     * mysql requires the datatype clause in the alter statement.
+     * It will be no-op anyway.
+     */
+    public function get_db_modify_alter_table($table)
+    {
+        $db = DBManagerFactory::getInstance();
+        return $db->alterColumnSQL($table, $this->get_field_def());
+    }
 
 	/*
 	 * BEAN FUNCTIONS
@@ -500,27 +508,36 @@ class TemplateField{
         }
     }
 
-	function populateFromPost(){
-		foreach($this->vardef_map as $vardef=>$field){
+    /**
+     * Populates object from request
+     *
+     * @param Request $request
+     */
+    public function populateFromPost(Request $request = null)
+    {
+        if (!$request) {
+            $request = InputValidation::getService();
+        }
 
-			if(isset($_REQUEST[$vardef])){		    
-                $this->$vardef = $_REQUEST[$vardef];
-
-                //  Bug #48826. Some fields are allowed to have special characters and must be decoded from the request
+        foreach ($this->vardef_map as $vardef => $field) {
+            $constraints = isset($this->vardefMapValidation[$field]) ?
+                $this->vardefMapValidation[$field]
+                : null;
+            $value = $request->getValidInputRequest($vardef, $constraints);
+            if ($value !== null) {
+                // Bug #48826. Some fields are allowed to have special characters and must be decoded from the request
                 // Bug 49774, 49775: Strip html tags from 'formula' and 'dependency'.
-                if (is_string($this->$vardef) && in_array($vardef, $this->decode_from_request_fields_map))
-                {
-                    $this->$vardef = html_entity_decode(strip_tags(from_html($this->$vardef)));
+                if (is_string($value) && in_array($vardef, $this->decode_from_request_fields_map)) {
+                    $this->$vardef = strip_tags($value);
+                } else {
+                    $this->$vardef = $value;
                 }
-
 
                 //Remove potential xss code from help field
                 if($field == 'help' && !empty($this->$vardef))
                 {
-                    $help = htmlspecialchars_decode($this->$vardef, ENT_QUOTES);
-                    $this->$vardef = htmlentities(remove_xss($help));
+                    $this->$vardef = htmlentities(remove_xss($this->$vardef));
                 }
-
 
 				if($vardef != $field){
 					$this->$field = $this->$vardef;
@@ -546,9 +563,21 @@ class TemplateField{
             $this->duplicate_merge_dom_value = 0;
         }
 
-        if(!empty($this->full_text_search))
-        {
-            $this->full_text_search['enabled'] = ($this->full_text_search['boost'] != 0);
+        // Handle full_text_search configuration
+        if (!empty($this->full_text_search)) {
+
+            // configure correct enabled/searchable flags
+            switch ($this->full_text_search['enabled']) {
+                case '2':
+                    $this->full_text_search['enabled'] = true;
+                    $this->full_text_search['searchable'] = true;
+                    break;
+                default:
+                    // only set value for searchable, no set for enabled! see BR-2852
+                    $this->full_text_search['searchable'] = false;
+            }
+
+
         }
     }
 
@@ -568,7 +597,7 @@ class TemplateField{
      *
      * @param String $module The name of the module
      * @param String $name The field name key
-     * @return The field name for the module
+     * @return string The field name for the module
      */
     protected function get_field_name($module, $name)
     {
@@ -626,6 +655,3 @@ class TemplateField{
     }
 
 }
-
-
-

@@ -11,7 +11,7 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
+// $Id: action_utils.php 56841 2010-06-05 00:44:19Z smalyshev $
 
 include_once('include/workflow/workflow_utils.php');
 include_once('include/workflow/field_utils.php');
@@ -163,6 +163,11 @@ function process_action_update_rel($focus, $action_array){
 				$new_value = process_advanced_actions($focus, $field, $meta_array, $rel_object);
 				$rel_object->$field = $new_value;
 			}
+            if (!empty($focus->shipping_account_id) && $focus->shipping_account_id == $rel_object->id) {
+                $rel_object->not_use_rel_in_req = true;
+                $rel_object->new_rel_id = $focus->id;
+                $rel_object->new_rel_relname = strtolower($focus->module_dir) . "_shipto";
+            }
             $rel_object->in_workflow = true;
             if($old_owner != $rel_object->assigned_user_id) $check_notify = true;
             if(!empty($_REQUEST['massupdate']) && $_REQUEST['massupdate']=='true') $check_notify = false;//if in a massupdate, the notification will not be sent, because it will take a long time.
@@ -242,15 +247,60 @@ function process_action_new($focus, $action_array){
     $target_module->not_use_rel_in_req = true;
     $target_module->new_rel_relname = $seed_object->rel_name;
     $target_module->new_rel_id = $focus->id;
-    if (!empty($focus->assigned_user_id) && empty($target_module->assigned_user_id)) {
-        $target_module->assigned_user_id = $focus->assigned_user_id;
+
+    // If the assigned_user_id isn't set by the workflow
+    if (empty($target_module->assigned_user_id)) {
+        // Assign current_user to the newly created record
+        $target_module->assigned_user_id = $GLOBALS['current_user']->id;
+        // If there is no current_user for some reason, use the assigned_user_id of the related record
+        if (empty($target_module->assigned_user_id) && !empty($focus->assigned_user_id)) {
+            $target_module->assigned_user_id = $focus->assigned_user_id;
+        }
     }
-	$target_module->save($check_notify);
+
+    // Not all beans should be saved, particularly when a workflow has already
+    // been triggered by a related save that has completed, but a related related
+    // save fires one again
+    $shouldSave = should_save_new_bean($focus, $action_array);
+    if ($shouldSave) {
+        $target_module->save($check_notify);
+        // Mark the focus bean so that it doesn't fire again downstream
+        mark_trigger_bean_with_trigger_id($focus, $action_array);
+    }
 
 //end function_action_new
 }
 
+/**
+ * Determines the save state of a bean created during a workflow process
+ * @param SugarBean $focus The primary bean
+ * @param Array $action_array The actions array that contains the meta for the workflow
+ * @return boolean
+ */
+function should_save_new_bean($focus, $action_array)
+{
+    if (!empty($action_array['trigger_id'])) {
+        if (isset($focus->workflow_trigger_guid) && $focus->workflow_trigger_guid == $action_array['trigger_id']) {
+            return false;
+        }
+    }
 
+    return true;
+}
+
+/**
+ * Marks a primary bean so that it doesn't save a second record in related realted
+ * workflows
+ * @param SugarBean $focus The primary bean
+ * @param Array $action_array The actions array that contains the meta for the workflow
+ * @return boolean
+ */
+function mark_trigger_bean_with_trigger_id($focus, $action_array)
+{
+    if (!empty($action_array['trigger_id'])) {
+        $focus->workflow_trigger_guid = $action_array['trigger_id'];
+    }
+}
 
 function process_action_new_rel($focus, $action_array){
 

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: Expression.php 53409 2010-01-04 03:31:15Z roger $
+
  * Description:
  ********************************************************************************/
 
@@ -143,10 +143,7 @@ class Expression extends SugarBean {
 	var $required_fields =  array();
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Expression()
     {
@@ -167,7 +164,7 @@ class Expression extends SugarBean {
 		return "$this->name";
 	}
 
-	function save_relationship_changes($is_update)
+    public function save_relationship_changes($is_update, $exclude = array())
     {
     }
 
@@ -262,7 +259,7 @@ class Expression extends SugarBean {
 					$temp_module = BeanFactory::getBean($dom_name);
 					$temp_module->call_vardef_handler("rel_filter");
 
-					$select_array = $temp_module->vardef_handler->get_vardef_array(true, true, true, true);
+                    $select_array = $temp_module->vardef_handler->get_vardef_array(true, true, false, false);
 			}
 			else if($meta_filter_name == "singular"){
 				$select_array = convert_module_to_singular(get_module_map(false));

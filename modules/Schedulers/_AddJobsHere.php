@@ -42,12 +42,16 @@ $job_strings = array (
 	7 => 'processQueue',
     9 => 'updateTrackerSessions',
     12 => 'sendEmailReminders',
-    13 => 'performFullFTSIndex',
     15 => 'cleanJobQueue',
     //Add class to build additional TimePeriods as necessary
     16 => 'class::SugarJobCreateNextTimePeriod',
     17 => 'class::SugarJobHeartbeat',
     20 => 'cleanOldRecordLists',
+    21 => 'class::SugarJobRemovePdfFiles',
+    22 => 'class::SugarJobKBContentUpdateArticles',
+    23 => 'class::\Sugarcrm\Sugarcrm\Elasticsearch\Queue\Scheduler',
+    24 => 'class::SugarJobRemoveDiagnosticFiles',
+    25 => 'class::SugarJobRemoveTmpFiles',
 
 );
 
@@ -134,7 +138,6 @@ function pollMonitoredInboxes() {
 							} // if
 							$users[] = $userObject->id;
 						} // foreach
-
 						$distributionMethod = $ieX->get_stored_options("distrib_method", "");
 						if ($distributionMethod != 'roundRobin') {
 							$counts = $emailUI->getAssignedEmailsCountForUsers($users);
@@ -476,15 +479,6 @@ function sendEmailReminders(){
 	require_once("modules/Activities/EmailReminder.php");
 	$reminder = new EmailReminder();
 	return $reminder->process();
-}
-
-function performFullFTSIndex()
-{
-    require_once('include/SugarSearchEngine/SugarSearchEngineFullIndexer.php');
-    $indexer = new SugarSearchEngineFullIndexer();
-    $indexer->initiateFTSIndexer();
-    $GLOBALS['log']->info("FTS Indexer initiated.");
-    return true;
 }
 
 /**

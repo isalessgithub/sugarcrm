@@ -47,6 +47,8 @@ define('MB_WIRELESSBASICSEARCH', 'wireless_basic_search' );
 define('MB_WIRELESSADVANCEDSEARCH', 'wireless_advanced_search' );
 define('MB_WIRELESS', 'mobile');
 define('MB_RECORDVIEW', 'recordview');
+define('MB_FILTERVIEW', 'filter');
+define('MB_BWCFILTERVIEW', 'searchfields');
 
 class MBConstants
 {

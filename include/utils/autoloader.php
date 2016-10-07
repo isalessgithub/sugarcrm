@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -66,6 +65,7 @@ class SugarAutoLoader
         'Zend_' => 'vendor/',
         'SugarJob' => 'include/SugarQueue/jobs/',
         'MetaDataContext' => 'modules/ModuleBuilder/parsers/MetaDataContext/',
+        'MetaDataManager' => 'include/MetaDataManager/',
     );
 
     /**
@@ -136,7 +136,6 @@ class SugarAutoLoader
         'upload',
         'portal',
         'vendor/HTMLPurifier',
-        'vendor/PHPMailer',
         'vendor/reCaptcha',
         'vendor/ytree',
         'vendor/pclzip',
@@ -192,39 +191,49 @@ class SugarAutoLoader
         'autoload_namespaces' => 'vendor/composer/autoload_namespaces.php',
         'autoload_psr4' => 'vendor/composer/autoload_psr4.php',
         'autoload_classmap' => 'vendor/composer/autoload_classmap.php',
+        'autoload_files' => 'vendor/composer/autoload_files.php',
     );
+    protected static $baseDirs;
+    protected static $ds = DIRECTORY_SEPARATOR;
 
     /**
      * Initialize the loader
+     *
+     * @param boolean $useConfig Used for UnitTest Runs since we don't have the stack installed
      */
-    public static function init()
+    public static function init($useConfig = true)
     {
-        $config = SugarConfig::getInstance();
+        if ($useConfig === true) {
+            $config = SugarConfig::getInstance();
 
-        /*
-         * When development mode is enabled, we bypass the usage
-         * of the filemap and build the classmap dynamically on
-         * every page load. We drop both cache file to make sure
-         * when devMode is disabled again that the system is
-         * properly initialized again withour the need for
-         * running a QuickRepairRebuild.
-         */
-        self::$devMode = $config->get('developerMode', false);
-        if (self::$devMode) {
-            @unlink(sugar_cached(self::CACHE_FILE));
-            @unlink(sugar_cached(self::CLASS_CACHE_FILE));
-        }
+            /*
+             * When development mode is enabled, we bypass the usage
+             * of the filemap and build the classmap dynamically on
+             * every page load. We drop both cache file to make sure
+             * when devMode is disabled again that the system is
+             * properly initialized again withour the need for
+             * running a QuickRepairRebuild.
+             */
+            self::$devMode = $config->get('developerMode', false);
+            if (self::$devMode) {
+                @unlink(sugar_cached(self::CACHE_FILE));
+                @unlink(sugar_cached(self::CLASS_CACHE_FILE));
+            }
 
-        // Extensions included from config
-        $exts = $config->get('autoloader.exts');
-        if (is_array($exts)) {
-            self::$exts += $exts;
-        }
+            // Extensions included from config
+            $exts = $config->get('autoloader.exts');
+            if (is_array($exts)) {
+                self::$exts += $exts;
+            }
 
-        // Excludes from config
-        $exclude = $config->get('autoloader.exclude');
-        if (is_array($exclude)) {
-            self::$exclude += $exclude;
+            // Excludes from config
+            $exclude = $config->get('autoloader.exclude');
+            if (is_array($exclude)) {
+                self::$exclude += $exclude;
+            }
+        } else {
+            // since we are ignoring the config, we have to use DevMode
+            self::$devMode = true;
         }
 
         // Create file map
@@ -240,6 +249,9 @@ class SugarAutoLoader
 
         // Register ourself (prepend)
         self::registerAutoload(true);
+
+        // Load files
+        self::loadFiles();
 
         // Load extensions
         self::loadExts();
@@ -1060,7 +1072,7 @@ class SugarAutoLoader
      *
      * @return array Flattened data
      */
-    protected function flatten($dir, array $data, $get_dirs, $extension, $recursive)
+    protected static function flatten($dir, array $data, $get_dirs, $extension, $recursive)
     {
         $result = array();
         foreach ($data as $file => $nodes) {
@@ -1189,6 +1201,17 @@ class SugarAutoLoader
 	    self::$extensions = $extensions;
 	}
 
+    /**
+     * Load files
+     */
+    protected static function loadFiles()
+    {
+        $files = self::getIncludeReturn(self::$composerPaths['autoload_files']);
+        foreach ($files as $file) {
+            require $file;
+        }
+    }
+
 	/**
 	 * Add filename to list of existing files
 	 * @param string $filename
@@ -1280,7 +1303,8 @@ class SugarAutoLoader
             }
             $filename = $item->getFilename();
             if ($item->isDir()) {
-                $data[$filename] = self::scanDir($path . '/' . $filename);
+                $filepath = ($path === "") ? $filename : $path . '/' . $filename;
+                $data[$filename] = self::scanDir($filepath);
             } else {
                 if (!in_array(pathinfo($filename, PATHINFO_EXTENSION), self::$exts)) {
                     continue;
@@ -1445,16 +1469,28 @@ class SugarAutoLoader
      */
     public static function normalizeFilePath($filename)
     {
+        if (!isset(self::$baseDirs)) {
+            self::$baseDirs = array(SUGAR_BASE_DIR);
+            if (defined('SHADOW_INSTANCE_DIR')) {
+                self::$baseDirs[] = SHADOW_INSTANCE_DIR;
+            }
+        }
+
         // Normalize directory separators
-        if(DIRECTORY_SEPARATOR != '/') {
-            $filename = str_replace(DIRECTORY_SEPARATOR, "/", $filename);
+        if (self::$ds != '/') {
+            $filename = str_replace(self::$ds, "/", $filename);
+        }
+
+        // Remove base dir - Composer always has absolute paths.
+        foreach (self::$baseDirs as $baseDir) {
+            $filename = str_replace($baseDir . '/', '', $filename, $count);
+            if ($count > 0) {
+                break;
+            }
         }
 
         // Remove repeated separators
         $filename = preg_replace('#(/)(\1+)#', '/', $filename);
-
-        // Remove base dir - Composer always has absolute paths.
-        $filename = str_replace(SUGAR_BASE_DIR . "/", "", $filename);
 
         return $filename;
     }

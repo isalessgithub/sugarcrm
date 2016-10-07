@@ -75,13 +75,10 @@
                 }
             });
         },
+        // Fixme This doesn't belong in user. See TY-526.
         loadLocale: function(callback) {
             app.api.call('read', app.api.buildURL('locale'), null, {
                 success: function(data) {
-                    if (data && data._hash) {
-                        app.cache.set("userpref:hash", data._hash);
-                        app.user.set({"_hash":data._hash});
-                    }
                     if (callback) callback(data);
                 },
                 error: function(err) {
@@ -283,11 +280,12 @@
 
             return {
                 /**
-                 * Get the last state value given a key.  If doesn't exist, return the default
-                 * value as specified in the component metadata.
+                 * Get the last state value given a key. If doesn't exist,
+                 * return the default value as specified in the component
+                 * metadata.
                  *
-                 * @param {String} key
-                 * @returns {String}
+                 * @param {string} key
+                 * @return {string}
                  */
                 get: function(key) {
                     var result, storedKey;
@@ -303,8 +301,8 @@
                 /**
                  * Save the last state in local storage.
                  *
-                 * @param {String} key
-                 * @param {String} value
+                 * @param {string} key
+                 * @param {string} value
                  */
                 set: function(key, value) {
                     if (!_.isUndefined(key) && !_.isUndefined(value)) {
@@ -316,8 +314,8 @@
                 /**
                  * Register a state as important (should survive a cache clean)
                  *
-                 * @param {String} key
-                 * @param {String} value
+                 * @param {string} key
+                 * @param {string} value
                  */
                 preserve: function(key) {
                     if (!_.isUndefined(key)) {
@@ -329,9 +327,9 @@
                  * Get the key for a given component, which is used as a key for CRUD operations on
                  * last state values.
                  *
-                 * @param {String} name
+                 * @param {string} name
                  * @param {Object} component
-                 * @returns {String}
+                 * @return {string}
                  */
                 key: function(name, component) {
                     var lastStateId = getLastStateId(component);
@@ -342,10 +340,10 @@
                  * Build the key for a given name, lastStateId, and (optionally) module,
                  * which is used as a key for CRUD operations on last state values.
                  *
-                 * @param {String} name
-                 * @param {String} lastStateId
-                 * @param {String} module(optional)
-                 * @returns {String}
+                 * @param {string} name
+                 * @param {string} lastStateId
+                 * @param {string} [module]
+                 * @return {string}
                  */
                 buildKey: function(name, lastStateId, module) {
                     var keyString, keyParts = [];
@@ -364,16 +362,16 @@
                 /**
                  * Get the default last state for a key.
                  *
-                 * @param {String} key
-                 * @returns {String}
+                 * @param {string} key
+                 * @return {string}
                  */
                 defaults: function(key) {
                     return lastStates[key];
                 },
 
                 /**
-                 * Register last states default values given a component.  The default value is
-                 * specified in the component metadata.
+                 * Register last states default values given a component.
+                 * The default value is specified in the component metadata.
                  *
                  * @param {Object} component
                  */

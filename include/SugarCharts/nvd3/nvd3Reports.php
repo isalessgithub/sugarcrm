@@ -128,7 +128,8 @@ class nvd3Reports extends nvd3
         $lastgroupfield = end($this->group_by);
 
         if (isset($this->reporter->focus->field_defs[$lastgroupfield]) &&
-            $this->reporter->focus->field_defs[$lastgroupfield]['type'] === "date") {
+            ($this->reporter->focus->field_defs[$lastgroupfield]['type'] === "date"
+            || $this->reporter->focus->field_defs[$lastgroupfield]['type'] === "datetime")) {
             usort($super_set, array($this, "runDateSort"));
         } else {
             asort($super_set);
@@ -205,7 +206,8 @@ class nvd3Reports extends nvd3
 
             $data .= $this->tab('<subgroups>', 3);
 
-            if ((isset($dataset[$total]) && $total != $dataset[$total]['numerical_value']) || !array_key_exists($key, $dataset)) {
+            if ((isset($dataset[$total]) && $total != $dataset[$total]['numerical_value'])
+                || !array_key_exists($key, $dataset) || $key == "") {
                     $data .= $this->processReportData($dataset, 4, $first);
             } elseif (count($this->data_set) == 1 && $first) {
                 foreach ($dataset as $k => $v) {

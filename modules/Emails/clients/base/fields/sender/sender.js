@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.Emails.SenderField
  * @alias SUGAR.App.view.fields.BaseEmailsSenderField
- * @extends View.Field
+ * @extends View.Fields.Base.BaseField
  */
 ({
     fieldTag: 'input.select2',
@@ -90,12 +90,10 @@
                 self.model.set(self.name, e.val, {silent: true});
             }
         });
-
-        this.$(".select2-container").addClass("tleft");
     },
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * We need this empty so it won't affect refresh the select2 plugin
      */

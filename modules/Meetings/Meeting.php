@@ -76,6 +76,7 @@ class Meeting extends SugarBean {
 	var $object_name = "Meeting";
 
 	var $importable = true;
+	var $fill_additional_column_fields = true;
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = array('assigned_user_name', 'assigned_user_id', 'contact_id', 'user_id', 'contact_name', 'accept_status');
 	var $relationship_fields = array('account_id'=>'accounts','opportunity_id'=>'opportunity','case_id'=>'case',
@@ -88,14 +89,10 @@ class Meeting extends SugarBean {
 	public $send_invites = false;
 
     /**
-     * This is a deprecated method, please start using __construct() as this
-     * method will be removed in a future version.
-     *
-     * @deprecated since 7.0.0. Use __construct() instead.
+     * @deprecated Use __construct() instead
      */
     public function Meeting()
     {
-        $GLOBALS['log']->deprecated('Calls to Meeting::Meeting() are deprecated.');
         self::__construct();
     }
 
@@ -161,26 +158,22 @@ class Meeting extends SugarBean {
 
         $check_notify = $this->send_invites;
         if ($this->send_invites == false) {
-            $old_assigned_user_id = CalendarEvents::$old_assigned_user_id;
+
+            $old_assigned_user_id = CalendarEvents::getOldAssignedUser($this->module_dir, $this->id);
+
             if ((empty($GLOBALS['installing']) || $GLOBALS['installing'] != true) &&
                 (!empty($this->assigned_user_id) &&
-                    $this->assigned_user_id != $GLOBALS['current_user']->id &&
-                    $this->assigned_user_id != $old_assigned_user_id)
+                    $this->assigned_user_id != $old_assigned_user_id &&
+                    ($this->fetched_row !== false || $this->assigned_user_id != $GLOBALS['current_user']->id))
             ) {
                 $this->special_notification = true;
                 $check_notify = true;
-                CalendarEvents::$old_assigned_user_id = $this->assigned_user_id;
+                CalendarEvents::setOldAssignedUserValue($this->assigned_user_id);
                 if (isset($_REQUEST['assigned_user_name'])) {
                     $this->new_assigned_user_name = $_REQUEST['assigned_user_name'];
                 }
             }
         }
-
-		/*nsingh 7/3/08  commenting out as bug #20814 is invalid
-		if($current_user->getPreference('reminder_time')!= -1 &&  isset($_POST['reminder_checked']) && isset($_POST['reminder_time']) && $_POST['reminder_checked']==0  && $_POST['reminder_time']==-1){
-			$this->reminder_checked = '1';
-			$this->reminder_time = $current_user->getPreference('reminder_time');
-		}*/
 
 		// prevent a mass mailing for recurring meetings created in Calendar module
 		if(empty($this->id) && !empty($_REQUEST['module']) && $_REQUEST['module'] == "Calendar" && !empty($_REQUEST['repeat_type']) && !empty($this->repeat_parent_id))
@@ -280,7 +273,10 @@ class Meeting extends SugarBean {
 
 	function fill_in_additional_detail_fields() {
 		global $locale;
-		parent::fill_in_additional_detail_fields();
+
+		if ($this->fill_additional_column_fields) {
+			parent::fill_in_additional_detail_fields();
+		}
 
 		if (!empty($this->contact_id)) {
 			$query  = "SELECT first_name, last_name FROM contacts ";
@@ -948,6 +944,15 @@ class Meeting extends SugarBean {
 
         parent::loadFromRow($arr, $convert);
     }
+
+	/**
+	 * @param boolean $fill_additional_column_fields
+	 */
+	public function setFillAdditionalColumnFields($fill_additional_column_fields)
+	{
+		$this->fill_additional_column_fields = $fill_additional_column_fields;
+	}
+
 } // end class def
 
 /**

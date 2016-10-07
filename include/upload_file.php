@@ -11,6 +11,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 require_once('include/externalAPI/ExternalAPIFactory.php');
+
+use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
 /**
  * @api
  * Manage uploaded files
@@ -57,11 +59,19 @@ class UploadFile
 			UPLOAD_ERR_EXTENSION => 'UPLOAD_ERR_EXTENSION - A PHP extension stopped the file upload.',
 			);
 
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function UploadFile($field_name = '')
+    {
+        self::__construct($field_name);
+    }
+
 	/**
 	 * Create upload file handler
 	 * @param string $field_name Form field name
 	 */
-	function UploadFile ($field_name = '')
+    public function __construct($field_name = '')
 	{
 		// $field_name is the name of your passed file selector field in your form
 		// i.e., for Emails, it is "email_attachmentX" where X is 0-9
@@ -345,8 +355,8 @@ class UploadFile
 		global $sugar_config;
 
 		if(!$this->use_soap) {
-			$stored_file_name = $_FILES[$this->field_name]['name'];
-			$this->original_file_name = $stored_file_name;
+			$this->original_file_name = basename($_FILES[$this->field_name]['name']);
+			$stored_file_name = $this->original_file_name;
 
 			/**
 			 * cn: bug 8056 - windows filesystems and IIS do not like utf8.  we are forced to urlencode() to ensure that
@@ -357,9 +367,7 @@ class UploadFile
 				// 176 + 36 char guid = windows' maximum filename length
 				$end = (strlen($stored_file_name) > 176) ? 176 : strlen($stored_file_name);
 				$stored_file_name = substr($stored_file_name, 0, $end);
-				$this->original_file_name = $_FILES[$this->field_name]['name'];
 			}
-		    $stored_file_name = str_replace("\\", "", $stored_file_name);
 		} else {
 			$stored_file_name = $this->stored_file_name;
 			$this->original_file_name = $stored_file_name;
@@ -461,7 +469,7 @@ class UploadFile
                 sugar_rename($new_destination, str_replace($bean_id.'_'.$file_name, $bean_id, $new_destination));
                 $bean->doc_type = 'Sugar';
                 // FIXME: Translate
-                if ( ! is_array($_SESSION['user_error_message']) )
+                if ( !ArrayFunctions::is_array_access($_SESSION['user_error_message']) )
                     $_SESSION['user_error_message'] = array();
 
                 $error_message = isset($result['errorMessage']) ? $result['errorMessage'] : $GLOBALS['app_strings']['ERR_EXTERNAL_API_SAVE_FAIL'];
@@ -693,7 +701,7 @@ class UploadStream
     /**
      * Register the stream
      */
-    public function register()
+    public static function register()
     {
         if(isset($GLOBALS['sugar_config']['upload_wrapper_class'])) {
             SugarAutoLoader::requireWithCustom("include/{$GLOBALS['sugar_config']['upload_wrapper_class']}.php");
@@ -915,4 +923,3 @@ class UploadStream
     }
 
 }
-

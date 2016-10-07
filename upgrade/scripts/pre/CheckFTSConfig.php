@@ -52,11 +52,8 @@ class SugarUpgradeCheckFTSConfig extends UpgradeScript
      */
     protected function getServerStatusElastic($searchEngine, $config)
     {
-        global $app_strings;
-        return array('valid' => true, 'status' => $app_strings['LBL_EMAIL_SUCCESS']);
-
         $this->_client = $this->getElasticaClient($config);
-
+        global $app_strings;
         $isValid = false;
         try {
             $results = $this->_client->request('', $this->getElasticaRequestConstant('GET'))->getData();

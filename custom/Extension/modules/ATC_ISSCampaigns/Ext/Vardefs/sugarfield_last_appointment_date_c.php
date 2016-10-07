@@ -1,6 +1,6 @@
 <?php
- // created: 2016-05-30 10:41:14
-$dictionary['ATC_ISSCampaigns']['fields']['last_appointment_date_c']['enforced']='';
-$dictionary['ATC_ISSCampaigns']['fields']['last_appointment_date_c']['dependency']='';
+ // created: 2016-10-07 12:36:24
+$dictionary['ATC_ISSCampaigns']['fields']['last_appointment_date_c']['enforced'] = '';
+$dictionary['ATC_ISSCampaigns']['fields']['last_appointment_date_c']['dependency'] = '';
+$dictionary['ATC_ISSCampaigns']['fields']['last_appointment_date_c']['full_text_search']['boost'] = 1;
 
- ?>

@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -55,6 +54,8 @@ abstract class SugarVisibility
      * Add visibility clauses to the FROM part of the query
      * @param string $query
      * @return string
+     *
+     * @deprecated Use SugarQuery and SugarVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityFrom(&$query)
     {
@@ -65,6 +66,8 @@ abstract class SugarVisibility
      * Add visibility clauses to the WHERE part of the query
      * @param string $query
      * @return string
+     *
+     * @deprecated Use SugarQuery and SugarVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityWhere(&$query)
     {
@@ -75,6 +78,8 @@ abstract class SugarVisibility
      * Add visibility clauses to the FROM part of SugarQuery
      * @param SugarQuery $query
      * @return SugarQuery
+     *
+     * @deprecated Implement SugarVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityFromQuery(SugarQuery $query)
     {
@@ -85,12 +90,24 @@ abstract class SugarVisibility
      * Add visibility clauses to the WHERE part of SugarQuery
      * @param SugarQuery $query
      * @return SugarQuery
+     *
+     * @deprecated Implement SugarVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityWhereQuery(SugarQuery $query)
     {
         return $query;
     }
 
+    /**
+     * Add visibility to SugarQuery
+     *
+     * @param SugarQuery $query
+     */
+    public function addVisibilityQuery(SugarQuery $query)
+    {
+        $this->addVisibilityFromQuery($query);
+        $this->addVisibilityWhereQuery($query);
+    }
 
     /**
      * Get visibility option
@@ -103,6 +120,11 @@ abstract class SugarVisibility
         if (isset($this->options[$name])) {
             return $this->options[$name];
         }
+
+        if ($name === 'action' && $default !== null) {
+            $GLOBALS['log']->warn('Relying on the default action in SugarVisibility is discouraged');
+        }
+
         return $default;
     }
 
@@ -122,9 +144,11 @@ abstract class SugarVisibility
      * updated. Override to implement visibility related attribute updates
      * before the bean is indexed.
      * @return void
+     * @deprecated
      */
     public function beforeSseIndexing()
     {
+        $GLOBALS['log']->deprecated("SugarVisibility::beforeSseIndexing is deprecated !");
     }
 
     /**
@@ -132,11 +156,11 @@ abstract class SugarVisibility
      * @param SugarSearchEngineInterface $engine Sugar search engine objects
      * @param mixed $filter
      * @return mixed
-     *
-     * FIXME: $filter is tightly coupled to Elasticsearch
+     * @deprecated
      */
     public function addSseVisibilityFilter(SugarSearchEngineInterface $engine, $filter)
     {
+        $GLOBALS['log']->deprecated("SugarVisibility::addSseVisibilityFilter is deprecated !");
         return $filter;
     }
 }

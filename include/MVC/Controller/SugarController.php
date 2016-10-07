@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,7 +10,11 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-require_once('include/MVC/View/SugarView.php');
+use Sugarcrm\Sugarcrm\Security\Csrf\CsrfAuthenticator;
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
+
+require_once 'include/MVC/View/SugarView.php';
 
 /**
  * Main SugarCRM controller
@@ -76,6 +79,11 @@ class SugarController
 	public $view_object_map = array();
 
 	/**
+	 * @var array additional paramters that will be passed through to the view if a SugarView is displayed
+	 */
+	protected $viewParams = array();
+
+	/**
 	 * This array holds the methods that handleAction() will invoke, in sequence.
 	 */
 	protected $tasks = array(
@@ -134,12 +142,50 @@ class SugarController
 										'listview'=>'ListView'
 									  );
 
-	/**
-	 * Constructor. This ie meant tot load up the module, action, record as well
-	 * as the mapping arrays.
-	 */
-	public function SugarController(){
-	}
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * Constructor. This is meant to load up the module, action, record as well
+     * as the mapping arrays.
+     * @deprecated
+     */
+    protected function SugarController()
+    {
+        self::__construct();
+    }
+
+    /**
+     * Ctor
+     *
+     * @param Request $request
+     */
+    public function __construct(Request $request = null)
+    {
+        $this->request = $request ?: InputValidation::getService();
+    }
+
+    /**
+     * Perform CSRF form validation. Extension classes can override this logic
+     * if any excotic logic is required. The default implementation uses the
+     * same CSRF form token which is tied to the user's session.
+     *
+     * This logic is being called from SugarApplication for all non-GET reqs.
+     *
+     * @param array $fields Key/value field pairs
+     * @return boolean
+     */
+    public function isCsrfValid(array $fields)
+    {
+        $csrf = CsrfAuthenticator::getInstance();
+        $valid = $csrf->isFormTokenValid($fields);
+        if (!$valid) {
+            $GLOBALS['log']->fatal("CSRF: auth failure for {$this->module} -> {$this->action}");
+        }
+        return $valid;
+    }
 
 	/**
 	 * Called from SugarApplication and is meant to perform the setup operations
@@ -147,14 +193,15 @@ class SugarController
 	 *
 	 */
 	public function setup($module = ''){
-		if(empty($module) && !empty($_REQUEST['module']))
-			$module = $_REQUEST['module'];
-		//set the module
+		if (empty($module)) {
+			$module = $this->request->getValidInputRequest('module', 'Assert\Mvc\ModuleName');
+		}
 		if(!empty($module))
 			$this->setModule($module);
 
-		if(!empty($_REQUEST['target_module']) && $_REQUEST['target_module'] != 'undefined') {
-			$this->target_module = $_REQUEST['target_module'];
+		$target_module = $this->request->getValidInputRequest('target_module', 'Assert\Mvc\ModuleName');
+		if(!empty($target_module) && $target_module != 'undefined') {
+			$this->target_module = $target_module;
 		}
 		//set properties on the controller from the $_REQUEST
 		$this->loadPropertiesFromRequest();
@@ -170,24 +217,31 @@ class SugarController
 		$this->module = $module;
 	}
 
-	/**
-	 * Set properties on the Controller from the $_REQUEST
-	 *
-	 */
-	private function loadPropertiesFromRequest(){
-		if(!empty($_REQUEST['action']))
-			$this->action = $_REQUEST['action'];
-		if(!empty($_REQUEST['record']))
-			$this->record = $_REQUEST['record'];
-		if(!empty($_REQUEST['view']))
-			$this->view = $_REQUEST['view'];
-		if(!empty($_REQUEST['return_module']))
-			$this->return_module = $_REQUEST['return_module'];
-		if(!empty($_REQUEST['return_action']))
-			$this->return_action = $_REQUEST['return_action'];
-		if(!empty($_REQUEST['return_id']))
-			$this->return_id = $_REQUEST['return_id'];
-	}
+    /**
+    * Set properties on the Controller from the $_REQUEST
+    *
+    */
+    private function loadPropertiesFromRequest()
+    {
+        if (!empty($_REQUEST['action'])) {
+            $this->action = $this->request->getValidInputRequest('action');
+        }
+        if (!empty($_REQUEST['record'])) {
+            $this->record = $this->request->getValidInputRequest('record', 'Assert\Guid');
+        }
+        if (!empty($_REQUEST['view'])) {
+            $this->view = $this->request->getValidInputRequest('view');
+        }
+        if (!empty($_REQUEST['return_module'])) {
+            $this->return_module = $this->request->getValidInputRequest('return_module', 'Assert\Mvc\ModuleName');
+        }
+        if (!empty($_REQUEST['return_action'])) {
+            $this->return_action = $this->request->getValidInputRequest('return_action');
+        }
+        if (!empty($_REQUEST['return_id'])) {
+            $this->return_id = $this->request->getValidInputRequest('return_id', 'Assert\Guid');
+        }
+    }
 
 	/**
 	 * Load map files for use within the Controller
@@ -305,7 +359,7 @@ class SugarController
 		if(isset($this->errors)){
 		  $view->errors = $this->errors;
 		}
-		$view->process();
+		$view->process($this->viewParams);
 	}
 
 	/**
@@ -610,12 +664,21 @@ class SugarController
             $massUpdateClass = SugarAutoLoader::customClass('MassUpdate');
             $mass = new $massUpdateClass();
             $mass->setSugarBean($seed);
+			$module = $this->request->getValidInputRequest('module', 'Assert\Mvc\ModuleName');
+			$query = $this->request->getValidInputRequest(
+				'current_query_by_page',
+				array('Assert\PhpSerialized' => array('base64Encoded' => true))
+			);
             if(isset($_REQUEST['entire']) && empty($_POST['mass'])) {
-                $mass->generateSearchWhere($_REQUEST['module'], $_REQUEST['current_query_by_page']);
+                $mass->generateSearchWhere($module, $query);
             }
             $arr = $mass->handleMassUpdate();
             $storeQuery = new StoreQuery();//restore the current search. to solve bug 24722 for multi tabs massupdate.
-            $temp_req = array('current_query_by_page' => $_REQUEST['current_query_by_page'], 'return_module' => $_REQUEST['return_module'], 'return_action' => $_REQUEST['return_action']);
+            $temp_req = array(
+                'current_query_by_page' => $this->request->getValidInputRequest('current_query_by_page'),
+                'return_module' => $this->request->getValidInputRequest('return_module', 'Assert\Mvc\ModuleName'),
+                'return_action' => $this->request->getValidInputRequest('return_action'),
+            );
             if (!empty($_POST['mass'])) {
                 $total_records = count($_POST['mass']);
                 $failed_update = count($arr);
@@ -647,10 +710,9 @@ class SugarController
                     $this->req_for_email = array('type' => $_REQUEST['type'], 'ie_assigned_user_id' => $_REQUEST['ie_assigned_user_id']); // Specifically for My Achieves
                 }
             }
-            $_REQUEST = array();
-            $_REQUEST = unserialize(base64_decode($temp_req['current_query_by_page']));
+			$_REQUEST = $query;
             unset($_REQUEST[$seed->module_dir.'2_'.strtoupper($seed->object_name).'_offset']);//after massupdate, the page should redirect to no offset page
-            $storeQuery->saveFromRequest($_REQUEST['module']);
+			$storeQuery->saveFromRequest($module);
             $_REQUEST = array(
                 'return_module' => $temp_req['return_module'],
                 'return_action' => $temp_req['return_action'],
@@ -744,7 +806,7 @@ class SugarController
 		    }
 		    else { // display options
 		        $json = getJSONobj();
-		        return 'result = ' . $json->encode((array('header' => $dashlet->title . ' : ' . $mod_strings['LBL_OPTIONS'],
+		        return $json->encode((array('header' => $dashlet->title . ' : ' . $mod_strings['LBL_OPTIONS'],
 		                                                 'body'  => $dashlet->displayOptions())));
 
 		    }
@@ -868,6 +930,18 @@ class SugarController
                 && !$this->entry_point_registry[$entryPoint]['auth'] )
             return false;
         return true;
+    }
+
+    /**
+     * Checks to see if the requested entry point exists
+     *
+     * @param  $entrypoint string name of the entrypoint
+     * @return bool true if entrypoint exists, false if not
+     */
+    public function entryPointExists($entryPoint)
+    {
+        $this->loadMapping('entry_point_registry');
+        return !empty($this->entry_point_registry[$entryPoint]);
     }
 
 	/**

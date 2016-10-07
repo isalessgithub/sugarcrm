@@ -349,8 +349,8 @@ function get_name_value_list($value, $returnDomValue = false){
 					}
 				}
 
-			if(isset($value->$var['name'])){
-				$val = $value->$var['name'];
+            if (isset($value->{$var['name']})) {
+                $val = $value->{$var['name']};
 				$type = $var['type'];
 
 				if(strcmp($type, 'date') == 0){
@@ -410,8 +410,8 @@ function get_name_value_list_for_fields($value, $fields) {
 		$filterFields = filter_fields($value, $fields);
 		foreach($filterFields as $field){
 			$var = $value->field_defs[$field];
-			if(isset($value->$var['name'])){
-				$val = $value->$var['name'];
+            if (isset($value->{$var['name']})) {
+                $val = $value->{$var['name']};
 				$type = $var['type'];
 
 				if(strcmp($type, 'date') == 0){
@@ -632,7 +632,7 @@ function new_handle_set_entries($module_name, $name_value_lists, $select_fields 
 		            }
 		        }
 			}
-			$seed->$value['name'] = $val;
+            $seed->{$value['name']} = $val;
 		}
 
 		if($count == $total){
@@ -875,14 +875,27 @@ function filter_return_list(&$output_list, $select_fields, $module_name){
 			}
 		}
 
-		if( !empty($output_list[$sug]['name_value_list']) && is_array($output_list[$sug]['name_value_list']) && !empty($select_fields) && is_array($select_fields)){
-			foreach($output_list[$sug]['name_value_list'] as $name=>$value)
-					if(!in_array($value['name'], $select_fields)){
-						unset($output_list[$sug]['name_value_list'][$name]);
-						unset($output_list[$sug]['field_list'][$name]);
-					}
-		}
-	}
+        if (!empty($output_list[$sug]['name_value_list'])
+            && is_array($output_list[$sug]['name_value_list'])
+            && !empty($select_fields) && is_array($select_fields)
+        ) {
+            foreach ($output_list[$sug]['name_value_list'] as $name => $value) {
+                if (!in_array($value['name'], $select_fields)) {
+                    unset($output_list[$sug]['name_value_list'][$name]);
+                    unset($output_list[$sug]['field_list'][$name]);
+                }
+            }
+            // MAR-2033 - The Soap-based Outlook Plugin was written to assume that the select_field order
+            // would be preserved on output. The following code ensures that order is preserved.
+            if ($module_name === 'Contacts' || $module_name === 'Users') {
+                $entryList = array();
+                foreach ($select_fields as $fieldName) {
+                    $entryList[$fieldName] = isset($output_list[$sug]['name_value_list'][$fieldName]) ? $output_list[$sug]['name_value_list'][$fieldName] : '';
+                }
+                $output_list[$sug]['name_value_list'] = $entryList;
+            }
+        }
+    }
 	return $output_list;
 }
 
@@ -1081,8 +1094,7 @@ function get_decoded($object){
  * @return a decrypted string if we can decrypt, the original string otherwise
  */
 function decrypt_string($string){
-	if(function_exists('mcrypt_cbc')){
-
+    if (extension_loaded('mcrypt')) {
 		$focus = Administration::getSettings();
 		$key = '';
 		if(!empty($focus->settings['ldap_enc_key'])){
@@ -1090,10 +1102,10 @@ function decrypt_string($string){
 		}
 		if(empty($key))
 			return $string;
-		$buffer = $string;
 		$key = substr(md5($key),0,24);
 	    $iv = "password";
-	    return mcrypt_cbc(MCRYPT_3DES, $key, pack("H*", $buffer), MCRYPT_DECRYPT, $iv);
+            require_once 'service/core/SoapHelperWebService.php';
+            return SoapHelperWebServices::decrypt_tripledes($string, $key, $iv);
 	}else{
 		return $string;
 	}

@@ -24,7 +24,7 @@ class StudioModule
         'Bugs', // Bug Tracker
         'Campaigns',
         'Contracts',
-        'KBDocuments', // Knowledge Base
+        'KBContents', // Knowledge Base
         'ProductTemplates', // Product Catalog
         'Prospects', // Targets
         'pmse_Business_Rules', // Process Business Rules
@@ -38,7 +38,6 @@ class StudioModule
      * @var array
      */
     static $quickCreateNotSupportedModules = array(
-        'kbdocuments',
         'projecttask',
         'campaigns',
         'quotes',
@@ -72,7 +71,7 @@ class StudioModule
      * 
      * @param string $module The name of the module to base this object on
      */
-    public function __construct($module)
+    public function __construct($module, $seed = null)
     {
         $moduleList = $GLOBALS['app_list_strings']['moduleList'];
         if (empty($moduleList) && !is_array($moduleList)) {
@@ -82,7 +81,11 @@ class StudioModule
         $moduleNames = array_change_key_case($moduleList);
         $this->name = isset($moduleNames[strtolower($module)]) ? $moduleNames[strtolower($module)] : strtolower($module);
         $this->module = $module;
-        $this->seed = BeanFactory::getBean($this->module);
+        if (!$seed) {
+            $this->seed = BeanFactory::getBean($this->module);
+        } else {
+            $this->seed = $seed;
+        }
         if ($this->seed) {
             $this->fields = $this->seed->field_defs;
         }
@@ -190,7 +193,12 @@ class StudioModule
         }
 
         // If a custom module, then its type is determined by the parent SugarObject that it extends
-        $seed = BeanFactory::getBean($this->module);
+        if (!$this->seed)
+        {
+            $seed = BeanFactory::getBean($this->module);
+        } else {
+            $seed = $this->seed;
+        }
         if (empty($seed)) {
             //If there is no bean at all for this module, use the basic template for base files
             return "basic";
@@ -303,7 +311,7 @@ class StudioModule
             $nodes[$source] = $def;
             $nodes[$source]['name'] = translate($source);
             if (isset($def['children'])) {
-                $childNodes = $this->$def['children']();
+                $childNodes = $this->{$def['children']}();
                 if (!empty($childNodes)) {
                     $nodes[$source]['type'] = 'Folder';
                     $nodes[$source]['children'] = $childNodes;
@@ -473,9 +481,9 @@ class StudioModule
      * 
      * @return AbstractRelationships Set of relationships
      */
-    public function getRelationships()
+    public function getRelationships($relationshipName = "")
     {
-        return new DeployedRelationships($this->module);
+        return new DeployedRelationships($this->module, $relationshipName);
     }
 
     /**
@@ -499,7 +507,6 @@ class StudioModule
 
         return $nodes;
     }
-
 
     /**
      * Gets a list of subpanels used by the current module
@@ -609,12 +616,12 @@ class StudioModule
     }
 
     /**
-     * Gets parent modules of a subpanel
+     * Gets modules and subpanels related the given one
      * 
-     * @param string $subpanel The name of the subpanel
+     * @param string $sourceModule The name of the module
      * @return array
      */
-    public function getParentModulesOfSubpanel($subpanel)
+    public function getModulesWithSubpanels($sourceModule)
     {
         global $moduleList, $beanFiles, $beanList, $module;
 
@@ -626,7 +633,6 @@ class StudioModule
         //change case to match subpanel processing later on
         $modules_to_check = array_change_key_case($modules_to_check);
 
-        $spd = '';
         $spd_arr = array();
         //iterate through modules and build subpanel array
         foreach ($modules_to_check as $mod_name) {
@@ -635,12 +641,36 @@ class StudioModule
 
             //create new subpanel definition instance and get list of tabs
             $spd = new SubPanelDefinitions($bean);
-            if (isset($spd->layout_defs['subpanel_setup'][strtolower($subpanel)]['module'])) {
-                $spd_arr[] = $mod_name;
+            if (isset($spd->layout_defs['subpanel_setup'])) {
+                $subpanels = $this->getModuleSubpanels($spd->layout_defs['subpanel_setup'], $sourceModule);
+                if (count($subpanels) > 0) {
+                    $spd_arr[$mod_name] = $subpanels;
+                }
             }
         }
 
         return  $spd_arr;
+    }
+
+    /**
+     * Returns array of subpanel names related to the given module
+     * @param array $defs the definition of subpanel layout.
+     * @param string $sourceModule the name of the source module in subpanel
+     * @return array
+     */
+    protected function getModuleSubpanels(array $defs, $sourceModule)
+    {
+        $subpanels = array();
+        foreach ($defs as $name => $def) {
+            //Example:
+            //subpanel link name: accounts_meetings_1
+            //related module: Meetings
+            //source module: Accounts (should be equal to $sourceModule)
+            if (isset($def['module']) && $def['module'] == $sourceModule) {
+                $subpanels[] = $name;
+            }
+        }
+        return $subpanels;
     }
 
     /**
@@ -659,29 +689,47 @@ class StudioModule
         $sources = array_merge($sources, $this->getWirelessLayouts());
 
         $GLOBALS['log']->debug(print_r($sources, true));
+
+        require_once 'modules/ModuleBuilder/MB/MBHelper.php';
+        $roles = MBHelper::getRoles();
         foreach ($sources as $name => $defs) {
-            // If this module type doesn't support a given metadata type, we will
-            // get an exception from getParser()
-            try {
-                $parser = ParserFactory::getParser($defs['type'], $this->module);
-                if ($parser && method_exists($parser, 'removeField') && $parser->removeField($fieldName)) {
-                    // don't populate from $_REQUEST, just save as is...
-                    $parser->handleSave(false);
-                }
-            } catch (Exception $e) {}
+            $this->removeFieldFromLayout($this->module, $defs['type'], null, $fieldName);
+            foreach ($roles as $role) {
+                $this->removeFieldFromLayout($this->module, $defs['type'], null, $fieldName, array(
+                    'role' => $role->id,
+                ));
+            }
         }
 
-        //Remove the fields in subpanel
-        $data = $this->getParentModulesOfSubpanel($this->module);
-        foreach ($data as $parentModule) {
-            // If this module type doesn't support a given metadata type, we will
-            // get an exception from getParser()
-            try {
-                $parser = ParserFactory::getParser(MB_LISTVIEW, $parentModule, null, $this->module);
-                if ($parser->removeField($fieldName)) {
-                    $parser->handleSave(false);
-                }
-            } catch (Exception $e) {}
+        //Remove the field from subpanels
+        $data = $this->getModulesWithSubpanels($this->module);
+        foreach ($data as $module => $subpanels) {
+            foreach ($subpanels as $subpanel) {
+                $this->removeFieldFromLayout($module, MB_LISTVIEW, $subpanel, $fieldName);
+            }
+        }
+    }
+
+    /**
+     * Removes a field from layout
+     *
+     * @param string $module Module name
+     * @param string $layout Layout type
+     * @param string $subpanelName Subpanel name
+     * @param string $fieldName Field name
+     * @param array $params Layout parameters
+     */
+    protected function removeFieldFromLayout($module, $layout, $subpanelName, $fieldName, array $params = array())
+    {
+        // If this module type doesn't support a given metadata type, we will
+        // get an exception from getParser()
+        try {
+            $parser = ParserFactory::getParser($layout, $module, null, $subpanelName, null, $params);
+            if ($parser && method_exists($parser, 'removeField') && $parser->removeField($fieldName)) {
+                // don't populate from $_REQUEST, just save as is...
+                $parser->handleSave(false);
+            }
+        } catch (Exception $e) {
         }
     }
 

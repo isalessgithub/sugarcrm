@@ -12,6 +12,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  */
 require_once('include/templates/TemplateGroupChooser.php');
 
+use Sugarcrm\Sugarcrm\Util\Serialized;
+
 class SavedSearch extends SugarBean {
 	// Stored fields
 	var $id;
@@ -73,7 +75,7 @@ class SavedSearch extends SugarBean {
 	    $result = $db->query($query, true, "Error filling in saved search list: ");
 
 		$savedSearchArray['_none'] = $app_strings['LBL_NONE'];
-	    while ($row = $db->fetchByAssoc($result, -1, FALSE)) {
+        while ($row = $db->fetchByAssoc($result, false)) {
 	        $savedSearchArray[$row['id']] = htmlspecialchars($row['name'], ENT_QUOTES);
 	    }
 		$sugarSmarty = new Sugar_Smarty();
@@ -162,7 +164,7 @@ class SavedSearch extends SugarBean {
         $result = $db->query($query, true, "Error filling in saved search list: ");
 
         $savedSearchArray['_none'] = $app_strings['LBL_NONE'];
-        while ($row = $db->fetchByAssoc($result, -1, FALSE)) {
+        while ($row = $db->fetchByAssoc($result, false)) {
             $savedSearchArray[$row['id']] = htmlspecialchars($row['name'], ENT_QUOTES);
         }
 
@@ -213,7 +215,7 @@ class SavedSearch extends SugarBean {
 	        $header .= $row['search_module'];
             if(empty($_SESSION['LastSavedView'])) $_SESSION['LastSavedView'] = array();
             $_SESSION['LastSavedView'][$row['search_module']] = $row['id'];
-	        $contents = unserialize(base64_decode($row['contents']));
+            $contents = Serialized::unserialize($row['contents'], array(), true);
 	        $saved_search_id = $row['id'];
             $saved_search_name = $row['name'];
 	    }
@@ -331,7 +333,7 @@ class SavedSearch extends SugarBean {
 
     function retrieveSavedSearch($id) {
         parent::retrieve($id);
-        $this->contents = unserialize(base64_decode($this->contents));
+        $this->contents = Serialized::unserialize($this->contents, array(), true);
     }
 
     function populateRequest(){

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: DetailView.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -59,7 +59,6 @@ if (isset($_REQUEST['return_id'])) {
 }
  
 $xtpl->assign("GRIDLINE", $gridline);
-$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 $xtpl->assign("ID", $focus->id);
 if (!empty($_REQUEST['campaign_name'])) {
 	$xtpl->assign("CAMPAIGN_NAME", $_REQUEST['campaign_name']);

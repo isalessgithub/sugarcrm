@@ -1,5 +1,6 @@
 <?php
 
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -19,6 +20,9 @@ $viewdefs['Cases']['base']['view']['record'] = array(
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
+            'events' => array(
+                'click' => 'button:cancel_button:click',
+            ),
         ),
         array(
             'type' => 'rowaction',
@@ -68,10 +72,11 @@ $viewdefs['Cases']['base']['view']['record'] = array(
                     'type' => 'divider',
                 ),
                 array(
-                    'type' => 'create-article-action',
-                    'name' => 'create_kbdocument_button',
+                    'name' => 'create_button',
+                    'type' => 'rowaction',
+                    'event' => 'button:create_article_button:click',
                     'label' => 'LBL_CREATE_KB_DOCUMENT',
-                    'acl_module' => 'KBDocuments',
+                    'acl_module' => 'KBContents',
                     'acl_action' => 'create',
                 ),
                 array(
@@ -171,6 +176,10 @@ $viewdefs['Cases']['base']['view']['record'] = array(
                 array(
                     'name' => 'description',
                     'nl2br' => true,
+                    'span' => 12,
+                ),
+                array(
+                    'name' => 'tag',
                     'span' => 12,
                 ),
             ),

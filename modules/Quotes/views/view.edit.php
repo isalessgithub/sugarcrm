@@ -115,12 +115,13 @@ class QuotesViewEdit extends ViewEdit
 
 
 		if((is_admin($current_user) || is_admin_for_module($GLOBALS['current_user'],'Quotes')) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){
-			$record = '';
-			if(!empty($_REQUEST['record'])){
-				$record = $_REQUEST['record'];
-			}
-			$this->ss->assign('ADMIN_EDIT',"<a href='index.php?action=index&module=DynamicLayout&from_action=".$_REQUEST['action'] ."&from_module=".$_REQUEST['module'] ."&record=".$record. "'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif',$mod_strings['LBL_EDITLAYOUT'])."</a>");
-
+            $this->ss->assign('ADMIN_EDIT', '<a href="' . htmlspecialchars('index.php?' . http_build_query(array(
+                'module' => 'DynamicLayout',
+                'action' => 'index',
+                'from_action' => $this->request->getValidInputRequest('action'),
+                'from_module' => $this->request->getValidInputRequest('module', 'Assert\Mvc\ModuleName'),
+                'record' => $this->request->getValidInputRequest('record', 'Assert\Guid', ''),
+            )), ENT_QUOTES, 'UTF-8') . '">' . SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif',$mod_strings['LBL_EDITLAYOUT'])."</a>");
 		}
 		$this->ss->assign('QUOTE_STAGE_OPTIONS', get_select_options_with_id($app_list_strings['quote_stage_dom'], $this->bean->quote_stage));
 		$this->ss->assign('DEFAULT_PRODUCT_STATUS', $app_list_strings['product_status_quote_key']);
@@ -236,7 +237,7 @@ class QuotesViewEdit extends ViewEdit
 											. ", '".$convert_format($line_item->cost_price, $line_item->currency_id, $line_item->base_rate) . "'"
 											. ", '".$convert_format($line_item->list_price, $line_item->currency_id, $line_item->base_rate) ."'"
 											. ", '".$convert_format($line_item->discount_price, $line_item->currency_id, $line_item->base_rate) . "'"
-											. ", '', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name', '$line_item->mft_part_num', '$product_bundle->id', '$product_bundle->bundle_stage', '$product_bundle->name', '"
+											. ", '$line_item->pricing_formula', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name', '$line_item->mft_part_num', '$product_bundle->id', '$product_bundle->bundle_stage', '$product_bundle->name', '"
 											. format_number($product_bundle->shipping)."', '".js_escape(br2nl($line_item->description))."', '". $line_item->type_id."'"
 											. ", '".format_number($line_item->discount_amount, $significantDigits, $significantDigits)."'"
 		                                    . ", ".($line_item->discount_select?1:0)

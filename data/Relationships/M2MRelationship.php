@@ -149,11 +149,18 @@ class M2MRelationship extends SugarRelationship
          * We need to do a complete check against all fields in the relationship to ensure that
          * an update occurs for any additional relationship fields
          * */
+        $success = true;
         if (!$currentRow || !$this->compareRow($currentRow, $dataToInsert)) {
-            $this->addRow($dataToInsert);
+            if ($this->addRow($dataToInsert) === false) {
+                $success = false;
+                LoggerManager::getLogger()->error("Warning: failure calling row for relationship {$this->name} within M2MRelationship->add() ");
+            }
 
             if ($this->self_referencing) {
-                $this->addSelfReferencing($lhs, $rhs, $additionalFields);
+                if ($this->addSelfReferencing($lhs, $rhs, $additionalFields) === false) {
+                    $success = false;
+                    LoggerManager::getLogger()->error("Warning: failure calling addSelfReferencing for relationship {$this->name} within M2MRelationship->add() ");
+                }
             }
             if ((empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes")) {
                 $lhs->$lhsLinkName->addBean($rhs);
@@ -169,7 +176,7 @@ class M2MRelationship extends SugarRelationship
             $this->callAfterUpdate($rhs, $lhs, $rhsLinkName);
         }
 
-        return true;
+        return $success;
     }
 
     /**
@@ -177,6 +184,7 @@ class M2MRelationship extends SugarRelationship
      */
     protected function addRow(array $row)
     {
+        $success = true;
         //Need to manage the primary flag if we are going to be updating/inserting data.
         if (!empty($this->def['primary_flag_column']) && $row[$this->def['primary_flag_column']]) {
             $rhsKey = $this->def['join_key_rhs'];
@@ -191,12 +199,21 @@ class M2MRelationship extends SugarRelationship
             } else {
                 $query .= "$lhsKey = '" . $db->quote($row[$lhsKey]) . "'";
             }
-            $db->query($query);
+            if ($db->query($query) === false) {
+                $success = false;
+                LoggerManager::getLogger()->error("Warning: failure updating primary flag column for within M2MRelationship->add()Row. Query: $query");
+            }
+        }
+        $retObj = parent::addRow($row);
+        if ($retObj === false) {
+            $success = false;
+        }
+        if ($success == false) {
+            return $success;
         }
 
-        return parent::addRow($row);
+        return $retObj;
     }
-
     /**
      * Used to check for duplicate rows for this relationship. Compares all fields rather than just id's.
      *
@@ -275,10 +292,12 @@ class M2MRelationship extends SugarRelationship
         if ($rhs->id != $lhs->id)
         {
             $dataToInsert = $this->getRowToInsert($rhs, $lhs, $additionalFields);
-            $this->addRow($dataToInsert);
+            if($this->addRow($dataToInsert) === false) {
+                return false;
+            }
         }
+        return true;
     }
-
     public function remove($lhs, $rhs)
     {
         if(!($lhs instanceof SugarBean) || !($rhs instanceof SugarBean)) {
@@ -327,10 +346,18 @@ class M2MRelationship extends SugarRelationship
             $this->def['join_key_rhs'] => $rhs->id
         );
 
-        $this->removeRow($dataToRemove);
+        $success = true;
+        if ($this->removeRow($dataToRemove) === false) {
+            $success = false;
+            LoggerManager::getLogger()->error("Warning: failure calling removingRow() for relationship {$this->name} within M2MRelationship->remove()  dataToRemove: ".var_export($dataToRemove,true));
+        }
 
-        if ($this->self_referencing)
-            $this->removeSelfReferencing($lhs, $rhs);
+        if ($this->self_referencing) {
+            if ($this->removeSelfReferencing($lhs, $rhs) === false) {
+                $success = false;
+                LoggerManager::getLogger()->error("Warning: failure calling removingSelfReferencing() for relationship {$this->name} within M2MRelationship->remove() ");
+            }
+        }
 
         if (empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes")
         {
@@ -347,11 +374,12 @@ class M2MRelationship extends SugarRelationship
             }
         }
 
-        $this->setNewPrimary($dataToRemove);
-
-        return true;
+        if ($this->setNewPrimary($dataToRemove) === false) {
+            $success = false;
+            LoggerManager::getLogger()->error("Warning: failure calling setNewPrimary() for relationship {$this->name} within M2MRelationship->remove(). dataToRemove: ".var_export($dataToRemove,true));
+        }
+        return $success;
     }
-
     /**
      * Removes the reversed version of this relationship
      * @param $lhs
@@ -367,10 +395,13 @@ class M2MRelationship extends SugarRelationship
                 $this->def['join_key_lhs'] => $rhs->id,
                 $this->def['join_key_rhs'] => $lhs->id
             );
-            $this->removeRow($dataToRemove);
+            if ($this->removeRow($dataToRemove) === false) {
+                LoggerManager::getLogger()->error("Warning: failure calling removeRow() for relationship {$this->name} within M2MRelationship->removeSelfReferencing(). dataToRemove: ".var_export($dataToRemove,true));
+                return false;
+            }
         }
+        return true;
     }
-
     /**
      * Sets a new primary record for this relationship, if necessary
      * @param array $rowData
@@ -395,33 +426,37 @@ class M2MRelationship extends SugarRelationship
             ." FROM {$this->getRelationshipTable()} WHERE "
             ." {$this->def['primary_flag_column']} = 1 AND {$wherePart}";
 
-        $ret = $db->query($query,true);
-        $oldRow = $db->fetchByAssoc($ret);
-
+        $oldRow = $db->fetchOne($query, true);
+        $success = true;
         if (!empty($oldRow)) {
             // Deleted the primary record, and we need a default primary
             $colName = $this->def['join_key_'.$this->def['primary_flag_side']];
             $queryColPart = "{$colName} = '".$db->quote($rowData[$colName])."' ";
 
             // Mark everything related to this record not primary
-            $db->query("UPDATE {$this->getRelationshipTable()} SET "
-                       ."{$this->def['primary_flag_column']} = 0 WHERE ".$queryColPart);
+            $query = "UPDATE {$this->getRelationshipTable()} SET  {$this->def['primary_flag_column']} = 0 WHERE ".$queryColPart;
+            if ($db->query($query) === false) {
+                LoggerManager::getLogger()->error("Warning: failed trying to reset primary record flags for relationship {$this->name} within M2MRelationship->setNewPrimary(). Query: $query");
+                $success = false;
+            }
 
             $query = "SELECT id,date_modified FROM {$this->getRelationshipTable()} "
                 ." WHERE deleted = 0 AND ".$queryColPart
                 ." ORDER BY date_modified";
-            $ret = $db->limitQuery($query, 0, 1, true);
-            $row = $db->fetchByAssoc($ret);
+            $row = $db->fetchOneOffset($query, 0, true);
             if (empty($row)) {
                 // No other relationships to set as primary
                 return;
             }
 
             $query = "UPDATE {$this->getRelationshipTable()} SET {$this->def['primary_flag_column']} = 1 WHERE id = '".$db->quote($row['id'])."'";
-            $db->query($query);
+            if ($db->query($query) === false) {
+                LoggerManager::getLogger()->error("Warning: failed trying to set new primary record for relationship {$this->name} within M2MRelationship->setNewPrimary(). Query: $query");
+                $success = false;
+            }
         }
+        return $success;
     }
-
     /**
      * @param  $link Link2 loads the relationship for this link.
      * @return void
@@ -545,11 +580,27 @@ class M2MRelationship extends SugarRelationship
             $startingTable = (empty($params['right_join_table_alias']) ? $link->getFocus()->table_name : $params['right_join_table_alias']);
         }
 
+        $self_join = ($this->def['lhs_module'] == $this->def['rhs_module']) ? true : false;
+
         $startingKey = $linkIsLHS ? $this->def['lhs_key'] : $this->def['rhs_key'];
-        $startingJoinKey = $linkIsLHS ? $this->def['join_key_lhs'] : $this->def['join_key_rhs'];
+        // Adding a check for badly defined relationships for self referencing relationship
+        // $this->lhsLinkDef['id_name'] & $this->rhsLinkDef['id_name'] would contain accurate join key in this case
+        if ($self_join && !empty($this->lhsLinkDef['id_name']) && $this->lhsLinkDef['id_name'] != $this->def['join_key_lhs']) {
+            $startingJoinKey = $linkIsLHS ? $this->lhsLinkDef['id_name'] : $this->rhsLinkDef['id_name'];
+        }
+        else {
+            $startingJoinKey = $linkIsLHS ? $this->def['join_key_lhs'] : $this->def['join_key_rhs'];
+        }
         $joinTable = $this->getRelationshipTable();
         $joinTableWithAlias = $joinTable;
-        $joinKey = $linkIsLHS ? $this->def['join_key_rhs'] : $this->def['join_key_lhs'];
+        // Adding a check for badly defined relationships for self referencing relationship
+        // $this->lhsLinkDef['id_name'] & $this->rhsLinkDef['id_name'] would contain accurate join key in this case
+        if ($self_join && !empty($this->lhsLinkDef['id_name']) && $this->lhsLinkDef['id_name'] != $this->def['join_key_lhs']) {
+            $joinKey = $linkIsLHS ? $this->rhsLinkDef['id_name'] : $this->lhsLinkDef['id_name'];
+        }
+        else {
+            $joinKey = $linkIsLHS ? $this->def['join_key_rhs'] : $this->def['join_key_lhs'];
+        }
         $targetTable = $linkIsLHS ? $this->def['rhs_table'] : $this->def['lhs_table'];
         $targetTableWithAlias = $targetTable;
         $targetKey = $linkIsLHS ? $this->def['rhs_key'] : $this->def['lhs_key'];
@@ -661,6 +712,7 @@ class M2MRelationship extends SugarRelationship
             if (!empty($bean) && $bean->hasCustomFields()) {
                 $table_cstm = $bean->get_custom_table_name();
                 $alias_cstm = "{$targetTable_alias}_cstm";
+                $alias_cstm = $bean->db->getValidDBName($alias_cstm, false, 'alias');
                 $sugar_query->joinTable($table_cstm, array('alias' => $alias_cstm, 'joinType' => "LEFT", 'linkingTable' => true))
                     ->on()->equalsField("$alias_cstm.id_c", "{$targetTable_alias}.id");
             }

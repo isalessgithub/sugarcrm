@@ -11,14 +11,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: view.error.php 31561 2008-02-04 18:41:10Z jmertic $
+
  * Description: view handler for error page of the import process
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  ********************************************************************************/
 
 require_once('include/MVC/View/SugarView.php');
-        
+
 class ImportViewError extends SugarView 
 {	
     /**
@@ -65,12 +65,12 @@ class ImportViewError extends SugarView
      */
  	public function display()
     {
-        $this->ss->assign("IMPORT_MODULE", $_REQUEST['import_module']);
+        $this->ss->assign("IMPORT_MODULE", $this->request->getValidInputRequest('import_module', 'Assert\Mvc\ModuleName', ''));
         $this->ss->assign("ACTION", 'Step1');
-        $this->ss->assign("MESSAGE",$_REQUEST['message']);
+        $this->ss->assign("MESSAGE", $this->request->getValidInputRequest('message', null, ''));
         $this->ss->assign("SOURCE","");
         if ( isset($_REQUEST['source']) )
-            $this->ss->assign("SOURCE", $_REQUEST['source']);
+        $this->ss->assign("SOURCE", $this->request->getValidInputRequest('source', array('Assert\Choice' => array('choices' => self::getImportSourceOptions())), ''));
         
         $this->ss->display('modules/Import/tpls/error.tpl');
     }

@@ -111,9 +111,10 @@ abstract class ServiceBase {
      * simply have to generate the ETag, pass it in, and the function handles the rest.
      *
      * @param string $etag ETag to use for this content.
+     * @param int $cache_age age in seconds for Cache-control max-age header
      * @return bool Did we have a match?
      */
-    public function generateETagHeader()
+    public function generateETagHeader($etag, $cache_age = null)
     {
         // do nothing in base class
         return false;
@@ -175,8 +176,9 @@ abstract class ServiceBase {
         if (ob_get_level() > 0 && ob_get_length() > 0) {
             // Looks like something errored out first
             $errorOutput = ob_get_clean();
-            if(trim($errorOutput) == '') {
-                // whitespace only, we may let it slide on account of 6.x having broken templates with whitespace
+            if (trim(str_replace("\xEF\xBB\xBF", '', $errorOutput)) == '') {
+                // whitespace only and BOM
+                // we may let it slide on account of 6.x having broken templates with whitespace
                 // See BR-1038
                 return;
             }

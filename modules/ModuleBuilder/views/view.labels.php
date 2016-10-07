@@ -9,6 +9,7 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
 /*
  * Created on Jul 24, 2007
  *
@@ -38,23 +39,22 @@ class ViewLabels extends ViewModulefields
      //TODO Bundle Studio and ModuleBuilder label handling to increase maintainability.
      function display()
      {
-        global $locale;
+         global $locale;
 
-        $editModule = $_REQUEST['view_module'];
-        $allLabels = (!empty($_REQUEST['labels']) && $_REQUEST['labels']== 'all');
+         $editModule = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
+         $labels = $this->request->getValidInputRequest('labels');
+         $allLabels = ($labels == 'all');
 
          if (!isset($_REQUEST['MB'])) {
-            global $app_list_strings;
-            $moduleNames = array_change_key_case($app_list_strings['moduleList']);
-            $translatedEditModule = $moduleNames[strtolower($editModule)];
-        }
-        $selected_lang = null;
-
-        if (!empty($_REQUEST['selected_lang'])) {
-            $selected_lang = $_REQUEST['selected_lang'];
-        } else {
-            $selected_lang = $locale->getAuthenticatedUserLanguage();
-        }
+             global $app_list_strings;
+             $moduleNames = array_change_key_case($app_list_strings['moduleList']);
+             $translatedEditModule = $moduleNames[strtolower($editModule)];
+         }
+         $selected_lang = $this->request->getValidInputRequest(
+             'selected_lang',
+             'Assert\Language',
+             $locale->getAuthenticatedUserLanguage()
+         );
 
         $smarty = new Sugar_Smarty();
         global $mod_strings;
@@ -164,7 +164,6 @@ class ViewLabels extends ViewModulefields
             );
             
             $hideQuickCreateForModules = array(
-                'KBDocuments',
                 'Campaigns',
                 'Quotes',
                 'ProductTemplates',
@@ -177,9 +176,6 @@ class ViewLabels extends ViewModulefields
                 }
             }
 
-            if ($module == 'KBDocuments') {
-                $variableMap  = array();
-            }
         } else {
             $variableMap = array(
                 MB_RECORDVIEW => 'record',

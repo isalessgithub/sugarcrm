@@ -20,10 +20,13 @@ if (!defined('sugarEntry') || !sugarEntry) {
  */
 class ActivityQueueManager
 {
-    public static $linkBlacklist = array('user_sync', 'activities', 'contacts_sync');
-    public static $linkModuleBlacklist = array('ActivityStream/Activities', 'ACLRoles', 'Teams');
+    public static $linkBlacklist = array('user_sync', 'activities', 'contacts_sync', 'kbusefulness', 'usefulness');
+    public static $linkModuleBlacklist = array('ActivityStream/Activities', 'ACLRoles', 'Teams',
+        'KBArticles', 'KBDocuments'
+    );
     public static $linkDupeCheck = array();
-    public static $moduleBlacklist = array('OAuthTokens', 'SchedulersJobs', 'Activities', 'vCals', 'KBContents',
+    public static $moduleBlacklist = array('OAuthTokens', 'SchedulersJobs',
+        'Activities', 'vCals', 'KBArticles', 'KBDocuments',
         'Forecasts', 'ForecastWorksheets', 'ForecastManagerWorksheets', 'Notifications',
         'Quotes', //Quotes should not allow admin to enable activities until Quotes are converted to sidecar
         'RevenueLineItems',
@@ -137,7 +140,7 @@ class ActivityQueueManager
      */
     protected function createOrUpdate(SugarBean $bean, array $args, Activity $act)
     {
-        if ($bean->deleted || $bean->inOperation('saving_related')) {
+        if ($bean->deleted) {
             return false;
         }
 
@@ -287,7 +290,7 @@ class ActivityQueueManager
 
                 if (isset($changeInfo['data_type']) &&
                     ($changeInfo['data_type'] === 'id' ||
-                        $changeInfo['data_type'] === 'relate' ||
+                        in_array($changeInfo['data_type'], $bean::$relateFieldTypes) ||
                         $changeInfo['data_type'] === 'team_list')
                 ) {
                     if ($fieldName == 'team_set_id') {
@@ -309,6 +312,19 @@ class ActivityQueueManager
                         } else {
                             if (!empty($def['module'])) {
                                 $referenceModule = $def['module'];
+                            } elseif ($changeInfo['data_type'] === 'id') {
+                                //find module from corresponding relate field
+                                foreach($bean->field_defs as $fieldDef) {
+                                    if (isset($fieldDef['type']) &&
+                                        in_array($fieldDef['type'], $bean::$relateFieldTypes) &&
+                                        isset($fieldDef['id_name']) &&
+                                        $fieldDef['id_name'] === $fieldName &&
+                                        isset($fieldDef['module'])
+                                    ) {
+                                        $referenceModule = $fieldDef['module'];
+                                        break;
+                                    }
+                                }
                             }
                         }
 

@@ -23,7 +23,7 @@ class ViewConvertLead extends SugarView
         $view_object_map = array()
         )
     {
-        parent::SugarView($bean, $view_object_map);
+        parent::__construct($bean, $view_object_map);
     	$this->medataDataFile = SugarAutoLoader::existingCustomOne($this->fileName);
     }
 
@@ -419,7 +419,7 @@ class ViewConvertLead extends SugarView
                 $fieldDef = $beans['Contacts']->field_defs[$select];
                 if (!empty($fieldDef['id_name']) && !empty($_REQUEST[$fieldDef['id_name']]))
                 {
-                    $beans['Contacts']->$fieldDef['id_name'] = $_REQUEST[$fieldDef['id_name']];
+                    $beans['Contacts']->{$fieldDef['id_name']} = $_REQUEST[$fieldDef['id_name']];
                     $selects[$module] = $_REQUEST[$fieldDef['id_name']];
                     if (!empty($_REQUEST[$select]))
                     {
@@ -469,6 +469,7 @@ class ViewConvertLead extends SugarView
         $beans = array_merge($tempBeans, $beans);
         unset($tempBeans);
 
+        $calcFieldBeans = array();
         //Handle non-contacts relationships
         foreach ($beans as $bean)
         {
@@ -526,6 +527,16 @@ class ViewConvertLead extends SugarView
             {
                 campaign_log_lead_or_contact_entry($lead->campaign_id, $lead, $beans['Contacts'], 'contact');
             }
+
+            //iterate through each field in field map and check meta for calculated fields
+            foreach ($bean->field_name_map as $calcFieldDefs) {
+                if (!empty($calcFieldDefs['calculated'])) {
+                    //bean has a calculated field, lets add it to the array for later processing
+                    $calcFieldBeans[] = $bean;
+                    break;
+                }
+            }
+
         }
         if (!empty($lead))
         {	//Mark the original Lead converted
@@ -533,6 +544,13 @@ class ViewConvertLead extends SugarView
             $lead->converted = '1';
             $lead->in_workflow = true;
             $lead->save();
+        }
+
+        //IF beans have calculated fields, re-save now that all beans and relationships have been updated
+        foreach ($calcFieldBeans as $calcFieldBean) {
+            //refetch bean and save to update Calculated Fields.
+            $calcFieldBean->retrieve($calcFieldBean->id);
+            $calcFieldBean->save();
         }
 
         $this->displaySaveResults($beans);
@@ -740,8 +758,8 @@ class ViewConvertLead extends SugarView
 		$newActivity->new_with_id = true;
 
         //set the parent id and type if it was passed in, otherwise use blank to wipe it out
-        $parentID = '';
-        $parentType = '';
+        $parentID = null;
+        $parentType = null;
         if(!empty($parentArr)){
             if(!empty($parentArr['id'])){
                 $parentID = $parentArr['id'];
@@ -823,7 +841,7 @@ class ViewConvertLead extends SugarView
 			{
 				$bean->id = create_guid();
 				$bean->new_with_id = true;
-				$contact->$fieldDef['id_name'] = $bean->id ;
+                $contact->{$fieldDef['id_name']} = $bean->id;
 				if ($fieldDef['id_name'] != $select) {
 					$rname = isset($fieldDef['rname']) ? $fieldDef['rname'] : "";
 					if (!empty($rname) && isset($bean->$rname))

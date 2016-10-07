@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: Popup_picker.php 50752 2009-09-10 22:18:28Z dwong $
+
  * Description:  This file is used for all popups on this module
  * The popup_picker.html file is used for generating a list from which to find and
  * choose one instance.
@@ -21,11 +21,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 global $theme;
-
-
-
-
-
 
 global $app_strings;
 global $app_list_strings;
@@ -44,14 +39,11 @@ require_once('modules/ProductCategories/TreeData.php');
 
 class Popup_Picker
 {
-
-
-    /*
-     *
+    /**
+     * @deprecated
      */
-    function Popup_Picker()
+    public function Popup_Picker()
     {
-        ;
     }
 
     function process_page()
@@ -189,4 +181,3 @@ END;
 
 
 }
-?>

@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-06 15:20:01
+// created: 2016-10-07 09:55:44
 $listViewDefs['Contacts'] = array (
   'NAME' => 
   array (
@@ -244,5 +244,20 @@ $listViewDefs['Contacts'] = array (
     'width' => '10%',
     'default' => false,
     'sortable' => false,
+  ),
+  'EMAIL' => 
+  array (
+    'width' => '15%',
+    'label' => 'LBL_LIST_EMAIL_ADDRESS',
+    'sortable' => false,
+    'link' => true,
+    'customCode' => '{$EMAIL_LINK}{$EMAIL}</a>',
+    'default' => false,
+  ),
+  'PRIMARY_ADDRESS_COUNTRY' => 
+  array (
+    'width' => '10',
+    'label' => 'LBL_PRIMARY_ADDRESS_COUNTRY',
+    'default' => false,
   ),
 );

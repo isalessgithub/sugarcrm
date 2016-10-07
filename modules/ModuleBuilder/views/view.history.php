@@ -53,7 +53,7 @@ class ViewHistory extends SugarView
         }
         
         $packageName = (isset ( $_REQUEST [ 'view_package' ] ) && (strtolower ( $_REQUEST [ 'view_package' ] ) != 'studio')) ? $_REQUEST [ 'view_package' ] : null ;
-        $this->module = $_REQUEST [ 'view_module' ] ;
+        $this->module = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
 
         $params = array();
         $this->parser = ParserFactory::getParser(
@@ -72,20 +72,22 @@ class ViewHistory extends SugarView
 
     function browse ()
     {
+        global $timedate ;
+
         $smarty = new Sugar_Smarty ( ) ;
         global $mod_strings ;
         $smarty->assign ( 'mod_strings', $mod_strings ) ;
         $smarty->assign ( 'view_module', $this->module ) ;
         $smarty->assign ( 'view', $this->layout ) ;
-        
-        if (! empty ( $_REQUEST [ 'subpanel' ] ))
-        {
-            $smarty->assign ( 'subpanel', $_REQUEST [ 'subpanel' ] ) ;
-        }
-        $stamps = array ( ) ;
-        global $timedate ;
-        $userFormat = $timedate->get_date_time_format () ;
-        $page = ! empty ( $_REQUEST [ 'page' ] ) ? $_REQUEST [ 'page' ] : 0 ;
+
+        $subpanel = $this->request->getValidInputRequest('subpanel');
+        $smarty->assign('subpanel', $subpanel);
+
+        $page = $this->request->getValidInputRequest('page', array(
+            'Assert\Type' => array('type' => 'numeric'),
+            'Assert\Range' => array('min' => 0),
+        ), 0);
+
         $count = $this->history->getCount();
         $ts = $this->history->getNth ( $page * $this->pageSize ) ;
         $snapshots = array ( ) ;
@@ -105,6 +107,8 @@ class ViewHistory extends SugarView
             );
             $ts = $this->history->getNext () ;
         }
+
+
         if (count ( $snapshots ) > $this->pageSize)
         {
             $smarty->assign ( 'nextPage', true ) ;
@@ -128,14 +132,20 @@ class ViewHistory extends SugarView
         $subpanel = '';
         if (! empty ( $_REQUEST [ 'subpanel' ] ))
         {
-            $subpanel = ',"' . $_REQUEST [ 'subpanel' ] . '"' ;
+            $subpanel = $_REQUEST['subpanel'];
         }
 
         $isDefault = $sid == $this->history->getLast();
-        echo "<input type='button' name='close$sid' value='". translate ( 'LBL_BTN_CLOSE' )."' " . 
+        echo "<input type='button' value='" . translate('LBL_BTN_CLOSE') . "' " .
                 "class='button' onclick='ModuleBuilder.tabPanel.removeTab(ModuleBuilder.tabPanel.get(\"activeTab\"));' style='margin:5px;'>" . 
-             "<input type='button' name='restore$sid' value='" . translate ( 'LBL_MB_RESTORE' ) . "' " .  
-                "class='button' onclick='ModuleBuilder.history.revert(\"$this->module\",\"{$this->layout}\",\"$sid\",\"$subpanel\",\"$isDefault\");' style='margin:5px;'>" ;
+             "<input type='button' value='" . translate('LBL_MB_RESTORE') . "' " .
+                "class='button' onclick='ModuleBuilder.history.revert("
+            . htmlspecialchars(json_encode($this->module))
+            . ', ' . htmlspecialchars(json_encode($this->layout))
+            . ', ' . htmlspecialchars(json_encode($sid))
+            . ', ' . htmlspecialchars(json_encode($subpanel))
+            . ', ' . htmlspecialchars(json_encode($isDefault))
+            . ");' style='margin:5px;'>";
         $this->history->restoreByTimestamp ( $sid ) ;
 
         if ($this->layout == 'listview')

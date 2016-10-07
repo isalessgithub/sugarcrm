@@ -19,9 +19,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 
-
-
-
 require_once('modules/TimePeriods/Forms.php');
 
 
@@ -60,7 +57,6 @@ $xtpl=new XTemplate ('modules/TimePeriods/DetailView.html');
 $xtpl->assign("MOD", $mod_strings);
 $xtpl->assign("APP", $app_strings);
 $xtpl->assign("GRIDLINE", $gridline);
-$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 $xtpl->assign("ID", $focus->id);
 $xtpl->assign("RETURN_MODULE", "TimePeriods");
 $xtpl->assign("RETURN_ACTION", "DetailView");

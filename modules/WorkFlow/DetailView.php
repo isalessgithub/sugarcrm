@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: DetailView.php 56650 2010-05-24 18:53:17Z jenny $
+
  * Description:
  ********************************************************************************/
 
@@ -59,7 +59,6 @@ $xtpl=new XTemplate ('modules/WorkFlow/DetailView.html');
 $xtpl->assign("MOD", $mod_strings);
 $xtpl->assign("APP", $app_strings);
 $xtpl->assign("GRIDLINE", $gridline);
-$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 $xtpl->assign('NAME', $focus->name);
 $xtpl->assign('ID', $focus->id);
 $xtpl->assign("DESCRIPTION", nl2br($focus->description));

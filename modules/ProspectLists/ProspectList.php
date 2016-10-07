@@ -175,9 +175,9 @@ FROM prospect_lists_prospects plp
 		return $query;
 	}
 
-	function save_relationship_changes($is_update)
+    public function save_relationship_changes($is_update, $exclude = array())
     {
-    	parent::save_relationship_changes($is_update);
+        parent::save_relationship_changes($is_update, $exclude);
 		if($this->lead_id != "")
 	   		$this->set_prospect_relationship($this->id, $this->lead_id, "lead");
     	if($this->contact_id != "")
@@ -228,6 +228,12 @@ FROM prospect_lists_prospects plp
 		parent::fill_in_additional_detail_fields();
         $this->entry_count = $this->get_entry_count();
 	}
+
+    public function updateRelatedCalcFields($linkName = "")
+    {
+        parent::updateRelatedCalcFields($linkName);
+        $this->entry_count = $this->get_entry_count();
+    }
 
 
 	function update_currency_id($fromid, $toid){

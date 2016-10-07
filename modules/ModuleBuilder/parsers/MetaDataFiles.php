@@ -101,6 +101,8 @@ class MetaDataFiles
         MB_WIRELESSLISTVIEW       => 'list' ,
         MB_WIRELESSBASICSEARCH    => 'search' ,
         MB_WIRELESSADVANCEDSEARCH => 'search' ,
+        MB_FILTERVIEW             => 'default',
+        MB_BWCFILTERVIEW          => 'SearchFields',
     );
 
     /**
@@ -540,10 +542,10 @@ class MetaDataFiles
      * @param string $component Layout or view
      * @return string
      */
-    public static function getSugarObjectFileDir($module, $client = '', $component = self::COMPONENTVIEW)
+    public static function getSugarObjectFileDir($module, $client = '', $component = self::COMPONENTVIEW, $seed = null)
     {
         require_once 'modules/ModuleBuilder/Module/StudioModule.php';
-        $sm = new StudioModule($module);
+        $sm = StudioModuleFactory::getStudioModule($module, $seed);
 
         $dirname = 'include/SugarObjects/templates/' . $sm->getType();
         if (!empty($client)) {
@@ -733,6 +735,17 @@ class MetaDataFiles
                         foreach ($cacheFiles as $cacheFile) {
                             SugarAutoLoader::unlink($cacheFile);
                         }
+                        // Build up to the role dir level
+                        $roleDirs = glob($platformDir . '*/');
+                        foreach ($roleDirs as $roleDir) {
+
+                            $cacheFiles = glob($roleDir . $type . '.php');
+
+                            // Handle nuking the files
+                            foreach ($cacheFiles as $cacheFile) {
+                                SugarAutoLoader::unlink($cacheFile);
+                            }
+                        }
                     }
                 }
             }
@@ -800,8 +813,8 @@ class MetaDataFiles
         }
         foreach ($modules as $module) {
             $seed = BeanFactory::getBean($module);
-            $fileList = self::getClientFiles($platforms, $type, $module, $context);
-            $moduleResults = self::getClientFileContents($fileList, $type, $module);
+            $fileList = self::getClientFiles($platforms, $type, $module, $context, $seed);
+            $moduleResults = self::getClientFileContents($fileList, $type, $module, $seed);
 
             if ($type == "view") {
                 foreach ($moduleResults as $view => $defs) {
@@ -809,10 +822,7 @@ class MetaDataFiles
                         continue;
                     }
                     $meta = !empty($defs['meta']) ? $defs['meta'] : array();
-                    $deps = array_merge(
-                        DependencyManager::getDependenciesForFields($seed->field_defs, ucfirst($view) . "View"),
-                        DependencyManager::getDependenciesForView($meta, ucfirst($view) . "View", $module)
-                        );
+                    $deps = DependencyManager::getDependenciesForView($meta, ucfirst($view) . "View", $module);
                     if (!empty($deps)) {
                         if (!isset($meta['dependencies']) || !is_array($meta['dependencies'])) {
                             $moduleResults[$view]['meta']['dependencies'] = array();
@@ -822,16 +832,29 @@ class MetaDataFiles
                         }
                     }
                 }
+            } elseif ($type == 'dependency') {
+                if (!empty($seed) && !empty($seed->field_defs)) {
+                    $modDeps = DependencyManager::getDependenciesForFields($seed->field_defs);
+                    if (!empty($modDeps)) {
+                        $moduleResults['dependencies'] = array();
+                        foreach ($modDeps as $dep) {
+                            $moduleResults['dependencies'][] = $dep->getDefinition();
+                        }
+                    }
+                }
             }
 
             if ($noCache) {
                 return $moduleResults;
             } else {
                 $basePath = sugar_cached('modules/'.$module.'/clients/'.$platforms[0]);
-               sugar_mkdir($basePath,null,true);
-
-               $output = "<?php\n\$clientCache['".$module."']['".$platforms[0]."']['".$type."'] = ".var_export($moduleResults,true).";\n\n";
-               sugar_file_put_contents_atomic($basePath.'/'.$type.'.php', $output);
+                if ($context != null && $context->getHash()) {
+                    $basePath .= '/' . $context->getHash();
+                }
+                sugar_mkdir($basePath,null,true);
+    
+                $output = "<?php\n\$clientCache['".$module."']['".$platforms[0]."']['".$type."'] = ".var_export($moduleResults,true).";\n\n";
+                sugar_file_put_contents_atomic($basePath.'/'.$type.'.php', $output);
             }
         }
     }
@@ -850,7 +873,7 @@ class MetaDataFiles
      *
      * @return array
      */
-    public static function getClientFiles( $platforms, $type, $module = null, MetaDataContextInterface $context = null)
+    public static function getClientFiles( $platforms, $type, $module = null, MetaDataContextInterface $context = null, $bean = null)
     {
         $checkPaths = array();
 
@@ -869,12 +892,14 @@ class MetaDataFiles
                 // The template flag is if that file needs to be "built" by the metadata loader so it
                 // is no longer a template file, but a real file.
                 // Use the module_dir if available to support submodules
-                $bean = BeanFactory::getBean($module);
+                if (!$bean) {
+                    $bean = BeanFactory::getBean($module);
+                }
                 $module_path  = isset($bean->module_dir) ? $bean->module_dir : $module;
                 $checkPaths['custom/modules/'.$module_path.'/clients/'.$platform.'/'.$type.'s'] = array('platform'=>$platform,'template'=>false);
                 $checkPaths['modules/'.$module_path.'/clients/'.$platform.'/'.$type.'s'] = array('platform'=>$platform,'template'=>false);
                 $baseTemplateDir = 'include/SugarObjects/templates/basic/clients/'.$platform.'/'.$type.'s';
-                $nonBaseTemplateDir = self::getSugarObjectFileDir($module, $platform, $type);
+                $nonBaseTemplateDir = self::getSugarObjectFileDir($module, $platform, $type, $bean);
                 if (!empty($nonBaseTemplateDir) && $nonBaseTemplateDir != $baseTemplateDir ) {
                     $checkPaths['custom/'.$nonBaseTemplateDir] = array('platform'=>$platform,'template'=>true);
                     $checkPaths[$nonBaseTemplateDir] = array('platform'=>$platform, 'template'=>true);
@@ -1001,7 +1026,7 @@ class MetaDataFiles
      *
      * @return array
      */
-    public static function getClientFileContents( $fileList, $type, $module = '' )
+    public static function getClientFileContents( $fileList, $type, $module = '', $bean = null)
     {
         $results = array();
 
@@ -1016,7 +1041,7 @@ class MetaDataFiles
                     if (isset($results[$subpath]['controller'][$fileInfo['platform']])) {
                         continue;
                     }
-                    $controller = self::trimLicense(file_get_contents($fileInfo['path'], "js"));
+                    $controller = file_get_contents($fileInfo['path']);
                     $results[$subpath]['controller'][$fileInfo['platform']] = $controller;
                     break;
                 case 'hbs':
@@ -1054,7 +1079,9 @@ class MetaDataFiles
                     if ($fileInfo['template']) {
                         // This is a template file, not a real one.
                         require $fileInfo['path'];
-                        $bean = BeanFactory::getBean($module);
+                        if (!$bean) {
+                            $bean = BeanFactory::getBean($module);
+                        }
                         if ( !is_a($bean,'SugarBean') ) {
                             // I'm not sure what this is, but it's not something we can template
                             continue;
@@ -1147,6 +1174,12 @@ class MetaDataFiles
                     $currentDefs['components'][] = $mergeComponent;
                 }
             }
+        }
+
+        // Allow modules that set their subpanels dynamically to flow down to
+        // the client
+        if (isset($mergeDefs['dynamic'])) {
+            $currentDefs['dynamic'] = $mergeDefs['dynamic'];
         }
 
         return $currentDefs;
@@ -1246,17 +1279,12 @@ class MetaDataFiles
     /**
      * Used to remove the sugarcrm license header from component files that are going to be rolled into a JSON response
      * @param string $text
-     * @param string $type
      *
      * @return string
      */
-    protected static function trimLicense($text, $type = "hbs") {
+    protected static function trimLicense($text) {
         $start = "{{!";
         $end = "}}";
-        if ($type == "js") {
-            $start = "/**";
-            $end = "*/";
-        }
         if (substr($text, 0, 3) == $start) {
             $endOfLicense = strpos($text, $end) + strlen($end);
             $text = substr($text, $endOfLicense);

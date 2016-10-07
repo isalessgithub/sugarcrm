@@ -88,14 +88,56 @@ SEE.prototype.init = function(params) {
  * Returns the parameter list for this Expression.
  */
 SEE.prototype.getParameters = function() {
-	return this.params;
+    if (!this.params) {
+        return this.params;
+    }
+
+    var params,
+        param,
+        result = [],
+        types = this.getParameterTypes(),
+        oneParam = this.getParamCount() == 1,
+        type,
+        i;
+
+    if (oneParam || (!_.isArray(this.params) && _.isObject(this.params))) {
+        params = [this.params];
+    } else {
+        params = this.params;
+    }
+
+    if (!(types instanceof Array)) {
+        type = types;
+        types = [];
+        for (i = 0; i < params.length; i++) {
+            types.push(type);
+        }
+    }
+
+    var map = this.constructor.TYPE_CAST_MAP;
+    for (i = 0; i < params.length; i++) {
+        param = params[i];
+        if (param instanceof SEE) {
+            type = SEP.prototype.getType(param);
+            if (type != types[i] && types[i] in map) {
+                param = new SUGAR.expressions[map[types[i]]](param, this.context);
+            }
+        }
+        result.push(param);
+    }
+
+    if (oneParam) {
+        result = result.shift();
+    }
+
+    return result;
 };
 
 /**
  * Validates the parameters and throws an Exception if invalid.
  */
 SEE.prototype.validateParameters = function() {
-	var params = this.getParameters();
+    var params = this.params;
 	var count  = this.getParamCount();
 	var types  = this.getParameterTypes();
 
@@ -423,7 +465,13 @@ SEE.TYPE_MAP	= {
 		"generic" 	: SUGAR.expressions.GenericExpression
 };
 
-
+/**
+ * The type to expression class map for implicit type casting.
+ */
+SEE.TYPE_CAST_MAP = {
+    "number": "ValueOfExpression",
+    "string": "DefineStringExpression"
+};
 
 /**
  * Construct a new ConstantExpression.

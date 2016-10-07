@@ -5,4 +5,306 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-YUI.add("dom-style-ie",function(e,t){(function(e){var t="hasLayout",n="px",r="filter",i="filters",s="opacity",o="auto",u="borderWidth",a="borderTopWidth",f="borderRightWidth",l="borderBottomWidth",c="borderLeftWidth",h="width",p="height",d="transparent",v="visible",m="getComputedStyle",g=undefined,y=e.config.doc.documentElement,b=e.Features.test,w=e.Features.add,E=/^(\d[.\d]*)+(em|ex|px|gd|rem|vw|vh|vm|ch|mm|cm|in|pt|pc|deg|rad|ms|s|hz|khz|%){1}?/i,S=e.UA.ie>=8,x=function(e){return e.currentStyle||e.style},T={CUSTOM_STYLES:{},get:function(t,r){var i="",o;return t&&(o=x(t)[r],r===s&&e.DOM.CUSTOM_STYLES[s]?i=e.DOM.CUSTOM_STYLES[s].get(t):!o||o.indexOf&&o.indexOf(n)>-1?i=o:e.DOM.IE.COMPUTED[r]?i=e.DOM.IE.COMPUTED[r](t,r):E.test(o)?i=T.getPixel(t,r)+n:i=o),i},sizeOffsets:{width:["Left","Right"],height:["Top","Bottom"],top:["Top"],bottom:["Bottom"]},getOffset:function(e,t){var r=x(e)[t],i=t.charAt(0).toUpperCase()+t.substr(1),s="offset"+i,u="pixel"+i,a=T.sizeOffsets[t],f=e.ownerDocument.compatMode,l="";return r===o||r.indexOf("%")>-1?(l=e["offset"+i],f!=="BackCompat"&&(a[0]&&(l-=T.getPixel(e,"padding"+a[0]),l-=T.getBorderWidth(e,"border"+a[0]+"Width",1)),a[1]&&(l-=T.getPixel(e,"padding"+a[1]),l-=T.getBorderWidth(e,"border"+a[1]+"Width",1)))):(!e.style[u]&&!e.style[t]&&(e.style[t]=r),l=e.style[u]),l+n},borderMap:{thin:S?"1px":"2px",medium:S?"3px":"4px",thick:S?"5px":"6px"},getBorderWidth:function(e,t,r){var i=r?"":n,s=e.currentStyle[t];return s.indexOf(n)<0&&(T.borderMap[s]&&e.currentStyle.borderStyle!=="none"?s=T.borderMap[s]:s=0),r?parseFloat(s):s},getPixel:function(e,t){var n=null,r=x(e),i=r.right,s=r[t];return e.style.right=s,n=e.style.pixelRight,e.style.right=i,n},getMargin:function(e,t){var r,i=x(e);return i[t]==o?r=0:r=T.getPixel(e,t),r+n},getVisibility:function(e,t){var n;while((n=e.currentStyle)&&n[t]=="inherit")e=e.parentNode;return n?n[t]:v},getColor:function(t,n){var r=x(t)[n];return(!r||r===d)&&e.DOM.elementByAxis(t,"parentNode",null,function(e){r=x(e)[n];if(r&&r!==d)return t=e,!0}),e.Color.toRGB(r)},getBorderColor:function(t,n){var r=x(t),i=r[n]||r.color;return e.Color.toRGB(e.Color.toHex(i))}},N={};w("style","computedStyle",{test:function(){return"getComputedStyle"in e.config.win}}),w("style","opacity",{test:function(){return"opacity"in y.style}}),w("style","filter",{test:function(){return"filters"in y}}),!b("style","opacity")&&b("style","filter")&&(e.DOM.CUSTOM_STYLES[s]={get:function(e){var t=100;try{t=e[i]["DXImageTransform.Microsoft.Alpha"][s]}catch(n){try{t=e[i]("alpha")[s]}catch(r){}}return t/100},set:function(e,n,i){var o,u=x(e),a=u[r];i=i||e.style,n===""&&(o=s in u?u[s]:1,n=o),typeof a=="string"&&(i[r]=a.replace(/alpha([^)]*\))/gi,"")+(n<=1?"alpha("+s+"="+n*100+")":""),i[r]||i.removeAttribute(r),u[t]||(i.zoom=1))}});try{e.config.doc.createElement("div").style.height="-1px"}catch(C){e.DOM.CUSTOM_STYLES.height={set:function(e,t,n){var r=parseFloat(t);if(r>=0||t==="auto"||t==="")n.height=t}},e.DOM.CUSTOM_STYLES.width={set:function(e,t,n){var r=parseFloat(t);if(r>=0||t==="auto"||t==="")n.width=t}}}b("style","computedStyle")||(N[h]=N[p]=T.getOffset,N.color=N.backgroundColor=T.getColor,N[u]=N[a]=N[f]=N[l]=N[c]=T.getBorderWidth,N.marginTop=N.marginRight=N.marginBottom=N.marginLeft=T.getMargin,N.visibility=T.getVisibility,N.borderColor=N.borderTopColor=N.borderRightColor=N.borderBottomColor=N.borderLeftColor=T.getBorderColor,e.DOM[m]=T.get,e.namespace("DOM.IE"),e.DOM.IE.COMPUTED=N,e.DOM.IE.ComputedStyle=T)})(e)},"3.15.0",{requires:["dom-style"]});
+YUI.add('dom-style-ie', function (Y, NAME) {
+
+(function(Y) {
+var HAS_LAYOUT = 'hasLayout',
+    PX = 'px',
+    FILTER = 'filter',
+    FILTERS = 'filters',
+    OPACITY = 'opacity',
+    AUTO = 'auto',
+
+    BORDER_WIDTH = 'borderWidth',
+    BORDER_TOP_WIDTH = 'borderTopWidth',
+    BORDER_RIGHT_WIDTH = 'borderRightWidth',
+    BORDER_BOTTOM_WIDTH = 'borderBottomWidth',
+    BORDER_LEFT_WIDTH = 'borderLeftWidth',
+    WIDTH = 'width',
+    HEIGHT = 'height',
+    TRANSPARENT = 'transparent',
+    VISIBLE = 'visible',
+    GET_COMPUTED_STYLE = 'getComputedStyle',
+    UNDEFINED = undefined,
+    documentElement = Y.config.doc.documentElement,
+
+    testFeature = Y.Features.test,
+    addFeature = Y.Features.add,
+
+    // TODO: unit-less lineHeight (e.g. 1.22)
+    re_unit = /^(\d[.\d]*)+(em|ex|px|gd|rem|vw|vh|vm|ch|mm|cm|in|pt|pc|deg|rad|ms|s|hz|khz|%){1}?/i,
+
+    isIE8 = (Y.UA.ie >= 8),
+
+    _getStyleObj = function(node) {
+        return node.currentStyle || node.style;
+    },
+
+    ComputedStyle = {
+        CUSTOM_STYLES: {},
+
+        get: function(el, property) {
+            var value = '',
+                current;
+
+            if (el) {
+                    current = _getStyleObj(el)[property];
+
+                if (property === OPACITY && Y.DOM.CUSTOM_STYLES[OPACITY]) {
+                    value = Y.DOM.CUSTOM_STYLES[OPACITY].get(el);
+                } else if (!current || (current.indexOf && current.indexOf(PX) > -1)) { // no need to convert
+                    value = current;
+                } else if (Y.DOM.IE.COMPUTED[property]) { // use compute function
+                    value = Y.DOM.IE.COMPUTED[property](el, property);
+                } else if (re_unit.test(current)) { // convert to pixel
+                    value = ComputedStyle.getPixel(el, property) + PX;
+                } else {
+                    value = current;
+                }
+            }
+
+            return value;
+        },
+
+        sizeOffsets: {
+            width: ['Left', 'Right'],
+            height: ['Top', 'Bottom'],
+            top: ['Top'],
+            bottom: ['Bottom']
+        },
+
+        getOffset: function(el, prop) {
+            var current = _getStyleObj(el)[prop],                     // value of "width", "top", etc.
+                capped = prop.charAt(0).toUpperCase() + prop.substr(1), // "Width", "Top", etc.
+                offset = 'offset' + capped,                             // "offsetWidth", "offsetTop", etc.
+                pixel = 'pixel' + capped,                               // "pixelWidth", "pixelTop", etc.
+                sizeOffsets = ComputedStyle.sizeOffsets[prop],
+                mode = el.ownerDocument.compatMode,
+                value = '';
+
+            // IE pixelWidth incorrect for percent
+            // manually compute by subtracting padding and border from offset size
+            // NOTE: clientWidth/Height (size minus border) is 0 when current === AUTO so offsetHeight is used
+            // reverting to auto from auto causes position stacking issues (old impl)
+            if (current === AUTO || current.indexOf('%') > -1) {
+                value = el['offset' + capped];
+
+                if (mode !== 'BackCompat') {
+                    if (sizeOffsets[0]) {
+                        value -= ComputedStyle.getPixel(el, 'padding' + sizeOffsets[0]);
+                        value -= ComputedStyle.getBorderWidth(el, 'border' + sizeOffsets[0] + 'Width', 1);
+                    }
+
+                    if (sizeOffsets[1]) {
+                        value -= ComputedStyle.getPixel(el, 'padding' + sizeOffsets[1]);
+                        value -= ComputedStyle.getBorderWidth(el, 'border' + sizeOffsets[1] + 'Width', 1);
+                    }
+                }
+
+            } else { // use style.pixelWidth, etc. to convert to pixels
+                // need to map style.width to currentStyle (no currentStyle.pixelWidth)
+                if (!el.style[pixel] && !el.style[prop]) {
+                    el.style[prop] = current;
+                }
+                value = el.style[pixel];
+
+            }
+            return value + PX;
+        },
+
+        borderMap: {
+            thin: (isIE8) ? '1px' : '2px',
+            medium: (isIE8) ? '3px': '4px',
+            thick: (isIE8) ? '5px' : '6px'
+        },
+
+        getBorderWidth: function(el, property, omitUnit) {
+            var unit = omitUnit ? '' : PX,
+                current = el.currentStyle[property];
+
+            if (current.indexOf(PX) < 0) { // look up keywords if a border exists
+                if (ComputedStyle.borderMap[current] &&
+                        el.currentStyle.borderStyle !== 'none') {
+                    current = ComputedStyle.borderMap[current];
+                } else { // otherwise no border (default is "medium")
+                    current = 0;
+                }
+            }
+            return (omitUnit) ? parseFloat(current) : current;
+        },
+
+        getPixel: function(node, att) {
+            // use pixelRight to convert to px
+            var val = null,
+                style = _getStyleObj(node),
+                styleRight = style.right,
+                current = style[att];
+
+            node.style.right = current;
+            val = node.style.pixelRight;
+            node.style.right = styleRight; // revert
+
+            return val;
+        },
+
+        getMargin: function(node, att) {
+            var val,
+                style = _getStyleObj(node);
+
+            if (style[att] == AUTO) {
+                val = 0;
+            } else {
+                val = ComputedStyle.getPixel(node, att);
+            }
+            return val + PX;
+        },
+
+        getVisibility: function(node, att) {
+            var current;
+            while ( (current = node.currentStyle) && current[att] == 'inherit') { // NOTE: assignment in test
+                node = node.parentNode;
+            }
+            return (current) ? current[att] : VISIBLE;
+        },
+
+        getColor: function(node, att) {
+            var current = _getStyleObj(node)[att];
+
+            if (!current || current === TRANSPARENT) {
+                Y.DOM.elementByAxis(node, 'parentNode', null, function(parent) {
+                    current = _getStyleObj(parent)[att];
+                    if (current && current !== TRANSPARENT) {
+                        node = parent;
+                        return true;
+                    }
+                });
+            }
+
+            return Y.Color.toRGB(current);
+        },
+
+        getBorderColor: function(node, att) {
+            var current = _getStyleObj(node),
+                val = current[att] || current.color;
+            return Y.Color.toRGB(Y.Color.toHex(val));
+        }
+    },
+
+    //fontSize: getPixelFont,
+    IEComputed = {};
+
+addFeature('style', 'computedStyle', {
+    test: function() {
+        return 'getComputedStyle' in Y.config.win;
+    }
+});
+
+addFeature('style', 'opacity', {
+    test: function() {
+        return 'opacity' in documentElement.style;
+    }
+});
+
+addFeature('style', 'filter', {
+    test: function() {
+        return 'filters' in documentElement;
+    }
+});
+
+// use alpha filter for IE opacity
+if (!testFeature('style', 'opacity') && testFeature('style', 'filter')) {
+    Y.DOM.CUSTOM_STYLES[OPACITY] = {
+        get: function(node) {
+            var val = 100;
+            try { // will error if no DXImageTransform
+                val = node[FILTERS]['DXImageTransform.Microsoft.Alpha'][OPACITY];
+
+            } catch(e) {
+                try { // make sure its in the document
+                    val = node[FILTERS]('alpha')[OPACITY];
+                } catch(err) {
+                }
+            }
+            return val / 100;
+        },
+
+        set: function(node, val, style) {
+            var current,
+                styleObj = _getStyleObj(node),
+                currentFilter = styleObj[FILTER];
+
+            style = style || node.style;
+            if (val === '') { // normalize inline style behavior
+                current = (OPACITY in styleObj) ? styleObj[OPACITY] : 1; // revert to original opacity
+                val = current;
+            }
+
+            if (typeof currentFilter == 'string') { // in case not appended
+                style[FILTER] = currentFilter.replace(/alpha([^)]*\))/gi, '') +
+                        ((val <= 1) ? 'alpha(' + OPACITY + '=' + val * 100 + ')' : '');
+
+                if (!style[FILTER]) {
+                    style.removeAttribute(FILTER);
+                }
+
+                if (!styleObj[HAS_LAYOUT]) {
+                    style.zoom = 1; // needs layout
+                }
+            }
+        }
+    };
+}
+
+try {
+    Y.config.doc.createElement('div').style.height = '-1px';
+} catch(e) { // IE throws error on invalid style set; trap common cases
+    Y.DOM.CUSTOM_STYLES.height = {
+        set: function(node, val, style) {
+            var floatVal = parseFloat(val);
+            if (floatVal >= 0 || val === 'auto' || val === '') {
+                style.height = val;
+            } else {
+            }
+        }
+    };
+
+    Y.DOM.CUSTOM_STYLES.width = {
+        set: function(node, val, style) {
+            var floatVal = parseFloat(val);
+            if (floatVal >= 0 || val === 'auto' || val === '') {
+                style.width = val;
+            } else {
+            }
+        }
+    };
+}
+
+if (!testFeature('style', 'computedStyle')) {
+    // TODO: top, right, bottom, left
+    IEComputed[WIDTH] = IEComputed[HEIGHT] = ComputedStyle.getOffset;
+
+    IEComputed.color = IEComputed.backgroundColor = ComputedStyle.getColor;
+
+    IEComputed[BORDER_WIDTH] = IEComputed[BORDER_TOP_WIDTH] = IEComputed[BORDER_RIGHT_WIDTH] =
+            IEComputed[BORDER_BOTTOM_WIDTH] = IEComputed[BORDER_LEFT_WIDTH] =
+            ComputedStyle.getBorderWidth;
+
+    IEComputed.marginTop = IEComputed.marginRight = IEComputed.marginBottom =
+            IEComputed.marginLeft = ComputedStyle.getMargin;
+
+    IEComputed.visibility = ComputedStyle.getVisibility;
+    IEComputed.borderColor = IEComputed.borderTopColor =
+            IEComputed.borderRightColor = IEComputed.borderBottomColor =
+            IEComputed.borderLeftColor = ComputedStyle.getBorderColor;
+
+    Y.DOM[GET_COMPUTED_STYLE] = ComputedStyle.get;
+
+    Y.namespace('DOM.IE');
+    Y.DOM.IE.COMPUTED = IEComputed;
+    Y.DOM.IE.ComputedStyle = ComputedStyle;
+}
+
+})(Y);
+
+
+}, '3.15.0', {"requires": ["dom-style"]});

@@ -80,9 +80,6 @@ $dictionary['ProductCategory'] = array(
         ),
     ),
     'acls' => array('SugarACLDeveloperOrAdmin' => array('aclModule' => 'Products', 'allowUserRead' => true)),
-    'indices' => array(
-        array('name' => 'idx_productcategories', 'type' => 'index', 'fields' => array('name', 'deleted')),
-    ),
     'relationships' => array(
         'member_categories' => array(
             'lhs_module' => 'ProductCategories',
@@ -94,13 +91,20 @@ $dictionary['ProductCategory'] = array(
             'relationship_type' => 'one-to-many'
         ),
     ),
+    'uses' => array(
+        'default',
+        'assignable',
+    ),
+    'ignore_templates' => array(
+        'taggable',
+    ),
 );
 
 VardefManager::createVardef(
     'ProductCategories',
-    'ProductCategory',
-    array(
-        'default',
-        'assignable',
-    )
+    'ProductCategory'
 );
+
+//boost value for full text search
+$dictionary['ProductCategory']['fields']['name']['full_text_search']['boost'] = 0.79;
+$dictionary['ProductCategory']['fields']['description']['full_text_search']['boost'] = 0.38;

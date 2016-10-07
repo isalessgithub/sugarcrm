@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -124,7 +125,7 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
             // for studio we don't know all cases, value can be array or 'visible' etc.
             // because of that we use expected studio not to be false or 'false'.
             // when we'll know all values we should replace that condition with suitable one.
-            && (!isset($field['studio']) || ($field['studio'] !== false && $field['studio'] != 'false')
+            && (!isset($field['studio']) || ($field['studio'] !== false && $field['studio'] !== 'false')
         );
     }
 
@@ -675,8 +676,11 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
             if (($this->_fielddefs[$fieldName]['type'] == 'relate' ||
                 // fixing bug #25640: Value of "Relate" custom field is not displayed as a link in list view
                 // we should set additional params such as 'link' and 'id' to be stored in custom listviewdefs.php
-                $this->_fielddefs[$fieldName]['type'] == 'parent')) {
-                $fieldDef['id'] = strtoupper($this->_fielddefs[$fieldName]['id_name']);
+                $this->_fielddefs[$fieldName]['type'] == 'parent')
+            ) {
+                if (isset($this->_fielddefs[$fieldName]['id_name'])) {
+                    $fieldDef['id'] = strtoupper($this->_fielddefs[$fieldName]['id_name']);
+                }
                 $fieldDef['link'] = true;
             } else if ($this->_fielddefs[$fieldName]['type'] == 'name') {
                 $fieldDef['link'] = true;
@@ -688,6 +692,7 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
 
     /**
      * Sets the sortable property of the fielddef
+     * Also see SidecarPortalListLayoutMetaDataParser::setDefSortable() for special handling on portal list view.
      *
      * @param string $fieldName  The name of the field being worked on
      * @param array $fieldDef The current fielddef collection for a field

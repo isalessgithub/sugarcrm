@@ -17,6 +17,7 @@ if(!defined('sugarEntry'))define('sugarEntry', true);
 require_once('service/v3_1/SugarWebServiceImplv3_1.php');
 require_once('SugarWebServiceUtilv4.php');
 
+use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
 
 class SugarWebServiceImplv4 extends SugarWebServiceImplv3_1 {
 
@@ -82,10 +83,9 @@ class SugarWebServiceImplv4 extends SugarWebServiceImplv3_1 {
             $GLOBALS['logic_hook']->call_custom_logic('Users', 'login_failed');
             self::$helperObject->setFaultObject($error);
             return;
-        }
-		else if(function_exists('mcrypt_cbc') && $authController->authController->userAuthenticateClass == "LDAPAuthenticateUser"
-        		&& (empty($user_auth['encryption']) || $user_auth['encryption'] !== 'PLAIN' ) )
-        {
+        } elseif (extension_loaded('mcrypt')
+            && $authController->authController->userAuthenticateClass == "LDAPAuthenticateUser"
+            && (empty($user_auth['encryption']) || $user_auth['encryption'] !== 'PLAIN')) {
             $password = self::$helperObject->decrypt_string($user_auth['password']);
             $authController->loggedIn = false; // reset login attempt to try again with decrypted password
             if($authController->login($user_auth['user_name'], $password) && isset($_SESSION['authenticated_user_id']))
@@ -151,8 +151,7 @@ class SugarWebServiceImplv4 extends SugarWebServiceImplv3_1 {
 
             if($application == 'mobile')
             {
-                $modules = $availModuleNames = array();
-                $availModules = array_keys($_SESSION['avail_modules']); //ACL check already performed.
+                $availModules = ArrayFunctions::array_access_keys($_SESSION['avail_modules']); //ACL check already performed.
                 $modules = self::$helperObject->get_visible_mobile_modules($availModules);
                 $nameValueArray['available_modules'] = $modules;
                 //Get the vardefs md5

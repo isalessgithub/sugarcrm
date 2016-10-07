@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Elastica\\Test' => array($vendorDir . '/ruflin/elastica/test/lib'),
-    'Elastica' => array($vendorDir . '/ruflin/elastica/lib'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'Moontoast\\Math' => array($vendorDir . '/moontoast/math/src'),
+    'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
+    'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
+    'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
 );

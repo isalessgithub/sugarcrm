@@ -11,9 +11,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: index.php 53846 2010-01-19 20:17:43Z jmertic $
+
  * Description:  
  ********************************************************************************/
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+
+require_once 'include/SugarSmarty/plugins/function.sugar_csrf_form_token.php';
 
 $header_text = '';
 global $mod_strings;
@@ -49,7 +52,11 @@ if(isset($_REQUEST['edit']) && $_REQUEST['edit']=='true') {
 
 $GLOBALS['log']->info("Shipper list view");
 
+$ListView = new ListView();
+$module = InputValidation::getService()->getValidInputRequest('module', 'Assert\Mvc\ModuleName');
+
 $button  = "<form border='0' action='index.php' method='post' name='form'>\n";
+$button .= smarty_function_sugar_csrf_form_token(array(), $ListView);
 $button .= "<input type='hidden' name='module' value='Shippers'>\n";
 $button .= "<input type='hidden' name='action' value='EditView'>\n";
 $button .= "<input type='hidden' name='edit' value='true'>\n";
@@ -58,9 +65,8 @@ $button .= "<input type='hidden' name='return_action' value='".$action."'>\n";
 $button .= "<input title='".$app_strings['LBL_NEW_BUTTON_TITLE']."' accessyKey='".$app_strings['LBL_NEW_BUTTON_KEY']."' class='button' type='submit' name='New' value='  ".$app_strings['LBL_NEW_BUTTON_LABEL']."  '>\n";
 $button .= "</form>\n";
 
-$ListView = new ListView();
-if((is_admin($current_user)|| is_admin_for_module($GLOBALS['current_user'],'Products')) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){	
-		$header_text = "&nbsp;<a href='index.php?action=index&module=DynamicLayout&from_action=ListView&from_module=".$_REQUEST['module'] ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'"
+if((is_admin($current_user)|| is_admin_for_module($GLOBALS['current_user'],'Products')) && $module != 'DynamicLayout' && !empty($_SESSION['editinplace'])){	
+		$header_text = "&nbsp;<a href='index.php?action=index&module=DynamicLayout&from_action=ListView&from_module=".htmlspecialchars($module, ENT_QUOTES, 'UTF-8') ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'"
 ,null,null,'.gif',$mod_strings['LBL_EDITLAYOUT'])."</a>";
 }
 $ListView->initNewXTemplate( 'modules/Shippers/ListView.html',$mod_strings);
@@ -69,12 +75,15 @@ $ListView->setHeaderTitle($mod_strings['LBL_LIST_FORM_TITLE'] . $header_text);
 $ListView->setHeaderText($button);
 $ListView->show_export_button = false;
 $ListView->show_mass_update = false;
+$ListView->show_select_menu = false;
+$ListView->show_delete_button = false;
 $ListView->setQuery("", "", "list_order", "SHIPPER");
 $ListView->processListView($focus, "main", "SHIPPER");
 
 if ($is_edit) {
 	
 		$edit_button ="<form name='EditView' method='POST' action='index.php'>\n";
+        $edit_button .= smarty_function_sugar_csrf_form_token(array(), $ListView);
 		$edit_button .="<input type='hidden' name='module' value='Shippers'>\n";
 		$edit_button .="<input type='hidden' name='record' value='$focus->id'>\n";
 		$edit_button .="<input type='hidden' name='action'>\n";
@@ -85,8 +94,8 @@ if ($is_edit) {
 		$edit_button .="<input type='hidden' name='return_id' value=''>\n";
 		$edit_button .='<input title="'.$app_strings['LBL_SAVE_BUTTON_TITLE'].'" accessKey="'.$app_strings['LBL_SAVE_BUTTON_KEY'].'" class="button" onclick="this.form.action.value=\'Save\'; return check_form(\'EditView\');" type="submit" name="button" value="  '.$app_strings['LBL_SAVE_BUTTON_LABEL'].'  " >';
 		$edit_button .=' <input title="'.$app_strings['LBL_SAVE_NEW_BUTTON_TITLE'].'" class="button" onclick="this.form.action.value=\'Save\'; this.form.isDuplicate.value=\'true\'; this.form.edit.value=\'true\'; this.form.return_action.value=\'EditView\'; return check_form(\'EditView\')" type="submit" name="button" value="  '.$app_strings['LBL_SAVE_NEW_BUTTON_LABEL'].'  " >';
-		if((is_admin($current_user)|| is_admin_for_module($GLOBALS['current_user'],'Products')) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){	
-		$header_text = "&nbsp;<a href='index.php?action=index&module=DynamicLayout&edit=true&from_action=EditView&from_module=".$_REQUEST['module'] ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif',$mod_strings['LBL_EDITLAYOUT'])."</a>";
+		if((is_admin($current_user)|| is_admin_for_module($GLOBALS['current_user'],'Products')) && $module != 'DynamicLayout' && !empty($_SESSION['editinplace'])){	
+		$header_text = "&nbsp;<a href='index.php?action=index&module=DynamicLayout&edit=true&from_action=EditView&from_module=".htmlspecialchars($module, ENT_QUOTES, 'UTF-8') ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif',$mod_strings['LBL_EDITLAYOUT'])."</a>";
 		}
 		echo get_form_header($mod_strings['LBL_SHIPPER']." ".$focus->name. '&nbsp;' . $header_text,$edit_button , false); 
 
@@ -95,11 +104,19 @@ if ($is_edit) {
 	$xtpl=new XTemplate ('modules/Shippers/EditView.html');
 	$xtpl->assign("MOD", $mod_strings);
 	$xtpl->assign("APP", $app_strings);
-	
-	if (isset($_REQUEST['return_module'])) $xtpl->assign("RETURN_MODULE", $_REQUEST['return_module']);
-	if (isset($_REQUEST['return_action'])) $xtpl->assign("RETURN_ACTION", $_REQUEST['return_action']);
-	if (isset($_REQUEST['return_id'])) $xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
-	$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
+
+	$returnModule = InputValidation::getService()->getValidInputRequest('return_module', 'Assert\Mvc\ModuleName');
+	$returnAction = InputValidation::getService()->getValidInputRequest('return_action');
+	$returnId = InputValidation::getService()->getValidInputRequest('return_id', 'Assert\Guid');
+	if (!empty($returnModule)) {
+		$xtpl->assign("RETURN_MODULE", htmlspecialchars($returnModule, ENT_QUOTES, 'UTF-8'));
+	}
+	if (!empty($returnAction)) {
+		$xtpl->assign("RETURN_ACTION", htmlspecialchars($returnAction, ENT_QUOTES, 'UTF-8'));
+	}
+	if (!empty($returnId)) {
+		$xtpl->assign("RETURN_ID", htmlspecialchars($returnId, ENT_QUOTES, 'UTF-8'));
+	}
 	$xtpl->assign("JAVASCRIPT", get_set_focus_js());
 	$xtpl->assign("ID", $focus->id);
 	$xtpl->assign('NAME', $focus->name);

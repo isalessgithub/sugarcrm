@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['ATC_ClientSalesReps']['base']['view']['record'] = array (
   'buttons' => 
   array (
@@ -334,6 +335,11 @@ $viewdefs['ATC_ClientSalesReps']['base']['view']['record'] = array (
         17 => 'phone_other',
         18 => 'twitter',
         19 => 'email',
+        20 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
+        ),
       ),
       'newTab' => true,
       'panelDefault' => 'expanded',

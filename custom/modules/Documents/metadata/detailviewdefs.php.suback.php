@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-06 15:20:01
+// created: 2016-10-07 09:55:44
 $viewdefs['Documents']['DetailView'] = array (
   'templateMeta' => 
   array (
@@ -136,7 +136,11 @@ $viewdefs['Documents']['DetailView'] = array (
       0 => 
       array (
         0 => 'last_rev_created_name',
-        1 => 'last_rev_create_date',
+        1 => 
+        array (
+          'name' => 'last_rev_create_date',
+          'type' => 'date',
+        ),
       ),
     ),
   ),

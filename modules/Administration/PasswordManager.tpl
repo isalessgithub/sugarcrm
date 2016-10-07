@@ -11,6 +11,7 @@
  */
 *}
 <form name="ConfigurePasswordSettings" method="POST" action="index.php">
+{sugar_csrf_form_token}
 <input type='hidden' name='action' value='PasswordManager'/>
 <input type='hidden' name='module' value='Administration'/>
 <input type='hidden' name='saveConfig' value='1'/>
@@ -31,6 +32,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td>
+
 <table id="passRequirementId" name="passRequirementName" width="100%" border="0" cellspacing="1" cellpadding="0"
        class="edit view">
     <tr>
@@ -338,8 +340,31 @@
         <td scope="row" width="75%"><input type='hidden' name='captcha_on' value='0'><input name="captcha_on"
                                                                                             id="captcha_id" value="1"
                                                                                             class="checkbox"
-                                                                                            tabindex='1' type="checkbox"
-                                                                                            onclick='document.getElementById("captcha_config_display").style.display=this.checked?"":"none";' {$captcha_checked}>
+                                                                                            tabindex='1' type="checkbox" {$captcha_checked}
+                                                                                            onclick='toggleDisplay("captcha_config_display");'>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" id="captcha_config_display" width="100%" scope="row" style="display:{$CAPTCHA_CONFIG_DISPLAY}">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="10%" scope="row">{$MOD.LBL_PUBLIC_KEY}<span class="required">*</span></td>
+                    <td width="40%"><input type="text" name="captcha_public_key" id="captcha_public_key" size="45"
+                                           value="{$settings.captcha_public_key}" tabindex='1'
+                                           onblur="this.value=this.value.replace(/^\s+/,'').replace(/\s+$/,'')">
+                    </td>
+                    <td width="10%" scope="row">{$MOD.LBL_PRIVATE_KEY}<span class="required">*</span></td>
+                    <td width="40%"><input type="text" name="captcha_private_key" size="45"
+                                           value="{$settings.captcha_private_key}" tabindex='1'
+                                           onblur="this.value=this.value.replace(/^\s+/,'').replace(/\s+$/,'')">
+                    </td>
+                </tr>
+                {if !($VALID_PUBLIC_KEY)}
+                    <tr>
+                        <td scope="row"><span class='error'>{$MOD.ERR_PUBLIC_CAPTCHA_KEY}</span></td>
+                    </tr>
+                {/if}
+            </table>
         </td>
     </tr>
     {if !empty($settings.honeypot_on)}
@@ -355,33 +380,6 @@
     </td>
     </tr>
 
-</table>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td colspan="4">
-            <div id="captcha_config_display" style="display:{$CAPTCHA_CONFIG_DISPLAY}">
-                <table width="100%" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td width="10%" scope="row">{$MOD.LBL_PUBLIC_KEY}<span class="required">*</span></td>
-                        <td width="40%"><input type="text" name="captcha_public_key" id="captcha_public_key" size="45"
-                                               value="{$settings.captcha_public_key}" tabindex='1'
-                                               onblur="this.value=this.value.replace(/^\s+/,'').replace(/\s+$/,'')">
-                        </td>
-                        <td width="10%" scope="row">{$MOD.LBL_PRIVATE_KEY}<span class="required">*</span></td>
-                        <td width="40%"><input type="text" name="captcha_private_key" size="45"
-                                               value="{$settings.captcha_private_key}" tabindex='1'
-                                               onblur="this.value=this.value.replace(/^\s+/,'').replace(/\s+$/,'')">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-    {if !($VALID_PUBLIC_KEY)}
-        <tr>
-            <td scope="row"><span class='error'>{$MOD.ERR_PUBLIC_CAPTCHA_KEY}</span></td>
-        </tr>
-    {/if}
 </table>
 
 
@@ -429,6 +427,7 @@
         <td></td>
     </tr>
 </table>
+
 
 
 
@@ -565,7 +564,6 @@
         </td>
     </tr>
 </table>
-
 
 {if !empty($settings.system_ldap_enabled)}
     {assign var='system_ldap_enabled_checked' value='CHECKED'}
@@ -738,7 +736,7 @@
                                                                         <td width='25%' scope="row" valign='middle'
                                                                             nowrap>{$MOD.LBL_LDAP_ADMIN_PASSWORD}</td>
                                                                         <td width='25%' align="left" valign='middle'>
-                                                                            <input name="ldap_admin_password" size='20'
+                                                                            <input name="ldap_admin_password" id="ldap_admin_password" size='20'
                                                                                    type="password"
                                                                                    value="{$settings.ldap_admin_password}">
                                                                         </td>
@@ -837,6 +835,13 @@
                                 </td>
 
                             </tr>
+                            <tr>
+                                <td width='25%' scope="row" valign='top'
+                                    nowrap>{$MOD.LBL_SAML_SAME_WINDOW} {sugar_help text=$MOD.LBL_SAML_SAME_WINDOW_DESC}</td>
+                                <td width='25%' align="left" valign='top'><input type="checkbox" name="SAML_SAME_WINDOW" {if $config.SAML_SAME_WINDOW}checked="1"{/if}>
+                                </td>
+
+                            </tr>
 
 
                         </table>
@@ -882,6 +887,7 @@
 function addcheck(form) {{/literal}
     addForm('ConfigurePasswordSettings');
 
+
     removeFromValidate('ConfigurePasswordSettings', 'passwordsetting_minpwdlength');
     addToValidateLessThan('ConfigurePasswordSettings', 'passwordsetting_minpwdlength', 'int', false, "{$MOD.LBL_PASSWORD_MINIMUM_LENGTH}", document.getElementById('passwordsetting_maxpwdlength').value, "{$MOD.LBL_PASSWORD_MAXIMUM_LENGTH}");
 
@@ -897,6 +903,7 @@ function addcheck(form) {{/literal}
         {literal}
     }
     {/literal}
+
 
     addToValidate('ConfigurePasswordSettings', 'passwordsetting_userexpirationtime', 'int', form.required_user_pwd_exp_time.checked, "{$MOD.ERR_PASSWORD_EXPIRE_TIME}");
     addToValidate('ConfigurePasswordSettings', 'passwordsetting_userexpirationlogin', 'int', form.required_user_pwd_exp_login.checked, "{$MOD.ERR_PASSWORD_EXPIRE_LOGIN}");
@@ -944,6 +951,7 @@ function enableDisablePasswordTable(checkbox_id) {
         document.getElementById("emailTemplatesId").style.display = "none";
         document.getElementById("sysGeneratedId").style.display = "none";
         document.getElementById("userResetPassId").style.display = "none";
+
         document.getElementById("passRequirementId").style.display = "none";
         document.getElementById("userGenPassExpId").style.display = "none";
         document.getElementById("loginLockoutId").style.display = "none";
@@ -952,6 +960,7 @@ function enableDisablePasswordTable(checkbox_id) {
         document.getElementById("emailTemplatesId").style.display = "";
         document.getElementById("sysGeneratedId").style.display = "";
         document.getElementById("userResetPassId").style.display = "";
+
         document.getElementById("passRequirementId").style.display = "";
         document.getElementById("userGenPassExpId").style.display = "";
         document.getElementById("loginLockoutId").style.display = "";
@@ -1093,7 +1102,7 @@ forgot_password_enable(document.getElementById('forgotpassword_checkbox'));
 enable_syst_generated_pwd(document.getElementById('SystemGeneratedPassword_checkbox'));
 if (document.getElementById('system_saml_enabled').checked)enableDisablePasswordTable('system_saml_enabled');
 if (document.getElementById('system_ldap_enabled').checked)enableDisablePasswordTable('system_ldap_enabled');
-
+clickToEditPassword('#ldap_admin_password', '::PASSWORD::');
 </script>
 
 {/literal}

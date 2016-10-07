@@ -9,8 +9,14 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-require_once('include/MVC/Controller/ControllerFactory.php');
-require_once('include/MVC/View/ViewFactory.php');
+
+require_once 'include/MVC/Controller/ControllerFactory.php';
+require_once 'include/MVC/View/ViewFactory.php';
+
+use Sugarcrm\Sugarcrm\Session\SessionStorage;
+use Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
 
 /**
  * SugarCRM application
@@ -24,8 +30,38 @@ class SugarApplication
     var $default_module = 'Home';
     var $default_action = 'sidecar';
 
-    function SugarApplication()
+    /**
+     * @var boolean
+     */
+    protected $inBwc = false;
+
+    /**
+     * @var Request 
+     */
+    protected $request;
+
+    /**
+     * Use __construct
+     * @deprecated
+     */
+    protected function SugarApplication()
     {
+        self::__construct();
+    }
+
+    /**
+     * Ctor
+     */
+    public function __construct()
+    {
+        $this->request = InputValidation::getService();
+
+        // Safe $_GET['bwcFrame']
+        $bwcFrame = array(
+            'Assert\Type' => array('type' => 'numeric'),
+            'Assert\Range' => array('min' => 0, 'max' => 1),
+        );
+        $this->inBwc = (bool) $this->request->getValidInputGet('bwcFrame', $bwcFrame, 0);
     }
 
     /**
@@ -37,10 +73,10 @@ class SugarApplication
         if (!empty($sugar_config['default_module'])) {
             $this->default_module = $sugar_config['default_module'];
         }
-        $module = $this->default_module;
-        if (!empty($_REQUEST['module'])) {
-            $module = $_REQUEST['module'];
-        }
+
+        // Safe $_REQUEST['module']
+        $module = $this->request->getValidInputRequest('module', 'Assert\Mvc\ModuleName', $this->default_module);
+
         insert_charset_header();
         $this->setupPrint();
 
@@ -48,12 +84,44 @@ class SugarApplication
 
         // make sidecar view load faster
         // TODO the rest of the code will be removed as soon as we migrate all modules to sidecar
-        if ($this->controller->action === 'sidecar' ||
+
+        // Safe $_REQUEST['MSID']
+        $msid = $this->request->getValidInputRequest('MSID', array('Assert\Type' => array('type' => 'string')));
+
+        // Safe $_REQUEST['entryPoint']
+        // add entry point validator
+
+        if (!empty($msid)
+            && ($this->controller->action !== 'Authenticate' || $this->controller->module !== 'Users')
+        ) {
+            //This is not longer a valid path for MSID. We can only accept it through view.authenticate.php
+            $url = 'index.php?module=Users&action=Authenticate&MSID=' . urlencode($msid);
+
+            // TODO: add example with safe redirect builder/validator
+            $req = array_diff_key($this->getRequestVars(), array("MSID" => 1));
+            if (!empty($req['module'])) {
+                if (isModuleBWC($req['module'])) {
+                    $url .= '#bwc/index.php?' . http_build_query($req);
+                } else {
+                    // otherwise compose basic Sidecar route
+                    $url .= '#' . rawurlencode($req['module']);
+                    if (isset($req['record'])) {
+                        $url .= '/' . rawurlencode($req['record']);
+                    }
+                }
+            }
+            SessionStorage::getInstance()->unlock();
+            header('HTTP/1.1 301 Moved Permanently');
+            header("Location: $url");
+
+            exit();
+        } elseif ($this->controller->action === 'sidecar' ||
             (
                 $this->controller->action === 'index' && $this->controller->module === 'Home' &&
                 (empty($_REQUEST['entryPoint']) || (isset($_REQUEST['action']) && $_REQUEST['action'] === 'DynamicAction'))
             ) ||
-            empty($_REQUEST)
+            empty($_REQUEST) || 
+            (!empty($_REQUEST['entryPoint']) && !$this->controller->entryPointExists($_REQUEST['entryPoint']))
         ) {
             // check for not authorised users
             $this->checkMobileRedirect();
@@ -104,6 +172,7 @@ class SugarApplication
             $this->preProcess();
             $this->controller->preProcess();
             $this->checkHTTPReferer();
+            $this->csrfAuthenticate();
         }
 
         SugarThemeRegistry::buildRegistry();
@@ -115,6 +184,77 @@ class SugarApplication
         $this->setupResourceManagement($module);
         $this->controller->execute();
         sugar_cleanup();
+    }
+
+    /**
+     * CSRF authentication for all non-GET requests. When invalid we terminate
+     * our execution. Note that this functionality is beta and needs to be
+     * explicitly enabled.
+     * 
+     * @see CsrfAuthenticator
+     */
+    public function csrfAuthenticate()
+    {
+        /* 
+         * Limit protected to modify actions only. A next step will be to
+         * require CSRF tokens for every non-GET request.
+         *
+         * TODO 1:
+         * Refactoring whiteListActions[] and isModifyAction() to be part of
+         * the controller itself starting with a generic base list from
+         * SugarApplication. Controllers need to be able to determine which
+         * actions are eligible as modify actions (this includes custom code).
+         *
+         * TODO 2:
+         * Move checkHTTPReferer logic into a separate class and make it
+         * an integral part of the csrfAuthentication logic. 
+         *
+         */
+        if (!$this->isModifyAction()) {
+            return;
+        }
+
+        // Get request method, if not present this isn't a web server call
+        if (!$requestMethod = $this->getRequestMethod()) {
+            return;
+        }
+
+        if ($requestMethod !== 'get') {
+            if (!$this->controller->isCsrfValid($this->getRequestData())) {
+                $this->xsrfResponse('', true, $this->inBwc, true);
+            }
+            return;
+        }
+
+        // catch any GET modify actions
+        $GLOBALS['log']->debug(sprintf(
+            'CSRF: GET modify action detected %s -> %s',
+            $this->controller->module,
+            $this->controller->action
+        ));
+    }
+
+    /**
+     * Get HTTP request method
+     * @return string|false
+     */
+    protected function getRequestMethod()
+    {
+        return !empty($_SERVER['REQUEST_METHOD'])
+            ? strtolower($_SERVER['REQUEST_METHOD'])
+            : false;
+    }
+
+    /**
+     * Return $_REQUEST data. Instead of using $_REQUEST, manually merge both
+     * $_GET and $_POST to avoid having any $_COOKIE key/value pairs slipping
+     * through this validation. By default php doesn't include $_COOKIE but an
+     * excotic configuration might (see php.ini request_order).
+     * @return array
+     */
+    protected function getRequestData()
+    {
+        return array_merge($_GET, $_POST);
     }
 
     public function checkMobileRedirect () {
@@ -209,6 +349,8 @@ EOF;
     function loadUser()
     {
         global $authController, $sugar_config;
+        $sess = SessionStorage::getInstance();
+
         // Double check the server's unique key is in the session.  Make sure this is not an attempt to hijack a session
         $user_unique_key = (isset($_SESSION['unique_key'])) ? $_SESSION['unique_key'] : '';
         $server_unique_key = (isset($sugar_config['unique_key'])) ? $sugar_config['unique_key'] : '';
@@ -221,7 +363,10 @@ EOF;
         if (($user_unique_key != $server_unique_key) && (!in_array($this->controller->action, $allowed_actions))
             && (!isset($_SESSION['login_error']))
         ) {
-            session_destroy();
+
+            if ($sess->getId()) {
+                $sess->destroy();
+            };
 
             if (!empty($this->controller->action)) {
                 if (strtolower($this->controller->action) == 'delete') {
@@ -249,66 +394,19 @@ EOF;
 			if(!$authController->sessionAuthenticate()){
 				 // if the object we get back is null for some reason, this will break - like user prefs are corrupted
 				$GLOBALS['log']->fatal('User retrieval for ID: ('.$_SESSION['authenticated_user_id'].') does not exist in database or retrieval failed catastrophically.  Calling session_destroy() and sending user to Login page.');
-				session_destroy();
+                if ($sess->getId()) {
+                    $sess->destroy();
+                };
 				SugarApplication::redirect($this->getUnauthenticatedHomeUrl());
 				die();
             } else {
-                $trackerManager = TrackerManager::getInstance();
-                $monitor = $trackerManager->getMonitor('tracker_sessions');
-                $active = $monitor->getValue('active');
-                if ($active == 0
-                    && (!isset($GLOBALS['current_user']->portal_only) || $GLOBALS['current_user']->portal_only != 1)
-                ) {
-                    // We are starting a new session
-                    $result = $GLOBALS['db']->query(
-                        "SELECT id FROM " . $monitor->name . " WHERE user_id = '" . $GLOBALS['db']->quote(
-                            $GLOBALS['current_user']->id
-                        ) . "' AND active = 1 AND session_id <> '" . $GLOBALS['db']->quote(
-                            $monitor->getValue('session_id')
-                        ) . "' ORDER BY date_end DESC"
-                    );
-                    $activeCount = 0;
-                    while ($row = $GLOBALS['db']->fetchByAssoc($result)) {
-                        $activeCount++;
-                        if ($activeCount > 1) {
-                            $GLOBALS['db']->query(
-                                "UPDATE " . $monitor->name . " SET active = 0 WHERE id = '" . $GLOBALS['db']->quote(
-                                    $row['id']
-                                ) . "'"
-                            );
-                        }
-                    }
-                }
+                $this->trackSession();
             }
         }
         $GLOBALS['log']->debug('Current user is: ' . $GLOBALS['current_user']->user_name);
         $GLOBALS['logic_hook']->call_custom_logic('', 'after_load_user');
         // Reset ACLs in case after_load_user hook changed ACL setups
         SugarACL::resetACLs();
-
-		//set cookies
-		if(isset($_SESSION['authenticated_user_id'])){
-			$GLOBALS['log']->debug("setting cookie ck_login_id_20 to ".$_SESSION['authenticated_user_id']);
-			self::setCookie('ck_login_id_20', $_SESSION['authenticated_user_id'], time() + 86400 * 90, '/', null, null, true);
-		}
-		if(isset($_SESSION['authenticated_user_theme'])){
-			$GLOBALS['log']->debug("setting cookie ck_login_theme_20 to ".$_SESSION['authenticated_user_theme']);
-			self::setCookie('ck_login_theme_20', $_SESSION['authenticated_user_theme'], time() + 86400 * 90);
-		}
-		if(isset($_SESSION['authenticated_user_theme_color'])){
-			$GLOBALS['log']->debug("setting cookie ck_login_theme_color_20 to ".$_SESSION['authenticated_user_theme_color']);
-			self::setCookie('ck_login_theme_color_20', $_SESSION['authenticated_user_theme_color'], time() + 86400 * 90);
-		}
-		if(isset($_SESSION['authenticated_user_theme_font'])){
-			$GLOBALS['log']->debug("setting cookie ck_login_theme_font_20 to ".$_SESSION['authenticated_user_theme_font']);
-			self::setCookie('ck_login_theme_font_20', $_SESSION['authenticated_user_theme_font'], time() + 86400 * 90);
-		}
-		if(isset($_SESSION['authenticated_user_language'])){
-			$GLOBALS['log']->debug("setting cookie ck_login_language_20 to ".$_SESSION['authenticated_user_language']);
-			self::setCookie('ck_login_language_20', $_SESSION['authenticated_user_language'], time() + 86400 * 90);
-		}
-		//check if user can access
-
     }
 
     public function ACLFilter()
@@ -502,8 +600,7 @@ EOF;
                 $GLOBALS['sugar_db_version']
             );
 
-            $result = $GLOBALS['db']->query($version_query);
-            $row = $GLOBALS['db']->fetchByAssoc($result);
+            $row = $GLOBALS['db']->fetchOne($version_query);
             $row_count = $row['the_count'];
             sugar_cache_put('checkDatabaseVersion_row_count', $row_count);
         }
@@ -657,16 +754,18 @@ EOF;
         'ConfigureShortcutBar',
         'wizard',
         'historyContactsEmails',
+        'GoogleOauth2Redirect',
     );
 
     /**
      * Respond to XSF attempt
      * @param string $http_host HTTP host sent
-     * @param bool $dieIfInvalid
-     * @param bool $inBWC Are we in BWC frame?
+     * @param boolean $dieIfInvalid
+     * @param boolean $inBWC Are we in BWC frame?
+     * @param boolean $authFailure Authentication failure instead of referrer
      * @return boolean Returns false
      */
-    protected function xsrfResponse($http_host, $dieIfInvalid, $inBWC)
+    protected function xsrfResponse($http_host, $dieIfInvalid, $inBWC, $authFailure = false)
     {
         $whiteListActions = $this->whiteListActions;
         $whiteListActions[] = $this->controller->action;
@@ -681,9 +780,16 @@ EOF;
             } else {
                 header("Cache-Control: no-cache, must-revalidate");
                 $ss = new Sugar_Smarty;
-                $ss->assign('host', $http_host);
-                $ss->assign('action', $this->controller->action);
-                $ss->assign('whiteListString', $whiteListString);
+                if ($authFailure) {
+                    $ss->assign('csrfAuthFailure', true);
+                    $ss->assign('module', $this->controller->module);
+                    $ss->assign('action', htmlspecialchars($this->controller->action, ENT_QUOTES, "UTF-8"));
+                } else {
+                    $ss->assign('csrfAuthFailure', false);
+                    $ss->assign('host', $http_host);
+                    $ss->assign('action', htmlspecialchars($this->controller->action, ENT_QUOTES, "UTF-8"));
+                    $ss->assign('whiteListString', $whiteListString);
+                }
                 $ss->display('include/MVC/View/tpls/xsrf.tpl');
             }
             sugar_cleanup(true);
@@ -695,7 +801,7 @@ EOF;
      *
      * Checks a request to ensure the request is coming from a valid source or it is for one of the white listed actions
      */
-    protected function checkHTTPReferer($dieIfInvalid = true)
+    public function checkHTTPReferer($dieIfInvalid = true)
     {
         global $sugar_config;
         if (!empty($sugar_config['http_referer']['actions'])) {
@@ -713,14 +819,13 @@ EOF;
             $whiteListReferers = array_merge($whiteListReferers, $sugar_config['http_referer']['list']);
         }
 
-        $inBWC = !empty($_GET['bwcFrame']);
         // for BWC iframe, matching referer is not enough
-        if ($strong && (empty($_SERVER['HTTP_REFERER']) || $inBWC)
+        if ($strong && (empty($_SERVER['HTTP_REFERER']) || $this->inBwc)
             && !in_array($this->controller->action, $this->whiteListActions)
             && $this->isModifyAction()
         ) {
             $http_host = empty($_SERVER['HTTP_HOST'])?array(''):explode(':',$_SERVER['HTTP_HOST']);
-            return $this->xsrfResponse($http_host[0], $dieIfInvalid, $inBWC);
+            return $this->xsrfResponse($http_host[0], $dieIfInvalid, $this->inBwc);
         } else {
             if (!empty($_SERVER['HTTP_REFERER']) && !empty($_SERVER['SERVER_NAME'])) {
                 $http_ref = parse_url($_SERVER['HTTP_REFERER']);
@@ -728,7 +833,7 @@ EOF;
                     && !in_array($this->controller->action, $this->whiteListActions)
                     && (empty($whiteListReferers) || !in_array($http_ref['host'], $whiteListReferers))
                 ) {
-                    return $this->xsrfResponse($http_ref['host'], $dieIfInvalid, $inBWC);
+                    return $this->xsrfResponse($http_ref['host'], $dieIfInvalid, $this->inBwc);
                 }
             }
         }
@@ -737,100 +842,59 @@ EOF;
 
     function startSession()
     {
+        $sess = SessionStorage::getInstance();
         $sessionIdCookie = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : null;
-        if (isset($_REQUEST['MSID'])) {
-            session_id($_REQUEST['MSID']);
-            session_start();
-            if (isset($_SESSION['user_id']) && isset($_SESSION['seamless_login'])) {
-                unset ($_SESSION['seamless_login']);
-            } else {
-                if (isset($_COOKIE['PHPSESSID'])) {
-                    self::setCookie('PHPSESSID', '', time() - 42000, '/');
-                }
-                sugar_cleanup(false);
-                session_destroy();
-                exit('Not a valid entry method');
-            }
-        } else {
-            if (can_start_session()) {
-                session_start();
-            }
+        if (can_start_session()) {
+            $sess->start();
         }
 
         if (isset($_REQUEST['login_module']) && isset($_REQUEST['login_action'])
             && !($_REQUEST['login_module'] == 'Home' && $_REQUEST['login_action'] == 'index')
         ) {
-            if (!is_null($sessionIdCookie) && empty($_SESSION)) {
+            if (!is_null($sessionIdCookie) && empty($sess)) {
                 self::setCookie('loginErrorMessage', 'LBL_SESSION_EXPIRED', time() + 30, '/');
             }
         }
 
-        self::trackLogin();
-
         LogicHook::initialize()->call_custom_logic('', 'after_session_start');
     }
 
-
     /**
-     * trackLogin
+     * This function writes log entries to the tracker_sessions table to record a login session.
      *
-     * This is a protected function used to separate tracking the login information.  This allows us to better cleanly
-     * separate a PRO feature as well as unit test this block.  This function writes log entries to the tracker_sessions
-     * table to record a login session.
-     *
+     * @deprecated use SugarApplication::trackSession() instead
      */
     public static function trackLogin()
     {
+        $GLOBALS['log']->deprecated('Please use SugarApplication::trackSession() for session logging');
+        self::trackSession();
+    }
+
+    /**
+     * Save Session Tracker info if on
+     */
+    public static function trackSession()
+    {
         $trackerManager = TrackerManager::getInstance();
         if ($monitor = $trackerManager->getMonitor('tracker_sessions')) {
-            $db = DBManagerFactory::getInstance();
-            $session_id = $monitor->getValue('session_id');
-            $query = "SELECT date_start, round_trips, active FROM $monitor->name WHERE session_id = '" . $db->quote(
-                $session_id
-            ) . "'";
-            $result = $db->query($query);
-
-            if (isset($_SERVER['REMOTE_ADDR'])) {
-                $monitor->setValue('client_ip', $_SERVER['REMOTE_ADDR']);
-            }
-
-            if (($row = $db->fetchByAssoc($result))) {
-                if ($row['active'] != 1 && !empty($_SESSION['authenticated_user_id'])) {
-                    $GLOBALS['log']->error(
-                        'User ID: (' . $_SESSION['authenticated_user_id']
-                            . ') has too many active sessions. Calling session_destroy() and sending user to Login page.'
-                    );
-                    session_destroy();
-                    $msg_name = 'TO' . 'O_MANY_' . 'CONCUR' . 'RENT';
-                      SugarApplication::redirect('index.php?action=Login&module=Users&loginErrorMessage=LBL_'.$msg_name);
-                    die();
-                }
-                $monitor->setValue('date_start', $db->fromConvert($row['date_start'], 'datetime'));
-                $monitor->setValue('round_trips', $row['round_trips'] + 1);
-                $monitor->setValue('active', 1);
-            } else {
-                // We are creating a new session
-                // Don't set the session as active until we have made sure it checks out.
-                $monitor->setValue('active', 0);
-                $monitor->setValue('date_start', TimeDate::getInstance()->nowDb());
-                $monitor->setValue('round_trips', 1);
-            }
+            $trackerManager->saveMonitor($monitor);
         }
     }
 
-
-
-    function endSession()
+    /**
+     * Destroy a session, and update Session Tracker if on
+     */
+    public static function endSession()
     {
-
         $trackerManager = TrackerManager::getInstance();
         if ($monitor = $trackerManager->getMonitor('tracker_sessions')) {
-            $monitor->setValue('date_end', TimeDate::getInstance()->nowDb());
-            $seconds = strtotime($monitor->date_end) - strtotime($monitor->date_start);
-            $monitor->setValue('seconds', $seconds);
-            $monitor->setValue('active', 0);
+            $monitor->closeSession();
+            $trackerManager->saveMonitor($monitor);
         }
-        session_destroy();
+        $sess = SessionStorage::getInstance();
+        if ($sess->getId()) {
+            $sess->destroy();
+        };
     }
 
     /**
@@ -844,7 +908,7 @@ EOF;
      *
      * @param string $url The URL to redirect to.
      */
-    public function redirect($url)
+    public static function redirect($url)
     {
         global $disable_redirects;
 
@@ -876,7 +940,7 @@ EOF;
 
     public static function appendErrorMessage($error_message)
     {
-        if (empty($_SESSION['user_error_message']) || !is_array($_SESSION['user_error_message'])) {
+        if (empty($_SESSION['user_error_message']) || !ArrayFunctions::is_array_access($_SESSION['user_error_message'])) {
             $_SESSION['user_error_message'] = array();
         }
         $_SESSION['user_error_message'][] = $error_message;
@@ -884,7 +948,7 @@ EOF;
 
     public static function getErrorMessages()
     {
-        if (isset($_SESSION['user_error_message']) && is_array($_SESSION['user_error_message'])) {
+        if (isset($_SESSION['user_error_message']) && ArrayFunctions::is_array_access($_SESSION['user_error_message'])) {
             $msgs = $_SESSION['user_error_message'];
             unset($_SESSION['user_error_message']);
             return $msgs;
@@ -925,6 +989,7 @@ EOF;
     /**
      * Get combined values of GET and POST
      * @return array
+     * @deprecated
      */
     protected function getRequestVars()
     {

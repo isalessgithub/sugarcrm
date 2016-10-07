@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css"
           href="{sugar_getjspath file='modules/ModuleBuilder/tpls/MBModule/dropdown.css'}"></link>
     <form name='dropdown_form' onsubmit="return false">
+{sugar_csrf_form_token}
         <input type='hidden' name='module' value='ModuleBuilder'>
         <input type='hidden' name='action' value='{$action}'>
         <input type='hidden' name='to_pdf' value='true'>
@@ -29,6 +30,7 @@
         {if ($refreshTree)}
             <input type='hidden' name='refreshTree' value='1'>
         {/if}
+        <input type="hidden" name="new" value="{$new|intval}">
         <table>
             <tr>
                 <td colspan='2'>
@@ -50,11 +52,11 @@
             <tr>
                 <td colspan="3">
                     <span class='mbLBLL'>{sugar_translate label='LBL_DROPDOWN_TITLE_NAME'}:&nbsp;</span>
-                    {if $name }
+                    {if not $new }
                         <input type='hidden' id='dropdown_name' name='dropdown_name'
                                value='{$dropdown_name}'>{$dropdown_name}
                     {else}
-                        <input type='text' id='dropdown_name' name='dropdown_name' value={$prepopulated_name}>
+                        <input type='text' id='dropdown_name' name='dropdown_name' value={$dropdown_name}>
                     {/if}
                 </td>
             </tr>

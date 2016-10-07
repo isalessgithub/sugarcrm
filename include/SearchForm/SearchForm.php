@@ -9,6 +9,8 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
 
 require_once('include/tabs.php');
 /**
@@ -53,6 +55,19 @@ class SearchForm {
     var $showSavedSearchOptions = true;
 
     /**
+      * @var Request
+      */
+     protected $request;
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function SearchForm($module, $seedBean, $tpl = null)
+    {
+        self::__construct($module, $seedBean, $tpl);
+    }
+
+    /**
      * loads SearchFields MetaData, sets member variables
      *
      * @param string $module moduleDir
@@ -60,12 +75,12 @@ class SearchForm {
      * @param string $tpl template to use, defaults to moduleDir/SearchForm.html
      *
      */
-    function SearchForm($module, $seedBean, $tpl = null)
+    public function __construct($module, $seedBean, $tpl = null)
     {
         global $app_strings;
 
         $this->module = $module;
-
+        $this->request = InputValidation::getService();
         $searchFields = SugarAutoLoader::loadSearchFields($module);
         $this->searchFields = $searchFields[$module];
         if(empty($tpl)) {
@@ -184,6 +199,21 @@ class SearchForm {
         $this->populateFromArray($_REQUEST, $switchVar, $addAllBeanFields);
     }
 
+    /**
+     * Converts column name and value to upper case for case insensitive search if needed.
+     * @param string $subquery eg, 'select * from t where c like'
+     * @param string $value
+     * @return string
+     */
+    protected function getLikeSubquery($subquery, $value, $likechar = '%')
+    {
+        if ($this->bean->db->supports('case_insensitive') && preg_match('/(.*\S)\s+(\S+)\s+like$/i', trim($subquery), $matches)) {
+            return $matches[1]. ' ' . $this->seed->db->getLikeSQL($matches[2], "$value$likechar");
+        }
+        else {
+            return "$subquery ".$this->bean->db->quoted("$value$likechar");
+        }
+    }
 
     /**
      * The fuction will returns an array of filter conditions.
@@ -191,11 +221,8 @@ class SearchForm {
      */
     function generateSearchWhere($add_custom_fields = false, $module='') {
         global $timedate;
-        $values = $this->searchFields;
 
         $where_clauses = array();
-        //$like_char = '%';
-        $table_name = $this->bean->object_name;
 
         foreach($this->searchFields as $field=>$parms) {
 			$customField = false;
@@ -267,7 +294,7 @@ class SearchForm {
                     }
                 }
                 else {
-                    $field_value = $GLOBALS['db']->quote($parms['value']);
+                    $field_value = $parms['value'];
                 }
 
                 //set db_fields array.
@@ -277,7 +304,7 @@ class SearchForm {
 
                 if(isset($parms['my_items']) and $parms['my_items'] == true) {
                     global $current_user;
-                    $field_value = $GLOBALS['db']->quote($current_user->id);
+                    $field_value = $current_user->id;
                     $operator = '=';
                 }
 
@@ -345,19 +372,19 @@ class SearchForm {
                                         if(!$first){
                                             $where .= $and_or;
                                         }
-                                        $where .= " {$db_field} $in ({$q} '{$field_value}%') ";
+                                        $where .= " {$db_field} $in (".$this->getLikeSubquery($q, $field_value).") ";
                                         $first = false;
                                     }
                                 }elseif(!empty($parms['query_type']) && $parms['query_type'] == 'format'){
                                     $stringFormatParams = array(0 => $field_value, 1 => $GLOBALS['current_user']->id);
                                     $where .= "{$db_field} $in (".string_format($parms['subquery'], $stringFormatParams).")";
                                 }else{
-                                    $where .= "{$db_field} $in ({$parms['subquery']} '{$field_value}%')";
+                                    $where .= "{$db_field} $in (".$this->getLikeSubquery($parms['subquery'] , $field_value).")";
                                 }
 
     	                    	break;
                             case 'like':
-                                $where .=  $db_field . " like ".$this->bean->db->quoted($field_value.'%');
+                                $where .= $this->bean->db->getLikeSQL($db_field, "$field_value%");
                                 break;
                             case 'in':
                                 $where .=  $db_field . " in (".$field_value.')';
@@ -407,25 +434,17 @@ class SearchForm {
         }
 
         $str = $tabPanel->display();
-        $str .= '<script>';
-        if(!empty($_REQUEST['displayColumns']))
-            $str .= 'SUGAR.savedViews.displayColumns = "' . $_REQUEST['displayColumns'] . '";';
-        elseif(isset($saved_search->contents['displayColumns']) && !empty($saved_search->contents['displayColumns']))
-            $str .= 'SUGAR.savedViews.displayColumns = "' . $saved_search->contents['displayColumns'] . '";';
-        if(!empty($_REQUEST['hideTabs']))
-            $str .= 'SUGAR.savedViews.hideTabs = "' . $_REQUEST['hideTabs'] . '";';
-        elseif(isset($saved_search->contents['hideTabs']) && !empty($saved_search->contents['hideTabs']))
-            $str .= 'SUGAR.savedViews.hideTabs = "' . $saved_search->contents['hideTabs'] . '";';
-        if(!empty($_REQUEST['orderBy']))
-            $str .= 'SUGAR.savedViews.selectedOrderBy = "' . $_REQUEST['orderBy'] . '";';
-        elseif(isset($saved_search->contents['orderBy']) && !empty($saved_search->contents['orderBy']))
-            $str .= 'SUGAR.savedViews.selectedOrderBy = "' . $saved_search->contents['orderBy'] . '";';
-        if(!empty($_REQUEST['sortOrder']))
-            $str .= 'SUGAR.savedViews.selectedSortOrder = "' . $_REQUEST['sortOrder'] . '";';
-        elseif(isset($saved_search->contents['sortOrder']) && !empty($saved_search->contents['sortOrder']))
-            $str .= 'SUGAR.savedViews.selectedSortOrder = "' . $saved_search->contents['sortOrder'] . '";';
+        $params = array();
+        foreach(array('displayColumns', 'hideTabs', 'orderBy', 'sortOrder') as $param) {
+            $value = $this->request->getValidInputRequest($param);
+            if (!empty($value)) {
+                $params[$param] = $value;
+            } elseif (!empty($saved_search->contents[$param])) {
+                $params[$param] = $saved_search->contents[$param];
+            }
+        }
 
-        $str .= '</script>';
+        $str .= '<script>$.extend(SUGAR.savedViews, '.json_encode($params).');</script>';
 
         return $str;
     }
@@ -498,15 +517,17 @@ class SearchForm {
         global $current_user;
         $GLOBALS['log']->debug('SearchForm.php->displayHeader()');
         $header_text = '';
-        if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($_SESSION['editinplace'])){
-            $header_text = "<a href='index.php?action=index&module=DynamicLayout&from_action=SearchForm&from_module=".$_REQUEST['module'] ."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif','Edit Layout')."</a>";
+        $module = $this->request->getValidInputRequest('module', 'Assert\Mvc\ModuleName');
+        $action = $this->request->getValidInputRequest('action');
+        if(is_admin($current_user) && $module != 'DynamicLayout' && !empty($_SESSION['editinplace'])){
+            $header_text = "<a href='index.php?action=index&module=DynamicLayout&from_action=SearchForm&from_module=".htmlspecialchars($module, ENT_QUOTES, 'UTF-8')."'>".SugarThemeRegistry::current()->getImage("EditLayout","border='0' align='bottom'",null,null,'.gif','Edit Layout')."</a>";
         }
 
         echo $header_text . $this->displayTabs($this->module . '|' . $view);
         echo "<form name='search_form' class='search_form'>" .
              "<input type='hidden' name='searchFormTab' value='{$view}'/>" .
-             "<input type='hidden' name='module' value='{$_REQUEST['module']}'/>" .
-             "<input type='hidden' name='action' value='{$_REQUEST['action']}'/>" .
+             "<input type='hidden' name='module' value='".htmlspecialchars($module, ENT_QUOTES, 'UTF-8')."'/>" .
+             "<input type='hidden' name='action' value='".htmlspecialchars($action, ENT_QUOTES, 'UTF-8')."'/>" .
              "<input type='hidden' name='query' value='true'/>";
     }
 
@@ -670,5 +691,3 @@ class SearchForm {
         return $str;
     }
 }
-
-?>

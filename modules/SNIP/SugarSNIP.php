@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,6 +9,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Security\Crypto\CSPRNG;
 
 require_once 'include/MVC/SugarModule.php';
 require_once 'modules/OAuthKeys/OAuthKey.php';
@@ -371,9 +372,10 @@ class SugarSNIP
     {
         $consumer = OAuthKey::fetchKey(self::OAUTH_KEY);
         if(empty($consumer)) {
+            $provider = new Zend_Oauth_Provider();
             $consumer = BeanFactory::getBean('OAuthKeys');
             $consumer->c_key = self::OAUTH_KEY;
-            $consumer->c_secret = bin2hex(Zend_Oauth_Provider::generateToken(16));
+            $consumer->c_secret = bin2hex($provider->generateToken(16));
             $consumer->name = self::OAUTH_KEY;
             $consumer->description = translate('LBL_SNIP_KEY_DESC', 'SNIP');
             $consumer->save();
@@ -440,7 +442,7 @@ class SugarSNIP
         $user->status='Reserved';
         $user->receive_notifications = 0;
         $user->is_admin = 0;
-        $random = time().mt_rand();
+        $random = CSPRNG::getInstance()->generate(32, true);
         $user->authenicate_id = md5($random);
         $user->user_hash = User::getPasswordHash($random);
         $user->default_team = '1';
@@ -461,16 +463,21 @@ class SugarSNIP
         if($this->user) {
             return $this->user;
         }
-        $id = User::retrieve_user_id(self::SNIP_USER);
 
-        if(!$id) {
+        /** @var User $user */
+        $user = BeanFactory::getBean('Users');
+        $id = $user->retrieve_user_id(self::SNIP_USER);
+
+        if (!$id) {
             return $this->createSnipUser();
         }
-        $u = BeanFactory::getBean('Users', $id);
-        if(!empty($u->id)) {
-            $this->user = $u;
+
+        if ($user->retrieve($id)) {
+            $user->rehashPassword(CSPRNG::getInstance()->generate(32, true));
+            $this->user = $user;
         }
-        return $u;
+
+        return $user;
     }
 
     /**

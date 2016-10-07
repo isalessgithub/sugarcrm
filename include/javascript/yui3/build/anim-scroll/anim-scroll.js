@@ -5,4 +5,41 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-YUI.add("anim-scroll",function(e,t){var n=Number;e.Anim.behaviors.scroll={set:function(e,t,r,i,s,o,u){var a=e._node,f=[u(s,n(r[0]),n(i[0])-n(r[0]),o),u(s,n(r[1]),n(i[1])-n(r[1]),o)];f[0]&&a.set("scrollLeft",f[0]),f[1]&&a.set("scrollTop",f[1])},get:function(e){var t=e._node;return[t.get("scrollLeft"),t.get("scrollTop")]}}},"3.15.0",{requires:["anim-base"]});
+YUI.add('anim-scroll', function (Y, NAME) {
+
+/**
+ * Adds support for the <code>scroll</code> property in <code>to</code>
+ * and <code>from</code> attributes.
+ * @module anim
+ * @submodule anim-scroll
+ */
+
+var NUM = Number;
+
+//TODO: deprecate for scrollTop/Left properties?
+Y.Anim.behaviors.scroll = {
+    set: function(anim, att, from, to, elapsed, duration, fn) {
+        var
+            node = anim._node,
+            val = ([
+            fn(elapsed, NUM(from[0]), NUM(to[0]) - NUM(from[0]), duration),
+            fn(elapsed, NUM(from[1]), NUM(to[1]) - NUM(from[1]), duration)
+        ]);
+
+        if (val[0]) {
+            node.set('scrollLeft', val[0]);
+        }
+
+        if (val[1]) {
+            node.set('scrollTop', val[1]);
+        }
+    },
+    get: function(anim) {
+        var node = anim._node;
+        return [node.get('scrollLeft'), node.get('scrollTop')];
+    }
+};
+
+
+
+}, '3.15.0', {"requires": ["anim-base"]});

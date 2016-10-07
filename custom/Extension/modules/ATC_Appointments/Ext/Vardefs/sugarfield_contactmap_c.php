@@ -1,5 +1,4 @@
 <?php
- // created: 2014-01-09 04:07:51
-$dictionary['ATC_Appointments']['fields']['contactmap_c']['dependency']='';
+ // created: 2016-10-07 12:36:24
+$dictionary['ATC_Appointments']['fields']['contactmap_c']['dependency'] = '';
 
- ?>

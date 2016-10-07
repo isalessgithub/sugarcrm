@@ -1,5 +1,6 @@
 <?php
 
+use Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
 include_once("include/workflow/alert_utils.php");
 include_once("include/workflow/action_utils.php");
 include_once("include/workflow/time_utils.php");
@@ -29,13 +30,14 @@ include_once("include/workflow/custom_utils.php");
 	 $workflow_id = '7e8921c0-0d9e-22dd-51e0-5097fb4d79e6'; 
 
 if(!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" &&
-				!empty($_SESSION["workflow_id_cron"]) && in_array($workflow_id, $_SESSION["workflow_id_cron"])){
+				!empty($_SESSION["workflow_id_cron"]) && ArrayFunctions::in_array_access($workflow_id, $_SESSION["workflow_id_cron"])){
 				
 	global $triggeredWorkflows;
-	if (!isset($triggeredWorkflows['a3f8c944_a1aa_bbc7_c80a_57f755fb927b'])){
-		$triggeredWorkflows['a3f8c944_a1aa_bbc7_c80a_57f755fb927b'] = true;
+	if (!isset($triggeredWorkflows['f260334a_8c79_11e6_919f_23c1910b89b9'])){
+		$triggeredWorkflows['f260334a_8c79_11e6_919f_23c1910b89b9'] = true;
 		 unset($alertshell_array); 
-		 process_workflow_actions($focus, $action_meta_array['Accounts0_action0']); 
+		 $action_meta_array['Accounts0_action0']['trigger_id'] = 'f260334a_8c79_11e6_919f_23c1910b89b9'; 
+ 	 process_workflow_actions($focus, $action_meta_array['Accounts0_action0']); 
  	}
 }
 

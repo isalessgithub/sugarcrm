@@ -41,7 +41,7 @@
              * Reference to the context (required).
              * @property {Core.Context}
              */
-            this.context = options.context || app.controller.context;
+            this.context = options.context || app.controller && app.controller.context || new Backbone.Model();
 
             /**
              * Component metadata (optional).
@@ -71,6 +71,8 @@
             if(this.meta && this.meta.css_class) {
                 this.$el.addClass(this.meta.css_class);
             }
+
+            this.updateVisibleState(true);
 
             // Register last state defaults
             app.user.lastState.register(this);
@@ -257,9 +259,7 @@
                 if (!this.triggerBefore("show")) {
                     return false;
                 }
-
-                this.$el.removeClass("hide").show();
-
+                this._show();
                 this.trigger('show');
             }
         },
@@ -272,18 +272,48 @@
                 if (!this.triggerBefore("hide")) {
                     return false;
                 }
-
-                this.$el.addClass("hide").hide();
-
+                this._hide();
                 this.trigger('hide');
             }
         },
 
         /**
-         *  Visibility Check
+         * Checks if the component is visible on the page.
          */
         isVisible: function() {
-            return this.$el.css('display') !== 'none';
+            return this._isVisible;
+        },
+
+        /**
+         * Updates the visible property.
+         *
+         * **Note:** This does not show/hide the component. Please use
+         * {@link #show} and {@link #hide} for this use case.
+         */
+        updateVisibleState: function(visible) {
+            /**
+             * Flag to indicate the visible state of the component.
+             *
+             * @type {boolean}
+             * @private
+             */
+            this._isVisible = !!visible;
+        },
+
+        /**
+         * @protected
+         */
+        _show: function() {
+            this.$el.removeClass('hide').show();
+            this.updateVisibleState(true);
+        },
+
+        /**
+         * @protected
+         */
+        _hide: function() {
+            this.$el.addClass('hide').hide();
+            this.updateVisibleState(false);
         },
 
         /**
@@ -320,7 +350,7 @@
          *
          * @param method {String} The name of the method to call e.g. 'initialize', '_renderHtml', etc. (required)
          * @param args {Array=} Arguments to pass to the parent method. Same syntax as .apply
-         * @return {*}
+         * @return {Mixed}
          * @protected
          */
         _super: function(method, args) {

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: Common.php 53409 2010-01-04 03:31:15Z roger $
+
  * Description: TODO:  To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -38,8 +38,17 @@ class Common {
 	var $timeperiod_name;
 	var $timedate;
 
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function Common()
+    {
+        self::__construct();
+    }
+
 	//class constructor.
-	function Common() {
+    public function __construct()
+    {
 	  global $db;
 	  $this->db = $db;
 	  if (empty($this->db)) {

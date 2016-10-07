@@ -113,10 +113,7 @@ class Lead extends Person {
 	var $relationship_fields = Array('email_id'=>'emails','call_id'=>'calls','meeting_id'=>'meetings','task_id'=>'tasks',);
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Lead()
     {
@@ -128,6 +125,7 @@ class Lead extends Person {
 		global $current_user;
 		if(!empty($current_user)) {
 			$this->team_id = $current_user->default_team;	//default_team is a team id
+			$this->team_set_id = $current_user->team_set_id;
 		} else {
 			$this->team_id = 1; // make the item globally accessible
 		}
@@ -505,8 +503,6 @@ class Lead extends Person {
 	}
 
 	function save($check_notify = false) {
-		if(empty($this->status))
-			$this->status = 'New';
 		// call save first so that $this->id will be set
 		$value = parent::save($check_notify);
 		return $value;

@@ -10,7 +10,8 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 *}
-<form name='edittabs' id='edittabs' method='POST' action='index.php'>
+<form name='edittabs' id='edittabs' method='POST' action='index.php'{if isset($onsubmit)} onsubmit="{$onsubmit|escape}"{/if}>
+{sugar_csrf_form_token}
 {literal}
 <script>
 studiotabs.reset();
@@ -115,8 +116,11 @@ studiotabs.reset();
 </li>
 
 <script>
-studiotabs.tabLabelToValue['{$value.label}|{$key}'] = '{$key}';
-if(typeof(studiotabs.subtabModules['subslot{$modCounter}']) == 'undefined')studiotabs.subtabModules['subslot{$modCounter}'] = '{$value.label}|{$key}';
+studiotabs.tabLabelToValue['{$value.label|escape:'javascript':'UTF-8'}|{$key|escape:'javascript':'UTF-8'}'] = '{$key|escape:'javascript':'UTF-8'}';
+if(typeof(studiotabs.subtabModules['subslot{$modCounter}']) == 'undefined') {ldelim}
+    studiotabs.subtabModules['subslot{$modCounter}'] =
+            '{$value.label|escape:'javascript':'UTF-8'}|{$key|escape:'javascript':'UTF-8'}';
+{rdelim}
 </script>
 
 {counter name="modCounter"}

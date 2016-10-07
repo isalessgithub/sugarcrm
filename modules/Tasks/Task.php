@@ -12,6 +12,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  */
 
 // Task is used to store customer information.
+
+/**
+ * @property Link2 $contacts
+ */
 class Task extends SugarBean {
         var $field_name_map;
 
@@ -59,14 +63,10 @@ class Task extends SugarBean {
 	var $additional_column_fields = Array('assigned_user_name', 'assigned_user_id', 'contact_name', 'contact_phone', 'contact_email', 'parent_name');
 
     /**
-     * This is a deprecated method, please start using __construct() as this
-     * method will be removed in a future version.
-     *
-     * @deprecated since 7.0.0. Use __construct() instead.
+     * @deprecated Use __construct() instead
      */
     public function Task()
     {
-        $GLOBALS['log']->deprecated('Calls to Task::Task() are deprecated.');
         self::__construct();
     }
 

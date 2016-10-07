@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: json_config.php 52448 2009-11-13 10:21:35Z mitani $
+
  * Description:  This class is used to include the json server config inline. Previous method
  * of using <script src=json_server.php></script> causes multiple server hits per page load
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -43,7 +43,8 @@ class json_config {
 		global $json, $sugar_config;
 
 		$str = "\nvar ". $this->global_registry_var_name." = new Object();\n";
-		$str .= "\n".$this->global_registry_var_name.".config = {\"site_url\":\"".getJavascriptSiteURL()."\"};\n";
+		// _Safe handling of getJavascriptSiteURL() output.
+		$str .= "\n".$this->global_registry_var_name.".config = " . json_encode(array('site_url' => getJavascriptSiteURL())) . ";\n";
 
 		$str .= $this->global_registry_var_name.".meta = new Object();\n";
 		$str .= $this->global_registry_var_name.".meta.modules = new Object();\n";

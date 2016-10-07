@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-06 15:20:01
+// created: 2016-10-07 09:55:44
 $viewdefs['Campaigns']['DetailView'] = array (
   'templateMeta' => 
   array (
@@ -12,9 +12,10 @@ $viewdefs['Campaigns']['DetailView'] = array (
       'buttons' => 
       array (
         0 => 'EDIT',
-        1 => 'DUPLICATE',
-        2 => 'DELETE',
-        3 => 
+        1 => 'SHARE',
+        2 => 'DUPLICATE',
+        3 => 'DELETE',
+        4 => 
         array (
           'customCode' => '<input title="{$MOD.LBL_TEST_BUTTON_TITLE}"  class="button" onclick="this.form.return_module.value=\'Campaigns\'; this.form.return_action.value=\'TrackDetailView\';this.form.action.value=\'Schedule\';this.form.mode.value=\'test\';SUGAR.ajaxUI.submitForm(this.form);" type="{$ADD_BUTTON_STATE}" name="button" id="send_test_button" value="{$MOD.LBL_TEST_BUTTON_LABEL}">',
           'sugar_html' => 
@@ -32,7 +33,7 @@ $viewdefs['Campaigns']['DetailView'] = array (
             ),
           ),
         ),
-        4 => 
+        5 => 
         array (
           'customCode' => '<input title="{$MOD.LBL_QUEUE_BUTTON_TITLE}" class="button" onclick="this.form.return_module.value=\'Campaigns\'; this.form.return_action.value=\'TrackDetailView\';this.form.action.value=\'Schedule\';SUGAR.ajaxUI.submitForm(this.form);" type="{$ADD_BUTTON_STATE}" name="button" id="send_emails_button" value="{$MOD.LBL_QUEUE_BUTTON_LABEL}">',
           'sugar_html' => 
@@ -47,23 +48,6 @@ $viewdefs['Campaigns']['DetailView'] = array (
               'onclick' => 'this.form.return_module.value=\'Campaigns\'; this.form.return_action.value=\'TrackDetailView\';this.form.action.value=\'Schedule\';SUGAR.ajaxUI.submitForm(this.form);',
               'name' => 'button',
               'id' => 'send_emails_button',
-            ),
-          ),
-        ),
-        5 => 
-        array (
-          'customCode' => '<input title="{$APP.LBL_MAILMERGE}" class="button" onclick="this.form.return_module.value=\'Campaigns\'; this.form.return_action.value=\'TrackDetailView\';this.form.action.value=\'MailMerge\';SUGAR.ajaxUI.submitForm(this.form);" type="submit" name="button" id="mail_merge_button" value="{$APP.LBL_MAILMERGE}">',
-          'sugar_html' => 
-          array (
-            'type' => 'submit',
-            'value' => '{$APP.LBL_MAILMERGE}',
-            'htmlOptions' => 
-            array (
-              'title' => '{$APP.LBL_MAILMERGE}',
-              'class' => 'button',
-              'onclick' => 'this.form.return_module.value=\'Campaigns\'; this.form.return_action.value=\'TrackDetailView\';this.form.action.value=\'MailMerge\';SUGAR.ajaxUI.submitForm(this.form);',
-              'name' => 'button',
-              'id' => 'mail_merge_button',
             ),
           ),
         ),

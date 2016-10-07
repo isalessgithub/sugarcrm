@@ -23,9 +23,9 @@ $dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'تقاري�
 										  'LBL_FILTER'              => 'الفلتر',
 										  'LBL_FILTER_TOOLTIP'      => 'الفلاتر حسب القيمة في حقل التاريخ',
 										  'LBL_SINCE'            => 'منذ: ',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'لتحديد التقارير، يمكنك توفير فلتر بيانات.' .
-										                               '  قيمة التاريخ التي تم إدخالها ستحل محل قيمة التاريخ الافتراضية للتقرير.' .
-										                               '  على سبيل المثال، في التقرير "My Activity (This Week)"، ' .
-										                               ' سيتم استخدام القيمة لعرض جميع السجلات بعد تاريخ التصفية' .
-										                               ' بدلا من الفترة الزمنية الافتراضية لأسبوع واحد.'
+										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
+										                               '  The date value entered will replace the default date value for the report.' .
+										                               '  For example, in the "My Activity (This Week)" report, the' .
+										                               ' value will be used to display all records after the filter date' .
+										                               ' instead of the default time period of one week.',
 );

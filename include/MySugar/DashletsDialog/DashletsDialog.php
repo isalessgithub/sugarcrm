@@ -162,6 +162,7 @@ class DashletsDialog {
         $this->dashlets = $dashletsList;
     }
 
+
     function getReportCharts($category){
     	global $current_user;
 

@@ -24,8 +24,8 @@ class ListApi extends SugarListApi {
         $this->defaultLimit = $GLOBALS['sugar_config']['list_max_entries_per_page'];
     }
 
-    public function parseArguments($api, $args, $seed) {
-
+    public function parseArguments(ServiceBase $api, array $args, $seed = null)
+    {
         $parsed = parent::parseArguments($api, $args, $seed);
 
         $deleted = false;
@@ -105,8 +105,7 @@ class ListApi extends SugarListApi {
 
         // If we want the last page, here is the magic to get there.
         if($offset === 'end'){
-            $ret = $GLOBALS['db']->query($countQuery);
-            if ( $row = $GLOBALS['db']->fetchByAssoc($ret) ) {
+            if ( $row = $GLOBALS['db']->fetchOne($countQuery) ) {
                 $totalCount = $row['c'];
             } else {
                 $totalCount = 0;

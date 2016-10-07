@@ -19,7 +19,7 @@
      * @alias SUGAR.App.lang
      * @singleton
      */
-    app.augment("lang", {
+    app.augment('lang', {
 
         /**
          * The display direction for the current language.
@@ -37,16 +37,17 @@
          * If the label is a template, it will be compiled and executed with the
          * given `context`.
          *
-         * @param {String} key Key of the string to retrieve.
-         * @param {String|Array} [module] Module the label belongs to. If an
-         *   array is passed, it will look through each module, returning the
-         *   first string whose key is found in the module's language strings.
-         * @param {Mixed} [context] The template context to pass to the
+         * @param {string} key Key of the string to retrieve.
+         * @param {string|Array} [module] Module the label belongs to. If an
+         *   array is passed, it will look through each module by the given
+         *   order, returning the first string whose key is found in the
+         *   module's language strings.
+         * @param {string|boolean|number|Array|Object} [context] The template context to pass to the
          *   string/template in case you want to populate some values.
-         * @return {String} String for the given key or the `key` parameter if
+         * @return {string} String for the given key or the `key` parameter if
          *   the key is not found in language pack.
          */
-        get: function (key, module, context) {
+        get: function(key, module, context) {
             var str = this.getModString(key, module, context) ||
                 this.getAppString(key, context) ||
                 key;
@@ -57,20 +58,21 @@
         /**
          * Searches the module strings for a given key.
          *
-         * @param {String} key Key of the string to retrieve.
-         * @param {String|Array} [module] Module the label belongs to. If an
-         *   array is passed, it will look through each module, returning the
-         *   first string whose key is found in the module's language strings.
-         * @param {Mixed} [context] The template context to pass to the
+         * @param {string} key Key of the string to retrieve.
+         * @param {string|Array} [module] Module the label belongs to. If an
+         *   array is passed, it will look through each module by the given
+         *   order, returning the first string whose key is found in the
+         *   module's language strings.
+         * @param {string|boolean|number|Array|Object} [context] The template context to pass to the
          *   string/template in case you want to populate some values.
-         * @return {String} String for the given key from the module language
-         *   strings.
+         * @return {string|undefined} String for the given key from the module
+         *   language strings. `undefined` if not found.
          */
         getModString: function(key, module, context) {
             var moduleString;
 
             if (_.isArray(module)) {
-                _.find(module, function (moduleName) {
+                _.find(module, function(moduleName) {
                     moduleString = this._get('mod_strings', key, moduleName, context);
                     return !_.isEmpty(moduleString);
                 }, this);
@@ -83,10 +85,13 @@
 
         /**
          * Retrieves an application string for a given key.
-         * @param {String} key Key of the string to retrieve.
-         * @param {Mixed} [context] The template context to pass to the
-         *   string/template in case you want to populate some values.
-         * @return {String} String for the given key or the `key` parameter if the key is not found in the language pack.
+         *
+         * @param {string} key Key of the string to retrieve.
+         * @param {string|boolean|number|Array|Object} [context] The template
+         *   context to pass to the string/template in case you want to
+         *   populate some values.
+         * @return {string|undefined} String for the given key from language
+         *   strings. `undefined` if not found.
          */
         getAppString: function(key, context) {
             return this._get('app_strings', key, null, context);
@@ -94,18 +99,20 @@
 
         /**
          * Retrieves an application list string or object.
-         * @param {String} key Key of the string to retrieve.
-         * @return {Object/String} String or object for the given key. If key is not found, an empty object is returned.
+         *
+         * @param {string} key Key of the string to retrieve.
+         * @return {string|Object} String or object for the given key. If key
+         *   is not found, an empty object is returned.
          */
         getAppListStrings: function(key) {
-            var list = this._get("app_list_strings", key) || {};
+            var list = app.metadata.getStrings('app_list_strings')[key] || {};
             if (_.isArray(list)) {
                 var obj = {};
                 _.each(list, function(tuple) {
                     if (_.isString(tuple)) {
                         obj[tuple] = tuple;
                     }
-                    else if (_.isArray(tuple) && tuple.length == 2) {
+                    else if (_.isArray(tuple) && tuple.length === 2) {
                         obj[tuple[0]] = tuple[1];
                     }
                 });
@@ -115,23 +122,24 @@
         },
 
         /**
-         * Gets the translated module name (by default, in singular form). Falls
-         * back to the plural form if the singular form is not found, and
+         * Gets the translated module name (by default, in singular form).
+         *
+         * Falls back to the plural form if the singular form is not found, and
          * eventually falls back to the `module` passed in.
          *
-         * @param {String} module The module.
+         * @param {string} module The module.
          * @param {Object} [options] Options object for `getModuleName`.
-         * @param {Boolean} [options.plural] Returns the plural form if `true`,
+         * @param {boolean} [options.plural] Returns the plural form if `true`,
          *   singular otherwise.
-         * @param {String} [options.defaultValue] Value to be returned if the
+         * @param {string} [options.defaultValue] Value to be returned if the
          *   module language string is not found.
-         * @return {String} The module name.
+         * @return {string} The module name.
          */
         getModuleName: function(module, options) {
             options = options || {};
             var name = !options.plural &&
-                    this.getModString('LBL_MODULE_NAME_SINGULAR', module) ||
-                    this.getModString('LBL_MODULE_NAME', module);
+                this.getModString('LBL_MODULE_NAME_SINGULAR', module) ||
+                this.getModString('LBL_MODULE_NAME', module);
 
             if (!name && !_.isUndefined(options.defaultValue)) {
                 name = this.get(options.defaultValue);
@@ -142,15 +150,15 @@
 
         /**
          * Returns the correct ordered array of keys for a given list.
-         * @param key
+         * @param {string} key Key of the string to retrieve.
          * @return {Array}
          */
         getAppListKeys: function(key) {
-            var keys = [ ],
-                list = this._get("app_list_strings", key) || {};
+            var keys = [],
+                list = app.metadata.getStrings('app_list_strings')[key] || {};
             if (_.isArray(list)) {
                 _.each(list, function(tuple) {
-                    if (tuple.length == 2) {
+                    if (tuple.length === 2) {
                         keys.push(tuple[0]);
                     }
                 });
@@ -164,20 +172,28 @@
          * Retrieves a string of a given type.
          *
          * If the label is a template, it will be compiled and executed with the given `context`.
-         * @param {String} type Type of string pack: `app_strings`, `app_list_strings`, `mod_strings`.
-         * @param {String} key Key of the string to retrieve.
-         * @param {String} module(optional) Module the label belongs to.
-         * @param {String/Boolean/Number/Array/Object} context(optional) Template context.
-         * @return {String} String for the given key.
+         * @param {string} type Type of string pack: `app_strings`, `app_list_strings`, `mod_strings`.
+         * @param {string} key Key of the string to retrieve.
+         * @param {string} [module] Module the label belongs to.
+         * @param {string|boolean|number|Array|Object} [context] Template context.
+         * @return {string|undefined} String for the given key.
          * @private
          */
         _get: function(type, key, module, context) {
-            var bundle = app.metadata.getStrings(type);
+            var str,
+                bundle = app.metadata.getStrings(type);
+
             bundle = module ? bundle[module] : bundle;
-            var str = bundle ? this._sanitize(bundle[key]) : null;
-            if (str && !_.isUndefined(context) && _.isString(str) && (str.indexOf("{{") > -1)) {
-                key = "lang." + (module ? key + "." + module : key);
-                str = Handlebars.templates[key] ? Handlebars.templates[key](context) : app.template.compile(key, str)(context);
+            if (!bundle || !_.isString(bundle[key])) {
+                return;
+            }
+
+            str = this._sanitize(bundle[key]);
+
+            if (!_.isUndefined(context) && (str.indexOf('{{') > -1)) {
+                key = 'lang.' + (module ? key + '.' + module : key);
+                var tpl = Handlebars.templates[key];
+                str = tpl ? tpl(context) : app.template.compile(key, str)(context);
             }
             return str;
         },
@@ -187,13 +203,13 @@
          *
          * This function strips trailing colon.
          *
-         * @param {String} str String to sanitize.
-         * @return {String} Sanitized string or `str` parameter if it's not a string.
+         * @param {string} str String to sanitize.
+         * @return {string} Sanitized string or `str` parameter if it's not a
+         *   string.
          * @private
          */
         _sanitize: function(str) {
-            return (_.isString(str) && (str.lastIndexOf(":") == str.length - 1)) ?
-                    str.substring(0, str.length - 1) : str;
+            return (str.slice(-1) === ':') ? str.slice(0, -1) : str;
         },
 
         /**
@@ -208,18 +224,19 @@
 
         /**
          * Sets app language code and syncs it with the server.
-         * @param {String} language language code such as `en_us`.
-         * @param {Function} callback(optional) callback function to be called on language set completes.
-         * @param {Object} options(optional) Options:
-         *
+         * @param {string} language language code such as `en_us`.
+         * @param {Function} [callback] Callback function to be called on
+         *   language set completes.
+         * @param {Object} [options] Extra options.
+         * @param {boolean} [options.noSync]
          * - noSync: true if you don't need to fetch /metadata.
          * - noUserUpdate: true if you don't need to update /me.
          */
-        setLanguage:function (language, callback, options) {
+        setLanguage: function(language, callback, options) {
             var self = this;
             options = options || {};
             _.each(Handlebars.templates, function(value, key) {
-                if (key.indexOf("lang.") == 0) {
+                if (key.indexOf('lang.') === 0) {
                     delete Handlebars.templates[key];
                 }
             });
@@ -313,10 +330,11 @@
         },
 
         /**
-         * Sets the {@link #direction} to the desired direction according to the
-         * language code specified.
+         * Sets the {@link #direction} to the desired direction according to
+         * the language code specified.
          *
-         * @triggers lang:direction:change if the language direction has changed.
+         * @fires `lang:direction:change` if the language direction has
+         * changed.
          *
          * @param {string} lang Language code that the direction is based on.
          */

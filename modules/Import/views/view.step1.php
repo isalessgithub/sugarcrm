@@ -20,7 +20,6 @@ require_once('modules/Import/views/ImportView.php');
 require_once('include/externalAPI/ExternalAPIFactory.php');
 require_once('modules/Import/Importer.php');
 
-
 class ImportViewStep1 extends ImportView
 {
 
@@ -29,8 +28,11 @@ class ImportViewStep1 extends ImportView
     public function __construct($bean = null, $view_object_map = array())
     {
         parent::__construct($bean, $view_object_map);
+
         $this->currentStep = isset($_REQUEST['current_step']) ? ($_REQUEST['current_step'] + 1) : 1;
-        $this->importModule = isset($_REQUEST['import_module']) ? $_REQUEST['import_module'] : '';
+
+        $this->importModule = $this->request->getValidInputRequest('import_module', 'Assert\Mvc\ModuleName', '');
+
         if( isset($_REQUEST['from_admin_wizard']) &&  $_REQUEST['from_admin_wizard'] )
         {
             $this->importModule = 'Administration';
@@ -44,15 +46,16 @@ class ImportViewStep1 extends ImportView
 	{
 	    global $mod_strings, $app_list_strings;
 
+        $importModule = $this->request->getValidInputRequest('import_module', 'Assert\Mvc\ModuleName', false);
 	    $iconPath = $this->getModuleTitleIconPath($this->module);
 	    $returnArray = array();
 	    if (!empty($iconPath) && !$browserTitle) {
-	        $returnArray[] = "<a href='index.php?module={$_REQUEST['import_module']}&action=index'><!--not_in_theme!--><img src='{$iconPath}' alt='{$app_list_strings['moduleList'][$_REQUEST['import_module']]}' title='{$app_list_strings['moduleList'][$_REQUEST['import_module']]}' align='absmiddle'></a>";
+	        $returnArray[] = "<a href='index.php?module={$importModule}&action=index'><!--not_in_theme!--><img src='{$iconPath}' alt='{$app_list_strings['moduleList'][$importModule]}' title='{$app_list_strings['moduleList'][$importModule]}' align='absmiddle'></a>";
     	}
     	else {
-    	    $returnArray[] = $app_list_strings['moduleList'][$_REQUEST['import_module']];
+    	    $returnArray[] = $app_list_strings['moduleList'][$importModule];
     	}
-	    $returnArray[] = "<a href='index.php?module=Import&action=Step1&import_module={$_REQUEST['import_module']}'>".$mod_strings['LBL_MODULE_NAME']."</a>";
+	    $returnArray[] = "<a href='index.php?module=Import&action=Step1&import_module={$importModule}'>".$mod_strings['LBL_MODULE_NAME']."</a>";
 	    $returnArray[] = $mod_strings['LBL_STEP_1_TITLE'];
 
 	    return $returnArray;
@@ -66,11 +69,13 @@ class ImportViewStep1 extends ImportView
         global $mod_strings, $app_strings, $current_user;
         global $sugar_config;
 
+        $importModule = $this->request->getValidInputRequest('import_module', 'Assert\Mvc\ModuleName', false);
+
         $this->ss->assign("MODULE_TITLE", $this->getModuleTitle(false));
         $this->ss->assign("DELETE_INLINE_PNG",  SugarThemeRegistry::current()->getImage('delete_inline','align="absmiddle" border="0"',null,null,'.gif',$app_strings['LNK_DELETE']));
         $this->ss->assign("PUBLISH_INLINE_PNG",  SugarThemeRegistry::current()->getImage('publish_inline','align="absmiddle" border="0"', null,null,'.gif',$mod_strings['LBL_PUBLISH']));
         $this->ss->assign("UNPUBLISH_INLINE_PNG",  SugarThemeRegistry::current()->getImage('unpublish_inline','align="absmiddle" border="0"', null,null,'.gif',$mod_strings['LBL_UNPUBLISH']));
-        $this->ss->assign("IMPORT_MODULE", $_REQUEST['import_module']);
+        $this->ss->assign("IMPORT_MODULE", $importModule);
 
         $showModuleSelection = ($this->importModule == 'Administration');
         $importableModulesOptions = array();
@@ -93,9 +98,12 @@ class ImportViewStep1 extends ImportView
         $this->ss->assign("showModuleSelection", $showModuleSelection);
         $this->ss->assign("IMPORTABLE_MODULES_OPTIONS", $importableModulesOptions);
 
+        $this->ss->assign("EXTERNAL_APIS", $this->getExternalApis());
         $this->ss->assign("EXTERNAL_SOURCES", $this->getAllImportableExternalEAPMs());
         $this->ss->assign("EXTERNAL_AUTHENTICATED_SOURCES", json_encode($this->getAuthenticatedImportableExternalEAPMs()) );
-        $selectExternal = !empty($_REQUEST['application']) ? $_REQUEST['application'] : '';
+
+        $application = $this->request->getValidInputRequest('application', null, '');
+        $selectExternal = !empty($application) ? $application : '';
         $this->ss->assign("selectExternalSource", $selectExternal);
 
         $content = $this->ss->fetch('modules/Import/tpls/step1.tpl');
@@ -108,6 +116,28 @@ class ImportViewStep1 extends ImportView
         $this->ss->assign("CONTENT",$content);
         $this->ss->display('modules/Import/tpls/wizardWrapper.tpl');
 
+    }
+
+    protected function getExternalApis()
+    {
+        $apis = ExternalAPIFactory::listAPI('Import', true);
+        foreach ($apis as $name => $_) {
+            if ($name == 'Google') {
+                require_once 'include/externalAPI/Google/ExtAPIGoogle.php';
+                $api = new ExtAPIGoogle();
+                $client = $api->getClient();
+                $loginUrl = $client->createAuthUrl();
+            } else {
+                $loginUrl = 'index.php?' . http_build_query(array(
+                    'module' => 'EAPM',
+                    'action' => 'EditView',
+                    'application' => $name,
+                ));
+            }
+            $apis[$name]['loginUrl'] = $loginUrl;
+        }
+
+        return $apis;
     }
 
     private function getImportablePersonModulesJS()
@@ -241,20 +271,38 @@ YAHOO.util.Event.onDOMReady(function(){
         if( !isExtSourceAuthenticated(v) )
         {
             document.getElementById('ext_source_sign_in_bttn').style.display = '';
+            document.getElementById('ext_source_sign_out_bttn').style.display = 'none';
             document.getElementById('gonext').disabled = true;
         }
         else
         {
             document.getElementById('ext_source_sign_in_bttn').style.display = 'none';
+            if (v == "Google") {
+                document.getElementById('ext_source_sign_out_bttn').style.display = '';
+            }
             document.getElementById('gonext').disabled = false;
         }
     }
 
     function openExtAuthWindow()
     {
-        var import_module = document.getElementById('importstep1').import_module.value;
-        var url = "index.php?module=EAPM&return_module=Import&action=EditView&application=" + selectedExternalSource + "&return_action=" + import_module;
-        document.location = url;
+        var api = externalApis[selectedExternalSource];
+        if (!api) {
+            return;
+        }
+
+        if (api.authMethod === "oauth2") {
+            openOauth2Window(api.loginUrl);
+        } else {
+            var import_module = document.getElementById('importstep1').import_module.value;
+            var url = api.loginUrl + "&return_module=Import&return_action=" + import_module;
+            document.location = url;
+        }
+    }
+
+    function openOauth2Window(url)
+    {
+        window.open(url, '_blank', "width=600,height=400,centerscreen=1,resizable=1");
     }
 
     function setImportModule()
@@ -286,12 +334,40 @@ YAHOO.util.Event.onDOMReady(function(){
     }
 
     YAHOO.util.Event.addListener('ext_source_sign_in_bttn', "click", openExtAuthWindow);
+    YAHOO.util.Event.addListener("ext_source_sign_out_bttn", "click", function() {
+        $.post(
+            "index.php?module=Import&action=RevokeAccess&application=" + encodeURIComponent(selectedExternalSource),
+            function(response) {
+                if (response.result) {
+                    auth_sources = response.sources;
+                    isExtSourceValid(selectedExternalSource);
+                } else {
+                    alert("Unable to sign out");
+                }
+            }
+        );
+    });
     YAHOO.util.Event.addListener('admin_import_module', "change", setImportModule);
 
     oButtonGroup.subscribe('checkedButtonChange', function(e)
     {
         selectedExternalSource = e.newValue.get('value');
         isExtSourceValid(selectedExternalSource);
+    });
+
+    $(window).on("message", function(e) {
+        var data = $.parseJSON(e.originalEvent.data);
+        if (data.result) {
+            if (!data.hasRefreshToken) {
+                alert("The application is unable to work in offline mode. Please sign out and sign in again.");
+            }
+            $.get("index.php?module=Import&action=AuthenticatedSources", function(sources) {
+                auth_sources = sources;
+                isExtSourceValid(selectedExternalSource);
+            });
+        } else {
+            alert("Unable to connect to the data source");
+        }
     });
 
     function initExtSourceSelection()

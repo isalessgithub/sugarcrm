@@ -1,5 +1,5 @@
 <?php
- /*
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -20,7 +20,7 @@ $object_name = strtolower($object_name);
 
   $object_name.'_type_dom' =>
   array (
-  	'Administration' => 'الإدارة',
+  	'Administration' => 'Administration',
     'Product' => 'المنتج',
     'User' => 'المستخدم',
   ),
@@ -35,7 +35,7 @@ $object_name = strtolower($object_name);
   ),
   $object_name.'_priority_dom' =>
   array (
-    'P1' => 'عالٍ',
+    'P1' => 'عالية',
     'P2' => 'متوسط',
     'P3' => 'منخفض',
   ),

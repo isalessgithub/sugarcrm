@@ -13,6 +13,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 require_once "modules/OutboundEmailConfiguration/OutboundEmailConfigurationPeer.php";
 
+use Sugarcrm\Sugarcrm\Util\Serialized;
+
 if(!is_admin($current_user)){
     sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
 }
@@ -90,11 +92,15 @@ if (!empty($_POST['saveConfig'])) {
 		else
 		    $_POST['ldap_authentication'] = 0;
 
+        if (!empty($_POST['ldap_admin_password']) && $_POST['ldap_admin_password'] == Administration::$passwordPlaceholder) {
+            unset($_POST['ldap_admin_password']);
+        }
+
 		if( isset($_REQUEST['passwordsetting_lockoutexpirationtime']) && is_numeric($_REQUEST['passwordsetting_lockoutexpirationtime'])  )
 		    $_POST['passwordsetting_lockoutexpiration'] = 2;
 
-		// Check SAML settings
-		if (!empty($_POST['authenticationClass']) && $_POST['authenticationClass'] == 'SAMLAuthenticate') {
+        // Check SAML settings
+        if (!empty($_POST['authenticationClass']) && $_POST['authenticationClass'] == 'SAMLAuthenticate') {
             if (empty($_POST['SAML_loginurl'])) {
                 $configurator->addError($config_strings['ERR_EMPTY_SAML_LOGIN']);
                 break;
@@ -116,7 +122,12 @@ if (!empty($_POST['saveConfig'])) {
                 $configurator->addError($config_strings['ERR_EMPTY_SAML_CERT']);
                 break;
             }
-		}
+            if (isset($_REQUEST['SAML_SAME_WINDOW'])) {
+                $_POST['SAML_SAME_WINDOW'] = true;
+            } else {
+                $_POST['SAML_SAME_WINDOW'] = false;
+            }            
+        }
 
 		$configurator->saveConfig();
 		$focus->saveConfig();
@@ -139,6 +150,9 @@ if (!empty($_POST['saveConfig'])) {
 
 $focus->retrieveSettings();
 
+if (!empty($focus->settings['ldap_admin_password'])) {
+    $focus->settings['ldap_admin_password'] = Administration::$passwordPlaceholder;
+}
 
 require_once('include/SugarLogger/SugarLogger.php');
 $sugar_smarty = new Sugar_Smarty();
@@ -165,7 +179,7 @@ $sugar_smarty->assign('saml_enabled_checked', false);
 //}
 
 
-if(!function_exists('mcrypt_cbc')){
+if (!extension_loaded('mcrypt')) {
 	$sugar_smarty->assign("LDAP_ENC_KEY_READONLY", 'readonly');
 	$sugar_smarty->assign("LDAP_ENC_KEY_DESC", $config_strings['LDAP_ENC_KEY_NO_FUNC_DESC']);
 }else{
@@ -195,7 +209,7 @@ $sugar_smarty->assign("SMTP_SERVER_NOT_SET", $smtpServerIsSet);
 
 $focus = BeanFactory::getBean('InboundEmail');
 $focus->checkImap();
-$storedOptions = unserialize(base64_decode($focus->stored_options));
+$storedOptions = Serialized::unserialize($focus->stored_options, array(), true);
 $email_templates_arr = get_bean_select_array(true, 'EmailTemplate','name', '','name',true);
 $create_case_email_template = (isset($storedOptions['create_case_email_template'])) ? $storedOptions['create_case_email_template'] : "";
 $TMPL_DRPDWN_LOST =get_select_options_with_id($email_templates_arr, $res['lostpasswordtmpl']);
@@ -203,6 +217,7 @@ $TMPL_DRPDWN_GENERATE =get_select_options_with_id($email_templates_arr, $res['ge
 
 $sugar_smarty->assign("TMPL_DRPDWN_LOST", $TMPL_DRPDWN_LOST);
 $sugar_smarty->assign("TMPL_DRPDWN_GENERATE", $TMPL_DRPDWN_GENERATE);
+
 $LOGGED_OUT_DISPLAY= (isset($res['lockoutexpiration']) && $res['lockoutexpiration'] == '0') ? 'none' : '';
 $sugar_smarty->assign("LOGGED_OUT_DISPLAY_STATUS", $LOGGED_OUT_DISPLAY);
 

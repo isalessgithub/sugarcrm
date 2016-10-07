@@ -14,8 +14,7 @@ if (!defined('sugarEntry') || !sugarEntry)
 class MergeRecord extends SugarBean {
     var $object_name = 'MergeRecord';
     var $module_dir = 'MergeRecords';
-	var $acl_display_only = true;
-    var $merge_module;
+	var $merge_module;
 
     var $merge_module2;
 
@@ -50,11 +49,12 @@ class MergeRecord extends SugarBean {
             $this->load_merge_bean($merge_module, $merge_id);
     }
 
-    function retrieve($id) {
+    public function retrieve($id = '-1', $encode = true, $deleted = true)
+    {
         if (isset ($_REQUEST['action']) && $_REQUEST['action'] == 'Step2')
             $this->load_merge_bean($this->merge_bean, false, $id);
         else
-            parent::retrieve($id);
+            parent::retrieve($id, $encode, $deleted);
     }
 
     function load_merge_bean($merge_module, $load_module_strings = false, $merge_id = '') {
@@ -185,8 +185,11 @@ class MergeRecord extends SugarBean {
             $searchTypeString=$key.'SearchType';
 
             if (isset($search_params[$searchFieldString]) ) {
-                $returnString .= "<input type='hidden' name='$searchFieldString' value='{$search_params[$searchFieldString]}' />\n";
-                $returnString .= "<input type='hidden' name='$searchTypeString' value='{$search_params[$searchTypeString]}' />\n";
+                $searchFieldStringValue = SugarCleaner::cleanHtml($search_params[$searchFieldString], false);
+                $searchTypeStringValue = SugarCleaner::cleanHtml($search_params[$searchTypeString], false);
+
+                $returnString .= "<input type='hidden' name='$searchFieldString' value='{$searchFieldStringValue}'/>\n";
+                $returnString .= "<input type='hidden' name='$searchTypeString' value='{$searchTypeStringValue}' />\n";
             }
         }
 
@@ -304,6 +307,14 @@ class MergeRecord extends SugarBean {
             $where .= $clause;
         }
         return $where;
+    }
+
+    /**
+     *  override default behavior
+     * {@inheritDoc}
+     */
+    public function isACLRoleEditable(){
+        return false;
     }
 }
 ?>

@@ -30,7 +30,7 @@
         /**
          * Helper function that returns system's base currency
          *
-         * @returns {Object} The base currency data
+         * @return {Object} The base currency data.
          */
         getBaseCurrency: function() {
             var currId = app.metadata.getBaseCurrencyId(),

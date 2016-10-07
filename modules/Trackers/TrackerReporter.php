@@ -10,6 +10,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
 class TrackerReporter{
 
 	private $default_queries = array(
@@ -387,7 +388,7 @@ class TrackerReporter{
 	 */
 	private function execute($query){
 		if(!empty($query)){
-			$db = &DBManagerFactory::getInstance('reports');
+            $db = DBManagerFactory::getInstance('reports');
 			$result = $db->query($query);
 			$data = array();
 			while($row = $db->fetchByAssoc($result)){

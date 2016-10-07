@@ -119,7 +119,7 @@ class LanguageManager
 		//otherwise go through each module and clean up the language
 		if(!empty($module_dir)) {
 			foreach($languages as $clean_lang) {
-				LanguageManager::_clearCache($module_dir, $clean_lang);
+                self::_clearCache($module_dir, $clean_lang);
 			}
 		} else {
             $cache_dir = sugar_cached('modules');
@@ -127,7 +127,7 @@ class LanguageManager
                 foreach (glob("{$cache_dir}/*", GLOB_ONLYDIR|GLOB_NOSORT) as $entry) {
                     $module = basename($entry);
                     foreach ($languages as $clean_lang) {
-                        LanguageManager::_clearCache($module, $clean_lang);
+                        self::_clearCache($module, $clean_lang);
                     }
                 }
             }
@@ -139,7 +139,7 @@ class LanguageManager
 	 * @param string module_dir the module_dir to clear
 	 * @param string lang the name of the language file we are clearing this is for sugar_cache
 	 */
-    private function _clearCache($module_dir = '', $lang)
+    private static function _clearCache($module_dir = '', $lang)
     {
 		if(!empty($module_dir) && !empty($lang)){
 			$file = sugar_cached('modules/').$module_dir.'/language/'.$lang.'.lang.php';
@@ -289,14 +289,25 @@ class LanguageManager
             unlink($file);
         }
 
-        if( empty($GLOBALS['sugar_config']['js_lang_version']) )
-            $GLOBALS['sugar_config']['js_lang_version'] = 1;
-        else
-            $GLOBALS['sugar_config']['js_lang_version'] += 1;
-
-        write_array_to_file( "sugar_config", $GLOBALS['sugar_config'], "config.php");
+        self::invalidateJsLanguageCache();
     }
-    
+
+    /**
+     * Invalidates javascript language cache
+     */
+    public static function invalidateJsLanguageCache()
+    {
+        global $sugar_config, $sugar_version;
+
+        if (empty($sugar_config['js_lang_version'])) {
+            $sugar_config['js_lang_version'] = 1;
+        } else {
+            $sugar_config['js_lang_version']++;
+        }
+
+        rebuildConfigFile($sugar_config, $sugar_version);
+    }
+
 	/**
 	 * Gets an array of enabled and disabled languages
 	 * 

@@ -11,6 +11,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+use Sugarcrm\Sugarcrm\Util\Serialized;
+
 require_once('include/OutboundEmail/OutboundEmail.php');
 
 function this_callback($str) {
@@ -136,10 +138,7 @@ class InboundEmail extends SugarBean {
 	protected $module_key = 'InboundEmail';
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function InboundEmail()
     {
@@ -175,7 +174,8 @@ class InboundEmail extends SugarBean {
 	 * @param string id
 	 * @return object Bean
 	 */
-	function retrieve($id, $encode=true, $deleted=true) {
+    function retrieve($id = -1, $encode=true, $deleted=true)
+    {
 		$ret = parent::retrieve($id,$encode,$deleted);
 		// if I-E bean exist
 		if (!is_null($ret)) {
@@ -588,6 +588,10 @@ class InboundEmail extends SugarBean {
 							$overview->date = $v;
 						break;
 
+                        case 'subject':
+                            $overview->subject = $v;
+                        break;
+
 						default:
 							$overview->$k = from_html($v);
 						break;
@@ -677,6 +681,10 @@ class InboundEmail extends SugarBean {
 					case "senddate":
 						$overview->date = $v;
 					break;
+
+                    case 'subject':
+                        $overview->subject = $v;
+                    break;
 
 					default:
 						$overview->$k = from_html($v);
@@ -777,12 +785,8 @@ class InboundEmail extends SugarBean {
 					if(	isset($colDef['len']) && !empty($colDef['len']) &&
 						isset($colDef['type']) && !empty($colDef['type']) &&
 						$colDef['type'] == 'varchar'
-					)
-                    {
-                        if (isset($overview->$colDef['name']))
-                        {
-                            $overview->$colDef['name'] = substr($overview->$colDef['name'], 0, $colDef['len']);
-                        }
+                        && isset($overview->{$colDef['name']})) {
+                            $overview->{$colDef['name']} = substr($overview->{$colDef['name']}, 0, $colDef['len']);
                     }
 
 					switch($colDef['name']) {
@@ -822,13 +826,19 @@ class InboundEmail extends SugarBean {
 							}
 						break;
 
+                        case 'subject':
+                            $overview->subject = SugarCleaner::cleanHtml(htmlspecialchars_decode($overview->subject, ENT_QUOTES));
+                            $overview->subject = htmlspecialchars_decode($overview->subject, ENT_QUOTES);
+                            $values .= $this->db->quoted($overview->subject);
+                        break;
+
 						case "mbox":
 							$values .= "'{$mbox}'";
 						break;
 
 						default:
-							$overview->$colDef['name'] = SugarCleaner::cleanHtml(from_html($overview->$colDef['name']));
-							$values .= $this->db->quoted($overview->$colDef['name']);
+                            $overview->{$colDef['name']} = SugarCleaner::cleanHtml(from_html($overview->{$colDef['name']}));
+                            $values .= $this->db->quoted($overview->{$colDef['name']});
 						break;
 					}
 				}
@@ -870,9 +880,8 @@ class InboundEmail extends SugarBean {
                                 $set .= ",";
                             }
                             $value = '';
-                            if (isset($overview->$colDef['name']))
-                            {
-                                $value = $this->db->quoted($overview->$colDef['name']);
+                            if (isset($overview->{$colDef['name']})) {
+                                $value = $this->db->quoted($overview->{$colDef['name']});
                             }
                             else
                             {
@@ -1028,7 +1037,6 @@ class InboundEmail extends SugarBean {
 	 * This will fetch only partial emails for POP3 and hence needs to be call again and again based on status it returns
 	 */
 	function pop3_checkPartialEmail($synch = false) {
-		require_once('include/utils/array_utils.php');
 		global $current_user;
 		global $sugar_config;
 
@@ -1047,7 +1055,7 @@ class InboundEmail extends SugarBean {
 	    			flush();
 				} // while
 				fclose($fh);
-				$diff = unserialize($data);
+				$diff = Serialized::unserialize($data);
 				if (!empty($diff)) {
 					if (count($diff)> 50) {
 	                	$newDiff = array_slice($diff, 50, count($diff), true);
@@ -1076,7 +1084,8 @@ class InboundEmail extends SugarBean {
 				$diff = array_diff_assoc($UIDLs, $cacheUIDLs);
 				$diff = $this->pop3_shiftCache($diff, $cacheUIDLs);
 				require_once('modules/Emails/EmailUI.php');
-				EmailUI::preflightEmailCache("{$this->EmailCachePath}/{$this->id}");
+                $ui = new EmailUI();
+                $ui->preflightEmailCache("{$this->EmailCachePath}/{$this->id}");
 
 				if (count($diff)> 50) {
                 	$newDiff = array_slice($diff, 50, count($diff), true);
@@ -1498,7 +1507,7 @@ class InboundEmail extends SugarBean {
                     flush();
                 } // while
                 fclose($fh);
-                $results = unserialize($data);
+                $results = Serialized::unserialize($data);
             } // if
         } // if
         if (!$cacheDataExists) {
@@ -2253,6 +2262,14 @@ class InboundEmail extends SugarBean {
 	 * @return boolean true on success, false on fail
 	 */
 	function savePersonalEmailAccount($userId = '', $userName = '', $forceSave=true) {
+		global $current_user;
+
+		if (SugarConfig::getInstance()->get("disable_user_email_config", false)
+			&& !$current_user->isAdminForModule("Emails")
+		) {
+			ACLController::displayNoAccess(false);
+			return false;
+		}
 		$groupId = $userId;
 		$accountExists = false;
 		if(isset($_REQUEST['ie_id']) && !empty($_REQUEST['ie_id'])) {
@@ -2279,7 +2296,13 @@ class InboundEmail extends SugarBean {
 		$this->mailbox_type = 'pick'; // forcing this
 
 		if(!empty($userId)) {
-			$teamId = ($_REQUEST['ie_team'] == '-1') ? User::getPrivateTeam($userId) : $_REQUEST['ie_team'];
+            if ($_REQUEST['ie_team'] == -1) {
+                /** @var User $user */
+                $user = BeanFactory::getBean('Users', $userId);
+                $teamId = $user->getPrivateTeamID();
+            } else {
+                $teamId = $_REQUEST['ie_team'];
+            }
 			$this->team_id = $teamId;
 			$this->team_set_id = $this->getTeamSetIdForTeams($teamId);
 		}
@@ -2691,9 +2714,7 @@ class InboundEmail extends SugarBean {
 			&& $this->checkOutOfOffice($email->name)
 			&& $this->checkFilterDomain($email)) { // if we haven't sent this guy 10 replies in 24hours
 
-				if(!empty($this->stored_options)) {
-					$storedOptions = unserialize(base64_decode($this->stored_options));
-				}
+				$storedOptions = Serialized::unserialize($this->stored_options, array(), true);
 				// get FROM NAME
 				if(!empty($storedOptions['from_name'])) {
 					$from_name = $storedOptions['from_name'];
@@ -2902,9 +2923,7 @@ class InboundEmail extends SugarBean {
 			$email->save();
 			$GLOBALS['log']->debug('InboundEmail created one case with number: '.$c->case_number);
 			$createCaseTemplateId = $this->get_stored_options('create_case_email_template', "");
-			if(!empty($this->stored_options)) {
-				$storedOptions = unserialize(base64_decode($this->stored_options));
-			}
+			$storedOptions = Serialized::unserialize($this->stored_options, array(), true);
 			if(!empty($createCaseTemplateId)) {
 				$fromName = "";
 				$fromAddress = "";
@@ -3428,7 +3447,7 @@ class InboundEmail extends SugarBean {
 		$imapDecode => stdClass Object
 			(
 				[charset] => utf-8
-				[text] => w�hlen.php
+				[text] => wï¿½hlen.php
 			)
 
 					OR
@@ -4155,6 +4174,9 @@ class InboundEmail extends SugarBean {
 			$email->description_html= $this->getMessageText($msgNo, 'HTML', $structure, $fullHeader,$clean_email); // runs through handleTranserEncoding() already
 			$email->description	= $this->getMessageText($msgNo, 'PLAIN', $structure, $fullHeader,$clean_email); // runs through handleTranserEncoding() already
 			$this->imagePrefix = $oldPrefix;
+            if (empty($email->description)) {
+                $email->description = strip_tags($email->description_html);
+            }
 
 			// empty() check for body content
 			if(empty($email->description)) {
@@ -4200,7 +4222,6 @@ class InboundEmail extends SugarBean {
 					$email->team_set_id = $_REQUEST['team_set_id'];
 				} // if
 			}
-
 
 	        //Assign Parent Values if set
 	        if (!empty($_REQUEST['parent_id']) && !empty($_REQUEST['parent_type'])) {
@@ -4650,19 +4671,22 @@ eoq;
         return false;
     }
 
-	function get_stored_options($option_name,$default_value=null,$stored_options=null) {
-		if (empty($stored_options)) {
-			$stored_options=$this->stored_options;
-		}
-		if(!empty($stored_options)) {
-			$storedOptions = unserialize(base64_decode($stored_options));
-			if (isset($storedOptions[$option_name])) {
-				$default_value=$storedOptions[$option_name];
-			}
-		}
-		return $default_value;
-	}
+    public function get_stored_options($option_name, $default_value = null)
+    {
+        return self::decode_stored_option($this->stored_options, $option_name, $default_value);
+    }
 
+    public static function decode_stored_option($stored_options, $option_name, $default_value = null)
+    {
+        if (!empty($stored_options)) {
+            $decoded = Serialized::unserialize($stored_options, array(), true);
+            if (isset($decoded[$option_name])) {
+                return $decoded[$option_name];
+            }
+        }
+
+        return $default_value;
+    }
 
 	/**
 	 * This function returns a contact or user ID if a matching email is found
@@ -4710,7 +4734,7 @@ eoq;
 	 * @return array Array of messageNumbers (mail server's internal keys)
 	 */
 	function getNewMessageIds() {
-		$storedOptions = unserialize(base64_decode($this->stored_options));
+		$storedOptions = Serialized::unserialize($this->stored_options, array(), true);
 
 		//TODO figure out if the since date is UDT
 		if($storedOptions['only_since']) {// POP3 does not support Unseen flags
@@ -5223,13 +5247,32 @@ eoq;
 					$GLOBALS['log']->debug("INBOUNDEMAIL: could not imap_mail_copy() [ {$uids} ] to folder [ {$toFolder} ] from folder [ {$fromFolder} ]");
 				}
 			} else {
-				if(imap_mail_move($this->conn, $uids, $toFolder, CP_UID)) {
+                $connectStringToFolder = $this->getConnectString('', $toFolder);
+                $imapStatus = imap_status($this->conn, $connectStringToFolder, SA_UIDNEXT);
+
+                if ($imapStatus && imap_mail_move($this->conn, $uids, $toFolder, CP_UID)) {
+                    $nextUid = $imapStatus->uidnext;
 					$GLOBALS['log']->info("INBOUNDEMAIL: imap_mail_move() [ {$uids} ] to folder [ {$toFolder} ] from folder [ {$fromFolder} ]");
 					imap_expunge($this->conn); // hard deletes moved messages
 
 					// update cache on fromFolder
                     $overviews = $this->getOverviewsFromCacheFile($exUids, $fromFolder, true);
 					$this->deleteCachedMessages($uids, $fromFolder);
+
+                    // Need to switch folder because imap_search doesn't accept folder as a parameter
+                    imap_reopen($this->conn, $connectStringToFolder);
+
+                    $newUids = array_filter(
+                        imap_search($this->conn, 'ALL UNDELETED', SE_UID),
+                        function ($x) use ($nextUid) {
+                            return $x >= $nextUid;
+                        }
+                    );
+
+                    foreach ($overviews as $overview) {
+                        // need to update UIDs to match the new target folder
+                        $overview->uid = array_shift($newUids);
+                    }
 
 					// update cache on toFolder
                     $this->setCacheValue($toFolder, $overviews, array(), array());
@@ -5861,8 +5904,15 @@ eoq;
 		$meta['email']['cc_addrs'] = $ccs;
 
 		// body
-		$description = (empty($this->email->description_html)) ? nl2br($this->email->description) : $this->email->description_html;
+        if (empty($this->email->description_html)) {
+            $description = nl2br($this->email->description);
+            $description_html = '';
+        } else {
+            $description = SugarCleaner::cleanHtml(from_html($this->email->description_html, false), false);
+            $description_html  = $this->getHTMLDisplay($description);
+        }
 		$meta['email']['description'] = $description;
+        $meta['email']['description_html'] = $description_html;
 
 		// meta-metadata
 		$meta['is_sugarEmail'] = ($exMbox[0] == 'sugar') ? true : false;
@@ -5873,14 +5923,16 @@ eoq;
 			}
 		} else {
 			if( $this->email->status != 'sent' ){
-				// mark SugarEmail read
-				$q = "UPDATE emails SET status = 'read' WHERE id = '{$uid}'";
-				$r = $this->db->query($q);
+                $email = BeanFactory::getBean('Emails', $uid);
+                if (!empty($email->id)) {
+                    $email->status = 'read';
+                    $email->save();
+                }
 			}
 		}
 
 		$return = array();
-        $meta['email']['name'] = to_html($this->email->name);
+        $meta['email']['name'] = $this->email->name;
         $meta['email']['from_addr'] = ( !empty($this->email->from_addr_name) ) ? to_html($this->email->from_addr_name) : to_html($this->email->from_addr);
         $meta['email']['toaddrs'] = ( !empty($this->email->to_addrs_names) ) ? to_html($this->email->to_addrs_names) : to_html($this->email->to_addrs);
         $meta['email']['cc_addrs'] = to_html($this->email->cc_addrs_names);
@@ -6266,7 +6318,7 @@ eoq;
 				$delimiter = $mbox->delimiter;
 			}
 		}
-		$storedOptions = unserialize(base64_decode($this->stored_options));
+		$storedOptions = Serialized::unserialize($this->stored_options, array(), true);
 		$storedOptions['folderDelimiter'] = $delimiter;
 		$this->stored_options = base64_encode(serialize($storedOptions));
         $this->save();
@@ -6553,6 +6605,40 @@ eoq;
         return $result;
     }
 
+    /**
+     * Perform specialized Windows Outlook fixup to remove unnwanted blank lines caused from empty paragraphs
+     * left behind by HTML Purifier when MSOffice namespaces and Embedded styles are removed.
+     *
+     * Issue reported: https://sugarcrm.atlassian.net/browse/MAR-2297  (SI Bug number: 66022)
+     *
+     * Note: this fixup is enabled when the 'mso_fixup_paragraph_tags' config option has been added and is set to true.
+     *
+     * @param string $html
+     * @return string $html
+     */
+    public function getHTMLDisplay($html)
+    {
+        if (!empty($GLOBALS['sugar_config']['mso_fixup_paragraph_tags'])
+            && $GLOBALS['sugar_config']['mso_fixup_paragraph_tags'] === true
+            && (strpos($html, 'class="MsoNormal"') !== false ||
+                strpos($html, "<o:p>") !== false)
+        ) {
+                $replaceStrings = array(
+                    '<p></p>' => '',
+                    '<p> </p>' => '<br/>',
+                    '<p>&nbsp;</p>' => '<br/>',
+                    '<p>' . chr(0xC2) . chr(0xA0) . '</p>' => '<br/>',
+                    '<p class="MsoNormal"></p>' => '',
+                    '<p class="MsoNormal"> </p>' => '',
+                    '<p class="MsoNormal">&nbsp;</p>' => '',
+                    '<p class="MsoNormal">' . chr(0xC2) . chr(0xA0) . '</p>' => '',
+                );
+                $html = str_replace(array_keys($replaceStrings), array_values($replaceStrings), $html);
+                $html = "<style>p.MsoNormal {margin: 0;}</style>\n" . $html;
+        }
+        return $html;
+    }
+
 } // end class definition
 
 
@@ -6696,7 +6782,17 @@ class Overview {
 			),
 		);
 	*/
-	function Overview() {
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function Overview()
+    {
+        self::__construct();
+    }
+
+    public function __construct()
+    {
 		global $dictionary;
 
 		if(!isset($dictionary['email_cache']) || empty($dictionary['email_cache'])) {

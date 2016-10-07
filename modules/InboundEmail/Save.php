@@ -11,6 +11,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 require_once('include/SugarFolders/SugarFolders.php');
+use Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 global $current_user;
 
@@ -29,20 +32,18 @@ foreach($focus->column_fields as $field) {
     }
 	if(isset($_REQUEST[$field])) {
 		if ($field != "group_id") {
-			$focus->$field = trim($_REQUEST[$field]);
+			$focus->$field = trim(InputValidation::getService()->getValidInputRequest($field));
 		}
 	}
 }
 foreach($focus->additional_column_fields as $field) {
 	if(isset($_REQUEST[$field])) {
-		$value = trim($_REQUEST[$field]);
-		$focus->$field = $value;
+		$focus->$field = trim(InputValidation::getService()->getValidInputRequest($field));
 	}
 }
 foreach($focus->required_fields as $field) {
 	if(isset($_REQUEST[$field])) {
-		$value = trim($_REQUEST[$field]);
-		$focus->$field = $value;
+		$focus->$field = trim(InputValidation::getService()->getValidInputRequest($field));
 	}
 }
 
@@ -70,7 +71,7 @@ if (empty($optimum)) {
 $delimiter = $focus->getSessionInboundDelimiterString($focus->server_url, $focus->email_user, $focus->port, $focus->protocol);
 
 //added check to ensure the $optimum['serial']) is not empty.
-if(is_array($optimum) && (count($optimum) > 0) && !empty( $optimum['serial'])) {
+if (ArrayFunctions::is_array_access($optimum) && (count($optimum) > 0) && !empty($optimum['serial'])) {
 	$focus->service = $optimum['serial'];
 } else {
 	// no save
@@ -145,7 +146,6 @@ foreach($focus->field_defs as $field=>$def) {
 	} // if
 
 } // if
-
 
 if( isset($_REQUEST['is_auto_import']) && $_REQUEST['is_auto_import'] == 'on' )
 {

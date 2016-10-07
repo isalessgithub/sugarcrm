@@ -465,17 +465,17 @@
 
             var baseProperties = {
                 /**
-                 * @inheritDoc Data.Bean#_defaults
+                 * @inheritdoc Data.Bean#_defaults
                  */
                 _defaults: defaults,
 
                 /**
-                 * @inheritDoc Data.Bean#module
+                 * @inheritdoc Data.Bean#module
                  */
                 module: name,
 
                 /**
-                 * @inheritDoc Data.Bean#fields
+                 * @inheritdoc Data.Bean#fields
                  */
                 fields: fields
             };
@@ -680,6 +680,8 @@
                     bean: bean
                 }
             });
+
+            collection.setOption('relate', true);
 
             bean._setRelatedCollection(link, collection);
             return collection;
@@ -935,7 +937,7 @@
                     callbacks
                 );
             }
-            else if (options.relate === true) {
+            else if (model.link && model.link.bean && options.relate === true) {
                 // Related data is an object should contain:
                 // - related bean (including relationship fields) in case of create method
                 // - just relationship fields in case of update method
@@ -1008,8 +1010,9 @@
 
         parseOptionsForSync: function(method, model, options) {
             options = options || {};
-            options.params = options.params || {};
+            options.params = _.extend({}, options.params);
             options.filterDef = options.filter || model.filterDef;
+            options.method = method;
 
             if (options.view && _.isString(options.view) && method == "read") {
                 options.params.view = options.view;
@@ -1105,7 +1108,14 @@
                         model.page = model.getPageNumber(options);
                     }
 
+                    model.total = _.isNumber(data.total) ? data.total : null;
 
+                    // We need `xmod_aggs` property which are the facets
+                    // for search.
+                    if (model instanceof app.MixedBeanCollection) {
+                        model.xmod_aggs = data.xmod_aggs || null;
+                        model.tags = data.tags || null;
+                    }
                     data = data.records || [];
 
                     self._updateCollectionProperties(model, options);
@@ -1118,7 +1128,7 @@
                     if (method != "read") {
                         // The response for create/update/delete relationship contains updated beans
                         if (model.link.bean) {
-                            var syncedAttributes = model.link.bean.getSyncedAttributes(),
+                            var syncedAttributes = model.link.bean.getSynced(),
                                 updatedAttributes = _.reduce(data.record, function(memo, val, key) {
                                     if (!_.isEqual(syncedAttributes[key], val)) {
                                         memo[key] = val;

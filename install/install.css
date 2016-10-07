@@ -9,7 +9,7 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: install.css 48917 2009-06-23 04:53:38Z jmertic $
+
  * Description:  Defines the stylesheet used for the application installation.
  ********************************************************************************/
 
@@ -110,6 +110,19 @@ textarea {
 	background-color: #ffffff;
 	}
 	
+
+pre a:link {
+    font: inherit;
+}
+
+pre.license {
+    border: 1px solid #888888;
+    font-size: 11px;
+    width: 52em;
+    height: 8em;
+    overflow-y:scroll;
+}
+
 .checkbox {
 	border:0px;
 	background-color: transparent;

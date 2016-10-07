@@ -70,12 +70,6 @@ class OpportunityHooks extends AbstractForecastHooks
     public static function setSalesStatus(Opportunity $bean, $event, $args)
     {
         if (static::useRevenueLineItems() && $bean->ACLFieldAccess('sales_status', 'write')) {
-            // we have a new bean so set the value to new and dump out
-            if (empty($bean->fetched_row)) {
-                $bean->sales_status = Opportunity::STATUS_NEW;
-                return;
-            }
-
             // Load forecast config so we have the sales_stage data.
             static::loadForecastSettings();
 
@@ -109,9 +103,11 @@ class OpportunityHooks extends AbstractForecastHooks
 
             $total_rlis = count($bean->get_linked_beans('revenuelineitems', 'RevenueLineItems'));
 
-            if ($total_rlis > ($won_rlis + $lost_rlis) || $total_rlis === 0) {
+            if ($total_rlis > ($won_rlis + $lost_rlis)) {
                 // still in progress
                 $bean->sales_status = Opportunity::STATUS_IN_PROGRESS;
+            } elseif ($total_rlis === 0) {
+                $bean->sales_status = Opportunity::STATUS_NEW;
             } else {
                 // they are equal so if the total lost == total rlis then it's closed lost,
                 // otherwise it's always closed won
@@ -122,5 +118,54 @@ class OpportunityHooks extends AbstractForecastHooks
                 }
             }
         }
+    }
+
+    /**
+     * Before we save, we need to check to see if this opp is in a closed state. If so,
+     * set it to the proper included/excluded state in case mass_update tried to set it to something wonky
+     * @param RevenueLineItem $bean
+     * @param string $event
+     * @param array $args
+     */
+    public static function beforeSaveIncludedCheck($bean, $event, $args)
+    {
+        $settings = Forecast::getSettings(true);
+
+        if ($settings['is_setup'] && $event == 'before_save') {
+            $won = $settings['sales_stage_won'];
+            $lost = $settings['sales_stage_lost'];
+
+            //Check to see if we are in a won state. if so, set the probability to 100 and commit_stage to include.
+            //if not, set the probability to 0 and commit_stage to exclude
+            if (in_array($bean->sales_stage, $won)) {
+                $bean->probability = 100;
+                $bean->commit_stage = 'include';
+            } else if (in_array($bean->sales_stage, $lost)) {
+                $bean->probability = 0;
+                $bean->commit_stage = 'exclude';
+            }
+        }
+    }
+
+    /**
+     * If the account relationship on an opportunity is changed via merging accounts, we need to resave the opportunity
+     * so that the worksheet will reflect the new account.
+     * @param $bean
+     * @param $event
+     * @param $args
+     */
+    public static function fixWorksheetAccountAssignment($bean, $event, $args)
+    {
+        if (!empty($args)
+            && $args['relationship'] == 'accounts_opportunities'
+            && static::isForecastSetup()
+            && !static::useRevenueLineItems()) {
+
+            $bean->account_id = $args['related_id'];
+            static::saveWorksheet($bean, $event, $args);
+            return true;
+        }
+
+        return false;
     }
 }

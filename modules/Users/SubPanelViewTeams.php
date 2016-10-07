@@ -18,9 +18,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
-
-
-
 class SubPanelViewTeams {
 
 	var $users_list = null;
@@ -38,7 +35,10 @@ class SubPanelViewTeams {
 		$this->hideNewButton = $value;
 	}
 
-	function SubPanelViewTeams() 
+    /**
+     * @deprecated
+     */
+    public function SubPanelViewTeams()
     {
 	}
 
@@ -96,4 +96,3 @@ class SubPanelViewTeams {
 		$ListView->processListView($this->users_list, "users", "USER");
 	}
 }
-?>

@@ -1,6 +1,6 @@
 <?php
- // created: 2014-02-25 01:49:07
-$dictionary['ATC_ISSCampaigns']['fields']['list_loaded_c']['enforced']='';
-$dictionary['ATC_ISSCampaigns']['fields']['list_loaded_c']['dependency']='';
+ // created: 2016-10-07 12:36:24
+$dictionary['ATC_ISSCampaigns']['fields']['list_loaded_c']['enforced'] = '';
+$dictionary['ATC_ISSCampaigns']['fields']['list_loaded_c']['dependency'] = '';
+$dictionary['ATC_ISSCampaigns']['fields']['list_loaded_c']['full_text_search']['boost'] = 1;
 
- ?>

@@ -34,7 +34,7 @@ class ViewResetmodule extends SugarView
 
 	function display()
     {
-        $moduleName = $this->module = $_REQUEST['view_module'];
+        $moduleName = $this->module = $this->request->getValidInputRequest('view_module', 'Assert\Mvc\ModuleName');
         if (isset($_REQUEST['handle']) && $_REQUEST['handle'] == "execute") {
             return $this->handleSave();
         }
@@ -154,6 +154,10 @@ class ViewResetmodule extends SugarView
     {
         $module = StudioModuleFactory::getStudioModule( $this->module ) ;
         $sources = $module->getViewMetadataSources();
+
+        // Add in search/filters here rather than in the StudioModule object
+        $sources[] = array('type'  => MB_FILTERVIEW);
+        $sources[] = array('type'  => MB_BWCFILTERVIEW);
 
         $out = "";
 

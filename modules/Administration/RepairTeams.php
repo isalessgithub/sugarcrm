@@ -13,6 +13,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  */
 
 
+require_once 'include/SugarSmarty/plugins/function.sugar_csrf_form_token.php';
 
 
 
@@ -23,10 +24,11 @@ class ScanTeams{
 	 *
 	 * true implies there is a user missing Globlal membership
 	 *
-	 * @param ID $global_id
+     * @param string $global_id Global team ID
 	 * @return boolean
 	 */
-	function scanForMissingGlobal($global_id = '1'){
+    public static function scanForMissingGlobal($global_id = '1')
+    {
 		$query = "SELECT count(*) missing_count FROM users
 					WHERE deleted = 0 AND status='Active' AND is_group = 0 AND  id NOT IN
 					(SELECT user_id FROM team_memberships WHERE team_id = '$global_id' AND deleted = 0 AND explicit_assign=1)";
@@ -44,7 +46,8 @@ class ScanTeams{
 	 *
 	 * @return boolean
 	 */
-	function scanForMissingReportsToTeams(){
+    public static function scanForMissingReportsToTeams()
+    {
 		$reportStruct = array();
 		$teamStruct = array();
 		$query ="SELECT users.id uid1, users.reports_to_id rid1, teams.id tid1, tm.explicit_assign explicit1, tm.implicit_assign implicit1
@@ -86,7 +89,8 @@ class ScanTeams{
 	 *
 	 * @return boolean
 	 */
-	function scanForMissingPrivateTeams(){
+    public static function scanForMissingPrivateTeams()
+    {
 		$query ="SELECT count(*) missing_count
 				FROM users WHERE id NOT IN
 					(SELECT tm.user_id FROM team_memberships tm
@@ -188,8 +192,11 @@ ABC;
         $process_private_team_checked="checked";
     }
 
+    $csrfToken = smarty_function_sugar_csrf_form_token(array(), $smarty);
+
     $xyz=<<<EOF
         <form name="RepairTeams" method="POST" >
+            {$csrfToken}
             <input type="hidden" name="module" value="Administration">
             <input type="hidden" name="action"  value="RepairTeams">
             <input type="hidden" name="process"  value="1">

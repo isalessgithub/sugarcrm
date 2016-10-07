@@ -17,8 +17,11 @@
  */
 class SugarFieldHandler
 {
-
-    function SugarFieldHandler() {
+    /**
+     * @deprecated
+     */
+    public function SugarFieldHandler()
+    {
     }
 
     static function fixupFieldType($field) {
@@ -42,9 +45,6 @@ class SugarFieldHandler
                    break;
                case 'varchar':
                     $field = 'base';
-                    break;
-                case 'team_list':
-                    $field = 'teamset';
                     break;
             }
 

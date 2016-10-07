@@ -1,5 +1,5 @@
 <?php
- /*
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -49,4 +49,4 @@ $object_name = strtolower($object_name);
     'Invalid' => 'Invalid',
   ),
   );
-
+?>

@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,6 +9,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Security\Csrf\CsrfAuthenticator;
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 class ViewBackups extends SugarView
 {
@@ -57,14 +59,14 @@ class ViewBackups extends SugarView
         $input_disabled = "";
         global $mod_strings;
         $errors = array();
-        
+        $request = InputValidation::getService();
+        $runReq = $request->getValidInputRequest('run');
         // process "run" commands
-        if( isset( $_REQUEST['run'] ) && ($_REQUEST['run'] != "") ){
-            $run = $_REQUEST['run'];
-        
-            $backup_dir = $_REQUEST['backup_dir'];
-            $backup_zip = $_REQUEST['backup_zip'];
-        
+        if ($runReq) {
+            $run = $runReq;
+            $backup_dir = $request->getValidInputRequest('backup_dir');
+            $backup_zip = $request->getValidInputRequest('backup_zip');
+
             if( $run == "confirm" ){
                 if( $backup_dir == "" ){
                     $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_ERROR'];
@@ -77,16 +79,12 @@ class ViewBackups extends SugarView
                     return( $errors );
                 }
         
-                if( !is_dir( $backup_dir ) ){
-                    if( !mkdir_recursive( $backup_dir ) ){
-                        $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_EXISTS'];
-                    }
-                }
-        
-                if( !is_writable( $backup_dir ) ){
+                if (!is_dir($backup_dir) && !mkdir_recursive($backup_dir)) {
+                    $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_EXISTS'];
+                } elseif (!is_writable($backup_dir)) {
                     $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_NOT_WRITABLE'];
                 }
-        
+
                 if( is_file( "$backup_dir/$backup_zip" ) ){
                     $errors[] = $mod_strings['LBL_BACKUP_FILE_EXISTS'];
                 }
@@ -119,6 +117,7 @@ class ViewBackups extends SugarView
         ?>
         
             <?php 
+            $csrf = CsrfAuthenticator::getInstance();
             echo getClassicModuleTitle(
                 "Administration", 
                 array(
@@ -131,6 +130,7 @@ class ViewBackups extends SugarView
             <br>
             <?php echo $mod_strings['LBL_BACKUP_INSTRUCTIONS_2']; ?><br>
             <form name="Backups" action="<?php print( $form_action );?>" method="post" onSubmit="return (check_for_errors());">
+            <input type="hidden" name="csrf_token" value="<?php echo $csrf->getFormToken();?>" />
             <table>
             <tr>
                 <td><?php echo $mod_strings['LBL_BACKUP_DIRECTORY']; ?><br><i><?php echo $mod_strings['LBL_BACKUP_DIRECTORY_WRITABLE']; ?></i></td>

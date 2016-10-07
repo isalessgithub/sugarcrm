@@ -31,10 +31,11 @@ var LBL_HIDEOPTIONS = '{sugar_translate module="Users" label="LBL_HIDEOPTIONS"}'
 					<td align="center">
 						<div class="login">
 							<form action="index.php" method="post" name="DetailView" id="form" onsubmit="return document.getElementById('cant_login').value == ''">
+{sugar_csrf_form_token}
 								<table cellpadding="0" cellspacing="2" border="0" align="center" width="100%">
 						    	<td scope="row" colspan="2">
 						    	    <span class="error" id="browser_warning" style="display:none">
-						    	        {sugar_translate label="WARN_BROWSER_VERSION_WARNING"}
+						    	        {sugar_translate label="LBL_ALERT_BROWSER_NOT_SUPPORTED"}
 						    	    </span>
 						    	    <span class="error" id="ie_compatibility_mode_warning" style="display:none">
 						    	        {sugar_translate label="WARN_BROWSER_IE_COMPATIBILITY_MODE_WARNING"}
@@ -78,7 +79,7 @@ var LBL_HIDEOPTIONS = '{sugar_translate module="Users" label="LBL_HIDEOPTIONS"}'
                                 {/if}
 									<tr>
 										<td scope="row" width="30%"><label for="user_name">{sugar_translate module="Users" label="LBL_USER_NAME"}:</label></td>
-										<td width="70%"><input type="text" size='35' tabindex="1" id="user_name" name="user_name"  value='{$LOGIN_USER_NAME}' /></td>
+										<td width="70%"><input type="text" size='35' tabindex="1" id="user_name" name="user_name" value="{$LOGIN_USER_NAME|escape:'html':'UTF-8'}" /></td>
 									</tr>
 									<tr>
 										<td scope="row"><label for="user_password">{sugar_translate module="Users" label="LBL_PASSWORD"}:</label></td>
@@ -102,6 +103,7 @@ var LBL_HIDEOPTIONS = '{sugar_translate module="Users" label="LBL_HIDEOPTIONS"}'
 			<div class="password">
 			
 			<form action="index.php" method="post" name="fp_form" id="fp_form" >
+{sugar_csrf_form_token}
 								<table cellpadding="0" cellspacing="2" border="0" align="center" width="100%">
 									<tr>
 										<td colspan="2" class="login_more">
@@ -118,7 +120,7 @@ var LBL_HIDEOPTIONS = '{sugar_translate module="Users" label="LBL_HIDEOPTIONS"}'
 													</tr>
 													<tr>
 														<td scope="row" width="30%"><label for="fp_user_name">{sugar_translate module="Users" label="LBL_USER_NAME"}:</label></td>
-														<td width="70%"><input type="text" size='26' id="fp_user_name" name="fp_user_name"  value='{$LOGIN_USER_NAME}' /></td>
+														<td width="70%"><input type="text" size='26' id="fp_user_name" name="fp_user_name" value="{$LOGIN_USER_NAME|escape:'html':'UTF-8'}" /></td>
 													</tr>
 													<tr>
 											            <td scope="row" width="30%"><label for="fp_user_mail">{sugar_translate module="Users" label="LBL_EMAIL"}:</label></td>

@@ -79,18 +79,6 @@ $viewdefs['base']['layout']['records'] = array(
                         'layout' => array(
                             'components' => array(
                                 array(
-                                    'layout' => 'list-sidebar',
-                                ),
-                            ),
-                            'type' => 'simple',
-                            'name' => 'side-pane',
-                            'span' => 4,
-                        ),
-                    ),
-                    array(
-                        'layout' => array(
-                            'components' => array(
-                                array(
                                     'layout' => array(
                                         'type' => 'dashboard',
                                         'last_state' => array(
@@ -112,7 +100,26 @@ $viewdefs['base']['layout']['records'] = array(
                         'layout' => array(
                             'components' => array(
                                 array(
-                                    'layout' => 'preview',
+                                    'layout' => array(
+                                        // FIXME MAR-2834 should fix inheriting components
+                                        'components' => array(
+                                            array(
+                                                'view' => 'preview-header',
+                                            ),
+                                            array(
+                                                'view' => 'preview',
+                                            ),
+                                            array(
+                                                'layout' => 'preview-activitystream',
+                                                'context' => array(
+                                                    'module' => 'Activities',
+                                                    'forceNew' => true,
+                                                ),
+                                            ),
+                                        ),
+                                        'type' => 'preview',
+                                        'editable' => true,
+                                    ),
                                 ),
                             ),
                             'type' => 'simple',

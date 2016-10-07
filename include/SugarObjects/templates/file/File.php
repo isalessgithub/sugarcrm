@@ -21,19 +21,17 @@ class File extends Basic
 	public $file_url_noimage;
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function File()
     {
         self::__construct();
     }
 
-    public function __construct(){
-		parent::__construct();
-	}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
 	/**
 	 * @see SugarBean::save()
@@ -142,5 +140,19 @@ class File extends Basic
             return true;
         }
         return false;
+    }
+
+     /**
+     * {@inheritdoc}
+     */
+    public function populateFromRow($row, $convert = false)
+    {
+        $row = parent::populateFromRow($row, $convert);
+
+        if (!empty($this->document_name) && empty($this->name)) {
+            $this->name = $this->document_name;
+        }
+
+        return $row;
     }
 }

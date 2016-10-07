@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id$
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -78,6 +78,7 @@ class ReportsController extends SugarController
 	{
 		$this->view = 'classic';
 	}
+
 	public function action_get_teamset_field() 
 	{
 		require_once('include/SugarFields/Fields/Teamset/ReportsSugarFieldTeamsetCollection.php');
@@ -95,27 +96,28 @@ class ReportsController extends SugarController
 		$qsd = QuickSearchDefaults::getQuickSearchDefaults();
 		if (!empty($_REQUEST['parent_form']))
 			$qsd->form_name = $_REQUEST['parent_form'];
-		$quicksearch_js = '';
+		$quicksearch_js = array();
 		if (isset($_REQUEST['parent_module']) && isset($_REQUEST['parent_field'])) {
 			$sqs_objects = array($_REQUEST['parent_field'] => $qsd->getQSParent($_REQUEST['parent_module'])); 
-    		foreach($sqs_objects as $sqsfield=>$sqsfieldArray){
-        	    $quicksearch_js .= "sqs_objects['$sqsfield']={$global_json->encode($sqsfieldArray)};";
-    		}
+    		foreach($sqs_objects as $sqsfield => $sqsfieldArray) {
+                $quicksearch_js[$sqsfield] = $global_json->encode($sqsfieldArray);
+            }
 		}
-		echo $quicksearch_js;
+            
+        echo json_encode($quicksearch_js);
 	}
 
     protected function action_massupdate(){
         //bug: 44857 - Reports calls MasUpdate passing back the 'module' parameter, but that is also a parameter in the database
         //so when we call MassUpdate with $addAllBeanFields then it will use this in the query.
-        if(!empty($_REQUEST['current_query_by_page']))
-        {
-            $query = unserialize(base64_decode($_REQUEST['current_query_by_page']));
-            if(!empty($query['module']))
-            {
-                unset($query['module']);
-                $_REQUEST['current_query_by_page'] = base64_encode(serialize($query));
-            }
+		$query = $this->request->getValidInputRequest(
+            'current_query_by_page',
+            array('Assert\PhpSerialized' => array('base64Encoded' => true))
+        );
+
+        if(!empty($query['module'])) {
+            unset($query['module']);
+            $_REQUEST['current_query_by_page'] = base64_encode(serialize($query));
         }
         parent::action_massupdate();
     }

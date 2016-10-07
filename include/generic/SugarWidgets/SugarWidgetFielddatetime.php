@@ -15,9 +15,17 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 	var $reporter;
 	var $assigned_user=null;
 
-    function SugarWidgetFieldDateTime($layout_manager)
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function SugarWidgetFieldDateTime(&$layout_manager)
     {
-        parent::SugarWidgetReportField($layout_manager);
+        self::__construct($layout_manager);
+    }
+
+    public function __construct(&$layout_manager)
+    {
+        parent::__construct($layout_manager);
     }
 
 	// get the reporter attribute
@@ -316,7 +324,7 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
     protected function now()
     {
         global $timedate;
-        return $timedate->tzUser($timedate->getNow(), $this->getAssignedUser());
+        return $timedate->getNow(true);
     }
 
 	/**
@@ -1026,12 +1034,68 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
 
 	function queryGroupByQuarter($layout_def)
 	{
-		$this->getReporter();
         $column = $this->_get_column_select($layout_def);
 	    return $this->reporter->db->convert($this->reporter->db->convert($column, "date_format", array('%Y')),
 	        	'CONCAT',
 	            array("'-'", $this->reporter->db->convert($column, "quarter")));
 	}
+
+    /**
+     * Generates select query for week
+     *
+     * @param array $layout_def Layout def for the field
+     * @return string part of select query for week
+     */
+    public function querySelectweek($layout_def)
+    {
+        $column = $this->_get_column_select($layout_def);
+
+        $dateYear = $this->reporter->db->convert($column, 'date_format', array('%Y'));
+        $dateWeek = $this->reporter->db->convert($column, 'date_format', array('%v'));
+
+        // Returns the result as YYYY-WW
+        return $this->reporter->db->convert(
+            $dateYear,
+            'CONCAT',
+            array("'-'", $dateWeek)
+        ) . ' ' . $this->_get_column_alias($layout_def);
+    }
+
+    /**
+     * Format week for display in report
+     *
+     * @param array $layout_def Layout def for the field
+     * @return string Formated string
+     */
+    public function displayListweek($layout_def)
+    {
+        $match = array();
+        if (preg_match('/(\d{4})-(\d+)/', $this->displayListPlain($layout_def), $match)) {
+            return 'W' . $match[2] . ' ' . $match[1];
+        }
+        return '';
+    }
+
+    /**
+     * Generates group by query for week
+     *
+     * @param array $layout_def Layout def for the field
+     * @return string group by week part of query
+     */
+    public function queryGroupByWeek($layout_def)
+    {
+        $column = $this->_get_column_select($layout_def);
+
+        $dateYear = $this->reporter->db->convert($column, 'date_format', array('%Y'));
+        $dateWeek = $this->reporter->db->convert($column, 'date_format', array('%v'));
+
+        // Format the value we're grouping on as YYYY-WW
+        return $this->reporter->db->convert(
+            $dateYear,
+            'CONCAT',
+            array("'-'", $dateWeek)
+        );
+    }
 
     /**
      * For oracle we have to return order by string like group by string instead of return field alias
@@ -1059,7 +1123,8 @@ class SugarWidgetFieldDateTime extends SugarWidgetReportField
         }
     }
 
-    function displayInput(&$layout_def) {
+    public function displayInput($layout_def)
+    {
     	global $timedate, $current_language, $app_strings;
         $home_mod_strings = return_module_language($current_language, 'Home');
         $filterTypes = array(' '                 => $app_strings['LBL_NONE'],

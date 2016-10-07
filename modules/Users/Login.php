@@ -1,4 +1,7 @@
 <?php
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -14,9 +17,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $authController->authController->pre_login();
 
 global $current_language, $mod_strings, $app_strings;
-if(isset($_REQUEST['login_language'])){
-    $lang = $_REQUEST['login_language'];
-    $_REQUEST['ck_login_language_20'] = $lang;
+
+$request = InputValidation::getService();
+$lang = $request->getValidInputRequest('login_language', 'Assert\Language');
+if ($lang) {
 	$current_language = $lang;
     $_SESSION['authenticated_user_language'] = $lang;
     $mod_strings = return_module_language($lang, "Users");
@@ -108,15 +112,13 @@ foreach($lvars as $k => $v) {
 // Retrieve username from the session if possible.
 if(isset($_SESSION["login_user_name"])) {
 	if (isset($_REQUEST['default_user_name']))
-		$login_user_name = $_REQUEST['default_user_name'];
+		$login_user_name = $request->getValidInputRequest('default_user_name');
 	else
 		$login_user_name = $_SESSION['login_user_name'];
 } else {
 	if(isset($_REQUEST['default_user_name'])) {
-		$login_user_name = $_REQUEST['default_user_name'];
-	} elseif(isset($_REQUEST['ck_login_id_20'])) {
-		$login_user_name = get_user_name($_REQUEST['ck_login_id_20']);
-	} else {
+		$login_user_name = $request->getValidInputRequest('default_user_name');
+	}  else {
 		$login_user_name = $sugar_config['default_user_name'];
 	}
 	$_SESSION['login_user_name'] = $login_user_name;
@@ -141,11 +143,8 @@ if(isset($_SESSION["waiting_error"])) {
     $sugar_smarty->assign('WAITING_ERROR', $_SESSION['waiting_error']);
 }
 
-if (isset($_REQUEST['ck_login_language_20'])) {
-	$display_language = $_REQUEST['ck_login_language_20'];
-} else {
-	$display_language = $sugar_config['default_language'];
-}
+$display_language = $sugar_config['default_language'];
+
 
 if (empty($GLOBALS['sugar_config']['passwordsetting']['forgotpasswordON']))
 	$sugar_smarty->assign('DISPLAY_FORGOT_PASSWORD_FEATURE','none');

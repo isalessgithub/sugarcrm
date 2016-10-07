@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['ATC_ISSCampaigns']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -122,6 +123,11 @@ $viewdefs['ATC_ISSCampaigns']['base']['view']['record'] = array (
         array (
           'name' => 'reporting_c',
           'label' => 'LBL_REPORTING',
+        ),
+        17 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
         ),
       ),
     ),

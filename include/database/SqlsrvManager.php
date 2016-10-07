@@ -74,7 +74,6 @@ class SqlsrvManager extends MssqlManager
     protected $capabilities = array(
         "affected_rows" => true,
         'fulltext' => true,
-        'limit_subquery' => true,
         'create_user' => true,
         "create_db" => true,
         "recursive_query" => true,
@@ -116,6 +115,19 @@ class SqlsrvManager extends MssqlManager
             'encrypt'  => 'nvarchar',
             'file'     => 'nvarchar',
 	        'decimal_tpl' => 'decimal(%d, %d)',
+    );
+
+    /**
+     * Integer fields' min and max values
+     * @var array
+     */
+    protected $type_range = array(
+        'int'      => array('min_value'=>-2147483648, 'max_value'=>2147483647),
+        'uint'     => array('min_value'=>-2147483648, 'max_value'=>2147483647), // int
+        'ulong'    => array('min_value'=>-2147483648, 'max_value'=>2147483647), // int
+        'long'     => array('min_value'=>-9223372036854775808, 'max_value'=>9223372036854775807),//bigint
+        'short'    => array('min_value'=>-32768, 'max_value'=>32767),
+        'tinyint'  => array('min_value'=>0, 'max_value'=>255),
     );
 
 	/**
@@ -172,6 +184,7 @@ class SqlsrvManager extends MssqlManager
         $this->connectOptions = $configOptions;
 
         $GLOBALS['log']->info("Connect:".$this->database);
+
         return true;
     }
 
@@ -195,9 +208,7 @@ class SqlsrvManager extends MssqlManager
         $this->query_time = microtime(true) - $this->query_time;
         $GLOBALS['log']->info('Query Execution Time:'.$this->query_time);
 
-        if($this->dump_slow_queries($sql)) {
-            $this->track_slow_queries($sql);
-        }
+        $this->dump_slow_queries($sql);
 
         $this->checkError($msg.' Query Failed:' . $sql . '::', $dieOnError);
 
@@ -239,10 +250,6 @@ class SqlsrvManager extends MssqlManager
 	    $row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC);
         if (empty($row)) {
             return false;
-        }
-
-        foreach($row as $key => $column) {
-            $row[$key] = is_string($column) ? trim($column) : $column;
         }
 
         return $row;
@@ -300,7 +307,7 @@ class SqlsrvManager extends MssqlManager
      */
     protected function freeDbResult($dbResult)
     {
-        if(!empty($dbResult))
+        if(is_resource($dbResult))
             sqlsrv_free_stmt($dbResult);
     }
 
@@ -339,6 +346,12 @@ class SqlsrvManager extends MssqlManager
      */
     public function get_columns($tablename)
     {
+        // Sanity check for getting columns
+        if (empty($tablename)) {
+            $this->log->error(__METHOD__ . ' called with an empty tablename argument');
+            return array();
+        }        
+
         //find all unique indexes and primary keys.
         $result = $this->query("sp_columns_90 $tablename");
 

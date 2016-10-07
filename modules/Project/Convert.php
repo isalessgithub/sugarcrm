@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -11,7 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
+// $Id: EditView.php 16705 2006-09-12 23:59:52 +0000 (Tue, 12 Sep 2006) jenny $
 
 global $timedate;
 global $app_strings;
@@ -49,7 +50,6 @@ $sugar_smarty->assign('MOD', $mod_strings);
 $sugar_smarty->assign('APP', $app_strings);
 $sugar_smarty->assign('name', $focus->name);
 
-$sugar_smarty->assign('PRINT_URL', "index.php?".$GLOBALS['request_string']);
 $sugar_smarty->assign('ID', $focus->id);
 $sugar_smarty->assign('NAME', $focus->name);
 

@@ -58,6 +58,7 @@ $dictionary['Tracker'] = array(
             'len' => '255',
             'isnull' => 'false',
         ),
+
 		'team_id'=>array(
 			'name' => 'team_id',
 			'vname' => 'LBL_TEAM_ID',
@@ -83,6 +84,7 @@ $dictionary['Tracker'] = array(
             'type' => 'varchar',
             'len' => '36',
             'isnull' => 'true',
+            'exportable' => false,
         ),
         'visible'=>array(
             'name' => 'visible',
@@ -99,6 +101,7 @@ $dictionary['Tracker'] = array(
 		    'reportable'=>false,
 		    'comment' => 'Record deletion indicator'
 		),
+
 		'assigned_user_link'=>array (
 		    'name' => 'assigned_user_link',
 		    'type' => 'link',
@@ -108,7 +111,7 @@ $dictionary['Tracker'] = array(
 		    'module'=>'Users',
 		    'bean_name'=>'User',
 		    'source'=>'non-db',
-		),
+		),        
 		'monitor_id_link'=>array (
 		    'name' => 'monitor_id_link',
 		    'type' => 'link',
@@ -158,6 +161,15 @@ $dictionary['Tracker'] = array(
             ),
         ),
         array(
+            'name' => 'idx_tracker_userid_del_vis',
+            'type' => 'index',
+            'fields' => array(
+                'user_id',
+                'deleted',
+                'visible',
+            ),
+        ),
+        array(
             'name' => 'idx_tracker_monitor_id',
             'type' => 'index',
             'fields' => array(
@@ -169,6 +181,16 @@ $dictionary['Tracker'] = array(
             'type' => 'index',
             'fields' => array(
                 'date_modified',
+            ),
+        ),
+        array(
+            'name' => 'idx_trckr_mod_uid_dtmod_item',
+            'type' => 'index',
+            'fields' => array(
+                'module_name',
+                'user_id',
+                'date_modified',
+                'item_id',
             ),
         ),
     ),
@@ -184,7 +206,15 @@ $dictionary['Tracker'] = array(
    	),
     'acls' => array('SugarACLStatic' => true),
 );
-require "modules/Trackers/tracker_sessionsMetaData.php";
-require "modules/Trackers/tracker_perfMetaData.php";
-require "modules/Trackers/tracker_queriesMetaData.php";
-require "modules/Trackers/tracker_tracker_queriesMetaData.php";
+if (!isset($dictionary['tracker_sessions']['fields'])) {
+    require "modules/Trackers/tracker_sessionsMetaData.php";
+}
+if (!isset($dictionary['tracker_perf']['fields'])) {
+    require "modules/Trackers/tracker_perfMetaData.php";
+}
+if (!isset($dictionary['tracker_queries']['fields'])) {
+    require "modules/Trackers/tracker_queriesMetaData.php";
+}
+if (!isset($dictionary['tracker_tracker_queries']['fields'])) {
+    require "modules/Trackers/tracker_tracker_queriesMetaData.php";
+}

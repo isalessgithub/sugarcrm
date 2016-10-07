@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,7 +10,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
 require_once 'data/SugarVisibility.php';
 
 /**
@@ -22,7 +20,7 @@ class BeanVisibility
 {
     /**
      * List of strategies to apply to this bean
-     * @var array
+     * @var SugarVisibility[]
      */
     protected $strategies = array();
 
@@ -75,6 +73,8 @@ class BeanVisibility
      * @param string $query
      * @param array|null $options
      * @return string Modified query
+     *
+     * @deprecated Use SugarQuery and BeanVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityFrom(&$query, $options = array())
     {
@@ -89,6 +89,8 @@ class BeanVisibility
      * @param string $query
      * @param array|null $options
      * @return string Modified query
+     *
+     * @deprecated Use SugarQuery and BeanVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityWhere(&$query, $options = array())
     {
@@ -103,6 +105,8 @@ class BeanVisibility
      * @param SugarQuery $query
      * @param array|null $options
      * @return SugarQuery Modified SugarQuery
+     *
+     * @deprecated Use BeanVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityFromQuery(SugarQuery $query, $options = array())
     {
@@ -117,6 +121,8 @@ class BeanVisibility
      * @param SugarQuery $query
      * @param array|null $options
      * @return SugarQuery Modified SugarQuery
+     *
+     * @deprecated Use BeanVisibility::addVisibilityQuery() instead
      */
     public function addVisibilityWhereQuery(SugarQuery $query, $options = array())
     {
@@ -124,6 +130,19 @@ class BeanVisibility
             $strategy->setOptions($options)->addVisibilityWhereQuery($query);
         }
         return $query;
+    }
+
+    /**
+     * Add visibility clauses to SugarQuery
+     *
+     * @param SugarQuery $query
+     * @param array $options
+     */
+    public function addVisibilityQuery(SugarQuery $query, $options = array())
+    {
+        foreach ($this->strategies as $strategy) {
+            $strategy->setOptions($options)->addVisibilityQuery($query);
+        }
     }
 
     /**
@@ -137,15 +156,23 @@ class BeanVisibility
     }
 
     /**
+     * Get strategy objects
+     * @return array
+     */
+    public function getStrategies()
+    {
+        return $this->strategies;
+    }
+
+    /**
      * Called before the bean is indexed so that any calculated attributes can updated.
      * Propagates to all registered strategies.
      * @return void
+     * @deprecated
      */
     public function beforeSseIndexing()
     {
-        foreach ($this->strategies as $strategy) {
-            $strategy->beforeSseIndexing();
-        }
+        $GLOBALS['log']->deprecated("BeanVisibility::beforeSseIndexing is deprecated !");
     }
 
     /**
@@ -153,14 +180,11 @@ class BeanVisibility
      * @param SugarSearchEngineInterface $engine Sugar search engine object
      * @param mixed $filter Current filter used as base
      * @return mixed
-     *
-     * FIXME: $filter is tightly coupled to Elasticsearch
+     * @deprecated
      */
     public function addSseVisibilityFilter(SugarSearchEngineInterface $engine, $filter)
     {
-        foreach ($this->strategies as $strategy) {
-            $filter = $strategy->addSseVisibilityFilter($engine, $filter);
-        }
+        $GLOBALS['log']->deprecated("BeanVisibility::addSseVisibilityFilter is deprecated !");
         return $filter;
     }
 }

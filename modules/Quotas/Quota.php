@@ -53,16 +53,12 @@ class Quota extends SugarBean
     public $additional_column_fields = Array();
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Quota()
     {
         self::__construct();
     }
-
 
     public function __construct()
     {
@@ -89,7 +85,12 @@ class Quota extends SugarBean
         // get the quota type as a label
         $quota_type = '';
         if (!empty($this->quota_type)) {
-            $quota_type = $mod_strings['LBL_' . strtoupper($this->quota_type)] . ' ' . $mod_strings['LBL_MODULE_NAME_SINGULAR'] . ' ';
+            if ($this->quota_type == 'Direct') {
+                $quota_type = $mod_strings['LBL_MODULE_NAME_SINGULAR'] . ' ';
+            }
+            else if ($this->quota_type == 'Rollup') {
+                $quota_type = $mod_strings['LBL_MODULE_NAME_SINGULAR'] . ' (' . $mod_strings['LBL_ADJUSTED'] . ') ';
+            }
         }
 
         return "{$timeperiod->name} {$quota_type}- $this->user_full_name";
@@ -339,11 +340,10 @@ class Quota extends SugarBean
         $qry = "SELECT quotas.currency_id, quotas.amount, timeperiods.name as timeperiod_name " .
             "FROM quotas INNER JOIN users ON quotas.user_id = users.id, timeperiods " .
             "WHERE quotas.timeperiod_id = timeperiods.id " .
-            "AND quotas.user_id = '" . $user . "' " .
-            "AND ((quotas.created_by <> '" . $user . "' AND quotas.quota_type = 'Direct')" .
+            "AND quotas.user_id = " . $this->db->quoted($user) .
+            " AND ((quotas.created_by <> " . $this->db->quoted($user) . " AND quotas.quota_type = 'Direct')" .
             "OR (users.reports_to_id IS NULL AND quotas.quota_type = 'Rollup')) " . //for top-level manager
-            "AND timeperiods.id = '" . $timeperiod_id . "' " .
-            "AND quotas.committed = 1";
+            "AND timeperiods.id = " . $this->db->quoted($timeperiod_id) . " AND quotas.committed = 1";
 
         $result = $this->db->query($qry, true, 'Error retrieving Current User Quota Information: ');
 
@@ -382,13 +382,13 @@ class Quota extends SugarBean
 
         $query = "SELECT {$this->db->convert('SUM(quotas.amount_base_currency)', 'ifnull', array(0))} as group_amount" .
             " FROM users, quotas " .
-            " WHERE quotas.timeperiod_id = '" . $timeperiod_id . "'" .
+            " WHERE quotas.timeperiod_id = " . $this->db->quoted($timeperiod_id) .
             " AND quotas.deleted = 0" .
             " AND users.id = quotas.user_id" .
                " AND users.deleted = 0" .
-            " AND quotas.created_by = '" .$id . "'" .
-            " AND (users.reports_to_id = '" . $id . "' " .
-            " OR (users.id = '" . $id . "'" .
+            " AND quotas.created_by = " .$this->db->quoted($id) .
+            " AND (users.reports_to_id = " . $this->db->quoted($id) .
+            " OR (users.id = " . $this->db->quoted($id) .
             " AND quotas.quota_type <> 'Rollup'))"; //for top-level manager
 
         $result = $this->db->query($query, true, 'Error retrieving Group Quota: ');

@@ -102,7 +102,8 @@ class HistoryApi extends RelateApi
         if (!empty($args['module_list'])) {
             $module_list = explode(',', $args['module_list']);
             foreach ($this->moduleList as $link_name => $module) {
-                if (!in_array($module, $module_list)) {
+                $seed = BeanFactory::newBean($module);
+                if (!in_array($module, $module_list) || !$seed->ACLAccess('list')) {
                     unset($this->moduleList[$link_name]);
                 }
             }
@@ -252,7 +253,7 @@ class HistoryApi extends RelateApi
         return $args;
     }
 
-    protected function runQuery(ServiceBase $api, array $args, SugarQuery $q, array $options)
+    protected function runQuery(ServiceBase $api, array $args, SugarQuery $q, array $options, SugarBean $seed = null)
     {
         $GLOBALS['log']->info("Filter SQL: " . $q->compileSql());
 

@@ -36,9 +36,10 @@ class MetaDataManagerMobile extends MetaDataManager
      *
      * @return array List of Mobile module names
      */
-    protected function getModules() {
+    protected function getModules($filtered = true)
+    {
         // Get the current user module list
-        $modules = $this->getTabList();
+        $modules = array_intersect(parent::getModules($filtered), $this->getTabList());
         $defaultEnabledModules = $this->getDefaultEnabledModuleList();
 
         // Add default enabled modules to the list
@@ -69,7 +70,7 @@ class MetaDataManagerMobile extends MetaDataManager
      *
      * @return array List of Mobile module names
      */
-    public function getFullModuleList()
+    public function getFullModuleList($filtered = false)
     {
         return $this->getModules();
     }
@@ -80,11 +81,11 @@ class MetaDataManagerMobile extends MetaDataManager
      *
      * @return array An array with all the modules and their properties
      */
-    public function getModulesInfo()
+    public function getModulesInfo($data = array(), MetaDataContextInterface $context = null)
     {
         // Need to override the base one because it grabs the visibility settings from
         // the $moduleList global and we don't like messing with globals
-        $modulesInfo = parent::getModulesInfo();
+        $modulesInfo = parent::getModulesInfo($data, $context);
         if (isset($modulesInfo['Employees'])) {
             $modulesInfo['Employees']['visible'] = $modulesInfo['Employees']['display_tab'];
         }
@@ -98,26 +99,33 @@ class MetaDataManagerMobile extends MetaDataManager
      * 
      * @return array The list of modules for mobile
      */
-    public function getTabList()
+    public function getTabList($filter = true)
     {
-        // replicate the essential part of the behavior of the private loadMapping() method in SugarController
-        foreach (SugarAutoLoader::existingCustom('include/MVC/Controller/wireless_module_registry.php') as $file) {
-            require $file;
+        $cache = SugarCache::instance();
+        $wireless_module_registry_keys = $cache->wireless_module_registry_keys;
+
+        if (empty($wireless_module_registry_keys)) {
+            // replicate the essential part of the behavior of the private loadMapping() method in SugarController
+            foreach (SugarAutoLoader::existingCustom('include/MVC/Controller/wireless_module_registry.php') as $file) {
+                require $file;
+            }
+
+            if (isset($wireless_module_registry) && is_array($wireless_module_registry)) {
+                $wireless_module_registry_keys = array_keys($wireless_module_registry);
+                $cache->set('wireless_module_registry_keys', $wireless_module_registry_keys);
+            } else {
+                $wireless_module_registry_keys = array();
+            }
         }
 
         // Forcibly remove the Users module
-        // So if they have added it, remove it here
-        if (isset($wireless_module_registry['Users'])) {
-            unset($wireless_module_registry['Users']);
-        }
+        $wireless_module_registry_keys = array_diff($wireless_module_registry_keys, array('Users'));
 
-        // $wireless_module_registry is defined in the file loaded above
-        return isset($wireless_module_registry) && is_array($wireless_module_registry) ?
-            array_keys($wireless_module_registry) :
-            array();
+        return $wireless_module_registry_keys;
     }
 
-    public function getQuickcreateList() {
+    public function getQuickcreateList($filter = true)
+    {
         // replicate the essential part of the behavior of the private loadMapping() method in SugarController
         foreach (SugarAutoLoader::existingCustom('include/MVC/Controller/wireless_module_registry.php') as $file) {
             require $file;
@@ -204,5 +212,18 @@ class MetaDataManagerMobile extends MetaDataManager
         }
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getLanguageCacheAttributes()
+    {
+        $modules = $this->getModules();
+        sort($modules);
+        return array_merge(parent::getLanguageCacheAttributes(), array(
+            // refresh client side language cache after the list of mobile enabled modules is changed
+            'modules' => $modules,
+        ));
     }
 }

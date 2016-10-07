@@ -118,6 +118,7 @@ td {
   .record {
     margin: 0;
     padding: 0;
+    margin-left: 16px;
   }
   table.accordion .dataTable {
     width: 100%;
@@ -147,6 +148,9 @@ td {
   .headerpane .select2-container .select2-choice {
     min-width: 200px;
     font-size: 14px;
+  }
+  .subnav .btn-toolbar {
+    margin-right: 12px;
   }
 }
 
@@ -200,8 +204,11 @@ table.accordion {
     border-right: none;
     border-left: none;
   }
+  .list-view {
+    margin-top: -5px;
+  }
   .dataTable {
-    width: auto;
+    width: 100%;
   }
 }
 
@@ -298,7 +305,7 @@ ul.sg-main a {
   .box-sizing(border-box);
   .page-header {
     padding: 0;
-    margin: 0;
+    margin: 0 0 12px;
     h2 {
       margin-top: 0;
     }
@@ -320,7 +327,7 @@ body.full-screen {
     span {
       color: @grayLight;
       font-size: 10px;
-      padding: 0 4px;
+      padding: 4px;
     }
     label {
       padding: 0 4px;
@@ -328,8 +335,7 @@ body.full-screen {
       height: 19px;
     }
     > div {
-      display: inline-block;
-      padding: 0 4px;
+      padding: 4px;
       &:last-child {
         padding-right: 0;
       }
@@ -339,6 +345,7 @@ body.full-screen {
     }
     select {
       margin: 0 4px;
+      max-width: 100%;
     }
   }
 }

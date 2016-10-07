@@ -21,14 +21,10 @@ class CalendarActivity {
 	var $end_time;
 
     /**
-     * This is a deprecated method, please start using __construct() as this
-     * method will be removed in a future version.
-     *
-     * @deprecated since 7.0.0. Use __construct() instead.
+     * @deprecated Use __construct() instead
      */
     public function CalendarActivity($args)
     {
-        $GLOBALS['log']->deprecated('Calls to CalendarActivity::CalendarActivity() are deprecated.');
         self::__construct($args);
     }
 
@@ -168,7 +164,8 @@ class CalendarActivity {
         $view_start_time,
         $view_end_time,
         $view,
-        $show_calls = true
+        $show_calls = true,
+		$fill_additional_column_fields = true
     ) {
 		global $current_user;
 		$act_list = array();
@@ -184,7 +181,7 @@ class CalendarActivity {
 			}
 
 			$where = CalendarActivity::get_occurs_within_where_clause($meeting->table_name, $meeting->rel_users_table, $view_start_time, $view_end_time, 'date_start', $view);
-			$focus_meetings_list = build_related_list_by_user_id($meeting,$user_id,$where);
+			$focus_meetings_list = build_related_list_by_user_id($meeting,$user_id,$where,$fill_additional_column_fields);
 			foreach($focus_meetings_list as $meeting) {
 				if(isset($seen_ids[$meeting->id])) {
 					continue;
@@ -194,7 +191,8 @@ class CalendarActivity {
 				$act = new CalendarActivity($meeting);
 
 				if(!empty($act)) {
-					$act_list[] = $act;
+                    //use UTC formatted start and end date as key, this makes for easier sorting
+                    $act_list[$act->start_time->format('Ymd\THi00\Z').'/'.$act->end_time->format('Ymd\THi00\Z').'/'.$act->sugar_bean->id] = $act;
 				}
 			}
 		}
@@ -208,7 +206,7 @@ class CalendarActivity {
 				}
 
 				$where = CalendarActivity::get_occurs_within_where_clause($call->table_name, $call->rel_users_table, $view_start_time, $view_end_time, 'date_start', $view);
-				$focus_calls_list = build_related_list_by_user_id($call,$user_id,$where);
+				$focus_calls_list = build_related_list_by_user_id($call,$user_id,$where,$fill_additional_column_fields);
 
 				foreach($focus_calls_list as $call) {
 					if(isset($seen_ids[$call->id])) {
@@ -218,7 +216,8 @@ class CalendarActivity {
 
 					$act = new CalendarActivity($call);
 					if(!empty($act)) {
-						$act_list[] = $act;
+                        //use UTC formatted start and end date as key, this makes for easier sorting
+                        $act_list[$act->start_time->format('Ymd\THi00\Z').'/'.$act->end_time->format('Ymd\THi00\Z').'/'.$act->sugar_bean->id] = $act;
 					}
 				}
 			}
@@ -241,12 +240,20 @@ class CalendarActivity {
 				foreach($focus_tasks_list as $task) {
 					$act = new CalendarActivity($task);
 					if(!empty($act)) {
-						$act_list[] = $act;
+                        //use UTC formatted start and end date as key, this makes for easier sorting
+                        $act_list[$act->start_time->format('Ymd\THi00\Z').'/'.$act->end_time->format('Ymd\THi00\Z').'/'.$act->sugar_bean->id] = $act;
 					}
 				}
 			}
 		}
-		return $act_list;
+
+        //recreate list of sorted calendar activities to return
+        ksort($act_list);
+        $act_list = array_values($act_list);
+
+        //return sorted list
+        return $act_list;
+
 	}
 }
 

@@ -9,6 +9,11 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
+use Sugarcrm\Sugarcrm\Util\Files\FileLoader;
+
 require_once('modules/ModuleBuilder/MB/MBModule.php');
 
 class MBPackage{
@@ -21,6 +26,11 @@ class MBPackage{
     var $author = '';
     var $key = '';
     var $readme='';
+
+    /**
+     * @var Request
+     */
+    protected $request;
 
     /**
      * Flavor compatibility map
@@ -41,16 +51,26 @@ class MBPackage{
      */
     protected static $appExtensions = array(
         'language' => array(
-            'dir' => 'include/language',
+            'dir' => 'Extension/application/Ext/Language',
             'varName' => 'app_list_strings',
         ),
     );
 
-    function MBPackage($name){
-        $this->name = $name;
-        $this->load();
-
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function MBPackage($name)
+    {
+        self::__construct($name);
     }
+
+    public function __construct($name)
+    {
+        $this->name = $name;
+        $this->request = InputValidation::getService();
+        $this->load();
+    }
+
     function loadModules($force=false){
         if(!file_exists(MB_PACKAGE_PATH . '/' . $this->name .'/modules'))return;
         $d = dir(MB_PACKAGE_PATH . '/' . $this->name .'/modules');
@@ -79,7 +99,7 @@ class MBPackage{
         if (file_exists($packLangFilePath))
         {
 
-            require($packLangFilePath);
+            require FileLoader::validateFilePath($packLangFilePath);
         }
     }
 
@@ -248,7 +268,7 @@ function buildInstall($path){
     function load(){
         $path = $this->getPackageDir();
         if(file_exists($path .'/manifest.php')){
-            require($path . '/manifest.php');
+            require FileLoader::validateFilePath($path . '/manifest.php');
             if(!empty($manifest)){
                 $this->date_modified = $manifest['published_date'];
                 $this->is_uninstallable = $manifest['is_uninstallable'];
@@ -315,10 +335,10 @@ function buildInstall($path){
     }
 
     function populateFromPost(){
-        $this->description = trim($_REQUEST['description']);
-        $this->author = trim($_REQUEST['author']);
-        $this->key = trim($_REQUEST['key']);
-        $this->readme = trim($_REQUEST['readme']);
+        $this->description = trim($this->request->getValidInputRequest('description'));
+        $this->author = trim($this->request->getValidInputRequest('author'));
+        $this->key = trim($this->request->getValidInputRequest('key', 'Assert\ComponentName'));
+        $this->readme = trim($this->request->getValidInputRequest('readme'));
     }
 
     function rename($new_name){
@@ -339,6 +359,11 @@ function buildInstall($path){
             foreach(array_keys($this->modules) as $module){
                 $old_name = $this->modules[$module]->key_name;
             	$this->modules[$module]->key_name = $this->key . '_' . $this->modules[$module]->name;
+                $this->modules[$module]->renameRelationships(
+                    $this->modules[$module]->getModuleDir(),
+                    $old_name,
+                    $this->modules[$module]->key_name
+                );
                 $this->modules[$module]->renameMetaData($this->modules[$module]->getModuleDir(), $old_name);
                 $this->modules[$module]->renameLanguageFiles($this->modules[$module]->getModuleDir());
                 if($save)$this->modules[$module]->save();
@@ -687,7 +712,7 @@ function buildInstall($path){
                 $mod_strings = array();
                 if (strcasecmp(substr($langFile, -4), ".php") != 0)
                     continue;
-                include("$langDir/$langFile");
+                include FileLoader::validateFilePath("$langDir/$langFile");
                 $out = "<?php \n // created: " . date('Y-m-d H:i:s') . "\n";
                 foreach($mod_strings as $lbl_key => $lbl_val )
                 {
@@ -776,13 +801,20 @@ function buildInstall($path){
         $modules = array_merge($this->getSubdirectories('custom/modules/'), $modulesWithCustomDropdowns);
         $modules = array_unique($modules);
 
-        $exclude = array_merge($modInvisList, array('Project', 'ProjectTask'));
-        $modules = array_diff($modules, $exclude);
+        //Use StudioBrowser to grab list of modules that are customizeable through studio.
+        require_once('modules/ModuleBuilder/Module/StudioBrowser.php');
+        $sb = new StudioBrowser();
+        $sb->loadModules();
+        $studioModules = array_keys($sb->modules);
+
+        //limit modules to process to the ones that can be edited in studio
+        $modules = array_intersect($modules, $studioModules);
 
         $result = array();
         foreach ($modules as $module) {
             $result[$module] = $this->getModuleCustomizations($module);
-            if (in_array($module, $modulesWithCustomDropdowns)) {
+            if (in_array($module, $modulesWithCustomDropdowns) &&
+                SugarAutoLoader::existingCustomOne("modules/{$module}/metadata/studio.php")) {
                 $result[$module]['Dropdown'] = $mod_strings['LBL_EC_CUSTOMDROPDOWN'];
             }
         }
@@ -1136,7 +1168,7 @@ function buildInstall($path){
         
         $result = array();
         $relation = null;
-        $module = new StudioModule($moduleName);
+        $module = StudioModuleFactory::getStudioModule($moduleName);
 
         /* @var $rel DeployedRelationships */
         $rel = $module->getRelationships();

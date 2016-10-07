@@ -37,6 +37,8 @@ $mod_strings = array (
 'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
 'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Create Future TimePeriods',
 'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
+'LBL_OOTB_KBCONTENT_UPDATE' => 'Update KBContent articles.',
+'LBL_OOTB_KBSCONTENT_EXPIRE' => 'Publish approved articles & Expire KB Articles.',
 'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Process Author Scheduled Job',
 
 // List Labels
@@ -136,6 +138,11 @@ $mod_strings = array (
 'LBL_REFRESHJOBS' => 'Refresh Jobs',
 'LBL_POLLMONITOREDINBOXES' => 'Check Inbound Mail Accounts',
 'LBL_PERFORMFULLFTSINDEX' => 'Full-text Search Index System',
+'LBL_SUGARJOBREMOVEPDFFILES' => 'Remove temporary PDF files',
+'LBL_SUGARJOBKBCONTENTUPDATEARTICLES' => 'Publish approved articles & Expire KB Articles.',
+'LBL__SUGARCRM_SUGARCRM_ELASTICSEARCH_QUEUE_SCHEDULER' => 'Elasticsearch Queue Scheduler',
+'LBL_SUGARJOBREMOVEDIAGNOSTICFILES' => 'Remove diagnostic tool files',
+'LBL_SUGARJOBREMOVETMPFILES' => 'Remove temporary files',
 
 'LBL_RUNMASSEMAILCAMPAIGN' => 'Run Nightly Mass Email Campaigns',
 'LBL_ASYNCMASSUPDATE' => 'Perform Asynchronous Mass Updates',

@@ -25,6 +25,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 global $app_strings;
 global $mod_strings;
 
+if (empty($_REQUEST['record'])) {
+    header("Location: index.php?module=ContractTypes&action=index");
+}
+
 $focus = BeanFactory::getBean('ContractTypes', $_REQUEST['record']);
 
 if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
@@ -58,7 +62,6 @@ if (isset($_REQUEST['return_id'])) {
 }
  
 $xtpl->assign("GRIDLINE", $gridline);
-$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 $xtpl->assign("ID", $focus->id);
 
 $xtpl->assign("NAME", $focus->name);

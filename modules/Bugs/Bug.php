@@ -72,10 +72,7 @@ class Bug extends SugarBean {
 									'call_id'=>'calls', 'email_id'=>'emails');
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Bug()
     {
@@ -98,10 +95,6 @@ class Bug extends SugarBean {
     }
 
 	var $new_schema = true;
-
-
-
-
 
 	function get_summary_text()
 	{

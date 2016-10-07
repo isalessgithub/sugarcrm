@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 /*
@@ -422,8 +423,6 @@ class SugarpdfPdfmanager extends SugarpdfSmarty
   			if ($headerdata['logo'] && $headerdata['logo'] != K_BLANK_IMAGE) {
                 $this->Image($headerdata['logo'], $this->GetX(), $this->getHeaderMargin(), $headerdata['logo_width'], 12);
   				$imgy = $this->getImageRBY();
-                // Remove the temporary logo copy
-                unlink($headerdata['logo']);
   			} else {
   				$imgy = $this->GetY();
   			}

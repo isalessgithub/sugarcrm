@@ -11,6 +11,7 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 require_once('include/workflow/workflow_utils.php');
 
 /**
@@ -19,7 +20,16 @@ require_once('include/workflow/workflow_utils.php');
  */
 class WorkFlowHandler {
 
-    function WorkFlowHandler(&$focus, $event){
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function WorkFlowHandler(&$focus, $event)
+    {
+        self::__construct($focus, $event);
+    }
+
+    public function __construct(&$focus, $event)
+    {
 
     	//Confirm we are not running populating seed data
     	if(isset($_SESSION['disable_workflow'])) return;
@@ -62,15 +72,6 @@ class WorkFlowHandler {
 
             $target_class = $focus->module_dir."_workflow";
             $workflow_class = new $target_class();
-
-            if(!empty($focus->emailAddress) && isset($focus->emailAddress->addresses)) {//addresses maybe cleared
-                    $old_addresses = $focus->emailAddress->addresses;
-            }
-            $focus->retrieve($focus->id);//This will lose all changes to emailaddress
-            if(!empty($focus->emailAddress) && isset($old_addresses)) {
-                $focus->emailAddress->addresses = $old_addresses;
-                $focus->emailAddress->populateLegacyFields($focus);
-            }
 
             // Bug 45142 - dates need to be converted to DB format for
             // workflow alerts to work properly in Alerts then Actions

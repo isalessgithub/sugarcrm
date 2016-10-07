@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -21,8 +22,17 @@ require_once('include/SugarFields/Fields/Teamset/ViewSugarFieldTeamsetCollection
 
 class MassUpdateSugarFieldTeamsetCollection extends ViewSugarFieldTeamsetCollection {
 
-	function MassUpdateSugarFieldTeamsetCollection($fill_data=false) {
-    	parent::ViewSugarFieldTeamsetCollection($fill_data);
+    /**
+     * @deprecated
+     */
+    public function MassUpdateSugarFieldTeamsetCollection($fill_data = false)
+    {
+        self::__construct($fill_data);
+    }
+
+    public function __construct($fill_data = false)
+    {
+        parent::__construct($fill_data);
 		$this->form_name = 'MassUpdate'; 
         $this->action_type = 'massupdate';		 	
     }
@@ -47,4 +57,3 @@ class MassUpdateSugarFieldTeamsetCollection extends ViewSugarFieldTeamsetCollect
     }    
     
 }
-?>

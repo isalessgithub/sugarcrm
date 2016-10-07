@@ -11,17 +11,27 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
+// $Id: MyCallsDashlet.php 56115 2010-04-26 17:08:09Z kjing $
 
 require_once('include/Dashlets/DashletGeneric.php');
 
         
 class MyCallsDashlet extends DashletGeneric { 
-    function MyCallsDashlet($id, $def = null) {
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function MyCallsDashlet($id, $def = null)
+    {
+        self::__construct($id, $def);
+    }
+
+    public function __construct($id, $def = null)
+    {
         global $current_user, $app_strings;
 		require('modules/Calls/Dashlets/MyCallsDashlet/MyCallsDashlet.data.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_LIST_MY_CALLS', 'Calls');
         $this->searchFields = $dashletData['MyCallsDashlet']['searchFields'];     
@@ -132,5 +142,3 @@ class MyCallsDashlet extends DashletGeneric {
         return $this->configureSS->fetch($this->configureTpl);
     }
 }
-
-?>

@@ -11,17 +11,29 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
+
 require_once('modules/Users/UserViewHelper.php');
 
 
 class UsersViewEdit extends ViewEdit {
 var $useForSubpanel = true;
- 	function UsersViewEdit(){
- 		parent::ViewEdit();
- 	}
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function UsersViewEdit($bean = null, $view_object_map = array(), Request $request = null)
+    {
+        self::__construct($bean, $view_object_map, $request);
+    }
+
+    public function __construct($bean = null, $view_object_map = array(), Request $request = null)
+    {
+        parent::__construct($bean, $view_object_map, $request);
+    }
 
     function preDisplay() {
-        $this->fieldHelper = new UserViewHelper($this->ss, $this->bean, 'EditView');
+        $this->fieldHelper = UserViewHelper::create($this->ss, $this->bean, 'EditView');
         $this->fieldHelper->setupAdditionalFields();
 
         parent::preDisplay();
@@ -50,36 +62,33 @@ var $useForSubpanel = true;
 
 
         //lets set the return values
-        if(isset($_REQUEST['return_module'])){
-            $this->ss->assign('RETURN_MODULE',$_REQUEST['return_module']);
-        }
+        $return_module = $this->request->getValidInputRequest('return_module', 'Assert\Bean\ModuleName');
+        $this->ss->assign('RETURN_MODULE', $return_module);
 
         $this->ss->assign('IS_ADMIN', $current_user->is_admin ? true : false);
 
         //make sure we can populate user type dropdown.  This usually gets populated in predisplay unless this is a quickeditform
         if(!isset($this->fieldHelper)){
-            $this->fieldHelper = new UserViewHelper($this->ss, $this->bean, 'EditView');
+            $this->fieldHelper = UserViewHelper::create($this->ss, $this->bean, 'EditView');
             $this->fieldHelper->setupAdditionalFields();
         }
 
         if(isset($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
-            $this->ss->assign('RETURN_MODULE', $_REQUEST['return_module']);
-            $this->ss->assign('RETURN_ACTION', $_REQUEST['return_action']);
-            $this->ss->assign('RETURN_ID', $_REQUEST['record']);
+            $return_action = $this->request->getValidInputRequest('return_action');
+            $this->ss->assign('RETURN_ACTION', $return_action);
+            $record = $this->request->getValidInputRequest('record', 'Assert\Guid');
+            $this->ss->assign('RETURN_ID', $record);
             $this->bean->id = "";
             $this->bean->user_name = "";
             $this->ss->assign('ID','');
         } else {
-            if(isset($_REQUEST['return_module']))
-            {
-                $this->ss->assign('RETURN_MODULE', $_REQUEST['return_module']);
-            } else {
+            if (!$return_module) {
                 $this->ss->assign('RETURN_MODULE', $this->bean->module_dir);
             }
 
-            $return_id = isset($_REQUEST['return_id'])?$_REQUEST['return_id']:$this->bean->id;
+            $return_id = $this->request->getValidInputRequest('return_id', 'Assert\Guid', $this->bean->id);
             if (isset($return_id)) {
-                $return_action = isset($_REQUEST['return_action'])?$_REQUEST['return_action']:'DetailView';
+                $return_action = $this->request->getValidInputRequest('return_action', null, 'DetailView');
                 $this->ss->assign('RETURN_ID', $return_id);
                 $this->ss->assign('RETURN_ACTION', $return_action);
             }
@@ -88,8 +97,9 @@ var $useForSubpanel = true;
 
         ///////////////////////////////////////////////////////////////////////////////
         ////	REDIRECTS FROM COMPOSE EMAIL SCREEN
-        if(isset($_REQUEST['type']) && (isset($_REQUEST['return_module']) && $_REQUEST['return_module'] == 'Emails')) {
-            $this->ss->assign('REDIRECT_EMAILS_TYPE', $_REQUEST['type']);
+        $type = $this->request->getValidInputRequest('type');
+        if ($type && $return_module == 'Emails') {
+            $this->ss->assign('REDIRECT_EMAILS_TYPE', $type);
         }
         ////	END REDIRECTS FROM COMPOSE EMAIL SCREEN
         ///////////////////////////////////////////////////////////////////////////////
@@ -131,11 +141,15 @@ var $useForSubpanel = true;
         }
 
         // FIXME: Translate error prefix
-        if(isset($_REQUEST['error_string'])) $this->ss->assign('ERROR_STRING', '<span class="error">Error: '.$_REQUEST['error_string'].'</span>');
-        if(isset($_REQUEST['error_password'])) $this->ss->assign('ERROR_PASSWORD', '<span id="error_pwd" class="error">Error: '.$_REQUEST['error_password'].'</span>');
+        $error_string = $this->request->getValidInputRequest('error_string');
+        if ($error_string) {
+            $this->ss->assign('ERROR_STRING', '<span class="error">Error: ' . htmlspecialchars($error_string, ENT_QUOTES, 'UTF-8') . '</span>');
+        }
 
-
-
+        $error_password = $this->request->getValidInputRequest('error_password');
+        if ($error_password) {
+            $this->ss->assign('ERROR_PASSWORD', '<span id="error_pwd" class="error">Error: ' . htmlspecialchars($error_password, ENT_QUOTES, 'UTF-8') . '</span>');
+        }
 
         // Build viewable versions of a few fields for non-admins
         if(!empty($this->bean->id)) {
@@ -183,7 +197,7 @@ var $useForSubpanel = true;
         $maxpwdlength =  !empty($PWDSETTINGS['maxpwdlength']) ? $PWDSETTINGS['maxpwdlength'] : '';
         $action_button_header[] = <<<EOD
                     <input type="button" id="SAVE_HEADER" title="{$APP['LBL_SAVE_BUTTON_TITLE']}" accessKey="{$APP['LBL_SAVE_BUTTON_KEY']}"
-                          class="button primary" onclick="var _form = $('#EditView')[0]; if (!set_password(_form,newrules('{$minpwdlength}','{$maxpwdlength}','{$REGEX}'))) return false; if (!Admin_check()) return false; _form.action.value='Save'; {$CHOOSER_SCRIPT} {$REASSIGN_JS} if(verify_data(EditView)) _form.submit();"
+                          class="button primary" onclick="var _form = $('#EditView')[0]; if (!set_password(_form,newrules('{$minpwdlength}','{$maxpwdlength}','{$REGEX}'))) return false; if (!Admin_check()) return false; _form.action.value='Save'; {$CHOOSER_SCRIPT} {$REASSIGN_JS} if(verify_data(EditView)) { submit_form(_form); }"
                           name="button" value="{$APP['LBL_SAVE_BUTTON_LABEL']}">
 EOD
         ;
@@ -198,7 +212,7 @@ EOD
 
         $action_button_footer[] = <<<EOD
                     <input type="button" id="SAVE_FOOTER" title="{$APP['LBL_SAVE_BUTTON_TITLE']}" accessKey="{$APP['LBL_SAVE_BUTTON_KEY']}"
-                          class="button primary" onclick="var _form = $('#EditView')[0]; if (!set_password(_form,newrules('{$minpwdlength}','{$maxpwdlength}','{$REGEX}'))) return false; if (!Admin_check()) return false; _form.action.value='Save'; {$CHOOSER_SCRIPT} {$REASSIGN_JS} if(verify_data(EditView)) _form.submit();"
+                          class="button primary" onclick="var _form = $('#EditView')[0]; if (!set_password(_form,newrules('{$minpwdlength}','{$maxpwdlength}','{$REGEX}'))) return false; if (!Admin_check()) return false; _form.action.value='Save'; {$CHOOSER_SCRIPT} {$REASSIGN_JS} if(verify_data(EditView)) { submit_form(_form); }"
                           name="button" value="{$APP['LBL_SAVE_BUTTON_LABEL']}">
 EOD
         ;

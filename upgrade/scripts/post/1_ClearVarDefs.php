@@ -71,7 +71,12 @@ class SugarUpgradeClearVarDefs extends UpgradeScript
      */
     protected function getDefinition($seed)
     {
-        return new DefinitionObject($seed->getFieldDefinitions());
+        $defs = $seed->getFieldDefinitions();
+        if (empty($defs)) {
+            return null;
+        }
+
+        return new DefinitionObject($defs);
     }
 
     /**
@@ -171,7 +176,7 @@ class SugarUpgradeClearVarDefs extends UpgradeScript
             if ($field['type'] == 'link') {
                 $seed->load_relationship($field['name']);
                 $wRel = false;
-                if (empty($seed->$field['name'])) {
+                if (empty($seed->{$field['name']})) {
                     $wRel = true;
                 } else {
                     if ($this->checkRelationshipDef($field['name'], $seed)) {
@@ -181,10 +186,10 @@ class SugarUpgradeClearVarDefs extends UpgradeScript
                         }
                         SugarRelationshipFactory::deleteCache();
                         SugarRelationshipFactory::rebuildCache();
-                        unset($seed->$field['name']);
+                        unset($seed->{$field['name']});
                         $seed->load_relationship($field['name']);
                     }
-                    $relModule = $seed->$field['name']->getRelatedModuleName();
+                    $relModule = $seed->{$field['name']}->getRelatedModuleName();
                     $relBean = $this->getBean($relModule);
                     if (empty($relBean)) {
                         $wRel = true;
@@ -395,13 +400,13 @@ class SugarUpgradeClearVarDefs extends UpgradeScript
             foreach ($files as $file) {
                 $dictionary = array();
                 include $file;
-                if (!empty($dictionary[$seed->module_dir]['fields'][$link])) {
+                if (!empty($dictionary[$seed->object_name]['fields'][$link])) {
                     $this->upgrader->backupFile($file);
                     $this->log("Updating definition of {$def['name']} for module {$seed->module_dir} in {$file}");
                     $out = "<?php\n // created: " . date('Y-m-d H:i:s') . "\n";
-                    $dictionary[$seed->module_dir]['fields'][$link]['type'] = 'id';
-                    $dictionary[$seed->module_dir]['fields'][$link]['link'] = $def['link'];
-                    $dictionary[$seed->module_dir]['fields'][$link]['rname'] = $def['rname'];
+                    $dictionary[$seed->object_name]['fields'][$link]['type'] = 'id';
+                    $dictionary[$seed->object_name]['fields'][$link]['link'] = $def['link'];
+                    $dictionary[$seed->object_name]['fields'][$link]['rname'] = $def['rname'];
                     foreach (array_keys($dictionary) as $key) {
                         $out .= override_value_to_string_recursive2('dictionary', $key, $dictionary[$key]);
                     }
@@ -547,7 +552,8 @@ class SugarUpgradeClearVarDefs extends UpgradeScript
         foreach ($tokens as $ind => $token) {
             if (is_array($token) && $token[0] == T_VARIABLE) {
                 $res = $token[1];
-                while ($tokens[$ind] != '=' && $ind < count($tokens)) {
+                //Added -1 to $ind's upper bound since $ind++ is used in the loop
+                while ($tokens[$ind] != '=' && $ind < count($tokens)-1) {
                     $ind++;
                     if (!is_array($tokens[$ind])) {
                         if ($tokens[$ind] == '=') {

@@ -337,7 +337,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
                         ModuleBuilder.updateContent(content);
                             ModuleBuilder.state.markAsDirty();
                     });
-				});
+				}, false);
 			},
 			cleanup: function() {
 				if (ModuleBuilder.history.reverted && ModuleBuilder.history.params.histAction) {
@@ -409,7 +409,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				if (saveBtn) {
 					//After the save call completes, load the next page
 					ModuleBuilder.state.saving = true;
-					eval(saveBtn.getAttributeNode('onclick').value);
+                    saveBtn.click();
 				}
 				ModuleBuilder.state.popup_window.hide();
 
@@ -547,7 +547,6 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			ModuleBuilder.callInProgress = false;
 			//Check if a save action was called and now we need to move-on
 			if (ModuleBuilder.state.saving) {
-				ModuleBuilder.toggleButtons();
 				ModuleBuilder.state.loadOnSaveComplete();
 				return;
 			}
@@ -703,7 +702,16 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			
 			// Capture aspects of the request in case the need to resend arises
 			ModuleBuilder.requestElements.fields = Connect.setForm(document.getElementById(formname) || document.forms[formname]);
-			ModuleBuilder.requestElements.callbacks = {success: successCall, failure: ModuleBuilder.failed};
+            ModuleBuilder.requestElements.callbacks = {
+                success: function() {
+                    ModuleBuilder.toggleButtons();
+                    successCall.apply(this, arguments);
+                },
+                failure: function() {
+                    ModuleBuilder.toggleButtons();
+                    ModuleBuilder.failed.apply(this, arguments);
+                }
+            };
 			Connect.asyncRequest(
 			    Connect.method, 
 			    Connect.url, 
@@ -1232,12 +1240,13 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				}
 			}
 		},
-		asyncRequest : function(params, callback) {
+		asyncRequest : function (params, callback, showLoading) {
 			// Used to normalize request arguments needed for the async request
 			// as well as for setting into the requestElements object
-			var url,
-				cUrl = Connect.url,
-				cMethod = Connect.method;
+            var url,
+                cUrl = Connect.url,
+                cMethod = Connect.method,
+                postFields = {};
 			
 			if (typeof params == "object") {
 				url = ModuleBuilder.paramsToUrl(params);
@@ -1246,6 +1255,11 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			}
 			
 			cUrl += '&' + url;
+
+            // attach CSRF token for POST, we don't want this in the url
+            if (cMethod == "POST") {
+                postFields['csrf_token'] = SUGAR.csrf.form_token;
+            }
 			
 			ModuleBuilder.requestElements.method = cMethod;
 			ModuleBuilder.requestElements.url = cUrl;
@@ -1253,12 +1267,17 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			
 			// Make sure the session cookie is always fresh if that is possible
 			ModuleBuilder.ensureSessionCookie();
-			ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE'));
-			Connect.asyncRequest(
-			    ModuleBuilder.requestElements.method, 
-			    ModuleBuilder.requestElements.url, 
-			    ModuleBuilder.requestElements.callbacks
-			);
+
+            if (typeof(showLoading) == 'undefined' || showLoading == true) {
+                ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE'));
+            }
+
+            Connect.asyncRequest(
+                ModuleBuilder.requestElements.method,
+                ModuleBuilder.requestElements.url,
+                ModuleBuilder.requestElements.callbacks,
+                SUGAR.util.paramsToUrl(postFields)
+            );
 		},
 		refreshGlobalDropDown: function(o){
 			// just clear the callLock; the convention is that this is done in a handler rather than in updateContent
@@ -1394,17 +1413,13 @@ if (typeof(ModuleBuilder) == 'undefined') {
                 mode:2,
                 mapping: Dom.get(targetId).value
             };
-            win.load("", "POST", function()
-            {
+            win.load(ModuleBuilder.paramsToUrl(win.params), "GET", function() {
                 SUGAR.util.evalScript(win.body.innerHTML);
                 //firefox will ignore the left panel size, so we need to manually force the windows height and width
                 win.body.style.height = "570px";
-                win.body.style.minWidth = "780px";
+                win.body.style.minWidth = "880px";
                 win.center();
-            },
-                //POST parameters
-                ModuleBuilder.paramsToUrl(win.params)
-            );
+            });
             win.show();
             win.center();
         },
@@ -1451,6 +1466,13 @@ if (typeof(ModuleBuilder) == 'undefined') {
             if(Dom.get('has_parent')){
                 Dom.get('has_parent').value = enable;
             }
+        },
+        toggleBoost: function() {
+            var display = "";
+            if (Dom.get("fts_field_config").value < 2) {
+                display = "none";
+            }
+            Dom.setStyle("ftsFieldBoostRow", "display", display);
         },
 		toggleCF: function(enable) {
             if (typeof(enable) == 'undefined') {

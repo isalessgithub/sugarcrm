@@ -1,7 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,39 +9,44 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-
+/*
+ * Created on Aug 14, 2007
+ *
+ * To change the template for this generated file go to
+ * Window - Preferences - PHPeclipse - PHP - Code Templates
+ */
 $object_name = strtolower($object_name);
-$app_list_strings = array (
-  $object_name.'_priority_dom' => 
+ $app_list_strings = array (
+
+  $object_name.'_type_dom' =>
+  array (
+  	'Administration' => 'Administration',
+    'Product' => 'Producte',
+    'User' => 'Usuari',
+  ),
+   $object_name.'_status_dom' =>
+  array (
+    'New' => 'Nou',
+    'Assigned' => 'Assignat',
+    'Closed' => 'Tancat',
+    'Pending Input' => 'Pendent d&#39;informació',
+    'Rejected' => 'Refusat',
+    'Duplicate' => 'Duplicar',
+  ),
+  $object_name.'_priority_dom' =>
   array (
     'P1' => 'Alta',
     'P2' => 'Mitja',
     'P3' => 'Baixa',
   ),
-  $object_name.'_resolution_dom' => 
+  $object_name.'_resolution_dom' =>
   array (
-    '' => '',
-    'Accepted' => 'Acceptat',
+  	'' => '',
+  	'Accepted' => 'Acceptat',
+    'Duplicate' => 'Duplicar',
     'Closed' => 'Tancat',
-    'Duplicate' => 'Duplicat',
-    'Invalid' => 'No vàlid',
     'Out of Date' => 'Caducat',
+    'Invalid' => 'No Vàlida',
   ),
-  $object_name.'_status_dom' => 
-  array (
-    'Assigned' => 'Assignat',
-    'Closed' => 'Tancat',
-    'Duplicate' => 'Duplicat',
-    'New' => 'Nou',
-    'Pending Input' => 'Pendent d´informació',
-    'Rejected' => 'Refusat',
-  ),
-  $object_name.'_type_dom' => 
-  array (
-    'Administration' => 'Administració',
-    'Product' => 'Producte',
-    'User' => 'Usuari',
-  ),
-);
-
+  );
+?>

@@ -51,6 +51,7 @@ class SidecarFilterLayoutMetaDataParser extends SidecarListLayoutMetaDataParser
         $this->_viewdefs = $this->implementation->getViewdefs();
         $this->_paneldefs = $this->_viewdefs;
         $this->_fielddefs = $this->implementation->getFieldDefs();
+
         $this->columns = array('LBL_DEFAULT' => 'getDefaultFields', 'LBL_HIDDEN' => 'getAvailableFields');
 
         $filterBeanClass = BeanFactory::getBeanName('Filters');
@@ -167,6 +168,24 @@ class SidecarFilterLayoutMetaDataParser extends SidecarListLayoutMetaDataParser
     }
 
     /**
+     * Add a field to the Filters
+     *
+     * @param string $fieldName
+     * @param array $defs
+     * @return bool True if the field was added, false otherwise
+     */
+    public function addField($fieldName, $defs = array(), $placementIndex = null, $panelIndex = 0)
+    {
+        if (!$this->panelHasField($fieldName)) {
+            $this->_viewdefs['fields'][$fieldName] = $defs;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
      * Populates the panel defs, and the view defs, from the request
      *
      * @return void
@@ -213,8 +232,12 @@ class SidecarFilterLayoutMetaDataParser extends SidecarListLayoutMetaDataParser
                 //Check if the field was previously on the layout
                 if (!empty($this->_viewdefs['fields'][$fieldname])) {
                     $newPaneldefs[$fieldname] = $this->_viewdefs['fields'][$fieldname];
-                } else if (!empty($comboFieldDefs[$fieldname]) && isset($comboFieldDefs[$fieldname]['dbFields'])) {
+                } elseif ((!empty($comboFieldDefs[$fieldname]) &&
+                        isset($comboFieldDefs[$fieldname]['dbFields'])) ||
+                    $fieldname === '$favorite'
+                ) {
                     // combo fields such as address_street
+                    // Or condition is for special field found that should be added too
                     $newPaneldefs[$fieldname] = $comboFieldDefs[$fieldname];
                 } else {
                     $newPaneldefs[$fieldname] = array();

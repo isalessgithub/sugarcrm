@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['ATC_Clients']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -201,6 +202,11 @@ $viewdefs['ATC_Clients']['base']['view']['record'] = array (
         ),
         16 => 'email',
         17 => 'twitter',
+        18 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
+        ),
       ),
     ),
     2 => 

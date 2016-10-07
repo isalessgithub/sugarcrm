@@ -12,19 +12,34 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
+
 require_once('include/MVC/View/views/view.list.php');
 
 class ViewSourceProperties extends ViewList {
-   
- 	function ViewSourceProperties(){
- 		parent::ViewList();
- 	}
 
-    function display() {
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function ViewSourceProperties($bean = null, $view_object_map = array(), Request $request = null)
+    {
+        self::__construct($bean, $view_object_map, $request);
+    }
+
+    public function __construct($bean = null, $view_object_map = array(), Request $request = null)
+    {
+        parent::__construct($bean, $view_object_map, $request);
+    }
+
+    public function display()
+    {
+        global $sugar_config;
+
 		require_once('include/connectors/sources/SourceFactory.php');
 		require_once('include/connectors/utils/ConnectorUtils.php');
 		
-		$source_id = $_REQUEST['source_id'];
+		$source_id = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
+
 		$connector_language = ConnectorUtils::getConnectorStrings($source_id);
     	$source = SourceFactory::getSource($source_id);
     	$properties = $source->getProperties();
@@ -36,7 +51,17 @@ class ViewSourceProperties extends ViewList {
 	    	$label = isset($connector_language[$field_id]) ? $connector_language[$field_id] : $field_id;
 	        $required_fields[$field_id]=$label;
 	    }
-    	
+
+        // treat string as a template (the string resource plugin is unavailable in the current Smarty version)
+        if (isset($connector_language['LBL_LICENSING_INFO'])) {
+            $siteUrl = rtrim($sugar_config['site_url'], '/');
+            $connector_language['LBL_LICENSING_INFO'] = str_replace(
+                '{$SITE_URL}',
+                $siteUrl,
+                $connector_language['LBL_LICENSING_INFO']
+            );
+        }
+
     	$this->ss->assign('required_properties', $required_fields);
     	$this->ss->assign('source_id', $source_id);
     	$this->ss->assign('properties', $properties);
@@ -48,4 +73,3 @@ class ViewSourceProperties extends ViewList {
         echo $this->ss->fetch($this->getCustomFilePathIfExists('modules/Connectors/tpls/source_properties.tpl'));
     }
 }
-

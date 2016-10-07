@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['esb_QB_Transactions']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -138,6 +139,11 @@ $viewdefs['esb_QB_Transactions']['base']['view']['record'] = array (
         array (
           'name' => 'atc_clients_esb_qb_transactions_1_name',
           'label' => 'LBL_ATC_CLIENTS_ESB_QB_TRANSACTIONS_1_FROM_ATC_CLIENTS_TITLE',
+        ),
+        20 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
         ),
       ),
     ),

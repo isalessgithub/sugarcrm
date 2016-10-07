@@ -1,7 +1,5 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,33 +10,41 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+/*********************************************************************************
 
+ * Description:  Defines the English language pack for the base application.
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
 $mod_strings = array (
-  'ERR_DELETE_RECORD' => 'Необхідно вказати номер запису перед видаленням.',
-  'LBL_EDITLAYOUT' => 'Редагувати розташування',
-  'LBL_LIST_FORM_TITLE' => 'Список постачальників перевезень',
-  'LBL_LIST_LIST_ORDER' => 'Порядок',
-  'LBL_LIST_NAME' => 'Постачальник перевезень',
-  'LBL_LIST_ORDER' => 'Порядок:',
-  'LBL_LIST_STATUS' => 'Статус',
   'LBL_MODULE_NAME' => 'Постачальники перевезень',
   'LBL_MODULE_NAME_SINGULAR' => 'Постачальник перевезень',
   'LBL_MODULE_TITLE' => 'Постачальник перевезень: Головна',
-  'LBL_NAME' => 'Постачальник перевезень:',
-  'LBL_NEW_FORM_TITLE' => 'Новий постачальник перевезень',
   'LBL_SEARCH_FORM_TITLE' => 'Пошук постачальника перевезень',
+  'LBL_LIST_FORM_TITLE' => 'Список постачальників перевезень',
+  'LBL_NEW_FORM_TITLE' => 'Новий постачальник перевезень',
   'LBL_SHIPPER' => 'Постачальник перевезень:',
+  'LBL_LIST_NAME' => 'Постачальник перевезень',
+  'LBL_NAME' => 'Постачальник перевезень:',
+  'LBL_LIST_LIST_ORDER' => 'Порядок',
+  'LBL_LIST_ORDER' => 'Порядок:',
+  'LBL_LIST_STATUS' => 'Статус',
   'LBL_STATUS' => 'Статус:',
   'LNK_NEW_SHIPPER' => 'Список постачальників перевезень',
   'LNK_NEW_TAXRATE' => 'Список податкових ставок',
   'NTC_DELETE_CONFIRMATION' => 'Ви дійсно бажаєте видалити цей запис?',
-  'NTC_LIST_ORDER' => 'Встановіть порядок, в якому цей постачальник перевезень буде з&#39;являтися у спадаючому списку Постачальників перевезень',
+  'ERR_DELETE_RECORD' => 'Необхідно вказати номер запису перед видаленням.',
   'NTC_STATUS' => 'Встановіть значення статусу Неактивно для того, щоб видалити цього постачальника перевезень зі спадаючого списку Постачальників перевезень',
+  'NTC_LIST_ORDER' => 'Встановіть порядок, в якому цей постачальник перевезень буде з&#39;являтися у спадаючому списку Постачальників перевезень',
   'shipper_status_dom' => 
   array (
-    'Active' => 'Активно',
-    'Inactive' => 'Неактивно',
-  ),
+    'Active' => 'Активна',
+    'Inactive' => 'Неактивна',
+),
+	'LBL_EDITLAYOUT' => 'Редагувати розташування' /*for 508 compliance fix*/,
 );
 
+
+?>

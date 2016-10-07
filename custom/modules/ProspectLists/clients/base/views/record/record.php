@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:36:52
 $viewdefs['ProspectLists']['base']['view']['record'] = array (
   'buttons' => 
   array (
@@ -9,6 +10,10 @@ $viewdefs['ProspectLists']['base']['view']['record'] = array (
       'label' => 'LBL_CANCEL_BUTTON_LABEL',
       'css_class' => 'btn-invisible btn-link',
       'showOn' => 'edit',
+      'events' => 
+      array (
+        'click' => 'button:cancel_button:click',
+      ),
     ),
     1 => 
     array (
@@ -66,17 +71,9 @@ $viewdefs['ProspectLists']['base']['view']['record'] = array (
         ),
         5 => 
         array (
-          'type' => 'rowaction',
-          'event' => 'button:audit_button:click',
-          'name' => 'audit_button',
-          'label' => 'LNK_VIEW_CHANGE_LOG',
-          'acl_action' => 'view',
-        ),
-        6 => 
-        array (
           'type' => 'divider',
         ),
-        7 => 
+        6 => 
         array (
           'type' => 'rowaction',
           'event' => 'button:delete_button:click',
@@ -222,6 +219,11 @@ $viewdefs['ProspectLists']['base']['view']['record'] = array (
         array (
           'type' => 'teamset',
           'name' => 'team_name',
+        ),
+        11 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
         ),
       ),
     ),

@@ -20,6 +20,10 @@ array (
                 'label' => 'LBL_FORECAST',
                 'enabled' => true,
                 'default' => true,
+                'related_fields' => 
+                array (
+                  0 => 'probability',
+                ),
                 'click_to_edit' => true,
                 'sortable' => true,
               ),

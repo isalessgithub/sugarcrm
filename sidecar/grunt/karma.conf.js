@@ -10,18 +10,29 @@
  */
 
 module.exports = function(config) {
+    var sauceLaunchers = {
+        sl_safari: {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            platform: 'OS X 10.11',
+            version: '9.0'
+        }
+    };
+
     config.set({
         basePath: '../',
         frameworks: [
             'jasmine'
         ],
         plugins: [
-            'karma-chrome-launcher',
-            'karma-coverage',
-            'karma-firefox-launcher',
             'karma-jasmine',
-            'karma-junit-reporter',
-            'karma-phantomjs-launcher'
+            'karma-chrome-launcher',
+            'karma-firefox-launcher',
+            'karma-phantomjs-launcher',
+            'karma-safari-launcher',
+            'karma-sauce-launcher',
+            'karma-coverage',
+            'karma-junit-reporter'
         ],
         proxies: {
             // FIXME we need a better way to load fixtures that is stable
@@ -35,6 +46,10 @@ module.exports = function(config) {
         },
         reportSlowerThan: 500,
         browserDisconnectTimeout: 5000,
-        browserDisconnectTolerance: 5
+        browserDisconnectTolerance: 5,
+        sauceLabs: {
+            testName: 'Safari CI Unit Tests'
+        },
+        customLaunchers: sauceLaunchers
     });
 };

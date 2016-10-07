@@ -1,35 +1,344 @@
 /*
-     * Your installation or use of this SugarCRM file is subject to the applicable
-     * terms available at
-     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
-     * If you do not agree to all of the applicable terms or do not have the
-     * authority to bind the entity as an authorized representative, then do not
-     * install or use this SugarCRM file.
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+/**
+ * Actionmenu is an {@link View.Fields.Base.ActiondropdownField actiondropdown}
+ * with a checkbox as the default action.
+ *
+ * Supported Properties:
+ *
+ * - {Boolean} disable_select_all_alert Boolean telling if we should show the
+ *   'select all' and 'clear all' alerts when all checkboxes are checked.
+ *   `true` to hide alerts. `false` to display them. Defaults to `false`.
+ *
+ * @class View.Fields.Base.ActionmenuField
+ * @alias SUGAR.App.view.fields.BaseActionmenuField
+ * @extends View.Fields.Base.ActiondropdownField
+ */
+({
+    extendsFrom: 'ActiondropdownField',
+
+    /** Initializes the actionmenu field.
      *
-     * Copyright (C) SugarCRM Inc. All rights reserved.
+     * Sets the property no_default_action to `true` because the checkbox will
+     * always be the default action and it's handled separately.
+     * See {@link View.Fields.Base.ActiondropdownField} for properties
+     * documentation.
      */
-({events:{'click .checkall':'checkAll','click input[name="check"]':'check'},plugins:['Tooltip'],fieldTag:'input[name=check]',fields:null,actionDropDownTag:'[data-toggle=dropdown]',initialize:function(options){this._super('initialize',[options]);var massCollection=this.context.get('mass_collection');if(!massCollection){var MassCollection=app.BeanCollection.extend({reset:function(models,options){this.filterDef=null;this.entire=false;Backbone.Collection.prototype.reset.call(this,models,options);}});massCollection=new MassCollection();this.context.set('mass_collection',massCollection);}
-this.def.disable_select_all_alert=!!this.def.disable_select_all_alert;this._initTemplates();if(this.options.viewName==='list-header'){app.shortcuts.register('SelectAll:Checkbox','ctrl+a',function(){if(!this.isDisabled()){this.$('.checkall:visible').click();}},this);app.shortcuts.register('SelectAll:Dropdown','m',function(){var $dropdown=this.$('[data-toggle=dropdown]');if($dropdown.is(':visible')&&!$dropdown.hasClass('disabled')){$dropdown.click();}},this);}},check:function(event){this.toggleSelect(this.$(this.fieldTag).is(':checked'));},checkAll:function(event){var checkbox=this.$(this.fieldTag);if(checkbox&&event.currentTarget===event.target){var isChecked=checkbox.is(':checked');checkbox.attr('checked',!isChecked);this.toggleSelect(!isChecked);}},toggleSelect:function(checked){var massCollection=this.context.get('mass_collection');if(!massCollection){return;}
-if(checked){if(this.model.id){massCollection.add(this.model);}else{massCollection.reset(this.collection.models);massCollection.filterDef=this.collection.filterDef;}}else{if(this.model.id){if(massCollection.entire){massCollection.reset(this.collection.models);massCollection.remove(this.model);}else{massCollection.remove(this.model);}}else{massCollection.reset();}}},bindDataChange:function(){var massCollection=this.context.get('mass_collection');if(!massCollection){return;}
-if(this.model.id){massCollection.on('add',function(model){if(this.model&&model.id===this.model.id){this.$(this.fieldTag).attr('checked',true);}},this);massCollection.on('remove',function(model){if(this.model&&model.id===this.model.id){this.$(this.fieldTag).attr('checked',false);}},this);massCollection.on('reset',function(){this.$(this.fieldTag).attr('checked',!!massCollection.get(this.model.id));},this);if(massCollection.get(this.model)||massCollection.entire){this.$(this.fieldTag).attr('checked',true);this.selected=true;}else{delete this.selected;}}else{if(this.collection){this.collection.on('reset',function(){if(massCollection.entire){massCollection.reset();}},this);this.collection.on('add',function(){if(!this.disposed&&massCollection.length<this.collection.length){this.$(this.fieldTag).attr('checked',false);this.view.layout.trigger('list:alert:hide');}},this);}
-this.on('render',this.toggleSelectAll,this);massCollection.on('add',function(model){this.$(this.actionDropDownTag).removeClass('disabled');if(massCollection.length===this.collection.length){this.$(this.fieldTag).attr('checked',true);}
-this.toggleSelectAll();},this);massCollection.on('remove reset',function(model){if(massCollection.length===0){this.$(this.actionDropDownTag).addClass('disabled');this.$(this.fieldTag).attr('checked',false);}else if(massCollection.length===this.collection.length){this.$(this.actionDropDownTag).removeClass('disabled');this.$(this.fieldTag).attr('checked',true);}
-this.toggleSelectAll();},this);this.action_enabled=(massCollection.length>0);this.selected=(massCollection.entire);}},getTotalRecords:function(){var massCollection=this.context&&this.context.get('mass_collection'),attributes=null,action=null,module=this.module,filterDef,max_num,order,fields,params,url;if(!massCollection){return;}
-filterDef=massCollection.filterDef||[];max_num=(this.def.isLinkAction&&app.config.maxRecordLinkFetchSize)?app.config.maxRecordLinkFetchSize:app.config.maxRecordFetchSize;order=this.context.get('collection').orderBy;if(!_.isArray(filterDef)){filterDef=[filterDef];}
-fields=['id'];_.each(this.def.buttons,function(button){if(_.isArray(button.related_fields)){fields=_.union(fields,button.related_fields);}},this);params={fields:fields.join(','),max_num:max_num};if(this.context.get('isSubpanel')){attributes={id:this.context.parent.get('modelId'),link:this.context.get('link')};action=attributes['link'];module=this.context.parent.get('module');}
-if(order&&order.field){params.order_by=order.field+':'+order.direction;}
-if(!_.isEmpty(filterDef)){params.filter=filterDef;}
-url=app.api.buildURL(module,action,attributes,params);app.alert.show('totalrecord',{level:'process',title:app.lang.get('LBL_LOADING'),autoClose:false});massCollection.fetched=false;massCollection.trigger('massupdate:estimate');app.api.call('read',url,null,{success:_.bind(function(data){if(this.disposed){return;}
-app.alert.dismiss('totalrecord');this._processTotalRecords(data.records);this._alertTotalRecords(data.next_offset);},this)});},_processTotalRecords:function(collection){var massCollection=(this.context)?this.context.get('mass_collection'):null;if(!massCollection){return;}
-massCollection.reset(collection);massCollection.entire=false;massCollection.fetched=true;massCollection.trigger('massupdate:estimate');},_alertTotalRecords:function(offset){var massCollection=this.context&&this.context.get('mass_collection');if(!massCollection){return;}
-var allSelected=this._buildAlertForReset(massCollection,offset);this.view.layout.trigger('list:alert:show',allSelected);},toggleSelectAll:function(){var self=this,massCollection=this.context&&this.context.get('mass_collection');if(!massCollection){return;}
-var showAlert=function(){var alert;if(self.collection.length===0){return;}
-if(massCollection.length===self.collection.length){if(self.collection.next_offset>0){alert=self._buildAlertForEntire(massCollection);}else{alert=self._buildAlertForReset(massCollection);}}else if(massCollection.entire){alert=self._buildAlertForReset(massCollection);}
-if(alert){self.view.layout.trigger('list:alert:show',alert);}else{self.view.layout.trigger('list:alert:hide');}};var setButtonsDisabled=function(fields){_.each(fields,function(field){if(field.def.minSelection||field.def.maxSelection){var min=field.def.minSelection||0,max=field.def.maxSelection||massCollection.length;if(massCollection.length<min||massCollection.length>max){field.setDisabled(true);}else{field.setDisabled(false);}}},self);};if(!this.def.disable_select_all_alert){showAlert();}
-setButtonsDisabled(this.fields);},getPlaceholder:function(){var self=this,viewName=this.options.viewName||this.view.name;if(viewName==='list-header'&&!this.fields){this.fields=[];var actionMenu='<ul class="dropdown-menu" role="menu">';_.each(this.def.buttons,function(fieldDef){var field=app.view.createField({def:fieldDef,view:self.view,viewName:self.options.viewName,model:self.model});field.on('show hide',self.setPlaceholder,self);self.fields.push(field);field.parent=self;actionMenu+='<li>'+field.getPlaceholder()+'</li>';});actionMenu+='</ul>';self.actionPlaceHolder=new Handlebars.SafeString(actionMenu);var massCollection=this.context.get('mass_collection');massCollection.on('massupdate:estimate',this.onTotalEstimate,this);}
-return this._super('getPlaceholder');},_loadTemplate:function(){this._super('_loadTemplate');if(this.view.action==='list'&&this.action==='edit'){this.template=app.template.empty;}},_render:function(){this._super('_render');_.each(this.fields,function(field){field.setElement(this.$('span[sfuuid="'+field.sfId+'"]'));field.render();},this);},setPlaceholder:function(){var index=0;_.each(this.fields,function(field){var fieldPlaceholder=this.$('span[sfuuid="'+field.sfId+'"]');if(!field.isVisible()){fieldPlaceholder.toggleClass('hide',true);this.$el.append(fieldPlaceholder);}else{fieldPlaceholder.toggleClass('hide',false);this.$('.dropdown-menu').append($('<li>').append(fieldPlaceholder));index++;}},this);if(index<1){this.$('.dropdown-toggle').hide();}else{this.$('.dropdown-toggle').show();}
-this.$('.dropdown-menu').children('li').each(function(index,el){if($(el).html()===''){$(el).remove();}});},onTotalEstimate:function(){var collection=this.context.get('mass_collection');this.setDropdownDisabled(!collection.fetched);},setDropdownDisabled:function(disable){this.$(this.actionDropDownTag).toggleClass('disabled',disable);},unbindData:function(){var collection=this.context.get('mass_collection');if(collection){var modelId=this.model.cid,cid=this.view.cid;collection.off(null,null,this);if(modelId){collection.off(null,null,modelId);}
-if(cid){collection.off(null,null,cid);}}
-if(this.collection){this.collection.off('reset',null,this);this.collection.off('add',null,this);}
-this.off('render',null,this);this._super('unbindData');},_dispose:function(){_.each(this.fields,function(field){field.parent=null;field.dispose();});this.fields=null;this._super('_dispose');},bindDomChange:function(){},unbindDom:function(){},_initTemplates:function(){this._selectedOffsetTpl=app.template.getView('list.selected-offset')||app.template.getView('list.selected-offset',this.module);this._selectAllLinkTpl=new Handlebars.SafeString('<button type="button" class="btn btn-link btn-inline" data-action="select-all">'+
-app.lang.get('LBL_LISTVIEW_SELECT_ALL_RECORDS')+'</button>');this._selectAllTpl=app.template.compile(null,app.lang.get('TPL_LISTVIEW_SELECT_ALL_RECORDS'));return this;},_buildAlertForReset:function(massCollection,offset){var alert=$('<span></span>').append(this._selectedOffsetTpl({offset:offset,num:massCollection.length}));alert.find('[data-action=clear]').each(function(){var $el=$(this);$el.on('click',function(){massCollection.reset();});app.accessibility.run($el,'click');});return alert;},_buildAlertForEntire:function(massCollection){var self=this,alert=$('<span></span>').append(this._selectAllTpl({num:massCollection.length,link:this._selectAllLinkTpl}));alert.find('[data-action=select-all]').each(function(){var $el=$(this);$el.on('click',function(){massCollection.entire=true;self.getTotalRecords();$(this).off('click');});app.accessibility.run($el,'click');});return alert;}})
+    initialize: function(options) {
+        this._super('initialize', [options]);
+
+        this.events = _.extend({}, this.events, {
+            'click [data-check=all]': 'checkAll',
+            'click [data-check=one]': 'check'
+        });
+
+        this.def.no_default_action = true;
+        this.def.css_class = this.def.css_class + ' actionmenu';
+        /**
+         * The checkbox tag.
+         *
+         * @property {string}
+         */
+        this.fieldTag = 'input[type=checkbox]';
+
+        /**
+         * The mass collection the actionmenu field is related to.
+         *
+         * @property {Data.BeanCollection} massCollection
+         */
+        this.massCollection = this.context.get('mass_collection');
+
+        this.def.disable_select_all_alert = !!this.def.disable_select_all_alert;
+
+        if (this.options.viewName === 'list-header') {
+            this.isCheckAllCheckbox = true;
+        }
+
+        if (this.isCheckAllCheckbox) {
+            app.shortcuts.register('SelectAll:Checkbox', 'ctrl+a', function() {
+                if (!this.isDisabled()) {
+                    this.$('[data-check=all]:visible').click();
+                }
+            }, this);
+            app.shortcuts.register('SelectAll:Dropdown', 'm', function() {
+                var $dropdown = this.$(this.actionDropDownTag);
+                if ($dropdown.is(':visible') && !$dropdown.hasClass('disabled')) {
+                    $dropdown.click();
+                }
+            }, this);
+        }
+    },
+
+    /**
+     * Calls {@link #toggleSelect} to help pass the information to the context.
+     */
+    check: function() {
+        var $checkbox = this.$(this.fieldTag);
+        var isChecked = $checkbox.is(':checked');
+        this.toggleSelect(isChecked);
+    },
+
+    /**
+     * Sends an event to the context to add or remove the model from the mass
+     * collection.
+     *
+     * @param {boolean} checked `true` to pass the model to the mass collection,
+     *   `false` to remove it.
+     */
+    toggleSelect: function(checked) {
+        var event = !!checked ? 'mass_collection:add' : 'mass_collection:remove';
+        this.context.trigger(event, this.model);
+    },
+
+    /**
+     * Selects or unselects all records that are in the current collection.
+     *
+     * @param {Event} The `click` or `keydown` event.
+     */
+    checkAll: function(event) {
+        var $checkbox = this.$(this.fieldTag);
+        if ($(event.target).hasClass('checkall') || event.type === 'keydown') {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+        }
+        var isChecked = $checkbox.is(':checked');
+        this.toggleAll(isChecked);
+    },
+
+    /**
+     * Sends an event to the context to add or remove all models from the mass
+     * collection.
+     *
+     * @param {boolean} checked `true` to pass all models in the collection to
+     *   the mass collection, `false` to remove them.
+     *
+     *
+     * FIXME : Doing this way is slow to check all checkboxes when there
+     * are more than 20. We should check checkboxes before adding records to
+     * the mass collection SC-4079 will address this problem.
+     */
+    toggleAll: function(checked) {
+        var event = checked ? 'mass_collection:add:all' : 'mass_collection:remove:all';
+        this.context.trigger(event, this.model);
+    },
+
+    /**
+     * Binds mass collection events to a record row checkbox.
+     *
+     * @private
+     */
+    _bindModelChangeEvents: function() {
+        this.massCollection.on('add', function(model) {
+            if (this.model && model.id === this.model.id) {
+                this.$(this.fieldTag).attr('checked', true);
+            }
+        }, this);
+
+        this.massCollection.on('remove', function(model) {
+            if (this.model && model.id === this.model.id) {
+                this.$(this.fieldTag).attr('checked', false);
+            }
+        }, this);
+
+        this.massCollection.on('reset', function() {
+            this.$(this.fieldTag).attr('checked', !!this.massCollection.get(this.model.id));
+        }, this);
+    },
+
+    /**
+     * Binds mass collection events to 'select-all' checkbox, the one used to check/
+     * uncheck all record row checkboxes.
+     *
+     * @private
+     */
+    _bindAllModelChangeEvents: function() {
+        // Checks/selects the actionmenu checkbox if the checkboxes of each
+        // row are all checked.
+        this.massCollection.on('all:checked', function() {
+            if (this.collection.length !== 0) {
+                this.$(this.fieldTag).attr('checked', true);
+            }
+        }, this);
+
+        // Unchecks/deselects the actionmenu checkbox if the checkboxes of
+        // each row are NOT all checked.
+        this.massCollection.on('not:all:checked', function() {
+            this.$(this.fieldTag).attr('checked', false);
+        }, this);
+
+        this.massCollection.on('add', this._onMassCollectionAddAll, this);
+        this.massCollection.on('remove reset', this._onMassCollectionRemoveResetAll, this);
+    },
+
+    /**
+     * Handler for the {@link Bean.Collection massCollection} `add` event.
+     *
+     * @private
+     */
+    _onMassCollectionAddAll: function() {
+        this.setDropdownDisabled(false);
+        if (!this.def.disable_select_all_alert) {
+            this.context.trigger('toggleSelectAllAlert');
+            this.setButtonsDisabled(this.dropdownFields);
+        }
+    },
+
+    /**
+     * Handler for the {@link Bean.Collection massCollection} `remove` and
+     * `reset` events.
+     *
+     * @private
+     */
+    _onMassCollectionRemoveResetAll: function() {
+        var massCollectionIds = _.pluck(this.massCollection.models, 'id');
+        var viewCollectionIds = _.pluck(this.collection.models, 'id');
+        if (this.massCollection.length === 0) {
+            this.setDropdownDisabled(true);
+            //massCollection.models could only have 'id' as an attribute,
+            //so we need to compare ids instead of models directly.
+        } else if (_.intersection(massCollectionIds, viewCollectionIds).length !== 0) {
+            this.setDropdownDisabled(false);
+            this.$(this.fieldTag).attr('checked', true);
+        }
+        if (!this.def.disable_select_all_alert) {
+            this.context.trigger('toggleSelectAllAlert');
+            this.setButtonsDisabled(this.dropdownFields);
+        }
+    },
+
+    /**
+     * @override
+     *
+     * Binds events on the collection, and updates the checkboxes
+     * consequently.
+     */
+    bindDataChange: function() {
+        if (this.isCheckAllCheckbox) {
+            // Listeners on the checkAll/uncheckAll checkbox.
+            this._bindAllModelChangeEvents();
+            this.action_enabled = this.massCollection.length > 0;
+        } else {
+            // Listeners for each record selection.
+            this._bindModelChangeEvents();
+        }
+
+        this.massCollection.on('massupdate:estimate', this.onTotalEstimate, this);
+    },
+
+    /**
+     * Toggles the actionmenu buttons according to the buttons definition and
+     * the number of selected records.
+     *
+     * @param {Object} fields List of the view's fields.
+     * @param {number} massCollectionLength The number of selected records.
+     */
+    setButtonsDisabled: function(fields) {
+        _.each(fields, function(field) {
+            if (field.def.minSelection || field.def.maxSelection) {
+                var min = field.def.minSelection || 0,
+                    max = field.def.maxSelection || this.massCollection.length;
+                if (this.massCollection.length < min || this.massCollection.length > max) {
+                    field.setDisabled(true);
+                } else {
+                    field.setDisabled(false);
+                }
+            }
+        }, this);
+    },
+
+    /**
+     * @inheritdoc
+     */
+    _loadTemplate: function() {
+        this._super('_loadTemplate');
+        if (this.view.action === 'list' && this.action === 'edit') {
+            this.template = app.template.empty;
+        }
+    },
+
+    /**
+     * @inheritdoc
+     */
+    _render: function() {
+        if (!this.isCheckAllCheckbox) {
+            // If the model is in the mass collection, make sure the checkbox
+            // is checked.
+            if (this.massCollection.get(this.model.id)) {
+                this.selected = true;
+            } else {
+                delete this.selected;
+            }
+        }
+
+        this._super('_render');
+
+        if (this.isCheckAllCheckbox && !this.def.disable_select_all_alert) {
+            this.setButtonsDisabled(this.dropdownFields);
+            this.setDropdownDisabled(this.massCollection.length === 0);
+        }
+    },
+
+    /**
+     * Since we don't have a default action button we don't need
+     * to render anything here. See {@link View.Fields.Base.ActiondropdownField#_renderFields}.
+     *
+     * @override
+     * @protected
+     */
+    _renderFields: $.noop,
+
+    /**
+     * Update the dropdown usability while the total count is estimating.
+     */
+    onTotalEstimate: function() {
+        this.setDropdownDisabled(!this.massCollection.fetched);
+    },
+
+    /**
+     * Disable the dropdown action.
+     *
+     * @param {Boolean} [disable] `true` to disable the dropdown action, `false`
+     * to enable it.
+     */
+    setDropdownDisabled: function(disable) {
+        this.$(this.actionDropDownTag).toggleClass('disabled', disable);
+    },
+
+    /**
+     * @inheritdoc
+     */
+    _getChildFieldsMeta: function() {
+        // We only get the fields (the dropdown actions) metadata for the
+        // checkAll/uncheckAll checkbox. Actionmenu fields tied to a model are
+        // a simple checkbox and don't have metadata.
+        if (this.model.id) {
+            return;
+        }
+        return this._super('_getChildFieldsMeta');
+    },
+
+    /**
+     * @inheritdoc
+     */
+    unbindData: function() {
+        if (this.massCollection) {
+            var modelId = this.model.cid,
+                cid = this.view.cid;
+            this.massCollection.off(null, null, this);
+            if (modelId) {
+                this.massCollection.off(null, null, modelId);
+            }
+            if (cid) {
+                this.massCollection.off(null, null, cid);
+            }
+        }
+        this._super('unbindData');
+    }
+})

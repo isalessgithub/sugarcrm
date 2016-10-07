@@ -92,8 +92,16 @@ $xtpl->assign("RETURN_MODULE", "Administration");
 $xtpl->assign("RETURN_ACTION", "index");
 
 $xtpl->assign("MODULE", $currentModule);
-$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 $xtpl->assign("HEADER", getClassicModuleTitle("Administration", array("{MOD.LBL_MANAGE_LICENSE}"), true));
+
+//move the url part out LBL_MANUAL_VALIDATION3 in the language file
+$manualValidation3Url = '<a href="https://updates.sugarcrm.com/license/" target="_blank">https://updates.sugarcrm.com/license/</a>';
+$manualValidation3 = str_replace(
+    '{{manualValidation3Url}}',
+    $manualValidation3Url,
+    $mod_strings['LBL_MANUAL_VALIDATION3']
+);
+$xtpl->assign("MANUAL_VALIDATION3", $manualValidation3);
 
 if(!empty($focus->settings['license_users']))$xtpl->assign("LICENSE_USERS",          $focus->settings['license_users']);
 if(!empty($focus->settings['license_expire_date'])) $xtpl->assign("LICENSE_EXPIRE_DATE",    $timedate->to_display_date( $focus->settings['license_expire_date'], false) );

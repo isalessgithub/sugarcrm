@@ -12,9 +12,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  */
 require_once('soap/SoapHelperFunctions.php');
 require_once('soap/SoapTypes.php');
-
-
 require_once('modules/Reports/Report.php');
+
+use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
+
 /*************************************************************************************
 
 THIS IS FOR SUGARCRM USERS
@@ -95,7 +96,7 @@ function login($user_auth, $application){
 			LogicHook::initialize();
 			$GLOBALS['logic_hook']->call_custom_logic('Users', 'login_failed');
 			return array('id'=>-1, 'error'=>$error);
-	} else if(function_exists('mcrypt_cbc')){
+    } elseif (extension_loaded('mcrypt')) {
 		$password = decrypt_string($user_auth['password']);
         $authController = AuthenticationController::getInstance();
         $authController->loggedIn = false; // reset login attempt to try again with decrypted password
@@ -232,13 +233,20 @@ $server->register(
  * Perform a seamless login.  This is used internally during the sync process.
  *
  * @param String $session -- Session ID returned by a previous call to login.
+ * @param String $ip IP address of the client which is expected to login
  * @return true -- if the session was authenticated
  * @return false -- if the session could not be authenticated
  */
-function seamless_login($session){
+function seamless_login($session, $ip = null)
+{
 		if(!validate_authenticated($session)){
 			return 0;
 		}
+
+        $_SESSION['seamless_login'] = true;
+        if ($ip) {
+            $_SESSION['seamless_login_ip'] = $ip;
+        }
 
 		return 1;
 }
@@ -554,7 +562,7 @@ function set_entry($session,$module_name, $name_value_list){
 	}
 	foreach($name_value_list as $value){
         $GLOBALS['log']->debug($value['name']." : ".$value['value']);
-		$seed->$value['name'] = $value['value'];
+        $seed->{$value['name']} = $value['value'];
 	}
 	if(! $seed->ACLAccess('Save') || ($seed->deleted == 1  &&  !$seed->ACLAccess('Delete')))
 	{
@@ -577,7 +585,23 @@ function set_entry($session,$module_name, $name_value_list){
             }
         }
     }
-	$seed->save();
+    try{
+        $seed->save();
+    } catch (SugarApiExceptionNotAuthorized $ex) {
+        $GLOBALS['log']->info('End: SoapSugarUsers->set_entry');
+        switch($ex->messageLabel) {
+            case 'ERR_USER_NAME_EXISTS':
+                $error_string = 'duplicates';
+                break;
+            case 'ERR_REPORT_LOOP':
+                $error_string = 'user_loop';
+                break;
+            default:
+                $error_string = 'error_user_create_update';
+        }
+        $error->set_error($error_string);
+        return array('id' => -1, 'error' => $error->get_soap_array());
+    }
 	if($seed->deleted == 1){
 			$seed->mark_deleted($seed->id);
 	}
@@ -905,7 +929,7 @@ function get_available_modules($session){
 		$error->set_error('invalid_session');
 		return array('modules'=> $modules, 'error'=>$error->get_soap_array());
 	}
-	$modules = array_keys($_SESSION['avail_modules']);
+	$modules = ArrayFunctions::array_access_keys($_SESSION['avail_modules']);
 
 	return array('modules'=> $modules, 'error'=>$error->get_soap_array());
 }
@@ -1280,7 +1304,7 @@ function handle_set_relationship($set_relationship_value, $session='')
 	else{
     	$key = array_search(strtolower($module2),$mod->relationship_fields);
     	if(!$key) {
-    	    $key = Relationship::retrieve_by_modules($module1, $module2, $GLOBALS['db']);
+            $key = $mod->retrieve_by_modules($module1, $module2, $GLOBALS['db']);
 
             // BEGIN SnapLogic fix for bug 32064
             if ($module1 == "Quotes" && $module2 == "ProductBundles") {
@@ -2149,7 +2173,7 @@ function handle_set_entries($module_name, $name_value_lists, $select_fields = FA
             //allow string or int of 0 to be updated if set.
             if(!empty($val) || ($val==='0' || $val===0))
             {
-                $seed->$value['name'] = $val;
+                $seed->{$value['name']} = $val;
             }
             //Store all the values in dataValues Array to apply later
             $dataValues[$value['name']] = $val;

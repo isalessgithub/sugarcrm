@@ -176,6 +176,14 @@ $dictionary['User'] = array(
             'type' => 'bool',
             'default' => '0',
             'studio' => array('listview' => false, 'searchview'=>false, 'related' => false),
+            // Remove from Process Author
+            // To add finer grain validation, you could do something like this
+            // 'processes' => array(
+            //    'isCurrentUserAdmin',
+            //),
+            // This would tell the field to be pushed through an additional validation
+            // step when being fetched for relationships
+            'processes' => false,
         ) ,
         'external_auth_only' => array(
             'name' => 'external_auth_only',
@@ -264,16 +272,36 @@ $dictionary['User'] = array(
         ) ,
         'created_by_name' => array(
             'name' => 'created_by_name',
-	        'vname' => 'LBL_CREATED_BY_NAME', //bug 48978
-            'type' => 'varchar',
+            'vname' => 'LBL_CREATED_BY_NAME', //bug 48978
+            'type' => 'relate',
+            'reportable' => false,
+            'link' => 'created_by_link',
+            'rname' => 'full_name',
             'source' => 'non-db',
-            'importable' => 'false',
+            'table' => 'users',
+            'id_name' => 'created_by',
+            'module' => 'Users',
+            'duplicate_merge' => 'disabled',
+            'importable' => false,
+            'massupdate' => false,
+            'duplicate_on_record_copy' => 'no',
             'studio' => array(
                 'related' => false,
                 'formula' => false,
                 'rollup' => false,
             ),
             'readonly' => true,
+            'sort_on' => array('last_name'),
+        ) ,
+        'created_by_link' => array(
+            'name' => 'created_by_link',
+            'type' => 'link',
+            'relationship' => 'users_created_by',
+            'vname' => 'LBL_CREATED_USER',
+            'link_type' => 'one',
+            'module' => 'Users',
+            'bean_name' => 'User',
+            'source' => 'non-db',
         ) ,
         'title' => array(
             'name' => 'title',
@@ -539,7 +567,6 @@ $dictionary['User'] = array(
 			    'studio' => 'false',
 			    'reportable'=>false,
 			    ),
-
         'deleted' => array(
             'name' => 'deleted',
             'vname' => 'LBL_DELETED',
@@ -590,6 +617,16 @@ $dictionary['User'] = array(
             'relationship' => 'calls_users',
             'source' => 'non-db',
             'vname' => 'LBL_CALLS'
+        ) ,
+        'kbusefulness' => array(
+            'name' => 'kbusefulness',
+            'type' => 'link',
+            'reportable' => false,
+            'relationship' => 'kbusefulness',
+            'link_file' => 'modules/KBContents/UsefulnessLink.php',
+            'link_class' => 'UsefulnessLink',
+            'source' => 'non-db',
+            'vname' => 'LBL_USEFULNESS'
         ) ,
         'meetings' => array(
             'name' => 'meetings',
@@ -659,7 +696,6 @@ $dictionary['User'] = array(
             'required' => true,
             'merge_filter' => 'enabled',
             'studio' => false,
-            'full_text_search' => array('enabled' => true, 'boost' => 3, 'index' => 'not_analyzed'), //bug 54567
             'exportable'=>true,
         ),
         'email'=> array(
@@ -680,10 +716,13 @@ $dictionary['User'] = array(
             'studio' => array(
                 'visible' => false,
                 'searchview' => true,
-                'editview' => true,
                 'editField' => true,
             ),
             'sort_on' => 'email_addresses',
+            'full_text_search' => array(
+                'enabled' => true,
+                'searchable' => true,
+            ),
         ),
         'email_addresses' => array(
             'name' => 'email_addresses',
@@ -956,6 +995,7 @@ $dictionary['User'] = array(
         array('name' => 'idx_user_title', 'type' => 'index', 'fields' => array('title')),
         array('name' => 'idx_user_department', 'type' => 'index', 'fields' => array('department')),
     ) ,
+    'required_import_indexes' => array('idx_user_name::user_name'),
 	'relationships' => array (
   		'user_direct_reports' => array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id', 'rhs_module'=> 'Users', 'rhs_table'=> 'users', 'rhs_key' => 'reports_to_id', 'relationship_type'=>'one-to-many'),
   		'users_users_signatures' =>
@@ -1059,6 +1099,15 @@ $dictionary['User'] = array(
             'rhs_module'=> 'Users',
             'rhs_table'=> 'users',
             'rhs_key' => 'acl_role_set_id',
+            'relationship_type' => 'one-to-many'
+        ),
+        'users_created_by' => array(
+            'lhs_module' => 'Users',
+            'lhs_table' => 'users',
+            'lhs_key' => 'created_by',
+            'rhs_module' => 'Users',
+            'rhs_table' => 'users',
+            'rhs_key' => 'id',
             'relationship_type' => 'one-to-many'
         ),
     ),

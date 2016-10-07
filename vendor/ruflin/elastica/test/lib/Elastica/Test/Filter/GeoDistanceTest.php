@@ -12,9 +12,7 @@ class GeoDistanceTest extends BaseTest
 {
     public function testGeoPoint()
     {
-        $client = $this->_getClient();
-        $index = $client->getIndex('test');
-        $index->create(array(), true);
+        $index = $this->_createIndex();
 
         $type = $index->getType('test');
 
@@ -49,14 +47,14 @@ class GeoDistanceTest extends BaseTest
         $geoFilter = new GeoDistance('point', array('lat' => 30, 'lon' => 40), '1km');
 
         $query = new Query(new MatchAll());
-        $query->setFilter($geoFilter);
+        $query->setPostFilter($geoFilter);
         $this->assertEquals(1, $type->search($query)->count());
 
         // Both points should be inside
         $query = new Query();
         $geoFilter = new GeoDistance('point', array('lat' => 30, 'lon' => 40), '40000km');
         $query = new Query(new MatchAll());
-        $query->setFilter($geoFilter);
+        $query->setPostFilter($geoFilter);
         $index->refresh();
 
         $this->assertEquals(2, $type->search($query)->count());
@@ -67,7 +65,7 @@ class GeoDistanceTest extends BaseTest
         $key = 'location';
         $location = array(
             'lat' => 48.86,
-            'lon' => 2.35
+            'lon' => 2.35,
         );
         $distance = '10km';
 
@@ -76,8 +74,8 @@ class GeoDistanceTest extends BaseTest
         $expected = array(
             'geo_distance' => array(
                 $key => $location,
-                'distance' => $distance
-            )
+                'distance' => $distance,
+            ),
         );
 
         $data = $filter->toArray();
@@ -96,8 +94,8 @@ class GeoDistanceTest extends BaseTest
         $expected = array(
             'geo_distance' => array(
                 $key => $location,
-                'distance' => $distance
-            )
+                'distance' => $distance,
+            ),
         );
 
         $data = $filter->toArray();

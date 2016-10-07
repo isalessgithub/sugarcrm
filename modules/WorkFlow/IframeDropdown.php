@@ -10,31 +10,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
+
 global $app_list_strings;
 global $beanList;
 global $theme;
 
 require_once('include/workflow/workflow_utils.php');
 
-	
-	if(!empty($_REQUEST['target_module']) && $_REQUEST['target_module']!=""){
-		$target_module = $_REQUEST['target_module'];
-	} else {
-		sugar_die("Target_module required");
-	}
+    $target_module = InputValidation::getService()->getValidInputRequest('target_module', 'Assert\Mvc\ModuleName', '');
 
-	if(!empty($_REQUEST['iframe_type']) && $_REQUEST['iframe_type']!=""){
-		$iframe_type = $_REQUEST['iframe_type'];
-	} else {
-		$iframe_type = "";	
-	}		
-	
-	if(!empty($_REQUEST['base_module']) && $_REQUEST['base_module']!=""){
-		$base_module = $_REQUEST['base_module'];
-	} else {
-		$base_module = "";	
-	}		
+    if (!$target_module) {
+        sugar_die("Target_module required");
+    }
 
+    $iframe_type = InputValidation::getService()->getValidInputRequest('iframe_type', null, '');
+    $base_module = InputValidation::getService()->getValidInputRequest('base_module', 'Assert\Mvc\ModuleName', '');
 
 //iframe_type/////////////////////////////////////
 //rel_mod
@@ -46,8 +38,7 @@ require_once('include/workflow/workflow_utils.php');
 		$temp_module->call_vardef_handler("template_rel_filter");
 		$temp_module->vardef_handler->start_none=true;
 		$temp_module->vardef_handler->start_none_lbl = $GLOBALS['mod_strings']['LBL_PLEASE_SELECT'];
-
-		$target_dropdown = get_select_options_with_id($temp_module->vardef_handler->get_vardef_array(true, true, true, true),"");
+		$target_dropdown = get_select_options_with_id($temp_module->vardef_handler->get_vardef_array(true, true, true, true, false, false),"");
 		$select_jscript = "onchange=\"window.parent.togglefields('rel_iframe', 'fields_iframe', 'base_module')";	
 		$ext_value = "";
 		$on_start = "";

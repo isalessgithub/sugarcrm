@@ -23,7 +23,15 @@ class ParserLabel extends ModuleBuilderParser
      */
     protected static $moduleInstaller;
 
-    function ParserLabel ($moduleName, $packageName = '' )
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function ParserLabel($moduleName, $packageName = '')
+    {
+        self::__construct($moduleName, $packageName);
+    }
+
+    public function __construct($moduleName, $packageName = '')
     {
         $this->moduleName = $moduleName;
         if (!empty($packageName))
@@ -33,10 +41,10 @@ class ParserLabel extends ModuleBuilderParser
     /**
      * Takes in the request params from a save request and processes
      * them for the save.
-     * @param REQUEST $params       Labels as "label_".System label => Display label pairs
+     * @param array $params Labels as "label_".System label => Display label pairs
      * @param string $language      Language key, for example 'en_us'
      */
-    function handleSave ($params , $language)
+    function handleSave($params = null, $language = null)
     {
         $labels = array ( ) ;
         foreach ( $params as $key => $value )
@@ -53,7 +61,39 @@ class ParserLabel extends ModuleBuilderParser
             $basepath = "custom/modulebuilder/packages/{$this->packageName}/modules/{$this->moduleName}/language";
         }
 
-        return self::addLabels($language, $labels, $this->moduleName, $basepath);
+        self::addLabels($language, $labels, $this->moduleName, $basepath);
+        $this->saveModuleLists($language, $labels);
+    }
+
+    /**
+     * Saves modules lists according to the label changes
+     *
+     * @param string $language Language key
+     * @param array $labels Saved module labels
+     */
+    protected function saveModuleLists($language, array $labels)
+    {
+        require_once 'modules/Studio/wizards/RenameModules.php';
+        $wizard = new RenameModules();
+        $moduleLists = array(
+            'LBL_MODULE_NAME' => 'moduleList',
+            'LBL_MODULE_NAME_SINGULAR' => 'moduleListSingular',
+        );
+
+        $saved = false;
+        foreach ($moduleLists as $labelName => $moduleList) {
+            if (isset($labels[$labelName])) {
+                $wizard->updateModuleList($moduleList, array(
+                    $this->moduleName => $labels[$labelName],
+                ), $language);
+                $saved = true;
+            }
+        }
+
+        if ($saved) {
+            LanguageManager::removeJSLanguageFiles();
+            LanguageManager::clearLanguageCache($this->moduleName, $language);
+        }
     }
 
     /**
@@ -209,6 +249,7 @@ class ParserLabel extends ModuleBuilderParser
                     $cache_key = "module_language." . $language . $moduleName;
                     sugar_cache_clear($cache_key);
                     LanguageManager::clearLanguageCache($moduleName, $language);
+                    LanguageManager::invalidateJsLanguageCache();
                     MetaDataManager::refreshLanguagesCache($language);
                 }
             }
@@ -218,20 +259,22 @@ class ParserLabel extends ModuleBuilderParser
     }
 
     /**
-     * Takes in the request params from a save request and processes
-     * them for the save.
-     * @param $metadata
-     * @param string $language      Language key, for example 'en_us'
+     * Save labels passed in metadata for a given language
+     *
+     * @param $metadata - The labels metadata
+     * @param $language - language key (e.g. en_us)
      */
-    function handleSaveRelationshipLabels ($metadata , $language)
-        {
-        foreach ( $metadata as $definition )
-            {
-        	$labels = array();
-        	$labels[$definition [ 'system_label' ]] = $definition [ 'display_label' ];
-        	self::addLabels ( $language, $labels, $definition [ 'module' ],null,true );
-            }
+    public function handleSaveRelationshipLabels($metadata, $language)
+    {
+        $labels = array();
+        foreach ($metadata as $definition) {
+            $labels[$definition['module']][$definition['system_label']] = $definition['display_label'];
         }
+
+        foreach ($labels as $module => $definition) {
+            self::addLabels($language, $definition, $module, null);
+        }
+    }
 
     function addLabelsToAllLanguages($labels)
             {
@@ -254,6 +297,11 @@ class ParserLabel extends ModuleBuilderParser
             self::$moduleInstaller = new ModuleInstaller();
             self::$moduleInstaller->silent = true;
         }
+
+        if (!empty($moduleName)) {
+            self::$moduleInstaller->modules = array($moduleName => $moduleName);
+        }
+        
         self::$moduleInstaller->rebuild_extensions(array($moduleName), array('languages'));
         
         // While this *is* called from rebuild_extensions, it doesn't do anything
@@ -262,4 +310,3 @@ class ParserLabel extends ModuleBuilderParser
         self::$moduleInstaller->rebuild_languages(array($language => $language), array($moduleName));
     }
 }
-

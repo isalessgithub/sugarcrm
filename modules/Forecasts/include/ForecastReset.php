@@ -106,7 +106,7 @@ class ForecastReset
 
         /* @var $admin Administration */
         $admin = BeanFactory::getBean('Administration');
-        $admin->saveSetting('Forecasts', 'worksheet_columns', json_encode($columns), 'base');
+        $admin->saveSetting('Forecasts', 'worksheet_columns', $columns, 'base');
 
 
         // now write out the correct list view

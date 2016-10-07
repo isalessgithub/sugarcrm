@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: SubPanelView.php 53409 2010-01-04 03:31:15Z roger $
+
  * Description:  
  ********************************************************************************/
 
@@ -25,6 +25,12 @@ var $products_list = null;
 var $hideNewButton = false;
 var $hideSelectButton = false;
 var $focus;
+
+    /**
+     * @deprecated
+     */
+    public function SubPanelViewProducts(){
+    }
 
 function setFocus(&$value){
 	$this->focus =(object) $value;		
@@ -41,9 +47,6 @@ function setHideNewButton($value){
 
 function setHideSelectButton($value){
 	$this->hideSelectButton = $value;	
-}
-
-function SubPanelViewProducts(){
 }
 
 function getHeaderText($action, $currentModule){
@@ -128,5 +131,3 @@ if((is_admin($current_user)||is_admin_for_module($GLOBALS['current_user'],'Produ
 	$ListView->processListView($this->products_list, "products", "PRODUCT");
 }
 }
-
-?>

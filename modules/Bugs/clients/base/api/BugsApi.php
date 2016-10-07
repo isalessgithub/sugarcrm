@@ -31,7 +31,7 @@ class BugsApi extends ModuleApi
     /**
      * Create the bug record and optionally perform post-save actions for Portal
      */
-    public function createRecord($api, $args)
+    public function createRecord(ServiceBase $api, array $args)
     {
         //create the bug using the ModuleApi
 
@@ -41,8 +41,8 @@ class BugsApi extends ModuleApi
 
             if (!empty($contact)) {
                 $args['assigned_user_id'] = $contact->assigned_user_id;
-                $args['team_id']     = $contact->fetched_row['team_id'];
-                $args['team_set_id'] = $contact->fetched_row['team_set_id'];
+                $args['team_id'] = $contact->team_id;
+                $args['team_set_id'] = $contact->team_set_id;
             }
         }
 

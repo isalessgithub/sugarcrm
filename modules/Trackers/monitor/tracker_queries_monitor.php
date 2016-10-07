@@ -11,6 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 require_once('modules/Trackers/monitor/Monitor.php');
 require_once('modules/Trackers/Metric.php');
 require_once('modules/Trackers/Trackable.php');
@@ -18,14 +19,20 @@ require_once('modules/Trackers/Trackable.php');
 class tracker_queries_monitor extends Monitor implements Trackable {
 
     var $cached_data = array();
-    
+
     /**
-     * constructor
+     * @deprecated Use __construct() instead
      */
-    function tracker_queries_monitor($name='', $monitorId='', $metadata='', $store='') {
-        parent::Monitor($name, $monitorId, $metadata, $store);
+    public function tracker_queries_monitor($name = '', $monitorId = '', $metadata = '', $store = '')
+    {
+        self::__construct($name, $monitorId, $metadata, $store);
     }
-   
+
+    public function __construct($name = '', $monitorId = '', $metadata = '', $store = '')
+    {
+        parent::__construct($name, $monitorId, $metadata, $store);
+    }
+
     /**
      * save
      * This method retrieves the Store instances associated with monitor and calls
@@ -106,4 +113,3 @@ class tracker_queries_monitor extends Monitor implements Trackable {
     	} //if
    } //save
 }
-?>

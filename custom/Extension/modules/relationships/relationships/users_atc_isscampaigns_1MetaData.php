@@ -1,5 +1,5 @@
 <?php
- // created: 2016-10-07 09:56:08
+ // created: 2016-10-07 12:36:28
 $dictionary['users_atc_isscampaigns_1']['name'] = 'users_atc_isscampaigns_1';
 $dictionary['users_atc_isscampaigns_1']['true_relationship_type'] = 'one-to-many';
 $dictionary['users_atc_isscampaigns_1']['from_studio'] = true;

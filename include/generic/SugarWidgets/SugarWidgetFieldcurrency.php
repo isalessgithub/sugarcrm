@@ -30,7 +30,16 @@ function get_currency()
 
 class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
 {
-    function SugarWidgetFieldCurrency(&$layout_manager) {
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function SugarWidgetFieldCurrency(&$layout_manager)
+    {
+        self::__construct($layout_manager);
+    }
+
+    public function __construct(&$layout_manager)
+    {
         parent::__construct($layout_manager);
         $this->reporter = $this->layout_manager->getAttribute('reporter');
     }
@@ -167,6 +176,8 @@ class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
 
  function getCurrencyIdTable($layout_def)
  {
+     $db = DBManagerFactory::getInstance();
+
     // We need to fetch the currency id as well
     if ( !$this->isSystemCurrency($layout_def) && empty($layout_def['group_function'])) {
 
@@ -180,14 +191,13 @@ class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
         if (!empty($this->reporter->all_fields[$layout_def['column_key']]['real_table']))
             $real_table = $this->reporter->all_fields[$layout_def['column_key']]['real_table'];
 
-        $add_currency_id = false;
         if(!empty($table)) {
-            $cols = $GLOBALS['db']->getHelper()->get_columns($real_table);
+            $cols = $db->get_columns($real_table);
             $add_currency_id = isset($cols['currency_id']) ? true : false;
 
             if(!$add_currency_id && preg_match('/.*?_cstm$/i', $real_table)) {
                 $table = str_replace('_cstm', '', $table);
-                $cols = $GLOBALS['db']->getHelper()->get_columns($table);
+                $cols = $db->get_columns($table);
                 $add_currency_id = isset($cols['currency_id']) ? true : false;
             }
             if($add_currency_id) {
@@ -239,4 +249,3 @@ class SugarWidgetFieldCurrency extends SugarWidgetFieldInt
         return array('currency_symbol' => $currency_symbol, 'currency_id' => $currency_id);
     }
 }
-?>

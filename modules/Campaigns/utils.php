@@ -18,6 +18,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
+use Sugarcrm\Sugarcrm\Util\Serialized;
+
 /*
  *returns a list of objects a message can be scoped by, the list contacts the current campaign
  *name and list of all prospects associated with this campaign..
@@ -74,9 +76,17 @@ function get_campaign_mailboxes(&$emails, $get_name=true) {
     	if($get_name) {
     		$return_array[$row['id']] = $row['name'];
     	} else {
-        	$return_array[$row['id']]= InboundEmail::get_stored_options('from_name',$row['name'],$row['stored_options']);
+            $return_array[$row['id']] = InboundEmail::decode_stored_option(
+                $row['stored_options'],
+                'from_name',
+                $row['name']
+            );
     	}
-        $emails[$row['id']]=InboundEmail::get_stored_options('from_addr','nobody@example.com',$row['stored_options']);
+        $emails[$row['id']] = InboundEmail::decode_stored_option(
+            $row['stored_options'],
+            'from_addr',
+            'nobody@example.com'
+        );
     }
 
     if (empty($return_array)) $return_array=array(''=>'');
@@ -92,13 +102,14 @@ function get_campaign_mailboxes_with_stored_options() {
     }
 
     $q = "SELECT id, name, stored_options FROM inbound_email WHERE mailbox_type='bounce' AND status='Active' AND deleted='0'";
-
     $db = DBManagerFactory::getInstance();
-
     $r = $db->query($q);
 
     while($a = $db->fetchByAssoc($r)) {
-        $ret[$a['id']] = unserialize(base64_decode($a['stored_options']));
+        $stored_options = Serialized::unserialize($a['stored_options'], null, true);
+        if (!empty($stored_options)) {
+            $ret[$a['id']] = $stored_options;
+        }
     }
 	return $ret;
 }
@@ -323,6 +334,7 @@ function get_subscription_lists_query($focus, $additional_fields = null) {
     $all_news_type_pl_query .= "and plc.prospect_list_id = pl.id ";
     $all_news_type_pl_query .= "and c.campaign_type = 'NewsLetter'  and pl.deleted = 0 and c.deleted=0 and plc.deleted=0 ";
     $all_news_type_pl_query .= "and (pl.list_type like 'exempt%' or pl.list_type ='default') ";
+    $all_news_type_pl_query .= "ORDER BY pl.list_type ASC ";
 
     $all_news_type_list =$focus->db->query($all_news_type_pl_query);
 

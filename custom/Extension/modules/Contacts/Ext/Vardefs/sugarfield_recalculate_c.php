@@ -1,6 +1,6 @@
 <?php
- // created: 2013-09-18 20:51:51
-$dictionary['Contact']['fields']['recalculate_c']['dependency']='';
-$dictionary['Contact']['fields']['recalculate_c']['visibility_grid']='';
+ // created: 2016-10-07 12:36:24
+$dictionary['Contact']['fields']['recalculate_c']['dependency'] = '';
+$dictionary['Contact']['fields']['recalculate_c']['visibility_grid'] = '';
+$dictionary['Contact']['fields']['recalculate_c']['full_text_search']['boost'] = 1;
 
- ?>

@@ -143,32 +143,6 @@ if(function_exists('deleteCache'))
 	@deleteCache();
 }
 
-// creating full text search logic hooks
-// this will be merged into application/Ext/LogicHooks/logichooks.ext.php
-// when rebuild_extensions is called
-logThis(' Writing FTS hooks');
-if (!function_exists('createFTSLogicHook')) {
-    $customFileLoc = create_custom_directory('Extension/application/Ext/LogicHooks/SugarFTSHooks.php');
-    $fp = sugar_fopen($customFileLoc, 'wb');
-    $contents = <<<CIA
-<?php
-if (!isset(\$hook_array) || !is_array(\$hook_array)) {
-    \$hook_array = array();
-}
-if (!isset(\$hook_array['after_save']) || !is_array(\$hook_array['after_save'])) {
-    \$hook_array['after_save'] = array();
-}
-\$managerClassPath = SugarAutoLoader::requireWithCustom('include/SugarSearchEngine/SugarSearchEngineQueueManager.php');
-\$managerClassName = SugarAutoLoader::customClass('SugarSearchEngineQueueManager');
-\$hook_array['after_save'][] = array(1, 'fts', \$managerClassPath, \$managerClassName, 'populateIndexQueue');
-CIA;
-
-    fwrite($fp,$contents);
-    fclose($fp);
-} else {
-    createFTSLogicHook('Extension/application/Ext/LogicHooks/SugarFTSHooks.php');
-}
-
 $db = DBManagerFactory::getInstance();
 
 //First repair the databse to ensure it is up to date with the new vardefs/tabledefs
@@ -278,7 +252,7 @@ if($ce_to_pro_ent) {
 		echo 'Global '.$mod_strings['LBL_UPGRADE_TEAM_EXISTS'].'<br>';
 		logThis(" Finish Building Global Team", $path);
 	}else{
-		$globalteam->create_team("Global", $mod_strings['LBL_GLOBAL_TEAM_DESC'], $globalteam->global_team);
+        Team::create_team("Global", $mod_strings['LBL_GLOBAL_TEAM_DESC'], $globalteam->global_team);
 	}
 
 	logThis(" Start Building private teams", $path);

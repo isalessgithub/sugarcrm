@@ -22,7 +22,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'len' => '50',
     'comment' => 'Brief description of the call',
     'unified_search' => true,
-    'full_text_search' => array('enabled' => true, 'boost' => 3),
+    'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 1.41),
 	'required'=>true,
     'importable' => 'required',
   ),
@@ -32,25 +32,28 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'name' => 'duration_hours',
     'vname' => 'LBL_DURATION_HOURS',
     'type' => 'int',
-    'len' => '2',
     'comment' => 'Call duration, hours portion',
     'required' => true,
     'massupdate' => false,
     'studio' => false,
+    'processes' => true,
+    'default' => 0,
   ),
   'duration_minutes' =>
   array (
     'name' => 'duration_minutes',
     'vname' => 'LBL_DURATION_MINUTES',
-    'type' => 'int',
-    'function' => array('name'=>'getDurationMinutesOptions', 'returns'=>'html', 'include'=>'modules/Calls/CallHelper.php'),
-    'len' => '2',
+    'type' => 'enum',
+    'dbType' => 'int',
+    'options' => 'duration_intervals',
     'group'=>'duration_hours',
     'importable' => 'required',
+    'len' => '2',
     'comment' => 'Call duration, minutes portion',
     'required' => true,
     'massupdate' => false,
     'studio' => false,
+    'processes' => true,
   ),
 
    'date_start' =>
@@ -66,7 +69,8 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'enable_range_search' => true,
     'options' => 'date_range_search_dom',
     'validation' => array('type' => 'isbefore', 'compareto' => 'date_end', 'blank' => false),
-    'studio' => array('recordview' => false),
+    'studio' => array('recordview' => false, 'wirelesseditview'=>false),
+    'full_text_search' => array('enabled' => true, 'searchable' => false),
   ),
 
   'date_end' =>
@@ -81,6 +85,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'options' => 'date_range_search_dom',
     'studio' => array('recordview' => false, 'wirelesseditview'=>false), // date_end is computed by the server from date_start and duration
     'readonly' => true,
+    'full_text_search' => array('enabled' => true, 'searchable' => false),
   ),
 
  'parent_type'=>
@@ -108,7 +113,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
 		'group'=>'parent_name',
 		'source'=>'non-db',
 		'options'=> 'parent_type_display',
-    'studio' => true,
+        'studio' => true,
   ),
   'status' =>
   array (
@@ -122,7 +127,8 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
 	'importable' => 'required',
     'default' => 'Planned',
     'duplicate_on_record_copy' => 'no',
-	'studio' => array('detailview'=>false)
+	'studio' => array('detailview'=>false),
+    'full_text_search' => array('enabled' => true, 'searchable' => false),
   ),
   'direction' =>
   array (
@@ -202,7 +208,8 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     'type' => 'varchar',
     'len' => '255',
     'reportable' => false,
-    'comment' => 'When the Sugar Plug-in for Microsoft Outlook syncs an Outlook appointment, this is the Outlook appointment item ID'
+      'comment' => 'When the Sugar Plug-in for Microsoft Outlook syncs an Outlook appointment, this is the Outlook appointment item ID',
+      'studio' => false,
   ),
   'accept_status' => array (
     'name' => 'accept_status',
@@ -317,6 +324,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
   array (
   	'name' => 'contacts',
     'type' => 'link',
+    'module' => 'Contacts',
     'relationship' => 'calls_contacts',
     'source'=>'non-db',
 		'vname'=>'LBL_CONTACTS',
@@ -337,7 +345,7 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
       'relationship' => 'quote_calls',
       'source'=>'non-db',
       'vname'=>'LBL_QUOTES',
-  ),    
+  ),
   'users' =>
   array (
   	'name' => 'users',
@@ -405,8 +413,10 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
 		'name' => 'contact_id',
         'type' => 'relate',
 		'rname' => 'id',
+        'vname' => 'LBL_CONTACT_ID',
         'link' => 'contacts',
 		'source' => 'non-db',
+        'studio' => false,
 	),
   'repeat_type' =>
   array(
@@ -542,6 +552,14 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
         'source' => 'non-db',
         'reportable' => false
     ),
+        'kbcontents_parent' => array(
+            'name' => 'kbcontents_parent',
+            'type' => 'link',
+            'relationship' => 'kbcontent_calls',
+            'source' => 'non-db',
+            'vname' => 'LBL_KBDOCUMENTS',
+            'reportable' => false,
+        ),
 ),
 'indices' => array (
 	array(
@@ -580,10 +598,6 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
     	'type' => 'index',
     	'fields' => array('parent_id','parent_type','deleted')
     ),
-    array(
-        'name' =>'idx_calls_assigned_del',
-        'type' =>'index',
-        'fields'=>array( 'deleted', 'assigned_user_id')),
     array('name' => 'idx_call_direction', 'type' => 'index', 'fields' => array('direction')),
 ),
 'relationships' => array (
@@ -638,4 +652,6 @@ $dictionary['Call'] = array('table' => 'calls', 'comment' => 'A Call is an activ
 VardefManager::createVardef('Calls','Call', array('default', 'assignable',
 'team_security',
 ));
-?>
+
+$dictionary['Call']['fields']['description']['full_text_search']['boost'] = 0.54;
+

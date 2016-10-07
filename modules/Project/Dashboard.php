@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -31,8 +32,6 @@ $sugar_smarty = new Sugar_Smarty();
 ///
 $sugar_smarty->assign('MOD', $mod_strings);
 $sugar_smarty->assign('APP', $app_strings);
-
-$sugar_smarty->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
 
 // MY PROJECTS DASHBOARD ////////////////////////////////////////
 $projectBean = BeanFactory::getBean('Project');

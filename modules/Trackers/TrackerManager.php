@@ -21,15 +21,24 @@ private $monitors = array();
 private $disabledMonitors = array();
 private static $paused = false;
 
-/**
- * Constructor for TrackerManager.  Declared private for singleton pattern.
- *
- */
-private function TrackerManager() {
-	require('modules/Trackers/config.php');
-	$this->metadata = $tracker_config;
-    self::$monitor_id = create_guid();
-}
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function TrackerManager()
+    {
+        self::__construct();
+    }
+
+    /**
+     * Constructor for TrackerManager.  Declared private for singleton pattern.
+     *
+     */
+    private function __construct()
+    {
+        require('modules/Trackers/config.php');
+        $this->metadata = $tracker_config;
+        self::$monitor_id = create_guid();
+    }
 
 /**
  * setup
@@ -97,8 +106,10 @@ static function getInstance($skip_setup = false){
  * @return Monitor instance corresponding to name or a BlankMonitor instance if one could not be found
  */
 public function getMonitor($name) {
-	//don't waste our time on disabled monitors
-	if($name!='tracker_sessions' && !empty($this->disabledMonitors[$name]))return false;
+    if (!empty($this->disabledMonitors[$name])) {
+        return false;
+    }
+
 	if(isset($this->monitors[$name])) {
 	   return $this->monitors[$name];
 	}
@@ -107,11 +118,12 @@ public function getMonitor($name) {
 
 
        try {
-	       $instance = $this->_getMonitor($this->metadata[$name]['name'], //name
-	       						   self::$monitor_id, //monitor_id
-	                               $this->metadata[$name]['metadata'],
-	                               $this->metadata[$name]['store'] //store
-	                               );
+            $instance = $this->_getMonitor(
+                $this->metadata[$name]['name'],
+                self::$monitor_id,
+                $this->metadata[$name]['metadata'],
+                $this->metadata[$name]['store']
+            );
 	       $this->monitors[$name] = $instance;
 	       return $this->monitors[$name];
        } catch (Exception $ex) {
@@ -130,9 +142,9 @@ public function getMonitor($name) {
     }
 }
 
-private function _getMonitor($name='', $monitorId='', $metadata='', $store='')
+private function _getMonitor($name = '', $monitorId = '', $metadata = '', $store = '')
 {
-	$class = strtolower($name.'_monitor');
+	$class = strtolower($name . '_monitor');
 	$monitor = null;
 	if(SugarAutoLoader::requireWithCustom('modules/Trackers/monitor/'.$class.'.php') && class_exists($class)) {
 	    $monitor = new $class($name, $monitorId, $metadata, $store);
@@ -149,13 +161,6 @@ private function _getMonitor($name='', $monitorId='', $metadata='', $store='')
  * This method handles saving the monitors and their metrics to the mapped Store implementations
  */
 public function save() {
-
-    // Session tracker always saves.
-    if ( isset($this->monitors['tracker_sessions']) ) {
-        $this->monitors['tracker_sessions']->save();
-        unset($this->monitors['tracker_sessions']);
-    }
-
     if(!$this->isPaused()){
 		foreach($this->monitors as $monitor) {
 			if(array_key_exists('Trackable', class_implements($monitor))) {
@@ -264,4 +269,3 @@ public function unsetMonitors() {
 }
 
 }
-?>

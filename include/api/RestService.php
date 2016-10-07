@@ -168,6 +168,10 @@ class RestService extends ServiceBase
             // Get it back in case hook changed it
             $route = $this->request->getRoute();
 
+            if (empty($route['keepSession'])) {
+                $this->releaseSession();
+            }
+
             // Get the request args early for use in current user api
             $argArray = $this->getRequestArgs($route);
             if ( !$isLoggedIn && !empty($route['allowDownloadCookie'])) {
@@ -203,22 +207,18 @@ class RestService extends ServiceBase
                     // resync so that the new metadata gets picked up if it is
                     // out of date
                     if (!$this->isMetadataCurrent()) {
-                        // Mismatch in hashes... Return error so the cleint will
+                        // Mismatch in hashes... Return error so the client will
                         // resync its metadata and try again.
                         throw new SugarApiExceptionInvalidHash();
                     }
                 }
             }
 
-
             if ($isLoggedIn) {
                 // This is needed to load in the app_strings and the app_list_strings and the such
                 $this->loadUserEnvironment();
             } else {
                 $this->loadGuestEnvironment();
-            }
-            if(empty($route['keepSession'])) {
-                $this->releaseSession();
             }
 
             $headers = array();
@@ -530,7 +530,7 @@ class RestService extends ServiceBase
             $tokenData = $oauthServer->verifyDownloadToken($token);
 
             $GLOBALS['current_user'] = BeanFactory::getBean('Users',$tokenData['user_id']);
-            $valid = $this->userAfterAuthenticate($tokenData['user_id'],$oauthServer);
+            $valid = $this->userAfterAuthenticate($tokenData['user_id'], $oauthServer, true);
         }
 
         return $valid;
@@ -541,7 +541,7 @@ class RestService extends ServiceBase
      *
      * @returns bool Was the login successful
      */
-    protected function userAfterAuthenticate($userId,$oauthServer)
+    protected function userAfterAuthenticate($userId, $oauthServer, $forDownload = false)
     {
         $valid = false;
 
@@ -556,7 +556,9 @@ class RestService extends ServiceBase
         }
 
         if ($valid) {
-            SugarApplication::trackLogin();
+            if (!$forDownload) {
+                SugarApplication::trackSession();
+            }
 
             // Setup visibility where needed
             $oauthServer->setupVisibility();
@@ -564,7 +566,6 @@ class RestService extends ServiceBase
             LogicHook::initialize()->call_custom_logic('', 'after_session_start');
 
             $this->user = $GLOBALS['current_user'];
-            $this->user->setupSession();
         }
 
         return $valid;
@@ -692,7 +693,9 @@ class RestService extends ServiceBase
     {
         $method = $this->request->getMethod();
         if ($method == 'GET' && empty($route['noEtag'])) {
-            $this->response->generateETagHeader();
+            //Only cache the response in the browser if the Api opts in
+            $cacheAge = empty($route['cacheEtag']) ? 0 : null;
+            $this->response->generateETagHeader(null, $cacheAge);
         }
 
         //leaving this logic split out in case more actions on rawreply need added in the future
@@ -712,15 +715,16 @@ class RestService extends ServiceBase
      * simply have to generate the ETag, pass it in, and the function handles the rest.
      *
      * @param  string $etag ETag to use for this content.
+     * @param int $cache_age age in seconds for Cache-control max-age header
      * @return bool   Did we have a match?
      */
-    public function generateETagHeader($etag)
+    public function generateETagHeader($etag, $cache_age = null)
     {
         if (empty($this->response)) {
            return false;
         }
 
-        return $this->response->generateETagHeader($etag);
+        return $this->response->generateETagHeader($etag, $cache_age);
     }
 
     /**
@@ -733,7 +737,7 @@ class RestService extends ServiceBase
         }
         $this->response->setType(RestResponse::FILE)->setFilename($filename);
         $this->response->setHeader("Pragma", "public");
-        $this->response->setHeader("Cache-Control", "maxage=1, post-check=0, pre-check=0");
+        $this->response->setHeader("Cache-Control", "max-age=1, post-check=0, pre-check=0");
         $this->response->setHeader("X-Content-Type-Options", "nosniff");
     }
 
@@ -805,12 +809,20 @@ class RestService extends ServiceBase
         } else {
             $postContents = $this->request->getPostContents();
             if ( !empty($postContents) ) {
-                // This looks like the post contents are JSON
-                // Note: If we want to support rest based XML, we will need to change this
-                $postVars = @json_decode($postContents,true,32);
-                if (json_last_error() !== 0) {
-                    // Bad JSON data, throw an exception instead of trying to process it
-                    throw new SugarApiExceptionInvalidParameter();
+                // BR-2916 Bulk API doesn't support requests containing body
+                // handling content body which has already been json decoded
+                if (is_array($postContents)) {
+                    $postVars = $postContents;
+                }
+                else {
+                    // This looks like the post contents are JSON
+                    // Note: If we want to support rest based XML, we will need to change this
+
+                    $postVars = @json_decode($postContents, true, 32);
+                    if (json_last_error() !== 0) {
+                        // Bad JSON data, throw an exception instead of trying to process it
+                        throw new SugarApiExceptionInvalidParameter();
+                    }
                 }
             }
         }

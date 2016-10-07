@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['CP_Client_Users']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -64,6 +65,11 @@ $viewdefs['CP_Client_Users']['base']['view']['record'] = array (
         5 => 
         array (
           'name' => 'description',
+          'span' => 12,
+        ),
+        6 => 
+        array (
+          'name' => 'tag',
           'span' => 12,
         ),
       ),

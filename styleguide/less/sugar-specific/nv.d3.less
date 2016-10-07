@@ -20,9 +20,10 @@ svg {
 }
 
 svg text {
-  font: normal @chartTextSize @sansFontFamily;
+  font: normal @chartTextSize 'Helvetica Neue', Arial, sans-serif;
   fill: @textColor;
   stroke: none;
+  cursor: default;
 }
 
 svg .title {
@@ -48,7 +49,7 @@ svg .title {
 
 .nv-chart-print {
   visibility: hidden;
-  position: absolute;
+  position: absolute !important;
   left: -10000px;
   width: 720px;
   height: 480px;
@@ -92,6 +93,7 @@ svg .title {
   min-width: 300px;
   min-height: 100px;
   overflow: hidden;
+  position: relative;
   /*
     Minimum height and width is a good idea to prevent negative SVG dimensions...
     For example width should be =< margin.left + margin.right + 1,
@@ -155,10 +157,13 @@ svg .title {
   line {
     fill: none;
   }
+  text {
+    cursor: pointer;
+  }
 }
 
 .nv-legend .disabled circle {
-  fill-opacity: 0;
+  fill: #fff;
 }
 
 .nv-legend-background {
@@ -175,6 +180,14 @@ svg .title {
     text-decoration: underline;
   }
 }
+
+.nv-lineLegend .nv-series {
+  cursor: default;
+  text {
+    cursor: default;
+  }
+}
+
 /**********
 *  Axes
 */
@@ -188,7 +201,8 @@ svg .title {
 }
 
 .nv-axis path.domain {
-  stroke-opacity: .75;
+  stroke-width: 2px;
+  stroke: #bbb;
 }
 
 .nv-axis line,
@@ -197,6 +211,7 @@ svg .title {
   stroke: @chartTickColor;
   stroke-width: @chartTickWidth;
   stroke-opacity: .3;
+  shape-rendering: crispEdges;
 }
 
 .nv-axis line.zero {
@@ -206,7 +221,9 @@ svg .title {
 .nv-axis .nv-axisMaxMin text {
   font-weight: bold;
 }
-
+// .nv-axis .nv-axisMaxMin line {
+//   stroke-opacity: .75;
+// }
 .nv-x.nv-axis text {
   font-size: @chartTextSize;
 }
@@ -303,6 +320,17 @@ svg .title {
   }
 }
 
+.nv-holeWrap text{
+  text-anchor: middle;
+}
+text.nv-pie-hole-value {
+  font-size: 32px;
+  font-weight: bold;
+}
+text.nv-pie-hole-label {
+  font-size: 11px;
+}
+
 /**********
 * Lines
 */
@@ -325,19 +353,20 @@ svg .title {
 }
 
 .nv-line .nv-scatter .nv-groups .nv-point {
-  fill-opacity: 0;
-  stroke-opacity: 0;
+  fill-opacity: 1;
+  stroke-opacity: 1;
+  stroke: #fff;
 }
 
 .nv-scatter.nv-single-point .nv-groups .nv-point {
-  fill-opacity: .5;
-  stroke-opacity: .5;
+  stroke-width: 2px;
 }
 
 .nv-scatter .nv-groups .nv-point.hover,
 .nv-groups .nv-point.hover {
-  stroke-width: 20px;
+  stroke-width: 16px;
   stroke-opacity: .5 !important;
+  stroke: inherit;
 }
 
 .nv-point-paths path {
@@ -522,24 +551,9 @@ svg .title {
   .nv-y.nv-axis .domain {
     display: none;
   }
-  .nv-y.nv-axis .tick line {
-    stroke-width: 2px;
-    stroke: #bbb;
-  }
   .nv-y.nv-axis text.nv-quotaValue,
   .nv-y.nv-axis text.nv-targetQuotaValue {
     font-weight: bold;
-  }
-  .nv-x.nv-axis .domain {
-    stroke-width: 2px;
-    stroke: #bbb;
-  }
-  svg text {
-    font-size: 12px;
-    fill: #aaa;
-  }
-  svg text.nv-legend-link {
-    fill: @linkColor;
   }
   .nv-multibar .nv-groups rect {
     stroke-opacity: 1;
@@ -556,17 +570,7 @@ svg .title {
   .nv-linesWrap2 .nv-scatter .nv-groups circle {
     stroke: @white;
   }
-  .nv-x.nv-axis text,
-  .nv-legend text {
-    fill: #888;
-    font-size: 12px;
-  }
-
 }
-.nv-lineLegend .nv-series {
-  cursor: default;
-}
-
 
 /**********
 * Treemap

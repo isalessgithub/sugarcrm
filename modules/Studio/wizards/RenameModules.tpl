@@ -55,6 +55,7 @@
             <tr>
                 <td colspan='2'>
                     <form method='post' action='index.php' name='dropdownsform'>
+{sugar_csrf_form_token}
                         <input type='hidden' name='action' value='wizard'>
                         <input type='hidden' name='wizard' value='RenameModules'>
                         <input type='hidden' name='option' value='EditDropdown'>
@@ -72,11 +73,12 @@
 <tr>
     <td>
 <form method='post' action='index.php' name='editdropdown'>
+{sugar_csrf_form_token}
 <input type='hidden' name='action' value='wizard'>
 <input type='hidden' name='wizard' value='RenameModules'>
 <input type='hidden' name='option' value='SaveDropDown'>
 <input type='hidden' name='module' value='Studio'>
-<input type='hidden' name='dropdown_lang' value='{$dropdown_lang}'>
+<input type='hidden' name='dropdown_lang' value='{$dropdown_lang|escape:'html':'UTF-8'}'>
 <input type='hidden' name='dropdown_name' value='moduleList'>
 
 <table name='tabDropdown' id='tabDropdown'>
@@ -153,20 +155,36 @@
         text.focus();
     }
 
+    function checkElementForErrors(el)
+    {
+        var formName = 'editdropdown';
+
+        if( YAHOO.lang.trim(el.value) == "")
+        {
+            var errorMessage = SUGAR.language.get('app_strings', 'ERR_MISSING_REQUIRED_FIELDS');
+            add_error_style(formName, el, errorMessage, true);
+            return true;
+        }
+        else
+        {
+            remove_error_style(formName, el);
+            return false;
+        }
+    }
+
     function checkForErrors(rowCount)
     {
         var foundErrors = false;
         var el1 = document.getElementById("slot" + rowCount + "_text");
         var el2 = document.getElementById("slot" + rowCount + "_stext");
 
-        if( YAHOO.lang.trim(el1.value) == "")
+        if( checkElementForErrors(el1) )
         {
-            add_error_style('editdropdown', el1, SUGAR.language.get('app_strings', 'ERR_MISSING_REQUIRED_FIELDS'),true);
             foundErrors = true;
         }
-        if( YAHOO.lang.trim(el2.value) == "")
+
+        if( checkElementForErrors(el2) )
         {
-            add_error_style('editdropdown', el2, SUGAR.language.get('app_strings', 'ERR_MISSING_REQUIRED_FIELDS'),true);
             foundErrors = true;
         }
 

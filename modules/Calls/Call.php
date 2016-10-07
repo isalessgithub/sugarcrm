@@ -74,6 +74,7 @@ class Call extends SugarBean {
 	var $new_schema = true;
 	var $importable = true;
 	var $recurring_source;
+	var $fill_additional_column_fields = true;
 
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = array('assigned_user_name', 'assigned_user_id', 'contact_id', 'user_id', 'contact_name');
@@ -90,10 +91,7 @@ class Call extends SugarBean {
 	public $send_invites = false;
 
     /**
-     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
-     *
-     * @see __construct
-     * @deprecated
+     * @deprecated Use __construct() instead
      */
     public function Call()
     {
@@ -151,15 +149,17 @@ class Call extends SugarBean {
 
         $check_notify = $this->send_invites;
         if ($this->send_invites == false) {
-            $old_assigned_user_id = CalendarEvents::$old_assigned_user_id;
+
+            $old_assigned_user_id = CalendarEvents::getOldAssignedUser($this->module_dir, $this->id);
+
             if ((empty($GLOBALS['installing']) || $GLOBALS['installing'] != true) &&
                 (!empty($this->assigned_user_id) &&
-                    $this->assigned_user_id != $GLOBALS['current_user']->id &&
-                    $this->assigned_user_id != $old_assigned_user_id)
+                    $this->assigned_user_id != $old_assigned_user_id &&
+                    ($this->fetched_row !== false || $this->assigned_user_id != $GLOBALS['current_user']->id))
             ) {
                 $this->special_notification = true;
                 $check_notify = true;
-                CalendarEvents::$old_assigned_user_id = $this->assigned_user_id;
+                CalendarEvents::setOldAssignedUserValue($this->assigned_user_id);
                 if (isset($_REQUEST['assigned_user_name'])) {
                     $this->new_assigned_user_name = $_REQUEST['assigned_user_name'];
                 }
@@ -174,11 +174,6 @@ class Call extends SugarBean {
 		if (empty($this->id) && !empty($_REQUEST['module']) && $_REQUEST['module'] == "Calendar" && !empty($_REQUEST['repeat_type']) && !empty($this->repeat_parent_id)) {
 			$check_notify = false;
 		}
-		/*nsingh 7/3/08  commenting out as bug #20814 is invalid
-		if($current_user->getPreference('reminder_time')!= -1 &&  isset($_POST['reminder_checked']) && isset($_POST['reminder_time']) && $_POST['reminder_checked']==0  && $_POST['reminder_time']==-1){
-			$this->reminder_checked = '1';
-			$this->reminder_time = $current_user->getPreference('reminder_time');
-		}*/
 
         $return_id = parent::save($check_notify);
 
@@ -290,7 +285,11 @@ class Call extends SugarBean {
 	function fill_in_additional_detail_fields()
 	{
 		global $locale;
-		parent::fill_in_additional_detail_fields();
+
+		if ($this->fill_additional_column_fields) {
+			parent::fill_in_additional_detail_fields();
+		}
+
 		if (!empty($this->contact_id)) {
 			$query  = "SELECT first_name, last_name FROM contacts ";
 			$query .= "WHERE id='$this->contact_id' AND deleted=0";
@@ -321,7 +320,9 @@ class Call extends SugarBean {
 		if (is_null($this->duration_minutes))
 			$this->duration_minutes = "1";
 
-		$this->fill_in_additional_parent_fields();
+		if ($this->fill_additional_column_fields) {
+			$this->fill_in_additional_parent_fields();
+		}
 
 		global $app_list_strings;
 		if (empty($this->reminder_time)) {
@@ -616,7 +617,8 @@ class Call extends SugarBean {
 		return $array_assign;
 	}
 
-	function save_relationship_changes($is_update) {
+    public function save_relationship_changes($is_update, $exclude = array())
+    {
 		$exclude = array();
 		if(empty($this->in_workflow))
         {
@@ -837,4 +839,12 @@ class Call extends SugarBean {
 
         parent::loadFromRow($arr, $convert);
     }
+
+	/**
+	 * @param boolean $fill_additional_column_fields
+	 */
+	public function setFillAdditionalColumnFields($fill_additional_column_fields)
+	{
+		$this->fill_additional_column_fields = $fill_additional_column_fields;
+	}
 }

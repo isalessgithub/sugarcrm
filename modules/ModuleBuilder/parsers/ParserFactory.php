@@ -78,7 +78,6 @@ class ParserFactory
                     $client = MB_WIRELESS;
                 }
                 require_once 'modules/ModuleBuilder/parsers/views/SidecarListLayoutMetaDataParser.php';
-
                 return new SidecarListLayoutMetaDataParser($view, $moduleName, $packageName, $client);
             case MB_BASICSEARCH :
             case MB_ADVANCEDSEARCH :
@@ -133,7 +132,11 @@ class ParserFactory
             case MB_POPUPSEARCH :
                 require_once 'modules/ModuleBuilder/parsers/views/PopupMetaDataParser.php';
 
-                return new PopupMetaDataParser($view, $moduleName, $packageName  );
+                $parser = new PopupMetaDataParser($view, $moduleName, $packageName);
+                // The popup parser needs the client and needs it to be set to
+                // something in order to validate fields
+                $parser->client = empty($client) ? 'base' : $client;
+                return $parser;
             case MB_LABEL :
                 require_once 'modules/ModuleBuilder/parsers/parser.label.php';
 

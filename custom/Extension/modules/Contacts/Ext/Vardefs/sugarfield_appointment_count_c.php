@@ -1,6 +1,6 @@
 <?php
- // created: 2016-05-02 14:41:13
-$dictionary['Contact']['fields']['appointment_count_c']['enforced']='';
-$dictionary['Contact']['fields']['appointment_count_c']['dependency']='';
+ // created: 2016-10-07 12:36:24
+$dictionary['Contact']['fields']['appointment_count_c']['enforced'] = '';
+$dictionary['Contact']['fields']['appointment_count_c']['dependency'] = '';
+$dictionary['Contact']['fields']['appointment_count_c']['full_text_search']['boost'] = 1;
 
- ?>

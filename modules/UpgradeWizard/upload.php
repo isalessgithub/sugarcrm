@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: upload.php 50752 2009-09-10 22:18:28Z dwong $
+
  * Description:
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
  * Reserved. Contributor(s): ______________________________________..
@@ -21,6 +21,7 @@ logThis('At upload.php');
 //set the upgrade progress status.
 set_upgrade_progress('upload','in_progress');
 
+require_once 'include/SugarSmarty/plugins/function.sugar_csrf_form_token.php';
 
 $stop = true; // flag to show "next"
 $run = isset($_REQUEST['run']) ? $_REQUEST['run'] : '';
@@ -217,12 +218,15 @@ else{
     $GLOBALS['top_message'] = "<b>{$frozen}</b>";
 }
 
+$csrfToken = smarty_function_sugar_csrf_form_token(array(), $smarty);
+
 ///////////////////////////////////////////////////////////////////////////////
 ////	UPLOAD FORM
 $form = '';
 if(empty($GLOBALS['sugar_config']['disable_uw_upload'])){
 $form =<<<eoq
 <form name="the_form" id='the_form' enctype="multipart/form-data" action="index.php" method="post">
+    {$csrfToken}
 	<input type="hidden" name="module" value="UpgradeWizard">
 	<input type="hidden" name="action" value="index">
 	<input type="hidden" name="step" value="{$_REQUEST['step']}">

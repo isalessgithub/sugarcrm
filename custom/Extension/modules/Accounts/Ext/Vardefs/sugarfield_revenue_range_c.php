@@ -1,6 +1,6 @@
 <?php
- // created: 2013-07-15 13:59:18
-$dictionary['Account']['fields']['revenue_range_c']['dependency']='';
-$dictionary['Account']['fields']['revenue_range_c']['visibility_grid']='';
+ // created: 2016-10-07 12:36:24
+$dictionary['Account']['fields']['revenue_range_c']['dependency'] = '';
+$dictionary['Account']['fields']['revenue_range_c']['visibility_grid'] = '';
+$dictionary['Account']['fields']['revenue_range_c']['full_text_search']['boost'] = 1;
 
- ?>

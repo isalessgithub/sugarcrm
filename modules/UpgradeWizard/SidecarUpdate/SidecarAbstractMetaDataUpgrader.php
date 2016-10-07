@@ -172,7 +172,7 @@ abstract class SidecarAbstractMetaDataUpgrader
         'wirelesssearch' => MB_WIRELESSBASICSEARCH,
         'baselist'        => MB_SIDECARLISTVIEW,
         'baserecordview'  => MB_RECORDVIEW,
-        'basefilter'      => MB_SEARCHVIEW,
+        'basefilter'      => MB_BASICSEARCH,
         'basepopuplist'   => MB_SIDECARPOPUPVIEW,
     );
 
@@ -446,7 +446,7 @@ abstract class SidecarAbstractMetaDataUpgrader
      * @param string $viewname Target view name
      * @return string
      */
-    public function getNewFileContents($viewname)
+    public function getNewFileContents($viewname = null)
     {
         $module = $this->getNormalizedModuleName();
         $viewname = MetaDataFiles::getName($viewname);

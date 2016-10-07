@@ -11,23 +11,36 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: User.php 50983 2009-09-21 20:45:37Z ajay $
+
  * Description: TODO:  To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
-//Shorten name.
-$data = $_REQUEST;
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
-if (!empty($data['listViewExternalClient'])) {
+$data = array(
+		'parent_type' => InputValidation::getService()->getValidInputRequest('parent_type', 'Assert\Mvc\ModuleName'),
+		'parent_id' => InputValidation::getService()->getValidInputRequest('parent_id', 'Assert\Guid'),
+		'ListView' => InputValidation::getService()->getValidInputRequest('ListView'),
+		'replyForward' => InputValidation::getService()->getValidInputRequest('replyForward'),
+		'to_email_addrs' => InputValidation::getService()->getValidInputRequest('to_email_addrs'),
+		'recordId' => InputValidation::getService()->getValidInputRequest('recordId', 'Assert\Guid'),
+		'record' => InputValidation::getService()->getValidInputRequest('record', 'Assert\Guid'),
+		'reply' => InputValidation::getService()->getValidInputRequest('reply'),
+		'forQuickCreate' => InputValidation::getService()->getValidInputRequest('forQuickCreate'),
+);
+
+if (!empty($_REQUEST['listViewExternalClient'])) {
     $email = BeanFactory::getBean('Emails');
-    echo $email->getNamePlusEmailAddressesForCompose($_REQUEST['action_module'], (explode(",", $_REQUEST['uid'])));
+	$module = InputValidation::getService()->getValidInputRequest('action_module', 'Assert\Mvc\ModuleName');
+	$uid = InputValidation::getService()->getValidInputRequest('uid', array('Assert\Delimited' => array('constraints' => 'Assert\Guid')));
+    echo $email->getNamePlusEmailAddressesForCompose($module, $uid);
 }
 //For the full compose/email screen, the compose package is generated and script execution
 //continues to the Emails/index.php page.
-else if(!isset($data['forQuickCreate'])) {
+else if(empty($data['forQuickCreate'])) {
 	$ret = generateComposeDataPackage($data);
 }
 
@@ -111,15 +124,6 @@ function generateComposeDataPackage($data,$forFullCompose = TRUE, $bean = null)
 				$namePlusEmail .= from_html($contact->full_name) . " <".from_html($contact->emailAddress->getPrimaryAddress($contact)).">";
 			}
 		}
-		if ($bean->module_dir == 'KBDocuments') {
-
-			require_once("modules/Emails/EmailUI.php");
-			$subject = $bean->kbdocument_name;
-			$article_body = str_replace('/cache/images/',$GLOBALS['sugar_config']['site_url'].'/cache/images/',KBDocument::get_kbdoc_body_without_incrementing_count($bean->id));
-			$body = from_html($article_body);
-			$attachments = KBDocument::get_kbdoc_attachments_for_newemail($bean->id);
-			$attachments = $attachments['attachments'];
-		} // if
 		if ($bean->module_dir == 'Quotes' && isset($data['recordId'])) {
 			$quotesData = getQuotesRelatedData($bean,$data);
 			global $current_language;

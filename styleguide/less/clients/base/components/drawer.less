@@ -8,7 +8,6 @@
     top: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden;
 
     /* backdrop cover */
     .drawer-backdrop {
@@ -61,6 +60,8 @@ body.noscroll {
 //UIUX-808: remove buttons from headerpane when in drawer
 //UIUX-888: remove fixed position of header bar in drawer
 .drawer.inactive {
+    overflow: hidden;
+
     .main-pane {
         position: relative;
         top: 5px;
@@ -83,19 +84,61 @@ body.noscroll {
     }
 }
 
-.touch .drawer.active {
-    &.transition .main-pane {
-        padding-top: 0 !important
+@media only screen and (orientation:landscape) {
+    .touch {
+        .drawer {
+            &.active {
+                .main-pane > div {
+                    display: inline;
+                    .flex-list-view-content {
+                        display: inline;
+                    }
+                    .list-view {
+                        height: 100%;
+                    }
+                }
+            }
+        }
     }
 }
 
-.touch .drawer.inactive {
-    .main-pane {
-        padding-top: 0 !important;
+.touch {
+    .drawer {
+        &.active {
+            &.transition .main-pane {
+                padding-top: 0 !important
+            }
+        }
+        &.inactive {
+            .main-pane {
+                padding-top: 0 !important;
+            }
+            .dashboard {
+                padding-top: 0 !important;
+            }
+        }
     }
-    .dashboard {
-        padding-top: 0 !important;
-    }
+}
+
+.selection-context {
+  padding: 5px 8px;
+  background: #f6f6f6;
+  .reset-block {
+    margin-right: 5px;
+  }
+  .selected-records {
+    width: 100%;
+  }
+  .label-selected-records {
+    padding-left: 1px;
+  }
+  .selected-records-container {
+    padding-right: 63px;
+  }
+  .max-pills-label, .more-pills-label {
+    padding-top: 2px;
+    padding-left: 5px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -107,7 +150,6 @@ body.noscroll {
     }
     .drawer.active {
         overflow: auto;
-        background-image: url('@{textureSecondary}');
         .main-pane {
             background: @white;
         }

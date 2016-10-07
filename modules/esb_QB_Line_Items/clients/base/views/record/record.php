@@ -1,4 +1,5 @@
 <?php
+// created: 2016-10-07 12:39:13
 $viewdefs['esb_QB_Line_Items']['base']['view']['record'] = array (
   'panels' => 
   array (
@@ -87,6 +88,11 @@ $viewdefs['esb_QB_Line_Items']['base']['view']['record'] = array (
         array (
           'name' => 'group_item',
           'label' => 'LBL_GROUP_ITEM',
+        ),
+        10 => 
+        array (
+          'name' => 'tag',
+          'span' => 12,
         ),
       ),
     ),

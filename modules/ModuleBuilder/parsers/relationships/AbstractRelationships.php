@@ -1,7 +1,4 @@
 <?php
-if (! defined ( 'sugarEntry' ) || ! sugarEntry)
-    die ( 'Not A Valid Entry Point' ) ;
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,6 +9,8 @@ if (! defined ( 'sugarEntry' ) || ! sugarEntry)
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+use Sugarcrm\Sugarcrm\Util\Files\FileLoader;
 
 // Used in findRelatableModules
 require_once 'modules/ModuleBuilder/Module/StudioBrowser.php';
@@ -71,7 +70,7 @@ class AbstractRelationships
      * @param boolean $includeActivitiesSubmodules True if the list should include Calls, Meetings etc; false if they should be replaced by the parent, Activities
      * @return array    Array of [$module][$subpanel]
      */
-    static function findRelatableModules ($includeActivitiesSubmodules = true)
+    public static function findRelatableModules($includeActivitiesSubmodules = true)
     {
         $relatableModules = array ( ) ;
 
@@ -147,11 +146,15 @@ class AbstractRelationships
         $definition = array ( ) ;
         require_once 'modules/ModuleBuilder/parsers/relationships/AbstractRelationship.php' ;
 
-        foreach ( AbstractRelationship::$definitionKeys as $key )
-        {
-            if (! empty ( $_REQUEST [ $key ] ))
-            {
-                $definition [ $key ] = ($key == 'relationship_type') ? AbstractRelationship::parseRelationshipType ( $_REQUEST [ $key ] ) : $_REQUEST [ $key ] ;
+        foreach (AbstractRelationship::$definitionKeys as $key) {
+            if (!empty($_REQUEST[$key])) {
+                if (in_array($key, array('label', 'rhs_label', 'lhs_label'))) {
+                    $definition[$key] = htmlspecialchars_decode($_REQUEST[$key], ENT_QUOTES);
+                } else if ($key == 'relationship_type') {
+                    $definition[$key] = AbstractRelationship::parseRelationshipType($_REQUEST[$key]);
+                } else {
+                    $definition[$key] = $_REQUEST[$key];
+                }
             }
         }
 
@@ -185,6 +188,44 @@ class AbstractRelationships
     }
 
     /*
+     * Remove a relationship from the set
+     * @param AbstractRelationship $relationshipName    The relationship to remove
+     */
+    protected function remove($relationshipName)
+    {
+        unset($this->relationships[$relationshipName]);
+    }
+
+    /*
+     * Rename module
+     * @param $oldModuleName old module name
+     * @param $newModuleName new module name
+    */
+    public function renameModule($oldModuleName, $newModuleName)
+    {
+        foreach ($this->getRelationshipList() as $relationshipName) {
+            $relationship = $this->get($relationshipName);
+            $definition = $relationship->getDefinition();
+
+            if ($definition['lhs_module'] == $oldModuleName) {
+                $definition['lhs_module'] = $newModuleName;
+            }
+
+            if ($definition['rhs_module'] == $oldModuleName) {
+                $definition['rhs_module'] = $newModuleName;
+            }
+
+            // in order to create consistent relationship name,
+            // blank it out from definition for factory to create a name.
+            unset($definition['relationship_name']);
+            $this->add(RelationshipFactory::newRelationship($definition));
+            // remove relationship with old name
+            $this->remove($relationshipName);
+        }
+
+    }
+
+    /*
      * Load a set of relationships from a file
      * The saved relationships are stored as AbstractRelationship objects, which isn't the same as the old MBRelationships definition
      * @param string $basepath  Base directory in which to store the relationships information
@@ -196,7 +237,7 @@ class AbstractRelationships
         $objects = array ( ) ;
         if (file_exists ( $basepath . '/relationships.php' ))
         {
-            include ($basepath . '/relationships.php') ;
+            include FileLoader::validateFilePath($basepath . '/relationships.php');
             foreach ( $relationships as $name => $definition )
             {
                 // update any pre-5.1 relationships to the new definitions
@@ -248,21 +289,16 @@ class AbstractRelationships
      * relationship (products-products) uses it (and there it makes no difference from our POV) and we don't use it when creating new ones
      * @return array Array of $relationshipName => $relationshipDefinition as an array
      */
-    protected function getDeployedRelationships ()
+    protected function getDeployedRelationships()
     {
 
-        $relationships = array();
-        $db = DBManagerFactory::getInstance () ;
-        $query = "SELECT * FROM relationships WHERE deleted = 0" ;
-        $result = $db->query ( $query ) ;
-        while ( $row = $db->fetchByAssoc ( $result ) )
-        {
-            // set this relationship to readonly
-            $row [ 'readonly' ] = true ;
-            $relationships [ $row [ 'relationship_name' ] ] = $row ;
-        }
+        $relationships = SugarRelationshipFactory::getInstance()->getRelationshipDefs();
+        array_walk($relationships, function (&$def) {
+            $def['readonly'] = true;
+            $def['relationship_name'] = $def['name'];
+        });
 
-        return $relationships ;
+        return $relationships;
     }
 
     /*
@@ -321,7 +357,7 @@ class AbstractRelationships
      * @param string $installDefPrefix  Pathname prefix for the installdefs, for example for ModuleBuilder use "<basepath>/SugarModules"
      * @param array $relationships      Relationships to implement
      */
-    protected function build ($basepath , $installDefPrefix , $relationships )
+    public function build($basepath, $installDefPrefix, $relationships)
     {
         global $sugar_config;
     	// keep the relationships data separate from any other build data by ading /relationships to the basepath
@@ -398,7 +434,7 @@ class AbstractRelationships
             $app_list_strings = array();
 
             if (file_exists($filename)) {
-                include($filename);
+                include FileLoader::validateFilePath($filename);
             }
 
             if ($module == 'application') {

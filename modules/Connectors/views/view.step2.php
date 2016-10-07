@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 /*
@@ -22,7 +23,7 @@ class ViewStep2 extends SugarView
 
     public function __construct()
     {
- 		parent::SugarView();
+        parent::__construct();
  		$this->_leadQual = new ConnectorRecord();
  	}
 

@@ -5,4 +5,136 @@ Licensed under the BSD License.
 http://yuilibrary.com/license/
 */
 
-YUI.add("axis-stacked-base",function(e,t){function n(){}n.NAME="stackedImpl",n.prototype={_type:"stacked",_updateMinAndMax:function(){var e=0,t=0,n=0,r=0,i=0,s=0,o,u,a=this.get("keys"),f=this.get("setMin"),l=this.get("setMax");for(o in a)a.hasOwnProperty(o)&&(i=Math.max(i,a[o].length));for(;s<i;++s){n=0,r=0;for(o in a)if(a.hasOwnProperty(o)){u=a[o][s];if(isNaN(u))continue;u>=0?n+=u:r+=u}n>0?e=Math.max(e,n):e=Math.max(e,r),r<0?t=Math.min(t,r):t=Math.min(t,n)}this._actualMaximum=e,this._actualMinimum=t,l&&(e=this._setMaximum),f&&(t=this._setMinimum),this._roundMinAndMax(t,e,f,l)}},e.StackedImpl=n,e.StackedAxisBase=e.Base.create("stackedAxisBase",e.NumericAxisBase,[e.StackedImpl])},"3.15.0",{requires:["axis-numeric-base"]});
+YUI.add('axis-stacked-base', function (Y, NAME) {
+
+/**
+ * Provides core functionality for the handling of stacked numeric axis data for a chart.
+ *
+ * @module charts
+ * @submodule axis-stacked-base
+ */
+
+/**
+ * StackedImpl contains logic for managing stacked numeric data. StackedImpl is used by the following classes:
+ * <ul>
+ *      <li>{{#crossLink "StackedAxisBase"}}{{/crossLink}}</li>
+ *      <li>{{#crossLink "StackedAxis"}}{{/crossLink}}</li>
+ *  </ul>
+ *
+ * @submodule axis-stacked-base
+ * @class StackedImpl
+ * @constructor
+ */
+function StackedImpl()
+{
+}
+
+StackedImpl.NAME = "stackedImpl";
+
+StackedImpl.prototype = {
+    /**
+     * Type of data used in `Data`.
+     *
+     * @property _type
+     * @readOnly
+     * @private
+     */
+    _type: "stacked",
+
+    /**
+     * Calculates the maximum and minimum values for the `Data`.
+     *
+     * @method _updateMinAndMax
+     * @private
+     */
+    _updateMinAndMax: function()
+    {
+        var max = 0,
+            min = 0,
+            pos = 0,
+            neg = 0,
+            len = 0,
+            i = 0,
+            key,
+            num,
+            keys = this.get("keys"),
+            setMin = this.get("setMin"),
+            setMax = this.get("setMax");
+
+        for(key in keys)
+        {
+            if(keys.hasOwnProperty(key))
+            {
+                len = Math.max(len, keys[key].length);
+            }
+        }
+        for(; i < len; ++i)
+        {
+            pos = 0;
+            neg = 0;
+            for(key in keys)
+            {
+                if(keys.hasOwnProperty(key))
+                {
+                    num = keys[key][i];
+                    if(isNaN(num))
+                    {
+                        continue;
+                    }
+                    if(num >= 0)
+                    {
+                        pos += num;
+                    }
+                    else
+                    {
+                        neg += num;
+                    }
+                }
+            }
+            if(pos > 0)
+            {
+                max = Math.max(max, pos);
+            }
+            else
+            {
+                max = Math.max(max, neg);
+            }
+            if(neg < 0)
+            {
+                min = Math.min(min, neg);
+            }
+            else
+            {
+                min = Math.min(min, pos);
+            }
+        }
+        this._actualMaximum = max;
+        this._actualMinimum = min;
+        if(setMax)
+        {
+            max = this._setMaximum;
+        }
+        if(setMin)
+        {
+            min = this._setMinimum;
+        }
+        this._roundMinAndMax(min, max, setMin, setMax);
+    }
+};
+
+Y.StackedImpl = StackedImpl;
+
+/**
+ * StackedAxisBase manages stacked numeric data for an axis.
+ *
+ * @class StackedAxisBase
+ * @constructor
+ * @extends AxisBase
+ * @uses StackedImpl
+ * @param {Object} config (optional) Configuration parameters.
+ * @submodule axis-stacked-base
+ */
+Y.StackedAxisBase = Y.Base.create("stackedAxisBase", Y.NumericAxisBase, [Y.StackedImpl]);
+
+
+}, '3.15.0', {"requires": ["axis-numeric-base"]});

@@ -11,16 +11,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: licensePrint.php 45763 2009-04-01 19:16:18Z majed $
+
  * Description:  printable license page.
  ********************************************************************************/
 
-clean_incoming_data();
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
-require_once("install/language/{$_GET['language']}.lang.php");
-require_once("install/install_utils.php");
+$language = InputValidation::getService()->getValidInputGet('language', 'Assert\Language');
+
+require_once "install/language/{$language}.lang.php";
+require_once "install/install_utils.php";
 
 $license_file = getLicenseContents("LICENSE");
+$license_file = formatLicense($license_file);
 $langHeader = get_language_header();
 $out =<<<EOQ
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -44,9 +47,7 @@ $out =<<<EOQ
     <tr>
       <td width="2%">&nbsp;</td>
       <td>
-        <pre>
-            {$license_file}
-        </pre>
+        <pre>{$license_file}</pre>
       </td>
       <td width="2%">&nbsp;</td>
     </tr>
@@ -61,4 +62,3 @@ $out =<<<EOQ
 </html>
 EOQ;
 echo $out;
-?>

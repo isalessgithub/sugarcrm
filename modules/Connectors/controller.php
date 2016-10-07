@@ -52,7 +52,7 @@ class ConnectorsController extends SugarController {
 		unset($_SESSION['searchDefs'][$merge_module][$record_id]);
 		$sMap = array();
 
-		$search_source = $_REQUEST['source_id'];
+		$search_source = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
 		$source_instance = ConnectorFactory::getInstance($search_source);
 		$source_map = $source_instance->getModuleMapping($merge_module);
 		$module_fields = array();
@@ -83,8 +83,8 @@ class ConnectorsController extends SugarController {
 	 */
 	function action_RetrieveSourceDetails() {
 		$this->view = 'ajax';
-		$source_id = $_REQUEST['source_id'];
-        $record_id = $_REQUEST['record_id'];
+		$source_id = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
+        $record_id = $this->request->getValidInputRequest('record_id', 'Assert\Guid');
 
         if(empty($source_id) || empty($record_id)) {
            //display error here
@@ -124,7 +124,8 @@ class ConnectorsController extends SugarController {
 		$retArray['caption'] = "<div style='float:left'>{$GLOBALS['app_strings']['LBL_ADDITIONAL_DETAILS']}</div>";
 	    $retArray['width'] = (empty($results['width']) ? '300' : $results['width']);
 	    $retArray['theme'] = $theme;
-	    echo 'result = ' . $json->encode($retArray);
+	    header("Content-Type: application/json");
+	    echo $json->encode($retArray);
 	}
 
 
@@ -136,14 +137,14 @@ class ConnectorsController extends SugarController {
 			$ss = new Sugar_Smarty();
 		    require_once('include/connectors/utils/ConnectorUtils.php');
             $searchdefs = ConnectorUtils::getSearchDefs();
-			$merge_module = $_REQUEST['merge_module'];
+			$merge_module = $this->request->getValidInputRequest('merge_module', 'Assert\Mvc\ModuleName', '');
 			$seed = BeanFactory::getBean($merge_module);
 			$_searchDefs = isset($searchdefs) ? $searchdefs : array();
 			$_trueFields = array();
-			$source = $_REQUEST['source_id'];
+			$source = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
 
 			$searchLabels = ConnectorUtils::getConnectorStrings($source);
-			$record = $_REQUEST['record'];
+			$record =  $this->request->getValidInputRequest('record', 'Assert\Guid');
 			$sourceObj = SourceFactory::getSource($source);
 			$field_defs = $sourceObj->getFieldDefs();
 
@@ -212,14 +213,13 @@ class ConnectorsController extends SugarController {
 		header("Location: index.php?action=$return_action&module=$return_module&record=$return_id");
 	}
 
-
     function action_CallConnectorFunc() {
         $this->view = 'ajax';
         $json = getJSONobj();
 
         if(!empty($_REQUEST['source_id']))
         {
-            $source_id = $_REQUEST['source_id'];
+            $source_id = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
             require_once('include/connectors/sources/SourceFactory.php');
             $source = SourceFactory::getSource($source_id);
 
@@ -239,7 +239,11 @@ class ConnectorsController extends SugarController {
 	function action_CallRest() {
 		$this->view = 'ajax';
 
-		if(false === ($result=@file_get_contents($_REQUEST['url']))) {
+        $remoteUrl = $this->request->getValidInputRequest('url', array('Assert\Url' => array(
+            'protocols' => array('http', 'https'),
+        )));
+
+		if(false === ($result=@file_get_contents($remoteUrl))) {
            echo '';
 		} else if(!empty($_REQUEST['xml'])){
 		   $values = array();
@@ -255,8 +259,8 @@ class ConnectorsController extends SugarController {
 
 	function action_CallSoap() {
 	    $this->view = 'ajax';
-	    $source_id = $_REQUEST['source_id'];
-	    $module = $_REQUEST['module_id'];
+	    $source_id = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
+	    $module = $this->request->getValidInputRequest('module_id', 'Assert\Mvc\ModuleName');
 	    $return_params = explode(',', $_REQUEST['fields']);
 	    require_once('include/connectors/ConnectorFactory.php');
 	    $component = ConnectorFactory::getInstance($source_id);
@@ -280,9 +284,9 @@ class ConnectorsController extends SugarController {
 
 	function action_DefaultSoapPopup() {
 		$this->view = 'ajax';
-	    $source_id = $_REQUEST['source_id'];
-	    $module = $_REQUEST['module_id'];
-	    $id = $_REQUEST['record_id'];
+	    $source_id = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName'); 
+	    $module = $this->request->getValidInputRequest('module_id', 'Assert\Mvc\ModuleName');
+	    $id = $this->request->getValidInputRequest('record_id', 'Assert\Guid'); 
 	    $mapping = $_REQUEST['mapping'];
 
 	    $mapping = explode(',', $mapping);
@@ -333,9 +337,9 @@ class ConnectorsController extends SugarController {
 				           $properties[$matches2[1]] = $val;
 				    	}
 					}
-					$source = SourceFactory::getSource($source_id);
 
-					if(!empty($properties)) {
+					if (!empty($properties)) {
+					    $source = SourceFactory::getSource($source_id);
 					    $source->setProperties($properties);
 					    $source->saveConfig();
 					}
@@ -551,13 +555,7 @@ class ConnectorsController extends SugarController {
 		    } //foreach
 
 		    // save eapm configs
-		    foreach($connectors as $connector_name => $data) {
-		        if(isset($sources[$connector_name]) && !empty($data["eapm"])) {
-		            // if we touched it AND it has EAPM data
-		            $connectors[$connector_name]["eapm"]["enabled"] = !empty($_REQUEST[$connector_name."_external"]);
-		        }
-		    }
-		    ConnectorUtils::saveConnectors($connectors);
+		    $this->handleEAPMSettings($connectors, $sources, $_REQUEST);
 
 		    ConnectorUtils::updateMetaDataFiles();
 
@@ -575,7 +573,44 @@ class ConnectorsController extends SugarController {
 		    // END SUGAR INT
 	}
 
+    public function handleEAPMSettings($connectors, $sources, $request)
+    {
+        foreach($connectors as $connector_name => $data) {
+            // if we touched it AND it has EAPM data
+            if(isset($sources[$connector_name]) && !empty($data["eapm"])) {
+                // Grab the old value if it is set
+                $oldValue = isset($connectors[$connector_name]["eapm"]["enabled"]) ?
+                            $connectors[$connector_name]["eapm"]["enabled"] :
+                            null;
 
+                // Set from the request
+                $connectors[$connector_name]["eapm"]["enabled"] = !empty($request[$connector_name."_external"]);
+
+                // If there is a difference, save the config. This will
+                // trigger a connectors save as well and update all relevent
+                // metadata.
+                if ($connectors[$connector_name]["eapm"]["enabled"] !== $oldValue) {
+                    // Get the source object
+                    $s = SourceFactory::getSource($sources[$connector_name]);
+
+                    // Get the existing config
+                    $sConfig = $s->getConfig();
+                    if (!isset($sConfig['eapm'])) {
+                        $sConfig['eapm'] = array();
+                    }
+
+                    // Merge what we have
+                    $sConfig['eapm'] = array_merge($sConfig['eapm'], $connectors[$connector_name]['eapm']);
+
+                    // Set and save... this will trigger a connector save call
+                    $s->setConfig($sConfig);
+                    $s->saveConfig();
+                }
+            }
+        }
+
+        return $connectors;
+    }
 
 	function action_SaveModifySearch() {
 		$search_sources = !empty($_REQUEST['search_sources']) ? explode(',', $_REQUEST['search_sources']) : array();
@@ -638,7 +673,6 @@ class ConnectorsController extends SugarController {
 	}
 
 
-
 	/**
 	 * action_SaveModifyMapping
 	 */
@@ -669,7 +703,6 @@ class ConnectorsController extends SugarController {
 
 		if ( isset($_SESSION['searchDefs']) )
 		    unset($_SESSION['searchDefs']);
-
 
 
 		require_once('include/connectors/utils/ConnectorUtils.php');
@@ -721,35 +754,37 @@ class ConnectorsController extends SugarController {
 
 
 	function action_RunTest() {
+        global $mod_strings;
 	    $this->view = 'ajax';
-	    $source_id = $_REQUEST['source_id'];
-	    $source = SourceFactory::getSource($source_id);
-	    $properties = array();
-	    foreach($_REQUEST as $name=>$value) {
-	    	    if(preg_match("/^{$source_id}_(.*?)$/", $name, $matches)) {
-	    	       $properties[$matches[1]] = $value;
-	    	    }
-	    }
-	    $source->setProperties($properties);
-	    $source->saveConfig();
+	    $source_id = $this->request->getValidInputRequest('source_id', 'Assert\ComponentName');
 
-	    //Call again and call init
-	    $source = SourceFactory::getSource($source_id);
-	    $source->init();
+        // Get the source object and init it all at once
+        $source = SourceFactory::getSource($source_id, true);
 
-	    global $mod_strings;
+        // Build a properties array
+        $properties = array();
+        foreach($_REQUEST as $name=>$value) {
+            if (preg_match("/^{$source_id}_(.*?)$/", $name, $matches)) {
+               $properties[$matches[1]] = $value;
+            }
+        }
 
-	    try {
-		    if($source->isRequiredConfigFieldsForButtonSet() && $source->test()) {
-		      echo $mod_strings['LBL_TEST_SOURCE_SUCCESS'];
-		    } else {
-		      echo $mod_strings['LBL_TEST_SOURCE_FAILED'];
-		    }
-	    } catch (Exception $ex) {
-	    	$GLOBALS['log']->fatal($ex->getMessage());
-	    	echo $ex->getMessage();
-	    }
-	}
+        // If there are properties, set them into the source for testing
+        if ($properties) {
+            $source->setProperties($properties);
+        }
+
+        try {
+            if ($source->isRequiredConfigFieldsForButtonSet() && $source->test()) {
+                echo $mod_strings['LBL_TEST_SOURCE_SUCCESS'];
+            } else {
+              echo $mod_strings['LBL_TEST_SOURCE_FAILED'];
+            }
+        } catch (Exception $ex) {
+            $GLOBALS['log']->fatal($ex->getMessage());
+            echo $ex->getMessage();
+        }
+    }
 
 
 	/**

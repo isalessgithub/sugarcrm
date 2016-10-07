@@ -12,7 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: view.detail.php 
  * Description: This file is used to override the default Meta-data EditView behavior
  * to provide customization specific to the Calls module.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -20,14 +20,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
+use Sugarcrm\Sugarcrm\Security\InputValidation\Request;
+
 require_once('include/MVC/View/views/view.list.php');
 
 class ProjectViewList extends ViewList{
- 	function ProjectViewList()
- 	{
- 		parent::ViewList();
- 	}
- 	
+
+    /**
+     * @deprecated Use __construct() instead
+     */
+    public function ProjectViewList($bean = null, $view_object_map = array(), Request $request = null)
+    {
+        self::__construct($bean, $view_object_map, $request);
+    }
+
+    public function __construct($bean = null, $view_object_map = array(), Request $request = null)
+    {
+        parent::__construct($bean, $view_object_map, $request);
+    }
+
  	/*
  	 * Override listViewProcess with addition to where clause to exclude project templates
  	 */
@@ -35,6 +46,7 @@ class ProjectViewList extends ViewList{
     {
         $this->processSearchForm();
                 
+
         // RETRIEVE PROJECTS NOT SET AS PROJECT TEMPLATES
         if ($this->where != "")
         {
@@ -59,5 +71,3 @@ class ProjectViewList extends ViewList{
     }
 
 }
-
-?>

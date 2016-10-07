@@ -9,8 +9,12 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-require_once('modules/ModuleBuilder/MB/AjaxCompose.php');
-require_once('modules/DynamicFields/FieldViewer.php');
+
+use \Sugarcrm\Sugarcrm\SearchEngine\SearchEngine;
+use \Sugarcrm\Sugarcrm\SearchEngine\Capability\GlobalSearch\GlobalSearchCapable;
+
+require_once 'modules/ModuleBuilder/MB/AjaxCompose.php';
+require_once 'modules/DynamicFields/FieldViewer.php';
 
 class ViewModulefield extends SugarView
 {
@@ -38,15 +42,16 @@ class ViewModulefield extends SugarView
         )
     {
         $fv = new FieldViewer();
-        if (empty($_REQUEST['field']) && !empty($_REQUEST['name'])) {
-            $_REQUEST['field'] = $_REQUEST['name'];
-        }
 
         $field_name = '';
         if (!empty($this->view_object_map['field_name'])) {
             $field_name = $this->view_object_map['field_name'];
         } elseif (!empty($_REQUEST['field'])) {
-            $field_name = $_REQUEST['field'];
+            $field_name = trim($this->request->getValidInputRequest(
+                'field',
+                null,
+                $this->request->getValidInputRequest('name', 'Assert\ComponentName')
+            ));
         }
         
         // If this is a new field mark it as such
@@ -66,6 +71,12 @@ class ViewModulefield extends SugarView
 				'relate' => 'Relate', 'address' => 'Address', 'text' => 'TextArea', 'url' => 'Link');
 		*/
 		$field_types = $GLOBALS['mod_strings']['fieldTypes'];
+
+        //For input validation we want to ensure we validate against all possible field types.  The parent field type
+        //is added to the field_type array dynamically throughout this flow and therefore is not in the filed_types array
+        //durng certain validation attempts.
+        $allValidFieldTypes = array_merge($field_types, array('parent' => $GLOBALS['mod_strings']['parent']));
+
         //bug 22264: Field name must not be an SQL keyword.
 		$field_name_exceptions = array_merge(array_keys($GLOBALS['db']->getReservedWords()),
 		  array('ID', 'ID_C', 'PARENT_NAME', 'PARENT_ID'));
@@ -83,7 +94,7 @@ class ViewModulefield extends SugarView
         }
 
         if(empty($_REQUEST['view_package']) || $_REQUEST['view_package'] == 'studio') {
-            $moduleName = $_REQUEST['view_module'];
+            $moduleName = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
             $objectName = BeanFactory::getObjectName($moduleName);
             $module = BeanFactory::getBean($moduleName);
 
@@ -109,7 +120,7 @@ class ViewModulefield extends SugarView
             // continue like normal
             if (empty($vardef['name']) || $isNew) {
                 if (!empty($_REQUEST['type'])) {
-                    $vardef['type'] = $_REQUEST['type'];
+                    $vardef['type'] = $this->request->getValidInputRequest('type', array('Assert\Choice' => array('choices' => array_keys($allValidFieldTypes))), '');
                 }
                 $fv->ss->assign('hideLevel', 0);
             } elseif (isset($vardef['custom_module'])) {
@@ -164,9 +175,10 @@ class ViewModulefield extends SugarView
         {
             require_once('modules/ModuleBuilder/MB/ModuleBuilder.php');
             $mb = new ModuleBuilder();
-            $moduleName = $_REQUEST['view_module'];
-            $module =& $mb->getPackageModule($_REQUEST['view_package'], $moduleName);
-            $package =& $mb->packages[$_REQUEST['view_package']];
+            $moduleName = $this->request->getValidInputRequest('view_module', 'Assert\ComponentName');
+            $packageName = $this->request->getValidInputRequest('view_package', 'Assert\ComponentName');
+            $module =& $mb->getPackageModule($packageName, $moduleName);
+            $package =& $mb->packages[$packageName];
             $module->getVardefs();
             if(!$ac){
                 $ac = new AjaxCompose();
@@ -178,9 +190,11 @@ class ViewModulefield extends SugarView
             }
 
             if(empty($vardef['name'])){
-                if(!empty($_REQUEST['type']))$vardef['type'] = $_REQUEST['type'];
-                    $fv->ss->assign('hideLevel', 0);
-            }else{
+                if(!empty($_REQUEST['type'])) {
+                    $vardef['type'] = $this->request->getValidInputRequest('type', array('Assert\Choice' => array('choices' => array_keys($allValidFieldTypes))), '');
+                }
+                $fv->ss->assign('hideLevel', 0);
+            } else {
                 if(!empty($module->mbvardefs->vardef['fields'][$vardef['name']])){
                     $fv->ss->assign('hideLevel', 1);
                 }elseif(isset($vardef['custom_module'])){
@@ -230,8 +244,9 @@ class ViewModulefield extends SugarView
             $field = get_widget($_POST['type']);
             $field->populateFromPost();
             $vardef = $field->get_field_def();
-            $vardef['options'] = $_REQUEST['new_dropdown'];
-            $fv->ss->assign('lbl_value', htmlentities($_REQUEST['labelValue'], ENT_QUOTES, 'UTF-8'));
+            $vardef['options'] = $this->request->getValidInputRequest('new_dropdown');
+            $labelValue = $this->request->getValidInputRequest('labelValue');
+            $fv->ss->assign('lbl_value', htmlentities($labelValue, ENT_QUOTES, 'UTF-8'));
         }
 
         foreach(array("formula", "default", "comments", "help", "visiblityGrid") as $toEscape)
@@ -251,6 +266,11 @@ class ViewModulefield extends SugarView
             $fv->ss->assign('no_duplicate', true);
         }
 
+        // Do not allow cloning of non-supported field types
+        if (isset($vardef['type']) && !array_key_exists($vardef['type'], $field_types)) {
+            $fv->ss->assign('no_duplicate', true);
+        }
+
         $fv->ss->assign('action',$action);
         $fv->ss->assign('isClone', ($isClone ? 1 : 0));
         $fv->ss->assign('isNew', $isNew);
@@ -261,20 +281,34 @@ class ViewModulefield extends SugarView
         ksort($field_types);
         $fv->ss->assign('field_types',$field_types);
 
-        $ftsEngineType = getFTSEngineType();
-        $usa = new UnifiedSearchAdvanced();
-        if(SugarSearchEngineFactory::getInstance()->isTypeFtsEnabled($vardef['type']) &&
-            //Show FTS for all modules under module builder and only check OOB modules for shoudlShowModule
-            ((!empty($_REQUEST['view_package']) && $_REQUEST['view_package'] != 'studio')
-                || $usa->shouldShowModule($moduleName)
-            )
-        ) {
-            $ftsBoostOptions = getFTSBoostOptions($ftsEngineType.'_boost_options');
-            $fv->ss->assign('fts_options', $ftsBoostOptions);
+        // Full Text Search settings
+        $engine = SearchEngine::getInstance()->getEngine();
+        if ($engine instanceof GlobalSearchCapable && in_array($vardef['type'], $engine->getStudioSupportedTypes())) {
+
+            // default fts parameters
+            $ftsFieldConfig = '0';
+            $ftsBoost = '1';
+
+            // determine fts configuration
+            if (!empty($vardef['full_text_search']) &&
+                !empty($vardef['full_text_search']['searchable']) &&
+                $vardef['full_text_search']['searchable'] == true) {
+                    $ftsFieldConfig = '2';
+            }
+
+            // determine boost value
+            if (!empty($vardef['full_text_search']['boost'])) {
+                $ftsBoost = (float) $vardef['full_text_search']['boost'];
+            }
+
+            $fv->ss->assign('fts_field_config', $GLOBALS['app_list_strings']['fts_field_config']);
+            $fv->ss->assign('fts_field_config_selected', $ftsFieldConfig);
+            $fv->ss->assign('fts_field_boost_value', $ftsBoost);
             $fv->ss->assign('show_fts', true);
         } else {
             $fv->ss->assign('show_fts', false);
         }
+
         //Ensure certain field types always have correct formula return types for validation.
         if (!empty($vardef['type'])) {
             switch ($vardef['type']) {
