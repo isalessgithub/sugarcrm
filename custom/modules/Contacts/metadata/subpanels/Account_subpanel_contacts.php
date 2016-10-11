@@ -1,19 +1,14 @@
 <?php
-// created: 2013-08-03 17:15:03
+// created: 2016-10-11 09:47:48
 $subpanel_layout['list_fields'] = array (
-  'name' => 
+  'full_name' => 
   array (
-    'name' => 'name',
-    'vname' => 'LBL_LIST_NAME',
-    'widget_class' => 'SubPanelDetailViewLink',
-    'module' => 'Contacts',
-    'width' => '43%',
-    'default' => true,
-  ),
-  'title' => 
-  array (
-    'type' => 'varchar',
-    'vname' => 'LBL_TITLE',
+    'type' => 'fullname',
+    'studio' => 
+    array (
+      'listview' => false,
+    ),
+    'vname' => 'LBL_NAME',
     'width' => '10%',
     'default' => true,
   ),
@@ -21,7 +16,7 @@ $subpanel_layout['list_fields'] = array (
   array (
     'name' => 'primary_address_city',
     'vname' => 'LBL_LIST_CITY',
-    'width' => '20%',
+    'width' => '10%',
     'default' => true,
   ),
   'primary_address_state' => 
@@ -31,12 +26,12 @@ $subpanel_layout['list_fields'] = array (
     'width' => '10%',
     'default' => true,
   ),
-  'email1' => 
+  'email' => 
   array (
-    'name' => 'email1',
+    'name' => 'email',
     'vname' => 'LBL_LIST_EMAIL',
     'widget_class' => 'SubPanelEmailLink',
-    'width' => '30%',
+    'width' => '10%',
     'sortable' => false,
     'default' => true,
   ),
@@ -44,23 +39,17 @@ $subpanel_layout['list_fields'] = array (
   array (
     'name' => 'phone_work',
     'vname' => 'LBL_LIST_PHONE',
-    'width' => '15%',
+    'width' => '10%',
     'default' => true,
   ),
-  'edit_button' => 
+  'et_telesales' => 
   array (
-    'vname' => 'LBL_EDIT_BUTTON',
-    'widget_class' => 'SubPanelEditButton',
-    'module' => 'Contacts',
-    'width' => '5%',
-    'default' => true,
-  ),
-  'remove_button' => 
-  array (
-    'vname' => 'LBL_REMOVE',
-    'widget_class' => 'SubPanelRemoveButton',
-    'module' => 'Contacts',
-    'width' => '5%',
+    'type' => 'eontek-web-service',
+    'sortable' => false,
+    'studio' => 'visible',
+    'readonly' => true,
+    'vname' => 'LBL_ET_TELESALES_DISPOSITION',
+    'width' => '10%',
     'default' => true,
   ),
   'first_name' => 

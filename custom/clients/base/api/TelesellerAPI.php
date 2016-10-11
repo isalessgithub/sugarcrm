@@ -482,29 +482,41 @@ class TelesellerAPI extends SugarApi
         $additional_call = clone $action_module_bean;
         $additional_call->status = 'Planned';
 
+        $link_name = strtolower($action_module_bean->module_dir);
+
         if (array_key_exists('save_only_follow_up_call_checkbox', $args['fields'])
             && !$args['fields']['save_only_follow_up_call_checkbox']
         ) {
 
+            $action_module_bean->save();
+
             // cover custom relationship (for now viabl does not support this type but we will set code for the future)
             $rel = new Relationship();
             $rel_info = $rel->retrieve_by_sides($args['parent_module'], $args['action_module'], $db);
-            $rel_name = $rel_info['relationship_name'];
 
-            if ($parent_module_bean->load_relationship($rel_name)) {
-                $parent_module_bean->{$rel_name}->add($action_module_bean->id);
+            // make sure that key exists
+            if (array_key_exists('relationship_name', $rel_info)) {
+
+                $rel_name = $rel_info['relationship_name'];
+
+                if ($parent_module_bean->load_relationship($rel_name)) {
+                    $parent_module_bean->{$rel_name}->add($action_module_bean->id);
+                }
             }
-
-            $link_name = strtolower($action_module_bean->module_dir);
 
             if ($parent_module_bean->load_relationship($link_name)) {
                 $parent_module_bean->{$link_name}->add($action_module_bean->id);
             }
 
-            $action_module_bean->save();
         }
 
         $additional_call->save();
+
+        if (in_array($args['parent_module'], array('Contacts', 'Leads'))) {
+            if ($parent_module_bean->load_relationship($link_name)) {
+                $parent_module_bean->{$link_name}->add($additional_call->id);
+            }
+        }
 
         return array('error' => false, 'message' => "{$action_module_bean->object_name} created.");
     }
