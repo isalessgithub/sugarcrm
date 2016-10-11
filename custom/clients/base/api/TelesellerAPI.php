@@ -482,6 +482,11 @@ class TelesellerAPI extends SugarApi
         $additional_call = clone $action_module_bean;
         $additional_call->status = 'Planned';
 
+        $scheduled_call_datetime_timestamp = strtotime($args['fields']['date_entered']);
+
+        $formated_start_date = date("m/d/Y h:ia", $scheduled_call_datetime_timestamp);
+        $additional_call->date_start = $formated_start_date;
+
         $link_name = strtolower($action_module_bean->module_dir);
 
         if (array_key_exists('save_only_follow_up_call_checkbox', $args['fields'])
