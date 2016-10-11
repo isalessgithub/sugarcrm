@@ -1,0 +1,19 @@
+<div class="ellipsis_inline" data-placement="bottom" title="{{webservice}}">
+    {{#each button}}
+        <a href="#"
+           class="{{this.class}} telesellerManage listViewTdToolsS1"
+           data-email-tempate-id="{{this.data_email_template_id}}"
+           data-type="{{this.data_send_type}}"
+           title="{{this.name}}"
+           data-module="{{this.module}}"
+           data-popup="{{this.popup_enabled}}"
+           data-enable="{{this.enabled}}"
+           data-popup-configuration="{{this.popup_fields}}"
+           data-module-fields="{{this.module_fields}}"
+           style="vertical-align:top; text-decoration:none;">
+
+            <i class="{{this.data_icon}}"></i>
+
+        </a>
+    {{/each}}
+</div>
