@@ -5,7 +5,6 @@
 $hook_array = Array(); 
 // position, file, function 
 $hook_array['before_save'] = Array(); 
-$hook_array['before_save'][] = Array(90, 'saveRelationshipsForDocuments', 'custom/Synolia/SynoGenerateDoc/SynoGenerateDocUtils.php','SynoGenerateDocUtils', 'saveRelationshipsForDocuments'); 
 
 
 
