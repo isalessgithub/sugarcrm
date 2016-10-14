@@ -89,6 +89,7 @@ $callModeView =<<<EOQ
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
+	<script type="text/javascript" src="include/SugarFields/Fields/Datetimecombo/Datetimecombo.js"></script>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
                 <link rel="stylesheet" type="text/css" href="custom/modules/ProspectLists/css/data_table.css" />
 		<script type="text/javascript" charset="utf-8">
