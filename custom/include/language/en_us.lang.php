@@ -221,3 +221,6 @@ $app_list_strings['payment_terms']=array (
   'Net 30' => 'Net 30',
   'Net_60' => 'Net 60',
 );
+$app_list_strings['moduleList']['CP_Client_Users']='Portal Users';
+$app_list_strings['moduleListSingular']['ATC_Appointments']='Appointments';
+$app_list_strings['moduleListSingular']['CP_Client_Users']='Portal Users';

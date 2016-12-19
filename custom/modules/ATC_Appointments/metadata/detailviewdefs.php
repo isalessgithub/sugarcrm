@@ -1,6 +1,6 @@
 <?php
 $module_name = 'ATC_Appointments';
-$viewdefs [$module_name] = 
+$viewdefs[$module_name] = 
 array (
   'DetailView' => 
   array (
@@ -149,12 +149,33 @@ array (
         ),
         9 => 
         array (
-          0 => 
+          0 => 'assigned_user_name',
+          1 => 
           array (
-            'name' => 'created_by_name',
-            'label' => 'LBL_CREATED',
+            'name' => 'date_entered',
+            'comment' => 'Date record created',
+            'studio' => 
+            array (
+              'portaleditview' => false,
+            ),
+            'readonly' => true,
+            'label' => 'LBL_DATE_ENTERED',
           ),
-          1 => 'assigned_user_name',
+        ),
+        10 => 
+        array (
+          0 => 'team_name',
+          1 => 
+          array (
+            'name' => 'date_modified',
+            'comment' => 'Date record last modified',
+            'studio' => 
+            array (
+              'portaleditview' => false,
+            ),
+            'readonly' => true,
+            'label' => 'LBL_DATE_MODIFIED',
+          ),
         ),
       ),
       'lbl_editview_panel1' => 
@@ -206,4 +227,3 @@ array (
     ),
   ),
 );
-?>

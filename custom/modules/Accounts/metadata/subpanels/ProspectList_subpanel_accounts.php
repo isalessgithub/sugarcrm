@@ -1,45 +1,66 @@
 <?php
-// created: 2016-10-11 17:00:09
+// created: 2016-12-07 00:45:38
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
     'vname' => 'LBL_LIST_NAME',
     'widget_class' => 'SubPanelDetailViewLink',
-    'width' => '25%',
+    'width' => '20%',
     'default' => true,
   ),
   'phone_office' => 
   array (
     'vname' => 'LBL_LIST_PHONE',
-    'width' => '20%',
+    'width' => '10%',
     'default' => true,
   ),
-  'email' => 
+  'website' => 
   array (
-    'vname' => 'LBL_LIST_EMAIL',
-    'widget_class' => 'SubPanelEmailLink',
-    'width' => '20%',
-    'sortable' => false,
+    'type' => 'url',
+    'vname' => 'LBL_WEBSITE',
+    'width' => '10%',
     'default' => true,
   ),
-  'assigned_user_name' => 
+  'billing_address_city' => 
   array (
-    'vname' => 'LBL_ASSIGNED_TO',
-    'width' => '20%',
+    'type' => 'varchar',
+    'vname' => 'LBL_BILLING_ADDRESS_CITY',
+    'width' => '10%',
     'default' => true,
   ),
-  'log_call_c' => 
+  'billing_address_state' => 
   array (
-    'name' => 'log_call_c',
-    'vname' => 'LBL_LOG_CALL',
-    'width' => '15%',
+    'type' => 'varchar',
+    'vname' => 'LBL_BILLING_ADDRESS_STATE',
+    'width' => '10%',
     'default' => true,
+  ),
+  'industry' => 
+  array (
+    'type' => 'enum',
+    'default' => true,
+    'vname' => 'LBL_INDUSTRY',
+    'width' => '10%',
+  ),
+  'revenue_range_c' => 
+  array (
+    'type' => 'enum',
+    'default' => true,
+    'vname' => 'LBL_REVENUE_RANGE',
+    'width' => '10%',
+  ),
+  'employees_range_c' => 
+  array (
+    'type' => 'enum',
+    'default' => true,
+    'vname' => 'LBL_EMPLOYEES_RANGE',
+    'width' => '10%',
   ),
   'edit_button' => 
   array (
     'vname' => 'LBL_EDIT_BUTTON',
     'widget_class' => 'SubPanelEditButton',
-    'width' => '4%',
+    'width' => '7%',
     'default' => true,
   ),
   'remove_button' => 

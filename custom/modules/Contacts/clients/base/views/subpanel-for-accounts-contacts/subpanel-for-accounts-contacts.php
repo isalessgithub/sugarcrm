@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-11 09:47:50
+// created: 2016-12-02 11:12:17
 $viewdefs['Contacts']['base']['view']['subpanel-for-accounts-contacts'] = array (
   'type' => 'subpanel-list',
   'panels' => 

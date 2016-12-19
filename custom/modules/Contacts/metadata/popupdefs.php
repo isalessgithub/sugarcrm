@@ -13,6 +13,7 @@ $popupMeta = array (
   'email' => 'contacts.email',
   'campaign_name' => 'contacts.campaign_name',
   'assigned_user_id' => 'contacts.assigned_user_id',
+  'call_outcome_c' => 'contacts_cstm.call_outcome_c',
 ),
     'searchInputs' => array (
   0 => 'first_name',
@@ -24,6 +25,7 @@ $popupMeta = array (
   6 => 'lead_source',
   7 => 'campaign_name',
   8 => 'assigned_user_id',
+  9 => 'call_outcome_c',
 ),
     'create' => array (
   'formBase' => 'ContactFormBase.php',
@@ -86,6 +88,13 @@ $popupMeta = array (
     ),
     'width' => '10%',
   ),
+  'call_outcome_c' => 
+  array (
+    'type' => 'enum',
+    'label' => 'LBL_CALL_OUTCOME',
+    'width' => '10%',
+    'name' => 'call_outcome_c',
+  ),
   'assigned_user_id' => 
   array (
     'name' => 'assigned_user_id',
@@ -103,9 +112,31 @@ $popupMeta = array (
   ),
 ),
     'listviewdefs' => array (
+  'TITLE' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_LIST_TITLE',
+    'default' => true,
+    'name' => 'title',
+  ),
+  'ACCOUNT_NAME' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_LIST_ACCOUNT_NAME',
+    'module' => 'Accounts',
+    'id' => 'ACCOUNT_ID',
+    'default' => true,
+    'sortable' => true,
+    'ACLTag' => 'ACCOUNT',
+    'related_fields' => 
+    array (
+      0 => 'account_id',
+    ),
+    'name' => 'account_name',
+  ),
   'NAME' => 
   array (
-    'width' => '20%',
+    'width' => '10%',
     'label' => 'LBL_LIST_NAME',
     'link' => true,
     'default' => true,
@@ -119,31 +150,9 @@ $popupMeta = array (
     ),
     'name' => 'name',
   ),
-  'ACCOUNT_NAME' => 
-  array (
-    'width' => '25%',
-    'label' => 'LBL_LIST_ACCOUNT_NAME',
-    'module' => 'Accounts',
-    'id' => 'ACCOUNT_ID',
-    'default' => true,
-    'sortable' => true,
-    'ACLTag' => 'ACCOUNT',
-    'related_fields' => 
-    array (
-      0 => 'account_id',
-    ),
-    'name' => 'account_name',
-  ),
-  'TITLE' => 
-  array (
-    'width' => '15%',
-    'label' => 'LBL_LIST_TITLE',
-    'default' => true,
-    'name' => 'title',
-  ),
   'LEAD_SOURCE' => 
   array (
-    'width' => '15%',
+    'width' => '10%',
     'label' => 'LBL_LEAD_SOURCE',
     'default' => true,
     'name' => 'lead_source',

@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-11 09:47:48
+// created: 2016-12-02 11:12:12
 $subpanel_layout['list_fields'] = array (
   'full_name' => 
   array (
@@ -14,15 +14,15 @@ $subpanel_layout['list_fields'] = array (
   ),
   'primary_address_city' => 
   array (
-    'name' => 'primary_address_city',
-    'vname' => 'LBL_LIST_CITY',
+    'type' => 'varchar',
+    'vname' => 'LBL_PRIMARY_ADDRESS_CITY',
     'width' => '10%',
     'default' => true,
   ),
   'primary_address_state' => 
   array (
-    'name' => 'primary_address_state',
-    'vname' => 'LBL_LIST_STATE',
+    'type' => 'varchar',
+    'vname' => 'LBL_PRIMARY_ADDRESS_STATE',
     'width' => '10%',
     'default' => true,
   ),
@@ -65,6 +65,10 @@ $subpanel_layout['list_fields'] = array (
   'salutation' => 
   array (
     'name' => 'salutation',
+    'usage' => 'query_only',
+  ),
+  'account_id' => 
+  array (
     'usage' => 'query_only',
   ),
 );

@@ -124,6 +124,19 @@ array (
             'customCode' => '<select name="related_doc_rev_id" id="related_doc_rev_id" {$RELATED_DOCUMENT_REVISION_DISABLED}>{$RELATED_DOCUMENT_REVISION_OPTIONS}</select>',
           ),
         ),
+        8 => 
+        array (
+          0 => 
+          array (
+            'name' => 'syno_doc_template_c',
+          ),
+          1 => 
+          array (
+            'name' => 'syno_doc_relationships_c',
+            'studio' => 'visible',
+            'label' => 'LBL_SYNO_DOC_RELATIONSHIPS',
+          ),
+        ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
       array (

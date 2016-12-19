@@ -1,5 +1,5 @@
 <?php
-$viewdefs ['ProspectLists'] = 
+$viewdefs['ProspectLists'] = 
 array (
   'QuickCreate' => 
   array (
@@ -52,6 +52,7 @@ function toggle_domain_name(list_type)  {ldelim}
           'panelDefault' => 'expanded',
         ),
       ),
+      'useTabs' => false,
     ),
     'panels' => 
     array (
@@ -90,6 +91,20 @@ function toggle_domain_name(list_type)  {ldelim}
             'customCode' => '<div {if $fields.list_type.value != "exempt_domain"} style=\'display:none\'{/if} id=\'domain_name_div\'><input name="domain_name" id="domain_name" maxlength="255" type="text" value="{$fields.domain_name.value}"></div>',
           ),
         ),
+        2 => 
+        array (
+          0 => 
+          array (
+            'name' => 'clients_c',
+            'studio' => 'visible',
+            'label' => 'LBL_CLIENTS',
+          ),
+          1 => 
+          array (
+            'name' => 'atc_isscampaigns_prospectlists_1_name',
+            'label' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
+          ),
+        ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
       array (
@@ -113,4 +128,3 @@ function toggle_domain_name(list_type)  {ldelim}
     ),
   ),
 );
-?>

@@ -1,20 +1,20 @@
 <?php
-// created: 2016-10-07 09:55:44
-$listViewDefs['ProspectLists'] = array (
-  'NAME' => 
+$listViewDefs['ProspectLists'] = 
+array (
+  'name' => 
   array (
     'width' => '25%',
     'label' => 'LBL_LIST_PROSPECT_LIST_NAME',
     'link' => true,
     'default' => true,
   ),
-  'DESCRIPTION' => 
+  'description' => 
   array (
     'width' => '40%',
     'label' => 'LBL_LIST_DESCRIPTION',
     'default' => true,
   ),
-  'ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_NAME' => 
+  'atc_isscampaigns_prospectlists_1_name' => 
   array (
     'type' => 'relate',
     'link' => true,
@@ -23,21 +23,21 @@ $listViewDefs['ProspectLists'] = array (
     'width' => '10%',
     'default' => true,
   ),
-  'DATE_ENTERED' => 
+  'date_entered' => 
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_ENTERED',
     'width' => '10%',
     'default' => true,
   ),
-  'DATE_MODIFIED' => 
+  'date_modified' => 
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_MODIFIED',
     'width' => '10%',
     'default' => true,
   ),
-  'ENTRY_COUNT' => 
+  'entry_count' => 
   array (
     'type' => 'int',
     'label' => 'LBL_LIST_ENTRIES',

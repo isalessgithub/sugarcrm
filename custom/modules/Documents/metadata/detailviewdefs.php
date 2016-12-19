@@ -119,6 +119,19 @@ array (
             'label' => 'LBL_TEAM',
           ),
         ),
+        8 => 
+        array (
+          0 => 
+          array (
+            'name' => 'syno_doc_template_c',
+          ),
+          1 => 
+          array (
+            'name' => 'syno_doc_relationships_c',
+            'studio' => 'visible',
+            'label' => 'LBL_SYNO_DOC_RELATIONSHIPS',
+          ),
+        ),
       ),
       'LBL_REVISIONS_PANEL' => 
       array (

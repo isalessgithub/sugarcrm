@@ -82,164 +82,76 @@ array (
               ),
               5 => 
               array (
-                'name' => 'assigned_user_name',
-                'label' => 'LBL_LIST_ASSIGNED_USER',
-                'id' => 'ASSIGNED_USER_ID',
-                'enabled' => true,
-                'default' => true,
-              ),
-              6 => 
-              array (
-                'name' => 'date_entered',
-                'enabled' => true,
-                'default' => true,
-                'readonly' => true,
-                'label' => 'LBL_DATE_ENTERED',
-              ),
-              7 => 
-              array (
                 'name' => 'et_telesales',
                 'label' => 'LBL_ET_TELESALES_DISPOSITION',
                 'enabled' => true,
                 'readonly' => true,
                 'default' => true,
               ),
-              8 => 
+              6 => 
               array (
                 'name' => 'department',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_DEPARTMENT',
               ),
-              9 => 
+              7 => 
               array (
                 'name' => 'do_not_call',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_DO_NOT_CALL',
               ),
-              10 => 
+              8 => 
               array (
                 'name' => 'phone_home',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_HOME_PHONE',
               ),
-              11 => 
+              9 => 
               array (
                 'name' => 'phone_mobile',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_MOBILE_PHONE',
               ),
-              12 => 
+              10 => 
               array (
                 'name' => 'phone_other',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_OTHER_PHONE',
               ),
-              13 => 
+              11 => 
               array (
                 'name' => 'phone_fax',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_FAX_PHONE',
               ),
-              14 => 
+              12 => 
               array (
                 'name' => 'primary_address_street',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_STREET',
               ),
-              15 => 
+              13 => 
               array (
                 'name' => 'primary_address_city',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_CITY',
               ),
-              16 => 
+              14 => 
               array (
                 'name' => 'primary_address_state',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_STATE',
               ),
-              17 => 
-              array (
-                'name' => 'primary_address_postalcode',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_PRIMARY_ADDRESS_POSTALCODE',
-              ),
-              18 => 
-              array (
-                'name' => 'alt_address_country',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_ALT_ADDRESS_COUNTRY',
-              ),
-              19 => 
-              array (
-                'name' => 'alt_address_street',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_ALT_ADDRESS_STREET',
-              ),
-              20 => 
-              array (
-                'name' => 'alt_address_city',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_ALT_ADDRESS_CITY',
-              ),
-              21 => 
-              array (
-                'name' => 'alt_address_state',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_ALT_ADDRESS_STATE',
-              ),
-              22 => 
-              array (
-                'name' => 'alt_address_postalcode',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_ALT_ADDRESS_POSTALCODE',
-              ),
-              23 => 
-              array (
-                'name' => 'created_by_name',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_CREATED',
-              ),
-              24 => 
-              array (
-                'name' => 'team_name',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_LIST_TEAM',
-              ),
-              25 => 
-              array (
-                'name' => 'modified_by_name',
-                'default' => false,
-                'enabled' => true,
-                'label' => 'LBL_MODIFIED',
-              ),
-              26 => 
-              array (
-                'name' => 'sync_contact',
-                'default' => false,
-                'enabled' => true,
-                'type' => 'bool',
-                'label' => 'LBL_SYNC_CONTACT',
-                'sortable' => false,
-              ),
-              27 => 
+              15 => 
               array (
                 'name' => 'email',
                 'enabled' => true,
@@ -248,14 +160,6 @@ array (
                 'sortable' => false,
                 'link' => true,
                 'customCode' => '{$EMAIL_LINK}{$EMAIL}</a>',
-              ),
-              28 => 
-              array (
-                'name' => 'primary_address_country',
-                'default' => false,
-                'enabled' => true,
-                'width' => '10',
-                'label' => 'LBL_PRIMARY_ADDRESS_COUNTRY',
               ),
             ),
           ),

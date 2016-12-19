@@ -51,6 +51,7 @@ array (
           'panelDefault' => 'expanded',
         ),
       ),
+      'syncDetailEditViews' => true,
     ),
     'panels' => 
     array (
@@ -58,37 +59,10 @@ array (
       array (
         0 => 
         array (
-          0 => 
-          array (
-            'name' => 'client_edit_disabled_c',
-            'label' => 'LBL_CLIENT_EDIT_DISABLED',
-          ),
-          1 => '',
+          0 => 'name',
+          1 => 'list_type',
         ),
         1 => 
-        array (
-          0 => 'name',
-          1 => 
-          array (
-            'name' => 'entry_count',
-            'label' => 'LBL_ENTRIES',
-          ),
-        ),
-        2 => 
-        array (
-          0 => 'list_type',
-          1 => 'domain_name',
-        ),
-        3 => 
-        array (
-          0 => 'description',
-          1 => 
-          array (
-            'name' => 'accounts_prospectlists_1_name',
-            'label' => 'LBL_ACCOUNTS_PROSPECTLISTS_1_FROM_ACCOUNTS_TITLE',
-          ),
-        ),
-        4 => 
         array (
           0 => 
           array (
@@ -100,6 +74,10 @@ array (
             'studio' => 'visible',
             'label' => 'LBL_CLIENTS',
           ),
+        ),
+        2 => 
+        array (
+          0 => 'description',
         ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 

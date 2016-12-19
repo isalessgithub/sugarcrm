@@ -1,4 +1,5 @@
 <?php
+// created: 2016-12-10 14:40:24
 $viewdefs['ATC_ISSCampaigns']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 

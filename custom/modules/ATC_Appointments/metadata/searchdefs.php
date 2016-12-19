@@ -1,23 +1,32 @@
 <?php
 $module_name = 'ATC_Appointments';
-$searchdefs [$module_name] = 
+$searchdefs[$module_name] = 
 array (
   'layout' => 
   array (
     'basic_search' => 
     array (
-      0 => 'name',
-      1 => 
+      'name' => 
+      array (
+        'name' => 'name',
+        'default' => true,
+        'width' => '10%',
+      ),
+      'current_user_only' => 
       array (
         'name' => 'current_user_only',
         'label' => 'LBL_CURRENT_USER_FILTER',
         'type' => 'bool',
+        'default' => true,
+        'width' => '10%',
       ),
-      2 => 
+      'favorites_only' => 
       array (
         'name' => 'favorites_only',
         'label' => 'LBL_FAVORITES_FILTER',
         'type' => 'bool',
+        'default' => true,
+        'width' => '10%',
       ),
     ),
     'advanced_search' => 
@@ -128,4 +137,3 @@ array (
     ),
   ),
 );
-?>
