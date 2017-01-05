@@ -1,5 +1,5 @@
 <?php
-// created: 2016-12-07 11:45:11
+// created: 2016-12-19 17:20:26
 $viewdefs['Accounts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -49,6 +49,12 @@ $viewdefs['Accounts']['base']['filter']['default'] = array (
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_FAVORITES_FILTER',
+    ),
+    'date_entered' => 
+    array (
+    ),
+    'billing_address_state' => 
+    array (
     ),
   ),
 );
