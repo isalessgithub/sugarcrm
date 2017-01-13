@@ -13,6 +13,10 @@ if(!isset($_REQUEST['target_list_id']) || empty($_REQUEST['target_list_id'])){
   $ret['error'] = 'Missing target_list_id when creating Appointment';
   die(json_encode($ret));
 }
+if(!isset($_REQUEST['contact_email']) || empty($_REQUEST['contact_email'])){
+  $ret['error'] = 'Missing Email Address when creating Appointment';
+  die(json_encode($ret));
+}
 if(!isset($_REQUEST['atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida']) || empty($_REQUEST['atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida'])){
   $ret['error'] = 'Missing client sales rep when creating Appointment';
   die(json_encode($ret));
