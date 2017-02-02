@@ -1,17 +1,9 @@
 <?php
+// created: 2017-01-19 13:28:02
 $viewdefs['Contacts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
   array (
-    'search_name' => 
-    array (
-      'dbFields' => 
-      array (
-        0 => 'first_name',
-        1 => 'last_name',
-      ),
-      'vname' => 'LBL_NAME',
-    ),
     'first_name' => 
     array (
     ),
@@ -21,29 +13,14 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     'title' => 
     array (
     ),
+    'email' => 
+    array (
+    ),
     'phone_other' => 
     array (
     ),
     'phone_work' => 
     array (
-    ),
-    'address_street' => 
-    array (
-      'dbFields' => 
-      array (
-        0 => 'primary_address_street',
-        1 => 'alt_address_street',
-      ),
-      'vname' => 'LBL_ANY_ADDRESS',
-    ),
-    'address_city' => 
-    array (
-      'dbFields' => 
-      array (
-        0 => 'primary_address_city',
-        1 => 'alt_address_city',
-      ),
-      'vname' => 'LBL_CITY',
     ),
     'call_outcome_c' => 
     array (
@@ -63,24 +40,6 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
       array (
       ),
     ),
-    'address_state' => 
-    array (
-      'dbFields' => 
-      array (
-        0 => 'primary_address_state',
-        1 => 'alt_address_state',
-      ),
-      'vname' => 'LBL_STATE',
-    ),
-    'address_postalcode' => 
-    array (
-      'dbFields' => 
-      array (
-        0 => 'primary_address_postalcode',
-        1 => 'alt_address_postalcode',
-      ),
-      'vname' => 'LBL_POSTAL_CODE',
-    ),
     'primary_address_country' => 
     array (
     ),
@@ -93,6 +52,15 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_FAVORITES_FILTER',
+    ),
+    'created_by_name' => 
+    array (
+    ),
+    'date_entered' => 
+    array (
+    ),
+    'tag' => 
+    array (
     ),
   ),
 );

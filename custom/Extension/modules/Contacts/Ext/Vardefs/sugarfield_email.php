@@ -1,11 +1,11 @@
 <?php
- // created: 2016-12-14 11:35:13
+ // created: 2017-01-31 13:01:28
 $dictionary['Contact']['fields']['email']['len']='100';
 $dictionary['Contact']['fields']['email']['audited']=false;
 $dictionary['Contact']['fields']['email']['massupdate']=true;
 $dictionary['Contact']['fields']['email']['duplicate_merge']='enabled';
-$dictionary['Contact']['fields']['email']['duplicate_merge_dom_value']='3';
-$dictionary['Contact']['fields']['email']['merge_filter']='selected';
+$dictionary['Contact']['fields']['email']['duplicate_merge_dom_value']='1';
+$dictionary['Contact']['fields']['email']['merge_filter']='disabled';
 $dictionary['Contact']['fields']['email']['full_text_search']=array (
   'enabled' => true,
   'boost' => '1.95',

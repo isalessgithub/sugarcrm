@@ -1,5 +1,5 @@
 <?php
-// created: 2016-12-10 14:40:24
+// created: 2017-01-10 18:06:15
 $viewdefs['ATC_ISSCampaigns']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -10,7 +10,7 @@ $viewdefs['ATC_ISSCampaigns']['base']['filter']['default'] = array (
     'assigned_user_name' => 
     array (
     ),
-    'users_atc_isscampaigns_1_name' => 
+    'atc_clients_atc_isscampaigns_name' => 
     array (
     ),
     'campaign_status_c' => 
@@ -22,15 +22,30 @@ $viewdefs['ATC_ISSCampaigns']['base']['filter']['default'] = array (
       'name' => 'campaign_status_c',
       'vname' => 'LBL_CAMPAIGN_STATUS',
     ),
+    'users_atc_isscampaigns_1_name' => 
+    array (
+    ),
     '$owner' => 
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_CURRENT_USER_FILTER',
     ),
+    'campaign_finish_date_c' => 
+    array (
+    ),
+    'campaign_start_date_c' => 
+    array (
+    ),
     '$favorite' => 
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_FAVORITES_FILTER',
+    ),
+    'date_entered' => 
+    array (
+    ),
+    'campaign_email_and_password_c' => 
+    array (
     ),
   ),
 );

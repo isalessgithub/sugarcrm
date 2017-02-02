@@ -1,4 +1,5 @@
 <?php
+// created: 2017-01-10 12:19:21
 $viewdefs['Calls']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -28,6 +29,9 @@ $viewdefs['Calls']['base']['filter']['default'] = array (
       'vname' => 'LBL_OPEN_ITEMS',
     ),
     'date_start' => 
+    array (
+    ),
+    'date_entered' => 
     array (
     ),
     'parent_name' => 
