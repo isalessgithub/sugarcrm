@@ -105,7 +105,12 @@ array (
                 'name' => 'campaign_finish_date_c',
                 'label' => 'LBL_CAMPAIGN_FINISH_DATE',
               ),
-              10 => 'assigned_user_name',
+              10 => 
+              array (
+                'name' => 'assigned_user_name',
+                'label' => 'LBL_ASSIGNED_TO_NAME',
+                'tabindex' => '2',
+              ),
               11 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',

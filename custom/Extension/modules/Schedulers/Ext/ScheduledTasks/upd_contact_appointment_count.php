@@ -1,7 +1,7 @@
-// Author: P. Massardo
-// scheduler code for update
 
 <?php
+// Author: P. Massardo // scheduler code for update
+
 	array_push($job_strings, 'upd_contact_appointment_count');
 
     	function upd_contact_appointment_count()
