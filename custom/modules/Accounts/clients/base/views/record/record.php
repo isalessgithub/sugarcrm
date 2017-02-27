@@ -221,42 +221,60 @@ array (
                     'placeholder' => 'LBL_BILLING_ADDRESS_COUNTRY',
                   ),
                 ),
-                'span' => 12,
               ),
-              3 => 'industry',
-              4 => 
+              3 => 
+              array (
+                'name' => 'add_to_target_list_c',
+                'label' => 'LBL_ADD_TO_TARGET_LIST',
+              ),
+              4 => 'industry',
+              5 => 
               array (
                 'name' => 'sub_industry_1_c',
                 'label' => 'LBL_SUB_INDUSTRY_1',
               ),
-              5 => 
+              6 => 
               array (
                 'name' => 'industry_2_c',
                 'label' => 'LBL_INDUSTRY_2',
               ),
-              6 => 
+              7 => 
               array (
                 'name' => 'sub_industry_2_c',
                 'label' => 'LBL_SUB_INDUSTRY_2',
               ),
-              7 => 
+              8 => 
               array (
                 'name' => 'revenue_range_c',
                 'label' => 'LBL_REVENUE_RANGE',
               ),
-              8 => 
+              9 => 
               array (
                 'name' => 'employees_range_c',
                 'label' => 'LBL_EMPLOYEES_RANGE',
               ),
-              9 => 
-              array (
-                'name' => 'parent_name',
-                'span' => 12,
-              ),
               10 => 
               array (
+                'name' => 'parent_name',
+              ),
+              11 => 
+              array (
+                'name' => 'duns_num',
+                'readonly' => true,
+              ),
+              12 => 
+              array (
                 'name' => 'tag',
+                'span' => 6,
+              ),
+              13 => 
+              array (
+                'name' => 'sic_code',
+                'span' => 6,
+              ),
+              14 => 
+              array (
+                'name' => 'description',
                 'span' => 12,
               ),
             ),
@@ -273,22 +291,9 @@ array (
             'panelDefault' => 'expanded',
             'fields' => 
             array (
-              0 => 
-              array (
-                'name' => 'description',
-                'span' => 12,
-              ),
-              1 => 
-              array (
-                'name' => 'contact_count_c',
-                'label' => 'LBL_CONTACT_COUNT',
-              ),
+              0 => 'annual_revenue',
+              1 => 'employees',
               2 => 
-              array (
-                'name' => 'add_to_target_list_c',
-                'label' => 'LBL_ADD_TO_TARGET_LIST',
-              ),
-              3 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -312,7 +317,7 @@ array (
                   ),
                 ),
               ),
-              4 => 
+              3 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -336,17 +341,21 @@ array (
                   ),
                 ),
               ),
-              5 => 'annual_revenue',
-              6 => 'employees',
-              7 => 
+              4 => 
               array (
                 'name' => 'ownership',
-                'span' => 12,
               ),
-              8 => 
+              5 => 
+              array (
+                'name' => 'contact_count_c',
+                'label' => 'LBL_CONTACT_COUNT',
+              ),
+              6 => 
               array (
                 'name' => 'team_name',
-                'span' => 12,
+              ),
+              7 => 
+              array (
               ),
             ),
           ),

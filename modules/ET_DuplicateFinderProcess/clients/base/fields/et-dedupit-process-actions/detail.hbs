@@ -1,0 +1,15 @@
+<div class="ellipsis_inline" data-placement="bottom">
+
+    {{#each action_buttons}}
+
+        <a id="{{this.id}}" class="{{this.classes}}">{{str this.label 'ET_DuplicateFinderProcess'}}</a>
+
+    {{/each}}
+
+    {{#if buttons_retrieving}}
+        <div class="loading">
+            <i class="l1">.</i><i class="l2">.</i><i class="l3">.</i>
+        </div>
+    {{/if}}
+
+</div>

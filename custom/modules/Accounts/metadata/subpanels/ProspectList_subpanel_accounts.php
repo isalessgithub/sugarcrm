@@ -1,5 +1,5 @@
 <?php
-// created: 2016-12-07 00:45:38
+// created: 2017-02-22 09:51:07
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
@@ -54,6 +54,13 @@ $subpanel_layout['list_fields'] = array (
     'type' => 'enum',
     'default' => true,
     'vname' => 'LBL_EMPLOYEES_RANGE',
+    'width' => '10%',
+  ),
+  'contact_count_c' => 
+  array (
+    'type' => 'int',
+    'default' => true,
+    'vname' => 'LBL_CONTACT_COUNT',
     'width' => '10%',
   ),
   'edit_button' => 

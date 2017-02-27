@@ -1,5 +1,5 @@
 <?php
-// created: 2014-01-06 15:34:46
+// created: 2017-02-21 20:51:19
 $searchFields['CP_Client_Users'] = array (
   'name' => 
   array (

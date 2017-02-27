@@ -1,5 +1,5 @@
 <?php
-// created: 2016-12-07 00:54:33
+// created: 2017-02-22 09:56:40
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
@@ -12,6 +12,13 @@ $subpanel_layout['list_fields'] = array (
     'width' => '23%',
     'default' => true,
   ),
+  'title' => 
+  array (
+    'type' => 'varchar',
+    'vname' => 'LBL_TITLE',
+    'width' => '10%',
+    'default' => true,
+  ),
   'account_name' => 
   array (
     'name' => 'account_name',
@@ -21,15 +28,6 @@ $subpanel_layout['list_fields'] = array (
     'widget_class' => 'SubPanelDetailViewLink',
     'vname' => 'LBL_LIST_ACCOUNT_NAME',
     'width' => '22%',
-    'sortable' => false,
-    'default' => true,
-  ),
-  'email' => 
-  array (
-    'name' => 'email',
-    'vname' => 'LBL_LIST_EMAIL',
-    'widget_class' => 'SubPanelEmailLink',
-    'width' => '30%',
     'sortable' => false,
     'default' => true,
   ),
@@ -45,6 +43,15 @@ $subpanel_layout['list_fields'] = array (
     'name' => 'phone_work',
     'vname' => 'LBL_LIST_PHONE',
     'width' => '15%',
+    'default' => true,
+  ),
+  'email' => 
+  array (
+    'name' => 'email',
+    'vname' => 'LBL_LIST_EMAIL',
+    'widget_class' => 'SubPanelEmailLink',
+    'width' => '30%',
+    'sortable' => false,
     'default' => true,
   ),
   'edit_button' => 

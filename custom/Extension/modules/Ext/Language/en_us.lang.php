@@ -8,3 +8,4 @@ $mod_strings['LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE'] = 
 $mod_strings['LBL_ASSIGNED_TO'] = 'Account Manager';
 $mod_strings['LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE'] = 'Campaign Results Director';
 $mod_strings['LBL_ASSIGNED_TO_NAME'] = 'Account Manager';
+$mod_strings['LBL_LIST_ACCOUNT_NAME'] = 'Account';

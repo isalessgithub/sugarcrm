@@ -1,39 +1,64 @@
 <?php
-$viewdefs['CP_Client_Users']['base']['view']['list'] = array (
-  'panels' => 
+$viewdefs['CP_Client_Users'] = 
+array (
+  'base' => 
   array (
-    0 => 
+    'view' => 
     array (
-      'label' => 'LBL_PANEL_DEFAULT',
-      'fields' => 
+      'list' => 
       array (
-        0 => 
+        'panels' => 
         array (
-          'name' => 'name',
-          'label' => 'LBL_NAME',
-          'default' => true,
-          'enabled' => true,
-          'link' => true,
-          'type' => 'name',
-          'width' => '10%',
-        ),
-        1 => 
-        array (
-          'name' => 'date_modified',
-          'enabled' => true,
-          'default' => false,
-          'type' => 'datetime',
-          'label' => 'LBL_DATE_MODIFIED',
-          'width' => '10%',
-        ),
-        2 => 
-        array (
-          'name' => 'date_entered',
-          'enabled' => true,
-          'default' => false,
-          'type' => 'datetime',
-          'label' => 'LBL_DATE_ENTERED',
-          'width' => '10%',
+          0 => 
+          array (
+            'label' => 'LBL_PANEL_DEFAULT',
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'name',
+                'label' => 'LBL_NAME',
+                'default' => true,
+                'enabled' => true,
+                'link' => true,
+                'type' => 'name',
+              ),
+              1 => 
+              array (
+                'name' => 'date_modified',
+                'enabled' => true,
+                'default' => true,
+                'type' => 'datetime',
+                'label' => 'LBL_DATE_MODIFIED',
+              ),
+              2 => 
+              array (
+                'name' => 'created_by_name',
+                'label' => 'LBL_CREATED',
+                'enabled' => true,
+                'readonly' => true,
+                'id' => 'CREATED_BY',
+                'link' => true,
+                'default' => true,
+              ),
+              3 => 
+              array (
+                'name' => 'date_entered',
+                'enabled' => true,
+                'default' => true,
+                'type' => 'datetime',
+                'label' => 'LBL_DATE_ENTERED',
+              ),
+              4 => 
+              array (
+                'name' => 'description',
+                'label' => 'LBL_DESCRIPTION',
+                'enabled' => true,
+                'sortable' => false,
+                'default' => true,
+              ),
+            ),
+          ),
         ),
       ),
     ),
