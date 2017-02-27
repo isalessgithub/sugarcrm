@@ -1,5 +1,5 @@
 <?php
-// created: 2017-01-19 13:28:02
+// created: 2017-02-21 20:43:40
 $viewdefs['Contacts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -31,6 +31,9 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
       'name' => 'call_outcome_c',
       'vname' => 'LBL_CALL_OUTCOME',
     ),
+    'assistant' => 
+    array (
+    ),
     'report_to_name' => 
     array (
     ),
@@ -40,7 +43,16 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
       array (
       ),
     ),
-    'primary_address_country' => 
+    'primary_address_street' => 
+    array (
+    ),
+    'primary_address_city' => 
+    array (
+    ),
+    'primary_address_state' => 
+    array (
+    ),
+    'primary_address_postalcode' => 
     array (
     ),
     '$owner' => 
@@ -59,7 +71,13 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     'date_entered' => 
     array (
     ),
+    'description' => 
+    array (
+    ),
     'tag' => 
+    array (
+    ),
+    'appointment_count_c' => 
     array (
     ),
   ),

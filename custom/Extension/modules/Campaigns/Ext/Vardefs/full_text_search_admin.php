@@ -1,3 +1,3 @@
 <?php
- // created: 2016-10-07 12:36:24
+ // created: 2017-02-13 17:57:34
 $dictionary['Campaign']['full_text_search']=false;

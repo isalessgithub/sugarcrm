@@ -67,11 +67,10 @@ array (
               ),
               3 => 
               array (
-                'name' => 'contact_count_c',
+                'name' => 'phone_other',
                 'default' => true,
                 'enabled' => true,
-                'type' => 'int',
-                'label' => 'LBL_CONTACT_COUNT',
+                'label' => 'LBL_OTHER_PHONE',
               ),
               4 => 
               array (
@@ -82,11 +81,13 @@ array (
               ),
               5 => 
               array (
-                'name' => 'et_telesales',
-                'label' => 'LBL_ET_TELESALES_DISPOSITION',
+                'name' => 'email',
                 'enabled' => true,
-                'readonly' => true,
                 'default' => true,
+                'label' => 'LBL_LIST_EMAIL_ADDRESS',
+                'sortable' => false,
+                'link' => true,
+                'customCode' => '{$EMAIL_LINK}{$EMAIL}</a>',
               ),
               6 => 
               array (
@@ -118,10 +119,11 @@ array (
               ),
               10 => 
               array (
-                'name' => 'phone_other',
+                'name' => 'contact_count_c',
                 'default' => false,
                 'enabled' => true,
-                'label' => 'LBL_OTHER_PHONE',
+                'type' => 'int',
+                'label' => 'LBL_CONTACT_COUNT',
               ),
               11 => 
               array (
@@ -153,13 +155,11 @@ array (
               ),
               15 => 
               array (
-                'name' => 'email',
+                'name' => 'et_telesales',
+                'label' => 'LBL_ET_TELESALES_DISPOSITION',
                 'enabled' => true,
+                'readonly' => true,
                 'default' => false,
-                'label' => 'LBL_LIST_EMAIL_ADDRESS',
-                'sortable' => false,
-                'link' => true,
-                'customCode' => '{$EMAIL_LINK}{$EMAIL}</a>',
               ),
             ),
           ),

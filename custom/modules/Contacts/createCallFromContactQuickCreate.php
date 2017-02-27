@@ -3,6 +3,7 @@
 class createCallFromContactQuickCreateC {
 
     function createCallFromContactQuickCreateBeforeSave($bean, $action, $args) {
+	if(isset($args)){
 	if($args->isUpdate === 'false'){
         	global $current_user;
 		//$GLOBALS['log']->fatal("--".json_encode($args, JSON_PRETTY_PRINT));
@@ -13,6 +14,7 @@ class createCallFromContactQuickCreateC {
                 		$bean->description .= "\n" . date('m/d/Y h:ia') . " * Call Made by " . $current_user->full_name . " * ";
 	 	}
      	}
+	}
     }
 
     function createCallFromContactQuickCreateAfterSave($bean, $action, $args) {
