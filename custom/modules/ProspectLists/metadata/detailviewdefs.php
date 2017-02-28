@@ -15,11 +15,11 @@ array (
           2 => 'DELETE',
           3 => 
           array (
-            'customCode' => '<input title="{$APP.LBL_EXPORT}"  class="button" type="button" name="opp_to_quote_button" id="export_button" value="{$APP.LBL_EXPORT}" onclick="document.location.href = \'index.php?entryPoint=export&module=ProspectLists&uid={$fields.id.value}&members=1\'">',
+//            'customCode' => '<input title="{$APP.LBL_EXPORT}"  class="button" type="button" name="opp_to_quote_button" id="export_button" value="{$APP.LBL_EXPORT}" onclick="document.location.href = \'index.php?entryPoint=export&module=ProspectLists&uid={$fields.id.value}&members=1\'">',
           ),
           4 => 
           array (
-            'customCode' => '<input title="{$MOD.LBL_CALLING_MODE}"  class="button" type="button" name="calling_mode" id="calling_mode" value="{$MOD.LBL_CALLING_MODE}" onclick="document.location.href = \'index.php?action=callModeView&module=ProspectLists&uid={$fields.id.value}\'">',
+//            'customCode' => '<input title="{$MOD.LBL_CALLING_MODE}"  class="button" type="button" name="calling_mode" id="calling_mode" value="{$MOD.LBL_CALLING_MODE}" onclick="document.location.href = \'index.php?action=callModeView&module=ProspectLists&uid={$fields.id.value}\'">',
           ),
         ),
       ),
@@ -89,7 +89,7 @@ array (
           array (
             'name' => 'date_modified',
             'label' => 'LBL_DATE_MODIFIED',
-            'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
+//            'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
           ),
         ),
         1 => 
@@ -98,7 +98,7 @@ array (
           1 => 
           array (
             'name' => 'date_entered',
-            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
+//            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
           ),
         ),
       ),

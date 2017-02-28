@@ -1031,7 +1031,7 @@ SUGAR.forms.Dependency.prototype.getRelatedFields = function() {
                 this.on("init", function(){
                     this.deps = [];
                     var slContext = this.slContext = new SUGAR.expressions.SidecarExpressionContext(this),
-                        meta = _.extend({}, this.meta, this.options.meta),
+                        deps = this.getApplicableDeps(),
                         relatedFields = [],
                         updateCollection = function(models, trigger) {
                             if (trigger.dependency.testOnLoad) {
@@ -1041,26 +1041,7 @@ SUGAR.forms.Dependency.prototype.getRelatedFields = function() {
                                 });
                                 trigger.context.isOnLoad = null;
                             }
-                        },
-
-                        // module level dependencies
-                        modDeps = SUGAR.App.metadata.getModule(this.context.get("module"), "dependencies"),
-                        action = (_.contains(this.plugins, "Editable")
-                            || slContext.view.name == 'edit'
-                            || slContext.view.name == 'create')
-                            ? "edit" : "view",
-                        deps = meta.dependencies;
-
-                    if (!_.isEmpty(modDeps)) {
-                        // to merge with view level dependencies
-                        var filteredModDeps = _.filter(modDeps, function (dep) {
-                            if (_.contains(dep.hooks, "all") || _.contains(dep.hooks, action)) {
-                                return true;
-                            }
-                            return false;
-                        });
-                        deps = (!_.isEmpty(deps)) ? _.union(deps, filteredModDeps) : filteredModDeps;
-                    }
+                        };
 
                     _.each(deps, function(dep) {
                         var newDep = SUGAR.forms.Dependency.fromMeta(dep, slContext);
@@ -1122,8 +1103,8 @@ SUGAR.forms.Dependency.prototype.getRelatedFields = function() {
             getFieldNames: function() {
                 var getFields = SE.ExpressionParser.prototype.getFieldsFromExpression,
                     fields = Object.getPrototypeOf(this).getFieldNames.apply(this, arguments),
-                    meta = _.extend({}, this.meta, this.options.meta);
-                _.each(meta.dependencies, function(dep) {
+                    deps = this.getApplicableDeps();
+                _.each(deps, function(dep) {
                     if (dep.trigger) {
                         fields = _.union(fields, getFields(dep.trigger));
                     }
@@ -1143,6 +1124,29 @@ SUGAR.forms.Dependency.prototype.getRelatedFields = function() {
                     }, this);
                 }
                 return fields;
+            },
+            getApplicableDeps: function() {
+                var meta = _.extend({}, this.meta, this.options.meta),
+                    // module level dependencies
+                    modDeps = SUGAR.App.metadata.getModule(this.context.get("module"), "dependencies"),
+                    action = (_.contains(this.plugins, "Editable")
+                        || slContext.view.name == 'edit'
+                        || slContext.view.name == 'create')
+                            ? "edit" : "view",
+                    deps = meta.dependencies;
+
+                if (!_.isEmpty(modDeps)) {
+                    // to merge with view level dependencies
+                    var filteredModDeps = _.filter(modDeps, function(dep) {
+                        if (_.contains(dep.hooks, "all") || _.contains(dep.hooks, action)) {
+                            return true;
+                        }
+                        return false;
+                    });
+                    deps = (!_.isEmpty(deps)) ? _.union(deps, filteredModDeps) : filteredModDeps;
+                }
+
+                return deps;
             }
        });
     } else if (console.error) {

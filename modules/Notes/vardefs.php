@@ -413,3 +413,4 @@ VardefManager::createVardef('Notes','Note', array('default', 'assignable',
 // to properly cope with larger fields. This impacts indexing performance and additional
 // adds a heavy taxation on the required disk space usage as well.
 $dictionary['Note']['fields']['description']['full_text_search']['enabled'] = false;
+$dictionary['Note']['fields']['description']['full_text_search']['searchable'] = false;

@@ -280,7 +280,10 @@ function process_action_new($focus, $action_array){
 function should_save_new_bean($focus, $action_array)
 {
     if (!empty($action_array['trigger_id'])) {
-        if (isset($focus->workflow_trigger_guid) && $focus->workflow_trigger_guid == $action_array['trigger_id']) {
+        if (isset($focus->workflow_trigger_guid) &&
+            $focus->workflow_trigger_guid == $action_array['trigger_id'] &&
+            isset($focus->workflow_action_guids) &&
+            in_array($action_array['action_id'], $focus->workflow_action_guids)) {
             return false;
         }
     }
@@ -299,6 +302,12 @@ function mark_trigger_bean_with_trigger_id($focus, $action_array)
 {
     if (!empty($action_array['trigger_id'])) {
         $focus->workflow_trigger_guid = $action_array['trigger_id'];
+        if (!isset($focus->workflow_action_guids)) {
+            $focus->workflow_action_guids = array();
+        }
+        if (!in_array($action_array['action_id'], $focus->workflow_action_guids)) {
+            $focus->workflow_action_guids[] = $action_array['action_id'];
+        }
     }
 }
 
@@ -378,6 +387,14 @@ function process_action_new_rel($focus, $action_array){
 			$target_module->not_use_rel_in_req = true;
 
 			$target_module->save($check_notify);
+
+            //target module has been saved, now relate it to the original related bean
+            $relName = $rel_handler->base_vardef_field;
+            $target_module->load_relationship($relName);
+            $relatedIds = $target_module->$relName->get();
+            if (empty($relatedIds) || !in_array($rel_object->id, $relatedIds)) {
+                $target_module->$relName->add($rel_object->id);
+            }
 
 		//end for loop of all,first, filter
 		}

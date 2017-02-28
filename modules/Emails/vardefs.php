@@ -660,3 +660,4 @@ VardefManager::createVardef(
 // to properly cope with larger fields. This impacts indexing performance and additional
 // adds a heavy taxation on the required disk space usage as well.
 $dictionary['Email']['fields']['description']['full_text_search']['enabled'] = false;
+$dictionary['Email']['fields']['description']['full_text_search']['searchable'] = false;

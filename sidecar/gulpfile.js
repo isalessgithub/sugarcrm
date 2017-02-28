@@ -93,45 +93,6 @@ gulp.task('build:min', function() {
         .pipe(gulp.dest('minified'));
 });
 
-gulp.task('build:full', function() {
-    var jsArray = [
-        '/*',
-        ' * Your installation or use of this SugarCRM file is subject to the applicable',
-        ' * terms available at',
-        ' * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.',
-        ' * If you do not agree to all of the applicable terms or do not have the',
-        ' * authority to bind the entity as an authorized representative, then do not',
-        ' * install or use this SugarCRM file.',
-        ' *',
-        ' * Copyright (C) SugarCRM Inc. All rights reserved.',
-        ' */',
-        '(function() {',
-        '    var he = document.getElementsByTagName(\'head\')[0];',
-        '    ',
-        '    // We need a good URL to figure out where to get this stuff in the browser.',
-        '    var sidecarUrl = \'sidecar/\';',
-        '    var indexOfSugarCrm = location.pathname.indexOf("/sugarcrm");',
-        '    if ( indexOfSugarCrm > -1 ) {',
-        '        sidecarUrl = location.pathname.slice(0, indexOfSugarCrm) + "/sugarcrm/" + sidecarUrl;',
-        '    }',
-        '    ',
-        '    function include(file) {',
-        '        // Use docment.write to make sure files are loaded and parsed',
-        '        // before any other scripts on the page.  We\'re not worried about',
-        '        // performance for dev or for the config file.',
-        '        document.write(\'<scr\' + \'ipt src="\' + file + \'" type="text/javascript"></scr\' + \'ipt>\');',
-        '    }',
-        '    ',
-        '    '
-    ];
-    _.each(sidecarFull, function(jsFile) {
-        jsArray.push('    include(sidecarUrl + \'' + jsFile + '\');');
-    });
-    jsArray.push('}());\n');
-    return file('sidecar.js', jsArray.join('\n'), {src: true})
-        .pipe(gulp.dest('minified'));
-});
-
 gulp.task('karma', function(done) {
 
     // get command-line arguments (only relevant for karma tests)
@@ -139,7 +100,6 @@ gulp.task('karma', function(done) {
         .option('-d, --dev', 'Set Karma options for debugging')
         .option('--coverage', 'Enable code coverage')
         .option('--ci', 'Enable CI specific options')
-        .option('--ci-coverage', 'Alias for --ci --coverage (deprecated)')
         .option('--path <path>', 'Set base output path')
         .option('--browsers <list>',
             'Comma-separated list of browsers to run tests with',
@@ -187,11 +147,6 @@ gulp.task('karma', function(done) {
         karmaOptions.browsers = commander.browsers;
     }
 
-    if (commander.ciCoverage) {
-        commander.ci = true;
-        commander.coverage = true;
-    }
-
     if (commander.coverage) {
 
         eval('karmaOptions.preprocessors = ' + fs.readFileSync('grunt/assets/default-pre-processors.js', 'utf-8'));
@@ -236,5 +191,5 @@ gulp.task('karma', function(done) {
 });
 
 gulp.task('lint', ['jscs', 'jshint', 'gjslint']);
-gulp.task('build', ['build:min', 'build:full']);
+gulp.task('build', ['build:min']);
 gulp.task('default', ['jshint', 'build']);

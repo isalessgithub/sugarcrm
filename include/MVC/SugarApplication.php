@@ -168,7 +168,13 @@ class SugarApplication
              // check for authorised users
             $this->checkMobileRedirect();
             $this->loadUser();
-            $this->ACLFilter();
+            // Do not filter for saml login
+            // since current user id is not yet available.
+            // This will be done after controller->execute below
+            // when current user id is populated.
+            if (empty($_REQUEST['SAMLResponse'])) {
+                $this->ACLFilter();
+            }
             $this->preProcess();
             $this->controller->preProcess();
             $this->checkHTTPReferer();
@@ -183,6 +189,13 @@ class SugarApplication
         $this->loadGlobals();
         $this->setupResourceManagement($module);
         $this->controller->execute();
+        if (empty($_REQUEST['entryPoint'])
+            || $this->controller->checkEntryPointRequiresAuth($_REQUEST['entryPoint'])
+        ) {
+            if (!empty($_REQUEST['SAMLResponse'])) {
+                $this->ACLFilter();
+            }
+        }
         sugar_cleanup();
     }
 
