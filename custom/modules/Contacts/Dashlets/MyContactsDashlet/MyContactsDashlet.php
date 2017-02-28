@@ -39,7 +39,7 @@ class MyContactsDashlet extends DashletGeneric {
         global $current_user, $app_strings;
 		require('custom/modules/Contacts/Dashlets/MyContactsDashlet/MyContactsDashlet.data.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'Contacts');
 

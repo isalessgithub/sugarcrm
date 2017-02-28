@@ -29,7 +29,7 @@ class ATC_AppointmentsDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('modules/ATC_Appointments/metadata/dashletviewdefs.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'ATC_Appointments');
 

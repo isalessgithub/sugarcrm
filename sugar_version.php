@@ -3,7 +3,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -13,10 +13,10 @@
 
 
 
-$sugar_version      = '7.7.2.0';
-$sugar_db_version   = '7.7.2.0';
+$sugar_version      = '7.8.0.0';
+$sugar_db_version   = '7.8.0.0';
 $sugar_flavor       = 'PRO';
-$sugar_build		= '316';
-$sugar_timestamp    = '2016-10-14 10:34AM';
+$sugar_build		= '1700';
+$sugar_timestamp    = '2016-11-29 06:15AM';
 
 ?>

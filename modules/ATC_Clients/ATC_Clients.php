@@ -19,7 +19,7 @@ require_once('modules/ATC_Clients/ATC_Clients_sugar.php');
 class ATC_Clients extends ATC_Clients_sugar {
 	
 	function ATC_Clients(){	
-		parent::ATC_Clients_sugar();
+		parent::__construct();
 	}
 	
 }

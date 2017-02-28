@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -282,7 +282,7 @@ $mod_strings = array (
 
     // Help Text
     // List View Help Text
-    'LBL_HELP_RECORDS' => 'Il modulo {{plural_module_name}} consiste in singoli prospects che potrebbero essere interessati ad un prodotto o servizio che la tua azienda fornisce. Una volta che il {{module_name}} è qualificato come {{opportunities_singular_module}} di vendita, {{plural_module_name}} può essere convertito in {{contacts_module}}, {{opportunities_module}}, e {{accounts_module}}. Ci sono vari modi per creare {{plural_module_name}} in Sugar come mediante il modulo {{plural_module_name}}, duplicazione, importando {{plural_module_name}}, ecc. Una volta che {{module_name}} è creato, puoi visualizzare o modificre informazioni pertinenti il {{module_name}} attraverso la vista elenco del modulo {{plural_module_name}}.',
+    'LBL_HELP_RECORDS' => 'Il modulo {{plural_module_name}} consiste in singoli prospects che potrebbero essere interessati ad un prodotto o servizio che la tua azienda fornisce. Una volta che il {{module_name}} è qualificato come {{opportunities_singular_module}} di vendita, {{plural_module_name}} può essere convertito in {{contacts_module}}, {{opportunities_module}}, e {{accounts_module}}. Ci sono vari modi per creare {{plural_module_name}} in Sugar come mediante il modulo {{plural_module_name}}, duplicazione, importando {{plural_module_name}}, ecc. Una volta che {{module_name}} è creato, puoi visualizzare o modificare informazioni pertinenti il {{module_name}} attraverso la vista elenco del modulo {{plural_module_name}}.',
 
     // Record View Help Text
     'LBL_HELP_RECORD' => 'Il modulo {{plural_module_name}} consiste in singoli prospects che potrebbero essere interessati ad un prodotto o servizio che la tua azienda fornisce. 

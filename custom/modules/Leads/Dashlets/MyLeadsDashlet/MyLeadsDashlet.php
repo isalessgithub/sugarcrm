@@ -39,7 +39,7 @@ class MyLeadsDashlet extends DashletGeneric {
         global $current_user, $app_strings;
 		require('custom/modules/Leads/Dashlets/MyLeadsDashlet/MyLeadsDashlet.data.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_LIST_MY_LEADS', 'Leads');
 

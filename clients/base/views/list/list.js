@@ -1,7 +1,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -54,11 +54,14 @@
         var listViewMeta = app.metadata.getView(options.module, 'list') || {};
         //Extend from an empty object to prevent polution of the base metadata
         options.meta = _.extend({}, listViewMeta, options.meta || {});
+        // FIXME: SC-5622 we shouldn't manipulate metadata this way.
         options.meta.type = options.meta.type || 'list';
         options.meta.action = 'list';
         options = this.parseFieldMetadata(options);
 
         app.view.View.prototype.initialize.call(this, options);
+
+        this.viewName = 'list';
 
         //Set the context to load the field list from the record metadata.
         this.context.set('dataView', this.dataViewName);
@@ -94,6 +97,11 @@
             lastOrderedFieldMeta = this.getFieldMeta(lastStateOrderBy.field);
 
         if (_.isEmpty(lastOrderedFieldMeta) || !app.utils.isSortable(this.module, lastOrderedFieldMeta)) {
+            lastStateOrderBy = {};
+        }
+
+        // if no access to the field, don't use it
+        if (!_.isEmpty(lastStateOrderBy.field) && !app.acl.hasAccess('read', this.module, app.user.get('id'), lastStateOrderBy.field)) {
             lastStateOrderBy = {};
         }
 
@@ -228,7 +236,7 @@
             query: term
         };
         this.context.get("collection").resetPagination();
-        this.context.resetLoadFlag(false);
+        this.context.resetLoadFlag({recursive: false});
         this.context.set('skipFetch', false);
         this.context.loadData(options);
     },
@@ -256,6 +264,11 @@
         if (!orderBy) {
             orderBy = eventTarget.data('fieldname');
         }
+        if (!_.isEmpty(orderBy) && !app.acl.hasAccess('read', this.module, app.user.get('id'), orderBy)) {
+            // no read access to the orderBy field, don't bother to reload data
+            return;
+        }
+
         // if same field just flip
         if (orderBy === self.orderBy.field) {
             self.orderBy.direction = self.orderBy.direction === 'desc' ? 'asc' : 'desc';
@@ -286,7 +299,7 @@
             app.user.lastState.set(this.orderByLastStateKey, this.orderBy);
         }
         // refetch the collection
-        this.context.resetLoadFlag(false);
+        this.context.resetLoadFlag({recursive: false});
         this.context.set('skipFetch', false);
         this.context.loadData(options);
     },
@@ -431,28 +444,58 @@
      * Register shortcut keys.
      */
     registerShortcuts: function() {
-        app.shortcuts.register('List:Select:Down', 'j', function() {
-            this.selectRow(true);
-        }, this);
-
-        app.shortcuts.register('List:Select:Up', 'k', function() {
-            this.selectRow(false);
-        }, this);
-
-        app.shortcuts.register('List:Scroll:Left', 'h', function() {
-            this.scrollHorizontally(false);
-        }, this);
-
-        app.shortcuts.register('List:Scroll:Right', 'l', function() {
-            this.scrollHorizontally(true);
-        }, this);
-
-        app.shortcuts.register('List:Select:Open', 'o', function() {
-            if (this.$('.selected [data-type=name] a:visible').length > 0) {
-                this.$('.selected [data-type=name] a:visible').get(0).click();
-            } else if (this.$('.selected [data-type=fullname] a:visible').length > 0) {
-                this.$('.selected [data-type=fullname] a:visible').get(0).click();
+        app.shortcuts.register({
+            id: 'List:Select:Down',
+            keys: 'j',
+            component: this,
+            description: 'LBL_SHORTCUT_NAVIGATE_DOWN',
+            handler: function() {
+                this.selectRow(true);
             }
-        }, this);
+        });
+
+        app.shortcuts.register({
+            id: 'List:Select:Up',
+            keys: 'k',
+            component: this,
+            description: 'LBL_SHORTCUT_NAVIGATE_UP',
+            handler: function() {
+                this.selectRow(false);
+            }
+        });
+
+        app.shortcuts.register({
+            id: 'List:Scroll:Left',
+            keys: 'h',
+            component: this,
+            description: 'LBL_SHORTCUT_SCROLL_LEFT',
+            handler: function() {
+                this.scrollHorizontally(false);
+            }
+        });
+
+        app.shortcuts.register({
+            id: 'List:Scroll:Right',
+            keys: 'l',
+            component: this,
+            description: 'LBL_SHORTCUT_SCROLL_RIGHT',
+            handler: function() {
+                this.scrollHorizontally(true);
+            }
+        });
+
+        app.shortcuts.register({
+            id: 'List:Select:Open',
+            keys: 'o',
+            component: this,
+            description: 'LBL_SHORTCUT_OPEN',
+            handler: function() {
+                if (this.$('.selected [data-type=name] a:visible').length > 0) {
+                    this.$('.selected [data-type=name] a:visible').get(0).click();
+                } else if (this.$('.selected [data-type=fullname] a:visible').length > 0) {
+                    this.$('.selected [data-type=fullname] a:visible').get(0).click();
+                }
+            }
+        });
     }
 })

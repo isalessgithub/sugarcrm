@@ -29,7 +29,7 @@ class TE_TimeEntriesDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('modules/TE_TimeEntries/metadata/dashletviewdefs.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'TE_TimeEntries');
 
