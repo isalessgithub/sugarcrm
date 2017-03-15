@@ -69,7 +69,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
   'LBL_AMOUNT' => 'Importo:',
   'LBL_AMOUNT_USDOLLAR' => 'Importo in USD:',
   'LBL_CURRENCY' => 'Valuta:',
-  'LBL_DATE_CLOSED' => 'Data Chiusura Prevista:',
+  'LBL_DATE_CLOSED' => 'Data di chiusura prevista:',
   'LBL_TYPE' => 'Tipo:',
   'LBL_CAMPAIGN' => 'Campagna:',
   'LBL_LEADS_SUBPANEL_TITLE' => 'Lead',

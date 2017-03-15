@@ -88,7 +88,6 @@ class Meeting extends SugarBean {
         'assigned_user_id' => 'users',
         'contact_id' => 'contacts',
         'user_id' => 'users',
-        'meeting_id' => 'meetings',
     );
 	// so you can run get_users() twice and run query only once
 	var $cached_get_users = null;
@@ -818,6 +817,7 @@ class Meeting extends SugarBean {
     public function setContactInvitees($contactInvitees, $existingContacts = array())
     {
         $this->contacts_arr = $contactInvitees;
+
         $this->upgradeAttachInvitees('contacts', $contactInvitees, $existingContacts);
     }
 
@@ -830,6 +830,7 @@ class Meeting extends SugarBean {
     public function setLeadInvitees($leadInvitees, $existingLeads = array())
     {
         $this->leads_arr = $leadInvitees;
+
         $this->upgradeAttachInvitees('leads', $leadInvitees, $existingLeads);
     }
 

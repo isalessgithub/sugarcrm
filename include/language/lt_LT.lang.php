@@ -7978,7 +7978,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Sekti saitą',
   'LBL_TOGGLE_VISIBILITY' => 'Perjungti matomumą', // Record view header panel element
   'LBL_ACTIVITIES' => 'Veiklos srautas',
-  'LBL_COPYRIGHT' => '© „SugarCRM Inc.“, 2004–2016. Visos teisės saugomos.',
+  'LBL_COPYRIGHT' => '© „SugarCRM Inc.“, 2004–2017. Visos teisės saugomos.',
     'LBL_TRADEMARK' => '„SugarCRM, Sugar“ ir 3-D kubas yra registruotieji „SugarCRM Inc.“ prekės ženklai. '.
         'Visi kiti šiame produkte naudojami arba pateikti įmonių ir produktų pavadinimai yra '.
         'atitinkamų įmonių, su kuriomis jie susiję, prekės ženklai.',
@@ -9142,7 +9142,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004–2016 m. <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">„SugarCRM Inc.“</a> '.
+        '&copy; <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a>, 2004–2017 '.
         'Visos teisės saugomos.<br />„SugarCRM, Sugar“ ir 3-D kubas yra registruotieji „SugarCRM Inc.“ prekės ženklai. '.
         'Visi kiti šiame produkte naudojami arba pateikti įmonių ir produktų pavadinimai yra '.
         'atitinkamų įmonių, su kuriomis jie susiję, prekės ženklai.',

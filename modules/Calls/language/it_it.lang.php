@@ -44,7 +44,7 @@ $mod_strings = array (
     'LBL_HOURS_ABBREV' => 'h',
     'LBL_MINSS_ABBREV' => 'm',
     'LBL_COLON' => ':',
-    'LNK_NEW_CALL' => 'Nuova Chiamata',
+    'LNK_NEW_CALL' => 'Log chiamata',
     'LNK_NEW_MEETING' => 'Nuova Riunione',
     'LNK_CALL_LIST' => 'Visualizza Chiamate',
     'LNK_IMPORT_CALLS' => 'Importa Chiamate',
@@ -73,7 +73,7 @@ $mod_strings = array (
 	'LBL_DATE_END'=>'Data Fine',
 	'LBL_TIME_END'=>'Ora Fine',
     'LBL_REMINDER_TIME'=>'Tempo di Avviso',
-    'LBL_EMAIL_REMINDER_SENT' => 'Email di promemoria inviati',
+    'LBL_EMAIL_REMINDER_SENT' => 'Promemoria tramite email inviati',
     'LBL_SEARCH_BUTTON'=> 'Cerca',
     'LBL_ACTIVITIES_REPORTS' => 'Report Attività',
     'LBL_ADD_BUTTON'=> 'Aggiungi',
@@ -126,7 +126,7 @@ $mod_strings = array (
     'LBL_REPEAT_END_BY' => 'Da',
     'LBL_REPEAT_DOW' => 'Ripetere Dow',
     'LBL_REPEAT_UNTIL' => 'Ripetere Fino',
-    'LBL_REPEAT_COUNT' => 'Ripetere Conteggio',
+    'LBL_REPEAT_COUNT' => 'Numero delle ricorrenze',
     'LBL_EDIT_ALL_RECURRENCES' => 'Modifica Tutte le Ricorrenze',
     'LBL_REMOVE_ALL_RECURRENCES' => 'Cancella Tutte le Ricorrenze',
     'LBL_DATE_END_ERROR' => 'La Data di Fine precede la Data di Inizio',
@@ -147,7 +147,7 @@ $mod_strings = array (
     'LBL_RECORD_SAVED_SUCCESS' => 'Hai schedulato {{moduleSingularLower}} <a href="#{{buildRoute model=this}}">{{name}}</a> per {{formatDate date_start}}.',
     'LBL_RECORD_SAVED_ACCESS_DENIED' => 'Hai schedulato {{moduleSingularLower}} per {{formatDate date_start}}, ma non hai i permessi di accesso.',
 
-    'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
+    'LBL_REVENUELINEITEMS' => 'Elementi dell&#39;opportunità',
 
     'TPL_CALL_STATUS_CHANGED' => 'Chiamate impostate come {{status}}.',
 

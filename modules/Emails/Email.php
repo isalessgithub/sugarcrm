@@ -1391,10 +1391,11 @@ class Email extends SugarBean {
      */
     public function mark_deleted($id)
     {
-        $q = "UPDATE emails_text SET deleted = 1 WHERE email_id = '{$id}'";
+        $q = "UPDATE emails_text SET deleted = 1 WHERE email_id = " . $this->db->quoted($id);
         $this->db->query($q);
 
-        $q = "UPDATE folders_rel SET deleted = 1 WHERE polymorphic_id = '{$id}' AND polymorphic_module = 'Emails'";
+        $q = "UPDATE folders_rel SET deleted = 1 WHERE polymorphic_id = " . $this->db->quoted($id) .
+            " AND polymorphic_module = 'Emails'";
         $this->db->query($q);
 
         parent::mark_deleted($id);
@@ -1404,9 +1405,10 @@ class Email extends SugarBean {
 		if(empty($id))
 			$id = $this->id;
 
-		$q  = "UPDATE emails SET deleted = 1 WHERE id = '{$id}'";
-		$qt = "UPDATE emails_text SET deleted = 1 WHERE email_id = '{$id}'";
-		$qf = "UPDATE folders_rel SET deleted = 1 WHERE polymorphic_id = '{$id}' AND polymorphic_module = 'Emails'";
+        $q  = "UPDATE emails SET deleted = 1 WHERE id = " . $this->db->quoted($id);
+        $qt = "UPDATE emails_text SET deleted = 1 WHERE email_id = " . $this->db->quoted($id);
+        $qf = "UPDATE folders_rel SET deleted = 1 WHERE polymorphic_id = " .$this->db->quoted($id) .
+            " AND polymorphic_module = 'Emails'";
       	$r  = $this->db->query($q);
 		$rt = $this->db->query($qt);
 		$rf = $this->db->query($qf);

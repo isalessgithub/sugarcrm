@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Sledovať odkaz',
   'LBL_TOGGLE_VISIBILITY' => 'Prepnúť viditeľnosť', // Record view header panel element
   'LBL_ACTIVITIES' => 'Aktivity',
-  'LBL_COPYRIGHT' => 'Copyright © 2004 – 2016 SugarCRM Inc. Všetky práva vyhradené.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar a 3-D kocka sú registrované ochranné známky spoločnosti SugarCRM Inc. '.
         'Všetky ostatné názvy spoločností a produktov, ktoré sú pri tomto produkte použité alebo zobrazené, môžu byť ochranné známky '.
         'príslušných spoločností, s ktorými sú spojené.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004 – 2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Všetky práva vyhradené.<br />SugarCRM, Sugar a 3-D kocka sú registrované ochranné známky spoločnosti SugarCRM Inc. '.
         'Všetky ostatné názvy spoločností a produktov, ktoré sú pri tomto produkte použité alebo zobrazené, môžu byť ochranné známky '.
         'príslušných spoločností, s ktorými sú spojené.',

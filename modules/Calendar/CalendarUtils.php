@@ -313,36 +313,38 @@ class CalendarUtils
 		// rather than using relationships framework due to performance issues.
 		// Relationship framework runs very slowly
 
+        /** @var DBManager $db */
 		$db = $GLOBALS['db'];
 		$id = $bean->id;
 		$date_modified = $GLOBALS['timedate']->nowDb();
-		$lower_name = strtolower($bean->object_name);
 
-        $qu = "SELECT * FROM {$bean->rel_users_table} WHERE deleted = 0 AND {$lower_name}_id = '{$id}'";
-        $re = $db->query($qu);
-        $users_rel_arr = array();
+        $linkData = array();
+        foreach (array('users', 'contacts', 'leads') as $linkName) {
+            if (!$bean->load_relationship($linkName)) {
+                continue;
+            }
 
-        while ($ro = $db->fetchByAssoc($re)) {
-            $users_rel_arr[] = $ro['user_id'];
+            /** @var Link2 $link */
+            $link = $bean->$linkName;
+            $link->load(array(
+                'enforce_teams' => false,
+            ));
+            $ids = $link->get();
+
+            if (count($ids) == 0) {
+                continue;
+            }
+
+            $linkData[$linkName] = array($link->getRelationshipObject()->def, $ids);
         }
 
-		$qu = "SELECT * FROM {$bean->rel_contacts_table} WHERE deleted = 0 AND {$lower_name}_id = '{$id}'";
-		$re = $db->query($qu);
-		$contacts_rel_arr = array();
-		while($ro = $db->fetchByAssoc($re)) {
-			$contacts_rel_arr[] = $ro['contact_id'];
-		}
+        // If the bean has a users_arr then related records for those ids will have
+        // already been created. This prevents duplicates of those records for
+        // users, contacts and leads (handled below)
+        if (isset($linkData['users']) && !empty($bean->users_arr)) {
+            $linkData['users'][1] = array_diff($linkData['users'][1], $bean->users_arr);
+        }
 
-		$qu = "SELECT * FROM {$bean->rel_leads_table} WHERE deleted = 0 AND {$lower_name}_id = '{$id}'";
-		$re = $db->query($qu);
-		$leads_rel_arr = array();
-		while($ro = $db->fetchByAssoc($re)) {
-			$leads_rel_arr[] = $ro['lead_id'];
-		}
-
-		$qu_contacts = array();
-		$qu_users = array();
-		$qu_leads = array();
 		$arr = array();
 		$i = 0;
 
@@ -377,50 +379,27 @@ class CalendarUtils
             // make sure any store relationship info is not saved
             $clone->rel_fields_before_value = array();
 
-            $fields = array(
-                'id' => array('name' => 'id', 'type' => 'id'),
-                'user_id' => array('name' => 'user_id', 'type' => 'id'),
-                $lower_name . '_id' => array('name' => $lower_name . '_id', 'type' => 'id'),
-                'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
-            );
-            foreach ($users_rel_arr as $user_id) {
-                $db->insertParams($clone->rel_users_table, $fields, array(
-                    'id' => create_guid(),
-                    'user_id' => $user_id,
-                    $lower_name . '_id' => $clone->id,
-                    'date_modified' => $date_modified,
-                ));
-            }
+            foreach ($linkData as $linkName => $data) {
+                list($def, $relIds) = $data;
+                $lhsKey = $def['join_key_lhs'];
+                $rhsKey = $def['join_key_rhs'];
+                $table = $def['join_table'];
 
-            $fields = array(
-                'id' => array('name' => 'id', 'type' => 'id'),
-                'contact_id' => array('name' => 'contact_id', 'type' => 'id'),
-                $lower_name . '_id' => array('name' => $lower_name . '_id', 'type' => 'id'),
-                'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
-            );
+                $fields = array(
+                    'id' => array('name' => 'id', 'type' => 'id'),
+                    $lhsKey => array('name' => $lhsKey, 'type' => 'id'),
+                    $rhsKey => array('name' => $rhsKey, 'type' => 'id'),
+                    'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
+                );
 
-            foreach ($contacts_rel_arr as $contact_id) {
-                $db->insertParams($bean->rel_contacts_table, $fields, array(
-                    'id' => create_guid(),
-                    'contact_id' => $contact_id,
-                    $lower_name . '_id' => $clone->id,
-                    'date_modified' => $date_modified,
-                ));
-            }
-
-            $fields = array(
-                'id' => array('name' => 'id', 'type' => 'id'),
-                'lead_id' => array('name' => 'lead_id', 'type' => 'id'),
-                $lower_name . '_id' => array('name' => $lower_name . '_id', 'type' => 'id'),
-                'date_modified' => array('name' => 'date_modified', 'type' => 'datetime'),
-            );
-            foreach ($leads_rel_arr as $lead_id) {
-                $db->insertParams($bean->rel_leads_table, $fields, array(
-                    'id' => create_guid(),
-                    'lead_id' => $lead_id,
-                    $lower_name . '_id' => $clone->id,
-                    'date_modified' => $date_modified,
-                ));
+                foreach ($relIds as $relId) {
+                    $db->insertParams($table, $fields, array(
+                        'id' => create_guid(),
+                        $lhsKey => $clone->id,
+                        $rhsKey => $relId,
+                        'date_modified' => $date_modified,
+                    ));
+                }
             }
 
             // Before calling save, we need to clear out any existing registered AWF
@@ -462,15 +441,25 @@ class CalendarUtils
 			$modified_user_id = 1;
 		$lower_name = strtolower($bean->object_name);
 
-		$qu = "SELECT id FROM {$bean->table_name} WHERE repeat_parent_id = '{$bean->id}' AND deleted = 0";
+        $qu = "SELECT id FROM {$bean->table_name} WHERE repeat_parent_id = "
+                . $db->quoted($bean->id) . " AND deleted = 0";
 		$re = $db->query($qu);
 		while( $ro = $db->fetchByAssoc($re)) {
 			$id = $ro['id'];
 			$date_modified = $GLOBALS['timedate']->nowDb();
-			$db->query("UPDATE {$bean->table_name} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . ", modified_user_id = '{$modified_user_id}' WHERE id = '{$id}'");
-			$db->query("UPDATE {$bean->rel_users_table} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE {$lower_name}_id = '{$id}'");
-			$db->query("UPDATE {$bean->rel_contacts_table} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE {$lower_name}_id = '{$id}'");
-			$db->query("UPDATE {$bean->rel_leads_table} SET deleted = 1, date_modified = " . $db->convert($db->quoted($date_modified), 'datetime') . " WHERE {$lower_name}_id = '{$id}'");
+            $db->query("UPDATE {$bean->table_name} SET deleted = 1, date_modified = "
+                . $db->convert($db->quoted($date_modified), 'datetime')
+                . ", modified_user_id = " . $db->quoted($modified_user_id)
+                . " WHERE id = " . $db->quoted($id));
+            $db->query("UPDATE {$bean->rel_users_table} SET deleted = 1, date_modified = "
+                . $db->convert($db->quoted($date_modified), 'datetime')
+                . " WHERE {$lower_name}_id = " . $db->quoted($id));
+            $db->query("UPDATE {$bean->rel_contacts_table} SET deleted = 1, date_modified = "
+                . $db->convert($db->quoted($date_modified), 'datetime')
+                . " WHERE {$lower_name}_id = " . $db->quoted($id));
+            $db->query("UPDATE {$bean->rel_leads_table} SET deleted = 1, date_modified = "
+                . $db->convert($db->quoted($date_modified), 'datetime')
+                . " WHERE {$lower_name}_id = " . $db->quoted($id));
 		}
 		vCal::cache_sugar_vcal($GLOBALS['current_user']);
 	}

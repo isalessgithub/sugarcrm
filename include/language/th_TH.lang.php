@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'เปิดลิงก์',
   'LBL_TOGGLE_VISIBILITY' => 'สลับการแสดงผล', // Record view header panel element
   'LBL_ACTIVITIES' => 'สตรีมกิจกรรม',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. สงวนลิขสิทธิ์',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar และลูกบาศก์ 3-D เป็นเครื่องหมายการค้าจดทะเบียนของ SugarCRM Inc. '.
         'ชื่อบริษัทและผลิตภัณฑ์อื่นๆ ทั้งหมดที่ใช้หรือปรากฏในผลิตภัณฑ์นี้อาจเป็นเครื่องหมายการค้าของ'.
         'บริษัทที่เกี่ยวข้องนั้นๆ',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'สงวนลิขสิทธิ์<br />SugarCRM, Sugar และลูกบาศก์ 3-D เป็นเครื่องหมายการค้าจดทะเบียนของ SugarCRM Inc. '.
         'ชื่อบริษัทและผลิตภัณฑ์อื่นๆ ทั้งหมดที่ใช้หรือปรากฏในผลิตภัณฑ์นี้อาจเป็นเครื่องหมายการค้าของ'.
         'บริษัทที่เกี่ยวข้องนั้นๆ',

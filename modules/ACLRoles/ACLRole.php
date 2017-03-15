@@ -185,7 +185,9 @@ public static function getAllRoles($returnAsArray = false)
         $query .=" FROM acl_actions ";
 
         if(!empty($role_id)){
-            $query .=		" LEFT JOIN acl_roles_actions ON acl_roles_actions.role_id = '$role_id' AND  acl_roles_actions.action_id = acl_actions.id AND acl_roles_actions.deleted = 0";
+            $query .= " LEFT JOIN acl_roles_actions ON acl_roles_actions.role_id = ".
+                $db->quoted($role_id) .
+                " AND  acl_roles_actions.action_id = acl_actions.id AND acl_roles_actions.deleted = 0";
         }
         $query .= " WHERE acl_actions.deleted=0 ORDER BY acl_actions.category, acl_actions.name";
         $result = $db->query($query);
@@ -240,8 +242,11 @@ public static function getAllRoles($returnAsArray = false)
  */
 function mark_relationships_deleted($id){
         //we need to delete the actions relationship by hand (special case)
-        $date_modified = db_convert("'".TimeDate::getInstance()->nowDb()."'", 'datetime');
-        $query =  "UPDATE acl_roles_actions SET deleted=1 , date_modified=$date_modified WHERE role_id = '$id' AND deleted=0";
+        $query = sprintf(
+            'UPDATE acl_roles_actions SET deleted = 1, date_modified = %s WHERE role_id = %s AND deleted = 0',
+            db_convert($this->db->quoted(TimeDate::getInstance()->nowDb()), 'datetime'),
+            $this->db->quoted($id)
+        );
         $this->db->query($query);
         parent::mark_relationships_deleted($id);
 }

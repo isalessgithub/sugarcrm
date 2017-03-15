@@ -314,8 +314,8 @@ class WorkFlowActionShell extends SugarBean {
 	function get_action_id($field_name){
 		$query = "	SELECT $this->rel_action_table.id
 					FROM $this->rel_action_table 
-					WHERE $this->rel_action_table.parent_id = '".$this->id."'
-					AND ".$this->rel_action_table.".field = '".$field_name."'
+					WHERE $this->rel_action_table.parent_id = ".$this->db->quoted($this->id)."
+					AND ".$this->rel_action_table.".field = ".$this->db->quoted($field_name)."
 					AND ".$this->rel_action_table.".deleted=0";
         $result = $this->db->query($query,true," Error grabbing action id: ");
 		// Get the id and the name.
@@ -338,7 +338,7 @@ class WorkFlowActionShell extends SugarBean {
 
 		$query = "	SELECT $this->rel_action_table.id
 					FROM $this->rel_action_table 
-					WHERE $this->rel_action_table.parent_id = '".$id."'
+					WHERE $this->rel_action_table.parent_id = ".$this->db->quoted($id)."
 					AND ".$this->rel_action_table.".deleted=0";
 		$result = $this->db->query($query,true," Error grabbing action id: ");
 		// Get the id and the name.

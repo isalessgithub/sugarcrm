@@ -39,7 +39,7 @@ $mod_strings = array (
 'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
 'LBL_OOTB_KBCONTENT_UPDATE' => 'Update KBContent articles.',
 'LBL_OOTB_KBSCONTENT_EXPIRE' => 'Publish approved articles & Expire KB Articles.',
-'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Advanced Workflow Scheduled Job',
+'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Išplėstinės darbo eigos suplanuota užduotis',
 
 // List Labels
 'LBL_LIST_JOB_INTERVAL' => 'Intervalas:',

@@ -94,6 +94,6 @@ $mod_strings = array (
   'LBL_EMAILTEMPLATES_TYPE' => 'Tüüp',
 
   // Workflow sunsetting message, added in 7.6.1
-  'LBL_WORKFLOW_SUNSET_NOTICE' => '<strong>Note:</strong> This feature will be removed in a future release of Sugar currently planned for 2017. Sugar Enterprise edition customers should begin to use the advanced workflow capabilities provided by Advanced Workflow. Click <a href="http://www.sugarcrm.com/wf-eol/" target="_blank">here</a> for more information.',
+  'LBL_WORKFLOW_SUNSET_NOTICE' => '<strong>Märkus.</strong> See funktsioon eemaldatakse Sugari tulevasest väljalaskest, mis on hetkel plaanitud aastaks 2017. Väljalaske Sugar Enterprise kliendid peaksid hakkama kasutama Täiustatud töövoo pakutavaid täiustatud töövoo võimalusi. Lisateabe saamiseks klõpsake <a href="http://www.sugarcrm.com/wf-eol/" target="_blank">siin</a>.',
 );
 

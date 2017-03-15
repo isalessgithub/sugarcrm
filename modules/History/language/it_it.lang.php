@@ -39,7 +39,7 @@ $mod_strings = array (
   'LBL_DESCRIPTION' => 'Descrizione:',
   'LBL_COLON' => ':',
   'LBL_DEFAULT_STATUS' => 'Pianificato',
-  'LNK_NEW_CALL' => 'Nuova Chiamata',
+  'LNK_NEW_CALL' => 'Log chiamata',
   'LNK_NEW_MEETING' => 'Nuova Riunione',
   'LNK_NEW_TASK' => 'Nuovo Compito',
   'LNK_NEW_NOTE' => 'Nuova Nota o Allegato',
@@ -85,7 +85,7 @@ $mod_strings = array (
   	,'this Saturday' => 'questa settimana'
   	,'next Saturday' => 'la prossima settimana'
   	,'last this_month' => 'questo mese'
-  	,'last next_month' => 'il prossimo mese'
+  	,'last next_month' => 'il mese prossimo'
   ),
   'LNK_IMPORT_NOTES'=>'Importa Note',
   'NTC_NONE'=>'Nessuno',

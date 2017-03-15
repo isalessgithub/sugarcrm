@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Follow Link',
   'LBL_TOGGLE_VISIBILITY' => 'Toggle Visibility', // Record view header panel element
   'LBL_ACTIVITIES' => 'Tegevused',
-  'LBL_COPYRIGHT' => 'Autoriõigus © 2004–2015 SugarCRM Inc. Kõik õigused kaitstud.',
+  'LBL_COPYRIGHT' => 'Autoriõigus © 2004–2017 SugarCRM Inc. Kõik õigused kaitstud.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar ja 3-D Kuup on ettevõtte SugarCRM Inc. registreeritud kaubamärgid. '.
         'Kõik muud tootes kasutatavad või esinevad ettevõtte ja tootenimed võivad olla '.
         'vastavate ettevõtete kaubamärgid, millega need on seotud.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004–2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004–2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Kõik õigused kaitstud.<br />SugarCRM, Sugar ja 3-D Kuup on ettevõtte SugarCRM Inc. registreeritud kaubamärgid. '.
         'Kõik muud tootes kasutatavad või esinevad ettevõtte ja tootenimed võivad olla '.
         'vastavate ettevõtete kaubamärgid, millega need on seotud.',

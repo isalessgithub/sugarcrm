@@ -252,6 +252,7 @@ echo get_validate_chart_js();
 			$GLOBALS['log']->debug($user_id);
 			$GLOBALS['log']->debug("cache_file_name is: $cache_file_name");
 			$opp = BeanFactory::getBean('Opportunities');
+            $db = $opp->db;
 			$where="";
 			//build the where clause for the query that matches $user
 			$count = count($user_id);
@@ -261,8 +262,8 @@ echo get_validate_chart_js();
 				$new_ids[$key] = $user_list[$key];
 			}
 			if ($count>0) {
-				foreach ($new_ids as $the_id=>$the_name) {
-					$id[] = "'".$the_id."'";
+                foreach ($new_ids as $the_id => $_) {
+                    $id[] = $db->quoted($the_id);
 				}
 				$ids = join(",",$id);
 				$where .= "opportunities.assigned_user_id IN ($ids) ";
@@ -272,17 +273,16 @@ echo get_validate_chart_js();
 			$count = count($datax);
 			$dataxArr = array();
 			if ($count>0) {
-
-				foreach ($datax as $key=>$value) {
-					$dataxArr[] = "'".$key."'";
+                foreach ($datax as $key => $_) {
+                    $dataxArr[] = $db->quoted($key);
 				}
 				$dataxArr = join(",",$dataxArr);
 				$where .= "AND opportunities.sales_stage IN	($dataxArr) ";
 			}
 
 			//build the where clause for the query that matches $date_start and $date_end
-			$where .= "	AND opportunities.date_closed >= ". db_convert("'".$date_start."'",'date'). "
-						AND opportunities.date_closed <= ".db_convert("'".$date_end."'",'date') ;
+            $where .= ' AND opportunities.date_closed >= '. $db->convert($db->quoted($date_start), 'date')
+                . ' AND opportunities.date_closed <= ' . $db->convert($db->quoted($date_end), 'date');
 			$where .= "	AND opportunities.assigned_user_id = users.id  AND opportunities.deleted=0 ";
 
 			//Now do the db queries
@@ -442,6 +442,7 @@ echo get_validate_chart_js();
 		$user_id = array($current_user->id);
 
 		$opp = BeanFactory::getBean('Opportunities');
+        $db = $opp->db;
 		$where="";
 		//build the where clause for the query that matches $user
 		$count = count($user_id);
@@ -451,8 +452,8 @@ echo get_validate_chart_js();
 			$new_ids[$key] = $user_list[$key];
 		}
 		if ($count>0) {
-			foreach ($new_ids as $the_id=>$the_name) {
-				$id[] = "'".$the_id."'";
+            foreach ($new_ids as $the_id => $_) {
+                $id[] = $db->quoted($the_id);
 			}
 			$ids = join(",",$id);
 			$where .= "opportunities.assigned_user_id IN ($ids) ";
@@ -461,16 +462,16 @@ echo get_validate_chart_js();
 		$count = count($datax);
 		$dataxArr = array();
 		if ($count>0) {
-			foreach ($datax as $key=>$value) {
-				$dataxArr[] = "'".$key."'";
+            foreach ($datax as $key => $_) {
+                $dataxArr[] = $db->quoted($key);
 			}
 			$dataxArr = join(",",$dataxArr);
 			$where .= "AND opportunities.sales_stage IN	($dataxArr) ";
 		}
 
 		//build the where clause for the query that matches $date_start and $date_end
-		$where .= "	AND opportunities.date_closed >= ". db_convert("'".$date_start."'",'date'). "
-					AND opportunities.date_closed <= ".db_convert("'".$date_end."'",'date') ;
+        $where .= ' AND opportunities.date_closed >= '. $db->convert($db->quoted($date_start), 'date')
+            . ' AND opportunities.date_closed <= ' . $db->convert($db->quoted($date_end), 'date');
 		$where .= "	AND opportunities.assigned_user_id = users.id  AND opportunities.deleted=0 ";
 
 		//Now do the db queries
@@ -492,5 +493,3 @@ echo get_validate_chart_js();
 	function constructGroupBy(){
 		return array('sales_stage');
 	}
-
-?>

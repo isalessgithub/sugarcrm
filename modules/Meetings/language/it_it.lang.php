@@ -67,7 +67,7 @@ $mod_strings = array (
 	'LBL_SEQUENCE' => 'Sequenza aggiornamento riunione',
 	'LBL_PHONE' => 'Telefono Ufficio:',
 	'LBL_REMINDER_TIME'=>'Tempo di Avviso',
-    'LBL_EMAIL_REMINDER_SENT' => 'Email di promemoria inviata',
+    'LBL_EMAIL_REMINDER_SENT' => 'Promemoria tramite email inviati',
 	'LBL_REMINDER' => 'Ricorda:',
 	'LBL_REMINDER_POPUP' => 'Popup',
 	'LBL_REMINDER_EMAIL' => 'Email',
@@ -159,7 +159,7 @@ $mod_strings = array (
     'LBL_REPEAT_END_BY' => 'Da',
     'LBL_REPEAT_DOW' => 'Ripetere Dow',
     'LBL_REPEAT_UNTIL' => 'Ripetere Fino',
-    'LBL_REPEAT_COUNT' => 'Ripetere Conteggio',
+    'LBL_REPEAT_COUNT' => 'Numero delle ricorrenze',
     'LBL_RECURRING_LIMIT_ERROR' => 'Questa chiamata ricorrente non può essere schedulata perchè supera il $limit di ricorrenza massima consentita.',
     'LBL_EDIT_ALL_RECURRENCES' => 'Modifica Tutte le Ricorrenze',
     'LBL_REMOVE_ALL_RECURRENCES' => 'Cancella Tutte le Ricorrenze',
@@ -177,7 +177,7 @@ $mod_strings = array (
     'LBL_SEND_INVITES' => 'Invia Inviti',
     'LBL_REMINDER_TITLE' => 'Riunione:',
 
-    'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
+    'LBL_REVENUELINEITEMS' => 'Elementi dell&#39;opportunità',
 
     'LBL_MEETING_CLOSE_SUCCESS' => 'Riunione chiusa con successo.',
 

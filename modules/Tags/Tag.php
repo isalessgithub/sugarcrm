@@ -199,7 +199,7 @@ class Tag extends Basic
         $date_modified = $GLOBALS['timedate']->nowDb();
         $sql = "UPDATE tag_bean_rel";
         $sql .= " SET deleted = 1, date_modified = '$date_modified'";
-        $sql .= " WHERE tag_id='$id'";
+        $sql .= " WHERE tag_id=" . $this->db->quoted($id);
 
         $db = DBManagerFactory::getInstance();
         $db->query($sql);

@@ -142,7 +142,7 @@ $mod_strings = array (
   
   'LBL_DATE_MODIFIED' => 'Data Modifica',
   'LBL_DATE_ENTERED' => 'Data inserimento',
-  'LBL_DELETED' => 'Cancellato',
+  'LBL_DELETED' => 'Eliminato',
   'LBL_EMAIL_ADDRESS'=>'Indirizzo Email:',
   'LBL_CONTACTS_SYNC' => 'Contatti',
 );

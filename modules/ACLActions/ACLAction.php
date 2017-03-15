@@ -241,13 +241,13 @@ class ACLAction  extends SugarBean
         $additional_where = '';
         $db = DBManagerFactory::getInstance();
         if(!empty($category)){
-            $additional_where .= " AND acl_actions.category = '$category' ";
+            $additional_where .= " AND acl_actions.category = ".$db->quoted($category)." ";
         }
         if(!empty($action)){
-            $additional_where .= " AND acl_actions.name = '$action' ";
+            $additional_where .= " AND acl_actions.name = ".$db->quoted($action)." ";
         }
         if(!empty($type)){
-            $additional_where .= " AND acl_actions.acltype = '$type' ";
+            $additional_where .= " AND acl_actions.acltype = ".$db->quoted($type)." ";
         }
         $query = "SELECT acl_actions.id, acl_actions.name, acl_actions.category, acl_actions.acltype, acl_actions.aclaccess, tt.access_override
             FROM acl_actions
@@ -256,7 +256,7 @@ class ACLAction  extends SugarBean
             FROM acl_roles_users
             LEFT JOIN acl_roles_actions
             ON acl_roles_actions.role_id = acl_roles_users.role_id AND acl_roles_actions.deleted=0
-            WHERE acl_roles_users.user_id ='$user_id' AND acl_roles_users.deleted =0) tt
+            WHERE acl_roles_users.user_id =".$db->quoted($user_id)." AND acl_roles_users.deleted =0) tt
             ON tt.action_id = acl_actions.id
             WHERE acl_actions.deleted=0 $additional_where ORDER BY acl_actions.category, acl_actions.name";
         $result = $db->query($query);
