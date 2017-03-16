@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -204,7 +204,7 @@ class ACLAction  extends SugarBean
     /**
     * static getUserActions($user_id,$refresh=false, $category='', $action='')
     * returns a list of user actions
-    * @param GUID $user_id
+    * @param string $user_id
     * @param BOOLEAN $refresh
     * @param STRING $category
     * @param STRING $action
@@ -241,13 +241,13 @@ class ACLAction  extends SugarBean
         $additional_where = '';
         $db = DBManagerFactory::getInstance();
         if(!empty($category)){
-            $additional_where .= " AND acl_actions.category = '$category' ";
+            $additional_where .= " AND acl_actions.category = ".$db->quoted($category)." ";
         }
         if(!empty($action)){
-            $additional_where .= " AND acl_actions.name = '$action' ";
+            $additional_where .= " AND acl_actions.name = ".$db->quoted($action)." ";
         }
         if(!empty($type)){
-            $additional_where .= " AND acl_actions.acltype = '$type' ";
+            $additional_where .= " AND acl_actions.acltype = ".$db->quoted($type)." ";
         }
         $query = "SELECT acl_actions.id, acl_actions.name, acl_actions.category, acl_actions.acltype, acl_actions.aclaccess, tt.access_override
             FROM acl_actions
@@ -256,39 +256,30 @@ class ACLAction  extends SugarBean
             FROM acl_roles_users
             LEFT JOIN acl_roles_actions
             ON acl_roles_actions.role_id = acl_roles_users.role_id AND acl_roles_actions.deleted=0
-            WHERE acl_roles_users.user_id ='$user_id' AND acl_roles_users.deleted =0) tt
+            WHERE acl_roles_users.user_id =".$db->quoted($user_id)." AND acl_roles_users.deleted =0) tt
             ON tt.action_id = acl_actions.id
             WHERE acl_actions.deleted=0 $additional_where ORDER BY acl_actions.category, acl_actions.name";
         $result = $db->query($query);
         $selected_actions = array();
         while($row = $db->fetchByAssoc($result, FALSE) ){
-            $acl = BeanFactory::getBean('ACLActions');
-            $isOverride  = false;
-            $acl->populateFromRow($row);
-            if(!empty($row['access_override'])){
-                $acl->aclaccess = $row['access_override'];
-                $isOverride = true;
+            $isOverride = !empty($row['access_override']);
+            if ($isOverride) {
+                $row['aclaccess'] = $row['access_override'];
             }
-            if(!isset($selected_actions[$acl->category])){
-                $selected_actions[$acl->category] = array();
 
-            }
-            if(!isset($selected_actions[$acl->category][$acl->acltype][$acl->name])
-                || ($selected_actions[$acl->category][$acl->acltype][$acl->name]['aclaccess'] > $acl->aclaccess
-                    && $isOverride
-                    )
-                ||
-                    (!empty($selected_actions[$acl->category][$acl->acltype][$acl->name]['isDefault'])
-                    && $isOverride
+            if (!isset($selected_actions[$row['category']][$row['acltype']][$row['name']])
+                || ($isOverride
+                    && ($selected_actions[$row['category']][$row['acltype']][$row['name']]['aclaccess'] > $row['aclaccess']
+                        || $selected_actions[$row['category']][$row['acltype']][$row['name']]['isDefault']
                     )
                 )
-            {
-
-
-                $selected_actions[$acl->category][$acl->acltype][$acl->name] = $acl->toArray();
-                $selected_actions[$acl->category][$acl->acltype][$acl->name]['isDefault'] = !$isOverride;
+            ) {
+                $selected_actions[$row['category']][$row['acltype']][$row['name']] = array(
+                    'id' => $row['id'],
+                    'aclaccess' => $row['aclaccess'],
+                    'isDefault' => !$isOverride,
+                );
             }
-
         }
 
         //only set the session variable if it was a full list;
@@ -399,12 +390,14 @@ class ACLAction  extends SugarBean
 
         }
         if(!empty(self::$acls[$user_id][$category][$type][$action])){
+            $actionAccess = self::$acls[$user_id][$category][$type][$action]['aclaccess'];
+
             if (!empty(self::$acls[$user_id][$category][$type]['admin']) && self::$acls[$user_id][$category][$type]['admin']['aclaccess'] >= ACL_ALLOW_ADMIN)
             {
                 // If you have admin access for a module, all ACL's are allowed
                 return self::$acls[$user_id][$category][$type]['admin']['aclaccess'];
             }
-            return  self::$acls[$user_id][$category][$type][$action]['aclaccess'];
+            return $actionAccess;
         }
     }
 

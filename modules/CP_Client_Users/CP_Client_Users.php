@@ -19,7 +19,7 @@ require_once('modules/CP_Client_Users/CP_Client_Users_sugar.php');
 class CP_Client_Users extends CP_Client_Users_sugar {
 	
 	function CP_Client_Users(){	
-		parent::CP_Client_Users_sugar();
+		parent::__construct();
 	}
 	
 }

@@ -4,7 +4,7 @@ Activity::disable();
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -276,11 +276,14 @@ else if(!isset($_GET['execute'])){
 			$tousername = $row['user_name'];
 	}
 	//rrs bug: 31056 - instead of setting the team_id let's set the team_set_id and set the team_id as the primary
-    $teams = SugarFieldTeamset::getTeamsFromRequest('team_name');
+    $sugarFieldTeamSet = new SugarFieldTeamset('Teamset');
+    $teams = $sugarFieldTeamSet->getTeamsFromRequest('team_name');
 	$team_ids = array_keys($teams);
     $team_id = SugarFieldTeamset::getPrimaryTeamIdFromRequest('team_name', $_REQUEST);
 	$teamSet = BeanFactory::getBean('TeamSets');
 	$team_set_id = $teamSet->addTeams($team_ids);
+    $teamSetSelectedId = null;
+
 
 	$toteamname = TeamSetManager::getCommaDelimitedTeams($team_set_id,$team_id,true);
     echo "{$mod_strings_users['LBL_REASS_DESC_PART2']}\n";
@@ -359,7 +362,13 @@ else if(!isset($_GET['execute'])){
                 switch($meta['type']){
 					case "text":
 					case "select":
-						$q_where .= " and {$object->table_name}{$addcstm}.{$meta['dbname']} = '{$_POST[$metaName]}' ";
+                        $q_where .= sprintf(
+                            ' and %s.%s = %s ',
+                            $object->table_name.$addcstm,
+                            $meta['dbname'],
+                            $db->quoted($_POST[$metaName])
+                        );
+
 						break;
 					case "multiselect":
 
@@ -378,7 +387,7 @@ else if(!isset($_GET['execute'])){
 							if(empty($onevalue)) {
 								$empty_check .= " OR {$object->table_name}{$addcstm}.{$meta['dbname']} is null ";
                             }
-							$in_string .= "'$onevalue', ";
+                            $in_string .= $db->quoted($onevalue).", ";
 						}
 						$in_string = substr($in_string, 0, count($in_string) - 3);
 						$q_where .= " and ({$object->table_name}{$addcstm}.{$meta['dbname']} in ($in_string) $empty_check)";

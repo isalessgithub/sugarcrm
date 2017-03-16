@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -32,11 +32,13 @@ class DocumentsApiHelper extends SugarBeanApiHelper
             $db = DBManagerFactory::getInstance();
             
             // Get the revision ID so that it can be set into the bean
-            $sql = "SELECT document_revision_id 
-                    FROM {$bean->table_name} 
-                    WHERE id = '{$bean->id}'";
+            $query = sprintf(
+                'SELECT document_revision_id FROM %s WHERE id = %s',
+                $bean->table_name,
+                $db->quoted($bean->id)
+            );
             
-            $rs = $db->query($sql);
+            $rs = $db->query($query);
             $row = $db->fetchByAssoc($rs);
             if (isset($row['document_revision_id'])) {
                 // Set the revision and setup everything else for a document that

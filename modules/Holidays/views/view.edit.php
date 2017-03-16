@@ -4,7 +4,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -20,11 +20,13 @@ class HolidaysViewEdit extends ViewEdit
 	public function display() 
 	{
 		global $beanFiles, $mod_strings;
-		
+        $db = DBManagerFactory::getInstance();
 		// the user admin (MLA) cannot edit any administrator holidays
 		global $current_user;
 		if(isset($_REQUEST['record'])){
-	 		$result = $GLOBALS['db']->query("SELECT is_admin FROM users WHERE id=(SELECT person_id FROM holidays WHERE id='$_REQUEST[record]')");
+            $query = "SELECT is_admin FROM users WHERE id=(SELECT person_id FROM holidays WHERE id=".
+                $db->quoted($_REQUEST['record']) . ")";
+            $result = $db->query($query);
 			$row = $GLOBALS['db']->fetchByAssoc($result);
 			if(!is_admin($current_user)&& $current_user->isAdminForModule('Users')&& $row['is_admin']==1){
 				sugar_die('Unauthorized access');

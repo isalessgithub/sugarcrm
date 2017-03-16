@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -21,7 +21,9 @@ function build_related_list_by_user_id($bean, $user_id,$where, $fill_additional_
         $auto_where .= $where. ' AND ';
     }
 
-    $auto_where .= " {$bean->rel_users_table}.{$bean_id_name}={$bean->table_name}.id AND {$bean->rel_users_table}.user_id='{$user_id}' AND {$bean->table_name}.deleted=0 AND {$bean->rel_users_table}.deleted=0";
+    $auto_where .= " {$bean->rel_users_table}.{$bean_id_name}={$bean->table_name}.id "
+                . " AND {$bean->rel_users_table}.user_id=" . $bean->db->quoted($user_id)
+                . " AND {$bean->table_name}.deleted=0 AND {$bean->rel_users_table}.deleted=0";
 
     $bean->add_team_security_where_clause($select);
 

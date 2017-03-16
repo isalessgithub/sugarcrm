@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -67,7 +67,18 @@ class SavedReport extends SugarBean
 
 	var $list_fields = array('id', 'name', 'module', 'report_type', 'schedule_id', 'active', 'next_run', 'last_run_date');
 
-	function save_report($id, $owner_id, $name, $module,$report_type,$content,$is_published = 0,$team_id, $chart_type='none') {
+    function save_report(
+        $id,
+        $owner_id,
+        $name,
+        $module,
+        $report_type,
+        $content,
+        $is_published = 0,
+        $team_id,
+        $chart_type = 'none',
+        $teamSetSelectedId = null
+    ) {
 		global $json;
 		global $current_user;
 
@@ -204,8 +215,8 @@ class SavedReport extends SugarBean
                     $this->schedules_table.active as active,
                     $this->schedules_table.next_run as next_run
                     from ".$this->schedules_table."
-					where ".$this->schedules_table.".report_id = '".$this->id."'
-					and ".$this->schedules_table.".user_id = '".$current_user->id."'
+                    WHERE ".$this->schedules_table.".report_id = " . $this->db->quoted($this->id) . "
+                    AND ".$this->schedules_table.".user_id = " . $this->db->quoted($current_user->id) . "
 					and ".$this->schedules_table.".deleted=0
 					";
 		$result = $this->db->query($query,true," Error filling in additional schedule query detail fields: ");

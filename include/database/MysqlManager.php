@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -65,6 +65,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 /**
  * MySQL manager implementation for mysql extension
+ *
+ * @deprecated Use MysqliManager instead.
  */
 class MysqlManager extends DBManager
 {
@@ -407,20 +409,23 @@ class MysqlManager extends DBManager
 		return $this->getOne("SELECT version() version");
 	}
 
-	/**+
+	/**
 	 * @see DBManager::tableExists()
 	 */
 	public function tableExists($tableName)
 	{
 		$this->log->info("tableExists: $tableName");
 
-		if ($this->getDatabase()) {
-			$result = $this->query("SHOW TABLES LIKE ".$this->quoted($tableName) . ';');
-			if(empty($result)) return false;
-			$row = $this->fetchByAssoc($result);
-            $exists = !empty($row);
-			return $exists;
-		}
+        if ($this->getDatabase() && !empty($this->connectOptions['db_name'])) {
+            $sql = sprintf(
+                "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES
+                  WHERE TABLE_TYPE='BASE TABLE' AND TABLE_SCHEMA = %s AND TABLE_NAME = %s",
+                $this->quoted($this->connectOptions['db_name']),
+                $this->quoted($tableName)
+            );
+            $row = $this->getOne($sql);
+            return !empty($row);
+        }
 
 		return false;
 	}
@@ -528,7 +533,7 @@ class MysqlManager extends DBManager
 	    $names = "SET NAMES 'utf8'";
 	    $collation = $this->getOption('collation');
 	    if(!empty($collation)) {
-	        $names .= " COLLATE '$collation'";
+	        $names .= " COLLATE {$this->quoted($collation)}";
 		}
 	    mysql_query($names, $this->database);
 
@@ -737,6 +742,7 @@ class MysqlManager extends DBManager
 		if (empty($columns))
 			return false;
 
+        $indices = $this->massageIndexDefs($fieldDefs, $indices);
 		$keys = $this->keysSQL($indices);
 		if (!empty($keys))
 			$keys = ",$keys";
@@ -1572,13 +1578,16 @@ FROM information_schema.statistics';
         $charset = explode("_", $collation);
         $charset = $charset[0];
 
-        $this->query("ALTER DATABASE {$this->connectOptions['db_name']} DEFAULT COLLATE {$collation}");
+        $this->query('ALTER DATABASE ' . $this->connectOptions['db_name']
+            . ' DEFAULT COLLATE ' . $this->quoted($collation));
         $res = $this->query("SHOW TABLES");
 
         while ($row = $this->fetchRow($res)) {
             foreach ($row as $key => $table) {
-                $this->query("ALTER TABLE {$table} COLLATE {$collation}");
-                $this->query("ALTER TABLE {$table} CONVERT TO CHARACTER SET {$charset} COLLATE {$collation}");
+                $this->query('ALTER TABLE ' . $table . ' COLLATE ' . $this->quoted($collation));
+                $this->query('ALTER TABLE ' . $table
+                    . ' CONVERT TO CHARACTER SET ' . $this->quoted($charset)
+                    . ' COLLATE ' . $this->quoted($collation));
             }
         }
     }

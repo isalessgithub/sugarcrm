@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 12:36:52
+// created: 2017-02-28 11:25:17
 $viewdefs['Prospects']['base']['view']['record'] = array (
   'buttons' => 
   array (

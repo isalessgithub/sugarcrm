@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -113,7 +113,16 @@ if(isset($_SESSION['MAILMERGE_RECORD']))
     			$prospect = BeanFactory::getBean('Prospects');
     			$prospect_module_list = array('leads', 'contacts', 'prospects', 'users');
     			foreach($prospect_module_list as $mname){
-	    			$pList = $prospect->retrieveTargetList("campaigns.id = '$record_id' AND related_type = #$mname#", array('id', 'first_name', 'last_name'));
+                    $query = sprintf(
+                        'campaigns.id = %s AND related_type = #%s#',
+                        $db->quoted($record_id),
+                        $mname
+                    );
+                    $pList = $prospect->retrieveTargetList($query, array(
+                        'id',
+                        'first_name',
+                        'last_name',
+                    ));
 
 	    			foreach($pList['list'] as $bean){
 	    				$selected_objects .= $bean->id.'='.str_replace("&", "##", $bean->name).'&';

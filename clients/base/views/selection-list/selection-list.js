@@ -1,7 +1,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -54,6 +54,9 @@
         options.meta = _.extend(viewMeta, options.meta || {});
         this.setSelectionMeta(options);
         this._super('initialize', [options]);
+
+        // set list back to flex-list
+        this.tplName = 'flex-list';
 
         this.events = _.extend({}, this.events, {
             'click .search-and-select .single': 'triggerCheck'
@@ -146,7 +149,8 @@
                 css_class: 'btn',
                 tooltip: 'LBL_PREVIEW',
                 event: 'list:preview:fire',
-                icon: 'fa-eye'
+                icon: 'fa-eye',
+                acl_action: 'view'
             });
         } else {
             this.rightColumns.push({});

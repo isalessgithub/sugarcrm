@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 09:55:44
+// created: 2016-10-07 12:36:01
 $viewdefs['Campaigns']['EditView'] = array (
   'templateMeta' => 
   array (
@@ -17,7 +17,7 @@ $viewdefs['Campaigns']['EditView'] = array (
         'field' => '30',
       ),
     ),
-    'javascript' => '<script type="text/javascript" src="include/javascript/popup_parent_helper.js?v=unxmRlMltk1jS_taL3cdCA"></script>
+    'javascript' => '<script type="text/javascript" src="include/javascript/popup_parent_helper.js?v=bvXBdhnNy3Nm4r3Nb9drIw"></script>
 <script type="text/javascript">
 function type_change() {ldelim}
 	type = document.getElementsByName(\'campaign_type\');

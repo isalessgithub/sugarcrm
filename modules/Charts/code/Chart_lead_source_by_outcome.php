@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -208,7 +208,7 @@ global  $timedate;
 			$id = array();
 			if ($count>0) {
 				foreach ($user_id as $the_id) {
-					$id[] = "'".$the_id."'";
+                    $id[] = $opp->db->quoted($the_id);
 				}
 				$ids = join(",",$id);
 				$where .= "opportunities.assigned_user_id IN ($ids) ";
@@ -221,7 +221,7 @@ global  $timedate;
 			if ($count>0) {
 
 				foreach ($datay as $key=>$value) {
-					$datayArr[] = "'".$key."'";
+                    $datayArr[] = $opp->db->quoted($key);
 				}
 				$datayArr = join(",",$datayArr);
 				$where .= "AND opportunities.lead_source IN	($datayArr) ";

@@ -11,6 +11,6 @@ class ATC_Teleseller extends Basic
     var $importable = true;
     var $disable_row_level_security = true;
     function ATC_Teleseller(){
-        parent::Basic();
+        parent::__construct();
     }
 }

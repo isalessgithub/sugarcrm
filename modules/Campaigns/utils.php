@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -27,6 +27,10 @@ use Sugarcrm\Sugarcrm\Util\Serialized;
  */
 function get_message_scope_dom($campaign_id, $campaign_name,$db=null, $mod_strings=array()) {
 
+    if (!$db) {
+        $db = DBManagerFactory::getInstance();
+    }
+
     //find prospect list attached to this campaign..
     $query =  "SELECT prospect_list_id, prospect_lists.name ";
     $query .= "FROM prospect_list_campaigns ";
@@ -37,12 +41,9 @@ function get_message_scope_dom($campaign_id, $campaign_name,$db=null, $mod_strin
 	$bean->add_team_security_where_clause($query, "prospect_lists");
     $query .= "WHERE prospect_lists.deleted = 0 ";
     $query .= "AND prospect_list_campaigns.deleted=0 ";
-    $query .= "AND campaign_id='".$campaign_id."'";
+    $query .= "AND campaign_id=" . $db->quoted($campaign_id);
     $query.=" and prospect_lists.list_type not like 'exempt%'";
 
-    if (empty($db)) {
-        $db = DBManagerFactory::getInstance();
-    }
     if (empty($mod_strings) or !isset($mod_strings['LBL_DEFAULT'])) {
         global $current_language;
         $mod_strings = return_module_language($current_language, 'Campaigns');
@@ -114,6 +115,35 @@ function get_campaign_mailboxes_with_stored_options() {
 	return $ret;
 }
 
+/**
+ * Gets campaign type
+ * @param string $track
+ * @return string
+ */
+function getCampaignType($track)
+{
+    $db = DBManagerFactory::getInstance();
+    $query = "select c.campaign_type from campaign_trkrs ct, campaigns c where c.id = ct.campaign_id and ct.id = ".
+        $db->quoted($track) . " and ct.deleted = 0 and c.deleted = 0";
+    return $db->getOne($query);
+}
+
+/**
+ * Checks if eamils have been sent for a campaign
+ * @param string $track
+ * @return boolean
+ */
+function hasSentCampaignEmail($track)
+{
+    $db = DBManagerFactory::getInstance();
+    // when a campaign email is sent, a log entry is also created with activity_type = targeted
+    // more_information contains the email address
+    $query = "select count(cl.more_information) from campaign_log cl, campaign_trkrs ct".
+        " where ct.campaign_id = cl.campaign_id and ct.id = ".$db->quoted($track). " and ct.deleted = 0".
+        " and cl.activity_type = 'targeted' and cl.more_information is not null and cl.deleted = 0";
+    return $db->getOne($query) > 0;
+}
+
 function log_campaign_activity($identifier, $activity, $update=true, $clicked_url_key=null) {
 
     $return_array = array();
@@ -139,7 +169,8 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
         }
 
         //retrieve campaign log.
-        $trkr_query = "select * from campaign_log where target_tracker_key='$identifier' and related_id = '$clicked_url_key'";
+        $trkr_query = "select * from campaign_log where target_tracker_key= " .
+            $db->quoted($identifier) . " and related_id = " . $db->quoted($clicked_url_key);
         $current_trkr=$db->query($trkr_query);
         $row=$db->fetchByAssoc($current_trkr);
 
@@ -149,7 +180,8 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
 
 
                 //retrieve campaign id
-                $trkr_query = "select ct.campaign_id from campaign_trkrs ct, campaigns c where c.id = ct.campaign_id and ct.id = '$clicked_url_key'";
+                $trkr_query = "select ct.campaign_id from campaign_trkrs ct, campaigns c
+                    where c.id = ct.campaign_id and ct.id = " . $db->quoted($clicked_url_key);
                 $current_trkr=$db->query($trkr_query);
                 $row=$db->fetchByAssoc($current_trkr);
 
@@ -160,14 +192,14 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
                 $data['target_id']="'" . create_guid() . "'";
                 $data['target_type']= "'Prospects'";
                 $data['id']="'" . create_guid() . "'";
-                $data['campaign_id']="'" . $row['campaign_id'] . "'";
-                $data['target_tracker_key']="'" . $identifier . "'";
-                $data['activity_type']="'" .  $activity . "'";
+                $data['campaign_id']= $db->quoted($row['campaign_id']);
+                $data['target_tracker_key']= $db->quoted($identifier);
+                $data['activity_type'] = $db->quoted($activity);
                 $data['activity_date']="'" . TimeDate::getInstance()->nowDb() . "'";
                 $data['hits']=1;
                 $data['deleted']=0;
                 if (!empty($clicked_url_key)) {
-                    $data['related_id']="'".$clicked_url_key."'";
+                    $data['related_id']= $db->quoted($clicked_url_key);
                     $data['related_type']="'".'CampaignTrackers'."'";
                 }
 
@@ -184,7 +216,7 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
                 //campaign log already exists, so just set the return array and update hits column
                 $return_array['target_id']= $row['target_id'];
                 $return_array['target_type']= $row['target_type'];
-                $query1="update campaign_log set hits=hits+1 where id='{$row['id']}'";
+                $query1="update campaign_log set hits=hits+1 where id=" . $db->quoted($row['id']);
                 $current=$db->query($query1);
 
 
@@ -197,15 +229,17 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
 
 
 
-    $query1="select * from campaign_log where target_tracker_key='$identifier' and activity_type='$activity'";
+    $query1="select * from campaign_log where target_tracker_key= " . $db->quoted($identifier) . " and activity_type=" .
+        $db->quoted($activity);
     if (!empty($clicked_url_key)) {
-        $query1.=" AND related_id='$clicked_url_key'";
+        $query1.=" AND related_id=" . $db->quoted($clicked_url_key);
     }
     $current=$db->query($query1);
     $row=$db->fetchByAssoc($current);
 
         if ($row==null) {
-            $query="select * from campaign_log where target_tracker_key='$identifier' and activity_type='targeted'";
+            $query="select * from campaign_log where target_tracker_key=" . $db->quoted($identifier) .
+                " and activity_type='targeted'";
             $targeted=$db->query($query);
             $row=$db->fetchByAssoc($targeted);
 
@@ -218,20 +252,30 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
             }
             elseif ($row){
                 $data['id']="'" . create_guid() . "'";
-                $data['campaign_id']="'" . $row['campaign_id'] . "'";
-                $data['target_tracker_key']="'" . $identifier . "'";
-                $data['target_id']="'" .  $row['target_id'] . "'";
-                $data['target_type']="'" .  $row['target_type'] . "'";
-                $data['activity_type']="'" .  $activity . "'";
+                $data['campaign_id'] = $db->quoted($row['campaign_id']);
+                $data['target_tracker_key'] = $db->quoted($identifier);
+                $data['target_id'] = $db->quoted($row['target_id']);
+                $data['target_type'] = $db->quoted($row['target_type']);
+                $data['activity_type'] = $db->quoted($activity);
                 $data['activity_date']="'" . TimeDate::getInstance()->nowDb() . "'";
-                $data['list_id']="'" .  $row['list_id'] . "'";
-                $data['marketing_id']="'" .  $row['marketing_id'] . "'";
+                $data['list_id'] = $db->quoted($row['list_id']);
+                $data['marketing_id'] = $db->quoted($row['marketing_id']);
                 $data['hits']=1;
                 $data['deleted']=0;
                 if (!empty($clicked_url_key)) {
-                    $data['related_id']="'".$clicked_url_key."'";
+                    $data['related_id'] = $db->quoted($clicked_url_key);
                     $data['related_type']="'".'CampaignTrackers'."'";
                 }
+
+                //populate the primary email address into the more_info field
+                if (!empty($row['target_id']) && !empty($row['target_type'])) {
+                    $sugarEmailAddress = BeanFactory::getBean('EmailAddresses');
+                    $primeEmail = $sugarEmailAddress->getPrimaryAddress(null, $row['target_id'], $row['target_type']);
+                    if (!empty($primeEmail)) {
+                        $data['more_information'] =  "'" . $primeEmail . "'";
+                    }
+                }
+
                 //values for return array..
                 $return_array['target_id']=$row['target_id'];
                 $return_array['target_type']=$row['target_type'];
@@ -244,14 +288,14 @@ function log_campaign_activity($identifier, $activity, $update=true, $clicked_ur
             $return_array['target_id']= $row['target_id'];
             $return_array['target_type']= $row['target_type'];
 
-            $query1="update campaign_log set hits=hits+1 where id='{$row['id']}'";
+            $query1="update campaign_log set hits=hits+1 where id=".$db->quoted($row['id']);
             $current=$db->query($query1);
 
         }
         //check to see if this is a removal action
         if ($row  && $activity == 'removed' ) {
             //retrieve campaign and check it's type, we are looking for newsletter Campaigns
-            $query = "SELECT campaigns.* FROM campaigns WHERE campaigns.id = '".$row['campaign_id']."' ";
+            $query = "SELECT campaigns.* FROM campaigns WHERE campaigns.id = " . $db->quoted($row['campaign_id']);
             $result = $db->query($query);
             if(!empty($result))
             {
@@ -305,7 +349,7 @@ function get_campaign_urls($campaign_id) {
 
         $db = DBManagerFactory::getInstance();
 
-        $query1="select * from campaign_trkrs where campaign_id='$campaign_id' and deleted=0";
+        $query1 = "select * from campaign_trkrs where campaign_id=" . $db->quoted($campaign_id) . " and deleted=0";
         $current=$db->query($query1);
         while (($row=$db->fetchByAssoc($current)) != null) {
             $return_array['{'.$row['tracker_name'].'}']=$row['tracker_name'] . ' : ' . $row['tracker_url'];
@@ -343,7 +387,8 @@ function get_subscription_lists_query($focus, $additional_fields = null) {
     while ($row = $focus->db->fetchByAssoc($all_news_type_list)){$news_type_list_arr[] = $row;}
 
     //now get all the campaigns that the current user is assigned to
-    $all_plp_current = "select prospect_list_id from prospect_lists_prospects where related_id = '$focus->id' and deleted = 0 ";
+    $all_plp_current = "select prospect_list_id from prospect_lists_prospects where related_id = "
+        . $focus->db->quoted($focus->id) . " and deleted = 0 ";
 
     //build array of prospect lists that this user belongs to
     $current_plp =$focus->db->query($all_plp_current );
@@ -529,7 +574,7 @@ function process_subscriptions($subscription_string_to_parse) {
 
             //--grab all the lists for the passed in campaign id
             $pl_qry ="select id, list_type from prospect_lists where id in (select prospect_list_id from prospect_list_campaigns ";
-            $pl_qry .= "where campaign_id = '$campaign') and deleted = 0 ";
+            $pl_qry .= "where campaign_id = " . $focus->db->quoted($campaign) . ") and deleted = 0 ";
             $GLOBALS['log']->debug("In Campaigns Util: subscribe function, about to run query: ".$pl_qry );
             $pl_qry_result = $focus->db->query($pl_qry);
 
@@ -539,7 +584,7 @@ function process_subscriptions($subscription_string_to_parse) {
 
             //--grab all the prospect_lists this user belongs to
             $curr_pl_qry ="select prospect_list_id, related_id  from prospect_lists_prospects ";
-            $curr_pl_qry .="where related_id = '$focus->id'  and deleted = 0 ";
+            $curr_pl_qry .="where related_id = " . $focus->db->quoted($focus->id) . " and deleted = 0 ";
             $GLOBALS['log']->debug("In Campaigns Util: subscribe function, about to run query: ".$curr_pl_qry );
             $curr_pl_qry_result = $focus->db->query($curr_pl_qry);
 
@@ -619,7 +664,7 @@ function process_subscriptions($subscription_string_to_parse) {
         $relationship = strtolower($focus->getObjectName()).'s';
         //--grab all the list for this campaign id
         $pl_qry ="select id, list_type from prospect_lists where id in (select prospect_list_id from prospect_list_campaigns ";
-        $pl_qry .= "where campaign_id = '$campaign') and deleted = 0 ";
+        $pl_qry .= "where campaign_id = " . $focus->db->quoted($campaign) . ") and deleted = 0 ";
         $pl_qry_result = $focus->db->query($pl_qry);
         //build the array with list information
         $pl_arr = array();
@@ -628,7 +673,7 @@ function process_subscriptions($subscription_string_to_parse) {
 
         //retrieve lists that this user belongs to
         $curr_pl_qry ="select prospect_list_id, related_id  from prospect_lists_prospects ";
-        $curr_pl_qry .="where related_id = '$focus->id'  and deleted = 0 ";
+        $curr_pl_qry .="where related_id = " . $focus->db->quoted($focus->id) . "  and deleted = 0 ";
         $GLOBALS['log']->debug("In Campaigns Util, unsubscribe function about to run query: ".$curr_pl_qry );
         $curr_pl_qry_result = $focus->db->query($curr_pl_qry);
 
@@ -882,7 +927,11 @@ function write_mail_merge_log_entry($campaign_id,$pl_row) {
         $insert_query.=" AND prospect_lists.deleted=0";
         $insert_query.=" AND plc.deleted=0";
         $insert_query.=" AND plp.deleted=0";
-        $insert_query.=" AND prospect_lists.list_type!='test' AND prospect_lists.list_type not like 'exempt%'";
+        $insert_query.=" AND prospect_lists.list_type!='test'";
+        $insert_query.=" AND plp.related_id NOT IN";
+        $insert_query.=" (SELECT related_id FROM prospect_lists_prospects plp1";
+        $insert_query.="  INNER JOIN prospect_lists pl1 ON plp1.prospect_list_id = pl1.id";
+        $insert_query.="  WHERE pl1.list_type LIKE 'exempt%')";
         $focus->db->query($insert_query);
 
         global $mod_strings;
@@ -909,7 +958,8 @@ function write_mail_merge_log_entry($campaign_id,$pl_row) {
             //retrieve the target beans and create campaign log entry
             foreach($target_ids as $id){
                  //perform duplicate check
-                 $dup_query = "select id from campaign_log where campaign_id = '$campaign_id' and target_id = '$id'";
+                 $dup_query = "select id from campaign_log where campaign_id = " . $focus->db->quoted($campaign_id) .
+                     " and target_id = " . $focus->db->quoted($id);
                  $dup_result = $focus->db->query($dup_query);
                  $row = $focus->db->fetchByAssoc($dup_result);
 

@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -49,7 +49,7 @@ if (isset($_POST['campaign_id']) && !empty($_POST['campaign_id'])) {
 	    $_POST['client_id_address'] = query_client_ip();
 		$campaign_id=$_POST['campaign_id'];
 		$campaign = BeanFactory::getBean('Campaigns');
-		$camp_query  = "select name,id from campaigns where id='$campaign_id'";
+        $camp_query  = 'SELECT name, id FROM campaigns WHERE id = ' . $campaign->db->quoted($campaign_id);
 		$camp_query .= " and deleted=0";
         $camp_result=$campaign->db->query($camp_query);
         $camp_data = $campaign->db->fetchByAssoc($camp_result);
@@ -57,9 +57,10 @@ if (isset($_POST['campaign_id']) && !empty($_POST['campaign_id'])) {
         $db = DBManagerFactory::getInstance();
         $marketing = BeanFactory::getBean('EmailMarketing');
         $marketing_query = $marketing->create_new_list_query(
-                'date_start desc, date_modified desc',
-                "campaign_id = '{$campaign_id}' and status = 'active' and date_start < " . $db->convert('', 'today'),
-                array('id')
+            'date_start DESC, date_modified DESC',
+            'campaign_id = ' . $campaign->db->quoted($campaign_id) .' AND status = \'active\' AND date_start < '
+                . $db->convert('', 'today'),
+            array('id')
         );
         $marketing_result = $db->limitQuery($marketing_query, 0, 1, true);
         $marketing_data = $db->fetchByAssoc($marketing_result);

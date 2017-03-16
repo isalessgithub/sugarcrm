@@ -1,7 +1,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -25,6 +25,7 @@
             checkConnector: function (name, successCall, errorCall, connectorCriteria) {
                 var connectors,
                     connector = null;
+                var self = this;
                 var successCallWrapper = _.bind(function () {
                     this.checkConnector(name, successCall, errorCall, connectorCriteria);
                 }, this);
@@ -47,7 +48,9 @@
                     else {
                         if (pinged === false) {
                             pinged = true;
-                            this.getConnectors(name, successCallWrapper);
+                            _.defer(function() {
+                                self.getConnectors(name, successCallWrapper);
+                            });
                         }
                         else {
                             pinged = false;

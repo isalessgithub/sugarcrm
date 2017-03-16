@@ -19,7 +19,7 @@ require_once('modules/ATC_ClientSalesReps/ATC_ClientSalesReps_sugar.php');
 class ATC_ClientSalesReps extends ATC_ClientSalesReps_sugar {
 	
 	function ATC_ClientSalesReps(){	
-		parent::ATC_ClientSalesReps_sugar();
+		parent::__construct();
 	}
 	
 }

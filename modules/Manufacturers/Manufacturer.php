@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -46,13 +46,6 @@ class Manufacturer extends SugarBean {
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = Array();
 
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function Manufacturer()
-    {
-        self::__construct();
-    }
 
 	public function __construct() {
 	
@@ -105,7 +98,11 @@ class Manufacturer extends SugarBean {
 
 	function clear_product_manufacturer_relationship($manufacturer_id)
 	{
-		$query = "UPDATE $this->rel_products set manufacturer_id='' where (manufacturer_id='$manufacturer_id') and deleted=0";
+        $query = sprintf(
+            "UPDATE %s SET manufacturer_id = '' WHERE manufacturer_id = %s AND deleted = 0",
+            $this->rel_products,
+            $this->db->quoted($manufacturer_id)
+        );
 		$this->db->query($query,true,"Error clearing manufacturer to manufacturer relationship: ");
 	}
 

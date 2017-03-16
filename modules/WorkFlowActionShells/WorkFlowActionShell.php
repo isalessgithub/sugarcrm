@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -102,14 +102,6 @@ class WorkFlowActionShell extends SugarBean {
 	
 	// This is the list of fields that are required
 	var $required_fields =  array();
-
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function WorkFlowActionShell()
-    {
-        self::__construct();
-    }
 
 	public function __construct() {
 		parent::__construct();
@@ -322,8 +314,8 @@ class WorkFlowActionShell extends SugarBean {
 	function get_action_id($field_name){
 		$query = "	SELECT $this->rel_action_table.id
 					FROM $this->rel_action_table 
-					WHERE $this->rel_action_table.parent_id = '".$this->id."'
-					AND ".$this->rel_action_table.".field = '".$field_name."'
+					WHERE $this->rel_action_table.parent_id = ".$this->db->quoted($this->id)."
+					AND ".$this->rel_action_table.".field = ".$this->db->quoted($field_name)."
 					AND ".$this->rel_action_table.".deleted=0";
         $result = $this->db->query($query,true," Error grabbing action id: ");
 		// Get the id and the name.
@@ -346,7 +338,7 @@ class WorkFlowActionShell extends SugarBean {
 
 		$query = "	SELECT $this->rel_action_table.id
 					FROM $this->rel_action_table 
-					WHERE $this->rel_action_table.parent_id = '".$id."'
+					WHERE $this->rel_action_table.parent_id = ".$this->db->quoted($id)."
 					AND ".$this->rel_action_table.".deleted=0";
 		$result = $this->db->query($query,true," Error grabbing action id: ");
 		// Get the id and the name.

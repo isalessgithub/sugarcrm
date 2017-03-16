@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -161,13 +161,6 @@ class Quote extends SugarBean
     );
     public $new_schema = true;
 
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function Quote()
-    {
-        self::__construct();
-    }
 
     /**
      * sole constructor
@@ -249,7 +242,14 @@ class Quote extends SugarBean
     {
         global $locale;
 
-        $query = "SELECT con.salutation, con.first_name, con.last_name, con.assigned_user_id contact_name_owner, con.id, c_q.contact_role from $this->contact_table  con, $this->rel_contact_table  c_q where con.id = c_q.contact_id and c_q.quote_id = '$this->id' and c_q.deleted=0 and con.deleted=0";
+        $query = sprintf(
+            'SELECT con.salutation, con.first_name, con.last_name, con.assigned_user_id contact_name_owner,
+             con.id, c_q.contact_role FROM %s con, %s c_q
+             WHERE con.id = c_q.contact_id AND c_q.quote_id = %s AND c_q.deleted = 0 AND con.deleted = 0',
+            $this->contact_table,
+            $this->rel_contact_table,
+            $this->db->quoted($this->id)
+        );
         $result = $this->db->query($query, true, "Error filling in additional detail fields: ");
 
         // Get the id and the name.
@@ -282,7 +282,14 @@ class Quote extends SugarBean
 
     public function set_account()
     {
-        $query = "SELECT acc.name, acc.id,acc.assigned_user_id account_name_owner, a_o.account_role from $this->account_table  acc, $this->rel_account_table  a_o where acc.id = a_o.account_id and a_o.quote_id = '$this->id' and a_o.deleted=0 and acc.deleted=0";
+        $query = sprintf(
+            'SELECT acc.name, acc.id, acc.assigned_user_id account_name_owner, a_o.account_role
+             FROM %s acc, %s a_o
+             WHERE acc.id = a_o.account_id AND a_o.quote_id = %s AND a_o.deleted = 0 AND acc.deleted = 0',
+            $this->account_table,
+            $this->rel_account_table,
+            $this->db->quoted($this->id)
+        );
         $result = $this->db->query($query, true, "Error filling in additional detail fields: ");
 
         // Get the id and the name.
@@ -320,7 +327,13 @@ class Quote extends SugarBean
 
     public function set_taxrate_info()
     {
-        $query = "SELECT tr.id, tr.name, tr.value from $this->taxrate_table  tr, $this->table_name  q where tr.id = q.taxrate_id and q.id = '$this->id' and tr.deleted=0 and q.deleted=0 and tr.status = 'Active'";
+        $query = sprintf(
+            "SELECT tr.id, tr.name, tr.value FROM %s tr, %s q
+             WHERE tr.id = q.taxrate_id AND q.id = %s AND tr.deleted = 0 AND q.deleted = 0 AND tr.status = 'Active'",
+            $this->taxrate_table,
+            $this->table_name,
+            $this->db->quoted($this->id)
+        );
         $result = $this->db->query($query, true, "Error filling in additional detail fields: ");
 
         // Get the id and the name.
@@ -344,7 +357,12 @@ class Quote extends SugarBean
      */
     public function set_shipper()
     {
-        $query = "SELECT s1.name from shippers s1, $this->table_name q1 where s1.id = q1.shipper_id and q1.id = '$this->id' and q1.deleted=0 and s1.deleted=0";
+        $query = sprintf(
+            'SELECT s1.name FROM shippers s1, %s q1
+             WHERE s1.id = q1.shipper_id AND q1.id = %s AND q1.deleted=0 AND s1.deleted=0',
+            $this->table_name,
+            $this->db->quoted($this->id)
+        );
         $result = $this->db->query($query, true, " Error filling in additional detail fields: ");
 
         // Get the id and the name.
@@ -365,7 +383,13 @@ class Quote extends SugarBean
     public function set_opportunity()
     {
         // First, get the list of IDs.
-        $query = "SELECT opp.id, opp.name, opp.assigned_user_id opportunity_name_owner from $this->opportunity_table  opp, $this->rel_opportunity_table  a_o where opp.id = a_o.opportunity_id and a_o.quote_id = '$this->id' and a_o.deleted=0 and opp.deleted=0";
+        $query = sprintf(
+            'SELECT opp.id, opp.name, opp.assigned_user_id opportunity_name_owner FROM %s opp, %s a_o
+             WHERE opp.id = a_o.opportunity_id AND a_o.quote_id = %s AND a_o.deleted = 0 AND opp.deleted = 0',
+            $this->opportunity_table,
+            $this->rel_opportunity_table,
+            $this->db->quoted($this->id)
+        );
         $result = $this->db->query($query, true, "Error filling in additional detail fields: ");
 
         // Get the id and the name.
@@ -391,8 +415,8 @@ class Quote extends SugarBean
     public function build_generic_where_clause($the_query_string)
     {
         $where_clauses = array();
-        $the_query_string = $GLOBALS['db']->quote($the_query_string);
-        array_push($where_clauses, "quotes.name like '$the_query_string%'");
+        $the_query_string = $GLOBALS['db']->quoted($the_query_string);
+        array_push($where_clauses, "quotes.name like " . $this->db->quoted($the_query_string. "%"));
 
         $the_where = "";
         foreach ($where_clauses as $clause) {
@@ -433,9 +457,9 @@ class Quote extends SugarBean
 
         foreach ($fromid as $f) {
             if (!empty($idequals)) {
-                $idequals .= ' or ';
+                $idequals .= ' OR ';
             }
-            $idequals .= "currency_id='$f'";
+            $idequals .= " currency_id = " . $this->db->quoted($f);
         }
 
         if (!empty($idequals)) {
@@ -443,7 +467,8 @@ class Quote extends SugarBean
             $result = $this->db->query($query);
 
             while ($row = $this->db->fetchByAssoc($result)) {
-                $query = "update " . $this->table_name . " set currency_id='" . $currency->id . "', tax_usdollar='" . $currency->convertToDollar(
+                $query = "update " . $this->table_name . " set currency_id = " . $this->db->quoted($currency->id) .
+                    ", tax_usdollar='" . $currency->convertToDollar(
                         $row['tax']
                     ) . "', subtotal_usdollar='" . $currency->convertToDollar(
                         $row['subtotal']
@@ -451,7 +476,7 @@ class Quote extends SugarBean
                         $row['total']
                     ) . "', shipping_usdollar='" . $currency->convertToDollar(
                         $row['shipping']
-                    ) . "' where id='" . $row['id'] . "';";
+                    ) . "' where id=" . $this->db->quoted($row['id']) . ";";
                 $this->db->query($query);
             }
         }
@@ -499,9 +524,11 @@ class Quote extends SugarBean
     public function get_product_bundles()
     {
         // First, get the list of IDs.
-        $query = "SELECT bundle_id as id
-					FROM  $this->rel_product_bundles
-					WHERE quote_id='$this->id' AND deleted=0 ORDER BY bundle_index";
+        $query = sprintf(
+            'SELECT bundle_id as id FROM %s WHERE quote_id = %s AND deleted = 0 ORDER BY bundle_index',
+            $this->rel_product_bundles,
+            $this->db->quoted($this->id)
+        );
 
         return $this->build_related_list($query, BeanFactory::getBean('ProductBundles'));
     }

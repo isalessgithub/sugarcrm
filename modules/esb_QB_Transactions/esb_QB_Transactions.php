@@ -33,7 +33,7 @@ require_once('modules/esb_QB_Transactions/esb_QB_Transactions_sugar.php');
 class esb_QB_Transactions extends esb_QB_Transactions_sugar {
 	
 	function esb_QB_Transactions(){	
-		parent::esb_QB_Transactions_sugar();
+		parent::__construct();
 	}
 	
 }

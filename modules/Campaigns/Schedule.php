@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -121,8 +121,8 @@ if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
 			$query.=" and prospect_lists.deleted=0 ";
 			$query.=" and prospect_lists.list_type='test' ";
 			$query.=" and plc.deleted=0 ";
-			$query.=" and plc.campaign_id='$campaign_id'";
-			$query.=" and email_marketing.campaign_id='$campaign_id'";
+            $query.=" and plc.campaign_id=" . $focus->db->quoted($campaign_id);
+            $query.=" and email_marketing.campaign_id=" . $focus->db->quoted($campaign_id);
 			$query.=" and email_marketing.deleted=0 ";
 			$query.=" and email_marketing.all_prospect_lists=0 ";
 
@@ -136,7 +136,7 @@ if ($campaign_id && isset($campaign) && $campaign->status == 'Inactive') {
 				$seed[]=$bean;
 			}
 			$query=" select email_marketing.id email_marketing_id from email_marketing ";
-			$query.=" WHERE email_marketing.campaign_id='$campaign_id'";
+            $query.=" WHERE email_marketing.campaign_id=" . $focus->db->quoted($campaign_id);
 			$query.=" and email_marketing.deleted=0 ";
 			$query.=" and email_marketing.all_prospect_lists=1 ";
 
