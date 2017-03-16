@@ -92,13 +92,13 @@ array (
               ),
               7 => 
               array (
-                'name' => 'invoice_sent_c',
-                'label' => 'LBL_INVOICE_SENT',
+                'name' => 'campaign_start_date_c',
+                'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
               8 => 
               array (
-                'name' => 'campaign_start_date_c',
-                'label' => 'LBL_CAMPAIGN_START_DATE',
+                'name' => 'invoice_sent_c',
+                'label' => 'LBL_INVOICE_SENT',
               ),
               9 => 
               array (
@@ -107,19 +107,21 @@ array (
               ),
               10 => 
               array (
+                'name' => 'invoice_number_c',
+                'label' => 'LBL_INVOICE_NUMBER',
+              ),
+              11 => 'team_name',
+              12 => 
+              array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              11 => 
+              13 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              12 => 
-              array (
-              ),
-              13 => 'team_name',
               14 => 
               array (
                 'name' => 'date_modified_by',

@@ -1,5 +1,5 @@
 <?php
- // created: 2016-10-07 12:38:06
+ // created: 2017-03-06 21:46:49
 
 $app_list_strings['appointment_status_0']=array (
   '' => '',
@@ -9,4 +9,7 @@ $app_list_strings['appointment_status_0']=array (
   'Cancelled' => 'Cancelled',
   'Confirmed' => 'Confirmed',
   'Attended_Policy' => 'Attended by Policy',
+  'Days_Calling' => 'Days Calling',
+  'DC_Appt_Accepted' => 'DC Appt Accepted',
+  'DC_Appt_Attended' => 'DC Appt Attended',
 );
