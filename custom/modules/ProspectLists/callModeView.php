@@ -10,29 +10,28 @@ $oProspectList = new ProspectList();
 $oProspectList->retrieve($sTargetId);
 
 // module title
-echo getClassicModuleTitle("ProspectLists", array("<a href='index.php?module=ProspectLists&action=index'>" . 
+echo getClassicModuleTitle("ProspectLists", array("<a href='index.php?module=ProspectLists&action=index'>" .
         translate('LBL_MODULE_NAME', 'ProspectLists') . "</a>",
         $mod_strings['LBL_CALLING_MODE_TARGET_LIST'] .
         "<a href='index.php?module=ProspectLists&action=DetailView&record=".$oProspectList->id."'>".$oProspectList->name."</a>"), false);
 
 // fetch all related contacts
-$oContacts = $oProspectList->get_linked_beans('contacts', 'Contacts');
+//$oContacts = $oProspectList->get_linked_beans('contacts', 'Contacts');
+global $db;
 
-// fetch last call outcome for a contact
-function last_call_outcome($sContactId = ''){
-    global $db;
-    $sSQL = 'SELECT call_outcome_c FROM calls_cstm
-            INNER JOIN calls ON calls_cstm.id_c = calls.id
-            INNER JOIN calls_contacts ON calls_contacts.call_id = calls.id
-	    inner join prospectlists_calls_1_c on calls.id = prospectlists_calls_1_c.prospectlists_calls_1calls_idb
-            WHERE calls.deleted = 0 AND calls_contacts.deleted = 0
-            AND calls_contacts.contact_id = "'.$sContactId.'" and
-            prospectlists_calls_1_c.prospectlists_calls_1prospectlists_ida = "'.$_REQUEST['uid'].'"
-            ORDER BY calls.date_entered DESC LIMIT 0 , 1';
-    $aResult = $db->query($sSQL, true);
-    $sReturnResult = $db->fetchByAssoc($aResult);
-    return $sReturnResult['call_outcome_c'];
-}
+$cSQL = "SELECT 	accounts.id 'account_id', accounts.name 'account_name', concat(first_name, ' ', last_name) as 'full_name',
+		contacts.id as 'contact_id', title, phone_other, phone_work, primary_address_city, primary_address_state, call_outcome_c, email_addresses.email_address as 'email1'
+FROM contacts
+inner join contacts_cstm on contacts_cstm.id_c = contacts.id and contacts.deleted = 0
+INNER JOIN prospect_lists_prospects on prospect_lists_prospects.related_id = contacts.id AND prospect_lists_prospects.related_type = 'Contacts'
+LEFT JOIN accounts_contacts on accounts_contacts.contact_id = contacts.id
+LEFT join accounts on accounts_contacts.account_id = accounts.id
+LEFT JOIN email_addr_bean_rel on bean_id = contacts.id
+LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addresses.id and email_addr_bean_rel.deleted=0 AND email_addr_bean_rel.primary_address = 1
+WHERE prospect_list_id = '".$_REQUEST['uid']."';";
+
+$cResult = $db->query($cSQL, true);
+$cContacts = $db->fetchByAssoc($cResult);
 
 // labels of modules
 global $current_language;
@@ -65,27 +64,27 @@ $logcall_options = array(
 // rolling up rows
 $sTableRow = '';
 $ctr = 0;
-if(count($oContacts) > 0){
-    foreach($oContacts as $iContact => $oContact){
+
+if(!empty($cContacts)){
+    foreach($cContacts as $oContact){
         $ctr++;
         $class = ($ctr & 1) ? "oddListRowS1" : "evenListRowS1";
         $sTableRow .= '<tr >';//class = "'.$class.'"
-       // $sTableRow .= '<td><a href = "index.php?module=Accounts&action=DetailView&record='.$oContact->account_id.'">'.$oContact->account_name.'</a></td>';
-        $sTableRow .= '<td><a href = "https://crm.isaless.com/#Accounts/'.$oContact->account_id.'">'.$oContact->account_name.'</a></td>';  
-      //$sTableRow .= '<td><a href = "index.php?module=Contacts&action=DetailView&record='.$oContact->id.'">'.$oContact->full_name.'</a></td>';
-	$sTableRow .= '<td><a href = "https://crm.isaless.com/#Contacts/'.$oContact->id.'">'.$oContact->full_name.'</a></td>';
-        $sTableRow .= '<td>'.$oContact->title.'</td>';
-        $sTableRow .= '<td>'.$oContact->phone_other.'</td>';
-        $sTableRow .= '<td>'.$oContact->phone_work.'</td>';
-        $sTableRow .= '<td>'.$oContact->email1.'</td>';
-        $sTableRow .= '<td>'.$oContact->primary_address_city.'</td>';
-        $sTableRow .= '<td>'.$oContact->primary_address_state.'</td>';
-        $sTableRow .= '<td><div id = "reloadVal_'.$oContact->id.'" name = "reloadVal_'.$oContact->id.'">'.last_call_outcome($oContact->id).'</div></td>';
-        $sTableRow .= '<td>'.renderLogCall('Contacts', $oContact->id, $logcall_options).'</td>';
+        $sTableRow .= '<td><a href = "https://crm.isaless.com/#Accounts/'.$cContact['account_id'].'">'.$oContact['account_name'].'</a></td>';
+	      $sTableRow .= '<td><a href = "https://crm.isaless.com/#Contacts/'.$oContact['contact_id'].'">'.$oContact['full_name'].'</a></td>';
+        $sTableRow .= '<td>'.$oContact['title'].'</td>';
+        $sTableRow .= '<td>'.$oContact['phone_other'].'</td>';
+        $sTableRow .= '<td>'.$oContact['phone_work'].'</td>';
+        $sTableRow .= '<td>'.$oContact['email1'].'</td>';
+        $sTableRow .= '<td>'.$oContact['primary_address_city'].'</td>';
+        $sTableRow .= '<td>'.$oContact['primary_address_state'].'</td>';
+        $sTableRow .= '<td><div id = "reloadVal_'.$oContact['contact_id'].'" name = "reloadVal_'.$oContact['contact_id'].'">'.$oContact['call_outcome_c'].'</div></td>';
+        $sTableRow .= '<td>'.renderLogCall('Contacts', $oContact['contact_id'], $logcall_options).'</td>';
         $sTableRow .= '</tr>';
     }
 }
-$count = count($oContacts);
+$count = count($cContacts);
+
 // echo output
 $callModeView =<<<EOQ
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
