@@ -19,7 +19,7 @@ require_once('modules/TM_Test_Module/TM_Test_Module_sugar.php');
 class TM_Test_Module extends TM_Test_Module_sugar {
 	
 	function TM_Test_Module(){	
-		parent::TM_Test_Module_sugar();
+		parent::__construct();
 	}
 	
 }

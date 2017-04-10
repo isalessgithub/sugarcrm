@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -65,8 +65,9 @@ function UWrebuild() {
 		</script>";
 
 	$log->info('Rebuilding everything.');
-	require_once('ModuleInstall/ModuleInstaller.php');
-	$mi = new ModuleInstaller();
+    SugarAutoLoader::requireWithCustom('ModuleInstall/ModuleInstaller.php');
+    $moduleInstallerClass = SugarAutoLoader::customClass('ModuleInstaller');
+    $mi = new $moduleInstallerClass();
 	$mi->rebuild_all();
 	$query = "DELETE FROM versions WHERE name='Rebuild Extensions'";
 	$log->info($query);
@@ -170,6 +171,9 @@ if(strpos($install_file,'upload://') === 0){
 $id_name = $request->getValidInputRequest('id_name', null, '');
 $s_manifest = $request->getValidInputRequest('s_manifest', null, '');
 $s_patch = $request->getValidInputRequest('patch');
+if ($s_patch) {
+    $s_patch = base64_encode(serialize($s_patch));
+}
 $previous_version = $request->getValidInputRequest('previous_version', null, '');
 $previous_id = $request->getValidInputRequest('previous_id', null, '');
 
@@ -341,8 +345,9 @@ switch( $install_type ){
         }
         break;
     case "module":
-        require_once( "ModuleInstall/ModuleInstaller.php" );
-        $mi = new ModuleInstaller();
+        SugarAutoLoader::requireWithCustom('ModuleInstall/ModuleInstaller.php');
+        $moduleInstallerClass = SugarAutoLoader::customClass('ModuleInstaller');
+        $mi = new $moduleInstallerClass();
         switch( $mode ){
             case "Install":
                 $patch = UW_get_patch_from_request($_REQUEST);

@@ -1,7 +1,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -15,6 +15,11 @@
          * This plugin disables the delete button for closed won/lost items (for use in Opps and Products)
          */
         app.plugins.register('DisableDelete', ['field'], {
+
+            /**
+             * semaphore to prevent multiple executions of the plugin
+             */
+            running: false,
 
             /**
              * Attach code for when the plugin is registered on a view
@@ -38,6 +43,13 @@
              * @return {string} message that was set
              */
             removeDelete: function() {
+                //if we are currently running the plugin on an element, prevent overlapping calls
+                if (this.running) {
+                    return;
+                }
+
+                this.running = true;
+
                 var config = app.metadata.getModule('Forecasts', 'config') || {},
                     sales_stage_won = config.sales_stage_won || ['Closed Won'],
                     sales_stage_lost = config.sales_stage_lost || ['Closed Lost'],
@@ -72,6 +84,7 @@
                         button.tooltip('destroy');
                     }
                 }
+                this.running = false;
                 return message;
             },
 

@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -50,6 +50,10 @@ class SugarUpgradeConvertKBOLDDocuments extends UpgradeScript
         $rac->execute = true;
         $rac->show_output = false;
         $rac->repairDatabase();
+
+        //Disable workflow to prevent data changes.
+        $restoreWf = !empty($_SESSION['disable_workflow']);
+        $_SESSION['disable_workflow'] = true;
 
         //Setup category root
         $KBContent = BeanFactory::getBean('KBContents');
@@ -109,8 +113,8 @@ class SugarUpgradeConvertKBOLDDocuments extends UpgradeScript
                 if (!empty($data['parent_type']) && $data['parent_type'] == 'Cases') {
                     $case = BeanFactory::getBean('Cases', $data['parent_id']);
                     if (!empty($case) && !empty($case->id)) {
-                        $KBContent->load_relationship('relcases_kbcontents');
-                        $KBContent->relcases_kbcontents->add($case);
+                        $KBContent->load_relationship('cases');
+                        $KBContent->cases->add($case);
                     }
                 }
 
@@ -125,6 +129,12 @@ class SugarUpgradeConvertKBOLDDocuments extends UpgradeScript
             }
         }
         $this->checkMenu();
+
+        $this->removeOldWorkflow();
+        $this->updateWorkflow();
+        if (!$restoreWf) {
+            unset($_SESSION['disable_workflow']);
+        }
 
         $tables = array(
             'prepKBDoc',
@@ -408,5 +418,74 @@ EOF;
         $this->convertedTagsCategories[$tag['id']] = $categoryID;
 
         return $categoryID;
+    }
+
+    /**
+     * Update module name for KB workflows and disable them.
+     */
+    protected function updateWorkflow()
+    {
+        $focus = BeanFactory::getBean('WorkFlow');
+        if ($focus) {
+            $desc = "THIS WORKFLOW WAS DEACTIVATED AUTOMATICALLY BY THE UPGRADE TO INCOMPATIBILITY.";
+            $desc = $desc . " PLEASE DELETE ALL CONDITIONS ON THE WORKFLOW AND RECREATE THEM.";
+            $sql = "SELECT ID from {$focus->getTableName()} WHERE base_module = 'KBDocuments'";
+            $res = $this->db->query($sql);
+            while ($row = $this->db->fetchByAssoc($res)) {
+                $workflow = BeanFactory::getBean('WorkFlow', $row['ID']);
+                $workflow->status = 0;
+                $workflow->base_module = 'KBContents';
+                if (strpos($workflow->description, $desc) === false) {
+                    $workflow->description = "$desc\n{$workflow->description}";
+                }
+                $workflow->save();
+            }
+            $this->db->query($sql);
+            $focus->repair_workflow(true);
+        }
+    }
+
+    /**
+     * Remove workflows from logic hook file.
+     * @see sugarcrm/upgrade/scripts/post/9_ClearHooks.php
+     */
+    protected function removeOldWorkflow()
+    {
+        $hook_file = 'custom/modules/KBDocuments/logic_hooks.php';
+        if (!file_exists($hook_file)) {
+            return;
+        }
+        $needRewrite = false;
+        $hook_array = array();
+        include $hook_file;
+        foreach ($hook_array as $k => $hooks) {
+            foreach ($hooks as $j => $hook) {
+                if ($hook[1] === 'workflow' && $hook[3] === 'WorkFlowHandler') {
+                    unset($hook_array[$k]);
+                    $needRewrite = true;
+                }
+            }
+            if (empty($hook_array[$k])) {
+                unset($hook_array[$k]);
+            }
+        }
+        if ($needRewrite) {
+            $this->upgrader->backupFile($hook_file);
+            if (empty($hook_array)) {
+                unlink($hook_file);
+            } else {
+                $out = "<?php\n";
+                foreach ($hook_array as $event_array => $event) {
+                    foreach ($event as $elements) {
+                        $out .= "\$hook_array['{$event_array}'][] = array(";
+                        foreach ($elements as $el) {
+                            $out .= var_export($el, true) . ',';
+                        }
+                        $out .= ");\n";
+                    }
+                }
+                file_put_contents($hook_file, $out);
+            }
+        }
     }
 }

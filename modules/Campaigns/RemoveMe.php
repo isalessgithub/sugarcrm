@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -44,13 +44,24 @@ if(!empty($_REQUEST['identifier'])) {
     }elseif(!empty($keys)){
 		$id = $keys['target_id'];
 		$db = DBManagerFactory::getInstance();
-		$id = $db->quote($id);
 
 		//no opt out for users.
 		if(preg_match('/^[0-9A-Za-z\-]*$/', $id) && $module != 'Users'){
             //record this activity in the campaing log table..
-			$query = "UPDATE email_addresses SET email_addresses.opt_out = 1 WHERE EXISTS(SELECT 1 FROM email_addr_bean_rel ear WHERE ear.bean_id = '$id' AND ear.deleted=0 AND email_addresses.id = ear.email_address_id)";
-			$status=$db->query($query);
+            $status = true;
+            $email = BeanFactory::newBean('EmailAddresses');
+            $sql = 'SELECT ea.id FROM email_addresses ea'
+                . ' INNER JOIN email_addr_bean_rel eabr ON eabr.email_address_id = ea.id'
+                . ' WHERE eabr.bean_id = %s AND eabr.bean_module = %s AND eabr.deleted = 0 AND ea.opt_out = 0;';
+            $stmt = $db->query(sprintf($sql, $db->quoted($id), $db->quoted($module)));
+            while ($row = $db->fetchByAssoc($stmt)) {
+                $status = $status && (bool) $db->updateParams(
+                    $email->getTableName(),
+                    $email->field_defs,
+                    array('opt_out' => 1),
+                    array('id' => $row['id'])
+                );
+            }
 			if($status){
 				echo "*";
 			}

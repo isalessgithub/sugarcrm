@@ -19,7 +19,7 @@ require_once('modules/ATC_ISSCampaigns/ATC_ISSCampaigns_sugar.php');
 class ATC_ISSCampaigns extends ATC_ISSCampaigns_sugar {
 	
 	function ATC_ISSCampaigns(){	
-		parent::ATC_ISSCampaigns_sugar();
+		parent::__construct();
 	}
 	
 }

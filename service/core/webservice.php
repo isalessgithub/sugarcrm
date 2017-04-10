@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -20,8 +20,8 @@ chdir(dirname(__FILE__).'/../../');
 define('ENTRY_POINT_TYPE', 'api');
 require('include/entryPoint.php');
 require_once('soap/SoapError.php');
-require_once('SoapHelperWebService.php');
-require_once('SugarRestUtils.php');
+require_once 'service/core/SoapHelperWebService.php';
+require_once 'service/core/SugarRestUtils.php';
 require_once($webservice_path);
 require_once($registry_path);
 if(isset($webservice_impl_class_path))

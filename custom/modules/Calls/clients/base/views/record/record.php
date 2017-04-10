@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 12:36:52
+// created: 2017-02-28 11:25:17
 $viewdefs['Calls']['base']['view']['record'] = array (
   'buttons' => 
   array (
@@ -214,7 +214,6 @@ $viewdefs['Calls']['base']['view']['record'] = array (
               'name' => 'date_start',
               'time' => 
               array (
-                'disable_text_input' => true,
                 'step' => 15,
               ),
               'readonly' => false,
@@ -229,7 +228,6 @@ $viewdefs['Calls']['base']['view']['record'] = array (
               'name' => 'date_end',
               'time' => 
               array (
-                'disable_text_input' => true,
                 'step' => 15,
                 'duration' => 
                 array (
@@ -239,12 +237,12 @@ $viewdefs['Calls']['base']['view']['record'] = array (
               'readonly' => false,
             ),
           ),
+          'span' => 9,
           'related_fields' => 
           array (
             0 => 'duration_hours',
             1 => 'duration_minutes',
           ),
-          'span' => 9,
         ),
         1 => 
         array (
@@ -259,6 +257,7 @@ $viewdefs['Calls']['base']['view']['record'] = array (
         array (
           'name' => 'recurrence',
           'type' => 'recurrence',
+          'span' => 12,
           'inline' => true,
           'show_child_labels' => true,
           'fields' => 
@@ -270,6 +269,7 @@ $viewdefs['Calls']['base']['view']['record'] = array (
               'type' => 'enum',
               'options' => 'repeat_interval_number',
               'required' => true,
+              'default' => 1,
             ),
             1 => 
             array (
@@ -281,23 +281,59 @@ $viewdefs['Calls']['base']['view']['record'] = array (
             ),
             2 => 
             array (
+              'label' => 'LBL_CALENDAR_CUSTOM_DATE',
+              'name' => 'repeat_selector',
+              'type' => 'enum',
+              'options' => 'repeat_selector_dom',
+              'default' => 'None',
+            ),
+            3 => 
+            array (
+              'name' => 'repeat_days',
+              'type' => 'repeat-days',
+              'options' => 
+              array (
+                '' => '',
+              ),
+              'isMultiSelect' => true,
+              'dropdown_class' => 'recurring-date-dropdown',
+              'container_class' => 'recurring-date-container select2-choices-pills-close',
+            ),
+            4 => 
+            array (
+              'label' => ' ',
+              'name' => 'repeat_ordinal',
+              'type' => 'enum',
+              'options' => 'repeat_ordinal_dom',
+            ),
+            5 => 
+            array (
+              'label' => ' ',
+              'name' => 'repeat_unit',
+              'type' => 'enum',
+              'options' => 'repeat_unit_dom',
+            ),
+            6 => 
+            array (
+              'label' => 'LBL_CALENDAR_REPEAT',
+              'name' => 'repeat_end_type',
+              'type' => 'enum',
+              'options' => 'repeat_end_types',
+              'default' => 'Until',
+            ),
+            7 => 
+            array (
               'label' => 'LBL_CALENDAR_REPEAT_UNTIL_DATE',
               'name' => 'repeat_until',
               'type' => 'repeat-until',
             ),
-            3 => 
-            array (
-              'type' => 'label',
-              'default_value' => 'LBL_LOWER_OR',
-            ),
-            4 => 
+            8 => 
             array (
               'label' => 'LBL_CALENDAR_REPEAT_COUNT',
               'name' => 'repeat_count',
               'type' => 'repeat-count',
             ),
           ),
-          'span' => 12,
         ),
         3 => 'direction',
         4 => 
@@ -331,13 +367,14 @@ $viewdefs['Calls']['base']['view']['record'] = array (
           'name' => 'invitees',
           'type' => 'participants',
           'label' => 'LBL_INVITEES',
+          'span' => 12,
           'fields' => 
           array (
             0 => 'name',
             1 => 'accept_status_calls',
             2 => 'picture',
+            3 => 'email',
           ),
-          'span' => 12,
         ),
         9 => 'assigned_user_name',
         10 => 'team_name',

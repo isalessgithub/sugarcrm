@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -945,7 +945,7 @@ class ModuleInstaller{
                 }
             }
         }
-        $this->rebuild_extensions();
+        $this->rebuild_extensions($this->modulesInPackage);
     }
 
     function install_dashlets()
@@ -1124,7 +1124,17 @@ class ModuleInstaller{
                 if(!file_exists($path)){
                     mkdir_recursive($path, true);
                 }
-                copy_recursive($packs['from'] , $path.'/'.$packs['language'].'.'. $this->id_name . '.php');
+                $lang_file = $path.'/'.$packs['language'].'.'. $this->id_name . '.php';
+                if (!file_exists($lang_file)) {
+                    copy_recursive($packs['from'], $lang_file);
+                }
+                else {
+                    $temp_lang_file = $path.'/'.'temp.php';
+                    copy_recursive($packs['from'], $temp_lang_file);
+                    $contents = $this->getExtensionFileContents(array($lang_file, $temp_lang_file));
+                    file_put_contents($lang_file, $contents);
+                    unlink($temp_lang_file);
+                }
             }
             $this->rebuild_languages($languages, array_keys($modules));
         }
@@ -1877,7 +1887,7 @@ class ModuleInstaller{
 
     function rebuild_vardefs($modules = array())
     {
-        $this->rebuildExt("Vardefs", 'vardefs.ext.php', null, null, $modules);
+        $this->rebuildExt("Vardefs", 'vardefs.ext.php', $modules);
         if (!empty($modules)) {
             foreach($modules as $module) {
                 VardefManager::clearVardef($module);
@@ -2636,6 +2646,7 @@ class ModuleInstaller{
             if ($save_table_dictionary) {
                 $this->rebuild_tabledictionary();
             }
+            SugarRelationshipFactory::deleteCache();
         }
     }
 
@@ -2902,13 +2913,11 @@ class ModuleInstaller{
 //				$GLOBALS['log']->debug('ModuleInstaller.php->disable_copy(): installdefs not empty');
                 foreach($this->installdefs['copy'] as $cp){
                     $cp['to'] = clean_path(str_replace('<basepath>', $this->base_dir, $cp['to']));
-                    if (file_exists($cp['to'])) {
-                        $GLOBALS['log']->debug('DISABLE COPY:: REMOVING: ' . $cp['to']);
-                        rmdir_recursive($cp['to']);
-                    }
+                    $cp['from'] = clean_path(str_replace('<basepath>', $this->base_dir, $cp['from']));
                     $backup_path = clean_path( remove_file_extension(urldecode(hashToFile($this->validateInstallFile())))."-restore/".$cp['to'] ); // bug 16966 tyoung - replaced missing assignment to $backup_path
                     //check if this file exists in the -restore directory
 //					$GLOBALS['log']->debug("ModuleInstaller.php->disable_copy(): backup_path=".$backup_path);
+                    $this->uninstall_new_files($cp, $backup_path);
                     if(file_exists($backup_path)){
                         //since the file exists, then we want do an md5 of the install version and the file system version
                         $from = str_replace('<basepath>', $this->base_dir, $cp['from']);

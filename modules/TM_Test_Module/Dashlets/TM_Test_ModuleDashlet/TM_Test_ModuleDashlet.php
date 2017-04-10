@@ -29,7 +29,7 @@ class TM_Test_ModuleDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('modules/TM_Test_Module/metadata/dashletviewdefs.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'TM_Test_Module');
 

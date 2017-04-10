@@ -71,9 +71,9 @@ if(count($oContacts) > 0){
         $class = ($ctr & 1) ? "oddListRowS1" : "evenListRowS1";
         $sTableRow .= '<tr >';//class = "'.$class.'"
        // $sTableRow .= '<td><a href = "index.php?module=Accounts&action=DetailView&record='.$oContact->account_id.'">'.$oContact->account_name.'</a></td>';
-        $sTableRow .= '<td><a href = "https://crm.isaless.com/#Accounts/'.$oContact->account_id.'">'.$oContact->account_name.'</a></td>';  
+        $sTableRow .= '<td><a href = "http://test.isaless.com/#Accounts/'.$oContact->account_id.'">'.$oContact->account_name.'</a></td>';  
       //$sTableRow .= '<td><a href = "index.php?module=Contacts&action=DetailView&record='.$oContact->id.'">'.$oContact->full_name.'</a></td>';
-	$sTableRow .= '<td><a href = "https://crm.isaless.com/#Contacts/'.$oContact->id.'">'.$oContact->full_name.'</a></td>';
+	$sTableRow .= '<td><a href = "http://test.isaless.com/#Contacts/'.$oContact->id.'">'.$oContact->full_name.'</a></td>';
         $sTableRow .= '<td>'.$oContact->title.'</td>';
         $sTableRow .= '<td>'.$oContact->phone_other.'</td>';
         $sTableRow .= '<td>'.$oContact->phone_work.'</td>';

@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -20,7 +20,6 @@ class MBPackage{
     var $name;
     var $is_uninstallable = true;
     var $description = '';
-    var $has_images = true;
     var $modules = array();
     var $date_modified = '';
     var $author = '';
@@ -216,9 +215,6 @@ function buildInstall($path){
         'layoutdefs'=>array(),
         'relationships'=>array(),
     );
-    if($this->has_images){
-        $installdefs['image_dir'] = '<basepath>/icons';
-    }
     foreach(array_keys($this->modules) as $module){
         $this->modules[$module]->build($path);
         $this->modules[$module]->addInstallDefs($installdefs);
@@ -244,10 +240,15 @@ function buildInstall($path){
         }
 
         copy_recursive( $this->path . '/language/', $path . '/language/');
+    }
+
+    if (file_exists($this->path . '/icons/')) {
         $icon_path = $path . '/../icons/default/images/';
         mkdir_recursive($icon_path);
         copy_recursive($this->path . '/icons/', $icon_path);
+        $installdefs['image_dir'] = '<basepath>/icons';
     }
+
     return "\n".'$installdefs = ' . var_export_helper($installdefs). ';';
 
 }
@@ -465,7 +466,13 @@ function buildInstall($path){
             {
                 foreach ($relationshipsMetaFiles as $file)
                 {
-                    $installdefs['relationships'][] = array('meta_data' => str_replace('custom', '<basepath>', $file)); 
+                    $installdefs['relationships'][] = array(
+                        'meta_data' => str_replace(
+                            'custom' . DIRECTORY_SEPARATOR,
+                            '<basepath>' . DIRECTORY_SEPARATOR,
+                            $file
+                        ),
+                    );
                 }
             }
         }//foreach

@@ -39,7 +39,7 @@ class MyAccountsDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('custom/modules/Accounts/Dashlets/MyAccountsDashlet/MyAccountsDashlet.data.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'Accounts');
 

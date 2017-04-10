@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -257,7 +257,7 @@ $mod_strings = array (
   'LBL_USERS_CANNOT_OPTOUT' => 'Gli utenti di sistema non hanno la possibilità di disiscriversi dalle email ricevute.',
   'LBL_ELECTED_TO_OPTOUT' => 'Hai scelto di disiscriverti e di non ricevere più messaggi email.',
   'LBL_COPY_OF' => 'Copia di',
-  'LBL_SAVED_SEARCH' => 'Ricerca &amp; Layout salvati',
+  'LBL_SAVED_SEARCH' => 'Ricerca e layout salvati',
   //email setup wizard
   'LBL_WIZ_FROM_NAME'                         => 'Mittente:',
   'LBL_WIZ_FROM_ADDRESS'                      => 'Destinatario:',

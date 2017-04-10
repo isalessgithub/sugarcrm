@@ -1,5 +1,5 @@
 <?php
- // created: 2016-10-07 12:36:28
+ // created: 2017-02-28 11:18:23
 $dictionary['User']['fields']['users_atc_isscampaigns_1']['name'] = 'users_atc_isscampaigns_1';
 $dictionary['User']['fields']['users_atc_isscampaigns_1']['type'] = 'link';
 $dictionary['User']['fields']['users_atc_isscampaigns_1']['relationship'] = 'users_atc_isscampaigns_1';
