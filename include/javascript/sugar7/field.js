@@ -1,7 +1,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -57,13 +57,12 @@
                 this.clearErrorDecoration();
                 _.defer(function (field) {
                     field._errors = errors;
-                    // Only call setMode to re-render if this is the current field we are editing
-                    // Solves issue when the model is on the page more than once, yet we are editing
-                    // in only 1 view. Example Recordlist and Preview together
-                    if (field.parent && field.parent.action === 'edit') {
-                        field.parent.render();
-                    } else if (field.action === 'edit') {
-                        field.render();
+                    if (field.action === 'edit' || field.view.inlineEditMode) {
+                        if (field.parent) {
+                            field.parent.setMode('edit');
+                        } else {
+                            field.setMode('edit');
+                        }
                     }
                     // As we're now "post form submission", if `no_required_placeholder`, we need to
                     // manually decorateRequired (as we only omit required on form's initial render)
@@ -428,7 +427,6 @@
 
                 $tooltip = $(this.exclamationMarkTemplate(errorMessages));
                 $ftag.after($tooltip);
-                this.createErrorTooltips($tooltip);
             },
 
             /**
@@ -436,19 +434,16 @@
              * @param {jQuery} $element
              */
             createErrorTooltips: function($element) {
-                this._errorTooltips = this._errorTooltips || [];
-                this._errorTooltips.push(app.utils.tooltip.initialize($element));
+                app.logger.warn('View.Field#createErrorTooltips: This method has been' +
+                    ' deprecated since 7.8.0 and will be removed in 7.9.0.');
             },
 
             /**
              * Destroy all error tooltips.
              */
             destroyAllErrorTooltips: function() {
-                if (!this._errorTooltips) {
-                    return;
-                }
-                app.utils.tooltip.destroy($(this._errorTooltips));
-                this._errorTooltips = null;
+                app.logger.warn('View.Field#destroyAllErrorTooltips: This method has been' +
+                    ' deprecated since 7.8.0 and will be removed in 7.9.0.');
             },
 
             /**
@@ -456,7 +451,6 @@
              * @private
              */
             _dispose: function() {
-                this.destroyAllErrorTooltips();
                 _fieldProto._dispose.call(this);
             },
 
@@ -468,7 +462,6 @@
                     $ftag = this.$(ftag);
 
                 // Remove previous exclamation then add back.
-                this.destroyAllErrorTooltips();
                 this.$('.add-on.error-tooltip').remove();
                 var isWrappedError = $ftag.parent().hasClass('input-append') && $ftag.parent().hasClass('error');
 
@@ -496,7 +489,10 @@
              * @param {Array} events Events for the field
              */
             delegateEvents: function(events) {
-                events = events || this.events || (this.def ? this.def.events : null);
+                // FIXME SC-5676: The metadata events should typically be extended
+                // or mixed-in to the events, not OR'ed with `this.events`. SC-5676
+                // should address refactoring this method.
+                events = events || _.result(this, 'events') || (this.def ? this.def.events : null);
                 if (!events) {
                     return;
                 }

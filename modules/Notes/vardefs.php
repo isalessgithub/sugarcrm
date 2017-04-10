@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -413,3 +413,4 @@ VardefManager::createVardef('Notes','Note', array('default', 'assignable',
 // to properly cope with larger fields. This impacts indexing performance and additional
 // adds a heavy taxation on the required disk space usage as well.
 $dictionary['Note']['fields']['description']['full_text_search']['enabled'] = false;
+$dictionary['Note']['fields']['description']['full_text_search']['searchable'] = false;

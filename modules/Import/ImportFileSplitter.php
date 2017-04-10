@@ -4,7 +4,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -97,9 +97,7 @@ class ImportFileSplitter
             return false;
         $importFile = new ImportFile($this->_sourceFile,$delimiter,$enclosure,false);
         $filecount = 0;
-        // to convert the stream file format (upload://) to file system format (upload/)
-        $fileName = str_replace('://', '/', $this->_sourceFile) . '-' . $filecount;
-        $fw = sugar_fopen($fileName, 'w');
+        $fw = sugar_fopen("{$this->_sourceFile}-{$filecount}", "w");
         $count = 0;
         $rows = '';
         // skip first row if we have a header row
@@ -116,8 +114,7 @@ class ImportFileSplitter
                 $rows = '';
                 fclose($fw);
                 $filecount++;
-                $fileName = str_replace('://', '/', $this->_sourceFile) . '-' . $filecount;
-                $fw = sugar_fopen($fileName, 'w');
+                $fw = sugar_fopen("{$this->_sourceFile}-{$filecount}", "w");
                 $count = 0;
             }
             $rows .= $row;

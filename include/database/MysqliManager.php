@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -131,7 +131,6 @@ class MysqliManager extends MysqlManager
         if(is_array($sql)) {
             return $this->queryArray($sql, $dieOnError, $msg, $suppress);    //queryArray does not support any return sets
         }
-        static $queryMD5 = array();
 
         parent::countQuery($sql);
         $this->log->info('Query:' . $sql);
@@ -152,10 +151,6 @@ class MysqliManager extends MysqlManager
 
         else
             $result = $suppress?@mysqli_query($this->database,$sql):mysqli_query($this->database,$sql);
-        $md5 = md5($sql);
-
-        if (empty($queryMD5[$md5]))
-            $queryMD5[$md5] = true;
 
         $this->query_time = microtime(true) - $this->query_time;
         $this->log->info('Query Execution Time:'.$this->query_time);
@@ -384,12 +379,15 @@ class MysqliManager extends MysqlManager
             $this->connectOptions = $configOptions;
         }
 
-        //mysqli connector has a separate parameter for port.. We need to separate it out from the host name
-        $this->connectOptions['db_port'] = null;
+        if (empty($this->connectOptions['db_port'])) { // '' case
+            $this->connectOptions['db_port'] = null;
+        }
         $pos = strpos($this->connectOptions['db_host_name'],':');
         if ($pos !== false) {
-            $this->connectOptions['db_host_name'] = substr($this->connectOptions['db_host_name'],0,$pos);
-            $this->connectOptions['db_port'] = substr($this->connectOptions['db_host_name'],$pos+1);
+            $dbHostName = $this->connectOptions['db_host_name'];
+            //mysqli connector has a separate parameter for port.. We need to separate it out from the host name
+            $this->connectOptions['db_host_name'] = substr($dbHostName, 0, $pos);
+            $this->connectOptions['db_port'] = substr($dbHostName, $pos+1);
         }
 
         if (ini_get('mysqli.allow_persistent') && $this->getOption('persistent')) {

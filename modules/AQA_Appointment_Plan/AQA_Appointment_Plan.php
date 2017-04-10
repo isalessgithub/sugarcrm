@@ -19,7 +19,7 @@ require_once('modules/AQA_Appointment_Plan/AQA_Appointment_Plan_sugar.php');
 class AQA_Appointment_Plan extends AQA_Appointment_Plan_sugar {
 	
 	function AQA_Appointment_Plan(){	
-		parent::AQA_Appointment_Plan_sugar();
+		parent::__construct();
 	}
 	
 }

@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -66,6 +66,8 @@ class SugarACLUsers extends SugarACLStrategy
      */
     public function checkAccess($module, $view, $context)
     {
+        global $sugar_config;
+
         if($module != 'Users' && $module != 'Employees') {
             // how'd you get here...
             return false;
@@ -77,6 +79,12 @@ class SugarACLUsers extends SugarACLStrategy
         }
 
         $current_user = $this->getCurrentUser($context);
+
+        // Deny access to export if it disabled globally or user is not an admin
+        if ($view == 'export' && (!empty($sugar_config['disable_export'])
+                || !$current_user->isAdminForModule($module))) {
+            return false;
+        }
 
         $bean = self::loadBean($module, $context);
 
@@ -234,6 +242,12 @@ class SugarACLUsers extends SugarACLStrategy
                     $result[$key] = SugarACL::ACL_NO_ACCESS;
                 } else {
                     $result[$key] = SugarACL::ACL_READ_WRITE;
+                }
+            }
+
+            if ($myself == true) {
+                if ($field == 'pwd_last_changed' || $field == 'last_login') {
+                    $result[$key] = SugarACL::ACL_READ_ONLY;
                 }
             }
         }

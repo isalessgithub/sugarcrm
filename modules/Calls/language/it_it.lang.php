@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -10,7 +10,7 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 $mod_strings = array (
-	'LBL_BLANK'	=> '-vuoto-',
+	'LBL_BLANK'	=> ' ',
     'LBL_MODULE_NAME' => 'Chiamate',
     'LBL_MODULE_NAME_SINGULAR'	=> 'Chiamata',
     'LBL_MODULE_TITLE' => 'Chiamate: Home',
@@ -65,14 +65,14 @@ $mod_strings = array (
     'LBL_REMINDER_EMAIL' => 'Email',
     'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Email a tutti gli invitati',
     'LBL_EMAIL_REMINDER' => 'Email di promemoria',
-    'LBL_EMAIL_REMINDER_TIME' => 'Data di invio email di promemoria',
-    'LBL_POPUP_REMINDER_TIME' => 'Orario Promemoria Popup',
+    'LBL_EMAIL_REMINDER_TIME' => 'Ora promemoria email',
+    'LBL_POPUP_REMINDER_TIME' => 'Ora promemoria popup',
     'LBL_SEND_BUTTON_TITLE'=>'Invia Inviti [Alt+I]',
     'LBL_SEND_BUTTON_KEY'=>'I',
     'LBL_SEND_BUTTON_LABEL'=>'Invia Inviti',
 	'LBL_DATE_END'=>'Data Fine',
 	'LBL_TIME_END'=>'Ora Fine',
-	'LBL_REMINDER_TIME'=>'Tempo di Avviso',
+    'LBL_REMINDER_TIME'=>'Tempo di Avviso',
     'LBL_EMAIL_REMINDER_SENT' => 'Email di promemoria inviati',
     'LBL_SEARCH_BUTTON'=> 'Cerca',
     'LBL_ACTIVITIES_REPORTS' => 'Report Attività',
@@ -131,6 +131,7 @@ $mod_strings = array (
     'LBL_REMOVE_ALL_RECURRENCES' => 'Cancella Tutte le Ricorrenze',
     'LBL_DATE_END_ERROR' => 'La Data di Fine precede la Data di Inizio',
     'LBL_REPEAT_PARENT_ID' => 'Ripetere ID Parent',
+    'LBL_CALENDAR_RECURRENCE_ID' => 'ID ricorrenza della chiamata. Data di inizio della chiamata originale',
     'LBL_RECURRING_SOURCE' => 'Fonte Ricorrente',
     'LBL_CONFIRM_REMOVE_ALL_RECURRENCES' => 'Sei sicuro di voler cancellare tutti i record ricorrenti?',
     'LBL_RECURRING_LIMIT_ERROR' => 'Questa chiamata ricorrente non può essere schedulata perchè supera il $limit di ricorrenza massima consentita.',
@@ -156,7 +157,7 @@ $mod_strings = array (
 
 Dalla vista elenco del modulo {{plural_module_name}}, puoi visualizzare e modificare (tramite in-line editing) le informazioni relative ad una chiamata. Azioni aggiuntive sono disponibili nel menu alla fine di ogni riga di Chiamata. Puoi selezionare "Chiudi" dal menu nella riga di ogni chiamata pianificata per marcarla come completata. 
 
-Gli utenti Sugar, i contatti e leads possono essere aggiunti come invitati nelle chiamate. Le {{plural_module_name}} posso essere create dal modulo {{plural_module_name}}, dal modulo Calendario, tramite importazione, così come dal sottopannello Attività  (per i moduli Legacy) o dalla Dashlet Attività Pianificate (per i moduli Sidecar), in record di moduli relazionati (ad es. Contatti, Aziende, etc.), creando automaticamente una relazione tra i due records.',
+Gli utenti Sugar, i contatti e leads possono essere aggiunti come invitati nelle chiamate. Le {{plural_module_name}} possono essere create dal modulo {{plural_module_name}}, dal modulo Calendario, tramite importazione, così come dal sottopannello Attività (per i moduli Legacy) o dalla Dashlet Attività Pianificate (per i moduli Sidecar), in record di moduli relazionati (ad es. Contatti, Aziende, etc.), creando automaticamente una relazione tra i due records.',
 
     // Record View Help Text
     'LBL_HELP_RECORD' => 'Il modulo {{plural_module_name}} consiste in un record {{calls_singular_module}} registrato dagli utenti della tua organizzazione. Le {{plural_module_name}} possono essere in stato "Pianificata", "Effettuata" o "Non Effettuata. Utenti Sugar così come {{contacts_module}} e {{leads_module}} possono essere aggiunti come invitati.

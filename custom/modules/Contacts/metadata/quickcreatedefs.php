@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 12:36:01
+// created: 2017-02-28 11:17:59
 $viewdefs['Contacts']['QuickCreate'] = array (
   'templateMeta' => 
   array (
@@ -96,7 +96,7 @@ $viewdefs['Contacts']['QuickCreate'] = array (
       array (
         0 => 
         array (
-          'name' => 'email1',
+          'name' => 'email',
         ),
         1 => 
         array (
@@ -127,6 +127,13 @@ $viewdefs['Contacts']['QuickCreate'] = array (
           'name' => 'description',
           'comment' => 'Full text of the note',
           'label' => 'LBL_DESCRIPTION',
+        ),
+      ),
+      7 => 
+      array (
+        0 => 
+        array (
+          'name' => 'email1',
         ),
       ),
     ),

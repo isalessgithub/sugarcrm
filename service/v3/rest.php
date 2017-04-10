@@ -3,7 +3,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -15,7 +15,7 @@
  * This is a rest entry point for rest version 3.1
  */
 chdir('../..');
-require_once('SugarWebServiceImplv3.php');
+require_once 'service/v3/SugarWebServiceImplv3.php';
 $webservice_class = 'SugarRestService';
 $webservice_path = 'service/core/SugarRestService.php';
 $webservice_impl_class = 'SugarWebServiceImplv3';

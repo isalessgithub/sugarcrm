@@ -1,7 +1,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -117,7 +117,7 @@
     addHeaderComponent: function() {
         var header = app.view.createView({
             context: this.context,
-            name: 'convert-panel-header',
+            type: 'convert-panel-header',
             layout: this,
             meta: this.meta
         });
@@ -143,7 +143,7 @@
 
         this.duplicateView = app.view.createLayout({
             context: context,
-            name: this.TOGGLE_DUPECHECK,
+            type: this.TOGGLE_DUPECHECK,
             layout: this,
             module: context.get('module')
         });
@@ -165,7 +165,7 @@
 
         this.createView = app.view.createView({
             context: context,
-            name: this.TOGGLE_CREATE,
+            type: this.TOGGLE_CREATE,
             module: context.module,
             layout: this
         });
@@ -677,8 +677,8 @@
      */
     turnOffUnsavedChanges: function() {
         var defaults = _.extend({}, this.createView.model._defaults, this.createView.model.getDefault());
-        this.createView.model.clear({silent: true});
-        this.createView.model.set(defaults, {silent: true});
+
+        this.createView.model.attributes = defaults;
     },
 
     /**
@@ -693,6 +693,7 @@
      * @inheritdoc
      */
     _dispose: function() {
+        this.createView.model.off('change', this.runPostCompletionValidation, this);
         this.createView.off(null, null, this);
         this.duplicateView.off(null, null, this);
         this.duplicateView.context.off(null, null, this);

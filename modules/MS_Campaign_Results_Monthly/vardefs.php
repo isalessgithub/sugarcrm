@@ -1,0 +1,255 @@
+<?php
+
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+
+$dictionary['MS_Campaign_Results_Monthly'] = array(
+    'table' => 'ms_campaign_results_monthly',
+    'audited' => true,
+    'activity_enabled' => false,
+    'duplicate_merge' => true,
+    'fields' => array (
+  'appointment_attended' => 
+  array (
+    'required' => false,
+    'name' => 'appointment_attended',
+    'vname' => 'LBL_APPOINTMENT_ATTENDED',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+  'appointment_accepted' => 
+  array (
+    'required' => false,
+    'name' => 'appointment_accepted',
+    'vname' => 'LBL_APPOINTMENT_ACCEPTED',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+  'appointment_confirmed' => 
+  array (
+    'required' => false,
+    'name' => 'appointment_confirmed',
+    'vname' => 'LBL_APPOINTMENT_CONFIRMED',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+  'appointment_attended_by_policy' => 
+  array (
+    'required' => false,
+    'name' => 'appointment_attended_by_policy',
+    'vname' => 'LBL_APPOINTMENT_ATTENDED_BY_POLICY',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+  'remaining_target' => 
+  array (
+    'required' => false,
+    'name' => 'remaining_target',
+    'vname' => 'LBL_REMAINING_TARGET',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+  'appointment_target_monthly' => 
+  array (
+    'required' => false,
+    'name' => 'appointment_target_monthly',
+    'vname' => 'LBL_APPOINTMENT_TARGET_MONTHLY',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+  'appointment_target_total' => 
+  array (
+    'required' => false,
+    'name' => 'appointment_target_total',
+    'vname' => 'LBL_APPOINTMENT_TARGET_TOTAL',
+    'type' => 'int',
+    'massupdate' => false,
+    'no_default' => false,
+    'comments' => '',
+    'help' => '',
+    'importable' => 'true',
+    'duplicate_merge' => 'enabled',
+    'duplicate_merge_dom_value' => '1',
+    'audited' => false,
+    'reportable' => true,
+    'unified_search' => false,
+    'merge_filter' => 'disabled',
+    'default' => '',
+    'full_text_search' => 
+    array (
+      'enabled' => '0',
+      'boost' => '1',
+      'searchable' => false,
+    ),
+    'calculated' => false,
+    'len' => '255',
+    'size' => '20',
+    'enable_range_search' => false,
+    'disable_num_format' => '',
+    'min' => false,
+    'max' => false,
+  ),
+),
+    'relationships' => array (
+),
+    'optimistic_locking' => true,
+    'unified_search' => true,
+    'full_text_search' => true,
+);
+
+if (!class_exists('VardefManager')){
+    require_once 'include/SugarObjects/VardefManager.php';
+}
+VardefManager::createVardef('MS_Campaign_Results_Monthly','MS_Campaign_Results_Monthly', array('basic','team_security','assignable','taggable'));

@@ -482,7 +482,7 @@ var workingAppointmentContactId;
 var combo_appointment_date;
 ////function ManageAppointments(module, parent_record, contact_name, account_name) {
 function ManageAppointments(module, parent_record, email_address, contact_name, account_name) {
-
+console.log("harro");
   if (typeof(manageAppointmentsConfigureDlg[parent_record]) == 'undefined') {
     workingAppointmentContactId = parent_record;
     manageAppointmentsConfigureDlg[parent_record] = new YAHOO.widget.SimpleDialog("dlgManageAppointments_" + parent_record,
@@ -810,14 +810,18 @@ var createAppointment = function () {
   postData += '&appointment_status=' + $("#ScheduleAppointmentForm").find("select[name=appointment_status] option:selected").val();
   postData += '&appointment_place=' + $("#ScheduleAppointmentForm").find("select[name=appointment_place] option:selected").val();
   postData += '&contact_email=' + $("#ScheduleAppointmentForm").find("input[name=contact_email]").val();
-//window.alert($("#ScheduleAppointmentForm").find("input[name=contact_email]").val());
   postData += '&appointment_duration_hours=' + $("#ScheduleAppointmentForm").find("select[name=appointment_duration_hours] option:selected").val();
   postData += '&appointment_duration_minutes=' + $("#ScheduleAppointmentForm").find("select[name=appointment_duration_minutes] option:selected").val();
   postData += '&appointment_date=' + $("#ScheduleAppointmentForm").find("input[name=appointment_date]").val();
   /*postData += '&appointment_date_original=' + $("#ScheduleAppointmentForm").find("input[name=appointment_date_original]").val();*/
   postData += '&atc_clientsalesreps_atc_appointments_name=' + $("#ScheduleAppointmentForm").find("input[name=atc_clientsalesreps_atc_appointments_name]").val();
   postData += '&atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida=' + $("#ScheduleAppointmentForm").find("input[name=atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida]").val();
-  postData += '&appointment_note=' + $("#ScheduleAppointmentForm").find("textarea[name=appointment_note]").val();
+  //remove ampersand!!
+  var ann = $("#ScheduleAppointmentForm").find("textarea[name=appointment_note]").val();
+  //postData += '&appointment_note=' + $("#ScheduleAppointmentForm").find("textarea[name=appointment_note]").val().replace('&','');
+  //postData += '&appointment_note='+ann.replace('&','');
+  postData += '&appointment_note='+encodeURIComponent(ann);
+
   postData += '&reminder_checked=' + $("#ScheduleAppointmentForm").find("input[name=reminder_checked]").prop('checked');postData += '&reminder_time=' + $("#ScheduleAppointmentForm").find("select[name=reminder_time]").val();
 
 

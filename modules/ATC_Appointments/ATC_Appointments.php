@@ -19,7 +19,7 @@ require_once('modules/ATC_Appointments/ATC_Appointments_sugar.php');
 class ATC_Appointments extends ATC_Appointments_sugar {
 
   function ATC_Appointments() {
-    parent::ATC_Appointments_sugar();
+    parent::__construct();
   }
 
   function save($check_notify = FALSE) {

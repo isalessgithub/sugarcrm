@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -48,7 +48,8 @@ class ParserDropDown extends ModuleBuilderParser
         // we rely here on PHP to preserve the order of the received name=>value pairs - associative arrays in PHP are ordered
         if (is_array($temp)) {
             foreach ($temp as $item) {
-                $dropdown[SugarCleaner::stripTags(from_html($item [ 0 ]), false)] = SugarCleaner::stripTags(from_html($item [ 1 ]), false);
+                $key = SugarCleaner::stripTags(from_html($item[0]), false);
+                $dropdown[$key] = empty($key) ? '' : SugarCleaner::stripTags(from_html($item[1]), false);
             }
         }
         if (array_key_exists($emptyMarker, $dropdown)) {
@@ -167,7 +168,9 @@ class ParserDropDown extends ModuleBuilderParser
      */
     public function finalize($lang)
     {
-        $mi = new ModuleInstaller();
+        SugarAutoLoader::requireWithCustom('ModuleInstall/ModuleInstaller.php');
+        $moduleInstallerClass = SugarAutoLoader::customClass('ModuleInstaller');
+        $mi = new $moduleInstallerClass();
         $mi->silent = true;
         $mi->rebuild_languages(
             array(

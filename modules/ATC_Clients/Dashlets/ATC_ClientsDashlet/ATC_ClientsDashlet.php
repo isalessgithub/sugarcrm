@@ -29,7 +29,7 @@ class ATC_ClientsDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('modules/ATC_Clients/metadata/dashletviewdefs.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'ATC_Clients');
 
