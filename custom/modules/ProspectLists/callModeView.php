@@ -1,6 +1,8 @@
 <?php
 echo getVersionedScript('custom/modules/ProspectLists/js/jquery.dataTables.min.js');
 echo getVersionedScript('modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js');
+
+$url = "http://test.isaless.com/";
 global $mod_strings;
 // only if Target ID exists
 if(isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])){
@@ -17,21 +19,19 @@ echo getClassicModuleTitle("ProspectLists", array("<a href='index.php?module=Pro
 
 // fetch all related contacts
 //$oContacts = $oProspectList->get_linked_beans('contacts', 'Contacts');
-global $db;
+//global $db;
+$db = $GLOBALS['db'];
 
-$cSQL = "SELECT 	accounts.id 'account_id', accounts.name 'account_name', concat(first_name, ' ', last_name) as 'full_name',
-		contacts.id as 'contact_id', title, phone_other, phone_work, primary_address_city, primary_address_state, call_outcome_c, email_addresses.email_address as 'email1'
+$cSQL = " SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', contacts.id AS 'contact_id', title,phone_other, phone_work, primary_address_city, primary_address_state, call_outcome_c, email_addresses.email_address as 'email1' 
 FROM contacts
-inner join contacts_cstm on contacts_cstm.id_c = contacts.id and contacts.deleted = 0
-INNER JOIN prospect_lists_prospects on prospect_lists_prospects.related_id = contacts.id AND prospect_lists_prospects.related_type = 'Contacts'
-LEFT JOIN accounts_contacts on accounts_contacts.contact_id = contacts.id
-LEFT join accounts on accounts_contacts.account_id = accounts.id
-LEFT JOIN email_addr_bean_rel on bean_id = contacts.id
-LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addresses.id and email_addr_bean_rel.deleted=0 AND email_addr_bean_rel.primary_address = 1
-WHERE prospect_list_id = '".$_REQUEST['uid']."';";
+INNER JOIN contacts_cstm ON contacts_cstm.id_c = contacts.id AND contacts.deleted = 0
+INNER JOIN prospect_lists_prospects ON prospect_lists_prospects.related_id = contacts.id AND prospect_list_id = '".$_REQUEST['uid']."' AND prospect_lists_prospects.deleted=0 AND prospect_lists_prospects.related_type ='Contacts' 
+LEFT JOIN accounts_contacts ON accounts_contacts.contact_id = contacts.id and accounts_contacts.deleted=0
+LEFT JOIN accounts ON accounts_contacts.account_id = accounts.id and accounts.deleted = 0
+LEFT JOIN email_addr_bean_rel on bean_id = contacts.id and email_addr_bean_rel.deleted=0 AND email_addr_bean_rel.primary_address = 1
+LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addresses.id and email_addresses.deleted=0;";
 
-$cResult = $db->query($cSQL, true);
-$cContacts = $db->fetchByAssoc($cResult);
+$cResult = $db->query($cSQL);
 
 // labels of modules
 global $current_language;
@@ -52,7 +52,7 @@ $sTableHeader .= '<th>'.$contactModStrings['LBL_PRIMARY_ADDRESS_STATE'].'</th>';
 $sTableHeader .= '<th>'.$callModStrings['LBL_CALL_OUTCOME'].'</th>';
 $sTableHeader .= '<th>'.$contactModStrings['LBL_LOG_CALL'].'</th>';
 $sTableHeader .= '</tr>';
-
+//$sTableHeader .= '<td colspan=10>'.$cSQL.'</td>';
 // setting up buttons
 require_once('modules/ATC_Teleseller/ATC_CallLogger.php');
 $logcall_options = array(
@@ -65,13 +65,17 @@ $logcall_options = array(
 $sTableRow = '';
 $ctr = 0;
 
-if(!empty($cContacts)){
-    foreach($cContacts as $oContact){
+if(!empty($cResult)){
+    while($oContact = $db->fetchByAssoc($cResult)){
         $ctr++;
         $class = ($ctr & 1) ? "oddListRowS1" : "evenListRowS1";
-        $sTableRow .= '<tr >';//class = "'.$class.'"
-        $sTableRow .= '<td><a href = "https://crm.isaless.com/#Accounts/'.$cContact['account_id'].'">'.$oContact['account_name'].'</a></td>';
-	      $sTableRow .= '<td><a href = "https://crm.isaless.com/#Contacts/'.$oContact['contact_id'].'">'.$oContact['full_name'].'</a></td>';
+        $sTableRow .= '<tr >';
+	if($oContact['account_name'] != ''){
+        $sTableRow .= '<td><a href = '.$url.'#Accounts/'.$oContact['account_id'].'">'.$oContact['account_name'].'</a></td>';
+	}else{
+	$sTableRow .= '<td></td>';
+	}
+	$sTableRow .= '<td><a href = '.$url.'#Contacts/'.$oContact['contact_id'].'">'.$oContact['full_name'].'</a></td>';
         $sTableRow .= '<td>'.$oContact['title'].'</td>';
         $sTableRow .= '<td>'.$oContact['phone_other'].'</td>';
         $sTableRow .= '<td>'.$oContact['phone_work'].'</td>';
