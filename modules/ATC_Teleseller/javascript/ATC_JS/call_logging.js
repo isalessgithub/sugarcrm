@@ -819,7 +819,8 @@ var createAppointment = function () {
   //remove ampersand!!
   var ann = $("#ScheduleAppointmentForm").find("textarea[name=appointment_note]").val();
   //postData += '&appointment_note=' + $("#ScheduleAppointmentForm").find("textarea[name=appointment_note]").val().replace('&','');
-  postData += '&appointment_note='+ann.replace('&','');
+  //postData += '&appointment_note='+ann.replace('&','');
+  postData += '&appointment_note='+encodeURIComponent(ann);
 
   postData += '&reminder_checked=' + $("#ScheduleAppointmentForm").find("input[name=reminder_checked]").prop('checked');postData += '&reminder_time=' + $("#ScheduleAppointmentForm").find("select[name=reminder_time]").val();
 

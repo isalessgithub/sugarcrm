@@ -51,7 +51,7 @@ array (
             'columns' => 2,
             'labelsOnTop' => true,
             'placeholders' => true,
-            'newTab' => false,
+            'newTab' => true,
             'panelDefault' => 'expanded',
             'fields' => 
             array (
@@ -175,11 +175,52 @@ array (
               ),
             ),
           ),
+          2 => 
+          array (
+            'newTab' => true,
+            'panelDefault' => 'expanded',
+            'name' => 'LBL_RECORDVIEW_PANEL1',
+            'label' => 'LBL_RECORDVIEW_PANEL1',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'appointment_accepted_c',
+                'label' => 'LBL_APPOINTMENT_ACCEPTED',
+              ),
+              1 => 
+              array (
+                'name' => 'appointment_attended_by_poli_c',
+                'label' => 'LBL_APPOINTMENT_ATTENDED_BY_POLI',
+              ),
+              2 => 
+              array (
+                'name' => 'appointment_attended_c',
+                'label' => 'LBL_APPOINTMENT_ATTENDED',
+              ),
+              3 => 
+              array (
+                'name' => 'appointment_confirmed_c',
+                'label' => 'LBL_APPOINTMENT_CONFIRMED',
+              ),
+              4 => 
+              array (
+                'name' => 'remaining_target_c',
+                'label' => 'LBL_REMAINING_TARGET',
+              ),
+              5 => 
+              array (
+              ),
+            ),
+          ),
         ),
         'templateMeta' => 
         array (
           'maxColumns' => '2',
-          'useTabs' => false,
+          'useTabs' => true,
         ),
       ),
     ),
