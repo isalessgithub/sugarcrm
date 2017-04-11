@@ -21,40 +21,6 @@ class CallLogger
 function renderLogCall($moduleName = '', $record = '', $logcall_options = array())
 {
     global $sugar_config;
-    global $db;
-
-    // Return 10 most recent calls
-    $sql = "SELECT pl.name as TLName ,calls.description AS Description, MAX(calls.date_entered) AS Create_Date, calls_cstm.call_outcome_c AS Outcome FROM calls
-	LEFT JOIN calls_contacts ON calls.id = calls_contacts.call_id
-	INNER JOIN calls_cstm ON calls.id = calls_cstm.id_c
-	LEFT JOIN prospectlists_calls_1_c AS plc ON plc.prospectlists_calls_1calls_idb = calls.id
-	LEFT JOIN prospect_lists AS pl ON pl.id = prospectlists_calls_1prospectlists_ida
-	WHERE calls_contacts.contact_id = '" . $record . "' AND calls.deleted = 0 GROUP BY TLName,Description,Outcome ORDER BY Create_Date DESC LIMIT 10";
-    $history = null;
-    $result = $db->query($sql, true);
-    while (($rows = $db->fetchByAssoc($result)) != null) {
-        // replace special characters because newline for example is not allowed in JSON
-        foreach ($rows as $k => $v) {
-            $rows[$k] = trim(preg_replace('/(\r\n)|\n|\t|\r|\\\\/', '', $v));
-        }
-        $history[] = $rows;
-
-    }
-    $json_history = json_encode($history);
-    $json_history = htmlspecialchars($json_history);
-
-    // Return 10 most recent notes
-    $note_sql = "SELECT notes.name AS 'NAME', notes.date_entered AS Create_Date, tl.name AS 'target_list_name' FROM notes
-INNER JOIN prospectlists_notes_1_c AS tln ON tln.prospectlists_notes_1notes_idb = notes.id
-INNER JOIN prospect_lists AS tl ON tl.id = tln.prospectlists_notes_1prospectlists_ida
-WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes.date_entered DESC LIMIT 10";
-    $note_history = null;
-    $note_result = $db->query($note_sql, true);
-    while (($note_rows = $db->fetchByAssoc($note_result)) != null) {
-        $note_history[] = $note_rows;
-    }
-    $json_notes = json_encode($note_history);
-    $json_notes = htmlspecialchars($json_notes);
 
     // fetch direct_phone_value
     require_once('modules/Contacts/Contact.php');
@@ -105,7 +71,7 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
                 'align="absmiddle" alt="' . $html_tupple[0] . '" border="0"');
 
             if ($config_name == "log_call") {
-                $retStr .= "<a id =\"$record\" data-json=\"$json_history\" href=\"javascript:LogCall('$moduleName', '$record', '$json_history','$contact->phone_other', '$contactname','$accountname');\"" .
+                $retStr .= "<a id =\"$record\" data-json=\"$json_history\" href=\"javascript:LogCall('$moduleName', '$record', 'null','$contact->phone_other', '$contactname','$accountname');\"" .
                     ' class="listViewTdToolsS1" title="' . $html_tupple[0] . '"' .
                     " style='vertical-align:top'>$icon_log_call_html</a>";
             }
@@ -121,7 +87,7 @@ WHERE notes.contact_id = '" . $record . " ' AND notes.deleted = 0 ORDER BY notes
                     " style='vertical-align:top'>$icon_log_call_html</a>";
             }
             if ($config_name == "create_note") {
-                $retStr .= "<a href=\"javascript:CreateNote('$moduleName', '$record','$json_notes');\"" .
+                $retStr .= "<a href=\"javascript:CreateNote('$moduleName', '$record','null');\"" .
                     ' class="listViewTdToolsS1" title="' . $html_tupple[0] . '"' .
                     " style='vertical-align:top'>$icon_log_call_html</a>";
             }
