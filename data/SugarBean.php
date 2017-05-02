@@ -499,8 +499,16 @@ class SugarBean
         global  $dictionary, $current_user;
 
         $this->db = DBManagerFactory::getInstance();
-        if (empty($this->module_name))
-            $this->module_name = $this->module_dir;
+        if (empty($this->module_name)) {
+            // is it a sub module
+            $slash = strrpos($this->module_dir, '/');
+            if ($slash !== false) {
+                $GLOBALS["log"]->warning('module_name is not set for ' . $this->module_dir);
+                $this->module_name = substr($this->module_dir, $slash + 1);
+            } else {
+                $this->module_name = $this->module_dir;
+            }
+        }
 
         if(isset($this->disable_team_security)){
             $this->disable_row_level_security = $this->disable_team_security;
@@ -2494,18 +2502,22 @@ class SugarBean
                     }
                     $GLOBALS['log']->debug('save_relationship_changes(): From relationship_field array - adding a relationship record: '.$rel_name . ' = ' . $this->$id);
                     //already related the new relationship id so let's set it to false so we don't add it again using the _REQUEST['relate_i'] mechanism in a later block
-                    $this->load_relationship($rel_name);
-                    $rel_add = $this->$rel_name->add($this->$id);
-                    // move this around to only take out the id if it was save successfully
-                    if ($this->$id == $new_rel_id && $rel_add == true) {
-                        $new_rel_id = false;
+                    //ut exempt to be used with unit tests that mock link classes
+                    if ($this->load_relationship($rel_name)) {
+                        $rel_add = $this->$rel_name->add($this->$id);
+                        // move this around to only take out the id if it was save successfully
+                        if ($this->$id == $new_rel_id && $rel_add == true) {
+                            $new_rel_id = false;
+                        }
                     }
                 } else {
                     //if before value is not empty then attempt to delete relationship
                     if (!empty($this->rel_fields_before_value[$id])) {
                         $GLOBALS['log']->debug('save_relationship_changes(): From relationship_field array - attempting to remove the relationship record, using relationship attribute' . $rel_name);
-                        $this->load_relationship($rel_name);
-                        $this->$rel_name->delete($this->id, $this->rel_fields_before_value[$id]);
+                        //ut exempt to be used with unit tests that mock link classes
+                        if ($this->load_relationship($rel_name)) {
+                            $this->$rel_name->delete($this->id, $this->rel_fields_before_value[$id]);
+                        }
                     }
                 }
             }
@@ -4660,7 +4672,8 @@ class SugarBean
                             }
                             if (isset($data['link_type']) && $data['link_type'] == 'relationship_info' && ($parentbean instanceOf SugarBean))
                             {
-                                $ret_array['secondary_where'] = $params['join_table_link_alias'] . '.' . $join['rel_key']. "='" .$parentbean->id . "'";
+                                $ret_array['secondary_where'] = $params['join_table_link_alias'] . '.' .
+                                $join['rel_key']. "=" . $this->db->quoted($parentbean->id);
                             }
                         }
                     }
@@ -5809,13 +5822,26 @@ class SugarBean
                 } else {
                     $this->modified_user_id = 1;
                 }
-                $query = "UPDATE $this->table_name set deleted=1, date_modified = '$date_modified',
-                            modified_user_id = '$this->modified_user_id' where id='$id'";
+
+                $query = sprintf(
+                    'UPDATE %s SET deleted = 1, date_modified = %s, modified_user_id = %s WHERE id = %s',
+                    $this->table_name,
+                    $this->db->quoted($date_modified),
+                    $this->db->quoted($this->modified_user_id),
+                    $this->db->quoted($id)
+                );
+
                 if ($this->isFavoritesEnabled()) {
                     SugarFavorites::markRecordDeletedInFavorites($id, $date_modified, $this->modified_user_id);
                 }
             } else {
-                $query = "UPDATE $this->table_name set deleted=1 , date_modified = '$date_modified' where id='$id'";
+                $query = sprintf(
+                    'UPDATE %s SET deleted = 1, date_modified = %s WHERE id = %s',
+                    $this->table_name,
+                    $this->db->quoted($date_modified),
+                    $this->db->quoted($id)
+                );
+
                 if ($this->isFavoritesEnabled()) {
                     SugarFavorites::markRecordDeletedInFavorites($id, $date_modified);
                 }
@@ -5849,7 +5875,14 @@ class SugarBean
 
         $this->deleted = 0;
 		$date_modified = $GLOBALS['timedate']->nowDb();
-		$query = "UPDATE $this->table_name set deleted=0 , date_modified = '$date_modified' where id='$id'";
+
+        $query = sprintf(
+            'UPDATE %s SET deleted = 0, date_modified = %s WHERE id = %s',
+            $this->table_name,
+            $this->db->quoted($date_modified),
+            $this->db->quoted($id)
+        );
+
 		$this->db->query($query, true,"Error marking record undeleted: ");
 
         // call the custom business logic
@@ -6440,23 +6473,23 @@ class SugarBean
 
     function set_relationship($table, $relate_values, $check_duplicates = true,$do_update=false,$data_values=null)
     {
-        $where = '';
-
-		// make sure there is a date modified
-		$date_modified = $this->db->convert("'".$GLOBALS['timedate']->nowDb()."'", 'datetime');
+        global $dictionary;
 
         $row=null;
         if($check_duplicates)
         {
             $query = "SELECT * FROM $table ";
-            $where = "WHERE deleted = '0'  ";
+            $where = "WHERE deleted = 0";
             foreach($relate_values as $name=>$value)
             {
-                $where .= " AND $name = '$value' ";
+                $where .= " AND $name = " . $this->db->quoted($value);
             }
             $query .= $where;
             $row=$this->db->fetchOne($query, false, "Looking For Duplicate Relationship:" . $query);
         }
+
+        // make sure there is a date modified
+        $date_modified = $GLOBALS['timedate']->nowDb();
 
         if(!$check_duplicates || empty($row) )
         {
@@ -6465,19 +6498,16 @@ class SugarBean
             {
                 $relate_values = array_merge($relate_values,$data_values);
             }
-            $query = "INSERT INTO $table (id, ". implode(',', array_keys($relate_values)) . ", date_modified) VALUES ('" . create_guid() . "', " . "'" . implode("', '", $relate_values) . "', ".$date_modified.")" ;
 
-            $this->db->query($query, false, "Creating Relationship:" . $query);
+            $relate_values['id'] = create_guid();
+            $relate_values['date_modified'] = $date_modified;
+
+            $this->db->insertParams($table, $dictionary[$table]['fields'], $relate_values);
         }
         else if ($do_update)
         {
-            $conds = array();
-            foreach($data_values as $key=>$value)
-            {
-                array_push($conds,$key."='".$this->db->quote($value)."'");
-            }
-            $query = "UPDATE $table SET ". implode(',', $conds).",date_modified=".$date_modified." ".$where;
-            $this->db->query($query, false, "Updating Relationship:" . $query);
+            $data_values['date_modified'] = $date_modified;
+            $this->db->updateParams($table, $dictionary[$table]['fields'], $data_values, $relate_values);
         }
     }
 
@@ -6486,7 +6516,7 @@ class SugarBean
         $query = "SELECT $select_id FROM $table WHERE deleted = 0  ";
         foreach($values as $name=>$value)
         {
-            $query .= " AND $name = '$value' ";
+            $query .= " AND $name = " . $this->db->quoted($value);
         }
         $query .= " ORDER BY $select_id ";
         $result = $this->db->query($query, false, "Retrieving Relationship:" . $query);

@@ -32,21 +32,21 @@ array (
     'label' => 'LBL_APPOINTMENT_PLACE',
     'width' => '8%',
   ),
-  'accounts_atc_appointments_1_name' => 
-  array (
-    'type' => 'relate',
-    'link' => true,
-    'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
-    'id' => 'ACCOUNTS_ATC_APPOINTMENTS_1ACCOUNTS_IDA',
-    'width' => '8%',
-    'default' => true,
-  ),
   'atc_appointments_contacts_name' => 
   array (
     'type' => 'relate',
     'link' => true,
     'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
     'id' => 'ATC_APPOINTMENTS_CONTACTSCONTACTS_IDA',
+    'width' => '8%',
+    'default' => true,
+  ),
+  'accounts_atc_appointments_1_name' => 
+  array (
+    'type' => 'relate',
+    'link' => true,
+    'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
+    'id' => 'ACCOUNTS_ATC_APPOINTMENTS_1ACCOUNTS_IDA',
     'width' => '8%',
     'default' => true,
   ),

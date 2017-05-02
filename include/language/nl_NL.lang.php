@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Volg koppeling',
   'LBL_TOGGLE_VISIBILITY' => 'Toon zichtbaarheid', // Record view header panel element
   'LBL_ACTIVITIES' => 'Activity Stream',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. Alle rechten voorbehouden.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar en de 3-D kubus zijn geregistreerde handelsmerken van SugarCRM Inc. '.
         'Alle andere bedrijfs- en productnamen die in dit product verschijnen, kunnen handelsmerken zijn van de'.
         'respectievelijke bedrijven waar zij aan zijn gekoppeld.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Alle rechten voorbehouden.<br />SugarCRM, Sugar en de 3-D kubus zijn geregistreerde handelsmerken van SugarCRM Inc. '.
         'Alle andere bedrijfs- en productnamen die in dit product verschijnen, kunnen handelsmerken zijn van de'.
         'respectievelijke bedrijven waar zij aan zijn gekoppeld.',

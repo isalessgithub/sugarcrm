@@ -28,7 +28,7 @@ $mod_strings = array (
 	'LBL_DATE_MODIFIED'=>'Data Modifica',
 	'LBL_MODIFIED_USER_ID'=>'Id Utente Modificato',
 	'LBL_CREATED_BY'=>'Creata Da',
-	'LBL_DELETED'=>'Cancellata',
+	'LBL_DELETED'=>'Eliminato',
 	'LBL_CAMPAIGN'=>'Campagna',
 	'LBL_OPTOUT'=>'Opta per l&#39;uscita',
 	

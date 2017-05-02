@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Ndiq linkun',
   'LBL_TOGGLE_VISIBILITY' => 'Njyjëzo shfaqjen', // Record view header panel element
   'LBL_ACTIVITIES' => 'Aktivitetet',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. Të gjitha të drejtat të rezervuara.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar dhe kubi 3-D janë marka të regjistruara tregtare të SugarCRM Inc. '.
         'Të gjithë emrat e kompanive dhe produkteve të tjera që përdoren ose shfaqen në këtë produkt mund të jenë marka tregtare të '.
         'kompanive përkatëse me të cilat lidhen.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Të gjitha të drejtat të rezervuara.<br />SugarCRM, Sugar dhe kubi 3-D janë marka të regjistruara tregtare të SugarCRM Inc. '.
         'Të gjithë emrat e kompanive dhe produkteve të tjera që përdoren ose shfaqen në këtë produkt mund të jenë marka tregtare të '.
         'kompanive përkatëse me të cilat lidhen.',

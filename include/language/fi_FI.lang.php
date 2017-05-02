@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Seuraa linkkiä',
   'LBL_TOGGLE_VISIBILITY' => 'Vaihda näkyvyyttä', // Record view header panel element
   'LBL_ACTIVITIES' => 'Aktiviteettivirta',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. Kaikki oikeudet pidätetään.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar ja 3-D Cube ovat SugarCRM Inc.:n rekisteröityjä tavaramerkkejä.'.
         'Kaikki muut tässä tuotteessa käytetyt tai näkyvät yritys- ja tuotenimet voivat olla '.
         'vastaavien yritysten tavaramerkkejä.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Kaikki oikeudet pidätetään.<br/> SugarCRM, Sugar ja 3-D Cube ovat SugarCRM Inc.:n rekisteröityjä tavaramerkkejä. '.
         'Kaikki muut tässä tuotteessa käytetyt tai näkyvät yritys- ja tuotenimet voivat olla '.
         'vastaavien yritysten tavaramerkkejä.',

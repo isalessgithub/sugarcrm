@@ -56,7 +56,7 @@ $mod_strings = array (
 	'LBL_ESTIMATED_EFFORT' => 'Sforzo Stimato (ore):',
 	'LBL_ACTUAL_EFFORT' => 'Sforzo Effettivo (ore):',
 	'LBL_UTILIZATION' => 'Utilizzo (%):',
-	'LBL_DELETED' => 'Cancellato:',
+	'LBL_DELETED' => 'Eliminato:',
 
 	'LBL_LIST_ORDER_NUMBER' => 'Ordine',
 	'LBL_LIST_NAME' => 'Nome',

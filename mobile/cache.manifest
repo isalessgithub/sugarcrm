@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Tue, 29 Nov 2016 14:16:11 GMT
+# Fri, 03 Mar 2017 20:26:10 GMT
 index.html
 
 # cache fonts
@@ -21,9 +21,7 @@ img/touch-icon-152.png
 img/touch-icon-196.png
 
 # javascripts
-js/lib.js
 js/nomad.js
-js/templates.js
 
 #other resources
 

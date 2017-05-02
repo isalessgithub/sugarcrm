@@ -14,3 +14,5 @@ $mod_strings['LBL_REMAINING_TARGET'] = 'Remaining Target';
 $mod_strings['LBL_MONTHLY_RESULT_START_DATE'] = 'Monthly Result Start Date';
 $mod_strings['LBL_GRAND_TOTAL'] = 'Grand Total';
 $mod_strings['LBL_APPOINTMENTS_RESCHEDULE'] = 'Appointments Reschedule';
+$mod_strings['LBL_INVOICE_NUMBER'] = 'Invoice Number(s)';
+$mod_strings['LBL_INVOICE_SENT'] = 'Invoicing Complete';

@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'עקוב אחר קישור',
   'LBL_TOGGLE_VISIBILITY' => 'החלף נראות', // Record view header panel element
   'LBL_ACTIVITIES' => 'תזרים פעילויות',
-  'LBL_COPYRIGHT' => 'זכויות יוצרים © 2004-2016 .SugarCRM Inc. כל הזכויות שמורות.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM‏, Sugar וקוביית ‎3-D הם סימנים מסחריים רשומים של .SugarCRM Inc.'.
         'כל יתר השמות של חברות ומוצרים הנמצאים בשימוש במוצר זה או מופיעים בו עשויים להיות סימנים מסחריים של '.
         'החברות שאליהן הם משויכים.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '‎&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.‎</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'כל הזכויות שמורות.br />SugarCRM>‏, Sugar וקוביית ‎3-D הם סימנים מסחריים רשומים של .SugarCRM Inc.'.
         'כל יתר השמות של חברות ומוצרים הנמצאים בשימוש במוצר זה או מופיעים בו עשויים להיות סימנים מסחריים של '.
         'החברות שאליהן הם משויכים.',

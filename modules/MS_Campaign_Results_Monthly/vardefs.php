@@ -17,7 +17,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'activity_enabled' => false,
     'duplicate_merge' => true,
     'fields' => array (
-  'appointment_attended' => 
+  'appointment_attended' =>
   array (
     'required' => false,
     'name' => 'appointment_attended',
@@ -35,7 +35,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',
@@ -49,7 +49,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'min' => false,
     'max' => false,
   ),
-  'appointment_accepted' => 
+  'appointment_accepted' =>
   array (
     'required' => false,
     'name' => 'appointment_accepted',
@@ -67,7 +67,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',
@@ -81,7 +81,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'min' => false,
     'max' => false,
   ),
-  'appointment_confirmed' => 
+  'appointment_confirmed' =>
   array (
     'required' => false,
     'name' => 'appointment_confirmed',
@@ -99,7 +99,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',
@@ -113,7 +113,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'min' => false,
     'max' => false,
   ),
-  'appointment_attended_by_policy' => 
+  'appointment_attended_by_policy' =>
   array (
     'required' => false,
     'name' => 'appointment_attended_by_policy',
@@ -131,7 +131,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',
@@ -145,7 +145,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'min' => false,
     'max' => false,
   ),
-  'remaining_target' => 
+  'remaining_target' =>
   array (
     'required' => false,
     'name' => 'remaining_target',
@@ -163,7 +163,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',
@@ -177,7 +177,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'min' => false,
     'max' => false,
   ),
-  'appointment_target_monthly' => 
+  'appointment_target_monthly' =>
   array (
     'required' => false,
     'name' => 'appointment_target_monthly',
@@ -195,7 +195,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',
@@ -209,7 +209,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'min' => false,
     'max' => false,
   ),
-  'appointment_target_total' => 
+  'appointment_target_total' =>
   array (
     'required' => false,
     'name' => 'appointment_target_total',
@@ -227,7 +227,7 @@ $dictionary['MS_Campaign_Results_Monthly'] = array(
     'unified_search' => false,
     'merge_filter' => 'disabled',
     'default' => '',
-    'full_text_search' => 
+    'full_text_search' =>
     array (
       'enabled' => '0',
       'boost' => '1',

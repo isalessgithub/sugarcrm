@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'EasyPeasyICS' => $vendorDir . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
@@ -3044,6 +3045,8 @@ return array(
     'OneLogin_Saml_Settings' => $vendorDir . '/onelogin/php-saml/lib/Saml/Settings.php',
     'OneLogin_Saml_XmlSec' => $vendorDir . '/onelogin/php-saml/lib/Saml/XmlSec.php',
     'PHPMailer' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
+    'PHPMailerOAuth' => $vendorDir . '/phpmailer/phpmailer/class.phpmaileroauth.php',
+    'PHPMailerOAuthGoogle' => $vendorDir . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -3484,6 +3487,7 @@ return array(
     'XMLSecEnc' => $vendorDir . '/onelogin/php-saml/extlib/xmlseclibs/xmlseclibs.php',
     'XMLSecurityDSig' => $vendorDir . '/onelogin/php-saml/extlib/xmlseclibs/xmlseclibs.php',
     'XMLSecurityKey' => $vendorDir . '/onelogin/php-saml/extlib/xmlseclibs/xmlseclibs.php',
+    'ntlm_sasl_client_class' => $vendorDir . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
     'parseCSV' => $vendorDir . '/parsecsv/php-parsecsv/parsecsv.lib.php',
     'phpmailerException' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
 );

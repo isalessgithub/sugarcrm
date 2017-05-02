@@ -223,6 +223,7 @@ class ComposerStaticInitSugar
     );
 
     public static $classMap = array (
+        'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
@@ -3261,6 +3262,8 @@ class ComposerStaticInitSugar
         'OneLogin_Saml_Settings' => __DIR__ . '/..' . '/onelogin/php-saml/lib/Saml/Settings.php',
         'OneLogin_Saml_XmlSec' => __DIR__ . '/..' . '/onelogin/php-saml/lib/Saml/XmlSec.php',
         'PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
+        'PHPMailerOAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauth.php',
+        'PHPMailerOAuthGoogle' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -3701,6 +3704,7 @@ class ComposerStaticInitSugar
         'XMLSecEnc' => __DIR__ . '/..' . '/onelogin/php-saml/extlib/xmlseclibs/xmlseclibs.php',
         'XMLSecurityDSig' => __DIR__ . '/..' . '/onelogin/php-saml/extlib/xmlseclibs/xmlseclibs.php',
         'XMLSecurityKey' => __DIR__ . '/..' . '/onelogin/php-saml/extlib/xmlseclibs/xmlseclibs.php',
+        'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
         'parseCSV' => __DIR__ . '/..' . '/parsecsv/php-parsecsv/parsecsv.lib.php',
         'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
     );

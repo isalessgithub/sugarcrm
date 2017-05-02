@@ -150,10 +150,10 @@ class M2MRelationship extends SugarRelationship
                 }
             }
             if (!$isUpdate && (empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes")) {
-                $lhs->$lhsLinkName->resetLoaded();
-                $rhs->$rhsLinkName->resetLoaded();
-
-                $this->callAfterAdd($lhs, $rhs, $lhsLinkName);
+                //$lhs->$lhsLinkName->resetLoaded();
+                //$rhs->$rhsLinkName->resetLoaded();
+                
+		$this->callAfterAdd($lhs, $rhs, $lhsLinkName);
                 $this->callAfterAdd($rhs, $lhs, $rhsLinkName);
             }
         }
@@ -797,13 +797,23 @@ class M2MRelationship extends SugarRelationship
      */
     public function relationship_exists($lhs, $rhs, $return_row = false)
     {
+        $db = DBManagerFactory::getInstance();
+
         $select = $return_row ? "*" : "id";
-        $query = "SELECT {$select} FROM {$this->getRelationshipTable()} WHERE {$this->join_key_lhs} = '{$lhs->id}' AND {$this->join_key_rhs} = '{$rhs->id}'";
+        $query = sprintf(
+            'SELECT %s FROM %s WHERE %s = %s AND %s = %s',
+            $select,
+            $this->getRelationshipTable(),
+            $this->join_key_lhs,
+            $db->quoted($lhs->id),
+            $this->join_key_rhs,
+            $db->quoted($rhs->id)
+        );
 
         //Roles can allow for multiple links between two records with different roles
         $query .= $this->getRoleWhere() . " and deleted = 0";
 
-        return $return_row ? $GLOBALS['db']->fetchOne($query) : $GLOBALS['db']->getOne($query);
+        return $return_row ? $db->fetchOne($query) : $db->getOne($query);
     }
 
     /**

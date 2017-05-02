@@ -7978,7 +7978,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => '關注連結',
   'LBL_TOGGLE_VISIBILITY' => '切換可見度', // Record view header panel element
   'LBL_ACTIVITIES' => '活動流',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. 版權所有。保留所有權利。',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM、Sugar 和 3-D 立方體是 SugarCRM Inc. 的註冊商標。 '.
         '該產品中使用或出現的所有其他公司和產品的名稱可能是'.
         '與此類名稱有關的公司的商標。',
@@ -9142,7 +9142,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         '保留所有權利。<br />SugarCRM、Sugar 和 3-D 立方體是 SugarCRM Inc. 的註冊商標。 '.
         '該產品中使用或出現的所有其他公司和產品的名稱可能是'.
         '與此類名稱有關的公司的商標。',

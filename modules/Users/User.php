@@ -1105,7 +1105,8 @@ EOQ;
         // ~jmorais@dri
 		global $locale;
 
-		$query = "SELECT u1.first_name, u1.last_name from users  u1, users  u2 where u1.id = u2.reports_to_id AND u2.id = '$this->id' and u1.deleted=0";
+        $query = "SELECT u1.first_name, u1.last_name from users u1, users u2 where u1.id=u2.reports_to_id AND u2.id=" .
+            $this->db->quoted($this->id) . " and u1.deleted=0";
 		$result = $this->db->query($query, true, "Error filling in additional detail fields");
 
 		$row = $this->db->fetchByAssoc($result);

@@ -75,7 +75,7 @@ $mod_strings = array (
   'LBL_EDITLAYOUT' => 'Modifica Layout' /*for 508 compliance fix*/,
   'LBL_TASK_INFORMATION' => 'Informazioni Compito',
   'LBL_HISTORY_SUBPANEL_TITLE' => 'Note',
-  'LBL_REVENUELINEITEMS' => 'Elemento dell´Opportunità',
+  'LBL_REVENUELINEITEMS' => 'Elementi dell&#39;opportunità',
   //For export labels
   'LBL_DATE_DUE' => 'Data Scadenza',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nome Utente Assegnato',

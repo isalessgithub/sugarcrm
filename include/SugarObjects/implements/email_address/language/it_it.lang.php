@@ -20,6 +20,6 @@ $mod_strings = array (
     'LBL_EMAIL_ADDRESS' => 'Indirizzo Email',
     'LBL_EMAIL_ADDRESSES' => 'Indirizzo email',
     'LBL_INVALID_EMAIL'=>'Email non valida:',
-    'LBL_EMAIL_OPT_OUT' => 'Non vuole ricevere email:',
+    'LBL_EMAIL_OPT_OUT' => 'Scelta esclusione email:',
     'LBL_EMAIL_NON_PRIMARY' => 'Email secondarie',
 );

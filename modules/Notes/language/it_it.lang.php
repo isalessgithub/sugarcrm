@@ -31,7 +31,7 @@ $mod_strings = array(
     'LBL_LIST_DATE_MODIFIED' => 'Ultima Modifica',
     'LBL_LIST_FILENAME' => 'Allegato',
     'LBL_LIST_FORM_TITLE' => 'Elenco Note',
-    'LBL_LIST_RELATED_TO' => 'Relativo A',
+    'LBL_LIST_RELATED_TO' => 'Relativo a',
     'LBL_LIST_SUBJECT' => 'Oggetto',
     'LBL_LIST_STATUS' => 'Stato',
     'LBL_LIST_CONTACT' => 'Contatto',
@@ -80,8 +80,8 @@ $mod_strings = array(
     'LBL_EXPORT_PARENT_ID' => 'Riferito a',
     'LBL_DATE_ENTERED' => 'Data Creazione',
     'LBL_DATE_MODIFIED' => 'Data Modifica',
-    'LBL_DELETED' => 'Cancellato',
-    'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
+    'LBL_DELETED' => 'Eliminato',
+    'LBL_REVENUELINEITEMS' => 'Elementi dell&#39;opportunità',
 
     // Help Text
     // List View Help Text

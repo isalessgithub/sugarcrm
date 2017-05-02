@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Следвай линка',
   'LBL_TOGGLE_VISIBILITY' => 'Промяна на статуса за визуализация', // Record view header panel element
   'LBL_ACTIVITIES' => 'Хронология',
-  'LBL_COPYRIGHT' => '© 2004-2016 SugarCRM Inc. Всички права запазени.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar и 3-D кубът са регистрирани търговски марки на SugarCRM Inc. '.
         'Всички други наименования на фирми и продукти, използвани или упоменати в този продукт е възможно да са търговски марки на '.
         'съответните компании, с които те са свързани.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Всички права запазени.<br />SugarCRM, Sugar и 3-D кубът са регистрирани търговски марки на SugarCRM Inc. '.
         'Всички други наименования на фирми и продукти, използвани или упоменати в този продукт е възможно да са търговски марки на '.
         'съответните компании, с които те са свързани.',

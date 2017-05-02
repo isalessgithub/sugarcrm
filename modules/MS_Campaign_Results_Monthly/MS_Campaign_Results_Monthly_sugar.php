@@ -21,7 +21,7 @@ class MS_Campaign_Results_Monthly_sugar extends Basic {
     public $module_dir = 'MS_Campaign_Results_Monthly';
     public $object_name = 'MS_Campaign_Results_Monthly';
     public $table_name = 'ms_campaign_results_monthly';
-    public $importable = false;
+    public $importable = true;
     public $team_id;
     public $team_set_id;
     public $team_count;
@@ -58,12 +58,12 @@ class MS_Campaign_Results_Monthly_sugar extends Basic {
     public $remaining_target;
     public $appointment_target_monthly;
     public $appointment_target_total;
-    
+
     public function bean_implements($interface){
         switch($interface){
             case 'ACL': return true;
         }
         return false;
     }
-    
+
 }

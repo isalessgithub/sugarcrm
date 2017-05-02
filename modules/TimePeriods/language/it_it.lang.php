@@ -42,7 +42,7 @@ $mod_strings = array (
   'LBL_CREATED_BY' => 'Creato Da',
   'LBL_DATE_ENTERED' => 'Data Inserimento',
   'LBL_DATE_MODIFIED' => 'Data Modifica',
-  'LBL_DELETED' => 'Cancellato',
+  'LBL_DELETED' => 'Eliminato',
   
   'LBL_SEARCH_TP_NAME' => 'Arco Temporale',
   'LBL_SEARCH_TP_START_DATE' => 'Data Inizio',

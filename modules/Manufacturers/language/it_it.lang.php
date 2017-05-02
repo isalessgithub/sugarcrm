@@ -55,7 +55,7 @@ $mod_strings = array (
 ),
   'LNK_IMPORT_MANUFACTURERS'=>'Importa produttori',
 	'LBL_EDITLAYOUT' => 'Modifica Layout' /*for 508 compliance fix*/,
-  'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
+  'LBL_REVENUELINEITEMS' => 'Elementi dell&#39;opportunità',
 );
 
 

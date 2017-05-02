@@ -1,10 +1,9 @@
 <?php
-// created: 2017-04-06 13:06:33
 $dictionary["ms_campaign_results_monthly_atc_isscampaigns"] = array (
   'true_relationship_type' => 'one-to-many',
-  'relationships' => 
+  'relationships' =>
   array (
-    'ms_campaign_results_monthly_atc_isscampaigns' => 
+    'ms_campaign_results_monthly_atc_isscampaigns' =>
     array (
       'lhs_module' => 'ATC_ISSCampaigns',
       'lhs_table' => 'atc_isscampaigns',
@@ -19,71 +18,71 @@ $dictionary["ms_campaign_results_monthly_atc_isscampaigns"] = array (
     ),
   ),
   'table' => 'ms_campaign_results_monthly_atc_isscampaigns_c',
-  'fields' => 
+  'fields' =>
   array (
-    'id' => 
+    'id' =>
     array (
       'name' => 'id',
       'type' => 'id',
     ),
-    'date_modified' => 
+    'date_modified' =>
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    'deleted' => 
+    'deleted' =>
     array (
       'name' => 'deleted',
       'type' => 'bool',
       'default' => 0,
     ),
-    'ms_campaign_results_monthly_atc_isscampaignsatc_isscampaigns_ida' => 
+    'ms_campaign_results_monthly_atc_isscampaignsatc_isscampaigns_ida' =>
     array (
       'name' => 'ms_campaign_results_monthly_atc_isscampaignsatc_isscampaigns_ida',
       'type' => 'id',
     ),
-    'ms_campaig2a2cmonthly_idb' => 
+    'ms_campaig2a2cmonthly_idb' =>
     array (
       'name' => 'ms_campaig2a2cmonthly_idb',
       'type' => 'id',
     ),
   ),
-  'indices' => 
+  'indices' =>
   array (
-    0 => 
+    0 =>
     array (
       'name' => 'idx_ms_campaign_results_monthly_atc_isscampaigns_pk',
       'type' => 'primary',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'id',
       ),
     ),
-    1 => 
+    1 =>
     array (
       'name' => 'idx_ms_campaign_results_monthly_atc_isscampaigns_ida1_deleted',
       'type' => 'index',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'ms_campaign_results_monthly_atc_isscampaignsatc_isscampaigns_ida',
         1 => 'deleted',
       ),
     ),
-    2 => 
+    2 =>
     array (
       'name' => 'idx_ms_campaign_results_monthly_atc_isscampaigns_idb2_deleted',
       'type' => 'index',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'ms_campaig2a2cmonthly_idb',
         1 => 'deleted',
       ),
     ),
-    3 => 
+    3 =>
     array (
       'name' => 'ms_campaign_results_monthly_atc_isscampaigns_alt',
       'type' => 'alternate_key',
-      'fields' => 
+      'fields' =>
       array (
         0 => 'ms_campaig2a2cmonthly_idb',
       ),

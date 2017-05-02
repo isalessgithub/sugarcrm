@@ -16,7 +16,6 @@
           $targetlist= BeanFactory::getBean('ProspectLists', $arguments['id']);
 //	  $GLOBALS['log']->fatal(sugar_upgrade_var_dump($account->contacts));
           foreach($contacts as $contact){
-//$GLOBALS['log']->fatal("Inside foreach");
              $targetlist->load_relationship('contacts');
              $targetlist->contacts->add($contact->id);
           }

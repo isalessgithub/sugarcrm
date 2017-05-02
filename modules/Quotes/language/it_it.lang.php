@@ -208,7 +208,7 @@ $mod_strings = array (
     'LBL_ATTACHMENT' => 'Allegato' /*for 508 compliance fix*/,
     'NTC_OVERWRITE_ADDRESS_PHONE_CONFIRM' => 'Attualmente questo record contiene valori nel campo Indirizzo. Per sovrascrivere questi valori con il seguente Indirizzo dell´azienda che hai selezionato, clicca "OK". Per mantenere i valori attuali, clicca "Annulla".',
 	'LBL_EDITLAYOUT' => 'Modifica Layout' /*for 508 compliance fix*/,
-    'LBL_REVENUELINEITEMS' => 'Elementi dell´Opportunità',
+    'LBL_REVENUELINEITEMS' => 'Elementi dell&#39;opportunità',
 
     'EXCEPTION_QUOTE_ALREADY_CONVERTED' => 'Offerta già Convertita in Opportunità',
 );

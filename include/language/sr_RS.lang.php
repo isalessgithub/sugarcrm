@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Sledi link',
   'LBL_TOGGLE_VISIBILITY' => 'Izmeni vidljivost', // Record view header panel element
   'LBL_ACTIVITIES' => 'Aktivnosti',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. Sva prava zadržana.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar i 3-D kocka su registrovani žigovi kompanije SugarCRM Inc. '.
         'Svi drugi nazivi kompanija ili proizvoda koji se koriste ili pojavljuju u ovom proizvodu mogu biti žigovi '.
         'odgovarajućih kompanija sa kojima su povezani.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Sva prava zadržana.<br />SugarCRM, Sugar i 3-D kocka su registrovani žigovi kompanije SugarCRM Inc. '.
         'Svi drugi nazivi kompanija ili proizvoda koji se koriste ili pojavljuju u ovom proizvodu mogu biti žigovi '.
         'odgovarajućih kompanija sa kojima su povezani.',

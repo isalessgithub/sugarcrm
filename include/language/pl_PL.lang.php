@@ -7977,7 +7977,7 @@ $app_strings = array (
   'LBL_FOLLOW_LINK' => 'Link obserwacji',
   'LBL_TOGGLE_VISIBILITY' => 'Przełącz widok', // Record view header panel element
   'LBL_ACTIVITIES' => 'Panel aktywności',
-  'LBL_COPYRIGHT' => 'Copyright © 2004-2016 SugarCRM Inc. Wszelkie prawa zastrzeżone.',
+  'LBL_COPYRIGHT' => 'Copyright © 2004-2017 SugarCRM Inc. All Rights Reserved.',
     'LBL_TRADEMARK' => 'SugarCRM, Sugar oraz kostka 3-D są zastrzeżonymi znakami towarowymi firmy SugarCRM Inc. '.
         'Wszystkie inne nazwy firm i produktów użyte lub pojawiające się w tym produkcie mogą być znakami towarowymi '.
         'odpowiednich firm, z którymi są skojarzone.',
@@ -9141,7 +9141,7 @@ $app_strings = array (
     // The following version of LBL_SUGAR_COPYRIGHT is for Professional and Enterprise editions.
 
     'LBL_SUGAR_COPYRIGHT_SUB' =>
-        '&copy; 2004-2016 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
+        '&copy; 2004-2017 <a href="http://www.sugarcrm.com" target="_blank" class="copyRightLink">SugarCRM Inc.</a> '.
         'Wszelkie prawa zastrzeżone. < br /> SugarCRM, Sugar oraz kostka 3-D są zastrzeżonymi znakami towarowymi firmy SugarCRM Inc. '.
         'Wszystkie inne nazwy firm i produktów użyte lub pojawiające się w tym produkcie mogą być znakami towarowymi '.
         'odpowiednich firm, z którymi są skojarzone.',
