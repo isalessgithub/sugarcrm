@@ -7,7 +7,7 @@
   class updateLastAppointmentDate{
 
     function updateAppointmentDate($bean, $event, $arguments){
-            
+
            $link='atc_isscampaigns_atc_appointments';
 
            //If relationship is loaded
@@ -15,18 +15,18 @@
            {
                //Fetch related beans 
               $relatedBeans = $bean->$link->getBeans();
-    
               $campaign = false;
 
               if (!empty($relatedBeans))
                {
                  //order the results
-                 reset($relatedBeans);        
+                 //reset($relatedBeans);        
 
                  //first record in the list is the parent
-                 $campaign = current($relatedBeans);
-               }
-           }
+                 //$campaign = current($relatedBeans);
+
+		foreach ($relatedBean as $rb){
+		$campaign=$rb;
           // store the campaign and appointment dates
           $appointment_date=date('Y-m-d', strtotime($bean->fetched_row['date_entered']));
           $campaign_date=$campaign->last_appointment_date_c;
@@ -40,11 +40,17 @@
             $campaign->last_appointment_date_c=$appointment_date;
             $campaign->save(false);
           }
-          
+
+
+		}
+               }
+
+
+
+           }
+
+
         }
-      
+
     }
-    
-  
-  
 ?>

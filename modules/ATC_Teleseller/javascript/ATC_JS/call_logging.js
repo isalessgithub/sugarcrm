@@ -59,6 +59,28 @@ postData += '&start_date=' + $("input[name=follow_date]").val();
     delete SUGAR.util.additionalDetailsCache[parent_record];
 }
 
+/**
+ * Fetches history for Calls, Notes ..
+ *
+ * @param base_module
+ * @param modue_name
+ * @param record_id
+ */
+function fetchHistory(base_module, modue_name, record_id){
+    var response = $.ajax({
+        url: "index.php?module=ATC_Teleseller&entryPoint=get_history",
+        method: "POST",
+        dataType: "json",
+        data: {
+            base_module: base_module,
+            module_name: modue_name,
+            record_id: record_id
+        },
+        async: false,
+    }).responseText;
+
+    return response;
+}
 
 var submitScheduleCall = function () {
   var callback = {
@@ -186,6 +208,10 @@ function LogCall(module,parent_record,history,phone_other,contact_name,account_n
   if (history != 'null') {
     var obj = JSON.parse(history);
   }
+  else{
+
+      var obj = JSON.parse(fetchHistory('Calls', module, parent_record));
+  }
   //contact_name = contact_name.replace(/'/g, "\\'");
   //account_name = account_name.replace(/'/g, "\\'");
   if (typeof(logCallConfigureDlg[parent_record]) == 'undefined') {
@@ -257,7 +283,7 @@ function LogCall(module,parent_record,history,phone_other,contact_name,account_n
 '</td></tr>'+
             '</table>';
 
-  if (history != 'null') {
+    if (obj != null && obj.length > 0) {
     top += '<h2>Call History</h2><table style="overflow: auto;"><tr><th valign="top" style = "text-align : left ! important;" width="20%" scope="row">Target List:</th><th valign="top" style = "text-align : left ! important;" width="30%" scope="row">Description:</th><th width="10%">Outcome</th><th valign="top" style = "text-align : left ! important;" width="20%" scope="row">Date Created:</th></tr>';
     for (var i = 0; i < obj.length; i++) {
       top += '<tr  class="odd"><td valign="top">' + obj[i].TLName + '</td>';
@@ -368,6 +394,9 @@ function CreateNote(module, parent_record, history) {
   if (history != 'null') {
     var obj = JSON.parse(history);
   }
+  else{
+      var obj = JSON.parse(fetchHistory('Notes', module, parent_record));
+  }
   if (typeof(createNoteConfigureDlg[parent_record]) == 'undefined') {
     createNoteConfigureDlg[parent_record] = new YAHOO.widget.SimpleDialog("dlgCreateNote_" + parent_record,
         {
@@ -394,10 +423,10 @@ function CreateNote(module, parent_record, history) {
   var top = '<input type="hidden" name="module_name" id="module_name" value="' + module + '"><input type="hidden" name="parent_id" id="parent_id" value="' + parent_record + '">';
   top += '<table><tr><td valign="top" id=\'description_label\' width=\'12.5%\' scope="row">Note:</td><td valign="top" width=\'37.5%\' colspan=\'3\'><input id=\'note_subject\' name=\'note_subject\' size="55" title=\'\' tabindex="106" ></input></td></tr></table>';
 
-  if (history != 'null') {
+  if (obj != null && obj.length > 0) {
     top += '<h2>Note History</h2><table><tr><th valign="top" style = "text-align : left ! important;" width="50%" scope="row">Subject:</th><th valign="top" style = "text-align : left ! important;" width="20%" scope="row">Date Created:</th></tr>';
     for (var i = 0; i < obj.length; i++) {
-      top += '<tr  class="odd"><td valign="top">' + obj[i].name + '</td>';
+      top += '<tr  class="odd"><td valign="top">' + obj[i].NAME + '</td>';
       top += '<td valign="top" class="datetimecombo_time">' + obj[i].Create_Date + '</td></tr>';
 
     }
@@ -529,7 +558,7 @@ console.log("harro");
       '<td><select name="appointment_status">' +
       '<option label="" value=""></option>' +
       '<option label="Attended" value="Attended">Attended</option>' +
-      '<option label="Canceled" value="Canceled">Canceled</option>' +
+      '<option label="Cancelled" value="Canceled">Cancelled</option>' +
       '<option label="Accepted" value="Accepted">Accepted</option>' +
       '<option label="Reschedule" value="Reschedule">Reschedule</option>' +
       '</select></td>' +

@@ -6,4 +6,5 @@ $mod_strings['LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE'] = 'Campaign Result
 $mod_strings['LBL_ASSIGNED_TO_ID'] = 'Assigned User Id';
 $mod_strings['LBL_RECORDVIEW_PANEL1'] = 'New Panel 1';
 $mod_strings['LBL_ASSIGNED_TO_NAME'] = 'Campaign Results Admin';
-$mod_strings['LBL_INVOICE_NUMBER'] = 'Invoice Number';
+$mod_strings['LBL_INVOICE_NUMBER'] = 'Invoice Number(s)';
+$mod_strings['LBL_INVOICE_SENT'] = 'Invoicing Complete';

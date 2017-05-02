@@ -150,10 +150,10 @@ class M2MRelationship extends SugarRelationship
                 }
             }
             if (!$isUpdate && (empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes")) {
-                $lhs->$lhsLinkName->resetLoaded();
-                $rhs->$rhsLinkName->resetLoaded();
-
-                $this->callAfterAdd($lhs, $rhs, $lhsLinkName);
+                //$lhs->$lhsLinkName->resetLoaded();
+                //$rhs->$rhsLinkName->resetLoaded();
+                
+		$this->callAfterAdd($lhs, $rhs, $lhsLinkName);
                 $this->callAfterAdd($rhs, $lhs, $rhsLinkName);
             }
         }

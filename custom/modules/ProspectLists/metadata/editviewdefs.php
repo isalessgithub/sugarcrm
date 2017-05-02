@@ -71,26 +71,21 @@ function toggle_domain_name(list_type)  {ldelim}
           ),
           1 => 
           array (
-            'name' => 'list_type',
-            'displayParams' => 
-            array (
-              'required' => true,
-              'javascript' => 'onchange="toggle_domain_name(this);"',
-            ),
+            'name' => 'atc_isscampaigns_prospectlists_1_name',
+            'label' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
           ),
         ),
         1 => 
         array (
           0 => 
           array (
-            'name' => 'atc_isscampaigns_prospectlists_1_name',
-            'label' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
-          ),
-          1 => 
-          array (
             'name' => 'clients_c',
             'studio' => 'visible',
             'label' => 'LBL_CLIENTS',
+          ),
+          1 => 
+          array (
+            'name' => 'prospectlists_atc_clientsalesreps_1_name',
           ),
         ),
         2 => 

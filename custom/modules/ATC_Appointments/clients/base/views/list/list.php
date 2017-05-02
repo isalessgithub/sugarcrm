@@ -49,17 +49,6 @@ array (
               ),
               4 => 
               array (
-                'name' => 'accounts_atc_appointments_1_name',
-                'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
-                'enabled' => true,
-                'id' => 'ACCOUNTS_ATC_APPOINTMENTS_1ACCOUNTS_IDA',
-                'link' => true,
-                'sortable' => false,
-                'default' => true,
-                'width' => '8',
-              ),
-              5 => 
-              array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
                 'enabled' => true,
@@ -68,6 +57,17 @@ array (
                 'sortable' => false,
                 'width' => '8',
                 'default' => true,
+              ),
+              5 => 
+              array (
+                'name' => 'accounts_atc_appointments_1_name',
+                'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
+                'enabled' => true,
+                'id' => 'ACCOUNTS_ATC_APPOINTMENTS_1ACCOUNTS_IDA',
+                'link' => true,
+                'sortable' => false,
+                'default' => true,
+                'width' => '8',
               ),
               6 => 
               array (
