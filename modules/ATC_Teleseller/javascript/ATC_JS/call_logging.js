@@ -558,7 +558,7 @@ console.log("harro");
       '<td><select name="appointment_status">' +
       '<option label="" value=""></option>' +
       '<option label="Attended" value="Attended">Attended</option>' +
-      '<option label="Canceled" value="Canceled">Canceled</option>' +
+      '<option label="Cancelled" value="Cancelled">Cancelled</option>' +
       '<option label="Accepted" value="Accepted">Accepted</option>' +
       '<option label="Reschedule" value="Reschedule">Reschedule</option>' +
       '</select></td>' +

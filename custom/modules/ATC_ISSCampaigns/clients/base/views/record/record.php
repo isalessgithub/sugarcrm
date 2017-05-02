@@ -188,31 +188,43 @@ array (
             array (
               0 => 
               array (
+                'name' => 'monthly_result_start_date_c',
+                'label' => 'LBL_MONTHLY_RESULT_START_DATE',
+              ),
+              1 => 
+              array (
+                'name' => 'appointments_reschedule_c',
+                'label' => 'LBL_APPOINTMENTS_RESCHEDULE',
+              ),
+              2 => 
+              array (
                 'name' => 'appointment_accepted_c',
                 'label' => 'LBL_APPOINTMENT_ACCEPTED',
               ),
-              1 => 
+              3 => 
               array (
                 'name' => 'appointment_attended_by_poli_c',
                 'label' => 'LBL_APPOINTMENT_ATTENDED_BY_POLI',
               ),
-              2 => 
+              4 => 
               array (
                 'name' => 'appointment_attended_c',
                 'label' => 'LBL_APPOINTMENT_ATTENDED',
               ),
-              3 => 
+              5 => 
               array (
                 'name' => 'appointment_confirmed_c',
                 'label' => 'LBL_APPOINTMENT_CONFIRMED',
               ),
-              4 => 
+              6 => 
               array (
                 'name' => 'remaining_target_c',
                 'label' => 'LBL_REMAINING_TARGET',
               ),
-              5 => 
+              7 => 
               array (
+                'name' => 'grand_total_c',
+                'label' => 'LBL_GRAND_TOTAL',
               ),
             ),
           ),

@@ -11,3 +11,6 @@ $mod_strings['LBL_APPOINTMENT_ATTENDED_BY_POLI'] = 'Appointment Attended by Poli
 $mod_strings['LBL_APPOINTMENT_ATTENDED'] = 'Appointment Attended';
 $mod_strings['LBL_APPOINTMENT_ACCEPTED'] = 'Appointment Accepted';
 $mod_strings['LBL_REMAINING_TARGET'] = 'Remaining Target';
+$mod_strings['LBL_MONTHLY_RESULT_START_DATE'] = 'Monthly Result Start Date';
+$mod_strings['LBL_GRAND_TOTAL'] = 'Grand Total';
+$mod_strings['LBL_APPOINTMENTS_RESCHEDULE'] = 'Appointments Reschedule';

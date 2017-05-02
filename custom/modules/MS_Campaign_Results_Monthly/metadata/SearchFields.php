@@ -1,6 +1,6 @@
 <?php
-// created: 2017-04-13 16:38:42
-$searchFields['ATC_ISSCampaigns'] = array (
+// created: 2017-04-13 16:47:53
+$searchFields['MS_Campaign_Results_Monthly'] = array (
   'name' => 
   array (
     'query_type' => 'default',
@@ -26,7 +26,7 @@ $searchFields['ATC_ISSCampaigns'] = array (
     'operator' => 'subquery',
     'subquery' => 'SELECT sugarfavorites.record_id FROM sugarfavorites 
 			                    WHERE sugarfavorites.deleted=0 
-			                        and sugarfavorites.module = \'ATC_ISSCampaigns\'
+			                        and sugarfavorites.module = \'MS_Campaign_Results_Monthly\'
 			                        and sugarfavorites.assigned_user_id = \'{0}\'',
     'db_field' => 
     array (

@@ -75,8 +75,8 @@ if(!empty($cResult)){
         $moduleName = 'Contacts';
   $record = $oContact['contact_id'];
   $phone_other  =$oContact['phone_other'];
-  $contactname = $oContact['full_name'];
-  $accountname = $oContact['account_name'];
+  $contactname = htmlspecialchars($oContact['full_name']);
+  $accountname = htmlspecialchars($oContact['account_name']);
   $email_address = $oContact['email1'];
 
   if (empty($logcall_options)) {
@@ -137,27 +137,24 @@ if(!empty($cResult)){
         $class = ($ctr & 1) ? "oddListRowS1" : "evenListRowS1";
         $sTableRow .= '<tr >';
 	      if($oContact['account_name'] != ''){
-          $sTableRow .= '<td><a href = '.$url.'#Accounts/'.$oContact['account_id'].'">'.$oContact['account_name'].'</a></td>';
+          $sTableRow .= '<td><a href = "'.$url.'#Accounts/'.$oContact['account_id'].'" target="_blank">'.$oContact['account_name'].'</a></td>';
 	      }else{
 	        $sTableRow .= '<td></td>';
 	      }
-	      $sTableRow .= '<td><a href = '.$url.'#Contacts/'.$oContact['contact_id'].'">'.$oContact['full_name'].'</a></td>';
+	      $sTableRow .= '<td><a href = "'.$url.'#Contacts/'.$oContact['contact_id'].'" target="_blank">'.$oContact['full_name'].'</a></td>';
         $sTableRow .= '<td>'.$oContact['title'].'</td>';
         $sTableRow .= '<td>'.$oContact['phone_other'].'</td>';
         $sTableRow .= '<td>'.$oContact['phone_work'].'</td>';
         $sTableRow .= '<td>'.$oContact['email1'].'</td>';
         $sTableRow .= '<td>'.$oContact['primary_address_city'].'</td>';
         $sTableRow .= '<td>'.$oContact['primary_address_state'].'</td>';
-        $sTableRow .= '<td><div id = "reloadVal_'.$oContact['contact_id'].'" name = "reloadVal_'.$oContact['contact_id'].'">'.$oContact['call_outcome_c'].'</div></td>';
-
-
-
-
+        $sTableRow .= '<td><div id = "reloadVal_'.$oContact['contact_id'].'" name = "reloadVal_'.$oContact['contact_id'].'">'.last_call_outcome($oContact['contact_id']).'</div></td>';
         $sTableRow .= '<td>'.$retStr.'</td>';
         $sTableRow .= '</tr>';
     }
 }
-$count = count($cContacts);
+//$count = count($cContacts);
+$count = $ctr;
 
 // echo output
 $callModeView =<<<EOQ
@@ -212,3 +209,19 @@ EOQ;
 }
 else
     echo 'Error: Record id not found';
+
+
+function last_call_outcome($sContactId = ''){
+ $db = $GLOBALS['db'];
+    $sSQL = 'SELECT call_outcome_c FROM calls_cstm
+            INNER JOIN calls ON calls_cstm.id_c = calls.id
+            INNER JOIN calls_contacts ON calls_contacts.call_id = calls.id
+	    inner join prospectlists_calls_1_c on calls.id = prospectlists_calls_1_c.prospectlists_calls_1calls_idb
+            WHERE calls.deleted = 0 AND calls_contacts.deleted = 0
+            AND calls_contacts.contact_id = "'.$sContactId.'" and
+            prospectlists_calls_1_c.prospectlists_calls_1prospectlists_ida = "'.$_REQUEST['uid'].'"
+            ORDER BY calls.date_entered DESC LIMIT 0 , 1';
+    $aResult = $db->query($sSQL);
+    $sReturnResult = $db->fetchByAssoc($aResult);
+    return $sReturnResult['call_outcome_c'];
+}

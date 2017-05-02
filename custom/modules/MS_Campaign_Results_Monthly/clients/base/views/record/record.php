@@ -174,63 +174,58 @@ array (
               ),
               1 => 
               array (
+                'name' => 'appointments_reschedule_c',
+                'label' => 'LBL_APPOINTMENTS_RESCHEDULE',
+              ),
+              2 => 
+              array (
+                'name' => 'grand_total_c',
+                'label' => 'LBL_GRAND_TOTAL',
+              ),
+              3 => 
+              array (
                 'name' => 'remaining_target',
                 'label' => 'LBL_REMAINING_TARGET',
               ),
-              2 => 
+              4 => 
               array (
                 'name' => 'appointment_target_monthly',
                 'label' => 'LBL_APPOINTMENT_TARGET_MONTHLY',
               ),
-              3 => 
+              5 => 
               array (
                 'name' => 'appointment_target_total',
                 'label' => 'LBL_APPOINTMENT_TARGET_TOTAL',
               ),
-              4 => 
+              6 => 
               array (
                 'name' => 'appointment_accepted',
                 'label' => 'LBL_APPOINTMENT_ACCEPTED',
               ),
-              5 => 
+              7 => 
               array (
                 'name' => 'appointment_attended',
                 'label' => 'LBL_APPOINTMENT_ATTENDED',
               ),
-              6 => 
+              8 => 
               array (
                 'name' => 'appointment_attended_by_policy',
                 'label' => 'LBL_APPOINTMENT_ATTENDED_BY_POLICY',
               ),
-              7 => 
+              9 => 
               array (
                 'name' => 'appointment_confirmed',
                 'label' => 'LBL_APPOINTMENT_CONFIRMED',
               ),
-              8 => 
-              array (
-                'name' => 'ms_campaign_results_monthly_atc_isscampaigns_1_name',
-                'span' => 12,
-              ),
-              9 => 
-              array (
-                'name' => 'ms_campaign_results_monthly_atc_isscampaigns_1_name',
-                'span' => 12,
-              ),
               10 => 
               array (
-                'name' => 'ms_campaign_results_monthly_atc_isscampaigns_1_name',
-                'span' => 12,
+                'name' => 'campaign_month_c',
+                'label' => 'LBL_CAMPAIGN_MONTH',
               ),
               11 => 
               array (
-                'name' => 'ms_campaign_results_monthly_atc_isscampaigns_1_name',
-                'span' => 12,
-              ),
-              12 => 
-              array (
-                'name' => 'ms_campaign_results_monthly_atc_isscampaigns_1_name',
-                'span' => 12,
+                'name' => 'campaign_year_c',
+                'label' => 'LBL_CAMPAIGN_YEAR',
               ),
             ),
           ),
