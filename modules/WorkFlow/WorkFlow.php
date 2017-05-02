@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -111,14 +111,6 @@ class WorkFlow extends SugarBean
 
     // Flag whether
     var $check_controller = true;
-
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function Workflow()
-    {
-        self::__construct();
-    }
 
 	public function __construct() {
 		parent::__construct();
@@ -1178,7 +1170,12 @@ function get_action_contents($workflow_id, $trigger_count, $action_module_name, 
 						// fired while away from the workflow engine. This allows
 						// for that.
 						if ($workflow_trigger_id) {
-							$action_string .= "\t \$action_meta_array['".$array_position_name."']['trigger_id'] = '$workflow_trigger_id'; \n ";
+                            $action_string .= "\t \$action_meta_array['" .
+                                $array_position_name .
+                                "']['trigger_id'] = '$workflow_trigger_id'; \n ";
+                            $action_string .= "\t \$action_meta_array['" .
+                                $array_position_name .
+                                "']['action_id'] = '" . $row['id'] . "'; \n ";
 						}
 						$action_string .= "\t process_workflow_actions(\$focus, \$action_meta_array['".$array_position_name."']); \n ";
 
@@ -1503,8 +1500,10 @@ function getActiveWorkFlowCount() {
      */
     public function deleteSchedules()
     {
-        $query =  "SELECT id FROM workflow_schedules WHERE workflow_schedules.workflow_id = '" . $this->db->quote($this->id) . "'";
-        $result = $this->db->query($query, true, "Error getting workflow_schedules for workflow_id: " . $this->id);
+        //@codingStandardsIgnoreStart
+        $query =  "SELECT id FROM workflow_schedules WHERE workflow_schedules.workflow_id = " . $this->db->quoted($this->id);
+        $result = $this->db->query($query, true, "Error getting workflow_schedules for workflow_id: " . $this->db->quote($this->id));
+        //@codingStandardsIgnoreEnd
 
         // Remove each workflow schedule by id
         $removeExpired = array();

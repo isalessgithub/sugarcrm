@@ -60,19 +60,22 @@ array (
         0 => 
         array (
           0 => 'name',
-          1 => 'list_type',
+          1 => 
+          array (
+            'name' => 'atc_isscampaigns_prospectlists_1_name',
+          ),
         ),
         1 => 
         array (
           0 => 
           array (
-            'name' => 'atc_isscampaigns_prospectlists_1_name',
-          ),
-          1 => 
-          array (
             'name' => 'clients_c',
             'studio' => 'visible',
             'label' => 'LBL_CLIENTS',
+          ),
+          1 => 
+          array (
+            'name' => 'prospectlists_atc_clientsalesreps_1_name',
           ),
         ),
         2 => 

@@ -173,7 +173,12 @@ array (
               16 => 
               array (
                 'name' => 'description',
-                'span' => 12,
+                'span' => 6,
+              ),
+              17 => 
+              array (
+                'name' => 'cases_atc_isscampaigns_1_name',
+                'span' => 6,
               ),
             ),
           ),

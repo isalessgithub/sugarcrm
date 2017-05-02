@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -998,8 +998,8 @@ class Link {
 			//look for key in  $join_key_values, if found add to filter criteria else abort duplicate checking.
 			if (isset($join_key_values[$field])) {
 
-				$this->_duplicate_where .= $delimiter.' '.$field."='".$join_key_values[$field]."'";
-				$delimiter='AND';
+                $this->_duplicate_where .= $delimiter.' '.$field." = ". $this->_db->quoted($join_key_values[$field]);
+                $delimiter = ' AND ';
 			} else {
 				$GLOBALS['log']->error('Duplicate checking aborted, Please supply a value for this column '.$field);
 				return false;

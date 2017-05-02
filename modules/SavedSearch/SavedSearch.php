@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -158,8 +158,8 @@ class SavedSearch extends SugarBean {
         $query = 'SELECT id, name FROM saved_search
                   WHERE
                     deleted = \'0\' AND
-                    assigned_user_id = \'' . $current_user->id . '\' AND
-                    search_module =  \'' . $module . '\'
+                    assigned_user_id = ' . $db->quoted($current_user->id) . ' AND
+                    search_module = ' . $db->quoted($module) . '
                   ORDER BY name';
         $result = $db->query($query, true, "Error filling in saved search list: ");
 

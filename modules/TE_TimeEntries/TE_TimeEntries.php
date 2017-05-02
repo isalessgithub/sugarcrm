@@ -19,7 +19,7 @@ require_once('modules/TE_TimeEntries/TE_TimeEntries_sugar.php');
 class TE_TimeEntries extends TE_TimeEntries_sugar {
 	
 	function TE_TimeEntries(){	
-		parent::TE_TimeEntries_sugar();
+		parent::__construct();
 	}
 	
 }

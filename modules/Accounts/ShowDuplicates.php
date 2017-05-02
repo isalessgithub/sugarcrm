@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -28,6 +28,8 @@ global $app_strings;
 global $app_list_strings;
 
 $error_msg = '';
+
+$db = DBManagerFactory::getInstance();
 
 global $current_language;
 $mod_strings = return_module_language($current_language, 'Accounts');
@@ -62,14 +64,14 @@ if ($count > 0)
 	{
 		if (!$first) $query .= ' OR ';
 		$first = false;
-		$query .= "id='$duplicate_id' ";
+		$query .= "id=".$db->quoted($duplicate_id)." ";
 	}
 	$query .= ')';
 }
 
 $duplicateAccounts = array();
 
-$db = DBManagerFactory::getInstance();
+
 $result = $db->query($query);
 $i=-1;
 while(($row=$db->fetchByAssoc($result)) != null) {

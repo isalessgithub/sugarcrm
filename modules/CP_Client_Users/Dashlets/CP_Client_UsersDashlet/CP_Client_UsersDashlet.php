@@ -29,7 +29,7 @@ class CP_Client_UsersDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('modules/CP_Client_Users/metadata/dashletviewdefs.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'CP_Client_Users');
 

@@ -43,7 +43,7 @@ class esb_QB_TransactionsDashlet extends DashletGeneric {
 		global $current_user, $app_strings;
 		require('modules/esb_QB_Transactions/metadata/dashletviewdefs.php');
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if(empty($def['title'])) $this->title = translate('LBL_HOMEPAGE_TITLE', 'esb_QB_Transactions');
 

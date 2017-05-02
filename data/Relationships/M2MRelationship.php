@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -125,22 +125,9 @@ class M2MRelationship extends SugarRelationship
                 $this->callBeforeAdd($rhs, $lhs, $rhsLinkName);
             }
         } else {
+            $this->callBeforeUpdate($lhs, $rhs, $lhsLinkName);
+            $this->callBeforeUpdate($rhs, $lhs, $rhsLinkName);
             $isUpdate = true;
-            try {
-                if (!empty($additionalFields['accept_status'])) {
-                    $lhs->updateAcceptStatus = $additionalFields['accept_status'];
-                    $rhs->updateAcceptStatus = $additionalFields['accept_status'];
-                }
-                $this->callBeforeUpdate($lhs, $rhs, $lhsLinkName);
-                $this->callBeforeUpdate($rhs, $lhs, $rhsLinkName);
-                unset($lhs->updateAcceptStatus);
-                unset($rhs->updateAcceptStatus);
-            } catch (BypassRelationshipUpdateException $e) {
-                /* Quietly abort this Update */
-                unset($lhs->updateAcceptStatus);
-                unset($rhs->updateAcceptStatus);
-                return true;
-            }
         }
 
         //Many to many has no additional logic, so just add a new row to the table and notify the beans.
@@ -162,11 +149,11 @@ class M2MRelationship extends SugarRelationship
                     LoggerManager::getLogger()->error("Warning: failure calling addSelfReferencing for relationship {$this->name} within M2MRelationship->add() ");
                 }
             }
-            if ((empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes")) {
-                $lhs->$lhsLinkName->addBean($rhs);
-                $rhs->$rhsLinkName->addBean($lhs);
-
-                $this->callAfterAdd($lhs, $rhs, $lhsLinkName);
+            if (!$isUpdate && (empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes")) {
+                //$lhs->$lhsLinkName->resetLoaded();
+                //$rhs->$rhsLinkName->resetLoaded();
+                
+		$this->callAfterAdd($lhs, $rhs, $lhsLinkName);
                 $this->callAfterAdd($rhs, $lhs, $rhsLinkName);
             }
         }
@@ -810,13 +797,23 @@ class M2MRelationship extends SugarRelationship
      */
     public function relationship_exists($lhs, $rhs, $return_row = false)
     {
+        $db = DBManagerFactory::getInstance();
+
         $select = $return_row ? "*" : "id";
-        $query = "SELECT {$select} FROM {$this->getRelationshipTable()} WHERE {$this->join_key_lhs} = '{$lhs->id}' AND {$this->join_key_rhs} = '{$rhs->id}'";
+        $query = sprintf(
+            'SELECT %s FROM %s WHERE %s = %s AND %s = %s',
+            $select,
+            $this->getRelationshipTable(),
+            $this->join_key_lhs,
+            $db->quoted($lhs->id),
+            $this->join_key_rhs,
+            $db->quoted($rhs->id)
+        );
 
         //Roles can allow for multiple links between two records with different roles
         $query .= $this->getRoleWhere() . " and deleted = 0";
 
-        return $return_row ? $GLOBALS['db']->fetchOne($query) : $GLOBALS['db']->getOne($query);
+        return $return_row ? $db->fetchOne($query) : $db->getOne($query);
     }
 
     /**

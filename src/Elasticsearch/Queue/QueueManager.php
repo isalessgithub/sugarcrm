@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -249,8 +249,11 @@ class QueueManager
     {
         $sql = sprintf('DELETE FROM %s ', self::FTS_QUEUE);
         if ($modules) {
-            $modules = array_map(array($this->db, 'quoted'), $modules);
-            $sql .= sprintf(' WHERE bean_module IN (%s)', implode(',', $modules));
+            $quoted = array();
+            foreach ($modules as $module) {
+                $quoted[] = $this->db->quoted($module);
+            }
+            $sql .= sprintf(' WHERE bean_module IN (%s)', implode(',', $quoted));
         }
         $this->db->query($sql);
     }

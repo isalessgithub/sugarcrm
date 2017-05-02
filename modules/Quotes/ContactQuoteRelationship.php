@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -47,13 +47,6 @@ class ContactQuoteRelationship extends SugarBean {
 
 	var $additional_column_fields = Array();
 
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function ContactQuoteRelationship()
-    {
-        self::__construct();
-    }
 
 	public function __construct() {
 		parent::__construct();
@@ -66,7 +59,10 @@ class ContactQuoteRelationship extends SugarBean {
 	    
 		if(isset($this->contact_id) && $this->contact_id != "")
 		{
-			$query = "SELECT first_name, last_name from contacts where id='$this->contact_id' AND deleted=0";
+            $query = sprintf(
+                'SELECT first_name, last_name FROM contacts WHERE id = %s AND deleted = 0',
+                $this->db->qouted($this->contact_id)
+            );
 			$result =$this->db->query($query,true," Error filling in additional detail fields: ");
 			// Get the id and the name.
 			$row = $this->db->fetchByAssoc($result);
@@ -79,7 +75,10 @@ class ContactQuoteRelationship extends SugarBean {
 
 		if(isset($this->quote_id) && $this->quote_id != "")
 		{
-			$query = "SELECT name from quotes where id='$this->quote_id' AND deleted=0";
+            $query = sprintf(
+                'SELECT name FROM quotes WHERE id = %s AND deleted = 0',
+                $this->db->quoted($this->quote_id)
+            );
 			$result =$this->db->query($query,true," Error filling in additional detail fields: ");
 			// Get the id and the name.
 			$row = $this->db->fetchByAssoc($result);

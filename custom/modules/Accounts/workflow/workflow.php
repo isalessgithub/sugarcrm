@@ -33,10 +33,11 @@ if(!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" &&
 				!empty($_SESSION["workflow_id_cron"]) && ArrayFunctions::in_array_access($workflow_id, $_SESSION["workflow_id_cron"])){
 				
 	global $triggeredWorkflows;
-	if (!isset($triggeredWorkflows['f260334a_8c79_11e6_919f_23c1910b89b9'])){
-		$triggeredWorkflows['f260334a_8c79_11e6_919f_23c1910b89b9'] = true;
+	if (!isset($triggeredWorkflows['e40bb0ca_0989_11e7_8025_48be2a1e0ef7'])){
+		$triggeredWorkflows['e40bb0ca_0989_11e7_8025_48be2a1e0ef7'] = true;
 		 unset($alertshell_array); 
-		 $action_meta_array['Accounts0_action0']['trigger_id'] = 'f260334a_8c79_11e6_919f_23c1910b89b9'; 
+		 $action_meta_array['Accounts0_action0']['trigger_id'] = 'e40bb0ca_0989_11e7_8025_48be2a1e0ef7'; 
+ 	 $action_meta_array['Accounts0_action0']['action_id'] = '32e4d2b6-226a-b101-1f31-5097fccc13ee'; 
  	 process_workflow_actions($focus, $action_meta_array['Accounts0_action0']); 
  	}
 }

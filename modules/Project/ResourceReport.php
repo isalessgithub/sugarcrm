@@ -4,7 +4,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -40,7 +40,7 @@ $sugar_smarty->assign("BG_COLOR", $hilite_bg);
 $sugar_smarty->assign("CALENDAR_DATEFORMAT", $timedate->get_cal_date_format());
 $sugar_smarty->assign("DATE_FORMAT", $timedate->get_date_format());
 $sugar_smarty->assign("CURRENT_USER", $current_user->id);
-$sugar_smarty->assign("CALENDAR_LANG_FILE", getJSPath('jscalendar/lang/calendar-' . substr($GLOBALS['current_language'], 0, 2).'.js'));
+$sugar_smarty->assign("CALENDAR_LANG_FILE", getJSPath(sugar_cached('jsLanguage/'.$GLOBALS['current_language'].'.js')));
 
 
 $focus = BeanFactory::getBean('Project');
@@ -86,9 +86,13 @@ if (!empty($_REQUEST['resource'])) {
     $dateStartDb = $timedate->to_db_date($_REQUEST['date_start'], false);
     $dateFinishDb = $timedate->to_db_date($_REQUEST['date_finish'], false);
 
-    $query = "SELECT project_task.id as id, project.id as project_id FROM project_task, project WHERE project_task.resource_id like '".$projectTaskBean->db->quote($_REQUEST['resource'])."'".
-        " AND (project_task.date_start BETWEEN '$dateStartDb' AND '$dateFinishDb' OR project_task.date_finish BETWEEN '$dateStartDb' AND '$dateFinishDb')".
-        " AND project_task.deleted=0 AND (project_task.project_id = project.id) AND (project.is_template = 0) order by project_task.date_start";
+    $db = $projectTaskBean->db;
+    $query = 'SELECT project_task.id AS id, project.id AS project_id FROM project_task, project'
+        . ' WHERE project_task.resource_id LIKE ' . $db->quoted($_REQUEST['resource'])
+        . ' AND (project_task.date_start BETWEEN ' . $db->quoted($dateStartDb) . ' AND ' . $db->quoted($dateFinishDb)
+        . ' OR project_task.date_finish BETWEEN ' . $db->quoted($dateStartDb) . ' AND ' . $db->quoted($dateFinishDb)
+        . ') AND project_task.deleted = 0 AND project_task.project_id = project.id AND project.is_template = 0'
+        . ' ORDER BY project_task.date_start';
 
     $result = $projectTaskBean->db->query($query, true, "");
     while(($row = $projectTaskBean->db->fetchByAssoc($result)) != null) {
@@ -109,13 +113,13 @@ if (!empty($_REQUEST['resource'])) {
 
     //Holidays //////////////////////
     $query = "select holidays.*, holidays.holiday_date AS hol_date, project.name AS project_name from holidays, project where ";
-    $query .= "person_id like '". $holidayBean->db->quote($_REQUEST['resource']) ."'";
-    $query .= " and holiday_date between '$dateStartDb' and '$dateFinishDb'".
+    $query .= "person_id like ". $db->quoted($_REQUEST['resource']);
+    $query .= ' and holiday_date between ' . $db->quoted($dateStartDb) . ' and ' . $db->quoted($dateFinishDb) .
     	" AND holidays.related_module_id = project.id AND holidays.deleted=0 ";
     $query .= "UNION ALL ";
-    $query .= "select holidays.*, holidays.holiday_date AS hol_date, '" . $mod_strings['LBL_PERSONAL_HOLIDAY'] . "' AS project_name from holidays where ";
-    $query .= "person_id like '". $holidayBean->db->quote($_REQUEST['resource']) ."'";
-    $query .= " and holiday_date between '$dateStartDb' and '$dateFinishDb'".
+    $query .= "select holidays.*, holidays.holiday_date AS hol_date, " . $db->quoted($mod_strings['LBL_PERSONAL_HOLIDAY']) . " AS project_name from holidays where ";
+    $query .= "person_id like ". $db->quoted($_REQUEST['resource']);
+    $query .= " and holiday_date between " . $db->quoted($dateStartDb) . " and " . $db->quoted($dateFinishDb) .
     " AND holidays.related_module_id IS NULL AND holidays.deleted=0 ORDER BY hol_date ";
     $result = $holidayBean->db->query($query, true, "");
 

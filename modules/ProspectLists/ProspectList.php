@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -242,7 +242,10 @@ FROM prospect_lists_prospects plp
 
 	function get_entry_count()
 	{
-		$query = "SELECT count(*) AS num FROM prospect_lists_prospects WHERE prospect_list_id='$this->id' AND deleted = '0'";
+        $query = sprintf(
+            'SELECT count(*) AS num FROM prospect_lists_prospects WHERE prospect_list_id = %s AND deleted = 0',
+            $this->db->quoted($this->id)
+        );
 		$result = $this->db->query($query, true, "Grabbing prospect_list entry count");
 
 		$row = $this->db->fetchByAssoc($result);
@@ -299,11 +302,11 @@ FROM prospect_lists_prospects plp
 
     function mark_deleted($id){
         //remove prospects::prospectLists relationships
-        $query = "UPDATE prospect_lists_prospects SET deleted = 1 WHERE prospect_list_id = '{$id}' ";
+        $query = "UPDATE prospect_lists_prospects SET deleted = 1 WHERE prospect_list_id = " . $this->db->quoted($id);
         $this->db->query($query);
 
         //remove campaigns::prospectLists relationships
-        $query = "UPDATE prospect_list_campaigns SET deleted = 1 WHERE prospect_list_id = '{$id}' ";
+        $query = "UPDATE prospect_list_campaigns SET deleted = 1 WHERE prospect_list_id = " . $this->db->quoted($id);
         $this->db->query($query);
 
         return parent::mark_deleted($id);

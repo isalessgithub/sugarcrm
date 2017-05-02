@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -87,6 +87,23 @@ class User extends Person {
     );
 
     /**
+     * These modules don't take kindly to the studio trying to play about with them.
+     *
+     * @var array
+     */
+    protected static $ignoredModuleList = array(
+        'iFrames',
+        'Feeds',
+        'Home',
+        'Dashboard',
+        'Calendar',
+        'Activities',
+        'Reports',
+        'UpgradeHistory',
+        'pmse_Inbox',
+    );
+
+    /**
      * @param $userName
      * @return bool
      */
@@ -115,14 +132,6 @@ class User extends Person {
     public $relationship_fields = array('call_id' => 'calls', 'meeting_id' => 'meetings');
 
 	var $new_schema = true;
-
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function User()
-    {
-        self::__construct();
-    }
 
 	public function __construct() {
 		parent::__construct();
@@ -423,6 +432,20 @@ class User extends Person {
 
         return $user->_userPreferenceFocus->getPreference($name, $category);
 	}
+
+    /**
+     * Interface for the User object to calling the UserPreference::removePreference() method
+     * in modules/UserPreferences/UserPreference.php
+     *
+     * @see UserPreference::removePreference()
+     *
+     * @param string $name name of the preference to remove
+     * @param string $category name of the category to remove, defaults to global scope
+     */
+    public function removePreference($name, $category = 'global')
+    {
+        $this->_userPreferenceFocus->removePreference($name, $category);
+    }
 
 	/**
      * incrementETag
@@ -1060,11 +1083,11 @@ EOQ;
 	        return false;
 	    }
 
-	    // Custom regex
-	    if(!empty($GLOBALS["sugar_config"]["passwordsetting"]["customregex"]) && !preg_match($GLOBALS["sugar_config"]["passwordsetting"]["customregex"], $password)){
-	        return false;
-	    }
-
+        // Custom regex
+        if (!empty($GLOBALS["sugar_config"]["passwordsetting"]["customregex"]) &&
+            preg_match('/'.$GLOBALS["sugar_config"]["passwordsetting"]["customregex"].'/', $password)) {
+            return false;
+        }
 	    return true;
 	}
 
@@ -1082,7 +1105,8 @@ EOQ;
         // ~jmorais@dri
 		global $locale;
 
-		$query = "SELECT u1.first_name, u1.last_name from users  u1, users  u2 where u1.id = u2.reports_to_id AND u2.id = '$this->id' and u1.deleted=0";
+        $query = "SELECT u1.first_name, u1.last_name from users u1, users u2 where u1.id=u2.reports_to_id AND u2.id=" .
+            $this->db->quoted($this->id) . " and u1.deleted=0";
 		$result = $this->db->query($query, true, "Error filling in additional detail fields");
 
 		$row = $this->db->fetchByAssoc($result);
@@ -1674,7 +1698,7 @@ EOQ;
 		$name['s'] = $app_strings['LBL_LOCALE_NAME_EXAMPLE_SALUTATION'];
 		$name['t'] = $app_strings['LBL_LOCALE_NAME_EXAMPLE_TITLE'];
 
-		$macro = $locale->getLocaleFormatMacro();
+		$macro = $locale->getLocaleFormatMacro($this);
 
 		$ret1 = '';
 		$ret2 = '';
@@ -1698,12 +1722,16 @@ EOQ;
 
     public static function staticGetPrivateTeamID($user_id)
 	{
-	    $teamFocus = BeanFactory::getBean('Teams');
-	    $teamFocus->retrieve_by_string_fields(array('associated_user_id'=>$user_id));
-	    if ( empty($teamFocus->id) )
-	        return '';
+        global $db;
 
-	    return $teamFocus->id;
+        $query = sprintf(
+            'SELECT id FROM teams WHERE associated_user_id = %s AND deleted = 0',
+            $db->quoted($user_id)
+        );
+        $query = $db->limitQuerySql($query, 0, 1);
+        $result = $db->fetchOne($query);
+
+        return $result ? $result['id'] : '';
 	}
     /*
      *
@@ -1749,10 +1777,6 @@ EOQ;
             return $myModules;
         }
 
-        // These modules don't take kindly to the studio trying to play about with them.
-        static $ignoredModuleList = array('iFrames','Feeds','Home','Dashboard','Calendar','Activities','Reports', 'UpgradeHistory');
-
-
         $actions = ACLAction::getUserActions($this->id);
 
         foreach ($beanList as $module=>$val) {
@@ -1762,7 +1786,8 @@ EOQ;
                 // Already have the module in the list
                 continue;
             }
-            if (in_array($module,$ignoredModuleList)) {
+
+            if (in_array($module, static::$ignoredModuleList)) {
                 // You can't develop on these modules.
                 continue;
             }
@@ -2208,26 +2233,12 @@ EOQ;
                 // add the recipient
                 $mailer->addRecipientsTo(new EmailIdentity($itemail));
 
+                $emailId = create_guid();
+                $mailer->setMessageId($emailId);
+
                 // if send doesn't raise an exception then set the result status to true
                 $mailer->send();
                 $result["status"] = true;
-
-                // save the email record
-                $email                   = new Email();
-                $email->team_id          = 1;
-                $email->to_addrs         = '';
-                $email->type             = 'archived';
-                $email->deleted          = '0';
-                $email->name             = $emailTemplate->subject;
-                $email->description      = $textBody;
-                $email->description_html = $htmlBody;
-                $email->from_addr        = $mailer->getHeader(EmailHeaders::From)->getEmail();
-                $email->parent_type      = 'User';
-                $email->date_sent        = TimeDate::getInstance()->nowDb();
-                $email->modified_user_id = '1';
-                $email->created_by       = '1';
-                $email->status           = 'sent';
-                $email->save();
 
                 if (!isset($additionalData['link']) || $additionalData['link'] == false) {
                     $this->setNewPassword($additionalData['password'], '1');
@@ -2463,8 +2474,16 @@ EOQ;
         //Add the tab hash to include the change of tabs (e.g. module order) as a part of the user hash
         $tabs = new TabController();
         $tabHash = $tabs->getMySettingsTabHash();
-
         return md5($this->hashTS . $tabHash);
+    }
+
+    public function setupSession() {
+        if (!isset($_SESSION[$this->user_name.'_get_developer_modules_for_user'])) {
+            $this->getDeveloperModules();
+        }
+        if (!isset($_SESSION[$this->user_name.'_get_admin_modules_for_user'])) {
+            $this->getAdminModules();
+        }
     }
 
     /**
@@ -2654,5 +2673,25 @@ EOQ;
                 $list['user_name']['acl'] = 1;
             }
         }
+    }
+
+    /**
+    * Gets the time zone for the given user.
+    *
+    * @param User $user
+    * @return DateTimeZone the user's timezone
+    */
+    public function getTimezone()
+    {
+        $gmtTZ = new DateTimeZone("UTC");
+        $userTZName = TimeDate::userTimezone($this);
+        if (!empty($userTZName))
+        {
+            $tz = new DateTimeZone($userTZName);
+        } else
+        {
+            $tz = $gmtTZ;
+        }
+        return $tz;
     }
 }

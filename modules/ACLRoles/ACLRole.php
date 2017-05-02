@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -24,13 +24,6 @@ class ACLRole extends SugarBean{
 
     var $created_by;
 
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function ACLRole()
-    {
-        self::__construct();
-    }
 
     public function __construct(){
         parent::__construct();
@@ -192,7 +185,9 @@ public static function getAllRoles($returnAsArray = false)
         $query .=" FROM acl_actions ";
 
         if(!empty($role_id)){
-            $query .=		" LEFT JOIN acl_roles_actions ON acl_roles_actions.role_id = '$role_id' AND  acl_roles_actions.action_id = acl_actions.id AND acl_roles_actions.deleted = 0";
+            $query .= " LEFT JOIN acl_roles_actions ON acl_roles_actions.role_id = ".
+                $db->quoted($role_id) .
+                " AND  acl_roles_actions.action_id = acl_actions.id AND acl_roles_actions.deleted = 0";
         }
         $query .= " WHERE acl_actions.deleted=0 ORDER BY acl_actions.category, acl_actions.name";
         $result = $db->query($query);
@@ -247,8 +242,11 @@ public static function getAllRoles($returnAsArray = false)
  */
 function mark_relationships_deleted($id){
         //we need to delete the actions relationship by hand (special case)
-        $date_modified = db_convert("'".TimeDate::getInstance()->nowDb()."'", 'datetime');
-        $query =  "UPDATE acl_roles_actions SET deleted=1 , date_modified=$date_modified WHERE role_id = '$id' AND deleted=0";
+        $query = sprintf(
+            'UPDATE acl_roles_actions SET deleted = 1, date_modified = %s WHERE role_id = %s AND deleted = 0',
+            db_convert($this->db->quoted(TimeDate::getInstance()->nowDb()), 'datetime'),
+            $this->db->quoted($id)
+        );
         $this->db->query($query);
         parent::mark_relationships_deleted($id);
 }
@@ -304,7 +302,7 @@ function mark_relationships_deleted($id){
 
         $ids = array();
         while ($row = $this->db->fetchByAssoc($result)) {
-            $ids[] = $this->db->quoted($row['id']);
+            $ids[] = $this->db->quoted($row['user_id']);
         }
         if (empty($ids)) {
             return;

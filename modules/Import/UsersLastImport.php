@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -192,19 +192,25 @@ class UsersLastImport extends SugarBean
     {
         global $current_user;
 
-        $query1 = "SELECT DISTINCT bean_type FROM users_last_import WHERE assigned_user_id = '$current_user->id'
-                   AND import_module = '$module' AND deleted=0";
+        $db = DBManagerFactory::getInstance();
 
-        $result1 = $GLOBALS['db']->query($query1);
+        $query1 = sprintf(
+            'SELECT DISTINCT bean_type FROM users_last_import WHERE assigned_user_id = %s'
+                . ' AND import_module = %s AND deleted=0',
+            $db->quoted($current_user->id),
+            $db->quoted($module)
+        );
+
+        $result1 = $db->query($query1);
         if ( !$result1 )
             return array($module);
 
         $returnarray = array();
-        while ( $row1 = $GLOBALS['db']->fetchByAssoc($result1))
+        while ($row1 = $db->fetchByAssoc($result1)) {
             $returnarray[] = $row1['bean_type'];
+        }
 
         return $returnarray;
     }
 
 }
-?>

@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -136,13 +136,6 @@ class Contact extends Person {
         'contacts_users_id' => 'user_sync',
     );
 
-    /**
-     * @deprecated Use __construct() instead
-     */
-    public function Contact()
-    {
-        self::__construct();
-    }
 
 	public function __construct() {
 		parent::__construct();
@@ -313,18 +306,21 @@ class Contact extends Person {
 		// retrieve the account information and the information about the person the contact reports to.
 		$query = "SELECT acc.id, acc.name, con_reports_to.first_name, con_reports_to.last_name
 		from contacts
-		left join accounts_contacts a_c on a_c.contact_id = '".$this->id."' and a_c.deleted=0
+        left join accounts_contacts a_c on a_c.contact_id = ".$this->db->quoted($this->id)." and a_c.deleted=0
 		left join accounts acc on a_c.account_id = acc.id and acc.deleted=0
 		left join contacts con_reports_to on con_reports_to.id = contacts.reports_to_id
-		where contacts.id = '".$this->id."'";
+        where contacts.id = ".$this->db->quoted($this->id);
 		// Bug 43196 - If a contact is related to multiple accounts, make sure we pull the one we are looking for
 		// Bug 44730  was introduced due to this, fix is to simply clear any whitespaces around the account_id first
 
         $clean_account_id = trim($this->account_id);
 
         if ( !empty($clean_account_id) ) {
-		    $query .= " and acc.id = '{$this->account_id}'";
+            $query .= " and acc.id = ".$this->db->quoted($this->account_id);
 		}
+        else { // get primary account
+            $query .= " and a_c.primary_account = 1";
+        }
 
         $query .= " ORDER BY a_c.date_modified DESC";
 
@@ -347,7 +343,7 @@ class Contact extends Person {
 		}
 
 		$this->load_relationship('user_sync');
-		if ($this->user_sync->_relationship->relationship_exists($this, $GLOBALS['current_user'])) {
+        if ($this->user_sync->_relationship->relationship_exists($GLOBALS['current_user'], $this)) {
 			$this->sync_contact = true;
 		} else {
 			$this->sync_contact = false;
@@ -381,8 +377,8 @@ class Contact extends Person {
         if ($filter_fields && !empty($filter_fields['sync_contact'])) {
             $this->load_relationship('user_sync');
             $temp_array['SYNC_CONTACT'] = $this->user_sync->_relationship->relationship_exists(
-                $this,
-                $GLOBALS['current_user']
+                $GLOBALS['current_user'],
+                $this
             ) ? 1 : 0;
         }
 

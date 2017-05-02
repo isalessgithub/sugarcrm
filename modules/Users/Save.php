@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -245,10 +245,12 @@ if (!$focus->is_group && !$focus->portal_only) {
         }
     }
 
-    if (isset($HIDE_ARR['hide_tabs'])) {
-        $tabs->set_user_tabs($HIDE_ARR['hide_tabs'], $focus, 'hide');
-    } else {
-        $tabs->set_user_tabs(array(), $focus, 'hide');
+    if ($current_user->isAdminForModule('Users') || $tabs->get_users_can_edit()) {
+        if (isset($HIDE_ARR['hide_tabs'])) {
+            $tabs->set_user_tabs($HIDE_ARR['hide_tabs'], $focus, 'hide');
+        } else {
+            $tabs->set_user_tabs(array(), $focus, 'hide');
+        }
     }
 
     if (is_admin($current_user)) {
@@ -436,11 +438,6 @@ if (!$focus->verify_data()) {
         // This will more than likely already be true, but force it to be sure
         $focus->update_date_modified = true;
     }
-
-    // Since metadata caches contain data specific to roles and users, we need
-    // to nuke the caches when a user changes since it is possible for one
-    // user to change another user
-    MetaDataManager::getManager()->invalidateUserCache($focus);
 
     $GLOBALS['sugar_config']['disable_team_access_check'] = true;
     $focus->save();

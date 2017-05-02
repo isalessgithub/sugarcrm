@@ -2,7 +2,7 @@
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -38,32 +38,50 @@
          */
         _math: function(operator, n1, n2, decimals, fixed) {
             decimals = (_.isFinite(decimals) && decimals >= 0) ? parseInt(decimals) : 6;
+            Big.E_NEG = -1 * (decimals + 1);
             fixed = fixed || false;
             var result;
-            var divisor = Math.pow(10, decimals);
-            var r1 = parseFloat(n1) * divisor;
-            var r2 = !_.isUndefined(n2) ? (parseFloat(n2) * divisor) : undefined;
-            switch (operator) {
-                case 'round':
-                    result = Math.round(r1) / divisor;
-                    break;
-                case 'add':
-                    result = (r1 + r2) / divisor;
-                    break;
-                case 'sub':
-                    result = (r1 - r2) / divisor;
-                    break;
-                case 'mul':
-                    result = this.round(r1 * r2 / divisor / divisor, decimals, fixed);
-                    break;
-                case 'div':
-                    result = this.round(r1 / r2, decimals, fixed);
-                    break;
-                default:
-                    // no valid operator, just return number
-                    return n1;
+
+            // if n1 is not a number, just return it, no need to do math on it.
+            if (!_.isFinite(n1)) {
+                return n1;
             }
-            return (fixed && !_.isString(result)) ? result.toFixed(decimals) : result;
+
+            try {
+                switch (operator) {
+                    case 'round':
+                        result = Big(n1).round(decimals);
+                        break;
+                    case 'add':
+                        result = Big(n1).plus(n2);
+                        break;
+                    case 'sub':
+                        result = Big(n1).minus(n2);
+                        break;
+                    case 'mul':
+                        result = Big(n1).times(n2).round(decimals);
+                        break;
+                    case 'div':
+                        result = Big(n1).div(n2).round(decimals);
+                        break;
+                    default:
+
+                        // no valid operator, just return number
+                        return n1;
+                }
+            } catch (error) {
+                if (error.name == 'BigError') {
+                    return n1;
+                }
+            }
+
+            if (fixed && !_.isString(result)) {
+                return result.toFixed(decimals);
+            } else if (!_.isString(result)) {
+                return result.toString();
+            } else {
+                return result;
+            }
         },
 
         /**
@@ -142,14 +160,18 @@
          * @return {boolean}
          */
         isDifferentWithPrecision: function(newValue, oldValue, precision) {
-            var config = app.metadata.getConfig(),
-                user_precision = precision || app.user.getPreference('decimal_precision'),
-                precision = (_.isFinite(user_precision)) ? user_precision : config.defaultCurrencySignificantDigits || 2,
-                diff = this._math('round', this.getDifference(newValue, oldValue, true), null, precision),
-                diffPrecision = (precision === 0) ? 0 : this._math('div', 0.1, Math.pow(10, (precision-1)));
+            var config = app.metadata.getConfig();
+            var user_precision = precision || app.user.getPreference('decimal_precision');
+            precision = (_.isFinite(user_precision)) ? user_precision : config.defaultCurrencySignificantDigits || 2;
+            var diff = this._math('round', this.getDifference(newValue, oldValue, true), null, precision);
 
+            var diffPrecision = '0';
+            if (precision) {
+                diffPrecision = this._math('div', 0.1, Math.pow(10, precision - 1));
+            }
+            
             // if the diff is 0 (zero) always return false, this should only happen when precision is 0
-            return (diff === 0) ? false : (diff >= diffPrecision);
+            return (diff === '0') ? false : (parseFloat(diff) >= parseFloat(diffPrecision));
         },
 
         /**
@@ -160,8 +182,8 @@
          * @param {Boolean} [absolute=false]
          */
         getDifference: function(newValue, oldValue, absolute) {
-            var diff = this._math('sub', newValue, oldValue),
-                absolute = _.isUndefined(absolute) ? false : absolute;
+            var diff = this._math('sub', newValue, oldValue);
+            absolute = _.isUndefined(absolute) ? false : absolute;
 
             return (absolute) ? Math.abs(diff) : diff;
         }

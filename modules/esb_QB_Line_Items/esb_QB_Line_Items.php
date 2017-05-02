@@ -33,7 +33,7 @@ require_once('modules/esb_QB_Line_Items/esb_QB_Line_Items_sugar.php');
 class esb_QB_Line_Items extends esb_QB_Line_Items_sugar {
 	
 	function esb_QB_Line_Items(){	
-		parent::esb_QB_Line_Items_sugar();
+		parent::__construct();
 	}
 	
 }

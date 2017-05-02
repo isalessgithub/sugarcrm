@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -607,10 +607,10 @@ if(!empty($focus->id) || (!empty($_REQUEST['record']) && $_REQUEST['type'] == 'f
 	$attachments = "<input type='hidden' name='removeAttachment' id='removeAttachment' value=''>\n";
 	$ids = '';
 
-	$focusId = empty($focus->id) ? $_REQUEST['record'] : $focus->id;
-	$note = BeanFactory::getBean('Notes');
-	$where = "notes.parent_id='{$focusId}' AND notes.filename IS NOT NULL";
-	$notes_list = $note->get_full_list("", $where,true);
+        $focusId = empty($focus->id) ? $recordId : $focus->id;
+        $note = BeanFactory::getBean('Notes');
+        $where = sprintf('notes.parent_id = %s AND notes.filename IS NOT NULL', $focus->db->quoted($focusId));
+        $notes_list = $note->get_full_list("", $where, true);
 
 	if(!isset($notes_list)) {
 		$notes_list = array();

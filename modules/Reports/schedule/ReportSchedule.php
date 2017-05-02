@@ -3,7 +3,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * http://support.sugarcrm.com/Resources/Master_Subscription_Agreements/.
  * If you do not agree to all of the applicable terms or do not have the
  * authority to bind the entity as an authorized representative, then do not
  * install or use this SugarCRM file.
@@ -166,14 +166,23 @@ function get_report_schedule_for_user($report_id, $user_id=''){
 			global $current_user;
 			$user_id = $current_user->id;
 		}
-	$query = "SELECT * FROM $this->table_name WHERE report_id='$report_id' AND user_id='$user_id' AND deleted=0";
+        $query = sprintf(
+            'SELECT * FROM %s WHERE report_id = %s AND user_id = %s AND deleted = 0',
+            $this->table_name,
+            $this->db->quoted($report_id),
+            $this->db->quoted($user_id)
+        );
 	$results = $this->db->query($query);
 	$row = $this->db->fetchByAssoc($results);
 	return $this->fromConvertReportScheduleDBRow($row);
 }
 
 function get_report_schedule($report_id){
-	$query = "SELECT * FROM $this->table_name WHERE report_id='$report_id' AND deleted=0";
+        $query = sprintf(
+            'SELECT * FROM %s WHERE report_id = %s AND deleted = 0',
+            $this->table_name,
+            $this->db->quoted($report_id)
+        );
 	$results = $this->db->query($query);
 	$return_array = array();
 	while($row = $this->db->fetchByAssoc($results)){
@@ -335,7 +344,7 @@ function update_next_run_time($schedule_id, $next_run, $interval){
     }
 
 function mark_deleted($id){
-    $query = "UPDATE {$this->table_name} SET deleted = '1' WHERE id = '{$id}'";
+        $query = "UPDATE {$this->table_name} SET deleted = '1' WHERE id = " . $this->db->quoted($id);
     $GLOBALS['db']->query($query);
 }
 
