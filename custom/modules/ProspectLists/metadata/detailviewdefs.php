@@ -80,7 +80,16 @@ array (
         ),
         2 => 
         array (
-          0 => 'description',
+          0 => 
+          array (
+            'name' => 'ms_max_list_size_c',
+            'label' => 'LBL_MS_MAX_LIST_SIZE',
+          ),
+          1 => 
+          array (
+            'name' => 'client_edit_disabled_c',
+            'label' => 'LBL_CLIENT_EDIT_DISABLED',
+          ),
         ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
