@@ -14,21 +14,21 @@ class SplitTargetList
      */
     function doSplitTargetList($target_list, $event, $arguments)
     {
-        // make sure that this is before save LH
+// make sure that this is before save LH
         if ($event != 'before_save') {
             return;
         }
 
-        // make sure that list has just been finalised
-        // todo: uncomment (these conditions are ignored for now)
+// make sure that list has just been finalised
+// todo: uncomment (these conditions are ignored for now)
 //        if ($target_list->client_edit_disabled_c and !$target_list->fetched_row['client_edit_disabled']) {
 
-        // retrieve the related accounts
+// retrieve the related accounts
 //        $a = $target_list->load_relationship('contacts');
 //        $c = $target_list->contacts->getBeans();
 
-        // retrieve the contacts related to this target list
-        // (query is used because it's a lot faster)
+// retrieve the contacts related to this target list
+// (query is used because it's a lot faster)
         $sugarQuery = new SugarQuery();
         $sugarQuery->from(BeanFactory::newBean('Contacts'));
         $sugarQuery->select(array('id', 'account_id'));
@@ -59,25 +59,63 @@ class SplitTargetList
         // introduce the array of contacts sorted by max list size
         $contacts_by_max_list_size = array();
 
-        // iterate trough contacts by account
-        foreach ($contacts_by_account as $account_id => $contacts_ids) {
+        ////
 
-            $a = 1;
-
-            if (count($contacts_ids) > $target_list->ms_max_list_size_c) {
-
-                $contacts_by_max_list_size[$account_id] = $contacts_ids;
-
-            } else {
+        // retrieve from campaign? target list?
+        $listsize = '';
 
 
+        //for demo purposes. in reality, you'd have to calculate this based on accounts and contacts in target list, probaboly using sql.
+        $accountlist = Array(
+            'id1' => 10,
+            'id2' => 100,
+            'id3' => 30,
+            'id4' => 40,
+            'id5' => 20,
+            'id6' => 90,
+            'id7' => 50,
+            'id8' => 80,
+            'id9' => 60,
+            'id10' => 70
+        );
+        //sort biggest accounts first.
+        arsort($accountlist);
+        echo ("number of contacts: " . (string)array_sum($accountlist)) . '<br />';
+        echo ("number of lists:" . (string)ceil(array_sum($accountlist) / $listsize)) . '<br />';
+        //create lists for storing the contact count, and the collection of accounts.
+        $listarray = array();
+        $listcollectionarray = array();
+        //create target lists.
+        for ($x = 1; $x <= ceil(array_sum($accountlist) / $listsize);) {
+            //$list = BeanFactory::newBean('ProspectLists');
+            //duplicate the relationships and values in the bean to the list, but change the name. (not sure if there is a faster way to do this)
+            //$list->name = $bean->name." ".$x
+            //$list->save();
+            //  $listarray[$list->id] = 0;
+            //  $listcollectionarray[$list->id] = Array();
 
-            }
+            //temporary code for display
+            $listarray['list' . $x] = 0;
+            $listcollectionarray['list' . $x] = Array();
+            //end temp code
 
-
+            $x++;
         }
+        //go through sorted list of accounts biggest to smallest.
+        foreach ($accountlist as $key => $ac) {
+            //get the target list with the least related contacts.
+            $minlist = array_search(min($listarray), $listarray);
+            //add teh number of contacts for this account to the list
+            $listarray[$minlist] += $ac;
+            $listcollectionarray[$minlist][] = $key;
+            echo "contact count:" . $ac . "-- ";
+            echo json_encode($listarray, JSON_PRETTY_PRINT);
+            echo "<br />";
+        }
+        echo json_encode($listarray, JSON_PRETTY_PRINT);
+        echo "<br />";
+        echo json_encode($listcollectionarray, JSON_PRETTY_PRINT);
 
-        $a = 1;
 
 //        }
 
