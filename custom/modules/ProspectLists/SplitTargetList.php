@@ -179,17 +179,28 @@ class SplitTargetList
                     // iterate trough all the contacts
                     foreach ($contacts as $contact_id) {
 
-                        // introduce a new sugar id
-                        $id = create_guid();
-
-                        // introduce the query (creates relationship between contacts and target list)
+                        // update the relationships
+                        // (records were related to the old list; change relationships to point to new list now)
                         $query = "                    
-                          INSERT INTO prospect_lists_prospects (`id`, `prospect_list_id`, `related_id`, `related_type`, `date_modified`, `deleted`)
-                          VALUES ('{$id}', '{$new_target_list->id}', '{$contact_id}', 'Contacts', '{$new_target_list->date_entered}', 0);
+                          update prospect_lists_prospects                     
+                          set prospect_list_id = '{$new_target_list->id}', date_modified = '{$new_target_list->date_entered}', deleted = 0
+                          where prospect_list_id = '{$target_list->id}' and related_id = '{$contact_id}' and related_type = 'Contacts'
                         ";
 
                         // execute the query
                         $db->query($query);
+
+//                        // introduce a new sugar id
+//                        $id = create_guid();
+//
+//                        // introduce the query (creates relationship between contacts and target list)
+//                        $query = "
+//                          INSERT INTO prospect_lists_prospects (`id`, `prospect_list_id`, `related_id`, `related_type`, `date_modified`, `deleted`)
+//                          VALUES ('{$id}', '{$new_target_list->id}', '{$contact_id}', 'Contacts', '{$new_target_list->date_entered}', 0);
+//                        ";
+//
+//                        // execute the query
+//                        $db->query($query);
                     }
 
                 }
