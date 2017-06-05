@@ -26,27 +26,79 @@
     },
 
     _render: function () {
+
+        var self = this;
+
         var result = app.view.Field.prototype._render.call(this);
 
         if (this.tplName === 'edit') {
-            var action = (this.endpoint.action) ? this.endpoint.action : null,
-                attributes = (this.endpoint.attributes) ? this.endpoint.attributes : null,
-                params = (this.endpoint.params) ? this.endpoint.params : null,
-                myURL = app.api.buildURL(this.endpoint.module, action, attributes, params);
 
-            app.api.call('GET', myURL, null, {
-                success: _.bind(this.populateValues, this),
-                error: function (error) {
-                    // display error if not a metadata refresh
-                    if (error.status !== 412) {
-                        app.alert.show('server-error', {
-                            level: 'error',
-                            messages: 'ERR_GENERIC_SERVER_ERROR'
+            // introduce the prospect list's id
+            var prospect_list_id = self.context.get('prospect_list_id')
+
+            // introduce the prospect list bean
+            var prospect_list = app.data.createBean('ProspectLists', {id: prospect_list_id});
+
+            // show loader
+            app.alert.show('fetch_from_data', {level: 'process'});
+
+            // retrieve the prospect list bean
+            prospect_list.fetch({
+
+                // introduce on success callback
+                success: function (prospect_list) {
+
+                    // introduce the from name and address
+                    var from_name = prospect_list.get('from_name_c');
+                    var from_address = prospect_list.get('from_address_c');
+
+                    // close the loader
+                    app.alert.dismiss('fetch_from_data');
+
+                    // make sure that email params are set
+                    if (from_name == '' || from_address == '') {
+
+                        // show the alert
+                        app.alert.show('no_email_data', {
+                            level: 'warning',
+                            messages: "'From' Name and 'From' Address are not set on target list",
+                            autoClose: false
                         });
+
+                        return;
                     }
-                    app.error.handleHttpError(error);
+
+                    var results = [{
+                        default: true,
+                        display: from_name + ' (' + from_address + ')',
+                        id: '123', // OE id needs to be set
+                        type: 'system'
+                    }];
+
+                    // populate 'from' data
+                    self.populateValues(results);
+
+                    // set the from data to the context for later use
+                    self.context.set('ms_from_name', from_name);
+                    self.context.set('ms_from_address', from_address);
+                },
+
+                // introduce on error callback
+                error: function (error) {
+
+                    app.alert.dismiss('fetch_from_data');
+
+                    // display error message
+                    app.alert.show('send_email_drawer_error', {
+                        level: 'error',
+                        messages: 'An error occurred while retrieving target list. Please refresh the page and try again.'
+                    });
+
+                    console.log(error);
                 }
             });
+
+
         }
 
         return result;

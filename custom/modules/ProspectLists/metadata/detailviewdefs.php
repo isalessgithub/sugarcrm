@@ -82,6 +82,19 @@ array (
         array (
           0 => 'description',
         ),
+        3 => 
+        array (
+          0 => 
+          array (
+            'name' => 'from_name_c',
+            'label' => 'LBL_EMAIL_FROM_NAME',
+          ),
+          1 => 
+          array (
+            'name' => 'from_address_c',
+            'label' => 'LBL_EMAIL_FROM_ADDRESS',
+          ),
+        ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
       array (

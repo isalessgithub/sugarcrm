@@ -3,8 +3,12 @@ var opening_drawer = false;
 
 /**
  * Opens 'Send Email' drawer for a contact in calling mode list
+ *
+ * @param contact_id
+ * @param prospect_list_id
+ * @constructor
  */
-function SendEmail(contact_id) {
+function SendEmail(contact_id, prospect_list_id) {
 
     // prevent opening multiple drawers
     if (opening_drawer) {
@@ -37,14 +41,15 @@ function SendEmail(contact_id) {
                 to_addresses: contact,
                 related: contact
             };
-            
+
             // open up a 'create email' drawer
             app.drawer.open({
                 layout: 'ms-compose',
                 context: {
                     create: true,
                     module: 'Emails',
-                    prepopulate: data
+                    prepopulate: data,
+                    prospect_list_id: prospect_list_id
                 }
             });
 
@@ -54,6 +59,8 @@ function SendEmail(contact_id) {
 
         // introduce on error callback
         error: function (error) {
+
+            app.alert.dismiss('open_send_email_drawer');
 
             // display error message
             app.alert.show('send_email_drawer_error', {

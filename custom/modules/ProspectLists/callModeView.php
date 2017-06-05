@@ -148,7 +148,7 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
             $email_icon = SugarThemeRegistry::current()->getImage('Emails',
                 'align="absmiddle" alt="Send Email" border="0"');
 
-            $email_button = "<a href=\"javascript:SendEmail('$record');\"" .
+            $email_button = "<a href=\"javascript:SendEmail('$record','{$_REQUEST['uid']}');\"" .
                 ' class="listViewTdToolsS1" title="Send Email"' .
                 " style='vertical-align:top'>$email_icon</a>";
 
