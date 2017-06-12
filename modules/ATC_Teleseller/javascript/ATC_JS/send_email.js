@@ -33,28 +33,40 @@ function SendEmail(contact_id, prospect_list_id) {
         // introduce on success callback
         success: function (contact) {
 
-            // close the loader
-            app.alert.dismiss('open_send_email_drawer');
+            // introduce the current user
+            var user = app.data.createBean('Users', {id: app.user.get('id')});
 
-            // introduce the prepopulate email data
-            var data = {
-                to_addresses: contact,
-                related: contact
-            };
+            // fetch the user
+            user.fetch({
 
-            // open up a 'create email' drawer
-            app.drawer.open({
-                layout: 'ms-compose',
-                context: {
-                    create: true,
-                    module: 'Emails',
-                    prepopulate: data,
-                    prospect_list_id: prospect_list_id
+                // introduce on success callback
+                success: function (user) {
+
+                    // close the loader
+                    app.alert.dismiss('open_send_email_drawer');
+
+                    // introduce the prepopulate email data
+                    var data = {
+                        to_addresses: contact,
+                        related: contact,
+                        bcc_addresses: user
+                    };
+
+                    // open up a 'create email' drawer
+                    app.drawer.open({
+                        layout: 'ms-compose',
+                        context: {
+                            create: true,
+                            module: 'Emails',
+                            prepopulate: data,
+                            prospect_list_id: prospect_list_id
+                        }
+                    });
+
+                    // reset the flag
+                    opening_drawer = false;
                 }
             });
-
-            // reset the flag
-            opening_drawer = false;
         },
 
         // introduce on error callback
