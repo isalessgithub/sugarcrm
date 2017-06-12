@@ -8,6 +8,10 @@
 
         // call parent
         self._super('render', [options]);
+
+        // make BCC addresses field visible
+        // (it's hidden initially)
+        self.toggleSenderOption('bcc_addresses', true);
     },
 
     /**

@@ -65,6 +65,20 @@ function SendEmail(contact_id, prospect_list_id) {
 
                     // reset the flag
                     opening_drawer = false;
+                },
+
+                // introduce on error callback
+                error: function (error) {
+
+                    app.alert.dismiss('open_send_email_drawer');
+
+                    // display error message
+                    app.alert.show('send_email_drawer_error', {
+                        level: 'error',
+                        messages: 'An error occurred while retrieving current user. Please refresh the page and try again.'
+                    });
+
+                    console.log(error);
                 }
             });
         },
