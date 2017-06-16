@@ -92,7 +92,13 @@ function toggle_domain_name(list_type)  {ldelim}
         array (
           0 => 
           array (
-            'name' => 'description',
+            'name' => 'ms_max_list_size_c',
+            'label' => 'LBL_MS_MAX_LIST_SIZE',
+          ),
+          1 => 
+          array (
+            'name' => 'client_edit_disabled_c',
+            'label' => 'LBL_CLIENT_EDIT_DISABLED',
           ),
         ),
       ),
