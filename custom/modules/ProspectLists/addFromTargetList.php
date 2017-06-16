@@ -42,6 +42,7 @@ class DeleteFromTargetList
               */
         // check if the related module is accounts
         if ($arguments['related_module'] == 'Accounts') {
+
             // create an account object
             $account = BeanFactory::getBean('Accounts', $arguments['related_id']);
             // load the contacts relationship
