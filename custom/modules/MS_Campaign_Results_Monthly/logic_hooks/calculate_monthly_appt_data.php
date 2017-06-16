@@ -41,9 +41,7 @@ class  calculateMonthlyAppointmentData
       $bean->appointment_attended=$row['total_attended'];
       $bean->appointments_reschedule_c=$row['total_scheduled'];
 
-
-    
-     $bean->remaining_target=$bean->appointment_target_monthly-$bean->appointment_attended-$bean->appointment_attended_by_policy-(($bean->appointment_accepted+$bean->appointment_confirmed)*0.75)-($bean->appointments_reschedule_c*0.4);
+     $bean->remaining_target=$bean->appointment_target_monthly-$bean->appointment_attended-$bean->appointment_attended_by_policy-(0.75*($bean->appointment_accepted+$bean->appointment_confirmed+$bean->appointments_reschedule_c));
       
       if($bean->remaining_target>0){
 
