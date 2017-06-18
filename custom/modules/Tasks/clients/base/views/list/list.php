@@ -67,13 +67,40 @@ array (
               ),
               6 => 
               array (
+                'name' => 'tasktype_c',
+                'label' => 'LBL_TASKTYPE',
+                'enabled' => true,
+                'default' => true,
+              ),
+              7 => 
+              array (
+                'name' => 'user_director_c',
+                'label' => 'LBL_USER_DIRECTOR',
+                'enabled' => true,
+                'id' => 'USER_ID_C',
+                'link' => true,
+                'sortable' => false,
+                'default' => true,
+              ),
+              8 => 
+              array (
+                'name' => 'task_campaign_c',
+                'label' => 'LBL_TASK_CAMPAIGN',
+                'enabled' => true,
+                'id' => 'ATC_ISSCAMPAIGNS_ID_C',
+                'link' => true,
+                'sortable' => false,
+                'default' => true,
+              ),
+              9 => 
+              array (
                 'name' => 'description',
                 'label' => 'LBL_DESCRIPTION',
                 'enabled' => true,
                 'sortable' => false,
                 'default' => true,
               ),
-              7 => 
+              10 => 
               array (
                 'name' => 'contact_name',
                 'label' => 'LBL_LIST_CONTACT',
@@ -88,7 +115,7 @@ array (
                   0 => 'contact_id',
                 ),
               ),
-              8 => 
+              11 => 
               array (
                 'name' => 'parent_name',
                 'label' => 'LBL_LIST_RELATED_TO',
@@ -105,20 +132,20 @@ array (
                   1 => 'parent_type',
                 ),
               ),
-              9 => 
+              12 => 
               array (
                 'name' => 'date_modified',
                 'enabled' => true,
                 'default' => false,
               ),
-              10 => 
+              13 => 
               array (
                 'name' => 'team_name',
                 'label' => 'LBL_LIST_TEAM',
                 'enabled' => true,
                 'default' => false,
               ),
-              11 => 
+              14 => 
               array (
                 'name' => 'created_by_name',
                 'label' => 'LBL_CREATED',
@@ -128,7 +155,7 @@ array (
                 'link' => true,
                 'default' => false,
               ),
-              12 => 
+              15 => 
               array (
                 'name' => 'date_entered',
                 'label' => 'LBL_DATE_ENTERED',

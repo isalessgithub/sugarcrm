@@ -75,7 +75,9 @@ array (
           ),
           1 => 
           array (
-            'name' => 'prospectlists_atc_clientsalesreps_1_name',
+            'name' => 'clientsalesrep_owner_c',
+            'studio' => 'visible',
+            'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
         2 => 

@@ -169,50 +169,37 @@ array (
             'panelDefault' => 'expanded',
             'fields' => 
             array (
-              0 => 'date_start',
-              1 => 'priority',
-              2 => 'date_due',
-              3 => 'status',
-              4 => 'assigned_user_name',
-              5 => 'parent_name',
+              0 => 'priority',
+              1 => 'status',
+              2 => 'date_start',
+              3 => 
+              array (
+                'name' => 'tasktype_c',
+                'label' => 'LBL_TASKTYPE',
+              ),
+              4 => 'date_due',
+              5 => 
+              array (
+                'name' => 'iss_list_c',
+                'label' => 'LBL_ISS_LIST',
+              ),
               6 => 
               array (
-                'name' => 'tag',
-                'span' => 6,
+                'name' => 'task_campaign_c',
+                'studio' => 'visible',
+                'label' => 'LBL_TASK_CAMPAIGN',
               ),
               7 => 
               array (
-                'span' => 6,
+                'name' => 'num_accounts_task_c',
+                'label' => 'LBL_NUM_ACCOUNTS_TASK',
               ),
               8 => 
               array (
                 'name' => 'description',
                 'span' => 12,
               ),
-              9 => 
-              array (
-                'name' => 'date_entered_by',
-                'readonly' => true,
-                'inline' => true,
-                'type' => 'fieldset',
-                'label' => 'LBL_DATE_ENTERED',
-                'fields' => 
-                array (
-                  0 => 
-                  array (
-                    'name' => 'date_entered',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'label',
-                    'default_value' => 'LBL_BY',
-                  ),
-                  2 => 
-                  array (
-                    'name' => 'created_by_name',
-                  ),
-                ),
-              ),
+              9 => 'assigned_user_name',
               10 => 
               array (
                 'name' => 'date_modified_by',
@@ -239,13 +226,44 @@ array (
               ),
               11 => 
               array (
-                'name' => 'contact_name',
-                'span' => 6,
+                'name' => 'user_director_c',
+                'studio' => 'visible',
+                'label' => 'LBL_USER_DIRECTOR',
               ),
               12 => 
               array (
+                'name' => 'date_entered_by',
+                'readonly' => true,
+                'inline' => true,
+                'type' => 'fieldset',
+                'label' => 'LBL_DATE_ENTERED',
+                'fields' => 
+                array (
+                  0 => 
+                  array (
+                    'name' => 'date_entered',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'label',
+                    'default_value' => 'LBL_BY',
+                  ),
+                  2 => 
+                  array (
+                    'name' => 'created_by_name',
+                  ),
+                ),
+              ),
+              13 => 
+              array (
+              ),
+              14 => 
+              array (
                 'name' => 'team_name',
-                'span' => 6,
+              ),
+              15 => 
+              array (
+                'name' => 'atc_isscampaigns_tasks_1_name',
               ),
             ),
           ),

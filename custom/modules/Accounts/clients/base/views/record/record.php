@@ -227,52 +227,23 @@ array (
                 'name' => 'add_to_target_list_c',
                 'label' => 'LBL_ADD_TO_TARGET_LIST',
               ),
-              4 => 'industry',
-              5 => 
+              4 => 'annual_revenue',
+              5 => 'industry',
+              6 => 'employees',
+              7 => 
               array (
                 'name' => 'sub_industry_1_c',
                 'label' => 'LBL_SUB_INDUSTRY_1',
               ),
-              6 => 
-              array (
-                'name' => 'industry_2_c',
-                'label' => 'LBL_INDUSTRY_2',
-              ),
-              7 => 
-              array (
-                'name' => 'sub_industry_2_c',
-                'label' => 'LBL_SUB_INDUSTRY_2',
-              ),
               8 => 
-              array (
-                'name' => 'revenue_range_c',
-                'label' => 'LBL_REVENUE_RANGE',
-              ),
-              9 => 
-              array (
-                'name' => 'employees_range_c',
-                'label' => 'LBL_EMPLOYEES_RANGE',
-              ),
-              10 => 
               array (
                 'name' => 'parent_name',
               ),
-              11 => 
+              9 => 
               array (
-                'name' => 'duns_num',
-                'readonly' => true,
+                'name' => 'ownership',
               ),
-              12 => 
-              array (
-                'name' => 'tag',
-                'span' => 6,
-              ),
-              13 => 
-              array (
-                'name' => 'sic_code',
-                'span' => 6,
-              ),
-              14 => 
+              10 => 
               array (
                 'name' => 'description',
                 'span' => 12,
@@ -291,33 +262,17 @@ array (
             'panelDefault' => 'expanded',
             'fields' => 
             array (
-              0 => 'annual_revenue',
-              1 => 'employees',
-              2 => 
+              0 => 
               array (
-                'name' => 'date_entered_by',
-                'readonly' => true,
-                'inline' => true,
-                'type' => 'fieldset',
-                'label' => 'LBL_DATE_ENTERED',
-                'fields' => 
-                array (
-                  0 => 
-                  array (
-                    'name' => 'date_entered',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'label',
-                    'default_value' => 'LBL_BY',
-                  ),
-                  2 => 
-                  array (
-                    'name' => 'created_by_name',
-                  ),
-                ),
+                'name' => 'phone_alternate',
+                'label' => 'LBL_PHONE_ALT',
               ),
-              3 => 
+              1 => 
+              array (
+                'name' => 'contact_count_c',
+                'label' => 'LBL_CONTACT_COUNT',
+              ),
+              2 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -341,21 +296,38 @@ array (
                   ),
                 ),
               ),
+              3 => 
+              array (
+                'name' => 'date_entered_by',
+                'readonly' => true,
+                'inline' => true,
+                'type' => 'fieldset',
+                'label' => 'LBL_DATE_ENTERED',
+                'fields' => 
+                array (
+                  0 => 
+                  array (
+                    'name' => 'date_entered',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'label',
+                    'default_value' => 'LBL_BY',
+                  ),
+                  2 => 
+                  array (
+                    'name' => 'created_by_name',
+                  ),
+                ),
+              ),
               4 => 
               array (
-                'name' => 'ownership',
+                'name' => 'inside_view_id_c',
+                'label' => 'LBL_INSIDE_VIEW_ID',
               ),
               5 => 
               array (
-                'name' => 'contact_count_c',
-                'label' => 'LBL_CONTACT_COUNT',
-              ),
-              6 => 
-              array (
                 'name' => 'team_name',
-              ),
-              7 => 
-              array (
               ),
             ),
           ),

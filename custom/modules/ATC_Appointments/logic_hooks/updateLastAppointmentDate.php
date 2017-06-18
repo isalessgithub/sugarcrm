@@ -25,7 +25,7 @@
                  //first record in the list is the parent
                  //$campaign = current($relatedBeans);
 
-		foreach ($relatedBean as $rb){
+		foreach ($relatedBeans as $rb){
 		$campaign=$rb;
           // store the campaign and appointment dates
           $appointment_date=date('Y-m-d', strtotime($bean->fetched_row['date_entered']));

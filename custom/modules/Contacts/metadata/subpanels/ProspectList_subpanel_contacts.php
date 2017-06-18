@@ -1,5 +1,5 @@
 <?php
-// created: 2017-02-22 09:56:40
+// created: 2017-06-07 13:14:39
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
@@ -52,6 +52,13 @@ $subpanel_layout['list_fields'] = array (
     'widget_class' => 'SubPanelEmailLink',
     'width' => '30%',
     'sortable' => false,
+    'default' => true,
+  ),
+  'appointment_count_c' => 
+  array (
+    'type' => 'varchar',
+    'vname' => 'LBL_APPOINTMENT_COUNT',
+    'width' => '10%',
     'default' => true,
   ),
   'edit_button' => 

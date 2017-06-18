@@ -13,7 +13,7 @@ class SYNO_DashboardTemplateFiltersDashlet extends DashletGeneric
         global $current_user, $app_strings;
         require 'modules/SYNO_DashboardTemplateFilters/metadata/dashletviewdefs.php';
 
-        parent::__construct($id, $def);
+        parent::DashletGeneric($id, $def);
 
         if (empty($def['title'])) {
             $this->title = translate('LBL_HOMEPAGE_TITLE', 'SYNO_DashboardTemplateFilters');

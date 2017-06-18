@@ -217,4 +217,16 @@ $searchFields['Contacts'] = array (
   array (
     'query_type' => 'default',
   ),
+  'title' => 
+  array (
+    'query_type' => 'default',
+  ),
+  'phone_mobile' => 
+  array (
+    'query_type' => 'default',
+  ),
+  'phone_home' => 
+  array (
+    'query_type' => 'default',
+  ),
 );

@@ -62,67 +62,82 @@ array (
               ),
               1 => 
               array (
+                'name' => 'client_owner_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CLIENT_OWNER',
+              ),
+              2 => 
+              array (
+                'name' => 'face_to_face_drop_c',
+                'label' => 'LBL_FACE_TO_FACE_DROP',
+              ),
+              3 => 
+              array (
                 'name' => 'appointments_set_c',
                 'label' => 'LBL_APPOINTMENTS_SET',
               ),
-              2 => 
+              4 => 
               array (
                 'name' => 'appointment_target_campaign_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_CAMPAIGN',
               ),
-              3 => 
+              5 => 
               array (
                 'name' => 'appointment_target_monthly_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_MONTHLY',
               ),
-              4 => 
+              6 => 
               array (
                 'name' => 'campaign_status_c',
                 'label' => 'LBL_CAMPAIGN_STATUS',
               ),
-              5 => 
+              7 => 
               array (
                 'name' => 'potential_start_month_c',
                 'label' => 'LBL_POTENTIAL_START_MONTH',
               ),
-              6 => 
+              8 => 
               array (
                 'name' => 'campaign_email_and_password_c',
                 'label' => 'LBL_CAMPAIGN_EMAIL_AND_PASSWORD',
               ),
-              7 => 
+              9 => 
               array (
                 'name' => 'campaign_start_date_c',
                 'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
-              8 => 
+              10 => 
               array (
                 'name' => 'invoice_sent_c',
                 'label' => 'LBL_INVOICE_SENT',
               ),
-              9 => 
+              11 => 
               array (
                 'name' => 'campaign_finish_date_c',
                 'label' => 'LBL_CAMPAIGN_FINISH_DATE',
               ),
-              10 => 
+              12 => 
               array (
                 'name' => 'invoice_number_c',
                 'label' => 'LBL_INVOICE_NUMBER',
               ),
-              11 => 'team_name',
-              12 => 
+              13 => 
+              array (
+                'name' => 'invoice_paid_c',
+                'label' => 'LBL_INVOICE_PAID',
+              ),
+              14 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              13 => 
+              15 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              14 => 
+              16 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -146,7 +161,7 @@ array (
                   ),
                 ),
               ),
-              15 => 
+              17 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -170,15 +185,28 @@ array (
                   ),
                 ),
               ),
-              16 => 
+              18 => 
+              array (
+                'name' => 'campaign_task_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CAMPAIGN_TASK',
+              ),
+              19 => 
+              array (
+                'name' => 'team_name',
+              ),
+              20 => 
+              array (
+              ),
+              21 => 
+              array (
+                'name' => 'client_campaign_id_c',
+                'label' => 'LBL_CLIENT_CAMPAIGN_ID',
+              ),
+              22 => 
               array (
                 'name' => 'description',
-                'span' => 6,
-              ),
-              17 => 
-              array (
-                'name' => 'cases_atc_isscampaigns_1_name',
-                'span' => 6,
+                'span' => 12,
               ),
             ),
           ),
