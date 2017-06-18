@@ -2231,7 +2231,7 @@ function clean_incoming_data()
 
         //ensure the keys are safe as well.  If mbstring encoding translation is on, the post keys don't
         //get translated, so scrub the data but don't die
-        if (ini_get('mbstring.encoding_translation')==='1') {
+        if (ini_get('mbstring.encoding_translation')==='0') {
             securexsskey($k,false);
         } else {
             securexsskey($k,true);

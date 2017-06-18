@@ -51,12 +51,19 @@ class MS_Campaign_Results_Monthly_sugar extends Basic {
     public $following_link;
     public $my_favorite;
     public $favorite_link;
-    
+    public $appointment_attended;
+    public $appointment_accepted;
+    public $appointment_confirmed;
+    public $appointment_attended_by_policy;
+    public $remaining_target;
+    public $appointment_target_monthly;
+    public $appointment_target_total;
+
     public function bean_implements($interface){
         switch($interface){
             case 'ACL': return true;
         }
         return false;
     }
-    
+
 }

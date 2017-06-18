@@ -80,7 +80,29 @@ array (
         ),
         2 => 
         array (
-          0 => 'description',
+          0 => 
+          array (
+            'name' => 'ms_max_list_size_c',
+            'label' => 'LBL_MS_MAX_LIST_SIZE',
+          ),
+          1 => 
+          array (
+            'name' => 'client_edit_disabled_c',
+            'label' => 'LBL_CLIENT_EDIT_DISABLED',
+          ),
+        ),
+        3 => 
+        array (
+          0 => 
+          array (
+            'name' => 'from_name_c',
+            'label' => 'LBL_EMAIL_FROM_NAME',
+          ),
+          1 => 
+          array (
+            'name' => 'from_address_c',
+            'label' => 'LBL_EMAIL_FROM_ADDRESS',
+          ),
         ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
