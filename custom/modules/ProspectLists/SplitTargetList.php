@@ -29,7 +29,7 @@ class SplitTargetList
         }
 
         // make sure that list has just been finalised
-        if (!$target_list->client_edit_disabled_c or $target_list->fetched_row['client_edit_disabled']) {
+        if (!$target_list->client_edit_disabled_c or $target_list->fetched_row['client_edit_disabled_c']) {
             return;
         }
 
