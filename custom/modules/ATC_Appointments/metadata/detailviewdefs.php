@@ -186,14 +186,32 @@ array (
           array (
             'name' => 'atc_clientsalesreps_atc_appointments_name',
           ),
+          1 => '',
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            'name' => 'second_client_rep_c',
+            'studio' => 'visible',
+            'label' => 'LBL_SECOND_CLIENT_REP',
+          ),
           1 => 
+          array (
+            'name' => 'feedback_status_c',
+            'label' => 'LBL_FEEDBACK_STATUS',
+          ),
+        ),
+        2 => 
+        array (
+          0 => 
           array (
             'name' => 'sales_rep_feedback',
             'studio' => 'visible',
             'label' => 'LBL_SALES_REP_FEEDBACK',
           ),
         ),
-        1 => 
+        3 => 
         array (
           0 => 
           array (
@@ -208,7 +226,7 @@ array (
             'label' => 'LBL_SECOND_APPOINTMENT',
           ),
         ),
-        2 => 
+        4 => 
         array (
           0 => 
           array (

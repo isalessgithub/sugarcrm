@@ -3,7 +3,7 @@ echo getVersionedScript('custom/modules/ProspectLists/js/jquery.dataTables.min.j
 echo getVersionedScript('modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js');
 echo getVersionedScript('modules/ATC_Teleseller/javascript/ATC_JS/send_email.js');
 
-$url = "http://test.isaless.com/";
+$url = "http://crm.isaless.com/";
 global $mod_strings;
 global $current_language;
 global $sugar_config;

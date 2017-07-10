@@ -1,6 +1,7 @@
 <?php
- // created: 2016-10-07 12:36:24
-$dictionary['Contact']['fields']['call_outcome_c']['dependency'] = '';
-$dictionary['Contact']['fields']['call_outcome_c']['visibility_grid'] = '';
-$dictionary['Contact']['fields']['call_outcome_c']['full_text_search']['boost'] = 1;
+ // created: 2017-05-17 13:54:43
+$dictionary['Contact']['fields']['call_outcome_c']['labelValue']='Call Outcome';
+$dictionary['Contact']['fields']['call_outcome_c']['dependency']='';
+$dictionary['Contact']['fields']['call_outcome_c']['visibility_grid']='';
 
+ ?>

@@ -1,7 +1,7 @@
 <?php
- // created: 2017-01-31 13:01:28
+ // created: 2017-05-22 21:22:14
 $dictionary['Contact']['fields']['email']['len']='100';
-$dictionary['Contact']['fields']['email']['audited']=false;
+$dictionary['Contact']['fields']['email']['audited']=true;
 $dictionary['Contact']['fields']['email']['massupdate']=true;
 $dictionary['Contact']['fields']['email']['duplicate_merge']='enabled';
 $dictionary['Contact']['fields']['email']['duplicate_merge_dom_value']='1';

@@ -77,11 +77,10 @@ array (
               ),
               7 => 
               array (
-                'name' => 'invoice_sent_c',
-                'default' => true,
+                'name' => 'invoice_number_c',
+                'label' => 'LBL_INVOICE_NUMBER',
                 'enabled' => true,
-                'type' => 'date',
-                'label' => 'LBL_INVOICE_SENT',
+                'default' => true,
               ),
               8 => 
               array (
@@ -100,6 +99,14 @@ array (
                 'label' => 'LBL_DATE_ENTERED',
               ),
               10 => 
+              array (
+                'name' => 'invoice_sent_c',
+                'default' => false,
+                'enabled' => true,
+                'type' => 'date',
+                'label' => 'LBL_INVOICE_SENT',
+              ),
+              11 => 
               array (
                 'name' => 'team_name',
                 'label' => 'LBL_TEAM',

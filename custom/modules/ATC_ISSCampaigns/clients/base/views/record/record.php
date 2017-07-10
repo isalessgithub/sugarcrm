@@ -62,55 +62,58 @@ array (
               ),
               1 => 
               array (
+                'name' => 'client_owner_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CLIENT_OWNER',
+              ),
+              2 => 
+              array (
+                'name' => 'face_to_face_drop_c',
+                'label' => 'LBL_FACE_TO_FACE_DROP',
+              ),
+              3 => 
+              array (
                 'name' => 'appointments_set_c',
                 'label' => 'LBL_APPOINTMENTS_SET',
               ),
-              2 => 
+              4 => 
               array (
                 'name' => 'appointment_target_campaign_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_CAMPAIGN',
               ),
-              3 => 
+              5 => 
               array (
                 'name' => 'appointment_target_monthly_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_MONTHLY',
               ),
-              4 => 
+              6 => 
               array (
                 'name' => 'campaign_status_c',
                 'label' => 'LBL_CAMPAIGN_STATUS',
               ),
-              5 => 
+              7 => 
               array (
                 'name' => 'potential_start_month_c',
                 'label' => 'LBL_POTENTIAL_START_MONTH',
               ),
-              6 => 
+              8 => 
               array (
                 'name' => 'campaign_email_and_password_c',
                 'label' => 'LBL_CAMPAIGN_EMAIL_AND_PASSWORD',
               ),
-              7 => 
+              9 => 
+              array (
+              ),
+              10 => 
               array (
                 'name' => 'campaign_start_date_c',
                 'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
-              8 => 
-              array (
-                'name' => 'invoice_sent_c',
-                'label' => 'LBL_INVOICE_SENT',
-              ),
-              9 => 
+              11 => 
               array (
                 'name' => 'campaign_finish_date_c',
                 'label' => 'LBL_CAMPAIGN_FINISH_DATE',
               ),
-              10 => 
-              array (
-                'name' => 'invoice_number_c',
-                'label' => 'LBL_INVOICE_NUMBER',
-              ),
-              11 => 'team_name',
               12 => 
               array (
                 'name' => 'assigned_user_name',
@@ -172,17 +175,73 @@ array (
               ),
               16 => 
               array (
-                'name' => 'description',
-                'span' => 6,
+                'name' => 'campaign_task_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CAMPAIGN_TASK',
               ),
               17 => 
               array (
-                'name' => 'cases_atc_isscampaigns_1_name',
-                'span' => 6,
+                'name' => 'team_name',
+              ),
+              18 => 
+              array (
+              ),
+              19 => 
+              array (
+                'name' => 'client_campaign_id_c',
+                'label' => 'LBL_CLIENT_CAMPAIGN_ID',
+              ),
+              20 => 
+              array (
+                'name' => 'description',
+                'span' => 12,
               ),
             ),
           ),
           2 => 
+          array (
+            'newTab' => false,
+            'panelDefault' => 'collapsed',
+            'name' => 'LBL_RECORDVIEW_PANEL2',
+            'label' => 'LBL_RECORDVIEW_PANEL2',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'invoice_number_c',
+                'label' => 'LBL_INVOICE_NUMBER',
+              ),
+              1 => 
+              array (
+                'name' => 'invoice_date_received_c',
+                'label' => 'LBL_INVOICE_DATE_RECEIVED',
+              ),
+              2 => 
+              array (
+                'name' => 'invoice_amount_paid_c',
+                'label' => 'LBL_INVOICE_AMOUNT_PAID',
+              ),
+              3 => 
+              array (
+                'name' => 'invoice_date_deposited_c',
+                'label' => 'LBL_INVOICE_DATE_DEPOSITED',
+              ),
+              4 => 
+              array (
+                'name' => 'invoiced_c',
+                'label' => 'LBL_INVOICED',
+              ),
+              5 => 
+              array (
+                'name' => 'invoice_sent_c',
+                'label' => 'LBL_INVOICE_SENT',
+              ),
+            ),
+          ),
+          3 => 
           array (
             'newTab' => true,
             'panelDefault' => 'expanded',

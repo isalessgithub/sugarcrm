@@ -75,10 +75,16 @@ array (
           ),
           1 => 
           array (
-            'name' => 'prospectlists_atc_clientsalesreps_1_name',
+            'name' => 'clientsalesrep_owner_c',
+            'studio' => 'visible',
+            'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
         2 => 
+        array (
+          0 => 'description',
+        ),
+        3 => 
         array (
           0 => 
           array (
@@ -91,7 +97,7 @@ array (
             'label' => 'LBL_CLIENT_EDIT_DISABLED',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (

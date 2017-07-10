@@ -1,10 +1,13 @@
 <?php
-// created: 2017-01-10 18:06:15
+// created: 2017-06-28 13:25:18
 $viewdefs['ATC_ISSCampaigns']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
   array (
     'name' => 
+    array (
+    ),
+    'invoice_number_c' => 
     array (
     ),
     'assigned_user_name' => 
