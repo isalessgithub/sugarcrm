@@ -52,4 +52,11 @@ $mod_strings = array (
   'LNK_IMPORT_VCARD' => 'Import Campaigns Results Monthly vCard',
   'LBL_IMPORT' => 'Import Campaign Results Monthly',
   'LBL_IMPORT_VCARDTEXT' => 'Automatically create a new Campaigns Results Monthly record by importing a vCard from your file system.',
+  'LBL_APPOINTMENT_ATTENDED' => 'Appointment Attended',
+  'LBL_APPOINTMENT_ACCEPTED' => 'Appointment Accepted',
+  'LBL_APPOINTMENT_CONFIRMED' => 'Appointment Confirmed',
+  'LBL_APPOINTMENT_ATTENDED_BY_POLICY' => 'Appointment Attended by Policy',
+  'LBL_REMAINING_TARGET' => 'Remaining Target',
+  'LBL_APPOINTMENT_TARGET_MONTHLY' => 'Appointment Target (Monthly)',
+  'LBL_APPOINTMENT_TARGET_TOTAL' => 'Appointment Target (Total)',
 );

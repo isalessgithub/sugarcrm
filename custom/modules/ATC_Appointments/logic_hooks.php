@@ -10,6 +10,7 @@ $hook_array = array();
 $hook_array['before_save'] = array();
 $hook_array['before_save'][] = array(1, "Update direct_phone", "custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php", "CustomAppointmentsLH", "update_direct_phone");
 $hook_array['before_save'][] = Array(2, "update last appointment date","custom/modules/ATC_Appointments/logic_hooks/updateLastAppointmentDate.php","updateLastAppointmentDate","updateAppointmentDate");
+$hook_array['before_save'][] = array(3, 'set installed status', 'custom/modules/ATC_Appointments/logic_hooks/monthly_result_logic.php','MonthlyResults', 'monthly_result');
 
 $hook_array['after_save'] = array();
 $hook_array['after_save'][] = array(1, "Update name", "custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php", "CustomAppointmentsLH", "update_name");

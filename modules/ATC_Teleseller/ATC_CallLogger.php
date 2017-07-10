@@ -6,6 +6,10 @@ class CallLogger
     function ATCrenderLogCall($bean, $event, $arguments)
     {
 
+        if(empty($_REQUEST['module'])){
+            return;
+        }
+
         if ($_REQUEST['module'] != 'ProspectLists' && $_REQUEST['action'] != 'DetailView') {
             return;
         }

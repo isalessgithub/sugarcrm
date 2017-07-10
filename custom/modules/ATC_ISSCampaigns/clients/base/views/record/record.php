@@ -51,7 +51,7 @@ array (
             'columns' => 2,
             'labelsOnTop' => true,
             'placeholders' => true,
-            'newTab' => false,
+            'newTab' => true,
             'panelDefault' => 'expanded',
             'fields' => 
             array (
@@ -103,13 +103,11 @@ array (
               ),
               9 => 
               array (
-                'name' => 'campaign_start_date_c',
-                'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
               10 => 
               array (
-                'name' => 'invoice_sent_c',
-                'label' => 'LBL_INVOICE_SENT',
+                'name' => 'campaign_start_date_c',
+                'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
               11 => 
               array (
@@ -118,26 +116,16 @@ array (
               ),
               12 => 
               array (
-                'name' => 'invoice_number_c',
-                'label' => 'LBL_INVOICE_NUMBER',
-              ),
-              13 => 
-              array (
-                'name' => 'invoice_paid_c',
-                'label' => 'LBL_INVOICE_PAID',
-              ),
-              14 => 
-              array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              15 => 
+              13 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              16 => 
+              14 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -161,7 +149,7 @@ array (
                   ),
                 ),
               ),
-              17 => 
+              15 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -185,28 +173,124 @@ array (
                   ),
                 ),
               ),
-              18 => 
+              16 => 
               array (
                 'name' => 'campaign_task_c',
                 'studio' => 'visible',
                 'label' => 'LBL_CAMPAIGN_TASK',
               ),
-              19 => 
+              17 => 
               array (
                 'name' => 'team_name',
               ),
-              20 => 
+              18 => 
               array (
               ),
-              21 => 
+              19 => 
               array (
                 'name' => 'client_campaign_id_c',
                 'label' => 'LBL_CLIENT_CAMPAIGN_ID',
               ),
-              22 => 
+              20 => 
               array (
                 'name' => 'description',
                 'span' => 12,
+              ),
+            ),
+          ),
+          2 => 
+          array (
+            'newTab' => false,
+            'panelDefault' => 'collapsed',
+            'name' => 'LBL_RECORDVIEW_PANEL2',
+            'label' => 'LBL_RECORDVIEW_PANEL2',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'invoice_number_c',
+                'label' => 'LBL_INVOICE_NUMBER',
+              ),
+              1 => 
+              array (
+                'name' => 'invoice_date_received_c',
+                'label' => 'LBL_INVOICE_DATE_RECEIVED',
+              ),
+              2 => 
+              array (
+                'name' => 'invoice_amount_paid_c',
+                'label' => 'LBL_INVOICE_AMOUNT_PAID',
+              ),
+              3 => 
+              array (
+                'name' => 'invoice_date_deposited_c',
+                'label' => 'LBL_INVOICE_DATE_DEPOSITED',
+              ),
+              4 => 
+              array (
+                'name' => 'invoiced_c',
+                'label' => 'LBL_INVOICED',
+              ),
+              5 => 
+              array (
+                'name' => 'invoice_sent_c',
+                'label' => 'LBL_INVOICE_SENT',
+              ),
+            ),
+          ),
+          3 => 
+          array (
+            'newTab' => true,
+            'panelDefault' => 'expanded',
+            'name' => 'LBL_RECORDVIEW_PANEL1',
+            'label' => 'LBL_RECORDVIEW_PANEL1',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'monthly_result_start_date_c',
+                'label' => 'LBL_MONTHLY_RESULT_START_DATE',
+              ),
+              1 => 
+              array (
+                'name' => 'appointments_reschedule_c',
+                'label' => 'LBL_APPOINTMENTS_RESCHEDULE',
+              ),
+              2 => 
+              array (
+                'name' => 'appointment_accepted_c',
+                'label' => 'LBL_APPOINTMENT_ACCEPTED',
+              ),
+              3 => 
+              array (
+                'name' => 'appointment_attended_by_poli_c',
+                'label' => 'LBL_APPOINTMENT_ATTENDED_BY_POLI',
+              ),
+              4 => 
+              array (
+                'name' => 'appointment_attended_c',
+                'label' => 'LBL_APPOINTMENT_ATTENDED',
+              ),
+              5 => 
+              array (
+                'name' => 'appointment_confirmed_c',
+                'label' => 'LBL_APPOINTMENT_CONFIRMED',
+              ),
+              6 => 
+              array (
+                'name' => 'remaining_target_c',
+                'label' => 'LBL_REMAINING_TARGET',
+              ),
+              7 => 
+              array (
+                'name' => 'grand_total_c',
+                'label' => 'LBL_GRAND_TOTAL',
               ),
             ),
           ),
@@ -214,7 +298,7 @@ array (
         'templateMeta' => 
         array (
           'maxColumns' => '2',
-          'useTabs' => false,
+          'useTabs' => true,
         ),
       ),
     ),

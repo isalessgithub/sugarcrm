@@ -1,5 +1,4 @@
 <?php
-// created: 2017-04-06 11:52:51
 $dictionary["MS_Campaign_Results_Monthly"]["fields"]["ms_campaign_results_monthly_atc_isscampaigns"] = array (
   'name' => 'ms_campaign_results_monthly_atc_isscampaigns',
   'type' => 'link',

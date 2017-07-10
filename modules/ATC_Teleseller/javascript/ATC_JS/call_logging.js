@@ -260,7 +260,7 @@ function LogCall(module,parent_record,history,phone_other,contact_name,account_n
 	  '</tr>' +
 	  '<tr><td width="12.5%" valign="top" scope="col" style="display: none" id="save_only_followup_call_label">Save only Follow-Up Call:</td><td><input type="checkbox" class="checkbox" id="save_only_followup_call" style="display: none" name="save_only_followup_call"></td></tr>'
 	  +
-				  '<tr>' + 
+				  '<tr>' +
 '<td width="12.5%" valign="top" scope="col" style="display: none" id="reminder_time_label">'+
 'Reminders:</td><td width="37.5%" valign="top" colspan="3"><div>'+
 '<input type="checkbox" class="checkbox" onclick="toggleReminder(this,\'reminder\');" id="reminder_checked" style="display: none" name="reminder_checked">'+
@@ -295,7 +295,7 @@ function LogCall(module,parent_record,history,phone_other,contact_name,account_n
 
     top += '</table>';
   }
-  
+
   logCallConfigureDlg[parent_record].setHeader("Call Log");
   logCallConfigureDlg[parent_record].setBody(top);
 
@@ -558,6 +558,7 @@ console.log("harro");
       '<td><select name="appointment_status">' +
       '<option label="" value=""></option>' +
       '<option label="Attended" value="Attended">Attended</option>' +
+
       '<option label="Cancelled" value="Canceled">Cancelled</option>' +
       '<option label="Accepted" value="Accepted">Accepted</option>' +
       '<option label="Reschedule" value="Reschedule">Reschedule</option>' +
@@ -604,7 +605,7 @@ console.log("harro");
       '<option label="60" value="60">60</option>' +
       '</select> Minutes</td>' +
       '</tr>' +
-      '<tr>' + 
+      '<tr>' +
 '<td width="12.5%" valign="top" scope="col" id="reminder_time_label">'+
 'Reminders:</td><td width="37.5%" valign="top" colspan="3"><div>'+
 '<input type="checkbox" class="checkbox" onclick="toggleReminder(this,\'reminder\');" id="reminder_checked" name="reminder_checked">'+
@@ -688,7 +689,7 @@ console.log("harro");
       startWeekday: 0,
       comboObject: combo_appointment_date
     });
-	
+
 
     //Call update for first time to round hours and minute values
     combo_appointment_date.update(false);

@@ -7,3 +7,4 @@ $mod_strings['LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE']
 $mod_strings['LBL_CONTACTS_SUBPANEL_TITLE'] = 'Contacts';
 $mod_strings['LBL_CLIENTSALESREP_OWNER'] = 'Client Sales Rep';
 $mod_strings['LBL_CLIENTSALESREP_OWNER_ATC_CLIENTSALESREPS_ID'] = 'Client Sales Rep (related Client Sales Reps ID)';
+$mod_strings['LBL_ACCOUNT_TOTAL'] = 'Account Total';
