@@ -58,5 +58,8 @@ $mod_strings = array (
   'LBL_DIRECT_PHONE' => 'Direct Phone',
   'LBL_APPOINTMENT_DURATION_HOURS' => 'Duration [H]',
   'LBL_APPOINTMENT_DURATION_MINUTES' => 'Duration [M]',
-  'LBL_CONTACT_EMAIL' => 'Contact Email'
+  'LBL_CONTACT_EMAIL' => 'Contact Email',
+  'LBL_APPOINTMENT_FEEDBACK' => 'Appointment Feedback',
+  'LBL_FEEDBACK_TIMESTAMP' => 'Feedback Timestamp'
+
 );
