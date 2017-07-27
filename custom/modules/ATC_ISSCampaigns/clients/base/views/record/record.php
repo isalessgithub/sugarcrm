@@ -193,6 +193,16 @@ array (
               ),
               20 => 
               array (
+                'name' => 'from_address_c',
+                'label' => 'LBL_FROM_ADDRESS',
+              ),
+              21 => 
+              array (
+                'name' => 'from_name_c',
+                'label' => 'LBL_FROM_NAME',
+              ),
+              22 => 
+              array (
                 'name' => 'description',
                 'span' => 12,
               ),
