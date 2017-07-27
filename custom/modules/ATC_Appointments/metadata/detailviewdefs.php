@@ -150,7 +150,11 @@ array (
         9 => 
         array (
           0 => 'assigned_user_name',
-          1 => 
+          1 => 'team_name',
+        ),
+        10 => 
+        array (
+          0 => 
           array (
             'name' => 'date_entered',
             'comment' => 'Date record created',
@@ -161,10 +165,6 @@ array (
             'readonly' => true,
             'label' => 'LBL_DATE_ENTERED',
           ),
-        ),
-        10 => 
-        array (
-          0 => 'team_name',
           1 => 
           array (
             'name' => 'date_modified',
@@ -186,21 +186,21 @@ array (
           array (
             'name' => 'atc_clientsalesreps_atc_appointments_name',
           ),
-          1 => '',
-        ),
-        1 => 
-        array (
-          0 => 
+          1 => 
           array (
             'name' => 'second_client_rep_c',
             'studio' => 'visible',
             'label' => 'LBL_SECOND_CLIENT_REP',
           ),
-          1 => 
+        ),
+        1 => 
+        array (
+          0 => 
           array (
             'name' => 'feedback_status_c',
             'label' => 'LBL_FEEDBACK_STATUS',
           ),
+          1 => '',
         ),
         2 => 
         array (

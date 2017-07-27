@@ -1,5 +1,5 @@
 <?php
-// created: 2017-02-22 09:51:07
+// created: 2017-07-23 11:32:22
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
@@ -42,19 +42,19 @@ $subpanel_layout['list_fields'] = array (
     'vname' => 'LBL_INDUSTRY',
     'width' => '10%',
   ),
-  'revenue_range_c' => 
+  'annual_revenue' => 
   array (
-    'type' => 'enum',
-    'default' => true,
-    'vname' => 'LBL_REVENUE_RANGE',
+    'type' => 'varchar',
+    'vname' => 'LBL_ANNUAL_REVENUE',
     'width' => '10%',
+    'default' => true,
   ),
-  'employees_range_c' => 
+  'employees' => 
   array (
-    'type' => 'enum',
-    'default' => true,
-    'vname' => 'LBL_EMPLOYEES_RANGE',
+    'type' => 'varchar',
+    'vname' => 'LBL_EMPLOYEES',
     'width' => '10%',
+    'default' => true,
   ),
   'contact_count_c' => 
   array (

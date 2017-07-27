@@ -1,6 +1,12 @@
 <?php
- // created: 2016-10-07 12:36:24
-$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['enforced'] = '';
-$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['dependency'] = '';
-$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['full_text_search']['boost'] = 1;
+ // created: 2017-07-25 21:03:07
+$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['labelValue']='Invoice Details';
+$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['full_text_search']=array (
+  'enabled' => '0',
+  'boost' => '1',
+  'searchable' => false,
+);
+$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['enforced']='';
+$dictionary['ATC_ISSCampaigns']['fields']['invoiced_c']['dependency']='';
 
+ ?>

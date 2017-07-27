@@ -28,3 +28,4 @@ $mod_strings['LBL_INVOICE_AMOUNT_PAID'] = 'Amount Paid';
 $mod_strings['LBL_INVOICE_DATE_RECEIVED'] = 'Invoice Date Received';
 $mod_strings['LBL_INVOICE_DATE_DEPOSITED'] = 'Invoice Date Deposited';
 $mod_strings['LBL_RECORDVIEW_PANEL2'] = 'Invoicing';
+$mod_strings['LBL_INVOICED'] = 'Invoice Details';
