@@ -331,6 +331,47 @@ array (
               ),
             ),
           ),
+          3 => 
+          array (
+            'name' => 'LBL_LINKEDIN_CUSTOM_FIELDS_GROUP',
+            'label' => 'LBL_LINKEDIN_CUSTOM_FIELDS_GROUP',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'rls_industry_c',
+                'label' => 'LBL_RLS_INDUSTRY',
+              ),
+              1 => 
+              array (
+                'name' => 'rls_linkedin_url_c',
+                'label' => 'LBL_LINKEDIN_URL',
+              ),
+              2 => 
+              array (
+                'name' => 'rls_description2_c',
+                'label' => 'LBL_DESCRIPTION2',
+              ),
+              3 => 
+              array (
+                'name' => 'rls_description3_c',
+                'label' => 'LBL_DESCRIPTION3',
+              ),
+              4 => 
+              array (
+                'name' => 'rls_current_workplace_c',
+                'label' => 'LBL_CURRENT_WORKPLACE',
+              ),
+              5 => 
+              array (
+                'name' => 'rls_last_position_c',
+                'label' => 'LBL_LAST_POSITION',
+              ),
+            ),
+          ),
         ),
         'templateMeta' => 
         array (
