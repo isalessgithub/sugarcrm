@@ -47,6 +47,24 @@ array (
               ),
               4 => 
               array (
+                'name' => 'user_director_c',
+                'label' => 'LBL_USER_DIRECTOR',
+                'enabled' => true,
+                'id' => 'USER_ID_C',
+                'link' => true,
+                'sortable' => false,
+                'default' => true,
+              ),
+              5 => 
+              array (
+                'name' => 'description',
+                'label' => 'LBL_DESCRIPTION',
+                'enabled' => true,
+                'sortable' => false,
+                'default' => true,
+              ),
+              6 => 
+              array (
                 'name' => 'date_start',
                 'label' => 'LBL_LIST_START_DATE',
                 'css_class' => 'overflow-visible',
@@ -54,7 +72,7 @@ array (
                 'enabled' => true,
                 'default' => true,
               ),
-              5 => 
+              7 => 
               array (
                 'name' => 'date_due',
                 'label' => 'LBL_LIST_DUE_DATE',
@@ -65,38 +83,20 @@ array (
                 'enabled' => true,
                 'default' => true,
               ),
-              6 => 
+              8 => 
               array (
                 'name' => 'tasktype_c',
                 'label' => 'LBL_TASKTYPE',
                 'enabled' => true,
                 'default' => true,
               ),
-              7 => 
-              array (
-                'name' => 'user_director_c',
-                'label' => 'LBL_USER_DIRECTOR',
-                'enabled' => true,
-                'id' => 'USER_ID_C',
-                'link' => true,
-                'sortable' => false,
-                'default' => true,
-              ),
-              8 => 
+              9 => 
               array (
                 'name' => 'task_campaign_c',
                 'label' => 'LBL_TASK_CAMPAIGN',
                 'enabled' => true,
                 'id' => 'ATC_ISSCAMPAIGNS_ID_C',
                 'link' => true,
-                'sortable' => false,
-                'default' => true,
-              ),
-              9 => 
-              array (
-                'name' => 'description',
-                'label' => 'LBL_DESCRIPTION',
-                'enabled' => true,
                 'sortable' => false,
                 'default' => true,
               ),

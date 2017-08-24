@@ -177,30 +177,20 @@ array (
                 'name' => 'tasktype_c',
                 'label' => 'LBL_TASKTYPE',
               ),
-              4 => 'date_due',
+              4 => 
+              array (
+                'name' => 'date_due',
+              ),
               5 => 
               array (
-                'name' => 'iss_list_c',
-                'label' => 'LBL_ISS_LIST',
               ),
               6 => 
-              array (
-                'name' => 'task_campaign_c',
-                'studio' => 'visible',
-                'label' => 'LBL_TASK_CAMPAIGN',
-              ),
-              7 => 
-              array (
-                'name' => 'num_accounts_task_c',
-                'label' => 'LBL_NUM_ACCOUNTS_TASK',
-              ),
-              8 => 
               array (
                 'name' => 'description',
                 'span' => 12,
               ),
-              9 => 'assigned_user_name',
-              10 => 
+              7 => 'assigned_user_name',
+              8 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -224,13 +214,13 @@ array (
                   ),
                 ),
               ),
-              11 => 
+              9 => 
               array (
                 'name' => 'user_director_c',
                 'studio' => 'visible',
                 'label' => 'LBL_USER_DIRECTOR',
               ),
-              12 => 
+              10 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -254,16 +244,38 @@ array (
                   ),
                 ),
               ),
-              13 => 
+            ),
+          ),
+          2 => 
+          array (
+            'newTab' => false,
+            'panelDefault' => 'expanded',
+            'name' => 'LBL_RECORDVIEW_PANEL1',
+            'label' => 'LBL_RECORDVIEW_PANEL1',
+            'columns' => 2,
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
               array (
+                'name' => 'task_campaign_c',
+                'studio' => 'visible',
+                'label' => 'LBL_TASK_CAMPAIGN',
               ),
-              14 => 
+              1 => 
+              array (
+                'name' => 'iss_list_c',
+                'label' => 'LBL_ISS_LIST',
+              ),
+              2 => 
+              array (
+                'name' => 'num_accounts_task_c',
+                'label' => 'LBL_NUM_ACCOUNTS_TASK',
+              ),
+              3 => 
               array (
                 'name' => 'team_name',
-              ),
-              15 => 
-              array (
-                'name' => 'atc_isscampaigns_tasks_1_name',
               ),
             ),
           ),

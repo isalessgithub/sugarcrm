@@ -94,6 +94,13 @@ array (
     'id' => 'ASSIGNED_USER_ID',
     'default' => true,
   ),
+  'feedback_status_c' => 
+  array (
+    'type' => 'enum',
+    'default' => false,
+    'label' => 'LBL_FEEDBACK_STATUS',
+    'width' => '10%',
+  ),
   'created_by_name' => 
   array (
     'type' => 'relate',
@@ -102,6 +109,6 @@ array (
     'label' => 'LBL_CREATED',
     'id' => 'CREATED_BY',
     'width' => '8%',
-    'default' => true,
+    'default' => false,
   ),
 );
