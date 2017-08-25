@@ -52,7 +52,7 @@ function sendFeedbackEmail($id,$salesrep_id){
 		$mail->From = $defaults['email'];
 		$mail->FromName = $defaults['name'];
 		$mail->Subject = $email_subject;
-		$body = str_replace("~link~","<a href='http://testportal.isaless.com/feedback.php?appointment_id=".$app->id."'>Appointment Feedback</a>",$email_body);
+		$body = str_replace("~link~","<a href='https://portal.isaless.com/feedback.php?appointment_id=".$app->id."'>Appointment Feedback</a>",$email_body);
 		$body = str_replace("~first_name~",$salesrep->first_name,$body);
 		$mail->Body = $body;
 		$mail->IsHTML(true);
