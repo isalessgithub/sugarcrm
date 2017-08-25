@@ -11,7 +11,9 @@ function sendFeedbackEmail($id,$salesrep_id){
 
 		$app = BeanFactory::getBean('ATC_Appointments', $id);
 		$salesrep = BeanFactory::getBean('ATC_ClientSalesReps',$salesrep_id);
+		$account = BeanFactory::getBean('Accounts', $app->accounts_atc_appointments_1accounts_ida);
 
+		$GLOBALS['log']->fatal('account--'.$bean->accounts_atc_appointments_1accounts_ida."--".$account->name);
 		$salesrep_email = "";
 		/*
 		foreach($salesrep->emailAddresses->addresses as $address){
@@ -51,9 +53,14 @@ function sendFeedbackEmail($id,$salesrep_id){
 		$mail->setMailerForSystem();
 		$mail->From = $defaults['email'];
 		$mail->FromName = $defaults['name'];
-		$mail->Subject = $email_subject;
+
+		$subject_string=str_replace("~account~", $account->name,$email_subject);
+
+		$mail->Subject = $subject_string;
 		$body = str_replace("~link~","<a href='http://testportal.isaless.com/feedback.php?appointment_id=".$app->id."'>Appointment Feedback</a>",$email_body);
 		$body = str_replace("~first_name~",$salesrep->first_name,$body);
+		$body = str_replace("~account~", $account->name,$body);
+
 		$mail->Body = $body;
 		$mail->IsHTML(true);
 		$mail->prepForOutbound();
