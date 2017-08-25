@@ -1,5 +1,5 @@
 <?php
-// created: 2017-06-28 13:41:26
+// created: 2017-07-23 11:29:04
 $viewdefs['ProspectLists']['base']['view']['subpanel-for-atc_isscampaigns-atc_isscampaigns_prospectlists_1'] = array (
   'panels' => 
   array (
@@ -19,24 +19,26 @@ $viewdefs['ProspectLists']['base']['view']['subpanel-for-atc_isscampaigns-atc_is
         ),
         1 => 
         array (
-          'label' => 'LBL_LIST_DESCRIPTION',
-          'enabled' => true,
-          'default' => true,
-          'name' => 'description',
-        ),
-        2 => 
-        array (
-          'label' => 'LBL_LIST_TYPE_NO',
-          'enabled' => true,
-          'default' => true,
-          'name' => 'list_type',
-        ),
-        3 => 
-        array (
           'name' => 'account_total_c',
           'label' => 'LBL_ACCOUNT_TOTAL',
           'enabled' => true,
           'default' => true,
+        ),
+        2 => 
+        array (
+          'name' => 'assigned_user_name',
+          'label' => 'LBL_ASSIGNED_TO',
+          'enabled' => true,
+          'id' => 'ASSIGNED_USER_ID',
+          'link' => true,
+          'default' => true,
+        ),
+        3 => 
+        array (
+          'label' => 'LBL_LIST_DESCRIPTION',
+          'enabled' => true,
+          'default' => true,
+          'name' => 'description',
         ),
       ),
     ),

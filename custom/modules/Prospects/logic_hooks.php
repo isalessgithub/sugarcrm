@@ -5,7 +5,8 @@
 $hook_array = Array(); 
 // position, file, function 
 $hook_array['process_record'] = Array(); 
-$hook_array['process_record'][] = Array(55, 'Log call for Prospects ListView', 'modules/ATC_Teleseller/ATC_CallLogger.php','CallLogger', 'ATCrenderLogCall'); 
+$hook_array['process_record'][] = Array(55,'Log call for Prospects ListView','modules/ATC_Teleseller/ATC_CallLogger.php','CallLogger','ATCrenderLogCall',);
+$hook_array['process_record'][] = Array(11,'Set linkedin profile','custom/include/RLS/hooks/rls_linkedin_logic_hook.php','rls_linkedin_logic_hook','setLinkedinProfile',);
 
 
 

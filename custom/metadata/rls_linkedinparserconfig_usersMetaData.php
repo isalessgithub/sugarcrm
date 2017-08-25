@@ -1,0 +1,15 @@
+<?php $dictionary["rls_linkedinparserconfig_users"] = array( 'true_relationship_type' => 'one-to-one',
+ 'relationships' => array( 'rls_linkedinparserconfig_users' => array( 'lhs_module' => 'RLS_LinkedinParserConfig',
+ 'lhs_table' => 'rls_linkedinparserconfig', 'lhs_key' => 'id', 'rhs_module' => 'Users', 'rhs_table' => 'users',
+ 'rhs_key' => 'id', 'relationship_type' => 'many-to-many', 'join_table' => 'rls_linkedinparserconfig_users_c',
+ 'join_key_lhs' => 'rls_linkedinparserconfig_usersrls_linkedinparserconfig_ida', 'join_key_rhs' => 'rls_linkedinparserconfig_usersusers_idb',
+ ), ), 'table' => 'rls_linkedinparserconfig_users_c', 'fields' => array( 'id' => array( 'name' => 'id',
+ 'type' => 'varchar', 'len' => 36, ), 'date_modified' => array( 'name' => 'date_modified', 'type' => 'datetime',
+ ), 'deleted' => array( 'name' => 'deleted', 'type' => 'bool', 'len' => '1', 'default' => '0', 'required' => true,
+ ), 'rls_linkedinparserconfig_usersrls_linkedinparserconfig_ida' => array( 'name' => 'rls_linkedinparserconfig_usersrls_linkedinparserconfig_ida', 'type' => 'varchar',
+ 'len' => 36, ), 'rls_linkedinparserconfig_usersusers_idb' => array( 'name' => 'rls_linkedinparserconfig_usersusers_idb', 'type' => 'varchar',
+ 'len' => 36, ), ), 'indices' => array( 0 => array( 'name' => 'rls_linkedinparserconfig_usersspk',
+ 'type' => 'primary', 'fields' => array( 0 => 'id', ), ), 1 => array( 'name' => 'rls_linkedinparserconfig_users_ida1',
+ 'type' => 'index', 'fields' => array( 0 => 'rls_linkedinparserconfig_usersrls_linkedinparserconfig_ida',
+ ), ), 2 => array( 'name' => 'rls_linkedinparserconfig_users_idb2', 'type' => 'index', 'fields' =>
+ array( 0 => 'rls_linkedinparserconfig_usersusers_idb', ), ), ), );

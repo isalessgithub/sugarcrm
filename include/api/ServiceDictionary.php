@@ -78,6 +78,7 @@ class ServiceDictionary {
      * Build all dictionaries for the known service types.
      */
     public function buildAllDictionaries() {
+	log_callstack();
         $apis = $this->loadAllDictionaryClasses();
 
         foreach ( $apis as $apiType => $api ) {
