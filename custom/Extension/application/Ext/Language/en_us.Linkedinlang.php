@@ -1,0 +1,2 @@
+<?php $app_list_strings['moduleList']['RLS_LinkedinParserConfig'] = 'Social2Sugar User Config'; $app_list_strings['rls_assign_to_list']['current_user'] = 'Current User';
+$app_list_strings['rls_assign_to_list']['select_user'] = 'Select User'; 
