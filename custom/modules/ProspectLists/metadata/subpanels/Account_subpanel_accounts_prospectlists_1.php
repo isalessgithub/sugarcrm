@@ -1,5 +1,5 @@
 <?php
-// created: 2017-06-03 13:15:18
+// created: 2017-07-26 14:52:10
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
@@ -15,17 +15,11 @@ $subpanel_layout['list_fields'] = array (
     'sortable' => false,
     'default' => true,
   ),
-  'list_type' => 
+  'account_total_c' => 
   array (
-    'vname' => 'LBL_LIST_TYPE_NO',
+    'type' => 'int',
+    'vname' => 'LBL_ACCOUNT_TOTAL',
     'width' => '10%',
-    'default' => true,
-  ),
-  'entry_count' => 
-  array (
-    'vname' => 'LBL_LIST_ENTRIES',
-    'width' => '10%',
-    'sortable' => false,
     'default' => true,
   ),
 );

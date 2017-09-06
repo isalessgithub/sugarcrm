@@ -45,15 +45,13 @@ array (
         'default' => true,
         'name' => 'date_entered',
       ),
-      'atc_isscampaigns_atc_appointments_name' => 
+      'current_user_only' => 
       array (
-        'type' => 'relate',
-        'link' => true,
-        'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
-        'id' => 'ATC_ISSCAMPAIGNS_ATC_APPOINTMENTSATC_ISSCAMPAIGNS_IDA',
-        'width' => '10%',
+        'label' => 'LBL_CURRENT_USER_FILTER',
+        'type' => 'bool',
         'default' => true,
-        'name' => 'atc_isscampaigns_atc_appointments_name',
+        'width' => '10%',
+        'name' => 'current_user_only',
       ),
       'accounts_atc_appointments_1_name' => 
       array (
@@ -65,13 +63,25 @@ array (
         'default' => true,
         'name' => 'accounts_atc_appointments_1_name',
       ),
-      'created_by' => 
+      'atc_appointments_contacts_name' => 
       array (
-        'type' => 'assigned_user_name',
-        'label' => 'LBL_CREATED',
+        'type' => 'relate',
+        'link' => true,
+        'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
+        'id' => 'ATC_APPOINTMENTS_CONTACTSCONTACTS_IDA',
         'width' => '10%',
         'default' => true,
-        'name' => 'created_by',
+        'name' => 'atc_appointments_contacts_name',
+      ),
+      'atc_isscampaigns_atc_appointments_name' => 
+      array (
+        'type' => 'relate',
+        'link' => true,
+        'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
+        'id' => 'ATC_ISSCAMPAIGNS_ATC_APPOINTMENTSATC_ISSCAMPAIGNS_IDA',
+        'width' => '10%',
+        'default' => true,
+        'name' => 'atc_isscampaigns_atc_appointments_name',
       ),
       'appointment_status' => 
       array (
@@ -81,14 +91,6 @@ array (
         'label' => 'LBL_APPOINTMENT_STATUS',
         'width' => '10%',
         'name' => 'appointment_status',
-      ),
-      'one_appointment_c' => 
-      array (
-        'type' => 'int',
-        'default' => true,
-        'label' => 'LBL_ONE_APPOINTMENT',
-        'width' => '10%',
-        'name' => 'one_appointment_c',
       ),
       'assigned_user_id' => 
       array (
@@ -106,6 +108,14 @@ array (
         'width' => '10%',
         'default' => true,
       ),
+      'created_by' => 
+      array (
+        'type' => 'assigned_user_name',
+        'label' => 'LBL_CREATED',
+        'width' => '10%',
+        'default' => true,
+        'name' => 'created_by',
+      ),
       'appointment_date' => 
       array (
         'type' => 'datetimecombo',
@@ -113,16 +123,6 @@ array (
         'width' => '10%',
         'default' => true,
         'name' => 'appointment_date',
-      ),
-      'prospectlists_atc_appointments_1_name' => 
-      array (
-        'type' => 'relate',
-        'link' => true,
-        'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
-        'id' => 'PROSPECTLISTS_ATC_APPOINTMENTS_1PROSPECTLISTS_IDA',
-        'width' => '10%',
-        'default' => true,
-        'name' => 'prospectlists_atc_appointments_1_name',
       ),
     ),
   ),

@@ -48,7 +48,7 @@ array (
         'LBL_PANEL_ASSIGNMENT' => 
         array (
           'newTab' => false,
-          'panelDefault' => 'expanded',
+          'panelDefault' => 'collapsed',
         ),
       ),
       'syncDetailEditViews' => true,
@@ -67,11 +67,20 @@ array (
         ),
         1 => 
         array (
-          0 => 
+          0 => 'assigned_user_name',
+          1 => 
           array (
             'name' => 'clients_c',
             'studio' => 'visible',
             'label' => 'LBL_CLIENTS',
+          ),
+        ),
+        2 => 
+        array (
+          0 => 
+          array (
+            'name' => 'account_total_c',
+            'label' => 'LBL_ACCOUNT_TOTAL',
           ),
           1 => 
           array (
@@ -80,11 +89,11 @@ array (
             'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 'description',
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
@@ -97,7 +106,7 @@ array (
             'label' => 'LBL_CLIENT_EDIT_DISABLED',
           ),
         ),
-        4 => 
+        5 => 
         array (
           0 => 
           array (
@@ -115,22 +124,22 @@ array (
       array (
         0 => 
         array (
-          0 => 'assigned_user_name',
-          1 => 
+          0 => 
           array (
             'name' => 'date_modified',
             'label' => 'LBL_DATE_MODIFIED',
             'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
           ),
-        ),
-        1 => 
-        array (
-          0 => 'team_name',
           1 => 
           array (
             'name' => 'date_entered',
             'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
           ),
+        ),
+        1 => 
+        array (
+          0 => '',
+          1 => 'team_name',
         ),
       ),
     ),

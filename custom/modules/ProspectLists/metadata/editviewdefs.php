@@ -50,7 +50,7 @@ function toggle_domain_name(list_type)  {ldelim}
         'LBL_PANEL_ASSIGNMENT' => 
         array (
           'newTab' => false,
-          'panelDefault' => 'expanded',
+          'panelDefault' => 'collapsed',
         ),
       ),
       'syncDetailEditViews' => true,
@@ -79,9 +79,22 @@ function toggle_domain_name(list_type)  {ldelim}
         array (
           0 => 
           array (
+            'name' => 'assigned_user_name',
+            'label' => 'LBL_ASSIGNED_TO_NAME',
+          ),
+          1 => 
+          array (
             'name' => 'clients_c',
             'studio' => 'visible',
             'label' => 'LBL_CLIENTS',
+          ),
+        ),
+        2 => 
+        array (
+          0 => 
+          array (
+            'name' => 'account_total_c',
+            'label' => 'LBL_ACCOUNT_TOTAL',
           ),
           1 => 
           array (
@@ -90,14 +103,14 @@ function toggle_domain_name(list_type)  {ldelim}
             'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (
             'name' => 'description',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
@@ -110,7 +123,7 @@ function toggle_domain_name(list_type)  {ldelim}
             'label' => 'LBL_CLIENT_EDIT_DISABLED',
           ),
         ),
-        4 => 
+        5 => 
         array (
           0 => 
           array (
@@ -130,31 +143,27 @@ function toggle_domain_name(list_type)  {ldelim}
         array (
           0 => 
           array (
-            'name' => 'assigned_user_name',
-            'label' => 'LBL_ASSIGNED_TO_NAME',
-          ),
-          1 => 
-          array (
             'name' => 'date_modified',
             'readonly' => true,
             'label' => 'LBL_DATE_MODIFIED',
-          ),
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
-            'name' => 'team_name',
-            'displayParams' => 
-            array (
-              'display' => true,
-            ),
           ),
           1 => 
           array (
             'name' => 'date_entered',
             'readonly' => true,
             'label' => 'LBL_DATE_ENTERED',
+          ),
+        ),
+        1 => 
+        array (
+          0 => '',
+          1 => 
+          array (
+            'name' => 'team_name',
+            'displayParams' => 
+            array (
+              'display' => true,
+            ),
           ),
         ),
       ),

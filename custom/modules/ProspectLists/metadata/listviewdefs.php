@@ -1,11 +1,18 @@
 <?php
-// created: 2017-02-28 11:17:59
-$listViewDefs['ProspectLists'] = array (
+$listViewDefs['ProspectLists'] = 
+array (
   'name' => 
   array (
     'width' => '25%',
     'label' => 'LBL_LIST_PROSPECT_LIST_NAME',
     'link' => true,
+    'default' => true,
+  ),
+  'account_total_c' => 
+  array (
+    'type' => 'int',
+    'label' => 'LBL_ACCOUNT_TOTAL',
+    'width' => '10%',
     'default' => true,
   ),
   'description' => 
@@ -23,25 +30,26 @@ $listViewDefs['ProspectLists'] = array (
     'width' => '10%',
     'default' => true,
   ),
+  'assigned_user_name' => 
+  array (
+    'width' => '10%',
+    'label' => 'LBL_LIST_ASSIGNED_USER',
+    'module' => 'Employees',
+    'id' => 'ASSIGNED_USER_ID',
+    'default' => true,
+  ),
   'date_entered' => 
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_ENTERED',
     'width' => '10%',
-    'default' => true,
+    'default' => false,
   ),
   'date_modified' => 
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_MODIFIED',
     'width' => '10%',
-    'default' => true,
-  ),
-  'entry_count' => 
-  array (
-    'type' => 'int',
-    'label' => 'LBL_LIST_ENTRIES',
-    'width' => '10%',
-    'default' => true,
+    'default' => false,
   ),
 );

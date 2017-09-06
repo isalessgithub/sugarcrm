@@ -120,13 +120,20 @@ array (
               ),
               11 => 
               array (
+                'name' => 'feedback_status_c',
+                'label' => 'LBL_FEEDBACK_STATUS',
+                'enabled' => true,
+                'default' => false,
+              ),
+              12 => 
+              array (
                 'name' => 'created_by_name',
                 'label' => 'LBL_CREATED',
                 'enabled' => true,
                 'readonly' => true,
                 'id' => 'CREATED_BY',
                 'link' => true,
-                'default' => true,
+                'default' => false,
                 'width' => '8',
               ),
             ),

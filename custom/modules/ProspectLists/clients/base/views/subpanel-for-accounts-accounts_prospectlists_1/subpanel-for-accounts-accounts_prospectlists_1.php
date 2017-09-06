@@ -1,5 +1,5 @@
 <?php
-// created: 2017-06-03 13:15:18
+// created: 2017-07-26 14:52:11
 $viewdefs['ProspectLists']['base']['view']['subpanel-for-accounts-accounts_prospectlists_1'] = array (
   'panels' => 
   array (
@@ -26,17 +26,10 @@ $viewdefs['ProspectLists']['base']['view']['subpanel-for-accounts-accounts_prosp
         ),
         2 => 
         array (
-          'label' => 'LBL_LIST_TYPE_NO',
+          'name' => 'account_total_c',
+          'label' => 'LBL_ACCOUNT_TOTAL',
           'enabled' => true,
           'default' => true,
-          'name' => 'list_type',
-        ),
-        3 => 
-        array (
-          'label' => 'LBL_LIST_ENTRIES',
-          'enabled' => true,
-          'default' => true,
-          'name' => 'entry_count',
         ),
       ),
     ),
