@@ -205,16 +205,15 @@ array (
             'name' => 'feedback_status_c',
             'label' => 'LBL_FEEDBACK_STATUS',
           ),
-          1 => '',
-        ),
-        2 => 
-        array (
-          0 => 
+          1 => 
           array (
             'name' => 'feedback_timestamp',
             'label' => 'LBL_FEEDBACK_TIMESTAMP',
           ),
-          1 => 
+        ),
+        2 => 
+        array (
+          0 => 
           array (
             'name' => 'appointment_feedback',
             'studio' => 'visible',
@@ -222,15 +221,6 @@ array (
           ),
         ),
         3 => 
-        array (
-          0 => 
-          array (
-            'name' => 'sales_rep_feedback',
-            'studio' => 'visible',
-            'label' => 'LBL_SALES_REP_FEEDBACK',
-          ),
-        ),
-        4 => 
         array (
           0 => 
           array (
@@ -245,7 +235,7 @@ array (
             'label' => 'LBL_SECOND_APPOINTMENT',
           ),
         ),
-        5 => 
+        4 => 
         array (
           0 => 
           array (

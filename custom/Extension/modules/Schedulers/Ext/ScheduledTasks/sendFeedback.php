@@ -53,6 +53,8 @@ function sendFeedbackEmail($id,$salesrep_id){
 		$mail->setMailerForSystem();
 		$mail->From = $defaults['email'];
 		$mail->FromName = $defaults['name'];
+		//$mail->From = 'ken@mastersolve.com';
+		//$mail->FromName = 'test mctesterton';
 
 		$subject_string=str_replace("~account~", $account->name,$email_subject);
 		$mail->Subject = $subject_string;
@@ -82,7 +84,7 @@ function sendFeedback(){
         global $timedate;
 
 
-	$find_new = "SELECT atc_appointments.id AS id, atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida as salesrep_id
+	$find_new = "SELECT atc_appointments.id AS id, atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida as salesrep_id, atc_clientsalesreps_id_c as salesrep_id2
                 FROM atc_appointments
                 INNER JOIN atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c
                 INNER JOIN atc_clientsalesreps_atc_appointments_c on atc_clientsalesreps_atc_appointmentsatc_appointments_idb = atc_appointments.id and atc_clientsalesreps_atc_appointments_c.deleted = 0
@@ -96,6 +98,7 @@ function sendFeedback(){
 	while ($newapp = $db->fetchRow($newq)){
 		$GLOBALS['log']->fatal("first send");
 		//sendFeedbackEmail($newapp['id'],$newapp['salesrep_id']);
+		if($newapp['salesrep_id'] != '' && !empty($newapp['salesrep_id'])){
 		if (sendFeedbackEmail($newapp['id'],$newapp['salesrep_id']) == true){
 			$app = BeanFactory::getBean('ATC_Appointments', $newapp['id']);
 			$app->feedback_status_c = 'sent';
@@ -103,11 +106,21 @@ function sendFeedback(){
                 	//$app->feedback_timestamp = $dt->asDb();
 			$app->save();
 		}
+		}
+		if($newapp['salesrep_id2'] != '' && !empty($newapp['salesrep_id2'])){
+		if (sendFeedbackEmail($newapp['id'],$newapp['salesrep_id2']) == true){
+			$app = BeanFactory::getBean('ATC_Appointments', $newapp['id']);
+			$app->feedback_status_c = 'sent';
+                	$dt = new SugarDateTime();
+                	//$app->feedback_timestamp = $dt->asDb();
+			$app->save();
+		}
+		}
 	}
 
 	//send second email.
 
-	$find_1 ="SELECT atc_appointments.id AS id, atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida as salesrep_id
+	$find_1 ="SELECT atc_appointments.id AS id, atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida as salesrep_id, atc_clientsalesreps_id_c as salesrep_id2
 		FROM atc_appointments
 		INNER JOIN  atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c
                 INNER JOIN atc_clientsalesreps_atc_appointments_c on atc_clientsalesreps_atc_appointmentsatc_appointments_idb = atc_appointments.id and atc_clientsalesreps_atc_appointments_c.deleted=0
@@ -119,18 +132,29 @@ function sendFeedback(){
 		$GLOBALS['log']->fatal("Second Email ");
 		//$GLOBALS['log']->fatal();
 		//sendFeedbackEmail($newapp['id'],$app_1['salesrep_id']);
-              if (sendFeedbackEmail($app_1['id'],$app_1['salesrep_id']) == true){
-			$app = BeanFactory::getBean('ATC_Appointments',$app_1['id']);
-			$app->feedback_status_c = 'sent twice';
-                	$dt = new SugarDateTime();
-                	//$app->feedback_timestamp = $dt->asDb();
-                	$app->save();
-		}
+		if($app_1['salesrep_id'] != '' && !empty($app_1['salesrep_id'])){
+			if (sendFeedbackEmail($app_1['id'],$app_1['salesrep_id']) == true){
+				$app = BeanFactory::getBean('ATC_Appointments', $app_1['id']);
+				$app->feedback_status_c = 'sent twice';
+				$dt = new SugarDateTime();
+				//$app->feedback_timestamp = $dt->asDb();
+				$app->save();
+			}
+            	}
+            	if($app_1['salesrep_id2'] != '' && !empty($app_1['salesrep_id2'])){
+			if (sendFeedbackEmail($app_1['id'],$app_1['salesrep_id2']) == true){
+				$app = BeanFactory::getBean('ATC_Appointments', $app_1['id']);
+				$app->feedback_status_c = 'sent twice';
+				$dt = new SugarDateTime();
+				//$app->feedback_timestamp = $dt->asDb();
+				$app->save();
+			}
+            	}
 	}
 
 
 	//send third email.
-	$find_2 ="SELECT atc_appointments.id AS id, atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida as salesrep_id
+	$find_2 ="SELECT atc_appointments.id AS id, atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida as salesrep_id, atc_clientsalesreps_id_c as salesrep_id2
 		FROM atc_appointments
 		INNER JOIN  atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c
                 INNER JOIN atc_clientsalesreps_atc_appointments_c on atc_clientsalesreps_atc_appointmentsatc_appointments_idb = 
@@ -140,16 +164,25 @@ function sendFeedback(){
 	$q2 = $db->query($find_2);
 
 	while($app_2 = $db->fetchRow($q2)){
-		$GLOBALS['log']->fatal("Third Email");
-		//sendFeedbackEmail($newapp['id'],$newapp['salesrep_id']);
+		if($app_2['salesrep_id'] != '' && !empty($app_2['salesrep_id'])){
+			if (sendFeedbackEmail($app_2['id'],$app_2['salesrep_id']) == true){
+				$app = BeanFactory::getBean('ATC_Appointments', $app_2['id']);
+				$app->feedback_status_c = 'sent thrice';
+				$dt = new SugarDateTime();
+				//$app->feedback_timestamp = $dt->asDb();
+				$app->save();
+			}
+            	}
+            	if($app_2['salesrep_id2'] != '' && !empty($app_2['salesrep_id2'])){
+			if (sendFeedbackEmail($app_2['id'],$app_2['salesrep_id2']) == true){
+				$app = BeanFactory::getBean('ATC_Appointments', $app_2['id']);
+				$app->feedback_status_c = 'sent thrice';
+				$dt = new SugarDateTime();
+				//$app->feedback_timestamp = $dt->asDb();
+				$app->save();
+			}
+            	}
 
-              if (sendFeedbackEmail($app_2['id'],$app_2['salesrep_id']) == true){
-			$app = BeanFactory::getBean('ATC_Appointments',$app_2['id']);
-			$app->feedback_status_c = 'sent thrice';
-                	$dt = new SugarDateTime();
-                	//$app->feedback_timestamp = $dt->asDb();
-                	$app->save();
-		}
 	}
 
 

@@ -15,3 +15,4 @@ $mod_strings['LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE'
 $mod_strings['LBL_DIRECT'] = 'Direct';
 $mod_strings['LBL_NAME'] = 'Appt #';
 $mod_strings['LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE'] = 'Target List';
+$mod_strings['LBL_SALES_REP_EMAIL'] = 'Sales Rep Email';

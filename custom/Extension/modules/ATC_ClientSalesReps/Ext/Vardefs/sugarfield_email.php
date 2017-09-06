@@ -1,5 +1,5 @@
 <?php
- // created: 2017-05-22 21:36:13
+ // created: 2017-08-25 15:30:09
 $dictionary['ATC_ClientSalesReps']['fields']['email']['len']='100';
 $dictionary['ATC_ClientSalesReps']['fields']['email']['audited']=false;
 $dictionary['ATC_ClientSalesReps']['fields']['email']['massupdate']=true;
@@ -13,5 +13,6 @@ $dictionary['ATC_ClientSalesReps']['fields']['email']['full_text_search']=array 
   'searchable' => true,
 );
 $dictionary['ATC_ClientSalesReps']['fields']['email']['calculated']=false;
+$dictionary['ATC_ClientSalesReps']['fields']['email']['required']=true;
 
  ?>

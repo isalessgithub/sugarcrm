@@ -1,5 +1,5 @@
 <?php
- // created: 2017-08-02 14:42:40
+ // created: 2017-09-01 11:54:38
 
 $app_list_strings['feedback']=array (
   '' => '',
@@ -10,4 +10,6 @@ $app_list_strings['feedback']=array (
   'other' => 'Other (See Notes)',
   'sent thrice' => 'Send Three Times',
   'qualified' => 'Qualified',
+  'not sent' => 'Not Sent (Default)',
+  'resend' => 'Re-Send',
 );
