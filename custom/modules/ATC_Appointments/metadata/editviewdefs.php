@@ -205,16 +205,15 @@ array (
             'name' => 'feedback_status_c',
             'label' => 'LBL_FEEDBACK_STATUS',
           ),
-          1 => '',
-        ),
-        2 => 
-        array (
-          0 => 
+          1 => 
           array (
             'name' => 'feedback_timestamp',
             'label' => 'LBL_FEEDBACK_TIMESTAMP',
           ),
-          1 => 
+        ),
+        2 => 
+        array (
+          0 => 
           array (
             'name' => 'appointment_feedback',
             'studio' => 'visible',
