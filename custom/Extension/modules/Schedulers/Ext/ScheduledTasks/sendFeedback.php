@@ -13,7 +13,7 @@ function sendFeedbackEmail($id,$salesrep_id){
 		$salesrep = BeanFactory::getBean('ATC_ClientSalesReps',$salesrep_id);
 		$account = BeanFactory::getBean('Accounts', $app->accounts_atc_appointments_1accounts_ida);
 
-		$GLOBALS['log']->fatal('account--'.$bean->accounts_atc_appointments_1accounts_ida."--".$account->name);
+		$GLOBALS['log']->fatal('account--'.$account->accounts_atc_appointments_1accounts_ida."--".$account->name);
 		$salesrep_email = "";
 		/*
 		foreach($salesrep->emailAddresses->addresses as $address){
@@ -28,7 +28,7 @@ function sendFeedbackEmail($id,$salesrep_id){
 
 		$GLOBALS['log']->fatal("email:".$salesrep_email);
 
-	if($salesrep_email != ''){
+	if($salesrep_email != '' && !empty($salesrep_email)){
             	$emailTemplate->parsed_entities = null;
             	$temp = array();
 

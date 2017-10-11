@@ -248,25 +248,61 @@ array (
                 'name' => 'description',
                 'span' => 12,
               ),
-              11 => 
-              array (
-                'name' => 'rls_linkedin_url_c',
-                'label' => 'LBL_LINKEDIN_URL',
-              ),
-              12 => 
-              array (
-              ),
-              13 => 
-              array (
-                'name' => 'rls_linkedin_url_c',
-                'label' => 'LBL_LINKEDIN_URL',
-              ),
-              14 => 
-              array (
-              ),
             ),
           ),
           2 => 
+          array (
+            'newTab' => false,
+            'panelDefault' => 'expanded',
+            'name' => 'LBL_RECORDVIEW_PANEL1',
+            'label' => 'LBL_RECORDVIEW_PANEL1',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'ct_storage_c',
+                'label' => 'LBL_CT_STORAGE',
+              ),
+              1 => 
+              array (
+              ),
+              2 => 
+              array (
+                'name' => 'sto_inc_c',
+                'studio' => 'visible',
+                'label' => 'LBL_STO_INC',
+              ),
+              3 => 
+              array (
+              ),
+              4 => 
+              array (
+                'name' => 'sto_pd_c',
+                'label' => 'LBL_STO_PD',
+              ),
+              5 => 
+              array (
+                'name' => 'sto_prs_c',
+                'studio' => 'visible',
+                'label' => 'LBL_STO_PRS',
+              ),
+              6 => 
+              array (
+                'name' => 'sto_ast_c',
+                'studio' => 'visible',
+                'label' => 'LBL_STO_AST',
+              ),
+              7 => 
+              array (
+                'name' => 'sto_psd_c',
+                'label' => 'LBL_STO_PSD',
+              ),
+            ),
+          ),
+          3 => 
           array (
             'name' => 'panel_hidden',
             'label' => 'LBL_RECORD_SHOWMORE',
@@ -338,53 +374,10 @@ array (
               ),
               4 => 
               array (
-                'name' => 'inside_view_id_c',
-                'label' => 'LBL_INSIDE_VIEW_ID',
               ),
               5 => 
               array (
                 'name' => 'team_name',
-              ),
-            ),
-          ),
-          3 => 
-          array (
-            'name' => 'LBL_LINKEDIN_CUSTOM_FIELDS_GROUP',
-            'label' => 'LBL_LINKEDIN_CUSTOM_FIELDS_GROUP',
-            'columns' => '2',
-            'labelsOnTop' => 1,
-            'placeholders' => 1,
-            'fields' => 
-            array (
-              0 => 
-              array (
-                'name' => 'rls_industry_c',
-                'label' => 'LBL_RLS_INDUSTRY',
-              ),
-              1 => 
-              array (
-                'name' => 'rls_linkedin_url_c',
-                'label' => 'LBL_LINKEDIN_URL',
-              ),
-              2 => 
-              array (
-                'name' => 'rls_description2_c',
-                'label' => 'LBL_DESCRIPTION2',
-              ),
-              3 => 
-              array (
-                'name' => 'rls_description3_c',
-                'label' => 'LBL_DESCRIPTION3',
-              ),
-              4 => 
-              array (
-                'name' => 'rls_current_workplace_c',
-                'label' => 'LBL_CURRENT_WORKPLACE',
-              ),
-              5 => 
-              array (
-                'name' => 'rls_last_position_c',
-                'label' => 'LBL_LAST_POSITION',
               ),
             ),
           ),

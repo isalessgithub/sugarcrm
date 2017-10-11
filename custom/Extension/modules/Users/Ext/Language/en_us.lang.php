@@ -5,3 +5,4 @@ $mod_strings['LBL_USERS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Assi
 $mod_strings['LBL_ATC_APPOINTMENTS_USERS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Appointments';
 $mod_strings['LBL_ATC_APPOINTMENTS_USERS_1_FROM_USERS_TITLE_ID'] = 'Appointments ID';
 $mod_strings['LBL_ATC_APPOINTMENTS_USERS_1_FROM_USERS_TITLE'] = 'Appointments';
+$mod_strings['LBL_LAST_LOGIN'] = 'Last Login';

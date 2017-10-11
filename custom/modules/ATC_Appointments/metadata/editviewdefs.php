@@ -202,6 +202,19 @@ array (
         array (
           0 => 
           array (
+            'name' => 'clientrep_email1_c',
+            'label' => 'LBL_CLIENTREP_EMAIL1',
+          ),
+          1 => 
+          array (
+            'name' => 'clientrep_email2_c',
+            'label' => 'LBL_CLIENTREP_EMAIL2',
+          ),
+        ),
+        2 => 
+        array (
+          0 => 
+          array (
             'name' => 'feedback_status_c',
             'label' => 'LBL_FEEDBACK_STATUS',
           ),
@@ -211,22 +224,13 @@ array (
             'label' => 'LBL_FEEDBACK_TIMESTAMP',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (
             'name' => 'appointment_feedback',
             'studio' => 'visible',
             'label' => 'LBL_APPOINTMENT_FEEDBACK',
-          ),
-        ),
-        3 => 
-        array (
-          0 => 
-          array (
-            'name' => 'sales_rep_feedback',
-            'studio' => 'visible',
-            'label' => 'LBL_SALES_REP_FEEDBACK',
           ),
         ),
         4 => 

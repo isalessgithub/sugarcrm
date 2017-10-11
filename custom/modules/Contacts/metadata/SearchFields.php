@@ -229,4 +229,20 @@ $searchFields['Contacts'] = array (
   array (
     'query_type' => 'default',
   ),
+  'primary_address_street' => 
+  array (
+    'query_type' => 'default',
+  ),
+  'primary_address_state' => 
+  array (
+    'query_type' => 'default',
+  ),
+  'primary_address_postalcode' => 
+  array (
+    'query_type' => 'default',
+  ),
+  'primary_address_city' => 
+  array (
+    'query_type' => 'default',
+  ),
 );
