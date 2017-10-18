@@ -13,6 +13,8 @@
                 || $arguments['dataChanges']['appointment_date']['before'] != $arguments['dataChanges']['appointment_date']['after']
                 ){
 
+                   $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+                   $record['email']=$user->emailAddress->getPrimaryAddress($user);
                    $record['id']=$bean->id;
                    $record['appointment_place']=$bean->appointment_place;
                    $record['appointment_status']=$bean->appointment_status;
@@ -22,6 +24,8 @@
  
              }else{
 
+                  $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+                  $record['email']=$user->emailAddress->getPrimaryAddress($user);
                   $record['id']=$bean->id;
                   $record['appointment_place']=$bean->appointment_place;
                   $record['appointment_status']=$bean->appointment_status;

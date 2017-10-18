@@ -52,6 +52,15 @@ array (
               ),
               4 => 
               array (
+                'name' => 'tl_img_c',
+                'label' => 'LBL_TL_IMG',
+                'enabled' => true,
+                'sortable' => false,
+                'width' => '10',
+                'default' => true,
+              ),
+              5 => 
+              array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_LIST_ASSIGNED_USER',
                 'id' => 'ASSIGNED_USER_ID',
@@ -59,7 +68,7 @@ array (
                 'default' => true,
                 'width' => '10',
               ),
-              5 => 
+              6 => 
               array (
                 'name' => 'date_entered',
                 'type' => 'datetime',
@@ -69,7 +78,7 @@ array (
                 'readonly' => true,
                 'width' => '10',
               ),
-              6 => 
+              7 => 
               array (
                 'name' => 'date_modified',
                 'default' => false,

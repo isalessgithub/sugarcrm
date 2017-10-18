@@ -1,5 +1,5 @@
 <?php
- // created: 2017-10-11 10:21:57
+ // created: 2017-10-13 10:48:34
 
 $app_list_strings['proj_area_list']=array (
   'storage' => 'Storage',
@@ -8,4 +8,6 @@ $app_list_strings['proj_area_list']=array (
   '' => '',
   'network' => 'Networking',
   'servers' => 'Servers',
+  'hardware' => 'Hardware',
+  'other' => 'Other',
 );

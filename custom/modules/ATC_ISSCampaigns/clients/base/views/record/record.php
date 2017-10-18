@@ -62,9 +62,8 @@ array (
               ),
               1 => 
               array (
-                'name' => 'client_owner_c',
-                'studio' => 'visible',
-                'label' => 'LBL_CLIENT_OWNER',
+                'name' => 'campaign_email_and_password_c',
+                'label' => 'LBL_CAMPAIGN_EMAIL_AND_PASSWORD',
               ),
               2 => 
               array (
@@ -98,110 +97,26 @@ array (
               ),
               8 => 
               array (
-                'name' => 'campaign_email_and_password_c',
-                'label' => 'LBL_CAMPAIGN_EMAIL_AND_PASSWORD',
-              ),
-              9 => 
-              array (
-              ),
-              10 => 
-              array (
                 'name' => 'campaign_start_date_c',
                 'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
-              11 => 
+              9 => 
               array (
                 'name' => 'campaign_finish_date_c',
                 'label' => 'LBL_CAMPAIGN_FINISH_DATE',
               ),
-              12 => 
+              10 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              13 => 
+              11 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              14 => 
-              array (
-                'name' => 'date_modified_by',
-                'readonly' => true,
-                'inline' => true,
-                'type' => 'fieldset',
-                'label' => 'LBL_DATE_MODIFIED',
-                'fields' => 
-                array (
-                  0 => 
-                  array (
-                    'name' => 'date_modified',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'label',
-                    'default_value' => 'LBL_BY',
-                  ),
-                  2 => 
-                  array (
-                    'name' => 'modified_by_name',
-                  ),
-                ),
-              ),
-              15 => 
-              array (
-                'name' => 'date_entered_by',
-                'readonly' => true,
-                'inline' => true,
-                'type' => 'fieldset',
-                'label' => 'LBL_DATE_ENTERED',
-                'fields' => 
-                array (
-                  0 => 
-                  array (
-                    'name' => 'date_entered',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'label',
-                    'default_value' => 'LBL_BY',
-                  ),
-                  2 => 
-                  array (
-                    'name' => 'created_by_name',
-                  ),
-                ),
-              ),
-              16 => 
-              array (
-                'name' => 'campaign_task_c',
-                'studio' => 'visible',
-                'label' => 'LBL_CAMPAIGN_TASK',
-              ),
-              17 => 
-              array (
-                'name' => 'team_name',
-              ),
-              18 => 
-              array (
-              ),
-              19 => 
-              array (
-                'name' => 'client_campaign_id_c',
-                'label' => 'LBL_CLIENT_CAMPAIGN_ID',
-              ),
-              20 => 
-              array (
-                'name' => 'from_address_c',
-                'label' => 'LBL_FROM_ADDRESS',
-              ),
-              21 => 
-              array (
-                'name' => 'from_name_c',
-                'label' => 'LBL_FROM_NAME',
-              ),
-              22 => 
+              12 => 
               array (
                 'name' => 'description',
                 'span' => 12,
@@ -209,6 +124,26 @@ array (
             ),
           ),
           2 => 
+          array (
+            'newTab' => false,
+            'panelDefault' => 'expanded',
+            'name' => 'LBL_RECORDVIEW_PANEL4',
+            'label' => 'LBL_RECORDVIEW_PANEL4',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'sales_notes_c',
+                'studio' => 'visible',
+                'label' => 'LBL_SALES_NOTES',
+                'span' => 12,
+              ),
+            ),
+          ),
+          3 => 
           array (
             'newTab' => false,
             'panelDefault' => 'collapsed',
@@ -251,7 +186,96 @@ array (
               ),
             ),
           ),
-          3 => 
+          4 => 
+          array (
+            'newTab' => true,
+            'panelDefault' => 'collapsed',
+            'name' => 'LBL_RECORDVIEW_PANEL3',
+            'label' => 'LBL_RECORDVIEW_PANEL3',
+            'columns' => '2',
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
+              array (
+                'name' => 'from_address_c',
+                'label' => 'LBL_FROM_ADDRESS',
+              ),
+              1 => 
+              array (
+                'name' => 'from_name_c',
+                'label' => 'LBL_FROM_NAME',
+              ),
+              2 => 
+              array (
+                'name' => 'client_owner_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CLIENT_OWNER',
+              ),
+              3 => 
+              array (
+                'name' => 'client_campaign_id_c',
+                'label' => 'LBL_CLIENT_CAMPAIGN_ID',
+              ),
+              4 => 
+              array (
+                'name' => 'date_modified_by',
+                'readonly' => true,
+                'inline' => true,
+                'type' => 'fieldset',
+                'label' => 'LBL_DATE_MODIFIED',
+                'fields' => 
+                array (
+                  0 => 
+                  array (
+                    'name' => 'date_modified',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'label',
+                    'default_value' => 'LBL_BY',
+                  ),
+                  2 => 
+                  array (
+                    'name' => 'modified_by_name',
+                  ),
+                ),
+              ),
+              5 => 
+              array (
+                'name' => 'date_entered_by',
+                'readonly' => true,
+                'inline' => true,
+                'type' => 'fieldset',
+                'label' => 'LBL_DATE_ENTERED',
+                'fields' => 
+                array (
+                  0 => 
+                  array (
+                    'name' => 'date_entered',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'label',
+                    'default_value' => 'LBL_BY',
+                  ),
+                  2 => 
+                  array (
+                    'name' => 'created_by_name',
+                  ),
+                ),
+              ),
+              6 => 
+              array (
+              ),
+              7 => 
+              array (
+                'name' => 'team_name',
+              ),
+            ),
+          ),
+          5 => 
           array (
             'newTab' => true,
             'panelDefault' => 'expanded',

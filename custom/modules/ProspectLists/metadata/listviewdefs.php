@@ -30,6 +30,15 @@ array (
     'width' => '10%',
     'default' => true,
   ),
+  'tl_img_c' => 
+  array (
+    'type' => 'image',
+    'studio' => 'visible',
+    'width' => '10%',
+    'label' => 'LBL_TL_IMG',
+    'sortable' => false,
+    'default' => true,
+  ),
   'assigned_user_name' => 
   array (
     'width' => '10%',

@@ -61,6 +61,16 @@ function toggle_domain_name(list_type)  {ldelim}
       array (
         0 => 
         array (
+          0 => '',
+          1 => 
+          array (
+            'name' => 'tl_img_c',
+            'studio' => 'visible',
+            'label' => 'LBL_TL_IMG',
+          ),
+        ),
+        1 => 
+        array (
           0 => 
           array (
             'name' => 'name',
@@ -75,7 +85,7 @@ function toggle_domain_name(list_type)  {ldelim}
             'label' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
           ),
         ),
-        1 => 
+        2 => 
         array (
           0 => 
           array (
@@ -89,7 +99,7 @@ function toggle_domain_name(list_type)  {ldelim}
             'label' => 'LBL_CLIENTS',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (
@@ -103,14 +113,14 @@ function toggle_domain_name(list_type)  {ldelim}
             'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
             'name' => 'description',
           ),
         ),
-        4 => 
+        5 => 
         array (
           0 => 
           array (
@@ -123,7 +133,7 @@ function toggle_domain_name(list_type)  {ldelim}
             'label' => 'LBL_CLIENT_EDIT_DISABLED',
           ),
         ),
-        5 => 
+        6 => 
         array (
           0 => 
           array (

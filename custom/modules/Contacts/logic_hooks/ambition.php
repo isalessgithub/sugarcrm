@@ -18,7 +18,10 @@
                 
             
                    $record['id']=$bean->id;
-                   $record['email']=$bean->emailAddress->getPrimaryAddress($bean);
+
+                   $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+
+                   $record['email']=$user->emailAddress->getPrimaryAddress($user);
                    $record['date_created']=$bean->date_modified; 
 
 
@@ -74,9 +77,12 @@
               }
             
           }  
-          else{  
+          else{ 
+
+               $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+           
                $record['id']=$bean->id;
-               $record['email']=$bean->emailAddress->getPrimaryAddress($bean);
+               $record['email']=$user->emailAddress->getPrimaryAddress($user);
                $record['date_created']=$bean->date_modified;
                $record['address_last_modified']=$bean->date_modified;
                $record['email_last_modified']=$bean->date_modified;

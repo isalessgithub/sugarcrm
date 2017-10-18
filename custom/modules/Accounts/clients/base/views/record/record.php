@@ -264,41 +264,26 @@ array (
               0 => 
               array (
                 'name' => 'ct_storage_c',
+                'studio' => 'visible',
                 'label' => 'LBL_CT_STORAGE',
               ),
               1 => 
               array (
+                'name' => 'ct_security_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CT_SECURITY',
               ),
               2 => 
               array (
-                'name' => 'sto_inc_c',
+                'name' => 'ct_networking_c',
                 'studio' => 'visible',
-                'label' => 'LBL_STO_INC',
+                'label' => 'LBL_CT_NETWORKING',
               ),
               3 => 
               array (
-              ),
-              4 => 
-              array (
-                'name' => 'sto_pd_c',
-                'label' => 'LBL_STO_PD',
-              ),
-              5 => 
-              array (
-                'name' => 'sto_prs_c',
+                'name' => 'ct_hardwareos_c',
                 'studio' => 'visible',
-                'label' => 'LBL_STO_PRS',
-              ),
-              6 => 
-              array (
-                'name' => 'sto_ast_c',
-                'studio' => 'visible',
-                'label' => 'LBL_STO_AST',
-              ),
-              7 => 
-              array (
-                'name' => 'sto_psd_c',
-                'label' => 'LBL_STO_PSD',
+                'label' => 'LBL_CT_HARDWAREOS',
               ),
             ),
           ),

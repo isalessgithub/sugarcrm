@@ -12,7 +12,7 @@ array (
 		 'rel_module_type' => 'all', 
 	 'basic' => array ( 
 
-		 'feedback_status_c' => stripslashes('not sent'),
+		 //'feedback_status_c' => stripslashes('not sent'),
 	 ), 
 
 	 'basic_ext' => array ( 
