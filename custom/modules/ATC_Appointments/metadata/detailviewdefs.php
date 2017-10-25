@@ -232,6 +232,15 @@ array (
         array (
           0 => 
           array (
+            'name' => 'dm_qualified_c',
+            'label' => 'LBL_DM_QUALIFIED',
+          ),
+          1 => '',
+        ),
+        5 => 
+        array (
+          0 => 
+          array (
             'name' => 'positive_appointment_c',
             'studio' => 'visible',
             'label' => 'LBL_POSITIVE_APPOINTMENT',
@@ -243,7 +252,7 @@ array (
             'label' => 'LBL_SECOND_APPOINTMENT',
           ),
         ),
-        5 => 
+        6 => 
         array (
           0 => 
           array (

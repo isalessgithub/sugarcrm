@@ -58,6 +58,9 @@
 
         myURL = app.api.buildURL('mastersolve/send-email');
 
+	console.log(myURL);
+	console.log(sendModel);
+
         app.api.call('create', myURL, sendModel, {
 
             success: function () {

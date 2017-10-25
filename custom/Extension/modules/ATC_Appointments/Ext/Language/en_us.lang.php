@@ -17,3 +17,4 @@ $mod_strings['LBL_NAME'] = 'Appt #';
 $mod_strings['LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE'] = 'Target List';
 $mod_strings['LBL_CLIENTREP_EMAIL1'] = 'Rep Email 1';
 $mod_strings['LBL_CLIENTREP_EMAIL2'] = 'Rep Email 2';
+$mod_strings['LBL_DM_QUALIFIED'] = 'Decision Maker or Influencer?';
