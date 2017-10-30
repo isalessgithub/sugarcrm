@@ -345,6 +345,22 @@ array (
                 'name' => 'tag',
                 'span' => 12,
               ),
+              14 => 
+              array (
+                'name' => 'rls_linkedin_url_c',
+                'label' => 'LBL_LINKEDIN_URL',
+              ),
+              15 => 
+              array (
+              ),
+              16 => 
+              array (
+                'name' => 'rls_linkedin_url_c',
+                'label' => 'LBL_LINKEDIN_URL',
+              ),
+              17 => 
+              array (
+              ),
             ),
           ),
           2 => 

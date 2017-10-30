@@ -17,7 +17,6 @@
 $mod_strings['LBL_RLS_INDUSTRY'] = 'Industry'; $mod_strings['LBL_LINKEDIN_URL'] = 'Linkedin url'; $mod_strings['LBL_DESCRIPTION2'] = 'Working Experience';
 $mod_strings['LBL_DESCRIPTION3'] = 'Skills'; $mod_strings['LBL_LINKEDIN_CUSTOM_FIELDS_GROUP'] = 'Linkedin custom fields group';
 $mod_strings['LBL_CURRENT_WORKPLACE'] = 'Current workplace'; $mod_strings['LBL_LAST_POSITION'] = 'Current Position';
-
 ?>
 <?php
 // Merged from custom/Extension/modules/Contacts/Ext/Language/temp.php

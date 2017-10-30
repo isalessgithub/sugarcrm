@@ -1,27 +1,27 @@
 <?php
-$viewdefs['Accounts'] = 
+$viewdefs['Accounts'] =
 array (
-  'base' => 
+  'base' =>
   array (
-    'view' => 
+    'view' =>
     array (
-      'record' => 
+      'record' =>
       array (
-        'buttons' => 
+        'buttons' =>
         array (
-          0 => 
+          0 =>
           array (
             'type' => 'button',
             'name' => 'cancel_button',
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' => 
+            'events' =>
             array (
               'click' => 'button:cancel_button:click',
             ),
           ),
-          1 => 
+          1 =>
           array (
             'type' => 'rowaction',
             'event' => 'button:save_button:click',
@@ -31,15 +31,15 @@ array (
             'showOn' => 'edit',
             'acl_action' => 'edit',
           ),
-          2 => 
+          2 =>
           array (
             'type' => 'actiondropdown',
             'name' => 'main_dropdown',
             'primary' => true,
             'showOn' => 'view',
-            'buttons' => 
+            'buttons' =>
             array (
-              0 => 
+              0 =>
               array (
                 'type' => 'rowaction',
                 'event' => 'button:edit_button:click',
@@ -47,14 +47,14 @@ array (
                 'label' => 'LBL_EDIT_BUTTON_LABEL',
                 'acl_action' => 'edit',
               ),
-              1 => 
+              1 =>
               array (
                 'type' => 'shareaction',
                 'name' => 'share',
                 'label' => 'LBL_RECORD_SHARE_BUTTON',
                 'acl_action' => 'view',
               ),
-              2 => 
+              2 =>
               array (
                 'type' => 'pdfaction',
                 'name' => 'download-pdf',
@@ -62,7 +62,7 @@ array (
                 'action' => 'download',
                 'acl_action' => 'view',
               ),
-              3 => 
+              3 =>
               array (
                 'type' => 'pdfaction',
                 'name' => 'email-pdf',
@@ -70,11 +70,11 @@ array (
                 'action' => 'email',
                 'acl_action' => 'view',
               ),
-              4 => 
+              4 =>
               array (
                 'type' => 'divider',
               ),
-              5 => 
+              5 =>
               array (
                 'type' => 'rowaction',
                 'event' => 'button:find_duplicates_button:click',
@@ -82,7 +82,7 @@ array (
                 'label' => 'LBL_DUP_MERGE',
                 'acl_action' => 'edit',
               ),
-              6 => 
+              6 =>
               array (
                 'type' => 'rowaction',
                 'event' => 'button:duplicate_button:click',
@@ -91,7 +91,7 @@ array (
                 'acl_module' => 'Accounts',
                 'acl_action' => 'create',
               ),
-              7 => 
+              7 =>
               array (
                 'type' => 'rowaction',
                 'event' => 'button:historical_summary_button:click',
@@ -99,7 +99,7 @@ array (
                 'label' => 'LBL_HISTORICAL_SUMMARY',
                 'acl_action' => 'view',
               ),
-              8 => 
+              8 =>
               array (
                 'type' => 'rowaction',
                 'event' => 'button:audit_button:click',
@@ -107,11 +107,11 @@ array (
                 'label' => 'LNK_VIEW_CHANGE_LOG',
                 'acl_action' => 'view',
               ),
-              9 => 
+              9 =>
               array (
                 'type' => 'divider',
               ),
-              10 => 
+              10 =>
               array (
                 'type' => 'rowaction',
                 'event' => 'button:delete_button:click',
@@ -121,22 +121,22 @@ array (
               ),
             ),
           ),
-          3 => 
+          3 =>
           array (
             'name' => 'sidebar_toggle',
             'type' => 'sidebartoggle',
           ),
         ),
-        'panels' => 
+        'panels' =>
         array (
-          0 => 
+          0 =>
           array (
             'name' => 'panel_header',
             'label' => 'LBL_PANEL_HEADER',
             'header' => true,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'picture',
                 'type' => 'avatar',
@@ -144,22 +144,22 @@ array (
                 'dismiss_label' => true,
                 'readonly' => true,
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'name',
-                'events' => 
+                'events' =>
                 array (
                   'keyup' => 'update:account',
                 ),
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'favorite',
                 'label' => 'LBL_FAVORITE',
                 'type' => 'favorite',
                 'dismiss_label' => true,
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'follow',
                 'label' => 'LBL_FOLLOW',
@@ -169,7 +169,7 @@ array (
               ),
             ),
           ),
-          1 => 
+          1 =>
           array (
             'name' => 'panel_body',
             'label' => 'LBL_RECORD_BODY',
@@ -178,43 +178,43 @@ array (
             'placeholders' => true,
             'newTab' => true,
             'panelDefault' => 'expanded',
-            'fields' => 
+            'fields' =>
             array (
               0 => 'phone_office',
               1 => 'website',
-              2 => 
+              2 =>
               array (
                 'name' => 'billing_address',
                 'type' => 'fieldset',
                 'css_class' => 'address',
                 'label' => 'LBL_BILLING_ADDRESS',
-                'fields' => 
+                'fields' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'name' => 'billing_address_street',
                     'css_class' => 'address_street',
                     'placeholder' => 'LBL_BILLING_ADDRESS_STREET',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'name' => 'billing_address_city',
                     'css_class' => 'address_city',
                     'placeholder' => 'LBL_BILLING_ADDRESS_CITY',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'name' => 'billing_address_state',
                     'css_class' => 'address_state',
                     'placeholder' => 'LBL_BILLING_ADDRESS_STATE',
                   ),
-                  3 => 
+                  3 =>
                   array (
                     'name' => 'billing_address_postalcode',
                     'css_class' => 'address_zip',
                     'placeholder' => 'LBL_BILLING_ADDRESS_POSTALCODE',
                   ),
-                  4 => 
+                  4 =>
                   array (
                     'name' => 'billing_address_country',
                     'css_class' => 'address_country',
@@ -222,7 +222,7 @@ array (
                   ),
                 ),
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'add_to_target_list_c',
                 'label' => 'LBL_ADD_TO_TARGET_LIST',
@@ -230,27 +230,27 @@ array (
               4 => 'annual_revenue',
               5 => 'industry',
               6 => 'employees',
-              7 => 
+              7 =>
               array (
                 'name' => 'sub_industry_1_c',
                 'label' => 'LBL_SUB_INDUSTRY_1',
               ),
-              8 => 
+              8 =>
               array (
                 'name' => 'parent_name',
               ),
-              9 => 
+              9 =>
               array (
                 'name' => 'ownership',
               ),
-              10 => 
+              10 =>
               array (
                 'name' => 'description',
                 'span' => 12,
               ),
             ),
           ),
-          2 => 
+          2 =>
           array (
             'newTab' => false,
             'panelDefault' => 'expanded',
@@ -259,31 +259,35 @@ array (
             'columns' => '2',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'ct_storage_c',
+                'studio' => 'visible',
                 'label' => 'LBL_CT_STORAGE',
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'ct_security_c',
+                'studio' => 'visible',
                 'label' => 'LBL_CT_SECURITY',
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'ct_networking_c',
+                'studio' => 'visible',
                 'label' => 'LBL_CT_NETWORKING',
               ),
-              3 => 
+              3 =>
               array (
-                'name' => 'ct_hardware_c',
-                'label' => 'LBL_CT_HARDWARE',
+                'name' => 'ct_hardwareos_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CT_HARDWAREOS',
               ),
             ),
           ),
-          3 => 
+          3 =>
           array (
             'name' => 'panel_hidden',
             'label' => 'LBL_RECORD_SHOWMORE',
@@ -293,79 +297,77 @@ array (
             'placeholders' => true,
             'newTab' => true,
             'panelDefault' => 'collapsed',
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'phone_alternate',
                 'label' => 'LBL_PHONE_ALT',
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'contact_count_c',
                 'label' => 'LBL_CONTACT_COUNT',
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
                 'inline' => true,
                 'type' => 'fieldset',
                 'label' => 'LBL_DATE_MODIFIED',
-                'fields' => 
+                'fields' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'name' => 'date_modified',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'type' => 'label',
                     'default_value' => 'LBL_BY',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'name' => 'modified_by_name',
                   ),
                 ),
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
                 'inline' => true,
                 'type' => 'fieldset',
                 'label' => 'LBL_DATE_ENTERED',
-                'fields' => 
+                'fields' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'name' => 'date_entered',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'type' => 'label',
                     'default_value' => 'LBL_BY',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'name' => 'created_by_name',
                   ),
                 ),
               ),
-              4 => 
+              4 =>
               array (
-                'name' => 'inside_view_id_c',
-                'label' => 'LBL_INSIDE_VIEW_ID',
               ),
-              5 => 
+              5 =>
               array (
                 'name' => 'team_name',
               ),
             ),
           ),
         ),
-        'templateMeta' => 
+        'templateMeta' =>
         array (
           'maxColumns' => '2',
           'useTabs' => true,

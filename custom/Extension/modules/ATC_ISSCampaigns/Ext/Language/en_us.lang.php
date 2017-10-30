@@ -34,4 +34,7 @@ $mod_strings['LBL_FROM_NAME'] = 'From Name';
 $mod_strings['LBL_SALES_DETAIL_NOTES'] = 'Notes';
 $mod_strings['LBL_RECORDVIEW_PANEL3'] = 'Show More';
 $mod_strings['LBL_RECORDVIEW_PANEL4'] = 'Sales Details';
+$mod_strings['LBL_SALES_DETAILS'] = 'Notes';
+$mod_strings['LBL_RECORDVIEW_PANEL4'] = 'Sales Details';
+$mod_strings['LBL_SALES_NOTES'] = 'Notes';
 $mod_strings['LBL_ATC_ISSCAMPAIGNS_TASKS_1_FROM_TASKS_TITLE'] = 'Company Projects';

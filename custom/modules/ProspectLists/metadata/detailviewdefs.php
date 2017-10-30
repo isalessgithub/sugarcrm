@@ -59,13 +59,23 @@ array (
       array (
         0 => 
         array (
+          0 => '',
+          1 => 
+          array (
+            'name' => 'tl_img_c',
+            'studio' => 'visible',
+            'label' => 'LBL_TL_IMG',
+          ),
+        ),
+        1 => 
+        array (
           0 => 'name',
           1 => 
           array (
             'name' => 'atc_isscampaigns_prospectlists_1_name',
           ),
         ),
-        1 => 
+        2 => 
         array (
           0 => 'assigned_user_name',
           1 => 
@@ -75,7 +85,7 @@ array (
             'label' => 'LBL_CLIENTS',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (
@@ -89,11 +99,11 @@ array (
             'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 'description',
         ),
-        4 => 
+        5 => 
         array (
           0 => 
           array (
@@ -106,7 +116,7 @@ array (
             'label' => 'LBL_CLIENT_EDIT_DISABLED',
           ),
         ),
-        5 => 
+        6 => 
         array (
           0 => 
           array (

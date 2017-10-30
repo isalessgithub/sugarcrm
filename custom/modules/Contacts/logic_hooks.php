@@ -18,7 +18,7 @@ $hook_array['process_record'][] = Array(55,'Log call for Contacts ListView','mod
 $hook_array['process_record'][] = Array(11,'Set linkedin profile','custom/include/RLS/hooks/rls_linkedin_logic_hook.php','rls_linkedin_logic_hook','setLinkedinProfile',);
 $hook_array['after_save'] = Array(); 
 $hook_array['after_save'][] = Array(99,'Create call based on Outcome','custom/modules/Contacts/createCallFromContactQuickCreate.php','createCallFromContactQuickCreateC','createCallFromContactQuickCreateAfterSave',);
-
+$hook_array['after_save'][] = Array(5,'Push data to ambition','custom/modules/Contacts/logic_hooks/ambition.php','ambition','push',);
 
 
 ?>

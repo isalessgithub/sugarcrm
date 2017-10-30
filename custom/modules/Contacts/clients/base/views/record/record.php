@@ -290,6 +290,22 @@ array (
                 'name' => 'description',
                 'span' => 12,
               ),
+              13 => 
+              array (
+                'name' => 'rls_linkedin_url_c',
+                'label' => 'LBL_LINKEDIN_URL',
+              ),
+              14 => 
+              array (
+              ),
+              15 => 
+              array (
+                'name' => 'rls_linkedin_url_c',
+                'label' => 'LBL_LINKEDIN_URL',
+              ),
+              16 => 
+              array (
+              ),
             ),
           ),
           2 => 

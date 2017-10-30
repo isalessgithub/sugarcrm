@@ -28,7 +28,7 @@ if(isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])){
 //$oContacts = $oProspectList->get_linked_beans('contacts', 'Contacts');
 
 
-    $cSQL = " SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', contacts.id AS 'contact_id', title,phone_other, phone_work, primary_address_city, primary_address_state, call_outcome_c, email_addresses.email_address as 'email1'
+    $cSQL = " SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', contacts.id AS 'contact_id', title,phone_other, phone_work, phone_mobile, primary_address_city, primary_address_state, call_outcome_c, email_addresses.email_address as 'email1'
 FROM contacts
 INNER JOIN contacts_cstm ON contacts_cstm.id_c = contacts.id AND contacts.deleted = 0
 INNER JOIN prospect_lists_prospects ON prospect_lists_prospects.related_id = contacts.id AND prospect_list_id = '".$_REQUEST['uid']."' AND prospect_lists_prospects.deleted=0 AND prospect_lists_prospects.related_type ='Contacts'
@@ -51,6 +51,7 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
     $sTableHeader .= '<th>'.$contactModStrings['LBL_LIST_TITLE'].'</th>';
     $sTableHeader .= '<th>'.$contactModStrings['LBL_OTHER_PHONE'].'</th>';
     $sTableHeader .= '<th>'.$contactModStrings['LBL_PHONE_WORK'].'</th>';
+    $sTableHeader .= '<th>'.$contactModStrings['LBL_PHONE_MOBILE'].'</th>';
     $sTableHeader .= '<th>'.$contactModStrings['LBL_LIST_EMAIL_ADDRESS'].'</th>';
     $sTableHeader .= '<th>'.$contactModStrings['LBL_PRIMARY_ADDRESS_CITY'].'</th>';
     $sTableHeader .= '<th>'.$contactModStrings['LBL_PRIMARY_ADDRESS_STATE'].'</th>';
@@ -167,6 +168,7 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
             $sTableRow .= '<td>'.$oContact['title'].'</td>';
             $sTableRow .= '<td>'.$oContact['phone_other'].'</td>';
             $sTableRow .= '<td>'.$oContact['phone_work'].'</td>';
+            $sTableRow .= '<td>'.$oContact['phone_mobile'].'</td>';
             $sTableRow .= '<td>'.$oContact['email1'].'</td>';
             $sTableRow .= '<td>'.$oContact['primary_address_city'].'</td>';
             $sTableRow .= '<td>'.$oContact['primary_address_state'].'</td>';
