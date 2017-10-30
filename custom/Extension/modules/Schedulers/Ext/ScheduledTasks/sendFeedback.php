@@ -111,9 +111,8 @@ function sendFeedbackEmail($id){
 	}
 	else {return false;}
 }
-
 function sendFeedback(){
-	//0, 3, 6 12, 24 
+	//0, 3, 6 12, 24
 	$sendingar = array();
 	$sendingar[] = array("time" => 0,"oldstatus" => "qualified","newstatus" => "sent", "message" => "");
 	$sendingar[] = array("time" => 3,"oldstatus" => "sent","newstatus" => "sent twice", "message" => "Second Notification");
@@ -124,7 +123,7 @@ function sendFeedback(){
         global $timedate;
 	foreach($sendingar as $sa){
 		$find="SELECT DISTINCT atc_appointments.id as id
-			FROM atc_appointments 
+			FROM atc_appointments
 			INNER JOIN atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c and atc_appointments.deleted=0
 			WHERE date_sub(now(), INTERVAL {$sa['time']} hour) > feedback_timestamp AND feedback_timestamp != '' AND feedback_timestamp IS NOT NULL
 			AND feedback_status_c = '{$sa['oldstatus']}'";
@@ -141,64 +140,8 @@ function sendFeedback(){
 					$app->save();
 				}
 			}
-
-		}
-
-
-	}
-/*	$find_new = "SELECT distinct atc_appointments.id AS id
-                FROM atc_appointments
-                INNER JOIN atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c
-                WHERE date_sub(now(), INTERVAL 0 hour) > feedback_timestamp AND feedback_timestamp != '' AND feedback_timestamp IS NOT NULL AND feedback_status_c = 'qualified' AND atc_appointments.deleted=0;";
-	$newq = $db->query($find_new);
-	//send first email.
-	while ($newapp = $db->fetchRow($newq)){
-		$app = BeanFactory::getBean('ATC_Appointments', $newapp['id']);
-		if (sendFeedbackEmail($newapp['id'])){
-			$app->feedback_status_c = 'sent';
-			$app->save();
-		}
-		else{
-			$app->feedback_status_c = 'not sent';
-			$app->save();
 		}
 	}
-	//send second email.
-	$find_1 ="SELECT distinct atc_appointments.id AS id
-		FROM atc_appointments
-		INNER JOIN  atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c
-                INNER JOIN atc_clientsalesreps_atc_appointments_c on atc_clientsalesreps_atc_appointmentsatc_appointments_idb = atc_appointments.id and atc_clientsalesreps_atc_appointments_c.deleted=0
-		WHERE date_sub(now(), INTERVAL 6 hour) >= feedback_timestamp AND feedback_timestamp != '' AND feedback_timestamp IS NOT NULL AND feedback_status_c = 'sent' AND atc_appointments.deleted=0;";
-	$q1 = $db->query($find_1);
-	while($app_1 = $db->fetchRow($q1)){
-		if (sendFeedbackEmail($app_1['id'])){
-			$app = BeanFactory::getBean('ATC_Appointments', $app_1['id']);
-			$app->feedback_status_c = 'sent twice';
-			$app->save();
-		}
-	}
-
-
-	//send third email.
-	$find_2 ="SELECT distinct atc_appointments.id AS id
-		FROM atc_appointments
-		INNER JOIN  atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c
-                INNER JOIN atc_clientsalesreps_atc_appointments_c on atc_clientsalesreps_atc_appointmentsatc_appointments_idb = 
-		atc_appointments.id and atc_clientsalesreps_atc_appointments_c.deleted = 0
-		WHERE date_sub(now(), INTERVAL 24 hour) >= feedback_timestamp AND feedback_timestamp != '' 
-		AND feedback_timestamp IS NOT NULL AND feedback_status_c = 'sent twice' AND atc_appointments.deleted=0;";
-
-	$q2 = $db->query($find_2);
-
-	while($app_2 = $db->fetchRow($q2)){
-			if (sendFeedbackEmail($app_2['id'])){
-				$app = BeanFactory::getBean('ATC_Appointments', $app_2['id']);
-				$app->feedback_status_c = 'sent thrice';
-				$app->save();
-			}
-	}
-*/
-
 return true;
 }
 ?>

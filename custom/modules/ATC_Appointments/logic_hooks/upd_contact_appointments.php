@@ -7,19 +7,21 @@ class ContactAppointment
     {
         function ContactAppointmentCount($bean, $event, $arguments)
         {
-              if($arguments['related_module'] == "Contacts")
+              if($arguments['related_module'] == "Contacts" && $arguments['related_id'] != '' && !empty($arguments['related_id']))
               {
                 $contact = BeanFactory::getBean('Contacts',$arguments['related_id']);
 		//$contact->load_relationship('atc_appointments_contacts');
 
 		$GLOBALS['log']->fatal($contact->id);
+		if(isset($contact->id)){
 		$apps = $contact->atc_appointments_contacts->getBeans();
 		$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->appointment_count_c = count($apps);
 		$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->save(FALSE);
-              }
-              if($arguments['related_module'] == "ATC_ISSCampaigns")
+              	}
+		}
+              if($arguments['related_module'] == "ATC_ISSCampaigns"  && $arguments['related_id'] != '' && !empty($arguments['related_id']))
               {
                 $camp = BeanFactory::getBean('ATC_ISSCampaigns',$arguments['related_id']);
 		/*
