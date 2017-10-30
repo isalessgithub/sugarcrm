@@ -24,38 +24,26 @@ array (
               ),
               1 => 
               array (
-                'name' => 'priority',
-                'label' => 'LBL_PRIORITY',
+                'name' => 'proj_type_c',
+                'label' => 'LBL_PROJ_TYPE',
                 'enabled' => true,
                 'default' => true,
               ),
               2 => 
               array (
-                'name' => 'status',
-                'label' => 'LBL_LIST_STATUS',
-                'link' => false,
+                'name' => 'start_date_c',
+                'label' => 'LBL_START_DATE',
                 'enabled' => true,
                 'default' => true,
               ),
               3 => 
               array (
-                'name' => 'assigned_user_name',
-                'label' => 'LBL_LIST_ASSIGNED_TO_NAME',
-                'id' => 'ASSIGNED_USER_ID',
+                'name' => 'priority',
+                'label' => 'LBL_PRIORITY',
                 'enabled' => true,
                 'default' => true,
               ),
               4 => 
-              array (
-                'name' => 'user_director_c',
-                'label' => 'LBL_USER_DIRECTOR',
-                'enabled' => true,
-                'id' => 'USER_ID_C',
-                'link' => true,
-                'sortable' => false,
-                'default' => true,
-              ),
-              5 => 
               array (
                 'name' => 'description',
                 'label' => 'LBL_DESCRIPTION',
@@ -63,59 +51,35 @@ array (
                 'sortable' => false,
                 'default' => true,
               ),
+              5 => 
+              array (
+                'name' => 'created_by_name',
+                'label' => 'LBL_CREATED',
+                'enabled' => true,
+                'readonly' => true,
+                'id' => 'CREATED_BY',
+                'link' => true,
+                'default' => true,
+              ),
               6 => 
               array (
-                'name' => 'date_start',
-                'label' => 'LBL_LIST_START_DATE',
-                'css_class' => 'overflow-visible',
-                'link' => false,
+                'name' => 'date_entered',
+                'label' => 'LBL_DATE_ENTERED',
                 'enabled' => true,
                 'default' => true,
+                'readonly' => true,
               ),
               7 => 
               array (
-                'name' => 'date_due',
-                'label' => 'LBL_LIST_DUE_DATE',
-                'type' => 'datetimecombo-colorcoded',
-                'css_class' => 'overflow-visible',
-                'completed_status_value' => 'Completed',
-                'link' => false,
+                'name' => 'prospect_name_c',
+                'label' => 'LBL_PROSPECT_NAME',
                 'enabled' => true,
-                'default' => true,
-              ),
-              8 => 
-              array (
-                'name' => 'tasktype_c',
-                'label' => 'LBL_TASKTYPE',
-                'enabled' => true,
-                'default' => true,
-              ),
-              9 => 
-              array (
-                'name' => 'task_campaign_c',
-                'label' => 'LBL_TASK_CAMPAIGN',
-                'enabled' => true,
-                'id' => 'ATC_ISSCAMPAIGNS_ID_C',
+                'id' => 'CONTACT_ID_C',
                 'link' => true,
                 'sortable' => false,
-                'default' => true,
-              ),
-              10 => 
-              array (
-                'name' => 'contact_name',
-                'label' => 'LBL_LIST_CONTACT',
-                'link' => true,
-                'id' => 'CONTACT_ID',
-                'module' => 'Contacts',
-                'enabled' => true,
                 'default' => false,
-                'ACLTag' => 'CONTACT',
-                'related_fields' => 
-                array (
-                  0 => 'contact_id',
-                ),
               ),
-              11 => 
+              8 => 
               array (
                 'name' => 'parent_name',
                 'label' => 'LBL_LIST_RELATED_TO',
@@ -132,36 +96,18 @@ array (
                   1 => 'parent_type',
                 ),
               ),
-              12 => 
+              9 => 
               array (
                 'name' => 'date_modified',
                 'enabled' => true,
                 'default' => false,
               ),
-              13 => 
+              10 => 
               array (
                 'name' => 'team_name',
                 'label' => 'LBL_LIST_TEAM',
                 'enabled' => true,
                 'default' => false,
-              ),
-              14 => 
-              array (
-                'name' => 'created_by_name',
-                'label' => 'LBL_CREATED',
-                'enabled' => true,
-                'readonly' => true,
-                'id' => 'CREATED_BY',
-                'link' => true,
-                'default' => false,
-              ),
-              15 => 
-              array (
-                'name' => 'date_entered',
-                'label' => 'LBL_DATE_ENTERED',
-                'enabled' => true,
-                'default' => false,
-                'readonly' => true,
               ),
             ),
           ),

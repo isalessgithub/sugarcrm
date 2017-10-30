@@ -32,7 +32,7 @@ class SplitTargetList
         if (!$target_list->client_edit_disabled_c or $target_list->fetched_row['client_edit_disabled_c']) {
             return;
         }
-
+	$GLOBALS['log']->fatal($target_list->id." -- Split Started");
         // retrieve the contacts related to this target list
         // (query is used because it's a lot faster than retrieving beans)
         $sugarQuery = new SugarQuery();

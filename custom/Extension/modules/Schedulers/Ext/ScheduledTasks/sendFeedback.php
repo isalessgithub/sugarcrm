@@ -13,7 +13,7 @@ function sendFeedbackEmail($id,$salesrep_id){
 		$salesrep = BeanFactory::getBean('ATC_ClientSalesReps',$salesrep_id);
 		$account = BeanFactory::getBean('Accounts', $app->accounts_atc_appointments_1accounts_ida);
 
-		$GLOBALS['log']->fatal('account--'.$bean->accounts_atc_appointments_1accounts_ida."--".$account->name);
+		//$GLOBALS['log']->fatal('account--'.$bean->accounts_atc_appointments_1accounts_ida."--".$account->name);
 		$salesrep_email = "";
 		/*
 		foreach($salesrep->emailAddresses->addresses as $address){
@@ -26,9 +26,9 @@ function sendFeedbackEmail($id,$salesrep_id){
 
 		$salesrep_email = $salesrep->email1;
 
-		$GLOBALS['log']->fatal("email:".$salesrep_email);
+		//$GLOBALS['log']->fatal("email:".$salesrep_email);
 
-	if($salesrep_email != ''){
+	if(strlen($salesrep_email) > 3 && strpos($salesrep_email, "@") !== false){
             	$emailTemplate->parsed_entities = null;
             	$temp = array();
 
@@ -105,6 +105,13 @@ function sendFeedback(){
                 	$dt = new SugarDateTime();
                 	//$app->feedback_timestamp = $dt->asDb();
 			$app->save();
+		}
+		else{
+                        $app = BeanFactory::getBean('ATC_Appointments', $newapp['id']);
+                        $app->feedback_status_c = 'not sent';
+                        //$dt = new SugarDateTime();
+                        //$app->feedback_timestamp = $dt->asDb();
+                        $app->save();
 		}
 		}
 		if($newapp['salesrep_id2'] != '' && !empty($newapp['salesrep_id2'])){

@@ -165,32 +165,55 @@ array (
             'columns' => 2,
             'labelsOnTop' => true,
             'placeholders' => true,
-            'newTab' => false,
+            'newTab' => true,
             'panelDefault' => 'expanded',
             'fields' => 
             array (
-              0 => 'priority',
-              1 => 'status',
-              2 => 'date_start',
+              0 => 'parent_name',
+              1 => 'priority',
+              2 => 
+              array (
+                'name' => 'proj_type_c',
+                'label' => 'LBL_PROJ_TYPE',
+              ),
               3 => 
               array (
-                'name' => 'tasktype_c',
-                'label' => 'LBL_TASKTYPE',
+                'name' => 'start_date_c',
+                'label' => 'LBL_START_DATE',
               ),
               4 => 
               array (
-                'name' => 'date_due',
+                'name' => 'prospect_name_c',
+                'studio' => 'visible',
+                'label' => 'LBL_PROSPECT_NAME',
               ),
               5 => 
               array (
+                'name' => 'assist_from_c',
+                'studio' => 'visible',
+                'label' => 'LBL_ASSIST_FROM',
               ),
               6 => 
               array (
-                'name' => 'description',
+                'name' => 'proj_details_c',
+                'studio' => 'visible',
+                'label' => 'LBL_PROJ_DETAILS',
                 'span' => 12,
               ),
-              7 => 'assigned_user_name',
-              8 => 
+            ),
+          ),
+          2 => 
+          array (
+            'newTab' => true,
+            'panelDefault' => 'expanded',
+            'name' => 'LBL_RECORDVIEW_PANEL1',
+            'label' => 'LBL_RECORDVIEW_PANEL1',
+            'columns' => 2,
+            'labelsOnTop' => 1,
+            'placeholders' => 1,
+            'fields' => 
+            array (
+              0 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -214,13 +237,7 @@ array (
                   ),
                 ),
               ),
-              9 => 
-              array (
-                'name' => 'user_director_c',
-                'studio' => 'visible',
-                'label' => 'LBL_USER_DIRECTOR',
-              ),
-              10 => 
+              1 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -244,34 +261,8 @@ array (
                   ),
                 ),
               ),
-            ),
-          ),
-          2 => 
-          array (
-            'newTab' => false,
-            'panelDefault' => 'expanded',
-            'name' => 'LBL_RECORDVIEW_PANEL1',
-            'label' => 'LBL_RECORDVIEW_PANEL1',
-            'columns' => 2,
-            'labelsOnTop' => 1,
-            'placeholders' => 1,
-            'fields' => 
-            array (
-              0 => 
-              array (
-                'name' => 'task_campaign_c',
-                'studio' => 'visible',
-                'label' => 'LBL_TASK_CAMPAIGN',
-              ),
-              1 => 
-              array (
-                'name' => 'iss_list_c',
-                'label' => 'LBL_ISS_LIST',
-              ),
               2 => 
               array (
-                'name' => 'num_accounts_task_c',
-                'label' => 'LBL_NUM_ACCOUNTS_TASK',
               ),
               3 => 
               array (
@@ -282,7 +273,7 @@ array (
         ),
         'templateMeta' => 
         array (
-          'useTabs' => false,
+          'useTabs' => true,
         ),
       ),
     ),
