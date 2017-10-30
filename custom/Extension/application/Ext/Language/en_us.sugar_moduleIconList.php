@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-13 11:54:05
+// created: 2017-10-14 13:13:30
 $app_list_strings['moduleIconList']['Calls'] = 'Call';
 $app_list_strings['moduleIconList']['Cases'] = 'Case';
 $app_list_strings['moduleIconList']['Campaigns'] = 'Campaign';

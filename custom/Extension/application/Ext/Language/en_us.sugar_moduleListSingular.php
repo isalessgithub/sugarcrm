@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-13 11:53:47
+// created: 2017-10-14 13:13:23
 $app_list_strings['moduleListSingular']['Home'] = 'Home';
 $app_list_strings['moduleListSingular']['Contacts'] = 'Contact';
 $app_list_strings['moduleListSingular']['Accounts'] = 'Account';
@@ -36,3 +36,4 @@ $app_list_strings['moduleListSingular']['TM_Test_Module'] = 'Test Module';
 $app_list_strings['moduleListSingular']['AQA_Appointment_Plan'] = 'Appointment Plan';
 $app_list_strings['moduleListSingular']['MS_Campaign_Results_Monthly'] = 'Campaigns Results Monthly';
 $app_list_strings['moduleListSingular']['RLS_LinkedinParserConfig'] = 'Social2Sugar User Config';
+$app_list_strings['moduleListSingular']['ET_DuplicateFinderProcess'] = 'Duplicate Finder Process';

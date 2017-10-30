@@ -1,5 +1,5 @@
 <?php
- // created: 2017-10-13 12:02:19
+ // created: 2017-10-14 14:37:54
 $dictionary['Task']['fields']['name']['required']=false;
 $dictionary['Task']['fields']['name']['audited']=true;
 $dictionary['Task']['fields']['name']['massupdate']=false;
@@ -13,7 +13,7 @@ $dictionary['Task']['fields']['name']['full_text_search']=array (
   'boost' => '1',
   'searchable' => true,
 );
-$dictionary['Task']['fields']['name']['calculated']='true';
+$dictionary['Task']['fields']['name']['calculated']='1';
 $dictionary['Task']['fields']['name']['formula']='related($accounts,"name")';
 $dictionary['Task']['fields']['name']['enforced']=true;
 

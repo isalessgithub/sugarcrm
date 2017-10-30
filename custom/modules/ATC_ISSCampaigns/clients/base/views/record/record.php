@@ -1,22 +1,22 @@
 <?php
-$viewdefs['ATC_ISSCampaigns'] = 
+$viewdefs['ATC_ISSCampaigns'] =
 array (
-  'base' => 
+  'base' =>
   array (
-    'view' => 
+    'view' =>
     array (
-      'record' => 
+      'record' =>
       array (
-        'panels' => 
+        'panels' =>
         array (
-          0 => 
+          0 =>
           array (
             'name' => 'panel_header',
             'label' => 'LBL_RECORD_HEADER',
             'header' => true,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'picture',
                 'type' => 'avatar',
@@ -26,7 +26,7 @@ array (
                 'readonly' => true,
               ),
               1 => 'name',
-              2 => 
+              2 =>
               array (
                 'name' => 'favorite',
                 'label' => 'LBL_FAVORITE',
@@ -34,7 +34,7 @@ array (
                 'readonly' => true,
                 'dismiss_label' => true,
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'follow',
                 'label' => 'LBL_FOLLOW',
@@ -44,7 +44,7 @@ array (
               ),
             ),
           ),
-          1 => 
+          1 =>
           array (
             'name' => 'panel_body',
             'label' => 'LBL_RECORD_BODY',
@@ -53,77 +53,78 @@ array (
             'placeholders' => true,
             'newTab' => true,
             'panelDefault' => 'expanded',
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'atc_clients_atc_isscampaigns_name',
                 'label' => 'LBL_ATC_CLIENTS_ATC_ISSCAMPAIGNS_FROM_ATC_CLIENTS_TITLE',
+                'span' => 12,
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'campaign_email_and_password_c',
                 'label' => 'LBL_CAMPAIGN_EMAIL_AND_PASSWORD',
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'face_to_face_drop_c',
                 'label' => 'LBL_FACE_TO_FACE_DROP',
               ),
-              3 => 
+              2 =>
               array (
                 'name' => 'appointments_set_c',
                 'label' => 'LBL_APPOINTMENTS_SET',
               ),
-              4 => 
+              3 =>
               array (
                 'name' => 'appointment_target_campaign_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_CAMPAIGN',
               ),
-              5 => 
+              4 =>
               array (
                 'name' => 'appointment_target_monthly_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_MONTHLY',
               ),
-              6 => 
+              5 =>
               array (
                 'name' => 'campaign_status_c',
                 'label' => 'LBL_CAMPAIGN_STATUS',
               ),
-              7 => 
+              6 =>
               array (
                 'name' => 'potential_start_month_c',
                 'label' => 'LBL_POTENTIAL_START_MONTH',
               ),
-              8 => 
+              7 =>
               array (
                 'name' => 'campaign_start_date_c',
                 'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
-              9 => 
+              9 =>
               array (
                 'name' => 'campaign_finish_date_c',
                 'label' => 'LBL_CAMPAIGN_FINISH_DATE',
               ),
-              10 => 
+              10 =>
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              11 => 
+              11 =>
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              12 => 
+              12 =>
               array (
                 'name' => 'description',
                 'span' => 12,
               ),
             ),
           ),
-          2 => 
+          2 =>
           array (
             'newTab' => false,
             'panelDefault' => 'expanded',
@@ -132,9 +133,9 @@ array (
             'columns' => '2',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'sales_notes_c',
                 'studio' => 'visible',
@@ -143,7 +144,7 @@ array (
               ),
             ),
           ),
-          3 => 
+          3 =>
           array (
             'newTab' => false,
             'panelDefault' => 'collapsed',
@@ -152,41 +153,41 @@ array (
             'columns' => '2',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'invoice_number_c',
                 'label' => 'LBL_INVOICE_NUMBER',
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'invoice_date_received_c',
                 'label' => 'LBL_INVOICE_DATE_RECEIVED',
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'invoice_amount_paid_c',
                 'label' => 'LBL_INVOICE_AMOUNT_PAID',
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'invoice_date_deposited_c',
                 'label' => 'LBL_INVOICE_DATE_DEPOSITED',
               ),
-              4 => 
+              4 =>
               array (
                 'name' => 'invoiced_c',
                 'label' => 'LBL_INVOICED',
               ),
-              5 => 
+              5 =>
               array (
                 'name' => 'invoice_sent_c',
                 'label' => 'LBL_INVOICE_SENT',
               ),
             ),
           ),
-          4 => 
+          4 =>
           array (
             'newTab' => true,
             'panelDefault' => 'collapsed',
@@ -195,87 +196,87 @@ array (
             'columns' => '2',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'from_address_c',
                 'label' => 'LBL_FROM_ADDRESS',
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'from_name_c',
                 'label' => 'LBL_FROM_NAME',
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'client_owner_c',
                 'studio' => 'visible',
                 'label' => 'LBL_CLIENT_OWNER',
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'client_campaign_id_c',
                 'label' => 'LBL_CLIENT_CAMPAIGN_ID',
               ),
-              4 => 
+              4 =>
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
                 'inline' => true,
                 'type' => 'fieldset',
                 'label' => 'LBL_DATE_MODIFIED',
-                'fields' => 
+                'fields' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'name' => 'date_modified',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'type' => 'label',
                     'default_value' => 'LBL_BY',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'name' => 'modified_by_name',
                   ),
                 ),
               ),
-              5 => 
+              5 =>
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
                 'inline' => true,
                 'type' => 'fieldset',
                 'label' => 'LBL_DATE_ENTERED',
-                'fields' => 
+                'fields' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'name' => 'date_entered',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'type' => 'label',
                     'default_value' => 'LBL_BY',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'name' => 'created_by_name',
                   ),
                 ),
               ),
-              6 => 
+              6 =>
               array (
               ),
-              7 => 
+              7 =>
               array (
                 'name' => 'team_name',
               ),
             ),
           ),
-          5 => 
+          5 =>
           array (
             'newTab' => true,
             'panelDefault' => 'expanded',
@@ -284,44 +285,44 @@ array (
             'columns' => '2',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' => 
+            'fields' =>
             array (
-              0 => 
+              0 =>
               array (
                 'name' => 'monthly_result_start_date_c',
                 'label' => 'LBL_MONTHLY_RESULT_START_DATE',
               ),
-              1 => 
+              1 =>
               array (
                 'name' => 'appointments_reschedule_c',
                 'label' => 'LBL_APPOINTMENTS_RESCHEDULE',
               ),
-              2 => 
+              2 =>
               array (
                 'name' => 'appointment_accepted_c',
                 'label' => 'LBL_APPOINTMENT_ACCEPTED',
               ),
-              3 => 
+              3 =>
               array (
                 'name' => 'appointment_attended_by_poli_c',
                 'label' => 'LBL_APPOINTMENT_ATTENDED_BY_POLI',
               ),
-              4 => 
+              4 =>
               array (
                 'name' => 'appointment_attended_c',
                 'label' => 'LBL_APPOINTMENT_ATTENDED',
               ),
-              5 => 
+              5 =>
               array (
                 'name' => 'appointment_confirmed_c',
                 'label' => 'LBL_APPOINTMENT_CONFIRMED',
               ),
-              6 => 
+              6 =>
               array (
                 'name' => 'remaining_target_c',
                 'label' => 'LBL_REMAINING_TARGET',
               ),
-              7 => 
+              7 =>
               array (
                 'name' => 'grand_total_c',
                 'label' => 'LBL_GRAND_TOTAL',
@@ -329,7 +330,7 @@ array (
             ),
           ),
         ),
-        'templateMeta' => 
+        'templateMeta' =>
         array (
           'maxColumns' => '2',
           'useTabs' => true,
