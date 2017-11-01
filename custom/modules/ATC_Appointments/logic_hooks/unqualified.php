@@ -3,7 +3,7 @@ class unqualified{
 	function unqualifiedUpdate($bean,$event,$arguments){
 		//see if conditions are met.
 		$GLOBALS['log']->fatal("This is working:".$bean->dm_qualified_c);
-		if($bean->appointment_status == 'Attended' && $bean->dm_qualified_c == 'No'){
+		if(($bean->appointment_status == 'Attended' || $bean->appointment_status == 'DC_Appt_Attended') && $bean->dm_qualified_c == 'No'){
 			$bean->appointment_status = 'Cancelled';
 			if($bean->atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida != "" && isset($bean->atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida)){
 				$campaign = BeanFactory::retrieveBean('ATC_ISSCampaigns',$bean->atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida);
