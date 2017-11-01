@@ -185,6 +185,15 @@ array (
         array (
           0 => 
           array (
+            'name' => 'dm_qualified_c',
+            'label' => 'LBL_DM_QUALIFIED',
+          ),
+          1 => '',
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
             'name' => 'atc_clientsalesreps_atc_appointments_name',
             'displayParams' => 
             array (
@@ -198,7 +207,7 @@ array (
             'label' => 'LBL_SECOND_CLIENT_REP',
           ),
         ),
-        1 => 
+        2 => 
         array (
           0 => 
           array (
@@ -211,7 +220,7 @@ array (
             'label' => 'LBL_CLIENTREP_EMAIL2',
           ),
         ),
-        2 => 
+        3 => 
         array (
           0 => 
           array (
@@ -224,7 +233,7 @@ array (
             'label' => 'LBL_FEEDBACK_TIMESTAMP',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
@@ -232,9 +241,6 @@ array (
             'studio' => 'visible',
             'label' => 'LBL_APPOINTMENT_FEEDBACK',
           ),
-        ),
-        4 => 
-        array (
         ),
         5 => 
         array (
