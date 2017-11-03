@@ -1,7 +1,7 @@
 <?php
- // created: 2017-10-19 14:19:39
-$dictionary['ATC_Appointments']['fields']['dm_qualified_c']['labelValue']='Decision Maker or Influencer?';
-$dictionary['ATC_Appointments']['fields']['dm_qualified_c']['enforced']='';
+ // created: 2017-11-01 16:23:56
+$dictionary['ATC_Appointments']['fields']['dm_qualified_c']['labelValue']='Decision Maker or Influencer';
 $dictionary['ATC_Appointments']['fields']['dm_qualified_c']['dependency']='';
+$dictionary['ATC_Appointments']['fields']['dm_qualified_c']['visibility_grid']='';
 
  ?>

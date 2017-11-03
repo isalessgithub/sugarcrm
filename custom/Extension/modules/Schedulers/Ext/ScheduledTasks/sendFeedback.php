@@ -1,7 +1,7 @@
 <?php
 array_push($job_strings, 'sendFeedback');
 
-function sendFeedbackEmail($id){
+function sendFeedbackEmail($id,$message){
 		//require stock phpmailer
                 require_once('custom/include/php_mailer/PHPMailer.php');
                 require_once('custom/include/php_mailer/SMTP.php');
@@ -62,7 +62,7 @@ function sendFeedbackEmail($id){
 
             	$template_data = $emailTemplate->parse_email_template(
                 	array(
-                    		"subject" => $emailTemplate->subject,
+                    		"subject" => $emailTemplate->subject.$message,
                     		"body_html" => $emailTemplate->body_html,
                     		"body" => $emailTemplate->body
                 	),
@@ -115,10 +115,10 @@ function sendFeedback(){
 	//0, 3, 6 12, 24
 	$sendingar = array();
 	$sendingar[] = array("time" => 0,"oldstatus" => "qualified","newstatus" => "sent", "message" => "");
-	$sendingar[] = array("time" => 3,"oldstatus" => "sent","newstatus" => "sent twice", "message" => "Second Notification");
-	$sendingar[] = array("time" => 6,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => "Third Notification");
-	$sendingar[] = array("time" => 12,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => "Fourth Notification");
-	$sendingar[] = array("time" => 24,"oldstatus" => "sent four","newstatus" => "sent final", "message" => "Final Notification");
+	$sendingar[] = array("time" => 3,"oldstatus" => "sent","newstatus" => "sent twice", "message" => " Second Notification");
+	$sendingar[] = array("time" => 6,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
+	$sendingar[] = array("time" => 12,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
+	$sendingar[] = array("time" => 24,"oldstatus" => "sent four","newstatus" => "sent final", "message" => " Final Notification");
         $db = DBManagerFactory::GetInstance();
         global $timedate;
 	foreach($sendingar as $sa){
@@ -130,7 +130,7 @@ function sendFeedback(){
 		$q = $db->query($find);
 		while($newapp = $db->fetchRow($q)){
 			$app = BeanFactory::retrieveBean('ATC_Appointments', $newapp['id']);
-			if(sendFeedbackEmail($newapp['id'])){
+			if(sendFeedbackEmail($newapp['id'],$sa['message'])){
 				$app->feedback_status_c = $sa['newstatus'];
 				$app->save();
 			}

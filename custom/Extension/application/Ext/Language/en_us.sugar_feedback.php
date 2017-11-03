@@ -1,17 +1,18 @@
 <?php
- // created: 2017-10-25 16:21:52
+ // created: 2017-10-25 16:21:51
 
 $app_list_strings['feedback']=array (
   '' => '',
-  'not sent' => 'Not Sent (Default)',
+  'do not send' => 'Do Not Send',
+  'resend' => 'Re-Send',
   'received' => 'Received',
   'sent' => 'Sent',
   'sent twice' => 'Sent Twice',
-  'sent thrice' => 'Send Three Times',
   'rep unresponsive' => 'Rep Unresponsive',
   'other' => 'Other (See Notes)',
+  'sent thrice' => 'Send Three Times',
   'qualified' => 'Qualified',
-  'resend' => 'Re-Send',
+  'not sent' => 'Not Sent (Default)',
   'sent four' => 'Sent Four',
   'sent final' => 'Sent Final',
 );

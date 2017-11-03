@@ -3,6 +3,8 @@
 
 $app_list_strings['feedback']=array (
   '' => '',
+  'do not send' => 'Do Not Send',
+  'resend' => 'Re-Send',
   'received' => 'Received',
   'sent' => 'Sent',
   'sent twice' => 'Sent Twice',
@@ -10,7 +12,6 @@ $app_list_strings['feedback']=array (
   'other' => 'Other (See Notes)',
   'sent thrice' => 'Send Three Times',
   'qualified' => 'Qualified',
-  'resend' => 'Re-Send',
   'not sent' => 'Not Sent (Default)',
   'sent four' => 'Sent Four',
   'sent final' => 'Sent Final',
