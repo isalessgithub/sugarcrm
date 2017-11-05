@@ -20,6 +20,18 @@
                    $record['appointment_status']=$bean->appointment_status;
                    $record['appointment_date']=$bean->appointment_date;
                    $record['date_created']=$bean->date_modified;
+                   $record['title']=$bean->title_c;
+                   $record['client']=$bean->atc_appointments_contacts_name;
+                   $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
+                   $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
+                   $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+                   $record['feedback_date']=$bean->feedback_timestamp_c;
+                   $record['positive_appointment']=$bean->positive_appointment_c;
+                   $record['timeline']=$bean->appointment_result_c;
+                   $record['second_appt']=$bean->second_appointment_c;
+                   $record['opp_value']=$bean->opportunity_amount;
+                  
+
                 }
  
              }else{
@@ -31,6 +43,17 @@
                   $record['appointment_status']=$bean->appointment_status;
                   $record['appointment_date']=$bean->appointment_date;
                   $record['date_created']=$bean->date_modified;
+                  $record['title']=$bean->title_c;
+                  $record['client']=$bean->atc_appointments_contacts_name;
+                  $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
+                  $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
+                  $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+                  $record['feedback_date']=$bean->feedback_timestamp_c;
+                  $record['positive_appointment']=$bean->positive_appointment_c;
+                  $record['timeline']=$bean->appointment_result_c;
+                  $record['second_appt']=$bean->second_appointment_c;
+                  $record['opp_value']=$bean->opportunity_amount;
+
 
              }
 

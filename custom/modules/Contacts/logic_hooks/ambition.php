@@ -7,6 +7,25 @@
 
           if($arguments['isUpdate']==1){  
              
+              if($arguments['dataChanges']['date_modified']['before'] != $arguments['dataChanges']['date_modified']['after']){
+
+                  $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+                  $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
+                  $record['id']=$bean->id;
+                  $record['email']=$user->emailAddress->getPrimaryAddress($user);
+                  $record['date_created']=$bean->date_modified;
+                  $record['address_last_modified']=$bean->date_modified;
+                  $record['email_last_modified']=$bean->date_modified;
+                  $record['direct_phone_last_modified']=$bean->date_modified;
+                  $record['direct_phone']=$bean->phone_other;
+                  $record['mobile']=$bean->phone_mobile;
+                  $record['appointment_count']=$bean->appointment_count_c;
+                  $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+                  $record['title']=$bean->title; 
+                  
+              }
+
+              /*
               if($arguments['dataChanges']['email']['before'] != $arguments['dataChanges']['email']['after']
                  || $arguments['dataChanges']['phone_other']['before'] != $arguments['dataChanges']['phone_other']['after'] 
                  || $arguments['dataChanges']['primary_address_street']['before'] != $arguments['dataChanges']['primary_address_street']['after']
@@ -74,19 +93,24 @@
                
                      $record['address_last_modified']=$address_audit[0];
                    
-              }
+              }*/
             
           }  
           else{ 
 
                $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
-           
+               $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
                $record['id']=$bean->id;
                $record['email']=$user->emailAddress->getPrimaryAddress($user);
                $record['date_created']=$bean->date_modified;
                $record['address_last_modified']=$bean->date_modified;
                $record['email_last_modified']=$bean->date_modified;
                $record['direct_phone_last_modified']=$bean->date_modified;
+               $record['direct_phone']=$bean->phone_other;
+               $record['mobile']=$bean->phone_mobile;
+               $record['appointment_count']=$bean->appointment_count_c;
+               $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+               $record['title']=$bean->title;
 
 
 
