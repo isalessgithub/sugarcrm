@@ -19,4 +19,5 @@ $mod_strings['LBL_SALES_REP_EMAIL'] = 'Sales Rep Email';
 $mod_strings['LBL_PAID_DATE'] = 'Paid Date';
 $mod_strings['LBL_CLIENTREP_EMAIL1'] = 'Rep Email 1';
 $mod_strings['LBL_CLIENTREP_EMAIL2'] = 'Rep Email 2';
-$mod_strings['LBL_DM_QUALIFIED'] = 'Decision Maker or Influencer';
+$mod_strings['LBL_DM_QUALIFIED'] = 'Decision Maker or Influencer?';
+$mod_strings['LBL_RECORDVIEW_PANEL1'] = 'Feedback';
