@@ -26,11 +26,13 @@
         // check if appointment has any of required statuses
         if ($.inArray(status, ['Attended', 'DC_Appt_Attended', 'Attended_Policy']) !== -1) {
 
-            fieldsToValidate.sales_rep_email_c.required = true;
+            // todo: set the right field
+            // legacy logic was marking clientrep_email1_c as required
+            fieldsToValidate.clientrep_email1_c.required = true;
 
         } else {
 
-            fieldsToValidate.sales_rep_email_c.required = false;
+            fieldsToValidate.clientrep_email1_c.required = false;
         }
 
         this.model.doValidate(fieldsToValidate, _.bind(this.validationComplete, this));
