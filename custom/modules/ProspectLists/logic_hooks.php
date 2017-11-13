@@ -11,7 +11,8 @@ $hook_array['before_relationship_delete'][] = Array(1,'Hook description','custom
 $hook_array['before_save'] = Array(); 
 $hook_array['before_save'][] = Array('2','update email from campaign','custom/modules/ProspectLists/inherit_email.php','inheritEmail','inheritCampaignEmail',);
 $hook_array['before_save'][] = Array('11','workflow','include/workflow/WorkFlowHandler.php','WorkFlowHandler','WorkFlowHandler',);
-
+$hook_array['after_save'] = Array();
+$hook_array['after_save'][] = Array(5,'split target lists','custom/modules/ProspectLists/SplitTargetList.php','SplitTargetList','doSplitTargetList');
 
 
 ?>
