@@ -1,8 +1,8 @@
 <?php
 
-    class ambition
+    class app_ambition
     {
-        function push($bean, $event, $arguments)
+        function app_push($bean, $event, $arguments)
         {
              
              $record=array();
