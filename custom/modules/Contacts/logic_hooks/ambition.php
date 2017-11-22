@@ -13,7 +13,7 @@
                   $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
                   $record['id']=$bean->id;
                   $record['email']=$user->emailAddress->getPrimaryAddress($user);
-                  $record['date_created']=$bean->date_modified;
+                  $record['date_created']=$bean->fetched_row['date_entered'];
                   $record['address_last_modified']=$bean->date_modified;
                   $record['email_last_modified']=$bean->date_modified;
                   $record['direct_phone_last_modified']=$bean->date_modified;
