@@ -16,6 +16,7 @@ class unqualified{
 							     <p><a href='https://crm.isaless.com/#bwc/index.php?module=ATC_Appointments&action=DetailView&record={$bean->id}'>{$bean->name}</a></p>";
 						$mailTo = array(
 							0 => array('name' => $radmin->first_name." ".$radmin->last_name,'email' => $radmin->email1,),
+                                                        1 => array('name' => $assigned_user->first_name." ".$assigned_user->last_name,'email' => $assigned_user->email1,),
 							);
 						try{
 							$mailer = MailerFactory::getSystemDefaultMailer();

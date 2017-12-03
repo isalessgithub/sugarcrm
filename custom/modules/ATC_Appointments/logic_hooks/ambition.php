@@ -1,8 +1,8 @@
 <?php
 
-    class ambition
+    class app_ambition
     {
-        function push($bean, $event, $arguments)
+        function app_push($bean, $event, $arguments)
         {
              
              $record=array();
@@ -15,11 +15,11 @@
 
                    $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
                    $record['email']=$user->emailAddress->getPrimaryAddress($user);
-                   $record['id']=$bean->id;
+                   $record['id']=$bean->id.$bean->appointment_status;
                    $record['appointment_place']=$bean->appointment_place;
                    $record['appointment_status']=$bean->appointment_status;
                    $record['appointment_date']=$bean->appointment_date;
-                   $record['date_created']=$bean->date_modified;
+                   $record['date_created']=$bean->fetched_row['date_entered'];
                    $record['title']=$bean->title_c;
                    $record['client']=$bean->atc_appointments_contacts_name;
                    $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
