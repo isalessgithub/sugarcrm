@@ -1,17 +1,28 @@
 <?php
-// created: 2014-02-11 04:31:19
+// created: 2017-11-22 12:49:54
 $wireless_module_registry = array (
   'Accounts' => 
   array (
   ),
-  'Calls' => 
-  array (
-  ),
-  'Cases' => 
-  array (
-    'disable_create' => true,
-  ),
   'Contacts' => 
+  array (
+  ),
+  'ATC_Clients' => 
+  array (
+  ),
+  'ATC_ClientSalesReps' => 
+  array (
+  ),
+  'ATC_Appointments' => 
+  array (
+  ),
+  'ATC_ISSCampaigns' => 
+  array (
+  ),
+  'ProspectLists' => 
+  array (
+  ),
+  'Calls' => 
   array (
   ),
   'Employees' => 
@@ -21,18 +32,8 @@ $wireless_module_registry = array (
   'Leads' => 
   array (
   ),
-  'Meetings' => 
-  array (
-  ),
-  'Opportunities' => 
-  array (
-    'disable_create' => true,
-  ),
   'Reports' => 
   array (
     'disable_create' => true,
-  ),
-  'Tasks' => 
-  array (
   ),
 );

@@ -1,23 +1,23 @@
 <?php
-$viewdefs['ATC_Appointments'] =
+$viewdefs['ATC_Appointments'] = 
 array (
-  'mobile' =>
+  'mobile' => 
   array (
-    'view' =>
+    'view' => 
     array (
-      'edit' =>
+      'edit' => 
       array (
-        'templateMeta' =>
+        'templateMeta' => 
         array (
           'maxColumns' => '1',
-          'widths' =>
+          'widths' => 
           array (
-            0 =>
+            0 => 
             array (
               'label' => '10',
               'field' => '30',
             ),
-            1 =>
+            1 => 
             array (
               'label' => '10',
               'field' => '30',
@@ -25,9 +25,9 @@ array (
           ),
           'useTabs' => false,
         ),
-        'panels' =>
+        'panels' => 
         array (
-          0 =>
+          0 => 
           array (
             'label' => 'LBL_PANEL_DEFAULT',
             'newTab' => false,
@@ -36,75 +36,85 @@ array (
             'columns' => '1',
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' =>
+            'fields' => 
             array (
-              0 => 'name',
-              1 =>
+              0 => 
+              array (
+                'name' => 'appointment_date_original',
+                'label' => 'LBL_APPOINTMENT_DATE_ORIGINAL',
+              ),
+              1 => 
+              array (
+                'name' => 'appointment_status',
+                'studio' => 'visible',
+                'label' => 'LBL_APPOINTMENT_STATUS',
+              ),
+              2 => 
               array (
                 'name' => 'appointment_date',
                 'label' => 'LBL_APPOINTMENT_DATE',
               ),
-              2 =>
+              3 => 
               array (
                 'name' => 'appointment_place',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_PLACE',
               ),
-              3 =>
+              4 => 
               array (
                 'name' => 'account_c',
                 'label' => 'LBL_ACCOUNT',
               ),
-              4 =>
+              5 => 
               array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
-              5 =>
+              6 => 
               array (
                 'name' => 'contact_email',
                 'label' => 'LBL_CONTACT_EMAIL',
               ),
-              6 =>
+              7 => 
               array (
                 'name' => 'title_c',
                 'studio' => 'visible',
                 'label' => 'LBL_TITLE',
               ),
-              7 =>
+              8 => 
               array (
                 'name' => 'description',
                 'comment' => 'Full text of the note',
                 'label' => 'LBL_DESCRIPTION',
               ),
-              8 =>
+              9 => 
               array (
                 'name' => 'atc_clientsalesreps_atc_appointments_name',
                 'label' => 'LBL_ATC_CLIENTSALESREPS_ATC_APPOINTMENTS_FROM_ATC_CLIENTSALESREPS_TITLE',
               ),
-              9 =>
+              10 => 
               array (
                 'name' => 'clientrep_email1_c',
                 'label' => 'LBL_CLIENTREP_EMAIL1',
               ),
-              10 =>
+              11 => 
               array (
                 'name' => 'appointment_feedback',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_FEEDBACK',
               ),
-              11 =>
+              12 => 
               array (
                 'name' => 'atc_isscampaigns_atc_appointments_name',
                 'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
               ),
-              12 =>
+              13 => 
               array (
                 'name' => 'prospectlists_atc_appointments_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              13 => 'assigned_user_name',
-              14 =>
+              14 => 'assigned_user_name',
+              15 => 
               array (
                 'name' => 'created_by_name',
                 'readonly' => true,

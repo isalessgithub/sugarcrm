@@ -24,18 +24,28 @@ array (
               ),
               1 => 
               array (
-                'name' => 'team_name',
-                'label' => 'LBL_TEAM',
-                'default' => true,
-                'enabled' => true,
-              ),
-              2 => 
-              array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'default' => true,
                 'enabled' => true,
                 'link' => true,
+              ),
+              2 => 
+              array (
+                'name' => 'appointment_date',
+                'label' => 'LBL_APPOINTMENT_DATE',
+                'enabled' => true,
+                'default' => true,
+              ),
+              3 => 
+              array (
+                'name' => 'atc_isscampaigns_atc_appointments_name',
+                'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
+                'enabled' => true,
+                'id' => 'ATC_ISSCAMPAIGNS_ATC_APPOINTMENTSATC_ISSCAMPAIGNS_IDA',
+                'link' => true,
+                'sortable' => false,
+                'default' => true,
               ),
             ),
           ),
