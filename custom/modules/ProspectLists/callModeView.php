@@ -12,28 +12,35 @@ global $sugar_config;
 $db = $GLOBALS['db'];
 
 // only if Target ID exists
-if(isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])){
+if (isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])) {
     $sTargetId = $_REQUEST['uid'];
 // retrieve details of target list
     $oProspectList = new ProspectList();
     $oProspectList->retrieve($sTargetId);
 
 // module title
-    echo getClassicModuleTitle("ProspectLists", array("<a href='index.php?module=ProspectLists&action=index'>" .
+    echo getClassicModuleTitle("ProspectLists", array(
+        "<a href='index.php?module=ProspectLists&action=index'>" .
         translate('LBL_MODULE_NAME', 'ProspectLists') . "</a>",
         $mod_strings['LBL_CALLING_MODE_TARGET_LIST'] .
-        "<a href='index.php?module=ProspectLists&action=DetailView&record=".$oProspectList->id."'>".$oProspectList->name."</a>"), false);
+        "<a href='index.php?module=ProspectLists&action=DetailView&record=" . $oProspectList->id . "'>" . $oProspectList->name . "</a>"
+    ), false);
 
 // fetch all related contacts
 //$oContacts = $oProspectList->get_linked_beans('contacts', 'Contacts');
 
 
-    $cSQL = " SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', contacts.id AS 'contact_id', title,phone_other, phone_work, phone_mobile, primary_address_city, primary_address_state, call_outcome_c, email_addresses.email_address as 'email1'
+    $cSQL = "
+SELECT accounts.id 'account_id', accounts.name 'account_name', CONCAT(first_name, ' ', last_name) AS 'full_name', 
+       contacts.id AS 'contact_id', title,phone_other, phone_work, phone_mobile, primary_address_city, 
+       primary_address_state, call_outcome_c, email_addresses.email_address as 'email1',
+       accounts_cstm.ct_storage_c, accounts_cstm.ct_security_c, accounts_cstm.ct_networking_c, accounts_cstm.ct_hardware_c
 FROM contacts
 INNER JOIN contacts_cstm ON contacts_cstm.id_c = contacts.id AND contacts.deleted = 0
-INNER JOIN prospect_lists_prospects ON prospect_lists_prospects.related_id = contacts.id AND prospect_list_id = '".$_REQUEST['uid']."' AND prospect_lists_prospects.deleted=0 AND prospect_lists_prospects.related_type ='Contacts'
+INNER JOIN prospect_lists_prospects ON prospect_lists_prospects.related_id = contacts.id AND prospect_list_id = '" . $_REQUEST['uid'] . "' AND prospect_lists_prospects.deleted=0 AND prospect_lists_prospects.related_type ='Contacts'
 LEFT JOIN accounts_contacts ON accounts_contacts.contact_id = contacts.id and accounts_contacts.deleted=0
 LEFT JOIN accounts ON accounts_contacts.account_id = accounts.id and accounts.deleted = 0
+LEFT JOIN accounts_cstm ON accounts.id = accounts_cstm.id_c
 LEFT JOIN email_addr_bean_rel on bean_id = contacts.id and email_addr_bean_rel.deleted=0 AND email_addr_bean_rel.primary_address = 1
 LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addresses.id and email_addresses.deleted=0;";
 
@@ -46,17 +53,17 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
 // setting up table header here
     $sTableHeader = '';
     $sTableHeader .= '<tr>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_LIST_ACCOUNT_NAME'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_LIST_CONTACT_NAME'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_LIST_TITLE'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_OTHER_PHONE'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_PHONE_WORK'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_PHONE_MOBILE'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_LIST_EMAIL_ADDRESS'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_PRIMARY_ADDRESS_CITY'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_PRIMARY_ADDRESS_STATE'].'</th>';
-    $sTableHeader .= '<th>'.$callModStrings['LBL_CALL_OUTCOME'].'</th>';
-    $sTableHeader .= '<th>'.$contactModStrings['LBL_LOG_CALL'].'</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_LIST_ACCOUNT_NAME'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_LIST_CONTACT_NAME'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_LIST_TITLE'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_OTHER_PHONE'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_PHONE_WORK'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_PHONE_MOBILE'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_LIST_EMAIL_ADDRESS'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_PRIMARY_ADDRESS_CITY'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_PRIMARY_ADDRESS_STATE'] . '</th>';
+    $sTableHeader .= '<th>' . $callModStrings['LBL_CALL_OUTCOME'] . '</th>';
+    $sTableHeader .= '<th>' . $contactModStrings['LBL_LOG_CALL'] . '</th>';
     $sTableHeader .= '</tr>';
 //$sTableHeader .= '<td colspan=10>'.$cSQL.'</td>';
 // setting up buttons
@@ -71,14 +78,28 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
     $sTableRow = '';
     $ctr = 0;
 
-    if(!empty($cResult)){
-        while($oContact = $db->fetchByAssoc($cResult)){
+    if (!empty($cResult)) {
+        while ($oContact = $db->fetchByAssoc($cResult)) {
 
             $moduleName = 'Contacts';
             $record = $oContact['contact_id'];
-            $phone_other  =$oContact['phone_other'];
+            $phone_other = $oContact['phone_other'];
             $contactname = htmlspecialchars($oContact['full_name']);
             $accountname = htmlspecialchars($oContact['account_name']);
+
+            // introduce the contact's title and address
+            $contactTitle = htmlspecialchars($oContact['title']);
+            $contactAddress = htmlspecialchars($oContact['primary_address_city']) . ", " . htmlspecialchars($oContact['primary_address_state']);
+
+            // introduce additional account data
+            // (set empty string instead of 'null' so it's not displayed on UI)
+            $account_data = htmlspecialchars(json_encode(array(
+                'ct_storage_c' => $oContact['ct_storage_c'] == null ? '' : $oContact['ct_storage_c'],
+                'ct_security_c' => $oContact['ct_security_c'] == null ? '' : $oContact['ct_security_c'],
+                'ct_networking_c' => $oContact['ct_networking_c'] == null ? '' : $oContact['ct_networking_c'],
+                'ct_hardware_c' => $oContact['ct_hardware_c'] == null ? '' : $oContact['ct_hardware_c'],
+            )));
+
             $email_address = $oContact['email1'];
 
             if (empty($logcall_options)) {
@@ -102,7 +123,7 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
                         'align="absmiddle" alt="' . $html_tupple[0] . '" border="0"');
 
                     if ($config_name == "log_call") {
-                        $retStr .= "<a id =\"$record\" data-json=\"$json_history\" href=\"javascript:LogCall('$moduleName', '$record', 'null','$phone_other', '$contactname','$accountname');\"" .
+                        $retStr .= "<a id =\"$record\" data-json=\"$json_history\" href=\"javascript:LogCall('$moduleName', '$record', 'null','$phone_other', '$contactname', '$accountname', '$contactTitle','$contactAddress', '$account_data');\"" .
                             ' class="listViewTdToolsS1" title="' . $html_tupple[0] . '"' .
                             " style='vertical-align:top'>$icon_log_call_html</a>";
 
@@ -159,21 +180,21 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
             $ctr++;
             $class = ($ctr & 1) ? "oddListRowS1" : "evenListRowS1";
             $sTableRow .= '<tr >';
-            if($oContact['account_name'] != ''){
-                $sTableRow .= '<td><a href = "'.$url.'#Accounts/'.$oContact['account_id'].'" target="_blank">'.$oContact['account_name'].'</a></td>';
-            }else{
+            if ($oContact['account_name'] != '') {
+                $sTableRow .= '<td><a href = "' . $url . '#Accounts/' . $oContact['account_id'] . '" target="_blank">' . $oContact['account_name'] . '</a></td>';
+            } else {
                 $sTableRow .= '<td></td>';
             }
-            $sTableRow .= '<td><a href = "'.$url.'#Contacts/'.$oContact['contact_id'].'" target="_blank">'.$oContact['full_name'].'</a></td>';
-            $sTableRow .= '<td>'.$oContact['title'].'</td>';
-            $sTableRow .= '<td>'.$oContact['phone_other'].'</td>';
-            $sTableRow .= '<td>'.$oContact['phone_work'].'</td>';
-            $sTableRow .= '<td>'.$oContact['phone_mobile'].'</td>';
-            $sTableRow .= '<td>'.$oContact['email1'].'</td>';
-            $sTableRow .= '<td>'.$oContact['primary_address_city'].'</td>';
-            $sTableRow .= '<td>'.$oContact['primary_address_state'].'</td>';
-            $sTableRow .= '<td><div id = "reloadVal_'.$oContact['contact_id'].'" name = "reloadVal_'.$oContact['contact_id'].'">'.last_call_outcome($oContact['contact_id']).'</div></td>';
-            $sTableRow .= '<td>'. $retStr .'</td>';
+            $sTableRow .= '<td><a href = "' . $url . '#Contacts/' . $oContact['contact_id'] . '" target="_blank">' . $oContact['full_name'] . '</a></td>';
+            $sTableRow .= '<td>' . $oContact['title'] . '</td>';
+            $sTableRow .= '<td>' . $oContact['phone_other'] . '</td>';
+            $sTableRow .= '<td>' . $oContact['phone_work'] . '</td>';
+            $sTableRow .= '<td>' . $oContact['phone_mobile'] . '</td>';
+            $sTableRow .= '<td>' . $oContact['email1'] . '</td>';
+            $sTableRow .= '<td>' . $oContact['primary_address_city'] . '</td>';
+            $sTableRow .= '<td>' . $oContact['primary_address_state'] . '</td>';
+            $sTableRow .= '<td><div id = "reloadVal_' . $oContact['contact_id'] . '" name = "reloadVal_' . $oContact['contact_id'] . '">' . last_call_outcome($oContact['contact_id']) . '</div></td>';
+            $sTableRow .= '<td>' . $retStr . '</td>';
             $sTableRow .= '</tr>';
         }
     }
@@ -181,7 +202,7 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
     $count = $ctr;
 
 // echo output
-    $callModeView =<<<EOQ
+    $callModeView = <<<EOQ
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
@@ -230,20 +251,21 @@ LEFT JOIN email_addresses on email_addr_bean_rel.email_address_id = email_addres
 	</table>
 EOQ;
     echo $callModeView;
-}
-else
+} else {
     echo 'Error: Record id not found';
+}
 
 
-function last_call_outcome($sContactId = ''){
+function last_call_outcome($sContactId = '')
+{
     $db = $GLOBALS['db'];
     $sSQL = 'SELECT call_outcome_c FROM calls_cstm
             INNER JOIN calls ON calls_cstm.id_c = calls.id
             INNER JOIN calls_contacts ON calls_contacts.call_id = calls.id
 	    inner join prospectlists_calls_1_c on calls.id = prospectlists_calls_1_c.prospectlists_calls_1calls_idb
             WHERE calls.deleted = 0 AND calls_contacts.deleted = 0
-            AND calls_contacts.contact_id = "'.$sContactId.'" and
-            prospectlists_calls_1_c.prospectlists_calls_1prospectlists_ida = "'.$_REQUEST['uid'].'"
+            AND calls_contacts.contact_id = "' . $sContactId . '" and
+            prospectlists_calls_1_c.prospectlists_calls_1prospectlists_ida = "' . $_REQUEST['uid'] . '"
             ORDER BY calls.date_entered DESC LIMIT 0 , 1';
     $aResult = $db->query($sSQL);
     $sReturnResult = $db->fetchByAssoc($aResult);

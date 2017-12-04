@@ -22,3 +22,5 @@ $mod_strings['LBL_CLIENTREP_EMAIL2'] = 'Rep Email 2';
 $mod_strings['LBL_DM_QUALIFIED'] = 'Decision Maker or Influencer';
 $mod_strings['LBL_EDITVIEW_PANEL2'] = 'New Panel 2';
 $mod_strings['LBL_EDITVIEW_PANEL3'] = 'Show More';
+$mod_strings['LBL_RECORDVIEW_PANEL1'] = 'Feedback';
+$mod_strings['LBL_CLIENT_BRIDGE'] = 'Client Bridge?';
