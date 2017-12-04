@@ -30,6 +30,6 @@ $mod_strings['LBL_LIST_MY_TASKS'] = 'My Open Company Projects';
 $mod_strings['LBL_TASK'] = 'Company Projects: ';
 $mod_strings['LBL_MODULE_TITLE'] = 'Company Projects: Home';
 $mod_strings['LBL_TASK_CLOSE_SUCCESS'] = 'Company Project closed successfully.';
-$mod_strings['LBL_PROJ_DETAILS'] = 'Project Details';
 $mod_strings['LBL_PROJECT_ACCOUNT_ACCOUNT_ID'] = 'Account (related Account ID)';
 $mod_strings['LBL_PROJECT_ACCOUNT'] = 'Account';
+$mod_strings['LBL_DESCRIPTION'] = 'Follow-up Details:';

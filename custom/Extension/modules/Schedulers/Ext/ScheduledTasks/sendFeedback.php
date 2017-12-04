@@ -84,6 +84,7 @@ function sendFeedbackEmail($id,$message){
 
 		//this is using stock phpmailer.
 		$mail = new PHPMailer;
+		$mail->CharSet = 'UTF-8';
                 $mail->Host = "retail.smtp.com";
                 $mail->SMTPAuth = true;
                 $mail->Username = "aidan.snee@isaless.com";

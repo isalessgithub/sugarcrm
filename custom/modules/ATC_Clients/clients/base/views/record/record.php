@@ -51,18 +51,33 @@ array (
             'columns' => 2,
             'labelsOnTop' => true,
             'placeholders' => true,
+            'newTab' => false,
+            'panelDefault' => 'expanded',
             'fields' => 
             array (
-              0 => 'website',
-              1 => 'phone_office',
-              2 => 'employees',
-              3 => 'phone_alternate',
-              4 => 
+              0 => 
+              array (
+                'name' => 'client_sales_rep_c',
+                'studio' => 'visible',
+                'label' => 'LBL_CLIENT_SALES_REP',
+              ),
+              1 => 
+              array (
+              ),
+              2 => 'website',
+              3 => 'phone_office',
+              4 => 'employees',
+              5 => 'phone_alternate',
+              6 => 
               array (
                 'name' => 'phone_fax',
-                'span' => 12,
+                'span' => 6,
               ),
-              5 => 
+              7 => 
+              array (
+                'span' => 6,
+              ),
+              8 => 
               array (
                 'name' => 'billing_address',
                 'type' => 'fieldset',
@@ -102,7 +117,7 @@ array (
                   ),
                 ),
               ),
-              6 => 
+              9 => 
               array (
                 'name' => 'shipping_address',
                 'type' => 'fieldset',
@@ -156,22 +171,22 @@ array (
                   ),
                 ),
               ),
-              7 => 
+              10 => 
               array (
                 'name' => 'users_atc_clients_1_name',
                 'label' => 'LBL_USERS_ATC_CLIENTS_1_FROM_USERS_TITLE',
               ),
-              8 => 
+              11 => 
               array (
                 'name' => 'prospectlists_atc_clients_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_CLIENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              9 => 
+              12 => 
               array (
                 'name' => 'esb_acctnum_c',
                 'label' => 'LBL_ESB_ACCTNUM',
               ),
-              10 => 
+              13 => 
               array (
                 'name' => 'esb_balance_c',
                 'related_fields' => 
@@ -181,48 +196,46 @@ array (
                 ),
                 'label' => 'LBL_ESB_BALANCE',
               ),
-              11 => 
+              14 => 
               array (
                 'name' => 'esb_terms_c',
                 'label' => 'LBL_ESB_TERMS',
               ),
-              12 => 
+              15 => 
               array (
                 'name' => 'esb_days_outstanding_c',
                 'label' => 'LBL_ESB_DAYS_OUTSTANDING',
               ),
-              13 => 
+              16 => 
               array (
                 'name' => 'esb_listid_c',
                 'label' => 'LBL_ESB_LISTID',
               ),
-              14 => 
+              17 => 
               array (
                 'name' => 'esb_last_sync_c',
                 'label' => 'LBL_ESB_LAST_SYNC',
               ),
-              15 => 
+              18 => 
               array (
                 'name' => 'esb_sync_c',
                 'label' => 'LBL_ESB_SYNC',
               ),
-              16 => 'email',
-              17 => 
-              array (
-                'name' => 'twitter',
-              ),
-              18 => 
-              array (
-              ),
-              19 => 
+              19 => 'email',
+              20 => 
               array (
                 'name' => 'tag',
                 'span' => 6,
               ),
-              20 => 
+              21 => 
               array (
                 'name' => 'cases_atc_clients_1_name',
                 'span' => 6,
+              ),
+              22 => 
+              array (
+                'name' => 'description',
+                'span' => 12,
               ),
             ),
           ),
@@ -234,25 +247,18 @@ array (
             'columns' => 2,
             'labelsOnTop' => true,
             'placeholders' => true,
+            'newTab' => false,
+            'panelDefault' => 'expanded',
             'fields' => 
             array (
-              0 => 
-              array (
-                'span' => 12,
-              ),
-              1 => 
-              array (
-                'name' => 'description',
-                'span' => 12,
-              ),
-              2 => 'atc_clients_type',
-              3 => 'industry',
-              4 => 'annual_revenue',
-              5 => 'ticker_symbol',
-              6 => 'ownership',
-              7 => 'rating',
-              8 => 'assigned_user_name',
-              9 => 
+              0 => 'atc_clients_type',
+              1 => 'industry',
+              2 => 'annual_revenue',
+              3 => 'ticker_symbol',
+              4 => 'ownership',
+              5 => 'rating',
+              6 => 'assigned_user_name',
+              7 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -276,8 +282,8 @@ array (
                   ),
                 ),
               ),
-              10 => 'team_name',
-              11 => 
+              8 => 'team_name',
+              9 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
