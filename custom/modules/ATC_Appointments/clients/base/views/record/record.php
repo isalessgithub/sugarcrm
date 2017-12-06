@@ -138,6 +138,26 @@ array (
                 'label' => 'LBL_DELETE_BUTTON_LABEL',
                 'acl_action' => 'delete',
               ),
+              14 => 
+              array (
+                'type' => 'divider',
+              ),
+              15 => 
+              array (
+                'type' => 'synogeneratedocaction',
+                'name' => 'synogeneratedocaction-download',
+                'label' => 'SYNO_GENERATE_DOC_BUTTON',
+                'action' => 'download',
+                'acl_action' => 'view',
+              ),
+              16 => 
+              array (
+                'type' => 'synogeneratedocaction',
+                'name' => 'synogeneratedocaction-email',
+                'label' => 'SYNO_GENERATE_DOC_BUTTON_EMAIL',
+                'action' => 'email',
+                'acl_action' => 'view',
+              ),
             ),
           ),
           3 => 
