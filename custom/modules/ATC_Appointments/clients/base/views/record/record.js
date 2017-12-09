@@ -91,7 +91,7 @@
             }
         }
 
-        // check if appointment has any of required statuses
+        // check if appointment has any of required statuses disabled
         if ($.inArray(status, ['Attended', 'DC_Appt_Attended', 'Attended_Policy']) !== -1) {
             // todo: set the right field
             // legacy logic was marking clientrep_email1_c as required
