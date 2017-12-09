@@ -33,6 +33,11 @@ array (
           'newTab' => false,
           'panelDefault' => 'expanded',
         ),
+        'LBL_EDITVIEW_PANEL3' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'collapsed',
+        ),
       ),
       'syncDetailEditViews' => true,
     ),
@@ -146,27 +151,14 @@ array (
           0 => 'assigned_user_name',
           1 => 
           array (
-            'name' => 'team_name',
-            'displayParams' => 
-            array (
-              'display' => true,
-            ),
+            'name' => 'created_by_name',
+            'readonly' => true,
+            'label' => 'LBL_CREATED',
           ),
         ),
         10 => 
         array (
           0 => 
-          array (
-            'name' => 'date_entered',
-            'comment' => 'Date record created',
-            'studio' => 
-            array (
-              'portaleditview' => false,
-            ),
-            'readonly' => true,
-            'label' => 'LBL_DATE_ENTERED',
-          ),
-          1 => 
           array (
             'name' => 'date_modified',
             'comment' => 'Date record last modified',
@@ -177,20 +169,22 @@ array (
             'readonly' => true,
             'label' => 'LBL_DATE_MODIFIED',
           ),
+          1 => 
+          array (
+            'name' => 'date_entered',
+            'comment' => 'Date record created',
+            'studio' => 
+            array (
+              'portaleditview' => false,
+            ),
+            'readonly' => true,
+            'label' => 'LBL_DATE_ENTERED',
+          ),
         ),
       ),
       'lbl_editview_panel1' => 
       array (
         0 => 
-        array (
-          0 => 
-          array (
-            'name' => 'dm_qualified_c',
-            'label' => 'LBL_DM_QUALIFIED',
-          ),
-          1 => '',
-        ),
-        1 => 
         array (
           0 => 
           array (
@@ -207,7 +201,7 @@ array (
             'label' => 'LBL_SECOND_CLIENT_REP',
           ),
         ),
-        2 => 
+        1 => 
         array (
           0 => 
           array (
@@ -220,7 +214,7 @@ array (
             'label' => 'LBL_CLIENTREP_EMAIL2',
           ),
         ),
-        3 => 
+        2 => 
         array (
           0 => 
           array (
@@ -232,6 +226,15 @@ array (
             'name' => 'feedback_timestamp',
             'label' => 'LBL_FEEDBACK_TIMESTAMP',
           ),
+        ),
+        3 => 
+        array (
+          0 => 
+          array (
+            'name' => 'dm_qualified_c',
+            'label' => 'LBL_DM_QUALIFIED',
+          ),
+          1 => '',
         ),
         4 => 
         array (
@@ -271,6 +274,21 @@ array (
             'studio' => 'visible',
             'label' => 'LBL_OPPORTUNITY_AMOUNT',
           ),
+        ),
+      ),
+      'lbl_editview_panel3' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            'name' => 'team_name',
+            'displayParams' => 
+            array (
+              'display' => true,
+            ),
+          ),
+          1 => '',
         ),
       ),
     ),

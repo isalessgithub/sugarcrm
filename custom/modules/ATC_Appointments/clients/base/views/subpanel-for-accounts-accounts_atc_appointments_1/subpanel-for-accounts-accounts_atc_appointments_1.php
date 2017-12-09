@@ -1,15 +1,15 @@
 <?php
-// created: 2017-09-08 11:15:25
+// created: 2017-11-09 17:16:17
 $viewdefs['ATC_Appointments']['base']['view']['subpanel-for-accounts-accounts_atc_appointments_1'] = array (
-  'panels' =>
+  'panels' => 
   array (
-    0 =>
+    0 => 
     array (
       'name' => 'panel_header',
       'label' => 'LBL_PANEL_1',
-      'fields' =>
+      'fields' => 
       array (
-        0 =>
+        0 => 
         array (
           'default' => true,
           'label' => 'LBL_NAME',
@@ -18,15 +18,17 @@ $viewdefs['ATC_Appointments']['base']['view']['subpanel-for-accounts-accounts_at
           'link' => true,
           'type' => 'name',
         ),
-        1 =>
+        1 => 
         array (
-          'type' => 'varchar',
-          'default' => true,
-          'label' => 'Title',
+          'name' => 'atc_isscampaigns_atc_appointments_name',
+          'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
           'enabled' => true,
-          'name' => 'title_c',
+          'id' => 'ATC_ISSCAMPAIGNS_ATC_APPOINTMENTSATC_ISSCAMPAIGNS_IDA',
+          'link' => true,
+          'sortable' => false,
+          'default' => true,
         ),
-        2 =>
+        2 => 
         array (
           'type' => 'relate',
           'link' => true,
@@ -37,7 +39,15 @@ $viewdefs['ATC_Appointments']['base']['view']['subpanel-for-accounts-accounts_at
           'enabled' => true,
           'name' => 'atc_appointments_contacts_name',
         ),
-        3 =>
+        3 => 
+        array (
+          'type' => 'varchar',
+          'default' => true,
+          'label' => 'Title',
+          'enabled' => true,
+          'name' => 'title_c',
+        ),
+        4 => 
         array (
           'default' => true,
           'label' => 'LBL_DATE_MODIFIED',

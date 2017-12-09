@@ -225,6 +225,7 @@ array (
               ),
               5 => 
               array (
+                'name' => 'phone_mobile',
               ),
               6 => 
               array (
@@ -232,7 +233,8 @@ array (
               ),
               7 => 
               array (
-                'name' => 'phone_mobile',
+                'name' => 'account_phone_c',
+                'label' => 'LBL_ACCOUNT_PHONE',
               ),
               8 => 
               array (
@@ -290,22 +292,6 @@ array (
                 'name' => 'description',
                 'span' => 12,
               ),
-              13 => 
-              array (
-                'name' => 'rls_linkedin_url_c',
-                'label' => 'LBL_LINKEDIN_URL',
-              ),
-              14 => 
-              array (
-              ),
-              15 => 
-              array (
-                'name' => 'rls_linkedin_url_c',
-                'label' => 'LBL_LINKEDIN_URL',
-              ),
-              16 => 
-              array (
-              ),
             ),
           ),
           2 => 
@@ -342,11 +328,12 @@ array (
               ),
               4 => 
               array (
-                'name' => 'do_not_call',
+                'name' => 'left_company_c',
+                'label' => 'LBL_LEFT_COMPANY',
               ),
               5 => 
               array (
-                'name' => 'team_name',
+                'name' => 'do_not_call',
               ),
               6 => 
               array (
@@ -382,46 +369,12 @@ array (
                 'readonly' => true,
                 'label' => 'LBL_DATE_ENTERED',
               ),
-            ),
-          ),
-          3 => 
-          array (
-            'name' => 'LBL_LINKEDIN_CUSTOM_FIELDS_GROUP',
-            'label' => 'LBL_LINKEDIN_CUSTOM_FIELDS_GROUP',
-            'columns' => '2',
-            'labelsOnTop' => 1,
-            'placeholders' => 1,
-            'fields' => 
-            array (
-              0 => 
+              10 => 
               array (
-                'name' => 'rls_industry_c',
-                'label' => 'LBL_RLS_INDUSTRY',
               ),
-              1 => 
+              11 => 
               array (
-                'name' => 'rls_linkedin_url_c',
-                'label' => 'LBL_LINKEDIN_URL',
-              ),
-              2 => 
-              array (
-                'name' => 'rls_description2_c',
-                'label' => 'LBL_DESCRIPTION2',
-              ),
-              3 => 
-              array (
-                'name' => 'rls_description3_c',
-                'label' => 'LBL_DESCRIPTION3',
-              ),
-              4 => 
-              array (
-                'name' => 'rls_current_workplace_c',
-                'label' => 'LBL_CURRENT_WORKPLACE',
-              ),
-              5 => 
-              array (
-                'name' => 'rls_last_position_c',
-                'label' => 'LBL_LAST_POSITION',
+                'name' => 'team_name',
               ),
             ),
           ),

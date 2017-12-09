@@ -48,7 +48,7 @@ array (
         'LBL_PANEL_ASSIGNMENT' => 
         array (
           'newTab' => false,
-          'panelDefault' => 'collapsed',
+          'panelDefault' => 'expanded',
         ),
       ),
       'syncDetailEditViews' => true,
@@ -59,23 +59,13 @@ array (
       array (
         0 => 
         array (
-          0 => '',
-          1 => 
-          array (
-            'name' => 'tl_img_c',
-            'studio' => 'visible',
-            'label' => 'LBL_TL_IMG',
-          ),
-        ),
-        1 => 
-        array (
           0 => 'name',
           1 => 
           array (
             'name' => 'atc_isscampaigns_prospectlists_1_name',
           ),
         ),
-        2 => 
+        1 => 
         array (
           0 => 'assigned_user_name',
           1 => 
@@ -85,7 +75,7 @@ array (
             'label' => 'LBL_CLIENTS',
           ),
         ),
-        3 => 
+        2 => 
         array (
           0 => 
           array (
@@ -99,24 +89,7 @@ array (
             'label' => 'LBL_CLIENTSALESREP_OWNER',
           ),
         ),
-        4 => 
-        array (
-          0 => 'description',
-        ),
-        5 => 
-        array (
-          0 => 
-          array (
-            'name' => 'ms_max_list_size_c',
-            'label' => 'LBL_MS_MAX_LIST_SIZE',
-          ),
-          1 => 
-          array (
-            'name' => 'client_edit_disabled_c',
-            'label' => 'LBL_CLIENT_EDIT_DISABLED',
-          ),
-        ),
-        6 => 
+        3 => 
         array (
           0 => 
           array (
@@ -128,6 +101,10 @@ array (
             'name' => 'from_address_c',
             'label' => 'LBL_EMAIL_FROM_ADDRESS',
           ),
+        ),
+        4 => 
+        array (
+          0 => 'description',
         ),
       ),
       'LBL_PANEL_ASSIGNMENT' => 
@@ -147,6 +124,19 @@ array (
           ),
         ),
         1 => 
+        array (
+          0 => 
+          array (
+            'name' => 'ms_max_list_size_c',
+            'label' => 'LBL_MS_MAX_LIST_SIZE',
+          ),
+          1 => 
+          array (
+            'name' => 'client_edit_disabled_c',
+            'label' => 'LBL_CLIENT_EDIT_DISABLED',
+          ),
+        ),
+        2 => 
         array (
           0 => '',
           1 => 'team_name',
