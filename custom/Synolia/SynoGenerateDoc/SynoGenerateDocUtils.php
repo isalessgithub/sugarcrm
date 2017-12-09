@@ -56,8 +56,8 @@ class SynoGenerateDocUtils
                     $buttonCode .=     '});';
                     $buttonCode .= '</script>';
                 }
-
-                echo $buttonCode;
+		//temporarily disble for upgrade --
+                //echo $buttonCode;
             }
         }
     }

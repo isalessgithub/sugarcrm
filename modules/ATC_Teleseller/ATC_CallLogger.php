@@ -13,8 +13,8 @@ class CallLogger
         if ($_REQUEST['module'] != 'ProspectLists' && $_REQUEST['action'] != 'DetailView') {
             return;
         }
-
-        echo '<script type="text/javascript" src="modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js"></script>';
+	//temp for upgrade
+        //echo '<script type="text/javascript" src="modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js"></script>';
         $moduleName = $bean->module_dir;
         $record = $bean->id;
         $retStr = renderLogCall($moduleName, $record);

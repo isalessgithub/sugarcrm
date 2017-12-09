@@ -42,7 +42,7 @@ $listViewDefs['Leads'] = array (
     'width' => '16%',
     'label' => 'LBL_LIST_EMAIL_ADDRESS',
     'sortable' => false,
-    'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
+    //'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
     'default' => true,
   ),
   'ASSIGNED_USER_NAME' => 
