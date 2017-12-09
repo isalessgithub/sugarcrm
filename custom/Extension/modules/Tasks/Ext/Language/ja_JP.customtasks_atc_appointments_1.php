@@ -14,6 +14,7 @@
 <?php
 // Merged from custom/Extension/modules/Tasks/Ext/Language/ja_JP.customtasks_atc_appointments_1.php
 
+<<<<<<< HEAD
 // WARNING: The contents of this file are auto-generated.
 ?>
 <?php
@@ -53,6 +54,8 @@ $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_TASKS_TITLE'] = 'Appointments';
 <?php
 // Merged from custom/Extension/modules/Tasks/Ext/Language/temp.php
 
+=======
+>>>>>>> 44dc0c46dfd76be0fa183c711181859effb70ad9
 //THIS FILE IS AUTO GENERATED, DO NOT MODIFY
 $mod_strings['LBL_ATC_ISSCAMPAIGNS_TASKS_1_FROM_ATC_ISSCAMPAIGNS_TITLE'] = 'ISS Campaigns';
 $mod_strings['LBL_ATC_ISSCAMPAIGNS_TASKS_1_FROM_TASKS_TITLE'] = 'ISS Campaigns';
@@ -63,7 +66,10 @@ $mod_strings['LBL_TASKS_CONTACTS_1_FROM_TASKS_TITLE'] = 'Contacts';
 $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Appointments';
 $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_TASKS_TITLE'] = 'Appointments';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 44dc0c46dfd76be0fa183c711181859effb70ad9
 ?>
 <?php
 // Merged from custom/Extension/modules/Tasks/Ext/Language/temp.php

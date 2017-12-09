@@ -14,6 +14,7 @@
 <?php
 // Merged from custom/Extension/modules/ATC_Appointments/Ext/Language/lv_LV.customtasks_atc_appointments_1.php
 
+<<<<<<< HEAD
 // WARNING: The contents of this file are auto-generated.
 ?>
 <?php
@@ -39,6 +40,8 @@ $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Comp
 <?php
 // Merged from custom/Extension/modules/ATC_Appointments/Ext/Language/temp.php
 
+=======
+>>>>>>> 44dc0c46dfd76be0fa183c711181859effb70ad9
 //THIS FILE IS AUTO GENERATED, DO NOT MODIFY
 $mod_strings['LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE'] = 'Accounts';
 $mod_strings['LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE'] = 'Target Lists';
@@ -50,6 +53,7 @@ $mod_strings['LBL_ATC_APPOINTMENTS_USERS_1_FROM_USERS_TITLE'] = 'assist';
 $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_TASKS_TITLE'] = 'Company Projects';
 $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Company Projects';
 
+<<<<<<< HEAD
 
 ?>
 <?php
@@ -67,6 +71,8 @@ $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_TASKS_TITLE'] = 'Company Project
 $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Company Projects';
 
 
+=======
+>>>>>>> 44dc0c46dfd76be0fa183c711181859effb70ad9
 ?>
 <?php
 // Merged from custom/Extension/modules/ATC_Appointments/Ext/Language/temp.php
