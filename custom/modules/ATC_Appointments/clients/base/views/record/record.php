@@ -220,92 +220,84 @@ array (
               ),
               3 => 
               array (
-              ),
-              4 => 
-              array (
-                'name' => 'client_bridge_c',
-                'label' => 'LBL_CLIENT_BRIDGE',
-              ),
-              5 => 
-              array (
                 'name' => 'appointment_date',
                 'label' => 'LBL_APPOINTMENT_DATE',
               ),
-              6 => 
+              4 => 
               array (
                 'name' => 'appointment_duration_minutes',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_DURATION_MINUTES',
               ),
-              7 => 
+              5 => 
               array (
                 'name' => 'accounts_atc_appointments_1_name',
                 'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
                 'span' => 12,
               ),
-              8 => 
+              6 => 
               array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
-              9 => 
+              7 => 
               array (
                 'name' => 'title_c',
                 'studio' => 'visible',
                 'label' => 'LBL_TITLE',
               ),
-              10 => 
+              8 => 
               array (
                 'name' => 'direct_c',
                 'studio' => 'visible',
                 'label' => 'LBL_DIRECT',
               ),
-              11 => 
+              9 => 
               array (
                 'name' => 'switchboard_c',
                 'studio' => 'visible',
                 'label' => 'LBL_SWITCHBOARD',
               ),
-              12 => 
+              10 => 
               array (
                 'name' => 'contact_email',
                 'label' => 'LBL_CONTACT_EMAIL',
               ),
-              13 => 
+              11 => 
               array (
                 'name' => 'contact_info_c',
                 'studio' => 'visible',
                 'label' => 'LBL_CONTACT_INFO',
               ),
-              14 => 
+              12 => 
               array (
                 'name' => 'description',
                 'comment' => 'Full text of the note',
                 'label' => 'LBL_DESCRIPTION',
                 'span' => 12,
               ),
-              15 => 
+              13 => 
               array (
                 'name' => 'atc_isscampaigns_atc_appointments_name',
                 'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
               ),
-              16 => 
+              14 => 
               array (
                 'name' => 'prospectlists_atc_appointments_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              17 => 
+              15 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO',
               ),
-              18 => 
+              16 => 
               array (
                 'name' => 'created_by_name',
                 'readonly' => true,
                 'label' => 'LBL_CREATED',
               ),
-              19 => 
+              17 => 
               array (
                 'name' => 'date_modified',
                 'comment' => 'Date record last modified',
@@ -316,7 +308,7 @@ array (
                 'readonly' => true,
                 'label' => 'LBL_DATE_MODIFIED',
               ),
-              20 => 
+              18 => 
               array (
                 'name' => 'date_entered',
                 'comment' => 'Date record created',

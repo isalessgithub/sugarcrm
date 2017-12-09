@@ -40,8 +40,8 @@ array (
             array (
               0 => 
               array (
-                'name' => 'appointment_date_original',
-                'label' => 'LBL_APPOINTMENT_DATE_ORIGINAL',
+                'name' => 'appointment_date',
+                'label' => 'LBL_APPOINTMENT_DATE',
               ),
               1 => 
               array (
@@ -51,74 +51,47 @@ array (
               ),
               2 => 
               array (
-                'name' => 'appointment_date',
-                'label' => 'LBL_APPOINTMENT_DATE',
-              ),
-              3 => 
-              array (
                 'name' => 'appointment_place',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_PLACE',
               ),
-              4 => 
+              3 => 
               array (
                 'name' => 'account_c',
                 'label' => 'LBL_ACCOUNT',
               ),
-              5 => 
+              4 => 
               array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
-              6 => 
+              5 => 
               array (
                 'name' => 'contact_email',
                 'label' => 'LBL_CONTACT_EMAIL',
               ),
+              6 => 'assigned_user_name',
               7 => 
-              array (
-                'name' => 'title_c',
-                'studio' => 'visible',
-                'label' => 'LBL_TITLE',
-              ),
-              8 => 
               array (
                 'name' => 'description',
                 'comment' => 'Full text of the note',
                 'label' => 'LBL_DESCRIPTION',
               ),
-              9 => 
+              8 => 
               array (
                 'name' => 'atc_clientsalesreps_atc_appointments_name',
                 'label' => 'LBL_ATC_CLIENTSALESREPS_ATC_APPOINTMENTS_FROM_ATC_CLIENTSALESREPS_TITLE',
               ),
-              10 => 
+              9 => 
               array (
                 'name' => 'clientrep_email1_c',
                 'label' => 'LBL_CLIENTREP_EMAIL1',
               ),
-              11 => 
+              10 => 
               array (
                 'name' => 'appointment_feedback',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_FEEDBACK',
-              ),
-              12 => 
-              array (
-                'name' => 'atc_isscampaigns_atc_appointments_name',
-                'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
-              ),
-              13 => 
-              array (
-                'name' => 'prospectlists_atc_appointments_1_name',
-                'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
-              ),
-              14 => 'assigned_user_name',
-              15 => 
-              array (
-                'name' => 'created_by_name',
-                'readonly' => true,
-                'label' => 'LBL_CREATED',
               ),
             ),
           ),

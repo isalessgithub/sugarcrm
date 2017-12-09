@@ -68,7 +68,7 @@
         });
 
     },
-
+/*
     saveClicked: function () {
 
         // introduce reference to this
@@ -90,7 +90,7 @@
             }
         }
 
-        // check if appointment has any of required statuses
+        // check if appointment has any of required statuses disabled
         if ($.inArray(status, ['Attended', 'DC_Appt_Attended', 'Attended_Policy']) !== -1) {
 
             // todo: set the right field
@@ -105,5 +105,5 @@
         this.model.doValidate(fieldsToValidate, _.bind(this.validationComplete, this));
     },
 
-
+*/
 })

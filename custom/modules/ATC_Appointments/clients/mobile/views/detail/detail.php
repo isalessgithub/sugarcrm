@@ -67,13 +67,13 @@ array (
               ),
               4 => 
               array (
-                'name' => 'atc_appointments_contacts_name',
-                'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
+                'name' => 'actsas_c',
+                'label' => 'LBL_ACTSAS',
               ),
               5 => 
               array (
-                'name' => 'contact_email',
-                'label' => 'LBL_CONTACT_EMAIL',
+                'name' => 'atc_appointments_contacts_name',
+                'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
               6 => 
               array (
@@ -83,8 +83,8 @@ array (
               ),
               7 => 
               array (
-                'name' => 'account_c',
-                'label' => 'LBL_ACCOUNT',
+                'name' => 'contact_email',
+                'label' => 'LBL_CONTACT_EMAIL',
               ),
               8 => 
               array (
