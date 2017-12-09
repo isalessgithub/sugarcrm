@@ -209,7 +209,7 @@ array (
           ),
           2 => 
           array (
-            'newTab' => true,
+            'newTab' => false,
             'panelDefault' => 'collapsed',
             'name' => 'LBL_RECORDVIEW_PANEL1',
             'label' => 'LBL_RECORDVIEW_PANEL1',

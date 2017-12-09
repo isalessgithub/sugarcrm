@@ -1,6 +1,9 @@
 <?php
 // Do not store anything in this file that is not part of the array or the hook version.  This file will	
 // be automatically rebuilt in the future. 
+$GLOBALS['log']->fatal('Contact Save Event!');
+
+/*
  $hook_version = 1; 
 $hook_array = Array(); 
 // position, file, function 
@@ -19,6 +22,6 @@ $hook_array['process_record'][] = Array(11,'Set linkedin profile','custom/includ
 $hook_array['after_save'] = Array(); 
 $hook_array['after_save'][] = Array(99,'Create call based on Outcome','custom/modules/Contacts/createCallFromContactQuickCreate.php','createCallFromContactQuickCreateC','createCallFromContactQuickCreateAfterSave',);
 $hook_array['after_save'][] = Array(5,'Push data to ambition','custom/modules/Contacts/logic_hooks/ambition.php','ambition','push',);
-
+*/
 
 ?>

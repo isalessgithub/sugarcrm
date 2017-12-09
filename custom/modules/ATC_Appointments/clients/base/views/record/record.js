@@ -71,6 +71,7 @@
 /*
     saveClicked: function () {
 
+
         // introduce reference to this
         var self = this;
 
@@ -92,7 +93,6 @@
 
         // check if appointment has any of required statuses disabled
         if ($.inArray(status, ['Attended', 'DC_Appt_Attended', 'Attended_Policy']) !== -1) {
-
             // todo: set the right field
             // legacy logic was marking clientrep_email1_c as required
             fieldsToValidate.clientrep_email1_c.required = true;
@@ -102,7 +102,7 @@
             fieldsToValidate.clientrep_email1_c.required = false;
         }
 
-        this.model.doValidate(fieldsToValidate, _.bind(this.validationComplete, this));
+        //this.model.doValidate(fieldsToValidate, _.bind(this.validationComplete, this));
     },
 
 */
