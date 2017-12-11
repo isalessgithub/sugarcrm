@@ -36,7 +36,6 @@ class DashboardListApi extends FilterApi
                 'method' => 'getDashboards',
                 'shortHelp' => 'Get dashboards for a module',
                 'longHelp' => 'include/api/help/get_dashboards.html',
-                'cacheEtag' => true,
                 'exceptions' => array(
                     'SugarApiExceptionInvalidParameter',
                     'SugarApiExceptionError',
@@ -63,7 +62,6 @@ class DashboardListApi extends FilterApi
                 'method' => 'getDashboards',
                 'shortHelp' => 'Get dashboards for home',
                 'longHelp' => 'include/api/help/get_dashboards.html',
-                'cacheEtag' => true,
                 'exceptions' => array(
                     'SugarApiExceptionInvalidParameter',
                     'SugarApiExceptionError',
