@@ -26,6 +26,7 @@ if(!isset($_REQUEST['record']) || empty($_REQUEST['record'])) {
 ////	CANCEL HANDLING
 ///////////////////////////////////////////////////////////////////////////////
 
+use Sugarcrm\Sugarcrm\Security\InputValidation\InputValidation;
 
 require_once('include/DetailView/DetailView.php');
 global $gridline;
@@ -205,10 +206,16 @@ $show_subpanels=true;
 //this is is part of the feature that adds support for one email per campaign.
 if ($focus->type=='campaign' and !empty($_REQUEST['parent_id']) and !empty($_REQUEST['parent_module'])) {
     $show_subpanels=false;
-    $parent_id=$_REQUEST['parent_id'];
+    $parent_id = InputValidation::getService()->getValidInputRequest('parent_id', 'Assert\Guid');
+    $parent_module = InputValidation::getService()->getValidInputRequest('parent_module', 'Assert\Mvc\ModuleName');
 
 	// cn: bug 14300 - emails_beans schema refactor - fixing query
-	$query="SELECT * FROM emails_beans WHERE email_id='{$focus->id}' AND bean_id='{$parent_id}' AND bean_module = '{$_REQUEST['parent_module']}' " ;
+    $query = sprintf(
+        'SELECT * FROM emails_beans WHERE email_id = %s AND bean_id = %s AND bean_module = %s',
+        $focus->db->quoted($focus->id),
+        $focus->db->quoted($parent_id),
+        $focus->db->quoted($parent_module)
+    );
 
     $res=$focus->db->query($query);
     $row=$focus->db->fetchByAssoc($res);

@@ -41,8 +41,8 @@ include_once("include/workflow/custom_utils.php");
 	 //Secondary Triggers 
 
 	global $triggeredWorkflows;
-	if (!isset($triggeredWorkflows['1d32705a_acff_11e7_bd0e_12f45cb4e5cd'])){
-		$triggeredWorkflows['1d32705a_acff_11e7_bd0e_12f45cb4e5cd'] = true;
+	if (!isset($triggeredWorkflows['d4605b02_de2d_11e7_9405_12f45cb4e5cd'])){
+		$triggeredWorkflows['d4605b02_de2d_11e7_9405_12f45cb4e5cd'] = true;
 		 $alertshell_array = array(); 
 
 	 $alertshell_array['alert_msg'] = "10af74c2-acff-11e7-83c2-12f45cb4e5cd"; 

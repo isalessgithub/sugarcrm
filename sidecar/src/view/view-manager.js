@@ -501,6 +501,9 @@
          */
         declareComponent: function(type, name, module, controller, overwrite, platform) {
             var c = this._getBaseComponent(type, name, module, platform, overwrite && controller);
+            if (overwrite && controller) {
+                if (c.cache[c.moduleBasedClassName]) delete c.cache[c.moduleBasedClassName];
+            }
             return  c.cache[c.moduleBasedClassName] ||
                 app.utils.extendClass(c.cache, c.baseClass, c.moduleBasedClassName, controller, c.platformNamespace) ||
                 c.baseClass;
@@ -514,9 +517,9 @@
          * @param {string} name Lower-cased component name. For example, list (layout or view), bool (field).
          * @param {string} [module] Module name.
          * @param {string} platform The platform e.g. 'base', 'portal', etc.
-         * @param {boolean} overwrite When true, custom controller overrides
+         * @param {boolean} ignoreCustom When true, custom controller overrides
          *   will be ignored and only components that exactly match the name
-         *   will be returned. The base class returned is `base`
+         *   will be returned.
          * @return {Object} The base component information
          * @return {Object} return.cache
          * @return {string} return.platformNamespace
@@ -524,7 +527,7 @@
          * @return {Object} return.baseClass
          * @private
          */
-        _getBaseComponent: function(type, name, module, platform, overwrite) {
+        _getBaseComponent: function(type, name, module, platform, ignoreCustom) {
             platform = this._getPlatform({platform: platform});
             // The type e.g. View, Field, Layout
             var ucType = app.utils.capitalize(type),
@@ -537,13 +540,10 @@
                 customModuleBasedClassName = platformNamespace + (module || "") + "Custom" + className,
                 cache = app.view[type + "s"],
             // App id and type fallback
-                customBaseClassName = app.utils.capitalize(app.config.appId) + ucType;
+                customBaseClassName = app.utils.capitalize(app.config.appId) + ucType,
             // Components are now namespaced by <platform> so we must prefix className to find in cache
             // if we don't find platform-specific, than we next look in Base<className> and so on
-            if (overwrite) {
-                if (cache[moduleBasedClassName]) delete cache[moduleBasedClassName];
-            }
-            var baseClass = cache[platformNamespace + "Custom" + className] ||
+                baseClass = cache[platformNamespace + "Custom" + className] ||
                     cache[platformNamespace + className] ||
                     cache["BaseCustom" + className] ||
                     cache["Base" + className] ||
@@ -554,7 +554,7 @@
                     app.view[customBaseClassName] ||
                     app.view[ucType];
             // Override to use the custom class instead of the standard one if it exists.
-            if (cache[customModuleBasedClassName] && !overwrite) {
+            if (cache[customModuleBasedClassName] && !ignoreCustom) {
                 moduleBasedClassName = customModuleBasedClassName;
             }
             return {

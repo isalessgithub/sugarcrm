@@ -10,7 +10,9 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-//session_destroy();
+
+use Sugarcrm\Sugarcrm\Util\Files\FileLoader;
+
 if (version_compare(phpversion(),'5.4.0') < 0) {
 	$msg = 'Minimum PHP version required is 5.4.0.  You are using PHP version  '. phpversion();
     die($msg);
@@ -33,6 +35,7 @@ require_once('include/Localization/Localization.php');
 require_once('include/SugarTheme/SugarTheme.php');
 require_once('include/utils/LogicHook.php');
 require_once('data/SugarBean.php');
+require_once 'src/Util/Files/FileLoader.php';
 //check to see if the script files need to be rebuilt, add needed variables to request array
 $_REQUEST['root_directory'] = getcwd();
 $_REQUEST['js_rebuild_concat'] = 'rebuild';
@@ -110,7 +113,7 @@ if(isset($_POST['language'])) {
 $current_language = isset($_SESSION['language']) ? $_SESSION['language'] : $default_lang;
 
 if(file_exists("install/language/{$current_language}.lang.php")) {
-	require_once("install/language/{$current_language}.lang.php");
+    require_once Sugarcrm\Sugarcrm\Util\Files\FileLoader::validateFilePath("install/language/{$current_language}.lang.php");
 } else {
 	require_once("install/language/{$default_lang}.lang.php");
 }
@@ -659,6 +662,6 @@ $the_file = clean_string($the_file, 'FILE');
 installerHook('pre_installFileRequire', array('the_file' => $the_file));
 
 // change to require to get a good file load error message if the file is not available.
-require('install/' . $the_file);
+require FileLoader::validateFilePath('install/' . $the_file);
 
 installerHook('post_installFileRequire', array('the_file' => $the_file));

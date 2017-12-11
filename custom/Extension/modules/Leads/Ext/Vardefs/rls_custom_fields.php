@@ -3,4 +3,4 @@
  || $V2af72f10[0] > 7) ) { $dictionary["Lead"]["fields"]["rls_linkedin_url_c"]['type'] = 'Linkedinfield';
 } else { $dictionary["Lead"]["fields"]["rls_linkedin_url_c"]['function'] = array( 'name' => 'getLinkedinProfileHTML',
  'returns' => 'html', 'include' => 'custom/include/RLS/fields_functions/getLinkedinProfileHTML.php',
- ); } ?> 
+ ); } ?>
