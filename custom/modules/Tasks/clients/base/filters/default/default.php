@@ -2,44 +2,50 @@
 // created: 2017-12-31 14:03:54
 $viewdefs['Tasks']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
-  'fields' => 
+  'fields' =>
   array (
-    'name' => 
+    'name' =>
     array (
     ),
-    'priority' => 
+    'priority' =>
     array (
     ),
-    'status' => 
+    'description' =>
     array (
     ),
-    'date_entered' => 
+    'status' =>
     array (
     ),
-    'date_modified' => 
+    'atc_appointments_tasks_1_name' =>
     array (
     ),
-    'date_start' => 
+    'date_entered' =>
     array (
     ),
-    'date_due' => 
+    'date_modified' =>
     array (
     ),
-    'tag' => 
+    'date_start' =>
     array (
     ),
-    'assigned_user_name' => 
+    'date_due' =>
     array (
     ),
-    'created_by_name' => 
+    'tag' =>
     array (
     ),
-    '$owner' => 
+    'assigned_user_name' =>
+    array (
+    ),
+    'created_by_name' =>
+    array (
+    ),
+    '$owner' =>
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_CURRENT_USER_FILTER',
     ),
-    '$favorite' => 
+    '$favorite' =>
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_FAVORITES_FILTER',

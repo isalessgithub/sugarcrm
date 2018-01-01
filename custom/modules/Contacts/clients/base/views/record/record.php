@@ -230,19 +230,15 @@ array (
               6 => 
               array (
                 'name' => 'account_name',
+                'span' => 12,
               ),
               7 => 
-              array (
-                'name' => 'account_phone_c',
-                'label' => 'LBL_ACCOUNT_PHONE',
-              ),
-              8 => 
               array (
                 'name' => 'call_outcome_c',
                 'label' => 'LBL_CALL_OUTCOME',
               ),
-              9 => 'lead_source',
-              10 => 
+              8 => 'lead_source',
+              9 => 
               array (
                 'name' => 'primary_address',
                 'type' => 'fieldset',
@@ -282,12 +278,12 @@ array (
                   ),
                 ),
               ),
-              11 => 
+              10 => 
               array (
                 'name' => 'appointment_count_c',
                 'label' => 'LBL_APPOINTMENT_COUNT',
               ),
-              12 => 
+              11 => 
               array (
                 'name' => 'description',
                 'span' => 12,

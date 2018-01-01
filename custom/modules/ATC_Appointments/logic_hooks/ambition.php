@@ -5,13 +5,13 @@
         function app_push($bean, $event, $arguments)
         {
 
-        
 
-          //$GLOBALS['log']->fatal($bean->id."--".$bean->date_entered); 
+
+          //$GLOBALS['log']->fatal($bean->id."--".$bean->date_entered);
              $record=array();
              if($arguments['isUpdate']==1){
-                 
-                if($arguments['dataChanges']['appointment_place']['before'] != $arguments['dataChanges']['appointment_place']['after'] 
+
+                if($arguments['dataChanges']['appointment_place']['before'] != $arguments['dataChanges']['appointment_place']['after']
                 || $arguments['dataChanges']['appointment_status']['before'] != $arguments['dataChanges']['appointment_status']['after']
                 || $arguments['dataChanges']['appointment_date']['before'] != $arguments['dataChanges']['appointment_date']['after']
                 ){
@@ -66,7 +66,7 @@
                       $record['do_not_show']=false;
                    }
 
-                  
+
 
              }
 
@@ -98,7 +98,7 @@
                //display the created record
                curl_close($curl_request);
 
-            
+
           }
         }
     }

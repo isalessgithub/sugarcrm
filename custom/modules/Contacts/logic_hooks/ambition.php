@@ -20,7 +20,12 @@
                   $record['direct_phone']=$bean->phone_other;
                   $record['mobile']=$bean->phone_mobile;
                   $record['appointment_count']=$bean->appointment_count_c;
-                  $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+		if(isset($created_by->id)){
+	                  $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+		}
+		else{
+			$record['created_by'] = '';
+		}
                   $record['title']=$bean->title; 
                   
               }
@@ -109,7 +114,12 @@
                $record['direct_phone']=$bean->phone_other;
                $record['mobile']=$bean->phone_mobile;
                $record['appointment_count']=$bean->appointment_count_c;
-               $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+		if(isset($created_by->id)){
+	               $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
+		}
+		else{
+			$record['created_by']='';
+		}
                $record['title']=$bean->title;
 
 
