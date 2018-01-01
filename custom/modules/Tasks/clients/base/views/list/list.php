@@ -31,19 +31,12 @@ array (
               ),
               2 => 
               array (
-                'name' => 'start_date_c',
-                'label' => 'LBL_START_DATE',
-                'enabled' => true,
-                'default' => true,
-              ),
-              3 => 
-              array (
                 'name' => 'priority',
                 'label' => 'LBL_PRIORITY',
                 'enabled' => true,
                 'default' => true,
               ),
-              4 => 
+              3 => 
               array (
                 'name' => 'description',
                 'label' => 'LBL_DESCRIPTION',
@@ -51,7 +44,7 @@ array (
                 'sortable' => false,
                 'default' => true,
               ),
-              5 => 
+              4 => 
               array (
                 'name' => 'created_by_name',
                 'label' => 'LBL_CREATED',
@@ -61,7 +54,7 @@ array (
                 'link' => true,
                 'default' => true,
               ),
-              6 => 
+              5 => 
               array (
                 'name' => 'date_entered',
                 'label' => 'LBL_DATE_ENTERED',
@@ -69,17 +62,7 @@ array (
                 'default' => true,
                 'readonly' => true,
               ),
-              7 => 
-              array (
-                'name' => 'prospect_name_c',
-                'label' => 'LBL_PROSPECT_NAME',
-                'enabled' => true,
-                'id' => 'CONTACT_ID_C',
-                'link' => true,
-                'sortable' => false,
-                'default' => false,
-              ),
-              8 => 
+              6 => 
               array (
                 'name' => 'parent_name',
                 'label' => 'LBL_LIST_RELATED_TO',
@@ -96,13 +79,13 @@ array (
                   1 => 'parent_type',
                 ),
               ),
-              9 => 
+              7 => 
               array (
                 'name' => 'date_modified',
                 'enabled' => true,
                 'default' => false,
               ),
-              10 => 
+              8 => 
               array (
                 'name' => 'team_name',
                 'label' => 'LBL_LIST_TEAM',

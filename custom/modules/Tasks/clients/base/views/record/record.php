@@ -189,9 +189,7 @@ array (
               4 => 'parent_name',
               5 => 
               array (
-                'name' => 'assist_from_c',
-                'studio' => 'visible',
-                'label' => 'LBL_ASSIST_FROM',
+                'name' => 'atc_appointments_tasks_1_name',
               ),
               6 => 
               array (
@@ -203,13 +201,20 @@ array (
               7 => 
               array (
                 'name' => 'description',
-                'span' => 12,
+                'span' => 6,
+              ),
+              8 => 
+              array (
+                'name' => 'assist_from_c',
+                'studio' => 'visible',
+                'label' => 'LBL_ASSIST_FROM',
+                'span' => 6,
               ),
             ),
           ),
           2 => 
           array (
-            'newTab' => false,
+            'newTab' => true,
             'panelDefault' => 'collapsed',
             'name' => 'LBL_RECORDVIEW_PANEL1',
             'label' => 'LBL_RECORDVIEW_PANEL1',
