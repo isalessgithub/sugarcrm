@@ -14,7 +14,7 @@ class CallLogger
             return;
         }
 	//temp for upgrade
-        //echo '<script type="text/javascript" src="modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js"></script>';
+        echo '<script type="text/javascript" src="modules/ATC_Teleseller/javascript/ATC_JS/call_logging.js"></script>';
         $moduleName = $bean->module_dir;
         $record = $bean->id;
         $retStr = renderLogCall($moduleName, $record);
@@ -107,4 +107,3 @@ function renderLogCall($moduleName = '', $record = '', $logcall_options = array(
     return $retStr;
 
 }
-

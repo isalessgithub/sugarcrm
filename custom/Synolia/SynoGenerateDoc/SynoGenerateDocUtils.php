@@ -57,7 +57,7 @@ class SynoGenerateDocUtils
                     $buttonCode .= '</script>';
                 }
 		//temporarily disble for upgrade --
-                //echo $buttonCode;
+                echo $buttonCode;
             }
         }
     }
@@ -201,7 +201,7 @@ class SynoGenerateDocUtils
                 $relatedModule = (!empty($app_list_strings['moduleListSingular'][$focus->$name->getRelatedModuleName()])) ?
                                 $app_list_strings['moduleListSingular'][$focus->$name->getRelatedModuleName()] : $focus->$name->getRelatedModuleName();
 
-                if ( $focus->$name->getType() == 'many' || 
+                if ( $focus->$name->getType() == 'many' ||
                     ($focus->$name->relationship_type == "many-to-many" && $focus->$name->getType() == 'one')
                     ) {
                     $label = empty($def['vname']) ? $name : str_replace(":", "", translate($def['vname'], $module));
