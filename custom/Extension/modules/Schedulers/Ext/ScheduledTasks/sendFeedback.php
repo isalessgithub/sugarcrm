@@ -118,10 +118,11 @@ function sendFeedback(){
 	//0, 3, 6 12, 24
 	$sendingar = array();
 	$sendingar[] = array("time" => 0,"oldstatus" => "qualified","newstatus" => "sent", "message" => "");
-	$sendingar[] = array("time" => 3,"oldstatus" => "sent","newstatus" => "sent twice", "message" => " Second Notification");
-	$sendingar[] = array("time" => 6,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
-	$sendingar[] = array("time" => 12,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
-	$sendingar[] = array("time" => 24,"oldstatus" => "sent four","newstatus" => "sent final", "message" => " Final Notification");
+	$sendingar[] = array("time" => 4,"oldstatus" => "sent","newstatus" => "sent twice", "message" => " Second Notification");
+	$sendingar[] = array("time" => 20,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
+	$sendingar[] = array("time" => 26,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
+	$sendingar[] = array("time" => 40,"oldstatus" => "sent four","newstatus" => "sent five", "message" => " Fifth Notification");
+	$sendingar[] = array("time" => 46,"oldstatus" => "sent five","newstatus" => "sent final", "message" => " Final Notification");
         $db = DBManagerFactory::GetInstance();
         global $timedate;
 	foreach($sendingar as $sa){

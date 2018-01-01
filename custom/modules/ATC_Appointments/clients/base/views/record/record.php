@@ -204,100 +204,104 @@ array (
               array (
                 'name' => 'appointment_number',
                 'label' => 'LBL_APPOINTMENT_NUMBER',
-                'span' => 12,
               ),
               1 => 
+              array (
+                'name' => 'do_not_show_c',
+                'label' => 'LBL_DO_NOT_SHOW',
+              ),
+              2 => 
               array (
                 'name' => 'appointment_status',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_STATUS',
               ),
-              2 => 
+              3 => 
               array (
                 'name' => 'appointment_place',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_PLACE',
               ),
-              3 => 
+              4 => 
               array (
                 'name' => 'appointment_date',
                 'label' => 'LBL_APPOINTMENT_DATE',
               ),
-              4 => 
+              5 => 
               array (
                 'name' => 'appointment_duration_minutes',
                 'studio' => 'visible',
                 'label' => 'LBL_APPOINTMENT_DURATION_MINUTES',
               ),
-              5 => 
+              6 => 
               array (
                 'name' => 'accounts_atc_appointments_1_name',
                 'label' => 'LBL_ACCOUNTS_ATC_APPOINTMENTS_1_FROM_ACCOUNTS_TITLE',
                 'span' => 12,
               ),
-              6 => 
+              7 => 
               array (
                 'name' => 'atc_appointments_contacts_name',
                 'label' => 'LBL_ATC_APPOINTMENTS_CONTACTS_FROM_CONTACTS_TITLE',
               ),
-              7 => 
+              8 => 
               array (
                 'name' => 'title_c',
                 'studio' => 'visible',
                 'label' => 'LBL_TITLE',
               ),
-              8 => 
+              9 => 
               array (
                 'name' => 'direct_c',
                 'studio' => 'visible',
                 'label' => 'LBL_DIRECT',
               ),
-              9 => 
+              10 => 
               array (
                 'name' => 'switchboard_c',
                 'studio' => 'visible',
                 'label' => 'LBL_SWITCHBOARD',
               ),
-              10 => 
+              11 => 
               array (
                 'name' => 'contact_email',
                 'label' => 'LBL_CONTACT_EMAIL',
               ),
-              11 => 
+              12 => 
               array (
                 'name' => 'contact_info_c',
                 'studio' => 'visible',
                 'label' => 'LBL_CONTACT_INFO',
               ),
-              12 => 
+              13 => 
               array (
                 'name' => 'description',
                 'comment' => 'Full text of the note',
                 'label' => 'LBL_DESCRIPTION',
                 'span' => 12,
               ),
-              13 => 
+              14 => 
               array (
                 'name' => 'atc_isscampaigns_atc_appointments_name',
                 'label' => 'LBL_ATC_ISSCAMPAIGNS_ATC_APPOINTMENTS_FROM_ATC_ISSCAMPAIGNS_TITLE',
               ),
-              14 => 
+              15 => 
               array (
                 'name' => 'prospectlists_atc_appointments_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              15 => 
+              16 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO',
               ),
-              16 => 
+              17 => 
               array (
                 'name' => 'created_by_name',
                 'readonly' => true,
                 'label' => 'LBL_CREATED',
               ),
-              17 => 
+              18 => 
               array (
                 'name' => 'date_modified',
                 'comment' => 'Date record last modified',
@@ -308,7 +312,7 @@ array (
                 'readonly' => true,
                 'label' => 'LBL_DATE_MODIFIED',
               ),
-              18 => 
+              19 => 
               array (
                 'name' => 'date_entered',
                 'comment' => 'Date record created',

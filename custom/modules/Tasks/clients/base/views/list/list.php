@@ -31,19 +31,12 @@ array (
               ),
               2 => 
               array (
-                'name' => 'start_date_c',
-                'label' => 'LBL_START_DATE',
-                'enabled' => true,
-                'default' => true,
-              ),
-              3 => 
-              array (
                 'name' => 'priority',
                 'label' => 'LBL_PRIORITY',
                 'enabled' => true,
                 'default' => true,
               ),
-              4 => 
+              3 => 
               array (
                 'name' => 'description',
                 'label' => 'LBL_DESCRIPTION',
@@ -51,7 +44,7 @@ array (
                 'sortable' => false,
                 'default' => true,
               ),
-              5 => 
+              4 => 
               array (
                 'name' => 'created_by_name',
                 'label' => 'LBL_CREATED',
@@ -61,7 +54,7 @@ array (
                 'link' => true,
                 'default' => true,
               ),
-              6 => 
+              5 => 
               array (
                 'name' => 'date_entered',
                 'label' => 'LBL_DATE_ENTERED',
@@ -69,17 +62,7 @@ array (
                 'default' => true,
                 'readonly' => true,
               ),
-              7 => 
-              array (
-                'name' => 'prospect_name_c',
-                'label' => 'LBL_PROSPECT_NAME',
-                'enabled' => true,
-                'id' => 'CONTACT_ID_C',
-                'link' => true,
-                'sortable' => false,
-                'default' => false,
-              ),
-              8 => 
+              6 => 
               array (
                 'name' => 'parent_name',
                 'label' => 'LBL_LIST_RELATED_TO',
@@ -96,6 +79,24 @@ array (
                   1 => 'parent_type',
                 ),
               ),
+              7 => 
+              array (
+                'name' => 'atc_appointments_tasks_1_name',
+                'label' => 'LBL_ATC_APPOINTMENTS_TASKS_1_FROM_ATC_APPOINTMENTS_TITLE',
+                'enabled' => true,
+                'id' => 'ATC_APPOINTMENTS_TASKS_1ATC_APPOINTMENTS_IDA',
+                'link' => true,
+                'sortable' => false,
+                'default' => false,
+              ),
+              8 => 
+              array (
+                'name' => 'proj_details_c',
+                'label' => 'LBL_PROJ_DETAILS',
+                'enabled' => true,
+                'sortable' => false,
+                'default' => false,
+              ),
               9 => 
               array (
                 'name' => 'date_modified',
@@ -103,6 +104,16 @@ array (
                 'default' => false,
               ),
               10 => 
+              array (
+                'name' => 'assist_from_c',
+                'label' => 'LBL_ASSIST_FROM',
+                'enabled' => true,
+                'id' => 'USER_ID1_C',
+                'link' => true,
+                'sortable' => false,
+                'default' => false,
+              ),
+              11 => 
               array (
                 'name' => 'team_name',
                 'label' => 'LBL_LIST_TEAM',

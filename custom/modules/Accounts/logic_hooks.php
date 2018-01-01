@@ -10,6 +10,4 @@ $hook_array['process_record'][] = Array(11,'Set linkedin profile','custom/includ
 $hook_array['before_save'] = Array(); 
 $hook_array['before_save'][] = Array(1,'workflow','include/workflow/WorkFlowHandler.php','WorkFlowHandler','WorkFlowHandler',);
 
-
-
 ?>

@@ -1,5 +1,5 @@
 <?php
-// created: 2017-10-13 12:07:01
+// created: 2017-12-31 14:13:47
 $viewdefs['Tasks']['base']['view']['subpanel-for-accounts-tasks_accounts_1'] = array (
   'panels' => 
   array (
@@ -33,23 +33,13 @@ $viewdefs['Tasks']['base']['view']['subpanel-for-accounts-tasks_accounts_1'] = a
         ),
         3 => 
         array (
-          'name' => 'prospect_name_c',
-          'label' => 'LBL_PROSPECT_NAME',
-          'enabled' => true,
-          'id' => 'CONTACT_ID_C',
-          'link' => true,
-          'sortable' => false,
-          'default' => true,
-        ),
-        4 => 
-        array (
           'name' => 'proj_details_c',
           'label' => 'LBL_PROJ_DETAILS',
           'enabled' => true,
           'sortable' => false,
           'default' => true,
         ),
-        5 => 
+        4 => 
         array (
           'name' => 'assist_from_c',
           'label' => 'LBL_ASSIST_FROM',
