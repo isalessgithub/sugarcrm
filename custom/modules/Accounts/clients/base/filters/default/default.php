@@ -1,5 +1,5 @@
 <?php
-// created: 2017-02-24 08:45:25
+// created: 2017-12-21 10:54:36
 $viewdefs['Accounts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -60,6 +60,9 @@ $viewdefs['Accounts']['base']['filter']['default'] = array (
     array (
     ),
     'billing_address_postalcode' => 
+    array (
+    ),
+    'parent_name' => 
     array (
     ),
   ),

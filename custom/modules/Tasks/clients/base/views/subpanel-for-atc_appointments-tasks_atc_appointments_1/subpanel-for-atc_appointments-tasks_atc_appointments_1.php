@@ -1,6 +1,6 @@
 <?php
-// created: 2017-12-31 14:13:47
-$viewdefs['Tasks']['base']['view']['subpanel-for-accounts-tasks_accounts_1'] = array (
+// created: 2017-12-22 10:10:51
+$viewdefs['Tasks']['base']['view']['subpanel-for-atc_appointments-tasks_atc_appointments_1'] = array (
   'panels' => 
   array (
     0 => 
@@ -26,27 +26,19 @@ $viewdefs['Tasks']['base']['view']['subpanel-for-accounts-tasks_accounts_1'] = a
         ),
         2 => 
         array (
-          'name' => 'proj_start_date_c',
-          'label' => 'LBL_PROJ_START_DATE',
+          'name' => 'priority',
+          'label' => 'LBL_PRIORITY',
           'enabled' => true,
           'default' => true,
         ),
         3 => 
         array (
-          'name' => 'proj_details_c',
-          'label' => 'LBL_PROJ_DETAILS',
+          'name' => 'created_by_name',
+          'label' => 'LBL_CREATED',
           'enabled' => true,
-          'sortable' => false,
-          'default' => true,
-        ),
-        4 => 
-        array (
-          'name' => 'assist_from_c',
-          'label' => 'LBL_ASSIST_FROM',
-          'enabled' => true,
-          'id' => 'USER_ID1_C',
+          'readonly' => true,
+          'id' => 'CREATED_BY',
           'link' => true,
-          'sortable' => false,
           'default' => true,
         ),
       ),

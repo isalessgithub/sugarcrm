@@ -1,6 +1,7 @@
 <?php
 class ATC_ParentAccountC
 {
+
     function ATC_ParentAccountF($bean, $event, $args){
         if(!empty($bean->account_id))
         {
@@ -9,4 +10,5 @@ class ATC_ParentAccountC
             $oAccount->save();
         }
     }
+
 }
