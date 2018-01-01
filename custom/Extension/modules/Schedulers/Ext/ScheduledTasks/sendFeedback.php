@@ -35,9 +35,11 @@ function sendFeedbackEmail($id,$message){
 			$from_name = $target_list->from_name_c;
 			$from_email = $target_list->from_address_c;
 			if($from_name=="" || $from_email==""){
-				$director = BeanFactory::retrieveBean("Users",$target_list->assigned_user_id);
-				$from_name = $director->first_name." ".$director->last_name;
-				$from_email = $director->email1;
+				//$director = BeanFactory::retrieveBean("Users",$target_list->assigned_user_id);
+				//$from_name = $director->first_name." ".$director->last_name;
+				//$from_email = $director->email1;
+				$from_name = "Inside Sales";
+				$from_email = "feedback@isaless.com";
 			}
 		}
 		else{
@@ -82,6 +84,7 @@ function sendFeedbackEmail($id,$message){
 
 		//this is using stock phpmailer.
 		$mail = new PHPMailer;
+		$mail->CharSet = 'UTF-8';
                 $mail->Host = "retail.smtp.com";
                 $mail->SMTPAuth = true;
                 $mail->Username = "aidan.snee@isaless.com";

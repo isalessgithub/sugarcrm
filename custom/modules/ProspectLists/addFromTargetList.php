@@ -12,12 +12,14 @@ class AddFromTargetList
 
             // don't relate all contacts from related account
             // if brought here by large lists split
-            if(!empty($bean->list_splitting)){
+           /* if(!empty($bean->list_splitting)){
                 return;
-            }
+            }*/
 
             // create an account object
             $account = BeanFactory::getBean('Accounts', $arguments['related_id']);
+	    $account->add_to_target_list_c = '';
+	    $account->save();
 
             // load the contacts relationship
             //$account->load_relationship('contacts');

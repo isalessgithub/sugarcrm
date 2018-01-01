@@ -3,6 +3,7 @@
 // be automatically rebuilt in the future.
  $hook_version = 1;
 $hook_array = Array();
+$GLOBALS['log']->fatal('Appointment Save Event!');
 // position, file, function
 $hook_array['before_save'] = Array();
 $hook_array['before_save'][] = Array(1,'Update direct_phone','custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php','CustomAppointmentsLH','update_direct_phone',);
@@ -14,7 +15,7 @@ $hook_array['before_save'][] = Array('1','workflow','include/workflow/WorkFlowHa
 $hook_array['before_save'][] = Array(6,'Client Sales Reps Logic','custom/modules/ATC_Appointments/logic_hooks/repLogic.php','repLogic','setRepEmail',);
 $hook_array['after_save'] = Array();
 $hook_array['after_save'][] = Array(1,'Update name','custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php','CustomAppointmentsLH','update_name',);
-$hook_array['after_save'][] = Array(5,'Push data to ambition','custom/modules/ATC_Appointments/logic_hooks/ambition.php','ambition','push',);
+$hook_array['after_save'][] = Array(5,'Push data to ambition','custom/modules/ATC_Appointments/logic_hooks/ambition.php','app_ambition','app_push',);
 $hook_array['after_relationship_add'] = Array();
 $hook_array['after_relationship_add'][] = Array(1,'Increment or Decrement Appointment count on contact','custom/modules/ATC_Appointments/logic_hooks/upd_contact_appointments.php','ContactAppointment','ContactAppointmentCount',);
 $hook_array['after_relationship_delete'] = Array();

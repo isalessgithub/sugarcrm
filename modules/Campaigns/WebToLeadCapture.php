@@ -34,7 +34,12 @@ $users = array(
 	'PUT A RANDOM KEY FROM THE WEBSITE HERE' => array('name'=>'PUT THE USER_NAME HERE', 'pass'=>'PUT THE USER_HASH FOR THE RESPECTIVE USER HERE'),
 );
 
-$redirect = $this->request->getValidInputPost(
+$request = InputValidation::getService();
+
+$previousSoftFail = $request->getSoftFail();
+$request->setSoftFail(false);
+
+$redirect = $request->getValidInputPost(
     'redirect',
     array(
         'Assert\Url' => array(
@@ -43,6 +48,8 @@ $redirect = $this->request->getValidInputPost(
     ),
     ''
 );
+
+$request->setSoftFail($previousSoftFail);
 
 if (isset($_POST['campaign_id']) && !empty($_POST['campaign_id'])) {
 	    //adding the client ip address
@@ -162,8 +169,17 @@ if (isset($_POST['campaign_id']) && !empty($_POST['campaign_id'])) {
                     
                 }
             }
-            $request = InputValidation::getService();
-            $redirect_url = $request->getValidInputRequest('redirect_url');
+
+            $redirect_url = $request->getValidInputPost(
+                'redirect_url',
+                array(
+                    'Assert\Url' => array(
+                        'protocols' => array('http', 'https'),
+                    ),
+                ),
+                ''
+            );
+
             if ($redirect_url !== null) {
                 $params = array();
                 foreach ($_REQUEST as $param => $_) {

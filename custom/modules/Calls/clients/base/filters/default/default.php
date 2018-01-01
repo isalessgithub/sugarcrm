@@ -1,9 +1,27 @@
 <?php
-// created: 2017-01-10 12:19:21
+// created: 2017-11-08 20:31:30
 $viewdefs['Calls']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
   array (
+    'pro_list' => 
+    array (
+    ),
+    'atc_isscampaigns_calls_1_name' => 
+    array (
+    ),
+    'direct_phone_c' => 
+    array (
+    ),
+    'switchboard_c' => 
+    array (
+    ),
+    'created_by_name' => 
+    array (
+    ),
+    'account_c' => 
+    array (
+    ),
     'name' => 
     array (
     ),

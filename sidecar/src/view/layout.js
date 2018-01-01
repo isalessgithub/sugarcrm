@@ -124,8 +124,6 @@
                 this.meta.components = [];
             }
 
-            this.context.addFields(this.getFieldNames());
-
             app.events.on('app:locale:change', function() {
                 this.render();
             }, this);

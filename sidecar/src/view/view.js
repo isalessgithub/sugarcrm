@@ -85,7 +85,22 @@
             this.primary = options.primary;
 
             this._setLabels();
-            this.context.addFields(this.getFieldNames());
+
+            /**
+             * The view name that contains the list of fields to use when
+             * fetching the model/collection from the server.
+             *
+             * List, record or detail views might have too many fields defined
+             * in the metadata. This property avoids having to list all these
+             * fields in the request params.
+             *
+             * @property {string} dataView
+             */
+            if (this.dataView) {
+                this.context.set('dataView', this.dataView);
+            } else {
+                this.context.addFields(this.getFieldNames());
+            }
 
             app.events.on('app:locale:change', function() {
                 this._setLabels();

@@ -1,13 +1,10 @@
 <?php
-// created: 2017-05-21 16:38:51
+// created: 2017-12-31 14:03:54
 $viewdefs['Tasks']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
   array (
     'name' => 
-    array (
-    ),
-    'tasktype_c' => 
     array (
     ),
     'priority' => 
@@ -32,12 +29,6 @@ $viewdefs['Tasks']['base']['filter']['default'] = array (
     array (
     ),
     'assigned_user_name' => 
-    array (
-    ),
-    'user_director_c' => 
-    array (
-    ),
-    'task_campaign_c' => 
     array (
     ),
     'created_by_name' => 

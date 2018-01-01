@@ -7,11 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
-    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Moontoast\\Math' => array($vendorDir . '/moontoast/math/src'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
     'Etechnika\\IdnaConvert' => array($vendorDir . '/etechnika/idna-convert/src'),
-    'Composer' => array($vendorDir . '/composer/composer/src'),
     'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
 );

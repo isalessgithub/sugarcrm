@@ -147,7 +147,7 @@ $listViewDefs['Accounts'] = array (
     'label' => 'LBL_EMAIL_ADDRESS',
     'sortable' => false,
     'link' => true,
-    'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
+    //'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
     'default' => false,
   ),
   'SHIPPING_ADDRESS_CITY' => 

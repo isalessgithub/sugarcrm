@@ -1,27 +1,27 @@
 <?php
-$viewdefs['Tasks'] =
+$viewdefs['Tasks'] = 
 array (
-  'base' =>
+  'base' => 
   array (
-    'view' =>
+    'view' => 
     array (
-      'record' =>
+      'record' => 
       array (
-        'buttons' =>
+        'buttons' => 
         array (
-          0 =>
+          0 => 
           array (
             'type' => 'button',
             'name' => 'cancel_button',
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' =>
+            'events' => 
             array (
               'click' => 'button:cancel_button:click',
             ),
           ),
-          1 =>
+          1 => 
           array (
             'type' => 'rowaction',
             'event' => 'button:save_button:click',
@@ -31,15 +31,15 @@ array (
             'showOn' => 'edit',
             'acl_action' => 'edit',
           ),
-          2 =>
+          2 => 
           array (
             'type' => 'actiondropdown',
             'name' => 'main_dropdown',
             'primary' => true,
             'showOn' => 'view',
-            'buttons' =>
+            'buttons' => 
             array (
-              0 =>
+              0 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:edit_button:click',
@@ -48,14 +48,14 @@ array (
                 'primary' => true,
                 'acl_action' => 'edit',
               ),
-              1 =>
+              1 => 
               array (
                 'type' => 'shareaction',
                 'name' => 'share',
                 'label' => 'LBL_RECORD_SHARE_BUTTON',
                 'acl_action' => 'view',
               ),
-              2 =>
+              2 => 
               array (
                 'type' => 'pdfaction',
                 'name' => 'download-pdf',
@@ -63,7 +63,7 @@ array (
                 'action' => 'download',
                 'acl_action' => 'view',
               ),
-              3 =>
+              3 => 
               array (
                 'type' => 'pdfaction',
                 'name' => 'email-pdf',
@@ -71,11 +71,11 @@ array (
                 'action' => 'email',
                 'acl_action' => 'view',
               ),
-              4 =>
+              4 => 
               array (
                 'type' => 'divider',
               ),
-              5 =>
+              5 => 
               array (
                 'type' => 'closebutton',
                 'name' => 'record-close-new',
@@ -83,7 +83,7 @@ array (
                 'closed_status' => 'Completed',
                 'acl_action' => 'edit',
               ),
-              6 =>
+              6 => 
               array (
                 'type' => 'closebutton',
                 'name' => 'record-close',
@@ -91,11 +91,11 @@ array (
                 'closed_status' => 'Completed',
                 'acl_action' => 'edit',
               ),
-              7 =>
+              7 => 
               array (
                 'type' => 'divider',
               ),
-              8 =>
+              8 => 
               array (
                 'type' => 'rowaction',
                 'name' => 'duplicate_button',
@@ -104,11 +104,11 @@ array (
                 'acl_module' => 'Tasks',
                 'acl_action' => 'create',
               ),
-              9 =>
+              9 => 
               array (
                 'type' => 'divider',
               ),
-              10 =>
+              10 => 
               array (
                 'type' => 'rowaction',
                 'event' => 'button:delete_button:click',
@@ -118,21 +118,21 @@ array (
               ),
             ),
           ),
-          3 =>
+          3 => 
           array (
             'name' => 'sidebar_toggle',
             'type' => 'sidebartoggle',
           ),
         ),
-        'panels' =>
+        'panels' => 
         array (
-          0 =>
+          0 => 
           array (
             'name' => 'panel_header',
             'header' => true,
-            'fields' =>
+            'fields' => 
             array (
-              0 =>
+              0 => 
               array (
                 'name' => 'picture',
                 'type' => 'avatar',
@@ -141,14 +141,14 @@ array (
                 'readonly' => true,
               ),
               1 => 'name',
-              2 =>
+              2 => 
               array (
                 'name' => 'favorite',
                 'label' => 'LBL_FAVORITE',
                 'type' => 'favorite',
                 'dismiss_label' => true,
               ),
-              3 =>
+              3 => 
               array (
                 'name' => 'follow',
                 'label' => 'LBL_FOLLOW',
@@ -158,7 +158,7 @@ array (
               ),
             ),
           ),
-          1 =>
+          1 => 
           array (
             'name' => 'panel_body',
             'label' => 'LBL_RECORD_BODY',
@@ -167,42 +167,52 @@ array (
             'placeholders' => true,
             'newTab' => true,
             'panelDefault' => 'expanded',
-            'fields' =>
+            'fields' => 
             array (
-              0 =>
+              0 => 
               array (
                 'name' => 'proj_type_c',
                 'label' => 'LBL_PROJ_TYPE',
               ),
               1 => 'priority',
-              2 =>
+              2 => 
               array (
-                'name' => 'prospect_name_c',
-                'studio' => 'visible',
-                'label' => 'LBL_PROSPECT_NAME',
+                'name' => 'contact_name',
+                'span' => 6,
               ),
-              3 =>
+              3 => 
               array (
                 'name' => 'proj_start_date_c',
                 'label' => 'LBL_PROJ_START_DATE',
+                'span' => 6,
               ),
               4 => 'parent_name',
-              5 =>
+              5 => 
               array (
-                'name' => 'assist_from_c',
-                'studio' => 'visible',
-                'label' => 'LBL_ASSIST_FROM',
+                'name' => 'atc_appointments_tasks_1_name',
               ),
-              6 =>
+              6 => 
               array (
                 'name' => 'proj_details_c',
                 'studio' => 'visible',
                 'label' => 'LBL_PROJ_DETAILS',
                 'span' => 12,
               ),
+              7 => 
+              array (
+                'name' => 'description',
+                'span' => 6,
+              ),
+              8 => 
+              array (
+                'name' => 'assist_from_c',
+                'studio' => 'visible',
+                'label' => 'LBL_ASSIST_FROM',
+                'span' => 6,
+              ),
             ),
           ),
-          2 =>
+          2 => 
           array (
             'newTab' => true,
             'panelDefault' => 'collapsed',
@@ -211,67 +221,67 @@ array (
             'columns' => 2,
             'labelsOnTop' => 1,
             'placeholders' => 1,
-            'fields' =>
+            'fields' => 
             array (
-              0 =>
+              0 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
                 'inline' => true,
                 'type' => 'fieldset',
                 'label' => 'LBL_DATE_MODIFIED',
-                'fields' =>
+                'fields' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'name' => 'date_modified',
                   ),
-                  1 =>
+                  1 => 
                   array (
                     'type' => 'label',
                     'default_value' => 'LBL_BY',
                   ),
-                  2 =>
+                  2 => 
                   array (
                     'name' => 'modified_by_name',
                   ),
                 ),
               ),
-              1 =>
+              1 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
                 'inline' => true,
                 'type' => 'fieldset',
                 'label' => 'LBL_DATE_ENTERED',
-                'fields' =>
+                'fields' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'name' => 'date_entered',
                   ),
-                  1 =>
+                  1 => 
                   array (
                     'type' => 'label',
                     'default_value' => 'LBL_BY',
                   ),
-                  2 =>
+                  2 => 
                   array (
                     'name' => 'created_by_name',
                   ),
                 ),
               ),
-              2 =>
+              2 => 
               array (
               ),
-              3 =>
+              3 => 
               array (
                 'name' => 'team_name',
               ),
             ),
           ),
         ),
-        'templateMeta' =>
+        'templateMeta' => 
         array (
           'useTabs' => true,
         ),

@@ -1,10 +1,13 @@
 <?php
 
-    class ambition
+    class app_ambition
     {
-        function push($bean, $event, $arguments)
+        function app_push($bean, $event, $arguments)
         {
-             
+
+        
+
+          //$GLOBALS['log']->fatal($bean->id."--".$bean->date_entered); 
              $record=array();
              if($arguments['isUpdate']==1){
                  
@@ -12,14 +15,13 @@
                 || $arguments['dataChanges']['appointment_status']['before'] != $arguments['dataChanges']['appointment_status']['after']
                 || $arguments['dataChanges']['appointment_date']['before'] != $arguments['dataChanges']['appointment_date']['after']
                 ){
-
-                   $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+                   $user=BeanFactory::retrieveBean("Users",$bean->assigned_user_id);
                    $record['email']=$user->emailAddress->getPrimaryAddress($user);
-                   $record['id']=$bean->id;
+                   $record['id']=$bean->appointment_number;
                    $record['appointment_place']=$bean->appointment_place;
                    $record['appointment_status']=$bean->appointment_status;
                    $record['appointment_date']=$bean->appointment_date;
-                   $record['date_created']=$bean->date_modified;
+                   $record['date_created']=$bean->fetched_row['date_entered'];
                    $record['title']=$bean->title_c;
                    $record['client']=$bean->atc_appointments_contacts_name;
                    $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
@@ -30,15 +32,19 @@
                    $record['timeline']=$bean->appointment_result_c;
                    $record['second_appt']=$bean->second_appointment_c;
                    $record['opp_value']=$bean->opportunity_amount;
-                  
+
+                   if($bean->do_not_show_c=="1"){
+                     $record['do_not_show']=true;
+                   }else{
+                      $record['do_not_show']=false;
+                   }
 
                 }
- 
              }else{
 
-                  $user=BeanFactory::retrieveBean("Users",$bean->modified_user_id);
+                  $user=BeanFactory::retrieveBean("Users",$bean->assigned_user_id);
                   $record['email']=$user->emailAddress->getPrimaryAddress($user);
-                  $record['id']=$bean->id;
+                  $record['id']=$bean->appointment_number;
                   $record['appointment_place']=$bean->appointment_place;
                   $record['appointment_status']=$bean->appointment_status;
                   $record['appointment_date']=$bean->appointment_date;
@@ -54,6 +60,13 @@
                   $record['second_appt']=$bean->second_appointment_c;
                   $record['opp_value']=$bean->opportunity_amount;
 
+                  if($bean->do_not_show_c=="1"){
+                     $record['do_not_show']=true;
+                   }else{
+                      $record['do_not_show']=false;
+                   }
+
+                  
 
              }
 
@@ -85,7 +98,8 @@
                //display the created record
                curl_close($curl_request);
 
-             }
+            
+          }
         }
     }
 ?>

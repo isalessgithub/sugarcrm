@@ -25,17 +25,10 @@
                          if(status == 'Attended' || status== 'DC_Appt_Attended' || status=='Attended_Policy'){ // check if it matches the condition: if true,
                                 addToValidate('EditView','clientrep_email1_c','varchar',true,'{$mod_strings['LBL_CLIENTREP_EMAIL1']}');    // mark Description field required
                                 $('#clientrep_email1_c_label_label').html('{$mod_strings['LBL_CLIENTREP_EMAIL1']}: <font color="red">*</font>'); // with red * sign next to label
-
-                                addToValidate('EditView','clientrep_email2_c','varchar',true,'{$mod_strings['LBL_CLIENTREP_EMAIL2']}');    // mark Description field required
-                                $('#clientrep_email2_c_label_label').html('{$mod_strings['LBL_CLIENTREP_EMAIL2']}: <font color="red">*</font>'); // with red * sign next to label
-
                          }
                          else{
                                 removeFromValidate('EditView','clientrep_email1_c');                        // else remove the validtion applied
                                 $('#clientrep_email1_c_label').html('{$mod_strings['LBL_CLIENTREP_EMAIL1']}: '); // and give the normal label back 
-                         
-                                removeFromValidate('EditView','clientrep_email2_c');                        // else remove the validtion applied
-                                $('#clientrep_email2_c_label').html('{$mod_strings['LBL_CLIENTREP_EMAIL2']}: '); // and give the normal label back
 
                          }
                     }

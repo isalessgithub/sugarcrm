@@ -1,5 +1,5 @@
 <?php
-// created: 2017-02-21 20:43:40
+// created: 2017-12-07 12:54:14
 $viewdefs['Contacts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -34,15 +34,6 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     'assistant' => 
     array (
     ),
-    'report_to_name' => 
-    array (
-    ),
-    'account_name' => 
-    array (
-      'dbFields' => 
-      array (
-      ),
-    ),
     'primary_address_street' => 
     array (
     ),
@@ -55,26 +46,18 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     'primary_address_postalcode' => 
     array (
     ),
+    'created_by_name' => 
+    array (
+    ),
     '$owner' => 
     array (
       'predefined_filter' => true,
       'vname' => 'LBL_CURRENT_USER_FILTER',
     ),
-    '$favorite' => 
-    array (
-      'predefined_filter' => true,
-      'vname' => 'LBL_FAVORITES_FILTER',
-    ),
-    'created_by_name' => 
-    array (
-    ),
     'date_entered' => 
     array (
     ),
     'description' => 
-    array (
-    ),
-    'tag' => 
     array (
     ),
     'appointment_count_c' => 

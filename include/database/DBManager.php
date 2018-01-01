@@ -71,7 +71,6 @@ abstract class DBManager
 {
 	/**
 	 * Actual database link, used in concrete classes
-	 * @var resource
 	 */
 	public $database = null;
 
