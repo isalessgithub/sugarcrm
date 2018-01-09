@@ -34,3 +34,4 @@ $mod_strings['LBL_CONTACT'] = 'Contact Name';
 $mod_strings['LBL_APPOINTMENT_NUMBER'] = 'Appointment Number';
 $mod_strings['LBL_CONTACTS_TASKS_1_FROM_CONTACTS_TITLE'] = 'Related Contact';
 $mod_strings['LBL_ATC_APPOINTMENTS_TASKS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Related Appointment';
+$mod_strings['LBL_FROM_LIST'] = 'From Target List';

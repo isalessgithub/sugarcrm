@@ -196,14 +196,18 @@ array (
                 'name' => 'proj_details_c',
                 'studio' => 'visible',
                 'label' => 'LBL_PROJ_DETAILS',
-                'span' => 12,
               ),
               7 => 
+              array (
+                'name' => 'from_list_c',
+                'label' => 'LBL_FROM_LIST',
+              ),
+              8 => 
               array (
                 'name' => 'description',
                 'span' => 6,
               ),
-              8 => 
+              9 => 
               array (
                 'name' => 'assist_from_c',
                 'studio' => 'visible',

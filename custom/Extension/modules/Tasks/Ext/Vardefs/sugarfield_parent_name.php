@@ -1,7 +1,7 @@
 <?php
- // created: 2017-10-14 13:58:19
+ // created: 2018-01-02 16:02:00
 $dictionary['Task']['fields']['parent_name']['len']=36;
-$dictionary['Task']['fields']['parent_name']['required']=true;
+$dictionary['Task']['fields']['parent_name']['required']=false;
 $dictionary['Task']['fields']['parent_name']['audited']=true;
 $dictionary['Task']['fields']['parent_name']['massupdate']=false;
 $dictionary['Task']['fields']['parent_name']['duplicate_merge']='enabled';
