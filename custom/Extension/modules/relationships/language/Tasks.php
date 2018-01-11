@@ -14,3 +14,5 @@ $mod_strings['LBL_TASKS_PROSPECTLISTS_1_FROM_PROSPECTLISTS_TITLE'] = 'Target Lis
 $mod_strings['LBL_TASKS_PROSPECTLISTS_1_FROM_TASKS_TITLE'] = 'Target Lists';
 $mod_strings['LBL_CONTACTS_TASKS_1_FROM_CONTACTS_TITLE'] = 'Contacts';
 $mod_strings['LBL_CONTACTS_TASKS_1_FROM_TASKS_TITLE'] = 'Contacts';
+$mod_strings['LBL_ATC_APPOINTMENTS_TASKS_2_FROM_ATC_APPOINTMENTS_TITLE'] = 'Contact Appointments';
+$mod_strings['LBL_ATC_APPOINTMENTS_TASKS_2_FROM_TASKS_TITLE'] = 'Contact Appointments';
