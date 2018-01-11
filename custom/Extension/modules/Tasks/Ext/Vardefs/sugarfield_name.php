@@ -1,5 +1,5 @@
 <?php
- // created: 2018-01-03 16:42:13
+ // created: 2018-01-10 10:47:22
 $dictionary['Task']['fields']['name']['required']=false;
 $dictionary['Task']['fields']['name']['audited']=true;
 $dictionary['Task']['fields']['name']['massupdate']=false;
@@ -14,7 +14,7 @@ $dictionary['Task']['fields']['name']['full_text_search']=array (
   'searchable' => true,
 );
 $dictionary['Task']['fields']['name']['calculated']='1';
-$dictionary['Task']['fields']['name']['formula']='related($atc_appointments_tasks_1,"actsas_c")';
+$dictionary['Task']['fields']['name']['formula']='related($accounts,"name")';
 $dictionary['Task']['fields']['name']['enforced']=true;
 
  ?>
