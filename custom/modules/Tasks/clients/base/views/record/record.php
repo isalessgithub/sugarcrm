@@ -177,41 +177,52 @@ array (
               1 => 'priority',
               2 => 
               array (
-                'name' => 'contact_name',
-                'span' => 6,
+                'name' => 'project_status_c',
+                'label' => 'LBL_PROJECT_STATUS',
               ),
               3 => 
               array (
                 'name' => 'proj_start_date_c',
                 'label' => 'LBL_PROJ_START_DATE',
+              ),
+              4 => 
+              array (
+                'name' => 'contact_name',
                 'span' => 6,
               ),
-              4 => 'parent_name',
               5 => 
               array (
-                'name' => 'atc_appointments_tasks_1_name',
+                'name' => 'assist_from_c',
+                'studio' => 'visible',
+                'label' => 'LBL_ASSIST_FROM',
+                'span' => 6,
               ),
               6 => 
+              array (
+                'name' => 'parent_name',
+              ),
+              7 => 
+              array (
+              ),
+              8 => 
               array (
                 'name' => 'proj_details_c',
                 'studio' => 'visible',
                 'label' => 'LBL_PROJ_DETAILS',
               ),
-              7 => 
+              9 => 
               array (
-                'name' => 'from_list_c',
-                'label' => 'LBL_FROM_LIST',
+                'name' => 'atc_appointments_tasks_1_name',
               ),
-              8 => 
+              10 => 
               array (
                 'name' => 'description',
                 'span' => 6,
               ),
-              9 => 
+              11 => 
               array (
-                'name' => 'assist_from_c',
-                'studio' => 'visible',
-                'label' => 'LBL_ASSIST_FROM',
+                'name' => 'from_list_c',
+                'label' => 'LBL_FROM_LIST',
                 'span' => 6,
               ),
             ),
