@@ -11,3 +11,5 @@ $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_TASKS_TITLE'] = 'Company Project
 $mod_strings['LBL_TASKS_ATC_APPOINTMENTS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Company Projects';
 $mod_strings['LBL_ATC_APPOINTMENTS_TASKS_1_FROM_TASKS_TITLE'] = 'Company Projects';
 $mod_strings['LBL_ATC_APPOINTMENTS_TASKS_1_FROM_ATC_APPOINTMENTS_TITLE'] = 'Company Projects';
+$mod_strings['LBL_ATC_APPOINTMENTS_TASKS_2_FROM_TASKS_TITLE'] = 'Contact Company Projects';
+$mod_strings['LBL_ATC_APPOINTMENTS_TASKS_2_FROM_ATC_APPOINTMENTS_TITLE'] = 'Contact Company Projects';
