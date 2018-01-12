@@ -17,12 +17,15 @@ $job_strings[] = 'ET_DuplicateCheck';
 function ET_AutoMergeDuplicates()
 {
     // introduce global var
-    global $db, $timedate;
+    global $db;
+
+    $currentTimedate = new TimeDate();
+    $currentTimedate->allow_cache = false;
 
     // retrieve the time when this job was last run
     $result = $db->query("
           SELECT job_queue.execute_time, job_queue.resolution
-          FROM job_queue 
+          FROM job_queue
           WHERE job_queue.target = 'class::ET_AutoMergeSchedulerJob'
           ORDER BY job_queue.execute_time DESC
           LIMIT 1
@@ -49,7 +52,7 @@ function ET_AutoMergeDuplicates()
     $last_job_run_datetime = $data['execute_time'];
 
     // introduce 'now' datetime
-    $now_db_datetime = $timedate->nowDb();
+    $now_db_datetime = $currentTimedate->nowDb();
 
     // introduce the time difference (in minutes)
     $diff = (strtotime($now_db_datetime) - strtotime($last_job_run_datetime)) / 60;
@@ -72,6 +75,30 @@ function ET_AutoMergeDuplicates()
  */
 function scheduleNextDeDupitAutoMerge()
 {
+
+    // introduce global var
+    global $db;
+
+    $currentTimedate = new TimeDate();
+    $currentTimedate->allow_cache = false;
+
+    // retrieve the time when this job was last run
+    $result = $db->query("
+          SELECT execute_time, resolution
+          FROM job_queue
+          WHERE target = 'class::ET_AutoMergeSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
+        ");
+
+    // retrieve the query result
+    $data = $db->fetchByAssoc($result);
+
+    // make sure that there is at least one done job existing
+    if (!empty($data)) {
+
+        // there are scheduled jobs
+        return true;
+    }
+
     // include dependencies
     require_once('include/SugarQueue/SugarJobQueue.php');
 
@@ -86,6 +113,9 @@ function scheduleNextDeDupitAutoMerge()
 
     // set the class which will be called
     $schedulers_job->target = "class::ET_AutoMergeSchedulerJob";
+
+    // make sure next job is scheduled X seconds after current so it's not executed in the same run
+    $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+120 second'));
 
     // introduce new Job Queue object
     $job_queue = new SugarJobQueue();
@@ -117,7 +147,7 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
      * "This method implements the run function of RunnableSchedulerJob and handles processing a SchedulersJob"
      *
      * @param array $data
-     * @return bool|void
+     * @return bool
      */
     function run($data)
     {
@@ -136,6 +166,7 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
         $query->select(array('id', 'eontek_module_name', 'automerge_configuration'));
         $query->from(BeanFactory::getBean('ET_DuplicateFinderProcess'), array('team_security' => false));
         $query->where()->equals('automerge', 'yes');
+        $query->where()->equals('active', 'yes');
         $query->orderBy('eontek_module_name');
         $active_processes = $query->execute();
 
@@ -147,29 +178,33 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
         // include dependencies
         require_once('modules/ET_DuplicateFinderProcess/DeDupitWorker.php');
 
+        // introduce the merged records count
         $merged_records = 0;
 
         // iterate trough grouped processes
         foreach ($active_processes as $process_data) {
 
-            while ($merged_records < 100) {
+            // make sure to process 50 records per run
+            while ($merged_records <= 50) {
 
+                // introduce the duplicate pairs data
                 $duplicate_pairs_data = $this->getDuplicate($process_data['id']);
 
+                // make sure that data is retrieved
                 if (empty($duplicate_pairs_data)) {
 
                     // exit from while, merge duplicates for the next process
                     break;
                 }
 
-                $automerge_configuration = json_decode(html_entity_decode($process_data['automerge_configuration']));
-
+                // introduce the first bean
                 $bean1 = BeanFactory::getBean(
                     $process_data['eontek_module_name'],
                     $duplicate_pairs_data['duplicate_record_id_1'],
                     array('disable_row_level_security' => true)
                 );
 
+                // introduce the second bean
                 $bean2 = BeanFactory::getBean(
                     $process_data['eontek_module_name'],
                     $duplicate_pairs_data['duplicate_record_id_2'],
@@ -180,7 +215,7 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
                 if (empty($bean1->id) || empty($bean2->id)) {
 
                     // if bean is invalid that means that it was previously merged and now is deleted
-                    // duplicate pair should be deleted, too
+                    // duplicate pair should be deleted too
                     $et_foundduplicates = BeanFactory::getBean(
                         'ET_FoundDuplicates',
                         $duplicate_pairs_data['id'],
@@ -194,7 +229,11 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
                     continue;
                 }
 
-                // determine which one is primary
+                // introduce the configuration
+                $automerge_configuration = json_decode(html_entity_decode($process_data['automerge_configuration']));
+
+                // iterate trough configuration
+                // (determine which one is primary)
                 foreach ($automerge_configuration as $config_rule) {
 
                     $primary = null;
@@ -241,11 +280,13 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
                         $duplicate_pairs_data['id']
                     );
 
+                    // increment merged duplicates counter
                     $merged_records++;
                 }
             }
 
-            if ($merged_records >= 100) {
+            // make sure that no more than 50 records are merged
+            if ($merged_records >= 50) {
                 break;
             }
         }
@@ -257,7 +298,7 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
     }
 
     /**
-     * Retrieves ID of passed module beans (in batches of 100)
+     * Retrieves IDs of passed module beans
      *
      * @param $process_id
      * @return array
@@ -269,12 +310,12 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
 
         $result = $db->query("
           SELECT et_foundduplicates.id, et_foundduplicates.duplicate_record_id_1, et_foundduplicates.duplicate_record_id_2
-          FROM  et_duplicatecheck 
+          FROM  et_duplicatecheck
             JOIN et_duplicatecheck_et_foundduplicates ON et_duplicatecheck.id = et_duplicatecheck_et_foundduplicates.et_duplicatecheck_id
             JOIN et_foundduplicates ON et_foundduplicates.id = et_duplicatecheck_et_foundduplicates.et_foundduplicates_id
-          WHERE  et_duplicatecheck.duplicate_finder_process_id = '{$process_id}' 
-          	AND et_duplicatecheck.deleted = 0 
-          	AND et_duplicatecheck_et_foundduplicates.deleted = 0 
+          WHERE  et_duplicatecheck.duplicate_finder_process_id = '{$process_id}'
+          	AND et_duplicatecheck.deleted = 0
+          	AND et_duplicatecheck_et_foundduplicates.deleted = 0
           	AND et_foundduplicates.deleted = 0
           LIMIT 1
         ");
@@ -287,14 +328,18 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
      */
     private function scheduleNewAutoMerge()
     {
+
         // introduce global var
         global $db;
+
+        $currentTimedate = new TimeDate();
+        $currentTimedate->allow_cache = false;
 
         // retrieve the time when this job was last run
         $result = $db->query("
           SELECT execute_time, resolution
-          FROM job_queue 
-          WHERE target = 'class::ET_AutoMergeSchedulerJob' AND status = 'queued' AND resolution = 'queued'
+          FROM job_queue
+          WHERE target = 'class::ET_AutoMergeSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
         ");
 
         // retrieve the query result
@@ -302,9 +347,6 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
 
         // make sure that there is at least one done job existing
         if (!empty($data)) {
-
-
-            $GLOBALS['log']->fatal('already scheduled, exit!');
 
             // there are scheduled jobs
             return true;
@@ -325,6 +367,9 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
         // set the class which will be called
         $schedulers_job->target = "class::ET_AutoMergeSchedulerJob";
 
+        // make sure next job is scheduled X seconds after current so it's not executed in the same run
+        $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+180 second'));
+
         // introduce new Job Queue object
         $job_queue = new SugarJobQueue();
 
@@ -341,12 +386,15 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
 function ET_DuplicateCheck()
 {
     // introduce global var
-    global $db, $timedate;
+    global $db;
+
+    $currentTimedate = new TimeDate();
+    $currentTimedate->allow_cache = false;
 
     // retrieve the time when this job was last run
     $result = $db->query("
           SELECT job_queue.execute_time, job_queue.resolution
-          FROM job_queue 
+          FROM job_queue
           WHERE job_queue.target = 'class::ET_DuplicateCheckSchedulerJob'
           ORDER BY job_queue.execute_time DESC
           LIMIT 1
@@ -373,7 +421,7 @@ function ET_DuplicateCheck()
     $last_job_run_datetime = $data['execute_time'];
 
     // introduce 'now' datetime
-    $now_db_datetime = $timedate->nowDb();
+    $now_db_datetime = $currentTimedate->nowDb();
 
     // introduce the time difference (in minutes)
     $diff = (strtotime($now_db_datetime) - strtotime($last_job_run_datetime)) / 60;
@@ -396,6 +444,30 @@ function ET_DuplicateCheck()
  */
 function scheduleNextDuplicateCheckJob()
 {
+
+    // introduce global var
+    global $db;
+
+    $currentTimedate = new TimeDate();
+    $currentTimedate->allow_cache = false;
+
+    // retrieve the time when this job was last run
+    $result = $db->query("
+          SELECT execute_time, resolution
+          FROM job_queue
+          WHERE target = 'class::ET_DuplicateCheckSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
+        ");
+
+    // retrieve the query result
+    $data = $db->fetchByAssoc($result);
+
+    // make sure that there is at least one done job existing
+    if (!empty($data)) {
+
+        // there are scheduled jobs
+        return true;
+    }
+
     // include dependencies
     require_once('include/SugarQueue/SugarJobQueue.php');
 
@@ -410,6 +482,9 @@ function scheduleNextDuplicateCheckJob()
 
     // set the class which will be called
     $schedulers_job->target = "class::ET_DuplicateCheckSchedulerJob";
+
+    // make sure next job is scheduled X seconds after current so it's not executed in the same run
+    $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+240 second'));
 
     // introduce new Job Queue object
     $job_queue = new SugarJobQueue();
@@ -440,7 +515,8 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
      * "This method implements the run function of RunnableSchedulerJob and handles processing a SchedulersJob"
      *
      * @param array $data
-     * @return bool|void
+     * @return bool
+     * @throws SugarQueryException
      */
     function run($data)
     {
@@ -479,7 +555,7 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
         }
 
         // introduce var that will count number of records checked for duplicates
-        // (limit of records that should be checked per run is 100)
+        // (limit of records that should be checked per run is 50)
         $number_of_processed_records = 0;
 
         // iterate trough grouped processes
@@ -526,8 +602,8 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
                     $number_of_processed_records++;
                 }
 
-                // check if 100 records are processed
-                if ($number_of_processed_records > 100) {
+                // check if 50 records are processed
+                if ($number_of_processed_records >= 50) {
 
                     // break outer loop
                     break 2;
@@ -542,7 +618,7 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
     }
 
     /**
-     * Retrieves ID of passed module beans (in batches of 100)
+     * Retrieves ID of passed module beans (in batches of 10)
      *
      * @param $module_name
      * @param $process_id
@@ -564,13 +640,13 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
         // introduce global var
         global $db;
 
-        // retrieve 100 records of module the process is created for
+        // retrieve 10 records of module the process is created for
         $result = $db->query("
           SELECT {$table_name}.id
           FROM {$table_name} LEFT JOIN et_duplicatecheck ON {$table_name}.id = et_duplicatecheck.record_id AND et_duplicatecheck.duplicate_finder_process_id = '{$process_id}' AND et_duplicatecheck.deleted = 0
-          WHERE et_duplicatecheck.id IS NULL AND {$table_name}.deleted = 0 
+          WHERE et_duplicatecheck.id IS NULL AND {$table_name}.deleted = 0
           ORDER BY {$table_name}.date_entered ASC
-          LIMIT 100
+          LIMIT 10
         ");
 
         // introduce beans array
@@ -591,14 +667,18 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
      */
     private function scheduleNewDuplicateCheck()
     {
+
         // introduce global var
         global $db;
+
+        $currentTimedate = new TimeDate();
+        $currentTimedate->allow_cache = false;
 
         // retrieve the time when this job was last run
         $result = $db->query("
           SELECT execute_time, resolution
-          FROM job_queue 
-          WHERE target = 'class::ET_DuplicateCheckSchedulerJob' AND status = 'queued' AND resolution = 'queued'
+          FROM job_queue
+          WHERE target = 'class::ET_DuplicateCheckSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
         ");
 
         // retrieve the query result
@@ -625,6 +705,9 @@ class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
 
         // set the class which will be called
         $schedulers_job->target = "class::ET_DuplicateCheckSchedulerJob";
+
+        // make sure next job is scheduled X seconds after current so it's not executed in the same run
+        $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+300 second'));
 
         // introduce new Job Queue object
         $job_queue = new SugarJobQueue();
