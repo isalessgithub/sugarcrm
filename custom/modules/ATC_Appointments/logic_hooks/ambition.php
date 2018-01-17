@@ -17,7 +17,8 @@
                 ){
                    $user=BeanFactory::retrieveBean("Users",$bean->assigned_user_id);
                    $record['email']=$user->emailAddress->getPrimaryAddress($user);
-                   $record['id']=$bean->appointment_number;
+                   $record['appointment_number']=$bean->appointment_number;
+                   $record['id']=$bean->id;
                    $record['appointment_place']=$bean->appointment_place;
                    $record['appointment_status']=$bean->appointment_status;
                    $record['appointment_date']=$bean->appointment_date;
@@ -44,7 +45,8 @@
 
                   $user=BeanFactory::retrieveBean("Users",$bean->assigned_user_id);
                   $record['email']=$user->emailAddress->getPrimaryAddress($user);
-                  $record['id']=$bean->appointment_number;
+                  $record['appointment_number']=$bean->appointment_number;
+                  $record['id']=$bean->id;
                   $record['appointment_place']=$bean->appointment_place;
                   $record['appointment_status']=$bean->appointment_status;
                   $record['appointment_date']=$bean->appointment_date;

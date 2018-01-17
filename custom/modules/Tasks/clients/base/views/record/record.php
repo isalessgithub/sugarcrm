@@ -177,13 +177,11 @@ array (
               1 => 'priority',
               2 => 
               array (
-                'name' => 'project_status_c',
-                'label' => 'LBL_PROJECT_STATUS',
+                'name' => 'parent_name',
               ),
               3 => 
               array (
-                'name' => 'proj_start_date_c',
-                'label' => 'LBL_PROJ_START_DATE',
+                'name' => 'atc_appointments_tasks_1_name',
               ),
               4 => 
               array (
@@ -192,17 +190,19 @@ array (
               ),
               5 => 
               array (
-                'name' => 'assist_from_c',
-                'studio' => 'visible',
-                'label' => 'LBL_ASSIST_FROM',
+                'name' => 'rel_appt_date_c',
+                'label' => 'LBL_REL_APPT_DATE',
                 'span' => 6,
               ),
               6 => 
               array (
-                'name' => 'parent_name',
+                'name' => 'contact_title_c',
+                'label' => 'LBL_CONTACT_TITLE',
               ),
               7 => 
               array (
+                'name' => 'from_list_c',
+                'label' => 'LBL_FROM_LIST',
               ),
               8 => 
               array (
@@ -212,7 +212,8 @@ array (
               ),
               9 => 
               array (
-                'name' => 'atc_appointments_tasks_1_name',
+                'name' => 'proj_start_date_c',
+                'label' => 'LBL_PROJ_START_DATE',
               ),
               10 => 
               array (
@@ -221,8 +222,8 @@ array (
               ),
               11 => 
               array (
-                'name' => 'from_list_c',
-                'label' => 'LBL_FROM_LIST',
+                'name' => 'project_status_c',
+                'label' => 'LBL_PROJECT_STATUS',
                 'span' => 6,
               ),
             ),
@@ -239,30 +240,6 @@ array (
             'fields' => 
             array (
               0 => 
-              array (
-                'name' => 'date_modified_by',
-                'readonly' => true,
-                'inline' => true,
-                'type' => 'fieldset',
-                'label' => 'LBL_DATE_MODIFIED',
-                'fields' => 
-                array (
-                  0 => 
-                  array (
-                    'name' => 'date_modified',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'label',
-                    'default_value' => 'LBL_BY',
-                  ),
-                  2 => 
-                  array (
-                    'name' => 'modified_by_name',
-                  ),
-                ),
-              ),
-              1 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -283,6 +260,30 @@ array (
                   2 => 
                   array (
                     'name' => 'created_by_name',
+                  ),
+                ),
+              ),
+              1 => 
+              array (
+                'name' => 'date_modified_by',
+                'readonly' => true,
+                'inline' => true,
+                'type' => 'fieldset',
+                'label' => 'LBL_DATE_MODIFIED',
+                'fields' => 
+                array (
+                  0 => 
+                  array (
+                    'name' => 'date_modified',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'label',
+                    'default_value' => 'LBL_BY',
+                  ),
+                  2 => 
+                  array (
+                    'name' => 'modified_by_name',
                   ),
                 ),
               ),
