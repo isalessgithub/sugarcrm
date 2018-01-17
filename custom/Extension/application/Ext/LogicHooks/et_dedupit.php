@@ -6,7 +6,7 @@ $hook_array['before_delete'][] = Array(
     22,
 
     //Label. A string value to identify the hook.
-    'before_delete example',
+    'deletes related records (for deleted record)',
 
     //The PHP file where your class is located.
     'modules/ET_DuplicateFinderProcess/DeDupitBeforeDelete.php',
@@ -23,7 +23,7 @@ $hook_array['after_save'][] = Array(
     22,
 
     //Label. A string value to identify the hook.
-    'before_delete example',
+    'check for duplicates (for saved record)',
 
     //The PHP file where your class is located.
     'modules/ET_DuplicateFinderProcess/DeDupitAfterSave.php',
