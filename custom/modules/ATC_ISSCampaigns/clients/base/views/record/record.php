@@ -68,56 +68,64 @@ array (
               ),
               2 => 
               array (
+                'name' => 'campaign_territory_c',
+                'label' => 'LBL_CAMPAIGN_TERRITORY',
+              ),
+              3 => 
+              array (
                 'name' => 'campaign_email_and_password_c',
                 'label' => 'LBL_CAMPAIGN_EMAIL_AND_PASSWORD',
               ),
-              3 => 
+              4 => 
               array (
                 'name' => 'appointments_set_c',
                 'label' => 'LBL_APPOINTMENTS_SET',
               ),
-              4 => 
+              5 => 
+              array (
+              ),
+              6 => 
               array (
                 'name' => 'appointment_target_campaign_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_CAMPAIGN',
               ),
-              5 => 
+              7 => 
               array (
                 'name' => 'appointment_target_monthly_c',
                 'label' => 'LBL_APPOINTMENT_TARGET_MONTHLY',
               ),
-              6 => 
+              8 => 
               array (
                 'name' => 'campaign_status_c',
                 'label' => 'LBL_CAMPAIGN_STATUS',
               ),
-              7 => 
+              9 => 
               array (
                 'name' => 'potential_start_month_c',
                 'label' => 'LBL_POTENTIAL_START_MONTH',
               ),
-              8 => 
+              10 => 
               array (
                 'name' => 'campaign_start_date_c',
                 'label' => 'LBL_CAMPAIGN_START_DATE',
               ),
-              9 => 
+              11 => 
               array (
                 'name' => 'campaign_finish_date_c',
                 'label' => 'LBL_CAMPAIGN_FINISH_DATE',
               ),
-              10 => 
+              12 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              11 => 
+              13 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              12 => 
+              14 => 
               array (
                 'name' => 'description',
                 'span' => 12,
