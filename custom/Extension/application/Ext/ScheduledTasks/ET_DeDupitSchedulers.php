@@ -10,305 +10,154 @@ $job_strings[] = 'ET_AutoMergeDuplicates';
 $job_strings[] = 'ET_DuplicateCheck';
 
 /**
- * Checks if there are running jobs (and schedules the next one if not)
+ * Merges duplicates
  *
  * @return bool
+ * @throws SugarQueryException
  */
 function ET_AutoMergeDuplicates()
 {
-    // introduce global var
-    global $db;
+    global $timedate, $current_user;
 
-    $currentTimedate = new TimeDate();
-    $currentTimedate->allow_cache = false;
+    // retrieve active processes
+    $active_processes = et_getActiveProcesses();
 
-    // retrieve the time when this job was last run
-    $result = $db->query("
-          SELECT job_queue.execute_time, job_queue.resolution
-          FROM job_queue
-          WHERE job_queue.target = 'class::ET_AutoMergeSchedulerJob'
-          ORDER BY job_queue.execute_time DESC
-          LIMIT 1
-        ");
-
-    // retrieve the query result
-    $data = $db->fetchByAssoc($result);
-
-    // make sure that there is at least one done job existing
-    if (empty($data)) {
-
-        // schedule the next job
-        return scheduleNextDeDupitAutoMerge();
-    }
-
-    // check if current job is running
-    if ($data['resolution'] == 'queued') {
-
-        // job is currently running, don't schedule next one
-        return true;
-    }
-
-    // introduce the datetime value
-    $last_job_run_datetime = $data['execute_time'];
-
-    // introduce 'now' datetime
-    $now_db_datetime = $currentTimedate->nowDb();
-
-    // introduce the time difference (in minutes)
-    $diff = (strtotime($now_db_datetime) - strtotime($last_job_run_datetime)) / 60;
-
-    // make sure that last job has been run more than 15 minutes ago
-    if ($diff > 15) {
-
-        // schedule the next job
-        return scheduleNextDeDupitAutoMerge();
-    }
-
-    // return
-    return true;
-}
-
-/**
- * Schedules the next job
- *
- * @return bool
- */
-function scheduleNextDeDupitAutoMerge()
-{
-
-    // introduce global var
-    global $db;
-
-    $currentTimedate = new TimeDate();
-    $currentTimedate->allow_cache = false;
-
-    // retrieve the time when this job was last run
-    $result = $db->query("
-          SELECT execute_time, resolution
-          FROM job_queue
-          WHERE target = 'class::ET_AutoMergeSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
-        ");
-
-    // retrieve the query result
-    $data = $db->fetchByAssoc($result);
-
-    // make sure that there is at least one done job existing
-    if (!empty($data)) {
-
-        // there are scheduled jobs
+    // make sure that there are active processes
+    if (empty($active_processes)) {
         return true;
     }
 
     // include dependencies
-    require_once('include/SugarQueue/SugarJobQueue.php');
+    require_once('modules/ET_DuplicateFinderProcess/DeDupitWorker.php');
 
-    // introduce new Schedulers Job object
-    $schedulers_job = new SchedulersJob();
+    // introduce the merged records count
+    $merged_records = 0;
 
-    // set the job' name
-    $schedulers_job->name = 'DeDupit Auto Merge';
+    // iterate trough grouped processes
+    foreach ($active_processes as $process_data) {
 
-    // set the data (used when the job is triggered)
-    $schedulers_job->data = 'scheduled by scheduler';
+        // make sure to process 25 records per run
+        while ($merged_records <= 25) {
 
-    // set the class which will be called
-    $schedulers_job->target = "class::ET_AutoMergeSchedulerJob";
+            // introduce the duplicate pairs data
+            $duplicate_pairs_data = et_getDuplicate($process_data['id']);
 
-    // make sure next job is scheduled X seconds after current so it's not executed in the same run
-    $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+120 second'));
+            // make sure that data is retrieved
+            if (empty($duplicate_pairs_data)) {
 
-    // introduce new Job Queue object
-    $job_queue = new SugarJobQueue();
+                // exit from while, merge duplicates for the next process
+                break;
+            }
 
-    // add job to the queue
-    $job_queue->submitJob($schedulers_job);
+            // introduce the first bean
+            $bean1 = BeanFactory::getBean(
+                $process_data['eontek_module_name'],
+                $duplicate_pairs_data['duplicate_record_id_1'],
+                array('disable_row_level_security' => true)
+            );
+
+            // introduce the second bean
+            $bean2 = BeanFactory::getBean(
+                $process_data['eontek_module_name'],
+                $duplicate_pairs_data['duplicate_record_id_2'],
+                array('disable_row_level_security' => true)
+            );
+
+            // make sure that both beans are valid (not deleted)
+            if (empty($bean1->id) || empty($bean2->id)) {
+
+                // if bean is invalid that means that it was previously merged and now is deleted
+                // duplicate pair should be deleted too
+                $et_foundduplicates = BeanFactory::getBean(
+                    'ET_FoundDuplicates',
+                    $duplicate_pairs_data['id'],
+                    array('disable_row_level_security' => true)
+                );
+
+                if (!empty($et_foundduplicates->id)) {
+                    $et_foundduplicates->mark_deleted($et_foundduplicates->id);
+                }
+
+                continue;
+            }
+
+            // introduce the configuration
+            $automerge_configuration = json_decode(html_entity_decode($process_data['automerge_configuration']));
+
+            // iterate trough configuration
+            // (determine which one is primary)
+            foreach ($automerge_configuration as $config_rule) {
+
+                $primary = null;
+                $duplicate = null;
+
+                $date1 = $bean1->{$config_rule->field};
+                $date2 = $bean2->{$config_rule->field};
+
+                if (empty($date1) || empty($date2)) {
+
+                    $primary = $bean1;
+                    $duplicate = $bean2;
+
+                } else {
+
+                    $date1 = strtotime($timedate->fromString($date1, $current_user));
+                    $date2 = strtotime($timedate->fromString($date2, $current_user));
+
+                    if ($config_rule->rule == 'older') {
+
+                        if ($date1 <= $date2) {
+                            $primary = $bean1;
+                            $duplicate = $bean2;
+                        } else {
+                            $primary = $bean2;
+                            $duplicate = $bean1;
+                        }
+                    } else {
+
+                        if ($date1 <= $date2) {
+                            $primary = $bean2;
+                            $duplicate = $bean1;
+                        } else {
+                            $primary = $bean1;
+                            $duplicate = $bean2;
+                        }
+                    }
+                }
+
+                // find duplicates
+                DeDupitWorker::autoMergeDuplicates(
+                    $primary,
+                    $duplicate,
+                    $duplicate_pairs_data['id']
+                );
+
+                // increment merged duplicates counter
+                $merged_records++;
+            }
+        }
+
+        // make sure that no more than 25 records are merged
+        if ($merged_records >= 25) {
+            break;
+        }
+    }
 
     return true;
 }
 
-
 /**
- * Class ET_AutoMergeSchedulerJob
+ * Retrieves IDs of passed module beans
+ *
+ * @param $process_id
+ * @return array
  */
-class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
+function et_getDuplicate($process_id)
 {
-    /**
-     * "This method implements setJob from RunnableSchedulerJob and sets the SchedulersJob instance for the class"
-     *
-     * @param SchedulersJob $job the SchedulersJob instance set by the job queue
-     *
-     */
-    public function setJob(SchedulersJob $job)
-    {
-        $this->job = $job;
-    }
+    // introduce global var
+    global $db;
 
-    /**
-     * "This method implements the run function of RunnableSchedulerJob and handles processing a SchedulersJob"
-     *
-     * @param array $data
-     * @return bool
-     */
-    function run($data)
-    {
-        // introduce dependencies
-        require_once('modules/ET_DuplicateFinderProcess/license/ET_DeDupitLicense.php');
-
-        // make sure that the license is valid
-        if (ET_DeDupitLicense::isValid() !== true) {
-            return false;
-        }
-
-        global $timedate, $current_user;
-
-        // retrieve active processes
-        $query = new SugarQuery();
-        $query->select(array('id', 'eontek_module_name', 'automerge_configuration'));
-        $query->from(BeanFactory::getBean('ET_DuplicateFinderProcess'), array('team_security' => false));
-        $query->where()->equals('automerge', 'yes');
-        $query->where()->equals('active', 'yes');
-        $query->orderBy('eontek_module_name');
-        $active_processes = $query->execute();
-
-        // make sure that there are active processes
-        if (empty($active_processes)) {
-            return true;
-        }
-
-        // include dependencies
-        require_once('modules/ET_DuplicateFinderProcess/DeDupitWorker.php');
-
-        // introduce the merged records count
-        $merged_records = 0;
-
-        // iterate trough grouped processes
-        foreach ($active_processes as $process_data) {
-
-            // make sure to process 50 records per run
-            while ($merged_records <= 50) {
-
-                // introduce the duplicate pairs data
-                $duplicate_pairs_data = $this->getDuplicate($process_data['id']);
-
-                // make sure that data is retrieved
-                if (empty($duplicate_pairs_data)) {
-
-                    // exit from while, merge duplicates for the next process
-                    break;
-                }
-
-                // introduce the first bean
-                $bean1 = BeanFactory::getBean(
-                    $process_data['eontek_module_name'],
-                    $duplicate_pairs_data['duplicate_record_id_1'],
-                    array('disable_row_level_security' => true)
-                );
-
-                // introduce the second bean
-                $bean2 = BeanFactory::getBean(
-                    $process_data['eontek_module_name'],
-                    $duplicate_pairs_data['duplicate_record_id_2'],
-                    array('disable_row_level_security' => true)
-                );
-
-                // make sure that both beans are valid (not deleted)
-                if (empty($bean1->id) || empty($bean2->id)) {
-
-                    // if bean is invalid that means that it was previously merged and now is deleted
-                    // duplicate pair should be deleted too
-                    $et_foundduplicates = BeanFactory::getBean(
-                        'ET_FoundDuplicates',
-                        $duplicate_pairs_data['id'],
-                        array('disable_row_level_security' => true)
-                    );
-
-                    if (!empty($et_foundduplicates->id)) {
-                        $et_foundduplicates->mark_deleted($et_foundduplicates->id);
-                    }
-
-                    continue;
-                }
-
-                // introduce the configuration
-                $automerge_configuration = json_decode(html_entity_decode($process_data['automerge_configuration']));
-
-                // iterate trough configuration
-                // (determine which one is primary)
-                foreach ($automerge_configuration as $config_rule) {
-
-                    $primary = null;
-                    $duplicate = null;
-
-                    $date1 = $bean1->{$config_rule->field};
-                    $date2 = $bean2->{$config_rule->field};
-
-                    if (empty($date1) || empty($date2)) {
-
-                        $primary = $bean1;
-                        $duplicate = $bean2;
-
-                    } else {
-
-                        $date1 = strtotime($timedate->fromString($date1, $current_user));
-                        $date2 = strtotime($timedate->fromString($date2, $current_user));
-
-                        if ($config_rule->rule == 'older') {
-
-                            if ($date1 <= $date2) {
-                                $primary = $bean1;
-                                $duplicate = $bean2;
-                            } else {
-                                $primary = $bean2;
-                                $duplicate = $bean1;
-                            }
-                        } else {
-
-                            if ($date1 <= $date2) {
-                                $primary = $bean2;
-                                $duplicate = $bean1;
-                            } else {
-                                $primary = $bean1;
-                                $duplicate = $bean2;
-                            }
-                        }
-                    }
-
-                    // find duplicates
-                    DeDupitWorker::autoMergeDuplicates(
-                        $primary,
-                        $duplicate,
-                        $duplicate_pairs_data['id']
-                    );
-
-                    // increment merged duplicates counter
-                    $merged_records++;
-                }
-            }
-
-            // make sure that no more than 50 records are merged
-            if ($merged_records >= 50) {
-                break;
-            }
-        }
-
-        // schedule new batch
-        $this->scheduleNewAutoMerge();
-
-        return true;
-    }
-
-    /**
-     * Retrieves IDs of passed module beans
-     *
-     * @param $process_id
-     * @return array
-     */
-    private function getDuplicate($process_id)
-    {
-        // introduce global var
-        global $db;
-
-        $result = $db->query("
+    $result = $db->query("
           SELECT et_foundduplicates.id, et_foundduplicates.duplicate_record_id_1, et_foundduplicates.duplicate_record_id_2
           FROM  et_duplicatecheck
             JOIN et_duplicatecheck_et_foundduplicates ON et_duplicatecheck.id = et_duplicatecheck_et_foundduplicates.et_duplicatecheck_id
@@ -320,399 +169,170 @@ class ET_AutoMergeSchedulerJob implements RunnableSchedulerJob
           LIMIT 1
         ");
 
-        return $db->fetchByAssoc($result);
-    }
-
-    /**
-     * Schedules new duplicate check
-     */
-    private function scheduleNewAutoMerge()
-    {
-
-        // introduce global var
-        global $db;
-
-        $currentTimedate = new TimeDate();
-        $currentTimedate->allow_cache = false;
-
-        // retrieve the time when this job was last run
-        $result = $db->query("
-          SELECT execute_time, resolution
-          FROM job_queue
-          WHERE target = 'class::ET_AutoMergeSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
-        ");
-
-        // retrieve the query result
-        $data = $db->fetchByAssoc($result);
-
-        // make sure that there is at least one done job existing
-        if (!empty($data)) {
-
-            // there are scheduled jobs
-            return true;
-        }
-
-        // include dependencies
-        require_once('include/SugarQueue/SugarJobQueue.php');
-
-        // introduce new Schedulers Job object
-        $schedulers_job = new SchedulersJob();
-
-        // set the job' name
-        $schedulers_job->name = 'DeDupit Auto Merge';
-
-        // set the data (used when the job is triggered)
-        $schedulers_job->data = 'self scheduled';
-
-        // set the class which will be called
-        $schedulers_job->target = "class::ET_AutoMergeSchedulerJob";
-
-        // make sure next job is scheduled X seconds after current so it's not executed in the same run
-        $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+180 second'));
-
-        // introduce new Job Queue object
-        $job_queue = new SugarJobQueue();
-
-        // add job to the queue
-        $job_queue->submitJob($schedulers_job);
-    }
+    return $db->fetchByAssoc($result);
 }
 
 /**
  * Checks if there are running jobs (and schedules the next one if not)
  *
  * @return bool
+ * @throws SugarQueryException
  */
 function ET_DuplicateCheck()
 {
-    // introduce global var
-    global $db;
+    // introduce dependencies
+    require_once('modules/ET_DuplicateFinderProcess/license/ET_DeDupitLicense.php');
 
-    $currentTimedate = new TimeDate();
-    $currentTimedate->allow_cache = false;
+    // retrieve active processes
+    $active_processes = et_getActiveProcesses();
 
-    // retrieve the time when this job was last run
-    $result = $db->query("
-          SELECT job_queue.execute_time, job_queue.resolution
-          FROM job_queue
-          WHERE job_queue.target = 'class::ET_DuplicateCheckSchedulerJob'
-          ORDER BY job_queue.execute_time DESC
-          LIMIT 1
-        ");
-
-    // retrieve the query result
-    $data = $db->fetchByAssoc($result);
-
-    // make sure that there is at least one done job existing
-    if (empty($data)) {
-
-        // schedule the next job
-        return scheduleNextDuplicateCheckJob();
-    }
-
-    // check if current job is running
-    if ($data['resolution'] == 'queued') {
-
-        // job is currently running, don't schedule next one
-        return true;
-    }
-
-    // introduce the datetime value
-    $last_job_run_datetime = $data['execute_time'];
-
-    // introduce 'now' datetime
-    $now_db_datetime = $currentTimedate->nowDb();
-
-    // introduce the time difference (in minutes)
-    $diff = (strtotime($now_db_datetime) - strtotime($last_job_run_datetime)) / 60;
-
-    // make sure that last job has been run more than 15 minutes ago
-    if ($diff > 15) {
-
-        // schedule the next job
-        return scheduleNextDuplicateCheckJob();
-    }
-
-    // return
-    return true;
-}
-
-/**
- * Schedules the next job
- *
- * @return bool
- */
-function scheduleNextDuplicateCheckJob()
-{
-
-    // introduce global var
-    global $db;
-
-    $currentTimedate = new TimeDate();
-    $currentTimedate->allow_cache = false;
-
-    // retrieve the time when this job was last run
-    $result = $db->query("
-          SELECT execute_time, resolution
-          FROM job_queue
-          WHERE target = 'class::ET_DuplicateCheckSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
-        ");
-
-    // retrieve the query result
-    $data = $db->fetchByAssoc($result);
-
-    // make sure that there is at least one done job existing
-    if (!empty($data)) {
-
-        // there are scheduled jobs
+    // make sure that there are active processes
+    if (empty($active_processes)) {
         return true;
     }
 
     // include dependencies
-    require_once('include/SugarQueue/SugarJobQueue.php');
+    require_once('modules/ET_DuplicateFinderProcess/DeDupitWorker.php');
 
-    // introduce new Schedulers Job object
-    $schedulers_job = new SchedulersJob();
+    // introduce processes per module array
+    $process_per_module = array();
 
-    // set the job' name
-    $schedulers_job->name = 'DeDupit Duplicate Check';
+    // iterate trough processes
+    foreach ($active_processes as $process_data) {
 
-    // set the data (used when the job is triggered)
-    $schedulers_job->data = 'scheduled by scheduler';
+        // 'group' process by module
+        $process_per_module[$process_data['eontek_module_name']][] = $process_data['id'];
+    }
 
-    // set the class which will be called
-    $schedulers_job->target = "class::ET_DuplicateCheckSchedulerJob";
+    // introduce var that will count number of records checked for duplicates
+    // (limit of records that should be checked per run is 50)
+    $number_of_processed_records = 0;
 
-    // make sure next job is scheduled X seconds after current so it's not executed in the same run
-    $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+240 second'));
+    // iterate trough grouped processes
+    foreach ($process_per_module as $module_name => $processes_ids) {
 
-    // introduce new Job Queue object
-    $job_queue = new SugarJobQueue();
+        // iterate trough processes for a module
+        foreach ($processes_ids as $process_id) {
 
-    // add job to the queue
-    $job_queue->submitJob($schedulers_job);
+            // retrieve beans' IDs of module the process is created for
+            $beans_ids = et_getBeans($module_name, $process_id);
+
+            // make sure that there are beans retrieved
+            if (empty($beans_ids)) {
+                continue;
+            }
+
+            // iterate trough all beans' IDs
+            foreach ($beans_ids as $bean_id) {
+
+                // introduce the process' bean
+                $process_bean = BeanFactory::getBean('ET_DuplicateFinderProcess', $process_id,
+                    array('disable_row_level_security' => true));
+
+                // make sure that process bean was retrieved
+                if (empty($process_bean->id)) {
+                    continue;
+                }
+
+                // introduce bean
+                $bean = BeanFactory::getBean($module_name, $bean_id,
+                    array('disable_row_level_security' => true));
+
+                // make sure that bean was retrieved
+                if (empty($bean->id)) {
+                    continue;
+                }
+
+                // find duplicates
+                DeDupitWorker::findDuplicates($process_bean, $bean);
+
+                // increment the number of processed records
+                // (the value is incremented by number of processes that were run for one record)
+                $number_of_processed_records++;
+            }
+
+            // check if 50 records are processed
+            if ($number_of_processed_records >= 50) {
+
+                // break outer loop
+                break 2;
+            }
+        }
+    }
 
     return true;
 }
 
 /**
- * Class ET_DuplicateCheckSchedulerJob
+ * Retrieves ID of passed module beans (in batches of 10)
+ *
+ * @param $module_name
+ * @param $process_id
+ * @return array
  */
-class ET_DuplicateCheckSchedulerJob implements RunnableSchedulerJob
+function et_getBeans($module_name, $process_id)
 {
-    /**
-     * "This method implements setJob from RunnableSchedulerJob and sets the SchedulersJob instance for the class"
-     *
-     * @param SchedulersJob $job the SchedulersJob instance set by the job queue
-     *
-     */
-    public function setJob(SchedulersJob $job)
-    {
-        $this->job = $job;
+    // introduce new object of passed module
+    $bean = BeanFactory::getBean($module_name);
+
+    // introduce the bean's DB table name
+    $table_name = $bean->table_name;
+
+    // make sure that table exists
+    if (empty($table_name)) {
+        return array();
     }
 
-    /**
-     * "This method implements the run function of RunnableSchedulerJob and handles processing a SchedulersJob"
-     *
-     * @param array $data
-     * @return bool
-     * @throws SugarQueryException
-     */
-    function run($data)
-    {
-        // introduce dependencies
-        require_once('modules/ET_DuplicateFinderProcess/license/ET_DeDupitLicense.php');
+    // introduce global var
+    global $db;
 
-        // make sure that the license is valid
-        if (ET_DeDupitLicense::isValid() !== true) {
-            return false;
-        }
-
-        // retrieve active processes
-        $query = new SugarQuery();
-        $query->select(array('id', 'eontek_module_name'));
-        $query->from(BeanFactory::getBean('ET_DuplicateFinderProcess'), array('team_security' => false));
-        $query->where()->equals('active', 'yes');
-        $query->orderBy('eontek_module_name');
-        $active_processes = $query->execute();
-
-        // make sure that there are active processes
-        if (empty($active_processes)) {
-            return true;
-        }
-
-        // include dependencies
-        require_once('modules/ET_DuplicateFinderProcess/DeDupitWorker.php');
-
-        // introduce processes per module array
-        $process_per_module = array();
-
-        // iterate trough processes
-        foreach ($active_processes as $process_data) {
-
-            // 'group' process by module
-            $process_per_module[$process_data['eontek_module_name']][] = $process_data['id'];
-        }
-
-        // introduce var that will count number of records checked for duplicates
-        // (limit of records that should be checked per run is 50)
-        $number_of_processed_records = 0;
-
-        // iterate trough grouped processes
-        foreach ($process_per_module as $module_name => $processes_ids) {
-
-            // iterate trough processes for a module
-            foreach ($processes_ids as $process_id) {
-
-                // retrieve beans' IDs of module the process is created for
-                $beans_ids = $this->getBeans($module_name, $process_id);
-
-                // make sure that there are beans retrieved
-                if (empty($beans_ids)) {
-
-                    continue;
-                }
-
-                // iterate trough all beans' IDs
-                foreach ($beans_ids as $bean_id) {
-
-                    // introduce the process' bean
-                    $process_bean = BeanFactory::getBean('ET_DuplicateFinderProcess', $process_id,
-                        array('disable_row_level_security' => true));
-
-                    // make sure that process bean was retrieved
-                    if (empty($process_bean->id)) {
-                        continue;
-                    }
-
-                    // introduce bean
-                    $bean = BeanFactory::getBean($module_name, $bean_id,
-                        array('disable_row_level_security' => true));
-
-                    // make sure that bean was retrieved
-                    if (empty($bean->id)) {
-                        continue;
-                    }
-
-                    // find duplicates
-                    DeDupitWorker::findDuplicates($process_bean, $bean);
-
-                    // increment the number of processed records
-                    // (the value is incremented by number of processes that were run for one record)
-                    $number_of_processed_records++;
-                }
-
-                // check if 50 records are processed
-                if ($number_of_processed_records >= 50) {
-
-                    // break outer loop
-                    break 2;
-                }
-            }
-        }
-
-        // schedule new batch
-        $this->scheduleNewDuplicateCheck();
-
-        return true;
-    }
-
-    /**
-     * Retrieves ID of passed module beans (in batches of 10)
-     *
-     * @param $module_name
-     * @param $process_id
-     * @return array
-     */
-    private function getBeans($module_name, $process_id)
-    {
-        // introduce new object of passed module
-        $bean = BeanFactory::getBean($module_name);
-
-        // introduce the bean's DB table name
-        $table_name = $bean->table_name;
-
-        // make sure that table exists
-        if (empty($table_name)) {
-            return array();
-        }
-
-        // introduce global var
-        global $db;
-
-        // retrieve 10 records of module the process is created for
-        $result = $db->query("
+    // retrieve 50 records of module the process is created for
+    $result = $db->query("
           SELECT {$table_name}.id
           FROM {$table_name} LEFT JOIN et_duplicatecheck ON {$table_name}.id = et_duplicatecheck.record_id AND et_duplicatecheck.duplicate_finder_process_id = '{$process_id}' AND et_duplicatecheck.deleted = 0
           WHERE et_duplicatecheck.id IS NULL AND {$table_name}.deleted = 0
           ORDER BY {$table_name}.date_entered ASC
-          LIMIT 10
+          LIMIT 50
         ");
 
-        // introduce beans array
-        $beans_ids_array = array();
+    // introduce beans array
+    $beans_ids_array = array();
 
-        // iterate trough retrieved data
-        while ($bean_data = $db->fetchByAssoc($result)) {
+    // iterate trough retrieved data
+    while ($bean_data = $db->fetchByAssoc($result)) {
 
-            // add ID to beans array
-            $beans_ids_array[] = $bean_data['id'];
-        }
-
-        return $beans_ids_array;
+        // add ID to beans array
+        $beans_ids_array[] = $bean_data['id'];
     }
 
-    /**
-     * Schedules new duplicate check
-     */
-    private function scheduleNewDuplicateCheck()
-    {
-
-        // introduce global var
-        global $db;
-
-        $currentTimedate = new TimeDate();
-        $currentTimedate->allow_cache = false;
-
-        // retrieve the time when this job was last run
-        $result = $db->query("
-          SELECT execute_time, resolution
-          FROM job_queue
-          WHERE target = 'class::ET_DuplicateCheckSchedulerJob' AND (status = 'queued' OR status = 'running') AND (resolution = 'queued' OR resolution = 'running')
-        ");
-
-        // retrieve the query result
-        $data = $db->fetchByAssoc($result);
-
-        // make sure that there is at least one done job existing
-        if (!empty($data)) {
-
-            // there are scheduled jobs
-            return true;
-        }
-
-        // include dependencies
-        require_once('include/SugarQueue/SugarJobQueue.php');
-
-        // introduce new Schedulers Job object
-        $schedulers_job = new SchedulersJob();
-
-        // set the job' name
-        $schedulers_job->name = 'DeDupit Duplicate Check';
-
-        // set the data (used when the job is triggered)
-        $schedulers_job->data = 'self scheduled';
-
-        // set the class which will be called
-        $schedulers_job->target = "class::ET_DuplicateCheckSchedulerJob";
-
-        // make sure next job is scheduled X seconds after current so it's not executed in the same run
-        $schedulers_job->execute_time = $currentTimedate->asDb($currentTimedate->getNow()->modify('+300 second'));
-
-        // introduce new Job Queue object
-        $job_queue = new SugarJobQueue();
-
-        // add job to the queue
-        $job_queue->submitJob($schedulers_job);
-    }
+    return $beans_ids_array;
 }
+
+/**
+ * Makes sure that license is valid and retrieves active processes
+ *
+ * @return array|bool
+ * @throws SugarQueryException
+ */
+function et_getActiveProcesses()
+{
+    // introduce dependencies
+    require_once('modules/ET_DuplicateFinderProcess/license/ET_DeDupitLicense.php');
+
+    // make sure that the license is valid
+    if (ET_DeDupitLicense::isValid() !== true) {
+        return false;
+    }
+
+    // retrieve active processes
+    $query = new SugarQuery();
+    $query->select(array('id', 'eontek_module_name', 'automerge_configuration'));
+    $query->from(BeanFactory::getBean('ET_DuplicateFinderProcess'), array('team_security' => false));
+    $query->where()->equals('automerge', 'yes');
+    $query->where()->equals('active', 'yes');
+    $query->orderBy('eontek_module_name');
+    $active_processes = $query->execute();
+
+    return $active_processes;
+}
+
