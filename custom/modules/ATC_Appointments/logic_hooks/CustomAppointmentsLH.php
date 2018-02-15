@@ -422,7 +422,7 @@ $bean->description = $string;
       $contact = BeanFactory::getBean("Contacts", $bean->atc_appointments_contactscontacts_ida);
       $bean->direct_phone = $contact->phone_other;
 
-	$GLOBALS['log']->fatal($bean->contact_email);
+	//$GLOBALS['log']->fatal($bean->contact_email);
       if($bean->email1 == ''){
       	$bean->contact_email = $contact->email1;
       }

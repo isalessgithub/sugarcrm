@@ -58,6 +58,18 @@ class ET_MergedDuplicatesApi extends SugarApi
             );
         }
 
+        // trick sugar into thinking that bean is valid
+        // (otherwise it will not be formatted for sending back from API)
+        $duplicate_bean->deleted = 0;
+
+        // format the bean before retrieving
+        // hint: json_decode throws 'recursion detected' error if bean is simply returned from API,
+        // probably because sugar bean is pretty complex
+        $duplicate_bean = $this->formatBean($api, $args, $duplicate_bean);
+
+        // revert the deleted flag, just in case
+        $duplicate_bean->deleted = 1;
+
         // respond with duplicate bean
         return array(
             'success' => true,

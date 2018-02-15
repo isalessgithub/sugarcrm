@@ -14,6 +14,7 @@
                 if($arguments['dataChanges']['appointment_place']['before'] != $arguments['dataChanges']['appointment_place']['after']
                 || $arguments['dataChanges']['appointment_status']['before'] != $arguments['dataChanges']['appointment_status']['after']
                 || $arguments['dataChanges']['appointment_date']['before'] != $arguments['dataChanges']['appointment_date']['after']
+                || (($arguments['dataChanges']['feedback_status_c']['before'] != $arguments['dataChanges']['feedback_status_c']['after']) && ($bean->feedback_status_c=="received"))
                 ){
                    $user=BeanFactory::retrieveBean("Users",$bean->assigned_user_id);
                    $record['email']=$user->emailAddress->getPrimaryAddress($user);
@@ -28,7 +29,7 @@
                    $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
                    $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
                    $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
-                   $record['feedback_date']=$bean->feedback_timestamp_c;
+                   $record['feedback_date']=$bean->feedback_timestamp;
                    $record['positive_appointment']=$bean->positive_appointment_c;
                    $record['timeline']=$bean->appointment_result_c;
                    $record['second_appt']=$bean->second_appointment_c;
@@ -56,7 +57,7 @@
                   $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
                   $created_by=BeanFactory::retrieveBean("Users",$bean->created_by);
                   $record['created_by']=$created_by->emailAddress->getPrimaryAddress($created_by);
-                  $record['feedback_date']=$bean->feedback_timestamp_c;
+                  $record['feedback_date']=$bean->feedback_timestamp;
                   $record['positive_appointment']=$bean->positive_appointment_c;
                   $record['timeline']=$bean->appointment_result_c;
                   $record['second_appt']=$bean->second_appointment_c;
