@@ -3,7 +3,7 @@
 // be automatically rebuilt in the future.
  $hook_version = 1;
 $hook_array = Array();
-$GLOBALS['log']->fatal('Appointment Save Event!');
+//$GLOBALS['log']->fatal('Appointment Save Event!');
 // position, file, function
 $hook_array['before_save'] = Array();
 $hook_array['before_save'][] = Array(1,'Update direct_phone','custom/modules/ATC_Appointments/logic_hooks/CustomAppointmentsLH.php','CustomAppointmentsLH','update_direct_phone',);

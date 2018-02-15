@@ -27,7 +27,6 @@ class createCallFromContactQuickCreateC {
 		$target_list_id = $GLOBALS['db']->getOne($query);
 
             if ($target_list_id != '' && isset($target_list_id)) {
-		$GLOBALS['log']->fatal('generating call related to new contact');
 
                 global $current_user;
                 $call = new Call();

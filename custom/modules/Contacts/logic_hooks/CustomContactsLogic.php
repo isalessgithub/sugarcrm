@@ -40,7 +40,6 @@ class CustomContactsLogic {
 	if(isset($bean->account_id)){
 	   
 	   $account = BeanFactory::getBean('Accounts', $bean->account_id);
-	   $GLOBALS['log']->fatal($account->name);
 	   if($account->load_relationship('contacts')){
 		$contacts = $account->contacts->getBeans();
 		$account->contact_count_c = count($contacts);
