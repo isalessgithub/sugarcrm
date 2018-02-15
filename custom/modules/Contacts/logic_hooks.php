@@ -1,7 +1,7 @@
 <?php
 // Do not store anything in this file that is not part of the array or the hook version.  This file will	
 // be automatically rebuilt in the future. 
-$GLOBALS['log']->fatal('Contact Save Event!');
+//$GLOBALS['log']->fatal('Contact Save Event!');
 
 
  $hook_version = 1; 
@@ -18,7 +18,7 @@ $hook_array['after_relationship_add'] = Array();
 $hook_array['after_relationship_add'][] = Array(56,'Add to campaign','custom/modules/Contacts/logic_hooks/CustomContactsLogic.php','CustomContactsLogic','relate_account_to_campaign',);
 $hook_array['process_record'] = Array(); 
 $hook_array['process_record'][] = Array(55,'Log call for Contacts ListView','modules/ATC_Teleseller/ATC_CallLogger.php','CallLogger','ATCrenderLogCall',);
-$hook_array['process_record'][] = Array(11,'Set linkedin profile','custom/include/RLS/hooks/rls_linkedin_logic_hook.php','rls_linkedin_logic_hook','setLinkedinProfile',);
+//$hook_array['process_record'][] = Array(11,'Set linkedin profile','custom/include/RLS/hooks/rls_linkedin_logic_hook.php','rls_linkedin_logic_hook','setLinkedinProfile',);
 $hook_array['after_save'] = Array(); 
 $hook_array['after_save'][] = Array(99,'Create call based on Outcome','custom/modules/Contacts/createCallFromContactQuickCreate.php','createCallFromContactQuickCreateC','createCallFromContactQuickCreateAfterSave',);
 $hook_array['after_save'][] = Array(5,'Push data to ambition','custom/modules/Contacts/logic_hooks/ambition.php','ambition','push',);
