@@ -130,7 +130,7 @@ function sendFeedback(){
 			FROM atc_appointments
 			INNER JOIN atc_appointments_cstm ON atc_appointments.id = atc_appointments_cstm.id_c and atc_appointments.deleted=0
 			WHERE date_sub(now(), INTERVAL {$sa['time']} hour) > feedback_timestamp AND feedback_timestamp != '' AND feedback_timestamp IS NOT NULL
-			AND feedback_status_c = '{$sa['oldstatus']}'";
+			AND atc_appointments.deleted=0 AND feedback_status_c = '{$sa['oldstatus']}'";
 		$q = $db->query($find);
 		while($newapp = $db->fetchRow($q)){
 			$app = BeanFactory::retrieveBean('ATC_Appointments', $newapp['id']);
@@ -139,10 +139,8 @@ function sendFeedback(){
 				$app->save();
 			}
 			else{
-				if($sa['oldstatus']=='qualified'){
 					$app->feedback_status_c = 'not sent';
 					$app->save();
-				}
 			}
 		}
 	}
