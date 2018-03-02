@@ -1,5 +1,5 @@
 <?php
-// created: 2018-02-06 14:51:18
+// created: 2018-02-19 10:47:39
 $subpanel_layout['list_fields'] = array (
   'name' => 
   array (
@@ -16,13 +16,18 @@ $subpanel_layout['list_fields'] = array (
     'width' => '10%',
     'default' => true,
   ),
-  'description' => 
+  'amount' => 
   array (
-    'type' => 'text',
-    'vname' => 'LBL_DESCRIPTION',
-    'sortable' => false,
-    'width' => '10%',
+    'type' => 'currency',
+    'related_fields' => 
+    array (
+      0 => 'currency_id',
+      1 => 'base_rate',
+    ),
     'default' => true,
+    'vname' => 'LBL_LIKELY',
+    'currency_format' => true,
+    'width' => '10%',
   ),
   'created_by_name' => 
   array (
@@ -36,6 +41,14 @@ $subpanel_layout['list_fields'] = array (
     'widget_class' => 'SubPanelDetailViewLink',
     'target_module' => 'Users',
     'target_record_key' => 'created_by',
+  ),
+  'description' => 
+  array (
+    'type' => 'text',
+    'vname' => 'LBL_DESCRIPTION',
+    'sortable' => false,
+    'width' => '10%',
+    'default' => true,
   ),
   'currency_id' => 
   array (

@@ -1,5 +1,5 @@
 <?php
-// created: 2018-02-06 14:51:18
+// created: 2018-02-19 10:47:39
 $viewdefs['Opportunities']['base']['view']['subpanel-for-atc_isscampaigns-atc_isscampaigns_opportunities_1'] = array (
   'panels' => 
   array (
@@ -31,10 +31,15 @@ $viewdefs['Opportunities']['base']['view']['subpanel-for-atc_isscampaigns-atc_is
         ),
         2 => 
         array (
-          'name' => 'description',
-          'label' => 'LBL_DESCRIPTION',
+          'name' => 'amount',
+          'label' => 'LBL_LIKELY',
           'enabled' => true,
-          'sortable' => false,
+          'related_fields' => 
+          array (
+            0 => 'currency_id',
+            1 => 'base_rate',
+          ),
+          'currency_format' => true,
           'default' => true,
         ),
         3 => 
@@ -45,6 +50,14 @@ $viewdefs['Opportunities']['base']['view']['subpanel-for-atc_isscampaigns-atc_is
           'readonly' => true,
           'id' => 'CREATED_BY',
           'link' => true,
+          'default' => true,
+        ),
+        4 => 
+        array (
+          'name' => 'description',
+          'label' => 'LBL_DESCRIPTION',
+          'enabled' => true,
+          'sortable' => false,
           'default' => true,
         ),
       ),
