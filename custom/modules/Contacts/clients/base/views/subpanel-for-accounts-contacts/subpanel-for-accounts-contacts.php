@@ -1,5 +1,5 @@
 <?php
-// created: 2016-12-02 11:12:17
+// created: 2018-02-23 08:26:45
 $viewdefs['Contacts']['base']['view']['subpanel-for-accounts-contacts'] = array (
   'type' => 'subpanel-list',
   'panels' => 
@@ -27,33 +27,40 @@ $viewdefs['Contacts']['base']['view']['subpanel-for-accounts-contacts'] = array 
         ),
         1 => 
         array (
+          'name' => 'title',
+          'label' => 'LBL_TITLE',
+          'enabled' => true,
+          'default' => true,
+        ),
+        2 => 
+        array (
           'name' => 'primary_address_city',
           'label' => 'LBL_LIST_CITY',
           'enabled' => true,
           'default' => true,
         ),
-        2 => 
+        3 => 
         array (
           'name' => 'primary_address_state',
           'label' => 'LBL_LIST_STATE',
           'enabled' => true,
           'default' => true,
         ),
-        3 => 
+        4 => 
         array (
           'name' => 'email',
           'label' => 'LBL_LIST_EMAIL',
           'enabled' => true,
           'default' => true,
         ),
-        4 => 
+        5 => 
         array (
           'name' => 'phone_work',
           'label' => 'LBL_LIST_PHONE',
           'enabled' => true,
           'default' => true,
         ),
-        5 => 
+        6 => 
         array (
           'name' => 'et_telesales',
           'label' => 'LBL_ET_TELESALES_DISPOSITION',

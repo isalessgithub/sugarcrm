@@ -1,5 +1,5 @@
 <?php
-// created: 2016-12-02 11:12:12
+// created: 2018-02-23 08:26:44
 $subpanel_layout['list_fields'] = array (
   'full_name' => 
   array (
@@ -9,6 +9,13 @@ $subpanel_layout['list_fields'] = array (
       'listview' => false,
     ),
     'vname' => 'LBL_NAME',
+    'width' => '10%',
+    'default' => true,
+  ),
+  'title' => 
+  array (
+    'type' => 'varchar',
+    'vname' => 'LBL_TITLE',
     'width' => '10%',
     'default' => true,
   ),

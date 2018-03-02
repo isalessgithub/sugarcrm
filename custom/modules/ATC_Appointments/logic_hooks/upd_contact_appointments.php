@@ -12,12 +12,12 @@ class ContactAppointment
                 $contact = BeanFactory::getBean('Contacts',$arguments['related_id']);
 		//$contact->load_relationship('atc_appointments_contacts');
 
-		$GLOBALS['log']->fatal($contact->id);
+		//$GLOBALS['log']->fatal($contact->id);
 		if(isset($contact->id)){
 		$apps = $contact->atc_appointments_contacts->getBeans();
-		$GLOBALS['log']->fatal($contact->appointment_count_c);
+		//$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->appointment_count_c = count($apps);
-		$GLOBALS['log']->fatal($contact->appointment_count_c);
+		//$GLOBALS['log']->fatal($contact->appointment_count_c);
 		$contact->save(FALSE);
               	}
 		}
@@ -30,7 +30,7 @@ class ContactAppointment
 		$camp->appointments_set_c = count($apps);
 		$camp->save(FALSE);
 		*/
-		$GLOBALS['log']->fatal($camp->id);
+		//$GLOBALS['log']->fatal($camp->id);
 		global $db;
 		$sql = "SELECT count(id) as apptcount from atc_isscampaigns_atc_appointments_c where atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida = '".$arguments['related_id']."' AND deleted = 0;";
 		$result = $db->query($sql);
