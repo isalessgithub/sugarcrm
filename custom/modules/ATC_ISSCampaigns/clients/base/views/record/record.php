@@ -68,8 +68,8 @@ array (
               ),
               2 => 
               array (
-                'name' => 'campaign_territory_c',
-                'label' => 'LBL_CAMPAIGN_TERRITORY',
+                'name' => 'campaign_type_c',
+                'label' => 'LBL_CAMPAIGN_TYPE',
               ),
               3 => 
               array (
@@ -83,6 +83,8 @@ array (
               ),
               5 => 
               array (
+                'name' => 'campaign_territory_c',
+                'label' => 'LBL_CAMPAIGN_TERRITORY',
               ),
               6 => 
               array (
