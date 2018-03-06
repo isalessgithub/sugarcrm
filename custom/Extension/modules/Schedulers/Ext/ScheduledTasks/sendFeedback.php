@@ -12,15 +12,7 @@ function sendFeedbackEmail($id,$message){
 		$app = BeanFactory::retrieveBean('ATC_Appointments', $id);
 		//get sales rep
 		$salesrep = BeanFactory::retrieveBean('ATC_ClientSalesReps',$app->atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida);
-		//get second sales rep, if it exists.  just the name and email address.
-		$salesrep2_email="";$salesrep2_name="";
-		if($app->atc_clientsalesreps_id_c != ""){
-			$salesrep2 = BeanFactory::retrieveBean('ATC_ClientSalesReps',$app->atc_clientsalesreps_id_c);
-			if(isset($salesrep2->id)){
-				$salesrep2_email = $salesrep2->email1;
-				$salesrep2_name = $salesrep2->first_name." ".$salesresp2->last_name;
-			}
-		}
+
 		//get the accounts.  used to fill template with data.
 		$account = BeanFactory::retrieveBean('Accounts', $app->accounts_atc_appointments_1accounts_ida);
 		//get assigned user, which will be also sent the email.
@@ -48,14 +40,31 @@ function sendFeedbackEmail($id,$message){
 			$from_email = $assigned_user->email1;
 		}
 
-		//set the sales rep email.
-		$salesrep_email = "";
 
-		$salesrep_email = $salesrep->email1;
-		$salesrep_name = $salesrep->first_name." ".$salesrep->last_name;
+                $salesrep = BeanFactory::retrieveBean('ATC_ClientSalesReps',$app->atc_clientsalesreps_atc_appointmentsatc_clientsalesreps_ida);
+                //get second sales rep, if it exists.  just the name and email address.
 
+                //set the sales rep email.
+                $salesrep_email = "";
+
+                $salesrep_email = $salesrep->email1;
+                $salesrep_name = $salesrep->first_name." ".$salesrep->last_name;
+		//after all that, if they've set it on the appointment, just use it.
+		/*
+		if($bean->clientrep_email1_c!=""){
+			$salesrep_email = $bean->clientrep_email1_c;
+		}
+		*/
+                $salesrep2_email="";$salesrep2_name="";
+                if($app->atc_clientsalesreps_id_c != ""){
+                        $salesrep2 = BeanFactory::retrieveBean('ATC_ClientSalesReps',$app->atc_clientsalesreps_id_c);
+                        if(isset($salesrep2->id)){
+                                $salesrep2_email = $salesrep2->email1;
+                                $salesrep2_name = $salesrep2->first_name." ".$salesresp2->last_name;
+                        }
+                }
 		//$GLOBALS['log']->fatal("email:".$salesrep_email);
-	//ensure that there is a sales rep email to send to.
+		//ensure that there is a sales rep email to send to.
 	if($salesrep_email != '' && !empty($salesrep_email)){
 
 		//read template
@@ -115,14 +124,24 @@ function sendFeedbackEmail($id,$message){
 	else {return false;}
 }
 function sendFeedback(){
+	//get current time in easter timezone.
+	$ct = new DateTime("now", new DateTimeZone("America/New_York"));
+	//get the current 24 clock hour, without leading zeroes.  convert to integer.
+        $cr = intval($ct->format("G"));
+	$dr = intval($ct->format("w"));
+	//check if it's business hours. (after 8am, until 5:59)  also check if the day is monday to friday (1-5).
+        if($cr < 18 && $cr>7 && $dr < 6){
+	
+	
+	
 	//0, 3, 6 12, 24
 	$sendingar = array();
 	$sendingar[] = array("time" => 0,"oldstatus" => "qualified","newstatus" => "sent", "message" => "");
 	$sendingar[] = array("time" => 4,"oldstatus" => "sent","newstatus" => "sent twice", "message" => " Second Notification");
-	$sendingar[] = array("time" => 20,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
-	$sendingar[] = array("time" => 26,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
-	$sendingar[] = array("time" => 40,"oldstatus" => "sent four","newstatus" => "sent five", "message" => " Fifth Notification");
-	$sendingar[] = array("time" => 46,"oldstatus" => "sent five","newstatus" => "sent final", "message" => " Final Notification");
+	$sendingar[] = array("time" => 16,"oldstatus" => "sent twice","newstatus" => "sent thrice", "message" => " Third Notification");
+	$sendingar[] = array("time" => 6,"oldstatus" => "sent thrice","newstatus" => "sent four", "message" => " Fourth Notification");
+	$sendingar[] = array("time" => 14,"oldstatus" => "sent four","newstatus" => "sent five", "message" => " Fifth Notification");
+	$sendingar[] = array("time" => 6,"oldstatus" => "sent five","newstatus" => "sent final", "message" => " Final Notification");
         $db = DBManagerFactory::GetInstance();
         global $timedate;
 	foreach($sendingar as $sa){
@@ -135,6 +154,8 @@ function sendFeedback(){
 		while($newapp = $db->fetchRow($q)){
 			$app = BeanFactory::retrieveBean('ATC_Appointments', $newapp['id']);
 			if(sendFeedbackEmail($newapp['id'],$sa['message'])){
+				$dt = new SugarDateTime();
+				$ap->feedback_timestamp = $dt->asDb();
 				$app->feedback_status_c = $sa['newstatus'];
 				$app->save();
 			}
@@ -143,6 +164,7 @@ function sendFeedback(){
 					$app->save();
 			}
 		}
+	}
 	}
 return true;
 }
