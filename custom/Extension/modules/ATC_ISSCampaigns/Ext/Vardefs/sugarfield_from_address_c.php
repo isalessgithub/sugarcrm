@@ -1,5 +1,5 @@
 <?php
- // created: 2017-07-10 11:03:16
+ // created: 2018-02-19 09:54:54
 $dictionary['ATC_ISSCampaigns']['fields']['from_address_c']['labelValue']='From Address';
 $dictionary['ATC_ISSCampaigns']['fields']['from_address_c']['full_text_search']=array (
   'enabled' => '0',
@@ -7,6 +7,6 @@ $dictionary['ATC_ISSCampaigns']['fields']['from_address_c']['full_text_search']=
   'searchable' => false,
 );
 $dictionary['ATC_ISSCampaigns']['fields']['from_address_c']['enforced']='';
-$dictionary['ATC_ISSCampaigns']['fields']['from_address_c']['dependency']='';
+$dictionary['ATC_ISSCampaigns']['fields']['from_address_c']['dependency']='not(equal($campaign_start_date_c,""))';
 
  ?>

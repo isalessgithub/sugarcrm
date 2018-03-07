@@ -52,30 +52,33 @@ array (
               ),
               4 => 
               array (
-                'name' => 'tl_img_c',
-                'label' => 'LBL_TL_IMG',
+                'name' => 'date_entered',
+                'type' => 'datetime',
+                'label' => 'LBL_DATE_ENTERED',
                 'enabled' => true,
-                'sortable' => false,
-                'width' => '10',
                 'default' => true,
+                'readonly' => true,
+                'width' => '10',
               ),
               5 => 
+              array (
+                'name' => 'created_by_name',
+                'label' => 'LBL_CREATED',
+                'enabled' => true,
+                'readonly' => true,
+                'id' => 'CREATED_BY',
+                'link' => true,
+                'sortable' => false,
+                'default' => true,
+                'width' => '10',
+              ),
+              6 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_LIST_ASSIGNED_USER',
                 'id' => 'ASSIGNED_USER_ID',
                 'enabled' => true,
                 'default' => true,
-                'width' => '10',
-              ),
-              6 => 
-              array (
-                'name' => 'date_entered',
-                'type' => 'datetime',
-                'label' => 'LBL_DATE_ENTERED',
-                'enabled' => true,
-                'default' => false,
-                'readonly' => true,
                 'width' => '10',
               ),
               7 => 

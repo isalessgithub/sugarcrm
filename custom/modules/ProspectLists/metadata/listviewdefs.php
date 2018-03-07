@@ -30,6 +30,23 @@ array (
     'width' => '10%',
     'default' => true,
   ),
+  'date_entered' => 
+  array (
+    'type' => 'datetime',
+    'label' => 'LBL_DATE_ENTERED',
+    'width' => '10%',
+    'default' => true,
+  ),
+  'created_by_name' => 
+  array (
+    'type' => 'relate',
+    'readonly' => true,
+    'label' => 'LBL_CREATED',
+    'id' => 'CREATED_BY',
+    'link' => true,
+    'width' => '10%',
+    'default' => true,
+  ),
   'assigned_user_name' => 
   array (
     'width' => '10%',
@@ -37,13 +54,6 @@ array (
     'module' => 'Employees',
     'id' => 'ASSIGNED_USER_ID',
     'default' => true,
-  ),
-  'date_entered' => 
-  array (
-    'type' => 'datetime',
-    'label' => 'LBL_DATE_ENTERED',
-    'width' => '10%',
-    'default' => false,
   ),
   'date_modified' => 
   array (

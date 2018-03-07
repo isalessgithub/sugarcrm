@@ -68,8 +68,8 @@ array (
               ),
               2 => 
               array (
-                'name' => 'campaign_territory_c',
-                'label' => 'LBL_CAMPAIGN_TERRITORY',
+                'name' => 'campaign_type_c',
+                'label' => 'LBL_CAMPAIGN_TYPE',
               ),
               3 => 
               array (
@@ -83,6 +83,8 @@ array (
               ),
               5 => 
               array (
+                'name' => 'campaign_territory_c',
+                'label' => 'LBL_CAMPAIGN_TERRITORY',
               ),
               6 => 
               array (
@@ -116,16 +118,26 @@ array (
               ),
               12 => 
               array (
+                'name' => 'from_address_c',
+                'label' => 'LBL_FROM_ADDRESS',
+              ),
+              13 => 
+              array (
+                'name' => 'from_name_c',
+                'label' => 'LBL_FROM_NAME',
+              ),
+              14 => 
+              array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              13 => 
+              15 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
               ),
-              14 => 
+              16 => 
               array (
                 'name' => 'description',
                 'span' => 12,
@@ -208,23 +220,13 @@ array (
             array (
               0 => 
               array (
-                'name' => 'from_address_c',
-                'label' => 'LBL_FROM_ADDRESS',
-              ),
-              1 => 
-              array (
-                'name' => 'from_name_c',
-                'label' => 'LBL_FROM_NAME',
-              ),
-              2 => 
-              array (
                 'name' => 'client_campaign_id_c',
                 'label' => 'LBL_CLIENT_CAMPAIGN_ID',
               ),
-              3 => 
+              1 => 
               array (
               ),
-              4 => 
+              2 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -248,7 +250,7 @@ array (
                   ),
                 ),
               ),
-              5 => 
+              3 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -271,13 +273,6 @@ array (
                     'name' => 'created_by_name',
                   ),
                 ),
-              ),
-              6 => 
-              array (
-              ),
-              7 => 
-              array (
-                'name' => 'team_name',
               ),
             ),
           ),
