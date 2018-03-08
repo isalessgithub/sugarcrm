@@ -62,7 +62,7 @@ $dictionary["ms_reportdeliveryconfiguration_ms_reportdeliverylog_1"] = array (
     ),
     1 => 
     array (
-      'name' => 'idx_ms_reportdeliveryconfiguration_ms_reportdeliverylog_1_ida1_deleted',
+      'name' => 'idx_ms_rdconfiguration_ms_reportdeliverylog_1_ida1_deleted',
       'type' => 'index',
       'fields' => 
       array (
@@ -72,7 +72,7 @@ $dictionary["ms_reportdeliveryconfiguration_ms_reportdeliverylog_1"] = array (
     ),
     2 => 
     array (
-      'name' => 'idx_ms_reportdeliveryconfiguration_ms_reportdeliverylog_1_idb2_deleted',
+      'name' => 'idx_ms_rdconfiguration_ms_reportdeliverylog_1_idb2_deleted',
       'type' => 'index',
       'fields' => 
       array (
