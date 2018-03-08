@@ -1,5 +1,5 @@
 <?php
-// created: 2017-06-28 13:25:18
+// created: 2018-03-06 10:02:45
 $searchFields['ATC_ISSCampaigns'] = array (
   'name' => 
   array (

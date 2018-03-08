@@ -1,5 +1,5 @@
 <?php
- // created: 2018-02-19 09:54:01
+ // created: 2018-03-06 10:01:05
 $dictionary['ATC_ISSCampaigns']['fields']['from_name_c']['labelValue']='From Name';
 $dictionary['ATC_ISSCampaigns']['fields']['from_name_c']['full_text_search']=array (
   'enabled' => '0',

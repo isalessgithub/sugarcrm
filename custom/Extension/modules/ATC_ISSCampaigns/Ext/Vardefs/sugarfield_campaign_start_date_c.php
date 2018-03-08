@@ -1,6 +1,7 @@
 <?php
- // created: 2016-10-07 12:36:24
-$dictionary['ATC_ISSCampaigns']['fields']['campaign_start_date_c']['enforced'] = '';
-$dictionary['ATC_ISSCampaigns']['fields']['campaign_start_date_c']['dependency'] = '';
-$dictionary['ATC_ISSCampaigns']['fields']['campaign_start_date_c']['full_text_search']['boost'] = 1;
+ // created: 2018-03-06 10:02:45
+$dictionary['ATC_ISSCampaigns']['fields']['campaign_start_date_c']['labelValue']='Campaign Start Date';
+$dictionary['ATC_ISSCampaigns']['fields']['campaign_start_date_c']['enforced']='';
+$dictionary['ATC_ISSCampaigns']['fields']['campaign_start_date_c']['dependency']='';
 
+ ?>
