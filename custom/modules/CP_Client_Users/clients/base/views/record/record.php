@@ -115,6 +115,10 @@ array (
                 'name' => 'tag',
                 'span' => 6,
               ),
+              10 => 
+              array (
+                'name' => 'ms_reportdeliveryconfiguration_cp_client_users_1_name',
+              ),
             ),
           ),
         ),
