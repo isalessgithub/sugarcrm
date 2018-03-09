@@ -107,8 +107,6 @@ class SugarUpgradeCheckComposerConfig extends UpgradeScript
     public function run()
     {
 
-        return true;
-
         if (!$this->initialize()) {
             return $this->error("Composer configuration initialization error");
         }

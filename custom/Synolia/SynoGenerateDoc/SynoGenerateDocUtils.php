@@ -56,7 +56,7 @@ class SynoGenerateDocUtils
                     $buttonCode .=     '});';
                     $buttonCode .= '</script>';
                 }
-//                echo $buttonCode;
+                echo $buttonCode;
             }
         }
     }

@@ -2,7 +2,14 @@
      extendsFrom: 'RowactionField',
      initialize: function(options) {
 
-          this.type = 'rowaction';
+         app.view.invokeParent(this, {
+              type: 'field',
+              name: 'rowaction',
+              method: 'initialize',
+              args: [options]
+         });
+
+         this.type = 'rowaction';
      },
      rowActionSelect: function() {
           var self = this;
@@ -25,8 +32,8 @@
                   url = app.api.buildURL('SYNO_DashboardTemplates','buildDashboardData', null, { "record": self.model.get('id'), "userId" : model.id});
                   app.api.call('create', url, null, {
                     success: function(data) {
-                        app.alert.show('synodashboardtemplate', {  level: 'info', 
-                                                            title: app.lang.get('LBL_SYNO_DASHBOARD_DATA_LOADED', 'SYNO_DashboardTemplates'), 
+                        app.alert.show('synodashboardtemplate', {  level: 'info',
+                                                            title: app.lang.get('LBL_SYNO_DASHBOARD_DATA_LOADED', 'SYNO_DashboardTemplates'),
                                                             autoClose: true});
                        self.model.fetch();
                     },
