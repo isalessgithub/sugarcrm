@@ -1,6 +1,6 @@
 <?php
-// created: 2013-08-06 14:59:59
-$dictionary["atc_clients_atc_isscampaigns"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['atc_clients_atc_isscampaigns'] = array (
   'true_relationship_type' => 'one-to-many',
   'relationships' => 
   array (
@@ -21,18 +21,18 @@ $dictionary["atc_clients_atc_isscampaigns"] = array (
   'table' => 'atc_clients_atc_isscampaigns_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -40,13 +40,13 @@ $dictionary["atc_clients_atc_isscampaigns"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'atc_clients_atc_isscampaignsatc_clients_ida' => 
     array (
       'name' => 'atc_clients_atc_isscampaignsatc_clients_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'atc_clients_atc_isscampaignsatc_isscampaigns_idb' => 
     array (
       'name' => 'atc_clients_atc_isscampaignsatc_isscampaigns_idb',
       'type' => 'varchar',

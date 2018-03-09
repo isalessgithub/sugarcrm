@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Query;
 
 use Elastica\Query\Nested;
@@ -8,6 +7,9 @@ use Elastica\Test\Base as BaseTest;
 
 class NestedTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testSetQuery()
     {
         $nested = new Nested();

@@ -1,6 +1,6 @@
 <?php
-// created: 2012-10-02 14:01:40
-$dictionary["prospectlists_notes_1"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['prospectlists_notes_1'] = array (
   'true_relationship_type' => 'one-to-many',
   'from_studio' => true,
   'relationships' => 
@@ -22,18 +22,18 @@ $dictionary["prospectlists_notes_1"] = array (
   'table' => 'prospectlists_notes_1_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -41,13 +41,13 @@ $dictionary["prospectlists_notes_1"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'prospectlists_notes_1prospectlists_ida' => 
     array (
       'name' => 'prospectlists_notes_1prospectlists_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'prospectlists_notes_1notes_idb' => 
     array (
       'name' => 'prospectlists_notes_1notes_idb',
       'type' => 'varchar',

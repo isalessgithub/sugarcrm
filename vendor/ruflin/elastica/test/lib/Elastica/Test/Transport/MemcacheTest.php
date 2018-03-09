@@ -1,8 +1,6 @@
 <?php
-
 namespace Elastica\Test\Transport;
 
-use Elastica\Client;
 use Elastica\Document;
 use Elastica\Query;
 use Elastica\Query\QueryString;
@@ -11,29 +9,35 @@ use Elastica\Test\Base as BaseTest;
 
 class MemcacheTest extends BaseTest
 {
-    public function setUp()
+    public static function setUpBeforeClass()
     {
         if (!extension_loaded('Memcache')) {
-            $this->markTestSkipped('pecl/memcache must be installed to run this test case');
+            self::markTestSkipped('pecl/memcache must be installed to run this test case');
         }
     }
 
-    protected function _getClient()
+    protected function _getMemcacheClient()
     {
-        return new Client(array(
-            'host' => 'localhost',
+        return $this->_getClient(array(
+            'host' => $this->_getHost(),
             'port' => 11211,
             'transport' => 'Memcache',
         ));
     }
 
+    /**
+     * @group functional
+     */
     public function testConstruct()
     {
-        $client = $this->_getClient();
-        $this->assertEquals('localhost', $client->getConnection()->getHost());
+        $client = $this->_getMemcacheClient();
+        $this->assertEquals($this->_getHost(), $client->getConnection()->getHost());
         $this->assertEquals(11211, $client->getConnection()->getPort());
     }
 
+    /**
+     * @group functional
+     */
     public function testCreateDocument()
     {
         $index = $this->_createIndex();
@@ -51,6 +55,7 @@ class MemcacheTest extends BaseTest
     }
 
     /**
+     * @group functional
      * @expectedException Elastica\Exception\NotFoundException
      */
     public function testDeleteDocument()
@@ -71,6 +76,9 @@ class MemcacheTest extends BaseTest
         $document = $type->getDocument(1);
     }
 
+    /**
+     * @group functional
+     */
     public function testUpdateDocument()
     {
         $index = $this->_createIndex();
@@ -96,6 +104,9 @@ class MemcacheTest extends BaseTest
         $this->assertEquals('Doe John', $newSavedDocument->get('username'));
     }
 
+    /**
+     * @group functional
+     */
     public function testSearchDocument()
     {
         $index = $this->_createIndex();
@@ -124,36 +135,59 @@ class MemcacheTest extends BaseTest
     }
 
     /**
+     * @group functional
      * @expectedException Elastica\Exception\InvalidException
      * @expectedExceptionMessage is not supported in memcache transport
      */
     public function testHeadRequest()
     {
-        $client = $this->_getClient();
+        $this->checkMemcache();
+        $client = $this->_getMemcacheClient();
         $client->request('foo', Request::HEAD);
     }
 
     /**
+     * @group functional
      * @expectedException Elastica\Exception\InvalidException
      * @expectedExceptionMessage is not supported in memcache transport
      */
     public function testInvalidRequest()
     {
-        $client = $this->_getClient();
+        $this->checkMemcache();
+        $client = $this->_getMemcacheClient();
         $client->request('foo', 'its_fail');
     }
 
     /**
+     * @group functional
      * @expectedException Elastica\Exception\Connection\MemcacheException
      * @expectedExceptionMessage is too long
      */
     public function testRequestWithLongPath()
     {
-        $index = $this->_createIndex();
+        $this->checkMemcache();
+
+        $client = $this->_getMemcacheClient();
+        $index = $client->getIndex('memcache-test');
+        $index->create();
+
         $this->_waitForAllocation($index);
 
         $queryString = new QueryString(str_repeat('z', 300));
         $query = new Query($queryString);
         $index->search($query);
+    }
+
+    protected function checkMemcache()
+    {
+        $memcache = new \Memcache();
+
+        $client = $this->_getMemcacheClient();
+
+        if (!@$memcache->connect($client->getConnection()->getHost(), $client->getConnection()->getPort())) {
+            $this->markTestSkipped('Couldn\'t connect to host, Memcache down?');
+        }
+
+        $memcache->close();
     }
 }

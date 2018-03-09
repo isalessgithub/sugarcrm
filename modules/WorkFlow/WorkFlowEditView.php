@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -34,7 +33,7 @@ global $app_strings;
 global $app_list_strings;
 global $mod_strings;
 
-$focus = BeanFactory::getBean('EmailTemplates');
+$focus = BeanFactory::newBean('EmailTemplates');
 
 if(isset($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
@@ -116,7 +115,7 @@ if (!empty($focus->id)) {
     $etid = $old_id;
 }
 if(!empty($etid)) {
-    $note = BeanFactory::getBean('Notes');
+    $note = BeanFactory::newBean('Notes');
     $notes_list = $note->get_full_list("", "notes.parent_id=" . $GLOBALS['db']->quoted($etid) . " AND notes.filename IS NOT NULL", true);
     if (!empty($notes_list)) {
         for ($i = 0; $i < count($notes_list); $i++) {
@@ -177,7 +176,6 @@ if (isset($focus->body)) $xtpl->assign("BODY", $focus->body); else $xtpl->assign
 if (isset($focus->body_html)) $xtpl->assign("BODY_HTML", $focus->body_html); else $xtpl->assign("BODY_HTML", "");
 
 //////////////////////////////////
-require_once('include/SugarTinyMCE.php');
 $tiny = new SugarTinyMCE();
 $tiny->defaultConfig['apply_source_formatting']=true;
 $tiny->defaultConfig['cleanup_on_startup']=true;

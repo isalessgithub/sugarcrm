@@ -1,14 +1,12 @@
 <?php
-
 namespace Elastica\Filter;
 
 /**
- * Regexp filter
+ * Regexp filter.
  *
- * @category Xodoa
- * @package Elastica
  * @author Timothy Lamb <trash80@gmail.com>
- * @link http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-regexp-filter.html
+ *
+ * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-filter.html
  */
 class Regexp extends AbstractFilter
 {
@@ -34,11 +32,12 @@ class Regexp extends AbstractFilter
     protected $_options = array();
 
     /**
-     * Create Regexp object
+     * Create Regexp object.
      *
-     * @param  string $field     Field name
-     * @param  string $regexp    Regular expression
-     * @param  array  $options   Regular expression options
+     * @param string $field   Field name
+     * @param string $regexp  Regular expression
+     * @param array  $options Regular expression options
+     *
      * @throws \Elastica\Exception\InvalidException
      */
     public function __construct($field = '', $regexp = '', $options = array())
@@ -51,8 +50,9 @@ class Regexp extends AbstractFilter
     /**
      * Sets the name of the regexp field.
      *
-     * @param  string                  $field Field name
-     * @return \Elastica\Filter\Regexp
+     * @param string $field Field name
+     *
+     * @return $this
      */
     public function setField($field)
     {
@@ -64,8 +64,9 @@ class Regexp extends AbstractFilter
     /**
      * Sets the regular expression query string.
      *
-     * @param  string                  $regexp Regular expression
-     * @return \Elastica\Filter\Regexp
+     * @param string $regexp Regular expression
+     *
+     * @return $this
      */
     public function setRegexp($regexp)
     {
@@ -77,8 +78,9 @@ class Regexp extends AbstractFilter
     /**
      * Sets the regular expression query options.
      *
-     * @param  array                        $options Regular expression options
-     * @return \Elastica\Filter\Regexp
+     * @param array $options Regular expression options
+     *
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -88,15 +90,16 @@ class Regexp extends AbstractFilter
     }
 
     /**
-     * Converts object to an array
+     * Converts object to an array.
      *
      * @see \Elastica\Filter\AbstractFilter::toArray()
+     *
      * @return array data array
      */
     public function toArray()
     {
         if (count($this->_options) > 0) {
-            $options = array("value" => $this->_regexp);
+            $options = array('value' => $this->_regexp);
             $options = array_merge($options, $this->_options);
 
             $this->setParam($this->_field, $options);

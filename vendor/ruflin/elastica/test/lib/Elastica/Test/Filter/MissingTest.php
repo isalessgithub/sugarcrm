@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\Missing;
@@ -7,6 +6,9 @@ use Elastica\Test\Base as BaseTest;
 
 class MissingTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $filter = new Missing('field_name');
@@ -24,6 +26,9 @@ class MissingTest extends BaseTest
         $this->assertEquals($expectedArray, $filter->toArray());
     }
 
+    /**
+     * @group unit
+     */
     public function testSetField()
     {
         $filter = new Missing('field_name');
@@ -37,6 +42,9 @@ class MissingTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\Missing', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetExistence()
     {
         $filter = new Missing('field_name');
@@ -51,6 +59,9 @@ class MissingTest extends BaseTest
         $this->assertInstanceOf('Elastica\Filter\Missing', $returnValue);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetNullValue()
     {
         $filter = new Missing('field_name');

@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -18,9 +17,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  */
 require_once('modules/Users/authentication/LDAPAuthenticate/LDAPConfigs/default.php');
-require_once('modules/Users/authentication/SugarAuthenticate/SugarAuthenticateUser.php');
 
 define('DEFAULT_PORT', 389);
+define('LDAP_INVALID_CREDENTIALS', 49);
 class LDAPAuthenticateUser extends SugarAuthenticateUser{
 
 	/**
@@ -29,11 +28,13 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 	 *
 	 * @param STRING $name
 	 * @param STRING $password
+     * @param bool $fallback Ignored
 	 * @return STRING id - used for loading the user
 	 *
 	 * Contributions by Erik Mitchell erikm@logicpd.com
 	 */
-	function authenticateUser($name, $password) {
+    public function authenticateUser($name, $password, $fallback = false)
+    {
         $server = isset($GLOBALS['ldap_config']->settings['ldap_hostname']) ? $GLOBALS['ldap_config']->settings['ldap_hostname'] : '';
         $port = isset($GLOBALS['ldap_config']->settings['ldap_port']) ? $GLOBALS['ldap_config']->settings['ldap_port'] : '';
 		if(!$port)
@@ -234,7 +235,7 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 	 */
 	function createUser($name){
 
-			$user = BeanFactory::getBean('Users');
+			$user = BeanFactory::newBean('Users');
 			$user->user_name = $name;
 			foreach($this->ldapUserInfo as $key=>$value){
 				$user->$key = $value;
@@ -247,14 +248,9 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 			return $user->id;
 
 	}
-	/**
-	 * this is called when a user logs in
-	 *
-	 * @param STRING $name
-	 * @param STRING $password
-	 * @return boolean
-	 */
-	function loadUserOnLogin($name, $password) {
+
+    public function loadUserOnLogin($name, $password, $fallback = false, array $params = array())
+    {
 
 	    global $mod_strings;
 
@@ -270,7 +266,6 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 		$GLOBALS['ldap_config'] = Administration::getSettings('ldap');
 		$GLOBALS['log']->debug("Starting user load for ". $name);
 		if(empty($name) || empty($password)) return false;
-		checkAuthUserStatus();
 
 		$user_id = $this->authenticateUser($name, $password);
 		if(empty($user_id)) {
@@ -294,12 +289,12 @@ class LDAPAuthenticateUser extends SugarAuthenticateUser{
 		if(empty($error)) return false;
 		$errorstr = ldap_err2str($error);
 		// BEGIN SUGAR INT
-		$_SESSION['login_error'] = $errorstr;
-		/*
-		// END SUGAR INT
-		$_SESSION['login_error'] = translate('ERR_INVALID_PASSWORD', 'Users');
-		// BEGIN SUGAR INT
-		*/
+        // Trap ldap error 49 to make message same to authentication failure message for sugar user.
+        if ($error == LDAP_INVALID_CREDENTIALS) {
+            $_SESSION['login_error'] = translate('ERR_INVALID_PASSWORD', 'Users');
+        } else {
+            $_SESSION['login_error'] = $errorstr;
+        }
 		// END SUGAR INT
 		$GLOBALS['log']->fatal('[LDAP ERROR]['. $error . ']'.$errorstr);
 		return true;

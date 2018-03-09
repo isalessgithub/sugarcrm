@@ -1,6 +1,6 @@
 <?php
-// created: 2015-12-30 11:36:22
-$dictionary["documents_atc_isscampaigns_1"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['documents_atc_isscampaigns_1'] = array (
   'true_relationship_type' => 'many-to-many',
   'from_studio' => true,
   'relationships' => 
@@ -22,18 +22,18 @@ $dictionary["documents_atc_isscampaigns_1"] = array (
   'table' => 'documents_atc_isscampaigns_1_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -41,19 +41,19 @@ $dictionary["documents_atc_isscampaigns_1"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'documents_atc_isscampaigns_1documents_ida' => 
     array (
       'name' => 'documents_atc_isscampaigns_1documents_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'documents_atc_isscampaigns_1atc_isscampaigns_idb' => 
     array (
       'name' => 'documents_atc_isscampaigns_1atc_isscampaigns_idb',
       'type' => 'varchar',
       'len' => 36,
     ),
-    5 => 
+    'document_revision_id' => 
     array (
       'name' => 'document_revision_id',
       'type' => 'varchar',

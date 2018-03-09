@@ -1,6 +1,6 @@
 <?php
-// created: 2013-12-24 15:50:27
-$dictionary["cp_client_users_atc_clients"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['cp_client_users_atc_clients'] = array (
   'true_relationship_type' => 'many-to-many',
   'relationships' => 
   array (
@@ -21,18 +21,18 @@ $dictionary["cp_client_users_atc_clients"] = array (
   'table' => 'cp_client_users_atc_clients_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -40,13 +40,13 @@ $dictionary["cp_client_users_atc_clients"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'cp_client_users_atc_clientscp_client_users_ida' => 
     array (
       'name' => 'cp_client_users_atc_clientscp_client_users_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'cp_client_users_atc_clientsatc_clients_idb' => 
     array (
       'name' => 'cp_client_users_atc_clientsatc_clients_idb',
       'type' => 'varchar',

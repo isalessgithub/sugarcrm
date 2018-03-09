@@ -1,9 +1,9 @@
 <?php
-// created: 2017-02-28 11:17:59
+// created: 2018-03-09 13:26:31
 $listViewDefs['Prospects'] = array (
   'FULL_NAME' => 
   array (
-    'width' => '20%',
+    'width' => '20',
     'label' => 'LBL_LIST_NAME',
     'link' => true,
     'related_fields' => 
@@ -16,14 +16,14 @@ $listViewDefs['Prospects'] = array (
   ),
   'TITLE' => 
   array (
-    'width' => '20%',
+    'width' => '20',
     'label' => 'LBL_LIST_TITLE',
     'link' => false,
     'default' => true,
   ),
   'EMAIL1' => 
   array (
-    'width' => '20%',
+    'width' => '20',
     'label' => 'LBL_LIST_EMAIL_ADDRESS',
     'sortable' => false,
     'link' => false,
@@ -31,7 +31,7 @@ $listViewDefs['Prospects'] = array (
   ),
   'PHONE_WORK' => 
   array (
-    'width' => '10%',
+    'width' => '10',
     'label' => 'LBL_LIST_PHONE',
     'link' => false,
     'default' => true,
@@ -40,7 +40,7 @@ $listViewDefs['Prospects'] = array (
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_ENTERED',
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
   'LOG_CALL_C' => 
@@ -57,7 +57,7 @@ $listViewDefs['Prospects'] = array (
       'wireless_basic_search' => false,
     ),
     'label' => 'LBL_LOG_CALL',
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
 );

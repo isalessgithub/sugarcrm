@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\AbstractGeoShape;
@@ -11,6 +9,9 @@ use Elastica\Test\Base as BaseTest;
 
 class GeoShapePreIndexedTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testGeoProvided()
     {
         $index = $this->_createIndex();
@@ -37,8 +38,8 @@ class GeoShapePreIndexedTest extends BaseTest
         // add type docs
         $type->addDocument(new \Elastica\Document('1', array(
             'location' => array(
-                "type"          => "envelope",
-                "coordinates"   => array(
+                'type' => 'envelope',
+                'coordinates' => array(
                     array(0.0, 50.0),
                     array(50.0, 0.0),
                 ),
@@ -48,8 +49,8 @@ class GeoShapePreIndexedTest extends BaseTest
         // add other type docs
         $otherType->addDocument(new \Elastica\Document('2', array(
             'location' => array(
-                "type"          => "envelope",
-                "coordinates"   => array(
+                'type' => 'envelope',
+                'coordinates' => array(
                     array(25.0, 75.0),
                     array(75.0, 25.0),
                 ),
@@ -86,5 +87,16 @@ class GeoShapePreIndexedTest extends BaseTest
         $this->assertEquals(1, $results->count());
 
         $index->delete();
+    }
+
+    /**
+     * @group unit
+     */
+    public function testSetRelation()
+    {
+        $gsp = new GeoShapePreIndexed('location', '1', 'type', 'indexName', 'location');
+        $gsp->setRelation(AbstractGeoShape::RELATION_INTERSECT);
+        $this->assertEquals(AbstractGeoShape::RELATION_INTERSECT, $gsp->getRelation());
+        $this->assertInstanceOf('Elastica\Filter\GeoShapePreIndexed', $gsp->setRelation(AbstractGeoShape::RELATION_INTERSECT));
     }
 }

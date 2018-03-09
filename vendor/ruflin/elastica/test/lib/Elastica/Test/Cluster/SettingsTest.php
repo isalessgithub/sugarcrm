@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Cluster;
 
 use Elastica\Cluster\Settings;
@@ -9,6 +8,9 @@ use Elastica\Test\Base as BaseTest;
 
 class SettingsTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testSetTransient()
     {
         $index = $this->_createIndex();
@@ -28,6 +30,9 @@ class SettingsTest extends BaseTest
         $this->assertEquals(1, $data['transient']['discovery']['zen']['minimum_master_nodes']);
     }
 
+    /**
+     * @group functional
+     */
     public function testSetPersistent()
     {
         $index = $this->_createIndex();
@@ -47,6 +52,9 @@ class SettingsTest extends BaseTest
         $this->assertEquals(1, $data['persistent']['discovery']['zen']['minimum_master_nodes']);
     }
 
+    /**
+     * @group functional
+     */
     public function testSetReadOnly()
     {
         // Create two indices to check that the complete cluster is read only

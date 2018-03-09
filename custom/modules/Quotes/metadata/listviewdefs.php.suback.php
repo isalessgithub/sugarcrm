@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 12:36:01
+// created: 2017-02-28 11:17:59
 $listViewDefs['Quotes'] = array (
   'QUOTE_NUM' => 
   array (

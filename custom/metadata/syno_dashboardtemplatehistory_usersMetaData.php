@@ -1,9 +1,11 @@
 <?php
-// created: 2014-11-07 14:46:10
-$dictionary["syno_dashboardtemplatehistory_users"] = array(
+// created: 2018-03-09 13:24:25
+$dictionary['syno_dashboardtemplatehistory_users'] = array (
   'true_relationship_type' => 'one-to-many',
-  'relationships' => array(
-    'syno_dashboardtemplatehistory_users' => array(
+  'relationships' => 
+  array (
+    'syno_dashboardtemplatehistory_users' => 
+    array (
       'lhs_module' => 'Users',
       'lhs_table' => 'users',
       'lhs_key' => 'id',
@@ -17,53 +19,66 @@ $dictionary["syno_dashboardtemplatehistory_users"] = array(
     ),
   ),
   'table' => 'syno_dashboardtemplatehistory_users_c',
-  'fields' => array(
-    0 => array(
+  'fields' => 
+  array (
+    'id' => 
+    array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => array(
+    'date_modified' => 
+    array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => array(
+    'deleted' => 
+    array (
       'name' => 'deleted',
       'type' => 'bool',
       'len' => '1',
       'default' => '0',
       'required' => true,
     ),
-    3 => array(
+    'syno_dashboardtemplatehistory_usersusers_ida' => 
+    array (
       'name' => 'syno_dashboardtemplatehistory_usersusers_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => array(
+    'syno_dashb8a60history_idb' => 
+    array (
       'name' => 'syno_dashb8a60history_idb',
       'type' => 'varchar',
       'len' => 36,
     ),
   ),
-  'indices' => array(
-    0 => array(
+  'indices' => 
+  array (
+    0 => 
+    array (
       'name' => 'syno_dashboardtemplatehistory_usersspk',
       'type' => 'primary',
-      'fields' => array(
+      'fields' => 
+      array (
         0 => 'id',
       ),
     ),
-    1 => array(
+    1 => 
+    array (
       'name' => 'syno_dashboardtemplatehistory_users_ida1',
       'type' => 'index',
-      'fields' => array(
+      'fields' => 
+      array (
         0 => 'syno_dashboardtemplatehistory_usersusers_ida',
       ),
     ),
-    2 => array(
+    2 => 
+    array (
       'name' => 'syno_dashboardtemplatehistory_users_alt',
       'type' => 'alternate_key',
-      'fields' => array(
+      'fields' => 
+      array (
         0 => 'syno_dashb8a60history_idb',
       ),
     ),

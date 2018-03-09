@@ -162,7 +162,8 @@ class TelesellerAPI extends SugarApi
         // check if we need to open popup
         if ($args['popup_enabled'] !== 'off' && !empty($popup_config)) {
 
-            $field_name_map = $action_module_bean->field_name_map;
+//            $field_name_map = $action_module_bean->field_name_map;
+            $field_name_map = array();
 
             foreach (explode(',', $args['module_fields']) as $field_name) {
 

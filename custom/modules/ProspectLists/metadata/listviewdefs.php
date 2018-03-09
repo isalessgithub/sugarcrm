@@ -1,9 +1,9 @@
 <?php
-$listViewDefs['ProspectLists'] = 
-array (
+// created: 2018-03-09 13:26:31
+$listViewDefs['ProspectLists'] = array (
   'name' => 
   array (
-    'width' => '25%',
+    'width' => '25',
     'label' => 'LBL_LIST_PROSPECT_LIST_NAME',
     'link' => true,
     'default' => true,
@@ -12,12 +12,12 @@ array (
   array (
     'type' => 'int',
     'label' => 'LBL_ACCOUNT_TOTAL',
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
   'description' => 
   array (
-    'width' => '40%',
+    'width' => '40',
     'label' => 'LBL_LIST_DESCRIPTION',
     'default' => true,
   ),
@@ -27,14 +27,14 @@ array (
     'link' => true,
     'label' => 'LBL_ATC_ISSCAMPAIGNS_PROSPECTLISTS_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
     'id' => 'ATC_ISSCAMPAIGNS_PROSPECTLISTS_1ATC_ISSCAMPAIGNS_IDA',
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
   'date_entered' => 
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_ENTERED',
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
   'created_by_name' => 
@@ -44,12 +44,12 @@ array (
     'label' => 'LBL_CREATED',
     'id' => 'CREATED_BY',
     'link' => true,
-    'width' => '10%',
+    'width' => '10',
     'default' => true,
   ),
   'assigned_user_name' => 
   array (
-    'width' => '10%',
+    'width' => '10',
     'label' => 'LBL_LIST_ASSIGNED_USER',
     'module' => 'Employees',
     'id' => 'ASSIGNED_USER_ID',
@@ -59,7 +59,7 @@ array (
   array (
     'type' => 'datetime',
     'label' => 'LBL_DATE_MODIFIED',
-    'width' => '10%',
+    'width' => '10',
     'default' => false,
   ),
 );

@@ -1,8 +1,6 @@
 <?php
-
 namespace Elastica\Test\Connection\Strategy;
 
-use Elastica\Client;
 use Elastica\Connection;
 use Elastica\Connection\Strategy\RoundRobin;
 use Elastica\Exception\ConnectionException;
@@ -10,17 +8,24 @@ use Elastica\Response;
 use Elastica\Test\Base;
 
 /**
- * Description of RoundRobinTest
+ * Description of RoundRobinTest.
  *
  * @author chabior
  */
 class RoundRobinTest extends Base
 {
+    /**
+     * @var int Number of seconds to wait before timeout is called. Is set low for tests to have fast tests.
+     */
+    protected $_timeout = 1;
 
+    /**
+     * @group functional
+     */
     public function testConnection()
     {
         $config = array('connectionStrategy' => 'RoundRobin');
-        $client = new Client($config);
+        $client = $this->_getClient($config);
         $response = $client->request('/_aliases');
         /* @var $response Response */
 
@@ -29,32 +34,39 @@ class RoundRobinTest extends Base
         $this->_checkStrategy($client);
     }
 
+    /**
+     * @group unit
+     */
     public function testOldStrategySetted()
     {
         $config = array('roundRobin' => true);
-        $client = new Client($config);
+        $client = $this->_getClient($config);
 
         $this->_checkStrategy($client);
     }
 
     /**
+     * @group functional
      * @expectedException \Elastica\Exception\ConnectionException
      */
     public function testFailConnection()
     {
-        $config = array('connectionStrategy' => 'RoundRobin', 'host' => '255.255.255.0');
-        $client = new Client($config);
+        $config = array('connectionStrategy' => 'RoundRobin', 'host' => '255.255.255.0', 'timeout' => $this->_timeout);
+        $client = $this->_getClient($config);
 
         $this->_checkStrategy($client);
 
         $client->request('/_aliases');
     }
 
+    /**
+     * @group functional
+     */
     public function testWithOneFailConnection()
     {
         $connections = array(
-            new Connection(array('host' => '255.255.255.0')),
-            new Connection(array('host' => 'localhost')),
+            new Connection(array('host' => '255.255.255.0', 'timeout' => $this->_timeout)),
+            new Connection(array('host' => $this->_getHost(), 'timeout' => $this->_timeout)),
         );
 
         $count = 0;
@@ -62,7 +74,7 @@ class RoundRobinTest extends Base
             ++$count;
         };
 
-        $client = new Client(array('connectionStrategy' => 'RoundRobin'), $callback);
+        $client = $this->_getClient(array('connectionStrategy' => 'RoundRobin'), $callback);
         $client->setConnections($connections);
 
         $response = $client->request('/_aliases');
@@ -75,16 +87,19 @@ class RoundRobinTest extends Base
         $this->assertLessThan(count($connections), $count);
     }
 
+    /**
+     * @group functional
+     */
     public function testWithNoValidConnection()
     {
         $connections = array(
-            new Connection(array('host' => '255.255.255.0', 'timeout' => 2)),
-            new Connection(array('host' => '45.45.45.45', 'port' => '80', 'timeout' => 2)),
-            new Connection(array('host' => '10.123.213.123', 'timeout' => 2)),
+            new Connection(array('host' => '255.255.255.0', 'timeout' => $this->_timeout)),
+            new Connection(array('host' => '45.45.45.45', 'port' => '80', 'timeout' => $this->_timeout)),
+            new Connection(array('host' => '10.123.213.123', 'timeout' => $this->_timeout)),
         );
 
         $count = 0;
-        $client = new Client(array('roundRobin' => true), function () use (&$count) {
+        $client = $this->_getClient(array('roundRobin' => true), function () use (&$count) {
             ++$count;
         });
 

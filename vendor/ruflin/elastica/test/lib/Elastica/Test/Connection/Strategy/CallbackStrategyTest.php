@@ -1,24 +1,25 @@
 <?php
-
 namespace Elastica\Test\Connection\Strategy;
 
-use Elastica\Client;
 use Elastica\Connection\Strategy\CallbackStrategy;
 use Elastica\Test\Base;
 
 /**
- * Description of CallbackStrategyTest
+ * Description of CallbackStrategyTest.
  *
  * @author chabior
  */
 class CallbackStrategyTest extends Base
 {
+    /**
+     * @group unit
+     */
     public function testInvoke()
     {
         $count = 0;
 
         $callback = function ($connections) use (&$count) {
-            $count++;
+            ++$count;
         };
 
         $strategy = new CallbackStrategy($callback);
@@ -27,24 +28,51 @@ class CallbackStrategyTest extends Base
         $this->assertEquals(1, $count);
     }
 
+    /**
+     * @group unit
+     */
     public function testIsValid()
     {
-        $callback = function () {};
+        // closure is valid
+        $isValid = CallbackStrategy::isValid(function () {});
+        $this->assertTrue($isValid);
 
-        $isValid = CallbackStrategy::isValid($callback);
+        // object implementing __invoke
+        $isValid = CallbackStrategy::isValid(new CallbackStrategyTestHelper());
+        $this->assertTrue($isValid);
 
+        // static method as string
+        $isValid = CallbackStrategy::isValid('Elastica\Test\Connection\Strategy\CallbackStrategyTestHelper::getFirstConnectionStatic');
+        $this->assertTrue($isValid);
+
+        // static method as array
+        $isValid = CallbackStrategy::isValid(array('Elastica\Test\Connection\Strategy\CallbackStrategyTestHelper', 'getFirstConnectionStatic'));
+        $this->assertTrue($isValid);
+
+        // object method
+        $isValid = CallbackStrategy::isValid(array(new CallbackStrategyTestHelper(), 'getFirstConnectionStatic'));
+        $this->assertTrue($isValid);
+
+        // function name
+        $isValid = CallbackStrategy::isValid('array_pop');
         $this->assertTrue($isValid);
     }
 
+    /**
+     * @group unit
+     */
     public function testFailIsValid()
     {
-        $callback = new \stdClass();
+        $isValid = CallbackStrategy::isValid(new \stdClass());
+        $this->assertFalse($isValid);
 
-        $isValid = CallbackStrategy::isValid($callback);
-
+        $isValid = CallbackStrategy::isValid('array_pop_pop_pop_pop_pop_pop');
         $this->assertFalse($isValid);
     }
 
+    /**
+     * @group functional
+     */
     public function testConnection()
     {
         $count = 0;
@@ -55,7 +83,7 @@ class CallbackStrategyTest extends Base
             return current($connections);
        });
 
-        $client = new Client($config);
+        $client = $this->_getClient($config);
         $response = $client->request('/_aliases');
 
         $this->assertEquals(1, $count);

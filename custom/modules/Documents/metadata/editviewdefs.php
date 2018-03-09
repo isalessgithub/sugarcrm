@@ -1,5 +1,5 @@
 <?php
-// created: 2017-02-28 11:17:59
+// created: 2018-03-09 13:23:55
 $viewdefs['Documents']['EditView'] = array (
   'templateMeta' => 
   array (
@@ -27,7 +27,6 @@ $viewdefs['Documents']['EditView'] = array (
       ),
     ),
     'javascript' => '{sugar_getscript file="include/javascript/popup_parent_helper.js"}
-{sugar_getscript file="cache/include/javascript/sugar_grp_jsolait.js"}
 {sugar_getscript file="modules/Documents/documents.js"}',
     'tabDefs' => 
     array (

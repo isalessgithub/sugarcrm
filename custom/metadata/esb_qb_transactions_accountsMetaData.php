@@ -1,6 +1,6 @@
 <?php
-// created: 2012-11-06 11:36:32
-$dictionary["esb_qb_transactions_accounts"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['esb_qb_transactions_accounts'] = array (
   'true_relationship_type' => 'one-to-many',
   'relationships' => 
   array (
@@ -21,18 +21,18 @@ $dictionary["esb_qb_transactions_accounts"] = array (
   'table' => 'esb_qb_transactions_accounts_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -40,13 +40,13 @@ $dictionary["esb_qb_transactions_accounts"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'esb_qb_transactions_accountsaccounts_ida' => 
     array (
       'name' => 'esb_qb_transactions_accountsaccounts_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'esb_qb_transactions_accountsesb_qb_transactions_idb' => 
     array (
       'name' => 'esb_qb_transactions_accountsesb_qb_transactions_idb',
       'type' => 'varchar',

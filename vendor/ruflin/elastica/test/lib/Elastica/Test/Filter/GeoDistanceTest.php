@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Document;
@@ -10,6 +9,9 @@ use Elastica\Test\Base as BaseTest;
 
 class GeoDistanceTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testGeoPoint()
     {
         $index = $this->_createIndex();
@@ -60,6 +62,9 @@ class GeoDistanceTest extends BaseTest
         $this->assertEquals(2, $type->search($query)->count());
     }
 
+    /**
+     * @group unit
+     */
     public function testConstructLatlon()
     {
         $key = 'location';
@@ -83,6 +88,9 @@ class GeoDistanceTest extends BaseTest
         $this->assertEquals($expected, $data);
     }
 
+    /**
+     * @group unit
+     */
     public function testConstructGeohash()
     {
         $key = 'location';
@@ -103,6 +111,9 @@ class GeoDistanceTest extends BaseTest
         $this->assertEquals($expected, $data);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetDistanceType()
     {
         $filter = new GeoDistance('location', array('lat' => 48.86, 'lon' => 2.35), '10km');
@@ -114,6 +125,9 @@ class GeoDistanceTest extends BaseTest
         $this->assertEquals($distanceType, $data['geo_distance']['distance_type']);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetOptimizeBbox()
     {
         $filter = new GeoDistance('location', array('lat' => 48.86, 'lon' => 2.35), '10km');

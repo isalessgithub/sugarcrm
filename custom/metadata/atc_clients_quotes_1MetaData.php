@@ -1,6 +1,6 @@
 <?php
-// created: 2016-04-15 12:10:09
-$dictionary["atc_clients_quotes_1"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['atc_clients_quotes_1'] = array (
   'true_relationship_type' => 'one-to-many',
   'from_studio' => true,
   'relationships' => 
@@ -22,18 +22,18 @@ $dictionary["atc_clients_quotes_1"] = array (
   'table' => 'atc_clients_quotes_1_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -41,13 +41,13 @@ $dictionary["atc_clients_quotes_1"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'atc_clients_quotes_1atc_clients_ida' => 
     array (
       'name' => 'atc_clients_quotes_1atc_clients_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'atc_clients_quotes_1quotes_idb' => 
     array (
       'name' => 'atc_clients_quotes_1quotes_idb',
       'type' => 'varchar',

@@ -3,19 +3,12 @@ namespace Elastica\Test\Exception;
 
 use Elastica\Document;
 use Elastica\Exception\ResponseException;
-use Elastica\Test\Base as BaseTest;
 
-class ResponseExceptionTest extends BaseTest
+class ResponseExceptionTest extends AbstractExceptionTest
 {
-    public function testInheritance()
-    {
-        $exception = $this->getMockBuilder('Elastica\Exception\ResponseException')
-                          ->disableOriginalConstructor()
-                          ->getMock();
-        $this->assertInstanceOf('Exception', $exception);
-        $this->assertInstanceOf('Elastica\Exception\ExceptionInterface', $exception);
-    }
-
+    /**
+     * @group functional
+     */
     public function testCreateExistingIndex()
     {
         $this->_createIndex('woo', true);
@@ -29,10 +22,13 @@ class ResponseExceptionTest extends BaseTest
         }
     }
 
+    /**
+     * @group functional
+     */
     public function testBadType()
     {
         $index = $this->_createIndex();
-        $type  = $index->getType('test');
+        $type = $index->getType('test');
 
         $type->setMapping(array(
             'num' => array(
@@ -51,6 +47,9 @@ class ResponseExceptionTest extends BaseTest
         }
     }
 
+    /**
+     * @group functional
+     */
     public function testWhatever()
     {
         $index = $this->_createIndex();

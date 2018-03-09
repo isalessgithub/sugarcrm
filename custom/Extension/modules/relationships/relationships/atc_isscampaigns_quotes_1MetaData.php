@@ -1,11 +1,11 @@
 <?php
-// created: 2016-06-06 12:06:49
-$dictionary["atc_isscampaigns_quotes_1"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['atc_isscampaigns_quotes_1'] = array (
   'true_relationship_type' => 'one-to-many',
   'from_studio' => true,
-  'relationships' =>
+  'relationships' => 
   array (
-    'atc_isscampaigns_quotes_1' =>
+    'atc_isscampaigns_quotes_1' => 
     array (
       'lhs_module' => 'ATC_ISSCampaigns',
       'lhs_table' => 'atc_isscampaigns',
@@ -20,20 +20,20 @@ $dictionary["atc_isscampaigns_quotes_1"] = array (
     ),
   ),
   'table' => 'atc_isscampaigns_quotes_1_c',
-  'fields' =>
+  'fields' => 
   array (
-    0 =>
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 =>
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 =>
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -41,44 +41,44 @@ $dictionary["atc_isscampaigns_quotes_1"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 =>
+    'atc_isscampaigns_quotes_1atc_isscampaigns_ida' => 
     array (
       'name' => 'atc_isscampaigns_quotes_1atc_isscampaigns_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 =>
+    'atc_isscampaigns_quotes_1quotes_idb' => 
     array (
       'name' => 'atc_isscampaigns_quotes_1quotes_idb',
       'type' => 'varchar',
       'len' => 36,
     ),
   ),
-  'indices' =>
+  'indices' => 
   array (
-    0 =>
+    0 => 
     array (
       'name' => 'atc_isscampaigns_quotes_1spk',
       'type' => 'primary',
-      'fields' =>
+      'fields' => 
       array (
         0 => 'id',
       ),
     ),
-    1 =>
+    1 => 
     array (
       'name' => 'atc_isscampaigns_quotes_1_ida1',
       'type' => 'index',
-      'fields' =>
+      'fields' => 
       array (
         0 => 'atc_isscampaigns_quotes_1atc_isscampaigns_ida',
       ),
     ),
-    2 =>
+    2 => 
     array (
       'name' => 'atc_isscampaigns_quotes_1_alt',
       'type' => 'alternate_key',
-      'fields' =>
+      'fields' => 
       array (
         0 => 'atc_isscampaigns_quotes_1quotes_idb',
       ),
