@@ -1,8 +1,12 @@
 <?php
- // created: 2016-10-07 12:37:42
+ // created: 2018-03-12 23:21:51
 
 $app_list_strings['Second_Appointment']=array (
   'Yes' => 'Yes',
   'No' => 'No',
   'No_Result' => 'No Result',
+  'Recruitment' => 'Recruitment',
+  'Special Project' => 'Special Project',
+  'Direct Mail' => 'Direct Mail',
+  'Sales Operations' => 'Sales Operations',
 );
