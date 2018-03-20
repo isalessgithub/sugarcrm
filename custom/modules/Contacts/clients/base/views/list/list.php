@@ -91,40 +91,47 @@ array (
               ),
               6 => 
               array (
+                'name' => 'date_entered',
+                'enabled' => true,
+                'default' => false,
+                'readonly' => true,
+              ),
+              7 => 
+              array (
                 'name' => 'department',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_DEPARTMENT',
               ),
-              7 => 
+              8 => 
               array (
                 'name' => 'do_not_call',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_DO_NOT_CALL',
               ),
-              8 => 
+              9 => 
               array (
                 'name' => 'appointment_count_c',
                 'label' => 'LBL_APPOINTMENT_COUNT',
                 'enabled' => true,
                 'default' => false,
               ),
-              9 => 
+              10 => 
               array (
                 'name' => 'phone_home',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_HOME_PHONE',
               ),
-              10 => 
+              11 => 
               array (
                 'name' => 'phone_mobile',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_MOBILE_PHONE',
               ),
-              11 => 
+              12 => 
               array (
                 'name' => 'contact_count_c',
                 'default' => false,
@@ -132,35 +139,35 @@ array (
                 'type' => 'int',
                 'label' => 'LBL_CONTACT_COUNT',
               ),
-              12 => 
+              13 => 
               array (
                 'name' => 'phone_fax',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_FAX_PHONE',
               ),
-              13 => 
+              14 => 
               array (
                 'name' => 'primary_address_street',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_STREET',
               ),
-              14 => 
+              15 => 
               array (
                 'name' => 'primary_address_city',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_CITY',
               ),
-              15 => 
+              16 => 
               array (
                 'name' => 'primary_address_state',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_STATE',
               ),
-              16 => 
+              17 => 
               array (
                 'name' => 'et_telesales',
                 'label' => 'LBL_ET_TELESALES_DISPOSITION',

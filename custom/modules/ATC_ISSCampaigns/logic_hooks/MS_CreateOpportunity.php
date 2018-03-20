@@ -20,6 +20,11 @@ class  MS_CreateOpportunity
      */
     function createOpportunity($campaign_bean, $event, $arguments)
     {
+        if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
+	// load relationship between campaign and opportunities
+        $campaign_bean->load_relationship('atc_isscampaigns_opportunities_1');
+	
+
         // make sure that this is an after save LH
         if ($event != 'after_save') {
             return;
@@ -34,8 +39,8 @@ class  MS_CreateOpportunity
         // save the opportunity
         $opportunity_bean->save();
 
-        // load relationship between campaign and opportunities
-        $campaign_bean->load_relationship('atc_isscampaigns_opportunities_1');
+
+
 
         // relate campaign and opportunity
         $campaign_bean->atc_isscampaigns_opportunities_1->add($opportunity_bean->id);
@@ -58,7 +63,8 @@ class  MS_CreateOpportunity
             // relate client and opportunity
             $client_bean->atc_clients_opportunities_1->add($opportunity_bean->id);
         }
-
+	//end if
+	}
     }
 
 }
