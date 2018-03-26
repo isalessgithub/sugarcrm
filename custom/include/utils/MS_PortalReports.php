@@ -283,7 +283,7 @@ function getSnapshotData($campaigns)
     }
 
 	$report_html .= "<p><em>What to expect in our improved client results portal!</em></p>";
-	$report_html .= '<p><img src="https://sugartest.mastersolve.com/issportal.png" width="600" height="360" /></p>';
+	$report_html .= '<p><img src="https://www.dropbox.com/s/netsjylj6loxoc7/report-delivery-3-26.png" width="600" height="360" /></p>';
 	$report_html .= "<p>You'll have access to the final database of your local decision makers and their buyer intelligence at the end of your campaign.</p>";
     // return response
     return $report_html;
