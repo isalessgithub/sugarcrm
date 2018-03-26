@@ -234,8 +234,14 @@ function getSnapshotData($campaigns)
         }
 
     }
+    $report_html = ""
 
-    $report_html = "<p style='color: black'>Summary:</p><br>";
+    $report_html .= '<p>Hi,</p>
+<p>View your full campaign results daily at <a href="https://portal.isaless.com">https://portal.isaless.com</a></p>
+<p>Click "Export" under the appointments tab to download a spreadsheet of your results.</p>
+<p>Find a snapshot of your weekly results below:</p>';
+
+    $report_html .= "<p style='color: black'>Summary:</p><br>";
 
     // iterate trough data
     foreach ($data as $campaign_id => $campaign_data) {
@@ -276,6 +282,9 @@ function getSnapshotData($campaigns)
         $report_html .= $campaign_html;
     }
 
+	$report_html .= "<p><em>What to expect in our improved client results portal!</em></p>";
+	$report_html .= '<p><img src="https://sugartest.mastersolve.com/issportal.png" width="600" height="360" /></p>';
+	$report_html .= "<p>You'll have access to the final database of your local decision makers and their buyer intelligence at the end of your campaign.</p>";
     // return response
     return $report_html;
 }
