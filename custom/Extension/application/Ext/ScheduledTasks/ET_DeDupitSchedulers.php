@@ -20,7 +20,7 @@ function ET_AutoMergeDuplicates()
     global $timedate, $current_user;
 
     // retrieve active processes
-    $active_processes = et_getActiveProcesses();
+    $active_processes = et_getActiveProcesses(true);
 
     // make sure that there are active processes
     if (empty($active_processes)) {
@@ -36,8 +36,22 @@ function ET_AutoMergeDuplicates()
     // iterate trough grouped processes
     foreach ($active_processes as $process_data) {
 
+        // introduce the hard stop counter
+        // (used to break from while loop if it gets stuck)
+        $hard_stop_counter = 0;
+
         // make sure to process 25 records per run
         while ($merged_records <= 25) {
+
+            // increment the hard stop counter
+            $hard_stop_counter++;
+
+            // check if hard stop counter reached critical point (50 passes for now)
+            if ($hard_stop_counter >= 50) {
+
+                // exit from while loop
+                break;
+            }
 
             // introduce the duplicate pairs data
             $duplicate_pairs_data = et_getDuplicate($process_data['id']);
@@ -125,12 +139,26 @@ function ET_AutoMergeDuplicates()
                     }
                 }
 
-                // find duplicates
-                DeDupitWorker::autoMergeDuplicates(
-                    $primary,
-                    $duplicate,
-                    $duplicate_pairs_data['id']
-                );
+                try {
+
+                    // merge duplicates
+                    DeDupitWorker::autoMergeDuplicates(
+                        $primary,
+                        $duplicate,
+                        $duplicate_pairs_data['id']
+                    );
+
+                } catch (Exception $exception) {
+
+                    // log an error
+                    $GLOBALS['log']->fatal('Eontek autoMergeDuplicates: ' . print_r($duplicate_pairs_data, true));
+
+                    // log exception error
+                    $GLOBALS['log']->fatal($exception->getMessage());
+
+                    // delete the duplicate pair record
+                    et_deleteDuplicatePair($duplicate_pairs_data['id']);
+                }
 
                 // increment merged duplicates counter
                 $merged_records++;
@@ -138,12 +166,38 @@ function ET_AutoMergeDuplicates()
         }
 
         // make sure that no more than 25 records are merged
-        if ($merged_records >= 25) {
+        // (and that had stop counter reached 50 passes - just in case)
+        if ($merged_records >= 25 or $hard_stop_counter >= 50) {
             break;
         }
     }
 
     return true;
+}
+
+/**
+ * Deletes duplicate pair
+ * (something went wrong with merge, so delete the pair.
+ * It will eventually be detected again, and merge will be tried again)
+ *
+ * @param $duplicate_pair_id
+ */
+function et_deleteDuplicatePair($duplicate_pair_id)
+{
+
+    // introduce the 'found duplicates' record
+    $et_foundduplicates = BeanFactory::getBean(
+        'ET_FoundDuplicates',
+        $duplicate_pair_id,
+        array('disable_row_level_security' => true)
+    );
+
+    // make sure that bean is valid
+    if (!empty($et_foundduplicates->id)) {
+
+        // delete the bean
+        $et_foundduplicates->mark_deleted($et_foundduplicates->id);
+    }
 }
 
 /**
@@ -184,7 +238,7 @@ function ET_DuplicateCheck()
     require_once('modules/ET_DuplicateFinderProcess/license/ET_DeDupitLicense.php');
 
     // retrieve active processes
-    $active_processes = et_getActiveProcesses();
+    $active_processes = et_getActiveProcesses(false);
 
     // make sure that there are active processes
     if (empty($active_processes)) {
@@ -311,10 +365,11 @@ function et_getBeans($module_name, $process_id)
 /**
  * Makes sure that license is valid and retrieves active processes
  *
+ * @param bool $automerge
  * @return array|bool
  * @throws SugarQueryException
  */
-function et_getActiveProcesses()
+function et_getActiveProcesses($automerge = false)
 {
     // introduce dependencies
     require_once('modules/ET_DuplicateFinderProcess/license/ET_DeDupitLicense.php');
@@ -328,7 +383,9 @@ function et_getActiveProcesses()
     $query = new SugarQuery();
     $query->select(array('id', 'eontek_module_name', 'automerge_configuration'));
     $query->from(BeanFactory::getBean('ET_DuplicateFinderProcess'), array('team_security' => false));
-    $query->where()->equals('automerge', 'yes');
+    if ($automerge) {
+        $query->where()->equals('automerge', 'yes');
+    }
     $query->where()->equals('active', 'yes');
     $query->orderBy('eontek_module_name');
     $active_processes = $query->execute();
