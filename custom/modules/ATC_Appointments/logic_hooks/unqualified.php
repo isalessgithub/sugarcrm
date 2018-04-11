@@ -8,7 +8,9 @@ class unqualified{
 				$campaign = BeanFactory::retrieveBean('ATC_ISSCampaigns',$bean->atc_isscampaigns_atc_appointmentsatc_isscampaigns_ida);
 				if(isset($campaign->users_atc_isscampaigns_1users_ida)){
 					$radmin = BeanFactory::getBean('Users',$campaign->users_atc_isscampaigns_1users_ida);
-					if(isset($radmin->email1)){
+
+				
+					if(isset($radmin->email1) && $radmin->email1 != ""){
 						$mailSubject = "Appointment feedback : no decision maker present";
 						$mailHTML = "<h1>Appointment {$bean->name} marked no decision maker present</h1>
 							     <p>Follow this link to view the appointment</p>
@@ -18,6 +20,7 @@ class unqualified{
 							0 => array('name' => $radmin->first_name." ".$radmin->last_name,'email' => $radmin->email1,),
                                                         1 => array('name' => $assigned_user->first_name." ".$assigned_user->last_name,'email' => $assigned_user->email1,),
 							);
+			
 						try{
 							$mailer = MailerFactory::getSystemDefaultMailer();
 							$mailTransmissionProtocol = $mailer->getMailTransmissionProtocol();
