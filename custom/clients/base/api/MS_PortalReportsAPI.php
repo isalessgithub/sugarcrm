@@ -34,6 +34,7 @@ class MS_PortalReportsAPI extends SugarApi
      */
     public function snapshotReport($api, $args)
     {
+//	$GLOBALS['log']->fatal(json_encode($args));
         // include dependencies
         require_once('custom/include/utils/MS_PortalReports.php');
 
@@ -44,8 +45,11 @@ class MS_PortalReportsAPI extends SugarApi
         }
 
         // introduce the portal user's bean
-        $portal_user = BeanFactory::getBean('CP_Client_Users', $args['cp_user_id']);
+        
+	$portal_user = BeanFactory::retrieveBean('CP_Client_Users', $args['cp_user_id']);
 
+
+	$GLOBALS['log']->fatal($portal_user->id);
         // make sure that bean is valid
         if (empty($portal_user->id)) {
 

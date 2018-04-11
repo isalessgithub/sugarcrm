@@ -167,6 +167,7 @@ function generateReport($cp_user_id)
  */
 function getSnapshotData($campaigns)
 {
+$GLOBALS['log']->fatal("x");
     $last_7 = date('Y-m-d', strtotime('-7 days'));
 
     // introduce the snapshot data
@@ -234,7 +235,7 @@ function getSnapshotData($campaigns)
         }
 
     }
-    $report_html = ""
+    $report_html = "";
 
     $report_html .= '<p>Hi,</p>
 <p>View your full campaign results daily at <a href="https://portal.isaless.com">https://portal.isaless.com</a></p>
@@ -283,7 +284,7 @@ function getSnapshotData($campaigns)
     }
 
 	$report_html .= "<p><em>What to expect in our improved client results portal!</em></p>";
-	$report_html .= '<p><img src="https://www.dropbox.com/s/netsjylj6loxoc7/report-delivery-3-26.png" width="600" height="360" /></p>';
+	$report_html .= "<p><img src=\"https://s3.amazonaws.com/iss.public/report-delivery.PNG\" width=\"600\" height=\"360\" /></p>";
 	$report_html .= "<p>You'll have access to the final database of your local decision makers and their buyer intelligence at the end of your campaign.</p>";
     // return response
     return $report_html;
