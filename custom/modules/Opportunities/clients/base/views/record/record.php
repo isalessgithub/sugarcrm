@@ -274,7 +274,11 @@ array (
               14 => 'next_step',
               15 => 'opportunity_type',
               16 => 'lead_source',
-              17 => 'campaign_name',
+              17 => 
+              array (
+                'name' => 'atc_isscampaigns_opportunities_1_name',
+                'label' => 'LBL_ATC_ISSCAMPAIGNS_OPPORTUNITIES_1_FROM_ATC_ISSCAMPAIGNS_TITLE',
+              ),
               18 => 'assigned_user_name',
               19 => 'team_name',
             ),

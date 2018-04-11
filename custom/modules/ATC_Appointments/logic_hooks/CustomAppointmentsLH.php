@@ -427,7 +427,7 @@ $bean->description = $string;
       	$bean->contact_email = $contact->email1;
       }
 
-      if($contact->email1 == ''){
+      if($contact->email1 == '' && $bean->contact_email != ''){
 	$contact->email1 = $bean->contact_email;
 	$contact->save(false);
       }

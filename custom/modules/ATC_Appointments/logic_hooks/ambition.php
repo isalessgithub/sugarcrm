@@ -22,8 +22,8 @@
                    $record['id']=$bean->id;
                    $record['appointment_place']=$bean->appointment_place;
                    $record['appointment_status']=$bean->appointment_status;
-                   $record['appointment_date']=$bean->appointment_date;
-                   $record['date_created']=$bean->fetched_row['date_entered'];
+                   $record['appointment_date']=date("Y-m-d H:i:s", strtotime('-4 hours', strtotime($bean->appointment_date)));
+                   $record['date_created']=date("Y-m-d H:i:s", strtotime('-4 hours', strtotime($bean->fetched_row['date_entered'])));
                    $record['title']=$bean->title_c;
                    $record['client']=$bean->atc_appointments_contacts_name;
                    $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;
@@ -50,8 +50,8 @@
                   $record['id']=$bean->id;
                   $record['appointment_place']=$bean->appointment_place;
                   $record['appointment_status']=$bean->appointment_status;
-                  $record['appointment_date']=$bean->appointment_date;
-                  $record['date_created']=$bean->date_modified;
+                  $record['appointment_date']=date("Y-m-d H:i:s", strtotime('-4 hours', strtotime($bean->appointment_date)));
+                  $record['date_created']=date("Y-m-d H:i:s", strtotime('-4 hours', strtotime($bean->date_modified)));
                   $record['title']=$bean->title_c;
                   $record['client']=$bean->atc_appointments_contacts_name;
                   $record['campaign']=$bean->atc_isscampaigns_atc_appointments_name;

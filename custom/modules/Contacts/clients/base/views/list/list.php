@@ -141,33 +141,40 @@ array (
               ),
               13 => 
               array (
+                'name' => 'account_c',
+                'label' => 'LBL_ACCOUNT',
+                'enabled' => true,
+                'default' => false,
+              ),
+              14 => 
+              array (
                 'name' => 'phone_fax',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_FAX_PHONE',
               ),
-              14 => 
+              15 => 
               array (
                 'name' => 'primary_address_street',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_STREET',
               ),
-              15 => 
+              16 => 
               array (
                 'name' => 'primary_address_city',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_CITY',
               ),
-              16 => 
+              17 => 
               array (
                 'name' => 'primary_address_state',
                 'default' => false,
                 'enabled' => true,
                 'label' => 'LBL_PRIMARY_ADDRESS_STATE',
               ),
-              17 => 
+              18 => 
               array (
                 'name' => 'et_telesales',
                 'label' => 'LBL_ET_TELESALES_DISPOSITION',
