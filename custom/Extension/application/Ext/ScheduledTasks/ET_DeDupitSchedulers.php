@@ -41,7 +41,7 @@ function ET_AutoMergeDuplicates()
         $hard_stop_counter = 0;
 
         // make sure to process 25 records per run
-        while ($merged_records <= 25) {
+        while ($merged_records < 1) {
 
             // increment the hard stop counter
             $hard_stop_counter++;
@@ -59,8 +59,18 @@ function ET_AutoMergeDuplicates()
             // make sure that data is retrieved
             if (empty($duplicate_pairs_data)) {
 
+                $et_foundduplicates = BeanFactory::getBean(
+                    'ET_FoundDuplicates',
+                    $duplicate_pairs_data['id'],
+                    array('disable_row_level_security' => true)
+                );
+
+                if (!empty($et_foundduplicates->id)) {
+                    $et_foundduplicates->mark_deleted($et_foundduplicates->id);
+                }
+
                 // exit from while, merge duplicates for the next process
-                break;
+                continue;
             }
 
             // introduce the first bean
@@ -165,9 +175,9 @@ function ET_AutoMergeDuplicates()
             }
         }
 
-        // make sure that no more than 25 records are merged
+        // make sure that no more than 1 records are merged
         // (and that had stop counter reached 50 passes - just in case)
-        if ($merged_records >= 25 or $hard_stop_counter >= 50) {
+        if ($merged_records >= 1 or $hard_stop_counter >= 50) {
             break;
         }
     }
@@ -392,4 +402,5 @@ function et_getActiveProcesses($automerge = false)
 
     return $active_processes;
 }
+
 

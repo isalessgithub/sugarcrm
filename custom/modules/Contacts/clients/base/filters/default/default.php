@@ -1,5 +1,5 @@
 <?php
-// created: 2017-12-07 12:54:14
+// created: 2018-03-28 14:11:17
 $viewdefs['Contacts']['base']['filter']['default'] = array (
   'default_filter' => 'all_records',
   'fields' => 
@@ -47,6 +47,9 @@ $viewdefs['Contacts']['base']['filter']['default'] = array (
     array (
     ),
     'created_by_name' => 
+    array (
+    ),
+    'account_name' => 
     array (
     ),
     '$owner' => 

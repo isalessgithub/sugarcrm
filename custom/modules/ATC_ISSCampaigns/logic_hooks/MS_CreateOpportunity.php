@@ -20,7 +20,13 @@ class  MS_CreateOpportunity
      */
     function createOpportunity($campaign_bean, $event, $arguments)
     {
-        if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
+
+
+
+
+
+
+       if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
 	// load relationship between campaign and opportunities
         $campaign_bean->load_relationship('atc_isscampaigns_opportunities_1');
 	
