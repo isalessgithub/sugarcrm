@@ -55,7 +55,7 @@ class YourNewLink extends Link2
             $jta = $joinParams['alias'] = $options['joinTableAlias'];
         }
 
-        $sugar_query->joinRaw($this->getCustomJoin($options), $joinParams);
+        $sugar_query->joinTable($this->getCustomJoin($options), $joinParams);
         return $sugar_query->join[$jta];
     }
 
