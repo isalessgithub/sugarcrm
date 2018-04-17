@@ -1,0 +1,25 @@
+<div class="list-view">
+  <table class="table table-striped dataTable">
+    <thead>
+      <tr>
+        <th>
+          <span>Target List</span>
+        </th>
+        <th>
+          <span>Campaign</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each tlists}}
+     <tr>
+      <td><a href="#ProspectLists/{{target_list_id}}">{{target_list_name}}</a></td>
+      <td><a href="#ATC_ISSCampaigns/{{campaign_id}}">{{campaign_name}}</a></td>
+     </tr>
+     <tr>
+      <td colspan="2" style="white-space: pre-line">{{target_list_description}}</td>
+     </tr>
+     {{/each}}
+    </tbody>
+  </table>
+</div>
