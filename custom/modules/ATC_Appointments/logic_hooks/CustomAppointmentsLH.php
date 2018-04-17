@@ -423,7 +423,7 @@ $bean->description = $string;
       $bean->direct_phone = $contact->phone_other;
 
 	//$GLOBALS['log']->fatal($bean->contact_email);
-      if($bean->contact_email == '' && $contact->email1 != ''){
+      if($contact->email1 != '' && $bean->contact_email == ''){
       	$bean->contact_email = $contact->email1;
       }
 
