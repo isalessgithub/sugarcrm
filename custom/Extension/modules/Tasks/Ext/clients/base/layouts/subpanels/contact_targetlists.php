@@ -1,4 +1,5 @@
 <?php
+/*
 $viewdefs['Tasks']['base']['layout']['subpanels']['components'][] = array (
   'layout' => 'subpanel',
   'label' => 'LBL_NEW_LINK',
@@ -6,4 +7,4 @@ $viewdefs['Tasks']['base']['layout']['subpanels']['components'][] = array (
   array (
     'link' => 'contact_targetlists',
   ),
-);
+);*/

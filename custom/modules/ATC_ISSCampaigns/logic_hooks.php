@@ -14,6 +14,7 @@ $hook_array['before_save'][] = Array(
     'calculateAppointmentData',
     'calculateApptData',
 );
+/*
 $hook_array['before_save'][] = Array(
     '1',
     'workflow',
@@ -21,7 +22,7 @@ $hook_array['before_save'][] = Array(
     'WorkFlowHandler',
     'WorkFlowHandler',
 );
-
+*/
 // position, file, function
 $hook_array['after_save'] = Array();
 $hook_array['after_save'][] = Array(

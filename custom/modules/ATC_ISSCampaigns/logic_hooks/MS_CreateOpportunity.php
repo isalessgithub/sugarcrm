@@ -18,15 +18,27 @@ class  MS_CreateOpportunity
      * @param $event
      * @param $arguments
      */
-    function createOpportunity($campaign_bean, $event, $arguments)
+    function createOpportunity($bean, $event, $arguments)
     {
+	$campaign_bean = BeanFactory::retrieveBean("ATC_ISSCampaigns", $bean->id, array('disable_row_level_security' => true));
 
+	$GLOBALS['log']->fatal($campaign_bean->name." ".$campaign_bean->id);
+	$GLOBALS['log']->fatal("num related opps");
+	$GLOBALS['log']->fatal(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')));
 
+	$continue = 0;
+	if($campaign_bean->load_relationship('atc_isscampaigns_opportunities_1')){
+		foreach($campaign_bean->atc_isscampaigns_opportunities_1->getBeans() as $tl){
+			$continue = 1;
+		}
+	}
+	else{
+		$continue = 0;
+	}
 
-
-
-
-       if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
+       //if(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')) == 0){
+	if($continue == 1){
+	$GLOBALS['log']->fatal("Creating new opp");
 	// load relationship between campaign and opportunities
         $campaign_bean->load_relationship('atc_isscampaigns_opportunities_1');
 	
