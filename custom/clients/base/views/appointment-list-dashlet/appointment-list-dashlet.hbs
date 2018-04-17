@@ -1,0 +1,31 @@
+<div class="list-view">
+  <table class="table table-striped dataTable">
+    <thead>
+      <tr>
+        <th>
+          <span>Appointment Number</span>
+        </th>
+        <th>
+          <span>Campaign</span>
+        </th>
+        <th>
+          <span>Appointment Date</span>
+        </th>
+        <th>
+          <span>Appointment Status</span>
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {{#each tlists}}
+     <tr>
+      <td><a href="#ATC_Appointments/{{app_id}}">{{app_number}}</a></td>
+      <td><a href="#ATC_ISSCampaigns/{{campaign_id}}">{{campaign_name}}</a></td>
+      <td>{{app_date}}</td>
+      <td>{{app_status}}</td>
+     </tr>
+     {{/each}}
+    </tbody>
+  </table>
+</div>
