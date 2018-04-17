@@ -59,7 +59,7 @@ where related_id = '{$args['account_id']}' AND related_type = 'Accounts'";
           $tlists[$row['target_list_id']]['target_list_name']=$row['target_list_name'];
           $tlists[$row['target_list_id']]['campaign_id']=$row['campaign_id'];
           $tlists[$row['target_list_id']]['campaign_name']=$row['campaign_name'];
-          $tlists[$row['target_list_id']]['target_list_description']=$row['target_list_description'];
+          //$tlists[$row['target_list_id']]['target_list_description']=$row['target_list_description'];
        }
 
        return $tlists;
