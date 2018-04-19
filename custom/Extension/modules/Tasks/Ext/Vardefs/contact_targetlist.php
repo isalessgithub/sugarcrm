@@ -1,4 +1,5 @@
 <?php
+/*
 $dictionary["Task"]["fields"]["contact_targetlists"] = array(
     'name' => 'contact_targetlists',
     'type' => 'link',
@@ -9,4 +10,4 @@ $dictionary["Task"]["fields"]["contact_targetlists"] = array(
     'module' => 'ProspectLists',
     'link_type' => 'many',
     'relationship' => '',
-);
+);*/
