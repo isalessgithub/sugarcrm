@@ -26,10 +26,10 @@ class  MS_CreateOpportunity
 	$GLOBALS['log']->fatal("num related opps");
 	$GLOBALS['log']->fatal(count($campaign_bean->get_linked_beans('atc_isscampaigns_opportunities_1', 'Opportunities')));
 
-	$continue = 0;
+	$continue = 1;
 	if($campaign_bean->load_relationship('atc_isscampaigns_opportunities_1')){
 		foreach($campaign_bean->atc_isscampaigns_opportunities_1->getBeans() as $tl){
-			$continue = 1;
+			$continue = 0;
 		}
 	}
 	else{
