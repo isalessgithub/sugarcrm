@@ -1,17 +1,5 @@
 <?php
-/*********************************************************************************
- * By installing or using this file, you are confirming on behalf of the entity
- * subscribed to the SugarCRM Inc. product ("Company") that Company is bound by
- * the SugarCRM Inc. Master Subscription Agreement (“MSA”), which is viewable at:
- * http://www.sugarcrm.com/master-subscription-agreement
- *
- * If Company is not bound by the MSA, then by installing or using this file
- * you are agreeing unconditionally that Company will be bound by the MSA and
- * certifying that you have authority to bind Company accordingly.
- *
- * Copyright (C) 2004-2013 SugarCRM Inc.  All rights reserved.
- ********************************************************************************/
-
+// created: 2018-03-09 13:28:03
 $mod_strings = array (
   'LBL_TEAM' => 'Teams',
   'LBL_TEAMS' => 'Teams',
@@ -60,6 +48,5 @@ $mod_strings = array (
   'LBL_APPOINTMENT_DURATION_MINUTES' => 'Duration [M]',
   'LBL_CONTACT_EMAIL' => 'Contact Email',
   'LBL_APPOINTMENT_FEEDBACK' => 'Appointment Feedback',
-  'LBL_FEEDBACK_TIMESTAMP' => 'Feedback Timestamp'
-
+  'LBL_FEEDBACK_TIMESTAMP' => 'Feedback Timestamp',
 );

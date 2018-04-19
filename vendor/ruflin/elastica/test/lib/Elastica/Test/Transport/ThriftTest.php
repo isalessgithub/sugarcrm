@@ -1,8 +1,6 @@
 <?php
-
 namespace Elastica\Test\Transport;
 
-use Elastica\Client;
 use Elastica\Connection;
 use Elastica\Document;
 use Elastica\Index;
@@ -17,25 +15,29 @@ class ThriftTest extends BaseTest
         }
     }
 
+    /**
+     * @group unit
+     */
     public function testConstruct()
     {
-        $host = 'localhost';
+        $host = $this->_getHost();
         $port = 9500;
-        $client = new Client(array('host' => $host, 'port' => $port, 'transport' => 'Thrift'));
+        $client = $this->_getClient(array('host' => $host, 'port' => $port, 'transport' => 'Thrift'));
 
         $this->assertEquals($host, $client->getConnection()->getHost());
         $this->assertEquals($port, $client->getConnection()->getPort());
     }
 
     /**
+     * @group functional
      * @dataProvider configProvider
      */
     public function testSearchRequest($config)
     {
-        $this->_checkPlugin();
+        $this->_checkPlugin('transport-thrift');
 
         // Creates a new index 'xodoa' and a type 'user' inside this index
-        $client = new Client($config);
+        $client = $this->_getClient($config);
 
         $index = $client->getIndex('elastica_test1');
         $index->create(array(), true);
@@ -67,29 +69,31 @@ class ThriftTest extends BaseTest
     }
 
     /**
+     * @group unit
      * @expectedException \Elastica\Exception\ConnectionException
      */
     public function testInvalidHostRequest()
     {
-        $this->_checkPlugin();
+        $this->_checkPlugin('transport-thrift');
 
-        $client = new Client(array('host' => 'unknown', 'port' => 9555, 'transport' => 'Thrift'));
+        $client = $this->_getClient(array('host' => 'unknown', 'port' => 9555, 'transport' => 'Thrift'));
         $client->getStatus();
     }
 
     /**
+     * @group functional
      * @expectedException \Elastica\Exception\ResponseException
      */
     public function testInvalidElasticRequest()
     {
-        $this->_checkPlugin();
+        $this->_checkPlugin('transport-thrift');
 
         $connection = new Connection();
-        $connection->setHost('localhost');
+        $connection->setHost($this->_getHost());
         $connection->setPort(9500);
         $connection->setTransport('Thrift');
 
-        $client = new Client();
+        $client = $this->_getClient();
         $client->addConnection($connection);
 
         $index = new Index($client, 'missing_index');
@@ -101,14 +105,14 @@ class ThriftTest extends BaseTest
         return array(
             array(
                 array(
-                    'host' => 'localhost',
+                    'host' => $this->_getHost(),
                     'port' => 9500,
                     'transport' => 'Thrift',
                 ),
             ),
             array(
                 array(
-                    'host' => 'localhost',
+                    'host' => $this->_getHost(),
                     'port' => 9500,
                     'transport' => 'Thrift',
                     'config' => array(
@@ -119,13 +123,5 @@ class ThriftTest extends BaseTest
                 ),
             ),
         );
-    }
-
-    protected function _checkPlugin()
-    {
-        $nodes = $this->_getClient()->getCluster()->getNodes();
-        if (!$nodes[0]->getInfo()->hasPlugin('transport-thrift')) {
-            $this->markTestSkipped("transport-thrift plugin not installed.");
-        }
     }
 }

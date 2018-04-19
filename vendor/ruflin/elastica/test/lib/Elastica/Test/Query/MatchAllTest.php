@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Query;
 
 use Elastica\Document;
@@ -9,6 +8,9 @@ use Elastica\Test\Base as BaseTest;
 
 class MatchAllTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $query = new MatchAll();
@@ -18,6 +20,9 @@ class MatchAllTest extends BaseTest
         $this->assertEquals($expectedArray, $query->toArray());
     }
 
+    /**
+     * @group functional
+     */
     public function testMatchAllIndicesTypes()
     {
         $index1 = $this->_createIndex();

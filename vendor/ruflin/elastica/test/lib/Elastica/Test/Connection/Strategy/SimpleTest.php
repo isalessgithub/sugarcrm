@@ -1,23 +1,28 @@
 <?php
-
 namespace Elastica\Test\Connection\Strategy;
 
-use Elastica\Client;
 use Elastica\Connection;
-use Elastica\Connection\Strategy\Simple;
 use Elastica\Exception\ConnectionException;
 use Elastica\Test\Base;
 
 /**
- * Description of SimplyTest
+ * Description of SimplyTest.
  *
  * @author chabior
  */
 class SimpleTest extends Base
 {
+    /**
+     * @var int Number of seconds to wait before timeout is called. Is set low for tests to have fast tests.
+     */
+    protected $_timeout = 1;
+
+    /**
+     * @group functional
+     */
     public function testConnection()
     {
-        $client = new Client();
+        $client = $this->_getClient();
         $response = $client->request('/_aliases');
         /* @var $response \Elastica\Response */
 
@@ -27,23 +32,27 @@ class SimpleTest extends Base
     }
 
     /**
+     * @group functional
      * @expectedException \Elastica\Exception\ConnectionException
      */
     public function testFailConnection()
     {
-        $config = array('host' => '255.255.255.0');
-        $client = new Client($config);
+        $config = array('host' => '255.255.255.0', 'timeout' => $this->_timeout);
+        $client = $this->_getClient($config);
 
         $this->_checkStrategy($client);
 
         $client->request('/_aliases');
     }
 
+    /**
+     * @group functional
+     */
     public function testWithOneFailConnection()
     {
         $connections = array(
-            new Connection(array('host' => '255.255.255.0')),
-            new Connection(array('host' => 'localhost')),
+            new Connection(array('host' => '255.255.255.0', 'timeout' => $this->_timeout)),
+            new Connection(array('host' => $this->_getHost(), 'timeout' => $this->_timeout)),
         );
 
         $count = 0;
@@ -51,7 +60,7 @@ class SimpleTest extends Base
             ++$count;
         };
 
-        $client = new Client(array(), $callback);
+        $client = $this->_getClient(array(), $callback);
         $client->setConnections($connections);
 
         $response = $client->request('/_aliases');
@@ -64,16 +73,19 @@ class SimpleTest extends Base
         $this->assertLessThan(count($connections), $count);
     }
 
+    /**
+     * @group functional
+     */
     public function testWithNoValidConnection()
     {
         $connections = array(
-            new Connection(array('host' => '255.255.255.0', 'timeout' => 2)),
-            new Connection(array('host' => '45.45.45.45', 'port' => '80', 'timeout' => 2)),
-            new Connection(array('host' => '10.123.213.123', 'timeout' => 2)),
+            new Connection(array('host' => '255.255.255.0', 'timeout' => $this->_timeout)),
+            new Connection(array('host' => '45.45.45.45', 'port' => '80', 'timeout' => $this->_timeout)),
+            new Connection(array('host' => '10.123.213.123', 'timeout' => $this->_timeout)),
         );
 
         $count = 0;
-        $client = new Client(array(), function () use (&$count) {
+        $client = $this->_getClient(array(), function () use (&$count) {
             ++$count;
         });
 

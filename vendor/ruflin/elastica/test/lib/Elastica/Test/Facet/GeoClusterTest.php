@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Facet;
 
 use Elastica\Document;
@@ -10,20 +9,19 @@ use Elastica\Type\Mapping;
 
 class GeoClusterTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testQuery()
     {
-        $client = $this->_getClient();
-        $nodes = $client->getCluster()->getNodes();
-        if (!$nodes[0]->getInfo()->hasPlugin('geocluster-facet')) {
-            $this->markTestSkipped('geocluster-facet plugin not installed');
-        }
+        $this->_checkPlugin('geocluster-facet');
 
         $index = $this->_createIndex();
         $type = $index->getType('testQuery');
         $geoField = 'location';
 
         $type->setMapping(new Mapping($type, array(
-            $geoField => array( 'type' => 'geo_point', 'lat_lon' => true ),
+            $geoField => array('type' => 'geo_point', 'lat_lon' => true),
         )));
 
         $doc = new Document(1, array('name' => 'item1', 'location' => array(20, 20)));

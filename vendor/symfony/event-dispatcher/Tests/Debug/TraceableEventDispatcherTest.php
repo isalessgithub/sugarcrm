@@ -77,7 +77,7 @@ class TraceableEventDispatcherTest extends TestCase
 
     public function testGetListenerPriorityReturnsZeroWhenWrappedMethodDoesNotExist()
     {
-        $dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        $dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         $traceableEventDispatcher = new TraceableEventDispatcher($dispatcher, new Stopwatch());
         $traceableEventDispatcher->addListener('foo', function () {}, 123);
         $listeners = $traceableEventDispatcher->getListeners('foo');
@@ -152,7 +152,7 @@ class TraceableEventDispatcherTest extends TestCase
 
     public function testLogger()
     {
-        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
 
         $dispatcher = new EventDispatcher();
         $tdispatcher = new TraceableEventDispatcher($dispatcher, new Stopwatch(), $logger);
@@ -167,7 +167,7 @@ class TraceableEventDispatcherTest extends TestCase
 
     public function testLoggerWithStoppedEvent()
     {
-        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
 
         $dispatcher = new EventDispatcher();
         $tdispatcher = new TraceableEventDispatcher($dispatcher, new Stopwatch(), $logger);

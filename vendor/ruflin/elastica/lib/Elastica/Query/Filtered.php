@@ -1,22 +1,20 @@
 <?php
-
 namespace Elastica\Query;
 
 use Elastica\Exception\InvalidException;
 use Elastica\Filter\AbstractFilter;
 
 /**
- * Filtered query. Needs a query and a filter
+ * Filtered query. Needs a query and a filter.
  *
- * @category Xodoa
- * @package Elastica
  * @author Nicolas Ruflin <spam@ruflin.com>
- * @link http://www.elasticsearch.org/guide/reference/query-dsl/filtered-query.html
+ *
+ * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-filtered-query.html
  */
 class Filtered extends AbstractQuery
 {
     /**
-     * Constructs a filtered query
+     * Constructs a filtered query.
      *
      * @param \Elastica\Query\AbstractQuery   $query  OPTIONAL Query object
      * @param \Elastica\Filter\AbstractFilter $filter OPTIONAL Filter object
@@ -28,10 +26,11 @@ class Filtered extends AbstractQuery
     }
 
     /**
-     * Sets a query
+     * Sets a query.
      *
-     * @param  \Elastica\Query\AbstractQuery $query Query object
-     * @return \Elastica\Query\Filtered      Current object
+     * @param \Elastica\Query\AbstractQuery $query Query object
+     *
+     * @return $this
      */
     public function setQuery(AbstractQuery $query = null)
     {
@@ -39,10 +38,11 @@ class Filtered extends AbstractQuery
     }
 
     /**
-     * Sets the filter
+     * Sets the filter.
      *
-     * @param  \Elastica\Filter\AbstractFilter $filter Filter object
-     * @return \Elastica\Query\Filtered        Current object
+     * @param \Elastica\Filter\AbstractFilter $filter Filter object
+     *
+     * @return $this
      */
     public function setFilter(AbstractFilter $filter = null)
     {
@@ -70,9 +70,10 @@ class Filtered extends AbstractQuery
     }
 
     /**
-     * Converts query to array
+     * Converts query to array.
      *
      * @return array Query array
+     *
      * @see \Elastica\Query\AbstractQuery::toArray()
      */
     public function toArray()

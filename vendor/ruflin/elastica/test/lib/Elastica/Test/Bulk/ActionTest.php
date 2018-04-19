@@ -1,15 +1,16 @@
 <?php
-
 namespace Elastica\Test\Bulk;
 
 use Elastica\Bulk\Action;
-use Elastica\Client;
 use Elastica\Index;
 use Elastica\Test\Base as BaseTest;
 use Elastica\Type;
 
 class ActionTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testAction()
     {
         $action = new Action();
@@ -37,7 +38,7 @@ class ActionTest extends BaseTest
         $expected = '{"index":{"_index":"index","_type":"type","_id":1,"_routing":1}}'."\n";
         $this->assertEquals($expected, $action->toString());
 
-        $client = new Client();
+        $client = $this->_getClient();
         $index = new Index($client, 'index2');
         $type = new Type($index, 'type2');
 

@@ -1,6 +1,6 @@
 <?php
-// created: 2013-08-06 14:59:59
-$dictionary["atc_appointments_contacts"] = array (
+// created: 2018-03-09 13:24:25
+$dictionary['atc_appointments_contacts'] = array (
   'true_relationship_type' => 'one-to-many',
   'relationships' => 
   array (
@@ -21,18 +21,18 @@ $dictionary["atc_appointments_contacts"] = array (
   'table' => 'atc_appointments_contacts_c',
   'fields' => 
   array (
-    0 => 
+    'id' => 
     array (
       'name' => 'id',
       'type' => 'varchar',
       'len' => 36,
     ),
-    1 => 
+    'date_modified' => 
     array (
       'name' => 'date_modified',
       'type' => 'datetime',
     ),
-    2 => 
+    'deleted' => 
     array (
       'name' => 'deleted',
       'type' => 'bool',
@@ -40,13 +40,13 @@ $dictionary["atc_appointments_contacts"] = array (
       'default' => '0',
       'required' => true,
     ),
-    3 => 
+    'atc_appointments_contactscontacts_ida' => 
     array (
       'name' => 'atc_appointments_contactscontacts_ida',
       'type' => 'varchar',
       'len' => 36,
     ),
-    4 => 
+    'atc_appointments_contactsatc_appointments_idb' => 
     array (
       'name' => 'atc_appointments_contactsatc_appointments_idb',
       'type' => 'varchar',

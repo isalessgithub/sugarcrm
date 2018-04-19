@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Filter;
 
 use Elastica\Filter\BoolNot;
@@ -8,6 +7,9 @@ use Elastica\Test\Base as BaseTest;
 
 class BoolNotTest extends BaseTest
 {
+    /**
+     * @group unit
+     */
     public function testToArray()
     {
         $idsFilter = new Ids();

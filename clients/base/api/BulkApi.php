@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,9 +9,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-require_once 'include/api/BulkRestService.php';
-require_once 'include/api/BulkRestRequest.php';
-require_once 'include/api/BulkRestResponse.php';
 
 /**
  * Bulk API calls
@@ -41,7 +37,7 @@ class BulkApi extends SugarApi
      * @throws SugarApiExceptionMissingParameter
      * @return array
      */
-    public function bulkCall($api, $args)
+    public function bulkCall(ServiceBase $api, array $args)
     {
         $this->requireArgs($args,array('requests'));
         $restResp = new BulkRestResponse($_SERVER);

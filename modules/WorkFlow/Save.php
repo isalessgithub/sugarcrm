@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -16,12 +15,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 
-require_once('include/controller/Controller.php');
 
 
 
 
-$focus = BeanFactory::getBean('WorkFlow');
+$focus = BeanFactory::newBean('WorkFlow');
 
 if(isset($_POST['record']) && $_POST['record']!=""){
 	$focus->retrieve($_POST['record']);

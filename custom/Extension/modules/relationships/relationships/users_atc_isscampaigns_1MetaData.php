@@ -1,51 +1,98 @@
 <?php
- // created: 2017-12-10 23:30:56
-$dictionary['users_atc_isscampaigns_1']['name'] = 'users_atc_isscampaigns_1';
-$dictionary['users_atc_isscampaigns_1']['true_relationship_type'] = 'one-to-many';
-$dictionary['users_atc_isscampaigns_1']['from_studio'] = true;
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['lhs_module'] = 'Users';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['lhs_table'] = 'users';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['lhs_key'] = 'id';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['rhs_module'] = 'ATC_ISSCampaigns';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['rhs_table'] = 'atc_isscampaigns';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['rhs_key'] = 'id';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['relationship_type'] = 'many-to-many';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['join_table'] = 'users_atc_isscampaigns_1_c';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['join_key_lhs'] = 'users_atc_isscampaigns_1users_ida';
-$dictionary['users_atc_isscampaigns_1']['relationships']['users_atc_isscampaigns_1']['join_key_rhs'] = 'users_atc_isscampaigns_1atc_isscampaigns_idb';
-$dictionary['users_atc_isscampaigns_1']['table'] = 'users_atc_isscampaigns_1_c';
-$dictionary['users_atc_isscampaigns_1']['fields'][0]['name'] = 'id';
-$dictionary['users_atc_isscampaigns_1']['fields'][0]['type'] = 'varchar';
-$dictionary['users_atc_isscampaigns_1']['fields'][0]['len'] = 36;
-$dictionary['users_atc_isscampaigns_1']['fields'][1]['name'] = 'date_modified';
-$dictionary['users_atc_isscampaigns_1']['fields'][1]['type'] = 'datetime';
-$dictionary['users_atc_isscampaigns_1']['fields'][2]['name'] = 'deleted';
-$dictionary['users_atc_isscampaigns_1']['fields'][2]['type'] = 'bool';
-$dictionary['users_atc_isscampaigns_1']['fields'][2]['len'] = '1';
-$dictionary['users_atc_isscampaigns_1']['fields'][2]['default'] = '0';
-$dictionary['users_atc_isscampaigns_1']['fields'][2]['required'] = true;
-$dictionary['users_atc_isscampaigns_1']['fields'][3]['name'] = 'users_atc_isscampaigns_1users_ida';
-$dictionary['users_atc_isscampaigns_1']['fields'][3]['type'] = 'varchar';
-$dictionary['users_atc_isscampaigns_1']['fields'][3]['len'] = 36;
-$dictionary['users_atc_isscampaigns_1']['fields'][4]['name'] = 'users_atc_isscampaigns_1atc_isscampaigns_idb';
-$dictionary['users_atc_isscampaigns_1']['fields'][4]['type'] = 'varchar';
-$dictionary['users_atc_isscampaigns_1']['fields'][4]['len'] = 36;
-$dictionary['users_atc_isscampaigns_1']['indices'][0]['name'] = 'users_atc_isscampaigns_1spk';
-$dictionary['users_atc_isscampaigns_1']['indices'][0]['type'] = 'primary';
-$dictionary['users_atc_isscampaigns_1']['indices'][0]['fields'][0] = 'id';
-$dictionary['users_atc_isscampaigns_1']['indices'][1]['name'] = 'users_atc_isscampaigns_1_ida1';
-$dictionary['users_atc_isscampaigns_1']['indices'][1]['type'] = 'index';
-$dictionary['users_atc_isscampaigns_1']['indices'][1]['fields'][0] = 'users_atc_isscampaigns_1users_ida';
-$dictionary['users_atc_isscampaigns_1']['indices'][2]['name'] = 'users_atc_isscampaigns_1_alt';
-$dictionary['users_atc_isscampaigns_1']['indices'][2]['type'] = 'alternate_key';
-$dictionary['users_atc_isscampaigns_1']['indices'][2]['fields'][0] = 'users_atc_isscampaigns_1atc_isscampaigns_idb';
-$dictionary['users_atc_isscampaigns_1']['lhs_module'] = 'Users';
-$dictionary['users_atc_isscampaigns_1']['lhs_table'] = 'users';
-$dictionary['users_atc_isscampaigns_1']['lhs_key'] = 'id';
-$dictionary['users_atc_isscampaigns_1']['rhs_module'] = 'Employees';
-$dictionary['users_atc_isscampaigns_1']['rhs_table'] = 'atc_isscampaigns';
-$dictionary['users_atc_isscampaigns_1']['rhs_key'] = 'id';
-$dictionary['users_atc_isscampaigns_1']['relationship_type'] = 'many-to-many';
-$dictionary['users_atc_isscampaigns_1']['join_table'] = 'users_atc_isscampaigns_1_c';
-$dictionary['users_atc_isscampaigns_1']['join_key_lhs'] = 'users_atc_isscampaigns_1users_ida';
-$dictionary['users_atc_isscampaigns_1']['join_key_rhs'] = 'users_atc_isscampaigns_1atc_isscampaigns_idb';
+// created: 2018-03-09 13:24:25
+$dictionary['users_atc_isscampaigns_1'] = array (
+  'name' => 'users_atc_isscampaigns_1',
+  'true_relationship_type' => 'one-to-many',
+  'from_studio' => true,
+  'relationships' => 
+  array (
+    'users_atc_isscampaigns_1' => 
+    array (
+      'lhs_module' => 'Users',
+      'lhs_table' => 'users',
+      'lhs_key' => 'id',
+      'rhs_module' => 'ATC_ISSCampaigns',
+      'rhs_table' => 'atc_isscampaigns',
+      'rhs_key' => 'id',
+      'relationship_type' => 'many-to-many',
+      'join_table' => 'users_atc_isscampaigns_1_c',
+      'join_key_lhs' => 'users_atc_isscampaigns_1users_ida',
+      'join_key_rhs' => 'users_atc_isscampaigns_1atc_isscampaigns_idb',
+    ),
+  ),
+  'table' => 'users_atc_isscampaigns_1_c',
+  'fields' => 
+  array (
+    'id' => 
+    array (
+      'name' => 'id',
+      'type' => 'varchar',
+      'len' => 36,
+    ),
+    'date_modified' => 
+    array (
+      'name' => 'date_modified',
+      'type' => 'datetime',
+    ),
+    'deleted' => 
+    array (
+      'name' => 'deleted',
+      'type' => 'bool',
+      'len' => '1',
+      'default' => '0',
+      'required' => true,
+    ),
+    'users_atc_isscampaigns_1users_ida' => 
+    array (
+      'name' => 'users_atc_isscampaigns_1users_ida',
+      'type' => 'varchar',
+      'len' => 36,
+    ),
+    'users_atc_isscampaigns_1atc_isscampaigns_idb' => 
+    array (
+      'name' => 'users_atc_isscampaigns_1atc_isscampaigns_idb',
+      'type' => 'varchar',
+      'len' => 36,
+    ),
+  ),
+  'indices' => 
+  array (
+    0 => 
+    array (
+      'name' => 'users_atc_isscampaigns_1spk',
+      'type' => 'primary',
+      'fields' => 
+      array (
+        0 => 'id',
+      ),
+    ),
+    1 => 
+    array (
+      'name' => 'users_atc_isscampaigns_1_ida1',
+      'type' => 'index',
+      'fields' => 
+      array (
+        0 => 'users_atc_isscampaigns_1users_ida',
+      ),
+    ),
+    2 => 
+    array (
+      'name' => 'users_atc_isscampaigns_1_alt',
+      'type' => 'alternate_key',
+      'fields' => 
+      array (
+        0 => 'users_atc_isscampaigns_1atc_isscampaigns_idb',
+      ),
+    ),
+  ),
+  'lhs_module' => 'Users',
+  'lhs_table' => 'users',
+  'lhs_key' => 'id',
+  'rhs_module' => 'Employees',
+  'rhs_table' => 'atc_isscampaigns',
+  'rhs_key' => 'id',
+  'relationship_type' => 'many-to-many',
+  'join_table' => 'users_atc_isscampaigns_1_c',
+  'join_key_lhs' => 'users_atc_isscampaigns_1users_ida',
+  'join_key_rhs' => 'users_atc_isscampaigns_1atc_isscampaigns_idb',
+);

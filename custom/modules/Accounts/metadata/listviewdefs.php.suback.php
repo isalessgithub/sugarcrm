@@ -1,5 +1,5 @@
 <?php
-// created: 2016-10-07 12:36:01
+// created: 2017-02-28 11:17:59
 $listViewDefs['Accounts'] = array (
   'NAME' => 
   array (
@@ -147,7 +147,7 @@ $listViewDefs['Accounts'] = array (
     'label' => 'LBL_EMAIL_ADDRESS',
     'sortable' => false,
     'link' => true,
-    'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
+    //'customCode' => '{$EMAIL1_LINK}{$EMAIL1}</a>',
     'default' => false,
   ),
   'SHIPPING_ADDRESS_CITY' => 

@@ -1,19 +1,20 @@
 <?php
-
 namespace Elastica\Test;
 
-use Elastica\Client;
 use Elastica\Document;
 use Elastica\Test\Base as BaseTest;
 
 /**
- * Tests the example code
+ * Tests the example code.
  */
 class ExampleTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testBasicGettingStarted()
     {
-        $client = new Client();
+        $client = $this->_getClient();
         $index = $client->getIndex('ruflin');
         $type = $index->getType('users');
 
@@ -24,6 +25,9 @@ class ExampleTest extends BaseTest
         $type->addDocument($doc);
     }
 
+    /**
+     * @group functional
+     */
     public function testExample()
     {
         // Creates a new index 'xodoa' and a type 'user' inside this index

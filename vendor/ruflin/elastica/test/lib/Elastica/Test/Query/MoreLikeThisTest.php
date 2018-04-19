@@ -1,5 +1,4 @@
 <?php
-
 namespace Elastica\Test\Query;
 
 use Elastica\Document;
@@ -12,6 +11,9 @@ use Elastica\Type\Mapping;
 
 class MoreLikeThisTest extends BaseTest
 {
+    /**
+     * @group functional
+     */
     public function testSearch()
     {
         $client = $this->_getClient();
@@ -54,6 +56,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals(2, $resultSet->count());
     }
 
+    /**
+     * @group unit
+     */
     public function testSetFields()
     {
         $query = new MoreLikeThis();
@@ -65,6 +70,22 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($fields, $data['more_like_this']['fields']);
     }
 
+    /**
+     * @group unit
+     */
+    public function testSetIds()
+    {
+        $query = new MoreLikeThis();
+        $ids = array(1, 2, 3);
+        $query->setIds($ids);
+
+        $data = $query->toArray();
+        $this->assertEquals($ids, $data['more_like_this']['ids']);
+    }
+
+    /**
+     * @group unit
+     */
     public function testSetLikeText()
     {
         $query = new MoreLikeThis();
@@ -74,6 +95,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals('hello world', $data['more_like_this']['like_text']);
     }
 
+    /**
+     * @group unit
+     */
     public function testSetBoost()
     {
         $query = new MoreLikeThis();
@@ -84,6 +108,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($boost, $query->getParam('boost'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetMaxQueryTerms()
     {
         $query = new MoreLikeThis();
@@ -94,6 +121,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($max, $query->getParam('max_query_terms'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetPercentTermsToMatch()
     {
         $query = new MoreLikeThis();
@@ -104,6 +134,22 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($match, $query->getParam('percent_terms_to_match'));
     }
 
+    /**
+     * @group unit
+     */
+    public function testSetMinimumShouldMatch()
+    {
+        $query = new MoreLikeThis();
+
+        $match = '80%';
+        $query->setMinimumShouldMatch($match);
+
+        $this->assertEquals($match, $query->getParam('minimum_should_match'));
+    }
+
+    /**
+     * @group unit
+     */
     public function testSetMinDocFrequency()
     {
         $query = new MoreLikeThis();
@@ -114,6 +160,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($freq, $query->getParam('min_doc_freq'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetMaxDocFrequency()
     {
         $query = new MoreLikeThis();
@@ -124,6 +173,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($freq, $query->getParam('max_doc_freq'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetMinWordLength()
     {
         $query = new MoreLikeThis();
@@ -134,6 +186,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($length, $query->getParam('min_word_length'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetMaxWordLength()
     {
         $query = new MoreLikeThis();
@@ -144,6 +199,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($length, $query->getParam('max_word_length'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetBoostTerms()
     {
         $query = new MoreLikeThis();
@@ -154,6 +212,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($boost, $query->getParam('boost_terms'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetAnalyzer()
     {
         $query = new MoreLikeThis();
@@ -164,6 +225,9 @@ class MoreLikeThisTest extends BaseTest
         $this->assertEquals($analyzer, $query->getParam('analyzer'));
     }
 
+    /**
+     * @group unit
+     */
     public function testSetStopWords()
     {
         $query = new MoreLikeThis();

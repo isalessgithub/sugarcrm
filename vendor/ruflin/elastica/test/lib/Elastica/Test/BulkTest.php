@@ -1,21 +1,20 @@
 <?php
-
 namespace Elastica\Test;
 
 use Elastica\Bulk;
 use Elastica\Bulk\Action;
 use Elastica\Bulk\Action\AbstractDocument;
-use Elastica\Client;
 use Elastica\Document;
 use Elastica\Exception\Bulk\ResponseException;
-use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotFoundException;
 use Elastica\Filter\Script;
 use Elastica\Test\Base as BaseTest;
 
 class BulkTest extends BaseTest
 {
-
+    /**
+     * @group functional
+     */
     public function testSend()
     {
         $index = $this->_createIndex();
@@ -29,7 +28,6 @@ class BulkTest extends BaseTest
         $newDocument3 = $type->createDocument(3, array('name' => 'The Human Torch'));
         $newDocument4 = $type->createDocument(null, array('name' => 'The Thing'));
 
-        $newDocument1->setPercolate('*');
         $newDocument3->setOpType(Document::OP_TYPE_CREATE);
 
         $documents = array(
@@ -64,7 +62,7 @@ class BulkTest extends BaseTest
         $data = $bulk->toArray();
 
         $expected = array(
-            array('index' => array('_index' => $indexName, '_type' => 'bulk_test', '_id' => 1, '_percolate' => '*')),
+            array('index' => array('_index' => $indexName, '_type' => 'bulk_test', '_id' => 1)),
             array('name' => 'Mister Fantastic'),
             array('index' => array('_id' => 2)),
             array('name' => 'Invisible Woman'),
@@ -75,7 +73,7 @@ class BulkTest extends BaseTest
         );
         $this->assertEquals($expected, $data);
 
-        $expected = '{"index":{"_index":"'.$indexName.'","_type":"bulk_test","_id":1,"_percolate":"*"}}
+        $expected = '{"index":{"_index":"'.$indexName.'","_type":"bulk_test","_id":1}}
 {"name":"Mister Fantastic"}
 {"index":{"_id":2}}
 {"name":"Invisible Woman"}
@@ -132,6 +130,9 @@ class BulkTest extends BaseTest
         }
     }
 
+    /**
+     * @group functional
+     */
     public function testUnicodeBulkSend()
     {
         $index = $this->_createIndex();
@@ -160,9 +161,12 @@ class BulkTest extends BaseTest
         $this->assertSame($newDocument3, $actions[2]->getDocument());
     }
 
+    /**
+     * @group functional
+     */
     public function testSetIndexType()
     {
-        $client = new Client();
+        $client = $this->_getClient();
         $index = $client->getIndex('index');
         $type = $index->getType('type');
 
@@ -198,9 +202,12 @@ class BulkTest extends BaseTest
         $this->assertEquals('type', $bulk->getType());
     }
 
+    /**
+     * @group unit
+     */
     public function testAddActions()
     {
-        $client = new Client();
+        $client = $this->_getClient();
         $bulk = new Bulk($client);
 
         $action1 = new Action(Action::OP_TYPE_DELETE);
@@ -227,6 +234,9 @@ class BulkTest extends BaseTest
         $this->assertSame($action2, $getActions[1]);
     }
 
+    /**
+     * @group unit
+     */
     public function testAddRawData()
     {
         $bulk = new Bulk($this->_getClient());
@@ -277,6 +287,7 @@ class BulkTest extends BaseTest
     }
 
     /**
+     * @group unit
      * @dataProvider invalidRawDataProvider
      * @expectedException \Elastica\Exception\InvalidException
      */
@@ -329,6 +340,9 @@ class BulkTest extends BaseTest
         );
     }
 
+    /**
+     * @group unit
+     */
     public function testCreateAbstractDocumentWithInvalidData()
     {
         //Wrong class type
@@ -350,6 +364,9 @@ class BulkTest extends BaseTest
         }
     }
 
+    /**
+     * @group functional
+     */
     public function testErrorRequest()
     {
         $index = $this->_createIndex();
@@ -379,6 +396,9 @@ class BulkTest extends BaseTest
         }
     }
 
+    /**
+     * @group functional
+     */
     public function testRawDocumentDataRequest()
     {
         $index = $this->_createIndex();
@@ -413,13 +433,14 @@ class BulkTest extends BaseTest
         $response = $type->search();
         $this->assertEquals(3, $response->count());
 
-        foreach (array("Mister", "Invisible", "Torch") as $name) {
+        foreach (array('Mister', 'Invisible', 'Torch') as $name) {
             $result = $type->search($name);
             $this->assertEquals(1, count($result->getResults()));
         }
     }
 
     /**
+     * @group functional
      * @dataProvider udpDataProvider
      */
     public function testUdp($clientConfig, $host, $port, $shouldFail = false)
@@ -427,7 +448,19 @@ class BulkTest extends BaseTest
         if (!function_exists('socket_create')) {
             $this->markTestSkipped('Function socket_create() does not exist.');
         }
-        $client = new Client($clientConfig);
+
+        $client = $this->_getClient($clientConfig);
+
+        $data = $client->request('/_nodes')->getData();
+        $rawNode = array_pop($data['nodes']);
+
+        if (!isset($rawNode['settings']['bulk']['udp']['enabled'])
+            || !$rawNode['settings']['bulk']['udp']['enabled']
+            || 'false' === $rawNode['settings']['bulk']['udp']['enabled']
+        ) {
+            $this->markTestSkipped('Bulk udp not enabled?');
+        }
+
         $index = $client->getIndex('elastica_test');
         $index->create(array('index' => array('number_of_shards' => 1, 'number_of_replicas' => 0)), true);
         $type = $index->getType('udp_test');
@@ -451,8 +484,10 @@ class BulkTest extends BaseTest
 
         $i = 0;
         $limit = 20;
+
+        // adds 6 documents and checks if on average every document is added in less then 0.2 seconds
         do {
-            usleep(200000);
+            usleep(200000);    // 0.2 seconds
         } while ($type->count() < 6 && ++$i < $limit);
 
         if ($shouldFail) {
@@ -467,8 +502,12 @@ class BulkTest extends BaseTest
         }
     }
 
+    /**
+     * @group functional
+     */
     public function testUpdate()
     {
+        $this->_checkScriptInlineSetting();
         $index = $this->_createIndex();
         $type = $index->getType('bulk_test');
         $client = $index->getClient();
@@ -599,6 +638,9 @@ class BulkTest extends BaseTest
         $index->delete();
     }
 
+    /**
+     * @group unit
+     */
     public function testGetPath()
     {
         $client = $this->_getClient();
@@ -616,6 +658,9 @@ class BulkTest extends BaseTest
         $this->assertEquals($indexName.'/'.$typeName.'/_bulk', $bulk->getPath());
     }
 
+    /**
+     * @group functional
+     */
     public function testRetry()
     {
         $index = $this->_createIndex();
@@ -646,33 +691,74 @@ class BulkTest extends BaseTest
         $this->assertEquals(5, $metadata[ '_retry_on_conflict' ]);
     }
 
+    /**
+     * @group unit
+     */
+    public function testSetShardTimeout()
+    {
+        $bulk = new Bulk($this->_getClient());
+        $this->assertInstanceOf('Elastica\Bulk', $bulk->setShardTimeout(10));
+    }
+
+    /**
+     * @group unit
+     */
+    public function testSetRequestParam()
+    {
+        $bulk = new Bulk($this->_getClient());
+        $this->assertInstanceOf('Elastica\Bulk', $bulk->setRequestParam('key', 'value'));
+    }
+
+    /**
+     * @group benchmark
+     */
+    public function testMemoryUsage()
+    {
+        $type = $this->_createIndex()->getType('test');
+
+        $data = array(
+            'text1' => 'Very long text for a string',
+            'text2' => 'But this is not very long',
+            'text3' => 'random or not random?',
+        );
+
+        $startMemory = memory_get_usage();
+
+        for ($n = 1; $n < 10; ++$n) {
+            $docs = array();
+
+            for ($i = 1; $i <= 3000; ++$i) {
+                $docs[] = new Document(uniqid(), $data);
+            }
+
+            $type->addDocuments($docs);
+            $docs = array();
+        }
+
+        unset($docs);
+
+        $endMemory = memory_get_usage();
+
+        $this->assertLessThan(1.3, $endMemory / $startMemory);
+    }
+
     public function udpDataProvider()
     {
         return array(
             array(
                 array(),
-                null,
-                null,
-            ),
-            array(
-                array(),
-                'localhost',
-                null,
-            ),
-            array(
-                array(),
-                null,
+                $this->_getHost(),
                 9700,
             ),
             array(
                 array(),
-                'localhost',
+                $this->_getHost(),
                 9700,
             ),
             array(
                 array(
                     'udp' => array(
-                        'host' => 'localhost',
+                        'host' => $this->_getHost(),
                         'port' => 9700,
                     ),
                 ),
@@ -682,17 +768,17 @@ class BulkTest extends BaseTest
             array(
                 array(
                     'udp' => array(
-                        'host' => 'localhost',
+                        'host' => $this->_getHost(),
                         'port' => 9800,
                     ),
                 ),
-                'localhost',
+                $this->_getHost(),
                 9700,
             ),
             array(
                 array(
                     'udp' => array(
-                        'host' => 'localhost',
+                        'host' => $this->_getHost(),
                         'port' => 9800,
                     ),
                 ),
@@ -702,7 +788,7 @@ class BulkTest extends BaseTest
             ),
             array(
                 array(),
-                'localhost',
+                $this->_getHost(),
                 9800,
                 true,
             ),

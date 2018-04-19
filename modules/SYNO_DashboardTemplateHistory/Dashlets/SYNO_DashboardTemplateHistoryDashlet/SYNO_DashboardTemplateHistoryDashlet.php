@@ -13,7 +13,7 @@ class SYNO_DashboardTemplateHistoryDashlet extends DashletGeneric
         global $current_user, $app_strings;
         require 'modules/SYNO_DashboardTemplateHistory/metadata/dashletviewdefs.php';
 
-        parent::DashletGeneric($id, $def);
+        parent::__construct($id, $def);
 
         if (empty($def['title'])) {
             $this->title = translate('LBL_HOMEPAGE_TITLE', 'SYNO_DashboardTemplateHistory');

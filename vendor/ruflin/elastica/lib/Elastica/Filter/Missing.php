@@ -1,19 +1,17 @@
 <?php
-
 namespace Elastica\Filter;
 
 /**
- * Missing Filter
+ * Missing Filter.
  *
- * @category Xodoa
- * @package Elastica
  * @author Maciej Wiercinski <maciej@wiercinski.net>
- * @link http://www.elasticsearch.org/guide/reference/query-dsl/missing-filter.html
+ *
+ * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-missing-filter.html
  */
 class Missing extends AbstractFilter
 {
     /**
-     * Construct missing filter
+     * Construct missing filter.
      *
      * @param string $field OPTIONAL
      */
@@ -25,10 +23,11 @@ class Missing extends AbstractFilter
     }
 
     /**
-     * Set field
+     * Set field.
      *
-     * @param  string                   $field
-     * @return \Elastica\Filter\Missing
+     * @param string $field
+     *
+     * @return $this
      */
     public function setField($field)
     {
@@ -36,9 +35,11 @@ class Missing extends AbstractFilter
     }
 
     /**
-     * Set "existence" parameter
-     * @param  bool                     $existence
-     * @return \Elastica\Filter\Missing
+     * Set "existence" parameter.
+     *
+     * @param bool $existence
+     *
+     * @return $this
      */
     public function setExistence($existence)
     {
@@ -46,9 +47,11 @@ class Missing extends AbstractFilter
     }
 
     /**
-     * Set "null_value" parameter
-     * @param  bool                     $nullValue
-     * @return \Elastica\Filter\Missing
+     * Set "null_value" parameter.
+     *
+     * @param bool $nullValue
+     *
+     * @return $this
      */
     public function setNullValue($nullValue)
     {
