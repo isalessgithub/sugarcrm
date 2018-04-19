@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\EventDispatcher\Tests\DependencyInjection;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 
-class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
+class RegisterListenersPassTest extends TestCase
 {
     /**
      * Tests that event subscribers not implementing EventSubscriberInterface
@@ -95,6 +96,8 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
 
         $registerListenersPass = new RegisterListenersPass();
         $registerListenersPass->process($builder);
+
+        $this->assertEquals(array(array('addSubscriberService', array('my_event_subscriber', 'Symfony\Component\EventDispatcher\Tests\DependencyInjection\SubscriberService'))), $eventDispatcherDefinition->getMethodCalls());
     }
 
     /**

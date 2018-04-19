@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Zend_' => array($vendorDir),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Moontoast\\Math' => array($vendorDir . '/moontoast/math/src'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
     'HTMLPurifier_' => array($vendorDir . '/HTMLPurifier/standalone'),
@@ -18,5 +19,6 @@ return array(
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
+    'Composer' => array($vendorDir . '/composer/composer/src'),
     'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
 );

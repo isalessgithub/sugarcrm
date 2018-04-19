@@ -78,7 +78,7 @@ function sendFeedbackEmail($id,$message){
 		$subject_string=str_replace("~account~", $account->name,$email_subject);
 		$mail->Subject = $subject_string;
 		//parse body values
- 		$body = str_replace("~link~","<a href='https://portal.isaless.com/feedback.php?appointment_id=".$app->id."'>Appointment Feedback</a>",$email_body);
+ 		$body = str_replace("~link~","<a href='https://portal.isaless.com/feedback?appointment_id=".$app->id."'>Appointment Feedback</a>",$email_body);
 		$body = str_replace("~first_name~",$salesrep->first_name,$body);
 		$body = str_replace("~account~", $account->name,$body);
 

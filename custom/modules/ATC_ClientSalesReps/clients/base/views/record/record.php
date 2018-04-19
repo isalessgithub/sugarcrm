@@ -181,23 +181,27 @@ array (
               5 => 'phone_other',
               6 => 
               array (
-                'name' => 'do_not_call',
-                'span' => 12,
+                'name' => 'calendar_url_c',
+                'label' => 'LBL_CALENDAR_URL',
               ),
               7 => 
+              array (
+                'name' => 'do_not_call',
+              ),
+              8 => 
               array (
                 'name' => 'reports_to_c',
                 'label' => 'LBL_REPORTS_TO',
               ),
-              8 => 
+              9 => 
               array (
               ),
-              9 => 
+              10 => 
               array (
                 'name' => 'netapp_area_c',
                 'label' => 'LBL_NETAPP_AREA',
               ),
-              10 => 
+              11 => 
               array (
                 'name' => 'date_modified_by',
                 'readonly' => true,
@@ -221,12 +225,12 @@ array (
                   ),
                 ),
               ),
-              11 => 
+              12 => 
               array (
                 'name' => 'netapp_region_c',
                 'label' => 'LBL_NETAPP_REGION',
               ),
-              12 => 
+              13 => 
               array (
                 'name' => 'date_entered_by',
                 'readonly' => true,
@@ -250,12 +254,12 @@ array (
                   ),
                 ),
               ),
-              13 => 
+              14 => 
               array (
                 'name' => 'netapp_district_c',
                 'label' => 'LBL_NETAPP_DISTRICT',
               ),
-              14 => 'team_name',
+              15 => 'team_name',
             ),
           ),
         ),

@@ -16,21 +16,40 @@ class ComposerStaticInitSugar
         'e176e0437b5da6885bdd53f2bae1612f' => __DIR__ . '/..' . '/vanderlee/php-stable-sort-functions/functions/suasort.php',
         'd9f939baf27fabef18276e2fe55810e6' => __DIR__ . '/..' . '/vanderlee/php-stable-sort-functions/functions/suksort.php',
         '2b29908359b43388f4bc9008537526e6' => __DIR__ . '/..' . '/vanderlee/php-stable-sort-functions/functions/susort.php',
+        '3f8bdd3b35094c73a26f0106e3c0f8b2' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/SendGrid.php',
+        '9dda55337a76a24e949fbcc5d905a2c7' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/helpers/mail/Mail.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'W' => 
+        array (
+            'Webmozart\\Assert\\' => 17,
+        ),
         'S' => 
         array (
+            'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Validator\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Security\\Csrf\\' => 32,
             'Symfony\\Component\\Security\\Core\\' => 32,
+            'Symfony\\Component\\Process\\' => 26,
+            'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Console\\' => 26,
             'Sugarcrm\\Sugarcrm\\inc\\' => 22,
             'Sugarcrm\\Sugarcrm\\custom\\inc\\' => 29,
             'Sugarcrm\\Sugarcrm\\custom\\' => 25,
             'Sugarcrm\\Sugarcrm\\' => 18,
+            'Sugarcrm\\SugarcrmTests\\inc\\' => 27,
+            'Sugarcrm\\SugarcrmTests\\' => 23,
+            'Sugarcrm\\SugarcrmTestsUnit\\inc\\' => 31,
+            'Sugarcrm\\SugarcrmTestsUnit\\' => 27,
+            'SendGrid\\' => 9,
+            'Seld\\JsonLint\\' => 14,
         ),
         'R' => 
         array (
@@ -39,6 +58,7 @@ class ComposerStaticInitSugar
         'M' => 
         array (
             'Monolog\\' => 8,
+
         ),
         'E' => 
         array (
@@ -49,10 +69,25 @@ class ComposerStaticInitSugar
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
+            'Doctrine\\Instantiator\\' => 22,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'phpDocumentor\\Reflection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'Webmozart\\Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
         'Symfony\\Component\\Validator\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/validator',
@@ -68,6 +103,14 @@ class ComposerStaticInitSugar
         'Symfony\\Component\\Security\\Core\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/security-core',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
         ),
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
@@ -95,6 +138,32 @@ class ComposerStaticInitSugar
             0 => __DIR__ . '/../..' . '/src',
             1 => __DIR__ . '/../..' . '/',
         ),
+        'Sugarcrm\\SugarcrmTests\\inc\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests/include',
+        ),
+        'Sugarcrm\\SugarcrmTests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests/src',
+            1 => __DIR__ . '/../..' . '/tests',
+        ),
+        'Sugarcrm\\SugarcrmTestsUnit\\inc\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/testsunit/include',
+        ),
+        'Sugarcrm\\SugarcrmTestsUnit\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/testsunit/src',
+            1 => __DIR__ . '/../..' . '/testsunit',
+        ),
+        'SendGrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
+        ),
+        'Seld\\JsonLint\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
+        ),
         'Rhumsaa\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -118,6 +187,9 @@ class ComposerStaticInitSugar
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        'Doctrine\\Instantiator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
     );
 
@@ -134,6 +206,10 @@ class ComposerStaticInitSugar
             'Psr\\Log\\' => 
             array (
                 0 => __DIR__ . '/..' . '/psr/log',
+            ),
+            'Prophecy\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
             ),
         ),
         'M' => 

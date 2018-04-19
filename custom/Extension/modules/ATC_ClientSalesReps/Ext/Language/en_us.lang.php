@@ -5,3 +5,4 @@ $mod_strings['LBL_NETAPP_AREA'] = 'Area';
 $mod_strings['LBL_NETAPP_REGION'] = 'Region';
 $mod_strings['LBL_NETAPP_DISTRICT'] = 'District';
 $mod_strings['LBL_ANY_EMAIL'] = 'Email';
+$mod_strings['LBL_CALENDAR_URL'] = 'Calendar URL';

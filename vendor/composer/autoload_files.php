@@ -15,4 +15,7 @@ return array(
     'e176e0437b5da6885bdd53f2bae1612f' => $vendorDir . '/vanderlee/php-stable-sort-functions/functions/suasort.php',
     'd9f939baf27fabef18276e2fe55810e6' => $vendorDir . '/vanderlee/php-stable-sort-functions/functions/suksort.php',
     '2b29908359b43388f4bc9008537526e6' => $vendorDir . '/vanderlee/php-stable-sort-functions/functions/susort.php',
+    '3f8bdd3b35094c73a26f0106e3c0f8b2' => $vendorDir . '/sendgrid/sendgrid/lib/SendGrid.php',
+    '9dda55337a76a24e949fbcc5d905a2c7' => $vendorDir . '/sendgrid/sendgrid/lib/helpers/mail/Mail.php',
+
 );
