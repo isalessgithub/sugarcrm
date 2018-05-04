@@ -1,6 +1,6 @@
 <?php
- // created: 2017-10-14 13:24:26
+ // created: 2018-05-02 08:49:10
 $dictionary['Task']['fields']['assist_from_c']['labelValue']='Assist from';
-$dictionary['Task']['fields']['assist_from_c']['dependency']='';
+$dictionary['Task']['fields']['assist_from_c']['dependency']='contains($proj_source_c,"sdr")';
 
  ?>

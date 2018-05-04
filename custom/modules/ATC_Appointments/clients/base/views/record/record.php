@@ -287,21 +287,29 @@ array (
               ),
               15 => 
               array (
+                'name' => 'partial_comp_c',
+                'label' => 'LBL_PARTIAL_COMP',
+              ),
+              16 => 
+              array (
                 'name' => 'prospectlists_atc_appointments_1_name',
                 'label' => 'LBL_PROSPECTLISTS_ATC_APPOINTMENTS_1_FROM_PROSPECTLISTS_TITLE',
               ),
-              16 => 
+              17 => 
+              array (
+              ),
+              18 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO',
               ),
-              17 => 
+              19 => 
               array (
                 'name' => 'created_by_name',
                 'readonly' => true,
                 'label' => 'LBL_CREATED',
               ),
-              18 => 
+              20 => 
               array (
                 'name' => 'date_modified',
                 'comment' => 'Date record last modified',
@@ -312,7 +320,7 @@ array (
                 'readonly' => true,
                 'label' => 'LBL_DATE_MODIFIED',
               ),
-              19 => 
+              21 => 
               array (
                 'name' => 'date_entered',
                 'comment' => 'Date record created',

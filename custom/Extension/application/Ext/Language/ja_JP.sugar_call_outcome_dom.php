@@ -1,5 +1,5 @@
 <?php
- // created: 2017-05-17 13:54:39
+ // created: 2018-05-01 10:03:05
 
 $app_list_strings['call_outcome_dom']=array (
   'Call' => 'Call',
@@ -10,23 +10,17 @@ $app_list_strings['call_outcome_dom']=array (
   'Long term call back' => 'Long term call back',
   'Hot call back' => 'Hot call back',
   'Referral To' => 'Referral To',
-  'Reschedule' => 'Reschedule',
   'Cancelled' => 'Cancelled',
   'WrongContact' => 'Wrong Contact',
-  'WrongNumber' => 'Wrong number',
   'Bookedcolleague' => 'Booked Colleague',
   'suggestedcolleague' => 'Suggested Colleague',
   'Existing_Customer' => 'Existing Customer',
   'Does_Not_Qualify' => 'Does Not Qualify',
   'Outsourced' => 'Outsourced',
-  'EmailandVM2' => 'Email&VM2',
-  'EmailandVM3' => 'Email & VM3',
   'EmailandVM4' => 'Email & VM4',
   'Invite_Sent' => 'Invite Sent',
-  'EmailandVM1' => 'Email and VM1',
   'Contact_Sales_Rep' => 'Contact Sales Rep',
   'New_Contact' => 'New Contac',
   'Short_Term_Call_Back' => 'Short Term Call Back',
-  'Remove_from_TL' => 'Remove Co. from TL',
   'Hot call back 2' => 'Hot call back 2',
 );

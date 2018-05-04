@@ -38,3 +38,4 @@ $mod_strings['LBL_FROM_LIST'] = 'From Target List';
 $mod_strings['LBL_PROJECT_STATUS'] = 'Project Status';
 $mod_strings['LBL_CONTACT_TITLE'] = 'Contact Title';
 $mod_strings['LBL_REL_APPT_DATE'] = 'Appointment Date';
+$mod_strings['LBL_PROJ_SOURCE'] = 'Source';

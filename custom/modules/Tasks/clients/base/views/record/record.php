@@ -206,6 +206,8 @@ array (
               ),
               8 => 
               array (
+                'name' => 'proj_source_c',
+                'label' => 'LBL_PROJ_SOURCE',
               ),
               9 => 
               array (
