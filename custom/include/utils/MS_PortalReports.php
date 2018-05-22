@@ -13,6 +13,7 @@
  */
 function sendSnapshotReport($cp_user_id)
 {
+$GLOBALS['log']->fatal("1");
     // generate the report's HTML (for passed portal user)
     $report = generateReport($cp_user_id);
 
@@ -26,14 +27,22 @@ function sendSnapshotReport($cp_user_id)
     /** @var SmtpMailer $phpMailer */
     $phpMailer = MailerFactory::getSystemDefaultMailer();
 
+    $emails = explode(";",$report['configuration']['email_address']);
+//	$GLOBALS['log']->fatal(json_encode($emails));
+	foreach($emails as $index => $email){
+//		$GLOBALS['log']->fatal($index . " - " .$email);
+	    $cp_user_identity = new EmailIdentity($email);
+	    $phpMailer->addRecipientsTo(array($cp_user_identity));
+	}  
+
     // introduce email recipient (portal user)
-    $cp_user_identity = new EmailIdentity($report['configuration']['email_address']);
-
+    //$cp_user_identity = new EmailIdentity($report['configuration']['email_address']);
     // add the recipient
-    $phpMailer->addRecipientsTo(array($cp_user_identity));
+    //$phpMailer->addRecipientsTo(array($cp_user_identity));
 
+    $GLOBALS['log']->fatal("2");
     // make sure that CC address is configured
-    if ($cc_address = $report['configuration']['email_address_cc']) {
+    if ($cc_address == $report['configuration']['email_address_cc']) {
 
         // introduce the CC identity
         $cc_identity = new EmailIdentity($cc_address);
@@ -41,7 +50,6 @@ function sendSnapshotReport($cp_user_id)
         // add CC recipient
         $phpMailer->addRecipientsCc(array($cc_identity));
     }
-
     // introduce email object
     $email = new Email();
 
@@ -203,7 +211,7 @@ $GLOBALS['log']->fatal("x");
         // execute the query
         $result = $GLOBALS['db']->query($query);
 
-        // iterate trough results
+        // iterate through results
         while ($row = $GLOBALS['db']->fetchByAssoc($result)) {
 
             // introduce the campaign data

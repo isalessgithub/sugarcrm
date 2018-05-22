@@ -26,3 +26,5 @@ $mod_strings['LBL_RECORDVIEW_PANEL1'] = 'Feedback';
 $mod_strings['LBL_CLIENT_BRIDGE'] = 'Client Bridge?';
 $mod_strings['LBL_ACTSAS'] = 'Account';
 $mod_strings['LBL_DO_NOT_SHOW'] = 'Do not show in Ambition';
+$mod_strings['LBL_PARTIAL_COMP'] = 'Partial Compensation';
+$mod_strings['LBL_PARTIAL_AMOUNT'] = 'Partial Comp. Amount';

@@ -38,3 +38,4 @@ $mod_strings['LBL_SALES_NOTES'] = 'Notes';
 $mod_strings['LBL_ATC_ISSCAMPAIGNS_TASKS_1_FROM_TASKS_TITLE'] = 'Company Projects';
 $mod_strings['LBL_CAMPAIGN_TERRITORY'] = 'Territory';
 $mod_strings['LBL_CAMPAIGN_TYPE'] = 'Campaign Type';
+$mod_strings['LBL_CAMPAIGN_PRICE'] = 'Price';

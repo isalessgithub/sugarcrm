@@ -118,26 +118,40 @@ array (
               ),
               12 => 
               array (
+                'related_fields' => 
+                array (
+                  0 => 'currency_id',
+                  1 => 'base_rate',
+                ),
+                'name' => 'campaign_price_c',
+                'label' => 'LBL_CAMPAIGN_PRICE',
+              ),
+              13 => 
+              array (
+              ),
+              14 => 
+              array (
                 'name' => 'from_address_c',
                 'label' => 'LBL_FROM_ADDRESS',
               ),
-              13 => 
+              15 => 
               array (
                 'name' => 'from_name_c',
                 'label' => 'LBL_FROM_NAME',
               ),
-              14 => 
+              16 => 
               array (
                 'name' => 'assigned_user_name',
                 'label' => 'LBL_ASSIGNED_TO_NAME',
                 'tabindex' => '2',
               ),
-              15 => 
+              17 => 
               array (
                 'name' => 'users_atc_isscampaigns_1_name',
                 'label' => 'LBL_USERS_ATC_ISSCAMPAIGNS_1_FROM_USERS_TITLE',
+                'required' => true,
               ),
-              16 => 
+              18 => 
               array (
                 'name' => 'description',
                 'span' => 12,

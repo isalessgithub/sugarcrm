@@ -206,23 +206,25 @@ array (
               ),
               8 => 
               array (
-              ),
-              9 => 
-              array (
-                'name' => 'assist_from_c',
-                'studio' => 'visible',
-                'label' => 'LBL_ASSIST_FROM',
-              ),
-              10 => 
-              array (
                 'name' => 'proj_details_c',
                 'studio' => 'visible',
                 'label' => 'LBL_PROJ_DETAILS',
               ),
-              11 => 
+              9 => 
               array (
                 'name' => 'proj_start_date_c',
                 'label' => 'LBL_PROJ_START_DATE',
+              ),
+              10 => 
+              array (
+                'name' => 'proj_source_c',
+                'label' => 'LBL_PROJ_SOURCE',
+              ),
+              11 => 
+              array (
+                'name' => 'assist_from_c',
+                'studio' => 'visible',
+                'label' => 'LBL_ASSIST_FROM',
               ),
               12 => 
               array (
